@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zaměřená na stránce scénáře jednodušší a produktivnější než pomocí MVC.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 10/07/2019
+ms.date: 12/05/2019
 uid: razor-pages/index
-ms.openlocfilehash: 67cc4f9b261372996d612f922c9f491f53948ece
-ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
+ms.openlocfilehash: fbe6e307ff5f7388e91cc2276f22ae1672507587
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/23/2019
-ms.locfileid: "74412068"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880880"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor Pages v ASP.NET Core
 
@@ -71,7 +71,7 @@ Zvažte základní stránku:<a name="OnGet"></a>
 
 [!code-cshtml[](index/3.0sample/RazorPagesIntro/Pages/Index.cshtml?highlight=1)]
 
-Předchozí kód vypadá podobně jako [soubor zobrazení Razor](xref:tutorials/first-mvc-app/adding-view) používaný v aplikaci ASP.NET Core s řadiči a zobrazeními. To znamená, že se liší od [@page](xref:mvc/views/razor#page) direktivy. `@page` vytvoří soubor na akci MVC – to znamená, že zpracovává požadavky přímo, bez přechodu přes kontroler. `@page` musí být první direktivou Razor na stránce. `@page` ovlivňuje chování jiných konstrukcí [Razor](xref:mvc/views/razor) . Názvy souborů Razor Pages mají příponu *. cshtml* .
+Předchozí kód vypadá podobně jako [soubor zobrazení Razor](xref:tutorials/first-mvc-app/adding-view) používaný v aplikaci ASP.NET Core s řadiči a zobrazeními. To znamená, že se liší od [`@page`](xref:mvc/views/razor#page) direktivy. `@page` vytvoří soubor na akci MVC – to znamená, že zpracovává požadavky přímo, bez přechodu přes kontroler. `@page` musí být první direktivou Razor na stránce. `@page` ovlivňuje chování jiných konstrukcí [Razor](xref:mvc/views/razor) . Názvy souborů Razor Pages mají příponu *. cshtml* .
 
 Podobná stránka, která používá `PageModel` třídy, je zobrazena v následujících dvou souborech. Soubor *Pages/Index2. cshtml* :
 
@@ -87,10 +87,10 @@ Přidružení cest URL ke stránkám závisí na umístění stránky v systému
 
 | Název souboru a cesta               | shodná adresa URL |
 | ----------------- | ------------ |
-| */Pages/Index.cshtml* | `/` nebo `/Index` |
+| */Pages/Index.cshtml* | `/` Nebo `/Index` |
 | */Pages/Contact.cshtml* | `/Contact` |
 | */Pages/Store/Contact.cshtml* | `/Store/Contact` |
-| */Pages/Store/Index.cshtml* | `/Store` nebo `/Store/Index` |
+| */Pages/Store/Index.cshtml* | `/Store` Nebo `/Store/Index` |
 
 Poznámky:
 
@@ -149,7 +149,7 @@ Základní tok `OnPostAsync`:
 Kontrola chyb ověřování.
 
 * V případě, že nejsou k dispozici žádné chyby, uložte data a přesměrujte je.
-* Pokud dojde k chybám, zobrazte stránku znovu s ověřovacími zprávami. V mnoha případech by se v klientovi zjistily chyby ověřování a nikdy se neodeslaly na server.
+* Pokud dojde k chybám, zobrazte stránku znovu s ověřovacími zprávami. V mnoha případech by se v klientovi zjistily chyby ověřování a nikdy by se neodeslaly na server.
 
 Soubor zobrazení *Pages/Create. cshtml* :
 
@@ -235,7 +235,7 @@ Vzhledem k tomu, že `handler` je `delete` v tomto příkladu, metoda obslužné
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Index.cshtml.cs?name=snippet2)]
 
-Metoda `OnPostDeleteAsync`:
+`OnPostDeleteAsync` Metody:
 
 * Získá `id` z řetězce dotazu.
 * Dotazuje databázi na kontakt zákazníka s `FindAsync`.
@@ -309,7 +309,7 @@ Atributy ověřování určují chování, které se má vyhovět pro vlastnosti
   * Vyžaduje, aby byl první znak velkým písmenem.
   * Umožňuje speciální znaky a čísla v následujících mezerách. "PG-13" je platné pro hodnocení, ale pro "Žánr" se nezdařilo.
 
-* Atribut `Range` omezuje hodnotu na v zadaném rozsahu.
+* Atribut `Range` omezuje hodnotu v konkrétním rozsahu.
 * Atribut `StringLength` nastaví maximální délku řetězcové vlastnosti a volitelně její minimální délku.
 * Typy hodnot (například `decimal`, `int`, `float`, `DateTime`) jsou podstatou požadovány a nepotřebují atribut `[Required]`.
 
@@ -317,7 +317,7 @@ Stránka vytvořit pro model `Movie` zobrazuje chyby s neplatnými hodnotami:
 
 ![Formulář zobrazení videa s několika chybami ověřování na straně klienta jQuery](~/tutorials/razor-pages/validation/_static/val.png)
 
-Další informace naleznete v tématu:
+Další informace najdete v části .
 
 * [Přidání ověření do aplikace Movie](xref:tutorials/razor-pages/validation)
 * [Ověřování modelu v ASP.NET Core](xref:mvc/models/validation).
@@ -424,13 +424,13 @@ Aplikace má následující strukturu souborů nebo složek:
 
 * */Pages*
 
-  * *Index. cshtml*
-  * *Soukromí. cshtml*
+  * *Index.cshtml*
+  * *Privacy.cshtml*
   * */Customers*
 
-    * *Vytvořit. cshtml*
-    * *Upravit. cshtml*
-    * *Index. cshtml*
+    * *Create.cshtml*
+    * *Edit.cshtml*
+    * *Index.cshtml*
 
 *Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který se používá pro přístup k předchozí stránce. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Příklad:
 
@@ -593,7 +593,7 @@ Přidejte <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBui
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/StartupWithRazorPagesRoot.cs?name=snippet)]
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * Další informace najdete v tématu [Začínáme s Razor Pages, který sestává](xref:tutorials/razor-pages/razor-pages-start)z tohoto úvodního sestavení.
 * [Stáhnout nebo zobrazit ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/index/3.0sample)
@@ -680,10 +680,10 @@ Přidružení cest URL ke stránkám závisí na umístění stránky v systému
 
 | Název souboru a cesta               | shodná adresa URL |
 | ----------------- | ------------ |
-| */Pages/Index.cshtml* | `/` nebo `/Index` |
+| */Pages/Index.cshtml* | `/` Nebo `/Index` |
 | */Pages/Contact.cshtml* | `/Contact` |
 | */Pages/Store/Contact.cshtml* | `/Store/Contact` |
-| */Pages/Store/Index.cshtml* | `/Store` nebo `/Store/Index` |
+| */Pages/Store/Index.cshtml* | `/Store` Nebo `/Store/Index` |
 
 Poznámky:
 
@@ -721,7 +721,7 @@ Třída `PageModel` umožňuje oddělení logiky stránky od její prezentace. D
 * Správa závislostí stránky prostřednictvím [vkládání závislostí](xref:fundamentals/dependency-injection).
 * [Testování částí](xref:test/razor-pages-tests) stránky
 
-Stránka obsahuje *metodu obslužné rutiny*`OnPostAsync`, která běží na žádostech `POST` (když uživatel formulář odešle). Můžete přidat metody obslužné rutiny pro libovolný příkaz HTTP. Nejběžnější obslužné rutiny jsou:
+Stránka obsahuje *metodu obslužné rutiny*`OnPostAsync`, která běží na žádostech `POST` (když uživatel formulář odešle). Můžete přidat metody obslužné rutiny pro jakýkoli příkaz HTTP. Nejběžnější obslužné rutiny jsou:
 
 * `OnGet` k inicializaci stavu potřebného pro stránku. Ukázka [OnGet](#OnGet)
 * `OnPost` pro zpracování odesílání formulářů.
@@ -742,7 +742,7 @@ Základní tok `OnPostAsync`:
 Kontrola chyb ověřování.
 
 * V případě, že nejsou k dispozici žádné chyby, uložte data a přesměrujte je.
-* Pokud dojde k chybám, zobrazte stránku znovu s ověřovacími zprávami. Ověřování na straně klienta je stejné jako tradiční aplikace ASP.NET Core MVC. V mnoha případech by se v klientovi zjistily chyby ověřování a nikdy se neodeslaly na server.
+* Pokud dojde k chybám, zobrazte stránku znovu s ověřovacími zprávami. Ověřování na straně klienta je stejné jako tradiční aplikace ASP.NET Core MVC. V mnoha případech by se v klientovi zjistily chyby ověřování a nikdy by se neodeslaly na server.
 
 Po úspěšném zadání dat metoda obslužné rutiny `OnPostAsync` volá pomocnou metodu `RedirectToPage`, aby vrátila instanci `RedirectToPageResult`. `RedirectToPage` je nový výsledek akce, podobně jako `RedirectToAction` nebo `RedirectToRoute`, ale přizpůsobený pro stránky. V předchozí ukázce přesměruje na stránku kořenového indexu (`/Index`). `RedirectToPage` je podrobně popsána v části [generování adresy URL pro stránky](#url_gen) .
 
@@ -805,7 +805,7 @@ Vzhledem k tomu, že `handler` je `delete` v tomto příkladu, metoda obslužné
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Index.cshtml.cs?range=26-37)]
 
-Metoda `OnPostDeleteAsync`:
+`OnPostDeleteAsync` Metody:
 
 * Přijímá `id` z řetězce dotazu. Pokud direktiva stránky *index. cshtml* obsahuje omezení směrování `"{id:int?}"`, `id` by pocházel z dat trasy. Data trasy pro `id` jsou uvedena v identifikátoru URI, jako je například `https://localhost:5001/Customers/2`.
 * Dotazuje databázi na kontakt zákazníka s `FindAsync`.
@@ -814,7 +814,7 @@ Metoda `OnPostDeleteAsync`:
 
 ## <a name="mark-page-properties-as-required"></a>Označit vlastnosti stránky jako povinné
 
-Vlastnosti na `PageModel` lze dekorovat pomocí [požadovaného](/dotnet/api/system.componentmodel.dataannotations.requiredattribute) atributu:
+Vlastnosti u `PageModel` lze označit [požadovaným](/dotnet/api/system.componentmodel.dataannotations.requiredattribute) atributem:
 
 [!code-cs[](index/sample/Create.cshtml.cs?highlight=3,15-16)]
 
@@ -941,12 +941,12 @@ Aplikace má následující strukturu souborů nebo složek:
 
 * */Pages*
 
-  * *Index. cshtml*
+  * *Index.cshtml*
   * */Customers*
 
-    * *Vytvořit. cshtml*
-    * *Upravit. cshtml*
-    * *Index. cshtml*
+    * *Create.cshtml*
+    * *Edit.cshtml*
+    * *Index.cshtml*
 
 *Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Příklad:
 
@@ -979,9 +979,9 @@ Další informace najdete v tématu <xref:mvc/controllers/areas>.
 
 ## <a name="viewdata-attribute"></a>ViewData – atribut
 
-Data je možné předat na stránku pomocí [ViewDataAttribute](/dotnet/api/microsoft.aspnetcore.mvc.viewdataattribute). Vlastnosti na řadičích nebo modelech stránek Razor upravených pomocí `[ViewData]` mají jejich hodnoty uložené a načtené z [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary).
+Data je možné předat na stránku pomocí [ViewDataAttribute](/dotnet/api/microsoft.aspnetcore.mvc.viewdataattribute). Vlastnosti na řadičích nebo modelech stránek Razor s atributem `[ViewData]` mají své hodnoty uložené a načtené z [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary).
 
-V následujícím příkladu `AboutModel` obsahuje vlastnost `Title` dekorovaná pomocí `[ViewData]`. Vlastnost `Title` je nastavena na název stránky o produktu:
+V následujícím příkladu `AboutModel` obsahuje vlastnost `Title` označená `[ViewData]`. Vlastnost `Title` je nastavena na název stránky o produktu:
 
 ```csharp
 public class AboutModel : PageModel
@@ -1116,7 +1116,7 @@ services.AddMvc()
     .WithRazorPagesRoot("/path/to/razor/pages");
 ```
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:index>
 * <xref:mvc/views/razor>

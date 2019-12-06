@@ -4,14 +4,14 @@ author: jamesnk
 description: Naučte se používat ověřování a autorizaci v gRPC pro ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 08/13/2019
+ms.date: 12/05/2019
 uid: grpc/authn-and-authz
-ms.openlocfilehash: 84903ee781588ff525d1dfce6a313e3867794762
-ms.sourcegitcommit: 76d7fff62014c3db02564191ab768acea00f1b26
+ms.openlocfilehash: 258b34113f3c3d9ef2031a43295ea5806b1e22ff
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/05/2019
-ms.locfileid: "74852698"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880694"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>Ověřování a autorizace v gRPC pro ASP.NET Core
 
@@ -150,7 +150,7 @@ Další informace o konfiguraci ověřování na serveru najdete v tématu [ASP.
 
 Konfigurace klienta gRPC na používání ověřování bude záviset na mechanismu ověřování, který používáte. Příklady předchozího nosiče a klientského certifikátu ukazují několik způsobů, jak může být klient gRPC nakonfigurovaný tak, aby odesílal metadata ověřování pomocí volání gRPC:
 
-* Klienti se silným typem gRPC používají `HttpClient` interně. Ověřování lze nakonfigurovat na [`HttpClientHandler`](/dotnet/api/system.net.http.httpclienthandler)nebo přidáním vlastních instancí [`HttpMessageHandler`](/dotnet/api/system.net.http.httpmessagehandler) do `HttpClient`.
+* Klienti se silným typem gRPC používají `HttpClient` interně. Ověřování lze nakonfigurovat na [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler)nebo přidáním vlastních instancí [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) do `HttpClient`.
 * Každé volání gRPC má volitelný argument `CallOptions`. Vlastní záhlaví lze odeslat pomocí kolekce záhlaví možnosti.
 
 > [!NOTE]
@@ -158,7 +158,7 @@ Konfigurace klienta gRPC na používání ověřování bude záviset na mechani
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>Autorizace uživatelů přístup k službám a metodám služeb
 
-Ve výchozím nastavení mohou být všechny metody ve službě volány neověřenými uživateli. Chcete-li vyžadovat ověření, použijte pro službu atribut [[autorizovat]](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) :
+Ve výchozím nastavení mohou být všechny metody ve službě volány neověřenými uživateli. Chcete-li vyžadovat ověření, použijte atribut [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) pro službu:
 
 ```csharp
 [Authorize]

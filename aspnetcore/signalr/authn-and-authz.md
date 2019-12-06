@@ -5,16 +5,16 @@ description: Naučte se používat ověřování a autorizaci v ASP.NET Core Sig
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 5a1e15ef46a3f89af3fbd3d505e7bd340c46e672
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 091cc9b2adc1f6a8fac79519884695d1c1725d2a
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963831"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880420"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-opno-locsignalr"></a>Ověřování a autorizace v ASP.NET Core SignalR
 
@@ -24,7 +24,7 @@ Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
 ## <a name="authenticate-users-connecting-to-a-opno-locsignalr-hub"></a>Ověřování uživatelů připojujících se k centru SignalR
 
-SignalR lze použít s [ověřováním ASP.NET Core](xref:security/authentication/identity) k přidružení uživatele k jednotlivým připojením. V centru se k datům ověřování dá dostat z vlastnosti [`HubConnectionContext.User`](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) . Ověřování umožňuje centru volat metody u všech připojení přidružených k uživateli. Další informace najdete v tématu [Správa uživatelů a skupin v SignalR](xref:signalr/groups). K jednomu uživateli může být přidruženo více připojení.
+SignalR lze použít s [ověřováním ASP.NET Core](xref:security/authentication/identity) k přidružení uživatele k jednotlivým připojením. V centru můžete k datům ověřování přicházet z vlastnosti [HubConnectionContext. User](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) . Ověřování umožňuje centru volat metody u všech připojení přidružených k uživateli. Další informace najdete v tématu [Správa uživatelů a skupin v SignalR](xref:signalr/groups). K jednomu uživateli může být přidruženo více připojení.
 
 Následuje příklad `Startup.Configure`, který používá ověřování SignalR a ASP.NET Core:
 
@@ -129,7 +129,7 @@ Přidejte novou třídu, která implementuje `IUserIdProvider` a načtěte jednu
 
 [!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
-Místo `ClaimTypes.Name` můžete použít libovolnou hodnotu z `User` (například identifikátor SID systému Windows atd.).
+Místo `ClaimTypes.Name`můžete použít libovolnou hodnotu z `User` (například identifikátor SID systému Windows atd.).
 
 > [!NOTE]
 > Hodnota, kterou zvolíte, musí být jedinečná mezi všemi uživateli v systému. Jinak může zpráva určená pro jednoho uživatele skončit jiným uživatelem.
@@ -266,7 +266,7 @@ public class DomainRestrictedRequirement :
 }
 ```
 
-V `Startup.ConfigureServices` přidejte novou zásadu a zadejte vlastní `DomainRestrictedRequirement` požadavek jako parametr pro vytvoření zásad `DomainRestricted`.
+V `Startup.ConfigureServices`přidejte novou zásadu a zadejte vlastní `DomainRestrictedRequirement` požadavek jako parametr pro vytvoření zásad `DomainRestricted`.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -288,7 +288,7 @@ V předchozím příkladu je třída `DomainRestrictedRequirement` `IAuthorizati
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Ověřování nosných tokenů v ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
 * [Ověřování na základě prostředků](xref:security/authorization/resourcebased)

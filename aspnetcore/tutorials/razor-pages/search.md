@@ -3,14 +3,14 @@ title: Přidat hledání do ASP.NET Core Razor Pages
 author: rick-anderson
 description: Ukazuje, jak přidat hledání do ASP.NET Core Razor Pages
 ms.author: riande
-ms.date: 7/23/2019
+ms.date: 12/05/2019
 uid: tutorials/razor-pages/search
-ms.openlocfilehash: 1eeb3aa86f2a6928b6d0b368c90e4760a66a6c6e
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.openlocfilehash: 8228207b0f37a6923b29891ac3115dd0be115501
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334054"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881336"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>Přidat hledání do ASP.NET Core Razor Pages
 
@@ -26,7 +26,7 @@ Přidejte následující zvýrazněné vlastnosti na *stránky/filmy/index. csht
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
-* `SearchString`: obsahuje text, který uživatel zadá do textového pole Hledat. `SearchString` je upraven pomocí atributu [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) . `[BindProperty]` váže hodnoty formuláře a řetězce dotazů se stejným názvem jako má vlastnost. pro vazbu na požadavky GET se vyžaduje `(SupportsGet = true)`.
+* `SearchString`: obsahuje text, který uživatel zadá do textového pole Hledat. `SearchString` má atribut [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) . `[BindProperty]` váže hodnoty formuláře a řetězce dotazů se stejným názvem jako má vlastnost. pro vazbu na požadavky GET se vyžaduje `(SupportsGet = true)`.
 * `Genres`: obsahuje seznam žánrů. `Genres` umožňuje uživateli vybrat ze seznamu Žánr. `SelectList` vyžaduje `using Microsoft.AspNetCore.Mvc.Rendering;`
 * `MovieGenre`: obsahuje konkrétní Žánr, kterou uživatel vybere (například "Western").
 * `Genres` a `MovieGenre` se používají později v tomto kurzu.
@@ -129,7 +129,7 @@ Přidejte následující zvýrazněné vlastnosti na *stránky/filmy/index. csht
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Index.cshtml.cs?name=snippet_newProps&highlight=11-999)]
 
-* `SearchString`: obsahuje text, který uživatel zadá do textového pole Hledat. `SearchString` je upraven pomocí atributu [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) . `[BindProperty]` váže hodnoty formuláře a řetězce dotazů se stejným názvem jako má vlastnost. pro vazbu na požadavky GET se vyžaduje `(SupportsGet = true)`.
+* `SearchString`: obsahuje text, který uživatel zadá do textového pole Hledat. `SearchString` má atribut [`[BindProperty]`](/dotnet/api/microsoft.aspnetcore.mvc.bindpropertyattribute) . `[BindProperty]` váže hodnoty formuláře a řetězce dotazů se stejným názvem jako má vlastnost. pro vazbu na požadavky GET se vyžaduje `(SupportsGet = true)`.
 * `Genres`: obsahuje seznam žánrů. `Genres` umožňuje uživateli vybrat ze seznamu Žánr. `SelectList` vyžaduje `using Microsoft.AspNetCore.Mvc.Rendering;`
 * `MovieGenre`: obsahuje konkrétní Žánr, kterou uživatel vybere (například "Western").
 * `Genres` a `MovieGenre` se používají později v tomto kurzu.

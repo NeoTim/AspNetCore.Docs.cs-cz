@@ -3,14 +3,14 @@ title: Směrování na akce kontroleru v ASP.NET Core
 author: rick-anderson
 description: Přečtěte si, jak ASP.NET Core MVC používá middleware směrování k párování adres URL příchozích požadavků a jejich mapování na akce.
 ms.author: riande
-ms.date: 01/24/2019
+ms.date: 12/05/2019
 uid: mvc/controllers/routing
-ms.openlocfilehash: a0dbfbe60c151990581b494f81e500fe0b315f55
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: b0cd3df6eb0efa90fc76d206413016d6c624285c
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "72589858"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881077"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování na akce kontroleru v ASP.NET Core
 
@@ -33,9 +33,9 @@ app.UseMvc(routes =>
 });
 ```
 
-Uvnitř volání `UseMvc` se `MapRoute` používá k vytvoření jedné trasy, na kterou odkazujeme jako na `default` trase. Většina aplikací MVC bude používat trasu se šablonou podobnou `default` trase.
+Uvnitř volání `UseMvc`se `MapRoute` používá k vytvoření jedné trasy, na kterou odkazujeme jako na `default` trase. Většina aplikací MVC bude používat trasu se šablonou podobnou `default` trase.
 
-@No__t_0 šablony trasy se může shodovat s cestou URL jako `/Products/Details/5` a extrahuje hodnoty trasy `{ controller = Products, action = Details, id = 5 }` cestou tokenizací. MVC se pokusí vyhledat kontroler s názvem `ProductsController` a spustit akci `Details`:
+`"{controller=Home}/{action=Index}/{id?}"` šablony trasy se může shodovat s cestou URL jako `/Products/Details/5` a extrahuje hodnoty trasy `{ controller = Products, action = Details, id = 5 }` cestou tokenizací. MVC se pokusí vyhledat kontroler s názvem `ProductsController` a spustit akci `Details`:
 
 ```csharp
 public class ProductsController : Controller
@@ -137,11 +137,11 @@ Pomocí této `default` trasy adresa URL `/Products/List` mapuje na `ProductsCon
 > Použití konvenčního směrování s výchozí trasou vám umožní rychle vytvořit aplikaci, aniž by se musela používat nový vzor adresy URL pro každou akci, kterou definujete. Pro aplikace s akcemi stylu CRUD, které mají konzistenci pro adresy URL napříč řadiči, může zjednodušit váš kód a zajistit větší předvídatelné uživatelské rozhraní.
 
 > [!WARNING]
-> @No__t_0 je definována jako volitelná šablonou směrování, což znamená, že se akce můžou provádět bez ID, které je součástí adresy URL. Obvykle k tomu, co se stane, když se `id` z adresy URL vynechá, znamená to, že bude nastavená na `0` podle vazby modelu a v důsledku toho se v databázi odpovídající `id == 0` nenajde žádná entita. Směrování atributů vám může poskytnout jemně odstupňovaný ovládací prvek, který umožňuje, aby se ID vyžadovalo u některých akcí, a ne pro ostatní. Podle konvence bude dokumentace obsahovat volitelné parametry, jako `id`, když se budou pravděpodobně zobrazovat ve správném použití.
+> `id` je definována jako volitelná šablonou směrování, což znamená, že se akce můžou provádět bez ID, které je součástí adresy URL. Obvykle k tomu, co se stane, když se `id` z adresy URL vynechá, znamená to, že bude nastavená na `0` podle vazby modelu a v důsledku toho se v databázi odpovídající `id == 0`nenajde žádná entita. Směrování atributů vám může poskytnout jemně odstupňovaný ovládací prvek, který umožňuje, aby se ID vyžadovalo u některých akcí, a ne pro ostatní. Podle konvence bude dokumentace obsahovat volitelné parametry, jako `id`, když se budou pravděpodobně zobrazovat ve správném použití.
 
 ## <a name="multiple-routes"></a>Více tras
 
-Přidáním dalších volání do `MapRoute` můžete do `UseMvc` přidat více tras. V takovém případě můžete definovat více konvencí nebo přidat konvenční trasy, které jsou vyhrazeny určité akci, například:
+Přidáním dalších volání do `MapRoute`můžete do `UseMvc` přidat více tras. V takovém případě můžete definovat více konvencí nebo přidat konvenční trasy, které jsou vyhrazeny určité akci, například:
 
 ```csharp
 app.UseMvc(routes =>
@@ -152,14 +152,14 @@ app.UseMvc(routes =>
 });
 ```
 
-@No__t_0 trasa je to *vyhrazená konvenční trasa*, což znamená, že používá konvenční směrovací systém, ale je vyhrazená konkrétní akci. Vzhledem k tomu, že `controller` a `action` se v šabloně směrování nezobrazují jako parametry, můžou mít jenom výchozí hodnoty, takže tato trasa se vždycky namapuje na `BlogController.Article` akcí.
+`blog` trasa je to *vyhrazená konvenční trasa*, což znamená, že používá konvenční směrovací systém, ale je vyhrazená konkrétní akci. Vzhledem k tomu, že `controller` a `action` se v šabloně směrování nezobrazují jako parametry, můžou mít jenom výchozí hodnoty, takže tato trasa se vždycky namapuje na `BlogController.Article`akcí.
 
 Trasy v kolekci tras jsou seřazené a budou zpracovávány v pořadí, v jakém byly přidány. Takže v tomto příkladu bude `blog` trasa vyzkoušena před trasou `default`.
 
 > [!NOTE]
 > *Vyhrazené konvenční trasy* často používají zachycení všech parametrů tras, jako je `{*article}`, k zachycení zbývající části cesty URL. To může vést k tomu, že trasa "je příliš hlade", což znamená, že odpovídá adresám URL, které mají odpovídat jiným trasám. Pokud to chcete vyřešit, umístěte trasy "hladce" do směrovací tabulky později.
 
-### <a name="fallback"></a>Nalezení
+### <a name="fallback"></a>Záložní volba
 
 V rámci zpracování žádosti MVC ověří, že hodnoty trasy lze použít k vyhledání kontroleru a akce v aplikaci. Pokud se hodnoty trasy neshodují s akcí, trasa není považována za shodnou a bude se opakovat další trasa. Označuje se jako *záložní*a je určený pro zjednodušení případů, kdy se konvenční trasy překrývají.
 
@@ -177,9 +177,9 @@ public class ProductsController : Controller
 }
 ```
 
-Tento kontroler definuje dvě akce, které by odpovídaly cestě URL `/Products/Edit/17` a `{ controller = Products, action = Edit, id = 17 }` dat směrování. Toto je typický vzor pro řadiče MVC, kde `Edit(int)` zobrazuje formulář pro úpravu produktu a `Edit(int, Product)` zpracovává vystavený formulář. Aby tato možnost MVC mohla být v případě, že se jedná o jinou akci než příkaz HTTP, musela zvolit `Edit(int, Product)`, když je žádost `POST` HTTP a `Edit(int)`.
+Tento kontroler definuje dvě akce, které by odpovídaly cestě URL `/Products/Edit/17` a `{ controller = Products, action = Edit, id = 17 }`dat směrování. Toto je typický vzor pro řadiče MVC, kde `Edit(int)` zobrazuje formulář pro úpravu produktu a `Edit(int, Product)` zpracovává vystavený formulář. Aby tato možnost MVC mohla být v případě, že se jedná o jinou akci než příkaz HTTP, musela zvolit `Edit(int, Product)`, když je žádost `POST` HTTP a `Edit(int)`.
 
-@No__t_0 (`[HttpPost]`) je implementace `IActionConstraint`, která umožňuje, aby byla akce vybrána pouze v případě, že je `POST` příkaz HTTP. Přítomnost `IActionConstraint` nastaví `Edit(int, Product)` "lepší", než `Edit(int)`, takže se `Edit(int, Product)` vyzkouší jako první.
+`HttpPostAttribute` (`[HttpPost]`) je implementace `IActionConstraint`, která umožňuje, aby byla akce vybrána pouze v případě, že je `POST`příkaz HTTP. Přítomnost `IActionConstraint` nastaví `Edit(int, Product)` "lepší", než `Edit(int)`, takže se `Edit(int, Product)` vyzkouší jako první.
 
 Stačí napsat vlastní implementace `IActionConstraint` ve specializovaných scénářích, ale je důležité pochopit, že role atributů, jako jsou `HttpPostAttribute` podobné atributy, jsou definovány pro jiné příkazy HTTP. V konvenčním směrování je běžné, že pokud jsou součástí pracovního postupu `show form -> submit form`, je běžné použít stejný název akce. Pohodlí tohoto vzoru se po kontrole části [porozumění IActionConstraint](#understanding-iactionconstraint) projeví.
 
@@ -208,7 +208,7 @@ Názvy tras nemají žádný vliv na adresy URL, které by odpovídaly ani manip
 
 ## <a name="attribute-routing"></a>Směrování atributů
 
-Směrování atributů používá sadu atributů k mapování akcí přímo na šablony směrování. V následujícím příkladu se `app.UseMvc();` používá v metodě `Configure` a není předána žádná trasa. @No__t_0 se bude shodovat s množinou adres URL podobných tomu, co by se výchozí trasa `{controller=Home}/{action=Index}/{id?}` shodovala:
+Směrování atributů používá sadu atributů k mapování akcí přímo na šablony směrování. V následujícím příkladu se `app.UseMvc();` používá v metodě `Configure` a není předána žádná trasa. `HomeController` se bude shodovat s množinou adres URL podobných tomu, co by se výchozí trasa `{controller=Home}/{action=Index}/{id?}` shodovala:
 
 ```csharp
 public class HomeController : Controller
@@ -233,7 +233,7 @@ public class HomeController : Controller
 }
 ```
 
-Akce `HomeController.Index()` se spustí pro všechny cesty URL `/`, `/Home` nebo `/Home/Index`.
+Akce `HomeController.Index()` se spustí pro všechny cesty URL `/`, `/Home`nebo `/Home/Index`.
 
 > [!NOTE]
 > V tomto příkladu se zvýrazní klíčový rozdíl mezi směrováním atributů a konvenčním směrováním. Směrování atributů vyžaduje více vstupu pro určení trasy; konvenční výchozí trasa zpracovává trasy více stručně. Směrování atributů ale povoluje (a vyžaduje) přesnou kontrolu nad tím, které šablony směrování se vztahují na každou akci.
@@ -264,7 +264,7 @@ public class MyDemoController : Controller
 ```
 
 > [!NOTE]
-> Výše uvedené šablony tras nedefinují parametry směrování pro `action`, `area` a `controller`. Ve skutečnosti nejsou tyto parametry trasy v trasách atributů povoleny. Vzhledem k tomu, že šablona trasy je již k akci přidružena, by nedošlo k tomu, že by bylo vhodné analyzovat název akce z adresy URL.
+> Výše uvedené šablony tras nedefinují parametry směrování pro `action`, `area`a `controller`. Ve skutečnosti nejsou tyto parametry trasy v trasách atributů povoleny. Vzhledem k tomu, že šablona trasy je již k akci přidružena, by nedošlo k tomu, že by bylo vhodné analyzovat název akce z adresy URL.
 
 ## <a name="attribute-routing-with-httpverb-attributes"></a>Směrování atributů pomocí atributů http [příkaz]
 
@@ -336,7 +336,7 @@ public class ProductsApiController : Controller
 }
 ```
 
-V tomto příkladu se cesta URL `/products` může shodovat `ProductsApi.ListProducts` a cesta URL `/products/5` může odpovídat `ProductsApi.GetProduct(int)`. Obě tyto akce odpovídají pouze `GET` HTTP, protože jsou upraveny pomocí `HttpGetAttribute`.
+V tomto příkladu se cesta URL `/products` může shodovat `ProductsApi.ListProducts`a cesta URL `/products/5` může odpovídat `ProductsApi.GetProduct(int)`. Obě tyto akce odpovídají pouze `GET` HTTP, protože jsou označeny `HttpGetAttribute`.
 
 Šablony směrování použité pro akci, která začíná na `/` nebo `~/` se nekombinují se šablonami směrování použitými pro kontroler. Tento příklad odpovídá sadě cest URL podobně jako *výchozí trasa*.
 
@@ -382,7 +382,7 @@ Směrování Razor Pages směrování a řadiče MVC sdílí implementaci. Infor
 
 ## <a name="token-replacement-in-route-templates-controller-action-area"></a>Nahrazení tokenu v šablonách směrování ([Controller], [Action], [oblast])
 
-Pro usnadnění pohodlí trasy atributů podporují *Nahrazení tokenu* uzavřením tokenu do hranatých závorek (`[`, `]`). Tokeny `[action]`, `[area]` a `[controller]` jsou nahrazeny hodnotami názvu akce, názvu oblasti a názvu kontroleru z akce, kde je trasa definována. V následujícím příkladu akce odpovídají cestám adresy URL, jak je popsáno v komentářích:
+Pro usnadnění pohodlí trasy atributů podporují *Nahrazení tokenu* uzavřením tokenu do hranatých závorek (`[`, `]`). Tokeny `[action]`, `[area]`a `[controller]` jsou nahrazeny hodnotami názvu akce, názvu oblasti a názvu kontroleru z akce, kde je trasa definována. V následujícím příkladu akce odpovídají cestám adresy URL, jak je popsáno v komentářích:
 
 [!code-csharp[](routing/sample/main/Controllers/ProductsController.cs?range=7-11,13-17,20-22)]
 
@@ -418,7 +418,7 @@ Chcete-li porovnat oddělovač nahrazení tokenu literálu `[` nebo `]`, vydejte
 
 Nahrazení tokenu se dá přizpůsobit pomocí transformátoru parametrů. Transformátor parametru implementuje `IOutboundParameterTransformer` a transformuje hodnotu parametrů. Například vlastní parametr `SlugifyParameterTransformer` Transformer změní hodnotu trasy `SubscriptionManagement` na `subscription-management`.
 
-@No__t_0 je konvence aplikačního modelu, kterou:
+`RouteTokenTransformerConvention` je konvence aplikačního modelu, kterou:
 
 * Aplikuje transformátor parametrů na všechny trasy atributů v aplikaci.
 * Přizpůsobí hodnoty tokenu trasy při jejich nahrazení.
@@ -431,7 +431,7 @@ public class SubscriptionManagementController : Controller
 }
 ```
 
-@No__t_0 je v `ConfigureServices` zaregistrován jako možnost.
+`RouteTokenTransformerConvention` je v `ConfigureServices`zaregistrován jako možnost.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -597,10 +597,10 @@ MVC vytvoří vyhledávací tabulku všech akcí směrovaného atributu a bude o
 
 ### <a name="generating-urls-by-action-name"></a>Generování adres URL podle názvu akce
 
-`Url.Action` (`IUrlHelper`. `Action`) a všechna související přetížení jsou založena na této myšlence, se kterou chcete určit, k čemu se odkazuje, zadáním názvu kontroleru a názvu akce.
+`Url.Action` (`IUrlHelper` . `Action`) a všechna související přetížení jsou založena na této myšlence, se kterou chcete určit, k čemu se odkazuje, zadáním názvu kontroleru a názvu akce.
 
 > [!NOTE]
-> Při použití `Url.Action` jsou aktuální hodnoty trasy pro `controller` a `action` určené pro vás – hodnota `controller` a `action` jsou součástí obou *okolních hodnot* **a** *hodnot*. Metoda `Url.Action`, vždy používá aktuální hodnoty `action` a `controller` a vygeneruje cestu URL, která bude směrovat na aktuální akci.
+> Při použití `Url.Action`jsou aktuální hodnoty trasy pro `controller` a `action` určené pro vás – hodnota `controller` a `action` jsou součástí obou *okolních hodnot* **a** *hodnot*. Metoda `Url.Action`, vždy používá aktuální hodnoty `action` a `controller` a vygeneruje cestu URL, která bude směrovat na aktuální akci.
 
 Směrování se pokusí použít hodnoty v ambientních hodnotách k vyplnění informací, které jste nezadali při generování adresy URL. Při použití trasy, jako je `{a}/{b}/{c}/{d}` a ambientních hodnot `{ a = Alice, b = Bob, c = Carol, d = David }`, směrování obsahuje dostatek informací pro vygenerování adresy URL bez dalších hodnot – protože všechny parametry tras mají hodnotu. Pokud jste přidali hodnotu `{ d = Donovan }`, hodnota `{ d = David }` by byla ignorována a vygenerovaná cesta URL bude `Alice/Bob/Carol/Donovan`.
 
@@ -626,7 +626,7 @@ Výše uvedený kód ukázal generování adresy URL předáním do kontroleru a
 
 ### <a name="generating-urls-in-html"></a>Generování adres URL v HTML
 
-`IHtmlHelper` poskytuje `HtmlHelper` metody `Html.BeginForm` a `Html.ActionLink` k vygenerování `<form>` a `<a>` prvků v uvedeném pořadí. Tyto metody používají metodu `Url.Action` k vygenerování adresy URL a akceptuje podobné argumenty. @No__t_0 doprovodné funkce pro `HtmlHelper` jsou `Html.BeginRouteForm` a `Html.RouteLink` s podobnými funkcemi.
+`IHtmlHelper` poskytuje `HtmlHelper` metody `Html.BeginForm` a `Html.ActionLink` k vygenerování `<form>` a `<a>` prvků v uvedeném pořadí. Tyto metody používají metodu `Url.Action` k vygenerování adresy URL a akceptuje podobné argumenty. `Url.RouteUrl` doprovodné funkce pro `HtmlHelper` jsou `Html.BeginRouteForm` a `Html.RouteLink` s podobnými funkcemi.
 
 TagHelpers vygeneruje adresy URL prostřednictvím `form` Taghelperu a `<a>` Taghelperu. Obě tato použití `IUrlHelper` pro jejich implementaci. Další informace najdete v tématu [práce s formuláři](../views/working-with-forms.md) .
 
@@ -669,9 +669,9 @@ app.UseMvc(routes =>
 });
 ```
 
-Pomocí těchto definic tras `Url.Action("Index", "Home")` vygeneruje cestu URL `/` s `default` trasou, ale proč? Můžete odhadnout hodnoty tras, `{ controller = Home, action = Index }` by bylo dostatečné pro vygenerování adresy URL pomocí `blog` a výsledek by byl `/blog?action=Index&controller=Home`.
+Pomocí těchto definic tras `Url.Action("Index", "Home")` vygeneruje cestu URL `/` s `default` trasou, ale proč? Můžete odhadnout hodnoty tras, `{ controller = Home, action = Index }` by bylo dostatečné pro vygenerování adresy URL pomocí `blog`a výsledek by byl `/blog?action=Index&controller=Home`.
 
-Vyhrazené konvenční trasy spoléhají na speciální chování výchozích hodnot, které nemají odpovídající parametr trasy, který brání tomu, aby trasa byla "příliš hlade" s generováním adresy URL. V tomto případě jsou `{ controller = Blog, action = Article }` výchozí hodnoty a ani `controller` ani `action` se nezobrazí jako parametr trasy. Když směrování provádí generování adresy URL, zadané hodnoty musí odpovídat výchozím hodnotám. Generování adresy URL pomocí `blog` se nezdaří, protože hodnoty `{ controller = Home, action = Index }` neodpovídají `{ controller = Blog, action = Article }`. Směrování se pak vrátí k pokusu o `default`, který je úspěšný.
+Vyhrazené konvenční trasy spoléhají na speciální chování výchozích hodnot, které nemají odpovídající parametr trasy, který brání tomu, aby trasa byla "příliš hlade" s generováním adresy URL. V tomto případě jsou `{ controller = Blog, action = Article }`výchozí hodnoty a ani `controller` ani `action` se nezobrazí jako parametr trasy. Když směrování provádí generování adresy URL, zadané hodnoty musí odpovídat výchozím hodnotám. Generování adresy URL pomocí `blog` se nezdaří, protože hodnoty `{ controller = Home, action = Index }` neodpovídají `{ controller = Blog, action = Article }`. Směrování se pak vrátí k pokusu o `default`, který je úspěšný.
 
 <a name="routing-areas-ref-label"></a>
 
@@ -696,7 +696,7 @@ Pomocí výše uvedeného příkladu budou hodnoty směrování odpovídat násl
 
 [!code-csharp[](routing/sample/AreasRouting/Areas/Blog/Controllers/UsersController.cs)]
 
-@No__t_0 je to, že jako součást oblasti označuje kontroler, říkáme, že tento kontroler je v oblasti `Blog`. Řadiče bez atributu `[Area]` nejsou členy žádné oblasti **a nebudou se shodovat,** Pokud je hodnota `area` trasy poskytnuta směrováním. V následujícím příkladu se může shodovat jenom první kontroler, který bude odpovídat hodnotám tras `{ area = Blog, controller = Users, action = AddUser }`.
+`AreaAttribute` je to, že jako součást oblasti označuje kontroler, říkáme, že tento kontroler je v oblasti `Blog`. Řadiče bez atributu `[Area]` nejsou členy žádné oblasti **a nebudou se shodovat,** Pokud je hodnota `area` trasy poskytnuta směrováním. V následujícím příkladu se může shodovat jenom první kontroler, který bude odpovídat hodnotám tras `{ area = Blog, controller = Users, action = AddUser }`.
 
 [!code-csharp[](routing/sample/AreasRouting/Areas/Blog/Controllers/UsersController.cs)]
 
@@ -737,7 +737,7 @@ public class ProductsController : Controller
 }
 ```
 
-Za předpokladu, že výchozí konvenční trasa, adresa URL `/Products/Edit` by vytvořila `{ controller = Products, action = Edit }` hodnoty, které odpovídají **oběma** akcím, které jsou zde uvedeny. V `IActionConstraint` terminologii bychom znamenali, že obě tyto akce se považují za kandidáty, protože obě odpovídají datům směrování.
+Za předpokladu, že výchozí konvenční trasa, adresa URL `/Products/Edit` by vytvořila `{ controller = Products, action = Edit }`hodnoty, které odpovídají **oběma** akcím, které jsou zde uvedeny. V `IActionConstraint` terminologii bychom znamenali, že obě tyto akce se považují za kandidáty, protože obě odpovídají datům směrování.
 
 Pokud se `HttpGetAttribute` spustí, znamená to, že *Edit ()* je odpovídající pro *Get* a neshoduje se s žádným jiným příkazem http. Akce `Edit(...)` nemá definovány žádné omezení, a proto bude odpovídat jakémukoli příkazu HTTP. Proto předpokládáme, že `Edit(...)` odpovídá pouze `POST`. Ale u `GET` se obě akce stále shodují – ale akce s `IActionConstraint` je vždy považována za *lepší* , než je akce bez. Proto vzhledem k tomu, že `Edit()` má `[HttpGet]` považuje za konkrétnější, a vybere se, pokud se obě akce mohou shodovat.
 

@@ -4,16 +4,16 @@ author: isaac2004
 description: Seznamte se s novými funkcemi v ASP.NET Core 2,1.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: a45ba44fb7911a21927a4a996c0d6fa9eb776357
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: d969b4caab44e3e50b3a0202b25864921d6d01dc
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963180"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880860"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>Co je nového v ASP.NET Core 2,1
 
@@ -124,7 +124,7 @@ Další informace najdete v tématu [sestavování webových rozhraní API pomoc
 
 ## <a name="ihttpclientfactory"></a>IHttpClientFactory
 
-ASP.NET Core 2,1 obsahuje novou službu `IHttpClientFactory`, která usnadňuje konfiguraci a využívání instancí `HttpClient` v aplikacích. `HttpClient` už má koncept delegování obslužných rutin, které by se daly propojit pro odchozí požadavky HTTP. Objekt pro vytváření:
+ASP.NET Core 2,1 obsahuje novou službu `IHttpClientFactory`, která usnadňuje konfiguraci a využívání instancí `HttpClient` v aplikacích. `HttpClient` už má koncept delegování obslužných rutin, které by se daly propojit pro odchozí požadavky HTTP. Objekt pro vytváření (Factory):
 
 * Usnadňuje registraci instancí `HttpClient` pro každého pojmenovaného klienta.
 * Implementuje obslužnou rutinu Polly, která umožňuje použití zásad Polly pro opakování, CircuitBreakers atd.
@@ -147,7 +147,7 @@ Další informace najdete v tématu [obecný hostitel .NET](xref:fundamentals/ho
 
 Úhlová šablona je založena na úhlů CLI a šablony s reakce jsou založené na aplikaci Create-reagují-App.
 
-Další informace naleznete v tématu:
+Další informace najdete v části .
 
 * <xref:spa/angular>
 * <xref:spa/react>

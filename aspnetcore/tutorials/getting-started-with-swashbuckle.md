@@ -4,14 +4,14 @@ author: zuckerthoben
 description: Naučte se, jak přidat swashbuckle do projektu webového rozhraní API ASP.NET Core pro integraci uživatelského rozhraní Swagger.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 08/21/2019
+ms.date: 12/05/2019
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: d3cef72de22e54f7e65ddf9f1446eb32256d0c71
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: dea8564a1ee94d6ff1d96e9aab68205292765178
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71924983"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881256"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s swashbuckle a ASP.NET Core
 
@@ -19,13 +19,13 @@ Od [Shayne Boyer](https://twitter.com/spboyer) a [Scott Addie](https://twitter.c
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
-Existují tři hlavní součásti, které je potřeba swashbuckle:
+Swashbuckle má tři hlavní komponenty:
 
-* [Swashbuckle. AspNetCore. Swagger](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/): objektový model a middleware pro objekty Swagger k vystavení `SwaggerDocument` objektů jako koncových bodů JSON.
+* [Swashbuckle. AspNetCore. Swagger](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/): objektový model a middleware pro objekty Swagger k vystavení objektů `SwaggerDocument` jako koncových bodů JSON.
 
-* [Swashbuckle. AspNetCore. SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): generátor Swagger, který vytváří `SwaggerDocument` objekty přímo z vašich tras, řadičů a modelů. V kombinaci s middlewarem koncového bodu Swagger se obvykle automaticky zpřístupňuje JSON pro Swagger.
+* [Swashbuckle. AspNetCore. SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): generátor Swagger, který vytváří `SwaggerDocument` objekty přímo z vašich tras, řadičů a modelů. Obvykle funguje tak, že v kombinaci s middlewarem koncových bodů Swaggeru automaticky zveřejňuje kód JSON pro Swagger.
 
-* [Swashbuckle. AspNetCore. SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): vložená verze nástroje uživatelského rozhraní Swagger. Interpretuje formát JSON pro Swagger pro vytváření bohatě přizpůsobitelné prostředí pro popis funkce webového rozhraní API. Obsahuje integrované testovací vodičy pro veřejné metody.
+* [Swashbuckle. AspNetCore. SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): vložená verze nástroje uživatelského rozhraní Swagger. Interpretuje JSON pro Swagger v podobě propracovaného, přizpůsobitelného prostředí pro popis funkcí webového rozhraní API. Jeho součástí je i integrovaný správce testů pro veřejné metody.
 
 ## <a name="package-installation"></a>Instalace balíčku
 
@@ -34,7 +34,7 @@ Swashbuckle je možné přidat s následujícími přístupy:
 ### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V okně **konzoly Správce balíčků** :
-  * Přejít k **zobrazení** > **jiné** > **konzoly Správce balíčků** Windows
+  * Přejít na **zobrazení** > **Další Windows** > **konzole správce balíčků**
   * Přejděte do adresáře, ve kterém existuje soubor *TodoApi. csproj.*
   * Spusťte následující příkaz:
 
@@ -49,7 +49,7 @@ Swashbuckle je možné přidat s následujícími přístupy:
   * Do vyhledávacího pole zadejte "swashbuckle. AspNetCore".
   * Na kartě **Procházet** vyberte nejnovější balíček "swashbuckle. AspNetCore" a klikněte na **instalovat** .
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení** > **Přidat balíčky...**
 * Nastavte rozevírací seznam pro **zdroj** okna **Přidat balíčky** na "NuGet.org".
@@ -77,11 +77,11 @@ dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0-rc4
 
 ## <a name="add-and-configure-swagger-middleware"></a>Přidat a nakonfigurovat middleware Swagger
 
-Ve třídě importujte následující obor názvů pro `OpenApiInfo` použití třídy: `Startup`
+Ve třídě `Startup` importujte následující obor názvů pro použití `OpenApiInfo` třídy:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup2.cs?name=snippet_InfoClassNamespace)]
 
-Přidejte generátor Swagger do kolekce služeb v `Startup.ConfigureServices` metodě:
+Přidejte generátor Swagger do kolekce Services v metodě `Startup.ConfigureServices`:
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -101,7 +101,7 @@ Přidejte generátor Swagger do kolekce služeb v `Startup.ConfigureServices` me
 
 ::: moniker-end
 
-`Startup.Configure` V metodě povolte middleware pro poskytování generovaného dokumentu JSON a uživatelského rozhraní Swagger:
+V metodě `Startup.Configure` povolte middleware pro obsluhu generovaného dokumentu JSON a uživatelského rozhraní Swagger:
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
@@ -115,24 +115,24 @@ Přidejte generátor Swagger do kolekce služeb v `Startup.ConfigureServices` me
 
 ::: moniker-end
 
-Předchozí `UseSwaggerUI` volání metody povoluje middleware [statických souborů](xref:fundamentals/static-files). Pokud cílíte .NET Framework nebo .NET Core 1. x, přidejte do projektu balíček NuGet [Microsoft. AspNetCore. StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles/) .
+Předchozí volání metody `UseSwaggerUI` povoluje [middleware statických souborů](xref:fundamentals/static-files). Pokud cílíte .NET Framework nebo .NET Core 1. x, přidejte do projektu balíček NuGet [Microsoft. AspNetCore. StaticFiles](https://www.nuget.org/packages/Microsoft.AspNetCore.StaticFiles/) .
 
-Spusťte aplikaci a přejděte na `http://localhost:<port>/swagger/v1/swagger.json`adresu. Vygenerovaný dokument popisující koncové body se zobrazí, jak je znázorněno ve [specifikaci Swagger (Swagger. JSON)](xref:tutorials/web-api-help-pages-using-swagger#swagger-specification-swaggerjson).
+Spusťte aplikaci a přejděte na `http://localhost:<port>/swagger/v1/swagger.json`. Vygenerovaný dokument popisující koncové body se zobrazí, jak je znázorněno ve [specifikaci Swagger (Swagger. JSON)](xref:tutorials/web-api-help-pages-using-swagger#swagger-specification-swaggerjson).
 
-Uživatelské rozhraní Swagger najdete na adrese `http://localhost:<port>/swagger`. Prozkoumejte rozhraní API prostřednictvím uživatelského rozhraní Swagger a zahrňte je do jiných programů.
+Uživatelské rozhraní Swagger se dá najít na `http://localhost:<port>/swagger`. Prozkoumejte rozhraní API prostřednictvím uživatelského rozhraní Swagger a zahrňte je do jiných programů.
 
 > [!TIP]
-> Pro obsluhu uživatelského rozhraní Swagger v kořenovém adresáři aplikace (`http://localhost:<port>/`) `RoutePrefix` nastavte vlastnost na prázdný řetězec:
+> Pro obsluhu uživatelského rozhraní Swagger v kořenovém adresáři aplikace (`http://localhost:<port>/`) nastavte vlastnost `RoutePrefix` na prázdný řetězec:
 >
 > [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup3.cs?name=snippet_UseSwaggerUI&highlight=4)]
 
-Pokud používáte adresáře se službou IIS nebo reverzním proxy serverem, nastavte koncový bod Swagger na relativní cestu pomocí `./` předpony. Například, `./swagger/v1/swagger.json`. Pomocí `/swagger/v1/swagger.json` nástroje instruuje aplikaci, aby hledala soubor JSON na skutečném kořenu adresy URL (plus předpona trasy, pokud se používá). Použijte `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` například`http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`místo.
+Pokud používáte adresáře se službou IIS nebo reverzním proxy serverem, nastavte koncový bod Swagger na relativní cestu pomocí předpony `./`. Například `./swagger/v1/swagger.json`. Použití `/swagger/v1/swagger.json` instruuje aplikaci, aby hledala soubor JSON na skutečném kořenu adresy URL (plus předpona trasy, pokud se používá). Použijte například `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` místo `http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`.
 
 ## <a name="customize-and-extend"></a>Přizpůsobení a rozšiřování
 
 Swagger poskytuje možnosti pro dokumentaci k objektovému modelu a přizpůsobení uživatelského rozhraní tak, aby odpovídalo vašemu motivu.
 
-`Startup` Do třídy přidejte následující obory názvů:
+Do třídy `Startup` přidejte následující obory názvů:
 
 ```csharp
 using System;
@@ -142,7 +142,7 @@ using System.IO;
 
 ### <a name="api-info-and-description"></a>Informace a popis rozhraní API
 
-Akce konfigurace předaná `AddSwaggerGen` metodě přidá informace, jako je autor, licence a popis:
+Akce konfigurace předaná metodě `AddSwaggerGen` přidává informace, jako je autor, licence a popis:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup4.cs?name=snippet_AddSwaggerGen)]
 
@@ -172,11 +172,11 @@ Komentáře XML lze povolit pomocí následujících přístupů:
 
 ::: moniker-end
 
-#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* V *oblast řešení*stiskněte **ovládací prvek** a klikněte na název projektu. Přejděte do **nástroje** > **Upravit soubor**.
+* V *oblast řešení*stiskněte **ovládací prvek** a klikněte na název projektu. Přejděte na **nástroje** > **Upravit soubor**.
 * Ručně přidejte zvýrazněné řádky do souboru *. csproj* :
 
 [!code-xml[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.Swashbuckle/TodoApi.csproj?name=snippet_SuppressWarnings&highlight=1-2,4)]
@@ -185,7 +185,7 @@ Komentáře XML lze povolit pomocí následujících přístupů:
 
 ::: moniker range="<= aspnetcore-1.1"
 
-* Otevření dialogového okna **Možnosti projektu** > **kompilátor** **sestavení** >
+* Otevřete dialogové okno **Možnosti projektu** > **kompilátor** **sestavení** >
 * V části **Obecné možnosti** zaškrtněte políčko **generovat dokumentaci XML** .
 
 ::: moniker-end
@@ -230,7 +230,7 @@ Povolení komentářů XML poskytuje ladicí informace pro nedokumentované veř
 warning CS1591: Missing XML comment for publicly visible type or member 'TodoController.GetAll()'
 ```
 
-Chcete-li potlačit upozornění v rámci projektu, definujte seznam kódů upozornění oddělených středníkem, které mají být v souboru projektu ignorovány. Připojení kódů upozornění k `$(NoWarn);` aplikování [ C# výchozích hodnot](https://github.com/dotnet/sdk/blob/2eb6c546931b5bcb92cd3128b93932a980553ea1/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.CSharp.props#L16) .
+Chcete-li potlačit upozornění v rámci projektu, definujte seznam kódů upozornění oddělených středníkem, které mají být v souboru projektu ignorovány. Připojení kódů upozornění k `$(NoWarn);` aplikuje i [ C# výchozí hodnoty](https://github.com/dotnet/sdk/blob/2eb6c546931b5bcb92cd3128b93932a980553ea1/src/Tasks/Microsoft.NET.Build.Tasks/targets/Microsoft.NET.Sdk.CSharp.props#L16) .
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -244,7 +244,7 @@ Chcete-li potlačit upozornění v rámci projektu, definujte seznam kódů upoz
 
 ::: moniker-end
 
-Chcete-li potlačit upozornění pouze pro konkrétní členy, uveďte kód v direktivách preprocesoru [upozornění #pragma](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-pragma-warning) . Tento přístup je užitečný pro kód, který by neměl být zveřejněn prostřednictvím dokumentace rozhraní API. V následujícím příkladu je kód upozornění CS1591 ignorován pro celou `Program` třídu. Vynucování kódu upozornění je obnoveno při zavření definice třídy. Zadejte více kódů upozornění se seznamem odděleným čárkami.
+Chcete-li potlačit upozornění pouze pro konkrétní členy, uveďte kód v direktivách preprocesoru [upozornění #pragma](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-pragma-warning) . Tento přístup je užitečný pro kód, který by neměl být zveřejněn prostřednictvím dokumentace rozhraní API. V následujícím příkladu je kód upozornění CS1591 ignorován pro celou třídu `Program`. Vynucování kódu upozornění je obnoveno při zavření definice třídy. Zadejte více kódů upozornění se seznamem odděleným čárkami.
 
 ```csharp
 namespace TodoApi
@@ -292,11 +292,11 @@ Nakonfigurujte Swagger pro použití souboru XML, který je vygenerovaný předc
 
 V předchozím kódu se [reflexe](/dotnet/csharp/programming-guide/concepts/reflection) používá k sestavení názvu souboru XML, který odpovídá tomuto projektu webového rozhraní API. Vlastnost [AppContext. BaseDirectory](xref:System.AppContext.BaseDirectory*) se používá k vytvoření cesty k souboru XML. Některé funkce Swagger (například schémat vstupních parametrů nebo metody HTTP a kódy odpovědí z příslušných atributů) fungují bez použití souboru dokumentace XML. Pro většinu funkcí, konkrétně souhrny metod a popisy parametrů a kódů odpovědí, je použití souboru XML povinné.
 
-Přidání komentářů se třemi lomítky k akci vylepšuje uživatelské rozhraní Swagger přidáním popisu do záhlaví oddílu. Přidejte prvek `Delete`  nad akci: [\<souhrnu>](/dotnet/csharp/programming-guide/xmldoc/summary)
+Můžete k akci přidat také komentáře uvozené třemi lomítky, a vylepšit tak Swagger UI tím, že přidáte popis do hlavičky oddílu. Přidejte prvek `Delete`  nad akci: [\<souhrnu>](/dotnet/csharp/programming-guide/xmldoc/summary)
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Controllers/TodoController.cs?name=snippet_Delete&highlight=1-3)]
 
-Uživatelské rozhraní Swagger zobrazí vnitřní text `<summary>` elementu předchozí kód:
+Uživatelské rozhraní Swagger zobrazí vnitřní text `<summary>`ho prvku předchozího kódu:
 
 ![Uživatelské rozhraní Swagger, které zobrazuje komentář XML, odstraní konkrétní TodoItem. pro metodu DELETE](web-api-help-pages-using-swagger/_static/triple-slash-comments.png)
 
@@ -329,7 +329,7 @@ Uživatelské rozhraní je založené na generovaném schématu JSON:
 }
 ```
 
-Do dokumentace k metodě Akcepřidejte>elementpoznámky.`Create` [ \<](/dotnet/csharp/programming-guide/xmldoc/remarks) Doplňuje informace zadané v `<summary>` prvku a poskytuje robustnější uživatelské rozhraní Swagger. Obsah `<remarks>` elementu se může skládat z textu, JSON nebo XML.
+Do dokumentace k metodě `Create` akcí přidejte [> elementu\<poznámky](/dotnet/csharp/programming-guide/xmldoc/remarks) . Doplňuje informace zadané v prvku `<summary>` a poskytuje robustnější uživatelské rozhraní Swagger. Obsah prvku `<remarks>` se může skládat z textu, JSON nebo XML.
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -355,9 +355,9 @@ Všimněte si vylepšení uživatelského rozhraní pomocí těchto dalších ko
 
 ### <a name="data-annotations"></a>Datové poznámky
 
-Naupravujte model pomocí atributů, které se nacházejí v oboru názvů [System. ComponentModel.](/dotnet/api/system.componentmodel.dataannotations) DataAnnotations, aby bylo možné lépe řídit součásti uživatelského rozhraní Swagger.
+Označte model s atributy, které se nacházejí v oboru názvů [System. ComponentModel. DataAnnotations](/dotnet/api/system.componentmodel.dataannotations) , aby bylo možné lépe řídit součásti uživatelského rozhraní Swagger.
 
-`[Required]` Přidejte atribut`Name` do vlastnosti`TodoItem` třídy:
+Přidejte atribut `[Required]` do vlastnosti `Name` třídy `TodoItem`:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Models/TodoItem.cs?highlight=10)]
 
@@ -387,7 +387,7 @@ Přítomnost tohoto atributu mění chování uživatelského rozhraní a mění
 },
 ```
 
-`[Produces("application/json")]` Přidejte atribut do kontroleru rozhraní API. Jeho účelem je deklarovat, že akce kontroleru podporují typ obsahu odpovědi *Application/JSON*:
+Přidejte atribut `[Produces("application/json")]` k řadiči rozhraní API. Jeho účelem je deklarovat, že akce kontroleru podporují typ obsahu odpovědi *Application/JSON*:
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -415,9 +415,9 @@ Díky nárůstu využití datových poznámek ve webovém rozhraní API se strá
 
 ### <a name="describe-response-types"></a>Popis typů odpovědí
 
-Vývojáři, kteří využívají webové rozhraní API, mají největší obavy s&mdash;tím, co vrací konkrétně typy odpovědí a kódy chyb (Pokud ne Standard). Typy odpovědí a kódy chyb jsou označeny v komentářích XML a datových anotacích.
+Vývojáři, kteří využívají webové rozhraní API, mají největší obavy s tím, co se vrátilo&mdash;specificky typy odpovědí a chybové kódy (Pokud není standard). Typy odpovědí a kódy chyb jsou označeny v komentářích XML a datových anotacích.
 
-`Create` Akce vrátí stavový kód HTTP 201 při úspěchu. Stavový kód HTTP 400 se vrátí, když text odeslaného požadavku má hodnotu null. Bez správné dokumentace v uživatelském rozhraní Swagger nemá spotřebitel znalosti o těchto očekávaných výsledcích. Opravte tento problém tak, že přidáte zvýrazněné řádky v následujícím příkladu:
+Akce `Create` vrátí stavový kód HTTP 201 při úspěchu. Stavový kód HTTP 400 se vrátí, když text odeslaného požadavku má hodnotu null. Bez správné dokumentace v uživatelském rozhraní Swagger nemá spotřebitel znalosti o těchto očekávaných výsledcích. Opravte tento problém tak, že přidáte zvýrazněné řádky v následujícím příkladu:
 
 ::: moniker range="<= aspnetcore-2.0"
 
@@ -443,7 +443,7 @@ Uživatelské rozhraní Swagger teď jasně klade očekávané kódy odpovědí 
 
 ::: moniker range=">= aspnetcore-2.2"
 
-V ASP.NET Core 2,2 nebo novějších lze konvence použít jako alternativu k explicitnímu Upraveníí jednotlivých `[ProducesResponseType]`akcí. Další informace naleznete v tématu <xref:web-api/advanced/conventions>.
+V ASP.NET Core 2,2 nebo novějších lze konvence použít jako alternativu k explicitnímu Upraveníí jednotlivých akcí s `[ProducesResponseType]`. Další informace najdete v tématu <xref:web-api/advanced/conventions>.
 
 ::: moniker-end
 
@@ -485,7 +485,7 @@ Odkaz na *vlastní šablony stylů. CSS* v souboru *index. html* ve složce uži
 
 [!code-html[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/wwwroot/swagger/ui/index.html?name=snippet_SwaggerUiCss&highlight=3)]
 
-Přejděte na stránku *index. html* na adrese `http://localhost:<port>/swagger/ui/index.html`. Do `https://localhost:<port>/swagger/v1/swagger.json` textového pole záhlaví zadejte a klikněte na tlačítko **prozkoumat** . Výsledná stránka vypadá takto:
+Přejděte na stránku *index. html* na `http://localhost:<port>/swagger/ui/index.html`. Do textového pole záhlaví zadejte `https://localhost:<port>/swagger/v1/swagger.json` a klikněte na tlačítko **prozkoumat** . Výsledná stránka vypadá takto:
 
 ![Uživatelské rozhraní Swagger s vlastním nadpisem záhlaví](web-api-help-pages-using-swagger/_static/custom-header.png)
 

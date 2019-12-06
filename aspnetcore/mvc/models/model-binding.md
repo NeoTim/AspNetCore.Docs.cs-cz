@@ -6,12 +6,12 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
 ms.date: 11/21/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: a49fec38a6d38bbd33e9461cbcceb39bfe810f5c
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 705044804b6ecc980baa88a624863ce5ac72a694
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717283"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881056"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
@@ -96,11 +96,11 @@ Pro každý cílový parametr nebo vlastnost jsou zdroje prohledávány v pořad
 
 Pokud výchozí zdroj není správný, použijte k určení zdroje jeden z následujících atributů:
 
-* [[FromQuery]](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) – načte hodnoty z řetězce dotazu. 
-* [[FromRoute]](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) – načte hodnoty z dat směrování.
-* [[FromForm]](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) – načte hodnoty z publikovaných polí formuláře.
-* [[FromBody]](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) – načte hodnoty z textu žádosti.
-* [[FromHeader]](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) – načte hodnoty z hlaviček protokolu HTTP.
+* [`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute) – načte hodnoty z řetězce dotazu. 
+* [`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute) – načte hodnoty z dat směrování.
+* [`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute) – Získá hodnoty z publikovaných polí formuláře.
+* [`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute) – načte hodnoty z textu žádosti.
+* [`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) – Získá hodnoty z hlaviček protokolu HTTP.
 
 Tyto atributy:
 
@@ -166,7 +166,7 @@ Ve výchozím nastavení se chyba stavu modelu nevytvoří, pokud se pro vlastno
 * Pro komplexní typy vazba modelu vytvoří instanci pomocí výchozího konstruktoru bez nastavení vlastností.
 * Pole jsou nastavena na `Array.Empty<T>()`, s tím rozdílem, že `byte[]` pole jsou nastavena na `null`.
 
-Pokud má být stav modelu Neověřeno, pokud se v polích formuláře pro vlastnost modelu nenalezne žádné, použijte [atribut [BindRequired]](#bindrequired-attribute).
+Pokud má být stav modelu neplatný, pokud se v polích formuláře pro vlastnost modelu nenalezne žádné, použijte atribut [`[BindRequired]`](#bindrequired-attribute) .
 
 Všimněte si, že toto chování `[BindRequired]` se vztahuje na vazbu modelu z publikovaných dat formuláře, nikoli na data JSON nebo XML v těle požadavku. Data těla žádosti jsou zpracována [vstupními formátovacími](#input-formatters)moduly.
 
@@ -190,7 +190,7 @@ Pokud nechcete, aby se chyby převodu typů způsobily při chybách stavu model
 
 Jednoduché typy, které modelový pořadač může převést na zdrojové řetězce, do zahrnují následující:
 
-* [Datového](xref:System.ComponentModel.BooleanConverter)
+* [Datový typ Boolean](xref:System.ComponentModel.BooleanConverter)
 * [Byte](xref:System.ComponentModel.ByteConverter), [SByte](xref:System.ComponentModel.SByteConverter)
 * [Char](xref:System.ComponentModel.CharConverter)
 * [Hodnotu](xref:System.ComponentModel.DateTimeConverter)
@@ -203,7 +203,7 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Konkrétní](xref:System.ComponentModel.SingleConverter)
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter), [UInt32](xref:System.ComponentModel.UInt32Converter), [UInt64](xref:System.ComponentModel.UInt64Converter)
-* [Identifikátor URI](xref:System.UriTypeConverter)
+* [Uri](xref:System.UriTypeConverter)
 * [Verze](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>Komplexní typy
@@ -342,8 +342,8 @@ Pro cíle, které jsou kolekcemi jednoduchých typů, vyhledá vazba modelu shod
 
 * Pro všechny předchozí ukázkové formáty předává vazba modelu pole dvou položek do parametru `selectedCourses`:
 
-  * selectedCourses [0] = 1050
-  * selectedCourses [1] = 2000
+  * selectedCourses[0]=1050
+  * selectedCourses[1]=2000
 
   Formáty dat, které používají čísla v dolním indexu (... [0]... [1]...) musí se ujistit, že jsou číslovány sekvenčně počínaje nulou. Pokud jsou v číslování dolních indexů nějaké mezery, všechny položky po mezerě se ignorují. Například pokud jsou v dolním indexu 0 a 2 místo 0 a 1, bude druhá položka ignorována.
 
@@ -378,8 +378,8 @@ U `Dictionary`ch cílů vyhledá vazba modelu shody pro *parameter_name* nebo *P
 
 * Pro všechny předchozí ukázkové formáty model vazby předává slovník dvou položek do parametru `selectedCourses`:
 
-  * selectedCourses ["1050"] = "chemie"
-  * selectedCourses ["2000"] = "ekonomické"
+  * selectedCourses["1050"]="Chemistry"
+  * selectedCourses["2000"]="Economics"
 
 <a name="glob"></a>
 
@@ -414,7 +414,7 @@ Nahraný soubor zahrnutý v požadavku HTTP.  Podporuje se taky `IEnumerable<IFo
 
 Slouží k zrušení aktivity v asynchronních řadičích.
 
-### <a name="formcollection"></a>Formulářcollection
+### <a name="formcollection"></a>FormCollection
 
 Používá se k načtení všech hodnot z publikovaných dat formuláře.
 

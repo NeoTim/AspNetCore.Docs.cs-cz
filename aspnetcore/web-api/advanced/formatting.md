@@ -4,14 +4,14 @@ author: ardalis
 description: Naučte se, jak formátovat data odpovědí v ASP.NET Core webovém rozhraní API.
 ms.author: riande
 ms.custom: H1Hack27Feb2017
-ms.date: 8/22/2019
+ms.date: 12/05/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 78fe620ea8fdd681a276253f77939bcb2a56ebb9
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 4433ed11dad7522962ebeed411c4bef88e07e7af
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391281"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881360"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -248,7 +248,7 @@ Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozh
 
 Předchozí trasa umožňuje zadat požadovaný formát jako volitelnou příponu souboru. Atribut [`[FormatFilter]`](xref:Microsoft.AspNetCore.Mvc.FormatFilterAttribute) kontroluje existenci hodnoty formátu v `RouteData` a při vytvoření odpovědi mapuje formát odpovědi na příslušný formátovací modul.
 
-|           Cestě        |             Modul              |
+|           Trasa        |             Modul              |
 |------------------------|------------------------------------|
 |   `/api/products/5`    |    Výchozí výstupní formátovací modul    |
 | `/api/products/5.json` | Formátovací modul JSON (Pokud je nakonfigurovaný) |

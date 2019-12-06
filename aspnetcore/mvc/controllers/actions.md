@@ -1,104 +1,106 @@
 ---
-title: Zpracování žádosti se řadiče v ASP.NET Core MVC
+title: Zpracování požadavků s řadiči ve službě ASP.NET Core MVC
 author: ardalis
 description: ''
 ms.author: riande
-ms.date: 07/03/2017
+ms.date: 12/05/2019
 uid: mvc/controllers/actions
-ms.openlocfilehash: 952e4dbb2c4343ca87ace1535e4a5968faf088cf
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 715a73863513870d1cbd522e75013d41830da1e7
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902484"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881109"
 ---
-# <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>Zpracování žádosti se řadiče v ASP.NET Core MVC
+# <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>Zpracování požadavků s řadiči ve službě ASP.NET Core MVC
 
 Podle [Steve Smith](https://ardalis.com/) a [Scott Addie](https://github.com/scottaddie)
 
-Kontrolerů, akce a výsledky akcí jsou základní součástí jak vývojářům vytvářet aplikace pomocí ASP.NET Core MVC.
+Řadiče, akce a výsledky akcí jsou základní součástí způsobu, jakým vývojáři sestavují aplikace pomocí ASP.NET Core MVC.
 
-## <a name="what-is-a-controller"></a>Co je řadičem?
+## <a name="what-is-a-controller"></a>Co je kontroler?
 
-Kontroler se používá k definování a seskupit sadu akcí. Akce (nebo *metody akce*) je metoda na řadiči, která zpracovává požadavky. Kontrolery logicky seskupit podobné akce. Tato agregace akce umožňuje společné sady pravidel, jako je směrování, ukládání do mezipaměti a autorizaci, použít společně. Požadavky se mapují na akce prostřednictvím [směrování](xref:mvc/controllers/routing).
+Kontroler se používá k definování a seskupení sady akcí. Akce (nebo *metoda akce*) je metoda na řadiči, který zpracovává požadavky. Řadiče logicky seskupují podobné akce dohromady. Tato agregace akcí umožňuje souhrnně použít společné sady pravidel, například směrování, ukládání do mezipaměti a autorizaci. Požadavky jsou mapovány na akce prostřednictvím [Směrování](xref:mvc/controllers/routing).
 
 Podle konvence třídy kontroleru:
-* Jsou umístěny v projektu na úrovni root *řadiče* složky
-* Dědí z `Microsoft.AspNetCore.Mvc.Controller`
 
-Kontroler je třídu instantiable, ve kterém je aspoň jeden z následujících podmínek hodnotu true:
-* Název třídy je přidán slovem "Controller"
-* Třída dědí z třídy, jejíž název je přidán slovem "Controller"
-* Třída je doplněn `[Controller]` atribut
+* Nachází se ve složce *řadičů* na úrovni kořenového projektu.
+* Zdědit z `Microsoft.AspNetCore.Mvc.Controller`.
 
-Třída kontroleru nesmí mít přiřazený `[NonController]` atribut.
+Kontroler je třída instantiable, ve které je splněná alespoň jedna z následujících podmínek:
 
-Postupujte podle řadiče [explicitní závislosti Princip](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies). Existuje několik přístupů k implementaci této zásady. Pokud více akce kontroleru vyžadují stejnou službu, zvažte použití [konstruktor vkládání](xref:mvc/controllers/dependency-injection#constructor-injection) k vyžádání těchto závislostí. Pokud služba je nutná pouze jednu akci metodou, zvažte použití [akce vkládání](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) požádat o závislost.
+* Název třídy má příponu `Controller`.
+* Třída dědí z třídy, jejíž název je přípona s `Controller`.
+* Atribut `[Controller]` je použit pro třídu.
 
-V rámci **M**odelu -**V**obrazit -**C**ontroller vzor kontroleru zodpovídá za počáteční zpracování požadavku a instance modelu. Obecně platí obchodní rozhodnutí je třeba provést v rámci modelu.
+Třída kontroleru nesmí mít přidružený atribut `[NonController]`.
 
-Kontroler přebírá výsledek zpracování modelu (pokud existuje) a vrátí správné zobrazení a jeho přidružené zobrazení data nebo výsledek volání rozhraní API. Další informace najdete na [přehled ASP.NET Core MVC](xref:mvc/overview) a [Začínáme s ASP.NET Core MVC a sady Visual Studio](xref:tutorials/first-mvc-app/start-mvc).
+Řadiče by měly dodržovat [Princip explicitní závislosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies). K implementaci tohoto principu existuje několik přístupů. Pokud více akcí kontroleru vyžaduje stejnou službu, zvažte použití [Injektáže konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) pro vyžádání těchto závislostí. Pokud je služba potřebná jenom pomocí jediné metody akce, můžete pro vyžádání závislosti použít [vkládání akcí](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) .
 
-Je řadič *uživatelského rozhraní úrovni* abstrakce. Chcete-li data požadavku jsou platná a zvolit, které zobrazení (nebo výsledku pro rozhraní API) má být vrácen jsou jeho zodpovědnosti. V aplikacích pro skvěle neměl by zahrnovat přímo data access nebo obchodní logiku. Místo toho kontroleru deleguje se do služby zpracování tyto povinnosti.
+V rámci vzoru **M**Odel-**V**s**ontroller,** je kontrolor zodpovědný za počáteční zpracování žádosti a vytváření instancí modelu. Obecně platí, že podniková rozhodnutí by se měla provádět v rámci modelu.
+
+Kontroler vezme výsledek zpracování modelu (pokud existuje) a vrátí buď správné zobrazení a jeho přidružená data zobrazení, nebo výsledek volání rozhraní API. Další informace najdete v článku [přehled ASP.NET Core MVC](xref:mvc/overview) a [Začínáme s ASP.NET Core MVC a sadou Visual Studio](xref:tutorials/first-mvc-app/start-mvc).
+
+Kontroler je abstrakce na *úrovni uživatelského rozhraní* . Jejich zodpovědností je zajistit, aby data požadavku byla platná, a zvolili si, které zobrazení (nebo výsledek pro rozhraní API) by mělo být vráceno. Ve dobře se aplikacích nezahrnuje přímo přístup k datům ani obchodní logiku. Místo toho se správce deleguje ke službám, které tyto odpovědnosti zpracovávají.
 
 ## <a name="defining-actions"></a>Definování akcí
 
-Veřejné metody na řadiči, s výjimkou dekorován `[NonAction]` atributu, jsou akce. Parametry pro akce jsou vázány na data žádosti a se ověřují pomocí [vazby modelu](xref:mvc/models/model-binding). Pro všechno, co je vytvořena vazba modelu dojde k ověření modelu. `ModelState.IsValid` Hodnota vlastnosti označuje, zda vazby modelu a ověření bylo úspěšné.
+Veřejné metody na řadiči, s výjimkou atributů `[NonAction]`, jsou akce. Parametry v akcích jsou vázány na data požadavku a jsou ověřovány pomocí [vazby modelu](xref:mvc/models/model-binding). K ověřování modelu dochází pro všechny objekty, které jsou vázány na model. Hodnota vlastnosti `ModelState.IsValid` určuje, zda se vazba a ověření modelu zdařilo.
 
-Metody akce by měla obsahovat logiku pro mapování požadavku na obchodní problém. Možné problémy obchodního charakteru by měly být zastoupeny obvykle jako služby, které kontroleru, ke kterému přistupuje přes [injektáž závislostí](xref:mvc/controllers/dependency-injection). Akce se mapují potom výsledek akce business do stavu aplikace.
+Metody akcí by měly obsahovat logiku pro mapování požadavků na obchodní obavy. Obchodní aspekty by se obvykle měly vystupovat jako služby, ke kterým řadič přistupuje prostřednictvím [Injektáže závislosti](xref:mvc/controllers/dependency-injection). Akce pak namapuje výsledek obchodní akce do stavu aplikace.
 
-Akce nic vrátit, ale často vracet instanci `IActionResult` (nebo `Task<IActionResult>` pro asynchronní metody), která vytváří odpověď. Metoda akce odpovídá pro výběr *druhu odpovědi*. Výsledek akce *nemá zpracování*.
+Akce mohou vracet cokoli, ale často vracejí instanci `IActionResult` (nebo `Task<IActionResult>` pro asynchronní metody), které vytvářejí odpověď. Metoda Action zodpovídá za výběr *typu odpovědi*. Výsledek akce *odpovídá*.
 
-### <a name="controller-helper-methods"></a>Metody Helper kontroleru
+### <a name="controller-helper-methods"></a>Pomocné metody kontroleru
 
-Kontrolery obvykle dědí [řadič](/dotnet/api/microsoft.aspnetcore.mvc.controller), i když to není nutné. Odvozování z `Controller` poskytuje přístup k tři kategorie pomocné metody:
+Řadiče obvykle dědí z [řadiče](/dotnet/api/microsoft.aspnetcore.mvc.controller), přestože to není vyžadováno. Odvození z `Controller` poskytuje přístup ke třem kategoriím pomocných metod:
 
-#### <a name="1-methods-resulting-in-an-empty-response-body"></a>1. Metody, což vede prázdné tělo odpovědi
+#### <a name="1-methods-resulting-in-an-empty-response-body"></a>1. metody, které mají za následek prázdné tělo odpovědi
 
-Ne `Content-Type` hlavičku HTTP odpovědi je zahrnuta, protože tělo odpovědi chybí obsah pro popis.
+Není obsažena žádná hlavička `Content-Type` HTTP odpovědi, protože tělo odpovědi nemá obsah k popisu.
 
-Existují dva typy výsledků v rámci této kategorie: Přesměrování a stavový kód HTTP.
+V této kategorii existují dva typy výsledků: přesměrování a stavový kód HTTP.
 
-* **Kód stavu HTTP**
+* **Stavový kód HTTP**
 
-    Tento typ, vrátí stavový kód HTTP. Několik pomocných metod třídy tohoto typu jsou `BadRequest`, `NotFound`, a `Ok`. Například `return BadRequest();` vytváří stavový kód 400 při spuštění. Pokud metody jako `BadRequest`, `NotFound`, a `Ok` jsou přetíženy, už kvalifikují jako respondéry stavového kódu protokolu HTTP, protože probíhat vyjednávání obsahu.
+    Tento typ vrátí stavový kód HTTP. Několik pomocných metod tohoto typu je `BadRequest`, `NotFound`a `Ok`. Například `return BadRequest();` generuje stavový kód 400 při spuštění. Když jsou přetížené metody, jako jsou `BadRequest`, `NotFound`a `Ok`, již nejsou kvalifikovány jako reakce na stavový kód HTTP, protože probíhá vyjednávání obsahu.
 
-* **Redirect**
+* **Požadavek**
 
-    Tento typ vrátí přesměrování na akci nebo cíl (pomocí `Redirect`, `LocalRedirect`, `RedirectToAction`, nebo `RedirectToRoute`). Například `return RedirectToAction("Complete", new {id = 123});` přesměruje `Complete`, předá anonymní objekt.
+    Tento typ vrátí přesměrování na akci nebo cíl (pomocí `Redirect`, `LocalRedirect`, `RedirectToAction`nebo `RedirectToRoute`). Například `return RedirectToAction("Complete", new {id = 123});` přesměrovává na `Complete`a předání anonymního objektu.
 
-    Typ výsledku přesměrování se liší od typu stavový kód HTTP především v přidání `Location` hlavičku HTTP odpovědi.
+    Typ výsledku přesměrování se liší od typu stavového kódu HTTP primárně v přidání `Location` hlavičce odpovědi HTTP.
 
-#### <a name="2-methods-resulting-in-a-non-empty-response-body-with-a-predefined-content-type"></a>2. Výsledkem je tělo odpovědi neprázdný s typem obsahu předdefinované metody
+#### <a name="2-methods-resulting-in-a-non-empty-response-body-with-a-predefined-content-type"></a>2. metody, které mají za následek neprázdné tělo odpovědi s předdefinovaným typem obsahu
 
-Většina metod helper této kategorie patří `ContentType` vlastnost, což vám umožní nastavit `Content-Type` hlavičku odpovědi k popisu text odpovědi.
+Většina pomocných metod v této kategorii zahrnuje vlastnost `ContentType`, která umožňuje nastavit hlavičku odpovědi `Content-Type` na popis těla odpovědi.
 
-Existují dva typy výsledků v rámci této kategorie: [Zobrazení](xref:mvc/views/overview) a [ve formátu odpovědi](xref:web-api/advanced/formatting).
+V této kategorii existují dva typy výsledků: [zobrazení](xref:mvc/views/overview) a [formátovaná odpověď](xref:web-api/advanced/formatting).
 
 * **Zobrazení**
 
-    Tento typ vrátí zobrazení, ve kterém se používá model k vykreslení HTML. Například `return View(customer);` předává modelu do zobrazení pro datovou vazbu.
+    Tento typ vrátí zobrazení, které používá model pro vykreslení kódu HTML. Například `return View(customer);` předá zobrazení modelu pro datovou vazbu.
 
-* **Formátovaný odpovědi**
+* **Naformátovaná odpověď**
 
-    Tento typ vrátí JSON nebo podobně jako formát výměny dat k reprezentaci objektu specifickým způsobem. Například `return Json(customer);` serializuje zadaný objekt do formátu JSON.
+    Tento typ vrátí JSON nebo podobný formát výměny dat, který reprezentuje objekt určitým způsobem. Například `return Json(customer);` serializaci zadaného objektu do formátu JSON.
     
-    Další běžné metody tohoto typu patří `File` a `PhysicalFile`. Například `return PhysicalFile(customerFilePath, "text/xml");` vrátí [PhysicalFileResult](/dotnet/api/microsoft.aspnetcore.mvc.physicalfileresult).
+    Mezi další běžné metody tohoto typu patří `File` a `PhysicalFile`. Například `return PhysicalFile(customerFilePath, "text/xml");` vrátí [PhysicalFileResult](/dotnet/api/microsoft.aspnetcore.mvc.physicalfileresult).
 
-#### <a name="3-methods-resulting-in-a-non-empty-response-body-formatted-in-a-content-type-negotiated-with-the-client"></a>3. V typu obsahu vyjedná s klientem ve formátu metody výsledkem tělo odpovědi není prázdná
+#### <a name="3-methods-resulting-in-a-non-empty-response-body-formatted-in-a-content-type-negotiated-with-the-client"></a>3. metody, které mají za následek neprázdné tělo odpovědi formátované v typu obsahu vyjednané s klientem
 
-Tato kategorie se nazývá lépe **vyjednávání obsahu**. [Vyjednávání obsahu](xref:web-api/advanced/formatting#content-negotiation) pokaždé, když se vrátí akce se vztahuje [ObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.objectresult) typu nebo něco jiného než [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) implementace. Akce, která vrátí non -`IActionResult` implementace (například `object`) také vrátí hodnotu ve formátu odpovědi.
+Tato kategorie je lépe známá jako **vyjednávání obsahu**. [Vyjednávání obsahu](xref:web-api/advanced/formatting#content-negotiation) se aplikuje vždy, když akce vrátí [ObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.objectresult) typ nebo něco jiného než implementace [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) . Akce, která vrací implementaci bez`IActionResult` (například `object`), také vrací formátovanou odpověď.
 
-Zahrnují několik pomocných metod třídy tohoto typu `BadRequest`, `CreatedAtRoute`, a `Ok`. Příklady těchto metod `return BadRequest(modelState);`, `return CreatedAtRoute("routename", values, newobject);`, a `return Ok(value);`v uvedeném pořadí. Všimněte si, že `BadRequest` a `Ok` provedení vyjednávání obsahu pouze v případě, že je předána hodnota; bez předávána hodnota, místo toho slouží jako typy výsledků stavového kódu protokolu HTTP. `CreatedAtRoute` Metodě na druhé straně vždy provede vyjednávání obsahu od jejich přetížení všechny vyžadují předat hodnotu.
+Mezi pomocné metody tohoto typu patří `BadRequest`, `CreatedAtRoute`a `Ok`. Mezi příklady těchto metod patří `return BadRequest(modelState);`, `return CreatedAtRoute("routename", values, newobject);`a `return Ok(value);`v uvedeném pořadí. Všimněte si, že `BadRequest` a `Ok` provádět vyjednávání obsahu pouze v případě, že byla předána hodnota; bez předávání hodnoty místo toho slouží jako typy výsledku stavového kódu protokolu HTTP. Metoda `CreatedAtRoute`, na druhé straně, vždy provádí vyjednávání obsahu, protože jejich přetížení vyžaduje předání hodnoty.
 
-### <a name="cross-cutting-concerns"></a>Související aspekty
+### <a name="cross-cutting-concerns"></a>Otázky pro průřezy
 
-Aplikace obvykle sdílet části jejich pracovního postupu. Mezi příklady patří aplikace, která ukládá do mezipaměti dat na některé stránky nebo aplikace vyžadující ověření pro přístup k nákupního košíku. Logika před nebo po metody akce, použijte *filtr*. Pomocí [filtry](xref:mvc/controllers/filters) na vyskytující aspekty můžete snížit duplicity.
+Aplikace obvykle sdílí části svého pracovního postupu. Mezi příklady patří aplikace, která vyžaduje ověření pro přístup k nákupnímu košíku, nebo aplikaci, která na některých stránkách ukládá data do mezipaměti. Chcete-li provést logiku před nebo za metodou akce, použijte *Filtr*. Použití [filtrů](xref:mvc/controllers/filters) při průřezových záležitostech může snížit duplicity.
 
-Nejvíce atributy, jako například filtru `[Authorize]`, je možné použít na úroveň kontroler nebo akce v závislosti na požadované úrovni členitosti.
+Většinu atributů filtru, jako je například `[Authorize]`, lze použít na úrovni řadiče nebo akce v závislosti na požadované úrovni členitosti.
 
-Zpracování chyb a ukládání odpovědí do mezipaměti jsou často vyskytující aspekty:
+Zpracování chyb a ukládání odpovědí do mezipaměti často souvisí mezi různými aspekty:
 * [Ošetření chyb](xref:mvc/controllers/filters#exception-filters)
 * [Ukládání odpovědí do mezipaměti](xref:performance/caching/response)
 
-Mnoho vyskytující aspekty možné je zpracovávat pomocí filtrů nebo vlastní [middleware](xref:fundamentals/middleware/index).
+Mnoho obav v průřezech se dá zpracovat pomocí filtrů nebo vlastního [middlewaru](xref:fundamentals/middleware/index).

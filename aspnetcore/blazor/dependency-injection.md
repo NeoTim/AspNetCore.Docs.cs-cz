@@ -5,16 +5,16 @@ description: Podívejte se, jak Blazor aplikace můžou vkládat služby do sou�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/dependency-injection
-ms.openlocfilehash: 165cfa7a98cdd523c25d5c4bfc8e2c9d0ef1ad22
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 17dd0f927064ae7c2b1e3e439fd93e2cb220a5a4
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733814"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879779"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>Vkládání závislostí ASP.NET Core Blazor
 
@@ -86,7 +86,7 @@ Následující příklad ukazuje, jak použít `@inject`. Služba implementujíc
 
 [!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
-Interně je vygenerovaná vlastnost (`DataRepository`) upravena atributem `InjectAttribute`. Obvykle se tento atribut nepoužívá přímo. Pokud je vyžadována základní třída pro součásti a vložené vlastnosti jsou také požadovány pro základní třídu, přidejte `InjectAttribute`ručně:
+Interně, generovaná vlastnost (`DataRepository`) používá atribut `InjectAttribute`. Obvykle se tento atribut nepoužívá přímo. Pokud je vyžadována základní třída pro součásti a vložené vlastnosti jsou také požadovány pro základní třídu, přidejte `InjectAttribute`ručně:
 
 ```csharp
 public class ComponentBase : IComponent

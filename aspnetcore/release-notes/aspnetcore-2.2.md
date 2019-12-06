@@ -4,16 +4,16 @@ author: rick-anderson
 description: Seznamte se s novými funkcemi v ASP.NET Core 2,2.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: fca653158c95e7c1a11f25f4076830fe3e7e93ae
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 8995a514ea2e5016da85952d0f0beaf396a5d639
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963126"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880845"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2,2
 
@@ -23,7 +23,7 @@ Tento článek zvýrazňuje nejvýznamnější změny v ASP.NET Core 2,2 s odkaz
 
 OpenAPI (dříve označované jako Swagger) je specifikace jazyka nezávislá pro popis rozhraní REST API. Ekosystém OpenAPI obsahuje nástroje, které umožňují zjistit, testovat a vyprodukovat klientský kód pomocí specifikace. Podpora pro generování a vizualizaci dokumentů OpenAPI ve ASP.NET Core MVC je poskytována prostřednictvím projektů založených na komunitě, jako je [NSwag](https://github.com/RicoSuter/NSwag) a [swashbuckle. AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore). ASP.NET Core 2,2 poskytuje vylepšené nástroje a běhové prostředí pro vytváření dokumentů OpenAPI.
 
-Další informace naleznete v následujících materiálech:
+Další informace naleznete v následujících zdrojích:
 
 * <xref:web-api/advanced/analyzers>
 * <xref:web-api/advanced/conventions>
@@ -37,7 +37,7 @@ ASP.NET Core 2,1 zavedl `ProblemDetails`na základě specifikace [RFC 7807](http
 
 ASP.NET Core 2,2 používá pro lepší odesílání žádostí nový systém *Směrování koncových bodů* . Změny zahrnují nové členy rozhraní API pro generování odkazů a parametry směrování.
 
-Další informace naleznete v následujících materiálech:
+Další informace naleznete v následujících zdrojích:
 
 * [Směrování koncových bodů v 2,2](https://blogs.msdn.microsoft.com/webdev/2018/08/27/asp-net-core-2-2-0-preview1-endpoint-routing/)
 * [Transformátory parametrů směrování](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx) (viz část **Směrování** )
@@ -57,7 +57,12 @@ Další informace najdete v tématu [kontroly stavu v ASP.NET Core](xref:host-an
 
 ASP.NET Core 2,2 přidává podporu pro HTTP/2.
 
-HTTP/2 je hlavní revize protokolu HTTP. Některé z významných funkcí HTTP/2 jsou podporovány pro kompresi hlaviček a plně multiplexované streamy přes jedno připojení. I když protokol HTTP/2 zachovává sémantiku protokolu HTTP (hlavičky HTTP, metody atd.), jedná se o zásadní změnu z HTTP/1. x na to, jak jsou tato data přenášená a odesílaná přes drát.
+HTTP/2 je hlavní revize protokolu HTTP. Mezi významné funkce HTTP/2 patří:
+
+* Podpora pro kompresi hlaviček.
+* Plně multiplexované streamy přes jedno připojení.
+
+I když protokol HTTP/2 zachovává sémantiku protokolu HTTP (například hlavičky a metody HTTP), jedná se o zásadní změnu z HTTP/1. x na to, jak jsou data v rámečcích a mezi klientem a serverem odesílána.
 
 V důsledku této změny v rámcích musí servery a klienti vyjednávat použitou verzi protokolu. Vyjednávání protokolu aplikační vrstvy (ALPN) je rozšíření TLS, které umožňuje serveru a klientovi vyjednávat verzi protokolu použitou jako součást metody handshake TLS. I když je možné mít předchozí znalosti mezi serverem a klientem v protokolu, všechny hlavní prohlížeče podporují ALPN jako jediný způsob, jak vytvořit připojení HTTP/2.
 
@@ -65,7 +70,7 @@ Další informace najdete v tématu [Podpora protokolu HTTP/2](xref:fundamentals
 
 ## <a name="kestrel-configuration"></a>Konfigurace Kestrel
 
-V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel`. V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrace pro vnitroprocesové hostování. Další informace naleznete v následujících materiálech:
+V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel`. V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrace pro vnitroprocesové hostování. Další informace naleznete v následujících zdrojích:
 
 * [Zmírnit konflikt UseIIS](https://github.com/aspnet/KestrelHttpServer/issues/2760)
 * [Konfigurace možností serveru Kestrel pomocí ConfigureKestrel](xref:fundamentals/servers/kestrel?view=aspnetcore-2.2#how-to-use-kestrel-in-aspnet-core-apps)

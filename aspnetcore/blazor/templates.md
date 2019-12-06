@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: e82f28afdac8517f72538094d97f28bdcfe46102
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: bc0ea4a777e8684a7b0925377b8a19a45c2b531c
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74551583"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879658"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>Šablony ASP.NET Core Blazor
 
@@ -43,7 +43,7 @@ Následující soubory a složky tvoří aplikaci Blazor vygenerovanou z šablon
   * `ConfigureServices` &ndash; konfiguruje služby [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. V aplikacích Blazor Server se služby přidávají voláním <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor*>a `WeatherForecastService` se přidá do kontejneru služby pro použití v ukázkové součásti `FetchData`.
   * `Configure` &ndash; nakonfiguruje kanál zpracování žádostí aplikace:
     * Blazor rozhraní WebAssembly &ndash; přidá součást `App` (zadaná jako element modelu DOM `app` do metody `AddComponent`), která je kořenovou komponentou aplikace.
-    * Server Blazor
+    * Blazor Server
       * k nastavení koncového bodu pro připojení v reálném čase pomocí prohlížeče se volá <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*>. Připojení se vytvoří pomocí [SignalR](xref:signalr/introduction), což je rozhraní, které umožňuje přidávat do aplikací webové funkce v reálném čase.
       * [MapFallbackToPage ("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*) se zavolá, aby se nastavila Kořenová stránka aplikace (*pages/_Host. cshtml*) a povolila se navigace.
 
@@ -61,7 +61,7 @@ Následující soubory a složky tvoří aplikaci Blazor vygenerovanou z šablon
 
 * *App. razor* &ndash; kořenovou komponentu aplikace, která nastaví směrování na straně klienta pomocí komponenty <xref:Microsoft.AspNetCore.Components.Routing.Router>. Komponenta `Router` zachycuje navigaci v prohlížeči a vykreslí stránku, která odpovídá požadované adrese.
 
-* *Pages* &ndash; obsahuje směrovatelný komponenty/stránky ( *. Razor*), které tvoří aplikaci Blazor. Trasa pro každou stránku je určena pomocí direktivy [@page](xref:mvc/views/razor#page) . Šablona obsahuje následující součásti:
+* *Pages* &ndash; obsahuje směrovatelný komponenty/stránky ( *. Razor*), které tvoří aplikaci Blazor. Trasa pro každou stránku je určena pomocí direktivy [`@page`](xref:mvc/views/razor#page) . Šablona obsahuje následující součásti:
   * `Index` (*index. Razor*) &ndash; implementuje domovskou stránku.
   * `Counter` (*Counter. Razor*) &ndash; implementuje stránku čítače.
   * `Error` (*Error. Razor*, Blazor Server app) &ndash; vykreslený, když v aplikaci dojde k neošetřené výjimce.
@@ -71,7 +71,7 @@ Následující soubory a složky tvoří aplikaci Blazor vygenerovanou z šablon
   * `MainLayout` (*MainLayout. Razor*) &ndash; komponentu rozložení aplikace.
   * `NavMenu` (*NavMenu. Razor*) &ndash; implementuje navigaci bočním panelem. Zahrnuje [komponentu NavLink](xref:blazor/routing#navlink-component) (<xref:Microsoft.AspNetCore.Components.Routing.NavLink>), která vykresluje navigační odkazy na jiné součásti Razor. Komponenta `NavLink` automaticky indikuje vybraný stav při načtení jeho komponenty, což pomáhá uživateli pochopit, která součást se aktuálně zobrazuje.
 
-* *_Imports. razor* &ndash; obsahuje společné direktivy Razor, které se mají zahrnout do komponent aplikace ( *. Razor*), jako jsou například direktivy [@using](xref:mvc/views/razor#using) pro obory názvů.
+* *_Imports. razor* &ndash; obsahuje společné direktivy Razor, které se mají zahrnout do komponent aplikace ( *. Razor*), jako jsou například direktivy [`@using`](xref:mvc/views/razor#using) pro obory názvů.
 
 * Složka *dat* (Blazor Server) &ndash; obsahuje třídu `WeatherForecast` a implementaci `WeatherForecastService`, která poskytuje ukázková data o počasí pro `FetchData` komponentu aplikace.
 

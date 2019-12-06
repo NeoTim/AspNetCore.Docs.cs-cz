@@ -1,38 +1,38 @@
 ---
-title: Zásady schémata v ASP.NET Core
+title: Schémata zásad v ASP.NET Core
 author: rick-anderson
-description: Schémata ověřování zásad usnadňují mít jedno logické schéma ověřování
+description: Schémata zásad ověřování usnadňují jedno logické schéma ověřování.
 ms.author: riande
-ms.date: 02/28/2019
+ms.date: 12/05/2019
 uid: security/authentication/policyschemes
-ms.openlocfilehash: be03f349455c673b0739935ad20e596325c8cb74
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: f02d8e5cac20a9b60c5eddbd28253efacf682ea1
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815287"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880719"
 ---
-# <a name="policy-schemes-in-aspnet-core"></a>Zásady schémata v ASP.NET Core
+# <a name="policy-schemes-in-aspnet-core"></a>Schémata zásad v ASP.NET Core
 
-Schémata ověřování zásad usnadňují mít jedno logické schéma ověřování potenciálně použít několik přístupů. Schéma zásad může například použít ověřování Google výzev a ověřování souborů cookie pro všechno ostatní. Schémata ověřování zásad usnadňují:
+Schémata zásad ověřování usnadňují použití jediného logického schématu ověřování, který potenciálně používá více přístupů. Schéma zásad může například používat ověřování Google pro problémy a ověřování souborů cookie pro všechno ostatní. Schémata zásad ověřování ji zavedli:
 
-* Snadno předat ověřování akce pro další schéma.
-* Vpřed dynamicky na základě daného požadavku.
+* Snadné přeposílání jakékoli akce ověřování do jiného schématu.
+* Dynamické směrování na základě požadavku.
 
-Všechna schémata ověřování, které použijte odvozené <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> a přidružené [ `AuthenticationHandler<TOptions>` ](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
+Všechna schémata ověřování, která používají odvozený <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> a související [AuthenticationHandler\<TOptions >](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
 
-* Jsou automaticky zásad schémata v ASP.NET Core 2.1 nebo novější.
-* Je možné povolit prostřednictvím konfigurace možností na schématu.
+* Jsou automatická schémata zásad v ASP.NET Core 2,1 a novějších.
+* Dá se povolit prostřednictvím konfigurace možností schématu.
 
 [!code-csharp[sample](policyschemes/samples/AuthenticationSchemeOptions.cs?name=snippet)]
 
 ## <a name="examples"></a>Příklady
 
-Následující příklad ukazuje vyšší úrovně schéma, které kombinuje nižší úrovně schémata. Ověřování Google se používá pro problémy a ověřování souborů cookie se používá pro všechno ostatní:
+Následující příklad ukazuje schéma vyšší úrovně, které kombinuje schémata nižší úrovně. Ověřování Google se používá pro problémy a ověřování souborů cookie se používá pro všechno ostatní:
 
 [!code-csharp[sample](policyschemes/samples/Startup.cs?name=snippet1)]
 
-Následující příklad umožňuje dynamický výběr schémata na základě žádosti. To znamená jak kombinovat soubory cookie a rozhraní API ověřování:
+Následující příklad povoluje dynamický výběr schémat na základě jednotlivých požadavků. To znamená, jak kombinovat soubory cookie a ověřování rozhraní API:
 
  <!-- REVIEW, missing If set in public Func<HttpContext, string> ForwardDefaultSelector -->
 

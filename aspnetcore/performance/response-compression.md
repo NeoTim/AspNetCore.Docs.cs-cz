@@ -5,14 +5,14 @@ description: Přečtěte si o kompresi odpovědí a způsobu použití middlewar
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 08/09/2019
+ms.date: 12/05/2019
 uid: performance/response-compression
-ms.openlocfilehash: e320e87179f9f1b9773a55c380684a3f3f712632
-ms.sourcegitcommit: 89fcc6cb3e12790dca2b8b62f86609bed6335be9
+ms.openlocfilehash: 04b2ffd7047e8b127968adb5d40e0141365fb5fe
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/13/2019
-ms.locfileid: "68993461"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880913"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Komprese odezvy v ASP.NET Core
 
@@ -33,24 +33,24 @@ Používejte middleware pro kompresi odpovědí, pokud jste:
   * [Modul Apache mod_deflate](https://httpd.apache.org/docs/current/mod/mod_deflate.html)
   * [Nginx kompresi a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/)
 * Hostování přímo na:
-  * [Http. sys Server](xref:fundamentals/servers/httpsys) (dříve nazývané weblisten)
+  * [Http. sys Server](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten)
   * [Server Kestrel](xref:fundamentals/servers/kestrel)
 
 ## <a name="response-compression"></a>Komprese odpovědí
 
-Obvykle by jakákoli odpověď, která není nativně komprimovaná, mohla využívat kompresi odpovědi. Odpovědi, které nejsou nativně zkomprimované, obvykle zahrnují: Šablony stylů CSS, JavaScript, HTML, XML a JSON. Neměli byste komprimovat nativně komprimované prostředky, jako jsou soubory PNG. Pokusíte-li se dále komprimovat nativně komprimovanou odpověď, jakékoli malé další snížení velikosti a čas přenosu budou pravděpodobně převrženy časem, který trvalo zpracování komprese. Nekomprimuje soubory menší než přibližně 150-1000 bajtů (v závislosti na obsahu souboru a efektivitě komprese). Režie komprimace malých souborů může vytvořit komprimovaný soubor, který je větší než nekomprimovaný soubor.
+Obvykle by jakákoli odpověď, která není nativně komprimovaná, mohla využívat kompresi odpovědi. Odpovědi, které nejsou nativně zkomprimované, obvykle zahrnují: CSS, JavaScript, HTML, XML a JSON. Neměli byste komprimovat nativně komprimované prostředky, jako jsou soubory PNG. Pokusíte-li se dále komprimovat nativně komprimovanou odpověď, jakékoli malé další snížení velikosti a čas přenosu budou pravděpodobně převrženy časem, který trvalo zpracování komprese. Nekomprimuje soubory menší než přibližně 150-1000 bajtů (v závislosti na obsahu souboru a efektivitě komprese). Režie komprimace malých souborů může vytvořit komprimovaný soubor, který je větší než nekomprimovaný soubor.
 
-Když klient může zpracovat komprimovaný obsah, klient musí informovat Server svých schopností odesláním `Accept-Encoding` hlavičky s požadavkem. Když server pošle komprimovaný obsah, musí obsahovat informace v `Content-Encoding` záhlaví způsobu, jakým je komprimovaná odpověď zakódovaná. V následující tabulce jsou uvedena označení kódování obsahu podporovaná middlewarem.
+Když klient může zpracovat komprimovaný obsah, klient musí informovat Server svých schopností odesláním hlavičky `Accept-Encoding` s požadavkem. Když server pošle komprimovaný obsah, musí obsahovat informace v hlavičce `Content-Encoding`, jak je komprimovaná odpověď zakódovaná. V následující tabulce jsou uvedena označení kódování obsahu podporovaná middlewarem.
 
 ::: moniker range=">= aspnetcore-2.2"
 
-| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Popis |
+| `Accept-Encoding` hodnoty hlaviček | Middleware – podporováno | Popis |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | Ano (výchozí)        | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
 | `deflate`                       | Ne                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
 | `exi`                           | Ne                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | Ano                  | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Ano                  | Identifikátor "bez kódování": Odpověď nesmí být kódovaná. |
+| `identity`                      | Ano                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
 | `pack200-gzip`                  | Ne                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
 | `*`                             | Ano                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
 
@@ -58,13 +58,13 @@ Když klient může zpracovat komprimovaný obsah, klient musí informovat Serve
 
 ::: moniker range="< aspnetcore-2.2"
 
-| `Accept-Encoding`hodnoty hlaviček | Middleware – podporováno | Popis |
+| `Accept-Encoding` hodnoty hlaviček | Middleware – podporováno | Popis |
 | ------------------------------- | :------------------: | ----------- |
 | `br`                            | Ne                   | [Formát komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932) |
 | `deflate`                       | Ne                   | [Formát ZÚŽENé komprese dat](https://tools.ietf.org/html/rfc1951) |
 | `exi`                           | Ne                   | [Efektivní výměna XML pro W3C](https://tools.ietf.org/id/draft-varga-netconf-exi-capability-00.html) |
 | `gzip`                          | Ano (výchozí)        | [Formát souboru gzip](https://tools.ietf.org/html/rfc1952) |
-| `identity`                      | Ano                  | Identifikátor "bez kódování": Odpověď nesmí být kódovaná. |
+| `identity`                      | Ano                  | Identifikátor "bez kódování": odpověď nesmí být kódovaná. |
 | `pack200-gzip`                  | Ne                   | [Formát přenosu v síti pro archivy Java](https://jcp.org/aboutJava/communityprocess/review/jsr200/index.html) |
 | `*`                             | Ano                  | Jakékoli dostupné kódování obsahu není explicitně požadováno. |
 
@@ -72,9 +72,9 @@ Když klient může zpracovat komprimovaný obsah, klient musí informovat Serve
 
 Další informace najdete v [seznamu kódů oficiálního obsahu IANA](https://www.iana.org/assignments/http-parameters/http-parameters.xml#http-content-coding-registry).
 
-Middleware umožňuje přidat další zprostředkovatele komprese pro vlastní `Accept-Encoding` hodnoty hlaviček. Další informace najdete v tématu [Vlastní zprostředkovatelé](#custom-providers) níže.
+Middleware umožňuje přidat další zprostředkovatele komprese pro vlastní hodnoty hlaviček `Accept-Encoding`. Další informace najdete v tématu [Vlastní zprostředkovatelé](#custom-providers) níže.
 
-Middleware je schopná chovat hodnoty kvality (qvalue), `q`když je klient odesílá k určení priorit schémat komprese. Další informace najdete v [dokumentu RFC 7231: Přijmout – kódování](https://tools.ietf.org/html/rfc7231#section-5.3.4).
+Middleware je schopná chovat hodnoty kvality (qvalue, `q`), když je klient odesílá k určení priorit schémat komprese. Další informace najdete v [dokumentu RFC 7231: Accept-Encoding](https://tools.ietf.org/html/rfc7231#section-5.3.4).
 
 Algoritmy komprese se vztahují na kompromisy mezi rychlostí komprese a efektivitou komprese. *Efektivita* v tomto kontextu odkazuje na velikost výstupu po kompresi. Nejmenší velikost dosáhne *optimální* komprese.
 
@@ -84,10 +84,10 @@ Hlavičky zahrnuté v tématu vyžádání, odeslání, ukládání do mezipamě
 | ------------------ | ---- |
 | `Accept-Encoding`  | Odesílá se z klienta na server k označení schémat kódování obsahu, které jsou přijatelné pro klienta. |
 | `Content-Encoding` | Odesílá se ze serveru do klienta, aby označovala kódování obsahu v datové části. |
-| `Content-Length`   | Když dojde k komprimaci `Content-Length` , hlavička se odebere, protože obsah těla se změní, když je odpověď komprimovaná. |
-| `Content-MD5`      | Když dojde k komprimaci `Content-MD5` , hlavička se odebere, protože se změnil obsah těla a hodnota hash již není platná. |
+| `Content-Length`   | Když dojde k komprimaci, `Content-Length` záhlaví je odebráno, protože obsah těla se po kompresi odpovědi změní. |
+| `Content-MD5`      | Když dojde k komprimaci, `Content-MD5` záhlaví je odebráno, protože došlo ke změně obsahu textu a hodnota hash již není platná. |
 | `Content-Type`     | Určuje typ MIME obsahu. Každá odpověď by měla specifikovat svůj `Content-Type`. Middleware kontroluje tuto hodnotu, aby určila, jestli by měla být komprimovaná odpověď. Middleware určuje sadu [výchozích typů MIME](#mime-types) , které může kódovat, ale můžete nahradit nebo přidat typy MIME. |
-| `Vary`             | Při odeslání serverem s hodnotou `Accept-Encoding` pro klienty a proxy servery `Vary` indikuje hlavička klientovi nebo proxy serveru, že by měl ukládat (Vary) odpovědi na základě hodnoty `Accept-Encoding` záhlaví požadavku. Výsledkem vrácení obsahu s `Vary: Accept-Encoding` hlavičkou je, že komprimované i nekomprimované odpovědi jsou ukládány do mezipaměti samostatně. |
+| `Vary`             | Když server odešle server s hodnotou `Accept-Encoding` klientům a proxy, označuje `Vary` záhlaví klienta nebo proxy serveru, že by měl ukládat (měnit) odpovědi na základě hodnoty v hlavičce `Accept-Encoding` požadavku. Výsledkem vrácení obsahu s hlavičkou `Vary: Accept-Encoding` je, že komprimované i nekomprimované odpovědi jsou ukládány do mezipaměti samostatně. |
 
 Prozkoumejte funkce middleware pro kompresi odpovědí s [ukázkovou aplikací](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
 
@@ -108,7 +108,7 @@ Chcete-li do projektu zahrnout middleware, přidejte odkaz na soubor [Microsoft.
 
 ::: moniker-end
 
-## <a name="configuration"></a>Konfiguraci
+## <a name="configuration"></a>Konfigurace
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -139,16 +139,16 @@ public class Startup
 
 Poznámky:
 
-* `app.UseResponseCompression`musí být volána před `app.UseMvc`.
-* Pomocí nástroje, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/) , můžete nastavit `Accept-Encoding` hlavičku požadavku a prozkoumat hlavičky, velikost a text odpovědi.
+* před `app.UseMvc`je nutné volat `app.UseResponseCompression`.
+* Pomocí nástroje, jako je například [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [poster](https://www.getpostman.com/) , nastavte hlavičku `Accept-Encoding` žádosti a prostudujte hlavičky, velikost a text odpovědi.
 
-Odešlete žádost do ukázkové aplikace bez `Accept-Encoding` hlavičky a sledujte, že odpověď je nekomprimovaná. V `Content-Encoding` odpovědi `Vary` nejsou k dispozici hlavičky a.
+Odešlete žádost do ukázkové aplikace bez hlavičky `Accept-Encoding` a sledujte, že odpověď je nekomprimovaná. V odpovědi se nevyskytují hlavičky `Content-Encoding` a `Vary`.
 
 ![Okno Fiddler znázorňující výsledek požadavku bez hlavičky Accept-Encoding. Odpověď není komprimovaná.](response-compression/_static/request-uncompressed.png)
 
 ::: moniker range=">= aspnetcore-2.2"
 
-Odešlete žádost do ukázkové aplikace s `Accept-Encoding: br` hlavičkou (Brotli Compression) a sledujte, že je odpověď komprimovaná. V `Content-Encoding` odpovědi `Vary` jsou k dispozici hlavičky a.
+Odešlete žádost do ukázkové aplikace s hlavičkou `Accept-Encoding: br` (Brotli Compression) a sledujte, že je odpověď komprimovaná. V odpovědi jsou k dispozici hlavičky `Content-Encoding` a `Vary`.
 
 ![Okno Fiddler znázorňující výsledek požadavku s hlavičkou Accept-Encoding a hodnotou br. K odpovědi se přidají záhlaví Vary a kódování obsahu. Odpověď je komprimovaná.](response-compression/_static/request-compressed-br.png)
 
@@ -156,23 +156,23 @@ Odešlete žádost do ukázkové aplikace s `Accept-Encoding: br` hlavičkou (Br
 
 ::: moniker range="< aspnetcore-2.2"
 
-Odešlete žádost do ukázkové aplikace s `Accept-Encoding: gzip` hlavičkou a sledujte, že je odpověď komprimovaná. V `Content-Encoding` odpovědi `Vary` jsou k dispozici hlavičky a.
+Odešlete žádost do ukázkové aplikace s hlavičkou `Accept-Encoding: gzip` a sledujte, že je odpověď komprimovaná. V odpovědi jsou k dispozici hlavičky `Content-Encoding` a `Vary`.
 
 ![Okno Fiddler znázorňující výsledek požadavku s hlavičkou Accept-Encoding a hodnotou gzip. K odpovědi se přidají záhlaví Vary a kódování obsahu. Odpověď je komprimovaná.](response-compression/_static/request-compressed.png)
 
 ::: moniker-end
 
-## <a name="providers"></a>Dodavateli
+## <a name="providers"></a>Poskytovatelé
 
 ::: moniker range=">= aspnetcore-2.2"
 
 ### <a name="brotli-compression-provider"></a>Brotli kompresní poskytovatel
 
-Použijte pro komprimaci odpovědí s [formátem komprimovaných dat Brotli.](https://tools.ietf.org/html/rfc7932) <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProvider>
+Pro komprimaci odpovědí s [formátem komprimovaných dat Brotli](https://tools.ietf.org/html/rfc7932)použijte <xref:Microsoft.AspNetCore.ResponseCompression.BrotliCompressionProvider>.
 
-Pokud nejsou explicitně přidány žádní zprostředkovatelé komprese <xref:Microsoft.AspNetCore.ResponseCompression.CompressionProviderCollection>do:
+Pokud nejsou do <xref:Microsoft.AspNetCore.ResponseCompression.CompressionProviderCollection>explicitně přidány žádní zprostředkovatelé komprese:
 
-* Zprostředkovatel komprese Brotli se ve výchozím nastavení přidá k poli zprostředkovatelů komprese společně se zprostředkovatelem [Komprese GZIP](#gzip-compression-provider).
+* Zprostředkovatel komprese Brotli se ve výchozím nastavení přidá k poli zprostředkovatelů komprese společně se [zprostředkovatelem komprese GZip](#gzip-compression-provider).
 * Komprese se nastaví jako výchozí Brotli komprese, když klient podporuje formát komprimovaných dat Brotli. Pokud klient nepodporuje Brotli, komprese je standardně nastavená na gzip, když klient podporuje kompresi gzip.
 
 ```csharp
@@ -224,13 +224,13 @@ public void ConfigureServices(IServiceCollection services)
 
 ### <a name="gzip-compression-provider"></a>Zprostředkovatel komprese GZip
 
-Použijte pro komprimaci odpovědí ve [formátu souboru gzip.](https://tools.ietf.org/html/rfc1952) <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProvider>
+Pomocí <xref:Microsoft.AspNetCore.ResponseCompression.GzipCompressionProvider> můžete komprimovat odpovědi ve [formátu souboru gzip](https://tools.ietf.org/html/rfc1952).
 
-Pokud nejsou explicitně přidány žádní zprostředkovatelé komprese <xref:Microsoft.AspNetCore.ResponseCompression.CompressionProviderCollection>do:
+Pokud nejsou do <xref:Microsoft.AspNetCore.ResponseCompression.CompressionProviderCollection>explicitně přidány žádní zprostředkovatelé komprese:
 
 ::: moniker range=">= aspnetcore-2.2"
 
-* Zprostředkovatel komprese GZip je ve výchozím nastavení přidán k poli zprostředkovatelů komprese společně s poskytovatelem [Brotli Compression](#brotli-compression-provider).
+* Zprostředkovatel komprese GZip je ve výchozím nastavení přidán k poli zprostředkovatelů komprese společně s [poskytovatelem Brotli Compression](#brotli-compression-provider).
 * Komprese se nastaví jako výchozí Brotli komprese, když klient podporuje formát komprimovaných dat Brotli. Pokud klient nepodporuje Brotli, komprese je standardně nastavená na gzip, když klient podporuje kompresi gzip.
 
 ::: moniker-end
@@ -283,11 +283,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-### <a name="custom-providers"></a>Vlastní zprostředkovatelé
+### <a name="custom-providers"></a>Vlastní poskytovatelé
 
-Vytvořte vlastní implementace komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider>. Představuje kódování obsahu `ICompressionProvider` , které vytváří. <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider.EncodingName*> Middleware používá tyto informace k výběru poskytovatele založeného na seznamu zadaném v `Accept-Encoding` hlavičce žádosti.
+Vytvářejte vlastní implementace komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider>. <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider.EncodingName*> představuje kódování obsahu, které vytváří tato `ICompressionProvider`. Middleware používá tyto informace k výběru poskytovatele na základě seznamu zadaného v hlavičce `Accept-Encoding` žádosti.
 
-Pomocí ukázkové aplikace klient odesílá požadavek s `Accept-Encoding: mycustomcompression` hlavičkou. Middleware používá vlastní kompresní implementaci a vrací odpověď s `Content-Encoding: mycustomcompression` hlavičkou. Aby mohla vlastní implementace komprese fungovat, musí být klient schopný dekomprimovat vlastní kódování.
+Pomocí ukázkové aplikace klient odesílá požadavek s hlavičkou `Accept-Encoding: mycustomcompression`. Middleware používá vlastní kompresní implementaci a vrací odpověď s hlavičkou `Content-Encoding: mycustomcompression`. Aby mohla vlastní implementace komprese fungovat, musí být klient schopný dekomprimovat vlastní kódování.
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -305,7 +305,7 @@ Pomocí ukázkové aplikace klient odesílá požadavek s `Accept-Encoding: mycu
 
 ::: moniker-end
 
-Odešlete žádost do ukázkové aplikace s `Accept-Encoding: mycustomcompression` hlavičkou a sledujte hlavičky odpovědi. V `Vary` odpovědi `Content-Encoding` jsou k dispozici hlavičky a. Text odpovědi (nezobrazený) není ukázkou komprimován. Ve `CustomCompressionProvider` třídě ukázky neexistuje žádná implementace komprese. Nicméně Ukázka ukazuje, kde byste takový kompresní algoritmus implementovali.
+Odešlete žádost do ukázkové aplikace s hlavičkou `Accept-Encoding: mycustomcompression` a sledujte hlavičky odpovědi. V odpovědi jsou k dispozici hlavičky `Vary` a `Content-Encoding`. Text odpovědi (nezobrazený) není ukázkou komprimován. Neexistuje žádná implementace komprese v třídě `CustomCompressionProvider` ukázky. Nicméně Ukázka ukazuje, kde byste takový kompresní algoritmus implementovali.
 
 ![Okno Fiddler znázorňující výsledek požadavku s hlavičkou Accept-Encoding a hodnotou mycustomcompression. K odpovědi se přidají záhlaví Vary a kódování obsahu.](response-compression/_static/request-custom-compression.png)
 
@@ -322,7 +322,7 @@ Middleware určuje výchozí sadu typů MIME pro kompresi:
 * `text/plain`
 * `text/xml`
 
-Nahraďte nebo připojovat typy MIME pomocí možností middlewaru pro kompresi odpovědí. Všimněte si, že zástupné typy `text/*` MIME se nepodporují. Ukázková aplikace přidá typ MIME pro `image/svg+xml` a zkomprimuje a zachová ASP.NET Core obrázek banneru (*banner. SVG*).
+Nahraďte nebo připojovat typy MIME pomocí možností middlewaru pro kompresi odpovědí. Všimněte si, že zástupné typy MIME, například `text/*`, nejsou podporovány. Ukázková aplikace přidá typ MIME pro `image/svg+xml` a komprimuje a obsluhuje obrázek ASP.NET Core banneru (*banner. SVG*).
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -338,47 +338,47 @@ Nahraďte nebo připojovat typy MIME pomocí možností middlewaru pro kompresi 
 
 ## <a name="compression-with-secure-protocol"></a>Komprese pomocí zabezpečeného protokolu
 
-Komprimované odpovědi přes zabezpečená připojení se dají řídit pomocí `EnableForHttps` možnosti, která je ve výchozím nastavení zakázaná. Použití komprese s dynamicky generovanými stránkami může vést k problémům se zabezpečením, jako jsou [trestné činy](https://wikipedia.org/wiki/CRIME_(security_exploit)) a útoky za [porušení](https://wikipedia.org/wiki/BREACH_(security_exploit)) .
+Komprimované odpovědi přes zabezpečená připojení se dají řídit pomocí možnosti `EnableForHttps`, která je ve výchozím nastavení zakázaná. Použití komprese s dynamicky generovanými stránkami může vést k problémům se zabezpečením, jako jsou [trestné činy](https://wikipedia.org/wiki/CRIME_(security_exploit)) a útoky za [porušení](https://wikipedia.org/wiki/BREACH_(security_exploit)) .
 
 ## <a name="adding-the-vary-header"></a>Přidávání záhlaví Vary
 
-Při komprimaci odpovědí na základě `Accept-Encoding` záhlaví může být potenciálně více komprimovaných verzí odpovědi a nekomprimovaná verze. Aby bylo možné zadat do mezipamětí klienta a proxy serveru, že existuje více verzí a měl `Vary` by být uložen, hlavička `Accept-Encoding` je přidána s hodnotou. V ASP.NET Core 2,0 nebo novější middleware přidá `Vary` hlavičku automaticky, když je odpověď komprimovaná.
+Při kompresi odpovědí na základě hlavičky `Accept-Encoding` existuje potenciálně více komprimovaných verzí odpovědi a nekomprimovaná verze. Aby bylo možné zadat do mezipamětí klienta a proxy serveru, že existuje více verzí a měl by být uložen, je `Vary` hlavička přidána s hodnotou `Accept-Encoding`. V ASP.NET Core 2,0 nebo novějším, middleware přidá hlavičku `Vary` automaticky, když je odpověď komprimovaná.
 
 ## <a name="middleware-issue-when-behind-an-nginx-reverse-proxy"></a>Problém middlewaru, když za Nginx reverzní proxy
 
-Když požadavek vyNginx proxy serverem, `Accept-Encoding` hlavička se odebere. `Accept-Encoding` Odebrání hlavičky brání middlewaru v komprimaci odpovědi. Další informace najdete v tématu [Nginx: Komprese a dekomprese](https://www.nginx.com/resources/admin-guide/compression-and-decompression/). Tento problém je sledován pomocí [předávací komprese pro Nginx (ASPNET/BasicMiddleware \#123)](https://github.com/aspnet/BasicMiddleware/issues/123).
+Pokud je požadavek proxy serverem Nginx, bude odstraněna hlavička `Accept-Encoding`. Odebrání hlavičky `Accept-Encoding` brání middlewaru v komprimaci odpovědi. Další informace naleznete v tématu [Nginx: Compression a decompression](https://www.nginx.com/resources/admin-guide/compression-and-decompression/). Tento problém je sledován pomocí [předávací komprese pro Nginx (ASPNET/BasicMiddleware #123)](https://github.com/aspnet/BasicMiddleware/issues/123).
 
 ## <a name="working-with-iis-dynamic-compression"></a>Práce s dynamickou kompresí služby IIS
 
 Pokud máte aktivní dynamický kompresní modul služby IIS nakonfigurovaný na úrovni serveru, který chcete pro aplikaci zakázat, zakažte modul s přidáním do souboru *Web. config* . Další informace najdete v tématu [zakázání modulů IIS](xref:host-and-deploy/iis/modules#disabling-iis-modules).
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Odstraňování problémů
 
-Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/), což vám `Accept-Encoding` umožní nastavit hlavičku požadavku a prozkoumat hlavičky, velikost a text odpovědi. Ve výchozím nastavení middleware pro komprimaci odezvy komprimuje odezvy, které splňují následující podmínky:
+Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/), což vám umožní nastavit hlavičku požadavku `Accept-Encoding` a prozkoumat hlavičky, velikost a text odpovědi. Ve výchozím nastavení middleware pro komprimaci odezvy komprimuje odezvy, které splňují následující podmínky:
 
 ::: moniker range=">= aspnetcore-2.2"
 
-* Hlavička je přítomna s `br`hodnotou, `gzip`, `*`nebo vlastní kódování, které odpovídá vlastnímu poskytovateli komprese, který jste navázali. `Accept-Encoding` Hodnota nesmí být `identity` nebo mít hodnotu kvality (qvalue, `q`) nastavenou na 0 (nula).
-* Typ MIME (`Content-Type`) musí být nastaven a musí odpovídat typu MIME nakonfigurovanému <xref:Microsoft.AspNetCore.ResponseCompression.ResponseCompressionOptions>v.
-* Požadavek nesmí obsahovat `Content-Range` hlavičku.
+* Hlavička `Accept-Encoding` je k dispozici s hodnotou `br`, `gzip`, `*`nebo vlastním kódováním, které odpovídá vlastnímu poskytovateli komprese, který jste navázali. Hodnota nesmí být `identity` nebo mít hodnotu kvality (qvalue, `q`) nastavenou na 0 (nula).
+* Je nutné nastavit typ MIME (`Content-Type`) a musí odpovídat typu MIME nakonfigurovanému v <xref:Microsoft.AspNetCore.ResponseCompression.ResponseCompressionOptions>.
+* Požadavek nesmí obsahovat hlavičku `Content-Range`.
 * Požadavek musí používat protokol HTTP (nezabezpečený protokol), pokud není v možnostech middleware pro kompresi odpovědí nakonfigurovaný protokol HTTPS (Secure Protocol). *Při povolování komprese zabezpečeného obsahu si všimněte [výše popsaného](#compression-with-secure-protocol) nebezpečí.*
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-* Hlavička je přítomna s `gzip`hodnotou, `*`nebo vlastní kódování, které se shoduje s vlastním poskytovatelem komprese, který jste navázali. `Accept-Encoding` Hodnota nesmí být `identity` nebo mít hodnotu kvality (qvalue, `q`) nastavenou na 0 (nula).
-* Typ MIME (`Content-Type`) musí být nastaven a musí odpovídat typu MIME nakonfigurovanému <xref:Microsoft.AspNetCore.ResponseCompression.ResponseCompressionOptions>v.
-* Požadavek nesmí obsahovat `Content-Range` hlavičku.
+* Hlavička `Accept-Encoding` je k dispozici s hodnotou `gzip`, `*`nebo vlastním kódováním, které se shoduje s vlastním poskytovatelem komprese, který jste navázali. Hodnota nesmí být `identity` nebo mít hodnotu kvality (qvalue, `q`) nastavenou na 0 (nula).
+* Je nutné nastavit typ MIME (`Content-Type`) a musí odpovídat typu MIME nakonfigurovanému v <xref:Microsoft.AspNetCore.ResponseCompression.ResponseCompressionOptions>.
+* Požadavek nesmí obsahovat hlavičku `Content-Range`.
 * Požadavek musí používat protokol HTTP (nezabezpečený protokol), pokud není v možnostech middleware pro kompresi odpovědí nakonfigurovaný protokol HTTPS (Secure Protocol). *Při povolování komprese zabezpečeného obsahu si všimněte [výše popsaného](#compression-with-secure-protocol) nebezpečí.*
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>
-* [Síť pro vývojáře Mozilla: Přijmout – kódování](https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept-Encoding)
-* [Dokument RFC 7231 – část 3.1.2.1: Kódování obsahu](https://tools.ietf.org/html/rfc7231#section-3.1.2.1)
-* [Dokument RFC 7230, část 4.2.3: Kódování gzip](https://tools.ietf.org/html/rfc7230#section-4.2.3)
+* [Síť pro vývojáře Mozilla: přijmout – kódování](https://developer.mozilla.org/docs/Web/HTTP/Headers/Accept-Encoding)
+* [RFC 7231 část 3.1.2.1: kódování obsahu](https://tools.ietf.org/html/rfc7231#section-3.1.2.1)
+* [RFC 7230 oddíl 4.2.3: kódování gzip](https://tools.ietf.org/html/rfc7230#section-4.2.3)
 * [Specifikace formátu souboru GZIP verze 4,3](https://www.ietf.org/rfc/rfc1952.txt)

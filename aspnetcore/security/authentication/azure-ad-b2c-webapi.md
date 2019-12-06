@@ -3,15 +3,15 @@ title: Ověřování ve webovém rozhraní API pomocí Azure Active Directory B2
 author: camsoper
 description: Zjistěte, jak nastavit ověřování Azure Active Directory B2C pomocí webového rozhraní API ASP.NET Core. Otestujte ověření webového rozhraní API pomocí nástroje Postman.
 ms.author: casoper
-ms.date: 09/21/2018
+ms.date: 12/05/2019
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-ad-b2c-webapi
-ms.openlocfilehash: c917a5130857165716bd801ac19dad0f53a7d214
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 0c7e8a1db924bdedf29468bf6b8cc17f03962c6d
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815381"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880744"
 ---
 # <a name="authentication-in-web-apis-with-azure-active-directory-b2c-in-aspnet-core"></a>Ověřování ve webovém rozhraní API pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -56,7 +56,7 @@ Použijte následující hodnoty:
 
 | Nastavení                       | Hodnota               | Poznámky                                                                                  |
 |-------------------------------|---------------------|----------------------------------------------------------------------------------------|
-| **Název**                      | *{Název rozhraní API}*        | Zadejte **název** pro aplikace, který popisuje vaši aplikaci pro zákazníky.                     |
+| **Jméno**                      | *{Název rozhraní API}*        | Zadejte **název** pro aplikace, který popisuje vaši aplikaci pro zákazníky.                     |
 | **Zahrnout webovou aplikaci / webové rozhraní API** | Ano                 |                                                                                        |
 | **Povolit implicitní tok**       | Ano                 |                                                                                        |
 | **Adresa URL odpovědi**                 | `https://localhost` | Adresy URL odpovědí jsou koncové body, kam Azure AD B2C vrací všechny tokeny, které vaše aplikace požaduje. |
@@ -65,7 +65,7 @@ Použijte následující hodnoty:
 
 Jakmile je rozhraní API zaregistrované, zobrazí se seznam aplikací a rozhraní API v tenantovi. Vyberte rozhraní API, který byl dříve zaregistrován. Vyberte **kopírování** ikony napravo **ID aplikace** pole, které chcete zkopírovat do schránky. Vyberte **publikované obory** a ověřte, výchozí *user_impersonation* obor je k dispozici.
 
-## <a name="create-an-aspnet-core-app-in-visual-studio"></a>Vytvoření aplikace ASP.NET Core v sadě Visual Studio
+## <a name="create-an-aspnet-core-app-in-visual-studio"></a>Vytvoření aplikace ASP.NET Core v aplikaci Visual Studio
 
 Šablony Visual Studio webové aplikace můžete nakonfigurovat pro účely ověření tenanta Azure AD B2C.
 
@@ -91,7 +91,7 @@ V sadě Visual Studio:
 
     Vyberte **OK** zavřete **změna ověřování** dialogového okna. Vyberte **OK** k vytvoření webové aplikace.
 
-Visual Studio vytvoří webové rozhraní API s kontrolerem s názvem *ValuesController.cs* , která vrací pevně definovaných hodnot pro požadavky GET. Třída je doplněn [Authorize atribut](xref:security/authorization/simple), takže všechny požadavky vyžadují ověřování.
+Visual Studio vytvoří webové rozhraní API s kontrolerem s názvem *ValuesController.cs* , která vrací pevně definovaných hodnot pro požadavky GET. Třída je označena atributem [autorizovat](xref:security/authorization/simple) , takže všechny požadavky vyžadují ověření.
 
 ## <a name="run-the-web-api"></a>Spuštění webového rozhraní API
 
@@ -112,7 +112,7 @@ Použijte následující hodnoty:
 
 | Nastavení                       | Hodnota                            | Poznámky                           |
 |-------------------------------|----------------------------------|---------------------------------|
-| **Název**                      | Postman                          |                                 |
+| **Jméno**                      | Postman                          |                                 |
 | **Zahrnout webovou aplikaci / webové rozhraní API** | Ano                              |                                 |
 | **Povolit implicitní tok**       | Ano                              |                                 |
 | **Adresa URL odpovědi**                 | `https://getpostman.com/postman` |                                 |
@@ -150,14 +150,14 @@ Z **vytvořit nový** dialogové okno:
 
 Pokud chcete ověřit, že webové rozhraní API vyžaduje ověření, nejprve vytvoříte žádost o bez ověřování.
 
-1. V **zadejte adresu URL žádosti** zadejte adresu URL pro `ValuesController`. Adresa URL je stejné, jako je zobrazen v prohlížeči s **hodnoty rozhraníapi/** připojí. Například, `https://localhost:44375/api/values`.
+1. V **zadejte adresu URL žádosti** zadejte adresu URL pro `ValuesController`. Adresa URL je stejné, jako je zobrazen v prohlížeči s **hodnoty rozhraníapi/** připojí. Například `https://localhost:44375/api/values`.
 2. Vyberte **odeslat** tlačítko.
 3. Všimněte si, že stav odpovědi je *401 Neautorizováno*.
 
     ![401 Neautorizováno odpovědi](./azure-ad-b2c-webapi/postman-401-status.png)
 
 > [!IMPORTANT]
-> Pokud se zobrazí chyba "Nelze získat žádnou odpověď", budete muset zakázat ověřování certifikátu SSL [nastavení nástroje Postman](https://learning.getpostman.com/docs/postman/launching_postman/settings).
+> Pokud se zobrazí chyba "nepovedlo se získat odpověď", možná budete muset zakázat ověřování certifikátu SSL v [nastavení po](https://learning.getpostman.com/docs/postman/launching_postman/settings).
 
 ### <a name="obtain-a-bearer-token"></a>Získat nosný token
 
@@ -174,14 +174,14 @@ Chcete-li provést ověřený požadavek do webového rozhraní API, je potřeba
    |      **Název tokenu**       |                                          *{Název tokenu}*                                       |                                                                                                                   Zadejte popisný název pro daný token.                                                                                                                    |
    |      **Typ udělení**       |                                           Implicitní                                            |                                                                                                                                                                                                                                                                              |
    |     **Adresa URL zpětného volání**      |                                 `https://getpostman.com/postman`                              |                                                                                                                                                                                                                                                                              |
-   |       **Ověřovací adresa URL**        | `https://login.microsoftonline.com/{tenant domain name}/oauth2/v2.0/authorize?p=B2C_1_SiUpIn` |  Nahraďte *{název domény tenantu}* s názvem domény vašeho tenanta. **DŮLEŽITÉ**: Tato adresa URL musí mít stejný název domény jako co se nachází v `AzureAdB2C.Instance` ve webovém rozhraní API *appsettings.json* souboru. Další informace v POZNÁMCE&dagger;.                                                  |
+   |       **Ověřovací adresa URL**        | `https://login.microsoftonline.com/{tenant domain name}/oauth2/v2.0/authorize?p=B2C_1_SiUpIn` |  Nahraďte *{název domény tenantu}* s názvem domény vašeho tenanta. **Důležité**: Tato adresa URL musí mít stejný název domény jako co se nachází v `AzureAdB2C.Instance` ve webovém rozhraní API *appsettings.json* souboru. Další informace v POZNÁMCE&dagger;.                                                  |
    |       **ID klienta**       |                *{Zadejte aplikaci Postman **ID aplikace**}*                              |                                                                                                                                                                                                                                                                              |
    |         **Rozsah**         |         `https://{tenant domain name}/{api}/user_impersonation openid offline_access`       | Nahraďte *{název domény tenantu}* s názvem domény vašeho tenanta. Nahraďte *{api}* s identifikátorem URI ID aplikace dáte webového rozhraní API při první registraci (v tomto případě `api`). Vzor adresy URL je: `https://{tenant}.onmicrosoft.com/{api-id-uri}/{scope name}`.         |
    |         **Stav**         |                                      *{ponechejte prázdné}*                                          |                                                                                                                                                                                                                                                                              |
    | **Ověření klienta** |                                Odeslat přihlašovací údaje pro klienta v textu                                |                                                                                                                                                                                                                                                                              |
 
     > [!NOTE]
-    > &dagger; Zobrazí se dialogové okno nastavení zásad na portálu Azure Active Directory B2C dvě možné adresy URL: Jeden ve formátu `https://login.microsoftonline.com/`{název domény tenantu} / {Další informace o cestě} a druhý ve formátu `https://{tenant name}.b2clogin.com/`{název domény tenantu} / {Další informace o cestě}. Má **kritické** , součástí domény v `AzureAdB2C.Instance` ve webovém rozhraní API *appsettings.json* soubor odpovídá identifikátoru použitému ve webové aplikaci *appsettings.json* souboru. Jedná se o stejnou doménu, používá pro pole Adresa URL pro ověřování v nástroji Postman. Všimněte si, že Visual Studio používá mírně odlišné formát adresy URL, než co se zobrazí na portálu. Shodují domény, adresa URL funguje.
+    > &dagger; Zobrazí se dialogové okno nastavení zásad, na portálu Azure Active Directory B2C dvě možné adresy URL: jeden ve formátu `https://login.microsoftonline.com/`{název domény tenantu} / {Další informace o cestě} a druhý ve formátu `https://{tenant name}.b2clogin.com/`{název domény tenantu} / {další informace o cestě}. Má **kritické** , součástí domény v `AzureAdB2C.Instance` ve webovém rozhraní API *appsettings.json* soubor odpovídá identifikátoru použitému ve webové aplikaci *appsettings.json* souboru. Jedná se o stejnou doménu, používá pro pole Adresa URL pro ověřování v nástroji Postman. Všimněte si, že Visual Studio používá mírně odlišné formát adresy URL, než co se zobrazí na portálu. Shodují domény, adresa URL funguje.
 
 3. Vyberte **požádat o Token** tlačítko.
 

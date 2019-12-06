@@ -6,18 +6,18 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/09/2019
 uid: web-api/action-return-types
-ms.openlocfilehash: c409170a24225e160c1c53e7294590589e114f7f
-ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
+ms.openlocfilehash: fe665026fdced22ccf4b4f1ba655e858a7acf016
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2019
-ms.locfileid: "74116081"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879744"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>Návratové typy akcí kontroleru v ASP.NET Core webovém rozhraní API
 
 [Scott Addie](https://github.com/scottaddie)
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/action-return-types/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/action-return-types/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ASP.NET Core nabízí následující možnosti pro návratové typy akce řadiče webového rozhraní API:
 
@@ -92,7 +92,7 @@ Obě předchozí akce nejsou blokující ASP.NET Core 3,0.
 
 Návratový typ <xref:Microsoft.AspNetCore.Mvc.IActionResult> je vhodný, pokud je možné v akci použít více `ActionResult` návratových typů. Typy `ActionResult` reprezentují různé kódy stavu HTTP. Jakákoli Neabstraktní třída odvozená od `ActionResult` je vyhodnocena jako platný návratový typ. Některé běžné návratové typy v této kategorii jsou <xref:Microsoft.AspNetCore.Mvc.BadRequestResult> (400), <xref:Microsoft.AspNetCore.Mvc.NotFoundResult> (404) a <xref:Microsoft.AspNetCore.Mvc.OkObjectResult> (200). Alternativně lze snadno použít metody v <xref:Microsoft.AspNetCore.Mvc.ControllerBase> třídy k vrácení `ActionResult`ch typů z akce. `return BadRequest();` je například zkrácený tvar `return new BadRequestResult();`.
 
-Vzhledem k tomu, že v tomto typu akce existuje více návratových typů a cest, je nezbytné použít atribut [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) . Tento atribut vytváří podrobnější podrobnosti odpovědi na stránky pro nápovědu k webovému rozhraní API generované nástroji, jako je [Swagger](xref:tutorials/web-api-help-pages-using-swagger). `[ProducesResponseType]` označuje známé typy a stavové kódy HTTP, které má akce vrátit.
+Vzhledem k tomu, že v tomto typu akce existuje více návratových typů a cest, je nutné použít atribut [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) . Tento atribut vytváří podrobnější podrobnosti odpovědi na stránky pro nápovědu k webovému rozhraní API generované nástroji, jako je [Swagger](xref:tutorials/web-api-help-pages-using-swagger). `[ProducesResponseType]` označuje známé typy a stavové kódy HTTP, které má akce vrátit.
 
 ### <a name="synchronous-action"></a>Synchronní akce
 
@@ -142,13 +142,13 @@ Například následující model označuje, že požadavky musí zahrnovat vlast
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Pokud je použit atribut [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) v ASP.NET Core 2,1 nebo novějším, výsledkem chyb ověření modelu je 400 stavového kódu. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses).
+Pokud je použit atribut [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) v ASP.NET Core 2,1 nebo novějším, chyby ověření modelu budou mít za následek stavový kód 400. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses).
 
 ## <a name="actionresultt-type"></a>Typ > ActionResult\<T
 
 ASP.NET Core 2,1 zavedla > návratový typ [ActionResult\<t](xref:Microsoft.AspNetCore.Mvc.ActionResult`1) pro akce kontroleru webového rozhraní API. Umožňuje vracet typ odvozený od <xref:Microsoft.AspNetCore.Mvc.ActionResult> nebo vracet [konkrétní typ](#specific-type). `ActionResult<T>` nabízí následující výhody oproti [IActionResult typu](#iactionresult-type):
 
-* Vlastnost `Type` atributu [[ProducesResponseType]](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) lze vyloučit. Například `[ProducesResponseType(200, Type = typeof(Product))]` je zjednodušený pro `[ProducesResponseType(200)]`. Očekávaný návratový typ akce je místo toho odvozen z `T` v `ActionResult<T>`.
+* Vlastnost `Type` atributu [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) lze vyloučit. Například `[ProducesResponseType(200, Type = typeof(Product))]` je zjednodušený pro `[ProducesResponseType(200)]`. Očekávaný návratový typ akce je místo toho odvozen z `T` v `ActionResult<T>`.
 * [Operátory implicitního přetypování](/dotnet/csharp/language-reference/keywords/implicit) podporují převod `T` a `ActionResult` na `ActionResult<T>`. `T` se převede na <xref:Microsoft.AspNetCore.Mvc.ObjectResult>, což znamená, že `return new ObjectResult(T);` je zjednodušená a `return T;`.
 
 C#nepodporuje implicitní operátory přetypování na rozhraních. V důsledku toho je nutné převod rozhraní na konkrétní typ použít `ActionResult<T>`. Například použití `IEnumerable` v následujícím příkladu nefunguje:
@@ -183,13 +183,13 @@ Zvažte asynchronní akci, ve které existují dva možné návratové typy:
 V předchozí akci:
 
 * ASP.NET Core Runtime vrací kód stavu 400 (<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest*>) v těchto případech:
-  * Atribut [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) byl použit a ověření modelu se nezdařilo.
+  * Byl použit atribut [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) a ověření modelu se nezdařilo.
   * Popis produktu obsahuje "widget XYZ".
 * Stavový kód 201 je při vytvoření produktu generován metodou <xref:Microsoft.AspNetCore.Mvc.ControllerBase.CreatedAtAction*>. V této cestě kódu je objekt `Product` k dispozici v těle odpovědi. Poskytla se hlavička odpovědi `Location` obsahující nově vytvořenou adresu URL produktu.
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:mvc/controllers/actions>
 * <xref:mvc/models/validation>

@@ -3,14 +3,14 @@ title: Práce s modelem aplikace v ASP.NET Core
 author: ardalis
 description: Naučte se číst model aplikace a manipulovat s ním, abyste mohli změnit způsob, jakým se prvky MVC chovají v ASP.NET Core.
 ms.author: riande
-ms.date: 10/14/2016
+ms.date: 12/05/2019
 uid: mvc/controllers/application-model
-ms.openlocfilehash: 4e264dc7cc63955df42df0b9eeeb7b82ae286241
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: 4b6c978e5752eb320412a1c204df8e3d288fe4a1
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733957"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881095"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>Práce s modelem aplikace v ASP.NET Core
 
@@ -192,11 +192,11 @@ Konvence překrytí se aplikují jenom na části aplikace, u kterých se použ�
 
 `UseWebApiParameterConventionsAttribute` slouží k použití konvence akce `WebApiParameterConventionsApplicationModelConvention`. Tato konvence určuje, že jednoduché typy používané jako parametry akce jsou ve výchozím nastavení vázány z identifikátoru URI, zatímco komplexní typy jsou vázány z textu žádosti.
 
-### <a name="routes"></a>Tras
+### <a name="routes"></a>Trasy
 
 `UseWebApiRoutesAttribute` určuje, zda je použita konvence kontroleru `WebApiApplicationModelConvention`. V případě povolení se tato konvence používá k přidání podpory pro [oblasti](xref:mvc/controllers/areas) do trasy.
 
-Kromě sady konvencí zahrnuje balíček kompatibility `System.Web.Http.ApiController` základní třídu, která nahrazuje rozhraní API, které poskytuje webové rozhraní API. To umožňuje řadičům napsaným pro webové rozhraní API a dědění z jeho `ApiController`, aby fungovalo tak, jak byly navrženy a běžely na ASP.NET Core MVC. Tato třída základního kontroleru je upravena pomocí všech výše uvedených atributů `UseWebApi*`. `ApiController` zpřístupňuje vlastnosti, metody a typy výsledků, které jsou kompatibilní s typy nalezenými ve webovém rozhraní API.
+Kromě sady konvencí zahrnuje balíček kompatibility `System.Web.Http.ApiController` základní třídu, která nahrazuje rozhraní API, které poskytuje webové rozhraní API. To umožňuje řadičům napsaným pro webové rozhraní API a dědění z jeho `ApiController`, aby fungovalo tak, jak byly navrženy a běžely na ASP.NET Core MVC. Všechny výše uvedené atributy `UseWebApi*` jsou aplikovány na základní třídu kontroleru. `ApiController` zpřístupňuje vlastnosti, metody a typy výsledků, které jsou kompatibilní s typy nalezenými ve webovém rozhraní API.
 
 ## <a name="using-apiexplorer-to-document-your-app"></a>Použití ApiExplorer k dokumentování aplikace
 

@@ -4,16 +4,16 @@ author: jamesnk
 description: Přečtěte si, jak gRPC porovnává s rozhraními API HTTP a co doporučuje scénáře.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: grpc/comparison
-ms.openlocfilehash: ceb24d656827548492a6fa326681922297fc481b
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 8935e665dfd5d8f9afa002f475c202ec0f0ee657
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963662"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880669"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
@@ -32,8 +32,8 @@ Následující tabulka nabízí vysoké srovnání funkcí mezi gRPC a rozhraní
 | Délka          | [Protobuf (malý, binární)](#performance)           | JSON (velký, lidský čitelný)  |
 | Prescriptiveness | [Striktní specifikace](#strict-specification)      | Spojování. Všechny požadavky HTTP jsou platné.     |
 | Streamování        | [Klient, server, obousměrné](#streaming)       | Klient, Server                |
-| Podpora prohlížeče  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano                           |
-| Zabezpečení         | Přenos (TLS)                                    | Přenos (TLS)               |
+| Podpora prohlížečů  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano                           |
+| Zabezpečení –         | Přenos (TLS)                                    | Přenos (TLS)               |
 | Generování kódu klienta | [Ano](#code-generation)                      | OpenAPI + nástroje třetích stran |
 
 ## <a name="grpc-strengths"></a>gRPC síly
@@ -47,9 +47,9 @@ gRPC je navržená pro HTTP/2, což je hlavní revize HTTP, která poskytuje vý
 * Binární rámce a komprese. Protokol HTTP/2 je komprimován a efektivní při posílání i přijímání.
 * Multiplexování více volání HTTP/2 přes jedno připojení TCP. Multiplexování eliminuje [blokování po řádcích](https://en.wikipedia.org/wiki/Head-of-line_blocking).
 
-### <a name="code-generation"></a>Generování kódu
+### <a name="code-generation"></a>Vytváření kódu
 
-Všechny gRPC architektury poskytují prvotřídní podporu pro generování kódu. Základním souborem pro gRPC vývoj je [soubor *...* ](https://developers.google.com/protocol-buffers/docs/proto3)to definuje kontrakt služeb gRPC a zpráv. Z tohoto souboru gRPC architektury budou kód generovat základní třídu služby, zprávy a kompletního klienta.
+Všechny gRPC architektury poskytují prvotřídní podporu pro generování kódu. Základním souborem pro gRPC vývoj je [soubor...](https://developers.google.com/protocol-buffers/docs/proto3)to definuje kontrakt služeb gRPC a zpráv. Z tohoto souboru gRPC architektury budou kód generovat základní třídu služby, zprávy a kompletního klienta.
 
 Sdílení souboru *.* a klienta mezi serverem a klientem může být vygenerováno z koncového konce. Generování kódu klienta eliminuje duplikaci zpráv na straně klienta a serveru a pro vás vytvoří klienta se silným typem. Nemusíte psát klienta, ale v aplikacích s mnoha službami ušetříte významnou dobu vývoje.
 
@@ -111,7 +111,7 @@ Další architektury se doporučují přes gRPC v následujících scénářích
 * **Všesměrové vysílání &ndash; gRPC pro komunikaci v reálném** čase podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy z registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [SignalR](xref:signalr/introduction) je užitečnou architekturou pro tento scénář. SignalR má koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
 * **Komunikace mezi procesy** &ndash; proces musí HOSTOVAT Server HTTP/2, aby přijímal příchozí volání gRPC. Pro systém Windows je mezi procesy komunikačních [kanálů](/dotnet/standard/io/pipe-operations) rychlá a odlehčená metoda komunikace.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/index>

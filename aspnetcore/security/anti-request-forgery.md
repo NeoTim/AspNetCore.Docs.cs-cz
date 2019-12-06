@@ -4,14 +4,14 @@ author: steve-smith
 description: Zjistěte, jak zabránit útokům na webové aplikace, kde škodlivý web může ovlivnit interakci mezi prohlížečem klienta a aplikací.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/11/2019
+ms.date: 12/05/2019
 uid: security/anti-request-forgery
-ms.openlocfilehash: c3d32a93bcbf9f3897c10e68ba4e43d269a3ea80
-ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
+ms.openlocfilehash: 54e153af55f28d9a89bbf16bce1c17f876567b59
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74803367"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880810"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>Zabránit útokům na neCSRFelné žádosti mezi lokalitami (XSRF/) v ASP.NET Core
 
@@ -172,7 +172,7 @@ Token je jedinečný a nepředvídatelný. Token lze také použít k zajištěn
 }
 ```
 
-Explicitně přidejte token proti padělání do elementu `<form>` bez použití pomocných rutin značek s pomocníkem HTML [@Html.AntiForgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken):
+Explicitně přidejte token proti padělání do elementu `<form>` bez použití pomocných rutin značek s pomocníkem HTML [`@Html.AntiForgeryToken`](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken):
 
 ```cshtml
 <form action="/" method="post">
@@ -305,7 +305,7 @@ public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel account)
 }
 ```
 
-Atribut `ValidateAntiForgeryToken` vyžaduje token pro požadavky na metody akcí, které upraví, včetně požadavků HTTP GET. Pokud je atribut `ValidateAntiForgeryToken` použit napříč řadiči aplikace, lze jej přepsat atributem `IgnoreAntiforgeryToken`.
+Atribut `ValidateAntiForgeryToken` vyžaduje token pro požadavky na metody akce, které označuje, včetně požadavků HTTP GET. Pokud je atribut `ValidateAntiForgeryToken` použit napříč řadiči aplikace, lze jej přepsat atributem `IgnoreAntiforgeryToken`.
 
 > [!NOTE]
 > ASP.NET Core nepodporuje přidávání tokenů antipadělání pro automatické získávání požadavků.

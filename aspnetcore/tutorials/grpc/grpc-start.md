@@ -3,14 +3,14 @@ title: Vytvoření klienta a serveru .NET Core gRPC v ASP.NET Core
 author: juntaoluo
 description: V tomto kurzu se dozvíte, jak vytvořit službu gRPC a klienta gRPC na ASP.NET Core. Naučte se, jak vytvořit projekt služby gRPC, upravit soubor. a přidat volání duplexního streamování.
 ms.author: johluo
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 uid: tutorials/grpc/grpc-start
-ms.openlocfilehash: e5373d9abb9a770132e756843dbd15534dbe3356
-ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
+ms.openlocfilehash: c179dd31e6484246498c857aad797eb752f00bf5
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2019
-ms.locfileid: "74116136"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879652"
 ---
 # <a name="tutorial-create-a-grpc-client-and-server-in-aspnet-core"></a>Kurz: Vytvoření klienta a serveru gRPC v ASP.NET Core
 
@@ -22,7 +22,7 @@ Na konci budete mít klienta gRPC, který komunikuje se službou Greeter gRPC.
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
-V tomto kurzu:
+V tomto kurzu se naučíte:
 
 > [!div class="checklist"]
 > * Vytvořte server gRPC.
@@ -52,7 +52,7 @@ V tomto kurzu:
 * Spusťte aplikaci Visual Studio a vyberte možnost **vytvořit nový projekt**. Případně můžete v nabídce **soubor** sady Visual Studio vybrat **Nový** > **projekt**.
 * V dialogovém okně **vytvořit nový projekt** vyberte **Služba GRPC** a vyberte **Další**:
 
-  ![\* * Vytvořit nový projekt * * dialog](~/tutorials/grpc/grpc-start/static/cnp.png)
+  ![Vytvořit nový projekt – dialogové okno](~/tutorials/grpc/grpc-start/static/cnp.png)
 
 * Pojmenujte projekt **GrpcGreeter**. Je důležité pojmenovat projekt *GrpcGreeter* , aby se obory názvů shodovaly při kopírování a vkládání kódu.
 * Vyberte **vytvořit**.
@@ -62,7 +62,7 @@ V tomto kurzu:
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
+* Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 * Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 * Spusťte následující příkazy:
 
@@ -134,7 +134,7 @@ Soubory projektu *GrpcGreeter* :
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
+* Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 * Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 * Spusťte následující příkazy:
 
@@ -176,7 +176,7 @@ Nainstalujte balíčky buď pomocí konzoly Správce balíčků (PMC), nebo spra
 #### <a name="manage-nuget-packages-option-to-install-packages"></a>Správa možností balíčků NuGet pro instalaci balíčků
 
 * Klikněte pravým tlačítkem na projekt v **Průzkumník řešení** > **Spravovat balíčky NuGet** .
-* Vyberte kartu **Procházet** .
+* Vyberte kartu **Procházet**.
 * Do vyhledávacího pole zadejte **Grpc .NET. Client** .
 * Na kartě **Procházet** vyberte balíček **Grpc .NET. Client** a vyberte **nainstalovat**.
 * Opakujte pro `Google.Protobuf` a `Grpc.Tools`.

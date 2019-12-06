@@ -4,14 +4,14 @@ author: rick-anderson
 description: Přečtěte si o ověřování modelu ve ASP.NET Core MVC a Razor Pages.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 12/05/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 19f71799e958e2761832c91cec6762a6d391d2b5
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 7a6017141eb1016128c4a135c187479717580bb5
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317430"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881041"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověřování modelu ve ASP.NET Core MVC a Razor Pages
 
@@ -55,14 +55,14 @@ Tady jsou některé z vestavěných ověřovacích atributů:
 * `[Phone]`: ověřuje, zda má vlastnost formát telefonního čísla.
 * `[Range]`: ověří, že hodnota vlastnosti spadá do zadaného rozsahu.
 * `[RegularExpression]`: ověří, že hodnota vlastnosti odpovídá zadanému regulárnímu výrazu.
-* `[Required]`: ověří, že pole nemá hodnotu null. Podrobnosti o chování tohoto atributu naleznete v [atributu [required]](#required-attribute) .
+* `[Required]`: ověří, že pole nemá hodnotu null. Podrobnosti o chování tohoto atributu naleznete v tématu [`[Required]` atributu](#required-attribute) .
 * `[StringLength]`: ověří, že hodnota řetězcové vlastnosti nepřekračuje zadané omezení délky.
 * `[Url]`: ověřuje, zda má vlastnost formát adresy URL.
-* `[Remote]`: ověřuje vstup na straně klienta voláním metody Action na serveru. Podrobnosti o chování tohoto atributu naleznete v [atributu [Remote]](#remote-attribute) .
+* `[Remote]`: ověřuje vstup na straně klienta voláním metody Action na serveru. Podrobnosti o chování tohoto atributu naleznete v tématu `[`[Remote] ' Attribute] (#remote-Attribute).
 
 Úplný seznam ověřovacích atributů najdete v oboru názvů [System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations) .
 
-### <a name="error-messages"></a>Chybové zprávy
+### <a name="error-messages"></a>Chybovými zprávami
 
 Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
 
@@ -134,7 +134,7 @@ Vlastnost `AdditionalFields` atributu `[Remote]` umožňuje ověřit kombinace p
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/User.cs?name=snippet_Name&highlight=1,5)]
 
-`AdditionalFields` lze nastavit explicitně na řetězce `"FirstName"` a `"LastName"`, ale použití operátoru [`nameof`](/dotnet/csharp/language-reference/keywords/nameof) zjednodušuje pozdější refaktoring. Metoda Action pro toto ověření musí přijmout argumenty `firstName` i `lastName`:
+`AdditionalFields` možné nastavit explicitně na řetězce "FirstName" a "LastName", ale pomocí operátoru [nameof](/dotnet/csharp/language-reference/keywords/nameof) se zjednoduší pozdější refaktoring. Metoda Action pro toto ověření musí přijmout argumenty `firstName` i `lastName`:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -255,9 +255,13 @@ Předchozí pomocník značek vykresluje následující kód HTML:
 </div>
 ```
 
-Všimněte si, že atributy `data-` ve výstupu HTML odpovídají atributům ověřování pro vlastnost `Movie.ReleaseDate`. Atribut `data-val-required` obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu do metody jQuery Validate [`required()`](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodné **\<> elementu span** .
+Všimněte si, že atributy `data-` ve výstupu HTML odpovídají atributům ověřování pro vlastnost `Movie.ReleaseDate`. Atribut `data-val-required` obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném **\<rozpětí >** elementu.
 
 Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána atributem `[DataType]`. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]` atributů a podtřídách, jako je `[EmailAddress]`, vám umožní zadat chybovou zprávu.
+
+## <a name="unobtrusive-validation"></a>Nenáročná ověření
+
+Informace o nenáročnosti ověřování najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/1111).
 
 ### <a name="add-validation-to-dynamic-forms"></a>Přidání ověřování do dynamických formulářů
 
@@ -370,7 +374,7 @@ Další možnosti zakázání ověřování na straně klienta:
 
 Předchozí přístup nezabrání ověřování na straně klienta ASP.NET Core knihovně tříd identity Razor. Další informace najdete v tématu <xref:security/authentication/scaffold-identity>.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazby modelu](model-binding.md)
@@ -415,14 +419,14 @@ Mezi předdefinované atributy ověřování patří:
 * `[Phone]`: ověřuje, zda má vlastnost formát telefonního čísla.
 * `[Range]`: ověří, že hodnota vlastnosti spadá do zadaného rozsahu.
 * `[RegularExpression]`: ověří, že hodnota vlastnosti odpovídá zadanému regulárnímu výrazu.
-* `[Required]`: ověří, že pole nemá hodnotu null. Podrobnosti o chování tohoto atributu naleznete v [atributu [required]](#required-attribute) .
+* `[Required]`: ověří, že pole nemá hodnotu null. Podrobnosti o chování tohoto atributu naleznete v tématu [`[Required]` atributu](#required-attribute) .
 * `[StringLength]`: ověří, že hodnota řetězcové vlastnosti nepřekračuje zadané omezení délky.
 * `[Url]`: ověřuje, zda má vlastnost formát adresy URL.
-* `[Remote]`: ověřuje vstup na straně klienta voláním metody Action na serveru. Podrobnosti o chování tohoto atributu naleznete v [atributu [Remote]](#remote-attribute) .
+* `[Remote]`: ověřuje vstup na straně klienta voláním metody Action na serveru. Podrobnosti o chování tohoto atributu naleznete v tématu [`[Remote]` atributu](#remote-attribute) .
 
 Úplný seznam ověřovacích atributů najdete v oboru názvů [System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations) .
 
-### <a name="error-messages"></a>Chybové zprávy
+### <a name="error-messages"></a>Chybovými zprávami
 
 Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
 
@@ -494,7 +498,7 @@ Vlastnost `AdditionalFields` atributu `[Remote]` umožňuje ověřit kombinace p
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserNameProperties)]
 
-`AdditionalFields` lze nastavit explicitně na řetězce `"FirstName"` a `"LastName"`, ale použití operátoru [`nameof`](/dotnet/csharp/language-reference/keywords/nameof) zjednodušuje pozdější refaktoring. Metoda Action pro toto ověření musí přijmout argumenty jméno a příjmení:
+`AdditionalFields` lze nastavit explicitně na řetězce `"FirstName"` a `"LastName"`, ale pomocí operátoru [nameof](/dotnet/csharp/language-reference/keywords/nameof) se zjednoduší pozdější refaktoring. Metoda Action pro toto ověření musí přijmout argumenty jméno a příjmení:
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -624,7 +628,7 @@ Předchozí pomocník značek vykresluje následující kód HTML.
 </form>
 ```
 
-Všimněte si, že atributy `data-` ve výstupu HTML odpovídají atributům ověřování pro vlastnost `ReleaseDate`. Atribut `data-val-required` obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu do metody jQuery Validate [`required()`](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodné **\<> elementu span** .
+Všimněte si, že atributy `data-` ve výstupu HTML odpovídají atributům ověřování pro vlastnost `ReleaseDate`. Atribut `data-val-required` obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném **\<rozpětí >** elementu.
 
 Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána atributem `[DataType]`. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]` atributů a podtřídách, jako je `[EmailAddress]`, vám umožní zadat chybovou zprávu.
 
@@ -738,7 +742,7 @@ A v Razor Pages:
 
 Další možností pro vypnutí ověřování klienta je zadání komentáře k odkazu na `_ValidationScriptsPartial` v souboru *. cshtml* .
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazby modelu](model-binding.md)

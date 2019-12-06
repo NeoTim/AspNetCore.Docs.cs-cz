@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/04/2019
 uid: mvc/models/file-uploads
-ms.openlocfilehash: b57ad4fe62de38085c11d7026d278cc6e0c565ce
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 20e58660185a3055e06e92d9136e80e2394a470d
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963161"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881059"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -22,7 +22,7 @@ Od [Luke Latham](https://github.com/guardrex), [Steve Smith](https://ardalis.com
 
 ASP.NET Core podporuje nahrávání jednoho nebo více souborů pomocí vazby modelu ve vyrovnávací paměti pro menší soubory a streamování bez vyrovnávací paměti pro větší soubory.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="security-considerations"></a>Důležité informace o zabezpečení
 
@@ -46,17 +46,17 @@ Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, js
 &dagger;ukázková aplikace ukazuje přístup, který splňuje kritéria.
 
 > [!WARNING]
-> Nahrávání škodlivého kódu do systému je často prvním krokem ke spuštění kódu, který může:
+> Nahrává se škodlivý kód do systému je často prvním krokem při provádění kódu, který můžete:
 >
 > * Zcela získá kontrolu nad systémem.
 > * Přetížit systém s výsledkem, že dojde k chybě systému.
-> * Napadnout data uživatelů nebo systémových dat.
+> * Ohrozit data uživatele nebo systému.
 > * Použijte graffiti pro veřejné uživatelské rozhraní.
 >
-> Informace o omezení oblasti útoku při přijímání souborů uživateli najdete v následujících zdrojích informací:
+> Informace o omezení možností útoku, při přijetí soubory od uživatelů najdete v následujících zdrojích:
 >
-> * [Neomezená nahrávání souboru](https://www.owasp.org/index.php/Unrestricted_File_Upload)
-> * [Zabezpečení Azure: Ujistěte se, že jsou při přijímání souborů od uživatelů k dismístě správné ovládací prvky.](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
+> * [Nahrání souboru bez omezení](https://www.owasp.org/index.php/Unrestricted_File_Upload)
+> * [Zabezpečení Azure: Ujistěte se, že odpovídající ovládací prvky jsou na místě při přijetí soubory od uživatelů](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
 
 Další informace o implementaci bezpečnostních opatření, včetně příkladů z ukázkové aplikace, najdete v části [ověření](#validation) .
 
@@ -64,7 +64,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* Databáze
+* Databáze nástroje
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -101,7 +101,7 @@ Prostředky (disk, paměť) používané při nahrávání souborů závisí na 
 Ukládání malých souborů do vyrovnávací paměti je popsáno v následujících částech tohoto tématu:
 
 * [Fyzické úložiště](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [Databáze](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [Database](#upload-small-files-with-buffered-model-binding-to-a-database)
 
 **Streamování**
 
@@ -686,7 +686,7 @@ public class BufferedSingleFileUploadPhysicalModel : PageModel
 }
 ```
 
-`RequestSizeLimitAttribute` lze také použít pomocí direktivy [@attribute](xref:mvc/views/razor#attribute) Razor:
+`RequestSizeLimitAttribute` lze také použít pomocí direktivy [`@attribute`](xref:mvc/views/razor#attribute) Razor:
 
 ```cshtml
 @attribute [RequestSizeLimitAttribute(52428800)]
@@ -718,7 +718,7 @@ Toto nastavení platí pouze pro službu IIS. K tomuto chování nedochází ve 
 
 Omezení v modulu ASP.NET Core nebo přítomnosti modulu filtrování požadavků služby IIS mohou omezit nahrávání na 2 nebo 4 GB. Další informace najdete v tématu [nelze odeslat soubor o velikosti větší než 2 GB (ASPNET/AspNetCore #2711)](https://github.com/aspnet/AspNetCore/issues/2711).
 
-## <a name="troubleshoot"></a>Řešení potíží
+## <a name="troubleshoot"></a>Řešení problémů
 
 Níže jsou uvedeny některé běžné problémy, které se vyskytly při práci s nahráváním souborů a jejich možnými řešeními.
 
@@ -751,7 +751,7 @@ Příklady v tomto tématu se spoléhají na <xref:System.IO.MemoryStream> pro u
 
 ASP.NET Core podporuje nahrávání jednoho nebo více souborů pomocí vazby modelu ve vyrovnávací paměti pro menší soubory a streamování bez vyrovnávací paměti pro větší soubory.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="security-considerations"></a>Důležité informace o zabezpečení
 
@@ -775,17 +775,17 @@ Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, js
 &dagger;ukázková aplikace ukazuje přístup, který splňuje kritéria.
 
 > [!WARNING]
-> Nahrávání škodlivého kódu do systému je často prvním krokem ke spuštění kódu, který může:
+> Nahrává se škodlivý kód do systému je často prvním krokem při provádění kódu, který můžete:
 >
 > * Zcela získá kontrolu nad systémem.
 > * Přetížit systém s výsledkem, že dojde k chybě systému.
-> * Napadnout data uživatelů nebo systémových dat.
+> * Ohrozit data uživatele nebo systému.
 > * Použijte graffiti pro veřejné uživatelské rozhraní.
 >
-> Informace o omezení oblasti útoku při přijímání souborů uživateli najdete v následujících zdrojích informací:
+> Informace o omezení možností útoku, při přijetí soubory od uživatelů najdete v následujících zdrojích:
 >
-> * [Neomezená nahrávání souboru](https://www.owasp.org/index.php/Unrestricted_File_Upload)
-> * [Zabezpečení Azure: Ujistěte se, že jsou při přijímání souborů od uživatelů k dismístě správné ovládací prvky.](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
+> * [Nahrání souboru bez omezení](https://www.owasp.org/index.php/Unrestricted_File_Upload)
+> * [Zabezpečení Azure: Ujistěte se, že odpovídající ovládací prvky jsou na místě při přijetí soubory od uživatelů](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
 
 Další informace o implementaci bezpečnostních opatření, včetně příkladů z ukázkové aplikace, najdete v části [ověření](#validation) .
 
@@ -793,7 +793,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* Databáze
+* Databáze nástroje
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -830,7 +830,7 @@ Prostředky (disk, paměť) používané při nahrávání souborů závisí na 
 Ukládání malých souborů do vyrovnávací paměti je popsáno v následujících částech tohoto tématu:
 
 * [Fyzické úložiště](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [Databáze](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [Database](#upload-small-files-with-buffered-model-binding-to-a-database)
 
 **Streamování**
 
@@ -1440,7 +1440,7 @@ Toto nastavení platí pouze pro službu IIS. K tomuto chování nedochází ve 
 
 Omezení v modulu ASP.NET Core nebo přítomnosti modulu filtrování požadavků služby IIS mohou omezit nahrávání na 2 nebo 4 GB. Další informace najdete v tématu [nelze odeslat soubor o velikosti větší než 2 GB (ASPNET/AspNetCore #2711)](https://github.com/aspnet/AspNetCore/issues/2711).
 
-## <a name="troubleshoot"></a>Řešení potíží
+## <a name="troubleshoot"></a>Řešení problémů
 
 Níže jsou uvedeny některé běžné problémy, které se vyskytly při práci s nahráváním souborů a jejich možnými řešeními.
 
@@ -1470,8 +1470,8 @@ Příklady v tomto tématu se spoléhají na <xref:System.IO.MemoryStream> pro u
 ::: moniker-end
 
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Neomezená nahrávání souboru](https://www.owasp.org/index.php/Unrestricted_File_Upload)
+* [Nahrání souboru bez omezení](https://www.owasp.org/index.php/Unrestricted_File_Upload)
 * [Zabezpečení Azure: rámec zabezpečení: ověření vstupu | Hrozeb](/azure/security/azure-security-threat-modeling-tool-input-validation)
 * [Vzory návrhu cloudu Azure: vzor osobního Key](/azure/architecture/patterns/valet-key)

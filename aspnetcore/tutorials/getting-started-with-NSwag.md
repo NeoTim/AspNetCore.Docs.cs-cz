@@ -4,14 +4,14 @@ author: zuckerthoben
 description: Naučte se, jak pomocí NSwag vygenerovat dokumentaci a stránky s nápovědu pro ASP.NET Core webové rozhraní API.
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 06/21/2019
+ms.date: 12/05/2019
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 23927e6ce0a7b29ce3f32d4e7f7d3f234257ca9b
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 676e911a14bd128998c987b3f955c40e19af98d1
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416159"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881309"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme s NSwag a ASP.NET Core
 
@@ -19,13 +19,13 @@ Od [Christoph Nienaber](https://twitter.com/zuckerthoben), [Portoriko Suter](htt
 
 ::: moniker range=">= aspnetcore-2.1"
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag) ([stažení](xref:index#how-to-download-a-sample))
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.0"
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag) ([stažení](xref:index#how-to-download-a-sample))
 
 ::: moniker-end
 
@@ -93,11 +93,11 @@ Pomocí následujících kroků přidejte a nakonfigurujte Swagger v aplikaci AS
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-7)]
 
-* Spusťte aplikaci. Přejít na:
+* Spustit aplikaci Přejít na:
   * `http://localhost:<port>/swagger` k zobrazení uživatelského rozhraní Swagger.
   * `http://localhost:<port>/swagger/v1/swagger.json` se zobrazí specifikace Swagger.
 
-## <a name="code-generation"></a>Generování kódu
+## <a name="code-generation"></a>Vytváření kódu
 
 Můžete využít možnosti generování kódu NSwag výběrem jedné z následujících možností:
 
@@ -110,7 +110,7 @@ Můžete využít možnosti generování kódu NSwag výběrem jedné z následu
 ### <a name="generate-code-with-nswagstudio"></a>Generování kódu pomocí NSwagStudio
 
 * Nainstalujte NSwagStudio podle pokynů v [úložišti GitHub NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio).
-* Spusťte NSwagStudio a v textovém poli **Adresa URL specifikace Swagger** zadejte adresu URL souboru *Swagger. JSON* . Například *http://localhost:44354/swagger/v1/swagger.json* .
+* Spusťte NSwagStudio a v textovém poli **Adresa URL specifikace Swagger** zadejte adresu URL souboru *Swagger. JSON* . Příklad: *http://localhost:44354/swagger/v1/swagger.json* .
 * Kliknutím na tlačítko **vytvořit místní kopii** vygenerujete reprezentaci JSON vaší specifikace Swagger.
 
   ![Vytvořit místní kopii specifikace Swagger](web-api-help-pages-using-swagger/_static/CreateLocalCopy-NSwagStudio.PNG)
@@ -253,11 +253,11 @@ Ručně přidejte zvýrazněné řádky do souboru *. csproj* :
 
 Vzhledem k tomu, že NSwag používá [reflexi](/dotnet/csharp/programming-guide/concepts/reflection)a doporučený návratový typ pro akce webového rozhraní API je [IActionResult](xref:Microsoft.AspNetCore.Mvc.IActionResult), nemůže odvodit, jakou akci dělá a co vrátí.
 
-Vezměte v úvahu následující příklad:
+Vezměte v úvahu v následujícím příkladu:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
-Předchozí akce vrátí `IActionResult`, ale v akci, která vrací hodnotu [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*) nebo [důvodu chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*). Pomocí datových poznámek můžete klientům sdělit, které stavové kódy HTTP má tato akce vrátit. Naupravujte akci následujícími atributy:
+Předchozí akce vrátí `IActionResult`, ale v akci, která vrací hodnotu [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*) nebo [důvodu chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*). Pomocí datových poznámek můžete klientům sdělit, které stavové kódy HTTP má tato akce vrátit. Označte akci následujícími atributy:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
@@ -267,11 +267,11 @@ Předchozí akce vrátí `IActionResult`, ale v akci, která vrací hodnotu [Cre
 
 Vzhledem k tomu, že NSwag používá [reflexi](/dotnet/csharp/programming-guide/concepts/reflection)a doporučený návratový typ pro akce webového rozhraní API je [ActionResult\<t >](xref:Microsoft.AspNetCore.Mvc.ActionResult%601), může odvodit jenom návratový typ definovaný `T`. Nemůžete automaticky odvodit jiné možné návratové typy.
 
-Vezměte v úvahu následující příklad:
+Vezměte v úvahu v následujícím příkladu:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
-Předchozí akce vrátí `ActionResult<T>`. V rámci akce vrátí [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*). Vzhledem k tomu, že kontroler je upraven pomocí atributu [[ApiController]](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) , je možné, že je také k dispozici odpověď [důvodu chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*) . Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses). Pomocí datových poznámek můžete klientům sdělit, které stavové kódy HTTP má tato akce vrátit. Naupravujte akci následujícími atributy:
+Předchozí akce vrátí `ActionResult<T>`. V rámci akce vrátí [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*). Vzhledem k tomu, že kontroler má atribut [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) , může být také [důvodu chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*) odpověď. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses). Pomocí datových poznámek můžete klientům sdělit, které stavové kódy HTTP má tato akce vrátit. Označte akci následujícími atributy:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
@@ -279,6 +279,6 @@ V ASP.NET Core 2,2 nebo novějších můžete místo explicitně upravení jedno
 
 ::: moniker-end
 
-Generátor Swagger teď může tuto akci přesně popsat a vygenerovaných klientů věděli, co získají při volání koncového bodu. Jako doporučení seupravte všechny akce pomocí těchto atributů.
+Generátor Swagger teď může tuto akci přesně popsat a vygenerovaných klientů věděli, co získají při volání koncového bodu. Jako doporučení označte všechny akce pomocí těchto atributů.
 
 Pokyny k vrácení odpovědí HTTP, které vaše akce rozhraní API musí vrátit, najdete v článku [specifikace RFC 7231](https://tools.ietf.org/html/rfc7231#section-4.3).

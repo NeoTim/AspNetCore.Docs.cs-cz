@@ -9,12 +9,12 @@ ms.date: 11/23/2019
 no-loc:
 - Blazor
 uid: blazor/state-management
-ms.openlocfilehash: facd6c2747bb0b31404c3c4fce25b76cd141932e
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: ed203458126f3b4c97103c88a465e3eb5953a775
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74680977"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74879715"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -77,7 +77,7 @@ Existují tři společná umístění pro trvalý stav v aplikaci Blazor Server.
 Pro trvalá trvalá data nebo pro všechna data, která musí být rozložená na více uživatelů nebo zařízení, je k nejlepší možnost databáze na straně serveru téměř určitě. Vaše možnosti jsou:
 
 * Relační databáze SQL
-* Úložiště hodnot klíčů
+* Ukládání hodnot klíče
 * Úložiště objektů BLOB
 * Úložiště tabulek
 
@@ -157,7 +157,7 @@ Instalace balíčku `Microsoft.AspNetCore.ProtectedBrowserStorage`:
 
 ### <a name="save-and-load-data-within-a-component"></a>Ukládání a načítání dat v rámci součásti
 
-V každé součásti, která vyžaduje načtení nebo uložení dat do úložiště prohlížeče, použijte [@inject](xref:blazor/dependency-injection#request-a-service-in-a-component) pro vložení instance některého z následujících prvků:
+V každé součásti, která vyžaduje načtení nebo uložení dat do úložiště prohlížeče, použijte [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component) pro vložení instance některého z následujících prvků:
 
 * `ProtectedLocalStorage`
 * `ProtectedSessionStorage`

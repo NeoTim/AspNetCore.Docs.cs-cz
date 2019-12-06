@@ -5,16 +5,16 @@ description: Naučte se používat ověřování a autorizaci v ASP.NET Core Sig
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: c5a34ae67bdfb8f7fd92c00f18973b66b685a99c
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: f443fe0fbaaa1facd09edc0878c048772895ecff
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963903"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74881185"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>Požadavky na zabezpečení v ASP.NET Core SignalR
 
@@ -22,7 +22,7 @@ Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
 Tento článek poskytuje informace o zabezpečení SignalR.
 
-## <a name="cross-origin-resource-sharing"></a>Sdílení prostředků mezi zdroji
+## <a name="cross-origin-resource-sharing"></a>Sdílení prostředků různého původu
 
 [Sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/) se dá použít k povolení připojení SignalR mezi zdroji v prohlížeči. Pokud je JavaScriptový kód hostovaný v jiné doméně než aplikace SignalR, musí být povolený [middleware CORS](xref:security/cors) , aby se JavaScript mohl připojit k aplikaci SignalR. Povoluje žádosti mezi zdroji jenom z domén, které důvěřujete nebo ovládáte. Příklad:
 
@@ -117,7 +117,7 @@ Pokud máte obavy týkající se protokolování těchto dat do protokolů serve
 
 ## <a name="exceptions"></a>Výjimky
 
-Zprávy výjimek se obecně považují za citlivá data, která by neměla být odhalena klientovi. Ve výchozím nastavení SignalR neposílá podrobnosti o výjimce vyvolané metodou centra klientovi. Místo toho klient obdrží obecnou zprávu oznamující, že došlo k chybě. Doručení zprávy výjimky klientovi lze přepsat (například ve vývojovém nebo testovacím) pomocí [`EnableDetailedErrors`](xref:signalr/configuration#configure-server-options). Zprávy výjimek by neměly být vystaveny klientovi v produkčních aplikacích.
+Zprávy výjimek se obecně považují za citlivá data, která by neměla být odhalena klientovi. Ve výchozím nastavení SignalR neposílá podrobnosti o výjimce vyvolané metodou centra klientovi. Místo toho klient obdrží obecnou zprávu oznamující, že došlo k chybě. Doručení zprávy výjimky klientovi lze přepsat (například při vývoji nebo testování) pomocí [EnableDetailedErrors](xref:signalr/configuration#configure-server-options). Zprávy výjimek by neměly být vystaveny klientovi v produkčních aplikacích.
 
 ## <a name="buffer-management"></a>Správa vyrovnávací paměti
 
@@ -131,7 +131,7 @@ Pokud jsou vaše zprávy větší než 32 KB, můžete tento limit zvýšit. Zv�
 * Klient může způsobit přidělení rozsáhlých vyrovnávacích pamětí pro server.
 * Přidělení serveru pro velké vyrovnávací paměti může snížit počet souběžných připojení.
 
-U příchozích a odchozích zpráv platí omezení, jak je možné nakonfigurovat u objektu [`HttpConnectionDispatcherOptions`](xref:signalr/configuration#configure-server-options) nakonfigurovaného v `MapHub`:
+U příchozích a odchozích zpráv platí omezení, jak je možné nakonfigurovat u objektu [HttpConnectionDispatcherOptions](xref:signalr/configuration#configure-server-options) nakonfigurovaného v `MapHub`:
 
 * `ApplicationMaxBufferSize` představuje maximální počet bajtů od klienta, které jsou vyrovnávací paměti serveru. Pokud se klient pokusí odeslat zprávu větší, než je toto omezení, připojení může být zavřeno.
 * `TransportMaxBufferSize` představuje maximální počet bajtů, které může server odeslat. Pokud se server pokusí odeslat zprávu (včetně návratových hodnot z metod z rozbočovače) větší, než je tento limit, bude vyvolána výjimka.

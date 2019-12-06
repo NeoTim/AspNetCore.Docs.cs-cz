@@ -4,17 +4,17 @@ author: rick-anderson
 description: Seznamte se s novými funkcemi v ASP.NET Core 3,0.
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: c3dde383507ec919f82b5268ddbf23911c3d24f8
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 4ade13c38880c9915ec590297f2a43548ca400a8
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963113"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880831"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -40,7 +40,7 @@ scénáře podporované Blazor Framework:
 
 Další informace najdete v tématu <xref:blazor/index>.
 
-### <a name="opno-locblazor-server"></a>Server Blazor
+### <a name="opno-locblazor-server"></a>Blazor Server
 
 Blazor odpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Server poskytuje podporu pro hostování komponent Razor na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní jsou zpracovávány prostřednictvím SignalRho připojení. Blazor Server je podporován v ASP.NET Core 3,0.
 
@@ -182,7 +182,7 @@ V předchozím kódu `DomainRestrictedRequirement` slouží jako vlastní `IAuth
 * Zkontrolujte kontext, ve kterém se centrum volá.
 * Rozhodnutí, jak umožnit uživateli spouštět jednotlivé metody rozbočovače.
 
-Jednotlivé metody rozbočovače je možné dekorovat pomocí názvů zásad, které kontrolují kód v době běhu. Když se klienti pokusí zavolat jednotlivé metody rozbočovače, spustí se obslužná rutina `DomainRestrictedRequirement` a řídí přístup k metodám. Na základě toho, jak `DomainRestrictedRequirement` řídí přístup:
+Jednotlivé metody rozbočovače mohou být označeny názvem zásady, které kontrolují kód v době běhu. Když se klienti pokusí zavolat jednotlivé metody rozbočovače, spustí se obslužná rutina `DomainRestrictedRequirement` a řídí přístup k metodám. Na základě toho, jak `DomainRestrictedRequirement` řídí přístup:
 
 * Všichni přihlášení uživatelé mohou volat metodu `SendMessage`.
 * Historie uživatelů můžou zobrazit jenom uživatelé, kteří se přihlásili pomocí `@jabbr.net` e-mailové adresy.
@@ -319,8 +319,8 @@ Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidá
 
 Následující seznam obsahuje nové direktivy Razor:
 
-* [@attribute](xref:mvc/views/razor#attribute) &ndash; direktiva `@attribute` aplikuje daný atribut na třídu generované stránky nebo zobrazení. Například `@attribute [Authorize]`.
-* [@implements](xref:mvc/views/razor#implements) &ndash; direktiva `@implements` implementuje rozhraní pro generovanou třídu. Například `@implements IDisposable`.
+* [`@attribute`](xref:mvc/views/razor#attribute) &ndash; direktiva `@attribute` aplikuje daný atribut na třídu generované stránky nebo zobrazení. Například `@attribute [Authorize]`.
+* [`@implements`](xref:mvc/views/razor#implements) &ndash; direktiva `@implements` implementuje rozhraní pro generovanou třídu. Například `@implements IDisposable`.
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 podporuje ověřování a autorizaci pro webová rozhraní API a jednostránkové.
 
@@ -480,7 +480,7 @@ Další informace najdete v následujících článcích:
 
 ## <a name="pipes-on-httpcontext"></a>Kanály na HttpContext
 
-Je teď možné číst text žádosti a zapsat tělo odpovědi pomocí rozhraní <xref:System.IO.Pipelines> API. Rozhraní <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> vlastnost `HttpRequest.BodyReader` poskytuje <xref:System.IO.Pipelines.PipeReader>, která se dá použít ke čtení textu žádosti. Rozhraní <!-- <xref:Microsoft.AspNetCore.Http.> --> vlastnost `HttpResponse.BodyWriter` poskytuje <xref:System.IO.Pipelines.PipeWriter>, která se dá použít k zápisu textu odpovědi. `HttpRequest.BodyReader` je analogkou datového proudu `HttpRequest.Body`. `HttpResponse.BodyWriter` je analogkou datového proudu `HttpResponse.Body`.
+Je teď možné číst text žádosti a zapsat tělo odpovědi pomocí rozhraní <xref:System.IO.Pipelines> API. Použitím parametru <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> vlastnost `HttpRequest.BodyReader` poskytuje <xref:System.IO.Pipelines.PipeReader>, která se dá použít ke čtení textu žádosti. Použitím parametru <!-- <xref:Microsoft.AspNetCore.Http.> --> vlastnost `HttpResponse.BodyWriter` poskytuje <xref:System.IO.Pipelines.PipeWriter>, která se dá použít k zápisu textu odpovědi. `HttpRequest.BodyReader` je analogkou datového proudu `HttpRequest.Body`. `HttpResponse.BodyWriter` je analogkou datového proudu `HttpResponse.Body`.
 
 <!-- indirectly related, https://github.com/dotnet/docs/pull/14414 won't be published by 9/23  -->
 
@@ -492,7 +492,7 @@ Chyby při spuštění při hostování ASP.NET Corech aplikací ve službě IIS
 
 .NET Core 3,0 zavádí novou šablonu aplikace služby pracovního procesu. Tato šablona poskytuje výchozí bod pro psaní dlouhých služeb, které běží v .NET Core.
 
-Další informace naleznete v tématu:
+Další informace najdete v části .
 
 * [Pracovní procesy .NET Core jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>
