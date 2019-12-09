@@ -4,18 +4,18 @@ author: rick-anderson
 description: Naučte se vyžadovat protokol HTTPS/TLS ve ASP.NET Core webové aplikaci.
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/14/2019
+ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 82cd2e52f3bd929682b9eae24611ad04fd9f8682
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 032105c67e15ab94635ae6fadea103450c7eb0fb
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317360"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944236"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V tomto dokumentu se dozvíte, jak:
 
@@ -173,7 +173,7 @@ Volání `AddHttpsRedirection` je nezbytné pouze ke změně hodnot `HttpsPort` 
 Předchozí zvýrazněný kód:
 
 * Nastaví [HttpsRedirectionOptions. RedirectStatusCode](xref:Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionOptions.RedirectStatusCode*) na <xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect>, což je výchozí hodnota. Pro přiřazení `RedirectStatusCode`použijte pole <xref:Microsoft.AspNetCore.Http.StatusCodes> třídy.
-* Nastaví port HTTPS na 5001. Výchozí hodnota je 443.
+* Nastaví port HTTPS na 5001.
 
 #### <a name="configure-permanent-redirects-in-production"></a>Konfigurace trvalých přesměrování v produkčním prostředí
 
@@ -277,7 +277,7 @@ Následující kód:
 ::: moniker-end
 
 
-* Nastaví parametr přednačtení záhlaví Strict-Transport-Security. Předběžné načtení není součástí [specifikace RFC HSTS](https://tools.ietf.org/html/rfc6797), ale podporuje je ve webových prohlížečích k přednačtení webů HSTS při nové instalaci. Další informace najdete v tématu [https://hstspreload.org/](https://hstspreload.org/) .
+* Nastaví parametr přednačtení záhlaví Strict-Transport-Security. Předběžné načtení není součástí [specifikace RFC HSTS](https://tools.ietf.org/html/rfc6797), ale podporuje je ve webových prohlížečích k přednačtení webů HSTS při nové instalaci. Další informace najdete tady: [https://hstspreload.org/](https://hstspreload.org/).
 * Povolí [includeSubDomain](https://tools.ietf.org/html/rfc6797#section-6.1.2), která aplikuje zásady HSTS na hostování subdomén.
 * Explicitně nastaví parametr max-age záhlaví Strict-Transport-Security na 60 dní. Pokud není nastavené, výchozí hodnota je 30 dní. Další informace najdete v [direktivě pro maximální stáří](https://tools.ietf.org/html/rfc6797#section-6.1.1) .
 * Přidá `example.com` do seznamu hostitelů, které mají být vyloučeny.
@@ -313,7 +313,7 @@ Zrušte zaškrtnuté políčko **Konfigurovat pro protokol HTTPS** .
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli) 
 
-Použijte možnost `--no-https`. Například
+Použijte možnost `--no-https`. Příklad
 
 ```dotnetcli
 dotnet new webapp --no-https
@@ -383,7 +383,7 @@ Předchozí příkazy vyřeší většinu problémů s důvěryhodností prohlí
 ### <a name="docker---certificate-not-trusted"></a>Docker – certifikát není důvěryhodný.
 
 * Odstraňte složku *C:\Users\{uživateli} \AppData\Roaming\ASP.NET\Https* .
-* Vyčistěte řešení. Odstraňte složky *bin* a *obj* .
+* Vyčistěte řešení. Odstranit *bin* a *obj* složek.
 * Restartujte nástroj pro vývoj. Například Visual Studio, Visual Studio Code nebo Visual Studio pro Mac.
 
 ### <a name="windows---certificate-not-trusted"></a>Windows – certifikát není důvěryhodný.

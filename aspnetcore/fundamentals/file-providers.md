@@ -1,63 +1,63 @@
 ---
-title: File Providers in ASP.NET Core
+title: Poskytovatelé souborů v ASP.NET Core
 author: guardrex
-description: Learn how ASP.NET Core abstracts file system access through the use of File Providers.
+description: Přečtěte si, jak ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: 531f7acd7a704a74e6142d201f613f05288deecb
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: a454ca394546184968222ca2ca44d7159b19a12a
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73896845"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944305"
 ---
-# <a name="file-providers-in-aspnet-core"></a>File Providers in ASP.NET Core
+# <a name="file-providers-in-aspnet-core"></a>Poskytovatelé souborů v ASP.NET Core
 
-By [Steve Smith](https://ardalis.com/) and [Luke Latham](https://github.com/guardrex)
+[Steve Smith](https://ardalis.com/) a [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core abstracts file system access through the use of File Providers. File Providers are used throughout the ASP.NET Core framework:
+ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů. Poskytovatelé souborů se používají v rámci ASP.NET Coreho rozhraní:
 
-* `IWebHostEnvironment` exposes the app's [content root](xref:fundamentals/index#content-root) and [web root](xref:fundamentals/index#web-root) as `IFileProvider` types.
-* [Static File Middleware](xref:fundamentals/static-files) uses File Providers to locate static files.
-* [Razor](xref:mvc/views/razor) uses File Providers to locate pages and views.
-* .NET Core tooling uses File Providers and glob patterns to specify which files should be published.
+* `IWebHostEnvironment` zpřístupňuje [kořen obsahu](xref:fundamentals/index#content-root) aplikace a [kořenový adresář webu](xref:fundamentals/index#web-root) jako typy `IFileProvider`.
+* [Middleware statických souborů](xref:fundamentals/static-files) používá k vyhledání statických souborů poskytovatele souborů.
+* [Razor](xref:mvc/views/razor) používá k vyhledání stránek a zobrazení poskytovatele souborů.
+* Nástroje .NET Core využívají poskytovatele souborů a vzory glob k určení, které soubory se mají publikovat.
 
-[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([how to download](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="file-provider-interfaces"></a>File Provider interfaces
+## <a name="file-provider-interfaces"></a>Rozhraní poskytovatele souborů
 
-The primary interface is <xref:Microsoft.Extensions.FileProviders.IFileProvider>. `IFileProvider` exposes methods to:
+Primární rozhraní je <xref:Microsoft.Extensions.FileProviders.IFileProvider>. `IFileProvider` zveřejňuje metody pro:
 
-* Obtain file information (<xref:Microsoft.Extensions.FileProviders.IFileInfo>).
-* Obtain directory information (<xref:Microsoft.Extensions.FileProviders.IDirectoryContents>).
-* Set up change notifications (using an <xref:Microsoft.Extensions.Primitives.IChangeToken>).
+* Získat informace o souboru (<xref:Microsoft.Extensions.FileProviders.IFileInfo>).
+* Získání informací o adresáři (<xref:Microsoft.Extensions.FileProviders.IDirectoryContents>).
+* Nastavte oznámení o změně (pomocí <xref:Microsoft.Extensions.Primitives.IChangeToken>).
 
-`IFileInfo` provides methods and properties for working with files:
+`IFileInfo` poskytuje metody a vlastnosti pro práci se soubory:
 
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.Exists>
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.IsDirectory>
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.Name>
-* <xref:Microsoft.Extensions.FileProviders.IFileInfo.Length> (in bytes)
-* <xref:Microsoft.Extensions.FileProviders.IFileInfo.LastModified> date
+* <xref:Microsoft.Extensions.FileProviders.IFileInfo.Length> (v bajtech)
+* Datum <xref:Microsoft.Extensions.FileProviders.IFileInfo.LastModified>
 
-You can read from the file using the [IFileInfo.CreateReadStream](xref:Microsoft.Extensions.FileProviders.IFileInfo.CreateReadStream*) method.
+Můžete číst ze souboru pomocí metody [IFileInfo. CreateReadStream](xref:Microsoft.Extensions.FileProviders.IFileInfo.CreateReadStream*) .
 
-The sample app demonstrates how to configure a File Provider in `Startup.ConfigureServices` for use throughout the app via [dependency injection](xref:fundamentals/dependency-injection).
+Ukázková aplikace ukazuje, jak nakonfigurovat poskytovatele souborů v `Startup.ConfigureServices` pro použití v rámci aplikace přes [vkládání závislostí](xref:fundamentals/dependency-injection).
 
-## <a name="file-provider-implementations"></a>File Provider implementations
+## <a name="file-provider-implementations"></a>Implementace poskytovatele souborů
 
-Three implementations of `IFileProvider` are available.
+K dispozici jsou tři implementace `IFileProvider`.
 
 | Implementace | Popis |
 | -------------- | ----------- |
-| [PhysicalFileProvider](#physicalfileprovider) | The physical provider is used to access the system's physical files. |
-| [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | The manifest embedded provider is used to access files embedded in assemblies. |
-| [CompositeFileProvider](#compositefileprovider) | The composite provider is used to provide combined access to files and directories from one or more other providers. |
+| [PhysicalFileProvider](#physicalfileprovider) | Fyzický poskytovatel se používá pro přístup k fyzickým souborům systému. |
+| [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | Zprostředkovatel manifestu Embedded se používá pro přístup k souborům integrovaným v sestaveních. |
+| [CompositeFileProvider](#compositefileprovider) | Složený poskytovatel se používá k poskytnutí kombinovaného přístupu k souborům a adresářům z jednoho nebo více poskytovatelů. |
 
 ### <a name="physicalfileprovider"></a>PhysicalFileProvider
 
@@ -91,11 +91,11 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 <xref:Microsoft.Extensions.FileProviders.ManifestEmbeddedFileProvider> se používá pro přístup k souborům integrovaným v rámci sestavení. `ManifestEmbeddedFileProvider` používá manifest kompilovaný do sestavení pro rekonstrukci původních cest vložených souborů.
 
-Add a package reference to the project for the [Microsoft.Extensions.FileProviders.Embedded](https://www.nuget.org/packages/Microsoft.Extensions.FileProviders.Embedded) package.
+Přidejte odkaz na balíček do projektu pro balíček [Microsoft. Extensions. Providers. Embedded](https://www.nuget.org/packages/Microsoft.Extensions.FileProviders.Embedded) .
 
-Chcete-li vygenerovat manifest vložených souborů, nastavte vlastnost `<GenerateEmbeddedFilesManifest>` na hodnotu `true`. Specify the files to embed with [\<EmbeddedResource>](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects):
+Chcete-li vygenerovat manifest vložených souborů, nastavte vlastnost `<GenerateEmbeddedFilesManifest>` na hodnotu `true`. Zadejte soubory pro vložení [\<EmbeddedResource](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects):
 
-[!code-csharp[](file-providers/samples/3.x/FileProviderSample/FileProviderSample.csproj?highlight=6,14)]
+[!code-csharp[](file-providers/samples/3.x/FileProviderSample/FileProviderSample.csproj?highlight=5,13)]
 
 Pomocí [vzorů glob](#glob-patterns) určete jeden nebo více souborů, které mají být vloženy do sestavení.
 
@@ -114,7 +114,7 @@ Další přetížení umožňují:
 * Umožňuje nastavit rozsah souborů na datum poslední úpravy.
 * Pojmenujte vložený prostředek obsahující manifest vloženého souboru.
 
-| Metody | Popis |
+| Přetížení | Popis |
 | -------- | ----------- |
 | `ManifestEmbeddedFileProvider(Assembly, String)` | Přijímá volitelný parametr relativní cesty `root`. Zadejte `root` pro rozsah volání do <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> na tyto prostředky v zadané cestě. |
 | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | Přijímá volitelný parametr relativní cesty `root` a parametr data `lastModified` (<xref:System.DateTimeOffset>). Datum `lastModified` rozsahem data poslední změny pro instance <xref:Microsoft.Extensions.FileProviders.IFileInfo> vrácené <xref:Microsoft.Extensions.FileProviders.IFileProvider>. |
@@ -122,91 +122,91 @@ Další přetížení umožňují:
 
 ### <a name="compositefileprovider"></a>CompositeFileProvider
 
-The <xref:Microsoft.Extensions.FileProviders.CompositeFileProvider> combines `IFileProvider` instances, exposing a single interface for working with files from multiple providers. When creating the `CompositeFileProvider`, pass one or more `IFileProvider` instances to its constructor.
+<xref:Microsoft.Extensions.FileProviders.CompositeFileProvider> kombinuje `IFileProvider` instancí a zpřístupňuje jedno rozhraní pro práci se soubory od více poskytovatelů. Při vytváření `CompositeFileProvider`předat konstruktoru jednu nebo více instancí `IFileProvider`.
 
-In the sample app, a `PhysicalFileProvider` and a `ManifestEmbeddedFileProvider` provide files to a `CompositeFileProvider` registered in the app's service container:
+V ukázkové aplikaci `PhysicalFileProvider` a `ManifestEmbeddedFileProvider` poskytují soubory `CompositeFileProvider` zaregistrovaným v kontejneru služby aplikace:
 
 [!code-csharp[](file-providers/samples/3.x/FileProviderSample/Startup.cs?name=snippet1)]
 
-## <a name="watch-for-changes"></a>Watch for changes
+## <a name="watch-for-changes"></a>Sledovat změny
 
-The [IFileProvider.Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) method provides a scenario to watch one or more files or directories for changes. `Watch` accepts a path string, which can use [glob patterns](#glob-patterns) to specify multiple files. `Watch` returns an <xref:Microsoft.Extensions.Primitives.IChangeToken>. The change token exposes:
+Metoda [IFileProvider. Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) nabízí scénář, jak sledovat změny jednoho nebo více souborů nebo adresářů. `Watch` přijímá řetězec cesty, který může používat [vzory glob](#glob-patterns) k určení více souborů. `Watch` vrátí <xref:Microsoft.Extensions.Primitives.IChangeToken>. Token pro změnu zpřístupňuje:
 
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged> &ndash; A property that can be inspected to determine if a change has occurred.
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*> &ndash; Called when changes are detected to the specified path string. Each change token only calls its associated callback in response to a single change. To enable constant monitoring, use a <xref:System.Threading.Tasks.TaskCompletionSource`1> (shown below) or recreate `IChangeToken` instances in response to changes.
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged> &ndash; vlastnost, kterou lze zkontrolovat, aby bylo možné zjistit, zda došlo ke změně.
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*> &ndash; volána, když jsou zjištěny změny do zadaného řetězce cesty. Každý token změny volá pouze své přidružené zpětné volání v reakci na jednu změnu. Chcete-li povolit konstantní monitorování, použijte <xref:System.Threading.Tasks.TaskCompletionSource`1> (zobrazeno níže) nebo znovu vytvořte `IChangeToken` instancí v reakci na změny.
 
-In the sample app, the *WatchConsole* console app is configured to display a message whenever a text file is modified:
+V ukázkové aplikaci je aplikace konzoly *WatchConsole* nakonfigurovaná tak, aby zobrazila zprávu pokaždé, když se upraví textový soubor:
 
 [!code-csharp[](file-providers/samples/3.x/WatchConsole/Program.cs?name=snippet1&highlight=1-2,16,19-20)]
 
-Some file systems, such as Docker containers and network shares, may not reliably send change notifications. Set the `DOTNET_USE_POLLING_FILE_WATCHER` environment variable to `1` or `true` to poll the file system for changes every four seconds (not configurable).
+Některé systémy souborů, jako jsou kontejnery Docker a sdílené síťové složky, nemusí spolehlivě odesílat oznámení o změnách. Nastavte proměnnou prostředí `DOTNET_USE_POLLING_FILE_WATCHER` na `1` nebo `true` k dotazování systému souborů na změny každé čtyři sekundy (nedají se konfigurovat).
 
-## <a name="glob-patterns"></a>Glob patterns
+## <a name="glob-patterns"></a>Glob vzory
 
-File system paths use wildcard patterns called *glob (or globbing) patterns*. Specify groups of files with these patterns. The two wildcard characters are `*` and `**`:
+Cesty systému souborů používají vzory zástupných znaků označované jako *vzory glob (nebo expanze)* . Určete skupiny souborů s těmito vzory. Dva zástupné znaky jsou `*` a `**`:
 
 **`*`**  
-Matches anything at the current folder level, any filename, or any file extension. Matches are terminated by `/` and `.` characters in the file path.
+Odpovídá cokoli na úrovni aktuální složky, libovolnému názvu souboru nebo libovolné příponě souboru. Shody jsou ukončeny `/` a `.` znaky v cestě k souboru.
 
 **`**`**  
-Matches anything across multiple directory levels. Can be used to recursively match many files within a directory hierarchy.
+Odpovídá cokoli v různých úrovních adresáře. Dá se použít k rekurzivnímu spárování mnoha souborů v rámci hierarchie adresářů.
 
-**Glob pattern examples**
+**Příklady vzorů glob**
 
 **`directory/file.txt`**  
-Matches a specific file in a specific directory.
+Odpovídá konkrétnímu souboru v konkrétním adresáři.
 
 **`directory/*.txt`**  
-Matches all files with *.txt* extension in a specific directory.
+Vyhledá všechny soubory s příponou *. txt* v konkrétním adresáři.
 
 **`directory/*/appsettings.json`**  
-Matches all `appsettings.json` files in directories exactly one level below the *directory* folder.
+Vyhledá všechny soubory `appsettings.json` v adresářích přesně jednu úroveň pod *adresářovou* složkou.
 
 **`directory/**/*.txt`**  
-Matches all files with *.txt* extension found anywhere under the *directory* folder.
+Porovná všechny soubory s příponou *. txt* nalezené kdekoli ve složce *adresáře* .
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-ASP.NET Core abstracts file system access through the use of File Providers. File Providers are used throughout the ASP.NET Core framework:
+ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů. Poskytovatelé souborů se používají v rámci ASP.NET Coreho rozhraní:
 
-* <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> exposes the app's [content root](xref:fundamentals/index#content-root) and [web root](xref:fundamentals/index#web-root) as `IFileProvider` types.
-* [Static File Middleware](xref:fundamentals/static-files) uses File Providers to locate static files.
-* [Razor](xref:mvc/views/razor) uses File Providers to locate pages and views.
-* .NET Core tooling uses File Providers and glob patterns to specify which files should be published.
+* <xref:Microsoft.Extensions.Hosting.IHostingEnvironment> zpřístupňuje [kořen obsahu](xref:fundamentals/index#content-root) aplikace a [kořenový adresář webu](xref:fundamentals/index#web-root) jako typy `IFileProvider`.
+* [Middleware statických souborů](xref:fundamentals/static-files) používá k vyhledání statických souborů poskytovatele souborů.
+* [Razor](xref:mvc/views/razor) používá k vyhledání stránek a zobrazení poskytovatele souborů.
+* Nástroje .NET Core využívají poskytovatele souborů a vzory glob k určení, které soubory se mají publikovat.
 
-[View or download sample code](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([how to download](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-## <a name="file-provider-interfaces"></a>File Provider interfaces
+## <a name="file-provider-interfaces"></a>Rozhraní poskytovatele souborů
 
-The primary interface is <xref:Microsoft.Extensions.FileProviders.IFileProvider>. `IFileProvider` exposes methods to:
+Primární rozhraní je <xref:Microsoft.Extensions.FileProviders.IFileProvider>. `IFileProvider` zveřejňuje metody pro:
 
-* Obtain file information (<xref:Microsoft.Extensions.FileProviders.IFileInfo>).
-* Obtain directory information (<xref:Microsoft.Extensions.FileProviders.IDirectoryContents>).
-* Set up change notifications (using an <xref:Microsoft.Extensions.Primitives.IChangeToken>).
+* Získat informace o souboru (<xref:Microsoft.Extensions.FileProviders.IFileInfo>).
+* Získání informací o adresáři (<xref:Microsoft.Extensions.FileProviders.IDirectoryContents>).
+* Nastavte oznámení o změně (pomocí <xref:Microsoft.Extensions.Primitives.IChangeToken>).
 
-`IFileInfo` provides methods and properties for working with files:
+`IFileInfo` poskytuje metody a vlastnosti pro práci se soubory:
 
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.Exists>
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.IsDirectory>
 * <xref:Microsoft.Extensions.FileProviders.IFileInfo.Name>
-* <xref:Microsoft.Extensions.FileProviders.IFileInfo.Length> (in bytes)
-* <xref:Microsoft.Extensions.FileProviders.IFileInfo.LastModified> date
+* <xref:Microsoft.Extensions.FileProviders.IFileInfo.Length> (v bajtech)
+* Datum <xref:Microsoft.Extensions.FileProviders.IFileInfo.LastModified>
 
-You can read from the file using the [IFileInfo.CreateReadStream](xref:Microsoft.Extensions.FileProviders.IFileInfo.CreateReadStream*) method.
+Můžete číst ze souboru pomocí metody [IFileInfo. CreateReadStream](xref:Microsoft.Extensions.FileProviders.IFileInfo.CreateReadStream*) .
 
-The sample app demonstrates how to configure a File Provider in `Startup.ConfigureServices` for use throughout the app via [dependency injection](xref:fundamentals/dependency-injection).
+Ukázková aplikace ukazuje, jak nakonfigurovat poskytovatele souborů v `Startup.ConfigureServices` pro použití v rámci aplikace přes [vkládání závislostí](xref:fundamentals/dependency-injection).
 
-## <a name="file-provider-implementations"></a>File Provider implementations
+## <a name="file-provider-implementations"></a>Implementace poskytovatele souborů
 
-Three implementations of `IFileProvider` are available.
+K dispozici jsou tři implementace `IFileProvider`.
 
 | Implementace | Popis |
 | -------------- | ----------- |
-| [PhysicalFileProvider](#physicalfileprovider) | The physical provider is used to access the system's physical files. |
-| [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | The manifest embedded provider is used to access files embedded in assemblies. |
-| [CompositeFileProvider](#compositefileprovider) | The composite provider is used to provide combined access to files and directories from one or more other providers. |
+| [PhysicalFileProvider](#physicalfileprovider) | Fyzický poskytovatel se používá pro přístup k fyzickým souborům systému. |
+| [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | Zprostředkovatel manifestu Embedded se používá pro přístup k souborům integrovaným v sestaveních. |
+| [CompositeFileProvider](#compositefileprovider) | Složený poskytovatel se používá k poskytnutí kombinovaného přístupu k souborům a adresářům z jednoho nebo více poskytovatelů. |
 
 ### <a name="physicalfileprovider"></a>PhysicalFileProvider
 
@@ -261,7 +261,7 @@ Další přetížení umožňují:
 * Umožňuje nastavit rozsah souborů na datum poslední úpravy.
 * Pojmenujte vložený prostředek obsahující manifest vloženého souboru.
 
-| Metody | Popis |
+| Přetížení | Popis |
 | -------- | ----------- |
 | `ManifestEmbeddedFileProvider(Assembly, String)` | Přijímá volitelný parametr relativní cesty `root`. Zadejte `root` pro rozsah volání do <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> na tyto prostředky v zadané cestě. |
 | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | Přijímá volitelný parametr relativní cesty `root` a parametr data `lastModified` (<xref:System.DateTimeOffset>). Datum `lastModified` rozsahem data poslední změny pro instance <xref:Microsoft.Extensions.FileProviders.IFileInfo> vrácené <xref:Microsoft.Extensions.FileProviders.IFileProvider>. |
@@ -269,47 +269,47 @@ Další přetížení umožňují:
 
 ### <a name="compositefileprovider"></a>CompositeFileProvider
 
-The <xref:Microsoft.Extensions.FileProviders.CompositeFileProvider> combines `IFileProvider` instances, exposing a single interface for working with files from multiple providers. When creating the `CompositeFileProvider`, pass one or more `IFileProvider` instances to its constructor.
+<xref:Microsoft.Extensions.FileProviders.CompositeFileProvider> kombinuje `IFileProvider` instancí a zpřístupňuje jedno rozhraní pro práci se soubory od více poskytovatelů. Při vytváření `CompositeFileProvider`předat konstruktoru jednu nebo více instancí `IFileProvider`.
 
-In the sample app, a `PhysicalFileProvider` and a `ManifestEmbeddedFileProvider` provide files to a `CompositeFileProvider` registered in the app's service container:
+V ukázkové aplikaci `PhysicalFileProvider` a `ManifestEmbeddedFileProvider` poskytují soubory `CompositeFileProvider` zaregistrovaným v kontejneru služby aplikace:
 
 [!code-csharp[](file-providers/samples/2.x/FileProviderSample/Startup.cs?name=snippet1)]
 
-## <a name="watch-for-changes"></a>Watch for changes
+## <a name="watch-for-changes"></a>Sledovat změny
 
-The [IFileProvider.Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) method provides a scenario to watch one or more files or directories for changes. `Watch` accepts a path string, which can use [glob patterns](#glob-patterns) to specify multiple files. `Watch` returns an <xref:Microsoft.Extensions.Primitives.IChangeToken>. The change token exposes:
+Metoda [IFileProvider. Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*) nabízí scénář, jak sledovat změny jednoho nebo více souborů nebo adresářů. `Watch` přijímá řetězec cesty, který může používat [vzory glob](#glob-patterns) k určení více souborů. `Watch` vrátí <xref:Microsoft.Extensions.Primitives.IChangeToken>. Token pro změnu zpřístupňuje:
 
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged> &ndash; A property that can be inspected to determine if a change has occurred.
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*> &ndash; Called when changes are detected to the specified path string. Each change token only calls its associated callback in response to a single change. To enable constant monitoring, use a <xref:System.Threading.Tasks.TaskCompletionSource`1> (shown below) or recreate `IChangeToken` instances in response to changes.
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged> &ndash; vlastnost, kterou lze zkontrolovat, aby bylo možné zjistit, zda došlo ke změně.
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*> &ndash; volána, když jsou zjištěny změny do zadaného řetězce cesty. Každý token změny volá pouze své přidružené zpětné volání v reakci na jednu změnu. Chcete-li povolit konstantní monitorování, použijte <xref:System.Threading.Tasks.TaskCompletionSource`1> (zobrazeno níže) nebo znovu vytvořte `IChangeToken` instancí v reakci na změny.
 
-In the sample app, the *WatchConsole* console app is configured to display a message whenever a text file is modified:
+V ukázkové aplikaci je aplikace konzoly *WatchConsole* nakonfigurovaná tak, aby zobrazila zprávu pokaždé, když se upraví textový soubor:
 
 [!code-csharp[](file-providers/samples/2.x/WatchConsole/Program.cs?name=snippet1&highlight=1-2,16,19-20)]
 
-Some file systems, such as Docker containers and network shares, may not reliably send change notifications. Set the `DOTNET_USE_POLLING_FILE_WATCHER` environment variable to `1` or `true` to poll the file system for changes every four seconds (not configurable).
+Některé systémy souborů, jako jsou kontejnery Docker a sdílené síťové složky, nemusí spolehlivě odesílat oznámení o změnách. Nastavte proměnnou prostředí `DOTNET_USE_POLLING_FILE_WATCHER` na `1` nebo `true` k dotazování systému souborů na změny každé čtyři sekundy (nedají se konfigurovat).
 
-## <a name="glob-patterns"></a>Glob patterns
+## <a name="glob-patterns"></a>Glob vzory
 
-File system paths use wildcard patterns called *glob (or globbing) patterns*. Specify groups of files with these patterns. The two wildcard characters are `*` and `**`:
+Cesty systému souborů používají vzory zástupných znaků označované jako *vzory glob (nebo expanze)* . Určete skupiny souborů s těmito vzory. Dva zástupné znaky jsou `*` a `**`:
 
 **`*`**  
-Matches anything at the current folder level, any filename, or any file extension. Matches are terminated by `/` and `.` characters in the file path.
+Odpovídá cokoli na úrovni aktuální složky, libovolnému názvu souboru nebo libovolné příponě souboru. Shody jsou ukončeny `/` a `.` znaky v cestě k souboru.
 
 **`**`**  
-Matches anything across multiple directory levels. Can be used to recursively match many files within a directory hierarchy.
+Odpovídá cokoli v různých úrovních adresáře. Dá se použít k rekurzivnímu spárování mnoha souborů v rámci hierarchie adresářů.
 
-**Glob pattern examples**
+**Příklady vzorů glob**
 
 **`directory/file.txt`**  
-Matches a specific file in a specific directory.
+Odpovídá konkrétnímu souboru v konkrétním adresáři.
 
 **`directory/*.txt`**  
-Matches all files with *.txt* extension in a specific directory.
+Vyhledá všechny soubory s příponou *. txt* v konkrétním adresáři.
 
 **`directory/*/appsettings.json`**  
-Matches all `appsettings.json` files in directories exactly one level below the *directory* folder.
+Vyhledá všechny soubory `appsettings.json` v adresářích přesně jednu úroveň pod *adresářovou* složkou.
 
 **`directory/**/*.txt`**  
-Matches all files with *.txt* extension found anywhere under the *directory* folder.
+Porovná všechny soubory s příponou *. txt* nalezené kdekoli ve složce *adresáře* .
 
 ::: moniker-end

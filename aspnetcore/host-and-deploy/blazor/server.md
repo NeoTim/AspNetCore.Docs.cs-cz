@@ -5,17 +5,17 @@ description: Naučte se hostovat a nasazovat aplikace Blazor serveru pomocí ASP
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: b688d000f26c9b230d9fdee8423b3194145fe1aa
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: d45d355eabc53fc90bcda4cb7be22fb6a9f04541
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317300"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944331"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>Hostování a nasazení serveru Blazor
 
@@ -49,7 +49,7 @@ Pokyny k vytváření zabezpečených a škálovatelných aplikací Blazor serve
 
 Každý okruh používá pro minimální aplikaci *Hello World*ve stylu přibližně 250 kB paměti. Velikost okruhu závisí na kódu aplikace a požadavcích na údržbu stavu přidružených k jednotlivým součástem. Doporučujeme změřit požadavky na prostředky během vývoje vaší aplikace a infrastruktury, ale následující standardní hodnoty můžou být výchozím bodem plánování nasazení. Pokud očekáváte, že aplikace bude podporovat 5 000 souběžných uživatelů, zvažte rozpočtování na do aplikace je minimálně 1,3 GB paměti serveru (nebo ~ 273 KB na uživatele).
 
-### <a name="opno-locsignalr-configuration"></a>Konfigurace SignalR
+### <a name="opno-locsignalr-configuration"></a>Konfigurace produktu SignalR
 
 aplikace Blazor serveru používají ke komunikaci s prohlížečem ASP.NET Core SignalR. [podmínky hostování a škálováníSignalR](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor serverových aplikací.
 
@@ -73,7 +73,7 @@ Pro Blazor serverových aplikací doporučujeme používat [službu Azure Signal
 
    * Konfigurace (použijte **jeden** z následujících přístupů):
   
-     * *appSettings. JSON*:
+     * *appsettings.json*:
 
        ```json
        "Azure:SignalR:ServerStickyMode": "Required"
@@ -83,7 +83,7 @@ Pro Blazor serverových aplikací doporučujeme používat [službu Azure Signal
 
 1. Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro aplikaci Blazor Server.
 1. Přidejte do profilu závislost **služby Azure SignalR** . Pokud předplatné Azure nemá stávající instanci služby Azure SignalR, která se má přiřadit k aplikaci, vyberte **vytvořit novou instanci služby azure SignalR** a zřídit novou instanci služby.
-1. Publikujte aplikaci do Azure.
+1. Publikovat aplikaci do Azure
 
 #### <a name="iis"></a>IIS
 
@@ -109,7 +109,7 @@ metadata:
 
 [Zprostředkovatel komunikace js](xref:blazor/javascript-interop) lze použít k měření latence sítě, jak ukazuje následující příklad:
 
-```cshtml
+```razor
 @inject IJSRuntime JS
 
 @if (latency is null)

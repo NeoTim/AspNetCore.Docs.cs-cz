@@ -5,16 +5,16 @@ description: Přečtěte si, jak zachovat stav v aplikacích Blazor Server.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/state-management
-ms.openlocfilehash: ed203458126f3b4c97103c88a465e3eb5953a775
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 7351ee2438c6adf675b8aa5e8ecdb1b2da7b4f23
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879715"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943924"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -164,7 +164,7 @@ V každé součásti, která vyžaduje načtení nebo uložení dat do úložiš
 
 Volba závisí na tom, které záložní úložiště chcete použít. V následujícím příkladu se používá `sessionStorage`:
 
-```cshtml
+```razor
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 ```
@@ -215,7 +215,7 @@ private int? currentCount;
 
 Namísto nepodmíněného zobrazení tlačítka počet a **přírůstek** vyberte, zda chcete tyto prvky zobrazit pouze v případě, že jsou data načtena:
 
-```cshtml
+```razor
 @if (currentCount.HasValue)
 {
     <p>Current count: <strong>@currentCount</strong></p>
@@ -255,7 +255,7 @@ Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a
 
 Předvykreslování může být užitečné pro jiné stránky, které nepoužívají `localStorage` ani `sessionStorage`. Aby bylo možné předvykreslování povolit, odložte operaci načtení, dokud se prohlížeč nepřipojí k okruhu. Následuje příklad uložení hodnoty čítače:
 
-```cshtml
+```razor
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
 @inject ProtectedLocalStorage ProtectedLocalStore
 
@@ -296,7 +296,7 @@ Pokud mnoho komponent spoléhá na úložiště založené na prohlížeči, ča
 
 V následujícím příkladu `CounterStateProvider` komponenty jsou data čítače trvalá:
 
-```cshtml
+```razor
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 
@@ -336,7 +336,7 @@ Komponenta `CounterStateProvider` zpracovává fázi načítání tím, že nevy
 
 Chcete-li použít komponentu `CounterStateProvider`, zabalte instanci součásti kolem jakékoli jiné komponenty, která vyžaduje přístup ke stavu čítače. Chcete-li zpřístupnit stav pro všechny součásti aplikace, zabalte `CounterStateProvider` komponentu kolem `Router` v součásti `App` (*App. Razor*):
 
-```cshtml
+```razor
 <CounterStateProvider>
     <Router AppAssembly="typeof(Startup).Assembly">
         ...
@@ -346,7 +346,7 @@ Chcete-li použít komponentu `CounterStateProvider`, zabalte instanci součást
 
 Zabalené komponenty obdrží a můžou upravovat trvalý stav čítače. Následující součást `Counter` implementuje vzor:
 
-```cshtml
+```razor
 @page "/counter"
 
 <p>Current count: <strong>@CounterStateProvider.CurrentCount</strong></p>

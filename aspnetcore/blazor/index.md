@@ -5,17 +5,17 @@ description: Prozkoumejte ASP.NET Core Blazor, způsob sestavení interaktivníh
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 8b656a7461c78475432722540ad628258cfe19c4
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 4ab6af649afe66d92fb2ea07d3abed057f321bce
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962917"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943716"
 ---
 # <a name="introduction-to-aspnet-core-opno-locblazor"></a>Úvod do ASP.NET Core Blazor
 
@@ -53,7 +53,7 @@ Třída komponenty je obvykle napsána ve formě stránky značek [Razor](xref:m
 
 Následující kód Razor znázorňuje komponentu (*dialog. Razor*), která může být vnořena do jiné komponenty:
 
-```cshtml
+```razor
 <div>
     <h1>@Title</h1>
 
@@ -76,15 +76,15 @@ Následující kód Razor znázorňuje komponentu (*dialog. Razor*), která mů�
 }
 ```
 
-Obsah těla dialogového okna (`ChildContent`) a název (`Title`) jsou poskytovány komponentou, která tuto komponentu používá v uživatelském rozhraní. `OnYes` je C# metoda aktivovaná událostí `onclick` tohoto tlačítka.
+Obsah těla dialogového okna (`ChildContent`) a název (`Title`) je součástí komponenty, která tuto komponentu používá v uživatelském rozhraní. `OnYes` je C# metoda aktivovaná v události `onclick` tlačítka.
 
 Blazor používá přirozené značky HTML pro kompozici uživatelského rozhraní. Prvky HTML určují komponenty a atributy značky přecházejí hodnoty do vlastností součásti.
 
-V následujícím příkladu komponenta `Index` používá komponentu `Dialog`. `ChildContent` a `Title` jsou nastaveny pomocí atributů a obsahu prvku `<Dialog>`.
+V následujícím příkladu `Index` komponenta používá komponentu `Dialog`. `ChildContent` a `Title` jsou nastaveny pomocí atributů a obsahu elementu `<Dialog>`.
 
 *Index. Razor*:
 
-```cshtml
+```razor
 @page "/"
 
 <h1>Hello, world!</h1>
@@ -128,7 +128,7 @@ Velikost publikované aplikace, její *Velikost datové části*, je důležitý
 * Odpovědi HTTP jsou komprimovány.
 * Modul runtime .NET a sestavení jsou ukládány do mezipaměti v prohlížeči.
 
-## <a name="opno-locblazor-server"></a>Server Blazor
+## <a name="opno-locblazor-server"></a>Blazor Server
 
 Blazor odpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Server poskytuje podporu pro hostování komponent Razor na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní jsou zpracovávány prostřednictvím [SignalRho](xref:signalr/introduction) připojení.
 
@@ -146,13 +146,13 @@ Pro aplikace, které vyžadují knihovny JavaScript třetích stran a přístup 
 
 Blazor implementuje [.NET Standard 2,0](/dotnet/standard/net-standard). .NET Standard je formální specifikace rozhraní .NET API, která jsou společná pro implementace v rozhraní .NET. Knihovny tříd .NET Standard mohou být sdíleny napříč různými platformami .NET, například Blazor, .NET Framework, .NET Core, Xamarin, mono a Unity.
 
-Rozhraní API, která nejsou platná v rámci webového prohlížeče (například přístup k systému souborů, otevření soketu a vlákna), vyvolávají <xref:System.PlatformNotSupportedException>.
+Rozhraní API, která nejsou platná v rámci webového prohlížeče (například přístup k systému souborů, otevření soketu a vlákna) vyvolávají <xref:System.PlatformNotSupportedException>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [WebAssembly](https://webassembly.org/)
 * <xref:blazor/hosting-models>
 * [Průvodce jazykem C#](/dotnet/csharp/)
 * <xref:mvc/views/razor>
-* [KÓDU](https://www.w3.org/html/)
+* [HTML](https://www.w3.org/html/)
 * [Super Blazor](https://github.com/AdrienTorris/awesome-blazor) komunitní odkazy

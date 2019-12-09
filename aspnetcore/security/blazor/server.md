@@ -5,17 +5,17 @@ description: Naučte se zmírnit bezpečnostní hrozby pro Blazor serverových a
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: 5cf83a4dd255959e8840fca3a8194b5b4e2ad0a8
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 2d644b84b304a31ad0debc16164ad155c7f7da65
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963882"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944279"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-server-apps"></a>Zabezpečené ASP.NET Core Blazor serverových aplikací
 
@@ -36,8 +36,8 @@ V omezených prostředích, jako jsou v podnikových sítích nebo intranetech, 
 
 K vyčerpání prostředků může dojít, když klient komunikuje se serverem a způsobí, že Server spotřebovává nadměrné prostředky. Nadměrné využití prostředků primárně ovlivňuje:
 
-* [VČETNĚ](#cpu)
-* [Rezident](#memory)
+* [CPU](#cpu)
+* [Paměť](#memory)
 * [Připojení klientů](#client-connections)
 
 Útoky DoS (Denial of Service) obvykle hledají vyčerpání prostředků aplikace nebo serveru. Vyčerpání prostředků ale nemusí být nutně výsledkem útoku na systém. Například omezené prostředky je možné vyčerpat z důvodu vysoké poptávky uživatelů. V části věnované [útokům DOS (Denial of Service)](#denial-of-service-dos-attacks) se systém DOS podrobněji zabývá.
@@ -52,7 +52,7 @@ Představte si třeba Blazor serverovou aplikaci, která vypočítá *Fibonnacci
 
 Vyčerpání výkonu procesoru je obavou pro všechny veřejné aplikace. V běžných webových aplikacích jsou požadavky a připojení vyprší jako ochrana, ale aplikace Blazor Server neposkytují stejné záruky. aplikace Blazor serveru musí před provedením práce náročné na procesor zahrnovat vhodné kontroly a omezení.
 
-### <a name="memory"></a>Rezident
+### <a name="memory"></a>Paměť
 
 K vyčerpání paměti může dojít v případě, že jeden nebo více klientů vynutí Server, aby využíval velké množství paměti.
 
@@ -99,7 +99,7 @@ Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uži
 | `CircuitOptions.DisconnectedCircuitMaxRetained`         | Maximální počet odpojených okruhů, které daný server uchovává v paměti. | 100 |
 | `CircuitOptions.DisconnectedCircuitRetentionPeriod`     | Maximální doba, po kterou je odpojený okruh uložený v paměti předtím, než se rozpustí. | 3 minuty |
 | `CircuitOptions.JSInteropDefaultCallTimeout`            | Maximální doba, po kterou Server počká, než vyprší časový limit asynchronního vyvolání funkce JavaScriptu. | 1 minuta |
-| `CircuitOptions.MaxBufferedUnacknowledgedRenderBatches` | Maximální počet nepotvrzených vykreslících vykreslování: Server udržuje paměť na okruh v daném čase pro zajištění podpory robustního opětovného připojení. Po dosažení limitu Server přestane vytvářet nové dávky vykreslování, dokud klient nepotvrdí jednu nebo více dávek. | 10pruhový |
+| `CircuitOptions.MaxBufferedUnacknowledgedRenderBatches` | Maximální počet nepotvrzených vykreslících vykreslování: Server udržuje paměť na okruh v daném čase pro zajištění podpory robustního opětovného připojení. Po dosažení limitu Server přestane vytvářet nové dávky vykreslování, dokud klient nepotvrdí jednu nebo více dávek. | 10 |
 
 
 | omezení SignalR a ASP.NET Core             | Popis | Výchozí |
@@ -159,7 +159,7 @@ události Blazor serveru jsou asynchronní, takže je možné odeslat do serveru
 
 Vezměte v úvahu komponentu čítače, která by uživateli umožnila zvýšit hodnotu čítače maximálně třikrát. Tlačítko pro zvýšení čítače je podmíněně na základě hodnoty `count`:
 
-```cshtml
+```razor
 <p>Count: @count<p>
 
 @if (count < 3)
@@ -180,7 +180,7 @@ Vezměte v úvahu komponentu čítače, která by uživateli umožnila zvýšit 
 
 Klient může odeslat jednu nebo více událostí přírůstku předtím, než architektura vytvoří nové vykreslování této součásti. Výsledkem je, že uživatel může `count` zvýšit *za trojnásobnou dobu* , protože toto tlačítko není v uživatelském rozhraní k dispozici dostatečně rychle. Správný způsob, jak dosáhnout limitu tří `count` přírůstcích, je znázorněno v následujícím příkladu:
 
-```cshtml
+```razor
 <p>Count: @count<p>
 
 @if (count < 3)
@@ -208,7 +208,7 @@ Přidáním `if (count < 3) { ... }` kontroly v rámci obslužné rutiny se rozh
 
 Pokud zpětné volání události vyvolá dlouhou běžící operaci, například načtení dat z externí služby nebo databáze, zvažte použití ochrany. Ochrana může uživatelům zabránit ve zařazení více operací do fronty, zatímco operace probíhá pomocí vizuální zpětné vazby. Následující kód komponenty nastaví `isLoading`, aby `true`, zatímco `GetForecastAsync` získá data ze serveru. Když je `isLoading` `true`, je tlačítko v uživatelském rozhraní zakázané:
 
-```cshtml
+```razor
 @page "/fetchdata"
 @using BlazorServerSample.Data
 @inject WeatherForecastService ForecastService
@@ -235,7 +235,7 @@ Pokud zpětné volání události vyvolá dlouhou běžící operaci, napříkla
 
 Kromě používání ochrany, jak je popsáno v části [Ochrana proti více odesláních](#guard-against-multiple-dispatches) , zvažte použití <xref:System.Threading.CancellationToken> pro zrušení dlouhotrvajících operací při uvolnění součásti. Tento přístup má výhodu při zamezení používání funkcí *po Dispose* v součástech:
 
-```cshtml
+```razor
 @implements IDisposable
 
 ...

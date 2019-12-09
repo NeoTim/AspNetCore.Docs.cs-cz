@@ -5,16 +5,16 @@ description: Zjistěte, jak mohou být součásti součástí aplikace Blazor z 
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/class-libraries
-ms.openlocfilehash: d4cc4124c9dc28ed6da0923b919919df4965f89f
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 6bac007e3e1d046d6b16a3a0be6dc5976b99b766
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962709"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943872"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core knihovny tříd součástí Razor
 
@@ -73,7 +73,7 @@ V následujících příkladech je `MyComponentLib1` knihovnou komponent obsahuj
 
 Na součást `SalesReport` lze odkazovat pomocí jejího úplného názvu typu s oborem názvů:
 
-```cshtml
+```razor
 <h1>Hello, world!</h1>
 
 Welcome to your new app.
@@ -83,7 +83,7 @@ Welcome to your new app.
 
 Na komponentu lze také odkazovat, je-li knihovna přenesena do rozsahu s `@using` direktivou:
 
-```cshtml
+```razor
 @using MyComponentLib1
 
 <h1>Hello, world!</h1>
@@ -109,6 +109,6 @@ Nahrajte balíček do NuGet pomocí příkazu [dotnet NuGet push](/dotnet/core/t
 
 RCL může zahrnovat statické prostředky. Statické prostředky jsou k dispozici pro všechny aplikace, které knihovnu využívají. Další informace najdete v tématu <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:razor-pages/ui-class>

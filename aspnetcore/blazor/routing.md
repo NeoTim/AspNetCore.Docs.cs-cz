@@ -5,20 +5,20 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/routing
-ms.openlocfilehash: 2c139db4e44679fbd9f3455a2d2543be0e128765
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 1690434f48141bc83e7bc02e22cb763430eaa10d
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550339"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944015"
 ---
 # <a name="aspnet-core-opno-locblazor-routing"></a>Směrování Blazor ASP.NET Core
 
-Od [Luke Latham](https://github.com/guardrex)
+Podle [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -36,7 +36,7 @@ Nejtypickou konfigurací je směrování všech požadavků na stránku Razor, k
 
 Komponenta `Router` umožňuje směrování na jednotlivé komponenty se zadanou trasou. Komponenta `Router` se zobrazí v souboru *App. Razor* :
 
-```cshtml
+```razor
 <Router AppAssembly="typeof(Startup).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -58,7 +58,12 @@ Volitelně můžete zadat parametr `DefaultLayout` pro třídu rozložení, kter
 
 Pro komponentu lze použít více šablon směrování. Následující komponenta reaguje na požadavky na `/BlazorRoute` a `/DifferentBlazorRoute`:
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/BlazorRoute.razor?name=snippet_BlazorRoute)]
+```razor
+@page "/BlazorRoute"
+@page "/DifferentBlazorRoute"
+
+<h1>Blazor routing</h1>
+```
 
 > [!IMPORTANT]
 > Aby adresy URL byly správně přeloženy, musí aplikace zahrnovat značku `<base>` v souboru *wwwroot/index.html* (Blazor sestavení) nebo *stránky/_Host. cshtml* (ServerBlazor) se základní cestou aplikace zadanou v atributu `href` (`<base href="/">`). Další informace najdete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
@@ -69,7 +74,7 @@ Komponenta `Router` umožňuje aplikaci zadat vlastní obsah, pokud se pro poža
 
 V souboru *App. Razor* nastavte vlastní obsah v parametru `NotFound` šablony `Router` součásti:
 
-```cshtml
+```razor
 <Router AppAssembly="typeof(Startup).Assembly">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -87,7 +92,7 @@ Obsah značek `<NotFound>` může zahrnovat libovolné položky, jako jsou např
 
 Použijte parametr `AdditionalAssemblies` k určení dalších sestavení pro komponentu `Router`, která se má při hledání směrovatelných komponent vzít v úvahu. Zadaná sestavení jsou kromě `AppAssembly`ho zadaného sestavení považována za. V následujícím příkladu je `Component1` směrovatelné komponenty definované v odkazované knihovně tříd. Následující příklad `AdditionalAssemblies` má za následek podporu směrování pro `Component1`:
 
-```cshtml
+```razor
 <Router
     AppAssembly="typeof(Program).Assembly"
     AdditionalAssemblies="new[] { typeof(Component1).Assembly }">
@@ -99,7 +104,22 @@ Použijte parametr `AdditionalAssemblies` k určení dalších sestavení pro ko
 
 Směrovač používá parametry směrování k naplnění odpovídajících parametrů komponenty se stejným názvem (bez rozlišení velkých a malých písmen):
 
-[!code-cshtml[](common/samples/3.x/BlazorWebAssemblySample/Pages/RouteParameter.razor?name=snippet_RouteParameter&highlight=2,7-8)]
+```razor
+@page "/RouteParameter"
+@page "/RouteParameter/{text}"
+
+<h1>Blazor is @Text!</h1>
+
+@code {
+    [Parameter]
+    public string Text { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Text = Text ?? "fantastic";
+    }
+}
+```
 
 Volitelné parametry nejsou podporované pro aplikace Blazor v ASP.NET Core 3,0. V předchozím příkladu jsou aplikovány dvě direktivy `@page`. První umožňuje navigaci na součást bez parametru. Druhá direktiva `@page` přebírá parametr trasy `{text}` a přiřazuje hodnotu vlastnosti `Text`.
 
@@ -112,20 +132,20 @@ V následujícím příkladu trasa k součásti `Users` odpovídá pouze v pří
 * V adrese URL požadavku se nachází `Id` segment směrování.
 * Segment `Id` je celé číslo (`int`).
 
-[!code-cshtml[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
+[!code-razor[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
 
 K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení trasy, která se shodují s invariantní jazykovou verzí, se podívejte na upozornění pod tabulkou, kde najdete další informace.
 
 | Jedinečn | Příklad           | Příklady shody                                                                  | Invariantní<br>jazyková verze<br>shoda |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true``FALSE`                                                                  | Ne                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31``2016-12-31 7:32pm`                                                | Ano                              |
-| `decimal`  | `{price:decimal}` | `49.99``-1,000.01`                                                             | Ano                              |
-| `double`   | `{weight:double}` | `1.234``-1,001.01e8`                                                           | Ano                              |
-| `float`    | `{weight:float}`  | `1.234``-1,001.01e8`                                                           | Ano                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638``{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ne                               |
-| `int`      | `{id:int}`        | `123456789``-123456789`                                                        | Ano                              |
-| `long`     | `{ticks:long}`    | `123456789``-123456789`                                                        | Ano                              |
+| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Ne                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano                              |
+| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Ano                              |
+| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Ano                              |
+| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Ano                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ne                               |
+| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Ano                              |
+| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Ano                              |
 
 > [!WARNING]
 > Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime`) vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
@@ -154,7 +174,7 @@ Při vytváření navigačních odkazů použít komponentu `NavLink` místo prv
 
 Následující `NavMenu` komponenta vytvoří navigační panel [bootstrap](https://getbootstrap.com/docs/) , který ukazuje, jak používat komponenty `NavLink`:
 
-[!code-cshtml[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
+[!code-razor[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
 Existují dvě `NavLinkMatch` možnosti, které lze přiřadit k atributu `Match` elementu `<NavLink>`:
 
@@ -165,7 +185,7 @@ V předchozím příkladu `href=""` Home `NavLink` odpovídá domovské adrese U
 
 Další atributy `NavLink` komponenty jsou předány do vykreslené značky ukotvení. V následujícím příkladu zahrnuje `NavLink` komponenta atribut `target`:
 
-```cshtml
+```razor
 <NavLink href="my-page" target="_blank">My page</NavLink>
 ```
 
@@ -190,7 +210,7 @@ Použijte `Microsoft.AspNetCore.Components.NavigationManager` pro práci s ident
 
 Pokud je vybráno tlačítko, přejde následující komponenta na součást `Counter` aplikace:
 
-```cshtml
+```razor
 @page "/navigate"
 @inject NavigationManager NavigationManager
 

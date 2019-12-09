@@ -5,16 +5,16 @@ description: Naučte se vytvářet opakovaně použitelné součásti rozložen�
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/23/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/layouts
-ms.openlocfilehash: 3546259fc6b622a6137a6baa8f446c5f43af1cab
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 90acfb0d4e9daadb12be79de6bd0c99fc545697a
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962813"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944054"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>ASP.NET Core Blazor rozložení
 
@@ -31,7 +31,7 @@ Chcete-li změnit *komponentu* na *rozložení*, součást:
 
 Následující ukázka kódu ukazuje šablonu Razor komponenty layout *MainLayout. Razor*. Rozložení dědí `LayoutComponentBase` a nastaví `@Body` mezi navigačním panelem a zápatím:
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
+[!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
 V aplikaci, která je založená na jedné z Blazor šablon aplikací, se `MainLayout` součást (*MainLayout. Razor*) nachází ve *sdílené* složce aplikace.
 
@@ -39,11 +39,11 @@ V aplikaci, která je založená na jedné z Blazor šablon aplikací, se `MainL
 
 Zadejte výchozí rozložení aplikace v součásti `Router` v souboru App *. Razor* aplikace. Následující součást `Router`, která je poskytována výchozími šablonami Blazor, nastaví výchozí rozložení na součást `MainLayout`:
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
+[!code-razor[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
 Chcete-li zadat výchozí rozložení pro `NotFound` obsah, zadejte `LayoutView` pro `NotFound` obsah:
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
+[!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
 Další informace o komponentě `Router` najdete v tématu <xref:blazor/routing>.
 
@@ -55,7 +55,7 @@ Použijte `@layout` direktivy Razor pro použití rozložení na komponentu. Kom
 
 Obsah následující `MasterList` komponenty je vložen do `MasterLayout` na pozici `@Body`:
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
+[!code-razor[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
 Určením rozložení přímo v součásti dojde k přepsání *výchozí sady rozložení* ve směrovači nebo direktivy `@layout` naimportované z *_Imports. Razor*.
 
@@ -69,7 +69,7 @@ Následující soubor *_Imports. Razor* importuje:
 * Všechny součásti Razor ve stejné složce a v jejích podsložkách.
 * Obor názvů `BlazorApp1.Data`.
  
-[!code-cshtml[](layouts/sample_snapshot/3.x/_Imports.razor)]
+[!code-razor[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
 Soubor *_Imports. Razor* je podobný [souboru _ViewImports. cshtml pro zobrazení a stránky Razor](xref:mvc/views/layout#importing-shared-directives) , ale používá se konkrétně pro soubory komponenty Razor.
 
@@ -81,16 +81,16 @@ Aplikace se můžou skládat z vnořených rozložení. Komponenta může odkazo
 
 Následující příklad ukazuje, jak použít vnořená rozložení. Soubor *EpisodesComponent. Razor* je komponenta, která se má zobrazit. Komponenta odkazuje na `MasterListLayout`:
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/EpisodesComponent.razor?highlight=1)]
+[!code-razor[](layouts/sample_snapshot/3.x/EpisodesComponent.razor?highlight=1)]
 
 Soubor *MasterListLayout. Razor* poskytuje `MasterListLayout`. Rozložení odkazuje na jiné rozložení, `MasterLayout`, kde je vykresleno. `EpisodesComponent` se vykreslí, kde se `@Body` zobrazí:
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
+[!code-razor[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
 Nakonec `MasterLayout` v *MasterLayout. Razor* obsahuje prvky rozložení na nejvyšší úrovni, jako je záhlaví, hlavní nabídka a zápatí. `MasterListLayout` `EpisodesComponent` se vykreslí tam, kde se zobrazí `@Body`:
 
-[!code-cshtml[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
+[!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:mvc/views/layout>

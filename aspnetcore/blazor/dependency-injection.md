@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/dependency-injection
-ms.openlocfilehash: 17dd0f927064ae7c2b1e3e439fd93e2cb220a5a4
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: aad6cfee500b5cb502470f6a4a7cb5756df09dc4
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879779"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74943781"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>Vkládání závislostí ASP.NET Core Blazor
 
@@ -84,7 +84,7 @@ Pro vložení různých služeb použijte více příkazů `@inject`.
 
 Následující příklad ukazuje, jak použít `@inject`. Služba implementující `Services.IDataAccess` je vložená do `DataRepository`vlastností komponenty. Všimněte si, jak kód používá `IDataAccess` abstrakce:
 
-[!code-cshtml[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
+[!code-razor[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,23)]
 
 Interně, generovaná vlastnost (`DataRepository`) používá atribut `InjectAttribute`. Obvykle se tento atribut nepoužívá přímo. Pokud je vyžadována základní třída pro součásti a vložené vlastnosti jsou také požadovány pro základní třídu, přidejte `InjectAttribute`ručně:
 
@@ -100,7 +100,7 @@ public class ComponentBase : IComponent
 
 V součástech odvozených ze základní třídy není `@inject` direktiva vyžadována. `InjectAttribute` základní třídy jsou dostatečné:
 
-```cshtml
+```razor
 @page "/demo"
 @inherits ComponentBase
 
@@ -135,7 +135,7 @@ V aplikacích ASP.NET Core jsou oborové služby obvykle vymezeny na aktuální 
 
 K určení oboru služeb pro životní dobu komponenty lze použít základní třídy `OwningComponentBase` a `OwningComponentBase<TService>`. Tyto základní třídy zpřístupňují vlastnost `ScopedServices` typu `IServiceProvider`, která řeší služby s vymezenou životností součásti. Chcete-li vytvořit komponentu, která dědí ze základní třídy ve Razor, použijte direktivu `@inherits`.
 
-```cshtml
+```razor
 @page "/users"
 @attribute [Authorize]
 @inherits OwningComponentBase<Data.ApplicationDbContext>
