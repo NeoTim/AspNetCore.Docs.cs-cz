@@ -5,80 +5,80 @@ description: Sestavte Blazor aplikaci krok za krokem.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 07069410135e216ff5f4de94285a54be66d44615
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 11ff540a70ebdb8baa0c7adb98cb1dfe27d91e50
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880370"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944184"
 ---
-# <a name="build-your-first-opno-locblazor-app"></a><span data-ttu-id="67d03-103">Vytvoření první aplikace Blazor</span><span class="sxs-lookup"><span data-stu-id="67d03-103">Build your first Blazor app</span></span>
+# <a name="build-your-first-opno-locblazor-app"></a><span data-ttu-id="62677-103">Vytvoření první aplikace Blazor</span><span class="sxs-lookup"><span data-stu-id="62677-103">Build your first Blazor app</span></span>
 
-<span data-ttu-id="67d03-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="67d03-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="62677-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="62677-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-<span data-ttu-id="67d03-105">V tomto kurzu se dozvíte, jak vytvořit a upravit aplikaci Blazor.</span><span class="sxs-lookup"><span data-stu-id="67d03-105">This tutorial shows you how to build and modify a Blazor app.</span></span>
+<span data-ttu-id="62677-105">V tomto kurzu se dozvíte, jak vytvořit a upravit aplikaci Blazor.</span><span class="sxs-lookup"><span data-stu-id="62677-105">This tutorial shows you how to build and modify a Blazor app.</span></span>
 
-<span data-ttu-id="67d03-106">Pokud chcete vytvořit projekt Blazor pro tento kurz, postupujte podle pokynů v článku o <xref:blazor/get-started>.</span><span class="sxs-lookup"><span data-stu-id="67d03-106">Follow the guidance in the <xref:blazor/get-started> article to create a Blazor project for this tutorial.</span></span> <span data-ttu-id="67d03-107">Pojmenujte projekt *ToDoList*.</span><span class="sxs-lookup"><span data-stu-id="67d03-107">Name the project *ToDoList*.</span></span>
+<span data-ttu-id="62677-106">Pokud chcete vytvořit projekt Blazor pro tento kurz, postupujte podle pokynů v článku o <xref:blazor/get-started>.</span><span class="sxs-lookup"><span data-stu-id="62677-106">Follow the guidance in the <xref:blazor/get-started> article to create a Blazor project for this tutorial.</span></span> <span data-ttu-id="62677-107">Pojmenujte projekt *ToDoList*.</span><span class="sxs-lookup"><span data-stu-id="62677-107">Name the project *ToDoList*.</span></span>
 
-## <a name="build-components"></a><span data-ttu-id="67d03-108">Komponenty sestavení</span><span class="sxs-lookup"><span data-stu-id="67d03-108">Build components</span></span>
+## <a name="build-components"></a><span data-ttu-id="62677-108">Komponenty sestavení</span><span class="sxs-lookup"><span data-stu-id="62677-108">Build components</span></span>
 
-1. <span data-ttu-id="67d03-109">Ve složce *Pages (stránky* ) přejděte na jednotlivé tři stránky aplikace: domů, čítač a načíst data.</span><span class="sxs-lookup"><span data-stu-id="67d03-109">Browse to each of the app's three pages in the *Pages* folder: Home, Counter, and Fetch data.</span></span> <span data-ttu-id="67d03-110">Tyto stránky jsou implementovány pomocí indexu souborů komponent Razor *. Razor*, *Counter. Razor*a *FetchData. Razor*.</span><span class="sxs-lookup"><span data-stu-id="67d03-110">These pages are implemented by the Razor component files *Index.razor*, *Counter.razor*, and *FetchData.razor*.</span></span>
+1. <span data-ttu-id="62677-109">Ve složce *Pages (stránky* ) přejděte na jednotlivé tři stránky aplikace: domů, čítač a načíst data.</span><span class="sxs-lookup"><span data-stu-id="62677-109">Browse to each of the app's three pages in the *Pages* folder: Home, Counter, and Fetch data.</span></span> <span data-ttu-id="62677-110">Tyto stránky jsou implementovány pomocí indexu souborů komponent Razor *. Razor*, *Counter. Razor*a *FetchData. Razor*.</span><span class="sxs-lookup"><span data-stu-id="62677-110">These pages are implemented by the Razor component files *Index.razor*, *Counter.razor*, and *FetchData.razor*.</span></span>
 
-1. <span data-ttu-id="67d03-111">Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky.</span><span class="sxs-lookup"><span data-stu-id="67d03-111">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="67d03-112">Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu.</span><span class="sxs-lookup"><span data-stu-id="67d03-112">Incrementing a counter in a webpage normally requires writing JavaScript.</span></span> <span data-ttu-id="67d03-113">Pomocí Blazormůžete místo toho napsat C# .</span><span class="sxs-lookup"><span data-stu-id="67d03-113">With Blazor, you can write C# instead.</span></span>
+1. <span data-ttu-id="62677-111">Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky.</span><span class="sxs-lookup"><span data-stu-id="62677-111">On the Counter page, select the **Click me** button to increment the counter without a page refresh.</span></span> <span data-ttu-id="62677-112">Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu.</span><span class="sxs-lookup"><span data-stu-id="62677-112">Incrementing a counter in a webpage normally requires writing JavaScript.</span></span> <span data-ttu-id="62677-113">Pomocí Blazormůžete místo toho napsat C# .</span><span class="sxs-lookup"><span data-stu-id="62677-113">With Blazor, you can write C# instead.</span></span>
 
-1. <span data-ttu-id="67d03-114">Projděte si implementaci `Counter` komponenty v souboru *Counter. Razor* .</span><span class="sxs-lookup"><span data-stu-id="67d03-114">Examine the implementation of the `Counter` component in the *Counter.razor* file.</span></span>
+1. <span data-ttu-id="62677-114">Projděte si implementaci `Counter` komponenty v souboru *Counter. Razor* .</span><span class="sxs-lookup"><span data-stu-id="62677-114">Examine the implementation of the `Counter` component in the *Counter.razor* file.</span></span>
 
-   <span data-ttu-id="67d03-115">*Stránky/čítač. Razor*:</span><span class="sxs-lookup"><span data-stu-id="67d03-115">*Pages/Counter.razor*:</span></span>
+   <span data-ttu-id="62677-115">*Stránky/čítač. Razor*:</span><span class="sxs-lookup"><span data-stu-id="62677-115">*Pages/Counter.razor*:</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter1.razor)]
 
-   <span data-ttu-id="67d03-116">Uživatelské rozhraní součásti `Counter` je definováno pomocí jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="67d03-116">The UI of the `Counter` component is defined using HTML.</span></span> <span data-ttu-id="67d03-117">Dynamická logika vykreslování (například smyčky, podmíněné výrazy, výrazy) se přidá pomocí vložené C# syntaxe s názvem [Razor](xref:mvc/views/razor).</span><span class="sxs-lookup"><span data-stu-id="67d03-117">Dynamic rendering logic (for example, loops, conditionals, expressions) is added using an embedded C# syntax called [Razor](xref:mvc/views/razor).</span></span> <span data-ttu-id="67d03-118">Logika značek HTML a C# vykreslování jsou v době sestavení převedena na třídu komponenty.</span><span class="sxs-lookup"><span data-stu-id="67d03-118">The HTML markup and C# rendering logic are converted into a component class at build time.</span></span> <span data-ttu-id="67d03-119">Název generované třídy .NET se shoduje s názvem souboru.</span><span class="sxs-lookup"><span data-stu-id="67d03-119">The name of the generated .NET class matches the file name.</span></span>
+   <span data-ttu-id="62677-116">Uživatelské rozhraní součásti `Counter` je definováno pomocí jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="62677-116">The UI of the `Counter` component is defined using HTML.</span></span> <span data-ttu-id="62677-117">Dynamická logika vykreslování (například smyčky, podmíněné výrazy, výrazy) se přidá pomocí vložené C# syntaxe s názvem [Razor](xref:mvc/views/razor).</span><span class="sxs-lookup"><span data-stu-id="62677-117">Dynamic rendering logic (for example, loops, conditionals, expressions) is added using an embedded C# syntax called [Razor](xref:mvc/views/razor).</span></span> <span data-ttu-id="62677-118">Logika značek HTML a C# vykreslování jsou v době sestavení převedena na třídu komponenty.</span><span class="sxs-lookup"><span data-stu-id="62677-118">The HTML markup and C# rendering logic are converted into a component class at build time.</span></span> <span data-ttu-id="62677-119">Název generované třídy .NET se shoduje s názvem souboru.</span><span class="sxs-lookup"><span data-stu-id="62677-119">The name of the generated .NET class matches the file name.</span></span>
 
-   <span data-ttu-id="67d03-120">Členy třídy komponenty jsou definovány v `@code`ovém bloku.</span><span class="sxs-lookup"><span data-stu-id="67d03-120">Members of the component class are defined in an `@code` block.</span></span> <span data-ttu-id="67d03-121">V bloku `@code` jsou pro zpracování událostí nebo pro definování jiné logiky komponent určeny stav součásti (vlastnosti, pole) a metody.</span><span class="sxs-lookup"><span data-stu-id="67d03-121">In the `@code` block, component state (properties, fields) and methods are specified for event handling or for defining other component logic.</span></span> <span data-ttu-id="67d03-122">Tyto členy se pak používají jako součást logiky vykreslování komponenty a pro zpracování událostí.</span><span class="sxs-lookup"><span data-stu-id="67d03-122">These members are then used as part of the component's rendering logic and for handling events.</span></span>
+   <span data-ttu-id="62677-120">Členy třídy komponenty jsou definovány v `@code`ovém bloku.</span><span class="sxs-lookup"><span data-stu-id="62677-120">Members of the component class are defined in an `@code` block.</span></span> <span data-ttu-id="62677-121">V bloku `@code` jsou pro zpracování událostí nebo pro definování jiné logiky komponent určeny stav součásti (vlastnosti, pole) a metody.</span><span class="sxs-lookup"><span data-stu-id="62677-121">In the `@code` block, component state (properties, fields) and methods are specified for event handling or for defining other component logic.</span></span> <span data-ttu-id="62677-122">Tyto členy se pak používají jako součást logiky vykreslování komponenty a pro zpracování událostí.</span><span class="sxs-lookup"><span data-stu-id="62677-122">These members are then used as part of the component's rendering logic and for handling events.</span></span>
 
-   <span data-ttu-id="67d03-123">Když je vybrané tlačítko pro **kliknutí na mou adresu** :</span><span class="sxs-lookup"><span data-stu-id="67d03-123">When the **Click me** button is selected:</span></span>
+   <span data-ttu-id="62677-123">Když je vybrané tlačítko pro **kliknutí na mou adresu** :</span><span class="sxs-lookup"><span data-stu-id="62677-123">When the **Click me** button is selected:</span></span>
 
-   * <span data-ttu-id="67d03-124">Je volána obslužná rutina registrované `onclick` `Counter` součásti (metoda `IncrementCount`).</span><span class="sxs-lookup"><span data-stu-id="67d03-124">The `Counter` component's registered `onclick` handler is called (the `IncrementCount` method).</span></span>
-   * <span data-ttu-id="67d03-125">Komponenta `Counter` znovu vygeneruje svůj strom vykreslování.</span><span class="sxs-lookup"><span data-stu-id="67d03-125">The `Counter` component regenerates its render tree.</span></span>
-   * <span data-ttu-id="67d03-126">Nový strom vykreslování je porovnán s předchozím.</span><span class="sxs-lookup"><span data-stu-id="67d03-126">The new render tree is compared to the previous one.</span></span>
-   * <span data-ttu-id="67d03-127">Jsou aplikovány pouze změny model DOM (Document Object Model) (DOM).</span><span class="sxs-lookup"><span data-stu-id="67d03-127">Only modifications to the Document Object Model (DOM) are applied.</span></span> <span data-ttu-id="67d03-128">Zobrazený počet je aktualizovaný.</span><span class="sxs-lookup"><span data-stu-id="67d03-128">The displayed count is updated.</span></span>
+   * <span data-ttu-id="62677-124">Je volána obslužná rutina registrované `onclick` `Counter` součásti (metoda `IncrementCount`).</span><span class="sxs-lookup"><span data-stu-id="62677-124">The `Counter` component's registered `onclick` handler is called (the `IncrementCount` method).</span></span>
+   * <span data-ttu-id="62677-125">Komponenta `Counter` znovu vygeneruje svůj strom vykreslování.</span><span class="sxs-lookup"><span data-stu-id="62677-125">The `Counter` component regenerates its render tree.</span></span>
+   * <span data-ttu-id="62677-126">Nový strom vykreslování je porovnán s předchozím.</span><span class="sxs-lookup"><span data-stu-id="62677-126">The new render tree is compared to the previous one.</span></span>
+   * <span data-ttu-id="62677-127">Jsou aplikovány pouze změny model DOM (Document Object Model) (DOM).</span><span class="sxs-lookup"><span data-stu-id="62677-127">Only modifications to the Document Object Model (DOM) are applied.</span></span> <span data-ttu-id="62677-128">Zobrazený počet je aktualizovaný.</span><span class="sxs-lookup"><span data-stu-id="62677-128">The displayed count is updated.</span></span>
 
-1. <span data-ttu-id="67d03-129">Upravte C# logiku součásti `Counter` tak, aby byl přírůstek počtu vynásoben dvěma místo na jednom.</span><span class="sxs-lookup"><span data-stu-id="67d03-129">Modify the C# logic of the `Counter` component to make the count increment by two instead of one.</span></span>
+1. <span data-ttu-id="62677-129">Upravte C# logiku součásti `Counter` tak, aby byl přírůstek počtu vynásoben dvěma místo na jednom.</span><span class="sxs-lookup"><span data-stu-id="62677-129">Modify the C# logic of the `Counter` component to make the count increment by two instead of one.</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter2.razor?highlight=14)]
 
-1. <span data-ttu-id="67d03-130">Pokud chcete zobrazit změny, sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="67d03-130">Rebuild and run the app to see the changes.</span></span> <span data-ttu-id="67d03-131">Vyberte tlačítko pro **kliknutí na tlačítko** .</span><span class="sxs-lookup"><span data-stu-id="67d03-131">Select the **Click me** button.</span></span> <span data-ttu-id="67d03-132">Čítače se zvýší o dva.</span><span class="sxs-lookup"><span data-stu-id="67d03-132">The counter increments by two.</span></span>
+1. <span data-ttu-id="62677-130">Pokud chcete zobrazit změny, sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="62677-130">Rebuild and run the app to see the changes.</span></span> <span data-ttu-id="62677-131">Vyberte tlačítko pro **kliknutí na tlačítko** .</span><span class="sxs-lookup"><span data-stu-id="62677-131">Select the **Click me** button.</span></span> <span data-ttu-id="62677-132">Čítače se zvýší o dva.</span><span class="sxs-lookup"><span data-stu-id="62677-132">The counter increments by two.</span></span>
 
-## <a name="use-components"></a><span data-ttu-id="67d03-133">Použití komponent</span><span class="sxs-lookup"><span data-stu-id="67d03-133">Use components</span></span>
+## <a name="use-components"></a><span data-ttu-id="62677-133">Použití komponent</span><span class="sxs-lookup"><span data-stu-id="62677-133">Use components</span></span>
 
-<span data-ttu-id="67d03-134">Zahrnutí komponenty do jiné komponenty pomocí syntaxe jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="67d03-134">Include a component in another component using an HTML syntax.</span></span>
+<span data-ttu-id="62677-134">Zahrnutí komponenty do jiné komponenty pomocí syntaxe jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="62677-134">Include a component in another component using an HTML syntax.</span></span>
 
-1. <span data-ttu-id="67d03-135">Přidejte komponentu `Counter` do komponenty `Index` aplikace přidáním prvku `<Counter />` do součásti `Index` (*index. Razor*).</span><span class="sxs-lookup"><span data-stu-id="67d03-135">Add the `Counter` component to the app's `Index` component by adding a `<Counter />` element to the `Index` component (*Index.razor*).</span></span>
+1. <span data-ttu-id="62677-135">Přidejte komponentu `Counter` do komponenty `Index` aplikace přidáním prvku `<Counter />` do součásti `Index` (*index. Razor*).</span><span class="sxs-lookup"><span data-stu-id="62677-135">Add the `Counter` component to the app's `Index` component by adding a `<Counter />` element to the `Index` component (*Index.razor*).</span></span>
 
-   <span data-ttu-id="67d03-136">Pokud pro toto prostředí používáte Blazor WebAssembly, používá součást `Index` `SurveyPrompt` komponentu.</span><span class="sxs-lookup"><span data-stu-id="67d03-136">If you're using Blazor WebAssembly for this experience, a `SurveyPrompt` component is used by the `Index` component.</span></span> <span data-ttu-id="67d03-137">Nahraďte prvek `<SurveyPrompt>` prvkem `<Counter />`.</span><span class="sxs-lookup"><span data-stu-id="67d03-137">Replace the `<SurveyPrompt>` element with a `<Counter />` element.</span></span> <span data-ttu-id="67d03-138">Pokud pro toto prostředí používáte aplikaci Blazor serveru, přidejte `<Counter />` prvek do `Index` komponenty:</span><span class="sxs-lookup"><span data-stu-id="67d03-138">If you're using a Blazor Server app for this experience, add the `<Counter />` element to the `Index` component:</span></span>
+   <span data-ttu-id="62677-136">Pokud pro toto prostředí používáte Blazor WebAssembly, používá součást `Index` `SurveyPrompt` komponentu.</span><span class="sxs-lookup"><span data-stu-id="62677-136">If you're using Blazor WebAssembly for this experience, a `SurveyPrompt` component is used by the `Index` component.</span></span> <span data-ttu-id="62677-137">Nahraďte prvek `<SurveyPrompt>` prvkem `<Counter />`.</span><span class="sxs-lookup"><span data-stu-id="62677-137">Replace the `<SurveyPrompt>` element with a `<Counter />` element.</span></span> <span data-ttu-id="62677-138">Pokud pro toto prostředí používáte aplikaci Blazor serveru, přidejte `<Counter />` prvek do `Index` komponenty:</span><span class="sxs-lookup"><span data-stu-id="62677-138">If you're using a Blazor Server app for this experience, add the `<Counter />` element to the `Index` component:</span></span>
 
-   <span data-ttu-id="67d03-139">*Pages/index. Razor*:</span><span class="sxs-lookup"><span data-stu-id="67d03-139">*Pages/Index.razor*:</span></span>
+   <span data-ttu-id="62677-139">*Pages/index. Razor*:</span><span class="sxs-lookup"><span data-stu-id="62677-139">*Pages/Index.razor*:</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-1. <span data-ttu-id="67d03-140">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="67d03-140">Rebuild and run the app.</span></span> <span data-ttu-id="67d03-141">Komponenta `Index` má vlastní čítač.</span><span class="sxs-lookup"><span data-stu-id="67d03-141">The `Index` component has its own counter.</span></span>
+1. <span data-ttu-id="62677-140">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="62677-140">Rebuild and run the app.</span></span> <span data-ttu-id="62677-141">Komponenta `Index` má vlastní čítač.</span><span class="sxs-lookup"><span data-stu-id="62677-141">The `Index` component has its own counter.</span></span>
 
-## <a name="component-parameters"></a><span data-ttu-id="67d03-142">Parametry součásti</span><span class="sxs-lookup"><span data-stu-id="67d03-142">Component parameters</span></span>
+## <a name="component-parameters"></a><span data-ttu-id="62677-142">Parametry součásti</span><span class="sxs-lookup"><span data-stu-id="62677-142">Component parameters</span></span>
 
-<span data-ttu-id="67d03-143">Komponenty mohou mít také parametry.</span><span class="sxs-lookup"><span data-stu-id="67d03-143">Components can also have parameters.</span></span> <span data-ttu-id="67d03-144">Parametry komponenty jsou definovány pomocí veřejných vlastností třídy Component s atributem `[Parameter]`.</span><span class="sxs-lookup"><span data-stu-id="67d03-144">Component parameters are defined using public properties on the component class with the `[Parameter]` attribute.</span></span> <span data-ttu-id="67d03-145">Použijte atributy k určení argumentů pro komponentu v kódu.</span><span class="sxs-lookup"><span data-stu-id="67d03-145">Use attributes to specify arguments for a component in markup.</span></span>
+<span data-ttu-id="62677-143">Komponenty mohou mít také parametry.</span><span class="sxs-lookup"><span data-stu-id="62677-143">Components can also have parameters.</span></span> <span data-ttu-id="62677-144">Parametry komponenty jsou definovány pomocí veřejných vlastností třídy Component s atributem `[Parameter]`.</span><span class="sxs-lookup"><span data-stu-id="62677-144">Component parameters are defined using public properties on the component class with the `[Parameter]` attribute.</span></span> <span data-ttu-id="62677-145">Použijte atributy k určení argumentů pro komponentu v kódu.</span><span class="sxs-lookup"><span data-stu-id="62677-145">Use attributes to specify arguments for a component in markup.</span></span>
 
-1. <span data-ttu-id="67d03-146">Aktualizujte kód `@code` C# komponenty:</span><span class="sxs-lookup"><span data-stu-id="67d03-146">Update the component's `@code` C# code:</span></span>
+1. <span data-ttu-id="62677-146">Aktualizujte kód `@code` C# komponenty:</span><span class="sxs-lookup"><span data-stu-id="62677-146">Update the component's `@code` C# code:</span></span>
 
-   * <span data-ttu-id="67d03-147">Přidejte vlastnost Public `IncrementAmount` s atributem `[Parameter]`.</span><span class="sxs-lookup"><span data-stu-id="67d03-147">Add a public `IncrementAmount` property with the `[Parameter]` attribute.</span></span>
-   * <span data-ttu-id="67d03-148">Změňte metodu `IncrementCount` na použití `IncrementAmount` při zvyšování hodnoty `currentCount`.</span><span class="sxs-lookup"><span data-stu-id="67d03-148">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
+   * <span data-ttu-id="62677-147">Přidejte vlastnost Public `IncrementAmount` s atributem `[Parameter]`.</span><span class="sxs-lookup"><span data-stu-id="62677-147">Add a public `IncrementAmount` property with the `[Parameter]` attribute.</span></span>
+   * <span data-ttu-id="62677-148">Změňte metodu `IncrementCount` na použití `IncrementAmount` při zvyšování hodnoty `currentCount`.</span><span class="sxs-lookup"><span data-stu-id="62677-148">Change the `IncrementCount` method to use the `IncrementAmount` when increasing the value of `currentCount`.</span></span>
 
-   <span data-ttu-id="67d03-149">*Stránky/čítač. Razor*:</span><span class="sxs-lookup"><span data-stu-id="67d03-149">*Pages/Counter.razor*:</span></span>
+   <span data-ttu-id="62677-149">*Stránky/čítač. Razor*:</span><span class="sxs-lookup"><span data-stu-id="62677-149">*Pages/Counter.razor*:</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Counter.razor?highlight=13,17)]
 
@@ -87,55 +87,55 @@ ms.locfileid: "74880370"
    > From Visual Studio, you can quickly add a component parameter by using the `para` snippet. Type `para` and press the `Tab` key twice.
 -->
 
-1. <span data-ttu-id="67d03-150">Zadejte `IncrementAmount` parametr v prvku `<Counter>` komponenty `Index` pomocí atributu.</span><span class="sxs-lookup"><span data-stu-id="67d03-150">Specify an `IncrementAmount` parameter in the `Index` component's `<Counter>` element using an attribute.</span></span> <span data-ttu-id="67d03-151">Nastavte hodnotu pro zvýšení čítače o deset.</span><span class="sxs-lookup"><span data-stu-id="67d03-151">Set the value to increment the counter by ten.</span></span>
+1. <span data-ttu-id="62677-150">Zadejte `IncrementAmount` parametr v prvku `<Counter>` komponenty `Index` pomocí atributu.</span><span class="sxs-lookup"><span data-stu-id="62677-150">Specify an `IncrementAmount` parameter in the `Index` component's `<Counter>` element using an attribute.</span></span> <span data-ttu-id="62677-151">Nastavte hodnotu pro zvýšení čítače o deset.</span><span class="sxs-lookup"><span data-stu-id="62677-151">Set the value to increment the counter by ten.</span></span>
 
-   <span data-ttu-id="67d03-152">*Pages/index. Razor*:</span><span class="sxs-lookup"><span data-stu-id="67d03-152">*Pages/Index.razor*:</span></span>
+   <span data-ttu-id="62677-152">*Pages/index. Razor*:</span><span class="sxs-lookup"><span data-stu-id="62677-152">*Pages/Index.razor*:</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-1. <span data-ttu-id="67d03-153">Znovu načtěte `Index` komponentu.</span><span class="sxs-lookup"><span data-stu-id="67d03-153">Reload the `Index` component.</span></span> <span data-ttu-id="67d03-154">Čítač se zvýší o deset pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** .</span><span class="sxs-lookup"><span data-stu-id="67d03-154">The counter increments by ten each time the **Click me** button is selected.</span></span> <span data-ttu-id="67d03-155">Čítač ve `Counter` komponentě se dál zvyšuje o 1.</span><span class="sxs-lookup"><span data-stu-id="67d03-155">The counter in the `Counter` component continues to increment by one.</span></span>
+1. <span data-ttu-id="62677-153">Znovu načtěte `Index` komponentu.</span><span class="sxs-lookup"><span data-stu-id="62677-153">Reload the `Index` component.</span></span> <span data-ttu-id="62677-154">Čítač se zvýší o deset pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** .</span><span class="sxs-lookup"><span data-stu-id="62677-154">The counter increments by ten each time the **Click me** button is selected.</span></span> <span data-ttu-id="62677-155">Čítač ve `Counter` komponentě se dál zvyšuje o 1.</span><span class="sxs-lookup"><span data-stu-id="62677-155">The counter in the `Counter` component continues to increment by one.</span></span>
 
-## <a name="route-to-components"></a><span data-ttu-id="67d03-156">Směrování na součásti</span><span class="sxs-lookup"><span data-stu-id="67d03-156">Route to components</span></span>
+## <a name="route-to-components"></a><span data-ttu-id="62677-156">Směrování na součásti</span><span class="sxs-lookup"><span data-stu-id="62677-156">Route to components</span></span>
 
-<span data-ttu-id="67d03-157">Direktiva `@page` v horní části souboru *Counter. Razor* určuje, že `Counter` komponenta je koncový bod směrování.</span><span class="sxs-lookup"><span data-stu-id="67d03-157">The `@page` directive at the top of the *Counter.razor* file specifies that the `Counter` component is a routing endpoint.</span></span> <span data-ttu-id="67d03-158">Komponenta `Counter` zpracovává požadavky odeslané do `/counter`.</span><span class="sxs-lookup"><span data-stu-id="67d03-158">The `Counter` component handles requests sent to `/counter`.</span></span> <span data-ttu-id="67d03-159">Bez direktivy `@page` nezpracovává komponenta směrované požadavky, ale komponentu mohou i nadále používat jiné komponenty.</span><span class="sxs-lookup"><span data-stu-id="67d03-159">Without the `@page` directive, a component doesn't handle routed requests, but the component can still be used by other components.</span></span>
+<span data-ttu-id="62677-157">Direktiva `@page` v horní části souboru *Counter. Razor* určuje, že `Counter` komponenta je koncový bod směrování.</span><span class="sxs-lookup"><span data-stu-id="62677-157">The `@page` directive at the top of the *Counter.razor* file specifies that the `Counter` component is a routing endpoint.</span></span> <span data-ttu-id="62677-158">Komponenta `Counter` zpracovává požadavky odeslané do `/counter`.</span><span class="sxs-lookup"><span data-stu-id="62677-158">The `Counter` component handles requests sent to `/counter`.</span></span> <span data-ttu-id="62677-159">Bez direktivy `@page` nezpracovává komponenta směrované požadavky, ale komponentu mohou i nadále používat jiné komponenty.</span><span class="sxs-lookup"><span data-stu-id="62677-159">Without the `@page` directive, a component doesn't handle routed requests, but the component can still be used by other components.</span></span>
 
-## <a name="dependency-injection"></a><span data-ttu-id="67d03-160">Injektáž závislostí</span><span class="sxs-lookup"><span data-stu-id="67d03-160">Dependency injection</span></span>
+## <a name="dependency-injection"></a><span data-ttu-id="62677-160">Injektáž závislostí</span><span class="sxs-lookup"><span data-stu-id="62677-160">Dependency injection</span></span>
 
-### <a name="opno-locblazor-server-experience"></a><span data-ttu-id="67d03-161">prostředí serveru Blazor</span><span class="sxs-lookup"><span data-stu-id="67d03-161">Blazor Server experience</span></span>
+### <a name="opno-locblazor-server-experience"></a><span data-ttu-id="62677-161">prostředí serveru Blazor</span><span class="sxs-lookup"><span data-stu-id="62677-161">Blazor Server experience</span></span>
 
-<span data-ttu-id="67d03-162">Pokud pracujete s aplikací Blazor serveru, služba `WeatherForecastService` je v `Startup.ConfigureServices`registrovaná jako typ [singleton](xref:fundamentals/dependency-injection#service-lifetimes) .</span><span class="sxs-lookup"><span data-stu-id="67d03-162">If working with a Blazor Server app, the `WeatherForecastService` service is registered as a [singleton](xref:fundamentals/dependency-injection#service-lifetimes) in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="67d03-163">Instance služby je k dispozici v celé aplikaci prostřednictvím [Injektáže závislosti (di)](xref:fundamentals/dependency-injection):</span><span class="sxs-lookup"><span data-stu-id="67d03-163">An instance of the service is available throughout the app via [dependency injection (DI)](xref:fundamentals/dependency-injection):</span></span>
+<span data-ttu-id="62677-162">Pokud pracujete s aplikací Blazor serveru, služba `WeatherForecastService` je v `Startup.ConfigureServices`registrovaná jako typ [singleton](xref:fundamentals/dependency-injection#service-lifetimes) .</span><span class="sxs-lookup"><span data-stu-id="62677-162">If working with a Blazor Server app, the `WeatherForecastService` service is registered as a [singleton](xref:fundamentals/dependency-injection#service-lifetimes) in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="62677-163">Instance služby je k dispozici v celé aplikaci prostřednictvím [Injektáže závislosti (di)](xref:fundamentals/dependency-injection):</span><span class="sxs-lookup"><span data-stu-id="62677-163">An instance of the service is available throughout the app via [dependency injection (DI)](xref:fundamentals/dependency-injection):</span></span>
 
 [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-<span data-ttu-id="67d03-164">Direktiva `@inject` slouží k vložení instance služby `WeatherForecastService` do komponenty `FetchData`.</span><span class="sxs-lookup"><span data-stu-id="67d03-164">The `@inject` directive is used to inject the instance of the `WeatherForecastService` service into the `FetchData` component.</span></span>
+<span data-ttu-id="62677-164">Direktiva `@inject` slouží k vložení instance služby `WeatherForecastService` do komponenty `FetchData`.</span><span class="sxs-lookup"><span data-stu-id="62677-164">The `@inject` directive is used to inject the instance of the `WeatherForecastService` service into the `FetchData` component.</span></span>
 
-<span data-ttu-id="67d03-165">*Stránky/FetchData. Razor*:</span><span class="sxs-lookup"><span data-stu-id="67d03-165">*Pages/FetchData.razor*:</span></span>
+<span data-ttu-id="62677-165">*Stránky/FetchData. Razor*:</span><span class="sxs-lookup"><span data-stu-id="62677-165">*Pages/FetchData.razor*:</span></span>
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1.razor?highlight=3)]
 
-<span data-ttu-id="67d03-166">Komponenta `FetchData` používá vloženou službu jako `ForecastService`k načtení pole objektů `WeatherForecast`:</span><span class="sxs-lookup"><span data-stu-id="67d03-166">The `FetchData` component uses the injected service, as `ForecastService`, to retrieve an array of `WeatherForecast` objects:</span></span>
+<span data-ttu-id="62677-166">Komponenta `FetchData` používá vloženou službu jako `ForecastService`k načtení pole objektů `WeatherForecast`:</span><span class="sxs-lookup"><span data-stu-id="62677-166">The `FetchData` component uses the injected service, as `ForecastService`, to retrieve an array of `WeatherForecast` objects:</span></span>
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-### <a name="opno-locblazor-webassembly-experience"></a>Blazor<span data-ttu-id="67d03-167"> prostředí WebAssembly</span><span class="sxs-lookup"><span data-stu-id="67d03-167"> WebAssembly experience</span></span>
+### <a name="opno-locblazor-webassembly-experience"></a>Blazor<span data-ttu-id="62677-167"> prostředí WebAssembly</span><span class="sxs-lookup"><span data-stu-id="62677-167"> WebAssembly experience</span></span>
 
-<span data-ttu-id="67d03-168">Pokud pracujete s Blazor aplikace WebAssembly, `HttpClient` je vloženo pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* .</span><span class="sxs-lookup"><span data-stu-id="67d03-168">If working with a Blazor WebAssembly app, `HttpClient` is injected to obtain weather forecast data from the *weather.json* file in the *wwwroot/sample-data* folder.</span></span>
+<span data-ttu-id="62677-168">Pokud pracujete s Blazor aplikace WebAssembly, `HttpClient` je vloženo pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* .</span><span class="sxs-lookup"><span data-stu-id="62677-168">If working with a Blazor WebAssembly app, `HttpClient` is injected to obtain weather forecast data from the *weather.json* file in the *wwwroot/sample-data* folder.</span></span>
 
-<span data-ttu-id="67d03-169">*Stránky/FetchData. Razor*:</span><span class="sxs-lookup"><span data-stu-id="67d03-169">*Pages/FetchData.razor*:</span></span>
+<span data-ttu-id="62677-169">*Stránky/FetchData. Razor*:</span><span class="sxs-lookup"><span data-stu-id="62677-169">*Pages/FetchData.razor*:</span></span>
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData1_client.razor?highlight=7-8)]
 
-<span data-ttu-id="67d03-170">Smyčka [`@foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) slouží k vykreslení každé instance prognózy jako řádku v tabulce dat o počasí:</span><span class="sxs-lookup"><span data-stu-id="67d03-170">An [`@foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) loop is used to render each forecast instance as a row in the table of weather data:</span></span>
+<span data-ttu-id="62677-170">Smyčka [`@foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) slouží k vykreslení každé instance prognózy jako řádku v tabulce dat o počasí:</span><span class="sxs-lookup"><span data-stu-id="62677-170">An [`@foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) loop is used to render each forecast instance as a row in the table of weather data:</span></span>
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData3.razor?highlight=11-19)]
 
-## <a name="build-a-todo-list"></a><span data-ttu-id="67d03-171">Sestavení seznamu TODO</span><span class="sxs-lookup"><span data-stu-id="67d03-171">Build a todo list</span></span>
+## <a name="build-a-todo-list"></a><span data-ttu-id="62677-171">Sestavení seznamu TODO</span><span class="sxs-lookup"><span data-stu-id="62677-171">Build a todo list</span></span>
 
-<span data-ttu-id="67d03-172">Přidejte do aplikace novou komponentu, která implementuje jednoduchý seznam úkolů.</span><span class="sxs-lookup"><span data-stu-id="67d03-172">Add a new component to the app that implements a simple todo list.</span></span>
+<span data-ttu-id="62677-172">Přidejte do aplikace novou komponentu, která implementuje jednoduchý seznam úkolů.</span><span class="sxs-lookup"><span data-stu-id="62677-172">Add a new component to the app that implements a simple todo list.</span></span>
 
-1. <span data-ttu-id="67d03-173">Do aplikace ve složce *Pages* přidejte prázdný soubor s názvem *todo. Razor* :</span><span class="sxs-lookup"><span data-stu-id="67d03-173">Add an empty file named *Todo.razor* to the app in the *Pages* folder:</span></span>
+1. <span data-ttu-id="62677-173">Do aplikace ve složce *Pages* přidejte prázdný soubor s názvem *todo. Razor* :</span><span class="sxs-lookup"><span data-stu-id="62677-173">Add an empty file named *Todo.razor* to the app in the *Pages* folder:</span></span>
 
-1. <span data-ttu-id="67d03-174">Zadejte počáteční označení pro komponentu:</span><span class="sxs-lookup"><span data-stu-id="67d03-174">Provide the initial markup for the component:</span></span>
+1. <span data-ttu-id="62677-174">Zadejte počáteční označení pro komponentu:</span><span class="sxs-lookup"><span data-stu-id="62677-174">Provide the initial markup for the component:</span></span>
 
    ```razor
    @page "/todo"
@@ -143,11 +143,11 @@ ms.locfileid: "74880370"
    <h1>Todo</h1>
    ```
 
-1. <span data-ttu-id="67d03-175">Přidejte komponentu `Todo` do navigačního panelu.</span><span class="sxs-lookup"><span data-stu-id="67d03-175">Add the `Todo` component to the navigation bar.</span></span>
+1. <span data-ttu-id="62677-175">Přidejte komponentu `Todo` do navigačního panelu.</span><span class="sxs-lookup"><span data-stu-id="62677-175">Add the `Todo` component to the navigation bar.</span></span>
 
-   <span data-ttu-id="67d03-176">Komponenta `NavMenu` (*Shared/NavMenu. Razor*) se používá v rozložení aplikace.</span><span class="sxs-lookup"><span data-stu-id="67d03-176">The `NavMenu` component (*Shared/NavMenu.razor*) is used in the app's layout.</span></span> <span data-ttu-id="67d03-177">Rozložení jsou komponenty, které umožňují vyhnout se duplikaci obsahu v aplikaci.</span><span class="sxs-lookup"><span data-stu-id="67d03-177">Layouts are components that allow you to avoid duplication of content in the app.</span></span>
+   <span data-ttu-id="62677-176">Komponenta `NavMenu` (*Shared/NavMenu. Razor*) se používá v rozložení aplikace.</span><span class="sxs-lookup"><span data-stu-id="62677-176">The `NavMenu` component (*Shared/NavMenu.razor*) is used in the app's layout.</span></span> <span data-ttu-id="62677-177">Rozložení jsou komponenty, které umožňují vyhnout se duplikaci obsahu v aplikaci.</span><span class="sxs-lookup"><span data-stu-id="62677-177">Layouts are components that allow you to avoid duplication of content in the app.</span></span>
 
-   <span data-ttu-id="67d03-178">Přidejte prvek `<NavLink>` pro komponentu `Todo` přidáním následujícího označení položky seznamu pod existující položky seznamu v souboru *Shared/NavMenu. Razor* :</span><span class="sxs-lookup"><span data-stu-id="67d03-178">Add a `<NavLink>` element for the `Todo` component by adding the following list item markup below the existing list items in the *Shared/NavMenu.razor* file:</span></span>
+   <span data-ttu-id="62677-178">Přidejte prvek `<NavLink>` pro komponentu `Todo` přidáním následujícího označení položky seznamu pod existující položky seznamu v souboru *Shared/NavMenu. Razor* :</span><span class="sxs-lookup"><span data-stu-id="62677-178">Add a `<NavLink>` element for the `Todo` component by adding the following list item markup below the existing list items in the *Shared/NavMenu.razor* file:</span></span>
 
    ```razor
    <li class="nav-item px-3">
@@ -157,58 +157,58 @@ ms.locfileid: "74880370"
    </li>
    ```
 
-1. <span data-ttu-id="67d03-179">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="67d03-179">Rebuild and run the app.</span></span> <span data-ttu-id="67d03-180">Přejděte na stránku Nová TODO a potvrďte, že odkaz na `Todo` komponentu funguje.</span><span class="sxs-lookup"><span data-stu-id="67d03-180">Visit the new Todo page to confirm that the link to the `Todo` component works.</span></span>
+1. <span data-ttu-id="62677-179">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="62677-179">Rebuild and run the app.</span></span> <span data-ttu-id="62677-180">Přejděte na stránku Nová TODO a potvrďte, že odkaz na `Todo` komponentu funguje.</span><span class="sxs-lookup"><span data-stu-id="62677-180">Visit the new Todo page to confirm that the link to the `Todo` component works.</span></span>
 
-1. <span data-ttu-id="67d03-181">Do kořenového adresáře projektu přidejte soubor *TodoItem.cs* , který bude obsahovat třídu, která představuje položku todo.</span><span class="sxs-lookup"><span data-stu-id="67d03-181">Add a *TodoItem.cs* file to the root of the project to hold a class that represents a todo item.</span></span> <span data-ttu-id="67d03-182">Pro třídu `TodoItem` C# použijte následující kód:</span><span class="sxs-lookup"><span data-stu-id="67d03-182">Use the following C# code for the `TodoItem` class:</span></span>
+1. <span data-ttu-id="62677-181">Do kořenového adresáře projektu přidejte soubor *TodoItem.cs* , který bude obsahovat třídu, která představuje položku todo.</span><span class="sxs-lookup"><span data-stu-id="62677-181">Add a *TodoItem.cs* file to the root of the project to hold a class that represents a todo item.</span></span> <span data-ttu-id="62677-182">Pro třídu `TodoItem` C# použijte následující kód:</span><span class="sxs-lookup"><span data-stu-id="62677-182">Use the following C# code for the `TodoItem` class:</span></span>
 
    [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/TodoItem.cs)]
 
-1. <span data-ttu-id="67d03-183">Vraťte se na součást `Todo` (*Pages/todo. Razor*):</span><span class="sxs-lookup"><span data-stu-id="67d03-183">Return to the `Todo` component (*Pages/Todo.razor*):</span></span>
+1. <span data-ttu-id="62677-183">Vraťte se na součást `Todo` (*Pages/todo. Razor*):</span><span class="sxs-lookup"><span data-stu-id="62677-183">Return to the `Todo` component (*Pages/Todo.razor*):</span></span>
 
-   * <span data-ttu-id="67d03-184">Přidejte pole pro položky ToDo do `@code`ového bloku.</span><span class="sxs-lookup"><span data-stu-id="67d03-184">Add a field for the todo items in an `@code` block.</span></span> <span data-ttu-id="67d03-185">Komponenta `Todo` používá toto pole k údržbě stavu seznamu úkolů.</span><span class="sxs-lookup"><span data-stu-id="67d03-185">The `Todo` component uses this field to maintain the state of the todo list.</span></span>
-   * <span data-ttu-id="67d03-186">Přidejte neuspořádané označení seznamu a `foreach` cyklus pro vykreslení každé položky ToDo jako položky seznamu (`<li>`).</span><span class="sxs-lookup"><span data-stu-id="67d03-186">Add unordered list markup and a `foreach` loop to render each todo item as a list item (`<li>`).</span></span>
+   * <span data-ttu-id="62677-184">Přidejte pole pro položky ToDo do `@code`ového bloku.</span><span class="sxs-lookup"><span data-stu-id="62677-184">Add a field for the todo items in an `@code` block.</span></span> <span data-ttu-id="62677-185">Komponenta `Todo` používá toto pole k údržbě stavu seznamu úkolů.</span><span class="sxs-lookup"><span data-stu-id="62677-185">The `Todo` component uses this field to maintain the state of the todo list.</span></span>
+   * <span data-ttu-id="62677-186">Přidejte neuspořádané označení seznamu a `foreach` cyklus pro vykreslení každé položky ToDo jako položky seznamu (`<li>`).</span><span class="sxs-lookup"><span data-stu-id="62677-186">Add unordered list markup and a `foreach` loop to render each todo item as a list item (`<li>`).</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo4.razor?highlight=5-10,12-14)]
 
-1. <span data-ttu-id="67d03-187">Aplikace vyžaduje prvky uživatelského rozhraní pro přidání položek TODO do seznamu.</span><span class="sxs-lookup"><span data-stu-id="67d03-187">The app requires UI elements for adding todo items to the list.</span></span> <span data-ttu-id="67d03-188">Přidejte textové zadání (`<input>`) a tlačítko (`<button>`) pod Neseřazený seznam (`<ul>...</ul>`):</span><span class="sxs-lookup"><span data-stu-id="67d03-188">Add a text input (`<input>`) and a button (`<button>`) below the unordered list (`<ul>...</ul>`):</span></span>
+1. <span data-ttu-id="62677-187">Aplikace vyžaduje prvky uživatelského rozhraní pro přidání položek TODO do seznamu.</span><span class="sxs-lookup"><span data-stu-id="62677-187">The app requires UI elements for adding todo items to the list.</span></span> <span data-ttu-id="62677-188">Přidejte textové zadání (`<input>`) a tlačítko (`<button>`) pod Neseřazený seznam (`<ul>...</ul>`):</span><span class="sxs-lookup"><span data-stu-id="62677-188">Add a text input (`<input>`) and a button (`<button>`) below the unordered list (`<ul>...</ul>`):</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo5.razor?highlight=12-13)]
 
-1. <span data-ttu-id="67d03-189">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="67d03-189">Rebuild and run the app.</span></span> <span data-ttu-id="67d03-190">Když je vybráno tlačítko **Přidat TODO** , nic se nestane, protože obslužná rutina události není na tlačítko kabelem.</span><span class="sxs-lookup"><span data-stu-id="67d03-190">When the **Add todo** button is selected, nothing happens because an event handler isn't wired up to the button.</span></span>
+1. <span data-ttu-id="62677-189">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="62677-189">Rebuild and run the app.</span></span> <span data-ttu-id="62677-190">Když je vybráno tlačítko **Přidat TODO** , nic se nestane, protože obslužná rutina události není na tlačítko kabelem.</span><span class="sxs-lookup"><span data-stu-id="62677-190">When the **Add todo** button is selected, nothing happens because an event handler isn't wired up to the button.</span></span>
 
-1. <span data-ttu-id="67d03-191">Přidejte metodu `AddTodo` do komponenty `Todo` a zaregistrujte ji pro výběry tlačítek pomocí atributu `@onclick`.</span><span class="sxs-lookup"><span data-stu-id="67d03-191">Add an `AddTodo` method to the `Todo` component and register it for button selections using the `@onclick` attribute.</span></span> <span data-ttu-id="67d03-192">Metoda `AddTodo` C# je volána, když je vybráno tlačítko:</span><span class="sxs-lookup"><span data-stu-id="67d03-192">The `AddTodo` C# method is called when the button is selected:</span></span>
+1. <span data-ttu-id="62677-191">Přidejte metodu `AddTodo` do komponenty `Todo` a zaregistrujte ji pro výběry tlačítek pomocí atributu `@onclick`.</span><span class="sxs-lookup"><span data-stu-id="62677-191">Add an `AddTodo` method to the `Todo` component and register it for button selections using the `@onclick` attribute.</span></span> <span data-ttu-id="62677-192">Metoda `AddTodo` C# je volána, když je vybráno tlačítko:</span><span class="sxs-lookup"><span data-stu-id="62677-192">The `AddTodo` C# method is called when the button is selected:</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo6.razor?highlight=2,7-10)]
 
-1. <span data-ttu-id="67d03-193">Chcete-li získat název nové položky ToDo, přidejte do horní části bloku `@code` pole `newTodo` řetězec a navažte jej na hodnotu zadávání textu pomocí atributu `bind` v elementu `<input>`:</span><span class="sxs-lookup"><span data-stu-id="67d03-193">To get the title of the new todo item, add a `newTodo` string field at the top of the `@code` block and bind it to the value of the text input using the `bind` attribute in the `<input>` element:</span></span>
+1. <span data-ttu-id="62677-193">Chcete-li získat název nové položky ToDo, přidejte do horní části bloku `@code` pole `newTodo` řetězec a navažte jej na hodnotu zadávání textu pomocí atributu `bind` v elementu `<input>`:</span><span class="sxs-lookup"><span data-stu-id="62677-193">To get the title of the new todo item, add a `newTodo` string field at the top of the `@code` block and bind it to the value of the text input using the `bind` attribute in the `<input>` element:</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo7.razor?highlight=2)]
 
-   ```cshtml
+   ```razor
    <input placeholder="Something todo" @bind="newTodo" />
    ```
 
-1. <span data-ttu-id="67d03-194">Aktualizujte metodu `AddTodo`, chcete-li přidat `TodoItem` se zadaným názvem do seznamu.</span><span class="sxs-lookup"><span data-stu-id="67d03-194">Update the `AddTodo` method to add the `TodoItem` with the specified title to the list.</span></span> <span data-ttu-id="67d03-195">Vymažte hodnotu textového zadání nastavením `newTodo` na prázdný řetězec:</span><span class="sxs-lookup"><span data-stu-id="67d03-195">Clear the value of the text input by setting `newTodo` to an empty string:</span></span>
+1. <span data-ttu-id="62677-194">Aktualizujte metodu `AddTodo`, chcete-li přidat `TodoItem` se zadaným názvem do seznamu.</span><span class="sxs-lookup"><span data-stu-id="62677-194">Update the `AddTodo` method to add the `TodoItem` with the specified title to the list.</span></span> <span data-ttu-id="62677-195">Vymažte hodnotu textového zadání nastavením `newTodo` na prázdný řetězec:</span><span class="sxs-lookup"><span data-stu-id="62677-195">Clear the value of the text input by setting `newTodo` to an empty string:</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo8.razor?highlight=19-26)]
 
-1. <span data-ttu-id="67d03-196">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="67d03-196">Rebuild and run the app.</span></span> <span data-ttu-id="67d03-197">Chcete-li otestovat nový kód, přidejte do seznamu TODO některé položky ToDo.</span><span class="sxs-lookup"><span data-stu-id="67d03-197">Add some todo items to the todo list to test the new code.</span></span>
+1. <span data-ttu-id="62677-196">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="62677-196">Rebuild and run the app.</span></span> <span data-ttu-id="62677-197">Chcete-li otestovat nový kód, přidejte do seznamu TODO některé položky ToDo.</span><span class="sxs-lookup"><span data-stu-id="62677-197">Add some todo items to the todo list to test the new code.</span></span>
 
-1. <span data-ttu-id="67d03-198">Text nadpisu pro každou položku TODO lze upravovat a zaškrtávací políčko může uživatelům pomáhat sledovat dokončené položky.</span><span class="sxs-lookup"><span data-stu-id="67d03-198">The title text for each todo item can be made editable, and a check box can help the user keep track of completed items.</span></span> <span data-ttu-id="67d03-199">Přidejte vstup zaškrtávacího políčka pro každou položku TODO a navažte její hodnotu na vlastnost `IsDone`.</span><span class="sxs-lookup"><span data-stu-id="67d03-199">Add a check box input for each todo item and bind its value to the `IsDone` property.</span></span> <span data-ttu-id="67d03-200">Změňte `@todo.Title` na `<input>` prvek vázaný na `@todo.Title`:</span><span class="sxs-lookup"><span data-stu-id="67d03-200">Change `@todo.Title` to an `<input>` element bound to `@todo.Title`:</span></span>
+1. <span data-ttu-id="62677-198">Text nadpisu pro každou položku TODO lze upravovat a zaškrtávací políčko může uživatelům pomáhat sledovat dokončené položky.</span><span class="sxs-lookup"><span data-stu-id="62677-198">The title text for each todo item can be made editable, and a check box can help the user keep track of completed items.</span></span> <span data-ttu-id="62677-199">Přidejte vstup zaškrtávacího políčka pro každou položku TODO a navažte její hodnotu na vlastnost `IsDone`.</span><span class="sxs-lookup"><span data-stu-id="62677-199">Add a check box input for each todo item and bind its value to the `IsDone` property.</span></span> <span data-ttu-id="62677-200">Změňte `@todo.Title` na `<input>` prvek vázaný na `@todo.Title`:</span><span class="sxs-lookup"><span data-stu-id="62677-200">Change `@todo.Title` to an `<input>` element bound to `@todo.Title`:</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/ToDo9.razor?highlight=5-6)]
 
-1. <span data-ttu-id="67d03-201">Chcete-li ověřit, zda jsou tyto hodnoty svázané, aktualizujte hlavičku `<h1>` tak, aby zobrazovala počet nedokončených položek TODO (`IsDone` je `false`).</span><span class="sxs-lookup"><span data-stu-id="67d03-201">To verify that these values are bound, update the `<h1>` header to show a count of the number of todo items that aren't complete (`IsDone` is `false`).</span></span>
+1. <span data-ttu-id="62677-201">Chcete-li ověřit, zda jsou tyto hodnoty svázané, aktualizujte hlavičku `<h1>` tak, aby zobrazovala počet nedokončených položek TODO (`IsDone` je `false`).</span><span class="sxs-lookup"><span data-stu-id="62677-201">To verify that these values are bound, update the `<h1>` header to show a count of the number of todo items that aren't complete (`IsDone` is `false`).</span></span>
 
    ```razor
    <h1>Todo (@todos.Count(todo => !todo.IsDone))</h1>
    ```
 
-1. <span data-ttu-id="67d03-202">Dokončená součást `Todo` (*Pages/todo. Razor*):</span><span class="sxs-lookup"><span data-stu-id="67d03-202">The completed `Todo` component (*Pages/Todo.razor*):</span></span>
+1. <span data-ttu-id="62677-202">Dokončená součást `Todo` (*Pages/todo. Razor*):</span><span class="sxs-lookup"><span data-stu-id="62677-202">The completed `Todo` component (*Pages/Todo.razor*):</span></span>
 
    [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/Todo.razor)]
 
-1. <span data-ttu-id="67d03-203">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="67d03-203">Rebuild and run the app.</span></span> <span data-ttu-id="67d03-204">Přidejte položky ToDo pro otestování nového kódu.</span><span class="sxs-lookup"><span data-stu-id="67d03-204">Add todo items to test the new code.</span></span>
+1. <span data-ttu-id="62677-203">Znovu sestavte a spusťte aplikaci.</span><span class="sxs-lookup"><span data-stu-id="62677-203">Rebuild and run the app.</span></span> <span data-ttu-id="62677-204">Přidejte položky ToDo pro otestování nového kódu.</span><span class="sxs-lookup"><span data-stu-id="62677-204">Add todo items to test the new code.</span></span>
 
 > [!div class="nextstepaction"]
 > <xref:blazor/components>

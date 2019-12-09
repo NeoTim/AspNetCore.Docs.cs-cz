@@ -3,98 +3,98 @@ title: Referenční příručka syntaxe Razor pro ASP.NET Core
 author: rick-anderson
 description: Další informace o syntaxi Razor kód pro vložení do webových stránek kód založený na serveru.
 ms.author: riande
-ms.date: 11/09/2019
+ms.date: 12/05/2019
 uid: mvc/views/razor
-ms.openlocfilehash: a18fd2886124f186b8f35abf4b55a51f1f996958
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: baac0ac38a0781cb9c16689cf3e29526b602d8da
+ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881016"
+ms.lasthandoff: 12/09/2019
+ms.locfileid: "74944249"
 ---
-# <a name="razor-syntax-reference-for-aspnet-core"></a><span data-ttu-id="443a3-103">Referenční příručka syntaxe Razor pro ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="443a3-103">Razor syntax reference for ASP.NET Core</span></span>
+# <a name="razor-syntax-reference-for-aspnet-core"></a><span data-ttu-id="3a978-103">Referenční příručka syntaxe Razor pro ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="3a978-103">Razor syntax reference for ASP.NET Core</span></span>
 
-<span data-ttu-id="443a3-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Luke Latham](https://github.com/guardrex), [Taylora MÜLLENA](https://twitter.com/ntaylormullen), a [Dan Vicarel](https://github.com/Rabadash8820)</span><span class="sxs-lookup"><span data-stu-id="443a3-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Luke Latham](https://github.com/guardrex), [Taylor Mullen](https://twitter.com/ntaylormullen), and [Dan Vicarel](https://github.com/Rabadash8820)</span></span>
+<span data-ttu-id="3a978-104">Podle [Rick Anderson](https://twitter.com/RickAndMSFT), [Luke Latham](https://github.com/guardrex), [Taylora MÜLLENA](https://twitter.com/ntaylormullen), a [Dan Vicarel](https://github.com/Rabadash8820)</span><span class="sxs-lookup"><span data-stu-id="3a978-104">By [Rick Anderson](https://twitter.com/RickAndMSFT), [Luke Latham](https://github.com/guardrex), [Taylor Mullen](https://twitter.com/ntaylormullen), and [Dan Vicarel](https://github.com/Rabadash8820)</span></span>
 
-<span data-ttu-id="443a3-105">Razor je syntaxe značek pro vkládání do webových stránek kód založený na serveru.</span><span class="sxs-lookup"><span data-stu-id="443a3-105">Razor is a markup syntax for embedding server-based code into webpages.</span></span> <span data-ttu-id="443a3-106">Syntaxe Razor se skládá z kódu Razor C#a HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-106">The Razor syntax consists of Razor markup, C#, and HTML.</span></span> <span data-ttu-id="443a3-107">Máte soubory, které obvykle obsahují Razor *.cshtml* příponu souboru.</span><span class="sxs-lookup"><span data-stu-id="443a3-107">Files containing Razor generally have a *.cshtml* file extension.</span></span> <span data-ttu-id="443a3-108">Razor se nachází také v souborech [součástí Razor](xref:blazor/components) ( *. Razor*).</span><span class="sxs-lookup"><span data-stu-id="443a3-108">Razor is also found in [Razor components](xref:blazor/components) files (*.razor*).</span></span>
+<span data-ttu-id="3a978-105">Razor je syntaxe značek pro vkládání do webových stránek kód založený na serveru.</span><span class="sxs-lookup"><span data-stu-id="3a978-105">Razor is a markup syntax for embedding server-based code into webpages.</span></span> <span data-ttu-id="3a978-106">Syntaxe Razor se skládá z kódu Razor C#a HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-106">The Razor syntax consists of Razor markup, C#, and HTML.</span></span> <span data-ttu-id="3a978-107">Máte soubory, které obvykle obsahují Razor *.cshtml* příponu souboru.</span><span class="sxs-lookup"><span data-stu-id="3a978-107">Files containing Razor generally have a *.cshtml* file extension.</span></span> <span data-ttu-id="3a978-108">Razor se nachází také v souborech [součástí Razor](xref:blazor/components) ( *. Razor*).</span><span class="sxs-lookup"><span data-stu-id="3a978-108">Razor is also found in [Razor components](xref:blazor/components) files (*.razor*).</span></span>
 
-## <a name="rendering-html"></a><span data-ttu-id="443a3-109">Vykreslování protokolu HTML</span><span class="sxs-lookup"><span data-stu-id="443a3-109">Rendering HTML</span></span>
+## <a name="rendering-html"></a><span data-ttu-id="3a978-109">Vykreslování protokolu HTML</span><span class="sxs-lookup"><span data-stu-id="3a978-109">Rendering HTML</span></span>
 
-<span data-ttu-id="443a3-110">Výchozí jazyk Razor je ve formátu HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-110">The default Razor language is HTML.</span></span> <span data-ttu-id="443a3-111">Vykreslování HTML z kód Razor se nijak neliší od vykreslování protokolu HTML ze souboru HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-111">Rendering HTML from Razor markup is no different than rendering HTML from an HTML file.</span></span> <span data-ttu-id="443a3-112">Značka jazyka HTML v *.cshtml* souborech Razor je vykreslen metodou serveru beze změny.</span><span class="sxs-lookup"><span data-stu-id="443a3-112">HTML markup in *.cshtml* Razor files is rendered by the server unchanged.</span></span>
+<span data-ttu-id="3a978-110">Výchozí jazyk Razor je ve formátu HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-110">The default Razor language is HTML.</span></span> <span data-ttu-id="3a978-111">Vykreslování HTML z kód Razor se nijak neliší od vykreslování protokolu HTML ze souboru HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-111">Rendering HTML from Razor markup is no different than rendering HTML from an HTML file.</span></span> <span data-ttu-id="3a978-112">Značka jazyka HTML v *.cshtml* souborech Razor je vykreslen metodou serveru beze změny.</span><span class="sxs-lookup"><span data-stu-id="3a978-112">HTML markup in *.cshtml* Razor files is rendered by the server unchanged.</span></span>
 
-## <a name="razor-syntax"></a><span data-ttu-id="443a3-113">Syntaxe Razor</span><span class="sxs-lookup"><span data-stu-id="443a3-113">Razor syntax</span></span>
+## <a name="razor-syntax"></a><span data-ttu-id="3a978-113">Syntaxe Razor</span><span class="sxs-lookup"><span data-stu-id="3a978-113">Razor syntax</span></span>
 
-<span data-ttu-id="443a3-114">Podporuje Razor C# a používá `@` symbol, který má přechod z HTML na C#.</span><span class="sxs-lookup"><span data-stu-id="443a3-114">Razor supports C# and uses the `@` symbol to transition from HTML to C#.</span></span> <span data-ttu-id="443a3-115">Vyhodnotí Razor C# výrazy a vykreslí je ve výstupu protokolu HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-115">Razor evaluates C# expressions and renders them in the HTML output.</span></span>
+<span data-ttu-id="3a978-114">Podporuje Razor C# a používá `@` symbol, který má přechod z HTML na C#.</span><span class="sxs-lookup"><span data-stu-id="3a978-114">Razor supports C# and uses the `@` symbol to transition from HTML to C#.</span></span> <span data-ttu-id="3a978-115">Vyhodnotí Razor C# výrazy a vykreslí je ve výstupu protokolu HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-115">Razor evaluates C# expressions and renders them in the HTML output.</span></span>
 
-<span data-ttu-id="443a3-116">Když `@` následuje symbol [Razor rezervované klíčové slovo](#razor-reserved-keywords), přechází do kódu specifické pro syntaxi Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-116">When an `@` symbol is followed by a [Razor reserved keyword](#razor-reserved-keywords), it transitions into Razor-specific markup.</span></span> <span data-ttu-id="443a3-117">V opačném případě bude přecházet do prostého C#.</span><span class="sxs-lookup"><span data-stu-id="443a3-117">Otherwise, it transitions into plain C#.</span></span>
+<span data-ttu-id="3a978-116">Když `@` následuje symbol [Razor rezervované klíčové slovo](#razor-reserved-keywords), přechází do kódu specifické pro syntaxi Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-116">When an `@` symbol is followed by a [Razor reserved keyword](#razor-reserved-keywords), it transitions into Razor-specific markup.</span></span> <span data-ttu-id="3a978-117">V opačném případě bude přecházet do prostého C#.</span><span class="sxs-lookup"><span data-stu-id="3a978-117">Otherwise, it transitions into plain C#.</span></span>
 
-<span data-ttu-id="443a3-118">Řídicí `@` symbol v kódu Razor, použijte druhý `@` symbolů:</span><span class="sxs-lookup"><span data-stu-id="443a3-118">To escape an `@` symbol in Razor markup, use a second `@` symbol:</span></span>
+<span data-ttu-id="3a978-118">Řídicí `@` symbol v kódu Razor, použijte druhý `@` symbolů:</span><span class="sxs-lookup"><span data-stu-id="3a978-118">To escape an `@` symbol in Razor markup, use a second `@` symbol:</span></span>
 
 ```cshtml
 <p>@@Username</p>
 ```
 
-<span data-ttu-id="443a3-119">Kód se vykreslí v HTML pomocí jediného `@` symbolů:</span><span class="sxs-lookup"><span data-stu-id="443a3-119">The code is rendered in HTML with a single `@` symbol:</span></span>
+<span data-ttu-id="3a978-119">Kód se vykreslí v HTML pomocí jediného `@` symbolů:</span><span class="sxs-lookup"><span data-stu-id="3a978-119">The code is rendered in HTML with a single `@` symbol:</span></span>
 
 ```html
 <p>@Username</p>
 ```
 
-<span data-ttu-id="443a3-120">Atributy HTML a obsah, který obsahuje e-mailové adresy nejsou s pracovat `@` symbol jako znak přechod.</span><span class="sxs-lookup"><span data-stu-id="443a3-120">HTML attributes and content containing email addresses don't treat the `@` symbol as a transition character.</span></span> <span data-ttu-id="443a3-121">E-mailové adresy v následujícím příkladu jsou zůstanou podle analýzy Razor:</span><span class="sxs-lookup"><span data-stu-id="443a3-121">The email addresses in the following example are untouched by Razor parsing:</span></span>
+<span data-ttu-id="3a978-120">Atributy HTML a obsah, který obsahuje e-mailové adresy nejsou s pracovat `@` symbol jako znak přechod.</span><span class="sxs-lookup"><span data-stu-id="3a978-120">HTML attributes and content containing email addresses don't treat the `@` symbol as a transition character.</span></span> <span data-ttu-id="3a978-121">E-mailové adresy v následujícím příkladu jsou zůstanou podle analýzy Razor:</span><span class="sxs-lookup"><span data-stu-id="3a978-121">The email addresses in the following example are untouched by Razor parsing:</span></span>
 
 ```cshtml
 <a href="mailto:Support@contoso.com">Support@contoso.com</a>
 ```
 
-## <a name="implicit-razor-expressions"></a><span data-ttu-id="443a3-122">Implicitní výrazy Razor</span><span class="sxs-lookup"><span data-stu-id="443a3-122">Implicit Razor expressions</span></span>
+## <a name="implicit-razor-expressions"></a><span data-ttu-id="3a978-122">Implicitní výrazy Razor</span><span class="sxs-lookup"><span data-stu-id="3a978-122">Implicit Razor expressions</span></span>
 
-<span data-ttu-id="443a3-123">Implicitní Razor výrazy začínat `@` následovaný C# kódu:</span><span class="sxs-lookup"><span data-stu-id="443a3-123">Implicit Razor expressions start with `@` followed by C# code:</span></span>
+<span data-ttu-id="3a978-123">Implicitní Razor výrazy začínat `@` následovaný C# kódu:</span><span class="sxs-lookup"><span data-stu-id="3a978-123">Implicit Razor expressions start with `@` followed by C# code:</span></span>
 
 ```cshtml
 <p>@DateTime.Now</p>
 <p>@DateTime.IsLeapYear(2016)</p>
 ```
 
-<span data-ttu-id="443a3-124">S výjimkou produktů C# `await` – klíčové slovo, implicitní výrazů nesmí obsahovat mezery.</span><span class="sxs-lookup"><span data-stu-id="443a3-124">With the exception of the C# `await` keyword, implicit expressions must not contain spaces.</span></span> <span data-ttu-id="443a3-125">Pokud C# příkaz má vymazat koncové, může být intermingled mezery:</span><span class="sxs-lookup"><span data-stu-id="443a3-125">If the C# statement has a clear ending, spaces can be intermingled:</span></span>
+<span data-ttu-id="3a978-124">S výjimkou produktů C# `await` – klíčové slovo, implicitní výrazů nesmí obsahovat mezery.</span><span class="sxs-lookup"><span data-stu-id="3a978-124">With the exception of the C# `await` keyword, implicit expressions must not contain spaces.</span></span> <span data-ttu-id="3a978-125">Pokud C# příkaz má vymazat koncové, může být intermingled mezery:</span><span class="sxs-lookup"><span data-stu-id="3a978-125">If the C# statement has a clear ending, spaces can be intermingled:</span></span>
 
 ```cshtml
 <p>@await DoSomething("hello", "world")</p>
 ```
 
-<span data-ttu-id="443a3-126">Implicitní výrazy **nelze** obsahovat C# obecných typů, jako znaky uvnitř hranatých závorek (`<>`) jsou interpretovány jako značku jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-126">Implicit expressions **cannot** contain C# generics, as the characters inside the brackets (`<>`) are interpreted as an HTML tag.</span></span> <span data-ttu-id="443a3-127">Následující kód je **není** platné:</span><span class="sxs-lookup"><span data-stu-id="443a3-127">The following code is **not** valid:</span></span>
+<span data-ttu-id="3a978-126">Implicitní výrazy **nelze** obsahovat C# obecných typů, jako znaky uvnitř hranatých závorek (`<>`) jsou interpretovány jako značku jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-126">Implicit expressions **cannot** contain C# generics, as the characters inside the brackets (`<>`) are interpreted as an HTML tag.</span></span> <span data-ttu-id="3a978-127">Následující kód je **není** platné:</span><span class="sxs-lookup"><span data-stu-id="3a978-127">The following code is **not** valid:</span></span>
 
 ```cshtml
 <p>@GenericMethod<int>()</p>
 ```
 
-<span data-ttu-id="443a3-128">Předcházející kód vygeneruje chybu kompilátoru podobně jako na jednu z následujících akcí:</span><span class="sxs-lookup"><span data-stu-id="443a3-128">The preceding code generates a compiler error similar to one of the following:</span></span>
+<span data-ttu-id="3a978-128">Předcházející kód vygeneruje chybu kompilátoru podobně jako na jednu z následujících akcí:</span><span class="sxs-lookup"><span data-stu-id="3a978-128">The preceding code generates a compiler error similar to one of the following:</span></span>
 
-* <span data-ttu-id="443a3-129">Prvek "int" není uzavřený.</span><span class="sxs-lookup"><span data-stu-id="443a3-129">The "int" element wasn't closed.</span></span> <span data-ttu-id="443a3-130">Všechny elementy musí být buď samouzavírací nebo koncová značka.</span><span class="sxs-lookup"><span data-stu-id="443a3-130">All elements must be either self-closing or have a matching end tag.</span></span>
-* <span data-ttu-id="443a3-131">Nelze převést skupinu metod 'GenericMethod' na nedelegující typ 'object'.</span><span class="sxs-lookup"><span data-stu-id="443a3-131">Cannot convert method group 'GenericMethod' to non-delegate type 'object'.</span></span> <span data-ttu-id="443a3-132">Chtěli jste vyvolat metodu? "</span><span class="sxs-lookup"><span data-stu-id="443a3-132">Did you intend to invoke the method?\`</span></span>
+* <span data-ttu-id="3a978-129">Prvek "int" není uzavřený.</span><span class="sxs-lookup"><span data-stu-id="3a978-129">The "int" element wasn't closed.</span></span> <span data-ttu-id="3a978-130">Všechny elementy musí být buď samouzavírací nebo koncová značka.</span><span class="sxs-lookup"><span data-stu-id="3a978-130">All elements must be either self-closing or have a matching end tag.</span></span>
+* <span data-ttu-id="3a978-131">Nelze převést skupinu metod 'GenericMethod' na nedelegující typ 'object'.</span><span class="sxs-lookup"><span data-stu-id="3a978-131">Cannot convert method group 'GenericMethod' to non-delegate type 'object'.</span></span> <span data-ttu-id="3a978-132">Chtěli jste vyvolat metodu? "</span><span class="sxs-lookup"><span data-stu-id="3a978-132">Did you intend to invoke the method?\`</span></span>
 
-<span data-ttu-id="443a3-133">Volání obecné metody musí být uzavřen do [explicitní výraz Razor](#explicit-razor-expressions) nebo [blok kódu Razor](#razor-code-blocks).</span><span class="sxs-lookup"><span data-stu-id="443a3-133">Generic method calls must be wrapped in an [explicit Razor expression](#explicit-razor-expressions) or a [Razor code block](#razor-code-blocks).</span></span>
+<span data-ttu-id="3a978-133">Volání obecné metody musí být uzavřen do [explicitní výraz Razor](#explicit-razor-expressions) nebo [blok kódu Razor](#razor-code-blocks).</span><span class="sxs-lookup"><span data-stu-id="3a978-133">Generic method calls must be wrapped in an [explicit Razor expression](#explicit-razor-expressions) or a [Razor code block](#razor-code-blocks).</span></span>
 
-## <a name="explicit-razor-expressions"></a><span data-ttu-id="443a3-134">Explicitní výrazy Razor</span><span class="sxs-lookup"><span data-stu-id="443a3-134">Explicit Razor expressions</span></span>
+## <a name="explicit-razor-expressions"></a><span data-ttu-id="3a978-134">Explicitní výrazy Razor</span><span class="sxs-lookup"><span data-stu-id="3a978-134">Explicit Razor expressions</span></span>
 
-<span data-ttu-id="443a3-135">Explicitní syntaxe Razor výrazů se skládají z `@` symbol vyvážené závorky.</span><span class="sxs-lookup"><span data-stu-id="443a3-135">Explicit Razor expressions consist of an `@` symbol with balanced parenthesis.</span></span> <span data-ttu-id="443a3-136">Pokud chcete zobrazit čas poslední týden, se používá následující kód Razor:</span><span class="sxs-lookup"><span data-stu-id="443a3-136">To render last week's time, the following Razor markup is used:</span></span>
+<span data-ttu-id="3a978-135">Explicitní syntaxe Razor výrazů se skládají z `@` symbol vyvážené závorky.</span><span class="sxs-lookup"><span data-stu-id="3a978-135">Explicit Razor expressions consist of an `@` symbol with balanced parenthesis.</span></span> <span data-ttu-id="3a978-136">Pokud chcete zobrazit čas poslední týden, se používá následující kód Razor:</span><span class="sxs-lookup"><span data-stu-id="3a978-136">To render last week's time, the following Razor markup is used:</span></span>
 
 ```cshtml
 <p>Last week this time: @(DateTime.Now - TimeSpan.FromDays(7))</p>
 ```
 
-<span data-ttu-id="443a3-137">Veškerý obsah v rámci `@()` závorky se vyhodnotí a vykreslí do výstupu.</span><span class="sxs-lookup"><span data-stu-id="443a3-137">Any content within the `@()` parenthesis is evaluated and rendered to the output.</span></span>
+<span data-ttu-id="3a978-137">Veškerý obsah v rámci `@()` závorky se vyhodnotí a vykreslí do výstupu.</span><span class="sxs-lookup"><span data-stu-id="3a978-137">Any content within the `@()` parenthesis is evaluated and rendered to the output.</span></span>
 
-<span data-ttu-id="443a3-138">Obecně implicitní výrazů, je popsáno v předchozí části, nesmí obsahovat mezery.</span><span class="sxs-lookup"><span data-stu-id="443a3-138">Implicit expressions, described in the previous section, generally can't contain spaces.</span></span> <span data-ttu-id="443a3-139">V následujícím kódu není jeden týden odečtena od aktuální čas:</span><span class="sxs-lookup"><span data-stu-id="443a3-139">In the following code, one week isn't subtracted from the current time:</span></span>
+<span data-ttu-id="3a978-138">Obecně implicitní výrazů, je popsáno v předchozí části, nesmí obsahovat mezery.</span><span class="sxs-lookup"><span data-stu-id="3a978-138">Implicit expressions, described in the previous section, generally can't contain spaces.</span></span> <span data-ttu-id="3a978-139">V následujícím kódu není jeden týden odečtena od aktuální čas:</span><span class="sxs-lookup"><span data-stu-id="3a978-139">In the following code, one week isn't subtracted from the current time:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact.cshtml?range=17)]
 
-<span data-ttu-id="443a3-140">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-140">The code renders the following HTML:</span></span>
+<span data-ttu-id="3a978-140">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-140">The code renders the following HTML:</span></span>
 
 ```html
 <p>Last week: 7/7/2016 4:39:52 PM - TimeSpan.FromDays(7)</p>
 ```
 
-<span data-ttu-id="443a3-141">Explicitní výrazy můžete použít ke zřetězení text s výsledek výrazu:</span><span class="sxs-lookup"><span data-stu-id="443a3-141">Explicit expressions can be used to concatenate text with an expression result:</span></span>
+<span data-ttu-id="3a978-141">Explicitní výrazy můžete použít ke zřetězení text s výsledek výrazu:</span><span class="sxs-lookup"><span data-stu-id="3a978-141">Explicit expressions can be used to concatenate text with an expression result:</span></span>
 
 ```cshtml
 @{
@@ -104,52 +104,52 @@ ms.locfileid: "74881016"
 <p>Age@(joe.Age)</p>
 ```
 
-<span data-ttu-id="443a3-142">Bez explicitní výraz `<p>Age@joe.Age</p>` je považován za e-mailovou adresu a `<p>Age@joe.Age</p>` vykreslením.</span><span class="sxs-lookup"><span data-stu-id="443a3-142">Without the explicit expression, `<p>Age@joe.Age</p>` is treated as an email address, and `<p>Age@joe.Age</p>` is rendered.</span></span> <span data-ttu-id="443a3-143">Při zápisu jako explicitní výraz `<p>Age33</p>` vykreslením.</span><span class="sxs-lookup"><span data-stu-id="443a3-143">When written as an explicit expression, `<p>Age33</p>` is rendered.</span></span>
+<span data-ttu-id="3a978-142">Bez explicitní výraz `<p>Age@joe.Age</p>` je považován za e-mailovou adresu a `<p>Age@joe.Age</p>` vykreslením.</span><span class="sxs-lookup"><span data-stu-id="3a978-142">Without the explicit expression, `<p>Age@joe.Age</p>` is treated as an email address, and `<p>Age@joe.Age</p>` is rendered.</span></span> <span data-ttu-id="3a978-143">Při zápisu jako explicitní výraz `<p>Age33</p>` vykreslením.</span><span class="sxs-lookup"><span data-stu-id="3a978-143">When written as an explicit expression, `<p>Age33</p>` is rendered.</span></span>
 
-<span data-ttu-id="443a3-144">Explicitní výrazy můžete použít k vykreslení výstup z obecných metod v *.cshtml* soubory.</span><span class="sxs-lookup"><span data-stu-id="443a3-144">Explicit expressions can be used to render output from generic methods in *.cshtml* files.</span></span> <span data-ttu-id="443a3-145">Následující kód ukazuje, jak chcete-li zobrazit tato chyba dříve způsobené závorkami C# obecný.</span><span class="sxs-lookup"><span data-stu-id="443a3-145">The following markup shows how to correct the error shown earlier caused by the brackets of a C# generic.</span></span> <span data-ttu-id="443a3-146">Kód je zapsán jako explicitní výraz:</span><span class="sxs-lookup"><span data-stu-id="443a3-146">The code is written as an explicit expression:</span></span>
+<span data-ttu-id="3a978-144">Explicitní výrazy můžete použít k vykreslení výstup z obecných metod v *.cshtml* soubory.</span><span class="sxs-lookup"><span data-stu-id="3a978-144">Explicit expressions can be used to render output from generic methods in *.cshtml* files.</span></span> <span data-ttu-id="3a978-145">Následující kód ukazuje, jak chcete-li zobrazit tato chyba dříve způsobené závorkami C# obecný.</span><span class="sxs-lookup"><span data-stu-id="3a978-145">The following markup shows how to correct the error shown earlier caused by the brackets of a C# generic.</span></span> <span data-ttu-id="3a978-146">Kód je zapsán jako explicitní výraz:</span><span class="sxs-lookup"><span data-stu-id="3a978-146">The code is written as an explicit expression:</span></span>
 
 ```cshtml
 <p>@(GenericMethod<int>())</p>
 ```
 
-## <a name="expression-encoding"></a><span data-ttu-id="443a3-147">Výraz kódování</span><span class="sxs-lookup"><span data-stu-id="443a3-147">Expression encoding</span></span>
+## <a name="expression-encoding"></a><span data-ttu-id="3a978-147">Výraz kódování</span><span class="sxs-lookup"><span data-stu-id="3a978-147">Expression encoding</span></span>
 
-<span data-ttu-id="443a3-148">C#jsou výrazy, které vedou na řetězec kódovaný jazykem HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-148">C# expressions that evaluate to a string are HTML encoded.</span></span> <span data-ttu-id="443a3-149">C#výrazy, které vedou k `IHtmlContent` jsou generovány přímo pomocí `IHtmlContent.WriteTo`.</span><span class="sxs-lookup"><span data-stu-id="443a3-149">C# expressions that evaluate to `IHtmlContent` are rendered directly through `IHtmlContent.WriteTo`.</span></span> <span data-ttu-id="443a3-150">C#výrazy, které není vyhodnocen na `IHtmlContent` jsou převedeny na řetězec pomocí `ToString` a kódováním než se zobrazí.</span><span class="sxs-lookup"><span data-stu-id="443a3-150">C# expressions that don't evaluate to `IHtmlContent` are converted to a string by `ToString` and encoded before they're rendered.</span></span>
+<span data-ttu-id="3a978-148">C#jsou výrazy, které vedou na řetězec kódovaný jazykem HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-148">C# expressions that evaluate to a string are HTML encoded.</span></span> <span data-ttu-id="3a978-149">C#výrazy, které vedou k `IHtmlContent` jsou generovány přímo pomocí `IHtmlContent.WriteTo`.</span><span class="sxs-lookup"><span data-stu-id="3a978-149">C# expressions that evaluate to `IHtmlContent` are rendered directly through `IHtmlContent.WriteTo`.</span></span> <span data-ttu-id="3a978-150">C#výrazy, které není vyhodnocen na `IHtmlContent` jsou převedeny na řetězec pomocí `ToString` a kódováním než se zobrazí.</span><span class="sxs-lookup"><span data-stu-id="3a978-150">C# expressions that don't evaluate to `IHtmlContent` are converted to a string by `ToString` and encoded before they're rendered.</span></span>
 
 ```cshtml
 @("<span>Hello World</span>")
 ```
 
-<span data-ttu-id="443a3-151">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-151">The code renders the following HTML:</span></span>
+<span data-ttu-id="3a978-151">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-151">The code renders the following HTML:</span></span>
 
 ```html
 &lt;span&gt;Hello World&lt;/span&gt;
 ```
 
-<span data-ttu-id="443a3-152">Kód HTML je zobrazená v prohlížeči jako:</span><span class="sxs-lookup"><span data-stu-id="443a3-152">The HTML is shown in the browser as:</span></span>
+<span data-ttu-id="3a978-152">Kód HTML je zobrazená v prohlížeči jako:</span><span class="sxs-lookup"><span data-stu-id="3a978-152">The HTML is shown in the browser as:</span></span>
 
 ```
 <span>Hello World</span>
 ```
 
-<span data-ttu-id="443a3-153">`HtmlHelper.Raw` výstup není kódovaný ale se vykresluje jako značka jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-153">`HtmlHelper.Raw` output isn't encoded but rendered as HTML markup.</span></span>
+<span data-ttu-id="3a978-153">`HtmlHelper.Raw` výstup není kódovaný ale se vykresluje jako značka jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-153">`HtmlHelper.Raw` output isn't encoded but rendered as HTML markup.</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="443a3-154">Pomocí `HtmlHelper.Raw` unsanitized uživatele vstup představuje bezpečnostní riziko.</span><span class="sxs-lookup"><span data-stu-id="443a3-154">Using `HtmlHelper.Raw` on unsanitized user input is a security risk.</span></span> <span data-ttu-id="443a3-155">Uživatelský vstup může obsahovat další zneužití nebo škodlivý jazyka JavaScript.</span><span class="sxs-lookup"><span data-stu-id="443a3-155">User input might contain malicious JavaScript or other exploits.</span></span> <span data-ttu-id="443a3-156">Sanitaci uživatelský vstup je obtížné.</span><span class="sxs-lookup"><span data-stu-id="443a3-156">Sanitizing user input is difficult.</span></span> <span data-ttu-id="443a3-157">Vyhněte se použití `HtmlHelper.Raw` s uživatelským vstupem.</span><span class="sxs-lookup"><span data-stu-id="443a3-157">Avoid using `HtmlHelper.Raw` with user input.</span></span>
+> <span data-ttu-id="3a978-154">Pomocí `HtmlHelper.Raw` unsanitized uživatele vstup představuje bezpečnostní riziko.</span><span class="sxs-lookup"><span data-stu-id="3a978-154">Using `HtmlHelper.Raw` on unsanitized user input is a security risk.</span></span> <span data-ttu-id="3a978-155">Uživatelský vstup může obsahovat další zneužití nebo škodlivý jazyka JavaScript.</span><span class="sxs-lookup"><span data-stu-id="3a978-155">User input might contain malicious JavaScript or other exploits.</span></span> <span data-ttu-id="3a978-156">Sanitaci uživatelský vstup je obtížné.</span><span class="sxs-lookup"><span data-stu-id="3a978-156">Sanitizing user input is difficult.</span></span> <span data-ttu-id="3a978-157">Vyhněte se použití `HtmlHelper.Raw` s uživatelským vstupem.</span><span class="sxs-lookup"><span data-stu-id="3a978-157">Avoid using `HtmlHelper.Raw` with user input.</span></span>
 
 ```cshtml
 @Html.Raw("<span>Hello World</span>")
 ```
 
-<span data-ttu-id="443a3-158">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-158">The code renders the following HTML:</span></span>
+<span data-ttu-id="3a978-158">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-158">The code renders the following HTML:</span></span>
 
 ```html
 <span>Hello World</span>
 ```
 
-## <a name="razor-code-blocks"></a><span data-ttu-id="443a3-159">Bloky kódu Razor</span><span class="sxs-lookup"><span data-stu-id="443a3-159">Razor code blocks</span></span>
+## <a name="razor-code-blocks"></a><span data-ttu-id="3a978-159">Bloky kódu Razor</span><span class="sxs-lookup"><span data-stu-id="3a978-159">Razor code blocks</span></span>
 
-<span data-ttu-id="443a3-160">Bloky kódu Razor začínat `@` a jsou uzavřeny ve `{}`.</span><span class="sxs-lookup"><span data-stu-id="443a3-160">Razor code blocks start with `@` and are enclosed by `{}`.</span></span> <span data-ttu-id="443a3-161">Na rozdíl od výrazy C# kód uvnitř bloků kódu není vykresleno.</span><span class="sxs-lookup"><span data-stu-id="443a3-161">Unlike expressions, C# code inside code blocks isn't rendered.</span></span> <span data-ttu-id="443a3-162">Bloky kódu a výrazy v zobrazení sdílejí stejný obor a jsou definované v pořadí:</span><span class="sxs-lookup"><span data-stu-id="443a3-162">Code blocks and expressions in a view share the same scope and are defined in order:</span></span>
+<span data-ttu-id="3a978-160">Bloky kódu Razor začínat `@` a jsou uzavřeny ve `{}`.</span><span class="sxs-lookup"><span data-stu-id="3a978-160">Razor code blocks start with `@` and are enclosed by `{}`.</span></span> <span data-ttu-id="3a978-161">Na rozdíl od výrazy C# kód uvnitř bloků kódu není vykresleno.</span><span class="sxs-lookup"><span data-stu-id="3a978-161">Unlike expressions, C# code inside code blocks isn't rendered.</span></span> <span data-ttu-id="3a978-162">Bloky kódu a výrazy v zobrazení sdílejí stejný obor a jsou definované v pořadí:</span><span class="sxs-lookup"><span data-stu-id="3a978-162">Code blocks and expressions in a view share the same scope and are defined in order:</span></span>
 
 ```cshtml
 @{
@@ -165,7 +165,7 @@ ms.locfileid: "74881016"
 <p>@quote</p>
 ```
 
-<span data-ttu-id="443a3-163">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-163">The code renders the following HTML:</span></span>
+<span data-ttu-id="3a978-163">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-163">The code renders the following HTML:</span></span>
 
 ```html
 <p>The future depends on what you do today. - Mahatma Gandhi</p>
@@ -174,7 +174,7 @@ ms.locfileid: "74881016"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="443a3-164">V blocích kódu deklarujte [místní funkce](/dotnet/csharp/programming-guide/classes-and-structs/local-functions) pomocí značek, které budou sloužit jako metody šablonování:</span><span class="sxs-lookup"><span data-stu-id="443a3-164">In code blocks, declare [local functions](/dotnet/csharp/programming-guide/classes-and-structs/local-functions) with markup to serve as templating methods:</span></span>
+<span data-ttu-id="3a978-164">V blocích kódu deklarujte [místní funkce](/dotnet/csharp/programming-guide/classes-and-structs/local-functions) pomocí značek, které budou sloužit jako metody šablonování:</span><span class="sxs-lookup"><span data-stu-id="3a978-164">In code blocks, declare [local functions](/dotnet/csharp/programming-guide/classes-and-structs/local-functions) with markup to serve as templating methods:</span></span>
 
 ```cshtml
 @{
@@ -188,7 +188,7 @@ ms.locfileid: "74881016"
 }
 ```
 
-<span data-ttu-id="443a3-165">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-165">The code renders the following HTML:</span></span>
+<span data-ttu-id="3a978-165">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-165">The code renders the following HTML:</span></span>
 
 ```html
 <p>Name: <strong>Mahatma Gandhi</strong></p>
@@ -197,9 +197,9 @@ ms.locfileid: "74881016"
 
 ::: moniker-end
 
-### <a name="implicit-transitions"></a><span data-ttu-id="443a3-166">Implicitní přechody</span><span class="sxs-lookup"><span data-stu-id="443a3-166">Implicit transitions</span></span>
+### <a name="implicit-transitions"></a><span data-ttu-id="3a978-166">Implicitní přechody</span><span class="sxs-lookup"><span data-stu-id="3a978-166">Implicit transitions</span></span>
 
-<span data-ttu-id="443a3-167">Je výchozí jazyk v bloku kódu C#, ale stránka Razor můžete přejít zpět na HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-167">The default language in a code block is C#, but the Razor Page can transition back to HTML:</span></span>
+<span data-ttu-id="3a978-167">Je výchozí jazyk v bloku kódu C#, ale stránka Razor můžete přejít zpět na HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-167">The default language in a code block is C#, but the Razor Page can transition back to HTML:</span></span>
 
 ```cshtml
 @{
@@ -208,9 +208,9 @@ ms.locfileid: "74881016"
 }
 ```
 
-### <a name="explicit-delimited-transition"></a><span data-ttu-id="443a3-168">Explicitní převod s oddělovači</span><span class="sxs-lookup"><span data-stu-id="443a3-168">Explicit delimited transition</span></span>
+### <a name="explicit-delimited-transition"></a><span data-ttu-id="3a978-168">Explicitní převod s oddělovači</span><span class="sxs-lookup"><span data-stu-id="3a978-168">Explicit delimited transition</span></span>
 
-<span data-ttu-id="443a3-169">Chcete-li definovat dílčí oddíl bloku kódu, který by měl vykreslovat kód HTML, uzavřete znaky pro vykreslování pomocí značky `<text>` Razor:</span><span class="sxs-lookup"><span data-stu-id="443a3-169">To define a subsection of a code block that should render HTML, surround the characters for rendering with the Razor `<text>` tag:</span></span>
+<span data-ttu-id="3a978-169">Chcete-li definovat dílčí oddíl bloku kódu, který by měl vykreslovat kód HTML, uzavřete znaky pro vykreslování pomocí značky `<text>` Razor:</span><span class="sxs-lookup"><span data-stu-id="3a978-169">To define a subsection of a code block that should render HTML, surround the characters for rendering with the Razor `<text>` tag:</span></span>
 
 ```cshtml
 @for (var i = 0; i < people.Length; i++)
@@ -220,16 +220,16 @@ ms.locfileid: "74881016"
 }
 ```
 
-<span data-ttu-id="443a3-170">Tuto metodu použijte k vykreslení HTML, který není obklopený značky jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-170">Use this approach to render HTML that isn't surrounded by an HTML tag.</span></span> <span data-ttu-id="443a3-171">Bez značky jazyka HTML nebo Razor dojde k chybě modulu runtime Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-171">Without an HTML or Razor tag, a Razor runtime error occurs.</span></span>
+<span data-ttu-id="3a978-170">Tuto metodu použijte k vykreslení HTML, který není obklopený značky jazyka HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-170">Use this approach to render HTML that isn't surrounded by an HTML tag.</span></span> <span data-ttu-id="3a978-171">Bez značky jazyka HTML nebo Razor dojde k chybě modulu runtime Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-171">Without an HTML or Razor tag, a Razor runtime error occurs.</span></span>
 
-<span data-ttu-id="443a3-172">Značka `<text>` je užitečná pro řízení prázdných znaků při vykreslování obsahu:</span><span class="sxs-lookup"><span data-stu-id="443a3-172">The `<text>` tag is useful to control whitespace when rendering content:</span></span>
+<span data-ttu-id="3a978-172">Značka `<text>` je užitečná pro řízení prázdných znaků při vykreslování obsahu:</span><span class="sxs-lookup"><span data-stu-id="3a978-172">The `<text>` tag is useful to control whitespace when rendering content:</span></span>
 
-* <span data-ttu-id="443a3-173">Vykreslí se jenom obsah mezi `<text>` značkou.</span><span class="sxs-lookup"><span data-stu-id="443a3-173">Only the content between the `<text>` tag is rendered.</span></span>
-* <span data-ttu-id="443a3-174">Žádný prázdný znak před nebo za `<text>` značka se zobrazí ve výstupu HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-174">No whitespace before or after the `<text>` tag appears in the HTML output.</span></span>
+* <span data-ttu-id="3a978-173">Vykreslí se jenom obsah mezi `<text>` značkou.</span><span class="sxs-lookup"><span data-stu-id="3a978-173">Only the content between the `<text>` tag is rendered.</span></span>
+* <span data-ttu-id="3a978-174">Žádný prázdný znak před nebo za `<text>` značka se zobrazí ve výstupu HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-174">No whitespace before or after the `<text>` tag appears in the HTML output.</span></span>
 
-### <a name="explicit-line-transition"></a><span data-ttu-id="443a3-175">Explicitní přechod řádku</span><span class="sxs-lookup"><span data-stu-id="443a3-175">Explicit line transition</span></span>
+### <a name="explicit-line-transition"></a><span data-ttu-id="3a978-175">Explicitní přechod řádku</span><span class="sxs-lookup"><span data-stu-id="3a978-175">Explicit line transition</span></span>
 
-<span data-ttu-id="443a3-176">Chcete-li vykreslit zbytek celého řádku jako HTML v bloku kódu, použijte `@:` syntaxi:</span><span class="sxs-lookup"><span data-stu-id="443a3-176">To render the rest of an entire line as HTML inside a code block, use `@:` syntax:</span></span>
+<span data-ttu-id="3a978-176">Chcete-li vykreslit zbytek celého řádku jako HTML v bloku kódu, použijte `@:` syntaxi:</span><span class="sxs-lookup"><span data-stu-id="3a978-176">To render the rest of an entire line as HTML inside a code block, use `@:` syntax:</span></span>
 
 ```cshtml
 @for (var i = 0; i < people.Length; i++)
@@ -239,17 +239,17 @@ ms.locfileid: "74881016"
 }
 ```
 
-<span data-ttu-id="443a3-177">Bez `@:` v kódu, je vygenerována chyba za běhu Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-177">Without the `@:` in the code, a Razor runtime error is generated.</span></span>
+<span data-ttu-id="3a978-177">Bez `@:` v kódu, je vygenerována chyba za běhu Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-177">Without the `@:` in the code, a Razor runtime error is generated.</span></span>
 
-<span data-ttu-id="443a3-178">Nadbytečné `@` znaky v souboru Razor mohou způsobit chyby kompilátoru v příkazech později v bloku.</span><span class="sxs-lookup"><span data-stu-id="443a3-178">Extra `@` characters in a Razor file can cause compiler errors at statements later in the block.</span></span> <span data-ttu-id="443a3-179">Tyto chyby kompilátoru může být obtížné pochopit, protože Skutečná chyba předchází oznámenou chybu.</span><span class="sxs-lookup"><span data-stu-id="443a3-179">These compiler errors can be difficult to understand because the actual error occurs before the reported error.</span></span> <span data-ttu-id="443a3-180">K této chybě dochází po kombinování více implicitního/explicitního výrazů v jednom bloku kódu.</span><span class="sxs-lookup"><span data-stu-id="443a3-180">This error is common after combining multiple implicit/explicit expressions into a single code block.</span></span>
+<span data-ttu-id="3a978-178">Nadbytečné `@` znaky v souboru Razor mohou způsobit chyby kompilátoru v příkazech později v bloku.</span><span class="sxs-lookup"><span data-stu-id="3a978-178">Extra `@` characters in a Razor file can cause compiler errors at statements later in the block.</span></span> <span data-ttu-id="3a978-179">Tyto chyby kompilátoru může být obtížné pochopit, protože Skutečná chyba předchází oznámenou chybu.</span><span class="sxs-lookup"><span data-stu-id="3a978-179">These compiler errors can be difficult to understand because the actual error occurs before the reported error.</span></span> <span data-ttu-id="3a978-180">K této chybě dochází po kombinování více implicitního/explicitního výrazů v jednom bloku kódu.</span><span class="sxs-lookup"><span data-stu-id="3a978-180">This error is common after combining multiple implicit/explicit expressions into a single code block.</span></span>
 
-## <a name="control-structures"></a><span data-ttu-id="443a3-181">Řídicí struktury</span><span class="sxs-lookup"><span data-stu-id="443a3-181">Control structures</span></span>
+## <a name="control-structures"></a><span data-ttu-id="3a978-181">Řídicí struktury</span><span class="sxs-lookup"><span data-stu-id="3a978-181">Control structures</span></span>
 
-<span data-ttu-id="443a3-182">Řídicí struktury jsou rozšíření bloky kódu.</span><span class="sxs-lookup"><span data-stu-id="443a3-182">Control structures are an extension of code blocks.</span></span> <span data-ttu-id="443a3-183">Všechny aspekty bloky kódu (Přechod na značky vložené C#) platí také pro následující struktury:</span><span class="sxs-lookup"><span data-stu-id="443a3-183">All aspects of code blocks (transitioning to markup, inline C#) also apply to the following structures:</span></span>
+<span data-ttu-id="3a978-182">Řídicí struktury jsou rozšíření bloky kódu.</span><span class="sxs-lookup"><span data-stu-id="3a978-182">Control structures are an extension of code blocks.</span></span> <span data-ttu-id="3a978-183">Všechny aspekty bloky kódu (Přechod na značky vložené C#) platí také pro následující struktury:</span><span class="sxs-lookup"><span data-stu-id="3a978-183">All aspects of code blocks (transitioning to markup, inline C#) also apply to the following structures:</span></span>
 
-### <a name="conditionals-if-else-if-else-and-switch"></a><span data-ttu-id="443a3-184">Podmíněné \@if, else if, else a \@Switch</span><span class="sxs-lookup"><span data-stu-id="443a3-184">Conditionals \@if, else if, else, and \@switch</span></span>
+### <a name="conditionals-if-else-if-else-and-switch"></a><span data-ttu-id="3a978-184">Podmíněné \@if, else if, else a \@Switch</span><span class="sxs-lookup"><span data-stu-id="3a978-184">Conditionals \@if, else if, else, and \@switch</span></span>
 
-<span data-ttu-id="443a3-185">`@if` ovládací prvky, pokud kód se spustí:</span><span class="sxs-lookup"><span data-stu-id="443a3-185">`@if` controls when code runs:</span></span>
+<span data-ttu-id="3a978-185">`@if` ovládací prvky, pokud kód se spustí:</span><span class="sxs-lookup"><span data-stu-id="3a978-185">`@if` controls when code runs:</span></span>
 
 ```cshtml
 @if (value % 2 == 0)
@@ -258,7 +258,7 @@ ms.locfileid: "74881016"
 }
 ```
 
-<span data-ttu-id="443a3-186">`else` a `else if` nevyžadují `@` symbolů:</span><span class="sxs-lookup"><span data-stu-id="443a3-186">`else` and `else if` don't require the `@` symbol:</span></span>
+<span data-ttu-id="3a978-186">`else` a `else if` nevyžadují `@` symbolů:</span><span class="sxs-lookup"><span data-stu-id="3a978-186">`else` and `else if` don't require the `@` symbol:</span></span>
 
 ```cshtml
 @if (value % 2 == 0)
@@ -275,7 +275,7 @@ else
 }
 ```
 
-<span data-ttu-id="443a3-187">Následující kód ukazuje použití příkazu switch:</span><span class="sxs-lookup"><span data-stu-id="443a3-187">The following markup shows how to use a switch statement:</span></span>
+<span data-ttu-id="3a978-187">Následující kód ukazuje použití příkazu switch:</span><span class="sxs-lookup"><span data-stu-id="3a978-187">The following markup shows how to use a switch statement:</span></span>
 
 ```cshtml
 @switch (value)
@@ -292,9 +292,9 @@ else
 }
 ```
 
-### <a name="looping-for-foreach-while-and-do-while"></a><span data-ttu-id="443a3-188">Opakování \@pro, \@foreach, \@while a \@</span><span class="sxs-lookup"><span data-stu-id="443a3-188">Looping \@for, \@foreach, \@while, and \@do while</span></span>
+### <a name="looping-for-foreach-while-and-do-while"></a><span data-ttu-id="3a978-188">Opakování \@pro, \@foreach, \@while a \@</span><span class="sxs-lookup"><span data-stu-id="3a978-188">Looping \@for, \@foreach, \@while, and \@do while</span></span>
 
-<span data-ttu-id="443a3-189">Bez vizuálního vzhledu HTML lze vykreslit s opakování ve smyčce řídicí příkazy.</span><span class="sxs-lookup"><span data-stu-id="443a3-189">Templated HTML can be rendered with looping control statements.</span></span> <span data-ttu-id="443a3-190">Pokud chcete zobrazit seznam lidí:</span><span class="sxs-lookup"><span data-stu-id="443a3-190">To render a list of people:</span></span>
+<span data-ttu-id="3a978-189">Bez vizuálního vzhledu HTML lze vykreslit s opakování ve smyčce řídicí příkazy.</span><span class="sxs-lookup"><span data-stu-id="3a978-189">Templated HTML can be rendered with looping control statements.</span></span> <span data-ttu-id="3a978-190">Pokud chcete zobrazit seznam lidí:</span><span class="sxs-lookup"><span data-stu-id="3a978-190">To render a list of people:</span></span>
 
 ```cshtml
 @{
@@ -307,7 +307,7 @@ else
 }
 ```
 
-<span data-ttu-id="443a3-191">Podporují se následující příkazy opakování:</span><span class="sxs-lookup"><span data-stu-id="443a3-191">The following looping statements are supported:</span></span>
+<span data-ttu-id="3a978-191">Podporují se následující příkazy opakování:</span><span class="sxs-lookup"><span data-stu-id="3a978-191">The following looping statements are supported:</span></span>
 
 `@for`
 
@@ -358,9 +358,9 @@ else
 } while (i < people.Length);
 ```
 
-### <a name="compound-using"></a><span data-ttu-id="443a3-192">Složené \@using</span><span class="sxs-lookup"><span data-stu-id="443a3-192">Compound \@using</span></span>
+### <a name="compound-using"></a><span data-ttu-id="3a978-192">Složené \@using</span><span class="sxs-lookup"><span data-stu-id="3a978-192">Compound \@using</span></span>
 
-<span data-ttu-id="443a3-193">V C#, `using` prohlášení se používá k zajištění uvolněn objekt.</span><span class="sxs-lookup"><span data-stu-id="443a3-193">In C#, a `using` statement is used to ensure an object is disposed.</span></span> <span data-ttu-id="443a3-194">V prostředí Razor stejný mechanismus slouží k vytvoření pomocné rutiny HTML, které obsahují další obsah.</span><span class="sxs-lookup"><span data-stu-id="443a3-194">In Razor, the same mechanism is used to create HTML Helpers that contain additional content.</span></span> <span data-ttu-id="443a3-195">V následujícím kódu pomocník HTML vykresluje značku `<form>` pomocí příkazu `@using`:</span><span class="sxs-lookup"><span data-stu-id="443a3-195">In the following code, HTML Helpers render a `<form>` tag with the `@using` statement:</span></span>
+<span data-ttu-id="3a978-193">V C#, `using` prohlášení se používá k zajištění uvolněn objekt.</span><span class="sxs-lookup"><span data-stu-id="3a978-193">In C#, a `using` statement is used to ensure an object is disposed.</span></span> <span data-ttu-id="3a978-194">V prostředí Razor stejný mechanismus slouží k vytvoření pomocné rutiny HTML, které obsahují další obsah.</span><span class="sxs-lookup"><span data-stu-id="3a978-194">In Razor, the same mechanism is used to create HTML Helpers that contain additional content.</span></span> <span data-ttu-id="3a978-195">V následujícím kódu pomocník HTML vykresluje značku `<form>` pomocí příkazu `@using`:</span><span class="sxs-lookup"><span data-stu-id="3a978-195">In the following code, HTML Helpers render a `<form>` tag with the `@using` statement:</span></span>
 
 ```cshtml
 @using (Html.BeginForm())
@@ -372,15 +372,15 @@ else
 }
 ```
 
-### <a name="try-catch-finally"></a><span data-ttu-id="443a3-196">\@try, catch, finally</span><span class="sxs-lookup"><span data-stu-id="443a3-196">\@try, catch, finally</span></span>
+### <a name="try-catch-finally"></a><span data-ttu-id="3a978-196">\@try, catch, finally</span><span class="sxs-lookup"><span data-stu-id="3a978-196">\@try, catch, finally</span></span>
 
-<span data-ttu-id="443a3-197">Zpracování výjimek je podobný C#:</span><span class="sxs-lookup"><span data-stu-id="443a3-197">Exception handling is similar to C#:</span></span>
+<span data-ttu-id="3a978-197">Zpracování výjimek je podobný C#:</span><span class="sxs-lookup"><span data-stu-id="3a978-197">Exception handling is similar to C#:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact7.cshtml)]
 
-### <a name="lock"></a><span data-ttu-id="443a3-198">\@zámek</span><span class="sxs-lookup"><span data-stu-id="443a3-198">\@lock</span></span>
+### <a name="lock"></a><span data-ttu-id="3a978-198">\@zámek</span><span class="sxs-lookup"><span data-stu-id="3a978-198">\@lock</span></span>
 
-<span data-ttu-id="443a3-199">Razor má schopnost chránit kritické oddíly s příkazy uzamčení:</span><span class="sxs-lookup"><span data-stu-id="443a3-199">Razor has the capability to protect critical sections with lock statements:</span></span>
+<span data-ttu-id="3a978-199">Razor má schopnost chránit kritické oddíly s příkazy uzamčení:</span><span class="sxs-lookup"><span data-stu-id="3a978-199">Razor has the capability to protect critical sections with lock statements:</span></span>
 
 ```cshtml
 @lock (SomeLock)
@@ -389,9 +389,9 @@ else
 }
 ```
 
-### <a name="comments"></a><span data-ttu-id="443a3-200">Komentáře</span><span class="sxs-lookup"><span data-stu-id="443a3-200">Comments</span></span>
+### <a name="comments"></a><span data-ttu-id="3a978-200">Komentáře</span><span class="sxs-lookup"><span data-stu-id="3a978-200">Comments</span></span>
 
-<span data-ttu-id="443a3-201">Podporuje Razor C# a komentáře HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-201">Razor supports C# and HTML comments:</span></span>
+<span data-ttu-id="3a978-201">Podporuje Razor C# a komentáře HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-201">Razor supports C# and HTML comments:</span></span>
 
 ```cshtml
 @{
@@ -401,13 +401,13 @@ else
 <!-- HTML comment -->
 ```
 
-<span data-ttu-id="443a3-202">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-202">The code renders the following HTML:</span></span>
+<span data-ttu-id="3a978-202">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-202">The code renders the following HTML:</span></span>
 
 ```html
 <!-- HTML comment -->
 ```
 
-<span data-ttu-id="443a3-203">Komentáře syntaxe Razor jsou odebrána serverem, než se zobrazí webová stránka.</span><span class="sxs-lookup"><span data-stu-id="443a3-203">Razor comments are removed by the server before the webpage is rendered.</span></span> <span data-ttu-id="443a3-204">Používá syntaxi Razor `@*  *@` pro vymezení komentáře.</span><span class="sxs-lookup"><span data-stu-id="443a3-204">Razor uses `@*  *@` to delimit comments.</span></span> <span data-ttu-id="443a3-205">Následující kód je zakomentovaný, tak server nevykreslí žádné značky:</span><span class="sxs-lookup"><span data-stu-id="443a3-205">The following code is commented out, so the server doesn't render any markup:</span></span>
+<span data-ttu-id="3a978-203">Komentáře syntaxe Razor jsou odebrána serverem, než se zobrazí webová stránka.</span><span class="sxs-lookup"><span data-stu-id="3a978-203">Razor comments are removed by the server before the webpage is rendered.</span></span> <span data-ttu-id="3a978-204">Používá syntaxi Razor `@*  *@` pro vymezení komentáře.</span><span class="sxs-lookup"><span data-stu-id="3a978-204">Razor uses `@*  *@` to delimit comments.</span></span> <span data-ttu-id="3a978-205">Následující kód je zakomentovaný, tak server nevykreslí žádné značky:</span><span class="sxs-lookup"><span data-stu-id="3a978-205">The following code is commented out, so the server doesn't render any markup:</span></span>
 
 ```cshtml
 @*
@@ -419,15 +419,15 @@ else
 *@
 ```
 
-## <a name="directives"></a><span data-ttu-id="443a3-206">Direktivy</span><span class="sxs-lookup"><span data-stu-id="443a3-206">Directives</span></span>
+## <a name="directives"></a><span data-ttu-id="3a978-206">Direktivy</span><span class="sxs-lookup"><span data-stu-id="3a978-206">Directives</span></span>
 
-<span data-ttu-id="443a3-207">Direktivy Razor jsou reprezentovány implicitní výrazy s následující vyhrazená klíčová slova `@` symbol.</span><span class="sxs-lookup"><span data-stu-id="443a3-207">Razor directives are represented by implicit expressions with reserved keywords following the `@` symbol.</span></span> <span data-ttu-id="443a3-208">Direktivu obvykle mění způsob zobrazení je analyzován nebo jinou funkci povolí.</span><span class="sxs-lookup"><span data-stu-id="443a3-208">A directive typically changes the way a view is parsed or enables different functionality.</span></span>
+<span data-ttu-id="3a978-207">Direktivy Razor jsou reprezentovány implicitní výrazy s následující vyhrazená klíčová slova `@` symbol.</span><span class="sxs-lookup"><span data-stu-id="3a978-207">Razor directives are represented by implicit expressions with reserved keywords following the `@` symbol.</span></span> <span data-ttu-id="3a978-208">Direktivu obvykle mění způsob zobrazení je analyzován nebo jinou funkci povolí.</span><span class="sxs-lookup"><span data-stu-id="3a978-208">A directive typically changes the way a view is parsed or enables different functionality.</span></span>
 
-<span data-ttu-id="443a3-209">Vysvětlení způsobu, jakým Razor generuje kód pro zobrazení usnadňuje pochopení fungování direktivy.</span><span class="sxs-lookup"><span data-stu-id="443a3-209">Understanding how Razor generates code for a view makes it easier to understand how directives work.</span></span>
+<span data-ttu-id="3a978-209">Vysvětlení způsobu, jakým Razor generuje kód pro zobrazení usnadňuje pochopení fungování direktivy.</span><span class="sxs-lookup"><span data-stu-id="3a978-209">Understanding how Razor generates code for a view makes it easier to understand how directives work.</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact8.cshtml)]
 
-<span data-ttu-id="443a3-210">Kód vygeneruje třídu podobný následujícímu:</span><span class="sxs-lookup"><span data-stu-id="443a3-210">The code generates a class similar to the following:</span></span>
+<span data-ttu-id="3a978-210">Kód vygeneruje třídu podobný následujícímu:</span><span class="sxs-lookup"><span data-stu-id="3a978-210">The code generates a class similar to the following:</span></span>
 
 ```csharp
 public class _Views_Something_cshtml : RazorPage<dynamic>
@@ -443,11 +443,11 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 }
 ```
 
-<span data-ttu-id="443a3-211">Dále v tomto článku v části [Zkontrolujte syntaxi Razor C# třída vygenerovaná pro zobrazení](#inspect-the-razor-c-class-generated-for-a-view) vysvětluje, jak zobrazit tento generované třídy.</span><span class="sxs-lookup"><span data-stu-id="443a3-211">Later in this article, the section [Inspect the Razor C# class generated for a view](#inspect-the-razor-c-class-generated-for-a-view) explains how to view this generated class.</span></span>
+<span data-ttu-id="3a978-211">Dále v tomto článku v části [Zkontrolujte syntaxi Razor C# třída vygenerovaná pro zobrazení](#inspect-the-razor-c-class-generated-for-a-view) vysvětluje, jak zobrazit tento generované třídy.</span><span class="sxs-lookup"><span data-stu-id="3a978-211">Later in this article, the section [Inspect the Razor C# class generated for a view](#inspect-the-razor-c-class-generated-for-a-view) explains how to view this generated class.</span></span>
 
-### <a name="attribute"></a><span data-ttu-id="443a3-212">atribut \@</span><span class="sxs-lookup"><span data-stu-id="443a3-212">\@attribute</span></span>
+### <a name="attribute"></a><span data-ttu-id="3a978-212">atribut \@</span><span class="sxs-lookup"><span data-stu-id="3a978-212">\@attribute</span></span>
 
-<span data-ttu-id="443a3-213">Direktiva `@attribute` přidá daný atribut třídě vygenerované stránky nebo zobrazení.</span><span class="sxs-lookup"><span data-stu-id="443a3-213">The `@attribute` directive adds the given attribute to the class of the generated page or view.</span></span> <span data-ttu-id="443a3-214">Následující příklad přidá atribut `[Authorize]`:</span><span class="sxs-lookup"><span data-stu-id="443a3-214">The following example adds the `[Authorize]` attribute:</span></span>
+<span data-ttu-id="3a978-213">Direktiva `@attribute` přidá daný atribut třídě vygenerované stránky nebo zobrazení.</span><span class="sxs-lookup"><span data-stu-id="3a978-213">The `@attribute` directive adds the given attribute to the class of the generated page or view.</span></span> <span data-ttu-id="3a978-214">Následující příklad přidá atribut `[Authorize]`:</span><span class="sxs-lookup"><span data-stu-id="3a978-214">The following example adds the `[Authorize]` attribute:</span></span>
 
 ```cshtml
 @attribute [Authorize]
@@ -455,25 +455,25 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="code"></a><span data-ttu-id="443a3-215">kód \@</span><span class="sxs-lookup"><span data-stu-id="443a3-215">\@code</span></span>
+### <a name="code"></a><span data-ttu-id="3a978-215">kód \@</span><span class="sxs-lookup"><span data-stu-id="3a978-215">\@code</span></span>
 
-<span data-ttu-id="443a3-216">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-216">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-216">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-216">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-217">`@code` blok umožňuje [komponentě Razor](xref:blazor/components) přidat C# členy (pole, vlastnosti a metody) do komponenty:</span><span class="sxs-lookup"><span data-stu-id="443a3-217">The `@code` block enables a [Razor component](xref:blazor/components) to add C# members (fields, properties, and methods) to a component:</span></span>
+<span data-ttu-id="3a978-217">`@code` blok umožňuje [komponentě Razor](xref:blazor/components) přidat C# členy (pole, vlastnosti a metody) do komponenty:</span><span class="sxs-lookup"><span data-stu-id="3a978-217">The `@code` block enables a [Razor component](xref:blazor/components) to add C# members (fields, properties, and methods) to a component:</span></span>
 
-```cshtml
+```razor
 @code {
     // C# members (fields, properties, and methods)
 }
 ```
 
-<span data-ttu-id="443a3-218">Pro součásti Razor je `@code` aliasem [`@functions`](#functions) a doporučuje se nad `@functions`.</span><span class="sxs-lookup"><span data-stu-id="443a3-218">For Razor components, `@code` is an alias of [`@functions`](#functions) and recommended over `@functions`.</span></span> <span data-ttu-id="443a3-219">Je přípustný více než jeden blok `@code`.</span><span class="sxs-lookup"><span data-stu-id="443a3-219">More than one `@code` block is permissible.</span></span>
+<span data-ttu-id="3a978-218">Pro součásti Razor je `@code` aliasem [`@functions`](#functions) a doporučuje se nad `@functions`.</span><span class="sxs-lookup"><span data-stu-id="3a978-218">For Razor components, `@code` is an alias of [`@functions`](#functions) and recommended over `@functions`.</span></span> <span data-ttu-id="3a978-219">Je přípustný více než jeden blok `@code`.</span><span class="sxs-lookup"><span data-stu-id="3a978-219">More than one `@code` block is permissible.</span></span>
 
 ::: moniker-end
 
-### <a name="functions"></a><span data-ttu-id="443a3-220">funkce \@</span><span class="sxs-lookup"><span data-stu-id="443a3-220">\@functions</span></span>
+### <a name="functions"></a><span data-ttu-id="3a978-220">funkce \@</span><span class="sxs-lookup"><span data-stu-id="3a978-220">\@functions</span></span>
 
-<span data-ttu-id="443a3-221">Direktiva `@functions` umožňuje přidat C# členy (pole, vlastnosti a metody) do generované třídy:</span><span class="sxs-lookup"><span data-stu-id="443a3-221">The `@functions` directive enables adding C# members (fields, properties, and methods) to the generated class:</span></span>
+<span data-ttu-id="3a978-221">Direktiva `@functions` umožňuje přidat C# členy (pole, vlastnosti a metody) do generované třídy:</span><span class="sxs-lookup"><span data-stu-id="3a978-221">The `@functions` directive enables adding C# members (fields, properties, and methods) to the generated class:</span></span>
 
 ```cshtml
 @functions {
@@ -483,27 +483,27 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="443a3-222">V [součástech Razor](xref:blazor/components)použijte `@code` přes `@functions` k přidání C# členů.</span><span class="sxs-lookup"><span data-stu-id="443a3-222">In [Razor components](xref:blazor/components), use `@code` over `@functions` to add C# members.</span></span>
+<span data-ttu-id="3a978-222">V [součástech Razor](xref:blazor/components)použijte `@code` přes `@functions` k přidání C# členů.</span><span class="sxs-lookup"><span data-stu-id="3a978-222">In [Razor components](xref:blazor/components), use `@code` over `@functions` to add C# members.</span></span>
 
 ::: moniker-end
 
-<span data-ttu-id="443a3-223">Příklad:</span><span class="sxs-lookup"><span data-stu-id="443a3-223">For example:</span></span>
+<span data-ttu-id="3a978-223">Příklad:</span><span class="sxs-lookup"><span data-stu-id="3a978-223">For example:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact6.cshtml)]
 
-<span data-ttu-id="443a3-224">Kód generuje následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-224">The code generates the following HTML markup:</span></span>
+<span data-ttu-id="3a978-224">Kód generuje následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-224">The code generates the following HTML markup:</span></span>
 
 ```html
 <div>From method: Hello</div>
 ```
 
-<span data-ttu-id="443a3-225">Následující kód je vygenerovaný Razor C# třídy:</span><span class="sxs-lookup"><span data-stu-id="443a3-225">The following code is the generated Razor C# class:</span></span>
+<span data-ttu-id="3a978-225">Následující kód je vygenerovaný Razor C# třídy:</span><span class="sxs-lookup"><span data-stu-id="3a978-225">The following code is the generated Razor C# class:</span></span>
 
 [!code-csharp[](razor/sample/Classes/Views_Home_Test_cshtml.cs?range=1-19)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="443a3-226">`@functions` metody slouží jako metody šablonování, pokud mají značky:</span><span class="sxs-lookup"><span data-stu-id="443a3-226">`@functions` methods serve as templating methods when they have markup:</span></span>
+<span data-ttu-id="3a978-226">`@functions` metody slouží jako metody šablonování, pokud mají značky:</span><span class="sxs-lookup"><span data-stu-id="3a978-226">`@functions` methods serve as templating methods when they have markup:</span></span>
 
 ```cshtml
 @{
@@ -519,18 +519,18 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 }
 ```
 
-<span data-ttu-id="443a3-227">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-227">The code renders the following HTML:</span></span>
+<span data-ttu-id="3a978-227">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-227">The code renders the following HTML:</span></span>
 
 ```html
 <p>Name: <strong>Mahatma Gandhi</strong></p>
 <p>Name: <strong>Martin Luther King, Jr.</strong></p>
 ```
 
-### <a name="implements"></a><span data-ttu-id="443a3-228">\@implementuje</span><span class="sxs-lookup"><span data-stu-id="443a3-228">\@implements</span></span>
+### <a name="implements"></a><span data-ttu-id="3a978-228">\@implementuje</span><span class="sxs-lookup"><span data-stu-id="3a978-228">\@implements</span></span>
 
-<span data-ttu-id="443a3-229">Direktiva `@implements` implementuje rozhraní pro generovanou třídu.</span><span class="sxs-lookup"><span data-stu-id="443a3-229">The `@implements` directive implements an interface for the generated class.</span></span>
+<span data-ttu-id="3a978-229">Direktiva `@implements` implementuje rozhraní pro generovanou třídu.</span><span class="sxs-lookup"><span data-stu-id="3a978-229">The `@implements` directive implements an interface for the generated class.</span></span>
 
-<span data-ttu-id="443a3-230">Následující příklad implementuje <xref:System.IDisposable?displayProperty=fullName> tak, aby mohla být volána metoda <xref:System.IDisposable.Dispose*>:</span><span class="sxs-lookup"><span data-stu-id="443a3-230">The following example implements <xref:System.IDisposable?displayProperty=fullName> so that the <xref:System.IDisposable.Dispose*> method can be called:</span></span>
+<span data-ttu-id="3a978-230">Následující příklad implementuje <xref:System.IDisposable?displayProperty=fullName> tak, aby mohla být volána metoda <xref:System.IDisposable.Dispose*>:</span><span class="sxs-lookup"><span data-stu-id="3a978-230">The following example implements <xref:System.IDisposable?displayProperty=fullName> so that the <xref:System.IDisposable.Dispose*> method can be called:</span></span>
 
 ```cshtml
 @implements IDisposable
@@ -548,23 +548,23 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 
 ::: moniker-end
 
-### <a name="inherits"></a><span data-ttu-id="443a3-231">\@dědí</span><span class="sxs-lookup"><span data-stu-id="443a3-231">\@inherits</span></span>
+### <a name="inherits"></a><span data-ttu-id="3a978-231">\@dědí</span><span class="sxs-lookup"><span data-stu-id="3a978-231">\@inherits</span></span>
 
-<span data-ttu-id="443a3-232">`@inherits` – Direktiva poskytuje plnou kontrolu nad třída dědí zobrazení:</span><span class="sxs-lookup"><span data-stu-id="443a3-232">The `@inherits` directive provides full control of the class the view inherits:</span></span>
+<span data-ttu-id="3a978-232">`@inherits` – Direktiva poskytuje plnou kontrolu nad třída dědí zobrazení:</span><span class="sxs-lookup"><span data-stu-id="3a978-232">The `@inherits` directive provides full control of the class the view inherits:</span></span>
 
 ```cshtml
 @inherits TypeNameOfClassToInheritFrom
 ```
 
-<span data-ttu-id="443a3-233">Následující kód je vlastní typ stránky Razor:</span><span class="sxs-lookup"><span data-stu-id="443a3-233">The following code is a custom Razor page type:</span></span>
+<span data-ttu-id="3a978-233">Následující kód je vlastní typ stránky Razor:</span><span class="sxs-lookup"><span data-stu-id="3a978-233">The following code is a custom Razor page type:</span></span>
 
 [!code-csharp[](razor/sample/Classes/CustomRazorPage.cs)]
 
-<span data-ttu-id="443a3-234">`CustomText` Se zobrazí v zobrazení:</span><span class="sxs-lookup"><span data-stu-id="443a3-234">The `CustomText` is displayed in a view:</span></span>
+<span data-ttu-id="3a978-234">`CustomText` Se zobrazí v zobrazení:</span><span class="sxs-lookup"><span data-stu-id="3a978-234">The `CustomText` is displayed in a view:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact10.cshtml)]
 
-<span data-ttu-id="443a3-235">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-235">The code renders the following HTML:</span></span>
+<span data-ttu-id="3a978-235">Kód vykreslí následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-235">The code renders the following HTML:</span></span>
 
 ```html
 <div>
@@ -573,15 +573,15 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 </div>
 ```
 
- <span data-ttu-id="443a3-236">`@model` a `@inherits` je možné ve stejném zobrazení.</span><span class="sxs-lookup"><span data-stu-id="443a3-236">`@model` and `@inherits` can be used in the same view.</span></span> <span data-ttu-id="443a3-237">`@inherits` může být v *_ViewImports.cshtml* soubor, který importuje zobrazení:</span><span class="sxs-lookup"><span data-stu-id="443a3-237">`@inherits` can be in a *_ViewImports.cshtml* file that the view imports:</span></span>
+ <span data-ttu-id="3a978-236">`@model` a `@inherits` je možné ve stejném zobrazení.</span><span class="sxs-lookup"><span data-stu-id="3a978-236">`@model` and `@inherits` can be used in the same view.</span></span> <span data-ttu-id="3a978-237">`@inherits` může být v *_ViewImports.cshtml* soubor, který importuje zobrazení:</span><span class="sxs-lookup"><span data-stu-id="3a978-237">`@inherits` can be in a *_ViewImports.cshtml* file that the view imports:</span></span>
 
 [!code-cshtml[](razor/sample/Views/_ViewImportsModel.cshtml)]
 
-<span data-ttu-id="443a3-238">Následující kód je příkladem zobrazení se silnými typy:</span><span class="sxs-lookup"><span data-stu-id="443a3-238">The following code is an example of a strongly-typed view:</span></span>
+<span data-ttu-id="3a978-238">Následující kód je příkladem zobrazení se silnými typy:</span><span class="sxs-lookup"><span data-stu-id="3a978-238">The following code is an example of a strongly-typed view:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Login1.cshtml)]
 
-<span data-ttu-id="443a3-239">Pokud "rick@contoso.com" je předán zobrazení v modelu, generuje následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="443a3-239">If "rick@contoso.com" is passed in the model, the view generates the following HTML markup:</span></span>
+<span data-ttu-id="3a978-239">Pokud "rick@contoso.com" je předán zobrazení v modelu, generuje následující kód HTML:</span><span class="sxs-lookup"><span data-stu-id="3a978-239">If "rick@contoso.com" is passed in the model, the view generates the following HTML markup:</span></span>
 
 ```html
 <div>The Login Email: rick@contoso.com</div>
@@ -591,191 +591,191 @@ public class _Views_Something_cshtml : RazorPage<dynamic>
 </div>
 ```
 
-### <a name="inject"></a><span data-ttu-id="443a3-240">\@vkládání</span><span class="sxs-lookup"><span data-stu-id="443a3-240">\@inject</span></span>
+### <a name="inject"></a><span data-ttu-id="3a978-240">\@vkládání</span><span class="sxs-lookup"><span data-stu-id="3a978-240">\@inject</span></span>
 
-<span data-ttu-id="443a3-241">`@inject` Direktiva umožňuje vložit služby z stránky Razor [kontejneru služby](xref:fundamentals/dependency-injection) do zobrazení.</span><span class="sxs-lookup"><span data-stu-id="443a3-241">The `@inject` directive enables the Razor Page to inject a service from the [service container](xref:fundamentals/dependency-injection) into a view.</span></span> <span data-ttu-id="443a3-242">Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="443a3-242">For more information, see [Dependency injection into views](xref:mvc/views/dependency-injection).</span></span>
+<span data-ttu-id="3a978-241">`@inject` Direktiva umožňuje vložit služby z stránky Razor [kontejneru služby](xref:fundamentals/dependency-injection) do zobrazení.</span><span class="sxs-lookup"><span data-stu-id="3a978-241">The `@inject` directive enables the Razor Page to inject a service from the [service container](xref:fundamentals/dependency-injection) into a view.</span></span> <span data-ttu-id="3a978-242">Další informace najdete v tématu [injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="3a978-242">For more information, see [Dependency injection into views](xref:mvc/views/dependency-injection).</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="layout"></a><span data-ttu-id="443a3-243">rozložení \@</span><span class="sxs-lookup"><span data-stu-id="443a3-243">\@layout</span></span>
+### <a name="layout"></a><span data-ttu-id="3a978-243">rozložení \@</span><span class="sxs-lookup"><span data-stu-id="3a978-243">\@layout</span></span>
 
-<span data-ttu-id="443a3-244">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-244">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-244">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-244">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-245">Direktiva `@layout` určuje rozložení součásti Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-245">The `@layout` directive specifies a layout for a Razor component.</span></span> <span data-ttu-id="443a3-246">Komponenty rozložení se používají k zamezení Duplikace kódu a nekonzistenci.</span><span class="sxs-lookup"><span data-stu-id="443a3-246">Layout components are used to avoid code duplication and inconsistency.</span></span> <span data-ttu-id="443a3-247">Další informace najdete v tématu <xref:blazor/layouts>.</span><span class="sxs-lookup"><span data-stu-id="443a3-247">For more information, see <xref:blazor/layouts>.</span></span>
+<span data-ttu-id="3a978-245">Direktiva `@layout` určuje rozložení součásti Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-245">The `@layout` directive specifies a layout for a Razor component.</span></span> <span data-ttu-id="3a978-246">Komponenty rozložení se používají k zamezení Duplikace kódu a nekonzistenci.</span><span class="sxs-lookup"><span data-stu-id="3a978-246">Layout components are used to avoid code duplication and inconsistency.</span></span> <span data-ttu-id="3a978-247">Další informace najdete v tématu <xref:blazor/layouts>.</span><span class="sxs-lookup"><span data-stu-id="3a978-247">For more information, see <xref:blazor/layouts>.</span></span>
 
 ::: moniker-end
 
-### <a name="model"></a><span data-ttu-id="443a3-248">model \@</span><span class="sxs-lookup"><span data-stu-id="443a3-248">\@model</span></span>
+### <a name="model"></a><span data-ttu-id="3a978-248">model \@</span><span class="sxs-lookup"><span data-stu-id="3a978-248">\@model</span></span>
 
-<span data-ttu-id="443a3-249">*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*</span><span class="sxs-lookup"><span data-stu-id="443a3-249">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
+<span data-ttu-id="3a978-249">*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*</span><span class="sxs-lookup"><span data-stu-id="3a978-249">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
 
-<span data-ttu-id="443a3-250">Direktiva `@model` určuje typ modelu předaného zobrazení nebo stránce:</span><span class="sxs-lookup"><span data-stu-id="443a3-250">The `@model` directive specifies the type of the model passed to a view or page:</span></span>
+<span data-ttu-id="3a978-250">Direktiva `@model` určuje typ modelu předaného zobrazení nebo stránce:</span><span class="sxs-lookup"><span data-stu-id="3a978-250">The `@model` directive specifies the type of the model passed to a view or page:</span></span>
 
 ```cshtml
 @model TypeNameOfModel
 ```
 
-<span data-ttu-id="443a3-251">V ASP.NET Core MVC nebo aplikace Razor Pages vytvořené pomocí individuálních uživatelských účtů, *zobrazení/účet/přihlášení. cshtml* obsahuje následující deklaraci modelu:</span><span class="sxs-lookup"><span data-stu-id="443a3-251">In an ASP.NET Core MVC or Razor Pages app created with individual user accounts, *Views/Account/Login.cshtml* contains the following model declaration:</span></span>
+<span data-ttu-id="3a978-251">V ASP.NET Core MVC nebo aplikace Razor Pages vytvořené pomocí individuálních uživatelských účtů, *zobrazení/účet/přihlášení. cshtml* obsahuje následující deklaraci modelu:</span><span class="sxs-lookup"><span data-stu-id="3a978-251">In an ASP.NET Core MVC or Razor Pages app created with individual user accounts, *Views/Account/Login.cshtml* contains the following model declaration:</span></span>
 
 ```cshtml
 @model LoginViewModel
 ```
 
-<span data-ttu-id="443a3-252">Dědí třídu vygenerovanou z `RazorPage<dynamic>`:</span><span class="sxs-lookup"><span data-stu-id="443a3-252">The class generated inherits from `RazorPage<dynamic>`:</span></span>
+<span data-ttu-id="3a978-252">Dědí třídu vygenerovanou z `RazorPage<dynamic>`:</span><span class="sxs-lookup"><span data-stu-id="3a978-252">The class generated inherits from `RazorPage<dynamic>`:</span></span>
 
 ```csharp
 public class _Views_Account_Login_cshtml : RazorPage<LoginViewModel>
 ```
 
-<span data-ttu-id="443a3-253">Zpřístupňuje Razor `Model` předána do zobrazení, vlastnosti pro přístup k modelu:</span><span class="sxs-lookup"><span data-stu-id="443a3-253">Razor exposes a `Model` property for accessing the model passed to the view:</span></span>
+<span data-ttu-id="3a978-253">Zpřístupňuje Razor `Model` předána do zobrazení, vlastnosti pro přístup k modelu:</span><span class="sxs-lookup"><span data-stu-id="3a978-253">Razor exposes a `Model` property for accessing the model passed to the view:</span></span>
 
 ```cshtml
 <div>The Login Email: @Model.Email</div>
 ```
 
-<span data-ttu-id="443a3-254">Direktiva `@model` určuje typ vlastnosti `Model`.</span><span class="sxs-lookup"><span data-stu-id="443a3-254">The `@model` directive specifies the type of the `Model` property.</span></span> <span data-ttu-id="443a3-255">Direktiva Určuje, `T` v `RazorPage<T>` , že generované třídy, která zobrazení je odvozena z.</span><span class="sxs-lookup"><span data-stu-id="443a3-255">The directive specifies the `T` in `RazorPage<T>` that the generated class that the view derives from.</span></span> <span data-ttu-id="443a3-256">Pokud `@model` – direktiva není zadán, `Model` vlastnost je typu `dynamic`.</span><span class="sxs-lookup"><span data-stu-id="443a3-256">If the `@model` directive isn't specified, the `Model` property is of type `dynamic`.</span></span> <span data-ttu-id="443a3-257">Další informace naleznete v tématu [modely silného typu a klíčové slovo @model](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword).</span><span class="sxs-lookup"><span data-stu-id="443a3-257">For more information, see [Strongly typed models and the @model keyword](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword).</span></span>
+<span data-ttu-id="3a978-254">Direktiva `@model` určuje typ vlastnosti `Model`.</span><span class="sxs-lookup"><span data-stu-id="3a978-254">The `@model` directive specifies the type of the `Model` property.</span></span> <span data-ttu-id="3a978-255">Direktiva Určuje, `T` v `RazorPage<T>` , že generované třídy, která zobrazení je odvozena z.</span><span class="sxs-lookup"><span data-stu-id="3a978-255">The directive specifies the `T` in `RazorPage<T>` that the generated class that the view derives from.</span></span> <span data-ttu-id="3a978-256">Pokud `@model` – direktiva není zadán, `Model` vlastnost je typu `dynamic`.</span><span class="sxs-lookup"><span data-stu-id="3a978-256">If the `@model` directive isn't specified, the `Model` property is of type `dynamic`.</span></span> <span data-ttu-id="3a978-257">Další informace naleznete v tématu [modely silného typu a klíčové slovo @model](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword).</span><span class="sxs-lookup"><span data-stu-id="3a978-257">For more information, see [Strongly typed models and the @model keyword](xref:tutorials/first-mvc-app/adding-model#strongly-typed-models-and-the--keyword).</span></span>
 
-### <a name="namespace"></a><span data-ttu-id="443a3-258">obor názvů \@</span><span class="sxs-lookup"><span data-stu-id="443a3-258">\@namespace</span></span>
+### <a name="namespace"></a><span data-ttu-id="3a978-258">obor názvů \@</span><span class="sxs-lookup"><span data-stu-id="3a978-258">\@namespace</span></span>
 
-<span data-ttu-id="443a3-259">Direktiva `@namespace`:</span><span class="sxs-lookup"><span data-stu-id="443a3-259">The `@namespace` directive:</span></span>
+<span data-ttu-id="3a978-259">Direktiva `@namespace`:</span><span class="sxs-lookup"><span data-stu-id="3a978-259">The `@namespace` directive:</span></span>
 
-* <span data-ttu-id="443a3-260">Nastaví obor názvů třídy vygenerované stránky Razor, zobrazení MVC nebo komponenty Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-260">Sets the namespace of the class of the generated Razor page, MVC view, or Razor component.</span></span>
-* <span data-ttu-id="443a3-261">Nastaví kořenové obory názvů pro třídy stránky, zobrazení nebo komponenty z nejbližšího souboru importu ve stromové struktuře, *_ViewImports. cshtml* (zobrazení nebo stránky) nebo *_Imports. Razor* (komponenty Razor).</span><span class="sxs-lookup"><span data-stu-id="443a3-261">Sets the root derived namespaces of a pages, views, or components classes from the closest imports file in the directory tree, *_ViewImports.cshtml* (views or pages) or *_Imports.razor* (Razor components).</span></span>
+* <span data-ttu-id="3a978-260">Nastaví obor názvů třídy vygenerované stránky Razor, zobrazení MVC nebo komponenty Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-260">Sets the namespace of the class of the generated Razor page, MVC view, or Razor component.</span></span>
+* <span data-ttu-id="3a978-261">Nastaví kořenové obory názvů pro třídy stránky, zobrazení nebo komponenty z nejbližšího souboru importu ve stromové struktuře, *_ViewImports. cshtml* (zobrazení nebo stránky) nebo *_Imports. Razor* (komponenty Razor).</span><span class="sxs-lookup"><span data-stu-id="3a978-261">Sets the root derived namespaces of a pages, views, or components classes from the closest imports file in the directory tree, *_ViewImports.cshtml* (views or pages) or *_Imports.razor* (Razor components).</span></span>
 
 ```cshtml
 @namespace Your.Namespace.Here
 ```
 
-<span data-ttu-id="443a3-262">Pro Razor Pages příklad zobrazený v následující tabulce:</span><span class="sxs-lookup"><span data-stu-id="443a3-262">For the Razor Pages example shown in the following table:</span></span>
+<span data-ttu-id="3a978-262">Pro Razor Pages příklad zobrazený v následující tabulce:</span><span class="sxs-lookup"><span data-stu-id="3a978-262">For the Razor Pages example shown in the following table:</span></span>
 
-* <span data-ttu-id="443a3-263">Každá stránka importuje *stránky/_ViewImports. cshtml*.</span><span class="sxs-lookup"><span data-stu-id="443a3-263">Each page imports *Pages/_ViewImports.cshtml*.</span></span>
-* <span data-ttu-id="443a3-264">*Pages/_ViewImports. cshtml* obsahuje `@namespace Hello.World`.</span><span class="sxs-lookup"><span data-stu-id="443a3-264">*Pages/_ViewImports.cshtml* contains `@namespace Hello.World`.</span></span>
-* <span data-ttu-id="443a3-265">Každá stránka má `Hello.World` jako kořen oboru názvů IT.</span><span class="sxs-lookup"><span data-stu-id="443a3-265">Each page has `Hello.World` as the root of it's namespace.</span></span>
+* <span data-ttu-id="3a978-263">Každá stránka importuje *stránky/_ViewImports. cshtml*.</span><span class="sxs-lookup"><span data-stu-id="3a978-263">Each page imports *Pages/_ViewImports.cshtml*.</span></span>
+* <span data-ttu-id="3a978-264">*Pages/_ViewImports. cshtml* obsahuje `@namespace Hello.World`.</span><span class="sxs-lookup"><span data-stu-id="3a978-264">*Pages/_ViewImports.cshtml* contains `@namespace Hello.World`.</span></span>
+* <span data-ttu-id="3a978-265">Každá stránka má `Hello.World` jako kořen oboru názvů IT.</span><span class="sxs-lookup"><span data-stu-id="3a978-265">Each page has `Hello.World` as the root of it's namespace.</span></span>
 
-| <span data-ttu-id="443a3-266">Stránka</span><span class="sxs-lookup"><span data-stu-id="443a3-266">Page</span></span>                                        | <span data-ttu-id="443a3-267">Názvový prostor</span><span class="sxs-lookup"><span data-stu-id="443a3-267">Namespace</span></span>                             |
+| <span data-ttu-id="3a978-266">Stránka</span><span class="sxs-lookup"><span data-stu-id="3a978-266">Page</span></span>                                        | <span data-ttu-id="3a978-267">Názvový prostor</span><span class="sxs-lookup"><span data-stu-id="3a978-267">Namespace</span></span>                             |
 | ------------------------------------------- | ------------------------------------- |
-| <span data-ttu-id="443a3-268">*Pages/index. cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-268">*Pages/Index.cshtml*</span></span>                        | `Hello.World`                         |
-| <span data-ttu-id="443a3-269">*Pages/MorePages/Page. cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-269">*Pages/MorePages/Page.cshtml*</span></span>               | `Hello.World.MorePages`               |
-| <span data-ttu-id="443a3-270">*Pages/MorePages/EvenMorePages/Page. cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-270">*Pages/MorePages/EvenMorePages/Page.cshtml*</span></span> | `Hello.World.MorePages.EvenMorePages` |
+| <span data-ttu-id="3a978-268">*Pages/index. cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-268">*Pages/Index.cshtml*</span></span>                        | `Hello.World`                         |
+| <span data-ttu-id="3a978-269">*Pages/MorePages/Page. cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-269">*Pages/MorePages/Page.cshtml*</span></span>               | `Hello.World.MorePages`               |
+| <span data-ttu-id="3a978-270">*Pages/MorePages/EvenMorePages/Page. cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-270">*Pages/MorePages/EvenMorePages/Page.cshtml*</span></span> | `Hello.World.MorePages.EvenMorePages` |
 
-<span data-ttu-id="443a3-271">Předchozí relace platí pro soubory importu používané s zobrazeními MVC a komponentami Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-271">The preceding relationships apply to import files used with MVC views and Razor components.</span></span>
+<span data-ttu-id="3a978-271">Předchozí relace platí pro soubory importu používané s zobrazeními MVC a komponentami Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-271">The preceding relationships apply to import files used with MVC views and Razor components.</span></span>
 
-<span data-ttu-id="443a3-272">Pokud má několik importových souborů direktivu `@namespace`, soubor, který je nejblíže stránce, zobrazení nebo komponentě v adresářovém stromu, slouží k nastavení kořenového oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="443a3-272">When multiple import files have a `@namespace` directive, the file closest to the page, view, or component in the directory tree is used to set the root namespace.</span></span>
+<span data-ttu-id="3a978-272">Pokud má několik importových souborů direktivu `@namespace`, soubor, který je nejblíže stránce, zobrazení nebo komponentě v adresářovém stromu, slouží k nastavení kořenového oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="3a978-272">When multiple import files have a `@namespace` directive, the file closest to the page, view, or component in the directory tree is used to set the root namespace.</span></span>
 
-<span data-ttu-id="443a3-273">Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@namespace Another.Planet` (nebo soubor *Pages/MorePages/EvenMorePages/Page. cshtml* obsahuje `@namespace Another.Planet`), výsledek je zobrazen v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="443a3-273">If the *EvenMorePages* folder in the preceding example has an imports file with `@namespace Another.Planet` (or the *Pages/MorePages/EvenMorePages/Page.cshtml* file contains `@namespace Another.Planet`), the result is shown in the following table.</span></span>
+<span data-ttu-id="3a978-273">Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@namespace Another.Planet` (nebo soubor *Pages/MorePages/EvenMorePages/Page. cshtml* obsahuje `@namespace Another.Planet`), výsledek je zobrazen v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="3a978-273">If the *EvenMorePages* folder in the preceding example has an imports file with `@namespace Another.Planet` (or the *Pages/MorePages/EvenMorePages/Page.cshtml* file contains `@namespace Another.Planet`), the result is shown in the following table.</span></span>
 
-| <span data-ttu-id="443a3-274">Stránka</span><span class="sxs-lookup"><span data-stu-id="443a3-274">Page</span></span>                                        | <span data-ttu-id="443a3-275">Názvový prostor</span><span class="sxs-lookup"><span data-stu-id="443a3-275">Namespace</span></span>               |
+| <span data-ttu-id="3a978-274">Stránka</span><span class="sxs-lookup"><span data-stu-id="3a978-274">Page</span></span>                                        | <span data-ttu-id="3a978-275">Názvový prostor</span><span class="sxs-lookup"><span data-stu-id="3a978-275">Namespace</span></span>               |
 | ------------------------------------------- | ----------------------- |
-| <span data-ttu-id="443a3-276">*Pages/index. cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-276">*Pages/Index.cshtml*</span></span>                        | `Hello.World`           |
-| <span data-ttu-id="443a3-277">*Pages/MorePages/Page. cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-277">*Pages/MorePages/Page.cshtml*</span></span>               | `Hello.World.MorePages` |
-| <span data-ttu-id="443a3-278">*Pages/MorePages/EvenMorePages/Page. cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-278">*Pages/MorePages/EvenMorePages/Page.cshtml*</span></span> | `Another.Planet`        |
+| <span data-ttu-id="3a978-276">*Pages/index. cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-276">*Pages/Index.cshtml*</span></span>                        | `Hello.World`           |
+| <span data-ttu-id="3a978-277">*Pages/MorePages/Page. cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-277">*Pages/MorePages/Page.cshtml*</span></span>               | `Hello.World.MorePages` |
+| <span data-ttu-id="3a978-278">*Pages/MorePages/EvenMorePages/Page. cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-278">*Pages/MorePages/EvenMorePages/Page.cshtml*</span></span> | `Another.Planet`        |
 
-### <a name="page"></a><span data-ttu-id="443a3-279">Stránka \@</span><span class="sxs-lookup"><span data-stu-id="443a3-279">\@page</span></span>
+### <a name="page"></a><span data-ttu-id="3a978-279">Stránka \@</span><span class="sxs-lookup"><span data-stu-id="3a978-279">\@page</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="443a3-280">Direktiva `@page` má různé účinky v závislosti na typu souboru, ve kterém se zobrazí.</span><span class="sxs-lookup"><span data-stu-id="443a3-280">The `@page` directive has different effects depending on the type of the file where it appears.</span></span> <span data-ttu-id="443a3-281">Direktiva:</span><span class="sxs-lookup"><span data-stu-id="443a3-281">The directive:</span></span>
+<span data-ttu-id="3a978-280">Direktiva `@page` má různé účinky v závislosti na typu souboru, ve kterém se zobrazí.</span><span class="sxs-lookup"><span data-stu-id="3a978-280">The `@page` directive has different effects depending on the type of the file where it appears.</span></span> <span data-ttu-id="3a978-281">Direktiva:</span><span class="sxs-lookup"><span data-stu-id="3a978-281">The directive:</span></span>
 
-* <span data-ttu-id="443a3-282">V v souboru *. cshtml* znamená, že soubor je stránka Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-282">In in a *.cshtml* file indicates that the file is a Razor Page.</span></span> <span data-ttu-id="443a3-283">Další informace najdete v tématu [vlastní trasy](xref:razor-pages/index#custom-routes) a <xref:razor-pages/index>.</span><span class="sxs-lookup"><span data-stu-id="443a3-283">For more information, see [Custom routes](xref:razor-pages/index#custom-routes) and <xref:razor-pages/index>.</span></span>
-* <span data-ttu-id="443a3-284">Určuje, že komponenta Razor by měla zpracovávat požadavky přímo.</span><span class="sxs-lookup"><span data-stu-id="443a3-284">Specifies that a Razor component should handle requests directly.</span></span> <span data-ttu-id="443a3-285">Další informace najdete v tématu <xref:blazor/routing>.</span><span class="sxs-lookup"><span data-stu-id="443a3-285">For more information, see <xref:blazor/routing>.</span></span>
+* <span data-ttu-id="3a978-282">V v souboru *. cshtml* znamená, že soubor je stránka Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-282">In in a *.cshtml* file indicates that the file is a Razor Page.</span></span> <span data-ttu-id="3a978-283">Další informace najdete v tématu [vlastní trasy](xref:razor-pages/index#custom-routes) a <xref:razor-pages/index>.</span><span class="sxs-lookup"><span data-stu-id="3a978-283">For more information, see [Custom routes](xref:razor-pages/index#custom-routes) and <xref:razor-pages/index>.</span></span>
+* <span data-ttu-id="3a978-284">Určuje, že komponenta Razor by měla zpracovávat požadavky přímo.</span><span class="sxs-lookup"><span data-stu-id="3a978-284">Specifies that a Razor component should handle requests directly.</span></span> <span data-ttu-id="3a978-285">Další informace najdete v tématu <xref:blazor/routing>.</span><span class="sxs-lookup"><span data-stu-id="3a978-285">For more information, see <xref:blazor/routing>.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="443a3-286">Direktiva `@page` na prvním řádku souboru *. cshtml* znamená, že soubor je stránka Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-286">The `@page` directive on the first line of a *.cshtml* file indicates that the file is a Razor Page.</span></span> <span data-ttu-id="443a3-287">Další informace najdete v tématu <xref:razor-pages/index>.</span><span class="sxs-lookup"><span data-stu-id="443a3-287">For more information, see <xref:razor-pages/index>.</span></span>
+<span data-ttu-id="3a978-286">Direktiva `@page` na prvním řádku souboru *. cshtml* znamená, že soubor je stránka Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-286">The `@page` directive on the first line of a *.cshtml* file indicates that the file is a Razor Page.</span></span> <span data-ttu-id="3a978-287">Další informace najdete v tématu <xref:razor-pages/index>.</span><span class="sxs-lookup"><span data-stu-id="3a978-287">For more information, see <xref:razor-pages/index>.</span></span>
 
 ::: moniker-end
 
-### <a name="section"></a><span data-ttu-id="443a3-288">\@oddíl</span><span class="sxs-lookup"><span data-stu-id="443a3-288">\@section</span></span>
+### <a name="section"></a><span data-ttu-id="3a978-288">\@oddíl</span><span class="sxs-lookup"><span data-stu-id="3a978-288">\@section</span></span>
 
-<span data-ttu-id="443a3-289">*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*</span><span class="sxs-lookup"><span data-stu-id="443a3-289">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
+<span data-ttu-id="3a978-289">*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*</span><span class="sxs-lookup"><span data-stu-id="3a978-289">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
 
-<span data-ttu-id="443a3-290">Direktiva `@section` se používá ve spojení s [MVC a Razor Pages rozloženími](xref:mvc/views/layout) k tomu, aby zobrazení nebo stránky vygenerovaly obsah v různých částech stránky HTML.</span><span class="sxs-lookup"><span data-stu-id="443a3-290">The `@section` directive is used in conjunction with [MVC and Razor Pages layouts](xref:mvc/views/layout) to enable views or pages to render content in different parts of the HTML page.</span></span> <span data-ttu-id="443a3-291">Další informace najdete v tématu <xref:mvc/views/layout>.</span><span class="sxs-lookup"><span data-stu-id="443a3-291">For more information, see <xref:mvc/views/layout>.</span></span>
+<span data-ttu-id="3a978-290">Direktiva `@section` se používá ve spojení s [MVC a Razor Pages rozloženími](xref:mvc/views/layout) k tomu, aby zobrazení nebo stránky vygenerovaly obsah v různých částech stránky HTML.</span><span class="sxs-lookup"><span data-stu-id="3a978-290">The `@section` directive is used in conjunction with [MVC and Razor Pages layouts](xref:mvc/views/layout) to enable views or pages to render content in different parts of the HTML page.</span></span> <span data-ttu-id="3a978-291">Další informace najdete v tématu <xref:mvc/views/layout>.</span><span class="sxs-lookup"><span data-stu-id="3a978-291">For more information, see <xref:mvc/views/layout>.</span></span>
 
-### <a name="using"></a><span data-ttu-id="443a3-292">\@pomocí</span><span class="sxs-lookup"><span data-stu-id="443a3-292">\@using</span></span>
+### <a name="using"></a><span data-ttu-id="3a978-292">\@pomocí</span><span class="sxs-lookup"><span data-stu-id="3a978-292">\@using</span></span>
 
-<span data-ttu-id="443a3-293">`@using` Direktivy přidává C# `using` direktiv generované zobrazení:</span><span class="sxs-lookup"><span data-stu-id="443a3-293">The `@using` directive adds the C# `using` directive to the generated view:</span></span>
+<span data-ttu-id="3a978-293">`@using` Direktivy přidává C# `using` direktiv generované zobrazení:</span><span class="sxs-lookup"><span data-stu-id="3a978-293">The `@using` directive adds the C# `using` directive to the generated view:</span></span>
 
 [!code-cshtml[](razor/sample/Views/Home/Contact9.cshtml)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="443a3-294">V [součástech Razor](xref:blazor/components)`@using` také určuje, které součásti jsou v oboru.</span><span class="sxs-lookup"><span data-stu-id="443a3-294">In [Razor components](xref:blazor/components), `@using` also controls which components are in scope.</span></span>
+<span data-ttu-id="3a978-294">V [součástech Razor](xref:blazor/components)`@using` také určuje, které součásti jsou v oboru.</span><span class="sxs-lookup"><span data-stu-id="3a978-294">In [Razor components](xref:blazor/components), `@using` also controls which components are in scope.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="directive-attributes"></a><span data-ttu-id="443a3-295">Atributy direktiv</span><span class="sxs-lookup"><span data-stu-id="443a3-295">Directive attributes</span></span>
+## <a name="directive-attributes"></a><span data-ttu-id="3a978-295">Atributy direktiv</span><span class="sxs-lookup"><span data-stu-id="3a978-295">Directive attributes</span></span>
 
-### <a name="attributes"></a><span data-ttu-id="443a3-296">atributy \@</span><span class="sxs-lookup"><span data-stu-id="443a3-296">\@attributes</span></span>
+### <a name="attributes"></a><span data-ttu-id="3a978-296">atributy \@</span><span class="sxs-lookup"><span data-stu-id="3a978-296">\@attributes</span></span>
 
-<span data-ttu-id="443a3-297">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-297">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-297">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-297">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-298">`@attributes` umožňuje komponentě vykreslovat nedeklarované atributy.</span><span class="sxs-lookup"><span data-stu-id="443a3-298">`@attributes` allows a component to render non-declared attributes.</span></span> <span data-ttu-id="443a3-299">Další informace najdete v tématu <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>.</span><span class="sxs-lookup"><span data-stu-id="443a3-299">For more information, see <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>.</span></span>
+<span data-ttu-id="3a978-298">`@attributes` umožňuje komponentě vykreslovat nedeklarované atributy.</span><span class="sxs-lookup"><span data-stu-id="3a978-298">`@attributes` allows a component to render non-declared attributes.</span></span> <span data-ttu-id="3a978-299">Další informace najdete v tématu <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>.</span><span class="sxs-lookup"><span data-stu-id="3a978-299">For more information, see <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>.</span></span>
 
-### <a name="bind"></a><span data-ttu-id="443a3-300">vazba \@</span><span class="sxs-lookup"><span data-stu-id="443a3-300">\@bind</span></span>
+### <a name="bind"></a><span data-ttu-id="3a978-300">vazba \@</span><span class="sxs-lookup"><span data-stu-id="3a978-300">\@bind</span></span>
 
-<span data-ttu-id="443a3-301">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-301">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-301">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-301">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-302">Datovou vazbu v součástech lze provést pomocí atributu `@bind`.</span><span class="sxs-lookup"><span data-stu-id="443a3-302">Data binding in components is accomplished with the `@bind` attribute.</span></span> <span data-ttu-id="443a3-303">Další informace najdete v tématu <xref:blazor/components#data-binding>.</span><span class="sxs-lookup"><span data-stu-id="443a3-303">For more information, see <xref:blazor/components#data-binding>.</span></span>
+<span data-ttu-id="3a978-302">Datovou vazbu v součástech lze provést pomocí atributu `@bind`.</span><span class="sxs-lookup"><span data-stu-id="3a978-302">Data binding in components is accomplished with the `@bind` attribute.</span></span> <span data-ttu-id="3a978-303">Další informace najdete v tématu <xref:blazor/components#data-binding>.</span><span class="sxs-lookup"><span data-stu-id="3a978-303">For more information, see <xref:blazor/components#data-binding>.</span></span>
 
-### <a name="onevent"></a><span data-ttu-id="443a3-304">\@v události {EVENT}</span><span class="sxs-lookup"><span data-stu-id="443a3-304">\@on{EVENT}</span></span>
+### <a name="onevent"></a><span data-ttu-id="3a978-304">\@v události {EVENT}</span><span class="sxs-lookup"><span data-stu-id="3a978-304">\@on{EVENT}</span></span>
 
-<span data-ttu-id="443a3-305">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-305">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-305">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-305">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-306">Razor poskytuje funkce pro zpracování událostí pro součásti.</span><span class="sxs-lookup"><span data-stu-id="443a3-306">Razor provides event handling features for components.</span></span> <span data-ttu-id="443a3-307">Další informace najdete v tématu <xref:blazor/components#event-handling>.</span><span class="sxs-lookup"><span data-stu-id="443a3-307">For more information, see <xref:blazor/components#event-handling>.</span></span>
+<span data-ttu-id="3a978-306">Razor poskytuje funkce pro zpracování událostí pro součásti.</span><span class="sxs-lookup"><span data-stu-id="3a978-306">Razor provides event handling features for components.</span></span> <span data-ttu-id="3a978-307">Další informace najdete v tématu <xref:blazor/components#event-handling>.</span><span class="sxs-lookup"><span data-stu-id="3a978-307">For more information, see <xref:blazor/components#event-handling>.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.1"
 
-### <a name="oneventpreventdefault"></a><span data-ttu-id="443a3-308">\@události {EVENT}:p reventDefault</span><span class="sxs-lookup"><span data-stu-id="443a3-308">\@on{EVENT}:preventDefault</span></span>
+### <a name="oneventpreventdefault"></a><span data-ttu-id="3a978-308">\@události {EVENT}:p reventDefault</span><span class="sxs-lookup"><span data-stu-id="3a978-308">\@on{EVENT}:preventDefault</span></span>
 
-<span data-ttu-id="443a3-309">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-309">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-309">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-309">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-310">Zabrání výchozí akci pro událost.</span><span class="sxs-lookup"><span data-stu-id="443a3-310">Prevents the default action for the event.</span></span>
+<span data-ttu-id="3a978-310">Zabrání výchozí akci pro událost.</span><span class="sxs-lookup"><span data-stu-id="3a978-310">Prevents the default action for the event.</span></span>
 
-### <a name="oneventstoppropagation"></a><span data-ttu-id="443a3-311">\@v události {EVENT}: stopPropagation</span><span class="sxs-lookup"><span data-stu-id="443a3-311">\@on{EVENT}:stopPropagation</span></span>
+### <a name="oneventstoppropagation"></a><span data-ttu-id="3a978-311">\@v události {EVENT}: stopPropagation</span><span class="sxs-lookup"><span data-stu-id="3a978-311">\@on{EVENT}:stopPropagation</span></span>
 
-<span data-ttu-id="443a3-312">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-312">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-312">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-312">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-313">Zastaví šíření události pro událost.</span><span class="sxs-lookup"><span data-stu-id="443a3-313">Stops event propagation for the event.</span></span>
+<span data-ttu-id="3a978-313">Zastaví šíření události pro událost.</span><span class="sxs-lookup"><span data-stu-id="3a978-313">Stops event propagation for the event.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
-### <a name="key"></a><span data-ttu-id="443a3-314">\@klíč</span><span class="sxs-lookup"><span data-stu-id="443a3-314">\@key</span></span>
+### <a name="key"></a><span data-ttu-id="3a978-314">\@klíč</span><span class="sxs-lookup"><span data-stu-id="3a978-314">\@key</span></span>
 
-<span data-ttu-id="443a3-315">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-315">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-315">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-315">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-316">Atribut direktivy `@key` způsobuje rozdíl mezi komponentami, které zajišťují uchovávání prvků nebo komponent na základě hodnoty klíče.</span><span class="sxs-lookup"><span data-stu-id="443a3-316">The `@key` directive attribute causes the components diffing algorithm to guarantee preservation of elements or components based on the key's value.</span></span> <span data-ttu-id="443a3-317">Další informace najdete v tématu <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>.</span><span class="sxs-lookup"><span data-stu-id="443a3-317">For more information, see <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>.</span></span>
+<span data-ttu-id="3a978-316">Atribut direktivy `@key` způsobuje rozdíl mezi komponentami, které zajišťují uchovávání prvků nebo komponent na základě hodnoty klíče.</span><span class="sxs-lookup"><span data-stu-id="3a978-316">The `@key` directive attribute causes the components diffing algorithm to guarantee preservation of elements or components based on the key's value.</span></span> <span data-ttu-id="3a978-317">Další informace najdete v tématu <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>.</span><span class="sxs-lookup"><span data-stu-id="3a978-317">For more information, see <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>.</span></span>
 
-### <a name="ref"></a><span data-ttu-id="443a3-318">\@odkaz</span><span class="sxs-lookup"><span data-stu-id="443a3-318">\@ref</span></span>
+### <a name="ref"></a><span data-ttu-id="3a978-318">\@odkaz</span><span class="sxs-lookup"><span data-stu-id="3a978-318">\@ref</span></span>
 
-<span data-ttu-id="443a3-319">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-319">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-319">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-319">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-320">Odkazy na součásti (`@ref`) poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance.</span><span class="sxs-lookup"><span data-stu-id="443a3-320">Component references (`@ref`) provide a way to reference a component instance so that you can issue commands to that instance.</span></span> <span data-ttu-id="443a3-321">Další informace najdete v tématu <xref:blazor/components#capture-references-to-components>.</span><span class="sxs-lookup"><span data-stu-id="443a3-321">For more information, see <xref:blazor/components#capture-references-to-components>.</span></span>
+<span data-ttu-id="3a978-320">Odkazy na součásti (`@ref`) poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance.</span><span class="sxs-lookup"><span data-stu-id="3a978-320">Component references (`@ref`) provide a way to reference a component instance so that you can issue commands to that instance.</span></span> <span data-ttu-id="3a978-321">Další informace najdete v tématu <xref:blazor/components#capture-references-to-components>.</span><span class="sxs-lookup"><span data-stu-id="3a978-321">For more information, see <xref:blazor/components#capture-references-to-components>.</span></span>
 
-### <a name="typeparam"></a><span data-ttu-id="443a3-322">\@typeparam</span><span class="sxs-lookup"><span data-stu-id="443a3-322">\@typeparam</span></span>
+### <a name="typeparam"></a><span data-ttu-id="3a978-322">\@typeparam</span><span class="sxs-lookup"><span data-stu-id="3a978-322">\@typeparam</span></span>
 
-<span data-ttu-id="443a3-323">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="443a3-323">*This scenario only applies to Razor components (.razor).*</span></span>
+<span data-ttu-id="3a978-323">*Tento scénář platí pouze pro součásti Razor (. Razor).*</span><span class="sxs-lookup"><span data-stu-id="3a978-323">*This scenario only applies to Razor components (.razor).*</span></span>
 
-<span data-ttu-id="443a3-324">Direktiva `@typeparam` deklaruje parametr obecného typu pro generovanou třídu komponenty.</span><span class="sxs-lookup"><span data-stu-id="443a3-324">The `@typeparam` directive declares a generic type parameter for the generated component class.</span></span> <span data-ttu-id="443a3-325">Další informace najdete v tématu <xref:blazor/components#generic-typed-components>.</span><span class="sxs-lookup"><span data-stu-id="443a3-325">For more information, see <xref:blazor/components#generic-typed-components>.</span></span>
+<span data-ttu-id="3a978-324">Direktiva `@typeparam` deklaruje parametr obecného typu pro generovanou třídu komponenty.</span><span class="sxs-lookup"><span data-stu-id="3a978-324">The `@typeparam` directive declares a generic type parameter for the generated component class.</span></span> <span data-ttu-id="3a978-325">Další informace najdete v tématu <xref:blazor/components#generic-typed-components>.</span><span class="sxs-lookup"><span data-stu-id="3a978-325">For more information, see <xref:blazor/components#generic-typed-components>.</span></span>
 
 ::: moniker-end
 
-## <a name="templated-razor-delegates"></a><span data-ttu-id="443a3-326">Šablony Razor delegátů</span><span class="sxs-lookup"><span data-stu-id="443a3-326">Templated Razor delegates</span></span>
+## <a name="templated-razor-delegates"></a><span data-ttu-id="3a978-326">Šablony Razor delegátů</span><span class="sxs-lookup"><span data-stu-id="3a978-326">Templated Razor delegates</span></span>
 
-<span data-ttu-id="443a3-327">Šablony Razor umožňují definovat fragment uživatelského rozhraní v následujícím formátu:</span><span class="sxs-lookup"><span data-stu-id="443a3-327">Razor templates allow you to define a UI snippet with the following format:</span></span>
+<span data-ttu-id="3a978-327">Šablony Razor umožňují definovat fragment uživatelského rozhraní v následujícím formátu:</span><span class="sxs-lookup"><span data-stu-id="3a978-327">Razor templates allow you to define a UI snippet with the following format:</span></span>
 
 ```cshtml
 @<tag>...</tag>
 ```
 
-<span data-ttu-id="443a3-328">Následující příklad ukazuje, jak zadat bez vizuálního vzhledu Razor delegáta jako <xref:System.Func%602>.</span><span class="sxs-lookup"><span data-stu-id="443a3-328">The following example illustrates how to specify a templated Razor delegate as a <xref:System.Func%602>.</span></span> <span data-ttu-id="443a3-329">[Dynamického typu](/dotnet/csharp/programming-guide/types/using-type-dynamic) je zadaná pro parametr metody, která zapouzdřuje delegáta.</span><span class="sxs-lookup"><span data-stu-id="443a3-329">The [dynamic type](/dotnet/csharp/programming-guide/types/using-type-dynamic) is specified for the parameter of the method that the delegate encapsulates.</span></span> <span data-ttu-id="443a3-330">[Typ objektu](/dotnet/csharp/language-reference/keywords/object) je zadán jako návratový typ delegáta.</span><span class="sxs-lookup"><span data-stu-id="443a3-330">An [object type](/dotnet/csharp/language-reference/keywords/object) is specified as the return value of the delegate.</span></span> <span data-ttu-id="443a3-331">Šablona se používá s <xref:System.Collections.Generic.List%601> z `Pet` , který má `Name` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="443a3-331">The template is used with a <xref:System.Collections.Generic.List%601> of `Pet` that has a `Name` property.</span></span>
+<span data-ttu-id="3a978-328">Následující příklad ukazuje, jak zadat bez vizuálního vzhledu Razor delegáta jako <xref:System.Func%602>.</span><span class="sxs-lookup"><span data-stu-id="3a978-328">The following example illustrates how to specify a templated Razor delegate as a <xref:System.Func%602>.</span></span> <span data-ttu-id="3a978-329">[Dynamického typu](/dotnet/csharp/programming-guide/types/using-type-dynamic) je zadaná pro parametr metody, která zapouzdřuje delegáta.</span><span class="sxs-lookup"><span data-stu-id="3a978-329">The [dynamic type](/dotnet/csharp/programming-guide/types/using-type-dynamic) is specified for the parameter of the method that the delegate encapsulates.</span></span> <span data-ttu-id="3a978-330">[Typ objektu](/dotnet/csharp/language-reference/keywords/object) je zadán jako návratový typ delegáta.</span><span class="sxs-lookup"><span data-stu-id="3a978-330">An [object type](/dotnet/csharp/language-reference/keywords/object) is specified as the return value of the delegate.</span></span> <span data-ttu-id="3a978-331">Šablona se používá s <xref:System.Collections.Generic.List%601> z `Pet` , který má `Name` vlastnost.</span><span class="sxs-lookup"><span data-stu-id="3a978-331">The template is used with a <xref:System.Collections.Generic.List%601> of `Pet` that has a `Name` property.</span></span>
 
 ```csharp
 public class Pet
@@ -797,7 +797,7 @@ public class Pet
 }
 ```
 
-<span data-ttu-id="443a3-332">Šablona je vykreslen pomocí `pets` poskytnutých `foreach` – příkaz:</span><span class="sxs-lookup"><span data-stu-id="443a3-332">The template is rendered with `pets` supplied by a `foreach` statement:</span></span>
+<span data-ttu-id="3a978-332">Šablona je vykreslen pomocí `pets` poskytnutých `foreach` – příkaz:</span><span class="sxs-lookup"><span data-stu-id="3a978-332">The template is rendered with `pets` supplied by a `foreach` statement:</span></span>
 
 ```cshtml
 @foreach (var pet in pets)
@@ -806,7 +806,7 @@ public class Pet
 }
 ```
 
-<span data-ttu-id="443a3-333">Vykresleného výstupu:</span><span class="sxs-lookup"><span data-stu-id="443a3-333">Rendered output:</span></span>
+<span data-ttu-id="3a978-333">Vykresleného výstupu:</span><span class="sxs-lookup"><span data-stu-id="3a978-333">Rendered output:</span></span>
 
 ```html
 <p>You have a pet named <strong>Rin Tin Tin</strong>.</p>
@@ -814,7 +814,7 @@ public class Pet
 <p>You have a pet named <strong>K-9</strong>.</p>
 ```
 
-<span data-ttu-id="443a3-334">Šablony Razor vložené lze také zadat jako argument pro metodu.</span><span class="sxs-lookup"><span data-stu-id="443a3-334">You can also supply an inline Razor template as an argument to a method.</span></span> <span data-ttu-id="443a3-335">V následujícím příkladu `Repeat` metoda obdrží šablona Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-335">In the following example, the `Repeat` method receives a Razor template.</span></span> <span data-ttu-id="443a3-336">Metoda používá šablony k vytvoření HTML obsah s opakování zadaný ze seznamu položek:</span><span class="sxs-lookup"><span data-stu-id="443a3-336">The method uses the template to produce HTML content with repeats of items supplied from a list:</span></span>
+<span data-ttu-id="3a978-334">Šablony Razor vložené lze také zadat jako argument pro metodu.</span><span class="sxs-lookup"><span data-stu-id="3a978-334">You can also supply an inline Razor template as an argument to a method.</span></span> <span data-ttu-id="3a978-335">V následujícím příkladu `Repeat` metoda obdrží šablona Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-335">In the following example, the `Repeat` method receives a Razor template.</span></span> <span data-ttu-id="3a978-336">Metoda používá šablony k vytvoření HTML obsah s opakování zadaný ze seznamu položek:</span><span class="sxs-lookup"><span data-stu-id="3a978-336">The method uses the template to produce HTML content with repeats of items supplied from a list:</span></span>
 
 ```cshtml
 @using Microsoft.AspNetCore.Html
@@ -838,11 +838,11 @@ public class Pet
 }
 ```
 
-<span data-ttu-id="443a3-337">Pomocí seznam mazlíčků z předchozího příkladu `Repeat` metoda je volána pomocí:</span><span class="sxs-lookup"><span data-stu-id="443a3-337">Using the list of pets from the prior example, the `Repeat` method is called with:</span></span>
+<span data-ttu-id="3a978-337">Pomocí seznam mazlíčků z předchozího příkladu `Repeat` metoda je volána pomocí:</span><span class="sxs-lookup"><span data-stu-id="3a978-337">Using the list of pets from the prior example, the `Repeat` method is called with:</span></span>
 
-* <span data-ttu-id="443a3-338"><xref:System.Collections.Generic.List%601> z `Pet`.</span><span class="sxs-lookup"><span data-stu-id="443a3-338"><xref:System.Collections.Generic.List%601> of `Pet`.</span></span>
-* <span data-ttu-id="443a3-339">Počet opakování každou mazlíčků.</span><span class="sxs-lookup"><span data-stu-id="443a3-339">Number of times to repeat each pet.</span></span>
-* <span data-ttu-id="443a3-340">Vložená šablona použitá pro položky seznamu neuspořádaný seznam.</span><span class="sxs-lookup"><span data-stu-id="443a3-340">Inline template to use for the list items of an unordered list.</span></span>
+* <span data-ttu-id="3a978-338"><xref:System.Collections.Generic.List%601> z `Pet`.</span><span class="sxs-lookup"><span data-stu-id="3a978-338"><xref:System.Collections.Generic.List%601> of `Pet`.</span></span>
+* <span data-ttu-id="3a978-339">Počet opakování každou mazlíčků.</span><span class="sxs-lookup"><span data-stu-id="3a978-339">Number of times to repeat each pet.</span></span>
+* <span data-ttu-id="3a978-340">Vložená šablona použitá pro položky seznamu neuspořádaný seznam.</span><span class="sxs-lookup"><span data-stu-id="3a978-340">Inline template to use for the list items of an unordered list.</span></span>
 
 ```cshtml
 <ul>
@@ -850,7 +850,7 @@ public class Pet
 </ul>
 ```
 
-<span data-ttu-id="443a3-341">Vykresleného výstupu:</span><span class="sxs-lookup"><span data-stu-id="443a3-341">Rendered output:</span></span>
+<span data-ttu-id="3a978-341">Vykresleného výstupu:</span><span class="sxs-lookup"><span data-stu-id="3a978-341">Rendered output:</span></span>
 
 ```html
 <ul>
@@ -866,125 +866,125 @@ public class Pet
 </ul>
 ```
 
-## <a name="tag-helpers"></a><span data-ttu-id="443a3-342">Pomocné rutiny značek</span><span class="sxs-lookup"><span data-stu-id="443a3-342">Tag Helpers</span></span>
+## <a name="tag-helpers"></a><span data-ttu-id="3a978-342">Pomocné rutiny značek</span><span class="sxs-lookup"><span data-stu-id="3a978-342">Tag Helpers</span></span>
 
-<span data-ttu-id="443a3-343">*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*</span><span class="sxs-lookup"><span data-stu-id="443a3-343">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
+<span data-ttu-id="3a978-343">*Tento scénář se vztahuje pouze na zobrazení MVC a Razor Pages (. cshtml).*</span><span class="sxs-lookup"><span data-stu-id="3a978-343">*This scenario only applies to MVC views and Razor Pages (.cshtml).*</span></span>
 
-<span data-ttu-id="443a3-344">Existují tři direktivy, které se týkají [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).</span><span class="sxs-lookup"><span data-stu-id="443a3-344">There are three directives that pertain to [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span>
+<span data-ttu-id="3a978-344">Existují tři direktivy, které se týkají [pomocných rutin značek](xref:mvc/views/tag-helpers/intro).</span><span class="sxs-lookup"><span data-stu-id="3a978-344">There are three directives that pertain to [Tag Helpers](xref:mvc/views/tag-helpers/intro).</span></span>
 
-| <span data-ttu-id="443a3-345">– Direktiva</span><span class="sxs-lookup"><span data-stu-id="443a3-345">Directive</span></span> | <span data-ttu-id="443a3-346">Funkce</span><span class="sxs-lookup"><span data-stu-id="443a3-346">Function</span></span> |
+| <span data-ttu-id="3a978-345">– Direktiva</span><span class="sxs-lookup"><span data-stu-id="3a978-345">Directive</span></span> | <span data-ttu-id="3a978-346">Funkce</span><span class="sxs-lookup"><span data-stu-id="3a978-346">Function</span></span> |
 | --------- | -------- |
-| [`@addTagHelper`](xref:mvc/views/tag-helpers/intro#add-helper-label) | <span data-ttu-id="443a3-347">Zpřístupní pomocných rutin značek k zobrazení.</span><span class="sxs-lookup"><span data-stu-id="443a3-347">Makes Tag Helpers available to a view.</span></span> |
-| [`@removeTagHelper`](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | <span data-ttu-id="443a3-348">Odebere ze zobrazení přidali dříve pomocných rutin značek.</span><span class="sxs-lookup"><span data-stu-id="443a3-348">Removes Tag Helpers previously added from a view.</span></span> |
-| [`@tagHelperPrefix`](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | <span data-ttu-id="443a3-349">Určuje předponu značky k povolení podpory pomocné rutiny značky a aby explicitní použití pomocné rutiny značky.</span><span class="sxs-lookup"><span data-stu-id="443a3-349">Specifies a tag prefix to enable Tag Helper support and to make Tag Helper usage explicit.</span></span> |
+| [`@addTagHelper`](xref:mvc/views/tag-helpers/intro#add-helper-label) | <span data-ttu-id="3a978-347">Zpřístupní pomocných rutin značek k zobrazení.</span><span class="sxs-lookup"><span data-stu-id="3a978-347">Makes Tag Helpers available to a view.</span></span> |
+| [`@removeTagHelper`](xref:mvc/views/tag-helpers/intro#remove-razor-directives-label) | <span data-ttu-id="3a978-348">Odebere ze zobrazení přidali dříve pomocných rutin značek.</span><span class="sxs-lookup"><span data-stu-id="3a978-348">Removes Tag Helpers previously added from a view.</span></span> |
+| [`@tagHelperPrefix`](xref:mvc/views/tag-helpers/intro#prefix-razor-directives-label) | <span data-ttu-id="3a978-349">Určuje předponu značky k povolení podpory pomocné rutiny značky a aby explicitní použití pomocné rutiny značky.</span><span class="sxs-lookup"><span data-stu-id="3a978-349">Specifies a tag prefix to enable Tag Helper support and to make Tag Helper usage explicit.</span></span> |
 
-## <a name="razor-reserved-keywords"></a><span data-ttu-id="443a3-350">Razor vyhrazená klíčová slova</span><span class="sxs-lookup"><span data-stu-id="443a3-350">Razor reserved keywords</span></span>
+## <a name="razor-reserved-keywords"></a><span data-ttu-id="3a978-350">Razor vyhrazená klíčová slova</span><span class="sxs-lookup"><span data-stu-id="3a978-350">Razor reserved keywords</span></span>
 
-### <a name="razor-keywords"></a><span data-ttu-id="443a3-351">Klíčová slova Razor</span><span class="sxs-lookup"><span data-stu-id="443a3-351">Razor keywords</span></span>
+### <a name="razor-keywords"></a><span data-ttu-id="3a978-351">Klíčová slova Razor</span><span class="sxs-lookup"><span data-stu-id="3a978-351">Razor keywords</span></span>
 
-* <span data-ttu-id="443a3-352">Page (vyžaduje ASP.NET Core 2,1 nebo novější)</span><span class="sxs-lookup"><span data-stu-id="443a3-352">page (Requires ASP.NET Core 2.1 or later)</span></span>
-* <span data-ttu-id="443a3-353">Obor názvů</span><span class="sxs-lookup"><span data-stu-id="443a3-353">namespace</span></span>
-* <span data-ttu-id="443a3-354">funkce</span><span class="sxs-lookup"><span data-stu-id="443a3-354">functions</span></span>
-* <span data-ttu-id="443a3-355">Dědí</span><span class="sxs-lookup"><span data-stu-id="443a3-355">inherits</span></span>
-* <span data-ttu-id="443a3-356">model</span><span class="sxs-lookup"><span data-stu-id="443a3-356">model</span></span>
-* <span data-ttu-id="443a3-357">section</span><span class="sxs-lookup"><span data-stu-id="443a3-357">section</span></span>
-* <span data-ttu-id="443a3-358">pomocné rutiny (aktuálně se nepodporuje ASP.NET Core)</span><span class="sxs-lookup"><span data-stu-id="443a3-358">helper (Not currently supported by ASP.NET Core)</span></span>
+* <span data-ttu-id="3a978-352">Page (vyžaduje ASP.NET Core 2,1 nebo novější)</span><span class="sxs-lookup"><span data-stu-id="3a978-352">page (Requires ASP.NET Core 2.1 or later)</span></span>
+* <span data-ttu-id="3a978-353">Obor názvů</span><span class="sxs-lookup"><span data-stu-id="3a978-353">namespace</span></span>
+* <span data-ttu-id="3a978-354">funkce</span><span class="sxs-lookup"><span data-stu-id="3a978-354">functions</span></span>
+* <span data-ttu-id="3a978-355">Dědí</span><span class="sxs-lookup"><span data-stu-id="3a978-355">inherits</span></span>
+* <span data-ttu-id="3a978-356">model</span><span class="sxs-lookup"><span data-stu-id="3a978-356">model</span></span>
+* <span data-ttu-id="3a978-357">section</span><span class="sxs-lookup"><span data-stu-id="3a978-357">section</span></span>
+* <span data-ttu-id="3a978-358">pomocné rutiny (aktuálně se nepodporuje ASP.NET Core)</span><span class="sxs-lookup"><span data-stu-id="3a978-358">helper (Not currently supported by ASP.NET Core)</span></span>
 
-<span data-ttu-id="443a3-359">Klíčová slova Razor jsou uvozeny řídicími znaky s `@(Razor Keyword)` (například `@(functions)`).</span><span class="sxs-lookup"><span data-stu-id="443a3-359">Razor keywords are escaped with `@(Razor Keyword)` (for example, `@(functions)`).</span></span>
+<span data-ttu-id="3a978-359">Klíčová slova Razor jsou uvozeny řídicími znaky s `@(Razor Keyword)` (například `@(functions)`).</span><span class="sxs-lookup"><span data-stu-id="3a978-359">Razor keywords are escaped with `@(Razor Keyword)` (for example, `@(functions)`).</span></span>
 
-### <a name="c-razor-keywords"></a><span data-ttu-id="443a3-360">C#Klíčová slova Razor</span><span class="sxs-lookup"><span data-stu-id="443a3-360">C# Razor keywords</span></span>
+### <a name="c-razor-keywords"></a><span data-ttu-id="3a978-360">C#Klíčová slova Razor</span><span class="sxs-lookup"><span data-stu-id="3a978-360">C# Razor keywords</span></span>
 
-* <span data-ttu-id="443a3-361">case</span><span class="sxs-lookup"><span data-stu-id="443a3-361">case</span></span>
-* <span data-ttu-id="443a3-362">do</span><span class="sxs-lookup"><span data-stu-id="443a3-362">do</span></span>
-* <span data-ttu-id="443a3-363">výchozí</span><span class="sxs-lookup"><span data-stu-id="443a3-363">default</span></span>
-* <span data-ttu-id="443a3-364">pro</span><span class="sxs-lookup"><span data-stu-id="443a3-364">for</span></span>
-* <span data-ttu-id="443a3-365">foreach</span><span class="sxs-lookup"><span data-stu-id="443a3-365">foreach</span></span>
-* <span data-ttu-id="443a3-366">if</span><span class="sxs-lookup"><span data-stu-id="443a3-366">if</span></span>
-* <span data-ttu-id="443a3-367">else</span><span class="sxs-lookup"><span data-stu-id="443a3-367">else</span></span>
-* <span data-ttu-id="443a3-368">lock</span><span class="sxs-lookup"><span data-stu-id="443a3-368">lock</span></span>
-* <span data-ttu-id="443a3-369">– přepínač</span><span class="sxs-lookup"><span data-stu-id="443a3-369">switch</span></span>
-* <span data-ttu-id="443a3-370">Zkuste</span><span class="sxs-lookup"><span data-stu-id="443a3-370">try</span></span>
-* <span data-ttu-id="443a3-371">catch</span><span class="sxs-lookup"><span data-stu-id="443a3-371">catch</span></span>
-* <span data-ttu-id="443a3-372">finally</span><span class="sxs-lookup"><span data-stu-id="443a3-372">finally</span></span>
-* <span data-ttu-id="443a3-373">používání</span><span class="sxs-lookup"><span data-stu-id="443a3-373">using</span></span>
-* <span data-ttu-id="443a3-374">while</span><span class="sxs-lookup"><span data-stu-id="443a3-374">while</span></span>
+* <span data-ttu-id="3a978-361">case</span><span class="sxs-lookup"><span data-stu-id="3a978-361">case</span></span>
+* <span data-ttu-id="3a978-362">do</span><span class="sxs-lookup"><span data-stu-id="3a978-362">do</span></span>
+* <span data-ttu-id="3a978-363">výchozí</span><span class="sxs-lookup"><span data-stu-id="3a978-363">default</span></span>
+* <span data-ttu-id="3a978-364">pro</span><span class="sxs-lookup"><span data-stu-id="3a978-364">for</span></span>
+* <span data-ttu-id="3a978-365">foreach</span><span class="sxs-lookup"><span data-stu-id="3a978-365">foreach</span></span>
+* <span data-ttu-id="3a978-366">if</span><span class="sxs-lookup"><span data-stu-id="3a978-366">if</span></span>
+* <span data-ttu-id="3a978-367">else</span><span class="sxs-lookup"><span data-stu-id="3a978-367">else</span></span>
+* <span data-ttu-id="3a978-368">lock</span><span class="sxs-lookup"><span data-stu-id="3a978-368">lock</span></span>
+* <span data-ttu-id="3a978-369">– přepínač</span><span class="sxs-lookup"><span data-stu-id="3a978-369">switch</span></span>
+* <span data-ttu-id="3a978-370">Zkuste</span><span class="sxs-lookup"><span data-stu-id="3a978-370">try</span></span>
+* <span data-ttu-id="3a978-371">catch</span><span class="sxs-lookup"><span data-stu-id="3a978-371">catch</span></span>
+* <span data-ttu-id="3a978-372">finally</span><span class="sxs-lookup"><span data-stu-id="3a978-372">finally</span></span>
+* <span data-ttu-id="3a978-373">používání</span><span class="sxs-lookup"><span data-stu-id="3a978-373">using</span></span>
+* <span data-ttu-id="3a978-374">while</span><span class="sxs-lookup"><span data-stu-id="3a978-374">while</span></span>
 
-<span data-ttu-id="443a3-375">C#Klíčová slova Razor musí být uvozena double s `@(@C# Razor Keyword)` (například `@(@case)`).</span><span class="sxs-lookup"><span data-stu-id="443a3-375">C# Razor keywords must be double-escaped with `@(@C# Razor Keyword)` (for example, `@(@case)`).</span></span> <span data-ttu-id="443a3-376">První `@` řídicí sekvence analyzátor Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-376">The first `@` escapes the Razor parser.</span></span> <span data-ttu-id="443a3-377">Druhá `@` řídicí sekvence C# analyzátor.</span><span class="sxs-lookup"><span data-stu-id="443a3-377">The second `@` escapes the C# parser.</span></span>
+<span data-ttu-id="3a978-375">C#Klíčová slova Razor musí být uvozena double s `@(@C# Razor Keyword)` (například `@(@case)`).</span><span class="sxs-lookup"><span data-stu-id="3a978-375">C# Razor keywords must be double-escaped with `@(@C# Razor Keyword)` (for example, `@(@case)`).</span></span> <span data-ttu-id="3a978-376">První `@` řídicí sekvence analyzátor Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-376">The first `@` escapes the Razor parser.</span></span> <span data-ttu-id="3a978-377">Druhá `@` řídicí sekvence C# analyzátor.</span><span class="sxs-lookup"><span data-stu-id="3a978-377">The second `@` escapes the C# parser.</span></span>
 
-### <a name="reserved-keywords-not-used-by-razor"></a><span data-ttu-id="443a3-378">Vyhrazená klíčová slova nepoužívá Razor</span><span class="sxs-lookup"><span data-stu-id="443a3-378">Reserved keywords not used by Razor</span></span>
+### <a name="reserved-keywords-not-used-by-razor"></a><span data-ttu-id="3a978-378">Vyhrazená klíčová slova nepoužívá Razor</span><span class="sxs-lookup"><span data-stu-id="3a978-378">Reserved keywords not used by Razor</span></span>
 
-* <span data-ttu-id="443a3-379">třída</span><span class="sxs-lookup"><span data-stu-id="443a3-379">class</span></span>
+* <span data-ttu-id="3a978-379">třída</span><span class="sxs-lookup"><span data-stu-id="3a978-379">class</span></span>
 
-## <a name="inspect-the-razor-c-class-generated-for-a-view"></a><span data-ttu-id="443a3-380">Zkontrolovat syntaxi Razor C# třída vygenerovaná pro zobrazení</span><span class="sxs-lookup"><span data-stu-id="443a3-380">Inspect the Razor C# class generated for a view</span></span>
+## <a name="inspect-the-razor-c-class-generated-for-a-view"></a><span data-ttu-id="3a978-380">Zkontrolovat syntaxi Razor C# třída vygenerovaná pro zobrazení</span><span class="sxs-lookup"><span data-stu-id="3a978-380">Inspect the Razor C# class generated for a view</span></span>
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="443a3-381">S .NET Core SDK 2.1 nebo novější [Razor SDK](xref:razor-pages/sdk) zpracovává kompilace souborech Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-381">With .NET Core SDK 2.1 or later, the [Razor SDK](xref:razor-pages/sdk) handles compilation of Razor files.</span></span> <span data-ttu-id="443a3-382">Při sestavování projektu, generuje Razor SDK *obj / < build_configuration > / < target_framework_moniker > / Razor* adresáře v kořenové složce projektu.</span><span class="sxs-lookup"><span data-stu-id="443a3-382">When building a project, the Razor SDK generates an *obj/<build_configuration>/<target_framework_moniker>/Razor* directory in the project root.</span></span> <span data-ttu-id="443a3-383">Struktura adresářů v rámci *Razor* directory zrcadlí adresářovou strukturu projektu.</span><span class="sxs-lookup"><span data-stu-id="443a3-383">The directory structure within the *Razor* directory mirrors the project's directory structure.</span></span>
+<span data-ttu-id="3a978-381">S .NET Core SDK 2.1 nebo novější [Razor SDK](xref:razor-pages/sdk) zpracovává kompilace souborech Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-381">With .NET Core SDK 2.1 or later, the [Razor SDK](xref:razor-pages/sdk) handles compilation of Razor files.</span></span> <span data-ttu-id="3a978-382">Při sestavování projektu, generuje Razor SDK *obj / < build_configuration > / < target_framework_moniker > / Razor* adresáře v kořenové složce projektu.</span><span class="sxs-lookup"><span data-stu-id="3a978-382">When building a project, the Razor SDK generates an *obj/<build_configuration>/<target_framework_moniker>/Razor* directory in the project root.</span></span> <span data-ttu-id="3a978-383">Struktura adresářů v rámci *Razor* directory zrcadlí adresářovou strukturu projektu.</span><span class="sxs-lookup"><span data-stu-id="3a978-383">The directory structure within the *Razor* directory mirrors the project's directory structure.</span></span>
 
-<span data-ttu-id="443a3-384">Vezměte v úvahu následující adresářovou strukturu v projektu aplikace ASP.NET Core 2.1 Razor Pages cílí na .NET Core 2.1:</span><span class="sxs-lookup"><span data-stu-id="443a3-384">Consider the following directory structure in an ASP.NET Core 2.1 Razor Pages project targeting .NET Core 2.1:</span></span>
+<span data-ttu-id="3a978-384">Vezměte v úvahu následující adresářovou strukturu v projektu aplikace ASP.NET Core 2.1 Razor Pages cílí na .NET Core 2.1:</span><span class="sxs-lookup"><span data-stu-id="3a978-384">Consider the following directory structure in an ASP.NET Core 2.1 Razor Pages project targeting .NET Core 2.1:</span></span>
 
-* <span data-ttu-id="443a3-385">**Oblasti /**</span><span class="sxs-lookup"><span data-stu-id="443a3-385">**Areas/**</span></span>
-  * <span data-ttu-id="443a3-386">**Správce /**</span><span class="sxs-lookup"><span data-stu-id="443a3-386">**Admin/**</span></span>
-    * <span data-ttu-id="443a3-387">**Stránky /**</span><span class="sxs-lookup"><span data-stu-id="443a3-387">**Pages/**</span></span>
-      * <span data-ttu-id="443a3-388">*Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-388">*Index.cshtml*</span></span>
-      * <span data-ttu-id="443a3-389">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="443a3-389">*Index.cshtml.cs*</span></span>
-* <span data-ttu-id="443a3-390">**Stránky /**</span><span class="sxs-lookup"><span data-stu-id="443a3-390">**Pages/**</span></span>
-  * <span data-ttu-id="443a3-391">**Sdílené /**</span><span class="sxs-lookup"><span data-stu-id="443a3-391">**Shared/**</span></span>
-    * <span data-ttu-id="443a3-392">*_Layout.cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-392">*_Layout.cshtml*</span></span>
-  * <span data-ttu-id="443a3-393">*_ViewImports.cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-393">*_ViewImports.cshtml*</span></span>
-  * <span data-ttu-id="443a3-394">*_ViewStart.cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-394">*_ViewStart.cshtml*</span></span>
-  * <span data-ttu-id="443a3-395">*Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="443a3-395">*Index.cshtml*</span></span>
-  * <span data-ttu-id="443a3-396">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="443a3-396">*Index.cshtml.cs*</span></span>
+* <span data-ttu-id="3a978-385">**Oblasti /**</span><span class="sxs-lookup"><span data-stu-id="3a978-385">**Areas/**</span></span>
+  * <span data-ttu-id="3a978-386">**Správce /**</span><span class="sxs-lookup"><span data-stu-id="3a978-386">**Admin/**</span></span>
+    * <span data-ttu-id="3a978-387">**Stránky /**</span><span class="sxs-lookup"><span data-stu-id="3a978-387">**Pages/**</span></span>
+      * <span data-ttu-id="3a978-388">*Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-388">*Index.cshtml*</span></span>
+      * <span data-ttu-id="3a978-389">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="3a978-389">*Index.cshtml.cs*</span></span>
+* <span data-ttu-id="3a978-390">**Stránky /**</span><span class="sxs-lookup"><span data-stu-id="3a978-390">**Pages/**</span></span>
+  * <span data-ttu-id="3a978-391">**Sdílené /**</span><span class="sxs-lookup"><span data-stu-id="3a978-391">**Shared/**</span></span>
+    * <span data-ttu-id="3a978-392">*_Layout.cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-392">*_Layout.cshtml*</span></span>
+  * <span data-ttu-id="3a978-393">*_ViewImports.cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-393">*_ViewImports.cshtml*</span></span>
+  * <span data-ttu-id="3a978-394">*_ViewStart.cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-394">*_ViewStart.cshtml*</span></span>
+  * <span data-ttu-id="3a978-395">*Index.cshtml*</span><span class="sxs-lookup"><span data-stu-id="3a978-395">*Index.cshtml*</span></span>
+  * <span data-ttu-id="3a978-396">*Index.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="3a978-396">*Index.cshtml.cs*</span></span>
 
-<span data-ttu-id="443a3-397">Vytvoření projektu *ladění* konfigurace provede následující *obj* adresáře:</span><span class="sxs-lookup"><span data-stu-id="443a3-397">Building the project in *Debug* configuration yields the following *obj* directory:</span></span>
+<span data-ttu-id="3a978-397">Vytvoření projektu *ladění* konfigurace provede následující *obj* adresáře:</span><span class="sxs-lookup"><span data-stu-id="3a978-397">Building the project in *Debug* configuration yields the following *obj* directory:</span></span>
 
-* <span data-ttu-id="443a3-398">**obj /**</span><span class="sxs-lookup"><span data-stu-id="443a3-398">**obj/**</span></span>
-  * <span data-ttu-id="443a3-399">**Ladění /**</span><span class="sxs-lookup"><span data-stu-id="443a3-399">**Debug/**</span></span>
-    * <span data-ttu-id="443a3-400">**netcoreapp2.1 /**</span><span class="sxs-lookup"><span data-stu-id="443a3-400">**netcoreapp2.1/**</span></span>
-      * <span data-ttu-id="443a3-401">**Razor /**</span><span class="sxs-lookup"><span data-stu-id="443a3-401">**Razor/**</span></span>
-        * <span data-ttu-id="443a3-402">**Oblasti /**</span><span class="sxs-lookup"><span data-stu-id="443a3-402">**Areas/**</span></span>
-          * <span data-ttu-id="443a3-403">**Správce /**</span><span class="sxs-lookup"><span data-stu-id="443a3-403">**Admin/**</span></span>
-            * <span data-ttu-id="443a3-404">**Stránky /**</span><span class="sxs-lookup"><span data-stu-id="443a3-404">**Pages/**</span></span>
-              * <span data-ttu-id="443a3-405">*Index.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="443a3-405">*Index.g.cshtml.cs*</span></span>
-        * <span data-ttu-id="443a3-406">**Stránky /**</span><span class="sxs-lookup"><span data-stu-id="443a3-406">**Pages/**</span></span>
-          * <span data-ttu-id="443a3-407">**Sdílené /**</span><span class="sxs-lookup"><span data-stu-id="443a3-407">**Shared/**</span></span>
-            * <span data-ttu-id="443a3-408">*_Layout.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="443a3-408">*_Layout.g.cshtml.cs*</span></span>
-          * <span data-ttu-id="443a3-409">*_ViewImports.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="443a3-409">*_ViewImports.g.cshtml.cs*</span></span>
-          * <span data-ttu-id="443a3-410">*_ViewStart.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="443a3-410">*_ViewStart.g.cshtml.cs*</span></span>
-          * <span data-ttu-id="443a3-411">*Index.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="443a3-411">*Index.g.cshtml.cs*</span></span>
+* <span data-ttu-id="3a978-398">**obj /**</span><span class="sxs-lookup"><span data-stu-id="3a978-398">**obj/**</span></span>
+  * <span data-ttu-id="3a978-399">**Ladění /**</span><span class="sxs-lookup"><span data-stu-id="3a978-399">**Debug/**</span></span>
+    * <span data-ttu-id="3a978-400">**netcoreapp2.1 /**</span><span class="sxs-lookup"><span data-stu-id="3a978-400">**netcoreapp2.1/**</span></span>
+      * <span data-ttu-id="3a978-401">**Razor /**</span><span class="sxs-lookup"><span data-stu-id="3a978-401">**Razor/**</span></span>
+        * <span data-ttu-id="3a978-402">**Oblasti /**</span><span class="sxs-lookup"><span data-stu-id="3a978-402">**Areas/**</span></span>
+          * <span data-ttu-id="3a978-403">**Správce /**</span><span class="sxs-lookup"><span data-stu-id="3a978-403">**Admin/**</span></span>
+            * <span data-ttu-id="3a978-404">**Stránky /**</span><span class="sxs-lookup"><span data-stu-id="3a978-404">**Pages/**</span></span>
+              * <span data-ttu-id="3a978-405">*Index.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="3a978-405">*Index.g.cshtml.cs*</span></span>
+        * <span data-ttu-id="3a978-406">**Stránky /**</span><span class="sxs-lookup"><span data-stu-id="3a978-406">**Pages/**</span></span>
+          * <span data-ttu-id="3a978-407">**Sdílené /**</span><span class="sxs-lookup"><span data-stu-id="3a978-407">**Shared/**</span></span>
+            * <span data-ttu-id="3a978-408">*_Layout.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="3a978-408">*_Layout.g.cshtml.cs*</span></span>
+          * <span data-ttu-id="3a978-409">*_ViewImports.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="3a978-409">*_ViewImports.g.cshtml.cs*</span></span>
+          * <span data-ttu-id="3a978-410">*_ViewStart.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="3a978-410">*_ViewStart.g.cshtml.cs*</span></span>
+          * <span data-ttu-id="3a978-411">*Index.g.cshtml.cs*</span><span class="sxs-lookup"><span data-stu-id="3a978-411">*Index.g.cshtml.cs*</span></span>
 
-<span data-ttu-id="443a3-412">Chcete-li zobrazit vygenerované třídy pro *Pages/Index.cshtml*, otevřete *obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs*.</span><span class="sxs-lookup"><span data-stu-id="443a3-412">To view the generated class for *Pages/Index.cshtml*, open *obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs*.</span></span>
+<span data-ttu-id="3a978-412">Chcete-li zobrazit vygenerované třídy pro *Pages/Index.cshtml*, otevřete *obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs*.</span><span class="sxs-lookup"><span data-stu-id="3a978-412">To view the generated class for *Pages/Index.cshtml*, open *obj/Debug/netcoreapp2.1/Razor/Pages/Index.g.cshtml.cs*.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.0"
 
-<span data-ttu-id="443a3-413">Přidejte následující třídu do projektu ASP.NET Core MVC:</span><span class="sxs-lookup"><span data-stu-id="443a3-413">Add the following class to the ASP.NET Core MVC project:</span></span>
+<span data-ttu-id="3a978-413">Přidejte následující třídu do projektu ASP.NET Core MVC:</span><span class="sxs-lookup"><span data-stu-id="3a978-413">Add the following class to the ASP.NET Core MVC project:</span></span>
 
 [!code-csharp[](razor/sample/Utilities/CustomTemplateEngine.cs)]
 
-<span data-ttu-id="443a3-414">V `Startup.ConfigureServices`, přepsat `RazorTemplateEngine` přidal MVC s `CustomTemplateEngine` třídy:</span><span class="sxs-lookup"><span data-stu-id="443a3-414">In `Startup.ConfigureServices`, override the `RazorTemplateEngine` added by MVC with the `CustomTemplateEngine` class:</span></span>
+<span data-ttu-id="3a978-414">V `Startup.ConfigureServices`, přepsat `RazorTemplateEngine` přidal MVC s `CustomTemplateEngine` třídy:</span><span class="sxs-lookup"><span data-stu-id="3a978-414">In `Startup.ConfigureServices`, override the `RazorTemplateEngine` added by MVC with the `CustomTemplateEngine` class:</span></span>
 
 [!code-csharp[](razor/sample/Startup.cs?highlight=4&range=10-14)]
 
-<span data-ttu-id="443a3-415">Nastavit zarážku na `return csharpDocument;` příkazem `CustomTemplateEngine`.</span><span class="sxs-lookup"><span data-stu-id="443a3-415">Set a breakpoint on the `return csharpDocument;` statement of `CustomTemplateEngine`.</span></span> <span data-ttu-id="443a3-416">Při spuštění programu se zastaví na zarážce, zobrazit hodnotu `generatedCode`.</span><span class="sxs-lookup"><span data-stu-id="443a3-416">When program execution stops at the breakpoint, view the value of `generatedCode`.</span></span>
+<span data-ttu-id="3a978-415">Nastavit zarážku na `return csharpDocument;` příkazem `CustomTemplateEngine`.</span><span class="sxs-lookup"><span data-stu-id="3a978-415">Set a breakpoint on the `return csharpDocument;` statement of `CustomTemplateEngine`.</span></span> <span data-ttu-id="3a978-416">Při spuštění programu se zastaví na zarážce, zobrazit hodnotu `generatedCode`.</span><span class="sxs-lookup"><span data-stu-id="3a978-416">When program execution stops at the breakpoint, view the value of `generatedCode`.</span></span>
 
 ![Text Visualizer zobrazení generatedCode](razor/_static/tvr.png)
 
 ::: moniker-end
 
-## <a name="view-lookups-and-case-sensitivity"></a><span data-ttu-id="443a3-418">Zobrazení vyhledávání a rozlišování velikosti písmen</span><span class="sxs-lookup"><span data-stu-id="443a3-418">View lookups and case sensitivity</span></span>
+## <a name="view-lookups-and-case-sensitivity"></a><span data-ttu-id="3a978-418">Zobrazení vyhledávání a rozlišování velikosti písmen</span><span class="sxs-lookup"><span data-stu-id="3a978-418">View lookups and case sensitivity</span></span>
 
-<span data-ttu-id="443a3-419">Zobrazovací modul Razor provádí velká a malá písmena vyhledávání pro zobrazení.</span><span class="sxs-lookup"><span data-stu-id="443a3-419">The Razor view engine performs case-sensitive lookups for views.</span></span> <span data-ttu-id="443a3-420">Nicméně skutečné vyhledávání je určeno podkladový systém souborů:</span><span class="sxs-lookup"><span data-stu-id="443a3-420">However, the actual lookup is determined by the underlying file system:</span></span>
+<span data-ttu-id="3a978-419">Zobrazovací modul Razor provádí velká a malá písmena vyhledávání pro zobrazení.</span><span class="sxs-lookup"><span data-stu-id="3a978-419">The Razor view engine performs case-sensitive lookups for views.</span></span> <span data-ttu-id="3a978-420">Nicméně skutečné vyhledávání je určeno podkladový systém souborů:</span><span class="sxs-lookup"><span data-stu-id="3a978-420">However, the actual lookup is determined by the underlying file system:</span></span>
 
-* <span data-ttu-id="443a3-421">Na základě zdrojového souboru:</span><span class="sxs-lookup"><span data-stu-id="443a3-421">File based source:</span></span>
-  * <span data-ttu-id="443a3-422">V operačních systémech se systémy souborů malá a velká písmena (například Windows) fyzický soubor poskytovatele vyhledávání jsou malá a velká písmena.</span><span class="sxs-lookup"><span data-stu-id="443a3-422">On operating systems with case insensitive file systems (for example, Windows), physical file provider lookups are case insensitive.</span></span> <span data-ttu-id="443a3-423">Například `return View("Test")` výsledkem shody */Views/Home/Test.cshtml*, */Views/home/test.cshtml*a další varianty velká a malá písmena.</span><span class="sxs-lookup"><span data-stu-id="443a3-423">For example, `return View("Test")` results in matches for */Views/Home/Test.cshtml*, */Views/home/test.cshtml*, and any other casing variant.</span></span>
-  * <span data-ttu-id="443a3-424">V systémech souborů s malá a velká písmena (například Linux, OSX a s `EmbeddedFileProvider`), hledání jsou malá a velká písmena.</span><span class="sxs-lookup"><span data-stu-id="443a3-424">On case-sensitive file systems (for example, Linux, OSX, and with `EmbeddedFileProvider`), lookups are case-sensitive.</span></span> <span data-ttu-id="443a3-425">Například `return View("Test")` konkrétně shody */Views/Home/Test.cshtml*.</span><span class="sxs-lookup"><span data-stu-id="443a3-425">For example, `return View("Test")` specifically matches */Views/Home/Test.cshtml*.</span></span>
-* <span data-ttu-id="443a3-426">Předkompilované zobrazení: pomocí ASP.NET Core 2.0 a vyšší, hledání předkompilované zobrazení velká a malá písmena na všechny operační systémy.</span><span class="sxs-lookup"><span data-stu-id="443a3-426">Precompiled views: With ASP.NET Core 2.0 and later, looking up precompiled views is case insensitive on all operating systems.</span></span> <span data-ttu-id="443a3-427">Chování se shoduje s chování zprostředkovatele fyzického souboru ve Windows.</span><span class="sxs-lookup"><span data-stu-id="443a3-427">The behavior is identical to physical file provider's behavior on Windows.</span></span> <span data-ttu-id="443a3-428">Pokud se zobrazeními předkompilované liší pouze v případě, výsledek vyhledávání je Nedeterministický.</span><span class="sxs-lookup"><span data-stu-id="443a3-428">If two precompiled views differ only in case, the result of lookup is non-deterministic.</span></span>
+* <span data-ttu-id="3a978-421">Na základě zdrojového souboru:</span><span class="sxs-lookup"><span data-stu-id="3a978-421">File based source:</span></span>
+  * <span data-ttu-id="3a978-422">V operačních systémech se systémy souborů malá a velká písmena (například Windows) fyzický soubor poskytovatele vyhledávání jsou malá a velká písmena.</span><span class="sxs-lookup"><span data-stu-id="3a978-422">On operating systems with case insensitive file systems (for example, Windows), physical file provider lookups are case insensitive.</span></span> <span data-ttu-id="3a978-423">Například `return View("Test")` výsledkem shody */Views/Home/Test.cshtml*, */Views/home/test.cshtml*a další varianty velká a malá písmena.</span><span class="sxs-lookup"><span data-stu-id="3a978-423">For example, `return View("Test")` results in matches for */Views/Home/Test.cshtml*, */Views/home/test.cshtml*, and any other casing variant.</span></span>
+  * <span data-ttu-id="3a978-424">V systémech souborů s malá a velká písmena (například Linux, OSX a s `EmbeddedFileProvider`), hledání jsou malá a velká písmena.</span><span class="sxs-lookup"><span data-stu-id="3a978-424">On case-sensitive file systems (for example, Linux, OSX, and with `EmbeddedFileProvider`), lookups are case-sensitive.</span></span> <span data-ttu-id="3a978-425">Například `return View("Test")` konkrétně shody */Views/Home/Test.cshtml*.</span><span class="sxs-lookup"><span data-stu-id="3a978-425">For example, `return View("Test")` specifically matches */Views/Home/Test.cshtml*.</span></span>
+* <span data-ttu-id="3a978-426">Předkompilované zobrazení: pomocí ASP.NET Core 2.0 a vyšší, hledání předkompilované zobrazení velká a malá písmena na všechny operační systémy.</span><span class="sxs-lookup"><span data-stu-id="3a978-426">Precompiled views: With ASP.NET Core 2.0 and later, looking up precompiled views is case insensitive on all operating systems.</span></span> <span data-ttu-id="3a978-427">Chování se shoduje s chování zprostředkovatele fyzického souboru ve Windows.</span><span class="sxs-lookup"><span data-stu-id="3a978-427">The behavior is identical to physical file provider's behavior on Windows.</span></span> <span data-ttu-id="3a978-428">Pokud se zobrazeními předkompilované liší pouze v případě, výsledek vyhledávání je Nedeterministický.</span><span class="sxs-lookup"><span data-stu-id="3a978-428">If two precompiled views differ only in case, the result of lookup is non-deterministic.</span></span>
 
-<span data-ttu-id="443a3-429">Vývojáři nepodnikovým tak, aby odpovídaly malých a velkých písmen názvů použití malých a velkých souborů a adresářů:</span><span class="sxs-lookup"><span data-stu-id="443a3-429">Developers are encouraged to match the casing of file and directory names to the casing of:</span></span>
+<span data-ttu-id="3a978-429">Vývojáři nepodnikovým tak, aby odpovídaly malých a velkých písmen názvů použití malých a velkých souborů a adresářů:</span><span class="sxs-lookup"><span data-stu-id="3a978-429">Developers are encouraged to match the casing of file and directory names to the casing of:</span></span>
 
-* <span data-ttu-id="443a3-430">Názvy oblastí, kontroleru a akce.</span><span class="sxs-lookup"><span data-stu-id="443a3-430">Area, controller, and action names.</span></span>
-* <span data-ttu-id="443a3-431">Stránky Razor.</span><span class="sxs-lookup"><span data-stu-id="443a3-431">Razor Pages.</span></span>
+* <span data-ttu-id="3a978-430">Názvy oblastí, kontroleru a akce.</span><span class="sxs-lookup"><span data-stu-id="3a978-430">Area, controller, and action names.</span></span>
+* <span data-ttu-id="3a978-431">Stránky Razor.</span><span class="sxs-lookup"><span data-stu-id="3a978-431">Razor Pages.</span></span>
 
-<span data-ttu-id="443a3-432">Odpovídající případ zajistí, že pro nasazení své názory, bez ohledu na podkladový systém souborů.</span><span class="sxs-lookup"><span data-stu-id="443a3-432">Matching case ensures the deployments find their views regardless of the underlying file system.</span></span>
+<span data-ttu-id="3a978-432">Odpovídající případ zajistí, že pro nasazení své názory, bez ohledu na podkladový systém souborů.</span><span class="sxs-lookup"><span data-stu-id="3a978-432">Matching case ensures the deployments find their views regardless of the underlying file system.</span></span>
