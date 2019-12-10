@@ -29,7 +29,7 @@ Do souboru *appSettings. JSON* přidejte připojovací řetězec, jak ukazuje n�
 Do horní části *Startup.cs*přidejte následující příkazy `using`:
 
 ```csharp
-using RazorPagesMovie.Models;
+using RazorPagesMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
