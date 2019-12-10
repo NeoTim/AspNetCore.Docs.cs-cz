@@ -5,14 +5,14 @@ description: Přečtěte si o zpracování chyb s ASP.NET Core webovými rozhran
 monikerRange: '>= aspnetcore-2.1'
 ms.author: prkrishn
 ms.custom: mvc
-ms.date: 09/27/2019
+ms.date: 12/10/2019
 uid: web-api/handle-errors
-ms.openlocfilehash: 457ad7449c608c3b1b0acd729626e07808f55897
-ms.sourcegitcommit: ddc813f0f1fb293861a01597532919945b0e7fe5
+ms.openlocfilehash: c2dbc47b4495b7187aefbc62eb6d2f0c9683c2da
+ms.sourcegitcommit: 29ace642ca0e1f0b48a18d66de266d8811df2b83
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/23/2019
-ms.locfileid: "74412103"
+ms.lasthandoff: 12/10/2019
+ms.locfileid: "74987828"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>Zpracování chyb v ASP.NET Core webových rozhraní API
 
@@ -34,7 +34,7 @@ curl -i https://localhost:5001/weatherforecast/chicago
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V ASP.NET Core 3,0 a novějších se na stránce s výjimkou vývojáře zobrazuje odpověď v podobě prostého textu, pokud klient nepožaduje výstup ve formátu HTML. Zobrazí se následující výstup:
+V ASP.NET Core 3,0 a novějších se na stránce s výjimkou vývojáře zobrazuje odpověď v podobě prostého textu, pokud klient nepožaduje výstup ve formátu HTML. Zobrazí se výstup:
 
 ```console
 HTTP/1.1 500 Internal Server Error
@@ -149,7 +149,7 @@ V nevývojovém prostředí lze [middleware zpracování výjimek](xref:fundamen
 
     ::: moniker-end
 
-Předchozí akce `Error` odešle klientovi datovou část kompatibilní s [RFC7807](https://tools.ietf.org/html/rfc7807).
+Předchozí akce `Error` odešle klientovi datovou část kompatibilní se [specifikací RFC 7807](https://tools.ietf.org/html/rfc7807).
 
 Middleware zpracování výjimek může také poskytnout podrobnější výstup vyjednaný z hlediska obsahu v místním vývojovém prostředí. Pomocí následujících kroků můžete vytvořit konzistentní formát datové části napříč vývojovým a produkčním prostředím:
 
@@ -267,6 +267,13 @@ V případě řadičů webového rozhraní API na webu MVC odpoví <xref:Microso
 ## <a name="client-error-response"></a>Odezva na chybu klienta
 
 *Výsledek chyby* je definován jako výsledek se stavovým kódem HTTP 400 nebo vyšší. Pro řadiče webového rozhraní API MVC transformuje výsledek z důvodu <xref:Microsoft.AspNetCore.Mvc.ProblemDetails>.
+
+::: moniker range="= aspnetcore-2.1"
+
+> [!IMPORTANT]
+> ASP.NET Core 2,1 generuje odpověď s podrobnostmi o problému, který je téměř kompatibilní se specifikací RFC 7807. Pokud je důležité dodržování 100 procent, upgradujte projekt na ASP.NET Core 2,2 nebo novější.
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-3.0"
 
