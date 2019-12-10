@@ -4,7 +4,7 @@
 
 V projektu RazorPagesMovie vytvořte novou složku s názvem *data*. Do složky *data* přidejte následující třídu `RazorPagesMovieContext`:
 
-[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Data/RazorPagesMovieContext.cs)]
+[!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Data/RazorPagesMovieContext.cs)]
 
 Předchozí kód vytvoří vlastnost `DbSet` pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
 
