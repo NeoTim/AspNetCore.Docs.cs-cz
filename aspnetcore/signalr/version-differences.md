@@ -4,16 +4,16 @@ author: bradygaster
 description: Rozdíly mezi SignalR a ASP.NET Core SignalR
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
-ms.date: 11/12/2019
+ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: signalr/version-differences
-ms.openlocfilehash: 0f644c132b0fcf9a0ecf0ab181791a6477c97f76
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: cca9a0cb0c46fc25eb5d1f7127d31fd3ab92f0b4
+ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963726"
+ms.lasthandoff: 12/06/2019
+ms.locfileid: "74880366"
 ---
 # <a name="differences-between-aspnet-opno-locsignalr-and-aspnet-core-opno-locsignalr"></a>Rozdíly mezi ASP.NET SignalR a ASP.NET Core SignalR
 
@@ -21,20 +21,67 @@ ASP.NET Core SignalR není kompatibilní s klienty nebo servery pro ASP.NET Sign
 
 ## <a name="how-to-identify-the-opno-locsignalr-version"></a>Jak identifikovat SignalR verzi
 
+::: moniker range=">= aspnetcore-3.0"
+
+|                      | ASP.NET SignalR | ASP.NET Core SignalR |
+| -------------------- | --------------- | -------------------- |
+| Balíček NuGet serveru | [Microsoft. AspNet.SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | Žádné. Je součástí sdílené architektury [Microsoft. AspNetCore. app](xref:fundamentals/metapackage-app) . |
+| Klientské balíčky NuGet | [Microsoft. AspNet.SignalR. Služba](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft. AspNet.SignalR. JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [Microsoft. AspNetCore.SignalR. Služba](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
+| JavaScript – balíček npm klienta | [SignalR](https://www.npmjs.com/package/signalr) | [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) |
+| Klient Java | [Úložiště GitHub](https://github.com/SignalR/java-client) (zastaralé)  | Balíček Maven [com. Microsoft. Signal](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
+| Typ serverové aplikace | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | ASP.NET Core |
+| Podporované serverové platformy | .NET Framework 4,5 nebo novější | .NET Core 3,0 nebo novější |
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
 |                      | ASP.NET SignalR | ASP.NET Core SignalR |
 | -------------------- | --------------- | -------------------- |
 | Balíček NuGet serveru | [Microsoft. AspNet.SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | [Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App/) (.NET Core)<br>[Microsoft. AspNetCore.SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) (.NET Framework) |
 | Klientské balíčky NuGet | [Microsoft. AspNet.SignalR. Služba](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft. AspNet.SignalR. JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [Microsoft. AspNetCore.SignalR. Služba](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
-| Balíček npm klienta | [SignalR](https://www.npmjs.com/package/signalr) | [@aspnet/signalr](https://www.npmjs.com/package/@aspnet/signalr) |
+| JavaScript – balíček npm klienta | [SignalR](https://www.npmjs.com/package/signalr) | [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) |
 | Klient Java | [Úložiště GitHub](https://github.com/SignalR/java-client) (zastaralé)  | Balíček Maven [com. Microsoft. Signal](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
 | Typ serverové aplikace | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | ASP.NET Core |
 | Podporované serverové platformy | .NET Framework 4,5 nebo novější | .NET Framework 4.6.1 nebo novější<br>.NET Core 2,1 nebo novější |
+
+::: moniker-end
 
 ## <a name="feature-differences"></a>Rozdíly ve funkcích
 
 ### <a name="automatic-reconnects"></a>Automatické opětovné připojení
 
-Automatické opětovné připojení nejsou v ASP.NET Core SignalRpodporovaná. Pokud je klient odpojený, uživatel musí explicitně spustit nové připojení, pokud se chce znovu připojit. V ASP.NET SignalRse SignalR pokusí znovu připojit k serveru, pokud je připojení vyřazené.
+::: moniker range=">= aspnetcore-3.0"
+
+V ASP.NET SignalR:
+
+* Ve výchozím nastavení se SignalR pokusí znovu připojit k serveru, pokud je připojení vyřazené. 
+
+V ASP.NET Core SignalR:
+
+* Automatické opětovné připojení jsou výslovným souhlasem s [klientem rozhraní .NET](xref:signalr/dotnet-client#automatically-reconnect) i s [klientem JavaScriptu](xref:signalr/javascript-client#automatically-reconnect):
+
+```csharp
+HubConnection connection = new HubConnectionBuilder()
+    .WithUrl(new Uri("http://127.0.0.1:5000/chatHub"))
+    .WithAutomaticReconnect()
+    .Build();
+```
+
+```javascript
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/chatHub")
+    .withAutomaticReconnect()
+    .build();
+```
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+Před ASP.NET Core 3,0 nepodporuje SignalR automatické opětovné připojení. Pokud je klient odpojený, uživatel musí explicitně spustit nové připojení, aby se znovu připojil. V ASP.NET SignalRse SignalR pokusí znovu připojit k serveru, pokud je připojení vyřazené.
+
+::: moniker-end
 
 ### <a name="protocol-support"></a>Podpora protokolů
 
@@ -46,9 +93,9 @@ Přenos snímků navždy se v ASP.NET Core SignalRnepodporuje.
 
 ## <a name="differences-on-the-server"></a>Rozdíly na serveru
 
-ASP.NET Core SignalR knihovny na straně serveru jsou součástí balíčku [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) , který je součástí šablony **webové aplikace ASP.NET Core** pro projekty Razor a MVC.
+ASP.NET Core SignalR knihovny na straně serveru jsou součástí [Microsoft. AspNetCore. app](xref:fundamentals/metapackage-app), který se používá v šabloně **webové aplikace ASP.NET Core** pro projekty Razor a MVC.
 
-ASP.NET Core SignalR je ASP.NET Core middleware, takže se musí nakonfigurovat voláním [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr) v `Startup.ConfigureServices`.
+ASP.NET Core SignalR je ASP.NET Core middleware. Musí být nakonfigurováno voláním <xref:Microsoft.Extensions.DependencyInjection.SignalRDependencyInjectionExtensions.AddSignalR%2A> v `Startup.ConfigureServices`.
 
 ```csharp
 services.AddSignalR()
@@ -56,8 +103,7 @@ services.AddSignalR()
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Chcete-li konfigurovat směrování, namapujte trasy na rozbočovače uvnitř volání metody [UseEndpoints](/dotnet/api/microsoft.aspnetcore.builder.endpointroutingapplicationbuilderextensions.useendpoints) v metodě `Startup.Configure`.
-
+Chcete-li konfigurovat směrování, namapujte trasy na rozbočovače uvnitř volání metody <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints%2A> v metodě `Startup.Configure`.
 
 ```csharp
 app.UseRouting();
@@ -72,7 +118,7 @@ app.UseEndpoints(endpoints =>
 
 ::: moniker range="<= aspnetcore-2.2"
 
-Chcete-li konfigurovat směrování, namapujte trasy na rozbočovače uvnitř volání metody [UseSignalR](/dotnet/api/microsoft.aspnetcore.builder.signalrappbuilderextensions.usesignalr) v metodě `Startup.Configure`.
+Chcete-li konfigurovat směrování, namapujte trasy na rozbočovače uvnitř volání metody <xref:Microsoft.AspNetCore.Builder.SignalRAppBuilderExtensions.UseSignalR%2A> v metodě `Startup.Configure`.
 
 ```csharp
 app.UseSignalR(routes =>
@@ -95,9 +141,9 @@ V ASP.NET Core SignalRbyl model připojení zjednodušený. Připojení se vytvo
 
 ASP.NET Core SignalR teď podporuje [streamování dat](xref:signalr/streaming) z rozbočovače na klienta.
 
-### <a name="state"></a>Stav
+### <a name="state"></a>State
 
-Byla odebrána možnost předat libovolný stav mezi klienty a centrem (často označovaným jako HubState) a také podporovat zprávy o průběhu. V tuto chvíli není k dispozici žádný protějšek serverů proxy hub.
+Byla odebrána možnost předat libovolný stav mezi klienty a centrem (často označované jako `HubState`) a také podporovat zprávy o průběhu. V tuto chvíli není k dispozici žádný protějšek serverů proxy hub.
 
 ### <a name="persistentconnection-removal"></a>Odebrání PersistentConnection
 
@@ -117,14 +163,29 @@ SignalR ASP.NET Core nemá podporu pro moduly `HubPipeline`.
 
 Klient SignalR ASP.NET Core je napsán v [TypeScript](https://www.typescriptlang.org/). Při použití [klienta jazyka JavaScript](xref:signalr/javascript-client)můžete psát v JavaScriptu nebo TypeScript.
 
-### <a name="the-javascript-client-is-hosted-at-npmhttpswwwnpmjscom"></a>JavaScriptový klient je hostovaný na [npm](https://www.npmjs.com/)
+### <a name="the-javascript-client-is-hosted-at-npm"></a>JavaScriptový klient je hostovaný na npm
 
-V předchozích verzích byl klient jazyka JavaScript získaný prostřednictvím balíčku NuGet v aplikaci Visual Studio. Pro základní verze obsahuje balíček [@aspnet/signalr](https://www.npmjs.com/package/@aspnet/signalr) npm knihovny JavaScriptu. Tento balíček není zahrnutý v šabloně **webové aplikace ASP.NET Core** . K získání a instalaci balíčku `@aspnet/signalr` npm použijte npm.
+::: moniker range=">= aspnetcore-3.0"
+
+Ve verzích ASP.NET byl klient jazyka JavaScript získaný prostřednictvím balíčku NuGet v aplikaci Visual Studio. V ASP.NET Core verzích obsahuje balíček [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) npm knihovny JavaScriptu. Tento balíček není zahrnutý v šabloně **webové aplikace ASP.NET Core** . K získání a instalaci balíčku `@microsoft/signalr` npm použijte npm.
+
+```console
+npm init -y
+npm install @microsoft/signalr
+```
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
+Ve verzích ASP.NET byl klient jazyka JavaScript získaný prostřednictvím balíčku NuGet v aplikaci Visual Studio. V ASP.NET Core verzích obsahuje balíček [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) npm knihovny JavaScriptu. Tento balíček není zahrnutý v šabloně **webové aplikace ASP.NET Core** . K získání a instalaci balíčku `@aspnet/signalr` npm použijte npm.
 
 ```console
 npm init -y
 npm install @aspnet/signalr
 ```
+
+::: moniker-end
 
 ### <a name="jquery"></a>jQuery
 
@@ -136,7 +197,23 @@ ASP.NET Core SignalR vyžaduje Microsoft Internet Explorer 11 nebo novější (A
 
 ### <a name="javascript-client-method-syntax"></a>Syntaxe metody klienta jazyka JavaScript
 
-Syntaxe jazyka JavaScript se změnila z předchozí verze SignalR. Místo použití objektu `$connection` vytvořte připojení pomocí rozhraní [HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder) API.
+::: moniker range=">= aspnetcore-3.0"
+
+Syntaxe jazyka JavaScript se změnila z ASP.NET verze SignalR. Místo použití objektu `$connection` vytvořte připojení pomocí rozhraní [HubConnectionBuilder](/javascript/api/@aspnet/signalr/hubconnectionbuilder) API.
+
+```javascript
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("/hub")
+    .build();
+```
+
+Použijte metodu [on](/javascript/api/@microsoft/signalr/HubConnection#on) k určení klientských metod, které může centrum volat.
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
+Syntaxe jazyka JavaScript se změnila z ASP.NET verze SignalR. Místo použití objektu `$connection` vytvořte připojení pomocí rozhraní [HubConnectionBuilder](/javascript/api/@microsoft/signalr/hubconnectionbuilder) API.
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
@@ -146,29 +223,41 @@ const connection = new signalR.HubConnectionBuilder()
 
 Použijte metodu [on](/javascript/api/@aspnet/signalr/HubConnection#on) k určení klientských metod, které může centrum volat.
 
+::: moniker-end
+
 ```javascript
 connection.on("ReceiveMessage", (user, message) => {
     const msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    const encodedMsg = user + " says " + msg;
-    log(encodedMsg);
+    const encodedMsg = `${user} says ${msg}`;
+    console.log(encodedMsg);
 });
 ```
 
 Po vytvoření metody klienta spusťte připojení k rozbočovači. Řetězení metody [catch](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch) pro protokolování a zpracování chyb.
 
 ```javascript
-connection.start().catch(err => console.error(err.toString()));
+connection.start().catch(err => console.error(err));
 ```
 
 ### <a name="hub-proxies"></a>Proxy servery centra
 
-Proxy servery centra se už negenerují automaticky. Místo toho je název metody předán do [vyvolání](/javascript/api/%40aspnet/signalr/hubconnection#invoke) rozhraní API jako řetězec.
+::: moniker range=">= aspnetcore-3.0"
+
+Proxy servery centra se už negenerují automaticky. Místo toho je název metody předán do [vyvolání](/javascript/api/@microsoft/signalr/hubconnection#invoke) rozhraní API jako řetězec.
+
+::: moniker-end
+
+::: moniker range="<= aspnetcore-2.2"
+
+Proxy servery centra se už negenerují automaticky. Místo toho je název metody předán do [vyvolání](/javascript/api/@aspnet/signalr/hubconnection#invoke) rozhraní API jako řetězec.
+
+::: moniker-end
 
 ### <a name="net-and-other-clients"></a>.NET a další klienti
 
-Balíček NuGet `Microsoft.AspNetCore.SignalR.Client` obsahuje klientské knihovny .NET pro SignalRASP.NET Core.
+[Microsoft. AspNetCore.SignalR. ](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)Balíček NuGet klienta obsahuje klientské knihovny .NET pro SignalRASP.NET Core.
 
-Pomocí [HubConnectionBuilder](/dotnet/api/microsoft.aspnetcore.signalr.client.hubconnectionbuilder) můžete vytvořit a sestavit instanci připojení k rozbočovači.
+K vytvoření a vytvoření instance připojení k centru použijte <xref:Microsoft.AspNetCore.SignalR.Client.HubConnectionBuilder>.
 
 ```csharp
 connection = new HubConnectionBuilder()
