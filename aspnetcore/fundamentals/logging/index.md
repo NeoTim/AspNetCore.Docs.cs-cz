@@ -1,5 +1,5 @@
 ---
-title: Přihlášení v .NET Core a ASP.NET Core
+title: Protokolování v .NET Core a ASP.NET Core
 author: rick-anderson
 description: Naučte se používat protokolovací rozhraní poskytovanou balíčkem NuGet Microsoft. Extensions. Logging.
 monikerRange: '>= aspnetcore-2.1'
@@ -14,7 +14,7 @@ ms.contentlocale: cs-CZ
 ms.lasthandoff: 12/04/2019
 ms.locfileid: "74825494"
 ---
-# <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
+# <a name="logging-in-net-core-and-aspnet-core"></a>Protokolování v .NET Core a ASP.NET Core
 
 Tím, že [Dykstra](https://github.com/tdykstra) a [Steve Smith](https://ardalis.com/)
 
