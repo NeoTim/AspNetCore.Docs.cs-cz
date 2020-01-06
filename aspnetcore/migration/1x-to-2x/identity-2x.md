@@ -1,36 +1,36 @@
 ---
-title: Ověřování a identitu migrovat do ASP.NET Core 2.0
+title: Migrace ověřování a identity na ASP.NET Core 2,0
 author: scottaddie
-description: Tento článek popisuje nejběžnější postup pro migraci ASP.NET Core 1.x ověřování a identita pro ASP.NET Core 2.0.
+description: Tento článek popisuje nejběžnější kroky pro migraci ASP.NET Core 1. x ověřování a identity na ASP.NET Core 2,0.
 ms.author: scaddie
 ms.date: 06/21/2019
 uid: migration/1x-to-2x/identity-2x
-ms.openlocfilehash: c83356e12fa5ae581b369265b9d857b08445ed51
-ms.sourcegitcommit: 9f11685382eb1f4dd0fb694dea797adacedf9e20
+ms.openlocfilehash: f3817fa1808c331f7e167618e3bb00d68ad08571
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/21/2019
-ms.locfileid: "67313748"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355181"
 ---
-# <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a><span data-ttu-id="fd555-103">Ověřování a identitu migrovat do ASP.NET Core 2.0</span><span class="sxs-lookup"><span data-stu-id="fd555-103">Migrate authentication and Identity to ASP.NET Core 2.0</span></span>
+# <a name="migrate-authentication-and-identity-to-aspnet-core-20"></a><span data-ttu-id="369d5-103">Migrace ověřování a identity na ASP.NET Core 2,0</span><span class="sxs-lookup"><span data-stu-id="369d5-103">Migrate authentication and Identity to ASP.NET Core 2.0</span></span>
 
-<span data-ttu-id="fd555-104">Podle [Scott Addie](https://github.com/scottaddie) a [ani Haovi společnosti](https://github.com/HaoK)</span><span class="sxs-lookup"><span data-stu-id="fd555-104">By [Scott Addie](https://github.com/scottaddie) and [Hao Kung](https://github.com/HaoK)</span></span>
+<span data-ttu-id="369d5-104">[Scottem Addie](https://github.com/scottaddie) a [Hao Kung](https://github.com/HaoK)</span><span class="sxs-lookup"><span data-stu-id="369d5-104">By [Scott Addie](https://github.com/scottaddie) and [Hao Kung](https://github.com/HaoK)</span></span>
 
-<span data-ttu-id="fd555-105">ASP.NET Core 2.0 je nový model pro ověřování a [Identity](xref:security/authentication/identity) , který zjednodušuje konfiguraci služby.</span><span class="sxs-lookup"><span data-stu-id="fd555-105">ASP.NET Core 2.0 has a new model for authentication and [Identity](xref:security/authentication/identity) that simplifies configuration by using services.</span></span> <span data-ttu-id="fd555-106">Aplikace ASP.NET Core 1.x, které používají ověřování nebo Identity lze aktualizovat pomocí nového modelu, jak je uvedeno níže.</span><span class="sxs-lookup"><span data-stu-id="fd555-106">ASP.NET Core 1.x applications that use authentication or Identity can be updated to use the new model as outlined below.</span></span>
+<span data-ttu-id="369d5-105">ASP.NET Core 2,0 má nový model pro ověřování a [identitu](xref:security/authentication/identity) , který zjednodušuje konfiguraci pomocí služeb.</span><span class="sxs-lookup"><span data-stu-id="369d5-105">ASP.NET Core 2.0 has a new model for authentication and [Identity](xref:security/authentication/identity) that simplifies configuration by using services.</span></span> <span data-ttu-id="369d5-106">ASP.NET Core 1. x aplikace, které používají ověřování nebo identitu, můžete aktualizovat tak, aby používaly nový model, jak je uvedeno níže.</span><span class="sxs-lookup"><span data-stu-id="369d5-106">ASP.NET Core 1.x applications that use authentication or Identity can be updated to use the new model as outlined below.</span></span>
 
-## <a name="update-namespaces"></a><span data-ttu-id="fd555-107">Aktualizovat obory názvů</span><span class="sxs-lookup"><span data-stu-id="fd555-107">Update namespaces</span></span>
+## <a name="update-namespaces"></a><span data-ttu-id="369d5-107">Aktualizovat obory názvů</span><span class="sxs-lookup"><span data-stu-id="369d5-107">Update namespaces</span></span>
 
-<span data-ttu-id="fd555-108">V 1.x, třídy, například `IdentityRole` a `IdentityUser` nebyly nalezeny v `Microsoft.AspNetCore.Identity.EntityFrameworkCore` oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="fd555-108">In 1.x, classes such `IdentityRole` and `IdentityUser` were found in the `Microsoft.AspNetCore.Identity.EntityFrameworkCore` namespace.</span></span>
+<span data-ttu-id="369d5-108">V 1. x se v oboru názvů `Microsoft.AspNetCore.Identity.EntityFrameworkCore` našly třídy, jako jsou `IdentityRole` a `IdentityUser`.</span><span class="sxs-lookup"><span data-stu-id="369d5-108">In 1.x, classes such `IdentityRole` and `IdentityUser` were found in the `Microsoft.AspNetCore.Identity.EntityFrameworkCore` namespace.</span></span>
 
-<span data-ttu-id="fd555-109">Ve verzi 2.0 <xref:Microsoft.AspNetCore.Identity> obor názvů stal novým výchozím místem pro některé z těchto tříd.</span><span class="sxs-lookup"><span data-stu-id="fd555-109">In 2.0, the <xref:Microsoft.AspNetCore.Identity> namespace became the new home for several of such classes.</span></span> <span data-ttu-id="fd555-110">S kódem Identity výchozí ovlivněné třídy zahrnují `ApplicationUser` a `Startup`.</span><span class="sxs-lookup"><span data-stu-id="fd555-110">With the default Identity code, affected classes include `ApplicationUser` and `Startup`.</span></span> <span data-ttu-id="fd555-111">Upravit vaše `using` příkazy ovlivněné odkazy.</span><span class="sxs-lookup"><span data-stu-id="fd555-111">Adjust your `using` statements to resolve the affected references.</span></span>
+<span data-ttu-id="369d5-109">V 2,0 se obor názvů <xref:Microsoft.AspNetCore.Identity> stal novým domovem pro několik takových tříd.</span><span class="sxs-lookup"><span data-stu-id="369d5-109">In 2.0, the <xref:Microsoft.AspNetCore.Identity> namespace became the new home for several of such classes.</span></span> <span data-ttu-id="369d5-110">S výchozím kódem identity obsahují ovlivněné třídy `ApplicationUser` a `Startup`.</span><span class="sxs-lookup"><span data-stu-id="369d5-110">With the default Identity code, affected classes include `ApplicationUser` and `Startup`.</span></span> <span data-ttu-id="369d5-111">Chcete-li vyřešit ovlivněné odkazy, upravte příkazy `using`.</span><span class="sxs-lookup"><span data-stu-id="369d5-111">Adjust your `using` statements to resolve the affected references.</span></span>
 
 <a name="auth-middleware"></a>
 
-## <a name="authentication-middleware-and-services"></a><span data-ttu-id="fd555-112">Ověřovací Middleware a služby</span><span class="sxs-lookup"><span data-stu-id="fd555-112">Authentication Middleware and services</span></span>
+## <a name="authentication-middleware-and-services"></a><span data-ttu-id="369d5-112">Middleware a služby ověřování</span><span class="sxs-lookup"><span data-stu-id="369d5-112">Authentication Middleware and services</span></span>
 
-<span data-ttu-id="fd555-113">V projektech 1.x je nakonfigurované ověřování prostřednictvím middlewaru.</span><span class="sxs-lookup"><span data-stu-id="fd555-113">In 1.x projects, authentication is configured via middleware.</span></span> <span data-ttu-id="fd555-114">Middleware metoda je volána pro každé schéma ověřování, které chcete podporovat.</span><span class="sxs-lookup"><span data-stu-id="fd555-114">A middleware method is invoked for each authentication scheme you want to support.</span></span>
+<span data-ttu-id="369d5-113">V projektech 1. x se ověřování konfiguruje prostřednictvím middlewaru.</span><span class="sxs-lookup"><span data-stu-id="369d5-113">In 1.x projects, authentication is configured via middleware.</span></span> <span data-ttu-id="369d5-114">Metoda middleware je vyvolána pro každé schéma ověřování, které chcete podporovat.</span><span class="sxs-lookup"><span data-stu-id="369d5-114">A middleware method is invoked for each authentication scheme you want to support.</span></span>
 
-<span data-ttu-id="fd555-115">V následujícím příkladu 1.x konfiguruje s identitou v ověřování přes síť Facebook *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-115">The following 1.x example configures Facebook authentication with Identity in *Startup.cs*:</span></span>
+<span data-ttu-id="369d5-115">Následující příklad 1. x konfiguruje ověřování na Facebooku pomocí identity v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="369d5-115">The following 1.x example configures Facebook authentication with Identity in *Startup.cs*:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -49,9 +49,9 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory)
 }
 ```
 
-<span data-ttu-id="fd555-116">V projektech, 2.0 je nakonfigurované ověřování prostřednictvím služby.</span><span class="sxs-lookup"><span data-stu-id="fd555-116">In 2.0 projects, authentication is configured via services.</span></span> <span data-ttu-id="fd555-117">Každé schéma ověřování je registrován v `ConfigureServices` metoda *Startup.cs*.</span><span class="sxs-lookup"><span data-stu-id="fd555-117">Each authentication scheme is registered in the `ConfigureServices` method of *Startup.cs*.</span></span> <span data-ttu-id="fd555-118">`UseIdentity` Metoda je nahrazen `UseAuthentication`.</span><span class="sxs-lookup"><span data-stu-id="fd555-118">The `UseIdentity` method is replaced with `UseAuthentication`.</span></span>
+<span data-ttu-id="369d5-116">V projektech 2,0 se ověřování konfiguruje přes služby.</span><span class="sxs-lookup"><span data-stu-id="369d5-116">In 2.0 projects, authentication is configured via services.</span></span> <span data-ttu-id="369d5-117">Každé schéma ověřování je registrováno v metodě `ConfigureServices` *Startup.cs*.</span><span class="sxs-lookup"><span data-stu-id="369d5-117">Each authentication scheme is registered in the `ConfigureServices` method of *Startup.cs*.</span></span> <span data-ttu-id="369d5-118">Metoda `UseIdentity` je nahrazena `UseAuthentication`.</span><span class="sxs-lookup"><span data-stu-id="369d5-118">The `UseIdentity` method is replaced with `UseAuthentication`.</span></span>
 
-<span data-ttu-id="fd555-119">V následujícím příkladu 2.0 konfiguruje s identitou v ověřování přes síť Facebook *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-119">The following 2.0 example configures Facebook authentication with Identity in *Startup.cs*:</span></span>
+<span data-ttu-id="369d5-119">Následující příklad 2,0 konfiguruje ověřování na Facebooku pomocí identity v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="369d5-119">The following 2.0 example configures Facebook authentication with Identity in *Startup.cs*:</span></span>
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -74,23 +74,23 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
 }
 ```
 
-<span data-ttu-id="fd555-120">`UseAuthentication` Metoda přidá komponenta jednoho ověřovacího middlewaru, který je zodpovědný za automatickou ověření a zpracování žádostí o vzdálené ověření.</span><span class="sxs-lookup"><span data-stu-id="fd555-120">The `UseAuthentication` method adds a single authentication middleware component, which is responsible for automatic authentication and the handling of remote authentication requests.</span></span> <span data-ttu-id="fd555-121">Nahradí všechny komponenty middlewaru jednotlivých součástí jedné, běžné middlewaru.</span><span class="sxs-lookup"><span data-stu-id="fd555-121">It replaces all of the individual middleware components with a single, common middleware component.</span></span>
+<span data-ttu-id="369d5-120">Metoda `UseAuthentication` přidá jednu komponentu middleware pro ověřování, která zodpovídá za automatické ověřování a zpracování žádostí o vzdálené ověření.</span><span class="sxs-lookup"><span data-stu-id="369d5-120">The `UseAuthentication` method adds a single authentication middleware component, which is responsible for automatic authentication and the handling of remote authentication requests.</span></span> <span data-ttu-id="369d5-121">Nahrazuje všechny jednotlivé komponenty middlewaru jedinou běžnou komponentou middlewaru.</span><span class="sxs-lookup"><span data-stu-id="369d5-121">It replaces all of the individual middleware components with a single, common middleware component.</span></span>
 
-<span data-ttu-id="fd555-122">Níže jsou uvedeny pokyny k migraci 2.0 pro každé schéma hlavní ověřování.</span><span class="sxs-lookup"><span data-stu-id="fd555-122">Below are 2.0 migration instructions for each major authentication scheme.</span></span>
+<span data-ttu-id="369d5-122">Níže jsou uvedené 2,0 pokyny k migraci pro každé hlavní schéma ověřování.</span><span class="sxs-lookup"><span data-stu-id="369d5-122">Below are 2.0 migration instructions for each major authentication scheme.</span></span>
 
-### <a name="cookie-based-authentication"></a><span data-ttu-id="fd555-123">Ověřování na základě souborů cookie</span><span class="sxs-lookup"><span data-stu-id="fd555-123">Cookie-based authentication</span></span>
+### <a name="cookie-based-authentication"></a><span data-ttu-id="369d5-123">Ověřování na základě souborů cookie</span><span class="sxs-lookup"><span data-stu-id="369d5-123">Cookie-based authentication</span></span>
 
-<span data-ttu-id="fd555-124">Vyberte jednu z následujících dvou možností a proveďte potřebné změny v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-124">Select one of the two options below, and make the necessary changes in *Startup.cs*:</span></span>
+<span data-ttu-id="369d5-124">Vyberte jednu z následujících dvou možností a proveďte potřebné změny v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="369d5-124">Select one of the two options below, and make the necessary changes in *Startup.cs*:</span></span>
 
-1. <span data-ttu-id="fd555-125">Použít soubory cookie s využitím Identity</span><span class="sxs-lookup"><span data-stu-id="fd555-125">Use cookies with Identity</span></span>
-    - <span data-ttu-id="fd555-126">Nahraďte `UseIdentity` s `UseAuthentication` v `Configure` metody:</span><span class="sxs-lookup"><span data-stu-id="fd555-126">Replace `UseIdentity` with `UseAuthentication` in the `Configure` method:</span></span>
+1. <span data-ttu-id="369d5-125">Použít soubory cookie s identitou</span><span class="sxs-lookup"><span data-stu-id="369d5-125">Use cookies with Identity</span></span>
+    - <span data-ttu-id="369d5-126">V `Configure` metodě nahraďte `UseIdentity` `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-126">Replace `UseIdentity` with `UseAuthentication` in the `Configure` method:</span></span>
 
         ```csharp
         app.UseAuthentication();
         ```
 
-    - <span data-ttu-id="fd555-127">Vyvolat `AddIdentity` metodu `ConfigureServices` metoda pro přidání služby ověřování souborů cookie.</span><span class="sxs-lookup"><span data-stu-id="fd555-127">Invoke the `AddIdentity` method in the `ConfigureServices` method to add the cookie authentication services.</span></span>
-    - <span data-ttu-id="fd555-128">Volitelně můžete vyvolat `ConfigureApplicationCookie` nebo `ConfigureExternalCookie` metodu `ConfigureServices` metoda upravit nastavení souborů cookie Identity.</span><span class="sxs-lookup"><span data-stu-id="fd555-128">Optionally, invoke the `ConfigureApplicationCookie` or `ConfigureExternalCookie` method in the `ConfigureServices` method to tweak the Identity cookie settings.</span></span>
+    - <span data-ttu-id="369d5-127">Chcete-li přidat ověřovací služby souborů cookie, volejte metodu `AddIdentity` v metodě `ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="369d5-127">Invoke the `AddIdentity` method in the `ConfigureServices` method to add the cookie authentication services.</span></span>
+    - <span data-ttu-id="369d5-128">Volitelně můžete vyvolat metodu `ConfigureApplicationCookie` nebo `ConfigureExternalCookie` v metodě `ConfigureServices` pro vylepšení nastavení souborů cookie identity.</span><span class="sxs-lookup"><span data-stu-id="369d5-128">Optionally, invoke the `ConfigureApplicationCookie` or `ConfigureExternalCookie` method in the `ConfigureServices` method to tweak the Identity cookie settings.</span></span>
 
         ```csharp
         services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -100,14 +100,14 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
         services.ConfigureApplicationCookie(options => options.LoginPath = "/Account/LogIn");
         ```
 
-2. <span data-ttu-id="fd555-129">Použít soubory cookie bez systému Identity</span><span class="sxs-lookup"><span data-stu-id="fd555-129">Use cookies without Identity</span></span>
-    - <span data-ttu-id="fd555-130">Nahradit `UseCookieAuthentication` volání metody `Configure` metodu s `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="fd555-130">Replace the `UseCookieAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+2. <span data-ttu-id="369d5-129">Použít soubory cookie bez identity</span><span class="sxs-lookup"><span data-stu-id="369d5-129">Use cookies without Identity</span></span>
+    - <span data-ttu-id="369d5-130">Nahraďte volání metody `UseCookieAuthentication` v metodě `Configure` `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-130">Replace the `UseCookieAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
         ```csharp
         app.UseAuthentication();
         ```
 
-    - <span data-ttu-id="fd555-131">Vyvolat `AddAuthentication` a `AddCookie` metody v `ConfigureServices` metody:</span><span class="sxs-lookup"><span data-stu-id="fd555-131">Invoke the `AddAuthentication` and `AddCookie` methods in the `ConfigureServices` method:</span></span>
+    - <span data-ttu-id="369d5-131">V metodě `ConfigureServices` volejte metody `AddAuthentication` a `AddCookie`:</span><span class="sxs-lookup"><span data-stu-id="369d5-131">Invoke the `AddAuthentication` and `AddCookie` methods in the `ConfigureServices` method:</span></span>
 
         ```csharp
         // If you don't want the cookie to be automatically authenticated and assigned to HttpContext.User,
@@ -120,16 +120,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
                 });
         ```
 
-### <a name="jwt-bearer-authentication"></a><span data-ttu-id="fd555-132">Ověřování nosného tokenu JWT</span><span class="sxs-lookup"><span data-stu-id="fd555-132">JWT Bearer Authentication</span></span>
+### <a name="jwt-bearer-authentication"></a><span data-ttu-id="369d5-132">Ověření nosiče JWT</span><span class="sxs-lookup"><span data-stu-id="369d5-132">JWT Bearer Authentication</span></span>
 
-<span data-ttu-id="fd555-133">Proveďte následující změny v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-133">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="fd555-134">Nahradit `UseJwtBearerAuthentication` volání metody `Configure` metodu s `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="fd555-134">Replace the `UseJwtBearerAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="369d5-133">V *Startup.cs*proveďte následující změny:</span><span class="sxs-lookup"><span data-stu-id="369d5-133">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="369d5-134">Nahraďte volání metody `UseJwtBearerAuthentication` v metodě `Configure` `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-134">Replace the `UseJwtBearerAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="fd555-135">Vyvolat `AddJwtBearer` metoda ve `ConfigureServices` metody:</span><span class="sxs-lookup"><span data-stu-id="fd555-135">Invoke the `AddJwtBearer` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="369d5-135">V metodě `ConfigureServices` volejte metodu `AddJwtBearer`:</span><span class="sxs-lookup"><span data-stu-id="369d5-135">Invoke the `AddJwtBearer` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -140,19 +140,19 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-    <span data-ttu-id="fd555-136">Tento fragment kódu nepoužívá identitu, abyste výchozí schéma by měl nastavit předáním `JwtBearerDefaults.AuthenticationScheme` k `AddAuthentication` metody.</span><span class="sxs-lookup"><span data-stu-id="fd555-136">This code snippet doesn't use Identity, so the default scheme should be set by passing `JwtBearerDefaults.AuthenticationScheme` to the `AddAuthentication` method.</span></span>
+    <span data-ttu-id="369d5-136">Tento fragment kódu nepoužívá identitu, proto by mělo být výchozí schéma nastaveno předáním `JwtBearerDefaults.AuthenticationScheme` k metodě `AddAuthentication`.</span><span class="sxs-lookup"><span data-stu-id="369d5-136">This code snippet doesn't use Identity, so the default scheme should be set by passing `JwtBearerDefaults.AuthenticationScheme` to the `AddAuthentication` method.</span></span>
 
-### <a name="openid-connect-oidc-authentication"></a><span data-ttu-id="fd555-137">Ověřování OpenID Connect (OIDC)</span><span class="sxs-lookup"><span data-stu-id="fd555-137">OpenID Connect (OIDC) authentication</span></span>
+### <a name="openid-connect-oidc-authentication"></a><span data-ttu-id="369d5-137">Ověřování OpenID Connect (OIDC)</span><span class="sxs-lookup"><span data-stu-id="369d5-137">OpenID Connect (OIDC) authentication</span></span>
 
-<span data-ttu-id="fd555-138">Proveďte následující změny v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-138">Make the following changes in *Startup.cs*:</span></span>
+<span data-ttu-id="369d5-138">V *Startup.cs*proveďte následující změny:</span><span class="sxs-lookup"><span data-stu-id="369d5-138">Make the following changes in *Startup.cs*:</span></span>
 
-- <span data-ttu-id="fd555-139">Nahradit `UseOpenIdConnectAuthentication` volání metody `Configure` metodu s `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="fd555-139">Replace the `UseOpenIdConnectAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+- <span data-ttu-id="369d5-139">Nahraďte volání metody `UseOpenIdConnectAuthentication` v metodě `Configure` `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-139">Replace the `UseOpenIdConnectAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="fd555-140">Vyvolat `AddOpenIdConnect` metoda ve `ConfigureServices` metody:</span><span class="sxs-lookup"><span data-stu-id="fd555-140">Invoke the `AddOpenIdConnect` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="369d5-140">V metodě `ConfigureServices` volejte metodu `AddOpenIdConnect`:</span><span class="sxs-lookup"><span data-stu-id="369d5-140">Invoke the `AddOpenIdConnect` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication(options =>
@@ -168,7 +168,7 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
     });
     ```
 
-- <span data-ttu-id="fd555-141">Nahradit `PostLogoutRedirectUri` vlastnost `OpenIdConnectOptions` akce s `SignedOutRedirectUri`:</span><span class="sxs-lookup"><span data-stu-id="fd555-141">Replace the `PostLogoutRedirectUri` property in the `OpenIdConnectOptions` action with `SignedOutRedirectUri`:</span></span>
+- <span data-ttu-id="369d5-141">Nahraďte vlastnost `PostLogoutRedirectUri` v akci `OpenIdConnectOptions` `SignedOutRedirectUri`:</span><span class="sxs-lookup"><span data-stu-id="369d5-141">Replace the `PostLogoutRedirectUri` property in the `OpenIdConnectOptions` action with `SignedOutRedirectUri`:</span></span>
 
     ```csharp
     .AddOpenIdConnect(options =>
@@ -177,16 +177,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
     });
     ```
     
-### <a name="facebook-authentication"></a><span data-ttu-id="fd555-142">Ověřování Facebooku</span><span class="sxs-lookup"><span data-stu-id="fd555-142">Facebook authentication</span></span>
+### <a name="facebook-authentication"></a><span data-ttu-id="369d5-142">Ověřování Facebooku</span><span class="sxs-lookup"><span data-stu-id="369d5-142">Facebook authentication</span></span>
 
-<span data-ttu-id="fd555-143">Proveďte následující změny v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-143">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="fd555-144">Nahradit `UseFacebookAuthentication` volání metody `Configure` metodu s `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="fd555-144">Replace the `UseFacebookAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="369d5-143">V *Startup.cs*proveďte následující změny:</span><span class="sxs-lookup"><span data-stu-id="369d5-143">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="369d5-144">Nahraďte volání metody `UseFacebookAuthentication` v metodě `Configure` `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-144">Replace the `UseFacebookAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="fd555-145">Vyvolat `AddFacebook` metoda ve `ConfigureServices` metody:</span><span class="sxs-lookup"><span data-stu-id="fd555-145">Invoke the `AddFacebook` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="369d5-145">V metodě `ConfigureServices` volejte metodu `AddFacebook`:</span><span class="sxs-lookup"><span data-stu-id="369d5-145">Invoke the `AddFacebook` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication()
@@ -197,16 +197,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="google-authentication"></a><span data-ttu-id="fd555-146">Ověřování Googlu</span><span class="sxs-lookup"><span data-stu-id="fd555-146">Google authentication</span></span>
+### <a name="google-authentication"></a><span data-ttu-id="369d5-146">Ověřování Googlu</span><span class="sxs-lookup"><span data-stu-id="369d5-146">Google authentication</span></span>
 
-<span data-ttu-id="fd555-147">Proveďte následující změny v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-147">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="fd555-148">Nahradit `UseGoogleAuthentication` volání metody `Configure` metodu s `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="fd555-148">Replace the `UseGoogleAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="369d5-147">V *Startup.cs*proveďte následující změny:</span><span class="sxs-lookup"><span data-stu-id="369d5-147">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="369d5-148">Nahraďte volání metody `UseGoogleAuthentication` v metodě `Configure` `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-148">Replace the `UseGoogleAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="fd555-149">Vyvolat `AddGoogle` metoda ve `ConfigureServices` metody:</span><span class="sxs-lookup"><span data-stu-id="fd555-149">Invoke the `AddGoogle` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="369d5-149">V metodě `ConfigureServices` volejte metodu `AddGoogle`:</span><span class="sxs-lookup"><span data-stu-id="369d5-149">Invoke the `AddGoogle` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication()
@@ -217,16 +217,18 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="microsoft-account-authentication"></a><span data-ttu-id="fd555-150">Ověřování pomocí Account Microsoft</span><span class="sxs-lookup"><span data-stu-id="fd555-150">Microsoft Account authentication</span></span>
+### <a name="microsoft-account-authentication"></a><span data-ttu-id="369d5-150">Ověřování účtu Microsoft</span><span class="sxs-lookup"><span data-stu-id="369d5-150">Microsoft Account authentication</span></span>
 
-<span data-ttu-id="fd555-151">Proveďte následující změny v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-151">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="fd555-152">Nahradit `UseMicrosoftAccountAuthentication` volání metody `Configure` metodu s `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="fd555-152">Replace the `UseMicrosoftAccountAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="369d5-151">Další informace o ověřování účet Microsoft najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/14455).</span><span class="sxs-lookup"><span data-stu-id="369d5-151">For more information on Microsoft account authentication, see [this GitHub issue](https://github.com/aspnet/AspNetCore.Docs/issues/14455).</span></span>
+
+<span data-ttu-id="369d5-152">V *Startup.cs*proveďte následující změny:</span><span class="sxs-lookup"><span data-stu-id="369d5-152">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="369d5-153">Nahraďte volání metody `UseMicrosoftAccountAuthentication` v metodě `Configure` `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-153">Replace the `UseMicrosoftAccountAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="fd555-153">Vyvolat `AddMicrosoftAccount` metoda ve `ConfigureServices` metody:</span><span class="sxs-lookup"><span data-stu-id="fd555-153">Invoke the `AddMicrosoftAccount` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="369d5-154">V metodě `ConfigureServices` volejte metodu `AddMicrosoftAccount`:</span><span class="sxs-lookup"><span data-stu-id="369d5-154">Invoke the `AddMicrosoftAccount` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication()
@@ -237,16 +239,16 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="twitter-authentication"></a><span data-ttu-id="fd555-154">Ověřování Twitteru</span><span class="sxs-lookup"><span data-stu-id="fd555-154">Twitter authentication</span></span>
+### <a name="twitter-authentication"></a><span data-ttu-id="369d5-155">Ověřování Twitteru</span><span class="sxs-lookup"><span data-stu-id="369d5-155">Twitter authentication</span></span>
 
-<span data-ttu-id="fd555-155">Proveďte následující změny v *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-155">Make the following changes in *Startup.cs*:</span></span>
-- <span data-ttu-id="fd555-156">Nahradit `UseTwitterAuthentication` volání metody `Configure` metodu s `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="fd555-156">Replace the `UseTwitterAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
+<span data-ttu-id="369d5-156">V *Startup.cs*proveďte následující změny:</span><span class="sxs-lookup"><span data-stu-id="369d5-156">Make the following changes in *Startup.cs*:</span></span>
+- <span data-ttu-id="369d5-157">Nahraďte volání metody `UseTwitterAuthentication` v metodě `Configure` `UseAuthentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-157">Replace the `UseTwitterAuthentication` method call in the `Configure` method with `UseAuthentication`:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-- <span data-ttu-id="fd555-157">Vyvolat `AddTwitter` metoda ve `ConfigureServices` metody:</span><span class="sxs-lookup"><span data-stu-id="fd555-157">Invoke the `AddTwitter` method in the `ConfigureServices` method:</span></span>
+- <span data-ttu-id="369d5-158">V metodě `ConfigureServices` volejte metodu `AddTwitter`:</span><span class="sxs-lookup"><span data-stu-id="369d5-158">Invoke the `AddTwitter` method in the `ConfigureServices` method:</span></span>
 
     ```csharp
     services.AddAuthentication()
@@ -257,19 +259,19 @@ public void Configure(IApplicationBuilder app, ILoggerFactory loggerfactory) {
             });
     ```
 
-### <a name="setting-default-authentication-schemes"></a><span data-ttu-id="fd555-158">Nastavení výchozích schémat ověřování</span><span class="sxs-lookup"><span data-stu-id="fd555-158">Setting default authentication schemes</span></span>
+### <a name="setting-default-authentication-schemes"></a><span data-ttu-id="369d5-159">Nastavení výchozích schémat ověřování</span><span class="sxs-lookup"><span data-stu-id="369d5-159">Setting default authentication schemes</span></span>
 
-<span data-ttu-id="fd555-159">V 1.x `AutomaticAuthenticate` a `AutomaticChallenge` vlastnosti [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1) základní třídy byly v úmyslu nastavit na jedno schéma ověřování.</span><span class="sxs-lookup"><span data-stu-id="fd555-159">In 1.x, the `AutomaticAuthenticate` and `AutomaticChallenge` properties of the [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1) base class were intended to be set on a single authentication scheme.</span></span> <span data-ttu-id="fd555-160">Neexistoval dobrý způsob, jak to chcete vynutit.</span><span class="sxs-lookup"><span data-stu-id="fd555-160">There was no good way to enforce this.</span></span>
+<span data-ttu-id="369d5-160">V 1. x byly vlastnosti `AutomaticAuthenticate` a `AutomaticChallenge` základní třídy [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1) určeny k nastavení v jednom schématu ověřování.</span><span class="sxs-lookup"><span data-stu-id="369d5-160">In 1.x, the `AutomaticAuthenticate` and `AutomaticChallenge` properties of the [AuthenticationOptions](/dotnet/api/Microsoft.AspNetCore.Builder.AuthenticationOptions?view=aspnetcore-1.1) base class were intended to be set on a single authentication scheme.</span></span> <span data-ttu-id="369d5-161">Tento způsob vykonání není dobrý.</span><span class="sxs-lookup"><span data-stu-id="369d5-161">There was no good way to enforce this.</span></span>
 
-<span data-ttu-id="fd555-161">Ve verzi 2.0, se odebraly tyto dvě vlastnosti jako vlastnosti na jednotlivých `AuthenticationOptions` instance.</span><span class="sxs-lookup"><span data-stu-id="fd555-161">In 2.0, these two properties have been removed as properties on the individual `AuthenticationOptions` instance.</span></span> <span data-ttu-id="fd555-162">Se dají konfigurovat v `AddAuthentication` volání metody v rámci `ConfigureServices` metoda *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-162">They can be configured in the `AddAuthentication` method call within the `ConfigureServices` method of *Startup.cs*:</span></span>
+<span data-ttu-id="369d5-162">V 2,0 byly tyto dvě vlastnosti odebrány jako vlastnosti u jednotlivých instancí `AuthenticationOptions`.</span><span class="sxs-lookup"><span data-stu-id="369d5-162">In 2.0, these two properties have been removed as properties on the individual `AuthenticationOptions` instance.</span></span> <span data-ttu-id="369d5-163">Lze je nakonfigurovat ve volání metody `AddAuthentication` v rámci metody `ConfigureServices` *Startup.cs*:</span><span class="sxs-lookup"><span data-stu-id="369d5-163">They can be configured in the `AddAuthentication` method call within the `ConfigureServices` method of *Startup.cs*:</span></span>
 
 ```csharp
 services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
 ```
 
-<span data-ttu-id="fd555-163">V předchozím fragmentu kódu, výchozí schéma je nastavený na `CookieAuthenticationDefaults.AuthenticationScheme` (soubory cookie.").</span><span class="sxs-lookup"><span data-stu-id="fd555-163">In the preceding code snippet, the default scheme is set to `CookieAuthenticationDefaults.AuthenticationScheme` ("Cookies").</span></span>
+<span data-ttu-id="369d5-164">V předchozím fragmentu kódu je výchozí schéma nastaveno na `CookieAuthenticationDefaults.AuthenticationScheme` ("cookies").</span><span class="sxs-lookup"><span data-stu-id="369d5-164">In the preceding code snippet, the default scheme is set to `CookieAuthenticationDefaults.AuthenticationScheme` ("Cookies").</span></span>
 
-<span data-ttu-id="fd555-164">Alternativně použijte přetížené verze `AddAuthentication` metoda nastavit více než jednu vlastnost.</span><span class="sxs-lookup"><span data-stu-id="fd555-164">Alternatively, use an overloaded version of the `AddAuthentication` method to set more than one property.</span></span> <span data-ttu-id="fd555-165">V následujícím příkladu přetěžované metody, nebo výchozí schéma je nastaveno na `CookieAuthenticationDefaults.AuthenticationScheme`.</span><span class="sxs-lookup"><span data-stu-id="fd555-165">In the following overloaded method example, the default scheme is set to `CookieAuthenticationDefaults.AuthenticationScheme`.</span></span> <span data-ttu-id="fd555-166">Případně lze zadat schéma ověřování v rámci svůj individuální `[Authorize]` atributy nebo zásad autorizace.</span><span class="sxs-lookup"><span data-stu-id="fd555-166">The authentication scheme may alternatively be specified within your individual `[Authorize]` attributes or authorization policies.</span></span>
+<span data-ttu-id="369d5-165">Případně můžete použít přetíženou verzi metody `AddAuthentication` k nastavení více než jedné vlastnosti.</span><span class="sxs-lookup"><span data-stu-id="369d5-165">Alternatively, use an overloaded version of the `AddAuthentication` method to set more than one property.</span></span> <span data-ttu-id="369d5-166">V následujícím příkladu přetížené metody je výchozí schéma nastaveno na `CookieAuthenticationDefaults.AuthenticationScheme`.</span><span class="sxs-lookup"><span data-stu-id="369d5-166">In the following overloaded method example, the default scheme is set to `CookieAuthenticationDefaults.AuthenticationScheme`.</span></span> <span data-ttu-id="369d5-167">Schéma ověřování může být případně zadáno v rámci svých individuálních atributů `[Authorize]` nebo zásad autorizace.</span><span class="sxs-lookup"><span data-stu-id="369d5-167">The authentication scheme may alternatively be specified within your individual `[Authorize]` attributes or authorization policies.</span></span>
 
 ```csharp
 services.AddAuthentication(options =>
@@ -279,36 +281,36 @@ services.AddAuthentication(options =>
 });
 ```
 
-<span data-ttu-id="fd555-167">Definujte výchozí schéma ve verzi 2.0, pokud platí jedna z následujících podmínek:</span><span class="sxs-lookup"><span data-stu-id="fd555-167">Define a default scheme in 2.0 if one of the following conditions is true:</span></span>
-- <span data-ttu-id="fd555-168">Chcete uživateli být automaticky přihlášeni</span><span class="sxs-lookup"><span data-stu-id="fd555-168">You want the user to be automatically signed in</span></span>
-- <span data-ttu-id="fd555-169">Můžete použít `[Authorize]` atribut nebo autorizační zásady bez zadání schémata</span><span class="sxs-lookup"><span data-stu-id="fd555-169">You use the `[Authorize]` attribute or authorization policies without specifying schemes</span></span>
+<span data-ttu-id="369d5-168">Definujte výchozí schéma v 2,0, pokud je splněna jedna z následujících podmínek:</span><span class="sxs-lookup"><span data-stu-id="369d5-168">Define a default scheme in 2.0 if one of the following conditions is true:</span></span>
+- <span data-ttu-id="369d5-169">Chcete, aby byl uživatel automaticky přihlášen</span><span class="sxs-lookup"><span data-stu-id="369d5-169">You want the user to be automatically signed in</span></span>
+- <span data-ttu-id="369d5-170">Použijete atribut `[Authorize]` nebo zásady autorizace bez zadání schémat.</span><span class="sxs-lookup"><span data-stu-id="369d5-170">You use the `[Authorize]` attribute or authorization policies without specifying schemes</span></span>
 
-<span data-ttu-id="fd555-170">Výjimkou z tohoto pravidla je `AddIdentity` metody.</span><span class="sxs-lookup"><span data-stu-id="fd555-170">An exception to this rule is the `AddIdentity` method.</span></span> <span data-ttu-id="fd555-171">Tato metoda přidá soubory cookie pro vás a nastaví výchozí nastavení ověřování a ověřovací schémata pro soubor cookie aplikace `IdentityConstants.ApplicationScheme`.</span><span class="sxs-lookup"><span data-stu-id="fd555-171">This method adds cookies for you and sets the default authenticate and challenge schemes to the application cookie `IdentityConstants.ApplicationScheme`.</span></span> <span data-ttu-id="fd555-172">Kromě toho nastaví výchozí přihlášení schéma na externí soubor cookie `IdentityConstants.ExternalScheme`.</span><span class="sxs-lookup"><span data-stu-id="fd555-172">Additionally, it sets the default sign-in scheme to the external cookie `IdentityConstants.ExternalScheme`.</span></span>
+<span data-ttu-id="369d5-171">Výjimkou z tohoto pravidla je metoda `AddIdentity`.</span><span class="sxs-lookup"><span data-stu-id="369d5-171">An exception to this rule is the `AddIdentity` method.</span></span> <span data-ttu-id="369d5-172">Tato metoda přidá soubory cookie a nastaví výchozí ověřování a schémata pro ověřování souborů cookie aplikace `IdentityConstants.ApplicationScheme`.</span><span class="sxs-lookup"><span data-stu-id="369d5-172">This method adds cookies for you and sets the default authenticate and challenge schemes to the application cookie `IdentityConstants.ApplicationScheme`.</span></span> <span data-ttu-id="369d5-173">Kromě toho nastaví výchozí schéma přihlášení na externí soubor cookie `IdentityConstants.ExternalScheme`.</span><span class="sxs-lookup"><span data-stu-id="369d5-173">Additionally, it sets the default sign-in scheme to the external cookie `IdentityConstants.ExternalScheme`.</span></span>
 
 <a name="obsolete-interface"></a>
 
-## <a name="use-httpcontext-authentication-extensions"></a><span data-ttu-id="fd555-173">Použití rozšíření ověřování HttpContext</span><span class="sxs-lookup"><span data-stu-id="fd555-173">Use HttpContext authentication extensions</span></span>
+## <a name="use-httpcontext-authentication-extensions"></a><span data-ttu-id="369d5-174">Použití ověřovacích rozšíření HttpContext</span><span class="sxs-lookup"><span data-stu-id="369d5-174">Use HttpContext authentication extensions</span></span>
 
-<span data-ttu-id="fd555-174">`IAuthenticationManager` Rozhraní je hlavní vstupní bod do 1.x ověřovacího systému.</span><span class="sxs-lookup"><span data-stu-id="fd555-174">The `IAuthenticationManager` interface is the main entry point into the 1.x authentication system.</span></span> <span data-ttu-id="fd555-175">Nahradili jsme ho s novou sadu `HttpContext` rozšiřující metody v `Microsoft.AspNetCore.Authentication` oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="fd555-175">It has been replaced with a new set of `HttpContext` extension methods in the `Microsoft.AspNetCore.Authentication` namespace.</span></span>
+<span data-ttu-id="369d5-175">Rozhraní `IAuthenticationManager` je hlavní vstupní bod do systému ověřování 1. x.</span><span class="sxs-lookup"><span data-stu-id="369d5-175">The `IAuthenticationManager` interface is the main entry point into the 1.x authentication system.</span></span> <span data-ttu-id="369d5-176">Byl nahrazen novou sadou `HttpContext` rozšiřujících metod v oboru názvů `Microsoft.AspNetCore.Authentication`.</span><span class="sxs-lookup"><span data-stu-id="369d5-176">It has been replaced with a new set of `HttpContext` extension methods in the `Microsoft.AspNetCore.Authentication` namespace.</span></span>
 
-<span data-ttu-id="fd555-176">Například 1.x projekty referenční dokumentace `Authentication` vlastnost:</span><span class="sxs-lookup"><span data-stu-id="fd555-176">For example, 1.x projects reference an `Authentication` property:</span></span>
+<span data-ttu-id="369d5-177">Například projekty 1. x odkazují na vlastnost `Authentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-177">For example, 1.x projects reference an `Authentication` property:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-<span data-ttu-id="fd555-177">V projektech, 2.0, import `Microsoft.AspNetCore.Authentication` obor názvů a odstranit `Authentication` odkazy na vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="fd555-177">In 2.0 projects, import the `Microsoft.AspNetCore.Authentication` namespace, and delete the `Authentication` property references:</span></span>
+<span data-ttu-id="369d5-178">V 2,0 projektech importujte `Microsoft.AspNetCore.Authentication` obor názvů a odstraňte odkazy na vlastnost `Authentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-178">In 2.0 projects, import the `Microsoft.AspNetCore.Authentication` namespace, and delete the `Authentication` property references:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
 <a name="windows-auth-changes"></a>
 
-## <a name="windows-authentication-httpsys--iisintegration"></a><span data-ttu-id="fd555-178">Windows Authentication (HTTP.sys / IISIntegration)</span><span class="sxs-lookup"><span data-stu-id="fd555-178">Windows Authentication (HTTP.sys / IISIntegration)</span></span>
+## <a name="windows-authentication-httpsys--iisintegration"></a><span data-ttu-id="369d5-179">Ověřování systému Windows (HTTP. sys/IISIntegration)</span><span class="sxs-lookup"><span data-stu-id="369d5-179">Windows Authentication (HTTP.sys / IISIntegration)</span></span>
 
-<span data-ttu-id="fd555-179">Existují dvě varianty ověřování Windows:</span><span class="sxs-lookup"><span data-stu-id="fd555-179">There are two variations of Windows authentication:</span></span>
+<span data-ttu-id="369d5-180">K dispozici jsou dvě varianty ověřování systému Windows:</span><span class="sxs-lookup"><span data-stu-id="369d5-180">There are two variations of Windows authentication:</span></span>
 
-* <span data-ttu-id="fd555-180">Hostitel umožňuje pouze ověřeným uživatelům.</span><span class="sxs-lookup"><span data-stu-id="fd555-180">The host only allows authenticated users.</span></span> <span data-ttu-id="fd555-181">Tato změna nemá vliv 2.0 změny.</span><span class="sxs-lookup"><span data-stu-id="fd555-181">This variation isn't affected by the 2.0 changes.</span></span>
-* <span data-ttu-id="fd555-182">Oba hostitele umožňuje anonymní a ověřených uživatelů.</span><span class="sxs-lookup"><span data-stu-id="fd555-182">The host allows both anonymous and authenticated users.</span></span> <span data-ttu-id="fd555-183">Tato varianta je ovlivněny změnami v 2.0.</span><span class="sxs-lookup"><span data-stu-id="fd555-183">This variation is affected by the 2.0 changes.</span></span> <span data-ttu-id="fd555-184">Například by aplikaci umožnit anonymní uživatelé na [IIS](xref:host-and-deploy/iis/index) nebo [HTTP.sys](xref:fundamentals/servers/httpsys) vrstvy, ale autorizovat uživatele na úrovni kontroleru.</span><span class="sxs-lookup"><span data-stu-id="fd555-184">For example, the app should allow anonymous users at the [IIS](xref:host-and-deploy/iis/index) or [HTTP.sys](xref:fundamentals/servers/httpsys) layer but authorize users at the controller level.</span></span> <span data-ttu-id="fd555-185">V tomto scénáři, nastavte výchozí schéma `Startup.ConfigureServices` metody.</span><span class="sxs-lookup"><span data-stu-id="fd555-185">In this scenario, set the default scheme in the `Startup.ConfigureServices` method.</span></span>
+* <span data-ttu-id="369d5-181">Hostitel povoluje pouze ověřené uživatele.</span><span class="sxs-lookup"><span data-stu-id="369d5-181">The host only allows authenticated users.</span></span> <span data-ttu-id="369d5-182">Tato variace není ovlivněna 2,0 změnami.</span><span class="sxs-lookup"><span data-stu-id="369d5-182">This variation isn't affected by the 2.0 changes.</span></span>
+* <span data-ttu-id="369d5-183">Hostitel umožňuje anonymní i ověřené uživatele.</span><span class="sxs-lookup"><span data-stu-id="369d5-183">The host allows both anonymous and authenticated users.</span></span> <span data-ttu-id="369d5-184">Tato variace má vliv na změny 2,0.</span><span class="sxs-lookup"><span data-stu-id="369d5-184">This variation is affected by the 2.0 changes.</span></span> <span data-ttu-id="369d5-185">Například aplikace by měla umožňovat anonymní uživatele na vrstvě [IIS](xref:host-and-deploy/iis/index) nebo [http. sys](xref:fundamentals/servers/httpsys) , ale autorizuje uživatele na úrovni řadiče.</span><span class="sxs-lookup"><span data-stu-id="369d5-185">For example, the app should allow anonymous users at the [IIS](xref:host-and-deploy/iis/index) or [HTTP.sys](xref:fundamentals/servers/httpsys) layer but authorize users at the controller level.</span></span> <span data-ttu-id="369d5-186">V tomto scénáři nastavte výchozí schéma v metodě `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="369d5-186">In this scenario, set the default scheme in the `Startup.ConfigureServices` method.</span></span>
 
-  <span data-ttu-id="fd555-186">Pro [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/), nastavte výchozí schéma na `IISDefaults.AuthenticationScheme`:</span><span class="sxs-lookup"><span data-stu-id="fd555-186">For [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/), set the default scheme to `IISDefaults.AuthenticationScheme`:</span></span>
+  <span data-ttu-id="369d5-187">Pro [Microsoft. AspNetCore. Server. IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/)nastavte výchozí schéma na `IISDefaults.AuthenticationScheme`:</span><span class="sxs-lookup"><span data-stu-id="369d5-187">For [Microsoft.AspNetCore.Server.IISIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.IISIntegration/), set the default scheme to `IISDefaults.AuthenticationScheme`:</span></span>
 
   ```csharp
   using Microsoft.AspNetCore.Server.IISIntegration;
@@ -316,7 +318,7 @@ services.AddAuthentication(options =>
   services.AddAuthentication(IISDefaults.AuthenticationScheme);
   ```
 
-  <span data-ttu-id="fd555-187">Pro [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/), nastavte výchozí schéma na `HttpSysDefaults.AuthenticationScheme`:</span><span class="sxs-lookup"><span data-stu-id="fd555-187">For [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/), set the default scheme to `HttpSysDefaults.AuthenticationScheme`:</span></span>
+  <span data-ttu-id="369d5-188">Pro [Microsoft. AspNetCore. Server. HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/)nastavte výchozí schéma na `HttpSysDefaults.AuthenticationScheme`:</span><span class="sxs-lookup"><span data-stu-id="369d5-188">For [Microsoft.AspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/), set the default scheme to `HttpSysDefaults.AuthenticationScheme`:</span></span>
 
   ```csharp
   using Microsoft.AspNetCore.Server.HttpSys;
@@ -324,43 +326,43 @@ services.AddAuthentication(options =>
   services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
   ```
 
-  <span data-ttu-id="fd555-188">Nepodařilo se nastavit výchozí schéma požadavku authorize (výzva) zabrání práce s následující výjimkou:</span><span class="sxs-lookup"><span data-stu-id="fd555-188">Failure to set the default scheme prevents the authorize (challenge) request from working with the following exception:</span></span>
+  <span data-ttu-id="369d5-189">Nepovedlo se nastavit výchozí schéma, aby žádost o ověření (Challenge) nefungovala s následující výjimkou:</span><span class="sxs-lookup"><span data-stu-id="369d5-189">Failure to set the default scheme prevents the authorize (challenge) request from working with the following exception:</span></span>
 
-  > <span data-ttu-id="fd555-189">`System.InvalidOperationException`: Žádné schéma authenticationscheme a nebyly žádné DefaultChallengeScheme nalezen.</span><span class="sxs-lookup"><span data-stu-id="fd555-189">`System.InvalidOperationException`: No authenticationScheme was specified, and there was no DefaultChallengeScheme found.</span></span>
+  > <span data-ttu-id="369d5-190">`System.InvalidOperationException`: není zadaný žádný authenticationScheme a nenašel se žádný DefaultChallengeScheme.</span><span class="sxs-lookup"><span data-stu-id="369d5-190">`System.InvalidOperationException`: No authenticationScheme was specified, and there was no DefaultChallengeScheme found.</span></span>
 
-<span data-ttu-id="fd555-190">Další informace naleznete v tématu <xref:security/authentication/windowsauth>.</span><span class="sxs-lookup"><span data-stu-id="fd555-190">For more information, see <xref:security/authentication/windowsauth>.</span></span>
+<span data-ttu-id="369d5-191">Další informace najdete v tématu <xref:security/authentication/windowsauth>.</span><span class="sxs-lookup"><span data-stu-id="369d5-191">For more information, see <xref:security/authentication/windowsauth>.</span></span>
 
 <a name="identity-cookie-options"></a>
 
-## <a name="identitycookieoptions-instances"></a><span data-ttu-id="fd555-191">IdentityCookieOptions instances</span><span class="sxs-lookup"><span data-stu-id="fd555-191">IdentityCookieOptions instances</span></span>
+## <a name="identitycookieoptions-instances"></a><span data-ttu-id="369d5-192">Instance IdentityCookieOptions</span><span class="sxs-lookup"><span data-stu-id="369d5-192">IdentityCookieOptions instances</span></span>
 
-<span data-ttu-id="fd555-192">Vedlejším účinkem 2.0 změny se přepnout na používání s názvem možnosti namísto souboru cookie možnosti instance.</span><span class="sxs-lookup"><span data-stu-id="fd555-192">A side effect of the 2.0 changes is the switch to using named options instead of cookie options instances.</span></span> <span data-ttu-id="fd555-193">Odebere se možnost přizpůsobit si názvy schémat souboru cookie Identity.</span><span class="sxs-lookup"><span data-stu-id="fd555-193">The ability to customize the Identity cookie scheme names is removed.</span></span>
+<span data-ttu-id="369d5-193">Vedlejší efekt 2,0 změn je místo instancí možností souborů cookie přepínač pomocí pojmenovaných možností.</span><span class="sxs-lookup"><span data-stu-id="369d5-193">A side effect of the 2.0 changes is the switch to using named options instead of cookie options instances.</span></span> <span data-ttu-id="369d5-194">Možnost přizpůsobení názvů schémat souborů cookie identity se odeberou.</span><span class="sxs-lookup"><span data-stu-id="369d5-194">The ability to customize the Identity cookie scheme names is removed.</span></span>
 
-<span data-ttu-id="fd555-194">Například 1.x projekty použití [konstruktor vkládání](xref:mvc/controllers/dependency-injection#constructor-injection) předat `IdentityCookieOptions` parametr do *AccountController.cs* a *ManageController.cs*.</span><span class="sxs-lookup"><span data-stu-id="fd555-194">For example, 1.x projects use [constructor injection](xref:mvc/controllers/dependency-injection#constructor-injection) to pass an `IdentityCookieOptions` parameter into *AccountController.cs* and *ManageController.cs*.</span></span> <span data-ttu-id="fd555-195">Schéma externí soubor cookie ověřování přistupuje z zadanou instanci:</span><span class="sxs-lookup"><span data-stu-id="fd555-195">The external cookie authentication scheme is accessed from the provided instance:</span></span>
+<span data-ttu-id="369d5-195">Například projekty 1. x používají [Injektáže konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) k předání parametru `IdentityCookieOptions` do *AccountController.cs* a *ManageController.cs*.</span><span class="sxs-lookup"><span data-stu-id="369d5-195">For example, 1.x projects use [constructor injection](xref:mvc/controllers/dependency-injection#constructor-injection) to pass an `IdentityCookieOptions` parameter into *AccountController.cs* and *ManageController.cs*.</span></span> <span data-ttu-id="369d5-196">K externímu schématu ověřování souborů cookie se dostanete ze zadané instance:</span><span class="sxs-lookup"><span data-stu-id="369d5-196">The external cookie authentication scheme is accessed from the provided instance:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor&highlight=4,11)]
 
-<span data-ttu-id="fd555-196">Vkládání výše uvedené konstruktor stane zbytečné v projektech pro 2.0 a `_externalCookieScheme` je možné pole odstranit:</span><span class="sxs-lookup"><span data-stu-id="fd555-196">The aforementioned constructor injection becomes unnecessary in 2.0 projects, and the `_externalCookieScheme` field can be deleted:</span></span>
+<span data-ttu-id="369d5-197">Výše uvedený převstřik konstruktoru se v projektech 2,0 stal zbytečným a pole `_externalCookieScheme` lze odstranit:</span><span class="sxs-lookup"><span data-stu-id="369d5-197">The aforementioned constructor injection becomes unnecessary in 2.0 projects, and the `_externalCookieScheme` field can be deleted:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AccountControllerConstructor)]
 
-<span data-ttu-id="fd555-197">1.x projektů používaných `_externalCookieScheme` pole následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="fd555-197">1.x projects used the `_externalCookieScheme` field as follows:</span></span>
+<span data-ttu-id="369d5-198">projekty 1. x používaly pole `_externalCookieScheme` následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="369d5-198">1.x projects used the `_externalCookieScheme` field as follows:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-<span data-ttu-id="fd555-198">V projektech, 2.0 nahraďte předchozí kód následujícím kódem.</span><span class="sxs-lookup"><span data-stu-id="fd555-198">In 2.0 projects, replace the preceding code with the following.</span></span> <span data-ttu-id="fd555-199">`IdentityConstants.ExternalScheme` – Konstanta je možné přímo.</span><span class="sxs-lookup"><span data-stu-id="fd555-199">The `IdentityConstants.ExternalScheme` constant can be used directly.</span></span>
+<span data-ttu-id="369d5-199">V projektech 2,0 nahraďte předchozí kód následujícím kódem.</span><span class="sxs-lookup"><span data-stu-id="369d5-199">In 2.0 projects, replace the preceding code with the following.</span></span> <span data-ttu-id="369d5-200">Konstantu `IdentityConstants.ExternalScheme` lze použít přímo.</span><span class="sxs-lookup"><span data-stu-id="369d5-200">The `IdentityConstants.ExternalScheme` constant can be used directly.</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationProperty)]
 
-<span data-ttu-id="fd555-200">Vyřešit nově přidaný `SignOutAsync` volání importováním následující obor názvů:</span><span class="sxs-lookup"><span data-stu-id="fd555-200">Resolve the newly added `SignOutAsync` call by importing the following namespace:</span></span>
+<span data-ttu-id="369d5-201">Pomocí importu následujícího oboru názvů vyřešte nově přidané `SignOutAsync` volání:</span><span class="sxs-lookup"><span data-stu-id="369d5-201">Resolve the newly added `SignOutAsync` call by importing the following namespace:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/AccountController.cs?name=snippet_AuthenticationImport)]
 
 <a name="navigation-properties"></a>
 
-## <a name="add-identityuser-poco-navigation-properties"></a><span data-ttu-id="fd555-201">Přidat IdentityUser objektů POCO navigační vlastnosti</span><span class="sxs-lookup"><span data-stu-id="fd555-201">Add IdentityUser POCO navigation properties</span></span>
+## <a name="add-identityuser-poco-navigation-properties"></a><span data-ttu-id="369d5-202">Přidat vlastnosti navigace IdentityUser POCO</span><span class="sxs-lookup"><span data-stu-id="369d5-202">Add IdentityUser POCO navigation properties</span></span>
 
-<span data-ttu-id="fd555-202">Navigační vlastnosti Entity Framework (EF) Core základní třídy `IdentityUser` odebrané POCO (prostý staré CLR objekt).</span><span class="sxs-lookup"><span data-stu-id="fd555-202">The Entity Framework (EF) Core navigation properties of the base `IdentityUser` POCO (Plain Old CLR Object) have been removed.</span></span> <span data-ttu-id="fd555-203">Pokud váš projekt 1.x tyto vlastnosti, ručně přidáte do projektu 2.0:</span><span class="sxs-lookup"><span data-stu-id="fd555-203">If your 1.x project used these properties, manually add them back to the 2.0 project:</span></span>
+<span data-ttu-id="369d5-203">Odebrali jsme základní navigační vlastnosti Entity Framework (EF) základního `IdentityUser` POCO (objekt CLR, který je ve starém formátu).</span><span class="sxs-lookup"><span data-stu-id="369d5-203">The Entity Framework (EF) Core navigation properties of the base `IdentityUser` POCO (Plain Old CLR Object) have been removed.</span></span> <span data-ttu-id="369d5-204">Pokud váš projekt 1. x tyto vlastnosti používá, přidejte je ručně zpátky do projektu 2,0:</span><span class="sxs-lookup"><span data-stu-id="369d5-204">If your 1.x project used these properties, manually add them back to the 2.0 project:</span></span>
 
 ```csharp
 /// <summary>
@@ -379,7 +381,7 @@ public virtual ICollection<IdentityUserClaim<int>> Claims { get; } = new List<Id
 public virtual ICollection<IdentityUserLogin<int>> Logins { get; } = new List<IdentityUserLogin<int>>();
 ```
 
-<span data-ttu-id="fd555-204">Aby se zabránilo duplicitní cizí klíče při spuštění migrace EF Core, přidejte následující text do vaší `IdentityDbContext` třídy `OnModelCreating` – metoda (po `base.OnModelCreating();` volání):</span><span class="sxs-lookup"><span data-stu-id="fd555-204">To prevent duplicate foreign keys when running EF Core Migrations, add the following to your `IdentityDbContext` class' `OnModelCreating` method (after the `base.OnModelCreating();` call):</span></span>
+<span data-ttu-id="369d5-205">Chcete-li zabránit duplicitním cizím klíčům při spuštění EF Core migrace, přidejte následující do vaší `IdentityDbContext` třídy ' `OnModelCreating` metody (po volání `base.OnModelCreating();`):</span><span class="sxs-lookup"><span data-stu-id="369d5-205">To prevent duplicate foreign keys when running EF Core Migrations, add the following to your `IdentityDbContext` class' `OnModelCreating` method (after the `base.OnModelCreating();` call):</span></span>
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder builder)
@@ -414,38 +416,38 @@ protected override void OnModelCreating(ModelBuilder builder)
 
 <a name="synchronous-method-removal"></a>
 
-## <a name="replace-getexternalauthenticationschemes"></a><span data-ttu-id="fd555-205">Nahraďte GetExternalAuthenticationSchemes</span><span class="sxs-lookup"><span data-stu-id="fd555-205">Replace GetExternalAuthenticationSchemes</span></span>
+## <a name="replace-getexternalauthenticationschemes"></a><span data-ttu-id="369d5-206">Nahradit GetExternalAuthenticationSchemes</span><span class="sxs-lookup"><span data-stu-id="369d5-206">Replace GetExternalAuthenticationSchemes</span></span>
 
-<span data-ttu-id="fd555-206">Synchronní metoda `GetExternalAuthenticationSchemes` byla odebrána a místo toho použití asynchronní verze.</span><span class="sxs-lookup"><span data-stu-id="fd555-206">The synchronous method `GetExternalAuthenticationSchemes` was removed in favor of an asynchronous version.</span></span> <span data-ttu-id="fd555-207">projekty 1.x mají následující kód *Controllers/ManageController.cs*:</span><span class="sxs-lookup"><span data-stu-id="fd555-207">1.x projects have the following code in *Controllers/ManageController.cs*:</span></span>
+<span data-ttu-id="369d5-207">Synchronní metoda `GetExternalAuthenticationSchemes` byla odebrána namísto asynchronní verze.</span><span class="sxs-lookup"><span data-stu-id="369d5-207">The synchronous method `GetExternalAuthenticationSchemes` was removed in favor of an asynchronous version.</span></span> <span data-ttu-id="369d5-208">projekty 1. x mají následující kód v *Controllers/ManageController. cs*:</span><span class="sxs-lookup"><span data-stu-id="369d5-208">1.x projects have the following code in *Controllers/ManageController.cs*:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemes)]
 
-<span data-ttu-id="fd555-208">Tato metoda se zobrazí v *Views/Account/Login.cshtml* příliš:</span><span class="sxs-lookup"><span data-stu-id="fd555-208">This method appears in *Views/Account/Login.cshtml* too:</span></span>
+<span data-ttu-id="369d5-209">Tato metoda se zobrazí v *zobrazeních/účtech/přihlašovacích údajích. cshtml* je také:</span><span class="sxs-lookup"><span data-stu-id="369d5-209">This method appears in *Views/Account/Login.cshtml* too:</span></span>
 
 [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemes&highlight=2)]
 
-<span data-ttu-id="fd555-209">V projektech, 2.0, použijte <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> metody.</span><span class="sxs-lookup"><span data-stu-id="fd555-209">In 2.0 projects, use the <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> method.</span></span> <span data-ttu-id="fd555-210">Změnu v hodnotě *ManageController.cs* vypadá podobně jako následující kód:</span><span class="sxs-lookup"><span data-stu-id="fd555-210">The change in *ManageController.cs* resembles the following code:</span></span>
+<span data-ttu-id="369d5-210">V projektech 2,0 použijte metodu <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*>.</span><span class="sxs-lookup"><span data-stu-id="369d5-210">In 2.0 projects, use the <xref:Microsoft.AspNetCore.Identity.SignInManager`1.GetExternalAuthenticationSchemesAsync*> method.</span></span> <span data-ttu-id="369d5-211">Změna v *ManageController.cs* se podobá následujícímu kódu:</span><span class="sxs-lookup"><span data-stu-id="369d5-211">The change in *ManageController.cs* resembles the following code:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Controllers/ManageController.cs?name=snippet_GetExternalAuthenticationSchemesAsync)]
 
-<span data-ttu-id="fd555-211">V *Login.cshtml*, `AuthenticationScheme` přistupuje ve vlastnosti `foreach` smyčky se změní na `Name`:</span><span class="sxs-lookup"><span data-stu-id="fd555-211">In *Login.cshtml*, the `AuthenticationScheme` property accessed in the `foreach` loop changes to `Name`:</span></span>
+<span data-ttu-id="369d5-212">V *Login. cshtml*se vlastnost `AuthenticationScheme`, ke které se přistupovalo v `foreach` smyčce, změní na `Name`:</span><span class="sxs-lookup"><span data-stu-id="369d5-212">In *Login.cshtml*, the `AuthenticationScheme` property accessed in the `foreach` loop changes to `Name`:</span></span>
 
 [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Views/Account/Login.cshtml?name=snippet_GetExtAuthNSchemesAsync&highlight=2,19)]
 
 <a name="property-change"></a>
 
-## <a name="manageloginsviewmodel-property-change"></a><span data-ttu-id="fd555-212">Změna vlastnosti ManageLoginsViewModel</span><span class="sxs-lookup"><span data-stu-id="fd555-212">ManageLoginsViewModel property change</span></span>
+## <a name="manageloginsviewmodel-property-change"></a><span data-ttu-id="369d5-213">Změna vlastnosti ManageLoginsViewModel</span><span class="sxs-lookup"><span data-stu-id="369d5-213">ManageLoginsViewModel property change</span></span>
 
-<span data-ttu-id="fd555-213">A `ManageLoginsViewModel` objekt se používá v `ManageLogins` akce *ManageController.cs*.</span><span class="sxs-lookup"><span data-stu-id="fd555-213">A `ManageLoginsViewModel` object is used in the `ManageLogins` action of *ManageController.cs*.</span></span> <span data-ttu-id="fd555-214">V 1.x projekty, objekt společnosti `OtherLogins` vlastnosti je návratový typ `IList<AuthenticationDescription>`.</span><span class="sxs-lookup"><span data-stu-id="fd555-214">In 1.x projects, the object's `OtherLogins` property return type is `IList<AuthenticationDescription>`.</span></span> <span data-ttu-id="fd555-215">Tento návratový typ vyžaduje importu `Microsoft.AspNetCore.Http.Authentication`:</span><span class="sxs-lookup"><span data-stu-id="fd555-215">This return type requires an import of `Microsoft.AspNetCore.Http.Authentication`:</span></span>
+<span data-ttu-id="369d5-214">Objekt `ManageLoginsViewModel` se používá v akci `ManageLogins` *ManageController.cs*.</span><span class="sxs-lookup"><span data-stu-id="369d5-214">A `ManageLoginsViewModel` object is used in the `ManageLogins` action of *ManageController.cs*.</span></span> <span data-ttu-id="369d5-215">V projektech 1. x je návratový typ objektu `OtherLogins` vlastností `IList<AuthenticationDescription>`.</span><span class="sxs-lookup"><span data-stu-id="369d5-215">In 1.x projects, the object's `OtherLogins` property return type is `IList<AuthenticationDescription>`.</span></span> <span data-ttu-id="369d5-216">Tento návratový typ vyžaduje import `Microsoft.AspNetCore.Http.Authentication`:</span><span class="sxs-lookup"><span data-stu-id="369d5-216">This return type requires an import of `Microsoft.AspNetCore.Http.Authentication`:</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Models/ManageViewModels/ManageLoginsViewModel.cs?name=snippet_ManageLoginsViewModel&highlight=2,11)]
 
-<span data-ttu-id="fd555-216">V projektech, 2.0, návratový typ se změní na `IList<AuthenticationScheme>`.</span><span class="sxs-lookup"><span data-stu-id="fd555-216">In 2.0 projects, the return type changes to `IList<AuthenticationScheme>`.</span></span> <span data-ttu-id="fd555-217">Tento nový návratový typ vyžaduje nahrazení `Microsoft.AspNetCore.Http.Authentication` importovat `Microsoft.AspNetCore.Authentication` importovat.</span><span class="sxs-lookup"><span data-stu-id="fd555-217">This new return type requires replacing the `Microsoft.AspNetCore.Http.Authentication` import with a `Microsoft.AspNetCore.Authentication` import.</span></span>
+<span data-ttu-id="369d5-217">V projektech 2,0 se návratový typ změní na `IList<AuthenticationScheme>`.</span><span class="sxs-lookup"><span data-stu-id="369d5-217">In 2.0 projects, the return type changes to `IList<AuthenticationScheme>`.</span></span> <span data-ttu-id="369d5-218">Tento nový návratový typ vyžaduje nahrazení `Microsoft.AspNetCore.Http.Authentication` import pomocí `Microsoft.AspNetCore.Authentication` import.</span><span class="sxs-lookup"><span data-stu-id="369d5-218">This new return type requires replacing the `Microsoft.AspNetCore.Http.Authentication` import with a `Microsoft.AspNetCore.Authentication` import.</span></span>
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Models/ManageViewModels/ManageLoginsViewModel.cs?name=snippet_ManageLoginsViewModel&highlight=2,11)]
 
 <a name="additional-resources"></a>
 
-## <a name="additional-resources"></a><span data-ttu-id="fd555-218">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="fd555-218">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="369d5-219">Další materiály a zdroje informací</span><span class="sxs-lookup"><span data-stu-id="369d5-219">Additional resources</span></span>
 
-<span data-ttu-id="fd555-219">Další informace najdete v tématu [diskuse Auth 2.0](https://github.com/aspnet/Security/issues/1338) problém na Githubu.</span><span class="sxs-lookup"><span data-stu-id="fd555-219">For more information, see the [Discussion for Auth 2.0](https://github.com/aspnet/Security/issues/1338) issue on GitHub.</span></span>
+<span data-ttu-id="369d5-220">Další informace najdete v [diskuzi k problému ověření 2,0](https://github.com/aspnet/Security/issues/1338) na GitHubu.</span><span class="sxs-lookup"><span data-stu-id="369d5-220">For more information, see the [Discussion for Auth 2.0](https://github.com/aspnet/Security/issues/1338) issue on GitHub.</span></span>
