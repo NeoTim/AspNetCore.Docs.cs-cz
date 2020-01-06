@@ -3,14 +3,14 @@ title: Ověřování přes Facebook, Google a externí poskytovatel bez ASP.NET 
 author: rick-anderson
 description: Vysvětlení použití Facebooku, Google, Twitteru atd. ověřování uživatelů účtu bez ASP.NET Core identity.
 ms.author: riande
-ms.date: 11/19/2019
+ms.date: 12/10/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: 680ea091dcc5ed7f94879b5d277e8be7e5abeb7b
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 612964ec9ed4975cdc81780dda3bac6cce96037f
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289119"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359055"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>Použití ověřování poskytovatele přihlašování přes sociální sítě bez ASP.NET Core identity
 
@@ -27,7 +27,7 @@ Tato ukázka používá [ověřování Google](xref:security/authentication/goog
 * [Ověřování Twitteru](xref:security/authentication/twitter-logins)
 * [Další zprostředkovatelé](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>Konfiguraci
+## <a name="configuration"></a>Konfigurace
 
 V metodě `ConfigureServices` nakonfigurujte ověřovací schémata aplikace pomocí metod <xref:Microsoft.Extensions.DependencyInjection.AuthenticationServiceCollectionExtensions.AddAuthentication*>, <xref:Microsoft.Extensions.DependencyInjection.CookieExtensions.AddCookie*>a <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*>:
 
@@ -47,7 +47,7 @@ V `Startup.Configure`volejte `UseAuthentication` a `UseAuthorization` mezi volá
 
 [!code-csharp[](social-without-identity/samples_snapshot/3.x/Startup.cs?name=snippet2&highlight=3-4)]
 
-Další informace o schématech ověřování a ověřování souborů cookie najdete v tématu <xref:security/authentication/cookie>.
+Další informace o schématech ověřování najdete v tématu věnovaném [principům ověřování](xref:security/authentication/index#authentication-concepts). Další informace o ověřování souborů cookie najdete v tématu <xref:security/authentication/cookie>.
 
 ## <a name="apply-authorization"></a>Použít autorizaci
 
@@ -63,7 +63,7 @@ Chcete-li odhlásit aktuálního uživatele a odstranit svůj soubor cookie, zav
 
 Všimněte si, že volání `SignOutAsync` neurčuje schéma ověřování. `DefaultScheme` aplikace `CookieAuthenticationDefaults.AuthenticationScheme` se používá jako vrácení.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>
@@ -82,7 +82,7 @@ Tato ukázka používá [ověřování Google](xref:security/authentication/goog
 * [Ověřování Twitteru](xref:security/authentication/twitter-logins)
 * [Další zprostředkovatelé](xref:security/authentication/otherlogins)
 
-## <a name="configuration"></a>Konfiguraci
+## <a name="configuration"></a>Konfigurace
 
 V metodě `ConfigureServices` nakonfigurujte ověřovací schémata aplikace pomocí metod `AddAuthentication`, `AddCookie`a `AddGoogle`:
 
@@ -102,7 +102,7 @@ V metodě `Configure` voláním metody `UseAuthentication` volejte middleware ov
 
 [!code-csharp[](social-without-identity/samples_snapshot/2.x/Startup.cs?name=snippet2)]
 
-Další informace o schématech ověřování a ověřování souborů cookie najdete v tématu <xref:security/authentication/cookie>.
+Další informace o schématech ověřování najdete v tématu věnovaném [principům ověřování](xref:security/authentication/index#authentication-concepts). Další informace o ověřování souborů cookie najdete v tématu <xref:security/authentication/cookie>.
 
 ## <a name="apply-authorization"></a>Použít autorizaci
 
@@ -118,7 +118,7 @@ Chcete-li odhlásit aktuálního uživatele a odstranit svůj soubor cookie, zav
 
 Všimněte si, že volání `SignOutAsync` neurčuje schéma ověřování. `DefaultScheme` aplikace `CookieAuthenticationDefaults.AuthenticationScheme` se používá jako vrácení.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>

@@ -8,12 +8,12 @@ ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: a7c99c9e79647995886aec5b3a91584fd2f24451
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 331176f299c0efcd7acb19430ffddcaee7ca1cf3
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317476"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75357942"
 ---
 # <a name="use-aspnet-core-opno-locsignalr-with-typescript-and-webpack"></a>Použití ASP.NET Core SignalR s TypeScript a webpackem
 
@@ -30,7 +30,7 @@ V tomto kurzu se naučíte:
 > * Konfigurace serveru SignalR
 > * Povolit komunikaci mezi klientem a serverem
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-typescript-webpack/sample) ([stažení](xref:index#how-to-download-a-sample))
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -39,13 +39,13 @@ V tomto kurzu se naučíte:
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje ASP.NET a webu**
-* [.NET Core SDK 3,0 nebo novější](https://www.microsoft.com/net/download/all)
+* [.NET Core SDK 3.0 nebo novější](https://www.microsoft.com/net/download/all)
 * [Node. js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
-* [.NET Core SDK 3,0 nebo novější](https://www.microsoft.com/net/download/all)
+* [.NET Core SDK 3.0 nebo novější](https://www.microsoft.com/net/download/all)
 * [C#pro Visual Studio Code verze 1.17.1 nebo novější](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 * [Node. js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
 
@@ -274,13 +274,13 @@ Ověřte, že aplikace funguje s následujícím postupem.
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje ASP.NET a webu**
-* [.NET Core SDK 2,2 nebo novější](https://www.microsoft.com/net/download/all)
+* [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
 * [Node. js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * [Visual Studio Code](https://code.visualstudio.com/download)
-* [.NET Core SDK 2,2 nebo novější](https://www.microsoft.com/net/download/all)
+* [.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download/all)
 * [C#pro Visual Studio Code verze 1.17.1 nebo novější](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp)
 * [Node. js](https://nodejs.org/) s [npm](https://www.npmjs.com/)
 
@@ -433,7 +433,7 @@ Aplikace aktuálně zobrazuje jednoduchý formulář pro posílání zpráv. Př
 1. V kořenu projektu spusťte následující příkaz:
 
     ```console
-    npm install @microsoft/signalr
+    npm install @aspnet/signalr
     ```
 
     Předchozí příkaz nainstaluje [klienta TypeScriptSignalR](https://www.npmjs.com/package/@microsoft/signalr), který umožňuje klientovi odesílat zprávy na server.
@@ -502,7 +502,7 @@ Ověřte, že aplikace funguje s následujícím postupem.
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:signalr/javascript-client>
 * <xref:signalr/hubs>

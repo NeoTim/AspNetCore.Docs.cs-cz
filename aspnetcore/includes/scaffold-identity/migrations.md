@@ -5,6 +5,7 @@ Generovaný kód databáze identit vyžaduje [Entity Framework Core migrace](/ef
 V sadě Visual Studio **Konzola správce balíčků**:
 
 ```powershell
+Install-Package Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore
 Add-Migration CreateIdentitySchema
 Update-Database
 ```
@@ -18,4 +19,4 @@ dotnet ef database update
 
 ---
 
-Parametr názvu "CreateIdentitySchema" `Add-Migration` příkazu je libovolný. `"CreateIdentitySchema"`Popisuje migraci.
+Parametr názvu "CreateIdentitySchema" příkazu `Add-Migration` je libovolný. `"CreateIdentitySchema"` popisuje migraci.

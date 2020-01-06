@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 4c96815461898ce9273f953f083143d8b50d406e
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: bcd36509fe42da0a79b9243d17701f40e066a212
+ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259416"
+ms.lasthandoff: 12/29/2019
+ms.locfileid: "75542684"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>Kurz: použití funkcí migrace – ASP.NET MVC s EF Core
 
@@ -104,7 +104,7 @@ Pokud jste vytvořili počáteční migraci i v případě, že databáze již e
 
 Migrace vytvoří *snímek* aktuálního schématu databáze v části *migrations/SchoolContextModelSnapshot. cs*. Když přidáte migraci, EF určí, co se změnilo, porovnáním datového modelu se souborem snímku.
 
-Při odstraňování migrace použijte příkaz pro [Odebrání migrace dotnet EF](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) . `dotnet ef migrations remove` odstraní migraci a zajistí správné resetování snímku.
+K odebrání migrace použijte příkaz [dotnet EF migrations Remove](/ef/core/miscellaneous/cli/dotnet#dotnet-ef-migrations-remove) . `dotnet ef migrations remove` odstraní migraci a zajistí správné resetování snímku. Pokud se `dotnet ef migrations remove` nezdaří, získáte další informace o selhání pomocí `dotnet ef migrations remove -v`.
 
 Další informace o tom, jak se soubor snímku používá, najdete [v tématu EF Core migrace v týmových prostředích](/ef/core/managing-schemas/migrations/teams) .
 

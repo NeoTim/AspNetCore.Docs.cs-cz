@@ -5,18 +5,20 @@ description: Objevte, jak přidat třídy pro správu filmy v databázi pomocí 
 ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: 95b6d3e016edcd2e13207c8e658cf0d2fb21f945
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: ef4671c9e7628c106b9f68ba5cbfd8a127e095d0
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959074"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358026"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
 Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
+
+<!-- In the next update on the CLI version, let the scaffolder do the same work the VS driven scaffolder does. That is, create the DB context, etc -->
 
 V této části jsou přidány třídy pro správu filmů v [databázi SQLite](https://www.sqlite.org/index.html)pro různé platformy. Aplikace vytvořené pomocí šablony ASP.NET Core používají databázi SQLite. Třídy modelu aplikace se používají s [Entity Framework Core (EF Core)](/ef/core) ([poskytovatel databáze SQLite EF Core](/ef/core/providers/sqlite)) pro práci s databází. EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje přístup k datům.
 

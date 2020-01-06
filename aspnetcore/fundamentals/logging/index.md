@@ -1,5 +1,5 @@
 ---
-title: Protokolování v .NET Core a ASP.NET Core
+title: Přihlášení v .NET Core a ASP.NET Core
 author: rick-anderson
 description: Naučte se používat protokolovací rozhraní poskytovanou balíčkem NuGet Microsoft. Extensions. Logging.
 monikerRange: '>= aspnetcore-2.1'
@@ -7,14 +7,14 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/04/2019
 uid: fundamentals/logging/index
-ms.openlocfilehash: 49d598330948c5f4a137c534094e14ed5e01e27c
-ms.sourcegitcommit: f4cd3828e26e6d549ba8d0c36a17be35ad9e5a51
+ms.openlocfilehash: e1c50c4592b21d56ed813dac43204d63f1bfe46c
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74825494"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359345"
 ---
-# <a name="logging-in-net-core-and-aspnet-core"></a>Protokolování v .NET Core a ASP.NET Core
+# <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
 Tím, že [Dykstra](https://github.com/tdykstra) a [Steve Smith](https://ardalis.com/)
 
@@ -1056,6 +1056,16 @@ logging.AddEventLog();
 * `LogName` &ndash; "Application"
 * `SourceName` &ndash; ".NET runtime"
 * `MachineName` &ndash; místní počítač
+
+Události jsou protokolovány pro [úroveň upozornění a vyšší](#log-level). Chcete-li protokolovat události menší než `Warning`, explicitně nastavte úroveň protokolu. Do souboru *appSettings. JSON* přidejte například následující:
+
+```json
+"EventLog": {
+  "LogLevel": {
+    "Default": "Information"
+  }
+}
+```
 
 ### <a name="tracesource-provider"></a>Poskytovatel TraceSource
 

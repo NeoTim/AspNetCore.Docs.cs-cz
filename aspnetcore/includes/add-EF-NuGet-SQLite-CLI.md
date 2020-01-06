@@ -17,3 +17,5 @@ Do předchozích příkazů přidejte:
 * Balíčky nutné pro generování uživatelského rozhraní: `Microsoft.VisualStudio.Web.CodeGeneration.Design` a `Microsoft.EntityFrameworkCore.SqlServer`.
 
 Pokyny pro konfiguraci více prostředí, která umožňuje aplikaci nakonfigurovat kontexty databáze podle prostředí, najdete v tématu <xref:fundamentals/environments#environment-based-startup-class-and-methods>.
+
+[!INCLUDE[](~/includes/scaffoldTFM.md)]

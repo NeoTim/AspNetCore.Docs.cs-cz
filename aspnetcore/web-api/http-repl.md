@@ -5,14 +5,14 @@ description: Naučte se používat globální nástroj HTTP REPL .NET Core k pro
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/02/2019
+ms.date: 12/11/2019
 uid: web-api/http-repl
-ms.openlocfilehash: c6e3ab5685b5bd0b154d20585fb0d187f81da641
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 34ec2b2eb511f33e1263cdad4a338183a3e4b83a
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717162"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75356174"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -26,13 +26,13 @@ Smyčka HTTP Read-Eval-Print (REPL) je:
 
 Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods) :
 
-* [DSTRANIT](#test-http-delete-requests)
-* [Čtěte](#test-http-get-requests)
+* [DELETE](#test-http-delete-requests)
+* [GET](#test-http-get-requests)
 * [ZÁHLAVÍ](#test-http-head-requests)
 * [NASTAVENÍ](#test-http-options-requests)
 * [POUŽITA](#test-http-patch-requests)
-* [SPUŠTĚNÍ](#test-http-post-requests)
-* [PŘEVÉST](#test-http-put-requests)
+* [POST](#test-http-post-requests)
+* [PUT](#test-http-put-requests)
 
 Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhraní API nebo si ho stáhněte](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([jak si ho stáhnout](xref:index#how-to-download-a-sample)).
 
@@ -235,7 +235,7 @@ Výchozí [barvy](#set-color-preferences) REPL http je možné přizpůsobit. Kr
 
 # <a name="windowstabwindows"></a>[Windows](#tab/windows)
 
-*% USERPROFILE%\\. httpreplprefs*
+*%USERPROFILE%\\.httpreplprefs*
 
 ---
 
@@ -690,8 +690,9 @@ Postup při vystavení žádosti o odstranění protokolu HTTP:
         "data": "Strawberry"
       }
     ]
+    ```
 
-1. Run the `delete` command on an endpoint that supports it:
+1. Spusťte příkaz `delete` na koncovém bodu, který ho podporuje:
 
     ```console
     https://localhost:5001/fruits~ delete 2
@@ -970,7 +971,7 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
     https://localhost:5001/~ run C:\http-repl-scripts\people-script.txt
     ```
 
-    Zobrazí se následující výstup:
+    Zobrazí se výstup:
 
     ```console
     https://localhost:5001/~ set base https://localhost:5001

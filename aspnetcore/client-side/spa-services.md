@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: H1Hack27Feb2017
 ms.date: 09/06/2019
 uid: client-side/spa-services
-ms.openlocfilehash: 7aff46f739239246191763e0590046b2d9995922
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 52285999d7710cc3198836b9246596980cfc1666
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71080511"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355790"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>Použití služeb JavaScriptu k vytváření aplikací s jedním stránkou v ASP.NET Core
 
@@ -69,7 +69,7 @@ Pro práci s SpaServices, nainstalujte následující:
     node -v && npm -v
     ```
 
-  * Pokud nasazujete na web Azure, není k dispozici&mdash;žádná akce Node. js, která je k dispozici v prostředích serveru.
+  * Pokud nasazujete na web Azure, není nutná žádná akce&mdash;Node. js je nainstalován a k dispozici v prostředích serveru.
 
 * [!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
 
@@ -195,7 +195,7 @@ Po načtení aplikace v prohlížeči, poskytuje nástroje pro vývojáře kartu
 
 Ve většině ASP.NET Core jednostránkové na straně klienta je často žádoucí směrování na straně klienta kromě směrování na straně serveru. Jednostránková aplikace a MVC směrovací systémy může pracovat nezávisle na bez rušení. Existuje, ale jeden okraj případu představující vyzve: identifikace obdržíte kód odpovědi HTTP 404.
 
-Vezměte v úvahu scénář, ve kterém bez přípony trasu `/some/page` se používá. Předpokládejme, požadavek nebude – porovnávací trasu na straně serveru, ale jeho vzor neshoduje trasu na straně klienta. Teď se podíváme příchozí žádosti pro `/images/user-512.png`, což obecně očekává, že se najít soubor obrázku na serveru. Pokud tato požadovaná cesta prostředku neodpovídá žádné cestě na straně serveru ani ke statickému souboru, je pravděpodobné, že aplikace na straně klienta nebude&mdash;obvykle zpracovávat stavový kód protokolu HTTP 404.
+Vezměte v úvahu scénář, ve kterém bez přípony trasu `/some/page` se používá. Předpokládejme, požadavek nebude – porovnávací trasu na straně serveru, ale jeho vzor neshoduje trasu na straně klienta. Teď se podíváme příchozí žádosti pro `/images/user-512.png`, což obecně očekává, že se najít soubor obrázku na serveru. Pokud tato požadovaná cesta prostředku neodpovídá žádné cestě na straně serveru nebo statickému souboru, není pravděpodobné, že by aplikace na straně klienta zpracovávala&mdash;obecně návratového kódu stavu HTTP 404.
 
 ### <a name="routing-helpers-prerequisites"></a>Požadavky na helpdesky směrování
 
@@ -290,6 +290,8 @@ Tento skript spustí nástroj test runner Karma, který čte definované v nasta
 
 ## <a name="publish-the-app"></a>Publikování aplikace
 
+Další informace o publikování do Azure najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/12474) .
+
 Kombinování vygenerovaných prostředků na straně klienta a publikované artefakty ASP.NET Core do balíčku připravených k nasazení může být náročná. Naštěstí SpaServices orchestruje tento proces celé publikace s vlastní cíl nástroje MSBuild s názvem `RunWebpack`:
 
 [!code-xml[](../client-side/spa-services/sample/SpaServicesSampleApp/SpaServicesSampleApp.csproj?range=31-45)]
@@ -307,6 +309,6 @@ Cíl nástroje MSBuild je vyvolána při spuštění:
 dotnet publish -c Release
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Dokumentace angular](https://angular.io/docs)

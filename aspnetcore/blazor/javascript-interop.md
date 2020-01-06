@@ -9,12 +9,12 @@ ms.date: 12/05/2019
 no-loc:
 - Blazor
 uid: blazor/javascript-interop
-ms.openlocfilehash: 05225b86701b7a5d5c84dd43afbef70dd1ece228
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 2350870f8548a9c8df324182883a105706c12c20
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944067"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355738"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>Zprostředkovatel komunikace s ASP.NET Core Blazor JavaScript
 
@@ -30,13 +30,9 @@ Blazor aplikace může vyvolat JavaScriptové funkce z metod .NET a .NET z kódu
 
 Existují situace, kdy je pro volání funkce JavaScriptu vyžadován kód .NET. Volání JavaScriptu může například vystavit možnosti prohlížeče nebo funkce z knihovny JavaScriptu do aplikace. Tento scénář se nazývá *interoperabilita JavaScriptu* (interoperabilita*js*).
 
-Chcete-li volat do JavaScriptu z rozhraní .NET, použijte `IJSRuntime` abstrakce. Metoda `InvokeAsync<T>` přebírá identifikátor pro funkci JavaScriptu, kterou chcete vyvolat, spolu s libovolným počtem argumentů serializovatelných pomocí JSON. Identifikátor funkce je relativní vzhledem k globálnímu oboru (`window`). Pokud chcete volat `window.someScope.someFunction`, je identifikátor `someScope.someFunction`. Před voláním funkce není nutné ji registrovat. Návratový typ `T` musí být také serializovatelný jako JSON. `T` by měl odpovídat typu .NET, který se nejlépe mapuje na vrácený typ JSON.
+Chcete-li volat do JavaScriptu z rozhraní .NET, použijte `IJSRuntime` abstrakce. Chcete-li vydat volání Interop v JS, zapište `IJSRuntime` abstrakce do komponenty. Metoda `InvokeAsync<T>` přebírá identifikátor pro funkci JavaScriptu, kterou chcete vyvolat, spolu s libovolným počtem argumentů serializovatelných pomocí JSON. Identifikátor funkce je relativní vzhledem k globálnímu oboru (`window`). Pokud chcete volat `window.someScope.someFunction`, je identifikátor `someScope.someFunction`. Před voláním funkce není nutné ji registrovat. Návratový typ `T` musí být také serializovatelný jako JSON. `T` by měl odpovídat typu .NET, který se nejlépe mapuje na vrácený typ JSON.
 
-Pro aplikace Blazor Server:
-
-* Aplikace Blazor serveru zpracovává více žádostí uživatele. Nevolejte `JSRuntime.Current` v součásti k vyvolání funkcí jazyka JavaScript.
-* Vložení `IJSRuntime` abstrakce a použití vloženého objektu k vydávání volání interoperability JS.
-* I když je aplikace Blazor předem vykreslovat, volání do JavaScriptu není možné, protože připojení k prohlížeči nebylo navázáno. Další informace najdete v části [zjištění, kdy je aplikace Blazor předvykreslování](#detect-when-a-blazor-app-is-prerendering) .
+Pro Blazor serverových aplikací s povoleným předvykreslováním není možné volat do JavaScriptu během prvotního předgenerování. Volání interoperability JavaScriptu musí být odložena až po navázání spojení s prohlížečem. Další informace najdete v části [zjištění, kdy je aplikace Blazor předvykreslování](#detect-when-a-blazor-app-is-prerendering) .
 
 Následující příklad je založen na [TextDecoder](https://developer.mozilla.org/docs/Web/API/TextDecoder), experimentálním dekodéru založeném na JavaScriptu. Příklad ukazuje, jak vyvolat funkci JavaScriptu z C# metody. Funkce JavaScriptu přijímá bajtové pole z C# metody, dekóduje pole a vrátí text do komponenty k zobrazení.
 

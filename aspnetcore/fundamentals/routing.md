@@ -5,14 +5,14 @@ description: Seznamte se s tím, jak ASP.NET Core směrování zodpovídá za ma
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/24/2019
+ms.date: 12/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: be4493cc927bd5437a2c9dab00b6a555756195bb
-ms.sourcegitcommit: eb2fe5ad2e82fab86ca952463af8d017ba659b25
+ms.openlocfilehash: 9780183f8f9bc322f73d058b3cab7f8c10f7cd5f
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/01/2019
-ms.locfileid: "73416139"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354743"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -20,12 +20,12 @@ Pomocí nástroje [Ryan Nowak](https://github.com/rynowak), [Steve Smith](https:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Směrování zodpovídá za mapování identifikátorů URI požadavků na koncové body a odesílání příchozích požadavků do těchto koncových bodů. Trasy jsou v aplikaci definované a nakonfigurované při spuštění aplikace. Trasa může volitelně extrahovat hodnoty z adresy URL obsažené v žádosti a tyto hodnoty pak lze použít pro zpracování požadavků. Směrování pomocí informací o trasách z aplikace taky umožňuje generovat adresy URL, které se mapují na koncové body.
+Směrování zodpovídá za mapování identifikátorů URI požadavků na koncové body a odesílání příchozích požadavků do těchto koncových bodů. Trasy jsou v aplikaci definované a nakonfigurované při spuštění aplikace. Trasa může volitelně extrahovat hodnoty z adresy URL obsažené v žádosti a tyto hodnoty pak lze použít pro zpracování požadavků. Směrování pomocí informací o trasách z aplikace taky umožňuje generovat adresy URL, které se mapují na koncové body. Mnohé aplikace nepotřebují přidávat trasy nad rámec toho, co šablony poskytují. Šablony ASP.NET Core pro řadiče a stránky Razor konfigurují koncové body směrování. Pokud potřebujete přidat vlastní koncové body směrování, lze vlastní koncové body konfigurovat společně s koncovými body směrování vygenerovaných šablonou.
 
 > [!IMPORTANT]
 > Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvencích směrování v Razor Pages najdete v tématu <xref:razor-pages/razor-pages-conventions>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základy směrování
 
@@ -127,6 +127,22 @@ Metody poskytované <xref:Microsoft.AspNetCore.Routing.LinkGenerator> podporují
 >
 > * Používejte <xref:Microsoft.AspNetCore.Routing.LinkGenerator> s opatrností v middleware v kombinaci s `Map` nebo `MapWhen`. `Map*` změní základní cestu spouštěné žádosti, která má vliv na výstup generace propojení. Všechna rozhraní <xref:Microsoft.AspNetCore.Routing.LinkGenerator> API umožňují zadat základní cestu. Vždy zadat prázdnou základní cestu pro vrácení zpět `Map*`vlivu na generování propojení.
 
+## <a name="endpoint-routing"></a>Směrování koncových bodů
+
+* Koncový bod trasy má šablonu, metadata a delegáta požadavku, který obsluhuje odpověď koncového bodu. Metadata se používají k implementaci průřezových obav na základě zásad a konfigurace připojených ke každému koncovému bodu. Middleware autorizace může například dotazování kolekci metadat koncového bodu pro [zásadu autorizace](xref:security/authorization/policies#applying-policies-to-mvc-controllers).
+* Směrování koncového bodu se integruje s middleware pomocí dvou metod rozšíření:
+  * [UseRouting](xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*) přidává směrování do kanálu middlewaru. Musí se nacházet před jakýmkoli middlewarem podporujícím směrování, jako je například autorizace, spuštění koncového bodu atd.
+  * [UseEndpoints](xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*) přidá spuštění koncového bodu do kanálu middlewaru. Spustí delegáta žádosti, který obsluhuje odpověď koncového bodu.
+  `UseEndpoints` je také místo, kde jsou konfigurovány koncové body tras, které lze spárovat a spustit v aplikaci. Například <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>, <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*>, <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*>a <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*>.
+* Aplikace používají pomocné metody ASP.NET Core ke konfiguraci svých tras. Rozhraní ASP.NET Core poskytují pomocné metody jako <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>, <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> a `MapHub<THub>`. K dispozici jsou také pomocné metody pro konfiguraci vlastních koncových bodů tras: <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*>, <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*>a [MapVerb](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions). 
+* Směrování koncových bodů také podporuje koncové body, které se mění po spuštění aplikace. Aby bylo možné tento postup podporovat v aplikaci nebo ASP.NET Core Framework, je nutné vytvořit a zaregistrovat vlastní <xref:Microsoft.AspNetCore.Routing.EndpointDataSource>. Tato funkce je pokročilá a obvykle není potřeba. Koncové body jsou obvykle nakonfigurovány při spuštění a jsou po dobu života aplikace statické. Načtení konfigurace trasy ze souboru nebo databáze při spuštění není dynamické.
+
+Následující kód ukazuje základní příklad směrování koncových bodů:
+
+[!code-csharp[](routing/samples/3.x/Startup.cs?name=snippet)]
+
+Další informace o směrování koncových bodů najdete v tématu věnovaném [shodě URL](#url-matching) v tomto dokumentu.
+
 ## <a name="endpoint-routing-differences-from-earlier-versions-of-routing"></a>Rozdíly v směrování koncových bodů ze starších verzí směrování
 
 Mezi směrováním koncových bodů a verzemi směrování starších než v ASP.NET Core 2,2 existuje několik rozdílů:
@@ -204,7 +220,7 @@ Mezi směrováním koncových bodů a verzemi směrování starších než v ASP
 
   V předchozích verzích ASP.NET Core (`{*myparametername}`) zůstane podporovaná jednoduchá hvězdička All – syntaxe parametrů a lomítka jsou zakódovaná.
 
-  | Cestě              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
+  | Trasa              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
   | ------------------ | --------------------------------------------------------------------- |
   | `/search/{*page}`  | `/search/admin%2Fproducts` (lomítko je zakódováno)             |
   | `/search/{**page}` | `/search/admin/products`                                              |
@@ -236,7 +252,7 @@ public class ProductsLinkMiddleware
 }
 ```
 
-### <a name="create-routes"></a>Vytváření tras
+### <a name="create-routes"></a>Vytvoření tras
 
 Většina aplikací vytváří trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo jedné z podobných metod rozšíření definovaných v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder>. Kterákoli z rozšiřujících metod <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> vytvoří instanci <xref:Microsoft.AspNetCore.Routing.Route> a přidá ji do kolekce tras.
 
@@ -356,7 +372,7 @@ Trasy musí být nakonfigurovány v metodě `Startup.Configure`. Ukázková apli
 
 V následující tabulce jsou uvedeny odpovědi s danými identifikátory URI.
 
-| Identifikátor URI                    | Základě                                          |
+| URI                    | Odpověď                                          |
 | ---------------------- | ------------------------------------------------- |
 | `/package/create/3`    | Dobrý den! Hodnoty směrování: [operace, vytvořit], [ID, 3] |
 | `/package/track/-3`    | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] |
@@ -476,7 +492,7 @@ public User GetUserById(int id) { }
 
 Rozhraní ASP.NET Core Framework přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. Popis těchto členů naleznete v tématu <xref:System.Text.RegularExpressions.RegexOptions>.
 
-Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a C# jazyk. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` (jedno zpětné lomítko), které je zadáno v řetězci jako `\\` (Dvojitá zpětná lomítka C# ) ve zdrojovém souboru, aby mohl řídicí znak `\`. znak (Pokud nepoužíváte [doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string)). Chcete-li řídicí znaky oddělovače parametrů směrování (`{`, `}`, `[`, `]`), poklikejte na znaky ve výrazu (`{{`, `}`, `[[`, `]]`). V následující tabulce je uveden regulární výraz a verze s řídicím znakem.
+Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a C# jazyk. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` (jedno zpětné lomítko), které je zadáno v řetězci jako `\\` (Dvojitá zpětná lomítka C# ) ve zdrojovém souboru, aby bylo možné řídicí znak řetězce `\` zadat znovu (Pokud se nepoužívá [doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string)). Chcete-li řídicí znaky oddělovače parametrů směrování (`{`, `}`, `[`, `]`), poklikejte na znaky ve výrazu (`{{`, `}`, `[[`, `]]`). V následující tabulce je uveden regulární výraz a verze s řídicím znakem.
 
 | Regulární výraz    | Regulární výraz s řídicím znakem     |
 | --------------------- | ------------------------------ |
@@ -487,11 +503,11 @@ Regulární výrazy používané v směrování často začínají znakem stří
 
 | Výraz   | String    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | mz        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | Dobrý den     | Ne    | Viz `^` a `$` výše. |
+| `^[a-z]{2}$` | dobrý den     | Ne    | Viz `^` a `$` výše. |
 | `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` výše. |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
@@ -693,7 +709,7 @@ Další informace o směrování na základě <xref:Microsoft.AspNetCore.Routing
 > [!IMPORTANT]
 > Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvencích směrování v Razor Pages najdete v tématu <xref:razor-pages/razor-pages-conventions>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základy směrování
 
@@ -865,7 +881,7 @@ Mezi směrováním koncových bodů existuje několik rozdílů v ASP.NET Core 2
 
   V předchozích verzích ASP.NET Core (`{*myparametername}`) zůstane podporovaná jednoduchá hvězdička All – syntaxe parametrů a lomítka jsou zakódovaná.
 
-  | Cestě              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
+  | Trasa              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
   | ------------------ | --------------------------------------------------------------------- |
   | `/search/{*page}`  | `/search/admin%2Fproducts` (lomítko je zakódováno)             |
   | `/search/{**page}` | `/search/admin/products`                                              |
@@ -897,7 +913,7 @@ public class ProductsLinkMiddleware
 }
 ```
 
-### <a name="create-routes"></a>Vytváření tras
+### <a name="create-routes"></a>Vytvoření tras
 
 Většina aplikací vytváří trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo jedné z podobných metod rozšíření definovaných v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder>. Kterákoli z rozšiřujících metod <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> vytvoří instanci <xref:Microsoft.AspNetCore.Routing.Route> a přidá ji do kolekce tras.
 
@@ -1017,7 +1033,7 @@ Trasy musí být nakonfigurovány v metodě `Startup.Configure`. Ukázková apli
 
 V následující tabulce jsou uvedeny odpovědi s danými identifikátory URI.
 
-| Identifikátor URI                    | Základě                                          |
+| URI                    | Odpověď                                          |
 | ---------------------- | ------------------------------------------------- |
 | `/package/create/3`    | Dobrý den! Hodnoty směrování: [operace, vytvořit], [ID, 3] |
 | `/package/track/-3`    | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] |
@@ -1137,7 +1153,7 @@ public User GetUserById(int id) { }
 
 Rozhraní ASP.NET Core Framework přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. Popis těchto členů naleznete v tématu <xref:System.Text.RegularExpressions.RegexOptions>.
 
-Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a C# jazyk. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` (jedno zpětné lomítko), které je zadáno v řetězci jako `\\` (Dvojitá zpětná lomítka C# ) ve zdrojovém souboru, aby mohl řídicí znak `\`. znak (Pokud nepoužíváte [doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string)). Chcete-li řídicí znaky oddělovače parametrů směrování (`{`, `}`, `[`, `]`), poklikejte na znaky ve výrazu (`{{`, `}`, `[[`, `]]`). V následující tabulce je uveden regulární výraz a verze s řídicím znakem.
+Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a C# jazyk. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` (jedno zpětné lomítko), které je zadáno v řetězci jako `\\` (Dvojitá zpětná lomítka C# ) ve zdrojovém souboru, aby bylo možné řídicí znak řetězce `\` zadat znovu (Pokud se nepoužívá [doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string)). Chcete-li řídicí znaky oddělovače parametrů směrování (`{`, `}`, `[`, `]`), poklikejte na znaky ve výrazu (`{{`, `}`, `[[`, `]]`). V následující tabulce je uveden regulární výraz a verze s řídicím znakem.
 
 | Regulární výraz    | Regulární výraz s řídicím znakem     |
 | --------------------- | ------------------------------ |
@@ -1148,11 +1164,11 @@ Regulární výrazy používané v směrování často začínají znakem stří
 
 | Výraz   | String    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | mz        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | Dobrý den     | Ne    | Viz `^` a `$` výše. |
+| `^[a-z]{2}$` | dobrý den     | Ne    | Viz `^` a `$` výše. |
 | `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` výše. |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
@@ -1269,7 +1285,7 @@ services.AddMvc()
 > [!IMPORTANT]
 > Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvencích směrování v Razor Pages najdete v tématu <xref:razor-pages/razor-pages-conventions>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základy směrování
 
@@ -1330,8 +1346,8 @@ Generování adresy URL následuje po podobném iterativním procesu, ale začí
 
 Primární vstupy pro <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> jsou:
 
-* [VirtualPathContext. HttpContext](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.HttpContext)
-* [VirtualPathContext. Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values)
+* [VirtualPathContext.HttpContext](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.HttpContext)
+* [VirtualPathContext.Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values)
 * [VirtualPathContext.AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues)
 
 Trasy primárně používají hodnoty tras poskytované <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values> a <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues> k rozhodnutí, zda je možné vygenerovat adresu URL a jaké hodnoty mají být zahrnuty. <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues> jsou sady hodnot tras, které byly vytvořeny z porovnání s aktuálním požadavkem. Naproti tomu <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values> hodnoty tras, které určují, jak se má pro aktuální operaci generovat požadovaná adresa URL. <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.HttpContext> je k dispozici v případě, že trasa má získat služby nebo další data přidružená k aktuálnímu kontextu.
@@ -1347,7 +1363,7 @@ Vlastnost [VirtualPathData. VirtualPath](xref:Microsoft.AspNetCore.Routing.Virtu
 
 Vlastnosti [VirtualPathData. DataTokens](xref:Microsoft.AspNetCore.Routing.VirtualPathData.DataTokens*) je slovník dalších dat souvisejících s trasou, která adresu URL vygenerovala. To je paralelní pro [parametr RouteData. Datatokeny](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*).
 
-### <a name="create-routes"></a>Vytváření tras
+### <a name="create-routes"></a>Vytvoření tras
 
 Směrování poskytuje třídu <xref:Microsoft.AspNetCore.Routing.Route> jako standardní implementaci <xref:Microsoft.AspNetCore.Routing.IRouter>. <xref:Microsoft.AspNetCore.Routing.Route> používá syntaxi *šablony směrování* k definování vzorů, které se budou shodovat s cestou URL při volání <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*>. <xref:Microsoft.AspNetCore.Routing.Route> používá stejnou šablonu trasy k vygenerování adresy URL při volání <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*>.
 
@@ -1469,7 +1485,7 @@ Trasy musí být nakonfigurovány v metodě `Startup.Configure`. Ukázková apli
 
 V následující tabulce jsou uvedeny odpovědi s danými identifikátory URI.
 
-| Identifikátor URI                    | Základě                                          |
+| URI                    | Odpověď                                          |
 | ---------------------- | ------------------------------------------------- |
 | `/package/create/3`    | Dobrý den! Hodnoty směrování: [operace, vytvořit], [ID, 3] |
 | `/package/track/-3`    | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] |
@@ -1591,7 +1607,7 @@ public User GetUserById(int id) { }
 
 Rozhraní ASP.NET Core Framework přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. Popis těchto členů naleznete v tématu <xref:System.Text.RegularExpressions.RegexOptions>.
 
-Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a C# jazyk. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` (jedno zpětné lomítko), které je zadáno v řetězci jako `\\` (Dvojitá zpětná lomítka C# ) ve zdrojovém souboru, aby mohl řídicí znak `\`. znak (Pokud nepoužíváte [doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string)). Chcete-li řídicí znaky oddělovače parametrů směrování (`{`, `}`, `[`, `]`), poklikejte na znaky ve výrazu (`{{`, `}`, `[[`, `]]`). V následující tabulce je uveden regulární výraz a verze s řídicím znakem.
+Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a C# jazyk. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` (jedno zpětné lomítko), které je zadáno v řetězci jako `\\` (Dvojitá zpětná lomítka C# ) ve zdrojovém souboru, aby bylo možné řídicí znak řetězce `\` zadat znovu (Pokud se nepoužívá [doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string)). Chcete-li řídicí znaky oddělovače parametrů směrování (`{`, `}`, `[`, `]`), poklikejte na znaky ve výrazu (`{{`, `}`, `[[`, `]]`). V následující tabulce je uveden regulární výraz a verze s řídicím znakem.
 
 | Regulární výraz    | Regulární výraz s řídicím znakem     |
 | --------------------- | ------------------------------ |
@@ -1602,11 +1618,11 @@ Regulární výrazy používané v směrování často začínají znakem stří
 
 | Výraz   | String    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | mz        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | Dobrý den     | Ne    | Viz `^` a `$` výše. |
+| `^[a-z]{2}$` | dobrý den     | Ne    | Viz `^` a `$` výše. |
 | `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` výše. |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).

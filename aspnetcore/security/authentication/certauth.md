@@ -4,14 +4,14 @@ author: blowdart
 description: Přečtěte si, jak nakonfigurovat ověřování certifikátů v ASP.NET Core pro IIS a HTTP. sys.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
-ms.date: 12/09/2019
+ms.date: 01/02/2020
 uid: security/authentication/certauth
-ms.openlocfilehash: 38ee8a6767191bb3eee4286e49b96162b14d9889
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: 9c175439c0313d62c75898f1af097774b06f353a
+ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959057"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75608142"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
@@ -63,23 +63,33 @@ Obslužná rutina `CertificateAuthenticationOptions` obsahuje některá Vestavě
 
 ### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = Chained, SelfSigned nebo All (zřetězené | SelfSigned)
 
-Tato kontrola ověří, zda je povolen pouze příslušný typ certifikátu.
+Výchozí hodnota: `CertificateTypes.Chained`
+
+Tato kontrola ověří, zda je povolen pouze příslušný typ certifikátu. Pokud aplikace používá certifikáty podepsané svým držitelem, musí být tato možnost nastavená na `CertificateTypes.All` nebo `CertificateTypes.SelfSigned`.
 
 ### <a name="validatecertificateuse"></a>ValidateCertificateUse
+
+Výchozí hodnota: `true`
 
 Tato kontrola ověří, že certifikát prezentovaný klientem má rozšířené použití klíče (EKU) ověřování klienta (EKU) nebo žádný rozšířená použití klíče. Pokud se jako specifikace nezadá žádné rozšířené použití klíče, považují se všechny rozšířená použití klíče za platné.
 
 ### <a name="validatevalidityperiod"></a>ValidateValidityPeriod
 
+Výchozí hodnota: `true`
+
 Tato kontrola ověří, že se certifikát nachází v období platnosti. U každé žádosti obslužná rutina zajišťuje, že platnost certifikátu, který byl platný při jeho předložení, vypršela během aktuální relace.
 
 ### <a name="revocationflag"></a>RevocationFlag
+
+Výchozí hodnota: `X509RevocationFlag.ExcludeRoot`
 
 Příznak, který určuje, které certifikáty v řetězci mají být zkontrolovány pro odvolání.
 
 Kontroly odvolání se provádějí jenom v případě, že je certifikát zřetězený do kořenového certifikátu.
 
 ### <a name="revocationmode"></a>RevocationMode
+
+Výchozí hodnota: `X509RevocationMode.Online`
 
 Příznak, který určuje, jak se provádí kontroly odvolání.
 
@@ -376,6 +386,9 @@ Get-ChildItem -Path cert:\localMachine\my\"The thumbprint..." | Export-PfxCertif
 
 Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath root_ca_dev_damienbod.crt
 ```
+
+> [!NOTE]
+> Hodnota parametru `-DnsName` musí odpovídat cíli nasazení aplikace. Například "localhost" pro vývoj.
 
 #### <a name="install-in-the-trusted-root"></a>Nainstalovat do důvěryhodného kořenového adresáře
 

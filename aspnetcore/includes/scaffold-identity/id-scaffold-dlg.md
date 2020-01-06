@@ -17,11 +17,15 @@ Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-Přidejte odkaz na balíček do [Microsoft. VisualStudio. Web. strategii. Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do souboru projektu (\*. csproj). Spusťte následující příkaz v adresáři projektu:
+Přidejte do souboru projektu (\*. csproj) požadované odkazy na balíček NuGet. Spusťte následující příkaz v adresáři projektu:
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
-dotnet restore
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.AspNetCore.Identity.EntityFrameworkCore
+dotnet add package Microsoft.AspNetCore.Identity.UI
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
 ```
 
 Spusťte následující příkaz k výpisu možností generátor Identity:
@@ -29,6 +33,8 @@ Spusťte následující příkaz k výpisu možností generátor Identity:
 ```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
+
+[!INCLUDE[](~/includes/scaffoldTFM.md)]
 
 Ve složce projektu spusťte generátor identity pomocí možností, které chcete. Chcete-li například nastavit identitu pomocí výchozího uživatelského rozhraní a minimálního počtu souborů, spusťte následující příkaz:
 

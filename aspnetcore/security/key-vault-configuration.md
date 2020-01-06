@@ -5,14 +5,14 @@ description: Naučte se používat zprostředkovatele konfigurace Azure Key Vaul
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/14/2019
+ms.date: 12/16/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: e0e55d40734e0cb6e3e1afe1c708ec47c6f43054
-ms.sourcegitcommit: f91d322f790123d41ec3271fa084ae20ed9f89a6
+ms.openlocfilehash: 37ba756cc4170c145d2ab1f9f0a465057cc826c1
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/18/2019
-ms.locfileid: "74155156"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358705"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace Azure Key Vault v ASP.NET Core
 
@@ -23,7 +23,7 @@ Tento dokument vysvětluje, jak pomocí poskytovatele konfigurace [Microsoft Azu
 * Řízení přístupu k citlivým datům konfigurace.
 * Splnění požadavku na Standard FIPS 140-2 úrovně 2: ověřované moduly hardwarového zabezpečení (HSM) při ukládání konfiguračních dat.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="packages"></a>Balíčky
 
@@ -73,7 +73,7 @@ Pokyny poskytované [rychlým startem: nastavení a načtení tajného klíče z
 
 1. Otevřete Azure Cloud Shell pomocí jedné z následujících metod v [Azure Portal](https://portal.azure.com/):
 
-   * Vyberte **vyzkoušet** v pravém horním rohu bloku kódu. V textovém poli použijte hledaný řetězec "Azure CLI".
+   * Zvolte **Vyzkoušet** v pravém horním rohu bloku kódu. V textovém poli použijte hledaný řetězec "Azure CLI".
    * Otevřete Cloud Shell v prohlížeči pomocí tlačítka pro **spuštění Cloud Shell** .
    * V nabídce v pravém horním rohu Azure Portal vyberte tlačítko **Cloud Shell** .
 
@@ -90,7 +90,7 @@ Pokyny poskytované [rychlým startem: nastavení a načtení tajného klíče z
 1. Vytvořte Trezor klíčů ve skupině prostředků pomocí následujícího příkazu, kde `{KEY VAULT NAME}` je název nového trezoru klíčů a `{LOCATION}` je oblast Azure (Datacenter):
 
    ```azure-cli
-   az keyvault create --name "{KEY VAULT NAME}" --resource-group "{RESOURCE GROUP NAME}" --location {LOCATION}
+   az keyvault create --name {KEY VAULT NAME} --resource-group "{RESOURCE GROUP NAME}" --location {LOCATION}
    ```
 
 1. Vytvořte tajné klíče v trezoru klíčů jako páry název-hodnota.
@@ -100,8 +100,8 @@ Pokyny poskytované [rychlým startem: nastavení a načtení tajného klíče z
    Následující tajné klíče jsou pro použití s ukázkovou aplikací. Mezi hodnoty patří `_prod` přípona pro odlišení od hodnot `_dev` přípony načtených ve vývojovém prostředí od uživatelských tajných kódů. Nahraďte `{KEY VAULT NAME}` názvem trezoru klíčů, který jste vytvořili v předchozím kroku:
 
    ```azure-cli
-   az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "SecretName" --value "secret_value_1_prod"
-   az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "Section--SecretName" --value "secret_value_2_prod"
+   az keyvault secret set --vault-name {KEY VAULT NAME} --name "SecretName" --value "secret_value_1_prod"
+   az keyvault secret set --vault-name {KEY VAULT NAME} --name "Section--SecretName" --value "secret_value_2_prod"
    ```
 
 ## <a name="use-application-id-and-x509-certificate-for-non-azure-hosted-apps"></a>Použití ID aplikace a certifikátu X. 509 pro aplikace hostované mimo Azure
@@ -124,7 +124,7 @@ Ukázková aplikace používá ID aplikace a certifikát X. 509, pokud je přík
 1. V souboru *appSettings. JSON* aplikace uložte název trezoru klíčů, ID aplikace a kryptografický otisk certifikátu.
 1. V Azure Portal přejděte na **trezory klíčů** .
 1. [V části provozní prostředí s Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) vyberte Trezor klíčů, který jste vytvořili v tajném úložišti.
-1. Vyberte **zásady přístupu**.
+1. Vyberte **Zásady přístupu**.
 1. Vyberte **Přidat zásady přístupu**.
 1. Otevřete **oprávnění tajného klíče** a poskytněte aplikaci oprávnění **získat** a vytvořit **seznam** .
 1. Vyberte **Vybrat objekt zabezpečení** a vyberte zaregistrovanou aplikaci podle názvu. Vyberte tlačítko **Vybrat** .
@@ -153,13 +153,13 @@ Certifikát X. 509 spravuje operační systém. Aplikace volá <xref:Microsoft.E
 
 ::: moniker-end
 
-Příklady hodnot:
+Ukázkové hodnoty:
 
 * Název trezoru klíčů: `contosovault`
 * ID aplikace: `627e911e-43cc-61d4-992e-12db9c81b413`
 * Kryptografický otisk certifikátu: `fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-*appSettings. JSON*:
+*appsettings.json*:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -190,7 +190,7 @@ Aplikace nasazená do Azure App Service se při vytvoření služby automaticky 
 Pomocí rozhraní příkazového řádku Azure a ID objektu aplikace poskytněte aplikaci `list` a `get` oprávnění pro přístup k trezoru klíčů:
 
 ```azure-cli
-az keyvault set-policy --name '{KEY VAULT NAME}' --object-id {OBJECT ID} --secret-permissions get list
+az keyvault set-policy --name {KEY VAULT NAME} --object-id {OBJECT ID} --secret-permissions get list
 ```
 
 **Restartujte aplikaci** pomocí rozhraní příkazového řádku Azure CLI, PowerShellu nebo Azure Portal.
@@ -215,7 +215,7 @@ Ukázková aplikace:
 
 Ukázková hodnota názvu trezoru klíčů: `contosovault`
     
-*appSettings. JSON*:
+*appsettings.json*:
 
 ```json
 {
@@ -304,8 +304,8 @@ Při implementaci tohoto přístupu:
 1. Tajné kódy se ukládají v Azure Key Vault pomocí následujících příkazů Azure CLI:
 
    ```azure-cli
-   az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5000-AppSecret" --value "5.0.0.0_secret_value_prod"
-   az keyvault secret set --vault-name "{KEY VAULT NAME}" --name "5100-AppSecret" --value "5.1.0.0_secret_value_prod"
+   az keyvault secret set --vault-name {KEY VAULT NAME} --name "5000-AppSecret" --value "5.0.0.0_secret_value_prod"
+   az keyvault secret set --vault-name {KEY VAULT NAME} --name "5100-AppSecret" --value "5.1.0.0_secret_value_prod"
    ```
 
 1. Po spuštění aplikace se načtou tajné klíče trezoru klíčů. Řetězec tajného kódu pro `5000-AppSecret` se shoduje s verzí aplikace zadanou v souboru projektu aplikace (`5.0.0.0`).
@@ -371,7 +371,7 @@ Configuration.Reload();
 
 Zakázané a tajné klíče s vypršenou platností vyvolávají <xref:Microsoft.Azure.KeyVault.Models.KeyVaultErrorException>. Chcete-li zabránit tomu, aby se aplikace vyvolala, zadejte konfiguraci pomocí jiného poskytovatele konfigurace nebo aktualizujte zakázané nebo neprošlé tajné klíče.
 
-## <a name="troubleshoot"></a>Řešení potíží
+## <a name="troubleshoot"></a>Řešení problémů
 
 Když se aplikaci nepovede načíst konfiguraci pomocí poskytovatele, do [ASP.NET Core infrastruktury protokolování](xref:fundamentals/logging/index)se zapíše chybová zpráva. Následující podmínky zabrání načtení konfigurace:
 
@@ -384,7 +384,7 @@ Když se aplikaci nepovede načíst konfiguraci pomocí poskytovatele, do [ASP.N
 * Konfigurační klíč (Name) je v aplikaci v případě hodnoty, kterou se pokoušíte načíst, nesprávný.
 * Když přidáte zásady přístupu pro aplikaci do trezoru klíčů, zásada se vytvořila, ale tlačítko **Uložit** nebylo vybrané v uživatelském rozhraní **zásad přístupu** .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:fundamentals/configuration/index>
 * [Microsoft Azure: Key Vault](https://azure.microsoft.com/services/key-vault/)

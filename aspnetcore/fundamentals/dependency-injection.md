@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/05/2019
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: c46e7322e86c2836a15bd0720995a8634bb185be
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: fabc6df07d2d7beaa546b189bb7527f626fc669d
+ms.sourcegitcommit: 47d453f34b6fd0179119c572cb8be64c5365cbb6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634015"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75597938"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -107,7 +107,7 @@ Toto rozhraní je implementováno konkrétním typem `MyDependency`:
 Kontejner řeší `ILogger<TCategoryName>` s využitím [(generických) otevřených typů](/dotnet/csharp/language-reference/language-specification/types#open-and-closed-types), čímž eliminuje nutnost registrovat každý [(generický) konstruovaný typ](/dotnet/csharp/language-reference/language-specification/types#constructed-types):
 
 ```csharp
-services.AddSingleton(typeof(ILogger<T>), typeof(Logger<T>));
+services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 ```
 
 V ukázkové aplikaci je služba `IMyDependency` registrována s konkrétním typem `MyDependency`. Registrace specifikuje rámec životnosti služby na životnost jednoho požadavku. [Životnosti služby](#service-lifetimes) jsou popsány dále v tomto tématu.
@@ -184,7 +184,7 @@ Metoda `Startup.ConfigureServices` zodpovídá za definování služeb, které a
 
 ::: moniker range=">= aspnetcore-3.0"
 
-| Typ služby | Životnost |
+| Typ služby | Doba platnosti |
 | ------------ | -------- |
 | <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Přechodná |
 | `IHostApplicationLifetime` | Singleton |
@@ -205,7 +205,7 @@ Metoda `Startup.ConfigureServices` zodpovídá za definování služeb, které a
 
 ::: moniker range="< aspnetcore-3.0"
 
-| Typ služby | Životnost |
+| Typ služby | Doba platnosti |
 | ------------ | -------- |
 | <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Přechodná |
 | <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime?displayProperty=fullName> | Singleton |
@@ -272,7 +272,7 @@ Služba singleton (<xref:Microsoft.Extensions.DependencyInjection.ServiceCollect
 
 Metody rozšíření registrace služby nabízejí přetížení, která jsou užitečná pro konkrétní scénáře.
 
-| Metoda | Automatické<br>object<br>odvod | Více<br>implementace | Pass – argumenty |
+| Metoda | Automatické<br>Objekt nástroje<br>odvod | Více<br>implementace | Pass – argumenty |
 | ------ | :-----------------------------: | :-------------------------: | :-------: |
 | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<IMyDep, MyDep>();` | Ano | Ano | Ne |
 | `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | Ano | Ano | Ano |
@@ -292,7 +292,7 @@ services.AddSingleton<IMyDependency, MyDependency>();
 services.TryAddSingleton<IMyDependency, DifferentDependency>();
 ```
 
-Další informace naleznete v tématu:
+Další informace najdete v části .
 
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAdd*>
 * <xref:Microsoft.Extensions.DependencyInjection.Extensions.ServiceCollectionDescriptorExtensions.TryAddTransient*>
@@ -326,7 +326,7 @@ Konstruktory mohou přijímat argumenty, které nejsou poskytovány v rámci vkl
 
 Pokud jsou služby řešeny pomocí `IServiceProvider` nebo `ActivatorUtilities`, pak je vyžadován *veřejný* konstruktor.
 
-Pokud jsou služby řešeny pomocí `ActivatorUtilities`, konstruktorová injekce vyžaduje, aby existoval pouze jediný použitelný konstruktor. Přetížení konstruktoru je podporováno, ale může existovat pouze jedno přetížením, jehož argumenty jsou splnitelné vkládáním závislostí.
+Pokud jsou služby řešeny pomocí `ActivatorUtilities`, konstruktorová injekce vyžaduje, aby existoval pouze jediný použitelný konstruktor. Přetížení konstruktoru je podporováno, ale může existovat pouze jedno přetížení, jehož argumenty jsou splnitelné vkládáním závislostí.
 
 ## <a name="entity-framework-contexts"></a>Kontexty Entity Frameworku
 
@@ -640,7 +640,7 @@ Výrobní metoda samostatné služby, jako je například druhý argument pro [A
 
 * Vyhněte se použití *vzoru lokátoru služby*. Například Nevolejte <xref:System.IServiceProvider.GetService*> pro získání instance služby, když můžete místo toho použít DI:
 
-  **Špatný**
+  **Nesprávně:**
 
   ```csharp
   public class MyClass()
@@ -685,7 +685,7 @@ Stejně jako u všech doporučení mohou nastat situace, ve kterých je možné 
 
 DI je *alternativou* ke vzorům statických nebo globálních přístupů k objektům. Je možné, že nebudete moci využít výhody DI, pokud je kombinujete se statickým přístupem k objektům.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:mvc/views/dependency-injection>
 * <xref:mvc/controllers/dependency-injection>

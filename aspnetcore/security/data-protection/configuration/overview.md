@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: 380293f650c9548c286f98c0447c7ed08b918f2a
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: cda510d0f8211641e3544b53ded79878d717cc58
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007375"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358407"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany ASP.NET Core dat
 
@@ -26,6 +26,15 @@ V těchto scénářích nabízí systém ochrany dat bohatá rozhraní API pro k
 > Podobně jako u konfiguračních souborů by měl být datový Prstenový kanál ochrany dat chráněný pomocí příslušných oprávnění. Můžete zvolit šifrování klíčů v klidovém umístění, ale nebrání útočníkům v vytváření nových klíčů. V důsledku toho je zabezpečení vaší aplikace ovlivněno. Umístění úložiště nakonfigurované s ochranou dat by mělo mít přístup omezený jenom na samotnou aplikaci, podobně jako při ochraně konfiguračních souborů. Pokud se například rozhodnete, že budete svůj klíč Ring ukládat na disk, použijte oprávnění systému souborů. Zajistěte, aby byla ve vaší webové aplikaci při čtení, zápisu a vytváření přístupu k tomuto adresáři pouze identita, pod kterou vaše webová aplikace běží. Pokud používáte Azure Blob Storage, měla by mít možnost číst, zapisovat nebo vytvářet nové položky v úložišti objektů BLOB atd.
 >
 > Metoda rozšíření [AddDataProtection](/dotnet/api/microsoft.extensions.dependencyinjection.dataprotectionservicecollectionextensions.adddataprotection) vrátí [IDataProtectionBuilder](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionbuilder). `IDataProtectionBuilder` zveřejňuje metody rozšíření, které lze řetězit ke konfiguraci možností ochrany dat.
+
+::: moniker range=">= aspnetcore-3.0"
+
+Pro rozšíření ochrany dat používané v tomto článku jsou vyžadovány následující balíčky NuGet:
+
+* [Microsoft. AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/)
+* [Microsoft. AspNetCore. DataProtection. AzureKeyVault](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureKeyVault/)
+
+::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 

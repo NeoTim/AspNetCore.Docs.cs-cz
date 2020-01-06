@@ -5,16 +5,16 @@ description: Naučte se, jak začít s ASP.NET Core MVC.
 ms.author: riande
 ms.date: 10/16/2019
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: 0c8c59a5c59c8a70985dc8463c80f9569a00621f
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: e70384a6f20f3ef06059ed6b51c76e923187c317
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73761233"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75354928"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -38,15 +38,15 @@ Na konci máte aplikaci, která může spravovat a zobrazovat data filmů.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-[!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
+[!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
 ---
 
@@ -74,8 +74,8 @@ Aplikace Visual Studio použila pro projekt MVC, který jste právě vytvořili,
 
 Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Začínáme s vs Code](https://code.visualstudio.com/docs) a [Visual Studio Code nápovědě](#visual-studio-code-help) .
 
-* Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
-* Změňte adresáře (`cd`) do složky, která bude obsahovat projekt.
+* Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
+* Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 * Spusťte následující příkaz:
 
    ```dotnetcli
@@ -94,11 +94,11 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
 
   ![macOS nové řešení](./start-mvc/_static/new_project_vsmac.png)
 
-* Vyberte **.NET Core** > **aplikace** > **Webová aplikace (model-zobrazení-kontroler)** > **Next**.
+* Vyberte možnost **.NET Core** > **App** > **Web Application (Model-View-Controller)** > **Další**.
 
-  ![dialog pro nový projekt v macOS](./start-mvc/_static/new_project_mvc_vsmac.png)
+  ![macOS dialogové okno nového projektu](./start-mvc/_static/new_project_mvc_vsmac.png)
 
-* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** nastavte **cílovou architekturu** **.NET Core 3,0**.
+* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** nastavte **cílovou architekturu** **.NET Core 3,1**.
 
 <!-- 
   ![macOS .NET Core 2.2 selection](./start-mvc/_static/new_project_22_vsmac.png)
@@ -116,8 +116,8 @@ Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
 [!INCLUDE[](~/includes/trustCertVS.md)]
 
-* Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Všimněte si, že se na panelu Adresa zobrazuje `localhost:port#` a ne něco jako `example.com`. To je proto, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, pro webový server se použije náhodný port.
-* Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použít režim bez ladění pro rychlé spuštění aplikace a zobrazení změn.
+* Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Všimněte si, že se v adresním řádku zobrazuje `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port.
+* Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Řada vývojářů dává přednost používání režimu bez ladění, aby mohli aplikaci rychle spustit a podívat se na změny.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z položky nabídky **ladění** :
 
   ![Nabídka ladění](start-mvc/_static/debug_menu.png)
@@ -136,7 +136,7 @@ Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
 
 [!INCLUDE[](~/includes/trustCertVSC.md)]
 
-  Visual Studio Code spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `https://localhost:5001`. Panel Adresa zobrazuje `localhost:port:5001` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače.
+  Visual Studio Code spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `https://localhost:5001`. V adresním řádku se zobrazí `localhost:port:5001` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače.
 
   Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použití režimu bez ladění k aktualizaci stránky a zobrazení změn.
 
@@ -148,7 +148,7 @@ Pokud chcete spustit aplikaci, vyberte **spustit** > **Spustit bez ladění** . 
 
 [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* Panel Adresa zobrazuje `localhost:port#` a ne něco jako `example.com`. To je proto, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, pro webový server se použije náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
+* V adresním řádku se zobrazí `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z nabídky **Spustit** .
 
   Následující obrázek znázorňuje aplikaci:
@@ -224,8 +224,8 @@ Aplikace Visual Studio použila pro projekt MVC, který jste právě vytvořili,
 
 Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Začínáme s vs Code](https://code.visualstudio.com/docs) a [Visual Studio Code nápovědě](#visual-studio-code-help) .
 
-* Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
-* Změňte adresáře (`cd`) do složky, která bude obsahovat projekt.
+* Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
+* Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 * Spusťte následující příkaz:
 
    ```dotnetcli
@@ -244,9 +244,9 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
 
   ![macOS nové řešení](./start-mvc/_static/new_project_vsmac.png)
 
-* Vyberte **.NET Core** > **aplikace** > **Webová aplikace (model-zobrazení-kontroler)** > **Next**.
+* Vyberte možnost **.NET Core** > **App** > **Web Application (Model-View-Controller)** > **Další**.
 
-  ![dialog pro nový projekt v macOS](./start-mvc/_static/new_project_mvc_vsmac.png)
+  ![macOS dialogové okno nového projektu](./start-mvc/_static/new_project_mvc_vsmac.png)
 
 * V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** přijměte výchozí **cílovou architekturu** **.NET Core 2,2**.
 
@@ -264,8 +264,8 @@ Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
 [!INCLUDE[](~/includes/trustCertVS.md)]
 
-* Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Všimněte si, že se na panelu Adresa zobrazuje `localhost:port#` a ne něco jako `example.com`. To je proto, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, pro webový server se použije náhodný port.
-* Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použít režim bez ladění pro rychlé spuštění aplikace a zobrazení změn.
+* Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Všimněte si, že se v adresním řádku zobrazuje `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port.
+* Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Řada vývojářů dává přednost používání režimu bez ladění, aby mohli aplikaci rychle spustit a podívat se na změny.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z položky nabídky **ladění** :
 
   ![Nabídka ladění](start-mvc/_static/debug_menu.png)
@@ -274,7 +274,7 @@ Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
   ![IIS Express](start-mvc/_static/iis_express.png)
 
-* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](start-mvc/_static/privacy.png)
 
@@ -288,11 +288,11 @@ Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
 
 [!INCLUDE[](~/includes/trustCertVSC.md)]
 
-  Visual Studio Code spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `https://localhost:5001`. Panel Adresa zobrazuje `localhost:port:5001` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače.
+  Visual Studio Code spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `https://localhost:5001`. V adresním řádku se zobrazí `localhost:port:5001` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače.
 
   Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použití režimu bez ladění k aktualizaci stránky a zobrazení změn.
 
-* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](start-mvc/_static/privacy.png)
 
@@ -306,10 +306,10 @@ Pokud chcete spustit aplikaci, vyberte **spustit** > **Spustit bez ladění** . 
 
 [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* Panel Adresa zobrazuje `localhost:port#` a ne něco jako `example.com`. To je proto, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, pro webový server se použije náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
+* V adresním řádku se zobrazí `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z nabídky **Spustit** .
 
-* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](./start-mvc/_static/output_privacy_macos.png)
 

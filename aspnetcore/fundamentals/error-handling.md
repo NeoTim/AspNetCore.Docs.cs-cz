@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: fundamentals/error-handling
-ms.openlocfilehash: 162972043a90fc8cc45aed52b5fa80ade3e11f39
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: c20d8757eef80fdbb73b1b7a9933a3c0be9bb8ed
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880063"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358974"
 ---
 # <a name="handle-errors-in-aspnet-core"></a>Zpracování chyb v ASP.NET Core
 
@@ -84,6 +84,8 @@ Alternativou ke [stránce vlastní obslužné rutiny výjimek](#exception-handle
 Zde je příklad použití výrazu lambda pro zpracování výjimek:
 
 [!code-csharp[](error-handling/samples/2.x/ErrorHandlingSample/Startup.cs?name=snippet_HandlerPageLambda)]
+
+V předchozím kódu je `await context.Response.WriteAsync(new string(' ', 512));` přidáno, aby prohlížeč Internet Explorer zobrazil chybovou zprávu, nikoli chybovou zprávu IE. Další informace najdete v tématu [tento problém Githubu](https://github.com/aspnet/AspNetCore.Docs/issues/16144).
 
 > [!WARNING]
 > **Neobsluhujte** citlivé informace o chybách od <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerFeature> ani <xref:Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature> klientům. Obsluha chyb je bezpečnostní riziko.

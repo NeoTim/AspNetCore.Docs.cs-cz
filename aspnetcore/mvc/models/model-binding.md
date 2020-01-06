@@ -4,14 +4,14 @@ author: rick-anderson
 description: Přečtěte si, jak vazba modelu v ASP.NET Core funguje a jak přizpůsobit jeho chování.
 ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
-ms.date: 11/21/2019
+ms.date: 12/18/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: da6cc25e0bbb1b2301529b34eab4c91f9ccb46eb
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: d36e42ef2517068ade3f874dc62cc7587ee3ca98
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944292"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355665"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
@@ -34,7 +34,7 @@ Tento článek vysvětluje, co je vazba modelů, jak funguje a jak přizpůsobit
 
 Předpokládejme, že máte následující metodu akce:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Controllers/PetsController.cs?name=snippet_DogsOnly)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Controllers/PetsController.cs?name=snippet_DogsOnly)]
 
 A aplikace obdrží požadavek s touto adresou URL:
 
@@ -67,19 +67,19 @@ Vazba modelu se pokusí najít hodnoty pro následující typy cílů:
 
 Dá se použít na veřejnou vlastnost kontroleru nebo `PageModel` třídy, aby vazba modelu mohla cílit na tuto vlastnost:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/Instructors/Edit.cshtml.cs?name=snippet_BindProperty&highlight=3-4)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/Instructors/Edit.cshtml.cs?name=snippet_BindProperty&highlight=3-4)]
 
 ### <a name="bindpropertiesattribute"></a>[BindProperties] – atribut
 
 K dispozici v ASP.NET Core 2,1 a novějším.  Dá se použít na kontrolér nebo `PageModel` třídu pro oznámení, že vazba modelu cílí na všechny veřejné vlastnosti třídy:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/Instructors/Create.cshtml.cs?name=snippet_BindProperties&highlight=1-2)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/Instructors/Create.cshtml.cs?name=snippet_BindProperties&highlight=1-2)]
 
 ### <a name="model-binding-for-http-get-requests"></a>Vazba modelu pro požadavky HTTP GET
 
 Ve výchozím nastavení nejsou vlastnosti pro požadavky HTTP GET vázané. Obvykle stačí pro požadavek GET parametr ID záznamu. ID záznamu slouží k vyhledání položky v databázi. Proto není nutné navazovat vlastnost, která obsahuje instanci modelu. Ve scénářích, kdy chcete vlastnosti navázané na data z požadavků GET, nastavte vlastnost `SupportsGet` na `true`:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/Instructors/Index.cshtml.cs?name=snippet_SupportsGet)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/Instructors/Index.cshtml.cs?name=snippet_SupportsGet)]
 
 ## <a name="sources"></a>Zdroje
 
@@ -108,11 +108,11 @@ Tyto atributy:
 
 * Jsou přidány do vlastností modelu jednotlivě (nikoli do třídy modelu), jako v následujícím příkladu:
 
-  [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Models/Instructor.cs?name=snippet_FromQuery&highlight=5-6)]
+  [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/Instructor.cs?name=snippet_FromQuery&highlight=5-6)]
 
 * Volitelně akceptuje hodnotu názvu modelu v konstruktoru. Tato možnost je k dispozici v případě, že se název vlastnosti neshoduje s hodnotou v požadavku. Například hodnota v požadavku může být záhlavím s pomlčkou v názvu, jako v následujícím příkladu:
 
-  [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/Instructors/Index.cshtml.cs?name=snippet_FromHeader)]
+  [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/Instructors/Index.cshtml.cs?name=snippet_FromHeader)]
 
 ### <a name="frombody-attribute"></a>[FromBody] – atribut
 
@@ -153,9 +153,9 @@ Zdrojová data jsou k dispozici pro systém vázání modelů podle *zprostředk
 * Vytvořte třídu, která implementuje `IValueProviderFactory`.
 * Zaregistrujte třídu factory v `Startup.ConfigureServices`.
 
-Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices`:
+Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices`:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=3)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=4)]
 
 Zobrazený kód vloží zprostředkovatele vlastních hodnot po všech vestavěných poskytovatelích hodnot.  Chcete-li jej v seznamu nastavit jako první, zavolejte místo `Add``Insert(0, new CookieValueProviderFactory())`.
 
@@ -180,7 +180,7 @@ V kontroleru rozhraní API, který má atribut `[ApiController]`, má neplatný 
 
 Na stránce Razor znovu zobrazte stránku s chybovou zprávou:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/Instructors/Create.cshtml.cs?name=snippet_HandleMBError&highlight=3-6)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/Instructors/Create.cshtml.cs?name=snippet_HandleMBError&highlight=3-6)]
 
 Ověřování na straně klienta zachytí nejvíc chybných dat, která by jinak byla odeslána do Razor Pages formuláře. Díky tomuto ověření je obtížné aktivovat předchozí zvýrazněný kód. Ukázková aplikace obsahuje tlačítko **Odeslat s neplatným datem** , které do pole **Datum přijetí** vloží nesprávná data a formulář odešle. Toto tlačítko ukazuje, jak kód pro zobrazení stránky funguje, když dojde k chybám převodu dat.
 
@@ -276,13 +276,13 @@ K dispozici je několik předdefinovaných atributů pro řízení vazeb modelu 
 
 Dá se použít jenom pro vlastnosti modelu, nikoli na parametry metody. Způsobí, že vazba modelu přidá chybu stavu modelu, pokud pro vlastnost modelu neproběhne vazba. Tady je příklad:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithCollection.cs?name=snippet_BindRequired&highlight=8-9)]
 
 ### <a name="bindnever-attribute"></a>[BindNever] – atribut
 
 Dá se použít jenom pro vlastnosti modelu, nikoli na parametry metody. Zabraňuje vazbě modelu v nastavení vlastnosti modelu. Tady je příklad:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/InstructorWithDictionary.cs?name=snippet_BindNever&highlight=3-4)]
 
 ### <a name="bind-attribute"></a>[BIND] – atribut
 
@@ -401,8 +401,8 @@ Aby zprostředkovatel hodnoty trasy ASP.NET Core a zprostředkovatel hodnoty ře
 * Nahraďte [hodnotu jazykové verze](https://github.com/aspnet/AspNetCore/blob/e625fe29b049c60242e8048b4ea743cca65aa7b5/src/Mvc/Mvc.Core/src/ModelBinding/QueryStringValueProviderFactory.cs#L30) předanou konstruktoru zprostředkovatele hodnoty pomocí [CultureInfo. CurrentCulture.](xref:System.Globalization.CultureInfo.CurrentCulture)
 * V možnostech MVC nahraďte výchozí továrnu poskytovatele hodnot pomocí nového:
 
-[!code-csharp[](model-binding/samples_snapshot/2.x/Startup.cs?name=snippet)]
-[!code-csharp[](model-binding/samples_snapshot/2.x/Startup.cs?name=snippet1)]
+[!code-csharp[](model-binding/samples_snapshot/3.x/Startup.cs?name=snippet)]
+[!code-csharp[](model-binding/samples_snapshot/3.x/Startup.cs?name=snippet1)]
 
 ## <a name="special-data-types"></a>Speciální datové typy
 
@@ -432,7 +432,7 @@ Chcete-li použít předdefinované vstupní formátovací moduly XML:
 
 * V `Startup.ConfigureServices`volejte <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlSerializerFormatters*> nebo <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcCoreBuilderExtensions.AddXmlDataContractSerializerFormatters*>.
 
-  [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=9)]
+  [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=10)]
 
 * Použijte atribut `Consumes` na třídy kontroleru nebo metody akcí, které by měly v textu požadavku očekávat XML.
 
@@ -444,27 +444,52 @@ Chcete-li použít předdefinované vstupní formátovací moduly XML:
 
   Další informace najdete v tématu [představení XML serializace](/dotnet/standard/serialization/introducing-xml-serialization).
 
+### <a name="customize-model-binding-with-input-formatters"></a>Přizpůsobení vazby modelu pomocí vstupních formátovacích prvků
+
+Vstupní formátovací modul má plnou zodpovědnost za čtení dat z textu žádosti. Chcete-li tento proces přizpůsobit, nakonfigurujte rozhraní API používaná vstupním formátovacím modulem. Tato část popisuje, jak upravit vstupní formátovací modul založený na `System.Text.Json`pro pochopení vlastního typu s názvem `ObjectId`. 
+
+Vezměte v úvahu následující model, který obsahuje vlastní vlastnost `ObjectId` s názvem `Id`:
+
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/ModelWithObjectId.cs?name=snippet_Class&highlight=3)]
+
+Chcete-li přizpůsobit proces vazby modelu při použití `System.Text.Json`, vytvořte třídu odvozenou z <xref:System.Text.Json.Serialization.JsonConverter%601>:
+
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/JsonConverters/ObjectIdConverter.cs?name=snippet_Class)]
+
+Chcete-li použít vlastní převaděč, použijte atribut <xref:System.Text.Json.Serialization.JsonConverterAttribute> pro typ. V následujícím příkladu je typ `ObjectId` nakonfigurovaný pomocí `ObjectIdConverter` jako svůj vlastní převaděč:
+
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Models/ObjectId.cs?name=snippet_Class&highlight=1)]
+
+Další informace najdete v tématu [jak psát vlastní převaděče](/dotnet/standard/serialization/system-text-json-converters-how-to).
+
 ## <a name="exclude-specified-types-from-model-binding"></a>Vyloučit zadané typy z vazby modelu
 
 Chování vazeb modelů a ověřovacích systémů řídí [ModelMetadata](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.modelmetadata). `ModelMetadata` můžete přizpůsobit přidáním poskytovatele podrobností do [MvcOptions. ModelMetadataDetailsProviders](xref:Microsoft.AspNetCore.Mvc.MvcOptions.ModelMetadataDetailsProviders). Předdefinovaná poskytovatelé podrobností jsou k dispozici pro zakázání vazby modelu nebo ověření pro zadané typy.
 
 Chcete-li zakázat vazbu modelu u všech modelů zadaného typu, přidejte do `Startup.ConfigureServices`<xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.ExcludeBindingMetadataProvider>. Například pro zákaz vazby modelu u všech modelů typu `System.Version`:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=4-5)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=5-6)]
 
 Chcete-li zakázat ověřování vlastností zadaného typu, přidejte do `Startup.ConfigureServices`<xref:Microsoft.AspNetCore.Mvc.ModelBinding.SuppressChildValidationMetadataProvider>. Chcete-li například zakázat ověřování vlastností typu `System.Guid`:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=6-7)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=7-8)]
 
 ## <a name="custom-model-binders"></a>Vlastní pořadače modelů
 
 Vazbu modelu můžete roztáhnout tak, že napíšete vlastní pořadač modelů a pomocí atributu `[ModelBinder]` ho vyberete pro daný cíl. Přečtěte si další informace o [vazbě vlastního modelu](xref:mvc/advanced/custom-model-binding).
 
-## <a name="manual-model-binding"></a>Ruční vazba modelu
+## <a name="manual-model-binding"></a>Ruční vazba modelu 
 
 Vazbu modelu lze vyvolat ručně pomocí metody <xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*>. Metoda je definována v obou třídách `ControllerBase` i `PageModel`. Přetížení metody umožňují určit poskytovatele předpony a hodnoty, které se mají použít. Metoda vrátí `false`, pokud se vazba modelu nezdařila. Tady je příklad:
 
-[!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
+[!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Pages/InstructorsWithCollection/Create.cshtml.cs?name=snippet_TryUpdate&highlight=1-4)]
+
+<xref:Microsoft.AspNetCore.Mvc.ControllerBase.TryUpdateModelAsync*> používá zprostředkovatele hodnot k získávání dat z textu formuláře, řetězce dotazu a dat směrování. `TryUpdateModelAsync` je obvykle: 
+
+* Používá se s aplikacemi Razor Pages a MVC k tomu, aby se zabránilo převzetí služeb při selhání pomocí řadičů a zobrazení.
+* Nepoužívá se s webovým rozhraním API, pokud se nevyužívá pro data formulářů, řetězce dotazů a data směrování. Koncové body webového rozhraní API, které využívají [Formátovací moduly vstupu](#input-formatters) JSON k deserializaci těla požadavku do objektu.
+
+Další informace najdete v tématu [TryUpdateModelAsync](xref:data/ef-rp/crud#TryUpdateModelAsync).
 
 ## <a name="fromservices-attribute"></a>[FromServices] – atribut
 

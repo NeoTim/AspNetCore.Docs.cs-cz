@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: ef5cb120c15d349be744c401bd518e026ddf11e9
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 9b36ae64fbe277cd81ed22ba7b21b0a035082dbd
+ms.sourcegitcommit: c815a9465e7b1bab44ce1643ec345b33e6cf1598
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880773"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75606789"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>Bezpečné ukládání tajných kódů aplikací ve vývoji v ASP.NET Core
 
@@ -19,7 +19,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Skořepa](https://g
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([stažení](xref:index#how-to-download-a-sample))
 
-Tento dokument vysvětluje techniky pro ukládání a načítání citlivých dat během vývoje aplikace ASP.NET Core. Nikdy neukládejte hesla nebo další citlivá data ve zdrojovém kódu. Provozní tajemství by se neměla používat pro vývoj nebo testování. Tajné klíče by se neměly nasazovat spolu s aplikací. Místo toho by tajné klíče měly být k dispozici v produkčním prostředí prostřednictvím řízených prostředků, jako jsou proměnné prostředí, Azure Key Vault atd. Pomocí [poskytovatele konfigurace Azure Key Vault](xref:security/key-vault-configuration)můžete ukládat a chránit tajné kódy Azure test a produkčního prostředí.
+Tento dokument vysvětluje techniky pro ukládání a načítání citlivých dat během vývoje ASP.NET Core aplikace na vývojovém počítači. Nikdy neukládejte hesla nebo další citlivá data ve zdrojovém kódu. Provozní tajemství by se neměla používat pro vývoj nebo testování. Tajné klíče by se neměly nasazovat spolu s aplikací. Místo toho by tajné klíče měly být k dispozici v produkčním prostředí prostřednictvím řízených prostředků, jako jsou proměnné prostředí, Azure Key Vault atd. Pomocí [poskytovatele konfigurace Azure Key Vault](xref:security/key-vault-configuration)můžete ukládat a chránit tajné kódy Azure test a produkčního prostředí.
 
 ## <a name="environment-variables"></a>Proměnné prostředí
 
@@ -410,5 +410,6 @@ No secrets configured for this application.
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 
+* Informace o přístupu ke Správci tajných kódů ze služby IIS najdete v [tomto problému](https://github.com/aspnet/AspNetCore.Docs/issues/16328) .
 * <xref:fundamentals/configuration/index>
 * <xref:security/key-vault-configuration>

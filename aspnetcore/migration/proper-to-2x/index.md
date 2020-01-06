@@ -5,12 +5,12 @@ description: Dodržení pokynů k migraci stávajících ASP.NET MVC nebo webov�
 ms.author: scaddie
 ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 1564b644b774939c3c242a41812851917e96d2b2
-ms.sourcegitcommit: a166291c6708f5949c417874108332856b53b6a9
+ms.openlocfilehash: 19be7191792c44fb5414eb0a7b24772c45391253
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/18/2019
-ms.locfileid: "74803341"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359409"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET na ASP.NET Core
 
@@ -158,6 +158,40 @@ Například prostředek obrázku ve složce *wwwroot/images* je přístupný pro
 ## <a name="multi-value-cookies"></a>Soubory cookie s více hodnotami
 
 [Soubory cookie s více hodnotami](xref:System.Web.HttpCookie.Values) nejsou v ASP.NET Core podporovány. Vytvoří jeden soubor cookie na hodnotu.
+
+## <a name="partial-app-migration"></a>Migrace částečné aplikace
+
+Jedním z možností migrace částečné aplikace je vytvoření podaplikace služby IIS a přesunutí určitých tras z ASP.NET 4. x na ASP.NET Core a zachování struktury adresy URL aplikace. Zvažte například strukturu adresy URL aplikace ze souboru *ApplicationHost. config* :
+
+```xml
+<sites>
+    <site name="Default Web Site" id="1" serverAutoStart="true">
+        <application path="/">
+            <virtualDirectory path="/" physicalPath="D:\sites\MainSite\" />
+        </application>
+        <application path="/api" applicationPool="DefaultAppPool">
+            <virtualDirectory path="/" physicalPath="D:\sites\netcoreapi" />
+        </application>
+        <bindings>
+            <binding protocol="http" bindingInformation="*:80:" />
+            <binding protocol="https" bindingInformation="*:443:" sslFlags="0" />
+        </bindings>
+    </site>
+    ...
+</sites>
+```
+
+Adresářová struktura:
+
+```
+.
+├── MainSite
+│   ├── ...
+│   └── Web.config
+└── NetCoreApi
+    ├── ...
+    └── web.config
+```
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 

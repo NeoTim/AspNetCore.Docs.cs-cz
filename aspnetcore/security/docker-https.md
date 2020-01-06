@@ -6,13 +6,15 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/05/2019
+no-loc:
+- Let's Encrypt
 uid: security/docker-https
-ms.openlocfilehash: c13ba02845eef5c53a939feec2be8a01bc4ca128
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: 47027033c0b7130f2d38d22c02a54945b2cc31b3
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082535"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358910"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>Hostování ASP.NET Core imagí pomocí Docker přes HTTPS
 
@@ -32,16 +34,16 @@ Některé pokyny v tomto dokumentu vyžadují [sadu SDK .NET Core 2,2](https://w
 
 ## <a name="certificates"></a>Certifikáty
 
-Pro [hostování v provozu](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/) v doméně je vyžadován certifikát od [certifikační autority](https://en.wikipedia.org/wiki/Certificate_authority) .  [Šifra](https://letsencrypt.org/) je certifikační autorita, která nabízí bezplatné certifikáty.
+Pro [hostování v provozu](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/) v doméně je vyžadován certifikát od [certifikační autority](https://wikipedia.org/wiki/Certificate_authority) . [Let's Encrypt](https://letsencrypt.org/) je certifikační autorita, která nabízí bezplatné certifikáty.
 
-Tento dokument používá [certifikáty pro vývoj podepsaný svým držitelem](https://en.wikipedia.org/wiki/Self-signed_certificate) pro hostování předem vytvořených imagí `localhost`. Pokyny jsou podobné použití produkčních certifikátů.
+Tento dokument používá [certifikáty pro vývoj podepsaný svým držitelem](https://en.wikipedia.org/wiki/Self-signed_certificate) pro hostování předem sestavených imagí přes `localhost`. Pokyny jsou podobné použití produkčních certifikátů.
 
 Pro produkční certifikáty:
 
-* `dotnet dev-certs` Nástroj není povinný.
+* Nástroj `dotnet dev-certs` není povinný.
 * Certifikáty není nutné ukládat v umístění, které jste použili v pokynech. Jakékoli umístění by mělo fungovat, i když ukládání certifikátů v adresáři webu se nedoporučuje.
 
-Pokyny pro připojení certifikátů do kontejnerů. Do imagí kontejnerů můžete přidat certifikáty pomocí `COPY` příkazu v souboru Dockerfile. Kopírování certifikátů do bitové kopie se nedoporučuje:
+Pokyny pro připojení certifikátů do kontejnerů. Certifikáty můžete přidat do imagí kontejneru pomocí příkazu `COPY` v *souboru Dockerfile*. Kopírování certifikátů do bitové kopie se nedoporučuje z následujících důvodů:
 
 * Pro testování pomocí certifikátů pro vývojáře je obtížné použít stejný obrázek.
 * Pro hostování s provozními certifikáty je obtížné použít stejný obrázek.
@@ -60,7 +62,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-V předchozích příkazech nahraďte `{ password here }` heslo.
+V předchozích příkazech nahraďte `{ password here }` heslem.
 
 Spusťte image kontejneru s ASP.NET Core nakonfigurovanou pro protokol HTTPS:
 
@@ -80,9 +82,9 @@ dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { password her
 dotnet dev-certs https --trust
 ```
 
-`dotnet dev-certs https --trust`je podporován pouze v macOS a Windows. Musíte důvěřovat certifikátům na platformě Linux způsobem, který podporuje vaše distribuce. Je možné, že certifikát budete muset důvěřovat v prohlížeči.
+`dotnet dev-certs https --trust` se podporuje jenom v macOS a Windows. Musíte důvěřovat certifikátům na platformě Linux způsobem, který podporuje vaše distribuce. Je možné, že certifikát budete muset důvěřovat v prohlížeči.
 
-V předchozích příkazech nahraďte `{ password here }` heslo.
+V předchozích příkazech nahraďte `{ password here }` heslem.
 
 Spusťte image kontejneru s ASP.NET Core nakonfigurovanou pro protokol HTTPS:
 
@@ -102,7 +104,7 @@ dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p { passwo
 dotnet dev-certs https --trust
 ```
 
-V předchozích příkazech nahraďte `{ password here }` heslo.
+V předchozích příkazech nahraďte `{ password here }` heslem.
 
 Spusťte image kontejneru s ASP.NET Core nakonfigurovanou pro protokol HTTPS:
 

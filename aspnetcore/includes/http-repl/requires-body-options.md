@@ -1,11 +1,11 @@
 * `-c|--content`
 
-  Poskytuje vložené textu požadavku HTTP. Například, `-c "{ 'id': 2, 'name': 'Cherry' }"`.
+  Poskytuje vložené tělo požadavku HTTP. Například `-c "{"id":2,"name":"Cherry"}"`.
 
 * `-f|--file`
 
-  Představuje cestu k souboru, který obsahuje tělo požadavku HTTP. Například, `-f "C:\request.json"`.
+  Poskytuje cestu k souboru obsahujícímu text požadavku HTTP. Například `-f "C:\request.json"`.
 
 * `--no-body`
 
-  Označuje, že je potřeba není datová část požadavku HTTP.
+  Indikuje, že není potřeba žádný text požadavku HTTP.

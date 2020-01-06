@@ -5,14 +5,14 @@ description: Naučte se, jak nastavit kontroly stavu pro infrastrukturu ASP.NET 
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/13/2019
+ms.date: 12/15/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 4a4606a58178018f0d71d467d4c8b6c9982c09dc
-ms.sourcegitcommit: 231780c8d7848943e5e9fd55e93f437f7e5a371d
+ms.openlocfilehash: dfd26b775b6c6a1af0108d34981d7ec3737980dd
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/15/2019
-ms.locfileid: "74115991"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75356126"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Kontroly stavu v ASP.NET Core
 
@@ -28,7 +28,7 @@ Kontroly stavu jsou zpřístupněné aplikací jako koncové body HTTP. Koncové
 * Použití paměti, disku a dalších prostředků fyzického serveru se dá monitorovat v dobrém stavu.
 * Kontroly stavu můžou testovat závislosti aplikace, jako jsou databáze a externí koncové body služby, aby se potvrdila dostupnost a normální fungování.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace obsahuje příklady scénářů popsaných v tomto tématu. Pokud chcete pro daný scénář spustit ukázkovou aplikaci, použijte příkaz [dotnet Run](/dotnet/core/tools/dotnet-run) ze složky projektu v příkazovém prostředí. Podrobnosti o tom, jak používat ukázkovou aplikaci, najdete v souboru *Readme.MD* ukázkové aplikace a v popisech scénářů v tomto tématu.
 
@@ -42,8 +42,8 @@ Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro
 
 * Vytvoří databázi a poskytne připojovací řetězec v souboru *appSettings. JSON* .
 * Obsahuje následující odkazy na balíček v souboru projektu:
-  * [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
-  * [Microsoft. Extensions. Diagnostics. HealthChecks. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
+  * [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
+  * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
@@ -236,7 +236,7 @@ I když ruční provádění kontrol stavu z prohlížeče není běžným scén
 
 Ve výchozím nastavení middleware pro kontrolu stavu spouští všechny zaregistrované kontroly stavu. Chcete-li spustit podmnožinu kontrol stavu, zadejte funkci, která vrací logickou hodnotu pro <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate> možnost. V následujícím příkladu je `Bar` kontrole stavu vyfiltrováno pomocí značky (`bar_tag`) v podmíněném příkazu funkce, kde `true` je vrácena pouze v případě, že <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckRegistration.Tags> vlastnost pro kontrolu stavu odpovídá `foo_tag` nebo `baz_tag`:
 
-V `Startup.ConfigureServices`:
+V systému `Startup.ConfigureServices`:
 
 ```csharp
 services.AddHealthChecks()
@@ -265,7 +265,7 @@ app.UseEndpoints(endpoints =>
 
 K přizpůsobení mapování stavu na stavové kódy HTTP použijte <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes>. Následující přiřazení <xref:Microsoft.AspNetCore.Http.StatusCodes> jsou výchozími hodnotami, které používá middleware. Změňte hodnoty stavového kódu tak, aby splňovaly vaše požadavky.
 
-V `Startup.Configure`:
+V systému `Startup.Configure`:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -286,7 +286,7 @@ app.UseEndpoints(endpoints =>
 
 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses> určuje, zda middleware pro kontrolu stavu přidává hlavičky HTTP do odezvy testu, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je hodnota `false` (výchozí), middleware nastaví nebo přepíše hlavičky `Cache-Control`, `Expires`a `Pragma`, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je hodnota `true`, middleware neupraví hlavičky mezipaměti odpovědi.
 
-V `Startup.Configure`:
+V systému `Startup.Configure`:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -300,9 +300,7 @@ app.UseEndpoints(endpoints =>
 
 ### <a name="customize-output"></a>Přizpůsobení výstupu
 
-Možnost <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter> Získá nebo nastaví delegáta použitý k zápisu odpovědi.
-
-V `Startup.Configure`:
+V `Startup.Configure`nastavte možnost [HealthCheckOptions. ResponseWriter](xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter) na delegáta pro zápis odpovědi:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -314,27 +312,19 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-Výchozí delegát zapisuje minimální odpověď ve formátu prostého textu s řetězcovou hodnotou [HealthReport. status](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport.Status). Následující vlastní delegát, `WriteResponse`, vypíše vlastní odpověď JSON:
+Výchozí delegát zapisuje minimální odpověď ve formátu prostého textu s řetězcovou hodnotou [HealthReport. status](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport.Status). Následující vlastní Delegáti výstupují vlastní odpověď JSON.
 
-```csharp
-private static Task WriteResponse(HttpContext httpContext, HealthReport result)
-{
-    httpContext.Response.ContentType = "application/json";
+První příklad z ukázkové aplikace ukazuje, jak použít <xref:System.Text.Json?displayProperty=fullName>:
 
-    var json = new JObject(
-        new JProperty("status", result.Status.ToString()),
-        new JProperty("results", new JObject(result.Entries.Select(pair =>
-            new JProperty(pair.Key, new JObject(
-                new JProperty("status", pair.Value.Status.ToString()),
-                new JProperty("description", pair.Value.Description),
-                new JProperty("data", new JObject(pair.Value.Data.Select(
-                    p => new JProperty(p.Key, p.Value))))))))));
-    return httpContext.Response.WriteAsync(
-        json.ToString(Formatting.Indented));
-}
-```
+[!code-csharp[](health-checks/samples/3.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_WriteResponse_SystemTextJson)]
 
-Systém kontroly stavu neposkytuje integrovanou podporu pro komplexní formáty vrácených hodnot JSON, protože formát je specifický pro váš výběr systému monitorování. V předchozím příkladu si můžete přizpůsobit `JObject` podle potřeby tak, aby vyhovovaly vašim potřebám.
+Druhý příklad ukazuje, jak používat [Newtonsoft. JSON](https://www.nuget.org/packages/Newtonsoft.Json/):
+
+[!code-csharp[](health-checks/samples/3.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_WriteResponse_NewtonSoftJson)]
+
+V ukázkové aplikaci Odkomentujte `SYSTEM_TEXT_JSON` [direktivy preprocesoru](xref:index#preprocessor-directives-in-sample-code) v *CustomWriterStartup.cs* , aby se povolila `Newtonsoft.Json` verze `WriteResponse`.
+
+Rozhraní API pro kontroly stavu neposkytuje vestavěnou podporu pro komplexní formáty vrácených hodnot JSON, protože formát je specifický pro váš výběr systému monitorování. Podle potřeby upravte odpověď v předchozích příkladech. Další informace o serializaci JSON pomocí `System.Text.Json`naleznete v tématu [How to serializovat and deserializovat JSON v rozhraní .NET](/dotnet/standard/serialization/system-text-json-how-to).
 
 ## <a name="database-probe"></a>Test databáze
 
@@ -531,11 +521,11 @@ Ukázková aplikace ukazuje kontrolu stavu paměti pomocí vlastního zapisovač
 
 Registrovat služby kontroly stavu pomocí <xref:Microsoft.Extensions.DependencyInjection.HealthCheckServiceCollectionExtensions.AddHealthChecks*> v `Startup.ConfigureServices`. Místo povolení kontroly stavu předáním do <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddCheck*>je `MemoryHealthCheck` zaregistrován jako služba. Všechny <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck> registrované služby jsou k dispozici pro služby kontroly stavu a middleware. Službu pro kontrolu stavu doporučujeme zaregistrovat jako služby typu singleton.
 
-V ukázkové aplikaci (*CustomWriterStartup.cs*):
+V *CustomWriterStartup.cs* ukázkové aplikace:
 
 [!code-csharp[](health-checks/samples/3.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_ConfigureServices&highlight=4)]
 
-Koncový bod kontroly stavu je vytvořen voláním `MapHealthChecks` v `Startup.Configure`. `WriteResponse` delegátovi je poskytnuta vlastnost `ResponseWriter` pro výstup vlastní odpovědi JSON, když se spustí kontroly stavu:
+Koncový bod kontroly stavu je vytvořen voláním `MapHealthChecks` v `Startup.Configure`. `WriteResponse` delegátovi je poskytnuta vlastnost < Microsoft. AspNetCore. Diagnostics. HealthChecks. HealthCheckOptions. ResponseWriter > pro výstup vlastní odpovědi JSON, když se spustí kontroly stavu:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -547,9 +537,7 @@ app.UseEndpoints(endpoints =>
 }
 ```
 
-Metoda `WriteResponse` formátuje `CompositeHealthCheckResult` na objekt JSON a poskytuje výstup JSON pro odpověď kontroly stavu:
-
-[!code-csharp[](health-checks/samples/3.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_WriteResponse)]
+Delegát `WriteResponse` formátuje `CompositeHealthCheckResult` do objektu JSON a pro odpověď na kontrolu stavu poskytne výstup JSON. Další informace najdete v části [přizpůsobení výstupu](#customize-output) .
 
 Pokud chcete spustit test založený na metrikách s vlastním výstupem zapisovače odpovědí pomocí ukázkové aplikace, spusťte následující příkaz ze složky projektu v příkazovém prostředí:
 
@@ -809,7 +797,7 @@ Kontroly stavu jsou zpřístupněné aplikací jako koncové body HTTP. Koncové
 * Použití paměti, disku a dalších prostředků fyzického serveru se dá monitorovat v dobrém stavu.
 * Kontroly stavu můžou testovat závislosti aplikace, jako jsou databáze a externí koncové body služby, aby se potvrdila dostupnost a normální fungování.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace obsahuje příklady scénářů popsaných v tomto tématu. Pokud chcete pro daný scénář spustit ukázkovou aplikaci, použijte příkaz [dotnet Run](/dotnet/core/tools/dotnet-run) ze složky projektu v příkazovém prostředí. Podrobnosti o tom, jak používat ukázkovou aplikaci, najdete v souboru *Readme.MD* ukázkové aplikace a v popisech scénářů v tomto tématu.
 
@@ -823,8 +811,8 @@ Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro
 
 * Vytvoří databázi a poskytne připojovací řetězec v souboru *appSettings. JSON* .
 * Obsahuje následující odkazy na balíček v souboru projektu:
-  * [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
-  * [Microsoft. Extensions. Diagnostics. HealthChecks. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
+  * [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
+  * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
@@ -986,7 +974,7 @@ public void Configure(IApplicationBuilder app)
 
 K přizpůsobení mapování stavu na stavové kódy HTTP použijte <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes>. Následující přiřazení <xref:Microsoft.AspNetCore.Http.StatusCodes> jsou výchozími hodnotami, které používá middleware. Změňte hodnoty stavového kódu tak, aby splňovaly vaše požadavky.
 
-V `Startup.Configure`:
+V systému `Startup.Configure`:
 
 ```csharp
 //using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -1007,7 +995,7 @@ app.UseHealthChecks("/health", new HealthCheckOptions()
 
 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses> určuje, zda middleware pro kontrolu stavu přidává hlavičky HTTP do odezvy testu, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je hodnota `false` (výchozí), middleware nastaví nebo přepíše hlavičky `Cache-Control`, `Expires`a `Pragma`, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je hodnota `true`, middleware neupraví hlavičky mezipaměti odpovědi.
 
-V `Startup.Configure`:
+V systému `Startup.Configure`:
 
 ```csharp
 //using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -1023,7 +1011,7 @@ app.UseHealthChecks("/health", new HealthCheckOptions()
 
 Možnost <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter> Získá nebo nastaví delegáta použitý k zápisu odpovědi. Výchozí delegát zapisuje minimální odpověď ve formátu prostého textu s řetězcovou hodnotou [HealthReport. status](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport.Status).
 
-V `Startup.Configure`:
+V systému `Startup.Configure`:
 
 ```csharp
 // using Microsoft.AspNetCore.Diagnostics.HealthChecks;

@@ -4,14 +4,14 @@ author: rick-anderson
 description: Přečtěte si o ověřování modelu ve ASP.NET Core MVC a Razor Pages.
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 7a6017141eb1016128c4a135c187479717580bb5
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 042a9933e561de4957f6332bdff3c4f09d2e119b
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881041"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75355268"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověřování modelu ve ASP.NET Core MVC a Razor Pages
 
@@ -58,7 +58,7 @@ Tady jsou některé z vestavěných ověřovacích atributů:
 * `[Required]`: ověří, že pole nemá hodnotu null. Podrobnosti o chování tohoto atributu naleznete v tématu [`[Required]` atributu](#required-attribute) .
 * `[StringLength]`: ověří, že hodnota řetězcové vlastnosti nepřekračuje zadané omezení délky.
 * `[Url]`: ověřuje, zda má vlastnost formát adresy URL.
-* `[Remote]`: ověřuje vstup na straně klienta voláním metody Action na serveru. Podrobnosti o chování tohoto atributu naleznete v tématu `[`[Remote] ' Attribute] (#remote-Attribute).
+* `[Remote]`: ověřuje vstup na straně klienta voláním metody Action na serveru. Podrobnosti o chování tohoto atributu naleznete v tématu [`[Remote]` atributu](#remote-attribute) .
 
 Úplný seznam ověřovacích atributů najdete v oboru názvů [System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations) .
 
@@ -423,6 +423,8 @@ Mezi předdefinované atributy ověřování patří:
 * `[StringLength]`: ověří, že hodnota řetězcové vlastnosti nepřekračuje zadané omezení délky.
 * `[Url]`: ověřuje, zda má vlastnost formát adresy URL.
 * `[Remote]`: ověřuje vstup na straně klienta voláním metody Action na serveru. Podrobnosti o chování tohoto atributu naleznete v tématu [`[Remote]` atributu](#remote-attribute) .
+
+Při použití atributu `[RegularExpression]` s ověřováním na straně klienta je regulární výraz spuštěn v jazyce JavaScript na klientovi. To znamená, že se použije chování pro porovnání [ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) . Další informace najdete v tématu [tento problém Githubu](https://github.com/dotnet/corefx/issues/42487).
 
 Úplný seznam ověřovacích atributů najdete v oboru názvů [System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations) .
 

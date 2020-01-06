@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/18/2019
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 46cfff905636dc0d50fcde5e781ce47fb6d85cc0
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 1e0bbe041223d376a778c6a326fcee4d254a9127
+ms.sourcegitcommit: c815a9465e7b1bab44ce1643ec345b33e6cf1598
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880389"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75606776"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>Vzor možností v ASP.NET Core
 
@@ -283,7 +283,7 @@ services.AddOptions<MyOptions>("optionalName")
 
 K dalším službám můžete přistupovat pomocí injektáže závislosti při konfiguraci možností dvěma způsoby:
 
-* Předejte delegáta konfigurace [na](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
+* Předejte delegáta konfigurace [na](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) [OptionsBuilder\<TOptions >](xref:Microsoft.Extensions.Options.OptionsBuilder`1). `OptionsBuilder<TOptions>` poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují používat až pět služeb ke konfiguraci možností:
 
   ```csharp
   services.AddOptions<MyOptions>("optionalName")

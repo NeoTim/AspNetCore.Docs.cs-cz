@@ -5,14 +5,14 @@ description: Naučte se řídit chování aplikace v různých prostředích apl
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 12/17/2019
 uid: fundamentals/environments
-ms.openlocfilehash: affbb95273c91fe5bf452e0e1ebefa669297304c
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 30e2771c0a24fcbf6490d08c7028566314b6c011
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944318"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358718"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>Použití více prostředí v ASP.NET Core
 
@@ -188,11 +188,12 @@ Po sestavení hostitele určuje poslední nastavení prostředí načtené aplik
 Pokud chcete nastavit prostředí v [Azure App Service](https://azure.microsoft.com/services/app-service/), proveďte následující kroky:
 
 1. Vyberte aplikaci z okna **App Services** .
-1. Ve skupině **Nastavení** vyberte okno **nastavení aplikace** .
-1. V oblasti **nastavení aplikace** vyberte **Přidat nové nastavení**.
-1. Pro **Zadejte název zadejte**`ASPNETCORE_ENVIRONMENT`. V poli **zadat hodnotu zadejte**prostředí (například `Staging`).
-1. Zaškrtněte políčko **nastavení slotu** , pokud chcete, aby nastavení prostředí zůstalo v aktuální pozici, když budou sloty nasazení prohozeny. Další informace najdete v tématu [dokumentace k Azure: která nastavení jsou Zahozená?](/azure/app-service/web-sites-staged-publishing).
-1. V horní části okna vyberte **Uložit** .
+1. Ve skupině **Nastavení** vyberte okno **Konfigurace** .
+1. Na kartě **nastavení aplikace** vyberte možnost **nové nastavení aplikace**.
+1. V okně **Přidat/upravit nastavení aplikace** zadejte `ASPNETCORE_ENVIRONMENT` pro **název**. V poli **hodnota**zadejte prostředí (například `Staging`).
+1. Zaškrtněte políčko **nastavení slotu nasazení** , pokud chcete, aby nastavení prostředí zůstalo v aktuální pozici, když jsou sloty nasazení prohozeny. Další informace najdete v tématu [Nastavení přípravného prostředí v Azure App Service](/azure/app-service/web-sites-staged-publishing) v dokumentaci k Azure.
+1. Výběrem **OK** zavřete okno **Přidat/upravit nastavení aplikace** .
+1. V horní části okna **Konfigurace** vyberte **Uložit** .
 
 Azure App Service automaticky restartuje aplikaci po přidání, změně nebo odstranění nastavení aplikace (proměnná prostředí) v Azure Portal.
 
@@ -617,11 +618,12 @@ Po sestavení hostitele určuje poslední nastavení prostředí načtené aplik
 Pokud chcete nastavit prostředí v [Azure App Service](https://azure.microsoft.com/services/app-service/), proveďte následující kroky:
 
 1. Vyberte aplikaci z okna **App Services** .
-1. Ve skupině **Nastavení** vyberte okno **nastavení aplikace** .
-1. V oblasti **nastavení aplikace** vyberte **Přidat nové nastavení**.
-1. Pro **Zadejte název zadejte**`ASPNETCORE_ENVIRONMENT`. V poli **zadat hodnotu zadejte**prostředí (například `Staging`).
-1. Zaškrtněte políčko **nastavení slotu** , pokud chcete, aby nastavení prostředí zůstalo v aktuální pozici, když budou sloty nasazení prohozeny. Další informace najdete v tématu [dokumentace k Azure: která nastavení jsou Zahozená?](/azure/app-service/web-sites-staged-publishing).
-1. V horní části okna vyberte **Uložit** .
+1. Ve skupině **Nastavení** vyberte okno **Konfigurace** .
+1. Na kartě **nastavení aplikace** vyberte možnost **nové nastavení aplikace**.
+1. V okně **Přidat/upravit nastavení aplikace** zadejte `ASPNETCORE_ENVIRONMENT` pro **název**. V poli **hodnota**zadejte prostředí (například `Staging`).
+1. Zaškrtněte políčko **nastavení slotu nasazení** , pokud chcete, aby nastavení prostředí zůstalo v aktuální pozici, když jsou sloty nasazení prohozeny. Další informace najdete v tématu [Nastavení přípravného prostředí v Azure App Service](/azure/app-service/web-sites-staged-publishing) v dokumentaci k Azure.
+1. Výběrem **OK** zavřete okno **Přidat/upravit nastavení aplikace** .
+1. V horní části okna **Konfigurace** vyberte **Uložit** .
 
 Azure App Service automaticky restartuje aplikaci po přidání, změně nebo odstranění nastavení aplikace (proměnná prostředí) v Azure Portal.
 

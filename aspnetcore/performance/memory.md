@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
-ms.openlocfilehash: 85e34c9faa31a1020a4200eb99003455ca435ec3
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: dfc789d080beec09a4f0eb34c3809b9f2df0d4b5
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880950"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75357275"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>Správa paměti a uvolňování paměti (GC) v ASP.NET Core
 
@@ -203,7 +203,7 @@ public void GetFileProvider()
 }
 ```
 
-[PhysicaFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0) je spravovaná třída, takže všechny instance budou shromážděny na konci žádosti.
+[PhysicalFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0) je spravovaná třída, takže všechny instance budou shromážděny na konci žádosti.
 
 Následující obrázek ukazuje profil paměti a průběžně vyvolal rozhraní API pro `fileprovider`.
 

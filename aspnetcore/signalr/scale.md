@@ -9,12 +9,12 @@ ms.date: 11/28/2018
 no-loc:
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 7fc767939996a489174be949742637030924616d
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 6506430202870ba9de2f8eb6f33d79c7c1fbbbd4
+ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963751"
+ms.lasthandoff: 01/02/2020
+ms.locfileid: "75608064"
 ---
 # <a name="aspnet-core-opno-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR hostování a škálování
 
@@ -52,7 +52,7 @@ Pokud chcete zachovat SignalR využití prostředků v jiných webových aplikac
 
 Aby SignalR využití prostředků nezpůsobilo chyby v SignalR aplikaci, nahorizontální navýšení kapacity a omezení počtu připojení, které server musí zpracovat.
 
-## <a name="scale-out"></a>Škálování na více systémů
+## <a name="scale-out"></a>Škálování služby  na více systémů
 
 Aplikace, která používá SignalR potřebuje udržet přehled o všech připojeních, což vytváří problémy pro serverovou farmu. Přidejte server a získá nová připojení, o kterých ostatní servery nevědí. Například SignalR na každém serveru v následujícím diagramu nevědí o připojeních na ostatních serverech. Když SignalR na jednom ze serverů chce poslat zprávu všem klientům, zpráva se dostane jenom na klienty připojené k tomuto serveru.
 
@@ -90,13 +90,28 @@ Redis replánování je doporučený postup pro horizontální navýšení kapac
 
 Výše zmíněné výhody služby Azure SignalR jsou nevýhody pro Redis replánování:
 
-* Povinná relace, která se označuje také jako [Spřažení klienta](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity), je povinná. Po zahájení připojení na serveru musí připojení zůstat na tomto serveru.
+* S výjimkou případů, kdy je splněná **obě** z následujících podmínek, je třeba zadat také relace s rychlým vztahem, která se označuje jako [Spřažení klienta](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity):
+  * Všichni klienti jsou nakonfigurovaní tak, aby používali **jenom** objekty WebSockets.
+  * [Nastavení SkipNegotiation](xref:signalr/configuration#configure-additional-options) je v konfiguraci klienta povoleno. 
+   Po zahájení připojení na serveru musí připojení zůstat na tomto serveru.
 * SignalR aplikace musí škálovat na základě počtu klientů i v případě, že je odesíláno několik zpráv.
 * SignalR aplikace používá podstatně více prostředků připojení, než je webová aplikace bez SignalR.
 
+## <a name="iis-limitations-on-windows-client-os"></a>Omezení služby IIS na klientském operačním systému Windows
+
+Windows 10 a Windows 8. x jsou klientské operační systémy. Služba IIS v klientských operačních systémech má omezení 10 souběžných připojení. připojení SignalRjsou:
+
+* Přechodný a často znovu navázáno.
+* Neodstraněno okamžitě, pokud **se** už nepoužívá.
+
+Předchozí podmínky mají za to, že na klientském operačním systému budou mít limit 10 připojení. Když se pro vývoj používá klientský operační systém, doporučujeme:
+
+* Vyhněte se službě IIS.
+* Jako cíle nasazení použijte Kestrel nebo IIS Express.
+
 ## <a name="next-steps"></a>Další kroky
 
-Další informace naleznete v následujících materiálech:
+Další informace naleznete v následujících zdrojích:
 
 * [Dokumentace ke službě Azure SignalR](/azure/azure-signalr/signalr-overview)
 * [Nastavení Redisho plánu](xref:signalr/redis-backplane)

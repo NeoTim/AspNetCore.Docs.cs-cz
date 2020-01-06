@@ -5,12 +5,12 @@ description: Použijte identitu s aplikací ASP.NET Core. Přečtěte si, jak na
 ms.author: riande
 ms.date: 12/05/2019
 uid: security/authentication/identity
-ms.openlocfilehash: c867b73a96fd081f6e2ca17fef561ac539c0a129
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 787d39dd7824f912128e6af849fa268c3e8eb908
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880733"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75359196"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>Úvod do identity na ASP.NET Core
 
@@ -216,6 +216,7 @@ Další informace najdete v tématu [AddDefaultIdentity source](https://github.c
 
 ## <a name="next-steps"></a>Další kroky
 
+* Informace o konfiguraci identity pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/5131) .
 * [Konfigurace systému Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
@@ -403,6 +404,7 @@ V části [Konfigurace](#pw) najdete ukázku, která nastavuje minimální poža
 
 ## <a name="next-steps"></a>Další kroky
 
+* Informace o konfiguraci identity pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/5131) .
 * [Konfigurace systému Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>

@@ -2,16 +2,17 @@
 title: Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 author: stevejgordon
 description: Přečtěte si o používání rozhraní IHttpClientFactory ke správě logických instancí HttpClient v ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/27/2019
+ms.date: 12/16/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: f33444b8fc08dc022da7700af53a218600290162
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: f2494a5815396e693f6fd2a45ad78ebffe4d54a3
+ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733918"
+ms.lasthandoff: 12/25/2019
+ms.locfileid: "75358079"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -21,10 +22,10 @@ ms.locfileid: "74733918"
 
 <xref:System.Net.Http.IHttpClientFactory> lze zaregistrovat a použít ke konfiguraci a vytvoření <xref:System.Net.Http.HttpClient> instancí v aplikaci. `IHttpClientFactory` nabízí následující výhody:
 
-* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Například klient s názvem *GitHub* by mohl být zaregistrován a nakonfigurován pro přístup k [GitHubu](https://github.com/). Pro obecný přístup je možné zaregistrovat výchozího klienta.
+* Poskytuje centrální místo pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Například klient s názvem *GitHub* by mohl být zaregistrován a nakonfigurován pro přístup k [GitHubu](https://github.com/). Pro obecný přístup je možné zaregistrovat výchozího klienta.
 * Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient`. Poskytuje rozšíření pro middleware založené na Polly k využití výhod delegování obslužných rutin v `HttpClient`.
 * Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`. Automatická správa zabraňuje běžným problémům DNS (Domain Name System), ke kterým dochází při ruční správě `HttpClient`ch dob života.
-* Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
+* Přidává konfigurovatelné protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů, které jsou vytvořeny objektem pro vytváření (Factory).
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
@@ -41,7 +42,7 @@ Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
 Nejlepší přístup závisí na požadavcích aplikace.
 
-### <a name="basic-usage"></a>Základní využití
+### <a name="basic-usage"></a>Základní použití
 
 `IHttpClientFactory` lze zaregistrovat voláním `AddHttpClient`:
 
@@ -230,7 +231,7 @@ K dispozici jsou rozšiřující metody umožňující použití zásad Polly s 
 K chybám obvykle dochází, když jsou externí volání HTTP přechodný. <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddTransientHttpErrorPolicy*> umožňuje definovat zásadu pro zpracování přechodných chyb. Zásady nakonfigurované pomocí `AddTransientHttpErrorPolicy` zpracovávají následující odpovědi:
 
 * <xref:System.Net.Http.HttpRequestException>
-* 5xx HTTP
+* HTTP 5xx
 * HTTP 408
 
 `AddTransientHttpErrorPolicy` poskytuje přístup k objektu `PolicyBuilder` nakonfigurovanému pro zpracování chyb představujících možnou přechodnou chybu:
@@ -306,7 +307,7 @@ Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpCl
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
-### <a name="cookies"></a>Soubory cookie
+### <a name="cookies"></a>Cookies
 
 Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
@@ -357,6 +358,7 @@ V následujícím příkladu:
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
 * [Implementace opakovaných pokusů volání HTTP pomocí exponenciálního omezení rychlostiu se zásadami HttpClientFactory a Polly](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-http-call-retries-exponential-backoff-polly)
 * [Implementace systému jističe](/dotnet/standard/microservices-architecture/implement-resilient-applications/implement-circuit-breaker-pattern)
+* [Postup serializace a deserializace JSON v rozhraní .NET](/dotnet/standard/serialization/system-text-json-how-to)
 
 ::: moniker-end
 
@@ -366,12 +368,12 @@ Od [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/r
 
 <xref:System.Net.Http.IHttpClientFactory> lze zaregistrovat a použít ke konfiguraci a vytvoření <xref:System.Net.Http.HttpClient> instancí v aplikaci. Nabízí následující výhody:
 
-* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován pro jiné účely.
+* Poskytuje centrální místo pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován k jiným účelům.
 * Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient` a poskytuje rozšíření pro middleware založené na Polly, které tuto funkci využívají.
-* Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`, aby nedocházelo k běžným problémům služby DNS, ke kterým dochází při ruční správě `HttpClient` životního cyklu.
-* Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
+* Spravuje sdružování a životní cyklus instancí `HttpClientMessageHandler`, aby zabránil častým problémům s DNS, ke kterým dochází při manuální správě životnosti `HttpClient`.
+* Přidává konfigurovatelné protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů, které jsou vytvořeny objektem pro vytváření (Factory).
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="consumption-patterns"></a>Vzorce spotřeby
 
@@ -384,7 +386,7 @@ Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
 Žádná z nich není výhradně nadřízena jiným. Nejlepší přístup závisí na omezeních aplikace.
 
-### <a name="basic-usage"></a>Základní využití
+### <a name="basic-usage"></a>Základní použití
 
 `IHttpClientFactory` lze zaregistrovat voláním metody rozšíření `AddHttpClient` na `IServiceCollection`v rámci metody `Startup.ConfigureServices`.
 
@@ -502,7 +504,7 @@ public class ValuesController : ControllerBase
 
 ## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model je podobný vstupnímu kanálu middlewaru v ASP.NET Core. Vzor poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
+`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento návrhový vzor je podobný příchozímu middlewarovému kanálu v ASP.NET Core. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
 Chcete-li vytvořit obslužnou rutinu, Definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler>. Před předáním požadavku další obslužné rutině v kanálu přepište metodu `SendAsync` pro spuštění kódu.
 
@@ -607,7 +609,7 @@ Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpCl
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
-### <a name="cookies"></a>Soubory cookie
+### <a name="cookies"></a>Cookies
 
 Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
@@ -661,18 +663,18 @@ V následujícím příkladu:
 
 ::: moniker-end
 
-::: moniker range="<= aspnetcore-2.1"
+::: moniker range="= aspnetcore-2.1"
 
 Od [Glenn Condron](https://github.com/glennc), [Ryan Nowak](https://github.com/rynowak)a [Steve Gordon](https://github.com/stevejgordon)
 
 <xref:System.Net.Http.IHttpClientFactory> lze zaregistrovat a použít ke konfiguraci a vytvoření <xref:System.Net.Http.HttpClient> instancí v aplikaci. Nabízí následující výhody:
 
-* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován pro jiné účely.
+* Poskytuje centrální místo pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k [GitHubu](https://github.com/). Výchozí klient může být zaregistrován k jiným účelům.
 * Kodifikovat koncept odchozího middleware prostřednictvím delegování obslužných rutin v `HttpClient` a poskytuje rozšíření pro middleware založené na Polly, které tuto funkci využívají.
-* Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`, aby nedocházelo k běžným problémům služby DNS, ke kterým dochází při ruční správě `HttpClient` životního cyklu.
-* Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
+* Spravuje sdružování a životní cyklus instancí `HttpClientMessageHandler`, aby zabránil častým problémům s DNS, ke kterým dochází při manuální správě životnosti `HttpClient`.
+* Přidává konfigurovatelné protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů, které jsou vytvořeny objektem pro vytváření (Factory).
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/http-requests/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -689,7 +691,7 @@ Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
 Žádná z nich není výhradně nadřízena jiným. Nejlepší přístup závisí na omezeních aplikace.
 
-### <a name="basic-usage"></a>Základní využití
+### <a name="basic-usage"></a>Základní použití
 
 `IHttpClientFactory` lze zaregistrovat voláním metody rozšíření `AddHttpClient` na `IServiceCollection`v rámci metody `Startup.ConfigureServices`.
 
@@ -807,7 +809,7 @@ public class ValuesController : ControllerBase
 
 ## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
-`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento model je podobný vstupnímu kanálu middlewaru v ASP.NET Core. Vzor poskytuje mechanismus pro správu otázek mezi jednotlivými požadavky HTTP, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
+`HttpClient` již obsahuje koncept delegování obslužných rutin, které lze propojit společně pro odchozí požadavky HTTP. `IHttpClientFactory` usnadňuje definování obslužných rutin, které se mají použít pro každého pojmenovaného klienta. Podporuje registraci a řetězení více obslužných rutin pro sestavení kanálu middleware odchozího požadavku. Každý z těchto obslužných rutin je schopný provést práci před odchozím požadavkem a po ní. Tento návrhový vzor je podobný příchozímu middlewarovému kanálu v ASP.NET Core. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
 
 Chcete-li vytvořit obslužnou rutinu, Definujte třídu odvozenou z <xref:System.Net.Http.DelegatingHandler>. Před předáním požadavku další obslužné rutině v kanálu přepište metodu `SendAsync` pro spuštění kódu.
 
@@ -915,7 +917,7 @@ Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpCl
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
-### <a name="cookies"></a>Soubory cookie
+### <a name="cookies"></a>Cookies
 
 Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
