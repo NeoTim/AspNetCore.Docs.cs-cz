@@ -1,31 +1,33 @@
 ---
-title: Úvod k ověřování v ASP.NET Core
+title: Úvod k autorizaci v ASP.NET Core
 author: rick-anderson
-description: Přečtěte si základní informace o ověřování a jak funguje autorizaci v aplikacích ASP.NET Core.
+description: Seznamte se se základy autorizace a principem ověřování v aplikacích ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/introduction
-ms.openlocfilehash: 5465eb7875ebecd77b628376ef886db0ddd05025
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: b5e60b3c256941fff5e54e1a02e077c34c535902
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902844"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693866"
 ---
-# <a name="introduction-to-authorization-in-aspnet-core"></a>Úvod k ověřování v ASP.NET Core
+# <a name="introduction-to-authorization-in-aspnet-core"></a>Úvod k autorizaci v ASP.NET Core
 
 <a name="security-authorization-introduction"></a>
 
-Autorizace určuje, k procesu, který určuje, co je možné provádět uživatel. Například uživatel s oprávněním správce smí vytvořit knihovnu dokumentů, přidat dokumenty, úpravy dokumentů a je odstranit. Uživatel bez oprávnění správce, práci s knihovnou je autorizovaná jenom tyto dokumenty číst.
+Autorizace se týká procesu, který určuje, co může uživatel dělat. Uživatel s právy pro správu může například vytvořit knihovnu dokumentů, přidat dokumenty, upravit dokumenty a odstranit je. Uživatel bez oprávnění správce pracující s knihovnou má oprávnění ke čtení dokumentů.
 
-Autorizace je ortogonální a nezávisle na ověřování. Však vyžaduje ověřování ověřovacího mechanismu. Ověřování je proces zjišťování, který je uživatel. Ověřování můžou vytvořit jednu nebo více identit pro aktuálního uživatele.
+Autorizace je kolmá a nezávislá na ověřování. Autorizace ale vyžaduje mechanismus ověřování. Ověřování je proces, který zjišťuje uživatele. Ověřování může pro aktuálního uživatele vytvořit jednu nebo více identit.
+
+Další informace o ověřování v ASP.NET Core najdete v tématu <xref:security/authentication/index>.
 
 ## <a name="authorization-types"></a>Typy autorizace
 
-ASP.NET Core autorizaci poskytuje jednoduchý deklarativní [role](xref:security/authorization/roles) a bohaté [založené na zásadách](xref:security/authorization/policies) modelu. Autorizace je vyjádřena v požadavcích a obslužné rutiny vyhodnotit deklarace identity uživatele podle požadavků. Imperativní kontroly může být založen na jednoduché zásady nebo zásady, které vyhodnotí identitu uživatele a vlastnosti prostředků, které se uživatel pokouší o přístup.
+ASP.NET Core Authorization poskytuje jednoduchou, deklarativní [roli](xref:security/authorization/roles) a bohatý model [založený na zásadách](xref:security/authorization/policies) . Autorizace je vyjádřena v požadavcích a obslužné rutiny vyhodnocují deklarace identity uživatele proti požadavkům. Imperativní kontroly můžou být založené na jednoduchých zásadách nebo zásadách, které vyhodnocují identitu uživatele i vlastnosti prostředku, ke kterému se uživatel pokouší získat přístup.
 
 ## <a name="namespaces"></a>Jmenné prostory
 
-Součásti ověření, včetně `AuthorizeAttribute` a `AllowAnonymousAttribute` atributy, se nacházejí v `Microsoft.AspNetCore.Authorization` oboru názvů.
+Autorizační komponenty, včetně atributů `AuthorizeAttribute` a `AllowAnonymousAttribute`, se nacházejí v oboru názvů `Microsoft.AspNetCore.Authorization`.
 
-Informace naleznete v dokumentaci na [jednoduchá autorizace](xref:security/authorization/simple).
+Projděte si dokumentaci k [jednoduché autorizaci](xref:security/authorization/simple).

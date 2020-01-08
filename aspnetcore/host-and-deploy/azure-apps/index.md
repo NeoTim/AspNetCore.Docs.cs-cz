@@ -5,20 +5,20 @@ description: Tento článek obsahuje odkazy na hostitele Azure a nasazení prost
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/07/2019
+ms.date: 12/16/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: f9fc6e706046165c142e19ca38d97ac21914dc9b
-ms.sourcegitcommit: a104ba258ae7c0b3ee7c6fa7eaea1ddeb8b6eb73
+ms.openlocfilehash: 51d82d1deadb3d2adbdccd39c8d949e3f9f812fd
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/25/2019
-ms.locfileid: "74478764"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693840"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) je [platforma cloud computingu od Microsoftu](https://azure.microsoft.com/) pro hostování webových aplikací, včetně ASP.NET Core.
 
-## <a name="useful-resources"></a>Užitečné zdroje
+## <a name="useful-resources"></a>Užitečné materiály
 
 [Dokumentace k App Service](/azure/app-service/) je Domovská stránka pro Azure Apps, kurzy, ukázky, návody a další materiály. Existují dva významné kurzy, které se týkají hostování ASP.NET Corech aplikací:
 
@@ -87,19 +87,19 @@ Když se na webu Azure Portal vytvoří nebo upraví nastavení aplikace a vyber
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Když aplikace používá [obecného hostitele](xref:fundamentals/host/generic-host), proměnné prostředí se ve výchozím nastavení načtou do konfigurace aplikace a Poskytovatel konfigurace musí být přidaný vývojářem. Vývojář určí předponu proměnné prostředí při přidání poskytovatele konfigurace. Další informace najdete v tématu <xref:fundamentals/host/generic-host> a ve [zprostředkovateli konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
+Když aplikace používá [obecného hostitele](xref:fundamentals/host/generic-host), proměnné prostředí se načtou do konfigurace aplikace, když se zavolá <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> k sestavení hostitele. Další informace najdete v tématu <xref:fundamentals/host/generic-host> a ve [zprostředkovateli konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Když aplikace vytvoří hostitele pomocí [webhost. CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder), proměnné prostředí, které konfigurují hostitele, používají předponu `ASPNETCORE_`. Další informace najdete v tématu <xref:fundamentals/host/web-host> a ve [zprostředkovateli konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
+Když aplikace používá [webového hostitele](xref:fundamentals/host/web-host), proměnné prostředí se načtou do konfigurace aplikace, když se zavolá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> k sestavení hostitele. Další informace najdete v tématu <xref:fundamentals/host/web-host> a ve [zprostředkovateli konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
 
 ::: moniker-end
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 
-[IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components), který konfiguruje přesměrované hlavičky middlewaru při hostování [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model)a modul ASP.NET Core je nakonfigurován pro přeposílání schématu (http/https) a vzdálené IP adresy, na které pochází požadavek. Další konfigurace může být nezbytný pro aplikací hostovaných za službou další proxy servery a nástroje pro vyrovnávání zatížení. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+[IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components), který konfiguruje přesměrované hlavičky middlewaru při hostování [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model)a modul ASP.NET Core je nakonfigurován pro přeposílání schématu (http/https) a vzdálené IP adresy, na které pochází požadavek. Další konfigurace může být nezbytný pro aplikací hostovaných za službou další proxy servery a nástroje pro vyrovnávání zatížení. Další informace najdete v tématu [konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="monitoring-and-logging"></a>Monitorování a protokolování
 
@@ -146,14 +146,16 @@ Při záměně mezi sloty nasazení nebude možné dešifrovat uložená data po
 Další informace najdete v tématu <xref:security/data-protection/implementation/key-storage-providers>.
 <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>
 
-## <a name="deploy-aspnet-core-30-to-azure-app-service"></a>Nasazení ASP.NET Core 3,0 do Azure App Service
+## <a name="deploy-an-aspnet-core-app-that-uses-a-net-core-preview"></a>Nasazení aplikace ASP.NET Core, která používá .NET Core Preview
 
-Azure App Service podporuje ASP.NET Core 3,0. Chcete-li nasadit verzi Preview verze .NET Core, která je novější než .NET Core 3,0, použijte jeden z následujících postupů. Tyto přístupy se používají také v případě, že je modul runtime k dispozici, ale sada SDK nebyla nainstalována na Azure App Service.
+Pokud chcete nasadit aplikaci, která používá verzi Preview rozhraní .NET Core, Projděte si následující zdroje informací. Tyto přístupy se používají také v případě, že je modul runtime k dispozici, ale sada SDK nebyla nainstalována na Azure App Service.
 
 * [Určení verze .NET Core SDK pomocí Azure Pipelines](#specify-the-net-core-sdk-version-using-azure-pipelines)
-* [Nasaďte samostatně obsaženou aplikaci pro náhled](#deploy-a-self-contained-preview-app).
-* [Pro kontejnery použijte Docker s Web Apps](#use-docker-with-web-apps-for-containers).
-* [Nainstalujte rozšíření webu verze Preview](#install-the-preview-site-extension).
+* [Nasazení samostatné aplikace ve verzi Preview](#deploy-a-self-contained-preview-app)
+* [Použití Docker s Web Apps pro kontejnery](#use-docker-with-web-apps-for-containers)
+* [Nainstalovat rozšíření webu verze Preview](#install-the-preview-site-extension)
+
+Verzi ASP.NET Core dostupnou ve službě Azure App Service najdete na [App Service řídicím panelu ASP.NET Core](https://aspnetcoreon.azurewebsites.net/) .
 
 ### <a name="specify-the-net-core-sdk-version-using-azure-pipelines"></a>Určení verze .NET Core SDK pomocí Azure Pipelines
 
@@ -195,7 +197,7 @@ Pokud dojde k potížím pomocí rozšíření webu verze Preview, otevřete [pr
 1. Na webu Azure Portal přejděte na App Service.
 1. Vyberte webovou aplikaci.
 1. Do vyhledávacího pole zadejte "ex", chcete-li filtrovat "rozšíření", nebo se posuňte dolů v seznamu nástrojů pro správu.
-1. Vyberte **rozšíření**.
+1. Vyberte **Rozšíření**.
 1. Vyberte **Přidat**.
 1. V seznamu vyberte rozšíření **Runtime ASP.NET Core {X. Y} ({x64 | x86})** , kde `{X.Y}` je ASP.NET Core verze preview a `{x64|x86}` Určuje platformu.
 1. Kliknutím na **OK** přijměte právní podmínky.
@@ -254,7 +256,7 @@ Pro 64 nasazení:
 1. Vyberte **Build** > **Publikovat {název aplikace}** z panelu nástrojů sady Visual Studio nebo klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **publikovat**.
 1. V dialogovém okně **vybrat cíl publikování** potvrďte, že je vybrána možnost **App Service** .
 1. Vyberte **Upřesnit**. Otevře se dialogové okno **publikovat** .
-1. V dialogovém okně **publikovat** :
+1. V **publikovat** dialogové okno:
    * Potvrďte, že je vybraná konfigurace **vydané verze** .
    * Otevřete rozevírací seznam **režim nasazení** a vyberte možnost závislé na **rozhraní**.
    * Jako **cílový modul runtime**vyberte **přenosný** .
@@ -285,7 +287,7 @@ Použijte nástroje sady Visual Studio nebo rozhraní příkazového řádku (CL
 1. Vyberte **Build** > **Publikovat {název aplikace}** z panelu nástrojů sady Visual Studio nebo klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **publikovat**.
 1. V dialogovém okně **vybrat cíl publikování** potvrďte, že je vybrána možnost **App Service** .
 1. Vyberte **Upřesnit**. Otevře se dialogové okno **publikovat** .
-1. V dialogovém okně **publikovat** :
+1. V **publikovat** dialogové okno:
    * Potvrďte, že je vybraná konfigurace **vydané verze** .
    * Otevřete rozevírací seznam **režim nasazení** a vyberte možnost **samostatně obsaženo**.
    * Z rozevíracího seznamu **cílový modul runtime** vyberte cílový modul runtime. Výchozí hodnota je `win-x86`.
@@ -322,9 +324,9 @@ Vazby zabezpečeného protokolu umožňují zadat certifikát, který se má pou
 
 Pokud potřebujete transformovat *Web. config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig>.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Přehled App Service](/azure/app-service/app-service-web-overview)
+* [Přehled služby App Service](/azure/app-service/app-service-web-overview)
 * [Azure App Service: nejlepší místo pro hostování aplikací .NET (video s přehledem 55-minut)](https://channel9.msdn.com/events/dotnetConf/2017/T222)
 * [Azure pátek: Azure App Service diagnostické prostředí a řešení potíží (12 minut video)](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 * [Přehled diagnostiky Azure App Service](/azure/app-service/app-service-diagnostics)

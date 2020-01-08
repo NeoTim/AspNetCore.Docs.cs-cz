@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: 802d5c65423227e5fb7ccf39d692df2f0178ad34
-ms.sourcegitcommit: e6bd2bbe5683e9a7dbbc2f2eab644986e6dc8a87
+ms.openlocfilehash: 7fc3644df3dcb957f2537538aaa9506c6b38a480
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/03/2019
-ms.locfileid: "70238188"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693970"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
 
@@ -23,7 +23,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 ::: moniker-end
 
 
-Zobrazit [publikovat do Azure ze sady Visual Studio pro Mac](https://blog.xamarin.com/publish-azure-visual-studio-mac/) Pokud pracujete v systému macOS.
+Pokud pracujete na macOS, přečtěte si téma [publikování webové aplikace pro Azure App Service používání Visual Studio pro Mac](https://docs.microsoft.com/visualstudio/mac/publish-app-svc?view=vsmac-2019) .
 
 Poradce při potížích chybu nasazení služby App Service, najdete v článku <xref:test/troubleshoot-azure-iis>.
 
@@ -72,10 +72,10 @@ Visual Studio vytvoří řešení.
 
 * Vyberte **zaregistrovat** a registraci nového uživatele. Můžete použít fiktivní e-mailovou adresu. Když odešlete, na stránce se zobrazí následující chyba:
 
-    *"Interní chyba serveru: Databázová operace se při zpracování požadavku nezdařila. Výjimka SQL: Databázi nelze otevřít. Použití existující migrace pro kontext databáze aplikace může tento problém vyřešit."*
+    *"Došlo k vnitřní chybě serveru: databázová operace se při zpracování požadavku nezdařila. Výjimka SQL: databázi nelze otevřít. Tento problém může vyřešit použití existujících migrací pro kontext aplikační databáze. "*
 * Vyberte **použít migrace** a jakmile se aktualizace stránky, aktualizujte stránku.
 
-![Vnitřní chyba serveru: Databázová operace se při zpracování požadavku nezdařila. Výjimka SQL: Databázi nelze otevřít. Použití existující migrace pro kontext databáze aplikace může tento problém vyřešit.](publish-to-azure-webapp-using-vs/_static/mig.png)
+![Vnitřní chyba serveru: Databázová operace selhala při zpracování požadavku. Výjimka SQL: databázi nelze otevřít. Použití existující migrace pro kontext databáze aplikace může tento problém vyřešit.](publish-to-azure-webapp-using-vs/_static/mig.png)
 
 Aplikace zobrazí e-mail použitý k registraci nového uživatele a **Odhlásit** odkaz.
 
@@ -144,7 +144,7 @@ Na **nastavení** stránku **publikovat** dialogové okno:
 
 * Vyberte **Uložit**. Vrátí sady Visual Studio **publikovat** dialogového okna. 
 
-![Dialog publikovat: Panel nastavení](publish-to-azure-webapp-using-vs/_static/pubs.png)
+![Dialogové okno pro publikování: panel nastavení](publish-to-azure-webapp-using-vs/_static/pubs.png)
 
 Klikněte na tlačítko **publikovat**. Visual Studio publikuje vaši aplikaci do Azure. Po dokončení nasazení aplikace se otevře v prohlížeči.
 
@@ -180,15 +180,15 @@ Po dokončení testování aplikace, přejděte [webu Azure portal](https://port
 
 * V **skupiny prostředků** stránce **odstranit**.
 
-![Azure Portal: Stránka skupiny prostředků](publish-to-azure-webapp-using-vs/_static/rgd.png)
+![Azure Portal: Stránce skupiny prostředků](publish-to-azure-webapp-using-vs/_static/rgd.png)
 
 * Zadejte název skupiny prostředků a vyberte **odstranit**. Vaše aplikace a všechny další prostředky vytvořené v tomto kurzu se teď odstraní z Azure.
 
-### <a name="next-steps"></a>Další postup
+### <a name="next-steps"></a>Další kroky
 
 * <xref:host-and-deploy/azure-apps/azure-continuous-deployment>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * Visual Studio Code najdete v tématu [publikování profilů](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles).
 * [Azure App Service](/azure/app-service/app-service-web-overview)

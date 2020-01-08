@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: bd30776d527b4ac9f44005e9f5d03fec7cfda2e6
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: c74adf7479d176c41dc26c7e77acfc3dc9cdcb88
+ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880921"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75693957"
 ---
 # <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
@@ -44,7 +44,7 @@ Aplikace ASP.NET Core by měly být navrhovány tak, aby dokázaly zpracovat vel
 **Dělejte**:
 
 * Ujistěte se, že [kritické cesty](#understand-hot-code-paths) jsou asynchronní.
-* Pokud je k dispozici asynchronní rozhraní API, zavolejte asynchronní rozhraní API pro provoz a dlouhotrvající operace. Znovu nepoužívejte [úlohu Task. Run](/dotnet/api/system.threading.tasks.task.run) , aby rozhraní API synchronus bylo asynchronní.
+* Pokud je k dispozici asynchronní rozhraní API, volejte asynchronní rozhraní API pro přístup k datům, vstupně-výstupní operace a dlouhotrvající provozní rozhraní. Nepoužívejte rutinu [Task. Run](/dotnet/api/system.threading.tasks.task.run) , aby rozhraní API synchronus bylo asynchronní.
 * Ujistěte se, že jsou controllery a Razor akce stránek asynchronní. Celý zásobník volání je asynchronní, aby bylo možné využívat vzory [Async/await](/dotnet/csharp/programming-guide/concepts/async/) .
 
 Profiler, například [PerfView](https://github.com/Microsoft/perfview), lze použít k nalezení často přidaných vláken do [fondu vláken](/windows/desktop/procthread/thread-pools). Událost `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` označuje vlákno přidané do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
@@ -67,7 +67,7 @@ Problémy s pamětí, jako je například předchozí, lze diagnostikovat podle 
 
 Další informace najdete v tématu [uvolňování paměti a výkon](/dotnet/standard/garbage-collection/performance).
 
-## <a name="optimize-data-access"></a>Optimalizovat přístup k datům
+## <a name="optimize-data-access-and-io"></a>Optimalizujte přístup k datům a vstupně-výstupní operace
 
 Interakce s úložištěm dat a dalšími vzdálenými službami jsou často nejpomalejšími částmi ASP.NET Core aplikace. Efektivní čtení a zápis dat jsou klíčové pro dobrý výkon.
 
