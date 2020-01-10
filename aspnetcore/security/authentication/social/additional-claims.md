@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 72710d249d3210208dd9b0356a700ba02a0b727a
-ms.sourcegitcommit: dd026eceee79e943bd6b4a37b144803b50617583
+ms.openlocfilehash: 44b3e72085e6265319b53b548f7f7ddde2adbd14
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72378888"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828578"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>Trvalé další deklarace identity a tokeny od externích zprostředkovatelů v ASP.NET Core
 
@@ -51,7 +51,7 @@ Zadejte seznam oprávnění, která se mají načíst ze zprostředkovatele, zad
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
-| Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
+| Síťový | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
 V ukázkové aplikaci je obor Google `userinfo.profile` automaticky přidán rozhraním, když je <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> na <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>volána. Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu je přidaný rozsah Google `https://www.googleapis.com/auth/user.birthday.read`, aby bylo možné načíst narozeniny uživatele:
@@ -191,7 +191,7 @@ Zadejte seznam oprávnění, která se mají načíst ze zprostředkovatele, zad
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
-| Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
+| Síťový | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
 V ukázkové aplikaci je obor Google `userinfo.profile` automaticky přidán rozhraním, když je <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> na <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>volána. Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu je přidaný rozsah Google `https://www.googleapis.com/auth/user.birthday.read`, aby bylo možné načíst narozeniny uživatele:
@@ -300,4 +300,4 @@ Authentication Properties
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* &ndash; [aplikace ASPNET/AspNetCore Engineering SocialSample](https://github.com/aspnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample) , která je propojená ukázková aplikace, je na `master` technické větvi [úložiště ASPNET/AspNetCore](https://github.com/aspnet/AspNetCore) . Větev `master` obsahuje kód v části aktivní vývoj pro další verzi ASP.NET Core. Pokud chcete zobrazit verzi ukázkové aplikace pro vydanou verzi ASP.NET Core, použijte rozevírací seznam **větev** a vyberte větev vydané verze (například `release/{X.Y}`).
+* [dotnet/AspNetCore Engineering SocialSample app](https://github.com/dotnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample) &ndash; je propojená ukázková aplikace na `master` technické větvi [úložiště GitHub/AspNetCore](https://github.com/dotnet/AspNetCore) . Větev `master` obsahuje kód v části aktivní vývoj pro další verzi ASP.NET Core. Pokud chcete zobrazit verzi ukázkové aplikace pro vydanou verzi ASP.NET Core, použijte rozevírací seznam **větev** a vyberte větev vydané verze (například `release/{X.Y}`).

@@ -9,12 +9,12 @@ ms.date: 11/27/2019
 no-loc:
 - SignalR
 uid: signalr/introduction
-ms.openlocfilehash: e84dd0d086cbfc80a80bc10baa33979da9b5d137
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 635431abf9263c2dff261aea47e6f8324061763f
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717231"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829280"
 ---
 # <a name="introduction-to-aspnet-core-opno-locsignalr"></a>Úvod do ASP.NET Core SignalR
 
@@ -24,10 +24,10 @@ ASP.NET Core SignalR je open source knihovna, která zjednodušuje přidávání
 
 Dobré kandidáty na SignalR:
 
-* Aplikace, které vyžadují aktualizace s vysokou frekvencí ze serveru. Příklady her, sociálních sítí, hlasovacích, aukcí, map a aplikací GPS.
-* Řídicí panely a monitorovací aplikace. Mezi příklady patří řídicí panely společnosti, aktualizace rychlých prodejů nebo upozornění na cestování.
-* Aplikace pro spolupráci. Příklady aplikací pro spolupráci jsou aplikace tabule a software pro týmovou schůzku.
-* Aplikace, které vyžadují oznámení Oznámení se týkají sociálních sítí, e-mailů, chatu, her, oznámení o cestách a mnoha dalších aplikací.
+* Aplikace, které vyžadují aktualizace ze serveru s vysokou frekvencí. Příkladem jsou hry, sociální sítě, hlasování, aukce, mapy a aplikace využívající GPS.
+* Řídicí panely a aplikace pro monitorování. Mezi příklady patří řídicí panely společností, okamžité a aktuální informace o prodeji nebo upozornění pro cestující.
+* Aplikace podporující spolupráci. Příklady aplikací podporujících spolupráci jsou aplikace tabulí a software pro týmové schůzky.
+* Aplikace, které vyžadují oznámení. Oznámení využívají sociální sítě, e-mailové aplikace, chaty, hry, upozornění pro cestující a řada dalších aplikací.
 
 SignalR poskytuje rozhraní API pro vytváření [vzdálených volání procedur (RPC)](https://wikipedia.org/wiki/Remote_procedure_call)mezi servery. Volání RPC volá funkce JavaScriptu na klientech z kódu .NET Core na straně serveru.
 
@@ -38,7 +38,7 @@ Zde jsou některé funkce SignalR pro ASP.NET Core:
 * Odesílá zprávy konkrétním klientům nebo skupinám klientů.
 * Škálujte na zvýšení provozu.
 
-Zdroj je hostovaný v [SignalR úložišti na GitHubu](https://github.com/aspnet/AspNetCore/tree/master/src/SignalR).
+Zdroj je hostovaný v [SignalR úložišti na GitHubu](https://github.com/dotnet/AspNetCore/tree/master/src/SignalR).
 
 ## <a name="transports"></a>Přenosy
 

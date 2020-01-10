@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: 6d0d9b5467d9d27b936a17fa86f73e7d8123b75b
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 70951085474d88fd57f1b1496a41adcda520b91f
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73760967"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829150"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>Vlastní poskytovatelé úložiště pro ASP.NET Core identity
 
@@ -57,11 +57,11 @@ Při vytváření nové instance `UserManager` nebo `RoleManager` zadejte typ t�
 
 [ASP.NET Core](https://github.com/aspnet/identity) datové typy identity jsou podrobně popsány v následujících částech:
 
-### <a name="users"></a>Mohou
+### <a name="users"></a>Uživatelé
 
 Registrovaní uživatelé vašeho webu. Typ [IdentityUser](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuser) může být rozšířen nebo použit jako příklad pro vlastní typ. K implementaci vlastního řešení úložiště identity není nutné dědit z konkrétního typu.
 
-### <a name="user-claims"></a>Deklarace identity uživatele
+### <a name="user-claims"></a>Deklarace identity uživatelů
 
 Sada příkazů (nebo [deklarací identity](/dotnet/api/system.security.claims.claim)) o uživateli, který představuje identitu uživatele. Může povolit větší výraz identity uživatele, než je možné dosáhnout prostřednictvím rolí.
 
@@ -235,7 +235,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="references"></a>Odkazy
+## <a name="references"></a>Reference
 
 * [Vlastní poskytovatelé úložiště pro identitu ASP.NET 4. x](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
-* [ASP.NET Core Identity](https://github.com/aspnet/AspNetCore/tree/master/src/Identity) &ndash; toto úložiště obsahuje odkazy na spravované poskytovatele obchodů v komunitě.
+* [ASP.NET Core Identity](https://github.com/dotnet/AspNetCore/tree/master/src/Identity) &ndash; toto úložiště obsahuje odkazy na spravované poskytovatele obchodů v komunitě.

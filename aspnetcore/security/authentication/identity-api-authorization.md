@@ -7,22 +7,22 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: f58d92634ce1ef6110533d56c40b7520dda90514
-ms.sourcegitcommit: 4818385c3cfe0805e15138a2c1785b62deeaab90
+ms.openlocfilehash: 31a5e47d772e7416646c4d83c3209d7d2b254199
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/09/2019
-ms.locfileid: "73897038"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829163"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
 ASP.NET Core 3,0 nebo novější nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) pomocí podpory pro autorizaci rozhraní API. ASP.NET Coreá identita pro ověřování a ukládání uživatelů je kombinována s [IdentityServer](https://identityserver.io/) pro implementaci otevřeného ID Connect.
 
-Parametr ověřování byl přidán do **úhlových** a **reagujících** šablon projektů, které se podobají parametru ověřování ve **webové aplikaci (Model-View-Controller)** (MVC) a **webové aplikaci** (Razor Pages). šablony projektů. Povolené hodnoty parametrů jsou **none** a **jednotlivce**. Šablona projektu **reagují. js a Redux** v tuto chvíli nepodporuje parametr ověřování.
+Parametr ověřování byl přidán do **úhlových** a **reagujících** šablon projektů, které se podobají parametru ověřování v šablonách projektů **webové aplikace (model-zobrazení-kontroler)** a **webové aplikace** (Razor Pages). Povolené hodnoty parametrů jsou **none** a **jednotlivce**. Šablona projektu **reagují. js a Redux** v tuto chvíli nepodporuje parametr ověřování.
 
 ## <a name="create-an-app-with-api-authorization-support"></a>Vytvoření aplikace s podporou autorizace rozhraní API
 
-Ověřování a autorizaci uživatelů lze použít s použitím úhlů i reagujících jednostránkové. Otevřete příkazové prostředí a spusťte následující příkaz:
+Ověřování a autorizaci uživatelů lze použít s použitím úhlů i reagujících jednostránkové. Otevřete příkazové okno a spusťte následující příkaz:
 
 **Úhlová**:
 
@@ -58,7 +58,7 @@ Třída `Startup` obsahuje následující doplňky:
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * IdentityServer se další pomocnou metodou `AddApiAuthorization`, která nastaví některé výchozí ASP.NET Core konvence na IdentityServer:
+  * IdentityServer se další pomocnou metodou `AddApiAuthorization`, která nastaví některé výchozí konvence ASP.NET Core na IdentityServer:
 
     ```csharp
     services.AddIdentityServer()
@@ -95,7 +95,7 @@ Tato pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí ob
 
 ### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
-V souboru *Controllers\WeatherForecastController.cs* si všimněte, že atribut `[Authorize]` aplikovaný na třídu, která indikuje, že uživatel musí být autorizovaný na základě výchozích zásad pro přístup k prostředku. Výchozí zásady autorizace se budou konfigurovat tak, aby používaly výchozí schéma ověřování, které je nastavené `AddIdentityServerJwt` na výše zmíněné schéma zásad. `JwtBearerHandler` nakonfigurovaná touto pomocnou metodou nastaví výchozí obslužnou rutinu pro požadavky na aplikace.
+V souboru *Controllers\WeatherForecastController.cs* si všimněte, že atribut `[Authorize]` aplikovaný na třídu, která indikuje, že uživatel musí být autorizovaný na základě výchozích zásad pro přístup k prostředku. Výchozí zásady autorizace se budou konfigurovat tak, aby používaly výchozí schéma ověřování, které je nastavené `AddIdentityServerJwt` na výše zmíněné schéma zásad. `JwtBearerHandler` tuto pomocnou metodu nakonfigurovali jako výchozí obslužnou rutinu pro požadavky na aplikaci.
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
@@ -107,7 +107,7 @@ Chcete-li získat úplné řízení schématu databáze, zdědit jednu z dostupn
 
 V souboru *Controllers\OidcConfigurationController.cs* si všimněte koncového bodu, který se zřídí, aby sloužil parametrům OIDC, které musí klient použít.
 
-### <a name="appsettingsjson"></a>appSettings. JSON
+### <a name="appsettingsjson"></a>appsettings.json
 
 V souboru *appSettings. JSON* kořenového adresáře projektu je k dispozici nový `IdentityServer` oddíl, který popisuje seznam konfigurovaných klientů. V následujícím příkladu je jeden klient. Název klienta odpovídá názvu aplikace a je mapován podle konvence na parametr `ClientId` OAuth. Profil indikuje typ aplikace, která se konfiguruje. Interně se používá k zajištění konvencí, které zjednodušují proces konfigurace serveru. K dispozici je několik profilů, jak je vysvětleno v části [profily aplikací](#application-profiles) .
 
@@ -369,7 +369,7 @@ AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options =>
 });
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:spa/angular>
 * <xref:spa/react>

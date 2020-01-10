@@ -5,12 +5,12 @@ description: Sdílení řadičů, zobrazení, Razor Pages a dalších prvků apl
 ms.author: riande
 ms.date: 11/11/2019
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: a102511478c40ae64aada919fee7072c3027ddcd
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: a95c344410db0651b9f8f1c1eb7551029f084c25
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74958992"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829072"
 ---
 # <a name="share-controllers-views-razor-pages-and-more-with-application-parts"></a>Sdílení řadičů, zobrazení, Razor Pages a dalších prvků aplikace
 
@@ -64,7 +64,7 @@ Poskytovatelé funkcí aplikací zkoumají části aplikace a poskytují funkce 
 * <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers.TagHelperFeatureProvider>
 * <xref:Microsoft.AspNetCore.Mvc.Razor.Compilation.MetadataReferenceFeatureProvider>
 * <xref:Microsoft.AspNetCore.Mvc.Razor.Compilation.ViewsFeatureProvider>
-* `internal class` [RazorCompiledItemFeatureProvider](https://github.com/aspnet/AspNetCore/blob/master/src/Mvc/Mvc.Razor/src/ApplicationParts/RazorCompiledItemFeatureProvider.cs#L14)
+* `internal class` [RazorCompiledItemFeatureProvider](https://github.com/dotnet/AspNetCore/blob/master/src/Mvc/Mvc.Razor/src/ApplicationParts/RazorCompiledItemFeatureProvider.cs#L14)
 
 Poskytovatelé funkcí dědí z <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.IApplicationFeatureProvider`1>, kde `T` je typ funkce. Poskytovatele funkcí lze implementovat pro některý z dříve uvedených typů funkcí. Pořadí poskytovatelů funkcí v `ApplicationPartManager.FeatureProviders` může ovlivnit chování za běhu. Později přidaní poskytovatelé můžou reagovat na akce provedené dříve přidanými poskytovateli.
 

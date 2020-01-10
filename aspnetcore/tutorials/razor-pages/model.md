@@ -5,12 +5,12 @@ description: Objevte, jak přidat třídy pro správu filmy v databázi pomocí 
 ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: ef4671c9e7628c106b9f68ba5cbfd8a127e095d0
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: fa5be8f3a222a7c186409faa2f48e43347df637a
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358026"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829293"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -47,8 +47,8 @@ Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **t�
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* V Průzkumníku řešení klikněte pravým tlačítkem myši **RazorPagesMovie** projektu a pak vyberte **přidat** > **novou složku**. Název složky *modely*.
-* Klikněte pravým tlačítkem na složku *modely* a pak vyberte **Přidat** > **nový soubor**.
+* V Oblast řešení klikněte pravým tlačítkem na projekt **RazorPagesMovie** a vyberte **Přidat** > **Nová složka...** . Pojmenujte *modely*složek.
+* Klikněte pravým tlačítkem na složku *modely* a pak vyberte **Přidat** > **nový soubor...** .
 * V **nový soubor** dialogové okno:
 
   * Vyberte **Obecné** v levém podokně.
@@ -56,8 +56,6 @@ Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **t�
   * Název třídy **film** a vyberte **nový**.
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
-
-[!INCLUDE [model 2](~/includes/RP/model2.md)]
 
 ---
 
@@ -122,22 +120,38 @@ Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogov
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
-* Nainstalujte nástroj pro generování uživatelského rozhraní:
+Vytvoření *stránek/filmy* složky:
 
-  ```dotnetcli
-   dotnet tool install --global dotnet-aspnet-codegenerator
-   ```
+* Klikněte pravým tlačítkem na složku *stránky* > **Přidat** > **novou složku**.
+* Název složky *filmy*
 
-* Spusťte následující příkaz:
+Klikněte pravým tlačítkem na složku *stránky nebo filmy* > **Přidat** > **nové generování uživatelského rozhraní...** .
 
-  ```dotnetcli
-  dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
-  ```
+![Image z předchozích kroků.](model/_static/scaMac.png)
 
-[!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
+V dialogovém okně **nové generování uživatelského rozhraní** vyberte **Razor Pages pomocí Entity Framework (CRUD)** > **Další**.
 
-[!INCLUDE [use SQL Server in production](~/includes/RP/sqlitedev.md)]
+![Image z předchozích kroků.](model/_static/add_scaffoldMac.png)
+
+Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogové okno:
+
+* V rozevíracím seznamu **třída modelu** vyberte nebo zadejte **video (RazorPagesMovie. Models)** .
+* Do řádku **Třída kontextu dat** zadejte název nové třídy, RazorPagesMovie. **Data**. RazorPagesMovieContext. [Tato změna](https://developercommunity.visualstudio.com/content/problem/652166/aspnet-core-ef-scaffolder-uses-incorrect-namespace.html) se nevyžaduje. Vytvoří třídu kontextu databáze se správným oborem názvů.
+* Vyberte **Přidat**.
+
+![Image z předchozích kroků.](model/_static/arpMac.png)
+
+*Appsettings.json* souboru aktualizovali připojovací řetězec použitý pro připojení k místní databázi.
+
+### <a name="add-ef-tools"></a>Přidat nástroje EF
+
+Spusťte následující příkaz .NET Core CLI:
+
+```dotnetcli
+dotnet tool install --global dotnet-ef
+```
+
+Předchozí příkaz přidá nástroje Entity Framework Core pro .NET Core CLI.
 
 ---
 
@@ -156,7 +170,20 @@ Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následují
 
 Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následující soubory:
+
+* *Stránky/filmy*: vytvoření, odstranění, podrobností, úpravy a Index.
+* *Data/RazorPagesMovieContext.cs*
+
+### <a name="updated"></a>Datum aktualizace
+
+* *Startup.cs*
+
+Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
+
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Proces generování uživatelského rozhraní vytvoří následující soubory:
 
@@ -310,8 +337,6 @@ Klikněte pravým tlačítkem myši *modely* složky. Vyberte **přidat** > **t�
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
-[!INCLUDE [model 2](~/includes/RP/model2.md)]
-
 ---
 
 Sestavte projekt a ověřte, že nejsou žádné chyby během kompilace.
@@ -372,14 +397,28 @@ to use Data, it should not use models. That will make the namespace the same for
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* Otevřete okno příkazového řádku v adresáři projektu (adresář, který obsahuje *Program.cs*, *Startup.cs*, a *.csproj* soubory).
-* Spusťte následující příkaz:
+Vytvoření *stránek/filmy* složky:
 
-  ```dotnetcli
-  dotnet aspnet-codegenerator razorpage -m Movie -dc RazorPagesMovieContext -udl -outDir Pages/Movies --referenceScriptLibraries
-  ```
+* Klikněte pravým tlačítkem na složku *stránky* > **Přidat** > **novou složku**.
+* Název složky *filmy*
 
-[!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
+Klikněte pravým tlačítkem na složku *stránky nebo filmy* > **Přidat** > **Nová vygenerovaná položka**.
+
+![Image z předchozích kroků.](model/_static/scaMac.png)
+
+V dialogovém okně **Přidat nové uživatelské rozhraní** vyberte **Razor Pages pomocí Entity Framework (CRUD)** > **Přidat**.
+
+![Image z předchozích kroků.](model/_static/add_scaffoldMac.png)
+
+Dokončení **přidat stránky Razor pomocí Entity Frameworku (CRUD)** dialogové okno:
+
+* V rozevíracím seznamu **třída modelu** vyberte nebo zadejte **video**.
+* V řádku **třídy kontextu dat** zadejte vyberte **RazorPagesMovieContext** . tím se vytvoří nová třída kontextu databáze se správným oborem názvů. V takovém případě bude **RazorPagesMovie. Models. RazorPagesMovieContext**.
+* Vyberte **Přidat**.
+
+![Image z předchozích kroků.](model/_static/arpMac.png)
+
+*Appsettings.json* souboru aktualizovali připojovací řetězec použitý pro připojení k místní databázi.
 
 ---
 

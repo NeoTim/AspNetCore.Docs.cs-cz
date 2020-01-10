@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 452ccd76eece55cb5cf38fe39781f2f64dd5d466
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 9d1e1b1154113b8825f4d0faf0f4552b8bd22287
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880866"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828422"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2,0
 
@@ -156,6 +156,6 @@ Pokyny k migraci ASP.NET Corech aplikací 1. x na ASP.NET Core 2,0 naleznete v n
 
 ## <a name="additional-information"></a>Další informace
 
-Úplný seznam změn najdete v [poznámkách k verzi pro ASP.NET Core 2,0](https://github.com/aspnet/Home/releases/tag/2.0.0).
+Úplný seznam změn najdete v [poznámkách k verzi pro ASP.NET Core 2,0](https://github.com/dotnet/aspnetcore/releases/tag/2.0.0).
 
 Pokud se chcete připojit k vývoji a plánům vývojového týmu ASP.NET Core, prolaďte si [rychlou schůzku komunitu ASP.NET](https://live.asp.net/).

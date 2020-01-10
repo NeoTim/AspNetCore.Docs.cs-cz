@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: dfd26b775b6c6a1af0108d34981d7ec3737980dd
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 33e5e71983a55b4ee30436d8e9e1e04186259a5d
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75356126"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829215"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Kontroly stavu v ASP.NET Core
 
@@ -150,7 +150,7 @@ services.AddHealthChecks()
         HealthCheckResult.Healthy("Example is OK!"), tags: new[] { "example" });
 ```
 
-Zavolejte <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck*> k předání argumenty do implementace kontroly stavu. V následujícím příkladu `TestHealthCheckWithArgs` přijímá celočíselnou hodnotu a řetězec, který se použije při volání <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck.CheckHealthAsync*>:
+Zavolejte <xref:Microsoft.Extensions.DependencyInjection.HealthChecksBuilderAddCheckExtensions.AddTypeActivatedCheck*> a předejte argumenty k implementaci kontroly stavu. V následujícím příkladu `TestHealthCheckWithArgs` přijímá celočíselnou hodnotu a řetězec, který se použije při volání <xref:Microsoft.Extensions.Diagnostics.HealthChecks.IHealthCheck.CheckHealthAsync*>:
 
 ```csharp
 private class TestHealthCheckWithArgs : IHealthCheck

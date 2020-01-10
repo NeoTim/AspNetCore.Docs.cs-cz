@@ -5,14 +5,14 @@ description: Zjistěte, jak implementovat úlohy na pozadí s hostovanými služ
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/19/2019
+ms.date: 01/08/2020
 uid: fundamentals/host/hosted-services
-ms.openlocfilehash: da3c2679005714a3d82de94cf3bc3c809aa3500d
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: 897ec2f012adcd325ca0472f381f129bc2b62854
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239722"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828877"
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
 
@@ -20,13 +20,13 @@ Od [Luke Latham](https://github.com/guardrex) a [Jeow li Huan](https://github.co
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V ASP.NET Core se úlohy na pozadí dají implementovat jako *hostované služby*. Hostovaná služba je třída s logikou úlohy na pozadí, která implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. V tomto tématu najdete tři příklady hostovaných služeb:
+V ASP.NET Core se úlohy na pozadí dají implementovat jako *hostované služby*. Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. V tomto tématu najdete tři příklady hostovaných služeb:
 
 * Úloha na pozadí, která běží na časovači.
 * Hostovaná služba, která aktivuje [vymezenou službu](xref:fundamentals/dependency-injection#service-lifetimes). Vymezená služba může používat [vkládání závislostí (di)](xref:fundamentals/dependency-injection).
 * Úlohy na pozadí, které běží sekvenčně.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="worker-service-template"></a>Šablona služby pracovní proces
 
@@ -112,7 +112,9 @@ Token zrušení se aktivuje, když se zavolá [IHostedService. StopAsync](xref:M
 
 Úloha s časovým limitem na pozadí využívá třídu [System. Threading. Timer](xref:System.Threading.Timer) . Časovač aktivuje metodu `DoWork` úlohy. Časovač je zakázán na `StopAsync` a zlikvidován při vyřazení kontejneru služby v `Dispose`:
 
-[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/TimedHostedService.cs?name=snippet1&highlight=16-18,34,41)]
+[!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/TimedHostedService.cs?name=snippet1&highlight=16-17,34,41)]
+
+<xref:System.Threading.Timer> nečeká na dokončení předchozích spuštění `DoWork`, takže zobrazený přístup nemusí být vhodný pro každý scénář. [Prolínání. přírůstek](xref:System.Threading.Interlocked.Increment*) se používá ke zvýšení čítače spouštění jako atomické operace, což zajistí, že se více vláken `executionCount` souběžně neaktualizuje.
 
 Služba je zaregistrovaná v `IHostBuilder.ConfigureServices` (*program.cs*) s metodou rozšíření `AddHostedService`:
 
@@ -169,13 +171,13 @@ Služby jsou zaregistrované v `IHostBuilder.ConfigureServices` (*program.cs*). 
 
 ::: moniker range="< aspnetcore-3.0"
 
-V ASP.NET Core se úlohy na pozadí dají implementovat jako *hostované služby*. Hostovaná služba je třída s logikou úlohy na pozadí, která implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. V tomto tématu najdete tři příklady hostovaných služeb:
+V ASP.NET Core se úlohy na pozadí dají implementovat jako *hostované služby*. Hostovaná služba je třída s logikou úlohy na pozadí a implementuje rozhraní <xref:Microsoft.Extensions.Hosting.IHostedService>. V tomto tématu najdete tři příklady hostovaných služeb:
 
 * Úloha na pozadí, která běží na časovači.
 * Hostovaná služba, která aktivuje [vymezenou službu](xref:fundamentals/dependency-injection#service-lifetimes). Vymezená služba může používat [vkládání závislostí (di)](xref:fundamentals/dependency-injection) .
 * Úlohy na pozadí, které běží sekvenčně.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples/) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="package"></a>Balíček
 
@@ -210,6 +212,8 @@ Hostovaná služba se aktivuje při spuštění aplikace a řádně se vypíná 
 Úloha s časovým limitem na pozadí využívá třídu [System. Threading. Timer](xref:System.Threading.Timer) . Časovač aktivuje metodu `DoWork` úlohy. Časovač je zakázán na `StopAsync` a zlikvidován při vyřazení kontejneru služby v `Dispose`:
 
 [!code-csharp[](hosted-services/samples/2.x/BackgroundTasksSample/Services/TimedHostedService.cs?name=snippet1&highlight=15-16,30,37)]
+
+<xref:System.Threading.Timer> nečeká na dokončení předchozích spuštění `DoWork`, takže zobrazený přístup nemusí být vhodný pro každý scénář.
 
 Služba je zaregistrovaná v `Startup.ConfigureServices` s metodou rozšíření `AddHostedService`:
 
@@ -258,7 +262,7 @@ Když je na stránce index vybrané tlačítko **Přidat úlohu** , je spuštěn
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Implementace úloh na pozadí v mikroslužbách pomocí IHostedService a třídy BackgroundService](/dotnet/standard/microservices-architecture/multi-container-microservice-net-applications/background-tasks-with-ihostedservice)
 * <xref:System.Threading.Timer>

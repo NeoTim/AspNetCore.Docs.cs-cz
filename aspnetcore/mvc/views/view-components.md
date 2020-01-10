@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: a4583d49eb0b42f1fa6e3d8c444d263cba34da79
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 8df070b580b6125db6616b33a81f3ffebad69f3a
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75356837"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75828916"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazit součásti v ASP.NET Core
 
@@ -337,7 +337,7 @@ Signatura metody `PriorityList.Invoke` je synchronní, ale Razor najde a volá m
 
 ## <a name="all-view-component-parameters-are-required"></a>Všechny parametry komponenty View jsou povinné.
 
-Každý parametr v součásti zobrazení je povinný atribut. Podívejte se na [Tento problém GitHubu](https://github.com/aspnet/AspNetCore/issues/5011). Pokud je vynechán libovolný parametr:
+Každý parametr v součásti zobrazení je povinný atribut. Podívejte se na [Tento problém GitHubu](https://github.com/dotnet/AspNetCore/issues/5011). Pokud je vynechán libovolný parametr:
 
 * Signatura metody `InvokeAsync` se neshoduje, proto se metoda neprovede.
 * ViewComponent nevykresluje žádné značky.

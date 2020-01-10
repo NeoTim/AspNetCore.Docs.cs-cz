@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
-ms.openlocfilehash: dfc789d080beec09a4f0eb34c3809b9f2df0d4b5
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 0ae367e954e21e2f696a3b292fa64f1d2dba98ec
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75357275"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829020"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>Správa paměti a uvolňování paměti (GC) v ASP.NET Core
 
@@ -209,7 +209,7 @@ Následující obrázek ukazuje profil paměti a průběžně vyvolal rozhraní 
 
 ![předchozí graf](memory/_static/fileprovider.png)
 
-Předchozí graf znázorňuje zjevné problémy s implementací této třídy, protože zajišťuje zvýšení využití paměti. Jedná se o známý problém, který se sleduje v [tomto problému](https://github.com/aspnet/Home/issues/3110).
+Předchozí graf znázorňuje zjevné problémy s implementací této třídy, protože zajišťuje zvýšení využití paměti. Jedná se o známý problém, který se sleduje v [tomto problému](https://github.com/dotnet/aspnetcore/issues/3110).
 
 Stejná netěsnost by mohla být provedena v uživatelském kódu, a to jedním z následujících způsobů:
 
@@ -271,8 +271,9 @@ Dočasné velké objekty jsou obzvláště problematické, protože způsobují 
 Pro maximální výkon by se mělo minimalizovat použití velkých objektů. Pokud je to možné, rozdělte velké objekty. Například middleware pro [ukládání odpovědí do mezipaměti](xref:performance/caching/response) v ASP.NET Core rozdělí položky mezipaměti do bloků menších než 85 000 bajtů.
 
 Následující odkazy znázorňují ASP.NET Core přístup k udržení objektů pod limitem LOH:
-- [ResponseCaching/Streams/StreamUtilities. cs](https://github.com/aspnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
-- [ResponseCaching/MemoryResponseCache. cs](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
+
+* [ResponseCaching/Streams/StreamUtilities. cs](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
+* [ResponseCaching/MemoryResponseCache. cs](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
 Další informace najdete v části .
 

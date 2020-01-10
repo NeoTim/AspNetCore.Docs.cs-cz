@@ -7,12 +7,12 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 12/16/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 51d82d1deadb3d2adbdccd39c8d949e3f9f812fd
-ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
+ms.openlocfilehash: 286d73d732b146fef15bbfc309caeb214cdbbe0d
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75693840"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829176"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
@@ -192,7 +192,7 @@ Postupujte podle pokynů v části [nasazení samostatně obsaženého oddílu a
 
 ### <a name="install-the-preview-site-extension"></a>Nainstalovat rozšíření webu verze Preview
 
-Pokud dojde k potížím pomocí rozšíření webu verze Preview, otevřete [problém ASPNET/AspNetCore](https://github.com/aspnet/AspNetCore/issues).
+Pokud dojde k potížím pomocí rozšíření webu verze Preview, otevřete [problém dotnet/AspNetCore](https://github.com/dotnet/AspNetCore/issues).
 
 1. Na webu Azure Portal přejděte na App Service.
 1. Vyberte webovou aplikaci.

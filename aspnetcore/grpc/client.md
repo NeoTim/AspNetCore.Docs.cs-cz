@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 08/21/2019
 uid: grpc/client
-ms.openlocfilehash: 56f79b303a8d53699e8eb6156d328c0da1259416
-ms.sourcegitcommit: dc5b293e08336dc236de66ed1834f7ef78359531
+ms.openlocfilehash: 1e7887388a752fb35d00e65db210c3924c6ab192
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71011136"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75829098"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>Volání služeb gRPC Services pomocí klienta .NET
 
@@ -22,18 +22,16 @@ Klientská knihovna .NET gRPC je k dispozici v balíčku NuGet pro [gRPC .NET. C
 
 ## <a name="configure-grpc-client"></a>Konfigurace klienta gRPC
 
-gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze  *\*souborů. proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v  *\*souboru..* .
+gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze *\*souborů. proto*](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v *\*souboru..* .
 
-Klient gRPC se vytvoří z kanálu. Začněte tím `GrpcChannel.ForAddress` , že použijete k vytvoření kanálu a pak pomocí kanálu vytvoříte klienta gRPC:
+Klient gRPC se vytvoří z kanálu. Začněte vytvořením kanálu pomocí `GrpcChannel.ForAddress` a pak pomocí kanálu vytvořte klienta gRPC:
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
 var client = new Greet.GreeterClient(channel);
 ```
 
-Kanál představuje dlouhodobé připojení ke službě gRPC. Při vytvoření kanálu se nakonfiguruje s možnostmi, které se týkají volání služby. Například, který `HttpClient` se používá k volání, maximální velikost zprávy Send a Receive a protokolování lze zadat v `GrpcChannelOptions` a použít s `GrpcChannel.ForAddress`. Úplný seznam možností najdete v tématu [Možnosti konfigurace klienta](xref:grpc/configuration#configure-client-options).
-
-Vytvoření kanálu může být náročná operace a opakované použití kanálu pro volání gRPC nabízí výhody týkající se výkonu. Z kanálu, včetně různých typů klientů, lze vytvořit více konkrétních gRPC klientů. Konkrétní typy klientů gRPC jsou prosté objekty a v případě potřeby je lze vytvořit.
+Kanál představuje dlouhodobé připojení ke službě gRPC. Při vytvoření kanálu se nakonfiguruje s možnostmi, které se týkají volání služby. Například `HttpClient` použít k volání, maximální velikost zprávy Send a Receive a protokolování lze zadat v `GrpcChannelOptions` a použít u `GrpcChannel.ForAddress`. Úplný seznam možností najdete v tématu [Možnosti konfigurace klienta](xref:grpc/configuration#configure-client-options).
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -44,7 +42,15 @@ var counterClient = new Count.CounterClient(channel);
 // Use clients to call gRPC services
 ```
 
-`GrpcChannel.ForAddress`není jedinou možností pro vytvoření klienta gRPC. Pokud voláte služby gRPC Services z aplikace ASP.NET Core, zvažte [integraci klientské továrny gRPC](xref:grpc/clientfactory). integrace gRPC s `HttpClientFactory` nabízí centralizovanou alternativu k vytváření klientů gRPC.
+Výkon a využití kanálu a klienta:
+
+* Vytvoření kanálu může být náročná operace. Použití kanálu pro volání gRPC poskytuje výhody týkající se výkonu.
+* klienti gRPC se vytvářejí pomocí kanálů. gRPC klienti jsou prosté objekty a nemusíte je ukládat do mezipaměti ani je znovu používat.
+* Z kanálu, včetně různých typů klientů, lze vytvořit více klientů gRPC.
+* Kanál a klienti vytvořené z kanálu můžou být bezpečně využívány více vlákny.
+* Klienti vytvoření z kanálu můžou provádět víc souběžných volání.
+
+`GrpcChannel.ForAddress` není jedinou možností pro vytvoření klienta gRPC. Pokud voláte služby gRPC Services z aplikace ASP.NET Core, zvažte [integraci klientské továrny gRPC](xref:grpc/clientfactory). gRPC Integration with `HttpClientFactory` nabízí centralizovanou alternativu k vytváření klientů gRPC.
 
 > [!NOTE]
 > Pro [volání nezabezpečených služeb gRPC s klientem .NET](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)je vyžadována další konfigurace.
@@ -72,14 +78,14 @@ Console.WriteLine("Greeting: " + response.Message);
 // Greeting: Hello World
 ```
 
-Každá unární metoda služby v  *\*souboru.* proč má za následek dvě metody .NET pro konkrétní typ klienta gRPC pro volání metody: asynchronní metodu a metodu blokování. Například `GreeterClient` existují dva způsoby volání `SayHello`:
+Každá unární metoda služby v *\*.* důvod bude mít za následek dvou metod .NET pro konkrétní typ klienta gRPC pro volání metody: asynchronní metodu a metodu blokování. Například na `GreeterClient` existují dva způsoby volání `SayHello`:
 
-* `GreeterClient.SayHelloAsync`-volá `Greeter.SayHello` službu asynchronně. Může být očekáváno.
-* `GreeterClient.SayHello`-volá `Greeter.SayHello` službu a zablokuje se do dokončení. Nepoužívejte v asynchronním kódu.
+* `GreeterClient.SayHelloAsync` – volání služby `Greeter.SayHello` asynchronně. Může být očekáváno.
+* `GreeterClient.SayHello` – zavolá `Greeter.SayHello` službu a zablokuje až do dokončení. Nepoužívejte v asynchronním kódu.
 
 ### <a name="server-streaming-call"></a>Volání streamování serveru
 
-Volání streamování serveru začíná klientem, který odesílá zprávu požadavku. `ResponseStream.MoveNext()`přečte zprávy streamované ze služby. Volání streamování serveru je po `ResponseStream.MoveNext()` návratu `false`dokončeno.
+Volání streamování serveru začíná klientem, který odesílá zprávu požadavku. `ResponseStream.MoveNext()` čte zprávy streamované ze služby. Volání streamování serveru je dokončeno, když `ResponseStream.MoveNext()` vrátí `false`.
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -93,7 +99,7 @@ using (var call = client.SayHellos(new HelloRequest { Name = "World" }))
 }
 ```
 
-Pokud používáte C# 8 nebo novější `await foreach` , můžete syntaxi použít ke čtení zpráv. Metoda `IAsyncStreamReader<T>.ReadAllAsync()` rozšíření načte všechny zprávy z datového proudu odpovědí:
+Pokud používáte C# 8 nebo novější, je možné použít syntaxi `await foreach` ke čtení zpráv. Metoda rozšíření `IAsyncStreamReader<T>.ReadAllAsync()` načte všechny zprávy z datového proudu odpovědí:
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -109,7 +115,7 @@ using (var call = client.SayHellos(new HelloRequest { Name = "World" }))
 
 ### <a name="client-streaming-call"></a>Volání streamování klientů
 
-Volání streamování klienta se spustí *bez* odeslání zprávy klientem. Klient se může rozhodnout, že odešle zprávy `RequestStream.WriteAsync`Send. Až klient dokončí odesílání zpráv `RequestStream.CompleteAsync` , měla by se volat oznámení služby. Volání je dokončeno, když služba vrátí zprávu odpovědi.
+Volání streamování klienta se spustí *bez* odeslání zprávy klientem. Klient se může rozhodnout odeslat zprávy pomocí `RequestStream.WriteAsync`. Jakmile klient dokončí odesílání zpráv `RequestStream.CompleteAsync` by měla být volána pro upozornění služby. Volání je dokončeno, když služba vrátí zprávu odpovědi.
 
 ```csharp
 var client = new Counter.CounterClient(channel);
@@ -129,7 +135,7 @@ using (var call = client.AccumulateCount())
 
 ### <a name="bi-directional-streaming-call"></a>Obousměrné volání streamování
 
-Obousměrné volání streamování se spustí *bez* odeslání zprávy klientem. Klient nástroje může odeslat zprávy pomocí `RequestStream.WriteAsync`příkazu. Zprávy streamované ze služby jsou přístupné pomocí `ResponseStream.MoveNext()` nástroje nebo. `ResponseStream.ReadAllAsync()` Obousměrné volání streamování je dokončeno, když `ResponseStream` nemá žádné další zprávy.
+Obousměrné volání streamování se spustí *bez* odeslání zprávy klientem. Klient se může rozhodnout odeslat zprávy pomocí `RequestStream.WriteAsync`. Zprávy, které jsou streamované ze služby, jsou dostupné `ResponseStream.MoveNext()` nebo `ResponseStream.ReadAllAsync()`. Obousměrné volání streamování je dokončeno, když `ResponseStream` nemá žádné další zprávy.
 
 ```csharp
 using (var call = client.Echo())
@@ -165,7 +171,7 @@ using (var call = client.Echo())
 
 Během volání obousměrného streamování může klient a služba kdykoli odesílat zprávy. Nejlepší klientská logika pro interakci s obousměrným voláním se liší v závislosti na logice služby.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:grpc/clientfactory>
 * <xref:grpc/basics>
