@@ -8,12 +8,12 @@ ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: tutorials/signalr-typescript-webpack
-ms.openlocfilehash: 331176f299c0efcd7acb19430ffddcaee7ca1cf3
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 9094a1d391c087a6f58aa9dd66e3697a79f4af86
+ms.sourcegitcommit: ef1720cb733908f36a54825d84c3461c5280bdbe
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75357942"
+ms.lasthandoff: 01/08/2020
+ms.locfileid: "75737513"
 ---
 # <a name="use-aspnet-core-opno-locsignalr-with-typescript-and-webpack"></a>Použití ASP.NET Core SignalR s TypeScript a webpackem
 
@@ -270,6 +270,8 @@ Ověřte, že aplikace funguje s následujícím postupem.
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
+
+## <a name="prerequisites"></a>Požadavky
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 

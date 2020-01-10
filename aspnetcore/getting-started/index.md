@@ -4,20 +4,20 @@ author: rick-anderson
 description: Krátký kurz, který vytvoří a spustí základní aplikaci Hello World pomocí ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 09/22/2019
+ms.date: 01/07/2020
 uid: getting-started
-ms.openlocfilehash: 116a22bce80257948bfcc02c03a74a4b5568b8b5
-ms.sourcegitcommit: 4649814d1ae32248419da4e8f8242850fd8679a5
+ms.openlocfilehash: c806bd1e79dea9119f1c9e99d0a2b9742a10987a
+ms.sourcegitcommit: ef1720cb733908f36a54825d84c3461c5280bdbe
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/05/2019
-ms.locfileid: "71975694"
+ms.lasthandoff: 01/08/2020
+ms.locfileid: "75737474"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
 V tomto kurzu se dozvíte, jak používat rozhraní příkazového řádku .NET Core k vytvoření a spuštění webové aplikace ASP.NET Core.
 
-Naučíte se:
+Dozvíte se, jak provést:
 
 > [!div class="checklist"]
 > * Vytvořte projekt webové aplikace.
@@ -31,7 +31,7 @@ Na konci budete mít na svém místním počítači spuštěnou funkční webovo
 
 ## <a name="prerequisites"></a>Požadavky
 
-[!INCLUDE[](~/includes/3.0-SDK.md)]
+[!INCLUDE[](~/includes/3.1-SDK.md)]
 
 ## <a name="create-a-web-app-project"></a>Vytvoření projektu webové aplikace
 
@@ -70,7 +70,7 @@ dotnet dev-certs https --trust
 
 Předchozí příkaz zobrazí následující zprávu:
 
-*Byl požadován vztah důvěryhodnosti s vývojovým certifikátem https. Pokud certifikát ještě nedůvěřuje, spustíme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`
+*Byl požadován vztah důvěryhodnosti s vývojovým certifikátem https. Pokud certifikát ještě není důvěryhodný, spustíme následující příkaz:* `'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <<certificate>>'`
 
 Tento příkaz vás může vyzvat k zadání hesla pro instalaci certifikátu do systémového řetězce klíčů. Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, zadejte své heslo.
 
@@ -99,7 +99,7 @@ Otevřete *pages/index. cshtml* a upravte a uložte stránku s následujícím z
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-Přejděte na [https://localhost:5001](https://localhost:5001), aktualizujte stránku a ověřte, zda jsou zobrazeny změny.
+Vyhledejte [https://localhost:5001](https://localhost:5001), aktualizujte stránku a ověřte, zda jsou změny zobrazeny.
 
 ## <a name="next-steps"></a>Další kroky
 
