@@ -1,21 +1,15 @@
-* Vystavte certifikát pro vývoj HTTPS tak, že spustíte následující příkaz:
+Visual Studio pro Mac zobrazí následující automaticky otevíraná okna:
 
-    ```dotnetcli
-    dotnet dev-certs https --trust
-    ```
+![Vývojový certifikát HTTPS se nenašel. Chcete certifikát nainstalovat a důvěřovat?](~/getting-started/_static/trustCertMac.png)
 
-* Předchozí příkaz zobrazí následující výstup:
+Pokud důvěřujete vývojovému certifikátu, vyberte **Ano** .
 
-    ```console
-    Trusting the HTTPS development certificate was requested. If the certificate 
-    is not already trusted we will run the following command:
-    'sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain 
-    <<certificate>>'
-    This command might prompt you for your password to install the certificate on the 
-    system keychain.
-    The HTTPS developer certificate was generated successfully.
-    ```
+Zobrazí se následující dialogové okno:
 
-* Pokud se zobrazí výzva, zadejte uživatelské jméno a heslo správce.  Certifikát bude nyní nainstalován a považován za důvěryhodný.
+![Dialogové okno upozornění zabezpečení](~/getting-started/_static/certMac.png)
 
-    Další informace najdete v tématu [důvěryhodnost certifikátu pro vývoj ASP.NET Core https](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) .
+Zadejte své heslo a vyberte **OK** .
+
+Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, vyberte **Ano** .
+
+Další informace najdete v tématu [důvěryhodnost certifikátu vývoje ASP.NET Core https](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) .

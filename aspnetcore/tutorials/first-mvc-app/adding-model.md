@@ -5,12 +5,12 @@ description: Přidejte model do jednoduché aplikace ASP.NET Core.
 ms.author: riande
 ms.date: 8/15/2019
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 2fac37e7069fb2a464d4de1da8912197f7adf8a8
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 5d4251a2577111324aa2cfb715c41e3ecad5a9d1
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73761088"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722791"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu do ASP.NET Core aplikace MVC
 
@@ -32,9 +32,13 @@ V tomto kurzu napíšete nejprve třídy modelu a EF Core vytvoříte databázi.
 
 Klikněte pravým tlačítkem na složku *modely* > **Přidat** **třídu** > . Název souboru *Movie.cs*.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Do složky *modely* přidejte soubor s názvem *Movie.cs* .
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+Klikněte pravým tlačítkem na složku *modely* > **Přidat** > **novou třídu** > **prázdnou třídu**. Název souboru *Movie.cs*.
 
 ---
 
@@ -67,9 +71,26 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 Předchozí příkaz přidá poskytovatele EF Core SQL Server. Balíček Provider nainstaluje balíček EF Core jako závislost. Další balíčky jsou automaticky nainstalovány v kroku generování uživatelského rozhraní později v tomto kurzu.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
+
+# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+V nabídce **projekt** vyberte možnost **Spravovat balíčky NuGet**.
+
+Do **vyhledávacího pole v** pravém horním rohu zadejte `Microsoft.EntityFrameworkCore.SQLite` a stiskněte **návratový** klíč, který chcete vyhledat. Vyberte odpovídajícího balíčku NuGet a stiskněte tlačítko **Přidat balíček** .
+
+![Přidat Entity Framework Core balíček NuGet](~/tutorials/first-mvc-app-mac/adding-model/_static/add-nuget-packages.png)
+
+Zobrazí se dialogové okno **Vybrat projekty** se zvoleným projektem `MvcMovie`. Stiskněte tlačítko **OK** .
+
+Zobrazí se dialogové okno pro **přijetí licence** . Zkontrolujte licence podle potřeby a potom klikněte na tlačítko **přijmout** .
+
+Opakujte výše uvedené kroky a nainstalujte následující balíčky NuGet:
+ * `Microsoft.VisualStudio.Web.CodeGeneration.Design`
+ * `Microsoft.EntityFrameworkCore.SqlServer`
+ * `Microsoft.EntityFrameworkCore.Design`
 
 ---
 
@@ -155,7 +176,7 @@ Dokončete dialog **Přidat řadič** :
 
 * **Zobrazení:** Ponechte výchozí hodnotu u každé zaškrtnuté možnosti.
 * **Název kontroleru:** Zachovat výchozí *MoviesController*
-* Vyberte **Přidat**
+* Vyberte **Přidat**.
 
 Visual Studio vytvoří:
 
@@ -426,7 +447,7 @@ Dokončete dialog **Přidat řadič** :
 
 * **Zobrazení:** Ponechte výchozí hodnotu u každé zaškrtnuté možnosti.
 * **Název kontroleru:** Zachovat výchozí *MoviesController*
-* Vyberte **Přidat**
+* Vyberte **Přidat**.
 
 ![Dialogové okno Přidat řadič](adding-model/_static/add_controller2.png)
 
@@ -689,6 +710,6 @@ Vzhledem k tomu, že objekt `Model` je silného typu (jako objekt `IEnumerable<M
 
 > [!div class="step-by-step"]
 > [Předchozí přidání zobrazení](adding-view.md)
-> [Další práce s SQL](working-with-sql.md)
+> [Další práce s databází](working-with-sql.md)
 
 ::: moniker-end

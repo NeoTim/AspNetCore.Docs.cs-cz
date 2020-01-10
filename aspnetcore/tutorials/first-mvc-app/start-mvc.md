@@ -5,12 +5,12 @@ description: Naučte se, jak začít s ASP.NET Core MVC.
 ms.author: riande
 ms.date: 10/16/2019
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: e70384a6f20f3ef06059ed6b51c76e923187c317
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 901257efdfbc7b36249233745175f5ed253da2c7
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75354928"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722856"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
@@ -100,9 +100,7 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
 
 * V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** nastavte **cílovou architekturu** **.NET Core 3,1**.
 
-<!-- 
-  ![macOS .NET Core 2.2 selection](./start-mvc/_static/new_project_22_vsmac.png)
--->
+  ![macOS .NET Core 3,1 – výběr](./start-mvc/_static/new_project_31_vsmac.png)
 
 * Pojmenujte projekt **MvcMovie**a pak vyberte **vytvořit**.
 

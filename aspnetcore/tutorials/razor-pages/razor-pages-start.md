@@ -5,12 +5,12 @@ description: V této sérii kurzů se dozvíte, jak používat Razor Pages v ASP
 ms.author: riande
 ms.date: 11/12/2019
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: b651437b698d01310f90c5f14832616c1896e6c0
-ms.sourcegitcommit: 4e3edff24ba6e43a103fee1b126c9826241bb37b
+ms.openlocfilehash: 6e1d58ccd83f7d7c1083dc2bf9ce7476650812a1
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74959096"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722996"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme s Razor Pages v ASP.NET Core
 
@@ -100,18 +100,13 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
   ![macOS dialogové okno nového projektu](razor-pages-start/_static/webapp.png)
 
-* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** nastavte **cílové** rozhraní **.NET Core 3,1**.
+* V dialogovém okně **Konfigurace nové webové aplikace** nastavte **cílovou architekturu** na **.NET Core 3,1**.
 
-  ![macOS .NET Core 3,0 – výběr](razor-pages-start/_static/targetframework3.png)
+  ![macOS .NET Core 3,1 – výběr](razor-pages-start/_static/targetframework3.png)
 
 * Pojmenujte projekt **RazorPagesMovie**a pak vyberte **vytvořit**.
 
   ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
-
-
-## <a name="open-the-project"></a>Otevřít projekt
-
-V aplikaci Visual Studio vyberte **soubor > otevřít**a potom vyberte soubor *RazorPagesMovie. csproj* .
 
 <!-- End of VS tabs -->
 
@@ -242,19 +237,21 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Z terminálu spusťte následující příkaz:
+* Vyberte **soubor** > **nové řešení**.
 
-<!-- TODO: update these instruction once mac support 2.2 projects -->
+![macOS nové řešení](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-```dotnetcli
-dotnet new webapp -o RazorPagesMovie
-```
+* Vyberte > **Další** **Webová aplikace > webové aplikace** **.NET Core** > **App** .
 
-Předchozí příkazy používají [.NET Core CLI](/dotnet/core/tools/dotnet) k vytvoření projektu Razor Pages.
+  ![macOS dialogové okno nového projektu](razor-pages-start/_static/webapp.png)
 
-## <a name="open-the-project"></a>Otevřít projekt
+* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** nastavte **cílové** rozhraní **.NET Core 3,1**.
 
-V aplikaci Visual Studio vyberte **soubor > otevřít**a potom vyberte soubor *RazorPagesMovie. csproj* .
+  ![macOS .NET Core 3,0 – výběr](razor-pages-start/_static/targetframework3.png)
+
+* Pojmenujte projekt **RazorPagesMovie**a pak vyberte **vytvořit**.
+
+  ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
 
 <!-- End of VS tabs -->
 

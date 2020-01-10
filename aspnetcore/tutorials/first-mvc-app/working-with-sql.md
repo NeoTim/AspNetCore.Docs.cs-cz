@@ -5,12 +5,12 @@ description: Přečtěte si o použití SQL Server LocalDB nebo SQLite v aplikac
 ms.author: riande
 ms.date: 8/16/2019
 uid: tutorials/first-mvc-app/working-with-sql
-ms.openlocfilehash: de392f4220cf0182d02a20f387164d2f4b184b58
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: d556f07111fb2022a1c2f1a066459566e302835d
+ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72289079"
+ms.lasthandoff: 01/07/2020
+ms.locfileid: "75722765"
 ---
 # <a name="work-with-sql-in-aspnet-core"></a>Práce s SQL v ASP.NET Core
 
@@ -231,7 +231,7 @@ Odstraní všechny záznamy v databázi (takže se metoda počáteční hodnoty 
 
 Aplikace zobrazuje dosazený data.
 
-![Filmová aplikace MVC otevřená v Microsoft Edge ukazující data videa](working-with-sql/_static/m55.png)
+![Filmová aplikace MVC otevřená v Microsoft Edge ukazující data videa](working-with-sql/_static/m55_mac.png)
 
 > [!div class="step-by-step"]
 > [Předchozí](adding-model.md)
