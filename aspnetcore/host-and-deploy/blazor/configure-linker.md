@@ -9,16 +9,16 @@ ms.date: 11/21/2019
 no-loc:
 - Blazor
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 0bc987d72d2f684b1ecbd4a883e9a09fac7c801e
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: cdf506f0c0fa720df64e59342d352ef41271d24b
+ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317292"
+ms.lasthandoff: 01/10/2020
+ms.locfileid: "75866043"
 ---
 # <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
 
-Od [Luke Latham](https://github.com/guardrex)
+Podle [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -62,7 +62,7 @@ Propojení je ve výchozím nastavení povoleno, pokud je aplikace sestavena, v�
     <!--
       Preserve the methods in WasmRuntime because its methods are called by 
       JavaScript client-side code to implement timers.
-      Fixes: https://github.com/aspnet/Blazor/issues/239
+      Fixes: https://github.com/dotnet/blazor/issues/239
     -->
     <type fullname="System.Threading.WasmRuntime" />
   </assembly>
