@@ -5,12 +5,12 @@ description: Naučte se, jak přidat kontroler do jednoduché aplikace ASP.NET C
 ms.author: riande
 ms.date: 08/05/2017
 uid: tutorials/first-mvc-app/adding-controller
-ms.openlocfilehash: fe0c1d3c066d6ab20387391e15c3a7cfe684c61e
-ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
+ms.openlocfilehash: fb670902b0dafa7dce2b3372e550095387844936
+ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/29/2019
-ms.locfileid: "75542701"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75914238"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>Přidání kontroleru do aplikace ASP.NET Core MVC
 
@@ -110,7 +110,7 @@ Spusťte aplikaci a přejděte do:
 
 ![Okno prohlížeče zobrazující odezvu aplikace Hello Rick, NumTimes je\: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
-Na obrázku výše se nepoužívá segment adresy URL (`Parameters`), parametry `name` a `numTimes` se předávají jako [řetězce dotazů](https://wikipedia.org/wiki/Query_string). `?` (otazník) na výše uvedené adrese URL je oddělovač a následují řetězce dotazů. Znak `&` odděluje řetězce dotazu.
+Na obrázku výše se nepoužívá segment adresy URL (`Parameters`), parametry `name` a `numTimes` jsou předány v [řetězci dotazu](https://wikipedia.org/wiki/Query_string). `?` (otazník) na výše uvedené adrese URL je oddělovač a následuje řetězec dotazu. Znak `&` odděluje páry pole a hodnoty.
 
 Nahraďte metodu `Welcome` následujícím kódem:
 
@@ -229,7 +229,7 @@ Spusťte aplikaci a přejděte do:
 
 ![Okno prohlížeče zobrazující odezvu aplikace Hello Rick, NumTimes je\: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
-Na obrázku výše se nepoužívá segment adresy URL (`Parameters`), parametry `name` a `numTimes` se předávají jako [řetězce dotazů](https://wikipedia.org/wiki/Query_string). `?` (otazník) na výše uvedené adrese URL je oddělovač a následují řetězce dotazů. Znak `&` odděluje řetězce dotazu.
+Na obrázku výše se nepoužívá segment adresy URL (`Parameters`), parametry `name` a `numTimes` jsou předány v [řetězci dotazu](https://wikipedia.org/wiki/Query_string). `?` (otazník) na výše uvedené adrese URL je oddělovač a následuje řetězec dotazu. Znak `&` odděluje páry pole a hodnoty.
 
 Nahraďte metodu `Welcome` následujícím kódem:
 

@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: 9246305e6979a6a7e006f567ee6bf9569029aef1
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: e20c197c7ce3334d4f4f0b917d1fc94174e6c615
+ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828305"
+ms.lasthandoff: 01/13/2020
+ms.locfileid: "75914203"
 ---
 # <a name="response-caching-in-aspnet-core"></a>Ukládání odpovědí do mezipaměti v ASP.NET Core
 
@@ -66,7 +66,7 @@ Další informace najdete v tématu <xref:performance/caching/memory>.
 
 ### <a name="distributed-cache"></a>Distribuovaná mezipaměť
 
-Pomocí distribuované mezipaměti můžete ukládat data v paměti, když je aplikace hostovaná v cloudové nebo serverové farmě. Mezipaměť se sdílí mezi servery, které zpracovávají požadavky. Klient může odeslat žádost, která je zpracována jakýmkoli serverem ve skupině, pokud jsou k dispozici data uložená v mezipaměti pro klienta. ASP.NET Core nabízí SQL Server a Redis distribuované mezipaměti.
+Pomocí distribuované mezipaměti můžete ukládat data v paměti, když je aplikace hostovaná v cloudové nebo serverové farmě. Mezipaměť se sdílí mezi servery, které zpracovávají požadavky. Klient může odeslat žádost, která je zpracována jakýmkoli serverem ve skupině, pokud jsou k dispozici data uložená v mezipaměti pro klienta. ASP.NET Core pracuje s mezipamětí SQL Server, [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)a [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) distribuované mezipaměti.
 
 Další informace najdete v tématu <xref:performance/caching/distributed>.
 
@@ -78,7 +78,7 @@ Další informace najdete v tématu <xref:mvc/views/tag-helpers/builtin-th/cache
 
 ### <a name="distributed-cache-tag-helper"></a>Pomocná rutina značky distribuované mezipaměti
 
-Ukládání obsahu do mezipaměti v zobrazení MVC nebo na stránce Razor v rámci distribuovaného cloudu nebo webové farmy pomocí pomocníka značek distribuované mezipaměti. Pomocník značek distribuované mezipaměti používá k ukládání dat SQL Server nebo Redis.
+Ukládání obsahu do mezipaměti v zobrazení MVC nebo na stránce Razor v rámci distribuovaného cloudu nebo webové farmy pomocí pomocníka značek distribuované mezipaměti. Pomocný pomocník značek distribuované mezipaměti používá k ukládání dat SQL Server, [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)nebo [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) .
 
 Další informace najdete v tématu <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>.
 
