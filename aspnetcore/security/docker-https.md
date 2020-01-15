@@ -9,12 +9,12 @@ ms.date: 07/05/2019
 no-loc:
 - Let's Encrypt
 uid: security/docker-https
-ms.openlocfilehash: 47027033c0b7130f2d38d22c02a54945b2cc31b3
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 07e2791e5b26975c71323f8cb41a4b0fbe0cdf11
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358910"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952129"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>Hostování ASP.NET Core imagí pomocí Docker přes HTTPS
 
@@ -43,7 +43,7 @@ Pro produkční certifikáty:
 * Nástroj `dotnet dev-certs` není povinný.
 * Certifikáty není nutné ukládat v umístění, které jste použili v pokynech. Jakékoli umístění by mělo fungovat, i když ukládání certifikátů v adresáři webu se nedoporučuje.
 
-Pokyny pro připojení certifikátů do kontejnerů. Certifikáty můžete přidat do imagí kontejneru pomocí příkazu `COPY` v *souboru Dockerfile*. Kopírování certifikátů do bitové kopie se nedoporučuje z následujících důvodů:
+Pokyny obsažené v následujícím oddílu připojovat certifikáty do kontejnerů pomocí možnosti příkazového řádku Docker `-v`. Certifikáty můžete přidat do imagí kontejneru pomocí příkazu `COPY` v *souboru Dockerfile*, ale nedoporučujeme to. Kopírování certifikátů do bitové kopie se nedoporučuje z následujících důvodů:
 
 * Pro testování pomocí certifikátů pro vývojáře je obtížné použít stejný obrázek.
 * Pro hostování s provozními certifikáty je obtížné použít stejný obrázek.

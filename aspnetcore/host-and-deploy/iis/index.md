@@ -5,14 +5,14 @@ description: Zjistěte, jak hostovat aplikace ASP.NET Core na Windows serveru In
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/06/2020
+ms.date: 01/13/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 8e0475e3e18688c7d4344661826290d15a2443c0
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: bf035bc65f0f120f52e55effe4d413bfecdf735d
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829189"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952088"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -771,31 +771,19 @@ Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-m
 
 ## <a name="deployment-resources-for-iis-administrators"></a>Materiály pro nasazení pro správce služby IIS
 
-Další informace o službě IIS hlouběji v dokumentaci služby IIS.  
-[Dokumentace ke službě IIS](/iis)
-
-Další informace o modelech nasazení aplikace .NET Core.  
-[Nasazení aplikace .NET core](/dotnet/core/deploying/)
-
-Přečtěte si o modulu ASP.NET Core, včetně pokynů ke konfiguraci.  
-<xref:host-and-deploy/aspnet-core-module>
-
-Další informace o struktuře adresářů publikované aplikace ASP.NET Core.  
-[Adresářová struktura](xref:host-and-deploy/directory-structure)
-
-Zjistěte aktivní i neaktivní moduly IIS pro aplikace ASP.NET Core a jak spravovat moduly služby IIS.  
-[Moduly služby IIS](xref:host-and-deploy/iis/modules)
-
-Zjistěte, jak diagnostikovat problémy se službou IIS nasazení aplikace ASP.NET Core.  
-[Řešení potíží](xref:test/troubleshoot-azure-iis)
-
-Rozlišení běžných chyb při hostování aplikací ASP.NET Core ve službě IIS.  
-[Referenční informace k běžným chybám u služeb Azure App Service a IIS](xref:host-and-deploy/azure-iis-errors-reference)
+* [Dokumentace ke službě IIS](/iis)
+* [Začínáme ve službě IIS pomocí Správce služby IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
+* [Nasazení aplikace .NET core](/dotnet/core/deploying/)
+* <xref:host-and-deploy/aspnet-core-module>
+* <xref:host-and-deploy/directory-structure>
+* <xref:host-and-deploy/iis/modules>
+* <xref:test/troubleshoot-azure-iis>
+* <xref:host-and-deploy/azure-iis-errors-reference>
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:test/troubleshoot>
-* [Úvod do ASP.NET Core](xref:index)
+* <xref:index>
 * [Lokality oficiální Microsoft IIS](https://www.iis.net/)
 * [Technická knihovna obsahu Windows serveru](/windows-server/windows-server)
 * [HTTP/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis)

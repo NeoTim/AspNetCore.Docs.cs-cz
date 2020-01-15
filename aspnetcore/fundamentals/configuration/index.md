@@ -5,14 +5,14 @@ description: Naučte se, jak pomocí konfiguračního rozhraní API nakonfigurov
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/04/2019
+ms.date: 01/13/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 9f0ad2791e504a0ff46daad07054b6bf909a546a
-ms.sourcegitcommit: 897d4abff58505dae86b2947c5fe3d1b80d927f3
+ms.openlocfilehash: 09ef06f179e34cd7f4f04ac30c3b5dd95d058244
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73634077"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75951895"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -21,7 +21,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 Konfigurace aplikací v ASP.NET Core je založená na páru klíč-hodnota vytvořených *poskytovateli konfigurací*. Poskytovatelé konfigurace čtou konfigurační data do párů klíč-hodnota z nejrůznějších zdrojů konfigurace:
 
 * Azure Key Vault
-* Konfigurace aplikace Azure
+* Azure App Configuration
 * Argumenty příkazového řádku
 * Vlastní poskytovatelé (nainstalováno nebo vytvořeno)
 * Soubory adresáře
@@ -98,7 +98,7 @@ Následující postup platí pro aplikace používající [webového hostitele](
 
 ::: moniker-end
 
-## <a name="security"></a>Zabezpečení
+## <a name="security"></a>Zabezpečení –
 
 Při zabezpečování citlivých konfiguračních dat proveďte následující postupy:
 
@@ -149,7 +149,9 @@ Při spuštění aplikace se zdroje konfigurace čtou v pořadí, v jakém jsou 
 
 Poskytovatelé konfigurace implementující zjišťování změn mají možnost znovu načíst konfiguraci při změně podkladového nastavení. Například poskytovatel konfigurace souboru (popsaný dále v tomto tématu) a [zprostředkovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) implementují detekci změn.
 
-<xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v kontejneru pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. <xref:Microsoft.Extensions.Configuration.IConfiguration> lze vložit do Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> pro získání konfigurace pro třídu:
+<xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v kontejneru pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. <xref:Microsoft.Extensions.Configuration.IConfiguration> lze vložit do <xref:Microsoft.AspNetCore.Mvc.Controller> Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> nebo MVC a získat tak konfiguraci pro třídu.
+
+V následujících příkladech se pro přístup k hodnotám konfigurace používá pole `_config`:
 
 ```csharp
 public class IndexModel : PageModel
@@ -160,9 +162,18 @@ public class IndexModel : PageModel
     {
         _config = config;
     }
+}
+```
 
-    // The _config local variable is used to obtain configuration 
-    // throughout the class.
+```csharp
+public class HomeController : Controller
+{
+    private readonly IConfiguration _config;
+
+    public HomeController(IConfiguration config)
+    {
+        _config = config;
+    }
 }
 ```
 
@@ -177,7 +188,7 @@ Konfigurační klíče přijímají následující konvence:
 * Hierarchické klíče
   * V rozhraní API pro konfiguraci funguje oddělovač dvojtečky (`:`) na všech platformách.
   * V proměnných prostředí nemusí oddělovač dvojtečky fungovat na všech platformách. Dvojité podtržítko (`__`) je podporováno všemi platformami a je automaticky převedeno na dvojtečku.
-  * V Azure Key Vault hierarchické klíče používají `--` (dvě pomlčky) jako oddělovač. Pokud jsou tajné klíče načteny do konfigurace aplikace, je nutné zadat kód, který nahradí pomlčky dvojtečkou.
+  * V Azure Key Vault hierarchické klíče používají `--` (dvě pomlčky) jako oddělovač. Napište kód, který nahradí pomlčky dvojtečkou, pokud jsou tajné klíče načteny do konfigurace aplikace.
 * <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích. Vazba pole je popsána v tématu [vazba pole na oddíl třídy](#bind-an-array-to-a-class) .
 
 ### <a name="values"></a>Hodnoty
@@ -191,10 +202,10 @@ Konfigurační hodnoty přijímají následující konvence:
 
 V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.
 
-| Poskytovatel | Poskytuje konfiguraci z&hellip; |
+| Zprostředkovatel | Poskytuje konfiguraci z&hellip; |
 | -------- | ----------------------------------- |
 | [Poskytovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) (témata*zabezpečení* ) | Azure Key Vault |
-| [Poskytovatel konfigurace Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace Azure) | Konfigurace aplikace Azure |
+| [Poskytovatel konfigurace Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace Azure) | Azure App Configuration |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
 | [Vlastní poskytovatel konfigurace](#custom-configuration-provider) | Vlastní zdroj |
 | [Poskytovatel konfigurace proměnných prostředí](#environment-variables-configuration-provider) | Proměnné prostředí |
@@ -203,7 +214,7 @@ V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro A
 | [Poskytovatel konfigurace paměti](#memory-configuration-provider) | Kolekce v paměti |
 | [Uživatelské klíče (správce tajných klíčů)](xref:security/app-secrets) (*bezpečnostní* témata) | Soubor v adresáři profilu uživatele |
 
-Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou jejich poskytovatelé konfigurace určení při spuštění. Poskytovatelé konfigurace popsané v tomto tématu jsou popsány v abecedním pořadí, nikoli v pořadí, ve kterém je váš kód může uspořádat. Seřazení zprostředkovatelů konfigurace v kódu tak, aby vyhovoval vašim prioritám pro základní zdroje konfigurace.
+Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou jejich poskytovatelé konfigurace určení při spuštění. Poskytovatelé konfigurace popsané v tomto tématu jsou popsány v abecedním pořadí, nikoli v pořadí, v jakém je kód uspořádá. Seřazení zprostředkovatelů konfigurace v kódu, aby odpovídal prioritám pro základní zdroje konfigurace vyžadované aplikací.
 
 Typická posloupnost zprostředkovatelů konfigurace je:
 
@@ -215,7 +226,7 @@ Typická posloupnost zprostředkovatelů konfigurace je:
 
 Běžným postupem je umístit poskytovatele konfigurace příkazového řádku na poslední v řadě zprostředkovatelů, aby argumenty příkazového řádku mohly přepsat konfiguraci nastavenou ostatními zprostředkovateli.
 
-Předchozí sekvence zprostředkovatelů se používá, když inicializujete nového tvůrce hostitele pomocí `CreateDefaultBuilder`. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
+Předchozí sekvence zprostředkovatelů se používá při inicializaci nového hostitele pomocí `CreateDefaultBuilder`. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -352,7 +363,7 @@ Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuil
 1. Po spuštění aplikace otevřete v aplikaci prohlížeč na `http://localhost:5000`.
 1. Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro argument příkazového řádku konfigurace, který je k dispozici pro `dotnet run`.
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 Hodnota musí následovat po znaménku rovná se (`=`), nebo klíč musí obsahovat předponu (`--` nebo `/`), pokud se hodnota řídí mezerou. Hodnota není povinná, pokud se používá znaménko rovná se (například `CommandLineKey=`).
 
@@ -374,7 +385,7 @@ dotnet run CommandLineKey1= CommandLineKey2=value2
 
 ### <a name="switch-mappings"></a>Mapování přepínačů
 
-Mapování přepínačů povolují logiku nahrazení názvu klíče. Při ručním sestavování konfigurace pomocí <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>můžete do metody <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> zadat slovník přepínačů pro nahrazení.
+Mapování přepínačů povolují logiku nahrazení názvu klíče. Při ručním sestavování konfigurace pomocí <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>zadejte do metody <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> slovník přepínačů pro nahrazení.
 
 Při použití slovníku mapování přepínačů je slovník zaškrtnut pro klíč, který odpovídá klíči poskytnutému argumentem příkazového řádku. Pokud se klíč příkazového řádku nachází ve slovníku, vrátí se hodnota slovníku (nahrazení klíče) zpět, aby se v konfiguraci aplikace nastavil pár klíč-hodnota. Mapování přepínačů je vyžadováno pro jakýkoliv klíč příkazového řádku s jedním spojovníkem (`-`).
 
@@ -407,7 +418,7 @@ Pro aplikace, které používají mapování přepínačů, by volání `CreateD
 
 Po vytvoření slovníku mapování přepínačů obsahuje data uvedená v následující tabulce.
 
-| Klíč       | Hodnota             |
+| Key       | Hodnota             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
@@ -420,7 +431,7 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 
 Po spuštění předchozího příkazu obsahuje konfigurace hodnoty uvedené v následující tabulce.
 
-| Klíč               | Hodnota    |
+| Key               | Hodnota    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
@@ -433,7 +444,7 @@ Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte metodu rozš
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-[Azure App Service](https://azure.microsoft.com/services/app-service/) umožňuje nastavit proměnné prostředí na webu Azure Portal, které mohou přepsat konfiguraci aplikace pomocí poskytovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
+[Azure App Service](https://azure.microsoft.com/services/app-service/) povoluje nastavení proměnných prostředí na webu Azure Portal, které mohou přepsat konfiguraci aplikace pomocí poskytovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -456,19 +467,16 @@ Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte metodu rozš
 
 Poskytovatel konfigurace proměnných prostředí se volá po vytvoření konfigurace z uživatelských tajných kódů a souborů *appSettings* . Volání zprostředkovatele v této pozici umožňuje, aby proměnné prostředí byly čteny za běhu, aby bylo možné přepsat konfiguraci nastavenou pomocí tajných kódů uživatelů a souborů *appSettings* .
 
-Pokud potřebujete zadat konfiguraci aplikace z dalších proměnných prostředí, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte `AddEnvironmentVariables` s předponou.
+Chcete-li poskytnout konfiguraci aplikace z dalších proměnných prostředí, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte `AddEnvironmentVariables` s předponou:
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
 {
-    // Call additional providers here as needed.
-    // Call AddEnvironmentVariables last if you need to allow
-    // environment variables to override values from other 
-    // providers.
     config.AddEnvironmentVariables(prefix: "PREFIX_");
 })
-}
 ```
+
+Pokud chcete, aby proměnné prostředí s danou předponou přepsaly hodnoty od jiných zprostředkovatelů, zavolejte `AddEnvironmentVariables` jako poslední.
 
 **Příklad**
 
@@ -503,7 +511,7 @@ Když je vytvořen tvůrce hostitele, konfigurace hostitele je poskytována prom
 
 Rozhraní API pro konfiguraci má speciální pravidla zpracování pro čtyři proměnné prostředí připojovacích řetězců, které se podílejí na konfiguraci připojovacích řetězců Azure pro prostředí aplikace. Proměnné prostředí s předponami, které jsou uvedeny v tabulce, se načtou do aplikace, pokud není k `AddEnvironmentVariables`zadána žádná předpona.
 
-| Předpona připojovacího řetězce | Poskytovatel |
+| Předpona připojovacího řetězce | Zprostředkovatel |
 | ------------------------ | -------- |
 | `CUSTOMCONNSTR_` | Vlastní zprostředkovatel |
 | `MYSQLCONNSTR_` | [MySQL](https://www.mysql.com/) |
@@ -591,7 +599,7 @@ Přetížení umožňují zadat:
 * Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.
 * <xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.
 
-`AddJsonFile` se automaticky volá dvakrát při inicializaci nového tvůrce hostitele pomocí `CreateDefaultBuilder`. Metoda je volána pro načtení konfigurace z:
+`AddJsonFile` se automaticky volá dvakrát při inicializaci nového hostitele pomocí `CreateDefaultBuilder`. Metoda je volána pro načtení konfigurace z:
 
 * *appSettings. json* &ndash; tento soubor je nejdřív načtený. Verze prostředí souboru může přepsat hodnoty poskytnuté souborem *appSettings. JSON* .
 * *appSettings. {Environment}. JSON* &ndash; verze prostředí souboru je načtená na základě rozhraní [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).
@@ -618,17 +626,47 @@ Při sestavování hostitele zavolá `ConfigureAppConfiguration`, aby se určila
 
 **Příklad**
 
-Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje dvě volání `AddJsonFile`. Konfigurace je načtena z souboru *appSettings. JSON* a *appSettings. { Environment}. JSON*.
+Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, což zahrnuje dvě volání `AddJsonFile`:
+
+::: moniker range=">= aspnetcore-3.0"
+
+* První volání `AddJsonFile` načte konfiguraci z *appSettings. JSON*:
+
+  [!code-json[](index/samples/3.x/ConfigurationSample/appsettings.json)]
+
+* Druhé volání `AddJsonFile` načte konfiguraci z *appSettings. { Environment}. JSON*. Pro *appSettings. Vývoj. JSON* v ukázkové aplikaci je načtený následující soubor:
+
+  [!code-json[](index/samples/3.x/ConfigurationSample/appsettings.Development.json)]
 
 1. Spuštění ukázkové aplikace. Otevřete v aplikaci prohlížeč na `http://localhost:5000`.
-1. Všimněte si, že výstup obsahuje páry klíč-hodnota pro konfiguraci uvedenou v tabulce v závislosti na prostředí. Konfigurační klíče protokolování používají dvojtečku (`:`) jako hierarchický oddělovač.
+1. Výstup obsahuje páry klíč-hodnota pro konfiguraci na základě prostředí aplikace. Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Debug` při spuštění aplikace ve vývojovém prostředí.
+1. Znovu spusťte ukázkovou aplikaci v produkčním prostředí:
+   1. Otevřete soubor *Properties/launchSettings. JSON* .
+   1. V profilu `ConfigurationSample` změňte hodnotu proměnné prostředí `ASPNETCORE_ENVIRONMENT` na `Production`.
+   1. Uložte soubor a spusťte aplikaci pomocí `dotnet run` v příkazovém prostředí.
+1. Nastavení v souboru *appSettings. Vývoj. JSON* již nepřepisuje nastavení v souboru *appSettings. JSON*. Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Information`.
 
-| Klíč                        | Hodnota vývoje | Produkční hodnota |
-| -------------------------- | :---------------: | :--------------: |
-| Protokolování: LogLevel: systém    | Information       | Information      |
-| Logging:LogLevel:Microsoft | Information       | Information      |
-| Protokolování: LogLevel: výchozí   | Ladit             | Chyba            |
-| AllowedHosts               | *                 | *                |
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
+* První volání `AddJsonFile` načte konfiguraci z *appSettings. JSON*:
+
+  [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.json)]
+
+* Druhé volání `AddJsonFile` načte konfiguraci z *appSettings. { Environment}. JSON*. Pro *appSettings. Vývoj. JSON* v ukázkové aplikaci je načtený následující soubor:
+
+  [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.Development.json)]
+
+1. Spuštění ukázkové aplikace. Otevřete v aplikaci prohlížeč na `http://localhost:5000`.
+1. Výstup obsahuje páry klíč-hodnota pro konfiguraci na základě prostředí aplikace. Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Debug` při spuštění aplikace ve vývojovém prostředí.
+1. Znovu spusťte ukázkovou aplikaci v produkčním prostředí:
+   1. Otevřete soubor *Properties/launchSettings. JSON* .
+   1. V profilu `ConfigurationSample` změňte hodnotu proměnné prostředí `ASPNETCORE_ENVIRONMENT` na `Production`.
+   1. Uložte soubor a spusťte aplikaci pomocí `dotnet run` v příkazovém prostředí.
+1. Nastavení v souboru *appSettings. Vývoj. JSON* již nepřepisuje nastavení v souboru *appSettings. JSON*. Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Warning`.
+
+::: moniker-end
 
 ### <a name="xml-configuration-provider"></a>Poskytovatel konfigurace XML
 
@@ -917,7 +955,7 @@ V části `starship` souboru *Starship. JSON* se vytvoří konfigurace, když uk
 
 Vytvoří se následující páry klíč-hodnota konfigurace:
 
-| Klíč                   | Hodnota                                             |
+| Key                   | Hodnota                                             |
 | --------------------- | ------------------------------------------------- |
 | Starship: název         | USS Enterprise                                    |
 | Starship: Registry     | NCC-1701                                          |
@@ -1007,7 +1045,7 @@ TvShow = tvShow;
 
 Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tabulce.
 
-| Klíč             | Hodnota  |
+| Key             | Hodnota  |
 | :-------------: | :----: |
 | pole: položky: 0 | value0 |
 | pole: položky: 1 | Hodnota1 |
@@ -1088,7 +1126,7 @@ Chybějící položka konfigurace pro index &num;3 může být zadána před vyt
 }
 ```
 
-V `ConfigureAppConfiguration`:
+V systému `ConfigureAppConfiguration`:
 
 ```csharp
 config.AddJsonFile(
@@ -1097,7 +1135,7 @@ config.AddJsonFile(
 
 Pár klíč-hodnota zobrazený v tabulce je načten do konfigurace.
 
-| Klíč             | Hodnota  |
+| Key             | Hodnota  |
 | :-------------: | :----: |
 | pole: položky: 3 | hodnota3 |
 
@@ -1130,7 +1168,7 @@ Pokud soubor JSON obsahuje pole, jsou vytvořeny konfigurační klíče pro prvk
 
 Zprostředkovatel konfigurace JSON načte konfigurační data do následujících párů klíč-hodnota:
 
-| Klíč                     | Hodnota  |
+| Key                     | Hodnota  |
 | ----------------------- | :----: |
 | json_array:key          | Hodnotaa |
 | json_array: pododdíl: 0 | Hodnotab |
@@ -1317,6 +1355,6 @@ V zobrazení MVC:
 
 Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace. Další informace najdete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:fundamentals/configuration/options>

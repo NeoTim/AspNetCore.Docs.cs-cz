@@ -9,12 +9,12 @@ ms.date: 11/28/2018
 no-loc:
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 6506430202870ba9de2f8eb6f33d79c7c1fbbbd4
-ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
+ms.openlocfilehash: 8e7b7596fcfe2d6b7150fe1ab09a7ab1dc4a2e47
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75608064"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75952125"
 ---
 # <a name="aspnet-core-opno-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR hostování a škálování
 
@@ -86,7 +86,7 @@ Další informace najdete v [dokumentaci ke službě Azure SignalR](/azure/azure
 
 ![Redis replánování, zpráva odeslaná z jednoho serveru všem klientům](scale/_static/redis-backplane.png)
 
-Redis replánování je doporučený postup pro horizontální navýšení kapacity pro aplikace hostované ve vaší vlastní infrastruktuře. Služba Azure SignalR není praktickou možností pro produkční použití s místními aplikacemi kvůli latenci připojení mezi datovým centrem a datovým centrem Azure.
+Redis replánování je doporučený postup pro horizontální navýšení kapacity pro aplikace hostované ve vaší vlastní infrastruktuře. Pokud je mezi datovým centrem a datovým centrem Azure významná latence připojení, služba Azure SignalR pravděpodobně není praktickou možností pro místní aplikace s požadavky na nízkou latenci nebo vysokou propustnost.
 
 Výše zmíněné výhody služby Azure SignalR jsou nevýhody pro Redis replánování:
 

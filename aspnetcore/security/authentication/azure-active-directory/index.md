@@ -3,22 +3,22 @@ title: Azure Active Directory a ASP.NET Core
 author: rick-anderson
 description: Objevte témata související s ověřováním pomocí Azure Active Directory v ASP.NET Core.
 ms.author: riande
-ms.date: 12/18/2019
+ms.date: 01/14/2020
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-active-directory/index
-ms.openlocfilehash: 10a174bdb5f9eeed7606d4f0ebb17badc3bc4182
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: a856643216d423c791d3df47bd2206f9121b543f
+ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359183"
+ms.lasthandoff: 01/14/2020
+ms.locfileid: "75951907"
 ---
 # <a name="azure-active-directory-with-aspnet-core"></a>Azure Active Directory a ASP.NET Core
 
 ## <a name="azure-ad-v1-samples"></a>Ukázky v Azure AD V1
 
 Následující ukázky ukazují, jak integrovat Azure AD V1, umožňuje uživatelům přihlásit se pomocí pracovní a školní účet:
-* [Integrace Azure AD do webové aplikace ASP.NET Core](https://github.com/Azure-Samples/ms-identity-aspnetcore-webapp-tutorial)
+* [Integrace Azure AD do webové aplikace ASP.NET Core](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/master) (Archivovaná a Nepodporovaná)
 * [Volání webového rozhraní API aplikace ASP.NET Core z aplikace WPF pomocí Azure AD](https://github.com/Azure-Samples/active-directory-dotnet-native-aspnetcore)
 * [Volání webového rozhraní API webové aplikace ASP.NET Core pomocí Azure AD](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/)
 
