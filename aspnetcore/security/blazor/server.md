@@ -2,20 +2,20 @@
 title: Zabezpečené ASP.NET Core Blazor serverových aplikací
 author: guardrex
 description: Naučte se zmírnit bezpečnostní hrozby pro Blazor serverových aplikací.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: 2d644b84b304a31ad0debc16164ad155c7f7da65
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: d87aac02137681e62cf8f5cbd4dc8b0be6f8431e
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944279"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146300"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-server-apps"></a>Zabezpečené ASP.NET Core Blazor serverových aplikací
 
@@ -98,7 +98,7 @@ Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uži
 | ------------------------------------------------------- | ----------- | ------- |
 | `CircuitOptions.DisconnectedCircuitMaxRetained`         | Maximální počet odpojených okruhů, které daný server uchovává v paměti. | 100 |
 | `CircuitOptions.DisconnectedCircuitRetentionPeriod`     | Maximální doba, po kterou je odpojený okruh uložený v paměti předtím, než se rozpustí. | 3 minuty |
-| `CircuitOptions.JSInteropDefaultCallTimeout`            | Maximální doba, po kterou Server počká, než vyprší časový limit asynchronního vyvolání funkce JavaScriptu. | 1 minuta |
+| `CircuitOptions.JSInteropDefaultCallTimeout`            | Maximální doba, po kterou Server počká, než vyprší časový limit asynchronního vyvolání funkce JavaScriptu. | 1 minute |
 | `CircuitOptions.MaxBufferedUnacknowledgedRenderBatches` | Maximální počet nepotvrzených vykreslících vykreslování: Server udržuje paměť na okruh v daném čase pro zajištění podpory robustního opětovného připojení. Po dosažení limitu Server přestane vytvářet nové dávky vykreslování, dokud klient nepotvrdí jednu nebo více dávek. | 10 |
 
 
@@ -206,7 +206,7 @@ Přidáním `if (count < 3) { ... }` kontroly v rámci obslužné rutiny se rozh
 
 ### <a name="guard-against-multiple-dispatches"></a>Ochrana proti více odesláním
 
-Pokud zpětné volání události vyvolá dlouhou běžící operaci, například načtení dat z externí služby nebo databáze, zvažte použití ochrany. Ochrana může uživatelům zabránit ve zařazení více operací do fronty, zatímco operace probíhá pomocí vizuální zpětné vazby. Následující kód komponenty nastaví `isLoading`, aby `true`, zatímco `GetForecastAsync` získá data ze serveru. Když je `isLoading` `true`, je tlačítko v uživatelském rozhraní zakázané:
+Pokud zpětné volání události vyvolá asynchronně běžící operaci, jako je například načítání dat z externí služby nebo databáze, zvažte použití ochrany. Ochrana může uživatelům zabránit ve zařazení více operací do fronty, zatímco operace probíhá pomocí vizuální zpětné vazby. Následující kód komponenty nastaví `isLoading`, aby `true`, zatímco `GetForecastAsync` získá data ze serveru. Když je `isLoading` `true`, je tlačítko v uživatelském rozhraní zakázané:
 
 ```razor
 @page "/fetchdata"
@@ -230,6 +230,8 @@ Pokud zpětné volání události vyvolá dlouhou běžící operaci, napříkla
     }
 }
 ```
+
+Vzor ochrany, který ukazuje předchozí příklad, funguje v případě, že se operace na pozadí provádí asynchronně pomocí `await`ho vzoru -`async`.
 
 ### <a name="cancel-early-and-avoid-use-after-dispose"></a>Zrušit počáteční a vyhnout se použití po vyřazení
 

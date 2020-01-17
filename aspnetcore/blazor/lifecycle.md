@@ -2,19 +2,20 @@
 title: Životní cyklus Blazor ASP.NET Core
 author: guardrex
 description: Naučte se používat metody životního cyklu komponenty Razor v aplikacích ASP.NET Core Blazor.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: e600e7c7a6a8c646a655520bd5c127f2cd662753
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: df5bb676df59b538179a69978040521c4ee78ed1
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944028"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146365"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>Životní cyklus Blazor ASP.NET Core
 
@@ -26,26 +27,23 @@ Rozhraní Blazor zahrnuje synchronní a asynchronní metody životního cyklu. P
 
 ### <a name="component-initialization-methods"></a>Inicializační metody komponenty
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> spustit kód, který inicializuje komponentu. Tyto metody jsou volány pouze jednou při prvním vytvoření instance komponenty.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> jsou vyvolány při inicializaci komponenty po přijetí počátečních parametrů ze své nadřazené komponenty. Použijte `OnInitializedAsync`, když komponenta provede asynchronní operaci a měla by se aktualizovat po dokončení operace. Tyto metody jsou volány pouze jednou při prvním vytvoření instance komponenty.
 
-K provedení asynchronní operace použijte `OnInitializedAsync` a klíčové slovo `await` na operaci:
-
-```csharp
-protected override async Task OnInitializedAsync()
-{
-    await ...
-}
-```
-
-> [!NOTE]
-> Asynchronní práce během inicializace komponenty se musí vyskytnout během `OnInitializedAsync` události životního cyklu.
-
-Pro synchronní operaci použijte `OnInitialized`:
+Pro synchronní operaci popište `OnInitialized`:
 
 ```csharp
 protected override void OnInitialized()
 {
     ...
+}
+```
+
+Chcete-li provést asynchronní operaci, popište `OnInitializedAsync` a použijte klíčové slovo `await` pro operaci:
+
+```csharp
+protected override async Task OnInitializedAsync()
+{
+    await ...
 }
 ```
 
@@ -70,7 +68,12 @@ Pokud `base.SetParametersAync` není vyvolán, vlastní kód může interpretova
 
 ### <a name="after-parameters-are-set"></a>Po nastavení parametrů
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> jsou volány, když komponenta přijímá parametry z nadřazené položky a hodnoty jsou přiřazeny vlastnostem. Tyto metody jsou spouštěny po inicializaci komponenty a pokaždé, když jsou zadány nové hodnoty parametrů:
+jsou volány <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*>:
+
+* Při inicializaci komponenty a přijetí první sady parametrů ze své nadřazené komponenty.
+* Po opětovném vykreslení nadřazené komponenty a dodání:
+  * Pouze známé primitivní neměnné typy, u kterých se změnil alespoň jeden parametr.
+  * Jakékoli parametry komplexního typu. Architektura nemůže zjistit, zda hodnoty parametru složitého typu jsou interně provedeny, takže se sada parametrů považuje za změněnou.
 
 ```csharp
 protected override async Task OnParametersSetAsync()
@@ -160,7 +163,7 @@ V `FetchData` součásti šablon Blazor je `OnInitializedAsync` přepsáno na as
 
 Pokud komponenta implementuje <xref:System.IDisposable>, je volána [Metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) při odebrání komponenty z uživatelského rozhraní. Následující komponenta používá `@implements IDisposable` a metodu `Dispose`:
 
-```csharp
+```razor
 @using System
 @implements IDisposable
 

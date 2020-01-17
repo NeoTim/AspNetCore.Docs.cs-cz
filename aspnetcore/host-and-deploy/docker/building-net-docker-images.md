@@ -4,14 +4,14 @@ author: rick-anderson
 description: Naučte se používat publikované image Docker .NET Core z registru Docker. Vyžádání imagí a sestavení vlastních imagí.
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/18/2019
+ms.date: 01/15/2020
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: 64503ed55438b24f2d3d87092107408ddcb515d7
-ms.sourcegitcommit: fcdf9aaa6c45c1a926bd870ed8f893bdb4935152
+ms.openlocfilehash: 5bed5e9a4a6109a45badcef7c0d4e03eb2312bf0
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72165266"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146339"
 ---
 # <a name="docker-images-for-aspnet-core"></a>Image Docker pro ASP.NET Core
 
@@ -38,7 +38,7 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
 
 * `dotnet/core/aspnet`
 
-   Ukázka používá tuto image ke spuštění aplikace. Image obsahuje modul runtime a knihovny ASP.NET Core a je optimalizovaný pro spuštěné aplikace v produkčním prostředí. Bitová kopie je navržena pro rychlost nasazení a spouštění aplikací, takže je optimalizován výkon sítě z registru Docker na hostitele Docker. Do kontejneru se zkopírují jenom binární soubory a obsah potřebný ke spuštění aplikace. Obsah je připravený ke spuštění, což umožňuje nejrychlejší čas od `Docker run` až po spuštění aplikace. Dynamická kompilace kódu není v modelu Docker nutná.
+   Ukázka používá tuto image ke spuštění aplikace. Image obsahuje modul runtime a knihovny ASP.NET Core a je optimalizovaný pro spuštěné aplikace v produkčním prostředí. Bitová kopie je navržena pro rychlost nasazení a spouštění aplikací, takže je optimalizován výkon sítě z registru Docker na hostitele Docker. Do kontejneru se zkopírují jenom binární soubory a obsah potřebný ke spuštění aplikace. Obsah je připravený ke spuštění, což umožňuje nejrychlejší čas od `Docker run` po spuštění aplikace. Dynamická kompilace kódu není v modelu Docker nutná.
 
 ## <a name="prerequisites"></a>Požadavky
 ::: moniker range="< aspnetcore-3.0"
@@ -54,7 +54,7 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
 
 * Klient Docker 18,03 nebo novější
 
-  * Distribuce systému Linux
+  * Linuxové distribuce
     * [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
     * [Debian](https://docs.docker.com/install/linux/docker-ce/debian/)
     * [Fedora](https://docs.docker.com/install/linux/docker-ce/fedora/)
@@ -82,7 +82,7 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
   dotnet run
   ```
 
-* Pro otestování aplikace použijte v prohlížeči `http://localhost:5000`.
+* Chcete-li otestovat aplikaci, v prohlížeči přejdete na `http://localhost:5000`.
 
 * Stisknutím kombinace kláves CTRL + C na příkazovém řádku zastavte aplikaci.
 
@@ -104,19 +104,19 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
   * Vyhledejte souboru Dockerfile v aktuální složce (tečka na konci).
 
   Argumenty příkazu Run:
-  * Přidělte pseudo-TTY a nechte ho otevřený i v případě, že není připojený. (Stejný efekt jako `--interactive --tty`)
+  * Přidělte pseudo-TTY a nechte ho otevřený i v případě, že není připojený. (Stejný efekt jako `--interactive --tty`.)
   * Kontejner se po ukončení automaticky odebere.
   * Namapujte port 5000 na místním počítači na port 80 v kontejneru.
-  * Pojmenujte kontejner aspnetcore_sample.
+  * Pojmenujte aspnetcore_sample kontejneru.
   * Zadejte bitovou kopii aspnetapp.
 
-* Pro otestování aplikace použijte v prohlížeči `http://localhost:5000`.
+* Chcete-li otestovat aplikaci, v prohlížeči přejdete na `http://localhost:5000`.
 
 ## <a name="run-in-a-windows-container"></a>Spuštění v kontejneru Windows
 
 * V klientovi Docker přepněte do kontejnerů Windows.
 
-Přejděte do složky Docker File na `dotnet-docker/samples/aspnetapp`.
+V `dotnet-docker/samples/aspnetapp`přejděte do složky Docker File.
 
 * Spuštěním následujících příkazů Sestavte a spusťte ukázku v Docker:
 
@@ -125,9 +125,9 @@ Přejděte do složky Docker File na `dotnet-docker/samples/aspnetapp`.
   docker run -it --rm --name aspnetcore_sample aspnetapp
   ```
 
-* Pro kontejnery Windows budete potřebovat IP adresu kontejneru (Přejít na `http://localhost:5000` nebude fungovat):
+* V případě kontejnerů Windows budete potřebovat IP adresu kontejneru (procházení k `http://localhost:5000` nebude fungovat):
   * Otevřete další příkazový řádek.
-  * Spusťte `docker ps` pro zobrazení spuštěných kontejnerů. Ověřte, jestli je kontejner "aspnetcore_sample".
+  * Spusťte `docker ps` pro zobrazení spuštěných kontejnerů. Ověřte, že je kontejner aspnetcore_sample.
   * Spusťte `docker exec aspnetcore_sample ipconfig`, aby se zobrazila IP adresa kontejneru. Výstup příkazu vypadá jako v tomto příkladu:
 
     ```console
@@ -172,7 +172,7 @@ V některých scénářích můžete chtít nasadit aplikaci do kontejneru tak, 
     dotnet published/aspnetapp.dll
     ```
 
-* Pokud chcete zobrazit domovskou stránku, přejděte na `http://localhost:5000`.
+* Přejděte na `http://localhost:5000` pro zobrazení domovské stránky.
 
 Chcete-li použít manuálně publikovanou aplikaci v kontejneru Docker, vytvořte novou souboru Dockerfile a pomocí příkazu `docker build .` Sestavte kontejner.
 
@@ -255,7 +255,7 @@ COPY published/aspnetapp.dll ./
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Docker – příkaz buildu](https://docs.docker.com/engine/reference/commandline/build)
 * [Příkaz Spustit jako Docker](https://docs.docker.com/engine/reference/commandline/run)
@@ -269,4 +269,4 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 Úložiště Git, které obsahuje ukázkovou aplikaci, také obsahuje dokumentaci. Přehled prostředků, které jsou k dispozici v úložišti, najdete v [souboru Readme](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/README.md). Konkrétně se dozvíte, jak implementovat protokol HTTPS:
 
 > [!div class="nextstepaction"]
-> [Vývoj aplikací ASP.NET Core pomocí Docker přes HTTPS](https://github.com/dotnet/dotnet-docker/blob/master/samples/aspnetapp/aspnetcore-docker-https-development.md)
+> [Vývoj aplikací ASP.NET Core pomocí Docker přes HTTPS](https://github.com/dotnet/dotnet-docker/blob/master/samples/run-aspnetcore-https-development.md)

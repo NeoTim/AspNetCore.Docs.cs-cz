@@ -7,22 +7,16 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: a8909d391ae1a35e9c8155df767ab157701c8a51
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 42ce63d1a31e033cf97536935b6dc94e015f30fa
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259444"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146378"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
 
-::: moniker range=">= aspnetcore-3.0"
-
 Tento **kurz se** neaktualizoval na ASP.NET Core 3,0. [Verze Razor Pages](xref:data/ef-rp/intro) byla aktualizována. Informace o tom, kdy je možné aktualizaci aktualizovat, najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/13920).
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
@@ -50,7 +44,7 @@ V tomto kurzu se naučíte:
   * **ASP.NET a webové vývojové** úlohy
   * **Vývojová úloha .NET Core pro různé platformy**
 
-## <a name="troubleshooting"></a>Odstraňování potíží
+## <a name="troubleshooting"></a>Odstraňování problémů
 
 Pokud narazíte na problém nevyřešíte sami, můžete najít řešení obvykle porovnáním kódu [dokončený projekt](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final). Seznam běžných chyb a jejich řešení najdete v [části věnované řešení potíží v posledním kurzu v řadě](advanced.md#common-errors). Pokud tam nenajdete, co potřebujete, můžete odeslat otázku do StackOverflow.com pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
@@ -87,7 +81,7 @@ Uživatelé mohou zobrazit a aktualizovat Všichni studenti, kurz a informace in
 
 * Ujistěte se, že je **ověřování** nastaveno na **bez ověřování**.
 
-* Vybrat **OK**
+* Vyberte **OK**.
 
   ![Dialog nového projektu ASP.NET Core](intro/_static/new-aspnet2.png)
 
@@ -139,7 +133,7 @@ Ve složce *modely* vytvořte soubor třídy s názvem *student.cs* a nahraďte 
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_Intro)]
 
-Vlastnost `ID` se změní na sloupec primárního klíče tabulky databáze, který odpovídá této třídě. Ve výchozím nastavení Entity Framework interpretuje vlastnost s názvem `ID` nebo `classnameID` jako primární klíč.
+Vlastnost `ID` se změní na sloupec primárního klíče tabulky databáze, který odpovídá této třídě. Ve výchozím nastavení interpretuje Entity Framework vlastnost s názvem `ID` nebo `classnameID` jako primární klíč.
 
 `Enrollments` Je vlastnost [navigační vlastnost](/ef/core/modeling/relationships). Navigační vlastnosti obsahují další entity, které se vztahují k této entitě. V tomto případě bude vlastnost `Enrollments` `Student entity` obsahovat všechny entity `Enrollment`, které souvisejí s entitou `Student`. Jinými slovy, pokud daný řádek studenta v databázi obsahuje dva související řádky zápisu (řádky, které obsahují hodnotu primárního klíče tohoto studenta ve sloupci StudentID cizí klíč), tato vlastnost `Enrollments` navigace `Student` entit bude obsahovat tyto dvě entity `Enrollment`.
 
@@ -255,7 +249,7 @@ Automatické vytváření metod a zobrazení akcí CRUD se označuje jako genero
 
   * **Pomocí Entity Framework vyberte kontroler MVC se zobrazeními**.
 
-  * Klikněte na **Přidat**. Zobrazí se dialogové okno **Přidat kontroler MVC se Entity Framework zobrazeními** .
+  * Klikněte na tlačítko **Add** (Přidat). Zobrazí se dialogové okno **Přidat kontroler MVC se Entity Framework zobrazeními** .
 
     ![Student pro generování uživatelského rozhraní](intro/_static/scaffold-student2.png)
 
@@ -265,7 +259,7 @@ Automatické vytváření metod a zobrazení akcí CRUD se označuje jako genero
 
   * Přijměte výchozí **StudentsController** jako název.
 
-  * Klikněte na **Přidat**.
+  * Klikněte na tlačítko **Add** (Přidat).
 
   Když kliknete na tlačítko **Přidat**, modul generování uživatelského rozhraní sady Visual Studio vytvoří soubor *StudentsController.cs* a sadu zobrazení (soubory *. cshtml* ), které pracují s řadičem.
 
@@ -387,4 +381,3 @@ Přejděte k dalšímu kurzu, kde se dozvíte, jak provádět základní operace
 > [!div class="nextstepaction"]
 > [Implementace základní funkce CRUD](crud.md)
 
-::: moniker-end

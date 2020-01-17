@@ -5,16 +5,16 @@ description: Přečtěte si o podporovaných platformách pro ASP.NET Core Signa
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/21/2019
+ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: 9b9cf1d57d61c333c485f23b7ab952c66814d2aa
-ms.sourcegitcommit: 3e503ef510008e77be6dd82ee79213c9f7b97607
+ms.openlocfilehash: 054965921c87c1a9be27e5ddaa8a87b0fa1f4113
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/22/2019
-ms.locfileid: "74317467"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146495"
 ---
 # <a name="aspnet-core-opno-locsignalr-supported-platforms"></a>Podporované platformy ASP.NET Core SignalR
 
@@ -26,7 +26,7 @@ SignalR pro ASP.NET Core podporuje jakoukoli serverovou platformu, která ASP.NE
 
 [Klient jazyka JavaScript](xref:signalr/javascript-client) běží na NodeJS 8 a novějších verzích a v následujících prohlížečích:
 
-| Browser                         | Verze         |
+| Prohlížeč                         | Version         |
 | ------------------------------- | --------------- |
 | Microsoft Edge                  | Aktuální&dagger; |
 | Mozilla Firefox                 | Aktuální&dagger; |
@@ -50,6 +50,6 @@ Pokud server používá službu IIS, přenos pomocí protokolu WebSockets vyžad
 
 Následující klienti jsou k dispozici, ale jsou experimentální nebo neoficiální. Nejsou aktuálně podporované a nemusí být nikdy.
 
-* [C++Služba](https://github.com/aspnet/SignalR/tree/master/clients/cpp)
+* [C++Služba](https://github.com/aspnet/SignalR-Client-Cpp)
 
 * [Klient SWIFT](https://github.com/moozzyk/SignalR-Client-Swift)

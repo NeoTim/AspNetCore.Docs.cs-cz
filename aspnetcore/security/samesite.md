@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/03/2019
 uid: security/samesite
-ms.openlocfilehash: 988069a66cc4772583444303948bff2e47ff4310
-ms.sourcegitcommit: 169ea5116de729c803685725d96450a270bc55b7
+ms.openlocfilehash: b344ed8f539979210980b3421659207edd513f32
+ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74733983"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76146430"
 ---
 # <a name="work-with-samesite-cookies-in-aspnet-core"></a>Práce s SameSite soubory cookie v ASP.NET Core
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [SameSite](https://tools.ietf.org/html/draft-west-first-party-cookies-07) je koncept [organizace IETF](https://ietf.org/about/) navržený tak, aby poskytoval určitou ochranu proti útokům prostřednictvím CSRF (pro falšování požadavků mezi lokalitami). [Koncept SameSite 2019](https://tools.ietf.org/html/draft-west-cookie-incrementalism-00):
 
@@ -36,7 +36,7 @@ Každá součást ASP.NET Core, která generuje soubory cookie, musí rozhodnout
 
 Všechny součásti ASP.NET Core, které generují soubory cookie, potlačí předchozí výchozí nastavení s nastavením vhodným pro jejich scénáře. Přepsané předchozí výchozí hodnoty se nezměnily.
 
-| Součást | soubor | Výchozí |
+| Součást | cookie | Výchozí |
 | ------------- | ------------- |
 | <xref:Microsoft.AspNetCore.Http.CookieBuilder> | <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite> | `Unspecified` |
 | <xref:Microsoft.AspNetCore.Http.HttpContext.Session>  | [SessionOptions. cookie](xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie) |`Lax` |
@@ -72,7 +72,7 @@ V ASP.NET Core 3,0 a novějších byly změněny výchozí hodnoty SameSite, aby
 
 Podpora SameSite byla poprvé implementována v ASP.NET Core v 2,0 pomocí [standardního konceptu 2016](https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-4.1). Standard 2016 byl výslovný. ASP.NET Core se rozhodla-in nastavením několika souborů cookie na `Lax` ve výchozím nastavení. Po zjištění několika [problémů](https://github.com/aspnet/Announcements/issues/318) s ověřováním je většina využití SameSite [zakázaná](https://github.com/aspnet/Announcements/issues/348).
 
-Opravy byly vydány v listopadu 2019, aby se aktualizovaly z standardu 2016 na standard 2019. [Koncept 2019 specifikace SameSite](https://github.com/aspnet/Announcements/issues/390):
+[Opravy](https://devblogs.microsoft.com/dotnet/net-core-November-2019/) byly vydány v listopadu 2019, aby se aktualizovaly z standardu 2016 na standard 2019. [Koncept 2019 specifikace SameSite](https://github.com/aspnet/Announcements/issues/390):
 
 * Není **zpětně** kompatibilní s konceptem 2016. Další informace najdete v tématu [Podpora starších prohlížečů](#sob) v tomto dokumentu.
 * Určuje, že soubory cookie se ve výchozím nastavení považují za `SameSite=Lax`.
@@ -168,3 +168,4 @@ K verzím elektronů patří starší verze Chromu. Například verze elektronic
 
 * [Chromový blog: vývojáři: Připravte se na nové SameSite = None; Nastavení zabezpečeného souboru cookie](https://blog.chromium.org/2019/10/developers-get-ready-for-new.html)
 * [Vysvětlení souborů cookie SameSite](https://web.dev/samesite-cookies-explained/)
+* [Opravy od listopadu 2019](https://devblogs.microsoft.com/dotnet/net-core-November-2019/)
