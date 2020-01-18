@@ -7,16 +7,21 @@ ms.custom: mvc
 ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
-ms.openlocfilehash: 42ce63d1a31e033cf97536935b6dc94e015f30fa
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: 04694f20c7142cc2917df25458e8e335ee933900
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146378"
+ms.lasthandoff: 01/18/2020
+ms.locfileid: "76268773"
 ---
 # <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
 
-Tento **kurz se** neaktualizoval na ASP.NET Core 3,0. [Verze Razor Pages](xref:data/ef-rp/intro) byla aktualizována. Informace o tom, kdy je možné aktualizaci aktualizovat, najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/13920).
+Tento **kurz se** neaktualizoval na ASP.NET Core 3,0. [Verze Razor Pages](xref:data/ef-rp/intro) byla aktualizována. Většina změn kódu pro ASP.NET Core 3,0 a novější verzi tohoto kurzu:
+
+* Jsou v souborech *Startup.cs* a *program.cs* .
+* Lze najít v [Razor Pages verzi](xref:data/ef-rp/intro). 
+
+Informace o tom, kdy je možné aktualizaci aktualizovat, najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/13920).
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 

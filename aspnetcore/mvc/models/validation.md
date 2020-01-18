@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: 042a9933e561de4957f6332bdff3c4f09d2e119b
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: b697f02183c76b9a96471a748a86c144fde47bb0
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355268"
+ms.lasthandoff: 01/18/2020
+ms.locfileid: "76268741"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověřování modelu ve ASP.NET Core MVC a Razor Pages
 
@@ -82,7 +82,9 @@ Chcete-li zjistit, které parametry jsou předány `String.Format` pro konkrétn
 
 ## <a name="required-attribute"></a>[Required] – atribut
 
-Ve výchozím nastavení systém ověřování zpracovává parametry bez hodnoty null nebo vlastnosti, jako by měly atribut `[Required]`. [Typy hodnot](/dotnet/csharp/language-reference/keywords/value-types) , například `decimal` a `int`, nejsou null.
+Systém ověřování v .NET Core 3,0 a novějším zpracovává parametry bez hodnoty null nebo vázané vlastnosti, jako by měly atribut `[Required]`. [Typy hodnot](/dotnet/csharp/language-reference/keywords/value-types) , například `decimal` a `int`, nejsou null. Toto chování je možné zakázat konfigurací <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> v `Startup.ConfigureServices`:
+
+' ' CSharp služby. AddControllers (Možnosti = > Možnosti. SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true); ...
 
 ### <a name="required-validation-on-the-server"></a>[Požadováno] ověření na serveru
 
