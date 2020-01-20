@@ -2,28 +2,26 @@
 title: Zpracování chyb v aplikacích ASP.NET Core Blazor
 author: guardrex
 description: Zjistěte, jak ASP.NET Core Blazor jak Blazor spravuje neošetřené výjimky a jak vyvíjet aplikace, které zjišťují a zpracovávají chyby.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: d73eb9a0dd0ec7a4bec4b7b9aeaaa4a9ee888bce
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: fe4cc13b1efb8c70c9632f032626aa938fb65ea3
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943703"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159947"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
 Tento článek popisuje, jak Blazor spravuje neošetřené výjimky a jak vyvíjet aplikace, které zjišťují a zpracovávají chyby.
-
-::: moniker range=">= aspnetcore-3.1"
 
 ## <a name="detailed-errors-during-development"></a>Podrobné chyby při vývoji
 
@@ -58,8 +56,6 @@ V aplikaci Blazor serveru upravte prostředí v souboru *Pages/_Host. cshtml* :
 ```
 
 Element `blazor-error-ui` je skrytý styly zahrnutými v šablonách Blazor a pak se zobrazí, když dojde k chybě.
-
-::: moniker-end
 
 ## <a name="how-the-opno-locblazor-framework-reacts-to-unhandled-exceptions"></a>Jak Blazor Framework reaguje na neošetřené výjimky
 
@@ -213,8 +209,6 @@ Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí s
 
 ### <a name="prerendering"></a>Předvykreslování
 
-::: moniker range=">= aspnetcore-3.1"
-
 Blazor komponenty lze předem vykreslovat pomocí pomocné rutiny `Component` tag, aby byly vykreslené značky HTML vráceny jako součást počátečního požadavku HTTP uživatele. Funguje to takto:
 
 * Vytváření nového okruhu pro všechny předem vykreslené komponenty, které jsou součástí stejné stránky.
@@ -229,27 +223,6 @@ Pokud nějaká komponenta vyvolá neošetřenou výjimku při předvykreslován�
 Za běžných okolností, když se předvykreslování nepovede, pokračuje sestavení a vykreslení komponenty nesmysl, protože pracovní komponenta se nedá vykreslit.
 
 Chcete-li tolerovat chyby, ke kterým může dojít při předvykreslování, musí být logika zpracování chyb umístěna v rámci součásti, která může vyvolat výjimky. Použijte příkazy [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s ošetřením a protokolováním chyb. Namísto zabalení pomocníka značky `Component` v příkazu `try-catch`, umístěte logiku zpracování chyb do komponenty vygenerované pomocníkem `Component` značek.
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-Blazor komponenty lze předem vykreslovat pomocí `Html.RenderComponentAsync`, aby byly vykreslené značky HTML vráceny jako součást počátečního požadavku HTTP uživatele. Funguje to takto:
-
-* Vytváření nového okruhu pro všechny předem vykreslené komponenty, které jsou součástí stejné stránky.
-* Generování počátečního kódu HTML.
-* Považovat okruh za `disconnected`, dokud prohlížeč uživatele nevytvoří SignalR připojení zpátky ke stejnému serveru. Po navázání spojení se v okruhu obnoví interakce mezi aktivitami a kód HTML značek se aktualizuje.
-
-Pokud nějaká komponenta vyvolá neošetřenou výjimku při předvykreslování, například během metody životního cyklu nebo v logice vykreslování:
-
-* Výjimka je pro okruh závažná.
-* Výjimka vyvolala zásobník volání z `Html.RenderComponentAsync` volání. Proto se celý požadavek HTTP nezdařil, pokud není výjimka výslovně zachycena kódem vývojáře.
-
-Za běžných okolností, když se předvykreslování nepovede, pokračuje sestavení a vykreslení komponenty nesmysl, protože pracovní komponenta se nedá vykreslit.
-
-Chcete-li tolerovat chyby, ke kterým může dojít při předvykreslování, musí být logika zpracování chyb umístěna v rámci součásti, která může vyvolat výjimky. Použijte příkazy [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s ošetřením a protokolováním chyb. Místo zabalení volání `RenderComponentAsync` v příkazu `try-catch` umístěte logiku zpracování chyb do komponenty vygenerované `RenderComponentAsync`.
-
-::: moniker-end
 
 ## <a name="advanced-scenarios"></a>Složitější scénáře
 
