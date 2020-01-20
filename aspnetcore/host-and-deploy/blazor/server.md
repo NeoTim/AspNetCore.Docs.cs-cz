@@ -2,20 +2,20 @@
 title: Hostování a nasazení ASP.NET Core Blazor serveru
 author: guardrex
 description: Naučte se hostovat a nasazovat aplikace Blazor serveru pomocí ASP.NET Core.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: d45d355eabc53fc90bcda4cb7be22fb6a9f04541
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: c07cd05dd8e1c4384c6f8f019173b9b7a9a06fd0
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944331"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160220"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>Hostování a nasazení serveru Blazor
 
@@ -49,7 +49,7 @@ Pokyny k vytváření zabezpečených a škálovatelných aplikací Blazor serve
 
 Každý okruh používá pro minimální aplikaci *Hello World*ve stylu přibližně 250 kB paměti. Velikost okruhu závisí na kódu aplikace a požadavcích na údržbu stavu přidružených k jednotlivým součástem. Doporučujeme změřit požadavky na prostředky během vývoje vaší aplikace a infrastruktury, ale následující standardní hodnoty můžou být výchozím bodem plánování nasazení. Pokud očekáváte, že aplikace bude podporovat 5 000 souběžných uživatelů, zvažte rozpočtování na do aplikace je minimálně 1,3 GB paměti serveru (nebo ~ 273 KB na uživatele).
 
-### <a name="opno-locsignalr-configuration"></a>Konfigurace produktu SignalR
+### <a name="opno-locsignalr-configuration"></a>Konfigurace SignalR
 
 aplikace Blazor serveru používají ke komunikaci s prohlížečem ASP.NET Core SignalR. [podmínky hostování a škálováníSignalR](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor serverových aplikací.
 

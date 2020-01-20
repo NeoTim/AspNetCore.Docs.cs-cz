@@ -2,19 +2,20 @@
 title: Hostování a nasazení ASP.NET Core Blazor WebAssembly
 author: guardrex
 description: Naučte se hostovat a nasazovat Blazor aplikace s využitím ASP.NET Core, sítí pro doručování obsahu (CDN), souborových serverů a stránek GitHubu.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/15/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 0fcefc3f1e51beb7cc29aef6dd4f4b8557e61965
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 8ed95cdb96804e08c3f1273bbea8f64a8e4f173c
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963637"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160246"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -36,10 +37,10 @@ Podporují se tyto strategie nasazení:
 
 Žádosti o směrování pro součásti stránky v Blazor aplikaci WebAssembly nejsou tak jednoduché jako požadavky směrování na serveru Blazor a v hostované aplikaci. Zvažte Blazor aplikaci WebAssembly se dvěma komponentami:
 
-* *Main. razor* &ndash; načte do kořenového adresáře aplikace a obsahuje odkaz na komponentu `About` (`href="About"`).
-* *O komponentě. razor* &ndash; `About`.
+* *Main. razor* &ndash; načíst do kořenového adresáře aplikace a obsahuje odkaz na komponentu `About` (`href="About"`).
+* *O. razor* &ndash; `About` součást.
 
-Pokud se výchozí dokument aplikace požaduje pomocí panelu Adresa v prohlížeči (například `https://www.contoso.com/`):
+Pokud je výchozí dokument aplikace požadován pomocí panelu Adresa prohlížeče (například `https://www.contoso.com/`):
 
 1. Prohlížeč vytvoří požadavek.
 1. Vrátí se výchozí stránka, což je obvykle *index. html*.
@@ -48,7 +49,7 @@ Pokud se výchozí dokument aplikace požaduje pomocí panelu Adresa v prohlíž
 
 Na hlavní stránce vyberte odkaz na součást `About` pracuje na klientovi, protože Blazor směrovač zastaví, aby se v prohlížeči odeslala žádost `www.contoso.com` pro `About` a spolupracuje přímo vykreslená `About` komponenta. Všechny požadavky na vnitřní koncové body *v aplikaci Blazor WebAssembly* fungují stejným způsobem: požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu. Směrovač zpracovává požadavky interně.
 
-Pokud se žádost provede pomocí panelu Adresa v prohlížeči `www.contoso.com/About`, požadavek se nezdařil. Žádný takový prostředek na internetovém hostiteli aplikace neexistuje, takže se vrátí odpověď *404 – Nenalezeno* .
+Pokud je žádost vytvořena pomocí panelu Adresa prohlížeče pro `www.contoso.com/About`, požadavek se nezdařil. Žádný takový prostředek na internetovém hostiteli aplikace neexistuje, takže se vrátí odpověď *404 – Nenalezeno* .
 
 Vzhledem k tomu, že prohlížeče vytvářejí požadavky na internetové hostitele pro stránky na straně klienta, webové servery a hostitelské služby musí přepsat všechny požadavky na prostředky, které nejsou fyzicky na serveru, na stránku *index. html* . Když se vrátí *index. html* , Blazor směrovač aplikace převezme a odpoví správným prostředkem.
 
@@ -60,7 +61,7 @@ Při nasazování na server služby IIS můžete použít modul pro přepis adre
 
 Aplikace Blazor je součástí ASP.NET Core aplikace v publikovaném výstupu, takže se tyto dvě aplikace nasazují dohromady. Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core. V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu **aplikaceBlazor WebAssembly** (šablona`blazorwasm` při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) s vybranou možností **Hosted** .
 
-Další informace o ASP.NET Core hostování a nasazení aplikací najdete v tématu <xref:host-and-deploy/index>.
+Další informace o ASP.NET Core hostování a nasazení aplikací najdete v článku <xref:host-and-deploy/index>.
 
 Informace o nasazení do Azure App Service najdete v tématu <xref:tutorials/publish-to-azure-webapp-using-vs>.
 
@@ -76,16 +77,16 @@ Služba IIS je schopným statickým souborovým serverem pro Blazor aplikace. Ch
 
 Publikované assety se vytvoří ve složce */bin/Release/{Target Framework}/Publish* . Hostovat obsah složky pro *publikování* na webovém serveru nebo v hostitelské službě.
 
-#### <a name="webconfig"></a>Web. config
+#### <a name="webconfig"></a>web.config
 
 Při publikování Blazor projektu se vytvoří soubor *Web. config* s následující konfigurací služby IIS:
 
 * Typy MIME jsou nastaveny pro následující přípony souborů:
-  * *. dll* &ndash; `application/octet-stream`
-  * *. json* &ndash; `application/json`
-  * *. wasm* &ndash; `application/wasm`
-  * *. woff* &ndash; `application/font-woff`
-  * *. woff2* &ndash; `application/font-woff`
+  * *.dll* &ndash; `application/octet-stream`
+  * *.json* &ndash; `application/json`
+  * *.wasm* &ndash; `application/wasm`
+  * *.woff* &ndash; `application/font-woff`
+  * *.woff2* &ndash; `application/font-woff`
 * Pro následující typy MIME je povolena komprese protokolu HTTP:
   * `application/octet-stream`
   * `application/wasm`
@@ -121,7 +122,7 @@ Pokud je samostatná aplikace hostovaná jako dílčí aplikace služby IIS, pro
   </handlers>
   ```
 
-* Zakažte dědičnost oddílu `<system.webServer>` kořenové (nadřazené) aplikace pomocí elementu `<location>` s `inheritInChildApplications` nastavenou na `false`:
+* Zakažte dědění `<system.webServer>` oddílu kořenové (nadřazené) aplikace pomocí elementu `<location>` s `inheritInChildApplications` nastavenou na `false`:
 
   ```xml
   <?xml version="1.0" encoding="utf-8"?>
@@ -139,7 +140,7 @@ Pokud je samostatná aplikace hostovaná jako dílčí aplikace služby IIS, pro
 
 Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [Konfigurace základní cesty aplikace](xref:host-and-deploy/blazor/index#app-base-path). Nastavte základní cestu aplikace v souboru *index. html* aplikace na alias služby IIS, který se používá při konfiguraci dílčí aplikace v IIS.
 
-#### <a name="troubleshooting"></a>Poradce při potížích
+#### <a name="troubleshooting"></a>Odstraňování problémů
 
 Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, soubor *Web. config* nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web neobsluhuje statické soubory Blazor.
 
@@ -156,7 +157,7 @@ Když je u služby BLOB Service povolené hostování statických webů v účtu
 
 Další informace najdete v tématu [statické hostování webů v Azure Storage](/azure/storage/blobs/storage-blob-static-website).
 
-### <a name="nginx"></a>Nginx
+### <a name="nginx"></a>nginx
 
 Následující soubor *Nginx. conf* je zjednodušený a ukazuje, jak nakonfigurovat Nginx pro odeslání souboru *index. html* pokaždé, když nemůže najít odpovídající soubor na disku.
 
@@ -188,7 +189,7 @@ COPY ./bin/Release/netstandard2.0/publish /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
 
-### <a name="apache"></a>Webový
+### <a name="apache"></a>Apache
 
 Nasazení aplikace Blazor WebAssembly do CentOS 7 nebo novější:
 
@@ -246,9 +247,9 @@ Při použití webu projektu místo webu organizace přidejte nebo aktualizujte 
 
 [aplikaceBlazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) můžou přijmout následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí.
 
-### <a name="content-root"></a>Kořen obsahu
+### <a name="content-root"></a>Kořenový adresář obsahu
 
-Argument `--contentroot` nastavuje absolutní cestu k adresáři, který obsahuje soubory obsahu aplikace ([kořen obsahu](xref:fundamentals/index#content-root)). V následujících příkladech je `/content-root-path` kořenová cesta obsahu aplikace.
+Argument `--contentroot` nastaví absolutní cestu k adresáři, který obsahuje soubory obsahu aplikace ([kořen obsahu](xref:fundamentals/index#content-root)). V následujících příkladech je `/content-root-path` kořenovou cestou obsahu aplikace.
 
 * Předejte argument při místním spuštění aplikace z příkazového řádku. Z adresáře aplikace spusťte:
 
@@ -270,10 +271,10 @@ Argument `--contentroot` nastavuje absolutní cestu k adresáři, který obsahuj
 
 ### <a name="path-base"></a>Základ cesty
 
-Argument `--pathbase` nastavuje základní cestu aplikace pro aplikaci spuštěnou místně s nekořenovou cestou relativní adresy URL (značka `<base>` `href` je nastavená na jinou cestu než `/` pro pracovní a produkční prostředí). V následujících příkladech je `/relative-URL-path` základ cesty aplikace. Další informace najdete v tématu [základní cesta k aplikaci](xref:host-and-deploy/blazor/index#app-base-path).
+Argument `--pathbase` nastaví základní cestu aplikace pro aplikaci spuštěnou místně s cestou relativní adresy URL, která není kořenem (značka `<base>` `href` je nastavená na jinou cestu než `/` pro pracovní a produkční prostředí). V následujících příkladech je `/relative-URL-path` základ cesty aplikace. Další informace najdete v tématu [základní cesta k aplikaci](xref:host-and-deploy/blazor/index#app-base-path).
 
 > [!IMPORTANT]
-> Na rozdíl od cesty, kterou jste zadali `href` značky `<base>`, při předávání hodnoty argumentu `--pathbase` nezahrnujte koncové lomítko (`/`). Pokud je základní cesta aplikace k dispozici ve značce `<base>` jako `<base href="/CoolApp/">` (obsahuje koncové lomítko), předejte hodnotu argumentu příkazového řádku jako `--pathbase=/CoolApp` (žádné koncové lomítko).
+> Na rozdíl od cesty `href` značky `<base>` nezahrnujte koncové lomítko (`/`) při předávání hodnoty `--pathbase`ho argumentu. Pokud je základní cesta k aplikaci k dispozici ve značce `<base>` jako `<base href="/CoolApp/">` (obsahuje koncové lomítko), předejte hodnotu argumentu příkazového řádku jako `--pathbase=/CoolApp` (žádné koncové lomítko).
 
 * Předejte argument při místním spuštění aplikace z příkazového řádku. Z adresáře aplikace spusťte:
 
@@ -293,9 +294,9 @@ Argument `--pathbase` nastavuje základní cestu aplikace pro aplikaci spuštěn
   --pathbase=/relative-URL-path
   ```
 
-### <a name="urls"></a>URL – adresy
+### <a name="urls"></a>Adresy URL
 
-Argument `--urls` nastavuje IP adresy nebo adresy hostitelů s porty a protokoly, které se mají na požadavky naslouchat.
+Argument `--urls` nastaví IP adresy nebo adresy hostitelů s porty a protokoly, které se mají na požadavky naslouchat.
 
 * Předejte argument při místním spuštění aplikace z příkazového řádku. Z adresáře aplikace spusťte:
 

@@ -2,19 +2,20 @@
 title: Vkládání závislostí ASP.NET Core Blazor
 author: guardrex
 description: Podívejte se, jak Blazor aplikace můžou vkládat služby do součástí.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/08/2020
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/dependency-injection
-ms.openlocfilehash: aad6cfee500b5cb502470f6a4a7cb5756df09dc4
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 6930d721f04fd5f7cad2ba472724497a157fda0f
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943781"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76159973"
 ---
 # <a name="aspnet-core-opno-locblazor-dependency-injection"></a>Vkládání závislostí ASP.NET Core Blazor
 
@@ -36,8 +37,8 @@ Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 | Service | Doba platnosti | Popis |
 | ------- | -------- | ----------- |
 | <xref:System.Net.Http.HttpClient> | Singleton | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance `HttpClient` v Blazor aplikace WebAssembly používá prohlížeč pro zpracování provozu HTTP na pozadí.<br><br>aplikace Blazor Server nezahrnují ve výchozím nastavení `HttpClient` nakonfigurovanou jako službu. Zadejte `HttpClient` k aplikaci Blazor serveru.<br><br>Další informace najdete v tématu <xref:blazor/call-web-api>. |
-| `IJSRuntime` | Singleton | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace najdete v tématu <xref:blazor/javascript-interop>. |
-| `NavigationManager` | Singleton | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
+| `IJSRuntime` | Singleton (Blazor WebAssembly)<br>S vymezeným oborem (Blazor Server) | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace najdete v tématu <xref:blazor/javascript-interop>. |
+| `NavigationManager` | Singleton (Blazor WebAssembly)<br>S vymezeným oborem (Blazor Server) | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
 
 Vlastní zprostředkovatel služeb automaticky neposkytuje výchozí služby uvedené v tabulce. Pokud používáte vlastního poskytovatele služeb a potřebujete některou ze služeb zobrazených v tabulce, přidejte požadované služby k novému poskytovateli služeb.
 

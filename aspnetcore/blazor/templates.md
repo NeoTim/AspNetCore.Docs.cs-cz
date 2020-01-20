@@ -2,20 +2,20 @@
 title: Šablony ASP.NET Core Blazor
 author: guardrex
 description: Přečtěte si o ASP.NET Core Blazor šablonách aplikací a Blazor struktuře projektu.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/25/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: bc0ea4a777e8684a7b0925377b8a19a45c2b531c
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 2a95b986450471b474d93ead252255f2bd9d4918
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879658"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160116"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>Šablony ASP.NET Core Blazor
 
@@ -43,20 +43,20 @@ Následující soubory a složky tvoří aplikaci Blazor vygenerovanou z šablon
   * `ConfigureServices` &ndash; konfiguruje služby [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. V aplikacích Blazor Server se služby přidávají voláním <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor*>a `WeatherForecastService` se přidá do kontejneru služby pro použití v ukázkové součásti `FetchData`.
   * `Configure` &ndash; nakonfiguruje kanál zpracování žádostí aplikace:
     * Blazor rozhraní WebAssembly &ndash; přidá součást `App` (zadaná jako element modelu DOM `app` do metody `AddComponent`), která je kořenovou komponentou aplikace.
-    * Blazor Server
+    * Server Blazor
       * k nastavení koncového bodu pro připojení v reálném čase pomocí prohlížeče se volá <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*>. Připojení se vytvoří pomocí [SignalR](xref:signalr/introduction), což je rozhraní, které umožňuje přidávat do aplikací webové funkce v reálném čase.
       * [MapFallbackToPage ("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*) se zavolá, aby se nastavila Kořenová stránka aplikace (*pages/_Host. cshtml*) a povolila se navigace.
 
 * *wwwroot/index.html* (Blazor webové sestavení) &ndash; kořenovou stránku aplikace implementované jako stránka HTML:
   * Po prvním vyžádání stránky aplikace se tato stránka vykreslí a vrátí v odpovědi.
   * Stránka určuje, kde je vygenerována kořenová `App` komponenta. Komponenta `App` (*App. Razor*) je zadána jako `app` elementu modelu DOM do metody `AddComponent` v `Startup.Configure`.
-  * Načte se soubor *_framework/Blazor.WebAssembly.js* JavaScriptu, který:
+  * Načte se soubor `_framework/blazor.webassembly.js` JavaScript, který:
     * Stáhne rozhraní .NET runtime, aplikaci a závislosti aplikace.
     * Inicializuje modul runtime pro spuštění aplikace.
 
 * *Pages/_Host. cshtml* (Blazor Server) &ndash; kořenové stránce aplikace implementované jako stránka Razor:
   * Po prvním vyžádání stránky aplikace se tato stránka vykreslí a vrátí v odpovědi.
-  * Načte se soubor *_framework/Blazor.Server.js* JavaScriptu, který nastaví SignalR připojení v reálném čase mezi prohlížečem a serverem.
+  * Soubor `_framework/blazor.server.js` JavaScript je načten, což nastaví SignalR připojení v reálném čase mezi prohlížečem a serverem.
   * Stránka hostitel Určuje, kde je vykreslena součást root `App` (*App. Razor*).
 
 * *App. razor* &ndash; kořenovou komponentu aplikace, která nastaví směrování na straně klienta pomocí komponenty <xref:Microsoft.AspNetCore.Components.Routing.Router>. Komponenta `Router` zachycuje navigaci v prohlížeči a vykreslí stránku, která odpovídá požadované adrese.

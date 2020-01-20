@@ -2,19 +2,20 @@
 title: Hostování a nasazení ASP.NET Core Blazor
 author: guardrex
 description: Objevte, jak hostovat a nasazovat aplikace Blazor.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/23/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 5c37c3d9f424f4c4b814e1955880623fd95179f2
-ms.sourcegitcommit: 918d7000b48a2892750264b852bad9e96a1165a7
+ms.openlocfilehash: 238e7fc8f8d64c7847dc8847fb66e22442a3c8e0
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/27/2019
-ms.locfileid: "74550378"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160259"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor"></a>Hostování a nasazení ASP.NET Core Blazor
 
@@ -30,7 +31,7 @@ Aplikace jsou publikované pro nasazení v konfiguraci vydání.
 
 1. V navigačním panelu vyberte **Build** > **publikovat aplikaci {Application}** .
 1. Vyberte *cíl publikování*. Chcete-li publikovat místně, vyberte **Složka**.
-1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte tlačítko **publikovat** .
+1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte tlačítko **Publikovat**.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 

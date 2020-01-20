@@ -2,20 +2,21 @@
 title: Modely hostování ASP.NET Core Blazor
 author: guardrex
 description: Pochopení Blazor modelů hostování serverů a Blazor serveru.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
 - SignalR
+- blazor.webassembly.js
 uid: blazor/hosting-models
-ms.openlocfilehash: 7676d16bddf146ea38619ed35c5e32c5bce731de
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: c9521acf40317c90d1197660bfa516710263cfc9
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943758"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160038"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>Modely hostování ASP.NET Core Blazor
 
@@ -37,7 +38,7 @@ Chcete-li vytvořit aplikaci Blazor pomocí modelu hostování na straně klient
 
 Po výběru šablony **aplikaceBlazor WebAssembly** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core hostované** ([dotnet New blazorwasm--Hosted](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core obsluhuje aplikaci Blazor klientům. Aplikace Blazor WebAssembly může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo [SignalR](xref:signalr/introduction).
 
-Šablony obsahují skript *blazor. WebAssembly. js* , který zpracovává:
+Šablony obsahují skript `blazor.webassembly.js`, který zpracovává:
 
 * Stažení modulu runtime .NET, aplikace a závislostí aplikace.
 * Inicializace modulu runtime pro spuštění aplikace.
@@ -56,7 +57,7 @@ K Blazor hostování WebAssembly je downsides:
 * Velikost ke stažení je větší a aplikace trvá déle, než se načtou.
 * Podpora modulu runtime .NET a nástrojů je méně vyspělá. Například omezení existují v [.NET Standard](/dotnet/standard/net-standard) podpoře a ladění.
 
-## <a name="opno-locblazor-server"></a>Blazor Server
+## <a name="opno-locblazor-server"></a>Server Blazor
 
 S modelem hostování serveru Blazor se aplikace spouští na serveru z aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu jsou zpracovávána prostřednictvím [SignalRho](xref:signalr/introduction) připojení.
 
@@ -69,7 +70,7 @@ ASP.NET Core aplikace odkazuje na třídu `Startup` aplikace, která se má při
 * Služby na straně serveru.
 * Aplikace do kanálu pro zpracování požadavků.
 
-Skript *blazor. Server. js*&dagger; vytvoří připojení klienta. Je zodpovědností aplikace zachovat a obnovit stav aplikace podle potřeby (například v případě ztraceného síťového připojení).
+Skript `blazor.server.js`&dagger; vytvoří připojení klienta. Je zodpovědností aplikace zachovat a obnovit stav aplikace podle potřeby (například v případě ztraceného síťového připojení).
 
 Model hostování serveru Blazor nabízí několik výhod:
 
@@ -86,7 +87,7 @@ K dispozici je downsides Blazor hostování serveru:
 * Pro aplikace s mnoha uživateli je škálovatelnost náročná. Server musí spravovat více připojení klientů a zpracovávat stav klienta.
 * Pro obsluhu aplikace je vyžadován ASP.NET Core Server. Scénáře nasazení bez serveru nejsou možné (například poskytování aplikace z CDN).
 
-&dagger;skript *blazor. Server. js* se obsluhuje z vloženého prostředku ve ASP.NET Core sdíleném rozhraní.
+&dagger;`blazor.server.js` skript se obsluhuje z vloženého prostředku ve ASP.NET Core sdíleném rozhraní.
 
 ### <a name="comparison-to-server-rendered-ui"></a>Porovnání s uživatelským rozhraním vykresleným serverem
 
@@ -110,6 +111,187 @@ Aktualizace uživatelského rozhraní v Blazor je aktivována pomocí:
 Graf se znovu vykreslí a počítá se *rozdíl* v uživatelském rozhraní (rozdíl). Tento rozdíl je nejmenší sada úprav modelu DOM, která je nutná k aktualizaci uživatelského rozhraní na klientovi. Rozdíl se pošle klientovi v binárním formátu a použije ho prohlížeč.
 
 Komponenta je uvolněna poté, co uživatel z něj přejde na klienta. I když uživatel pracuje s komponentou, musí se stav komponenty (služby, prostředky) uchovávat v paměti serveru. Vzhledem k tomu, že stav mnoha součástí může být serverem současně udržován, vyčerpání paměti je problém, který je třeba řešit. Pokyny k vytvoření aplikace Blazor serveru pro zajištění nejlepšího využití paměti serveru najdete v tématu <xref:security/blazor/server>.
+
+### <a name="integrate-razor-components-into-razor-pages-and-mvc-apps"></a>Integrace součástí Razor do aplikací Razor Pages a MVC
+
+#### <a name="use-components-in-pages-and-views"></a>Použití součástí na stránkách a pohledech
+
+Existující Razor Pages nebo aplikace MVC mohou integrovat součásti Razor do stránek a zobrazení:
+
+1. V souboru rozložení aplikace ( *_Layout. cshtml*):
+
+   * Přidejte následující značku `<base>` do prvku `<head>`:
+
+     ```html
+     <base href="~/" />
+     ```
+
+     Hodnota `href` ( *základní cesta aplikace*) v předchozím příkladu předpokládá, že se aplikace nachází v kořenové cestě URL (`/`). Pokud je aplikace podaplikace, postupujte podle pokynů v části *základní cesta k aplikaci* v <xref:host-and-deploy/blazor/index#app-base-path> článku.
+
+     Soubor *_Layout. cshtml* se nachází ve složce *stránky nebo sdílené* složky v aplikaci Razor Pages nebo *zobrazení/sdílená* složka v aplikaci MVC.
+
+   * Přidejte značku `<script>` pro skript *blazor. Server. js* uvnitř uzavírací značky `</body>`:
+
+     ```html
+     <script src="_framework/blazor.server.js"></script>
+     ```
+
+     Rozhraní přidá do aplikace skript *blazor. Server. js* . Nemusíte ručně přidávat do aplikace skript.
+
+1. Přidejte soubor *_Imports. Razor* do kořenové složky projektu s následujícím obsahem (změňte poslední obor názvů `MyAppNamespace`na obor názvů aplikace):
+
+   ```csharp
+   @using System.Net.Http
+   @using Microsoft.AspNetCore.Authorization
+   @using Microsoft.AspNetCore.Components.Authorization
+   @using Microsoft.AspNetCore.Components.Forms
+   @using Microsoft.AspNetCore.Components.Routing
+   @using Microsoft.AspNetCore.Components.Web
+   @using Microsoft.JSInterop
+   @using MyAppNamespace
+   ```
+
+1. V `Startup.ConfigureServices`přidejte službu Blazor serveru:
+
+   ```csharp
+   services.AddServerSideBlazor();
+   ```
+
+1. V `Startup.Configure`přidejte koncový bod centra Blazor do `app.UseEndpoints`:
+
+   ```csharp
+   endpoints.MapBlazorHub();
+   ```
+
+1. Integrujte součásti na libovolnou stránku nebo zobrazení. Další informace najdete v části *integrace součástí do Razor Pages a MVC Apps* v článku <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>.
+
+#### <a name="use-routable-components-in-a-razor-pages-app"></a>Použití směrovatelných komponent v aplikaci Razor Pages
+
+Podpora směrování komponent s více prvky Razor v aplikacích Razor Pages:
+
+1. Postupujte podle pokynů v části [použití součástí v části stránky a zobrazení](#use-components-in-pages-and-views) .
+
+1. Přidejte soubor *App. Razor* do kořenového adresáře projektu s následujícím obsahem:
+
+   ```razor
+   @using Microsoft.AspNetCore.Components.Routing
+
+   <Router AppAssembly="typeof(Program).Assembly">
+       <Found Context="routeData">
+           <RouteView RouteData="routeData" />
+       </Found>
+       <NotFound>
+           <h1>Page not found</h1>
+           <p>Sorry, but there's nothing here!</p>
+       </NotFound>
+   </Router>
+   ```
+
+1. Do složky *Pages* přidejte *_Host soubor. cshtml* s následujícím obsahem:
+
+   ```cshtml
+   @page "/blazor"
+   @{
+       Layout = "_Layout";
+   }
+
+   <app>
+       <component type="typeof(App)" render-mode="ServerPrerendered" />
+   </app>
+   ```
+
+   Komponenty používají pro své rozložení sdílený *_Layout soubor. cshtml* .
+
+1. Přidejte trasu s nízkou prioritou pro stránku *_Host. cshtml* do konfigurace koncového bodu v `Startup.Configure`:
+
+   ```csharp
+   app.UseEndpoints(endpoints =>
+   {
+       ...
+
+       endpoints.MapFallbackToPage("/_Host");
+   });
+   ```
+
+1. Přidejte do aplikace směrovatelné součásti. Příklad:
+
+   ```razor
+   @page "/counter"
+
+   <h1>Counter</h1>
+
+   ...
+   ```
+
+   Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do souboru *Pages/_ViewImports. cshtml* . Další informace najdete v tématu <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>.
+
+#### <a name="use-routable-components-in-an-mvc-app"></a>Použití směrovatelných komponent v aplikaci MVC
+
+Podpora směrovatelných komponent Razor v aplikacích MVC:
+
+1. Postupujte podle pokynů v části [použití součástí v části stránky a zobrazení](#use-components-in-pages-and-views) .
+
+1. Přidejte soubor *App. Razor* do kořenového adresáře projektu s následujícím obsahem:
+
+   ```razor
+   @using Microsoft.AspNetCore.Components.Routing
+
+   <Router AppAssembly="typeof(Program).Assembly">
+       <Found Context="routeData">
+           <RouteView RouteData="routeData" />
+       </Found>
+       <NotFound>
+           <h1>Page not found</h1>
+           <p>Sorry, but there's nothing here!</p>
+       </NotFound>
+   </Router>
+   ```
+
+1. Přidejte *_Host soubor. cshtml* do *zobrazení/domovské* složky s následujícím obsahem:
+
+   ```cshtml
+   @{
+       Layout = "_Layout";
+   }
+
+   <app>
+       <component type="typeof(App)" render-mode="ServerPrerendered" />
+   </app>
+   ```
+
+   Komponenty používají pro své rozložení sdílený *_Layout soubor. cshtml* .
+
+1. Přidat akci do domovského kontroleru:
+
+   ```csharp
+   public IActionResult Blazor()
+   {
+      return View("_Host");
+   }
+   ```
+
+1. Přidejte trasu s nízkou prioritou pro akci kontroleru, která vrací zobrazení *_Host. cshtml* do konfigurace koncového bodu v `Startup.Configure`:
+
+   ```csharp
+   app.UseEndpoints(endpoints =>
+   {
+       ...
+
+       endpoints.MapFallbackToController("Blazor", "Home");
+   });
+   ```
+
+1. Vytvořte složku *Pages* a přidejte do ní součásti s funkcí směrování. Příklad:
+
+   ```razor
+   @page "/counter"
+
+   <h1>Counter</h1>
+
+   ...
+   ```
+
+   Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do souboru *views/_ViewImports. cshtml* . Další informace najdete v tématu <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>.
 
 ### <a name="circuits"></a>Spoj
 
@@ -169,8 +351,6 @@ Následující tabulka popisuje třídy CSS použité pro `components-reconnect-
 
 aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před vytvořením připojení klienta k serveru předvedlo uživatelské rozhraní na serveru. To je nastaveno na stránce *_Host. cshtml* Razor:
 
-::: moniker range=">= aspnetcore-3.1"
-
 ```cshtml
 <body>
     <app>
@@ -181,44 +361,16 @@ aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před
 </body>
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-```cshtml
-<body>
-    <app>@(await Html.RenderComponentAsync<App>(RenderMode.ServerPrerendered))</app>
-
-    <script src="_framework/blazor.server.js"></script>
-</body>
-```
-
-::: moniker-end
-
 `RenderMode` nakonfiguruje, jestli součást:
 
 * Je předem vykreslen na stránku.
 * Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor od uživatelského agenta.
-
-::: moniker range=">= aspnetcore-3.1"
 
 | `RenderMode`        | Popis |
 | ------------------- | ----------- |
 | `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro aplikaci Blazor Server. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. |
 | `Server`            | Vykreslí značku pro aplikaci Blazor serveru. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. |
 | `Static`            | Vykreslí komponentu do statického HTML. |
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-| `RenderMode`        | Popis |
-| ------------------- | ----------- |
-| `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro aplikaci Blazor Server. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. Parametry nejsou podporovány. |
-| `Server`            | Vykreslí značku pro aplikaci Blazor serveru. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. Parametry nejsou podporovány. |
-| `Static`            | Vykreslí komponentu do statického HTML. Jsou podporovány parametry. |
-
-::: moniker-end
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
@@ -290,8 +442,6 @@ Při vykreslení stránky nebo zobrazení:
 
 Následující stránka Razor vykresluje komponentu `Counter`:
 
-::: moniker range=">= aspnetcore-3.1"
-
 ```cshtml
 <h1>My Razor Page</h1>
 
@@ -304,28 +454,9 @@ Následující stránka Razor vykresluje komponentu `Counter`:
 }
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-```cshtml
-<h1>My Razor Page</h1>
-
-@(await Html.RenderComponentAsync<Counter>(RenderMode.ServerPrerendered))
-
-@code {
-    [BindProperty(SupportsGet=true)]
-    public int InitialValue { get; set; }
-}
-```
-
-::: moniker-end
-
 ### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Vykreslování neinteraktivních komponent ze stránek a zobrazení Razor
 
 Na následující stránce Razor je součást `Counter` staticky vykreslena s počáteční hodnotou zadanou pomocí formuláře:
-
-::: moniker range=">= aspnetcore-3.1"
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -344,29 +475,6 @@ Na následující stránce Razor je součást `Counter` staticky vykreslena s po
 }
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-```cshtml
-<h1>My Razor Page</h1>
-
-<form>
-    <input type="number" asp-for="InitialValue" />
-    <button type="submit">Set initial value</button>
-</form>
-
-@(await Html.RenderComponentAsync<Counter>(RenderMode.Static, 
-    new { InitialValue = InitialValue }))
-
-@code {
-    [BindProperty(SupportsGet=true)]
-    public int InitialValue { get; set; }
-}
-```
-
-::: moniker-end
-
 Vzhledem k tomu, že `MyComponent` jsou staticky vykresleny, nemůže být komponenta interaktivní.
 
 ### <a name="detect-when-the-app-is-prerendering"></a>Rozpoznat, kdy se aplikace předvykresluje
@@ -379,7 +487,7 @@ V některých případech je třeba nakonfigurovat klienta SignalR používanéh
 
 Konfigurace klienta SignalR v souboru *Pages/_Host. cshtml* :
 
-* Přidejte atribut `autostart="false"` do značky `<script>` pro skript *blazor. Server. js* .
+* Přidejte atribut `autostart="false"` do značky `<script>` pro skript `blazor.server.js`.
 * Zavolejte `Blazor.start` a předejte objekt konfigurace, který určuje SignalR Builder.
 
 ```html

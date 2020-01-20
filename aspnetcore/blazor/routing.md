@@ -2,19 +2,20 @@
 title: Směrování Blazor ASP.NET Core
 author: guardrex
 description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLink.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/routing
-ms.openlocfilehash: 1690434f48141bc83e7bc02e22cb763430eaa10d
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 0cd15f25ff7975cae3f63a739212aa23062ece23
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944015"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160155"
 ---
 # <a name="aspnet-core-opno-locblazor-routing"></a>Směrování Blazor ASP.NET Core
 
@@ -121,7 +122,7 @@ Směrovač používá parametry směrování k naplnění odpovídajících para
 }
 ```
 
-Volitelné parametry nejsou podporované pro aplikace Blazor v ASP.NET Core 3,0. V předchozím příkladu jsou aplikovány dvě direktivy `@page`. První umožňuje navigaci na součást bez parametru. Druhá direktiva `@page` přebírá parametr trasy `{text}` a přiřazuje hodnotu vlastnosti `Text`.
+Volitelné parametry nejsou podporovány. V předchozím příkladu jsou aplikovány dvě direktivy `@page`. První umožňuje navigaci na součást bez parametru. Druhá direktiva `@page` přebírá parametr trasy `{text}` a přiřazuje hodnotu vlastnosti `Text`.
 
 ## <a name="route-constraints"></a>Omezení trasy
 

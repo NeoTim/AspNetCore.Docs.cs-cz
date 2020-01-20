@@ -2,19 +2,20 @@
 title: Správa stavu ASP.NET Core Blazor
 author: guardrex
 description: Přečtěte si, jak zachovat stav v aplikacích Blazor Server.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 12/18/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/state-management
-ms.openlocfilehash: 7351ee2438c6adf675b8aa5e8ecdb1b2da7b4f23
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: ffb32a4f274a30f2a5ceed9cbf193285e85bab4c
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74943924"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160142"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -241,17 +242,7 @@ Během předvykreslování:
 
 Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předvykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah, dokud nebudou k dispozici `localStorage` nebo `sessionStorage`.
 
-::: moniker range=">= aspnetcore-3.1"
-
 Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte volání `render-mode` pomocníka značky `Component` na `Server`.
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte volání na `Html.RenderComponentAsync<App>(RenderMode.Server)`.
-
-::: moniker-end
 
 Předvykreslování může být užitečné pro jiné stránky, které nepoužívají `localStorage` ani `sessionStorage`. Aby bylo možné předvykreslování povolit, odložte operaci načtení, dokud se prohlížeč nepřipojí k okruhu. Následuje příklad uložení hodnoty čítače:
 

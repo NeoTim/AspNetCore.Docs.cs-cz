@@ -2,19 +2,20 @@
 title: Vytváření a používání ASP.NET Corech komponent Razor
 author: guardrex
 description: Naučte se vytvářet a používat komponenty Razor, včetně toho, jak navazovat na data, zpracovávat události a spravovat životní cykly komponent.
-monikerRange: '>= aspnetcore-3.0'
+monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/28/2019
 no-loc:
 - Blazor
+- SignalR
 uid: blazor/components
-ms.openlocfilehash: 9e796a23a0b24a9fee314051644703ef12bd7607
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: e73667925c04dd1b2360138343c4a2dcef0ee310
+ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828201"
+ms.lasthandoff: 01/17/2020
+ms.locfileid: "76160012"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -34,9 +35,6 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 
 Členy třídy komponenty jsou definovány v `@code`ovém bloku. V bloku `@code` je stav součásti (vlastnosti, pole) zadán pomocí metod pro zpracování událostí nebo pro definování jiné logiky komponent. Je přípustný více než jeden blok `@code`.
 
-> [!NOTE]
-> V předchozích verzích Preview ASP.NET Core 3,0 byly `@functions` bloky použity pro stejný účel jako `@code` bloky v součástech Razor. bloky `@functions` nadále fungují v součástech Razor, ale doporučujeme použít blok `@code` v ASP.NET Core 3,0 Preview 6 nebo novějším.
-
 Členy součásti lze použít jako součást logiky vykreslování komponenty pomocí C# výrazů, které začínají na `@`. Například C# pole se vykreslí pomocí předpony `@` názvu pole. Následující příklad vyhodnocuje a vykresluje:
 
 * `_headingFontStyle` k hodnotě vlastnosti CSS pro `font-style`.
@@ -53,17 +51,37 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 
 Po prvním vykreslení komponenty vygeneruje komponenta znovu svůj strom vykreslování v reakci na události. Blazor pak porovná nový strom vykreslování s předchozí a použije všechny úpravy v prohlížeči model DOM (Document Object Model) (DOM).
 
-Komponenty jsou běžné C# třídy a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, jsou obvykle umístěny ve složce *stránky* . Komponenty mimo stránku jsou často umístěny ve *sdílené* složce nebo vlastní složce přidané do projektu. Chcete-li použít vlastní složku, přidejte obor názvů vlastní složky buď do nadřazené komponenty, nebo do souboru *_Imports. Razor* aplikace. Například následující obor názvů zpřístupňuje komponenty ve složce *Components* , když je kořenový obor názvů aplikace `WebApplication`:
+Komponenty jsou běžné C# třídy a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, jsou obvykle umístěny ve složce *stránky* . Komponenty mimo stránku jsou často umístěny ve *sdílené* složce nebo vlastní složce přidané do projektu.
+
+Obor názvů komponenty obvykle je odvozen z kořenového oboru názvů aplikace a umístění komponenty (složka) v rámci aplikace. Pokud je kořenový obor názvů aplikace `BlazorApp` a komponenta `Counter` se nachází ve složce *stránky* :
+
+* Obor názvů součásti `Counter` je `BlazorApp.Pages`.
+* Plně kvalifikovaný název typu komponenty je `BlazorApp.Pages.Counter`.
+
+Další informace naleznete v části [Import komponent](#import-components) .
+
+Chcete-li použít vlastní složku, přidejte obor názvů vlastní složky buď do nadřazené komponenty, nebo do souboru *_Imports. Razor* aplikace. Například následující obor názvů zpřístupňuje komponenty ve složce *Components* , když je kořenový obor názvů aplikace `BlazorApp`:
 
 ```razor
-@using WebApplication.Components
+@using BlazorApp.Components
 ```
 
 ## <a name="integrate-components-into-razor-pages-and-mvc-apps"></a>Integrace součástí do aplikací Razor Pages a MVC
 
-Použijte komponenty se stávajícími Razor Pages a MVC aplikacemi. Aby bylo možné použít součásti Razor, není nutné přepsat existující stránky ani zobrazení. Po vykreslení stránky nebo zobrazení jsou komponenty předem vygenerovány ve stejnou dobu.
+Komponenty Razor lze integrovat do aplikací Razor Pages a MVC. Po vykreslení stránky nebo zobrazení mohou být komponenty předem vykresleny ve stejnou dobu.
 
-::: moniker range=">= aspnetcore-3.1"
+Pokud chcete připravovat aplikaci Razor Pages nebo MVC k hostování komponent Razor, postupujte podle pokynů v části *integrace prvků Razor do Razor Pages a MVC Apps* v článku <xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps>.
+
+Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do stránky nebo zobrazení nebo do souboru *_ViewImports. cshtml* . V následujícím příkladu:
+
+* Změňte `MyAppNamespace` na obor názvů aplikace.
+* Pokud se složka s názvem *Components* nepoužívá k ukládání součástí, změňte `Components` do složky, kde jsou umístěny součásti.
+
+```csharp
+@using MyAppNamespace.Components
+```
+
+Soubor *_ViewImports. cshtml* je umístěný ve složce *pages* aplikace Razor Pages nebo ve složce *zobrazení* aplikace MVC.
 
 Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte pomocníka značky `Component`:
 
@@ -90,35 +108,6 @@ I když stránky a zobrazení mohou používat komponenty, není tato konverzace
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
 Další informace o vykreslování komponent, stavu komponent a pomocníka značek `Component` naleznete v tématu <xref:blazor/hosting-models>.
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte pomocnou metodu `RenderComponentAsync<TComponent>` HTML:
-
-```cshtml
-@(await Html.RenderComponentAsync<MyComponent>(RenderMode.ServerPrerendered))
-```
-
-`RenderMode` nakonfiguruje, jestli součást:
-
-* Je předem vykreslen na stránku.
-* Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor od uživatelského agenta.
-
-| `RenderMode`        | Popis |
-| ------------------- | ----------- |
-| `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro aplikaci Blazor Server. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. Parametry nejsou podporovány. |
-| `Server`            | Vykreslí značku pro aplikaci Blazor serveru. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. Parametry nejsou podporovány. |
-| `Static`            | Vykreslí komponentu do statického HTML. Jsou podporovány parametry. |
-
-I když stránky a zobrazení mohou používat komponenty, není tato konverzace pravdivá. Komponenty nemůžou používat scénáře zobrazení a stránky, jako jsou například částečná zobrazení a oddíly. Chcete-li použít logiku z částečného zobrazení v komponentě, rozložte logiku částečného zobrazení do komponenty.
-
-Vykreslování součástí serveru ze statické stránky HTML není podporováno.
-
-Další informace o tom, jak se komponenty vykreslují, stav komponent a pomocníka `RenderComponentAsync` HTML, najdete v článku <xref:blazor/hosting-models>.
-
-::: moniker-end
 
 ## <a name="use-components"></a>Použití komponent
 
@@ -353,6 +342,11 @@ Kromě zpracování `onchange`ch událostí pomocí syntaxe `@bind` lze vlastnos
 
 Na rozdíl od `onchange`, která je aktivována, když prvek ztratí fokus, `oninput` při změně hodnoty textového pole aktivována.
 
+`@bind-value` v předchozím příkladu se váže:
+
+* Zadaný výraz (`CurrentValue`) k atributu `value` elementu.
+* Delegát události změny pro událost určenou v `@bind-value:event`.
+
 **Hodnoty, které nelze analyzovat**
 
 Když uživatel poskytne neanalyzovatelné hodnoty prvku DataBound, hodnota neanalyzovat se automaticky vrátí na předchozí hodnotu, když se aktivuje událost BIND.
@@ -522,6 +516,10 @@ Obecně platí, že vlastnost může být svázána s odpovídající obslužnou
 <MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
 ```
 
+**Přepínací tlačítka**
+
+Informace o vazbě na přepínače ve formuláři naleznete v tématu <xref:blazor/forms-validation#work-with-radio-buttons>.
+
 ## <a name="event-handling"></a>Zpracování událostí
 
 Komponenty Razor poskytují funkce pro zpracování událostí. Pro atribut elementu HTML s názvem `on{EVENT}` (například `onclick` a `onsubmit`) s hodnotou delegovanou typem, komponenty Razor považují hodnotu atributu za obslužnou rutinu události. Název atributu je vždy formátován [`@on{EVENT}`](xref:mvc/views/razor#onevent).
@@ -592,7 +590,7 @@ Podporované `EventArgs` jsou uvedeny v následující tabulce.
 | Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
 | Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br>`TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
 
-Informace o vlastnostech a chování zpracování událostí událostí v předchozí tabulce naleznete v tématu [třídy EventArgs ve zdroji odkazu (dotnet/AspNetCore Release/3.0)](https://github.com/dotnet/AspNetCore/tree/release/3.0/src/Components/Web/src/Web).
+Informace o vlastnostech a chování zpracování událostí v předchozí tabulce naleznete v tématu [třídy EventArgs ve zdroji referencí (dotnet/aspnetcore Release/3.1 větev)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web).
 
 ### <a name="lambda-expressions"></a>Výrazy lambda
 
@@ -696,8 +694,6 @@ Pro zpracování událostí a parametry komponenty vazby použijte `EventCallbac
 
 Preferovat `EventCallback<T>` silného typu přes `EventCallback`. `EventCallback<T>` poskytuje uživatelům součásti lepší zpětnou vazbu k chybám. Podobně jako u jiných obslužných rutin událostí uživatelského rozhraní je zadání parametru události volitelné. Použijte `EventCallback`, pokud není předána žádná hodnota zpětnému volání.
 
-::: moniker range=">= aspnetcore-3.1"
-
 ### <a name="prevent-default-actions"></a>Zabránit výchozím akcím
 
 Chcete-li zabránit výchozí akci pro událost, použijte atribut direktiva [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault) .
@@ -763,8 +759,6 @@ V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na udál
         Console.WriteLine($"A child div was selected. {DateTime.Now}");
 }
 ```
-
-::: moniker-end
 
 ## <a name="chained-bind"></a>Zřetězená vazba
 
@@ -1091,8 +1085,6 @@ Volitelné parametry nejsou podporované, takže se v předchozím příkladu po
 
 *Catch-All –* syntaxe parametru (`*`/`**`), která zachycuje cestu mezi více hranicemi složek, **není v** součástech Razor ( *. Razor*) podporována.
 
-::: moniker range=">= aspnetcore-3.1"
-
 ## <a name="partial-class-support"></a>Podpora částečné třídy
 
 Komponenty Razor jsou generovány jako částečné třídy. Komponenty Razor jsou vytvořeny některým z následujících přístupů:
@@ -1154,43 +1146,16 @@ namespace BlazorApp.Pages
 }
 ```
 
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.1"
-
-## <a name="specify-a-component-base-class"></a>Zadat základní třídu součásti
-
-Direktivu `@inherits` lze použít k určení základní třídy pro komponentu.
-
-[Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje, jak komponenta může dědit základní třídu, `BlazorRocksBase`, aby poskytovala vlastnosti a metody komponenty.
-
-*Stránky/BlazorRocks. Razor*:
-
-```razor
-@page "/BlazorRocks"
-@inherits BlazorRocksBase
-
-<h1>@BlazorRocksText</h1>
-```
-
-*BlazorRocksBase.cs*:
+Podle potřeby přidejte všechny požadované obory názvů do souboru dílčí třídy. Mezi obvyklé obory názvů používané komponentami Razor patří:
 
 ```csharp
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components;
-
-namespace BlazorSample
-{
-    public class BlazorRocksBase : ComponentBase
-    {
-        public string BlazorRocksText { get; set; } = 
-            "Blazor rocks the browser!";
-    }
-}
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.AspNetCore.Components.Web;
 ```
-
-Základní třída by měla být odvozena od `ComponentBase`.
-
-::: moniker-end
 
 ## <a name="import-components"></a>Importovat součásti
 
