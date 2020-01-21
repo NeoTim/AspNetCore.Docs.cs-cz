@@ -5,16 +5,16 @@ description: Naučte se používat ověřování a autorizaci v ASP.NET Core Sig
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 1bdb8b10a24c65735f49f04285e4129cb77eb3fb
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 4b27d9abb36938ed8161ff0d3535204e3fa68765
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828942"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294708"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>Požadavky na zabezpečení v ASP.NET Core SignalR
 
@@ -112,16 +112,20 @@ V ASP.NET Core 2,1 a novějších se dá ověřování hlaviček dosáhnout pomo
 
 ::: moniker-end
 
+## <a name="connectionid"></a>ConnectionId
+
+Vystavení `ConnectionId` může způsobit škodlivou zosobnění, pokud je SignalR Server nebo Klientská verze ASP.NET Core 2,2 nebo starší. Pokud je SignalR Server a Klientská verze ASP.NET Core 3,0 nebo novější, `ConnectionToken` místo `ConnectionId` musí být zachovány tajné klíče. `ConnectionToken` nezveřejňuje žádné rozhraní API.  Může být obtížné zajistit, aby se starší klienti SignalR nepřipojovali k serveru, takže i v případě, že je vaše verze SignalR serveru ASP.NET Core 3,0 nebo novější, `ConnectionId` by neměl být vystavený.
+
 ## <a name="access-token-logging"></a>Protokolování přístupového tokenu
 
-Při použití objektů WebSocket nebo událostí odesílaných serverem klientský prohlížeč odešle přístupový token do řetězce dotazu. Příjem přístupového tokenu prostřednictvím řetězce dotazu je obecně zabezpečený jako při použití hlavičky Standard `Authorization`. Protokol HTTPS byste měli vždycky používat k zajištění zabezpečeného koncového připojení mezi klientem a serverem. Mnohé webové servery protokolují adresu URL pro každý požadavek včetně řetězce dotazu. Protokolování adres URL může protokolovat přístupový token. ASP.NET Core zaznamená adresu URL pro každý požadavek ve výchozím nastavení, což bude obsahovat řetězec dotazu. Příklad:
+Při použití objektů WebSocket nebo událostí odesílaných serverem klientský prohlížeč odešle přístupový token do řetězce dotazu. Příjem přístupového tokenu prostřednictvím řetězce dotazu je obecně zabezpečený jako použití standardní hlavičky `Authorization`. K zajištění zabezpečeného koncového připojení mezi klientem a serverem vždy použijte protokol HTTPS. Mnohé webové servery protokolují adresu URL pro každý požadavek včetně řetězce dotazu. Protokolování adres URL může protokolovat přístupový token. ASP.NET Core zaznamená adresu URL pro každý požadavek ve výchozím nastavení, což bude obsahovat řetězec dotazu. Příklad:
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
       Request starting HTTP/1.1 GET http://localhost:5000/myhub?access_token=1234
 ```
 
-Pokud máte obavy týkající se protokolování těchto dat do protokolů serveru, můžete toto protokolování zcela vypnout nakonfigurováním protokolovacího nástroje `Microsoft.AspNetCore.Hosting` na úroveň `Warning` nebo výše (tyto zprávy jsou napsány na úrovni `Info`). Další informace najdete v dokumentaci o [filtrování protokolů](xref:fundamentals/logging/index#log-filtering) . Pokud pořád chcete protokolovat určité informace o žádostech, můžete [napsat middleware](xref:fundamentals/middleware/write) pro protokolování dat, která požadujete, a odfiltrovat `access_token` hodnotu řetězce dotazu (Pokud je k dispozici).
+Pokud máte obavy týkající se protokolování těchto dat do protokolů serveru, můžete toto protokolování zcela vypnout nakonfigurováním protokolovacího nástroje `Microsoft.AspNetCore.Hosting` na úroveň `Warning` nebo výše (tyto zprávy jsou napsány na úrovni `Info`). Další informace najdete v tématu [filtrování protokolu](xref:fundamentals/logging/index#log-filtering) pro další informace. Pokud pořád chcete protokolovat určité informace o žádostech, můžete [napsat middleware](xref:fundamentals/middleware/write) pro protokolování dat, která požadujete, a odfiltrovat `access_token` hodnotu řetězce dotazu (Pokud je k dispozici).
 
 ## <a name="exceptions"></a>Výjimky
 

@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: tutorials/first-web-api
-ms.openlocfilehash: 3bf930d19684e84365f0ff0255fccd2939fb3f39
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 73e547b014d78dcbcbf1c887ebec16e0743d10b9
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75354921"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294752"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -296,7 +296,6 @@ Předchozí příkazy:
 
 Generovaný kód:
 
-* Definuje třídu kontroleru rozhraní API bez metody.
 * Označí třídu atributem [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) . Tento atribut označuje, že kontroler reaguje na požadavky webové rozhraní API. Informace o konkrétním chování, které atribut povoluje, naleznete v tématu <xref:web-api/index>.
 * Vložit kontext databáze používá DI (`TodoContext`) do kontroleru. Kontext databáze se používá ve všech [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) metody v kontroleru.
 
@@ -322,7 +321,7 @@ Tento kurz používá Postman k otestování webové rozhraní API.
 * Spusťte webovou aplikaci.
 * Spusťte Postman.
 * Zakázat **ověření certifikátu SSL**
-* V **Nastavení** **souboru** > (karta**Obecné** ) zakažte **ověřování certifikátu SSL**.
+  * V **Nastavení** **souboru** > (karta**Obecné** ) zakažte **ověřování certifikátu SSL**.
     > [!WARNING]
     > Znovu povolte ověření certifikátu SSL po otestování kontroleru.
 

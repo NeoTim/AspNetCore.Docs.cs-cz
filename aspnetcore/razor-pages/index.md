@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zaměřená na stránce scénáře jednodušší a produktivnější než pomocí MVC.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 01/18/2020
 uid: razor-pages/index
-ms.openlocfilehash: fbe6e307ff5f7388e91cc2276f22ae1672507587
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 69c9f09aa0e3dbdbe78720c573b5e1fc63464571
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880880"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294655"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor Pages v ASP.NET Core
 
@@ -559,9 +559,7 @@ Direktiva `@page` použijte k těmto akcím:
 
 Je podporována kořenová relativní cesta, která je určena vlnovkou (`~`) na začátku cesty. Například `@page "~/Some/Other/Path"` je stejný jako `@page "/Some/Other/Path"`.
 
-Můžete změnit řetězec dotazu `?handler=JoinList` v adrese URL na segment směrování `/JoinList` zadáním `@page "{handler?}"`šablony trasy.
-
-Pokud nechcete, aby řetězec dotazu `?handler=JoinList` v adrese URL, můžete změnit trasu tak, aby se název obslužné rutiny umístil do části cesty adresy URL. Trasu můžete přizpůsobit přidáním šablony trasy, která je uvedena v uvozovkách po `@page` direktivě.
+Pokud nechcete, aby řetězec dotazu `?handler=JoinList` v adrese URL, změňte trasu tak, aby se název obslužné rutiny umístil do části cesty adresy URL. Trasa se dá přizpůsobit přidáním šablony trasy, která je uzavřená do dvojitých uvozovek po direktivě `@page`.
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/CreateRoute.cshtml?highlight=1)]
 
@@ -1066,9 +1064,7 @@ Direktiva `@page` použijte k těmto akcím:
 
 Je podporována kořenová relativní cesta, která je určena vlnovkou (`~`) na začátku cesty. Například `@page "~/Some/Other/Path"` je stejný jako `@page "/Some/Other/Path"`.
 
-Můžete změnit řetězec dotazu `?handler=JoinList` v adrese URL na segment směrování `/JoinList` zadáním `@page "{handler?}"`šablony trasy.
-
-Pokud nechcete, aby řetězec dotazu `?handler=JoinList` v adrese URL, můžete změnit trasu tak, aby se název obslužné rutiny umístil do části cesty adresy URL. Trasu můžete přizpůsobit přidáním šablony trasy, která je uvedena v uvozovkách po `@page` direktivě.
+Pokud nechcete, aby řetězec dotazu `?handler=JoinList` v adrese URL, změňte trasu tak, aby se název obslužné rutiny umístil do části cesty adresy URL. Trasa se dá přizpůsobit přidáním šablony trasy, která je uzavřená do dvojitých uvozovek po direktivě `@page`.
 
 [!code-cshtml[](index/sample/RazorPagesContacts2/Pages/Customers/CreateRoute.cshtml?highlight=1)]
 

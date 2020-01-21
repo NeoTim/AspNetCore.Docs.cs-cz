@@ -5,16 +5,16 @@ description: Naučte se používat centra v ASP.NET Core SignalR.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/12/2019
+ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/hubs
-ms.openlocfilehash: f95766cab84bddff2c7c62f30bce1e6d1e43deab
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: e5bc12c5ccafe2b5273d72e6bde0f631ca043428
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963803"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294630"
 ---
 # <a name="use-hubs-in-opno-locsignalr-for-aspnet-core"></a>Použít centra v SignalR pro ASP.NET Core
 
@@ -94,7 +94,7 @@ Třída `Hub` obsahuje vlastnost `Context`, která obsahuje následující vlast
 | Metoda | Popis |
 | ------ | ----------- |
 | `GetHttpContext` | Vrátí `HttpContext` pro připojení, nebo `null`, pokud připojení není přidruženo k požadavku HTTP. V případě připojení HTTP můžete použít tuto metodu k získání informací, jako jsou hlavičky HTTP a řetězce dotazů. |
-| `Abort` | Přeruší připojení. |
+| `Abort` | Zruší připojení. |
 
 ## <a name="the-clients-object"></a>Objekt klienti
 
@@ -174,6 +174,8 @@ Přepište virtuální metodu `OnDisconnectedAsync`, aby prováděla akce, když
 
 [!code-csharp[Handle disconnection](hubs/sample/hubs/chathub.cs?name=OnDisconnectedAsync)]
 
+[!INCLUDE[](~/includes/connectionid-signalr.md)]
+
 ## <a name="handle-errors"></a>Ošetření chyb
 
 Výjimky vyvolané ve vašich metodách centra jsou odesílány klientovi, který tuto metodu vyvolal. V klientu jazyka JavaScript vrátí metoda `invoke` [příslib JavaScriptu](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises). Když klient obdrží chybu s obslužnou rutinou připojenou k Promise pomocí `catch`, je vyvolána a předána jako JavaScriptový objekt `Error`.
@@ -195,7 +197,7 @@ Pokud máte výjimečnou podmínku *, kterou chcete* rozšířit na klienta, mů
 > [!NOTE]
 > SignalR odesílá klientovi pouze vlastnost `Message` výjimky. Trasování zásobníku a další vlastnosti výjimky nejsou pro klienta k dispozici.
 
-## <a name="related-resources"></a>Související prostředky
+## <a name="related-resources"></a>Související informační zdroje
 
 * [Úvod do ASP.NET Core SignalR](xref:signalr/introduction)
 * [Klient JavaScriptu](xref:signalr/javascript-client)

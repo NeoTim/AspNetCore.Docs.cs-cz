@@ -5,14 +5,14 @@ description: Naučte se diagnostikovat problémy s Azure App Service a Interneto
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/10/2020
+ms.date: 01/18/2020
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 23c90c33d197d26d1c4ad758449e318e20ef3760
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 071dba9e936351e201b7582b3d0667cd6fac54bb
+ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952142"
+ms.lasthandoff: 01/21/2020
+ms.locfileid: "76294616"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Řešení potíží s ASP.NET Core v Azure App Service a IIS
 
@@ -117,7 +117,10 @@ Pracovní proces se nezdaří. Aplikace se nespustí.
 
 [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) se pokusí spustit modul CLR .NET Core v procesu, ale jeho spuštění se nezdařilo. Příčinou selhání spuštění procesu může být obvykle určení z položek protokolu událostí aplikace a protokolu stdout modulu ASP.NET Core.
 
-Běžné chyby je, že aplikace je špatně nakonfigurovaný. kvůli cílení na určitou verzi rozhraní framework sdílené ASP.NET Core, který není k dispozici. Zkontrolujte, jaké verze rozhraní framework ASP.NET Core sdílené jsou nainstalovány v cílovém počítači.
+Běžné podmínky selhání:
+
+* Aplikace je nesprávně nakonfigurovaná kvůli cílení na verzi ASP.NET Core sdílené rozhraní, které není k dispozici. Zkontrolujte, jaké verze rozhraní framework ASP.NET Core sdílené jsou nainstalovány v cílovém počítači.
+* Při použití Azure Key Vault chybí oprávnění Key Vault. Zkontrolujte zásady přístupu v cílovém Key Vault, abyste měli jistotu, že jsou udělená správná oprávnění.
 
 ### <a name="50031-ancm-failed-to-find-native-dependencies"></a>500,31 ANCM nepovedlo se najít nativní závislosti.
 
