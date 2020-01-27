@@ -5,14 +5,14 @@ description: Přečtěte si o kompresi odpovědí a způsobu použití middlewar
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/05/2019
+ms.date: 01/22/2020
 uid: performance/response-compression
-ms.openlocfilehash: 04b2ffd7047e8b127968adb5d40e0141365fb5fe
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: b8a84418a3258e9ac43b4eadd8564c0708590bce
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880913"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726960"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Komprese odezvy v ASP.NET Core
 
@@ -139,7 +139,7 @@ public class Startup
 
 Poznámky:
 
-* před `app.UseMvc`je nutné volat `app.UseResponseCompression`.
+* `app.UseResponseCompression` musí být volány před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace najdete v tématu <xref:fundamentals/middleware/index#middleware-order>.
 * Pomocí nástroje, jako je například [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [poster](https://www.getpostman.com/) , nastavte hlavičku `Accept-Encoding` žádosti a prostudujte hlavičky, velikost a text odpovědi.
 
 Odešlete žádost do ukázkové aplikace bez hlavičky `Accept-Encoding` a sledujte, že odpověď je nekomprimovaná. V odpovědi se nevyskytují hlavičky `Content-Encoding` a `Vary`.
@@ -162,7 +162,7 @@ Odešlete žádost do ukázkové aplikace s hlavičkou `Accept-Encoding: gzip` a
 
 ::: moniker-end
 
-## <a name="providers"></a>Poskytovatelé
+## <a name="providers"></a>Zprostředkovatelé
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -283,7 +283,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-### <a name="custom-providers"></a>Vlastní poskytovatelé
+### <a name="custom-providers"></a>Vlastní zprostředkovatelé
 
 Vytvářejte vlastní implementace komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider>. <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider.EncodingName*> představuje kódování obsahu, které vytváří tato `ICompressionProvider`. Middleware používá tyto informace k výběru poskytovatele na základě seznamu zadaného v hlavičce `Accept-Encoding` žádosti.
 

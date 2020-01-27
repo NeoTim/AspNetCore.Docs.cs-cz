@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: e73667925c04dd1b2360138343c4a2dcef0ee310
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 6643ccd0fdb62243427bb0972d8deb3f7b57079d
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160012"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726929"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -351,7 +351,7 @@ Na rozdíl od `onchange`, která je aktivována, když prvek ztratí fokus, `oni
 
 Když uživatel poskytne neanalyzovatelné hodnoty prvku DataBound, hodnota neanalyzovat se automaticky vrátí na předchozí hodnotu, když se aktivuje událost BIND.
 
-Uvažte následující příklady:
+Vezměte v úvahu následující scénář:
 
 * Element `<input>` je vázán na typ `int` s počáteční hodnotou `123`:
 
@@ -584,7 +584,7 @@ Podporované `EventArgs` jsou uvedeny v následující tabulce.
 | Vybrána            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>Neobsahuje podporu pro `relatedTarget`. |
 | Vstup            | `ChangeEventArgs`    | `onchange`, `oninput` |
 | Klávesnice         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress`, `onkeyup` |
-| Myš            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
+| Stisknut            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | Ukazatele myši    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
 | Kolečko myši      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
 | Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
@@ -603,7 +603,7 @@ Lambda výrazy lze také použít:
 Je často vhodné uzavřít další hodnoty, jako například při iteraci přes sadu prvků. Následující příklad vytvoří tři tlačítka, z nichž každá volá `UpdateHeading` předání argumentu události (`MouseEventArgs`) a jeho číslo tlačítka (`buttonNumber`), pokud je vybráno v uživatelském rozhraní:
 
 ```razor
-<h2>@message</h2>
+<h2>@_message</h2>
 
 @for (var i = 1; i < 4; i++)
 {
@@ -616,11 +616,11 @@ Je často vhodné uzavřít další hodnoty, jako například při iteraci přes
 }
 
 @code {
-    private string message = "Select a button to learn its position.";
+    private string _message = "Select a button to learn its position.";
 
     private void UpdateHeading(MouseEventArgs e, int buttonNumber)
     {
-        message = $"You selected Button #{buttonNumber} at " +
+        _message = $"You selected Button #{buttonNumber} at " +
             $"mouse position: {e.ClientX} X {e.ClientY}.";
     }
 }
@@ -637,7 +637,7 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
-`ParentComponent` nastaví `EventCallback<T>` podřízeného objektu na jeho metodu `ShowMessage`.
+`ParentComponent` nastaví `EventCallback<T>` (`OnClick`) dítěte na svou `ShowMessage` metodu.
 
 *Stránky/ParentComponent. Razor*:
 
@@ -652,36 +652,28 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
     by the parent component.
 </ChildComponent>
 
-<p><b>@messageText</b></p>
+<p><b>@_messageText</b></p>
 
 @code {
-    private string messageText;
+    private string _messageText;
 
     private void ShowMessage(MouseEventArgs e)
     {
-        messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
+        _messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
     }
 }
 ```
 
 Když je vybráno tlačítko v `ChildComponent`:
 
-* Je volána metoda `ShowMessage` `ParentComponent`. `messageText` se aktualizuje a zobrazí v `ParentComponent`.
+* Je volána metoda `ShowMessage` `ParentComponent`. `_messageText` se aktualizuje a zobrazí v `ParentComponent`.
 * Volání [StateHasChanged](xref:blazor/lifecycle#state-changes) není vyžadováno v metodě zpětného volání (`ShowMessage`). `StateHasChanged` se zavolá automaticky, aby se `ParentComponent`znovu vykreslila, stejně jako podřízené události spouštějí revykreslování komponenty v obslužných rutinách události, které se spouštějí v rámci podřízeného objektu
 
 `EventCallback` a `EventCallback<T>` povolují asynchronní delegáty. `EventCallback<T>` je silného typu a vyžaduje konkrétní typ argumentu. `EventCallback` je slabě typované a umožňuje jakýkoli typ argumentu.
 
 ```razor
-<p><b>@messageText</b></p>
-
-@{ var message = "Default Text"; }
-
 <ChildComponent 
-    OnClick="@(async () => { await Task.Yield(); messageText = "Blaze It!"; })" />
-
-@code {
-    private string messageText;
-}
+    OnClick="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
 ```
 
 Vyvolat `EventCallback` nebo `EventCallback<T>` s `InvokeAsync` a očekávat <xref:System.Threading.Tasks.Task>:
@@ -776,7 +768,7 @@ Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
-       type="@(showPassword ? "text" : "password")" 
+       type="@(_showPassword ? "text" : "password")" 
        value="@Password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
@@ -784,7 +776,7 @@ Password:
 </button>
 
 @code {
-    private bool showPassword;
+    private bool _showPassword;
 
     [Parameter]
     public string Password { get; set; }
@@ -801,7 +793,7 @@ Password:
 
     private void ToggleShowPassword()
     {
-        showPassword = !showPassword;
+        _showPassword = !_showPassword;
     }
 }
 ```
@@ -809,16 +801,16 @@ Password:
 Komponenta `PasswordField` se používá v jiné součásti:
 
 ```razor
-<PasswordField @bind-Password="password" />
+<PasswordField @bind-Password="_password" />
 
 @code {
-    private string password;
+    private string _password;
 }
 ```
 
 Chcete-li provést kontrolu nebo chyby depeše v předchozím příkladu:
 
-* Vytvořte pole zálohování pro `Password` (`password` v následujícím ukázkovém kódu).
+* Vytvořte pole zálohování pro `Password` (`_password` v následujícím ukázkovém kódu).
 * Proveďte kontroly nebo chyby depeší ve `Password` setter.
 
 Následující příklad poskytuje okamžitou zpětnou vazbu uživateli, pokud se v hodnotě hesla používá mezera:
@@ -828,36 +820,36 @@ Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
-       type="@(showPassword ? "text" : "password")" 
+       type="@(_showPassword ? "text" : "password")" 
        value="@Password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
     Show password
 </button>
 
-<span class="text-danger">@validationMessage</span>
+<span class="text-danger">@_validationMessage</span>
 
 @code {
-    private bool showPassword;
-    private string password;
-    private string validationMessage;
+    private bool _showPassword;
+    private string _password;
+    private string _validationMessage;
 
     [Parameter]
     public string Password
     {
-        get { return password ?? string.Empty; }
+        get { return _password ?? string.Empty; }
         set
         {
-            if (password != value)
+            if (_password != value)
             {
                 if (value.Contains(' '))
                 {
-                    validationMessage = "Spaces not allowed!";
+                    _validationMessage = "Spaces not allowed!";
                 }
                 else
                 {
-                    password = value;
-                    validationMessage = string.Empty;
+                    _password = value;
+                    _validationMessage = string.Empty;
                 }
             }
         }
@@ -875,7 +867,7 @@ Password:
 
     private void ToggleShowPassword()
     {
-        showPassword = !showPassword;
+        _showPassword = !_showPassword;
     }
 }
 ```
@@ -888,22 +880,22 @@ Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, a
 * Definujte pole stejného typu jako podřízená komponenta.
 
 ```razor
-<MyLoginDialog @ref="loginDialog" ... />
+<MyLoginDialog @ref="_loginDialog" ... />
 
 @code {
-    private MyLoginDialog loginDialog;
+    private MyLoginDialog _loginDialog;
 
     private void OnSomething()
     {
-        loginDialog.Show();
+        _loginDialog.Show();
     }
 }
 ```
 
-Při vykreslení komponenty je pole `loginDialog` vyplněno instancí `MyLoginDialog` podřízená komponenta. Pak můžete vyvolat metody .NET v instanci komponenty.
+Při vykreslení komponenty je pole `_loginDialog` vyplněno instancí `MyLoginDialog` podřízená komponenta. Pak můžete vyvolat metody .NET v instanci komponenty.
 
 > [!IMPORTANT]
-> Proměnná `loginDialog` je naplněna pouze po vykreslení komponenty a její výstup obsahuje prvek `MyLoginDialog`. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [metody OnAfterRenderAsync nebo OnAfterRender](xref:blazor/lifecycle#after-component-render).
+> Proměnná `_loginDialog` je naplněna pouze po vykreslení komponenty a její výstup obsahuje prvek `MyLoginDialog`. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [metody OnAfterRenderAsync nebo OnAfterRender](xref:blazor/lifecycle#after-component-render).
 
 Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachycení odkazů na prvky](xref:blazor/javascript-interop#capture-references-to-elements), není to funkce [interoperability JavaScriptu](xref:blazor/javascript-interop) . Odkazy na součásti nejsou předány kódu jazyka JavaScript&mdash;jsou používány pouze v kódu .NET.
 
@@ -939,10 +931,10 @@ Použití `NotifierService` k aktualizaci součásti:
 @inject NotifierService Notifier
 @implements IDisposable
 
-<p>Last update: @lastNotification.key = @lastNotification.value</p>
+<p>Last update: @_lastNotification.key = @_lastNotification.value</p>
 
 @code {
-    private (string key, int value) lastNotification;
+    private (string key, int value) _lastNotification;
 
     protected override void OnInitialized()
     {
@@ -953,7 +945,7 @@ Použití `NotifierService` k aktualizaci součásti:
     {
         await InvokeAsync(() =>
         {
-            lastNotification = (key, value);
+            _lastNotification = (key, value);
             StateHasChanged();
         });
     }
@@ -1101,16 +1093,16 @@ Následující příklad ukazuje výchozí komponentu `Counter` s blokem `@code`
 
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
+<p>Current count: @_currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    int currentCount = 0;
+    private int _currentCount = 0;
 
     void IncrementCount()
     {
-        currentCount++;
+        _currentCount++;
     }
 }
 ```
@@ -1124,7 +1116,7 @@ Komponentu `Counter` lze také vytvořit pomocí souboru kódu na pozadí s čá
 
 <h1>Counter</h1>
 
-<p>Current count: @currentCount</p>
+<p>Current count: @_currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 ```
@@ -1136,11 +1128,11 @@ namespace BlazorApp.Pages
 {
     public partial class Counter
     {
-        int currentCount = 0;
+        private int _currentCount = 0;
 
         void IncrementCount()
         {
-            currentCount++;
+            _currentCount++;
         }
     }
 }
@@ -1236,10 +1228,10 @@ Další informace najdete v tématu <xref:mvc/views/razor>.
 Následující příklad ukazuje použití typu `MarkupString` pro přidání bloku statického obsahu HTML do vykresleného výstupu komponenty:
 
 ```html
-@((MarkupString)myMarkup)
+@((MarkupString)_myMarkup)
 
 @code {
-    private string myMarkup = 
+    private string _myMarkup = 
         "<p class='markup'>This is a <em>markup string</em>.</p>";
 }
 ```
@@ -1365,7 +1357,7 @@ součást `CascadingValuesParametersLayout`:
             <NavMenu />
         </div>
         <div class="col-sm-9">
-            <CascadingValue Value="theme">
+            <CascadingValue Value="_theme">
                 <div class="content px-4">
                     @Body
                 </div>
@@ -1375,7 +1367,7 @@ součást `CascadingValuesParametersLayout`:
 </div>
 
 @code {
-    private ThemeInfo theme = new ThemeInfo { ButtonClass = "btn-success" };
+    private ThemeInfo _theme = new ThemeInfo { ButtonClass = "btn-success" };
 }
 ```
 
@@ -1392,7 +1384,7 @@ součást `CascadingValuesParametersTheme`:
 
 <h1>Cascading Values & Parameters</h1>
 
-<p>Current count: @currentCount</p>
+<p>Current count: @_currentCount</p>
 
 <p>
     <button class="btn" @onclick="IncrementCount">
@@ -1407,14 +1399,14 @@ součást `CascadingValuesParametersTheme`:
 </p>
 
 @code {
-    private int currentCount = 0;
+    private int _currentCount = 0;
 
     [CascadingParameter]
     protected ThemeInfo ThemeInfo { get; set; }
 
     private void IncrementCount()
     {
-        currentCount++;
+        _currentCount++;
     }
 }
 ```
@@ -1422,14 +1414,14 @@ součást `CascadingValuesParametersTheme`:
 Pro kaskádování více hodnot stejného typu v rámci stejného podstromu zadejte jedinečný `Name` řetězec pro každou `CascadingValue` komponentu a odpovídající `CascadingParameter`. V následujícím příkladu se dvě `CascadingValue` komponenty zanášejí do různých instancí `MyCascadingType` podle názvu:
 
 ```razor
-<CascadingValue Value=@ParentCascadeParameter1 Name="CascadeParam1">
+<CascadingValue Value=@_parentCascadeParameter1 Name="CascadeParam1">
     <CascadingValue Value=@ParentCascadeParameter2 Name="CascadeParam2">
         ...
     </CascadingValue>
 </CascadingValue>
 
 @code {
-    private MyCascadingType ParentCascadeParameter1;
+    private MyCascadingType _parentCascadeParameter1;
 
     [Parameter]
     public MyCascadingType ParentCascadeParameter2 { get; set; }
@@ -1509,14 +1501,13 @@ Fragmenty vykreslování lze definovat pomocí syntaxe šablony Razor. Šablony 
 Následující příklad ukazuje, jak určit hodnoty `RenderFragment` a `RenderFragment<T>` a vykreslit šablony přímo v komponentě. Fragmenty vykreslování mohou být také předány jako argumenty [součástem šablon](#templated-components).
 
 ```razor
-@timeTemplate
+@_timeTemplate
 
-@petTemplate(new Pet { Name = "Rex" })
+@_petTemplate(new Pet { Name = "Rex" })
 
 @code {
-    private RenderFragment timeTemplate = @<p>The time is @DateTime.Now.</p>;
-    private RenderFragment<Pet> petTemplate = 
-        (pet) => @<p>Your pet's name is @pet.Name.</p>;
+    private RenderFragment _timeTemplate = @<p>The time is @DateTime.Now.</p>;
+    private RenderFragment<Pet> _petTemplate = (pet) => @<p>Pet: @pet.Name</p>;
 
     private class Pet
     {
@@ -1530,7 +1521,7 @@ Vykreslený výstup předchozího kódu:
 ```html
 <p>The time is 10/04/2018 01:26:52.</p>
 
-<p>Your pet's name is Rex.</p>
+<p>Pet: Rex</p>
 ```
 
 ## <a name="manual-rendertreebuilder-logic"></a>Ruční logika RenderTreeBuilder
@@ -1697,7 +1688,7 @@ Další informace a příklady naleznete v tématu <xref:fundamentals/localizati
 
 Ve výchozím nastavení Blazorkonfigurace linkeru pro Blazor aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Další informace a pokyny k řízení chování linkeru naleznete v tématu <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>.
 
-### <a name="cookies"></a>Cookies
+### <a name="cookies"></a>Soubory cookie
 
 Soubor cookie lokalizační kultury může zachovat jazykovou verzi uživatele. Soubor cookie je vytvořen metodou `OnGet` stránky hostitele aplikace (*Pages/Host. cshtml. cs*). Middleware lokalizace přečte soubor cookie při následných požadavcích na nastavení jazykové verze uživatele. 
 
@@ -1775,8 +1766,6 @@ Následující komponenta ukazuje příklad, jak provést počáteční přesmě
 </select>
 
 @code {
-    private double textNumber;
-
     private void OnSelected(ChangeEventArgs e)
     {
         var culture = (string)e.Value;

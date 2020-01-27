@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: e718592127115e46df3154364957943a457b0b1b
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: 880d1762ebbea641c0b9c5a9f8bbca0b68a463c5
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146326"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726660"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -124,7 +124,7 @@ sudo service nginx start
 
 Ověřte, že prohlížeč zobrazuje výchozí cílovou stránku pro Nginx. Cílová stránka je dosažitelná na `http://<server_IP_address>/index.nginx-debian.html`.
 
-### <a name="configure-nginx"></a>Konfigurace služby Nginx
+### <a name="configure-nginx"></a>Konfigurace nginx
 
 Pokud chcete nakonfigurovat Nginx jako reverzní proxy server pro přeposílání požadavků do vaší aplikace ASP.NET Core, upravte */etc/Nginx/sites-available/default*. Otevřete ho v textovém editoru a nahraďte jeho obsah následujícím textem:
 
@@ -144,6 +144,8 @@ server {
     }
 }
 ```
+
+Pokud je aplikace Blazor serverová aplikace, která spoléhá na WebSockets signálu, přečtěte si téma <xref:host-and-deploy/blazor/server#linux-with-nginx>, kde najdete informace o tom, jak nastavit `Connection` hlavičku.
 
 Pokud se neshodují `server_name`, Nginx použije výchozí server. Pokud není definován žádný výchozí server, je první server v konfiguračním souboru výchozím serverem. Osvědčeným postupem je přidat konkrétní výchozí server, který vrátí stavový kód 444 do konfiguračního souboru. Výchozím příkladem konfigurace serveru je:
 
@@ -336,7 +338,7 @@ static char ngx_http_server_string[] = "Server: Web Server" CRLF;
 static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 ```
 
-#### <a name="configure-options"></a>Konfigurace možností
+#### <a name="configure-options"></a>Konfigurovat možnosti
 
 Nakonfigurujte server s dalšími požadovanými moduly. Zvažte použití brány firewall webových aplikací, jako je například [ModSecurity](https://www.modsecurity.org/), k posílení aplikace.
 
@@ -381,7 +383,7 @@ Zmírnění útoků Clickjacking:
    sudo nano /etc/nginx/nginx.conf
    ```
 
-   Přidejte řádek `add_header X-Frame-Options "SAMEORIGIN";`.
+   Přidejte `add_header X-Frame-Options "SAMEORIGIN";`řádku.
 1. Uložte soubor.
 1. Restartujte Nginx.
 

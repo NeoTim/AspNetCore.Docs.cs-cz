@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 462f34664540b92ba6758224a722c7ca8f9c8de0
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 5e3ff65420b3c6769d52f8b96c216043cb1fdc1a
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829059"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727003"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -220,7 +220,7 @@ Mezi směrováním koncových bodů a verzemi směrování starších než v ASP
 
   V předchozích verzích ASP.NET Core (`{*myparametername}`) zůstane podporovaná jednoduchá hvězdička All – syntaxe parametrů a lomítka jsou zakódovaná.
 
-  | Trasa              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
+  | Cestě              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
   | ------------------ | --------------------------------------------------------------------- |
   | `/search/{*page}`  | `/search/admin%2Fproducts` (lomítko je zakódováno)             |
   | `/search/{**page}` | `/search/admin/products`                                              |
@@ -252,7 +252,7 @@ public class ProductsLinkMiddleware
 }
 ```
 
-### <a name="create-routes"></a>Vytvoření tras
+### <a name="create-routes"></a>Vytváření tras
 
 Většina aplikací vytváří trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo jedné z podobných metod rozšíření definovaných v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder>. Kterákoli z rozšiřujících metod <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> vytvoří instanci <xref:Microsoft.AspNetCore.Routing.Route> a přidá ji do kolekce tras.
 
@@ -503,11 +503,11 @@ Regulární výrazy používané v směrování často začínají znakem stří
 
 | Výraz   | String    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | dobrý den     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | mz        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | dobrý den     | Ne    | Viz `^` a `$` výše. |
+| `^[a-z]{2}$` | Dobrý den     | Ne    | Viz `^` a `$` výše. |
 | `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` výše. |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
@@ -881,7 +881,7 @@ Mezi směrováním koncových bodů existuje několik rozdílů v ASP.NET Core 2
 
   V předchozích verzích ASP.NET Core (`{*myparametername}`) zůstane podporovaná jednoduchá hvězdička All – syntaxe parametrů a lomítka jsou zakódovaná.
 
-  | Trasa              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
+  | Cestě              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
   | ------------------ | --------------------------------------------------------------------- |
   | `/search/{*page}`  | `/search/admin%2Fproducts` (lomítko je zakódováno)             |
   | `/search/{**page}` | `/search/admin/products`                                              |
@@ -913,7 +913,7 @@ public class ProductsLinkMiddleware
 }
 ```
 
-### <a name="create-routes"></a>Vytvoření tras
+### <a name="create-routes"></a>Vytváření tras
 
 Většina aplikací vytváří trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo jedné z podobných metod rozšíření definovaných v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder>. Kterákoli z rozšiřujících metod <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> vytvoří instanci <xref:Microsoft.AspNetCore.Routing.Route> a přidá ji do kolekce tras.
 
@@ -1164,11 +1164,11 @@ Regulární výrazy používané v směrování často začínají znakem stří
 
 | Výraz   | String    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | dobrý den     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | mz        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | dobrý den     | Ne    | Viz `^` a `$` výše. |
+| `^[a-z]{2}$` | Dobrý den     | Ne    | Viz `^` a `$` výše. |
 | `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` výše. |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
@@ -1363,7 +1363,7 @@ Vlastnost [VirtualPathData. VirtualPath](xref:Microsoft.AspNetCore.Routing.Virtu
 
 Vlastnosti [VirtualPathData. DataTokens](xref:Microsoft.AspNetCore.Routing.VirtualPathData.DataTokens*) je slovník dalších dat souvisejících s trasou, která adresu URL vygenerovala. To je paralelní pro [parametr RouteData. Datatokeny](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*).
 
-### <a name="create-routes"></a>Vytvoření tras
+### <a name="create-routes"></a>Vytváření tras
 
 Směrování poskytuje třídu <xref:Microsoft.AspNetCore.Routing.Route> jako standardní implementaci <xref:Microsoft.AspNetCore.Routing.IRouter>. <xref:Microsoft.AspNetCore.Routing.Route> používá syntaxi *šablony směrování* k definování vzorů, které se budou shodovat s cestou URL při volání <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*>. <xref:Microsoft.AspNetCore.Routing.Route> používá stejnou šablonu trasy k vygenerování adresy URL při volání <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*>.
 
@@ -1618,11 +1618,11 @@ Regulární výrazy používané v směrování často začínají znakem stří
 
 | Výraz   | String    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | dobrý den     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | Dobrý den     | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | mz        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | dobrý den     | Ne    | Viz `^` a `$` výše. |
+| `^[a-z]{2}$` | Dobrý den     | Ne    | Viz `^` a `$` výše. |
 | `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` výše. |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).

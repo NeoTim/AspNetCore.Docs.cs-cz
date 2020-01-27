@@ -4,14 +4,14 @@ author: rick-anderson
 description: Seznamte se s tím, jak CORS jako standard pro povolení nebo odmítnutí žádostí o více zdrojů v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/13/2019
+ms.date: 01/23/2020
 uid: security/cors
-ms.openlocfilehash: 3a51d365626c858ad48298a1108e37eba9050fe7
-ms.sourcegitcommit: 35a86ce48041caaf6396b1e88b0472578ba24483
+ms.openlocfilehash: 57098be73164c71d1b0d1fe2f3aee7ec41a32346
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72391298"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727321"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolit žádosti mezi zdroji (CORS) v ASP.NET Core
 
@@ -502,6 +502,11 @@ Koncové body s podporou CORS se dají testovat pomocí nástroje, jako je [Fidd
 * Pro zpracování žádosti není nutné middleware CORS.
 * V odpovědi nejsou vraceny hlavičky CORS.
 
+## <a name="cors-in-iis"></a>CORS ve službě IIS
+
+Při nasazování do služby IIS musí CORS běžet před ověřováním systému Windows, pokud server není nakonfigurovaný tak, aby povoloval anonymní přístup. Pro podporu tohoto scénáře je nutné nainstalovat a nakonfigurovat [modul IIS CORS](https://www.iis.net/downloads/microsoft/iis-cors-module) pro aplikaci.
+
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Sdílení prostředků mezi zdroji (CORS)](https://developer.mozilla.org/docs/Web/HTTP/CORS)
+* [Začínáme s modulem IIS CORS](https://blogs.iis.net/iisteam/getting-started-with-the-iis-cors-module)

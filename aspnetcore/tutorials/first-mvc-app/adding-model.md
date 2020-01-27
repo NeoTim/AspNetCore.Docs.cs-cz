@@ -5,12 +5,12 @@ description: Přidejte model do jednoduché aplikace ASP.NET Core.
 ms.author: riande
 ms.date: 01/13/2020
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: adf313418e82cc265304262f7a751273fa0e139f
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 12429f1f381788569615a2a40e1ca13c4b3cfb6e
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952113"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727122"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu do ASP.NET Core aplikace MVC
 
@@ -22,7 +22,7 @@ Tyto třídy použijete s [Entity Framework Core](/ef/core) (EF Core) pro práci
 
 Třídy modelů, které vytvoříte, jsou známé jako třídy POCO (od **P**Lain **O**ld **C**LR **O**bjekty), protože nemají žádnou závislost na EF Core. Pouze definují vlastnosti dat, která budou uložena v databázi.
 
-V tomto kurzu napíšete nejprve třídy modelu a EF Core vytvoříte databázi. Alternativním způsobem, který není pokrytý, je vygenerování tříd modelu z existující databáze. Informace o tomto přístupu najdete v tématu [ASP.NET Core – existující databáze](/ef/core/get-started/aspnetcore/existing-db).
+V tomto kurzu napíšete nejprve třídy modelu a EF Core vytvoříte databázi.
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -177,7 +177,7 @@ Dokončete dialog **Přidat řadič** :
 
 * **Zobrazení:** Ponechte výchozí hodnotu u každé zaškrtnuté možnosti.
 * **Název kontroleru:** Zachovat výchozí *MoviesController*
-* Vyberte **Přidat**.
+* Vyberte **Přidat**
 
 Visual Studio vytvoří:
 
@@ -452,7 +452,7 @@ Dokončete dialog **Přidat řadič** :
 
 * **Zobrazení:** Ponechte výchozí hodnotu u každé zaškrtnuté možnosti.
 * **Název kontroleru:** Zachovat výchozí *MoviesController*
-* Vyberte **Přidat**.
+* Vyberte **Přidat**
 
 ![Dialogové okno Přidat řadič](adding-model/_static/add_controller2.png)
 

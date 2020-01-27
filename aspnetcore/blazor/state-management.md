@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: ffb32a4f274a30f2a5ceed9cbf193285e85bab4c
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 990d392b0e1658774256626eb277701e40287b79
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160142"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726918"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -78,7 +78,7 @@ Existují tři společná umístění pro trvalý stav v aplikaci Blazor Server.
 Pro trvalá trvalá data nebo pro všechna data, která musí být rozložená na více uživatelů nebo zařízení, je k nejlepší možnost databáze na straně serveru téměř určitě. Vaše možnosti jsou:
 
 * Relační databáze SQL
-* Ukládání hodnot klíče
+* Úložiště hodnot klíčů
 * Úložiště objektů BLOB
 * Úložiště tabulek
 
@@ -172,26 +172,26 @@ Volba závisí na tom, které záložní úložiště chcete použít. V násled
 
 Příkaz `@using` lze umístit do souboru *_Imports. Razor* místo do součásti. Použití souboru *_Imports. Razor* zpřístupňuje obor názvů pro větší segmenty aplikace nebo celé aplikace.
 
-Chcete-li zachovat hodnotu `currentCount` v součásti `Counter` šablony projektu, upravte metodu `IncrementCount` na použití `ProtectedSessionStore.SetAsync`:
+Chcete-li zachovat hodnotu `_currentCount` v součásti `Counter` šablony projektu, upravte metodu `IncrementCount` na použití `ProtectedSessionStore.SetAsync`:
 
 ```csharp
 private async Task IncrementCount()
 {
-    currentCount++;
-    await ProtectedSessionStore.SetAsync("count", currentCount);
+    _currentCount++;
+    await ProtectedSessionStore.SetAsync("count", _currentCount);
 }
 ```
 
 Ve větších a realističtějších aplikacích je ukládání jednotlivých polí nepravděpodobné. Pro aplikace je pravděpodobnější ukládání celých objektů modelu, které zahrnují komplexní stav. `ProtectedSessionStore` automaticky serializovat a deserializovat data JSON.
 
-V předchozím příkladu kódu se `currentCount` data ukládají jako `sessionStorage['count']` v prohlížeči uživatele. Data nejsou uložená ve formátu prostého textu, ale jsou chráněná pomocí [ochrany dat](xref:security/data-protection/introduction)ASP.NET Core. Zašifrovaná data lze zobrazit, pokud je `sessionStorage['count']` vyhodnocována v konzole pro vývojáře v prohlížeči.
+V předchozím příkladu kódu se `_currentCount` data ukládají jako `sessionStorage['count']` v prohlížeči uživatele. Data nejsou uložená ve formátu prostého textu, ale jsou chráněná pomocí [ochrany dat](xref:security/data-protection/introduction)ASP.NET Core. Zašifrovaná data lze zobrazit, pokud je `sessionStorage['count']` vyhodnocována v konzole pro vývojáře v prohlížeči.
 
-Chcete-li obnovit `currentCount` data v případě, že se uživatel vrátí do `Counter` komponenty později (včetně, pokud jsou na zcela novém okruhu), použijte `ProtectedSessionStore.GetAsync`:
+Chcete-li obnovit `_currentCount` data v případě, že se uživatel vrátí do `Counter` komponenty později (včetně, pokud jsou na zcela novém okruhu), použijte `ProtectedSessionStore.GetAsync`:
 
 ```csharp
 protected override async Task OnInitializedAsync()
 {
-    currentCount = await ProtectedSessionStore.GetAsync<int>("count");
+    _currentCount = await ProtectedSessionStore.GetAsync<int>("count");
 }
 ```
 
@@ -208,18 +208,18 @@ Pokud parametry komponenty obsahují navigační stav, zavolejte `ProtectedSessi
 
 Vzhledem k tomu, že je úložiště prohlížeče asynchronní (přístup prostřednictvím připojení k síti), je vždy časový interval, než se data načtou a budou k dispozici pro použití komponentou. Nejlepších výsledků dosáhnete, když při načítání vykreslíte zprávu o stavu načítání, místo aby se zobrazila prázdná nebo výchozí data.
 
-Jedním z těchto způsobů je sledovat, jestli se data `null` (pořád se načítají), nebo ne. Ve výchozí součásti `Counter` je počet uchováván v `int`. Nastavit `currentCount` s možnou hodnotou null přidáním otazníku (`?`) do typu (`int`):
+Jedním z těchto způsobů je sledovat, jestli se data `null` (pořád se načítají), nebo ne. Ve výchozí součásti `Counter` je počet uchováván v `int`. Nastavit `_currentCount` s možnou hodnotou null přidáním otazníku (`?`) do typu (`int`):
 
 ```csharp
-private int? currentCount;
+private int? _currentCount;
 ```
 
 Namísto nepodmíněného zobrazení tlačítka počet a **přírůstek** vyberte, zda chcete tyto prvky zobrazit pouze v případě, že jsou data načtena:
 
 ```razor
-@if (currentCount.HasValue)
+@if (_currentCount.HasValue)
 {
-    <p>Current count: <strong>@currentCount</strong></p>
+    <p>Current count: <strong>@_currentCount</strong></p>
 
     <button @onclick="IncrementCount">Increment</button>
 }
@@ -253,8 +253,8 @@ Předvykreslování může být užitečné pro jiné stránky, které nepouží
 ... rendering code goes here ...
 
 @code {
-    private int? currentCount;
-    private bool isConnected = false;
+    private int? _currentCount;
+    private bool _isConnected = false;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -262,7 +262,7 @@ Předvykreslování může být užitečné pro jiné stránky, které nepouží
         {
             // When execution reaches this point, the first *interactive* render
             // is complete. The component has an active connection to the browser.
-            isConnected = true;
+            _isConnected = true;
             await LoadStateAsync();
             StateHasChanged();
         }
@@ -270,13 +270,13 @@ Předvykreslování může být užitečné pro jiné stránky, které nepouží
 
     private async Task LoadStateAsync()
     {
-        currentCount = await ProtectedLocalStore.GetAsync<int>("prerenderedCount");
+        _currentCount = await ProtectedLocalStore.GetAsync<int>("prerenderedCount");
     }
 
     private async Task IncrementCount()
     {
-        currentCount++;
-        await ProtectedSessionStore.SetAsync("count", currentCount);
+        _currentCount++;
+        await ProtectedSessionStore.SetAsync("count", _currentCount);
     }
 }
 ```
@@ -291,7 +291,7 @@ V následujícím příkladu `CounterStateProvider` komponenty jsou data číta�
 @using Microsoft.AspNetCore.ProtectedBrowserStorage
 @inject ProtectedSessionStorage ProtectedSessionStore
 
-@if (hasLoaded)
+@if (_hasLoaded)
 {
     <CascadingValue Value="@this">
         @ChildContent
@@ -303,7 +303,7 @@ else
 }
 
 @code {
-    private bool hasLoaded;
+    private bool _hasLoaded;
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
@@ -313,7 +313,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         CurrentCount = await ProtectedSessionStore.GetAsync<int>("count");
-        hasLoaded = true;
+        _hasLoaded = true;
     }
 
     public async Task SaveChangesAsync()

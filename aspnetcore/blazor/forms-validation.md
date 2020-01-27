@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 6f6fdc13dbb754ecfe06025d496017d3c16951fe
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 2758bcbbc76c8a59716fe224dd2deb4ca8c06929
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159960"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726892"
 ---
 # <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core Blazor formuláře a ověřování
 
@@ -39,17 +39,17 @@ public class ExampleModel
 Formulář je definován pomocí komponenty `EditForm`. Následující formulář ukazuje typické prvky, komponenty a kód Razor:
 
 ```razor
-<EditForm Model="@exampleModel" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputText id="name" @bind-Value="exampleModel.Name" />
+    <InputText id="name" @bind-Value="_exampleModel.Name" />
 
     <button type="submit">Submit</button>
 </EditForm>
 
 @code {
-    private ExampleModel exampleModel = new ExampleModel();
+    private ExampleModel _exampleModel = new ExampleModel();
 
     private void HandleValidSubmit()
     {
@@ -60,9 +60,9 @@ Formulář je definován pomocí komponenty `EditForm`. Následující formulá�
 
 V předchozím příkladu:
 
-* Formulář ověřuje vstup uživatele v poli `name` pomocí ověřování definovaného v `ExampleModel` typu. Model se vytvoří v bloku `@code` komponenty a je uložený v soukromém poli (`exampleModel`). Pole je přiřazeno atributu `Model` elementu `<EditForm>`.
+* Formulář ověřuje vstup uživatele v poli `name` pomocí ověřování definovaného v `ExampleModel` typu. Model se vytvoří v bloku `@code` komponenty a je uložený v soukromém poli (`_exampleModel`). Pole je přiřazeno atributu `Model` elementu `<EditForm>`.
 * `@bind-Value` vazby `InputText` komponenty:
-  * Vlastnost modelu (`exampleModel.Name`) na vlastnost `Value` komponenty `InputText`
+  * Vlastnost modelu (`_exampleModel.Name`) na vlastnost `Value` komponenty `InputText`
   * Delegát události změny pro vlastnost `ValueChanged` `InputText` součásti.
 * Komponenta `DataAnnotationsValidator` připojí podporu ověřování pomocí datových poznámek.
 * Komponenta `ValidationSummary` shrnuje ověřovací zprávy.
@@ -124,26 +124,26 @@ Následující formulář ověřuje vstup uživatele pomocí ověřování defin
 
 <h2>New Ship Entry Form</h2>
 
-<EditForm Model="@starship" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@_starship" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     <p>
         <label>
             Identifier:
-            <InputText @bind-Value="starship.Identifier" />
+            <InputText @bind-Value="_starship.Identifier" />
         </label>
     </p>
     <p>
         <label>
             Description (optional):
-            <InputTextArea @bind-Value="starship.Description" />
+            <InputTextArea @bind-Value="_starship.Description" />
         </label>
     </p>
     <p>
         <label>
             Primary Classification:
-            <InputSelect @bind-Value="starship.Classification">
+            <InputSelect @bind-Value="_starship.Classification">
                 <option value="">Select classification ...</option>
                 <option value="Exploration">Exploration</option>
                 <option value="Diplomacy">Diplomacy</option>
@@ -154,19 +154,19 @@ Následující formulář ověřuje vstup uživatele pomocí ověřování defin
     <p>
         <label>
             Maximum Accommodation:
-            <InputNumber @bind-Value="starship.MaximumAccommodation" />
+            <InputNumber @bind-Value="_starship.MaximumAccommodation" />
         </label>
     </p>
     <p>
         <label>
             Engineering Approval:
-            <InputCheckbox @bind-Value="starship.IsValidatedDesign" />
+            <InputCheckbox @bind-Value="_starship.IsValidatedDesign" />
         </label>
     </p>
     <p>
         <label>
             Production Date:
-            <InputDate @bind-Value="starship.ProductionDate" />
+            <InputDate @bind-Value="_starship.ProductionDate" />
         </label>
     </p>
 
@@ -180,7 +180,7 @@ Následující formulář ověřuje vstup uživatele pomocí ověřování defin
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
+    private Starship _starship = new Starship();
 
     private void HandleValidSubmit()
     {
@@ -199,7 +199,7 @@ V následujícím příkladu:
 * Další kód se spustí v závislosti na výsledku ověřování na straně klienta a serveru kontrolou `isValid`.
 
 ```razor
-<EditForm EditContext="@editContext" OnSubmit="@HandleSubmit">
+<EditForm EditContext="@_editContext" OnSubmit="@HandleSubmit">
 
     ...
 
@@ -207,18 +207,18 @@ V následujícím příkladu:
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
-    private EditContext editContext;
+    private Starship _starship = new Starship();
+    private EditContext _editContext;
 
     protected override void OnInitialized()
     {
-        editContext = new EditContext(starship);
+        _editContext = new EditContext(_starship);
     }
 
     private async Task HandleSubmit()
     {
-        var isValid = editContext.Validate() && 
-            await ServerValidate(editContext);
+        var isValid = _editContext.Validate() && 
+            await ServerValidate(_editContext);
 
         if (isValid)
         {
@@ -311,14 +311,14 @@ Následující `EditForm` používá předchozí součást `InputRadio` k získ�
 
 <h1>Radio Button Group Test</h1>
 
-<EditForm Model="model" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="_model" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     @for (int i = 1; i <= 5; i++)
     {
         <label>
-            <InputRadio name="rate" SelectedValue="i" @bind-Value="model.Rating" />
+            <InputRadio name="rate" SelectedValue="i" @bind-Value="_model.Rating" />
             @i
         </label>
     }
@@ -326,10 +326,10 @@ Následující `EditForm` používá předchozí součást `InputRadio` k získ�
     <button type="submit">Submit</button>
 </EditForm>
 
-<p>You chose: @model.Rating</p>
+<p>You chose: @_model.Rating</p>
 
 @code {
-    private Model model = new Model();
+    private Model _model = new Model();
 
     private void HandleValidSubmit()
     {
@@ -364,13 +364,13 @@ Komponenta `ValidationSummary` shrnuje všechny zprávy o ověřování, které 
 Zprávy ověřování výstupu pro určitý model s parametrem `Model`:
   
 ```razor
-<ValidationSummary Model="@starship" />
+<ValidationSummary Model="@_starship" />
 ```
 
 Komponenta `ValidationMessage` zobrazí ověřovací zprávy pro konkrétní pole, které je podobné [Pomocníkovi značky ověřovací zprávy](xref:mvc/views/working-with-forms#the-validation-message-tag-helper). Zadejte pole pro ověřování pomocí atributu `For` a lambda výrazu pojmenování vlastnosti modelu:
 
 ```razor
-<ValidationMessage For="@(() => starship.MaximumAccommodation)" />
+<ValidationMessage For="@(() => _starship.MaximumAccommodation)" />
 ```
 
 Komponenty `ValidationMessage` a `ValidationSummary` podporují libovolné atributy. Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do generovaného `<div>` nebo `<ul>` elementu.
@@ -411,7 +411,7 @@ Blazor poskytuje podporu pro ověřování vstupu formuláře pomocí datových 
 Chcete-li ověřit celý graf objektu vázaného modelu, včetně vlastností kolekce a komplexního typu, použijte `ObjectGraphDataAnnotationsValidator` od *experimentálního* [Microsoft. AspNetCore.Blazor. Dataanotace. ověřovací](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) balíček:
 
 ```razor
-<EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
+<EditForm Model="@_model" OnValidSubmit="HandleValidSubmit">
     <ObjectGraphDataAnnotationsValidator />
     ...
 </EditForm>
@@ -462,34 +462,34 @@ Povolení a zakázání tlačítka Odeslat na základě ověření formuláře:
 * Pokud chcete povolit a zakázat tlačítko Odeslat, ověřte formulář v `OnFieldChanged`ovém zpětném volání kontextu.
 
 ```razor
-<EditForm EditContext="@editContext">
+<EditForm EditContext="@_editContext">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
     ...
 
-    <button type="submit" disabled="@formInvalid">Submit</button>
+    <button type="submit" disabled="@_formInvalid">Submit</button>
 </EditForm>
 
 @code {
-    private Starship starship = new Starship();
-    private bool formInvalid = true;
-    private EditContext editContext;
+    private Starship _starship = new Starship();
+    private bool _formInvalid = true;
+    private EditContext _editContext;
 
     protected override void OnInitialized()
     {
-        editContext = new EditContext(starship);
+        _editContext = new EditContext(_starship);
 
-        editContext.OnFieldChanged += (_, __) =>
+        _editContext.OnFieldChanged += (_, __) =>
         {
-            formInvalid = !editContext.Validate();
+            _formInvalid = !_editContext.Validate();
             StateHasChanged();
         };
     }
 }
 ```
 
-V předchozím příkladu nastavte `formInvalid` na `false`, pokud:
+V předchozím příkladu nastavte `_formInvalid` na `false`, pokud:
 
 * Formulář je předem načten s platnými výchozími hodnotami.
 * Chcete povolit tlačítko Odeslat, když se formulář načte.
@@ -500,23 +500,23 @@ Vedlejším účinkem předchozího přístupu je, že komponenta `ValidationSum
 * Zpřístupní komponentu `ValidationSummary`, když je vybráno tlačítko Odeslat (například v metodě `HandleValidSubmit`).
 
 ```razor
-<EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
+<EditForm EditContext="@_editContext" OnValidSubmit="HandleValidSubmit">
     <DataAnnotationsValidator />
-    <ValidationSummary style="@displaySummary" />
+    <ValidationSummary style="@_displaySummary" />
 
     ...
 
-    <button type="submit" disabled="@formInvalid">Submit</button>
+    <button type="submit" disabled="@_formInvalid">Submit</button>
 </EditForm>
 
 @code {
-    private string displaySummary = "display:none";
+    private string _displaySummary = "display:none";
 
     ...
 
     private void HandleValidSubmit()
     {
-        displaySummary = "display:block";
+        _displaySummary = "display:block";
     }
 }
 ```

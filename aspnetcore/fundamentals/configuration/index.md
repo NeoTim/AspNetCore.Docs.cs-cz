@@ -5,14 +5,14 @@ description: Naučte se, jak pomocí konfiguračního rozhraní API nakonfigurov
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/13/2020
+ms.date: 01/23/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 09ef06f179e34cd7f4f04ac30c3b5dd95d058244
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 141ae5cda7672159032013cbda1ef4bfa7c142dd
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951895"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726983"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -21,7 +21,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 Konfigurace aplikací v ASP.NET Core je založená na páru klíč-hodnota vytvořených *poskytovateli konfigurací*. Poskytovatelé konfigurace čtou konfigurační data do párů klíč-hodnota z nejrůznějších zdrojů konfigurace:
 
 * Azure Key Vault
-* Azure App Configuration
+* Konfigurace aplikace Azure
 * Argumenty příkazového řádku
 * Vlastní poskytovatelé (nainstalováno nebo vytvořeno)
 * Soubory adresáře
@@ -198,14 +198,14 @@ Konfigurační hodnoty přijímají následující konvence:
 * Hodnoty jsou řetězce.
 * Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.
 
-## <a name="providers"></a>Poskytovatelé
+## <a name="providers"></a>Zprostředkovatelé
 
 V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.
 
 | Zprostředkovatel | Poskytuje konfiguraci z&hellip; |
 | -------- | ----------------------------------- |
 | [Poskytovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) (témata*zabezpečení* ) | Azure Key Vault |
-| [Poskytovatel konfigurace Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace Azure) | Azure App Configuration |
+| [Poskytovatel konfigurace Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace Azure) | Konfigurace aplikace Azure |
 | [Zprostředkovatel konfigurace příkazového řádku](#command-line-configuration-provider) | Parametry příkazového řádku |
 | [Vlastní poskytovatel konfigurace](#custom-configuration-provider) | Vlastní zdroj |
 | [Poskytovatel konfigurace proměnných prostředí](#environment-variables-configuration-provider) | Proměnné prostředí |
@@ -923,7 +923,7 @@ Vzhledem k ukázkovým datům je `sectionExists` `false`, protože konfiguračn�
 
 Konfigurace může být vázána na třídy, které reprezentují skupiny souvisejících nastavení pomocí *vzoru možností*. Další informace najdete v tématu <xref:fundamentals/configuration/options>.
 
-Konfigurační hodnoty jsou vraceny jako řetězce, ale volání <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> umožňuje konstrukci objektů [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) .
+Konfigurační hodnoty jsou vraceny jako řetězce, ale volání <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> umožňuje konstrukci objektů [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) . Pořadač váže hodnoty ke všem veřejným vlastnostem pro čtení a zápis zadaného typu. Pole nejsou **svázána** .
 
 Ukázková aplikace obsahuje model `Starship` (*modely/Starship. cs*):
 
@@ -980,7 +980,7 @@ Ukázková aplikace volá `GetSection` s klíčem `starship`. Páry klíč-hodno
 
 ## <a name="bind-to-an-object-graph"></a>Vytvoření vazby na graf objektů
 
-<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> je schopný svázat celý graf objektů POCO.
+<xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> je schopný svázat celý graf objektů POCO. Stejně jako u vazeb jednoduchých objektů jsou vázány pouze veřejné vlastnosti čtení a zápisu.
 
 Ukázka obsahuje model `TvShow`, jehož graf objektů zahrnuje `Metadata` a třídy `Actors` (*modely/TvShow. cs*):
 
@@ -1126,7 +1126,7 @@ Chybějící položka konfigurace pro index &num;3 může být zadána před vyt
 }
 ```
 
-V systému `ConfigureAppConfiguration`:
+V `ConfigureAppConfiguration`:
 
 ```csharp
 config.AddJsonFile(

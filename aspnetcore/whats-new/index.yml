@@ -1,0 +1,61 @@
+### YamlMime:Landing
+title: ASP.NET Core dokumentaci – co je nového?
+summary: Vítejte v ASP.NET Core Docs, co je nového. Pomocí této stránky můžete rychle najít nejnovější změny.
+metadata:
+  title: ASP.NET Core dokumentaci – co je nového?
+  description: Přečtěte si o novém a aktualizovaném obsahu v ASP.NET Core docs.
+  ms.topic: landing-page
+  ms.date: 01/17/2020
+  ms.openlocfilehash: edd748d4d53583e531a280e64979190dcd3c9296
+  ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+  ms.translationtype: MT
+  ms.contentlocale: cs-CZ
+  ms.lasthandoff: 01/24/2020
+  ms.locfileid: "76727418"
+landingContent:
+- title: Hledání aktualizací ASP.NET Core docs
+  linkLists:
+  - linkListType: whats-new
+    links:
+    - text: Prosinec 2019
+      url: 2019-12.md
+    - text: Listopadu 2019
+      url: 2019-11.md
+    - text: Říjen 2019
+      url: 2019-10.md
+    - text: Září 2019
+      url: 2019-09.md
+- title: Získání účasti – přispívání do ASP.NET Core docs
+  linkLists:
+  - linkListType: overview
+    links:
+    - text: Úložiště ASP.NET Core docs
+      url: https://github.com/aspnet/AspNetCore.Docs/blob/master/README.md
+    - text: Struktura a štítky projektu pro problémy a žádosti o přijetí změn
+      url: https://github.com/dotnet/docs/blob/master/styleguide/labels-projects.md
+  - linkListType: concept
+    links:
+    - text: Příručka pro přispěvatele Microsoft docs
+      url: https://docs.microsoft.com/contribute
+    - text: Příručka pro přispěvatele ASP.NET Core docs
+      url: https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md
+    - text: Průvodce pro přispěvatele Referenční dokumentace k rozhraní ASP.NET Core API
+      url: https://github.com/aspnet/ApiDocs/blob/master/CONTRIBUTING.md
+- title: Související stránky co je nového
+  linkLists:
+  - linkListType: whats-new
+    links:
+    - text: Aktualizace docs pro Xamarin
+      url: /xamarin/whats-new/
+    - text: Poznámky k verzi .NET Core
+      url: https://github.com/dotnet/core/blob/master/release-notes/README.md
+    - text: Poznámky k verzi ASP.NET Core
+      url: /aspnet/core/release-notes/aspnetcore-3.1
+    - text: C#zpráva k vydání verze kompilátoru (Roslyn)
+      url: https://github.com/dotnet/roslyn/tree/master/docs/ide
+    - text: Poznámky k verzi sady Visual Studio
+      url: /visualstudio/releases/2019/release-notes
+    - text: Poznámky k verzi Visual Studio pro Mac
+      url: /visualstudio/releasenotes/vs2019-mac-relnotes
+    - text: Poznámky k verzi Visual Studio Code
+      url: https://code.visualstudio.com/updates

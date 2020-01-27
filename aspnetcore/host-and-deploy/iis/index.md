@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: bf035bc65f0f120f52e55effe4d413bfecdf735d
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 146a204509856186a2696b770cae2249d348fa34
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952088"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726836"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -26,8 +26,19 @@ Kurz týkající se publikování ASP.NET Core aplikace na server služby IIS na
 
 Následující operační systémy se podporují:
 
+::: moniker range=">= aspnetcore-3.0"
+
+* Windows 7 nebo novější
+* Windows Server 2012 R2 nebo novější
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
+
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
+
+::: moniker-end
 
 [Http. sys Server](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru se službou IIS. Použití [Kestrel server](xref:fundamentals/servers/kestrel).
 

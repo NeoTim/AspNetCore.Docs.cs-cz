@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tento kurz ukazuje, jak vytvořit aplikaci ASP.NET Core pomocí OAuth 2,0 s externími poskytovateli ověřování.
 ms.author: riande
 ms.custom: mvc
-ms.date: 10/21/2019
+ms.date: 01/23/2020
 uid: security/authentication/social/index
-ms.openlocfilehash: 06ce9c72f43955345efb61afed2538158810005f
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 7d0f6647a6f5a4d41067b13acd3d294144027bb7
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358066"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76727328"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Ověřování pro Facebook, Google a externí poskytovatele v ASP.NET Core
 
@@ -35,7 +35,7 @@ Příklady, jak mohou sociální přihlášení prosazovat přenosy a převody z
 * Vytvořte nový projekt.
 * Vyberte **ASP.NET Core webová aplikace** a **Další**.
 * Zadejte **název projektu** a potvrďte nebo změňte **umístění**. Vyberte **vytvořit**.
-* V rozevíracím seznamu vyberte **ASP.NET Core 3,0** a pak vyberte **Webová aplikace**.
+* V rozevíracím seznamu vyberte nejnovější verzi ASP.NET Core (**ASP.NET Core {X. Y}** ) a pak vyberte **Webová aplikace**.
 * V části **ověřování**vyberte **změnit** a nastavte ověřování na **jednotlivé uživatelské účty**. Vyberte **OK**.
 * V okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte **vytvořit**.
 
@@ -45,7 +45,7 @@ Příklady, jak mohou sociální přihlášení prosazovat přenosy a převody z
 
 * Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 
-* V případě Windows spusťte následující příkaz:
+* Pro Windows spusťte následující příkaz:
 
   ```dotnetcli
   dotnet new webapp -o WebApp1 -au Individual -uld
