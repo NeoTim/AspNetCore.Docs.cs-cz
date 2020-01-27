@@ -1,0 +1,15 @@
+- name: Co je nového
+  href: index.yml
+  expanded: true
+  items:
+    - name: 2019
+      expanded: true
+      items:
+        - name: Prosinec
+          href: 2019-12.md
+        - name: Listopad
+          href: 2019-11.md
+        - name: Říjen
+          href: 2019-10.md
+        - name: Září
+          href: 2019-09.md

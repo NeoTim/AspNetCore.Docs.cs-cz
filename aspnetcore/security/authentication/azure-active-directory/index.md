@@ -1,37 +1,37 @@
 ---
-title: Azure Active Directory a ASP.NET Core
+title: Microsoft Identity Platform a Azure Active Directory s využitím ASP.NET Core
 author: rick-anderson
-description: Objevte témata související s ověřováním pomocí Azure Active Directory v ASP.NET Core.
+description: Objevte témata týkající se ověřování pomocí Microsoft Identity Platform Azure Active Directory pro webové aplikace a rozhraní API v ASP.NET Core.
 ms.author: riande
-ms.date: 01/14/2020
+ms.date: 01/21/2020
 ms.custom: mvc, seodec18
 uid: security/authentication/azure-active-directory/index
-ms.openlocfilehash: a856643216d423c791d3df47bd2206f9121b543f
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 7829a062d4727238addca051d0599438c99e90dc
+ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951907"
+ms.lasthandoff: 01/24/2020
+ms.locfileid: "76726754"
 ---
-# <a name="azure-active-directory-with-aspnet-core"></a><span data-ttu-id="14aa2-103">Azure Active Directory a ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="14aa2-103">Azure Active Directory with ASP.NET Core</span></span>
+# <a name="azure-active-directory-with-aspnet-core"></a><span data-ttu-id="30398-103">Azure Active Directory a ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="30398-103">Azure Active Directory with ASP.NET Core</span></span>
 
-## <a name="azure-ad-v1-samples"></a><span data-ttu-id="14aa2-104">Ukázky v Azure AD V1</span><span class="sxs-lookup"><span data-stu-id="14aa2-104">Azure AD V1 samples</span></span>
+<span data-ttu-id="30398-104">Tyto kurzy a ukázky ukazují ověřování v ASP.NET Core používání platformy Microsoft Identity Platform a Azure Active Directory.</span><span class="sxs-lookup"><span data-stu-id="30398-104">These tutorials and samples demonstrate authentication in ASP.NET Core using Microsoft identity platform and Azure Active Directory.</span></span> <span data-ttu-id="30398-105">Další kurzy a ukázky pomocí ASP.NET Core se službou Azure AD najdete v tématu [Microsoft Identity Platform](/azure/active-directory/develop/).</span><span class="sxs-lookup"><span data-stu-id="30398-105">For additional tutorials and samples using ASP.NET Core with Azure AD, see [Microsoft identity platform](/azure/active-directory/develop/).</span></span>
 
-<span data-ttu-id="14aa2-105">Následující ukázky ukazují, jak integrovat Azure AD V1, umožňuje uživatelům přihlásit se pomocí pracovní a školní účet:</span><span class="sxs-lookup"><span data-stu-id="14aa2-105">The following samples show how to integrate Azure AD V1, enabling users to sign-in with a work and school account:</span></span>
-* <span data-ttu-id="14aa2-106">[Integrace Azure AD do webové aplikace ASP.NET Core](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/master) (Archivovaná a Nepodporovaná)</span><span class="sxs-lookup"><span data-stu-id="14aa2-106">[Integrating Azure AD Into an ASP.NET Core Web App](https://github.com/Azure-Samples/active-directory-dotnet-webapp-openidconnect-aspnetcore/tree/master) (archived and unsupported)</span></span>
-* [<span data-ttu-id="14aa2-107">Volání webového rozhraní API aplikace ASP.NET Core z aplikace WPF pomocí Azure AD</span><span class="sxs-lookup"><span data-stu-id="14aa2-107">Calling a ASP.NET Core Web API From a WPF Application Using Azure AD</span></span>](https://github.com/Azure-Samples/active-directory-dotnet-native-aspnetcore)
-* [<span data-ttu-id="14aa2-108">Volání webového rozhraní API webové aplikace ASP.NET Core pomocí Azure AD</span><span class="sxs-lookup"><span data-stu-id="14aa2-108">Calling a Web API in an ASP.NET Core Web Application Using Azure AD</span></span>](https://azure.microsoft.com/documentation/samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore/)
+## <a name="application-scenarios"></a><span data-ttu-id="30398-106">Scénáře aplikací</span><span class="sxs-lookup"><span data-stu-id="30398-106">Application Scenarios</span></span>
 
-## <a name="azure-ad-v2-samples"></a><span data-ttu-id="14aa2-109">Ukázky v Azure AD V2</span><span class="sxs-lookup"><span data-stu-id="14aa2-109">Azure AD V2 samples</span></span>
+* [<span data-ttu-id="30398-107">Rychlý Start: Přidání přihlašování s Microsoftem do webové aplikace ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="30398-107">Quickstart: Add sign-in with Microsoft to an ASP.NET Core web app</span></span>](/azure/active-directory/develop/quickstart-v2-aspnet-core-webapp)
+* [<span data-ttu-id="30398-108">Webová aplikace, která se přihlásí uživatelům</span><span class="sxs-lookup"><span data-stu-id="30398-108">Web app that signs in users</span></span>](/azure/active-directory/develop/scenario-web-app-sign-user-overview?tabs=aspnetcore)
+* [<span data-ttu-id="30398-109">Webová aplikace, která volá webová rozhraní API</span><span class="sxs-lookup"><span data-stu-id="30398-109">Web app that calls web APIs</span></span>](/azure/active-directory/develop/scenario-web-app-call-api-overview)
+* [<span data-ttu-id="30398-110">Chráněné webové rozhraní API</span><span class="sxs-lookup"><span data-stu-id="30398-110">Protected web API</span></span>](/azure/active-directory/develop/scenario-protected-web-api-overview)
+* [<span data-ttu-id="30398-111">Webové rozhraní API, které volá jiná webová rozhraní API</span><span class="sxs-lookup"><span data-stu-id="30398-111">Web API that calls other web APIs</span></span>](/azure/active-directory/develop/scenario-web-api-call-api-overview)
+* [<span data-ttu-id="30398-112">Webová aplikace, která přihlašuje uživatele pomocí Azure AD B2C</span><span class="sxs-lookup"><span data-stu-id="30398-112">Web app that signs in users with Azure AD B2C</span></span>](xref:security/authentication/azure-ad-b2c)
 
-<span data-ttu-id="14aa2-110">Následující ukázky ukazují, jak integrovat službu Azure AD v2 a umožnit uživatelům přihlašovat se pomocí pracovního a školního účtu nebo osobního účtu Microsoft (dřív živý účet):</span><span class="sxs-lookup"><span data-stu-id="14aa2-110">The following samples show how to integrate Azure AD V2, enabling users to sign-in with a work and school account or a Microsoft personal account (formerly Live account):</span></span>
-* <span data-ttu-id="14aa2-111">[Integrace Azure AD V2 do webové aplikace ASP.NET Core 2.0](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2):</span><span class="sxs-lookup"><span data-stu-id="14aa2-111">[Integrating Azure AD V2 into an ASP.NET Core 2.0 web app](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2):</span></span> 
-  * <span data-ttu-id="14aa2-112">Zobrazit [tohoto související videa](https://channel9.msdn.com/Events/Build/2018/THR5001)</span><span class="sxs-lookup"><span data-stu-id="14aa2-112">See [this associated video](https://channel9.msdn.com/Events/Build/2018/THR5001)</span></span> 
+## <a name="samples"></a><span data-ttu-id="30398-113">Ukázky</span><span class="sxs-lookup"><span data-stu-id="30398-113">Samples</span></span>
 
-* <span data-ttu-id="14aa2-113">[Volání ASP.NET Core 2.0 webového rozhraní API z aplikace WPF pomocí Azure AD V2](https://github.com/azure-samples/active-directory-dotnet-native-aspnetcore-v2):</span><span class="sxs-lookup"><span data-stu-id="14aa2-113">[Calling a ASP.NET Core 2.0 Web API from a WPF application using Azure AD V2](https://github.com/azure-samples/active-directory-dotnet-native-aspnetcore-v2):</span></span> 
-  * <span data-ttu-id="14aa2-114">Zobrazit [tohoto související videa](https://channel9.msdn.com/Events/Build/2018/THR5000)</span><span class="sxs-lookup"><span data-stu-id="14aa2-114">See [this associated video](https://channel9.msdn.com/Events/Build/2018/THR5000)</span></span>
+* <span data-ttu-id="30398-114">[Povolení aplikace ASP.NET Core pro přihlašování uživatelů a volání webových rozhraní API pomocí Azure AD v2](/samples/azure-samples/active-directory-aspnetcore-webapp-openidconnect-v2/enable-webapp-signin/):</span><span class="sxs-lookup"><span data-stu-id="30398-114">[Enable your ASP.NET Core app to sign-in users and call web APIs using Azure AD V2](/samples/azure-samples/active-directory-aspnetcore-webapp-openidconnect-v2/enable-webapp-signin/):</span></span> 
+  * <span data-ttu-id="30398-115">Zobrazit [tohoto související videa](https://channel9.msdn.com/Events/Build/2018/THR5001)</span><span class="sxs-lookup"><span data-stu-id="30398-115">See [this associated video](https://channel9.msdn.com/Events/Build/2018/THR5001)</span></span>
 
-## <a name="azure-ad-b2c-sample"></a><span data-ttu-id="14aa2-115">Ukázky Azure AD B2C</span><span class="sxs-lookup"><span data-stu-id="14aa2-115">Azure AD B2C sample</span></span>
+* <span data-ttu-id="30398-116">[Volání webového rozhraní API ASP.NET Core 2,0 z aplikace WPF pomocí Azure AD v2](/samples/azure-samples/active-directory-dotnet-native-aspnetcore-v2/calling-an-aspnet-core-web-api-from-a-wpf-application-using-azure-ad-v2/):</span><span class="sxs-lookup"><span data-stu-id="30398-116">[Calling an ASP.NET Core 2.0 Web API from a WPF application using Azure AD V2](/samples/azure-samples/active-directory-dotnet-native-aspnetcore-v2/calling-an-aspnet-core-web-api-from-a-wpf-application-using-azure-ad-v2/):</span></span> 
+  * <span data-ttu-id="30398-117">Zobrazit [tohoto související videa](https://channel9.msdn.com/Events/Build/2018/THR5000)</span><span class="sxs-lookup"><span data-stu-id="30398-117">See [this associated video](https://channel9.msdn.com/Events/Build/2018/THR5000)</span></span>
 
-<span data-ttu-id="14aa2-116">Tento příklad ukazuje, jak integrovat Azure AD B2C umožňuje uživatelům přihlásit se sociálními identitami (jako je Facebook, Google,...)</span><span class="sxs-lookup"><span data-stu-id="14aa2-116">This sample shows how to integrate Azure AD B2C, enabling users to sign-in with social identities (like Facebook, Google, ...)</span></span>
-* [<span data-ttu-id="14aa2-117">Webové ASP.NET Core API ve službě Azure AD B2C</span><span class="sxs-lookup"><span data-stu-id="14aa2-117">An ASP.NET Core web API with Azure AD B2C</span></span>](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/)
+* [<span data-ttu-id="30398-118">Webové ASP.NET Core API ve službě Azure AD B2C</span><span class="sxs-lookup"><span data-stu-id="30398-118">An ASP.NET Core web API with Azure AD B2C</span></span>](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/)
