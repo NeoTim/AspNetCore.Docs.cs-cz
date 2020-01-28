@@ -1,5 +1,7 @@
 - name: Dokumentace k ASP.NET Core
   href: '/aspnet/#pivot=core'
+- name: Novinky v dokumentaci k ASP.NET Core
+  href: whats-new/index.yml
 - name: Přehled
   items:
     - name: Informace o ASP.NET Core
@@ -10,7 +12,7 @@
       href: /dotnet/standard/choosing-core-framework-server?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
 - name: Začínáme
   uid: getting-started
-- name: Co je nového
+- name: Zpráva k vydání verze
   items:
     - name: Novinky ve verzi 3.1
       uid: aspnetcore-3.1
@@ -885,15 +887,27 @@
             - name: Přehled
               uid: security/authentication/azure-active-directory/index
             - name: Integrace Azure AD do webové aplikace
-              href: 'https://github.com/Azure-Samples/ms-identity-aspnetcore-webapp-tutorial'
-            - name: Integrace Azure AD B2C do webové aplikace
-              uid: security/authentication/azure-ad-b2c
-            - name: Integrace Azure AD B2C do webového rozhraní API
-              uid: security/authentication/azure-ad-b2c-webapi
-            - name: Volání webového rozhraní API z grafického subsystému WPF
-              href: 'https://github.com/Azure-Samples/active-directory-dotnet-native-aspnetcore'
-            - name: Volání webového rozhraní API ve webové aplikaci pomocí Azure AD
-              href: 'https://github.com/Azure-Samples/active-directory-dotnet-webapp-webapi-openidconnect-aspnetcore'
+              href: /azure/active-directory/develop/quickstart-v2-aspnet-core-webapp
+            - name: Scénáře
+              items:
+                - name: 'Webová aplikace, která přihlašuje uživatele'
+                  href: /azure/active-directory/develop/scenario-web-app-sign-user-overview?tabs=aspnetcore
+                - name: 'Webová aplikace, která volá webová rozhraní API'
+                  href: /azure/active-directory/develop/scenario-web-app-call-api-overview
+                - name: Chráněné webové rozhraní API
+                  href: /azure/active-directory/develop/scenario-protected-web-api-overview
+                - name: 'Webové rozhraní API, které volá jiná webová rozhraní API'
+                  href: /azure/active-directory/develop/scenario-web-api-call-api-overview
+                - name: Integrace Azure AD B2C do webové aplikace
+                  uid: security/authentication/azure-ad-b2c
+            - name: Ukázky
+              items:
+                - name: Přihlašování uživatelů a volání webových rozhraní API pomocí Azure AD V2
+                  href: /samples/azure-samples/active-directory-aspnetcore-webapp-openidconnect-v2/enable-webapp-signin/
+                - name: Volání webového rozhraní API ASP.NET Core 2.0 z aplikace WPF pomocí Azure AD V2
+                  href: /samples/azure-samples/active-directory-dotnet-native-aspnetcore-v2/calling-an-aspnet-core-web-api-from-a-wpf-application-using-azure-ad-v2/
+                - name: Webové rozhraní API s Azure AD B2C
+                  href: 'https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/'
         - name: Zabezpečení aplikací ASP.NET serverem IdentityServer4
           href: 'https://identityserver4.readthedocs.io/'
         - name: Zabezpečení aplikací ASP.NET Core ověřováním služby Azure App Service (Easy Auth)
