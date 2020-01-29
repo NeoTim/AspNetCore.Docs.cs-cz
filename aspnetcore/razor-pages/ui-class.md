@@ -3,15 +3,15 @@ title: Opakovaně použitelné Razor uživatelského rozhraní v knihovnách tř
 author: Rick-Anderson
 description: Vysvětluje, jak vytvářet opakovaně použitelné uživatelské rozhraní Razor pomocí částečných zobrazení v knihovně tříd v ASP.NET Core.
 ms.author: riande
-ms.date: 10/26/2019
+ms.date: 01/25/2020
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: b5235f4e31f6edd21fb410824fb215ab2d4a41b6
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: 420cc54701394673e2b442b1fdf999e421820fd5
+ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727285"
+ms.lasthandoff: 01/28/2020
+ms.locfileid: "76809117"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelného uživatelského rozhraní pomocí projektu knihovny tříd Razor v ASP.NET Core
 
@@ -86,7 +86,7 @@ Předpokládejme, že *RazorUIClassLib/stránek/Shared* obsahuje dva soubory č�
 
 ## <a name="create-an-rcl-with-static-assets"></a>Vytvoření RCL se statickými prostředky
 
-RCL může vyžadovat doprovodné statické prostředky, které mohou být odkazovány využitím aplikace RCL. ASP.NET Core umožňuje vytváření RCLs, které zahrnují statické prostředky, které jsou k dispozici pro náročné aplikace.
+RCL může vyžadovat doprovodné statické prostředky, na které lze odkazovat buď RCL, nebo náročné aplikace RCL. ASP.NET Core umožňuje vytváření RCLs, které zahrnují statické prostředky, které jsou k dispozici pro náročné aplikace.
 
 Chcete-li zahrnout doprovodné materiály jako součást RCL, vytvořte složku *wwwroot* v knihovně tříd a zahrňte všechny požadované soubory do této složky.
 
@@ -127,7 +127,7 @@ Zahrnutí souborů TypeScriptu do RCL:
 
 ### <a name="consume-content-from-a-referenced-rcl"></a>Využití obsahu z odkazovaného RCL
 
-Soubory zahrnuté ve složce *wwwroot* v RCL jsou zpřístupněné aplikacím, které jsou v předponě `_content/{LIBRARY NAME}/`. Například knihovna s názvem *Razor. Class. lib* má za následek cestu k statickému obsahu v `_content/Razor.Class.Lib/`. Když vytváříte balíček NuGet a název sestavení není stejný jako ID balíčku, použijte ID balíčku pro `{LIBRARY NAME}`.
+Soubory zahrnuté ve složce *wwwroot* v RCL jsou zpřístupněny buď RCL, nebo aplikacím, které využívají, v předponě `_content/{LIBRARY NAME}/`. Například knihovna s názvem *Razor. Class. lib* má za následek cestu k statickému obsahu v `_content/Razor.Class.Lib/`. Když vytváříte balíček NuGet a název sestavení není stejný jako ID balíčku, použijte ID balíčku pro `{LIBRARY NAME}`.
 
 Nenáročné aplikace odkazují na statické prostředky poskytované knihovnou pomocí `<script>`, `<style>`, `<img>`a dalších značek HTML. Vybírající aplikace musí mít povolenou [podporu statických souborů](xref:fundamentals/static-files) v `Startup.Configure`:
 

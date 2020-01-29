@@ -5,17 +5,17 @@ description: Zjistěte, jak ASP.NET Core Blazor jak Blazor spravuje neošetřen�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/22/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: fe4cc13b1efb8c70c9632f032626aa938fb65ea3
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 7b5602d5ae5e58d1678762fe1cd2adec1f31c969
+ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159947"
+ms.lasthandoff: 01/28/2020
+ms.locfileid: "76809000"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
 
@@ -112,7 +112,7 @@ Předchozí neošetřené výjimky jsou popsány v následujících částech to
 Když Blazor vytvoří instanci komponenty:
 
 * Je vyvolán konstruktor součásti.
-* Konstruktory jakékoliv nejednoznačné služby DI Services dodávané konstruktoru komponenty prostřednictvím direktivy [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component) nebo atributu [`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component) jsou vyvolány. 
+* Konstruktory jakékoliv nejednoznačné služby DI Services dodávané konstruktoru komponenty prostřednictvím direktivy [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component) nebo atributu [`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component) jsou vyvolány.
 
 Okruh se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter pro jakoukoliv `[Inject]` vlastnost vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
@@ -165,7 +165,7 @@ Pokud uživatelský kód neprovede soutisk a zpracuje výjimku, rozhraní zaprot
 
 ### <a name="component-disposal"></a>Vyřazení součásti
 
-Součást může být odebrána z uživatelského rozhraní, například proto, že uživatel přešel na jinou stránku. Když je komponenta, která implementuje <xref:System.IDisposable?displayProperty=fullName>, odebrána z uživatelského rozhraní, rozhraní zavolá metodu <xref:System.IDisposable.Dispose*> součásti. 
+Součást může být odebrána z uživatelského rozhraní, například proto, že uživatel přešel na jinou stránku. Když je komponenta, která implementuje <xref:System.IDisposable?displayProperty=fullName>, odebrána z uživatelského rozhraní, rozhraní zavolá metodu <xref:System.IDisposable.Dispose*> součásti.
 
 Pokud metoda `Dispose` komponenty vyvolá neošetřenou výjimku, je výjimka pro okruh závažná. Pokud logika vyřazení může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
@@ -192,16 +192,49 @@ Další informace najdete v tématu <xref:blazor/javascript-interop>.
 
 ### <a name="circuit-handlers"></a>Obslužné rutiny okruhu
 
-Blazor umožňuje kódu definovat *obslužnou rutinu okruhu*, která obdrží oznámení při změně stavu okruhu uživatele. Používají se následující stavy:
+Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
 
-* `initialized`
-* `connected`
-* `disconnected`
-* `disposed`
+```csharp
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.Server.Circuits;
 
-Oznámení se spravují pomocí registrace služby DI, která dědí z `CircuitHandler` abstraktní základní třídy.
+public class TrackingCircuitHandler : CircuitHandler
+{
+    private HashSet<Circuit> _circuits = new HashSet<Circuit>();
 
-Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka pro okruh závažná. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více příkazech [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+    public override Task OnConnectionUpAsync(Circuit circuit, 
+        CancellationToken cancellationToken)
+    {
+        _circuits.Add(circuit);
+
+        return Task.CompletedTask;
+    }
+
+    public override Task OnConnectionDownAsync(Circuit circuit, 
+        CancellationToken cancellationToken)
+    {
+        _circuits.Remove(circuit);
+
+        return Task.CompletedTask;
+    }
+
+    public int ConnectedCircuits => _circuits.Count;
+}
+```
+
+Obslužné rutiny okruhu jsou registrovány pomocí DI. Vymezené instance se vytvářejí pro jednotlivé instance okruhu. Pomocí `TrackingCircuitHandler` v předchozím příkladu je vytvořena služba typu Singleton, protože stav všech okruhů musí být sledován:
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    ...
+    services.AddSingleton<CircuitHandler, TrackingCircuitHandler>();
+}
+```
+
+Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro okruh serveru Blazor. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více příkazech [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
 ### <a name="circuit-disposal"></a>Vyřazení okruhů
 
@@ -224,7 +257,7 @@ Za běžných okolností, když se předvykreslování nepovede, pokračuje sest
 
 Chcete-li tolerovat chyby, ke kterým může dojít při předvykreslování, musí být logika zpracování chyb umístěna v rámci součásti, která může vyvolat výjimky. Použijte příkazy [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s ošetřením a protokolováním chyb. Namísto zabalení pomocníka značky `Component` v příkazu `try-catch`, umístěte logiku zpracování chyb do komponenty vygenerované pomocníkem `Component` značek.
 
-## <a name="advanced-scenarios"></a>Složitější scénáře
+## <a name="advanced-scenarios"></a>Pokročilé scénáře
 
 ### <a name="recursive-rendering"></a>Rekurzivní vykreslování
 
