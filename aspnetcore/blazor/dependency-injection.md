@@ -5,17 +5,17 @@ description: Podívejte se, jak Blazor aplikace můžou vkládat služby do sou�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/08/2020
+ms.date: 01/29/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/dependency-injection
-ms.openlocfilehash: fa6762522c831c7fbe2742dbfe4e25a377988e1e
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
-ms.translationtype: HT
+ms.openlocfilehash: 859fd484fc00104575f176fa7d3bf752895475a0
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 01/29/2020
-ms.locfileid: "76869561"
+ms.locfileid: "76885500"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>Vkládání závislostí ASP.NET Core Blazor
 
@@ -44,6 +44,69 @@ Vlastní zprostředkovatel služeb automaticky neposkytuje výchozí služby uve
 
 ## <a name="add-services-to-an-app"></a>Přidání služeb do aplikace
 
+### <a name="blazor-webassembly"></a>Blazor WebAssembly
+
+Nakonfigurujte služby pro kolekci služeb aplikace v metodě `Main` *program.cs*. V následujícím příkladu je `MyDependency` implementace registrována pro `IMyDependency`:
+
+```csharp
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.Services.AddSingleton<IMyDependency, MyDependency>();
+        builder.RootComponents.Add<App>("app");
+
+        await builder.Build().RunAsync();
+    }
+}
+```
+
+Po sestavení hostitele je možné služby získávat z kořenového oboru DI před vykreslením všech komponent. To může být užitečné pro spuštění logiky inicializace před vykreslením obsahu:
+
+```csharp
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.Services.AddSingleton<WeatherService>();
+        builder.RootComponents.Add<App>("app");
+
+        var host = builder.Build();
+
+        var weatherService = host.Services.GetRequiredService<WeatherService>();
+        await weatherService.InitializeWeatherAsync();
+
+        await host.RunAsync();
+    }
+}
+```
+
+Hostitel taky poskytuje centrální instanci konfigurace pro aplikaci. V předchozím příkladu je adresa URL služby počasí předána z výchozího zdroje konfigurace (například *appSettings. JSON*) do `InitializeWeatherAsync`:
+
+```csharp
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.Services.AddSingleton<WeatherService>();
+        builder.RootComponents.Add<App>("app");
+
+        var host = builder.Build();
+
+        var weatherService = host.Services.GetRequiredService<WeatherService>();
+        await weatherService.InitializeWeatherAsync(
+            host.Configuration["WeatherServiceUrl"]);
+
+        await host.RunAsync();
+    }
+}
+```
+
+### <a name="blazor-server"></a>Blazor Server
+
 Po vytvoření nové aplikace Projděte metodu `Startup.ConfigureServices`:
 
 ```csharp
@@ -61,6 +124,8 @@ public void ConfigureServices(IServiceCollection services)
     services.AddSingleton<IDataAccess, DataAccess>();
 }
 ```
+
+### <a name="service-lifetime"></a>Doba života služby
 
 Služby je možné konfigurovat s životností, která jsou uvedená v následující tabulce.
 
