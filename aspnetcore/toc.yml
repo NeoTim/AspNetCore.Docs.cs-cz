@@ -230,8 +230,6 @@
           uid: razor-pages/filter
         - name: Směrování a aplikační konvence
           uid: razor-pages/razor-pages-conventions
-        - name: Sada Razor SDK
-          uid: razor-pages/sdk
     - name: MVC
       items:
         - name: Přehled
@@ -409,21 +407,25 @@
               href: 'mvc/views/working-with-forms.md#the-validation-summary-tag-helper'
     - name: Upřesnit
       items:
+        - name: Části aplikace
+          uid: mvc/extensibility/app-parts
+        - name: Aplikační model
+          uid: mvc/controllers/application-model
+        - name: Oblasti
+          uid: mvc/controllers/areas
+        - name: Filtry
+          uid: mvc/controllers/filters
+        - name: Sada Razor SDK
+          uid: razor-pages/sdk
         - name: Komponenty zobrazení
           uid: mvc/views/view-components
         - name: Kompilace zobrazení
           uid: mvc/views/view-compilation
-        - name: Model aplikace
-          uid: mvc/controllers/application-model
-        - name: Filtry
-          uid: mvc/controllers/filters
-        - name: Oblasti
-          uid: mvc/controllers/areas
         - name: Nahrání souborů
           uid: mvc/models/file-uploads
-        - name: Součásti aplikace
-          uid: mvc/extensibility/app-parts
-        - name: aspnet-codegenerator
+        - name: Sada Web SDK
+          uid: razor-pages/web-sdk
+        - name: aspnet-codegenerator (Generování uživatelského rozhraní)
           uid: fundamentals/tools/dotnet-aspnet-codegenerator
 - name: Aplikace Web API
   items:
@@ -578,6 +580,8 @@
       uid: grpc/client
     - name: Integrace objektu pro vytváření klienta gRPC
       uid: grpc/clientfactory
+    - name: Použití gRPC v prohlížečových aplikacích
+      uid: grpc/browser
     - name: Konfigurace
       uid: grpc/configuration
     - name: Ověřování a autorizace
