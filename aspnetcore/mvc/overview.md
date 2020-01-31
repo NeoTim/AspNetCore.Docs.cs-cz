@@ -3,14 +3,14 @@ title: Přehled ASP.NET Core MVC
 author: ardalis
 description: Přečtěte si, jak ASP.NET Core MVC je bohatá architektura pro vytváření webových aplikací a rozhraní API pomocí vzorového vzoru pro zobrazení modelu.
 ms.author: riande
-ms.date: 11/07/2019
+ms.date: 01/28/2020
 uid: mvc/overview
-ms.openlocfilehash: 4f4ea3da8563cabaaa6183c6835c2f1eb8c387b4
-ms.sourcegitcommit: 67116718dc33a7a01696d41af38590fdbb58e014
+ms.openlocfilehash: a147c2aa01f1440f8ac59f73eb7be734193f802a
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/07/2019
-ms.locfileid: "73799486"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76869968"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -41,7 +41,7 @@ Zobrazení jsou zodpovědná za prezentaci obsahu prostřednictvím uživatelsk�
 
 ### <a name="controller-responsibilities"></a>Odpovědnosti řadiče
 
-Řadiče jsou komponenty, které zpracovávají interakci uživatele, pracují s modelem a nakonec vykreslí zobrazení, které se má vykreslit. V aplikaci MVC zobrazení zobrazuje pouze informace; kontroler zpracovává a reaguje na vstupy a interakce uživatele. Ve vzoru MVC je kontroler počátečním vstupním bodem a zodpovídá za výběr typů modelů, se kterými se má pracovat, a které zobrazení se má vykreslit (takže jeho název určuje, jak aplikace reaguje na daný požadavek).
+Řadiče jsou komponenty, které zpracovávají interakci uživatele, pracují s modelem a nakonec vykreslí zobrazení, které se má vykreslit. V aplikaci MVC zobrazení pouze zobrazuje informace, zatímco kontroler zpracovává vstup uživatele a interakci s uživatelem a reaguje na ně. Ve vzoru MVC je kontroler počátečním vstupním bodem a zodpovídá za výběr typů modelů, se kterými se má pracovat, a které zobrazení se má vykreslit (takže jeho název určuje, jak aplikace reaguje na daný požadavek).
 
 > [!NOTE]
 > Řadiče by neměly být příliš komplikované o příliš mnoho zodpovědností. Aby se logika kontroléru stala nepřesnou složitou, měla by být nabízena obchodní logika z kontroleru a do doménového modelu.
@@ -62,7 +62,7 @@ ASP.NET Core MVC zahrnuje následující:
 * [Směrování](#routing)
 * [Vazby modelu](#model-binding)
 * [Ověření modelu](#model-validation)
-* [Vkládání závislostí](../fundamentals/dependency-injection.md)
+* [Injektáž závislostí](../fundamentals/dependency-injection.md)
 * [Filtry](#filters)
 * [Oblasti](#areas)
 * [Webová rozhraní API](#web-apis)
@@ -255,7 +255,8 @@ Metoda <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtension
 
 Další informace najdete v tématu <xref:mvc/compatibility-version>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [MyTested. AspNetCore. Mvc-Fluent test Library pro ASP.NET Core Mvc](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; knihovnu testování jednotek se silnými typy a poskytuje rozhraní Fluent pro testování MVC a webových aplikací API. (*Společnost Microsoft nespravuje ani nepodporuje.* )
+* [Integrace součástí Razor do aplikací Razor Pages a MVC](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
 

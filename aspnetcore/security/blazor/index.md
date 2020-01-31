@@ -5,19 +5,19 @@ description: Přečtěte si o Blazor scénářích ověřování a autorizace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/29/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: 2ce2cff8d3ab77f21181070b6f1e48c50561036c
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: e9087c246f4805e5931180fa0869fc8a8d23a6c1
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160285"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885595"
 ---
-# <a name="aspnet-core-opno-locblazor-authentication-and-authorization"></a>Ověřování a autorizace ASP.NET Core Blazor
+# <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
@@ -25,28 +25,28 @@ Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
 ASP.NET Core podporuje konfiguraci a správu zabezpečení v aplikacích Blazor.
 
-Scénáře zabezpečení se liší mezi Blazor serverem a Blazor aplikacemi WebAssembly. Vzhledem k tomu, že aplikace Blazor server běží na serveru, kontroly autorizace mohou určit:
+Scénáře zabezpečení se liší mezi Blazor serverem a Blazor aplikacemi WebAssembly. Vzhledem k tomu, že aplikace Blazor serveru běží na serveru, kontroly autorizace můžou určit:
 
 * Možnosti uživatelského rozhraní prezentované uživateli (například položky nabídky, které jsou k dispozici uživateli).
 * Pravidla přístupu pro oblasti aplikace a součástí
 
-aplikace Blazor WebAssembly běží na klientovi. Autorizace se používá *jenom* k určení možností uživatelského rozhraní, které se mají zobrazit. Vzhledem k tomu, že kontroly na straně klienta mohou být upraveny nebo vynechány uživatelem, aplikace Blazor WebAssembly nemůže vyhovět autorizačním pravidlům.
+Blazor aplikace WebAssembly běží na klientovi. Autorizace se používá *jenom* k určení možností uživatelského rozhraní, které se mají zobrazit. Vzhledem k tomu, že kontroly na straně klienta mohou být upraveny nebo vynechány uživatelem, aplikace Blazor WebAssembly nemůže vyhovět autorizačním pravidlům.
 
 ## <a name="authentication"></a>Ověřování
 
-Blazor používá ke zřízení identity uživatele existující mechanismy ověřování ASP.NET Core. Přesný mechanismus závisí na tom, jak je aplikace Blazor hostovaná, Blazor Server nebo Blazor WebAssembly.
+Blazor používá k vytvoření identity uživatele existující mechanismy ověřování ASP.NET Core. Přesný mechanismus závisí na tom, jak je aplikace Blazor hostovaná, Blazor Server nebo Blazor WebAssembly.
 
-### <a name="opno-locblazor-server-authentication"></a>ověřování serveru Blazor
+### <a name="blazor-server-authentication"></a>Ověřování serveru Blazor
 
-aplikace Blazor serveru fungují prostřednictvím připojení v reálném čase vytvořeného pomocí SignalR. [Ověřování v SignalRch aplikacích](xref:signalr/authn-and-authz) se zpracovává při navázání připojení. Ověřování může být založené na souboru cookie nebo nějakém jiném nosným tokenu.
+Blazor serverové aplikace pracují přes připojení v reálném čase, které je vytvořené pomocí signálu. [Ověřování v aplikacích založených na službě Signal](xref:signalr/authn-and-authz) se zpracovává při navázání připojení. Ověřování může být založené na souboru cookie nebo nějakém jiném nosným tokenu.
 
-Šablona projektu Blazor serveru může pro vás nastavit ověřování při vytvoření projektu.
+Šablona projektu serveru Blazor může pro vás nastavit ověřování při vytvoření projektu.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Pokud chcete vytvořit nový projekt Blazor serveru pomocí ověřovacího mechanismu, postupujte podle pokynů pro Visual Studio v tématu <xref:blazor/get-started>.
+Pokud chcete vytvořit nový projekt serveru Blazor s mechanismem ověřování, postupujte podle pokynů pro Visual Studio v tématu <xref:blazor/get-started>.
 
-Po výběru šablony **aplikaceBlazor serveru** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
+Po výběru šablony **aplikace Blazor serveru** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
 
 Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pro jiné projekty ASP.NET Core:
 
@@ -59,7 +59,7 @@ Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pr
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Pokud chcete vytvořit nový projekt Blazor Server s mechanismem ověřování, postupujte podle pokynů Visual Studio Code v článku <xref:blazor/get-started>.
+Postupujte podle pokynů Visual Studio Code v článku <xref:blazor/get-started> a vytvořte nový projekt serveru Blazor s mechanismem ověřování:
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -70,8 +70,8 @@ V následující tabulce jsou uvedeny přípustné hodnoty ověřování (`{AUTH
 | Mechanismus ověřování                                                                 | hodnota `{AUTHENTICATION}` |
 | ---------------------------------------------------------------------------------------- | :----------------------: |
 | Bez ověřování                                                                        | `None`                   |
-| Jednotlivec<br>Uživatelé uložení v aplikaci pomocí ASP.NET Core identity                        | `Individual`             |
-| Jednotlivec<br>Uživatelé uložení v [Azure AD B2C](xref:security/authentication/azure-ad-b2c). | `IndividualB2C`          |
+| Jednoho<br>Uživatelé uložení v aplikaci pomocí ASP.NET Core identity                        | `Individual`             |
+| Jednoho<br>Uživatelé uložení v [Azure AD B2C](xref:security/authentication/azure-ad-b2c). | `IndividualB2C`          |
 | Pracovní nebo školní účty<br>Ověřování organizace pro jednoho tenanta.            | `SingleOrg`              |
 | Pracovní nebo školní účty<br>Ověřování organizace pro více tenantů.           | `MultiOrg`               |
 | Ověřování Windows                                                                   | `Windows`                |
@@ -191,13 +191,26 @@ namespace BlazorSample.Services
 }
 ```
 
-Služba `CustomAuthStateProvider` je registrovaná v `Startup.ConfigureServices`:
+V Blazor aplikaci WebAssembly je `CustomAuthStateProvider` služba zaregistrovaná v `Main` *program.cs*:
 
 ```csharp
-// using Microsoft.AspNetCore.Components.Authorization;
-// using BlazorSample.Services;
+using Microsoft.AspNetCore.Blazor.Hosting;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.DependencyInjection;
+using BlazorSample.Services;
 
-services.AddScoped<AuthenticationStateProvider, CustomAuthStateProvider>();
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.Services.AddScoped<AuthenticationStateProvider, 
+            CustomAuthStateProvider>();
+        builder.RootComponents.Add<App>("app");
+
+        await builder.Build().RunAsync();
+    }
+}
 ```
 
 Pomocí `CustomAuthStateProvider`se všechny uživatele ověřují pomocí uživatelského jména `mrfibuli`.

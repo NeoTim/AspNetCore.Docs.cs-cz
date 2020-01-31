@@ -3,15 +3,15 @@ title: Přidat, stažení a odstranění dat uživatele na identitu v projektu a
 author: rick-anderson
 description: Zjistěte, jak přidat vlastní uživatelská data na identitu v projektu aplikace ASP.NET Core. Odstraníte data podle nařízení GDPR.
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 01/28/2020
 ms.custom: mvc, seodec18
 uid: security/authentication/add-user-data
-ms.openlocfilehash: f54df68834cd3e2493e558aaab9851f036f3f01b
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: e08c02e2e5d4a429aae10c59e7ae3ea48c975067
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880759"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885556"
 ---
 # <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>Přidání, stáhněte si a odstranit vlastní uživatelská data na identitu v projektu aplikace ASP.NET Core
 
@@ -78,15 +78,15 @@ dotnet new webapp -o WebApp1
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt > **přidat** > **novou vygenerovanou položku**.
-* V levém podokně **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **Identity** > **přidat**.
-* V **ADD Identity** dialogové okno, následující možnosti:
+* V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identita** > **Přidat**.
+* V dialogovém okně **Přidat identitu** tyto možnosti:
   * Vyberte existující soubor rozložení *~/Pages/Shared/_Layout.cshtml*
   * Vyberte následující soubory, které chcete přepsat:
     * **Účtu/registrace**
     * **Účet a správa/indexu**
   * Vyberte **+** tlačítko pro vytvoření nového **třída kontextu dat**. Přijmout typ (**WebApp1.Models.WebApp1Context** Pokud je název projektu **WebApp1**).
   * Vyberte **+** tlačítko pro vytvoření nového **třídu uživatelů**. Přijmout typ (**WebApp1User** Pokud je název projektu **WebApp1**) > **přidat**.
-* Vyberte **přidat**.
+* Vyberte **Přidat**.
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 

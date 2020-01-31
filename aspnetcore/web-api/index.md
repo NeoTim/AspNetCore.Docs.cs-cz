@@ -5,20 +5,20 @@ description: Seznamte se se základy vytváření webového rozhraní API v ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 11/22/2019
+ms.date: 01/27/2020
 uid: web-api/index
-ms.openlocfilehash: 5ef8b4d012f4ed90339ffea191612e4dc365d958
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 8609e2095c202643cdc905cc610298195b654215
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880533"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870014"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytváření webových rozhraní API pomocí ASP.NET Core
 
 [Scott Addie](https://github.com/scottaddie) a [Dykstra](https://github.com/tdykstra)
 
-ASP.NET Core podporuje vytváření služeb RESTful v jazyce C# (služby RESTful se označují také jako webová rozhraní API). Webové rozhraní API zpracovává žádosti pomocí řadičů. *Řadiče* ve webovém rozhraní API jsou třídy, které jsou odvozeny z `ControllerBase`. V tomto článku se dozvíte, jak používat řadiče pro zpracování požadavků webového rozhraní API.
+ASP.NET Core podporuje vytváření služeb RESTful, označovaných také jako webová rozhraní API C#, pomocí. Webové rozhraní API zpracovává žádosti pomocí řadičů. *Řadiče* ve webovém rozhraní API jsou třídy, které jsou odvozeny z `ControllerBase`. V tomto článku se dozvíte, jak používat řadiče pro zpracování požadavků webového rozhraní API.
 
 [Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
 
@@ -78,13 +78,28 @@ Seznam, který obsahuje dostupné atributy, najdete v oboru názvů <xref:Micros
 
 Atribut [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) lze použít pro třídu kontroleru, aby bylo možné povolit následující dogmatickým chování specifické pro rozhraní API:
 
+::: moniker range=">= aspnetcore-2.2"
+
 * [Požadavek na směrování atributu](#attribute-routing-requirement)
 * [Automatické odpovědi HTTP 400](#automatic-http-400-responses)
 * [Odvození zdrojového parametru vazby](#binding-source-parameter-inference)
 * [Multipart/form-odvození požadavku na data](#multipartform-data-request-inference)
 * [Podrobnosti o problémech stavových kódů chyb](#problem-details-for-error-status-codes)
 
+*Podrobnosti o problému pro stavové kódy chyb* vyžadují [kompatibilitu verze](xref:mvc/compatibility-version) 2,2 nebo novější. Ostatní funkce vyžadují verzi kompatibility 2,1 nebo novější.
+
+::: moniker-end
+
+::: moniker range="= aspnetcore-2.1"
+
+* [Požadavek na směrování atributu](#attribute-routing-requirement)
+* [Automatické odpovědi HTTP 400](#automatic-http-400-responses)
+* [Odvození zdrojového parametru vazby](#binding-source-parameter-inference)
+* [Multipart/form-odvození požadavku na data](#multipartform-data-request-inference)
+
 Tyto funkce vyžadují [kompatibilitu verze](xref:mvc/compatibility-version) 2,1 nebo novější.
+
+::: moniker-end
 
 ### <a name="attribute-on-specific-controllers"></a>Atribut na určitých řadičích
 
@@ -243,7 +258,7 @@ Zdrojový atribut vazby definuje umístění, kde je nalezena hodnota parametru 
 |---------|---------|
 |[`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)     | Tělo požadavku |
 |[`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)     | Data formuláře v textu žádosti |
-|[`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) | Hlavička požadavku |
+|[`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) | Hlavička žádosti |
 |[`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)   | Parametr řetězce dotazu žádosti |
 |[`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)   | Směrovat data z aktuální žádosti |
 |[`[FromServices]`](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) | Služba požadavku byla vložena jako parametr akce. |

@@ -5,12 +5,12 @@ description: Přidání zobrazení do jednoduché ASP.NET Core aplikace MVC
 ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: de75c3b0651c0cda6629af786d7db9dc83bc4fef
-ms.sourcegitcommit: 020c3760492efed71b19e476f25392dda5dd7388
+ms.openlocfilehash: a25233968f115c6e3a214d97cf2ca5ab81df8d83
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/12/2019
-ms.locfileid: "72288822"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870425"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do ASP.NET Core aplikace MVC
 
@@ -61,9 +61,9 @@ Přidejte zobrazení `Index` pro `HelloWorldController`.
 * Klikněte pravým tlačítkem na složku *views/HelloWorld* a pak **přidejte > nový soubor**.
 * V **nový soubor** dialogové okno:
 
-  * V levém podokně vyberte **Web** .
-  * V prostředním podokně vyberte **prázdný soubor HTML** .
-  * Do pole **název** zadejte *index. cshtml* .
+  * V levém podokně vyberte **ASP .NET Core** .
+  * V prostředním podokně vyberte **stránku zobrazení MVC** .
+  * Do pole **název** zadejte *index* .
   * Vyberte **Nový**.
 
 ![Dialogové okno Přidat novou položku](adding-view/_static/add_view_mac.png)

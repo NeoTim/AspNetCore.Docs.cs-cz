@@ -6,7 +6,7 @@ Změny v dokumentaci k rozhraní API se provádí v [úložišti ApiDocs](https:
 
 Změny v dokumentaci ASP.NET 4. x se provádějí v [úložišti ASPNET/AspNetDocs](https://github.com/aspnet/AspNetDocs).
 
-## <a name="microsoft-open-source-code-of-conduct"></a>Pravidla chování pro účast v opensourcových komunitách Microsoftu
+## <a name="microsoft-open-source-code-of-conduct"></a>Pravidla chování pro open source společnosti Microsoft
 
-Tento projekt přijal [pravidla chování pro účast v opensourcových komunitách Microsoftu](https://opensource.microsoft.com/codeofconduct/).
-Další informace najdete v [nejčastějších dotazech k pravidlům chování](https://opensource.microsoft.com/codeofconduct/faq/). S případnými dalšími dotazy nebo připomínkami se obraťte na adresu [opencode@microsoft.com](mailto:opencode@microsoft.com).
+Tento projekt přijal [pravidla chování pro Microsoft Open Source](https://opensource.microsoft.com/codeofconduct/).
+Další informace najdete v tématu [Nejčastější dotazy týkající se kódu, časté](https://opensource.microsoft.com/codeofconduct/faq/) otázky nebo kontaktování [opencode@microsoft.com](mailto:opencode@microsoft.com) s dalšími dotazy nebo komentáři.

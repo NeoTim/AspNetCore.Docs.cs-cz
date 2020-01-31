@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zaměřená na stránce scénáře jednodušší a produktivnější než pomocí MVC.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 01/18/2020
+ms.date: 01/28/2020
 uid: razor-pages/index
-ms.openlocfilehash: 69c9f09aa0e3dbdbe78720c573b5e1fc63464571
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: da30908b38d553405fd3f959f09a19eff750ed17
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294655"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870502"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor Pages v ASP.NET Core
 
@@ -149,7 +149,7 @@ Základní tok `OnPostAsync`:
 Kontrola chyb ověřování.
 
 * V případě, že nejsou k dispozici žádné chyby, uložte data a přesměrujte je.
-* Pokud dojde k chybám, zobrazte stránku znovu s ověřovacími zprávami. V mnoha případech by se v klientovi zjistily chyby ověřování a nikdy by se neodeslaly na server.
+* Pokud dojde k chybám, zobrazte stránku znovu s ověřovacími zprávami. V mnoha případech by se v klientovi zjistily chyby ověřování a nikdy se neodeslaly na server.
 
 Soubor zobrazení *Pages/Create. cshtml* :
 
@@ -309,7 +309,7 @@ Atributy ověřování určují chování, které se má vyhovět pro vlastnosti
   * Vyžaduje, aby byl první znak velkým písmenem.
   * Umožňuje speciální znaky a čísla v následujících mezerách. "PG-13" je platné pro hodnocení, ale pro "Žánr" se nezdařilo.
 
-* Atribut `Range` omezuje hodnotu v konkrétním rozsahu.
+* Atribut `Range` omezuje hodnotu na v zadaném rozsahu.
 * Atribut `StringLength` nastaví maximální délku řetězcové vlastnosti a volitelně její minimální délku.
 * Typy hodnot (například `decimal`, `int`, `float`, `DateTime`) jsou podstatou požadovány a nepotřebují atribut `[Required]`.
 
@@ -603,6 +603,7 @@ Přidejte <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBui
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:test/razor-pages-tests>
 * <xref:mvc/views/partial>
+* [Integrace součástí Razor do aplikací Razor Pages a MVC](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
 
 ::: moniker-end
 
@@ -719,7 +720,7 @@ Třída `PageModel` umožňuje oddělení logiky stránky od její prezentace. D
 * Správa závislostí stránky prostřednictvím [vkládání závislostí](xref:fundamentals/dependency-injection).
 * [Testování částí](xref:test/razor-pages-tests) stránky
 
-Stránka obsahuje *metodu obslužné rutiny*`OnPostAsync`, která běží na žádostech `POST` (když uživatel formulář odešle). Můžete přidat metody obslužné rutiny pro jakýkoli příkaz HTTP. Nejběžnější obslužné rutiny jsou:
+Stránka obsahuje *metodu obslužné rutiny*`OnPostAsync`, která běží na žádostech `POST` (když uživatel formulář odešle). Můžete přidat metody obslužné rutiny pro libovolný příkaz HTTP. Nejběžnější obslužné rutiny jsou:
 
 * `OnGet` k inicializaci stavu potřebného pro stránku. Ukázka [OnGet](#OnGet)
 * `OnPost` pro zpracování odesílání formulářů.
@@ -740,7 +741,7 @@ Základní tok `OnPostAsync`:
 Kontrola chyb ověřování.
 
 * V případě, že nejsou k dispozici žádné chyby, uložte data a přesměrujte je.
-* Pokud dojde k chybám, zobrazte stránku znovu s ověřovacími zprávami. Ověřování na straně klienta je stejné jako tradiční aplikace ASP.NET Core MVC. V mnoha případech by se v klientovi zjistily chyby ověřování a nikdy by se neodeslaly na server.
+* Pokud dojde k chybám, zobrazte stránku znovu s ověřovacími zprávami. Ověřování na straně klienta je stejné jako tradiční aplikace ASP.NET Core MVC. V mnoha případech by se v klientovi zjistily chyby ověřování a nikdy se neodeslaly na server.
 
 Po úspěšném zadání dat metoda obslužné rutiny `OnPostAsync` volá pomocnou metodu `RedirectToPage`, aby vrátila instanci `RedirectToPageResult`. `RedirectToPage` je nový výsledek akce, podobně jako `RedirectToAction` nebo `RedirectToRoute`, ale přizpůsobený pro stránky. V předchozí ukázce přesměruje na stránku kořenového indexu (`/Index`). `RedirectToPage` je podrobně popsána v části [generování adresy URL pro stránky](#url_gen) .
 

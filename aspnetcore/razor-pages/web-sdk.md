@@ -7,12 +7,12 @@ ms.date: 01/25/2020
 no-loc:
 - Blazor
 uid: razor-pages/web-sdk
-ms.openlocfilehash: 49e21e1a432149409a01550452cedf4009dcfba7
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
-ms.translationtype: HT
+ms.openlocfilehash: 6a9d531efd2188aed525c949bb124914c31119db
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76830672"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76869763"
 ---
 # <a name="aspnet-core-web-sdk"></a>ASP.NET Core web SDK
 
@@ -26,7 +26,7 @@ ms.locfileid: "76830672"
 Použijte web. SDK v projektu:
 
   ```xml
-  <Project SDK="Microsoft.NET.Sdk.Web">
+  <Project Sdk="Microsoft.NET.Sdk.Web">
     <!-- omitted for brevity -->
   </Project>
   ```
@@ -37,7 +37,7 @@ Funkce, které jsou povolené pomocí webové sady SDK:
 
   * [ASP.NET Core sdílené rozhraní](xref:fundamentals/metapackage-app).
   * [Analyzátory](/visualstudio/extensibility/getting-started-with-roslyn-analyzers) navržené pro vytváření ASP.NET Corech aplikací
-* WebSDK umožňuje cíle MSBuild, které umožňují použití profilů publikování a publikování pomocí nástroje WebDeploy.
+* Webová sada SDK importuje cíle MSBuild, které umožňují použití profilů publikování a publikování pomocí nástroje WebDeploy.
 
 ### <a name="properties"></a>Vlastnosti
 

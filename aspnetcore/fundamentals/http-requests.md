@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/16/2019
 uid: fundamentals/http-requests
-ms.openlocfilehash: 482f8e28c23c621cecaf9ce111d89e9166ea6d85
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.openlocfilehash: 9b9da82191a587be0603ee114562e9a964f05250
+ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722723"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76870395"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -42,7 +42,7 @@ Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
 Nejlepší přístup závisí na požadavcích aplikace.
 
-### <a name="basic-usage"></a>Základní použití
+### <a name="basic-usage"></a>Základní využití
 
 `IHttpClientFactory` lze zaregistrovat voláním `AddHttpClient`:
 
@@ -231,7 +231,7 @@ K dispozici jsou rozšiřující metody umožňující použití zásad Polly s 
 K chybám obvykle dochází, když jsou externí volání HTTP přechodný. <xref:Microsoft.Extensions.DependencyInjection.PollyHttpClientBuilderExtensions.AddTransientHttpErrorPolicy*> umožňuje definovat zásadu pro zpracování přechodných chyb. Zásady nakonfigurované pomocí `AddTransientHttpErrorPolicy` zpracovávají následující odpovědi:
 
 * <xref:System.Net.Http.HttpRequestException>
-* HTTP 5xx
+* 5xx HTTP
 * HTTP 408
 
 `AddTransientHttpErrorPolicy` poskytuje přístup k objektu `PolicyBuilder` nakonfigurovanému pro zpracování chyb představujících možnou přechodnou chybu:
@@ -307,7 +307,7 @@ Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpCl
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
-### <a name="cookies"></a>Cookies
+### <a name="cookies"></a>Soubory cookie
 
 Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
@@ -353,6 +353,22 @@ V následujícím příkladu:
 
 [!code-csharp[](http-requests/samples/3.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
 
+## <a name="header-propagation-middleware"></a>Middleware šíření hlaviček
+
+Šíření hlaviček je ASP.NET Core middleware pro šíření hlaviček protokolu HTTP z příchozího požadavku do odchozích požadavků klienta HTTP. Použití rozšíření hlavičky:
+
+* Odkázat na balíček [Microsoft. AspNetCore. HeaderPropagation](https://www.nuget.org/packages/Microsoft.AspNetCore.HeaderPropagation) .
+* Konfigurace middlewaru a `HttpClient` v `Startup`:
+
+  [!code-csharp[](http-requests/samples/3.x/Startup.cs?highlight=5-9,21&name=snippet)]
+
+* Klient zahrnuje nakonfigurovaná záhlaví na odchozích žádostech:
+
+  ```C#
+  var client = clientFactory.CreateClient("MyForwardingClient");
+  var response = client.GetAsync(...);
+  ```
+
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests)
@@ -386,7 +402,7 @@ Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
 Žádná z nich není výhradně nadřízena jiným. Nejlepší přístup závisí na omezeních aplikace.
 
-### <a name="basic-usage"></a>Základní použití
+### <a name="basic-usage"></a>Základní využití
 
 `IHttpClientFactory` lze zaregistrovat voláním metody rozšíření `AddHttpClient` na `IServiceCollection`v rámci metody `Startup.ConfigureServices`.
 
@@ -609,7 +625,7 @@ Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpCl
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
-### <a name="cookies"></a>Cookies
+### <a name="cookies"></a>Soubory cookie
 
 Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
@@ -691,7 +707,7 @@ Existuje několik způsobů, jak `IHttpClientFactory` lze v aplikaci použít:
 
 Žádná z nich není výhradně nadřízena jiným. Nejlepší přístup závisí na omezeních aplikace.
 
-### <a name="basic-usage"></a>Základní použití
+### <a name="basic-usage"></a>Základní využití
 
 `IHttpClientFactory` lze zaregistrovat voláním metody rozšíření `AddHttpClient` na `IServiceCollection`v rámci metody `Startup.ConfigureServices`.
 
@@ -917,7 +933,7 @@ Předchozí přístupy vyřeší problémy správy prostředků, které `IHttpCl
 - `SocketsHttpHandler` sdílí připojení mezi `HttpClient` instancemi. Toto sdílení zabraňuje vyčerpání soketů.
 - `SocketsHttpHandler` zacykluje připojení podle `PooledConnectionLifetime`, aby se předešlo zastaralým problémům se službou DNS.
 
-### <a name="cookies"></a>Cookies
+### <a name="cookies"></a>Soubory cookie
 
 Instance `HttpMessageHandler` ve fondu mají za následek sdílení objektů `CookieContainer`. Neočekávané sdílení objektů `CookieContainer` často způsobuje nesprávný kód. U aplikací, které vyžadují soubory cookie, zvažte jednu z těchto akcí:
 
@@ -962,6 +978,23 @@ V následujícím příkladu:
 * `Main` vytvoří obor pro spuštění metody `GetPage` služby a zapíše první 500 znaků obsahu webové stránky do konzoly.
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactoryConsoleSample/Program.cs?highlight=14-15,20,26-27,59-62)]
+
+## <a name="header-propagation-middleware"></a>Middleware šíření hlaviček
+
+Šíření hlaviček představuje middleware podporovanou komunitou pro šíření hlaviček protokolu HTTP z příchozího požadavku na odchozí požadavky klienta HTTP. Použití rozšíření hlavičky:
+
+* Odkaz na podporovaný port komunity balíčku [HeaderPropagation](https://www.nuget.org/packages/HeaderPropagation). ASP.NET Core 3,1 a novější podporuje [Microsoft. AspNetCore. HeaderPropagation](https://www.nuget.org/packages/Microsoft.AspNetCore.HeaderPropagation).
+
+* Konfigurace middlewaru a `HttpClient` v `Startup`:
+
+  [!code-csharp[](http-requests/samples/2.x/Startup21.cs?highlight=5-9,25&name=snippet)]
+
+* Klient zahrnuje nakonfigurovaná záhlaví na odchozích žádostech:
+
+  ```C#
+  var client = clientFactory.CreateClient("MyForwardingClient");
+  var response = client.GetAsync(...);
+  ```
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 

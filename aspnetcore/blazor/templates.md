@@ -5,17 +5,17 @@ description: Přečtěte si o ASP.NET Core Blazor šablonách aplikací a Blazor
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/29/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 2a95b986450471b474d93ead252255f2bd9d4918
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: acfa4b8a42cbd310c6fc6dc973573578e94ef999
+ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160116"
+ms.lasthandoff: 01/29/2020
+ms.locfileid: "76885505"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>Šablony ASP.NET Core Blazor
 
@@ -36,16 +36,20 @@ Podrobné pokyny k vytvoření aplikace Blazor ze šablony naleznete v tématu <
 
 Následující soubory a složky tvoří aplikaci Blazor vygenerovanou z šablony Blazor:
 
-* *Program.cs* &ndash; vstupním bodem aplikace, který nastaví ASP.NET Core [hostitele](xref:fundamentals/host/generic-host). Kód v tomto souboru je společný pro všechny ASP.NET Core aplikace generované ze šablon ASP.NET Core.
+* *Program.cs* &ndash; vstupním bodem aplikace, který nastaví:
 
-* *Startup.cs* &ndash; obsahuje logiku spouštění aplikace. Třída `Startup` definuje dvě metody:
+  * [Hostitel](xref:fundamentals/host/generic-host) ASP.NET Core (Blazor Server)
+  * Hostitel WebAssembly (Blazor WebAssembly) &ndash; kód v tomto souboru je jedinečný pro aplikace vytvořené ze šablony Blazor WebAssembly (`blazorwasm`).
+    * Komponenta `App`, která je kořenovou komponentou aplikace, je zadána jako `app` elementu DOM do metody `Add`.
+    * Služby je možné konfigurovat pomocí metody `ConfigureServices` v Tvůrci hostitele (například `builder.Services.AddSingleton<IMyDependency, MyDependency>();`).
+    * Konfiguraci lze dodávat prostřednictvím tvůrce hostitele (`builder.Configuration`).
+
+* *Startup.cs* (Blazor Server) &ndash; obsahuje logiku spouštění aplikace. Třída `Startup` definuje dvě metody:
 
   * `ConfigureServices` &ndash; konfiguruje služby [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. V aplikacích Blazor Server se služby přidávají voláním <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor*>a `WeatherForecastService` se přidá do kontejneru služby pro použití v ukázkové součásti `FetchData`.
   * `Configure` &ndash; nakonfiguruje kanál zpracování žádostí aplikace:
-    * Blazor rozhraní WebAssembly &ndash; přidá součást `App` (zadaná jako element modelu DOM `app` do metody `AddComponent`), která je kořenovou komponentou aplikace.
-    * Server Blazor
-      * k nastavení koncového bodu pro připojení v reálném čase pomocí prohlížeče se volá <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*>. Připojení se vytvoří pomocí [SignalR](xref:signalr/introduction), což je rozhraní, které umožňuje přidávat do aplikací webové funkce v reálném čase.
-      * [MapFallbackToPage ("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*) se zavolá, aby se nastavila Kořenová stránka aplikace (*pages/_Host. cshtml*) a povolila se navigace.
+    * k nastavení koncového bodu pro připojení v reálném čase pomocí prohlížeče se volá <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*>. Připojení se vytvoří pomocí [SignalR](xref:signalr/introduction), což je rozhraní, které umožňuje přidávat do aplikací webové funkce v reálném čase.
+    * [MapFallbackToPage ("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*) se zavolá, aby se nastavila Kořenová stránka aplikace (*pages/_Host. cshtml*) a povolila se navigace.
 
 * *wwwroot/index.html* (Blazor webové sestavení) &ndash; kořenovou stránku aplikace implementované jako stránka HTML:
   * Po prvním vyžádání stránky aplikace se tato stránka vykreslí a vrátí v odpovědi.
