@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 880d1762ebbea641c0b9c5a9f8bbca0b68a463c5
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: 1a83b7d1b211862793e3ba086234b97248f9ae70
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726660"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928491"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -310,7 +310,7 @@ Moduly zabezpečení Linux (LSM) jsou rozhraní, které je součástí jádra Li
 
 ### <a name="configure-the-firewall"></a>Konfigurace brány firewall
 
-Zavřete všechny externí porty, které se nepoužívají. Nesložitá brána firewall (UFW) poskytuje front-end pro `iptables` poskytnutím rozhraní příkazového řádku pro konfiguraci brány firewall.
+Zavřete všechny externí porty, které se nepoužívají. Nesložitá brána firewall (UFW) poskytuje front-end pro `iptables` tím, že poskytuje rozhraní příkazového řádku pro konfiguraci brány firewall.
 
 > [!WARNING]
 > Brána firewall zabrání přístupu k celému systému, pokud není správně nakonfigurovaný. Pokud se k připojení použijete přes SSH, nebudete moct zadat správný port SSH. Výchozí port je 22. Další informace najdete v [úvodu k UFW](https://help.ubuntu.com/community/UFW) a [příručce](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html).

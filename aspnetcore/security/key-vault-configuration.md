@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/16/2019
 uid: security/key-vault-configuration
-ms.openlocfilehash: 37ba756cc4170c145d2ab1f9f0a465057cc826c1
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: cd31094884f53f34d55c0bceabae41ca2bacba4c
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358705"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928547"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace Azure Key Vault v ASP.NET Core
 
@@ -73,11 +73,11 @@ Pokyny poskytované [rychlým startem: nastavení a načtení tajného klíče z
 
 1. Otevřete Azure Cloud Shell pomocí jedné z následujících metod v [Azure Portal](https://portal.azure.com/):
 
-   * Zvolte **Vyzkoušet** v pravém horním rohu bloku kódu. V textovém poli použijte hledaný řetězec "Azure CLI".
+   * Vyberte **vyzkoušet** v pravém horním rohu bloku kódu. V textovém poli použijte hledaný řetězec "Azure CLI".
    * Otevřete Cloud Shell v prohlížeči pomocí tlačítka pro **spuštění Cloud Shell** .
    * V nabídce v pravém horním rohu Azure Portal vyberte tlačítko **Cloud Shell** .
 
-   Další informace najdete v tématu [rozhraní příkazového řádku Azure (CLI)](/cli/azure/) a [Přehled Azure Cloud Shell](/azure/cloud-shell/overview).
+   Další informace najdete v tématu [Azure CLI](/cli/azure/) a [Přehled Azure Cloud Shell](/azure/cloud-shell/overview).
 
 1. Pokud jste to ještě neověřili, přihlaste se pomocí příkazu `az login`.
 
@@ -124,7 +124,7 @@ Ukázková aplikace používá ID aplikace a certifikát X. 509, pokud je přík
 1. V souboru *appSettings. JSON* aplikace uložte název trezoru klíčů, ID aplikace a kryptografický otisk certifikátu.
 1. V Azure Portal přejděte na **trezory klíčů** .
 1. [V části provozní prostředí s Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) vyberte Trezor klíčů, který jste vytvořili v tajném úložišti.
-1. Vyberte **Zásady přístupu**.
+1. Vyberte **zásady přístupu**.
 1. Vyberte **Přidat zásady přístupu**.
 1. Otevřete **oprávnění tajného klíče** a poskytněte aplikaci oprávnění **získat** a vytvořit **seznam** .
 1. Vyberte **Vybrat objekt zabezpečení** a vyberte zaregistrovanou aplikaci podle názvu. Vyberte tlačítko **Vybrat** .
@@ -153,7 +153,7 @@ Certifikát X. 509 spravuje operační systém. Aplikace volá <xref:Microsoft.E
 
 ::: moniker-end
 
-Ukázkové hodnoty:
+Příklady hodnot:
 
 * Název trezoru klíčů: `contosovault`
 * ID aplikace: `627e911e-43cc-61d4-992e-12db9c81b413`

@@ -7,18 +7,18 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 12/16/2019
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 286d73d732b146fef15bbfc309caeb214cdbbe0d
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: ba9671f68a0faf99ff5232a6d5dd132d0a1d5ac5
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829176"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928419"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) je [platforma cloud computingu od Microsoftu](https://azure.microsoft.com/) pro hostování webových aplikací, včetně ASP.NET Core.
 
-## <a name="useful-resources"></a>Užitečné materiály
+## <a name="useful-resources"></a>Užitečné zdroje
 
 [Dokumentace k App Service](/azure/app-service/) je Domovská stránka pro Azure Apps, kurzy, ukázky, návody a další materiály. Existují dva významné kurzy, které se týkají hostování ASP.NET Corech aplikací:
 
@@ -197,7 +197,7 @@ Pokud dojde k potížím pomocí rozšíření webu verze Preview, otevřete [pr
 1. Na webu Azure Portal přejděte na App Service.
 1. Vyberte webovou aplikaci.
 1. Do vyhledávacího pole zadejte "ex", chcete-li filtrovat "rozšíření", nebo se posuňte dolů v seznamu nástrojů pro správu.
-1. Vyberte **Rozšíření**.
+1. Vyberte **rozšíření**.
 1. Vyberte **Přidat**.
 1. V seznamu vyberte rozšíření **Runtime ASP.NET Core {X. Y} ({x64 | x86})** , kde `{X.Y}` je ASP.NET Core verze preview a `{x64|x86}` Určuje platformu.
 1. Kliknutím na **OK** přijměte právní podmínky.
@@ -280,7 +280,7 @@ Pro 64 nasazení:
 
 ### <a name="deploy-the-app-self-contained"></a>Nasazení samostatně obsažené aplikace
 
-Použijte nástroje sady Visual Studio nebo rozhraní příkazového řádku (CLI) pro [samostatně uzavřené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+Použijte aplikaci Visual Studio nebo .NET Core CLI pro [samostatně obsažené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -326,7 +326,7 @@ Pokud potřebujete transformovat *Web. config* při publikování (například n
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Přehled služby App Service](/azure/app-service/app-service-web-overview)
+* [Přehled App Service](/azure/app-service/app-service-web-overview)
 * [Azure App Service: nejlepší místo pro hostování aplikací .NET (video s přehledem 55-minut)](https://channel9.msdn.com/events/dotnetConf/2017/T222)
 * [Azure pátek: Azure App Service diagnostické prostředí a řešení potíží (12 minut video)](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 * [Přehled diagnostiky Azure App Service](/azure/app-service/app-service-diagnostics)

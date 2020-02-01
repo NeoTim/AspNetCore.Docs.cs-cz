@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 7b5602d5ae5e58d1678762fe1cd2adec1f31c969
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
+ms.openlocfilehash: b987513e5410e95ab632b9935d858b648838d94f
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76809000"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928271"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
 
@@ -30,7 +30,9 @@ Když aplikace Blazor během vývoje nefunguje správně, při řešení potíž
 * Během vývoje se zlatý panel vás přesměruje na konzolu prohlížeče, kde vidíte výjimku.
 * V produkčním okně upozorňuje uživatel, že došlo k chybě, a doporučuje aktualizovat prohlížeč.
 
-Uživatelské rozhraní tohoto prostředí pro zpracování chyb je součástí Blazor šablon projektů. V Blazor aplikaci WebAssembly, přizpůsobte si prostředí v souboru *wwwroot/index.html* :
+Uživatelské rozhraní tohoto prostředí pro zpracování chyb je součástí Blazor šablon projektů.
+
+V Blazor aplikaci WebAssembly, přizpůsobte si prostředí v souboru *wwwroot/index.html* :
 
 ```html
 <div id="blazor-error-ui">
@@ -57,7 +59,7 @@ V aplikaci Blazor serveru upravte prostředí v souboru *Pages/_Host. cshtml* :
 
 Element `blazor-error-ui` je skrytý styly zahrnutými v šablonách Blazor a pak se zobrazí, když dojde k chybě.
 
-## <a name="how-the-opno-locblazor-framework-reacts-to-unhandled-exceptions"></a>Jak Blazor Framework reaguje na neošetřené výjimky
+## <a name="how-a-opno-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Jak aplikace Blazor serveru reaguje na neošetřené výjimky
 
 Blazor Server je stavový systém. I když uživatelé pracují s aplikací, udržují připojení k serveru známému jako *okruh*. Okruh obsahuje aktivní instance komponent a mnoho dalších aspektů stavu, například:
 
@@ -101,9 +103,9 @@ Rozhraní a kód aplikace mohou aktivovat neošetřené výjimky v žádném z n
 * [Obslužné rutiny událostí](#event-handlers)
 * [Vyřazení součásti](#component-disposal)
 * [Zprostředkovatel komunikace s JavaScriptem](#javascript-interop)
-* [Obslužné rutiny okruhu](#circuit-handlers)
-* [Vyřazení okruhů](#circuit-disposal)
-* [Předvykreslování](#prerendering)
+* [obslužné rutiny okruhu serveru Blazor](#blazor-server-circuit-handlers)
+* [odstranění okruhu serveru Blazor](#blazor-server-circuit-disposal)
+* [Blazor převykreslování serveru](#blazor-server-prerendering)
 
 Předchozí neošetřené výjimky jsou popsány v následujících částech tohoto článku.
 
@@ -114,7 +116,7 @@ Když Blazor vytvoří instanci komponenty:
 * Je vyvolán konstruktor součásti.
 * Konstruktory jakékoliv nejednoznačné služby DI Services dodávané konstruktoru komponenty prostřednictvím direktivy [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component) nebo atributu [`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component) jsou vyvolány.
 
-Okruh se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter pro jakoukoliv `[Inject]` vlastnost vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Okruh serveru Blazor se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter pro jakoukoliv vlastnost `[Inject]` vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
 ### <a name="lifecycle-methods"></a>Metody životního cyklu
 
@@ -125,7 +127,7 @@ Během životnosti komponenty Blazor vyvolá následující [metody životního 
 * `ShouldRender` / `ShouldRenderAsync`
 * `OnAfterRender` / `OnAfterRenderAsync`
 
-Pokud jakákoli metoda životního cyklu vyvolá výjimku synchronně nebo asynchronně, je výjimka pro okruh závažná. Pro součásti, které se zabývat chybami v metodách životního cyklu, přidejte logiku zpracování chyb.
+Pokud jakákoli metoda životního cyklu vyvolá výjimku synchronně nebo asynchronně, je výjimka závažná pro okruh serveru Blazor. Pro součásti, které se zabývat chybami v metodách životního cyklu, přidejte logiku zpracování chyb.
 
 V následujícím příkladu, kde `OnParametersSetAsync` volá metodu pro získání produktu:
 
@@ -140,7 +142,7 @@ V následujícím příkladu, kde `OnParametersSetAsync` volá metodu pro získ�
 
 Deklarativní označení v souboru komponenty `.razor` je zkompilováno do C# metody nazvané `BuildRenderTree`. Když se komponenta vykreslí, `BuildRenderTree` spustí a vytvoří strukturu dat popisující prvky, text a podřízené komponenty vykreslené komponenty.
 
-Logika vykreslování může vyvolat výjimku. K tomuto scénáři dochází například při vyhodnocování `@someObject.PropertyName`, ale `@someObject` je `null`. Neošetřená výjimka vyvolaná logikou vykreslování je pro okruh závažná.
+Logika vykreslování může vyvolat výjimku. K tomuto scénáři dochází například při vyhodnocování `@someObject.PropertyName`, ale `@someObject` je `null`. Neošetřená výjimka vyvolaná logikou vykreslování je závažná pro okruh serveru Blazor.
 
 Chcete-li zabránit výjimce odkazu s hodnotou null v logice vykreslování, vyhledejte objekt `null` před přístupem k jeho členům. V následujícím příkladu nejsou k dispozici `person.Address` vlastnosti, pokud je `person.Address` `null`:
 
@@ -159,7 +161,7 @@ Kód na straně klienta vyvolá volání C# kódu při vytváření obslužných
 
 Kód obslužné rutiny události může v těchto scénářích vyvolat neošetřenou výjimku.
 
-Pokud obslužná rutina události vyvolá neošetřenou výjimku (například databázový dotaz neuspěje), je výjimka pro okruh závažná. Pokud aplikace volá kód, který může selhat z externích důvodů, Zachyťte výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud obslužná rutina události vyvolá neošetřenou výjimku (například databázový dotaz neuspěje), je výjimka závažná pro okruh serveru Blazor. Pokud aplikace volá kód, který může selhat z externích důvodů, Zachyťte výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
 Pokud uživatelský kód neprovede soutisk a zpracuje výjimku, rozhraní zaprotokoluje výjimku a ukončí okruh.
 
@@ -167,7 +169,7 @@ Pokud uživatelský kód neprovede soutisk a zpracuje výjimku, rozhraní zaprot
 
 Součást může být odebrána z uživatelského rozhraní, například proto, že uživatel přešel na jinou stránku. Když je komponenta, která implementuje <xref:System.IDisposable?displayProperty=fullName>, odebrána z uživatelského rozhraní, rozhraní zavolá metodu <xref:System.IDisposable.Dispose*> součásti.
 
-Pokud metoda `Dispose` komponenty vyvolá neošetřenou výjimku, je výjimka pro okruh závažná. Pokud logika vyřazení může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud metoda `Dispose` komponenty vyvolá neošetřenou výjimku, je výjimka závažná pro okruh Blazorho serveru. Pokud logika vyřazení může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
 Další informace o vyřazení součástí najdete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.
 
@@ -177,20 +179,20 @@ Další informace o vyřazení součástí najdete v tématu <xref:blazor/lifecy
 
 Při zpracování chyb pomocí `InvokeAsync<T>`platí následující podmínky:
 
-* Pokud se volání `InvokeAsync<T>` nezdařila synchronně, dojde k výjimce .NET. Volání `InvokeAsync<T>` může selhat, například proto, že zadané argumenty nemohou být serializovány. Kód pro vývojáře musí zachytit výjimku. Pokud kód aplikace v metodě obslužné rutiny události nebo životní cyklus komponenty nezpracovává výjimku, je výsledná výjimka pro okruh závažná.
-* Pokud se volání `InvokeAsync<T>` asynchronně nezdařilo, <xref:System.Threading.Tasks.Task> .NET dojde k chybě. Volání `InvokeAsync<T>` může selhat, například proto, že kód na straně JavaScriptu vyvolá výjimku nebo vrátí `Promise`, která byla dokončena jako `rejected`. Kód pro vývojáře musí zachytit výjimku. Při použití operátoru [await](/dotnet/csharp/language-reference/keywords/await) zvažte zabalení volání metody v příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním. V opačném případě selhání kódu způsobí neošetřenou výjimku, která je pro okruh závažná.
+* Pokud se volání `InvokeAsync<T>` nezdařila synchronně, dojde k výjimce .NET. Volání `InvokeAsync<T>` může selhat, například proto, že zadané argumenty nemohou být serializovány. Kód pro vývojáře musí zachytit výjimku. Pokud kód aplikace v metodě obslužné rutiny události nebo životní cyklus komponenty nezpracovává výjimku, je výsledná výjimka závažná pro okruh serveru Blazor.
+* Pokud se volání `InvokeAsync<T>` asynchronně nezdařilo, <xref:System.Threading.Tasks.Task> .NET dojde k chybě. Volání `InvokeAsync<T>` může selhat, například proto, že kód na straně JavaScriptu vyvolá výjimku nebo vrátí `Promise`, která byla dokončena jako `rejected`. Kód pro vývojáře musí zachytit výjimku. Při použití operátoru [await](/dotnet/csharp/language-reference/keywords/await) zvažte zabalení volání metody v příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním. V opačném případě selhání kódu způsobí neošetřenou výjimku, která je závažná pro okruh serveru Blazor.
 * Ve výchozím nastavení musí být volání `InvokeAsync<T>` dokončena v určitou dobu nebo jinak vyprší časový limit volání. Výchozí doba časového limitu je jedna minuta. Časový limit chrání kód proti ztrátě v připojení k síti nebo kódu JavaScriptu, který nikdy neposílá zpět zprávu o dokončení. Pokud vyprší časový limit volání, výsledné `Task` se nezdařila s <xref:System.OperationCanceledException>. Depeše a zpracovává výjimku pomocí protokolování.
 
 Podobně kód JavaScriptu může iniciovat volání metod .NET, které jsou označeny atributem [`[JSInvokable]`](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions) . Pokud tyto metody rozhraní .NET vyvolají neošetřenou výjimku:
 
-* Výjimka není pro okruh považována za závažnou.
+* Výjimka není považována za závažnou pro okruh serveru Blazor.
 * `Promise` na straně JavaScriptu se zamítlo.
 
 Máte možnost použít kód pro zpracování chyb na straně .NET nebo na straně JavaScriptu volání metody.
 
 Další informace najdete v tématu <xref:blazor/javascript-interop>.
 
-### <a name="circuit-handlers"></a>Obslužné rutiny okruhu
+### <a name="opno-locblazor-server-circuit-handlers"></a>obslužné rutiny okruhu serveru Blazor
 
 Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
 
@@ -236,11 +238,11 @@ public void ConfigureServices(IServiceCollection services)
 
 Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro okruh serveru Blazor. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více příkazech [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
-### <a name="circuit-disposal"></a>Vyřazení okruhů
+### <a name="opno-locblazor-server-circuit-disposal"></a>odstranění okruhu serveru Blazor
 
 Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí stav okruhu, rozhraní uvolní obor DI okruhu. Při likvidaci oboru se uvolní jakékoli služby DI Services s rozsahem okruhů, které implementují <xref:System.IDisposable?displayProperty=fullName>. Pokud jakákoli služba DI vyvolá neošetřenou výjimku při vyřazení, rozhraní zaprotokoluje výjimku.
 
-### <a name="prerendering"></a>Předvykreslování
+### <a name="opno-locblazor-server-prerendering"></a>předvykreslování serveru Blazor
 
 Blazor komponenty lze předem vykreslovat pomocí pomocné rutiny `Component` tag, aby byly vykreslené značky HTML vráceny jako součást počátečního požadavku HTTP uživatele. Funguje to takto:
 
@@ -274,7 +276,7 @@ Nekonečná smyčka během vykreslování:
 * Způsobí, že proces vykreslování bude trvale pokračovat.
 * Je ekvivalentní vytvořit neukončenou smyčku.
 
-V těchto scénářích přestává ovlivněný okruh a vlákno se obvykle pokouší:
+V těchto scénářích se ovlivněný okruh serveru Blazor nezdaří a vlákno se obvykle pokouší:
 
 * Spotřebujte tolik času procesoru povolený operačním systémem, a to po dobu neurčitou.
 * Spotřebovává neomezený objem paměti serveru. Spotřebovávání neomezené paměti je ekvivalentem k situaci, kdy neukončená smyčka přidá položky do kolekce při každé iteraci.

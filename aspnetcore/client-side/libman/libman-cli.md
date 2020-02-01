@@ -1,21 +1,21 @@
 ---
-title: Použití rozhraní příkazového řádku LibMan (CLI) s ASP.NET Core
+title: Použití rozhraní příkazového řádku LibMan s ASP.NET Core
 author: scottaddie
-description: Naučte se používat rozhraní příkazového řádku LibMan (CLI) v projektu ASP.NET Core.
+description: Naučte se používat rozhraní příkazového řádku LibMan v projektu ASP.NET Core.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: client-side/libman/libman-cli
-ms.openlocfilehash: 8b2b1e45ab4685482554ac439b0276e0cf381609
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 02d88d09805bd23a86ef924766373245fec7ff52
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73962805"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928354"
 ---
-# <a name="use-the-libman-command-line-interface-cli-with-aspnet-core"></a>Použití rozhraní příkazového řádku LibMan (CLI) s ASP.NET Core
+# <a name="use-the-libman-cli-with-aspnet-core"></a>Použití rozhraní příkazového řádku LibMan s ASP.NET Core
 
 [Scott Addie](https://twitter.com/Scott_Addie)
 
@@ -25,7 +25,7 @@ ms.locfileid: "73962805"
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
-## <a name="installation"></a>Instalace
+## <a name="installation"></a>Instalace služby
 
 Instalace rozhraní příkazového řádku LibMan:
 
@@ -130,7 +130,7 @@ Vytvoření souboru *Libman. JSON* v projektu ASP.NET Core:
   libman init
   ```
 
-* Zadejte název výchozího poskytovatele nebo stiskněte `Enter` pro použití výchozího poskytovatele CDNJS. Platné hodnoty zahrnují:
+* Zadejte název výchozího poskytovatele nebo stiskněte `Enter` pro použití výchozího poskytovatele CDNJS. Platné hodnoty jsou:
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -444,7 +444,7 @@ libman cache [-h|--help]
 
 `PROVIDER`
 
-Používá se jenom s příkazem `clean`. Určuje mezipaměť poskytovatele, která se má vyčistit. Platné hodnoty zahrnují:
+Používá se jenom s příkazem `clean`. Určuje mezipaměť poskytovatele, která se má vyčistit. Platné hodnoty jsou:
 
 [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -578,7 +578,7 @@ Pro příkaz `libman cache` jsou k dispozici následující možnosti:
       (empty)
   ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Instalace globálního nástroje](/dotnet/core/tools/global-tools#install-a-global-tool)
 * <xref:client-side/libman/libman-vs>

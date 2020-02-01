@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/08/2019
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 31a5e47d772e7416646c4d83c3209d7d2b254199
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 623f739b17c0bed3ce929f562c9581ab26ecf5bc
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829163"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928550"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
@@ -285,9 +285,9 @@ Tato část popisuje nasazení aplikace do Azure websites pomocí certifikátu u
 }
 ```
 
-* Vlastnost Name u certifikátu odpovídá rozlišujícímu předmětu certifikátu.
-* Umístění úložiště představuje místo, odkud se má certifikát načíst (`CurrentUser` nebo `LocalMachine`).
 * Název úložiště představuje název úložiště certifikátů, ve kterém je certifikát uložený. V tomto případě odkazuje na úložiště osobních uživatelů.
+* Umístění úložiště představuje místo, odkud se má certifikát načíst (`CurrentUser` nebo `LocalMachine`).
+* Vlastnost Name u certifikátu odpovídá rozlišujícímu předmětu certifikátu.
 
 Pokud chcete nasadit na Azure websites, nasaďte aplikaci podle kroků v části [nasazení aplikace do Azure](xref:tutorials/publish-to-azure-webapp-using-vs#deploy-the-app-to-azure) a vytvořte potřebné prostředky Azure a nasaďte aplikaci do produkčního prostředí.
 

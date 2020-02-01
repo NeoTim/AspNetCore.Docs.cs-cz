@@ -1,1 +1,1 @@
-Další informace o nástrojích CLI Tools for EF Core najdete v tématu [referenční informace k nástrojům EF Core Tools pro rozhraní .NET CLI](/ef/core/miscellaneous/cli/dotnet).
+Další informace o rozhraní příkazového řádku pro EF Core naleznete v části [EF Core Tools reference for .NET CLI](/ef/core/miscellaneous/cli/dotnet).

@@ -5,14 +5,14 @@ description: Zjistěte, jak ASP.NET Core implementuje vkládání závislostí a
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/05/2019
+ms.date: 01/30/2020
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: fabc6df07d2d7beaa546b189bb7527f626fc669d
-ms.sourcegitcommit: 47d453f34b6fd0179119c572cb8be64c5365cbb6
+ms.openlocfilehash: a9d268489ebcef69d64c6fd65087bc38a3581821
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75597938"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928409"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
@@ -613,6 +613,7 @@ Integrovaný kontejner služeb je navržený tak, aby sloužil potřebám archit
 * Vnořené kontejnery
 * Vlastní správa životnosti
 * Podpora `Func<T>` pro línou inicializaci
+* Registrace založená na konvencích
 
 S ASP.NET Coremi aplikacemi je možné používat následující kontejnery třetích stran:
 
@@ -640,7 +641,7 @@ Výrobní metoda samostatné služby, jako je například druhý argument pro [A
 
 * Vyhněte se použití *vzoru lokátoru služby*. Například Nevolejte <xref:System.IServiceProvider.GetService*> pro získání instance služby, když můžete místo toho použít DI:
 
-  **Nesprávně:**
+  **Špatný**
 
   ```csharp
   public class MyClass()

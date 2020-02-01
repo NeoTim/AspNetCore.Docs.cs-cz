@@ -5,12 +5,12 @@ description: V tomto kurzu začnete používat funkci migrace EF Core pro správ
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: e6f44a32a473f8f3bacfa4d9608deba2f879b6b6
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 4246d9d8f6e6ba9e9d735b944ed748720bcf3e16
+ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259704"
+ms.lasthandoff: 02/01/2020
+ms.locfileid: "76928378"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Razor Pages s EF Core v ASP.NET Core – migrace – 4 z 8
 
@@ -42,7 +42,7 @@ Drop-Database
 
 # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-* Spusťte následující příkaz na příkazovém řádku pro instalaci nástrojů EF CLI:
+* Spuštěním následujícího příkazu na příkazovém řádku nainstalujte EF CLI:
 
   ```dotnetcli
   dotnet tool install --global dotnet-ef
@@ -128,7 +128,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 * Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.
 * Spuštění `dotnet ef database update` ze kontrolovaného prostředí.
 
-## <a name="troubleshooting"></a>Odstraňování potíží
+## <a name="troubleshooting"></a>Odstraňování problémů
 
 Pokud aplikace používá SQL Server LocalDB a zobrazí následující výjimku:
 
@@ -293,7 +293,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 
 EF Core používá tabulku `__MigrationsHistory` a zjistí, jestli je potřeba spustit nějaké migrace. Pokud je databáze aktuální, nespustí se žádná migrace.
 
-## <a name="troubleshooting"></a>Odstraňování potíží
+## <a name="troubleshooting"></a>Odstraňování problémů
 
 Stáhněte [dokončenou aplikaci](
 https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations).
