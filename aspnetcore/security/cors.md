@@ -15,7 +15,7 @@ ms.locfileid: "76727321"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolit žádosti mezi zdroji (CORS) v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Tento článek popisuje, jak v aplikaci ASP.NET Core povolit CORS.
 
@@ -28,7 +28,7 @@ Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla pož
 * Umožňuje serveru explicitně povolit některé žádosti mezi zdroji a současně odmítat jiné.
 * Je bezpečnější a pružnější než u předchozích technik, jako třeba [JSONP](/dotnet/framework/wcf/samples/jsonp).
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="same-origin"></a>Stejný původ
 
@@ -471,7 +471,7 @@ Pokud odpověď neobsahuje hlavičku `Access-Control-Allow-Origin`, požadavek n
 Testování CORS:
 
 1. [Vytvořte projekt API](xref:tutorials/first-web-api). Alternativně si můžete [Stáhnout ukázku](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors).
-1. Povolte CORS pomocí jednoho z přístupů v tomto dokumentu. Příklad:
+1. Povolte CORS pomocí jednoho z přístupů v tomto dokumentu. Například:
 
   [!code-csharp[](cors/sample/Cors/WebAPI/StartupTest.cs?name=snippet2&highlight=13-18)]
 
@@ -506,7 +506,7 @@ Koncové body s podporou CORS se dají testovat pomocí nástroje, jako je [Fidd
 
 Při nasazování do služby IIS musí CORS běžet před ověřováním systému Windows, pokud server není nakonfigurovaný tak, aby povoloval anonymní přístup. Pro podporu tohoto scénáře je nutné nainstalovat a nakonfigurovat [modul IIS CORS](https://www.iis.net/downloads/microsoft/iis-cors-module) pro aplikaci.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Sdílení prostředků mezi zdroji (CORS)](https://developer.mozilla.org/docs/Web/HTTP/CORS)
 * [Začínáme s modulem IIS CORS](https://blogs.iis.net/iisteam/getting-started-with-the-iis-cors-module)

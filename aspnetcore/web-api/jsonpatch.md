@@ -102,7 +102,7 @@ Změny provedené při použití dokumentu opravy JSON na prostředek jsou atomi
 
 ## <a name="path-syntax"></a>Syntaxe cesty
 
-Vlastnost [path](https://tools.ietf.org/html/rfc6901) objektu operace má lomítka mezi úrovněmi. Například `"/address/zipCode"`.
+Vlastnost [path](https://tools.ietf.org/html/rfc6901) objektu operace má lomítka mezi úrovněmi. například `"/address/zipCode"`.
 
 Indexy založené na nule slouží k určení prvků pole. První prvek `addresses` pole by byl `/addresses/0`. Chcete-li `add` na konec pole, použijte spojovník (-) místo čísla indexu: `/addresses/-`.
 
@@ -110,7 +110,7 @@ Indexy založené na nule slouží k určení prvků pole. První prvek `address
 
 V následující tabulce jsou uvedeny podporované operace, jak je definováno ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
 
-|Operace  | Poznámky |
+|Operace  | Poznámky: |
 |-----------|--------------------------------|
 | `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu.|
 | `remove`  | Odebere vlastnost nebo prvek pole. |
@@ -237,9 +237,9 @@ Následující ukázkový dokument opravy nemá žádný vliv, pokud je počáte
 
 [!code-json[](jsonpatch/samples/2.2/JSON/test-fail.json)]
 
-## <a name="get-the-code"></a>Získat kód
+## <a name="get-the-code"></a>Získání kódu
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
 
 Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
 
@@ -248,7 +248,7 @@ Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s 
 * Záhlaví: `Content-Type: application/json-patch+json`
 * Tělo: Zkopírujte a vložte jeden ze vzorků dokumentů opravy JSON ze složky projektu *JSON* .
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [IETF RFC 5789 – specifikace metody opravy](https://tools.ietf.org/html/rfc5789)
 * [Specifikace opravy JSON pro IETF RFC 6902](https://tools.ietf.org/html/rfc6902)
@@ -314,7 +314,7 @@ Změny provedené při použití dokumentu opravy JSON na prostředek jsou atomi
 
 ## <a name="path-syntax"></a>Syntaxe cesty
 
-Vlastnost [path](https://tools.ietf.org/html/rfc6901) objektu operace má lomítka mezi úrovněmi. Například `"/address/zipCode"`.
+Vlastnost [path](https://tools.ietf.org/html/rfc6901) objektu operace má lomítka mezi úrovněmi. například `"/address/zipCode"`.
 
 Indexy založené na nule slouží k určení prvků pole. První prvek `addresses` pole by byl `/addresses/0`. Chcete-li `add` na konec pole, použijte spojovník (-) místo čísla indexu: `/addresses/-`.
 
@@ -322,7 +322,7 @@ Indexy založené na nule slouží k určení prvků pole. První prvek `address
 
 V následující tabulce jsou uvedeny podporované operace, jak je definováno ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
 
-|Operace  | Poznámky |
+|Operace  | Poznámky: |
 |-----------|--------------------------------|
 | `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu.|
 | `remove`  | Odebere vlastnost nebo prvek pole. |
@@ -449,9 +449,9 @@ Následující ukázkový dokument opravy nemá žádný vliv, pokud je počáte
 
 [!code-json[](jsonpatch/samples/2.2/JSON/test-fail.json)]
 
-## <a name="get-the-code"></a>Získat kód
+## <a name="get-the-code"></a>Získání kódu
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
 
 Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
 
@@ -460,7 +460,7 @@ Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s 
 * Záhlaví: `Content-Type: application/json-patch+json`
 * Tělo: Zkopírujte a vložte jeden ze vzorků dokumentů opravy JSON ze složky projektu *JSON* .
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [IETF RFC 5789 – specifikace metody opravy](https://tools.ietf.org/html/rfc5789)
 * [Specifikace opravy JSON pro IETF RFC 6902](https://tools.ietf.org/html/rfc6902)

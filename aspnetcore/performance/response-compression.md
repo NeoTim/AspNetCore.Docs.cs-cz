@@ -16,9 +16,9 @@ ms.locfileid: "76726960"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Komprese odezvy v ASP.NET Core
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Šířka pásma sítě je omezeného prostředku. Odezvu aplikace obvykle zlepšuje zmenšení velikosti odpovědi, a to často výrazně. Jedním ze způsobů zmenšení velikosti datové části je komprese odpovědí vaší aplikace.
 
@@ -80,7 +80,7 @@ Algoritmy komprese se vztahují na kompromisy mezi rychlostí komprese a efektiv
 
 Hlavičky zahrnuté v tématu vyžádání, odeslání, ukládání do mezipaměti a příjem komprimovaného obsahu jsou popsány v následující tabulce.
 
-| Záhlaví             | Role |
+| Hlavička             | Role |
 | ------------------ | ---- |
 | `Accept-Encoding`  | Odesílá se z klienta na server k označení schémat kódování obsahu, které jsou přijatelné pro klienta. |
 | `Content-Encoding` | Odesílá se ze serveru do klienta, aby označovala kódování obsahu v datové části. |
@@ -139,7 +139,7 @@ public class Startup
 
 Poznámky:
 
-* `app.UseResponseCompression` musí být volány před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace najdete v tématu <xref:fundamentals/middleware/index#middleware-order>.
+* `app.UseResponseCompression` musí být volány před jakýmkoli middlewarem, který komprimuje odpovědi. Další informace naleznete v tématu <xref:fundamentals/middleware/index#middleware-order>.
 * Pomocí nástroje, jako je například [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [poster](https://www.getpostman.com/) , nastavte hlavičku `Accept-Encoding` žádosti a prostudujte hlavičky, velikost a text odpovědi.
 
 Odešlete žádost do ukázkové aplikace bez hlavičky `Accept-Encoding` a sledujte, že odpověď je nekomprimovaná. V odpovědi se nevyskytují hlavičky `Content-Encoding` a `Vary`.
@@ -162,7 +162,7 @@ Odešlete žádost do ukázkové aplikace s hlavičkou `Accept-Encoding: gzip` a
 
 ::: moniker-end
 
-## <a name="providers"></a>Zprostředkovatelé
+## <a name="providers"></a>Poskytovatelé
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -205,7 +205,7 @@ Nastavte úroveň komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompressio
 | Úroveň komprese | Popis |
 | ----------------- | ----------- |
 | [CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel) | Komprese by měla být dokončena co nejrychleji, a to i v případě, že výsledný výstup není optimálně komprimován. |
-| [CompressionLevel.NoCompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
+| [CompressionLevel. uncompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
 | [CompressionLevel. optimální](xref:System.IO.Compression.CompressionLevel) | Odpovědi by se měly optimálně komprimovat, a to i v případě, že je komprese delší dobu trvat. |
 
 ```csharp
@@ -268,7 +268,7 @@ Nastavte úroveň komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompressio
 | Úroveň komprese | Popis |
 | ----------------- | ----------- |
 | [CompressionLevel. nejrychlejší](xref:System.IO.Compression.CompressionLevel) | Komprese by měla být dokončena co nejrychleji, a to i v případě, že výsledný výstup není optimálně komprimován. |
-| [CompressionLevel.NoCompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
+| [CompressionLevel. uncompression](xref:System.IO.Compression.CompressionLevel) | Není nutné provádět kompresi. |
 | [CompressionLevel. optimální](xref:System.IO.Compression.CompressionLevel) | Odpovědi by se měly optimálně komprimovat, a to i v případě, že je komprese delší dobu trvat. |
 
 ```csharp
@@ -283,7 +283,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-### <a name="custom-providers"></a>Vlastní zprostředkovatelé
+### <a name="custom-providers"></a>Vlastní poskytovatelé
 
 Vytvářejte vlastní implementace komprese pomocí <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider>. <xref:Microsoft.AspNetCore.ResponseCompression.ICompressionProvider.EncodingName*> představuje kódování obsahu, které vytváří tato `ICompressionProvider`. Middleware používá tyto informace k výběru poskytovatele na základě seznamu zadaného v hlavičce `Accept-Encoding` žádosti.
 
@@ -352,7 +352,7 @@ Pokud je požadavek proxy serverem Nginx, bude odstraněna hlavička `Accept-Enc
 
 Pokud máte aktivní dynamický kompresní modul služby IIS nakonfigurovaný na úrovni serveru, který chcete pro aplikaci zakázat, zakažte modul s přidáním do souboru *Web. config* . Další informace najdete v tématu [zakázání modulů IIS](xref:host-and-deploy/iis/modules#disabling-iis-modules).
 
-## <a name="troubleshooting"></a>Odstraňování problémů
+## <a name="troubleshooting"></a>Řešení potíží
 
 Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug](https://getfirebug.com/)nebo [post](https://www.getpostman.com/), což vám umožní nastavit hlavičku požadavku `Accept-Encoding` a prozkoumat hlavičky, velikost a text odpovědi. Ve výchozím nastavení middleware pro komprimaci odezvy komprimuje odezvy, které splňují následující podmínky:
 
@@ -374,7 +374,7 @@ Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>

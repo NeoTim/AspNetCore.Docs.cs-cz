@@ -17,13 +17,13 @@ ms.contentlocale: cs-CZ
 ms.lasthandoff: 01/24/2020
 ms.locfileid: "76726774"
 ---
-# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
+# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>Konfigurace linkeru pro ASP.NET Core [!OP.NO-LOC(Blazor)]
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor provádí propojování v [prostředním jazyce (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení pro odebrání zbytečného Il z výstupních sestavení aplikace.
+[!OP.NO-LOC(Blazor)] provádí propojování v [prostředním jazyce (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení pro odebrání zbytečného Il z výstupních sestavení aplikace.
 
 Ovládací prvek propojuje sestavení pomocí některého z následujících přístupů:
 
@@ -55,7 +55,7 @@ Propojení je ve výchozím nastavení povoleno, pokud je aplikace sestavena, v�
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This file specifies which parts of the BCL or Blazor packages must not be
+  This file specifies which parts of the BCL or [!OP.NO-LOC(Blazor)] packages must not be
   stripped by the IL Linker even if they aren't referenced by user code.
 -->
 <linker>
@@ -86,7 +86,7 @@ Další informace naleznete v tématu [linkeru Il: syntaxe popisovače XML](http
 
 ### <a name="configure-the-linker-for-internationalization"></a>Konfigurace linkeru pro mezinárodní využití
 
-Ve výchozím nastavení Blazorkonfigurace linkeru pro Blazor aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Odebrání těchto sestavení minimalizuje velikost aplikace.
+Ve výchozím nastavení [!OP.NO-LOC(Blazor)]konfigurace linkeru pro [!OP.NO-LOC(Blazor)] aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Odebrání těchto sestavení minimalizuje velikost aplikace.
 
 Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<MonoLinkerI18NAssemblies>` MSBuild v souboru projektu:
 
@@ -101,7 +101,7 @@ Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<M
 | `all`            | Všechna sestavení, která jsou součástí |
 | `cjk`            | *I18N. CJK. dll*          |
 | `mideast`        | *I18N. MidEast. dll*      |
-| `none` (výchozí) | Žádné                    |
+| `none` (výchozí) | Žádný                    |
 | `other`          | *I18N. Jiná knihovna. dll*        |
 | `rare`           | *I18N. Vzácná knihovna DLL*         |
 | `west`           | *I18N. Západ. dll*         |

@@ -15,14 +15,14 @@ ms.locfileid: "76727271"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Cloudové ověřování pomocí Azure Active Directory B2C v ASP.NET Core
 
-Podle [kamera Soper](https://twitter.com/camsoper)
+[Soper vačky](https://twitter.com/camsoper)
 
-[Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) (Azure AD B2C) je cloudové řešení správy identit pro webové a mobilní aplikace. Tato služba poskytuje ověřování pro aplikace hostované v cloudu i lokálně. Typy ověřování zahrnují jednotlivé účty, účty sociálních sítí a podnikových účtů federovaných. Kromě toho Azure AD B2C možné poskytovat vícefaktorové ověřování s minimální konfigurací.
+[Azure Active Directory B2C](/azure/active-directory-b2c/active-directory-b2c-overview) (Azure AD B2C) je cloudové řešení pro správu identit pro webové a mobilní aplikace. Tato služba poskytuje ověřování pro aplikace hostované v cloudu i lokálně. Typy ověřování zahrnují jednotlivé účty, účty sociálních sítí a podnikových účtů federovaných. Kromě toho Azure AD B2C možné poskytovat vícefaktorové ověřování s minimální konfigurací.
 
 > [!TIP]
-> Azure Active Directory (Azure AD) a Azure AD B2C jsou nabídky samostatných produktů. Klient služby Azure AD představuje organizace, zatímco tenanta služby Azure AD B2C představuje kolekci identit pro použití s aplikacemi předávajících stran. Další informace najdete v tématu [Azure AD B2C: Nejčastější dotazy (FAQ)](/azure/active-directory-b2c/active-directory-b2c-faqs).
+> Azure Active Directory (Azure AD) a Azure AD B2C jsou nabídky samostatných produktů. Klient služby Azure AD představuje organizace, zatímco tenanta služby Azure AD B2C představuje kolekci identit pro použití s aplikacemi předávajících stran. Další informace najdete v tématu [Azure AD B2C: nejčastější dotazy (FAQ)](/azure/active-directory-b2c/active-directory-b2c-faqs).
 
-V tomto kurzu se dozvíte, jak:
+V tomto kurzu získáte informace o těchto tématech:
 
 > [!div class="checklist"]
 > * Vytvoření tenanta Azure Active Directory B2C
@@ -30,7 +30,7 @@ V tomto kurzu se dozvíte, jak:
 > * Pomocí sady Visual Studio vytvořit webovou aplikaci ASP.NET Core nakonfigurovanou tak, aby pro ověřování používala klienta Azure AD B2C
 > * Konfigurace zásad řídících chování klienta Azure AD B2C
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Vyžadují splnění následujících předpokladů pro Tento názorný postup:
 
@@ -43,23 +43,23 @@ Vytvořte tenanta Azure Active Directory B2C [, jak je popsáno v dokumentaci](/
 
 ## <a name="register-the-app-in-azure-ad-b2c"></a>Registrace aplikace v Azure AD B2C
 
-V nově vytvořeném tenantovi Azure AD B2C Zaregistrujte svoji aplikaci pomocí [kroků v dokumentaci](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application) v části **zaregistrovat webovou aplikaci** . Zastavení při **vytvořit tajný kód klienta aplikace webového** oddílu. Pro účely tohoto kurzu není nutné tajný kód klienta. 
+V nově vytvořeném tenantovi Azure AD B2C Zaregistrujte svoji aplikaci pomocí [kroků v dokumentaci](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application) v části **zaregistrovat webovou aplikaci** . Zastavte se v části **Vytvoření tajného klíče klienta webové aplikace** . Pro účely tohoto kurzu není nutné tajný kód klienta. 
 
 Použijte následující hodnoty:
 
-| Nastavení                       | Hodnota                     | Poznámky                                                                                                                                                                                              |
+| Nastavení                       | Hodnota                     | Poznámky:                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Jméno**                      | *název aplikace &lt;&gt;*        | Zadejte **název** pro aplikace, který popisuje vaši aplikaci pro zákazníky.                                                                                                                                 |
-| **Zahrnout webovou aplikaci / webové rozhraní API** | Ano                       |                                                                                                                                                                                                    |
+| **Název**                      | *název aplikace &lt;&gt;*        | Zadejte **název** aplikace, který popíše vaši aplikaci pro uživatele.                                                                                                                                 |
+| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Ano                       |                                                                                                                                                                                                    |
 | **Povolit implicitní tok**       | Ano                       |                                                                                                                                                                                                    |
 | **Adresa URL odpovědi**                 | `https://localhost:44300/signin-oidc` | Adresy URL odpovědí jsou koncové body, kam Azure AD B2C vrací všechny tokeny, které vaše aplikace požaduje. Visual Studio poskytuje adresu URL odpovědi, která se má použít. Prozatím zadejte `https://localhost:44300/signin-oidc` k vyplnění formuláře. |
-| **Identifikátor URI ID aplikace**                | Ponechat prázdné               | Pro účely tohoto kurzu není nutné.                                                                                                                                                                    |
+| **Identifikátor URI ID aplikace**                | Ponechte prázdné               | Pro účely tohoto kurzu není nutné.                                                                                                                                                                    |
 | **Zahrnout nativního klienta**     | Ne                        |                                                                                                                                                                                                    |
 
 > [!WARNING]
 > Pokud nastavili adresu URL odpovědi, která není localhost, pamatujte na [omezení, co je v seznamu Adresa URL odpovědi povolené](/azure/active-directory-b2c/tutorial-register-applications#register-a-web-application). 
 
-Po registraci aplikace se zobrazí seznam aplikací v tenantovi. Vyberte aplikaci, která byla právě zaregistrována. Vyberte **kopírování** ikony napravo **ID aplikace** pole, které chcete zkopírovat do schránky.
+Po registraci aplikace se zobrazí seznam aplikací v tenantovi. Vyberte aplikaci, která byla právě zaregistrována. Vyberte ikonu **kopírování** napravo od pole **ID aplikace** a zkopírujte ji do schránky.
 
 V tuto chvíli není možné v tenantovi Azure AD B2C nakonfigurovat nic dalšího, ale okno prohlížeče zůstane otevřené. Po vytvoření ASP.NET Core aplikace je k dispozici více konfigurací.
 
@@ -71,7 +71,7 @@ V sadě Visual Studio:
 
 1. Vytvořte novou webovou aplikaci ASP.NET Core. 
 2. V seznamu šablon vyberte možnost **Webová aplikace** .
-3. Vyberte **změna ověřování** tlačítko.
+3. Vyberte tlačítko **změnit ověřování** .
     
     ![Tlačítko Změnit ověřování](./azure-ad-b2c/_static/changeauth.png)
 
@@ -86,11 +86,11 @@ V sadě Visual Studio:
     | **Název domény**               | *&lt;název domény vašeho tenanta B2C&gt;*          |
     | **ID aplikace**            | *&lt;do schránky vložit ID aplikace&gt;* |
     | **Cesta zpětného volání**             | *&lt;použít výchozí hodnotu&gt;*                       |
-    | **Zásady registrace / přihlášení** | `B2C_1_SiUpIn`                                        |
+    | **Zásady registrace nebo přihlašování** | `B2C_1_SiUpIn`                                        |
     | **Resetovat zásady hesel**     | `B2C_1_SSPR`                                          |
     | **Upravit zásady profilu**       | *&lt;ponechte prázdné&gt;*                                 |
     
-    Vyberte odkaz **Kopírovat** vedle **identifikátoru URI odpovědi** pro zkopírování identifikátoru URI odpovědi do schránky. Vyberte **OK** zavřete **změna ověřování** dialogového okna. Vyberte **OK** k vytvoření webové aplikace.
+    Vyberte odkaz **Kopírovat** vedle **identifikátoru URI odpovědi** pro zkopírování identifikátoru URI odpovědi do schránky. Kliknutím na **tlačítko OK** zavřete dialogové okno **změnit ověřování** . Vyberte **OK** a vytvořte webovou aplikaci.
 
 ## <a name="finish-the-b2c-app-registration"></a>Dokončení registrace aplikace B2C
 
@@ -101,7 +101,7 @@ Vraťte se do okna prohlížeče, ve kterém jsou pořád otevřené vlastnosti 
 
 ## <a name="configure-policies"></a>Konfigurace zásad
 
-Pomocí kroků v dokumentaci Azure AD B2C [vytvořte zásadu registrace nebo přihlašování](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)a pak [Vytvořte zásady resetování hesel](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions). Použít ukázkové hodnoty uvedeny v dokumentaci pro **zprostředkovatelé Identity**, **atributy registrace**, a **deklarace identit aplikace**. Použití tlačítka **Spustit nyní** k otestování zásad, jak je popsáno v dokumentaci, je volitelné.
+Pomocí kroků v dokumentaci Azure AD B2C [vytvořte zásadu registrace nebo přihlašování](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)a pak [Vytvořte zásady resetování hesel](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions). Použijte ukázkové hodnoty uvedené v dokumentaci pro **zprostředkovatele identity**, **atributy registrace**a **deklarace aplikací**. Použití tlačítka **Spustit nyní** k otestování zásad, jak je popsáno v dokumentaci, je volitelné.
 
 > [!WARNING]
 > Zajistěte, aby názvy zásad byly přesně popsané v dokumentaci, protože se tyto zásady používaly v dialogovém okně **změnit ověřování** v aplikaci Visual Studio. Názvy zásad lze ověřit v souboru *appSettings. JSON*.
@@ -130,19 +130,19 @@ services.Configure<JwtBearerOptions>(
     });
 ```
 
-## <a name="run-the-app"></a>Spuštění aplikace
+## <a name="run-the-app"></a>Spusťte aplikaci
 
 V aplikaci Visual Studio stiskněte klávesu **F5** a sestavte a spusťte aplikaci. Po spuštění webové aplikace vyberte **přijmout** a přijměte použití souborů cookie (Pokud se zobrazí výzva) a pak vyberte **Přihlásit**se.
 
 ![Přihlášení k aplikaci](./azure-ad-b2c/_static/signin.png)
 
-Prohlížeč přesměruje na tenanta Azure AD B2C. Přihlaste se pomocí existujícího účtu (Pokud se jeden vytvořil testování zásad) nebo vyberte **zaregistrujte se hned teď** vytvořte nový účet. **Zapomněli jste heslo?** odkaz se používá k obnovení zapomenutého hesla.
+Prohlížeč přesměruje na tenanta Azure AD B2C. Přihlaste se pomocí existujícího účtu (Pokud se vytvořila možnost testování zásad), nebo vyberte **zaregistrovat** se a vytvořte nový účet. Odkaz **zapomenuté heslo** slouží k resetování zapomenutého hesla.
 
 ![Azure AD B2C přihlášení](./azure-ad-b2c/_static/b2csts.png)
 
 Po úspěšném přihlášení se prohlížeč přesměruje na webovou aplikaci.
 
-![Úspěšné](./azure-ad-b2c/_static/success.png)
+![Úspěch](./azure-ad-b2c/_static/success.png)
 
 ## <a name="next-steps"></a>Další kroky
 
@@ -156,10 +156,10 @@ V tomto kurzu jste se naučili:
 
 Teď, když je aplikace ASP.NET Core nakonfigurovaná tak, aby používala Azure AD B2C k ověřování, můžete k zabezpečení vaší aplikace použít [atribut autorizovat](xref:security/authorization/simple) . Pokračujte v vývoji aplikace pomocí učení:
 
-* [Přizpůsobení uživatelského rozhraní Azure AD B2C](/azure/active-directory-b2c/active-directory-b2c-reference-ui-customization).
-* [Konfigurovat požadavky na složitost hesla](/azure/active-directory-b2c/active-directory-b2c-reference-password-complexity).
-* [Povolení služby Multi-Factor authentication](/azure/active-directory-b2c/active-directory-b2c-reference-mfa).
-* Nakonfigurovat zprostředkovatelé identity další, jako jsou například [Microsoft](/azure/active-directory-b2c/active-directory-b2c-setup-msa-app), [Facebook](/azure/active-directory-b2c/active-directory-b2c-setup-fb-app), [Google](/azure/active-directory-b2c/active-directory-b2c-setup-goog-app), [Amazon](/azure/active-directory-b2c/active-directory-b2c-setup-amzn-app), [na Twitteru ](/azure/active-directory-b2c/active-directory-b2c-setup-twitter-app)a další.
-* [Použijte Azure AD Graph API](/azure/active-directory-b2c/active-directory-b2c-devquickstarts-graph-dotnet) k získání dalších informací o uživatelích, jako je členství ve skupině z tenanta Azure AD B2C.
+* [Přizpůsobení Azure AD B2Cho uživatelského rozhraní](/azure/active-directory-b2c/active-directory-b2c-reference-ui-customization).
+* [Konfigurace požadavků na složitost hesla](/azure/active-directory-b2c/active-directory-b2c-reference-password-complexity)
+* [Povolte službu Multi-Factor Authentication](/azure/active-directory-b2c/active-directory-b2c-reference-mfa).
+* Nakonfigurujte další zprostředkovatele identity, jako je [Microsoft](/azure/active-directory-b2c/active-directory-b2c-setup-msa-app), [Facebook](/azure/active-directory-b2c/active-directory-b2c-setup-fb-app), [Google](/azure/active-directory-b2c/active-directory-b2c-setup-goog-app), [Amazon](/azure/active-directory-b2c/active-directory-b2c-setup-amzn-app), [Twitter](/azure/active-directory-b2c/active-directory-b2c-setup-twitter-app)a další.
+* [Pomocí Graph API Azure AD](/azure/active-directory-b2c/active-directory-b2c-devquickstarts-graph-dotnet) načtěte Další informace o uživateli, například členství ve skupině, z tenanta Azure AD B2C.
 * [Zabezpečte ASP.NET Core webové rozhraní API pomocí Azure AD B2C](https://azure.microsoft.com/resources/samples/active-directory-b2c-dotnetcore-webapi/).
 * [Volání webového rozhraní API .NET z webové aplikace .NET pomocí Azure AD B2C](/azure/active-directory-b2c/active-directory-b2c-devquickstarts-web-api-dotnet).

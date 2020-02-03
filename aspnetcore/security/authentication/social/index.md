@@ -15,7 +15,7 @@ ms.locfileid: "76727328"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Ověřování pro Facebook, Google a externí poskytovatele v ASP.NET Core
 
-Podle [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
+Od [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Tento kurz ukazuje, jak vytvořit aplikaci ASP.NET Core 3,0, která uživatelům umožňuje přihlásit se pomocí OAuth 2,0 s přihlašovacími údaji od externích zprostředkovatelů ověřování.
 
@@ -32,20 +32,20 @@ Příklady, jak mohou sociální přihlášení prosazovat přenosy a převody z
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Vytvořte nový projekt.
+* Vytvoření nového projektu
 * Vyberte **ASP.NET Core webová aplikace** a **Další**.
-* Zadejte **název projektu** a potvrďte nebo změňte **umístění**. Vyberte **vytvořit**.
+* Zadejte **název projektu** a potvrďte nebo změňte **umístění**. Vyberte **Create** (Vytvořit).
 * V rozevíracím seznamu vyberte nejnovější verzi ASP.NET Core (**ASP.NET Core {X. Y}** ) a pak vyberte **Webová aplikace**.
 * V části **ověřování**vyberte **změnit** a nastavte ověřování na **jednotlivé uživatelské účty**. Vyberte **OK**.
 * V okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte **vytvořit**.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * Otevřete terminál.  Pro Visual Studio Code můžete otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
 * Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 
-* Pro Windows spusťte následující příkaz:
+* V případě Windows spusťte následující příkaz:
 
   ```dotnetcli
   dotnet new webapp -o WebApp1 -au Individual -uld
@@ -114,4 +114,4 @@ Pokud chcete vytvořit heslo a přihlásit se pomocí e-mailu, který jste nasta
 * Informace o přizpůsobení přihlašovacích tlačítek najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/10563) .
 * Tento článek představil externí ověřování a vysvětluje požadavky potřebné k přidání externích přihlášení do vaší aplikace ASP.NET Core.
 * Stránky specifické pro poskytovatele odkazů pro konfiguraci přihlášení pro poskytovatele vyžadované vaší aplikací
-* Můžete chtít zachovat další data o uživateli a jejich přístup a aktualizovat tokeny. Další informace najdete v tématu <xref:security/authentication/social/additional-claims>.
+* Můžete chtít zachovat další data o uživateli a jejich přístup a aktualizovat tokeny. Další informace naleznete v tématu <xref:security/authentication/social/additional-claims>.

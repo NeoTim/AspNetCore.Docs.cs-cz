@@ -75,10 +75,10 @@ Existují tři společná umístění pro trvalý stav v aplikaci Blazor Server.
 
 ### <a name="server-side-in-a-database"></a>Na straně serveru v databázi
 
-Pro trvalá trvalá data nebo pro všechna data, která musí být rozložená na více uživatelů nebo zařízení, je k nejlepší možnost databáze na straně serveru téměř určitě. Vaše možnosti jsou:
+Pro trvalá trvalá data nebo pro všechna data, která musí být rozložená na více uživatelů nebo zařízení, je k nejlepší možnost databáze na straně serveru téměř určitě. Mezi možnosti patří:
 
 * Relační databáze SQL
-* Úložiště hodnot klíčů
+* Ukládání hodnot klíče
 * Úložiště objektů BLOB
 * Úložiště tabulek
 
@@ -86,7 +86,7 @@ Po uložení dat v databázi může nový okruh spustit uživatel kdykoli. Data 
 
 Další informace o možnostech Azure Data Storage najdete v [dokumentaci Azure Storage](/azure/storage/) a v [databázích Azure](https://azure.microsoft.com/product-categories/databases/).
 
-### <a name="url"></a>URL
+### <a name="url"></a>zprostředkovatele identity
 
 Pro přechodná data představující stav navigace modelujte data jako součást adresy URL. Mezi příklady stavu zahrnutých v adrese URL patří:
 
@@ -139,7 +139,7 @@ Příklad balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-pro
 > [!WARNING]
 > `Microsoft.AspNetCore.ProtectedBrowserStorage` je nepodporovaný experimentální balíček nevhodný pro použití v produkčním prostředí.
 
-### <a name="installation"></a>Instalace služby
+### <a name="installation"></a>Instalace
 
 Instalace balíčku `Microsoft.AspNetCore.ProtectedBrowserStorage`:
 
@@ -195,7 +195,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-Pokud parametry komponenty obsahují navigační stav, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v `OnParametersSetAsync`, nikoli `OnInitializedAsync`. `OnInitializedAsync` se volá pouze jednou při prvním vytvoření instance komponenty. `OnInitializedAsync` se později nevolá, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace najdete v tématu <xref:blazor/lifecycle>.
+Pokud parametry komponenty obsahují navigační stav, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v `OnParametersSetAsync`, nikoli `OnInitializedAsync`. `OnInitializedAsync` se volá pouze jednou při prvním vytvoření instance komponenty. `OnInitializedAsync` se později nevolá, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace naleznete v tématu <xref:blazor/lifecycle>.
 
 > [!WARNING]
 > Příklady v této části fungují pouze v případě, že server nemá povolené předvykreslování. Pokud je povoleno předvykreslování, je vygenerována chyba podobná této:

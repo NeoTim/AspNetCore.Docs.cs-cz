@@ -73,7 +73,7 @@ Pro Blazor serverových aplikací doporučujeme používat [službu Azure Signal
 
    * Konfigurace (použijte **jeden** z následujících přístupů):
   
-     * *appsettings.json*:
+     * *appSettings. JSON*:
 
        ```json
        "Azure:SignalR:ServerStickyMode": "Required"
@@ -83,7 +83,7 @@ Pro Blazor serverových aplikací doporučujeme používat [službu Azure Signal
 
 1. Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro aplikaci Blazor Server.
 1. Přidejte do profilu závislost **služby Azure SignalR** . Pokud předplatné Azure nemá stávající instanci služby Azure SignalR, která se má přiřadit k aplikaci, vyberte **vytvořit novou instanci služby azure SignalR** a zřídit novou instanci služby.
-1. Publikujte aplikaci do Azure.
+1. Publikovat aplikaci do Azure
 
 #### <a name="iis"></a>IIS
 
