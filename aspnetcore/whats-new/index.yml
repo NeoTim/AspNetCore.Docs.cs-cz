@@ -6,20 +6,22 @@ metadata:
   description: Přečtěte si o novém a aktualizovaném obsahu v ASP.NET Core docs.
   ms.topic: landing-page
   ms.date: 01/17/2020
-  ms.openlocfilehash: edd748d4d53583e531a280e64979190dcd3c9296
-  ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+  ms.openlocfilehash: c7656fc51e8e8724c1505aecb5b583abbd216928
+  ms.sourcegitcommit: cb6015f737b6a93127016ab0f21b58e34b624ff3
   ms.translationtype: MT
   ms.contentlocale: cs-CZ
-  ms.lasthandoff: 01/24/2020
-  ms.locfileid: "76727418"
+  ms.lasthandoff: 02/04/2020
+  ms.locfileid: "77004328"
 landingContent:
 - title: Hledání aktualizací ASP.NET Core docs
   linkLists:
   - linkListType: whats-new
     links:
+    - text: Leden 2020
+      url: 2020-01.md
     - text: Prosinec 2019
       url: 2019-12.md
-    - text: Listopad 2019
+    - text: Listopadu 2019
       url: 2019-11.md
     - text: Říjen 2019
       url: 2019-10.md
