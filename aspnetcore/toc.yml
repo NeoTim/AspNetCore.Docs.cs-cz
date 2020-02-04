@@ -702,7 +702,7 @@
         - name: Publikování pomocí sady Visual Studio pro Mac
           displayName: 'azure, deploy, publish'
           href: /visualstudio/mac/publish-app-svc?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
-        - name: Publikování pomocí nástrojů CLI
+        - name: Publikování pomocí rozhraní příkazového řádku
           displayName: 'azure, deploy, publish'
           href: /azure/app-service/app-service-web-tutorial-dotnetcore-sqldb?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json
         - name: Publikování pomocí sady Visual Studio a Gitu
