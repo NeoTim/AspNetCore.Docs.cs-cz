@@ -17,11 +17,11 @@ ms.contentlocale: cs-CZ
 ms.lasthandoff: 01/24/2020
 ms.locfileid: "76726892"
 ---
-# <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core Blazor formuláře a ověřování
+# <a name="aspnet-core-opno-locblazor-forms-and-validation"></a>ASP.NET Core [!OP.NO-LOC(Blazor)] formuláře a ověřování
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
-Formuláře a ověřování se v Blazor podporují pomocí [datových poznámek](xref:mvc/models/validation).
+Formuláře a ověřování se v [!OP.NO-LOC(Blazor)] podporují pomocí [datových poznámek](xref:mvc/models/validation).
 
 Následující `ExampleModel` typ definuje logiku ověřování pomocí datových poznámek:
 
@@ -398,17 +398,17 @@ private class MyCustomValidator : ValidationAttribute
 
 ### <a name="opno-locblazor-data-annotations-validation-package"></a>Blazor balíček pro ověření datových poznámek
 
-[Microsoft. AspNetCore.Blazor. Dataanotace. ověřování](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) je balíček, který vyplní mezery v prostředí ověřování pomocí komponenty `DataAnnotationsValidator`. Balíček je momentálně *experimentální*.
+[Microsoft.AspNetCore.Blazor.Dataanotace.ověřování](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) je balíček, který vyplní mezery v prostředí ověřování pomocí komponenty `DataAnnotationsValidator`. Balíček je momentálně *experimentální*.
 
 ### <a name="compareproperty-attribute"></a>[CompareProperty] – atribut
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> nepracuje dobře s komponentou `DataAnnotationsValidator`, protože nepřiřazuje výsledek ověření k určitému členovi. To může vést k nekonzistentnímu chování mezi ověřováním na úrovni polí a při ověřování celého modelu při odeslání. [Microsoft. AspNetCore.Blazor. DataAnnotations.](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) *experimentální* balíček pro ověření zavádí další atribut ověření `ComparePropertyAttribute`, který tato omezení působí. V Blazor aplikaci `[CompareProperty]` je přímá náhrada pro atribut `[Compare]`.
+<xref:System.ComponentModel.DataAnnotations.CompareAttribute> nepracuje dobře s komponentou `DataAnnotationsValidator`, protože nepřiřazuje výsledek ověření k určitému členovi. To může vést k nekonzistentnímu chování mezi ověřováním na úrovni polí a při ověřování celého modelu při odeslání. [Microsoft.AspNetCore.Blazor.DataAnnotations.](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) *experimentální* balíček pro ověření zavádí další atribut ověření `ComparePropertyAttribute`, který tato omezení působí. V Blazor aplikaci `[CompareProperty]` je přímá náhrada pro atribut `[Compare]`.
 
 ### <a name="nested-models-collection-types-and-complex-types"></a>Vnořené modely, typy kolekcí a komplexní typy
 
 Blazor poskytuje podporu pro ověřování vstupu formuláře pomocí datových poznámek s integrovaným `DataAnnotationsValidator`. `DataAnnotationsValidator` však pouze ověřuje vlastnosti nejvyšší úrovně modelu vázaného na formulář, který není typu kolekce nebo komplexního typu.
 
-Chcete-li ověřit celý graf objektu vázaného modelu, včetně vlastností kolekce a komplexního typu, použijte `ObjectGraphDataAnnotationsValidator` od *experimentálního* [Microsoft. AspNetCore.Blazor. Dataanotace. ověřovací](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) balíček:
+Chcete-li ověřit celý graf objektu vázaného modelu, včetně vlastností kolekce a komplexního typu, použijte `ObjectGraphDataAnnotationsValidator` od *experimentálního* [Microsoft. AspNetCore.Blazor.Dataanotace.ověřovací](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.DataAnnotations.Validation) balíček:
 
 ```razor
 <EditForm Model="@_model" OnValidSubmit="HandleValidSubmit">
