@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: a0e9603cbca8c7f5771b0acf1a60839dffc89d4e
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146482"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972035"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>Identita uživatelského rozhraní v ASP.NET Corech projektech
 
@@ -30,7 +30,7 @@ Doporučujeme používat systém správy zdrojového kódu, který zobrazuje roz
 
 Služby jsou vyžadovány při použití [dvou ověření](xref:security/authentication/identity-enable-qrcodes), [potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)a dalších funkcí zabezpečení s identitou. Služby nebo zástupné procedury služby nejsou generovány při generování uživatelského rozhraní. Služby, které umožňují tyto funkce povolit, je nutné přidat ručně. Podívejte se například na příkaz [vyžadovat potvrzení e-mailu](xref:security/authentication/accconfirm#require-email-confirmation).
 
-Tento dokument obsahuje podrobnější pokyny, než je soubor *ScaffoldingReadme. txt* , který je generován při spuštění nástroje pro generování uživatelského rozhraní.
+Tento dokument obsahuje podrobnější pokyny než soubor *ScaffoldingReadme. txt* , který je generován při spuštění lešení.
 
 ## <a name="scaffold-identity-into-an-empty-project"></a>Identita uživatelského rozhraní do prázdného projektu
 
@@ -83,7 +83,7 @@ Identita je nakonfigurovaná v *oblasti/identity/IdentityHostingStartup. cs*. Da
 
 <a name="useauthentication"></a>
 
-### <a name="enable-authentication"></a>Povolení ověřování
+### <a name="enable-authentication"></a>Povolit ověřování
 
 Aktualizujte třídu `Startup` podobným kódem jako následující:
 
@@ -325,7 +325,7 @@ Identita je nakonfigurovaná v *oblasti/identity/IdentityHostingStartup. cs*. Da
 
 <a name="useauthentication"></a>
 
-### <a name="enable-authentication"></a>Povolení ověřování
+### <a name="enable-authentication"></a>Povolit ověřování
 
 V metodě `Configure` třídy `Startup` volejte [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) po `UseStaticFiles`:
 

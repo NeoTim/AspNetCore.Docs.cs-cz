@@ -5,14 +5,14 @@ description: Přečtěte si o ASP.NET Core middlewaru a kanálu požadavků.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/19/2019
+ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 63566c1642e17ad333bb65b122330d11c4472aff
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 5c8e9e58ab222e482ef029f5099d0a8acd07d8a6
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355007"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972024"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -226,6 +226,7 @@ ASP.NET Core se dodává s následujícími middlewarovými komponenty. Sloupec 
 | [Diagnostika](xref:fundamentals/error-handling) | Několik samostatných middlewarů, které poskytují stránku s výjimkou vývojářů, zpracování výjimek, stránky stavového kódu a výchozí webovou stránku pro nové aplikace. | Před komponentami, které generují chyby. Terminál pro výjimky nebo pro výchozí webovou stránku pro nové aplikace |
 | [Přesměrované hlavičky](xref:host-and-deploy/proxy-load-balancer) | Přesměrovává hlavičky skryté proxy serverem do aktuální žádosti. | Před komponentami, které využívají aktualizovaná pole. Příklady: schéma, hostitel, IP adresa klienta, metoda. |
 | [Kontroly stavu](xref:host-and-deploy/health-checks) | Kontroluje stav aplikace ASP.NET Core a jejích závislostí, jako je například kontrola dostupnosti databáze. | Terminál, pokud požadavek odpovídá koncovému bodu kontroly stavu. |
+| [Šíření hlaviček](xref:fundamentals/http-requests#header-propagation-middleware) | Šíří hlavičky protokolu HTTP z příchozího požadavku do odchozích požadavků klienta HTTP. |
 | [Přepsání metody HTTP](xref:Microsoft.AspNetCore.Builder.HttpMethodOverrideExtensions) | Umožňuje příchozím POST požadavkům přepsat metody. | Před komponentami, které využívají aktualizovanou metodu. |
 | [Přesměrování HTTPS](xref:security/enforcing-ssl#require-https) | Přesměrovat všechny požadavky HTTP na HTTPS. | Před komponentami, které využívají adresu URL. |
 | [Zabezpečení striktního HTTP přenosu (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) | Vylepšení zabezpečení – middleware, který přidává speciální hlavičku odpovědi. | Předtím, než se pošlou odpovědi, a potom, co komponenta modifikuje žádost. Příklady: předávané hlavičky, přepis adresy URL. |

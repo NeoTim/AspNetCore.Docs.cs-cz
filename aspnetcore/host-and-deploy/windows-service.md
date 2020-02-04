@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 37fc0b7862db3280f9ade8d563feba28153ab79b
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: d4b540de50f4153f517f871f037521347fb5eb84
+ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951829"
+ms.lasthandoff: 02/03/2020
+ms.locfileid: "76972008"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>ASP.NET Core hostitele ve službě systému Windows
 
@@ -40,7 +40,7 @@ Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému W
 
 ::: moniker-end
 
-## <a name="app-configuration"></a>Konfigurace aplikací
+## <a name="app-configuration"></a>Konfigurace aplikace
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -249,7 +249,7 @@ New-Service -Name {SERVICE NAME} -BinaryPathName {EXE FILE PATH} -Credential {DO
 * Popis služby `{DESCRIPTION}` &ndash; (například `My sample service`).
 * Zobrazovaný název služby `{DISPLAY NAME}` &ndash; (například `My Service`).
 
-### <a name="start-a-service"></a>Spuštění služby
+### <a name="start-a-service"></a>Spustit službu
 
 Spusťte službu s následujícím příkazem prostředí PowerShell 6:
 
