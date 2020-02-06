@@ -5,14 +5,14 @@ description: Naučte se, jak nastavit Nginx jako reverzní proxy na Ubuntu 16,04
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/13/2020
+ms.date: 02/05/2020
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 1a83b7d1b211862793e3ba086234b97248f9ae70
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 7f17be1d883e8cce375487aa39f4d1ebbe8a95f4
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928491"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044870"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -32,7 +32,7 @@ Tato příručka:
 * Zajistí, aby se webová aplikace spouštěla při spuštění jako démon.
 * Nakonfiguruje Nástroj pro správu procesů, který vám může pomáhat s restartováním webové aplikace.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 1. Přístup k serveru Ubuntu 16,04 se standardním uživatelským účtem s oprávněním sudo.
 1. Nainstalujte modul runtime .NET Core na server.
@@ -88,6 +88,8 @@ Po vyvolání middlewaru předávaných hlaviček musí být všechny komponenty
 Vyvolejte metodu <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> v `Startup.Configure` před voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> nebo podobného middlewaru schématu ověřování. Nakonfigurujte middleware pro přeposílání `X-Forwarded-For` a `X-Forwarded-Proto` hlavičky:
 
 ```csharp
+// using Microsoft.AspNetCore.HttpOverrides;
+
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {
     ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
@@ -101,13 +103,15 @@ Pokud pro middlewari nejsou zadány žádné <xref:Microsoft.AspNetCore.Builder.
 Proxy servery běžící na adresách zpětné smyčky (127.0.0.0/8, [:: 1]), včetně standardní adresy localhost (127.0.0.1), jsou ve výchozím nastavení důvěryhodné. Pokud jiné důvěryhodné proxy servery nebo sítě v rámci organizace zařídí žádosti mezi Internetem a webovým serverem, přidejte je do seznamu <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> nebo <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> pomocí <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>. Následující příklad přidá důvěryhodnou proxy server na IP adresu 10.0.0.100 k `KnownProxies` middlewaru s přesměrovanými hlavičkami v `Startup.ConfigureServices`:
 
 ```csharp
+// using System.Net;
+
 services.Configure<ForwardedHeadersOptions>(options =>
 {
     options.KnownProxies.Add(IPAddress.Parse("10.0.0.100"));
 });
 ```
 
-Další informace najdete v tématu <xref:host-and-deploy/proxy-load-balancer>.
+Další informace naleznete v tématu <xref:host-and-deploy/proxy-load-balancer>.
 
 ### <a name="install-nginx"></a>Nainstalovat Nginx
 
@@ -160,7 +164,7 @@ server {
 S předchozím konfiguračním souborem a výchozím serverem Nginx přijímá veřejný provoz na portu 80 s hlavičkou hostitele `example.com` nebo `*.example.com`. Požadavky, které se neshodují s těmito hostiteli, se nebudou přesílat na Kestrel. Nginx přepošle požadavky na Kestrel na `http://localhost:5000`. Další informace najdete v tématu [jak Nginx zpracovává požadavek](https://nginx.org/docs/http/request_processing.html) . Pokud chcete změnit IP adresu/port Kestrel, přečtěte si téma [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
-> Nepovedlo se určit správnou [direktivu server_name](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace zpřístupňuje bezpečnostním hrozbám. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Zobrazit [rfc7230 části-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) Další informace.
+> Nepovedlo se určit správnou [direktivu server_name](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace zpřístupňuje bezpečnostním hrozbám. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
 
 Po navázání konfigurace nginx spusťte `sudo nginx -t` a ověřte syntaxi konfiguračních souborů. Pokud je test konfiguračního souboru úspěšný, vynutí Nginx, aby se změny vybraly spuštěním `sudo nginx -s reload`.
 
@@ -173,7 +177,7 @@ Pokud aplikace běží na serveru, ale neodpoví přes Internet, zkontrolujte br
 
 Po dokončení testování aplikace ukončete aplikaci pomocí `Ctrl+C` na příkazovém řádku.
 
-## <a name="monitor-the-app"></a>Monitorování aplikace
+## <a name="monitor-the-app"></a>Sledování aplikace
 
 Server je nastavený tak, aby předal požadavky na `http://<serveraddress>:80` do ASP.NET Core aplikace běžící na Kestrel na `http://127.0.0.1:5000`. Nginx ale není nastavené na správu procesu Kestrel. *systém* lze použít k vytvoření souboru služby ke spuštění a sledování základní webové aplikace. *systém* je systémem init, který poskytuje mnoho výkonných funkcí pro spouštění, zastavování a správu procesů. 
 
@@ -261,7 +265,7 @@ Connection: Keep-Alive
 Transfer-Encoding: chunked
 ```
 
-### <a name="view-logs"></a>Zobrazit protokoly
+### <a name="view-logs"></a>Zobrazení protokolů
 
 Vzhledem k tomu, že je webová aplikace používající Kestrel spravovaná pomocí `systemd`, všechny události a procesy se zaprotokolují do centralizovaného deníku. Tento deník ale obsahuje všechny položky pro všechny služby a procesy spravované pomocí `systemd`. Chcete-li zobrazit položky specifické pro `kestrel-helloapp.service`, použijte následující příkaz:
 
@@ -283,7 +287,7 @@ Pokud kanál klíče jsou uloženy v paměti, při restartování aplikace:
 
 * Všechny tokeny ověřování na základě souborů cookie nejsou zneplatněny.
 * Uživatelé se musí znovu přihlásit v jejich další požadavek.
-* Všechna data chráněná pomocí aktualizační kanál, který klíč můžete už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [soubory cookie v ASP.NET Core MVC TempData](xref:fundamentals/app-state#tempdata).
+* Všechna data chráněná pomocí aktualizační kanál, který klíč můžete už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
 
 Pokud chcete nakonfigurovat ochranu dat, aby zachovala a zašifroval klíč Ring, přečtěte si:
 
@@ -331,7 +335,7 @@ sudo ufw enable
 
 #### <a name="change-the-nginx-response-name"></a>Změnit název odpovědi Nginx
 
-Edit *src/http/ngx_http_header_filter_module.c*:
+Upravit *Src/http/ngx_http_header_filter_module. c*:
 
 ```
 static char ngx_http_server_string[] = "Server: Web Server" CRLF;
@@ -403,7 +407,7 @@ Přidejte `add_header X-Content-Type-Options "nosniff";` řádku a uložte soubo
 
 Po upgradu sdílené architektury na serveru restartujte aplikace ASP.NET Core hostované serverem.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites)
 * [Nginx: binární verze: oficiální balíčky Debian/Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)

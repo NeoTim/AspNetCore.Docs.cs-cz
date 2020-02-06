@@ -5,14 +5,14 @@ description: Naučte se používat protokolovací rozhraní poskytovanou balíč
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/08/2020
+ms.date: 02/05/2020
 uid: fundamentals/logging/index
-ms.openlocfilehash: f21559e43ae004c81abc18fe8a768d4145ffb184
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.openlocfilehash: 3c75fdc940701b8f4d367990b5073861467079b2
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914232"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044902"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -28,7 +28,7 @@ Kód protokolování pro aplikace bez obecného hostitele se liší v způsobu [
 
 ::: moniker-end
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="add-providers"></a>Přidat zprostředkovatele
 
@@ -48,7 +48,7 @@ V konzolové aplikaci, která není hostitelem, zavolejte při vytváření `Log
 
 Výchozí ASP.NET Core šablony projektů volají <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A>, které přidávají následující zprostředkovatele protokolování:
 
-* [Console](#console-provider)
+* [Konzola](#console-provider)
 * [Ladění](#debug-provider)
 * [EventSource](#event-source-provider)
 * Protokol [událostí](#windows-eventlog-provider) (pouze při spuštění v systému Windows)
@@ -70,7 +70,7 @@ Předchozí kód vyžaduje odkazy na `Microsoft.Extensions.Logging` a `Microsoft
 Výchozí šablona projektu volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A>, která přidává následující zprostředkovatele protokolování:
 
 * Konzola
-* Ladit
+* Ladění
 * EventSource (počínaje ASP.NET Core 2,2)
 
 [!code-csharp[](index/samples/2.x/TodoApiSample/Program.cs?name=snippet_TemplateCode&highlight=7)]
@@ -467,7 +467,7 @@ Chcete-li explicitně zadat kategorii, zavolejte `ILoggerFactory.CreateLogger`:
 
 ## <a name="log-level"></a>Úroveň protokolu
 
-Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat `Information` protokol, pokud metoda končí normálně `Warning` a protokol, když metoda vrátí stavový kód *404 Nenalezeno*.
+Každý protokol určuje <xref:Microsoft.Extensions.Logging.LogLevel>ou hodnotu. Úroveň protokolu označuje závažnost nebo důležitost. Můžete například zapsat protokol `Information`, když metoda končí normálně, a protokol `Warning`, když metoda vrátí stavový kód 404, který *nebyl nalezen* .
 
 Následující kód vytvoří protokoly `Information` a `Warning`:
 
@@ -513,7 +513,7 @@ ASP.NET Core definuje následující úrovně protokolu seřazené od nejnižš�
 
   Chyby, které vyžadují okamžitou pozornost. Příklady: scénáře ztráty dat, nedostatek místa na disku.
 
-Úroveň protokolu můžete použít k určení, kolik výstupu protokolu se zapisuje do konkrétního úložného média nebo okna pro zobrazení. Příklad:
+Úroveň protokolu můžete použít k určení, kolik výstupu protokolu se zapisuje do konkrétního úložného média nebo okna pro zobrazení. Například:
 
 * V produkčním prostředí:
   * Protokolování na `Trace` přes `Information` úrovně vytváří velké množství podrobných zpráv protokolu. Pokud chcete řídit náklady a nepřekračuje limity úložiště dat, protokolujte `Trace` prostřednictvím zpráv na úrovni `Information` na vysoce velké úložiště dat s nízkými náklady na objem.
@@ -728,7 +728,7 @@ Následující příklad ukazuje, jak registrovat pravidla filtru v kódu:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_FilterInCode&highlight=4-5)]
+[!code-csharp[](index/samples/3.x/TodoApiSample/Program.cs?name=snippet_FilterInCode&highlight=2-3)]
 
 ::: moniker-end
 
@@ -744,16 +744,16 @@ Druhý `AddFilter` Určuje poskytovatele ladění pomocí jeho názvu typu. Prvn
 
 Konfigurační data a kód `AddFilter` zobrazené v předchozích příkladech vytvoří pravidla uvedená v následující tabulce. Prvních šest přicházejí z příkladu konfigurace a poslední dva pocházejí z příkladu kódu.
 
-| Počet | Zprostředkovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
+| Číslo | Poskytovatel      | Kategorie, které začínají na...          | Minimální úroveň protokolování |
 | :----: | ------------- | --------------------------------------- | ----------------- |
-| 1      | Ladit         | Všechny kategorie                          | Informace o nástroji       |
+| 1      | Ladění         | Všechny kategorie                          | Informace       |
 | 2      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Internal | Upozornění           |
-| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladit             |
+| 3      | Konzola       | Microsoft.AspNetCore.Mvc.Razor.Razor    | Ladění             |
 | 4      | Konzola       | Microsoft.AspNetCore.Mvc.Razor          | Chyba             |
-| 5      | Konzola       | Všechny kategorie                          | Informace o nástroji       |
-| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladit             |
-| 7      | Všichni poskytovatelé | Systém                                  | Ladit             |
-| 8      | Ladit         | Síťový                               | Trasování             |
+| 5      | Konzola       | Všechny kategorie                          | Informace       |
+| 6      | Všichni poskytovatelé | Všechny kategorie                          | Ladění             |
+| 7      | Všichni poskytovatelé | Systémový                                  | Ladění             |
+| 8      | Ladění         | Microsoft                               | Trasování             |
 
 Když se vytvoří objekt `ILogger`, vybere objekt `ILoggerFactory` jedno pravidlo pro každého poskytovatele, které se použije pro tento protokolovací nástroj. Všechny zprávy napsané instancí `ILogger` jsou filtrovány na základě vybraných pravidel. V dostupných pravidlech se vybere nejpřesnější pravidlo pro jednotlivé dvojice zprostředkovatel a kategorie.
 
@@ -776,7 +776,7 @@ Výsledná instance `ILogger` odesílá protokoly úrovně `Trace` a výše do p
 Každý zprostředkovatel definuje *alias* , který lze použít v konfiguraci místo plně kvalifikovaného názvu typu.  Pro předdefinované poskytovatele použijte následující aliasy:
 
 * Konzola
-* Ladit
+* Ladění
 * EventSource
 * EventLog
 * TraceSource
@@ -802,9 +802,9 @@ Existuje nastavení minimální úrovně, které se projeví pouze v případě,
 
 Pokud nenastavíte explicitně minimální úroveň, výchozí hodnota je `Information`, což znamená, že protokoly `Trace` a `Debug` se ignorují.
 
-### <a name="filter-functions"></a>Filtrovací funkce
+### <a name="filter-functions"></a>Funkce filtru
 
-Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemají pravidla přiřazena pomocí konfigurace nebo kódu. Kód ve funkci má přístup k typu poskytovatele, kategorii a úrovni protokolu. Příklad:
+Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemají pravidla přiřazena pomocí konfigurace nebo kódu. Kód ve funkci má přístup k typu poskytovatele, kategorii a úrovni protokolu. Například:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -822,7 +822,7 @@ Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemaj�
 
 Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core s poznámkami o tom, jaké protokoly se mají od nich očekávat:
 
-| Kategorie                            | Poznámky |
+| Kategorie                            | Poznámky: |
 | ----------------------------------- | ----- |
 | Microsoft.AspNetCore                | Obecná diagnostika ASP.NET Core. |
 | Microsoft.AspNetCore.DataProtection | Které klíče byly zváženy, nalezeny a použity. |
@@ -888,7 +888,7 @@ warn: TodoApiSample.Controllers.TodoController[4000]
 
 ASP.NET Core dodává následující poskytovatele:
 
-* [Console](#console-provider)
+* [Konzola](#console-provider)
 * [Ladění](#debug-provider)
 * [EventSource](#event-source-provider)
 * [EventLog](#windows-eventlog-provider)
@@ -1024,7 +1024,7 @@ Shromažďování trasování z aplikace pomocí trasovacích nástrojů dotnet:
 
 1. Otevřete trasování pomocí [PerfView](#perfview). Otevřete soubor *Trace. nettrace* a prozkoumejte události trasování.
 
-Další informace najdete v části .
+Další informace naleznete v tématu:
 
 * [Trasování pro nástroj Analýza výkonu (dotnet-Trace)](/dotnet/core/diagnostics/dotnet-trace) (dokumentace k .NET Core)
 * [Trasování pro nástroj Analýza výkonu (dotnet-Trace)](https://github.com/dotnet/diagnostics/blob/master/documentation/dotnet-trace-instructions.md) (dokumentace k úložišti GitHub/Diagnostika)
@@ -1154,7 +1154,7 @@ Zprostředkovatel protokolování je zahrnutý jako závislost na [Microsoft. Ap
 
 Nepoužívejte balíček [Microsoft. ApplicationInsights. Web](https://www.nuget.org/packages/Microsoft.ApplicationInsights.Web) , který je k dis&mdash;pro ASP.NET 4. x.
 
-Další informace naleznete v následujících zdrojích:
+Další informace najdete v následujících zdrojích:
 
 * [Přehled Application Insights](/azure/application-insights/app-insights-overview)
 * [Application Insights pro ASP.NET Core aplikace](/azure/azure-monitor/app/asp-net-core) – začněte zde, pokud chcete implementovat celou řadu Application Insights telemetrie spolu s protokolováním.
@@ -1169,7 +1169,7 @@ Protokolovací architektury třetích stran, které pracují s ASP.NET Core:
 * [elmah.IO](https://elmah.io/) ([úložiště GitHub](https://github.com/elmahio/Elmah.Io.Extensions.Logging))
 * [GELF](https://docs.graylog.org/en/2.3/pages/gelf.html) ([úložiště GitHub](https://github.com/mattwcole/gelf-extensions-logging))
 * [JSNLog](https://jsnlog.com/) ([úložiště GitHub](https://github.com/mperdeck/jsnlog))
-* [KissLog.net](https://kisslog.net/) ([GitHub repo](https://github.com/catalingavan/KissLog-net))
+* [KissLog.NET](https://kisslog.net/) ([úložiště GitHub](https://github.com/catalingavan/KissLog-net))
 * [Log4Net](https://logging.apache.org/log4net/) ([úložiště GitHub](https://github.com/huorswords/Microsoft.Extensions.Logging.Log4Net.AspNetCore))
 * [Loggr](https://loggr.net/) ([úložiště GitHub](https://github.com/imobile3/Loggr.Extensions.Logging))
 * [NLOG](https://nlog-project.org/) ([úložiště GitHub](https://github.com/NLog/NLog.Extensions.Logging))
@@ -1186,6 +1186,6 @@ Použití architektury třetí strany se podobá použití jednoho z vestavěný
 
 Další informace najdete v dokumentaci pro každého poskytovatele. Microsoft nepodporuje zprostředkovatele protokolování třetích stran.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/logging/loggermessage>

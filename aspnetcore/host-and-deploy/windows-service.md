@@ -5,24 +5,24 @@ description: Naučte se hostovat aplikaci ASP.NET Core ve službě systému Wind
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/13/2020
+ms.date: 02/06/2020
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: d4b540de50f4153f517f871f037521347fb5eb84
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 71f7bf3f5dcf8068d0ada03675ef7948267b79f4
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972008"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044899"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>ASP.NET Core hostitele ve službě systému Windows
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému Windows](/dotnet/framework/windows-services/introduction-to-windows-service-applications) bez použití služby IIS. Po hostování jako služby systému Windows se aplikace automaticky spustí po restartování serveru.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [ASP.NET Core SDK 2,1 nebo novější](https://dotnet.microsoft.com/download)
 * [PowerShell 6,2 nebo novější](https://github.com/PowerShell/PowerShell)
@@ -50,8 +50,10 @@ Aplikace vyžaduje odkaz na balíček pro [Microsoft. Extensions. Hosting. Windo
 
 * Nastaví dobu života hostitele na `WindowsServiceLifetime`.
 * Nastaví [kořen obsahu](xref:fundamentals/index#content-root) na [AppContext. BaseDirectory](xref:System.AppContext.BaseDirectory). Další informace najdete v oddílu [aktuální adresář a kořenový adresář obsahu](#current-directory-and-content-root) .
-* Povolí protokolování do protokolu událostí s názvem aplikace jako s výchozím názvem zdroje.
-  * Úroveň protokolu se dá nakonfigurovat pomocí klíče `Logging:LogLevel:Default` v *appSettings. Soubor produkčního. JSON* .
+* Povolí protokolování do protokolu událostí:
+  * Název aplikace se používá jako výchozí název zdroje.
+  * Výchozí úroveň protokolu je *Upozornění* nebo vyšší pro aplikaci na základě šablony ASP.NET Core, která volá `CreateDefaultBuilder` k sestavení hostitele.
+  * Přepište výchozí úroveň protokolu klíčem `Logging:EventLog:LogLevel:Default` v souboru *appSettings. json*/*appSettings. { Environment}. JSON* nebo jiný poskytovatel konfigurace.
   * Pouze správci mohou vytvářet nové zdroje událostí. Když zdroj události nejde vytvořit pomocí názvu aplikace, zaprotokoluje se upozornění na zdroj *aplikace* a protokoly událostí jsou zakázané.
 
 V `CreateHostBuilder` *program.cs*:
@@ -316,7 +318,7 @@ Zpracování událostí <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHo
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 
-Služby, které komunikují s požadavky z Internetu nebo podnikové sítě a jsou za proxy serverem nebo nástrojem pro vyrovnávání zatížení, můžou vyžadovat další konfiguraci. Další informace najdete v tématu <xref:host-and-deploy/proxy-load-balancer>.
+Služby, které komunikují s požadavky z Internetu nebo podnikové sítě a jsou za proxy serverem nebo nástrojem pro vyrovnávání zatížení, můžou vyžadovat další konfiguraci. Další informace naleznete v tématu <xref:host-and-deploy/proxy-load-balancer>.
 
 ## <a name="configure-endpoints"></a>Konfigurace koncových bodů
 
@@ -378,7 +380,7 @@ CreateWebHostBuilder(args)
 
 Zadejte absolutní cestu s <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> při použití <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> do složky obsahující soubory.
 
-## <a name="troubleshoot"></a>Řešení problémů
+## <a name="troubleshoot"></a>Řešení potíží
 
 Řešení potíží s aplikací služby systému Windows najdete v tématu <xref:test/troubleshoot>.
 
@@ -400,8 +402,8 @@ Zadejte absolutní cestu s <xref:Microsoft.Extensions.Configuration.FileConfigur
 Přístup k protokolům událostí systému a aplikace:
 
 1. Otevřete nabídku Start, vyhledejte *Prohlížeč událostí*a vyberte aplikaci **Prohlížeč událostí** .
-1. V **Prohlížeč událostí**, otevřete **protokoly Windows** uzlu.
-1. Vyberte **systém** a otevřete protokol událostí systému. Vyberte **aplikace** otevřít protokol událostí aplikace.
+1. V **Prohlížeč událostí**otevřete uzel **protokoly systému Windows** .
+1. Vyberte **systém** a otevřete protokol událostí systému. Výběrem **aplikace** otevřete protokol událostí aplikace.
 1. Vyhledejte chyby související s selhání aplikace.
 
 ### <a name="run-the-app-at-a-command-prompt"></a>Spuštění aplikace příkazového řádku
@@ -412,10 +414,10 @@ Mnoho chyb při spuštění nevytváří užitečné informace v protokolech ud�
 
 Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači nebo změně verzí balíčku v rámci aplikace selhat okamžitě. V některých případech osamocené balíčky mohou narušit funkce aplikace při provádění hlavní upgrady. Většina těchto problémů můžete opravit podle těchto pokynů:
 
-1. Odstranit *bin* a *obj* složek.
+1. Odstraňte složky *bin* a *obj* .
 1. Pomocí příkazu [dotnet All--Clear](/dotnet/core/tools/dotnet-nuget-locals) z příkazového prostředí vymažte mezipaměť balíčku.
 
-   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a spuštěním příkazu `nuget locals all -clear`. *nuget.exe* není připojené instalace s operačním systémem klasické pracovní plochy Windows a je potřeba pořídit samostatně z [webu NuGet](https://www.nuget.org/downloads).
+   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a spuštěním příkazu `nuget locals all -clear`. *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
 
 1. Obnovit a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
@@ -455,7 +457,7 @@ Když *aplikace přestane reagovat (zastaví* se, ale nejedná se o chybu), sel�
 
 Výpis paměti lze analyzovat pomocí několika přístupů. Další informace najdete v tématu [Analýza souboru s výpisem stavu v uživatelském režimu](/windows-hardware/drivers/debugger/analyzing-a-user-mode-dump-file).
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 ::: moniker range=">= aspnetcore-3.0"
 

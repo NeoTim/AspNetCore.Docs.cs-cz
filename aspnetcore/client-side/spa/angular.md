@@ -5,14 +5,14 @@ description: Naučte se, jak začít pracovat s ASP.NET Core šablonou projektu 
 monikerRange: '>= aspnetcore-2.1'
 ms.author: stevesa
 ms.custom: mvc
-ms.date: 03/07/2019
+ms.date: 02/06/2020
 uid: spa/angular
-ms.openlocfilehash: 150b2176eac2e68c1ef9ec6deabb087836ff84ce
-ms.sourcegitcommit: cb6015f737b6a93127016ab0f21b58e34b624ff3
+ms.openlocfilehash: 11ad5d4c7cadcc582b3e288a331569f62f0b98ac
+ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/04/2020
-ms.locfileid: "77004263"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77044860"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>Použití šablony úhlového projektu s ASP.NET Core
 
@@ -53,7 +53,7 @@ Now listening on: http://localhost:<port>
 
 V prohlížeči přejděte na tuto adresu URL.
 
-Aplikace spustí instanci úhlového CLI serveru na pozadí. Protokoluje se zpráva podobná následující: *NG živý vývojový server naslouchá na localhost:&lt;otherport&gt;otevřete v prohlížeči http://localhost:&lt otherport&gt;/* . Tuto zprávu ignorujte&mdash;nejedná **se o** adresu URL pro kombinované ASP.NET Core a úhlové aplikace CLI.
+Aplikace spustí instanci úhlového CLI serveru na pozadí. Protokoluje se zpráva podobná následující: *NG živý vývojový server naslouchá na localhost:&lt;otherport&gt;otevřete v prohlížeči http://localhost:&ltotherport&gt;/* . Tuto zprávu ignorujte&mdash;nejedná **se o** adresu URL pro kombinované ASP.NET Core a úhlové aplikace CLI.
 
 ---
 
@@ -61,7 +61,7 @@ Aplikace spustí instanci úhlového CLI serveru na pozadí. Protokoluje se zpr�
 
 ## <a name="add-pages-images-styles-modules-etc"></a>Přidat stránky, obrázky, styly, moduly atd.
 
-Adresář *clientapp* obsahuje standardní aplikaci s úhlovými CLI. Další informace najdete v oficiálních [úhlových dokumentaci](https://https://angular.io) .
+Adresář *clientapp* obsahuje standardní aplikaci s úhlovými CLI. Další informace najdete v oficiálních [úhlových dokumentaci](https://angular.io) .
 
 Existují mírné rozdíly mezi úhlovými aplikacemi vytvořenými touto šablonou a šablonou vytvořenou pomocí úhlů CLI (prostřednictvím `ng new`); Možnosti aplikace se ale nezměnily. Aplikace vytvořená šablonou obsahuje rozložení založené na [bootstrap](https://getbootstrap.com/)a základní příklad směrování.
 
@@ -79,7 +79,7 @@ Pokud nemáte nainstalovaný nástroj `ng`, spusťte místo toho `npm run ng`. M
 
 ## <a name="install-npm-packages"></a>Instalace balíčků npm
 
-K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Příklad:
+K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Například:
 
 ```console
 cd ClientApp
@@ -98,7 +98,7 @@ Můžete použít standardní [ASP.NET Core hostování a metody nasazení](xref
 
 Projekt je nakonfigurován tak, aby spouštěl svou vlastní instanci serveru úhlů CLI na pozadí při spuštění aplikace ASP.NET Core v režimu vývoje. To je vhodné, protože nemusíte spouštět samostatný server ručně.
 
-Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte C# kód a ASP.NET Core aplikace se musí restartovat, dojde k restartování serveru s úhlovým CLI. Pro spuštění zálohování je nutné asi 10 sekund. Pokud provádíte časté C# úpravy kódu a nechcete čekat na restartování úhlového CLI, spusťte server úhlového CLI externě, nezávisle na procesu ASP.NET Core. Postup:
+Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte C# kód a ASP.NET Core aplikace se musí restartovat, dojde k restartování serveru s úhlovým CLI. Pro spuštění zálohování je nutné asi 10 sekund. Pokud provádíte časté C# úpravy kódu a nechcete čekat na restartování úhlového CLI, spusťte server úhlového CLI externě, nezávisle na procesu ASP.NET Core. Postupujte následovně:
 
 1. V příkazovém řádku přejděte do podadresáře *clientapp* a spusťte vývojový server s úhlovými CLI:
 
@@ -148,6 +148,6 @@ Ve stejnou chvíli existují významné nevýhody povolování SSR. Přináší 
     }
     ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/authentication/identity/spa>
