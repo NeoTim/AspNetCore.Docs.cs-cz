@@ -5,17 +5,17 @@ description: Pochopení Blazor modelů hostování serverů a Blazor serveru.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 01/31/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 145f385fd6c5d04510a4ac15a41b879591ab5caa
-ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
+ms.openlocfilehash: 7b4d4aca0bc4650c31bc8e5c4a84ecbad6a49b09
+ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76885525"
+ms.lasthandoff: 02/05/2020
+ms.locfileid: "77034081"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core modely hostování Blazor
 
@@ -35,7 +35,7 @@ Hlavní hostující model pro Blazor je spuštěn na straně klienta v prohlíž
 
 Chcete-li vytvořit aplikaci Blazor pomocí modelu hostování na straně klienta, použijte šablonu **aplikace Blazor WebAssembly** ([dotnet New blazorwasm](/dotnet/core/tools/dotnet-new)).
 
-Po výběru šablony **aplikace Blazor WebAssembly** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core hostované** ([dotnet New blazorwasm--Hosted](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core obsluhuje aplikaci Blazor klientům. Aplikace WebAssembly v Blazor může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo [signalizace](xref:signalr/introduction).
+Po výběru šablony **aplikace Blazor WebAssembly** máte možnost konfigurovat aplikaci tak, aby používala ASP.NET Core back-end, a to tak, že vyberete zaškrtávací políčko **ASP.NET Core hostované** ([dotnet New blazorwasm--Hosted](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core obsluhuje aplikaci Blazor klientům. Aplikace WebAssembly v Blazor může komunikovat se serverem přes síť pomocí volání webového rozhraní API nebo [signálu](xref:signalr/introduction) (<xref:tutorials/signalr-blazor-webassembly>).
 
 Šablony obsahují skript `blazor.webassembly.js`, který zpracovává:
 
@@ -212,7 +212,7 @@ Podpora směrování komponent s více prvky Razor v aplikacích Razor Pages:
    });
    ```
 
-1. Přidejte do aplikace směrovatelné součásti. Příklad:
+1. Přidejte do aplikace směrovatelné součásti. Například:
 
    ```razor
    @page "/counter"
@@ -222,7 +222,7 @@ Podpora směrování komponent s více prvky Razor v aplikacích Razor Pages:
    ...
    ```
 
-   Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do souboru *Pages/_ViewImports. cshtml* . Další informace najdete v tématu <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>.
+   Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do souboru *Pages/_ViewImports. cshtml* . Další informace naleznete v tématu <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>.
 
 #### <a name="use-routable-components-in-an-mvc-app"></a>Použití směrovatelných komponent v aplikaci MVC
 
@@ -280,7 +280,7 @@ Podpora směrovatelných komponent Razor v aplikacích MVC:
    });
    ```
 
-1. Vytvořte složku *Pages* a přidejte do ní součásti s funkcí směrování. Příklad:
+1. Vytvořte složku *Pages* a přidejte do ní součásti s funkcí směrování. Například:
 
    ```razor
    @page "/counter"
@@ -290,7 +290,7 @@ Podpora směrovatelných komponent Razor v aplikacích MVC:
    ...
    ```
 
-   Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do souboru *views/_ViewImports. cshtml* . Další informace najdete v tématu <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>.
+   Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do souboru *views/_ViewImports. cshtml* . Další informace naleznete v tématu <xref:blazor/components#integrate-components-into-razor-pages-and-mvc-apps>.
 
 ### <a name="circuits"></a>Spoj
 
@@ -306,7 +306,7 @@ Latence uživatelského rozhraní je doba, kterou trvá od iniciované akce až 
 
 Pro podnikovou aplikaci, která je omezená jenom na soukromou podnikovou síť, se většinou neprojeví vlivu na vnímání uživatele latence kvůli latenci sítě. V případě aplikace nasazené přes Internet může latence znamenat uživatele, zejména v případě, že uživatelé jsou geograficky distribuováni podrobněji.
 
-Využití paměti může také přispět k latenci aplikace. Zvýšení využití paměti vede k častému uvolňování paměti nebo paměti stránkování na disk, přičemž obě tyto čítače zvyšují výkon aplikace a následně zvyšují latenci uživatelského rozhraní. Další informace najdete v tématu <xref:security/blazor/server>.
+Využití paměti může také přispět k latenci aplikace. Zvýšení využití paměti vede k častému uvolňování paměti nebo paměti stránkování na disk, přičemž obě tyto čítače zvyšují výkon aplikace a následně zvyšují latenci uživatelského rozhraní. Další informace naleznete v tématu <xref:security/blazor/server>.
 
 Blazor serverové aplikace by měly být optimalizované pro minimalizaci latence uživatelského rozhraní tím, že se sníží latence sítě a využití paměti. Přístup k měření latence sítě najdete v tématu <xref:host-and-deploy/blazor/server#measure-network-latency>. Další informace o signalizaci a Blazor najdete v tématech:
 
@@ -321,7 +321,7 @@ Serverové aplikace Blazor vyžadují připojení aktivního signálu k serveru.
 
 Aplikace Blazor serveru se předem vykreslí v reakci na první požadavek klienta, který nastaví stav uživatelského rozhraní na serveru. Když se klient pokusí vytvořit připojení k signalizaci, klient se musí znovu připojit ke stejnému serveru. Serverové aplikace Blazor, které používají více než jeden back-end Server, by měly implementovat *rychlé relace* pro připojení k signalizaci.
 
-Pro aplikace serveru Blazor doporučujeme používat [službu Azure signaler](/azure/azure-signalr) . Služba umožňuje škálovat aplikace serveru Blazor na velký počet souběžných připojení k signalizaci. Rychlé relace jsou povolené pro službu Azure Signal Service tím, že nastavíte možnost `ServerStickyMode` služby nebo hodnotu konfigurace na `Required`. Další informace najdete v tématu <xref:host-and-deploy/blazor/server#signalr-configuration>.
+Pro aplikace serveru Blazor doporučujeme používat [službu Azure signaler](/azure/azure-signalr) . Služba umožňuje škálovat aplikace serveru Blazor na velký počet souběžných připojení k signalizaci. Rychlé relace jsou povolené pro službu Azure Signal Service tím, že nastavíte možnost `ServerStickyMode` služby nebo hodnotu konfigurace na `Required`. Další informace naleznete v tématu <xref:host-and-deploy/blazor/server#signalr-configuration>.
 
 Při použití služby IIS jsou v rámci směrování žádostí na aplikace povoleny rychlé relace. Další informace najdete v tématu [Vyrovnávání zatížení HTTP pomocí směrování žádostí na aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).
 
@@ -500,7 +500,8 @@ Konfigurace klienta SignalR v souboru *Pages/_Host. cshtml* :
 </script>
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>
+* <xref:tutorials/signalr-blazor-webassembly>

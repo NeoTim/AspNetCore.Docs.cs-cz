@@ -5,17 +5,17 @@ description: Prozkoumejte ASP.NET Core Blazor, způsob sestavení interaktivníh
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 12/18/2019
+ms.date: 01/31/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 9f43735fc02ba9f8da4ba27c8b5763d587b5429a
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 02c95c19ebfb5ea6ad722f9d49f4cddc7471f8e1
+ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159921"
+ms.lasthandoff: 02/05/2020
+ms.locfileid: "77034076"
 ---
 # <a name="introduction-to-aspnet-core-opno-locblazor"></a>Úvod do ASP.NET Core Blazor
 
@@ -140,7 +140,7 @@ Připojení, které používá Blazor Server ke komunikaci s prohlížečem, slo
 
 ## <a name="javascript-interop"></a>Interoperabilita JavaScriptu
 
-Pro aplikace, které vyžadují knihovny JavaScript třetích stran a přístup k rozhraním API prohlížeče, komponenty, které spolupracují s JavaScriptem. Komponenty umožňují použití libovolné knihovny nebo rozhraní API, které může JavaScript používat. C#kód může zavolat do kódu JavaScriptu a JavaScriptový kód může zavolat do C# kódu. Další informace najdete v tématu <xref:blazor/javascript-interop>.
+Pro aplikace, které vyžadují knihovny JavaScript třetích stran a přístup k rozhraním API prohlížeče, komponenty, které spolupracují s JavaScriptem. Komponenty umožňují použití libovolné knihovny nebo rozhraní API, které může JavaScript používat. C#kód může zavolat do kódu JavaScriptu a JavaScriptový kód může zavolat do C# kódu. Další informace naleznete v tématu <xref:blazor/javascript-interop>.
 
 ## <a name="code-sharing-and-net-standard"></a>Sdílení kódu a .NET Standard
 
@@ -148,10 +148,11 @@ Blazor implementuje [.NET Standard 2,0](/dotnet/standard/net-standard). .NET Sta
 
 Rozhraní API, která nejsou platná v rámci webového prohlížeče (například přístup k systému souborů, otevření soketu a vlákna) vyvolávají <xref:System.PlatformNotSupportedException>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [WebAssembly](https://webassembly.org/)
 * <xref:blazor/hosting-models>
+* <xref:tutorials/signalr-blazor-webassembly>
 * [Průvodce jazykem C#](/dotnet/csharp/)
 * <xref:mvc/views/razor>
 * [HTML](https://www.w3.org/html/)
