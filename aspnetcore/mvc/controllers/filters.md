@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: Přečtěte si, jak filtry fungují a jak je používat v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 1/1/2020
+ms.date: 02/04/2020
 uid: mvc/controllers/filters
-ms.openlocfilehash: 759c150e7f35f3f6a52947edc5ef41448dc227fe
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: c4bb9d5746e494106ead6ad5bbf972bbcc5a39f1
+ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828968"
+ms.lasthandoff: 02/05/2020
+ms.locfileid: "77034062"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -28,13 +28,16 @@ Předdefinované filtry zpracovávají úlohy, jako například:
 
 Vlastní filtry je možné vytvořit pro zpracování vzájemně se týkajících se otázek. Mezi obavy mezi průřezy patří zpracování chyb, ukládání do mezipaměti, konfigurace, autorizace a protokolování.  Filtry zabraňují duplikování kódu. Například filtr výjimek zpracování chyb může konsolidovat zpracování chyb.
 
-Tento dokument se týká Razor Pages, řadičů rozhraní API a řadičů se zobrazeními.
+Tento dokument se týká Razor Pages, řadičů rozhraní API a řadičů se zobrazeními. Filtry nefungují přímo se [součástmi Razor](xref:blazor/components). Filtr může nepřímo ovlivnit komponentu pouze v těchto případech:
+
+* Komponenta je vložena do stránky nebo zobrazení.
+* Stránka nebo kontroler nebo zobrazení používá filtr.
 
 [Zobrazit nebo Stáhnout ukázku](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
 ## <a name="how-filters-work"></a>Jak fungují filtry
 
-Filtry se spouštějí v *kanálu vyvolání akce ASP.NET Core*, někdy označované jako *kanál filtru*.  Kanál filtru se spustí po ASP.NET Core vybere akci, která se má provést.
+Filtry se spouštějí v *kanálu vyvolání akce ASP.NET Core*, někdy označované jako *kanál filtru*. Kanál filtru se spustí po ASP.NET Core vybere akci, která se má provést.
 
 ![Požadavek se zpracovává prostřednictvím jiného middlewaru, middleware směrování, výběru akcí a kanálu vyvolání akce. Zpracování žádosti pokračuje zpět pomocí výběru akcí, middlewaru směrování a jiného middleware před odesláním odpovědi klientovi.](filters/_static/filter-pipeline-1.png)
 
@@ -173,7 +176,7 @@ V důsledku vnořování filtru je *po* kódu spuštěn v obráceném pořadí *
   
 Následující příklad ilustruje pořadí, ve kterém jsou metody filtru volány pro filtry synchronních akcí.
 
-| Sequence | Rozsah filtru | Filter – metoda |
+| Pořadí | Rozsah filtru | Filter – metoda |
 |:--------:|:------------:|:-------------:|
 | 1 | Globální | `OnActionExecuting` |
 | 2 | Kontroler nebo stránka Razor| `OnActionExecuting` |
@@ -273,7 +276,7 @@ Proto filtr `AddHeader` pro akci `SomeResource` nikdy neběží. Toto chování 
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 Filtry lze přidat podle typu nebo podle instance. Pokud je přidána instance, bude tato instance použita pro každý požadavek. Pokud je přidán typ, je aktivován typ. Filtr aktivovaný typu znamená:
 
@@ -484,8 +487,8 @@ Preferovat middleware pro zpracování výjimek. Filtry výjimek použijte pouze
 Filtry výsledků:
 
 * Implementace rozhraní:
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> Nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> Nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter>
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter>
 * Jejich spuštění obklopuje provádění výsledků akcí.
 
 ### <a name="iresultfilter-and-iasyncresultfilter"></a>IResultFilter a IAsyncResultFilter
@@ -714,13 +717,13 @@ V důsledku vnořování filtru je *po* kódu spuštěn v obráceném pořadí *
   
 Následující příklad ilustruje pořadí, ve kterém jsou metody filtru volány pro filtry synchronních akcí.
 
-| Sequence | Rozsah filtru | Filter – metoda |
+| Pořadí | Rozsah filtru | Filter – metoda |
 |:--------:|:------------:|:-------------:|
 | 1 | Globální | `OnActionExecuting` |
-| 2 | Správce | `OnActionExecuting` |
+| 2 | Kontrolér | `OnActionExecuting` |
 | 3 | Metoda | `OnActionExecuting` |
 | 4 | Metoda | `OnActionExecuted` |
-| 5 | Správce | `OnActionExecuted` |
+| 5 | Kontrolér | `OnActionExecuted` |
 | 6 | Globální | `OnActionExecuted` |
 
 Tato posloupnost zobrazuje:
@@ -774,13 +777,13 @@ Vlastnost `Order` lze nastavit pomocí parametru konstruktoru:
 
 Vezměte v úvahu stejné 3 filtry akcí, které jsou uvedené v předchozím příkladu. Je-li vlastnost `Order` řadiče a globálních filtrů nastavena na hodnotu 1 a 2 v uvedeném pořadí, je pořadí spuštění obrácené.
 
-| Sequence | Rozsah filtru | `Order` – vlastnost | Filter – metoda |
+| Pořadí | Rozsah filtru | `Order` – vlastnost | Filter – metoda |
 |:--------:|:------------:|:-----------------:|:-------------:|
 | 1 | Metoda | 0 | `OnActionExecuting` |
-| 2 | Správce | 1  | `OnActionExecuting` |
+| 2 | Kontrolér | 1  | `OnActionExecuting` |
 | 3 | Globální | 2  | `OnActionExecuting` |
 | 4 | Globální | 2  | `OnActionExecuted` |
-| 5 | Správce | 1  | `OnActionExecuted` |
+| 5 | Kontrolér | 1  | `OnActionExecuted` |
 | 6 | Metoda | 0  | `OnActionExecuted` |
 
 Vlastnost `Order` Přepisuje obor při určování pořadí, ve kterém jsou filtry spouštěny. Filtry jsou seřazené podle pořadí, pak se k přerušení vztahů používá obor. Všechny předdefinované filtry implementují `IOrderedFilter` a nastaví výchozí hodnotu `Order` na 0. Pro předdefinované filtry rozsah určuje pořadí, pokud není `Order` nastaveno na nenulovou hodnotu.
@@ -802,7 +805,7 @@ Proto filtr `AddHeader` pro akci `SomeResource` nikdy neběží. Toto chování 
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 Filtry lze přidat podle typu nebo podle instance. Pokud je přidána instance, bude tato instance použita pro každý požadavek. Pokud je přidán typ, je aktivován typ. Filtr aktivovaný typu znamená:
 
@@ -1011,8 +1014,8 @@ Preferovat middleware pro zpracování výjimek. Filtry výjimek použijte pouze
 Filtry výsledků:
 
 * Implementace rozhraní:
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> Nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
-  * <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> Nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter>
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IResultFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncResultFilter>
+  * <xref:Microsoft.AspNetCore.Mvc.Filters.IAlwaysRunResultFilter> nebo <xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncAlwaysRunResultFilter>
 * Jejich spuštění obklopuje provádění výsledků akcí.
 
 ### <a name="iresultfilter-and-iasyncresultfilter"></a>IResultFilter a IAsyncResultFilter

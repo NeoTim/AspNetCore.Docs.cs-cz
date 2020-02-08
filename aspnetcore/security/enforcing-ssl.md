@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: d7d4eece935bd83b69a6a5d81898012b99d73193
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 59883a8165040fa58edb2f6cf22d4d6b3abf6f3e
+ms.sourcegitcommit: 80286715afb93c4d13c931b008016d6086c0312b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828903"
+ms.lasthandoff: 02/07/2020
+ms.locfileid: "77074546"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V tomto dokumentu se dozvíte, jak:
 
@@ -277,7 +277,7 @@ Následující kód:
 ::: moniker-end
 
 
-* Nastaví parametr přednačtení záhlaví Strict-Transport-Security. Předběžné načtení není součástí [specifikace RFC HSTS](https://tools.ietf.org/html/rfc6797), ale podporuje je ve webových prohlížečích k přednačtení webů HSTS při nové instalaci. Další informace najdete tady: [https://hstspreload.org/](https://hstspreload.org/).
+* Nastaví parametr přednačtení záhlaví Strict-Transport-Security. Předběžné načtení není součástí [specifikace RFC HSTS](https://tools.ietf.org/html/rfc6797), ale podporuje je ve webových prohlížečích k přednačtení webů HSTS při nové instalaci. Další informace najdete v tématu [https://hstspreload.org/](https://hstspreload.org/) .
 * Povolí [includeSubDomain](https://tools.ietf.org/html/rfc6797#section-6.1.2), která aplikuje zásady HSTS na hostování subdomén.
 * Explicitně nastaví parametr max-age záhlaví Strict-Transport-Security na 60 dní. Pokud není nastavené, výchozí hodnota je 30 dní. Další informace najdete v [direktivě pro maximální stáří](https://tools.ietf.org/html/rfc6797#section-6.1.1) .
 * Přidá `example.com` do seznamu hostitelů, které mají být vyloučeny.
@@ -313,7 +313,7 @@ Zrušte zaškrtnuté políčko **Konfigurovat pro protokol HTTPS** .
 
 # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli) 
 
-Použijte možnost `--no-https`. Příklad
+Použijte možnost `--no-https`. Například
 
 ```dotnetcli
 dotnet new webapp --no-https
@@ -383,7 +383,7 @@ Předchozí příkazy vyřeší většinu problémů s důvěryhodností prohlí
 ### <a name="docker---certificate-not-trusted"></a>Docker – certifikát není důvěryhodný.
 
 * Odstraňte složku *C:\Users\{uživateli} \AppData\Roaming\ASP.NET\Https* .
-* Vyčistěte řešení. Odstranit *bin* a *obj* složek.
+* Vyčistěte řešení. Odstraňte složky *bin* a *obj* .
 * Restartujte nástroj pro vývoj. Například Visual Studio, Visual Studio Code nebo Visual Studio pro Mac.
 
 ### <a name="windows---certificate-not-trusted"></a>Windows – certifikát není důvěryhodný.
@@ -419,7 +419,7 @@ Informace o řešení problémů s certifikáty pomocí sady Visual Studio najde
 
 ### <a name="iis-express-ssl-certificate-used-with-visual-studio"></a>IIS Express certifikát SSL používaný se sadou Visual Studio
 
-Pokud chcete opravit problémy s certifikátem IIS Express, vyberte v instalačním programu sady Visual Studio možnost **opravit** .
+Pokud chcete opravit problémy s certifikátem IIS Express, vyberte v instalačním programu sady Visual Studio možnost **opravit** . Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/aspnetcore/issues/16892).
 
 ## <a name="additional-information"></a>Další informace
 

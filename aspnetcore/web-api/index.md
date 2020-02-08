@@ -5,14 +5,14 @@ description: Seznamte se se základy vytváření webového rozhraní API v ASP.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 01/27/2020
+ms.date: 02/02/2020
 uid: web-api/index
-ms.openlocfilehash: 8609e2095c202643cdc905cc610298195b654215
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 3dca07db3d6be4ab219a2e05e3adcf1b24ee5c40
+ms.sourcegitcommit: 80286715afb93c4d13c931b008016d6086c0312b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870014"
+ms.lasthandoff: 02/07/2020
+ms.locfileid: "77074507"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytváření webových rozhraní API pomocí ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "76870014"
 
 ASP.NET Core podporuje vytváření služeb RESTful, označovaných také jako webová rozhraní API C#, pomocí. Webové rozhraní API zpracovává žádosti pomocí řadičů. *Řadiče* ve webovém rozhraní API jsou třídy, které jsou odvozeny z `ControllerBase`. V tomto článku se dozvíte, jak používat řadiče pro zpracování požadavků webového rozhraní API.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
 
 ## <a name="controllerbase-class"></a>ControllerBase – třída
 
@@ -46,7 +46,7 @@ Třída `ControllerBase` poskytuje mnoho vlastností a metod, které jsou užite
 
 Zde je několik příkladů metod, které `ControllerBase` poskytuje.
 
-|Metoda   |Poznámky    |
+|Metoda   |Poznámky:    |
 |---------|---------|
 |<xref:Microsoft.AspNetCore.Mvc.ControllerBase.BadRequest%2A>| Vrátí stavový kód 400.|
 |<xref:Microsoft.AspNetCore.Mvc.ControllerBase.NotFound%2A>|Vrátí stavový kód 404.|
@@ -64,7 +64,7 @@ Obor názvů <xref:Microsoft.AspNetCore.Mvc> poskytuje atributy, které lze pou�
 
 Tady je několik příkladů atributů, které jsou k dispozici.
 
-|Atribut|Poznámky|
+|Atribut|Poznámky:|
 |---------|-----|
 |[`[Route]`](<xref:Microsoft.AspNetCore.Mvc.RouteAttribute>)      |Určuje vzor adresy URL pro kontroler nebo akci.|
 |[`[Bind]`](<xref:Microsoft.AspNetCore.Mvc.BindAttribute>)        |Určuje předponu a vlastnosti, které se mají zahrnout do vazby modelu.|
@@ -156,7 +156,7 @@ namespace WebApiSample
 
 ## <a name="attribute-routing-requirement"></a>Požadavek na směrování atributu
 
-Atribut `[ApiController]` dělá směrování požadavku. Příklad:
+Atribut `[ApiController]` dělá směrování požadavku. Například:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -256,9 +256,9 @@ Zdrojový atribut vazby definuje umístění, kde je nalezena hodnota parametru 
 
 |Atribut|Zdroj vazby |
 |---------|---------|
-|[`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)     | Tělo požadavku |
+|[`[FromBody]`](xref:Microsoft.AspNetCore.Mvc.FromBodyAttribute)     | Text požadavku |
 |[`[FromForm]`](xref:Microsoft.AspNetCore.Mvc.FromFormAttribute)     | Data formuláře v textu žádosti |
-|[`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) | Hlavička žádosti |
+|[`[FromHeader]`](xref:Microsoft.AspNetCore.Mvc.FromHeaderAttribute) | Hlavička požadavku |
 |[`[FromQuery]`](xref:Microsoft.AspNetCore.Mvc.FromQueryAttribute)   | Parametr řetězce dotazu žádosti |
 |[`[FromRoute]`](xref:Microsoft.AspNetCore.Mvc.FromRouteAttribute)   | Směrovat data z aktuální žádosti |
 |[`[FromServices]`](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) | Služba požadavku byla vložena jako parametr akce. |
@@ -369,7 +369,7 @@ V akci kontroleru zvažte následující kód:
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
 
-Metoda `NotFound` generuje stavový kód HTTP 404 s `ProblemDetails` tělo. Příklad:
+Metoda `NotFound` generuje stavový kód HTTP 404 s `ProblemDetails` tělo. Například:
 
 ```json
 {
@@ -398,7 +398,31 @@ Automatické vytváření instance `ProblemDetails` je zakázáno, pokud je vlas
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+<a name="consumes"></a>
+
+## <a name="define-supported-request-content-types-with-the-consumes-attribute"></a>Definujte podporované typy obsahu požadavků pomocí atributu [resupporteds].
+
+Ve výchozím nastavení akce podporuje všechny dostupné typy obsahu žádostí. Například pokud je aplikace nakonfigurována tak, aby podporovala [vstupní formátovací](xref:mvc/models/model-binding#input-formatters)moduly JSON a XML, akce podporuje více typů obsahu, včetně `application/json` a `application/xml`.
+
+Atribut [[](<xref:Microsoft.AspNetCore.Mvc.ConsumesAttribute>) ] umožňuje akci omezit podporované typy obsahu požadavků. Použijte atribut `[Consumes]` pro akci nebo kontroler a určete jeden nebo více typů obsahu:
+
+```csharp
+[HttpPost]
+[Consumes("application/xml")]
+public IActionResult CreateProduct(Product product)
+```
+
+V předchozím kódu akce `CreateProduct` určuje typ obsahu `application/xml`. Požadavky směrované na tuto akci musí určovat `Content-Type` záhlaví `application/xml`. V případě požadavků, které nespecifikují hlavičku `Content-Type` `application/xml` je výsledkem [Nepodporovaná odpověď typu média 415](https://developer.mozilla.org/docs/Web/HTTP/Status/415) .
+
+Atribut `[Consumes]` také umožňuje, aby akce ovlivnila svůj výběr na základě typu obsahu příchozího požadavku, a to použitím omezení typu. Vezměte v úvahu v následujícím příkladu:
+
+[!code-csharp[](index/samples/3.x/Controllers/ConsumesController.cs?name=snippet_Class)]
+
+V předchozím kódu je `ConsumesController` nakonfigurován tak, aby zpracovávala požadavky odeslané na adresu URL `https://localhost:5001/api/Consumes`. Obě akce kontroleru `PostJson` a `PostForm`zpracovávají požadavky POST pomocí stejné adresy URL. Bez atributu `[Consumes]`, který používá omezení typu, je vyvolána výjimka nejednoznačné shody.
+
+Atribut `[Consumes]` se aplikuje na obě akce. Akce `PostJson` zpracovává požadavky odeslané pomocí `Content-Type` záhlaví `application/json`. Akce `PostForm` zpracovává požadavky odeslané pomocí `Content-Type` záhlaví `application/x-www-form-urlencoded`. 
+
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:web-api/action-return-types>
 * <xref:web-api/handle-errors>
