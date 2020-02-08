@@ -101,6 +101,9 @@
         - name: SignalR s TypeScriptem
           displayName: tutorial
           uid: tutorials/signalr-typescript-webpack
+        - name: SignalR s Blazor WebAssembly
+          displayName: tutorial
+          uid: tutorials/signalr-blazor-webassembly
     - name: Aplikace využívající vzdálené volání procedur
       items:
         - name: Začínáme se službou gRPC
@@ -282,8 +285,12 @@
           uid: blazor/get-started
         - name: Modely hostingu
           uid: blazor/hosting-models
-        - name: Sestavení první aplikace
-          uid: tutorials/first-blazor-app
+        - name: Kurzy
+          items:
+            - name: Sestavení první aplikace
+              uid: tutorials/first-blazor-app
+            - name: SignalR s Blazor WebAssembly
+              uid: tutorials/signalr-blazor-webassembly
         - name: Šablony
           uid: blazor/templates
         - name: Komponenty
@@ -477,6 +484,8 @@
           uid: tutorials/signalr
         - name: SignalR s TypeScriptem
           uid: tutorials/signalr-typescript-webpack
+        - name: SignalR s Blazor WebAssembly
+          uid: tutorials/signalr-blazor-webassembly
     - name: Ukázky
       href: 'https://github.com/aspnet/SignalR-samples'
       displayName: signalr
