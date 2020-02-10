@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 47f465c00138acf434c6ec59f757e37361ad97db
-ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
+ms.openlocfilehash: 6698e269e0a6480cd5a03c59f9a19da31e23bf69
+ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/05/2020
-ms.locfileid: "77034101"
+ms.lasthandoff: 02/08/2020
+ms.locfileid: "77089146"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -167,7 +167,7 @@ V případě aplikací s jednou stránkou se middleware SPA <xref:Microsoft.Exte
 * Aby všechny ostatní middleware mohly reagovat na vyhovující požadavky jako první.
 * Povolí spuštění jednostránkové se směrováním na straně klienta pro všechny trasy, které serverová aplikace nerozpoznala.
 
-Další podrobnosti o aplikacích s jednou stránkou naleznete v příručkách pro [reakce](xref:spa/react) a [na](xref: client-side/spa/angular) obrazové šablony.
+Další podrobnosti o aplikacích s jednou stránkou naleznete v příručkách pro [reakce](xref:spa/react) a [na](xref:spa/angular) obrazové šablony.
 
 ## <a name="branch-the-middleware-pipeline"></a>Větvení kanálu middlewaru
 
