@@ -5,17 +5,17 @@ description: Přečtěte si o Blazor scénářích ověřování a autorizace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2020
+ms.date: 02/02/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: e9087c246f4805e5931180fa0869fc8a8d23a6c1
-ms.sourcegitcommit: c81ef12a1b6e6ac838e5e07042717cf492e6635b
+ms.openlocfilehash: c7b3788b5737073100e7fa449fd6bb4a83c0043a
+ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76885595"
+ms.lasthandoff: 02/10/2020
+ms.locfileid: "77114884"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
@@ -74,7 +74,7 @@ V následující tabulce jsou uvedeny přípustné hodnoty ověřování (`{AUTH
 | Jednoho<br>Uživatelé uložení v [Azure AD B2C](xref:security/authentication/azure-ad-b2c). | `IndividualB2C`          |
 | Pracovní nebo školní účty<br>Ověřování organizace pro jednoho tenanta.            | `SingleOrg`              |
 | Pracovní nebo školní účty<br>Ověřování organizace pro více tenantů.           | `MultiOrg`               |
-| Ověřování Windows                                                                   | `Windows`                |
+| Ověřování systému Windows                                                                   | `Windows`                |
 
 Příkaz vytvoří složku s názvem s hodnotou poskytnutou pro zástupný symbol `{APP NAME}` a jako název aplikace použije název složky. Další informace najdete v tématu [dotnet New](/dotnet/core/tools/dotnet-new) v příručce .NET Core.
 
@@ -329,7 +329,7 @@ U ověřování na základě rolí použijte parametr `Roles`:
 </AuthorizeView>
 ```
 
-Další informace najdete v tématu <xref:security/authorization/roles>.
+Další informace naleznete v tématu <xref:security/authorization/roles>.
 
 Pro autorizaci založenou na zásadách použijte parametr `Policy`:
 
@@ -339,7 +339,7 @@ Pro autorizaci založenou na zásadách použijte parametr `Policy`:
 </AuthorizeView>
 ```
 
-Ověřování na základě deklarací identity je zvláštní případ ověřování na základě zásad. Můžete například definovat zásadu, která vyžaduje, aby uživatelé měli určitou deklaraci identity. Další informace najdete v tématu <xref:security/authorization/policies>.
+Ověřování na základě deklarací identity je zvláštní případ ověřování na základě zásad. Můžete například definovat zásadu, která vyžaduje, aby uživatelé měli určitou deklaraci identity. Další informace naleznete v tématu <xref:security/authorization/policies>.
 
 Tato rozhraní API se dají použít buď v Blazor serveru, nebo v Blazor aplikace WebAssembly.
 
@@ -525,8 +525,9 @@ Je možné, že projekt nebyl vytvořen pomocí šablony serveru Blazor s povole
 
 `CascadingAuthenticationState` poskytuje `Task<AuthenticationState>` kaskádový parametr, který pak získá od příslušné služby `AuthenticationStateProvider` DI.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/index>
 * <xref:security/blazor/server>
 * <xref:security/authentication/windowsauth>
+* [Super Blazor:](https://github.com/AdrienTorris/awesome-blazor#authentication) ukázkové odkazy komunity ověřování

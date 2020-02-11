@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/26/2019
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: 5a31aa2974eb41938db89f97c070c352a26290fd
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 2a19a7d16ca8b8f5d6ac8eb99ad919b89f1e368b
+ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681172"
+ms.lasthandoff: 02/10/2020
+ms.locfileid: "77114650"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>Kurz: volání ASP.NET Core webového rozhraní API pomocí JavaScriptu
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V tomto kurzu se dozvíte, jak volat ASP.NET Core webového rozhraní API s JavaScriptem pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API).
 
@@ -27,7 +27,7 @@ Pro ASP.NET Core 2,2 se podívejte na verzi 2,2 [volání webového rozhraní AP
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * Úplný [kurz: Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
 * Znalost šablon stylů CSS, HTML a JavaScript
@@ -36,7 +36,7 @@ Pro ASP.NET Core 2,2 se podívejte na verzi 2,2 [volání webového rozhraní AP
 
 V této části přidáte stránku HTML obsahující formuláře pro vytváření a správu položek úkolů. Obslužné rutiny událostí jsou připojeny k prvkům na stránce. Obslužné rutiny událostí mají za následek požadavky HTTP na metody akcí webového rozhraní API. Funkce `fetch` pro načtení rozhraní API inicializuje jednotlivé požadavky HTTP.
 
-Funkce `fetch` vrátí objekt `Promise`, který obsahuje odpověď HTTP reprezentovanou jako objekt `Response`. Běžným vzorem je extrakce textu odpovědi JSON vyvoláním funkce `json` na objektu `Response`. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
+Funkce `fetch` vrátí objekt [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) , který obsahuje odpověď HTTP reprezentovanou jako objekt `Response`. Běžným vzorem je extrakce textu odpovědi JSON vyvoláním funkce `json` na objektu `Response`. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
 
 Nejjednodušší `fetch` volání přijímá jeden parametr reprezentující trasu. Druhý parametr, známý jako objekt `init`, je volitelný. pro konfiguraci požadavku HTTP se používá `init`.
 
@@ -56,14 +56,14 @@ Nejjednodušší `fetch` volání přijímá jeden parametr reprezentující tra
 
     [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_SiteJs)]
 
-Pro místní testování stránky HTML může být nutné změnit nastavení spouštění ASP.NET Core projektu:
+Ke změně nastavení spouštěcí projekt ASP.NET Core může být nutné testovací stránka HTML místně:
 
 1. Otevřete *Properties\launchSettings.JSON*.
 1. Odebráním vlastnosti `launchUrl` vynutíte otevření aplikace v *indexu. html*&mdash;výchozím souboru projektu.
 
 Tato ukázka volá všechny metody CRUD webového rozhraní API. Následují vysvětlení požadavků webového rozhraní API.
 
-### <a name="get-a-list-of-to-do-items"></a>Získat seznam úkolů
+### <a name="get-a-list-of-to-do-items"></a>Získání seznamu úkolů
 
 V následujícím kódu se pošle požadavek HTTP GET do trasy *API/TodoItems* :
 
@@ -71,7 +71,7 @@ V následujícím kódu se pošle požadavek HTTP GET do trasy *API/TodoItems* :
 
 Když webové rozhraní API vrátí úspěšný kód stavu, vyvolá se funkce `_displayItems`. Každá položka k tomuto účelu v parametru Array Accept `_displayItems` je přidána do tabulky s tlačítky **Upravit** a **Odstranit** . Pokud se požadavek webového rozhraní API nepovede, do konzoly prohlížeče se zaprotokoluje chyba.
 
-### <a name="add-a-to-do-item"></a>Přidat položku úkolů
+### <a name="add-a-to-do-item"></a>Přidat položku seznamu úkolů
 
 V následujícím kódu:
 
@@ -86,7 +86,7 @@ V následujícím kódu:
 
 Když webové rozhraní API vrátí úspěšný kód stavu, vyvolá se funkce `getItems`, která aktualizuje tabulku HTML. Pokud se požadavek webového rozhraní API nepovede, do konzoly prohlížeče se zaprotokoluje chyba.
 
-### <a name="update-a-to-do-item"></a>Aktualizace položky úkolů
+### <a name="update-a-to-do-item"></a>Aktualizace položky seznamu úkolů
 
 Aktualizace položky úkolů je podobná přidání. Existují však dva významné rozdíly:
 
@@ -95,7 +95,7 @@ Aktualizace položky úkolů je podobná přidání. Existují však dva význam
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_UpdateItem)]
 
-### <a name="delete-a-to-do-item"></a>Odstranění položky úkolů
+### <a name="delete-a-to-do-item"></a>Odstranit úkol
 
 Chcete-li odstranit položku, nastavte možnost `method` požadavku na `DELETE` a v adrese URL zadejte jedinečný identifikátor položky.
 

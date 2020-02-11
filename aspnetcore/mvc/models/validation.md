@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: b697f02183c76b9a96471a748a86c144fde47bb0
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: c4fd16ef682627810c6d7629671de056f1cf3b3f
+ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2020
-ms.locfileid: "76268741"
+ms.lasthandoff: 02/10/2020
+ms.locfileid: "77114754"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověřování modelu ve ASP.NET Core MVC a Razor Pages
 
@@ -62,15 +62,15 @@ Tady jsou některé z vestavěných ověřovacích atributů:
 
 Úplný seznam ověřovacích atributů najdete v oboru názvů [System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations) .
 
-### <a name="error-messages"></a>Chybovými zprávami
+### <a name="error-messages"></a>Chybové zprávy
 
-Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
+Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Například:
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-Interně atributy volají `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Příklad:
+Interně atributy volají `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Například:
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -84,7 +84,9 @@ Chcete-li zjistit, které parametry jsou předány `String.Format` pro konkrétn
 
 Systém ověřování v .NET Core 3,0 a novějším zpracovává parametry bez hodnoty null nebo vázané vlastnosti, jako by měly atribut `[Required]`. [Typy hodnot](/dotnet/csharp/language-reference/keywords/value-types) , například `decimal` a `int`, nejsou null. Toto chování je možné zakázat konfigurací <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> v `Startup.ConfigureServices`:
 
-' ' CSharp služby. AddControllers (Možnosti = > Možnosti. SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true); ...
+```csharp
+services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+```
 
 ### <a name="required-validation-on-the-server"></a>[Požadováno] ověření na serveru
 
@@ -374,9 +376,9 @@ Další možnosti zakázání ověřování na straně klienta:
 * Odkomentujte odkaz na `_ValidationScriptsPartial` ve všech souborech *. cshtml* .
 * Odeberte obsah souboru *Pages\Shared\_ValidationScriptsPartial. cshtml* .
 
-Předchozí přístup nezabrání ověřování na straně klienta ASP.NET Core knihovně tříd identity Razor. Další informace najdete v tématu <xref:security/authentication/scaffold-identity>.
+Předchozí přístup nezabrání ověřování na straně klienta ASP.NET Core knihovně tříd identity Razor. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazby modelu](model-binding.md)
@@ -426,19 +428,19 @@ Mezi předdefinované atributy ověřování patří:
 * `[Url]`: ověřuje, zda má vlastnost formát adresy URL.
 * `[Remote]`: ověřuje vstup na straně klienta voláním metody Action na serveru. Podrobnosti o chování tohoto atributu naleznete v tématu [`[Remote]` atributu](#remote-attribute) .
 
-Při použití atributu `[RegularExpression]` s ověřováním na straně klienta je regulární výraz spuštěn v jazyce JavaScript na klientovi. To znamená, že se použije chování pro porovnání [ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) . Další informace najdete v tématu [tento problém Githubu](https://github.com/dotnet/corefx/issues/42487).
+Při použití atributu `[RegularExpression]` s ověřováním na straně klienta je regulární výraz spuštěn v jazyce JavaScript na klientovi. To znamená, že se použije chování pro porovnání [ECMAScript](/dotnet/standard/base-types/regular-expression-options#ecmascript-matching-behavior) . Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/corefx/issues/42487).
 
 Úplný seznam ověřovacích atributů najdete v oboru názvů [System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations) .
 
-### <a name="error-messages"></a>Chybovými zprávami
+### <a name="error-messages"></a>Chybové zprávy
 
-Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
+Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Například:
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-Interně atributy volají `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Příklad:
+Interně atributy volají `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Například:
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -746,7 +748,7 @@ A v Razor Pages:
 
 Další možností pro vypnutí ověřování klienta je zadání komentáře k odkazu na `_ValidationScriptsPartial` v souboru *. cshtml* .
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazby modelu](model-binding.md)
