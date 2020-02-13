@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 34157a63e43372876a02a858741dfd3a83a063b1
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: f283234ed8a32dc9b7904bc6fee1cc9c04741029
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75354811"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172604"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování na stránku ASP.NET Core Razor
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V této části je logika ověřování přidána do modelu `Movie`. Ověřovací pravidla se vynutily pokaždé, když uživatel vytvoří nebo upraví film.
 
@@ -49,7 +49,7 @@ Atributy ověřování určují chování, které chcete vyhovět pro vlastnosti
   * Vyžaduje, aby byl první znak velkým písmenem.
   * Umožňuje speciální znaky a čísla v následujících mezerách. "PG-13" je platné pro hodnocení, ale pro "Žánr" se nezdařilo.
 
-* Atribut `Range` omezuje hodnotu v konkrétním rozsahu.
+* Atribut `Range` omezuje hodnotu na v zadaném rozsahu.
 * Atribut `StringLength` umožňuje nastavit maximální délku řetězcové vlastnosti a volitelně její minimální délku.
 * Typy hodnot (například `decimal`, `int`, `float`, `DateTime`) jsou podstatou požadovány a nepotřebují atribut `[Required]`.
 
@@ -107,7 +107,7 @@ Když je potřeba logiku ověřování změnit, provede se jenom v modelu. Ově�
 
 ## <a name="using-datatype-attributes"></a>Použití atributů DataType
 
-Prověřte třídu `Movie`. Obor názvů `System.ComponentModel.DataAnnotations` poskytuje kromě předdefinované sady ověřovacích atributů také atributy formátování. Pro vlastnosti `ReleaseDate` a `Price` je použit atribut `DataType`.
+Prověřte třídu `Movie`. Obor názvů `System.ComponentModel.DataAnnotations` poskytuje kromě předdefinované sady ověřovacích atributů také atributy formátování. Atribut `DataType` se aplikuje na vlastnosti `ReleaseDate` a `Price`.
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
 
@@ -161,7 +161,7 @@ Tato dataanotace použitá pro třídu mění schéma. Například dataanotace p
 
 Tabulka `Movie` aktuálně má následující schéma:
 
-``` sql
+```sql
 CREATE TABLE [dbo].[Movie] (
     [ID]          INT             IDENTITY (1, 1) NOT NULL,
     [Title]       NVARCHAR (MAX)  NULL,
@@ -189,7 +189,7 @@ Update-Database
 
 Aktualizovaná `Movie` tabulka má následující schéma:
 
-``` sql
+```sql
 CREATE TABLE [dbo].[Movie] (
     [ID]          INT             IDENTITY (1, 1) NOT NULL,
     [Title]       NVARCHAR (60)   NOT NULL,
@@ -201,19 +201,19 @@ CREATE TABLE [dbo].[Movie] (
 );
 ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 Migrace nejsou pro SQLite požadovány.
 
 ---
 
-### <a name="publish-to-azure"></a>Publikování do Azure
+### <a name="publish-to-azure"></a>Publikování aplikací do Azure
 
 Informace o nasazení do Azure najdete v tématu [kurz: sestavení aplikace ASP.NET Core v Azure pomocí SQL Database](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb).
 
 Děkujeme za dokončení tohoto úvodu do Razor Pages. Začněte [s Razor Pages a EF Core](xref:data/ef-rp/intro) je vynikajícím postupem v tomto kurzu.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/views/working-with-forms>
 * <xref:fundamentals/localization>

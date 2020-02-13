@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.date: 01/28/2020
 uid: razor-pages/index
-ms.openlocfilehash: da30908b38d553405fd3f959f09a19eff750ed17
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 402e11d653cf0e7433c63844cb7e2802abc61679
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870502"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172612"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor Pages v ASP.NET Core
 
@@ -25,7 +25,7 @@ Pokud hledáte kurz, který používá přístup k modelovým zobrazením, pře�
 
 Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. Pokud některé části obsahují příliš pokročilé, přečtěte si téma Začínáme [s Razor Pages](xref:tutorials/razor-pages/razor-pages-start). Přehled ASP.NET Core najdete v [úvodu k ASP.NET Core](xref:index).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -87,10 +87,10 @@ Přidružení cest URL ke stránkám závisí na umístění stránky v systému
 
 | Název souboru a cesta               | shodná adresa URL |
 | ----------------- | ------------ |
-| */Pages/Index.cshtml* | `/` Nebo `/Index` |
+| */Pages/Index.cshtml* | `/` nebo `/Index` |
 | */Pages/Contact.cshtml* | `/Contact` |
 | */Pages/Store/Contact.cshtml* | `/Store/Contact` |
-| */Pages/Store/Index.cshtml* | `/Store` Nebo `/Store/Index` |
+| */Pages/Store/Index.cshtml* | `/Store` nebo `/Store/Index` |
 
 Poznámky:
 
@@ -212,7 +212,7 @@ Soubor *index. cshtml* obsahuje následující kód:
 
 [!code-cshtml[](index/3.0sample/RazorPagesContacts/Pages/Customers/Index.cshtml?range=21)]
 
-[Pomocná značka `<a /a>` ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) použila atribut `asp-route-{value}` k vygenerování odkazu na stránku pro úpravy. Odkaz obsahuje data směrování s ID kontaktu. Například `https://localhost:5001/Edit/1`. [Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML.
+[Pomocná značka `<a /a>` ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) použila atribut `asp-route-{value}` k vygenerování odkazu na stránku pro úpravy. Odkaz obsahuje data směrování s ID kontaktu. například `https://localhost:5001/Edit/1`. [Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML.
 
 Soubor *index. cshtml* obsahuje značky pro vytvoření tlačítka Odstranit pro každého kontaktu zákazníka:
 
@@ -220,7 +220,7 @@ Soubor *index. cshtml* obsahuje značky pro vytvoření tlačítka Odstranit pro
 
 Vykreslený kód HTML:
 
-```HTML
+```html
 <button type="submit" formaction="/Customers?id=1&amp;handler=delete">delete</button>
 ```
 
@@ -235,7 +235,7 @@ Vzhledem k tomu, že `handler` je `delete` v tomto příkladu, metoda obslužné
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/Pages/Customers/Index.cshtml.cs?name=snippet2)]
 
-`OnPostDeleteAsync` Metody:
+Metoda `OnPostDeleteAsync`:
 
 * Získá `id` z řetězce dotazu.
 * Dotazuje databázi na kontakt zákazníka s `FindAsync`.
@@ -317,7 +317,7 @@ Stránka vytvořit pro model `Movie` zobrazuje chyby s neplatnými hodnotami:
 
 ![Formulář zobrazení videa s několika chybami ověřování na straně klienta jQuery](~/tutorials/razor-pages/validation/_static/val.png)
 
-Další informace najdete v části .
+Další informace naleznete v tématu:
 
 * [Přidání ověření do aplikace Movie](xref:tutorials/razor-pages/validation)
 * [Ověřování modelu v ASP.NET Core](xref:mvc/models/validation).
@@ -424,21 +424,21 @@ Aplikace má následující strukturu souborů nebo složek:
 
 * */Pages*
 
-  * *Index.cshtml*
-  * *Privacy.cshtml*
+  * *Index. cshtml*
+  * *Soukromí. cshtml*
   * */Customers*
 
-    * *Create.cshtml*
-    * *Edit.cshtml*
-    * *Index.cshtml*
+    * *Vytvořit. cshtml*
+    * *Upravit. cshtml*
+    * *Index. cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který se používá pro přístup k předchozí stránce. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Příklad:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který se používá pro přístup k předchozí stránce. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Například:
 
 * `Url.Page("./Index", ...)`
 * `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-Absolutní `/Index` název stránky se používá ke generování adres URL na stránce *pages/index. cshtml* . Příklad:
+Absolutní `/Index` název stránky se používá ke generování adres URL na stránce *pages/index. cshtml* . Například:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`
@@ -470,7 +470,7 @@ Chcete-li přesměrovat na stránku v jiné [oblasti](xref:mvc/controllers/areas
 RedirectToPage("/Index", new { area = "Services" });
 ```
 
-Další informace naleznete v tématu <xref:mvc/controllers/areas> a <xref:razor-pages/razor-pages-conventions>.
+Další informace naleznete v tématech <xref:mvc/controllers/areas> a <xref:razor-pages/razor-pages-conventions>.
 
 ## <a name="viewdata-attribute"></a>ViewData – atribut
 
@@ -522,7 +522,7 @@ Následující kód v souboru *Pages/Customers/index. cshtml* zobrazuje hodnotu 
 
 Model stránky *Pages/Customers/index. cshtml. cs* používá atribut `[TempData]` pro vlastnost `Message`.
 
-```cs
+```csharp
 [TempData]
 public string Message { get; set; }
 ```
@@ -591,7 +591,7 @@ Přidejte <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBui
 
 [!code-cs[](index/3.0sample/RazorPagesContacts/StartupWithRazorPagesRoot.cs?name=snippet)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * Další informace najdete v tématu [Začínáme s Razor Pages, který sestává](xref:tutorials/razor-pages/razor-pages-start)z tohoto úvodního sestavení.
 * [Stáhnout nebo zobrazit ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/index/3.0sample)
@@ -603,7 +603,7 @@ Přidejte <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBui
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:test/razor-pages-tests>
 * <xref:mvc/views/partial>
-* [Integrace součástí Razor do aplikací Razor Pages a MVC](xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps)
+* [Integrace součástí Razor do aplikací Razor Pages a MVC](xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps)
 
 ::: moniker-end
 
@@ -617,7 +617,7 @@ Pokud hledáte kurz, který používá přístup k modelovým zobrazením, pře�
 
 Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. Pokud některé části obsahují příliš pokročilé, přečtěte si téma Začínáme [s Razor Pages](xref:tutorials/razor-pages/razor-pages-start). Přehled ASP.NET Core najdete v [úvodu k ASP.NET Core](xref:index).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -679,10 +679,10 @@ Přidružení cest URL ke stránkám závisí na umístění stránky v systému
 
 | Název souboru a cesta               | shodná adresa URL |
 | ----------------- | ------------ |
-| */Pages/Index.cshtml* | `/` Nebo `/Index` |
+| */Pages/Index.cshtml* | `/` nebo `/Index` |
 | */Pages/Contact.cshtml* | `/Contact` |
 | */Pages/Store/Contact.cshtml* | `/Store/Contact` |
-| */Pages/Store/Index.cshtml* | `/Store` Nebo `/Store/Index` |
+| */Pages/Store/Index.cshtml* | `/Store` nebo `/Store/Index` |
 
 Poznámky:
 
@@ -767,7 +767,7 @@ Soubor *index. cshtml* obsahuje následující kód pro vytvoření odkazu pro �
 
 [!code-cshtml[](index/sample/RazorPagesContacts/Pages/Index.cshtml?range=21)]
 
-[Pomocná značka `<a asp-page="./Edit" asp-route-id="@contact.Id">Edit</a>` ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) použila atribut `asp-route-{value}` k vygenerování odkazu na stránku pro úpravy. Odkaz obsahuje data směrování s ID kontaktu. Například `https://localhost:5001/Edit/1`. [Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML. Pomocník značek je povolený pomocí `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
+[Pomocná značka `<a asp-page="./Edit" asp-route-id="@contact.Id">Edit</a>` ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) použila atribut `asp-route-{value}` k vygenerování odkazu na stránku pro úpravy. Odkaz obsahuje data směrování s ID kontaktu. například `https://localhost:5001/Edit/1`. [Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML. Pomocník značek je povolený pomocí `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
 Soubor *Pages/Edit. cshtml* :
 
@@ -804,7 +804,7 @@ Vzhledem k tomu, že `handler` je `delete` v tomto příkladu, metoda obslužné
 
 [!code-cs[](index/sample/RazorPagesContacts/Pages/Index.cshtml.cs?range=26-37)]
 
-`OnPostDeleteAsync` Metody:
+Metoda `OnPostDeleteAsync`:
 
 * Přijímá `id` z řetězce dotazu. Pokud direktiva stránky *index. cshtml* obsahuje omezení směrování `"{id:int?}"`, `id` by pocházel z dat trasy. Data trasy pro `id` jsou uvedena v identifikátoru URI, jako je například `https://localhost:5001/Customers/2`.
 * Dotazuje databázi na kontakt zákazníka s `FindAsync`.
@@ -940,14 +940,14 @@ Aplikace má následující strukturu souborů nebo složek:
 
 * */Pages*
 
-  * *Index.cshtml*
+  * *Index. cshtml*
   * */Customers*
 
-    * *Create.cshtml*
-    * *Edit.cshtml*
-    * *Index.cshtml*
+    * *Vytvořit. cshtml*
+    * *Upravit. cshtml*
+    * *Index. cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Příklad:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Například:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`
@@ -974,7 +974,7 @@ Chcete-li přesměrovat na stránku v jiné [oblasti](xref:mvc/controllers/areas
 RedirectToPage("/Index", new { area = "Services" });
 ```
 
-Další informace najdete v tématu <xref:mvc/controllers/areas>.
+Další informace naleznete v tématu <xref:mvc/controllers/areas>.
 
 ## <a name="viewdata-attribute"></a>ViewData – atribut
 
@@ -1026,7 +1026,7 @@ Následující kód v souboru *Pages/Customers/index. cshtml* zobrazuje hodnotu 
 
 Model stránky *Pages/Customers/index. cshtml. cs* používá atribut `[TempData]` pro vlastnost `Message`.
 
-```cs
+```csharp
 [TempData]
 public string Message { get; set; }
 ```
@@ -1113,7 +1113,7 @@ services.AddMvc()
     .WithRazorPagesRoot("/path/to/razor/pages");
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:index>
 * <xref:mvc/views/razor>

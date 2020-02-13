@@ -5,14 +5,14 @@ description: Jak používat vazbu modelu a streamování k nahrávání souborů
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 11/04/2019
+ms.date: 02/11/2020
 uid: mvc/models/file-uploads
-ms.openlocfilehash: b5433576ff3e997e6d80201236be2d8463a52d07
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 56fd26c1864089558f5cd89f693dc86ea30c3331
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829228"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172462"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -22,9 +22,9 @@ Od [Luke Latham](https://github.com/guardrex), [Steve Smith](https://ardalis.com
 
 ASP.NET Core podporuje nahrávání jednoho nebo více souborů pomocí vazby modelu ve vyrovnávací paměti pro menší soubory a streamování bez vyrovnávací paměti pro větší soubory.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="security-considerations"></a>Důležité informace o zabezpečení
+## <a name="security-considerations"></a>Aspekty zabezpečení
 
 Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďte opatrní. Útočníci se můžou pokusit:
 
@@ -55,8 +55,8 @@ Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, js
 >
 > Informace o omezení možností útoku, při přijetí soubory od uživatelů najdete v následujících zdrojích:
 >
-> * [Nahrání souboru bez omezení](https://www.owasp.org/index.php/Unrestricted_File_Upload)
-> * [Zabezpečení Azure: Ujistěte se, že odpovídající ovládací prvky jsou na místě při přijetí soubory od uživatelů](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
+> * [Neomezená nahrávání souboru](https://www.owasp.org/index.php/Unrestricted_File_Upload)
+> * [Zabezpečení Azure: Ujistěte se, že jsou při přijímání souborů od uživatelů k dismístě správné ovládací prvky.](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
 
 Další informace o implementaci bezpečnostních opatření, včetně příkladů z ukázkové aplikace, najdete v části [ověření](#validation) .
 
@@ -64,7 +64,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* Databáze nástroje
+* Databáze
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -83,7 +83,7 @@ Mezi běžné možnosti úložiště pro soubory patří:
   * Služby obvykle nabízejí vylepšenou škálovatelnost a odolnost proti místním řešením, které obvykle podléhají jednomu bodu selhání.
   * Služby jsou potenciálně nižší náklady ve scénářích infrastruktury velkých úložišť.
 
-  Další informace najdete v tématu [rychlý Start: použití .NET k vytvoření objektu BLOB v úložišti objektů](/azure/storage/blobs/storage-quickstart-blobs-dotnet). Téma ukazuje <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromFileAsync*>, ale <xref:Microsoft.Azure.Storage.File.CloudFile.UploadFromStreamAsync*> lze použít k uložení <xref:System.IO.FileStream> do úložiště objektů BLOB při práci s <xref:System.IO.Stream>.
+  Další informace najdete v tématu [rychlý Start: použití .NET k vytvoření objektu BLOB v úložišti objektů](/azure/storage/blobs/storage-quickstart-blobs-dotnet).
 
 ## <a name="file-upload-scenarios"></a>Scénáře nahrávání souborů
 
@@ -183,7 +183,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Příklad:
+* Použijte `XMLHttpRequest`. Například:
 
   ```javascript
   <script>
@@ -228,7 +228,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 >
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Důležité informace o zabezpečení](#security-considerations)
+> * [Aspekty zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
 Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Http.IFormFile>může metoda Action přijmout:
@@ -399,7 +399,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 >
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Důležité informace o zabezpečení](#security-considerations)
+> * [Aspekty zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
@@ -456,7 +456,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -718,7 +718,7 @@ Toto nastavení platí pouze pro službu IIS. K tomuto chování nedochází ve 
 
 Omezení v modulu ASP.NET Core nebo přítomnosti modulu filtrování požadavků služby IIS mohou omezit nahrávání na 2 nebo 4 GB. Další informace najdete v tématu [nelze odeslat soubor o velikosti větší než 2 GB (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711).
 
-## <a name="troubleshoot"></a>Řešení problémů
+## <a name="troubleshoot"></a>Řešení potíží
 
 Níže jsou uvedeny některé běžné problémy, které se vyskytly při práci s nahráváním souborů a jejich možnými řešeními.
 
@@ -751,9 +751,9 @@ Příklady v tomto tématu se spoléhají na <xref:System.IO.MemoryStream> pro u
 
 ASP.NET Core podporuje nahrávání jednoho nebo více souborů pomocí vazby modelu ve vyrovnávací paměti pro menší soubory a streamování bez vyrovnávací paměti pro větší soubory.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="security-considerations"></a>Důležité informace o zabezpečení
+## <a name="security-considerations"></a>Aspekty zabezpečení
 
 Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďte opatrní. Útočníci se můžou pokusit:
 
@@ -784,8 +784,8 @@ Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, js
 >
 > Informace o omezení možností útoku, při přijetí soubory od uživatelů najdete v následujících zdrojích:
 >
-> * [Nahrání souboru bez omezení](https://www.owasp.org/index.php/Unrestricted_File_Upload)
-> * [Zabezpečení Azure: Ujistěte se, že odpovídající ovládací prvky jsou na místě při přijetí soubory od uživatelů](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
+> * [Neomezená nahrávání souboru](https://www.owasp.org/index.php/Unrestricted_File_Upload)
+> * [Zabezpečení Azure: Ujistěte se, že jsou při přijímání souborů od uživatelů k dismístě správné ovládací prvky.](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
 
 Další informace o implementaci bezpečnostních opatření, včetně příkladů z ukázkové aplikace, najdete v části [ověření](#validation) .
 
@@ -793,7 +793,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* Databáze nástroje
+* Databáze
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -912,7 +912,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Příklad:
+* Použijte `XMLHttpRequest`. Například:
 
   ```javascript
   <script>
@@ -957,7 +957,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 >
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Důležité informace o zabezpečení](#security-considerations)
+> * [Aspekty zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
 Při nahrávání souborů pomocí vazeb modelů a <xref:Microsoft.AspNetCore.Http.IFormFile>může metoda Action přijmout:
@@ -1128,7 +1128,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 >
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Důležité informace o zabezpečení](#security-considerations)
+> * [Aspekty zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
@@ -1185,7 +1185,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -1440,7 +1440,7 @@ Toto nastavení platí pouze pro službu IIS. K tomuto chování nedochází ve 
 
 Omezení v modulu ASP.NET Core nebo přítomnosti modulu filtrování požadavků služby IIS mohou omezit nahrávání na 2 nebo 4 GB. Další informace najdete v tématu [nelze odeslat soubor o velikosti větší než 2 GB (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711).
 
-## <a name="troubleshoot"></a>Řešení problémů
+## <a name="troubleshoot"></a>Řešení potíží
 
 Níže jsou uvedeny některé běžné problémy, které se vyskytly při práci s nahráváním souborů a jejich možnými řešeními.
 
@@ -1470,8 +1470,8 @@ Příklady v tomto tématu se spoléhají na <xref:System.IO.MemoryStream> pro u
 ::: moniker-end
 
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
-* [Nahrání souboru bez omezení](https://www.owasp.org/index.php/Unrestricted_File_Upload)
+* [Neomezená nahrávání souboru](https://www.owasp.org/index.php/Unrestricted_File_Upload)
 * [Zabezpečení Azure: rámec zabezpečení: ověření vstupu | Hrozeb](/azure/security/azure-security-threat-modeling-tool-input-validation)
 * [Vzory návrhu cloudu Azure: vzor osobního Key](/azure/architecture/patterns/valet-key)

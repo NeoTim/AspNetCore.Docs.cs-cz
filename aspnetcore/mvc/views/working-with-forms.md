@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 61b50a63bd026f917035f64785d8d3b1956958a6
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 1c7652c909432b25ae373873cd593afd879cfa00
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880964"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172553"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Tagování pomocníků ve formulářích ve ASP.NET Core
 
@@ -41,7 +41,7 @@ Ukázka:
 
 Pomocník značek Form výše vygeneruje následující kód HTML:
 
-```HTML
+```html
 <form method="post" action="/Demo/Register">
     <!-- Input and Submit elements -->
     <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
@@ -75,15 +75,15 @@ Podporované atributy [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/an
 
 |Atribut|Popis|
 |---|---|
-|[asp-controller](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|Název kontroleru|
-|[asp-action](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|Název metody akce|
-|[asp-area](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|Název oblasti|
-|[asp-page](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název stránky Razor|
-|[asp-page-handler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Název obslužné rutiny stránky Razor|
+|[ASP – kontroler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|Název kontroleru.|
+|[ASP – akce](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|Název metody akce|
+|[ASP – oblast](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|Název oblasti|
+|[ASP – stránka](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název stránky Razor|
+|[ASP – obslužná rutina stránky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Název obslužné rutiny stránky Razor|
 |[ASP – trasa](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|Název trasy.|
-|[ASP-Route-{Value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|Jedna hodnota směrování adresy URL. Například `asp-route-id="1234"`.|
-|[asp-all-route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|Všechny hodnoty tras.|
-|[asp-fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|Fragment adresy URL|
+|[ASP-Route-{Value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|Jedna hodnota směrování adresy URL. například `asp-route-id="1234"`.|
+|[ASP-All-Route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|Všechny hodnoty tras.|
+|[ASP – fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|Fragment adresy URL|
 
 ### <a name="submit-to-controller-example"></a>Příklad odeslání do kontroleru
 
@@ -165,7 +165,7 @@ Pomocná rutina vstupní značky váže prvek HTML [\<Input >](https://www.w3.or
 
 Syntaxe:
 
-```HTML
+```cshtml
 <input asp-for="<Expression Name>">
 ```
 
@@ -183,7 +183,7 @@ Pomocná rutina vstupní značky:
 
 * Poskytuje silné psaní. Pokud se název vlastnosti změní a pomocník značek neaktualizujete, zobrazí se chybová zpráva podobná následující:
 
-```HTML
+```
 An error occurred during the compilation of a resource required to process
 this request. Please review the following specific error details and modify
 your source code appropriately.
@@ -199,8 +199,8 @@ Pomocná značka `Input` nastaví atribut HTML `type` na základě typu .NET. N�
 |Typ .NET|Typ vstupu|
 |---|---|
 |Bool|type="checkbox"|
-|String|type="text"|
-|Datum a čas|type=["datetime-local"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
+|Řetězec|type="text"|
+|DateTime|Type =["DateTime – místní"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
 |Byte|Type = "Number"|
 |Int|Type = "Number"|
 |Jednoduchá, Dvojitá|Type = "Number"|
@@ -225,7 +225,7 @@ Ukázka:
 
 Výše uvedený kód generuje následující kód HTML:
 
-```HTML
+```html
   <form method="post" action="/Demo/RegisterInput">
       Email:
       <input type="email" data-val="true"
@@ -251,7 +251,7 @@ Datové poznámky použité pro vlastnosti `Email` a `Password` generují metada
 
 `@Html.Editor()` a `@Html.EditorFor()` při spouštění jejich výchozích šablon používají speciální položku `ViewDataDictionary` s názvem `htmlAttributes`. Toto chování se volitelně rozšiřuje pomocí parametrů `additionalViewData`. Klíč "htmlAttributes" rozlišuje malá a velká písmena. Klíč "htmlAttributes" se zpracovává podobně jako objekt `htmlAttributes` předaný do vstupních pomocníků, jako je `@Html.TextBox()`.
 
-```HTML
+```cshtml
 @Html.EditorFor(model => model.YourProperty, 
   new { htmlAttributes = new { @class="myCssClass", style="Width:100px" } })
 ```
@@ -260,16 +260,17 @@ Datové poznámky použité pro vlastnosti `Email` a `Password` generují metada
 
 Hodnota atributu `asp-for` je `ModelExpression` a pravá strana výrazu lambda. Proto se `asp-for="Property1"` `m => m.Property1` ve vygenerovaném kódu, což je důvod, proč nemusíte předponu `Model`. Ke spuštění vloženého výrazu a přesunutí před `m.`můžete použít znak "\@":
 
-```HTML
+```cshtml
 @{
-       var joe = "Joe";
-   }
-   <input asp-for="@joe">
+  var joe = "Joe";
+}
+
+<input asp-for="@joe">
 ```
 
 Generuje následující:
 
-```HTML
+```html
 <input type="text" id="joe" name="joe" value="Joe">
 ```
 
@@ -294,7 +295,7 @@ V zobrazení se svážeme s `Address.AddressLine1`:
 
 Následující kód HTML je vygenerován pro `Address.AddressLine1`:
 
-```HTML
+```html
 <input type="text" id="Address_AddressLine1" name="Address.AddressLine1" value="">
 ```
 
@@ -308,10 +309,10 @@ Metoda Action:
 
 ```csharp
 public IActionResult Edit(int id, int colorIndex)
-   {
-       ViewData["Index"] = colorIndex;
-       return View(GetPerson(id));
-   }
+{
+    ViewData["Index"] = colorIndex;
+    return View(GetPerson(id));
+}
 ```
 
 Následující syntaxe Razor ukazuje, jak přistupujete k určitému prvku `Color`:
@@ -359,7 +360,7 @@ Ukázka:
 
 Vygeneruje se následující kód HTML:
 
-```HTML
+```html
 <form method="post" action="/Demo/RegisterTextArea">
   <textarea data-val="true"
    data-val-maxlength="The field Description must be a string or array type with a maximum length of &#x27;1024&#x27;."
@@ -395,7 +396,7 @@ Ukázka:
 
 Následující kód HTML je vygenerován pro prvek `<label>`:
 
-```HTML
+```html
 <label for="Email">Email Address</label>
 ```
 
@@ -415,13 +416,13 @@ K dispozici jsou dva pomocníky ověřovacích značek. `Validation Message Tag 
 
 `Validation Message Tag Helper` se používá s atributem `asp-validation-for` na elementu [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) HTML.
 
-```HTML
+```cshtml
 <span asp-validation-for="Email"></span>
 ```
 
 Pomocný pomocník značek ověřovací zprávy vygeneruje následující kód HTML:
 
-```HTML
+```html
 <span class="field-validation-valid"
   data-valmsg-for="Email"
   data-valmsg-replace="true"></span>
@@ -434,7 +435,7 @@ Obecně se používá `Validation Message Tag Helper` po pomocné rutině `Input
 
 Pokud dojde k chybě ověřování na straně serveru (například když máte zakázané vlastní ověřování na straně serveru nebo když je ověřování na straně klienta zakázané), MVC umístí tuto chybovou zprávu jako tělo prvku `<span>`.
 
-```HTML
+```html
 <span class="field-validation-error" data-valmsg-for="Email"
             data-valmsg-replace="true">
    The Email Address field is required.
@@ -453,7 +454,7 @@ Pokud dojde k chybě ověřování na straně serveru (například když máte z
 |--- |--- |
 |ValidationSummary.All|Úroveň vlastnosti a modelu|
 |Ovládací souhrnu ověření. ModelOnly|Model|
-|Ovládací souhrnu ověření. None|Žádné|
+|Ovládací souhrnu ověření. None|Žádná|
 
 ### <a name="sample"></a>Ukázka
 
@@ -465,7 +466,7 @@ V následujícím příkladu datový model má `DataAnnotation` atributy, které
 
 Generovaný kód HTML (Pokud je model platný):
 
-```HTML
+```html
 <form action="/DemoReg/Register" method="post">
   <div class="validation-summary-valid" data-valmsg-summary="true">
   <ul><li style="display:none"></li></ul></div>
@@ -490,7 +491,7 @@ Generovaný kód HTML (Pokud je model platný):
 
 * Má alternativní `Html.DropDownListFor` pomocníka HTML a `Html.ListBoxFor`
 
-`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Příklad:
+`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Například:
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
@@ -551,7 +552,7 @@ Seznam enumerátorů můžete označit pomocí atributu `Display` a získat tak 
 
 Vygeneruje se následující kód HTML:
 
-```HTML
+```html
   <form method="post" action="/Home/IndexEnum">
          <select data-val="true" data-val-required="The EnumCountry field is required."
                  id="EnumCountry" name="EnumCountry">
@@ -581,7 +582,7 @@ Níže jsou uvedené dvě skupiny:
 
 Generovaný kód HTML:
 
-```HTML
+```html
  <form method="post" action="/Home/IndexGroup">
       <select id="Country" name="Country">
           <optgroup label="North America">
@@ -612,7 +613,7 @@ S následujícím zobrazením:
 
 Generuje následující kód HTML:
 
-```HTML
+```html
 <form method="post" action="/Home/IndexMultiSelect">
     <select id="CountryCodes"
     multiple="multiple"
@@ -648,7 +649,7 @@ Bude vybrán správný prvek `<option>` (obsahující atribut `selected="selecte
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=114-119)]
 
-```HTML
+```html
  <form method="post" action="/Home/IndexEmpty">
       <select id="Country" name="Country">
           <option value="">&lt;none&gt;</option>
@@ -661,7 +662,7 @@ Bude vybrán správný prvek `<option>` (obsahující atribut `selected="selecte
  </form>
  ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/views/tag-helpers/intro>
 * [Element HTML Form](https://www.w3.org/TR/html401/interact/forms.html)

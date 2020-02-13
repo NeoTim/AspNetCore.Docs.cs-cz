@@ -1,19 +1,19 @@
 ---
-title: gRPC v prohlížečových aplikacích
+title: Použití gRPC v prohlížečových aplikacích
 author: jamesnk
 description: Naučte se konfigurovat gRPC služby na ASP.NET Core, které se mají volat z aplikací pro prohlížeč pomocí gRPC-Web.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 01/24/2020
+ms.date: 02/10/2020
 uid: grpc/browser
-ms.openlocfilehash: 6359c3b76b3cb1ba2b6d9f9a989f64cbf4c4379d
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
+ms.openlocfilehash: 333fc8c4277bbac47042d4904c276e963186914a
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76830658"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172277"
 ---
-# <a name="grpc-in-browser-apps"></a>gRPC v prohlížečových aplikacích
+# <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
 Od [James Newton – král](https://twitter.com/jamesnk)
 
@@ -38,7 +38,7 @@ Povolení gRPC-web pomocí služby ASP.NET Core gRPC:
 * Přidejte odkaz na balíček [Grpc. AspNetCore. Web](https://www.nuget.org/packages/Grpc.AspNetCore.Web) .
 * Nakonfigurujte aplikaci tak, aby používala gRPC-web přidáním `AddGrpcWeb` a `UseGrpcWeb` do *Startup.cs*:
 
-[!code-csharp[](~/grpc/browser/sample/Startup.cs?name=snippet_1&highlight=3,10,14)]
+[!code-csharp[](~/grpc/browser/sample/Startup.cs?name=snippet_1&highlight=10,14)]
 
 Předchozí kód:
 
@@ -47,7 +47,7 @@ Předchozí kód:
 
 Případně můžete nakonfigurovat všechny služby tak, aby podporovaly gRPC-web přidáním `services.AddGrpcWeb(o => o.GrpcWebEnabled = true);` do ConfigureServices.
 
-[!code-csharp[](~/grpc/browser/sample/AllServicesSupportExample_Startup.cs?name=snippet_1&highlight=5,12,16)]
+[!code-csharp[](~/grpc/browser/sample/AllServicesSupportExample_Startup.cs?name=snippet_1&highlight=6,13)]
 
 K volání gRPC-web z prohlížeče může být potřeba některá další konfigurace, jako je například konfigurace ASP.NET Core pro podporu CORS. Další informace najdete v tématu [Podpora CORS](xref:security/cors).
 
@@ -70,6 +70,7 @@ Klient .NET gRPC se dá nakonfigurovat tak, aby gRPC webová volání. To je už
 Použití gRPC-web:
 
 * Přidejte odkaz na balíček [Grpc .NET. Client. Web](https://www.nuget.org/packages/Grpc.Net.Client.Web) .
+* Zajistěte, aby byl odkaz na balíček [Grpc .NET. Client](https://www.nuget.org/packages/Grpc.Net.Client) 2.27.0 nebo vyšší.
 * Nakonfigurujte kanál tak, aby používal `GrpcWebHandler`:
 
 [!code-csharp[](~/grpc/browser/sample/Handler.cs?name=snippet_1)]
@@ -81,11 +82,16 @@ Předchozí kód:
 
 `GrpcWebHandler` má při vytvoření následující možnosti konfigurace:
 
-* **InnerHandler**: podkladové <xref:System.Net.Http.HttpMessageHandler>, které provádí volání http, například `HttpClientHandler`.
-* **Režim**: `GrpcWebMode` Enum. `GrpcWebMode.GrpcWebText` konfiguruje obsah tak, aby byl kódovaný v kódování Base64, který je nutný k podpoře volání streamování serveru.
-* **HttpVersion**: `Version`protokolu HTTP. gRPC-web nevyžaduje konkrétní protokol a při vytváření požadavku ho nezadá, pokud není nakonfigurovaný.
+* **InnerHandler**: podkladové <xref:System.Net.Http.HttpMessageHandler>, které vytváří požadavek gRPC http, například `HttpClientHandler`.
+* **Mode**: typ výčtu určující, zda `Content-Type` požadavek HTTP gRPC je `application/grpc-web` nebo `application/grpc-web-text`.
+    * `GrpcWebMode.GrpcWeb` konfiguruje obsah, který se má odeslat bez kódování. Výchozí hodnota.
+    * `GrpcWebMode.GrpcWebText` konfiguruje obsah jako kódovaný v kódování Base64. Vyžaduje se pro volání streamování serveru v prohlížečích.
+* **HttpVersion**: `Version` protokolu HTTP se používá k nastavení [zprávy HttpRequestMessage. Version](xref:System.Net.Http.HttpRequestMessage.Version) na podkladové žádosti HTTP gRPC. gRPC-web nevyžaduje konkrétní verzi a nepřepisuje výchozí, pokud není zadaný.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+> [!IMPORTANT]
+> Vygenerované klienty gRPC mají synchronizační a asynchronní metody pro volání unárních metod. `SayHello` je například synchronizace a `SayHelloAsync` je asynchronní. Volání metody synchronizace v aplikaci Blazor WebAssembly způsobí, že aplikace přestane reagovat. Asynchronní metody musí být vždy použity v Blazor WebAssembly.
+
+## <a name="additional-resources"></a>Další zdroje
 
 * [gRPC pro webového klienta GitHub Project](https://github.com/grpc/grpc-web)
 * <xref:security/cors>

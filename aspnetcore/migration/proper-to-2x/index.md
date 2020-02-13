@@ -5,12 +5,12 @@ description: Dodržení pokynů k migraci stávajících ASP.NET MVC nebo webov�
 ms.author: scaddie
 ms.date: 10/18/2019
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 19be7191792c44fb5414eb0a7b24772c45391253
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: e9ebfa7352350cf39917e515a1a66d6271829f38
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359409"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172355"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET na ASP.NET Core
 
@@ -18,9 +18,9 @@ Od [Petr Levin](https://isaaclevin.com)
 
 Tento článek slouží jako referenční příručka pro migraci aplikací ASP.NET na ASP.NET Core.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-[.NET core SDK 2.2 nebo vyšší](https://www.microsoft.com/net/download)
+[.NET Core SDK 2,2 nebo novější](https://www.microsoft.com/net/download)
 
 ## <a name="target-frameworks"></a>Cílové architektury
 
@@ -102,10 +102,10 @@ Aplikace načte z `Configuration`, aby získala nastavení:
 
 Existují rozšíření tohoto přístupu, aby byl proces robustnější, jako je například použití [vkládání závislostí](xref:fundamentals/dependency-injection) (di) k načtení služby s těmito hodnotami. Metoda DI má k dispozici sadu konfiguračních objektů se silným typem.
 
-````csharp
+```csharp
 // Assume AppConfiguration is a class representing a strongly-typed version of AppConfiguration section
 services.Configure<AppConfiguration>(Configuration.GetSection("AppConfiguration"));
-````
+```
 
 > [!NOTE]
 > Podrobnější informace o konfiguraci ASP.NET Core najdete v tématu [konfigurace v ASP.NET Core](xref:fundamentals/configuration/index).
@@ -193,6 +193,6 @@ Adresářová struktura:
     └── web.config
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 - [Portování knihoven do .NET Core](/dotnet/core/porting/libraries)

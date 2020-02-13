@@ -9,62 +9,62 @@ ms.date: 01/17/2020
 no-loc:
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 2ffafd452af46b635f4ebbdf74561ad043158808
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: bb32bb8617f8a3e4170eeb7e38696ee2bbcafe03
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294736"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172542"
 ---
-# <a name="aspnet-core-opno-locsignalr-hosting-and-scaling"></a>ASP.NET Core SignalR hostování a škálování
+# <a name="aspnet-core-signalr-hosting-and-scaling"></a>Hostování a škálování signalizace ASP.NET Core
 
 Autor [: Andrew Stanton – sestry](https://twitter.com/anurse), [Brady gastera](https://twitter.com/bradygaster)a [Dykstra](https://github.com/tdykstra);
 
-Tento článek vysvětluje, jaké jsou informace o hostování a škálování pro aplikace s vysokým provozem, které používají ASP.NET Core SignalR.
+Tento článek vysvětluje informace o hostování a škálování pro aplikace s vysokým provozem, které používají ASP.NET Core Signal.
 
 ## <a name="sticky-sessions"></a>Rychlé relace
 
-SignalR vyžaduje, aby všechny požadavky HTTP pro konkrétní připojení byly zpracovávány stejným procesem serveru. Když SignalR běží na serverové farmě (více serverů), musí se použít "rychlé relace". U některých nástrojů pro vyrovnávání zatížení se také nazývají spřažení relací. Azure App Service pro směrování požadavků používá [Směrování žádostí na aplikace](https://docs.microsoft.com/iis/extensions/planning-for-arr/application-request-routing-version-2-overview) (ARR). Povolením nastavení spřažení ARR v Azure App Service umožníte "rychlé relace". Jediné okolnosti, kdy nejsou vyžadovány rychlé relace, jsou:
+Signál vyžaduje, aby všechny požadavky HTTP pro konkrétní připojení byly zpracovávány stejným procesem serveru. Když je signál spuštěn na serverové farmě (více serverů), musí se použít rychlé relace. U některých nástrojů pro vyrovnávání zatížení se také nazývají spřažení relací. Azure App Service pro směrování požadavků používá [Směrování žádostí na aplikace](https://docs.microsoft.com/iis/extensions/planning-for-arr/application-request-routing-version-2-overview) (ARR). Povolením nastavení spřažení ARR v Azure App Service umožníte "rychlé relace". Jediné okolnosti, kdy nejsou vyžadovány rychlé relace, jsou:
 
 1. Při hostování na jednom serveru v jednom procesu.
-1. Při použití služby Azure SignalR.
+1. Při použití služby signalizace Azure.
 1. Pokud jsou všichni klienti nakonfigurovaní tak, aby používali **jenom** objekty WebSockets, **a** v konfiguraci klienta je povolené [Nastavení SkipNegotiation](xref:signalr/configuration#configure-additional-options) .
 
 Ve všech ostatních případech (včetně toho, kdy se používá Redis), musí být serverové prostředí nakonfigurované pro rychlé relace.
 
-Pokyny ke konfiguraci Azure App Service pro SignalRnajdete v tématu <xref:signalr/publish-to-azure-web-app>.
+Pokyny ke konfiguraci Azure App Service pro Signal najdete v tématu <xref:signalr/publish-to-azure-web-app>.
 
 ## <a name="tcp-connection-resources"></a>Prostředky připojení TCP
 
-Počet souběžných připojení TCP, která může webový server podporovat, je omezený. Standardní klienti HTTP používají *dočasné* připojení. Tato připojení se dají zavřít, když se klient přestane vycházet a znovu otevřít později. Na druhé straně je připojení SignalR *trvalé*. SignalR připojení zůstávají otevřená i v případě, že klient přestane být činný. V aplikaci s vysokým provozem, která obsluhuje mnoho klientů, můžou tato trvalá připojení způsobit, že by servery dosáhly maximálního počtu připojení.
+Počet souběžných připojení TCP, která může webový server podporovat, je omezený. Standardní klienti HTTP používají *dočasné* připojení. Tato připojení se dají zavřít, když se klient přestane vycházet a znovu otevřít později. Na druhé straně je připojení k signalizaci *trvalé*. Připojení k signalizaci zůstávají otevřená i v případě, že klient přestane být činný. V aplikaci s vysokým provozem, která obsluhuje mnoho klientů, můžou tato trvalá připojení způsobit, že by servery dosáhly maximálního počtu připojení.
 
 Trvalá připojení také využívají určitou další paměť, aby bylo možné sledovat jednotlivá připojení.
 
-Těžké využívání prostředků souvisejících s připojením pomocí SignalR může ovlivnit další webové aplikace, které jsou hostovány na stejném serveru. Když se SignalR otevře a zobrazí poslední dostupná připojení TCP, další webové aplikace na stejném serveru také nemají k dispozici žádná další připojení.
+Těžké používání prostředků souvisejících s připojením pomocí signálů může mít vliv na další webové aplikace, které jsou hostovány na stejném serveru. Když se signál otevře a zobrazí poslední dostupná připojení TCP, další webové aplikace na stejném serveru také nemají k dispozici žádná další připojení.
 
-Pokud server nemá připojení, zobrazí se chyby náhodného soketu a chyby resetování připojení. Příklad:
+Pokud server nemá připojení, zobrazí se chyby náhodného soketu a chyby resetování připojení. Například:
 
 ```
 An attempt was made to access a socket in a way forbidden by its access permissions...
 ```
 
-Pokud chcete zachovat SignalR využití prostředků v jiných webových aplikacích, spusťte SignalR na různých serverech, než jsou vaše jiné webové aplikace.
+Aby bylo možné zabránit využití prostředků signalizace v jiných webových aplikacích, spouštějte signály na různých serverech, než jsou vaše jiné webové aplikace.
 
-Aby SignalR využití prostředků nezpůsobilo chyby v SignalR aplikaci, nahorizontální navýšení kapacity a omezení počtu připojení, které server musí zpracovat.
+Aby bylo možné zabránit využití prostředků signalizace v aplikaci signalizace, nahorizontální navýšení kapacity a omezení počtu připojení, které server musí zpracovat.
 
-## <a name="scale-out"></a>Škálování služby  na více systémů
+## <a name="scale-out"></a>Horizontální navýšení kapacity
 
-Aplikace, která používá SignalR potřebuje udržet přehled o všech připojeních, což vytváří problémy pro serverovou farmu. Přidejte server a získá nová připojení, o kterých ostatní servery nevědí. Například SignalR na každém serveru v následujícím diagramu nevědí o připojeních na ostatních serverech. Když SignalR na jednom ze serverů chce poslat zprávu všem klientům, zpráva se dostane jenom na klienty připojené k tomuto serveru.
+Aplikace, která používá signalizaci, musí sledovat všechna připojení, což vytváří problémy pro serverovou farmu. Přidejte server a získá nová připojení, o kterých ostatní servery nevědí. Například signál na každém serveru v následujícím diagramu neznáte připojení na ostatních serverech. Když signál na jednom ze serverů chce poslat zprávu všem klientům, zpráva se dostane jenom na klienty připojené k tomuto serveru.
 
-![Škálování [! Evřít. NO – LOC (Signal)] bez plánu](scale/_static/scale-no-backplane.png)
+![Škálování signálu bez plánu](scale/_static/scale-no-backplane.png)
 
-Možnosti řešení tohoto problému jsou [služby Azure SignalR](#azure-signalr-service) a [Redis replánování](#redis-backplane).
+Možnosti řešení tohoto problému jsou [služby signalizace Azure](#azure-signalr-service) a [Redis replánování](#redis-backplane).
 
-## <a name="azure-opno-locsignalr-service"></a>Služba Azure SignalR
+## <a name="azure-signalr-service"></a>Služba Azure SignalR
 
-Služba Azure SignalR je proxy místo pro plán. Pokaždé, když klient inicializuje připojení k serveru, klient se přesměruje, aby se připojil ke službě. Tento proces je znázorněný v následujícím diagramu:
+Služba signalizace Azure je proxy místo pro plán. Pokaždé, když klient inicializuje připojení k serveru, klient se přesměruje, aby se připojil ke službě. Tento proces je znázorněný v následujícím diagramu:
 
-![Navazování připojení k Azure [! Evřít. Služba NO-LOC (Signal)]](scale/_static/azure-signalr-service-one-connection.png)
+![Navázání připojení ke službě Azure Signal](scale/_static/azure-signalr-service-one-connection.png)
 
 Výsledkem je, že služba spravuje všechna připojení klientů, zatímco každý server potřebuje jenom malý konstantní počet připojení ke službě, jak je znázorněno v následujícím diagramu:
 
@@ -72,23 +72,23 @@ Výsledkem je, že služba spravuje všechna připojení klientů, zatímco kaž
 
 Tento přístup k horizontálnímu navýšení kapacity má oproti alternativním Redismu plánu několik výhod:
 
-* Relace s rychlým připojením, označované také jako [Spřažení klienta](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity), nejsou vyžadovány, protože klienti jsou při připojení okamžitě přesměrováni na službu Azure SignalR.
-* Aplikace SignalR se může škálovat na základě počtu odeslaných zpráv, zatímco služba Azure SignalR se automaticky škáluje tak, aby zpracovávala libovolný počet připojení. Může to být třeba tisíce klientů, ale pokud se pošle jenom pár zpráv za sekundu, SignalR aplikace nebude muset škálovat na víc serverů, aby se mohla zpracovávat samotná připojení.
-* Aplikace SignalR nepoužívá podstatně více prostředků připojení, než je webová aplikace bez SignalR.
+* Rychlé relace, označované také jako [Spřažení klienta](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity), se nevyžadují, protože klienti se při připojení okamžitě přesměrují do služby Azure Signal.
+* Aplikace Signal se může škálovat na základě počtu odeslaných zpráv, zatímco služba signálu Azure se automaticky škáluje tak, aby zpracovávala libovolný počet připojení. Může se například jednat o tisíce klientů, ale pokud se pošle jenom pár zpráv za sekundu, aplikace Signal se nebude muset škálovat na víc serverů, aby se daly samotné připojení zvládnout.
+* Aplikace Signaler nepoužívá podstatně více prostředků připojení, než je webová aplikace bez signalizace.
 
-Z těchto důvodů doporučujeme službu Azure SignalR pro všechny aplikace ASP.NET Core SignalR hostované v Azure, včetně App Service, virtuálních počítačů a kontejnerů.
+Z těchto důvodů doporučujeme službu Azure Signal Service pro všechny aplikace signalizace ASP.NET Core hostované v Azure, včetně App Service, virtuálních počítačů a kontejnerů.
 
-Další informace najdete v [dokumentaci ke službě Azure SignalR](/azure/azure-signalr/signalr-overview).
+Další informace najdete v [dokumentaci ke službě Azure Signal](/azure/azure-signalr/signalr-overview).
 
 ## <a name="redis-backplane"></a>Propojovací rozhraní Redis
 
-[Redis](https://redis.io/) je úložiště klíč-hodnota v paměti, které podporuje systém zasílání zpráv s modelem publikování/odběru. SignalR Redis replánování používá funkci Pub/sub k posílání zpráv na jiné servery. Když klient vytvoří připojení, informace o připojení se předávají do plánu. Když server chce poslat zprávu všem klientům, pošle se do plánu. Schéma pro naplánování zná všechny připojené klienty a servery, na kterých se nachází. Pošle zprávu všem klientům přes jejich příslušné servery. Tento proces je znázorněný v následujícím diagramu:
+[Redis](https://redis.io/) je úložiště klíč-hodnota v paměti, které podporuje systém zasílání zpráv s modelem publikování/odběru. Redis pro vyřízení signálu používá funkci Pub/sub k posílání zpráv na jiné servery. Když klient vytvoří připojení, informace o připojení se předávají do plánu. Když server chce poslat zprávu všem klientům, pošle se do plánu. Schéma pro naplánování zná všechny připojené klienty a servery, na kterých se nachází. Pošle zprávu všem klientům přes jejich příslušné servery. Tento proces je znázorněný v následujícím diagramu:
 
 ![Redis replánování, zpráva odeslaná z jednoho serveru všem klientům](scale/_static/redis-backplane.png)
 
-Redis replánování je doporučený postup pro horizontální navýšení kapacity pro aplikace hostované ve vaší vlastní infrastruktuře. Pokud je mezi datovým centrem a datovým centrem Azure významná latence připojení, služba Azure SignalR pravděpodobně není praktickou možností pro místní aplikace s požadavky na nízkou latenci nebo vysokou propustnost.
+Redis replánování je doporučený postup pro horizontální navýšení kapacity pro aplikace hostované ve vaší vlastní infrastruktuře. Pokud je mezi datovým centrem a datovým centrem Azure významná latence připojení, služba Azure Signal Service nemusí být praktickou možností pro místní aplikace s požadavky na nízkou latenci nebo vysokou propustnost.
 
-Výše zmíněné výhody služby Azure SignalR jsou nevýhody pro Redis replánování:
+Výše zmíněné výhody služby signálů Azure jsou nevýhody pro Redis replánování:
 
 * S výjimkou případů, kdy je splněná **obě** z následujících podmínek, je třeba zadat také relace s rychlým vztahem, která se označuje jako [Spřažení klienta](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing#step-3---configure-client-affinity):
   * Všichni klienti jsou nakonfigurovaní tak, aby používali **jenom** objekty WebSockets.
@@ -113,7 +113,7 @@ Předchozí podmínky mají za to, že na klientském operačním systému budou
 
 Pro SignalR WebSockets nastavte `Connection` a `Upgrade` hlavičku proxy serveru na následující:
 
-```
+```nginx
 proxy_set_header Upgrade $http_upgrade;
 proxy_set_header Connection $connection_upgrade;
 ```
@@ -122,7 +122,7 @@ Další informace najdete v tématu [Nginx jako proxy server WebSocket](https://
 
 ## <a name="next-steps"></a>Další kroky
 
-Další informace naleznete v následujících zdrojích:
+Další informace najdete v následujících zdrojích:
 
 * [Dokumentace ke službě Azure SignalR](/azure/azure-signalr/signalr-overview)
 * [Nastavení Redisho plánu](xref:signalr/redis-backplane)

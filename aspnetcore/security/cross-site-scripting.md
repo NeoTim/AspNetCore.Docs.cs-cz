@@ -1,42 +1,42 @@
 ---
-title: Zabránit webů skriptování mezi weby (XSS) v ASP.NET Core
+title: Zabránit skriptování mezi weby (XSS) v ASP.NET Core
 author: rick-anderson
-description: Další informace o skriptování mezi weby (XSS) a techniky pro řešení tohoto ohrožení zabezpečení v aplikaci ASP.NET Core.
+description: Přečtěte si o skriptování mezi weby (XSS) a techniky pro řešení této chyby zabezpečení v aplikaci ASP.NET Core.
 ms.author: riande
 ms.date: 10/02/2018
 uid: security/cross-site-scripting
-ms.openlocfilehash: 1e9e988be68313cfd493832519c1be89335d6e48
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 1d6f605dc336d8768b8a47e4995f119d198a61af
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815213"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172636"
 ---
-# <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>Zabránit webů skriptování mezi weby (XSS) v ASP.NET Core
+# <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>Zabránit skriptování mezi weby (XSS) v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Skriptování mezi weby (XSS) je ohrožení zabezpečení, která umožňuje útočníkovi umístí skripty na straně klienta (obvykle JavaScriptu) do webových stránek. Když ostatní uživatelé načíst ovlivněné stránek, které budou spuštěny skripty útočníka, umožňuje útočníkovi krádež souborů cookie a relace tokeny, změňte obsah webové stránky pomocí manipulace s modelem DOM nebo přesměrovat prohlížeč na jinou stránku. Ohrožení zabezpečení XSS obecně dojít, když aplikace přijímá vstup uživatele a uloží jej na stránku bez ověřování, kódování nebo ho uvozovací znaky.
+Skriptování mezi weby (XSS) je ohrožení zabezpečení, které umožňuje útočníkovi umístit skripty na straně klienta (obvykle JavaScript) do webových stránek. Když ostatní uživatelé načtou ovlivněné stránky, spustí se skripty útočníka, což útočníkovi umožní ukrást soubory cookie a tokeny relace, změnit obsah webové stránky prostřednictvím manipulace s modelem DOM nebo přesměrovat prohlížeč na jinou stránku. K ohrožení zabezpečení XSS obvykle dochází, když aplikace přebírá uživatelem vstup a výstupuje na stránku bez ověřování, kódování nebo uvozovacího uvozovacího prvku.
 
-## <a name="protecting-your-application-against-xss"></a>Ochrana aplikace proti skriptování mezi servery
+## <a name="protecting-your-application-against-xss"></a>Ochrana aplikace proti XSS
 
-Na základní úrovni XSS funguje tak, přičemž aplikace do vkládání `<script>` značky do vykreslované stránky nebo vložením `On*` událostí do elementu. Vývojáři by měl následujícím postupem ochrany před únikem informací pro Vyhýbejte XSS do své aplikace.
+Na základní úrovni technologie XSS funguje tak, že se podívá do vaší aplikace na vložení značky `<script>` do vykreslované stránky nebo vložením události `On*` do prvku. Vývojáři by měli pomocí následujících kroků prevence zabránit zavlečení SKRIPTOVÁNÍ do své aplikace.
 
-1. Nikdy nepoužili nedůvěryhodná data váš vstup ve formátu HTML, pokud postupujte podle zbývajících pokynů. Nedůvěryhodná data jsou všechna data, která mohou být řízena útočník, vstupy formuláře HTML, řetězce dotazů, hlavičky protokolu HTTP, dokonce i data source z databáze, protože útočník může být schopni porušení zabezpečení databáze, i v případě, že se nemůže pronikají do vaší aplikace.
+1. Nikdy neumísťujte nedůvěryhodná data do vstupu ve formátu HTML, pokud nepoužijete zbývající část následujících kroků. Nedůvěryhodná data jsou všechna data, která může být ovládána útočníkem, vstupy formulářů HTML, řetězce dotazů, hlavičky protokolu HTTP, dokonce i data, která jsou zdrojem tohoto útočníka, může být, že by mohlo dojít k porušení zabezpečení vaší databáze, i když nemůžou porušit vaši aplikaci.
 
-2. Před přepnutím nedůvěryhodná data uvnitř elementu HTML Ujistěte se, že je kódováno jazykem HTML. Kódování HTML, jako má znaků &lt; a změny do bezpečného formuláře jako &amp;lt;
+2. Před vložením nedůvěryhodných dat do elementu HTML zajistěte, aby byl kódovaný HTML. Kódování HTML přebírá znaky jako &lt; a mění je v bezpečné podobě, jako je &amp;lt;
 
-3. Před uvedením nedůvěryhodná data do atributu HTML Ujistěte se, že je kódováno jazykem HTML. Kódování atributu HTML je nadstavbou jazyka kódování HTML a další znaky zakóduje jako "a".
+3. Před vložením nedůvěryhodných dat do atributu HTML zajistěte, aby byl kódovaný HTML. Kódování atributů HTML je nadmnožinou kódování HTML a kóduje další znaky, jako například "a".
 
-4. Před přepnutím nedůvěryhodná data do jazyka JavaScript umístíte data v elementu HTML, jehož obsah načíst za běhu. Pokud to není možné, pak Ujistěte se, že data jsou kódované jazyka JavaScript. Kódování JavaScript trvá nebezpečné znaky pro JavaScript a nahradí je jejich hex, například &lt; by být zakódován jako `\u003C`.
+4. Před vložením nedůvěryhodných dat do JavaScriptu umístěte data v elementu HTML, jehož obsah načítáte za běhu. Pokud to není možné, zajistěte, aby byla data kódovaná pomocí JavaScriptu. Kódování JavaScriptu přebírá nebezpečné znaky pro JavaScript a nahrazuje je šestnáctkově, například &lt; by bylo kódováno jako `\u003C`.
 
-5. Před přepnutím nedůvěryhodná data do řetězce dotazu adresy URL Ujistěte se, že je kódování URL.
+5. Před vložením nedůvěryhodných dat do řetězce dotazu URL zajistěte, aby byla zakódovaná adresa URL.
 
-## <a name="html-encoding-using-razor"></a>Kódování HTML pomocí syntaxe Razor
+## <a name="html-encoding-using-razor"></a>Kódování HTML pomocí Razor
 
-Modul Razor použité v MVC automaticky kóduje všechny výstupní zdrojem proměnné, pokud pracujete ve skutečnosti intenzivně zabránit, aby ji uděláte. Použije pravidla kódování atributu HTML při každém použití *@* směrnice. Ve formátu HTML kódování atributu je nadstavbou jazyka kódování HTML, to znamená, že nemáte problém sami se určuje, zda by měl používat kódování HTML nebo kódování atributu HTML. Musíte zajistit, že používáte pouze v kontextu HTML, ne už při pokusu o vložení nedůvěryhodný vstup přímo do jazyka JavaScript. Pomocné rutiny značek se také kódování vstup, který použijete v parametrů tag.
+Modul Razor používaný v MVC automaticky zakóduje veškerý výstup z proměnných, pokud nepracujete opravdu k tomu, aby se tak zabránilo. Používá pravidla kódování atributů HTML vždy, když použijete direktivu *@* . Kódování atributu HTML je nadmnožinou kódování HTML to znamená, že se nemusíte zabývat sami, ať už používáte kódování HTML nebo kódování atributů HTML. Je nutné, abyste měli jistotu, že budete používat pouze @ v kontextu jazyka HTML, nikoli při pokusu o vložení nedůvěryhodného vstupu přímo do JavaScriptu. Pomocník značek také zakóduje vstup, který použijete v parametrech značek.
 
-Proveďte následující zobrazení Razor:
+Vezměte v úvahu následující zobrazení Razor:
 
 ```cshtml
 @{
@@ -46,18 +46,18 @@ Proveďte následující zobrazení Razor:
    @untrustedInput
    ```
 
-Toto zobrazení vypíše obsah *untrustedInput* proměnné. Tato proměnná obsahuje některé znaky, které se používají v útoky XSS, konkrétně &lt;, "a &gt;. Zkoumání zdroj ukazuje vykresleného výstupu zakódován jako:
+Toto zobrazení vypíše obsah proměnné *untrustedInput* . Tato proměnná zahrnuje některé znaky, které jsou používány v útocích XSS, konkrétně &lt;a &gt;. Prozkoumání zdroje zobrazuje Vykreslený výstup kódovaný jako:
 
 ```html
 &lt;&quot;123&quot;&gt;
    ```
 
 >[!WARNING]
-> ASP.NET Core MVC nabízí `HtmlString` třídy, který není kódován automaticky při výstupu. To byste nikdy neměli používat v kombinaci s nedůvěryhodnému vstupu jako to bude vystavovat chybu XSS.
+> ASP.NET Core MVC poskytuje `HtmlString` třídu, která není automaticky kódována při výstupu. Tato akce by se nikdy neměla používat v kombinaci s nedůvěryhodným vstupem, protože to vystavuje chybu zabezpečení XSS.
 
-## <a name="javascript-encoding-using-razor"></a>JavaScript kódování pomocí syntaxe Razor
+## <a name="javascript-encoding-using-razor"></a>Kódování JavaScriptu pomocí Razor
 
-Může nastat situace, které chcete vložit do jazyka JavaScript ke zpracování v zobrazení hodnotu. Existují dva způsoby, jak to provést. Nejbezpečnější způsob, jak vložit hodnoty je hodnota atributu data značky a načíst v JavaScript. Příklad:
+Může nastat situace, kdy budete chtít vložit hodnotu do JavaScriptu pro zpracování v zobrazení. Můžete to provést dvěma způsoby. Nejbezpečnější způsob, jak vkládat hodnoty, je umístit hodnotu do atributu data tagu a načíst ho v JavaScriptu. Například:
 
 ```cshtml
 @{
@@ -85,7 +85,7 @@ Může nastat situace, které chcete vložit do jazyka JavaScript ke zpracován�
    </script>
    ```
 
-To vytvoří následující kód HTML
+Tím se vytvoří následující kód HTML
 
 ```html
 <div
@@ -107,14 +107,14 @@ To vytvoří následující kód HTML
    </script>
    ```
 
-Který při spuštění, zobrazí se pak následující:
+V takovém případě se při spuštění vykreslí následující:
 
-```none
+```
 <"123">
    <"123">
-   ```
+```
 
-Kodér JavaScript můžete také volat přímo:
+JavaScriptový kodér můžete také volat přímo:
 
 ```cshtml
 @using System.Text.Encodings.Web;
@@ -127,24 +127,24 @@ Kodér JavaScript můžete také volat přímo:
    <script>
        document.write("@encoder.Encode(untrustedInput)");
    </script>
-   ```
+```
 
-To bude vykreslení v prohlížeči následujícím způsobem:
+Vykreslí se v prohlížeči následujícím způsobem:
 
 ```html
 <script>
-       document.write("\u003C\u0022123\u0022\u003E");
-   </script>
-   ```
+    document.write("\u003C\u0022123\u0022\u003E");
+</script>
+```
 
 >[!WARNING]
-> Nedůvěryhodný vstup v jazyce JavaScript, k vytváření prvků modelu DOM není zřetězit. Měli byste použít `createElement()` a odpovídajícím způsobem, jako přiřadit hodnoty vlastností `node.TextContent=`, nebo použijte `element.SetAttribute()` / `element[attribute]=` jinak zpřístupníte sami na základě modelu DOM XSS.
+> Nezřetězení nedůvěryhodného vstupu v JavaScriptu pro vytváření elementů DOM. Měli byste použít `createElement()` a přiřadit hodnoty vlastností vhodným způsobem, jako je například `node.TextContent=`, nebo použít `element.SetAttribute()`/`element[attribute]=` jinak vystavíte sami sobě pomocí skriptování XSS založeného na modelu DOM.
 
-## <a name="accessing-encoders-in-code"></a>Přístup k kodérů v kódu
+## <a name="accessing-encoders-in-code"></a>Přístup k kodérům v kódu
 
-Jsou k dispozici dvě možnosti, jak váš kód kodérů HTML, JavaScript a adresu URL, můžete vložit pomocí [injektáž závislostí](xref:fundamentals/dependency-injection) nebo můžete použít výchozí kodérů součástí `System.Text.Encodings.Web` oboru názvů. Pokud používáte výchozí kodérů a veškeré použité k rozsahů znaků považovány za bezpečné projeví – výchozí kodérů použijte nejbezpečnější pravidla kódování, je to možné.
+Kodéry HTML, JavaScript a URL jsou pro váš kód k dispozici dvěma způsoby, můžete je vložit prostřednictvím [Injektáže závislosti](xref:fundamentals/dependency-injection) nebo můžete použít výchozí kodéry obsažené v oboru názvů `System.Text.Encodings.Web`. Pokud použijete výchozí kodéry, pak všechny použité pro rozsahy znaků, které se mají považovat za bezpečné, se neprojeví – Výchozí kodéry použijí nejbezpečnější pravidla kódování.
 
-Použití konfigurovatelné kodérů prostřednictvím DI zabere vaše konstruktory *HtmlEncoder*, *JavaScriptEncoder* a *UrlEncoder* parametr podle potřeby. Například;
+Chcete-li použít konfigurovatelné kodéry přes DI, vaše konstruktory by měly podle potřeby přebírat parametr *HtmlEncode*, *JavaScriptEncoder* a *UrlEncoder* . Například;
 
 ```csharp
 public class HomeController : Controller
@@ -164,43 +164,43 @@ public class HomeController : Controller
    }
    ```
 
-## <a name="encoding-url-parameters"></a>Kódování adresy URL parametry
+## <a name="encoding-url-parameters"></a>Kódování parametrů adresy URL
 
-Pokud chcete sestavit řetězec dotazu adresy URL s nedůvěryhodný vstup jako hodnotu použít `UrlEncoder` ke kódování hodnotu. Například
+Pokud chcete vytvořit řetězec dotazu URL s nedůvěryhodným vstupem jako hodnotu, použijte `UrlEncoder` ke kódování hodnoty. Například:
 
 ```csharp
 var example = "\"Quoted Value with spaces and &\"";
    var encodedValue = _urlEncoder.Encode(example);
    ```
 
-Po kódování encodedValue bude obsahovat proměnnou `%22Quoted%20Value%20with%20spaces%20and%20%26%22`. Mezery, nabídek, interpunkce a dalších problematické znaky budou procenta kódovány za účelem jejich šestnáctkové hodnoty, například znak mezery se stanou % 20.
+Po kódování bude proměnná encodedValue obsahovat `%22Quoted%20Value%20with%20spaces%20and%20%26%22`. Mezery, uvozovky, interpunkční znaménka a další nebezpečné znaky budou v procentech zakódovány na jejich hexadecimální hodnotu, například znak mezery se stane %20.
 
 >[!WARNING]
-> Nepoužívejte nedůvěryhodnému vstupu jako část cesty adresy URL. Vždycky předáte nedůvěryhodný vstup jako hodnotu řetězce dotazu.
+> Nepoužívejte nedůvěryhodný vstup jako součást cesty URL. Vždy předejte nedůvěryhodný vstup jako hodnotu řetězce dotazu.
 
 <a name="security-cross-site-scripting-customization"></a>
 
-## <a name="customizing-the-encoders"></a>Přizpůsobení u kodérů
+## <a name="customizing-the-encoders"></a>Přizpůsobení kodérů
 
-Ve výchozím nastavení kodérů pomocí seznamu bezpečných omezeno na rozsahu základní latinky Unicode a kódování všechny znaky mimo tento rozsah jako jejich ekvivalenty kód znaku. Toto chování Taghelperu Razor a HtmlHelper vykreslování ovlivní také, jak se bude používat u kodérů pro výstupní vaše řetězce.
+Ve výchozím nastavení používají kodéry zabezpečený seznam omezený na základní rozsah Latinské sady Latin Unicode a zakódovat všechny znaky mimo tento rozsah jako jejich ekvivalenty kódu znaku. Toto chování má vliv také na vykreslování Razor Taghelperu a HtmlHelper, protože bude používat kodéry k výstupu řetězců.
 
-Zdůvodnění to je pro ochranu před chybami neznámý nebo budoucí prohlížeče (předchozí chyby prohlížeče mít zasekne analýzy založené na zpracování jiných než anglických znaků). Pokud vaše webová stránka značně používá jiné znaky než latinku, jako je například čínština, cyrilice, nebo jinými toto není pravděpodobně chování, které chcete.
+Důvodem je ochrana proti neznámým nebo budoucím chybám prohlížeče (předchozí chyby prohlížeče mají Trip analýzu na základě zpracování neanglických znaků). Pokud váš web používá velké množství znaků mimo Latin, jako je čínština, cyrilice nebo jiné, pravděpodobně to není chování, které požadujete.
 
-Můžete přizpůsobit seznamy bezpečných kodér zahrnout rozsahy vhodnými pro vaši aplikaci při spuštění v kódování Unicode `ConfigureServices()`.
+Seznam bezpečných kodérů můžete přizpůsobit tak, aby zahrnoval rozsahy Unicode, které jsou vhodné pro vaši aplikaci během spouštění, v `ConfigureServices()`.
 
-Například pomocí výchozí konfigurace můžete použít syntaxi Razor HtmlHelper takto;
+Například pomocí výchozí konfigurace můžete použít HtmlHelper Razor, například,
 
 ```html
 <p>This link text is in Chinese: @Html.ActionLink("汉语/漢語", "Index")</p>
    ```
 
-Po zobrazení zdrojového kódu webové stránky uvidíte, že má se vykreslí následujícím způsobem čínštině kódování;
+Po zobrazení zdroje webové stránky uvidíte, že byla vykreslena takto, s kódovaným čínským textem;
 
 ```html
 <p>This link text is in Chinese: <a href="/">&#x6C49;&#x8BED;/&#x6F22;&#x8A9E;</a></p>
    ```
 
-Chcete-li rozšířit znaky považované za bezpečné kodér by vložíte následující řádek do `ConfigureServices()` metoda `startup.cs`;
+Chcete-li rozšířit znaky zpracovávané jako bezpečné kodérem, vložte následující řádek do metody `ConfigureServices()` v `startup.cs`.
 
 ```csharp
 services.AddSingleton<HtmlEncoder>(
@@ -208,21 +208,21 @@ services.AddSingleton<HtmlEncoder>(
                                                UnicodeRanges.CjkUnifiedIdeographs }));
    ```
 
-Tento příklad rozšiřuje seznamu bezpečných zahrnout CjkUnifiedIdeographs rozsah Unicode. Teď už vykresleného výstupu
+Tento příklad rozšiřuje seznam bezpečných dat tak, aby zahrnoval CjkUnifiedIdeographs rozsah znaků Unicode. Vykreslený výstup by se teď stal
 
 ```html
 <p>This link text is in Chinese: <a href="/">汉语/漢語</a></p>
    ```
 
-Seznamu bezpečných rozsahy jsou zadané jako grafy kódu Unicode, ne jazyky. [Unicode standard](https://unicode.org/) má seznam [kódu grafy](https://www.unicode.org/charts/index.html) můžete použít k vyhledání graf obsahující znaky. Každý kodér, Html, JavaScript a adresu Url, musí být nakonfigurované samostatně.
+Bezpečné rozsahy seznamů jsou zadány jako grafy kódu Unicode, nikoli jazyky. [Standard Unicode](https://unicode.org/) obsahuje seznam [kódových grafů](https://www.unicode.org/charts/index.html) , pomocí kterých můžete najít graf obsahující vaše znaky. Každý kodér, HTML, JavaScript a adresu URL je nutné nakonfigurovat samostatně.
 
 > [!NOTE]
-> Přizpůsobení seznamu bezpečných ovlivňuje pouze Source prostřednictvím DI kodérů. Pokud přímý přístup k kodéru prostřednictvím `System.Text.Encodings.Web.*Encoder.Default` pak výchozí základní latinky se použije pouze safelist.
+> Přizpůsobení seznamu bezpečný má vliv pouze na kodéry, které jsou zdrojem přes DI. Pokud přímo přistupujete k kodéru pomocí `System.Text.Encodings.Web.*Encoder.Default` pak bude použita výchozí hodnota Basic Latin pouze Safelist.
 
-## <a name="where-should-encoding-take-place"></a>Pokud byste umístit kódování vzít?
+## <a name="where-should-encoding-take-place"></a>Kde má být kódování provedeno?
 
-Obecné přijme, postup je, že kódování probíhá místě výstup a kódovaného hodnoty by nikdy neměly být uloženy v databázi. Kódování místě výstup vám umožní změnit používání dat, například z HTML na hodnotu řetězce dotazu. Také umožňuje snadno prohledávat svá data bez nutnosti kódování hodnoty před vyhledáváním a umožňuje vám umožní využívat jakékoli změny a opravy chyb. kodérů.
+Obecně přijatý postup spočívá v tom, že kódování probíhá na místě výstupu a kódované hodnoty by nikdy neměly být uloženy v databázi. Kódování v bodě výstupu umožňuje změnit použití dat, například z formátu HTML na hodnotu řetězce dotazu. Umožňuje také snadné vyhledávání dat bez nutnosti kódování hodnot před vyhledáváním a umožňuje využít všechny změny nebo opravy chyb provedené v kodérech.
 
-## <a name="validation-as-an-xss-prevention-technique"></a>Ověření jako XSS techniku ochrany před únikem informací
+## <a name="validation-as-an-xss-prevention-technique"></a>Ověřování jako technika ochrany XSS
 
-Ověření může být užitečný nástroj v omezení útoky XSS. Například číselných řetězců obsahující pouze znaky 0-9, nebude spustí XSS útoku. Ověření bude složitější, při přijetí HTML vstup uživatele. Analýza elementu input kódu HTML je obtížné, pokud není možné. Markdown, společně se analyzátor, který odstraní vložený HTML, je bezpečnější možnost pro příjem formátovaný vstup. Nikdy spoléhat na ověřovací samostatně. Vždy kódování nedůvěryhodný vstup před výstupu, bez ohledu na to, jaké ověřování nebo čištění pro zadávání byla provedena.
+Ověřování může být užitečným nástrojem v omezení útoků XSS. Například číselný řetězec obsahující pouze znaky 0-9 nespustí Útok XSS. Při přijímání HTML při vstupu uživatele se ověřování bude složitější. Analýza vstupu HTML je obtížná, pokud není možná. Markdownu společně s analyzátorem, který odděluje vložený kód HTML, je bezpečnější možností pro přijetí formátovaného vstupu. Nikdy nespoléhat jenom na ověřování. Vždy kódování nedůvěryhodného vstupu před výstupem bez ohledu na to, jaké ověření nebo úpravu bylo provedeno.

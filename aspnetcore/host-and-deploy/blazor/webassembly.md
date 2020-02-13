@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 8ed95cdb96804e08c3f1273bbea8f64a8e4f173c
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.openlocfilehash: 861935ff31652f923399a8aa5ae52baa6b77fa91
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160246"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77172399"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -82,11 +82,11 @@ Publikované assety se vytvoří ve složce */bin/Release/{Target Framework}/Pub
 Při publikování Blazor projektu se vytvoří soubor *Web. config* s následující konfigurací služby IIS:
 
 * Typy MIME jsou nastaveny pro následující přípony souborů:
-  * *.dll* &ndash; `application/octet-stream`
-  * *.json* &ndash; `application/json`
-  * *.wasm* &ndash; `application/wasm`
-  * *.woff* &ndash; `application/font-woff`
-  * *.woff2* &ndash; `application/font-woff`
+  * *. dll* &ndash; `application/octet-stream`
+  * *. json* &ndash; `application/json`
+  * *. wasm* &ndash; `application/wasm`
+  * *. woff* &ndash; `application/font-woff`
+  * *. woff2* &ndash; `application/font-woff`
 * Pro následující typy MIME je povolena komprese protokolu HTTP:
   * `application/octet-stream`
   * `application/wasm`
@@ -140,7 +140,7 @@ Pokud je samostatná aplikace hostovaná jako dílčí aplikace služby IIS, pro
 
 Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [Konfigurace základní cesty aplikace](xref:host-and-deploy/blazor/index#app-base-path). Nastavte základní cestu aplikace v souboru *index. html* aplikace na alias služby IIS, který se používá při konfiguraci dílčí aplikace v IIS.
 
-#### <a name="troubleshooting"></a>Odstraňování problémů
+#### <a name="troubleshooting"></a>Řešení potíží
 
 Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, soubor *Web. config* nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web neobsluhuje statické soubory Blazor.
 
@@ -157,7 +157,7 @@ Když je u služby BLOB Service povolené hostování statických webů v účtu
 
 Další informace najdete v tématu [statické hostování webů v Azure Storage](/azure/storage/blobs/storage-blob-static-website).
 
-### <a name="nginx"></a>nginx
+### <a name="nginx"></a>Nginx
 
 Následující soubor *Nginx. conf* je zjednodušený a ukazuje, jak nakonfigurovat Nginx pro odeslání souboru *index. html* pokaždé, když nemůže najít odpovídající soubor na disku.
 
@@ -183,7 +183,7 @@ Pokud chcete hostovat Blazor v Docker pomocí Nginx, nastavte souboru Dockerfile
 
 Do souboru Dockerfile přidejte jeden řádek, jak je znázorněno v následujícím příkladu:
 
-```Dockerfile
+```dockerfile
 FROM nginx:alpine
 COPY ./bin/Release/netstandard2.0/publish /usr/share/nginx/html/
 COPY nginx.conf /etc/nginx/nginx.conf
@@ -247,7 +247,7 @@ Při použití webu projektu místo webu organizace přidejte nebo aktualizujte 
 
 [aplikaceBlazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) můžou přijmout následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí.
 
-### <a name="content-root"></a>Kořenový adresář obsahu
+### <a name="content-root"></a>Kořen obsahu
 
 Argument `--contentroot` nastaví absolutní cestu k adresáři, který obsahuje soubory obsahu aplikace ([kořen obsahu](xref:fundamentals/index#content-root)). V následujících příkladech je `/content-root-path` kořenovou cestou obsahu aplikace.
 
@@ -294,7 +294,7 @@ Argument `--pathbase` nastaví základní cestu aplikace pro aplikaci spuštěno
   --pathbase=/relative-URL-path
   ```
 
-### <a name="urls"></a>Adresy URL
+### <a name="urls"></a>URL – adresy
 
 Argument `--urls` nastaví IP adresy nebo adresy hostitelů s porty a protokoly, které se mají na požadavky naslouchat.
 
@@ -318,4 +318,4 @@ Argument `--urls` nastaví IP adresy nebo adresy hostitelů s porty a protokoly,
 
 ## <a name="configure-the-linker"></a>Konfigurace Linkeru
 
-Blazor provádí propojení v prostředním jazyce (IL) pro každé sestavení, aby se odebralo zbytečné IL z výstupních sestavení. Propojení sestavení lze řídit při sestavování. Další informace najdete v tématu <xref:host-and-deploy/blazor/configure-linker>.
+Blazor provádí propojení v prostředním jazyce (IL) pro každé sestavení, aby se odebralo zbytečné IL z výstupních sestavení. Propojení sestavení lze řídit při sestavování. Další informace naleznete v tématu <xref:host-and-deploy/blazor/configure-linker>.

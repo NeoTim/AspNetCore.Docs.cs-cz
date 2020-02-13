@@ -2,14 +2,14 @@
 npm run release
 ```
 
-Tento příkaz provede na straně klienta prostředků ke zpracování při spuštění aplikace. Prostředky jsou umístěné v *wwwroot* složky.
+Tento příkaz vygeneruje prostředky na straně klienta, které mají být obsluhovány při spuštění aplikace. Prostředky se umístí do složky *wwwroot* .
 
-Webpacku dokončit následující úkoly:
+Sada Webpack dokončila následující úlohy:
 
-* Vymazat obsah *wwwroot* adresáře.
-* Převést TypeScript pro JavaScript&mdash;tento proces se označuje jako *transpilation*.
-* Pozměnění generovaný JavaScript, který chcete zmenšit velikost souboru&mdash;tento proces se označuje jako *připravenost k minifikaci*.
-* Zpracované soubory jazyka JavaScript, CSS a HTML z zkopírovány *src* k *wwwroot* adresáře.
-* Vloží do následující prvky *wwwroot/index.html* souboru:
-  * A `<link>` označit, odkazující *wwwroot/main.\< Hodnota hash\>.css* souboru. Tato značka je umisťovaný bezprostředně před uzavírací `</head>` značky.
-  * A `<script>` značky, odkazující minifikovaný *wwwroot/main.\< Hodnota hash\>js* souboru. Tato značka je umisťovaný bezprostředně před uzavírací `</body>` značky.
+* Vymazal se obsah adresáře *wwwroot* .
+* V procesu známém jako *transpilation*je převedený TypeScript na JavaScript.
+* Byl změněn vygenerovaný JavaScript za účelem zmenšení velikosti souboru v procesu známém jako *minifikace*.
+* Zkopírovány zpracované soubory JavaScript, CSS a HTML z *Src* do adresáře *wwwroot* .
+* Do souboru *wwwroot/index.html* byly vloženy následující prvky:
+  * Značka `<link>` s odkazem na soubor *wwwroot/Main.\<hash\>. CSS* . Tato značka je umístěna bezprostředně před uzavírací `</head>` značku.
+  * Značka `<script>` s odkazem na soubor minifikovaného *wwwroot/Main.\<hash\>. js* . Tato značka je umístěna bezprostředně před uzavírací `</body>` značku.

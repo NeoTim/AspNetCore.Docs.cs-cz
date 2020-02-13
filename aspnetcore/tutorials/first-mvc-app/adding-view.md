@@ -5,16 +5,16 @@ description: Přidání zobrazení do jednoduché ASP.NET Core aplikace MVC
 ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: a25233968f115c6e3a214d97cf2ca5ab81df8d83
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 5510fb6844452571ca764e21640f0bd16444c782
+ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76870425"
+ms.lasthandoff: 02/12/2020
+ms.locfileid: "77171974"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do ASP.NET Core aplikace MVC
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -44,7 +44,7 @@ Předchozí kód volá metodu <xref:Microsoft.AspNetCore.Mvc.Controller.View*> k
 
   * Ponechejte hodnotu pole **název** , *index. cshtml*.
 
-  * Vyberte **Přidat**
+  * Vyberte **Přidat**.
 
 ![Dialogové okno Přidat novou položku](adding-view/_static/add_view.png)
 
@@ -59,7 +59,7 @@ Přidejte zobrazení `Index` pro `HelloWorldController`.
 
 * Klikněte pravým tlačítkem na složku *zobrazení* a pak **přidejte > novou složku** a pojmenujte složku *HelloWorld*.
 * Klikněte pravým tlačítkem na složku *views/HelloWorld* a pak **přidejte > nový soubor**.
-* V **nový soubor** dialogové okno:
+* V dialogovém okně **nový soubor** :
 
   * V levém podokně vyberte **ASP .NET Core** .
   * V prostředním podokně vyberte **stránku zobrazení MVC** .
@@ -107,7 +107,7 @@ Vyberte odkaz **Domů** a Všimněte si, že text nadpisu a kotvy také zobrazuj
 
 Projděte si soubor *views/_ViewStart. cshtml* :
 
-```HTML
+```cshtml
 @{
     Layout = "_Layout";
 }
@@ -123,9 +123,9 @@ Název a `<h2>` element se mírně liší, abyste viděli, který bit kódu změ
 
 `ViewData["Title"] = "Movie List";` v kódu výše nastaví vlastnost `Title` slovníku `ViewData` na seznam filmů. Vlastnost `Title` se používá v prvku `<title>` HTML na stránce rozložení:
 
-```HTML
+```cshtml
 <title>@ViewData["Title"] - Movie App</title>
-   ```
+```
 
 Uložte změnu a přejděte na `https://localhost:{PORT}/HelloWorld`. Všimněte si, že se změnil název prohlížeče, primární nadpis a sekundární záhlaví. (Pokud nevidíte změny v prohlížeči, můžete zobrazit obsah uložený v mezipaměti. Stisknutím kombinace kláves CTRL + F5 v prohlížeči vynutíte načtení odpovědi ze serveru.) Název prohlížeče se vytvoří pomocí `ViewData["Title"]` nastavíme v šabloně zobrazení *index. cshtml* a další "-filmové aplikace" přidané v souboru rozložení.
 
@@ -201,7 +201,7 @@ Předchozí kód volá metodu <xref:Microsoft.AspNetCore.Mvc.Controller.View*> k
 
   * Ponechejte hodnotu pole **název** , *index. cshtml*.
 
-  * Vyberte **Přidat**
+  * Vyberte **Přidat**.
 
 ![Dialogové okno Přidat novou položku](adding-view/_static/add_view.png)
 
@@ -216,7 +216,7 @@ Přidejte zobrazení `Index` pro `HelloWorldController`.
 
 * Klikněte pravým tlačítkem na složku *zobrazení* a pak **přidejte > novou složku** a pojmenujte složku *HelloWorld*.
 * Klikněte pravým tlačítkem na složku *views/HelloWorld* a pak **přidejte > nový soubor**.
-* V **nový soubor** dialogové okno:
+* V dialogovém okně **nový soubor** :
 
   * V levém podokně vyberte **Web** .
   * V prostředním podokně vyberte **prázdný soubor HTML** .
@@ -267,7 +267,7 @@ Vyberte odkaz **Domů** a Všimněte si, že text nadpisu a kotvy také zobrazuj
 
 Projděte si soubor *views/_ViewStart. cshtml* :
 
-```HTML
+```cshtml
 @{
     Layout = "_Layout";
 }
@@ -283,9 +283,9 @@ Název a `<h2>` element se mírně liší, abyste viděli, který bit kódu změ
 
 `ViewData["Title"] = "Movie List";` v kódu výše nastaví vlastnost `Title` slovníku `ViewData` na seznam filmů. Vlastnost `Title` se používá v prvku `<title>` HTML na stránce rozložení:
 
-```HTML
+```cshtml
 <title>@ViewData["Title"] - Movie App</title>
-   ```
+```
 
 Uložte změnu a přejděte na `https://localhost:{PORT}/HelloWorld`. Všimněte si, že se změnil název prohlížeče, primární nadpis a sekundární záhlaví. (Pokud nevidíte změny v prohlížeči, můžete zobrazit obsah uložený v mezipaměti. Stisknutím kombinace kláves CTRL + F5 v prohlížeči vynutíte načtení odpovědi ze serveru.) Název prohlížeče se vytvoří pomocí `ViewData["Title"]` nastavíme v šabloně zobrazení *index. cshtml* a další "-filmové aplikace" přidané v souboru rozložení.
 
