@@ -5,12 +5,12 @@ description: V tomto kurzu začnete používat funkci migrace EF Core pro správ
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: 4246d9d8f6e6ba9e9d735b944ed748720bcf3e16
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: f8e78cf7230528a4047eac1d52a12e2ed8392dec
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928378"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213440"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Razor Pages s EF Core v ASP.NET Core – migrace – 4 z 8
 
@@ -128,7 +128,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 * Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.
 * Spuštění `dotnet ef database update` ze kontrolovaného prostředí.
 
-## <a name="troubleshooting"></a>Odstraňování problémů
+## <a name="troubleshooting"></a>Odstraňování potíží
 
 Pokud aplikace používá SQL Server LocalDB a zobrazí následující výjimku:
 
@@ -180,7 +180,7 @@ Použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo `database dr
 
 V **konzole správce balíčků** (PMC) spusťte následující příkaz:
 
-```PMC
+```powershell
 Drop-Database
 ```
 
@@ -204,7 +204,7 @@ Sestavte projekt a vytvořte první migraci.
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-```PMC
+```powershell
 Add-Migration InitialCreate
 Update-Database
 ```
@@ -293,7 +293,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 
 EF Core používá tabulku `__MigrationsHistory` a zjistí, jestli je potřeba spustit nějaké migrace. Pokud je databáze aktuální, nespustí se žádná migrace.
 
-## <a name="troubleshooting"></a>Odstraňování problémů
+## <a name="troubleshooting"></a>Odstraňování potíží
 
 Stáhněte [dokončenou aplikaci](
 https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations).

@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 1244b2e23a842538ff2fca01a513317a690afe7c
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 411c0874d2b2c6ecadd1da9aff7a093f1e8e525a
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034035"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213425"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>Razor Pages s EF Core v ASP.NET Core-datový model 5 z 8
 
-Podle [Petr Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
+[Dykstra](https://github.com/tdykstra) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!INCLUDE [about the series](~/includes/RP-EF/intro.md)]
 
@@ -632,7 +632,7 @@ Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize
 Otevřete databázi v SSOX:
 
 * Pokud jste dříve otevřeli SSOX, klikněte na tlačítko **aktualizovat** .
-* Rozbalte **tabulky** uzlu. Zobrazí se vytvořené tabulky.
+* Rozbalte uzel **tabulky** . Zobrazí se vytvořené tabulky.
 
   ![Tabulky v SSOX](complex-data-model/_static/ssox-tables.png)
 
@@ -821,7 +821,7 @@ V předchozí změně `Student.FirstMidName` v aplikaci namapovány do sloupce `
 
 Přidání atributu `Column` změní model zálohování `SchoolContext`. Model zálohovaný `SchoolContext` se už neshoduje s databází. Pokud je aplikace spuštěná před použitím migrace, vygeneruje se tato výjimka:
 
-```SQL
+```
 SqlException: Invalid column name 'FirstName'.
 ```
 
@@ -832,7 +832,7 @@ Aktualizace databáze:
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-```PMC
+```powershell
 Add-Migration ColumnFirstName
 Update-Database
 ```
@@ -855,7 +855,7 @@ Please review the migration for accuracy.
 
 Upozornění je vygenerováno, protože pole s názvem jsou nyní omezena na 50 znaků. Pokud má název v databázi více než 50 znaků, ztratí se 51 na poslední znak.
 
-* Otestujte aplikaci.
+* Otestujete aplikaci.
 
 Otevřete tabulku student v SSOX:
 
@@ -1290,7 +1290,7 @@ Kód v aktualizované `DbInitializer` přidá počáteční data pro nové entit
 
 V **konzole správce balíčků** (PMC) spusťte následující příkaz:
 
-```PMC
+```powershell
 Drop-Database
 Update-Database
 ```
@@ -1315,7 +1315,7 @@ Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize
 Otevřete databázi v SSOX:
 
 * Pokud jste dříve otevřeli SSOX, klikněte na tlačítko **aktualizovat** .
-* Rozbalte **tabulky** uzlu. Zobrazí se vytvořené tabulky.
+* Rozbalte uzel **tabulky** . Zobrazí se vytvořené tabulky.
 
 ![Tabulky v SSOX](complex-data-model/_static/ssox-tables.png)
 

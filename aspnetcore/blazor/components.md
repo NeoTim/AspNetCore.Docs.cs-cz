@@ -5,23 +5,23 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/24/2020
+ms.date: 02/04/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: d6ba60b20d21636c7f780a80d8fbdb152505a3a3
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 0da0d83a4fde7b753a84bf05d3a9284776f2881f
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928250"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213347"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Aplikace Blazor jsou sestavené pomocí *komponent*. Součást je samostatně obsažený blok uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenta obsahuje značky HTML a logiku zpracování potřebnou k vkládání dat nebo reakci na události uživatelského rozhraní. Komponenty jsou flexibilní a odlehčené. Můžou být vnořené, opakovaně používané a sdílené mezi projekty.
 
@@ -70,7 +70,7 @@ Chcete-li použít vlastní složku, přidejte obor názvů vlastní složky bu�
 
 Komponenty Razor lze integrovat do aplikací Razor Pages a MVC. Po vykreslení stránky nebo zobrazení mohou být komponenty předem vykresleny ve stejnou dobu.
 
-Pokud chcete připravovat aplikaci Razor Pages nebo MVC k hostování komponent Razor, postupujte podle pokynů v části *integrace prvků Razor do Razor Pages a MVC Apps* v článku <xref:blazor/hosting-models#integrate-razor-components-into-razor-pages-and-mvc-apps>.
+Pokud chcete připravovat aplikaci Razor Pages nebo MVC k hostování komponent Razor, postupujte podle pokynů v části *integrace prvků Razor do Razor Pages a MVC Apps* v článku <xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps>.
 
 Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do stránky nebo zobrazení nebo do souboru *_ViewImports. cshtml* . V následujícím příkladu:
 
@@ -107,7 +107,10 @@ I když stránky a zobrazení mohou používat komponenty, není tato konverzace
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-Další informace o vykreslování komponent, stavu komponent a pomocníka značek `Component` naleznete v tématu <xref:blazor/hosting-models>.
+Další informace o vykreslování komponent, stavu komponent a pomocníka značek `Component` naleznete v následujících článcích:
+
+* <xref:blazor/hosting-models>
+* <xref:blazor/hosting-model-configuration>
 
 ## <a name="tag-helpers-arent-used-in-components"></a>V součástech se nepoužívají pomocníky značek.
 
@@ -149,7 +152,7 @@ V následujícím příkladu z ukázkové aplikace `ParentComponent` nastaví ho
 <h1>Parent-child example</h1>
 
 <ChildComponent Title="Panel Title from Parent"
-                OnClick="@ShowMessage">
+                OnClickCallback="@ShowMessage">
     Content of the child component is supplied
     by the parent component.
 </ChildComponent>
@@ -180,7 +183,7 @@ V následujícím příkladu má `ChildComponent` vlastnost `ChildContent`, kter
 <h1>Parent-child example</h1>
 
 <ChildComponent Title="Panel Title from Parent"
-                OnClick="@ShowMessage">
+                OnClickCallback="@ShowMessage">
     Content of the child component is supplied
     by the parent component.
 </ChildComponent>
@@ -304,7 +307,7 @@ Vykreslený `<div>` v komponentě `Parent` obsahuje `extra="10"` při předání
 <div extra="10" />
 ```
 
-## <a name="data-binding"></a>Datová vazba
+## <a name="data-binding"></a>Vytváření datových vazeb
 
 Datové vazby na součásti a prvky modelu DOM jsou provedeny atributem [`@bind`](xref:mvc/views/razor#bind) . Následující příklad váže vlastnost `CurrentValue` k hodnotě v textovém poli:
 
@@ -351,11 +354,11 @@ Na rozdíl od `onchange`, která je aktivována, když prvek ztratí fokus, `oni
 * Zadaný výraz (`CurrentValue`) k atributu `value` elementu.
 * Delegát události změny pro událost určenou v `@bind-value:event`.
 
-**Hodnoty, které nelze analyzovat**
+### <a name="unparsable-values"></a>Hodnoty, které nelze analyzovat
 
 Když uživatel poskytne neanalyzovatelné hodnoty prvku DataBound, hodnota neanalyzovat se automaticky vrátí na předchozí hodnotu, když se aktivuje událost BIND.
 
-Vezměte v úvahu následující scénář:
+Představte si následující scénář:
 
 * Element `<input>` je vázán na typ `int` s počáteční hodnotou `123`:
 
@@ -379,7 +382,7 @@ Ve výchozím nastavení se vazba vztahuje na událost `onchange` elementu (`@bi
   * Povolí uživateli zadání neplatných vstupů a přijetí chyb ověřování na přidruženém `EditContext`.
   * Zobrazí chyby ověřování v uživatelském rozhraní, aniž by došlo ke konfliktu s uživatelem, který zadává další data z formuláře.
 
-**Globalizace**
+### <a name="globalization"></a>Globalizace
 
 hodnoty `@bind` jsou formátovány pro zobrazení a analýzu pomocí pravidel aktuální jazykové verze.
 
@@ -406,7 +409,7 @@ Následující typy polí mají specifické požadavky na formátování a aktu�
 
 Informace o tom, jak nastavit jazykovou verzi uživatele, najdete v části [lokalizace](#localization) .
 
-**Řetězce formátu**
+### <a name="format-strings"></a>Řetězce formátu
 
 Datové vazby fungují s <xref:System.DateTime> formátovacími řetězci pomocí [`@bind:format`](xref:mvc/views/razor#bind). Jiné formátovací výrazy, jako je například Měna nebo formáty čísel, nejsou v tuto chvíli k dispozici.
 
@@ -434,9 +437,9 @@ Zadání formátu pro typ pole `date` se nedoporučuje, protože Blazor má inte
 <input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
 ```
 
-**Parametry součásti**
+### <a name="parent-to-child-binding-with-component-parameters"></a>Vazba nadřazený-to-podřízený s parametry komponenty
 
-Vazba rozpoznává parametry komponenty, kde `@bind-{property}` mohou svázat hodnotu vlastnosti napříč komponentami.
+Vazba rozpoznává parametry komponenty, kde `@bind-{property}` mohou svázat hodnotu vlastnosti z nadřazené komponenty dolů až k podřízené součásti. Vazba z podřízeného na nadřazenou položku je popsaná v tématu [vazba typu podřízená k nadřazenému s zřetězenou](#child-to-parent-binding-with-chained-bind) vazbou.
 
 Následující podřízená komponenta (`ChildComponent`) má parametr `Year` součásti a `YearChanged` zpětného volání:
 
@@ -456,7 +459,10 @@ Následující podřízená komponenta (`ChildComponent`) má parametr `Year` so
 
 `EventCallback<T>` je vysvětleno v části [vnořenou eventCallback](#eventcallback) .
 
-Následující nadřazená komponenta používá `ChildComponent` a váže `ParentYear` parametr z nadřazené položky k parametru `Year` pro podřízenou komponentu:
+Následující nadřazená komponenta používá:
+
+* `ChildComponent` a váže parametr `ParentYear` z nadřazené položky k parametru `Year` pro podřízenou komponentu.
+* Událost `onclick` slouží ke spuštění metody `ChangeTheYear`. Další informace najdete v části [zpracování událostí](#event-handling) .
 
 ```razor
 @page "/ParentComponent"
@@ -520,7 +526,138 @@ Obecně platí, že vlastnost může být svázána s odpovídající obslužnou
 <MyComponent @bind-MyProp="MyValue" @bind-MyProp:event="MyEventHandler" />
 ```
 
-**Přepínací tlačítka**
+### <a name="child-to-parent-binding-with-chained-bind"></a>Vazba podřízenosti k nadřazené položce s zřetězenou vazbou
+
+Běžným scénářem je zřetězení parametru vázaného na data na element stránky ve výstupu součásti. Tento scénář se nazývá *zřetězená vazba* , protože k více úrovním vazby dochází současně.
+
+Zřetězenou BIND nelze implementovat s syntaxí `@bind` v elementu stránky. Obslužná rutina události a hodnota se musí zadat samostatně. Nadřazená komponenta však může použít `@bind` syntaxe s parametrem komponenty.
+
+Následující součást `PasswordField` (*PasswordField. Razor*):
+
+* Nastaví hodnotu `<input>` elementu na vlastnost `Password`.
+* Zpřístupňuje změny vlastnosti `Password` nadřazené komponentě pomocí [vnořenou eventCallback](#eventcallback).
+* Používá událost `onclick` slouží ke spuštění metody `ToggleShowPassword`. Další informace najdete v části [zpracování událostí](#event-handling) .
+
+```razor
+<h1>Child Component</h2>
+
+Password: 
+
+<input @oninput="OnPasswordChanged" 
+       required 
+       type="@(_showPassword ? "text" : "password")" 
+       value="@Password" />
+
+<button class="btn btn-primary" @onclick="ToggleShowPassword">
+    Show password
+</button>
+
+@code {
+    private bool _showPassword;
+
+    [Parameter]
+    public string Password { get; set; }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+
+        return PasswordChanged.InvokeAsync(Password);
+    }
+
+    private void ToggleShowPassword()
+    {
+        _showPassword = !_showPassword;
+    }
+}
+```
+
+Komponenta `PasswordField` se používá v jiné součásti:
+
+```razor
+@page "/ParentComponent"
+
+<h1>Parent Component</h1>
+
+<PasswordField @bind-Password="_password" />
+
+@code {
+    private string _password;
+}
+```
+
+Chcete-li provést kontrolu nebo chyby depeše v předchozím příkladu:
+
+* Vytvořte pole zálohování pro `Password` (`_password` v následujícím ukázkovém kódu).
+* Proveďte kontroly nebo chyby depeší ve `Password` setter.
+
+Následující příklad poskytuje okamžitou zpětnou vazbu uživateli, pokud se v hodnotě hesla používá mezera:
+
+```razor
+@page "/ParentComponent"
+
+<h1>Parent Component</h1>
+
+Password: 
+
+<input @oninput="OnPasswordChanged" 
+       required 
+       type="@(_showPassword ? "text" : "password")" 
+       value="@Password" />
+
+<button class="btn btn-primary" @onclick="ToggleShowPassword">
+    Show password
+</button>
+
+<span class="text-danger">@_validationMessage</span>
+
+@code {
+    private bool _showPassword;
+    private string _password;
+    private string _validationMessage;
+
+    [Parameter]
+    public string Password
+    {
+        get { return _password ?? string.Empty; }
+        set
+        {
+            if (_password != value)
+            {
+                if (value.Contains(' '))
+                {
+                    _validationMessage = "Spaces not allowed!";
+                }
+                else
+                {
+                    _password = value;
+                    _validationMessage = string.Empty;
+                }
+            }
+        }
+    }
+
+    [Parameter]
+    public EventCallback<string> PasswordChanged { get; set; }
+
+    private Task OnPasswordChanged(ChangeEventArgs e)
+    {
+        Password = e.Value.ToString();
+
+        return PasswordChanged.InvokeAsync(Password);
+    }
+
+    private void ToggleShowPassword()
+    {
+        _showPassword = !_showPassword;
+    }
+}
+```
+
+### <a name="radio-buttons"></a>Přepínací tlačítka
 
 Informace o vazbě na přepínače ve formuláři naleznete v tématu <xref:blazor/forms-validation#work-with-radio-buttons>.
 
@@ -584,17 +721,20 @@ Podporované `EventArgs` jsou uvedeny v následující tabulce.
 | Schránka        | `ClipboardEventArgs` | `oncut`, `oncopy`, `onpaste` |
 | Přetažení             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` a `DataTransferItem` uchování přetažených dat položky. |
 | Chyba            | `ErrorEventArgs`     | `onerror` |
-| Událost            | `EventArgs`          | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Vstup*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting` |
+| Událost            | `EventArgs`          | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Input* (Vstup)<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart``onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting` |
 | Vybrána            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>Neobsahuje podporu pro `relatedTarget`. |
 | Vstup            | `ChangeEventArgs`    | `onchange`, `oninput` |
 | Klávesnice         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress`, `onkeyup` |
 | Stisknut            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
 | Ukazatele myši    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
 | Kolečko myši      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
-| Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
-| Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br>`TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
+| Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress``ontimeout` |
+| Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave``ontouchcancel`<br><br>`TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
 
-Informace o vlastnostech a chování zpracování událostí v předchozí tabulce naleznete v tématu [třídy EventArgs ve zdroji referencí (dotnet/aspnetcore Release/3.1 větev)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web).
+Další informace naleznete v následujících zdrojích:
+
+* [Třídy EventArgs ve zdroji odkazů ASP.NET Core (větev dotnet/aspnetcore Release/3.1)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web).
+* [MDN web Docs: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers) &ndash; obsahuje informace o tom, které prvky HTML podporují jednotlivé události modelu DOM.
 
 ### <a name="lambda-expressions"></a>Výrazy lambda
 
@@ -641,7 +781,7 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
-`ParentComponent` nastaví `EventCallback<T>` (`OnClick`) dítěte na svou `ShowMessage` metodu.
+`ParentComponent` nastaví `EventCallback<T>` (`OnClickCallback`) dítěte na svou `ShowMessage` metodu.
 
 *Stránky/ParentComponent. Razor*:
 
@@ -651,7 +791,7 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
 <h1>Parent-child example</h1>
 
 <ChildComponent Title="Panel Title from Parent"
-                OnClick="@ShowMessage">
+                OnClickCallback="@ShowMessage">
     Content of the child component is supplied
     by the parent component.
 </ChildComponent>
@@ -677,7 +817,7 @@ Když je vybráno tlačítko v `ChildComponent`:
 
 ```razor
 <ChildComponent 
-    OnClick="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
+    OnClickCallback="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
 ```
 
 Vyvolat `EventCallback` nebo `EventCallback<T>` s `InvokeAsync` a očekávat <xref:System.Threading.Tasks.Task>:
@@ -756,126 +896,6 @@ V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na udál
 }
 ```
 
-## <a name="chained-bind"></a>Zřetězená vazba
-
-Běžným scénářem je zřetězení parametru vázaného na data na element stránky ve výstupu součásti. Tento scénář se nazývá *zřetězená vazba* , protože k více úrovním vazby dochází současně.
-
-Zřetězenou BIND nelze implementovat s syntaxí `@bind` v elementu stránky. Obslužná rutina události a hodnota se musí zadat samostatně. Nadřazená komponenta však může použít `@bind` syntaxe s parametrem komponenty.
-
-Následující součást `PasswordField` (*PasswordField. Razor*):
-
-* Nastaví hodnotu `<input>` elementu na vlastnost `Password`.
-* Zpřístupňuje změny vlastnosti `Password` nadřazené komponentě pomocí [vnořenou eventCallback](#eventcallback).
-
-```razor
-Password: 
-
-<input @oninput="OnPasswordChanged" 
-       required 
-       type="@(_showPassword ? "text" : "password")" 
-       value="@Password" />
-
-<button class="btn btn-primary" @onclick="ToggleShowPassword">
-    Show password
-</button>
-
-@code {
-    private bool _showPassword;
-
-    [Parameter]
-    public string Password { get; set; }
-
-    [Parameter]
-    public EventCallback<string> PasswordChanged { get; set; }
-
-    private Task OnPasswordChanged(ChangeEventArgs e)
-    {
-        Password = e.Value.ToString();
-
-        return PasswordChanged.InvokeAsync(Password);
-    }
-
-    private void ToggleShowPassword()
-    {
-        _showPassword = !_showPassword;
-    }
-}
-```
-
-Komponenta `PasswordField` se používá v jiné součásti:
-
-```razor
-<PasswordField @bind-Password="_password" />
-
-@code {
-    private string _password;
-}
-```
-
-Chcete-li provést kontrolu nebo chyby depeše v předchozím příkladu:
-
-* Vytvořte pole zálohování pro `Password` (`_password` v následujícím ukázkovém kódu).
-* Proveďte kontroly nebo chyby depeší ve `Password` setter.
-
-Následující příklad poskytuje okamžitou zpětnou vazbu uživateli, pokud se v hodnotě hesla používá mezera:
-
-```razor
-Password: 
-
-<input @oninput="OnPasswordChanged" 
-       required 
-       type="@(_showPassword ? "text" : "password")" 
-       value="@Password" />
-
-<button class="btn btn-primary" @onclick="ToggleShowPassword">
-    Show password
-</button>
-
-<span class="text-danger">@_validationMessage</span>
-
-@code {
-    private bool _showPassword;
-    private string _password;
-    private string _validationMessage;
-
-    [Parameter]
-    public string Password
-    {
-        get { return _password ?? string.Empty; }
-        set
-        {
-            if (_password != value)
-            {
-                if (value.Contains(' '))
-                {
-                    _validationMessage = "Spaces not allowed!";
-                }
-                else
-                {
-                    _password = value;
-                    _validationMessage = string.Empty;
-                }
-            }
-        }
-    }
-
-    [Parameter]
-    public EventCallback<string> PasswordChanged { get; set; }
-
-    private Task OnPasswordChanged(ChangeEventArgs e)
-    {
-        Password = e.Value.ToString();
-
-        return PasswordChanged.InvokeAsync(Password);
-    }
-
-    private void ToggleShowPassword()
-    {
-        _showPassword = !_showPassword;
-    }
-}
-```
-
 ## <a name="capture-references-to-components"></a>Zachytit odkazy na komponenty
 
 Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance, například `Show` nebo `Reset`. Zachytit odkaz na komponentu:
@@ -928,7 +948,21 @@ public class NotifierService
 }
 ```
 
-Použití `NotifierService` k aktualizaci součásti:
+Zaregistrujte `NotifierService` jako singletion:
+
+* V Blazor WebAssembly Zaregistrujte službu v `Program.Main`:
+
+  ```csharp
+  builder.Services.AddSingleton<NotifierService>();
+  ```
+
+* V Blazor serveru Zaregistrujte službu v `Startup.ConfigureServices`:
+
+  ```csharp
+  services.AddSingleton<NotifierService>();
+  ```
+
+K aktualizaci součásti použijte `NotifierService`:
 
 ```razor
 @page "/"
@@ -1654,16 +1688,16 @@ builder.AddContent(1, "Second");
 
 Při prvním spuštění kódu, pokud je `someFlag` `true`, tvůrce obdrží:
 
-| Sequence | Type      | Datové   |
+| Pořadí | Typ      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
-| 1        | Textový uzel | Druhá |
+| 1        | Textový uzel | Sekunda |
 
 Představte si, že `someFlag` se budou `false`a kód se znovu vykreslí. Tentokrát Tvůrce získá:
 
-| Sequence | Type       | Datové   |
+| Pořadí | Typ       | Data   |
 | :------: | ---------- | :----: |
-| 1        | Textový uzel  | Druhá |
+| 1        | Textový uzel  | Sekunda |
 
 Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci `0` byla odebrána, takže generuje následující skript triviálního *úprav*:
 
@@ -1686,16 +1720,16 @@ builder.AddContent(seq++, "Second");
 
 Teď je první výstup:
 
-| Sequence | Type      | Datové   |
+| Pořadí | Typ      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
-| 1        | Textový uzel | Druhá |
+| 1        | Textový uzel | Sekunda |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je `false` při druhém vykreslování a výstup je:
 
-| Sequence | Type      | Datové   |
+| Pořadí | Typ      | Data   |
 | :------: | --------- | ------ |
-| 0        | Textový uzel | Druhá |
+| 0        | Textový uzel | Sekunda |
 
 Tentokrát rozdílový algoritmus uvidí, že došlo ke *dvěma* změnám, a algoritmus generuje následující skript pro úpravy:
 

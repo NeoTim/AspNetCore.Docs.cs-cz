@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: df5bb676df59b538179a69978040521c4ee78ed1
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: ecacd0a9728cbefd716e9dc7cd8a8c62f3df6e0d
+ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146365"
+ms.lasthandoff: 02/14/2020
+ms.locfileid: "77213386"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>Životní cyklus Blazor ASP.NET Core
 
@@ -27,7 +27,7 @@ Rozhraní Blazor zahrnuje synchronní a asynchronní metody životního cyklu. P
 
 ### <a name="component-initialization-methods"></a>Inicializační metody komponenty
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> jsou vyvolány při inicializaci komponenty po přijetí počátečních parametrů ze své nadřazené komponenty. Použijte `OnInitializedAsync`, když komponenta provede asynchronní operaci a měla by se aktualizovat po dokončení operace. Tyto metody jsou volány pouze jednou při prvním vytvoření instance komponenty.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*> a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> jsou vyvolány při inicializaci komponenty po přijetí počátečních parametrů ze své nadřazené komponenty. Použijte `OnInitializedAsync`, když komponenta provede asynchronní operaci a měla by se aktualizovat po dokončení operace.
 
 Pro synchronní operaci popište `OnInitialized`:
 
@@ -46,6 +46,15 @@ protected override async Task OnInitializedAsync()
     await ...
 }
 ```
+
+Blazor serverových aplikací, které [proprerender volání jejich obsahu](xref:blazor/hosting-model-configuration#render-mode) `OnInitializedAsync` **_dvakrát_** :
+
+* Jednou, když je komponenta zpočátku vykreslena jako součást stránky.
+* Podruhé, když prohlížeč vytvoří připojení zpátky k serveru.
+
+Chcete-li zabránit tomu, aby kód pro vývojáře v `OnInitializedAsync` běžel dvakrát, přečtěte si část [stav opětovného připojení po předvykreslování](#stateful-reconnection-after-prerendering) .
+
+I když je aplikace Blazor serveru předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně. Další informace najdete v části [detekce při předvykreslování aplikace](#detect-when-the-app-is-prerendering) .
 
 ### <a name="before-parameters-are-set"></a>Před nastavením parametrů
 
@@ -180,6 +189,70 @@ Pokud komponenta implementuje <xref:System.IDisposable>, je volána [Metoda Disp
 > [!NOTE]
 > Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> v `Dispose` není podporováno. `StateHasChanged` může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
 
-## <a name="handle-errors"></a>Ošetření chyb
+## <a name="handle-errors"></a>Zpracování chyb
 
 Informace o zpracování chyb během provádění metod životního cyklu naleznete v tématu <xref:blazor/handle-errors#lifecycle-methods>.
+
+## <a name="stateful-reconnection-after-prerendering"></a>Stav opětovného připojení po předvykreslování
+
+V aplikaci Blazor serveru, když je `RenderMode` `ServerPrerendered`, je součást zpočátku vykreslena jako součást stránky. Jakmile prohlížeč vytvoří připojení zpátky k serveru, komponenta se *znovu*vykreslí a komponenta je teď interaktivní. Pokud je k dispozici metoda inicializace životního cyklu "inicializujd [{Async}](xref:blazor/lifecycle#component-initialization-methods) " pro inicializaci komponenty, je metoda provedena *dvakrát*:
+
+* Když se komponenta předem vykreslí.
+* Po navázání připojení k serveru.
+
+Výsledkem může být znatelné změny v datech zobrazených v uživatelském rozhraní, když je komponenta nakonec vykreslena.
+
+Abyste se vyhnuli scénáři dvojího vykreslování v aplikaci Blazor serveru:
+
+* Předejte identifikátor, který se dá použít k ukládání stavu do mezipaměti během předgenerování a načtení stavu po restartování aplikace.
+* Použijte identifikátor při předvykreslování k uložení stavu součásti.
+* Pro načtení stavu uloženého v mezipaměti použijte identifikátor po předvykreslování.
+
+Následující kód demonstruje aktualizované `WeatherForecastService` v aplikaci Blazor serveru založeném na šablonách, která vylučuje dvojité vykreslování:
+
+```csharp
+public class WeatherForecastService
+{
+    private static readonly string[] _summaries = new[]
+    {
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild",
+        "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+    
+    public WeatherForecastService(IMemoryCache memoryCache)
+    {
+        MemoryCache = memoryCache;
+    }
+    
+    public IMemoryCache MemoryCache { get; }
+
+    public Task<WeatherForecast[]> GetForecastAsync(DateTime startDate)
+    {
+        return MemoryCache.GetOrCreateAsync(startDate, async e =>
+        {
+            e.SetOptions(new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = 
+                    TimeSpan.FromSeconds(30)
+            });
+
+            var rng = new Random();
+
+            await Task.Delay(TimeSpan.FromSeconds(10));
+
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = startDate.AddDays(index),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = _summaries[rng.Next(_summaries.Length)]
+            }).ToArray();
+        });
+    }
+}
+```
+
+Další informace o `RenderMode`najdete v tématu <xref:blazor/hosting-model-configuration#render-mode>.
+
+## <a name="detect-when-the-app-is-prerendering"></a>Rozpoznat, kdy se aplikace předvykresluje
+
+[!INCLUDE[](~/includes/blazor-prerendering.md)]
