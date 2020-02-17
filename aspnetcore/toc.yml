@@ -297,18 +297,20 @@
           uid: blazor/components
         - name: Životní cyklus
           uid: blazor/lifecycle
-        - name: Formuláře a ověřování
-          uid: blazor/forms-validation
-        - name: Knihovny komponent
-          uid: blazor/class-libraries
         - name: Rozložení
           uid: blazor/layouts
+        - name: Formuláře a ověřování
+          uid: blazor/forms-validation
         - name: Injektáž závislostí
           uid: blazor/dependency-injection
         - name: Směrování
           uid: blazor/routing
         - name: Interoperabilita JavaScriptu
           uid: blazor/javascript-interop
+        - name: Hostování konfigurace modelu
+          uid: blazor/hosting-model-configuration
+        - name: Knihovny komponent
+          uid: blazor/class-libraries
         - name: Zabezpečení a identita
           items:
             - name: Přehled
