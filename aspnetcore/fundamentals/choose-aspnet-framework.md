@@ -1,65 +1,65 @@
 ---
-title: Vyberte ASP.NET 4. x a ASP.NET Core
+title: Zvolte mezi ASP.NET 4.x a ASP.NET Core
 author: rick-anderson
 description: Vysvětluje ASP.NET Core vs. ASP.NET 4. x a jejich výběr.
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 11/12/2019
+ms.date: 02/12/2020
 no-loc:
 - SignalR
 uid: fundamentals/choose-between-aspnet-and-aspnetcore
-ms.openlocfilehash: 8b1681476f96e8613f9461c507fbb7696f888cbc
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: a7280b59578ee1d96edeeccf9c9df0b0e4eb4eb8
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963629"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447292"
 ---
-# <a name="choose-between-aspnet-4x-and-aspnet-core"></a><span data-ttu-id="f4903-103">Vyberte ASP.NET 4. x a ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="f4903-103">Choose between ASP.NET 4.x and ASP.NET Core</span></span>
+# <a name="choose-between-aspnet-4x-and-aspnet-core"></a><span data-ttu-id="043b7-103">Zvolte mezi ASP.NET 4.x a ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="043b7-103">Choose between ASP.NET 4.x and ASP.NET Core</span></span>
 
-<span data-ttu-id="f4903-104">ASP.NET Core je přepracování ASP.NET 4. x.</span><span class="sxs-lookup"><span data-stu-id="f4903-104">ASP.NET Core is a redesign of ASP.NET 4.x.</span></span> <span data-ttu-id="f4903-105">V tomto článku jsou uvedeny rozdíly mezi nimi.</span><span class="sxs-lookup"><span data-stu-id="f4903-105">This article lists the differences between them.</span></span>
+<span data-ttu-id="043b7-104">ASP.NET Core je verzí ASP.NET 4.x.</span><span class="sxs-lookup"><span data-stu-id="043b7-104">ASP.NET Core is a redesign of ASP.NET 4.x.</span></span> <span data-ttu-id="043b7-105">V tomto článku jsou uvedeny rozdíly mezi nimi.</span><span class="sxs-lookup"><span data-stu-id="043b7-105">This article lists the differences between them.</span></span>
 
-## <a name="aspnet-core"></a><span data-ttu-id="f4903-106">ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="f4903-106">ASP.NET Core</span></span>
+## <a name="aspnet-core"></a><span data-ttu-id="043b7-106">Jádro ASP.NET</span><span class="sxs-lookup"><span data-stu-id="043b7-106">ASP.NET Core</span></span>
 
-<span data-ttu-id="f4903-107">ASP.NET Core je open source architektura pro různé platformy pro vytváření moderních cloudových webových aplikací ve Windows, macOS nebo Linux.</span><span class="sxs-lookup"><span data-stu-id="f4903-107">ASP.NET Core is an open-source, cross-platform framework for building modern, cloud-based web apps on Windows, macOS, or Linux.</span></span>
+<span data-ttu-id="043b7-107">ASP.NET Core je open source, napříč platformami platforma pro vytváření moderních cloudových webových aplikací ve Windows, macOS nebo Linuxu.</span><span class="sxs-lookup"><span data-stu-id="043b7-107">ASP.NET Core is an open-source, cross-platform framework for building modern, cloud-based web apps on Windows, macOS, or Linux.</span></span>
 
 [!INCLUDE[](~/includes/benefits.md)]
 
-## <a name="aspnet-4x"></a><span data-ttu-id="f4903-108">ASP.NET 4. x</span><span class="sxs-lookup"><span data-stu-id="f4903-108">ASP.NET 4.x</span></span>
+## <a name="aspnet-4x"></a><span data-ttu-id="043b7-108">ASP.NET 4.x</span><span class="sxs-lookup"><span data-stu-id="043b7-108">ASP.NET 4.x</span></span>
 
-<span data-ttu-id="f4903-109">ASP.NET 4. x je vyspělý rámec, který poskytuje služby potřebné k sestavení webových aplikací založených na podnikové úrovni v systému Windows.</span><span class="sxs-lookup"><span data-stu-id="f4903-109">ASP.NET 4.x is a mature framework that provides the services needed to build enterprise-grade, server-based web apps on Windows.</span></span>
+<span data-ttu-id="043b7-109">ASP.NET 4.x je vyspělá architektura, která poskytuje služby nezbytné k sestavení na podnikové úrovni, server webových aplikací založených na Windows.</span><span class="sxs-lookup"><span data-stu-id="043b7-109">ASP.NET 4.x is a mature framework that provides the services needed to build enterprise-grade, server-based web apps on Windows.</span></span>
 
-## <a name="framework-selection"></a><span data-ttu-id="f4903-110">Výběr architektury</span><span class="sxs-lookup"><span data-stu-id="f4903-110">Framework selection</span></span>
+## <a name="framework-selection"></a><span data-ttu-id="043b7-110">Výběr rozhraní Framework</span><span class="sxs-lookup"><span data-stu-id="043b7-110">Framework selection</span></span>
 
-<span data-ttu-id="f4903-111">Následující tabulka porovnává ASP.NET Core ASP.NET 4. x.</span><span class="sxs-lookup"><span data-stu-id="f4903-111">The following table compares ASP.NET Core to ASP.NET 4.x.</span></span>
+<span data-ttu-id="043b7-111">Následující tabulka porovnává ASP.NET Core, ASP.NET 4.x.</span><span class="sxs-lookup"><span data-stu-id="043b7-111">The following table compares ASP.NET Core to ASP.NET 4.x.</span></span>
 
-| <span data-ttu-id="f4903-112">ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="f4903-112">ASP.NET Core</span></span> | <span data-ttu-id="f4903-113">ASP.NET 4. x</span><span class="sxs-lookup"><span data-stu-id="f4903-113">ASP.NET 4.x</span></span> |
+| <span data-ttu-id="043b7-112">Jádro ASP.NET</span><span class="sxs-lookup"><span data-stu-id="043b7-112">ASP.NET Core</span></span> | <span data-ttu-id="043b7-113">ASP.NET 4.x</span><span class="sxs-lookup"><span data-stu-id="043b7-113">ASP.NET 4.x</span></span> |
 |---|---|
-|<span data-ttu-id="f4903-114">Sestavení pro Windows, macOS nebo Linux</span><span class="sxs-lookup"><span data-stu-id="f4903-114">Build for Windows, macOS, or Linux</span></span>|<span data-ttu-id="f4903-115">Sestavení pro Windows</span><span class="sxs-lookup"><span data-stu-id="f4903-115">Build for Windows</span></span>|
-|<span data-ttu-id="f4903-116">[Razor Pages](xref:razor-pages/index) je doporučený postup pro vytvoření webového uživatelského rozhraní pro ASP.NET Core 2. x.</span><span class="sxs-lookup"><span data-stu-id="f4903-116">[Razor Pages](xref:razor-pages/index) is the recommended approach to create a Web UI as of ASP.NET Core 2.x.</span></span> <span data-ttu-id="f4903-117">Viz také [MVC](xref:mvc/overview), [webové rozhraní API](xref:tutorials/first-web-api)a [SignalR](xref:signalr/introduction).</span><span class="sxs-lookup"><span data-stu-id="f4903-117">See also [MVC](xref:mvc/overview), [Web API](xref:tutorials/first-web-api), and [SignalR](xref:signalr/introduction).</span></span>|<span data-ttu-id="f4903-118">Použití [webových formulářů](/aspnet/web-forms), [SignalR](/aspnet/signalr), [MVC](/aspnet/mvc), [webového rozhraní API](/aspnet/web-api/), [webhooků](/aspnet/webhooks/)nebo [webových stránek](/aspnet/web-pages)</span><span class="sxs-lookup"><span data-stu-id="f4903-118">Use [Web Forms](/aspnet/web-forms), [SignalR](/aspnet/signalr), [MVC](/aspnet/mvc), [Web API](/aspnet/web-api/), [WebHooks](/aspnet/webhooks/), or [Web Pages](/aspnet/web-pages)</span></span>|
-|<span data-ttu-id="f4903-119">Více verzí na počítač</span><span class="sxs-lookup"><span data-stu-id="f4903-119">Multiple versions per machine</span></span>|<span data-ttu-id="f4903-120">Jedna verze na počítač</span><span class="sxs-lookup"><span data-stu-id="f4903-120">One version per machine</span></span>|
-|<span data-ttu-id="f4903-121">Vývoj pomocí sady [Visual Studio](https://visualstudio.microsoft.com/vs/), [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/)nebo [Visual Studio Code](https://code.visualstudio.com/) pomocí C# neboF#</span><span class="sxs-lookup"><span data-stu-id="f4903-121">Develop with [Visual Studio](https://visualstudio.microsoft.com/vs/), [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/), or [Visual Studio Code](https://code.visualstudio.com/) using C# or F#</span></span>|<span data-ttu-id="f4903-122">Vývoj pomocí sady [Visual Studio](https://visualstudio.microsoft.com/vs/) pomocí C#, vb neboF#</span><span class="sxs-lookup"><span data-stu-id="f4903-122">Develop with [Visual Studio](https://visualstudio.microsoft.com/vs/) using C#, VB, or F#</span></span>|
-|<span data-ttu-id="f4903-123">Vyšší výkon než ASP.NET 4. x</span><span class="sxs-lookup"><span data-stu-id="f4903-123">Higher performance than ASP.NET 4.x</span></span>|<span data-ttu-id="f4903-124">Dobrý výkon</span><span class="sxs-lookup"><span data-stu-id="f4903-124">Good performance</span></span>|
-|[<span data-ttu-id="f4903-125">Použití .NET Core Runtime</span><span class="sxs-lookup"><span data-stu-id="f4903-125">Use .NET Core runtime</span></span>](/dotnet/standard/choosing-core-framework-server)|<span data-ttu-id="f4903-126">Použití modulu runtime .NET Framework</span><span class="sxs-lookup"><span data-stu-id="f4903-126">Use .NET Framework runtime</span></span>|
+|<span data-ttu-id="043b7-114">Sestavení pro Windows, macOS nebo Linux</span><span class="sxs-lookup"><span data-stu-id="043b7-114">Build for Windows, macOS, or Linux</span></span>|<span data-ttu-id="043b7-115">Sestavení pro Windows</span><span class="sxs-lookup"><span data-stu-id="043b7-115">Build for Windows</span></span>|
+|<span data-ttu-id="043b7-116">[Razor Pages](xref:razor-pages/index) je doporučený postup pro vytvoření webového uživatelského rozhraní pro ASP.NET Core 2. x.</span><span class="sxs-lookup"><span data-stu-id="043b7-116">[Razor Pages](xref:razor-pages/index) is the recommended approach to create a Web UI as of ASP.NET Core 2.x.</span></span> <span data-ttu-id="043b7-117">Viz také [MVC](xref:mvc/overview), [webové rozhraní API](xref:tutorials/first-web-api)a [SignalR](xref:signalr/introduction).</span><span class="sxs-lookup"><span data-stu-id="043b7-117">See also [MVC](xref:mvc/overview), [Web API](xref:tutorials/first-web-api), and [SignalR](xref:signalr/introduction).</span></span>|<span data-ttu-id="043b7-118">Použití [webových formulářů](/aspnet/web-forms), [SignalR](/aspnet/signalr), [MVC](/aspnet/mvc), [webového rozhraní API](/aspnet/web-api/), [webhooků](/aspnet/webhooks/)nebo [webových stránek](/aspnet/web-pages)</span><span class="sxs-lookup"><span data-stu-id="043b7-118">Use [Web Forms](/aspnet/web-forms), [SignalR](/aspnet/signalr), [MVC](/aspnet/mvc), [Web API](/aspnet/web-api/), [WebHooks](/aspnet/webhooks/), or [Web Pages](/aspnet/web-pages)</span></span>|
+|<span data-ttu-id="043b7-119">Více verzí na počítač</span><span class="sxs-lookup"><span data-stu-id="043b7-119">Multiple versions per machine</span></span>|<span data-ttu-id="043b7-120">Jedna verze na počítač</span><span class="sxs-lookup"><span data-stu-id="043b7-120">One version per machine</span></span>|
+|<span data-ttu-id="043b7-121">Vývoj pomocí sady [Visual Studio](https://visualstudio.microsoft.com/vs/), [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/)nebo [Visual Studio Code](https://code.visualstudio.com/) pomocí C# neboF#</span><span class="sxs-lookup"><span data-stu-id="043b7-121">Develop with [Visual Studio](https://visualstudio.microsoft.com/vs/), [Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac/), or [Visual Studio Code](https://code.visualstudio.com/) using C# or F#</span></span>|<span data-ttu-id="043b7-122">Vývoj pomocí sady [Visual Studio](https://visualstudio.microsoft.com/vs/) pomocí C#, vb neboF#</span><span class="sxs-lookup"><span data-stu-id="043b7-122">Develop with [Visual Studio](https://visualstudio.microsoft.com/vs/) using C#, VB, or F#</span></span>|
+|<span data-ttu-id="043b7-123">Vyšší výkon než ASP.NET 4.x</span><span class="sxs-lookup"><span data-stu-id="043b7-123">Higher performance than ASP.NET 4.x</span></span>|<span data-ttu-id="043b7-124">Dobrý výkon</span><span class="sxs-lookup"><span data-stu-id="043b7-124">Good performance</span></span>|
+|[<span data-ttu-id="043b7-125">Použití .NET Core Runtime</span><span class="sxs-lookup"><span data-stu-id="043b7-125">Use .NET Core runtime</span></span>](/dotnet/standard/choosing-core-framework-server)|<span data-ttu-id="043b7-126">Použít modul runtime rozhraní .NET Framework</span><span class="sxs-lookup"><span data-stu-id="043b7-126">Use .NET Framework runtime</span></span>|
 
-<span data-ttu-id="f4903-127">Informace o podpoře ASP.NET Core 2. x na .NET Framework najdete v tématu [ASP.NET Core cílení na .NET Framework](xref:index#target-framework) .</span><span class="sxs-lookup"><span data-stu-id="f4903-127">See [ASP.NET Core targeting .NET Framework](xref:index#target-framework) for information on ASP.NET Core 2.x support on .NET Framework.</span></span>
+<span data-ttu-id="043b7-127">Informace o podpoře ASP.NET Core 2. x na .NET Framework najdete v tématu [ASP.NET Core cílení na .NET Framework](xref:index#target-framework) .</span><span class="sxs-lookup"><span data-stu-id="043b7-127">See [ASP.NET Core targeting .NET Framework](xref:index#target-framework) for information on ASP.NET Core 2.x support on .NET Framework.</span></span>
 
-## <a name="aspnet-core-scenarios"></a><span data-ttu-id="f4903-128">ASP.NET Core scénáře</span><span class="sxs-lookup"><span data-stu-id="f4903-128">ASP.NET Core scenarios</span></span>
+## <a name="aspnet-core-scenarios"></a><span data-ttu-id="043b7-128">Scénáře ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="043b7-128">ASP.NET Core scenarios</span></span>
 
-* [<span data-ttu-id="f4903-129">Websites</span><span class="sxs-lookup"><span data-stu-id="f4903-129">Websites</span></span>](xref:tutorials/first-mvc-app/index)
-* [<span data-ttu-id="f4903-130">Třídy</span><span class="sxs-lookup"><span data-stu-id="f4903-130">APIs</span></span>](xref:tutorials/first-web-api)
-* [<span data-ttu-id="f4903-131">V reálném čase</span><span class="sxs-lookup"><span data-stu-id="f4903-131">Real-time</span></span>](xref:signalr/index)
-* [<span data-ttu-id="f4903-132">Nasazení aplikace ASP.NET Core do Azure</span><span class="sxs-lookup"><span data-stu-id="f4903-132">Deploy an ASP.NET Core app to Azure</span></span>](/azure/app-service/app-service-web-get-started-dotnet)
+* [<span data-ttu-id="043b7-129">Websites</span><span class="sxs-lookup"><span data-stu-id="043b7-129">Websites</span></span>](xref:tutorials/first-mvc-app/index)
+* [<span data-ttu-id="043b7-130">Rozhraní API</span><span class="sxs-lookup"><span data-stu-id="043b7-130">APIs</span></span>](xref:tutorials/first-web-api)
+* [<span data-ttu-id="043b7-131">V reálném čase</span><span class="sxs-lookup"><span data-stu-id="043b7-131">Real-time</span></span>](xref:signalr/introduction)
+* [<span data-ttu-id="043b7-132">Nasazení aplikace ASP.NET Core do Azure</span><span class="sxs-lookup"><span data-stu-id="043b7-132">Deploy an ASP.NET Core app to Azure</span></span>](/azure/app-service/app-service-web-get-started-dotnet)
 
-## <a name="aspnet-4x-scenarios"></a><span data-ttu-id="f4903-133">ASP.NET 4. x – scénáře</span><span class="sxs-lookup"><span data-stu-id="f4903-133">ASP.NET 4.x scenarios</span></span>
+## <a name="aspnet-4x-scenarios"></a><span data-ttu-id="043b7-133">ASP.NET 4.x scénáře</span><span class="sxs-lookup"><span data-stu-id="043b7-133">ASP.NET 4.x scenarios</span></span>
 
-* [<span data-ttu-id="f4903-134">Websites</span><span class="sxs-lookup"><span data-stu-id="f4903-134">Websites</span></span>](/aspnet/mvc)
-* [<span data-ttu-id="f4903-135">Třídy</span><span class="sxs-lookup"><span data-stu-id="f4903-135">APIs</span></span>](/aspnet/web-api)
-* [<span data-ttu-id="f4903-136">V reálném čase</span><span class="sxs-lookup"><span data-stu-id="f4903-136">Real-time</span></span>](/aspnet/signalr)
-* [<span data-ttu-id="f4903-137">Vytvoření webové aplikace ASP.NET 4. x v Azure</span><span class="sxs-lookup"><span data-stu-id="f4903-137">Create an ASP.NET 4.x web app in Azure</span></span>](/azure/app-service/app-service-web-get-started-dotnet-framework)
+* [<span data-ttu-id="043b7-134">Websites</span><span class="sxs-lookup"><span data-stu-id="043b7-134">Websites</span></span>](/aspnet/mvc)
+* [<span data-ttu-id="043b7-135">Rozhraní API</span><span class="sxs-lookup"><span data-stu-id="043b7-135">APIs</span></span>](/aspnet/web-api)
+* [<span data-ttu-id="043b7-136">V reálném čase</span><span class="sxs-lookup"><span data-stu-id="043b7-136">Real-time</span></span>](/aspnet/signalr)
+* [<span data-ttu-id="043b7-137">Vytvoření webové aplikace ASP.NET 4. x v Azure</span><span class="sxs-lookup"><span data-stu-id="043b7-137">Create an ASP.NET 4.x web app in Azure</span></span>](/azure/app-service/app-service-web-get-started-dotnet-framework)
 
-## <a name="additional-resources"></a><span data-ttu-id="f4903-138">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="f4903-138">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="043b7-138">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="043b7-138">Additional resources</span></span>
 
-* [<span data-ttu-id="f4903-139">Úvod do ASP.NET</span><span class="sxs-lookup"><span data-stu-id="f4903-139">Introduction to ASP.NET</span></span>](/aspnet/overview)
-* [<span data-ttu-id="f4903-140">Úvod do ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="f4903-140">Introduction to ASP.NET Core</span></span>](xref:index)
+* [<span data-ttu-id="043b7-139">Úvod do ASP.NET</span><span class="sxs-lookup"><span data-stu-id="043b7-139">Introduction to ASP.NET</span></span>](/aspnet/overview)
+* [<span data-ttu-id="043b7-140">Úvod do ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="043b7-140">Introduction to ASP.NET Core</span></span>](xref:index)
 * <xref:host-and-deploy/azure-apps/index>
