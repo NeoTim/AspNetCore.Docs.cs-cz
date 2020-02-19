@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/20/2019
 uid: grpc/index
-ms.openlocfilehash: 2f32bf6e8df2c5b3574c337682cdc2845991630c
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: d97eea1da28424680a3cfa38102637b1e20ff661
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71925176"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77446954"
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>Úvod do gRPC v .NET Core
 
@@ -33,7 +33,7 @@ Díky těmto výhodám je gRPC ideální pro:
 
 ## <a name="c-tooling-support-for-proto-files"></a>C#Podpora nástrojů pro soubory.
 
-gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem. Služby a zprávy jsou definovány v *\*souboru. proto* soubory:
+gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem. Služby a zprávy jsou definované v *\*. proto* soubory:
 
 ```protobuf
 syntax = "proto3";
@@ -51,10 +51,10 @@ message HelloReply {
 }
 ```
 
-Typy .NET pro služby, klienti a zprávy jsou automaticky vygenerováni *\*zahrnutím souborů do* projektu:
+Typy .NET pro služby, klienti a zprávy jsou automaticky vygenerováni zahrnutím *\*.* soubory v projektu:
 
 * Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .
-* Do`<Protobuf>` skupiny položek přidejte *\*soubory..* .
+* Přidejte *\*...* soubory do skupiny položek `<Protobuf>`.
 
 ```xml
 <ItemGroup>
@@ -92,7 +92,7 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-`GreeterService`dědí z `GreeterBase` typu, který je vygenerován `Greeter` ze služby v  *\*souboru..* . Služba je zpřístupněna klientům v *Startup.cs*:
+`GreeterService` dědí z typu `GreeterBase`, který je vygenerován ze služby `Greeter` v souboru *\*.* . Služba je zpřístupněna klientům v *Startup.cs*:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -101,17 +101,17 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-Další informace o službách gRPC Services v ASP.NET Core najdete v <xref:grpc/aspnetcore>tématu.
+Další informace o službách gRPC Services v ASP.NET Core najdete v tématu <xref:grpc/aspnetcore>.
 
 ## <a name="call-grpc-services-with-a-net-client"></a>Volání služeb gRPC Services pomocí klienta .NET
 
-gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze *\*souborů. proto*](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v *\*souboru..* .
+gRPC klienti jsou konkrétní typy klientů, které jsou [generovány z *\*.* soubory](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v souboru *\*.* .
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
 var client = new Greeter.GreeterClient(channel);
 
-var response = await client.SayHello(
+var response = await client.SayHelloAsync(
     new HelloRequest { Name = "World" });
 
 Console.WriteLine(response.Message);

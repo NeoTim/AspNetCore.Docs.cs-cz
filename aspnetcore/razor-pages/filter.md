@@ -4,20 +4,20 @@ author: Rick-Anderson
 description: Naučte se vytvářet metody filtru pro Razor Pages v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
-ms.date: 12/28/2019
+ms.date: 2/18/2020
 uid: razor-pages/filter
-ms.openlocfilehash: 02771219454556b236080c2668243f788693b2c1
-ms.sourcegitcommit: 077b45eceae044475f04c1d7ef2d153d7c0515a8
+ms.openlocfilehash: a60b17685c6f836de7c0afcc5b89a9894fb8b28f
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/29/2019
-ms.locfileid: "75542715"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447228"
 ---
 # <a name="filter-methods-for-razor-pages-in-aspnet-core"></a>Filtrovat metody Razor Pages v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Filtry stránky Razor [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) a [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) umožňují, aby Razor Pages spustit kód před a po spuštění obslužné rutiny stránky Razor. Filtry stránky Razor jsou podobné [filtrům akcí ASP.NET Core MVC](xref:mvc/controllers/filters#action-filters), s výjimkou toho, že je nelze použít na jednotlivé metody obslužné rutiny stránky.
 
@@ -30,9 +30,9 @@ Filtry stránky Razor:
 * Nelze použít na konkrétní metody obslužné rutiny stránky.
 * Může mít závislosti konstruktoru vyplněné [vstřikem závislosti](xref:fundamentals/dependency-injection) (di). Další informace najdete v tématu [ServiceFilterAttribute](/aspnet/core/mvc/controllers/filters#servicefilterattribute) a [TypeFilterAttribute](/aspnet/core/mvc/controllers/filters#typefilterattribute).
 
-Kód lze spustit před spuštěním obslužné rutiny pomocí konstruktoru stránky nebo middlewaru, ale pouze filtry stránky Razor mají přístup k <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext>. Filtry mají <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> odvozeného parametru, který poskytuje přístup k `HttpContext`. Například Implementace ukázkového [atributu Filter](#ifa) přidá hlavičku do odpovědi, něco, co nelze provést s konstruktory nebo middlewaru.
+I když konstruktory stránky a middleware umožňují spouštění vlastního kódu před spuštěním metody obslužné rutiny, umožňují přístup k <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel.HttpContext> a stránce pouze filtry stránky Razor. Middleware má přístup k `HttpContext`, ale ne k "kontextu stránky". Filtry mají <xref:Microsoft.AspNetCore.Mvc.Filters.FilterContext> odvozeného parametru, který poskytuje přístup k `HttpContext`. Například Implementace ukázkového [atributu Filter](#ifa) přidá hlavičku do odpovědi, něco, co nelze provést s konstruktory nebo middlewaru.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/3.1sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/3.1sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Filtry stránky Razor poskytují následující metody, které lze použít globálně nebo na úrovni stránky:
 
@@ -109,7 +109,7 @@ Atribut [autorizace](/dotnet/api/microsoft.aspnetcore.authorization.authorizeatt
 
 ::: moniker range="< aspnetcore-3.0"
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Filtry stránky Razor [IPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.ipagefilter?view=aspnetcore-2.0) a [IAsyncPageFilter](/dotnet/api/microsoft.aspnetcore.mvc.filters.iasyncpagefilter?view=aspnetcore-2.0) umožňují, aby Razor Pages spustit kód před a po spuštění obslužné rutiny stránky Razor. Filtry stránky Razor jsou podobné [filtrům akcí ASP.NET Core MVC](xref:mvc/controllers/filters#action-filters), s výjimkou toho, že je nelze použít na jednotlivé metody obslužné rutiny stránky.
 
@@ -123,7 +123,7 @@ Filtry stránky Razor:
 
 Kód lze spustit před spuštěním obslužné rutiny pomocí konstruktoru stránky nebo middlewaru, ale pouze filtry stránky Razor mají přístup k [HttpContext](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel.httpcontext?view=aspnetcore-2.0#Microsoft_AspNetCore_Mvc_RazorPages_PageModel_HttpContext). Filtry mají [FilterContext](/dotnet/api/microsoft.aspnetcore.mvc.filters.filtercontext?view=aspnetcore-2.0) odvozený parametr, který poskytuje přístup k `HttpContext`. Například Implementace ukázkového [atributu Filter](#ifa) přidá hlavičku do odpovědi, něco, co nelze provést s konstruktory nebo middlewaru.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/sample/PageFilter) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/filter/sample/PageFilter) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Filtry stránky Razor poskytují následující metody, které lze použít globálně nebo na úrovni stránky:
 

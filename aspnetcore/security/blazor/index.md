@@ -5,17 +5,17 @@ description: Přečtěte si o Blazor scénářích ověřování a autorizace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/02/2020
+ms.date: 02/13/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: c7b3788b5737073100e7fa449fd6bb4a83c0043a
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: c07ffdbd5df58d6b3d19a5d75ce224d830101eac
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114884"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447422"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
@@ -42,7 +42,7 @@ Blazor serverové aplikace pracují přes připojení v reálném čase, které 
 
 Šablona projektu serveru Blazor může pro vás nastavit ověřování při vytvoření projektu.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Pokud chcete vytvořit nový projekt serveru Blazor s mechanismem ověřování, postupujte podle pokynů pro Visual Studio v tématu <xref:blazor/get-started>.
 
@@ -57,7 +57,7 @@ Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pr
 * **Pracovní nebo školní účty**
 * **Ověřování systému Windows**
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Postupujte podle pokynů Visual Studio Code v článku <xref:blazor/get-started> a vytvořte nový projekt serveru Blazor s mechanismem ověřování:
 
@@ -139,7 +139,7 @@ Služba `AuthenticationStateProvider` může poskytnout data <xref:System.Securi
 @using Microsoft.AspNetCore.Components.Authorization
 @inject AuthenticationStateProvider AuthenticationStateProvider
 
-<button @onclick="@LogUsername">Write user info to console</button>
+<button @onclick="LogUsername">Write user info to console</button>
 
 @code {
     private async Task LogUsername()
@@ -222,7 +222,7 @@ Pokud jsou v procedurální logice požadovány údaje o stavu ověřování, na
 ```razor
 @page "/"
 
-<button @onclick="@LogUsername">Log username</button>
+<button @onclick="LogUsername">Log username</button>
 
 @code {
     [CascadingParameter]
@@ -253,6 +253,8 @@ Pokud je `user.Identity.IsAuthenticated` `true`, můžou být deklarace identity
 Nastavte `Task<AuthenticationState>` kaskádový parametr pomocí `AuthorizeRouteView` a `CascadingAuthenticationState` komponenty v souboru *App. Razor* :
 
 ```razor
+@using Microsoft.AspNetCore.Components.Authorization
+
 <Router AppAssembly="@typeof(Program).Assembly">
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
@@ -265,6 +267,13 @@ Nastavte `Task<AuthenticationState>` kaskádový parametr pomocí `AuthorizeRout
         </CascadingAuthenticationState>
     </NotFound>
 </Router>
+```
+
+Přidejte služby pro možnosti a autorizaci `Program.Main`:
+
+```csharp
+builder.Services.AddOptions();
+builder.Services.AddAuthorizationCore();
 ```
 
 ## <a name="authorization"></a>Autorizace

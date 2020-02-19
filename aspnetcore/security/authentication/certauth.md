@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 01/02/2020
 uid: security/authentication/certauth
-ms.openlocfilehash: 9c175439c0313d62c75898f1af097774b06f353a
-ms.sourcegitcommit: e7d4fe6727d423f905faaeaa312f6c25ef844047
+ms.openlocfilehash: 280daa86510d4445c791b6952653122961f13aeb
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75608142"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447279"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
@@ -36,7 +36,7 @@ Do webové aplikace přidejte odkaz na balíček `Microsoft.AspNetCore.Authentic
 
 Pokud se ověření nepovede, vrátí tato obslužná rutina místo `401 (Unauthorized)``403 (Forbidden)` odpověď, jak byste to mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
 
-Přidejte také `app.UseAuthentication();` do metody `Startup.Configure`. V opačném případě `HttpContext.User` nebude nastaven na `ClaimsPrincipal` vytvořené z certifikátu. Příklad:
+Přidejte také `app.UseAuthentication();` do metody `Startup.Configure`. V opačném případě `HttpContext.User` nebude nastaven na `ClaimsPrincipal` vytvořené z certifikátu. Například:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -236,19 +236,26 @@ Postup konfigurace middlewaru pro předávání certifikátů najdete v [dokumen
 
 ### <a name="use-certificate-authentication-in-azure-web-apps"></a>Použití ověřování certifikátů v Azure Web Apps
 
+Pro Azure se nevyžaduje žádná konfigurace předávání. Toto je již nastaveno v middlewari předávání certifikátů.
+
+> [!NOTE]
+> To vyžaduje, aby byl přítomen CertificateForwardingMiddleware.
+
+### <a name="use-certificate-authentication-in-custom-web-proxies"></a>Použití ověřování certifikátů ve vlastních webových proxy serverech
+
 Metoda `AddCertificateForwarding` slouží k zadání:
 
 * Název hlavičky klienta.
 * Způsob načtení certifikátu (pomocí vlastnosti `HeaderConverter`).
 
-V Azure Web Apps certifikát se předává jako vlastní hlavička žádosti s názvem `X-ARR-ClientCert`. Pokud ho chcete použít, nakonfigurujte předávání certifikátů v `Startup.ConfigureServices`:
+Ve vlastních webových proxy serverech se certifikát předává jako vlastní hlavička žádosti, například `X-SSL-CERT`. Pokud ho chcete použít, nakonfigurujte předávání certifikátů v `Startup.ConfigureServices`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddCertificateForwarding(options =>
     {
-        options.CertificateHeader = "X-ARR-ClientCert";
+        options.CertificateHeader = "X-SSL-CERT";
         options.HeaderConverter = (headerValue) =>
         {
             X509Certificate2 clientCertificate = null;
@@ -326,46 +333,80 @@ namespace AspNetCoreCertificateAuthApi
 }
 ```
 
-#### <a name="implement-an-httpclient-using-a-certificate"></a>Implementace HttpClient pomocí certifikátu
+#### <a name="implement-an-httpclient-using-a-certificate-and-the-httpclienthandler"></a>Implementace HttpClient pomocí certifikátu a HttpClientHandler
 
-Klient webového rozhraní API používá `HttpClient`, který byl vytvořen pomocí instance `IHttpClientFactory`. To neposkytuje způsob, jak definovat obslužnou rutinu pro `HttpClient`, takže pomocí `HttpRequestMessage` přidejte certifikát do hlavičky `X-ARR-ClientCert` žádosti. Certifikát se přidá jako řetězec pomocí metody `GetRawCertDataString`. 
+HttpClientHandler lze přidat přímo v konstruktoru třídy HttpClient. Při vytváření instancí HttpClient byste měli věnovat pozornost. HttpClient pak certifikát odešle spolu s každou žádostí.
 
 ```csharp
-private async Task<JsonDocument> GetApiDataAsync()
+private async Task<JsonDocument> GetApiDataUsingHttpClientHandler()
 {
-    try
+    var cert = new X509Certificate2(Path.Combine(_environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
+    var handler = new HttpClientHandler();
+    handler.ClientCertificates.Add(cert);
+    var client = new HttpClient(handler);
+     
+    var request = new HttpRequestMessage()
     {
-        // Do not hardcode passwords in production code
-        // Use thumbprint or key vault
-        var cert = new X509Certificate2(
-            Path.Combine(_environment.ContentRootPath, 
-                "sts_dev_cert.pfx"), "1234");
-        var client = _clientFactory.CreateClient();
-        var request = new HttpRequestMessage()
-        {
-            RequestUri = new Uri("https://localhost:44379/api/values"),
-            Method = HttpMethod.Get,
-        };
-
-        request.Headers.Add("X-ARR-ClientCert", cert.GetRawCertDataString());
-        var response = await client.SendAsync(request);
-
-        if (response.IsSuccessStatusCode)
-        {
-            var responseContent = await response.Content.ReadAsStringAsync();
-            var data = JsonDocument.Parse(responseContent);
-
-            return data;
-        }
-
-        throw new ApplicationException(
-            $"Status code: {response.StatusCode}, " +
-            $"Error: {response.ReasonPhrase}");
-    }
-    catch (Exception e)
+        RequestUri = new Uri("https://localhost:44379/api/values"),
+        Method = HttpMethod.Get,
+    };
+    var response = await client.SendAsync(request);
+    if (response.IsSuccessStatusCode)
     {
-        throw new ApplicationException($"Exception {e}");
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var data = JsonDocument.Parse(responseContent);
+        return data;
     }
+ 
+    throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
+}
+```
+
+#### <a name="implement-an-httpclient-using-a-certificate-and-a-named-httpclient-from-ihttpclientfactory"></a>Implementace HttpClient pomocí certifikátu a pojmenovaného HttpClient z IHttpClientFactory 
+
+V následujícím příkladu se klientský certifikát přidá do HttpClientHandler pomocí vlastnosti vlastnost ClientCertificates z obslužné rutiny. Tato obslužná rutina se pak dá použít v pojmenované instanci HttpClient pomocí metody ConfigurePrimaryHttpMessageHandler. Toto je instalační program ve třídě Startup v metodě ConfigureServices.
+
+```csharp
+var clientCertificate = 
+    new X509Certificate2(
+      Path.Combine(_environment.ContentRootPath, "sts_dev_cert.pfx"), "1234");
+ 
+var handler = new HttpClientHandler();
+handler.ClientCertificates.Add(clientCertificate);
+ 
+services.AddHttpClient("namedClient", c =>
+{
+}).ConfigurePrimaryHttpMessageHandler(() => handler);
+```
+
+IHttpClientFactory se pak může použít k získání pojmenované instance s obslužnou rutinou a certifikátem. Metoda CreateClient s názvem klienta definovaného ve spouštěcí třídě slouží k získání instance. Požadavek HTTP lze odeslat pomocí klienta podle potřeby.
+
+```csharp
+private readonly IHttpClientFactory _clientFactory;
+ 
+public ApiService(IHttpClientFactory clientFactory)
+{
+    _clientFactory = clientFactory;
+}
+ 
+private async Task<JsonDocument> GetApiDataWithNamedClient()
+{
+    var client = _clientFactory.CreateClient("namedClient");
+ 
+    var request = new HttpRequestMessage()
+    {
+        RequestUri = new Uri("https://localhost:44379/api/values"),
+        Method = HttpMethod.Get,
+    };
+    var response = await client.SendAsync(request);
+    if (response.IsSuccessStatusCode)
+    {
+        var responseContent = await response.Content.ReadAsStringAsync();
+        var data = JsonDocument.Parse(responseContent);
+        return data;
+    }
+ 
+    throw new ApplicationException($"Status code: {response.StatusCode}, Error: {response.ReasonPhrase}");
 }
 ```
 

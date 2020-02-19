@@ -5,17 +5,17 @@ description: Naučte se hostovat a nasazovat aplikace Blazor serveru pomocí ASP
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/17/2020
+ms.date: 02/15/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: e8b3a7faaf1dc88059a79abbc7e74657ebb2068c
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: b928296c45ddb11efcd2c8912cc595c799e65037
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726726"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447253"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>Hostování a nasazení serveru Blazor
 
@@ -59,7 +59,7 @@ Blazor funguje nejlépe při použití WebSockets jako SignalR přenosů z důvo
 
 Pro Blazor serverových aplikací doporučujeme používat [službu Azure SignalR](/azure/azure-signalr) . Služba umožňuje horizontální navýšení kapacity aplikace Blazor serveru na velký počet souběžných připojení SignalR. Kromě toho je globální dosahování a vysoce výkonná datová centra služby SignalR významně pomáhají při snižování latence z důvodu geografické oblasti. Konfigurace aplikace (a volitelně zřízení) služby Azure SignalR:
 
-1. Povolte službě podporovat *rychlé relace*, kde se klienti [při předvykreslování přesměrují zpátky na stejný server](xref:blazor/hosting-models#reconnection-to-the-same-server). Nastavte možnost `ServerStickyMode` nebo hodnotu konfigurace na `Required`. Aplikace obvykle vytváří konfiguraci pomocí **jednoho** z následujících přístupů:
+1. Povolte službě podporovat *rychlé relace*, kde se klienti [při předvykreslování přesměrují zpátky na stejný server](xref:blazor/hosting-models#connection-to-the-server). Nastavte možnost `ServerStickyMode` nebo hodnotu konfigurace na `Required`. Aplikace obvykle vytváří konfiguraci pomocí **jednoho** z následujících přístupů:
 
    * `Startup.ConfigureServices`:
   
@@ -87,7 +87,10 @@ Pro Blazor serverových aplikací doporučujeme používat [službu Azure Signal
 
 #### <a name="iis"></a>IIS
 
-Při použití služby IIS jsou v rámci směrování žádostí na aplikace povoleny rychlé relace. Další informace najdete v tématu [Vyrovnávání zatížení HTTP pomocí směrování žádostí na aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).
+Při použití služby IIS povolte:
+
+* [WebSockets ve službě IIS](xref:fundamentals/websockets#enabling-websockets-on-iis).
+* [Rychlé relace s směrováním žádostí o aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)
 
 #### <a name="kubernetes"></a>Kubernetes
 

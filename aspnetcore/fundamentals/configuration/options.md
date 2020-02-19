@@ -5,18 +5,18 @@ description: Zjistěte, jak pomocí vzoru možností znázornit skupiny souvisej
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/07/2019
+ms.date: 02/12/2020
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 98fe30fbc424dd51ce8f8319b7ce959fd755c480
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.openlocfilehash: 1f3625380d816c7d4df5a7a24b0ac146500330de
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722736"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447202"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>Vzor možností v ASP.NET Core
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -27,7 +27,7 @@ Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejí
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="package"></a>Balíček
 
@@ -116,7 +116,7 @@ V následujícím kódu se do kontejneru služby přidá druhá <xref:Microsoft.
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace najdete v tématu <xref:fundamentals/configuration/index>.
+Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
 Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá <xref:Microsoft.Extensions.Options.IConfigureOptions%601> službu do kontejneru služby. V předchozím příkladu jsou hodnoty `Option1` a `Option2` zadány v souboru *appSettings. JSON*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
 
@@ -326,10 +326,10 @@ catch (OptionsValidationException e)
 
 Předchozí příklad nastaví instanci pojmenované možnosti na `optionalOptionsName`. Instance výchozích možností je `Options.DefaultName`.
 
-Ověřování se spustí při vytvoření instance Options. Při prvním použití vaší instance možností je zaručeno předání ověření.
+Ověřování se spustí při vytvoření instance Options. Je zaručeno, že instance možností před prvním tím, než se přistupuje k ověření.
 
 > [!IMPORTANT]
-> Ověřování možností nechrání proti změnám možností po počáteční konfiguraci a ověření možností.
+> Ověřování možností nechrání před úpravami možností po vytvoření instance Options. Například `IOptionsSnapshot` možnosti se vytváří a ověřují jednou za požadavek při prvním použití možností. Možnosti `IOptionsSnapshot` se znovu neověřují u dalších pokusů o přístup *ke stejnému požadavku*.
 
 Metoda `Validate` přijímá `Func<TOptions, bool>`. K úplnému přizpůsobení ověřování implementujte `IValidateOptions<TOptions>`, která umožňuje:
 
@@ -451,9 +451,9 @@ Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejí
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) .
 
@@ -540,7 +540,7 @@ V následujícím kódu se do kontejneru služby přidá druhá <xref:Microsoft.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace najdete v tématu <xref:fundamentals/configuration/index>.
+Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
 Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá <xref:Microsoft.Extensions.Options.IConfigureOptions%601> službu do kontejneru služby. V předchozím příkladu jsou hodnoty `Option1` a `Option2` zadány v souboru *appSettings. JSON*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
 
@@ -750,10 +750,10 @@ catch (OptionsValidationException e)
 
 Předchozí příklad nastaví instanci pojmenované možnosti na `optionalOptionsName`. Instance výchozích možností je `Options.DefaultName`.
 
-Ověřování se spustí při vytvoření instance Options. Při prvním použití vaší instance možností je zaručeno předání ověření.
+Ověřování se spustí při vytvoření instance Options. Je zaručeno, že instance možností před prvním tím, než se přistupuje k ověření.
 
 > [!IMPORTANT]
-> Ověřování možností nechrání proti změnám možností po počáteční konfiguraci a ověření možností.
+> Ověřování možností nechrání před úpravami možností po vytvoření instance Options. Například `IOptionsSnapshot` možnosti se vytváří a ověřují jednou za požadavek při prvním použití možností. Možnosti `IOptionsSnapshot` se znovu neověřují u dalších pokusů o přístup *ke stejnému požadavku*.
 
 Metoda `Validate` přijímá `Func<TOptions, bool>`. K úplnému přizpůsobení ověřování implementujte `IValidateOptions<TOptions>`, která umožňuje:
 
@@ -873,9 +873,9 @@ Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejí
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) .
 
@@ -962,7 +962,7 @@ V následujícím kódu se do kontejneru služby přidá druhá <xref:Microsoft.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example2)]
 
-Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace najdete v tématu <xref:fundamentals/configuration/index>.
+Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
 Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá <xref:Microsoft.Extensions.Options.IConfigureOptions%601> službu do kontejneru služby. V předchozím příkladu jsou hodnoty `Option1` a `Option2` zadány v souboru *appSettings. JSON*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
 
@@ -1178,6 +1178,6 @@ V `Startup.ConfigureServices`nepoužívejte <xref:Microsoft.Extensions.Options.I
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/configuration/index>

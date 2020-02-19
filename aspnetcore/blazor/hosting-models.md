@@ -5,17 +5,17 @@ description: Pochopení Blazor modelů hostování serverů a Blazor serveru.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/31/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 2314ba39e67fbf734807b96de6c54bc94283a67d
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 54be0e032a60c69880f428e52f9d778032385dc5
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213311"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447045"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>Modely hostování ASP.NET Core Blazor
 
@@ -121,7 +121,7 @@ Aplikace Blazor serveru je postavená nad [ASP.NET Core SignalR](xref:signalr/in
 
 Každá obrazovka prohlížeče (karta prohlížeče nebo IFRAME), která je připojená k aplikaci Blazor serveru, používá SignalR připojení. Toto je ještě další důležité rozdíly ve srovnání s typickými aplikacemi vygenerovanými serverem. V aplikaci vykreslené serverem se při otevření stejné aplikace v několika obrazovkách prohlížeče obvykle nepřevádí na další požadavky na prostředky na serveru. V aplikaci Blazor serveru vyžaduje Každá obrazovka prohlížeče samostatný okruh a samostatné instance stavu součásti, které má server spravovat.
 
-Blazor se domnívá zavřít kartu prohlížeče nebo přejít na externí adresu URL s *řádným* ukončením. V případě řádného ukončení se okruh a přidružené prostředky ihned uvolňují. Klient se může také bez problémů odpojit, například kvůli přerušení sítě. Blazor server ukládá odpojené okruhy po Konfigurovatelný interval, aby se klient mohl znovu připojit. Další informace najdete v tématu [opětovné připojení ke stejnému serveru](xref:blazor/hosting-model-configuration#reconnection-to-the-same-server).
+Blazor se domnívá zavřít kartu prohlížeče nebo přejít na externí adresu URL s *řádným* ukončením. V případě řádného ukončení se okruh a přidružené prostředky ihned uvolňují. Klient se může také bez problémů odpojit, například kvůli přerušení sítě. Blazor server ukládá odpojené okruhy po Konfigurovatelný interval, aby se klient mohl znovu připojit.
 
 ### <a name="ui-latency"></a>Latence uživatelského rozhraní
 
@@ -129,7 +129,7 @@ Latence uživatelského rozhraní je doba, kterou trvá od iniciované akce až 
 
 Pro podnikovou aplikaci, která je omezená jenom na soukromou podnikovou síť, se většinou neprojeví vlivu na vnímání uživatele latence kvůli latenci sítě. V případě aplikace nasazené přes Internet může latence znamenat uživatele, zejména v případě, že uživatelé jsou geograficky distribuováni podrobněji.
 
-Využití paměti může také přispět k latenci aplikace. Zvýšení využití paměti vede k častému uvolňování paměti nebo paměti stránkování na disk, přičemž obě tyto čítače zvyšují výkon aplikace a následně zvyšují latenci uživatelského rozhraní. Další informace najdete v tématu <xref:security/blazor/server>.
+Využití paměti může také přispět k latenci aplikace. Zvýšení využití paměti vede k častému uvolňování paměti nebo paměti stránkování na disk, přičemž obě tyto čítače zvyšují výkon aplikace a následně zvyšují latenci uživatelského rozhraní. Další informace naleznete v tématu <xref:security/blazor/server>.
 
 aplikace Blazor Server by měly být optimalizované pro minimalizaci latence uživatelského rozhraní tím, že se sníží latence sítě a využití paměti. Přístup k měření latence sítě najdete v tématu <xref:host-and-deploy/blazor/server#measure-network-latency>. Další informace o SignalR a Blazornajdete v těchto tématech:
 
@@ -142,11 +142,11 @@ aplikace Blazor serveru vyžadují připojení k serveru aktivní SignalR. Pokud
 
 Aplikace Blazor serveru se předem vykreslí v reakci na první požadavek klienta, který nastaví stav uživatelského rozhraní na serveru. Když se klient pokusí vytvořit připojení SignalR, klient se musí znovu připojit ke stejnému serveru. aplikace Blazor serveru, které používají více než jeden back-end Server, by měly implementovat *rychlé relace* pro SignalR připojení.
 
-Pro Blazor serverových aplikací doporučujeme používat [službu Azure SignalR](/azure/azure-signalr) . Služba umožňuje horizontální navýšení kapacity aplikace Blazor serveru na velký počet souběžných připojení SignalR. Rychlé relace jsou povolené pro službu Azure SignalR tím, že nastavíte možnost `ServerStickyMode` služby nebo hodnotu konfigurace na `Required`. Další informace najdete v tématu <xref:host-and-deploy/blazor/server#signalr-configuration>.
+Pro Blazor serverových aplikací doporučujeme používat [službu Azure SignalR](/azure/azure-signalr) . Služba umožňuje horizontální navýšení kapacity aplikace Blazor serveru na velký počet souběžných připojení SignalR. Rychlé relace jsou povolené pro službu Azure SignalR tím, že nastavíte možnost `ServerStickyMode` služby nebo hodnotu konfigurace na `Required`. Další informace naleznete v tématu <xref:host-and-deploy/blazor/server#signalr-configuration>.
 
 Při použití služby IIS jsou v rámci směrování žádostí na aplikace povoleny rychlé relace. Další informace najdete v tématu [Vyrovnávání zatížení HTTP pomocí směrování žádostí na aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>

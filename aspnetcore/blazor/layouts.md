@@ -5,17 +5,17 @@ description: Naučte se vytvářet opakovaně použitelné součásti rozložen�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: 8e7294f6b66d34781473522a71f929ed5f9c33f2
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 5b6e1c7ceb4a6e41230e31bbe379bde1bb0a8286
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213373"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447136"
 ---
 # <a name="aspnet-core-opno-locblazor-layouts"></a>ASP.NET Core Blazor rozložení
 
@@ -23,7 +23,7 @@ Od [Rainer Stropek](https://www.timecockpit.com) a [Luke Latham](https://github.
 
 Některé prvky aplikace, jako jsou nabídky, zprávy o autorských právech a logo společnosti, jsou obvykle součástí celkového rozložení aplikace a používají se v každé součásti aplikace. Kopírování kódu těchto prvků do všech komponent aplikace není účinný přístup&mdash;pokaždé, když jeden z elementů vyžaduje aktualizaci, musí být každá součást aktualizována. Takové duplikace je obtížné udržovat a může v průběhu času vést k nekonzistentnímu obsahu. *Rozložení* řeší tento problém.
 
-Technicky, rozložení je pouze jiná komponenta. Rozložení je definováno v šabloně Razor nebo v C# kódu a může používat [datové vazby](xref:blazor/components#data-binding), [vkládání závislostí](xref:blazor/dependency-injection)a další scénáře komponent.
+Technicky, rozložení je pouze jiná komponenta. Rozložení je definováno v šabloně Razor nebo v C# kódu a může používat [datové vazby](xref:blazor/data-binding), [vkládání závislostí](xref:blazor/dependency-injection)a další scénáře komponent.
 
 Chcete-li změnit *komponentu* na *rozložení*, součást:
 
@@ -94,8 +94,8 @@ Nakonec `MasterLayout` v *MasterLayout. Razor* obsahuje prvky rozložení na nej
 
 ## <a name="share-a-razor-pages-layout-with-integrated-components"></a>Sdílení Razor Pages rozložení s integrovanými komponentami
 
-Pokud jsou směrovatelný komponenty integrovány do aplikace Razor Pages, lze s komponentami použít sdílené rozložení aplikace. Další informace najdete v tématu <xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps>.
+Pokud jsou směrovatelný komponenty integrovány do aplikace Razor Pages, lze s komponentami použít sdílené rozložení aplikace. Další informace naleznete v tématu <xref:blazor/integrate-components>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/views/layout>

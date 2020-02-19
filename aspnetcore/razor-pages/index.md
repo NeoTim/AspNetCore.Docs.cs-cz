@@ -4,14 +4,14 @@ author: Rick-Anderson
 description: Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zaměřená na stránce scénáře jednodušší a produktivnější než pomocí MVC.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
-ms.date: 01/28/2020
+ms.date: 02/12/2020
 uid: razor-pages/index
-ms.openlocfilehash: 402e11d653cf0e7433c63844cb7e2802abc61679
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 30e2cde03236bae4c3ca06a91c56586d8c9f2bff
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172612"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447448"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor Pages v ASP.NET Core
 
@@ -27,15 +27,15 @@ Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. 
 
 ## <a name="prerequisites"></a>Předpoklady
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
@@ -45,15 +45,15 @@ Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. 
 
 ## <a name="create-a-razor-pages-project"></a>Vytvoření projektu Razor Pages
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Podrobné pokyny k vytvoření projektu Razor Pages najdete v tématu [Začínáme s Razor Pages](xref:tutorials/razor-pages/razor-pages-start) .
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Spusťte `dotnet new webapp` z příkazového řádku.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Spusťte `dotnet new webapp` z příkazového řádku.
 
@@ -603,7 +603,7 @@ Přidejte <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBui
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:test/razor-pages-tests>
 * <xref:mvc/views/partial>
-* [Integrace součástí Razor do aplikací Razor Pages a MVC](xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps)
+* <xref:blazor/integrate-components>
 
 ::: moniker-end
 
@@ -619,15 +619,15 @@ Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. 
 
 ## <a name="prerequisites"></a>Předpoklady
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
@@ -637,17 +637,17 @@ Tento dokument představuje úvod do Razor Pages. Nejedná se o podrobný kurz. 
 
 ## <a name="create-a-razor-pages-project"></a>Vytvoření projektu Razor Pages
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Podrobné pokyny k vytvoření projektu Razor Pages najdete v tématu [Začínáme s Razor Pages](xref:tutorials/razor-pages/razor-pages-start) .
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Spusťte `dotnet new webapp` z příkazového řádku.
 
 Otevřete vygenerovaný soubor *. csproj* z Visual Studio pro Mac.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Spusťte `dotnet new webapp` z příkazového řádku.
 

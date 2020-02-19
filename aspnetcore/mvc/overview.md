@@ -3,14 +3,14 @@ title: Přehled ASP.NET Core MVC
 author: ardalis
 description: Přečtěte si, jak ASP.NET Core MVC je bohatá architektura pro vytváření webových aplikací a rozhraní API pomocí vzorového vzoru pro zobrazení modelu.
 ms.author: riande
-ms.date: 01/28/2020
+ms.date: 02/12/2020
 uid: mvc/overview
-ms.openlocfilehash: a0d1e364bf4cda4ad30c5070c9e61e6972759bb0
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 2911399f6ed4e14345171c908c4306b9c3e33805
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171812"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447409"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -258,5 +258,4 @@ Další informace naleznete v tématu <xref:mvc/compatibility-version>.
 ## <a name="additional-resources"></a>Další zdroje
 
 * [MyTested. AspNetCore. Mvc-Fluent test Library pro ASP.NET Core Mvc](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; knihovnu testování jednotek se silnými typy a poskytuje rozhraní Fluent pro testování MVC a webových aplikací API. (*Společnost Microsoft nespravuje ani nepodporuje.* )
-* [Integrace součástí Razor do aplikací Razor Pages a MVC](xref:blazor/hosting-model-configuration#integrate-razor-components-into-razor-pages-and-mvc-apps)
-
+* <xref:blazor/integrate-components>

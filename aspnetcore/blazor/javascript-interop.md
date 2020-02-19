@@ -5,17 +5,17 @@ description: Naučte se volat funkce jazyka JavaScript z metod .NET a .NET z Jav
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/javascript-interop
-ms.openlocfilehash: c4f2444b60fc2d3a8af893df379cf62636a7bdd5
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: d681eea5a5e876912bd614fba8ea45a464844496
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213360"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447162"
 ---
 # <a name="aspnet-core-opno-locblazor-javascript-interop"></a>Zprostředkovatel komunikace s ASP.NET Core Blazor JavaScript
 
@@ -74,7 +74,7 @@ Chcete-li použít abstrakci `IJSRuntime`, přijímají některé z následujíc
 
   [!code-html[](javascript-interop/samples_snapshot/index-script-handleTickerChanged2.html)]
 
-* Pro generování dynamického obsahu pomocí [BuildRenderTree](xref:blazor/components#manual-rendertreebuilder-logic)použijte atribut `[Inject]`:
+* Pro generování dynamického obsahu pomocí [BuildRenderTree](xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic)použijte atribut `[Inject]`:
 
   ```razor
   [Inject]
@@ -512,7 +512,9 @@ returnArrayAsyncJs: function () {
 
 Můžete také volat metody instance rozhraní .NET z JavaScriptu. Vyvolání metody instance rozhraní .NET z JavaScriptu:
 
-* Předejte instanci rozhraní .NET do JavaScriptu tak, že ji zabalíte do instance `DotNetObjectReference`. Instance rozhraní .NET je předána odkazem na JavaScript.
+* Předání instance rozhraní .NET odkazem na jazyk JavaScript:
+  * Proveďte statické volání `DotNetObjectReference.Create`.
+  * Zabalte instanci v instanci `DotNetObjectReference` a volejte `Create` na instanci `DotNetObjectReference`. Dispose objektů `DotNetObjectReference` (příklad se zobrazí později v této části).
 * Vyvolat metody instance .NET v instanci pomocí funkcí `invokeMethod` nebo `invokeMethodAsync`. Instance rozhraní .NET může být také předána jako argument při vyvolání jiných metod rozhraní .NET z JavaScriptu.
 
 > [!NOTE]
@@ -558,6 +560,68 @@ Výstup konzoly v vývojářských nástrojích webu v prohlížeči:
 Hello, Blazor!
 ```
 
+Aby nedošlo k nevrácení paměti a povolovalo uvolňování paměti na komponentě, která vytváří `DotNetObjectReference`, Dispose objektu ve třídě, která vytvořila instanci `DotNetObjectReference`:
+
+```csharp
+public class ExampleJsInterop : IDisposable
+{
+    private readonly IJSRuntime _jsRuntime;
+    private DotNetObjectReference<HelloHelper> _objRef;
+
+    public ExampleJsInterop(IJSRuntime jsRuntime)
+    {
+        _jsRuntime = jsRuntime;
+    }
+
+    public ValueTask<string> CallHelloHelperSayHello(string name)
+    {
+        _objRef = DotNetObjectReference.Create(new HelloHelper(name));
+
+        return _jsRuntime.InvokeAsync<string>(
+            "exampleJsFunctions.sayHello",
+            _objRef);
+    }
+
+    public void Dispose()
+    {
+        _objRef?.Dispose();
+    }
+}
+```
+  
+Předchozí vzor zobrazený ve třídě `ExampleJsInterop` lze také implementovat do komponenty:
+  
+```razor
+@page "/JSInteropComponent"
+@using BlazorSample.JsInteropClasses
+@implements IDisposable
+@inject IJSRuntime JSRuntime
+
+<h1>JavaScript Interop</h1>
+
+<button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
+    Trigger .NET instance method HelloHelper.SayHello
+</button>
+
+@code {
+    private DotNetObjectReference<HelloHelper> _objRef;
+
+    public async Task TriggerNetInstanceMethod()
+    {
+        _objRef = DotNetObjectReference.Create(new HelloHelper("Blazor"));
+
+        await JSRuntime.InvokeAsync<string>(
+            "exampleJsFunctions.sayHello",
+            _objRef);
+    }
+
+    public void Dispose()
+    {
+        _objRef?.Dispose();
+    }
+}
+```
+
 ## <a name="share-interop-code-in-a-class-library"></a>Sdílení kódu spolupráce v knihovně tříd
 
 Kód interoperability JS lze zahrnout do knihovny tříd, která umožňuje sdílení kódu v balíčku NuGet.
@@ -566,7 +630,7 @@ Knihovna tříd zpracovává vložení prostředků JavaScriptu do sestaveného 
 
 Na sestavený balíček NuGet se odkazuje v souboru projektu aplikace stejným způsobem, jako na který se odkazuje na balíček NuGet. Po obnovení balíčku kód aplikace může zavolat do JavaScriptu, jako kdyby byl C#.
 
-Další informace najdete v tématu <xref:blazor/class-libraries>.
+Další informace naleznete v tématu <xref:blazor/class-libraries>.
 
 ## <a name="harden-js-interop-calls"></a>Volání interoperability pro posílení JS
 
@@ -866,6 +930,6 @@ async function base64EncodeAsync(chunk) {
 }
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Příklad InteropComponent. Razor (dotnet/AspNetCore, úložiště GitHub, větev vydání 3,1)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)

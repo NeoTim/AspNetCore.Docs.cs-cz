@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2019
 uid: security/enforcing-ssl
-ms.openlocfilehash: 9efd49bb246a10c4eb49fb1bb0374ae9442d55a1
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 43f3abfa4bc311ed246f6f2585d522661e492039
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172630"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447149"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
@@ -259,7 +259,7 @@ ASP.NET Core 2,1 a novější implementuje HSTS s metodou rozšíření `UseHsts
 
 `UseHsts` se při vývoji nedoporučuje, protože nastavení HSTS jsou prohlížeči vysoce ukládat do mezipaměti. Ve výchozím nastavení `UseHsts` nezahrnuje místní adresu zpětné smyčky.
 
-V produkčních prostředích, která implementují protokol HTTPS poprvé, nastavte počáteční [HstsOptions. maxAge](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*) na malou hodnotu pomocí jedné z metod <xref:System.TimeSpan>. Nastavte hodnotu z hodin na ne více než jeden den pro případ, že budete potřebovat obnovit infrastrukturu HTTPS na HTTP. Až si budete jisti udržitelností konfigurace HTTPS, zvyšte hodnotu maximálního stáří HSTS; běžně používaná hodnota je jeden rok.
+V produkčních prostředích, která implementují protokol HTTPS poprvé, nastavte počáteční [HstsOptions. maxAge](xref:Microsoft.AspNetCore.HttpsPolicy.HstsOptions.MaxAge*) na malou hodnotu pomocí jedné z metod <xref:System.TimeSpan>. Nastavte hodnotu z hodin na ne více než jeden den pro případ, že budete potřebovat obnovit infrastrukturu HTTPS na HTTP. Až si budete jisti udržitelností konfigurace HTTPS, zvyšte hodnotu HSTS `max-age`; běžně používaná hodnota je jeden rok.
 
 Následující kód:
 
@@ -277,9 +277,9 @@ Následující kód:
 ::: moniker-end
 
 
-* Nastaví parametr přednačtení záhlaví Strict-Transport-Security. Předběžné načtení není součástí [specifikace RFC HSTS](https://tools.ietf.org/html/rfc6797), ale podporuje je ve webových prohlížečích k přednačtení webů HSTS při nové instalaci. Další informace najdete v tématu [https://hstspreload.org/](https://hstspreload.org/) .
+* Nastaví přednačtení parametru `Strict-Transport-Security` záhlaví. Předběžné načtení není součástí [specifikace RFC HSTS](https://tools.ietf.org/html/rfc6797), ale podporuje je ve webových prohlížečích k přednačtení webů HSTS při nové instalaci. Další informace najdete na webu [https://hstspreload.org/](https://hstspreload.org/).
 * Povolí [includeSubDomain](https://tools.ietf.org/html/rfc6797#section-6.1.2), která aplikuje zásady HSTS na hostování subdomén.
-* Explicitně nastaví parametr max-age záhlaví Strict-Transport-Security na 60 dní. Pokud není nastavené, výchozí hodnota je 30 dní. Další informace najdete v [direktivě pro maximální stáří](https://tools.ietf.org/html/rfc6797#section-6.1.1) .
+* Explicitně nastaví parametr `max-age` `Strict-Transport-Security` záhlaví na 60 dní. Pokud není nastavené, výchozí hodnota je 30 dní. Další informace najdete v [direktivě max-age](https://tools.ietf.org/html/rfc6797#section-6.1.1).
 * Přidá `example.com` do seznamu hostitelů, které mají být vyloučeny.
 
 `UseHsts` vyloučí následující hostitele zpětné smyčky:
@@ -294,7 +294,7 @@ V některých případech služby back-end, kde se zabezpečení připojení zpr
 
 Výslovný souhlas s protokolem HTTPS/HSTS:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
 Zrušte zaškrtnuté políčko **Konfigurovat pro protokol HTTPS** .
 
@@ -311,7 +311,7 @@ Zrušte zaškrtnuté políčko **Konfigurovat pro protokol HTTPS** .
 ::: moniker-end
 
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli) 
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli) 
 
 Použijte možnost `--no-https`. Například
 
@@ -325,7 +325,7 @@ dotnet new webapp --no-https
 
 ## <a name="trust-the-aspnet-core-https-development-certificate-on-windows-and-macos"></a>Důvěra ASP.NET Core certifikát pro vývoj HTTPS ve Windows a macOS
 
-.NET Core SDK obsahuje certifikát pro vývoj HTTPS. Certifikát je nainstalován jako součást prvního spuštění prostředí. Například `dotnet --info` vytváří výstup podobný následujícímu:
+.NET Core SDK obsahuje certifikát pro vývoj HTTPS. Certifikát je nainstalován jako součást prvního spuštění prostředí. Například `dotnet --info` vytváří variaci následujícího výstupu:
 
 ```
 ASP.NET Core
@@ -358,7 +358,7 @@ Podívejte se na [Tento problém GitHubu](https://github.com/aspnet/AspNetCore.D
 
 Subsystém Windows pro Linux (WSL) vygeneruje certifikát podepsaný svým držitelem (HTTPS). Konfigurace úložiště certifikátů Windows pro důvěřování certifikátu WSL:
 
-* Spuštěním následujícího příkazu exportujte certifikát vygenerovaný WSL: `dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
+* Spuštěním následujícího příkazu exportujte certifikát generovaný WSL: `dotnet dev-certs https -ep %USERPROFILE%\.aspnet\https\aspnetapp.pfx -p <cryptic-password>`
 * V okně WSL spusťte následující příkaz: `ASPNETCORE_Kestrel__Certificates__Default__Password="<cryptic-password>" ASPNETCORE_Kestrel__Certificates__Default__Path=/mnt/c/Users/user-name/.aspnet/https/aspnetapp.pfx dotnet watch run`
 
   Předchozí příkaz nastaví proměnné prostředí tak, aby Linux používal důvěryhodný certifikát Windows.
@@ -378,7 +378,7 @@ dotnet dev-certs https --trust
 
 Zavřete všechny otevřené instance prohlížeče. Otevřete nové okno prohlížeče pro aplikaci. Důvěryhodnost certifikátu je ukládána v mezipaměti prohlížeči.
 
-Předchozí příkazy vyřeší většinu problémů s důvěryhodností prohlížečů. Pokud prohlížeč stále certifikát nepovažuje za důvěryhodný, postupujte podle následujících doporučení pro konkrétní platformu.
+Předchozí příkazy vyřeší většinu problémů s důvěryhodností prohlížečů. Pokud prohlížeč pořád certifikát nedůvěřuje, postupujte podle následujících doporučení pro konkrétní platformu.
 
 ### <a name="docker---certificate-not-trusted"></a>Docker – certifikát není důvěryhodný.
 
@@ -404,7 +404,7 @@ Zavřete všechny otevřené instance prohlížeče. Otevřete nové okno prohl�
 * Otevřete přístup k řetězci klíčů.
 * Vyberte systémový řetězec klíčů.
 * Ověřte přítomnost certifikátu localhost.
-* Ověřte, že obsahuje symbol `+` na ikoně pro označení, že je důvěryhodný pro všechny uživatele.
+* Ověřte, že obsahuje symbol `+` na ikoně, abyste označili, že je důvěryhodný pro všechny uživatele.
 * Odeberte certifikát ze systémového řetězce klíčů.
 * Spusťte následující příkazy:
 

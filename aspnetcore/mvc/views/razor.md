@@ -3,14 +3,14 @@ title: Referenční příručka syntaxe Razor pro ASP.NET Core
 author: rick-anderson
 description: Další informace o syntaxi Razor kód pro vložení do webových stránek kód založený na serveru.
 ms.author: riande
-ms.date: 12/05/2019
+ms.date: 02/12/2020
 uid: mvc/views/razor
-ms.openlocfilehash: 2d47fbc33328ab454616bcabab796df089686d79
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 0b1eed2816329d62fca4bdb5719825a4197af353
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171863"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447175"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
@@ -719,13 +719,13 @@ V [součástech Razor](xref:blazor/components)`@using` také určuje, které sou
 
 *Tento scénář platí pouze pro součásti Razor (. Razor).*
 
-Datovou vazbu v součástech lze provést pomocí atributu `@bind`. Další informace naleznete v tématu <xref:blazor/components#data-binding>.
+Datovou vazbu v součástech lze provést pomocí atributu `@bind`. Další informace naleznete v tématu <xref:blazor/data-binding>.
 
 ### <a name="onevent"></a>\@v události {EVENT}
 
 *Tento scénář platí pouze pro součásti Razor (. Razor).*
 
-Razor poskytuje funkce pro zpracování událostí pro součásti. Další informace naleznete v tématu <xref:blazor/components#event-handling>.
+Razor poskytuje funkce pro zpracování událostí pro součásti. Další informace naleznete v tématu <xref:blazor/event-handling>.
 
 ::: moniker-end
 
@@ -763,7 +763,7 @@ Odkazy na součásti (`@ref`) poskytují způsob, jak odkazovat na instanci komp
 
 *Tento scénář platí pouze pro součásti Razor (. Razor).*
 
-Direktiva `@typeparam` deklaruje parametr obecného typu pro generovanou třídu komponenty. Další informace naleznete v tématu <xref:blazor/components#generic-typed-components>.
+Direktiva `@typeparam` deklaruje parametr obecného typu pro generovanou třídu komponenty. Další informace naleznete v tématu <xref:blazor/templated-components#generic-typed-components>.
 
 ::: moniker-end
 
@@ -902,11 +902,11 @@ Klíčová slova Razor jsou uvozená pomocí `@(Razor Keyword)` (například `@(
 * if
 * else
 * lock
-* switch
+* – přepínač
 * vyzkoušení
 * catch
 * finally
-* using
+* používání
 * while
 
 C#Klíčová slova Razor musí mít dvakrát uvození řídicím znakem `@(@C# Razor Keyword)` (například `@(@case)`). První `@` řídí analyzátor Razor. Druhý `@` řídí C# analyzátor.

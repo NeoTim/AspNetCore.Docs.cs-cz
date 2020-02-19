@@ -5,17 +5,17 @@ description: Zjistěte, jak ASP.NET Core Blazor jak Blazor spravuje neošetřen�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/22/2020
+ms.date: 02/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: b987513e5410e95ab632b9935d858b648838d94f
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 7191ae50d64ebd6a9b23b391116aedf3a6d01de2
+ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928271"
+ms.lasthandoff: 02/19/2020
+ms.locfileid: "77447019"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
 
@@ -87,9 +87,9 @@ V produkčním prostředí nevykresluje zprávy o výjimkách rozhraní nebo tra
 
 ## <a name="log-errors-with-a-persistent-provider"></a>Protokolovat chyby trvalého poskytovatele
 
-Pokud dojde k neošetřené výjimce, zaznamená se výjimka do <xref:Microsoft.Extensions.Logging.ILogger> instancí nakonfigurovaných v kontejneru služby. Ve výchozím nastavení se aplikace Blazor do výstupu konzoly přihlásí pomocí zprostředkovatele protokolování konzoly. Zvažte možnost protokolování do trvalého umístění u poskytovatele, který spravuje velikost protokolu a rotaci protokolů. Další informace najdete v tématu <xref:fundamentals/logging/index>.
+Pokud dojde k neošetřené výjimce, zaznamená se výjimka do <xref:Microsoft.Extensions.Logging.ILogger> instancí nakonfigurovaných v kontejneru služby. Ve výchozím nastavení se aplikace Blazor do výstupu konzoly přihlásí pomocí zprostředkovatele protokolování konzoly. Zvažte možnost protokolování do trvalého umístění u poskytovatele, který spravuje velikost protokolu a rotaci protokolů. Další informace naleznete v tématu <xref:fundamentals/logging/index>.
 
-Během vývoje Blazor obvykle odesílá úplné podrobnosti o výjimkách do konzoly prohlížeče, aby bylo možné v ladění. V produkčním prostředí jsou podrobné chyby v konzole prohlížeče ve výchozím nastavení zakázané, což znamená, že se do klientů neodesílají chyby, ale úplné podrobnosti o výjimce se pořád protokolují na straně serveru. Další informace najdete v tématu <xref:fundamentals/error-handling>.
+Během vývoje Blazor obvykle odesílá úplné podrobnosti o výjimkách do konzoly prohlížeče, aby bylo možné v ladění. V produkčním prostředí jsou podrobné chyby v konzole prohlížeče ve výchozím nastavení zakázané, což znamená, že se do klientů neodesílají chyby, ale úplné podrobnosti o výjimce se pořád protokolují na straně serveru. Další informace naleznete v tématu <xref:fundamentals/error-handling>.
 
 Musíte se rozhodnout, které incidenty se mají protokolovat, a úroveň závažnosti protokolovaných incidentů. Nepřátelským uživatelům může být možné aktivovat chyby záměrně. Například Neprotokolujte incident z chyby, kde je v adrese URL komponenty, která zobrazuje podrobnosti o produktu, zadán neznámý `ProductId`. Ne všechny chyby by se měly považovat za incidenty s vysokou závažností pro protokolování.
 
@@ -190,7 +190,7 @@ Podobně kód JavaScriptu může iniciovat volání metod .NET, které jsou ozna
 
 Máte možnost použít kód pro zpracování chyb na straně .NET nebo na straně JavaScriptu volání metody.
 
-Další informace najdete v tématu <xref:blazor/javascript-interop>.
+Další informace naleznete v tématu <xref:blazor/javascript-interop>.
 
 ### <a name="opno-locblazor-server-circuit-handlers"></a>obslužné rutiny okruhu serveru Blazor
 
@@ -285,7 +285,7 @@ Aby se zabránilo nekonečným vzorům rekurzování, ujistěte se, že kód rek
 
 ### <a name="custom-render-tree-logic"></a>Vlastní logika stromu vykreslování
 
-Většina Blazor komponenty jsou implementovány jako soubory *. Razor* a jsou kompilovány k vytvoření logiky, která pracuje na `RenderTreeBuilder` pro vykreslení výstupu. Vývojář může ručně implementovat `RenderTreeBuilder` logiku pomocí procedurálního C# kódu. Další informace najdete v tématu <xref:blazor/components#manual-rendertreebuilder-logic>.
+Většina Blazor komponenty jsou implementovány jako soubory *. Razor* a jsou kompilovány k vytvoření logiky, která pracuje na `RenderTreeBuilder` pro vykreslení výstupu. Vývojář může ručně implementovat `RenderTreeBuilder` logiku pomocí procedurálního C# kódu. Další informace naleznete v tématu <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>.
 
 > [!WARNING]
 > Použití logiky tvůrce stromu ručního vykreslování je považováno za pokročilý a nebezpečný scénář, nedoporučuje se pro obecný vývoj komponent.
