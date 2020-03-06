@@ -11,7 +11,7 @@ no-loc:
 uid: signalr/scale
 ms.openlocfilehash: 260e2f0c16288fec2e0a694d070f357529782d8d
 ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 02/19/2020
 ms.locfileid: "77447331"
@@ -52,7 +52,7 @@ Aby bylo možné zabránit využití prostředků signalizace v jiných webovýc
 
 Aby bylo možné zabránit využití prostředků signalizace v aplikaci signalizace, nahorizontální navýšení kapacity a omezení počtu připojení, které server musí zpracovat.
 
-## <a name="scale-out"></a>Horizontální navýšení kapacity
+## <a name="scale-out"></a>Škálování na více instancí
 
 Aplikace, která používá signalizaci, musí sledovat všechna připojení, což vytváří problémy pro serverovou farmu. Přidejte server a získá nová připojení, o kterých ostatní servery nevědí. Například signál na každém serveru v následujícím diagramu neznáte připojení na ostatních serverech. Když signál na jednom ze serverů chce poslat zprávu všem klientům, zpráva se dostane jenom na klienty připojené k tomuto serveru.
 
