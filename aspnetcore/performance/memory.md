@@ -7,17 +7,17 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: performance/memory
 ms.openlocfilehash: 0ae367e954e21e2f696a3b292fa64f1d2dba98ec
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829020"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667025"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>Správa paměti a uvolňování paměti (GC) v ASP.NET Core
 
 Od [Sébastien ROS](https://github.com/sebastienros) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Správa paměti je složitá, i ve spravovaném rozhraní, jako je .NET. Analýza a porozumění problémům s pamětí může být náročné. V tomto článku najdete:
+Správa paměti je složitá, i ve spravovaném rozhraní, jako je .NET. Analýza a porozumění problémům s pamětí může být náročné. Tento článek:
 
 * Bylo motivované mnoha *nevrácenými* chybami a uvolňováním paměti, které *nefunguje* . Většina těchto problémů byla způsobena tím, že nerozumíte tomu, jak spotřeba paměti funguje v rozhraní .NET Core, nebo pokud nerozumíte, jak se měří.
 * Ukazuje problematické využití paměti a navrhuje alternativní přístupy.
@@ -139,7 +139,7 @@ Režim GC se dá explicitně nastavit v souboru projektu nebo v souboru *runtime
 
 Změna `ServerGarbageCollection` v souboru projektu vyžaduje opětovné vytvoření aplikace.
 
-**Poznámka:** Uvolňování paměti serveru **není k dispozici na** počítačích s jedním jádrem. Další informace najdete v tématu <xref:System.Runtime.GCSettings.IsServerGC>.
+**Poznámka:** Uvolňování paměti serveru **není k dispozici na** počítačích s jedním jádrem. Další informace naleznete v tématu <xref:System.Runtime.GCSettings.IsServerGC>.
 
 Následující obrázek ukazuje profil paměti v rámci 5K RPS pomocí GC pracovní stanice.
 
@@ -192,7 +192,7 @@ Některé objekty .NET Core spoléhají na nativní paměť. UVOLŇOVÁNí pamě
 
 Rozhraní .NET poskytuje rozhraní <xref:System.IDisposable>, které vývojářům umožňuje uvolnit nativní paměť. I v případě, že není volána <xref:System.IDisposable.Dispose*>, správně implementované třídy volají `Dispose` při spuštění [finalizační metody](/dotnet/csharp/programming-guide/classes-and-structs/destructors) .
 
-Uvažujte následující kód:
+Vezměte v úvahu následující kód:
 
 ```csharp
 [HttpGet("fileprovider")]
@@ -275,7 +275,7 @@ Následující odkazy znázorňují ASP.NET Core přístup k udržení objektů 
 * [ResponseCaching/Streams/StreamUtilities. cs](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
 * [ResponseCaching/MemoryResponseCache. cs](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
-Další informace najdete v části .
+Další informace naleznete v tématu:
 
 * [Nekrytá halda Large Object](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
 * [Halda velkých objektů](/dotnet/standard/garbage-collection/large-object-heap)
@@ -426,7 +426,7 @@ Použití stejného zatížení jako nesdružené verze vede k následujícímu 
 
 Hlavní rozdíl je přidělený bajtů a jako důsledek je to mnohem méně kolekcí 0. generace.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Uvolňování paměti](/dotnet/standard/garbage-collection/)
 * [Porozumění různým režimům GC s Vizualizérm souběžnosti](https://blogs.msdn.microsoft.com/seteplia/2017/01/05/understanding-different-gc-modes-with-concurrency-visualizer/)

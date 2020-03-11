@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/05/2019
 uid: web-api/advanced/formatting
-ms.openlocfilehash: cab383053751598b882f3716943d3d9392c56f4a
-ms.sourcegitcommit: 29ace642ca0e1f0b48a18d66de266d8811df2b83
+ms.openlocfilehash: 908016720ade67a02ebe30d1dcb7929ad7592270
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/10/2019
-ms.locfileid: "74987953"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661901"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -19,13 +19,13 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Steve Smith](https://arda
 
 ASP.NET Core MVC podporuje formátování dat odpovědi. Data odpovědi lze formátovat pomocí konkrétních formátů nebo v reakci na požadovaný formát klienta.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/formatting) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/formatting) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="format-specific-action-results"></a>Výsledky akce specifické pro formát
 
 Některé typy výsledků akce jsou specifické pro konkrétní formát, například <xref:Microsoft.AspNetCore.Mvc.JsonResult> a <xref:Microsoft.AspNetCore.Mvc.ContentResult>. Akce mohou vracet výsledky, které jsou formátovány v určitém formátu bez ohledu na Předvolby klienta. Například vrácení `JsonResult` vrátí data ve formátu JSON. Vrácení `ContentResult` nebo řetězce vrátí data řetězce ve formátu prostého textu.
 
-Akce není nutná k vrácení určitého konkrétního typu. ASP.NET Core podporuje návratovou hodnotu objektu.  Výsledky z akcí, které vracejí objekty, které nejsou <xref:Microsoft.AspNetCore.Mvc.IActionResult> typy, jsou serializovány pomocí příslušné <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> implementace. Další informace najdete v tématu <xref:web-api/action-return-types>.
+Akce není nutná k vrácení určitého konkrétního typu. ASP.NET Core podporuje návratovou hodnotu objektu.  Výsledky z akcí, které vracejí objekty, které nejsou <xref:Microsoft.AspNetCore.Mvc.IActionResult> typy, jsou serializovány pomocí příslušné <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> implementace. Další informace naleznete v tématu <xref:web-api/action-return-types>.
 
 Integrovaná pomocná metoda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*> vrátí data ve formátu JSON: [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_get)]
 

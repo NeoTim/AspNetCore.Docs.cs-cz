@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/roles
 ms.openlocfilehash: 28aa3df6aa661d0b762df78fe611cd827af43f75
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73660055"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658394"
 ---
 # <a name="role-based-authorization-in-aspnet-core"></a>Ověřování na základě rolí v ASP.NET Core
 
@@ -165,7 +165,7 @@ options.AddPolicy("ElevatedRights", policy =>
 
 Tento příklad autorizuje uživatele, kteří patří do rolí `Administrator`, `PowerUser` nebo `BackupAdministrator`.
 
-### <a name="add-role-services-to-identity"></a>Přidání služeb role k identitě
+### <a name="add-role-services-to-identity"></a>Přidání služby Role na identitu
 
 Připojit [Přidat role](/dotnet/api/microsoft.aspnetcore.identity.identitybuilder.addroles#Microsoft_AspNetCore_Identity_IdentityBuilder_AddRoles__1) pro přidání služeb role:
 

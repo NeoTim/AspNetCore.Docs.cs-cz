@@ -1,22 +1,22 @@
 ---
 title: Poskytovatel konfigurace Azure Key Vault v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Naučte se používat zprostředkovatele konfigurace Azure Key Vault ke konfiguraci aplikace pomocí dvojic název-hodnota načtené za běhu.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: security/key-vault-configuration
-ms.openlocfilehash: 7eb8cf5dcd6b9f112a2ef30e694b6223a7d1f2fe
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: d617627154e3125a6a59d082fd401fc69c25fcb3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114871"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660347"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace Azure Key Vault v ASP.NET Core
 
-[Luke Latham](https://github.com/guardrex) a [Andrew Stanton – sestry](https://github.com/anurse)
+Autor [: Andrew Stanton – zdravotní sestry](https://github.com/anurse)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -25,7 +25,7 @@ Tento dokument vysvětluje, jak pomocí poskytovatele konfigurace [Microsoft Azu
 * Řízení přístupu k citlivým datům konfigurace.
 * Splnění požadavku na Standard FIPS 140-2 úrovně 2: ověřované moduly hardwarového zabezpečení (HSM) při ukládání konfiguračních dat.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="packages"></a>Balíčky
 
@@ -289,7 +289,7 @@ Při implementaci tohoto přístupu:
 
 Zprostředkovatel je schopný číst konfigurační hodnoty do pole pro vazbu k poli POCO.
 
-Při čtení ze zdroje konfigurace, který umožňuje klíčům obsahovat oddělovače dvojtečky (`:`), se pro odlišení klíčů, které tvoří pole (`:0:`, `:1:`...) používá číselný segment. `:{n}:`). Další informace najdete v tématu [Konfigurace: vytvoření vazby pole ke třídě](xref:fundamentals/configuration/index#bind-an-array-to-a-class).
+Při čtení ze zdroje konfigurace, který umožňuje klíčům obsahovat oddělovače dvojtečky (`:`), se k odlišení klíčů, které tvoří pole (`:0:`, `:1:`&hellip; `:{n}:`), používá číselný segment. Další informace najdete v tématu [Konfigurace: vytvoření vazby pole ke třídě](xref:fundamentals/configuration/index#bind-an-array-to-a-class).
 
 Klíče Azure Key Vault nemůžou jako oddělovač použít dvojtečku. Přístup popsaný v tomto tématu používá dvojité pomlčky (`--`) jako oddělovač pro hierarchické hodnoty (oddíly). Klíče polí jsou uloženy v Azure Key Vault s dvojitými pomlčkami a segmenty číselných klíčů (`--0--`, `--1--`, &hellip; `--{n}--`).
 
@@ -371,7 +371,7 @@ Tento dokument vysvětluje, jak pomocí poskytovatele konfigurace [Microsoft Azu
 * Řízení přístupu k citlivým datům konfigurace.
 * Splnění požadavku na Standard FIPS 140-2 úrovně 2: ověřované moduly hardwarového zabezpečení (HSM) při ukládání konfiguračních dat.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/key-vault-configuration/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="packages"></a>Balíčky
 
@@ -616,7 +616,7 @@ Při implementaci tohoto přístupu:
 
 Zprostředkovatel je schopný číst konfigurační hodnoty do pole pro vazbu k poli POCO.
 
-Při čtení ze zdroje konfigurace, který umožňuje klíčům obsahovat oddělovače dvojtečky (`:`), se pro odlišení klíčů, které tvoří pole (`:0:`, `:1:`...) používá číselný segment. `:{n}:`). Další informace najdete v tématu [Konfigurace: vytvoření vazby pole ke třídě](xref:fundamentals/configuration/index#bind-an-array-to-a-class).
+Při čtení ze zdroje konfigurace, který umožňuje klíčům obsahovat oddělovače dvojtečky (`:`), se k odlišení klíčů, které tvoří pole (`:0:`, `:1:`&hellip; `:{n}:`), používá číselný segment. Další informace najdete v tématu [Konfigurace: vytvoření vazby pole ke třídě](xref:fundamentals/configuration/index#bind-an-array-to-a-class).
 
 Klíče Azure Key Vault nemůžou jako oddělovač použít dvojtečku. Přístup popsaný v tomto tématu používá dvojité pomlčky (`--`) jako oddělovač pro hierarchické hodnoty (oddíly). Klíče polí jsou uloženy v Azure Key Vault s dvojitými pomlčkami a segmenty číselných klíčů (`--0--`, `--1--`, &hellip; `--{n}--`).
 

@@ -6,16 +6,16 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/08/2019
 uid: security/authorization/limitingidentitybyscheme
-ms.openlocfilehash: 9c173a4589279b03bc12b4b7dea594fae88cf471
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: a3be2b8171c146beef7e62c8f7e55883ca5dc687
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928387"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661817"
 ---
 # <a name="authorize-with-a-specific-scheme-in-aspnet-core"></a>Autorizovat pomocí konkrétního schématu v ASP.NET Core
 
-V některých scénářích, jako jsou například jednostránkové aplikace (jednostránkové), je běžné použít více metod ověřování. Aplikace může například použít ověřování pomocí souborů cookie k přihlášení a ověření nosiče JWT pro požadavky JavaScriptu. V některých případech může aplikace mít několik instancí obslužné rutiny ověřování. Například dva obslužné rutiny souborů cookie, kde jedna obsahuje základní identitu a která je vytvořena, když byla aktivována aplikace Multi-Factor Authentication (MFA). Vícefaktorové ověřování může být aktivováno, protože uživatel požadoval operaci, která vyžaduje dodatečné zabezpečení. Další informace o vynucování MFA, když si uživatel vyžádá prostředek, který vyžaduje MFA, najdete v části věnované problému pro ochranu GitHubu [pomocí MFA](https://github.com/aspnet/AspNetCore.Docs/issues/15791#issuecomment-580464195).
+V některých scénářích, jako jsou například jednostránkové aplikace (jednostránkové), je běžné použít více metod ověřování. Aplikace může například použít ověřování pomocí souborů cookie k přihlášení a ověření nosiče JWT pro požadavky JavaScriptu. V některých případech může aplikace mít několik instancí obslužné rutiny ověřování. Například dva obslužné rutiny souborů cookie, kde jedna obsahuje základní identitu a která je vytvořena, když byla aktivována aplikace Multi-Factor Authentication (MFA). Vícefaktorové ověřování může být aktivováno, protože uživatel požadoval operaci, která vyžaduje dodatečné zabezpečení. Další informace o vynucování MFA, když si uživatel vyžádá prostředek, který vyžaduje MFA, najdete v části věnované problému pro ochranu GitHubu [pomocí MFA](https://github.com/dotnet/AspNetCore.Docs/issues/15791#issuecomment-580464195).
 
 Schéma ověřování se jmenuje, když je ověřovací služba nakonfigurovaná během ověřování. Příklad:
 

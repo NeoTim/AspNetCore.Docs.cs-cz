@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 6a2a2ca45f793ab95d45281ebb23180ac64761ec
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: a5ea9b75cf8bb1f31cb07a2b32f361bdbfd4efa3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71082316"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662902"
 ---
 # <a name="add-a-new-field-to-an-aspnet-core-mvc-app"></a>Přidání nového pole do ASP.NET Core aplikace MVC
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V této části se [Entity Framework](/ef/core/get-started/aspnetcore/new-db) migrace Code First používá pro:
 
@@ -35,17 +35,17 @@ Do *modelů/filmu*přidejte vlastnost `Rating`. cs:
 
 Sestavení aplikace
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
  Ctrl+Shift+B
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+### <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet build
 ```
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Příkaz ⌘ + B
 
@@ -65,13 +65,13 @@ Upravte soubor */views/Movies/index.cshtml* a přidejte pole `Rating`:
 
 Aktualizujte */views/Movies/Create.cshtml* pomocí pole `Rating`.
 
-# <a name="visual-studio--visual-studio-for-mactabvisual-studiovisual-studio-mac"></a>[Visual Studio / Visual Studio for Mac](#tab/visual-studio+visual-studio-mac)
+# <a name="visual-studio--visual-studio-for-mac"></a>[Visual Studio/Visual Studio pro Mac](#tab/visual-studio+visual-studio-mac)
 
 Můžete zkopírovat a vložit předchozí "skupinu formulářů" a nechat intelliSense, aby vám aktualizovala pole. Technologie IntelliSense spolupracuje s [pomocníky značek](xref:mvc/views/tag-helpers/intro).
 
 ![Vývojář zadal písmeno R pro hodnotu atributu ASP-for v druhém prvku popisku zobrazení. V kontextové nabídce technologie IntelliSense se objevila pole k dispozici, včetně hodnocení, které je automaticky zvýrazněno v seznamu. Když vývojář klikne na pole nebo stiskne klávesu ENTER na klávesnici, hodnota se nastaví na hodnocení.](new-field/_static/cr.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!-- This tab intentionally left blank. -->
 
@@ -99,7 +99,7 @@ K řešení této chyby je potřeba několik přístupů:
 
 Pro tento kurz se používá Migrace Code First.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V nabídce **nástroje** vyberte **správce balíčků NuGet > konzolu Správce balíčků**.
 
@@ -118,7 +118,7 @@ Název "hodnocení" je libovolný a slouží k pojmenování souboru migrace. Je
 
 Pokud jsou všechny záznamy v databázi odstraněny, metoda Initialize vytvoří databázi a zahrne pole `Rating`.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
@@ -131,7 +131,10 @@ dotnet ef database update
 ---
 <!-- End of VS tabs -->
 
-Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí pole `Rating`. Pole `Rating` byste měli přidat do šablon zobrazení `Edit`, `Details`a `Delete`.
+Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí pole `Rating`. Aktualizujte aplikaci:
+
+* Přidejte pole `Rating` do šablon zobrazení `Edit`, `Details`a `Delete`.
+* Aktualizujte vazbu v metodě Upravit akci `MoviesController`.
 
 > [!div class="step-by-step"]
 > [Předchozí](search.md)

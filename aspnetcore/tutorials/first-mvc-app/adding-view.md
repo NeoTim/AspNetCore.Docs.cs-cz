@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 8/04/2019
 uid: tutorials/first-mvc-app/adding-view
 ms.openlocfilehash: 5510fb6844452571ca764e21640f0bd16444c782
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171974"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660207"
 ---
 # <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do ASP.NET Core aplikace MVC
 
@@ -30,7 +30,7 @@ Předchozí kód volá metodu <xref:Microsoft.AspNetCore.Mvc.Controller.View*> k
 
 ## <a name="add-a-view"></a>Přidání zobrazení
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Klikněte pravým tlačítkem na složku *zobrazení* a pak **přidejte > novou složku** a pojmenujte složku *HelloWorld*.
 
@@ -48,14 +48,14 @@ Předchozí kód volá metodu <xref:Microsoft.AspNetCore.Mvc.Controller.View*> k
 
 ![Dialogové okno Přidat novou položku](adding-view/_static/add_view.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Přidejte zobrazení `Index` pro `HelloWorldController`.
 
 * Přidejte novou složku s názvem *views/HelloWorld*.
 * Přidejte nový soubor do složky *views/HelloWorld* name *index. cshtml*.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na složku *zobrazení* a pak **přidejte > novou složku** a pojmenujte složku *HelloWorld*.
 * Klikněte pravým tlačítkem na složku *views/HelloWorld* a pak **přidejte > nový soubor**.
@@ -187,7 +187,7 @@ Předchozí kód volá metodu <xref:Microsoft.AspNetCore.Mvc.Controller.View*> k
 
 ## <a name="add-a-view"></a>Přidání zobrazení
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Klikněte pravým tlačítkem na složku *zobrazení* a pak **přidejte > novou složku** a pojmenujte složku *HelloWorld*.
 
@@ -205,14 +205,14 @@ Předchozí kód volá metodu <xref:Microsoft.AspNetCore.Mvc.Controller.View*> k
 
 ![Dialogové okno Přidat novou položku](adding-view/_static/add_view.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Přidejte zobrazení `Index` pro `HelloWorldController`.
 
 * Přidejte novou složku s názvem *views/HelloWorld*.
 * Přidejte nový soubor do složky *views/HelloWorld* name *index. cshtml*.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na složku *zobrazení* a pak **přidejte > novou složku** a pojmenujte složku *HelloWorld*.
 * Klikněte pravým tlačítkem na složku *views/HelloWorld* a pak **přidejte > nový soubor**.

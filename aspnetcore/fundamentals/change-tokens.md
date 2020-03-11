@@ -1,27 +1,25 @@
 ---
 title: Zjišťovat změny pomocí tokenů změn v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Naučte se používat změny tokenů ke sledování změn.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 10/07/2019
 uid: fundamentals/change-tokens
-ms.openlocfilehash: bb30d7a4c7dc82200821c60a49c314b246562111
-ms.sourcegitcommit: 3d082bd46e9e00a3297ea0314582b1ed2abfa830
+ms.openlocfilehash: 70451e219f1295b854e2f84aac55f0cfd1786b19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/07/2019
-ms.locfileid: "72007208"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656343"
 ---
 # <a name="detect-changes-with-change-tokens-in-aspnet-core"></a>Zjišťovat změny pomocí tokenů změn v ASP.NET Core
-
-Podle [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 *Token změn* je stavební blok pro obecné účely, který se používá ke sledování změn stavu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="ichangetoken-interface"></a>Rozhraní IChangeToken
 
@@ -131,7 +129,7 @@ Instance `ConfigurationMonitor` je v `Startup.ConfigureServices`registrovaná ja
 
 Stránka index nabízí uživatelský ovládací prvek pro monitorování konfigurace. Instance `IConfigurationMonitor` je vložena do `IndexModel`.
 
-*Pages/Index.cshtml.cs*:
+*Pages/index. cshtml. cs*:
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Pages/Index.cshtml.cs?name=snippet1)]
 
@@ -219,7 +217,7 @@ var compositeChangeToken =
 
 *Token změn* je stavební blok pro obecné účely, který se používá ke sledování změn stavu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/change-tokens/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="ichangetoken-interface"></a>Rozhraní IChangeToken
 
@@ -329,7 +327,7 @@ Instance `ConfigurationMonitor` je v `Startup.ConfigureServices`registrovaná ja
 
 Stránka index nabízí uživatelský ovládací prvek pro monitorování konfigurace. Instance `IConfigurationMonitor` je vložena do `IndexModel`.
 
-*Pages/Index.cshtml.cs*:
+*Pages/index. cshtml. cs*:
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Pages/Index.cshtml.cs?name=snippet1)]
 
@@ -413,7 +411,7 @@ var compositeChangeToken =
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:performance/caching/memory>
 * <xref:performance/caching/distributed>

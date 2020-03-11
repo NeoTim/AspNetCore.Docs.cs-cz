@@ -1,22 +1,22 @@
 ---
 title: Distribuované ukládání do mezipaměti v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Naučte se používat ASP.NET Core distribuovanou mezipaměť pro zlepšení výkonu a škálovatelnosti aplikace, zejména v prostředí cloudové nebo serverové farmy.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: performance/caching/distributed
-ms.openlocfilehash: d39ac6c7496de7cf9dc8d40718bbaf611e744c19
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: a4d2a59c8f81ad3e3f020e73a6657864885aa39a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114741"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659185"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>Distribuované ukládání do mezipaměti v ASP.NET Core
 
-Od [Luke Latham](https://github.com/guardrex), [Mohsin Nasir](https://github.com/mohsinnasir)a [Steve Smith](https://ardalis.com/)
+Od [Mohsin Nasir](https://github.com/mohsinnasir) a [Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -32,7 +32,7 @@ Když jsou data v mezipaměti distribuována, data:
 
 Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Předpoklady
 
@@ -202,7 +202,7 @@ Když jsou data v mezipaměti distribuována, data:
 
 Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Předpoklady
 
@@ -372,7 +372,7 @@ Když jsou data v mezipaměti distribuována, data:
 
 Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Předpoklady
 
@@ -533,3 +533,4 @@ Když se SQL Server používá jako úložiště zálohování distribuované me
 * <xref:host-and-deploy/web-farm>
 
 ::: moniker-end
+ 

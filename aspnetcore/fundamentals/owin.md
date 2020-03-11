@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 uid: fundamentals/owin
-ms.openlocfilehash: 980b60512bdeadd2a58b87e633ebf1416f725851
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 14b23ba6d284413e20417bbd4142e19a656350ac
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172095"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666682"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřete web interface for .NET (OWIN) s ASP.NET Core
 
@@ -29,7 +29,7 @@ To umožňuje, aby se ASP.NET Core hostovat na serveru nebo hostiteli kompatibil
 > [!NOTE]
 > Používání těchto adaptérů se dodává s náklady na výkon. Aplikace, které používají jenom ASP.NET Core komponenty, by neměly používat `Microsoft.AspNetCore.Owin` balíčky ani adaptéry.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="running-owin-middleware-in-the-aspnet-core-pipeline"></a>Spuštění middlewaru OWIN v kanálu ASP.NET Core
 
@@ -217,7 +217,7 @@ public class Startup
 }
 ```
 
-Tato [Ukázka](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) je nakonfigurovaná pomocí stejné `NowinServer` jako v předchozím příkladu. jediným rozdílem je to, jak je aplikace nakonfigurovaná ve své `Configure` metodě. Test použití [jednoduchého klienta protokolu WebSocket](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en) ukazuje aplikaci:
+Tato [Ukázka](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) je nakonfigurovaná pomocí stejné `NowinServer` jako v předchozím příkladu. jediným rozdílem je to, jak je aplikace nakonfigurovaná ve své `Configure` metodě. Test použití [jednoduchého klienta protokolu WebSocket](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en) ukazuje aplikaci:
 
 ![Testovací klient webového soketu](owin/_static/websocket-test.png)
 

@@ -1,57 +1,57 @@
 ---
 title: Správa klíčů v ASP.NET Core
 author: rick-anderson
-description: Přečtěte si podrobnosti implementace správy klíčů na ochranu dat ASP.NET Core API.
+description: Přečtěte si podrobnosti o implementaci rozhraní API pro správu klíčů ASP.NET Core Data Protection.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/key-management
-ms.openlocfilehash: 431bdf2d3076c83279b78f327ddb647f69e6e584
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: c571222d734fa69183563aefa5cc6ce5a10e7612
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898770"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664708"
 ---
 # <a name="key-management-in-aspnet-core"></a>Správa klíčů v ASP.NET Core
 
 <a name="data-protection-implementation-key-management"></a>
 
-Systém ochrany dat automaticky spravuje životnost hlavního klíče používané k ochraně a zrušení ochrany datových částí. Každý klíč může existovat v jednom ze čtyř fází:
+Systém ochrany dat automaticky spravuje dobu života hlavních klíčů, které slouží k ochraně a odemknutí datových částí. Každý klíč může existovat v jednom ze čtyř fází:
 
-* Vytvořená: klíč existuje v aktualizační kanál, který klíč, ale ještě nebyl aktivován. Klíč nesmí použít pro nové operace ochrany až do uplynutí dostatečné doby, že klíč má využili příležitost dobře se rozšíří do všech počítačů, které spotřebovávají kanál klíč.
+* Vytvořeno – klíč existuje ve službě Key Ring, ale ještě není aktivovaný. Klíč by se neměl používat pro nové operace ochrany, dokud neuplyne dostatek času na to, že by měl mít možnost rozšířit na všechny počítače, které tento klíčový kanál využívají.
 
-* Aktivní - klíč existuje v aktualizační kanál, který klíč a slouží pro všechny nové operace ochrany.
+* Aktivní – klíč existuje ve službě Key Ring a měl by se používat pro všechny nové operace ochrany.
 
-* Vypršela platnost – klíč proběhla přirozené dobu života a již nelze použít pro nové operace ochrany.
+* Vypršela platnost – klíč spustil svou přirozenou životnost a neměl by se už používat pro nové operace ochrany.
 
-* Odvolat – klíč dojde k ohrožení a nesmí se používat pro nové operace ochrany.
+* Odvoláno – klíč je napadený a nesmí se používat pro nové operace ochrany.
 
-Všechny vytvořené, aktivní a vypršela platnost klíče může používají k zrušení ochrany datových částí pro APN příchozí. Odvolané klíče ve výchozím nastavení se nedají použít k zrušení ochrany datových částí, ale může vývojář aplikace [toto chování přepsat](xref:security/data-protection/consumer-apis/dangerous-unprotect#data-protection-consumer-apis-dangerous-unprotect) v případě potřeby.
+Klíče pro vytváření, aktivní a vypršení platnosti se můžou používat k odemknutí příchozích datových částí. Odvolané klíče ve výchozím nastavení se nedají použít k zrušení ochrany datových částí, ale vývojář aplikace může v případě potřeby [Toto chování přepsat](xref:security/data-protection/consumer-apis/dangerous-unprotect#data-protection-consumer-apis-dangerous-unprotect) .
 
 >[!WARNING]
-> Vývojáři mohou mít tendenci získat odstranění klíče z klíče okruhu (například tak, že odstraníte odpovídající soubor ze systému souborů). V tomto okamžiku je trvale undecipherable všechna data chráněná pomocí klíče a neexistuje žádná nouzový přepsání, jako je s odvolanými klíči. Odstraňuje se klíč je skutečně destruktivní chování a v důsledku toho systém pro ochranu dat poskytuje žádné prvotřídní rozhraní API k provedení této operace.
+> Vývojář se může rozhodnout odstranit klíč z klíčového prstence (například odstraněním odpovídajícího souboru ze systému souborů). V tomto okamžiku se všechna data chráněná klíčem trvale nešifrují a neexistuje žádné nouzové přepsání, podobně jako u odvolaných klíčů. Odstranění klíče je skutečně destruktivní chování, a proto systém ochrany dat zpřístupňuje žádné rozhraní API první třídy, které by tuto operaci provádělo.
 
 ## <a name="default-key-selection"></a>Výchozí výběr klíče
 
-Když systém ochrany dat čte aktualizační kanál, který klíč ze záložního úložiště, pokusí se najít klíč "Výchozí" z aktualizační kanál, který klíč. Výchozí klíč se používá pro nové operace ochrany.
+Když systém ochrany dat přečte z záložního úložiště klíč, pokusí se najít "výchozí" klíč ze služby Key Ring. Výchozí klíč se používá pro nové operace ochrany.
 
-Obecné heuristiky je, že systém pro ochranu dat stiskne klávesu s poslední datum aktivace jako výchozí klíč. (Není faktor malé hry fudge umožňující hodiny na serveru zkosení.) Pokud klíč vyprší nebo odvolán, a pokud se aplikace nezakázala automatické generování klíče, pak se vygeneruje nový klíč s okamžitou aktivaci za [klíčů vypršení platnosti a vrácení](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management-expiration) zásad níže.
+Obecná heuristika znamená, že systém ochrany dat zvolí klíč s nejnovějším datem aktivace jako výchozí klíč. (K dispozici je malý Fudge faktor, který umožňuje vyhodnotit časové zkosení mezi servery.) Pokud vypršela platnost klíče nebo odvolala, a pokud aplikace nevypne automatické generování klíčů, vygeneruje se nový klíč s okamžitou aktivací na základě [vypršení platnosti klíče a postupná](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management-expiration) zásada.
 
-Z důvodu ochrany systému dat vygeneruje nový klíč okamžitě místo považován za jiný klíč je, že vygenerování nového klíče mají být považována za implicitní vypršení platnosti všechny klíče, které byly aktivovány před novým klíčem. Obecnou myšlenku je, že nové klíče může být nakonfigurován se různé algoritmy nebo mechanismů šifrování v klidovém stavu než staré klíče a systému měli dát přednost aktuální konfiguraci přes návrat.
+Důvodem je, že systém ochrany dat vygeneruje nový klíč hned a nevrátí se zpět do jiného klíče, že by se nová generace klíčů měla považovat za implicitní vypršení všech klíčů, které byly aktivovány před novým klíčem. Obecným nápadem je, že nové klíče byly nakonfigurované s různými algoritmy nebo mechanizmy při šifrování v klidovém režimu než staré klíče a systém by měl preferovat aktuální konfiguraci v případě vrácení zpět.
 
-Dojde k výjimce. Pokud má vývojář aplikace [zakázané automatické generování klíčů](xref:security/data-protection/configuration/overview#disableautomatickeygeneration), zvolte systém ochrany dat musí něco jako výchozí klíč. V tomto scénáři záložní systém zvolí klíč – zrušeno s poslední datum aktivace přednost ke klíčům, které jste využili čas potřebný k šíření do dalších počítačů v clusteru se. Záložní systém uvíznout v důsledku výběru vypršela platnost výchozí klíče. Záložní systém zvolí nikdy odvolané klíč jako výchozí klíč, a pokud aktualizační kanál, který klíč je prázdný nebo každý klíč byl odvolán. potom systému dojde k chybě při inicializaci.
+Došlo k výjimce. Pokud vývojář aplikace [zakázal automatické generování klíčů](xref:security/data-protection/configuration/overview#disableautomatickeygeneration), musí systém ochrany dat zvolit něco jako výchozí klíč. V tomto záložním scénáři systém zvolí neodvolán klíč s nejaktuálnějším datem aktivace s upřednostněním klíčů, které měly čas rozšířit na jiné počítače v clusteru. Záložní systém může v důsledku toho ukončit výběr výchozího klíče s vypršenou platností. Záložní systém nikdy nezvolí odvolaný klíč jako výchozí klíč, a pokud je klíčového prstence prázdný nebo byl odvolán každý klíč, dojde při inicializaci k chybě systému.
 
 <a name="data-protection-implementation-key-management-expiration"></a>
 
-## <a name="key-expiration-and-rolling"></a>Vypršení platnosti klíče a se zajištěním provozu
+## <a name="key-expiration-and-rolling"></a>Vypršení platnosti klíče a vracení
 
-Při vytvoření klíče je automaticky přiřazen k aktivaci {now + 2 dny} a datum vypršení platnosti {now + 90 dní}. Zpoždění 2 dny před aktivací poskytuje klíče čas potřebný k šíření prostřednictvím systému. To znamená umožňuje sledovat klíč v jejich dalšího období automatické aktualizace, tím taky maximalizujete pravděpodobnost, že když klíč vyzvánět fakturuje se stane aktivní, které se rozšíří na všechny aplikace, které může být nutné použít jiné aplikace odkazuje na záložní úložiště.
+Když se vytvoří klíč, automaticky se mu zobrazí datum aktivace {Now + 2 dny} a datum vypršení platnosti {Now + 90 dní}. Před dvěma dny před aktivací je klíčovým časem, který se má rozšířit přes systém. To znamená, že umožňuje jiným aplikacím, které odkazují na záložní úložiště, sledovat klíč při příští automatické aktualizaci, což maximalizuje riziko, že když se klíčový kanál stane aktivní, rozšíří se na všechny aplikace, které ho můžou potřebovat použít.
 
-Pokud výchozí klíč vyprší během dvou dnů a aktualizační kanál, který klíč ještě nemá klíč, který bude aktivováno po vypršení platnosti klíče výchozí, pak systém ochrany dat se automaticky zachová nový klíč na klíč kanál. Tento nový klíč má datum aktivace {datum vypršení platnosti výchozí klíč} a datum vypršení platnosti {now + 90 dní}. To umožňuje systému automatickou změnu klíče v pravidelných intervalech bez přerušení služby.
+Pokud vyprší platnost výchozího klíče do 2 dnů a pokud klíčového prstence ještě nemá klíč, který bude aktivní po vypršení platnosti výchozího klíče, pak systém ochrany dat automaticky zachová nový klíč do služby Key Ring. Tento nový klíč má datum aktivace {výchozí datum vypršení platnosti klíče} a datum vypršení platnosti {Now + 90 dní}. Díky tomu může systém pravidelně automaticky pravidelně vytvářet klíče bez přerušení služby.
 
-Můžou nastat okolnosti kde klíče se vytvoří s okamžitou aktivaci. Jedním z příkladů se při nebyla na dobu spuštění aplikace a všechny klíče v aktualizační kanál, který klíč buď vypršela platnost. Pokud k tomu dojde, dostane klíč datum aktivace {nyní} bez zpoždění normální 2denním aktivace.
+Můžou nastat situace, kdy se klíč vytvoří s okamžitou aktivací. Příkladem může být, že aplikace neběžela po dobu a platnost všech klíčů ve službě Key Ring vypršela. V takovém případě se klíč udělí datum aktivace {Now} bez normálního prodlevy Aktivace 2 den.
 
-Výchozí doba platnosti klíče je 90 dnů, ačkoli se dají konfigurovat jako v následujícím příkladu.
+Výchozí životnost klíče je 90 dní, ale je možné ji nakonfigurovat jako v následujícím příkladu.
 
 ```csharp
 services.AddDataProtection()
@@ -59,26 +59,28 @@ services.AddDataProtection()
        .SetDefaultKeyLifetime(TimeSpan.FromDays(14));
 ```
 
-Správce může také změnit výchozí systémová, i když explicitní volání konstruktoru `SetDefaultKeyLifetime` přepíše všechny zásady v rámci systému. Výchozí doba platnosti klíče nemůže být kratší než 7 dní.
+Správce může změnit také výchozí systém, přestože explicitní volání `SetDefaultKeyLifetime` přepíše všechny zásady pro systém. Výchozí životnost klíče nemůže být kratší než 7 dní.
 
-## <a name="automatic-key-ring-refresh"></a>Aktualizace automatického aktualizačního kanálu klíč
+## <a name="automatic-key-ring-refresh"></a>Automatická aktualizace klíčového kruhu
 
-Když inicializuje systém ochrany dat, čte aktualizační kanál, který klíč ze základního úložiště a ukládá do mezipaměti v paměti. Tato mezipaměť umožňuje chránit a Unprotect operace pokračovat bez dosažení záložního úložiště. Systém automaticky zkontroluje záložní úložiště pro změny přibližně každých 24 hodin nebo když vyprší platnost aktuálního klíče výchozí, podle toho, co nastane dřív.
+Po inicializaci systému ochrany dat přečte klíčovou Ring z podkladového úložiště a uloží jej do paměti. Tato mezipaměť umožňuje chránit a zrušit ochranu operací, aniž byste se museli zaběhnout do záložního úložiště. Systém automaticky zkontroluje záložní úložiště, aby se změny projevily přibližně každých 24 hodin, nebo když vyprší aktuální výchozí klíč, podle toho, co nastane dřív.
 
 >[!WARNING]
-> Vývojáři by měl velmi zřídka (Pokud někdy) potřeba použít správu klíčů rozhraní API přímo. Systém ochrany dat provede automatické správy klíčů, jak je popsáno výše.
+> Vývojáři by měli velmi zřídka používat rozhraní API pro správu klíčů přímo. Systém ochrany dat provede automatickou správu klíčů, jak je popsáno výše.
 
-Systém pro ochranu dat poskytuje rozhraní `IKeyManager` , který můžete použít ke kontrole a provést změny aktualizační kanál, který klíč. DI systém, který poskytuje instance `IDataProtectionProvider` můžete také zadat instanci `IKeyManager` pro spotřebu. Alternativně si můžete vyžádat `IKeyManager` přímo z `IServiceProvider` stejně jako v následujícím příkladu.
+Systém ochrany dat zpřístupňuje `IKeyManager` rozhraní, které lze použít ke kontrole a provádění změn ve službě Key Ring. Systém DI, který poskytuje instanci `IDataProtectionProvider`, může také poskytnout instanci `IKeyManager` pro vaši spotřebu. Alternativně můžete `IKeyManager` načíst přímo z `IServiceProvider` jako v následujícím příkladu.
 
-Všechny operace, která upravuje klíč prstenec (explicitně vytváření nového klíče nebo při provádění odvolání) zruší platnost mezipaměti v paměti. Další volání `Protect` nebo `Unprotect` způsobí, že systém ochrany dat znovu načíst klíč okruh a znovu vytvořit mezipaměť.
+Jakákoli operace, která upravuje klíč Ring (explicitní vytvoření nového klíče nebo zrušení odvolání), zruší platnost mezipaměti v paměti. Další volání `Protect` nebo `Unprotect` způsobí, že systém ochrany dat znovu přečte klíč Ring a znovu vytvoří mezipaměť.
 
-Následující příklad ukazuje použití `IKeyManager` rozhraní ke kontrole a manipulaci s klíč okruh, včetně odvoláním existující klíče a generuje se nový klíč ručně.
+Následující ukázka ukazuje použití rozhraní `IKeyManager` ke kontrole a manipulaci s kroužkem klíčů, včetně odvolání existujících klíčů a vygenerování nového klíče ručně.
 
 [!code-csharp[](key-management/samples/key-management.cs)]
 
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+
 ## <a name="key-storage"></a>Úložiště klíčů
 
-Systém ochrany dat má heuristické metody, které se pokusí odvodit příslušné úložiště klíčů umístění a mechanismus šifrování v klidovém stavu automaticky. Trvalost klíče mechanismus je také možné konfigurovat vývojář aplikace. Tyto dokumenty popisují implementace v poli z těchto mechanismů:
+Systém ochrany dat má heuristickou metodu, která se pokusí odvodit příslušné klíčové umístění úložiště klíčů a automatické šifrování. Mechanismus trvalosti klíčů je také možné nakonfigurovat vývojářem aplikace. Následující dokumenty popisují implementace těchto mechanismů v krabicích:
 
 * <xref:security/data-protection/implementation/key-storage-providers>
 * <xref:security/data-protection/implementation/key-encryption-at-rest>

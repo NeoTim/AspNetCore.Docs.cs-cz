@@ -6,15 +6,15 @@ ms.author: riande
 ms.date: 10/16/2019
 uid: tutorials/first-mvc-app/start-mvc
 ms.openlocfilehash: 901257efdfbc7b36249233745175f5ed253da2c7
-ms.sourcegitcommit: da2fb2d78ce70accdba903ccbfdcfffdd0112123
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75722856"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662475"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -22,7 +22,7 @@ Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V tomto kurzu se naučíte základy vytváření ASP.NET Core webové aplikace MVC.
 
-Aplikace spravuje databázi titulů filmů. Získáte informace o následujících postupech:
+Aplikace spravuje databázi titulů filmů. Získáte informace o těchto tématech:
 
 > [!div class="checklist"]
 > * Vytvořte webovou aplikaci.
@@ -34,17 +34,17 @@ Na konci máte aplikaci, která může spravovat a zobrazovat data filmů.
 
 [!INCLUDE[](~/includes/mvc-intro/download.md)]
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.1.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
 
@@ -52,7 +52,7 @@ Na konci máte aplikaci, která může spravovat a zobrazovat data filmů.
 
 ## <a name="create-a-web-app"></a>Vytvoření webové aplikace
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V aplikaci Visual Studio vyberte **vytvořit nový projekt**.
 
@@ -70,11 +70,11 @@ Na konci máte aplikaci, která může spravovat a zobrazovat data filmů.
 
 Aplikace Visual Studio použila pro projekt MVC, který jste právě vytvořili, výchozí šablonu. Máte funkční aplikaci hned teď zadáním názvu projektu a výběrem několika možností. Toto je základní počáteční projekt.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Začínáme s vs Code](https://code.visualstudio.com/docs) a [Visual Studio Code nápovědě](#visual-studio-code-help) .
 
-* Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
+* Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 * Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 * Spusťte následující příkaz:
 
@@ -88,7 +88,7 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
   * `dotnet new mvc -o MvcMovie`: vytvoří nový projekt ASP.NET Core MVC ve složce *MvcMovie* .
   * `code -r MvcMovie`: načte do Visual Studio Code soubor projektu *MvcMovie. csproj* .
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Vyberte **soubor** > **nové řešení**.
 
@@ -108,14 +108,14 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
 
 ### <a name="run-the-app"></a>Spuštění aplikace
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
 [!INCLUDE[](~/includes/trustCertVS.md)]
 
-* Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Všimněte si, že se v adresním řádku zobrazuje `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port.
-* Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Řada vývojářů dává přednost používání režimu bez ladění, aby mohli aplikaci rychle spustit a podívat se na změny.
+* Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Všimněte si, že se v adresním řádku zobrazuje `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, pro webový server se použije náhodný port.
+* Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použít režim bez ladění pro rychlé spuštění aplikace a zobrazení změn.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z položky nabídky **ladění** :
 
   ![Nabídka ladění](start-mvc/_static/debug_menu.png)
@@ -128,7 +128,7 @@ Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
   ![Stránka domů nebo index](start-mvc/_static/home2.2.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
 
@@ -140,13 +140,13 @@ Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
 
   ![Stránka domů nebo index](start-mvc/_static/home2.2.png)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Pokud chcete spustit aplikaci, vyberte **spustit** > **Spustit bez ladění** . Visual Studio pro Mac spustí [Kestrel](xref:fundamentals/servers/index#kestrel) Server, spustí prohlížeč a přejde na `http://localhost:port`, kde *port* je náhodně zvolené číslo portu.
 
 [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* V adresním řádku se zobrazí `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
+* V adresním řádku se zobrazí `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, pro webový server se použije náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z nabídky **Spustit** .
 
   Následující obrázek znázorňuje aplikaci:
@@ -170,7 +170,7 @@ V další části tohoto kurzu se dozvíte o MVC a začněte psát kód.
 
 V tomto kurzu se naučíte základy vytváření ASP.NET Core webové aplikace MVC.
 
-Aplikace spravuje databázi titulů filmů. Získáte informace o následujících postupech:
+Aplikace spravuje databázi titulů filmů. Získáte informace o těchto tématech:
 
 > [!div class="checklist"]
 > * Vytvořte webovou aplikaci.
@@ -182,24 +182,24 @@ Na konci máte aplikaci, která může spravovat a zobrazovat data filmů.
 
 [!INCLUDE[](~/includes/mvc-intro/download.md)]
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs2019-2.2.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-2.2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-2.2.md)]
 
 ---
 ## <a name="create-a-web-app"></a>Vytvoření webové aplikace
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V aplikaci Visual Studio vyberte **vytvořit nový projekt**.
 
@@ -218,11 +218,11 @@ Na konci máte aplikaci, která může spravovat a zobrazovat data filmů.
 
 Aplikace Visual Studio použila pro projekt MVC, který jste právě vytvořili, výchozí šablonu. Máte funkční aplikaci hned teď zadáním názvu projektu a výběrem několika možností. Toto je základní počáteční projekt a je dobrým místem, kde začít.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Začínáme s vs Code](https://code.visualstudio.com/docs) a [Visual Studio Code nápovědě](#visual-studio-code-help) .
 
-* Otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
+* Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 * Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
 * Spusťte následující příkaz:
 
@@ -236,7 +236,7 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
   * `dotnet new mvc -o MvcMovie`: vytvoří nový projekt ASP.NET Core MVC ve složce *MvcMovie* .
   * `code -r MvcMovie`: načte do Visual Studio Code soubor projektu *MvcMovie. csproj* .
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Vyberte **soubor** > **nové řešení**.
 
@@ -256,14 +256,14 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
 
 ### <a name="run-the-app"></a>Spuštění aplikace
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
 [!INCLUDE[](~/includes/trustCertVS.md)]
 
-* Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Všimněte si, že se v adresním řádku zobrazuje `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port.
-* Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Řada vývojářů dává přednost používání režimu bez ladění, aby mohli aplikaci rychle spustit a podívat se na změny.
+* Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Všimněte si, že se v adresním řádku zobrazuje `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, pro webový server se použije náhodný port.
+* Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použít režim bez ladění pro rychlé spuštění aplikace a zobrazení změn.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z položky nabídky **ladění** :
 
   ![Nabídka ladění](start-mvc/_static/debug_menu.png)
@@ -272,7 +272,7 @@ Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
   ![IIS Express](start-mvc/_static/iis_express.png)
 
-* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](start-mvc/_static/privacy.png)
 
@@ -280,7 +280,7 @@ Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
   ![Stránka domů nebo index](start-mvc/_static/home2.2.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
 
@@ -290,7 +290,7 @@ Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
 
   Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použití režimu bez ladění k aktualizaci stránky a zobrazení změn.
 
-* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](start-mvc/_static/privacy.png)
 
@@ -298,16 +298,16 @@ Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
 
   ![Stránka domů nebo index](start-mvc/_static/home2.2.png)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Pokud chcete spustit aplikaci, vyberte **spustit** > **Spustit bez ladění** . Visual Studio pro Mac spustí [Kestrel](xref:fundamentals/servers/index#kestrel) Server, spustí prohlížeč a přejde na `http://localhost:port`, kde *port* je náhodně zvolené číslo portu.
 
 [!INCLUDE[](~/includes/trustCertMac.md)]
 
-* V adresním řádku se zobrazí `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
+* V adresním řádku se zobrazí `localhost:port#` a ne něco jako `example.com`. Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, pro webový server se použije náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z nabídky **Spustit** .
 
-* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](./start-mvc/_static/output_privacy_macos.png)
 

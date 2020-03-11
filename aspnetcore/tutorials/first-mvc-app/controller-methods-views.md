@@ -6,15 +6,15 @@ ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
 ms.openlocfilehash: 2c442060872ab1d2d79a2e355ae257fdf1005914
-ms.sourcegitcommit: 991442dfb16ef08a0aae05bc79f9e9a2d819c587
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/26/2019
-ms.locfileid: "75492655"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663504"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>Metody a zobrazení kontroleru v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Je dobré začít s aplikací pro video, ale prezentace není ideální, například **ReleaseDate** by měla být dvě slova.
 
@@ -144,7 +144,7 @@ Předtím, než se formulář pošle na server, ověřování na straně klienta
 
 Všechny metody `HttpGet` v kontroleru filmů následují podobně jako vzor. Získají filmový objekt (nebo seznam objektů, v případě `Index`) a předá do zobrazení objekt (model). Metoda `Create` předá prázdný objekt videa do zobrazení `Create`. Všechny metody, které vytvářejí, upravují, odstraňují nebo jinak upravují data, jsou v `[HttpPost]` přetížení metody. Úprava dat v `HTTP GET` metodě je bezpečnostní riziko. Úpravy dat v `HTTP GET` metoda také porušují osvědčené postupy HTTP a model [REST](http://rest.elkstein.org/) architektury, který určuje, že požadavky GET by neměly měnit stav aplikace. Jinými slovy, provádění operace GET by mělo být bezpečná operace, která nemá žádné vedlejší účinky a neupravuje vaše trvalá data.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Globalizace a lokalizace](xref:fundamentals/localization)
 * [Úvod k pomocníkům značek](xref:mvc/views/tag-helpers/intro)

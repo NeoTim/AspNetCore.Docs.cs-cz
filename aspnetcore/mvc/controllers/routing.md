@@ -5,12 +5,12 @@ description: Přečtěte si, jak ASP.NET Core MVC používá middleware směrov�
 ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/controllers/routing
-ms.openlocfilehash: 8cf7e74df292a614f287eff8561a22187f6558ce
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 1116cc699f749a137638b75095a7172ad0d4858a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/10/2020
-ms.locfileid: "75866056"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663721"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování na akce kontroleru v ASP.NET Core
 
@@ -159,7 +159,7 @@ Trasy v kolekci tras jsou seřazené a budou zpracovávány v pořadí, v jakém
 > [!NOTE]
 > *Vyhrazené konvenční trasy* často používají zachycení všech parametrů tras, jako je `{*article}`, k zachycení zbývající části cesty URL. To může vést k tomu, že trasa "je příliš hlade", což znamená, že odpovídá adresám URL, které mají odpovídat jiným trasám. Pokud to chcete vyřešit, umístěte trasy "hladce" do směrovací tabulky později.
 
-### <a name="fallback"></a>Záložní volba
+### <a name="fallback"></a>Nalezení
 
 V rámci zpracování žádosti MVC ověří, že hodnoty trasy lze použít k vyhledání kontroleru a akce v aplikaci. Pokud se hodnoty trasy neshodují s akcí, trasa není považována za shodnou a bude se opakovat další trasa. Označuje se jako *záložní*a je určený pro zjednodušení případů, kdy se konvenční trasy překrývají.
 
@@ -559,7 +559,7 @@ Akce jsou směrovány buď podle konvence nebo směrovaného atributu. Umístěn
 
 ## <a name="complex-segments"></a>Komplexní segmenty
 
-Komplexní segmenty (například `[Route("/dog{token}cat")]`) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Popis najdete [ve zdrojovém kódu](https://github.com/aspnet/Routing/blob/9cea167cfac36cf034dbb780e3f783114ef94780/src/Microsoft.AspNetCore.Routing/Patterns/RoutePatternMatcher.cs#L296) . Další informace najdete v [tomto problému](https://github.com/aspnet/AspNetCore.Docs/issues/8197).
+Komplexní segmenty (například `[Route("/dog{token}cat")]`) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Popis najdete [ve zdrojovém kódu](https://github.com/aspnet/Routing/blob/9cea167cfac36cf034dbb780e3f783114ef94780/src/Microsoft.AspNetCore.Routing/Patterns/RoutePatternMatcher.cs#L296) . Další informace najdete v [tomto problému](https://github.com/dotnet/AspNetCore.Docs/issues/8197).
 
 <a name="routing-url-gen-ref-label"></a>
 
@@ -597,7 +597,7 @@ MVC vytvoří vyhledávací tabulku všech akcí směrovaného atributu a bude o
 
 ### <a name="generating-urls-by-action-name"></a>Generování adres URL podle názvu akce
 
-`Url.Action` (`IUrlHelper` . `Action`) a všechna související přetížení jsou založena na této myšlence, se kterou chcete určit, k čemu se odkazuje, zadáním názvu kontroleru a názvu akce.
+`Url.Action` (`IUrlHelper`. `Action`) a všechna související přetížení jsou založena na této myšlence, se kterou chcete určit, k čemu se odkazuje, zadáním názvu kontroleru a názvu akce.
 
 > [!NOTE]
 > Při použití `Url.Action`jsou aktuální hodnoty trasy pro `controller` a `action` určené pro vás – hodnota `controller` a `action` jsou součástí obou *okolních hodnot* **a** *hodnot*. Metoda `Url.Action`, vždy používá aktuální hodnoty `action` a `controller` a vygeneruje cestu URL, která bude směrovat na aktuální akci.

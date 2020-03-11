@@ -1,26 +1,26 @@
 ---
-title: Formát ukládání klíčů v ASP.NET Core
+title: Formát úložiště klíčů v ASP.NET Core
 author: rick-anderson
-description: Přečtěte si podrobnosti implementace formát ukládání klíčů ochranu dat ASP.NET Core.
+description: Přečtěte si podrobnosti o implementaci formátu úložiště klíčů pro ASP.NET Core Data Protection.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/key-storage-format
 ms.openlocfilehash: 81df124f3dd0cadf8fd895ab55f66eec6415705f
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903054"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667753"
 ---
-# <a name="key-storage-format-in-aspnet-core"></a>Formát ukládání klíčů v ASP.NET Core
+# <a name="key-storage-format-in-aspnet-core"></a>Formát úložiště klíčů v ASP.NET Core
 
 <a name="data-protection-implementation-key-storage-format"></a>
 
-Objekty jsou uložené neaktivní v reprezentaci XML. Výchozí adresář pro úložiště klíčů je % LOCALAPPDATA%\ASP.NET\DataProtection-Keys\.
+Objekty jsou uloženy v klidovém vyjádření v XML. Výchozím adresářem pro úložiště klíčů je%LOCALAPPDATA%\ASP.NET\DataProtection-Keys\.
 
-## <a name="the-key-element"></a>\<Klíč > – element
+## <a name="the-key-element"></a>\<klíč > elementu
 
-Kódů jako objektů nejvyšší úrovně v úložišti klíčů. Podle konvence klíče mají název souboru **key-{guid} .xml**, kde je identifikátor klíče {guid}. Každý takový soubor obsahuje jeden klíč. Formát souboru je následující.
+Klíče existují jako objekty nejvyšší úrovně v úložišti klíčů. Podle klíčů konvence mají klíč názvu souboru **{GUID}. XML**, kde {GUID} je ID klíče. Každý takový soubor obsahuje jeden klíč. Formát souboru je následující.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -43,35 +43,35 @@ Kódů jako objektů nejvyšší úrovně v úložišti klíčů. Podle konvence
 </key>
 ```
 
-\<Klíč > prvek obsahuje následující atributy a podřízené prvky:
+> Prvek \<Key obsahuje následující atributy a podřízené prvky:
 
-* Id klíče. Tato hodnota je zpracováván jako autoritativní; Název souboru je jednoduše nicety pro lidské čitelnost.
+* ID klíče Tato hodnota je považována za autoritativní; název souboru je jednoduše Nicety pro lidské čitelnost.
 
-* Verze \<klíč > element, momentálně pevně nastavena na 1.
+* Verze \<klíč > elementu, v současné době opravena na 1.
 
-* Vytváření, aktivace a datum vypršení platnosti klíče.
+* Datum vytvoření, aktivace a vypršení platnosti klíče.
 
-* A \<popisovač > element, který obsahuje informace o používání ověřeného šifrování obsažené v rámci tohoto klíče.
+* > Prvek deskriptoru \<, který obsahuje informace o ověřované implementaci šifrování obsažené v tomto klíči.
 
-V příkladu výše id klíče je {80732141-ec8f-4b80-af9c-c4d2d1ff8901}, byla vytvořena a aktivovat 19. března 2015, a má dobu platnosti 90 dnů. (Někdy datum aktivace může být mírně před datum vytvoření jako v následujícím příkladu. Toto je z důvodu nit jak rozhraní API pro práci a je neškodný v praxi.)
+V předchozím příkladu je ID klíče {80732141-ec8f-4b80-af9c-c4d2d1ff8901}, bylo vytvořeno a aktivováno 19. března 2015 a má dobu životnosti 90 dní. (Někdy může být datum aktivace mírně dřívější než datum vytvoření jako v tomto příkladu. Důvodem je puntičkářské, jak rozhraní API fungují a jsou v praxi neškodné.)
 
-## <a name="the-descriptor-element"></a>\<Popisovač > – element
+## <a name="the-descriptor-element"></a>> Element deskriptoru \<
 
-Vnější \<popisovač > prvku obsahuje atribut deserializerType, což je název kvalifikovaný pro sestavení typu, který implementuje IAuthenticatedEncryptorDescriptorDeserializer. Tento typ je zodpovědný za čtení vnitřní \<popisovač > elementu a k analýze informací obsažených v rámci.
+Vnější \<deskriptor > obsahuje atribut deserializerType, který je kvalifikovaný název sestavení typu, který implementuje IAuthenticatedEncryptorDescriptorDeserializer. Tento typ zodpovídá za čtení prvku > deskriptoru vnitřní \<a k analýze informací obsažených v rámci.
 
-Konkrétní formát \<popisovač > element závisí na implementaci ověřeného šifrování zapouzdřené pomocí klíče a jednotlivých Převodník typů očekává, že trochu jiný formát pro toto. Obecně platí, ale tento element bude obsahovat vylepšením informace (názvy, typy, identifikátory OID, nebo podobné) a tajné klíče. V příkladu výše popisovač určuje, že zabalí tento klíč AES-256-CBC šifrování + ověřování HMACSHA256.
+Konkrétní formát > elementu deskriptoru \<závisí na implementaci ověřovaného šifrování zapouzdřenou klíčem a každý typ deserializace očekává mírně odlišný formát. Obecně platí, že tento prvek bude obsahovat informace o algoritmech (názvy, typy, OID nebo podobné) a materiál tajného klíče. V předchozím příkladu popisovač určuje, že tento klíč obtéká AES-256-CBC Encryption + HMACSHA256 ověření.
 
-## <a name="the-encryptedsecret-element"></a>\<EncryptedSecret > – element
+## <a name="the-encryptedsecret-element"></a>Element \<encryptedSecret >
 
-**&lt;EncryptedSecret&gt;** element, který obsahuje zašifrované formě tajného klíče může být k dispozici Pokud [je povolené šifrování tajných klíčů v klidovém stavu](xref:security/data-protection/implementation/key-encryption-at-rest). Atribut `decryptorType` je název kvalifikovaný pro sestavení typu, který implementuje [IXmlDecryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmldecryptor). Tento typ je zodpovědný za čtení vnitřní **&lt;encryptedKey&gt;** elementu a dešifruje je obnovit původní ve formátu prostého textu.
+Pokud [je povolená šifrování tajných klíčů v klidovém](xref:security/data-protection/implementation/key-encryption-at-rest)stavu, může se **&lt;encryptedSecret&gt;** prvek, který obsahuje šifrovaný tvar materiálu tajného klíče. Atribut `decryptorType` je kvalifikovaný název sestavení typu, který implementuje [IXmlDecryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmldecryptor). Tento typ zodpovídá za čtení vnitřního&lt;prvku **&gt;EncryptedKey** a jeho dešifrování za účelem obnovení původního prostého textu.
 
-Stejně jako u `<descriptor>`, konkrétní formát `<encryptedSecret>` element závisí mechanismus šifrování v klidovém stavu používá. Ve výše uvedeném příkladu se hlavní klíč šifrují pomocí rozhraní Windows DPAPI za komentář.
+Stejně jako u `<descriptor>`závisí konkrétní formát `<encryptedSecret>` elementu na použití šifrovacího mechanismu standardu REST. V předchozím příkladu je hlavní klíč zašifrovaný pomocí rozhraní Windows DPAPI na komentář.
 
-## <a name="the-revocation-element"></a>\<Odvolání > – element
+## <a name="the-revocation-element"></a>Element > odvolání \<
 
-Zrušení existovat jako objektů nejvyšší úrovně v úložišti klíčů. Podle konvence mají řetězům název souboru **odvolání-{časové razítko} .xml** (pro odvolání všechny klíče do určitého data) nebo **odvolání-{guid} .xml** (pro odvolání určitého klíče). Každý soubor obsahuje jediný \<odvolání > element.
+Odvolání existují v úložišti klíčů jako objekty nejvyšší úrovně. Zrušením konvence mají odvolání názvu souboru **{timestamp}. XML** (pro odvolání všech klíčů před konkrétním datem) nebo **odvolání-{GUID}. XML** (pro odvolání konkrétního klíče). Každý soubor obsahuje jediný \<> elementu odvolání.
 
-Pro zrušení jednotlivé klíče, bude obsah souboru níže.
+U odvolání jednotlivých klíčů bude obsah souboru uvedený níže.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -82,7 +82,7 @@ Pro zrušení jednotlivé klíče, bude obsah souboru níže.
 </revocation>
 ```
 
-V takovém případě se zrušil pouze se zadaným klíčem. Pokud je id klíče "*", ale stejně jako v následujícím příkladu jsou všechny klíče, jejichž datum je před datem zadaným odvolání odvolán.
+V tomto případě se odvolá jenom zadaný klíč. Pokud je ID klíče "*", ale jak je uvedeno v následujícím příkladu, všechny klíče, jejichž datum vytvoření je před zadaným datem odvolání, jsou odvolány.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -94,4 +94,4 @@ V takovém případě se zrušil pouze se zadaným klíčem. Pokud je id klíče
 </revocation>
 ```
 
-\<Důvod > element se vůbec nečte v systému. Jednoduše praktické místo k uložení čitelné důvod odvolání je.
+\<důvod > elementu není nikdy čten systémem. Je to prostě vhodné místo pro ukládání snadno čitelných důvodů pro odvolání.

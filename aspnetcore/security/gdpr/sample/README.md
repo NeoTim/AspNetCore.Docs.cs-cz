@@ -1,6 +1,6 @@
 # <a name="gdpr-sample"></a>Ukázka GDPR
 
-* V *appsettings.json*, nastavte `CheckNotConsentNeeded` k `false` vyžadovat souhlas; v opačném případě nastavte na hodnotu true nebo vynechejte. Testování aplikace s `CheckNotConsentNeeded` nastavena na `false` a nastavte na `true`.
-* Vytvoření základní a které není nezbytné soubory cookie s každou změnu `CheckConsentNeeded` a udělit souhlas.
-* Registrace uživatele.
-* Odstranění souborů cookie.
+* V souboru *appSettings. JSON*nastavte `CheckNotConsentNeeded` `false` tak, aby vyžadoval souhlas; jinak nastavte na hodnotu true nebo vynechat. Otestujte aplikaci s `CheckNotConsentNeeded` nastavenou na `false` a nastavte na `true`.
+* Vytvářejte základní a nepostradateln soubory cookie s každou variací `CheckConsentNeeded` a uděleného souhlasu.
+* Zaregistrujte uživatele.
+* Odstraňte soubory cookie.

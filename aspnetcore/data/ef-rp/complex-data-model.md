@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/complex-data-model
-ms.openlocfilehash: 411c0874d2b2c6ecadd1da9aff7a093f1e8e525a
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 1d81a0444487c6396bb32381ed2cb26d44312c3a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213425"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665716"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---data-model---5-of-8"></a>Razor Pages s EF Core v ASP.NET Core-datový model 5 z 8
 
@@ -99,7 +99,7 @@ Atribut `StringLength` nebrání uživateli v zadání prázdného místa pro n�
 [RegularExpression(@"^[A-Z]+[a-zA-Z""'\s-]*$")]
 ```
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V **Průzkumník objektů systému SQL Server** (SSOX) otevřete Návrhář tabulky student dvojitým kliknutím na tabulku **student** .
 
@@ -107,7 +107,7 @@ V **Průzkumník objektů systému SQL Server** (SSOX) otevřete Návrhář tabu
 
 Na předchozím obrázku je znázorněno schéma `Student` tabulky. Pole název mají typ `nvarchar(MAX)`. Když se vytvoří migrace a použije se později v tomto kurzu, pole název se stanou `nvarchar(50)` v důsledku atributů délky řetězce.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 V nástroji SQLite si Projděte definice sloupců `Student` tabulce. Pole název mají typ `Text`. Všimněte si, že pole jméno se nazývá `FirstMidName`. V další části změníte název tohoto sloupce na `FirstName`.
 
@@ -157,7 +157,7 @@ Atribut `Display` určuje, že titulek pro textová pole by měl být "jméno", 
 
 Spusťte aplikaci a pokračujte na stránku students. Je vyvolána výjimka. Atribut `[Column]` způsobuje, že EF očekává, že najde sloupec s názvem `FirstName`, ale název sloupce v databázi je stále `FirstMidName`.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Chybová zpráva je podobná následujícímu příkladu:
 
@@ -187,7 +187,7 @@ SqlException: Invalid column name 'FirstName'.
 
   Před použitím migrace byly sloupce názvu typu [nvarchar (max)](/sql/t-sql/data-types/nchar-and-nvarchar-transact-sql). Sloupce s názvem jsou nyní `nvarchar(50)`. Název sloupce se změnil z `FirstMidName` na `FirstName`.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Chybová zpráva je podobná následujícímu příkladu:
 
@@ -536,7 +536,7 @@ Předchozí kód poskytuje počáteční data pro nové entity. Většina tohoto
 
 Sestavte projekt.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V PMC spusťte následující příkaz.
 
@@ -561,7 +561,7 @@ database "ContosoUniversity", table "dbo.Department", column 'DepartmentID'.
 
 V další části se dozvíte, co dělat s touto chybou.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Pokud přidáte migraci a spustíte příkaz `database update`, vytvoří se následující chyba:
 
@@ -591,7 +591,7 @@ Jedna volba funguje pro SQL Server. I když je metoda Apply složitější a ča
 
 Chcete-li vynutit EF Core vytvoření nové databáze, vyřaďte a aktualizujte databázi:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V **konzole správce balíčků** (PMC) spusťte následující příkaz:
 
@@ -606,7 +606,7 @@ Chcete-li vynutit EF Core vytvoření nové databáze, vyřaďte a aktualizujte 
   Update-Database
   ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Otevřete příkazové okno a přejděte do složky projektu. Složka projektu obsahuje soubor *ContosoUniversity. csproj* .
 
@@ -627,7 +627,7 @@ Chcete-li vynutit EF Core vytvoření nové databáze, vyřaďte a aktualizujte 
 
 Spusťte aplikaci. Spuštění aplikace spustí metodu `DbInitializer.Initialize`. `DbInitializer.Initialize` naplní novou databázi.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Otevřete databázi v SSOX:
 
@@ -643,7 +643,7 @@ Otevřete databázi v SSOX:
 
   ![Data CourseAssignment v SSOX](complex-data-model/_static/ssox-ci-data.png)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Použijte nástroj SQLite k prohlédnutí databáze:
 
@@ -691,7 +691,7 @@ Pro účely tohoto kurzu je zjednodušený způsob zpracování situace, kterou 
 * Zahrnout kód nebo skripty pro přidání `Department` řádků a souvisejících `Course` řádků do nových `Department` řádků.
 * Nepoužívejte oddělení "dočasné" nebo výchozí hodnotu pro `Course.DepartmentID`.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V **konzole správce balíčků** (PMC) spusťte následující příkaz:
 
@@ -701,7 +701,7 @@ Pro účely tohoto kurzu je zjednodušený způsob zpracování situace, kterou 
 
 Vzhledem k tomu, že metoda `DbInitializer.Initialize` je navržena tak, aby fungovala pouze s prázdnou databází, použijte SSOX k odstranění všech řádků v tabulkách student a Course. (Kaskádová odstranění se postará o tabulku zápisu.)
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Pokud používáte SQL Server LocalDB s Visual Studio Code, spusťte následující příkaz:
 
@@ -735,7 +735,7 @@ Třídy entit pro dokončený datový model jsou znázorněny na následujícím
 ![Diagram entit](complex-data-model/_static/diagram.png)
 
 Pokud narazíte na problémy, které nemůžete vyřešit, stáhněte [dokončenou aplikaci](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
+https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
 
 ## <a name="customize-the-data-model-with-attributes"></a>Přizpůsobení datového modelu pomocí atributů
 
@@ -830,14 +830,14 @@ Aktualizace databáze:
 * Sestavte projekt.
 * Otevřete okno příkazového řádku ve složce projektu. Zadáním následujících příkazů vytvořte novou migraci a aktualizujte databázi:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ```powershell
 Add-Migration ColumnFirstName
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations add ColumnFirstName
@@ -1244,13 +1244,13 @@ Předchozí kód poskytuje počáteční data pro nové entity. Většina tohoto
 
 Sestavte projekt.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ```powershell
 Add-Migration ComplexDataModel
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations add ComplexDataModel
@@ -1286,7 +1286,7 @@ Teď, když máte existující databázi, musíte si představit, jak v nich pou
 
 Kód v aktualizované `DbInitializer` přidá počáteční data pro nové entity. Pokud chcete vynutit EF Core vytvoření nové databáze, vyřaďte a aktualizujte databázi:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V **konzole správce balíčků** (PMC) spusťte následující příkaz:
 
@@ -1297,7 +1297,7 @@ Update-Database
 
 Pokud chcete získat informace o nápovědě, spusťte `Get-Help about_EntityFrameworkCore` z PMC.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Otevřete příkazové okno a přejděte do složky projektu. Složka projektu obsahuje soubor *Startup.cs* .
 
@@ -1367,7 +1367,7 @@ Produkční aplikace by:
 
 Další kurz se zabývá souvisejícími daty.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze tohoto kurzu pro YouTube (část 1)](https://www.youtube.com/watch?v=0n2f0ObgCoA)
 * [Verze tohoto kurzu pro YouTube (část 2)](https://www.youtube.com/watch?v=Je0Z5K1TNmY)

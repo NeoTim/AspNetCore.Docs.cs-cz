@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/23/2019
 uid: security/authentication/identity-custom-storage-providers
-ms.openlocfilehash: 70951085474d88fd57f1b1496a41adcda520b91f
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 574e66e4dedaf0bfd01d600c3ded4bfb5d1865cd
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829150"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664477"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>Vlastní poskytovatelé úložiště pro ASP.NET Core identity
 
@@ -19,7 +19,7 @@ ms.locfileid: "75829150"
 
 ASP.NET Core identity je rozšiřitelný systém, který umožňuje vytvořit vlastního poskytovatele úložiště a připojit ho k aplikaci. Toto téma popisuje, jak vytvořit přizpůsobeného poskytovatele úložiště pro ASP.NET Core identitu. Popisuje důležité koncepty pro vytváření vlastního poskytovatele úložiště, ale není to podrobný návod.
 
-[Zobrazení nebo stažení ukázky z GitHubu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample).
+[Zobrazení nebo stažení ukázky z GitHubu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample).
 
 ## <a name="introduction"></a>Úvod
 
@@ -138,7 +138,7 @@ Vytvořte třídu `UserStore`, která poskytuje metody pro všechny operace s da
 * [IUserTwoFactorStore](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactorstore-1)
 * [IUserLockoutStore](/dotnet/api/microsoft.aspnetcore.identity.iuserlockoutstore-1)
 
-Volitelná rozhraní dědí od `IUserStore<TUser>`. V [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)uvidíte částečně implementované úložiště ukázkových uživatelů.
+Volitelná rozhraní dědí od `IUserStore<TUser>`. V [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/security/authentication/identity-custom-storage-providers/sample/CustomIdentityProviderSample/CustomProvider/CustomUserStore.cs)uvidíte částečně implementované úložiště ukázkových uživatelů.
 
 V rámci třídy `UserStore` používáte třídy pro přístup k datům, které jste vytvořili k provádění operací. Tyto jsou předány pomocí injektáže závislostí. Například v SQL Server s implementací Dapperem má třída `UserStore` metodu `CreateAsync`, která používá instanci `DapperUsersTable` k vložení nového záznamu:
 
@@ -235,7 +235,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="references"></a>Reference
+## <a name="references"></a>Odkazy
 
 * [Vlastní poskytovatelé úložiště pro identitu ASP.NET 4. x](/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity)
 * [ASP.NET Core Identity](https://github.com/dotnet/AspNetCore/tree/master/src/Identity) &ndash; toto úložiště obsahuje odkazy na spravované poskytovatele obchodů v komunitě.

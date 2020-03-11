@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 4/05/2019
 uid: test/loadtests
 ms.openlocfilehash: 1fd77a767fb53b9276081dd712e13108094a0382
-ms.sourcegitcommit: cb6015f737b6a93127016ab0f21b58e34b624ff3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/04/2020
-ms.locfileid: "77004289"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664687"
 ---
 # <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core zátěžové nebo zátěžové testování
 

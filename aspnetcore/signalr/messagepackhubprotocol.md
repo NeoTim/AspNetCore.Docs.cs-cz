@@ -10,11 +10,11 @@ no-loc:
 - SignalR
 uid: signalr/messagepackhubprotocol
 ms.openlocfilehash: 3c2a4285945d3fdc6bba195e3160da8b9dcbba44
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928178"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666563"
 ---
 # <a name="use-messagepack-hub-protocol-in-opno-locsignalr-for-aspnet-core"></a>Použijte protokol MessagePack hub v SignalR pro ASP.NET Core
 
@@ -213,4 +213,4 @@ Další informace o tomto omezení najdete v tématu věnovaném problému GitHu
 
 * [Začínáme](xref:tutorials/signalr)
 * [Klient .NET](xref:signalr/dotnet-client)
-* [Klient JavaScriptu](xref:signalr/javascript-client)
+* [Javascriptový klient](xref:signalr/javascript-client)

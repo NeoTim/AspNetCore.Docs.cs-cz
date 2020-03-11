@@ -9,12 +9,12 @@ ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 4b27d9abb36938ed8161ff0d3535204e3fa68765
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: f92b56132d0fa55665568416d0760430cb698f8b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294708"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78668145"
 ---
 # <a name="security-considerations-in-aspnet-core-opno-locsignalr"></a>Požadavky na zabezpečení v ASP.NET Core SignalR
 
@@ -42,7 +42,7 @@ Další informace o konfiguraci CORS najdete v tématu [povolení požadavků me
 However, in 5.0 we have provided an option in the TypeScript client to not use credentials.
 The not to use credentials option should only be used when you know 100% that credentials like Cookies are not needed in your app (cookies are used by azure app service when using multiple servers)
 
-For more info, see https://github.com/aspnet/AspNetCore.Docs/issues/16003
+For more info, see https://github.com/dotnet/AspNetCore.Docs/issues/16003
 .-->
 
 Následující zásada CORS například umožňuje klientovi SignalR, který je hostovaný na `https://example.com` pro přístup k aplikaci SignalR hostované v `https://signalr.example.com`:

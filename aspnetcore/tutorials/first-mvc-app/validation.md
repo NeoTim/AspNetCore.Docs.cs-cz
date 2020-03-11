@@ -6,15 +6,15 @@ ms.author: riande
 ms.date: 04/13/2017
 uid: tutorials/first-mvc-app/validation
 ms.openlocfilehash: 2bb4ed173d154e3b7457ce3f8009f0f9406e36c4
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334079"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661964"
 ---
 # <a name="add-validation-to-an-aspnet-core-mvc-app"></a>Přidání ověřování do ASP.NET Core aplikace MVC
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V této části:
 
@@ -119,7 +119,7 @@ Následující kód ukazuje kombinování atributů na jednom řádku:
 
 V další části této série si projdeme aplikaci a provedeme některá vylepšení automaticky generovaných `Details` a `Delete`ch metod.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Práce s formuláři](xref:mvc/views/working-with-forms)
 * [Globalizace a lokalizace](xref:fundamentals/localization)

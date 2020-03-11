@@ -7,15 +7,15 @@ ms.custom: H1Hack27Feb2017
 ms.date: 03/18/2019
 uid: mvc/views/tag-helpers/intro
 ms.openlocfilehash: 15f94fd1c619e9f69c5783f664eafc9ca28f86f9
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239861"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661628"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>Tagování pomocníků v ASP.NET Core
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ## <a name="what-are-tag-helpers"></a>Co jsou pomocníky značek
 
@@ -267,7 +267,7 @@ Písma a barvy můžete přizpůsobit pomocí **nástrojů** > **možností** > 
 
 [!INCLUDE[](~/includes/built-in-TH.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další zdroje
 
 * [Vytváření pomocníků se značkami](xref:mvc/views/tag-helpers/authoring)
 * [Práce s formuláři](xref:mvc/views/working-with-forms)

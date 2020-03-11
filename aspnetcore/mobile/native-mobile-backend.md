@@ -5,12 +5,12 @@ description: Naučte se vytvářet služby back-endu pomocí ASP.NET Core MVC k 
 ms.author: riande
 ms.date: 12/05/2019
 uid: mobile/native-mobile-backend
-ms.openlocfilehash: 38ac69bfe9d99d6d61f96fde92d86fd752ebbb6b
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: dcd0a29af197ff0ca210c17bdff62b802219fb2d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881151"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664582"
 ---
 # <a name="create-backend-services-for-native-mobile-apps-with-aspnet-core"></a>Vytváření back-end služeb pro nativní mobilní aplikace s ASP.NET Core
 
@@ -18,7 +18,7 @@ ms.locfileid: "74881151"
 
 Mobilní aplikace můžou komunikovat s ASP.NET Core službami back-endu. Pokyny k připojení místních webových služeb od simulátorů iOS a emulátorů Androidu najdete v tématu [připojení k místním webovým službám z simulátorů iOS a emulátorů Androidu](/xamarin/cross-platform/deploy-test/connect-to-local-web-services).
 
-[Zobrazit nebo stáhnout ukázkový kód back-end služeb](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample)
+[Zobrazit nebo stáhnout ukázkový kód back-end služeb](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mobile/native-mobile-backend/sample)
 
 ## <a name="the-sample-native-mobile-app"></a>Ukázková nativní mobilní aplikace
 
@@ -152,6 +152,6 @@ Při vývoji back-end služeb pro vaši aplikaci budete chtít vytvořit s konzi
 
 Jakmile zjistíte společné zásady pro vaše rozhraní API, můžete je obvykle zapouzdřit ve [filtru](../mvc/controllers/filters.md). Přečtěte si další informace o [tom, jak zapouzdřit společné zásady rozhraní API v aplikacích ASP.NET Core MVC](https://msdn.microsoft.com/magazine/mt767699.aspx).
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Ověřování a autorizace](/xamarin/xamarin-forms/enterprise-application-patterns/authentication-and-authorization)

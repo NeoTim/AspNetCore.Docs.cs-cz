@@ -9,26 +9,26 @@ ms.date: 01/14/2020
 no-loc:
 - SignalR
 uid: signalr/dotnet-client
-ms.openlocfilehash: 39d9eccdb1e0457b177e75e6f94f3dd185b0093d
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: a9583c9d6df52ff81a402df03e663ccc3847e51f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146313"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660039"
 ---
-# <a name="aspnet-core-opno-locsignalr-net-client"></a>Klient rozhraní ASP.NET Core SignalR .NET
+# <a name="aspnet-core-signalr-net-client"></a>Klient .NET pro signalizaci ASP.NET Core
 
-Klientská knihovna ASP.NET Core SignalR .NET umožňuje komunikaci s SignalRmi rozbočovači z aplikací .NET.
+Klientská knihovna .NET pro signalizaci ASP.NET Core umožňuje komunikaci s centry signalizace z aplikací .NET.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Ukázka kódu v tomto článku je aplikace WPF, která používá klienta ASP.NET Core SignalR .NET.
+Ukázka kódu v tomto článku je aplikace WPF, která používá klienta .NET ASP.NET Coreového signalizace.
 
-## <a name="install-the-opno-locsignalr-net-client-package"></a>Instalace balíčku klienta SignalR .NET
+## <a name="install-the-signalr-net-client-package"></a>Instalace balíčku klienta rozhraní .NET pro signál
 
-[Microsoft.AspNetCore.SignalR.](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client)Pro klienty rozhraní .NET se vyžaduje balíček klienta, aby se mohl připojit k rozbočovačům SignalR.
+Pro klienty rozhraní .NET se vyžaduje balíček [Microsoft. AspNetCore. Signal. Client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client) , aby se mohl připojit k rozbočovačům pro signály.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Chcete-li nainstalovat knihovnu klienta, spusťte následující příkaz v okně **konzoly Správce balíčků** :
 
@@ -36,7 +36,7 @@ Chcete-li nainstalovat knihovnu klienta, spusťte následující příkaz v okn�
 Install-Package Microsoft.AspNetCore.SignalR.Client
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Knihovnu klienta nainstalujete spuštěním následujícího příkazu v příkazovém prostředí:
 
@@ -256,9 +256,9 @@ Zpracování chyb pomocí příkazu try-catch. Zkontrolujte objekt `Exception` a
 
 [!code-csharp[Logging](dotnet-client/sample/signalrchatclient/MainWindow.xaml.cs?name=snippet_ErrorHandling)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Centra](xref:signalr/hubs)
-* [Klient JavaScriptu](xref:signalr/javascript-client)
+* [Javascriptový klient](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
 * [Dokumentace k serveru služby Azure SignalR bez serveru](/azure/azure-signalr/signalr-concept-serverless-development-config)

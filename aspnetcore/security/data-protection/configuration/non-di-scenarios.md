@@ -1,34 +1,34 @@
 ---
-title: Scénáře Nevyužívající injektáž pro ochranu dat v ASP.NET Core
+title: Scénáře, které se nepoužívají při ochraně dat v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak podporovat scénáře ochrany dat, kde nemůžete nebo nechcete použít službu poskytuje vkládání závislostí.
+description: Naučte se podporovat scénáře ochrany dat, kde nemůžete nebo nechcete používat službu poskytovanou vkládáním závislostí.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/configuration/non-di-scenarios
 ms.openlocfilehash: 62280a9f911b003383cbe348b9b62942766a2b99
-ms.sourcegitcommit: f5762967df3be8b8c868229e679301f2f7954679
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/13/2019
-ms.locfileid: "67048224"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666234"
 ---
-# <a name="non-di-aware-scenarios-for-data-protection-in-aspnet-core"></a>Scénáře Nevyužívající injektáž pro ochranu dat v ASP.NET Core
+# <a name="non-di-aware-scenarios-for-data-protection-in-aspnet-core"></a>Scénáře, které se nepoužívají při ochraně dat v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Systém ochrany dat ASP.NET Core je obvykle [služby kontejneru přidá](xref:security/data-protection/consumer-apis/overview) a spotřebovávány závislé součásti prostřednictvím injektáž závislostí (DI). Existují však případy, kdy to není proveditelné nebo žádoucí, zejména v případě, že import systému do stávající aplikace.
+ASP.NET Core systému ochrany dat se obvykle [přidávají do kontejneru služby](xref:security/data-protection/consumer-apis/overview) a využívají závislé komponenty přes vkládání závislostí (di). Existují však případy, kdy to není proveditelné nebo požadované, zejména při importu systému do existující aplikace.
 
-Pro podporu těchto scénářů [Microsoft.AspNetCore.DataProtection.Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) balíček poskytuje konkrétního typu implementujícího typ [DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider), který nabízí jednoduchý způsob, jak používat ochranu dat bez nutnosti spoléhat se na DI. `DataProtectionProvider` Typ implementuje [IDataProtectionProvider](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionprovider). Vytváření `DataProtectionProvider` vyžaduje pouze poskytnutí [DirectoryInfo](/dotnet/api/system.io.directoryinfo) instance k označení, kde by měla být uložena poskytovatele kryptografických klíčů, jak je znázorněno v následujícím příkladu kódu:
+Pro podporu těchto scénářů poskytuje balíček [Microsoft. AspNetCore. DataProtection. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) konkrétní typ, [DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider), který nabízí jednoduchý způsob použití ochrany dat bez spoléhání na di. Typ `DataProtectionProvider` implementuje [IDataProtectionProvider](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotectionprovider). Sestavování `DataProtectionProvider` vyžaduje pouze zadání instance [DirectoryInfo](/dotnet/api/system.io.directoryinfo) , která označuje, kde by měly být uloženy kryptografické klíče poskytovatele, jak je vidět v následující ukázce kódu:
 
 [!code-csharp[](non-di-scenarios/_static/nodisample1.cs)]
 
-Ve výchozím nastavení `DataProtectionProvider` konkrétní typ nešifruje nezpracované klíče před uložením do systému souborů. Toto je pro zajištění podpory scénářů, kdy vývojář odkazuje na sdílené síťové složky a ochrana dat systému se nedá odvodit automaticky mechanismus odpovídající klidové šifrování pomocí klíče.
+Ve výchozím nastavení `DataProtectionProvider` konkrétní typ nešifruje obsah nezpracovaného klíče před tím, než je uchovává v systému souborů. To je podpora scénářů, ve kterých vývojář odkazuje na sdílenou síťovou složku a systém ochrany dat, nemůže automaticky odvodit vhodný mechanismus šifrování klíčů.
 
-Kromě toho `DataProtectionProvider` není konkrétní typ [izolování aplikací](xref:security/data-protection/configuration/overview#per-application-isolation) ve výchozím nastavení. Všechny aplikace pomocí stejného klíče adresáře může sdílet několik datových částí pro co nejdelší jejich [účel parametry](xref:security/data-protection/consumer-apis/purpose-strings) shodovat.
+Navíc konkrétní typ `DataProtectionProvider` [neizoluje aplikace](xref:security/data-protection/configuration/overview#per-application-isolation) ve výchozím nastavení. Všechny aplikace, které používají stejný adresář klíčů, můžou sdílet datové části, pokud odpovídají jejich [parametry účelu](xref:security/data-protection/consumer-apis/purpose-strings) .
 
-[DataProtectionProvider](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionprovider) konstruktor přijímá volitelné konfigurace zpětného volání, který lze použít k úpravě chování systému. Následující ukázka demonstruje obnovení izolace pomocí explicitní volání konstruktoru [SetApplicationName](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.setapplicationname). Vzorek ukazuje také konfigurace systému k automatickému šifrování trvalý klíče pomocí rozhraní Windows DPAPI. Pokud adresáři odkazuje na sdílenou jednotku UNC, můžete k distribuci certifikát sdílené ve všech příslušných počítačích a ke konfiguraci systému pomocí šifrování na základě certifikátů volání [ProtectKeysWithCertificate](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithcertificate).
+Konstruktor [DataProtectionProvider](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionprovider) přijímá nepovinné zpětné volání konfigurace, které lze použít k úpravě chování systému. Následující ukázka ukazuje obnovení izolace explicitním voláním metody [SetApplicationName](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.setapplicationname). Ukázka také ukazuje, jak nakonfigurovat systém tak, aby automaticky zašifroval trvalé klíče pomocí rozhraní Windows DPAPI. Pokud adresář odkazuje na sdílenou složku UNC, můžete chtít distribuovat sdílený certifikát napříč všemi relevantními počítači a nakonfigurovat systém tak, aby používal šifrování založené na certifikátech s voláním [ProtectKeysWithCertificate](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithcertificate).
 
 [!code-csharp[](non-di-scenarios/_static/nodisample2.cs)]
 
 > [!TIP]
-> Instance `DataProtectionProvider` konkrétní typ je jejich vytvoření náročné. Pokud aplikace udržuje více instancí tohoto typu, a pokud se pomocí stejného adresáře úložiště klíčů, může dojít ke snížení výkonu aplikace. Pokud používáte `DataProtectionProvider` typ, doporučujeme tento typ je vytvořit jednou a znovu použít co největší míře. `DataProtectionProvider` Typ a všechny [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) instance vytvořených z ní jsou bezpečné pro vlákna pro více volání.
+> Instance konkrétního typu `DataProtectionProvider` jsou nákladné pro vytvoření. Pokud aplikace zachovává více instancí tohoto typu a pokud všechny používají stejný adresář úložiště klíčů, může dojít ke snížení výkonu aplikace. Pokud používáte typ `DataProtectionProvider`, doporučujeme vytvořit tento typ pouze jednou a znovu ho použít, aby co nejvíc bylo možné. Typ `DataProtectionProvider` a všechny instance [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector) vytvořené z něho jsou bezpečné pro přístup z více vláken pro více volajících.

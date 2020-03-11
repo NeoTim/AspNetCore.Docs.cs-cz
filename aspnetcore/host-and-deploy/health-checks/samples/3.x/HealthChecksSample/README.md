@@ -2,7 +2,7 @@
 
 Tato ukázka znázorňuje použití middlewaru a služeb kontroly stavu. Tato ukázka předvádí Scénář popsaný v části [kontroly stavu v ASP.NET Core](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks) tématu.
 
-Chcete-li spustit ukázkovou aplikaci pro scénář popsaný v tématu, použijte příkaz [dotnet Run](https://docs.microsoft.com/dotnet/core/tools/dotnet-run) ze složky projektu v příkazovém prostředí. Předejte přepínač pro scénář, který zkoumáte. Aplikace se nastaví na `basic` výchozí konfiguraci, když přepínač není k `dotnet run`dispozici.
+Chcete-li spustit ukázkovou aplikaci pro scénář popsaný v tématu, použijte příkaz [dotnet Run](https://docs.microsoft.com/dotnet/core/tools/dotnet-run) ze složky projektu v příkazovém prostředí. Předejte přepínač pro scénář, který zkoumáte. Aplikace se nastaví na výchozí konfiguraci `basic`, když není `dotnet run`k dispozici přepínač.
 
 | Scénář                                               | Příkaz ukázkové aplikace               | Popis |
 | ------------------------------------------------------ | -------------------------------- | ----------- |

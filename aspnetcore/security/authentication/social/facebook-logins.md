@@ -1,5 +1,5 @@
 ---
-title: Nastavení externího přihlášení ke službě Facebook v ASP.NET Core
+title: Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 author: rick-anderson
 description: Kurz s příklady kódu, které demonstrují integraci ověřování uživatelů z účtu Facebook do existující aplikace ASP.NET Core.
 ms.author: riande
@@ -8,13 +8,13 @@ ms.date: 12/02/2019
 monikerRange: '>= aspnetcore-3.0'
 uid: security/authentication/facebook-logins
 ms.openlocfilehash: 2e4cc04c6e7ff8e5f5701cc7f9ede73dbc1b4685
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717091"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667466"
 ---
-# <a name="facebook-external-login-setup-in-aspnet-core"></a>Nastavení externího přihlášení ke službě Facebook v ASP.NET Core
+# <a name="facebook-external-login-setup-in-aspnet-core"></a>Externí přihlášení nastavení sítě Facebook v ASP.NET Core
 
 Od [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -28,23 +28,23 @@ Tento kurz s příklady kódu ukazuje, jak se uživatelům umožní přihlásit 
 
 * V nabídce **Moje aplikace** vyberte **vytvořit aplikaci** a vytvořte nové ID aplikace.
 
-   ![Portál Facebooku pro vývojáře otevřený v Microsoft Edge](index/_static/FBMyApps.png)
+   ![Facebook pro portál pro vývojáře otevřít v Microsoft Edge](index/_static/FBMyApps.png)
 
 * Vyplňte formulář a klepněte na tlačítko **vytvořit ID aplikace** .
 
-  ![Vytvoření nového formuláře ID aplikace](index/_static/FBNewAppId.png)
+  ![Vytvoření nové aplikace ID formuláře](index/_static/FBNewAppId.png)
 
 * Na nové kartě aplikace vyberte **Přidat produkt**.  Na **přihlašovací kartě Facebooku** klikněte na **nastavit** . 
 
-  ![Stránka instalace produktu](index/_static/FBProductSetup.png)
+  ![Stránka nastavení produktu](index/_static/FBProductSetup.png)
 
 * Průvodce **rychlým startem** se spustí s **volbou platformy** jako první stránky. Vynechejte Průvodce hned kliknutím na odkaz nastavení **přihlášení na Facebooku** v nabídce na spodní levé straně:
 
-  ![Přeskočit rychlé zprovoznění](index/_static/FBSkipQuickStart.png)
+  ![Přeskočit rychlý Start](index/_static/FBSkipQuickStart.png)
 
 * Zobrazí se stránka **Nastavení OAuth pro klienta** :
 
-  ![Stránka nastavení OAuth pro klienta](index/_static/FBOAuthSetup.png)
+  ![Stránka nastavení OAuth klienta](index/_static/FBOAuthSetup.png)
 
 * Zadejte identifikátor URI pro vývoj s */SignIn-Facebook* připojením k platným poli identifikátorů **URI přesměrování OAuth** (například: `https://localhost:44320/signin-facebook`). Ověřování na Facebooku nakonfigurované později v tomto kurzu automaticky zpracuje žádosti na trase */SignIn-Facebook* k implementaci toku OAuth.
 
@@ -55,11 +55,11 @@ Tento kurz s příklady kódu ukazuje, jak se uživatelům umožní přihlásit 
 
 * V levém navigačním panelu klikněte na **nastavení** > **základní** odkaz.
 
-  Na této stránce si poznamenejte `App ID` a `App Secret`. Do své aplikace ASP.NET Core přidáte v následující části:
+  Na této stránce si poznamenejte `App ID` a `App Secret`. Přidá do vaší aplikace ASP.NET Core v následující části:
 
 * Když nasadíte lokalitu, musíte znovu navštívit stránku nastavení **přihlášení na Facebooku** a zaregistrovat nový veřejný identifikátor URI.
 
-## <a name="store-facebook-app-id-and-app-secret"></a>Uložení ID aplikace Facebook a tajného klíče aplikace
+## <a name="store-facebook-app-id-and-app-secret"></a>ID aplikace pro Store Facebook a tajný klíč aplikace
 
 Pomocí [správce tajného](xref:security/app-secrets)kódu můžete propojit citlivá nastavení, jako je Facebook `App ID`, a `App Secret` na konfiguraci vaší aplikace. Pro účely tohoto kurzu pojmenujte tokeny `Authentication:Facebook:AppId` a `Authentication:Facebook:AppSecret`.
 
@@ -72,7 +72,7 @@ dotnet user-secrets set Authentication:Facebook:AppId <app-id>
 dotnet user-secrets set Authentication:Facebook:AppSecret <app-secret>
 ```
 
-## <a name="configure-facebook-authentication"></a>Konfigurace ověřování na Facebooku
+## <a name="configure-facebook-authentication"></a>Konfigurace ověřování sítě Facebook
 
 Do souboru *Startup.cs* přidejte do metody `ConfigureServices` službu Facebook:
 
@@ -88,42 +88,42 @@ services.AddAuthentication().AddFacebook(facebookOptions =>
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
-Další informace o možnostech Konfigurace podporovaných ověřováním na Facebooku najdete v referenčních informacích k rozhraní [FacebookOptions](/dotnet/api/microsoft.aspnetcore.builder.facebookoptions) API. Možnosti konfigurace lze použít k těmto akcím:
+Další informace o možnostech Konfigurace podporovaných ověřováním na Facebooku najdete v referenčních informacích k rozhraní [FacebookOptions](/dotnet/api/microsoft.aspnetcore.builder.facebookoptions) API. Možnosti konfigurace umožňuje:
 
-* Vyžádejte si jiné informace o uživateli.
-* Přidejte argumenty řetězce dotazu pro přizpůsobení možností přihlášení.
+* Požádat o jiné informace o uživateli.
+* Přidáte argumenty řetězce dotazu přizpůsobit přihlašovací prostředí.
 
-## <a name="sign-in-with-facebook"></a>Přihlásit se přes Facebook
+## <a name="sign-in-with-facebook"></a>Přihlášení pomocí Facebooku
 
 Spusťte aplikaci a klikněte na **Přihlásit se**. Zobrazí se možnost přihlásit se přes Facebook.
 
-![Webová aplikace: uživatel není ověřen.](index/_static/DoneFacebook.png)
+![Webová aplikace: uživatel nebyl ověřen](index/_static/DoneFacebook.png)
 
 Když kliknete na **Facebook**, budete přesměrováni na Facebook pro ověřování:
 
-![Stránka pro ověřování na Facebooku](index/_static/FBLogin.png)
+![Stránka pro ověřování sítě Facebook](index/_static/FBLogin.png)
 
-Ověřování na Facebooku požaduje ve výchozím nastavení veřejný profil a e-mailovou adresu:
+Požadavky na ověření sítě Facebook veřejný profil a e-mailovou adresu ve výchozím nastavení:
 
-![Obrazovka pro vyjádření souhlasu stránky pro ověřování na Facebooku](index/_static/FBLoginDone.png)
+![Obrazovka pro vyjádření souhlasu stránky ověřování sítě Facebook](index/_static/FBLoginDone.png)
 
-Jakmile zadáte svoje přihlašovací údaje pro Facebook, budete přesměrováni zpátky na svou lokalitu, kde můžete nastavit e-mail.
+Po zadání vašich přihlašovacích údajů k Facebooku budete přesměrováni zpět na váš web, kde můžete nastavit e-mailu.
 
-Nyní jste přihlášeni pomocí svých přihlašovacích údajů k Facebooku:
+Nyní jste přihlášeni pomocí vašich přihlašovacích údajů k Facebooku:
 
-![Webová aplikace: ověřené uživatelem](index/_static/Done.png)
+![Webová aplikace: uživatel byl ověřen](index/_static/Done.png)
 
 [!INCLUDE[Forward request information when behind a proxy or load balancer section](includes/forwarded-headers-middleware.md)]
 
-## <a name="troubleshooting"></a>Odstraňování problémů
+## <a name="troubleshooting"></a>Řešení potíží
 
-* **Pouze ASP.NET Core 2. x:** Pokud identita není nakonfigurována voláním `services.AddIdentity` v `ConfigureServices`, pokus o ověření bude mít za následek *ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použitá v tomto kurzu zajišťuje, že je to hotové.
+* **Pouze ASP.NET Core 2. x:** Pokud identita není nakonfigurována voláním `services.AddIdentity` v `ConfigureServices`, pokus o ověření bude mít za následek *ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použité v tomto kurzu zajistí, že to se provádí.
 * Pokud se databáze lokality nevytvořila při použití prvotní migrace, při *zpracování chyby žádosti se zobrazí operace databáze* . Klepnutím na **použít migrace** vytvořte databázi a aktualizujte, aby pokračovala i po chybě.
 
 ## <a name="next-steps"></a>Další kroky
 
-* Tento článek ukazuje, jak se dá ověřit pomocí Facebooku. Můžete postupovat podle podobného přístupu k ověřování u jiných poskytovatelů uvedených na [předchozí stránce](xref:security/authentication/social/index).
+* V tomto článku jsme si ukázali, jak ověřování pomocí Facebooku. Můžete postupovat podle podobného přístupu k ověřování u jiných poskytovatelů uvedených na [předchozí stránce](xref:security/authentication/social/index).
 
 * Po publikování webu do webové aplikace Azure byste měli resetovat `AppSecret` na portálu pro vývojáře na Facebooku.
 
-* Nastavte `Authentication:Facebook:AppId` a `Authentication:Facebook:AppSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastaven na čtení klíčů z proměnných prostředí.
+* Nastavte `Authentication:Facebook:AppId` a `Authentication:Facebook:AppSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastavený na klíče pro čtení z proměnných prostředí.

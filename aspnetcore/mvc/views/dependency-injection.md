@@ -1,30 +1,30 @@
 ---
-title: Injektáž závislostí do zobrazení v ASP.NET Core
+title: Vkládání závislostí do zobrazení v ASP.NET Core
 author: ardalis
-description: Zjistěte, jak ASP.NET Core podporuje injektáž závislostí do zobrazení MVC.
+description: Přečtěte si, jak ASP.NET Core podporuje vkládání závislostí do zobrazení MVC.
 ms.author: riande
 ms.date: 10/14/2016
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: 63feea5ddf286dd3e659f3a622cfb0f7451b9bba
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: 6241bb8e262f64e2e30721bc5fe6f8f1be84b60d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67815343"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656098"
 ---
-# <a name="dependency-injection-into-views-in-aspnet-core"></a>Injektáž závislostí do zobrazení v ASP.NET Core
+# <a name="dependency-injection-into-views-in-aspnet-core"></a>Vkládání závislostí do zobrazení v ASP.NET Core
 
-Podle [Steve Smith](https://ardalis.com/)
+[Steve Smith](https://ardalis.com/)
 
-Podporuje ASP.NET Core [injektáž závislostí](xref:fundamentals/dependency-injection) do zobrazení. To může být užitečné pro zobrazení konkrétní služby, jako je lokalizace nebo data, vyžaduje se jenom pro naplnění zobrazení elementů. Snažte se zachovat [oddělení oblastí zájmu](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) mezi kontrolerů a zobrazení. Většina dat, které vaše zobrazení by měl předávat v kontroleru.
+ASP.NET Core podporuje [vkládání závislostí](xref:fundamentals/dependency-injection) do zobrazení. To může být užitečné pro služby specifické pro zobrazení, jako je například lokalizace nebo data požadovaná pouze pro naplnění prvků zobrazení. Měli byste se pokusit udržet [oddělení otázek](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) mezi řadiči a zobrazeními. Většina dat, která jsou zobrazena v zobrazení, by měla být předána z kontroleru.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/dependency-injection/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/dependency-injection/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="configuration-injection"></a>Konfigurace vkládání
+## <a name="configuration-injection"></a>Vkládání konfigurace
 
-*appSettings.JSON* hodnoty můžete vloží přímo do zobrazení.
+hodnoty *appSettings. JSON* lze vložit přímo do zobrazení.
 
-Příklad *appsettings.json* souboru:
+Příklad souboru *appSettings. JSON* :
 
 ```json
 {
@@ -49,61 +49,61 @@ Příklad použití `@inject`:
 }
 ```
 
-## <a name="service-injection"></a>Dokáže vložit službu
+## <a name="service-injection"></a>Vložení služby
 
-Služby můžete být vloženy do zobrazení pomocí `@inject` směrnice. Můžete si představit `@inject` jako přidání vlastnosti do zobrazení a naplnění danou vlastnost pomocí DI.
+Službu lze vložit do zobrazení pomocí direktivy `@inject`. Můžete si představit `@inject` jako přidání vlastnosti do zobrazení a naplnění vlastnosti pomocí DI.
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/ToDo/Index.cshtml?highlight=4,5,15,16,17)]
 
-Toto zobrazení ukazuje seznam `ToDoItem` instancí, spolu se shrnutím zobrazující celkové statistiky. Tento souhrn se vyplní z vložené `StatisticsService`. Tato služba je zaregistrovaný pro injektáž závislostí v `ConfigureServices` v *Startup.cs*:
+Toto zobrazení obsahuje seznam instancí `ToDoItem` spolu se souhrnem znázorňujícím celkové statistiky. Shrnutí se vyplní ze vložených `StatisticsService`. Tato služba je zaregistrovaná pro vkládání závislostí v `ConfigureServices` v *Startup.cs*:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Startup.cs?highlight=6,7&range=15-22)]
 
-`StatisticsService` Provádí pár výpočtů na sadu `ToDoItem` instance, které přistupuje prostřednictvím úložiště:
+`StatisticsService` provádí některé výpočty se sadou `ToDoItem` instancí, ke kterým přistupuje prostřednictvím úložiště:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Model/Services/StatisticsService.cs?highlight=15,20,25)]
 
-Ukázkové úložiště používá kolekci v paměti. Implementace uvedené výše (která funguje na všechna data v paměti) se nedoporučuje pro velké a vzdáleně jenom datové sady.
+Ukázkové úložiště používá kolekci v paměti. Výše uvedená implementace (která funguje na všech datech v paměti) se nedoporučuje pro velké, vzdáleně dostupné datové sady.
 
-Ukázka zobrazí data z model vázán k zobrazení a service vložené do zobrazení:
+Ukázka zobrazuje data z modelu svázaného se zobrazením a služba je vložena do zobrazení:
 
-![Chcete-li zobrazit výpis celkový počet položek dokončení položky, průměrná priority a seznam úkolů s jejich úrovně priority a logické hodnoty označující dokončení.](dependency-injection/_static/screenshot.png)
+![Chcete-li zobrazit seznam položek celkem, dokončené položky, průměrná priorita a seznam úkolů s jejich úrovněmi priority a logickými hodnotami, které označují dokončení.](dependency-injection/_static/screenshot.png)
 
-## <a name="populating-lookup-data"></a>Naplňování vyhledávání dat
+## <a name="populating-lookup-data"></a>Naplnění dat vyhledávání
 
-Vkládání zobrazení může být užitečné k naplnění možnosti v prvky uživatelského rozhraní, jako je například rozevíracích seznamů. Vezměte v úvahu formuláře profilu uživatele, který obsahuje možnosti pro určení rovnosti, stavu a další předvolby. Vykreslování formulář, pomocí standardní metoda MVC by vyžadovaly kontroleru na žádost o služby data access services pro každou z těchto sad možností a potom naplnit modelu nebo `ViewBag` s každou sadu možností vázat.
+Injektáže zobrazení může být užitečné k naplnění možností v prvcích uživatelského rozhraní, jako jsou rozevírací seznamy. Vezměte v úvahu formulář profilu uživatele, který obsahuje možnosti pro určení rovnosti, stavu a dalších předvoleb. Vykreslení takového formuláře pomocí přístupu ke standardní MVC by vyžadovalo, aby kontroler požadoval služby Data Access pro každou z těchto sad možností a pak naplnil model nebo `ViewBag` s každou sadou možností, které mají být vázány.
 
-Alternativním přístupem vloží přímo do zobrazení získat možnosti služby. Tím se minimalizují množství kódu vyžadovaného adaptérem přesun tuto logiku element vytváření zobrazení v samotném zobrazení. Akce kontroleru k zobrazení formuláře úprav profilu stačí předat formuláři instance profilu:
+Alternativní metoda přímo vloží služby do zobrazení a získá možnosti. Tím se minimalizuje množství kódu, který vyžaduje kontroler, přesunutím této logiky konstrukce zobrazení do samotného zobrazení. Akce kontroleru pro zobrazení formuláře pro úpravy profilu musí předat pouze formulář instance profilu:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Controllers/ProfileController.cs?highlight=9,19)]
 
-Formuláře HTML, který používá k aktualizaci těchto předvolby zahrnuje rozevíracích seznamů pro tři vlastnosti:
+Formulář HTML použitý k aktualizaci těchto předvoleb obsahuje rozevírací seznamy pro tři vlastnosti:
 
-![Zobrazení profil aktualizujte formulář umožňuje položka jméno, pohlaví, stavu a oblíbené barvy.](dependency-injection/_static/updateprofile.png)
+![Aktualizujte zobrazení profilu s použitím formuláře, který umožňuje zadání názvu, pohlaví, stavu a oblíbené barvy.](dependency-injection/_static/updateprofile.png)
 
-Tyto seznamy se vyplní podle služby, které byly vloženy do zobrazení:
+Tyto seznamy jsou vyplněny službou, která byla vložena do zobrazení:
 
 [!code-cshtml[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/Profile/Index.cshtml?highlight=4,16,17,21,22,26,27)]
 
-`ProfileOptionsService` Je navrženo pro zajištění pouze data potřebná pro tento formulář služba úrovni uživatelského rozhraní:
+`ProfileOptionsService` je služba na úrovni uživatelského rozhraní navržená tak, aby poskytovala pouze data potřebná pro tento formulář:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Model/Services/ProfileOptionsService.cs?highlight=7,13,24)]
 
 > [!IMPORTANT]
-> Nezapomeňte k registraci typů, které požadujete prostřednictvím injektáž závislostí v `Startup.ConfigureServices`. Neregistrovaný typ dojde k výjimce za běhu, protože poskytovatel služeb je interně dotazován prostřednictvím [GetRequiredService](/dotnet/api/microsoft.extensions.dependencyinjection.serviceproviderserviceextensions.getrequiredservice).
+> Nezapomeňte zaregistrovat typy, které požadujete, pomocí vkládání závislostí v `Startup.ConfigureServices`. Neregistrovaný typ vyvolá výjimku za běhu, protože poskytovatel služby je interně dotazován prostřednictvím [GetRequiredService](/dotnet/api/microsoft.extensions.dependencyinjection.serviceproviderserviceextensions.getrequiredservice).
 
-## <a name="overriding-services"></a>Přepsání služby
+## <a name="overriding-services"></a>Přepsání služeb
 
-Kromě vkládání nových služeb, můžete tento postup použít také k přepsání dříve vložený služby na stránce. Následující obrázek znázorňuje všechna pole, které jsou k dispozici na stránce použít v prvním příkladu:
+Kromě vkládání nových služeb se tato technika dá také použít k přepsání dříve vložených služeb na stránce. Následující obrázek ukazuje všechna pole, která jsou k dispozici na stránce použitá v prvním příkladu:
 
-![Kontextové nabídky technologie IntelliSense na zadaný symbol výpis pole Html, komponenty, StatsService a adresa Url @](dependency-injection/_static/razor-fields.png)
+![Kontextová nabídka technologie IntelliSense na typovaném typu @ symbol seznam polí HTML, Component, StatsService a URL](dependency-injection/_static/razor-fields.png)
 
-Jak je vidět, výchozí pole obsahují `Html`, `Component`, a `Url` (stejně jako `StatsService` , který jsme vloží). Například Kdybyste chtěli nahraďte pomocných rutin HTML výchozí vlastní, můžete snadno udělat pomocí `@inject`:
+Jak vidíte, výchozí pole zahrnují `Html`, `Component`a `Url` (a také `StatsService`, které jsme vložili). Pokud byste chtěli například nahradit výchozí pomocníky HTML vlastními, můžete to snadno použít `@inject`:
 
 [!code-cshtml[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/Helper/Index.cshtml?highlight=3,11)]
 
-Pokud chcete rozšířit stávající služby, můžete jednoduše použít tento postup při dědění z nebo obtékání stávající implementaci vlastní.
+Pokud chcete stávající služby zvětšit, můžete jednoduše použít tuto techniku a zároveň dědit z nebo zabalení stávající implementace s vlastními.
 
 ## <a name="see-also"></a>Viz také
 
-* Simon Timms blogu: [Načítání dat vyhledávací do zobrazení](https://blog.simontimms.com/2015/06/09/getting-lookup-data-into-you-view/)
+* Blog Simon Timms: [získávání dat vyhledávání do zobrazení](https://blog.simontimms.com/2015/06/09/getting-lookup-data-into-you-view/)

@@ -1,22 +1,22 @@
 ---
 title: Řešení potíží s ASP.NET Core v Azure App Service a IIS
-author: guardrex
+author: rick-anderson
 description: Naučte se diagnostikovat problémy s Azure App Service a Internetová informační služba nasazení ASP.NET Core aplikací (IIS).
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: a5cd17e46126828c6bc8436ccaaca28edb2573d0
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: 671f68da2ea261cb8ae32a9d5ef875217859054d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114845"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655328"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Řešení potíží s ASP.NET Core v Azure App Service a IIS
 
-Od [Luke Latham](https://github.com/guardrex) a [Justin Kotalik](https://github.com/jkotalik)
+Od [Justin Kotalik](https://github.com/jkotalik)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -500,7 +500,7 @@ Pokud aplikace je schopná reagovat na požadavky, získáte žádost o připoje
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
 1. Vytvořte složku, do které se budou ukládat soubory s výpisem stavu systému na `c:\dumps`. Fond aplikací musí mít ke složce přístup pro zápis.
-1. Spusťte [skript prostředí PowerShell pro EnableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/EnableDumps.ps1):
+1. Spusťte [skript prostředí PowerShell pro EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/EnableDumps.ps1):
    * Pokud aplikace používá [model hostování v rámci procesu](xref:host-and-deploy/iis/index#in-process-hosting-model), spusťte skript pro *W3wp. exe*:
 
      ```console
@@ -514,7 +514,7 @@ Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (W
      ```
 
 1. Spusťte aplikaci za podmínek, které způsobí, že dojde k chybě.
-1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/DisableDumps.ps1):
+1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/DisableDumps.ps1):
    * Pokud aplikace používá [model hostování v rámci procesu](xref:host-and-deploy/iis/index#in-process-hosting-model), spusťte skript pro *W3wp. exe*:
 
      ```console
@@ -993,7 +993,7 @@ Pokud aplikace je schopná reagovat na požadavky, získáte žádost o připoje
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
 1. Vytvořte složku, do které se budou ukládat soubory s výpisem stavu systému na `c:\dumps`. Fond aplikací musí mít ke složce přístup pro zápis.
-1. Spusťte [skript prostředí PowerShell pro EnableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/EnableDumps.ps1):
+1. Spusťte [skript prostředí PowerShell pro EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/EnableDumps.ps1):
    * Pokud aplikace používá [model hostování v rámci procesu](xref:host-and-deploy/iis/index#in-process-hosting-model), spusťte skript pro *W3wp. exe*:
 
      ```console
@@ -1007,7 +1007,7 @@ Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (W
      ```
 
 1. Spusťte aplikaci za podmínek, které způsobí, že dojde k chybě.
-1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/DisableDumps.ps1):
+1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/DisableDumps.ps1):
    * Pokud aplikace používá [model hostování v rámci procesu](xref:host-and-deploy/iis/index#in-process-hosting-model), spusťte skript pro *W3wp. exe*:
 
      ```console
@@ -1424,7 +1424,7 @@ Pokud aplikace je schopná reagovat na požadavky, získáte žádost o připoje
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
 1. Vytvořte složku, do které se budou ukládat soubory s výpisem stavu systému na `c:\dumps`. Fond aplikací musí mít ke složce přístup pro zápis.
-1. Spusťte [skript prostředí PowerShell pro EnableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/EnableDumps.ps1):
+1. Spusťte [skript prostředí PowerShell pro EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/EnableDumps.ps1):
    * Pokud aplikace používá [model hostování v rámci procesu](xref:host-and-deploy/iis/index#in-process-hosting-model), spusťte skript pro *W3wp. exe*:
 
      ```console
@@ -1438,7 +1438,7 @@ Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (W
      ```
 
 1. Spusťte aplikaci za podmínek, které způsobí, že dojde k chybě.
-1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/DisableDumps.ps1):
+1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/test/troubleshoot-azure-iis/scripts/DisableDumps.ps1):
    * Pokud aplikace používá [model hostování v rámci procesu](xref:host-and-deploy/iis/index#in-process-hosting-model), spusťte skript pro *W3wp. exe*:
 
      ```console

@@ -10,19 +10,19 @@ no-loc:
 - SignalR
 uid: signalr/configuration
 ms.openlocfilehash: c225ff88110dc17185a430ac1c422d2433306115
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358109"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658632"
 ---
-# <a name="aspnet-core-opno-locsignalr-configuration"></a>Konfigurace ASP.NET Core SignalR
+# <a name="aspnet-core-signalr-configuration"></a>Konfigurace signalizace ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ## <a name="jsonmessagepack-serialization-options"></a>Možnosti serializace JSON/MessagePack
 
-ASP.NET Core SignalR podporuje pro kódování zprávy dva protokoly: [JSON](https://www.json.org/) a [MessagePack](https://msgpack.org/index.html). Každý protokol má možnosti konfigurace serializace.
+ASP.NET Core Signal podporuje dva protokoly pro kódování zpráv: [JSON](https://www.json.org/) a [MessagePack](https://msgpack.org/index.html). Každý protokol má možnosti konfigurace serializace.
 
 Serializaci JSON lze nakonfigurovat na serveru pomocí metody rozšíření [AddJsonProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.jsonprotocoldependencyinjectionextensions.addjsonprotocol) . `AddJsonProtocol` lze přidat po [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr) v `Startup.ConfigureServices`. Metoda `AddJsonProtocol` přebírá delegáta, který přijímá objekt `options`. Vlastnost [PayloadSerializerOptions](/dotnet/api/microsoft.aspnetcore.signalr.jsonhubprotocoloptions.payloadserializeroptions) tohoto objektu je objekt <xref:System.Text.Json.JsonSerializerOptions> `System.Text.Json`, který lze použít ke konfiguraci serializace argumentů a vrácených hodnot. Další informace naleznete v [dokumentaci System. text. JSON](/dotnet/api/system.text.json).
 
@@ -58,19 +58,19 @@ Pokud potřebujete funkce `Newtonsoft.Json`, které nejsou v `System.Text.Json`p
 
 ### <a name="messagepack-serialization-options"></a>Možnosti serializace MessagePack
 
-Serializaci MessagePack lze nakonfigurovat poskytnutím delegáta volání [AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol) . Další podrobnosti najdete [v tématu MessagePack v SignalR](xref:signalr/messagepackhubprotocol) .
+Serializaci MessagePack lze nakonfigurovat poskytnutím delegáta volání [AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol) . Další podrobnosti najdete [v tématu MessagePack v nástroji Signal](xref:signalr/messagepackhubprotocol) .
 
 > [!NOTE]
 > V tuto chvíli není možné konfigurovat serializaci MessagePack v klientovi v jazyce JavaScript.
 
 ## <a name="configure-server-options"></a>Konfigurovat možnosti serveru
 
-Následující tabulka popisuje možnosti konfigurace SignalRch Center:
+Následující tabulka obsahuje popis možností konfigurace Center pro signály:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `ClientTimeoutInterval` | 30 sekund | Server bude předpokládat, že je klient odpojený, pokud v tomto intervalu neobdržel zprávu (včetně Keep-Alive). Může trvat delší dobu, než je tento časový limit, aby bylo možné klienta ve skutečnosti označit jako odpojený, protože to je implementováno. Doporučená hodnota je dvojnásobná hodnota `KeepAliveInterval`.|
-| `HandshakeTimeout` | 15 sekund | Pokud klient v tomto časovém intervalu nepošle počáteční zprávu handshake, připojení se zavře. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `HandshakeTimeout` | 15 sekund | Pokud klient v tomto časovém intervalu nepošle počáteční zprávu handshake, připojení se zavře. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 | `KeepAliveInterval` | 15 sekund | Pokud server do tohoto intervalu neodeslal zprávu, odešle se automaticky zpráva s potvrzením, aby bylo připojení otevřené. Při změně `KeepAliveInterval`změňte nastavení `ServerTimeout`/`serverTimeoutInMilliseconds` na klientovi. Doporučená `ServerTimeout`/`serverTimeoutInMilliseconds` hodnota je dvojnásobek hodnoty `KeepAliveInterval`.  |
 | `SupportedProtocols` | Všechny nainstalované protokoly | Protokoly podporované tímto rozbočovačem Ve výchozím nastavení jsou povoleny všechny protokoly zaregistrované na serveru, ale protokoly je možné z tohoto seznamu odebrat, aby byly pro jednotlivá centra zakázané konkrétní protokoly. |
 | `EnableDetailedErrors` | `false` | Pokud `true`, jsou klientovi vraceny podrobné zprávy o výjimce, pokud je vyvolána výjimka v metodě rozbočovače. Výchozí hodnota je `false`, protože tyto zprávy o výjimce mohou obsahovat citlivé informace. |
@@ -120,7 +120,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Následující tabulka obsahuje popis možností konfigurace ASP.NET Core SignalRpokročilé možnosti protokolu HTTP:
+Následující tabulka popisuje možnosti konfigurace upřesňujících možností protokolu HTTP pro ASP.NET Core signalizaci:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
@@ -176,7 +176,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-Místo `LogLevel` hodnoty můžete zadat také hodnotu `string` reprezentující název úrovně protokolu. To je užitečné při konfiguraci SignalR protokolování v prostředích, kde nemáte přístup k konstantám `LogLevel`.
+Místo `LogLevel` hodnoty můžete zadat také hodnotu `string` reprezentující název úrovně protokolu. To je užitečné při konfiguraci protokolování signalizace v prostředích, kde nemáte přístup k `LogLevel` konstantám.
 
 ```javascript
 let connection = new signalR.HubConnectionBuilder()
@@ -187,7 +187,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 V následující tabulce jsou uvedeny dostupné úrovně protokolu. Hodnota, kterou zadáte, `configureLogging` nastaví **minimální** úroveň protokolování, která se bude protokolovat. Zprávy zaznamenané na této úrovni **nebo úrovně uvedené za ní v tabulce**budou protokolovány.
 
-| String                      | LogLevel               |
+| Řetězec                      | LogLevel               |
 | --------------------------- | ---------------------- |
 | `trace`                     | `LogLevel.Trace`       |
 | `debug`                     | `LogLevel.Debug`       |
@@ -200,9 +200,9 @@ V následující tabulce jsou uvedeny dostupné úrovně protokolu. Hodnota, kte
 > [!NOTE]
 > Pokud chcete protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v metodě `configureLogging`.
 
-Další informace o protokolování najdete v dokumentaci k [diagnosticeSignalR](xref:signalr/diagnostics).
+Další informace o protokolování najdete v [dokumentaci k nástroji pro diagnostiku signálu](xref:signalr/diagnostics).
 
-SignalR klient Java používá k protokolování knihovnu [SLF4J](https://www.slf4j.org/) . Jedná se o rozhraní API pro protokolování na vysoké úrovni, které umožňuje uživatelům knihovny zvolit si vlastní specifickou implementaci protokolování, a to tak, že se do konkrétní závislosti protokolování přinášejí. Následující fragment kódu ukazuje, jak použít `java.util.logging` s klientem SignalR Java.
+Klient Java Signal používá knihovnu [SLF4J](https://www.slf4j.org/) k protokolování. Jedná se o rozhraní API pro protokolování na vysoké úrovni, které umožňuje uživatelům knihovny zvolit si vlastní specifickou implementaci protokolování, a to tak, že se do konkrétní závislosti protokolování přinášejí. Následující fragment kódu ukazuje, jak použít `java.util.logging` s klientem nástroje pro signalizaci v jazyce Java.
 
 ```gradle
 implementation 'org.slf4j:slf4j-jdk14:1.7.25'
@@ -220,7 +220,7 @@ Tuto možnost lze bezpečně ignorovat.
 
 ### <a name="configure-allowed-transports"></a>Konfigurace povolených přenosů
 
-Transporty používané SignalR lze konfigurovat v volání `WithUrl` (`withUrl` v JavaScriptu). Bitové nebo hodnoty `HttpTransportType` lze použít k omezení klienta na používání pouze určených přenosů. Ve výchozím nastavení jsou povolené všechny přenosy.
+V volání `WithUrl` se dá nakonfigurovat přenos používaný signálem (`withUrl` v JavaScriptu). Bitové nebo hodnoty `HttpTransportType` lze použít k omezení klienta na používání pouze určených přenosů. Ve výchozím nastavení jsou povolené všechny přenosy.
 
 Pokud třeba chcete zakázat přenos událostí odeslaných serverem, ale povolit WebSockets a dlouhá připojení s dotazem:
 
@@ -249,11 +249,11 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 ```
 
 > [!NOTE]
-> Klient nástroje SignalR Java nepodporuje ještě záložní přenos.
+> Klient Java Signale ještě nepodporuje záložní přenos.
 
 ### <a name="configure-bearer-authentication"></a>Konfigurace ověřování nosiče
 
-K poskytnutí ověřovacích dat spolu s požadavky SignalR použijte možnost `AccessTokenProvider` (`accessTokenFactory` v JavaScriptu) k určení funkce, která vrací požadovaný přístupový token. V klientovi .NET se tento přístupový token předává jako token ověřování HTTP "Bearer" (pomocí `Authorization` záhlaví s typem `Bearer`). V klientu jazyka JavaScript se přístupový token používá jako nosný token, **s výjimkou** případů, kdy rozhraní API prohlížeče omezuje možnost použít hlavičky (konkrétně v požadavcích na události odeslané serverem a objekty WebSockets). V těchto případech je přístupový token k dispozici jako hodnota řetězce dotazu `access_token`.
+Chcete-li poskytnout ověřovací data společně s požadavky na signalizaci, použijte možnost `AccessTokenProvider` (`accessTokenFactory` v JavaScriptu) k určení funkce, která vrací požadovaný přístupový token. V klientovi .NET se tento přístupový token předává jako token ověřování HTTP "Bearer" (pomocí `Authorization` záhlaví s typem `Bearer`). V klientu jazyka JavaScript se přístupový token používá jako nosný token, **s výjimkou** případů, kdy rozhraní API prohlížeče omezuje možnost použít hlavičky (konkrétně v požadavcích na události odeslané serverem a objekty WebSockets). V těchto případech je přístupový token k dispozici jako hodnota řetězce dotazu `access_token`.
 
 V klientu .NET lze zadat možnost `AccessTokenProvider` pomocí delegáta možností v `WithUrl`:
 
@@ -281,7 +281,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-V SignalR klienta Java můžete nakonfigurovat nosný token, který se má použít k ověřování tím, že poskytne továrnu přístupového tokenu [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java). Použijte [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytnutí [> jednoho\<ového řetězce](https://reactivex.io/documentation/single.html) [RxJava](https://github.com/ReactiveX/RxJava) . Při volání metody [Single. odklad](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)můžete napsat logiku pro vytvoření přístupových tokenů pro klienta.
+V klientovi pro signalizaci Java můžete nakonfigurovat nosný token, který se použije pro ověřování, a to tak, že do [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)poskytne továrnu přístupového tokenu. Použijte [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytnutí [> jednoho\<ového řetězce](https://reactivex.io/documentation/single.html) [RxJava](https://github.com/ReactiveX/RxJava) . Při volání metody [Single. odklad](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)můžete napsat logiku pro vytvoření přístupových tokenů pro klienta.
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/myhub")
@@ -295,43 +295,43 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 Další možnosti konfigurace časového limitu a chování při udržování připojení jsou k dispozici na samotném objektu `HubConnection`:
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `ServerTimeout` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `Closed` (`onclose` v JavaScriptu). Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
-| `HandshakeTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `Closed` (`onclose` v JavaScriptu). Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `HandshakeTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `Closed` (`onclose` v JavaScriptu). Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 | `KeepAliveInterval` | 15 sekund | Určuje interval, ve kterém klient odesílá zprávy nástroje test. Odesláním jakékoli zprávy z klienta se obnoví časovač na začátek intervalu. Pokud klient neodeslal zprávu ve `ClientTimeoutInterval` sadě na serveru, Server považuje klienta za odpojený. |
 
 V klientovi .NET jsou hodnoty časového limitu zadány jako `TimeSpan` hodnoty.
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `serverTimeoutInMilliseconds` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `onclose`. Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
 | `keepAliveIntervalInMilliseconds` | 15 sekund (15 000 milisekund) | Určuje interval, ve kterém klient odesílá zprávy nástroje test. Odesláním jakékoli zprávy z klienta se obnoví časovač na začátek intervalu. Pokud klient neodeslal zprávu ve `ClientTimeoutInterval` sadě na serveru, Server považuje klienta za odpojený. |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `getServerTimeout` / `setServerTimeout` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `onClose`. Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
-| `withHandshakeResponseTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `onClose`. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `withHandshakeResponseTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `onClose`. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 | `getKeepAliveInterval` / `setKeepAliveInterval` | 15 sekund (15 000 milisekund) | Určuje interval, ve kterém klient odesílá zprávy nástroje test. Odesláním jakékoli zprávy z klienta se obnoví časovač na začátek intervalu. Pokud klient neodeslal zprávu ve `ClientTimeoutInterval` sadě na serveru, Server považuje klienta za odpojený. |
 
 ---
 
-### <a name="configure-additional-options"></a>Konfigurace dalších možností
+### <a name="configure-additional-options"></a>Konfigurovat další možnosti
 
 Další možnosti lze nakonfigurovat v metodě `WithUrl` (`withUrl` in JavaScript) na `HubConnectionBuilder` nebo na různých konfiguračních rozhraních API `HttpHubConnectionBuilder` v klientovi Java:
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
 | Možnost .NET |  Výchozí hodnota | Popis |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `SkipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
+| `SkipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
 | `ClientCertificates` | Prázdné | Kolekce certifikátů TLS pro odeslání na požadavky na ověření. |
 | `Cookies` | Prázdné | Kolekce souborů cookie protokolu HTTP, které se mají odeslat s každou žádostí HTTP |
 | `Credentials` | Prázdné | Přihlašovací údaje, které se mají poslat s každou žádostí HTTP |
@@ -342,20 +342,20 @@ Další možnosti lze nakonfigurovat v metodě `WithUrl` (`withUrl` in JavaScrip
 | `UseDefaultCredentials` | `false` | Nastavte tuto logickou hodnotu pro odeslání výchozích přihlašovacích údajů pro požadavky HTTP a WebSockets. To umožňuje použití ověřování systému Windows. |
 | `WebSocketConfiguration` | `null` | Delegát, který lze použít ke konfiguraci dalších možností protokolu WebSocket. Přijímá instanci [ClientWebSocketOptions](/dotnet/api/system.net.websockets.clientwebsocketoptions) , která se dá použít ke konfiguraci možností. |
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
 | Možnost JavaScriptu | Výchozí hodnota | Popis |
 | ----------------- | ------------- | ----------- |
 | `accessTokenFactory` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `skipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
+| `skipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
 | Možnost jazyka Java | Výchozí hodnota | Popis |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `shouldSkipNegotiate` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
-| `withHeader``withHeaders` | Prázdné | Mapa dalších hlaviček protokolu HTTP, která se má poslat s každou žádostí HTTP |
+| `shouldSkipNegotiate` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
+| `withHeader` `withHeaders` | Prázdné | Mapa dalších hlaviček protokolu HTTP, která se má poslat s každou žádostí HTTP |
 
 ---
 
@@ -392,7 +392,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
         .build();
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:tutorials/signalr>
 * <xref:signalr/hubs>
@@ -406,7 +406,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 ## <a name="jsonmessagepack-serialization-options"></a>Možnosti serializace JSON/MessagePack
 
-ASP.NET Core SignalR podporuje pro kódování zprávy dva protokoly: [JSON](https://www.json.org/) a [MessagePack](https://msgpack.org/index.html). Každý protokol má možnosti konfigurace serializace.
+ASP.NET Core Signal podporuje dva protokoly pro kódování zpráv: [JSON](https://www.json.org/) a [MessagePack](https://msgpack.org/index.html). Každý protokol má možnosti konfigurace serializace.
 
 Serializaci JSON lze nakonfigurovat na serveru pomocí metody rozšíření [AddJsonProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.jsonprotocoldependencyinjectionextensions.addjsonprotocol) , kterou lze přidat po [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr) do metody `Startup.ConfigureServices`. Metoda `AddJsonProtocol` přebírá delegáta, který přijímá objekt `options`. Vlastnost [PayloadSerializerSettings](/dotnet/api/microsoft.aspnetcore.signalr.jsonhubprotocoloptions.payloadserializersettings) tohoto objektu je objekt JSON.NET `JsonSerializerSettings`, který lze použít ke konfiguraci serializace argumentů a vrácených hodnot. Další informace najdete v [dokumentaci k JSON.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm).
  
@@ -440,19 +440,19 @@ var connection = new HubConnectionBuilder()
 
 ### <a name="messagepack-serialization-options"></a>Možnosti serializace MessagePack
 
-Serializaci MessagePack lze nakonfigurovat poskytnutím delegáta volání [AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol) . Další podrobnosti najdete [v tématu MessagePack v SignalR](xref:signalr/messagepackhubprotocol) .
+Serializaci MessagePack lze nakonfigurovat poskytnutím delegáta volání [AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol) . Další podrobnosti najdete [v tématu MessagePack v nástroji Signal](xref:signalr/messagepackhubprotocol) .
 
 > [!NOTE]
 > V tuto chvíli není možné konfigurovat serializaci MessagePack v klientovi v jazyce JavaScript.
 
 ## <a name="configure-server-options"></a>Konfigurovat možnosti serveru
 
-Následující tabulka popisuje možnosti konfigurace SignalRch Center:
+Následující tabulka obsahuje popis možností konfigurace Center pro signály:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `ClientTimeoutInterval` | 30 sekund | Server bude předpokládat, že je klient odpojený, pokud v tomto intervalu neobdržel zprávu (včetně Keep-Alive). Může trvat delší dobu, než je tento časový limit, aby bylo možné klienta ve skutečnosti označit jako odpojený, protože to je implementováno. Doporučená hodnota je dvojnásobná hodnota `KeepAliveInterval`.|
-| `HandshakeTimeout` | 15 sekund | Pokud klient v tomto časovém intervalu nepošle počáteční zprávu handshake, připojení se zavře. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `HandshakeTimeout` | 15 sekund | Pokud klient v tomto časovém intervalu nepošle počáteční zprávu handshake, připojení se zavře. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 | `KeepAliveInterval` | 15 sekund | Pokud server do tohoto intervalu neodeslal zprávu, odešle se automaticky zpráva s potvrzením, aby bylo připojení otevřené. Při změně `KeepAliveInterval`změňte nastavení `ServerTimeout`/`serverTimeoutInMilliseconds` na klientovi. Doporučená `ServerTimeout`/`serverTimeoutInMilliseconds` hodnota je dvojnásobek hodnoty `KeepAliveInterval`.  |
 | `SupportedProtocols` | Všechny nainstalované protokoly | Protokoly podporované tímto rozbočovačem Ve výchozím nastavení jsou povoleny všechny protokoly zaregistrované na serveru, ale protokoly je možné z tohoto seznamu odebrat, aby byly pro jednotlivá centra zakázané konkrétní protokoly. |
 | `EnableDetailedErrors` | `false` | Pokud `true`, jsou klientovi vraceny podrobné zprávy o výjimce, pokud je vyvolána výjimka v metodě rozbočovače. Výchozí hodnota je `false`, protože tyto zprávy o výjimce mohou obsahovat citlivé informace. |
@@ -500,7 +500,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Následující tabulka obsahuje popis možností konfigurace ASP.NET Core SignalRpokročilé možnosti protokolu HTTP:
+Následující tabulka popisuje možnosti konfigurace upřesňujících možností protokolu HTTP pro ASP.NET Core signalizaci:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
@@ -559,9 +559,9 @@ let connection = new signalR.HubConnectionBuilder()
 > [!NOTE]
 > Pokud chcete protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v metodě `configureLogging`.
 
-Další informace o protokolování najdete v dokumentaci k [diagnosticeSignalR](xref:signalr/diagnostics).
+Další informace o protokolování najdete v [dokumentaci k nástroji pro diagnostiku signálu](xref:signalr/diagnostics).
 
-SignalR klient Java používá k protokolování knihovnu [SLF4J](https://www.slf4j.org/) . Jedná se o rozhraní API pro protokolování na vysoké úrovni, které umožňuje uživatelům knihovny zvolit si vlastní specifickou implementaci protokolování, a to tak, že se do konkrétní závislosti protokolování přinášejí. Následující fragment kódu ukazuje, jak použít `java.util.logging` s klientem SignalR Java.
+Klient Java Signal používá knihovnu [SLF4J](https://www.slf4j.org/) k protokolování. Jedná se o rozhraní API pro protokolování na vysoké úrovni, které umožňuje uživatelům knihovny zvolit si vlastní specifickou implementaci protokolování, a to tak, že se do konkrétní závislosti protokolování přinášejí. Následující fragment kódu ukazuje, jak použít `java.util.logging` s klientem nástroje pro signalizaci v jazyce Java.
 
 ```gradle
 implementation 'org.slf4j:slf4j-jdk14:1.7.25'
@@ -579,7 +579,7 @@ Tuto možnost lze bezpečně ignorovat.
 
 ### <a name="configure-allowed-transports"></a>Konfigurace povolených přenosů
 
-Transporty používané SignalR lze konfigurovat v volání `WithUrl` (`withUrl` v JavaScriptu). Bitové nebo hodnoty `HttpTransportType` lze použít k omezení klienta na používání pouze určených přenosů. Ve výchozím nastavení jsou povolené všechny přenosy.
+V volání `WithUrl` se dá nakonfigurovat přenos používaný signálem (`withUrl` v JavaScriptu). Bitové nebo hodnoty `HttpTransportType` lze použít k omezení klienta na používání pouze určených přenosů. Ve výchozím nastavení jsou povolené všechny přenosy.
 
 Pokud třeba chcete zakázat přenos událostí odeslaných serverem, ale povolit WebSockets a dlouhá připojení s dotazem:
 
@@ -601,7 +601,7 @@ V této verzi je jediným dostupným přenosem klientský WebSocket v jazyce Jav
 
 ### <a name="configure-bearer-authentication"></a>Konfigurace ověřování nosiče
 
-K poskytnutí ověřovacích dat spolu s požadavky SignalR použijte možnost `AccessTokenProvider` (`accessTokenFactory` v JavaScriptu) k určení funkce, která vrací požadovaný přístupový token. V klientovi .NET se tento přístupový token předává jako token ověřování HTTP "Bearer" (pomocí `Authorization` záhlaví s typem `Bearer`). V klientu jazyka JavaScript se přístupový token používá jako nosný token, **s výjimkou** případů, kdy rozhraní API prohlížeče omezuje možnost použít hlavičky (konkrétně v požadavcích na události odeslané serverem a objekty WebSockets). V těchto případech je přístupový token k dispozici jako hodnota řetězce dotazu `access_token`.
+Chcete-li poskytnout ověřovací data společně s požadavky na signalizaci, použijte možnost `AccessTokenProvider` (`accessTokenFactory` v JavaScriptu) k určení funkce, která vrací požadovaný přístupový token. V klientovi .NET se tento přístupový token předává jako token ověřování HTTP "Bearer" (pomocí `Authorization` záhlaví s typem `Bearer`). V klientu jazyka JavaScript se přístupový token používá jako nosný token, **s výjimkou** případů, kdy rozhraní API prohlížeče omezuje možnost použít hlavičky (konkrétně v požadavcích na události odeslané serverem a objekty WebSockets). V těchto případech je přístupový token k dispozici jako hodnota řetězce dotazu `access_token`.
 
 V klientu .NET lze zadat možnost `AccessTokenProvider` pomocí delegáta možností v `WithUrl`:
 
@@ -629,7 +629,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-V SignalR klienta Java můžete nakonfigurovat nosný token, který se má použít k ověřování tím, že poskytne továrnu přístupového tokenu [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java). Použijte [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytnutí [> jednoho\<ového řetězce](https://reactivex.io/documentation/single.html) [RxJava](https://github.com/ReactiveX/RxJava) . Při volání metody [Single. odklad](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)můžete napsat logiku pro vytvoření přístupových tokenů pro klienta.
+V klientovi pro signalizaci Java můžete nakonfigurovat nosný token, který se použije pro ověřování, a to tak, že do [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)poskytne továrnu přístupového tokenu. Použijte [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytnutí [> jednoho\<ového řetězce](https://reactivex.io/documentation/single.html) [RxJava](https://github.com/ReactiveX/RxJava) . Při volání metody [Single. odklad](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)můžete napsat logiku pro vytvoření přístupových tokenů pro klienta.
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/myhub")
@@ -643,43 +643,43 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 Další možnosti konfigurace časového limitu a chování při udržování připojení jsou k dispozici na samotném objektu `HubConnection`:
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `ServerTimeout` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `Closed` (`onclose` v JavaScriptu). Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
-| `HandshakeTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `Closed` (`onclose` v JavaScriptu). Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `HandshakeTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `Closed` (`onclose` v JavaScriptu). Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 | `KeepAliveInterval` | 15 sekund | Určuje interval, ve kterém klient odesílá zprávy nástroje test. Odesláním jakékoli zprávy z klienta se obnoví časovač na začátek intervalu. Pokud klient neodeslal zprávu ve `ClientTimeoutInterval` sadě na serveru, Server považuje klienta za odpojený. |
 
 V klientovi .NET jsou hodnoty časového limitu zadány jako `TimeSpan` hodnoty.
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `serverTimeoutInMilliseconds` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `onclose`. Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
 | `keepAliveIntervalInMilliseconds` | 15 sekund (15 000 milisekund) | Určuje interval, ve kterém klient odesílá zprávy nástroje test. Odesláním jakékoli zprávy z klienta se obnoví časovač na začátek intervalu. Pokud klient neodeslal zprávu ve `ClientTimeoutInterval` sadě na serveru, Server považuje klienta za odpojený. |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `getServerTimeout` / `setServerTimeout` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `onClose`. Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
-| `withHandshakeResponseTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `onClose`. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `withHandshakeResponseTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `onClose`. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 | `getKeepAliveInterval` / `setKeepAliveInterval` | 15 sekund (15 000 milisekund) | Určuje interval, ve kterém klient odesílá zprávy nástroje test. Odesláním jakékoli zprávy z klienta se obnoví časovač na začátek intervalu. Pokud klient neodeslal zprávu ve `ClientTimeoutInterval` sadě na serveru, Server považuje klienta za odpojený. |
 
 ---
 
-### <a name="configure-additional-options"></a>Konfigurace dalších možností
+### <a name="configure-additional-options"></a>Konfigurovat další možnosti
 
 Další možnosti lze nakonfigurovat v metodě `WithUrl` (`withUrl` in JavaScript) na `HubConnectionBuilder` nebo na různých konfiguračních rozhraních API `HttpHubConnectionBuilder` v klientovi Java:
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
 | Možnost .NET |  Výchozí hodnota | Popis |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `SkipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
+| `SkipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
 | `ClientCertificates` | Prázdné | Kolekce certifikátů TLS pro odeslání na požadavky na ověření. |
 | `Cookies` | Prázdné | Kolekce souborů cookie protokolu HTTP, které se mají odeslat s každou žádostí HTTP |
 | `Credentials` | Prázdné | Přihlašovací údaje, které se mají poslat s každou žádostí HTTP |
@@ -690,20 +690,20 @@ Další možnosti lze nakonfigurovat v metodě `WithUrl` (`withUrl` in JavaScrip
 | `UseDefaultCredentials` | `false` | Nastavte tuto logickou hodnotu pro odeslání výchozích přihlašovacích údajů pro požadavky HTTP a WebSockets. To umožňuje použití ověřování systému Windows. |
 | `WebSocketConfiguration` | `null` | Delegát, který lze použít ke konfiguraci dalších možností protokolu WebSocket. Přijímá instanci [ClientWebSocketOptions](/dotnet/api/system.net.websockets.clientwebsocketoptions) , která se dá použít ke konfiguraci možností. |
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
 | Možnost JavaScriptu | Výchozí hodnota | Popis |
 | ----------------- | ------------- | ----------- |
 | `accessTokenFactory` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `skipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
+| `skipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
 | Možnost jazyka Java | Výchozí hodnota | Popis |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `shouldSkipNegotiate` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
-| `withHeader``withHeaders` | Prázdné | Mapa dalších hlaviček protokolu HTTP, která se má poslat s každou žádostí HTTP |
+| `shouldSkipNegotiate` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
+| `withHeader` `withHeaders` | Prázdné | Mapa dalších hlaviček protokolu HTTP, která se má poslat s každou žádostí HTTP |
 
 ---
 
@@ -740,7 +740,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
         .build();
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:tutorials/signalr>
 * <xref:signalr/hubs>
@@ -754,7 +754,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 ## <a name="jsonmessagepack-serialization-options"></a>Možnosti serializace JSON/MessagePack
 
-ASP.NET Core SignalR podporuje pro kódování zprávy dva protokoly: [JSON](https://www.json.org/) a [MessagePack](https://msgpack.org/index.html). Každý protokol má možnosti konfigurace serializace.
+ASP.NET Core Signal podporuje dva protokoly pro kódování zpráv: [JSON](https://www.json.org/) a [MessagePack](https://msgpack.org/index.html). Každý protokol má možnosti konfigurace serializace.
 
 Serializaci JSON lze nakonfigurovat na serveru pomocí metody rozšíření [AddJsonProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.jsonprotocoldependencyinjectionextensions.addjsonprotocol) , kterou lze přidat po [AddSignalR](/dotnet/api/microsoft.extensions.dependencyinjection.signalrdependencyinjectionextensions.addsignalr) do metody `Startup.ConfigureServices`. Metoda `AddJsonProtocol` přebírá delegáta, který přijímá objekt `options`. Vlastnost [PayloadSerializerSettings](/dotnet/api/microsoft.aspnetcore.signalr.jsonhubprotocoloptions.payloadserializersettings) tohoto objektu je objekt JSON.NET `JsonSerializerSettings`, který lze použít ke konfiguraci serializace argumentů a vrácených hodnot. Další informace najdete v [dokumentaci k JSON.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm).
  
@@ -788,18 +788,18 @@ var connection = new HubConnectionBuilder()
 
 ### <a name="messagepack-serialization-options"></a>Možnosti serializace MessagePack
 
-Serializaci MessagePack lze nakonfigurovat poskytnutím delegáta volání [AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol) . Další podrobnosti najdete [v tématu MessagePack v SignalR](xref:signalr/messagepackhubprotocol) .
+Serializaci MessagePack lze nakonfigurovat poskytnutím delegáta volání [AddMessagePackProtocol](/dotnet/api/microsoft.extensions.dependencyinjection.msgpackprotocoldependencyinjectionextensions.addmessagepackprotocol) . Další podrobnosti najdete [v tématu MessagePack v nástroji Signal](xref:signalr/messagepackhubprotocol) .
 
 > [!NOTE]
 > V tuto chvíli není možné konfigurovat serializaci MessagePack v klientovi v jazyce JavaScript.
 
 ## <a name="configure-server-options"></a>Konfigurovat možnosti serveru
 
-Následující tabulka popisuje možnosti konfigurace SignalRch Center:
+Následující tabulka obsahuje popis možností konfigurace Center pro signály:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
-| `HandshakeTimeout` | 15 sekund | Pokud klient v tomto časovém intervalu nepošle počáteční zprávu handshake, připojení se zavře. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `HandshakeTimeout` | 15 sekund | Pokud klient v tomto časovém intervalu nepošle počáteční zprávu handshake, připojení se zavře. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 | `KeepAliveInterval` | 15 sekund | Pokud server do tohoto intervalu neodeslal zprávu, odešle se automaticky zpráva s potvrzením, aby bylo připojení otevřené. Při změně `KeepAliveInterval`změňte nastavení `ServerTimeout`/`serverTimeoutInMilliseconds` na klientovi. Doporučená `ServerTimeout`/`serverTimeoutInMilliseconds` hodnota je dvojnásobek hodnoty `KeepAliveInterval`.  |
 | `SupportedProtocols` | Všechny nainstalované protokoly | Protokoly podporované tímto rozbočovačem Ve výchozím nastavení jsou povoleny všechny protokoly zaregistrované na serveru, ale protokoly je možné z tohoto seznamu odebrat, aby byly pro jednotlivá centra zakázané konkrétní protokoly. |
 | `EnableDetailedErrors` | `false` | Pokud `true`, jsou klientovi vraceny podrobné zprávy o výjimce, pokud je vyvolána výjimka v metodě rozbočovače. Výchozí hodnota je `false`, protože tyto zprávy o výjimce mohou obsahovat citlivé informace. |
@@ -847,7 +847,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Následující tabulka obsahuje popis možností konfigurace ASP.NET Core SignalRpokročilé možnosti protokolu HTTP:
+Následující tabulka popisuje možnosti konfigurace upřesňujících možností protokolu HTTP pro ASP.NET Core signalizaci:
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
@@ -906,9 +906,9 @@ let connection = new signalR.HubConnectionBuilder()
 > [!NOTE]
 > Pokud chcete protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v metodě `configureLogging`.
 
-Další informace o protokolování najdete v dokumentaci k [diagnosticeSignalR](xref:signalr/diagnostics).
+Další informace o protokolování najdete v [dokumentaci k nástroji pro diagnostiku signálu](xref:signalr/diagnostics).
 
-SignalR klient Java používá k protokolování knihovnu [SLF4J](https://www.slf4j.org/) . Jedná se o rozhraní API pro protokolování na vysoké úrovni, které umožňuje uživatelům knihovny zvolit si vlastní specifickou implementaci protokolování, a to tak, že se do konkrétní závislosti protokolování přinášejí. Následující fragment kódu ukazuje, jak použít `java.util.logging` s klientem SignalR Java.
+Klient Java Signal používá knihovnu [SLF4J](https://www.slf4j.org/) k protokolování. Jedná se o rozhraní API pro protokolování na vysoké úrovni, které umožňuje uživatelům knihovny zvolit si vlastní specifickou implementaci protokolování, a to tak, že se do konkrétní závislosti protokolování přinášejí. Následující fragment kódu ukazuje, jak použít `java.util.logging` s klientem nástroje pro signalizaci v jazyce Java.
 
 ```gradle
 implementation 'org.slf4j:slf4j-jdk14:1.7.25'
@@ -926,7 +926,7 @@ Tuto možnost lze bezpečně ignorovat.
 
 ### <a name="configure-allowed-transports"></a>Konfigurace povolených přenosů
 
-Transporty používané SignalR lze konfigurovat v volání `WithUrl` (`withUrl` v JavaScriptu). Bitové nebo hodnoty `HttpTransportType` lze použít k omezení klienta na používání pouze určených přenosů. Ve výchozím nastavení jsou povolené všechny přenosy.
+V volání `WithUrl` se dá nakonfigurovat přenos používaný signálem (`withUrl` v JavaScriptu). Bitové nebo hodnoty `HttpTransportType` lze použít k omezení klienta na používání pouze určených přenosů. Ve výchozím nastavení jsou povolené všechny přenosy.
 
 Pokud třeba chcete zakázat přenos událostí odeslaných serverem, ale povolit WebSockets a dlouhá připojení s dotazem:
 
@@ -946,7 +946,7 @@ let connection = new signalR.HubConnectionBuilder()
 
 ### <a name="configure-bearer-authentication"></a>Konfigurace ověřování nosiče
 
-K poskytnutí ověřovacích dat spolu s požadavky SignalR použijte možnost `AccessTokenProvider` (`accessTokenFactory` v JavaScriptu) k určení funkce, která vrací požadovaný přístupový token. V klientovi .NET se tento přístupový token předává jako token ověřování HTTP "Bearer" (pomocí `Authorization` záhlaví s typem `Bearer`). V klientu jazyka JavaScript se přístupový token používá jako nosný token, **s výjimkou** případů, kdy rozhraní API prohlížeče omezuje možnost použít hlavičky (konkrétně v požadavcích na události odeslané serverem a objekty WebSockets). V těchto případech je přístupový token k dispozici jako hodnota řetězce dotazu `access_token`.
+Chcete-li poskytnout ověřovací data společně s požadavky na signalizaci, použijte možnost `AccessTokenProvider` (`accessTokenFactory` v JavaScriptu) k určení funkce, která vrací požadovaný přístupový token. V klientovi .NET se tento přístupový token předává jako token ověřování HTTP "Bearer" (pomocí `Authorization` záhlaví s typem `Bearer`). V klientu jazyka JavaScript se přístupový token používá jako nosný token, **s výjimkou** případů, kdy rozhraní API prohlížeče omezuje možnost použít hlavičky (konkrétně v požadavcích na události odeslané serverem a objekty WebSockets). V těchto případech je přístupový token k dispozici jako hodnota řetězce dotazu `access_token`.
 
 V klientu .NET lze zadat možnost `AccessTokenProvider` pomocí delegáta možností v `WithUrl`:
 
@@ -974,7 +974,7 @@ let connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-V SignalR klienta Java můžete nakonfigurovat nosný token, který se má použít k ověřování tím, že poskytne továrnu přístupového tokenu [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java). Použijte [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytnutí [> jednoho\<ového řetězce](https://reactivex.io/documentation/single.html) [RxJava](https://github.com/ReactiveX/RxJava) . Při volání metody [Single. odklad](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)můžete napsat logiku pro vytvoření přístupových tokenů pro klienta.
+V klientovi pro signalizaci Java můžete nakonfigurovat nosný token, který se použije pro ověřování, a to tak, že do [HttpHubConnectionBuilder](/java/api/com.microsoft.signalr._http_hub_connection_builder?view=aspnet-signalr-java)poskytne továrnu přístupového tokenu. Použijte [withAccessTokenFactory](/java/api/com.microsoft.signalr._http_hub_connection_builder.withaccesstokenprovider?view=aspnet-signalr-java#com_microsoft_signalr__http_hub_connection_builder_withAccessTokenProvider_Single_String__) k poskytnutí [> jednoho\<ového řetězce](https://reactivex.io/documentation/single.html) [RxJava](https://github.com/ReactiveX/RxJava) . Při volání metody [Single. odklad](https://reactivex.io/RxJava/javadoc/io/reactivex/Single.html#defer-java.util.concurrent.Callable-)můžete napsat logiku pro vytvoření přístupových tokenů pro klienta.
 
 ```java
 HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/myhub")
@@ -988,40 +988,40 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
 
 Další možnosti konfigurace časového limitu a chování při udržování připojení jsou k dispozici na samotném objektu `HubConnection`:
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `ServerTimeout` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `Closed` (`onclose` v JavaScriptu). Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
-| `HandshakeTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `Closed` (`onclose` v JavaScriptu). Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `HandshakeTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `Closed` (`onclose` v JavaScriptu). Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 
 V klientovi .NET jsou hodnoty časového limitu zadány jako `TimeSpan` hodnoty.
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `serverTimeoutInMilliseconds` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `onclose`. Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
 | Možnost | Výchozí hodnota | Popis |
 | ------ | ------------- | ----------- |
 | `getServerTimeout` / `setServerTimeout` | 30 sekund (30 000 milisekund) | Vypršel časový limit aktivity serveru. Pokud server v tomto intervalu neodeslal zprávu, klient považuje server za odpojený a spustí událost `onClose`. Tato hodnota musí být dostatečně velká, aby bylo možné odeslat zprávu s upozorněním na e-mail ze serveru **a** klienta přijmout v intervalu časového limitu. Doporučená hodnota je číslo minimálně dvojnásobku `KeepAliveInterval` hodnoty serveru, aby bylo možné dorazit na příkazy k zadání času. |
-| `withHandshakeResponseTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `onClose`. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokoluSignalR hub](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
+| `withHandshakeResponseTimeout` | 15 sekund | Vypršel časový limit počáteční metody handshake serveru. Pokud server v tomto intervalu neodešle odpověď handshake, klient zruší metodu handshake a aktivuje událost `onClose`. Toto je pokročilé nastavení, které by mělo být změněno pouze v případě, že dochází k chybám časového limitu handshake kvůli závažné latenci sítě. Další informace o procesu handshake najdete v tématu [specifikace protokolu centra signalizace](https://github.com/aspnet/SignalR/blob/master/specs/HubProtocol.md). |
 
 ---
 
-### <a name="configure-additional-options"></a>Konfigurace dalších možností
+### <a name="configure-additional-options"></a>Konfigurovat další možnosti
 
 Další možnosti lze nakonfigurovat v metodě `WithUrl` (`withUrl` in JavaScript) na `HubConnectionBuilder` nebo na různých konfiguračních rozhraních API `HttpHubConnectionBuilder` v klientovi Java:
 
-# <a name="nettabdotnet"></a>[.NET](#tab/dotnet)
+# <a name="net"></a>[.NET](#tab/dotnet)
 
 | Možnost .NET |  Výchozí hodnota | Popis |
 | ----------- | -------------- | ----------- |
 | `AccessTokenProvider` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `SkipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
+| `SkipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
 | `ClientCertificates` | Prázdné | Kolekce certifikátů TLS pro odeslání na požadavky na ověření. |
 | `Cookies` | Prázdné | Kolekce souborů cookie protokolu HTTP, které se mají odeslat s každou žádostí HTTP |
 | `Credentials` | Prázdné | Přihlašovací údaje, které se mají poslat s každou žádostí HTTP |
@@ -1032,20 +1032,20 @@ Další možnosti lze nakonfigurovat v metodě `WithUrl` (`withUrl` in JavaScrip
 | `UseDefaultCredentials` | `false` | Nastavte tuto logickou hodnotu pro odeslání výchozích přihlašovacích údajů pro požadavky HTTP a WebSockets. To umožňuje použití ověřování systému Windows. |
 | `WebSocketConfiguration` | `null` | Delegát, který lze použít ke konfiguraci dalších možností protokolu WebSocket. Přijímá instanci [ClientWebSocketOptions](/dotnet/api/system.net.websockets.clientwebsocketoptions) , která se dá použít ke konfiguraci možností. |
 
-# <a name="javascripttabjavascript"></a>[JavaScript](#tab/javascript)
+# <a name="javascript"></a>[JavaScript](#tab/javascript)
 
 | Možnost JavaScriptu | Výchozí hodnota | Popis |
 | ----------------- | ------------- | ----------- |
 | `accessTokenFactory` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `skipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
+| `skipNegotiation` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
 
-# <a name="javatabjava"></a>[Java](#tab/java)
+# <a name="java"></a>[Java](#tab/java)
 
 | Možnost jazyka Java | Výchozí hodnota | Popis |
 | ----------- | ------------- | ----------- |
 | `withAccessTokenProvider` | `null` | Funkce, která vrací řetězec, který je poskytnut jako ověřovací token nosiče v požadavcích HTTP. |
-| `shouldSkipNegotiate` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby Azure SignalR. |
-| `withHeader``withHeaders` | Prázdné | Mapa dalších hlaviček protokolu HTTP, která se má poslat s každou žádostí HTTP |
+| `shouldSkipNegotiate` | `false` | Nastavte tuto hodnotu na `true`, aby se přeskočil krok vyjednávání. **Podporuje se jenom v případě, že přenos WebSockets je jediným povoleným přenosem**. Toto nastavení se nedá povolit při použití služby signalizace Azure. |
+| `withHeader` `withHeaders` | Prázdné | Mapa dalších hlaviček protokolu HTTP, která se má poslat s každou žádostí HTTP |
 
 ---
 
@@ -1082,7 +1082,7 @@ HubConnection hubConnection = HubConnectionBuilder.create("https://example.com/m
         .build();
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:tutorials/signalr>
 * <xref:signalr/hubs>

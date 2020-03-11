@@ -6,29 +6,29 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 11/15/2018
 uid: security/authorization/resourcebased
-ms.openlocfilehash: acc931da1be0940fac72b0aabe07ab17ca7e63bd
-ms.sourcegitcommit: 6628cd23793b66e4ce88788db641a5bbf470c3c1
+ms.openlocfilehash: 2be611c754583d996db7107f341b1be03cef73cf
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73660006"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664799"
 ---
 # <a name="resource-based-authorization-in-aspnet-core"></a>Ověřování na základě prostředků v ASP.NET Core
 
 Autorizační strategie závisí na prostředku, ke kterému se přistupoval. Vezměte v úvahu dokument, který má vlastnost Author. Dokument může aktualizovat pouze autor. V důsledku toho musí být dokument načten z úložiště dat ještě před tím, než může dojít k vyhodnocení autorizace.
 
-K vyhodnocení atributu dojde před datovou vazbou a před spuštěním obslužné rutiny stránky nebo akce, která dokument načte. Z těchto důvodů nestačí deklarativní autorizace s atributem `[Authorize]`. Místo toho můžete vyvolat vlastní metodu autorizace &mdash;a stylu, který se označuje jako *imperativní autorizace*.
+K vyhodnocení atributu dojde před datovou vazbou a před spuštěním obslužné rutiny stránky nebo akce, která dokument načte. Z těchto důvodů nestačí deklarativní autorizace s atributem `[Authorize]`. Místo toho můžete vyvolat vlastní metodu autorizace&mdash;stylu, který se označuje jako *imperativní autorizace*.
 
 ::: moniker range=">= aspnetcore-3.0"
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/3_0) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/3_0) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 ::: moniker-end
 
  ::: moniker range=">= aspnetcore-2.0 < aspnetcore-3.0"
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/2_2) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/2_2) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/1_1) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/resourcebased/samples/1_1) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 ::: moniker-end
 
 [Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací](xref:security/authorization/secure-data) obsahuje ukázkovou aplikaci, která používá autorizaci založenou na prostředku.

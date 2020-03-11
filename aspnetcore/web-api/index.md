@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: web-api/index
-ms.openlocfilehash: 3dca07db3d6be4ab219a2e05e3adcf1b24ee5c40
-ms.sourcegitcommit: 80286715afb93c4d13c931b008016d6086c0312b
+ms.openlocfilehash: be88b8d58f1f660f3a815c395c210c05a7b4917c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/07/2020
-ms.locfileid: "77074507"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666003"
 ---
 # <a name="create-web-apis-with-aspnet-core"></a>Vytváření webových rozhraní API pomocí ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "77074507"
 
 ASP.NET Core podporuje vytváření služeb RESTful, označovaných také jako webová rozhraní API C#, pomocí. Webové rozhraní API zpracovává žádosti pomocí řadičů. *Řadiče* ve webovém rozhraní API jsou třídy, které jsou odvozeny z `ControllerBase`. V tomto článku se dozvíte, jak používat řadiče pro zpracování požadavků webového rozhraní API.
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/index/samples). ([Stažení](xref:index#how-to-download-a-sample)).
 
 ## <a name="controllerbase-class"></a>ControllerBase – třída
 
@@ -156,7 +156,7 @@ namespace WebApiSample
 
 ## <a name="attribute-routing-requirement"></a>Požadavek na směrování atributu
 
-Atribut `[ApiController]` dělá směrování požadavku. Například:
+Atribut `[ApiController]` dělá směrování požadavku. Příklad:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -226,7 +226,7 @@ Typ `ValidationProblemDetails`:
 
 ### <a name="log-automatic-400-responses"></a>Protokolovat automatické odpovědi 400
 
-Přečtěte si, [Jak protokolovat automatické odpovědi 400 na chyby ověření modelu (ASPNET/AspNetCore. Docs #12157)](https://github.com/aspnet/AspNetCore.Docs/issues/12157).
+Přečtěte si, [Jak protokolovat automatické odpovědi 400 na chyby ověření modelu (ASPNET/AspNetCore. Docs #12157)](https://github.com/dotnet/AspNetCore.Docs/issues/12157).
 
 ### <a name="disable-automatic-400-response"></a>Zakázat automatickou odpověď 400
 
@@ -369,7 +369,7 @@ V akci kontroleru zvažte následující kód:
 
 [!code-csharp[](index/samples/2.x/2.2/Controllers/PetsController.cs?name=snippet_ProblemDetailsStatusCode)]
 
-Metoda `NotFound` generuje stavový kód HTTP 404 s `ProblemDetails` tělo. Například:
+Metoda `NotFound` generuje stavový kód HTTP 404 s `ProblemDetails` tělo. Příklad:
 
 ```json
 {
@@ -382,7 +382,7 @@ Metoda `NotFound` generuje stavový kód HTTP 404 s `ProblemDetails` tělo. Nap�
 
 ### <a name="disable-problemdetails-response"></a>Zakázat odpověď ProblemDetails
 
-Automatické vytváření instance `ProblemDetails` je zakázáno, pokud je vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> nastavena na `true`. Do `Startup.ConfigureServices`přidejte následující kód:
+Automatické vytváření `ProblemDetails` stavových kódů chyb je zakázáno, pokud je vlastnost <xref:Microsoft.AspNetCore.Mvc.ApiBehaviorOptions.SuppressMapClientErrors%2A> nastavena na `true`. Do `Startup.ConfigureServices`přidejte následující kód:
 
 ::: moniker-end
 

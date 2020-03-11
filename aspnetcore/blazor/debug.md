@@ -11,19 +11,19 @@ no-loc:
 - SignalR
 uid: blazor/debug
 ms.openlocfilehash: 1b0035af48b82807a6ae14835a41a1ecbef06bb6
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159986"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661705"
 ---
-# <a name="debug-aspnet-core-opno-locblazor"></a>Blazor ASP.NET Core ladění
+# <a name="debug-aspnet-core-blazor"></a>Ladění ASP.NET Core Blazor
 
 [Daniel Skořepa](https://github.com/danroth27)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Pro ladění Blazor webové sestavení pomocí nástrojů pro vývoj v Chromu v prohlížečích založených na chromu (Chrome/Edge) existuje *brzké* podpora. Práce probíhá:
+Pro ladění Blazor WebAssembly pomocí nástrojů pro vývoj v Chromu v prohlížečích založených na chromu (Chrome/Edge) existuje *brzké* podpora. Práce probíhá:
 
 * Zcela povolit ladění v aplikaci Visual Studio.
 * Povolit ladění v Visual Studio Code.
@@ -46,7 +46,7 @@ Možnosti ladicího programu jsou omezené. K dispozici jsou tyto scénáře:
 
 Vývoj dalších scénářů ladění je průběžným soustředěním na technický tým.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Ladění vyžaduje některý z následujících prohlížečů:
 
@@ -55,7 +55,7 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
 ## <a name="procedure"></a>Postup
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 > [!WARNING]
 > Podpora ladění v aplikaci Visual Studio je v rané fázi vývoje. Ladění **F5** není aktuálně podporováno.
@@ -63,7 +63,7 @@ Ladění vyžaduje některý z následujících prohlížečů:
 1. Spusťte aplikaci Blazor WebAssembly v konfiguraci `Debug` bez ladění (**Ctrl**+**F5** místo **F5**).
 1. Otevřete vlastnosti ladění aplikace (poslední položka v nabídce **ladění** ) a zkopírujte **adresu URL aplikace**http. Přejděte k adrese HTTP (nikoli k adrese HTTPS) aplikace pomocí prohlížeče založeného na chromu (Edge beta nebo Chrome).
 1. Umístěte fokus klávesnice do aplikace v okně prohlížeče, nikoli na panelu nástroje pro vývojáře. Pro tento postup je nejlepší, aby byl panel nástrojů pro vývojáře uzavřený. Po spuštění ladění můžete panel nástroje pro vývojáře znovu otevřít.
-1. Vyberte následující klávesovou zkratku určenou pro Blazor:
+1. Vyberte následující klávesovou zkratku specifickou pro Blazor:
 
    * `Shift+Alt+D` ve Windows
    * `Shift+Cmd+D` na macOS
@@ -76,18 +76,18 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
    2\. Umístěte fokus klávesnice do aplikace v okně prohlížeče.
 
-   3\. V novém okně prohlížeče vyberte klávesovou zkratku Blazor: `Shift+Alt+D` ve Windows nebo `Shift+Cmd+D` na macOS.
+   3\. V novém okně prohlížeče vyberte klávesovou zkratku specifickou pro Blazor: `Shift+Alt+D` ve Windows nebo `Shift+Cmd+D` na macOS.
 
    4\. V prohlížeči se otevře karta **devtools** . **V okně prohlížeče znovu vyberte kartu aplikace.**
 
    Chcete-li připojit aplikaci k aplikaci Visual Studio, přečtěte si část [připojit k procesu v aplikaci Visual Studio](#attach-to-process-in-visual-studio) .
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
-1. Spusťte aplikaci Blazor WebAssembly v konfiguraci `Debug` předáním možnosti `--configuration Debug` příkazu [dotnet Run](/dotnet/core/tools/dotnet-run) : `dotnet run --configuration Debug`.
+1. Spusťte Blazor aplikaci WebAssembly v konfiguraci `Debug` předáním možnosti `--configuration Debug` do příkazu [dotnet Run](/dotnet/core/tools/dotnet-run) : `dotnet run --configuration Debug`.
 1. Přejděte do aplikace na adrese URL protokolu HTTP zobrazeném v okně prostředí.
 1. Umístěte fokus klávesnice na aplikaci, ne na panel nástroje pro vývojáře. Pro tento postup je nejlepší, aby byl panel nástrojů pro vývojáře uzavřený. Po spuštění ladění můžete panel nástroje pro vývojáře znovu otevřít.
-1. Vyberte následující klávesovou zkratku určenou pro Blazor:
+1. Vyberte následující klávesovou zkratku specifickou pro Blazor:
 
    * `Shift+Alt+D` ve Windows
    * `Shift+Cmd+D` na macOS
@@ -100,7 +100,7 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
    2\. Umístěte fokus klávesnice do aplikace v okně prohlížeče, nikoli na panelu nástroje pro vývojáře.
 
-   3\. V novém okně prohlížeče vyberte klávesovou zkratku Blazor: `Shift+Alt+D` ve Windows nebo `Shift+Cmd+D` na macOS.
+   3\. V novém okně prohlížeče vyberte klávesovou zkratku specifickou pro Blazor: `Shift+Alt+D` ve Windows nebo `Shift+Cmd+D` na macOS.
 
 ---
 
@@ -131,7 +131,7 @@ Připojení procesu běžící aplikace k aplikaci Visual Studio:
 
 Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zkompilované soubory zpátky na původní zdrojové soubory a často se používají pro ladění na straně klienta. Blazor ale v tuto chvíli není C# přímo namapována na JavaScript/WASM. Místo toho Blazor provede interpretaci IL v prohlížeči, takže zdrojová mapování nejsou relevantní.
 
-## <a name="troubleshoot"></a>Řešení problémů
+## <a name="troubleshoot"></a>Řešení potíží
 
 Pokud pracujete s chybami, může vám následující Tip:
 

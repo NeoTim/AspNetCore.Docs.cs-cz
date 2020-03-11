@@ -1,34 +1,34 @@
 ---
 title: Průběžné nasazování do Azure pomocí sady Visual Studio a Gitu s ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak vytvořit webovou aplikaci ASP.NET Core pomocí sady Visual Studio a nasaďte ji do služby Azure App Service pro průběžné nasazování pomocí Gitu.
+description: Naučte se, jak vytvořit webovou aplikaci ASP.NET Core pomocí sady Visual Studio a nasadit ji do Azure App Service pomocí Gitu pro průběžné nasazování.
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/06/2018
 uid: host-and-deploy/azure-apps/azure-continuous-deployment
 ms.openlocfilehash: 3b344505739bb4292ed1683c73ff314b6e4e01e9
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902331"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660851"
 ---
 # <a name="continuous-deployment-to-azure-with-visual-studio-and-git-with-aspnet-core"></a>Průběžné nasazování do Azure pomocí sady Visual Studio a Gitu s ASP.NET Core
 
-By [Erik Reitan](https://github.com/Erikre)
+od [Erik Reitan](https://github.com/Erikre)
 
 [!INCLUDE [Azure App Service Preview Notice](../../includes/azure-apps-preview-notice.md)]
 
-Tento kurz ukazuje, jak vytvořit webovou aplikaci ASP.NET Core pomocí sady Visual Studio a nasadit ho z Visual Studio do služby Azure App Service pomocí průběžného nasazování.
+V tomto kurzu se dozvíte, jak vytvořit webovou aplikaci ASP.NET Core pomocí sady Visual Studio a nasadit ji ze sady Visual Studio na Azure App Service pomocí průběžného nasazování.
 
-Viz také [vytvořit svůj první kanál s kanály Azure](/azure/devops/pipelines/get-started-yaml), který ukazuje postup při konfiguraci pracovního postupu průběžné doručování (CD) pro [služby Azure App Service](/azure/app-service/app-service-web-overview) pomocí služby Azure DevOps. Kanály Azure (služby Azure DevOps služby), zjednodušuje zřízení robustního kanálu nasazení publikovat aktualizace pro aplikace hostované ve službě Azure App Service. Kanál je možné nakonfigurovat z portálu Azure portal k vytvoření, spuštění testů, nasazení do přípravného slotu a pak nasadit do produkčního prostředí.
+Viz také [Vytvoření prvního kanálu pomocí Azure Pipelines](/azure/devops/pipelines/get-started-yaml), který ukazuje, jak nakonfigurovat pracovní postup pro průběžné doručování (CD) pro [Azure App Service](/azure/app-service/app-service-web-overview) pomocí Azure DevOps Services. Azure Pipelines (služba Azure DevOps Services) zjednodušuje nastavení robustního kanálu nasazení pro publikování aktualizací pro aplikace hostované v Azure App Service. Kanál se dá nakonfigurovat z Azure Portal k sestavení, spuštění testů, nasazování do přípravného slotu a následnému nasazení do produkčního prostředí.
 
 > [!NOTE]
-> K dokončení tohoto kurzu je nutné účet Microsoft Azure. Získat účet služby se [aktivovat výhody pro předplatitele MSDN](https://azure.microsoft.com/pricing/member-offers/credit-for-visual-studio-subscribers/?WT.mc_id=A261C142F) nebo [zaregistrujte si bezplatnou zkušební verzi](https://azure.microsoft.com/free/?WT.mc_id=A261C142F).
+> K dokončení tohoto kurzu se vyžaduje účet Microsoft Azure. Pokud chcete získat účet, [Aktivujte si výhody pro předplatitele MSDN](https://azure.microsoft.com/pricing/member-offers/credit-for-visual-studio-subscribers/?WT.mc_id=A261C142F) nebo [si zaregistrujte bezplatnou zkušební verzi](https://azure.microsoft.com/free/?WT.mc_id=A261C142F).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-Tento kurz předpokládá, že je nainstalovaný následující software:
+V tomto kurzu se předpokládá, že je nainstalovaný následující software:
 
 * [Visual Studio](https://visualstudio.microsoft.com)
 * [!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
@@ -38,133 +38,133 @@ Tento kurz předpokládá, že je nainstalovaný následující software:
 
 1. Spusťte Visual Studio.
 
-1. Z **souboru** nabídce vyberte možnost **nový** > **projektu**.
+1. V nabídce **soubor** vyberte **Nový** > **projekt**.
 
-1. Vyberte **webové aplikace ASP.NET Core** šablony projektu. Zobrazí se pod **nainstalováno** > **šablony** > **Visual C#** > **.NET Core**. Pojmenujte projekt `SampleWebAppDemo`. Vyberte **vytvořit nové úložiště Git** možnost a klikněte na tlačítko **OK**.
+1. Vyberte šablonu projektu **ASP.NET Core webové aplikace** . Zobrazuje se v části **nainstalované** > **šablony** >  **C# Visual** >  **.NET Core**. Pojmenujte projekt `SampleWebAppDemo`. Vyberte možnost **vytvořit novou Git úložiště** a klikněte na **OK**.
 
-   ![Dialogové okno nového projektu](azure-continuous-deployment/_static/01-new-project.png)
+   ![Dialogové okno Nový projekt](azure-continuous-deployment/_static/01-new-project.png)
 
-1. V **nový projekt ASP.NET Core** dialogového okna, vyberte ASP.NET Core **prázdný** šablony, klikněte na **OK**.
+1. V dialogovém okně **Nový projekt ASP.NET Core** vyberte ASP.NET Core **prázdnou** šablonu a pak klikněte na **OK**.
 
-   ![Dialogové okno Nový projekt ASP.NET Core](azure-continuous-deployment/_static/02-web-site-template.png)
+   ![Dialog nového projektu ASP.NET Core](azure-continuous-deployment/_static/02-web-site-template.png)
 
 > [!NOTE]
-> Nejnovější verzi sady .NET Core je 2.0.
+> Nejnovější verze .NET Core je 2,0.
 
 ### <a name="running-the-web-app-locally"></a>Místní spuštění webové aplikace
 
-1. Jakmile sada Visual Studio dokončí vytváření aplikace, spusťte aplikaci tak, že vyberete **ladění** > **spustit ladění**. Jako alternativu, stiskněte klávesu **F5**.
+1. Jakmile Visual Studio dokončí vytváření aplikace, spusťte aplikaci výběrem možnosti **ladění** > **Spustit ladění**. Jako alternativu stiskněte klávesu **F5**.
 
-   Může trvat dobu k inicializaci sady Visual Studio a novou aplikaci. Po dokončení zobrazí v prohlížeči spuštěné aplikaci.
+   Inicializace sady Visual Studio a nové aplikace může chvíli trvat. Po dokončení se v prohlížeči zobrazí spuštěná aplikace.
 
-   ![Zobrazení okna prohlížeče spuštěnou aplikaci, která se zobrazí "Hello World!"](azure-continuous-deployment/_static/04-browser-runapp.png)
+   ![Okno prohlížeče zobrazující běžící aplikaci, která zobrazuje Hello World!](azure-continuous-deployment/_static/04-browser-runapp.png)
 
-1. Po zkontrolování funkční webovou aplikaci, ukončete prohlížeč a vyberte ikonu "Zastavit ladění" v panelu nástrojů sady Visual Studio a zastavte tak aplikace.
+1. Po kontrole běžící webové aplikace zavřete prohlížeč a na panelu nástrojů sady Visual Studio vyberte ikonu Zastavit ladění a zastavte aplikaci.
 
 ## <a name="create-a-web-app-in-the-azure-portal"></a>Vytvoření webové aplikace na webu Azure Portal
 
-Následující postup vytvoření webové aplikace na webu Azure Portal:
+Pomocí následujících kroků vytvoříte webovou aplikaci na webu Azure Portal:
 
 1. Přihlaste se k [webu Azure Portal](https://portal.azure.com).
 
-1. Vyberte **nový** v levém horním rohu portálu rozhraní.
+1. Vyberte **Nový** v levém horním rohu rozhraní portálu.
 
-1. Vyberte **Web + mobilní zařízení** > **webová aplikace**.
+1. Vyberte **Web a mobilní zařízení** > **webové aplikace**.
 
-   ![Portál Microsoft Azure: Tlačítko Nová: Web + mobilní zařízení v části Marketplace: Tlačítko webové aplikace v rámci vybrané aplikace](azure-continuous-deployment/_static/05-azure-newwebapp.png)
+   ![Microsoft Azure Portal: nové tlačítko: Web a mobilní zařízení na webu Marketplace: tlačítko webové aplikace v oblasti vybrané aplikace](azure-continuous-deployment/_static/05-azure-newwebapp.png)
 
-1. V **webovou aplikaci** okně zadejte jedinečnou hodnotu **název služby App Service**.
+1. V okně **Webová aplikace** zadejte jedinečnou hodnotu **názvu App Service**.
 
-   ![Okně webové aplikace](azure-continuous-deployment/_static/06-azure-newappblade.png)
+   ![Okno webové aplikace](azure-continuous-deployment/_static/06-azure-newappblade.png)
 
    > [!NOTE]
-   > **Název služby App Service** název musí být jedinečný. Na portálu vynutí toto pravidlo, pokud je zadaný název. Pokud zadáte jiné hodnoty, nahraďte tuto hodnotu pro každý výskyt **SampleWebAppDemo** v tomto kurzu.
+   > Název **App Service** musí být jedinečný. Portál toto pravidlo vynutil, pokud je zadán název. Pokud zadáte jinou hodnotu, nahraďte tuto hodnotu pro každý výskyt **SampleWebAppDemo** v tomto kurzu.
 
-   Také v **webovou aplikaci** okno, vyberte existující **plán App Service/umístění** nebo vytvořte novou. Pokud vytváříte nový plán, vyberte cenovou úroveň, umístění a další možnosti. Další informace o plánech služby App Service najdete v tématu [podrobný přehled plánů služby Azure App Service](/azure/app-service/azure-web-sites-web-hosting-plans-in-depth-overview).
+   V okně **Webová aplikace** vyberte existující **App Service plán/umístění** nebo vytvořte nový. Pokud vytváříte nový plán, vyberte cenovou úroveň, umístění a další možnosti. Další informace o plánech App Service najdete [v podrobných informacích o Azure App Servicech plánech](/azure/app-service/azure-web-sites-web-hosting-plans-in-depth-overview).
 
-1. Vyberte **Vytvořit**. Azure bude zřídit a spustit webovou aplikaci.
+1. Vyberte **Vytvořit**. Azure zřídí a spustí webovou aplikaci.
 
-   ![Azure Portal: Okno ukázkové webové aplikace ukázku 01 Essentials](azure-continuous-deployment/_static/07-azure-webappblade.png)
+   ![Portál Azure Portal: Ukázka webové aplikace ukázka 01 základní okno](azure-continuous-deployment/_static/07-azure-webappblade.png)
 
-## <a name="enable-git-publishing-for-the-new-web-app"></a>Povolení publikování Git pro novou webovou aplikaci
+## <a name="enable-git-publishing-for-the-new-web-app"></a>Povolit publikování Gitu pro novou webovou aplikaci
 
-Git je distribuovaný systém správy verzí, který slouží k nasazení webové aplikace v Azure App Service. Kód webové aplikace je uložena v místním úložišti Git a kód se nasazuje do Azure s doručením (push) do vzdáleného úložiště.
+Git je distribuovaný systém správy verzí, který se dá použít k nasazení Azure App Service webové aplikace. Kód webové aplikace je uložený v místním úložišti Git a kód se nasadí do Azure tím, že se uloží do vzdáleného úložiště.
 
-1. Přihlaste se [webu Azure Portal](https://portal.azure.com).
+1. Přihlaste se k webu [Azure Portal](https://portal.azure.com).
 
-1. Vyberte **App Services** zobrazíte seznam služeb aplikací přidružených k předplatnému Azure.
+1. Výběrem **App Services** zobrazíte seznam aplikačních služeb přidružených k předplatnému Azure.
 
 1. Vyberte webovou aplikaci vytvořenou v předchozí části tohoto kurzu.
 
-1. V **nasazení** okně vyberte **možnosti nasazení** > **zvolit zdroj** > **místní úložiště Git**.
+1. V okně **nasazení** vyberte **Možnosti nasazení** > **Zvolte zdroj** > **místní úložiště Git**.
 
-   ![Okno nastavení: Okno zdroje nasazení: Vyberte okno zdroje](azure-continuous-deployment/_static/deployment-options.png)
+   ![Okno nastavení: okno zdroje nasazení: zvolit zdrojový okno](azure-continuous-deployment/_static/deployment-options.png)
 
 1. Vyberte **OK**.
 
-1. Pokud přihlašovací údaje nasazení pro publikování webové aplikace nebo jiné aplikace služby App Service ještě dříve nastavený, nastavte je nyní:
+1. Pokud se přihlašovací údaje nasazení pro publikování webové aplikace nebo jiné aplikace App Service ještě neudělaly, nastavte je teď:
 
-   * Vyberte **nastavení** > **přihlašovací údaje pro nasazení**. **Přihlašovací údaje pro nasazení** zobrazí se okno.
-   * Vytvořte uživatelské jméno a heslo. Uložte heslo pro pozdější použití. při nastavování Git.
-   * Vyberte **Uložit**.
+   * Vyberte **nastavení** > **přihlašovací údaje pro nasazení**. Zobrazí se okno **nastavit přihlašovací údaje nasazení** .
+   * Vytvořte uživatelské jméno a heslo. Uložte heslo pro pozdější použití při nastavování Gitu.
+   * Vyberte **Save** (Uložit).
 
-1. V **webovou aplikaci** okně vyberte **nastavení** > **vlastnosti**. Adresa URL vzdáleného úložiště Git pro nasazení do je zobrazen pod **adresa URL pro GIT**.
+1. V okně **Webová aplikace** vyberte **Nastavení** > **vlastnosti**. Adresa URL vzdáleného úložiště Git, na který se má nasadit, se zobrazí v části **Adresa URL Gitu**.
 
-1. Kopírovat **adresa URL pro GIT** hodnoty pro pozdější použití v tomto kurzu.
+1. Zkopírujte hodnotu **adresy URL Gitu** pro pozdější použití v tomto kurzu.
 
-   ![Webu Azure Portal: okno Vlastnosti aplikací](azure-continuous-deployment/_static/09-azure-giturl.png)
+   ![Portál Azure Portal: okno vlastností aplikace](azure-continuous-deployment/_static/09-azure-giturl.png)
 
 ## <a name="publish-the-web-app-to-azure-app-service"></a>Publikování webové aplikace do služby Azure App Service
 
-V této části se vytvořte místní úložiště Git pomocí sady Visual Studio a nabízených oznámení z tohoto úložiště do Azure k nasazení webové aplikace. Následující kroky:
+V této části vytvoříte místní úložiště Git pomocí sady Visual Studio a nahrajete ho z tohoto úložiště do Azure a nasadíte webovou aplikaci. Mezi zahrnuté kroky patří následující:
 
-* Přidáte nastavení vzdáleného úložiště pomocí adresy URL pro GIT hodnoty, tak v místním úložišti je možné nasadit do Azure.
-* Potvrďte změny v projektu.
-* Odešlete změny projektu z místního úložiště do vzdáleného úložiště v Azure.
+* Přidejte nastavení vzdáleného úložiště pomocí hodnoty adresy URL GITU, aby bylo možné místní úložiště nasadit do Azure.
+* Potvrďte změny projektu.
+* Vložení změn projektu z místního úložiště do vzdáleného úložiště v Azure
 
-1. V **Průzkumníka řešení** klikněte pravým tlačítkem na **řešení "SampleWebAppDemo"** a vyberte **potvrzení**. **Team Exploreru** se zobrazí.
+1. V **Průzkumník řešení** klikněte pravým tlačítkem myši na **řešení SampleWebAppDemo** a vyberte **Potvrdit**. Zobrazí se **Team Explorer**.
 
-   ![Team Explorer Connect kartu](azure-continuous-deployment/_static/10-team-explorer.png)
+   ![Karta Team Explorer připojit](azure-continuous-deployment/_static/10-team-explorer.png)
 
-1. V **Team Exploreru**, vyberte **domácí** (Ikona Domovská stránka) > **nastavení** > **nastavení úložiště**.
+1. V **Team Explorer**vyberte **Domů** (ikona domů) > **Nastavení** > **Nastavení úložiště**.
 
-1. V **vzdálených úložišť** část **nastavení úložiště**vyberte **přidat**. **Přidat vzdálené úložiště** se zobrazí dialogové okno.
+1. V části **Vzdálená úložiště** vyberte v **Nastavení úložiště** **Přidat**. Zobrazí se dialogové okno **Přidat vzdálené úložiště**.
 
-1. Nastavte **název** vzdáleného k **Azure – ukázková aplikace**.
+1. Nastavte **název** vzdáleného na **Azure-dotazů**.
 
-1. Nastavit hodnotu pro **načíst** k **adresa URL pro Git** , který se zkopíruje z Azure dříve v tomto kurzu. Všimněte si, že se jedná o adresu URL, která končí **.git**.
+1. Nastavte hodnotu pro **načíst** na **adresu URL Gitu** zkopírovanou z Azure dřív v tomto kurzu. Všimněte si, že toto je adresa URL, která končí na **. Git**.
 
-   ![Upravit vzdálené dialogového okna](azure-continuous-deployment/_static/11-add-remote.png)
+   ![Upravit vzdálené dialogové okno](azure-continuous-deployment/_static/11-add-remote.png)
 
    > [!NOTE]
-   > Jako alternativu, zadejte ze vzdáleného úložiště **příkazové okno** tak, že otevřete **příkazové okno**, změna k adresáři projektu a zadáním příkazu. Příklad:
+   > Jako alternativu určete vzdálené úložiště z **příkazového okna** otevřením **okna příkazového**řádku, přepnutím do adresáře projektu a zadáním příkazu. Příklad:
    >
    > `git remote add Azure-SampleApp https://me@sampleapp.scm.azurewebsites.net:443/SampleApp.git`
 
-1. Vyberte **domácí** (Ikona Domovská stránka) > **nastavení** > **globální nastavení**. Zkontrolujte, jestli jsou nastavené jméno a e-mailovou adresu. Vyberte **aktualizace** podle potřeby.
+1. Vyberte **Domů** (ikona domů) > **Nastavení** > **globální nastavení**. Zkontrolujte, jestli je zadané jméno a e-mailová adresa. V případě potřeby vyberte **aktualizovat** .
 
-1. Vyberte **Domů** > **změny** se vrátíte **změny** zobrazení.
+1. Vyberte možnost **domovská** > **změny** pro návrat do zobrazení **změny** .
 
-1. Zadejte zprávu potvrzení změn, jako například **počáteční Push č. 1** a vyberte **potvrzení**. Tato akce vytvoří *potvrzení* místně.
+1. Zadejte potvrzovací zprávu, například **počáteční #1 nabízených oznámení** , a vyberte **Potvrdit**. Tato akce vytvoří místní *potvrzení* .
 
-   ![Team Explorer Connect kartu](azure-continuous-deployment/_static/12-initial-commit.png)
+   ![Karta Team Explorer připojit](azure-continuous-deployment/_static/12-initial-commit.png)
 
    > [!NOTE]
-   > Jako alternativu potvrzení změny z **příkazové okno** tak, že otevřete **příkazové okno**, změna k adresáři projektu a zadáte příkazy gitu. Příklad:
+   > Jako alternativu potvrďte změny z **příkazového okna** tak, že otevřete **okno příkazového**řádku, změníte adresář projektu a zadáte příkazy Gitu. Příklad:
    >
    > `git add .`
    >
    > `git commit -am "Initial Push #1"`
 
-1. Vyberte **Domů** > **synchronizace** > **akce** > **otevřete příkazový řádek**. Příkazový řádek se otevře adresář projektu.
+1. Vyberte možnost **domovská** > **synchronizovat** > **Akce** > **otevřít příkazový řádek**. Příkazový řádek se otevře v adresáři projektu.
 
 1. V příkazovém okně zadejte následující příkaz:
 
    `git push -u Azure-SampleApp master`
 
-1. Zadejte Azure **přihlašovací údaje pro nasazení** heslo, které vytvořili dříve v Azure.
+1. Zadejte heslo k **přihlašovacím údajům nasazení** Azure, které jste vytvořili dříve v Azure.
 
-   Tento příkaz spustí proces odesílání souborů místní projekt do Azure. Výstup z výše uvedeného příkazu ukončí a zobrazí se zpráva, že nasazení bylo úspěšné.
+   Tento příkaz spustí proces vložení místních souborů projektu do Azure. Výstup z výše uvedeného příkazu končí zprávou, že nasazení proběhlo úspěšně.
 
    ```
    remote: Finished successfully.
@@ -176,58 +176,58 @@ V této části se vytvořte místní úložiště Git pomocí sady Visual Studi
    ```
 
    > [!NOTE]
-   > Pokud se vyžaduje spolupráci na projekt, vezměte v úvahu doručením (push) do [Githubu](https://github.com) před doručením (push) do Azure.
+   > Pokud je potřeba spolupráce na projektu, zvažte, že před nahráním do Azure budete moct přecházet do [GitHubu](https://github.com) .
  
-### <a name="verify-the-active-deployment"></a>Ověření aktivní nasazení
+### <a name="verify-the-active-deployment"></a>Ověřit aktivní nasazení
 
-Ověřte, jestli přenos webové aplikace z místního prostředí do Azure se úspěšně dokončila.
+Ověřte, jestli je webová aplikace přenesená z místního prostředí do Azure úspěšná.
 
-V [webu Azure Portal](https://portal.azure.com), vyberte webovou aplikaci. Vyberte **nasazení** > **možnosti nasazení**.
+Na webu [Azure Portal](https://portal.azure.com)vyberte webovou aplikaci. Vyberte **nasazení** > **Možnosti nasazení**.
 
-![Azure Portal: Okno nastavení: Nasazení okno zobrazující úspěšné nasazení](azure-continuous-deployment/_static/13-verify-deployment.png)
+![Azure Portal: okno nastavení: okno nasazení znázorňující úspěšné nasazení](azure-continuous-deployment/_static/13-verify-deployment.png)
 
-## <a name="run-the-app-in-azure"></a>Spusťte aplikaci v Azure
+## <a name="run-the-app-in-azure"></a>Spuštění aplikace v Azure
 
-Teď, když webová aplikace je nasazená do Azure, spusťte aplikaci.
+Teď, když je webová aplikace nasazená do Azure, spusťte aplikaci.
 
-Můžete to provést dvěma způsoby:
+Toho lze dosáhnout dvěma způsoby:
 
-* Na webu Azure Portal vyhledejte okně webové aplikace pro webovou aplikaci. Vyberte **Procházet** a zobrazte aplikaci ve výchozím prohlížeči.
-* Otevřete prohlížeč a zadejte adresu URL pro webovou aplikaci. Příklad: `http://SampleWebAppDemo.azurewebsites.net`
+* Na webu Azure Portal vyhledejte okno webová aplikace pro webovou aplikaci. Vyberte **Procházet** a zobrazte aplikaci ve výchozím prohlížeči.
+* Otevřete prohlížeč a zadejte adresu URL webové aplikace. Příklad: `http://SampleWebAppDemo.azurewebsites.net`
 
 ## <a name="update-the-web-app-and-republish"></a>Aktualizace webové aplikace a opětovné publikování
 
-Po provedení změn na místní kód, znovu publikujte:
+Po provedení změn v místním kódu znovu publikujte:
 
-1. V **Průzkumníka řešení** sady Visual Studio, otevřete *Startup.cs* souboru.
+1. V **Průzkumník řešení** sady Visual Studio otevřete soubor *Startup.cs* .
 
-1. V `Configure` metody změnit `Response.WriteAsync` metodu tak, že se zobrazí takto:
+1. V metodě `Configure` upravte metodu `Response.WriteAsync` tak, aby se zobrazila takto:
 
    ```csharp
    await context.Response.WriteAsync("Hello World! Deploy to Azure.");
    ```
 
-1. Uložit změny do *Startup.cs*.
+1. Uložte změny do *Startup.cs*.
 
-1. V **Průzkumníka řešení**, klikněte pravým tlačítkem na **řešení "SampleWebAppDemo"** a vyberte **potvrzení**. **Team Exploreru** se zobrazí.
+1. V **Průzkumník řešení**klikněte pravým tlačítkem na **řešení "SampleWebAppDemo"** a vyberte **Potvrdit**. Zobrazí se **Team Explorer**.
 
-1. Zadejte zprávu potvrzení změn, jako například `Update #2`.
+1. Zadejte potvrzovací zprávu, například `Update #2`.
 
-1. Stisknutím klávesy **potvrzení** tlačítko potvrďte změny projektu.
+1. Kliknutím na tlačítko **Potvrdit** potvrďte změny projektu.
 
-1. Vyberte **Domů** > **synchronizace** > **akce** > **Push**.
+1. Vyberte možnost **domovská** > **synchronizovat** > **Akce** > **push**.
 
 > [!NOTE]
-> Jako alternativu nasdílení změn z **příkazové okno** tak, že otevřete **příkazové okno**, změna k adresáři projektu a zadáním příkazu gitu. Příklad:
+> Alternativně můžete vložit změny z **příkazového okna** otevřením **okna příkazového**řádku, přepnutím do adresáře projektu a zadáním příkazu git. Příklad:
 > 
 > `git push -u Azure-SampleApp master`
 
 ## <a name="view-the-updated-web-app-in-azure"></a>Zobrazení aktualizované webové aplikace v Azure
 
-Zobrazení aktualizované webové aplikace tak, že vyberete **Procházet** v okně webové aplikace na webu Azure Portal nebo otevřete prohlížeč a zadat adresu URL pro webovou aplikaci. Příklad: `http://SampleWebAppDemo.azurewebsites.net`
+Kliknutím na **Procházet** v okně webové aplikace na webu Azure Portal nebo otevřením prohlížeče a zadáním adresy URL webové aplikace Zobrazte aktualizovanou webovou aplikaci. Příklad: `http://SampleWebAppDemo.azurewebsites.net`
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Vytvořit svůj první kanál s kanály Azure](/azure/devops/pipelines/get-started-yaml)
+* [Vytvoření prvního kanálu pomocí Azure Pipelines](/azure/devops/pipelines/get-started-yaml)
 * [Projekt Kudu](https://github.com/projectkudu/kudu/wiki)
 * <xref:host-and-deploy/visual-studio-publish-profiles>

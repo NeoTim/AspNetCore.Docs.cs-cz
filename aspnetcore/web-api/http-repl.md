@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/11/2019
 uid: web-api/http-repl
-ms.openlocfilehash: 15899917826fb6559244998766d99d00f56e0521
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: d9beae68cc869b665ff5d2b6cf34f120406098dc
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294722"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661887"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -34,13 +34,13 @@ Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/m
 * [POST](#test-http-post-requests)
 * [PUT](#test-http-put-requests)
 
-Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhraní API nebo si ho stáhněte](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([jak si ho stáhnout](xref:index#how-to-download-a-sample)).
+Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhraní API nebo si ho stáhněte](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([jak si ho stáhnout](xref:index#how-to-download-a-sample)).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [!INCLUDE [2.1-SDK](~/includes/2.1-SDK.md)]
 
-## <a name="installation"></a>Instalace služby
+## <a name="installation"></a>Instalace
 
 Pro instalaci HTTP REPL spusťte následující příkaz:
 
@@ -50,7 +50,7 @@ dotnet tool install -g Microsoft.dotnet-httprepl
 
 [Globální nástroj .NET Core](/dotnet/core/tools/global-tools#install-a-global-tool) je nainstalovaný z balíčku NuGet [Microsoft. dotnet-httprepl](https://www.nuget.org/packages/Microsoft.dotnet-httprepl) .
 
-## <a name="usage"></a>Použití
+## <a name="usage"></a>Využití
 
 Po úspěšné instalaci nástroje spusťte následující příkaz, který spustí HTTP REPL:
 
@@ -225,17 +225,17 @@ https://localhost:5001/people~
 
 Výchozí [barvy](#set-color-preferences) REPL http je možné přizpůsobit. Kromě toho lze definovat [výchozí textový editor](#set-the-default-text-editor) . Předvolby HTTP REPL jsou trvale v rámci aktuální relace a jsou v budoucích relacích dodrženy. Po úpravě jsou předvolby uložené v následujícím souboru:
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 *% HOME%/.httpreplprefs*
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 *% HOME%/.httpreplprefs*
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
-*%USERPROFILE%\\.httpreplprefs*
+*% USERPROFILE%\\. httpreplprefs*
 
 ---
 
@@ -335,19 +335,19 @@ pref set editor.command.default "<EXECUTABLE>"
 
 V předchozím příkazu je `<EXECUTABLE>` úplnou cestu ke spustitelnému souboru textového editoru. Například spusťte následující příkaz, který nastaví Visual Studio Code jako výchozí textový editor:
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 ```console
 pref set editor.command.default "/usr/bin/code"
 ```
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 ```console
 pref set editor.command.default "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
 ```
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ```console
 pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
@@ -384,7 +384,7 @@ pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
 get <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `PARAMETER`
 
@@ -468,7 +468,7 @@ Vystavení požadavku HTTP GET:
 post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `PARAMETER`
 
@@ -538,7 +538,7 @@ Vystavení požadavku HTTP POST:
 put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `PARAMETER`
 
@@ -653,7 +653,7 @@ Vydání požadavku HTTP PUT:
 delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `PARAMETER`
 
@@ -740,7 +740,7 @@ Postup při vystavení žádosti o odstranění protokolu HTTP:
 patch <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `PARAMETER`
 
@@ -760,7 +760,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 head <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `PARAMETER`
 
@@ -778,7 +778,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `PARAMETER`
 
@@ -972,7 +972,7 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
     https://localhost:5001/~ run C:\http-repl-scripts\people-script.txt
     ```
 
-    Zobrazí se výstup:
+    Zobrazí se následující výstup:
 
     ```console
     https://localhost:5001/~ set base https://localhost:5001
@@ -1036,7 +1036,7 @@ Po spuštění předchozího příkazu obsahuje příkazové prostředí pouze n
 https://localhost:5001/~
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [REST API žádosti](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods)
 * [Úložiště GitHub HTTP REPL](https://github.com/dotnet/HttpRepl)

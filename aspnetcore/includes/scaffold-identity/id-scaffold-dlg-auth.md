@@ -2,7 +2,7 @@
 
 Spusťte generování uživatelského rozhraní identity:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt > **Přidat** > **novou vygenerované položky**.
 * V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identita** > **Přidat**.
@@ -14,12 +14,12 @@ Spusťte generování uživatelského rozhraní identity:
   * Vyberte třídu datového kontextu.
   * Vyberte **Přidat**.
 * Chcete-li vytvořit nový kontext uživatele a případně vytvořit vlastní třídu uživatelů pro identitu:
-  * Vyberte **+** tlačítko pro vytvoření nového **třída kontextu dat**.
+  * Výběrem tlačítka **+** vytvořte novou **třídu datového kontextu**.
   * Vyberte **Přidat**.
 
 Poznámka: Pokud vytváříte nový uživatelský kontext, nemusíte vybírat soubor, který se má přepsat.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 
@@ -68,7 +68,7 @@ Pokud spustíte generování identit identity bez zadání příznaku `--files` 
 
 Spusťte generování uživatelského rozhraní identity:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Z **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt > **Přidat** > **novou vygenerované položky**.
 * V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identita** > **Přidat**.
@@ -80,12 +80,12 @@ Spusťte generování uživatelského rozhraní identity:
   * Vyberte třídu datového kontextu.
   * Vyberte **Přidat**.
 * Chcete-li vytvořit nový kontext uživatele a případně vytvořit vlastní třídu uživatelů pro identitu:
-  * Vyberte **+** tlačítko pro vytvoření nového **třída kontextu dat**.
+  * Výběrem tlačítka **+** vytvořte novou **třídu datového kontextu**.
   * Vyberte **Přidat**.
 
 Poznámka: Pokud vytváříte nový uživatelský kontext, nemusíte vybírat soubor, který se má přepsat.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 

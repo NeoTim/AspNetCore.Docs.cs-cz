@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/05/2020
 uid: fundamentals/logging/index
-ms.openlocfilehash: 3c75fdc940701b8f4d367990b5073861467079b2
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 58e236ad7f0863b87907d5585e1cb6bf61d46e99
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044902"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663301"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -22,13 +22,13 @@ Tím, že [Dykstra](https://github.com/tdykstra) a [Steve Smith](https://ardalis
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Většina příkladů kódu, které jsou uvedené v tomto článku, se nachází v ASP.NET Corech aplikacích. Části těchto fragmentů kódu specifické pro protokolování se vztahují na libovolnou aplikaci .NET Core, která používá [obecného hostitele](xref:fundamentals/host/generic-host). Příklad použití obecného hostitele v aplikaci, která není webovou konzolou, najdete v souboru *program.cs* [ukázkové aplikace úlohy na pozadí](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples) (<xref:fundamentals/host/hosted-services>).
+Většina příkladů kódu, které jsou uvedené v tomto článku, se nachází v ASP.NET Corech aplikacích. Části těchto fragmentů kódu specifické pro protokolování se vztahují na libovolnou aplikaci .NET Core, která používá [obecného hostitele](xref:fundamentals/host/generic-host). Příklad použití obecného hostitele v aplikaci, která není webovou konzolou, najdete v souboru *program.cs* [ukázkové aplikace úlohy na pozadí](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/hosted-services/samples) (<xref:fundamentals/host/hosted-services>).
 
 Kód protokolování pro aplikace bez obecného hostitele se liší v způsobu [Přidání zprostředkovatelů](#add-providers) a [vytváření protokolovacích](#create-logs)nástrojů. Příklady kódu, který není hostitelský, jsou uvedeny v těchto částech článku.
 
 ::: moniker-end
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="add-providers"></a>Přidat zprostředkovatele
 
@@ -295,7 +295,7 @@ public class Program
 
 ### <a name="no-asynchronous-logger-methods"></a>Žádné metody asynchronního protokolovacího nástroje
 
-Protokolování by mělo být tak rychlé, aby neplatilo náklady na výkon asynchronního kódu. Pokud je úložiště dat protokolování pomalé, nezapište ho přímo. Nejprve zvažte možnost zapsat zprávy protokolu do rychlého úložiště a pak je později přesunout do pomalého úložiště. Například pokud se přihlašujete k SQL Server, nechcete to provést přímo v metodě `Log`, protože `Log` metody jsou synchronní. Místo toho můžete synchronně přidat protokolové zprávy do fronty v paměti a nechat pracovní proces na pozadí získat zprávy z fronty, aby asynchronní operace vkládání dat do SQL Server. Další informace najdete v [tomto](https://github.com/aspnet/AspNetCore.Docs/issues/11801) problému GitHubu.
+Protokolování by mělo být tak rychlé, aby neplatilo náklady na výkon asynchronního kódu. Pokud je úložiště dat protokolování pomalé, nezapište ho přímo. Nejprve zvažte možnost zapsat zprávy protokolu do rychlého úložiště a pak je později přesunout do pomalého úložiště. Například pokud se přihlašujete k SQL Server, nechcete to provést přímo v metodě `Log`, protože `Log` metody jsou synchronní. Místo toho můžete synchronně přidat protokolové zprávy do fronty v paměti a nechat pracovní proces na pozadí získat zprávy z fronty, aby asynchronní operace vkládání dat do SQL Server. Další informace najdete v [tomto](https://github.com/dotnet/AspNetCore.Docs/issues/11801) problému GitHubu.
 
 ## <a name="configuration"></a>Konfigurace
 
@@ -513,7 +513,7 @@ ASP.NET Core definuje následující úrovně protokolu seřazené od nejnižš�
 
   Chyby, které vyžadují okamžitou pozornost. Příklady: scénáře ztráty dat, nedostatek místa na disku.
 
-Úroveň protokolu můžete použít k určení, kolik výstupu protokolu se zapisuje do konkrétního úložného média nebo okna pro zobrazení. Například:
+Úroveň protokolu můžete použít k určení, kolik výstupu protokolu se zapisuje do konkrétního úložného média nebo okna pro zobrazení. Příklad:
 
 * V produkčním prostředí:
   * Protokolování na `Trace` přes `Information` úrovně vytváří velké množství podrobných zpráv protokolu. Pokud chcete řídit náklady a nepřekračuje limity úložiště dat, protokolujte `Trace` prostřednictvím zpráv na úrovni `Information` na vysoce velké úložiště dat s nízkými náklady na objem.
@@ -804,7 +804,7 @@ Pokud nenastavíte explicitně minimální úroveň, výchozí hodnota je `Infor
 
 ### <a name="filter-functions"></a>Funkce filtru
 
-Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemají pravidla přiřazena pomocí konfigurace nebo kódu. Kód ve funkci má přístup k typu poskytovatele, kategorii a úrovni protokolu. Například:
+Funkce filtru je vyvolána pro všechny poskytovatele a kategorie, které nemají pravidla přiřazena pomocí konfigurace nebo kódu. Kód ve funkci má přístup k typu poskytovatele, kategorii a úrovni protokolu. Příklad:
 
 ::: moniker range=">= aspnetcore-3.0"
 

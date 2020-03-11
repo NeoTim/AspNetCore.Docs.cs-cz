@@ -5,12 +5,12 @@ description: Přečtěte si, jak ASP.NET Core poskytuje služby a middleware pro
 ms.author: riande
 ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: 645f680436336acbe1d5c2854a242527c9b4b9cb
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: b175354220a8a71c029e005f27443d5a72749a11
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717400"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662118"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -30,7 +30,7 @@ Lokalizace aplikace zahrnuje následující:
 
 3. Implementujte strategii pro výběr jazyka nebo kultury pro každý požadavek.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
@@ -74,7 +74,7 @@ Výchozí implementace `IViewLocalizer` vyhledá soubor prostředků na základ�
 
 Soubor prostředků francouzštiny může obsahovat následující:
 
-| Key | Hodnota |
+| Klíč | Hodnota |
 | ----- | ------ |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
@@ -150,7 +150,7 @@ V ukázkovém projektu metoda `ConfigureServices` nastaví `ResourcesPath` na "R
 
 | Název prostředku | Pojmenování teček nebo Path |
 | ------------   | ------------- |
-| Prostředky/řadiče. HomeController. fr. resx | Tečka  |
+| Resources/Controllers.HomeController.fr.resx | Tečka  |
 | Prostředky/řadiče/HomeController. fr. resx  | Cesta |
 |    |     |
 
@@ -158,7 +158,7 @@ Soubory prostředků používající `@inject IViewLocalizer` v zobrazeních Raz
 
 * Prostředky/zobrazení/domů/o. fr. resx
 
-* Prostředky/zobrazení. domů. about. fr. resx
+* Resources/Views.Home.About.fr.resx
 
 Pokud nepoužijete možnost `ResourcesPath`, soubor *. resx* pro zobrazení by byl umístěn ve stejné složce jako zobrazení.
 
@@ -225,6 +225,7 @@ Lokalizace je nakonfigurována v metodě `Startup.ConfigureServices`:
 Aktuální jazyková verze v požadavku je nastavena v [middleware](xref:fundamentals/middleware/index)lokalizace. Middleware lokalizace je povolena v metodě `Startup.Configure`. Middleware lokalizace musí být nakonfigurované před jakýmkoli middlewarem, který by mohl kontrolovat jazykovou verzi žádosti (například `app.UseMvcWithDefaultRoute()`).
 
 [!code-csharp[](localization/sample/Localization/Startup.cs?name=snippet2)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 `UseRequestLocalization` inicializuje objekt `RequestLocalizationOptions`. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` a použije se první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z třídy `RequestLocalizationOptions`:
 
@@ -276,7 +277,7 @@ Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživ
 
 6. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
 
-::: moniker range=">= aspnetcore-3.1"
+::: moniker range="> aspnetcore-3.1"
 ### <a name="the-content-language-http-header"></a>Hlavička protokolu HTTP v jazykovém obsahu
 
 Hlavička entity [jazyka obsahu](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) :
@@ -404,7 +405,7 @@ Uvedenými
 [!INCLUDE[](~/includes/localization/unsupported-culture-log-level.md)]
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/troubleshoot-aspnet-core-localization>
 * [StarterWeb projekt Localization](https://github.com/aspnet/Entropy/tree/master/samples/Localization.StarterWeb) , který se používá v článku.

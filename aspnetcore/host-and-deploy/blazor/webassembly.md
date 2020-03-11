@@ -5,17 +5,17 @@ description: Naučte se hostovat a nasazovat Blazor aplikace s využitím ASP.NE
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 02/19/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 861935ff31652f923399a8aa5ae52baa6b77fa91
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: eae12b266e91a30a47daf63ac77ba082c25225aa
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172399"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664099"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -203,7 +203,7 @@ Nasazení aplikace Blazor WebAssembly do CentOS 7 nebo novější:
        DocumentRoot "/var/www/blazorapp"
        ErrorDocument 404 /index.html
 
-       AddType aplication/wasm .wasm
+       AddType application/wasm .wasm
        AddType application/octet-stream .dll
    
        <Directory "/var/www/blazorapp">
@@ -294,7 +294,7 @@ Argument `--pathbase` nastaví základní cestu aplikace pro aplikaci spuštěno
   --pathbase=/relative-URL-path
   ```
 
-### <a name="urls"></a>URL – adresy
+### <a name="urls"></a>Adresy URL
 
 Argument `--urls` nastaví IP adresy nebo adresy hostitelů s porty a protokoly, které se mají na požadavky naslouchat.
 

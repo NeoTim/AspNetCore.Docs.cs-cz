@@ -7,11 +7,11 @@ ms.date: 09/26/2019
 monikerRange: '>= aspnetcore-3.0'
 uid: web-api/Microsoft.dotnet-openapi
 ms.openlocfilehash: 079e36511b63c186ffa7726bdb1e3c3bcbda9d34
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829254"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655265"
 ---
 # <a name="develop-aspnet-core-apps-using-openapi-tools"></a>Vývoj aplikací pro ASP.NET Core pomocí nástrojů pro OpenAPI
 
@@ -19,7 +19,7 @@ Služba Ryan Brandenburg
 
 [Microsoft. dotnet-openapi](https://www.nuget.org/packages/Microsoft.dotnet-openapi) je [globální nástroj .NET Core](/dotnet/core/tools/global-tools) pro správu odkazů [openapi](https://github.com/OAI/OpenAPI-Specification) v rámci projektu.
 
-## <a name="installation"></a>Instalace služby
+## <a name="installation"></a>Instalace
 
 Pokud chcete nainstalovat `Microsoft.dotnet-openapi`, spusťte následující příkaz:
 
@@ -27,7 +27,7 @@ Pokud chcete nainstalovat `Microsoft.dotnet-openapi`, spusťte následující p�
 dotnet tool install -g Microsoft.dotnet-openapi
 ```
 
-## <a name="add"></a>Přidejte
+## <a name="add"></a>Přidat
 
 Přidání odkazu OpenAPI pomocí kteréhokoli z příkazů na této stránce přidá prvek `<OpenApiReference />` podobný následujícímu souboru *. csproj* :
 
@@ -62,7 +62,7 @@ Předchozí odkaz je vyžadován, aby aplikace volala generovaný kód klienta.
 | -c|--generátor kódu| Generátor kódu, který se má použít na odkaz Možnosti jsou `NSwagCSharp` a `NSwagTypeScript`. Pokud `--code-generator` není zadán, výchozí nastavení nástrojů `NSwagCSharp`.|dotnet openapi přidat soubor .\OpenApi.json--generátor kódu
 | -h|--Help|Zobrazit informace o nápovědě|dotnet openapi přidat soubor--Help|
 
-#### <a name="arguments"></a>Arguments
+#### <a name="arguments"></a>Argumenty
 
 |  Argument  | Popis | Příklad |
 |-------------|-------------|---------|
@@ -79,7 +79,7 @@ Předchozí odkaz je vyžadován, aby aplikace volala generovaný kód klienta.
 | -c|--generátor kódu| Generátor kódu, který se má použít na odkaz Možnosti jsou `NSwagCSharp` a `NSwagTypeScript`. |dotnet openapi přidat soubor .\OpenApi.json--generátor kódu
 | -h|--Help|Zobrazit informace o nápovědě|dotnet openapi přidat URL – Help|
 
-#### <a name="arguments"></a>Arguments
+#### <a name="arguments"></a>Argumenty
 
 |  Argument  | Popis | Příklad |
 |-------------|-------------|---------|
@@ -96,13 +96,13 @@ Odebere odkaz OpenAPI shodný se zadaným názvem souboru ze souboru *. csproj* 
 | -p|--updateProject | Projekt, na kterém má být provozován. |dotnet openapi Remove *--updateProject .\Ref.csproj* .\OpenAPI.JSON |
 | -h|--Help|Zobrazit informace o nápovědě|dotnet openapi Remove--Help|
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 |  Argument  | Popis| Příklad |
 | ------------|------------|---------|
 | zdrojový soubor | Zdroj, na který se má odebrat odkaz |dotnet openapi odebrat *.\OpenAPI.JSON* |
 
-## <a name="refresh"></a>Aktualizovat
+## <a name="refresh"></a>Obnovení
 
 Aktualizuje místní verzi souboru, který byl stažen pomocí nejnovějšího obsahu z adresy URL pro stahování.
 
@@ -113,7 +113,7 @@ Aktualizuje místní verzi souboru, který byl stažen pomocí nejnovějšího o
 | -p|--updateProject | Projekt, na kterém má být provozován. | dotnet openapi Refresh *--updateProject .\Ref.csproj* `https://contoso.com/openapi.json` |
 | -h|--Help|Zobrazit informace o nápovědě|dotnet openapi Refresh--Help|
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 |  Argument  | Popis | Příklad |
 | ------------|-------------|---------|

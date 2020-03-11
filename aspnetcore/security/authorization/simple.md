@@ -1,24 +1,24 @@
 ---
-title: Jednoduchá autorizace v ASP.NET Core
+title: Jednoduché ověřování v ASP.NET Core
 author: rick-anderson
-description: Další informace o použití atributu Authorize k omezení přístupu k ASP.NET Core kontrolery a akce.
+description: Naučte se používat atribut autorizovat k omezení přístupu k ASP.NET Core řadičům a akcím.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/simple
 ms.openlocfilehash: 6409def0508b855d3d2a4a1f4d3a3d15bfe5dd32
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903129"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663581"
 ---
-# <a name="simple-authorization-in-aspnet-core"></a>Jednoduchá autorizace v ASP.NET Core
+# <a name="simple-authorization-in-aspnet-core"></a>Jednoduché ověřování v ASP.NET Core
 
 <a name="security-authorization-simple"></a>
 
-Autorizace v aplikaci MVC je řízen pomocí `AuthorizeAttribute` atribut a jeho různé parametry. V nejjednodušším, použití `AuthorizeAttribute` atributu na kontroler nebo akce omezíte přístup ke kontroleru nebo akce, které všem ověřeným uživatelům.
+Autorizace v MVC se řídí pomocí atributu `AuthorizeAttribute` a jeho různými parametry. V nejjednodušším případě použití atributu `AuthorizeAttribute` na kontroler nebo akce omezí přístup k řadiči nebo akci pro libovolného ověřeného uživatele.
 
-Například následující kód omezuje přístup `AccountController` všem ověřeným uživatelům.
+Například následující kód omezuje přístup k `AccountController` všem ověřeným uživatelům.
 
 ```csharp
 [Authorize]
@@ -34,7 +34,7 @@ public class AccountController : Controller
 }
 ```
 
-Pokud chcete použít autorizaci pro akce spíše než kontroleru, použije `AuthorizeAttribute` atribut pro vlastní akci:
+Pokud chcete použít autorizaci pro akci místo kontroleru, použijte atribut `AuthorizeAttribute` pro samotnou akci:
 
 ```csharp
 public class AccountController : Controller
@@ -50,9 +50,9 @@ public class AccountController : Controller
 }
 ```
 
-Teď můžete přistupovat pouze ověřeným uživatelům `Logout` funkce.
+K funkci `Logout` mají nyní přístup pouze ověření uživatelé.
 
-Můžete také použít `AllowAnonymous` atribut pro povolení přístupu podle neověřených uživatelů k jednotlivým akcím. Příklad:
+Můžete také použít atribut `AllowAnonymous` k povolení přístupu neověřeným uživatelům k jednotlivým akcím. Příklad:
 
 ```csharp
 [Authorize]
@@ -69,7 +69,7 @@ public class AccountController : Controller
 }
 ```
 
-To by umožnilo pouze ověřeným uživatelům `AccountController`, s výjimkou `Login` akce, které je přístupné všem uživatelům, bez ohledu na jejich stav ověření nebo neověřený / anonymní.
+To umožňuje, aby `AccountController`jenom ověřeným uživatelům, s výjimkou akce `Login`, která je přístupná všem, bez ohledu na jejich ověřený nebo neověřený nebo anonymní stav.
 
 > [!WARNING]
-> `[AllowAnonymous]` vynechá všechny příkazy autorizace. Pokud kombinujete `[AllowAnonymous]` a jakékoli `[Authorize]` atribut `[Authorize]` atributy se ignorují. Například pokud použijete `[AllowAnonymous]` na úrovni kontroleru jakékoli `[Authorize]` atributy na stejný kontrolér (nebo na jakoukoli akci v rámci něj) se ignoruje.
+> `[AllowAnonymous]` obchází všechny autorizační příkazy. Pokud kombinujete `[AllowAnonymous]` a všechny `[Authorize]` atributu, atributy `[Authorize]` jsou ignorovány. Pokud například použijete `[AllowAnonymous]` na úrovni řadiče, všechny `[Authorize]` atributy na stejném kontroleru (nebo na jakékoli akci v ní) se ignorují.

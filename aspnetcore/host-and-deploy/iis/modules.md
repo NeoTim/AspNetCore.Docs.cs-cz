@@ -1,22 +1,20 @@
 ---
 title: Moduly IIS s ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Zjistěte aktivní i neaktivní moduly IIS pro aplikace ASP.NET Core a jak spravovat moduly služby IIS.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: ca6cf349aa05db97e145f1cd0cae97a107761fd8
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 0f13ef3eb1da03960ef1fa54d33532b6ebbdc128
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951813"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657904"
 ---
 # <a name="iis-modules-with-aspnet-core"></a>Moduly IIS s ASP.NET Core
-
-Podle [Luke Latham](https://github.com/guardrex)
 
 Některé z nativních modulů služby IIS a všechny spravované moduly služby IIS nemohou zpracovávat požadavky na aplikace ASP.NET Core. V mnoha případech ASP.NET Core nabízí alternativu k scénářům řešeným nativními a spravovanými moduly služby IIS.
 
@@ -24,12 +22,12 @@ Některé z nativních modulů služby IIS a všechny spravované moduly služby
 
 Tato tabulka uvádí nativní moduly služby IIS, které jsou funkční s ASP.NET Core aplikacemi a modulem ASP.NET Core.
 
-| – modul | Funkce ASP.NET Corech aplikací | Možnost ASP.NET Core |
+| Modul | Funkce ASP.NET Corech aplikací | Možnost ASP.NET Core |
 | --- | :---: | --- |
 | **Anonymní ověřování**<br>`AnonymousAuthenticationModule`                                  | Ano | |
 | **Základní ověřování**<br>`BasicAuthenticationModule`                                          | Ano | |
 | **Ověřování mapování certifikace klientů**<br>`CertificateMappingAuthenticationModule`      | Ano | |
-| **CGI**<br>`CgiModule`                                                                           | Ne  | |
+| **ROZHRANÍ**<br>`CgiModule`                                                                           | Ne  | |
 | **Ověření konfigurace**<br>`ConfigurationValidationModule`                                  | Ano | |
 | **Chyby protokolu HTTP**<br>`CustomErrorModule`                                                           | Ne  | [Middleware stránky stavového kódu](xref:fundamentals/error-handling#usestatuscodepages) |
 | **Vlastní protokolování**<br>`CustomLoggingModule`                                                      | Ano | |
@@ -44,12 +42,12 @@ Tato tabulka uvádí nativní moduly služby IIS, které jsou funkční s ASP.NE
 | **Přesměrování protokolu HTTP**<br>`HttpRedirectionModule`                                                  | Ano | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
 | **Trasování HTTP**<br>`TracingModule`                                                              | Ano | |
 | **Ověřování mapování klientských certifikátů služby IIS**<br>`IISCertificateMappingAuthenticationModule` | Ano | |
-| **Omezení domény a IP**<br>`IpRestrictionModule`                                          | Ano | |
+| **Omezení podle IP adresy a domény**<br>`IpRestrictionModule`                                          | Ano | |
 | **Filtry ISAPI**<br>`IsapiFilterModule`                                                         | Ano | [Middleware](xref:fundamentals/middleware/index) |
 | **ISAPI**<br>`IsapiModule`                                                                       | Ano | [Middleware](xref:fundamentals/middleware/index) |
 | **Podpora protokolů**<br>`ProtocolSupportModule`                                                  | Ano | |
 | **Filtrování žádostí**<br>`RequestFilteringModule`                                                | Ano | [`IRule` middlewaru pro přepis adres URL](xref:fundamentals/url-rewriting#irule-based-rule) |
-| **Monitorování žádostí**<br>`RequestMonitorModule`                                                    | Ano | |
+| **Sledování požadavků**<br>`RequestMonitorModule`                                                    | Ano | |
 | **Přepsání adresy URL**&#8224;<br>`RewriteModule`                                                      | Ano | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
 | **Začlenění na straně serveru**<br>`ServerSideIncludeModule`                                            | Ne  | |
 | **Statická komprese**<br>`StaticCompressionModule`                                              | Ne  | [Middleware pro kompresi odpovědí](xref:performance/response-compression) |
@@ -65,7 +63,7 @@ Tato tabulka uvádí nativní moduly služby IIS, které jsou funkční s ASP.NE
 
 Spravované moduly nejsou *funkční u* hostovaných ASP.NET Core aplikací, pokud je verze .NET CLR fondu aplikací nastavená na **žádný spravovaný kód**. ASP.NET Core nabízí alternativy middlewaru v několika případech.
 
-| – modul                  | Možnost ASP.NET Core |
+| Modul                  | Možnost ASP.NET Core |
 | ----------------------- | ------------------- |
 | AnonymousIdentification | |
 | DefaultAuthentication   | |
@@ -165,7 +163,7 @@ Modul ukládání identifikátorů URI (`UriCacheModule`) umožňuje službě II
 
 Modul ukládání HTTP do mezipaměti (`HttpCacheModule`) implementuje výstupní mezipaměť služby IIS a také logiku pro ukládání položek do mezipaměti HTTP. sys. Bez tohoto modulu už není obsah uložený v mezipaměti v režimu jádra a profily mezipaměti se ignorují. Odebrání modulu mezipaměti HTTP má obvykle negativní vliv na výkon a využití prostředků. *I když modul mezipaměti HTTP není nezbytně nutný pro spuštění hostované aplikace ASP.NET Core, doporučujeme, aby byl modul mezipaměti protokolu HTTP povolen pro všechna nasazení ASP.NET Core.*
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Seznámení s architekturami služby IIS: moduly ve službě IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#modules-in-iis)
 * [Přehled modulů služby IIS](/iis/get-started/introduction-to-iis/iis-modules-overview)

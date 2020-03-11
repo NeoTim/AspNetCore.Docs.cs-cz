@@ -1,10 +1,10 @@
 * `-c|--content`
 
-  Poskytuje vložené tělo požadavku HTTP. Například `-c "{"id":2,"name":"Cherry"}"`.
+  Poskytuje vložené tělo požadavku HTTP. například `-c "{"id":2,"name":"Cherry"}"`.
 
 * `-f|--file`
 
-  Poskytuje cestu k souboru obsahujícímu text požadavku HTTP. Například `-f "C:\request.json"`.
+  Poskytuje cestu k souboru obsahujícímu text požadavku HTTP. například `-f "C:\request.json"`.
 
 * `--no-body`
 

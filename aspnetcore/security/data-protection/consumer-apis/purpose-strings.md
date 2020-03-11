@@ -1,58 +1,58 @@
 ---
-title: Účelové řetězce v ASP.NET Core
+title: Řetězce účelu v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak se používají účelové řetězce v rozhraní API ASP.NET Core Data Protection.
+description: Přečtěte si, jak se v rozhraních API ochrany ASP.NET Corech dat používají řetězce účelu.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/consumer-apis/purpose-strings
 ms.openlocfilehash: 4c85423f8de7e4b784ae1bb304a884541df251b6
-ms.sourcegitcommit: dd9c73db7853d87b566eef136d2162f648a43b85
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2019
-ms.locfileid: "65087531"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664722"
 ---
-# <a name="purpose-strings-in-aspnet-core"></a>Účelové řetězce v ASP.NET Core
+# <a name="purpose-strings-in-aspnet-core"></a>Řetězce účelu v ASP.NET Core
 
 <a name="data-protection-consumer-apis-purposes"></a>
 
-Komponenty, které využívají `IDataProtectionProvider` musí projít jedinečný *účely* parametr `CreateProtector` metody. Účely *parametr* se vztahují na zabezpečení systému ochrany dat, protože nabízí izolaci mezi kryptografických příjemců, i v případě, že kryptografické klíče kořenového jsou stejné.
+Komponenty, které spotřebovávají `IDataProtectionProvider` musí předat metodě `CreateProtector` jedinečný parametr pro *účely* . *Parametr* pro účely je podstatou zabezpečení systému ochrany dat, protože poskytuje izolaci mezi spotřebiteli šifrování, a to i v případě, že jsou kořenové kryptografické klíče stejné.
 
-Když příjemce určuje účel, účel řetězec se používá spolu s kořenové kryptografické klíče k odvození kryptografických podklíče jedinečný tento příjemce. Tím se izolují uživatelů z jiných kryptografických spotřebitelů v aplikaci: žádná komponenta může číst její datové části a ho nelze číst datové části všechny ostatní komponenty. Tato izolace také vykresluje neřešitelné celé kategorie útoku vzhledem k součásti.
+Když příjemce zadá účel, použije se spolu s kořenovými šifrovacími klíči k odvození kryptografických podklíčů, které jsou pro tohoto příjemce jedinečné. Tím se uživatel izoluje od všech ostatních zprostředkovatelů kryptografie v aplikaci: žádná jiná komponenta nemůže číst své datové části a nemůže číst žádné další datové části součásti. Tato izolace také vykresluje neproveditelné celé kategorie útoků proti komponentě.
 
-![Příklad diagramu účel](purpose-strings/_static/purposes.png)
+![Příklad diagramu účelu](purpose-strings/_static/purposes.png)
 
-V diagramu výše `IDataProtector` instancí A a B **nelze** číst druhé strany datové části, pouze své vlastní.
+V diagramu výše se `IDataProtector` instance a a B **nedají** načítat jiné datové části.
 
-Řetězec účel nemusí být tajného kódu. By měl být jednoduše jedinečný v tom smyslu, že žádná komponenta dobře behaved někdy poskytnout stejný řetězec účel.
+Řetězec účelu nemusí být tajný. Měl by být jednoduše jedinečný v tom smyslu, že žádná jiná dobře fungující součást nikdy neposkytne stejný řetězec účelu.
 
 >[!TIP]
-> Pomocí názvu oboru názvů a typ součásti spotřebovává data protection API je dobré říci, stejně jako v praxi, které tyto informace se nikdy jsou v konfliktu.
+> Použití oboru názvů a názvu typu součásti, která využívá rozhraní API pro ochranu dat, je dobré pravidlo, protože v praxi nebudou tyto informace nikdy kolidovat.
 >
->Komponenty vytvořené Contoso, který je zodpovědný za minting nosné tokeny použít Contoso.Security.BearerToken jako její účel řetězec. Nebo – ještě lepší - Contoso.Security.BearerToken.v1 může použít jako datový typ string její účel. Přidávání čísla verze umožňuje budoucí verze se má použít Contoso.Security.BearerToken.v2 jako její účel a různé verze by naprosto izolované od sebe, co se týče datových částí přejděte.
+>Komponenta vytvořená společností Contoso, která je zodpovědná za tokeny nosiče minting, může jako svůj účel použít contoso. Security. BearerToken. Nebo dokonce lepší – může jako řetězec účelu použít contoso. Security. BearerToken. v1. Připojení čísla verze umožňuje budoucí verzi použít contoso. Security. BearerToken. v2 jako svůj účel a různé verze by se od sebe od sebe od sebe od té chvíle zcela odlišily jako datové části.
 
-Protože parametr účely `CreateProtector` je pole řetězců, výše by jste místo toho určený jako `[ "Contoso.Security.BearerToken", "v1" ]`. To umožňuje vytvoření hierarchie účelů a otevírá víceklientské architektury scénáře pomocí systému ochrany dat.
+Vzhledem k tomu, že parametr pro účely `CreateProtector` je pole řetězců, bylo výše uvedené místo určení jako `[ "Contoso.Security.BearerToken", "v1" ]`. To umožňuje vytvořit hierarchii účelů a otevřít možnost scénářů víceklientské architektury se systémem ochrany dat.
 
 <a name="data-protection-contoso-purpose"></a>
 
 >[!WARNING]
-> Komponenty by nemělo umožňovat nedůvěryhodným uživatelským vstupům jako jediný zdroj informací vstupu pro účely řetězec.
+> Součásti by neumožňovaly, aby nedůvěryhodný vstup uživatele byl jediným zdrojem vstupu pro řetěz účelu.
 >
->Představte si třeba komponentu Contoso.Messaging.SecureMessage, který je zodpovědný za ukládání zabezpečených zpráv. Pokud byly zabezpečené součástí zasílání zpráv pro volání `CreateProtector([ username ])`, uživatel se zlými úmysly může vytvořit účet s uživatelským jménem "Contoso.Security.BearerToken" ve snaze získejte součást, kterou volání `CreateProtector([ "Contoso.Security.BearerToken" ])`, neúmyslně způsobující zabezpečené zasílání zpráv systém pro mint datových částí, které by mohly být vnímané jako ověřovací tokeny.
+>Představte si třeba komponentu contoso. Messaging. SecureMessage, která zodpovídá za ukládání zabezpečených zpráv. Pokud komponenta zabezpečeného zasílání zpráv byla volána `CreateProtector([ username ])`, pak může uživatel se zlými úmysly vytvořit účet s uživatelským jménem "contoso. Security. BearerToken" při pokusu o získání komponenty pro volání `CreateProtector([ "Contoso.Security.BearerToken" ])`, což neúmyslně způsobovat zabezpečený systém zasílání zpráv, aby mentolová datové části, které by mohly být vnímané jako ověřovací tokeny.
 >
->Lepší účely řetězce pro komponentu zasílání zpráv by `CreateProtector([ "Contoso.Messaging.SecureMessage", "User: username" ])`, což zajišťuje izolaci správné.
+>K dispozici je `CreateProtector([ "Contoso.Messaging.SecureMessage", "User: username" ])`řetězec lepších účelů pro komponentu zasílání zpráv, která poskytuje správnou izolaci.
 
-Izolace poskytovaná a chování `IDataProtectionProvider`, `IDataProtector`, a účely jsou následující:
+K izolaci poskytované a chování `IDataProtectionProvider`, `IDataProtector`a účely patří následující:
 
-* Pro danou `IDataProtectionProvider` objektu, `CreateProtector` metoda vytvoří `IDataProtector` objekt jednoznačně vázané na obě `IDataProtectionProvider` objekt, který jej vytvořil a účely parametr, který byl předán do metody.
+* Pro daný objekt `IDataProtectionProvider` `CreateProtector` metoda vytvoří objekt `IDataProtector` jednoznačně svázán s objektem `IDataProtectionProvider`, který jej vytvořil, a parametrem pro účely, který byl předán do metody.
 
-* Účel parametr nesmí mít hodnotu null. (Pokud účely je zadán jako pole, to znamená, že pole nesmí mít nulovou délku, a všechny prvky pole musí mít hodnotu null.) Účel prázdný řetězec je technicky povoleno, ale se nedoporučuje.
+* Parametr účelu nesmí mít hodnotu null. (Pokud je účel zadán jako pole, znamená to, že pole nesmí mít nulovou délku a všechny elementy pole nesmí mít hodnotu null.) Účel prázdného řetězce je technicky povolený, ale nedoporučuje se.
 
-* Dva účely argumenty jsou ekvivalentní a pouze v případě obsahují stejné řetězce (s použitím ordinálního porovnávání) ve stejném pořadí. Argument jednoúčelových je stejná jako odpovídající účely jedním prvkem pole.
+* Dva argumenty pro účely jsou ekvivalentní pouze v případě, že obsahují stejné řetězce (pomocí ordinálního porovnávání) ve stejném pořadí. Jeden argument účelu je ekvivalentní k odpovídajícímu poli účelu s jedním prvkem.
 
-* Dvě `IDataProtector` objekty jsou ekvivalentní a pouze v případě vytvoření z ekvivalent `IDataProtectionProvider` objektů s parametry ekvivalentní účely.
+* Dva `IDataProtector` objekty jsou ekvivalentní pouze v případě, že jsou vytvořeny z ekvivalentních `IDataProtectionProvider` objektů se stejnými parametry pro účely.
 
-* Pro danou `IDataProtector` objektu, volání `Unprotect(protectedData)` vrátí původní `unprotectedData` pouze v případě `protectedData := Protect(unprotectedData)` ekvivalent `IDataProtector` objektu.
+* Pro daný objekt `IDataProtector` volání `Unprotect(protectedData)` vrátí původní `unprotectedData` pouze v případě, že `protectedData := Protect(unprotectedData)` pro ekvivalentní objekt `IDataProtector`.
 
 > [!NOTE]
-> Nejsou nám vzhledem k tomu tento případ, kdy některé komponenty záměrně zvolí účel řetězec, který se ví, že jsou v konfliktu s jinou komponentou. Takové součásti v podstatě lze považovat za škodlivý a tento systém není určená k poskytování záruky zabezpečení, v případě, že škodlivý kód je již spuštěna v rámci služby pracovního procesu.
+> Nezvažujeme případ, kdy některá součást úmyslně zvolí řetězec účelu, u kterého se ví, že je v konfliktu s jinou komponentou. Taková součást by v podstatě byla považována za škodlivou a tento systém nebude poskytovat záruky zabezpečení v případě, že je v rámci pracovního procesu již spuštěn škodlivý kód.

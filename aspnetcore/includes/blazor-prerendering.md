@@ -3,11 +3,11 @@ no-loc:
 - Blazor
 - SignalR
 ms.openlocfilehash: 5f3e22e04fe18149ec5a8acb42f42a8ef83a7664
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76159889"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659717"
 ---
 I když je aplikace Blazor serveru předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně.
 

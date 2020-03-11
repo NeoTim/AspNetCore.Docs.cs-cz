@@ -5,17 +5,17 @@ description: Zjistěte, jak ASP.NET Core Blazor jak Blazor spravuje neošetřen�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 02/19/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 7191ae50d64ebd6a9b23b391116aedf3a6d01de2
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.openlocfilehash: d8098db3977b7515f2665e4230c2d6d3e415dc58
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447019"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661698"
 ---
 # <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
 
@@ -103,8 +103,6 @@ Rozhraní a kód aplikace mohou aktivovat neošetřené výjimky v žádném z n
 * [Obslužné rutiny událostí](#event-handlers)
 * [Vyřazení součásti](#component-disposal)
 * [Zprostředkovatel komunikace s JavaScriptem](#javascript-interop)
-* [obslužné rutiny okruhu serveru Blazor](#blazor-server-circuit-handlers)
-* [odstranění okruhu serveru Blazor](#blazor-server-circuit-disposal)
 * [Blazor převykreslování serveru](#blazor-server-prerendering)
 
 Předchozí neošetřené výjimky jsou popsány v následujících částech tohoto článku.
@@ -183,64 +181,17 @@ Při zpracování chyb pomocí `InvokeAsync<T>`platí následující podmínky:
 * Pokud se volání `InvokeAsync<T>` asynchronně nezdařilo, <xref:System.Threading.Tasks.Task> .NET dojde k chybě. Volání `InvokeAsync<T>` může selhat, například proto, že kód na straně JavaScriptu vyvolá výjimku nebo vrátí `Promise`, která byla dokončena jako `rejected`. Kód pro vývojáře musí zachytit výjimku. Při použití operátoru [await](/dotnet/csharp/language-reference/keywords/await) zvažte zabalení volání metody v příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním. V opačném případě selhání kódu způsobí neošetřenou výjimku, která je závažná pro okruh serveru Blazor.
 * Ve výchozím nastavení musí být volání `InvokeAsync<T>` dokončena v určitou dobu nebo jinak vyprší časový limit volání. Výchozí doba časového limitu je jedna minuta. Časový limit chrání kód proti ztrátě v připojení k síti nebo kódu JavaScriptu, který nikdy neposílá zpět zprávu o dokončení. Pokud vyprší časový limit volání, výsledné `Task` se nezdařila s <xref:System.OperationCanceledException>. Depeše a zpracovává výjimku pomocí protokolování.
 
-Podobně kód JavaScriptu může iniciovat volání metod .NET, které jsou označeny atributem [`[JSInvokable]`](xref:blazor/javascript-interop#invoke-net-methods-from-javascript-functions) . Pokud tyto metody rozhraní .NET vyvolají neošetřenou výjimku:
+Podobně kód JavaScriptu může iniciovat volání metod .NET, které jsou označeny atributem [`[JSInvokable]`](xref:blazor/call-dotnet-from-javascript) . Pokud tyto metody rozhraní .NET vyvolají neošetřenou výjimku:
 
 * Výjimka není považována za závažnou pro okruh serveru Blazor.
 * `Promise` na straně JavaScriptu se zamítlo.
 
 Máte možnost použít kód pro zpracování chyb na straně .NET nebo na straně JavaScriptu volání metody.
 
-Další informace naleznete v tématu <xref:blazor/javascript-interop>.
+Další informace najdete v následujících článcích:
 
-### <a name="opno-locblazor-server-circuit-handlers"></a>obslužné rutiny okruhu serveru Blazor
-
-Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
-
-```csharp
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components.Server.Circuits;
-
-public class TrackingCircuitHandler : CircuitHandler
-{
-    private HashSet<Circuit> _circuits = new HashSet<Circuit>();
-
-    public override Task OnConnectionUpAsync(Circuit circuit, 
-        CancellationToken cancellationToken)
-    {
-        _circuits.Add(circuit);
-
-        return Task.CompletedTask;
-    }
-
-    public override Task OnConnectionDownAsync(Circuit circuit, 
-        CancellationToken cancellationToken)
-    {
-        _circuits.Remove(circuit);
-
-        return Task.CompletedTask;
-    }
-
-    public int ConnectedCircuits => _circuits.Count;
-}
-```
-
-Obslužné rutiny okruhu jsou registrovány pomocí DI. Vymezené instance se vytvářejí pro jednotlivé instance okruhu. Pomocí `TrackingCircuitHandler` v předchozím příkladu je vytvořena služba typu Singleton, protože stav všech okruhů musí být sledován:
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    ...
-    services.AddSingleton<CircuitHandler, TrackingCircuitHandler>();
-}
-```
-
-Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro okruh serveru Blazor. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více příkazech [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
-
-### <a name="opno-locblazor-server-circuit-disposal"></a>odstranění okruhu serveru Blazor
-
-Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí stav okruhu, rozhraní uvolní obor DI okruhu. Při likvidaci oboru se uvolní jakékoli služby DI Services s rozsahem okruhů, které implementují <xref:System.IDisposable?displayProperty=fullName>. Pokud jakákoli služba DI vyvolá neošetřenou výjimku při vyřazení, rozhraní zaprotokoluje výjimku.
+* <xref:blazor/call-javascript-from-dotnet>
+* <xref:blazor/call-dotnet-from-javascript>
 
 ### <a name="opno-locblazor-server-prerendering"></a>předvykreslování serveru Blazor
 

@@ -4,11 +4,11 @@
 
 Vytvořte složku *dat* .
 
-Do složky `MvcMovieContext` *data* přidejte následující třídu:  
+Do složky *data* přidejte následující třídu `MvcMovieContext`:  
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/zDocOnly/MvcMovieContext.cs?name=snippet)]
 
-Předchozí kód vytvoří `DbSet` vlastnost pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
+Předchozí kód vytvoří vlastnost `DbSet` pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
 
 <a name="cs"></a>
 
@@ -26,14 +26,14 @@ Přidejte do souboru *appSettings. JSON* připojovací řetězec:
 
 ### <a name="register-the-database-context"></a>Zaregistrujte kontext databáze
 
-Do horní části `using` *Startup.cs*přidejte následující příkazy:
+Do horní části *Startup.cs*přidejte následující příkazy `using`:
 
 ```csharp
 using MvcMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
-Zaregistrujte kontext databáze pomocí kontejneru pro `Startup.ConfigureServices` [vkládání závislostí](xref:fundamentals/dependency-injection) v.
+Zaregistrujte kontext databáze pomocí kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) v `Startup.ConfigureServices`.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_UseSqlite&highlight=6-7)]
 
@@ -43,11 +43,11 @@ Sestavte projekt jako kontrolu chyb kompilátoru.
 
 ::: moniker range="< aspnetcore-3.0"
 
-Přidejte následující `MvcMovieContext` třídu *modely* složky:  
+Do složky *modely* přidejte následující třídu `MvcMovieContext`:  
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Data/MvcMovieContext.cs)]
 
-Předchozí kód vytvoří `DbSet` vlastnost pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
+Předchozí kód vytvoří vlastnost `DbSet` pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
 
 <a name="cs"></a>
 
@@ -66,20 +66,20 @@ dotnet add package Microsoft.EntityFrameworkCore.SQLite
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 ```
 
-`Microsoft.VisualStudio.Web.CodeGeneration.Design` Balíček je vyžadován pro generování uživatelského rozhraní.
+Pro generování uživatelského rozhraní se vyžaduje balíček `Microsoft.VisualStudio.Web.CodeGeneration.Design`.
 
 <a name="reg"></a>
 
 ### <a name="register-the-database-context"></a>Zaregistrujte kontext databáze
 
-Do horní části `using` *Startup.cs*přidejte následující příkazy:
+Do horní části *Startup.cs*přidejte následující příkazy `using`:
 
 ```csharp
 using MvcMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-Zaregistrujte kontext databáze pomocí kontejneru pro `Startup.ConfigureServices` [vkládání závislostí](xref:fundamentals/dependency-injection) v.
+Zaregistrujte kontext databáze pomocí kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) v `Startup.ConfigureServices`.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 

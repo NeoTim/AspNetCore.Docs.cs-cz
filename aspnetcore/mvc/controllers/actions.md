@@ -6,15 +6,15 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/controllers/actions
 ms.openlocfilehash: 715a73863513870d1cbd522e75013d41830da1e7
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881109"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662790"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>Zpracování požadavků s řadiči ve službě ASP.NET Core MVC
 
-Podle [Steve Smith](https://ardalis.com/) a [Scott Addie](https://github.com/scottaddie)
+[Steve Smith](https://ardalis.com/) a [Scott Addie](https://github.com/scottaddie)
 
 Řadiče, akce a výsledky akcí jsou základní součástí způsobu, jakým vývojáři sestavují aplikace pomocí ASP.NET Core MVC.
 

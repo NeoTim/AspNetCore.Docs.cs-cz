@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/01/2019
 uid: web-api/jsonpatch
-ms.openlocfilehash: e57556e4b3fba55c6c187092593ffab4e31ee2d9
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: cf1a00c1928652bf5210b2442087209e23b8868e
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727020"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661782"
 ---
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>JsonPatch v ASP.NET Core Web API
 
@@ -239,7 +239,7 @@ Následující ukázkový dokument opravy nemá žádný vliv, pokud je počáte
 
 ## <a name="get-the-code"></a>Získání kódu
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
 
 Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
 
@@ -451,7 +451,7 @@ Následující ukázkový dokument opravy nemá žádný vliv, pokud je počáte
 
 ## <a name="get-the-code"></a>Získání kódu
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
 
 Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
 

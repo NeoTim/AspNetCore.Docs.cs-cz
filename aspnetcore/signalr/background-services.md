@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: 324592759af79d1229eb147fb4551e97c678ef64
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 86319cc93febab18c29e2fb6366cef0d025943ba
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358675"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658142"
 ---
 # <a name="host-aspnet-core-opno-locsignalr-in-background-services"></a>SignalR hostitelských ASP.NET Core ve službách na pozadí
 
@@ -25,7 +25,7 @@ Tento článek poskytuje pokyny pro:
 * Hostování SignalRch Center pomocí pracovního procesu na pozadí hostovaného s ASP.NET Core.
 * Posílání zpráv pro připojené klienty z rozhraní .NET Core [BackgroundService](xref:Microsoft.Extensions.Hosting.BackgroundService).
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/background-service/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
 ## <a name="enable-opno-locsignalr-in-startup"></a>Povolit SignalR při spuštění
 
@@ -119,7 +119,7 @@ Během metody `IHostedService.StopAsync` je `HubConnection` odstraněn asynchron
 
 [!code-csharp[StopAsync method](background-service/sample/Clients.ConsoleTwo/ClockHubClient.cs?name=StopAsync)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Začínáme](xref:tutorials/signalr)
 * [Centra](xref:signalr/hubs)

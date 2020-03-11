@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 01/25/2020
 ms.custom: mvc, seodec18
 uid: razor-pages/ui-class
-ms.openlocfilehash: 8813244ea6d00b170d9f95d12743e9fee38bf810
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: f24dc62eba345a8a3d35143805b4966cb51832fa
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172651"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667564"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelného uživatelského rozhraní pomocí projektu knihovny tříd Razor v ASP.NET Core
 
@@ -21,22 +21,22 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Zobrazení Razor, stránky, řadiče, modely stránek, [komponenty Razor](xref:blazor/class-libraries), [zobrazení komponent](xref:mvc/views/view-components)a datové modely lze integrovat do knihovny tříd Razor (RCL). RCL můžete zabalit a znovu použít. Aplikace můžete zahrnout RCL a přepsání, zobrazení a stránky, které obsahuje. V případě, že je v rámci webové aplikace i v RCL Nalezeno zobrazení, částečné zobrazení nebo stránka Razor, má přednost označení Razor (soubor *. cshtml* ) ve webové aplikaci.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="create-a-class-library-containing-razor-ui"></a>Vytvoření knihovny tříd obsahující Razor uživatelského rozhraní
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V aplikaci Visual Studio vyberte **vytvořit nový nový projekt**.
 * > **Další**vyberte **knihovnu tříd Razor** .
 * Pojmenujte knihovnu (například "RazorClassLib"), > **vytvořit**. Aby nedošlo ke kolizi názvů souborů s vygenerovanou knihovnou zobrazení, ujistěte se, že název knihovny nekončí `.Views`.
-* Pokud potřebujete podporovat zobrazení, vyberte možnost **stránky podpory a zobrazení** . Ve výchozím nastavení jsou podporovány pouze Razor Pages. Vyberte **Create** (Vytvořit).
+* Pokud potřebujete podporovat zobrazení, vyberte možnost **stránky podpory a zobrazení** . Ve výchozím nastavení jsou podporovány pouze Razor Pages. Vyberte **Vytvořit**.
 
 Šablona knihovny tříd Razor (RCL) je ve výchozím nastavení standardně pro vývoj komponent Razor. Možnost **stránky podpory a zobrazení** podporuje stránky a zobrazení.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-Z příkazového řádku spusťte `dotnet new razorclasslib`. Například:
+Z příkazového řádku spusťte `dotnet new razorclasslib`. Příklad:
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
@@ -186,11 +186,11 @@ Po publikování aplikace se doprovodné prostředky ze všech odkazovaných pro
 
 Zobrazení Razor, stránky, řadiče, modely stránek, [komponenty Razor](xref:blazor/class-libraries), [zobrazení komponent](xref:mvc/views/view-components)a datové modely lze integrovat do knihovny tříd Razor (RCL). RCL můžete zabalit a znovu použít. Aplikace můžete zahrnout RCL a přepsání, zobrazení a stránky, které obsahuje. V případě, že je v rámci webové aplikace i v RCL Nalezeno zobrazení, částečné zobrazení nebo stránka Razor, má přednost označení Razor (soubor *. cshtml* ) ve webové aplikaci.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="create-a-class-library-containing-razor-ui"></a>Vytvoření knihovny tříd obsahující Razor uživatelského rozhraní
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V nabídce **soubor** v aplikaci Visual Studio vyberte **Nový** > **projekt**.
 * Vyberte **ASP.NET Core webové aplikace**.
@@ -202,9 +202,9 @@ RCL má následující soubor projektu:
 
 [!code-xml[](ui-class/samples/cli/RazorUIClassLib/RazorUIClassLib.csproj)]
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-Z příkazového řádku spusťte `dotnet new razorclasslib`. Například:
+Z příkazového řádku spusťte `dotnet new razorclasslib`. Příklad:
 
 ```dotnetcli
 dotnet new razorclasslib -o RazorUIClassLib
@@ -227,17 +227,17 @@ RCL lze odkazovat pomocí:
 
 ## <a name="walkthrough-create-an-rcl-project-and-use-from-a-razor-pages-project"></a>Návod: vytvoření projektu RCL a použití z Razor Pages projektu
 
-Můžete stáhnout [celý projekt](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) a otestovat ho místo jeho vytvoření. Vzorku ke stažení obsahuje další kódu a odkazy, které usnadňuje testování projektu. Zpětnou vazbu k [tomuto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/6098) si můžete nechat s vašimi komentáři ke stažení ukázek a podrobnými pokyny.
+Můžete stáhnout [celý projekt](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) a otestovat ho místo jeho vytvoření. Vzorku ke stažení obsahuje další kódu a odkazy, které usnadňuje testování projektu. Zpětnou vazbu k [tomuto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/6098) si můžete nechat s vašimi komentáři ke stažení ukázek a podrobnými pokyny.
 
 ### <a name="test-the-download-app"></a>Testování aplikace ke stažení
 
 Pokud jste nestáhli dokončenou aplikaci a chcete místo toho vytvořit návodový projekt, přejděte k [Další části](#create-an-rcl).
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Otevřete soubor *. sln* v aplikaci Visual Studio. Spusťte aplikaci.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Z příkazového řádku v adresáři *CLI* Sestavte RCL a webovou aplikaci.
 
@@ -259,7 +259,7 @@ Postupujte podle pokynů v části [test WebApp1](#test-webapp1)
 
 V této části se vytvoří RCL. Soubory Razor jsou přidány do RCL.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Vytvoření projektu RCL:
 
@@ -270,7 +270,7 @@ Vytvoření projektu RCL:
 * Vyberte **knihovnu tříd Razor** > **OK**.
 * Přidejte soubor částečného zobrazení Razor s názvem *RazorUIClassLib/areas/MyFeature/Pages/Shared/_Message. cshtml*.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Z příkazového řádku spusťte následující příkaz:
 
@@ -300,7 +300,7 @@ Soubor *_ViewStart. cshtml* je vyžadován pro použití rozložení Razor Pages
 
   [!code-cshtml[](ui-class/samples/cli/RazorUIClassLib/Areas/MyFeature/Pages/Page1.cshtml)]
 
-  `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` se vyžaduje pro použití částečného zobrazení (`<partial name="_Message" />`). Místo zahrnutí direktivy `@addTagHelper` můžete přidat *_ViewImports soubor. cshtml* . Například:
+  `@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers` se vyžaduje pro použití částečného zobrazení (`<partial name="_Message" />`). Místo zahrnutí direktivy `@addTagHelper` můžete přidat *_ViewImports soubor. cshtml* . Příklad:
 
   ```dotnetcli
   dotnet new viewimports -o RazorUIClassLib/Areas/MyFeature/Pages
@@ -318,7 +318,7 @@ Výstup sestavení obsahuje *RazorUIClassLib. dll* a *RazorUIClassLib. views. dl
 
 ### <a name="use-the-razor-ui-library-from-a-razor-pages-project"></a>Použití knihovny uživatelského rozhraní Razor z projektu pro stránky Razor
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Vytvoření webové aplikace stránky Razor:
 
@@ -336,7 +336,7 @@ Vytvoření webové aplikace stránky Razor:
 
 Spusťte aplikaci.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Vytvoření webové aplikace Razor Pages a souboru řešení obsahujícího aplikaci Razor Pages a RCL:
 

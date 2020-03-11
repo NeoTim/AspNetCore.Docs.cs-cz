@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: migration/webapi
-ms.openlocfilehash: c68cf83f427f53b110075168c6d5e4d021808782
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 7f61b78c589fc9d01061b50554e5a639e372c3d8
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881144"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661845"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>Migrace z webového rozhraní API ASP.NET do ASP.NET Core
 
@@ -19,9 +19,9 @@ ms.locfileid: "74881144"
 
 Webové rozhraní API ASP.NET 4. x je služba HTTP, která dosahuje široké škály klientů, včetně prohlížečů a mobilních zařízení. ASP.NET Core sjednocuje ASP.NET 4. x MVC a model aplikace webového rozhraní API do jednoduššího programovacího modelu označovaného jako ASP.NET Core MVC. Tento článek popisuje kroky potřebné k migraci z webového rozhraní API ASP.NET 4. x na ASP.NET Core MVC.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/webapi/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [!INCLUDE [prerequisites](../includes/net-core-prereqs-vs2019-2.2.md)]
 
@@ -61,7 +61,7 @@ Proveďte následující kroky v aplikaci Visual Studio:
 
 ## <a name="migrate-configuration"></a>Migrace konfigurace
 
-ASP.NET Core nepoužívá složku *app_start* nebo soubor *Global. asax* a v době publikování je přidán soubor *Web. config* . *Startup.cs* je náhradou za *Global. asax* a nachází se v kořenovém adresáři projektu. Třída `Startup` zpracovává všechny úlohy při spuštění aplikace. Další informace najdete v tématu <xref:fundamentals/startup>.
+ASP.NET Core nepoužívá složku *app_start* nebo soubor *Global. asax* a v době publikování je přidán soubor *Web. config* . *Startup.cs* je náhradou za *Global. asax* a nachází se v kořenovém adresáři projektu. Třída `Startup` zpracovává všechny úlohy při spuštění aplikace. Další informace naleznete v tématu <xref:fundamentals/startup>.
 
 Ve ASP.NET Core MVC je směrování atributů standardně zahrnuté v případě, že je <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> voláno v `Startup.Configure`. Následující `UseMvc` volání nahradí *app_start soubor/webapiconfig.cs* projektu *ProductsApp* :
 
@@ -69,7 +69,7 @@ Ve ASP.NET Core MVC je směrování atributů standardně zahrnuté v případě
 
 ## <a name="migrate-models-and-controllers"></a>Migrace modelů a řadičů
 
-Zkopírujte přes kontroler projektu *ProductApp* a model, který používá. Postupujte podle těchto kroků:
+Zkopírujte přes kontroler projektu *ProductApp* a model, který používá. Postupujte následovně:
 
 1. Zkopírujte *Controllers/ProductsController. cs* z původního projektu na nový.
 1. Zkopírujte celou složku *modely* z původního projektu do nového.
@@ -78,12 +78,12 @@ Zkopírujte přes kontroler projektu *ProductApp* a model, který používá. Po
 V tomto okamžiku sestavíte aplikaci v důsledku řady chyb kompilace. K chybám dochází, protože následující komponenty v ASP.NET Core neexistují:
 
 * Třída `ApiController`
-* Obor názvů `System.Web.Http`
-* Rozhraní `IHttpActionResult`
+* obor názvů `System.Web.Http`
+* rozhraní `IHttpActionResult`
 
 Opravte chyby následujícím způsobem:
 
-1. Změna `ApiController` k <xref:Microsoft.AspNetCore.Mvc.ControllerBase>. Přidejte `using Microsoft.AspNetCore.Mvc;` pro vyřešení odkazu `ControllerBase`.
+1. Změňte `ApiController` na <xref:Microsoft.AspNetCore.Mvc.ControllerBase>. Přidejte `using Microsoft.AspNetCore.Mvc;` pro vyřešení odkazu `ControllerBase`.
 1. Odstraňte `using System.Web.Http;`.
 1. Změňte návratový typ `GetProduct` akce z `IHttpActionResult` na `ActionResult<Product>`.
 
@@ -123,7 +123,7 @@ Po předchozích změnách a odebrání nepoužívaných `using`ch příkazů vy
 
 [!code-csharp[](webapi/sample/ProductsCore/Controllers/ProductsController.cs)]
 
-Spusťte migrovaný projekt a vyhledejte `/api/products`. Zobrazí se úplný seznam tří produktů. Přejděte do `/api/products/1`. Zobrazí se první produkt.
+Spusťte migrovaný projekt a vyhledejte `/api/products`. Zobrazí se úplný seznam tří produktů. Přejděte na `/api/products/1`. Zobrazí se první produkt.
 
 ## <a name="compatibility-shim"></a>Překrytí kompatibility
 
@@ -156,7 +156,7 @@ Použití překrytí kompatibility:
 1. Zaregistrujte služby překrytí kompatibility s kontejnerem DI aplikace voláním `services.AddMvc().AddWebApiConventions()` v `Startup.ConfigureServices`.
 1. Definujte trasy specifické pro webové rozhraní API pomocí `MapWebApiRoute` na `IRouteBuilder` ve volání `IApplicationBuilder.UseMvc` aplikace.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:web-api/index>
 * <xref:web-api/action-return-types>

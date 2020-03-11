@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/07/2019
 uid: fundamentals/static-files
-ms.openlocfilehash: 00bab51cb411552c884f85fa63d42d0691b401b1
-ms.sourcegitcommit: 3b6b0a54b20dc99b0c8c5978400c60adf431072f
+ms.openlocfilehash: 95a77defc7e98328e1f4e3615648b1d14485e51e
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/03/2019
-ms.locfileid: "74717270"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660123"
 ---
 # <a name="static-files-in-aspnet-core"></a>Statické soubory v ASP.NET Core
 
@@ -19,7 +19,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Scott Addie](https://twit
 
 Statické soubory, jako jsou HTML, CSS, obrázky a JavaScript, jsou prostředky, které ASP.NET Core aplikace slouží přímo klientům. K povolení obsluhy těchto souborů je potřeba některá konfigurace.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/static-files/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/static-files/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="serve-static-files"></a>Obsluhovat statické soubory
 
@@ -50,7 +50,7 @@ Statické soubory jsou přístupné prostřednictvím cesty relativní k [webov�
   * **fotografií**
   * **js**
 
-Formát identifikátoru URI pro přístup k souboru v podsložce *imagí* je *http://\<server_address >/images/\<image_file_name >* . Například *http://localhost:9189/images/banner3.svg* .
+Formát identifikátoru URI pro přístup k souboru v podsložce *imagí* je *http://\<server_address >/images/\<image_file_name >* . Příklad: *http://localhost:9189/images/banner3.svg* .
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -111,6 +111,7 @@ Následující značky odkazují na *MyStaticFiles/images/banner1. SVG*:
 K nastavení hlaviček odpovědí HTTP lze použít objekt [StaticFileOptions](/dotnet/api/microsoft.aspnetcore.builder.staticfileoptions) . Kromě konfigurace statického souboru obsluha z [webového kořenového adresáře](xref:fundamentals/index#web-root)nastaví následující kód `Cache-Control` hlavičku:
 
 [!code-csharp[](static-files/samples/1x/StartupAddHeader.cs?name=snippet_ConfigureMethod)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 V balíčku [Microsoft. AspNetCore. http](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/) existuje metoda [HeaderDictionaryExtensions. Append](/dotnet/api/microsoft.aspnetcore.http.headerdictionaryextensions.append) .
 
@@ -208,7 +209,7 @@ Pomocí hierarchie souborů a předchozího kódu adresy URL překládat násled
 
 | URI            |                             Odpověď  |
 | ------- | ------|
-| *http://\<server_address >/StaticFiles/images/banner1.svg*    |      MyStaticFiles/images/banner1. SVG |
+| *http://\<server_address >/StaticFiles/images/banner1.svg*    |      MyStaticFiles/images/banner1.svg |
 | *http://\<server_address >/StaticFiles*             |     MyStaticFiles/default.html |
 
 Pokud v adresáři *MyStaticFiles* neexistuje žádný výchozí soubor s názvem, *http://\<server_address >/StaticFiles* vrátí výpis adresáře s odkazy kliknutím:
@@ -241,9 +242,9 @@ V předchozím kódu se jako obrázek vrátí požadavek na soubor s neznámým 
 
 ## <a name="serve-files-from-multiple-locations"></a>Obsluhovat soubory z více míst
 
-`UseStaticFiles` a `UseFileServer` ve výchozím nastavení poskytovatel souborů odkazující na *wwwroot*. Můžete poskytnout další instance `UseStaticFiles` a `UseFileServer` jiným poskytovatelům souborů pro obsluhu souborů z jiných umístění. Další informace najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/15578).
+`UseStaticFiles` a `UseFileServer` ve výchozím nastavení poskytovatel souborů odkazující na *wwwroot*. Můžete poskytnout další instance `UseStaticFiles` a `UseFileServer` jiným poskytovatelům souborů pro obsluhu souborů z jiných umístění. Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/15578).
 
-### <a name="considerations"></a>Odůvodněn
+### <a name="considerations"></a>Požadavky
 
 > [!WARNING]
 > `UseDirectoryBrowser` a `UseStaticFiles` můžou neúniky tajných kódů. Zakázání procházení adresářů v produkčním prostředí se důrazně doporučuje. Pečlivě zkontrolujte, které adresáře jsou povolené prostřednictvím `UseStaticFiles` nebo `UseDirectoryBrowser`. Celý adresář a jeho podadresáře se stanou veřejně přístupnými. Ukládejte soubory vhodné pro poskytování veřejnosti ve vyhrazeném adresáři, například *\<content_root >/wwwroot*. Oddělte tyto soubory od zobrazení MVC, Razor Pages (jenom 2. x), konfigurační soubory atd.
@@ -262,7 +263,7 @@ V předchozím kódu se jako obrázek vrátí požadavek na soubor s neznámým 
 
 * Umístěte soubory kódu (včetně *. cs* a *. cshtml*) mimo [kořenový adresář webu](xref:fundamentals/index#web-root)projektu aplikace. Vytvoří se logické oddělení mezi obsahem aplikace na straně klienta a kódem serveru. Tím zabráníte úniku kódu na straně serveru.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Middleware](xref:fundamentals/middleware/index)
 * [Úvod do ASP.NET Core](xref:index)

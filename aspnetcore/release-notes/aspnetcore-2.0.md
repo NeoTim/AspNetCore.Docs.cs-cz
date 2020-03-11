@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: aspnetcore-2.0
-ms.openlocfilehash: 9d1e1b1154113b8825f4d0faf0f4552b8bd22287
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 5ca43bab1496aa9fda65282cbb0b1177ad8689eb
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828422"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667256"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2,0
 
@@ -38,7 +38,7 @@ Aplikace, které používají `Microsoft.AspNetCore.All` Metapackage, automatick
 
 Další informace najdete v tématu [běhové úložiště](/dotnet/core/deploying/runtime-store) .
 
-## <a name="net-standard-20"></a>.NET Standard 2.0
+## <a name="net-standard-20"></a>.NET Standard 2,0
 
 Cílová ASP.NET Core 2,0 balíčků .NET Standard 2,0. Na balíčky můžou odkazovat jiné knihovny .NET Standard 2,0 a můžou běžet na .NET Standard 2,0 implementace platformy .NET, včetně .NET Core 2,0 a .NET Framework 4.6.1. 
 
@@ -48,7 +48,7 @@ Cílová ASP.NET Core 2,0 balíčků .NET Standard 2,0. Na balíčky můžou odk
 
 Do kontejneru Services je ve výchozím nastavení přidána instance `IConfiguration` v ASP.NET Core 2,0. `IConfiguration` v kontejneru Services usnadňuje aplikacím načítání konfiguračních hodnot z kontejneru.
 
-Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/3387).
+Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/3387).
 
 ## <a name="logging-update"></a>Aktualizace protokolování
 
@@ -62,7 +62,7 @@ Nový model ověřování usnadňuje konfiguraci ověřování pro aplikaci pomo
 
 Nové šablony jsou k dispozici pro konfiguraci ověřování pro webové aplikace a webová rozhraní API pomocí [Azure AD B2C](https://azure.microsoft.com/services/active-directory-b2c/).
 
-Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/3054).
+Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/3054).
 
 ## <a name="identity-update"></a>Aktualizace identity
 
@@ -114,7 +114,7 @@ Hostující prostředí teď můžou vkládat dodatečné závislosti balíčků
 
 V ASP.NET Core 2,0 se tato funkce používá k automatickému povolení Application Insights diagnostiky při ladění v aplikaci Visual Studio a při spuštění v Azure App Services. V důsledku toho šablony projektu již ve výchozím nastavení nepřidává Application Insights balíčky a kód.
 
-Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/3389).
+Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/3389).
 
 ## <a name="automatic-use-of-anti-forgery-tokens"></a>Automatické použití odolných tokenů proti padělání
 

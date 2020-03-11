@@ -1,1 +1,1 @@
-`UseHsts` je doporučeno, ale nevyžaduje. Zobrazit [striktní protokol zabezpečení přenosu HTTP](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) Další informace.
+`UseHsts` se doporučuje, ale není potřeba. Další informace najdete v tématu [protokol zabezpečení protokolu HTTP Strict Transport](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) .

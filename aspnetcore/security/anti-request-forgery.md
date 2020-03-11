@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/anti-request-forgery
-ms.openlocfilehash: 54e153af55f28d9a89bbf16bce1c17f876567b59
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 3da73b8fe3e3d73d5d7754e0642e55feeb785de3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880810"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659157"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>Zabránit útokům na neCSRFelné žádosti mezi lokalitami (XSRF/) v ASP.NET Core
 
@@ -79,7 +79,7 @@ Když se uživatel ověřuje pomocí svého uživatelského jména a hesla, vyd�
 
 ### <a name="token-based-authentication"></a>Ověřování na základě tokenů
 
-Když je uživatel ověřený, vydává token (nikoli token pro antipadělání). Token obsahuje informace o uživateli ve formě [deklarací identity](/dotnet/framework/security/claims-based-identity-model) nebo tokenu odkazu, který ukazuje aplikaci na stav uživatele udržované v aplikaci. Když se uživatel pokusí o přístup k prostředku, který vyžaduje ověření, token se do aplikace pošle pomocí další autorizační hlavičky ve formě nosných tokenů. Tím se aplikace bez stavu nastaví. V každém následném požadavku se token předává v žádosti o ověření na straně serveru. Tento token není *zašifrovaný*. je *kódovaný*. Na serveru je token dekóduje pro přístup k jeho informacím. Pokud chcete token odeslat na další požadavky, uložte token do místního úložiště prohlížeče. V případě, že je token uložený v místním úložišti v prohlížeči, nemusíte mít obavy o ohrožení zabezpečení CSRF. CSRF je problém, pokud je token uložen v souboru cookie. Další informace najdete v ukázce kódu, který problém GitHubu [přidá dva soubory cookie](https://github.com/aspnet/AspNetCore.Docs/issues/13369).
+Když je uživatel ověřený, vydává token (nikoli token pro antipadělání). Token obsahuje informace o uživateli ve formě [deklarací identity](/dotnet/framework/security/claims-based-identity-model) nebo tokenu odkazu, který ukazuje aplikaci na stav uživatele udržované v aplikaci. Když se uživatel pokusí o přístup k prostředku, který vyžaduje ověření, token se do aplikace pošle pomocí další autorizační hlavičky ve formě nosných tokenů. Tím se aplikace bez stavu nastaví. V každém následném požadavku se token předává v žádosti o ověření na straně serveru. Tento token není *zašifrovaný*. je *kódovaný*. Na serveru je token dekóduje pro přístup k jeho informacím. Pokud chcete token odeslat na další požadavky, uložte token do místního úložiště prohlížeče. V případě, že je token uložený v místním úložišti v prohlížeči, nemusíte mít obavy o ohrožení zabezpečení CSRF. CSRF je problém, pokud je token uložen v souboru cookie. Další informace najdete v ukázce kódu, který problém GitHubu [přidá dva soubory cookie](https://github.com/dotnet/AspNetCore.Docs/issues/13369).
 
 ### <a name="multiple-apps-hosted-at-one-domain"></a>Více aplikací hostovaných v jedné doméně
 
@@ -238,7 +238,7 @@ services.AddAntiforgery(options =>
 | ------ | ----------- |
 | [Soubor](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | Určuje nastavení používané k vytvoření souborů cookie antipadělání. |
 | [CookieDomain](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | Doména souboru cookie. Výchozí hodnota je `null`. Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučenou alternativou je soubor cookie. domain. |
-| [CookieName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | Název souboru cookie Pokud není nastaven, systém vygeneruje jedinečný název začínající na [DefaultCookiePrefix](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) (". AspNetCore. antipadělání. "). Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie.Name. |
+| [Vlastnost CookieName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | Název souboru cookie Pokud není nastaven, systém vygeneruje jedinečný název začínající na [DefaultCookiePrefix](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) (". AspNetCore. antipadělání. "). Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie.Name. |
 | [CookiePath](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cesta nastavená na souboru cookie. Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je soubor cookie. Path. |
 | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | Název skrytého pole formuláře používaného systémem pro použití proti padělání pro vykreslování tokenů v zobrazeních. |
 | [Záhlaví](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | Název záhlaví používaného systémem pro použití proti padělání Pokud `null`, systém považuje jenom formovaná data. |
@@ -315,7 +315,7 @@ Atribut `ValidateAntiForgeryToken` vyžaduje token pro požadavky na metody akce
 Aplikace ASP.NET Core negenerují tokeny antipadělání pro bezpečné metody protokolu HTTP (GET, HEAD, OPTIONS a TRACE). Namísto použití atributu `ValidateAntiForgeryToken` a jeho přepsání pomocí atributů `IgnoreAntiforgeryToken` lze použít atribut [AutoValidateAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.autovalidateantiforgerytokenattribute) . Tento atribut funguje stejně jako atribut `ValidateAntiForgeryToken`, s tím rozdílem, že nevyžaduje tokeny pro požadavky vytvořené pomocí následujících metod HTTP:
 
 * GET
-* HEAD
+* ZÁHLAVÍ
 * MOŽNOSTI
 * TRASOVÁNÍ
 
@@ -334,10 +334,20 @@ public class ManageController : Controller
 
 Globální příklad:
 
+::: moniker range="< aspnetcore-3.0"
+
+orgány. AddMvc (Možnosti = > Možnosti. Filters. Add (New AutoValidateAntiforgeryTokenAttribute ());
+
+::: moniker-end
+
+::: moniker range=">= aspnetcore-3.0"
+
 ```csharp
-services.AddMvc(options => 
+services.AddControllersWithViews(options =>
     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
 ```
+
+::: moniker-end
 
 ### <a name="override-global-or-controller-antiforgery-attributes"></a>Přepsat globální atributy nebo atributy antipadělání řadiče
 
@@ -465,13 +475,13 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/anti-request-forgery/sample/AngularSample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/anti-request-forgery/sample/AngularSample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="extend-antiforgery"></a>Rozšiřování antipadělání
 
 Typ [IAntiForgeryAdditionalDataProvider](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider) umožňuje vývojářům roztáhnout chování systému anti-CSRF s kulatými Trip dalšími daty v každém tokenu. Metoda [GetAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.getadditionaldata) je volána při každém vygenerování tokenu pole a návratová hodnota je vložena do vygenerovaného tokenu. Implementátor by mohl vrátit časové razítko, hodnotu NONCE nebo jakoukoli jinou hodnotu a pak zavolat [ValidateAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.validateadditionaldata) , aby ověřil tato data při ověření tokenu. Uživatelské jméno klienta je již vloženo do vygenerovaných tokenů, takže není nutné tyto informace zahrnout. Pokud token zahrnuje doplňková data, ale není nakonfigurovaná žádná `IAntiForgeryAdditionalDataProvider`, doplňková data se neověřují.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [CSRF](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_(CSRF)) v [otevřeném projektu webové aplikace zabezpečení](https://www.owasp.org/index.php/Main_Page) (OWASP).
 * <xref:host-and-deploy/web-farm>

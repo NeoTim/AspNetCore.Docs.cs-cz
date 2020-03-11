@@ -1,26 +1,26 @@
 ---
-title: Injektáž závislostí v obslužné rutině požadavek v ASP.NET Core
+title: Vkládání závislostí v obslužných rutinách požadavků v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak vložit obslužné rutiny požadavek ověřování do aplikace ASP.NET Core pomocí vkládání závislostí.
+description: Přečtěte si, jak vložit obslužné rutiny autorizačních požadavků do aplikace ASP.NET Core pomocí injektáže závislosti.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/dependencyinjection
 ms.openlocfilehash: 71d563e11d308a95c08e6d012d3a071f4697d2de
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902505"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666087"
 ---
-# <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a>Injektáž závislostí v obslužné rutině požadavek v ASP.NET Core
+# <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a>Vkládání závislostí v obslužných rutinách požadavků v ASP.NET Core
 
 <a name="security-authorization-di"></a>
 
-[Povolení obslužné rutiny musí být zaregistrovaný](xref:security/authorization/policies#handler-registration) v kolekci služby během konfigurace (pomocí [injektáž závislostí](xref:fundamentals/dependency-injection)).
+[Obslužné rutiny autorizace musí být registrovány](xref:security/authorization/policies#handler-registration) v kolekci služby během konfigurace (pomocí [Injektáže závislosti](xref:fundamentals/dependency-injection)).
 
-Předpokládejme, že jste měli úložiště pravidel, který chcete vyhodnotit uvnitř obslužné rutiny autorizace a tohoto úložiště bylo registrováno v kolekci služby. Autorizace se vyřešit a vložení, který do vašeho konstruktoru.
+Předpokládejme, že máte úložiště pravidel, která jste chtěli vyhodnotit uvnitř obslužné rutiny autorizace, a toto úložiště bylo zaregistrováno v kolekci služeb. Autorizace se vyřeší a vloží do vašeho konstruktoru.
 
-Například, pokud jste chtěli použít ASP. NET je protokolování infrastruktury budete pravděpodobně chtít vložit `ILoggerFactory` do vaší obslužné rutiny. Tato obslužná rutina může vypadat:
+Například pokud jste chtěli použít ASP. Infrastruktura protokolování sítě, kterou chcete vložit `ILoggerFactory` do obslužné rutiny. Obslužná rutina může vypadat takto:
 
 ```csharp
 public class LoggingAuthorizationHandler : AuthorizationHandler<MyRequirement>
@@ -41,13 +41,13 @@ public class LoggingAuthorizationHandler : AuthorizationHandler<MyRequirement>
    }
    ```
 
-By zaregistrovat obslužnou rutinu s `services.AddSingleton()`:
+Obslužná rutina by měla být zaregistrována s `services.AddSingleton()`:
 
 ```csharp
 services.AddSingleton<IAuthorizationHandler, LoggingAuthorizationHandler>();
 ```
 
-Instance se obslužná rutina se vytvoří při spuštění aplikace a bude DI vložit zaregistrovanou `ILoggerFactory` do vaší konstruktoru.
+Instance obslužné rutiny se vytvoří při spuštění aplikace a příkaz DI vloží registrovanou `ILoggerFactory` do konstruktoru.
 
 > [!NOTE]
-> Obslužné rutiny, které používají rozhraní Entity Framework by neměla být registrována jako jednotlivé prvky.
+> Obslužné rutiny, které používají Entity Framework, by neměly být registrovány jako singleton.

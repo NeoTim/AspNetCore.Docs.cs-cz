@@ -1,75 +1,75 @@
 ---
-title: LibMan pomocí ASP.NET Core v sadě Visual Studio
+title: Použití LibMan s ASP.NET Core v aplikaci Visual Studio
 author: scottaddie
-description: Další informace o použití LibMan v projektu aplikace ASP.NET Core pomocí sady Visual Studio.
+description: Naučte se používat LibMan v projektu ASP.NET Core se sadou Visual Studio.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 08/20/2018
 uid: client-side/libman/libman-vs
-ms.openlocfilehash: ebfb405516d968bf5d5b8cff956a9892457027f2
-ms.sourcegitcommit: 8516b586541e6ba402e57228e356639b85dfb2b9
+ms.openlocfilehash: e92e6bc28ec58b26785dd6c79e71512368202a26
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/11/2019
-ms.locfileid: "67813461"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658310"
 ---
-# <a name="use-libman-with-aspnet-core-in-visual-studio"></a>LibMan pomocí ASP.NET Core v sadě Visual Studio
+# <a name="use-libman-with-aspnet-core-in-visual-studio"></a>Použití LibMan s ASP.NET Core v aplikaci Visual Studio
 
-Podle [Scott Addie](https://twitter.com/Scott_Addie)
+[Scott Addie](https://twitter.com/Scott_Addie)
 
-Visual Studio obsahuje integrovanou podporu [LibMan](xref:client-side/libman/index) v projektech ASP.NET Core, včetně:
+Visual Studio obsahuje integrovanou podporu pro [LibMan](xref:client-side/libman/index) v projektech ASP.NET Core, včetně:
 
-* Podpora pro konfiguraci a spuštění operace obnovení LibMan na sestavení.
-* Položky nabídky, která aktivuje LibMan obnovení a vyčistit operace.
-* Dialog pro hledání pro hledání knihoven a přidávání souborů do projektu.
-* Podporu pro editaci *libman.json*&mdash;LibMan souboru manifestu.
+* Podpora pro konfiguraci a spuštění operací obnovení LibMan při sestavení.
+* Položky nabídky, které aktivují LibMan operace obnovení a vyčištění
+* Dialogové okno Hledat pro hledání knihoven a přidávání souborů do projektu.
+* Úprava podpory pro *Libman. json*&mdash;souboru manifestu Libman.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/client-side/libman/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/client-side/libman/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s **vývoj pro ASP.NET a web** pracovního vytížení
+* [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje ASP.NET a webu**
 
-## <a name="add-library-files"></a>Přidejte soubory knihovny
+## <a name="add-library-files"></a>Přidat soubory knihovny
 
-Soubory knihovny můžete přidat do projektu aplikace ASP.NET Core dvěma různými způsoby:
+Soubory knihovny lze přidat do projektu ASP.NET Core dvěma různými způsoby:
 
-1. [Použijte dialogové okno Přidat knihovnu na straně klienta](#use-the-add-client-side-library-dialog)
-1. [Ruční konfigurace LibMan položek souboru manifestu](#manually-configure-libman-manifest-file-entries)
+1. [Použití dialogového okna přidat knihovnu na straně klienta](#use-the-add-client-side-library-dialog)
+1. [Ruční konfigurace položek souboru manifestu LibMan](#manually-configure-libman-manifest-file-entries)
 
-### <a name="use-the-add-client-side-library-dialog"></a>Použijte dialogové okno Přidat knihovnu na straně klienta
+### <a name="use-the-add-client-side-library-dialog"></a>Použití dialogového okna přidat knihovnu na straně klienta
 
-Postupujte podle těchto kroků nainstalujte klientské knihovny:
+Pomocí těchto kroků nainstalujete knihovnu na straně klienta:
 
-* V **Průzkumníka řešení**, klikněte pravým tlačítkem na složku projektu, ve kterém soubory přidaly. Zvolte **přidat** > **knihoven na straně klienta**. **Přidat knihovnu na straně klienta** se zobrazí dialogové okno:
+* V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku projektu, do které by se měly přidat soubory. Vyberte možnost **přidat** > **knihovnu na straně klienta**. Zobrazí se dialogové okno **přidat knihovnu na straně klienta** :
 
-  ![Přidat dialog knihoven na straně klienta](_static/add-library-dialog.png)
+  ![Dialogové okno Přidat knihovnu na straně klienta](_static/add-library-dialog.png)
 
-* Vyberte zprostředkovatele knihovny z **poskytovatele** rozevírací seznam. CDNJS je výchozím zprostředkovatelem.
-* Zadejte název knihovny k načtení v **knihovny** textového pole. Technologie IntelliSense poskytuje seznam knihoven počínaje zadaný text.
-* Vyberte knihovnu ze seznamu technologie IntelliSense. Všimněte si, že je název knihovny příponu `@` symbolů a nejnovější stabilní verze označuje pro vybraného zprostředkovatele.
-* Určete soubory, které chcete zahrnout:
-  * Vyberte **zahrnutí všech souborů knihovny** přepínací tlačítko, které zahrnují všechny soubory knihovně.
-  * Vyberte **zvolte konkrétní soubory** přepínací tlačítko, které zahrnují podmnožinu souborů knihovny. Když je přepínač vybrán, stromu výběru souboru je povolen. Zaškrtněte políčka nalevo od názvu souboru ke stažení.
-* Zadejte složku projektu pro ukládání souborů do **cílové umístění** textového pole. Jako doporučení uložte každou knihovnu do samostatné složky.
+* V rozevíracím seznamu **zprostředkovatelů** vyberte poskytovatele knihovny. CDNJS je výchozí zprostředkovatel.
+* Do textového pole **Knihovna** zadejte název knihovny, která se má načíst. IntelliSense nabízí seznam knihoven začínajících zadaným textem.
+* Vyberte knihovnu ze seznamu technologie IntelliSense. Všimněte si, že název knihovny je zaregistrovaný symbolem `@` a nejnovější stabilní verzí známou pro vybraného zprostředkovatele.
+* Rozhodněte, které soubory se mají zahrnout:
+  * Výběrem přepínače **Zahrnout všechny soubory knihovny** Zahrňte všechny soubory knihovny.
+  * Vyberte přepínač **zvolte konkrétní soubory** a přidejte tak podmnožinu souborů knihovny. Je-li vybrán přepínač, je povolen strom pro výběr souboru. Zaškrtněte políčka nalevo od názvů souborů ke stažení.
+* Zadejte složku projektu pro uložení souborů do textového pole **cílové umístění** . Jako doporučení uložte každou knihovnu do samostatné složky.
 
-  Návrhy **cílové umístění** složky podle umístění, ze kterého se spustí dialogové okno:
+  Navrhovaná složka **umístění cíle** je založena na umístění, ze kterého byl dialog spuštěn:
 
-  * Pokud se spustí z kořenového adresáře projektu:
-    * *Wwwroot/lib* se používá v případě *wwwroot* existuje.
-    * *lib* se používá v případě *wwwroot* neexistuje.
-  * Pokud se spustí ze složky projektu, se používá odpovídající název složky.
+  * Při spuštění z kořenového adresáře projektu:
+    * *wwwroot/lib* se používá, pokud existuje *wwwroot* .
+    * *lib* se používá, pokud neexistuje *wwwroot* .
+  * Při spuštění ze složky projektu se použije odpovídající název složky.
 
-  Návrh složky je přidán s názvem knihovny. Následující tabulka uvádí návrhy složky při instalaci jQuery v projektu pro stránky Razor.
+  Návrh složky má příponu s názvem knihovny. Následující tabulka popisuje návrhy složek při instalaci jQuery do Razor Pages projektu.
   
-  |Spustit umístění                           |Navrhované složky      |
+  |Umístění pro spuštění                           |Navrhovaná složka      |
   |------------------------------------------|----------------------|
-  |kořen projektu (Pokud *wwwroot* existuje)        |*wwwroot/lib/jquery/* |
-  |kořen projektu (Pokud *wwwroot* neexistuje) |*lib/jquery/*         |
-  |*Stránky* složky v projektu                 |*Pages/jquery/*       |
+  |kořen projektu (pokud existuje *wwwroot* )        |*wwwroot/lib/jQuery/* |
+  |kořen projektu (Pokud neexistuje *wwwroot* ) |*lib/jQuery/*         |
+  |Složka *stránky* v projektu                 |*Stránky/jQuery/*       |
 
-* Klikněte na tlačítko **nainstalovat** tlačítko a stáhněte si soubory na konfiguraci v *libman.json*.
-* Zkontrolujte **Správce knihovny** informačního kanálu **výstup** okno pro podrobné informace o instalaci. Příklad:
+* Klikněte na tlačítko **instalovat** a Stáhněte soubory podle konfigurace v souboru *Libman. JSON*.
+* Podrobnosti o instalaci najdete v informačním kanálu **Správce knihovny** v okně **výstup** . Příklad:
 
   ```console
   Restore operation started...
@@ -82,53 +82,53 @@ Postupujte podle těchto kroků nainstalujte klientské knihovny:
   1 libraries restored in 2.32 seconds
   ```
 
-### <a name="manually-configure-libman-manifest-file-entries"></a>Ruční konfigurace LibMan položek souboru manifestu
+### <a name="manually-configure-libman-manifest-file-entries"></a>Ruční konfigurace položek souboru manifestu LibMan
 
-Všechny operace LibMan v sadě Visual Studio jsou založeny na obsah manifestu LibMan kořen projektu (*libman.json*). Můžete ručně upravit *libman.json* konfigurace soubory knihovny pro projekt. Visual Studio obnoví všechny soubory knihovny jednou *libman.json* se uloží.
+Všechny operace LibMan v aplikaci Visual Studio jsou založené na obsahu manifestu LibMan kořenu projektu (*LibMan. JSON*). Můžete ručně upravit *Libman. JSON* a nakonfigurovat soubory knihovny pro projekt. Po uložení souboru *Libman. JSON* obnoví aplikace Visual Studio všechny soubory knihoven.
 
-Chcete-li otevřít *libman.json* pro úpravy, existují tyto možnosti:
+Pro otevření *Libman. JSON* pro úpravy existují následující možnosti:
 
-* Dvakrát klikněte *libman.json* ve **Průzkumníka řešení**.
-* Klikněte pravým tlačítkem na projekt v **Průzkumníka řešení** a vyberte **správu knihoven na straně klienta**. **&#8224;**
-* Vyberte **správu knihoven na straně klienta** ze sady Visual Studio **projektu** nabídky. **&#8224;**
+* Dvakrát klikněte na soubor *Libman. JSON* v **Průzkumník řešení**.
+* V **Průzkumník řešení** klikněte pravým tlačítkem na projekt a vyberte **Spravovat knihovny na straně klienta**. **&#8224;**
+* V nabídce **projektu** Visual Studio vyberte **Spravovat knihovny na straně klienta** . **&#8224;**
 
-**&#8224;** Pokud *libman.json* soubor v kořenové složce projektu již neexistuje, vytvoří se s obsahem výchozí položku šablony.
+**&#8224;** Pokud soubor *Libman. JSON* již v kořenu projektu neexistuje, bude vytvořen s obsahem šablony výchozí položky.
 
-Visual Studio nabízí bohaté možnosti JSON úpravy podpory, jako je například zabarvení, formátování, technologie IntelliSense a ověřování schématu. Schéma JSON manifestu LibMan se nachází v umístění [ https://json.schemastore.org/libman ](https://json.schemastore.org/libman).
+Visual Studio nabízí bohatou podporu úprav JSON, jako je například zabarvení, formátování, IntelliSense a ověřování schématu. Schéma JSON manifestu LibMan se nachází na [https://json.schemastore.org/libman](https://json.schemastore.org/libman).
 
-Pomocí následující soubor manifestu LibMan načte soubory za definované v konfiguraci `libraries` vlastnost. Vysvětlení literály objektů definovaných v rámci `libraries` následující:
+Pomocí následujícího souboru manifestu LibMan načte soubory podle konfigurace definované ve vlastnosti `libraries`. Vysvětlení objektů literálů definovaných v rámci `libraries` následující:
 
-* Podmnožinu [jQuery](https://jquery.com/) verze 3.3.1 je načten z CDNJS zprostředkovatele. Dílčí je definována v `files` vlastnost&mdash;*jquery.min.js*, *jquery.js*, a *jquery.min.map*. Soubory jsou umístěny v projektu *wwwroot/lib/jquery* složky.
-* Podkladové [Bootstrap](https://getbootstrap.com/) verze 4.1.3 je načten a je umístěná v *wwwroot/lib/bootstrap* složky. Literál objektu `provider` vlastnosti přepsání `defaultProvider` hodnotu vlastnosti. LibMan načte Bootstrap soubory z unpkg zprostředkovatele.
-* Podmnožinu [Lodash](https://lodash.com/) schválila orgán v rámci organizace. *Lodash.js* a *lodash.min.js* soubory se načítají z místního systému souborů na *C:\\temp\\lodash\\* . Soubory se zkopírují do projektu *wwwroot/lib/lodash* složky.
+* Z poskytovatele CDNJS je načtena podmnožina [jQuery](https://jquery.com/) verze 3.3.1. Podmnožina je definována ve vlastnosti `files`&mdash;*jQuery. min. js*, *jQuery. js*a *jQuery. min. map*. Soubory jsou umístěny ve složce *wwwroot/lib/jQuery* projektu.
+* Celá část [bootstrap](https://getbootstrap.com/) verze 4.1.3 se načte a umístí do složky *wwwroot/lib/Bootstrap* . Vlastnost `provider` literálu objektu Přepisuje hodnotu vlastnosti `defaultProvider`. LibMan načte spouštěcí soubory od poskytovatele unpkg.
+* Podmnožina [Lodash](https://lodash.com/) byla schválena tělem pro řízení v rámci organizace. Soubory *lodash. js* a *lodash. js* jsou načteny z místního systému souborů v *C:\\Temp\\lodash\\* . Soubory jsou zkopírovány do složky *wwwroot/lib/lodash* projektu.
 
 [!code-json[](samples/LibManSample/libman.json)]
 
 > [!NOTE]
-> LibMan podporuje pouze jednu verzi každého knihovny od každého poskytovatele. *Libman.json* souboru schématu ověřování nezdaří, pokud obsahuje dvě knihovny se stejným názvem knihovny pro daného zprostředkovatele.
+> LibMan podporuje pouze jednu verzi každé knihovny od každého poskytovatele. V souboru *Libman. JSON* se ověřování schématu nezdařilo, pokud obsahuje dvě knihovny se stejným názvem knihovny pro daného zprostředkovatele.
 
-## <a name="restore-library-files"></a>Obnovit soubory knihoven
+## <a name="restore-library-files"></a>Obnovit soubory knihovny
 
-Obnovení souborů knihovny ze sady Visual Studio, musí být platný *libman.json* soubor v kořenové složce projektu. Obnovené soubory jsou umístěny v projektu na umístění zadaném pro každou knihovnu.
+Chcete-li obnovit soubory knihovny z aplikace Visual Studio, musí být v kořenovém adresáři projektu platný soubor *Libman. JSON* . Obnovené soubory jsou umístěny v projektu v umístění určeném pro každou knihovnu.
 
-Soubory knihovny je možné obnovit v projektu aplikace ASP.NET Core dvěma způsoby:
+Soubory knihovny lze obnovit v ASP.NET Core projektu dvěma způsoby:
 
 1. [Obnovení souborů během sestavování](#restore-files-during-build)
 1. [Ruční obnovení souborů](#restore-files-manually)
 
 ### <a name="restore-files-during-build"></a>Obnovení souborů během sestavování
 
-LibMan můžete obnovit soubory knihovny definované jako součást procesu sestavení. Ve výchozím nastavení *obnovení na build* zakázané chování.
+LibMan může obnovit definované soubory knihovny jako součást procesu sestavení. Ve výchozím nastavení je chování funkce *obnovení při sestavení* zakázané.
 
-Povolit a otestovat chování obnovení na sestavení:
+Postup při povolení a testování chování při obnovení při sestavení:
 
-* Klikněte pravým tlačítkem na *libman.json* v **Průzkumníka řešení** a vyberte **povolit obnovení na straně klienta knihovny na sestavení** v místní nabídce.
-* Klikněte na tlačítko **Ano** tlačítko po zobrazení výzvy k instalaci balíčku NuGet. [Microsoft.Web.LibraryManager.Build](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Build/) se přidá balíček NuGet do projektu:
+* V **Průzkumník řešení** klikněte pravým tlačítkem na *Libman. JSON* a v místní nabídce vyberte **Povolit obnovení knihoven na straně klienta v sestavení** .
+* Po zobrazení výzvy k instalaci balíčku NuGet klikněte na tlačítko **Ano** . Do projektu se přidá balíček NuGet [Microsoft. Web. LibraryManager. Build](https://www.nuget.org/packages/Microsoft.Web.LibraryManager.Build/) :
 
   [!code-xml[](samples/LibManSample/LibManSample.csproj?name=snippet_RestoreOnBuildPackage)]
 
-* Sestavte projekt, abyste potvrdili, že dojde k obnovení souborů LibMan. `Microsoft.Web.LibraryManager.Build` Balíček vkládá cíl nástroje MSBuild, na kterém běží LibMan během operace sestavení projektu.
-* Zkontrolujte **sestavení** informačního kanálu **výstup** okna pro protokol aktivit LibMan:
+* Sestavte projekt, abyste se ujistili, že dojde k obnovení souboru LibMan. Balíček `Microsoft.Web.LibraryManager.Build` vloží cíl nástroje MSBuild, který spouští LibMan během operace sestavení projektu.
+* Přečtěte si kanál **sestavení** okna **výstup** pro protokol aktivit LibMan:
 
   ```console
   1>------ Build started: Project: LibManSample, Configuration: Debug Any CPU ------
@@ -142,25 +142,25 @@ Povolit a otestovat chování obnovení na sestavení:
   ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
   ```
 
-Pokud je povoleno chování obnovení na sestavení, *libman.json* zobrazí místní nabídka **zakázat obnovení klientské knihovny na sestavení** možnost. Tato volba odstraní `Microsoft.Web.LibraryManager.Build` balíček odkaz ze souboru projektu. V důsledku toho budou na každé sestavení už obnoveny knihoven na straně klienta.
+Když je chování funkce obnovení při sestavení povoleno, zobrazí se v místní nabídce *Libman. JSON* možnost **Zakázat obnovení knihoven na straně klienta při sestavení** . Výběrem této možnosti odeberete `Microsoft.Web.LibraryManager.Build` odkaz na balíček ze souboru projektu. V důsledku toho se knihovny na straně klienta již v každém sestavení neobnovují.
 
-Bez ohledu na nastavení obnovení na sestavení, můžete ručně obnovit kdykoli *libman.json* kontextové nabídky. Další informace najdete v tématu [ručně obnovit soubory](#restore-files-manually).
+Bez ohledu na nastavení obnovení při sestavení můžete kdykoli obnovit ručně z kontextové nabídky *Libman. JSON* . Další informace najdete v tématu [Ruční obnovení souborů](#restore-files-manually).
 
 ### <a name="restore-files-manually"></a>Ruční obnovení souborů
 
-Chcete-li obnovit ručně soubory knihoven:
+Ruční obnovení souborů knihovny:
 
 * Pro všechny projekty v řešení:
-  * Klikněte pravým tlačítkem na název řešení v **Průzkumníka řešení**.
-  * Vyberte **obnovení knihoven na straně klienta** možnost.
-* Pro konkrétní projekt:
-  * Klikněte pravým tlačítkem myši *libman.json* ve **Průzkumníka řešení**.
-  * Vyberte **obnovení knihoven na straně klienta** možnost.
+  * Klikněte pravým tlačítkem myši na název řešení v **Průzkumník řešení**.
+  * Vyberte možnost **obnovit knihovny na straně klienta** .
+* Pro určitý projekt:
+  * V **Průzkumník řešení**klikněte pravým tlačítkem na soubor *Libman. JSON* .
+  * Vyberte možnost **obnovit knihovny na straně klienta** .
 
-Během operace obnovení:
+I když je spuštěná operace obnovení:
 
-* Centrum stavu úloh (TSC) ikonu na stavovém řádku sady Visual Studio bude při animaci pohybovat a přečte *obnovení byla zahájena operace*. Kliknutím na ikonu otevře popisek výpisu úloh na pozadí známé.
-* Zprávy se odešlou do stavového řádku a **Správce knihovny** informačního kanálu **výstup** okna. Příklad:
+* Ikona Centrum stavu úloh (TSC) na stavovém řádku sady Visual Studio bude animovaná a spustí se *operace obnovení*. Po kliknutí na ikonu se zobrazí popis známých úloh na pozadí.
+* Zprávy se odešlou do stavového řádku a do informačního kanálu **Správce knihovny** v okně **výstup** . Příklad:
 
   ```console
   Restore operation started...
@@ -173,19 +173,19 @@ Během operace obnovení:
   1 libraries restored in 2.32 seconds
   ```
 
-## <a name="delete-library-files"></a>Odstranit soubory knihoven
+## <a name="delete-library-files"></a>Odstranit soubory knihovny
 
-K provedení *čisté* operaci, která odstraní soubory knihoven, které byly obnoveny v sadě Visual Studio:
+Chcete-li provést operaci *Vyčištění* , která odstraní soubory knihovny, které byly dříve obnoveny v aplikaci Visual Studio:
 
-* Klikněte pravým tlačítkem myši *libman.json* ve **Průzkumníka řešení**.
-* Vyberte **čisté knihoven na straně klienta** možnost.
+* V **Průzkumník řešení**klikněte pravým tlačítkem na soubor *Libman. JSON* .
+* Vyberte možnost **vyčistit knihovny na straně klienta** .
 
-Aby se zabránilo neúmyslnému odebrání souborů mimo knihovnu, operace vyčištění nedojde k odstranění celé adresáře. Odebere pouze soubory, které byly součástí předchozích obnovení.
+Aby nedocházelo k neúmyslnému odebrání souborů bez knihoven, operace čištění neodstraní celé adresáře. Odstraní jenom soubory, které byly zahrnuté do předchozího obnovení.
 
-Během operace čištění:
+I když je spuštěná operace čištění:
 
-* TSC ikonu na stavovém řádku sady Visual Studio bude při animaci pohybovat a přečte *klientské knihovny operaci spustit*. Kliknutím na ikonu otevře popisek výpisu úloh na pozadí známé.
-* Odeslání zpráv stavového řádku a **Správce knihovny** informačního kanálu **výstup** okna. Příklad:
+* Ikona čítače TSC na stavovém řádku sady Visual Studio bude animovaná a spustí se *operace čtení klientských knihoven*. Po kliknutí na ikonu se zobrazí popis známých úloh na pozadí.
+* Zprávy jsou odesílány do stavového řádku a kanálu **Správce knihovny** v okně **výstup** . Příklad:
 
 ```console
 Clean libraries operation started...
@@ -193,43 +193,43 @@ Clean libraries operation completed
 2 libraries were successfully deleted in 1.91 secs
 ```
 
-Operace vyčištění odstraní jenom soubory z projektu. Soubory knihoven zůstat v mezipaměti pro rychlejší načítání na budoucí obnovení operací. Ke správě knihovny soubory uložené v mezipaměti místním počítači, použijte [LibMan CLI](xref:client-side/libman/libman-cli).
+Operace čištění odstraní pouze soubory z projektu. Soubory knihovny zůstávají v mezipaměti, aby bylo možné rychlejší načítání budoucích operací obnovení. Chcete-li spravovat soubory knihovny uložené v mezipaměti místního počítače, použijte rozhraní příkazového [řádku LibMan](xref:client-side/libman/libman-cli).
 
-## <a name="uninstall-library-files"></a>Odinstalace soubory knihoven
+## <a name="uninstall-library-files"></a>Odinstalace souborů knihovny
 
-Chcete-li odinstalovat soubory knihovny:
+Odinstalace souborů knihovny:
 
-* Open *libman.json*.
-* Pozici blikajícího kurzoru dovnitř odpovídající `libraries` literálu objektu.
-* Klikněte na ikonu žárovky, která se zobrazí u levého okraje a vyberte **odinstalovat \<library_name > @\<library_version >** :
+* Otevřete *Libman. JSON*.
+* Umístit blikající kurzor dovnitř odpovídajícího `libraries` literálu objektu.
+* Klikněte na ikonu žárovky, která se zobrazí na levém okraji, a vyberte **odinstalovat \<library_name > @\<library_version >** :
 
-  ![Knihovna možnost místní nabídky odinstalovat](_static/uninstall-menu-option.png)
+  ![Možnost místní nabídky pro odinstalaci knihovny](_static/uninstall-menu-option.png)
 
-Alternativně můžete ručně upravit a uložit LibMan manifest (*libman.json*). [Operace obnovení](#restore-library-files) spustí, když je soubor uložen. Soubory knihoven, které jsou již definovány v *libman.json* jsou odebrány z projektu.
+Alternativně můžete ručně upravit a uložit manifest LibMan (*LibMan. JSON*). [Operace obnovení](#restore-library-files) se spustí při uložení souboru. Soubory knihoven, které již nejsou definovány v souboru *Libman. JSON* , jsou odebrány z projektu.
 
-## <a name="update-library-version"></a>Aktualizujte verzi knihovny
+## <a name="update-library-version"></a>Aktualizovat verzi knihovny
 
-Vyhledat aktualizovanou knihovní verze:
+Vyhledání aktualizované verze knihovny:
 
-* Open *libman.json*.
-* Pozici blikajícího kurzoru dovnitř odpovídající `libraries` literálu objektu.
-* Klikněte na ikonu žárovky, která se zobrazí na levém okraji. Najeďte myší na **vyhledávat aktualizace**.
+* Otevřete *Libman. JSON*.
+* Umístit blikající kurzor dovnitř odpovídajícího `libraries` literálu objektu.
+* Klikněte na ikonu žárovky, která se zobrazí na levém okraji. Najeďte myší na **kontrolu aktualizací**.
 
-LibMan zkontroluje verzi knihovny, která je novější než verze nainstalovaná. Může dojít následujících situací:
+LibMan vyhledá verzi knihovny novější než verze nainstalovaná. Může dojít k následujícím výsledkům:
 
-* A **nenašly se žádné aktualizace** se zobrazí zpráva, pokud už je nainstalovaná nejnovější verze.
-* Nejnovější stabilní verze je zobrazen Pokud ještě není nainstalované.
+* Pokud je už nainstalovaná nejnovější verze, nezobrazí se žádná zpráva o **nalezených aktualizacích** .
+* Pokud ještě není nainstalovaná, zobrazí se nejnovější stabilní verze.
 
-  ![Zkontrolovat aktualizace možnost místní nabídky](_static/update-menu-option.png)
+  ![Možnost místní nabídky vyhledat aktualizace](_static/update-menu-option.png)
 
-* Pokud se předběžné verze novější než nainstalovaná verze je k dispozici, zobrazí se předběžné verze.
+* Pokud je k dispozici předběžná verze novější než nainstalovaná verze, zobrazí se předběžná verze.
 
-Přejít na starší verzi knihovny, na ručně upravit *libman.json* souboru. Když je soubor uložen, LibMan [operace obnovení](#restore-library-files):
+Pokud chcete downgradovat na starší verzi knihovny, ručně upravte soubor *Libman. JSON* . Po uložení souboru se LibMan [operace obnovení](#restore-library-files):
 
-* Odebere nadbytečné soubory z předchozí verze.
+* Odstraní nadbytečné soubory z předchozí verze.
 * Přidá nové a aktualizované soubory z nové verze.
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:client-side/libman/libman-cli>
-* [Úložiště LibMan GitHub](https://github.com/aspnet/LibraryManager)
+* [Úložiště GitHub LibMan](https://github.com/aspnet/LibraryManager)

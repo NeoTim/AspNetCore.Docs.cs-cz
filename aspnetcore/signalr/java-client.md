@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/java-client
-ms.openlocfilehash: d7143b2c22ecdc4e68f484aa4c244e1c520beae0
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 6919eabf454f16887e012161a454a4848c45002b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963786"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660515"
 ---
 # <a name="aspnet-core-opno-locsignalr-java-client"></a>Klient ASP.NET Core SignalR Java
 
@@ -24,7 +24,7 @@ Klient Java umožňuje připojení k serveru ASP.NET Core SignalR z kódu Java, 
 
 Ukázková aplikace konzoly Java, na kterou se odkazuje v tomto článku, používá klienta SignalR Java.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/java-client/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="install-the-opno-locsignalr-java-client-package"></a>Instalace balíčku klienta SignalR Java
 
@@ -40,13 +40,13 @@ Pokud používáte Maven, přidejte následující řádky do prvku `<dependenci
 
 [!code-xml[pom.xml dependency element](java-client/sample/pom.xml?name=snippet_dependencyElement)]
 
-## <a name="connect-to-a-hub"></a>Připojení k centru
+## <a name="connect-to-a-hub"></a>Připojení k rozbočovači
 
 Chcete-li vytvořit `HubConnection`, měla by být použita `HubConnectionBuilder`. Adresa URL centra a úroveň protokolu se dají nakonfigurovat při sestavování připojení. Nakonfigurujte požadované možnosti voláním libovolné metody `HubConnectionBuilder` před `build`. Spusťte připojení pomocí `start`.
 
 [!code-java[Build hub connection](java-client/sample/src/main/java/Chat.java?range=16-17)]
 
-## <a name="call-hub-methods-from-client"></a>Volání metod centra z klienta
+## <a name="call-hub-methods-from-client"></a>Volání metod rozbočovače na z klienta
 
 Volání `send` vyvolá metodu rozbočovače. Předejte název metody centra a všechny argumenty definované v metodě hub pro `send`.
 
@@ -55,7 +55,7 @@ Volání `send` vyvolá metodu rozbočovače. Předejte název metody centra a v
 > [!NOTE]
 > Pokud používáte službu Azure SignalR v režimu bez *serveru*, nemůžete volat metody centra z klienta. Další informace najdete v dokumentaci ke [služběSignalR](/azure/azure-signalr/signalr-concept-serverless-development-config).
 
-## <a name="call-client-methods-from-hub"></a>Volání metod klienta z centra
+## <a name="call-client-methods-from-hub"></a>Volání metody klienta od rozbočovače
 
 Použijte `hubConnection.on` k definování metod v klientovi, které může centrum volat. Definujte metody po sestavení, ale před zahájením připojení.
 

@@ -7,12 +7,12 @@ ms.author: stevesa
 ms.custom: mvc
 ms.date: 02/06/2020
 uid: spa/angular
-ms.openlocfilehash: 11ad5d4c7cadcc582b3e288a331569f62f0b98ac
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: fee872ff237e14cbe491efed9b320809df4c5654
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044860"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657631"
 ---
 # <a name="use-the-angular-project-template-with-aspnet-core"></a>Použití šablony úhlového projektu s ASP.NET Core
 
@@ -33,13 +33,13 @@ cd my-new-app
 
 Spusťte aplikaci buď ze sady Visual Studio, nebo z .NET Core CLI:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio/)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
 Otevřete vygenerovaný soubor *. csproj* a z něj spusťte aplikaci jako normální.
 
 Proces sestavení obnoví závislosti npm při prvním spuštění, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
 Ujistěte se, že máte proměnnou prostředí nazvanou `ASPNETCORE_Environment` s hodnotou `Development`. V systému Windows (v případě výzev mimo PowerShell) spusťte `SET ASPNETCORE_Environment=Development`. V systému Linux nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
 
@@ -53,7 +53,8 @@ Now listening on: http://localhost:<port>
 
 V prohlížeči přejděte na tuto adresu URL.
 
-Aplikace spustí instanci úhlového CLI serveru na pozadí. Protokoluje se zpráva podobná následující: *NG živý vývojový server naslouchá na localhost:&lt;otherport&gt;otevřete v prohlížeči http://localhost:&ltotherport&gt;/* . Tuto zprávu ignorujte&mdash;nejedná **se o** adresu URL pro kombinované ASP.NET Core a úhlové aplikace CLI.
+> [!WARNING]
+> Aplikace spustí instanci úhlového CLI serveru na pozadí. Protokoluje se zpráva podobná následující: *NG živý vývojový server naslouchá na localhost:&lt;otherport&gt;otevřete prohlížeč http://localhost:&lt; otherport&gt;/* . Tuto zprávu ignorujte&mdash;nejedná **se o** adresu URL pro kombinované ASP.NET Core a úhlové aplikace CLI.
 
 ---
 
@@ -79,7 +80,7 @@ Pokud nemáte nainstalovaný nástroj `ng`, spusťte místo toho `npm run ng`. M
 
 ## <a name="install-npm-packages"></a>Instalace balíčků npm
 
-K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Například:
+K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Příklad:
 
 ```console
 cd ClientApp

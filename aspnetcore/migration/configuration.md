@@ -5,12 +5,12 @@ description: Naučte se migrovat konfiguraci z projektu ASP.NET MVC do projektu 
 ms.author: riande
 ms.date: 10/14/2016
 uid: migration/configuration
-ms.openlocfilehash: 455e66b94dd69ee6aab88768b64c525d56b8bbcf
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.openlocfilehash: 2c50ea768a42aa38d14c55d8c403fea4176b3650
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73033894"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659325"
 ---
 # <a name="migrate-configuration-to-aspnet-core"></a>Migrace konfigurace do ASP.NET Core
 
@@ -18,7 +18,7 @@ ms.locfileid: "73033894"
 
 V předchozím článku jsme začali [migrovat projekt ASP.NET MVC na ASP.NET Core MVC](xref:migration/mvc). V tomto článku migrujeme konfiguraci.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/migration/configuration/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/migration/configuration/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="setup-configuration"></a>Konfigurace instalace
 

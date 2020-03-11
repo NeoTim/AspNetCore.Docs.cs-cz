@@ -6,15 +6,15 @@ ms.author: riande
 ms.date: 08/05/2017
 uid: tutorials/first-mvc-app/adding-controller
 ms.openlocfilehash: fb670902b0dafa7dce2b3372e550095387844936
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914238"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666990"
 ---
 # <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>Přidání kontroleru do aplikace ASP.NET Core MVC
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -32,7 +32,7 @@ Tyto koncepty popisujeme v této sérii kurzů a ukážeme vám, jak je použít
 
 ## <a name="add-a-controller"></a>Přidání kontroleru
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat >** 
   ![kontextové nabídce](adding-controller/_static/add_controller.png)
@@ -43,13 +43,13 @@ Tyto koncepty popisujeme v této sérii kurzů a ukážeme vám, jak je použít
 
 * V **dialogovém okně Přidat prázdný řadič MVC**zadejte **HelloWorldController** a vyberte **Přidat**.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Vyberte ikonu **Průzkumníka** a potom klikněte na řídicí panel (klikněte pravým tlačítkem myši) **> nový soubor** a pojmenujte nový soubor *HelloWorldController.cs*.
 
   ![Kontextová nabídka](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat > nový soubor**.
 Kontextová nabídka ![](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
@@ -88,11 +88,11 @@ Když přejdete do aplikace a nezadáte žádné segmenty adresy URL, použije s
 
 První segment adresy URL určuje třídu kontroleru, která se má spustit. Proto `localhost:{PORT}/HelloWorld` namapována na třídu kontroleru **HelloWorld**. Druhá část segmentu adresy URL určuje metodu Action třídy. Takže `localhost:{PORT}/HelloWorld/Index` by mohla být spuštěna metoda `Index` třídy `HelloWorldController`. Všimněte si, že jste museli procházet pouze `localhost:{PORT}/HelloWorld` a ve výchozím nastavení byla volána metoda `Index`. To je proto, že `Index` je výchozí metoda, která bude volána na řadiči, pokud není explicitně zadán název metody. Třetí část segmentu adresy URL (`id`) je určena pro data směrování. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
 
-Přejděte do `https://localhost:{PORT}/HelloWorld/Welcome`. Metoda `Welcome` se spustí a vrátí řetězec `This is the Welcome action method...`. Pro tuto adresu URL se kontroler `HelloWorld` a `Welcome` je metoda Action. Zatím jste nepoužili `[Parameters]` část této adresy URL.
+Přejděte na `https://localhost:{PORT}/HelloWorld/Welcome`. Metoda `Welcome` se spustí a vrátí řetězec `This is the Welcome action method...`. Pro tuto adresu URL se kontroler `HelloWorld` a `Welcome` je metoda Action. Zatím jste nepoužili `[Parameters]` část této adresy URL.
 
 ![Okno prohlížeče ukazující odezvu aplikace na toto je metoda akce Welcome](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
-Upravte kód tak, aby předával některé informace o parametrech z adresy URL kontroleru. Například `/HelloWorld/Welcome?name=Rick&numtimes=4`. Změňte metodu `Welcome` tak, aby zahrnovala dva parametry, jak je znázorněno v následujícím kódu.
+Upravte kód tak, aby předával některé informace o parametrech z adresy URL kontroleru. například `/HelloWorld/Welcome?name=Rick&numtimes=4`. Změňte metodu `Welcome` tak, aby zahrnovala dva parametry, jak je znázorněno v následujícím kódu.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_2)]
 
@@ -146,7 +146,7 @@ Tyto koncepty popisujeme v této sérii kurzů a ukážeme vám, jak je použít
 
 ## <a name="add-a-controller"></a>Přidání kontroleru
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat >** 
   ![kontextové nabídce](adding-controller/_static/add_controller.png)
@@ -157,13 +157,13 @@ Tyto koncepty popisujeme v této sérii kurzů a ukážeme vám, jak je použít
 
 * V **dialogovém okně Přidat prázdný řadič MVC**zadejte **HelloWorldController** a vyberte **Přidat**.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Vyberte ikonu **Průzkumníka** a potom klikněte na řídicí panel (klikněte pravým tlačítkem myši) **> nový soubor** a pojmenujte nový soubor *HelloWorldController.cs*.
 
   ![Kontextová nabídka](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat > nový soubor**.
 Kontextová nabídka ![](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
@@ -207,11 +207,11 @@ Když přejdete do aplikace a nezadáte žádné segmenty adresy URL, použije s
 
 První segment adresy URL určuje třídu kontroleru, která se má spustit. Proto `localhost:{PORT}/HelloWorld` namapuje na třídu `HelloWorldController`. Druhá část segmentu adresy URL určuje metodu Action třídy. Takže `localhost:{PORT}/HelloWorld/Index` by mohla být spuštěna metoda `Index` třídy `HelloWorldController`. Všimněte si, že jste museli procházet pouze `localhost:{PORT}/HelloWorld` a ve výchozím nastavení byla volána metoda `Index`. Důvodem je, že `Index` je výchozí metoda, která bude volána na řadiči, pokud název metody není explicitně zadán. Třetí část segmentu adresy URL (`id`) je určena pro data směrování. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
 
-Přejděte do `https://localhost:{PORT}/HelloWorld/Welcome`. Metoda `Welcome` se spustí a vrátí řetězec `This is the Welcome action method...`. Pro tuto adresu URL se kontroler `HelloWorld` a `Welcome` je metoda Action. Zatím jste nepoužili `[Parameters]` část této adresy URL.
+Přejděte na `https://localhost:{PORT}/HelloWorld/Welcome`. Metoda `Welcome` se spustí a vrátí řetězec `This is the Welcome action method...`. Pro tuto adresu URL se kontroler `HelloWorld` a `Welcome` je metoda Action. Zatím jste nepoužili `[Parameters]` část této adresy URL.
 
 ![Okno prohlížeče ukazující odezvu aplikace na toto je metoda akce Welcome](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
-Upravte kód tak, aby předával některé informace o parametrech z adresy URL kontroleru. Například `/HelloWorld/Welcome?name=Rick&numtimes=4`. Změňte metodu `Welcome` tak, aby zahrnovala dva parametry, jak je znázorněno v následujícím kódu.
+Upravte kód tak, aby předával některé informace o parametrech z adresy URL kontroleru. například `/HelloWorld/Welcome?name=Rick&numtimes=4`. Změňte metodu `Welcome` tak, aby zahrnovala dva parametry, jak je znázorněno v následujícím kódu.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_2)]
 

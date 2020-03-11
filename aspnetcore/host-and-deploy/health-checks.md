@@ -1,22 +1,22 @@
 ---
 title: Kontroly stavu v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Naučte se, jak nastavit kontroly stavu pro infrastrukturu ASP.NET Core, jako jsou aplikace a databáze.
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 33e5e71983a55b4ee30436d8e9e1e04186259a5d
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 314e55c818cddf1dad2e3ec74d4d1e041ce7366f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829215"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664883"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Kontroly stavu v ASP.NET Core
 
-Od [Luke Latham](https://github.com/guardrex) a [Glenn Condron](https://github.com/glennc)
+Od [Glenn Condron](https://github.com/glennc)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -28,11 +28,11 @@ Kontroly stavu jsou zpřístupněné aplikací jako koncové body HTTP. Koncové
 * Použití paměti, disku a dalších prostředků fyzického serveru se dá monitorovat v dobrém stavu.
 * Kontroly stavu můžou testovat závislosti aplikace, jako jsou databáze a externí koncové body služby, aby se potvrdila dostupnost a normální fungování.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace obsahuje příklady scénářů popsaných v tomto tématu. Pokud chcete pro daný scénář spustit ukázkovou aplikaci, použijte příkaz [dotnet Run](/dotnet/core/tools/dotnet-run) ze složky projektu v příkazovém prostředí. Podrobnosti o tom, jak používat ukázkovou aplikaci, najdete v souboru *Readme.MD* ukázkové aplikace a v popisech scénářů v tomto tématu.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Kontroly stavu se obvykle používají s externí službou monitorování nebo nástrojem Orchestrator Container Service ke kontrole stavu aplikace. Před přidáním kontrol stavu do aplikace se rozhodněte, který monitorovací systém se má použít. Monitorovací systém vyhodnotí, jaké typy kontrol stavu se mají vytvořit a jak nakonfigurovat jejich koncové body.
 
@@ -42,8 +42,8 @@ Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro
 
 * Vytvoří databázi a poskytne připojovací řetězec v souboru *appSettings. JSON* .
 * Obsahuje následující odkazy na balíček v souboru projektu:
-  * [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
-  * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
+  * [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
+  * [Microsoft. Extensions. Diagnostics. HealthChecks. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
@@ -221,7 +221,7 @@ app.UseEndpoints(endpoints =>
 
 ### <a name="enable-cross-origin-requests-cors"></a>Povolení žádostí nepůvodního zdroje (CORS)
 
-I když ruční provádění kontrol stavu z prohlížeče není běžným scénářem použití, je možné middleware CORS povolit voláním `RequireCors` v koncových bodech pro kontroly stavu. Přetížení `RequireCors` přijímá delegáta zásad CORS (`CorsPolicyBuilder`) nebo název zásady. Pokud zásada není zadaná, použije se výchozí zásada CORS. Další informace najdete v tématu <xref:security/cors>.
+I když ruční provádění kontrol stavu z prohlížeče není běžným scénářem použití, je možné middleware CORS povolit voláním `RequireCors` v koncových bodech pro kontroly stavu. Přetížení `RequireCors` přijímá delegáta zásad CORS (`CorsPolicyBuilder`) nebo název zásady. Pokud zásada není zadaná, použije se výchozí zásada CORS. Další informace naleznete v tématu <xref:security/cors>.
 
 ## <a name="health-check-options"></a>Možnosti kontroly stavu
 
@@ -236,7 +236,7 @@ I když ruční provádění kontrol stavu z prohlížeče není běžným scén
 
 Ve výchozím nastavení middleware pro kontrolu stavu spouští všechny zaregistrované kontroly stavu. Chcete-li spustit podmnožinu kontrol stavu, zadejte funkci, která vrací logickou hodnotu pro <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.Predicate> možnost. V následujícím příkladu je `Bar` kontrole stavu vyfiltrováno pomocí značky (`bar_tag`) v podmíněném příkazu funkce, kde `true` je vrácena pouze v případě, že <xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthCheckRegistration.Tags> vlastnost pro kontrolu stavu odpovídá `foo_tag` nebo `baz_tag`:
 
-V systému `Startup.ConfigureServices`:
+V `Startup.ConfigureServices`:
 
 ```csharp
 services.AddHealthChecks()
@@ -265,7 +265,7 @@ app.UseEndpoints(endpoints =>
 
 K přizpůsobení mapování stavu na stavové kódy HTTP použijte <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes>. Následující přiřazení <xref:Microsoft.AspNetCore.Http.StatusCodes> jsou výchozími hodnotami, které používá middleware. Změňte hodnoty stavového kódu tak, aby splňovaly vaše požadavky.
 
-V systému `Startup.Configure`:
+V `Startup.Configure`:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -286,7 +286,7 @@ app.UseEndpoints(endpoints =>
 
 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses> určuje, zda middleware pro kontrolu stavu přidává hlavičky HTTP do odezvy testu, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je hodnota `false` (výchozí), middleware nastaví nebo přepíše hlavičky `Cache-Control`, `Expires`a `Pragma`, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je hodnota `true`, middleware neupraví hlavičky mezipaměti odpovědi.
 
-V systému `Startup.Configure`:
+V `Startup.Configure`:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -704,7 +704,7 @@ Postup při distribuci kontroly stavu jako knihovny:
    * název kontroly stavu (`name`). Při `null`se používá `example_health_check`.
    * datový bod řetězce pro kontrolu stavu (`data1`).
    * celočíselný datový bod pro kontrolu stavu (`data2`). Při `null`se používá `1`.
-   * stav selhání (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>). Výchozí hodnota je `null`. Pokud `null`, [funkčnosti.](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) není v pořádku, je hlášen stav selhání.
+   * stav selhání (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>). Výchozí formát je `null`. Pokud `null`, [funkčnosti.](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) není v pořádku, je hlášen stav selhání.
    * značky (`IEnumerable<string>`).
 
    ```csharp
@@ -783,7 +783,7 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-Další informace najdete v tématu <xref:fundamentals/middleware/index#use-run-and-map>.
+Další informace naleznete v tématu <xref:fundamentals/middleware/index#use-run-and-map>.
 
 ::: moniker-end
 
@@ -797,11 +797,11 @@ Kontroly stavu jsou zpřístupněné aplikací jako koncové body HTTP. Koncové
 * Použití paměti, disku a dalších prostředků fyzického serveru se dá monitorovat v dobrém stavu.
 * Kontroly stavu můžou testovat závislosti aplikace, jako jsou databáze a externí koncové body služby, aby se potvrdila dostupnost a normální fungování.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/health-checks/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace obsahuje příklady scénářů popsaných v tomto tématu. Pokud chcete pro daný scénář spustit ukázkovou aplikaci, použijte příkaz [dotnet Run](/dotnet/core/tools/dotnet-run) ze složky projektu v příkazovém prostředí. Podrobnosti o tom, jak používat ukázkovou aplikaci, najdete v souboru *Readme.MD* ukázkové aplikace a v popisech scénářů v tomto tématu.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Kontroly stavu se obvykle používají s externí službou monitorování nebo nástrojem Orchestrator Container Service ke kontrole stavu aplikace. Před přidáním kontrol stavu do aplikace se rozhodněte, který monitorovací systém se má použít. Monitorovací systém vyhodnotí, jaké typy kontrol stavu se mají vytvořit a jak nakonfigurovat jejich koncové body.
 
@@ -811,8 +811,8 @@ Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro
 
 * Vytvoří databázi a poskytne připojovací řetězec v souboru *appSettings. JSON* .
 * Obsahuje následující odkazy na balíček v souboru projektu:
-  * [AspNetCore.HealthChecks.SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
-  * [Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
+  * [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
+  * [Microsoft. Extensions. Diagnostics. HealthChecks. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
 
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
@@ -974,7 +974,7 @@ public void Configure(IApplicationBuilder app)
 
 K přizpůsobení mapování stavu na stavové kódy HTTP použijte <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResultStatusCodes>. Následující přiřazení <xref:Microsoft.AspNetCore.Http.StatusCodes> jsou výchozími hodnotami, které používá middleware. Změňte hodnoty stavového kódu tak, aby splňovaly vaše požadavky.
 
-V systému `Startup.Configure`:
+V `Startup.Configure`:
 
 ```csharp
 //using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -995,7 +995,7 @@ app.UseHealthChecks("/health", new HealthCheckOptions()
 
 <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.AllowCachingResponses> určuje, zda middleware pro kontrolu stavu přidává hlavičky HTTP do odezvy testu, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je hodnota `false` (výchozí), middleware nastaví nebo přepíše hlavičky `Cache-Control`, `Expires`a `Pragma`, aby nedocházelo k ukládání odpovědí do mezipaměti. Pokud je hodnota `true`, middleware neupraví hlavičky mezipaměti odpovědi.
 
-V systému `Startup.Configure`:
+V `Startup.Configure`:
 
 ```csharp
 //using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -1011,7 +1011,7 @@ app.UseHealthChecks("/health", new HealthCheckOptions()
 
 Možnost <xref:Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions.ResponseWriter> Získá nebo nastaví delegáta použitý k zápisu odpovědi. Výchozí delegát zapisuje minimální odpověď ve formátu prostého textu s řetězcovou hodnotou [HealthReport. status](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthReport.Status).
 
-V systému `Startup.Configure`:
+V `Startup.Configure`:
 
 ```csharp
 // using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -1379,7 +1379,7 @@ Postup při distribuci kontroly stavu jako knihovny:
    * název kontroly stavu (`name`). Při `null`se používá `example_health_check`.
    * datový bod řetězce pro kontrolu stavu (`data1`).
    * celočíselný datový bod pro kontrolu stavu (`data2`). Při `null`se používá `1`.
-   * stav selhání (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>). Výchozí hodnota je `null`. Pokud `null`, [funkčnosti.](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) není v pořádku, je hlášen stav selhání.
+   * stav selhání (<xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus>). Výchozí formát je `null`. Pokud `null`, [funkčnosti.](xref:Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus) není v pořádku, je hlášen stav selhání.
    * značky (`IEnumerable<string>`).
 
    ```csharp
@@ -1471,6 +1471,6 @@ app.MapWhen(
 app.UseMvc();
 ```
 
-Další informace najdete v tématu <xref:fundamentals/middleware/index#use-run-and-map>.
+Další informace naleznete v tématu <xref:fundamentals/middleware/index#use-run-and-map>.
 
 ::: moniker-end

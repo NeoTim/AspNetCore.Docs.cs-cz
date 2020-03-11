@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 07/07/2019
 uid: grpc/security
 ms.openlocfilehash: f84bec0ef485b701b2be36384a2e49b9b28e473d
-ms.sourcegitcommit: 8b36f75b8931ae3f656e2a8e63572080adc78513
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/05/2019
-ms.locfileid: "70310383"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667319"
 ---
 # <a name="security-considerations-in-grpc-for-aspnet-core"></a>Požadavky na zabezpečení v gRPC pro ASP.NET Core
 
@@ -39,7 +39,7 @@ Příchozí zprávy pro klienty a služby gRPC jsou načteny do paměti. Omezen�
 
 gRPC používá pro správu příchozích a odchozích zpráv omezení velikosti jednotlivých zpráv. Ve výchozím nastavení gRPC omezí příchozí zprávy na 4 MB. Odchozí zprávy nejsou nijak omezené.
 
-Na serveru je možné nakonfigurovat omezení pro zprávy gRPC pro všechny služby v aplikaci `AddGrpc`:
+Na serveru je možné nakonfigurovat omezení gRPC zpráv pro všechny služby v aplikaci s `AddGrpc`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

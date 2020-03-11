@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 03/11/2019
 uid: security/authentication/accconfirm
 ms.openlocfilehash: 49d3d214fd64edc5b17df2df929ddc3c2af47ede
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829267"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665387"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -18,7 +18,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Ponant](https://github.com
 
 V tomto kurzu se dozvíte, jak vytvořit aplikaci ASP.NET Core s potvrzením e-mailu a resetováním hesla. Tento **kurz není** úvodním tématem. Měli byste se seznámit s:
 
-* [ASP.NET Core](xref:tutorials/razor-pages/razor-pages-start)
+* [Jádro ASP.NET](xref:tutorials/razor-pages/razor-pages-start)
 * [Ověřování](xref:security/authentication/identity)
 * [Entity Framework Core](xref:data/ef-mvc/intro)
 
@@ -32,7 +32,7 @@ V [tomto souboru PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners
 
 ::: moniker range="> aspnetcore-2.2"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [.NET Core 3,0 SDK nebo novější](https://dotnet.microsoft.com/download/dotnet-core/3.0)
 
@@ -91,7 +91,7 @@ V tomto kurzu se dozvíte, jak přidat e-mailová oznámení prostřednictvím [
 
 Instalace balíčku `SendGrid` NuGet:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V konzole správce balíčků zadejte následující příkaz:
 
@@ -99,7 +99,7 @@ V konzole správce balíčků zadejte následující příkaz:
 Install-Package SendGrid
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Z konzoly zadejte následující příkaz:
 
@@ -217,7 +217,7 @@ Povolení potvrzení účtu na webu s uživateli zamkne všechny existující u�
 
 ::: moniker range="> aspnetcore-2.0 < aspnetcore-3.0"
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [.NET Core 2,2 SDK nebo novější](https://www.microsoft.com/net/download/all)
 
@@ -297,7 +297,7 @@ V tomto kurzu se dozvíte, jak přidat e-mailová oznámení prostřednictvím [
 
 Instalace balíčku `SendGrid` NuGet:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V konzole správce balíčků zadejte následující příkaz:
 
@@ -305,7 +305,7 @@ V konzole správce balíčků zadejte následující příkaz:
 Install-Package SendGrid
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Z konzoly zadejte následující příkaz:
 

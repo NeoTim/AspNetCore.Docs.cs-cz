@@ -5,16 +5,16 @@ description: Další informace o syntaxi Razor kód pro vložení do webových s
 ms.author: riande
 ms.date: 02/12/2020
 uid: mvc/views/razor
-ms.openlocfilehash: 0b1eed2816329d62fca4bdb5719825a4197af353
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.openlocfilehash: e9d2e42ba3c36bc1661739f3b105ec8efe03de48
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447175"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658716"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>Referenční příručka syntaxe Razor pro ASP.NET Core
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Luke Latham](https://github.com/guardrex), [Taylor Mullen](https://twitter.com/ntaylormullen)a [Dan Vicarel](https://github.com/Rabadash8820)
+Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Taylor Mullen](https://twitter.com/ntaylormullen)a [Dan Vicarel](https://github.com/Rabadash8820)
 
 Razor je syntaxe značek pro vkládání do webových stránek kód založený na serveru. Syntaxe Razor se skládá z kódu Razor C#a HTML. Soubory obsahující Razor mají obecně příponu *. cshtml* . Razor se nachází také v souborech [součástí Razor](xref:blazor/components) ( *. Razor*).
 
@@ -487,7 +487,7 @@ V [součástech Razor](xref:blazor/components)použijte `@code` přes `@function
 
 ::: moniker-end
 
-Například:
+Příklad:
 
 [!code-cshtml[](razor/sample/Views/Home/Contact6.cshtml)]
 
@@ -884,7 +884,7 @@ Existují tři direktivy, které se týkají [pomocníků značek](xref:mvc/view
 
 * Page (vyžaduje ASP.NET Core 2,1 nebo novější)
 * Obor názvů
-* – funkce
+* funkce
 * Dědí
 * model
 * section
@@ -901,7 +901,7 @@ Klíčová slova Razor jsou uvozená pomocí `@(Razor Keyword)` (například `@(
 * foreach
 * if
 * else
-* lock
+* Zámek
 * – přepínač
 * vyzkoušení
 * catch
@@ -913,7 +913,7 @@ C#Klíčová slova Razor musí mít dvakrát uvození řídicím znakem `@(@C# R
 
 ### <a name="reserved-keywords-not-used-by-razor"></a>Vyhrazená klíčová slova nepoužívá Razor
 
-* třída
+* Třída
 
 ## <a name="inspect-the-razor-c-class-generated-for-a-view"></a>Zkontrolovat syntaxi Razor C# třída vygenerovaná pro zobrazení
 

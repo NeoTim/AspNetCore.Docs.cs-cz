@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/13/2019
 uid: fundamentals/routing
-ms.openlocfilehash: 5e3ff65420b3c6769d52f8b96c216043cb1fdc1a
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: 113bb79318283e814c0e64ad4dc9d193282f0c52
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727003"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664925"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -25,7 +25,7 @@ Směrování zodpovídá za mapování identifikátorů URI požadavků na konco
 > [!IMPORTANT]
 > Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvencích směrování v Razor Pages najdete v tématu <xref:razor-pages/razor-pages-conventions>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základy směrování
 
@@ -518,7 +518,7 @@ Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulárn�
 
 Kromě předdefinovaných omezení trasy je možné vytvořit vlastní omezení trasy implementací rozhraní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>. Rozhraní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> obsahuje jedinou metodu, `Match`, která vrací `true`, pokud je omezení splněno a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, musí být typ omezení trasy zaregistrovaný v <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace v kontejneru služby aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které tyto omezení ověřují. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace lze v `Startup.ConfigureServices` aktualizovat buď jako součást [služeb. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> přímo pomocí `services.Configure<RouteOptions>`. Například:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, musí být typ omezení trasy zaregistrovaný v <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace v kontejneru služby aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které tyto omezení ověřují. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace lze v `Startup.ConfigureServices` aktualizovat buď jako součást [služeb. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> přímo pomocí `services.Configure<RouteOptions>`. Příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -527,7 +527,7 @@ services.AddRouting(options =>
 });
 ```
 
-Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Například:
+Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Příklad:
 
 ```csharp
 [HttpGet("{id:customName}")]
@@ -578,7 +578,7 @@ Následující příklad ukazuje, jak vygenerovat odkaz na trasu s ohledem na sl
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
 
-<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> vygenerované na konci předchozí ukázky je `/package/create/123`. Slovník poskytuje `operation` a `id` hodnoty trasy pro šablonu sledování trasy balíčku `package/{operation}/{id}`. Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
+<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> vygenerované na konci předchozí ukázky je `/package/create/123`. Slovník poskytuje `operation` a `id` hodnoty trasy pro šablonu sledování trasy balíčku `package/{operation}/{id}`. Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
 
 Druhý parametr pro konstruktor <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> je kolekcí *hodnot okolí*. Okolní hodnoty jsou vhodné k použití, protože omezují počet hodnot, které vývojář musí určit v rámci kontextu požadavku. Aktuální hodnoty trasy aktuálního požadavku jsou považovány za okolní hodnoty pro generování odkazů. V akci `About` `HomeController`aplikace ASP.NET Core MVC není nutné zadávat hodnotu trasy kontroleru, která se má propojit s `Index` akcí&mdash;je použita ambientní hodnota `Home`.
 
@@ -709,7 +709,7 @@ Další informace o směrování na základě <xref:Microsoft.AspNetCore.Routing
 > [!IMPORTANT]
 > Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvencích směrování v Razor Pages najdete v tématu <xref:razor-pages/razor-pages-conventions>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základy směrování
 
@@ -1179,7 +1179,7 @@ Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulárn�
 
 Kromě předdefinovaných omezení trasy je možné vytvořit vlastní omezení trasy implementací rozhraní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>. Rozhraní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> obsahuje jedinou metodu, `Match`, která vrací `true`, pokud je omezení splněno a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, musí být typ omezení trasy zaregistrovaný v <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace v kontejneru služby aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které tyto omezení ověřují. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace lze v `Startup.ConfigureServices` aktualizovat buď jako součást [služeb. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> přímo pomocí `services.Configure<RouteOptions>`. Například:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, musí být typ omezení trasy zaregistrovaný v <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace v kontejneru služby aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které tyto omezení ověřují. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace lze v `Startup.ConfigureServices` aktualizovat buď jako součást [služeb. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> přímo pomocí `services.Configure<RouteOptions>`. Příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -1188,7 +1188,7 @@ services.AddRouting(options =>
 });
 ```
 
-Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Například:
+Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Příklad:
 
 ```csharp
 [HttpGet("{id:customName}")]
@@ -1239,7 +1239,7 @@ Následující příklad ukazuje, jak vygenerovat odkaz na trasu s ohledem na sl
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
 
-<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> vygenerované na konci předchozí ukázky je `/package/create/123`. Slovník poskytuje `operation` a `id` hodnoty trasy pro šablonu sledování trasy balíčku `package/{operation}/{id}`. Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
+<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> vygenerované na konci předchozí ukázky je `/package/create/123`. Slovník poskytuje `operation` a `id` hodnoty trasy pro šablonu sledování trasy balíčku `package/{operation}/{id}`. Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
 
 Druhý parametr pro konstruktor <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> je kolekcí *hodnot okolí*. Okolní hodnoty jsou vhodné k použití, protože omezují počet hodnot, které vývojář musí určit v rámci kontextu požadavku. Aktuální hodnoty trasy aktuálního požadavku jsou považovány za okolní hodnoty pro generování odkazů. V akci `About` `HomeController`aplikace ASP.NET Core MVC není nutné zadávat hodnotu trasy kontroleru, která se má propojit s `Index` akcí&mdash;je použita ambientní hodnota `Home`.
 
@@ -1285,7 +1285,7 @@ services.AddMvc()
 > [!IMPORTANT]
 > Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvencích směrování v Razor Pages najdete v tématu <xref:razor-pages/razor-pages-conventions>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základy směrování
 
@@ -1633,7 +1633,7 @@ Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulárn�
 
 Kromě předdefinovaných omezení trasy je možné vytvořit vlastní omezení trasy implementací rozhraní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>. Rozhraní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> obsahuje jedinou metodu, `Match`, která vrací `true`, pokud je omezení splněno a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, musí být typ omezení trasy zaregistrovaný v <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace v kontejneru služby aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které tyto omezení ověřují. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace lze v `Startup.ConfigureServices` aktualizovat buď jako součást [služeb. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> přímo pomocí `services.Configure<RouteOptions>`. Například:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, musí být typ omezení trasy zaregistrovaný v <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace v kontejneru služby aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které tyto omezení ověřují. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> aplikace lze v `Startup.ConfigureServices` aktualizovat buď jako součást [služeb. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> přímo pomocí `services.Configure<RouteOptions>`. Příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -1642,7 +1642,7 @@ services.AddRouting(options =>
 });
 ```
 
-Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Například:
+Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Příklad:
 
 ```csharp
 [HttpGet("{id:customName}")]
@@ -1655,7 +1655,7 @@ Následující příklad ukazuje, jak vygenerovat odkaz na trasu s ohledem na sl
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
 
-<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> vygenerované na konci předchozí ukázky je `/package/create/123`. Slovník poskytuje `operation` a `id` hodnoty trasy pro šablonu sledování trasy balíčku `package/{operation}/{id}`. Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
+<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> vygenerované na konci předchozí ukázky je `/package/create/123`. Slovník poskytuje `operation` a `id` hodnoty trasy pro šablonu sledování trasy balíčku `package/{operation}/{id}`. Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
 
 Druhý parametr pro konstruktor <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> je kolekcí *hodnot okolí*. Okolní hodnoty jsou vhodné k použití, protože omezují počet hodnot, které vývojář musí určit v rámci kontextu požadavku. Aktuální hodnoty trasy aktuálního požadavku jsou považovány za okolní hodnoty pro generování odkazů. V akci `About` `HomeController`aplikace ASP.NET Core MVC není nutné zadávat hodnotu trasy kontroleru, která se má propojit s `Index` akcí&mdash;je použita ambientní hodnota `Home`.
 

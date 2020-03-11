@@ -1,43 +1,43 @@
 ---
-title: Konfigurace ASP.NET Core Identity
+title: Konfigurace ASP.NET Core identity
 author: AdrienTorris
-description: ASP.NET Core Identity výchozí hodnoty a zjistěte, jak nakonfigurovat vlastnosti Identity použít vlastní hodnoty.
+description: Seznamte se s výchozími hodnotami identity ASP.NET Core a Naučte se konfigurovat vlastnosti identity na používání vlastních hodnot.
 ms.author: riande
 ms.date: 02/11/2019
 uid: security/authentication/identity-configuration
 ms.openlocfilehash: 823182bed2cb953e07f9374d135868aeb2be9c60
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898800"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661404"
 ---
-# <a name="configure-aspnet-core-identity"></a>Konfigurace ASP.NET Core Identity
+# <a name="configure-aspnet-core-identity"></a>Konfigurace ASP.NET Core identity
 
-ASP.NET Core Identity používá výchozí hodnoty pro nastavení jako zásady hesel, uzamčení a konfigurace souboru cookie. Tato nastavení mohou být přepsána nastaveními v `Startup` třídy.
+ASP.NET Core identity používá pro nastavení výchozí hodnoty, jako je například zásady hesel, uzamčení a konfigurace souborů cookie. Tato nastavení mohou být přepsána ve třídě `Startup`.
 
 ## <a name="identity-options"></a>Možnosti identity
 
-[IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions) třída reprezentuje možnosti, které lze použít ke konfiguraci systému identit. `IdentityOptions` musí být nastavena **po** volání `AddIdentity` nebo `AddDefaultIdentity`.
+Třída [IdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.identityoptions) představuje možnosti, které lze použít ke konfiguraci systému identit. `IdentityOptions` musí být nastavena **po** volání `AddIdentity` nebo `AddDefaultIdentity`.
 
-### <a name="claims-identity"></a>Deklarace Identity
+### <a name="claims-identity"></a>Identita deklarací identity
 
-[IdentityOptions.ClaimsIdentity](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.claimsidentity) Určuje, [ClaimsIdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions) s vlastnostmi, které jsou uvedeny v následující tabulce.
+[IdentityOptions. hodnota ClaimsIdentity](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.claimsidentity) Určuje [ClaimsIdentityOptions](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions) s vlastnostmi, které jsou uvedeny v následující tabulce.
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [RoleClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.roleclaimtype) | Získá nebo nastaví typ deklarace použitý pro deklarace role. | [ClaimTypes.Role](/dotnet/api/system.security.claims.claimtypes.role) |
-| [SecurityStampClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.securitystampclaimtype) | Získá nebo nastaví typ deklarace použitý pro deklarace identity razítko zabezpečení. | `AspNet.Identity.SecurityStamp` |
-| [UserIdClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.useridclaimtype) | Získá nebo nastaví typ deklarace použitý pro deklarace identity identifikátor uživatele. | [ClaimTypes.NameIdentifier](/dotnet/api/system.security.claims.claimtypes.nameidentifier) |
-| [UserNameClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.usernameclaimtype) | Získá nebo nastaví typ deklarace použitý pro deklarace identity uživatele název. | [ClaimTypes.Name](/dotnet/api/system.security.claims.claimtypes.name) |
+| [RoleClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.roleclaimtype) | Získá nebo nastaví typ deklarace identity použitý pro deklaraci identity role. | [ClaimTypes. role](/dotnet/api/system.security.claims.claimtypes.role) |
+| [SecurityStampClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.securitystampclaimtype) | Získá nebo nastaví typ deklarace identity použitý pro deklaraci identity razítka zabezpečení. | `AspNet.Identity.SecurityStamp` |
+| [UserIdClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.useridclaimtype) | Získá nebo nastaví typ deklarace identity použitý pro deklaraci identity uživatelského identifikátoru. | [ClaimTypes. NameIdentifier](/dotnet/api/system.security.claims.claimtypes.nameidentifier) |
+| [UserNameClaimType](/dotnet/api/microsoft.aspnetcore.identity.claimsidentityoptions.usernameclaimtype) | Získá nebo nastaví typ deklarace identity, který se používá pro deklaraci identity uživatelského jména. | [ClaimTypes.Name](/dotnet/api/system.security.claims.claimtypes.name) |
 
 ### <a name="lockout"></a>Uzamčení
 
-Uzamčení se nastavuje v [PasswordSignInAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.passwordsigninasync#Microsoft_AspNetCore_Identity_SignInManager_1_PasswordSignInAsync_System_String_System_String_System_Boolean_System_Boolean_) metody:
+V metodě [PasswordSignInAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.passwordsigninasync#Microsoft_AspNetCore_Identity_SignInManager_1_PasswordSignInAsync_System_String_System_String_System_Boolean_System_Boolean_) je nastavené uzamčení:
 
 [!code-csharp[](identity-configuration/sample/Areas/Identity/Pages/Account/Login.cshtml.cs?name=snippet&highlight=9)]
 
-Předchozí kód je založený na `Login` Identity šablony. 
+Předchozí kód je založen na šabloně identity `Login`. 
 
 Možnosti uzamčení se nastavují v `StartUp.ConfigureServices`:
 
@@ -47,17 +47,17 @@ Předchozí kód nastaví [IdentityOptions](/dotnet/api/microsoft.aspnetcore.ide
 
 Po provedení úspěšného ověření resetuje počet pokusů o neúspěšných přístupů a resetuje na hodiny.
 
-[IdentityOptions.Lockout](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.lockout) Určuje, [LockoutOptions](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions) s vlastnostmi, které jsou uvedené v tabulce.
+[IdentityOptions. zamknutí](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.lockout) Určuje [LockoutOptions](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions) s vlastnostmi zobrazenými v tabulce.
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [AllowedForNewUsers](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.allowedfornewusers) | Určuje, pokud nového uživatele lze uzamknout. | `true` |
-| [DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan) | Množství času uživatele je uzamčen když dojde k uzamčení. | 5 minut |
-| [MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts) | Počet neúspěšných pokusů o přístup dokud uživatel je uzamčen, pokud je povoleno uzamčení. | 5 |
+| [AllowedForNewUsers](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.allowedfornewusers) | Určuje, zda může být nový uživatel uzamčen. | `true` |
+| [DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan) | Doba, po kterou je uživatel uzamčený, když dojde k uzamčení. | 5 minut |
+| [MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts) | Počet neúspěšných pokusů o přístup, pokud je uživatel uzamčený, pokud je povolené uzamknutí. | 5 |
 
 ### <a name="password"></a>Heslo
 
-Ve výchozím nastavení identita vyžaduje, aby hesla obsahovat velké písmeno, malé písmeno, číslici a jiný než alfanumerický znak. Hesla musí být aspoň šest znaků dlouhá. [PasswordOptions](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions) je možné nastavit v `Startup.ConfigureServices`.
+Ve výchozím nastavení identita vyžaduje, aby hesla obsahovala velké písmeno, malý znak, číslici a nealfanumerický znak. Heslo musí obsahovat alespoň šest znaků. [PasswordOptions](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions) lze nastavit v `Startup.ConfigureServices`.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -77,18 +77,18 @@ Ve výchozím nastavení identita vyžaduje, aby hesla obsahovat velké písmeno
 
 ::: moniker-end
 
-[IdentityOptions.Password](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.password) Určuje, [PasswordOptions](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions) s vlastnostmi, které jsou uvedené v tabulce.
+[IdentityOptions. Password](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.password) Určuje [PasswordOptions](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions) s vlastnostmi zobrazenými v tabulce.
 
 ::: moniker range=">= aspnetcore-2.0"
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [RequireDigit](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredigit) | Vyžaduje číslo v rozmezí 0 – 9 v hesle. | `true` |
+| [RequireDigit](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredigit) | Vyžaduje číslo od 0-9 do hesla. | `true` |
 | [RequiredLength](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredlength) | Minimální délka hesla. | 6 |
-| [RequireLowercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirelowercase) | Vyžaduje malé písmeno v hesle. | `true` |
-| [RequireNonAlphanumeric](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirenonalphanumeric) | Vyžaduje nealfanumerických znaků v hesle. | `true` |
-| [RequiredUniqueChars](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireduniquechars) | Platí jenom pro ASP.NET Core 2.0 nebo novější.<br><br> Vyžaduje počet jedinečných znaků v hesle. | 1 |
-| [RequireUppercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireuppercase) | Vyžaduje velké písmeno heslo. | `true` |
+| [RequireLowercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirelowercase) | Vyžaduje v hesle malý znak. | `true` |
+| [RequireNonAlphanumeric](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirenonalphanumeric) | Vyžaduje v hesle jiný než alfanumerický znak. | `true` |
+| [RequiredUniqueChars](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireduniquechars) | Platí jenom pro ASP.NET Core 2,0 nebo novější.<br><br> Vyžaduje počet různých znaků v hesle. | 1 |
+| [RequireUppercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireuppercase) | Vyžaduje velké písmeno v hesle. | `true` |
 
 ::: moniker-end
 
@@ -96,17 +96,17 @@ Ve výchozím nastavení identita vyžaduje, aby hesla obsahovat velké písmeno
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [RequireDigit](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredigit) | Vyžaduje číslo v rozmezí 0 – 9 v hesle. | `true` |
+| [RequireDigit](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredigit) | Vyžaduje číslo od 0-9 do hesla. | `true` |
 | [RequiredLength](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requiredlength) | Minimální délka hesla. | 6 |
-| [RequireLowercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirelowercase) | Vyžaduje malé písmeno v hesle. | `true` |
-| [RequireNonAlphanumeric](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirenonalphanumeric) | Vyžaduje nealfanumerických znaků v hesle. | `true` |
-| [RequireUppercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireuppercase) | Vyžaduje velké písmeno heslo. | `true` |
+| [RequireLowercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirelowercase) | Vyžaduje v hesle malý znak. | `true` |
+| [RequireNonAlphanumeric](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requirenonalphanumeric) | Vyžaduje v hesle jiný než alfanumerický znak. | `true` |
+| [RequireUppercase](/dotnet/api/microsoft.aspnetcore.identity.passwordoptions.requireuppercase) | Vyžaduje velké písmeno v hesle. | `true` |
 
 ::: moniker-end
 
 ### <a name="sign-in"></a>Přihlášení
 
-Následující kód nastaví `SignIn` nastavení (výchozí hodnoty):
+Následující kód nastaví `SignIn` nastavení (na výchozí hodnoty):
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -120,40 +120,40 @@ Následující kód nastaví `SignIn` nastavení (výchozí hodnoty):
 
 ::: moniker-end
 
-[IdentityOptions.SignIn](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.signin) Určuje, [SignInOptions](/dotnet/api/microsoft.aspnetcore.identity.signinoptions) s vlastnostmi, které jsou uvedené v tabulce.
+[IdentityOptions. prohlašování](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.signin) Určuje [SignInOptions](/dotnet/api/microsoft.aspnetcore.identity.signinoptions) s vlastnostmi zobrazenými v tabulce.
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [RequireConfirmedEmail](/dotnet/api/microsoft.aspnetcore.identity.signinoptions.requireconfirmedemail) | Vyžaduje potvrzeno e-mailu pro přihlášení. | `false` |
-| [RequireConfirmedPhoneNumber](/dotnet/api/microsoft.aspnetcore.identity.signinoptions.requireconfirmedphonenumber) | Vyžaduje potvrzeno telefonní číslo pro přihlášení. | `false` |
+| [RequireConfirmedEmail](/dotnet/api/microsoft.aspnetcore.identity.signinoptions.requireconfirmedemail) | Pro přihlášení vyžaduje potvrzující e-mail. | `false` |
+| [RequireConfirmedPhoneNumber](/dotnet/api/microsoft.aspnetcore.identity.signinoptions.requireconfirmedphonenumber) | K přihlášení vyžaduje potvrzené telefonní číslo. | `false` |
 
 ### <a name="tokens"></a>Tokeny
 
-[IdentityOptions.Tokens](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.tokens) Určuje, [TokenOptions](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions) s vlastnostmi, které jsou uvedené v tabulce.
+[IdentityOptions. Tokens](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.tokens) Určuje [TokenOptions](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions) s vlastnostmi zobrazenými v tabulce.
 
 |                                                        Vlastnost                                                         |                                                                                      Popis                                                                                      |
 |-------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|     [AuthenticatorTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.authenticatortokenprovider)     |                                       Získá nebo nastaví `AuthenticatorTokenProvider` použitý k ověření dvojúrovňového přihlášení pomocí ověřovací data.                                       |
-|       [ChangeEmailTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changeemailtokenprovider)       |                                     Získá nebo nastaví `ChangeEmailTokenProvider` sloužící ke generování tokenů, které používá e-mailu změnit potvrzení e-mailů.                                     |
-| [ChangePhoneNumberTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changephonenumbertokenprovider) |                                      Získá nebo nastaví `ChangePhoneNumberTokenProvider` sloužící ke generování tokenů při změně telefonního čísla.                                      |
-| [EmailConfirmationTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.emailconfirmationtokenprovider) |                                             Získá nebo nastaví poskytovatele tokenu, kterého používá ke generování tokenů použít účet potvrzení e-mailů.                                              |
-|     [PasswordResetTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.passwordresettokenprovider)     | Získá nebo nastaví [IUserTwoFactorTokenProvider\<TUser >](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactortokenprovider-1) sloužící ke generování tokenů, které používá e-mailů resetování hesla. |
-|                    [ProviderMap](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.providermap)                    |                Slouží k vytvoření [Poskytovatel tokenu uživatele](/dotnet/api/microsoft.aspnetcore.identity.tokenproviderdescriptor) s klíč použít jako název zprostředkovatele.                 |
+|     [AuthenticatorTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.authenticatortokenprovider)     |                                       Získá nebo nastaví `AuthenticatorTokenProvider`, která se používá k ověření přihlašování dvou faktorů pomocí ověřovatele.                                       |
+|       [ChangeEmailTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changeemailtokenprovider)       |                                     Získá nebo nastaví `ChangeEmailTokenProvider` pro generování tokenů použitých v e-mailech s potvrzením změny e-mailu.                                     |
+| [ChangePhoneNumberTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.changephonenumbertokenprovider) |                                      Získá nebo nastaví `ChangePhoneNumberTokenProvider` pro generování tokenů používaných při změně telefonních čísel.                                      |
+| [EmailConfirmationTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.emailconfirmationtokenprovider) |                                             Získá nebo nastaví poskytovatele tokenu pro vygenerování tokenů používaných v e-mailech s potvrzením účtu.                                              |
+|     [PasswordResetTokenProvider](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.passwordresettokenprovider)     | Získá nebo nastaví [> IUserTwoFactorTokenProvider\<](/dotnet/api/microsoft.aspnetcore.identity.iusertwofactortokenprovider-1) pro generování tokenů používaných v e-mailech pro resetování hesla. |
+|                    [ProviderMap](/dotnet/api/microsoft.aspnetcore.identity.tokenoptions.providermap)                    |                Slouží k vytvoření [poskytovatele tokenu uživatele](/dotnet/api/microsoft.aspnetcore.identity.tokenproviderdescriptor) s klíčem použitým jako název poskytovatele.                 |
 
 ### <a name="user"></a>Uživatel
 
 [!code-csharp[](identity-configuration/sample/Startup.cs?name=snippet_user)]
 
-[IdentityOptions.User](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.user) Určuje, [UserOptions](/dotnet/api/microsoft.aspnetcore.identity.useroptions) s vlastnostmi, které jsou uvedené v tabulce.
+[IdentityOptions. User](/dotnet/api/microsoft.aspnetcore.identity.identityoptions.user) Určuje [UserOptions](/dotnet/api/microsoft.aspnetcore.identity.useroptions) s vlastnostmi zobrazenými v tabulce.
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [AllowedUserNameCharacters](/dotnet/api/microsoft.aspnetcore.identity.useroptions.allowedusernamecharacters) | Povolené znaky uživatelské jméno. | abcdefghijklmnopqrstuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>0123456789<br>-.\_@+ |
-| [RequireUniqueEmail](/dotnet/api/microsoft.aspnetcore.identity.useroptions.requireuniqueemail) | Vyžaduje každý uživatel měl jedinečnou e-mailovou. | `false` |
+| [AllowedUserNameCharacters](/dotnet/api/microsoft.aspnetcore.identity.useroptions.allowedusernamecharacters) | Povolené znaky v uživatelském jménu | abcdefghijklmnopqrstuvwxyz<br>ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>0123456789<br>-.\_@+ |
+| [RequireUniqueEmail](/dotnet/api/microsoft.aspnetcore.identity.useroptions.requireuniqueemail) | Vyžaduje, aby každý uživatel měl jedinečný e-mail. | `false` |
 
 ### <a name="cookie-settings"></a>Nastavení souborů cookie
 
-Konfigurovat soubor cookie aplikace v `Startup.ConfigureServices`. [ConfigureApplicationCookie](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.configureapplicationcookie#Microsoft_Extensions_DependencyInjection_IdentityServiceCollectionExtensions_ConfigureApplicationCookie_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Authentication_Cookies_CookieAuthenticationOptions__) musí být volána **po** volání `AddIdentity` nebo `AddDefaultIdentity`.
+Nakonfigurujte soubor cookie aplikace v `Startup.ConfigureServices`. [ConfigureApplicationCookie](/dotnet/api/microsoft.extensions.dependencyinjection.identityservicecollectionextensions.configureapplicationcookie#Microsoft_Extensions_DependencyInjection_IdentityServiceCollectionExtensions_ConfigureApplicationCookie_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_Microsoft_AspNetCore_Authentication_Cookies_CookieAuthenticationOptions__) se musí volat **po** volání `AddIdentity` nebo `AddDefaultIdentity`.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -175,16 +175,16 @@ Konfigurovat soubor cookie aplikace v `Startup.ConfigureServices`. [ConfigureApp
 
 Další informace najdete v tématu [CookieAuthenticationOptions](/dotnet/api/microsoft.aspnetcore.authentication.cookies.cookieauthenticationoptions).
 
-## <a name="password-hasher-options"></a>Hasher možnosti hesla
+## <a name="password-hasher-options"></a>Možnosti hash hesla
 
-<xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions> Získá a nastaví možnosti pro vytvoření hodnoty hash hesla.
+<xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions> získá a nastaví možnosti pro hodnoty hash hesel.
 
 | Možnost | Popis |
 | ------ | ----------- |
-| <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> | Režim kompatibility, který se používá při výpočtu hodnoty hash nová hesla. Výchozí hodnota je <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3>. První bajt hodnoty hash hesla, volá se *formát značky*, určuje verzi modulu hashovací algoritmus používaný k vytvoření hodnoty hash hesla. Při ověřování proti hodnotu hash hesla <xref:Microsoft.AspNetCore.Identity.PasswordHasher`1.VerifyHashedPassword*> metoda vybere správný algoritmus založený na prvním bajtem. Klient je možné ověřit bez ohledu na to, z nichž byla použita verze algoritmu hodnoty hash hesla. Nastavení režimu kompatibility ovlivní hodnotami hash *nová hesla*. |
-| <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.IterationCount> | Počet použitých při výpočtu hodnoty hash hesla, pomocí PBKDF2 iterací. Tato hodnota je pouze použit, když <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> je nastavena na <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3>. Hodnota musí být kladné celé číslo a výchozí hodnota je `10000`. |
+| <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> | Režim kompatibility, který se používá při vytváření hodnoty hash nových hesel Výchozí hodnota je <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3>. První bajt hesla s algoritmem hash, který se nazývá *značka formátu*, určuje verzi algoritmu hash, která se používá k hashování hesla. Při ověřování hesla proti hodnotě hash vybere metoda <xref:Microsoft.AspNetCore.Identity.PasswordHasher`1.VerifyHashedPassword*> správný algoritmus na základě prvního bajtu. Klient se může ověřit bez ohledu na to, která verze algoritmu se použila k hashování hesla. Nastavení režimu kompatibility má vliv na hashování *nových hesel*. |
+| <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.IterationCount> | Počet iterací použitých při použití algoritmu hash pro hesla pomocí PBKDF2. Tato hodnota se používá pouze v případě, že je <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.CompatibilityMode> nastavena na hodnotu <xref:Microsoft.AspNetCore.Identity.PasswordHasherCompatibilityMode.IdentityV3>. Hodnota musí být kladné celé číslo a výchozí hodnota je `10000`. |
 
-V následujícím příkladu <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.IterationCount> je nastavena na `12000` v `Startup.ConfigureServices`:
+V následujícím příkladu je <xref:Microsoft.AspNetCore.Identity.PasswordHasherOptions.IterationCount> nastaveno na `12000` v `Startup.ConfigureServices`:
 
 ```csharp
 // using Microsoft.AspNetCore.Identity;

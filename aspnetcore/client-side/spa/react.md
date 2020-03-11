@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
 uid: spa/react
-ms.openlocfilehash: bbe5328bfa5b4187989a00c3c94e98dabc5d032a
-ms.sourcegitcommit: 032113208bb55ecfb2faeb6d3e9ea44eea827950
+ms.openlocfilehash: 9703a62eb7f779974382fe0fb01702d9fcd37d64
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/31/2019
-ms.locfileid: "73190513"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664960"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>Použijte šablonu projektu reakce s ASP.NET Core
 
@@ -35,13 +35,13 @@ cd my-new-app
 
 Spusťte aplikaci buď ze sady Visual Studio, nebo z .NET Core CLI:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Otevřete vygenerovaný soubor *. csproj* a z něj spusťte aplikaci jako normální.
 
 Proces sestavení obnoví závislosti npm při prvním spuštění, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Ujistěte se, že máte proměnnou prostředí nazvanou `ASPNETCORE_Environment` s hodnotou `Development`. V systému Windows (v případě výzev mimo PowerShell) spusťte `SET ASPNETCORE_Environment=Development`. V systému Linux nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
 
@@ -55,7 +55,7 @@ Spuštěním příkazu [dotnet](/dotnet/core/tools/dotnet-run) spusťte aplikaci
 
 ## <a name="add-pages-images-styles-modules-etc"></a>Přidat stránky, obrázky, styly, moduly atd.
 
-Adresář *clientapp* je standardní aplikace reagující na CRA. Další informace najdete v oficiální [dokumentaci k CRA](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md) .
+Adresář *clientapp* je standardní aplikace reagující na CRA. Další informace najdete v oficiální [dokumentaci k CRA](https://create-react-app.dev/docs/getting-started/) .
 
 Existují mírné rozdíly mezi aplikací s reakci, kterou vytvořila Tato šablona, a ta, kterou vytvořila sama CRA; Možnosti aplikace se ale nezměnily. Aplikace vytvořená šablonou obsahuje rozložení založené na [bootstrap](https://getbootstrap.com/)a základní příklad směrování.
 
@@ -80,7 +80,7 @@ Můžete použít standardní [ASP.NET Core hostování a metody nasazení](xref
 
 Projekt je nakonfigurován tak, aby spouštěl svou vlastní instanci CRA vývojového serveru na pozadí, když se aplikace ASP.NET Core spustí v režimu vývoje. To je užitečné, protože to znamená, že nemusíte spouštět samostatný server ručně.
 
-Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte C# kód a ASP.NET Core aplikace se musí restartovat, server CRA se restartuje. Spuštění zálohování vyžaduje několik sekund. Pokud provádíte časté C# úpravy kódu a nechcete čekat na RESTARTOVÁNÍ serveru CRA, spusťte server CRA externě, nezávisle na procesu ASP.NET Core. Provedete to takto:
+Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte C# kód a ASP.NET Core aplikace se musí restartovat, server CRA se restartuje. Spuštění zálohování vyžaduje několik sekund. Pokud provádíte časté C# úpravy kódu a nechcete čekat na RESTARTOVÁNÍ serveru CRA, spusťte server CRA externě, nezávisle na procesu ASP.NET Core. Postupujte následovně:
 
 1. Do podadresáře *clientapp* přidejte soubor *. env* s následujícím nastavením:
 

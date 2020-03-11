@@ -6,15 +6,15 @@ ms.author: riande
 ms.date: 12/20/2018
 uid: tutorials/razor-pages/da1
 ms.openlocfilehash: 0f6535462fe2d308825bf7289c10d2b0690cebd4
-ms.sourcegitcommit: 07d98ada57f2a5f6d809d44bdad7a15013109549
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/15/2019
-ms.locfileid: "72334116"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666213"
 ---
 # <a name="update-the-generated-pages-in-an-aspnet-core-app"></a>Aktualizovat vygenerované stránky v aplikaci ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -123,7 +123,7 @@ Když se publikuje video/úprava stránky:
 
 Metody HTTP GET v indexech, vytváření a odstraňování stránek Razor následují podobně jako vzor. Metoda HTTP POST `OnPostAsync` na stránce vytvořit Razor následuje podobný vzor jako metoda `OnPostAsync` na stránce Upravit Razor.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 > [!div class="step-by-step"]
 > [Předchozí: práce s databází](xref:tutorials/razor-pages/sql)
@@ -238,7 +238,7 @@ Metody HTTP GET v indexech, vytváření a odstraňování stránek Razor násle
 
 Hledání se přidá v dalším kurzu.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/yLnnleREMtQ)
 

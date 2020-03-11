@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/validation
 ms.openlocfilehash: f283234ed8a32dc9b7904bc6fee1cc9c04741029
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172604"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666017"
 ---
 # <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování na stránku ASP.NET Core Razor
 
@@ -19,7 +19,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 V této části je logika ověřování přidána do modelu `Movie`. Ověřovací pravidla se vynutily pokaždé, když uživatel vytvoří nebo upraví film.
 
-## <a name="validation"></a>Ověřování
+## <a name="validation"></a>Ověření
 
 Key principem vývoje softwaru se nazývá [suchý](https://wikipedia.org/wiki/Don%27t_repeat_yourself) ("**D**on't **R**EPEAT **Y**ourself"). Razor Pages podporuje vývoj, ve kterém jsou funkce zadány jednou a které se projeví v celé aplikaci. Bezsuchá může pomáhat:
 
@@ -157,7 +157,7 @@ Tato dataanotace použitá pro třídu mění schéma. Například dataanotace p
 * Omezí znaky na 60.
 * Nepovoluje hodnotu `null`.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Tabulka `Movie` aktuálně má následující schéma:
 
@@ -201,7 +201,7 @@ CREATE TABLE [dbo].[Movie] (
 );
 ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 Migrace nejsou pro SQLite požadovány.
 

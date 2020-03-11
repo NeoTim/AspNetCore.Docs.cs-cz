@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 uid: mvc/models/validation
-ms.openlocfilehash: a39eeead10849d11349688c42fe814ede9e8a847
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: cf6b77de78f2c5dda48ffcd8ac1f9ed2f8d28bd7
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172491"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661124"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověřování modelu ve ASP.NET Core MVC a Razor Pages
 
@@ -21,7 +21,7 @@ Od [Kirka Larkin](https://github.com/serpent5)
 
 Tento článek vysvětluje, jak ověřit vstup uživatele ve ASP.NET Core MVC nebo v aplikaci Razor Pages.
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
 ## <a name="model-state"></a>Stav modelu
 
@@ -64,13 +64,13 @@ Tady jsou některé z vestavěných ověřovacích atributů:
 
 ### <a name="error-messages"></a>Chybové zprávy
 
-Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Například:
+Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-Interně atributy volají `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Například:
+Interně atributy volají `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Příklad:
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -265,7 +265,7 @@ Ověřování datového typu je založené na typu .NET vlastnosti, pokud není 
 
 ## <a name="unobtrusive-validation"></a>Nenáročná ověření
 
-Informace o nenáročnosti ověřování najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/1111).
+Informace o nenáročnosti ověřování najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/1111).
 
 ### <a name="add-validation-to-dynamic-forms"></a>Přidání ověřování do dynamických formulářů
 
@@ -389,7 +389,7 @@ Předchozí přístup nezabrání ověřování na straně klienta ASP.NET Core 
 
 Tento článek vysvětluje, jak ověřit vstup uživatele ve ASP.NET Core MVC nebo v aplikaci Razor Pages.
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
 ## <a name="model-state"></a>Stav modelu
 
@@ -409,7 +409,7 @@ Ověřování je automatické, ale můžete je chtít opakovat ručně. Můžete
 
 ## <a name="validation-attributes"></a>Atributy ověřování
 
-Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti modelu. Následující příklad z [ukázkové aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) zobrazuje třídu modelu s poznámkou ověřování atributů. Atribut `[ClassicMovie]` je vlastní ověřovací atribut a jsou integrovány i ostatní. Nezobrazuje se `[ClassicMovie2]`, který ukazuje alternativní způsob implementace vlastního atributu.
+Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti modelu. Následující příklad z [ukázkové aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) zobrazuje třídu modelu s poznámkou ověřování atributů. Atribut `[ClassicMovie]` je vlastní ověřovací atribut a jsou integrovány i ostatní. Nezobrazuje se `[ClassicMovie2]`, který ukazuje alternativní způsob implementace vlastního atributu.
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/Movie.cs?name=snippet_ModelClass)]
 
@@ -434,13 +434,13 @@ Při použití atributu `[RegularExpression]` s ověřováním na straně klient
 
 ### <a name="error-messages"></a>Chybové zprávy
 
-Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Například:
+Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-Interně atributy volají `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Například:
+Interně atributy volají `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Příklad:
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]

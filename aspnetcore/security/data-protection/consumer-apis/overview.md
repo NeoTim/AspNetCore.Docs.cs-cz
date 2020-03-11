@@ -1,55 +1,55 @@
 ---
-title: Přehled rozhraní API příjemců pro ASP.NET Core
+title: Přehled rozhraní API pro příjemce ASP.NET Core
 author: rick-anderson
-description: Zobrazit stručný přehled různých uživatelů rozhraní API dostupná v rámci knihovny ochrany dat ASP.NET Core.
+description: Získáte stručný přehled různých zákaznických rozhraní API dostupných v knihovně ASP.NET Core Data Protection Library.
 ms.author: riande
 ms.date: 06/11/2019
 uid: security/data-protection/consumer-apis/overview
 ms.openlocfilehash: ff9badb55813cae0aa72d3a95dc53792332f109b
-ms.sourcegitcommit: 1bb3f3f1905b4e7d4ca1b314f2ce6ee5dd8be75f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66837383"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666584"
 ---
-# <a name="consumer-apis-overview-for-aspnet-core"></a>Přehled rozhraní API příjemců pro ASP.NET Core
+# <a name="consumer-apis-overview-for-aspnet-core"></a>Přehled rozhraní API pro příjemce ASP.NET Core
 
-`IDataProtectionProvider` a `IDataProtector` základní rozhraní, pomocí kterých zákazníci používají systém ochrany dat jsou rozhraní. Nacházejí se v [Microsoft.AspNetCore.DataProtection.Abstractions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/) balíčku.
+Rozhraní `IDataProtectionProvider` a `IDataProtector` jsou základní rozhraní, prostřednictvím kterých spotřebitelé používají systém ochrany dat. Nacházejí se v balíčku [Microsoft. AspNetCore. DataProtection. Abstractions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/) .
 
 ## <a name="idataprotectionprovider"></a>IDataProtectionProvider
 
-Rozhraní poskytovatele reprezentuje kořen dat ochrany systému. Jej nelze použít přímo ochrana nebo zrušení ochrany dat. Místo toho uživatel musí získat odkaz na `IDataProtector` voláním `IDataProtectionProvider.CreateProtector(purpose)`, kde účel je řetězec, který popisuje případ použití zamýšlený příjemce. Zobrazit [účelové řetězce](xref:security/data-protection/consumer-apis/purpose-strings) mnohem Další informace o záměru tento parametr a jak zvolit odpovídající hodnotu.
+Rozhraní poskytovatele představuje kořen systému ochrany dat. Nedá se použít přímo k ochraně nebo neochraně dat. Místo toho musí příjemce získat odkaz na `IDataProtector` voláním `IDataProtectionProvider.CreateProtector(purpose)`, kde účel je řetězec, který popisuje zamýšlený případ použití příjemce. Další informace o záměru tohoto parametru a o výběru příslušné hodnoty naleznete v tématu [řetězce pro účely](xref:security/data-protection/consumer-apis/purpose-strings) .
 
 ## <a name="idataprotector"></a>IDataProtector
 
-Vrátí rozhraní ochrany pomocí volání `CreateProtector`a tato rozhraní, které uživatele můžete použít k provedení chránit nebo přestat operace.
+Rozhraní ochrany je vráceno voláním `CreateProtector`a jedná se o rozhraní, které mohou uživatelé použít k provádění ochrany a oddálení operací.
 
-K ochraně část dat, předejte data, která mají `Protect` metody. Základní rozhraní definuje metody, která převede byte [] -> byte [], ale je také přetížení (ve formě rozšiřující metoda), který převádí řetězec -> řetězec. Zabezpečení, které nabízí dvě metody je stejný jako; Vývojář by měl vybrat toho přetížení je nejvhodnější pro jejich případu použití. Bez ohledu na přetížení vybrán, hodnota vrácená chránit je teď chráněný (enciphered a zabezpečeny proti) a aplikaci můžete ho odeslat do nedůvěryhodného klienta.
+Chcete-li chránit část dat, předejte data do metody `Protect`. Základní rozhraní definuje metodu, která převede Byte []-> Byte [], ale existuje také přetížení (poskytované jako metoda rozšíření), která převede řetězec řetězcové >. Zabezpečení nabízené těmito dvěma metodami je identické. vývojář by měl zvolit jakékoli přetížení, které je pro svůj případ použití nejpohodlnější. Bez ohledu na to, jakou přetížení jste zvolili, hodnota vrácená metodou Protect je teď chráněná (enciphered a odolná proti chybám) a aplikace ji může poslat nedůvěryhodnému klientovi.
 
-Pokud chcete odemknout dřív chránila část dat, předejte chráněných dat na `Unprotect` metody. (Existují byte [] – na základě a založené na řetězci přetížení pro usnadnění práce vývojářů.) Pokud se chráněný datová část byla vygenerována dřívějším volání `Protect` na tento stejný `IDataProtector`, `Unprotect` metoda vrátí původní nechráněný datové části. Pokud chráněné datové části bylo manipulováno, nebo se vytvořil parametrem jiný `IDataProtector`, `Unprotect` vyvolá metoda výjimku cryptographicexception –.
+Chcete-li zrušit ochranu dříve chráněných dat, předejte chráněná data do metody `Unprotect`. (Pro usnadnění přístupu pro vývojáře existují přetížení typu Byte [] a řetězce založené na řetězci.) Pokud byla chráněná datová část vygenerována starším voláním `Protect` na stejném `IDataProtector`, metoda `Unprotect` vrátí původní nechráněnou datovou část. Pokud byla chráněná datová část úmyslně poškozena nebo byla vytvořena jiným `IDataProtector`, bude metoda `Unprotect` vyvolávat CryptographicException –.
 
-Koncept stejné nebo jiné `IDataProtector` ties zpět na konceptu účel. Pokud dvě `IDataProtector` instance byly vygenerovány z stejným kořenem `IDataProtectionProvider` ale prostřednictvím různých účelové řetězce ve volání `IDataProtectionProvider.CreateProtector`, pak budou považovány za [různých chrániče](xref:security/data-protection/consumer-apis/purpose-strings), a jeden nebude možné zrušit ochranu druhý generované datové části.
+Koncept stejného vs. odlišné `IDataProtector` se přihlásí k konceptu účelu. Pokud byly vygenerovány dvě instance `IDataProtector` ze stejného kořenového `IDataProtectionProvider`, ale prostřednictvím různých řetězců pro volání `IDataProtectionProvider.CreateProtector`, jsou považovány za [různé ochrany](xref:security/data-protection/consumer-apis/purpose-strings)a nikdo nebude moci zrušit ochranu datových částí generovaných druhou.
 
-## <a name="consuming-these-interfaces"></a>Použití těchto rozhraní
+## <a name="consuming-these-interfaces"></a>Využívání těchto rozhraní
 
-Pro komponentu s ohledem na DI zamýšlené použití je, že součást má `IDataProtectionProvider` parametr v konstruktoru a že DI poskytuje tento systém automaticky tato služba při vytváření instance komponenty.
+Pro komponentu s podporou DI je zamýšlené využití, že komponenta přebírá ve svém konstruktoru parametr `IDataProtectionProvider` a že systém DI tuto službu automaticky poskytuje při vytváření instance komponenty.
 
 > [!NOTE]
-> Některé aplikace (například konzolové aplikace nebo aplikace ASP.NET 4.x) nemusí být DI s ohledem na tak nemůžete použít tento mechanismus je popsáno zde. Pro tyto scénáře najdete [scénáře bez DI](xref:security/data-protection/configuration/non-di-scenarios) dokument pro další informace o získání instance `IDataProtection` poskytovatele bez nutnosti kontaktovat DI.
+> Některé aplikace (například konzolové aplikace nebo aplikace ASP.NET 4. x) nemusí být náročné, takže nemohou použít mechanizmus popsané zde. V případě těchto scénářů se podívejte na dokument s [Neznámkou](xref:security/data-protection/configuration/non-di-scenarios) cestou, kde najdete další informace o získání instance poskytovatele `IDataProtection` bez přechodu přes di.
 
-Následující příklad ukazuje tři koncepty:
+Následující příklad znázorňuje tři koncepty:
 
-1. [Přidat systém ochrany dat](xref:security/data-protection/configuration/overview) ke kontejneru služby
+1. [Přidejte systém ochrany dat](xref:security/data-protection/configuration/overview) do kontejneru služby,
 
-2. Pomocí DI získat instanci `IDataProtectionProvider`, a
+2. Použití DI pro příjem instance `IDataProtectionProvider`a
 
-3. Vytvoření `IDataProtector` ze `IDataProtectionProvider` a jeho použití k ochraně a zrušení ochrany dat.
+3. Vytvoření `IDataProtector` z `IDataProtectionProvider` a jejich použití k ochraně a neochraně dat.
 
 [!code-csharp[](../using-data-protection/samples/protectunprotect.cs?highlight=26,34,35,36,37,38,39,40)]
 
-Balíček Microsoft.AspNetCore.DataProtection.Abstractions obsahuje metodu rozšíření `IServiceProvider.GetDataProtector` v zájmu usnadnění práce vývojářů. Zapouzdřuje jako jediná operace obou načítání `IDataProtectionProvider` od poskytovatele služeb a volání `IDataProtectionProvider.CreateProtector`. Následující příklad ukazuje jeho použití.
+Balíček Microsoft. AspNetCore. DataProtection. abstrakce obsahuje metodu rozšíření `IServiceProvider.GetDataProtector` jako usnadnění pro vývojáře. Zapouzdřuje se jako jediná operace načtením `IDataProtectionProvider` od poskytovatele služeb a volání `IDataProtectionProvider.CreateProtector`. Následující ukázka demonstruje použití.
 
 [!code-csharp[](./overview/samples/getdataprotector.cs?highlight=15)]
 
 >[!TIP]
-> Instance `IDataProtectionProvider` a `IDataProtector` jsou bezpečné pro vlákna pro více volání. Se předpokládá, který po získá odkaz na komponentu `IDataProtector` prostřednictvím volání `CreateProtector`, použije tento odkaz pro více volání `Protect` a `Unprotect`. Volání `Unprotect` cryptographicexception – vyvolá výjimku, pokud nelze ověřit nebo dešifrovat znalosti chráněné datové části. Některé součásti staví na Ignorovat chyby během odemknout operace komponenta, která načte ověřovací soubory cookie může zpracovat tuto chybu a zpracovávat žádosti, jako kdyby byla žádný soubor cookie vůbec spíše než nesplní žádost rovnou předplatit. Komponenty, které chcete toto chování musí konkrétně zachytit cryptographicexception – místo požití všechny výjimky.
+> Instance `IDataProtectionProvider` a `IDataProtector` jsou bezpečné pro přístup z více vláken pro více volajících. Je určeno, že jakmile komponenta získá odkaz na `IDataProtector` prostřednictvím volání `CreateProtector`, bude tento odkaz použit pro více volání `Protect` a `Unprotect`. Volání `Unprotect` vyvolá CryptographicException –, pokud nelze ověřit nebo dešifrovat chráněnou datovou část. Některé součásti můžou během operace zrušení ochrany ignorovat chyby; komponenta, která čte soubory cookie ověřování, může tuto chybu zpracovat a považovat požadavek za neúspěšného uložení souboru cookie. Součásti, které chtějí toto chování by měly specificky zachytit CryptographicException – místo požití všech výjimek.

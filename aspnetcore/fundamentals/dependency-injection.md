@@ -1,28 +1,28 @@
 ---
 title: Vkládání závislostí v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Zjistěte, jak ASP.NET Core implementuje vkládání závislostí a jak se používá.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/05/2020
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 7c0789dafcb7dfacd15ac448a39bad94649963c8
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 3080d1a19bb48996e2bc7a3ce824f48bfc1bcbce
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044918"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663763"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Vkládání závislostí v ASP.NET Core
 
-[Steve Smith](https://ardalis.com/), [Scott Addie](https://scottaddie.com)a [Luke Latham](https://github.com/guardrex)
+[Steve Smith](https://ardalis.com/) a [Scott Addie](https://scottaddie.com)
 
 ASP.NET Core podporuje vzor návrhu softwaru pro vkládání závislostí (DI), což je technika pro dosažení [inverze ovládacího prvku (IOC)](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#dependency-inversion) mezi třídami a jejich závislostmi.
 
 Další informace, které jsou specifické pro vkládání závislostí v rámci řadičů MVC, najdete v tématu <xref:mvc/controllers/dependency-injection>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="overview-of-dependency-injection"></a>Přehled vkládání závislostí
 
@@ -72,7 +72,7 @@ Vkládání závislostí řeší tyto problémy prostřednictvím:
 * Registrace závislosti v kontejneru služeb. ASP.NET Core poskytuje integrovaný kontejner služby <xref:System.IServiceProvider>. Služby jsou zaregistrované v `Startup.ConfigureServices` metodě aplikace.
 * *Vložení* služby do konstruktoru třídy, kde se používá. Framework přebírá zodpovědnost za vytváření instancí závislostí a jejich uvolňování, kdy již nejsou dále potřebné.
 
-V [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)definuje rozhraní `IMyDependency` metodu, kterou služba poskytuje aplikaci:
+V [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/dependency-injection/samples)definuje rozhraní `IMyDependency` metodu, kterou služba poskytuje aplikaci:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -184,7 +184,7 @@ Metoda `Startup.ConfigureServices` zodpovídá za definování služeb, které a
 
 ::: moniker range=">= aspnetcore-3.0"
 
-| Typ služby | Doba platnosti |
+| Typ služby | Životnost |
 | ------------ | -------- |
 | <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Přechodná |
 | `IHostApplicationLifetime` | Singleton |
@@ -205,7 +205,7 @@ Metoda `Startup.ConfigureServices` zodpovídá za definování služeb, které a
 
 ::: moniker range="< aspnetcore-3.0"
 
-| Typ služby | Doba platnosti |
+| Typ služby | Životnost |
 | ------------ | -------- |
 | <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Přechodná |
 | <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime?displayProperty=fullName> | Singleton |

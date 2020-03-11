@@ -1,1 +1,1 @@
-Když pracujete s hierarchickými klíči v proměnných prostředí, oddělovač dvojtečky (`:`) nemusí fungovat na všech platformách (například bash). Dvojité podtržítko (`__`) je podporováno všemi platformami a je automaticky nahrazeno dvojtečkou.
+Při práci s hierarchickými klíči v proměnných prostředí nemusí oddělovač dvojtečky (`:`) fungovat na všech platformách (například bash). Dvojité podtržítko (`__`) je podporováno všemi platformami a je automaticky nahrazeno dvojtečkou.

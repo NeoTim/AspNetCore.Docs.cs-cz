@@ -1,22 +1,22 @@
 ---
-title: Vytvoření webové aplikace s ASP.NET Core MVC
+title: Vytvoření webové aplikace pomocí ASP.NET Core MVC
 author: rick-anderson
-description: Zobrazit obsah Úvod do ASP.NET Core MVC.
+description: Seznamte se s obsahem úvodu do ASP.NET Core MVC.
 ms.author: riande
 ms.date: 10/26/2017
 uid: tutorials/first-mvc-app/index
 ms.openlocfilehash: 04ab19644d68428246c29a5dac980e8bb91867d0
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901932"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667928"
 ---
-# <a name="create-a-web-app-with-aspnet-core-mvc"></a>Vytvoření webové aplikace s ASP.NET Core MVC
+# <a name="create-a-web-app-with-aspnet-core-mvc"></a>Vytvoření webové aplikace pomocí ASP.NET Core MVC
 
 [!INCLUDE [consider RP](~/includes/razor.md)]
 
-Série kurzů zahrnuje následující položky:
+Řada kurzů zahrnuje následující:
 
 1. [Začínáme](start-mvc.md)
 1. [Přidání kontroleru](adding-controller.md)

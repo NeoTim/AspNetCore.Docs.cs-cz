@@ -9,40 +9,40 @@ no-loc:
 - SignalR
 uid: signalr/version-differences
 ms.openlocfilehash: cca9a0cb0c46fc25eb5d1f7127d31fd3ab92f0b4
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880366"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663546"
 ---
-# <a name="differences-between-aspnet-opno-locsignalr-and-aspnet-core-opno-locsignalr"></a>Rozdíly mezi ASP.NET SignalR a ASP.NET Core SignalR
+# <a name="differences-between-aspnet-signalr-and-aspnet-core-signalr"></a>Rozdíly mezi signálem ASP.NET a signálem ASP.NET Core
 
-ASP.NET Core SignalR není kompatibilní s klienty nebo servery pro ASP.NET SignalR. Tento článek obsahuje podrobnosti o funkcích, které se v ASP.NET Core SignalRodebraly nebo změnily.
+Signál ASP.NET Core není kompatibilní s klienty nebo servery pro signál ASP.NET. Tento článek obsahuje podrobnosti o funkcích, které byly v ASP.NET Coreovém signalizaci odebrány nebo změněny.
 
-## <a name="how-to-identify-the-opno-locsignalr-version"></a>Jak identifikovat SignalR verzi
+## <a name="how-to-identify-the-signalr-version"></a>Jak identifikovat verzi signalizace
 
 ::: moniker range=">= aspnetcore-3.0"
 
-|                      | ASP.NET SignalR | ASP.NET Core SignalR |
+|                      | Funkce SignalR technologie ASP.NET | ASP.NET Core SignalR |
 | -------------------- | --------------- | -------------------- |
-| Balíček NuGet serveru | [Microsoft. AspNet.SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | Žádné. Je součástí sdílené architektury [Microsoft. AspNetCore. app](xref:fundamentals/metapackage-app) . |
-| Klientské balíčky NuGet | [Microsoft. AspNet.SignalR. Služba](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft. AspNet.SignalR. JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [Microsoft. AspNetCore.SignalR. Služba](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
-| JavaScript – balíček npm klienta | [SignalR](https://www.npmjs.com/package/signalr) | [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) |
+| Balíček NuGet serveru | [Microsoft. AspNet. Signaler](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | Žádné. Je součástí sdílené architektury [Microsoft. AspNetCore. app](xref:fundamentals/metapackage-app) . |
+| Klientské balíčky NuGet | [Microsoft. AspNet. Signaler. Client](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft. AspNet. Signaler. JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [Microsoft. AspNetCore. Signaler. Client](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
+| JavaScript – balíček npm klienta | [signalr](https://www.npmjs.com/package/signalr) | [`@microsoft/signalr`](https://www.npmjs.com/package/@microsoft/signalr) |
 | Klient Java | [Úložiště GitHub](https://github.com/SignalR/java-client) (zastaralé)  | Balíček Maven [com. Microsoft. Signal](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
-| Typ serverové aplikace | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | ASP.NET Core |
+| Typ serverové aplikace | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | Jádro ASP.NET |
 | Podporované serverové platformy | .NET Framework 4,5 nebo novější | .NET Core 3,0 nebo novější |
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.2"
 
-|                      | ASP.NET SignalR | ASP.NET Core SignalR |
+|                      | Funkce SignalR technologie ASP.NET | ASP.NET Core SignalR |
 | -------------------- | --------------- | -------------------- |
 | Balíček NuGet serveru | [Microsoft. AspNet.SignalR](https://www.nuget.org/packages/Microsoft.AspNet.SignalR/) | [Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App/) (.NET Core)<br>[Microsoft. AspNetCore.SignalR](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR/) (.NET Framework) |
 | Klientské balíčky NuGet | [Microsoft. AspNet.SignalR. Služba](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.Client/)<br>[Microsoft. AspNet.SignalR. JS](https://www.nuget.org/packages/Microsoft.AspNet.SignalR.JS/) | [Microsoft. AspNetCore.SignalR. Služba](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) |
-| JavaScript – balíček npm klienta | [SignalR](https://www.npmjs.com/package/signalr) | [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) |
+| JavaScript – balíček npm klienta | [signalr](https://www.npmjs.com/package/signalr) | [`@aspnet/signalr`](https://www.npmjs.com/package/@aspnet/signalr) |
 | Klient Java | [Úložiště GitHub](https://github.com/SignalR/java-client) (zastaralé)  | Balíček Maven [com. Microsoft. Signal](https://search.maven.org/artifact/com.microsoft.signalr/signalr) |
-| Typ serverové aplikace | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | ASP.NET Core |
+| Typ serverové aplikace | ASP.NET (System. Web) nebo OWIN – samoobslužné hostování | Jádro ASP.NET |
 | Podporované serverové platformy | .NET Framework 4,5 nebo novější | .NET Framework 4.6.1 nebo novější<br>.NET Core 2,1 nebo novější |
 
 ::: moniker-end
@@ -141,7 +141,7 @@ V ASP.NET Core SignalRbyl model připojení zjednodušený. Připojení se vytvo
 
 ASP.NET Core SignalR teď podporuje [streamování dat](xref:signalr/streaming) z rozbočovače na klienta.
 
-### <a name="state"></a>State
+### <a name="state"></a>Stav
 
 Byla odebrána možnost předat libovolný stav mezi klienty a centrem (často označované jako `HubState`) a také podporovat zprávy o průběhu. V tuto chvíli není k dispozici žádný protějšek serverů proxy hub.
 
@@ -275,7 +275,7 @@ ASP.NET SignalR podporuje SQL Server a Redis. ASP.NET Core SignalR podporuje slu
 * [SignalR škálování pomocí Redis](/aspnet/signalr/overview/performance/scaleout-with-redis)
 * [SignalR škálování s využitím SQL Server](/aspnet/signalr/overview/performance/scaleout-with-sql-server)
 
-### <a name="aspnet-core"></a>ASP.NET Core
+### <a name="aspnet-core"></a>Jádro ASP.NET
 
 * [Služba Azure SignalR](/azure/azure-signalr/)
 * [Redis](xref:signalr/redis-backplane)
@@ -283,6 +283,6 @@ ASP.NET SignalR podporuje SQL Server a Redis. ASP.NET Core SignalR podporuje slu
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Centra](xref:signalr/hubs)
-* [Klient JavaScriptu](xref:signalr/javascript-client)
+* [Javascriptový klient](xref:signalr/javascript-client)
 * [Klient .NET](xref:signalr/dotnet-client)
 * [Podporované platformy](xref:signalr/supported-platforms)

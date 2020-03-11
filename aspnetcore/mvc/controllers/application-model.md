@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/controllers/application-model
 ms.openlocfilehash: 4b6c978e5752eb320412a1c204df8e3d288fe4a1
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881095"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666430"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>Práce s modelem aplikace v ASP.NET Core
 
@@ -69,7 +69,7 @@ Některá Vestavěná chování jsou implementována `DefaultApplicationModelPro
 
 `CorsApplicationModelProvider` implementuje chování spojené s `IEnableCorsAttribute` a `IDisableCorsAttribute`a `DisableCorsAuthorizationFilter`. [Přečtěte si další informace o CORS](xref:security/cors).
 
-## <a name="conventions"></a>Konvence
+## <a name="conventions"></a>Zásady
 
 Model aplikace definuje abstrakce konvence, které poskytují jednodušší způsob přizpůsobení chování modelů, než je přepsání celého modelu nebo poskytovatele. Tyto abstrakce jsou doporučeným způsobem, jak upravit chování vaší aplikace. Konvence poskytují způsob, jak napsat kód, který bude dynamicky používat vlastní nastavení. [Filtry](xref:mvc/controllers/filters) sice poskytují prostředky pro úpravu chování rozhraní. vlastní nastavení vám umožní řídit, jak celá aplikace funguje dohromady.
 

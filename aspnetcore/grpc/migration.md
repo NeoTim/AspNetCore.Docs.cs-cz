@@ -7,11 +7,11 @@ ms.author: johluo
 ms.date: 09/25/2019
 uid: grpc/migration
 ms.openlocfilehash: 451171a041f7bbb3711babd73d2fa2e245aadd28
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75355129"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664134"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>Migrace služeb gRPC z C-Core na ASP.NET Core
 
@@ -63,7 +63,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Další informace o konfiguraci najdete v tématu <xref:grpc/configuration>.
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 Aplikace založené na základních jazycích v jazyce C spoléhají na `GrpcEnvironment` ke [konfiguraci protokolovacího](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_) nástroje pro účely ladění. ASP.NET Core Stack tuto funkci poskytuje prostřednictvím [rozhraní API protokolování](xref:fundamentals/logging/index). Například protokolovací nástroj může být přidán do služby gRPC prostřednictvím injektáže konstruktoru:
 
@@ -103,7 +103,7 @@ rozdíly v gRPC zachytávací z ASP.NET Core middlewaru:
   * Funguje se základními zprávami HTTP/2.
   * Může přistupovat jenom k bajtům z datových proudů požadavků a odpovědí.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:grpc/index>
 * <xref:grpc/basics>

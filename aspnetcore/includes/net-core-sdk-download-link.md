@@ -1,1 +1,1 @@
-[.NET core SDK 2.0 nebo novější](https://www.microsoft.com/net/download)
+[.NET Core SDK 2,0 nebo novější](https://www.microsoft.com/net/download)

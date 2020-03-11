@@ -5,12 +5,12 @@ description: V tomto kurzu začnete používat funkci migrace EF Core pro správ
 ms.author: riande
 ms.date: 07/22/2019
 uid: data/ef-rp/migrations
-ms.openlocfilehash: f8e78cf7230528a4047eac1d52a12e2ed8392dec
-ms.sourcegitcommit: d2ba66023884f0dca115ff010bd98d5ed6459283
+ms.openlocfilehash: 86fd83c898fce8e121e4d259aaca12c59591e606
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/14/2020
-ms.locfileid: "77213440"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656532"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---migrations---4-of-8"></a>Razor Pages s EF Core v ASP.NET Core – migrace – 4 z 8
 
@@ -32,7 +32,7 @@ Místo vyřazení a opětovného vytvoření databáze při změně datového mo
 
 ## <a name="drop-the-database"></a>Odstranit databázi
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 K odstranění databáze použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo spusťte následující příkaz v **konzole správce balíčků** (PMC):
 
@@ -40,7 +40,7 @@ K odstranění databáze použijte **Průzkumník objektů systému SQL Server**
 Drop-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Spuštěním následujícího příkazu na příkazovém řádku nainstalujte EF CLI:
 
@@ -60,7 +60,7 @@ Drop-Database
 
 ## <a name="create-an-initial-migration"></a>Vytvoření prvotní migrace
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V PMC spusťte následující příkazy:
 
@@ -69,7 +69,7 @@ Add-Migration InitialCreate
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Ujistěte se, že je příkazový řádek ve složce projektu, a spusťte následující příkazy:
 
@@ -128,7 +128,7 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 * Použití migrace k vytváření skriptů SQL a používání skriptů SQL v nasazení.
 * Spuštění `dotnet ef database update` ze kontrolovaného prostředí.
 
-## <a name="troubleshooting"></a>Odstraňování potíží
+## <a name="troubleshooting"></a>Řešení potíží
 
 Pokud aplikace používá SQL Server LocalDB a zobrazí následující výjimku:
 
@@ -140,7 +140,7 @@ Login failed for user 'user name'.
 
 Řešení může být spuštěno `dotnet ef database update` v příkazovém řádku.
 
-### <a name="additional-resources"></a>Další materiály a zdroje informací
+### <a name="additional-resources"></a>Další zdroje
 
 * [EF Core CLI](/ef/core/miscellaneous/cli/dotnet).
 * [Konzola Správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell)
@@ -160,7 +160,7 @@ V dalším kurzu se vytvoří datový model a přidají se vlastnosti entity a n
 V tomto kurzu se používá funkce migrace EF Core pro správu změn datového modelu.
 
 Pokud narazíte na problémy, které nemůžete vyřešit, stáhněte [dokončenou aplikaci](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
+https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
 
 Při vývoji nové aplikace se datový model často mění. Pokaždé, když se model změní, model se nesynchronizuje s databází. Tento kurz se zahájil konfigurací Entity Framework k vytvoření databáze, pokud neexistuje. Pokaždé, když se změní datový model:
 
@@ -176,7 +176,7 @@ Místo vyřazení a opětovného vytvoření databáze při změně datového mo
 
 Použijte **Průzkumník objektů systému SQL Server** (SSOX) nebo `database drop` příkaz:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V **konzole správce balíčků** (PMC) spusťte následující příkaz:
 
@@ -186,7 +186,7 @@ Drop-Database
 
 Pokud chcete získat informace o nápovědě, spusťte `Get-Help about_EntityFrameworkCore` z PMC.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Otevřete příkazové okno a přejděte do složky projektu. Složka projektu obsahuje soubor *Startup.cs* .
 
@@ -202,14 +202,14 @@ V příkazovém okně zadejte následující:
 
 Sestavte projekt a vytvořte první migraci.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ```powershell
 Add-Migration InitialCreate
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate
@@ -243,11 +243,11 @@ Migrace vytvoří *snímek* aktuálního schématu databáze v části *migratio
 
 K odstranění migrace použijte následující příkaz:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Odebrání – migrace
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 ```dotnetcli
 dotnet ef migrations remove
@@ -293,10 +293,10 @@ Migrace databáze by se měla provádět v rámci nasazení a řízeným způsob
 
 EF Core používá tabulku `__MigrationsHistory` a zjistí, jestli je potřeba spustit nějaké migrace. Pokud je databáze aktuální, nespustí se žádná migrace.
 
-## <a name="troubleshooting"></a>Odstraňování potíží
+## <a name="troubleshooting"></a>Řešení potíží
 
 Stáhněte [dokončenou aplikaci](
-https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations).
+https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu21snapshots/cu-part4-migrations).
 
 Aplikace vygeneruje následující výjimku:
 
@@ -308,7 +308,7 @@ Login failed for user 'user name'.
 
 Řešení: Spusťte `dotnet ef database update`
 
-### <a name="additional-resources"></a>Další materiály a zdroje informací
+### <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=OWSUuMLKTJo)
 * [.NET Core CLI](/ef/core/miscellaneous/cli/dotnet).

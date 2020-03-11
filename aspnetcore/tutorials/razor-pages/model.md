@@ -5,12 +5,12 @@ description: Objevte, jak přidat třídy pro správu filmy v databázi pomocí 
 ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/model
-ms.openlocfilehash: d2f9a64c77d76702004b94cdf36e558b33d7e19a
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: f6dbac81b4efceb30c379ab06dd715005d879228
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172577"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658933"
 ---
 # <a name="add-a-model-to-a-razor-pages-app-in-aspnet-core"></a>Přidání modelu do aplikace v ASP.NET Core Razor Pages
 
@@ -28,7 +28,7 @@ Modelu třídy jsou označovány jako POCO třídy (od "prostý staré CLR objek
 
 ## <a name="add-a-data-model"></a>Přidání datového modelu
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Klikněte pravým tlačítkem na projekt **RazorPagesMovie** > **Přidat** > **novou složku**. Pojmenujte *modely*složek.
 
@@ -36,7 +36,7 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **přidat** > **tř�
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Přidejte složku s názvem *modely*.
 * Přidejte třídu do složky *modely* s názvem *Movie.cs*.
@@ -45,7 +45,7 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **přidat** > **tř�
 
 [!INCLUDE [model 2](~/includes/RP/model2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V Oblast řešení klikněte pravým tlačítkem na projekt **RazorPagesMovie** a vyberte **Přidat** > **Nová složka...** . Pojmenujte *modely*složek.
 * Klikněte pravým tlačítkem na složku *modely* a pak vyberte **Přidat** > **nový soubor...** .
@@ -65,7 +65,7 @@ Sestavte projekt a ověřte, že nejsou žádné chyby během kompilace.
 
 V této části je automaticky generovaný model video. To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Vytvořit *stránky nebo složky filmů* :
 
@@ -90,7 +90,7 @@ Dokončete dialog **přidat Razor Pages pomocí Entity Framework (CRUD)** :
 
 Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se používá pro připojení k místní databázi.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
@@ -119,7 +119,7 @@ Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se p
 
 [!INCLUDE [use SQL Server in production](~/includes/RP/sqlitedev.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Vytvořit *stránky nebo složky filmů* :
 
@@ -158,7 +158,7 @@ Předchozí příkaz přidá nástroje Entity Framework Core pro .NET Core CLI.
 
 ### <a name="files-created"></a>Soubory vytvořené
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následující soubory:
 
@@ -171,7 +171,7 @@ Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následují
 
 Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následující soubory:
 
@@ -184,7 +184,7 @@ Vygenerované uživatelské rozhraní proces vytvoří a aktualizuje následují
 
 Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Proces generování uživatelského rozhraní vytvoří následující soubory:
 
@@ -198,7 +198,7 @@ Vytvořené soubory jsou vysvětleny v další části.
 
 ## <a name="initial-migration"></a>Počáteční migraci
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V této části konzoly Správce balíčků (PMC) umožňuje:
 
@@ -216,11 +216,11 @@ Add-Migration InitialCreate
 Update-Database
 ```
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
@@ -234,7 +234,7 @@ Příkaz migrace generuje kód pro vytvoření počátečního schématu databá
 
 Příkaz `update` spustí metodu `Up` v migracích, které nebyly aplikovány. V takovém případě `update` spustí metodu `Up` v části *migrace/\<časového razítka > souboru _InitialCreate. cs* , který vytvoří databázi.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ### <a name="examine-the-context-registered-with-dependency-injection"></a>Prozkoumání kontextu registrovaný pomocí vkládání závislostí
 
@@ -254,11 +254,11 @@ Předchozí kód vytvoří vlastnost [negenerickými\<Movie >](/dotnet/api/micro
 
 Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Projděte si metodu `Up`.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Projděte si metodu `Up`.
 
@@ -284,7 +284,7 @@ Nezmeškali jste [Krok migrace](#pmc).
   ![Vytvoření stránky](model/_static/conan.png)
 
   > [!NOTE]
-  > V poli `Price` možná nebudete moct zadat desítkové čárky. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
+  > V poli `Price` možná nebudete moct zadat desítkové čárky. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
 
 * Otestujte odkazy **Upravit**, **Podrobnosti** a **Odstranit**.
 
@@ -309,7 +309,7 @@ Modelu třídy jsou označovány jako POCO třídy (od "prostý staré CLR objek
 
 ## <a name="add-a-data-model"></a>Přidání datového modelu
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Klikněte pravým tlačítkem na projekt **RazorPagesMovie** > **Přidat** > **novou složku**. Pojmenujte *modely*složek.
 
@@ -317,7 +317,7 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **přidat** > **tř�
 
 [!INCLUDE [model 1b](~/includes/RP/model1b.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Přidejte složku s názvem *modely*.
 * Přidejte třídu do složky *modely* s názvem *Movie.cs*.
@@ -326,7 +326,7 @@ Klikněte pravým tlačítkem na složku *modely* . Vyberte **přidat** > **tř�
 
 [!INCLUDE [model 2](~/includes/RP/model2.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * V Průzkumník řešení klikněte pravým tlačítkem na projekt **RazorPagesMovie** a vyberte **Přidat** > **Nová složka**. Pojmenujte *modely*složek.
 * Klikněte pravým tlačítkem na složku *modely* a pak vyberte **Přidat** > **nový soubor**.
@@ -346,7 +346,7 @@ Sestavte projekt a ověřte, že nejsou žádné chyby během kompilace.
 
 V této části je automaticky generovaný model video. To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Vytvořit *stránky nebo složky filmů* :
 
@@ -375,7 +375,7 @@ to use Data, it should not use models. That will make the namespace the same for
 
 Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se používá pro připojení k místní databázi.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
@@ -396,7 +396,7 @@ Soubor *appSettings. JSON* se aktualizuje připojovacím řetězcem, který se p
 
 [!INCLUDE [explains scaffold gen params](~/includes/RP/model4.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Vytvořit *stránky nebo složky filmů* :
 
@@ -440,7 +440,7 @@ Vytvořený a aktualizované soubory jsou vysvětlené v následující části.
 
 ## <a name="initial-migration"></a>Počáteční migraci
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V této části konzoly Správce balíčků (PMC) umožňuje:
 
@@ -462,11 +462,11 @@ Příkaz `Add-Migration` generuje kód pro vytvoření počátečního schématu
 
 Příkaz `Update-Database` spustí metodu `Up` v souboru s *časovou známkou Migration/\<> _InitialCreate. cs* . Metoda `Up` vytvoří databázi.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
@@ -474,7 +474,7 @@ Příkaz `Update-Database` spustí metodu `Up` v souboru s *časovou známkou Mi
 > [!NOTE]
 > Předchozí příkazy generují následující upozornění:*pro desetinný sloupec ' Price ' pro typ entity ' video ' nebyl zadán žádný typ ' Price '. To způsobí, že se hodnoty tiše zkrátí, pokud se nevejdou do výchozí přesnosti a rozsahu. Explicitně zadejte typ sloupce SQL serveru, který může obsahovat všechny hodnoty pomocí ' HasColumnType () '.* Toto upozornění můžete ignorovat, bude opraveno v pozdějším kurzu.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ### <a name="examine-the-context-registered-with-dependency-injection"></a>Prozkoumání kontextu registrovaný pomocí vkládání závislostí
 
@@ -494,11 +494,11 @@ Předchozí kód vytvoří vlastnost [negenerickými\<Movie >](/dotnet/api/micro
 
 Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Projděte si metodu `Up`.
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Projděte si metodu `Up`.
 
@@ -524,7 +524,7 @@ Nezmeškali jste [Krok migrace](#pmc).
   ![Vytvoření stránky](model/_static/conan.png)
 
   > [!NOTE]
-  > V poli `Price` možná nebudete moct zadat desítkové čárky. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
+  > V poli `Price` možná nebudete moct zadat desítkové čárky. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
 
 * Otestujte odkazy **Upravit**, **Podrobnosti** a **Odstranit**.
 

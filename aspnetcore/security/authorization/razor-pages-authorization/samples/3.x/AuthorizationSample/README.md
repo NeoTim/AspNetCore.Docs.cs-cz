@@ -4,7 +4,7 @@ Tato ukázka znázorňuje použití autorizace Razor Pages podle konvencí. Tato
 
 Autorizace uživatelů v této ukázce používá funkce ověřování souborů cookie popsané v tématu [použití ověřování souborem cookie bez ASP.NET Core identity](https://docs.microsoft.com/aspnet/core/security/authentication/cookie) . Koncepty a příklady uvedené v tomto tématu platí stejně jako aplikace, které používají ASP.NET Core identity. Informace o použití ASP.NET Core identity najdete v tématu [Úvod do identity v ASP.NET Core](https://docs.microsoft.com/aspnet/core/security/authentication/identity).
 
-Pomocí e-mailové adresy **maria.rodriguez@contoso.com** můžete uživatele ověřit pomocí hesla. Uživatel je ověřený v `AuthenticateUser` metodě v souboru Pages/ *account/login. cshtml. cs* . V reálném příkladu by byl uživatel ověřený proti databázi.
+Použijte e-mailovou adresu **maria.rodriguez@contoso.com** k ověření uživatele pomocí hesla. Uživatel je ověřený v metodě `AuthenticateUser` v souboru *Pages/Account/Login. cshtml. cs* . V reálném příkladu by byl uživatel ověřený proti databázi.
 
 ## <a name="examples-in-this-sample"></a>Příklady v této ukázce
 

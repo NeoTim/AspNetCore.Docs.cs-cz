@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/04/2020
 uid: mvc/controllers/filters
-ms.openlocfilehash: c4bb9d5746e494106ead6ad5bbf972bbcc5a39f1
-ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
+ms.openlocfilehash: 03335811766ea3a1455901199863c6da0e35f7e4
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/05/2020
-ms.locfileid: "77034062"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662783"
 ---
 # <a name="filters-in-aspnet-core"></a>Filtry v ASP.NET Core
 
@@ -33,7 +33,7 @@ Tento dokument se týká Razor Pages, řadičů rozhraní API a řadičů se zob
 * Komponenta je vložena do stránky nebo zobrazení.
 * Stránka nebo kontroler nebo zobrazení používá filtr.
 
-[Zobrazit nebo Stáhnout ukázku](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo Stáhnout ukázku](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
 ## <a name="how-filters-work"></a>Jak fungují filtry
 
@@ -544,7 +544,7 @@ Filtr je použit v následujícím kódu:
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet3&highlight=21)]
 
-Otestujte předchozí kód spuštěním [ukázky stahování](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample):
+Otestujte předchozí kód spuštěním [ukázky stahování](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample):
 
 * Vyvolejte vývojářské nástroje F12.
 * Přejděte na adresu `https://localhost:5001/Sample/HeaderWithFactory`.
@@ -596,7 +596,7 @@ Filtry middlewaru jsou spouštěny ve stejné fázi kanálu filtru jako filtry p
 ## <a name="next-actions"></a>Další akce
 
 * Viz [metody filtru pro Razor Pages](xref:razor-pages/filter).
-* Pro experimentování s filtry, [stažení, otestování a úpravy ukázky GitHubu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample).
+* Pro experimentování s filtry, [stažení, otestování a úpravy ukázky GitHubu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/3.1sample).
 
 ::: moniker-end
 
@@ -615,7 +615,7 @@ Vlastní filtry je možné vytvořit pro zpracování vzájemně se týkajícíc
 
 Tento dokument se týká Razor Pages, řadičů rozhraní API a řadičů se zobrazeními.
 
-[Zobrazit nebo Stáhnout ukázku](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo Stáhnout ukázku](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
 ## <a name="how-filters-work"></a>Jak fungují filtry
 
@@ -1067,7 +1067,7 @@ Například následující filtr vždy spustí a nastaví výsledek akce (<xref:
 
 [!code-csharp[](./filters/sample/FiltersSample/Filters/AddHeaderWithFactoryAttribute.cs?name=snippet_IFilterFactory&highlight=1,4,5,6,7)]
 
-Předchozí kód lze otestovat spuštěním [ukázky stahování](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample):
+Předchozí kód lze otestovat spuštěním [ukázky stahování](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample):
 
 * Vyvolejte vývojářské nástroje F12.
 * Přejděte na adresu `https://localhost:5001/Sample/HeaderWithFactory`.
@@ -1119,6 +1119,6 @@ Filtry middlewaru jsou spouštěny ve stejné fázi kanálu filtru jako filtry p
 ## <a name="next-actions"></a>Další akce
 
 * Viz [metody filtru pro Razor Pages](xref:razor-pages/filter).
-* Pro experimentování s filtry, [stažení, otestování a úpravy ukázky GitHubu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).
+* Pro experimentování s filtry, [stažení, otestování a úpravy ukázky GitHubu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/filters/sample).
 
 ::: moniker-end

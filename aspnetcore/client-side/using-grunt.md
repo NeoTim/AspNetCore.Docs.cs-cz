@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: client-side/using-grunt
 ms.openlocfilehash: e516b85da7e94d0c93be642086fede0a11fea3c2
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74879795"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657589"
 ---
 # <a name="use-grunt-in-aspnet-core"></a>Použití grunt v ASP.NET Core
 
@@ -118,7 +118,7 @@ Balíčky pro každou položku `devDependencies` se stáhnou spolu se všemi sou
 > [!NOTE]
 > Pokud potřebujete, můžete závislosti v **Průzkumník řešení** ručně obnovit kliknutím pravým tlačítkem na `Dependencies\NPM` a výběrem možnosti nabídky **obnovit balíčky** .
 
-![obnovit balíčky](using-grunt/_static/restore-packages.png)
+![Obnovit balíčky](using-grunt/_static/restore-packages.png)
 
 ## <a name="configuring-grunt"></a>Konfigurace grunt
 
@@ -238,7 +238,7 @@ Grunt je nakonfigurován pomocí manifestu s názvem *Gruntfile. js* , který de
     > [!NOTE]
     > Další informace o možnostech jednotlivých balíčků najdete v [https://www.npmjs.com/](https://www.npmjs.com/) a v poli hledání na hlavní stránce vyhledejte název balíčku. Můžete například vyhledat balíček grunt-contrib-Clean a získat odkaz na dokumentaci, který vysvětluje všechny jeho parametry.
 
-### <a name="all-together-now"></a>Teď vše pohromadě
+### <a name="all-together-now"></a>Teď vše společně
 
 Pomocí metody grunt `registerTask()` můžete v určité sekvenci spustit řadu úkolů. Pokud například chcete spustit příklad výše uvedených kroků v pořadí vyčistit-> Concat-> jshint-> uglify, přidejte kód níže do modulu. Kód by měl být přidán na stejnou úroveň jako volání loadNpmTasks (), mimo initConfig.
 
@@ -281,6 +281,6 @@ Vytvoří vazby `watch` tak, že se spustí při každém otevření sady Visual
 
 Uvolněte a znovu načtěte projekt. Po opětovném načtení projektu se úloha kukátka začne automaticky spouštět.
 
-## <a name="summary"></a>Přehled
+## <a name="summary"></a>Souhrn
 
 Grunt je výkonný Spouštěč úloh, který se dá použít k automatizaci většiny úloh sestavení klientů. Grunt využívá NPM k doručování svých balíčků a funkcí pro integraci nástrojů se sadou Visual Studio. Průzkumník Spouštěče úloh sady Visual Studio detekuje změny konfiguračních souborů a poskytuje praktické rozhraní pro spouštění úkolů, zobrazení spuštěných úloh a vázání úloh k událostem sady Visual Studio.

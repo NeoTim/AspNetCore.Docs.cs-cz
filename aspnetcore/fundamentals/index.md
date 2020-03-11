@@ -8,34 +8,34 @@ ms.custom: mvc
 ms.date: 01/15/2020
 uid: fundamentals/index
 ms.openlocfilehash: 3fbfc7c4c0d5e568339bc00a7cbe84a3932acf1f
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146352"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664232"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core základy
 
 Tento článek je přehled klíčových témat pro pochopení způsobu vývoje ASP.NET Core aplikací.
 
-## <a name="the-startup-class"></a>Spouštěcí třída
+## <a name="the-startup-class"></a>Třída Startup
 
-Třída `Startup` je místo, kde:
+`Startup` třídy je:
 
 * Služby vyžadované aplikací jsou nakonfigurované.
 * Je definován kanál pro zpracování požadavků
 
-*Služby* jsou komponenty, které se používají v aplikaci. Komponenta protokolování je například služba. Kód pro konfiguraci (nebo *registraci*) služeb je přidán do metody `Startup.ConfigureServices`.
+*Služby* jsou komponenty, které aplikace používá. Komponenta protokolování je například služba. Do metody `Startup.ConfigureServices` přidáte kód pro konfiguraci (nebo *registraci*) služeb.
 
-Kanál pro zpracování žádostí se skládá z řady *middlewarových* součástí. Middleware může třeba obsluhovat požadavky na statické soubory nebo přesměrovávání požadavků HTTP na HTTPS. Každý middleware provádí asynchronní operace na kontextu `HttpContext` a následně vyvolá další middleware v kanálu nebo ukončí požadavek. Kód pro konfiguraci kanálu pro zpracování požadavků je přidán do metody `Startup.Configure`.
+Kanál pro zpracování žádostí se skládá z řady *middlewarových* součástí. Middleware může třeba obsluhovat požadavky na statické soubory nebo přesměrovávání požadavků HTTP na HTTPS. Každý middleware provádí asynchronní operace na `HttpContext` a poté buď vyvolá další middleware v kanálu, nebo ukončí požadavek. Do metody `Startup.Configure` se přidá kód pro konfiguraci kanálu zpracování požadavků.
 
-Zde je ukázka třídy `Startup`:
+Tady je ukázková `Startup` třída:
 
 [!code-csharp[](index/snapshots/2.x/Startup1.cs?highlight=3,12)]
 
-Další informace najdete v tématu <xref:fundamentals/startup>.
+Další informace naleznete v tématu <xref:fundamentals/startup>.
 
-## <a name="dependency-injection-services"></a>Injektáž závislostí (služby)
+## <a name="dependency-injection-services"></a>Vkládání závislostí (služby)
 
 ASP.NET Core má integrovanou architekturu pro vkládání závislostí (Dependency Injection, DI), která zpřístupňuje nakonfigurované služby třídám vaší aplikace. Jedním ze způsobů, jak získat instanci služby ve třídě, je vytvoření konstruktoru s parametrem požadovaného typu. Tento parametr může mít typ požadované služby nebo jejího rozhraní. Systém vkládání závislostí poskytuje služby za běhu.
 
@@ -45,13 +45,13 @@ Zde je třída, která využívá DI pro získání kontextového objektu Entity
 
 Přestože je vkládání závislostí integrováno v architektuře, je navrženo tak, aby bylo možné použít kontejner IOC (Inversion of Control) třetích stran, pokud tomu dáváte přednost.
 
-Další informace najdete v tématu <xref:fundamentals/dependency-injection>.
+Další informace naleznete v tématu <xref:fundamentals/dependency-injection>.
 
 ## <a name="middleware"></a>Middleware
 
-Kanál pro zpracování požadavků se skládá z řady middlewarových komponent. Jednotlivé komponenty provádí asynchronní operace na kontextu `HttpContext` a následně vyvolají další middleware v kanálu nebo ukončí požadavek.
+Kanál pro zpracování požadavků se skládá z řady middlewarových komponent. Každá komponenta provádí asynchronní operace na `HttpContext` a poté buď vyvolá další middleware v kanálu, nebo ukončí požadavek.
 
-Konvenčně se komponenty middlewaru přidávají do kanálu zavoláním rozšiřující metody `Use...` v metodě `Startup.Configure`. Pro povolení vykreslování statických souborů se například volá metoda `UseStaticFiles`.
+Podle konvence je do kanálu přidána komponenta middleware, a to voláním metody rozšíření `Use...` v metodě `Startup.Configure`. Chcete-li například povolit vykreslování statických souborů, zavolejte `UseStaticFiles`.
 
 Zvýrazněný kód v následujícím příkladu nastaví kanál pro zpracování požadavku:
 
@@ -59,15 +59,15 @@ Zvýrazněný kód v následujícím příkladu nastaví kanál pro zpracování
 
 ASP.NET Core obsahuje bohatou sadu integrovaných middleware a zároveň je možné napsat také vlastní middleware.
 
-Další informace najdete v tématu <xref:fundamentals/middleware/index>.
+Další informace naleznete v tématu <xref:fundamentals/middleware/index>.
 
 ## <a name="host"></a>Hostitel
 
-ASP.NET Core aplikace vytváří *hostitele* při spuštění. Hostitel je objekt, který zapouzdřuje všechny prostředky aplikace, jako například:
+Aplikace ASP.NET Core při spuštění vytvoří *hostitele* . Hostitel je objekt, který zapouzdřuje všechny prostředky aplikace, jako například:
 
 * Implementaci HTTP serveru
 * Middlewarové komponenty
-* protokolování
+* Protokolování
 * DI
 * Konfigurace
 
@@ -83,11 +83,11 @@ Kód pro vytvoření hostitele je `Program.Main`:
 
 Metody `CreateDefaultBuilder` a `ConfigureWebHostDefaults` konfigurují hostitele pomocí běžně používaných možností, jako jsou například tyto:
 
-* Použití [Kestrelu](#servers) jako webového serveru a povolení integrace do služby IIS.
-* Načtení konfigurace z *appsettings.json*, *appsettings.{ Název prostředí }.json*, proměnných prostředí, argumentů příkazového řádku a dalších zdrojů konfigurace.
+* Použijte [Kestrel](#servers) jako webový server a povolte integraci služby IIS.
+* Načíst konfiguraci z *appSettings. JSON*, *appSettings. { Název prostředí}. JSON*, proměnné prostředí, argumenty příkazového řádku a další zdroje konfigurace.
 * Odeslání výstupu protokolování do konzoly a zprostředkovatelů ladění.
 
-Další informace najdete v tématu <xref:fundamentals/host/generic-host>.
+Další informace naleznete v tématu <xref:fundamentals/host/generic-host>.
 
 ::: moniker-end
 
@@ -101,39 +101,39 @@ Kód pro vytvoření hostitele je `Program.Main`:
 
 Metoda `CreateDefaultBuilder` Konfiguruje hostitele pomocí běžně používaných možností, jako jsou například následující:
 
-* Použití [Kestrelu](#servers) jako webového serveru a povolení integrace do služby IIS.
-* Načtení konfigurace z *appsettings.json*, *appsettings.{ Název prostředí }.json*, proměnných prostředí, argumentů příkazového řádku a dalších zdrojů konfigurace.
+* Použijte [Kestrel](#servers) jako webový server a povolte integraci služby IIS.
+* Načíst konfiguraci z *appSettings. JSON*, *appSettings. { Název prostředí}. JSON*, proměnné prostředí, argumenty příkazového řádku a další zdroje konfigurace.
 * Odeslání výstupu protokolování do konzoly a zprostředkovatelů ladění.
 
-Další informace najdete v tématu <xref:fundamentals/host/web-host>.
+Další informace naleznete v tématu <xref:fundamentals/host/web-host>.
 
 ::: moniker-end
 
 ### <a name="non-web-scenarios"></a>Jiné než webové scénáře
 
-Obecný hostitel umožňuje jiným typům aplikací používat rozšíření rozhraní pro průřez, jako je protokolování, vkládání závislostí (DI), konfigurace a správa životního cyklu aplikací. Další informace naleznete v tématu <xref:fundamentals/host/generic-host> a <xref:fundamentals/host/hosted-services>.
+Obecný hostitel umožňuje jiným typům aplikací používat rozšíření rozhraní pro průřez, jako je protokolování, vkládání závislostí (DI), konfigurace a správa životního cyklu aplikací. Další informace naleznete v tématech <xref:fundamentals/host/generic-host> a <xref:fundamentals/host/hosted-services>.
 
 ## <a name="servers"></a>Servery
 
-Aplikace ASP.NET Core využívá implementaci HTTP serveru pro naslouchání požadavků protokolu HTTP. Server projevuje požadavky do aplikace jako sadu [rysů požadavku](xref:fundamentals/request-features) složených do kontextu `HttpContext`.
+Aplikace ASP.NET Core využívá implementaci HTTP serveru pro naslouchání požadavků protokolu HTTP. Server objedná požadavky do aplikace jako sadu [funkcí požadavků](xref:fundamentals/request-features) složených do `HttpContext`.
 
 ::: moniker range=">= aspnetcore-2.2"
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ASP.NET Core poskytuje následující implementace serveru:
 
-* *Kestrel* je webový server pro různé platformy. Kestrel je často spuštěn v konfiguraci s reverzním proxy serverem s použitím [IIS](https://www.iis.net/). V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu.
-* *IIS HTTP server* je server pro systém Windows, který využívá službu IIS. S tímto serverem jsou aplikace ASP.NET Core a služba IIS spuštěny v jednom společném procesu.
-* *HTTP.sys* je server pro Windows, který se nepoužívá se službou IIS.
+* *Kestrel* je webový server pro různé platformy. Kestrel se často spouští v konfiguraci reverzního proxy serveru pomocí [služby IIS](https://www.iis.net/). V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu.
+* *Http server IIS* je server pro Windows, který používá službu IIS. S tímto serverem jsou aplikace ASP.NET Core a služba IIS spuštěny v jednom společném procesu.
+* *Http. sys* je server pro Windows, který se nepoužívá se službou IIS.
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
-ASP.NET Core nabízí *Kestrel* jako implementaci serveru pro různé platformy. V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu. Kestrel je často spuštěn v konfiguraci s reverzním proxy serverem s [Nginx](https://nginx.org) nebo [Apache](https://httpd.apache.org/).
+ASP.NET Core poskytuje *Kestrel* implementaci serveru pro různé platformy. V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu. Kestrel se často spouští v konfiguraci reverzního proxy serveru s [Nginx](https://nginx.org) nebo [Apache](https://httpd.apache.org/).
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
-ASP.NET Core nabízí *Kestrel* jako implementaci serveru pro různé platformy. V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu. Kestrel je často spuštěn v konfiguraci s reverzním proxy serverem s [Nginx](https://nginx.org) nebo [Apache](https://httpd.apache.org/).
+ASP.NET Core poskytuje *Kestrel* implementaci serveru pro různé platformy. V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu. Kestrel se často spouští v konfiguraci reverzního proxy serveru s [Nginx](https://nginx.org) nebo [Apache](https://httpd.apache.org/).
 
 ---
 
@@ -141,40 +141,40 @@ ASP.NET Core nabízí *Kestrel* jako implementaci serveru pro různé platformy.
 
 ::: moniker range="< aspnetcore-2.2"
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ASP.NET Core poskytuje následující implementace serveru:
 
-* *Kestrel* je webový server pro různé platformy. Kestrel je často spuštěn v konfiguraci s reverzním proxy serverem s použitím [IIS](https://www.iis.net/). V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu.
-* *HTTP.sys* je server pro Windows, který se nepoužívá se službou IIS.
+* *Kestrel* je webový server pro různé platformy. Kestrel se často spouští v konfiguraci reverzního proxy serveru pomocí [služby IIS](https://www.iis.net/). V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu.
+* *Http. sys* je server pro Windows, který se nepoužívá se službou IIS.
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
-ASP.NET Core nabízí *Kestrel* jako implementaci serveru pro různé platformy. V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu. Kestrel je často spuštěn v konfiguraci s reverzním proxy serverem s [Nginx](https://nginx.org) nebo [Apache](https://httpd.apache.org/).
+ASP.NET Core poskytuje *Kestrel* implementaci serveru pro různé platformy. V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu. Kestrel se často spouští v konfiguraci reverzního proxy serveru s [Nginx](https://nginx.org) nebo [Apache](https://httpd.apache.org/).
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
-ASP.NET Core nabízí *Kestrel* jako implementaci serveru pro různé platformy. V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu. Kestrel je často spuštěn v konfiguraci s reverzním proxy serverem s [Nginx](https://nginx.org) nebo [Apache](https://httpd.apache.org/).
+ASP.NET Core poskytuje *Kestrel* implementaci serveru pro různé platformy. V ASP.NET Core 2.0 nebo novějším může být Kestrel spuštěn jako veřejný, hraniční server, přístupný přímo z Internetu. Kestrel se často spouští v konfiguraci reverzního proxy serveru s [Nginx](https://nginx.org) nebo [Apache](https://httpd.apache.org/).
 
 ---
 
 ::: moniker-end
 
-Další informace najdete v tématu <xref:fundamentals/servers/index>.
+Další informace naleznete v tématu <xref:fundamentals/servers/index>.
 
 ## <a name="configuration"></a>Konfigurace
 
-ASP.NET Core poskytuje konfigurační framework, který získává nastavení jako dvojice název-hodnota z uspořádané množiny poskytovatelů konfigurace. Existuje široká škála integrovaných poskytovatelů konfigurace, např. pro soubory *.json*, *.xml*, proměnné prostředí a argumenty příkazového řádku. Můžete si také napsat vlastního zprostředkovatele konfigurace.
+ASP.NET Core poskytuje konfigurační framework, který získává nastavení jako dvojice název-hodnota z uspořádané množiny poskytovatelů konfigurace. Existují předdefinované poskytovatelé konfigurace pro nejrůznější zdroje, například soubory *. JSON* , soubory *. XML* , proměnné prostředí a argumenty příkazového řádku. Můžete si také napsat vlastního zprostředkovatele konfigurace.
 
-Jako příklad můžete ve své aplikaci specifikovat konfiguraci s využitím *appsettings.json* a proměnných prostředí. Když je následně požadována hodnota *ConnectionString*, framework ji prvně vyhledá v souboru *appsettings.json*. Pokud je hodnota nalezena v souboru, ale zároveň také v proměnné prostředí, hodnota proměnné prostředí bude mít přednost.
+Například můžete určit, že konfigurace pochází z proměnných *appSettings. JSON* a proměnných prostředí. Poté, co je požadována hodnota *ConnectionString* , rozhraní vyhledá první v souboru *appSettings. JSON* . Pokud je hodnota nalezena v souboru, ale zároveň také v proměnné prostředí, hodnota proměnné prostředí bude mít přednost.
 
 Pro správu důvěrných konfiguračních dat, jako jsou hesla, ASP.NET Core poskytuje [Nástroj Správce tajných klíčů](xref:security/app-secrets). V případě produkčních tajných kódů doporučujeme [Azure Key Vault](xref:security/key-vault-configuration).
 
-Další informace najdete v tématu <xref:fundamentals/configuration/index>.
+Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
 ## <a name="options"></a>Možnosti
 
-ASP.NET Core využívá *vzor možností nastavení* pro ukládání a načítání hodnot konfigurace, kde je to možné. Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejících nastavení.
+Pokud je to možné, ASP.NET Core podle *vzoru možností* pro ukládání a načítání hodnot konfigurace. Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejících nastavení.
 
 Následující kód například nastavuje možnosti Websocketů:
 
@@ -187,45 +187,45 @@ var options = new WebSocketOptions
 app.UseWebSockets(options);
 ```
 
-Další informace najdete v tématu <xref:fundamentals/configuration/options>.
+Další informace naleznete v tématu <xref:fundamentals/configuration/options>.
 
 ## <a name="environments"></a>Prostředí
 
-Prostředí spuštění aplikace, jako například *Developement*, *Staging* a *Production*, je výsadní pojem v ASP.NET Core. Prostředí, ve kterém je aplikace spuštěna, můžete určit pomocí proměnné prostředí `ASPNETCORE_ENVIRONMENT`. ASP.NET Core čte tuto proměnnou při spuštění aplikace a uloží její hodnotu v implementaci `IHostingEnvironment`. Objekt prostředí je k dispozici kdekoli v aplikaci prostřednictvím DI.
+Spouštěcí prostředí, jako je *vývoj*, *Příprava*a *produkce*, jsou první třídou pojmu v ASP.NET Core. Nastavením proměnné prostředí `ASPNETCORE_ENVIRONMENT` můžete určit prostředí, ve kterém je aplikace spuštěná. ASP.NET Core přečte tuto proměnnou prostředí při spuštění aplikace a uloží hodnotu do implementace `IHostingEnvironment`. Objekt prostředí je k dispozici kdekoli v aplikaci prostřednictvím DI.
 
-Následující ukázkový kód z třídy `Startup` nakonfiguruje aplikaci tak, aby poskytovala podrobné informace o chybě pouze ve vývojovém (Development) prostředí:
+Následující vzorový kód z `Startup` třídy nakonfiguruje aplikaci tak, aby poskytovala podrobné informace o chybách pouze v případě, že běží ve vývoji:
 
 [!code-csharp[](index/snapshots/2.x/Startup2.cs?highlight=3-6)]
 
-Další informace najdete v tématu <xref:fundamentals/environments>.
+Další informace naleznete v tématu <xref:fundamentals/environments>.
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 ASP.NET Core podporuje API pro protokolování, které funguje s množstvím zabudovaných poskytovatelů protokolování a poskytovatelů třetích stran. Mezi dostupné poskytovatele patří:
 
 * Konzola
-* Ladit
+* Ladění
 * Trasování událostí ve Windows
 * Protokol událostí systému Windows
 * TraceSource
 * Azure App Service
 * Azure Application Insights
 
-Zapisujte do protokolu kdekoli v kódu vaší aplikace voláním patřičných metod objektu `ILogger`, který je možné získat pomocí vkládání závislostí.
+Zápis protokolů z libovolného místa v kódu aplikace získáním `ILogger` objektu z DI a volání metod protokolu.
 
-Zde je ukázkový kód, který používá objekt `ILogger`, se zvýrazněním konstruktorového vkládání a protokolovacích metod.
+Zde je ukázkový kód, který používá objekt `ILogger`, s vkládáním konstruktoru a volání metody protokolování zvýrazněné.
 
 [!code-csharp[](index/snapshots/2.x/TodoController.cs?highlight=5,13,17)]
 
-Rozhraní `ILogger` umožňuje předat libovolný počet polí poskytovateli protokolování. Pole se běžně používají pro konstrukci textu protokolovací zprávy, ale poskytovatel je může také odesílat odděleně do úložiště dat. Tato funkce umožňuje poskytovatelům protokolování implementovat [sémantické protokolování, označované také jako strukturované protokolování](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).
+Rozhraní `ILogger` umožňuje předat poskytovateli protokolování libovolný počet polí. Pole se běžně používají pro konstrukci textu protokolovací zprávy, ale poskytovatel je může také odesílat odděleně do úložiště dat. Tato funkce umožňuje poskytovatelům protokolování implementovat [sémantické protokolování, označované také jako strukturované protokolování](https://softwareengineering.stackexchange.com/questions/312197/benefits-of-structured-logging-vs-basic-logging).
 
-Další informace najdete v tématu <xref:fundamentals/logging/index>.
+Další informace naleznete v tématu <xref:fundamentals/logging/index>.
 
 ## <a name="routing"></a>Směrování
 
-*Trasa* (route) je vzor adresy URL, který je namapovaný na obslužnou rutinu. Obslužnou rutinou je obvykle stránka Razor, metoda akce v MVC kontroleru nebo middleware. Směřování ASP.NET Core Vám umožňuje kontrolovat adresy URL používané Vaší aplikací.
+*Trasa* je vzor URL, který je namapován na obslužnou rutinu. Obslužnou rutinou je obvykle stránka Razor, metoda akce v MVC kontroleru nebo middleware. Směřování ASP.NET Core Vám umožňuje kontrolovat adresy URL používané Vaší aplikací.
 
-Další informace najdete v tématu <xref:fundamentals/routing>.
+Další informace naleznete v tématu <xref:fundamentals/routing>.
 
 ## <a name="error-handling"></a>Zpracování chyb
 
@@ -236,21 +236,21 @@ ASP.NET Core obsahuje integrované funkce pro zpracování chyb, jako napříkla
 * Statické stránky chybových kódů
 * Zpracování výjimek při spuštění
 
-Další informace najdete v tématu <xref:fundamentals/error-handling>.
+Další informace naleznete v tématu <xref:fundamentals/error-handling>.
 
 ## <a name="make-http-requests"></a>Vytváření požadavků HTTP
 
-Implementace `IHttpClientFactory` je k dispozici pro vytváření instancí `HttpClient`. Objekt pro vytváření (Factory):
+Pro vytváření instancí `HttpClient` je k dispozici implementace `IHttpClientFactory`. Objekt pro vytváření (Factory):
 
-* Poskytuje centrální místo pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Například *github* klient může být zaregistrován a nakonfigurován tak, aby přistupoval ke GitHubu. Výchozí klient může být zaregistrován k jiným účelům.
+* Poskytuje centrální umístění pro pojmenovávání a konfiguraci logických `HttpClient` instancí. Můžete například zaregistrovat klienta *GitHubu* a nakonfigurovat ho pro přístup k GitHubu. Výchozí klient může být zaregistrován k jiným účelům.
 * Podporuje registraci a řetězení více delegujících obslužných rutin k vytvoření middlewarového kanálu požadavků. Tento návrhový vzor je podobný příchozímu middlewarovému kanálu v ASP.NET Core. Tento návrhový vzor poskytuje mechanismus pro implementaci průřezových zodpovědností kolem HTTP požadavků, včetně ukládání do mezipaměti, zpracování chyb, serializace a protokolování.
-* Se integruje s *Polly*, oblíbenou knihovnou třetí strany pro zpracování přechodných chyb.
-* Spravuje sdružování a životní cyklus instancí `HttpClientMessageHandler`, aby zabránil častým problémům s DNS, ke kterým dochází při manuální správě životnosti `HttpClient`.
-* Přidává konfigurovatelné protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů, které jsou vytvořeny objektem pro vytváření (Factory).
+* Integruje se s *Polly*oblíbenou knihovnou třetích stran pro zpracování přechodného selhání.
+* Spravuje sdružování a životnost základních instancí `HttpClientMessageHandler`, aby nedocházelo k běžným problémům služby DNS, ke kterým dochází při ruční správě `HttpClient` životního cyklu.
+* Přidá konfigurovatelné prostředí protokolování (prostřednictvím `ILogger`) pro všechny požadavky odeslané prostřednictvím klientů vytvořených pomocí továrny.
 
-Další informace najdete v tématu <xref:fundamentals/http-requests>.
+Další informace naleznete v tématu <xref:fundamentals/http-requests>.
 
-## <a name="content-root"></a>Kořenový adresář obsahu
+## <a name="content-root"></a>Kořen obsahu
 
 Kořen obsahu je základní cesta k:
 
@@ -271,17 +271,17 @@ Během vývoje:
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Alternativní cestu k kořenovému obsahu lze zadat při [sestavování hostitele](#host). Další informace najdete v tématu <xref:fundamentals/host/generic-host#contentrootpath>.
+Alternativní cestu k kořenovému obsahu lze zadat při [sestavování hostitele](#host). Další informace naleznete v tématu <xref:fundamentals/host/generic-host#contentrootpath>.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Alternativní cestu k kořenovému obsahu lze zadat při [sestavování hostitele](#host). Další informace najdete v tématu <xref:fundamentals/host/web-host#content-root>.
+Alternativní cestu k kořenovému obsahu lze zadat při [sestavování hostitele](#host). Další informace naleznete v tématu <xref:fundamentals/host/web-host#content-root>.
 
 ::: moniker-end
 
-## <a name="web-root"></a>Kořen webu
+## <a name="web-root"></a>Kořenový adresář webu
 
 Kořenový adresář webu je základní cesta k souborům statických prostředků bez kódu, jako je například:
 
@@ -293,7 +293,7 @@ Statické soubory jsou obsluhovány ve výchozím nastavení pouze z kořenovéh
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Kořenová cesta webu je ve výchozím nastavení *{root Content}/wwwroot*, ale při [sestavování hostitele](#host)je možné zadat jiný webový kořenový adresář. Další informace najdete v tématu <xref:fundamentals/host/generic-host#webroot>.
+Kořenová cesta webu je ve výchozím nastavení *{root Content}/wwwroot*, ale při [sestavování hostitele](#host)je možné zadat jiný webový kořenový adresář. Další informace naleznete v tématu <xref:fundamentals/host/generic-host#webroot>.
 
 ::: moniker-end
 
@@ -319,4 +319,4 @@ Pokud chcete zabránit publikování prostředků statických identit do kořeno
 
 V souborech Razor ( *. cshtml*) směřuje vlnové lomítko (`~/`) do kořenového adresáře webu. Cesta začínající na `~/` je označována jako *virtuální cesta*.
 
-Další informace najdete v tématu <xref:fundamentals/static-files>.
+Další informace naleznete v tématu <xref:fundamentals/static-files>.

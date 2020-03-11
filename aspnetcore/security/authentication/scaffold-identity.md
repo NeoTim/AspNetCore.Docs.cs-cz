@@ -8,15 +8,15 @@ ms.custom: mvc
 ms.date: 01/15/2020
 uid: security/authentication/scaffold-identity
 ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972035"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663868"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>Identita uživatelského rozhraní v ASP.NET Corech projektech
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -261,7 +261,7 @@ Podobný přístup je možné vyřídit v produkčních scénářích.
 
 Pokud chcete zabránit publikování prostředků statických identit do kořenového adresáře webu, přečtěte si téma <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Změny ověřovacího kódu na ASP.NET Core 2,1 a novější](xref:migration/20_21#changes-to-authentication-code)
 
@@ -501,7 +501,7 @@ Následující osnovy kódu přidávají uživatele:
 
 Podobný přístup je možné vyřídit v produkčních scénářích.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Změny ověřovacího kódu na ASP.NET Core 2,1 a novější](xref:migration/20_21#changes-to-authentication-code)
 

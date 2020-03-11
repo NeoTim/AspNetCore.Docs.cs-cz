@@ -2,8 +2,8 @@
 
 | Parametr               | Popis|
 | ----------------- | ------------ |
-| -m  | Název modelu. |
-| – DC  | Třída `DbContext`, která se má použít |
+| -m  | Název modelu |
+| -dc  | Třída `DbContext`, která se má použít |
 | – UDL | Použijte výchozí rozložení. |
 | – outDir | Relativní cesta k výstupní složce pro vytvoření zobrazení |
 | --referenceScriptLibraries | Přidá `_ValidationScriptsPartial` k úpravám a vytváření stránek. |

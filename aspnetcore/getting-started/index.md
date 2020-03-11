@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/07/2020
 uid: getting-started
-ms.openlocfilehash: 4f7e67e1e422afe3f7e2970e0c40380f065390ac
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 047fd7a74d3d53f68a730d67b63c65fe6bda529f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928319"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658464"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
-V tomto kurzu se dozvíte, jak pomocí .NET Core CLI vytvořit a spustit webovou aplikaci ASP.NET Core.
+V tomto kurzu se dozvíte, jak vytvořit a spustit webovou aplikaci ASP.NET Core pomocí .NET Core CLI.
 
-Naučíte se:
+Dozvíte se, jak provést tyto akce:
 
 > [!div class="checklist"]
 > * Vytvořte projekt webové aplikace.
@@ -29,7 +29,7 @@ Na konci budete mít na svém místním počítači spuštěnou funkční webovo
 
 ![Domovská stránka webové aplikace](_static/home-page.png)
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [!INCLUDE[](~/includes/3.1-SDK.md)]
 
@@ -50,7 +50,7 @@ Předchozí příkaz:
 
 Důvěřovat vývojovému certifikátu HTTPS:
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ```dotnetcli
 dotnet dev-certs https --trust
@@ -62,7 +62,7 @@ Předchozí příkaz zobrazí následující dialog:
 
 Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, vyberte **Ano** .
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 ```dotnetcli
 dotnet dev-certs https --trust
@@ -74,7 +74,7 @@ Předchozí příkaz zobrazí následující zprávu:
 
 Tento příkaz vás může vyzvat k zadání hesla pro instalaci certifikátu do systémového řetězce klíčů. Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, zadejte své heslo.
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 Informace o tom, jak důvěřovat certifikátu vývoje HTTPS, najdete v dokumentaci k distribuci systému Linux.
 

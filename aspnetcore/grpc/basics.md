@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 07/03/2019
 uid: grpc/basics
-ms.openlocfilehash: 8d99d036fd4b00fc4568e67ea5225dc006dea4b1
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 59257449e211ddf9c7faa5f21a3986caba4eebc6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71925178"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664204"
 ---
 # <a name="grpc-services-with-c"></a>gRPC Services s využitím C\#
 
@@ -33,6 +33,7 @@ Předpokládejme například, že soubor *....* je použit v části Začínáme
 * `SayHello` odesílá zprávu `HelloRequest` a obdrží zprávu `HelloReply`:
 
 [!code-protobuf[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Protos/greet.proto)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 ## <a name="add-a-proto-file-to-a-c-app"></a>Přidání souboru... a do aplikace\# v jazyce C
 
@@ -76,7 +77,7 @@ Podobně je atribut nastaven na `Client` v klientských projektech.
 
 [!INCLUDE[](~/includes/gRPCazure.md)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:grpc/index>
 * <xref:tutorials/grpc/grpc-start>

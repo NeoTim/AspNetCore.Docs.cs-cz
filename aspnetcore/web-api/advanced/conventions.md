@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: web-api/advanced/conventions
-ms.openlocfilehash: 2c7e33da24322504fc5e1be83c0b814710186687
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: d49b51d11d3f14d0c3edbe1765d74fd63e3ac061
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881320"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657750"
 ---
 # <a name="use-web-api-conventions"></a>Použití konvencí webového rozhraní API
 
@@ -29,7 +29,7 @@ ASP.NET Core MVC 2,2 a novější zahrnuje sadu výchozích konvencí v <xref:Mi
 
 V době běhu <xref:Microsoft.AspNetCore.Mvc.ApiExplorer> pochopení konvencí. `ApiExplorer` je abstrakce MVC ke komunikaci s [openapi](https://www.openapis.org/) (označovanými také jako Swagger) generátory dokumentů. Atributy z použité konvence jsou spojeny s akcí a jsou obsaženy v dokumentaci k OpenAPI akce. [Analyzátory rozhraní API](xref:web-api/advanced/analyzers) také pochopit konvence. Pokud je vaše akce nepostupná (například vrátí stavový kód, který není dokumentován v použité konvenci), zobrazí se upozornění, které vám umožní zdokumentovat stavový kód.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/conventions/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/advanced/conventions/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="apply-web-api-conventions"></a>Použít konvence webového rozhraní API
 
@@ -110,7 +110,7 @@ V předchozím příkladu:
 * Možnost `Microsoft.AspNetCore.Mvc.ApiExplorer.ApiConventionNameMatchBehavior.Prefix` použitá pro metodu označuje, že konvence odpovídá jakékoli akci s předponou "Find". Mezi příklady akcí pro porovnání patří `Find`, `FindPet`a `FindById`.
 * `Microsoft.AspNetCore.Mvc.ApiExplorer.ApiConventionNameMatchBehavior.Suffix` použité pro parametr označuje, že konvence odpovídá metodám s přesně jedním parametrem končícím identifikátorem přípony. Příklady zahrnují parametry jako `id` nebo `petId`. `ApiConventionTypeMatch` lze obdobně použít u typů k omezení typu parametru. Argument `params[]` označuje zbývající parametry, které nemusejí být explicitně spárovány.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:web-api/advanced/analyzers>
 * <xref:tutorials/web-api-help-pages-using-swagger>

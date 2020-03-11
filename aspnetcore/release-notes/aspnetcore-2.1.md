@@ -8,12 +8,12 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: 57fe6c4e32ad666987c782fac75ddb19e3d3b5c7
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: af5807b782d4acec8c7d40111dc508dfa6127057
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829137"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667543"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>Co je nového v ASP.NET Core 2,1
 
@@ -77,7 +77,7 @@ V produkčním prostředí musí být HTTPS explicitně nakonfigurovaný. V 2,1 
 
 ## <a name="gdpr"></a>GDPR
 
-ASP.NET Core poskytuje rozhraní API a šablony, které vám pomůžou splnit některé z požadavků [EU na obecné nařízení o ochraně osobních údajů (GDPR)](https://www.eugdpr.org/) . Další informace najdete v tématu [Podpora GDPR v ASP.NET Core](xref:security/gdpr). [Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample) ukazuje, jak použít a umožňuje testovat většinu GDPRch bodů rozšíření a rozhraní API přidaných do šablon ASP.NET Core 2,1.
+ASP.NET Core poskytuje rozhraní API a šablony, které vám pomůžou splnit některé z požadavků [EU na obecné nařízení o ochraně osobních údajů (GDPR)](https://www.eugdpr.org/) . Další informace najdete v tématu [Podpora GDPR v ASP.NET Core](xref:security/gdpr). [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/gdpr/sample) ukazuje, jak použít a umožňuje testovat většinu GDPRch bodů rozšíření a rozhraní API přidaných do šablon ASP.NET Core 2,1.
 
 ## <a name="integration-tests"></a>Integrační testy
 
@@ -147,7 +147,7 @@ Další informace najdete v tématu [obecný hostitel .NET](xref:fundamentals/ho
 
 Úhlová šablona je založena na úhlů CLI a šablony s reakce jsou založené na aplikaci Create-reagují-App.
 
-Další informace najdete v části .
+Další informace naleznete v tématu:
 
 * <xref:spa/angular>
 * <xref:spa/react>
@@ -169,7 +169,7 @@ Razor Pages nyní podporují [oblasti](xref:mvc/controllers/areas). Pokud chcete
 
 Metoda <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
 
-Další informace najdete v tématu <xref:mvc/compatibility-version>.
+Další informace naleznete v tématu <xref:mvc/compatibility-version>.
 
 ## <a name="migrate-from-20-to-21"></a>Migrace z 2,0 na 2,1
 

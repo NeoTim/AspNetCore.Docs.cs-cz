@@ -1,41 +1,39 @@
 ---
 title: Trvalé další deklarace identity a tokeny od externích zprostředkovatelů v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Naučte se vytvářet další deklarace identity a tokeny od externích poskytovatelů.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/15/2019
 uid: security/authentication/social/additional-claims
-ms.openlocfilehash: 44b3e72085e6265319b53b548f7f7ddde2adbd14
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 9dfe5745125e34ed813d078529471a0ba2a53ab0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828578"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666829"
 ---
 # <a name="persist-additional-claims-and-tokens-from-external-providers-in-aspnet-core"></a>Trvalé další deklarace identity a tokeny od externích zprostředkovatelů v ASP.NET Core
-
-Podle [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 Aplikace ASP.NET Core může navázat další deklarace identity a tokeny od externích zprostředkovatelů ověřování, jako je Facebook, Google, Microsoft a Twitter. Každý zprostředkovatel odhalí různé informace o uživatelích na své platformě, ale vzor pro příjem a transformaci uživatelských dat do dalších deklarací identity je stejný.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-Rozhodněte, které externí zprostředkovatelé ověřování budou v aplikaci podporovat. Pro každého poskytovatele Zaregistrujte aplikaci a Získejte ID klienta a tajný klíč klienta. Další informace najdete v tématu <xref:security/authentication/social/index>. Ukázková aplikace používá [poskytovatele ověřování Google](xref:security/authentication/google-logins).
+Rozhodněte, které externí zprostředkovatelé ověřování budou v aplikaci podporovat. Pro každého poskytovatele Zaregistrujte aplikaci a Získejte ID klienta a tajný klíč klienta. Další informace naleznete v tématu <xref:security/authentication/social/index>. Ukázková aplikace používá [poskytovatele ověřování Google](xref:security/authentication/google-logins).
 
 ## <a name="set-the-client-id-and-client-secret"></a>Nastavení ID klienta a tajného klíče klienta
 
 Zprostředkovatel ověřování OAuth vytvoří vztah důvěryhodnosti s aplikací pomocí ID klienta a tajného klíče klienta. ID klienta a hodnoty tajného klíče klienta jsou vytvořeny pro aplikaci externím zprostředkovatelem ověřování při registraci aplikace u poskytovatele. Každý externí poskytovatel, který aplikace používá, musí být nakonfigurován nezávisle s ID klienta a tajného kódu klienta. Další informace najdete v tématech věnovaném externímu poskytovateli ověřování, které se vztahují k vašemu scénáři:
 
-* [Ověřování Facebooku](xref:security/authentication/facebook-logins)
-* [Ověřování Googlu](xref:security/authentication/google-logins)
+* [Ověřování pomocí Facebooku](xref:security/authentication/facebook-logins)
+* [Ověřování pomocí Googlu](xref:security/authentication/google-logins)
 * [Ověřování Microsoftu](xref:security/authentication/microsoft-logins)
-* [Ověřování Twitteru](xref:security/authentication/twitter-logins)
+* [Ověřování pomocí Twitteru](xref:security/authentication/twitter-logins)
 * [Další zprostředkovatelé ověřování](xref:security/authentication/otherlogins)
 * [OpenIdConnect](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2)
 
@@ -47,11 +45,11 @@ Ukázková aplikace nakonfiguruje poskytovatele ověřování Google pomocí ID 
 
 Zadejte seznam oprávnění, která se mají načíst ze zprostředkovatele, zadáním <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>. V následující tabulce jsou uvedeny obory ověřování pro běžné externí zprostředkovatele.
 
-| Zprostředkovatel  | Obor                                                            |
+| Poskytovatel  | Rozsah                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
-| Síťový | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
+| Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
 V ukázkové aplikaci je obor Google `userinfo.profile` automaticky přidán rozhraním, když je <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> na <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>volána. Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu je přidaný rozsah Google `https://www.googleapis.com/auth/user.birthday.read`, aby bylo možné načíst narozeniny uživatele:
@@ -110,7 +108,7 @@ Rozhraní poskytuje běžné akce a metody rozšíření pro vytváření a při
 
 Uživatelé mohou definovat vlastní akce odvozením z <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> a implementací abstraktních <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*>ch metod.
 
-Další informace najdete v tématu <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>.
+Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>.
 
 ## <a name="removal-of-claim-actions-and-claims"></a>Odebrání akcí a deklarací identity
 
@@ -162,20 +160,20 @@ Authentication Properties
 
 Aplikace ASP.NET Core může navázat další deklarace identity a tokeny od externích zprostředkovatelů ověřování, jako je Facebook, Google, Microsoft a Twitter. Každý zprostředkovatel odhalí různé informace o uživatelích na své platformě, ale vzor pro příjem a transformaci uživatelských dat do dalších deklarací identity je stejný.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/social/additional-claims/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-Rozhodněte, které externí zprostředkovatelé ověřování budou v aplikaci podporovat. Pro každého poskytovatele Zaregistrujte aplikaci a Získejte ID klienta a tajný klíč klienta. Další informace najdete v tématu <xref:security/authentication/social/index>. Ukázková aplikace používá [poskytovatele ověřování Google](xref:security/authentication/google-logins).
+Rozhodněte, které externí zprostředkovatelé ověřování budou v aplikaci podporovat. Pro každého poskytovatele Zaregistrujte aplikaci a Získejte ID klienta a tajný klíč klienta. Další informace naleznete v tématu <xref:security/authentication/social/index>. Ukázková aplikace používá [poskytovatele ověřování Google](xref:security/authentication/google-logins).
 
 ## <a name="set-the-client-id-and-client-secret"></a>Nastavení ID klienta a tajného klíče klienta
 
 Zprostředkovatel ověřování OAuth vytvoří vztah důvěryhodnosti s aplikací pomocí ID klienta a tajného klíče klienta. ID klienta a hodnoty tajného klíče klienta jsou vytvořeny pro aplikaci externím zprostředkovatelem ověřování při registraci aplikace u poskytovatele. Každý externí poskytovatel, který aplikace používá, musí být nakonfigurován nezávisle s ID klienta a tajného kódu klienta. Další informace najdete v tématech věnovaném externímu poskytovateli ověřování, které se vztahují k vašemu scénáři:
 
-* [Ověřování Facebooku](xref:security/authentication/facebook-logins)
-* [Ověřování Googlu](xref:security/authentication/google-logins)
+* [Ověřování pomocí Facebooku](xref:security/authentication/facebook-logins)
+* [Ověřování pomocí Googlu](xref:security/authentication/google-logins)
 * [Ověřování Microsoftu](xref:security/authentication/microsoft-logins)
-* [Ověřování Twitteru](xref:security/authentication/twitter-logins)
+* [Ověřování pomocí Twitteru](xref:security/authentication/twitter-logins)
 * [Další zprostředkovatelé ověřování](xref:security/authentication/otherlogins)
 * [OpenIdConnect](https://github.com/Azure-Samples/active-directory-aspnetcore-webapp-openidconnect-v2)
 
@@ -187,11 +185,11 @@ Ukázková aplikace nakonfiguruje poskytovatele ověřování Google pomocí ID 
 
 Zadejte seznam oprávnění, která se mají načíst ze zprostředkovatele, zadáním <xref:Microsoft.AspNetCore.Authentication.OAuth.OAuthOptions.Scope*>. V následující tabulce jsou uvedeny obory ověřování pro běžné externí zprostředkovatele.
 
-| Zprostředkovatel  | Obor                                                            |
+| Poskytovatel  | Rozsah                                                            |
 | --------- | ---------------------------------------------------------------- |
 | Facebook  | `https://www.facebook.com/dialog/oauth`                          |
 | Google    | `https://www.googleapis.com/auth/userinfo.profile`               |
-| Síťový | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
+| Microsoft | `https://login.microsoftonline.com/common/oauth2/v2.0/authorize` |
 | Twitter   | `https://api.twitter.com/oauth/authenticate`                     |
 
 V ukázkové aplikaci je obor Google `userinfo.profile` automaticky přidán rozhraním, když je <xref:Microsoft.Extensions.DependencyInjection.GoogleExtensions.AddGoogle*> na <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder>volána. Pokud aplikace vyžaduje další obory, přidejte je do možností. V následujícím příkladu je přidaný rozsah Google `https://www.googleapis.com/auth/user.birthday.read`, aby bylo možné načíst narozeniny uživatele:
@@ -250,7 +248,7 @@ Rozhraní poskytuje běžné akce a metody rozšíření pro vytváření a při
 
 Uživatelé mohou definovat vlastní akce odvozením z <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction> a implementací abstraktních <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims.ClaimAction.Run*>ch metod.
 
-Další informace najdete v tématu <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>.
+Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Authentication.OAuth.Claims>.
 
 ## <a name="removal-of-claim-actions-and-claims"></a>Odebrání akcí a deklarací identity
 
@@ -298,6 +296,6 @@ Authentication Properties
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [dotnet/AspNetCore Engineering SocialSample app](https://github.com/dotnet/AspNetCore/tree/master/src/Security/Authentication/samples/SocialSample) &ndash; je propojená ukázková aplikace na `master` technické větvi [úložiště GitHub/AspNetCore](https://github.com/dotnet/AspNetCore) . Větev `master` obsahuje kód v části aktivní vývoj pro další verzi ASP.NET Core. Pokud chcete zobrazit verzi ukázkové aplikace pro vydanou verzi ASP.NET Core, použijte rozevírací seznam **větev** a vyberte větev vydané verze (například `release/{X.Y}`).

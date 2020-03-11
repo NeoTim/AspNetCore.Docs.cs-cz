@@ -6,12 +6,12 @@ ms.author: riande
 ms.date: 12/18/2018
 ms.custom: mvc, seodec18
 uid: security/authorization/secure-data
-ms.openlocfilehash: 65c72d4dd457f85451796c5713bedebafec7a7de
-ms.sourcegitcommit: 8157e5a351f49aeef3769f7d38b787b4386aad5f
+ms.openlocfilehash: 7710a8965771db02e601dafb7da752906bcd43e5
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/20/2019
-ms.locfileid: "74239837"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659577"
 ---
 # <a name="create-an-aspnet-core-app-with-user-data-protected-by-authorization"></a>Vytvoření aplikace ASP.NET Core s uživatelskými daty chráněnými autorizací
 
@@ -19,7 +19,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Jan Audette](https://twit
 
 ::: moniker range="<= aspnetcore-1.1"
 
-Podívejte se na [Tento PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) pro ASP.NET Core verzi MVC. Verze tohoto kurzu ASP.NET Core 1,1 je v [této](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data) složce. Ukázka 1,1 ASP.NET Core je v [ukázkách](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2).
+Podívejte se na [Tento PDF](https://webpifeed.blob.core.windows.net/webpifeed/Partners/asp.net_repo_pdf_1-16-18.pdf) pro ASP.NET Core verzi MVC. Verze tohoto kurzu ASP.NET Core 1,1 je v [této](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data) složce. Ukázka 1,1 ASP.NET Core je v [ukázkách](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/final2).
 
 ::: moniker-end
 
@@ -69,11 +69,11 @@ Ukázka obsahuje následující rutiny autorizace:
 * `ContactManagerAuthorizationHandler`: umožňuje správcům schvalovat nebo odmítat kontakty.
 * `ContactAdministratorsAuthorizationHandler`: umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 V tomto kurzu je advanced. Měli byste se seznámit s:
 
-* [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
+* [Jádro ASP.NET](xref:tutorials/first-mvc-app/start-mvc)
 * [Ověřování](xref:security/authentication/identity)
 * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
 * [Autorizace](xref:security/authorization/introduction)
@@ -81,11 +81,11 @@ V tomto kurzu je advanced. Měli byste se seznámit s:
 
 ## <a name="the-starter-and-completed-app"></a>Starter a dokončené aplikace
 
-[Stáhněte](xref:index#how-to-download-a-sample) [dokončenou](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) aplikaci. [Otestujte](#test-the-completed-app) dokončenou aplikaci, abyste se seznámili se svými funkcemi zabezpečení.
+[Stáhněte](xref:index#how-to-download-a-sample) [dokončenou](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) aplikaci. [Otestujte](#test-the-completed-app) dokončenou aplikaci, abyste se seznámili se svými funkcemi zabezpečení.
 
 ### <a name="the-starter-app"></a>Úvodní aplikaci
 
-[Stáhněte](xref:index#how-to-download-a-sample) si [úvodní](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) aplikaci.
+[Stáhněte](xref:index#how-to-download-a-sample) si [úvodní](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) aplikaci.
 
 Spusťte aplikaci, klepněte na odkaz **ContactManager** a ověřte, že můžete vytvořit, upravit a odstranit kontakt.
 
@@ -267,7 +267,7 @@ Model stránky podrobnosti aktualizace:
 
 ## <a name="add-or-remove-a-user-to-a-role"></a>Přidat nebo odebrat uživatele k roli
 
-Informace o [tomto problému najdete zde](https://github.com/aspnet/AspNetCore.Docs/issues/8502) :
+Informace o [tomto problému najdete zde](https://github.com/dotnet/AspNetCore.Docs/issues/8502) :
 
 * Odebrání oprávnění uživatele. Například ztlumení uživatele v aplikaci chatu.
 * Přidání oprávnění pro uživatele.
@@ -355,7 +355,7 @@ Pokud dojde k chybě s příkazem `dotnet aspnet-codegenerator razorpage`, pře�
 
 ### <a name="seed-the-database"></a>Přidání dat do databáze
 
-Do složky *data* přidejte třídu [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs) :
+Do složky *data* přidejte třídu [SeedData](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter3/Data/SeedData.cs) :
 
 [!code-csharp[](secure-data/samples/starter3/Data/SeedData.cs)]
 
@@ -405,11 +405,11 @@ Ukázka obsahuje následující rutiny autorizace:
 * `ContactManagerAuthorizationHandler`: umožňuje správcům schvalovat nebo odmítat kontakty.
 * `ContactAdministratorsAuthorizationHandler`: umožňuje správcům schvalovat nebo odmítat kontakty a upravovat nebo odstraňovat kontakty.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 V tomto kurzu je advanced. Měli byste se seznámit s:
 
-* [ASP.NET Core](xref:tutorials/first-mvc-app/start-mvc)
+* [Jádro ASP.NET](xref:tutorials/first-mvc-app/start-mvc)
 * [Ověřování](xref:security/authentication/identity)
 * [Potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)
 * [Autorizace](xref:security/authorization/introduction)
@@ -417,11 +417,11 @@ V tomto kurzu je advanced. Měli byste se seznámit s:
 
 ## <a name="the-starter-and-completed-app"></a>Starter a dokončené aplikace
 
-[Stáhněte](xref:index#how-to-download-a-sample) [dokončenou](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) aplikaci. [Otestujte](#test-the-completed-app) dokončenou aplikaci, abyste se seznámili se svými funkcemi zabezpečení.
+[Stáhněte](xref:index#how-to-download-a-sample) [dokončenou](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples) aplikaci. [Otestujte](#test-the-completed-app) dokončenou aplikaci, abyste se seznámili se svými funkcemi zabezpečení.
 
 ### <a name="the-starter-app"></a>Úvodní aplikaci
 
-[Stáhněte](xref:index#how-to-download-a-sample) si [úvodní](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) aplikaci.
+[Stáhněte](xref:index#how-to-download-a-sample) si [úvodní](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/) aplikaci.
 
 Spusťte aplikaci, klepněte na odkaz **ContactManager** a ověřte, že můžete vytvořit, upravit a odstranit kontakt.
 
@@ -603,7 +603,7 @@ Model stránky podrobnosti aktualizace:
 
 ## <a name="add-or-remove-a-user-to-a-role"></a>Přidat nebo odebrat uživatele k roli
 
-Informace o [tomto problému najdete zde](https://github.com/aspnet/AspNetCore.Docs/issues/8502) :
+Informace o [tomto problému najdete zde](https://github.com/dotnet/AspNetCore.Docs/issues/8502) :
 
 * Odebrání oprávnění uživatele. Například ztlumení uživatele v aplikaci chatu.
 * Přidání oprávnění pro uživatele.
@@ -678,7 +678,7 @@ Vytvoření kontaktu v prohlížeči na správce. Zkopírujte adresu URL pro ods
 
 ### <a name="seed-the-database"></a>Přidání dat do databáze
 
-Do složky *data* přidejte třídu [SeedData](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs) .
+Do složky *data* přidejte třídu [SeedData](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/secure-data/samples/starter2.1/Data/SeedData.cs) .
 
 Volat `SeedData.Initialize` z `Main`:
 
@@ -690,7 +690,7 @@ Otestujte, že aplikace naplnila databázi. Pokud existují nějaké řádky v k
 
 <a name="secure-data-add-resources-label"></a>
 
-### <a name="additional-resources"></a>Další zdroje informací:
+### <a name="additional-resources"></a>Další zdroje
 
 * [Vytvoření webové aplikace .NET Core a SQL Database v Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
 * [ASP.NET Core autorizačního prostředí](https://github.com/blowdart/AspNetAuthorizationWorkshop). Toto testovací prostředí obsahuje větší podrobnosti o funkcích zabezpečení v tomto kurzu.

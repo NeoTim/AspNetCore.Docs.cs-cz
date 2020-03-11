@@ -10,22 +10,22 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/server
-ms.openlocfilehash: d87aac02137681e62cf8f5cbd4dc8b0be6f8431e
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.openlocfilehash: 61030f9b5beb849a7cf03571da425e49b144994c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146300"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663350"
 ---
-# <a name="secure-aspnet-core-opno-locblazor-server-apps"></a>Zabezpečené ASP.NET Core Blazor serverových aplikací
+# <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečené ASP.NET Core aplikace serveru Blazor
 
 [Javier Calvarro Nelson](https://github.com/javiercn)
 
-aplikace Blazor serveru přijímají *stavový* model zpracování dat, ve kterém server a klient udržují dlouhotrvající relaci. Trvalý stav je udržován [okruhem](xref:blazor/state-management), který může zahrnovat připojení, která jsou také potenciálně dlouhodobá.
+Serverové aplikace Blazor přijímají *stavový* model zpracování dat, ve kterém server a klient udržují dlouhotrvající relaci. Trvalý stav je udržován [okruhem](xref:blazor/state-management), který může zahrnovat připojení, která jsou také potenciálně dlouhodobá.
 
-Když uživatel navštíví lokalitu serveru Blazor, Server vytvoří okruh v paměti serveru. Okruh indikuje prohlížeči, který obsah se má vykreslit a reagovat na události, například když uživatel vybere tlačítko v uživatelském rozhraní. Chcete-li provést tyto akce, okruh vyvolá funkce JavaScriptu v prohlížeči uživatele a metodách .NET na serveru. Tato obousměrná interakce založená na jazyce JavaScript je označována jako zprostředkovatel [komunikace JavaScript (zprostředkovatel komunikace js)](xref:blazor/javascript-interop).
+Když uživatel navštíví web serveru Blazor, vytvoří server okruh v paměti serveru. Okruh indikuje prohlížeči, který obsah se má vykreslit a reagovat na události, například když uživatel vybere tlačítko v uživatelském rozhraní. Chcete-li provést tyto akce, okruh vyvolá funkce JavaScriptu v prohlížeči uživatele a metodách .NET na serveru. Tato obousměrná interakce založená na jazyce JavaScript je označována jako zprostředkovatel [komunikace JavaScript (zprostředkovatel komunikace js)](xref:blazor/call-javascript-from-dotnet).
 
-Vzhledem k tomu, že interoperabilita JS probíhá přes Internet a klient používá vzdálený prohlížeč, Blazor serverových aplikací sdílí většinu otázek zabezpečení webových aplikací. Toto téma popisuje běžné hrozby pro Blazor serverových aplikací a poskytuje pokyny pro zmírnění hrozeb zaměřené na internetové aplikace.
+Vzhledem k tomu, že interoperabilita JS probíhá přes Internet a klient používá vzdálený prohlížeč, aplikace Blazor serveru sdílí většinu otázek zabezpečení webových aplikací. Toto téma popisuje běžné hrozby pro Blazor serverové aplikace a poskytuje pokyny pro zmírnění hrozeb zaměřené na internetové aplikace.
 
 V omezených prostředích, jako jsou v podnikových sítích nebo intranetech, se jedná o některé pokyny k omezení rizik:
 
@@ -36,27 +36,27 @@ V omezených prostředích, jako jsou v podnikových sítích nebo intranetech, 
 
 K vyčerpání prostředků může dojít, když klient komunikuje se serverem a způsobí, že Server spotřebovává nadměrné prostředky. Nadměrné využití prostředků primárně ovlivňuje:
 
-* [CPU](#cpu)
-* [Paměť](#memory)
+* [VČETNĚ](#cpu)
+* [Rezident](#memory)
 * [Připojení klientů](#client-connections)
 
 Útoky DoS (Denial of Service) obvykle hledají vyčerpání prostředků aplikace nebo serveru. Vyčerpání prostředků ale nemusí být nutně výsledkem útoku na systém. Například omezené prostředky je možné vyčerpat z důvodu vysoké poptávky uživatelů. V části věnované [útokům DOS (Denial of Service)](#denial-of-service-dos-attacks) se systém DOS podrobněji zabývá.
 
-Prostředky, které jsou externí pro Blazor Framework, jako jsou databáze a obslužné rutiny souborů (slouží ke čtení a zápisu souborů), můžou taky vyčerpat prostředky. Další informace najdete v tématu <xref:performance/performance-best-practices>.
+Prostředky, které jsou externí pro Blazor Framework, jako jsou databáze a obslužné rutiny souborů (slouží ke čtení a zápisu souborů), můžou taky vyčerpat prostředky. Další informace naleznete v tématu <xref:performance/performance-best-practices>.
 
 ### <a name="cpu"></a>Procesor
 
 K vyčerpání procesoru může dojít v případě, že jeden nebo více klientů vynutí, aby server prováděl náročné fungování procesoru.
 
-Představte si třeba Blazor serverovou aplikaci, která vypočítá *Fibonnacci číslo*. Fibonnacci číslo je vytvořeno z Fibonnacci sekvence, kde každé číslo v sekvenci je součet dvou předcházejících čísel. Množství práce potřebné k dosažení odpovědi závisí na délce sekvence a na velikosti počáteční hodnoty. Pokud aplikace neumístí omezení na požadavky klienta, mohou výpočty náročné na procesor poznamenat čas procesoru a snížit výkon dalších úloh. Nadměrné využití prostředků je zabezpečení, které má vliv na dostupnost.
+Představte si třeba aplikaci Blazor Server, která vypočítá *Fibonnacci číslo*. Fibonnacci číslo je vytvořeno z Fibonnacci sekvence, kde každé číslo v sekvenci je součet dvou předcházejících čísel. Množství práce potřebné k dosažení odpovědi závisí na délce sekvence a na velikosti počáteční hodnoty. Pokud aplikace neumístí omezení na požadavky klienta, mohou výpočty náročné na procesor poznamenat čas procesoru a snížit výkon dalších úloh. Nadměrné využití prostředků je zabezpečení, které má vliv na dostupnost.
 
-Vyčerpání výkonu procesoru je obavou pro všechny veřejné aplikace. V běžných webových aplikacích jsou požadavky a připojení vyprší jako ochrana, ale aplikace Blazor Server neposkytují stejné záruky. aplikace Blazor serveru musí před provedením práce náročné na procesor zahrnovat vhodné kontroly a omezení.
+Vyčerpání výkonu procesoru je obavou pro všechny veřejné aplikace. V běžných webových aplikacích jsou požadavky a připojení vyprší jako ochrana, ale aplikace Blazor Server neposkytují stejné záruky. Serverové aplikace Blazor musí před provedením práce náročné na procesor zahrnovat vhodné kontroly a omezení.
 
-### <a name="memory"></a>Paměť
+### <a name="memory"></a>Memory (Paměť)
 
 K vyčerpání paměti může dojít v případě, že jeden nebo více klientů vynutí Server, aby využíval velké množství paměti.
 
-Zvažte například Blazoraplikace na straně serveru s komponentou, která přijímá a zobrazuje seznam položek. Pokud Blazor aplikace neumístí omezení počtu povolených položek nebo počet položek, které se vrátí klientovi, může zpracování a vykreslování náročné na paměť podmístit paměť serveru do bodu, ve kterém výkon serveru utrpí. Server může způsobit selhání nebo zpomalit bod, na kterém se zdá, že došlo k chybě.
+Představte si třeba aplikaci Blazor-Server s komponentou, která přijímá a zobrazuje seznam položek. Pokud aplikace Blazor neumístí omezení na počet povolených položek nebo počet položek, které se vrátí klientovi, může zpracování a vykreslování náročné na paměť podmístit paměť serveru do bodu, ve kterém výkon serveru utrpí. Server může způsobit selhání nebo zpomalit bod, na kterém se zdá, že došlo k chybě.
 
 Při údržbě a zobrazování seznamu položek, které se vztahují k potenciálnímu scénáři vyčerpání paměti na serveru, vezměte v úvahu následující scénář:
 
@@ -66,9 +66,9 @@ Při údržbě a zobrazování seznamu položek, které se vztahují k potenciá
   * Zobrazí se pouze prvních 100 až 1 000 položek a vyžaduje, aby uživatel zadal kritéria hledání, aby vyhledal položky nad zobrazenými položkami.
   * Pro pokročilejší scénář vykreslování implementujte seznamy nebo mřížky podporující *virtualizaci*. Pomocí virtualizace vykreslí pouze podmnožinu položek, které jsou aktuálně viditelné uživateli. Když uživatel pracuje s posuvníkem v uživatelském rozhraní, komponenta vykreslí pouze ty položky, které jsou nutné k zobrazení. Položky, které nejsou aktuálně požadovány k zobrazení, lze uchovávat v sekundárním úložišti, což je ideální přístup. Nezobrazené položky je také možné uchovávat v paměti, což je méně ideální.
 
-aplikace Blazor serveru nabízejí podobný programovací model pro jiné architektury uživatelského rozhraní pro stavové aplikace, jako je WPF, model Windows Forms nebo Blazor WebAssembly. Hlavním rozdílem je to, že v několika rozhraních uživatelského rozhraní paměť spotřebovaná aplikací patří klientovi a ovlivňuje pouze jednotlivé klienty. Například aplikace Blazor WebAssembly běží zcela na klientovi a používá pouze prostředky paměti klienta. Ve scénáři Blazor serveru aplikace patří do serveru a sdílí se mezi klienty v instanci serveru.
+Aplikace serveru Blazor nabízejí podobný programovací model pro jiné architektury uživatelského rozhraní pro stavové aplikace, jako je WPF, model Windows Forms nebo Blazor WebAssembly. Hlavním rozdílem je to, že v několika rozhraních uživatelského rozhraní paměť spotřebovaná aplikací patří klientovi a ovlivňuje pouze jednotlivé klienty. Například aplikace Blazor WebAssembly běží zcela na klientovi a používá pouze prostředky paměti klienta. Ve scénáři serveru Blazor je paměť spotřebovaná aplikací součástí serveru a je sdílena mezi klienty v instanci serveru.
 
-Požadavky na paměť na straně serveru jsou zvážené pro všechny Blazor serverové aplikace. Většina webových aplikací je ale Bezstavová a při vrácení odpovědi se uvolní paměť, která se používá při zpracování žádosti. Obecně doporučujeme, abyste klientům nepovolili přidělit nevázanou velikost paměti jako v jakékoli jiné aplikaci na straně serveru, která se zachovává připojení klientů. Paměť spotřebovaná aplikací Blazor serveru trvá déle než jedna žádost.
+Požadavky na paměť na straně serveru jsou zvážené pro všechny aplikace serveru Blazor. Většina webových aplikací je ale Bezstavová a při vrácení odpovědi se uvolní paměť, která se používá při zpracování žádosti. Obecně doporučujeme, abyste klientům nepovolili přidělit nevázanou velikost paměti jako v jakékoli jiné aplikaci na straně serveru, která se zachovává připojení klientů. Paměť spotřebovaná aplikací serveru Blazor zůstává delší dobu než jedna žádost.
 
 > [!NOTE]
 > Během vývoje lze použít Profiler nebo zaznamenané trasování pro vyhodnocení požadavků na paměť klientů. Profiler nebo trasování nezachycuje paměť přidělenou konkrétnímu klientovi. Pokud chcete zachytit využití paměti konkrétního klienta během vývoje, Zachyťte výpis paměti a prověřte požadavky na paměť všech objektů, které jsou v okruhu uživatele rootem.
@@ -77,9 +77,9 @@ Požadavky na paměť na straně serveru jsou zvážené pro všechny Blazor ser
 
 K vyčerpání spojení může dojít, když jeden nebo více klientů otevře příliš mnoho souběžných připojení k serveru, což brání ostatním klientům v navázání nových připojení.
 
-klienti Blazor navážou jedno připojení na relaci a udržují připojení otevřené po dobu, po kterém je okno prohlížeče otevřené. Požadavky na server správy všech připojení nejsou specifické pro Blazor aplikace. Vzhledem k trvalé povaze připojení a stavové povaze aplikací Blazor serveru je vyčerpání spojení větším rizikem k dostupnosti aplikace.
+Blazor klienti navážou jedno připojení na jednu relaci a udržují připojení otevřené po celou dobu, než se otevře okno prohlížeče. Požadavky na server pro udržení všech připojení nejsou specifické pro aplikace Blazor. Vzhledem k trvalé povaze připojení a stavové povaze aplikací serveru Blazor je vyčerpání spojení větším rizikem pro dostupnost aplikace.
 
-Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uživatele pro aplikaci Blazor Server. Pokud aplikace vyžaduje limit připojení, proveďte jednu nebo více následujících přístupů:
+Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uživatele pro aplikaci Blazor serveru. Pokud aplikace vyžaduje limit připojení, proveďte jednu nebo více následujících přístupů:
 
 * Vyžaduje ověření, které přirozeně omezuje možnosti neautorizovaných uživatelů připojit se k aplikaci. Aby byl tento scénář účinný, je nutné uživatelům zabránit v zřizování nových uživatelů.
 * Omezte počet připojení na uživatele. Omezení připojení je možné dosáhnout pomocí následujících přístupů. Dbejte na to, abyste uživatelům povolili přístup k aplikaci (například když je na základě IP adresy klienta vytvořen limit připojení).
@@ -87,22 +87,22 @@ Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uži
     * Rozšiřitelnost směrování koncových bodů.
     * Vyžadovat ověřování pro připojení k aplikaci a sledování aktivních relací na uživatele.
     * Po dosažení limitu zamítnout nové relace.
-    * Proxy připojení WebSocket k aplikaci prostřednictvím proxy serveru, jako je například [Služba Azure SignalR](/azure/azure-signalr/signalr-overview) , která multiplexuje připojení z klientů do aplikace. Tato funkce poskytuje aplikaci s větší kapacitou připojení, než může jeden klient navázat a zabránit klientovi v vyčerpání připojení k serveru.
+    * Proxy připojení WebSocket k aplikaci prostřednictvím proxy serveru, jako je třeba [Služba signalizace Azure](/azure/azure-signalr/signalr-overview) , která multiplexuje připojení z klientů do aplikace. Tato funkce poskytuje aplikaci s větší kapacitou připojení, než může jeden klient navázat a zabránit klientovi v vyčerpání připojení k serveru.
   * Na úrovni serveru: před aplikací použijte proxy server nebo bránu. Například [přední dveře Azure](/azure/frontdoor/front-door-overview) umožňují definovat, spravovat a monitorovat globální směrování webového provozu do aplikace.
 
 ## <a name="denial-of-service-dos-attacks"></a>Útoky DoS (Denial of Service)
 
-Útoky DoS (Denial of Service) zahrnují klienta, který způsobuje, že server vyčerpá jeden nebo víc svých prostředků, takže aplikace nebude k dispozici. Blazor serverové aplikace zahrnují některá výchozí omezení a spoléhají na další ASP.NET Core a SignalR omezení pro ochranu proti útokům DoS:
+Útoky DoS (Denial of Service) zahrnují klienta, který způsobuje, že server vyčerpá jeden nebo víc svých prostředků, takže aplikace nebude k dispozici. Blazor serverové aplikace zahrnují některá výchozí omezení a spoléhají na jiné ASP.NET Core a omezení signálu na ochranu proti útokům DoS:
 
-| omezení aplikace Blazor serveru                            | Popis | Výchozí |
+| Limit aplikace serveru Blazor                            | Popis | Výchozí |
 | ------------------------------------------------------- | ----------- | ------- |
 | `CircuitOptions.DisconnectedCircuitMaxRetained`         | Maximální počet odpojených okruhů, které daný server uchovává v paměti. | 100 |
 | `CircuitOptions.DisconnectedCircuitRetentionPeriod`     | Maximální doba, po kterou je odpojený okruh uložený v paměti předtím, než se rozpustí. | 3 minuty |
-| `CircuitOptions.JSInteropDefaultCallTimeout`            | Maximální doba, po kterou Server počká, než vyprší časový limit asynchronního vyvolání funkce JavaScriptu. | 1 minute |
+| `CircuitOptions.JSInteropDefaultCallTimeout`            | Maximální doba, po kterou Server počká, než vyprší časový limit asynchronního vyvolání funkce JavaScriptu. | 1 minuta |
 | `CircuitOptions.MaxBufferedUnacknowledgedRenderBatches` | Maximální počet nepotvrzených vykreslících vykreslování: Server udržuje paměť na okruh v daném čase pro zajištění podpory robustního opětovného připojení. Po dosažení limitu Server přestane vytvářet nové dávky vykreslování, dokud klient nepotvrdí jednu nebo více dávek. | 10 |
 
 
-| omezení SignalR a ASP.NET Core             | Popis | Výchozí |
+| Omezení signálu a ASP.NET Core             | Popis | Výchozí |
 | ------------------------------------------ | ----------- | ------- |
 | `CircuitOptions.MaximumReceiveMessageSize` | Velikost zprávy pro jednotlivou zprávu | 32 KB |
 
@@ -118,7 +118,7 @@ Klient komunikuje s odesláním a dokončením vykreslování událostí serveru
 Pro volání z metod .NET do JavaScriptu:
 
 * Všechna volání mají konfigurovatelný časový limit, po jehož uplynutí selžou, vrácení <xref:System.OperationCanceledException> volajícímu.
-  * Výchozí časový limit pro volání (`CircuitOptions.JSInteropDefaultCallTimeout`) po jednu minutu. Pokud chcete tento limit nakonfigurovat, přečtěte si téma <xref:blazor/javascript-interop#harden-js-interop-calls>.
+  * Výchozí časový limit pro volání (`CircuitOptions.JSInteropDefaultCallTimeout`) po jednu minutu. Pokud chcete tento limit nakonfigurovat, přečtěte si téma <xref:blazor/call-javascript-from-dotnet#harden-js-interop-calls>.
   * Je možné zadat token zrušení pro řízení zrušení u jednotlivých volání. Spoléhá se na výchozí časový limit volání, kde je to možné, a s časovým limitem pro jakékoli volání klienta, pokud je k dispozici token zrušení.
 * Výsledek volání JavaScriptu nemůže být důvěryhodný. Klient aplikace Blazor spuštěný v prohlížeči vyhledá funkci JavaScriptu, která se má vyvolat. Funkce je vyvolána a výsledek nebo chyba je vytvořena. Zlomyslný klient se může pokusit:
   * Způsobí problém v aplikaci vrácením chyby z funkce JavaScriptu.
@@ -126,7 +126,7 @@ Pro volání z metod .NET do JavaScriptu:
 
 Pro ochranu před předchozími scénáři proveďte následující opatření:
 
-* Zabalte volání interoperability JS v rámci příkazů [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) k účtu k chybám, které mohou nastat během vyvolání. Další informace najdete v tématu <xref:blazor/handle-errors#javascript-interop>.
+* Zabalte volání interoperability JS v rámci příkazů [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) k účtu k chybám, které mohou nastat během vyvolání. Další informace naleznete v tématu <xref:blazor/handle-errors#javascript-interop>.
 * Před provedením jakékoli akce Ověřte data vrácená z volání Interop v JS, včetně chybových zpráv.
 
 ### <a name="net-methods-invoked-from-the-browser"></a>Metody .NET vyvolané z prohlížeče
@@ -348,7 +348,7 @@ Aby mohla existovat ohrožení zabezpečení XSS, musí aplikace na vykreslené 
 
 Jako součást ochrany proti útokům XSS zvažte implementaci zmírnění XSS, jako je například [zásada zabezpečení obsahu (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP).
 
-Další informace najdete v tématu <xref:security/cross-site-scripting>.
+Další informace naleznete v tématu <xref:security/cross-site-scripting>.
 
 ### <a name="cross-origin-protection"></a>Ochrana mezi zdroji
 
@@ -357,7 +357,7 @@ Další informace najdete v tématu <xref:security/cross-site-scripting>.
 * k aplikacím Blazor serveru se dá přihlédnout, pokud nejsou podniknuty další míry, aby se zabránilo. Pokud chcete zakázat přístup pro více zdrojů, buď zakažte CORS v koncovém bodu přidáním middlewaru CORS do kanálu a přidáním `DisableCorsAttribute` do metadat koncového bodu Blazor nebo omezte sadu povolených zdrojů tak, že [nakonfigurujete SignalR pro sdílení prostředků mezi zdroji](xref:signalr/security#cross-origin-resource-sharing).
 * Pokud je CORS povolená, můžou se při ochraně aplikace v závislosti na konfiguraci CORS vyžadovat další kroky. Pokud je CORS povolena globálně, může být CORS pro Blazor serverového centra zakázaná přidáním metadat `DisableCorsAttribute` do metadat koncového bodu po volání `hub.MapBlazorHub()`.
 
-Další informace najdete v tématu <xref:security/anti-request-forgery>.
+Další informace naleznete v tématu <xref:security/anti-request-forgery>.
 
 ### <a name="click-jacking"></a>Kliknutí – zdířka
 
@@ -385,7 +385,7 @@ Tato doporučení platí i při vykreslování odkazů jako součást aplikace:
 * Pokud je to možné, používejte relativní odkazy.
 * Ověřte, zda jsou cíle absolutních odkazů platné, než je zařadíte do stránky.
 
-Další informace najdete v tématu <xref:security/preventing-open-redirects>.
+Další informace naleznete v tématu <xref:security/preventing-open-redirects>.
 
 ## <a name="authentication-and-authorization"></a>Ověřování a autorizace
 

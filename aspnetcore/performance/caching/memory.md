@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: performance/caching/memory
-ms.openlocfilehash: 23acc17c861c203a87b1c113940e7bf42b51e810
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: e01e4a139893297a71aabb1af11b25cf0deb85a9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76972021"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663035"
 ---
 # <a name="cache-in-memory-in-aspnet-core"></a>Mezipaměť v paměti v ASP.NET Core
 
@@ -19,7 +19,7 @@ ms.locfileid: "76972021"
 
 Autor – [Rick Anderson](https://twitter.com/RickAndMSFT), [Jan Luo](https://github.com/JunTaoLuo)a [Steve Smith](https://ardalis.com/)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/3.0sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/3.0sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="caching-basics"></a>Základy ukládání do mezipaměti
 
@@ -180,7 +180,7 @@ Použití <xref:System.Threading.CancellationTokenSource> umožňuje vyřazení 
 * Pomocí <xref:Microsoft.Extensions.Caching.Memory.ICacheEntry.PostEvictionCallbacks> můžete nastavit zpětná volání, která se aktivují po vyřazení položky mezipaměti z mezipaměti.
 * Pro většinu aplikací je `IMemoryCache` povolený. Například volání `AddMvc`, `AddControllersWithViews`, `AddRazorPages`, `AddMvcCore().AddRazorViewEngine`a mnoha dalších `Add{Service}` metod v `ConfigureServices`umožňuje `IMemoryCache`. Pro aplikace, které nevolají jednu z předchozích `Add{Service}` metod, může být nutné volat <xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddMemoryCache*> v `ConfigureServices`.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>
@@ -196,7 +196,7 @@ Použití <xref:System.Threading.CancellationTokenSource> umožňuje vyřazení 
 <!-- This is the 2.1 version -->
 Autor – [Rick Anderson](https://twitter.com/RickAndMSFT), [Jan Luo](https://github.com/JunTaoLuo)a [Steve Smith](https://ardalis.com/)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/memory/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="caching-basics"></a>Základy ukládání do mezipaměti
 
@@ -347,7 +347,7 @@ Použití `CancellationTokenSource` umožňuje vyřazení více položek mezipam
 
 * Pomocí [PostEvictionCallbacks](/dotnet/api/microsoft.extensions.caching.memory.icacheentry.postevictioncallbacks#Microsoft_Extensions_Caching_Memory_ICacheEntry_PostEvictionCallbacks) můžete nastavit zpětná volání, která budou aktivována po vyřazení položky mezipaměti z mezipaměti.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>

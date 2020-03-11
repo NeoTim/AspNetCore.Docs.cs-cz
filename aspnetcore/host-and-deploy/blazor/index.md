@@ -11,13 +11,13 @@ no-loc:
 - SignalR
 uid: host-and-deploy/blazor/index
 ms.openlocfilehash: 238e7fc8f8d64c7847dc8847fb66e22442a3c8e0
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160259"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667151"
 ---
-# <a name="host-and-deploy-aspnet-core-opno-locblazor"></a>Hostování a nasazení ASP.NET Core Blazor
+# <a name="host-and-deploy-aspnet-core-blazor"></a>Hostování a nasazení ASP.NET Core Blazor
 
 Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)
 
@@ -27,13 +27,13 @@ Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.time
 
 Aplikace jsou publikované pro nasazení v konfiguraci vydání.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. V navigačním panelu vyberte **Build** > **publikovat aplikaci {Application}** .
 1. Vyberte *cíl publikování*. Chcete-li publikovat místně, vyberte **Složka**.
 1. Přijměte výchozí umístění v poli **Zvolte složku** nebo zadejte jiné umístění. Vyberte tlačítko **Publikovat**.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 K publikování aplikace s konfigurací vydané verze použijte příkaz [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
 

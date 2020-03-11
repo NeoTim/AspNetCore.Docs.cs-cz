@@ -10,11 +10,11 @@ no-loc:
 - SignalR
 uid: signalr/redis-backplane
 ms.openlocfilehash: 0461fc6a212ba78111bc2054cca74951721c5820
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289042"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661369"
 ---
 # <a name="set-up-a-redis-backplane-for-aspnet-core-opno-locsignalr-scale-out"></a>Nastavení ASP.NET Coreho plánu pro SignalR škálování na více instancí Redis
 
@@ -29,7 +29,7 @@ Tento článek vysvětluje SignalRspecifické aspekty nastavení serveru [Redis]
   > [!IMPORTANT] 
   > Pro produkční použití se doporučuje Redisý plán, který je spuštěný ve stejném datovém centru jako aplikace SignalR. V opačném případě latence sítě snižuje výkon. Pokud je vaše aplikace SignalR spuštěná v cloudu Azure, doporučujeme místo plánu Redise použít službu Azure SignalR. Službu Azure Redis Cache můžete použít pro vývojová a testovací prostředí.
 
-  Další informace naleznete v následujících materiálech:
+  Další informace najdete v následujících zdrojích:
 
   * <xref:signalr/scale>
   * [Dokumentace k Redis](https://redis.io/)
@@ -226,7 +226,7 @@ services.AddSignalR()
 
 ## <a name="next-steps"></a>Další kroky
 
-Další informace naleznete v následujících materiálech:
+Další informace najdete v následujících zdrojích:
 
 * <xref:signalr/scale>
 * [Dokumentace k Redis](https://redis.io/documentation)

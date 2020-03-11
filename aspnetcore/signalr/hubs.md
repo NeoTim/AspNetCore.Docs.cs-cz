@@ -9,32 +9,32 @@ ms.date: 01/16/2020
 no-loc:
 - SignalR
 uid: signalr/hubs
-ms.openlocfilehash: e5bc12c5ccafe2b5273d72e6bde0f631ca043428
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: 54ffd8614c1cec4cfeba0878e910ed25fc6ba7d2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/21/2020
-ms.locfileid: "76294630"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662951"
 ---
-# <a name="use-hubs-in-opno-locsignalr-for-aspnet-core"></a>Použít centra v SignalR pro ASP.NET Core
+# <a name="use-hubs-in-signalr-for-aspnet-core"></a>Používat centra v nástroji Signal pro ASP.NET Core
 
 Od [Rachel Appel](https://twitter.com/rachelappel) a [Kevin Griffin](https://twitter.com/1kevgriff)
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ ) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubs/sample/ ) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="what-is-a-opno-locsignalr-hub"></a>Co je centrum SignalR
+## <a name="what-is-a-signalr-hub"></a>Co je centrum signálů
 
-Rozhraní API centra SignalR umožňuje volat metody v připojených klientech ze serveru. V kódu serveru definujete metody, které jsou volány klientem. V kódu klienta definujete metody, které jsou volány ze serveru. SignalR postará o vše na pozadí, které umožňuje komunikaci mezi klientem a serverem v reálném čase.
+Rozhraní API centra signalizace umožňuje volat metody v připojených klientech ze serveru. V kódu serveru definujete metody, které jsou volány klientem. V kódu klienta definujete metody, které jsou volány ze serveru. Signál se stará o vše na pozadí, které umožňuje komunikaci mezi klientem a serverem od klientů po straně klienta.
 
-## <a name="configure-opno-locsignalr-hubs"></a>Konfigurovat centra SignalR
+## <a name="configure-signalr-hubs"></a>Konfigurovat centra signalizace
 
-Middleware SignalR vyžaduje některé služby, které jsou nakonfigurované voláním `services.AddSignalR`.
+Middleware signálu vyžaduje některé služby, které jsou nakonfigurované voláním `services.AddSignalR`.
 
 [!code-csharp[Configure service](hubs/sample/startup.cs?range=38)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Při přidávání SignalRch funkcí do aplikace ASP.NET Core instalační program SignalR trasy voláním `endpoint.MapHub` v `Startup.Configure`m zpětném volání metody `app.UseEndpoints`.
+Při přidávání funkce signalizace do aplikace ASP.NET Core instalační program směruje trasy voláním `endpoint.MapHub` ve zpětném volání `app.UseEndpoints` metody `Startup.Configure`.
 
 ```csharp
 app.UseRouting();
@@ -48,7 +48,7 @@ app.UseEndpoints(endpoints =>
 
 ::: moniker range="<= aspnetcore-2.2"
 
-Při přidávání SignalRch funkcí do aplikace ASP.NET Core instalační program SignalR trasy voláním `app.UseSignalR` v metodě `Startup.Configure`.
+Při přidávání funkce signalizace do aplikace ASP.NET Core instalační program směruje trasy voláním `app.UseSignalR` v metodě `Startup.Configure`.
 
 [!code-csharp[Configure routes to hubs](hubs/sample/startup.cs?range=57-60)]
 
@@ -68,7 +68,7 @@ public class ChatHub : Hub
 }
 ```
 
-Můžete zadat návratový typ a parametry, včetně složitých typů a polí, stejně jako v libovolné C# metodě. SignalR zpracovává serializaci a deserializaci komplexních objektů a polí ve vašich parametrech a návratových hodnotách.
+Můžete zadat návratový typ a parametry, včetně složitých typů a polí, stejně jako v libovolné C# metodě. Signal zpracovává serializaci a deserializaci komplexních objektů a polí ve vašich parametrech a návratových hodnotách.
 
 > [!NOTE]
 > Rozbočovače jsou přechodné:
@@ -82,8 +82,8 @@ Třída `Hub` obsahuje vlastnost `Context`, která obsahuje následující vlast
 
 | Vlastnost | Popis |
 | ------ | ----------- |
-| `ConnectionId` | Získá jedinečné ID pro připojení, které přiřadí SignalR. Pro každé připojení existuje jedno ID připojení.|
-| `UserIdentifier` | Získá [identifikátor uživatele](xref:signalr/groups). Ve výchozím nastavení SignalR používá `ClaimTypes.NameIdentifier` z `ClaimsPrincipal` přidruženého k připojení jako identifikátor uživatele. |
+| `ConnectionId` | Získá jedinečné ID pro připojení, které přiřadí signál. Pro každé připojení existuje jedno ID připojení.|
+| `UserIdentifier` | Získá [identifikátor uživatele](xref:signalr/groups). Ve výchozím nastavení používá signál jako identifikátor uživatele `ClaimTypes.NameIdentifier` z `ClaimsPrincipal` přidruženého k tomuto připojení. |
 | `User` | Získá `ClaimsPrincipal` přidružený k aktuálnímu uživateli. |
 | `Items` | Získá kolekci klíč/hodnota, která se dá použít ke sdílení dat v rámci rozsahu tohoto připojení. Data mohou být uložena v této kolekci a budou uchována pro připojení v různých voláních metod rozbočovače. |
 | `Features` | Získá kolekci funkcí dostupných na připojení. Ve většině scénářů teď není tato kolekce potřebná, takže ještě není popsána podrobněji. |
@@ -176,7 +176,7 @@ Přepište virtuální metodu `OnDisconnectedAsync`, aby prováděla akce, když
 
 [!INCLUDE[](~/includes/connectionid-signalr.md)]
 
-## <a name="handle-errors"></a>Ošetření chyb
+## <a name="handle-errors"></a>Zpracování chyb
 
 Výjimky vyvolané ve vašich metodách centra jsou odesílány klientovi, který tuto metodu vyvolal. V klientu jazyka JavaScript vrátí metoda `invoke` [příslib JavaScriptu](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Using_promises). Když klient obdrží chybu s obslužnou rutinou připojenou k Promise pomocí `catch`, je vyvolána a předána jako JavaScriptový objekt `Error`.
 
@@ -197,8 +197,8 @@ Pokud máte výjimečnou podmínku *, kterou chcete* rozšířit na klienta, mů
 > [!NOTE]
 > SignalR odesílá klientovi pouze vlastnost `Message` výjimky. Trasování zásobníku a další vlastnosti výjimky nejsou pro klienta k dispozici.
 
-## <a name="related-resources"></a>Související informační zdroje
+## <a name="related-resources"></a>Související prostředky
 
 * [Úvod do ASP.NET Core SignalR](xref:signalr/introduction)
-* [Klient JavaScriptu](xref:signalr/javascript-client)
+* [Javascriptový klient](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

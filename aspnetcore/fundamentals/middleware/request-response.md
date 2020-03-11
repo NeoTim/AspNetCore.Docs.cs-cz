@@ -7,12 +7,12 @@ ms.author: jukotali
 ms.custom: mvc
 ms.date: 08/29/2019
 uid: fundamentals/middleware/request-response
-ms.openlocfilehash: 5e531c0ce0ed48097054fd81ddc3655a66cc7c5f
-ms.sourcegitcommit: 215954a638d24124f791024c66fd4fb9109fd380
+ms.openlocfilehash: b473fa02e1d23f02bc5d2e15fa54ab7b1dbbb17c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/18/2019
-ms.locfileid: "71081675"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667214"
 ---
 # <a name="request-and-response-operations-in-aspnet-core"></a>Operace žádosti a odpovědi v ASP.NET Core
 
@@ -20,26 +20,27 @@ Od [Justin Kotalik](https://github.com/jkotalik)
 
 Tento článek vysvětluje, jak číst z textu žádosti a zapisovat do těla odpovědi. Při zápisu middlewaru může být vyžadován kód pro tyto operace. Mimo psací middleware není vlastní kód všeobecně nutný, protože operace jsou zpracovávány pomocí MVC a Razor Pages.
 
-Pro tělo žádosti a odpovědi jsou k dispozici dvě abstrakce <xref:System.IO.Stream> : <xref:System.IO.Pipelines.Pipe>a. Pro čtení požadavku [HttpRequest. body](xref:Microsoft.AspNetCore.Http.HttpRequest.Body) je <xref:System.IO.Stream>a `HttpRequest.BodyReader` <xref:System.IO.Pipelines.PipeReader>. Pro zápis odpovědí <xref:System.IO.Stream>je [HttpResponse. tělo](xref:Microsoft.AspNetCore.Http.HttpResponse.Body) a je <xref:System.IO.Pipelines.PipeWriter>a `HttpResponse.BodyWriter` .
+Pro tělo žádosti a odpovědi jsou k dispozici dvě abstrakce: <xref:System.IO.Stream> a <xref:System.IO.Pipelines.Pipe>. Pro čtení požadavku [HttpRequest. body](xref:Microsoft.AspNetCore.Http.HttpRequest.Body) je <xref:System.IO.Stream>a `HttpRequest.BodyReader` je <xref:System.IO.Pipelines.PipeReader>. Pro zápis odpovědí je [HttpResponse. Body](xref:Microsoft.AspNetCore.Http.HttpResponse.Body) <xref:System.IO.Stream>a `HttpResponse.BodyWriter` je <xref:System.IO.Pipelines.PipeWriter>.
 
-Kanály se doporučují přes streamy. Datové proudy můžou být pro některé jednoduché operace jednodušší, ale kanály mají výkonnou výhodu a je možné je ve většině scénářů snadněji používat. ASP.NET Core začne používat kanály místo interního streamování. Příklady:
+[Kanály](/dotnet/standard/io/pipelines) se doporučují přes streamy. Datové proudy můžou být pro některé jednoduché operace jednodušší, ale kanály mají výkonnou výhodu a je možné je ve většině scénářů snadněji používat. ASP.NET Core začne používat kanály místo interního streamování. Příklady obsahují:
 
 * `FormReader`
 * `TextReader`
 * `TextWriter`
 * `HttpResponse.WriteAsync`
 
-Datové proudy nejsou odebírány z rozhraní. Streamy se v rámci .NET i nadále používají a mnoho typů datových proudů nemá ekvivalenty kanálů, `FileStreams` jako `ResponseCompression`jsou a.
+Datové proudy nejsou odebírány z rozhraní. Streamy se v rámci .NET i nadále používají a mnoho typů datových proudů nemá ekvivalenty kanálů, jako je `FileStreams` a `ResponseCompression`.
 
 ## <a name="stream-examples"></a>Příklady streamu
 
 Předpokládejme, že cílem je vytvořit middleware, který přečte celý text žádosti jako seznam řetězců a rozdělí na nové řádky. Implementace jednoduchého datového proudu může vypadat jako v následujícím příkladu:
 
 [!code-csharp[](request-response/samples/3.x/RequestResponseSample/Startup.cs?name=GetListOfStringsFromStream)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 Tento kód funguje, ale došlo k určitým problémům:
 
-* Před připojením k `StringBuilder`, je v příkladu vytvořen jiný řetězec (`encodedString`), který je vyvolán okamžitě. K tomuto procesu dochází pro všechny bajty v datovém proudu, takže výsledkem je dodatečné přidělení paměti velikosti celého textu žádosti.
+* Před připojením k `StringBuilder`je v příkladu vytvořen jiný řetězec (`encodedString`), který je vyvolán okamžitě. K tomuto procesu dochází pro všechny bajty v datovém proudu, takže výsledkem je dodatečné přidělení paměti velikosti celého textu žádosti.
 * Tento příklad přečte celý řetězec před rozdělením na nové řádky. Je efektivnější kontrolovat nové řádky v bajtovém poli.
 
 Tady je příklad, který opravuje některé předchozí problémy:
@@ -48,8 +49,8 @@ Tady je příklad, který opravuje některé předchozí problémy:
 
 Tento předchozí příklad:
 
-* Neukládá do vyrovnávací paměti celý text `StringBuilder` žádosti, pokud neexistují žádné znaky nového řádku.
-* Nevolá `Split` řetězec.
+* Neukládá do vyrovnávací paměti celý text žádosti v `StringBuilder`, pokud neexistují žádné znaky nového řádku.
+* Nevolá `Split` v řetězci.
 
 Stále ale dochází k několika problémům:
 
@@ -66,17 +67,17 @@ Následující příklad ukazuje, jak lze stejný scénář zpracovat pomocí `P
 
 Tento příklad opravuje mnoho problémů, které měly implementace datových proudů:
 
-* Není nutné ukládat vyrovnávací paměť řetězců, protože `PipeReader` zpracovává bajty, které nebyly použity.
+* Není nutné ukládat vyrovnávací paměť řetězců, protože `PipeReader` zpracovává nepoužité Bajty.
 * Zakódované řetězce jsou přímo přidány do seznamu vrácených řetězců.
 * Vytváření řetězců je bez přidělení, kromě paměti využívané řetězcem (s výjimkou `ToArray()` volání).
 
 ## <a name="adapters"></a>Adaptéry
 
-Pro `Body` ajsou`HttpResponse`k dispozici obě vlastnosti i. `BodyReader/BodyWriter` `HttpRequest` Když nastavíte `Body` jiný datový proud, nová sada adaptérů automaticky přizpůsobí každý typ druhé. Pokud nastavíte `HttpRequest.Body` nový datový proud, `HttpRequest.BodyReader` je automaticky nastaven na nový `PipeReader` , který zabalí `HttpRequest.Body`.
+Pro `HttpRequest` a `HttpResponse`jsou k dispozici jak vlastnosti `Body`, tak `BodyReader/BodyWriter`. Když nastavíte `Body` na jiný datový proud, nová sada adaptérů automaticky přizpůsobí každý typ druhé. Pokud `HttpRequest.Body` nastavíte na nový datový proud, `HttpRequest.BodyReader` je automaticky nastaven na nový `PipeReader`, který zabalí `HttpRequest.Body`.
 
 ## <a name="startasync"></a>StartAsync
 
-`HttpResponse.StartAsync`slouží k označení, že záhlaví jsou neupravitelná a ke spouštění `OnStarting` zpětných volání. Při použití Kestrel `StartAsync` jako serveru zavolá před `PipeReader` použitím záruky, že paměť vrácená funkcí `GetMemory` patří do interní <xref:System.IO.Pipelines.Pipe> paměti Kestrel, nikoli z externí vyrovnávací paměti.
+`HttpResponse.StartAsync` slouží k označení, že záhlaví jsou neupravitelná a že se mají spouštět zpětná volání `OnStarting`. Při použití Kestrel jako serveru, volání `StartAsync` před použitím `PipeReader` garantuje, že paměť vrácená `GetMemory` patří do interního <xref:System.IO.Pipelines.Pipe>u Kestrel namísto externí vyrovnávací paměti.
 
 ## <a name="additional-resources"></a>Další zdroje
 

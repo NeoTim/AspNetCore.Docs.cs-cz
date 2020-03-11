@@ -1,32 +1,32 @@
 ---
-title: Neměnnost klíče a nastavení klíče v ASP.NET Core
+title: Klíčová neměnnosti a nastavení klíčů v ASP.NET Core
 author: rick-anderson
-description: Přečtěte si podrobnosti implementace neměnnost klíče na ochranu dat ASP.NET Core API.
+description: Přečtěte si podrobnosti o implementaci rozhraní neměnnosti API pro ochranu dat ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/implementation/key-immutability
 ms.openlocfilehash: 7796cb102c0f6f03809704016fd36b28c7a82438
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898764"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664715"
 ---
-# <a name="key-immutability-and-key-settings-in-aspnet-core"></a>Neměnnost klíče a nastavení klíče v ASP.NET Core
+# <a name="key-immutability-and-key-settings-in-aspnet-core"></a>Klíčová neměnnosti a nastavení klíčů v ASP.NET Core
 
-Po trvalém uložení objektu do záložního úložiště je její znázornění vyřešen navždy. Nová data mohou být přidány do záložního úložiště, ale existující data může nikdy být mutována. Chcete-li zabránit poškození dat je primárním účelem toto chování.
+Jakmile je objekt uložen do záložního úložiště, jeho reprezentace je trvale opravena. Do záložního úložiště je možné přidat nová data, ale stávající data nejdou nikdy provést. Hlavním účelem tohoto chování je zabránit poškození dat.
 
-Důsledkem tohoto chování je, že jakmile klíč je zapsán do záložního úložiště, je neměnný. Jeho vytvoření, aktivace a datum vypršení platnosti může nikdy být změněn, i když můžete odvolat pomocí `IKeyManager`. Kromě toho jeho základní informace o vylepšením, materiál hlavního klíče a šifrování na zbývající vlastnosti jsou také neměnné.
+Jedním z důsledků tohoto chování je, že jakmile se klíč zapíše do záložního úložiště, je neměnné. Data o jejich vytvoření, aktivaci a vypršení platnosti nelze nikdy změnit, i když je lze odvolat pomocí `IKeyManager`. Kromě toho jsou tyto základní informace o algoritmech, materiál hlavních klíčů a šifrování ve vlastnostech REST také neměnné.
 
-Pokud vývojář změní nastavení, která ovlivňuje trvalost klíče, tyto změny se projeví až při příštím klíč generován, buď prostřednictvím explicitní volání konstruktoru `IKeyManager.CreateNewKey` nebo přes data protection systému vlastní [automatické klíč generování](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management) chování. Nastavení, které ovlivňují trvalost klíče jsou následující:
+Pokud vývojář změní jakékoli nastavení, které má vliv na trvalost klíčů, tyto změny začnou platit až do doby, kdy se vygeneruje další klíč, a to buď prostřednictvím explicitního volání `IKeyManager.CreateNewKey` nebo prostřednictvím vlastního [automatického generování klíče](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management) systému ochrany dat. Nastavení, která ovlivňují trvalost klíčů, jsou následující:
 
-* [Výchozí doba platnosti klíče](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management)
+* [Výchozí životnost klíče](xref:security/data-protection/implementation/key-management#data-protection-implementation-key-management)
 
-* [Šifrování klíčů v mechanismu rest](xref:security/data-protection/implementation/key-encryption-at-rest)
+* [Šifrování klíče v mechanismu REST](xref:security/data-protection/implementation/key-encryption-at-rest)
 
-* [Vylepšením informací, které obsahuje daný klíč](xref:security/data-protection/configuration/overview#changing-algorithms-with-usecryptographicalgorithms)
+* [Algoritmy s informacemi obsaženými v klíči](xref:security/data-protection/configuration/overview#changing-algorithms-with-usecryptographicalgorithms)
 
-Pokud budete potřebovat tato nastavení se rozjíždí dříve než Další automatické klíč času se zajištěním provozu, zvažte explicitní volání konstruktoru `IKeyManager.CreateNewKey` k vytvoření nového klíče. Nezapomeňte zadat datem explicitní aktivace ({nyní + 2 dny} je základním pravidlem na nějakou dobu počkat, změnit na dokončení propagace) a datum vypršení platnosti ve volání.
+Pokud potřebujete, aby tato nastavení byla zavedená dříve než při další automatické době provozu, zvažte explicitní volání `IKeyManager.CreateNewKey` pro vynucení vytvoření nového klíče. Nezapomeňte zadat explicitní datum aktivace ({Now + 2 dny} je dobrým pravidlem, které poznáte, aby bylo možné změnit rozšíření) a datum vypršení platnosti volání.
 
 >[!TIP]
-> Všechny aplikace stisknutím úložiště by měl určit stejné nastavení s `IDataProtectionBuilder` metody rozšíření. Vlastnosti trvalý klíč, jinak bude závisí na konkrétní aplikaci, která vyvolá rutiny generování klíčů.
+> Všechny aplikace, které se dotýkají úložiště, by měly určovat stejné nastavení s metodami rozšíření `IDataProtectionBuilder`. V opačném případě budou vlastnosti trvalého klíče závislé na konkrétní aplikaci, která vyvolala rutiny generování klíčů.

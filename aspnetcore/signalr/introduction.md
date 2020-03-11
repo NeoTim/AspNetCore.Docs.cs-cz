@@ -10,11 +10,11 @@ no-loc:
 - SignalR
 uid: signalr/introduction
 ms.openlocfilehash: 635431abf9263c2dff261aea47e6f8324061763f
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829280"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662916"
 ---
 # <a name="introduction-to-aspnet-core-opno-locsignalr"></a>Úvod do ASP.NET Core SignalR
 
@@ -50,7 +50,7 @@ SignalR podporuje následující techniky pro zpracování komunikace v reálné
 
 SignalR automaticky zvolí nejlepší přenosovou metodu, která se nachází v rámci schopností serveru a klienta.
 
-## <a name="hubs"></a>Centra
+## <a name="hubs"></a>Hubs
 
 SignalR používá ke komunikaci mezi klienty a servery *centra* .
 
@@ -58,9 +58,9 @@ Centrum je kanál vysoké úrovně, který umožňuje klientovi a serveru volat 
 
 Centra volají kód na straně klienta odesláním zpráv, které obsahují název a parametry metody na straně klienta. Objekty odeslané jako parametry metody jsou deserializovány pomocí nakonfigurovaného protokolu. Klient se pokusí porovnat název s metodou v kódu na straně klienta. Když klient najde shodu, zavolá metodu a předá jí deserializovaná data parametrů.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Začínáme s SignalR pro ASP.NET Core](xref:tutorials/signalr)
 * [Podporované platformy](xref:signalr/supported-platforms)
 * [Centra](xref:signalr/hubs)
-* [Klient JavaScriptu](xref:signalr/javascript-client)
+* [Javascriptový klient](xref:signalr/javascript-client)

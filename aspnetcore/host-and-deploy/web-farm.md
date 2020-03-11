@@ -1,22 +1,22 @@
 ---
 title: Hostitelská ASP.NET Core ve webové farmě
-author: guardrex
+author: rick-anderson
 description: Naučte se hostovat více instancí ASP.NET Core aplikace se sdílenými prostředky v prostředí webové farmy.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/web-farm
-ms.openlocfilehash: 5c13e9bc4c514f9b42871d55a430265c8ec2da23
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 316c87e5f49593c05991a94cbe5e55d175a49bb3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75951822"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659367"
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>Hostitelská ASP.NET Core ve webové farmě
 
-Od [Luke Latham](https://github.com/guardrex) a [Chris Rossův](https://github.com/Tratcher)
+Autor – [Chris Rossův](https://github.com/Tratcher)
 
 *Webová farma* je skupina dvou nebo více webových serverů (nebo *uzlů*), které hostují více instancí aplikace. Když se požadavky od uživatelů dorazí na webovou farmu, *Nástroj pro vyrovnávání zatížení* distribuuje požadavky do uzlů webové farmy. Vylepšení webových farem:
 
@@ -46,13 +46,13 @@ Když se aplikace škáluje na více instancí, může existovat stav aplikace, 
 
 Ochrana dat a ukládání do mezipaměti vyžaduje konfiguraci pro aplikace nasazené do webové farmy.
 
-### <a name="data-protection"></a>Data Protection
+### <a name="data-protection"></a>Ochrana dat
 
 [ASP.NET Core systém ochrany dat](xref:security/data-protection/introduction) používá aplikace k ochraně dat. Ochrana dat se spoléhá na sadu kryptografických klíčů uložených v rámci *klíčového prstence*. Po inicializaci systému ochrany dat se použije [výchozí nastavení](xref:security/data-protection/configuration/default-settings) , které ukládá klíčová kroužková data místně. V rámci výchozí konfigurace je jedinečný klíč Ring uložený na každém uzlu webové farmy. V důsledku toho každý uzel webové farmy nemůže dešifrovat data zašifrovaná aplikací v jakémkoli jiném uzlu. Výchozí konfigurace není obecně vhodná pro hostování aplikací ve webové farmě. Alternativou k implementaci sdíleného klíčového prstence je vždycky směrovat požadavky uživatelů na stejný uzel. Další informace o konfiguraci systému ochrany dat pro nasazení webových farem najdete v tématu <xref:security/data-protection/configuration/overview>.
 
 ### <a name="caching"></a>Ukládání do mezipaměti
 
-V prostředí webové farmy musí mechanismus ukládání do mezipaměti sdílet položky v mezipaměti napříč uzly webové farmy. Ukládání do mezipaměti musí buď spoléhat na běžnou mezipaměť Redis, sdílenou databázi SQL Server, nebo vlastní implementaci ukládání do mezipaměti, která sdílí položky v mezipaměti napříč webovou farmou. Další informace najdete v tématu <xref:performance/caching/distributed>.
+V prostředí webové farmy musí mechanismus ukládání do mezipaměti sdílet položky v mezipaměti napříč uzly webové farmy. Ukládání do mezipaměti musí buď spoléhat na běžnou mezipaměť Redis, sdílenou databázi SQL Server, nebo vlastní implementaci ukládání do mezipaměti, která sdílí položky v mezipaměti napříč webovou farmou. Další informace naleznete v tématu <xref:performance/caching/distributed>.
 
 ## <a name="dependent-components"></a>Závislé součásti
 
@@ -60,13 +60,13 @@ Následující scénáře nevyžadují další konfiguraci, ale závisejí na te
 
 | Scénář | Závisí na &hellip; |
 | -------- | ------------------- |
-| Ověřování | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématu <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. |
-| Identita | Ověřování a konfigurace databáze.<br><br>Další informace najdete v tématu <xref:security/authentication/identity>. |
-| Relace | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) a ukládání do mezipaměti (viz <xref:performance/caching/distributed>).<br><br>Další informace najdete v tématu [relace a stav aplikace: stav relace](xref:fundamentals/app-state#session-state). |
-| TempData | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) nebo relace (viz [stav relace a aplikace: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [relace a stav aplikace: TempData](xref:fundamentals/app-state#tempdata). |
-| Ochrana proti padělání | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace najdete v tématu <xref:security/anti-request-forgery>. |
+| Ověřování | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématech <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. |
+| Identita | Ověřování a konfigurace databáze.<br><br>Další informace naleznete v tématu <xref:security/authentication/identity>. |
+| Relace | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) a ukládání do mezipaměti (viz <xref:performance/caching/distributed>).<br><br>Další informace najdete v tématu [Správa stavu a relace: stav relace](xref:fundamentals/app-state#session-state). |
+| TempData | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview>) nebo relace (viz [Správa relace a stav: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [Správa stavu a relace: TempData](xref:fundamentals/app-state#tempdata). |
+| Ochrana proti padělání | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématu <xref:security/anti-request-forgery>. |
 
-## <a name="troubleshoot"></a>Řešení problémů
+## <a name="troubleshoot"></a>Řešení potíží
 
 ### <a name="data-protection-and-caching"></a>Ochrana dat a ukládání do mezipaměti
 
@@ -87,9 +87,10 @@ Další informace o konfiguraci ochrany dat pro nasazení webových farem najdet
 
 ## <a name="obtain-data-from-apps"></a>Získání dat z aplikací
 
-Pokud webové serverové farmy můžou reagovat na požadavky, získávat žádosti, připojení a další data z aplikací pomocí vloženého middlewaru terminálu. Další informace a ukázky kódu najdete v tématu <xref:test/troubleshoot#obtain-data-from-an-app>.
+Pokud webové serverové farmy můžou reagovat na požadavky, získávat žádosti, připojení a další data z aplikací pomocí vloženého middlewaru terminálu. Další informace a ukázku kódu naleznete v tématu <xref:test/troubleshoot#obtain-data-from-an-app>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Rozšíření vlastních skriptů pro Windows](/azure/virtual-machines/extensions/custom-script-windows) &ndash; stahuje a spouští skripty na virtuálních počítačích Azure, což je užitečné pro konfiguraci po nasazení a instalaci softwaru.
 * <xref:host-and-deploy/proxy-load-balancer>
+ 

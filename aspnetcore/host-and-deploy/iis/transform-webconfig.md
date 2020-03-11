@@ -1,29 +1,29 @@
 ---
 title: Transformace souboru web.config
-author: guardrex
+author: rick-anderson
 description: Naučte se, jak transformovat soubor Web. config při publikování aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: ef627de70c6aea44962d2187c4d401baab6557ae
-ms.sourcegitcommit: 2388c2a7334ce66b6be3ffbab06dd7923df18f60
+ms.openlocfilehash: 069b9bb516644a1a722235b33d4916460488ebf2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/14/2020
-ms.locfileid: "75952044"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657932"
 ---
 # <a name="transform-webconfig"></a>Transformace souboru web.config
 
-Od [Vijay Ramakrishnan](https://github.com/vijayrkn) a [Luke Latham](https://github.com/guardrex)
+Od [Vijay Ramakrishnan](https://github.com/vijayrkn)
 
 Transformace do souboru *Web. config* lze použít automaticky při publikování aplikace na základě:
 
 * [Konfigurace sestavení](#build-configuration)
-* [Profile](#profile)
+* [Profil](#profile)
 * [Prostředí](#environment)
-* [Vlastní](#custom)
+* [Uživatelská](#custom)
 
 Tyto transformace se vyskytují pro některé z následujících scénářů generování *webu. config* :
 
@@ -180,7 +180,7 @@ Chcete-li zabránit transformaci souboru *Web. config* , nastavte vlastnost MSBu
 dotnet publish /p:IsWebConfigTransformDisabled=true
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Syntaxe transformace Web. config pro nasazení projektu webové aplikace](/previous-versions/dd465326(v=vs.100))
 * [Syntaxe transformace Web. config pro nasazení webového projektu pomocí sady Visual Studio](/previous-versions/aspnet/dd465326(v=vs.110))

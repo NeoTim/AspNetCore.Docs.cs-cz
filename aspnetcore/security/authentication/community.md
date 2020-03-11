@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/28/2019
 uid: security/authentication/community
 ms.openlocfilehash: 68c32515b7d789db86f60cd011632da5c1244c1f
-ms.sourcegitcommit: 16cf016035f0c9acf3ff0ad874c56f82e013d415
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/29/2019
-ms.locfileid: "73034245"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665331"
 ---
 # <a name="community-oss-authentication-options-for-aspnet-core"></a>Možnosti ověřování komunity OSS pro ASP.NET Core
 
@@ -20,7 +20,7 @@ Tato stránka obsahuje otevřené možnosti ověřování zdrojového kódu pro 
 
 Níže uvedený seznam je seřazený podle abecedy.
 
-| Name | Popis |
+| Název | Popis |
 | ---- | ----------- |
 | [AspNet. Security. OpenIdConnect. Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server) | ASOS je serverová architektura nižší úrovně OpenID Connect serveru pro ASP.NET Core a OWIN/Katana. |
 | [Server Gluu](https://gluu.org/) | Enterprise readed, open source software pro identitu, správu přístupu (IAM) a jednotné přihlašování (SSO). Další informace najdete v [dokumentaci k produktu Gluu](https://gluu.org/docs/). |

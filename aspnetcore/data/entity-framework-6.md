@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
 uid: data/entity-framework-6
-ms.openlocfilehash: ace937e72efa2343e50b11d52ebc0a2530505758
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.openlocfilehash: 85cf86dcb22ef94cfc87975abaab176e4f1227d3
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975599"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656385"
 ---
 # <a name="get-started-with-aspnet-core-and-entity-framework-6"></a>Začínáme s ASP.NET Core a Entity Framework 6
 
@@ -23,7 +23,7 @@ Tento článek ukazuje, jak použít Entity Framework 6 v aplikaci ASP.NET Core.
 
 Chcete-li použít Entity Framework 6, projekt musí být zkompilován proti .NET Framework, protože Entity Framework 6 nepodporuje .NET Core. Pokud potřebujete funkce pro více platforem, budete muset upgradovat na [Entity Framework Core](/ef/).
 
-Doporučený způsob použití Entity Framework 6 v aplikaci ASP.NET Core je umístit kontext EF6 a třídy modelu do projektu knihovny tříd, který cílí na úplné rozhraní. Do knihovny tříd přidejte odkaz z projektu ASP.NET Core. Podívejte se na ukázkové [řešení sady Visual Studio s projekty EF6 a ASP.NET Core](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/).
+Doporučený způsob použití Entity Framework 6 v aplikaci ASP.NET Core je umístit kontext EF6 a třídy modelu do projektu knihovny tříd, který cílí na .NET Framework. Do knihovny tříd přidejte odkaz z projektu ASP.NET Core. Podívejte se na ukázkové [řešení sady Visual Studio s projekty EF6 a ASP.NET Core](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/).
 
 EF6 kontext nemůžete vložit do projektu ASP.NET Core, protože projekty .NET Core nepodporují všechny funkce, které EF6 příkazy, jako je třeba *Enable – migrace* .
 
@@ -31,7 +31,7 @@ Bez ohledu na typ projektu, ve kterém najdete kontext EF6, fungují pouze nást
 
 ## <a name="reference-full-framework-and-ef6-in-the-aspnet-core-project"></a>Odkaz na úplné rozhraní a EF6 v projektu ASP.NET Core
 
-Váš projekt ASP.NET Core musí odkazovat na rozhraní .NET Framework a EF6. Například soubor *. csproj* vašeho projektu ASP.NET Core bude vypadat podobně jako v následujícím příkladu (zobrazují se pouze relevantní části souboru).
+Váš projekt ASP.NET Core musí cílit na .NET Framework a odkazovat EF6. Například soubor *. csproj* vašeho projektu ASP.NET Core bude vypadat podobně jako v následujícím příkladu (zobrazují se pouze relevantní části souboru).
 
 [!code-xml[](entity-framework-6/sample/MVCCore/MVCCore.csproj?range=3-9&highlight=2)]
 
@@ -47,7 +47,7 @@ Vzhledem k tomu, že váš kontext EF6 nemá konstruktor bez parametrů, musí v
 
 [!code-csharp[](entity-framework-6/sample/EF6/SchoolContextFactory.cs?name=snippet_IDbContextFactory)]
 
-V tomto ukázkovém kódu `IDbContextFactory` implementace projde pevně zakódovaným připojovacím řetězcem. Toto je připojovací řetězec, který budou používat nástroje příkazového řádku. Chcete-li zajistit, aby knihovna tříd používala stejný připojovací řetězec, jaký používá volající aplikace, budete chtít implementovat strategii. Můžete například získat hodnotu z proměnné prostředí v obou projektech.
+V tomto ukázkovém kódu implementace `IDbContextFactory` projde pevně zakódovaným připojovacím řetězcem. Toto je připojovací řetězec, který budou používat nástroje příkazového řádku. Chcete-li zajistit, aby knihovna tříd používala stejný připojovací řetězec, jaký používá volající aplikace, budete chtít implementovat strategii. Můžete například získat hodnotu z proměnné prostředí v obou projektech.
 
 ## <a name="set-up-dependency-injection-in-the-aspnet-core-project"></a>Nastavení injektáže závislosti v projektu ASP.NET Core
 
@@ -61,22 +61,22 @@ Pak můžete získat instanci kontextu v řadičích do řadičů pomocí DI. K�
 
 ## <a name="sample-application"></a>Ukázková aplikace
 
-Pracovní ukázkovou aplikaci najdete v ukázkovém [řešení sady Visual Studio](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/) , které doprovází tento článek.
+Pracovní ukázkovou aplikaci najdete v [ukázkovém řešení sady Visual Studio](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/entity-framework-6/sample/) , které doprovází tento článek.
 
 Tuto ukázku můžete vytvořit úplně od začátku pomocí následujících kroků v aplikaci Visual Studio:
 
 * Vytvořte řešení.
 
-* **Přidat** > **novou webovou** **aplikaci** Project**Web**ASP.NET Core >  > 
+* **Přidat** > **Nový projekt** > webové aplikace **Web** > **ASP.NET Core**
   * V dialogovém okně Výběr šablony projektu vyberte v rozevíracím seznamu položku rozhraní API a .NET Framework.
 
-* **Přidat** >  >  novou knihovnu tříd pro Windows Project Desktop (.NET Framework) > 
+* **Přidat** > **Nový projekt** > **desktopová knihovna Windows** >  **(.NET Framework)**
 
 * V **konzole správce balíčků** (PMC) pro oba projekty spusťte příkaz `Install-Package Entityframework`.
 
 * V projektu knihovny tříd vytvořte třídy datového modelu a třídu kontextu a implementaci `IDbContextFactory`.
 
-* V PMC pro projekt knihovny tříd spusťte příkazy `Enable-Migrations` a. `Add-Migration Initial` Pokud jste nastavili ASP.NET Core projekt jako spouštěný projekt, přidejte `-StartupProjectName EF6` k těmto příkazům.
+* V PMC pro projekt knihovny tříd spusťte příkazy `Enable-Migrations` a `Add-Migration Initial`. Pokud jste nastavili ASP.NET Core projekt jako spouštěný projekt, přidejte `-StartupProjectName EF6` k těmto příkazům.
 
 * V projektu Core přidejte odkaz na projekt do projektu knihovny tříd.
 

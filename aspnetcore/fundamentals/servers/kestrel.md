@@ -1,22 +1,22 @@
 ---
 title: Implementace webového serveru Kestrel v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Přečtěte si o Kestrel, webovém serveru pro různé platformy pro ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/10/2020
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: d026e1b6fc1a9ecc66014eacb8eb0b46dd9353ec
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 8d96118800c47b2c551726342bf4cfba9671a09e
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171721"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667368"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru Kestrel v ASP.NET Core
 
-Tím, že [Dykstra](https://github.com/tdykstra), [Chris Rossův](https://github.com/Tratcher), [Stephen zastavili](https://twitter.com/halter73)a [Luke Latham](https://github.com/guardrex)
+Díky [Dykstra](https://github.com/tdykstra), [Novák Rossův](https://github.com/Tratcher)a zablokování [Stephen](https://twitter.com/halter73)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -33,7 +33,7 @@ Kestrel podporuje následující scénáře:
 
 Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Core.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
@@ -986,7 +986,7 @@ Kestrel podporuje následující scénáře:
 
 Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Core.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
@@ -1934,7 +1934,7 @@ Kestrel podporuje následující scénáře:
 
 Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Core.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/kestrel/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-kestrel-with-a-reverse-proxy"></a>Kdy použít Kestrel s reverzním proxy serverem
 
@@ -2714,6 +2714,7 @@ Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Ch
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* Při použití soketů UNIX v systému Linux se soket při vypnutí aplikace automaticky neodstraní. Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/aspnetcore/issues/14134).
 * <xref:test/troubleshoot>
 * <xref:security/enforcing-ssl>
 * <xref:host-and-deploy/proxy-load-balancer>

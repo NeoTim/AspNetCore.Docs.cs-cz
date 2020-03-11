@@ -1,3 +1,3 @@
-# <a name="aspnet-core-logging-sample-application"></a>Ukázková aplikace ASP.NET Core protokolování
+# <a name="aspnet-core-logging-sample-application"></a>Ukázková aplikace pro protokolování ASP.NET Core
 
-Tato ukázková aplikace je pro [protokolování aplikace ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/logging/index) článku a zakládají se na ukázku vytvořené pro [první webové rozhraní API pomocí ASP.NET Core MVC](https://docs.microsoft.com/aspnet/core/tutorials/first-web-api) kurzu.
+Tato ukázková aplikace je určena pro ASP.NET Core v článku [protokolování](https://docs.microsoft.com/aspnet/core/fundamentals/logging/index) a je založená na ukázce vytvořeném pro [první webové rozhraní API s](https://docs.microsoft.com/aspnet/core/tutorials/first-web-api) využitím kurzu ASP.NET Core MVC.

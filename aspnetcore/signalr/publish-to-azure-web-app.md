@@ -10,20 +10,20 @@ no-loc:
 - SignalR
 uid: signalr/publish-to-azure-web-app
 ms.openlocfilehash: d03a007ca883b3d0391b848e3e92c90469ee640a
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963923"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661355"
 ---
-# <a name="publish-an-aspnet-core-opno-locsignalr-app-to-azure-app-service"></a>Publikování SignalR aplikace ASP.NET Core do Azure App Service
+# <a name="publish-an-aspnet-core-signalr-app-to-azure-app-service"></a>Publikování aplikace ASP.NET Core Signal pro Azure App Service
 
 Od [Brady gastera](https://twitter.com/bradygaster)
 
 [Azure App Service](/azure/app-service/app-service-web-overview) je platforma [cloud computingu od Microsoftu](https://azure.microsoft.com/) pro hostování webových aplikací, včetně ASP.NET Core.
 
 > [!NOTE]
-> Tento článek popisuje publikování ASP.NET Core SignalR aplikace ze sady Visual Studio. Další informace najdete v tématu [SignalR Service pro Azure](https://azure.microsoft.com/services/signalr-service).
+> Tento článek popisuje publikování aplikace ASP.NET Coreového signálu ze sady Visual Studio. Další informace najdete v tématu [Služba signaler pro Azure](https://azure.microsoft.com/services/signalr-service).
 
 ## <a name="publish-the-app"></a>Publikování aplikace
 
@@ -37,16 +37,16 @@ Tento článek popisuje publikování pomocí nástrojů v aplikaci Visual Studi
 
    Zadejte informace popsané v následující tabulce v dialogovém okně **vytvořit App Service** a vyberte **vytvořit**.
 
-   | Položkami               | Popis |
+   | Položka               | Popis |
    | ------------------ | ----------- |
-   | **Jméno**           | Jedinečný název aplikace |
-   | **Formě**   | Předplatné Azure, které aplikace používá. |
+   | **Název**           | Jedinečný název aplikace |
+   | **Předplatné**   | Předplatné Azure, které aplikace používá. |
    | **Skupina prostředků** | Skupina souvisejících prostředků, ke kterým aplikace patří. |
    | **Plán hostování**   | Cenový tarif webové aplikace |
 
 1. Vyberte **službu Azure SignalR** v rozevíracím seznamu > **Přidat** seznam **závislostí** :
 
-   ![Oblast závislosti zobrazující výběr Azure [! Evřít. Služba NO-LOC (Signal)] v rozevíracím seznamu přidat](publish-to-azure-web-app/_static/signalr-service-dependency.png)
+   oblast ![závislosti zobrazující výběr služby Azure SignalR v rozevíracím seznamu přidat](publish-to-azure-web-app/_static/signalr-service-dependency.png)
 
 1. V dialogovém okně **Azure SignalR Service** vyberte **vytvořit novou instanci služby Azure SignalR** .
 

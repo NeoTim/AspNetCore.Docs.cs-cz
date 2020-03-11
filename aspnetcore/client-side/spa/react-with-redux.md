@@ -1,23 +1,23 @@
 ---
-title: Šablona projektu React s Redux pomocí ASP.NET Core
+title: Použijte šablonu projektu reagující na Redux s ASP.NET Core
 author: SteveSandersonMS
-description: Zjistěte, jak začít pracovat s ASP.NET Core jedné stránky aplikace (SPA) šablona projektu pro React s Reduxem a vytvořit aplikaci react.
+description: Naučte se, jak začít pracovat s ASP.NET Core šablonou projektu s jednou stránkou (SPA) a reagovat s Redux a vytvořit reakci-aplikace.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 02/13/2019
 uid: spa/react-with-redux
 ms.openlocfilehash: ed2e9aea449ddb09fef049a391f40f57452786a8
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900003"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657638"
 ---
-# <a name="use-the-react-with-redux-project-template-with-aspnet-core"></a>Šablona projektu React s Redux pomocí ASP.NET Core
+# <a name="use-the-react-with-redux-project-template-with-aspnet-core"></a>Použijte šablonu projektu reagující na Redux s ASP.NET Core
 
-Aktualizovaná šablona projektu React s Reduxem poskytuje příhodný výchozí bod pro aplikace ASP.NET Core pomocí React, Reduxem, a [vytvořit aplikaci react](https://github.com/facebookincubator/create-react-app) konvence (CRA) k implementaci bohatě vybaveným a na straně klienta uživatelské rozhraní (UI).
+Aktualizovaná šablona projektu reagující na Redux poskytuje pohodlný výchozí bod pro ASP.NET Core aplikace pomocí konvencí reagující, Redux a CRA ( [Create-reagující na aplikace](https://github.com/facebookincubator/create-react-app) ) k implementaci bohatě náročného uživatelského rozhraní (UI) na straně klienta.
 
-S výjimkou příkazu pro vytvoření projektu všechny informace o šabloně React s Redux je stejný jako šablona React. Chcete-li vytvořit tento typ projektu, spusťte `dotnet new reactredux` místo `dotnet new react`. Další informace o funkcích, které jsou společné pro obě šablony založené na React najdete v tématu [React dokumentaci k šabloně](xref:spa/react).
+S výjimkou příkazu pro vytvoření projektu jsou všechny informace o šabloně reagující na Redux stejné jako v šabloně reakce. Chcete-li vytvořit tento typ projektu, spusťte `dotnet new reactredux` místo `dotnet new react`. Další informace o funkcích, které jsou společné pro šablony založené na reakci, najdete v tématu [reakce na šablonu v dokumentaci](xref:spa/react).
 
-Informace o konfiguraci React s Redux dílčí aplikace ve službě IIS najdete v tématu [2.1 šablony ReactRedux: Nelze použít jednostránková aplikace ve službě IIS (aspnet/Šablonování &num;555)](https://github.com/aspnet/Templating/issues/555).
+Informace o konfiguraci podaplikace s příReduxm ve službě IIS najdete v tématu [ReactRedux Template 2,1: ve službě IIS nelze použít Spa (ASPNET/šablonování &num;555)](https://github.com/aspnet/Templating/issues/555).

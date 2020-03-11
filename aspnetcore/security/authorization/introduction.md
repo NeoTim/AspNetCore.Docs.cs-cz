@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/introduction
 ms.openlocfilehash: b5e60b3c256941fff5e54e1a02e077c34c535902
-ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75693866"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660711"
 ---
 # <a name="introduction-to-authorization-in-aspnet-core"></a>Úvod k autorizaci v ASP.NET Core
 
@@ -26,7 +26,7 @@ Další informace o ověřování v ASP.NET Core najdete v tématu <xref:securit
 
 ASP.NET Core Authorization poskytuje jednoduchou, deklarativní [roli](xref:security/authorization/roles) a bohatý model [založený na zásadách](xref:security/authorization/policies) . Autorizace je vyjádřena v požadavcích a obslužné rutiny vyhodnocují deklarace identity uživatele proti požadavkům. Imperativní kontroly můžou být založené na jednoduchých zásadách nebo zásadách, které vyhodnocují identitu uživatele i vlastnosti prostředku, ke kterému se uživatel pokouší získat přístup.
 
-## <a name="namespaces"></a>Jmenné prostory
+## <a name="namespaces"></a>Obory názvů
 
 Autorizační komponenty, včetně atributů `AuthorizeAttribute` a `AllowAnonymousAttribute`, se nacházejí v oboru názvů `Microsoft.AspNetCore.Authorization`.
 

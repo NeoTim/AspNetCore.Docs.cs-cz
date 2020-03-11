@@ -10,11 +10,11 @@ no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
 ms.openlocfilehash: 8830dcf26b58b5f5fdd36b60298e7b365f99bdd9
-ms.sourcegitcommit: 925cdbd94613243f33bc7613a62ea34006219931
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75921294"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655307"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>Vytvoření první aplikace Blazor
 
@@ -99,7 +99,7 @@ Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pom
 
 Direktiva `@page` v horní části souboru *Counter. Razor* určuje, že `Counter` komponenta je koncový bod směrování. Komponenta `Counter` zpracovává požadavky odeslané do `/counter`. Bez direktivy `@page` nezpracovává komponenta směrované požadavky, ale komponentu mohou i nadále používat jiné komponenty.
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 ### <a name="opno-locblazor-server-experience"></a>prostředí serveru Blazor
 

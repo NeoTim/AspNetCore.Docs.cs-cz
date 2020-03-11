@@ -10,31 +10,31 @@ no-loc:
 - SignalR
 uid: signalr/diagnostics
 ms.openlocfilehash: c5bd2ac27f8ca486b0d75aed8439747f72448625
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963849"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660970"
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-opno-locsignalr"></a>Protokolování a diagnostika v ASP.NET Core SignalR
+# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a diagnostika v nástroji ASP.NET Core Signal
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
-Tento článek poskytuje pokyny pro shromažďování diagnostických informací z vaší aplikace ASP.NET Core SignalR, které vám pomůžou při řešení problémů.
+Tento článek poskytuje pokyny pro shromažďování diagnostických informací z aplikace ASP.NET Core Signal, které vám pomůžou při řešení problémů.
 
 ## <a name="server-side-logging"></a>Protokolování na straně serveru
 
 > [!WARNING]
 > Protokoly na straně serveru můžou obsahovat citlivé informace z vaší aplikace. **Nikdy** nezveřejňujte nezpracované protokoly z produkčních aplikací do veřejných fór, jako je GitHub.
 
-Vzhledem k tomu, že SignalR je součástí ASP.NET Core, používá systém protokolování ASP.NET Core. Ve výchozí konfiguraci SignalR protokolovat velmi málo informací, ale to může být nakonfigurováno. Podrobnosti o konfiguraci ASP.NET Core protokolování najdete v dokumentaci k [protokolování ASP.NET Core](xref:fundamentals/logging/index#configuration) .
+Vzhledem k tomu, že je signál, který je součástí ASP.NET Core, používá systém protokolování ASP.NET Core. Ve výchozí konfiguraci Signaler zaznamená velmi málo informací, ale může se nakonfigurovat. Podrobnosti o konfiguraci ASP.NET Core protokolování najdete v dokumentaci k [protokolování ASP.NET Core](xref:fundamentals/logging/index#configuration) .
 
-SignalR používá dvě kategorie protokolovacího nástroje:
+Návěstí používá dvě kategorie protokolovacího nástroje:
 
 * `Microsoft.AspNetCore.SignalR` &ndash; protokolů souvisejících s protokoly hub, aktivací Center, voláním metod a dalšími aktivitami souvisejícími s centrem.
-* `Microsoft.AspNetCore.Http.Connections` &ndash; pro protokoly týkající se přenosů, jako jsou WebSockets, dlouhé cyklické dotazování a serverové události a infrastruktura nízké úrovně SignalR.
+* `Microsoft.AspNetCore.Http.Connections` &ndash; pro protokoly týkající se přenosů, jako jsou WebSockets, dlouhé cyklické dotazování a události odeslané serverem a infrastruktura signalizace nízké úrovně.
 
-Pokud chcete povolit podrobné protokoly z SignalR, nakonfigurujte obě předchozí předpony na úroveň `Debug` v souboru *appSettings. JSON* přidáním následujících položek do dílčí části `LogLevel` v `Logging`:
+Pokud chcete povolit podrobné protokoly ze služby Signal, nakonfigurujte obě předchozí předpony na úroveň `Debug` v souboru *appSettings. JSON* přidáním následujících položek do dílčí části `LogLevel` v `Logging`:
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
@@ -57,7 +57,7 @@ Způsob přístupu ke protokolům na straně serveru závisí na prostředí, ve
 
 ### <a name="as-a-console-app-outside-iis"></a>Jako Konzolová aplikace mimo IIS
 
-Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console-provider) . protokoly SignalR se zobrazí v konzole nástroje.
+Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console-provider) . Protokoly signálu se zobrazí v konzole nástroje.
 
 ### <a name="within-iis-express-from-visual-studio"></a>V rámci IIS Express ze sady Visual Studio
 
@@ -84,7 +84,7 @@ Pokud chcete protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v m
 
 V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta jazyka JavaScript. Nastavením úrovně protokolu na jednu z těchto hodnot povolíte protokolování na této úrovni a všechny úrovně nad ním v tabulce.
 
-| Obsah | Popis |
+| Úroveň | Popis |
 | ----- | ----------- |
 | `None` | Nejsou protokolovány žádné zprávy. |
 | `Critical` | Zprávy indikující selhání v celé aplikaci. |

@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: 7825beba55cefb6236fd8d8e332d030a7e4fc6df
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 21dd8180fe168f81ed68b01f02b81a6264d6e5a6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963891"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667725"
 ---
 # <a name="use-streaming-in-aspnet-core-opno-locsignalr"></a>Použití streamování v ASP.NET Core SignalR
 
@@ -32,7 +32,7 @@ ASP.NET Core SignalR podporuje streamování vrácených hodnot metod serveru. T
 
 ::: moniker-end
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/signalr/streaming/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="set-up-a-hub-for-streaming"></a>Nastavení centra pro streamování
 
@@ -258,7 +258,7 @@ channel.Writer.Complete();
 
 Klienti JavaScriptu volají metody streamování na straně serveru na rozbočovačích s `connection.stream`. Metoda `stream` přijímá dva argumenty:
 
-* Název metody centra V následujícím příkladu je název metody centra `Counter`.
+* Název metody rozbočovače. V následujícím příkladu je název metody centra `Counter`.
 * Argumenty definované v metodě centra V následujícím příkladu jsou argumenty počtem položek datového proudu, které mají být přijímány, a zpoždění mezi položkami datového proudu.
 
 `connection.stream` vrátí `IStreamResult`, který obsahuje metodu `subscribe`. Předejte `IStreamSubscriber` `subscribe` a nastavte `next`, `error`a `complete` zpětná volání pro příjem oznámení z `stream`ho vyvolání.
@@ -298,7 +298,7 @@ Chcete-li ukončit datový proud, zavolejte `subject.complete()`.
 SignalR klient Java používá metodu `stream` k vyvolání metod streamování. `stream` přijímá tři nebo více argumentů:
 
 * Očekávaný typ položek datového proudu.
-* Název metody centra
+* Název metody rozbočovače.
 * Argumenty definované v metodě centra
 
 ```java
@@ -317,5 +317,5 @@ Metoda `stream` v `HubConnection` vrací pozorovatelný typ položky datového p
 
 * [Centra](xref:signalr/hubs)
 * [Klient .NET](xref:signalr/dotnet-client)
-* [Klient JavaScriptu](xref:signalr/javascript-client)
+* [Javascriptový klient](xref:signalr/javascript-client)
 * [Publikování do Azure](xref:signalr/publish-to-azure-web-app)

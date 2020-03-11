@@ -1,26 +1,26 @@
 * `-F|--no-formatting`
 
-  Příznak, jejichž přítomnost potlačí formátování odpovědi HTTP.
+  Příznak, jehož přítomnost potlačuje formátování odpovědi HTTP.
 
 * `-h|--header`
 
-  Nastaví hlavičku požadavku HTTP. Podporují se následující formáty dvě hodnoty:
+  Nastaví hlavičku požadavku HTTP. Podporují se tyto dva formáty hodnot:
 
   * `{header}={value}`
   * `{header}:{value}`
 
 * `--response`
 
-  Určuje soubor, do které by měly být napsány celé odpovědi protokolu HTTP (včetně záhlaví a text). Například, `--response "C:\response.txt"`. Soubor je vytvořen, pokud neexistuje.
+  Určuje soubor, do kterého by se měla zapsat celá odpověď HTTP (včetně hlaviček a textu). například `--response "C:\response.txt"`. Soubor se vytvoří, pokud neexistuje.
 
 * `--response:body`
 
-  Určuje soubor, do které by měly být napsány textu odpovědi HTTP. Například, `--response:body "C:\response.json"`. Soubor je vytvořen, pokud neexistuje.
+  Určuje soubor, do kterého se má zapsat tělo odpovědi HTTP. například `--response:body "C:\response.json"`. Soubor se vytvoří, pokud neexistuje.
 
 * `--response:headers`
 
-  Určuje soubor, do které by měly být napsány hlavičky HTTP odpovědi. Například, `--response:headers "C:\response.txt"`. Soubor je vytvořen, pokud neexistuje.
+  Určuje soubor, do kterého se mají zapsat hlavičky odpovědí HTTP. například `--response:headers "C:\response.txt"`. Soubor se vytvoří, pokud neexistuje.
 
 * `-s|--streaming`
 
-  Příznak, jejichž přítomnost umožňuje vysílání datového proudu odpovědi HTTP.
+  Příznak, jehož přítomnost umožňuje streamování odpovědi HTTP.

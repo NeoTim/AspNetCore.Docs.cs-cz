@@ -6,18 +6,18 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 11/04/2019
 uid: performance/caching/response
-ms.openlocfilehash: ab5d1414ae72edade81ab55aef6b0fa5af30f0f4
-ms.sourcegitcommit: 990a4c2e623c202a27f60bdf3902f250359c13be
+ms.openlocfilehash: 91358e2553d09c5e7366ba7a2301a798ad921d69
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/03/2020
-ms.locfileid: "76971975"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655727"
 ---
 # <a name="response-caching-in-aspnet-core"></a>Ukládání odpovědí do mezipaměti v ASP.NET Core
 
-[Jan Luo](https://github.com/JunTaoLuo), [Rick Anderson](https://twitter.com/RickAndMSFT), [Steve Smith](https://ardalis.com/)a [Luke Latham](https://github.com/guardrex)
+[Jan Luo](https://github.com/JunTaoLuo), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Steve Smith](https://ardalis.com/)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/response/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/response/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Ukládání odpovědí do mezipaměti snižuje počet požadavků, které klient nebo proxy vytvoří na webový server. Ukládání odpovědí do mezipaměti také snižuje množství práce, které webový Server provede k vygenerování odpovědi. Ukládání odpovědí do mezipaměti je řízeno hlavičkami, které určují, jak má klient, proxy a middleware ukládat odpovědi do mezipaměti.
 
@@ -36,14 +36,14 @@ Společné direktivy `Cache-Control` jsou uvedeny v následující tabulce.
 | [public](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | Mezipaměť může ukládat odpověď. |
 | [private](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | Odpověď nesmí být uložena sdílenou mezipamětí. Soukromá mezipaměť může uložit a znovu použít odpověď. |
 | [Maximální stáří](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | Klient nepřijme odpověď, jejíž stáří je větší než zadaný počet sekund. Příklady: `max-age=60` (60 sekund), `max-age=2592000` (1 měsíc) |
-| [no-cache](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **V případě požadavků**: mezipaměť nesmí k uspokojení požadavku použít uloženou odpověď. Zdrojový server znovu vygeneruje odpověď pro klienta a middleware aktualizuje uloženou odpověď v mezipaměti.<br><br>**Na odpovědích**: odpověď nesmí být použita pro následné žádosti bez ověření na zdrojovém serveru. |
+| [No – mezipaměť](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **V případě požadavků**: mezipaměť nesmí k uspokojení požadavku použít uloženou odpověď. Zdrojový server znovu vygeneruje odpověď pro klienta a middleware aktualizuje uloženou odpověď v mezipaměti.<br><br>**Na odpovědích**: odpověď nesmí být použita pro následné žádosti bez ověření na zdrojovém serveru. |
 | [bez uložení](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **V žádostech**: mezipaměť nesmí ukládat požadavek.<br><br>**V odpovědích**: mezipaměť nesmí ukládat žádnou část odpovědi. |
 
 Další hlavičky mezipaměti, které hrají roli v mezipaměti, jsou uvedeny v následující tabulce.
 
-| Záhlaví                                                     | Funkce |
+| Hlavička                                                     | Funkce |
 | ---------------------------------------------------------- | -------- |
-| [Stáří](https://tools.ietf.org/html/rfc7234#section-5.1)     | Odhad doby v sekundách, po jejímž uplynutí byla odpověď generována nebo úspěšně ověřena na zdrojovém serveru. |
+| [Věkem](https://tools.ietf.org/html/rfc7234#section-5.1)     | Odhad doby v sekundách, po jejímž uplynutí byla odpověď generována nebo úspěšně ověřena na zdrojovém serveru. |
 | [Expires](https://tools.ietf.org/html/rfc7234#section-5.3) | Čas, po jehož uplynutí je odpověď považována za zastaralou. |
 | [Pragma](https://tools.ietf.org/html/rfc7234#section-5.4)  | Existuje v případě zpětné kompatibility s mezipamětí HTTP/1.0 pro nastavení chování `no-cache`. Pokud je k dispozici hlavička `Cache-Control`, hlavička `Pragma` se ignoruje. |
 | [Toho](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | Určuje, že odpověď uložená v mezipaměti nesmí být odeslána, pokud všechna `Vary` pole hlaviček neodpovídají v původní žádosti odpovědi v mezipaměti i v novém požadavku. |
@@ -62,25 +62,25 @@ Při použití [middleware pro ukládání odpovědí](xref:performance/caching/
 
 Ukládání do mezipaměti v paměti používá paměť serveru k ukládání dat uložených v mezipaměti. Tento typ ukládání do mezipaměti je vhodný pro jeden server nebo víc serverů pomocí *relací s rychlým cvičením*. Rychlé relace znamenají, že požadavky klienta jsou vždycky směrovány na stejný server ke zpracování.
 
-Další informace najdete v tématu <xref:performance/caching/memory>.
+Další informace naleznete v tématu <xref:performance/caching/memory>.
 
 ### <a name="distributed-cache"></a>Distribuovaná mezipaměť
 
 Pomocí distribuované mezipaměti můžete ukládat data v paměti, když je aplikace hostovaná v cloudové nebo serverové farmě. Mezipaměť se sdílí mezi servery, které zpracovávají požadavky. Klient může odeslat žádost, která je zpracována jakýmkoli serverem ve skupině, pokud jsou k dispozici data uložená v mezipaměti pro klienta. ASP.NET Core pracuje s mezipamětí SQL Server, [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)a [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) distribuované mezipaměti.
 
-Další informace najdete v tématu <xref:performance/caching/distributed>.
+Další informace naleznete v tématu <xref:performance/caching/distributed>.
 
 ### <a name="cache-tag-helper"></a>Pomocná rutina značky mezipaměti
 
 Ukládání obsahu do mezipaměti v zobrazení MVC nebo na stránce Razor pomocí pomocníka značky mezipaměti. Pomocník značek Cache používá ukládání dat do mezipaměti v paměti.
 
-Další informace najdete v tématu <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>.
+Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>.
 
 ### <a name="distributed-cache-tag-helper"></a>Pomocná rutina značky distribuované mezipaměti
 
 Ukládání obsahu do mezipaměti v zobrazení MVC nebo na stránce Razor v rámci distribuovaného cloudu nebo webové farmy pomocí pomocníka značek distribuované mezipaměti. Pomocný pomocník značek distribuované mezipaměti používá k ukládání dat SQL Server, [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)nebo [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) .
 
-Další informace najdete v tématu <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>.
+Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>.
 
 ## <a name="responsecache-attribute"></a>ResponseCache – atribut
 
@@ -93,7 +93,7 @@ Další informace najdete v tématu <xref:mvc/views/tag-helpers/builtin-th/distr
 
 Aby bylo možné nastavit vlastnost <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys>, musí být povoleno [middleware mezipaměti odpovědí](xref:performance/caching/middleware) . V opačném případě je vyvolána výjimka modulu runtime. Pro vlastnost <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> neexistuje odpovídající hlavička protokolu HTTP. Vlastnost je funkce HTTP, kterou zpracovává middleware pro ukládání odpovědí do mezipaměti. Aby middleware poskytovala odpověď uloženou v mezipaměti, řetězec dotazu a hodnota řetězce dotazu musí odpovídat předchozí žádosti. Zvažte například posloupnost požadavků a výsledků, které jsou uvedeny v následující tabulce.
 
-| Request                          | Výsledek                    |
+| Žádost                          | Výsledek                    |
 | -------------------------------- | ------------------------- |
 | `http://example.com?key1=value1` | Vráceno ze serveru. |
 | `http://example.com?key1=value1` | Vráceno z middlewaru. |
@@ -107,7 +107,7 @@ První požadavek vrací Server a ukládá do mezipaměti v middlewaru. Druhý p
 * Vypíše příslušná záhlaví na základě vlastností nastavených v <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>.
 * Aktualizuje funkci ukládání do mezipaměti odpovědí HTTP, pokud je nastavena <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys>.
 
-### <a name="vary"></a>Toho
+### <a name="vary"></a>toho
 
 Tato hlavička je zapsána pouze v případě, že je nastavena vlastnost <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader>. Vlastnost nastavená na hodnotu vlastnosti `Vary`. Následující příklad používá vlastnost <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader>:
 
@@ -186,10 +186,10 @@ Výsledná hlavička použitá pro odpověď stránky Cache4 profilem mezipamět
 Cache-Control: public,max-age=30
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Ukládání odpovědí do mezipamětí](https://tools.ietf.org/html/rfc7234#section-3)
-* [Cache-Control](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
+* [Řízení mezipaměti](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.9)
 * <xref:performance/caching/memory>
 * <xref:performance/caching/distributed>
 * <xref:fundamentals/change-tokens>

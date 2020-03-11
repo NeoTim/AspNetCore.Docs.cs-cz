@@ -1,1 +1,1 @@
-V je hotová ukázka *dokončit 2.2* složky. *MvcMovie22* vzorek se používá pro dokumentaci a je těžké používat.
+Hotová ukázka je ve složce *2,2-Completed* . Ukázka *MvcMovie22* se používá k dokumentaci a je obtížné ji použít.

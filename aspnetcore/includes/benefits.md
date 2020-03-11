@@ -16,7 +16,7 @@ ASP.NET Core nabízí následující výhody:
   * [SLUŽBU](xref:host-and-deploy/iis/index)
   * [HTTP.sys](xref:fundamentals/servers/httpsys)
   * [Nginx](xref:host-and-deploy/linux-nginx)
-  * [Webový](xref:host-and-deploy/linux-apache)
+  * [Apache](xref:host-and-deploy/linux-apache)
   * [Docker](xref:host-and-deploy/docker/index)
 * [Souběžná Správa verzí](/dotnet/standard/choosing-core-framework-server#a-need-for-side-by-side-of-net-versions-per-application-level).
 * Nabízí nástroje, které usnadňují vývoj moderních webů.

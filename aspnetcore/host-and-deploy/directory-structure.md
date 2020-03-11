@@ -1,22 +1,20 @@
 ---
 title: Struktura ASP.NET Core Directory
-author: guardrex
+author: rick-anderson
 description: Další informace o struktuře adresářů publikované aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: c3c05e6bc461ea4a3bfefa2c7a49d524562f7e5b
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: f7d6feec9961b7f6720d30d457fae5dcb6b34d6c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172257"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664106"
 ---
 # <a name="aspnet-core-directory-structure"></a>Struktura ASP.NET Core Directory
-
-Od [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -30,8 +28,8 @@ Adresář *Publisher* obsahuje nasaditelné prostředky aplikace vytvořené pom
 
 | Typ aplikace | Adresářová struktura |
 | -------- | ------------------- |
-| [Spustitelný soubor závislý na rozhraní (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publikování&dagger;<ul><li>Zobrazení&dagger; aplikace MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; MVC nebo Razor Pages aplikace, pokud nejsou stránky předkompilovány</li><li>&dagger; wwwroot</li><li>*soubory. dll</li><li>{název sestavení}. DEPS. json</li><li>{název sestavení}. dll</li><li>{název sestavení} {. Extension} *. exe* rozšíření v systému Windows, žádné rozšíření na MacOS nebo Linux</li><li>{Assembly Name}. pdb</li><li>{název sestavení}. Views. dll</li><li>{ASSEMBLY NAME}. Zobrazení. pdb</li><li>{název sestavení}. runtimeconfig. JSON</li><li>Web. config (nasazení služby IIS)</li><li>createdump ([Linux createdump Utility](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>* . (Knihovna sdílených objektů Linux)</li><li>*. a (archiv MacOS)</li><li>* . DYLIB (MacOS Dynamic Library)</li></ul></li></ul> |
-| [Samostatně uzavřené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publikování&dagger;<ul><li>Zobrazení&dagger; aplikace MVC, pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; MVC nebo Razor Pages aplikace, pokud nejsou stránky předkompilovány</li><li>&dagger; wwwroot</li><li>soubory *. dll</li><li>{ASSEMBLY NAME}. DEPS. JSON</li><li>{ASSEMBLY NAME}. dll</li><li>{ASSEMBLY NAME}. exe</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ}. Views. dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{ASSEMBLY NAME}. runtimeconfig. JSON</li><li>Web. config (nasazení služby IIS)</li></ul></li></ul> |
+| [Spustitelný soubor závislý na rozhraní (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>publikování&dagger;<ul><li>Zobrazení&dagger; aplikace MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; MVC nebo Razor Pages aplikace, pokud nejsou stránky předkompilovány</li><li>&dagger; wwwroot</li><li>soubory \*. dll</li><li>{ASSEMBLY NAME}. DEPS. JSON</li><li>{ASSEMBLY NAME}. dll</li><li>{NÁZEV SESTAVENÍ} {. Extension} *. exe* rozšíření v systému Windows, žádné rozšíření na MacOS nebo Linux</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ}. Views. dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{ASSEMBLY NAME}. runtimeconfig. JSON</li><li>Web. config (nasazení služby IIS)</li><li>createdump ([Nástroj Linux createdump](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*. (Knihovna sdílených objektů Linux)</li><li>\*. a (archiv macOS)</li><li>\*. DYLIB (dynamická knihovna macOS)</li></ul></li></ul> |
+| [Samostatně uzavřené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>publikování&dagger;<ul><li>Zobrazení&dagger; aplikace MVC, pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; MVC nebo Razor Pages aplikace, pokud nejsou stránky předkompilovány</li><li>&dagger; wwwroot</li><li>soubory \*. dll</li><li>{ASSEMBLY NAME}. DEPS. JSON</li><li>{ASSEMBLY NAME}. dll</li><li>{ASSEMBLY NAME}. exe</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ}. Views. dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{ASSEMBLY NAME}. runtimeconfig. JSON</li><li>Web. config (nasazení služby IIS)</li></ul></li></ul> |
 
 &dagger;označuje adresář.
 

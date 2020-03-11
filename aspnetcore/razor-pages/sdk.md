@@ -10,19 +10,19 @@ no-loc:
 - Blazor
 uid: razor-pages/sdk
 ms.openlocfilehash: 872d90662494735dc0e4caa01c46fcdcc2606bc6
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76809130"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660067"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ## <a name="overview"></a>Přehled
 
-[!INCLUDE[](~/includes/2.1-SDK.md)] Zahrnuje `Microsoft.NET.Sdk.Razor` sady MSBuild SDK (Razor SDK). Razor SDK:
+[!INCLUDE[](~/includes/2.1-SDK.md)] obsahuje sadu `Microsoft.NET.Sdk.Razor` MSBuild SDK (Razor SDK). Razor SDK:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -35,14 +35,14 @@ Sada Razor SDK obsahuje `Content` položky s `Include` atributy nastavené na `*
 
 ::: moniker range="< aspnetcore-3.0"
 
-* Standardizuje prostředí týkající se vytváření, balení a publikování projektů, které obsahují [Razor](xref:mvc/views/razor) souborů pro projekty ASP.NET Core MVC.
+* Standardizace prostředí kolem vytváření, balení a publikování projektů, které obsahují soubory [Razor](xref:mvc/views/razor) pro ASP.NET Core projektů založených na MVC.
 * Obsahuje sadu předdefinovaných cílů, vlastností a položek, které umožňují přizpůsobení kompilace souborech Razor.
 
 Sada Razor SDK obsahuje `Content` položku s atributem `Include` nastaveným na `**\*.cshtml` vzorek expanze. Jsou publikovány vyhovující soubory.
 
 ::: moniker-end
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 [!INCLUDE[](~/includes/2.1-SDK.md)]
 
@@ -60,7 +60,7 @@ Chcete-li použít sadu Razor SDK k sestavení knihoven tříd, které obsahují
 
 Použití sady SDK Razor k vytvoření knihovny tříd obsahující zobrazení syntaxe Razor nebo stránky Razor:
 
-* Použití `Microsoft.NET.Sdk.Razor` místo `Microsoft.NET.Sdk`:
+* Místo `Microsoft.NET.Sdk`použijte `Microsoft.NET.Sdk.Razor`:
 
   ```xml
   <Project SDK="Microsoft.NET.Sdk.Razor">
@@ -68,13 +68,13 @@ Použití sady SDK Razor k vytvoření knihovny tříd obsahující zobrazení s
   </Project>
   ```
 
-* Obvykle, odkaz na balíček pro `Microsoft.AspNetCore.Mvc` se vyžaduje pro příjem Další závislosti, které jsou potřebné k sestavení a kompilace Razor Pages a zobrazeními Razor. Minimálně byste vašeho projektu přidat odkazy na balíčky do:
+* K získání dalších závislostí, které jsou požadovány pro sestavení a kompilaci Razor Pages a zobrazení Razor, je obvykle vyžadován odkaz na balíček `Microsoft.AspNetCore.Mvc`. Minimálně byste vašeho projektu přidat odkazy na balíčky do:
 
   * `Microsoft.AspNetCore.Razor.Design`
   * `Microsoft.AspNetCore.Mvc.Razor.Extensions`
   * `Microsoft.AspNetCore.Mvc.Razor`
 
-  `Microsoft.AspNetCore.Razor.Design` Balíček poskytuje Razor kompilace úlohy a cíle projektu.
+  Balíček `Microsoft.AspNetCore.Razor.Design` poskytuje úlohy a cíle kompilace Razor pro projekt.
 
   Předchozí balíčky jsou součástí `Microsoft.AspNetCore.Mvc`. Následující kód ukazuje soubor projektu, který používá sada Razor SDK k sestavení souborů Razor pro aplikace ASP.NET Core Razor Pages:
 
@@ -85,7 +85,7 @@ Použití sady SDK Razor k vytvoření knihovny tříd obsahující zobrazení s
 ::: moniker range="= aspnetcore-2.1"
 
 > [!WARNING]
-> `Microsoft.AspNetCore.Razor.Design` a `Microsoft.AspNetCore.Mvc.Razor.Extensions` jsou součástí balíčků [Microsoft.AspNetCore.App Microsoft.aspnetcore.all](xref:fundamentals/metapackage-app). Ale bez verze `Microsoft.AspNetCore.App` odkaz na balíček poskytuje Microsoft.aspnetcore.all aplikaci, která neobsahuje nejnovější verzi `Microsoft.AspNetCore.Razor.Design`. Projekty musí odkazovat na konzistentní verzi `Microsoft.AspNetCore.Razor.Design` (nebo `Microsoft.AspNetCore.Mvc`) tak, aby byly zahrnuty nejnovější opravy čas sestavení pro syntaxi Razor. Další informace najdete v tématu [tento problém Githubu](https://github.com/aspnet/Razor/issues/2553).
+> Balíčky `Microsoft.AspNetCore.Razor.Design` a `Microsoft.AspNetCore.Mvc.Razor.Extensions` jsou součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app). Reference k balíčku `Microsoft.AspNetCore.App` bez verze ale obsahuje Metapackage k aplikaci, která neobsahuje nejnovější verzi `Microsoft.AspNetCore.Razor.Design`. Projekty musí odkazovat na konzistentní verzi `Microsoft.AspNetCore.Razor.Design` (nebo `Microsoft.AspNetCore.Mvc`), aby byly zahrnuty nejnovější opravy v době sestavení pro Razor. Další informace najdete v [tomto problému GitHubu](https://github.com/aspnet/Razor/issues/2553).
 
 ::: moniker-end
 
@@ -93,8 +93,8 @@ Použití sady SDK Razor k vytvoření knihovny tříd obsahující zobrazení s
 
 Následující vlastnosti řídit chování sady SDK pro syntaxi Razor jako součást sestavení projektu:
 
-* `RazorCompileOnBuild` &ndash; Když `true`, zkompiluje a vysílá Razor sestavení jako součást sestavení projektu. Výchozí hodnota je `true`.
-* `RazorCompileOnPublish` &ndash; Když `true`, zkompiluje a vysílá Razor sestavení jako součást publikování projektu. Výchozí hodnota je `true`.
+* `RazorCompileOnBuild` &ndash; při `true`kompiluje a generuje sestavení Razor jako součást sestavení projektu. Výchozí hodnota je `true`.
+* `RazorCompileOnPublish` &ndash; při `true`kompiluje a generuje sestavení Razor jako součást publikování projektu. Výchozí hodnota je `true`.
 
 Vlastnosti a položky v následující tabulce se používají ke konfiguraci vstupů a výstupů Razor SDK.
 
@@ -105,7 +105,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 
 ::: moniker-end
 
-| Položky | Popis |
+| Items | Popis |
 | ----- | ----------- |
 | `RazorGenerate` | Prvky položky (soubory *. cshtml* ), které jsou vstupy pro generování kódu. |
 | `RazorComponent` | Prvky položky (soubory *. Razor* ), které jsou vstupy pro generování kódu komponenty Razor. |
@@ -117,16 +117,16 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | -------- | ----------- |
 | `RazorTargetName` | Název souboru (bez přípony) sestavení vytvořené metodou Razor. |
 | `RazorOutputPath` | Výstupní adresář Razor. |
-| `RazorCompileToolset` | Slouží k určení sady nástrojů použitý k vytvoření sestavení Razor. Platné hodnoty jsou `Implicit`, `RazorSDK`, a `PrecompilationTool`. |
-| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | Výchozí hodnota je `true`. Při `true`zahrnuje soubory *Web. config*, *. JSON*a *. cshtml* jako obsah v projektu. Pokud je k dispozici prostřednictvím `Microsoft.NET.Sdk.Web`, soubory pod *wwwroot* a konfigurační soubory jsou zahrnuté také. |
-| `EnableDefaultRazorGenerateItems` | Když `true`, zahrnuje *.cshtml* souborů z `Content` položky v `RazorGenerate` položky. |
-| `GenerateRazorTargetAssemblyInfo` | Když `true`, generuje *.cs* soubor, který obsahuje atributy určené `RazorAssemblyAttribute` a obsahuje soubor ve výstupu kompilace. |
-| `EnableDefaultRazorTargetAssemblyInfoAttributes` | Když `true`, přidá výchozí sadu atributů sestavení, které mají `RazorAssemblyAttribute`. |
-| `CopyRazorGenerateFilesToPublishDirectory` | Když `true`, kopie `RazorGenerate` položky ( *.cshtml*) soubory do adresáře publikovat. Obvykle nejsou publikované aplikace vyžadovat Razor soubory, pokud se účastní v sestavování v době sestavení nebo publikovat čas. Výchozí hodnota je `false`. |
-| `CopyRefAssembliesToPublishDirectory` | Když `true`, zkopírovat odkaz na sestavení položky do adresáře publikovat. Obvykle nejsou publikované aplikace vyžadovat referenční sestavení, dojde v okamžiku sestavení nebo publikovat čas kompilace Razor. Nastavte na `true` Pokud publikované aplikace vyžaduje kompilace modulu runtime. Například nastavte hodnotu na `true` Pokud aplikace změní *.cshtml* soubory za běhu nebo používá vložený zobrazení. Výchozí hodnota je `false`. |
-| `IncludeRazorContentInPack` | Když `true`, všechny položky obsahu Razor ( *.cshtml* soubory) jsou označeny k zahrnutí vygenerovaný balíček NuGet. Výchozí hodnota je `false`. |
-| `EmbedRazorGenerateSources` | Když `true`, přidá RazorGenerate ( *.cshtml*) položky jako vložené soubory do generovaného sestavení Razor. Výchozí hodnota je `false`. |
-| `UseRazorBuildServer` | Když `true`, využívá proces serveru trvalé sestavení přesměrovat pracovní generování kódu. Výchozí hodnota je hodnota `UseSharedCompilation`. |
+| `RazorCompileToolset` | Slouží k určení sady nástrojů použitý k vytvoření sestavení Razor. Platné hodnoty jsou `Implicit`, `RazorSDK`a `PrecompilationTool`. |
+| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | Výchozí hodnota je `true`. Při `true`zahrnuje soubory *Web. config*, *. JSON*a *. cshtml* jako obsah v projektu. Při odkazování prostřednictvím `Microsoft.NET.Sdk.Web`jsou zahrnuty i soubory v souborech *wwwroot* a config. |
+| `EnableDefaultRazorGenerateItems` | Při `true`zahrnuje soubory *. cshtml* z `Content` položek v `RazorGenerate` položkách. |
+| `GenerateRazorTargetAssemblyInfo` | Při `true`vygeneruje soubor *. cs* obsahující atributy určené `RazorAssemblyAttribute` a zahrne soubor do výstupu kompilace. |
+| `EnableDefaultRazorTargetAssemblyInfoAttributes` | Při `true`přidá do `RazorAssemblyAttribute`výchozí sadu atributů sestavení. |
+| `CopyRazorGenerateFilesToPublishDirectory` | Při `true`zkopíruje soubory `RazorGenerate` Items ( *. cshtml*) do adresáře pro publikování. Obvykle nejsou publikované aplikace vyžadovat Razor soubory, pokud se účastní v sestavování v době sestavení nebo publikovat čas. Výchozí hodnota je `false`. |
+| `CopyRefAssembliesToPublishDirectory` | Při `true`zkopírujte položky referenčního sestavení do adresáře pro publikování. Obvykle nejsou publikované aplikace vyžadovat referenční sestavení, dojde v okamžiku sestavení nebo publikovat čas kompilace Razor. Nastavte na `true`, pokud publikovaná aplikace vyžaduje kompilaci modulu runtime. Nastavte například hodnotu `true`, pokud aplikace upravuje soubory *. cshtml* za běhu nebo používá vložená zobrazení. Výchozí hodnota je `false`. |
+| `IncludeRazorContentInPack` | Při `true`jsou všechny položky obsahu Razor (soubory *. cshtml* ) označeny pro zahrnutí do generovaného balíčku NuGet. Výchozí hodnota je `false`. |
+| `EmbedRazorGenerateSources` | Při `true`přidá položky RazorGenerate ( *. cshtml*) jako vložené soubory do vygenerovaného sestavení Razor. Výchozí hodnota je `false`. |
+| `UseRazorBuildServer` | Při `true`používá trvalý proces sestavení serveru pro přesměrování práce generování kódu. Výchozí hodnota je `UseSharedCompilation`. |
 | `GenerateMvcApplicationPartsAssemblyAttributes` | Při `true`generuje sada SDK Další atributy, pomocí kterých MVC za běhu provede zjišťování částí aplikace. |
 | `DefaultWebContentItemExcludes` | Vzor expanze názvů pro prvky položky, které mají být vyloučeny ze skupiny položek `Content` v projektech cílících na web nebo sadu Razor SDK |
 | `ExcludeConfigFilesFromBuildOutput` | Při `true`se soubory *. config* a *. JSON* nekopírují do výstupního adresáře sestavení. |
@@ -139,15 +139,15 @@ Další informace o vlastnostech naleznete v tématu [vlastnosti MSBuild](/visua
 
 Sada Razor SDK definuje dva hlavní cíle:
 
-* `RazorGenerate` &ndash; Generuje kód *.cs* souborů z `RazorGenerate` položky elementy. Vlastnost `RazorGenerateDependsOn` použijte k určení dalších cílů, které mohou být spuštěny před nebo po tomto cíli.
-* `RazorCompile` &ndash; Zkompiluje generované *.cs* soubory v sestavení Razor. Pomocí `RazorCompileDependsOn` můžete určit další cíle, které se dají spustit před nebo po tomto cíli.
+* Kód &ndash; `RazorGenerate` generuje soubory *. cs* z prvků `RazorGenerate` položky. Vlastnost `RazorGenerateDependsOn` použijte k určení dalších cílů, které mohou být spuštěny před nebo po tomto cíli.
+* `RazorCompile` &ndash; kompiluje generované soubory *. cs* v sestavení do sestavení Razor. Pomocí `RazorCompileDependsOn` můžete určit další cíle, které se dají spustit před nebo po tomto cíli.
 * Kód &ndash; `RazorComponentGenerate` generuje soubory *. cs* pro prvky `RazorComponent` položky. Vlastnost `RazorComponentGenerateDependsOn` použijte k určení dalších cílů, které mohou být spuštěny před nebo po tomto cíli.
 
 ### <a name="runtime-compilation-of-razor-views"></a>Kompilace modulu runtime zobrazení Razor
 
-* Ve výchozím nastavení nebude sada Razor SDK publikovat referenční sestavení, které jsou nutné k provedení kompilace modulu runtime. Výsledkem je selhání kompilace při aplikační model využívá kompilace modulu runtime&mdash;například aplikace používá vložený zobrazení nebo změny zobrazení po publikování aplikace. Nastavte `CopyRefAssembliesToPublishDirectory` k `true` můžete pokračovat v publikování referenční sestavení.
+* Ve výchozím nastavení nebude sada Razor SDK publikovat referenční sestavení, které jsou nutné k provedení kompilace modulu runtime. Výsledkem je selhání kompilace, když aplikační model spoléhá na kompilaci modulu runtime&mdash;například aplikace používá vložená zobrazení nebo změny zobrazení po publikování aplikace. Nastavte `CopyRefAssembliesToPublishDirectory` `true` pro pokračování v publikování referenčních sestavení.
 
-* Pro webovou aplikaci, ujistěte se vaše aplikace cílí `Microsoft.NET.Sdk.Web` SDK.
+* V případě webové aplikace se ujistěte, že je vaše aplikace cílena na sadu `Microsoft.NET.Sdk.Web` SDK.
 
 ## <a name="razor-language-version"></a>Verze jazyka Razor
 
@@ -161,7 +161,7 @@ Při cílení na sadu `Microsoft.NET.Sdk.Web` SDK je jazyková verze Razor odvoz
 
 Jazyková verze Razor je úzce integrovaná s verzí modulu runtime, pro který byl sestaven. Cílení na jazykovou verzi, která není navržena pro modul runtime, není podporována a nejspíš generuje chyby sestavení.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Přidání do formátu csproj pro .NET Core](/dotnet/core/tools/csproj)
 * [Společné položky projektu nástroje MSBuild](/visualstudio/msbuild/common-msbuild-project-items)

@@ -1,15 +1,15 @@
 # <a name="aspnet-core-health-check-sample"></a>Ukázka kontroly stavu ASP.NET Core
 
-Tento příklad ukazuje použití metody stavu zkontrolujte Middleware a služby. V této ukázce podle scénáře popsaného v [doplněk pro kontroly stavu v ASP.NET Core](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks) tématu.
+Tato ukázka znázorňuje použití middlewaru a služeb kontroly stavu. Tato ukázka předvádí Scénář popsaný v části [kontroly stavu v ASP.NET Core](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks) tématu.
 
-Chcete-li spustit ukázkovou aplikaci pro scénář popsaný v tématu, použijte [dotnet spustit](https://docs.microsoft.com/dotnet/core/tools/dotnet-run) příkaz ze složky projektu v příkazovém řádku. Předání přepínače pro scénáře, který zkoumáte. Výchozí nastavení aplikace `basic` konfigurace, pokud není k dispozici přepínač na `dotnet run`.
+Chcete-li spustit ukázkovou aplikaci pro scénář popsaný v tématu, použijte příkaz [dotnet Run](https://docs.microsoft.com/dotnet/core/tools/dotnet-run) ze složky projektu v příkazovém prostředí. Předejte přepínač pro scénář, který zkoumáte. Aplikace se nastaví na výchozí konfiguraci `basic`, když není `dotnet run`k dispozici přepínač.
 
 | Scénář                                               | Příkaz ukázkové aplikace               | Popis |
 | ------------------------------------------------------ | -------------------------------- | ----------- |
-| Sonda stavu základní (výchozí)                           | `dotnet run --scenario basic`    | Potvrzuje se tím, že aplikace může zpracovávat požadavky HTTP. |
-| Test databáze                                         | `dotnet run --scenario db`       | Kontroluje se připojení k databázi systému SQL Server. Najdete v článku [databáze sondy](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks#database-probe) tématu pokyny. |
-| Testy připravenosti/aktivity                              | `dotnet run --scenario liveness` | Provádí kontroly stavu živé aplikace (*aktivity*) a připravuje se stanou živé aplikace (*připravenosti*). |
-| Na základě metrik test paměti (paměť) /<br>Zapisovač vlastní odpovědi | `dotnet run --scenario writer`   | Ověří proti využití paměti a zapíše vlastní JSON je zaškrtnuta možnost Stav koncového bodu. |
-| Filtrovat podle portu                                         | `dotnet run --scenario port`     | Filtruje kontroly stavu pro zadaný port. Najdete v článku [filtrovat podle port](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks#filter-by-port) tématu pokyny. |
+| Základní sonda stavu (výchozí)                           | `dotnet run --scenario basic`    | Potvrdí, že aplikace dokáže zpracovat požadavky HTTP. |
+| Test databáze                                         | `dotnet run --scenario db`       | Kontroluje připojení k databázi SQL Server. Pokyny najdete v části [sonda databáze](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks#database-probe) v tématu. |
+| Testy připravenosti/živých                              | `dotnet run --scenario liveness` | Provede kontrolu stavu živé aplikace (*živý*) oproti aplikaci, která se připraví na živý (*připravenost*). |
+| Sonda založená na metrikách (paměť)/<br>vlastní zapisovač odpovědí | `dotnet run --scenario writer`   | Kontroluje použití paměti a zapisuje vlastní JSON při kontrole koncového bodu stavu. |
+| Filtrovat podle portu                                         | `dotnet run --scenario port`     | Filtruje kontroly stavu na daný port. Pokyny najdete v části [Filter by port](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks#filter-by-port) v tématu. |
 
-Scénáře filtrování testu a port databáze vyžadovat dodatečnou konfiguraci. Zobrazit [doplněk pro kontroly stavu](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks) podrobnosti.
+Scénář testu databáze a filtru portů vyžadují další konfiguraci. Podrobnosti najdete v tématu [kontroly stavu](https://docs.microsoft.com/aspnet/core/host-and-deploy/health-checks) .

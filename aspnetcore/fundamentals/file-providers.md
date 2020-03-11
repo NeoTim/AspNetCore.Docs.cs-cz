@@ -1,22 +1,22 @@
 ---
 title: Poskytovatelé souborů v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Přečtěte si, jak ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: fundamentals/file-providers
-ms.openlocfilehash: a454ca394546184968222ca2ca44d7159b19a12a
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 34a48bbcf9ffb20bb61f89c80adedc1cc4783988
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944305"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658786"
 ---
 # <a name="file-providers-in-aspnet-core"></a>Poskytovatelé souborů v ASP.NET Core
 
-[Steve Smith](https://ardalis.com/) a [Luke Latham](https://github.com/guardrex)
+[Steve Smith](https://ardalis.com/)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -27,7 +27,7 @@ ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použi
 * [Razor](xref:mvc/views/razor) používá k vyhledání stránek a zobrazení poskytovatele souborů.
 * Nástroje .NET Core využívají poskytovatele souborů a vzory glob k určení, které soubory se mají publikovat.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="file-provider-interfaces"></a>Rozhraní poskytovatele souborů
 
@@ -93,7 +93,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 Přidejte odkaz na balíček do projektu pro balíček [Microsoft. Extensions. Providers. Embedded](https://www.nuget.org/packages/Microsoft.Extensions.FileProviders.Embedded) .
 
-Chcete-li vygenerovat manifest vložených souborů, nastavte vlastnost `<GenerateEmbeddedFilesManifest>` na hodnotu `true`. Zadejte soubory pro vložení [\<EmbeddedResource](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects):
+Chcete-li vygenerovat manifest vložených souborů, nastavte vlastnost `<GenerateEmbeddedFilesManifest>` na hodnotu `true`. Zadejte soubory pro vložení [>\<EmbeddedResource](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects):
 
 [!code-csharp[](file-providers/samples/3.x/FileProviderSample/FileProviderSample.csproj?highlight=5,13)]
 
@@ -176,7 +176,7 @@ ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použi
 * [Razor](xref:mvc/views/razor) používá k vyhledání stránek a zobrazení poskytovatele souborů.
 * Nástroje .NET Core využívají poskytovatele souborů a vzory glob k určení, které soubory se mají publikovat.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/file-providers/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="file-provider-interfaces"></a>Rozhraní poskytovatele souborů
 

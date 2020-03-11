@@ -10,11 +10,11 @@ no-loc:
 - SignalR
 uid: signalr/scale
 ms.openlocfilehash: 260e2f0c16288fec2e0a694d070f357529782d8d
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
-ms.translationtype: HT
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447331"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78668152"
 ---
 # <a name="aspnet-core-signalr-hosting-and-scaling"></a>Hostování a škálování signalizace ASP.NET Core
 
@@ -42,7 +42,7 @@ Trvalá připojení také využívají určitou další paměť, aby bylo možn�
 
 Těžké používání prostředků souvisejících s připojením pomocí signálů může mít vliv na další webové aplikace, které jsou hostovány na stejném serveru. Když se signál otevře a zobrazí poslední dostupná připojení TCP, další webové aplikace na stejném serveru také nemají k dispozici žádná další připojení.
 
-Pokud server nemá připojení, zobrazí se chyby náhodného soketu a chyby resetování připojení. Například:
+Pokud server nemá připojení, zobrazí se chyby náhodného soketu a chyby resetování připojení. Příklad:
 
 ```
 An attempt was made to access a socket in a way forbidden by its access permissions...
@@ -52,7 +52,7 @@ Aby bylo možné zabránit využití prostředků signalizace v jiných webovýc
 
 Aby bylo možné zabránit využití prostředků signalizace v aplikaci signalizace, nahorizontální navýšení kapacity a omezení počtu připojení, které server musí zpracovat.
 
-## <a name="scale-out"></a>Škálování na více instancí
+## <a name="scale-out"></a>Horizontální navýšení kapacity
 
 Aplikace, která používá signalizaci, musí sledovat všechna připojení, což vytváří problémy pro serverovou farmu. Přidejte server a získá nová připojení, o kterých ostatní servery nevědí. Například signál na každém serveru v následujícím diagramu neznáte připojení na ostatních serverech. Když signál na jednom ze serverů chce poslat zprávu všem klientům, zpráva se dostane jenom na klienty připojené k tomuto serveru.
 

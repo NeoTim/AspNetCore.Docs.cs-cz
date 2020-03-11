@@ -2,7 +2,7 @@
 
 Tato ukázková aplikace ukazuje koncepty popsané v tématu [nahrávání souborů v ASP.NET Core](https://docs.microsoft.com/aspnet/core/mvc/models/file-uploads) .
 
-## <a name="security-considerations"></a>Důležité informace o zabezpečení
+## <a name="security-considerations"></a>Aspekty zabezpečení
 
 Pokud chcete uživatelům poskytnout možnost nahrávat soubory na server, buďte opatrní. Útočníci mohou provádět útoky [s cílem odepření služeb](/windows-hardware/drivers/ifs/denial-of-service) , pokus o nahrání virů nebo malwaru nebo pokus o ohrožení sítí a serverů jinými způsoby.
 
@@ -30,8 +30,8 @@ Bezpečnostní kroky, které snižují pravděpodobnost úspěšného útoku, js
 >
 > Informace o omezení možností útoku, při přijetí soubory od uživatelů najdete v následujících zdrojích:
 >
-> * [Nahrání souboru bez omezení](https://www.owasp.org/index.php/Unrestricted_File_Upload)
-> * [Zabezpečení Azure: Ujistěte se, že odpovídající ovládací prvky jsou na místě při přijetí soubory od uživatelů](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
+> * [Neomezená nahrávání souboru](https://www.owasp.org/index.php/Unrestricted_File_Upload)
+> * [Zabezpečení Azure: Ujistěte se, že jsou při přijímání souborů od uživatelů k dismístě správné ovládací prvky.](/azure/security/azure-security-threat-modeling-tool-input-validation#controls-users)
 
 Další informace najdete v tématu [nahrání souborů v ASP.NET Core](https://docs.microsoft.com/aspnet/core/mvc/models/file-uploads).
 

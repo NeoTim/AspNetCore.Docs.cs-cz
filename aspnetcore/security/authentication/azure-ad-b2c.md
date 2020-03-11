@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 01/21/2019
 uid: security/authentication/azure-ad-b2c
 ms.openlocfilehash: 136fa47788456492a9a7fe6d9d9e5996c13e8c20
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727271"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663658"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Cloudové ověřování pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -130,7 +130,7 @@ services.Configure<JwtBearerOptions>(
     });
 ```
 
-## <a name="run-the-app"></a>Spusťte aplikaci
+## <a name="run-the-app"></a>Spuštění aplikace
 
 V aplikaci Visual Studio stiskněte klávesu **F5** a sestavte a spusťte aplikaci. Po spuštění webové aplikace vyberte **přijmout** a přijměte použití souborů cookie (Pokud se zobrazí výzva) a pak vyberte **Přihlásit**se.
 
@@ -138,7 +138,7 @@ V aplikaci Visual Studio stiskněte klávesu **F5** a sestavte a spusťte aplika
 
 Prohlížeč přesměruje na tenanta Azure AD B2C. Přihlaste se pomocí existujícího účtu (Pokud se vytvořila možnost testování zásad), nebo vyberte **zaregistrovat** se a vytvořte nový účet. Odkaz **zapomenuté heslo** slouží k resetování zapomenutého hesla.
 
-![Azure AD B2C přihlášení](./azure-ad-b2c/_static/b2csts.png)
+![Přihlášení do Azure AD B2C](./azure-ad-b2c/_static/b2csts.png)
 
 Po úspěšném přihlášení se prohlížeč přesměruje na webovou aplikaci.
 

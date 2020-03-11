@@ -1,12 +1,12 @@
-# <a name="additional-claims-sample-app"></a>Další deklarace identity ukázkové aplikace
+# <a name="additional-claims-sample-app"></a>Ukázková aplikace s dalšími deklaracemi
 
-Ukázková aplikace předvádí, jak:
+Ukázková aplikace ukazuje, jak:
 
-* Získat křestní jméno a příjmení uživatele z Googlu a ukládat deklarace názvu s hodnotami poskytované Google.
-* Přístupový token Google Store v uživatele `AuthenticationProperties`.
+* Získá jméno a příjmení uživatele z Google a uloží deklarace identity s hodnotami poskytnutými Google.
+* Uložte token Google Access do `AuthenticationProperties`uživatele.
 
 Použití ukázkové aplikace:
 
-1. Aplikace registrovaly a získaly platné ID klienta a tajný kód klienta pro ověřování Google. Další informace najdete v tématu [nastavení externí přihlášení Google](https://docs.microsoft.com/aspnet/core/security/authentication/social/google-logins).
-1. Zadejte ID klienta a tajný kód klienta aplikace v [GoogleOptions](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) z `Startup.ConfigureServices`.
-1. Spusťte aplikaci a požadavku na stránku Moje deklarací identity. Když uživatel není přihlášen, aplikace přesměruje do Googlu. Přihlásit se přes Google. Google přesměruje uživatele zpět do aplikace (`/MyClaims`). Ověření uživatele a načtení stránky Moje deklarací identity. Křestní jméno a příjmení deklarace identity se nacházejí v části **deklarace identity uživatelů** Google zadanými hodnotami. Přístupový token se zobrazí v části **vlastnosti ověřování**.
+1. Zaregistrujte aplikaci a získejte platné ID klienta a tajný klíč klienta pro ověřování Google. Další informace najdete v tématu [Nastavení externího přihlášení Google](https://docs.microsoft.com/aspnet/core/security/authentication/social/google-logins).
+1. Zadejte ID klienta a tajný klíč klienta k aplikaci v [GoogleOptions](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) `Startup.ConfigureServices`.
+1. Spusťte aplikaci a vyžádejte si stránku moje deklarace. Když uživatel není přihlášený, aplikace přesměruje na Google. Přihlaste se pomocí Google. Google přesměruje uživatele zpátky do aplikace (`/MyClaims`). Uživatel je ověřený a je načtena stránka moje deklarace. Dané deklarace identity a příjmení se nacházejí v části **deklarace identity uživatelů** s hodnotami poskytovanými Google. Přístupový token se zobrazí v části **vlastnosti ověřování**.

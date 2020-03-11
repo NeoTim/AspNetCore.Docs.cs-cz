@@ -1,1 +1,1 @@
-Kód v této složce se snímky v čase z řady stránky Razor.
+Kód v této složce je snímky v čase z řady Razor Pages.

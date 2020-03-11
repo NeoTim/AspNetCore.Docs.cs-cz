@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: 5feed175999bf021cadc7e18f14e00066b50db5b
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: d244ce1527486466bcbc6557ec35869aa206bc4f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259679"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656574"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>Razor Pages s EF Core ve ASP.NET Core – data související s čtením – 6 z 8
 
@@ -69,7 +69,7 @@ Chcete-li zobrazit název přiřazeného oddělení za kurz:
 
 ### <a name="scaffold-course-pages"></a>Stránky kurzu generování uživatelského rozhraní
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Postupujte podle pokynů v části [stránky pro studenty](xref:data/ef-rp/intro#scaffold-student-pages) s těmito výjimkami:
 
@@ -77,7 +77,7 @@ Chcete-li zobrazit název přiřazeného oddělení za kurz:
   * Pro třídu modelu použijte `Course`.
   * Místo vytvoření nové třídy kontextu použijte existující kontextovou třídu.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Vytvořte složku *stránky nebo kurzy* .
 
@@ -141,7 +141,7 @@ Následující kód načte související data pomocí metody `Select`:
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Models/SchoolViewModels/CourseViewModel.cs?name=snippet)]
 
-Úplný příklad naleznete v tématu [IndexSelect. cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml) a [IndexSelect.cshtml.cs](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs) .
+Úplný příklad naleznete v tématu [IndexSelect. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml) a [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs) .
 
 ## <a name="create-instructor-pages"></a>Vytvořit stránky instruktora
 
@@ -166,7 +166,7 @@ Vytvořte *SchoolViewModels/InstructorIndexData. cs* s následujícím kódem:
 
 ### <a name="scaffold-instructor-pages"></a>Stránky instruktora uživatelského rozhraní
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Postupujte podle pokynů v [části generování uživatelského rozhraní se stránkami studenta](xref:data/ef-rp/intro#scaffold-student-pages) s následujícími výjimkami:
 
@@ -174,7 +174,7 @@ Vytvořte *SchoolViewModels/InstructorIndexData. cs* s následujícím kódem:
   * Pro třídu modelu použijte `Instructor`.
   * Místo vytvoření nové třídy kontextu použijte existující kontextovou třídu.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 * Vytvořte složku *Pages/instruktory* .
 
@@ -241,7 +241,7 @@ Aktualizovat *stránky/instruktory/index. cshtml* pomocí následujícího kódu
 
 Předchozí kód provede následující změny:
 
-* Aktualizace `page` direktiv z `@page` k `@page "{id:int?}"`. `"{id:int?}"` je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze direktivu `@page`, se vytvoří adresa URL jako následující:
+* Aktualizuje direktivu `page` z `@page` na `@page "{id:int?}"`. `"{id:int?}"` je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze direktivu `@page`, se vytvoří adresa URL jako následující:
 
   `https://localhost:5001/Instructors?id=2`
 
@@ -297,7 +297,7 @@ Metoda `Single` může předat podmínku `Where` namísto volání metody `Where
 
 Použití `Single` s podmínkou WHERE je záležitostí osobní preference. Neposkytuje žádné výhody při použití metody `Where`.
 
-## <a name="explicit-loading"></a>Explicitní načítání
+## <a name="explicit-loading"></a>explicitní načítání
 
 Aktuální kód určuje Eager načítání pro `Enrollments` a `Students`:
 
@@ -316,7 +316,7 @@ Předchozí kód zruší volání metody *ThenInclude* pro údaje o registraci a
 
 Všimněte si, že předchozí komentáře kódu `.AsNoTracking()`. Navigační vlastnosti lze explicitně načíst pouze pro sledované entity.
 
-Otestujte aplikaci. V perspektivě uživatele se aplikace chová stejně jako předchozí verze.
+Otestujete aplikaci. V perspektivě uživatele se aplikace chová stejně jako předchozí verze.
 
 ## <a name="next-steps"></a>Další kroky
 
@@ -332,7 +332,7 @@ V dalším kurzu se dozvíte, jak aktualizovat související data.
 
 V tomto kurzu se budou číst a zobrazovat související data. Související data jsou data, která EF Core načíst do vlastností navigace.
 
-Pokud narazíte na potíže nelze vyřešit, [stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
+Pokud narazíte na problémy, které nemůžete vyřešit, [Stáhněte nebo zobrazte dokončenou aplikaci.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples) [Pokyny ke stažení](xref:index#how-to-download-a-sample).
 
 Na následujících obrázcích je znázorněno hotové stránky pro tento kurz:
 
@@ -382,11 +382,11 @@ Chcete-li zobrazit název přiřazeného oddělení v seznamu kurzů:
 
 ### <a name="scaffold-the-course-model"></a>Generování uživatelského rozhraní modelu kurzu
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
-Postupujte podle pokynů v [generování uživatelského rozhraní modelu student](xref:data/ef-rp/intro#scaffold-the-student-model) a použít `Course` pro třídu modelu.
+Postupujte podle pokynů v [části generátor a model student](xref:data/ef-rp/intro#scaffold-the-student-model) a použijte `Course` pro třídu modelu.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
  Spusťte následující příkaz:
 
@@ -396,7 +396,7 @@ Postupujte podle pokynů v [generování uživatelského rozhraní modelu studen
 
 ---
 
-Předchozí příkaz scaffold `Course` modelu. Otevřete projekt v sadě Visual Studio.
+Předchozí příkaz vygeneruje model `Course`. Otevřete projekt v sadě Visual Studio.
 
 Otevřete *stránky/kurzy/index. cshtml. cs* a Projděte si metodu `OnGetAsync`. Modul generování uživatelského rozhraní zadal Eager načítání pro vlastnost navigace `Department`. Metoda `Include` určuje načítání Eager.
 
@@ -444,7 +444,7 @@ Následující kód načte související data pomocí metody `Select`:
 
 [!code-csharp[](intro/samples/cu/Models/SchoolViewModels/CourseViewModel.cs?name=snippet)]
 
-Úplný příklad naleznete v tématu [IndexSelect. cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml) a [IndexSelect.cshtml.cs](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs) .
+Úplný příklad naleznete v tématu [IndexSelect. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml) a [IndexSelect.cshtml.cs](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/cu/Pages/Courses/IndexSelect.cshtml.cs) .
 
 ## <a name="create-an-instructors-page-that-shows-courses-and-enrollments"></a>Vytvoření stránky instruktory, která zobrazuje kurzy a registrace
 
@@ -469,11 +469,11 @@ Ve složce *SchoolViewModels* vytvořte *InstructorIndexData.cs* s následujíc�
 
 ### <a name="scaffold-the-instructor-model"></a>Generování uživatelského rozhraní modelu instruktor
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio) 
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio) 
 
-Postupujte podle pokynů v [generování uživatelského rozhraní modelu student](xref:data/ef-rp/intro#scaffold-the-student-model) a použít `Instructor` pro třídu modelu.
+Postupujte podle pokynů v [části generátor a model student](xref:data/ef-rp/intro#scaffold-the-student-model) a použijte `Instructor` pro třídu modelu.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
  Spusťte následující příkaz:
 
@@ -483,7 +483,7 @@ Postupujte podle pokynů v [generování uživatelského rozhraní modelu studen
 
 ---
 
-Předchozí příkaz scaffold `Instructor` modelu. 
+Předchozí příkaz vygeneruje model `Instructor`. 
 Spusťte aplikaci a přejděte na stránku instruktoři.
 
 *Stránky/instruktořis/index. cshtml. cs* nahraďte následujícím kódem:
@@ -509,7 +509,7 @@ Aktualizovat *stránky/instruktory/index. cshtml* pomocí následujícího kódu
 
 Předchozí kód provede následující změny:
 
-* Aktualizace `page` direktiv z `@page` k `@page "{id:int?}"`. `"{id:int?}"` je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze direktivu `@page`, se vytvoří adresa URL jako následující:
+* Aktualizuje direktivu `page` z `@page` na `@page "{id:int?}"`. `"{id:int?}"` je šablona trasy. Šablona trasy mění v adrese URL řetězce dotazů typu Integer k směrování dat. Například kliknutím na odkaz **Vybrat** pro instruktora, který má pouze direktivu `@page`, se vytvoří adresa URL jako následující:
 
   `http://localhost:1234/Instructors?id=2`
 
@@ -589,7 +589,7 @@ Na konec stránky */instruktory/index. cshtml* Razor přidejte následující k�
 
 Předchozí kód zobrazuje seznam kurzů souvisejících s instruktorem, když je vybrán instruktor.
 
-Otestujte aplikaci. Na stránce instruktoři klikněte na odkaz **Vybrat** .
+Otestujete aplikaci. Na stránce instruktoři klikněte na odkaz **Vybrat** .
 
 ### <a name="show-student-data"></a>Zobrazit data studenta
 
@@ -617,7 +617,7 @@ Metoda `Single` může předat podmínku `Where` namísto volání metody `Where
 
 Předchozí přístup `Single` neposkytuje oproti použití `Where`žádné výhody. Někteří vývojáři dávají přednost stylu `Single` přístupu.
 
-## <a name="explicit-loading"></a>Explicitní načítání
+## <a name="explicit-loading"></a>explicitní načítání
 
 Aktuální kód určuje Eager načítání pro `Enrollments` a `Students`:
 
@@ -636,11 +636,11 @@ Předchozí kód zruší volání metody *ThenInclude* pro údaje o registraci a
 
 Všimněte si předcházejících komentářů k kódu `.AsNoTracking()`. Navigační vlastnosti lze explicitně načíst pouze pro sledované entity.
 
-Otestujte aplikaci. V perspektivě uživatelů se aplikace chová stejně jako předchozí verze.
+Otestujete aplikaci. V perspektivě uživatelů se aplikace chová stejně jako předchozí verze.
 
 V dalším kurzu se dozvíte, jak aktualizovat související data.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze tohoto kurzu pro YouTube (part1)](https://www.youtube.com/watch?v=PzKimUDmrvE)
 * [Verze tohoto kurzu pro YouTube (Část2)](https://www.youtube.com/watch?v=xvDDrIHv5ko)

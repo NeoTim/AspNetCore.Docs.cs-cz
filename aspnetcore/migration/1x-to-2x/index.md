@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: migration/1x-to-2x/index
 ms.openlocfilehash: c46f50a418cf630980ac2ba94407e4370d36e7d5
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828929"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667613"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>Migrace z ASP.NET Core 1. x na 2,0
 
@@ -23,7 +23,7 @@ Stávající aplikace ASP.NET Core 1. x jsou založeny na šablonách projektů 
 
 <a name="prerequisites"></a>
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 Viz Začínáme [s ASP.NET Core](xref:getting-started).
 
@@ -194,6 +194,6 @@ Pokud používáte sadu Application Insights SDK přímo, pokračujte v tomto p�
 
 ASP.NET Core 2,0 má nový model ověřování a řadu významných změn pro ASP.NET Coreou identitu. Pokud jste vytvořili projekt s povolenými jednotlivými uživatelskými účty nebo jste ručně přidali ověřování nebo identitu, přečtěte si téma [migrace ověřování a identity na ASP.NET Core 2,0](xref:migration/1x-to-2x/identity-2x).
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Přerušující změny v ASP.NET Core 2,0](https://github.com/aspnet/announcements/issues?page=1&q=is%3Aissue+is%3Aopen+label%3A2.0.0+label%3A%22Breaking+change%22&utf8=%E2%9C%93)

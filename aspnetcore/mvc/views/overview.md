@@ -5,16 +5,16 @@ description: Přečtěte si, jak zobrazení zpracovávají data prezentace aplik
 ms.author: riande
 ms.date: 12/05/2019
 uid: mvc/views/overview
-ms.openlocfilehash: f636908ee36d0af6e92875876240cb8712dd2ccc
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: de78624bafeee16a3ace322643cf89337531eef8
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881021"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665107"
 ---
 # <a name="views-in-aspnet-core-mvc"></a>Zobrazení ve ASP.NET Core MVC
 
-[Steve Smith](https://ardalis.com/) a [Luke Latham](https://github.com/guardrex)
+[Steve Smith](https://ardalis.com/)
 
 Tento dokument vysvětluje zobrazení používaná v aplikacích ASP.NET Core MVC. Informace o Razor Pages najdete v tématu [Úvod do Razor Pages](xref:razor-pages/index).
 
@@ -91,8 +91,8 @@ Výchozí chování metody `View` (`return View();`) je vrátit zobrazení se st
 
 Nezáleží na tom, jestli implicitně vrátíte `ViewResult` pomocí `return View();` nebo explicitně předejte název zobrazení metodě `View` s `return View("<ViewName>");`. V obou případech zobrazení vyhledávání vyhledá v tomto pořadí soubor zobrazení s porovnáním:
 
-   1. *Views/\[ControllerName]/\[ViewName].cshtml*
-   1. *Views/Shared/\[ViewName].cshtml*
+   1. *Views/\[Controller]/\[ViewName]. cshtml*
+   1. *Views/Shared/\[ViewName]. cshtml*
 
 Místo názvu zobrazení je možné zadat cestu k souboru zobrazení. Pokud použijete absolutní cestu začínající v kořenu aplikace (volitelně začíná znakem "/" nebo "~/"), musí být zadáno rozšíření *. cshtml* :
 

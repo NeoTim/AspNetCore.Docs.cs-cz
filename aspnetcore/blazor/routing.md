@@ -11,15 +11,15 @@ no-loc:
 - SignalR
 uid: blazor/routing
 ms.openlocfilehash: 32459f9f42220b01ce04e6444a9bb4a9592ee2da
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928287"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663805"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -67,7 +67,7 @@ Pro komponentu lze použít více šablon směrování. Následující komponent
 ```
 
 > [!IMPORTANT]
-> Aby adresy URL byly správně přeloženy, musí aplikace zahrnovat značku `<base>` v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *stránkách/_Host. cshtml* (Blazor Server) se základní cestou aplikace zadanou v atributu `href` (`<base href="/">`). Další informace najdete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
+> Aby adresy URL byly správně přeloženy, musí aplikace zahrnovat značku `<base>` v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *stránkách/_Host. cshtml* (Blazor Server) se základní cestou aplikace zadanou v atributu `href` (`<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>Poskytnutí vlastního obsahu, když se nenalezne obsah
 
@@ -137,7 +137,7 @@ V následujícím příkladu trasa k součásti `Users` odpovídá pouze v pří
 
 K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení trasy, která se shodují s invariantní jazykovou verzí, se podívejte na upozornění pod tabulkou, kde najdete další informace.
 
-| Jedinečn | Příklad           | Příklady shody                                                                  | Invariantní<br>jazyková verze<br>shoda |
+| Jedinečn | Příklad           | Příklady shody                                                                  | Invariantní<br>culture<br>shoda |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
 | `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Ne                               |
 | `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano                              |
@@ -167,7 +167,7 @@ V aplikacích Blazor Server jsou výchozí trasy v *_Host. cshtml* `/` (`@page "
 > [!NOTE]
 > *Catch-All –* syntaxe parametru (`*`/`**`) **není v** součástech Razor ( *. Razor*) podporována.
 
-Další informace najdete v tématu <xref:fundamentals/routing>.
+Další informace naleznete v tématu <xref:fundamentals/routing>.
 
 ## <a name="navlink-component"></a>Komponenta NavLink
 

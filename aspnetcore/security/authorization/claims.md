@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: security/authorization/claims
 ms.openlocfilehash: e289851aafcbc7e3b3f60ab9fbe4b182a78bdf8a
-ms.sourcegitcommit: de0fc77487a4d342bcc30965ec5c142d10d22c03
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/30/2019
-ms.locfileid: "73143426"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661803"
 ---
 # <a name="claims-based-authorization-in-aspnet-core"></a>Ověřování na základě deklarací identity v ASP.NET Core
 

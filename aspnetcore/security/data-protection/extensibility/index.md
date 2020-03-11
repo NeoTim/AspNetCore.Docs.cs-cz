@@ -1,18 +1,18 @@
 ---
-title: Rozhraní API ASP.NET Core ochranu dat rozšíření
+title: Rozhraní API pro rozšíření ASP.NET Core ochrany dat
 author: rick-anderson
-description: Zjišťování různých témata rozšiřitelnosti ochranu dat ASP.NET Core.
+description: Seznamte se s různými tématy pro rozšíření ochrany dat ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/extensibility/index
 ms.openlocfilehash: 6a5a50f13fa3c7c437ec7d98da4dab67e4870f71
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902667"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663560"
 ---
-# <a name="aspnet-core-data-protection-extensibility-apis"></a>Rozhraní API ASP.NET Core ochranu dat rozšíření
+# <a name="aspnet-core-data-protection-extensibility-apis"></a>Rozhraní API pro rozšíření ASP.NET Core ochrany dat
 
 * [Rozšiřitelnost základní kryptografie](xref:security/data-protection/extensibility/core-crypto)
 

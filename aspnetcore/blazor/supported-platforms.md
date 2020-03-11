@@ -11,44 +11,44 @@ no-loc:
 - SignalR
 uid: blazor/supported-platforms
 ms.openlocfilehash: 505974280b5c96ec2bcae42c6e076ab67a15bb07
-ms.sourcegitcommit: 9ee99300a48c810ca6fd4f7700cd95c3ccb85972
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/17/2020
-ms.locfileid: "76160129"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658856"
 ---
-# <a name="aspnet-core-opno-locblazor-supported-platforms"></a>Podporované platformy ASP.NET Core Blazor
+# <a name="aspnet-core-blazor-supported-platforms"></a>Podporované platformy ASP.NET Core Blazor
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-## <a name="browser-requirements"></a>Požadavky na prohlížeč
+## <a name="browser-requirements"></a>Požadavky prohlížeče
 
-### <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
+### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-| Prohlížeč                          | Version               |
+| Prohlížeč                          | Verze               |
 | -------------------------------- | :-------------------: |
-| Microsoft Edge                   | Aktuální               |
-| Mozilla Firefox                  | Aktuální               |
-| Google Chrome, včetně Androidu | Aktuální               |
-| Safari, včetně iOS            | Aktuální               |
+| Microsoft Edge                   | Aktivní               |
+| Mozilla Firefox                  | Aktivní               |
+| Google Chrome, včetně Androidu | Aktivní               |
+| Safari, včetně iOS            | Aktivní               |
 | Microsoft Internet Explorer      | Nepodporováno&dagger; |
 
 &dagger;Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
 
-### <a name="opno-locblazor-server"></a>Server Blazor
+### <a name="blazor-server"></a>Blazor Server
 
-| Prohlížeč                          | Version    |
+| Prohlížeč                          | Verze    |
 | -------------------------------- | :--------: |
-| Microsoft Edge                   | Aktuální    |
-| Mozilla Firefox                  | Aktuální    |
-| Google Chrome, včetně Androidu | Aktuální    |
-| Safari, včetně iOS            | Aktuální    |
+| Microsoft Edge                   | Aktivní    |
+| Mozilla Firefox                  | Aktivní    |
+| Google Chrome, včetně Androidu | Aktivní    |
+| Safari, včetně iOS            | Aktivní    |
 | Microsoft Internet Explorer      | 11&dagger; |
 
 &dagger;vyžadovány další obslužné nabídky (například příslibů lze přidat prostřednictvím [Polyfill.IO](https://polyfill.io/v3/) sady).
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/hosting-models>

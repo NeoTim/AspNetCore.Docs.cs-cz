@@ -9,11 +9,11 @@ no-loc:
 - SignalR
 uid: aspnetcore-2.2
 ms.openlocfilehash: 97deafd520926476f7653fc3de40d577b394734b
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829124"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661047"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2,2
 
@@ -23,7 +23,7 @@ Tento článek zvýrazňuje nejvýznamnější změny v ASP.NET Core 2,2 s odkaz
 
 OpenAPI (dříve označované jako Swagger) je specifikace jazyka nezávislá pro popis rozhraní REST API. Ekosystém OpenAPI obsahuje nástroje, které umožňují zjistit, testovat a vyprodukovat klientský kód pomocí specifikace. Podpora pro generování a vizualizaci dokumentů OpenAPI ve ASP.NET Core MVC je poskytována prostřednictvím projektů založených na komunitě, jako je [NSwag](https://github.com/RicoSuter/NSwag) a [swashbuckle. AspNetCore](https://github.com/domaindrivendev/Swashbuckle.AspNetCore). ASP.NET Core 2,2 poskytuje vylepšené nástroje a běhové prostředí pro vytváření dokumentů OpenAPI.
 
-Další informace naleznete v následujících zdrojích:
+Další informace najdete v následujících zdrojích:
 
 * <xref:web-api/advanced/analyzers>
 * <xref:web-api/advanced/conventions>
@@ -37,7 +37,7 @@ ASP.NET Core 2,1 zavedl `ProblemDetails`na základě specifikace [RFC 7807](http
 
 ASP.NET Core 2,2 používá pro lepší odesílání žádostí nový systém *Směrování koncových bodů* . Změny zahrnují nové členy rozhraní API pro generování odkazů a parametry směrování.
 
-Další informace naleznete v následujících zdrojích:
+Další informace najdete v následujících zdrojích:
 
 * [Směrování koncových bodů v 2,2](https://blogs.msdn.microsoft.com/webdev/2018/08/27/asp-net-core-2-2-0-preview1-endpoint-routing/)
 * [Transformátory parametrů směrování](https://www.hanselman.com/blog/ASPNETCore22ParameterTransformersForCleanURLGenerationAndSlugsInRazorPagesOrMVC.aspx) (viz část **Směrování** )
@@ -70,7 +70,7 @@ Další informace najdete v tématu [Podpora protokolu HTTP/2](xref:fundamentals
 
 ## <a name="kestrel-configuration"></a>Konfigurace Kestrel
 
-V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel`. V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrace pro vnitroprocesové hostování. Další informace naleznete v následujících zdrojích:
+V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel`. V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrace pro vnitroprocesové hostování. Další informace najdete v následujících zdrojích:
 
 * [Zmírnit konflikt UseIIS](https://github.com/aspnet/KestrelHttpServer/issues/2760)
 * [Konfigurace možností serveru Kestrel pomocí ConfigureKestrel](xref:fundamentals/servers/kestrel?view=aspnetcore-2.2#how-to-use-kestrel-in-aspnet-core-apps)

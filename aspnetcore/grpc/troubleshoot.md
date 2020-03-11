@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 10/16/2019
 uid: grpc/troubleshoot
 ms.openlocfilehash: c501cda14f3bac9297695ece59cbc4634e4b7895
-ms.sourcegitcommit: e71b6a85b0e94a600af607107e298f932924c849
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/17/2019
-ms.locfileid: "72519052"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664127"
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>Řešení potíží s gRPC pro .NET Core
 
@@ -163,7 +163,7 @@ Tento problém můžete vyřešit pomocí těchto potíží:
 1. Vytvořte nový projekt knihovny tříd .NET Core.
 2. V novém projektu přidejte odkazy pro povolení [ C# generování kódu z *\*. proto* soubory](xref:grpc/basics#generated-c-assets):
     * Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .
-    * Do *skupiny položek přidejte \** soubory..`<Protobuf>` .
+    * Přidejte *\*...* soubory do skupiny položek `<Protobuf>`.
 3. V aplikaci WPF přidejte odkaz na nový projekt.
 
 Aplikace WPF může použít gRPC generované typy z nového projektu knihovny tříd.

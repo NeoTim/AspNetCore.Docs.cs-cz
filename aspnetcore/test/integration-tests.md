@@ -1,22 +1,22 @@
 ---
 title: Integrační testy v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Přečtěte si, jak testy integrace zajišťují, aby komponenty aplikace správně fungovaly na úrovni infrastruktury, včetně databáze, systému souborů a sítě.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/06/2019
 uid: test/integration-tests
-ms.openlocfilehash: ccee8957a72da0eb5d870b1bd184ee1ea146a0e6
-ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
+ms.openlocfilehash: 414e47b9c5a1c843755bd79d313f503b554945db
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75693788"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664694"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
-[Luke Latham](https://github.com/guardrex), [Javier Calvarro Nelson](https://github.com/javiercn), [Steve Smith](https://ardalis.com/)a [Jos Van der dlaždicí](https://jvandertil.nl)
+[Javier Calvarro Nelson](https://github.com/javiercn), [Steve Smith](https://ardalis.com/)a [Jos Van der dlaždicí](https://jvandertil.nl)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -24,7 +24,7 @@ Testy integrace zajistí správné fungování komponent aplikace na úrovni, kt
 
 Toto téma předpokládá základní znalost testů jednotek. Pokud neznáte koncepty testování, přečtěte si téma [testování částí v .NET Core a .NET Standard](/dotnet/core/testing/) a jeho propojený obsah.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace je Razor Pages aplikace a předpokládá základní porozumění Razor Pages. Pokud neznáte Razor Pages, přečtěte si následující témata:
 
@@ -41,7 +41,7 @@ Testy integrace vyhodnocují komponenty aplikace na širší úrovni než [testy
 
 Tyto širší testy se používají k testování infrastruktury a celé architektury aplikace, často včetně následujících komponent:
 
-* Databáze nástroje
+* databáze
 * Systém souborů
 * Síťová zařízení
 * Kanál požadavků a odpovědí
@@ -106,10 +106,10 @@ Testovací projekt musí:
 * Odkázat na balíček [Microsoft. AspNetCore. Mvc. testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing) .
 * Zadejte webovou sadu SDK v souboru projektu (`<Project Sdk="Microsoft.NET.Sdk.Web">`).
 
-Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte soubor *Tests/RazorPagesProject. Tests/RazorPagesProject. Tests. csproj* . Ukázková aplikace používá [xUnit](https://xunit.github.io/) test Framework a knihovnu analyzátoru [AngleSharp](https://anglesharp.github.io/) , takže ukázková aplikace také odkazuje na:
+Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte soubor *Tests/RazorPagesProject. Tests/RazorPagesProject. Tests. csproj* . Ukázková aplikace používá [xUnit](https://xunit.github.io/) test Framework a knihovnu analyzátoru [AngleSharp](https://anglesharp.github.io/) , takže ukázková aplikace také odkazuje na:
 
 * [xUnit](https://www.nuget.org/packages/xunit)
-* [xunit.runner.visualstudio](https://www.nuget.org/packages/xunit.runner.visualstudio)
+* [xUnit. Runner. VisualStudio](https://www.nuget.org/packages/xunit.runner.visualstudio)
 * [AngleSharp](https://www.nuget.org/packages/AngleSharp)
 
 Entity Framework Core se používá také v testech. Odkazy na aplikaci:
@@ -117,7 +117,7 @@ Entity Framework Core se používá také v testech. Odkazy na aplikaci:
 * [Microsoft. AspNetCore. Diagnostics. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore)
 * [Microsoft. AspNetCore. identity. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.EntityFrameworkCore)
 * [Microsoft. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
-* [Microsoft.EntityFrameworkCore.InMemory](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)
+* [Microsoft. EntityFrameworkCore. inMemory](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)
 * [Microsoft. EntityFrameworkCore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools)
 
 ## <a name="sut-environment"></a>Prostředí SUT
@@ -146,7 +146,7 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
 
    [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs?name=snippet1)]
 
-   Osazení databází v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) provádí metoda `InitializeDbForTests`. Tato metoda je popsána v části [Ukázka integračních testů: organizace testovacích aplikací](#test-app-organization) .
+   Osazení databází v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) provádí metoda `InitializeDbForTests`. Tato metoda je popsána v části [Ukázka integračních testů: organizace testovacích aplikací](#test-app-organization) .
 
    Kontext databáze SUT je zaregistrován v jeho metodě `Startup.ConfigureServices`. Zpětné volání testovací aplikace `builder.ConfigureServices` se spustí *po* spuštění kódu `Startup.ConfigureServices` aplikace. Pořadí spouštění je zásadní změnou pro [obecného hostitele](xref:fundamentals/host/generic-host) s vydáním ASP.NET Core 3,0. Pro použití jiné databáze pro testy, než je databáze aplikace, musí být kontext databáze aplikace nahrazen `builder.ConfigureServices`.
 
@@ -181,7 +181,7 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
 1. Analyzovat soubor cookie pro antipadělání a žádat ověřovací token z odpovědi.
 1. Proveďte požadavek POST se souborem cookie antipadělání a ověřovacím tokenem žádosti.
 
-Metody rozšíření pomocné rutiny `SendAsync` (*helps/HttpClientExtensions. cs*) a pomocná metoda `GetDocumentAsync` (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti padělání pomocí následujících metod:
+Metody rozšíření pomocné rutiny `SendAsync` (*helps/HttpClientExtensions. cs*) a pomocná metoda `GetDocumentAsync` (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti padělání pomocí následujících metod:
 
 * `GetDocumentAsync` &ndash; přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument`. `GetDocumentAsync` používá továrnu, která připraví *virtuální odpověď* na základě původního `HttpResponseMessage`. Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
 * `SendAsync` metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML (`IHtmlFormElement`) a následující:
@@ -196,7 +196,7 @@ Metody rozšíření pomocné rutiny `SendAsync` (*helps/HttpClientExtensions. c
 
 Pokud je v rámci testovací metody vyžadována další konfigurace, [WithWebHostBuilder](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.withwebhostbuilder) vytvoří nový `WebApplicationFactory` s [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) , který je dále přizpůsoben konfigurací.
 
-Testovací metoda `Post_DeleteMessageHandler_ReturnsRedirectToRoot` [ukázkové aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) demonstruje použití `WithWebHostBuilder`. Tento test provede v databázi odstranění záznamu aktivací formuláře v SUT.
+Testovací metoda `Post_DeleteMessageHandler_ReturnsRedirectToRoot` [ukázkové aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) demonstruje použití `WithWebHostBuilder`. Tento test provede v databázi odstranění záznamu aktivací formuláře v SUT.
 
 Vzhledem k tomu, že jiný test ve třídě `IndexPageTests` provádí operaci, která odstraní všechny záznamy v databázi a může běžet před `Post_DeleteMessageHandler_ReturnsRedirectToRoot` metodou, databáze je v této testovací metodě znovu dosazený, aby se zajistilo, že SUT k odstranění bude přítomen záznam. Výběr prvního tlačítka pro odstranění `messages`ového formuláře v SUT se simuluje v požadavku na SUT:
 
@@ -232,11 +232,11 @@ Služby lze přepsat v rámci testu voláním [ConfigureTestServices](/dotnet/ap
 
 Vzorový SUT obsahuje oborovou službu, která vrací citát. Nabídka je vložena do skrytého pole na stránce index, když je požadována stránka indexu.
 
-*Services/IQuoteService.cs*:
+*Services/IQuoteService. cs*:
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Services/IQuoteService.cs?name=snippet1)]
 
-*Services/QuoteService.cs*:
+*Services/QuoteService. cs*:
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Services/QuoteService.cs?name=snippet1)]
 
@@ -244,7 +244,7 @@ Vzorový SUT obsahuje oborovou službu, která vrací citát. Nabídka je vlože
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet2)]
 
-*Pages/Index.cshtml.cs*:
+*Pages/index. cshtml. cs*:
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Pages/Index.cshtml.cs?name=snippet1&highlight=4,9,20,26)]
 
@@ -326,7 +326,7 @@ Konstruktor `WebApplicationFactory` odvodí [kořenovou cestu obsahu](xref:funda
 
 ## <a name="disable-shadow-copying"></a>Zakázat stínové kopírování
 
-Stínové kopírování způsobí, že se testy spustí v jiném adresáři než výstupní adresář. Aby testy správně fungovaly, musí být stínové kopírování zakázané. [Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování pro xUnit zahrnutím souboru *xUnit. Runner. JSON* se správným nastavením konfigurace. Další informace najdete v tématu [Konfigurace xUnit pomocí formátu JSON](https://xunit.github.io/docs/configuring-with-json.html).
+Stínové kopírování způsobí, že se testy spustí v jiném adresáři než výstupní adresář. Aby testy správně fungovaly, musí být stínové kopírování zakázané. [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování pro xUnit zahrnutím souboru *xUnit. Runner. JSON* se správným nastavením konfigurace. Další informace najdete v tématu [Konfigurace xUnit pomocí formátu JSON](https://xunit.github.io/docs/configuring-with-json.html).
 
 Do kořenového adresáře testovacího projektu přidejte soubor *xUnit. Runner. JSON* s následujícím obsahem:
 
@@ -342,9 +342,9 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 
 ## <a name="integration-tests-sample"></a>Ukázka integračních testů
 
-[Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
+[Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Azure | Adresář projektu | Popis |
+| Aplikace | Adresář projektu | Popis |
 | --- | ----------------- | ----------- |
 | Aplikace zprávy (SUT) | *src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
 | Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
@@ -401,7 +401,7 @@ Testy integrace zajistí správné fungování komponent aplikace na úrovni, kt
 
 Toto téma předpokládá základní znalost testů jednotek. Pokud neznáte koncepty testování, přečtěte si téma [testování částí v .NET Core a .NET Standard](/dotnet/core/testing/) a jeho propojený obsah.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Ukázková aplikace je Razor Pages aplikace a předpokládá základní porozumění Razor Pages. Pokud neznáte Razor Pages, přečtěte si následující témata:
 
@@ -418,7 +418,7 @@ Testy integrace vyhodnocují komponenty aplikace na širší úrovni než [testy
 
 Tyto širší testy se používají k testování infrastruktury a celé architektury aplikace, často včetně následujících komponent:
 
-* Databáze nástroje
+* databáze
 * Systém souborů
 * Síťová zařízení
 * Kanál požadavků a odpovědí
@@ -481,14 +481,14 @@ Neexistuje prakticky žádný rozdíl mezi konfigurací pro testy aplikací Razo
 Testovací projekt musí:
 
 * Odkázat na následující balíčky:
-  * [Microsoft.AspNetCore.App](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
-  * [Microsoft.AspNetCore.Mvc.Testing](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/)
+  * [Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
+  * [Microsoft. AspNetCore. Mvc. testování](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/)
 * Zadejte webovou sadu SDK v souboru projektu (`<Project Sdk="Microsoft.NET.Sdk.Web">`). Webová sada SDK se vyžaduje při odkazování na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
-Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte soubor *Tests/RazorPagesProject. Tests/RazorPagesProject. Tests. csproj* . Ukázková aplikace používá [xUnit](https://xunit.github.io/) test Framework a knihovnu analyzátoru [AngleSharp](https://anglesharp.github.io/) , takže ukázková aplikace také odkazuje na:
+Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/). Zkontrolujte soubor *Tests/RazorPagesProject. Tests/RazorPagesProject. Tests. csproj* . Ukázková aplikace používá [xUnit](https://xunit.github.io/) test Framework a knihovnu analyzátoru [AngleSharp](https://anglesharp.github.io/) , takže ukázková aplikace také odkazuje na:
 
 * [xUnit](https://www.nuget.org/packages/xunit/)
-* [xunit.runner.visualstudio](https://www.nuget.org/packages/xunit.runner.visualstudio/)
+* [xUnit. Runner. VisualStudio](https://www.nuget.org/packages/xunit.runner.visualstudio/)
 * [AngleSharp](https://www.nuget.org/packages/AngleSharp/)
 
 ## <a name="sut-environment"></a>Prostředí SUT
@@ -517,7 +517,7 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs?name=snippet1)]
 
-   Osazení databází v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) provádí metoda `InitializeDbForTests`. Tato metoda je popsána v části [Ukázka integračních testů: organizace testovacích aplikací](#test-app-organization) .
+   Osazení databází v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) provádí metoda `InitializeDbForTests`. Tato metoda je popsána v části [Ukázka integračních testů: organizace testovacích aplikací](#test-app-organization) .
 
 2. Použijte vlastní `CustomWebApplicationFactory` v testovacích třídách. Následující příklad používá objekt pro vytváření ve třídě `IndexPageTests`:
 
@@ -535,7 +535,7 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
 1. Analyzovat soubor cookie pro antipadělání a žádat ověřovací token z odpovědi.
 1. Proveďte požadavek POST se souborem cookie antipadělání a ověřovacím tokenem žádosti.
 
-Metody rozšíření pomocné rutiny `SendAsync` (*helps/HttpClientExtensions. cs*) a pomocná metoda `GetDocumentAsync` (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti padělání pomocí následujících metod:
+Metody rozšíření pomocné rutiny `SendAsync` (*helps/HttpClientExtensions. cs*) a pomocná metoda `GetDocumentAsync` (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti padělání pomocí následujících metod:
 
 * `GetDocumentAsync` &ndash; přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument`. `GetDocumentAsync` používá továrnu, která připraví *virtuální odpověď* na základě původního `HttpResponseMessage`. Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
 * `SendAsync` metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML (`IHtmlFormElement`) a následující:
@@ -550,7 +550,7 @@ Metody rozšíření pomocné rutiny `SendAsync` (*helps/HttpClientExtensions. c
 
 Pokud je v rámci testovací metody vyžadována další konfigurace, [WithWebHostBuilder](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.withwebhostbuilder) vytvoří nový `WebApplicationFactory` s [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) , který je dále přizpůsoben konfigurací.
 
-Testovací metoda `Post_DeleteMessageHandler_ReturnsRedirectToRoot` [ukázkové aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) demonstruje použití `WithWebHostBuilder`. Tento test provede v databázi odstranění záznamu aktivací formuláře v SUT.
+Testovací metoda `Post_DeleteMessageHandler_ReturnsRedirectToRoot` [ukázkové aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) demonstruje použití `WithWebHostBuilder`. Tento test provede v databázi odstranění záznamu aktivací formuláře v SUT.
 
 Vzhledem k tomu, že jiný test ve třídě `IndexPageTests` provádí operaci, která odstraní všechny záznamy v databázi a může běžet před `Post_DeleteMessageHandler_ReturnsRedirectToRoot` metodou, databáze je v této testovací metodě znovu dosazený, aby se zajistilo, že SUT k odstranění bude přítomen záznam. Výběr prvního tlačítka pro odstranění `messages`ového formuláře v SUT se simuluje v požadavku na SUT:
 
@@ -586,11 +586,11 @@ Služby lze přepsat v rámci testu voláním [ConfigureTestServices](/dotnet/ap
 
 Vzorový SUT obsahuje oborovou službu, která vrací citát. Nabídka je vložena do skrytého pole na stránce index, když je požadována stránka indexu.
 
-*Services/IQuoteService.cs*:
+*Services/IQuoteService. cs*:
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Services/IQuoteService.cs?name=snippet1)]
 
-*Services/QuoteService.cs*:
+*Services/QuoteService. cs*:
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Services/QuoteService.cs?name=snippet1)]
 
@@ -598,7 +598,7 @@ Vzorový SUT obsahuje oborovou službu, která vrací citát. Nabídka je vlože
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet2)]
 
-*Pages/Index.cshtml.cs*:
+*Pages/index. cshtml. cs*:
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Pages/Index.cshtml.cs?name=snippet1&highlight=4,9,20,26)]
 
@@ -680,7 +680,7 @@ Konstruktor `WebApplicationFactory` odvodí [kořenovou cestu obsahu](xref:funda
 
 ## <a name="disable-shadow-copying"></a>Zakázat stínové kopírování
 
-Stínové kopírování způsobí, že se testy spustí v jiném adresáři než výstupní adresář. Aby testy správně fungovaly, musí být stínové kopírování zakázané. [Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování pro xUnit zahrnutím souboru *xUnit. Runner. JSON* se správným nastavením konfigurace. Další informace najdete v tématu [Konfigurace xUnit pomocí formátu JSON](https://xunit.github.io/docs/configuring-with-json.html).
+Stínové kopírování způsobí, že se testy spustí v jiném adresáři než výstupní adresář. Aby testy správně fungovaly, musí být stínové kopírování zakázané. [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování pro xUnit zahrnutím souboru *xUnit. Runner. JSON* se správným nastavením konfigurace. Další informace najdete v tématu [Konfigurace xUnit pomocí formátu JSON](https://xunit.github.io/docs/configuring-with-json.html).
 
 Do kořenového adresáře testovacího projektu přidejte soubor *xUnit. Runner. JSON* s následujícím obsahem:
 
@@ -706,9 +706,9 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 
 ## <a name="integration-tests-sample"></a>Ukázka integračních testů
 
-[Ukázková aplikace](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
+[Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Azure | Adresář projektu | Popis |
+| Aplikace | Adresář projektu | Popis |
 | --- | ----------------- | ----------- |
 | Aplikace zprávy (SUT) | *src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
 | Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
@@ -757,7 +757,7 @@ Ukázková aplikace se dosazuje do databáze se třemi zprávami v *Utilities.cs
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Testování částí](/dotnet/articles/core/testing/unit-testing-with-dotnet-test)
 * <xref:test/razor-pages-tests>

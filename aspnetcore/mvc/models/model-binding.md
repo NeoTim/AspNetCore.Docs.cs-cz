@@ -6,12 +6,12 @@ ms.assetid: 0be164aa-1d72-4192-bd6b-192c9c301164
 ms.author: riande
 ms.date: 12/18/2019
 uid: mvc/models/model-binding
-ms.openlocfilehash: a389afe46636155e4703677d362d879a18ea5864
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 19580768679f30131683717792252c03aade68f9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829202"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666276"
 ---
 # <a name="model-binding-in-aspnet-core"></a>Vazba modelu v ASP.NET Core
 
@@ -19,7 +19,7 @@ ms.locfileid: "75829202"
 
 Tento článek vysvětluje, co je vazba modelů, jak funguje a jak přizpůsobit její chování.
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
 ## <a name="what-is-model-binding"></a>Co je vazba modelu
 
@@ -153,7 +153,7 @@ Zdrojová data jsou k dispozici pro systém vázání modelů podle *zprostředk
 * Vytvořte třídu, která implementuje `IValueProviderFactory`.
 * Zaregistrujte třídu factory v `Startup.ConfigureServices`.
 
-Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices`:
+Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/3.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices`:
 
 [!code-csharp[](model-binding/samples/3.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=4)]
 
@@ -192,7 +192,7 @@ Pokud nechcete, aby se chyby převodu typů způsobily při chybách stavu model
 
 Jednoduché typy, které modelový pořadač může převést na zdrojové řetězce, do zahrnují následující:
 
-* [Datový typ Boolean](xref:System.ComponentModel.BooleanConverter)
+* [Datového](xref:System.ComponentModel.BooleanConverter)
 * [Byte](xref:System.ComponentModel.ByteConverter), [SByte](xref:System.ComponentModel.SByteConverter)
 * [Char](xref:System.ComponentModel.CharConverter)
 * [Hodnotu](xref:System.ComponentModel.DateTimeConverter)
@@ -205,7 +205,7 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Konkrétní](xref:System.ComponentModel.SingleConverter)
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter), [UInt32](xref:System.ComponentModel.UInt32Converter), [UInt64](xref:System.ComponentModel.UInt64Converter)
-* [Uri](xref:System.UriTypeConverter)
+* [Identifikátor URI](xref:System.UriTypeConverter)
 * [Verze](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>Komplexní typy
@@ -412,7 +412,7 @@ Existují některé speciální datové typy, které mohou vázání modelů zpr
 
 Nahraný soubor zahrnutý v požadavku HTTP.  Podporuje se taky `IEnumerable<IFormFile>` pro víc souborů.
 
-### <a name="cancellationtoken"></a>CancellationToken
+### <a name="cancellationtoken"></a>cancellationToken
 
 Slouží k zrušení aktivity v asynchronních řadičích.
 
@@ -495,7 +495,7 @@ Další informace najdete v tématu [TryUpdateModelAsync](xref:data/ef-rp/crud#T
 
 Název tohoto atributu se řídí vzorem atributů vazby modelu, které určují zdroj dat. Nejedná se ale o vazbu dat od poskytovatele hodnot. Získává instanci typu z kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Jeho účelem je poskytnout alternativu k injektáže konstruktoru, pokud potřebujete službu pouze v případě, že je volána konkrétní metoda.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/models/validation>
 * <xref:mvc/advanced/custom-model-binding>
@@ -505,7 +505,7 @@ Název tohoto atributu se řídí vzorem atributů vazby modelu, které určují
 
 Tento článek vysvětluje, co je vazba modelů, jak funguje a jak přizpůsobit její chování.
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/model-binding/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
 ## <a name="what-is-model-binding"></a>Co je vazba modelu
 
@@ -639,7 +639,7 @@ Zdrojová data jsou k dispozici pro systém vázání modelů podle *zprostředk
 * Vytvořte třídu, která implementuje `IValueProviderFactory`.
 * Zaregistrujte třídu factory v `Startup.ConfigureServices`.
 
-Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices`:
+Ukázková aplikace obsahuje [poskytovatele hodnot](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProvider.cs) a [výrobní](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/models/model-binding/samples/2.x/ModelBindingSample/CookieValueProviderFactory.cs) příklad, který získává hodnoty z souborů cookie. Zde je registrační kód v `Startup.ConfigureServices`:
 
 [!code-csharp[](model-binding/samples/2.x/ModelBindingSample/Startup.cs?name=snippet_ValueProvider&highlight=3)]
 
@@ -678,7 +678,7 @@ Pokud nechcete, aby se chyby převodu typů způsobily při chybách stavu model
 
 Jednoduché typy, které modelový pořadač může převést na zdrojové řetězce, do zahrnují následující:
 
-* [Datový typ Boolean](xref:System.ComponentModel.BooleanConverter)
+* [Datového](xref:System.ComponentModel.BooleanConverter)
 * [Byte](xref:System.ComponentModel.ByteConverter), [SByte](xref:System.ComponentModel.SByteConverter)
 * [Char](xref:System.ComponentModel.CharConverter)
 * [Hodnotu](xref:System.ComponentModel.DateTimeConverter)
@@ -691,7 +691,7 @@ Jednoduché typy, které modelový pořadač může převést na zdrojové řet�
 * [Konkrétní](xref:System.ComponentModel.SingleConverter)
 * [TimeSpan](xref:System.ComponentModel.TimeSpanConverter)
 * [UInt16](xref:System.ComponentModel.UInt16Converter), [UInt32](xref:System.ComponentModel.UInt32Converter), [UInt64](xref:System.ComponentModel.UInt64Converter)
-* [Uri](xref:System.UriTypeConverter)
+* [Identifikátor URI](xref:System.UriTypeConverter)
 * [Verze](xref:System.ComponentModel.VersionConverter)
 
 ## <a name="complex-types"></a>Komplexní typy
@@ -898,7 +898,7 @@ Existují některé speciální datové typy, které mohou vázání modelů zpr
 
 Nahraný soubor zahrnutý v požadavku HTTP.  Podporuje se taky `IEnumerable<IFormFile>` pro víc souborů.
 
-### <a name="cancellationtoken"></a>CancellationToken
+### <a name="cancellationtoken"></a>cancellationToken
 
 Slouží k zrušení aktivity v asynchronních řadičích.
 
@@ -956,7 +956,7 @@ Vazbu modelu lze vyvolat ručně pomocí metody <xref:Microsoft.AspNetCore.Mvc.C
 
 Název tohoto atributu se řídí vzorem atributů vazby modelu, které určují zdroj dat. Nejedná se ale o vazbu dat od poskytovatele hodnot. Získává instanci typu z kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) . Jeho účelem je poskytnout alternativu k injektáže konstruktoru, pokud potřebujete službu pouze v případě, že je volána konkrétní metoda.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/models/validation>
 * <xref:mvc/advanced/custom-model-binding>

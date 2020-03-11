@@ -1,38 +1,38 @@
 ---
-title: Nahraďte machineKey ASP.NET do ASP.NET Core
+title: Nahraďte ASP.NET machineKey v ASP.NET Core
 author: rick-anderson
-description: Objevte, jak nahradit machineKey v technologii ASP.NET k povolení používání systému ochrany dat nové a lepší zabezpečení.
+description: Zjistěte, jak nahradit parametr machineKey v ASP.NET, aby bylo možné používat nový a bezpečnější systém ochrany dat.
 ms.author: riande
 ms.date: 04/06/2019
 uid: security/data-protection/compatibility/replacing-machinekey
 ms.openlocfilehash: 2317cb50cfe63226baf336ebfc5d681d1cebe5c6
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64901953"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667984"
 ---
-# <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>Nahraďte machineKey ASP.NET do ASP.NET Core
+# <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>Nahraďte ASP.NET machineKey v ASP.NET Core
 
 <a name="compatibility-replacing-machinekey"></a>
 
-Provádění `<machineKey>` element v technologii ASP.NET [je nahraditelné](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/). Většina volání kryptografické rutiny technologie ASP.NET pro ho směrovat pomocí ochranný mechanismus nahrazení data, včetně nového systému ochrany dat díky tomu.
+Implementaci prvku `<machineKey>` v ASP.NET [je nahraditelný](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/). To umožňuje směrování většiny volání ASP.NET kryptografických rutin pomocí náhradního mechanismu ochrany dat, včetně nového systému ochrany dat.
 
 ## <a name="package-installation"></a>Instalace balíčku
 
 > [!NOTE]
-> Nový systém ochrany dat může být pouze nainstalována do stávající aplikace ASP.NET cílené na .NET 4.5.1 nebo novější. Instalace se nezdaří, pokud aplikace cílí na rozhraní .NET 4.5 nebo nižší.
+> Nový systém ochrany dat lze nainstalovat pouze do existující aplikace ASP.NET cílené na rozhraní .NET 4.5.1 nebo novější. Instalace se nezdaří, pokud je aplikace cílena na rozhraní .NET 4,5 nebo nižší.
 
-Instalace nového systému ochrany dat do existujícího projektu 4.5.1+ technologie ASP.NET, nainstalujte balíček Microsoft.AspNetCore.DataProtection.SystemWeb. To vytvoří instanci pomocí systému ochrany dat [výchozí konfigurace](xref:security/data-protection/configuration/default-settings) nastavení.
+Chcete-li nainstalovat nový systém ochrany dat do existujícího projektu ASP.NET 4.5.1 +, nainstalujte balíček Microsoft. AspNetCore. DataProtection. SystemWeb. Tím se vytvoří instance systému ochrany dat s použitím [výchozích nastavení konfigurace](xref:security/data-protection/configuration/default-settings) .
 
-Při instalaci balíčku vloží řádek do *Web.config* , které sděluje, ASP.NET, aby ji používat [nejvíce kryptografické operace](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/), včetně ověřování pomocí formulářů, zobrazení stavu a volání MachineKey.Protect. Řádek, který je vložen přečte následujícím způsobem.
+Při instalaci balíčku vloží řádek do *souboru Web. config* , který oznamuje ASP.NET, aby ho používal pro [většinu kryptografických operací](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/), včetně ověřování pomocí formulářů, stavu zobrazení a volání rozhraní machineKey. Protect. Vložená čára načte následující text.
 
 ```xml
 <machineKey compatibilityMode="Framework45" dataProtectorType="..." />
 ```
 
 >[!TIP]
-> Poznáte, jestli je nový systém ochrany dat zkontrolováním pole, jako jsou aktivní `__VIEWSTATE`, který by měl začínat "CfDJ8" jako v následujícím příkladu. "CfDJ8" je reprezentace base64 hlavičky magic "09 F0 C9 F0", který identifikuje datové části je chráněn systémem ochrany dat.
+> To, jestli je nový systém ochrany dat aktivní, můžete zjistit tak, že zkontrolujete pole jako `__VIEWSTATE`, který by měl začínat řetězcem "CfDJ8", jak je uvedeno v následujícím příkladu. "CfDJ8" je reprezentace Base64 pro hlavičku Magic "09 F0 C9 F0", která identifikuje datovou část chráněnou systémem ochrany dat.
 
 ```html
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="CfDJ8AWPr2EQPTBGs3L2GCZOpk...">
@@ -40,9 +40,9 @@ Při instalaci balíčku vloží řádek do *Web.config* , které sděluje, ASP.
 
 ## <a name="package-configuration"></a>Konfigurace balíčku
 
-Systém ochrany dat je vytvořena instance s výchozí konfigurací nastavení nula. Ale vzhledem k tomu, že ve výchozím nastavení jsou trvalé klíče do místního systému souborů, to nebude fungovat pro aplikace, které jsou nasazené ve farmě. Chcete-li tento problém vyřešit, můžete zadat konfigurace, které podtřídy DataProtectionStartup vytvořením typu a přepisuje metodu jeho ConfigureServices.
+Systém ochrany dat je vytvořen s výchozí konfigurací s nulovou instalací. Vzhledem k tomu, že ve výchozím nastavení se klíče ukládají do místního systému souborů, nebude tato funkce fungovat u aplikací, které jsou nasazené ve farmě. Chcete-li tento problém vyřešit, můžete poskytnout konfiguraci vytvořením typu, který podtřídy DataProtectionStartup a přepíše její metodu ConfigureServices.
 
-Níže je příklad vlastního datového typu spuštění ochrany, který nakonfigurované, kde jsou trvalé klíče i jak se šifrují při nečinnosti. Přepíše výchozí zásady izolace aplikací také zadáním názvu aplikace.
+Níže je uveden příklad vlastního typu spuštění ochrany dat, který konfiguruje, kde jsou klíče uložené a jak jsou zašifrované v klidovém stavu. Přepíše taky výchozí zásadu izolace aplikací tím, že poskytne vlastní název aplikace.
 
 ```csharp
 using System;
@@ -67,9 +67,9 @@ namespace DataProtectionDemo
 ```
 
 >[!TIP]
-> Můžete také použít `<machineKey applicationName="my-app" ... />` místo explicitní volání konstruktoru SetApplicationName. Jedná se o pohodlí mechanismus, aby vynucení pro vývojáře k vytvoření DataProtectionStartup odvozený typ, pokud vše, co se snaží konfigurace byla nastavení názvu aplikace.
+> Místo explicitního volání SetApplicationName můžete také použít `<machineKey applicationName="my-app" ... />`. Toto je praktický mechanismus, který vám umožní vynutit, aby vývojář vytvořil typ odvozený od DataProtectionStartup, pokud všechny, které chtěli nakonfigurovat, nastavoval název aplikace.
 
-Pokud chcete povolit tuto vlastní konfiguraci, vraťte se do souboru Web.config a vyhledejte `<appSettings>` element, který balíček nainstalovat do konfiguračního souboru. Bude vypadat jako následující kód:
+Chcete-li povolit tuto vlastní konfiguraci, vraťte se zpět do souboru Web. config a vyhledejte element `<appSettings>`, který balíček do konfiguračního souboru přidal. Bude vypadat jako v následujícím kódu:
 
 ```xml
 <appSettings>
@@ -82,11 +82,11 @@ Pokud chcete povolit tuto vlastní konfiguraci, vraťte se do souboru Web.config
 </appSettings>
 ```
 
-Zadejte prázdnou hodnotu s názvem kvalifikovaný pro sestavení DataProtectionStartup odvozený typ, který jste právě vytvořili. Pokud je název aplikace DataProtectionDemo, to bude vypadat níže.
+Zadejte prázdnou hodnotu se kvalifikovaným názvem sestavení DataProtectionStartup odvozeného typu, který jste právě vytvořili. Pokud je název aplikace DataProtectionDemo, může to vypadat podobně jako na následujícím obrázku.
 
 ```xml
 <add key="aspnet:dataProtectionStartupType"
      value="DataProtectionDemo.MyDataProtectionStartup, DataProtectionDemo" />
 ```
 
-Systém ochrany nově nakonfigurovaný dat je teď připravený k použití v aplikaci.
+Nově konfigurovaný systém ochrany dat je teď připravený k použití v rámci aplikace.

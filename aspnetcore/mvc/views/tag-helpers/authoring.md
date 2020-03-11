@@ -6,28 +6,28 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: e8b62d795f6444e6dd79e27ace687d5db4db86de
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 43bd4eccfc06d27ade5de0e3387247a753609336
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881003"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662370"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>Autor pomocných rutin značek v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/authoring/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="get-started-with-tag-helpers"></a>Začínáme s pomocných rutin značek
 
-Tento kurz obsahuje úvod do programování pomocných rutin značek. [Úvod do pomocné rutiny značek](intro.md) popisuje výhody, které poskytují pomocných rutin značek.
+Tento kurz obsahuje úvod do programování pomocných rutin značek. [Úvod do pomocníků značek](intro.md) popisuje výhody, které poskytují pomocníky pro tag.
 
-Pomocná rutina značky se jakékoli třídy, která implementuje `ITagHelper` rozhraní. Ale při vytváření pomocné rutiny značky obecně odvozujete od `TagHelper`, to tedy dává vám přístup k `Process` metoda.
+Pomocný objekt tag je jakákoliv třída, která implementuje rozhraní `ITagHelper`. Při vytváření pomocníka značek se však obecně odvodit z `TagHelper`, takže k tomu získáte přístup k metodě `Process`.
 
-1. Vytvořit nový projekt ASP.NET Core s názvem **AuthoringTagHelpers**. Nemusíte ověřování pro tento projekt.
+1. Vytvořte nový projekt ASP.NET Core s názvem **AuthoringTagHelpers**. Nemusíte ověřování pro tento projekt.
 
-1. Vytvořte složku pro uložení pomocné rutiny značek volá *TagHelpers*. *TagHelpers* složka je *není* povinné, ale je rozumné konvence. Nyní můžeme začít zápis pomocné rutiny některé jednoduché značky.
+1. Vytvořte složku pro uložení pomocníků značek s názvem *TagHelpers*. Složka *TagHelpers* *není povinná* , ale jedná se o rozumnou konvenci. Nyní můžeme začít zápis pomocné rutiny některé jednoduché značky.
 
 ## <a name="a-minimal-tag-helper"></a>Minimální pomocné rutiny značky
 
@@ -45,21 +45,21 @@ Server bude používat naše pomocné rutiny značky e-mailu převést do násle
 
 To znamená značku ukotvení díky tomu se tento odkaz na e-mailu. Můžete to provést, pokud píšete modul blogu a potřebovat k odeslání e-mailu pro marketing, podpory a další kontakty, všechny ke stejné doméně.
 
-1. Přidejte následující `EmailTagHelper` třídu *TagHelpers* složky.
+1. Do složky *TagHelpers* přidejte následující třídu `EmailTagHelper`.
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1EmailTagHelperCopy.cs)]
 
-   * Použít zásady vytváření názvů, který cílí na prvky názvu kořenové třídy pomocných rutin značek (minus *Taghelperu* část názvu třídy). V tomto příkladu názvem kořenového **EmailTagHelper** je *e-mailu*, takže `<email>` budou cílem značky. Tyto zásady vytváření názvů by mělo fungovat pro většinu pomocných rutin značek, později ukážeme postup jeho přepsání.
+   * Pomocník značek používá konvenci pojmenování, která cílí na prvky názvu kořenové třídy (mínus část *taghelperu* názvu třídy). V tomto příkladu je kořenový název **EmailTagHelper** *e-mailem*, takže se bude cílit na `<email>` tag. Tyto zásady vytváření názvů by mělo fungovat pro většinu pomocných rutin značek, později ukážeme postup jeho přepsání.
 
-   * `EmailTagHelper` Třída odvozena z `TagHelper`. `TagHelper` Třída poskytuje metody a vlastnosti pro zápis pomocné rutiny značek.
+   * Třída `EmailTagHelper` je odvozena z `TagHelper`. Třída `TagHelper` poskytuje metody a vlastnosti pro psaní pomocníků značek.
 
-   * Přepsané `Process` metodu ovládá, co dělá pomocné rutiny značky při spuštění. `TagHelper` Třída rovněž poskytuje asynchronní verze (`ProcessAsync`) se stejnými parametry.
+   * Přepsaná metoda `Process` řídí, co má pomocník značek při spuštění. Třída `TagHelper` také poskytuje asynchronní verzi (`ProcessAsync`) se stejnými parametry.
 
-   * Kontextový parametr pro `Process` (a `ProcessAsync`) obsahuje informace o přidružené k provádění aktuální značku HTML.
+   * Kontextový parametr pro `Process` (a `ProcessAsync`) obsahuje informace spojené s prováděním aktuální značky HTML.
 
-   * Výstupní parametr `Process` (a `ProcessAsync`) obsahuje stavové prvek HTML reprezentativní původního zdroje sloužící ke generování značky HTML a obsah služby.
+   * Výstupní parametr pro `Process` (a `ProcessAsync`) obsahuje stavový zástupce prvku HTML původního zdroje použitého ke generování značek a obsahu jazyka HTML.
 
-   * Naše název třídy má příponu **Taghelperu.** , což je *není* povinné, ale se považuje za osvědčených postupů konvence. Můžete deklarovat třídu jako:
+   * Název naší třídy má příponu **taghelperu**, která *není požadována, ale je* považována za osvědčenou konvenci. Můžete deklarovat třídu jako:
 
    ```csharp
    public class Email : TagHelper
@@ -69,7 +69,7 @@ To znamená značku ukotvení díky tomu se tento odkaz na e-mailu. Můžete to 
 
    [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopyEmail.cshtml?highlight=2,3)]
 
-   Výše uvedený kód pomocí syntaxe zástupných znaků určuje, že všechny pomocných rutin značek v našich sestavení bude k dispozici. První řetězec, který po `@addTagHelper` určuje pomocné rutiny značky k načtení (použijte "*" pro všechny pomocných rutin značek), a druhý řetězec "AuthoringTagHelpers" Určuje sestavení, je pomocná rutina značek v. Všimněte si také, že druhý řádek přináší do ASP.NET Core pomocníka značek MVC pomocí syntaxe zástupných znaků (tyto pomocníky jsou popsány v tématu [Úvod k označení pomocníků se značkami](intro.md)). Je to direktiva `@addTagHelper`, která zpřístupňuje pomocníka značky pro zobrazení Razor. Alternativně je můžete zadat plně kvalifikovaný název (FQN) pomocné rutiny značky jak je znázorněno níže:
+   Výše uvedený kód pomocí syntaxe zástupných znaků určuje, že všechny pomocných rutin značek v našich sestavení bude k dispozici. První řetězec po `@addTagHelper` určuje pomocný objekt tag, který se má načíst (použijte * pro všechny pomocné rutiny značky) a druhý řetězec "AuthoringTagHelpers" Určuje sestavení, ve kterém je pomocník značek. Všimněte si také, že druhý řádek přináší do ASP.NET Core pomocníka značek MVC pomocí syntaxe zástupných znaků (tyto pomocníky jsou popsány v tématu [Úvod k označení pomocníků se značkami](intro.md)). Je to direktiva `@addTagHelper`, která zpřístupňuje pomocníka značky pro zobrazení Razor. Alternativně je můžete zadat plně kvalifikovaný název (FQN) pomocné rutiny značky jak je znázorněno níže:
 
 ```csharp
 @using AuthoringTagHelpers
@@ -82,23 +82,23 @@ the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
     [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImports.cshtml?highlight=3&range=1-3)]
 -->
 
-Chcete-li přidat pomocníka značek pro zobrazení pomocí FQN, nejprve přidejte FQN (`AuthoringTagHelpers.TagHelpers.EmailTagHelper`) a potom **název sestavení** (*AuthoringTagHelpers*, ne nutně `namespace`). Většina vývojářů budou chtít použít syntaxe zástupných znaků. [Úvod do pomocné rutiny značek](intro.md) obsahuje podrobnosti o syntaxi pro přidání, odebrání, hierarchie a zástupný znak pomocné rutiny značky.
+Chcete-li přidat pomocníka značek pro zobrazení pomocí FQN, nejprve přidejte FQN (`AuthoringTagHelpers.TagHelpers.EmailTagHelper`) a potom **název sestavení** (*AuthoringTagHelpers*, ne nutně `namespace`). Většina vývojářů budou chtít použít syntaxe zástupných znaků. [Úvod k](intro.md) pomocníkům značek odkazuje na podrobné informace o přidání, odebrání, hierarchii a zástupné syntaxi pomocníka značek.
 
-1. Aktualizace značky *Views/Home/Contact.cshtml* soubor se tyto změny:
+1. Aktualizujte kód v souboru *views/Home/Contact. cshtml* pomocí těchto změn:
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
 
-1. Spusťte aplikaci a použijte svůj oblíbený prohlížeč Chcete-li zobrazit zdrojový kód HTML to vám umožní ověřit e-mailu značky jsou nahrazeny ukotvení značky (například `<a>Support</a>`). *Podpora* a *marketingové* jsou vykresleny jako odkazy, ale nebudou mít `href` atribut, aby se daly funkční. To Změníme v další části.
+1. Spusťte aplikaci a použijte svůj oblíbený prohlížeč k zobrazení zdroje HTML, abyste mohli ověřit, že jsou značky e-mailu nahrazeny označením kotvy (například `<a>Support</a>`). *Podpora* a *Marketing* se vykreslují jako odkazy, ale nemají atribut `href`, aby byly funkční. To Změníme v další části.
 
 ## <a name="setattribute-and-setcontent"></a>SetAttribute a SetContent
 
-V této části, aktualizujeme `EmailTagHelper` tak, aby se vytvoří platné značky pro e-mailu. K provedení informace ze zobrazení Razor aktualizujeme (ve formě `mail-to` atribut), který budete používat při generování ukotvení.
+V této části aktualizujeme `EmailTagHelper` tak, aby se pro e-mail vytvořila platná značka ukotvení. Aktualizujeme ji, aby provedla informace ze zobrazení Razor (ve formě atributu `mail-to`) a použila se při vytváření kotvy.
 
-Aktualizace `EmailTagHelper` třídy následujícím kódem:
+Aktualizujte třídu `EmailTagHelper` následujícím způsobem:
 
 [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelperMailTo.cs?range=6-22)]
 
-* Názvy tříd a vlastností jazyka Pascal-použita pro pomocníky značek jsou přeloženy do jejich [kebabho případu](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101). Proto použít `MailTo` atributu, budete používat `<email mail-to="value"/>` ekvivalentní.
+* Názvy tříd a vlastností jazyka Pascal-použita pro pomocníky značek jsou přeloženy do jejich [kebabho případu](https://stackoverflow.com/questions/11273282/whats-the-name-for-dash-separated-case/12273101). Proto pro použití atributu `MailTo` použijete `<email mail-to="value"/>` ekvivalent.
 
 * Poslední řádek nastaví dokončené obsah pro naše pomocné rutiny značky minimálně funkční.
 
@@ -106,9 +106,9 @@ Aktualizace `EmailTagHelper` třídy následujícím kódem:
 
 [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelperMailTo.cs?highlight=6&range=14-21)]
 
-Tento postup funguje u atributu "href" tak dlouho, dokud aktuálně neexistuje v kolekci atributů. Můžete také použít `output.Attributes.Add` způsob, jak přidat na konec kolekce atributy značky pomocný atribut příznaku.
+Tento postup funguje u atributu "href" tak dlouho, dokud aktuálně neexistuje v kolekci atributů. Můžete také použít metodu `output.Attributes.Add` pro přidání atributu pomocníka značky na konec kolekce atributů značek.
 
-1. Aktualizace značky *Views/Home/Contact.cshtml* soubor se tyto změny:
+1. Aktualizujte kód v souboru *views/Home/Contact. cshtml* pomocí těchto změn:
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
 
@@ -117,27 +117,27 @@ Tento postup funguje u atributu "href" tak dlouho, dokud aktuálně neexistuje v
 <a name="self-closing"></a>
 
    > [!NOTE]
-   > Pokud byste chtěli zapsat e-mailu značky samouzavírací (`<email mail-to="Rick" />`), by také být samouzavírací závěrečný výstup. Chcete-li povolit možnost psaní značky pouze pomocí počáteční značky (`<email mail-to="Rick">`), je nutné označit třídu následujícím způsobem:
+   > Pokud byste chtěli napsat značku e-mailu na samoobslužné uzavírání (`<email mail-to="Rick" />`), konečný výstup by taky byl samouzavírací. Chcete-li povolit možnost psaní značky pouze pomocí počáteční značky (`<email mail-to="Rick">`), je nutné označit třídu následujícím způsobem:
    >
    > [!code-csharp[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelperMailVoid.cs?highlight=1&range=6-10)]
 
-   S samouzavírací e-mailu pomocné rutiny značky, výstup by měl `<a href="mailto:Rick@contoso.com" />`. Samouzavírací značky ukotvení nejsou platné HTML, proto není vhodné vytvořit, ale můžete chtít vytvořit pomocné rutiny značky, který je samouzavírací. Nastavení typu pomocných rutin značek `TagMode` vlastnost po přečtení značku.
+   Pomocí samoobslužného pomocníka značek e-mailu by byl výstup `<a href="mailto:Rick@contoso.com" />`. Samouzavírací značky ukotvení nejsou platné HTML, proto není vhodné vytvořit, ale můžete chtít vytvořit pomocné rutiny značky, který je samouzavírací. Pomocí značek můžete nastavit typ vlastnosti `TagMode` po čtení značky.
 
 ### <a name="processasync"></a>ProcessAsync
 
 V této části budeme psát pomocné rutiny asynchronní e-mailu.
 
-1. Nahraďte `EmailTagHelper` třídy následujícím kódem:
+1. Třídu `EmailTagHelper` nahraďte následujícím kódem:
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/EmailTagHelper.cs?range=6-17)]
 
    **Poznámky:**
 
-   * Tato verze používá asynchronní `ProcessAsync` metody. Asynchronní `GetChildContentAsync` vrátí `Task` obsahující `TagHelperContent`.
+   * Tato verze používá asynchronní metodu `ProcessAsync`. Asynchronní `GetChildContentAsync` vrátí `Task` obsahující `TagHelperContent`.
 
-   * Použití `output` parametr načíst obsah elementu HTML.
+   * K získání obsahu elementu HTML použijte parametr `output`.
 
-1. Proveďte následující změnu *Views/Home/Contact.cshtml* souboru pomocné rutiny značky můžete získat cílové e-mailu.
+1. Proveďte následující změny v souboru *views/Home/Contact. cshtml* , aby pomocník značek mohl získat cílový e-mail.
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
 
@@ -145,37 +145,37 @@ V této části budeme psát pomocné rutiny asynchronní e-mailu.
 
 ### <a name="removeall-precontentsethtmlcontent-and-postcontentsethtmlcontent"></a>RemoveAll, PreContent.SetHtmlContent a PostContent.SetHtmlContent
 
-1. Přidejte následující `BoldTagHelper` třídu *TagHelpers* složky.
+1. Do složky *TagHelpers* přidejte následující třídu `BoldTagHelper`.
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/BoldTagHelper.cs)]
 
-   * `[HtmlTargetElement]` Atribut předá parametr atributu, který určuje, že libovolný prvek HTML, který obsahuje atribut HTML s názvem "bold" bude odpovídat, a `Process` spustí metodu přepsání metody ve třídě. V naší ukázce `Process` metoda odebere atribut "bold" a obklopuje obsahující kód s `<strong></strong>`.
+   * Atribut `[HtmlTargetElement]` předává parametr atributu, který určuje, že všechny prvky jazyka HTML obsahující atribut HTML s názvem "bold" budou odpovídat a spustí se metoda `Process` override ve třídě. V naší ukázce `Process` metoda odstraní atribut "bold" a obklopí obsahující značku pomocí `<strong></strong>`.
 
-   * Vzhledem k tomu, že nechcete nahradit existující značky obsahu, je nutné napsat otevírání `<strong>` označit `PreContent.SetHtmlContent` metoda a uzavírací `</strong>` označit `PostContent.SetHtmlContent` – metoda.
+   * Vzhledem k tomu, že nechcete nahradit existující obsah značky, je nutné napsat značku otevírací `<strong>` s metodou `PreContent.SetHtmlContent` a uzavírací `</strong>`ovou značkou metodou `PostContent.SetHtmlContent`.
 
-1. Upravit *About.cshtml* zobrazení tak, aby obsahovala `bold` hodnotu atributu. Dokončený kód je uveden níže.
+1. Upravte zobrazení *About. cshtml* tak, aby obsahovalo hodnotu atributu `bold`. Dokončený kód je uveden níže.
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutBoldOnly.cshtml?highlight=7)]
 
 1. Spusťte aplikaci. Svůj oblíbený prohlížeč můžete použít ke kontrole zdroji a ověřte kód.
 
-   `[HtmlTargetElement]` Výše uvedený atribut se zaměřuje pouze kód HTML, který obsahuje název atributu "tučného písma". `<bold>` Prvek nebyl změněn pomocí pomocné rutiny značky.
+   Atribut `[HtmlTargetElement]` výše překračuje pouze označení HTML, které poskytuje název atributu "bold". Element `<bold>` nebyl změněn pomocníkem značek.
 
-1. Okomentujte `[HtmlTargetElement]` tak, aby se výchozí atribut řádku a `<bold>` značky, to znamená, že kód HTML ve formátu `<bold>`. Nezapomeňte, že výchozí zásady vytváření názvů bude shodovat s názvem třídy **tučné**Taghelperu. k `<bold>` značky.
+1. Odkomentujte řádek atributu `[HtmlTargetElement]` a ve výchozím nastavení se zacílí na `<bold>` značky, tj. HTML značky `<bold>`formuláře. Nezapomeňte, že výchozí konvence pojmenování bude odpovídat názvu třídy **tučně**taghelperu, aby `<bold>` značky.
 
-1. Spusťte aplikaci a ověřte, zda `<bold>` značka je zpracován pomocné rutiny značky.
+1. Spusťte aplikaci a ověřte, zda je značka `<bold>` zpracována pomocníkem značek.
 
-Upravení třídy s několika `[HtmlTargetElement]` atributy výsledky v logického operátoru OR cílů. Například pomocí níže uvedeného kódu, odpovídat tučné značku nebo atribut tučného písma.
+Upravení třídu s více atributy `[HtmlTargetElement]` má za následek logický nebo cíl. Například pomocí níže uvedeného kódu, odpovídat tučné značku nebo atribut tučného písma.
 
 [!code-csharp[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/zBoldTagHelperCopy.cs?highlight=1,2&range=5-15)]
 
-Při přidávání více atributů na stejný příkaz, modul runtime považuje za ně logickým operátorem a. Například v následujícím kódu HTML elementu musí mít název "bold" s atributem s názvem "bold" (`<bold bold />`) tak, aby odpovídaly.
+Při přidávání více atributů na stejný příkaz, modul runtime považuje za ně logickým operátorem a. Například v následujícím kódu musí být prvek HTML pojmenovaný "bold" s atributem s názvem "bold" (`<bold bold />`), který se má shodovat.
 
 ```csharp
 [HtmlTargetElement("bold", Attributes = "bold")]
    ```
 
-Můžete také použít `[HtmlTargetElement]` můžete změnit název cílový element. Například pokud jste chtěli `BoldTagHelper` k cíli `<MyBold>` značky, můžete využít následující atribut:
+Můžete také použít `[HtmlTargetElement]` ke změně názvu cílového prvku. Například pokud jste chtěli `BoldTagHelper` cílit `<MyBold>` značky, použijte následující atribut:
 
 ```csharp
 [HtmlTargetElement("MyBold")]
@@ -183,39 +183,39 @@ Můžete také použít `[HtmlTargetElement]` můžete změnit název cílový e
 
 ## <a name="pass-a-model-to-a-tag-helper"></a>Předání modelu do pomocné rutiny značky
 
-1. Přidat *modely* složky.
+1. Přidejte složku *modelů* .
 
-1. Přidejte následující `WebsiteContext` třídu *modely* složky:
+1. Do složky *modely* přidejte následující třídu `WebsiteContext`:
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Models/WebsiteContext.cs)]
 
-1. Přidejte následující `WebsiteInformationTagHelper` třídu *TagHelpers* složky.
+1. Do složky *TagHelpers* přidejte následující třídu `WebsiteInformationTagHelper`.
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/WebsiteInformationTagHelper.cs)]
 
-   * Jak už bylo uvedeno výše, pomocník značek překládá názvy tříd Pascal C# -použita a vlastnosti pro pomocníky značek na [kebab případ](https://wiki.c2.com/?KebabCase). Proto použít `WebsiteInformationTagHelper` v Razor, napíšete `<website-information />`.
+   * Jak už bylo uvedeno výše, pomocník značek překládá názvy tříd Pascal C# -použita a vlastnosti pro pomocníky značek na [kebab případ](https://wiki.c2.com/?KebabCase). Proto pokud chcete použít `WebsiteInformationTagHelper` v Razor, budete psát `<website-information />`.
 
-   * Nejsou explicitně určení cílového elementu s `[HtmlTargetElement]` atribut, tak výchozí `website-information` budou cílem. Pokud jste provedli následující atribut (Poznámka: není případ kebab ale odpovídá názvu třídy):
+   * Nejste explicitně identifikovali cílový element s atributem `[HtmlTargetElement]`, takže výchozí `website-information` bude cílen. Pokud jste provedli následující atribut (Poznámka: není případ kebab ale odpovídá názvu třídy):
 
    ```csharp
    [HtmlTargetElement("WebsiteInformation")]
    ```
 
-   Značka Case kebab `<website-information />` nesouhlasí. Pokud chcete použít `[HtmlTargetElement]` atribut, můžete využít kebab případu, jak je znázorněno níže:
+   Značka Case kebab `<website-information />` nesouhlasí. Pokud chcete použít atribut `[HtmlTargetElement]`, použijte kebab případ, jak je znázorněno níže:
 
    ```csharp
    [HtmlTargetElement("Website-Information")]
    ```
 
-   * Prvky, které jsou samouzavírací nemají žádný obsah. V tomto příkladu kód Razor používat samouzavírací značky, ale pomocné rutiny značky vytvářet [části](https://www.w3.org/TR/html5/sections.html#the-section-element) – element (což není samouzavírací a vy píšete obsah uvnitř `section` element). Proto je potřeba nastavit `TagMode` k `StartTagAndEndTag` k zápisu výstupu. Alternativně můžete Zakomentovat řádek nastavení `TagMode` a psát kód s koncovou značku. (Příklad kódu je zadáno později v tomto kurzu).
+   * Prvky, které jsou samouzavírací nemají žádný obsah. V tomto příkladu kód Razor použije samouzavírací značku, ale pomocná rutina značky vytvoří prvek [oddílu](https://www.w3.org/TR/html5/sections.html#the-section-element) (který není samo-závěrkou a píšete obsah uvnitř `section` elementu). Proto je nutné nastavit `TagMode` pro `StartTagAndEndTag` k zápisu výstupu. Alternativně můžete zadat komentář k nastavení čáry `TagMode` a zapsat značku s uzavírací značkou. (Příklad kódu je zadáno později v tomto kurzu).
 
-   * `$` (Znak dolaru) na následujícím řádku používá [interpolovaný řetězec](/dotnet/csharp/language-reference/keywords/interpolated-strings):
+   * `$` (znak dolaru) na následujícím řádku používá [interpolované řetězce](/dotnet/csharp/language-reference/keywords/interpolated-strings):
 
    ```cshtml
    $@"<ul><li><strong>Version:</strong> {Info.Version}</li>
    ```
 
-1. Přidejte následující kód k *About.cshtml* zobrazení. Zvýrazněná značka se zobrazí informace webu.
+1. Do zobrazení *About. cshtml* přidejte následující kód. Zvýrazněná značka se zobrazí informace webu.
 
    [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,4-8, 18-999)]
 
@@ -224,12 +224,12 @@ Můžete také použít `[HtmlTargetElement]` můžete změnit název cílový e
    >
    > [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?range=18-18)]
    >
-   > Razor ví, `info` atribut je třída, není řetězec, a že chcete napsat kód jazyka C#. Žádné pomocný atribut příznaku jiné než řetězec by měl napsat bez `@` znak.
+   > Razor ví, že atribut `info` je třída, nikoli řetězec a vy chcete napsat C# kód. Jakýkoli pomocný atribut neřetězcové značky by měl být napsán bez `@`ho znaku.
 
 1. Spusťte aplikaci a přejděte do zobrazení o zobrazíte informace o webovém serveru.
 
    > [!NOTE]
-   > Můžete použít následující kód s koncovou značku a odebrání řádku s `TagMode.StartTagAndEndTag` v pomocné rutiny značky:
+   > Můžete použít následující kód s uzavírací značkou a odebrat čáru s `TagMode.StartTagAndEndTag` v Pomocníkovi značek:
    >
    > [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutNotSelfClosing.cshtml?range=20-21)]
 
@@ -237,26 +237,26 @@ Můžete také použít `[HtmlTargetElement]` můžete změnit název cílový e
 
 Pomocná rutina značky podmínku vykreslí výstup při předání hodnotu true.
 
-1. Přidejte následující `ConditionTagHelper` třídu *TagHelpers* složky.
+1. Do složky *TagHelpers* přidejte následující třídu `ConditionTagHelper`.
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/ConditionTagHelper.cs)]
 
-1. Nahraďte obsah *Views/Home/Index.cshtml* souboru následujícím kódem:
+1. Obsah souboru *views/Home/index. cshtml* nahraďte následujícím kódem:
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Index.cshtml)]
 
-1. Nahradit `Index` metoda ve `Home` řadiče s následujícím kódem:
+1. Metodu `Index` v kontroleru `Home` nahraďte následujícím kódem:
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Controllers/HomeController.cs?range=9-18)]
 
-1. Spusťte aplikaci a přejděte na domovskou stránku. Kód v podmíněnou `div` se nevykreslí. Připojte řetězec dotazu `?approved=true` na adresu URL (například `http://localhost:1235/Home/Index?approved=true`). `approved` je nastavena na hodnotu true a podmíněným zobrazí značky.
+1. Spusťte aplikaci a přejděte na domovskou stránku. Značky v podmíněném `div` nebudou vykresleny. Připojí řetězec dotazu `?approved=true` k adrese URL (například `http://localhost:1235/Home/Index?approved=true`). `approved` je nastavena na hodnotu true a zobrazí se podmíněný kód.
 
 > [!NOTE]
-> Použití [nameof](/dotnet/csharp/language-reference/keywords/nameof) operátor zadat atribut na cílové místo zadání řetězce, jako jste to udělali s pomocné rutiny tučné značky:
+> Použijte operátor [nameof](/dotnet/csharp/language-reference/keywords/nameof) k určení atributu pro cílení namísto zadání řetězce jako u pomocníka s tučnými značkami:
 >
 > [!code-csharp[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/zConditionTagHelperCopy.cs?highlight=1,2,5&range=5-18)]
 >
-> [Nameof](/dotnet/csharp/language-reference/keywords/nameof) operátor bude chránit kód byste je někdy možné Refaktorovat (chceme změnit název, který má `RedCondition`).
+> Operátor [nameof](/dotnet/csharp/language-reference/keywords/nameof) bude chránit kód by měl být někdy refaktorované (název můžeme změnit na `RedCondition`).
 
 ### <a name="avoid-tag-helper-conflicts"></a>Nedocházelo ke konfliktům pomocné rutiny značky
 
@@ -264,20 +264,20 @@ V této části napíšete pár automatické propojování pomocných rutin zna�
 
 Protože tyto dvě pomocné rutiny jsou úzce souvisí a je může v budoucnu Refaktorovat, budeme je ve stejném souboru.
 
-1. Přidejte následující `AutoLinkerHttpTagHelper` třídu *TagHelpers* složky.
+1. Do složky *TagHelpers* přidejte následující třídu `AutoLinkerHttpTagHelper`.
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinker.cs?range=7-19)]
 
    >[!NOTE]
-   >`AutoLinkerHttpTagHelper` Třídy cíle `p` prvků a používá [regulární výraz](/dotnet/standard/base-types/regular-expression-language-quick-reference) vytvořit ukotvení.
+   >Třída `AutoLinkerHttpTagHelper` cílí `p` prvky a pomocí [regulárního výrazu](/dotnet/standard/base-types/regular-expression-language-quick-reference) vytvoří kotvu.
 
-1. Přidejte následující kód do konce *Views/Home/Contact.cshtml* souboru:
+1. Na konec souboru *views/Home/Contact. cshtml* přidejte následující kód:
 
    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=19)]
 
 1. Spusťte aplikaci a ověřte, že pomocné rutiny značky správně vykresluje ukotvení.
 
-1. Aktualizace `AutoLinker` třídy, aby obsahoval `AutoLinkerWwwTagHelper` www text který se převede na značku ukotvení, obsahující původní text www. Aktualizovaný kód je zvýrazněn níže:
+1. Aktualizujte třídu `AutoLinker` tak, aby zahrnovala `AutoLinkerWwwTagHelper`, který převede text na značku kotvy, který obsahuje také původní text na webové stránce. Aktualizovaný kód je zvýrazněn níže:
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinker.cs?highlight=15-34&range=7-34)]
 
@@ -290,29 +290,29 @@ Protože tyto dvě pomocné rutiny jsou úzce souvisí a je může v budoucnu Re
    >
    > [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinker.cs?range=12)]
    >
-   > To znamená, že zavoláte `GetChildContentAsync` pomocí `TagHelperOutput` předán `ProcessAsync` metoda. Jak bylo zmíněno dříve, protože je v mezipaměti výstupu, poslední značku pomocné rutiny pro spuštění služby wins. Jste opravili tohoto problému s následujícím kódem:
+   > To znamená, že zavoláte `GetChildContentAsync` pomocí `TagHelperOutput` předaného do metody `ProcessAsync`. Jak bylo zmíněno dříve, protože je v mezipaměti výstupu, poslední značku pomocné rutiny pro spuštění služby wins. Jste opravili tohoto problému s následujícím kódem:
    >
    > [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z2AutoLinkerCopy.cs?range=34-35)]
    >
    > Výše uvedený kód zkontroluje, zda byl změněn obsah, a pokud ano, získá obsah z výstupní vyrovnávací paměť.
 
-1. Spusťte aplikaci a ověřte, že dva odkazy fungovat podle očekávání. Může se zdát, že je naše pomocné rutiny značky linkeru automaticky správnosti a úplnosti, to je drobný problém. Pokud se spustí první pomocné rutiny značky WWW, webové odkazy nebudou správná. Aktualizovat kód tak, že přidáte `Order` přetížení k řízení, na kterém běží značky v pořadí. `Order` Vlastnost určuje pořadí zpracování relativně k cílení na stejný prvek jiných pomocných rutin značek. Výchozí hodnota pořadí je nula a instancí s nižšími hodnotami jsou nejprve spuštěn.
+1. Spusťte aplikaci a ověřte, že dva odkazy fungovat podle očekávání. Může se zdát, že je naše pomocné rutiny značky linkeru automaticky správnosti a úplnosti, to je drobný problém. Pokud se spustí první pomocné rutiny značky WWW, webové odkazy nebudou správná. Aktualizujte kód přidáním `Order` přetížení pro řízení pořadí, ve kterém se značka spouští. Vlastnost `Order` určuje pořadí spouštění relativně k jiným pomocníkům značek cílících na stejný prvek. Výchozí hodnota pořadí je nula a instancí s nižšími hodnotami jsou nejprve spuštěn.
 
    [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z2AutoLinkerCopy.cs?highlight=5,6,7,8&range=8-15)]
 
-   Předchozí kód zaručuje, že pomocné rutiny značky HTTP spuštěn dříve, než pomocné rutiny značky WWW. Změna `Order` k `MaxValue` a ověřte, zda je nesprávný kód vygeneruje pro značku WWW.
+   Předchozí kód zaručuje, že pomocné rutiny značky HTTP spuštěn dříve, než pomocné rutiny značky WWW. Změňte `Order` na `MaxValue` a ověřte, zda je kód vygenerovaný pro značku WWW nesprávný.
 
 ## <a name="inspect-and-retrieve-child-content"></a>Kontrolovat a načítat obsah podřízených
 
 Pomocné rutiny značky poskytují několik vlastností k načtení obsahu.
 
 * Výsledek `GetChildContentAsync` lze připojit k `output.Content`.
-* Můžete si prohlédnout výsledek `GetChildContentAsync` s `GetContent`.
-* Pokud upravíte `output.Content`, tělo Taghelperu. nebudou provedeny nebo vykreslení Pokud zavoláte `GetChildContentAsync` stejně jako v naší ukázce automaticky linkeru:
+* Výsledek `GetChildContentAsync` lze zkontrolovat pomocí `GetContent`.
+* Pokud upravíte `output.Content`, text Taghelperu se nespustí ani nebude vykreslený, pokud nebudete volat `GetChildContentAsync` jako v našem příkladu automatického linkeru:
 
 [!code-csharp[](../../views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/TagHelpers/z1AutoLinkerCopy.cs?highlight=5,6,10&range=8-21)]
 
-* Více volání `GetChildContentAsync` vrací stejnou hodnotu a nebude znovu spouštět `TagHelper` subjektu, pokud nepředáte v false parametr určující nepoužívat výsledky uložené v mezipaměti.
+* Více volání `GetChildContentAsync` vrací stejnou hodnotu a znovu nespustí `TagHelper` tělo, pokud nepředáte parametr false, který označuje, že nechcete použít výsledek uložený v mezipaměti.
 
 ## <a name="load-minified-partial-view-taghelper"></a>Načíst minifikovaného částečného zobrazení Taghelperu
 

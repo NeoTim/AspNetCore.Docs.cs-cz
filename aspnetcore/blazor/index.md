@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 02c95c19ebfb5ea6ad722f9d49f4cddc7471f8e1
-ms.sourcegitcommit: 0e21d4f8111743bcb205a2ae0f8e57910c3e8c25
+ms.openlocfilehash: 038799564078c4d3e8a7aa3a9841c6303edf9d12
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/05/2020
-ms.locfileid: "77034076"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658275"
 ---
 # <a name="introduction-to-aspnet-core-opno-locblazor"></a>Úvod do ASP.NET Core Blazor
 
@@ -114,7 +114,7 @@ Spouštění kódu .NET ve webových prohlížečích je umožněno webovým [se
 
 Kód webového sestavení má přístup k úplným funkcím prohlížeče prostřednictvím JavaScriptu, označovanému jako *interoperabilita JavaScriptu* (nebo *zprostředkovatel komunikace s JavaScriptem*). Kód .NET spuštěný pomocí webového sestavení v prohlížeči se spouští v izolovaném prostoru JavaScript v prohlížeči s ochranou, že izolovaný prostor poskytuje proti škodlivým akcím v klientském počítači.
 
-![[! Evřít. NO-LOC (Blazor)] WebAssembly spouští kód .NET v prohlížeči pomocí WebAssembly.](index/_static/blazor-webassembly.png)
+![Blazor WebAssembly spouští kód .NET v prohlížeči pomocí WebAssembly.](index/_static/blazor-webassembly.png)
 
 Při sestavení a spuštění aplikace Blazor WebAssembly v prohlížeči:
 
@@ -136,11 +136,14 @@ Modul runtime zpracovává odeslání událostí uživatelského rozhraní z pro
 
 Připojení, které používá Blazor Server ke komunikaci s prohlížečem, slouží také ke zpracování volání interoperability JavaScriptu.
 
-![[! Evřít. NO-LOC (Blazor)] Server spouští .NET kód na serveru a komunikuje s model DOM (Document Object Model) na klientovi přes [! Evřít. Připojení NO-LOC (Signal)]](index/_static/blazor-server.png)
+![Blazor Server spouští na serveru kód .NET a komunikuje s model DOM (Document Object Model) na klientovi přes SignalR připojení](index/_static/blazor-server.png)
 
 ## <a name="javascript-interop"></a>Interoperabilita JavaScriptu
 
-Pro aplikace, které vyžadují knihovny JavaScript třetích stran a přístup k rozhraním API prohlížeče, komponenty, které spolupracují s JavaScriptem. Komponenty umožňují použití libovolné knihovny nebo rozhraní API, které může JavaScript používat. C#kód může zavolat do kódu JavaScriptu a JavaScriptový kód může zavolat do C# kódu. Další informace naleznete v tématu <xref:blazor/javascript-interop>.
+Pro aplikace, které vyžadují knihovny JavaScript třetích stran a přístup k rozhraním API prohlížeče, komponenty, které spolupracují s JavaScriptem. Komponenty umožňují použití libovolné knihovny nebo rozhraní API, které může JavaScript používat. C#kód může zavolat do kódu JavaScriptu a JavaScriptový kód může zavolat do C# kódu. Další informace najdete v následujících článcích:
+
+* <xref:blazor/call-javascript-from-dotnet>
+* <xref:blazor/call-dotnet-from-javascript>
 
 ## <a name="code-sharing-and-net-standard"></a>Sdílení kódu a .NET Standard
 

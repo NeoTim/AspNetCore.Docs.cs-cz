@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 01/15/2020
 uid: host-and-deploy/docker/building-net-docker-images
 ms.openlocfilehash: 5bed5e9a4a6109a45badcef7c0d4e03eb2312bf0
-ms.sourcegitcommit: cbd30479f42cbb3385000ef834d9c7d021fd218d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76146339"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664071"
 ---
 # <a name="docker-images-for-aspnet-core"></a>Image Docker pro ASP.NET Core
 
@@ -40,7 +40,7 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
 
    Ukázka používá tuto image ke spuštění aplikace. Image obsahuje modul runtime a knihovny ASP.NET Core a je optimalizovaný pro spuštěné aplikace v produkčním prostředí. Bitová kopie je navržena pro rychlost nasazení a spouštění aplikací, takže je optimalizován výkon sítě z registru Docker na hostitele Docker. Do kontejneru se zkopírují jenom binární soubory a obsah potřebný ke spuštění aplikace. Obsah je připravený ke spuštění, což umožňuje nejrychlejší čas od `Docker run` po spuštění aplikace. Dynamická kompilace kódu není v modelu Docker nutná.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 ::: moniker range="< aspnetcore-3.0"
 
 * [Sada .NET Core 2,2 SDK](https://www.microsoft.com/net/core)
@@ -255,14 +255,14 @@ COPY published/aspnetapp.dll ./
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Docker – příkaz buildu](https://docs.docker.com/engine/reference/commandline/build)
 * [Příkaz Spustit jako Docker](https://docs.docker.com/engine/reference/commandline/run)
 * [Ukázka docker ASP.NET Core](https://github.com/dotnet/dotnet-docker) (ten, který jste použili v tomto kurzu.)
 * [Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](/aspnet/core/host-and-deploy/proxy-load-balancer)
 * [Práce s nástroji Docker sady Visual Studio](https://docs.microsoft.com/aspnet/core/publishing/visual-studio-tools-for-docker)
-* [Ladění ve Visual Studiu Code](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers) 
+* [Ladění pomocí Visual Studio Code](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers) 
 
 ## <a name="next-steps"></a>Další kroky
 

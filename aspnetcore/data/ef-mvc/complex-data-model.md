@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/complex-data-model
-ms.openlocfilehash: b8b1ade4c8c29d34200bf8c0944cff6adec0bb95
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: 91fd09874ecab8bfdb6a38a404faba04aeb73edc
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74288952"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657428"
 ---
 # <a name="tutorial-create-a-complex-data-model---aspnet-mvc-with-ef-core"></a>Kurz: vytvoření složitého datového modelu – ASP.NET MVC pomocí EF Core
 
@@ -38,7 +38,7 @@ V tomto kurzu se naučíte:
 > * Změna připojovacího řetězce
 > * Aktualizace databáze
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Použití migrace EF Core](migrations.md)
 
@@ -508,9 +508,9 @@ Klikněte pravým tlačítkem na tabulku **CourseAssignment** a vyberte **Zobraz
 
 ![Data CourseAssignment v SSOX](complex-data-model/_static/ssox-ci-data.png)
 
-## <a name="get-the-code"></a>Získat kód
+## <a name="get-the-code"></a>Získání kódu
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>Další kroky
 

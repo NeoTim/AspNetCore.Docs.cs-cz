@@ -5,12 +5,12 @@ description: Naučte se používat běžné rozložení, direktivy sdílení a s
 ms.author: riande
 ms.date: 07/30/2019
 uid: mvc/views/layout
-ms.openlocfilehash: 3ba2f459ca2b04a3001e261acab26880b6582500
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.openlocfilehash: db8c6c30397593c1a8375ebc800c1c0e34d241cb
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289000"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667900"
 ---
 # <a name="layout-in-aspnet-core"></a>Rozložení v ASP.NET Core
 

@@ -8,17 +8,17 @@ ms.custom: mvc
 ms.date: 12/16/2019
 uid: host-and-deploy/azure-apps/index
 ms.openlocfilehash: ba9671f68a0faf99ff5232a6d5dd132d0a1d5ac5
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928419"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665142"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
 [Azure App Service](https://azure.microsoft.com/services/app-service/) je [platforma cloud computingu od Microsoftu](https://azure.microsoft.com/) pro hostování webových aplikací, včetně ASP.NET Core.
 
-## <a name="useful-resources"></a>Užitečné zdroje
+## <a name="useful-resources"></a>Užitečné materiály
 
 [Dokumentace k App Service](/azure/app-service/) je Domovská stránka pro Azure Apps, kurzy, ukázky, návody a další materiály. Existují dva významné kurzy, které se týkají hostování ASP.NET Corech aplikací:
 
@@ -49,7 +49,7 @@ Zjištění omezení spouštění Azure App Service runtime, která vynutila pla
 <xref:test/troubleshoot>  
 Pochopení a řešení potíží s chybami a problémy s ASP.NET Core projekty.
 
-## <a name="application-configuration"></a>Konfigurace aplikace
+## <a name="application-configuration"></a>Konfigurace aplikací
 
 ### <a name="platform"></a>Platforma
 
@@ -99,7 +99,7 @@ Když aplikace používá [webového hostitele](xref:fundamentals/host/web-host)
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
 
-[IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components), který konfiguruje přesměrované hlavičky middlewaru při hostování [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model)a modul ASP.NET Core je nakonfigurován pro přeposílání schématu (http/https) a vzdálené IP adresy, na které pochází požadavek. Další konfigurace může být nezbytný pro aplikací hostovaných za službou další proxy servery a nástroje pro vyrovnávání zatížení. Další informace najdete v tématu [konfigurace ASP.NET Core práci se servery proxy a nástroje pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+[IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components), který konfiguruje přesměrované hlavičky middlewaru při hostování [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model)a modul ASP.NET Core je nakonfigurován pro přeposílání schématu (http/https) a vzdálené IP adresy, na které pochází požadavek. Další konfigurace může být nezbytný pro aplikací hostovaných za službou další proxy servery a nástroje pro vyrovnávání zatížení. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="monitoring-and-logging"></a>Monitorování a protokolování
 
@@ -143,7 +143,7 @@ Při záměně mezi sloty nasazení nebude možné dešifrovat uložená data po
 * Úložiště SQL
 * Redis Cache
 
-Další informace najdete v tématu <xref:security/data-protection/implementation/key-storage-providers>.
+Další informace naleznete v tématu <xref:security/data-protection/implementation/key-storage-providers>.
 <a name="deploy-aspnet-core-preview-release-to-azure-app-service"></a>
 
 ## <a name="deploy-an-aspnet-core-app-that-uses-a-net-core-preview"></a>Nasazení aplikace ASP.NET Core, která používá .NET Core Preview
@@ -197,7 +197,7 @@ Pokud dojde k potížím pomocí rozšíření webu verze Preview, otevřete [pr
 1. Na webu Azure Portal přejděte na App Service.
 1. Vyberte webovou aplikaci.
 1. Do vyhledávacího pole zadejte "ex", chcete-li filtrovat "rozšíření", nebo se posuňte dolů v seznamu nástrojů pro správu.
-1. Vyberte **rozšíření**.
+1. Vyberte **Extensions** (Rozšíření).
 1. Vyberte **Přidat**.
 1. V seznamu vyberte rozšíření **Runtime ASP.NET Core {X. Y} ({x64 | x86})** , kde `{X.Y}` je ASP.NET Core verze preview a `{x64|x86}` Určuje platformu.
 1. Kliknutím na **OK** přijměte právní podmínky.
@@ -251,20 +251,20 @@ Pro 64 nasazení:
 
 ### <a name="deploy-the-app-framework-dependent"></a>Nasazení závislého rozhraní App Framework
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. Vyberte **Build** > **Publikovat {název aplikace}** z panelu nástrojů sady Visual Studio nebo klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **publikovat**.
 1. V dialogovém okně **vybrat cíl publikování** potvrďte, že je vybrána možnost **App Service** .
 1. Vyberte **Upřesnit**. Otevře se dialogové okno **publikovat** .
-1. V **publikovat** dialogové okno:
+1. V dialogovém okně **publikovat** :
    * Potvrďte, že je vybraná konfigurace **vydané verze** .
    * Otevřete rozevírací seznam **režim nasazení** a vyberte možnost závislé na **rozhraní**.
    * Jako **cílový modul runtime**vyberte **přenosný** .
    * Pokud potřebujete po nasazení odebrat další soubory, otevřete **Možnosti publikování souborů** a zaškrtnutím políčka odeberte další soubory v cílovém umístění.
-   * Vyberte **Uložit**.
+   * Vyberte **Save** (Uložit).
 1. Pomocí zbývajících výzev Průvodce publikováním vytvořte novou lokalitu nebo aktualizujte existující web.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
 1. V souboru projektu nezadávejte [identifikátor modulu runtime (RID)](/dotnet/core/rid-catalog).
 
@@ -282,20 +282,20 @@ Pro 64 nasazení:
 
 Použijte aplikaci Visual Studio nebo .NET Core CLI pro [samostatně obsažené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. Vyberte **Build** > **Publikovat {název aplikace}** z panelu nástrojů sady Visual Studio nebo klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **publikovat**.
 1. V dialogovém okně **vybrat cíl publikování** potvrďte, že je vybrána možnost **App Service** .
 1. Vyberte **Upřesnit**. Otevře se dialogové okno **publikovat** .
-1. V **publikovat** dialogové okno:
+1. V dialogovém okně **publikovat** :
    * Potvrďte, že je vybraná konfigurace **vydané verze** .
    * Otevřete rozevírací seznam **režim nasazení** a vyberte možnost **samostatně obsaženo**.
-   * Z rozevíracího seznamu **cílový modul runtime** vyberte cílový modul runtime. Výchozí hodnota je `win-x86`.
+   * Z rozevíracího seznamu **cílový modul runtime** vyberte cílový modul runtime. Výchozí formát je `win-x86`.
    * Pokud potřebujete po nasazení odebrat další soubory, otevřete **Možnosti publikování souborů** a zaškrtnutím políčka odeberte další soubory v cílovém umístění.
-   * Vyberte **Uložit**.
+   * Vyberte **Save** (Uložit).
 1. Pomocí zbývajících výzev Průvodce publikováním vytvořte novou lokalitu nebo aktualizujte existující web.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
 1. V souboru projektu zadejte jeden nebo více [identifikátorů modulu runtime (identifikátorů RID)](/dotnet/core/rid-catalog). Pro jeden identifikátor RID použijte `<RuntimeIdentifier>` (jednotné číslo), nebo použijte `<RuntimeIdentifiers>` (plural) k poskytnutí seznamu identifikátorů ridů oddělených středníkem. V následujícím příkladu je zadán `win-x86` RID:
 
@@ -324,9 +324,9 @@ Vazby zabezpečeného protokolu umožňují zadat certifikát, který se má pou
 
 Pokud potřebujete transformovat *Web. config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
-* [Přehled App Service](/azure/app-service/app-service-web-overview)
+* [Přehled služby App Service](/azure/app-service/app-service-web-overview)
 * [Azure App Service: nejlepší místo pro hostování aplikací .NET (video s přehledem 55-minut)](https://channel9.msdn.com/events/dotnetConf/2017/T222)
 * [Azure pátek: Azure App Service diagnostické prostředí a řešení potíží (12 minut video)](https://channel9.msdn.com/Shows/Azure-Friday/Azure-App-Service-Diagnostic-and-Troubleshooting-Experience)
 * [Přehled diagnostiky Azure App Service](/azure/app-service/app-service-diagnostics)

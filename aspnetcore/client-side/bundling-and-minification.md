@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 06/17/2019
 uid: client-side/bundling-and-minification
 ms.openlocfilehash: a7a5c40d6c31c4416212c02c1b491dd794f2a1d3
-ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74803276"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658268"
 ---
 # <a name="bundle-and-minify-static-assets-in-aspnet-core"></a>Statické prostředky sady prostředků a minimalizuje v ASP.NET Core
 
@@ -43,7 +43,7 @@ Minifikace snižuje funkci na následující:
 
 Kromě odebrání komentářů a nepotřebných prázdných znaků byly následující parametry a názvy proměnných přejmenovány takto:
 
-Původně | Jmenovanou
+původně | Jmenovanou
 --- | :---:
 `imageTagAndImageID` | `t`
 `imageContext` | `a`
@@ -53,10 +53,10 @@ Původně | Jmenovanou
 
 Následující tabulka popisuje rozdíly mezi jednotlivými nasazováním prostředků a používáním sdružování a minifikace:
 
-Akce | S B/M | Bez B/M | Změna
+Akce | S B/M | Bez B/M | Změnit
 --- | :---: | :---: | :---:
 Požadavky na soubory  | 7   | 18     | 157%
-Přenesené KB | 156 | 264.68 | 70%
+Přenesené KB | 156 | 264.68 | 70 %
 Čas načtení (MS) | 885 | 2360   | 167%
 
 Prohlížeče jsou poměrně podrobné, s ohledem na hlavičky požadavků HTTP. Metrika odeslaných celkových bajtů se při sdružování výrazně snížila. Doba načítání ukazuje výrazné zlepšení, ale tento příklad běžel místně. Zvýšení výkonu se využívá při použití sdružování a minifikace s prostředky přenesených přes síť.
@@ -103,7 +103,7 @@ Balíček NuGet [BuildBundlerMinifier](https://www.nuget.org/packages/BuildBundl
 > [!NOTE]
 > BuildBundlerMinifier patří do projektu založeného na komunitě na GitHubu, pro který Microsoft neposkytuje žádnou podporu. [Zde](https://github.com/madskristensen/BundlerMinifier/issues)by měly být uloženy problémy.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Přidejte do projektu balíček *BuildBundlerMinifier* .
 
@@ -130,7 +130,7 @@ Vyčistěte projekt. V okně výstup se zobrazí následující:
 ========== Clean: 1 succeeded, 0 failed, 0 skipped ==========
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Přidejte do projektu balíček *BuildBundlerMinifier* :
 
@@ -168,7 +168,7 @@ Vyčistit projekt:
 dotnet clean
 ```
 
-Zobrazí se výstup:
+Zobrazí se následující výstup:
 
 ```console
 Microsoft (R) Build Engine version 15.4.8.50001 for .NET Core
@@ -328,7 +328,7 @@ V tomto příkladu jsou všechny úlohy definované v rámci `MyPreCompileTarget
 ========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Použití nástroje Grunt](xref:client-side/using-grunt)
 * [Používání více prostředí](xref:fundamentals/environments)

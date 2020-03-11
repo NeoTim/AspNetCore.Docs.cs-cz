@@ -6,32 +6,32 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/17/2020
 uid: tutorials/get-started-with-swashbuckle
-ms.openlocfilehash: 16583cde2f4a6deaabc2fc965a5b9484ca94c2fd
-ms.sourcegitcommit: f259889044d1fc0f0c7e3882df0008157ced4915
+ms.openlocfilehash: da848ef9c5fa85f5186d1b6f0a6111d8c8d069c4
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/18/2020
-ms.locfileid: "76268718"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661299"
 ---
 # <a name="get-started-with-swashbuckle-and-aspnet-core"></a>Začínáme s swashbuckle a ASP.NET Core
 
 Od [Shayne Boyer](https://twitter.com/spboyer) a [Scott Addie](https://twitter.com/Scott_Addie)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Swashbuckle má tři hlavní komponenty:
+Existují tři hlavní součásti, které je potřeba swashbuckle:
 
 * [Swashbuckle. AspNetCore. Swagger](https://www.nuget.org/packages/Swashbuckle.AspNetCore.Swagger/): objektový model a middleware pro objekty Swagger k vystavení objektů `SwaggerDocument` jako koncových bodů JSON.
 
-* [Swashbuckle. AspNetCore. SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): generátor Swagger, který vytváří `SwaggerDocument` objekty přímo z vašich tras, řadičů a modelů. Obvykle funguje tak, že v kombinaci s middlewarem koncových bodů Swaggeru automaticky zveřejňuje kód JSON pro Swagger.
+* [Swashbuckle. AspNetCore. SwaggerGen](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerGen/): generátor Swagger, který vytváří `SwaggerDocument` objekty přímo z vašich tras, řadičů a modelů. V kombinaci s middlewarem koncového bodu Swagger se obvykle automaticky zpřístupňuje JSON pro Swagger.
 
-* [Swashbuckle. AspNetCore. SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): vložená verze nástroje uživatelského rozhraní Swagger. Interpretuje JSON pro Swagger v podobě propracovaného, přizpůsobitelného prostředí pro popis funkcí webového rozhraní API. Jeho součástí je i integrovaný správce testů pro veřejné metody.
+* [Swashbuckle. AspNetCore. SwaggerUI](https://www.nuget.org/packages/Swashbuckle.AspNetCore.SwaggerUI/): vložená verze nástroje uživatelského rozhraní Swagger. Interpretuje formát JSON pro Swagger pro vytváření bohatě přizpůsobitelné prostředí pro popis funkce webového rozhraní API. Obsahuje integrované testovací vodičy pro veřejné metody.
 
 ## <a name="package-installation"></a>Instalace balíčku
 
 Swashbuckle je možné přidat s následujícími přístupy:
 
-### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V okně **konzoly Správce balíčků** :
   * Přejít na **zobrazení** > **Další Windows** > **konzole správce balíčků**
@@ -49,7 +49,7 @@ Swashbuckle je možné přidat s následujícími přístupy:
   * Do vyhledávacího pole zadejte "swashbuckle. AspNetCore".
   * Na kartě **Procházet** vyberte nejnovější balíček "swashbuckle. AspNetCore" a klikněte na **instalovat** .
 
-### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení** > **Přidat balíčky...**
 * Nastavte rozevírací seznam pro **zdroj** okna **Přidat balíčky** na "NuGet.org".
@@ -57,7 +57,7 @@ Swashbuckle je možné přidat s následujícími přístupy:
 * Do vyhledávacího pole zadejte "swashbuckle. AspNetCore".
 * V podokně výsledků vyberte nejnovější balíček "swashbuckle. AspNetCore" a klikněte na **Přidat balíček** .
 
-### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+### <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Z **integrovaného terminálu**spusťte následující příkaz:
 
@@ -65,7 +65,7 @@ Z **integrovaného terminálu**spusťte následující příkaz:
 dotnet add TodoApi.csproj package Swashbuckle.AspNetCore -v 5.0.0
 ```
 
-### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Spusťte následující příkaz:
 
@@ -126,7 +126,7 @@ Uživatelské rozhraní Swagger se dá najít na `http://localhost:<port>/swagge
 >
 > [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Startup3.cs?name=snippet_UseSwaggerUI&highlight=4)]
 
-Pokud používáte adresáře se službou IIS nebo reverzním proxy serverem, nastavte koncový bod Swagger na relativní cestu pomocí předpony `./`. Například `./swagger/v1/swagger.json`. Použití `/swagger/v1/swagger.json` instruuje aplikaci, aby hledala soubor JSON na skutečném kořenu adresy URL (plus předpona trasy, pokud se používá). Použijte například `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` místo `http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`.
+Pokud používáte adresáře se službou IIS nebo reverzním proxy serverem, nastavte koncový bod Swagger na relativní cestu pomocí předpony `./`. například `./swagger/v1/swagger.json`. Použití `/swagger/v1/swagger.json` instruuje aplikaci, aby hledala soubor JSON na skutečném kořenu adresy URL (plus předpona trasy, pokud se používá). Použijte například `http://localhost:<port>/<route_prefix>/swagger/v1/swagger.json` místo `http://localhost:<port>/<virtual_directory>/<route_prefix>/swagger/v1/swagger.json`.
 
 ## <a name="customize-and-extend"></a>Přizpůsobení a rozšiřování
 
@@ -154,7 +154,7 @@ Uživatelské rozhraní Swagger zobrazuje informace o verzi:
 
 Komentáře XML lze povolit pomocí následujících přístupů:
 
-#### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+#### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -167,12 +167,12 @@ Komentáře XML lze povolit pomocí následujících přístupů:
 
 ::: moniker range="<= aspnetcore-1.1"
 
-* Klikněte pravým tlačítkem na projekt v **Průzkumníka řešení** a vyberte **vlastnosti**.
+* Klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **vlastnosti**.
 * V části **výstup** na kartě **sestavení** zaškrtněte políčko **soubor dokumentace XML** .
 
 ::: moniker-end
 
-#### <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+#### <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -190,7 +190,7 @@ Komentáře XML lze povolit pomocí následujících přístupů:
 
 ::: moniker-end
 
-#### <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+#### <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 Ručně přidejte zvýrazněné řádky do souboru *. csproj* :
 
@@ -206,7 +206,7 @@ Ručně přidejte zvýrazněné řádky do souboru *. csproj* :
 
 ::: moniker-end
 
-#### <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+#### <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Ručně přidejte zvýrazněné řádky do souboru *. csproj* :
 
@@ -292,7 +292,7 @@ Nakonfigurujte Swagger pro použití souboru XML, který je vygenerovaný předc
 
 V předchozím kódu se [reflexe](/dotnet/csharp/programming-guide/concepts/reflection) používá k sestavení názvu souboru XML, který odpovídá tomuto projektu webového rozhraní API. Vlastnost [AppContext. BaseDirectory](xref:System.AppContext.BaseDirectory*) se používá k vytvoření cesty k souboru XML. Některé funkce Swagger (například schémat vstupních parametrů nebo metody HTTP a kódy odpovědí z příslušných atributů) fungují bez použití souboru dokumentace XML. Pro většinu funkcí, konkrétně souhrny metod a popisy parametrů a kódů odpovědí, je použití souboru XML povinné.
 
-Můžete k akci přidat také komentáře uvozené třemi lomítky, a vylepšit tak Swagger UI tím, že přidáte popis do hlavičky oddílu. Přidejte prvek `Delete`  nad akci: [\<souhrnu>](/dotnet/csharp/programming-guide/xmldoc/summary)
+Přidání komentářů se třemi lomítky k akci vylepšuje uživatelské rozhraní Swagger přidáním popisu do záhlaví oddílu. Přidejte prvek [\<summary >](/dotnet/csharp/programming-guide/xmldoc/summary) nad `Delete` akci:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.Swashbuckle/Controllers/TodoController.cs?name=snippet_Delete&highlight=1-3)]
 
@@ -443,7 +443,7 @@ Uživatelské rozhraní Swagger teď jasně klade očekávané kódy odpovědí 
 
 ::: moniker range=">= aspnetcore-2.2"
 
-V ASP.NET Core 2,2 nebo novějších lze konvence použít jako alternativu k explicitnímu Upraveníí jednotlivých akcí s `[ProducesResponseType]`. Další informace najdete v tématu <xref:web-api/advanced/conventions>.
+V ASP.NET Core 2,2 nebo novějších lze konvence použít jako alternativu k explicitnímu Upraveníí jednotlivých akcí s `[ProducesResponseType]`. Další informace naleznete v tématu <xref:web-api/advanced/conventions>.
 
 ::: moniker-end
 

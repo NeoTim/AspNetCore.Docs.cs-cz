@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: b31711eb6f797de2de1559a3303e14b32a88f1ff
-ms.sourcegitcommit: b3ebf96560b75b752d0e71161d788da800ad0999
+ms.openlocfilehash: d34b938dbd1b512ddb167cac0c035837889cd38f
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/24/2019
-ms.locfileid: "72822383"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657813"
 ---
 # <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole na stránku Razor v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -50,7 +50,7 @@ Upravte *stránky/filmy/index. cshtml*a přidejte `Rating` pole:
 Aktualizujte následující stránky:
 
 * Přidejte pole `Rating` na stránky odstranit a podrobnosti.
-* Aktualizujte [vytvořit. cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) pomocí pole `Rating`.
+* Aktualizujte [vytvořit. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) pomocí pole `Rating`.
 * Přidejte pole `Rating` na stránku pro úpravy.
 
 Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Spuštění aplikace bez aktualizace databáze vyvolá `SqlException`:
@@ -73,11 +73,11 @@ Aktualizujte třídu `SeedData` tak, aby poskytovala hodnotu pro nový sloupec. 
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-Podívejte se na [dokončený soubor SeedData.cs](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs).
+Podívejte se na [dokončený soubor SeedData.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs).
 
 Sestavte řešení.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 <a name="pmc"></a>
 
@@ -116,7 +116,7 @@ Další možností je odstranit databázi a použít migrace k opětovnému vytv
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 ### <a name="drop-and-re-create-the-database"></a>Vyřazení a opětovné vytvoření databáze
 
@@ -134,7 +134,7 @@ dotnet ef database update
 
 Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí pole `Rating`. Pokud databáze není osazena, nastavte v metodě `SeedData.Initialize` bod přerušení.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/3i7uMxiGGR8)
 
@@ -175,7 +175,7 @@ Upravte *stránky/filmy/index. cshtml*a přidejte `Rating` pole:
 Aktualizujte následující stránky:
 
 * Přidejte pole `Rating` na stránky odstranit a podrobnosti.
-* Aktualizujte [vytvořit. cshtml](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) pomocí pole `Rating`.
+* Aktualizujte [vytvořit. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) pomocí pole `Rating`.
 * Přidejte pole `Rating` na stránku pro úpravy.
 
 Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud je teď aplikace spuštěná, vyvolá `SqlException`:
@@ -198,11 +198,11 @@ Aktualizujte třídu `SeedData` tak, aby poskytovala hodnotu pro nový sloupec. 
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-Podívejte se na [dokončený soubor SeedData.cs](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).
+Podívejte se na [dokončený soubor SeedData.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).
 
 Sestavte řešení.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 <a name="pmc"></a>
 
@@ -241,7 +241,7 @@ Další možností je odstranit databázi a použít migrace k opětovnému vytv
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 ### <a name="drop-and-re-create-the-database"></a>Vyřazení a opětovné vytvoření databáze
 
@@ -257,7 +257,7 @@ dotnet ef database update
 
 Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí pole `Rating`. Pokud databáze není osazena, nastavte v metodě `SeedData.Initialize` bod přerušení.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/3i7uMxiGGR8)
 

@@ -1,1 +1,1 @@
-V tomto kurzu se dozvíte, jaké vývoj webové aplikace ASP.NET Core MVC s použitím kontrolerů a zobrazení. Pokud jste nový vývoj webů ASP.NET Core, vezměte v úvahu [Razor Pages](xref:tutorials/razor-pages/razor-pages-start) verzi tohoto kurzu, který poskytuje snadněji výchozí bod.
+V tomto kurzu se naučíte ASP.NET Core webový vývoj MVC pomocí řadičů a zobrazení. Pokud ASP.NET Core vývoji pro web, zvažte [Razor Pages](xref:tutorials/razor-pages/razor-pages-start) verzi tohoto kurzu, který vám poskytne snazší počáteční bod.

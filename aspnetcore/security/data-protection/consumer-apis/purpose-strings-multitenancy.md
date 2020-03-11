@@ -1,28 +1,28 @@
 ---
-title: Hierarchie účelů a víceklientská architektura v ASP.NET Core
+title: Hierarchie účelů a víceklientské aplikace v ASP.NET Core
 author: rick-anderson
-description: Získejte informace o řetězec hierarchie účelů a víceklientská architektura jako má vztah k rozhraní API ASP.NET Core Data Protection.
+description: Seznamte se s hierarchií řetězců pro účely a víceklientské architektury, protože se týká rozhraní API ochrany ASP.NET Core dat.
 ms.author: riande
 ms.date: 10/14/2016
 uid: security/data-protection/consumer-apis/purpose-strings-multitenancy
 ms.openlocfilehash: 1133d40e7b325d58b3f70e7387494dae36ff8ac9
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902739"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664750"
 ---
-# <a name="purpose-hierarchy-and-multi-tenancy-in-aspnet-core"></a>Hierarchie účelů a víceklientská architektura v ASP.NET Core
+# <a name="purpose-hierarchy-and-multi-tenancy-in-aspnet-core"></a>Hierarchie účelů a víceklientské aplikace v ASP.NET Core
 
-Protože `IDataProtector` je také implicitně `IDataProtectionProvider`, účely je možné zřetězit. V tomto smyslu `provider.CreateProtector([ "purpose1", "purpose2" ])` je ekvivalentní `provider.CreateProtector("purpose1").CreateProtector("purpose2")`.
+Vzhledem k tomu, že `IDataProtector` je také implicitně `IDataProtectionProvider`, lze účely zřetězit společně. V tomto smyslu je `provider.CreateProtector([ "purpose1", "purpose2" ])` ekvivalentem `provider.CreateProtector("purpose1").CreateProtector("purpose2")`.
 
-To umožňuje některé zajímavé hierarchických vztahů prostřednictvím systému ochrany dat. V předchozím příkladu z [Contoso.Messaging.SecureMessage](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-contoso-purpose), komponenta SecureMessage můžete volat `provider.CreateProtector("Contoso.Messaging.SecureMessage")` jednou počáteční a uložte do mezipaměti výsledek do privátní `_myProvider` pole. Budoucí ochrany mohou být vytvořeny prostřednictvím volání do `_myProvider.CreateProtector("User: username")`, a tyto ochrany by se použít k zabezpečení jednotlivých zpráv.
+To umožňuje určitým zajímavým hierarchickým vztahům prostřednictvím systému ochrany dat. V předchozím příkladu [contoso. Messaging. SecureMessage](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-contoso-purpose)může komponenta SecureMessage volat `provider.CreateProtector("Contoso.Messaging.SecureMessage")` po frontě a uložit výsledek do soukromého pole `_myProvider`. Budoucí ochrana se pak dají vytvořit prostřednictvím volání `_myProvider.CreateProtector("User: username")`a tyto ochrany se použijí k zabezpečení jednotlivých zpráv.
 
-To také může být obráceně. Vezměte v úvahu jednu logickou aplikaci více tenantů (systém správy obsahu zdá se, že přiměřené) a každý klient může mít nakonfigurovanou vlastní ověřování a stav systému pro správu hostitele. Zastřešující aplikace má hlavní jednoho zprostředkovatele a volá `provider.CreateProtector("Tenant 1")` a `provider.CreateProtector("Tenant 2")` poskytnout vlastní izolované řez systému ochrany dat každého tenanta. Klienti pak může odvodit vlastní jednotlivých ochrany podle vlastních potřeb, ale bez ohledu na to, jak usilovně se snaží nelze vytvářet ochrany, které kolidují s žádným jiným klientem v systému. Graficky je reprezentováno níže.
+To lze také Překlopit. Vezměte v úvahu jednu logickou aplikaci, která hostuje více tenantů (CMS se jeví jako přiměřenou), a každý tenant se dá nakonfigurovat s vlastním systémem pro správu ověřování a stavu. Aplikace zastřešující má jednoho hlavního poskytovatele a volá `provider.CreateProtector("Tenant 1")` a `provider.CreateProtector("Tenant 2")`, aby každému tenantovi poskytoval svůj vlastní izolovaný řez systému ochrany dat. Klienti by pak mohli odvodit své vlastní ochrany v závislosti na svých vlastních potřebách, ale bez ohledu na to, jak je to obtížné, můžou vytvářet ochrany, které kolidují s jakýmkoli jiným klientem v systému. Graficky funguje tak, jak je znázorněno níže.
 
-![Účely více tenantů](purpose-strings-multitenancy/_static/purposes-multi-tenancy.png)
+![Víceklientské účely](purpose-strings-multitenancy/_static/purposes-multi-tenancy.png)
 
 >[!WARNING]
-> Předpokladem zastřešující řízení aplikací, které rozhraní API jsou dostupná pro jednotlivé tenanty a že klienti nelze spustit libovolný kód na serveru. Pokud tenanta může spustit libovolný kód, může provádějí privátní reflexe pro přerušení záruky izolace, nebo může jen číst hlavní klíčový materiál přímo a odvodit libovolné podklíče přejí.
+> To předpokládá, že aplikace zastřešující řídí, která rozhraní API jsou k dispozici pro jednotlivé klienty a že klienti nemohou spouštět libovolný kód na serveru. Pokud může tenant spustit libovolný kód, mohl by provést soukromou reflexi k přerušení záruk izolace, nebo by mohl jednoduše přečíst hlavní klíč klíče přímo a odvodit jakékoli podklíče, které si chtějí.
 
-Systém ochrany dat ve skutečnosti používá řazení více tenantů v její výchozí konfiguraci out-of-the-box. Ve výchozím nastavení je hlavní klíčový materiál uložen ve složce profilu uživatele účet pracovního procesu (nebo registru pro identity fondu aplikací služby IIS). Ale je ve skutečnosti poměrně běžných jeden účet použít ke spuštění více aplikací, a tedy tyto aplikace skončili byste hlavního klíče materiál pro sdílení obsahu. Tento problém vyřešit, systém ochrany dat automaticky vloží jedinečný každou aplikaci identifikátor jako první prvek v řetězci celkové účel. Toto implicitní účelu slouží k [izolaci jednotlivých aplikací](xref:security/data-protection/configuration/overview#per-application-isolation) vzájemně efektivně zpracováním každou aplikaci jako jedinečný tenanta v rámci systému a proces vytvoření ochrany pomocí vypadá stejné jako na obrázku výše.
+Systém ochrany dat ve skutečnosti používá řazení více tenantů ve výchozí předem připravené konfiguraci. Ve výchozím nastavení jsou hlavní materiálové klíče uložené ve složce profilu uživatele účtu pracovního procesu (nebo v registru pro identity fondu aplikací služby IIS). V podstatě je ale poměrně běžné používat jeden účet ke spouštění více aplikací, takže všechny tyto aplikace budou mít na začátku sdílení obsahu hlavního klíče. Pro vyřešení toho systém ochrany dat automaticky vloží identifikátor jedinečnosti podle aplikace jako první prvek v řetězci celkového účelu. Tento implicitní účel slouží k [izolaci jednotlivých aplikací](xref:security/data-protection/configuration/overview#per-application-isolation) tím, že efektivně zpracovává každou aplikaci jako jedinečného tenanta v systému a proces vytváření ochrany vypadá stejně jako obrázek výše.

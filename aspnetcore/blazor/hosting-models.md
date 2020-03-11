@@ -5,17 +5,17 @@ description: Pochopení Blazor modelů hostování serverů a Blazor serveru.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 02/18/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 54be0e032a60c69880f428e52f9d778032385dc5
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.openlocfilehash: e6ce2be53c35268854e0e8d408b649a8c6ef497e
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447045"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658317"
 ---
 # <a name="aspnet-core-opno-locblazor-hosting-models"></a>Modely hostování ASP.NET Core Blazor
 
@@ -33,7 +33,7 @@ Pokročilou konfiguraci najdete v tématu <xref:blazor/hosting-model-configurati
 
 Hlavní hostující model pro Blazor spouští klientskou stranu v prohlížeči na webovém sestavení. Aplikace Blazor, její závislosti a modul runtime .NET se stáhnou do prohlížeče. Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče. Aktualizace uživatelského rozhraní a zpracování událostí se vyskytují v rámci stejného procesu. Prostředky aplikace se nasazují jako statické soubory na webový server nebo službu, která je schopná obsluhovat statický obsah klientům.
 
-![[! Evřít. Rozhraní Blazor (NO-LOC)] WebAssembly: [! Evřít. Aplikace NO-LOC (Blazor)] běží ve vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/blazor-webassembly.png)
+![Blazor WebAssembly: aplikace Blazor se spouští ve vlákně uživatelského rozhraní v prohlížeči.](hosting-models/_static/blazor-webassembly.png)
 
 Chcete-li vytvořit aplikaci Blazor pomocí modelu hostování na straně klienta, použijte šablonu **aplikaceBlazor WebAssembly** ([dotnet New blazorwasm](/dotnet/core/tools/dotnet-new)).
 
@@ -62,7 +62,7 @@ K Blazor hostování WebAssembly je downsides:
 
 S modelem hostování serveru Blazor se aplikace spouští na serveru z aplikace ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu jsou zpracovávána prostřednictvím [SignalRho](xref:signalr/introduction) připojení.
 
-![Prohlížeč komunikuje s aplikací (hostovanou v aplikaci ASP.NET Core) na serveru přes [! Evřít. Připojení NO-LOC (Signal)]](hosting-models/_static/blazor-server.png)
+![prohlížeč komunikuje s aplikací (hostovanou v aplikaci ASP.NET Core) na serveru přes SignalR připojení.](hosting-models/_static/blazor-server.png)
 
 Pokud chcete vytvořit aplikaci Blazor pomocí modelu hostování Blazor serveru, použijte šablonu aplikace ASP.NET Core **Blazor Server** ([dotnet New blazorserver](/dotnet/core/tools/dotnet-new)). Aplikace ASP.NET Core hostuje aplikaci Blazor serveru a vytvoří SignalR koncový bod, ke kterému se klienti připojují.
 
@@ -122,6 +122,8 @@ Aplikace Blazor serveru je postavená nad [ASP.NET Core SignalR](xref:signalr/in
 Každá obrazovka prohlížeče (karta prohlížeče nebo IFRAME), která je připojená k aplikaci Blazor serveru, používá SignalR připojení. Toto je ještě další důležité rozdíly ve srovnání s typickými aplikacemi vygenerovanými serverem. V aplikaci vykreslené serverem se při otevření stejné aplikace v několika obrazovkách prohlížeče obvykle nepřevádí na další požadavky na prostředky na serveru. V aplikaci Blazor serveru vyžaduje Každá obrazovka prohlížeče samostatný okruh a samostatné instance stavu součásti, které má server spravovat.
 
 Blazor se domnívá zavřít kartu prohlížeče nebo přejít na externí adresu URL s *řádným* ukončením. V případě řádného ukončení se okruh a přidružené prostředky ihned uvolňují. Klient se může také bez problémů odpojit, například kvůli přerušení sítě. Blazor server ukládá odpojené okruhy po Konfigurovatelný interval, aby se klient mohl znovu připojit.
+
+Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Další informace naleznete v tématu <xref:blazor/advanced-scenarios#blazor-server-circuit-handler>.
 
 ### <a name="ui-latency"></a>Latence uživatelského rozhraní
 

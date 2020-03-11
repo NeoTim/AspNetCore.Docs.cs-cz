@@ -1,18 +1,18 @@
 ---
 title: Hostování ASP.NET Core v systému Linux pomocí Apache
-author: guardrex
+author: rick-anderson
 description: Naučte se, jak nastavit Apache jako reverzní proxy server v CentOS pro přesměrování provozu HTTP do ASP.NET Core webové aplikace běžící na Kestrel.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: shboyer
 ms.custom: mvc
 ms.date: 02/05/2020
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: f522c54fdc584845f18040bae1b2a2bda36d28fa
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 3a3edd961b08c1952e6ded8038ed7ada381c54b0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044842"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657897"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Hostování ASP.NET Core v systému Linux pomocí Apache
 

@@ -1,29 +1,29 @@
 ---
-title: Šifrování klíčů v klidovém stavu uložených v ASP.NET Core
+title: Šifrování klíče v klidovém ASP.NET Core
 author: rick-anderson
-description: Přečtěte si podrobnosti implementace ochrany dat ASP.NET Core klíče šifrování v klidovém stavu.
+description: Přečtěte si podrobnosti o implementaci ASP.NET Core šifrování klíče ochrany dat v klidovém umístění.
 ms.author: riande
 ms.date: 07/16/2018
 uid: security/data-protection/implementation/key-encryption-at-rest
 ms.openlocfilehash: 52c3137dbe467096364b42430c92aecc7c15e313
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64898773"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658387"
 ---
-# <a name="key-encryption-at-rest-in-aspnet-core"></a>Šifrování klíčů v klidovém stavu uložených v ASP.NET Core
+# <a name="key-encryption-at-rest-in-aspnet-core"></a>Šifrování klíče v klidovém ASP.NET Core
 
-Systém ochrany dat [využívá mechanismus zjišťování ve výchozím nastavení](xref:security/data-protection/configuration/default-settings) k určení jak kryptografické klíče by měla být v klidovém stavu zašifrovaná. Vývojář můžete přepsat mechanismus zjišťování a ručně zadat, jak by měl být klíčů v klidovém stavu zašifrovaná.
+Systém ochrany dat [ve výchozím nastavení využívá mechanismus zjišťování](xref:security/data-protection/configuration/default-settings) , aby určil, jak by měly být šifrovací klíče zašifrované v klidovém stavu. Vývojář může přepsat mechanismus zjišťování a ručně zadat, jak by měly být klíče zašifrované v klidovém stavu.
 
 > [!WARNING]
-> Pokud zadáte explicitní [klíče trvalého umístění](xref:security/data-protection/implementation/key-storage-providers), systém pro ochranu dat deregisters výchozí šifrování klíčů v mechanismu rest. Klíče jsou v důsledku toho již šifrují při nečinnosti. Doporučujeme vám [zadejte mechanismus explicitní šifrování klíče](xref:security/data-protection/implementation/key-encryption-at-rest) pro nasazení v produkčním prostředí. Šifrování v klidovém stavu mechanismus možnosti jsou popsané v tomto tématu.
+> Pokud zadáte explicitní [umístění trvalosti klíčů](xref:security/data-protection/implementation/key-storage-providers), systém ochrany dat zruší registraci výchozího šifrování klíče v mechanismu REST. V důsledku toho klíče už nejsou zašifrované v klidovém stavu. Pro produkční nasazení doporučujeme [zadat explicitní šifrovací mechanismus klíčů](xref:security/data-protection/implementation/key-encryption-at-rest) . V tomto tématu jsou popsány možnosti mechanismu šifrování v klidovém umístění.
 
 ::: moniker range=">= aspnetcore-2.1"
 
 ## <a name="azure-key-vault"></a>Azure Key Vault
 
-Pro ukládání klíčů v [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), nakonfigurujte systém s [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) v `Startup` třídy:
+Chcete-li uložit klíče v [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), nakonfigurujte systém pomocí [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) ve třídě `Startup`:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -34,15 +34,15 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Další informace najdete v tématu [Konfigurace ochrany dat ASP.NET Core: ProtectKeysWithAzureKeyVault](xref:security/data-protection/configuration/overview#protectkeyswithazurekeyvault).
+Další informace najdete v tématu [konfigurace ASP.NET Core ochrany dat: ProtectKeysWithAzureKeyVault](xref:security/data-protection/configuration/overview#protectkeyswithazurekeyvault).
 
 ::: moniker-end
 
 ## <a name="windows-dpapi"></a>Windows DPAPI
 
-**Platí jenom pro nasazení Windows.**
+**Platí jenom pro nasazení systému Windows.**
 
-Při použití rozhraní Windows DPAPI materiál klíče je zašifrovaný pomocí [CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata) před se ukládají do úložiště. Rozhraní DPAPI je mechanismus příslušným šifrovacím pro data, která se vůbec nečte mimo aktuální počítač (i když je možné zálohovat tyto klíče do služby Active Directory, naleznete v tématu [DPAPI a cestovní profily](https://support.microsoft.com/kb/309408/#6)). Pokud chcete nakonfigurovat šifrování DPAPI klíč v klidovém stavu, volání jednoho z [ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi) rozšiřující metody:
+Je-li použit rozhraní DPAPI systému Windows, je klíčovým materiálem zašifrováno pomocí funkce [CryptProtectData](/windows/desktop/api/dpapi/nf-dpapi-cryptprotectdata) před trvalým uložením do úložiště. Rozhraní DPAPI je vhodný šifrovací mechanismus pro data, která se nikdy nepřečetla mimo aktuální počítač (i když je možné tyto klíče do služby Active Directory obnovit), viz [profily DPAPI a cestovní profily](https://support.microsoft.com/kb/309408/#6)). Pokud chcete nakonfigurovat šifrování v rámci neaktivního klíče DPAPI, zavolejte jednu z metod rozšíření [ProtectKeysWithDpapi](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpapi) :
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -53,7 +53,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Pokud `ProtectKeysWithDpapi` je zavolán bez parametrů, pouze pro aktuální uživatelský účet Windows může dešifrovat trvalý kanál klíč. Volitelně můžete zadat, že nějakému uživatelskému účtu počítače (nejen aktuální uživatelský účet) možné dešifrovat aktualizační kanál, který klíč:
+Pokud je zavolána `ProtectKeysWithDpapi` bez parametrů, lze trvale dekódovat trvalý klíčový prstenec pouze v aktuálním uživatelském účtu systému Windows. Volitelně můžete určit, že každý uživatelský účet v počítači (nikoli jenom aktuální uživatelský účet) může dekódovat klíčového prstence:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -66,9 +66,9 @@ public void ConfigureServices(IServiceCollection services)
 
 ::: moniker range=">= aspnetcore-2.0"
 
-## <a name="x509-certificate"></a>Certifikát X.509
+## <a name="x509-certificate"></a>Certifikát X. 509
 
-Pokud aplikace je rozdělena mezi více počítačů, může být vhodné sdíleného certifikátu X.509 distribuovat napříč počítači a konfiguraci prostředí aplikace, které používají certifikát pro šifrování klíčů v klidovém stavu:
+Pokud je aplikace rozdělená mezi několik počítačů, může být vhodné distribuovat sdílený certifikát X. 509 napříč počítači a nakonfigurovat hostované aplikace tak, aby používaly certifikát pro šifrování neaktivních klíčů:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -78,17 +78,17 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Z důvodu omezení rozhraní .NET Framework se podporují pouze certifikáty s CAPI privátních klíčů. Podívejte se níže uvedený obsah možná řešení na těchto omezení.
+Vzhledem k omezením .NET Framework podporují se jenom certifikáty s privátními klíči CAPI. V níže uvedeném obsahu se můžete podívat na možná řešení těchto omezení.
 
 ::: moniker-end
 
-## <a name="windows-dpapi-ng"></a>Windows DPAPI-NG
+## <a name="windows-dpapi-ng"></a>Windows DPAPI – NG
 
-**Tento mechanismus je k dispozici pouze v systému Windows 8 nebo Windows Server 2012 nebo novější.**
+**Tento mechanismus je k dispozici pouze v systému Windows 8/Windows Server 2012 nebo novějším.**
 
-Od verze Windows 8, operační systém Windows podporuje rozhraní DPAPI-NG (také nazývané CNG DPAPI). Další informace najdete v tématu [o rozhraní DPAPI CNG](/windows/desktop/SecCNG/cng-dpapi).
+Počínaje systémem Windows 8 podporuje operační systém Windows DPAPI-NG (označuje se také jako CNG DPAPI). Další informace najdete v tématu [o CNG DPAPI](/windows/desktop/SecCNG/cng-dpapi).
 
-Objekt zabezpečení je zakódován jako pravidla popisovač ochrany. V následujícím příkladu, který volá [ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping)pouze uživatel připojený k doméně se zadaným identifikátorem SID mohly dešifrovat aktualizační kanál, který klíč:
+Objekt zabezpečení je kódovaný jako pravidlo popisovače ochrany. V následujícím příkladu, který volá [ProtectKeysWithDpapiNG](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.protectkeyswithdpaping), může dešifrovat klíč Ring jenom uživatel připojený k doméně se zadaným identifikátorem SID:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -100,7 +100,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-K dispozici je také na bez parametrů přetížení `ProtectKeysWithDpapiNG`. Pomocí této metody usnadnění práce můžete zadat pravidlo "SID = {CURRENT_ACCOUNT_SID}", kde *CURRENT_ACCOUNT_SID* je SID aktuálního uživatelského účtu Windows:
+K dispozici je také přetížení `ProtectKeysWithDpapiNG`bez parametrů. Tuto metodu použijte k zadání pravidla "SID = {CURRENT_ACCOUNT_SID}", kde *CURRENT_ACCOUNT_SID* je identifikátor SID aktuálního uživatelského účtu systému Windows:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -111,11 +111,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-V tomto scénáři je zodpovědný za distribuci šifrovací klíče použité operacemi DPAPI NG řadič domény AD. Cílový uživatel může dešifrovat šifrovaná data z libovolného počítače připojeného k doméně (za předpokladu, že je proces spuštěn pod svou identitu).
+V tomto scénáři zodpovídá řadič domény služby AD za distribuci šifrovacích klíčů používaných operacemi DPAPI-NG. Cílový uživatel může dešifrovat šifrovanou datovou část z libovolného počítače připojeného k doméně (za předpokladu, že proces běží pod svou identitou).
 
-## <a name="certificate-based-encryption-with-windows-dpapi-ng"></a>Šifrování na základě certifikátů s Windows DPAPI-NG
+## <a name="certificate-based-encryption-with-windows-dpapi-ng"></a>Šifrování založené na certifikátech s Windows DPAPI-NG
 
-Pokud aplikace běží na Windows 8.1 nebo Windows Server 2012 R2 nebo novější, můžete použít Windows DPAPI-NG k provedení na základě certifikátů šifrování. Použití řetězce popisovače pravidla "certifikát = HashId:THUMBPRINT", kde *kryptografický OTISK* je hexadecimální zakódovaná SHA1 kryptografický otisk certifikátu:
+Pokud je aplikace spuštěná na Windows 8.1/Windows Serveru 2012 R2 nebo novějším, můžete k provádění šifrování založeného na certifikátech použít Windows DPAPI-NG. Použijte řetězec deskriptoru pravidel "CERTIFICATE = HashId: kryptografický otisk", kde *kryptografický otisk* je hex kódovaný otisk certifikátu SHA1:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -126,8 +126,8 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Libovolná aplikace nasměrovaného na tato úložiště musí běžet na Windows 8.1 nebo Windows Server 2012 R2 nebo novějším k dešifrování klíče.
+Všechny aplikace, na které se odkazuje v tomto úložišti, musí běžet na Windows 8.1/Windows Serveru 2012 R2 nebo novějším, aby se klíče dešifroval.
 
-## <a name="custom-key-encryption"></a>Vlastní šifrovací klíče
+## <a name="custom-key-encryption"></a>Šifrování vlastních klíčů
 
-Pokud nejsou integrované mechanismy vhodné, Vývojář můžete zadat vlastní mechanismus šifrování klíče poskytnutím vlastní [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor).
+Pokud nejsou mechanismy v krabici vhodné, může vývojář zadat vlastní šifrovací mechanismus klíče tím, že poskytuje vlastní [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor).

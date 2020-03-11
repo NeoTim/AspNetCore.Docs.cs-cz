@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 08/21/2019
 uid: grpc/client
-ms.openlocfilehash: 1e7887388a752fb35d00e65db210c3924c6ab192
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 6a6a649f7194354b16f3d67160be02428cc01170
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829098"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667172"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>Volání služeb gRPC Services pomocí klienta .NET
 
@@ -22,7 +22,7 @@ Klientská knihovna .NET gRPC je k dispozici v balíčku NuGet pro [gRPC .NET. C
 
 ## <a name="configure-grpc-client"></a>Konfigurace klienta gRPC
 
-gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze *\*souborů. proto*](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v *\*souboru..* .
+gRPC klienti jsou konkrétní typy klientů, které jsou [generovány z *\*.* soubory](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v souboru *\*..* .
 
 Klient gRPC se vytvoří z kanálu. Začněte vytvořením kanálu pomocí `GrpcChannel.ForAddress` a pak pomocí kanálu vytvořte klienta gRPC:
 
@@ -54,6 +54,9 @@ Výkon a využití kanálu a klienta:
 
 > [!NOTE]
 > Pro [volání nezabezpečených služeb gRPC s klientem .NET](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)je vyžadována další konfigurace.
+
+> [!NOTE]
+> Volání gRPC přes HTTP/2 s `Grpc.Net.Client` v současnosti není v Xamarin podporováno. Pracujeme na vylepšení podpory protokolu HTTP/2 v budoucí verzi Xamarin. [Grpc. Core](https://www.nuget.org/packages/Grpc.Core) a [Grpc-web](xref:grpc/browser) představují životaschopné alternativy, které dnes fungují.
 
 ## <a name="make-grpc-calls"></a>Provést volání gRPC
 
@@ -171,7 +174,7 @@ using (var call = client.Echo())
 
 Během volání obousměrného streamování může klient a služba kdykoli odesílat zprávy. Nejlepší klientská logika pro interakci s obousměrným voláním se liší v závislosti na logice služby.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:grpc/clientfactory>
 * <xref:grpc/basics>

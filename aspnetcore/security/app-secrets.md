@@ -6,18 +6,18 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: security/app-secrets
-ms.openlocfilehash: 9b36ae64fbe277cd81ed22ba7b21b0a035082dbd
-ms.sourcegitcommit: c815a9465e7b1bab44ce1643ec345b33e6cf1598
+ms.openlocfilehash: c3f165164f3c95e8c0aab773f3731429ae224bd9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/02/2020
-ms.locfileid: "75606789"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666864"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>Bezpečné ukládání tajných kódů aplikací ve vývoji v ASP.NET Core
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Daniel Skořepa](https://github.com/danroth27)a [Scott Addie](https://github.com/scottaddie)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/app-secrets/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 Tento dokument vysvětluje techniky pro ukládání a načítání citlivých dat během vývoje ASP.NET Core aplikace na vývojovém počítači. Nikdy neukládejte hesla nebo další citlivá data ve zdrojovém kódu. Provozní tajemství by se neměla používat pro vývoj nebo testování. Tajné klíče by se neměly nasazovat spolu s aplikací. Místo toho by tajné klíče měly být k dispozici v produkčním prostředí prostřednictvím řízených prostředků, jako jsou proměnné prostředí, Azure Key Vault atd. Pomocí [poskytovatele konfigurace Azure Key Vault](xref:security/key-vault-configuration)můžete ukládat a chránit tajné kódy Azure test a produkčního prostředí.
 
@@ -51,13 +51,13 @@ Nástroj Správce tajných klíčů ukládá citlivé údaje během vývoje ASP.
 
 Nástroj Správce tajných klíčů vyříznout podrobnosti implementace, například WHERE a způsob uložení hodnot. Tento nástroj můžete použít bez znalosti těchto podrobností implementace. Hodnoty jsou uložené v konfiguračním souboru JSON ve složce profilu uživatele chráněné systémem v místním počítači:
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 Cesta k systému souborů:
 
 `%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json`
 
-# <a name="linux--macostablinuxmacos"></a>[Linux / macOS](#tab/linux+macos)
+# <a name="linux--macos"></a>[Linux/macOS](#tab/linux+macos)
 
 Cesta k systému souborů:
 
@@ -199,7 +199,7 @@ Po úpravách prostřednictvím `dotnet user-secrets remove` nebo `dotnet user-s
 
 Dávku tajných kódů lze nastavit pomocí příkazu pro vytvoření kódu JSON na příkaz `set`. V následujícím příkladu je obsah souboru *input. JSON* v kanálu `set` příkazu.
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 Otevřete příkazové prostředí a spusťte následující příkaz:
 
@@ -207,7 +207,7 @@ Otevřete příkazové prostředí a spusťte následující příkaz:
   type .\input.json | dotnet user-secrets set
   ```
 
-# <a name="linux--macostablinuxmacos"></a>[Linux / macOS](#tab/linux+macos)
+# <a name="linux--macos"></a>[Linux/macOS](#tab/linux+macos)
 
 Otevřete příkazové prostředí a spusťte následující příkaz:
 
@@ -351,7 +351,7 @@ Z adresáře, ve kterém existuje soubor *. csproj* , spusťte následující p�
 dotnet user-secrets list
 ```
 
-Zobrazí se výstup:
+Zobrazí se následující výstup:
 
 ```console
 Movies:ConnectionString = Server=(localdb)\mssqllocaldb;Database=Movie-1;Trusted_Connection=True;MultipleActiveResultSets=true
@@ -408,8 +408,8 @@ Spuštění `dotnet user-secrets list` zobrazí následující zprávu:
 No secrets configured for this application.
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
-* Informace o přístupu ke Správci tajných kódů ze služby IIS najdete v [tomto problému](https://github.com/aspnet/AspNetCore.Docs/issues/16328) .
+* Informace o přístupu ke Správci tajných kódů ze služby IIS najdete v [tomto problému](https://github.com/dotnet/AspNetCore.Docs/issues/16328) .
 * <xref:fundamentals/configuration/index>
 * <xref:security/key-vault-configuration>

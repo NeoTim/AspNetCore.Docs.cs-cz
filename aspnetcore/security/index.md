@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 10/24/2018
 uid: security/index
 ms.openlocfilehash: 0f8e96fb7d5246e746b95f8907745f849de60e24
-ms.sourcegitcommit: 8835b6777682da6fb3becf9f9121c03f89dc7614
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 08/22/2019
-ms.locfileid: "69975665"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656035"
 ---
 # <a name="overview-of-aspnet-core-security"></a>Přehled zabezpečení ASP.NET Core
 
@@ -21,7 +21,7 @@ ASP.NET Core umožňuje vývojářům snadno nakonfigurovat a spravovat zabezpe�
 
 ASP.NET Core poskytuje mnoho nástrojů a knihoven pro zabezpečení vašich aplikací, včetně integrovaných zprostředkovatelů identity, ale můžete použít služby identity třetích stran, jako je Facebook, Twitter nebo LinkedIn. Pomocí ASP.NET Core můžete snadno spravovat tajné kódy aplikací, které představují způsob ukládání a používání důvěrných informací bez nutnosti jejich vystavení v kódu.
 
-## <a name="authentication-vs-authorization"></a>Ověřování vs. Autorizace
+## <a name="authentication-vs-authorization"></a>Ověřování vs. autorizace
 
 Ověřování je proces, ve kterém uživatel poskytne přihlašovací údaje, které jsou pak porovnány s uživateli uloženými v operačním systému, databázi, aplikaci nebo prostředku. Pokud se shodují, uživatelé se úspěšně ověřují a pak můžou v rámci autorizačního procesu provádět akce, ke kterým mají oprávnění. Autorizace se týká procesu, který určuje, co může uživatel dělat.
 

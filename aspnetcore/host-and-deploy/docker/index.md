@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 01/08/2018
 uid: host-and-deploy/docker/index
 ms.openlocfilehash: cb5f774db5fab46a57f8ca4bbbca148f20f371ba
-ms.sourcegitcommit: b40613c603d6f0cc71f3232c16df61550907f550
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68308051"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664078"
 ---
 # <a name="host-aspnet-core-in-docker-containers"></a>Hostování ASP.NET Core v kontejnerech Docker
 
@@ -29,7 +29,7 @@ Seznamte se s podmínkami a definicemi pro technologii Docker.
 [Kontejnery, obrázky a registry Dockeru](/dotnet/standard/microservices-architecture/container-docker-introduction/docker-containers-images-registries)  
 Zjistěte, jak jsou image kontejnerů Docker uložené v registru imagí pro konzistentní nasazení napříč prostředími.
 
-<xref:host-and-deploy/docker/building-net-docker-images>Naučte se sestavovat a ukotvovat aplikaci ASP.NET Core. Prozkoumejte image Docker udržované Microsoftem a prozkoumejte případy použití.
+<xref:host-and-deploy/docker/building-net-docker-images> se naučíte, jak sestavit a ukotvovat aplikaci ASP.NET Core. Prozkoumejte image Docker udržované Microsoftem a prozkoumejte případy použití.
 
 [Nástroje kontejneru sady Visual Studio](xref:host-and-deploy/docker/visual-studio-tools-for-docker)  
 Zjistěte, jak Visual Studio podporuje sestavování, ladění a spouštění aplikací ASP.NET Core cílících na .NET Framework nebo .NET Core na Docker for Windows. Podporují se kontejnery Windows i Linux.

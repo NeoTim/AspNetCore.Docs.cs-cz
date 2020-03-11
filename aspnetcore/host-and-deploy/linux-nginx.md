@@ -1,18 +1,18 @@
 ---
 title: Hostování ASP.NET Core v systému Linux pomocí Nginx
-author: guardrex
+author: rick-anderson
 description: Naučte se, jak nastavit Nginx jako reverzní proxy na Ubuntu 16,04 pro přeposílání provozu HTTP do ASP.NET Core webové aplikace běžící na Kestrel.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/05/2020
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: 7f17be1d883e8cce375487aa39f4d1ebbe8a95f4
-ms.sourcegitcommit: bd896935e91236e03241f75e6534ad6debcecbbf
+ms.openlocfilehash: 320a5364efe85b06028d8e80000e3455bb8ebd18
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77044870"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657911"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -23,7 +23,7 @@ V této příručce se dozvíte, jak na serveru Ubuntu 16,04 nastavit prostřed�
 Informace o dalších distribucích systému Linux podporovaných nástrojem ASP.NET Core najdete v tématu [předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites).
 
 > [!NOTE]
-> Pro Ubuntu *14,04 se doporučuje* jako řešení pro monitorování procesu Kestrel. *systém* není k dispozici na Ubuntu 14,04. Pokyny pro Ubuntu 14,04 najdete v [předchozí verzi tohoto tématu](https://github.com/aspnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md).
+> Pro Ubuntu *14,04 se doporučuje* jako řešení pro monitorování procesu Kestrel. *systém* není k dispozici na Ubuntu 14,04. Pokyny pro Ubuntu 14,04 najdete v [předchozí verzi tohoto tématu](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md).
 
 Tato příručka:
 

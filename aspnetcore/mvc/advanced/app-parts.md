@@ -5,20 +5,20 @@ description: Sdílení řadičů, zobrazení, Razor Pages a dalších prvků apl
 ms.author: riande
 ms.date: 11/11/2019
 uid: mvc/extensibility/app-parts
-ms.openlocfilehash: a95c344410db0651b9f8f1c1eb7551029f084c25
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 0156c94bc6d0b83d0e14b8ef49468cfdf106d7e6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829072"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667130"
 ---
 # <a name="share-controllers-views-razor-pages-and-more-with-application-parts"></a>Sdílení řadičů, zobrazení, Razor Pages a dalších prvků aplikace
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 *Část aplikace* je abstrakcí přes prostředky aplikace. Části aplikace umožňují ASP.NET Core zjišťování řadičů, zobrazení komponent, pomocníků značek, Razor Pages, zdrojů kompilace Razor a dalších. <xref:Microsoft.AspNetCore.Mvc.ApplicationParts.AssemblyPart> je součást aplikace. `AssemblyPart` zapouzdřuje odkaz na sestavení a zpřístupňuje typy a odkazy na kompilaci.
 
@@ -36,7 +36,7 @@ Následující kód poskytuje alternativní přístup ke konfiguraci `Applicatio
 
 [!code-csharp[](./app-parts/3.0sample1/WebAppParts/Startup2.cs?name=snippet)]
 
-Předchozí dva ukázky kódu načtou `SharedController` ze sestavení. `SharedController` není v projektu aplikace. Viz stažení ukázkového [řešení WebAppParts](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/3.0sample1/WebAppParts) .
+Předchozí dva ukázky kódu načtou `SharedController` ze sestavení. `SharedController` není v projektu aplikace. Viz stažení ukázkového [řešení WebAppParts](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/3.0sample1/WebAppParts) .
 
 ### <a name="include-views"></a>Zahrnutí zobrazení
 
@@ -74,7 +74,7 @@ Funkce, které jsou k dispozici pro aplikaci, mohou být vyčísleny vyžádán�
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/Controllers/FeaturesController.cs?highlight=16,25-27)]
 
-[Ukázka ke stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2) používá předchozí kód k zobrazení funkcí aplikace:
+[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2) používá předchozí kód k zobrazení funkcí aplikace:
 
 ```text
 Controllers:
@@ -106,9 +106,9 @@ Chyby HTTP 404 nejsou běžné při vývoji s součástmi aplikace. Tyto chyby j
 
 ::: moniker range="< aspnetcore-3.0"
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 *Část aplikace* je abstrakcí přes prostředky aplikace. Části aplikace umožňují ASP.NET Core zjišťování řadičů, zobrazení komponent, pomocníků značek, Razor Pages, zdrojů kompilace Razor a dalších. [AssemblyPart](/dotnet/api/microsoft.aspnetcore.mvc.applicationparts.assemblypart#Microsoft_AspNetCore_Mvc_ApplicationParts_AssemblyPart) je součást aplikace. `AssemblyPart` zapouzdřuje odkaz na sestavení a zpřístupňuje typy a odkazy na kompilaci.
 
@@ -126,7 +126,7 @@ Následující kód poskytuje alternativní přístup ke konfiguraci `Applicatio
 
 [!code-csharp[](./app-parts/sample1/WebAppParts/Startup2.cs?name=snippet)]
 
-Předchozí dva ukázky kódu načtou `SharedController` ze sestavení. `SharedController` není v projektu aplikace. Viz stažení ukázkového [řešení WebAppParts](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample1/WebAppParts) .
+Předchozí dva ukázky kódu načtou `SharedController` ze sestavení. `SharedController` není v projektu aplikace. Viz stažení ukázkového [řešení WebAppParts](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample1/WebAppParts) .
 
 ### <a name="include-views"></a>Zahrnutí zobrazení
 
@@ -160,7 +160,7 @@ Funkce, které jsou k dispozici pro aplikaci, mohou být vyčísleny vyžádán�
 
 [!code-csharp[](./app-parts/sample2/AppPartsSample/Controllers/FeaturesController.cs?highlight=16,25-27)]
 
-[Ukázka ke stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2) používá předchozí kód k zobrazení funkcí aplikace:
+[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/app-parts/sample2) používá předchozí kód k zobrazení funkcí aplikace:
 
 ```text
 Controllers:

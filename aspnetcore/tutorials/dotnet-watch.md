@@ -5,12 +5,12 @@ description: V tomto kurzu se dozvíte, jak nainstalovat a používat nástroj s
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
-ms.openlocfilehash: 053c98ba032c85b61776d5b5644c5575cd4f890c
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: bedb3e6a65839db915ca7bc821a267a14d34bf30
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828994"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667410"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>Vývoj aplikací ASP.NET Core pomocí sledovacího procesu souborů
 
@@ -20,7 +20,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [vítěz Hurdugaci](https:
 
 V tomto kurzu se používá existující webové rozhraní API se dvěma koncovými body: jeden, který vrací součet, a jeden, který vrací produkt. Metoda produktu obsahuje chybu, která je v tomto kurzu opravena.
 
-Stáhněte si [ukázkovou aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample). Skládá se ze dvou projektů: *WebApp* (ASP.NET Core Web API) a *WebAppTests* (testování částí webového rozhraní API).
+Stáhněte si [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample). Skládá se ze dvou projektů: *WebApp* (ASP.NET Core Web API) a *WebAppTests* (testování částí webového rozhraní API).
 
 V příkazovém prostředí přejděte do složky *WebApp* . Spusťte následující příkaz:
 
@@ -41,7 +41,7 @@ Now listening on: http://localhost:5000
 Application started. Press Ctrl+C to shut down.
 ```
 
-Ve webovém prohlížeči přejděte na adresu `http://localhost:<port number>/api/math/sum?a=4&b=5`. Měl by se zobrazit výsledek `9`.
+Ve webovém prohlížeči přejděte na `http://localhost:<port number>/api/math/sum?a=4&b=5`. Měl by se zobrazit výsledek `9`.
 
 Přejděte na rozhraní API produktu (`http://localhost:<port number>/api/math/product?a=4&b=5`). Vrátí `9`, ne `20` podle očekávání. Tento problém je opravený později v tomto kurzu.
 

@@ -1,15 +1,15 @@
 Spusťte generování uživatelského rozhraní identity:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Z **Průzkumníka řešení**, klikněte pravým tlačítkem na projekt > **přidat** > **novou vygenerovanou položku**.
-* V levém podokně **přidat vygenerované uživatelské rozhraní** dialogového okna, vyberte **Identity** > **přidat**.
+* Z **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt > **Přidat** > **novou vygenerované položky**.
+* V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identita** > **Přidat**.
 * V dialogovém okně **Přidat identitu** vyberte požadované možnosti.
   * Vyberte existující stránku rozložení, nebo bude soubor rozložení přepsán nesprávným označením. Například `~/Pages/Shared/_Layout.cshtml` pro Razor Pages `~/Views/Shared/_Layout.cshtml` pro projekty MVC
-  * Vyberte **+** tlačítko pro vytvoření nového **třída kontextu dat**.
-* Vyberte **přidat**.
+  * Výběrem tlačítka **+** vytvořte novou **třídu datového kontextu**.
+* Vyberte **Přidat**.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
 

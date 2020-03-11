@@ -9,11 +9,11 @@ no-loc:
 - SignalR
 uid: grpc/comparison
 ms.openlocfilehash: 8935e665dfd5d8f9afa002f475c202ec0f0ee657
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880669"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667158"
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
@@ -28,12 +28,12 @@ Následující tabulka nabízí vysoké srovnání funkcí mezi gRPC a rozhraní
 | Funkce          | gRPC                                               | HTTP API s JSON           |
 | ---------------- | -------------------------------------------------- | ----------------------------- |
 | Kontrakt         | Požadováno ( *.* )                                | Volitelné (OpenAPI)            |
-| Protokol         | HTTP/2                                             | HTTP                          |
+| Protocol (Protokol)         | HTTP/2                                             | HTTP                          |
 | Délka          | [Protobuf (malý, binární)](#performance)           | JSON (velký, lidský čitelný)  |
 | Prescriptiveness | [Striktní specifikace](#strict-specification)      | Spojování. Všechny požadavky HTTP jsou platné.     |
 | Streamování        | [Klient, server, obousměrné](#streaming)       | Klient, Server                |
-| Podpora prohlížečů  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano                           |
-| Zabezpečení –         | Přenos (TLS)                                    | Přenos (TLS)               |
+| Podpora prohlížeče  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano                           |
+| Zabezpečení         | Přenos (TLS)                                    | Přenos (TLS)               |
 | Generování kódu klienta | [Ano](#code-generation)                      | OpenAPI + nástroje třetích stran |
 
 ## <a name="grpc-strengths"></a>gRPC síly
@@ -47,7 +47,7 @@ gRPC je navržená pro HTTP/2, což je hlavní revize HTTP, která poskytuje vý
 * Binární rámce a komprese. Protokol HTTP/2 je komprimován a efektivní při posílání i přijímání.
 * Multiplexování více volání HTTP/2 přes jedno připojení TCP. Multiplexování eliminuje [blokování po řádcích](https://en.wikipedia.org/wiki/Head-of-line_blocking).
 
-### <a name="code-generation"></a>Vytváření kódu
+### <a name="code-generation"></a>Generování kódu
 
 Všechny gRPC architektury poskytují prvotřídní podporu pro generování kódu. Základním souborem pro gRPC vývoj je [soubor...](https://developers.google.com/protocol-buffers/docs/proto3)to definuje kontrakt služeb gRPC a zpráv. Z tohoto souboru gRPC architektury budou kód generovat základní třídu služby, zprávy a kompletního klienta.
 
@@ -111,7 +111,7 @@ Další architektury se doporučují přes gRPC v následujících scénářích
 * **Všesměrové vysílání &ndash; gRPC pro komunikaci v reálném** čase podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy z registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [SignalR](xref:signalr/introduction) je užitečnou architekturou pro tento scénář. SignalR má koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
 * **Komunikace mezi procesy** &ndash; proces musí HOSTOVAT Server HTTP/2, aby přijímal příchozí volání gRPC. Pro systém Windows je mezi procesy komunikačních [kanálů](/dotnet/standard/io/pipe-operations) rychlá a odlehčená metoda komunikace.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/index>

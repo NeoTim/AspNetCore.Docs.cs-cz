@@ -5,12 +5,12 @@ description: Použijte identitu s aplikací ASP.NET Core. Přečtěte si, jak na
 ms.author: riande
 ms.date: 01/15/2020
 uid: security/authentication/identity
-ms.openlocfilehash: 164ba10c1d1e2a73ebeb8240293a58f158055699
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 2e0723d34a09109a034f3375c4e94aedab2a5427
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172534"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662342"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>Úvod do identity na ASP.NET Core
 
@@ -38,7 +38,7 @@ V tomto tématu se dozvíte, jak používat identitu k registraci, přihlášen�
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample) ([Jak stáhnout)](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample) ([Jak stáhnout)](xref:index#how-to-download-a-sample)).
 
 <a name="adi"></a>
 
@@ -46,14 +46,14 @@ V tomto tématu se dozvíte, jak používat identitu k registraci, přihlášen�
 
 Vytvořte ASP.NET Core projekt webové aplikace s jednotlivými uživatelskými účty.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Vyberte **soubor** > **Nový** > **projekt**.
 * Vyberte **ASP.NET Core webové aplikace**. Pojmenujte projekt **WebApp1** tak, aby měl stejný obor názvů jako projekt ke stažení. Klikněte na tlačítko **OK**.
 * Vyberte **webovou aplikaci**ASP.NET Core a pak vyberte **změnit ověřování**.
 * Vyberte **jednotlivé uživatelské účty** a klikněte na **OK**.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -67,7 +67,7 @@ dotnet new webapp --auth Individual -uld -o WebApp1
 
 ---
 
-Vygenerovaný projekt poskytuje [ASP.NET Coreou identitu](xref:security/authentication/identity) jako [knihovnu tříd Razor](xref:razor-pages/ui-class). Knihovna tříd identity Razor zpřístupňuje koncové body s oblastí `Identity`. Například:
+Vygenerovaný projekt poskytuje [ASP.NET Coreou identitu](xref:security/authentication/identity) jako [knihovnu tříd Razor](xref:razor-pages/ui-class). Knihovna tříd identity Razor zpřístupňuje koncové body s oblastí `Identity`. Příklad:
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -77,13 +77,13 @@ Vygenerovaný projekt poskytuje [ASP.NET Coreou identitu](xref:security/authenti
 
 Použijte migrace k inicializaci databáze.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Spusťte následující příkaz v konzole správce balíčků (PMC):
 
 `PM> Update-Database`
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Migrace nejsou v tomto kroku nutné při použití SQLite. V případě LocalDB spusťte následující příkaz:
 
@@ -119,11 +119,11 @@ Další informace o `IdentityOptions` a `Startup`najdete v tématu <xref:Microso
 
 ## <a name="scaffold-register-login-and-logout"></a>Registrace, přihlášení a odhlášení uživatelského rozhraní
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Přidejte soubory registru, přihlášení a odhlášení. Použijte [identitu uživatelského rozhraní do projektu Razor s pokyny k autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste vytvořili projekt s názvem **WebApp1**, spusťte následující příkazy. Jinak použijte správný obor názvů pro `ApplicationDbContext`:
 
@@ -232,7 +232,7 @@ Pokud chcete zabránit publikování statických prostředků identity (šablony
 
 ## <a name="next-steps"></a>Další kroky
 
-* Informace o konfiguraci identity pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/5131) .
+* Informace o konfiguraci identity pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) .
 * [Konfigurace systému Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
@@ -252,7 +252,7 @@ ASP.NET Core identity je systém členství, který do ASP.NET Core aplikací p�
 
 Identitu můžete nakonfigurovat pomocí SQL Server databáze pro ukládání uživatelských jmen, hesel a profilových dat. Případně můžete použít jiné trvalé úložiště, například Azure Table Storage.
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/) ([Jak stáhnout)](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/identity/sample/src/ASPNETCore-IdentityDemoComplete/) ([Jak stáhnout)](xref:index#how-to-download-a-sample)).
 
 V tomto tématu se dozvíte, jak používat identitu k registraci, přihlášení a odhlášení uživatele. Podrobnější pokyny k vytváření aplikací, které používají identitu, najdete v části Další kroky na konci tohoto článku.
 
@@ -272,14 +272,14 @@ Další informace najdete v tématu [AddDefaultIdentity source](https://github.c
 
 Vytvořte ASP.NET Core projekt webové aplikace s jednotlivými uživatelskými účty.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Vyberte **soubor** > **Nový** > **projekt**.
 * Vyberte **ASP.NET Core webové aplikace**. Pojmenujte projekt **WebApp1** tak, aby měl stejný obor názvů jako projekt ke stažení. Klikněte na tlačítko **OK**.
 * Vyberte **webovou aplikaci**ASP.NET Core a pak vyberte **změnit ověřování**.
 * Vyberte **jednotlivé uživatelské účty** a klikněte na **OK**.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new webapp --auth Individual -o WebApp1
@@ -287,7 +287,7 @@ dotnet new webapp --auth Individual -o WebApp1
 
 ---
 
-Vygenerovaný projekt poskytuje [ASP.NET Coreou identitu](xref:security/authentication/identity) jako [knihovnu tříd Razor](xref:razor-pages/ui-class). Knihovna tříd identity Razor zpřístupňuje koncové body s oblastí `Identity`. Například:
+Vygenerovaný projekt poskytuje [ASP.NET Coreou identitu](xref:security/authentication/identity) jako [knihovnu tříd Razor](xref:razor-pages/ui-class). Knihovna tříd identity Razor zpřístupňuje koncové body s oblastí `Identity`. Příklad:
 
 * /Identity/Account/Login
 * /Identity/Account/Logout
@@ -297,7 +297,7 @@ Vygenerovaný projekt poskytuje [ASP.NET Coreou identitu](xref:security/authenti
 
 Použijte migrace k inicializaci databáze.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Spusťte následující příkaz v konzole správce balíčků (PMC):
 
@@ -305,7 +305,7 @@ Spusťte následující příkaz v konzole správce balíčků (PMC):
 Update-Database
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet ef database update
@@ -339,11 +339,11 @@ Další informace naleznete v tématu [Třída IdentityOptions](/dotnet/api/micr
 
 Použijte [identitu uživatelského rozhraní do projektu Razor s pokyny k autorizaci](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-razor-project-with-authorization) a vygenerujte kód uvedený v této části.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Přidejte soubory registru, přihlášení a odhlášení.
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Pokud jste vytvořili projekt s názvem **WebApp1**, spusťte následující příkazy. Jinak použijte správný obor názvů pro `ApplicationDbContext`:
 
@@ -422,7 +422,7 @@ V části [Konfigurace](#pw) najdete ukázku, která nastavuje minimální poža
 
 ## <a name="next-steps"></a>Další kroky
 
-* Informace o konfiguraci identity pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/5131) .
+* Informace o konfiguraci identity pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) .
 * [Konfigurace systému Identity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>

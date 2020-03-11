@@ -8,15 +8,15 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/view-compilation
 ms.openlocfilehash: cd096bba5eb580c0a606699a2bf7c36442fb56f7
-ms.sourcegitcommit: b5ceb0a46d0254cc3425578116e2290142eec0f0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/28/2020
-ms.locfileid: "76809065"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78661103"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>Kompilace souboru Razor v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range="= aspnetcore-1.1"
 
@@ -177,7 +177,7 @@ Povolení kompilace za běhu na základě prostředí a konfiguračního režimu
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 ::: moniker range="= aspnetcore-1.1"
 

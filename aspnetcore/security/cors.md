@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/23/2020
 uid: security/cors
-ms.openlocfilehash: 57098be73164c71d1b0d1fe2f3aee7ec41a32346
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: e0e0e1abf1ecaa12038b3ee1bdaa384d979be254
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727321"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666248"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolit žádosti mezi zdroji (CORS) v ASP.NET Core
 
@@ -28,7 +28,7 @@ Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla pož
 * Umožňuje serveru explicitně povolit některé žádosti mezi zdroji a současně odmítat jiné.
 * Je bezpečnější a pružnější než u předchozích technik, jako třeba [JSONP](/dotnet/framework/wcf/samples/jsonp).
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="same-origin"></a>Stejný původ
 
@@ -470,13 +470,13 @@ Pokud odpověď neobsahuje hlavičku `Access-Control-Allow-Origin`, požadavek n
 
 Testování CORS:
 
-1. [Vytvořte projekt API](xref:tutorials/first-web-api). Alternativně si můžete [Stáhnout ukázku](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors).
-1. Povolte CORS pomocí jednoho z přístupů v tomto dokumentu. Například:
+1. [Vytvořte projekt API](xref:tutorials/first-web-api). Alternativně si můžete [Stáhnout ukázku](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors).
+1. Povolte CORS pomocí jednoho z přístupů v tomto dokumentu. Příklad:
 
   [!code-csharp[](cors/sample/Cors/WebAPI/StartupTest.cs?name=snippet2&highlight=13-18)]
 
   > [!WARNING]
-  > `WithOrigins("https://localhost:<port>");` by se měla použít jenom pro testování ukázkové aplikace podobné [ukázkovému kódu ke stažení](https://github.com/aspnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors).
+  > `WithOrigins("https://localhost:<port>");` by se měla použít jenom pro testování ukázkové aplikace podobné [ukázkovému kódu ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/cors/sample/Cors).
 
 1. Vytvořte projekt webové aplikace (Razor Pages nebo MVC). Ukázka používá Razor Pages. Webovou aplikaci můžete vytvořit ve stejném řešení jako projekt rozhraní API.
 1. Do souboru *index. cshtml* přidejte následující zvýrazněný kód:

@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 1dee9a7e1cc381547e7ece71f302f407223dc838
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 35accdd2f65ac5430525be88cc621094e37d3e40
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829111"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667249"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -38,7 +38,7 @@ scénáře podporované Blazor Framework:
 * Sestavení knihoven součástí s knihovnami tříd Razor
 * Interoperabilita JavaScriptu
 
-Další informace najdete v tématu <xref:blazor/index>.
+Další informace naleznete v tématu <xref:blazor/index>.
 
 ### <a name="opno-locblazor-server"></a>Server Blazor
 
@@ -77,7 +77,7 @@ funkce gRPC v ASP.NET Core 3,0 obsahuje:
 * [Grpc .NET. client](https://www.nuget.org/packages/Grpc.Net.Client) &ndash; klienta Grpc pro .NET Core, který se vytváří na známých `HttpClient`.
 * [Grpc .NET. ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) &ndash; integrace klienta Grpc s `HttpClientFactory`.
 
-Další informace najdete v tématu <xref:grpc/index>.
+Další informace naleznete v tématu <xref:grpc/index>.
 
 ## SignalR
 
@@ -319,8 +319,8 @@ Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidá
 
 Následující seznam obsahuje nové direktivy Razor:
 
-* [`@attribute`](xref:mvc/views/razor#attribute) &ndash; direktiva `@attribute` aplikuje daný atribut na třídu generované stránky nebo zobrazení. Například `@attribute [Authorize]`.
-* [`@implements`](xref:mvc/views/razor#implements) &ndash; direktiva `@implements` implementuje rozhraní pro generovanou třídu. Například `@implements IDisposable`.
+* [`@attribute`](xref:mvc/views/razor#attribute) &ndash; direktiva `@attribute` aplikuje daný atribut na třídu generované stránky nebo zobrazení. například `@attribute [Authorize]`.
+* [`@implements`](xref:mvc/views/razor#implements) &ndash; direktiva `@implements` implementuje rozhraní pro generovanou třídu. například `@implements IDisposable`.
 
 ## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 podporuje ověřování a autorizaci pro webová rozhraní API a jednostránkové.
 
@@ -365,7 +365,7 @@ Možnosti ověřování certifikátů zahrnují možnost:
 * Kontrolovat odvolání certifikátu.
 * Ověřte, že certifikát proffered má v něm správné příznaky použití.
 
-Výchozí objekt zabezpečení uživatele je vytvořen z vlastností certifikátu. Objekt zabezpečení uživatele obsahuje událost, která umožňuje doplňování nebo nahrazení objektu zabezpečení. Další informace najdete v tématu <xref:security/authentication/certauth>.
+Výchozí objekt zabezpečení uživatele je vytvořen z vlastností certifikátu. Objekt zabezpečení uživatele obsahuje událost, která umožňuje doplňování nebo nahrazení objektu zabezpečení. Další informace naleznete v tématu <xref:security/authentication/certauth>.
 
 [Ověřování systému Windows](/windows-server/security/windows-authentication/windows-authentication-overview) bylo rozšířeno na Linux a MacOS. V předchozích verzích bylo ověřování systému Windows omezeno na [službu IIS](xref:host-and-deploy/iis/index) a [HttpSys](xref:fundamentals/servers/httpsys). V ASP.NET Core 3,0 může [Kestrel](xref:fundamentals/servers/kestrel) používat funkci Negotiate, [Kerberos](/windows-server/security/kerberos/kerberos-authentication-overview)a [NTLM v systémech Windows](/windows-server/security/kerberos/ntlm-overview), Linux a MacOS pro hostitele připojené k doméně systému Windows. Podporu Kestrel těchto schémat ověřování poskytuje balíček [NuGet Microsoft. AspNetCore. Authentication. Negotiate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) . Stejně jako u ostatních ověřovacích služeb nakonfigurujte aplikaci ověřování na šířku a pak nakonfigurujte službu:
 
@@ -391,14 +391,14 @@ Požadavky na hostitele:
   * Pro webový proces musí být vytvořeny hlavní názvy služby (SPN).
   * Na hostitelském počítači musí být vygenerovány a nakonfigurovány [soubory keytab](https://blogs.technet.microsoft.com/pie/2018/01/03/all-you-need-to-know-about-keytab-files/) .
 
-Další informace najdete v tématu <xref:security/authentication/windowsauth>.
+Další informace naleznete v tématu <xref:security/authentication/windowsauth>.
 
 ## <a name="template-changes"></a>Změny šablony
 
 Šablony webového uživatelského rozhraní (Razor Pages, MVC s kontrolérem a zobrazeními) mají odebraný následující:
 
 * Uživatelské rozhraní pro vyjádření souhlasu souborů cookie již není zahrnuto. Pokud chcete povolit funkci vyjádření souhlasu souborů cookie v aplikaci vygenerovanou šablonou ASP.NET Core 3,0, přečtěte si téma <xref:security/gdpr>.
-* Skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN. Další informace najdete v tématu [skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN v závislosti na aktuálním prostředí (ASPNET/AspNetCore. Docs #14350)](https://github.com/aspnet/AspNetCore.Docs/issues/14350).
+* Skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN. Další informace najdete v tématu [skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN v závislosti na aktuálním prostředí (ASPNET/AspNetCore. Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350).
 
 Úhlová šablona se aktualizovala tak, aby používala úhlové 8.
 
@@ -430,7 +430,7 @@ Všechny služby mohou být vloženy přímo jako argumenty `Startup.Configure` 
 * Nejednoznačnost mezi záhlavími a přípojnou čárkou byla vyřešena přesunutím koncových hlaviček do nové kolekce.
 * Synchronní vstupně-výstupní rozhraní API, jako je například `HttpRequest.Body.Read`, jsou běžným zdrojem vyčerpání vláken, který vede k chybám aplikace. V 3,0 je `AllowSynchronousIO` ve výchozím nastavení zakázaný.
 
-Další informace najdete v tématu <xref:migration/22-to-30#kestrel>.
+Další informace naleznete v tématu <xref:migration/22-to-30#kestrel>.
 
 ## <a name="http2-enabled-by-default"></a>HTTP/2 povoleno ve výchozím nastavení
 
@@ -454,7 +454,7 @@ Směrování koncového bodu, které umožňuje architekturám (například MVC)
 * Koncové body můžou implementovat zásadu, třeba CORS nebo autorizaci, a to v middlewaru i MVC.
 * Filtry a atributy lze umístit na metody v řadičích.
 
-Další informace najdete v tématu <xref:fundamentals/routing#routing-basics>.
+Další informace naleznete v tématu <xref:fundamentals/routing#routing-basics>.
 
 ## <a name="health-checks"></a>Kontroly stavu
 
@@ -480,7 +480,7 @@ Další informace najdete v následujících článcích:
 
 ## <a name="pipes-on-httpcontext"></a>Kanály na HttpContext
 
-Je teď možné číst text žádosti a zapsat tělo odpovědi pomocí rozhraní <xref:System.IO.Pipelines> API. Použitím parametru <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> vlastnost `HttpRequest.BodyReader` poskytuje <xref:System.IO.Pipelines.PipeReader>, která se dá použít ke čtení textu žádosti. Použitím parametru <!-- <xref:Microsoft.AspNetCore.Http.> --> vlastnost `HttpResponse.BodyWriter` poskytuje <xref:System.IO.Pipelines.PipeWriter>, která se dá použít k zápisu textu odpovědi. `HttpRequest.BodyReader` je analogkou datového proudu `HttpRequest.Body`. `HttpResponse.BodyWriter` je analogkou datového proudu `HttpResponse.Body`.
+Je teď možné číst text žádosti a zapsat tělo odpovědi pomocí rozhraní <xref:System.IO.Pipelines> API. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> vlastnost `HttpRequest.BodyReader` poskytuje <xref:System.IO.Pipelines.PipeReader>, která se dá použít ke čtení textu žádosti. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.> --> vlastnost `HttpResponse.BodyWriter` poskytuje <xref:System.IO.Pipelines.PipeWriter>, která se dá použít k zápisu textu odpovědi. `HttpRequest.BodyReader` je analogkou datového proudu `HttpRequest.Body`. `HttpResponse.BodyWriter` je analogkou datového proudu `HttpResponse.Body`.
 
 <!-- indirectly related, https://github.com/dotnet/docs/pull/14414 won't be published by 9/23  -->
 
@@ -492,7 +492,7 @@ Chyby při spuštění při hostování ASP.NET Corech aplikací ve službě IIS
 
 .NET Core 3,0 zavádí novou šablonu aplikace služby pracovního procesu. Tato šablona poskytuje výchozí bod pro psaní dlouhých služeb, které běží v .NET Core.
 
-Další informace najdete v části .
+Další informace naleznete v tématu:
 
 * [Pracovní procesy .NET Core jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>
@@ -504,7 +504,7 @@ V předchozích verzích ASP.NET Core bylo volání <xref:Microsoft.AspNetCore.B
 
 Tento scénář je opravený v ASP.NET Core 3,0. Hostitel povolí [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options) , když je proměnná prostředí `ASPNETCORE_FORWARDEDHEADERS_ENABLED` nastavená na `true`. `ASPNETCORE_FORWARDEDHEADERS_ENABLED` je nastavené na `true` v našich obrázcích kontejneru.
 
-## <a name="performance-improvements"></a>Vylepšení výkonu
+## <a name="performance-improvements"></a>Zlepšení výkonu
 
 ASP.NET Core 3,0 obsahuje mnoho vylepšení, která omezují využití paměti a zvyšují propustnost:
 

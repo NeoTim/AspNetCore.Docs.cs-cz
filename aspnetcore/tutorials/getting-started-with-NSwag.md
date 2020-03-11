@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: bd68e134fb71fd396a30ec9c674111bc8536860d
-ms.sourcegitcommit: 851b921080fe8d719f54871770ccf6f78052584e
+ms.openlocfilehash: 3eae5d3c66204a10806a8036c8f114af6c501b2c
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/09/2019
-ms.locfileid: "74944171"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666052"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme s NSwag a ASP.NET Core
 
@@ -19,13 +19,13 @@ Od [Christoph Nienaber](https://twitter.com/zuckerthoben), [Portoriko Suter](htt
 
 ::: moniker range=">= aspnetcore-2.1"
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-2.0"
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ::: moniker-end
 
@@ -47,7 +47,7 @@ Pokud chcete použít middleware ASP.NET Core [NSwag](https://github.com/RicoSut
 
 K instalaci balíčku NuGet NSwag použijte jeden z následujících přístupů:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V okně **konzoly Správce balíčků** :
   * Přejít na **zobrazení** > **Další Windows** > **konzole správce balíčků**
@@ -64,14 +64,14 @@ K instalaci balíčku NuGet NSwag použijte jeden z následujících přístupů
   * Do vyhledávacího pole zadejte "NSwag. AspNetCore".
   * Na kartě **Procházet** vyberte balíček NSwag. AspNetCore a klikněte na **nainstalovat** .
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 * Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení** > **Přidat balíčky...**
 * Nastavte rozevírací seznam pro **zdroj** okna **Přidat balíčky** na "NuGet.org".
 * Do vyhledávacího pole zadejte "NSwag. AspNetCore".
 * V podokně výsledků vyberte balíček NSwag. AspNetCore a klikněte na **Přidat balíček** .
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Spusťte následující příkaz:
 
@@ -93,11 +93,11 @@ Pomocí následujících kroků přidejte a nakonfigurujte Swagger v aplikaci AS
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Startup.cs?name=snippet_Configure&highlight=6-7)]
 
-* Spustit aplikaci Přejít na:
+* Spusťte aplikaci. Přejít na:
   * `http://localhost:<port>/swagger` k zobrazení uživatelského rozhraní Swagger.
   * `http://localhost:<port>/swagger/v1/swagger.json` se zobrazí specifikace Swagger.
 
-## <a name="code-generation"></a>Vytváření kódu
+## <a name="code-generation"></a>Generování kódu
 
 Můžete využít možnosti generování kódu NSwag výběrem jedné z následujících možností:
 
@@ -193,7 +193,7 @@ Uživatelské rozhraní Swagger zobrazuje informace o verzi:
 
 Chcete-li povolit komentáře XML, proveďte následující kroky:
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -211,7 +211,7 @@ Chcete-li povolit komentáře XML, proveďte následující kroky:
 
 ::: moniker-end
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -229,7 +229,7 @@ Chcete-li povolit komentáře XML, proveďte následující kroky:
 
 ::: moniker-end
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 Ručně přidejte zvýrazněné řádky do souboru *. csproj* :
 
@@ -275,7 +275,7 @@ Předchozí akce vrátí `ActionResult<T>`. V rámci akce vrátí [CreatedAtRout
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
-V ASP.NET Core 2,2 nebo novějších můžete místo explicitně upravení jednotlivé akce s `[ProducesResponseType]`použít konvence. Další informace najdete v tématu <xref:web-api/advanced/conventions>.
+V ASP.NET Core 2,2 nebo novějších můžete místo explicitně upravení jednotlivé akce s `[ProducesResponseType]`použít konvence. Další informace naleznete v tématu <xref:web-api/advanced/conventions>.
 
 ::: moniker-end
 

@@ -5,12 +5,12 @@ description: Další informace o poskytovatele úložiště klíčů v ASP.NET C
 ms.author: riande
 ms.date: 12/05/2019
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: 219ebc471de32d15e4a43c938eef156c52e5f11e
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 19f64e816d88d2fc156915e31dc147645c5a630a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172582"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662958"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>Zprostředkovatelé úložiště klíčů v ASP.NET Core
 
@@ -145,13 +145,15 @@ Chcete-li nakonfigurovat poskytovatele EF Core, zavolejte metodu [PersistKeysToD
 
 [!code-csharp[Main](key-storage-providers/sample/Startup.cs?name=snippet&highlight=13-20)]
 
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+
 Obecný parametr `TContext`, musí dědit z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) a implementovat [IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext):
 
 [!code-csharp[Main](key-storage-providers/sample/MyKeysContext.cs)]
 
 Vytvořte tabulku `DataProtectionKeys`.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V okně **konzoly Správce balíčků** (PMC) spusťte následující příkazy:
 
@@ -160,7 +162,7 @@ Add-Migration AddDataProtectionKeys -Context MyKeysContext
 Update-Database -Context MyKeysContext
 ```
 
-# <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
 V příkazovém prostředí spusťte následující příkazy:
 

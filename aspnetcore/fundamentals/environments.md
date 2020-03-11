@@ -7,22 +7,22 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/17/2019
 uid: fundamentals/environments
-ms.openlocfilehash: 30e2771c0a24fcbf6490d08c7028566314b6c011
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: b0218b2c77c283c0849dca9491046534b88c5a77
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75358718"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656217"
 ---
 # <a name="use-multiple-environments-in-aspnet-core"></a>Použití více prostředí v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ASP.NET Core konfiguruje chování aplikace na základě běhového prostředí pomocí proměnné prostředí.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="environments"></a>Prostředí
 
@@ -165,7 +165,7 @@ Při použití [Visual Studio Code](https://code.visualstudio.com/)lze proměnn�
 
 Soubor *. VSCode/Launch. JSON* v projektu není čten při spuštění aplikace s `dotnet run` stejným způsobem jako *vlastnosti/launchSettings. JSON*. Při spouštění aplikace ve vývoji, která nemá soubor *launchSettings. JSON* , buď nastavte prostředí s proměnnou prostředí nebo argumentem příkazového řádku na příkaz `dotnet run`.
 
-### <a name="production"></a>Provoz
+### <a name="production"></a>Výroba
 
 Provozní prostředí by mělo být nakonfigurované tak, aby maximalizovalo zabezpečení, výkon a odolnost aplikací. Mezi běžná nastavení, která se liší od vývoje, patří:
 
@@ -243,7 +243,7 @@ K nastavení hodnoty globálně ve Windows použijte některý z následujícíc
 
 Pokud je proměnná prostředí `ASPNETCORE_ENVIRONMENT` nastavena globálně, projeví se `dotnet run` v jakémkoli příkazovém okně otevřeném po nastavení hodnoty.
 
-**web.config**
+**Web. config**
 
 Chcete-li nastavit proměnnou prostředí `ASPNETCORE_ENVIRONMENT` pomocí *souboru Web. config*, přečtěte si část *nastavení proměnných prostředí* v <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.
 
@@ -293,16 +293,16 @@ Pro Linux distribuce použijte na příkazovém řádku příkaz `export` pro na
 
 ### <a name="set-the-environment-in-code"></a>Nastavení prostředí v kódu
 
-Při sestavování hostitele volejte <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseEnvironment*>. Podívejte se na téma <xref:fundamentals/host/generic-host#environmentname>.
+Při sestavování hostitele volejte <xref:Microsoft.Extensions.Hosting.HostingHostBuilderExtensions.UseEnvironment*>. Viz třída <xref:fundamentals/host/generic-host#environmentname>.
 
 
 ### <a name="configuration-by-environment"></a>Konfigurace podle prostředí
 
 K načtení konfigurace podle prostředí doporučujeme:
 
-* soubory *appSettings* (*appSettings. { Environment}. JSON*. Podívejte se na téma <xref:fundamentals/configuration/index#json-configuration-provider>.
+* soubory *appSettings* (*appSettings. { Environment}. JSON*. Viz třída <xref:fundamentals/configuration/index#json-configuration-provider>.
 * Proměnné prostředí (nastavené v každém systému, ve kterém je aplikace hostovaná). Viz témata <xref:fundamentals/host/generic-host#environmentname> a <xref:security/app-secrets#environment-variables>.
-* Správce tajných klíčů (jenom ve vývojovém prostředí). Podívejte se na téma <xref:security/app-secrets>.
+* Správce tajných klíčů (jenom ve vývojovém prostředí). Viz třída <xref:security/app-secrets>.
 
 ## <a name="environment-based-startup-class-and-methods"></a>Třída a metody spouštění založené na prostředí
 
@@ -417,6 +417,8 @@ public class Startup
 }
 ```
 
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+
 Použijte přetížení [UseStartup (IWebHostBuilder, String)](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usestartup) , které přijímá název sestavení:
 
 ```csharp
@@ -440,7 +442,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet_all&highlight=15,42)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/configuration/index>
@@ -448,11 +450,11 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 ::: moniker range="< aspnetcore-3.0"
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ASP.NET Core konfiguruje chování aplikace na základě běhového prostředí pomocí proměnné prostředí.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/environments/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="environments"></a>Prostředí
 
@@ -595,7 +597,7 @@ Při použití [Visual Studio Code](https://code.visualstudio.com/)lze proměnn�
 
 Soubor *. VSCode/Launch. JSON* v projektu není čten při spuštění aplikace s `dotnet run` stejným způsobem jako *vlastnosti/launchSettings. JSON*. Při spouštění aplikace ve vývoji, která nemá soubor *launchSettings. JSON* , buď nastavte prostředí s proměnnou prostředí nebo argumentem příkazového řádku na příkaz `dotnet run`.
 
-### <a name="production"></a>Provoz
+### <a name="production"></a>Výroba
 
 Provozní prostředí by mělo být nakonfigurované tak, aby maximalizovalo zabezpečení, výkon a odolnost aplikací. Mezi běžná nastavení, která se liší od vývoje, patří:
 
@@ -673,7 +675,7 @@ K nastavení hodnoty globálně ve Windows použijte některý z následujícíc
 
 Pokud je proměnná prostředí `ASPNETCORE_ENVIRONMENT` nastavena globálně, projeví se `dotnet run` v jakémkoli příkazovém okně otevřeném po nastavení hodnoty.
 
-**web.config**
+**Web. config**
 
 Chcete-li nastavit proměnnou prostředí `ASPNETCORE_ENVIRONMENT` pomocí *souboru Web. config*, přečtěte si část *nastavení proměnných prostředí* v <xref:host-and-deploy/aspnet-core-module#setting-environment-variables>.
 
@@ -723,15 +725,15 @@ Pro Linux distribuce použijte na příkazovém řádku příkaz `export` pro na
 
 ### <a name="set-the-environment-in-code"></a>Nastavení prostředí v kódu
 
-Při sestavování hostitele volejte <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseEnvironment*>. Podívejte se na téma <xref:fundamentals/host/web-host#environment>.
+Při sestavování hostitele volejte <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseEnvironment*>. Viz třída <xref:fundamentals/host/web-host#environment>.
 
 ### <a name="configuration-by-environment"></a>Konfigurace podle prostředí
 
 K načtení konfigurace podle prostředí doporučujeme:
 
-* soubory *appSettings* (*appSettings. { Environment}. JSON*. Podívejte se na téma <xref:fundamentals/configuration/index#json-configuration-provider>.
+* soubory *appSettings* (*appSettings. { Environment}. JSON*. Viz třída <xref:fundamentals/configuration/index#json-configuration-provider>.
 * Proměnné prostředí (nastavené v každém systému, ve kterém je aplikace hostovaná). Viz témata <xref:fundamentals/host/web-host#environment> a <xref:security/app-secrets#environment-variables>.
-* Správce tajných klíčů (jenom ve vývojovém prostředí). Podívejte se na téma <xref:security/app-secrets>.
+* Správce tajných klíčů (jenom ve vývojovém prostředí). Viz třída <xref:security/app-secrets>.
 
 ## <a name="environment-based-startup-class-and-methods"></a>Třída a metody spouštění založené na prostředí
 
@@ -870,7 +872,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 
 [!code-csharp[](environments/sample/EnvironmentsSample/Startup.cs?name=snippet_all&highlight=15,42)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/configuration/index>

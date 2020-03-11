@@ -9,11 +9,11 @@ no-loc:
 - Blazor
 uid: fundamentals/target-aspnetcore
 ms.openlocfilehash: 72096fc2f03033dfe8325b5129e074913a2fbd1f
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75463886"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78658065"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>Použití rozhraní API ASP.NET Core v knihovně tříd
 
@@ -42,19 +42,19 @@ Chcete-li odkazovat ASP.NET Core, přidejte následující `<FrameworkReference>
 
 Odkazování ASP.NET Core tímto způsobem je podporováno pouze pro projekty cílené na .NET Core 3. x.
 
-## <a name="include-opno-locblazor-extensibility"></a>Zahrnout rozšíření Blazor
+## <a name="include-blazor-extensibility"></a>Zahrnout rozšiřitelnost Blazor
 
-Blazor podporuje WebAssembly (WASM) a [hostitelské modely](xref:blazor/hosting-models)serveru. Pokud neexistuje konkrétní důvod, knihovna [komponent Razor](xref:blazor/components) by měla podporovat oba modely hostování. Knihovna komponent Razor musí používat [sadu Microsoft. NET. SDK. Razor SDK](xref:razor-pages/sdk).
+Blazor podporuje WebAssembly (WASM) a [modely hostování](xref:blazor/hosting-models)serverů. Pokud neexistuje konkrétní důvod, knihovna [komponent Razor](xref:blazor/components) by měla podporovat oba modely hostování. Knihovna komponent Razor musí používat [sadu Microsoft. NET. SDK. Razor SDK](xref:razor-pages/sdk).
 
 ### <a name="support-both-hosting-models"></a>Podpora obou modelů hostování
 
-Pro podporu spotřeby komponent Razor z [Blazorho serveru](xref:blazor/hosting-models#blazor-server) i [Blazor projektů WASM](xref:blazor/hosting-models#blazor-webassembly) použijte následující pokyny pro Editor.
+Pro podporu spotřeby komponent Razor z projektů [serveru Blazor](xref:blazor/hosting-models#blazor-server) i [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) použijte následující pokyny pro Editor.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Použijte šablonu projektu **knihovny tříd Razor** . Zaškrtávací políčko pro **stránky podpory a zobrazení** šablony je třeba zrušit výběr.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 V integrovaném terminálu spusťte následující příkaz:
 
@@ -62,7 +62,7 @@ V integrovaném terminálu spusťte následující příkaz:
 dotnet new razorclasslib
 ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 Použijte šablonu projektu **knihovny tříd Razor** .
 
@@ -82,7 +82,7 @@ Příklad:
 
 ### <a name="support-a-specific-hosting-model"></a>Podpora konkrétního modelu hostování
 
-Je mnohem méně běžné podporovat model hostování jednoho Blazor. Například pro podporu spotřeby komponent Razor z [Blazorch projektů serveru](xref:blazor/hosting-models#blazor-server) :
+Je mnohem méně běžné podporovat jeden model hostování Blazor. Například pro podporu spotřeby komponent Razor z projektů [serveru Blazor](xref:blazor/hosting-models#blazor-server) :
 
 * Cílová platforma .NET Core 3. x.
 * Přidejte `<FrameworkReference>` element pro sdílené rozhraní.
@@ -114,11 +114,11 @@ Pokud je projekt cílen na rozhraní .NET Core 3. x, vyžaduje:
 
 Šablona projektu **knihovny tříd Razor** splňuje předchozí požadavky pro projekty cílené na .NET Core 3. x. Pro editor použijte následující pokyny.
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Použijte šablonu projektu **knihovny tříd Razor** . Je třeba vybrat zaškrtávací políčko **stránky podpory a zobrazení** šablony.
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 V integrovaném terminálu spusťte následující příkaz:
 
@@ -126,7 +126,7 @@ V integrovaném terminálu spusťte následující příkaz:
 dotnet new razorclasslib -s
 ```
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 V tuto chvíli není podporována žádná podpora šablon projektů.
 
@@ -214,7 +214,7 @@ Například synchronní čtení a zápisy v případě požadavků HTTP a datov�
 
 ## <a name="use-an-api-introduced-in-30"></a>Použití rozhraní API představeného v 3,0
 
-Představte si, že chcete použít ASP.NET Core rozhraní API, které bylo zavedeno v ASP.NET Core 3,0. Zvažte následující otázky:
+Představte si, že chcete použít ASP.NET Core rozhraní API, které bylo zavedeno v ASP.NET Core 3,0. Vezměte v úvahu následující otázky:
 
 1. Vyžaduje Knihovna funkce nové rozhraní API?
 1. Může knihovna tuto funkci implementovat jiným způsobem?
@@ -279,7 +279,7 @@ Například pro přidání klienta webového rozhraní API:
 </Project>
 ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:razor-pages/ui-class>
 * <xref:blazor/class-libraries>

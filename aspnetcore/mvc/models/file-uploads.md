@@ -1,28 +1,28 @@
 ---
 title: Nahrání souborů v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Jak používat vazbu modelu a streamování k nahrávání souborů v ASP.NET Core MVC
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/11/2020
+ms.date: 02/25/2020
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 56fd26c1864089558f5cd89f693dc86ea30c3331
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: fc71c39dd1aa70e6b092799fec00bd7bf66703e8
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172462"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664827"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
-Od [Luke Latham](https://github.com/guardrex), [Steve Smith](https://ardalis.com/)a [Rutger](https://github.com/rutix)
+[Steve Smith](https://ardalis.com/) a [Rutgerá](https://github.com/rutix) zaplavení
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ASP.NET Core podporuje nahrávání jednoho nebo více souborů pomocí vazby modelu ve vyrovnávací paměti pro menší soubory a streamování bez vyrovnávací paměti pro větší soubory.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="security-considerations"></a>Aspekty zabezpečení
 
@@ -64,7 +64,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* Databáze
+* databáze
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -183,7 +183,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Například:
+* Použijte `XMLHttpRequest`. Příklad:
 
   ```javascript
   <script>
@@ -226,7 +226,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > string untrustedFileName = Path.GetFileName(pathName);
 > ```
 >
-> Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
+> Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
@@ -270,7 +270,7 @@ public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
     // Process uploaded files
     // Don't rely on or trust the FileName property without validation.
 
-    return Ok(new { count = files.Count, size, filePath });
+    return Ok(new { count = files.Count, size });
 }
 ```
 
@@ -397,7 +397,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 >
 > Nespoléhá se na nebo důvěřujete vlastnosti `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> bez ověření. Vlastnost `FileName` by měla být použita pouze pro účely zobrazení a pouze po kódování HTML.
 >
-> Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
+> Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
@@ -434,7 +434,7 @@ Kompletní metoda `StreamingController.UploadPhysical` pro streamování do fyzi
 
 V ukázkové aplikaci jsou kontroly ověřování zpracovávány `FileHelpers.ProcessStreamedFile`.
 
-## <a name="validation"></a>Ověřování
+## <a name="validation"></a>Ověření
 
 Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol <xref:Microsoft.AspNetCore.Http.IFormFile> vyrovnávací paměti a nahrávání souborů v datových proudech. Pro zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *. cs nástrojů Utilities/App.* Pro zpracování streamované soubory si přečtěte část `ProcessStreamedFile` metoda ve stejném souboru.
 
@@ -456,7 +456,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -751,7 +751,7 @@ Příklady v tomto tématu se spoléhají na <xref:System.IO.MemoryStream> pro u
 
 ASP.NET Core podporuje nahrávání jednoho nebo více souborů pomocí vazby modelu ve vyrovnávací paměti pro menší soubory a streamování bez vyrovnávací paměti pro větší soubory.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="security-considerations"></a>Aspekty zabezpečení
 
@@ -793,7 +793,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* Databáze
+* databáze
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -912,7 +912,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Například:
+* Použijte `XMLHttpRequest`. Příklad:
 
   ```javascript
   <script>
@@ -955,7 +955,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > string untrustedFileName = Path.GetFileName(pathName);
 > ```
 >
-> Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
+> Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
@@ -999,7 +999,7 @@ public async Task<IActionResult> OnPostUploadAsync(List<IFormFile> files)
     // Process uploaded files
     // Don't rely on or trust the FileName property without validation.
 
-    return Ok(new { count = files.Count, size, filePath });
+    return Ok(new { count = files.Count, size });
 }
 ```
 
@@ -1126,7 +1126,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 >
 > Nespoléhá se na nebo důvěřujete vlastnosti `FileName` <xref:Microsoft.AspNetCore.Http.IFormFile> bez ověření. Vlastnost `FileName` by měla být použita pouze pro účely zobrazení a pouze po kódování HTML.
 >
-> Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
+> Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
@@ -1163,7 +1163,7 @@ Kompletní metoda `StreamingController.UploadPhysical` pro streamování do fyzi
 
 V ukázkové aplikaci jsou kontroly ověřování zpracovávány `FileHelpers.ProcessStreamedFile`.
 
-## <a name="validation"></a>Ověřování
+## <a name="validation"></a>Ověření
 
 Třída `FileHelpers` ukázkové aplikace ukazuje několik kontrol <xref:Microsoft.AspNetCore.Http.IFormFile> vyrovnávací paměti a nahrávání souborů v datových proudech. Pro zpracování <xref:Microsoft.AspNetCore.Http.IFormFile> ukládání souborů do vyrovnávací paměti v ukázkové aplikaci si přečtěte část `ProcessFormFile` v souboru *. cs nástrojů Utilities/App.* Pro zpracování streamované soubory si přečtěte část `ProcessStreamedFile` metoda ve stejném souboru.
 
@@ -1185,7 +1185,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };

@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 10/07/2019
 uid: security/data-protection/configuration/overview
 ms.openlocfilehash: c0846aca4bb663b1d562ab0c877fefba02da460f
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75829033"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666591"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany ASP.NET Core dat
 
@@ -389,9 +389,9 @@ Při hostování v kontejneru [Docker](/dotnet/standard/microservices-architectu
 
 ## <a name="persisting-keys-with-redis"></a>Trvalé ukládání klíčů pomocí Redis
 
-Pro ukládání klíčů by měly být použity pouze verze Redis podporující [Trvalost dat Redis](/azure/azure-cache-for-redis/cache-how-to-premium-persistence) . [Úložiště objektů BLOB v Azure](/azure/storage/blobs/storage-blobs-introduction) je trvalé a dá se použít k ukládání klíčů. Další informace najdete v tématu [tento problém Githubu](https://github.com/dotnet/AspNetCore/issues/13476).
+Pro ukládání klíčů by měly být použity pouze verze Redis podporující [Trvalost dat Redis](/azure/azure-cache-for-redis/cache-how-to-premium-persistence) . [Úložiště objektů BLOB v Azure](/azure/storage/blobs/storage-blobs-introduction) je trvalé a dá se použít k ukládání klíčů. Další informace najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore/issues/13476).
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/data-protection/configuration/non-di-scenarios>
 * <xref:security/data-protection/configuration/machine-wide-policy>

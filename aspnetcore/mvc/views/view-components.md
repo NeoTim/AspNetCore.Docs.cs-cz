@@ -6,18 +6,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 uid: mvc/views/view-components
-ms.openlocfilehash: 8df070b580b6125db6616b33a81f3ffebad69f3a
-ms.sourcegitcommit: 7dfe6cc8408ac6a4549c29ca57b0c67ec4baa8de
+ms.openlocfilehash: 910fffbf360ed0f62f7fe20bc8bfdf5be8198876
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75828916"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660648"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazit součásti v ASP.NET Core
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="view-components"></a>Komponenty zobrazení
 
@@ -42,7 +42,7 @@ Zobrazit součásti jsou určeny kdekoli, kde máte opakovaně použitelnou logi
 
 Součást zobrazení se skládá ze dvou částí: třídy (obvykle odvozené od [ViewComponent](/dotnet/api/microsoft.aspnetcore.mvc.viewcomponent)) a výsledek, který vrátí (obvykle zobrazení). Podobně jako řadiče se může jednat o součást zobrazení POCO, ale většina vývojářů bude chtít využít metody a vlastnosti, které jsou k dispozici odvozením z `ViewComponent`.
 
-Při zvažování, zda zobrazit součásti vyhovují specifikacím aplikace, zvažte místo toho použití součástí Razor. Komponenty Razor také kombinují značky s C# kódem k tvorbě opakovaně použitelných jednotek uživatelského rozhraní. Komponenty Razor jsou navržené pro produktivitu vývojářů při poskytování logiky uživatelského rozhraní a způsobu složení na straně klienta. Další informace najdete v tématu <xref:blazor/components>.
+Při zvažování, zda zobrazit součásti vyhovují specifikacím aplikace, zvažte místo toho použití součástí Razor. Komponenty Razor také kombinují značky s C# kódem k tvorbě opakovaně použitelných jednotek uživatelského rozhraní. Komponenty Razor jsou navržené pro produktivitu vývojářů při poskytování logiky uživatelského rozhraní a způsobu složení na straně klienta. Další informace naleznete v tématu <xref:blazor/components>.
 
 ## <a name="creating-a-view-component"></a>Vytvoření komponenty zobrazení
 
@@ -155,7 +155,7 @@ V tomto příkladu je součást zobrazení volána přímo z kontroleru:
 
 ## <a name="walkthrough-creating-a-simple-view-component"></a>Návod: Vytvoření jednoduché součásti zobrazení
 
-[Stažení](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a otestování počátečního kódu. Jedná se o jednoduchý projekt s řadičem `ToDo`, který zobrazuje seznam položek *TODO* .
+[Stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/view-components/sample), sestavení a otestování počátečního kódu. Jedná se o jednoduchý projekt s řadičem `ToDo`, který zobrazuje seznam položek *TODO* .
 
 ![Seznam ToDo](view-components/_static/2dos.png)
 
@@ -343,6 +343,6 @@ Každý parametr v součásti zobrazení je povinný atribut. Podívejte se na [
 * ViewComponent nevykresluje žádné značky.
 * Nebudou vyvolány žádné chyby.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection)

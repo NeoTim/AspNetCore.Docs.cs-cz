@@ -9,11 +9,11 @@ no-loc:
 - SignalR
 uid: client-side/libman/libman-cli
 ms.openlocfilehash: 02d88d09805bd23a86ef924766373245fec7ff52
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928354"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664631"
 ---
 # <a name="use-the-libman-cli-with-aspnet-core"></a>Použití rozhraní příkazového řádku LibMan s ASP.NET Core
 
@@ -21,11 +21,11 @@ ms.locfileid: "76928354"
 
 [LibMan](xref:client-side/libman/index) CLI je nástroj pro různé platformy, který podporuje všude, kde je podporováno rozhraní .NET Core.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [!INCLUDE [2.1-SDK](../../includes/2.1-SDK.md)]
 
-## <a name="installation"></a>Instalace služby
+## <a name="installation"></a>Instalace
 
 Instalace rozhraní příkazového řádku LibMan:
 
@@ -43,7 +43,7 @@ dotnet tool install -g Microsoft.Web.LibraryManager.Cli --version 1.0.94-g606058
 
 V předchozím příkladu je globální nástroj .NET Core nainstalovaný ze souboru *C:\Temp\Microsoft.Web.LibraryManager.CLI.1.0.94-g606058a278.nupkg* místního počítače s Windows.
 
-## <a name="usage"></a>Použití
+## <a name="usage"></a>Využití
 
 Po úspěšné instalaci rozhraní příkazového řádku je možné použít následující příkaz:
 
@@ -157,7 +157,7 @@ libman install <LIBRARY> [-d|--destination] [--files] [-p|--provider] [--verbosi
 libman install [-h|--help]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `LIBRARY`
 
@@ -336,7 +336,7 @@ libman uninstall <LIBRARY> [--verbosity]
 libman uninstall [-h|--help]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `LIBRARY`
 
@@ -388,7 +388,7 @@ libman update <LIBRARY> [-pre] [--to] [--verbosity]
 libman update [-h|--help]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `LIBRARY`
 
@@ -440,7 +440,7 @@ libman cache list [--files] [--libraries] [--verbosity]
 libman cache [-h|--help]
 ```
 
-### <a name="arguments"></a>Arguments
+### <a name="arguments"></a>Argumenty
 
 `PROVIDER`
 
@@ -578,7 +578,7 @@ Pro příkaz `libman cache` jsou k dispozici následující možnosti:
       (empty)
   ```
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Instalace globálního nástroje](/dotnet/core/tools/global-tools#install-a-global-tool)
 * <xref:client-side/libman/libman-vs>

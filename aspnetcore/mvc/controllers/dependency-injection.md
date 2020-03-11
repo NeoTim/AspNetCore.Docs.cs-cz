@@ -1,77 +1,77 @@
 ---
-title: Injektáž závislostí do kontrolerů v ASP.NET Core
+title: Vkládání závislostí do řadičů v ASP.NET Core
 author: ardalis
-description: Zjistěte, jak ASP.NET Core MVC řadiče vyžádat jejich závislosti explicitně prostřednictvím jejich konstruktory s injektáž závislostí v ASP.NET Core.
+description: Zjistíte, jak ASP.NET Core řadiče MVC vyžádají své závislosti explicitně prostřednictvím jejich konstruktorů se vkládáním závislostí v ASP.NET Core.
 ms.author: riande
 ms.date: 02/24/2019
 uid: mvc/controllers/dependency-injection
-ms.openlocfilehash: 6b08c321f4cae1f4efd8ea40300eaf4dfc2f63a1
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 202b62d4b30c5c61c407abdc8509a2a75e181cb6
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903069"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660081"
 ---
-# <a name="dependency-injection-into-controllers-in-aspnet-core"></a>Injektáž závislostí do kontrolerů v ASP.NET Core
+# <a name="dependency-injection-into-controllers-in-aspnet-core"></a>Vkládání závislostí do řadičů v ASP.NET Core
 
 <a name="dependency-injection-controllers"></a>
 
-Podle [Shadi Namrouti](https://github.com/shadinamrouti), [Rick Anderson](https://twitter.com/RickAndMSFT), a [Steve Smith](https://github.com/ardalis)
+Od [Shadi Namrouti](https://github.com/shadinamrouti), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Steve Smith](https://github.com/ardalis)
 
-Kontrolery ASP.NET Core MVC požádat o závislosti explicitně pomocí konstruktorů. Má integrovanou podporu pro ASP.NET Core [injektáž závislostí (DI)](xref:fundamentals/dependency-injection). DI usnadňuje aplikace pro testování a udržovat.
+ASP.NET Core řadiče MVC vyžádají závislosti explicitně prostřednictvím konstruktorů. ASP.NET Core obsahuje integrovanou podporu pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection). DI usnadňuje testování a údržbu aplikací.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/dependency-injection/sample) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/dependency-injection/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="constructor-injection"></a>Vkládání konstruktor
+## <a name="constructor-injection"></a>Injektáže konstruktoru
 
-Služby jsou přidány jako parametr konstruktoru a modul runtime řeší službu service container. Služby jsou obvykle definovány pomocí rozhraní. Zvažte například aplikaci, která vyžaduje aktuální čas. Následující rozhraní zpřístupňuje `IDateTime` služby:
+Služby jsou přidány jako parametr konstruktoru a modul runtime tuto službu vyřeší z kontejneru služby. Služby jsou obvykle definovány pomocí rozhraní. Zvažte například aplikaci, která vyžaduje aktuální čas. Služba `IDateTime` zpřístupňuje následující rozhraní:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Interfaces/IDateTime.cs?name=snippet)]
 
-Následující kód implementuje `IDateTime` rozhraní:
+Následující kód implementuje rozhraní `IDateTime`:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Services/SystemDateTime.cs?name=snippet)]
 
-Přidání služby do služby kontejneru:
+Přidejte službu do kontejneru služby:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Startup1.cs?name=snippet&highlight=3)]
 
-Další informace o <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>, naleznete v tématu [životnosti služby DI](xref:fundamentals/dependency-injection#service-lifetimes).
+Další informace o <xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton*>najdete v tématu [di životnosti služby](xref:fundamentals/dependency-injection#service-lifetimes).
 
-Následující kód zobrazí pozdrav uživateli na základě času dne:
+Následující kód zobrazuje pozdrav uživatele na základě denního času:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Controllers/HomeController.cs?name=snippet)]
 
-Spusťte aplikaci a zobrazí se zpráva, na základě času.
+Spusťte aplikaci a zobrazí se zpráva na základě času.
 
-## <a name="action-injection-with-fromservices"></a>Vkládání akce s FromServices
+## <a name="action-injection-with-fromservices"></a>Vkládání akcí pomocí FromServices
 
-<xref:Microsoft.AspNetCore.Mvc.FromServicesAttribute> Umožňuje přímo do metody akce bez použití konstruktoru vkládání vkládá služba:
+<xref:Microsoft.AspNetCore.Mvc.FromServicesAttribute> umožňuje vložit službu přímo do metody akce bez použití injektáže konstruktoru:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Controllers/HomeController.cs?name=snippet2)]
 
 ## <a name="access-settings-from-a-controller"></a>Nastavení přístupu z kontroleru
 
-Přístup k aplikaci nebo konfigurace nastavení z v rámci kontroleru je běžný vzor. *Možnosti vzor* podle <xref:fundamentals/configuration/options> je oblíbený přístup ke správě nastavení. Obecně platí, není vložit přímo <xref:Microsoft.Extensions.Configuration.IConfiguration> do kontroleru.
+Běžným vzorem je přístup k aplikaci nebo konfiguračnímu nastavení v rámci kontroleru. *Vzor možností* popsaných v <xref:fundamentals/configuration/options> je preferovaný přístup ke správě nastavení. Obecně není vhodné přímo vkládat <xref:Microsoft.Extensions.Configuration.IConfiguration> do kontroleru.
 
 Vytvořte třídu, která představuje možnosti. Příklad:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Models/SampleWebSettings.cs?name=snippet)]
 
-Přidáte třídu konfigurace ke kolekci služby:
+Přidejte třídu Configuration do kolekce Services:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Startup.cs?highlight=4&name=snippet1)]
 
-Konfigurace aplikace pro čtení nastavení ze souboru ve formátu JSON:
+Nakonfigurujte aplikaci tak, aby si přečetla nastavení ze souboru ve formátu JSON:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Program.cs?name=snippet&range=10-15)]
 
-Následující kód požadavky `IOptions<SampleWebSettings>` nastavení z kontejneru služeb a použije je `Index` – metoda:
+Následující kód vyžádá nastavení `IOptions<SampleWebSettings>` z kontejneru služby a použije je v metodě `Index`:
 
 [!code-csharp[](dependency-injection/sample/ControllerDI/Controllers/SettingsController.cs?name=snippet)]
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* Zobrazit <xref:mvc/controllers/testing> se naučíte usnadňují otestovat explicitní vyžádání závislostí do kontrolerů kódu.
+* V tématu <xref:mvc/controllers/testing> se dozvíte, jak usnadnit testování kódu tím, že explicitně vyžádáte závislosti v řadičích.
 
-* [Nahraďte výchozí kontejner vkládání závislostí třetích stran implementace](xref:fundamentals/dependency-injection#default-service-container-replacement).
+* [Nahraďte výchozí kontejner pro vkládání závislostí s implementací třetí strany](xref:fundamentals/dependency-injection#default-service-container-replacement).

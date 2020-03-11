@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 uid: mvc/controllers/testing
-ms.openlocfilehash: 449d8791962e4233d599f364b2e8c922f0975d2f
-ms.sourcegitcommit: 0dd224b2b7efca1fda0041b5c3f45080327033f6
+ms.openlocfilehash: 597f1472bb30ae3b34fa98659c8c8bb464223e84
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/02/2019
-ms.locfileid: "74681094"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666283"
 ---
 # <a name="unit-test-controller-logic-in-aspnet-core"></a>Logika kontroleru testu jednotek v ASP.NET Core
 
@@ -30,7 +30,7 @@ Pokud vytváříte vlastní filtry a trasy, jednotkové testy je třeba izolovat
 
 Chcete-li předvést testy jednotek kontrol, zkontrolujte následující kontroler v ukázkové aplikaci. 
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 V domovském řadiči se zobrazuje seznam relací debaty a umožňuje vytváření nových relací debaty s požadavkem POST:
 
@@ -78,7 +78,7 @@ Přezkoušená volání, která nejsou volána, jsou obvykle ignorována, ale vo
 > [!NOTE]
 > Knihovna MOQ použitá v této ukázce umožňuje kombinovat ověřitelná, nebo "striktní", napodobná neověřitelnými písmeny (označované také jako "volné" nebo zástupné procedury). Přečtěte si další informace o přizpůsobení napodobení [chování pomocí MOQ](https://github.com/Moq/moq4/wiki/Quickstart#customizing-mock-behavior).
 
-[SessionController](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/testing/samples/3.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) v ukázkové aplikaci zobrazuje informace týkající se konkrétní relace debaty. Kontroler obsahuje logiku pro práci s neplatnými `id` hodnotami (pro pokrytí těchto scénářů existují dva scénáře `return` v následujícím příkladu). Poslední příkaz `return` vrátí nový `StormSessionViewModel` zobrazení (*Controllers/SessionController. cs*):
+[SessionController](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/testing/samples/3.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) v ukázkové aplikaci zobrazuje informace týkající se konkrétní relace debaty. Kontroler obsahuje logiku pro práci s neplatnými `id` hodnotami (pro pokrytí těchto scénářů existují dva scénáře `return` v následujícím příkladu). Poslední příkaz `return` vrátí nový `StormSessionViewModel` zobrazení (*Controllers/SessionController. cs*):
 
 [!code-csharp[](testing/samples/3.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs?name=snippet_SessionController&highlight=12-16,18-22,31)]
 
@@ -185,7 +185,7 @@ Pro platnou relaci `id`konečný test potvrzuje, že:
 
 [Řadiče](xref:mvc/controllers/actions) hrají v libovolné ASP.NET Core aplikaci MVC ústřední roli. V takovém případě byste měli mít jistotu, že se řadiče chovají tak, jak mají. Automatizované testy můžou detekovat chyby, než se aplikace nasadí do produkčního prostředí.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/testing/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="unit-tests-of-controller-logic"></a>Testování částí logiky kontroleru
 
@@ -241,7 +241,7 @@ Přezkoušená volání, která nejsou volána, jsou obvykle ignorována, ale vo
 > [!NOTE]
 > Knihovna MOQ použitá v této ukázce umožňuje kombinovat ověřitelná, nebo "striktní", napodobná neověřitelnými písmeny (označované také jako "volné" nebo zástupné procedury). Přečtěte si další informace o přizpůsobení napodobení [chování pomocí MOQ](https://github.com/Moq/moq4/wiki/Quickstart#customizing-mock-behavior).
 
-[SessionController](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) v ukázkové aplikaci zobrazuje informace týkající se konkrétní relace debaty. Kontroler obsahuje logiku pro práci s neplatnými `id` hodnotami (pro pokrytí těchto scénářů existují dva scénáře `return` v následujícím příkladu). Poslední příkaz `return` vrátí nový `StormSessionViewModel` zobrazení (*Controllers/SessionController. cs*):
+[SessionController](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/controllers/testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs) v ukázkové aplikaci zobrazuje informace týkající se konkrétní relace debaty. Kontroler obsahuje logiku pro práci s neplatnými `id` hodnotami (pro pokrytí těchto scénářů existují dva scénáře `return` v následujícím příkladu). Poslední příkaz `return` vrátí nový `StormSessionViewModel` zobrazení (*Controllers/SessionController. cs*):
 
 [!code-csharp[](testing/samples/2.x/TestingControllersSample/src/TestingControllersSample/Controllers/SessionController.cs?name=snippet_SessionController&highlight=12-16,18-22,31)]
 
@@ -344,7 +344,7 @@ Pro platnou relaci `id`konečný test potvrzuje, že:
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:test/integration-tests>
 * [Vytvoření a spuštění testů jednotek pomocí sady Visual Studio](/visualstudio/test/unit-test-your-code)

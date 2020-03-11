@@ -4,14 +4,14 @@ author: jamesnk
 description: Naučte se konfigurovat gRPC služby na ASP.NET Core, které se mají volat z aplikací pro prohlížeč pomocí gRPC-Web.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 02/10/2020
+ms.date: 02/16/2020
 uid: grpc/browser
-ms.openlocfilehash: 333fc8c4277bbac47042d4904c276e963186914a
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 3beeffc26ffd3c2dc85bfc22a46d97d5fd78d3d0
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172277"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664197"
 ---
 # <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
@@ -49,7 +49,19 @@ Případně můžete nakonfigurovat všechny služby tak, aby podporovaly gRPC-w
 
 [!code-csharp[](~/grpc/browser/sample/AllServicesSupportExample_Startup.cs?name=snippet_1&highlight=6,13)]
 
-K volání gRPC-web z prohlížeče může být potřeba některá další konfigurace, jako je například konfigurace ASP.NET Core pro podporu CORS. Další informace najdete v tématu [Podpora CORS](xref:security/cors).
+### <a name="grpc-web-and-cors"></a>gRPC – web a CORS
+
+Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla požadavky na jinou doménu než ta, která tuto webovou stránku obsluhoval. Toto omezení se vztahuje k vytváření gRPC webových volání s aplikacemi prohlížeče. Například aplikace prohlížeče obsluhovaná `https://www.contoso.com` je blokována voláním gRPC webových služeb hostovaných na `https://services.contoso.com`. Pro zmírnění tohoto omezení lze použít sdílení prostředků mezi zdroji (CORS).
+
+Pokud chcete, aby aplikace v prohlížeči mohla dělat gRPC webová volání mezi zdroji, nastavte [CORS v ASP.NET Core](xref:security/cors). Využijte integrovanou podporu CORS a vystavte hlavičky specifické pro gRPC pomocí <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>.
+
+[!code-csharp[](~/grpc/browser/sample/CORS_Startup.cs?name=snippet_1&highlight=5-11,19,24)]
+
+Předchozí kód:
+
+* Volá `AddCors`, aby se přidaly služby CORS a nakonfigurují zásady CORS, které zpřístupňují hlavičky specifické pro gRPC.
+* Volá `UseCors` pro přidání middlewaru CORS po směrování a před koncovými body.
+* Určuje, `endpoints.MapGrpcService<GreeterService>()` metoda podporuje CORS s `RequiresCors`.
 
 ## <a name="call-grpc-web-from-the-browser"></a>Volání gRPC-web z prohlížeče
 

@@ -1,3 +1,3 @@
-# <a name="aspnet-core-options-sample"></a>Ukázka možnosti ASP.NET Core
+# <a name="aspnet-core-options-sample"></a>Ukázka možností ASP.NET Core
 
-Tento příklad ukazuje použití vzoru možnosti v aplikaci ASP.NET Core Razor Pages. Tato ukázka demonstruje funkce popsané v [možnosti vzor](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/options) tématu.
+Tato ukázka znázorňuje použití vzoru možností v aplikaci ASP.NET Core Razor Pages. Tato ukázka předvádí funkce popsané v tématu [vzor možností](https://docs.microsoft.com/aspnet/core/fundamentals/configuration/options) .

@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/02/2018
 uid: security/cross-site-scripting
 ms.openlocfilehash: 1d6f605dc336d8768b8a47e4995f119d198a61af
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172636"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667977"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>Zabránit skriptování mezi weby (XSS) v ASP.NET Core
 
@@ -57,7 +57,7 @@ Toto zobrazení vypíše obsah proměnné *untrustedInput* . Tato proměnná zah
 
 ## <a name="javascript-encoding-using-razor"></a>Kódování JavaScriptu pomocí Razor
 
-Může nastat situace, kdy budete chtít vložit hodnotu do JavaScriptu pro zpracování v zobrazení. Můžete to provést dvěma způsoby. Nejbezpečnější způsob, jak vkládat hodnoty, je umístit hodnotu do atributu data tagu a načíst ho v JavaScriptu. Například:
+Může nastat situace, kdy budete chtít vložit hodnotu do JavaScriptu pro zpracování v zobrazení. Můžete to provést dvěma způsoby. Nejbezpečnější způsob, jak vkládat hodnoty, je umístit hodnotu do atributu data tagu a načíst ho v JavaScriptu. Příklad:
 
 ```cshtml
 @{

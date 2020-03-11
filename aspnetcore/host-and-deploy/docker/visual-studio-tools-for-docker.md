@@ -6,29 +6,29 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 09/12/2018
 uid: host-and-deploy/docker/visual-studio-tools-for-docker
-ms.openlocfilehash: cecec09d3d58a84a7c15630e41d23facdb9b236e
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 0e6747a3de220b97cc7a84f9cd42b0da54b57ee9
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75356156"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78664064"
 ---
 # <a name="visual-studio-container-tools-with-aspnet-core"></a>Nástroje kontejneru sady Visual Studio s ASP.NET Core
 
 Visual Studio 2017 a novější verze podporují sestavování, ladění a spouštění kontejnerových ASP.NET Core aplikací cílících na .NET Core. Podporují se kontejnery Windows i Linux.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/docker/visual-studio-tools-for-docker/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/docker/visual-studio-tools-for-docker/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-* [Docker pro Windows](https://docs.docker.com/docker-for-windows/install/)
+* [Docker for Windows](https://docs.docker.com/docker-for-windows/install/)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje .NET Core pro různé platformy**
 
 ## <a name="installation-and-setup"></a>Instalace a nastavení
 
 V případě instalace Docker si nejdříve přečtěte informace v části [Docker for Windows: co potřebujete znát před instalací](https://docs.docker.com/docker-for-windows/install/#what-to-know-before-you-install)nástroje. Dále nainstalujte [Docker pro Windows](https://docs.docker.com/docker-for-windows/install/).
 
-**[Sdílené jednotky](https://docs.docker.com/docker-for-windows/#shared-drives)** v Docker for Windows musí být nakonfigurovány tak, aby podporovaly mapování svazků a ladění. Klikněte pravým tlačítkem myši na ikonu Docker systémového panelu, vyberte **Nastavení**a vyberte **sdílené jednotky**. Vyberte jednotku, kde Docker ukládá soubory. Klikněte na tlačítko **použít**.
+**[Sdílené jednotky](https://docs.docker.com/docker-for-windows/#shared-drives)** v Docker for Windows musí být nakonfigurovány tak, aby podporovaly mapování svazků a ladění. Klikněte pravým tlačítkem myši na ikonu Docker systémového panelu, vyberte **Nastavení**a vyberte **sdílené jednotky**. Vyberte jednotku, kde Docker ukládá soubory. Klikněte na **Použít**.
 
 ![Dialog pro výběr místního sdílení jednotky C pro kontejnery](visual-studio-tools-for-docker/_static/settings-shared-drives-win.png)
 
@@ -133,7 +133,7 @@ Nástroje kontejneru sady Visual Studio dělají následující úlohy:
 
 Další informace najdete v tématu [nasazení aplikace .NET v kontejneru Windows do Azure Service Fabric](/azure/service-fabric/service-fabric-host-app-in-a-container).
 
-## <a name="debug"></a>Ladit
+## <a name="debug"></a>Ladění
 
 V rozevíracím seznamu ladění na panelu nástrojů vyberte **Docker** a spusťte ladění aplikace. Zobrazení **Docker** okna **výstup** zobrazuje následující akce:
 
@@ -231,7 +231,7 @@ Obrázky `microsoft/aspnetcore-build` a `microsoft/aspnetcore` uvedené v předc
 
 Mohlo by se stát, že se v porovnání s *vývojovou* imagí bude zmenšovat velikost produkčního nebo produkčního obrazu. Z důvodu mapování svazků ladicí program a aplikace byly spuštěny z místního počítače, nikoli v rámci kontejneru. *Nejnovější* image zabalí potřebný kód aplikace ke spuštění aplikace na hostitelském počítači. Proto rozdíl je velikost kódu aplikace.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Vývoj kontejnerů pomocí sady Visual Studio](/visualstudio/containers)
 * [Azure Service Fabric: Příprava vývojového prostředí](/azure/service-fabric/service-fabric-get-started)

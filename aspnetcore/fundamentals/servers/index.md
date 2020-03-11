@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 11/07/2019
 uid: fundamentals/servers/index
 ms.openlocfilehash: d46793ef54c99fe609b5983c5a658fb7b20032fa
-ms.sourcegitcommit: f40c9311058c9b1add4ec043ddc5629384af6c56
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/21/2019
-ms.locfileid: "74289066"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666339"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementace webového serveru v ASP.NET Core
 
@@ -40,7 +40,7 @@ Pokyny ke konfiguraci Kestrel a informace o tom, kdy použít Kestrel v konfigur
 
 ::: moniker range=">= aspnetcore-2.2"
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ASP.NET Core dodávána s následujícím:
 
@@ -53,7 +53,7 @@ Při použití [služby IIS](/iis/get-started/introduction-to-iis/introduction-t
 * Ve stejném procesu jako pracovní proces služby IIS (v rámci [procesu hostování modelu](#hosting-models)) se serverem HTTP služby IIS. Doporučená konfigurace je *vnitroprocesové* .
 * V procesu odděleném od pracovního procesu služby IIS ( [mimo proces hostující model](#hosting-models)) se [serverem Kestrel](#kestrel).
 
-[Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) je nativní modul služby IIS, který zpracovává NATIVNÍ požadavky služby IIS mezi službou IIS a VNITROPROCESOVÉ serverem HTTP služby IIS nebo Kestrel. Další informace najdete v tématu <xref:host-and-deploy/aspnet-core-module>.
+[Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) je nativní modul služby IIS, který zpracovává NATIVNÍ požadavky služby IIS mezi službou IIS a VNITROPROCESOVÉ serverem HTTP služby IIS nebo Kestrel. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
 ## <a name="hosting-models"></a>Modely hostingu
 
@@ -66,11 +66,11 @@ Další informace a pokyny k konfiguraci najdete v následujících tématech:
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/aspnet-core-module>
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel), což je výchozí server HTTP pro různé platformy.
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel), což je výchozí server HTTP pro různé platformy.
 
@@ -80,7 +80,7 @@ ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel
 
 ::: moniker range="< aspnetcore-2.2"
 
-# <a name="windowstabwindows"></a>[Windows](#tab/windows)
+# <a name="windows"></a>[Windows](#tab/windows)
 
 ASP.NET Core dodávána s následujícím:
 
@@ -106,11 +106,11 @@ Pokyny ke konfiguraci služby IIS a ASP.NET Core modulu najdete v následující
 * <xref:host-and-deploy/iis/index>
 * <xref:host-and-deploy/aspnet-core-module>
 
-# <a name="macostabmacos"></a>[macOS](#tab/macos)
+# <a name="macos"></a>[macOS](#tab/macos)
 
 ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel), což je výchozí server HTTP pro různé platformy.
 
-# <a name="linuxtablinux"></a>[Linux](#tab/linux)
+# <a name="linux"></a>[Linux](#tab/linux)
 
 ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel), což je výchozí server HTTP pro různé platformy.
 
@@ -128,7 +128,7 @@ Informace o tom, jak používat Apache v systému Linux jako reverzní proxy ser
 
 ## <a name="httpsys"></a>HTTP.sys
 
-Pokud ASP.NET Core aplikace běží na Windows, HTTP. sys je alternativou k Kestrel. Kestrel se obecně doporučuje pro nejlepší výkon. HTTP. sys se dá použít ve scénářích, kde se aplikace zveřejňuje na internetu a požadované funkce podporuje HTTP. sys, ale ne Kestrel. Další informace najdete v tématu <xref:fundamentals/servers/httpsys>.
+Pokud ASP.NET Core aplikace běží na Windows, HTTP. sys je alternativou k Kestrel. Kestrel se obecně doporučuje pro nejlepší výkon. HTTP. sys se dá použít ve scénářích, kde se aplikace zveřejňuje na internetu a požadované funkce podporuje HTTP. sys, ale ne Kestrel. Další informace naleznete v tématu <xref:fundamentals/servers/httpsys>.
 
 ![HTTP. sys komunikuje přímo s internetem.](httpsys/_static/httpsys-to-internet.png)
 
@@ -201,7 +201,7 @@ Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s
 
 Připojení HTTP/2 musí používat [vyjednávání protokolu aplikační vrstvy (ALPN)](https://tools.ietf.org/html/rfc7301#section-3) a TLS 1,2 nebo novější. Další informace najdete v tématech, která se týkají scénářů nasazení serveru.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/servers/kestrel>
 * <xref:host-and-deploy/aspnet-core-module>

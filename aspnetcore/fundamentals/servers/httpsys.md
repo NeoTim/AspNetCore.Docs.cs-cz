@@ -1,22 +1,22 @@
 ---
 title: Implementace webového serveru HTTP. sys v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Přečtěte si o HTTP. sys, webovém serveru pro ASP.NET Core ve Windows. Ovladač HTTP. sys založený na ovladači režimu jádra HTTP. sys je alternativou k Kestrel, která se dá použít k přímému připojení k Internetu bez služby IIS.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: fundamentals/servers/httpsys
-ms.openlocfilehash: 8a315d859fa70d97501156ff3cf97d4c3a5c5bd4
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 3e858a974d6a5c008969c3c51a507880cc25a7ff
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77171772"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78666920"
 ---
 # <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru HTTP. sys v ASP.NET Core
 
-[Dykstra](https://github.com/tdykstra), [Chris Rossův](https://github.com/Tratcher)a [Luke Latham](https://github.com/guardrex)
+[Dykstra](https://github.com/tdykstra) a [Chris Rossův](https://github.com/Tratcher)
 
 ::: moniker range=">= aspnetcore-3.1"
 
@@ -40,7 +40,7 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
 
@@ -133,7 +133,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 1. V případě potřeby Získejte a nainstalujte certifikáty X. 509.
 
-   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
 
    Nainstalujte certifikáty podepsané svým držitelem nebo certifikační autoritou v **místním počítači** serveru > **osobním** úložišti.
 
@@ -293,7 +293,7 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
 
@@ -384,7 +384,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 1. V případě potřeby Získejte a nainstalujte certifikáty X. 509.
 
-   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
 
    Nainstalujte certifikáty podepsané svým držitelem nebo certifikační autoritou v **místním počítači** serveru > **osobním** úložišti.
 
@@ -544,7 +544,7 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
 
@@ -637,7 +637,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 1. V případě potřeby Získejte a nainstalujte certifikáty X. 509.
 
-   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
 
    Nainstalujte certifikáty podepsané svým držitelem nebo certifikační autoritou v **místním počítači** serveru > **osobním** úložišti.
 
@@ -797,7 +797,7 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
 
@@ -890,7 +890,7 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
 1. V případě potřeby Získejte a nainstalujte certifikáty X. 509.
 
-   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
 
    Nainstalujte certifikáty podepsané svým držitelem nebo certifikační autoritou v **místním počítači** serveru > **osobním** úložišti.
 

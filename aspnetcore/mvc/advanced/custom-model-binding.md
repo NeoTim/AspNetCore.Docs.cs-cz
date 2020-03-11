@@ -5,12 +5,12 @@ description: Přečtěte si, jak vazba modelu umožňuje akcím kontroleru praco
 ms.author: riande
 ms.date: 01/06/2020
 uid: mvc/advanced/custom-model-binding
-ms.openlocfilehash: 92e7abbb9d9b4c29af429557a31e3ef403211976
-ms.sourcegitcommit: 79850db9e79b1705b89f466c6f2c961ff15485de
+ms.openlocfilehash: 511cf39bfedfc55d2f75842daf4445d2aaf4872d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/07/2020
-ms.locfileid: "75693944"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659864"
 ---
 # <a name="custom-model-binding-in-aspnet-core"></a>Vazba vlastního modelu v ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "75693944"
 
 Vazba modelu umožňuje akcím kontroleru pracovat přímo s typy modelů (předanými jako argumenty metody), nikoli požadavky HTTP. Mapování mezi příchozími daty požadavků a aplikačními modely je zpracováváno pomocí vazeb modelů. Vývojáři mohou pomocí implementace vlastních modelů modelu integrovat integrované funkce vazeb modelů (obvykle ale nemusíte psát vlastního poskytovatele).
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/custom-model-binding/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/custom-model-binding/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="default-model-binder-limitations"></a>Výchozí omezení pořadače modelu
 
@@ -34,7 +34,7 @@ Před vytvořením vlastního pořadače modelu je potřeba zkontrolovat, jak js
 
 ### <a name="working-with-the-bytearraymodelbinder"></a>Práce s ByteArrayModelBinder
 
-K reprezentaci binárních dat lze použít řetězce kódované v kódování Base64. Například obrázek může být kódovaný jako řetězec. Ukázka obsahuje obrázek jako řetězec kódovaný v kódování Base64 v souboru [Base64String. txt](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/samples/3.x/CustomModelBindingSample/Base64String.txt).
+K reprezentaci binárních dat lze použít řetězce kódované v kódování Base64. Například obrázek může být kódovaný jako řetězec. Ukázka obsahuje obrázek jako řetězec kódovaný v kódování Base64 v souboru [Base64String. txt](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/samples/3.x/CustomModelBindingSample/Base64String.txt).
 
 ASP.NET Core MVC může použít řetězec kódovaný v kódování Base64 a pomocí `ByteArrayModelBinder` ho převést na pole bajtů. <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider> mapuje `byte[]` argumenty `ByteArrayModelBinder`:
 
@@ -61,6 +61,7 @@ Při vytváření vlastního pořadače modelů můžete implementovat vlastní 
 Následující příklad ukazuje, jak použít `ByteArrayModelBinder` k převedení řetězce zakódovaného ve formátu base64 na `byte[]` a uložení výsledku do souboru:
 
 [!code-csharp[](custom-model-binding/samples/3.x/CustomModelBindingSample/Controllers/ImageController.cs?name=snippet_Post)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 Řetězec s kódováním base64 můžete do této metody rozhraní API poslat pomocí nástroje, jako je například [Poster](https://www.getpostman.com/):
 
@@ -143,7 +144,7 @@ Vlastní pořadače modelů:
 
 Vazba modelu umožňuje akcím kontroleru pracovat přímo s typy modelů (předanými jako argumenty metody), nikoli požadavky HTTP. Mapování mezi příchozími daty požadavků a aplikačními modely je zpracováváno pomocí vazeb modelů. Vývojáři mohou pomocí implementace vlastních modelů modelu integrovat integrované funkce vazeb modelů (obvykle ale nemusíte psát vlastního poskytovatele).
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/custom-model-binding/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/advanced/custom-model-binding/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="default-model-binder-limitations"></a>Výchozí omezení pořadače modelu
 
@@ -157,7 +158,7 @@ Před vytvořením vlastního pořadače modelu je potřeba zkontrolovat, jak js
 
 ### <a name="working-with-the-bytearraymodelbinder"></a>Práce s ByteArrayModelBinder
 
-K reprezentaci binárních dat lze použít řetězce kódované v kódování Base64. Například obrázek může být kódovaný jako řetězec. Ukázka obsahuje obrázek jako řetězec kódovaný v kódování Base64 v souboru [Base64String. txt](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/samples/2.x/CustomModelBindingSample/Base64String.txt).
+K reprezentaci binárních dat lze použít řetězce kódované v kódování Base64. Například obrázek může být kódovaný jako řetězec. Ukázka obsahuje obrázek jako řetězec kódovaný v kódování Base64 v souboru [Base64String. txt](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/mvc/advanced/custom-model-binding/samples/2.x/CustomModelBindingSample/Base64String.txt).
 
 ASP.NET Core MVC může použít řetězec kódovaný v kódování Base64 a pomocí `ByteArrayModelBinder` ho převést na pole bajtů. <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider> mapuje `byte[]` argumenty `ByteArrayModelBinder`:
 

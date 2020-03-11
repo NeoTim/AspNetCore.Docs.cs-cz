@@ -6,16 +6,16 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 73a73fb51571e5f7b706ff4b958217854750c1fb
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: 042e1c84a7226cb4bf56bcc0ff4e576b67e68e1b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75354712"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78655300"
 ---
 # <a name="troubleshoot-and-debug-aspnet-core-projects"></a>Řešení potíží a ladění ASP.NET Corech projektů
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Následující odkazy obsahují pokyny k odstraňování potíží:
 
@@ -170,4 +170,4 @@ Následující odkazy obsahují informace o ladění aplikací ASP.NET Core.
 * [Ladění ASP Core v systému Linux](https://devblogs.microsoft.com/premier-developer/debugging-asp-core-on-linux-with-visual-studio-2017/)
 * [Ladění .NET Core v systému UNIX přes SSH](https://devblogs.microsoft.com/devops/debugging-net-core-on-unix-over-ssh/)
 * [Rychlý Start: ladění ASP.NET pomocí ladicího programu sady Visual Studio](/visualstudio/debugger/quickstart-debug-aspnet)
-* Další informace o ladění najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/2960) .
+* Další informace o ladění najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/2960) .

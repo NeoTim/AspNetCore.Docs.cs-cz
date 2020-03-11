@@ -7,11 +7,11 @@ ms.author: bdorrans
 ms.date: 01/02/2020
 uid: security/authentication/certauth
 ms.openlocfilehash: 280daa86510d4445c791b6952653122961f13aeb
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447279"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665324"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
@@ -36,7 +36,7 @@ Do webové aplikace přidejte odkaz na balíček `Microsoft.AspNetCore.Authentic
 
 Pokud se ověření nepovede, vrátí tato obslužná rutina místo `401 (Unauthorized)``403 (Forbidden)` odpověď, jak byste to mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
 
-Přidejte také `app.UseAuthentication();` do metody `Startup.Configure`. V opačném případě `HttpContext.User` nebude nastaven na `ClaimsPrincipal` vytvořené z certifikátu. Například:
+Přidejte také `app.UseAuthentication();` do metody `Startup.Configure`. V opačném případě `HttpContext.User` nebude nastaven na `ClaimsPrincipal` vytvořené z certifikátu. Příklad:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

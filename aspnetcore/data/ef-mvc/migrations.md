@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/migrations
-ms.openlocfilehash: 9f3e3b29d155f1024aef530bf9c55efa57d4546a
-ms.sourcegitcommit: 0b0e485a8a6dfcc65a7a58b365622b3839f4d624
+ms.openlocfilehash: 8b3417205457a5ce5fa16994701a06e2a4d7d350
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/01/2020
-ms.locfileid: "76928401"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665723"
 ---
 # <a name="tutorial-using-the-migrations-feature---aspnet-mvc-with-ef-core"></a>Kurz: použití funkcí migrace – ASP.NET MVC s EF Core
 
@@ -28,7 +28,7 @@ V tomto kurzu se naučíte:
 > * Další informace o snímku datového modelu
 > * Použití migrace
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Řazení, filtrování a stránkování](sort-filter-page.md)
 
@@ -116,7 +116,7 @@ V okně příkazového řádku zadejte následující příkaz, který v něm vy
 dotnet ef database update
 ```
 
-Výstup příkazu je podobný příkazu `migrations add`, s tím rozdílem, že se zobrazí protokoly pro příkazy SQL, které nastaví databázi. Většina protokolů je vynechána v následujícím ukázkovém výstupu. Pokud nechcete, aby se tato úroveň podrobností zobrazovala v protokolových zprávách, můžete změnit úroveň protokolu v souboru *appSettings. Soubor Development. JSON* . Další informace najdete v tématu <xref:fundamentals/logging/index>.
+Výstup příkazu je podobný příkazu `migrations add`, s tím rozdílem, že se zobrazí protokoly pro příkazy SQL, které nastaví databázi. Většina protokolů je vynechána v následujícím ukázkovém výstupu. Pokud nechcete, aby se tato úroveň podrobností zobrazovala v protokolových zprávách, můžete změnit úroveň protokolu v souboru *appSettings. Soubor Development. JSON* . Další informace naleznete v tématu <xref:fundamentals/logging/index>.
 
 ```text
 info: Microsoft.EntityFrameworkCore.Infrastructure[10403]
@@ -167,9 +167,9 @@ Další informace o příkazech rozhraní příkazového řádku naleznete v té
 
 Další informace o příkazech PMC naleznete v tématu [Konzola správce balíčků (Visual Studio)](/ef/core/miscellaneous/cli/powershell).
 
-## <a name="get-the-code"></a>Získat kód
+## <a name="get-the-code"></a>Získání kódu
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-step"></a>Další krok
 

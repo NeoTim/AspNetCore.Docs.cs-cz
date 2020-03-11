@@ -9,18 +9,18 @@ ms.date: 12/05/2019
 no-loc:
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 091cc9b2adc1f6a8fac79519884695d1c1725d2a
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 3b7216bb064ba06a4c909016e1efd4242a64a7ad
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880420"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659731"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-opno-locsignalr"></a>Ověřování a autorizace v ASP.NET Core SignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
 ## <a name="authenticate-users-connecting-to-a-opno-locsignalr-hub"></a>Ověřování uživatelů připojujících se k centru SignalR
 
@@ -288,7 +288,7 @@ V předchozím příkladu je třída `DomainRestrictedRequirement` `IAuthorizati
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Ověřování nosných tokenů v ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
 * [Ověřování na základě prostředků](xref:security/authorization/resourcebased)

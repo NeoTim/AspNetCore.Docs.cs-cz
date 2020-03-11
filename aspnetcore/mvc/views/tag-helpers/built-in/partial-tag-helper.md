@@ -7,12 +7,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/06/2019
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: 508f91cdcd93c149602223250520eecb73625b24
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 269be9ece674b39d03cb50720f4fb182c565a639
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880992"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78659647"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>Podpora částečné značky v ASP.NET Core
 
@@ -20,7 +20,7 @@ ms.locfileid: "74880992"
 
 Přehled pomocníků značek naleznete v tématu <xref:mvc/views/tag-helpers/intro>.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="overview"></a>Přehled
 
@@ -43,7 +43,7 @@ Možnosti pomocníka HTML pro vykreslování částečného zobrazení zahrnují
 
 Následuje inventarizace atributů pomocníka částečné značky.
 
-## <a name="name"></a>name
+## <a name="name"></a>jméno
 
 `name` Atribut je vyžadován. Označuje název nebo cestu k částečnému zobrazení, které se má vykreslit. Je-li zadán název částečného zobrazení, je zahájen proces [zjišťování zobrazení](xref:mvc/views/overview#view-discovery) . Tento proces se obejít, když je zadána explicitní cesta. Všechny přijatelné hodnoty `name` najdete v tématu [zjišťování částečného zobrazení](xref:mvc/views/partial#partial-view-discovery).
 
@@ -93,7 +93,7 @@ Následující pomocník částečné značky dosáhne stejného chování při 
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Products.cshtml?name=snippet_TagHelper&highlight=3)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/views/partial>
 * <xref:mvc/views/overview#weakly-typed-data-viewdata-viewdata-attribute-and-viewbag>

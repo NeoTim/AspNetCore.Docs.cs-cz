@@ -1,0 +1,1 @@
+Pokud chcete zobrazit komentáře kódu přeložené do jiných jazyků než angličtiny, dejte nám v [tomto problému diskuze na GitHubu](https://github.com/MicrosoftDocs/feedback/issues/2515)informace.

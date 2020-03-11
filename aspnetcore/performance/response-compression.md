@@ -1,28 +1,26 @@
 ---
 title: Komprese odezvy v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Přečtěte si o kompresi odpovědí a způsobu použití middleware pro kompresi odpovědí v aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: performance/response-compression
-ms.openlocfilehash: d37b05edd55ac0d3910855563b819114cf815b43
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: aae0b8d74fc424cc81c046e9042279856865bf6a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/10/2020
-ms.locfileid: "77114806"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665975"
 ---
 # <a name="response-compression-in-aspnet-core"></a>Komprese odezvy v ASP.NET Core
-
-Od [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 Šířka pásma sítě je omezeného prostředku. Odezvu aplikace obvykle zlepšuje zmenšení velikosti odpovědi, a to často výrazně. Jedním ze způsobů zmenšení velikosti datové části je komprese odpovědí vaší aplikace.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-response-compression-middleware"></a>Kdy použít middleware pro kompresi odpovědí
 
@@ -73,7 +71,7 @@ Hlavičky zahrnuté v tématu vyžádání, odeslání, ukládání do mezipamě
 | `Content-Type`     | Určuje typ MIME obsahu. Každá odpověď by měla specifikovat svůj `Content-Type`. Middleware kontroluje tuto hodnotu, aby určila, jestli by měla být komprimovaná odpověď. Middleware určuje sadu [výchozích typů MIME](#mime-types) , které může kódovat, ale můžete nahradit nebo přidat typy MIME. |
 | `Vary`             | Když server odešle server s hodnotou `Accept-Encoding` klientům a proxy, označuje `Vary` záhlaví klienta nebo proxy serveru, že by měl ukládat (měnit) odpovědi na základě hodnoty v hlavičce `Accept-Encoding` požadavku. Výsledkem vrácení obsahu s hlavičkou `Vary: Accept-Encoding` je, že komprimované i nekomprimované odpovědi jsou ukládány do mezipaměti samostatně. |
 
-Prozkoumejte funkce middleware pro kompresi odpovědí s [ukázkovou aplikací](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
+Prozkoumejte funkce middleware pro kompresi odpovědí s [ukázkovou aplikací](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
 
 * Komprese odpovědí aplikace pomocí gzip a vlastních zprostředkovatelů komprese.
 * Postup přidání typu MIME do výchozího seznamu typů MIME pro kompresi.
@@ -268,7 +266,7 @@ Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug
 
 Šířka pásma sítě je omezeného prostředku. Odezvu aplikace obvykle zlepšuje zmenšení velikosti odpovědi, a to často výrazně. Jedním ze způsobů zmenšení velikosti datové části je komprese odpovědí vaší aplikace.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-response-compression-middleware"></a>Kdy použít middleware pro kompresi odpovědí
 
@@ -319,7 +317,7 @@ Hlavičky zahrnuté v tématu vyžádání, odeslání, ukládání do mezipamě
 | `Content-Type`     | Určuje typ MIME obsahu. Každá odpověď by měla specifikovat svůj `Content-Type`. Middleware kontroluje tuto hodnotu, aby určila, jestli by měla být komprimovaná odpověď. Middleware určuje sadu [výchozích typů MIME](#mime-types) , které může kódovat, ale můžete nahradit nebo přidat typy MIME. |
 | `Vary`             | Když server odešle server s hodnotou `Accept-Encoding` klientům a proxy, označuje `Vary` záhlaví klienta nebo proxy serveru, že by měl ukládat (měnit) odpovědi na základě hodnoty v hlavičce `Accept-Encoding` požadavku. Výsledkem vrácení obsahu s hlavičkou `Vary: Accept-Encoding` je, že komprimované i nekomprimované odpovědi jsou ukládány do mezipaměti samostatně. |
 
-Prozkoumejte funkce middleware pro kompresi odpovědí s [ukázkovou aplikací](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
+Prozkoumejte funkce middleware pro kompresi odpovědí s [ukázkovou aplikací](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
 
 * Komprese odpovědí aplikace pomocí gzip a vlastních zprostředkovatelů komprese.
 * Postup přidání typu MIME do výchozího seznamu typů MIME pro kompresi.
@@ -513,7 +511,7 @@ Použijte nástroj, jako je [Fiddler](https://www.telerik.com/fiddler), [Firebug
 
 Šířka pásma sítě je omezeného prostředku. Odezvu aplikace obvykle zlepšuje zmenšení velikosti odpovědi, a to často výrazně. Jedním ze způsobů zmenšení velikosti datové části je komprese odpovědí vaší aplikace.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="when-to-use-response-compression-middleware"></a>Kdy použít middleware pro kompresi odpovědí
 
@@ -564,7 +562,7 @@ Hlavičky zahrnuté v tématu vyžádání, odeslání, ukládání do mezipamě
 | `Content-Type`     | Určuje typ MIME obsahu. Každá odpověď by měla specifikovat svůj `Content-Type`. Middleware kontroluje tuto hodnotu, aby určila, jestli by měla být komprimovaná odpověď. Middleware určuje sadu [výchozích typů MIME](#mime-types) , které může kódovat, ale můžete nahradit nebo přidat typy MIME. |
 | `Vary`             | Když server odešle server s hodnotou `Accept-Encoding` klientům a proxy, označuje `Vary` záhlaví klienta nebo proxy serveru, že by měl ukládat (měnit) odpovědi na základě hodnoty v hlavičce `Accept-Encoding` požadavku. Výsledkem vrácení obsahu s hlavičkou `Vary: Accept-Encoding` je, že komprimované i nekomprimované odpovědi jsou ukládány do mezipaměti samostatně. |
 
-Prozkoumejte funkce middleware pro kompresi odpovědí s [ukázkovou aplikací](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
+Prozkoumejte funkce middleware pro kompresi odpovědí s [ukázkovou aplikací](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/response-compression/samples). Ukázka znázorňuje:
 
 * Komprese odpovědí aplikace pomocí gzip a vlastních zprostředkovatelů komprese.
 * Postup přidání typu MIME do výchozího seznamu typů MIME pro kompresi.

@@ -1,22 +1,20 @@
 ---
 title: Vzor možností v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Zjistěte, jak pomocí vzoru možností znázornit skupiny souvisejících nastavení v aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/12/2020
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 1f3625380d816c7d4df5a7a24b0ac146500330de
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.openlocfilehash: 756d3d57122642ab10ab671c9accb75975c3799d
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77447202"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665457"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>Vzor možností v ASP.NET Core
-
-Od [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -27,7 +25,7 @@ Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejí
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="package"></a>Balíček
 
@@ -324,6 +322,8 @@ catch (OptionsValidationException e)
 }
 ```
 
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
+
 Předchozí příklad nastaví instanci pojmenované možnosti na `optionalOptionsName`. Instance výchozích možností je `Options.DefaultName`.
 
 Ověřování se spustí při vytvoření instance Options. Je zaručeno, že instance možností před prvním tím, než se přistupuje k ověření.
@@ -451,7 +451,7 @@ Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejí
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Předpoklady
 
@@ -873,7 +873,7 @@ Vzor možností nastavení využívá třídy pro reprezentaci skupin souvisejí
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/options/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Předpoklady
 

@@ -6,15 +6,15 @@ ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/details
 ms.openlocfilehash: 04eb2efa4e67d84e575580a6248d0b5b567064af
-ms.sourcegitcommit: b3e1e31e5d8bdd94096cf27444594d4a7b065525
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74803380"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78662909"
 ---
 # <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>Projděte si metody Details a DELETE aplikace ASP.NET Core.
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Otevřete kontroler filmů a prověřte `Details` metodu:
 
@@ -51,7 +51,7 @@ Dalším běžným řešením pro metody, které mají stejný název a signatur
 public async Task<IActionResult> Delete(int id, bool notUsed)
 ```
 
-### <a name="publish-to-azure"></a>Publikování do Azure
+### <a name="publish-to-azure"></a>Publikování aplikací do Azure
 
 Informace o nasazení do Azure najdete v tématu [kurz: sestavení webové aplikace .NET Core a SQL Database v Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb).
 

@@ -6,28 +6,28 @@ monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/03/2019
 uid: grpc/aspnetcore
-ms.openlocfilehash: 2507ce6df05403cb19e8bfa2565d410d6140b144
-ms.sourcegitcommit: 73e255e846e414821b8cc20ffa3aec946735cd4e
+ms.openlocfilehash: 6107704a4b4d9c629a7abe907efd5b1932019130
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/03/2019
-ms.locfileid: "71925074"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667627"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>Služby gRPC s ASP.NET Core
 
 Tento dokument ukazuje, jak začít s gRPC službami pomocí ASP.NET Core.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vs-3.0.md)]
 
-# <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/net-core-prereqs-vsc-3.0.md)]
 
-# <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio for Mac](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 [!INCLUDE[](~/includes/net-core-prereqs-mac-3.0.md)]
 
@@ -35,15 +35,15 @@ Tento dokument ukazuje, jak začít s gRPC službami pomocí ASP.NET Core.
 
 ## <a name="get-started-with-grpc-service-in-aspnet-core"></a>Začínáme se službou gRPC v ASP.NET Core
 
-[Zobrazit nebo stáhnout vzorový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample) ([stažení](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/grpc/grpc-start/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Podrobné pokyny k vytvoření projektu gRPC najdete v tématu Začínáme [se službou gRPC Services](xref:tutorials/grpc/grpc-start) .
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code / Visual Studio for Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
-Spusťte `dotnet new grpc -o GrpcGreeter` příkaz z příkazového řádku.
+Spusťte `dotnet new grpc -o GrpcGreeter` z příkazového řádku.
 
 ---
 
@@ -55,10 +55,11 @@ gRPC vyžaduje balíček [gRPC. AspNetCore](https://www.nuget.org/packages/Grpc.
 
 V *Startup.cs*:
 
-* gRPC je povoleno s `AddGrpc` metodou.
-* Každá služba gRPC je prostřednictvím `MapGrpcService` metody přidána do kanálu směrování.
+* gRPC je povolena metodou `AddGrpc`.
+* Každá služba gRPC se přidá do kanálu směrování prostřednictvím metody `MapGrpcService`.
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=7,24)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 ASP.NET Core middlewarů a funkcí sdílí kanál směrování, proto je možné aplikaci nakonfigurovat tak, aby poskytovala další obslužné rutiny žádostí. Další obslužné rutiny žádostí, jako jsou například řadiče MVC, pracují paralelně s nakonfigurovanými gRPC službami.
 
@@ -77,7 +78,7 @@ Kestrel [podporuje HTTP/2](xref:fundamentals/servers/kestrel#http2-support) na v
 
 #### <a name="tls"></a>TLS
 
-Koncové body Kestrel použité pro gRPC by měly být zabezpečené pomocí protokolu TLS. Ve vývojovém prostředí je koncový bod zabezpečený pomocí protokolu TLS `https://localhost:5001` automaticky vytvořen v době, kdy je k dispozici ASP.NET Core vývojový certifikát. Není nutná žádná konfigurace. `https` Předpona ověří koncový bod Kestrel pomocí protokolu TLS.
+Koncové body Kestrel použité pro gRPC by měly být zabezpečené pomocí protokolu TLS. Ve vývoji je koncový bod zabezpečený pomocí protokolu TLS automaticky vytvořený při `https://localhost:5001`, když je přítomen certifikát pro vývoj ASP.NET Core. Není nutná žádná konfigurace. Předpona `https` ověří koncový bod Kestrel pomocí protokolu TLS.
 
 V produkčním prostředí musí být protokol TLS explicitně nakonfigurovaný. V následujícím příkladu *appSettings. JSON* je k dispozici koncový bod HTTP/2 zabezpečený protokolem TLS:
 
@@ -91,7 +92,7 @@ Alternativně lze v *program.cs*nakonfigurovat koncové body Kestrel:
 
 Protokol TLS se používá pro více než zabezpečení komunikace. Metoda handshake [protokolu TLS (ALPN)](https://tools.ietf.org/html/rfc7301#section-3) se používá k vyjednání protokolu připojení mezi klientem a serverem, když koncový bod podporuje více protokolů. Toto vyjednávání určuje, zda připojení používá protokol HTTP/1.1 nebo HTTP/2.
 
-Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven `HttpProtocols.Http2`na. Koncový bod s více protokoly (například `HttpProtocols.Http1AndHttp2`) nelze použít bez TLS, protože neexistuje žádné vyjednávání. Všechna připojení k nezabezpečenému koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC selžou.
+Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastavené na `HttpProtocols.Http2`. Koncový bod s více protokoly (například `HttpProtocols.Http1AndHttp2`) nelze použít bez TLS, protože neexistuje žádné vyjednávání. Všechna připojení k nezabezpečenému koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC selžou.
 
 Další informace o povolení HTTP/2 a TLS s Kestrel najdete v tématu [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
@@ -115,11 +116,11 @@ Ve výchozím nastavení může implementace služby gRPC vyřešit jiné služb
 
 ### <a name="resolve-httpcontext-in-grpc-methods"></a>Vyřešit HttpContext v metodách gRPC
 
-Rozhraní gRPC API poskytuje přístup k některým datům zprávy HTTP/2, jako je například metoda, hostitel, hlavička a přípojná část. Přístup je prostřednictvím `ServerCallContext` argumentu předaného pro každou metodu gRPC:
+Rozhraní gRPC API poskytuje přístup k některým datům zprávy HTTP/2, jako je například metoda, hostitel, hlavička a přípojná část. Přístup je prostřednictvím argumentu `ServerCallContext` předaného pro každou metodu gRPC:
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService.cs?highlight=3-4&name=snippet)]
 
-`ServerCallContext`neposkytuje úplný přístup ke `HttpContext` všem rozhraním API ASP.NET. Metoda rozšíření poskytuje úplný přístup `HttpContext` k reprezentující základní zprávu HTTP/2 v rozhraních API ASP.NET: `GetHttpContext`
+`ServerCallContext` neposkytuje úplný přístup k `HttpContext` ve všech ASP.NET rozhraních API. Metoda rozšíření `GetHttpContext` poskytuje úplný přístup k `HttpContext` reprezentujícím základní zprávu HTTP/2 v rozhraních API ASP.NET:
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService2.cs?highlight=6-7&name=snippet)]
 

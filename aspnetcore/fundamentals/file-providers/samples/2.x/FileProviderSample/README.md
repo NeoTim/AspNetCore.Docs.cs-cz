@@ -1,3 +1,3 @@
-# <a name="aspnet-core-file-provider-sample"></a>Ukázka poskytovatele souboru ASP.NET Core
+# <a name="aspnet-core-file-provider-sample"></a>Ukázka ASP.NET Coreho poskytovatele souborů
 
-Tento příklad ukazuje použití metody poskytovatele souborů. V této ukázce podle scénáře popsaného v [zprostředkovatelé souborů v ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/file-providers) tématu.
+Tato ukázka demonstruje použití poskytovatele souboru. Tato ukázka předvádí Scénář popsaný v části [poskytovatelé souborů v ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/file-providers) tématu.

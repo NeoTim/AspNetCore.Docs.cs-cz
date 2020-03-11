@@ -9,12 +9,12 @@ ms.date: 11/12/2019
 no-loc:
 - SignalR
 uid: signalr/groups
-ms.openlocfilehash: 59e90042ecbaf936602643bbdc3965e036426b26
-ms.sourcegitcommit: 3fc3020961e1289ee5bf5f3c365ce8304d8ebf19
+ms.openlocfilehash: 7e8c85dcbc46daa68988374f499f19a9d2cead47
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 11/12/2019
-ms.locfileid: "73963813"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665863"
 ---
 # <a name="manage-users-and-groups-in-opno-locsignalr"></a>Správa uživatelů a skupin v SignalR
 
@@ -22,7 +22,7 @@ Od [Brennan Conroy](https://github.com/BrennanConroy)
 
 SignalR umožňuje odesílání zpráv do všech připojení přidružených ke konkrétnímu uživateli a k pojmenovaným skupinám připojení.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
 ## <a name="users-in-opno-locsignalr"></a>Uživatelé v SignalR
 

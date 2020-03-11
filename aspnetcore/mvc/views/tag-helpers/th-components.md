@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.0'
 ms.author: scaddie
 ms.date: 06/12/2019
 uid: mvc/views/tag-helpers/th-components
-ms.openlocfilehash: 070cc3aae08664c13d8eb793a066766d0a5569ee
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.openlocfilehash: 5e2eb2d4322068c5864fbe49acaa6d0859bd319a
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74880977"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78660767"
 ---
 # <a name="tag-helper-components-in-aspnet-core"></a>Pomocné komponenty značek v ASP.NET Core
 
@@ -21,7 +21,7 @@ Pomocná komponenta značek je pomocný pomocník značek, který umožňuje pod
 
 ASP.NET Core obsahuje dvě vestavěné pomocné komponenty značek: `head` a `body`. Jsou umístěny v oboru názvů <xref:Microsoft.AspNetCore.Mvc.Razor.TagHelpers> a lze je použít v MVC i Razor Pages. Pomocné komponenty značek nevyžadují registraci u aplikace v *_ViewImports. cshtml*.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples) ([stažení](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/th-components/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="use-cases"></a>Případy použití
 
@@ -155,7 +155,7 @@ Například příkaz `if` se při zpracování následujícího elementu `<addre
 
 [!code-cshtml[](th-components/samples/RazorPagesSample/Pages/Contact.cshtml?name=snippet_AddressPrintable)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/dependency-injection>
 * <xref:mvc/views/dependency-injection>

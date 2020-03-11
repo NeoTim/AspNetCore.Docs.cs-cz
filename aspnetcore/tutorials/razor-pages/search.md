@@ -6,15 +6,15 @@ ms.author: riande
 ms.date: 12/05/2019
 uid: tutorials/razor-pages/search
 ms.openlocfilehash: 8228207b0f37a6923b29891ac3115dd0be115501
-ms.sourcegitcommit: c0b72b344dadea835b0e7943c52463f13ab98dd1
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/06/2019
-ms.locfileid: "74881336"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78667704"
 ---
 # <a name="add-search-to-aspnet-core-razor-pages"></a>Přidat hledání do ASP.NET Core Razor Pages
 
-Podle [Rick Anderson](https://twitter.com/RickAndMSFT)
+Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -109,7 +109,7 @@ Aktualizujte *index. cshtml* následujícím způsobem:
 
 Otestujte aplikaci tak, že vyhledáte podle žánru, podle názvu filmu a pomocí obou.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/4B6pHtdyo08)
 
@@ -212,7 +212,7 @@ Aktualizujte *index. cshtml* následujícím způsobem:
 Otestujte aplikaci tak, že vyhledáte podle žánru, podle názvu filmu a pomocí obou.
 Předchozí kód používá pomocníka pro [výběr značky](xref:mvc/views/working-with-forms#the-select-tag-helper) a pomocníka značek možností.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/4B6pHtdyo08)
 

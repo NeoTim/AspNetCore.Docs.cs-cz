@@ -1,28 +1,26 @@
 ---
 title: ASP.NET Core hostitele ve službě systému Windows
-author: guardrex
+author: rick-anderson
 description: Naučte se hostovat aplikaci ASP.NET Core ve službě systému Windows.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: 829c282606e60a80682233555e1268acb706090e
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 4eed461788f8fffa2ea00d8c931b0a0f5aaf1b46
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172326"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656182"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>ASP.NET Core hostitele ve službě systému Windows
-
-Od [Luke Latham](https://github.com/guardrex)
 
 ::: moniker range=">= aspnetcore-3.0"
 
 Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému Windows](/dotnet/framework/windows-services/introduction-to-windows-service-applications) bez použití služby IIS. Po hostování jako služby systému Windows se aplikace automaticky spustí po restartování serveru.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Předpoklady
 
@@ -307,14 +305,14 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
 1. Vytvořte složku, do které se budou ukládat soubory s výpisem stavu systému na `c:\dumps`.
-1. Spusťte [skript PowerShellu EnableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
+1. Spusťte [skript PowerShellu EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
 
    ```console
    .\EnableDumps {APPLICATION EXE} c:\dumps
    ```
 
 1. Spusťte aplikaci za podmínek, které způsobí, že dojde k chybě.
-1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/DisableDumps.ps1):
+1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/DisableDumps.ps1):
 
    ```console
    .\DisableDumps {APPLICATION EXE}
@@ -345,7 +343,7 @@ Výpis paměti lze analyzovat pomocí několika přístupů. Další informace n
 
 Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému Windows](/dotnet/framework/windows-services/introduction-to-windows-service-applications) bez použití služby IIS. Po hostování jako služby systému Windows se aplikace automaticky spustí po restartování serveru.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Předpoklady
 
@@ -641,14 +639,14 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
 1. Vytvořte složku, do které se budou ukládat soubory s výpisem stavu systému na `c:\dumps`.
-1. Spusťte [skript PowerShellu EnableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
+1. Spusťte [skript PowerShellu EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
 
    ```console
    .\EnableDumps {APPLICATION EXE} c:\dumps
    ```
 
 1. Spusťte aplikaci za podmínek, které způsobí, že dojde k chybě.
-1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/DisableDumps.ps1):
+1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/DisableDumps.ps1):
 
    ```console
    .\DisableDumps {APPLICATION EXE}
@@ -679,7 +677,7 @@ Výpis paměti lze analyzovat pomocí několika přístupů. Další informace n
 
 Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému Windows](/dotnet/framework/windows-services/introduction-to-windows-service-applications) bez použití služby IIS. Po hostování jako služby systému Windows se aplikace automaticky spustí po restartování serveru.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/windows-service/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Předpoklady
 
@@ -978,14 +976,14 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
 1. Vytvořte složku, do které se budou ukládat soubory s výpisem stavu systému na `c:\dumps`.
-1. Spusťte [skript PowerShellu EnableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
+1. Spusťte [skript PowerShellu EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
 
    ```console
    .\EnableDumps {APPLICATION EXE} c:\dumps
    ```
 
 1. Spusťte aplikaci za podmínek, které způsobí, že dojde k chybě.
-1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/aspnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/DisableDumps.ps1):
+1. Po chybě spusťte [skript PowerShellu DisableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/DisableDumps.ps1):
 
    ```console
    .\DisableDumps {APPLICATION EXE}

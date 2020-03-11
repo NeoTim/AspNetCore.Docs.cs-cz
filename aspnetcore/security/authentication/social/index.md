@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/23/2020
 uid: security/authentication/social/index
-ms.openlocfilehash: 7d0f6647a6f5a4d41067b13acd3d294144027bb7
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: c698edbd85d665509366287b1dcad08e276e71cc
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76727328"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78668040"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Ověřování pro Facebook, Google a externí poskytovatele v ASP.NET Core
 
@@ -30,16 +30,16 @@ Příklady, jak mohou sociální přihlášení prosazovat přenosy a převody z
 
 ## <a name="create-a-new-aspnet-core-project"></a>Vytvoření nového projektu ASP.NET Core
 
-# <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Vytvoření nového projektu
 * Vyberte **ASP.NET Core webová aplikace** a **Další**.
-* Zadejte **název projektu** a potvrďte nebo změňte **umístění**. Vyberte **Create** (Vytvořit).
+* Zadejte **název projektu** a potvrďte nebo změňte **umístění**. Vyberte **Vytvořit**.
 * V rozevíracím seznamu vyberte nejnovější verzi ASP.NET Core (**ASP.NET Core {X. Y}** ) a pak vyberte **Webová aplikace**.
 * V části **ověřování**vyberte **změnit** a nastavte ověřování na **jednotlivé uživatelské účty**. Vyberte **OK**.
 * V okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte **vytvořit**.
 
-# <a name="visual-studio-code--visual-studio-for-mactabvisual-studio-codevisual-studio-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 * Otevřete terminál.  Pro Visual Studio Code můžete otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
@@ -111,7 +111,7 @@ Pokud chcete vytvořit heslo a přihlásit se pomocí e-mailu, který jste nasta
 
 ## <a name="next-steps"></a>Další kroky
 
-* Informace o přizpůsobení přihlašovacích tlačítek najdete v [tomto problému GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/10563) .
+* Informace o přizpůsobení přihlašovacích tlačítek najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/10563) .
 * Tento článek představil externí ověřování a vysvětluje požadavky potřebné k přidání externích přihlášení do vaší aplikace ASP.NET Core.
 * Stránky specifické pro poskytovatele odkazů pro konfiguraci přihlášení pro poskytovatele vyžadované vaší aplikací
 * Můžete chtít zachovat další data o uživateli a jejich přístup a aktualizovat tokeny. Další informace naleznete v tématu <xref:security/authentication/social/additional-claims>.

@@ -8,11 +8,11 @@ ms.custom: mvc
 ms.date: 08/22/2019
 uid: fundamentals/middleware/write
 ms.openlocfilehash: e74bba9e1bd826d4f493b0ee642a198f984daada
-ms.sourcegitcommit: f65d8765e4b7c894481db9b37aa6969abc625a48
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 09/06/2019
-ms.locfileid: "70773720"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78663924"
 ---
 # <a name="write-custom-aspnet-core-middleware"></a>Zápis vlastního middlewaru ASP.NET Core
 
@@ -28,7 +28,7 @@ Middleware je obecně zapouzdřena ve třídě a vystavena s metodou rozšířen
 
 Předchozí vzorový kód slouží k předvedení vytváření komponenty middlewaru. Integrovanou podporu lokalizace ASP.NET Core najdete v tématu <xref:fundamentals/localization>.
 
-Otestujte middleware předáním v jazykové verzi. Například Request `https://localhost:5001/?culture=no`.
+Otestujte middleware předáním v jazykové verzi. Například požadavek `https://localhost:5001/?culture=no`.
 
 Následující kód přesune delegáta middlewaru do třídy:
 
@@ -38,20 +38,20 @@ Třída middleware musí zahrnovat:
 
 * Veřejný konstruktor s parametrem typu <xref:Microsoft.AspNetCore.Http.RequestDelegate>.
 * Veřejná metoda s názvem `Invoke` nebo `InvokeAsync`. Tato metoda musí:
-  * `Task`Vrátí.
+  * Vrátí `Task`.
   * Přijměte první parametr typu <xref:Microsoft.AspNetCore.Http.HttpContext>.
   
-Další parametry pro `Invoke` konstruktor a / `InvokeAsync` jsou vyplněny pomocí [Injektáže závislosti (di)](xref:fundamentals/dependency-injection).
+Další parametry pro konstruktor a `Invoke`/`InvokeAsync` jsou vyplněny pomocí [Injektáže závislosti (di)](xref:fundamentals/dependency-injection).
 
 ## <a name="middleware-dependencies"></a>Závislosti middlewaru
 
 Middleware by měly následovat po [principu explicitní závislosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies) tím, že vystaví jeho závislosti ve svém konstruktoru. Middleware je postaven jednou za *dobu života aplikace*. Pokud potřebujete v rámci žádosti sdílet služby se middlewarem, podívejte se na část [závislosti middlewaru na žádost](#per-request-middleware-dependencies) .
 
-Komponenty middlewaru mohou vyřešit své závislosti z [Injektáže závislosti (di)](xref:fundamentals/dependency-injection) prostřednictvím parametrů konstruktoru. [UseMiddleware&lt;T&gt; ](/dotnet/api/microsoft.aspnetcore.builder.usemiddlewareextensions.usemiddleware#Microsoft_AspNetCore_Builder_UseMiddlewareExtensions_UseMiddleware_Microsoft_AspNetCore_Builder_IApplicationBuilder_System_Type_System_Object___) může také přímo přijmout další parametry.
+Komponenty middlewaru mohou vyřešit své závislosti z [Injektáže závislosti (di)](xref:fundamentals/dependency-injection) prostřednictvím parametrů konstruktoru. [UseMiddleware&lt;t&gt;](/dotnet/api/microsoft.aspnetcore.builder.usemiddlewareextensions.usemiddleware#Microsoft_AspNetCore_Builder_UseMiddlewareExtensions_UseMiddleware_Microsoft_AspNetCore_Builder_IApplicationBuilder_System_Type_System_Object___) může také přímo přijmout další parametry.
 
 ## <a name="per-request-middleware-dependencies"></a>Závislosti middlewaru na požadavek
 
-Vzhledem k tomu, že middleware se vytvářejí při spuštění aplikace, ne na vyžádání, jsou *služby životnosti* , které jsou používány konstruktory middleware, sdíleny s jinými typy vloženými závislostmi během každé žádosti. Pokud potřebujete sdílet *vymezenou* službu mezi middlewarem a jinými typy, přidejte tyto služby do `Invoke` signatury metody. `Invoke` Metoda může přijmout další parametry, které jsou vyplněny parametrem di:
+Vzhledem k tomu, že middleware se vytvářejí při spuštění aplikace, ne na vyžádání, jsou *služby životnosti* , které jsou používány konstruktory middleware, sdíleny s jinými typy vloženými závislostmi během každé žádosti. Pokud potřebujete sdílet *vymezenou* službu mezi middlewarem a jinými typy, přidejte tyto služby do signatury `Invoke` metody. Metoda `Invoke` může přijmout další parametry, které jsou vyplněny parametrem DI:
 
 ```csharp
 public class CustomMiddleware
