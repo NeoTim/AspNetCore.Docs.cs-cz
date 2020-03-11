@@ -315,8 +315,10 @@
           uid: blazor/dependency-injection
         - name: Směrování
           uid: blazor/routing
-        - name: Interoperabilita JavaScriptu
-          uid: blazor/javascript-interop
+        - name: Volání JavaScriptu z .NET
+          uid: blazor/call-javascript-from-dotnet
+        - name: Volání .NET z JavaScriptu
+          uid: blazor/call-dotnet-from-javascript
         - name: Hostování konfigurace modelu
           uid: blazor/hosting-model-configuration
         - name: Knihovny komponent
@@ -325,8 +327,30 @@
           items:
             - name: Přehled
               uid: security/blazor/index
+            - name: Blazor WebAssembly
+              items:
+                - name: Přehled
+                  uid: security/blazor/webassembly/index
+                - name: Samostatná aplikace využívající knihovnu ověřování
+                  uid: security/blazor/webassembly/standalone-with-authentication-library
+                - name: Samostatná aplikace využívající účty Microsoft
+                  uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+                - name: Samostatná aplikace využívající Azure Active Directory
+                  uid: security/blazor/webassembly/standalone-with-azure-active-directory
+                - name: Samostatná aplikace využívající Azure Active Directory B2C
+                  uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+                - name: Hostovaná aplikace využívající server identit
+                  uid: security/blazor/webassembly/hosted-with-identity-server
+                - name: Hostovaná aplikace využívající Azure Active Directory
+                  uid: security/blazor/webassembly/hosted-with-azure-active-directory
+                - name: Hostovaná aplikace využívající Azure Active Directory B2C
+                  uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+                - name: Další scénáře
+                  uid: security/blazor/webassembly/additional-scenarios
             - name: Blazor Server
               uid: security/blazor/server
+            - name: Zásady zabezpečení obsahu
+              uid: security/blazor/content-security-policy
         - name: Řízení stavu
           uid: blazor/state-management
         - name: Ošetření chyb
@@ -335,6 +359,8 @@
           uid: blazor/debug
         - name: Volání webového rozhraní API
           uid: blazor/call-web-api
+        - name: Webové aplikace PWA (Progressive Web Application)
+          uid: blazor/progressive-web-app
         - name: Hostování a nasazení
           items:
             - name: Přehled
@@ -373,7 +399,7 @@
           uid: client-side/bundling-and-minification
         - name: Browser Link
           uid: client-side/using-browserlink
-    - name: Stav relace a aplikace
+    - name: Správa relací a stavu
       uid: fundamentals/app-state
     - name: Rozložení
       uid: mvc/views/layout
@@ -1066,6 +1092,14 @@
       uid: security/cookie-sharing
     - name: Soubory cookie SameSite
       uid: security/samesite
+    - name: Ukázky použití atributu SameSite
+      items:
+        - name: Razor Pages 2.1 – ukázka souboru cookie SameSite
+          uid: security/samesite/rp21
+        - name: Razor Pages 3.1 – ukázka souboru cookie SameSite
+          uid: security/samesite/rp31
+        - name: MVC – ukázka souboru cookie SameSite
+          uid: security/samesite/mvc21
     - name: Seznam bezpečných IP adres
       uid: security/ip-safelist
     - name: Zabezpečení aplikací – OWASP
@@ -1074,8 +1108,30 @@
       items:
         - name: Přehled
           uid: security/blazor/index
+        - name: Blazor WebAssembly
+          items:
+            - name: Přehled
+              uid: security/blazor/webassembly/index
+            - name: Samostatná aplikace využívající knihovnu ověřování
+              uid: security/blazor/webassembly/standalone-with-authentication-library
+            - name: Samostatná aplikace využívající účty Microsoft
+              uid: security/blazor/webassembly/standalone-with-microsoft-accounts
+            - name: Samostatná aplikace využívající Azure Active Directory
+              uid: security/blazor/webassembly/standalone-with-azure-active-directory
+            - name: Samostatná aplikace využívající Azure Active Directory B2C
+              uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
+            - name: Hostovaná aplikace využívající server identit
+              uid: security/blazor/webassembly/hosted-with-identity-server
+            - name: Hostovaná aplikace využívající Azure Active Directory
+              uid: security/blazor/webassembly/hosted-with-azure-active-directory
+            - name: Hostovaná aplikace využívající Azure Active Directory B2C
+              uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+            - name: Další scénáře
+              uid: security/blazor/webassembly/additional-scenarios
         - name: Blazor Server
           uid: security/blazor/server
+        - name: Zásady zabezpečení obsahu
+          uid: security/blazor/content-security-policy
 - name: Výkon
   items:
     - name: Přehled
@@ -1203,4 +1259,4 @@
 - name: "referenční dokumentace k\_rozhraní API"
   href: /dotnet/api/?view=aspnetcore-2.2
 - name: Přispět
-  href: 'https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'
+  href: 'https://github.com/dotnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md'

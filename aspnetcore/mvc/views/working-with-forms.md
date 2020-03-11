@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 1c7652c909432b25ae373873cd593afd879cfa00
-ms.sourcegitcommit: 85564ee396c74c7651ac47dd45082f3f1803f7a2
+ms.openlocfilehash: 5af532db35b858d157f61a6aca30f55d15e9ff1e
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/12/2020
-ms.locfileid: "77172553"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657533"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Tagování pomocníků ve formulářích ve ASP.NET Core
 
@@ -75,7 +75,7 @@ Podporované atributy [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/an
 
 |Atribut|Popis|
 |---|---|
-|[ASP – kontroler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|Název kontroleru.|
+|[ASP – kontroler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|Název kontroleru|
 |[ASP – akce](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|Název metody akce|
 |[ASP – oblast](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|Název oblasti|
 |[ASP – stránka](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název stránky Razor|
@@ -201,7 +201,7 @@ Pomocná značka `Input` nastaví atribut HTML `type` na základě typu .NET. N�
 |Bool|type="checkbox"|
 |Řetězec|type="text"|
 |DateTime|Type =["DateTime – místní"](https://developer.mozilla.org/docs/Web/HTML/Element/input/datetime-local)|
-|Byte|Type = "Number"|
+|Bajt|Type = "Number"|
 |Int|Type = "Number"|
 |Jednoduchá, Dvojitá|Type = "Number"|
 
@@ -491,7 +491,7 @@ Generovaný kód HTML (Pokud je model platný):
 
 * Má alternativní `Html.DropDownListFor` pomocníka HTML a `Html.ListBoxFor`
 
-`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Například:
+`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Příklad:
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
@@ -670,4 +670,4 @@ Bude vybrán správný prvek `<option>` (obsahující atribut `selected="selecte
 * <xref:mvc/models/model-binding>
 * <xref:mvc/models/validation>
 * [Rozhraní IAttributeAdapter](/dotnet/api/Microsoft.AspNetCore.Mvc.DataAnnotations.IAttributeAdapter)
-* [Fragmenty kódu pro tento dokument](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/working-with-forms/sample/final)
+* [Fragmenty kódu pro tento dokument](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/working-with-forms/sample/final)

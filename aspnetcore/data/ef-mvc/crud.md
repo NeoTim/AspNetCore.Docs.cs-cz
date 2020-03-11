@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
-ms.openlocfilehash: f0c5bcff4c4b0808f9b4703e1429c3a6d1a7a2d7
-ms.sourcegitcommit: 7d3c6565dda6241eb13f9a8e1e1fd89b1cfe4d18
+ms.openlocfilehash: 2aa4ef48509b9a34f3b25eb657b1ecac51c1374b
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 10/11/2019
-ms.locfileid: "72259721"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78656861"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: implementace funkce CRUD – ASP.NET MVC pomocí EF Core
 
@@ -30,7 +30,7 @@ V tomto kurzu se naučíte:
 > * Aktualizovat stránku Delete
 > * Zavřít databázová připojení
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Začínáme s EF Core a ASP.NET Core MVC](intro.md)
 
@@ -265,7 +265,7 @@ Spusťte aplikaci, vyberte kartu **Students** a klikněte na **Odstranit** hyper
 
 ![Stránka pro potvrzení odstranění](crud/_static/student-delete.png)
 
-Klikněte na tlačítko **odstranit**. Stránka index se zobrazí bez odstraněného studenta. (Příklad kódu pro zpracování chyb v akci v kurzu souběžnosti najdete v tématu.)
+Klikněte na **Odstranit**. Stránka index se zobrazí bez odstraněného studenta. (Příklad kódu pro zpracování chyb v akci v kurzu souběžnosti najdete v tématu.)
 
 ## <a name="close-database-connections"></a>Zavřít databázová připojení
 
@@ -291,9 +291,9 @@ Sledování objektů entit v paměti lze zakázat voláním metody `AsNoTracking
 
 Další informace najdete v tématu [sledování vs. bez sledování](/ef/core/querying/tracking).
 
-## <a name="get-the-code"></a>Získat kód
+## <a name="get-the-code"></a>Získání kódu
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>Další kroky
 

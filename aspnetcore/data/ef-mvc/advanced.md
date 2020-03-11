@@ -7,12 +7,12 @@ ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: abea9b189861954533b24cb73650af41952d1a86
-ms.sourcegitcommit: 57b85708f4cded99b8f008a69830cb104cd8e879
+ms.openlocfilehash: fc6f8d8c4ab09848cf316be2e522bf5ce3b9ac76
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/13/2020
-ms.locfileid: "75914118"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78657036"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: informace o pokročilých scénářích – ASP.NET MVC pomocí EF Core
 
@@ -31,7 +31,7 @@ V tomto kurzu se naučíte:
 > * Další informace o EF Core zdrojového kódu a vývojářských plánech
 > * Naučte se používat dynamickou technologii LINQ ke zjednodušení kódu
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Předpoklady
 
 * [Implementovat dědičnost](inheritance.md)
 
@@ -103,7 +103,7 @@ Spusťte metodu `UpdateCourseCredits` tak, že vyberete kartu **kurzy** a pak na
 
 ![Stránka aktualizovat kredity kurzu](advanced/_static/update-credits.png)
 
-Klikněte na tlačítko **aktualizace**. Zobrazí se počet ovlivněných řádků:
+Klikněte na **Aktualizovat**. Zobrazí se počet ovlivněných řádků:
 
 ![Aktualizace ovlivněných řádků na stránce kurzů](advanced/_static/update-credits-rows-affected.png)
 
@@ -142,7 +142,7 @@ INNER JOIN (
 ORDER BY [t].[ID]
 ```
 
-Všimnete si, že vám to může zajímat: SQL vybere až 2 řádky (`TOP(2)`) z tabulky Person. Metoda `SingleOrDefaultAsync` se na serveru nevyřešila na 1 řádek. Důvody jsou následující:
+Všimnete si, že vám to může zajímat: SQL vybere až 2 řádky (`TOP(2)`) z tabulky Person. Metoda `SingleOrDefaultAsync` se na serveru nevyřešila na 1 řádek. Důvody:
 
 * Pokud by dotaz vrátil více řádků, vrátí metoda hodnotu null.
 * Chcete-li zjistit, zda dotaz by vrátil více řádků, EF musí ověřit, zda se vrátí alespoň 2.
@@ -197,7 +197,7 @@ Chcete-li provést zpětnou analýzu datového modelu, včetně tříd entit z e
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_DynamicLinq)]
 
-## <a name="acknowledgments"></a>Poděkování
+## <a name="acknowledgments"></a>Potvrzení
 
 Tento kurz napsal Dykstra a Rick Anderson (Twitter @RickAndMSFT). Rowan Miller, Diegu Vega a další členové Entity Framework týmu s asistencí revize kódu a pomohli ladit problémy, které vznikly při psaní kódu pro kurzy. Jan rodiče a Paul Goldman pracovali na aktualizaci kurzu pro ASP.NET Core 2,2.
 
@@ -243,17 +243,17 @@ dotnet ef database drop
 
 Chybová zpráva:
 
-> Při navazování připojení k SQL Serveru došlo k chybě související se sítí nebo konkrétní instancí. The server was not found or was not accessible. Ověřte, zda je název instance správný a zda je SQL Server nakonfigurovaná tak, aby povolovala vzdálená připojení. (poskytovatel: síťová rozhraní SQL, chyba: 26 – Chyba při hledání zadaného serveru nebo instance)
+> Při navazování připojení k SQL Serveru došlo k chybě související se sítí nebo konkrétní instancí. Server se nenašel nebo nebyl dostupný. Ověřte, zda je název instance správný a zda je SQL Server nakonfigurovaná tak, aby povolovala vzdálená připojení. (poskytovatel: síťová rozhraní SQL, chyba: 26 – Chyba při hledání zadaného serveru nebo instance)
 
 Řešení:
 
 Ověřte připojovací řetězec. Pokud jste soubor databáze odstranili ručně, změňte název databáze v řetězci konstrukce, aby bylo možné začít znovu s novou databází.
 
-## <a name="get-the-code"></a>Získat kód
+## <a name="get-the-code"></a>Získání kódu
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 Další informace o EF Core najdete v dokumentaci k [Entity Framework Core](/ef/core). K dispozici je také kniha: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
 
