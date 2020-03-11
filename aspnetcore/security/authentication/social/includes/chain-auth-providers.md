@@ -1,6 +1,6 @@
-## <a name="multiple-authentication-providers"></a><span data-ttu-id="fad30-101">Více poskytovatelů ověřování</span><span class="sxs-lookup"><span data-stu-id="fad30-101">Multiple authentication providers</span></span>
+## <a name="multiple-authentication-providers"></a><span data-ttu-id="ea2d2-101">Zprostředkovatelé více ověřování</span><span class="sxs-lookup"><span data-stu-id="ea2d2-101">Multiple authentication providers</span></span>
 
-<span data-ttu-id="fad30-102">Pokud aplikace vyžaduje několik zprostředkovatelů, zřetězení rozšiřující metody zprostředkovatele za [AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjection.authenticationservicecollectionextensions.addauthentication):</span><span class="sxs-lookup"><span data-stu-id="fad30-102">When the app requires multiple providers, chain the provider extension methods behind [AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjection.authenticationservicecollectionextensions.addauthentication):</span></span>
+<span data-ttu-id="ea2d2-102">Když aplikace vyžaduje víc poskytovatelů, nařetězení rozšiřujících metod poskytovatele za [AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjection.authenticationservicecollectionextensions.addauthentication):</span><span class="sxs-lookup"><span data-stu-id="ea2d2-102">When the app requires multiple providers, chain the provider extension methods behind [AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjection.authenticationservicecollectionextensions.addauthentication):</span></span>
 
 ```csharp
 services.AddAuthentication()

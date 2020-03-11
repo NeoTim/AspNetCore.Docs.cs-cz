@@ -1,51 +1,51 @@
 ---
-title: Povolit generování kódu QR pro TOTP aplikace v ASP.NET Core
+title: Povolit generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak povolit generování kódu QR pro aplikace TOTP, které pracují s ASP.NET Core dvojúrovňového ověřování.
+description: Zjistěte, jak povolit generování kódu QR pro aplikace TOTP Authenticator, které fungují s ASP.NET Core dvojúrovňové ověřování.
 ms.author: riande
 ms.date: 08/14/2018
 uid: security/authentication/identity-enable-qrcodes
 ms.openlocfilehash: a7fdc86b3fe94e714e5147c89a32fce13757d1c1
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64902712"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78665310"
 ---
-# <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a><span data-ttu-id="543ad-103">Povolit generování kódu QR pro TOTP aplikace v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="543ad-103">Enable QR Code generation for TOTP authenticator apps in ASP.NET Core</span></span>
+# <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a><span data-ttu-id="294d9-103">Povolit generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="294d9-103">Enable QR Code generation for TOTP authenticator apps in ASP.NET Core</span></span>
 
 ::: moniker range="<= aspnetcore-2.0"
 
-<span data-ttu-id="543ad-104">Kódy QR vyžaduje ASP.NET Core 2.0 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="543ad-104">QR Codes requires ASP.NET Core 2.0 or later.</span></span>
+<span data-ttu-id="294d9-104">Kódy QR vyžadují ASP.NET Core 2,0 nebo novější.</span><span class="sxs-lookup"><span data-stu-id="294d9-104">QR Codes requires ASP.NET Core 2.0 or later.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="543ad-105">ASP.NET Core se dodává s podporou pro aplikace authenticator pro jednotlivé ověřování.</span><span class="sxs-lookup"><span data-stu-id="543ad-105">ASP.NET Core ships with support for authenticator applications for individual authentication.</span></span> <span data-ttu-id="543ad-106">Dva faktoru ověřování (2FA), pomocí časovou synchronizací jednorázové heslo algoritmus (TOTP), jsou tyto aplikace v oboru doporučenému přístupu pro 2FA.</span><span class="sxs-lookup"><span data-stu-id="543ad-106">Two factor authentication (2FA) authenticator apps, using a Time-based One-time Password Algorithm (TOTP), are the industry recommended approach for 2FA.</span></span> <span data-ttu-id="543ad-107">2FA pomocí TOTP je upřednostňována před SMS 2FA.</span><span class="sxs-lookup"><span data-stu-id="543ad-107">2FA using TOTP is preferred to SMS 2FA.</span></span> <span data-ttu-id="543ad-108">Aplikace authenticator poskytuje 6 až 8 číselným kódem, který uživatelé musí zadat po potvrzení uživatelského jména a hesla.</span><span class="sxs-lookup"><span data-stu-id="543ad-108">An authenticator app provides a 6 to 8 digit code which users must enter after confirming their username and password.</span></span> <span data-ttu-id="543ad-109">Ověřovací aplikace se obvykle instaluje na smartphonu.</span><span class="sxs-lookup"><span data-stu-id="543ad-109">Typically an authenticator app is installed on a smart phone.</span></span>
+<span data-ttu-id="294d9-105">ASP.NET Core lodí s podporou ověřovacích aplikací pro individuální ověřování.</span><span class="sxs-lookup"><span data-stu-id="294d9-105">ASP.NET Core ships with support for authenticator applications for individual authentication.</span></span> <span data-ttu-id="294d9-106">Dva faktoru ověřování (2FA), pomocí časovou synchronizací jednorázové heslo algoritmus (TOTP), jsou tyto aplikace v oboru doporučenému přístupu pro 2FA.</span><span class="sxs-lookup"><span data-stu-id="294d9-106">Two factor authentication (2FA) authenticator apps, using a Time-based One-time Password Algorithm (TOTP), are the industry recommended approach for 2FA.</span></span> <span data-ttu-id="294d9-107">2FA pomocí TOTP je upřednostňována před SMS 2FA.</span><span class="sxs-lookup"><span data-stu-id="294d9-107">2FA using TOTP is preferred to SMS 2FA.</span></span> <span data-ttu-id="294d9-108">Ověřovací aplikace poskytuje kód o 6 až 8 číslic, který musí uživatelé zadat po potvrzení uživatelského jména a hesla.</span><span class="sxs-lookup"><span data-stu-id="294d9-108">An authenticator app provides a 6 to 8 digit code which users must enter after confirming their username and password.</span></span> <span data-ttu-id="294d9-109">Obvykle je aplikace ověřovatele nainstalovaná na inteligentním telefonu.</span><span class="sxs-lookup"><span data-stu-id="294d9-109">Typically an authenticator app is installed on a smart phone.</span></span>
 
-<span data-ttu-id="543ad-110">Šablony ASP.NET Core webové aplikace podporovat ověřovací data, ale neposkytuje podporu pro generování QRCode.</span><span class="sxs-lookup"><span data-stu-id="543ad-110">The ASP.NET Core web app templates support authenticators, but don't provide support for QRCode generation.</span></span> <span data-ttu-id="543ad-111">Generátory QRCode usnadnění instalace 2FA.</span><span class="sxs-lookup"><span data-stu-id="543ad-111">QRCode generators ease the setup of 2FA.</span></span> <span data-ttu-id="543ad-112">Tento dokument vás provede přidáním [kód QR](https://wikipedia.org/wiki/QR_code) generování ke konfigurační stránce 2FA.</span><span class="sxs-lookup"><span data-stu-id="543ad-112">This document will guide you through adding [QR Code](https://wikipedia.org/wiki/QR_code) generation to the 2FA configuration page.</span></span>
+<span data-ttu-id="294d9-110">Šablony webové aplikace ASP.NET Core podporují ověřovací moduly, ale neposkytují podporu pro generování QRCode.</span><span class="sxs-lookup"><span data-stu-id="294d9-110">The ASP.NET Core web app templates support authenticators, but don't provide support for QRCode generation.</span></span> <span data-ttu-id="294d9-111">QRCode generátory usnadňují nastavení 2FA.</span><span class="sxs-lookup"><span data-stu-id="294d9-111">QRCode generators ease the setup of 2FA.</span></span> <span data-ttu-id="294d9-112">Tento dokument vás provede přidáním generování [kódu QR](https://wikipedia.org/wiki/QR_code) do konfigurační stránky 2FA.</span><span class="sxs-lookup"><span data-stu-id="294d9-112">This document will guide you through adding [QR Code](https://wikipedia.org/wiki/QR_code) generation to the 2FA configuration page.</span></span>
 
-<span data-ttu-id="543ad-113">Dvoufaktorové ověřování neproběhne pomocí zprostředkovatele externího ověřování, například [Google](xref:security/authentication/google-logins) nebo [Facebook](xref:security/authentication/facebook-logins).</span><span class="sxs-lookup"><span data-stu-id="543ad-113">Two factor authentication does not happen using an external authentication provider, such as [Google](xref:security/authentication/google-logins) or [Facebook](xref:security/authentication/facebook-logins).</span></span> <span data-ttu-id="543ad-114">Externí přihlášení jsou chráněny libovolné mechanismem poskytuje na externího zprostředkovatele přihlášení.</span><span class="sxs-lookup"><span data-stu-id="543ad-114">External logins are protected by whatever mechanism the external login provider provides.</span></span> <span data-ttu-id="543ad-115">Zvažte například [Microsoft](xref:security/authentication/microsoft-logins) zprostředkovatele ověřování vyžaduje klíč hardware nebo další 2FA přístup.</span><span class="sxs-lookup"><span data-stu-id="543ad-115">Consider, for example, the [Microsoft](xref:security/authentication/microsoft-logins) authentication provider requires a hardware key or another 2FA approach.</span></span> <span data-ttu-id="543ad-116">Pokud výchozí šablony vynucují "local" 2FA by uživatelé vyžadovány k uspokojení dva přístupy 2FA, to není často používaný scénář.</span><span class="sxs-lookup"><span data-stu-id="543ad-116">If the default templates enforced "local" 2FA then users would be required to satisfy two 2FA approaches, which is not a commonly used scenario.</span></span>
+<span data-ttu-id="294d9-113">K dvojúrovňovému ověřování nedochází pomocí externího poskytovatele ověřování, jako je [Google](xref:security/authentication/google-logins) nebo [Facebook](xref:security/authentication/facebook-logins).</span><span class="sxs-lookup"><span data-stu-id="294d9-113">Two factor authentication does not happen using an external authentication provider, such as [Google](xref:security/authentication/google-logins) or [Facebook](xref:security/authentication/facebook-logins).</span></span> <span data-ttu-id="294d9-114">Externí přihlášení jsou chráněná jakýmkoli mechanismem, který poskytuje externí poskytovatel přihlášení.</span><span class="sxs-lookup"><span data-stu-id="294d9-114">External logins are protected by whatever mechanism the external login provider provides.</span></span> <span data-ttu-id="294d9-115">Předpokládejme například, že zprostředkovatel ověřování od [společnosti Microsoft](xref:security/authentication/microsoft-logins) vyžaduje hardwarový klíč nebo jiný 2FA přístup.</span><span class="sxs-lookup"><span data-stu-id="294d9-115">Consider, for example, the [Microsoft](xref:security/authentication/microsoft-logins) authentication provider requires a hardware key or another 2FA approach.</span></span> <span data-ttu-id="294d9-116">Pokud výchozí šablony vynutily "místní" 2FA, pak uživatelé budou muset splnit dva 2FA přístupy, což není běžně používaný scénář.</span><span class="sxs-lookup"><span data-stu-id="294d9-116">If the default templates enforced "local" 2FA then users would be required to satisfy two 2FA approaches, which is not a commonly used scenario.</span></span>
 
-## <a name="adding-qr-codes-to-the-2fa-configuration-page"></a><span data-ttu-id="543ad-117">Přidání na stránku konfigurace 2FA kódy QR</span><span class="sxs-lookup"><span data-stu-id="543ad-117">Adding QR Codes to the 2FA configuration page</span></span>
+## <a name="adding-qr-codes-to-the-2fa-configuration-page"></a><span data-ttu-id="294d9-117">Přidávání kódů QR do konfigurační stránky 2FA</span><span class="sxs-lookup"><span data-stu-id="294d9-117">Adding QR Codes to the 2FA configuration page</span></span>
 
-<span data-ttu-id="543ad-118">Tyto pokyny používají *qrcode.js* z https://davidshimjs.github.io/qrcodejs/ úložiště.</span><span class="sxs-lookup"><span data-stu-id="543ad-118">These instructions use *qrcode.js* from the https://davidshimjs.github.io/qrcodejs/ repo.</span></span>
+<span data-ttu-id="294d9-118">Tyto pokyny používají *qrcode. js* z úložiště https://davidshimjs.github.io/qrcodejs/.</span><span class="sxs-lookup"><span data-stu-id="294d9-118">These instructions use *qrcode.js* from the https://davidshimjs.github.io/qrcodejs/ repo.</span></span>
 
-* <span data-ttu-id="543ad-119">Stáhněte si [knihovny javascript qrcode.js](https://davidshimjs.github.io/qrcodejs/) k `wwwroot\lib` složku ve vašem projektu.</span><span class="sxs-lookup"><span data-stu-id="543ad-119">Download the [qrcode.js javascript library](https://davidshimjs.github.io/qrcodejs/) to the `wwwroot\lib` folder in your project.</span></span>
+* <span data-ttu-id="294d9-119">Stáhněte [knihovnu JavaScript qrcode. js](https://davidshimjs.github.io/qrcodejs/) do složky `wwwroot\lib` ve vašem projektu.</span><span class="sxs-lookup"><span data-stu-id="294d9-119">Download the [qrcode.js javascript library](https://davidshimjs.github.io/qrcodejs/) to the `wwwroot\lib` folder in your project.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-* <span data-ttu-id="543ad-120">Postupujte podle pokynů v [vygenerované uživatelské rozhraní Identity](xref:security/authentication/scaffold-identity) ke generování */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.</span><span class="sxs-lookup"><span data-stu-id="543ad-120">Follow the instructions in [Scaffold Identity](xref:security/authentication/scaffold-identity) to generate */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.</span></span>
-* <span data-ttu-id="543ad-121">V */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*, vyhledejte `Scripts` části na konci souboru:</span><span class="sxs-lookup"><span data-stu-id="543ad-121">In */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*, locate the `Scripts` section at the end of the file:</span></span>
+* <span data-ttu-id="294d9-120">Podle pokynů v části [Identita uživatelského rozhraní](xref:security/authentication/scaffold-identity) vygenerujte */areas/identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.</span><span class="sxs-lookup"><span data-stu-id="294d9-120">Follow the instructions in [Scaffold Identity](xref:security/authentication/scaffold-identity) to generate */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.</span></span>
+* <span data-ttu-id="294d9-121">V */areas/identity/Pages/Account/Manage/EnableAuthenticator.cshtml*vyhledejte část `Scripts` na konci souboru:</span><span class="sxs-lookup"><span data-stu-id="294d9-121">In */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*, locate the `Scripts` section at the end of the file:</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-* <span data-ttu-id="543ad-122">V *Pages/Account/Manage/EnableAuthenticator.cshtml* (stránky Razor) nebo *Views/Manage/EnableAuthenticator.cshtml* (MVC), vyhledejte `Scripts` části na konci souboru:</span><span class="sxs-lookup"><span data-stu-id="543ad-122">In *Pages/Account/Manage/EnableAuthenticator.cshtml* (Razor Pages) or *Views/Manage/EnableAuthenticator.cshtml* (MVC), locate the `Scripts` section at the end of the file:</span></span>
+* <span data-ttu-id="294d9-122">Na *stránce stránky/účet/spravovat/EnableAuthenticator. cshtml* (Razor Pages) nebo *zobrazení/Správa/EnableAuthenticator. cshtml* (MVC) vyhledejte část `Scripts` na konci souboru:</span><span class="sxs-lookup"><span data-stu-id="294d9-122">In *Pages/Account/Manage/EnableAuthenticator.cshtml* (Razor Pages) or *Views/Manage/EnableAuthenticator.cshtml* (MVC), locate the `Scripts` section at the end of the file:</span></span>
 
 ::: moniker-end
 
@@ -57,7 +57,7 @@ ms.locfileid: "64902712"
 }
 ```
 
-* <span data-ttu-id="543ad-123">Aktualizace `Scripts` části a přidejte odkaz na `qrcodejs` knihovny, které jste přidali a volání pro generování kódu QR.</span><span class="sxs-lookup"><span data-stu-id="543ad-123">Update the `Scripts` section to add a reference to the `qrcodejs` library you added and a call to generate the QR Code.</span></span> <span data-ttu-id="543ad-124">Měl by vypadat takto:</span><span class="sxs-lookup"><span data-stu-id="543ad-124">It should look as follows:</span></span>
+* <span data-ttu-id="294d9-123">Aktualizujte část `Scripts`, abyste přidali odkaz na knihovnu `qrcodejs`, kterou jste přidali, a volání pro generování kódu QR.</span><span class="sxs-lookup"><span data-stu-id="294d9-123">Update the `Scripts` section to add a reference to the `qrcodejs` library you added and a call to generate the QR Code.</span></span> <span data-ttu-id="294d9-124">Měl by vypadat takto:</span><span class="sxs-lookup"><span data-stu-id="294d9-124">It should look as follows:</span></span>
 
 ```cshtml
 @section Scripts {
@@ -75,29 +75,29 @@ ms.locfileid: "64902712"
 }
 ```
 
-* <span data-ttu-id="543ad-125">Odstranění odstavce, který slouží k propojení k těmto pokynům.</span><span class="sxs-lookup"><span data-stu-id="543ad-125">Delete the paragraph which links you to these instructions.</span></span>
+* <span data-ttu-id="294d9-125">Odstraňte odstavec s odkazem na tyto pokyny.</span><span class="sxs-lookup"><span data-stu-id="294d9-125">Delete the paragraph which links you to these instructions.</span></span>
 
-<span data-ttu-id="543ad-126">Spusťte aplikaci a ujistěte se, že můžete naskenovat kód QR a ověřit kód, který prokáže, ověřovací data.</span><span class="sxs-lookup"><span data-stu-id="543ad-126">Run your app and ensure that you can scan the QR code and validate the code the authenticator proves.</span></span>
+<span data-ttu-id="294d9-126">Spusťte aplikaci a ujistěte se, že je možné kontrolovat kód QR a ověřit kód, který ověřovatel prokáže.</span><span class="sxs-lookup"><span data-stu-id="294d9-126">Run your app and ensure that you can scan the QR code and validate the code the authenticator proves.</span></span>
 
-## <a name="change-the-site-name-in-the-qr-code"></a><span data-ttu-id="543ad-127">Změna názvu serveru v kódu QR</span><span class="sxs-lookup"><span data-stu-id="543ad-127">Change the site name in the QR Code</span></span>
+## <a name="change-the-site-name-in-the-qr-code"></a><span data-ttu-id="294d9-127">Změna názvu lokality v kódu QR</span><span class="sxs-lookup"><span data-stu-id="294d9-127">Change the site name in the QR Code</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-<span data-ttu-id="543ad-128">Název webu v kód QR je převzat z názvu projektu, který si zvolíte při prvotním vytvoření projektu.</span><span class="sxs-lookup"><span data-stu-id="543ad-128">The site name in the QR Code is taken from the project name you choose when initially creating your project.</span></span> <span data-ttu-id="543ad-129">Můžete ji změnit tím, že hledají `GenerateQrCodeUri(string email, string unformattedKey)` metodu */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*.</span><span class="sxs-lookup"><span data-stu-id="543ad-129">You can change it by looking for the `GenerateQrCodeUri(string email, string unformattedKey)` method in the */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*.</span></span>
+<span data-ttu-id="294d9-128">Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu.</span><span class="sxs-lookup"><span data-stu-id="294d9-128">The site name in the QR Code is taken from the project name you choose when initially creating your project.</span></span> <span data-ttu-id="294d9-129">Můžete ho změnit tak, že v */areas/identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*vyhledáte metodu `GenerateQrCodeUri(string email, string unformattedKey)`.</span><span class="sxs-lookup"><span data-stu-id="294d9-129">You can change it by looking for the `GenerateQrCodeUri(string email, string unformattedKey)` method in the */Areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*.</span></span>
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-<span data-ttu-id="543ad-130">Název webu v kód QR je převzat z názvu projektu, který si zvolíte při prvotním vytvoření projektu.</span><span class="sxs-lookup"><span data-stu-id="543ad-130">The site name in the QR Code is taken from the project name you choose when initially creating your project.</span></span> <span data-ttu-id="543ad-131">Můžete ho změnit tím, že hledají `GenerateQrCodeUri(string email, string unformattedKey)` metoda v *Pages/Account/Manage/EnableAuthenticator.cshtml.cs* (stránky Razor) souboru nebo *Controllers/ManageController.cs* souboru (MVC).</span><span class="sxs-lookup"><span data-stu-id="543ad-131">You can change it by looking for the `GenerateQrCodeUri(string email, string unformattedKey)` method in the *Pages/Account/Manage/EnableAuthenticator.cshtml.cs* (Razor Pages) file or the *Controllers/ManageController.cs* (MVC) file.</span></span>
+<span data-ttu-id="294d9-130">Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu.</span><span class="sxs-lookup"><span data-stu-id="294d9-130">The site name in the QR Code is taken from the project name you choose when initially creating your project.</span></span> <span data-ttu-id="294d9-131">Můžete ji změnit hledáním metody `GenerateQrCodeUri(string email, string unformattedKey)` v souboru *Pages/Account/Manage/EnableAuthenticator. cshtml. cs* (Razor Pages) nebo *Controller/ManageController. cs* (MVC).</span><span class="sxs-lookup"><span data-stu-id="294d9-131">You can change it by looking for the `GenerateQrCodeUri(string email, string unformattedKey)` method in the *Pages/Account/Manage/EnableAuthenticator.cshtml.cs* (Razor Pages) file or the *Controllers/ManageController.cs* (MVC) file.</span></span>
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.0"
 
-<span data-ttu-id="543ad-132">Výchozí kód ze šablony by měl vypadat takto:</span><span class="sxs-lookup"><span data-stu-id="543ad-132">The default code from the template looks as follows:</span></span>
+<span data-ttu-id="294d9-132">Výchozí kód ze šablony vypadá takto:</span><span class="sxs-lookup"><span data-stu-id="294d9-132">The default code from the template looks as follows:</span></span>
 
 ```csharp
 private string GenerateQrCodeUri(string email, string unformattedKey)
@@ -110,19 +110,19 @@ private string GenerateQrCodeUri(string email, string unformattedKey)
 }
 ```
 
-<span data-ttu-id="543ad-133">Druhý parametr ve volání `string.Format` je název vašeho webu, na základě název řešení.</span><span class="sxs-lookup"><span data-stu-id="543ad-133">The second parameter in the call to `string.Format` is your site name, taken from your solution name.</span></span> <span data-ttu-id="543ad-134">Lze jej změnit na libovolnou hodnotu, ale musí být vždy kódování URL.</span><span class="sxs-lookup"><span data-stu-id="543ad-134">It can be changed to any value, but it must always be URL encoded.</span></span>
+<span data-ttu-id="294d9-133">Druhý parametr v volání `string.Format` je název vašeho webu, který je pořízen z názvu řešení.</span><span class="sxs-lookup"><span data-stu-id="294d9-133">The second parameter in the call to `string.Format` is your site name, taken from your solution name.</span></span> <span data-ttu-id="294d9-134">Dá se změnit na libovolnou hodnotu, ale musí být vždycky zakódovaný URL.</span><span class="sxs-lookup"><span data-stu-id="294d9-134">It can be changed to any value, but it must always be URL encoded.</span></span>
 
-## <a name="using-a-different-qr-code-library"></a><span data-ttu-id="543ad-135">Použití knihovny jiný kód QR</span><span class="sxs-lookup"><span data-stu-id="543ad-135">Using a different QR Code library</span></span>
+## <a name="using-a-different-qr-code-library"></a><span data-ttu-id="294d9-135">Použití jiné knihovny kódu QR</span><span class="sxs-lookup"><span data-stu-id="294d9-135">Using a different QR Code library</span></span>
 
-<span data-ttu-id="543ad-136">Knihovny kódu QR můžete nahradit své upřednostňované knihovny.</span><span class="sxs-lookup"><span data-stu-id="543ad-136">You can replace the QR Code library with your preferred library.</span></span> <span data-ttu-id="543ad-137">Obsahuje kód HTML `qrCode` elementu, do kterého můžete umístit kód QR libovolné mechanismem vaše knihovna poskytuje.</span><span class="sxs-lookup"><span data-stu-id="543ad-137">The HTML contains a `qrCode` element into which you can place a QR Code by whatever mechanism your library provides.</span></span>
+<span data-ttu-id="294d9-136">Knihovnu kódu QR můžete nahradit preferovanou knihovnou.</span><span class="sxs-lookup"><span data-stu-id="294d9-136">You can replace the QR Code library with your preferred library.</span></span> <span data-ttu-id="294d9-137">Kód HTML obsahuje element `qrCode`, do kterého můžete umístit kód QR jakýmkoli mechanismem, který vaše knihovna poskytuje.</span><span class="sxs-lookup"><span data-stu-id="294d9-137">The HTML contains a `qrCode` element into which you can place a QR Code by whatever mechanism your library provides.</span></span>
 
-<span data-ttu-id="543ad-138">Správně formátované adresy URL pro kód QR je k dispozici v:</span><span class="sxs-lookup"><span data-stu-id="543ad-138">The correctly formatted URL for the QR Code is available in the:</span></span>
+<span data-ttu-id="294d9-138">Správně formátovaná adresa URL pro kód QR je k dispozici v:</span><span class="sxs-lookup"><span data-stu-id="294d9-138">The correctly formatted URL for the QR Code is available in the:</span></span>
 
-* <span data-ttu-id="543ad-139">`AuthenticatorUri` Vlastnost modelu.</span><span class="sxs-lookup"><span data-stu-id="543ad-139">`AuthenticatorUri` property of the model.</span></span>
-* <span data-ttu-id="543ad-140">`data-url` Vlastnost `qrCodeData` elementu.</span><span class="sxs-lookup"><span data-stu-id="543ad-140">`data-url` property in the `qrCodeData` element.</span></span>
+* <span data-ttu-id="294d9-139">vlastnost `AuthenticatorUri` modelu</span><span class="sxs-lookup"><span data-stu-id="294d9-139">`AuthenticatorUri` property of the model.</span></span>
+* <span data-ttu-id="294d9-140">vlastnost `data-url` v elementu `qrCodeData`.</span><span class="sxs-lookup"><span data-stu-id="294d9-140">`data-url` property in the `qrCodeData` element.</span></span>
 
-## <a name="totp-client-and-server-time-skew"></a><span data-ttu-id="543ad-141">TOTP klientských a serverových nerovnoměrné rozdělení času</span><span class="sxs-lookup"><span data-stu-id="543ad-141">TOTP client and server time skew</span></span>
+## <a name="totp-client-and-server-time-skew"></a><span data-ttu-id="294d9-141">TOTP a časový posun serveru</span><span class="sxs-lookup"><span data-stu-id="294d9-141">TOTP client and server time skew</span></span>
 
-<span data-ttu-id="543ad-142">Ověření TOTP (podle času jednorázového hesla) závisí na serveru a ověřovací zařízení s přesnému času.</span><span class="sxs-lookup"><span data-stu-id="543ad-142">TOTP (Time-based One-Time Password) authentication depends on both the server and authenticator device having an accurate time.</span></span> <span data-ttu-id="543ad-143">Tokeny pouze posledních 30 sekund.</span><span class="sxs-lookup"><span data-stu-id="543ad-143">Tokens only last for 30 seconds.</span></span> <span data-ttu-id="543ad-144">Pokud se nedaří přihlášení TOTP 2FA, zkontrolujte, zda čas serveru přesné a pokud možno synchronizované do služby přesné NTP.</span><span class="sxs-lookup"><span data-stu-id="543ad-144">If TOTP 2FA logins are failing, check that the server time is accurate, and preferably synchronized to an accurate NTP service.</span></span>
+<span data-ttu-id="294d9-142">Ověřování TOTP (jednorázové heslo založené na čase) závisí na serveru i na ověřovacím zařízení s přesným časem.</span><span class="sxs-lookup"><span data-stu-id="294d9-142">TOTP (Time-based One-Time Password) authentication depends on both the server and authenticator device having an accurate time.</span></span> <span data-ttu-id="294d9-143">Tokeny jsou pouze poslední po dobu 30 sekund.</span><span class="sxs-lookup"><span data-stu-id="294d9-143">Tokens only last for 30 seconds.</span></span> <span data-ttu-id="294d9-144">Pokud se nedaří přihlášení TOTP 2FA, ověřte, že je čas serveru přesný a nejlépe se synchronizuje s přesnou službou NTP.</span><span class="sxs-lookup"><span data-stu-id="294d9-144">If TOTP 2FA logins are failing, check that the server time is accurate, and preferably synchronized to an accurate NTP service.</span></span>
 
 ::: moniker-end
