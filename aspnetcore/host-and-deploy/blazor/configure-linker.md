@@ -5,44 +5,48 @@ description: Naučte se řídit linker zprostředkujícího jazyka (IL) při ses
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/10/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 263b85a3213c1da233e4c96095faaf39d0a8e13f
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: b08ec26fb8d139223c57774600bc3cb19a56ac49
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726774"
+ms.lasthandoff: 03/11/2020
+ms.locfileid: "79083300"
 ---
-# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a><span data-ttu-id="eea0f-103">Konfigurace linkeru pro ASP.NET Core [!OP.NO-LOC(Blazor)]</span><span class="sxs-lookup"><span data-stu-id="eea0f-103">Configure the Linker for ASP.NET Core [!OP.NO-LOC(Blazor)]</span></span>
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a><span data-ttu-id="2eb28-103">Konfigurace linkeru pro ASP.NET Core Blazor</span><span class="sxs-lookup"><span data-stu-id="2eb28-103">Configure the Linker for ASP.NET Core Blazor</span></span>
 
-<span data-ttu-id="eea0f-104">Od [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="eea0f-104">By [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="2eb28-104">Od [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="2eb28-104">By [Luke Latham](https://github.com/guardrex)</span></span>
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-[!OP.NO-LOC(Blazor)]<span data-ttu-id="eea0f-105"> provádí propojování v [prostředním jazyce (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení pro odebrání zbytečného Il z výstupních sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="eea0f-105"> performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during a build to remove unnecessary IL from the app's output assemblies.</span></span>
+<span data-ttu-id="2eb28-105">Blazor WebAssembly provádí propojování [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení za účelem oříznutí zbytečných Il z výstupních sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="2eb28-105">Blazor WebAssembly performs [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) linking during a build to trim unnecessary IL from the app's output assemblies.</span></span> <span data-ttu-id="2eb28-106">Linker je při sestavování konfigurace ladění zakázán.</span><span class="sxs-lookup"><span data-stu-id="2eb28-106">The linker is disabled when building in Debug configuration.</span></span> <span data-ttu-id="2eb28-107">Aby bylo možné linker povolit, musí aplikace sestavit v konfiguraci vydání.</span><span class="sxs-lookup"><span data-stu-id="2eb28-107">Apps must build in Release configuration to enable the linker.</span></span> <span data-ttu-id="2eb28-108">Při nasazování aplikací Blazor WebAssembly doporučujeme sestavovat v vydaných verzích.</span><span class="sxs-lookup"><span data-stu-id="2eb28-108">We recommend building in Release when deploying your Blazor WebAssembly apps.</span></span> 
 
-<span data-ttu-id="eea0f-106">Ovládací prvek propojuje sestavení pomocí některého z následujících přístupů:</span><span class="sxs-lookup"><span data-stu-id="eea0f-106">Control assembly linking using either of the following approaches:</span></span>
+<span data-ttu-id="2eb28-109">Propojení aplikace se optimalizuje pro velikost, ale může mít škodlivé účinky.</span><span class="sxs-lookup"><span data-stu-id="2eb28-109">Linking an app optimizes for size but may have detrimental effects.</span></span> <span data-ttu-id="2eb28-110">Aplikace, které používají reflexi nebo související dynamické funkce, mohou být při oříznutí přerušeny, protože linker neví o tomto dynamickém chování a nemůže určit obecně, které typy jsou požadovány pro reflexi za běhu.</span><span class="sxs-lookup"><span data-stu-id="2eb28-110">Apps that use reflection or related dynamic features may break when trimmed because the linker doesn't know about this dynamic behavior and can't determine in general which types are required for reflection at runtime.</span></span> <span data-ttu-id="2eb28-111">Aby bylo možné tyto aplikace oříznout, musí být linker informován o jakýchkoli typech vyžadovaných odrazem v kódu a v balíčcích nebo architekturách, na kterých aplikace závisí.</span><span class="sxs-lookup"><span data-stu-id="2eb28-111">To trim such apps, the linker must be informed about any types required by reflection in the code and in packages or frameworks that the app depends on.</span></span> 
 
-* <span data-ttu-id="eea0f-107">Zakáže propojení globálně s [vlastností MSBuild](#disable-linking-with-a-msbuild-property).</span><span class="sxs-lookup"><span data-stu-id="eea0f-107">Disable linking globally with a [MSBuild property](#disable-linking-with-a-msbuild-property).</span></span>
-* <span data-ttu-id="eea0f-108">Řízení propojení podle jednotlivých sestavení pomocí [konfiguračního souboru](#control-linking-with-a-configuration-file).</span><span class="sxs-lookup"><span data-stu-id="eea0f-108">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
+<span data-ttu-id="2eb28-112">Aby se zajistilo, že bude aplikace po nasazení správně fungovat, je důležité otestovat sestavení vydaných verzí aplikace často během vývoje.</span><span class="sxs-lookup"><span data-stu-id="2eb28-112">To ensure the trimmed app works correctly once deployed, it's important to test Release builds of the app frequently while developing.</span></span>
 
-## <a name="disable-linking-with-a-msbuild-property"></a><span data-ttu-id="eea0f-109">Zakázat propojení s vlastností MSBuild</span><span class="sxs-lookup"><span data-stu-id="eea0f-109">Disable linking with a MSBuild property</span></span>
+<span data-ttu-id="2eb28-113">Odkazy na aplikace Blazor se dají konfigurovat pomocí těchto funkcí MSBuild:</span><span class="sxs-lookup"><span data-stu-id="2eb28-113">Linking for Blazor apps can be configured using these MSBuild features:</span></span>
 
-<span data-ttu-id="eea0f-110">Propojení je ve výchozím nastavení povoleno, pokud je aplikace sestavena, včetně publikování.</span><span class="sxs-lookup"><span data-stu-id="eea0f-110">Linking is enabled by default when an app is built, which includes publishing.</span></span> <span data-ttu-id="eea0f-111">Chcete-li zakázat propojování pro všechna sestavení, nastavte vlastnost `BlazorLinkOnBuild` MSBuild na `false` v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="eea0f-111">To disable linking for all assemblies, set the `BlazorLinkOnBuild` MSBuild property to `false` in the project file:</span></span>
+* <span data-ttu-id="2eb28-114">Nakonfigurujte globálně propojení s [vlastností MSBuild](#control-linking-with-an-msbuild-property).</span><span class="sxs-lookup"><span data-stu-id="2eb28-114">Configure linking globally with a [MSBuild property](#control-linking-with-an-msbuild-property).</span></span>
+* <span data-ttu-id="2eb28-115">Řízení propojení podle jednotlivých sestavení pomocí [konfiguračního souboru](#control-linking-with-a-configuration-file).</span><span class="sxs-lookup"><span data-stu-id="2eb28-115">Control linking on a per-assembly basis with a [configuration file](#control-linking-with-a-configuration-file).</span></span>
+
+## <a name="control-linking-with-an-msbuild-property"></a><span data-ttu-id="2eb28-116">Řízení propojení pomocí vlastnosti MSBuild</span><span class="sxs-lookup"><span data-stu-id="2eb28-116">Control linking with an MSBuild property</span></span>
+
+<span data-ttu-id="2eb28-117">Odkazování je povolené, když je aplikace sestavená `Release` konfiguračním.</span><span class="sxs-lookup"><span data-stu-id="2eb28-117">Linking is enabled when an app is built in `Release` configuation.</span></span> <span data-ttu-id="2eb28-118">Chcete-li toto nastavení změnit, nakonfigurujte vlastnost `BlazorWebAssemblyEnableLinking` MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="2eb28-118">To change this, configure the `BlazorWebAssemblyEnableLinking` MSBuild property in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
-  <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
+  <BlazorWebAssemblyEnableLinking>false</BlazorWebAssemblyEnableLinking>
 </PropertyGroup>
 ```
 
-## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="eea0f-112">Řízení propojování pomocí konfiguračního souboru</span><span class="sxs-lookup"><span data-stu-id="eea0f-112">Control linking with a configuration file</span></span>
+## <a name="control-linking-with-a-configuration-file"></a><span data-ttu-id="2eb28-119">Řízení propojování pomocí konfiguračního souboru</span><span class="sxs-lookup"><span data-stu-id="2eb28-119">Control linking with a configuration file</span></span>
 
-<span data-ttu-id="eea0f-113">Řízení propojení na základě sestavení zadáním konfiguračního souboru XML a zadáním souboru jako položky MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="eea0f-113">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
+<span data-ttu-id="2eb28-120">Řízení propojení na základě sestavení zadáním konfiguračního souboru XML a zadáním souboru jako položky MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="2eb28-120">Control linking on a per-assembly basis by providing an XML configuration file and specifying the file as a MSBuild item in the project file:</span></span>
 
 ```xml
 <ItemGroup>
@@ -50,12 +54,12 @@ ms.locfileid: "76726774"
 </ItemGroup>
 ```
 
-<span data-ttu-id="eea0f-114">*Linker. XML*:</span><span class="sxs-lookup"><span data-stu-id="eea0f-114">*Linker.xml*:</span></span>
+<span data-ttu-id="2eb28-121">*Linker. XML*:</span><span class="sxs-lookup"><span data-stu-id="2eb28-121">*Linker.xml*:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This file specifies which parts of the BCL or [!OP.NO-LOC(Blazor)] packages must not be
+  This file specifies which parts of the BCL or Blazor packages must not be
   stripped by the IL Linker even if they aren't referenced by user code.
 -->
 <linker>
@@ -82,13 +86,13 @@ ms.locfileid: "76726774"
 </linker>
 ```
 
-<span data-ttu-id="eea0f-115">Další informace naleznete v tématu [linkeru Il: syntaxe popisovače XML](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span><span class="sxs-lookup"><span data-stu-id="eea0f-115">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
+<span data-ttu-id="2eb28-122">Další informace naleznete v tématu [linkeru Il: syntaxe popisovače XML](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span><span class="sxs-lookup"><span data-stu-id="2eb28-122">For more information, see [IL Linker: Syntax of xml descriptor](https://github.com/mono/linker/blob/master/src/linker/README.md#syntax-of-xml-descriptor).</span></span>
 
-### <a name="configure-the-linker-for-internationalization"></a><span data-ttu-id="eea0f-116">Konfigurace linkeru pro mezinárodní využití</span><span class="sxs-lookup"><span data-stu-id="eea0f-116">Configure the linker for internationalization</span></span>
+### <a name="configure-the-linker-for-internationalization"></a><span data-ttu-id="2eb28-123">Konfigurace linkeru pro mezinárodní využití</span><span class="sxs-lookup"><span data-stu-id="2eb28-123">Configure the linker for internationalization</span></span>
 
-<span data-ttu-id="eea0f-117">Ve výchozím nastavení [!OP.NO-LOC(Blazor)]konfigurace linkeru pro [!OP.NO-LOC(Blazor)] aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot.</span><span class="sxs-lookup"><span data-stu-id="eea0f-117">By default, [!OP.NO-LOC(Blazor)]'s linker configuration for [!OP.NO-LOC(Blazor)] WebAssembly apps strips out internationalization information except for locales explicitly requested.</span></span> <span data-ttu-id="eea0f-118">Odebrání těchto sestavení minimalizuje velikost aplikace.</span><span class="sxs-lookup"><span data-stu-id="eea0f-118">Removing these assemblies minimizes the app's size.</span></span>
+<span data-ttu-id="2eb28-124">Ve výchozím nastavení konfigurace linkeru Blazor pro aplikace Blazor WebAssembly vyřadí informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot.</span><span class="sxs-lookup"><span data-stu-id="2eb28-124">By default, Blazor's linker configuration for Blazor WebAssembly apps strips out internationalization information except for locales explicitly requested.</span></span> <span data-ttu-id="2eb28-125">Odebrání těchto sestavení minimalizuje velikost aplikace.</span><span class="sxs-lookup"><span data-stu-id="2eb28-125">Removing these assemblies minimizes the app's size.</span></span>
 
-<span data-ttu-id="eea0f-119">Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<MonoLinkerI18NAssemblies>` MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="eea0f-119">To control which I18N assemblies are retained, set the `<MonoLinkerI18NAssemblies>` MSBuild property in the project file:</span></span>
+<span data-ttu-id="2eb28-126">Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<MonoLinkerI18NAssemblies>` MSBuild v souboru projektu:</span><span class="sxs-lookup"><span data-stu-id="2eb28-126">To control which I18N assemblies are retained, set the `<MonoLinkerI18NAssemblies>` MSBuild property in the project file:</span></span>
 
 ```xml
 <PropertyGroup>
@@ -96,16 +100,16 @@ ms.locfileid: "76726774"
 </PropertyGroup>
 ```
 
-| <span data-ttu-id="eea0f-120">Hodnota oblasti</span><span class="sxs-lookup"><span data-stu-id="eea0f-120">Region Value</span></span>     | <span data-ttu-id="eea0f-121">Sestavení oblasti mono</span><span class="sxs-lookup"><span data-stu-id="eea0f-121">Mono region assembly</span></span>    |
+| <span data-ttu-id="2eb28-127">Hodnota oblasti</span><span class="sxs-lookup"><span data-stu-id="2eb28-127">Region Value</span></span>     | <span data-ttu-id="2eb28-128">Sestavení oblasti mono</span><span class="sxs-lookup"><span data-stu-id="2eb28-128">Mono region assembly</span></span>    |
 | ---------------- | ----------------------- |
-| `all`            | <span data-ttu-id="eea0f-122">Všechna sestavení, která jsou součástí</span><span class="sxs-lookup"><span data-stu-id="eea0f-122">All assemblies included</span></span> |
-| `cjk`            | <span data-ttu-id="eea0f-123">*I18N. CJK. dll*</span><span class="sxs-lookup"><span data-stu-id="eea0f-123">*I18N.CJK.dll*</span></span>          |
-| `mideast`        | <span data-ttu-id="eea0f-124">*I18N. MidEast. dll*</span><span class="sxs-lookup"><span data-stu-id="eea0f-124">*I18N.MidEast.dll*</span></span>      |
-| <span data-ttu-id="eea0f-125">`none` (výchozí)</span><span class="sxs-lookup"><span data-stu-id="eea0f-125">`none` (default)</span></span> | <span data-ttu-id="eea0f-126">Žádný</span><span class="sxs-lookup"><span data-stu-id="eea0f-126">None</span></span>                    |
-| `other`          | <span data-ttu-id="eea0f-127">*I18N. Jiná knihovna. dll*</span><span class="sxs-lookup"><span data-stu-id="eea0f-127">*I18N.Other.dll*</span></span>        |
-| `rare`           | <span data-ttu-id="eea0f-128">*I18N. Vzácná knihovna DLL*</span><span class="sxs-lookup"><span data-stu-id="eea0f-128">*I18N.Rare.dll*</span></span>         |
-| `west`           | <span data-ttu-id="eea0f-129">*I18N. Západ. dll*</span><span class="sxs-lookup"><span data-stu-id="eea0f-129">*I18N.West.dll*</span></span>         |
+| `all`            | <span data-ttu-id="2eb28-129">Všechna sestavení, která jsou součástí</span><span class="sxs-lookup"><span data-stu-id="2eb28-129">All assemblies included</span></span> |
+| `cjk`            | <span data-ttu-id="2eb28-130">*I18N. CJK. dll*</span><span class="sxs-lookup"><span data-stu-id="2eb28-130">*I18N.CJK.dll*</span></span>          |
+| `mideast`        | <span data-ttu-id="2eb28-131">*I18N. MidEast. dll*</span><span class="sxs-lookup"><span data-stu-id="2eb28-131">*I18N.MidEast.dll*</span></span>      |
+| <span data-ttu-id="2eb28-132">`none` (výchozí)</span><span class="sxs-lookup"><span data-stu-id="2eb28-132">`none` (default)</span></span> | <span data-ttu-id="2eb28-133">Žádná</span><span class="sxs-lookup"><span data-stu-id="2eb28-133">None</span></span>                    |
+| `other`          | <span data-ttu-id="2eb28-134">*I18N. Jiná knihovna. dll*</span><span class="sxs-lookup"><span data-stu-id="2eb28-134">*I18N.Other.dll*</span></span>        |
+| `rare`           | <span data-ttu-id="2eb28-135">*I18N. Vzácná knihovna DLL*</span><span class="sxs-lookup"><span data-stu-id="2eb28-135">*I18N.Rare.dll*</span></span>         |
+| `west`           | <span data-ttu-id="2eb28-136">*I18N. Západ. dll*</span><span class="sxs-lookup"><span data-stu-id="2eb28-136">*I18N.West.dll*</span></span>         |
 
-<span data-ttu-id="eea0f-130">Oddělte více hodnot pomocí čárky (například `mideast,west`).</span><span class="sxs-lookup"><span data-stu-id="eea0f-130">Use a comma to separate multiple values (for example, `mideast,west`).</span></span>
+<span data-ttu-id="2eb28-137">Oddělte více hodnot pomocí čárky (například `mideast,west`).</span><span class="sxs-lookup"><span data-stu-id="2eb28-137">Use a comma to separate multiple values (for example, `mideast,west`).</span></span>
 
-<span data-ttu-id="eea0f-131">Další informace najdete v tématu [i18n: knihovna rozhraní Pnetlib pro mezinárodní navýšení (mono/mono úložiště GitHub)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span><span class="sxs-lookup"><span data-stu-id="eea0f-131">For more information, see [I18N: Pnetlib Internationalization Framework Library (mono/mono GitHub repository)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span></span>
+<span data-ttu-id="2eb28-138">Další informace najdete v tématu [i18n: knihovna rozhraní Pnetlib pro mezinárodní navýšení (mono/mono úložiště GitHub)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span><span class="sxs-lookup"><span data-stu-id="2eb28-138">For more information, see [I18N: Pnetlib Internationalization Framework Library (mono/mono GitHub repository)](https://github.com/mono/mono/tree/master/mcs/class/I18N).</span></span>
