@@ -5,14 +5,16 @@ description: Vysvětlení použití Facebooku, Google, Twitteru atd. ověřován
 ms.author: riande
 ms.date: 12/10/2019
 uid: security/authentication/social/social-without-identity
-ms.openlocfilehash: 612964ec9ed4975cdc81780dda3bac6cce96037f
-ms.sourcegitcommit: 2cb857f0de774df421e35289662ba92cfe56ffd1
+ms.openlocfilehash: b30ce7055b35b721c7fb83b61a328200d6a136b1
+ms.sourcegitcommit: 3ca4a2235a8129def9e480d0a6ad54cc856920ec
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 12/25/2019
-ms.locfileid: "75359055"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "79025399"
 ---
 # <a name="use-social-sign-in-provider-authentication-without-aspnet-core-identity"></a>Použití ověřování poskytovatele přihlašování přes sociální sítě bez ASP.NET Core identity
+
+Od [Kirka Larkin](https://twitter.com/serpent5) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -22,9 +24,9 @@ Tato ukázka předvádí, jak použít externího zprostředkovatele ověřován
 
 Tato ukázka používá [ověřování Google](xref:security/authentication/google-logins) pro ověřování uživatelů. Pomocí ověřování Google se posunou mnohé ze složitých procesů při správě procesu přihlašování do Google. Informace o integraci s jiným externím poskytovatelem ověřování naleznete v následujících tématech:
 
-* [Ověřování Facebooku](xref:security/authentication/facebook-logins)
+* [Ověřování pomocí Facebooku](xref:security/authentication/facebook-logins)
 * [Ověřování Microsoftu](xref:security/authentication/microsoft-logins)
-* [Ověřování Twitteru](xref:security/authentication/twitter-logins)
+* [Ověřování pomocí Twitteru](xref:security/authentication/twitter-logins)
 * [Další zprostředkovatelé](xref:security/authentication/otherlogins)
 
 ## <a name="configuration"></a>Konfigurace
@@ -63,7 +65,7 @@ Chcete-li odhlásit aktuálního uživatele a odstranit svůj soubor cookie, zav
 
 Všimněte si, že volání `SignOutAsync` neurčuje schéma ověřování. `DefaultScheme` aplikace `CookieAuthenticationDefaults.AuthenticationScheme` se používá jako vrácení.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>
@@ -77,9 +79,9 @@ Tato ukázka předvádí, jak použít externího zprostředkovatele ověřován
 
 Tato ukázka používá [ověřování Google](xref:security/authentication/google-logins) pro ověřování uživatelů. Pomocí ověřování Google se posunou mnohé ze složitých procesů při správě procesu přihlašování do Google. Informace o integraci s jiným externím poskytovatelem ověřování naleznete v následujících tématech:
 
-* [Ověřování Facebooku](xref:security/authentication/facebook-logins)
+* [Ověřování pomocí Facebooku](xref:security/authentication/facebook-logins)
 * [Ověřování Microsoftu](xref:security/authentication/microsoft-logins)
-* [Ověřování Twitteru](xref:security/authentication/twitter-logins)
+* [Ověřování pomocí Twitteru](xref:security/authentication/twitter-logins)
 * [Další zprostředkovatelé](xref:security/authentication/otherlogins)
 
 ## <a name="configuration"></a>Konfigurace
@@ -118,7 +120,7 @@ Chcete-li odhlásit aktuálního uživatele a odstranit svůj soubor cookie, zav
 
 Všimněte si, že volání `SignOutAsync` neurčuje schéma ověřování. `DefaultScheme` aplikace `CookieAuthenticationDefaults.AuthenticationScheme` se používá jako vrácení.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/authorization/simple>
 * <xref:security/authentication/social/additional-claims>

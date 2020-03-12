@@ -5,17 +5,17 @@ description: Naučte se hostovat a nasazovat aplikace Blazor serveru pomocí ASP
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 03/03/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/server
-ms.openlocfilehash: a051d51e734fec4315da73d3c4df57706df7f363
-ms.sourcegitcommit: 6645435fc8f5092fc7e923742e85592b56e37ada
+ms.openlocfilehash: 866bb348180c872d8ab20787283cfb7217183a8d
+ms.sourcegitcommit: 3ca4a2235a8129def9e480d0a6ad54cc856920ec
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/19/2020
-ms.locfileid: "77465820"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "79025429"
 ---
 # <a name="host-and-deploy-opno-locblazor-server"></a>Hostování a nasazení serveru Blazor
 
@@ -87,7 +87,10 @@ Pro Blazor serverových aplikací doporučujeme používat [službu Azure Signal
 
 #### <a name="iis"></a>IIS
 
-Při použití služby IIS jsou v rámci směrování žádostí na aplikace povoleny rychlé relace. Další informace najdete v tématu [Vyrovnávání zatížení HTTP pomocí směrování žádostí na aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).
+Při použití služby IIS povolte:
+
+* [WebSockets ve službě IIS](xref:fundamentals/websockets#enabling-websockets-on-iis).
+* [Rychlé relace s směrováním žádostí o aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)
 
 #### <a name="kubernetes"></a>Kubernetes
 
@@ -107,18 +110,44 @@ metadata:
 
 #### <a name="linux-with-nginx"></a>Linux na serveru Nginx
 
-Aby bylo možné správně fungovat SignalRch WebSockets, nastavte hlavičku proxy serveru `Upgrade` a `Connection` na následující:
+Aby se SignalR objekty WebSocket správně fungovaly, zkontrolujte, že je `Upgrade` a `Connection` hlaviček proxy serveru nastavené na následující hodnoty a že `$connection_upgrade` je namapovaný buď na:
+
+* Hodnota hlavičky upgradu je standardně nastavená.
+* `close`, pokud hlavička upgradu chybí nebo je prázdná.
 
 ```
-proxy_set_header Upgrade $http_upgrade;
-proxy_set_header Connection $connection_upgrade;
+http {
+    map $http_upgrade $connection_upgrade {
+        default Upgrade;
+        ''      close;
+    }
+
+    server {
+        listen      80;
+        server_name example.com *.example.com
+        location / {
+            proxy_pass         http://localhost:5000;
+            proxy_http_version 1.1;
+            proxy_set_header   Upgrade $http_upgrade;
+            proxy_set_header   Connection $connection_upgrade;
+            proxy_set_header   Host $host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Proto $scheme;
+        }
+    }
+}
 ```
 
-Další informace najdete v tématu [Nginx jako proxy server WebSocket](https://www.nginx.com/blog/websocket-nginx/).
+Další informace najdete v následujících článcích:
+
+* [NGINX jako proxy server WebSocket](https://www.nginx.com/blog/websocket-nginx/)
+* [Proxy server WebSocket](http://nginx.org/docs/http/websocket.html)
+* <xref:host-and-deploy/linux-nginx>
 
 ### <a name="measure-network-latency"></a>Měření latence sítě
 
-[Zprostředkovatel komunikace js](xref:blazor/javascript-interop) lze použít k měření latence sítě, jak ukazuje následující příklad:
+[Zprostředkovatel komunikace js](xref:blazor/call-javascript-from-dotnet) lze použít k měření latence sítě, jak ukazuje následující příklad:
 
 ```razor
 @inject IJSRuntime JS

@@ -5,17 +5,17 @@ description: Začněte s Blazor vytvořením Blazor aplikace pomocí nástrojů 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/28/2019
+ms.date: 03/10/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: bd33d874b3d6122f2ab820e9b147b0e62ba03a58
-ms.sourcegitcommit: fe41cff0b99f3920b727286944e5b652ca301640
+ms.openlocfilehash: 89c7529d2b8ec97db731f7c7268e19937c398115
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/29/2020
-ms.locfileid: "76869577"
+ms.lasthandoff: 03/11/2020
+ms.locfileid: "79083240"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -28,37 +28,40 @@ Začínáme s Blazor:
 1. Nainstalujte [sadu .NET Core 3,1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1).
 
 1. Volitelně nainstalujte šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) :
-   * Nainstalujte [sadu SDK .NET Core 3,1 nebo novější (Preview)](https://dotnet.microsoft.com/download/dotnet-core/3.1).
-   * Spusťte následující příkaz v příkazovém prostředí. Balíček [Microsoft. AspNetCore. Blazor. Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.Templates/) obsahuje verzi Preview, zatímco Blazor WebAssembly je ve verzi Preview.
+   * Nainstalujte [sadu SDK .NET Core 3.1.102 nebo novější (Preview)](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+   * Spusťte následující příkaz v příkazovém prostředí. Balíček [Microsoft. AspNetCore. Components. WebAssembly. Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Templates/) obsahuje verzi Preview, zatímco Blazor WebAssembly je ve verzi Preview.
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Blazor.Templates::3.2.0-preview1.20073.1
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview2.20160.5
    ```
+
+   > [!NOTE]
+   > K použití šablony 3.1.102 verze 3,2 Preview 2 Blazor je **nutná** verze .NET Core SDK nebo novější. Ověřte nainstalovanou verzi .NET Core SDK spuštěním `dotnet --version` v příkazovém prostředí.
 
 1. Postupujte podle pokynů pro výběr nástrojů:
 
-   # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+   # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
    1\. Nainstalujte [Visual Studio 2019 verze 16,4 nebo novější](https://visualstudio.microsoft.com/vs/preview/) s úlohou **vývoje ASP.NET a webu** .
 
-   2\. Vytvořte nový projekt.
+   2\. Vytvoření nového projektu
 
    3\. Vyberte **aplikaci Blazor**. Vyberte **Další**.
 
-   4\. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **vytvořit**.
+   4\. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
-   5\. Pro prostředí WebAssembly Blazor vyberte šablonu **aplikace Blazor WebAssembly** . Pro prostředí Blazor serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **vytvořit**. Informace o dvou modelech hostování Blazor, *serverech Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
+   5\. Pro prostředí WebAssembly Blazor vyberte šablonu **aplikace Blazor WebAssembly** . Pro prostředí Blazor serveru vyberte šablonu **aplikace serveru Blazor** . Vyberte **Vytvořit**. Informace o dvou modelech hostování Blazor, *serverech Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>. Pokud šablona WebAssembly Blazor není přítomna, vraťte se k předchozímu kroku a znovu nainstalujte šablonu.
 
    6\. Spusťte aplikaci stisknutím klávesy **Ctrl**+**F5** .
 
    > [!NOTE]
    > Pokud jste nainstalovali rozšíření sady Visual Studio Blazor pro předchozí verzi Preview služby ASP.NET Core Blazor (Preview 6 nebo starší), můžete rozšíření odinstalovat. Instalace šablon Blazor do příkazového prostředí je teď dostačující pro povrchování šablon v aplikaci Visual Studio.
 
-   # <a name="visual-studio-codetabvisual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+   # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
    1\. Nainstalujte [Visual Studio Code](https://code.visualstudio.com/).
 
-   2\. Nainstalujte nejnovější verzi [ C# pro Visual Studio Code rozšíření](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp).
+   2\. Nainstalujte nejnovější verzi [ C# pro Visual Studio Code rozšíření](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp).
 
    3\. Pro prostředí WebAssembly Blazor spusťte následující příkaz v příkazovém prostředí:
 
@@ -82,7 +85,7 @@ Začínáme s Blazor:
 
    7\. V prohlížeči přejděte na `https://localhost:5001`.
 
-   # <a name="visual-studio-for-mactabvisual-studio-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+   # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
    1\. Nainstalujte [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/).
 
@@ -96,13 +99,13 @@ Začínáme s Blazor:
 
    5\. Nastavte **cílovou architekturu** na **.NET Core 3,1** a vyberte **Další**.
 
-   6\. Do pole **název projektu** název aplikace `WebApplication1`. Vyberte **vytvořit**.
+   6\. Do pole **název projektu** název aplikace `WebApplication1`. Vyberte **Vytvořit**.
 
    7\. Vyberte **spustit** > **Spustit bez ladění** pro spuštění aplikace *bez ladicího programu*. Spusťte aplikaci s použitím **Spustit ladění** a spusťte aplikaci *pomocí ladicího programu*.
 
    Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřujete certifikátu a pokračujte.
 
-   # <a name="net-core-clitabnetcore-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+   # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
    Pro prostředí WebAssembly Blazor spusťte následující příkazy v příkazovém prostředí:
 
@@ -128,8 +131,8 @@ Začínáme s Blazor:
 
 Na kartách na bočním panelu je k dispozici více stránek:
 
-* Domovská stránka produktu
-* Counter
+* Domů
+* Čítač
 * Načíst data
 
 Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale s Blazor můžete použít C#.
@@ -178,7 +181,7 @@ Spusťte aplikaci. Komponenta `Index` má vlastní čítač, který při každé
 
 <xref:tutorials/first-blazor-app>
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/templates>
 * <xref:signalr/introduction>

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 6698e269e0a6480cd5a03c59f9a19da31e23bf69
-ms.sourcegitcommit: 235623b6e5a5d1841139c82a11ac2b4b3f31a7a9
+ms.openlocfilehash: afa71b2c2b75be2c000fadd9545ac3fb4587825a
+ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 02/08/2020
-ms.locfileid: "77089146"
+ms.lasthandoff: 03/10/2020
+ms.locfileid: "78964468"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -60,6 +60,7 @@ Když delegát neprojde požadavek na dalšího delegáta, nazývá se to *krát
 Delegáti <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*> neobdrží parametr `next`. První delegát `Run` vždy terminálu a ukončí kanál. `Run` je konvence. Některé komponenty middlewaru můžou vystavovat `Run[Middleware]` metody, které běží na konci kanálu:
 
 [!code-csharp[](index/snapshot/Chain/Startup.cs?highlight=12-15)]
+[!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 V předchozím příkladu `Run` delegát zapisuje `"Hello from 2nd delegate."` na odpověď a pak kanál ukončí. Pokud je za delegáta `Run` přidán další `Use` nebo `Run` delegát, není voláno.
 
@@ -214,9 +215,9 @@ V následující tabulce jsou uvedeny požadavky a odpovědi z `http://localhost
 | localhost:1234                | Hello from non-Map delegate. |
 | localhost:1234/?branch=master | Branch used = master         |
 
-<xref:Microsoft.AspNetCore.Builder.UseWhenExtensions.UseWhen*> také větví kanálu požadavků na základě výsledku daného predikátu. Na rozdíl od `MapWhen`tato větev se znovu připojí k hlavnímu kanálu, pokud má krátký okruh nebo obsahuje middleware terminálu:
+<xref:Microsoft.AspNetCore.Builder.UseWhenExtensions.UseWhen*> také větví kanálu požadavků na základě výsledku daného predikátu. Na rozdíl od `MapWhen`tato větev se znovu připojí k hlavnímu kanálu, pokud nemá krátký okruh nebo obsahuje middleware terminálu:
 
-[!code-csharp[](index/snapshot/Chain/StartupUseWhen.cs?highlight=23-24)]
+[!code-csharp[](index/snapshot/Chain/StartupUseWhen.cs?highlight=25-26)]
 
 V předchozím příkladu odpověď "Hello z hlavního kanálu". je napsán pro všechny požadavky. Pokud požadavek obsahuje proměnnou řetězce dotazu `branch`, je jeho hodnota protokolována před opětovným připojením k hlavnímu kanálu.
 

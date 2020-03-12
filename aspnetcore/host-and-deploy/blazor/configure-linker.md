@@ -5,38 +5,42 @@ description: Naučte se řídit linker zprostředkujícího jazyka (IL) při ses
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/10/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 263b85a3213c1da233e4c96095faaf39d0a8e13f
-ms.sourcegitcommit: eca76bd065eb94386165a0269f1e95092f23fa58
+ms.openlocfilehash: b08ec26fb8d139223c57774600bc3cb19a56ac49
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 01/24/2020
-ms.locfileid: "76726774"
+ms.lasthandoff: 03/11/2020
+ms.locfileid: "79083300"
 ---
-# <a name="configure-the-linker-for-aspnet-core-opno-locblazor"></a>Konfigurace linkeru pro ASP.NET Core [!OP.NO-LOC(Blazor)]
+# <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
 
 Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-[!OP.NO-LOC(Blazor)] provádí propojování v [prostředním jazyce (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení pro odebrání zbytečného Il z výstupních sestavení aplikace.
+Blazor WebAssembly provádí propojování [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení za účelem oříznutí zbytečných Il z výstupních sestavení aplikace. Linker je při sestavování konfigurace ladění zakázán. Aby bylo možné linker povolit, musí aplikace sestavit v konfiguraci vydání. Při nasazování aplikací Blazor WebAssembly doporučujeme sestavovat v vydaných verzích. 
 
-Ovládací prvek propojuje sestavení pomocí některého z následujících přístupů:
+Propojení aplikace se optimalizuje pro velikost, ale může mít škodlivé účinky. Aplikace, které používají reflexi nebo související dynamické funkce, mohou být při oříznutí přerušeny, protože linker neví o tomto dynamickém chování a nemůže určit obecně, které typy jsou požadovány pro reflexi za běhu. Aby bylo možné tyto aplikace oříznout, musí být linker informován o jakýchkoli typech vyžadovaných odrazem v kódu a v balíčcích nebo architekturách, na kterých aplikace závisí. 
 
-* Zakáže propojení globálně s [vlastností MSBuild](#disable-linking-with-a-msbuild-property).
+Aby se zajistilo, že bude aplikace po nasazení správně fungovat, je důležité otestovat sestavení vydaných verzí aplikace často během vývoje.
+
+Odkazy na aplikace Blazor se dají konfigurovat pomocí těchto funkcí MSBuild:
+
+* Nakonfigurujte globálně propojení s [vlastností MSBuild](#control-linking-with-an-msbuild-property).
 * Řízení propojení podle jednotlivých sestavení pomocí [konfiguračního souboru](#control-linking-with-a-configuration-file).
 
-## <a name="disable-linking-with-a-msbuild-property"></a>Zakázat propojení s vlastností MSBuild
+## <a name="control-linking-with-an-msbuild-property"></a>Řízení propojení pomocí vlastnosti MSBuild
 
-Propojení je ve výchozím nastavení povoleno, pokud je aplikace sestavena, včetně publikování. Chcete-li zakázat propojování pro všechna sestavení, nastavte vlastnost `BlazorLinkOnBuild` MSBuild na `false` v souboru projektu:
+Odkazování je povolené, když je aplikace sestavená `Release` konfiguračním. Chcete-li toto nastavení změnit, nakonfigurujte vlastnost `BlazorWebAssemblyEnableLinking` MSBuild v souboru projektu:
 
 ```xml
 <PropertyGroup>
-  <BlazorLinkOnBuild>false</BlazorLinkOnBuild>
+  <BlazorWebAssemblyEnableLinking>false</BlazorWebAssemblyEnableLinking>
 </PropertyGroup>
 ```
 
@@ -55,7 +59,7 @@ Propojení je ve výchozím nastavení povoleno, pokud je aplikace sestavena, v�
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-  This file specifies which parts of the BCL or [!OP.NO-LOC(Blazor)] packages must not be
+  This file specifies which parts of the BCL or Blazor packages must not be
   stripped by the IL Linker even if they aren't referenced by user code.
 -->
 <linker>
@@ -86,7 +90,7 @@ Další informace naleznete v tématu [linkeru Il: syntaxe popisovače XML](http
 
 ### <a name="configure-the-linker-for-internationalization"></a>Konfigurace linkeru pro mezinárodní využití
 
-Ve výchozím nastavení [!OP.NO-LOC(Blazor)]konfigurace linkeru pro [!OP.NO-LOC(Blazor)] aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Odebrání těchto sestavení minimalizuje velikost aplikace.
+Ve výchozím nastavení konfigurace linkeru Blazor pro aplikace Blazor WebAssembly vyřadí informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Odebrání těchto sestavení minimalizuje velikost aplikace.
 
 Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<MonoLinkerI18NAssemblies>` MSBuild v souboru projektu:
 
@@ -101,7 +105,7 @@ Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<M
 | `all`            | Všechna sestavení, která jsou součástí |
 | `cjk`            | *I18N. CJK. dll*          |
 | `mideast`        | *I18N. MidEast. dll*      |
-| `none` (výchozí) | Žádný                    |
+| `none` (výchozí) | Žádná                    |
 | `other`          | *I18N. Jiná knihovna. dll*        |
 | `rare`           | *I18N. Vzácná knihovna DLL*         |
 | `west`           | *I18N. Západ. dll*         |
