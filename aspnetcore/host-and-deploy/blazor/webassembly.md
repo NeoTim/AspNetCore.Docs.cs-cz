@@ -5,17 +5,17 @@ description: Naučte se hostovat a nasazovat Blazor aplikace s využitím ASP.NE
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/19/2020
+ms.date: 03/11/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: eae12b266e91a30a47daf63ac77ba082c25225aa
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 748ac9969134f4c89cc8c1235958dcc7ac1d1080
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78664099"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434275"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -59,7 +59,7 @@ Při nasazování na server služby IIS můžete použít modul pro přepis adre
 
 *Hostované nasazení* slouží jako aplikace Blazor WebAssembly pro prohlížeče z [aplikace ASP.NET Core](xref:index) , která běží na webovém serveru.
 
-Aplikace Blazor je součástí ASP.NET Core aplikace v publikovaném výstupu, takže se tyto dvě aplikace nasazují dohromady. Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core. V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu **aplikaceBlazor WebAssembly** (šablona`blazorwasm` při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) s vybranou možností **Hosted** .
+Klientská aplikace Blazor WebAssembly je publikovaná do složky */bin/Release/{Target Framework}/Publish/wwwroot* aplikace v serverové aplikaci společně s dalšími statickými webovými prostředky serverové aplikace. Obě aplikace se nasazují dohromady. Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core. V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu **aplikaceBlazor WebAssembly** (šablona`blazorwasm` při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) s vybranou možností **Hosted** (při použití příkazu `dotnet new``-ho|--hosted`.
 
 Další informace o ASP.NET Core hostování a nasazení aplikací najdete v článku <xref:host-and-deploy/index>.
 
@@ -69,7 +69,7 @@ Informace o nasazení do Azure App Service najdete v tématu <xref:tutorials/pub
 
 *Samostatné nasazení* obsluhuje Blazor aplikaci WebAssembly jako sadu statických souborů, které jsou požadovány přímo klienty. Každý statický souborový server může sloužit jako aplikace Blazor.
 
-Samostatné prostředky nasazení se publikují do složky *bin/Release/{Target Framework}/PUBLISH/{Assembly Name}/DIST* .
+Samostatné prostředky nasazení se publikují do složky */bin/Release/{Target Framework}/Publish/wwwroot* .
 
 ### <a name="iis"></a>IIS
 
@@ -318,4 +318,4 @@ Argument `--urls` nastaví IP adresy nebo adresy hostitelů s porty a protokoly,
 
 ## <a name="configure-the-linker"></a>Konfigurace Linkeru
 
-Blazor provádí propojení v prostředním jazyce (IL) pro každé sestavení, aby se odebralo zbytečné IL z výstupních sestavení. Propojení sestavení lze řídit při sestavování. Další informace naleznete v tématu <xref:host-and-deploy/blazor/configure-linker>.
+Blazor provádí propojení s mezijazykem (IL) na každém sestavení vydaných verzí, aby se z výstupních sestavení odebralo zbytečné IL. Další informace naleznete v tématu <xref:host-and-deploy/blazor/configure-linker>.

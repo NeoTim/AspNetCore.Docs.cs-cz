@@ -5,16 +5,16 @@ description: Sestavte Blazor aplikaci krok za krokem.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/13/2020
+ms.date: 03/13/2020
 no-loc:
 - Blazor
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 8830dcf26b58b5f5fdd36b60298e7b365f99bdd9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 8b3802a6ffe3613e5d4ca65c57fafc3f404c8329
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78655307"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434496"
 ---
 # <a name="build-your-first-opno-locblazor-app"></a>Vytvoření první aplikace Blazor
 
@@ -24,9 +24,9 @@ Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://githu
 
 V tomto kurzu se dozvíte, jak vytvořit a upravit aplikaci Blazor.
 
-Pokud chcete vytvořit projekt Blazor pro tento kurz, postupujte podle pokynů v článku o <xref:blazor/get-started>. Pojmenujte projekt *ToDoList*.
-
 ## <a name="build-components"></a>Komponenty sestavení
+
+1. Pokud chcete vytvořit projekt Blazor pro tento kurz, postupujte podle pokynů v článku o <xref:blazor/get-started>. Pojmenujte projekt *ToDoList*.
 
 1. Ve složce *Pages (stránky* ) přejděte na jednotlivé tři stránky aplikace: domů, čítač a načíst data. Tyto stránky jsou implementovány pomocí indexu souborů komponent Razor *. Razor*, *Counter. Razor*a *FetchData. Razor*.
 
@@ -133,14 +133,14 @@ Smyčka [`@foreach`](/dotnet/csharp/language-reference/keywords/foreach-in) slou
 
 Přidejte do aplikace novou komponentu, která implementuje jednoduchý seznam úkolů.
 
-1. Do aplikace ve složce *Pages* přidejte prázdný soubor s názvem *todo. Razor* :
+1. Do aplikace ve složce *Pages* přidejte novou `Todo` komponentu Razor. V aplikaci Visual Studio klikněte pravým tlačítkem myši na složku **stránky** a vyberte **Přidat** > **novou položku** > **součásti Razor**. Pojmenujte soubor komponenty *todo. Razor*. V jiných vývojových prostředích přidejte prázdný soubor do složky **Pages** s názvem *todo. Razor*.
 
 1. Zadejte počáteční označení pro komponentu:
 
    ```razor
    @page "/todo"
 
-   <h1>Todo</h1>
+   <h3>Todo</h3>
    ```
 
 1. Přidejte komponentu `Todo` do navigačního panelu.

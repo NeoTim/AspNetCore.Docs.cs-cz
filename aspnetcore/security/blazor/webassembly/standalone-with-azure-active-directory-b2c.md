@@ -5,17 +5,17 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: 0ea42943c908d8cf9d083c1cfc568c1835588ce9
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: b4d32e91b4013cbea37baecb972a535d2874d3d1
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083830"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434457"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor samostatné aplikace ASP.NET Coreového sestavení pomocí Azure Active Directory B2C
 
@@ -42,7 +42,9 @@ Vytvoření samostatné aplikace Blazorového sestavení, která pro ověřován
 
      Poznamenejte si ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111`).
 
-   * [Vytváření toků uživatelů](/azure/active-directory-b2c/tutorial-create-user-flows) & ndash; Vytvořte uživatelský tok pro registraci a přihlašování.
+   * [Vytvořte toky uživatelů](/azure/active-directory-b2c/tutorial-create-user-flows) &ndash; vytvořte uživatelský tok pro registraci a přihlašování.
+
+     Pokud chcete naplnit `context.User.Identity.Name` ve `LoginDisplay` komponentě (*Shared/LoginDisplay. Razor*), vyberte minimálně hodnotu **deklarace identity aplikace** > atribut pro **zobrazení názvu** uživatele.
 
      Zaznamenejte si název uživatelského toku pro registraci a přihlašování vytvořený pro aplikaci (například `B2C_1_signupsignin`).
 

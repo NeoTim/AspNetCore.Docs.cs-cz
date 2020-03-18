@@ -5,17 +5,17 @@ description: Objevte, jak hostovat a nasazovat aplikace Blazor.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/11/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/index
-ms.openlocfilehash: 238e7fc8f8d64c7847dc8847fb66e22442a3c8e0
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ddf70da29a82d462422c1bdf74ff45b92bb10b56
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78667151"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434262"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>Hostování a nasazení ASP.NET Core Blazor
 
@@ -45,7 +45,12 @@ dotnet publish -c Release
 
 Publikování aplikace spustí [obnovení](/dotnet/core/tools/dotnet-restore) závislostí projektu a před vytvořením prostředků pro nasazení [vytvoří](/dotnet/core/tools/dotnet-build) projekt. V rámci procesu sestavení se odeberou nepoužívané metody a sestavení, aby se snížila velikost stahovaných aplikací a doby načítání.
 
-Blazor aplikace WebAssembly je publikovaná do složky */DIST/PUBLISH/{Assembly Framework} Name}* . Aplikace Blazor serveru je publikovaná ve složce */bin/Release/{Target Framework}/Publish* .
+Umístění pro publikování:
+
+* Blazor WebAssembly
+  * Samostatná &ndash; aplikace je publikovaná do složky */bin/Release/{Target Framework}/Publish/wwwroot* . Chcete-li nasadit aplikaci jako statickou lokalitu, zkopírujte obsah složky *wwwroot* na hostitele statických webů.
+  * Hostovaná &ndash; aplikace klientské Blazor WebAssembly je publikovaná do složky */bin/Release/{Target Framework}/Publish/wwwroot* aplikace v serverové aplikaci společně s dalšími statickými webovými prostředky serverové aplikace. Nasaďte obsah složky pro *publikování* na hostitele.
+* Blazor Server &ndash; aplikace se publikuje do složky */bin/Release/{Target Framework}/Publish* . Nasaďte obsah složky pro *publikování* na hostitele.
 
 Prostředky ve složce jsou nasazeny na webový server. Nasazení může být ruční nebo automatizovaný proces v závislosti na používaných vývojářských nástrojích.
 

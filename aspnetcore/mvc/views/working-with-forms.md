@@ -7,11 +7,11 @@ ms.custom: mvc
 ms.date: 12/05/2019
 uid: mvc/views/working-with-forms
 ms.openlocfilehash: 5af532db35b858d157f61a6aca30f55d15e9ff1e
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78657533"
+ms.lasthandoff: 03/16/2020
+ms.locfileid: "79416238"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Tagování pomocníků ve formulářích ve ASP.NET Core
 
@@ -75,7 +75,7 @@ Podporované atributy [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/an
 
 |Atribut|Popis|
 |---|---|
-|[ASP – kontroler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|Název kontroleru|
+|[ASP – kontroler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|Název kontroleru.|
 |[ASP – akce](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|Název metody akce|
 |[ASP – oblast](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|Název oblasti|
 |[ASP – stránka](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název stránky Razor|
@@ -454,7 +454,7 @@ Pokud dojde k chybě ověřování na straně serveru (například když máte z
 |--- |--- |
 |ValidationSummary.All|Úroveň vlastnosti a modelu|
 |Ovládací souhrnu ověření. ModelOnly|Model|
-|Ovládací souhrnu ověření. None|Žádná|
+|Ovládací souhrnu ověření. None|Žádný|
 
 ### <a name="sample"></a>Ukázka
 
@@ -662,7 +662,7 @@ Bude vybrán správný prvek `<option>` (obsahující atribut `selected="selecte
  </form>
  ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * <xref:mvc/views/tag-helpers/intro>
 * [Element HTML Form](https://www.w3.org/TR/html401/interact/forms.html)

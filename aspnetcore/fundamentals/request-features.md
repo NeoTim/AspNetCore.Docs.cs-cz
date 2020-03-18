@@ -6,11 +6,11 @@ ms.author: riande
 ms.date: 10/14/2016
 uid: fundamentals/request-features
 ms.openlocfilehash: d0f3ae521d1f314dd04cb581d9a921da4719273d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78659675"
+ms.lasthandoff: 03/16/2020
+ms.locfileid: "79416224"
 ---
 # <a name="request-features-in-aspnet-core"></a>Žádosti o funkce v ASP.NET Core
 
@@ -67,7 +67,7 @@ Kombinací vlastních implementací serveru a konkrétních vylepšení middlewa
 
 Rozhraní funkcí definují konkrétní funkce protokolu HTTP, které může daný požadavek podporovat. Servery definují kolekce funkcí a počáteční sadu funkcí, které tento server podporuje, ale middleware je možné využít ke zlepšení těchto funkcí.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 * [Servery](xref:fundamentals/servers/index)
 * [Middleware](xref:fundamentals/middleware/index)

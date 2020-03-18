@@ -5,17 +5,17 @@ description: Vytvoření nové hostované aplikace v Blazor s ověřováním ze 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 98eb126ab3c483e0a6dc2274db8ffcfd9d5bc59a
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: a3993bf635e5a7aae408d72796015f2414e13c14
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083774"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434470"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly pomocí serveru identit
 
@@ -224,5 +224,9 @@ Součást `LoginDisplay` (*Shared/LoginDisplay. Razor*) je vykreslena ve `MainLa
 ### <a name="fetchdata-component"></a>Komponenta FetchData
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
+
+## <a name="run-the-app"></a>Spuštění aplikace
+
+Spusťte aplikaci z projektu serveru. Při použití sady Visual Studio vyberte projekt serveru v **Průzkumník řešení** a na panelu nástrojů vyberte tlačítko **Spustit** nebo spusťte aplikaci z nabídky **ladění** .
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]

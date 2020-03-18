@@ -8,11 +8,11 @@ ms.date: 02/04/2019
 ms.topic: tutorial
 uid: data/ef-mvc/crud
 ms.openlocfilehash: 2aa4ef48509b9a34f3b25eb657b1ecac51c1374b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78656861"
+ms.lasthandoff: 03/16/2020
+ms.locfileid: "79416210"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: implementace funkce CRUD – ASP.NET MVC pomocí EF Core
 
@@ -30,7 +30,7 @@ V tomto kurzu se naučíte:
 > * Aktualizovat stránku Delete
 > * Zavřít databázová připojení
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 * [Začínáme s EF Core a ASP.NET Core MVC](intro.md)
 

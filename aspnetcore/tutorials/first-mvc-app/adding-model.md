@@ -5,12 +5,12 @@ description: Přidejte model do jednoduché aplikace ASP.NET Core.
 ms.author: riande
 ms.date: 01/13/2020
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: d044ae4416c4528791755506314fc81275474f79
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e7fc0496438734e13cfafcecf432da4a94737897
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660235"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434509"
 ---
 # <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu do ASP.NET Core aplikace MVC
 
@@ -48,7 +48,7 @@ Aktualizujte soubor *Movie.cs* pomocí následujícího kódu:
 
 Třída `Movie` obsahuje pole `Id`, které databáze vyžaduje pro primární klíč.
 
-Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) v `ReleaseDate` určuje typ dat (`Date`). S tímto atributem:
+Atribut <xref:System.ComponentModel.DataAnnotations.DataType> v `ReleaseDate` určuje typ dat (`Date`). S tímto atributem:
 
 * Uživatel není požádán o zadání informací o čase do pole datum.
 * Zobrazí se pouze datum, nejedná se o informace o čase.

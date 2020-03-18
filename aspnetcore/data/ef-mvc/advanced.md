@@ -8,11 +8,11 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 uid: data/ef-mvc/advanced
 ms.openlocfilehash: fc6f8d8c4ab09848cf316be2e522bf5ce3b9ac76
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78657036"
+ms.lasthandoff: 03/16/2020
+ms.locfileid: "79416231"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: informace o pokročilých scénářích – ASP.NET MVC pomocí EF Core
 
@@ -31,7 +31,7 @@ V tomto kurzu se naučíte:
 > * Další informace o EF Core zdrojového kódu a vývojářských plánech
 > * Naučte se používat dynamickou technologii LINQ ke zjednodušení kódu
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 * [Implementovat dědičnost](inheritance.md)
 
@@ -253,7 +253,7 @@ Ověřte připojovací řetězec. Pokud jste soubor databáze odstranili ručně
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací:
 
 Další informace o EF Core najdete v dokumentaci k [Entity Framework Core](/ef/core). K dispozici je také kniha: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
 
