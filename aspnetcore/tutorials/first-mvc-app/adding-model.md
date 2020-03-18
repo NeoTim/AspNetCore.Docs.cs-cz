@@ -5,89 +5,89 @@ description: Přidejte model do jednoduché aplikace ASP.NET Core.
 ms.author: riande
 ms.date: 01/13/2020
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: d044ae4416c4528791755506314fc81275474f79
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e7fc0496438734e13cfafcecf432da4a94737897
+ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660235"
+ms.lasthandoff: 03/17/2020
+ms.locfileid: "79434509"
 ---
-# <a name="add-a-model-to-an-aspnet-core-mvc-app"></a><span data-ttu-id="aee29-103">Přidání modelu do ASP.NET Core aplikace MVC</span><span class="sxs-lookup"><span data-stu-id="aee29-103">Add a model to an ASP.NET Core MVC app</span></span>
+# <a name="add-a-model-to-an-aspnet-core-mvc-app"></a><span data-ttu-id="fcabc-103">Přidání modelu do ASP.NET Core aplikace MVC</span><span class="sxs-lookup"><span data-stu-id="fcabc-103">Add a model to an ASP.NET Core MVC app</span></span>
 
-<span data-ttu-id="aee29-104">[Rick Anderson](https://twitter.com/RickAndMSFT) a [Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="aee29-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
+<span data-ttu-id="fcabc-104">[Rick Anderson](https://twitter.com/RickAndMSFT) a [Dykstra](https://github.com/tdykstra)</span><span class="sxs-lookup"><span data-stu-id="fcabc-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Tom Dykstra](https://github.com/tdykstra)</span></span>
 
-<span data-ttu-id="aee29-105">V této části přidáte třídy pro správu filmů v databázi.</span><span class="sxs-lookup"><span data-stu-id="aee29-105">In this section, you add classes for managing movies in a database.</span></span> <span data-ttu-id="aee29-106">Tyto třídy budou součástí aplikace typu **m**VC jako "**m**Odel".</span><span class="sxs-lookup"><span data-stu-id="aee29-106">These classes will be the "**M**odel" part of the **M**VC app.</span></span>
+<span data-ttu-id="fcabc-105">V této části přidáte třídy pro správu filmů v databázi.</span><span class="sxs-lookup"><span data-stu-id="fcabc-105">In this section, you add classes for managing movies in a database.</span></span> <span data-ttu-id="fcabc-106">Tyto třídy budou součástí aplikace typu **m**VC jako "**m**Odel".</span><span class="sxs-lookup"><span data-stu-id="fcabc-106">These classes will be the "**M**odel" part of the **M**VC app.</span></span>
 
-<span data-ttu-id="aee29-107">Tyto třídy použijete s [Entity Framework Core](/ef/core) (EF Core) pro práci s databází.</span><span class="sxs-lookup"><span data-stu-id="aee29-107">You use these classes with [Entity Framework Core](/ef/core) (EF Core) to work with a database.</span></span> <span data-ttu-id="aee29-108">EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje kód pro přístup k datům, který je nutné zapsat.</span><span class="sxs-lookup"><span data-stu-id="aee29-108">EF Core is an object-relational mapping (ORM) framework that simplifies the data access code that you have to write.</span></span>
+<span data-ttu-id="fcabc-107">Tyto třídy použijete s [Entity Framework Core](/ef/core) (EF Core) pro práci s databází.</span><span class="sxs-lookup"><span data-stu-id="fcabc-107">You use these classes with [Entity Framework Core](/ef/core) (EF Core) to work with a database.</span></span> <span data-ttu-id="fcabc-108">EF Core je rozhraní pro mapování relačních objektů (ORM), které zjednodušuje kód pro přístup k datům, který je nutné zapsat.</span><span class="sxs-lookup"><span data-stu-id="fcabc-108">EF Core is an object-relational mapping (ORM) framework that simplifies the data access code that you have to write.</span></span>
 
-<span data-ttu-id="aee29-109">Třídy modelů, které vytvoříte, jsou známé jako třídy POCO (od **P**Lain **O**ld **C**LR **O**bjekty), protože nemají žádnou závislost na EF Core.</span><span class="sxs-lookup"><span data-stu-id="aee29-109">The model classes you create are known as POCO classes (from **P**lain **O**ld **C**LR **O**bjects) because they don't have any dependency on EF Core.</span></span> <span data-ttu-id="aee29-110">Pouze definují vlastnosti dat, která budou uložena v databázi.</span><span class="sxs-lookup"><span data-stu-id="aee29-110">They just define the properties of the data that will be stored in the database.</span></span>
+<span data-ttu-id="fcabc-109">Třídy modelů, které vytvoříte, jsou známé jako třídy POCO (od **P**Lain **O**ld **C**LR **O**bjekty), protože nemají žádnou závislost na EF Core.</span><span class="sxs-lookup"><span data-stu-id="fcabc-109">The model classes you create are known as POCO classes (from **P**lain **O**ld **C**LR **O**bjects) because they don't have any dependency on EF Core.</span></span> <span data-ttu-id="fcabc-110">Pouze definují vlastnosti dat, která budou uložena v databázi.</span><span class="sxs-lookup"><span data-stu-id="fcabc-110">They just define the properties of the data that will be stored in the database.</span></span>
 
-<span data-ttu-id="aee29-111">V tomto kurzu napíšete nejprve třídy modelu a EF Core vytvoříte databázi.</span><span class="sxs-lookup"><span data-stu-id="aee29-111">In this tutorial, you write the model classes first, and EF Core creates the database.</span></span>
+<span data-ttu-id="fcabc-111">V tomto kurzu napíšete nejprve třídy modelu a EF Core vytvoříte databázi.</span><span class="sxs-lookup"><span data-stu-id="fcabc-111">In this tutorial, you write the model classes first, and EF Core creates the database.</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-## <a name="add-a-data-model-class"></a><span data-ttu-id="aee29-112">Přidat třídu datového modelu</span><span class="sxs-lookup"><span data-stu-id="aee29-112">Add a data model class</span></span>
+## <a name="add-a-data-model-class"></a><span data-ttu-id="fcabc-112">Přidat třídu datového modelu</span><span class="sxs-lookup"><span data-stu-id="fcabc-112">Add a data model class</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-113">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-113">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-113">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-113">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="aee29-114">Klikněte pravým tlačítkem na složku *modely* > **Přidat** **třídu** > .</span><span class="sxs-lookup"><span data-stu-id="aee29-114">Right-click the *Models* folder > **Add** > **Class**.</span></span> <span data-ttu-id="aee29-115">Název souboru *Movie.cs*.</span><span class="sxs-lookup"><span data-stu-id="aee29-115">Name the file *Movie.cs*.</span></span>
+<span data-ttu-id="fcabc-114">Klikněte pravým tlačítkem na složku *modely* > **Přidat** **třídu** > .</span><span class="sxs-lookup"><span data-stu-id="fcabc-114">Right-click the *Models* folder > **Add** > **Class**.</span></span> <span data-ttu-id="fcabc-115">Název souboru *Movie.cs*.</span><span class="sxs-lookup"><span data-stu-id="fcabc-115">Name the file *Movie.cs*.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="aee29-116">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="aee29-116">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="fcabc-116">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcabc-116">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
-<span data-ttu-id="aee29-117">Do složky *modely* přidejte soubor s názvem *Movie.cs* .</span><span class="sxs-lookup"><span data-stu-id="aee29-117">Add a file named *Movie.cs* to the *Models* folder.</span></span>
+<span data-ttu-id="fcabc-117">Do složky *modely* přidejte soubor s názvem *Movie.cs* .</span><span class="sxs-lookup"><span data-stu-id="fcabc-117">Add a file named *Movie.cs* to the *Models* folder.</span></span>
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="aee29-118">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-118">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-118">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-118">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="aee29-119">Klikněte pravým tlačítkem na složku *modely* > **Přidat** > **novou třídu** > **prázdnou třídu**.</span><span class="sxs-lookup"><span data-stu-id="aee29-119">Right-click the *Models* folder > **Add** > **New Class** > **Empty Class**.</span></span> <span data-ttu-id="aee29-120">Název souboru *Movie.cs*.</span><span class="sxs-lookup"><span data-stu-id="aee29-120">Name the file *Movie.cs*.</span></span>
+<span data-ttu-id="fcabc-119">Klikněte pravým tlačítkem na složku *modely* > **Přidat** > **novou třídu** > **prázdnou třídu**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-119">Right-click the *Models* folder > **Add** > **New Class** > **Empty Class**.</span></span> <span data-ttu-id="fcabc-120">Název souboru *Movie.cs*.</span><span class="sxs-lookup"><span data-stu-id="fcabc-120">Name the file *Movie.cs*.</span></span>
 
 ---
 
-<span data-ttu-id="aee29-121">Aktualizujte soubor *Movie.cs* pomocí následujícího kódu:</span><span class="sxs-lookup"><span data-stu-id="aee29-121">Update the *Movie.cs* file with the following code:</span></span>
+<span data-ttu-id="fcabc-121">Aktualizujte soubor *Movie.cs* pomocí následujícího kódu:</span><span class="sxs-lookup"><span data-stu-id="fcabc-121">Update the *Movie.cs* file with the following code:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Models/Movie.cs)]
 
-<span data-ttu-id="aee29-122">Třída `Movie` obsahuje pole `Id`, které databáze vyžaduje pro primární klíč.</span><span class="sxs-lookup"><span data-stu-id="aee29-122">The `Movie` class contains an `Id` field, which is required by the database for the primary key.</span></span>
+<span data-ttu-id="fcabc-122">Třída `Movie` obsahuje pole `Id`, které databáze vyžaduje pro primární klíč.</span><span class="sxs-lookup"><span data-stu-id="fcabc-122">The `Movie` class contains an `Id` field, which is required by the database for the primary key.</span></span>
 
-<span data-ttu-id="aee29-123">Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) v `ReleaseDate` určuje typ dat (`Date`).</span><span class="sxs-lookup"><span data-stu-id="aee29-123">The [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) attribute on `ReleaseDate` specifies the type of the data (`Date`).</span></span> <span data-ttu-id="aee29-124">S tímto atributem:</span><span class="sxs-lookup"><span data-stu-id="aee29-124">With this attribute:</span></span>
+<span data-ttu-id="fcabc-123">Atribut <xref:System.ComponentModel.DataAnnotations.DataType> v `ReleaseDate` určuje typ dat (`Date`).</span><span class="sxs-lookup"><span data-stu-id="fcabc-123">The <xref:System.ComponentModel.DataAnnotations.DataType> attribute on `ReleaseDate` specifies the type of the data (`Date`).</span></span> <span data-ttu-id="fcabc-124">S tímto atributem:</span><span class="sxs-lookup"><span data-stu-id="fcabc-124">With this attribute:</span></span>
 
-* <span data-ttu-id="aee29-125">Uživatel není požádán o zadání informací o čase do pole datum.</span><span class="sxs-lookup"><span data-stu-id="aee29-125">The user is not required to enter time information in the date field.</span></span>
-* <span data-ttu-id="aee29-126">Zobrazí se pouze datum, nejedná se o informace o čase.</span><span class="sxs-lookup"><span data-stu-id="aee29-126">Only the date is displayed, not time information.</span></span>
+* <span data-ttu-id="fcabc-125">Uživatel není požádán o zadání informací o čase do pole datum.</span><span class="sxs-lookup"><span data-stu-id="fcabc-125">The user is not required to enter time information in the date field.</span></span>
+* <span data-ttu-id="fcabc-126">Zobrazí se pouze datum, nejedná se o informace o čase.</span><span class="sxs-lookup"><span data-stu-id="fcabc-126">Only the date is displayed, not time information.</span></span>
 
-<span data-ttu-id="aee29-127">V pozdějším kurzu jsou uvedena tato [Anotace](/dotnet/api/system.componentmodel.dataannotations) .</span><span class="sxs-lookup"><span data-stu-id="aee29-127">[DataAnnotations](/dotnet/api/system.componentmodel.dataannotations) are covered in a later tutorial.</span></span>
+<span data-ttu-id="fcabc-127">V pozdějším kurzu jsou uvedena tato [Anotace](/dotnet/api/system.componentmodel.dataannotations) .</span><span class="sxs-lookup"><span data-stu-id="fcabc-127">[DataAnnotations](/dotnet/api/system.componentmodel.dataannotations) are covered in a later tutorial.</span></span>
 
-## <a name="add-nuget-packages"></a><span data-ttu-id="aee29-128">Přidat balíčky NuGet</span><span class="sxs-lookup"><span data-stu-id="aee29-128">Add NuGet packages</span></span>
+## <a name="add-nuget-packages"></a><span data-ttu-id="fcabc-128">Přidat balíčky NuGet</span><span class="sxs-lookup"><span data-stu-id="fcabc-128">Add NuGet packages</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-129">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-129">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-129">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-129">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="aee29-130">V nabídce **nástroje** vyberte **správce balíčků NuGet** > **konzolu Správce balíčků** (PMC).</span><span class="sxs-lookup"><span data-stu-id="aee29-130">From the **Tools** menu, select **NuGet Package Manager** > **Package Manager Console** (PMC).</span></span>
+<span data-ttu-id="fcabc-130">V nabídce **nástroje** vyberte **správce balíčků NuGet** > **konzolu Správce balíčků** (PMC).</span><span class="sxs-lookup"><span data-stu-id="fcabc-130">From the **Tools** menu, select **NuGet Package Manager** > **Package Manager Console** (PMC).</span></span>
 
 ![PMC nabídky](~/tutorials/first-mvc-app/adding-model/_static/pmc.png)
 
-<span data-ttu-id="aee29-132">V PMC spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="aee29-132">In the PMC, run the following command:</span></span>
+<span data-ttu-id="fcabc-132">V PMC spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="fcabc-132">In the PMC, run the following command:</span></span>
 
 ```powershell
 Install-Package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-<span data-ttu-id="aee29-133">Předchozí příkaz přidá poskytovatele EF Core SQL Server.</span><span class="sxs-lookup"><span data-stu-id="aee29-133">The preceding command adds the EF Core SQL Server provider.</span></span> <span data-ttu-id="aee29-134">Balíček Provider nainstaluje balíček EF Core jako závislost.</span><span class="sxs-lookup"><span data-stu-id="aee29-134">The provider package installs the EF Core package as a dependency.</span></span> <span data-ttu-id="aee29-135">Další balíčky jsou automaticky nainstalovány v kroku generování uživatelského rozhraní později v tomto kurzu.</span><span class="sxs-lookup"><span data-stu-id="aee29-135">Additional packages are installed automatically in the scaffolding step later in the tutorial.</span></span>
+<span data-ttu-id="fcabc-133">Předchozí příkaz přidá poskytovatele EF Core SQL Server.</span><span class="sxs-lookup"><span data-stu-id="fcabc-133">The preceding command adds the EF Core SQL Server provider.</span></span> <span data-ttu-id="fcabc-134">Balíček Provider nainstaluje balíček EF Core jako závislost.</span><span class="sxs-lookup"><span data-stu-id="fcabc-134">The provider package installs the EF Core package as a dependency.</span></span> <span data-ttu-id="fcabc-135">Další balíčky jsou automaticky nainstalovány v kroku generování uživatelského rozhraní později v tomto kurzu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-135">Additional packages are installed automatically in the scaffolding step later in the tutorial.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="aee29-136">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="aee29-136">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="fcabc-136">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcabc-136">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 [!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="aee29-137">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-137">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-137">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-137">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-<span data-ttu-id="aee29-138">V nabídce **projekt** vyberte možnost **Spravovat balíčky NuGet**.</span><span class="sxs-lookup"><span data-stu-id="aee29-138">From the **Project** menu, select **Manage NuGet Packages**.</span></span>
+<span data-ttu-id="fcabc-138">V nabídce **projekt** vyberte možnost **Spravovat balíčky NuGet**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-138">From the **Project** menu, select **Manage NuGet Packages**.</span></span>
 
-<span data-ttu-id="aee29-139">Do **vyhledávacího pole v** pravém horním rohu zadejte `Microsoft.EntityFrameworkCore.SQLite` a stiskněte **návratový** klíč, který chcete vyhledat.</span><span class="sxs-lookup"><span data-stu-id="aee29-139">In the **Search** field in the upper right, enter `Microsoft.EntityFrameworkCore.SQLite` and press the **Return** key to search.</span></span> <span data-ttu-id="aee29-140">Vyberte odpovídajícího balíčku NuGet a stiskněte tlačítko **Přidat balíček** .</span><span class="sxs-lookup"><span data-stu-id="aee29-140">Select the matching NuGet package and press the **Add Package** button.</span></span>
+<span data-ttu-id="fcabc-139">Do **vyhledávacího pole v** pravém horním rohu zadejte `Microsoft.EntityFrameworkCore.SQLite` a stiskněte **návratový** klíč, který chcete vyhledat.</span><span class="sxs-lookup"><span data-stu-id="fcabc-139">In the **Search** field in the upper right, enter `Microsoft.EntityFrameworkCore.SQLite` and press the **Return** key to search.</span></span> <span data-ttu-id="fcabc-140">Vyberte odpovídajícího balíčku NuGet a stiskněte tlačítko **Přidat balíček** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-140">Select the matching NuGet package and press the **Add Package** button.</span></span>
 
 ![Přidat Entity Framework Core balíček NuGet](~/tutorials/first-mvc-app-mac/adding-model/_static/add-nuget-packages.png)
 
-<span data-ttu-id="aee29-142">Zobrazí se dialogové okno **Vybrat projekty** se zvoleným projektem `MvcMovie`.</span><span class="sxs-lookup"><span data-stu-id="aee29-142">The **Select Projects** dialog will be displayed, with the `MvcMovie` project selected.</span></span> <span data-ttu-id="aee29-143">Stiskněte tlačítko **OK** .</span><span class="sxs-lookup"><span data-stu-id="aee29-143">Press the **Ok** button.</span></span>
+<span data-ttu-id="fcabc-142">Zobrazí se dialogové okno **Vybrat projekty** se zvoleným projektem `MvcMovie`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-142">The **Select Projects** dialog will be displayed, with the `MvcMovie` project selected.</span></span> <span data-ttu-id="fcabc-143">Stiskněte tlačítko **OK** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-143">Press the **Ok** button.</span></span>
 
-<span data-ttu-id="aee29-144">Zobrazí se dialogové okno pro **přijetí licence** .</span><span class="sxs-lookup"><span data-stu-id="aee29-144">A **License Acceptance** dialog will be displayed.</span></span> <span data-ttu-id="aee29-145">Zkontrolujte licence podle potřeby a potom klikněte na tlačítko **přijmout** .</span><span class="sxs-lookup"><span data-stu-id="aee29-145">Review the licenses as desired, then click the **Accept** button.</span></span>
+<span data-ttu-id="fcabc-144">Zobrazí se dialogové okno pro **přijetí licence** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-144">A **License Acceptance** dialog will be displayed.</span></span> <span data-ttu-id="fcabc-145">Zkontrolujte licence podle potřeby a potom klikněte na tlačítko **přijmout** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-145">Review the licenses as desired, then click the **Accept** button.</span></span>
 
-<span data-ttu-id="aee29-146">Opakujte výše uvedené kroky a nainstalujte následující balíčky NuGet:</span><span class="sxs-lookup"><span data-stu-id="aee29-146">Repeat the above steps to install the following NuGet packages:</span></span>
+<span data-ttu-id="fcabc-146">Opakujte výše uvedené kroky a nainstalujte následující balíčky NuGet:</span><span class="sxs-lookup"><span data-stu-id="fcabc-146">Repeat the above steps to install the following NuGet packages:</span></span>
 
 * `Microsoft.VisualStudio.Web.CodeGeneration.Design`
 * `Microsoft.EntityFrameworkCore.SqlServer`
@@ -97,106 +97,106 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 <a name="dc"></a>
 
-## <a name="create-a-database-context-class"></a><span data-ttu-id="aee29-147">Vytvoření třídy kontextu databáze</span><span class="sxs-lookup"><span data-stu-id="aee29-147">Create a database context class</span></span>
+## <a name="create-a-database-context-class"></a><span data-ttu-id="fcabc-147">Vytvoření třídy kontextu databáze</span><span class="sxs-lookup"><span data-stu-id="fcabc-147">Create a database context class</span></span>
 
-<span data-ttu-id="aee29-148">Třída kontextu databáze je nutná ke koordinaci funkcí EF Core (vytvoření, čtení, aktualizace, odstranění) pro model `Movie`.</span><span class="sxs-lookup"><span data-stu-id="aee29-148">A database context class is needed to coordinate EF Core functionality (Create, Read, Update, Delete) for the `Movie` model.</span></span> <span data-ttu-id="aee29-149">Kontext databáze je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) a určuje entity, které mají být zahrnuty do datového modelu.</span><span class="sxs-lookup"><span data-stu-id="aee29-149">The database context is derived from [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) and specifies the entities to include in the data model.</span></span>
+<span data-ttu-id="fcabc-148">Třída kontextu databáze je nutná ke koordinaci funkcí EF Core (vytvoření, čtení, aktualizace, odstranění) pro model `Movie`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-148">A database context class is needed to coordinate EF Core functionality (Create, Read, Update, Delete) for the `Movie` model.</span></span> <span data-ttu-id="fcabc-149">Kontext databáze je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) a určuje entity, které mají být zahrnuty do datového modelu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-149">The database context is derived from [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) and specifies the entities to include in the data model.</span></span>
 
-<span data-ttu-id="aee29-150">Vytvořte složku *dat* .</span><span class="sxs-lookup"><span data-stu-id="aee29-150">Create a *Data* folder.</span></span>
+<span data-ttu-id="fcabc-150">Vytvořte složku *dat* .</span><span class="sxs-lookup"><span data-stu-id="fcabc-150">Create a *Data* folder.</span></span>
 
-<span data-ttu-id="aee29-151">Přidejte soubor *data/MvcMovieContext. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="aee29-151">Add a *Data/MvcMovieContext.cs* file with the following code:</span></span> 
+<span data-ttu-id="fcabc-151">Přidejte soubor *data/MvcMovieContext. cs* s následujícím kódem:</span><span class="sxs-lookup"><span data-stu-id="fcabc-151">Add a *Data/MvcMovieContext.cs* file with the following code:</span></span> 
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/zDocOnly/MvcMovieContext.cs?name=snippet)]
 
-<span data-ttu-id="aee29-152">Předchozí kód vytvoří vlastnost [negenerickými\<Movie >](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit.</span><span class="sxs-lookup"><span data-stu-id="aee29-152">The preceding code creates a [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) property for the entity set.</span></span> <span data-ttu-id="aee29-153">Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky.</span><span class="sxs-lookup"><span data-stu-id="aee29-153">In Entity Framework terminology, an entity set typically corresponds to a database table.</span></span> <span data-ttu-id="aee29-154">Entita odpovídající řádek v tabulce.</span><span class="sxs-lookup"><span data-stu-id="aee29-154">An entity corresponds to a row in the table.</span></span>
+<span data-ttu-id="fcabc-152">Předchozí kód vytvoří vlastnost [negenerickými\<Movie >](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit.</span><span class="sxs-lookup"><span data-stu-id="fcabc-152">The preceding code creates a [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) property for the entity set.</span></span> <span data-ttu-id="fcabc-153">Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky.</span><span class="sxs-lookup"><span data-stu-id="fcabc-153">In Entity Framework terminology, an entity set typically corresponds to a database table.</span></span> <span data-ttu-id="fcabc-154">Entita odpovídající řádek v tabulce.</span><span class="sxs-lookup"><span data-stu-id="fcabc-154">An entity corresponds to a row in the table.</span></span>
 
 <a name="reg"></a>
 
-## <a name="register-the-database-context"></a><span data-ttu-id="aee29-155">Zaregistrujte kontext databáze</span><span class="sxs-lookup"><span data-stu-id="aee29-155">Register the database context</span></span>
+## <a name="register-the-database-context"></a><span data-ttu-id="fcabc-155">Zaregistrujte kontext databáze</span><span class="sxs-lookup"><span data-stu-id="fcabc-155">Register the database context</span></span>
 
-<span data-ttu-id="aee29-156">ASP.NET Core je sestaven s [vkládáním závislostí (di)](xref:fundamentals/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="aee29-156">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="aee29-157">Služby (například kontext EF Core DB) musí být při spuštění aplikace zaregistrované v DI.</span><span class="sxs-lookup"><span data-stu-id="aee29-157">Services (such as the EF Core DB context) must be registered with DI during application startup.</span></span> <span data-ttu-id="aee29-158">Komponenty, které vyžadují tyto služby (například stránky Razor) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru.</span><span class="sxs-lookup"><span data-stu-id="aee29-158">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="aee29-159">Později v tomto kurzu se zobrazí kód konstruktor, který získá instanci kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-159">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span> <span data-ttu-id="aee29-160">V této části zaregistrujete kontext databáze pomocí kontejneru DI.</span><span class="sxs-lookup"><span data-stu-id="aee29-160">In this section, you register the database context with the DI container.</span></span>
+<span data-ttu-id="fcabc-156">ASP.NET Core je sestaven s [vkládáním závislostí (di)](xref:fundamentals/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="fcabc-156">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="fcabc-157">Služby (například kontext EF Core DB) musí být při spuštění aplikace zaregistrované v DI.</span><span class="sxs-lookup"><span data-stu-id="fcabc-157">Services (such as the EF Core DB context) must be registered with DI during application startup.</span></span> <span data-ttu-id="fcabc-158">Komponenty, které vyžadují tyto služby (například stránky Razor) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-158">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="fcabc-159">Později v tomto kurzu se zobrazí kód konstruktor, který získá instanci kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-159">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span> <span data-ttu-id="fcabc-160">V této části zaregistrujete kontext databáze pomocí kontejneru DI.</span><span class="sxs-lookup"><span data-stu-id="fcabc-160">In this section, you register the database context with the DI container.</span></span>
 
-<span data-ttu-id="aee29-161">Do horní části *Startup.cs*přidejte následující příkazy `using`:</span><span class="sxs-lookup"><span data-stu-id="aee29-161">Add the following `using` statements at the top of *Startup.cs*:</span></span>
+<span data-ttu-id="fcabc-161">Do horní části *Startup.cs*přidejte následující příkazy `using`:</span><span class="sxs-lookup"><span data-stu-id="fcabc-161">Add the following `using` statements at the top of *Startup.cs*:</span></span>
 
 ```csharp
 using MvcMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
-<span data-ttu-id="aee29-162">Do `Startup.ConfigureServices`přidejte následující zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="aee29-162">Add the following highlighted code in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="fcabc-162">Do `Startup.ConfigureServices`přidejte následující zvýrazněný kód:</span><span class="sxs-lookup"><span data-stu-id="fcabc-162">Add the following highlighted code in `Startup.ConfigureServices`:</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-163">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-163">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-163">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-163">Visual Studio</span></span>](#tab/visual-studio)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_ConfigureServices&highlight=6-7)]
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-164">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-164">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-164">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-164">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_UseSqlite&highlight=6-7)]
 
 ---
 
-<span data-ttu-id="aee29-165">Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) .</span><span class="sxs-lookup"><span data-stu-id="aee29-165">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="aee29-166">Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="aee29-166">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
+<span data-ttu-id="fcabc-165">Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) .</span><span class="sxs-lookup"><span data-stu-id="fcabc-165">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="fcabc-166">Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="fcabc-166">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
 <a name="cs"></a>
 
-## <a name="add-a-database-connection-string"></a><span data-ttu-id="aee29-167">Přidat připojovací řetězec databáze</span><span class="sxs-lookup"><span data-stu-id="aee29-167">Add a database connection string</span></span>
+## <a name="add-a-database-connection-string"></a><span data-ttu-id="fcabc-167">Přidat připojovací řetězec databáze</span><span class="sxs-lookup"><span data-stu-id="fcabc-167">Add a database connection string</span></span>
 
-<span data-ttu-id="aee29-168">Přidejte do souboru *appSettings. JSON* připojovací řetězec:</span><span class="sxs-lookup"><span data-stu-id="aee29-168">Add a connection string to the *appsettings.json* file:</span></span>
+<span data-ttu-id="fcabc-168">Přidejte do souboru *appSettings. JSON* připojovací řetězec:</span><span class="sxs-lookup"><span data-stu-id="fcabc-168">Add a connection string to the *appsettings.json* file:</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-169">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-169">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-169">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-169">Visual Studio</span></span>](#tab/visual-studio)
 
 [!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/appsettings.json?highlight=10-12)]
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-170">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-170">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-170">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-170">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/appsettings_SQLite.json?highlight=10-12)]
 
 ---
 
-<span data-ttu-id="aee29-171">Sestavte projekt jako kontrolu chyb kompilátoru.</span><span class="sxs-lookup"><span data-stu-id="aee29-171">Build the project as a check for compiler errors.</span></span>
+<span data-ttu-id="fcabc-171">Sestavte projekt jako kontrolu chyb kompilátoru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-171">Build the project as a check for compiler errors.</span></span>
 
-## <a name="scaffold-movie-pages"></a><span data-ttu-id="aee29-172">Stránky filmového uživatelského rozhraní</span><span class="sxs-lookup"><span data-stu-id="aee29-172">Scaffold movie pages</span></span>
+## <a name="scaffold-movie-pages"></a><span data-ttu-id="fcabc-172">Stránky filmového uživatelského rozhraní</span><span class="sxs-lookup"><span data-stu-id="fcabc-172">Scaffold movie pages</span></span>
 
-<span data-ttu-id="aee29-173">Použijte nástroj pro generování uživatelského rozhraní k vytvoření stránek pro vytváření, čtení, aktualizaci a odstranění (CRUD) pro model filmu.</span><span class="sxs-lookup"><span data-stu-id="aee29-173">Use the scaffolding tool to produce Create, Read, Update, and Delete (CRUD) pages for the movie model.</span></span>
+<span data-ttu-id="fcabc-173">Použijte nástroj pro generování uživatelského rozhraní k vytvoření stránek pro vytváření, čtení, aktualizaci a odstranění (CRUD) pro model filmu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-173">Use the scaffolding tool to produce Create, Read, Update, and Delete (CRUD) pages for the movie model.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-174">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-174">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-174">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-174">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="aee29-175">V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku *Controllers* **> přidat > novou vygenerované položky**.</span><span class="sxs-lookup"><span data-stu-id="aee29-175">In **Solution Explorer**, right-click the *Controllers* folder **> Add > New Scaffolded Item**.</span></span>
+<span data-ttu-id="fcabc-175">V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku *Controllers* **> přidat > novou vygenerované položky**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-175">In **Solution Explorer**, right-click the *Controllers* folder **> Add > New Scaffolded Item**.</span></span>
 
 ![zobrazení výše uvedeného kroku](adding-model/_static/add_controller21.png)
 
-<span data-ttu-id="aee29-177">V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte **kontroler MVC se zobrazeními a pomocí Entity Framework > Přidat**.</span><span class="sxs-lookup"><span data-stu-id="aee29-177">In the **Add Scaffold** dialog, select **MVC Controller with views, using Entity Framework > Add**.</span></span>
+<span data-ttu-id="fcabc-177">V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte **kontroler MVC se zobrazeními a pomocí Entity Framework > Přidat**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-177">In the **Add Scaffold** dialog, select **MVC Controller with views, using Entity Framework > Add**.</span></span>
 
 ![Dialogové okno Přidat generování uživatelského rozhraní](adding-model/_static/add_scaffold21.png)
 
-<span data-ttu-id="aee29-179">Dokončete dialog **Přidat řadič** :</span><span class="sxs-lookup"><span data-stu-id="aee29-179">Complete the **Add Controller** dialog:</span></span>
+<span data-ttu-id="fcabc-179">Dokončete dialog **Přidat řadič** :</span><span class="sxs-lookup"><span data-stu-id="fcabc-179">Complete the **Add Controller** dialog:</span></span>
 
-* <span data-ttu-id="aee29-180">**Třída modelu:** *video (MvcMovie. Models)*</span><span class="sxs-lookup"><span data-stu-id="aee29-180">**Model class:** *Movie (MvcMovie.Models)*</span></span>
-* <span data-ttu-id="aee29-181">**Třída kontextu dat:** *MvcMovieContext (MvcMovie. data)*</span><span class="sxs-lookup"><span data-stu-id="aee29-181">**Data context class:** *MvcMovieContext (MvcMovie.Data)*</span></span>
+* <span data-ttu-id="fcabc-180">**Třída modelu:** *video (MvcMovie. Models)*</span><span class="sxs-lookup"><span data-stu-id="fcabc-180">**Model class:** *Movie (MvcMovie.Models)*</span></span>
+* <span data-ttu-id="fcabc-181">**Třída kontextu dat:** *MvcMovieContext (MvcMovie. data)*</span><span class="sxs-lookup"><span data-stu-id="fcabc-181">**Data context class:** *MvcMovieContext (MvcMovie.Data)*</span></span>
 
 ![Přidat kontext dat](adding-model/_static/dc3.png)
 
-* <span data-ttu-id="aee29-183">**Zobrazení:** Ponechte výchozí hodnotu u každé zaškrtnuté možnosti.</span><span class="sxs-lookup"><span data-stu-id="aee29-183">**Views:** Keep the default of each option checked</span></span>
-* <span data-ttu-id="aee29-184">**Název kontroleru:** Zachovat výchozí *MoviesController*</span><span class="sxs-lookup"><span data-stu-id="aee29-184">**Controller name:** Keep the default *MoviesController*</span></span>
-* <span data-ttu-id="aee29-185">Vyberte **Přidat**.</span><span class="sxs-lookup"><span data-stu-id="aee29-185">Select **Add**</span></span>
+* <span data-ttu-id="fcabc-183">**Zobrazení:** Ponechte výchozí hodnotu u každé zaškrtnuté možnosti.</span><span class="sxs-lookup"><span data-stu-id="fcabc-183">**Views:** Keep the default of each option checked</span></span>
+* <span data-ttu-id="fcabc-184">**Název kontroleru:** Zachovat výchozí *MoviesController*</span><span class="sxs-lookup"><span data-stu-id="fcabc-184">**Controller name:** Keep the default *MoviesController*</span></span>
+* <span data-ttu-id="fcabc-185">Vyberte **Přidat**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-185">Select **Add**</span></span>
 
-<span data-ttu-id="aee29-186">Visual Studio vytvoří:</span><span class="sxs-lookup"><span data-stu-id="aee29-186">Visual Studio creates:</span></span>
+<span data-ttu-id="fcabc-186">Visual Studio vytvoří:</span><span class="sxs-lookup"><span data-stu-id="fcabc-186">Visual Studio creates:</span></span>
 
-* <span data-ttu-id="aee29-187">Řadič filmů (*Controllers/MoviesController. cs*)</span><span class="sxs-lookup"><span data-stu-id="aee29-187">A movies controller (*Controllers/MoviesController.cs*)</span></span>
-* <span data-ttu-id="aee29-188">Soubory zobrazení Razor pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/\*. cshtml*)</span><span class="sxs-lookup"><span data-stu-id="aee29-188">Razor view files for Create, Delete, Details, Edit, and Index pages (*Views/Movies/\*.cshtml*)</span></span>
+* <span data-ttu-id="fcabc-187">Řadič filmů (*Controllers/MoviesController. cs*)</span><span class="sxs-lookup"><span data-stu-id="fcabc-187">A movies controller (*Controllers/MoviesController.cs*)</span></span>
+* <span data-ttu-id="fcabc-188">Soubory zobrazení Razor pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/\*. cshtml*)</span><span class="sxs-lookup"><span data-stu-id="fcabc-188">Razor view files for Create, Delete, Details, Edit, and Index pages (*Views/Movies/\*.cshtml*)</span></span>
 
-<span data-ttu-id="aee29-189">Automatické vytváření těchto souborů se říká *generování uživatelského rozhraní*.</span><span class="sxs-lookup"><span data-stu-id="aee29-189">The automatic creation of these files is known as *scaffolding*.</span></span>
+<span data-ttu-id="fcabc-189">Automatické vytváření těchto souborů se říká *generování uživatelského rozhraní*.</span><span class="sxs-lookup"><span data-stu-id="fcabc-189">The automatic creation of these files is known as *scaffolding*.</span></span>
 
-### <a name="visual-studio-code"></a>[<span data-ttu-id="aee29-190">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="aee29-190">Visual Studio Code</span></span>](#tab/visual-studio-code) 
+### <a name="visual-studio-code"></a>[<span data-ttu-id="fcabc-190">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcabc-190">Visual Studio Code</span></span>](#tab/visual-studio-code) 
 
-* <span data-ttu-id="aee29-191">Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).</span><span class="sxs-lookup"><span data-stu-id="aee29-191">Open a command window in the project directory (The directory that contains the *Program.cs*, *Startup.cs*, and *.csproj* files).</span></span>
+* <span data-ttu-id="fcabc-191">Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).</span><span class="sxs-lookup"><span data-stu-id="fcabc-191">Open a command window in the project directory (The directory that contains the *Program.cs*, *Startup.cs*, and *.csproj* files).</span></span>
 
-* <span data-ttu-id="aee29-192">V systému Linux exportujte cestu k nástroji pro generování uživatelského rozhraní:</span><span class="sxs-lookup"><span data-stu-id="aee29-192">On Linux, export the scaffold tool path:</span></span>
+* <span data-ttu-id="fcabc-192">V systému Linux exportujte cestu k nástroji pro generování uživatelského rozhraní:</span><span class="sxs-lookup"><span data-stu-id="fcabc-192">On Linux, export the scaffold tool path:</span></span>
 
   ```console
   export PATH=$HOME/.dotnet/tools:$PATH
   ```
 
-* <span data-ttu-id="aee29-193">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="aee29-193">Run the following command:</span></span>
+* <span data-ttu-id="fcabc-193">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="fcabc-193">Run the following command:</span></span>
 
   ```dotnetcli
   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -204,11 +204,11 @@ using Microsoft.EntityFrameworkCore;
 
   [!INCLUDE [explains scaffold generated params](~/includes/mvc-intro/model4.md)]
 
-### <a name="visual-studio-for-mac"></a>[<span data-ttu-id="aee29-194">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-194">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+### <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-194">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-194">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="aee29-195">Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).</span><span class="sxs-lookup"><span data-stu-id="aee29-195">Open a command window in the project directory (The directory that contains the *Program.cs*, *Startup.cs*, and *.csproj* files).</span></span>
+* <span data-ttu-id="fcabc-195">Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).</span><span class="sxs-lookup"><span data-stu-id="fcabc-195">Open a command window in the project directory (The directory that contains the *Program.cs*, *Startup.cs*, and *.csproj* files).</span></span>
 
-* <span data-ttu-id="aee29-196">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="aee29-196">Run the following command:</span></span>
+* <span data-ttu-id="fcabc-196">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="fcabc-196">Run the following command:</span></span>
 
   ```dotnetcli
   dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -220,113 +220,113 @@ using Microsoft.EntityFrameworkCore;
 
 <!-- End of tabs                  -->
 
-<span data-ttu-id="aee29-197">Vygenerované stránky nemůžete zatím použít, protože databáze neexistuje.</span><span class="sxs-lookup"><span data-stu-id="aee29-197">You can't use the scaffolded pages yet because the database doesn't exist.</span></span> <span data-ttu-id="aee29-198">Pokud aplikaci spouštíte a kliknete na odkaz **filmové aplikace** , *nemůžete otevřít databázi* nebo *žádnou takovou tabulku:* chybová zpráva videa.</span><span class="sxs-lookup"><span data-stu-id="aee29-198">If you run the app and click on the **Movie App** link, you get a *Cannot open database* or *no such table: Movie* error message.</span></span>
+<span data-ttu-id="fcabc-197">Vygenerované stránky nemůžete zatím použít, protože databáze neexistuje.</span><span class="sxs-lookup"><span data-stu-id="fcabc-197">You can't use the scaffolded pages yet because the database doesn't exist.</span></span> <span data-ttu-id="fcabc-198">Pokud aplikaci spouštíte a kliknete na odkaz **filmové aplikace** , *nemůžete otevřít databázi* nebo *žádnou takovou tabulku:* chybová zpráva videa.</span><span class="sxs-lookup"><span data-stu-id="fcabc-198">If you run the app and click on the **Movie App** link, you get a *Cannot open database* or *no such table: Movie* error message.</span></span>
 
 <a name="migration"></a>
 
-## <a name="initial-migration"></a><span data-ttu-id="aee29-199">Počáteční migraci</span><span class="sxs-lookup"><span data-stu-id="aee29-199">Initial migration</span></span>
+## <a name="initial-migration"></a><span data-ttu-id="fcabc-199">Počáteční migraci</span><span class="sxs-lookup"><span data-stu-id="fcabc-199">Initial migration</span></span>
 
-<span data-ttu-id="aee29-200">K vytvoření databáze použijte funkci [migrace](xref:data/ef-mvc/migrations) EF Core.</span><span class="sxs-lookup"><span data-stu-id="aee29-200">Use the EF Core [Migrations](xref:data/ef-mvc/migrations) feature to create the database.</span></span> <span data-ttu-id="aee29-201">Migrace je sada nástrojů, která umožňuje vytvořit a aktualizovat databázi tak, aby odpovídala vašemu datovému modelu.</span><span class="sxs-lookup"><span data-stu-id="aee29-201">Migrations is a set of tools that let you create and update a database to match your data model.</span></span>
+<span data-ttu-id="fcabc-200">K vytvoření databáze použijte funkci [migrace](xref:data/ef-mvc/migrations) EF Core.</span><span class="sxs-lookup"><span data-stu-id="fcabc-200">Use the EF Core [Migrations](xref:data/ef-mvc/migrations) feature to create the database.</span></span> <span data-ttu-id="fcabc-201">Migrace je sada nástrojů, která umožňuje vytvořit a aktualizovat databázi tak, aby odpovídala vašemu datovému modelu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-201">Migrations is a set of tools that let you create and update a database to match your data model.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-202">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-202">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-202">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-202">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="aee29-203">V nabídce **nástroje** vyberte **správce balíčků NuGet** > **konzolu Správce balíčků** (PMC).</span><span class="sxs-lookup"><span data-stu-id="aee29-203">From the **Tools** menu, select **NuGet Package Manager** > **Package Manager Console** (PMC).</span></span>
+<span data-ttu-id="fcabc-203">V nabídce **nástroje** vyberte **správce balíčků NuGet** > **konzolu Správce balíčků** (PMC).</span><span class="sxs-lookup"><span data-stu-id="fcabc-203">From the **Tools** menu, select **NuGet Package Manager** > **Package Manager Console** (PMC).</span></span>
 
-<span data-ttu-id="aee29-204">V konzole PMC zadejte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="aee29-204">In the PMC, enter the following commands:</span></span>
+<span data-ttu-id="fcabc-204">V konzole PMC zadejte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="fcabc-204">In the PMC, enter the following commands:</span></span>
 
 ```powershell
 Add-Migration InitialCreate
 Update-Database
 ```
 
-* <span data-ttu-id="aee29-205">`Add-Migration InitialCreate`: vygeneruje migrační soubor *_InitialCreate. cs migrace/{timestamp}* .</span><span class="sxs-lookup"><span data-stu-id="aee29-205">`Add-Migration InitialCreate`: Generates a *Migrations/{timestamp}_InitialCreate.cs* migration file.</span></span> <span data-ttu-id="aee29-206">Argument `InitialCreate` je název migrace.</span><span class="sxs-lookup"><span data-stu-id="aee29-206">The `InitialCreate` argument is the migration name.</span></span> <span data-ttu-id="aee29-207">Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="aee29-207">Any name can be used, but by convention, a name is selected that describes the migration.</span></span> <span data-ttu-id="aee29-208">Vzhledem k tomu, že se jedná o první migraci, vygenerovaná třída obsahuje kód pro vytvoření schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-208">Because this is the first migration, the generated class contains code to create the database schema.</span></span> <span data-ttu-id="aee29-209">Schéma databáze je založené na modelu určeném ve třídě `MvcMovieContext`.</span><span class="sxs-lookup"><span data-stu-id="aee29-209">The database schema is based on the model specified in the `MvcMovieContext` class.</span></span>
+* <span data-ttu-id="fcabc-205">`Add-Migration InitialCreate`: vygeneruje migrační soubor *_InitialCreate. cs migrace/{timestamp}* .</span><span class="sxs-lookup"><span data-stu-id="fcabc-205">`Add-Migration InitialCreate`: Generates a *Migrations/{timestamp}_InitialCreate.cs* migration file.</span></span> <span data-ttu-id="fcabc-206">Argument `InitialCreate` je název migrace.</span><span class="sxs-lookup"><span data-stu-id="fcabc-206">The `InitialCreate` argument is the migration name.</span></span> <span data-ttu-id="fcabc-207">Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="fcabc-207">Any name can be used, but by convention, a name is selected that describes the migration.</span></span> <span data-ttu-id="fcabc-208">Vzhledem k tomu, že se jedná o první migraci, vygenerovaná třída obsahuje kód pro vytvoření schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-208">Because this is the first migration, the generated class contains code to create the database schema.</span></span> <span data-ttu-id="fcabc-209">Schéma databáze je založené na modelu určeném ve třídě `MvcMovieContext`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-209">The database schema is based on the model specified in the `MvcMovieContext` class.</span></span>
 
-* <span data-ttu-id="aee29-210">`Update-Database`: aktualizuje databázi na nejnovější migraci, která vytvořila předchozí příkaz.</span><span class="sxs-lookup"><span data-stu-id="aee29-210">`Update-Database`: Updates the database to the latest migration, which the previous command created.</span></span> <span data-ttu-id="aee29-211">Tento příkaz spustí metodu `Up` v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-211">This command runs the `Up` method in the *Migrations/{time-stamp}_InitialCreate.cs* file, which creates the database.</span></span>
+* <span data-ttu-id="fcabc-210">`Update-Database`: aktualizuje databázi na nejnovější migraci, která vytvořila předchozí příkaz.</span><span class="sxs-lookup"><span data-stu-id="fcabc-210">`Update-Database`: Updates the database to the latest migration, which the previous command created.</span></span> <span data-ttu-id="fcabc-211">Tento příkaz spustí metodu `Up` v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-211">This command runs the `Up` method in the *Migrations/{time-stamp}_InitialCreate.cs* file, which creates the database.</span></span>
 
-  <span data-ttu-id="aee29-212">Příkaz aktualizace databáze generuje následující upozornění:</span><span class="sxs-lookup"><span data-stu-id="aee29-212">The database update command generates the following warning:</span></span> 
+  <span data-ttu-id="fcabc-212">Příkaz aktualizace databáze generuje následující upozornění:</span><span class="sxs-lookup"><span data-stu-id="fcabc-212">The database update command generates the following warning:</span></span> 
 
-  > <span data-ttu-id="aee29-213">Pro desetinný sloupec ' Price ' pro typ entity ' film ' nebyl zadán žádný typ.</span><span class="sxs-lookup"><span data-stu-id="aee29-213">No type was specified for the decimal column 'Price' on entity type 'Movie'.</span></span> <span data-ttu-id="aee29-214">To způsobí, že se hodnoty tiše zkrátí, pokud se nevejdou do výchozí přesnosti a rozsahu.</span><span class="sxs-lookup"><span data-stu-id="aee29-214">This will cause values to be silently truncated if they do not fit in the default precision and scale.</span></span> <span data-ttu-id="aee29-215">Explicitně zadejte typ sloupce SQL Server, který může obsahovat všechny hodnoty pomocí ' HasColumnType () '.</span><span class="sxs-lookup"><span data-stu-id="aee29-215">Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.</span></span>
+  > <span data-ttu-id="fcabc-213">Pro desetinný sloupec ' Price ' pro typ entity ' film ' nebyl zadán žádný typ.</span><span class="sxs-lookup"><span data-stu-id="fcabc-213">No type was specified for the decimal column 'Price' on entity type 'Movie'.</span></span> <span data-ttu-id="fcabc-214">To způsobí, že se hodnoty tiše zkrátí, pokud se nevejdou do výchozí přesnosti a rozsahu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-214">This will cause values to be silently truncated if they do not fit in the default precision and scale.</span></span> <span data-ttu-id="fcabc-215">Explicitně zadejte typ sloupce SQL Server, který může obsahovat všechny hodnoty pomocí ' HasColumnType () '.</span><span class="sxs-lookup"><span data-stu-id="fcabc-215">Explicitly specify the SQL server column type that can accommodate all the values using 'HasColumnType()'.</span></span>
 
-  <span data-ttu-id="aee29-216">Toto upozornění můžete ignorovat, bude opraveno v pozdějším kurzu.</span><span class="sxs-lookup"><span data-stu-id="aee29-216">You can ignore that warning, it will be fixed in a later tutorial.</span></span>
+  <span data-ttu-id="fcabc-216">Toto upozornění můžete ignorovat, bude opraveno v pozdějším kurzu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-216">You can ignore that warning, it will be fixed in a later tutorial.</span></span>
 
 [!INCLUDE [more information on the PMC tools for EF Core](~/includes/ef-pmc.md)]
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-217">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-217">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-217">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-217">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-<span data-ttu-id="aee29-218">Spusťte následující příkazy .NET Core CLI:</span><span class="sxs-lookup"><span data-stu-id="aee29-218">Run the following .NET Core CLI commands:</span></span>
+<span data-ttu-id="fcabc-218">Spusťte následující příkazy .NET Core CLI:</span><span class="sxs-lookup"><span data-stu-id="fcabc-218">Run the following .NET Core CLI commands:</span></span>
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-* <span data-ttu-id="aee29-219">`ef migrations add InitialCreate`: vygeneruje migrační soubor *_InitialCreate. cs migrace/{timestamp}* .</span><span class="sxs-lookup"><span data-stu-id="aee29-219">`ef migrations add InitialCreate`: Generates an *Migrations/{timestamp}_InitialCreate.cs* migration file.</span></span> <span data-ttu-id="aee29-220">Argument `InitialCreate` je název migrace.</span><span class="sxs-lookup"><span data-stu-id="aee29-220">The `InitialCreate` argument is the migration name.</span></span> <span data-ttu-id="aee29-221">Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="aee29-221">Any name can be used, but by convention, a name is selected that describes the migration.</span></span> <span data-ttu-id="aee29-222">Vzhledem k tomu, že se jedná o první migraci, vygenerovaná třída obsahuje kód pro vytvoření schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-222">Because this is the first migration, the generated class contains code to create the database schema.</span></span> <span data-ttu-id="aee29-223">Schéma databáze je založené na modelu určeném ve třídě `MvcMovieContext` (v souboru *data/MvcMovieContext. cs* ).</span><span class="sxs-lookup"><span data-stu-id="aee29-223">The database schema is based on the model specified in the `MvcMovieContext` class (in the *Data/MvcMovieContext.cs* file).</span></span>
+* <span data-ttu-id="fcabc-219">`ef migrations add InitialCreate`: vygeneruje migrační soubor *_InitialCreate. cs migrace/{timestamp}* .</span><span class="sxs-lookup"><span data-stu-id="fcabc-219">`ef migrations add InitialCreate`: Generates an *Migrations/{timestamp}_InitialCreate.cs* migration file.</span></span> <span data-ttu-id="fcabc-220">Argument `InitialCreate` je název migrace.</span><span class="sxs-lookup"><span data-stu-id="fcabc-220">The `InitialCreate` argument is the migration name.</span></span> <span data-ttu-id="fcabc-221">Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="fcabc-221">Any name can be used, but by convention, a name is selected that describes the migration.</span></span> <span data-ttu-id="fcabc-222">Vzhledem k tomu, že se jedná o první migraci, vygenerovaná třída obsahuje kód pro vytvoření schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-222">Because this is the first migration, the generated class contains code to create the database schema.</span></span> <span data-ttu-id="fcabc-223">Schéma databáze je založené na modelu určeném ve třídě `MvcMovieContext` (v souboru *data/MvcMovieContext. cs* ).</span><span class="sxs-lookup"><span data-stu-id="fcabc-223">The database schema is based on the model specified in the `MvcMovieContext` class (in the *Data/MvcMovieContext.cs* file).</span></span>
 
-* <span data-ttu-id="aee29-224">`ef database update`: aktualizuje databázi na nejnovější migraci, která vytvořila předchozí příkaz.</span><span class="sxs-lookup"><span data-stu-id="aee29-224">`ef database update`: Updates the database to the latest migration, which the previous command created.</span></span> <span data-ttu-id="aee29-225">Tento příkaz spustí metodu `Up` v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-225">This command runs the `Up` method in the *Migrations/{time-stamp}_InitialCreate.cs* file, which creates the database.</span></span>
+* <span data-ttu-id="fcabc-224">`ef database update`: aktualizuje databázi na nejnovější migraci, která vytvořila předchozí příkaz.</span><span class="sxs-lookup"><span data-stu-id="fcabc-224">`ef database update`: Updates the database to the latest migration, which the previous command created.</span></span> <span data-ttu-id="fcabc-225">Tento příkaz spustí metodu `Up` v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-225">This command runs the `Up` method in the *Migrations/{time-stamp}_InitialCreate.cs* file, which creates the database.</span></span>
 
 [!INCLUDE [more information on the CLI for EF Core](~/includes/ef-cli.md)]
 
 ---
 
-### <a name="the-initialcreate-class"></a><span data-ttu-id="aee29-226">Třída InitialCreate</span><span class="sxs-lookup"><span data-stu-id="aee29-226">The InitialCreate class</span></span>
+### <a name="the-initialcreate-class"></a><span data-ttu-id="fcabc-226">Třída InitialCreate</span><span class="sxs-lookup"><span data-stu-id="fcabc-226">The InitialCreate class</span></span>
 
-<span data-ttu-id="aee29-227">Projděte si soubor migrace */{timestamp} _InitialCreate. cs* :</span><span class="sxs-lookup"><span data-stu-id="aee29-227">Examine the *Migrations/{timestamp}_InitialCreate.cs* migration file:</span></span>
+<span data-ttu-id="fcabc-227">Projděte si soubor migrace */{timestamp} _InitialCreate. cs* :</span><span class="sxs-lookup"><span data-stu-id="fcabc-227">Examine the *Migrations/{timestamp}_InitialCreate.cs* migration file:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Migrations/20190805165915_InitialCreate.cs?name=snippet)]
 
-<span data-ttu-id="aee29-228">Metoda `Up` vytvoří tabulku filmů a nakonfiguruje `Id` jako primární klíč.</span><span class="sxs-lookup"><span data-stu-id="aee29-228">The `Up` method creates the Movie table and configures `Id` as the primary key.</span></span> <span data-ttu-id="aee29-229">Metoda `Down` vrátí změny schématu provedené migrací `Up`.</span><span class="sxs-lookup"><span data-stu-id="aee29-229">The `Down` method reverts the schema changes made by the `Up` migration.</span></span>
+<span data-ttu-id="fcabc-228">Metoda `Up` vytvoří tabulku filmů a nakonfiguruje `Id` jako primární klíč.</span><span class="sxs-lookup"><span data-stu-id="fcabc-228">The `Up` method creates the Movie table and configures `Id` as the primary key.</span></span> <span data-ttu-id="fcabc-229">Metoda `Down` vrátí změny schématu provedené migrací `Up`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-229">The `Down` method reverts the schema changes made by the `Up` migration.</span></span>
 
 <a name="test"></a>
 
-## <a name="test-the-app"></a><span data-ttu-id="aee29-230">Otestování aplikace</span><span class="sxs-lookup"><span data-stu-id="aee29-230">Test the app</span></span>
+## <a name="test-the-app"></a><span data-ttu-id="fcabc-230">Otestování aplikace</span><span class="sxs-lookup"><span data-stu-id="fcabc-230">Test the app</span></span>
 
-* <span data-ttu-id="aee29-231">Spusťte aplikaci a klikněte na odkaz **video aplikace** .</span><span class="sxs-lookup"><span data-stu-id="aee29-231">Run the app and click the **Movie App** link.</span></span>
+* <span data-ttu-id="fcabc-231">Spusťte aplikaci a klikněte na odkaz **video aplikace** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-231">Run the app and click the **Movie App** link.</span></span>
 
-  <span data-ttu-id="aee29-232">Pokud se zobrazí výjimka podobná jedné z následujících:</span><span class="sxs-lookup"><span data-stu-id="aee29-232">If you get an exception similar to one of the following:</span></span>
+  <span data-ttu-id="fcabc-232">Pokud se zobrazí výjimka podobná jedné z následujících:</span><span class="sxs-lookup"><span data-stu-id="fcabc-232">If you get an exception similar to one of the following:</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-233">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-233">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-233">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-233">Visual Studio</span></span>](#tab/visual-studio)
 
   ```console
   SqlException: Cannot open database "MvcMovieContext-1" requested by the login. The login failed.
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-234">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-234">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-234">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-234">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
   ```console
   SqliteException: SQLite Error 1: 'no such table: Movie'.
   ```
 
 ---
-  <span data-ttu-id="aee29-235">Pravděpodobně jste [Krok migrace](#migration)vynechali.</span><span class="sxs-lookup"><span data-stu-id="aee29-235">You probably missed the [migrations step](#migration).</span></span>
+  <span data-ttu-id="fcabc-235">Pravděpodobně jste [Krok migrace](#migration)vynechali.</span><span class="sxs-lookup"><span data-stu-id="fcabc-235">You probably missed the [migrations step](#migration).</span></span>
 
-* <span data-ttu-id="aee29-236">Otestujte stránku **vytvořit** .</span><span class="sxs-lookup"><span data-stu-id="aee29-236">Test the **Create** page.</span></span> <span data-ttu-id="aee29-237">Zadejte a odešlete data.</span><span class="sxs-lookup"><span data-stu-id="aee29-237">Enter and submit data.</span></span>
+* <span data-ttu-id="fcabc-236">Otestujte stránku **vytvořit** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-236">Test the **Create** page.</span></span> <span data-ttu-id="fcabc-237">Zadejte a odešlete data.</span><span class="sxs-lookup"><span data-stu-id="fcabc-237">Enter and submit data.</span></span>
 
   > [!NOTE]
-  > <span data-ttu-id="aee29-238">V poli `Price` možná nebudete moct zadat desítkové čárky.</span><span class="sxs-lookup"><span data-stu-id="aee29-238">You may not be able to enter decimal commas in the `Price` field.</span></span> <span data-ttu-id="aee29-239">Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální.</span><span class="sxs-lookup"><span data-stu-id="aee29-239">To support [jQuery validation](https://jqueryvalidation.org/) for non-English locales that use a comma (",") for a decimal point and for non US-English date formats, the app must be globalized.</span></span> <span data-ttu-id="aee29-240">Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).</span><span class="sxs-lookup"><span data-stu-id="aee29-240">For globalization instructions, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).</span></span>
+  > <span data-ttu-id="fcabc-238">V poli `Price` možná nebudete moct zadat desítkové čárky.</span><span class="sxs-lookup"><span data-stu-id="fcabc-238">You may not be able to enter decimal commas in the `Price` field.</span></span> <span data-ttu-id="fcabc-239">Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální.</span><span class="sxs-lookup"><span data-stu-id="fcabc-239">To support [jQuery validation](https://jqueryvalidation.org/) for non-English locales that use a comma (",") for a decimal point and for non US-English date formats, the app must be globalized.</span></span> <span data-ttu-id="fcabc-240">Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).</span><span class="sxs-lookup"><span data-stu-id="fcabc-240">For globalization instructions, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).</span></span>
 
-* <span data-ttu-id="aee29-241">Otestujte stránky **Upravit**, **Podrobnosti**a **Odstranit** .</span><span class="sxs-lookup"><span data-stu-id="aee29-241">Test the **Edit**, **Details**, and **Delete** pages.</span></span>
+* <span data-ttu-id="fcabc-241">Otestujte stránky **Upravit**, **Podrobnosti**a **Odstranit** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-241">Test the **Edit**, **Details**, and **Delete** pages.</span></span>
 
-## <a name="dependency-injection-in-the-controller"></a><span data-ttu-id="aee29-242">Vkládání závislostí v kontroleru</span><span class="sxs-lookup"><span data-stu-id="aee29-242">Dependency injection in the controller</span></span>
+## <a name="dependency-injection-in-the-controller"></a><span data-ttu-id="fcabc-242">Vkládání závislostí v kontroleru</span><span class="sxs-lookup"><span data-stu-id="fcabc-242">Dependency injection in the controller</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-243">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-243">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-243">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-243">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="aee29-244">Otevřete soubor *Controllers/MoviesController. cs* a prověřte konstruktor:</span><span class="sxs-lookup"><span data-stu-id="aee29-244">Open the *Controllers/MoviesController.cs* file and examine the constructor:</span></span>
+<span data-ttu-id="fcabc-244">Otevřete soubor *Controllers/MoviesController. cs* a prověřte konstruktor:</span><span class="sxs-lookup"><span data-stu-id="fcabc-244">Open the *Controllers/MoviesController.cs* file and examine the constructor:</span></span>
 
 <!-- l.. Make copy of Movies controller (or use the old one as I did in the 3.0 upgrade) because we comment out the initial index method and update it later  -->
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
 
-<span data-ttu-id="aee29-245">Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru.</span><span class="sxs-lookup"><span data-stu-id="aee29-245">The constructor uses [Dependency Injection](xref:fundamentals/dependency-injection) to inject the database context (`MvcMovieContext`) into the controller.</span></span> <span data-ttu-id="aee29-246">Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.</span><span class="sxs-lookup"><span data-stu-id="aee29-246">The database context is used in each of the [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) methods in the controller.</span></span>
+<span data-ttu-id="fcabc-245">Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-245">The constructor uses [Dependency Injection](xref:fundamentals/dependency-injection) to inject the database context (`MvcMovieContext`) into the controller.</span></span> <span data-ttu-id="fcabc-246">Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-246">The database context is used in each of the [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) methods in the controller.</span></span>
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-247">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-247">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-247">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-247">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
 
-<span data-ttu-id="aee29-248">Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru.</span><span class="sxs-lookup"><span data-stu-id="aee29-248">The constructor uses [Dependency Injection](xref:fundamentals/dependency-injection) to inject the database context (`MvcMovieContext`) into the controller.</span></span> <span data-ttu-id="aee29-249">Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.</span><span class="sxs-lookup"><span data-stu-id="aee29-249">The database context is used in each of the [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) methods in the controller.</span></span>
+<span data-ttu-id="fcabc-248">Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-248">The constructor uses [Dependency Injection](xref:fundamentals/dependency-injection) to inject the database context (`MvcMovieContext`) into the controller.</span></span> <span data-ttu-id="fcabc-249">Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-249">The database context is used in each of the [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) methods in the controller.</span></span>
 
-### <a name="use-sqlite-for-development-sql-server-for-production"></a><span data-ttu-id="aee29-250">Použití SQLite pro vývoj, SQL Server pro produkci</span><span class="sxs-lookup"><span data-stu-id="aee29-250">Use SQLite for development, SQL Server for production</span></span>
+### <a name="use-sqlite-for-development-sql-server-for-production"></a><span data-ttu-id="fcabc-250">Použití SQLite pro vývoj, SQL Server pro produkci</span><span class="sxs-lookup"><span data-stu-id="fcabc-250">Use SQLite for development, SQL Server for production</span></span>
 
-<span data-ttu-id="aee29-251">Když je vybrána možnost SQLite, je kód vygenerovaný šablonou připraven pro vývoj.</span><span class="sxs-lookup"><span data-stu-id="aee29-251">When SQLite is selected, the template generated code is ready for development.</span></span> <span data-ttu-id="aee29-252">Následující kód ukazuje, jak vložit <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do startupu.</span><span class="sxs-lookup"><span data-stu-id="aee29-252">The following code shows how to inject <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> into Startup.</span></span> <span data-ttu-id="aee29-253">`IWebHostEnvironment` je vloženo, aby `ConfigureServices` mohl použít SQLite ve vývoji a SQL Server v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="aee29-253">`IWebHostEnvironment` is injected so `ConfigureServices` can use SQLite in development and SQL Server in production.</span></span>
+<span data-ttu-id="fcabc-251">Když je vybrána možnost SQLite, je kód vygenerovaný šablonou připraven pro vývoj.</span><span class="sxs-lookup"><span data-stu-id="fcabc-251">When SQLite is selected, the template generated code is ready for development.</span></span> <span data-ttu-id="fcabc-252">Následující kód ukazuje, jak vložit <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do startupu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-252">The following code shows how to inject <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> into Startup.</span></span> <span data-ttu-id="fcabc-253">`IWebHostEnvironment` je vloženo, aby `ConfigureServices` mohl použít SQLite ve vývoji a SQL Server v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="fcabc-253">`IWebHostEnvironment` is injected so `ConfigureServices` can use SQLite in development and SQL Server in production.</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/StartupDevProd.cs?name=snippet_StartupClass&highlight=5,10,16-28)]
 
@@ -336,154 +336,154 @@ dotnet ef database update
 <a name="strongly-typed-models-keyword-label"></a>
 <a name="strongly-typed-models-and-the--keyword"></a>
 
-## <a name="strongly-typed-models-and-the-model-keyword"></a><span data-ttu-id="aee29-254">Modely silného typu a klíčové slovo @model</span><span class="sxs-lookup"><span data-stu-id="aee29-254">Strongly typed models and the @model keyword</span></span>
+## <a name="strongly-typed-models-and-the-model-keyword"></a><span data-ttu-id="fcabc-254">Modely silného typu a klíčové slovo @model</span><span class="sxs-lookup"><span data-stu-id="fcabc-254">Strongly typed models and the @model keyword</span></span>
 
-<span data-ttu-id="aee29-255">Dříve v tomto kurzu jste viděli, jak může řadič předat data nebo objekty do zobrazení pomocí `ViewData` slovníku.</span><span class="sxs-lookup"><span data-stu-id="aee29-255">Earlier in this tutorial, you saw how a controller can pass data or objects to a view using the `ViewData` dictionary.</span></span> <span data-ttu-id="aee29-256">`ViewData` slovníku je dynamický objekt, který poskytuje pohodlný způsob, jak předat informace zobrazení.</span><span class="sxs-lookup"><span data-stu-id="aee29-256">The `ViewData` dictionary is a dynamic object that provides a convenient late-bound way to pass information to a view.</span></span>
+<span data-ttu-id="fcabc-255">Dříve v tomto kurzu jste viděli, jak může řadič předat data nebo objekty do zobrazení pomocí `ViewData` slovníku.</span><span class="sxs-lookup"><span data-stu-id="fcabc-255">Earlier in this tutorial, you saw how a controller can pass data or objects to a view using the `ViewData` dictionary.</span></span> <span data-ttu-id="fcabc-256">`ViewData` slovníku je dynamický objekt, který poskytuje pohodlný způsob, jak předat informace zobrazení.</span><span class="sxs-lookup"><span data-stu-id="fcabc-256">The `ViewData` dictionary is a dynamic object that provides a convenient late-bound way to pass information to a view.</span></span>
 
-<span data-ttu-id="aee29-257">MVC také poskytuje možnost předat objekty modelu silného typu do zobrazení.</span><span class="sxs-lookup"><span data-stu-id="aee29-257">MVC also provides the ability to pass strongly typed model objects to a view.</span></span> <span data-ttu-id="aee29-258">Tento přístup se silnými typy umožňuje kompilovat kontrolu kódu při kompilaci.</span><span class="sxs-lookup"><span data-stu-id="aee29-258">This strongly typed approach enables compile time code checking.</span></span> <span data-ttu-id="aee29-259">Mechanizmus pro generování uživatelského rozhraní používal tento přístup (to znamená předání modelu silného typu) s `MoviesController` třídou a zobrazeními.</span><span class="sxs-lookup"><span data-stu-id="aee29-259">The scaffolding mechanism used this approach (that is, passing a strongly typed model) with the `MoviesController` class and views.</span></span>
+<span data-ttu-id="fcabc-257">MVC také poskytuje možnost předat objekty modelu silného typu do zobrazení.</span><span class="sxs-lookup"><span data-stu-id="fcabc-257">MVC also provides the ability to pass strongly typed model objects to a view.</span></span> <span data-ttu-id="fcabc-258">Tento přístup se silnými typy umožňuje kompilovat kontrolu kódu při kompilaci.</span><span class="sxs-lookup"><span data-stu-id="fcabc-258">This strongly typed approach enables compile time code checking.</span></span> <span data-ttu-id="fcabc-259">Mechanizmus pro generování uživatelského rozhraní používal tento přístup (to znamená předání modelu silného typu) s `MoviesController` třídou a zobrazeními.</span><span class="sxs-lookup"><span data-stu-id="fcabc-259">The scaffolding mechanism used this approach (that is, passing a strongly typed model) with the `MoviesController` class and views.</span></span>
 
-<span data-ttu-id="aee29-260">Projděte si vygenerovanou metodu `Details` v souboru *Controllers/MoviesController. cs* :</span><span class="sxs-lookup"><span data-stu-id="aee29-260">Examine the generated `Details` method in the *Controllers/MoviesController.cs* file:</span></span>
+<span data-ttu-id="fcabc-260">Projděte si vygenerovanou metodu `Details` v souboru *Controllers/MoviesController. cs* :</span><span class="sxs-lookup"><span data-stu-id="fcabc-260">Examine the generated `Details` method in the *Controllers/MoviesController.cs* file:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_details)]
 
-<span data-ttu-id="aee29-261">Parametr `id` je obecně předán jako data směrování.</span><span class="sxs-lookup"><span data-stu-id="aee29-261">The `id` parameter is generally passed as route data.</span></span> <span data-ttu-id="aee29-262">Například `https://localhost:5001/movies/details/1` sady:</span><span class="sxs-lookup"><span data-stu-id="aee29-262">For example `https://localhost:5001/movies/details/1` sets:</span></span>
+<span data-ttu-id="fcabc-261">Parametr `id` je obecně předán jako data směrování.</span><span class="sxs-lookup"><span data-stu-id="fcabc-261">The `id` parameter is generally passed as route data.</span></span> <span data-ttu-id="fcabc-262">Například `https://localhost:5001/movies/details/1` sady:</span><span class="sxs-lookup"><span data-stu-id="fcabc-262">For example `https://localhost:5001/movies/details/1` sets:</span></span>
 
-* <span data-ttu-id="aee29-263">Kontroler řadiče `movies` (první segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="aee29-263">The controller to the `movies` controller (the first URL segment).</span></span>
-* <span data-ttu-id="aee29-264">Akce, která se má `details` (druhý segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="aee29-264">The action to `details` (the second URL segment).</span></span>
-* <span data-ttu-id="aee29-265">ID na 1 (poslední segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="aee29-265">The id to 1 (the last URL segment).</span></span>
+* <span data-ttu-id="fcabc-263">Kontroler řadiče `movies` (první segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="fcabc-263">The controller to the `movies` controller (the first URL segment).</span></span>
+* <span data-ttu-id="fcabc-264">Akce, která se má `details` (druhý segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="fcabc-264">The action to `details` (the second URL segment).</span></span>
+* <span data-ttu-id="fcabc-265">ID na 1 (poslední segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="fcabc-265">The id to 1 (the last URL segment).</span></span>
 
-<span data-ttu-id="aee29-266">`id` můžete předat také pomocí řetězce dotazu následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="aee29-266">You can also pass in the `id` with a query string as follows:</span></span>
+<span data-ttu-id="fcabc-266">`id` můžete předat také pomocí řetězce dotazu následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="fcabc-266">You can also pass in the `id` with a query string as follows:</span></span>
 
 `https://localhost:5001/movies/details?id=1`
 
-<span data-ttu-id="aee29-267">Parametr `id` je definován jako typ s [možnou hodnotou null](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) pro případ, že není zadána hodnota ID.</span><span class="sxs-lookup"><span data-stu-id="aee29-267">The `id` parameter is defined as a [nullable type](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) in case an ID value isn't provided.</span></span>
+<span data-ttu-id="fcabc-267">Parametr `id` je definován jako typ s [možnou hodnotou null](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) pro případ, že není zadána hodnota ID.</span><span class="sxs-lookup"><span data-stu-id="fcabc-267">The `id` parameter is defined as a [nullable type](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) in case an ID value isn't provided.</span></span>
 
-<span data-ttu-id="aee29-268">[Výraz lambda](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) je předán do `FirstOrDefaultAsync` pro výběr entit videa, které odpovídají datům směrování nebo hodnotě řetězce dotazu.</span><span class="sxs-lookup"><span data-stu-id="aee29-268">A [lambda expression](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) is passed in to `FirstOrDefaultAsync` to select movie entities that match the route data or query string value.</span></span>
+<span data-ttu-id="fcabc-268">[Výraz lambda](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) je předán do `FirstOrDefaultAsync` pro výběr entit videa, které odpovídají datům směrování nebo hodnotě řetězce dotazu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-268">A [lambda expression](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) is passed in to `FirstOrDefaultAsync` to select movie entities that match the route data or query string value.</span></span>
 
 ```csharp
 var movie = await _context.Movie
     .FirstOrDefaultAsync(m => m.Id == id);
 ```
 
-<span data-ttu-id="aee29-269">Pokud je nalezen film, instance `Movie`ho modelu je předána do zobrazení `Details`:</span><span class="sxs-lookup"><span data-stu-id="aee29-269">If a movie is found, an instance of the `Movie` model is passed to the `Details` view:</span></span>
+<span data-ttu-id="fcabc-269">Pokud je nalezen film, instance `Movie`ho modelu je předána do zobrazení `Details`:</span><span class="sxs-lookup"><span data-stu-id="fcabc-269">If a movie is found, an instance of the `Movie` model is passed to the `Details` view:</span></span>
 
 ```csharp
 return View(movie);
 ```
 
-<span data-ttu-id="aee29-270">Projděte si obsah souboru *views/video/details. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="aee29-270">Examine the contents of the *Views/Movies/Details.cshtml* file:</span></span>
+<span data-ttu-id="fcabc-270">Projděte si obsah souboru *views/video/details. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="fcabc-270">Examine the contents of the *Views/Movies/Details.cshtml* file:</span></span>
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/DetailsOriginal.cshtml)]
 
-<span data-ttu-id="aee29-271">Příkaz `@model` v horní části souboru zobrazení určuje typ objektu, který zobrazení očekává.</span><span class="sxs-lookup"><span data-stu-id="aee29-271">The `@model` statement at the top of the view file specifies the type of object that the view expects.</span></span> <span data-ttu-id="aee29-272">Po vytvoření kontroleru filmů byl zahrnut následující příkaz `@model`:</span><span class="sxs-lookup"><span data-stu-id="aee29-272">When the movie controller was created, the following `@model` statement was included:</span></span>
+<span data-ttu-id="fcabc-271">Příkaz `@model` v horní části souboru zobrazení určuje typ objektu, který zobrazení očekává.</span><span class="sxs-lookup"><span data-stu-id="fcabc-271">The `@model` statement at the top of the view file specifies the type of object that the view expects.</span></span> <span data-ttu-id="fcabc-272">Po vytvoření kontroleru filmů byl zahrnut následující příkaz `@model`:</span><span class="sxs-lookup"><span data-stu-id="fcabc-272">When the movie controller was created, the following `@model` statement was included:</span></span>
 
 ```cshtml
 @model MvcMovie.Models.Movie
 ```
 
-<span data-ttu-id="aee29-273">Tato direktiva `@model` umožňuje přístup k videu, který kontroler předali do zobrazení.</span><span class="sxs-lookup"><span data-stu-id="aee29-273">This `@model` directive allows access to the movie that the controller passed to the view.</span></span> <span data-ttu-id="aee29-274">Objekt `Model` je silného typu.</span><span class="sxs-lookup"><span data-stu-id="aee29-274">The `Model` object is strongly typed.</span></span> <span data-ttu-id="aee29-275">Například v zobrazení *Details. cshtml* kód předá každé pole videa do `DisplayNameFor` a `DisplayFor` pomocníkům HTML pomocí silně typovaného objektu `Model`.</span><span class="sxs-lookup"><span data-stu-id="aee29-275">For example, in the *Details.cshtml* view, the code passes each movie field to the `DisplayNameFor` and `DisplayFor` HTML Helpers with the strongly typed `Model` object.</span></span> <span data-ttu-id="aee29-276">Metody a zobrazení `Create` a `Edit` také předají objekt `Movie` modelu.</span><span class="sxs-lookup"><span data-stu-id="aee29-276">The `Create` and `Edit` methods and views also pass a `Movie` model object.</span></span>
+<span data-ttu-id="fcabc-273">Tato direktiva `@model` umožňuje přístup k videu, který kontroler předali do zobrazení.</span><span class="sxs-lookup"><span data-stu-id="fcabc-273">This `@model` directive allows access to the movie that the controller passed to the view.</span></span> <span data-ttu-id="fcabc-274">Objekt `Model` je silného typu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-274">The `Model` object is strongly typed.</span></span> <span data-ttu-id="fcabc-275">Například v zobrazení *Details. cshtml* kód předá každé pole videa do `DisplayNameFor` a `DisplayFor` pomocníkům HTML pomocí silně typovaného objektu `Model`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-275">For example, in the *Details.cshtml* view, the code passes each movie field to the `DisplayNameFor` and `DisplayFor` HTML Helpers with the strongly typed `Model` object.</span></span> <span data-ttu-id="fcabc-276">Metody a zobrazení `Create` a `Edit` také předají objekt `Movie` modelu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-276">The `Create` and `Edit` methods and views also pass a `Movie` model object.</span></span>
 
-<span data-ttu-id="aee29-277">Prohlédněte si zobrazení *index. cshtml* a `Index` metoda v kontroleru filmů.</span><span class="sxs-lookup"><span data-stu-id="aee29-277">Examine the *Index.cshtml* view and the `Index` method in the Movies controller.</span></span> <span data-ttu-id="aee29-278">Všimněte si, jak kód při volání metody `View` vytvoří objekt `List`.</span><span class="sxs-lookup"><span data-stu-id="aee29-278">Notice how the code creates a `List` object when it calls the `View` method.</span></span> <span data-ttu-id="aee29-279">Kód předá tento seznam `Movies` z metody `Index` akce do zobrazení:</span><span class="sxs-lookup"><span data-stu-id="aee29-279">The code passes this `Movies` list from the `Index` action method to the view:</span></span>
+<span data-ttu-id="fcabc-277">Prohlédněte si zobrazení *index. cshtml* a `Index` metoda v kontroleru filmů.</span><span class="sxs-lookup"><span data-stu-id="fcabc-277">Examine the *Index.cshtml* view and the `Index` method in the Movies controller.</span></span> <span data-ttu-id="fcabc-278">Všimněte si, jak kód při volání metody `View` vytvoří objekt `List`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-278">Notice how the code creates a `List` object when it calls the `View` method.</span></span> <span data-ttu-id="fcabc-279">Kód předá tento seznam `Movies` z metody `Index` akce do zobrazení:</span><span class="sxs-lookup"><span data-stu-id="fcabc-279">The code passes this `Movies` list from the `Index` action method to the view:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_index)]
 
-<span data-ttu-id="aee29-280">Po vytvoření kontroleru filmů zahrnuje generování uživatelského rozhraní následující příkaz `@model` v horní části souboru *index. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="aee29-280">When the movies controller was created, scaffolding included the following `@model` statement at the top of the *Index.cshtml* file:</span></span>
+<span data-ttu-id="fcabc-280">Po vytvoření kontroleru filmů zahrnuje generování uživatelského rozhraní následující příkaz `@model` v horní části souboru *index. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="fcabc-280">When the movies controller was created, scaffolding included the following `@model` statement at the top of the *Index.cshtml* file:</span></span>
 
 <!-- Copy Index.cshtml to IndexOriginal.cshtml -->
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?range=1)]
 
-<span data-ttu-id="aee29-281">Direktiva `@model` umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení, pomocí silně typovaného objektu `Model`.</span><span class="sxs-lookup"><span data-stu-id="aee29-281">The `@model` directive allows you to access the list of movies that the controller passed to the view by using a `Model` object that's strongly typed.</span></span> <span data-ttu-id="aee29-282">Například v zobrazení *index. cshtml* kód cykly projde pomocí příkazu `foreach` v rámci silně typovaného `Model` objektu:</span><span class="sxs-lookup"><span data-stu-id="aee29-282">For example, in the *Index.cshtml* view, the code loops through the movies with a `foreach` statement over the strongly typed `Model` object:</span></span>
+<span data-ttu-id="fcabc-281">Direktiva `@model` umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení, pomocí silně typovaného objektu `Model`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-281">The `@model` directive allows you to access the list of movies that the controller passed to the view by using a `Model` object that's strongly typed.</span></span> <span data-ttu-id="fcabc-282">Například v zobrazení *index. cshtml* kód cykly projde pomocí příkazu `foreach` v rámci silně typovaného `Model` objektu:</span><span class="sxs-lookup"><span data-stu-id="fcabc-282">For example, in the *Index.cshtml* view, the code loops through the movies with a `foreach` statement over the strongly typed `Model` object:</span></span>
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?highlight=1,31,34,37,40,43,46-48)]
 
-<span data-ttu-id="aee29-283">Vzhledem k tomu, že objekt `Model` je silného typu (jako objekt `IEnumerable<Movie>`), jsou všechny položky ve smyčce zadány jako `Movie`.</span><span class="sxs-lookup"><span data-stu-id="aee29-283">Because the `Model` object is strongly typed (as an `IEnumerable<Movie>` object), each item in the loop is typed as `Movie`.</span></span> <span data-ttu-id="aee29-284">Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu.</span><span class="sxs-lookup"><span data-stu-id="aee29-284">Among other benefits, this means that you get compile time checking of the code.</span></span>
+<span data-ttu-id="fcabc-283">Vzhledem k tomu, že objekt `Model` je silného typu (jako objekt `IEnumerable<Movie>`), jsou všechny položky ve smyčce zadány jako `Movie`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-283">Because the `Model` object is strongly typed (as an `IEnumerable<Movie>` object), each item in the loop is typed as `Movie`.</span></span> <span data-ttu-id="fcabc-284">Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-284">Among other benefits, this means that you get compile time checking of the code.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="aee29-285">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="aee29-285">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="fcabc-285">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="fcabc-285">Additional resources</span></span>
 
-* [<span data-ttu-id="aee29-286">Pomocné rutiny značek</span><span class="sxs-lookup"><span data-stu-id="aee29-286">Tag Helpers</span></span>](xref:mvc/views/tag-helpers/intro)
-* [<span data-ttu-id="aee29-287">Globalizace a lokalizace</span><span class="sxs-lookup"><span data-stu-id="aee29-287">Globalization and localization</span></span>](xref:fundamentals/localization)
+* [<span data-ttu-id="fcabc-286">Pomocné rutiny značek</span><span class="sxs-lookup"><span data-stu-id="fcabc-286">Tag Helpers</span></span>](xref:mvc/views/tag-helpers/intro)
+* [<span data-ttu-id="fcabc-287">Globalizace a lokalizace</span><span class="sxs-lookup"><span data-stu-id="fcabc-287">Globalization and localization</span></span>](xref:fundamentals/localization)
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="aee29-288">[Předchozí přidání zobrazení](adding-view.md)
-> [Další práce s SQL](working-with-sql.md)</span><span class="sxs-lookup"><span data-stu-id="aee29-288">[Previous Adding a View](adding-view.md)
+> <span data-ttu-id="fcabc-288">[Předchozí přidání zobrazení](adding-view.md)
+> [Další práce s SQL](working-with-sql.md)</span><span class="sxs-lookup"><span data-stu-id="fcabc-288">[Previous Adding a View](adding-view.md)
 [Next Working with SQL](working-with-sql.md)</span></span>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-## <a name="add-a-data-model-class"></a><span data-ttu-id="aee29-289">Přidat třídu datového modelu</span><span class="sxs-lookup"><span data-stu-id="aee29-289">Add a data model class</span></span>
+## <a name="add-a-data-model-class"></a><span data-ttu-id="fcabc-289">Přidat třídu datového modelu</span><span class="sxs-lookup"><span data-stu-id="fcabc-289">Add a data model class</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-290">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-290">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-290">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-290">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="aee29-291">Klikněte pravým tlačítkem na složku *modely* > **Přidat** **třídu** > .</span><span class="sxs-lookup"><span data-stu-id="aee29-291">Right-click the *Models* folder > **Add** > **Class**.</span></span> <span data-ttu-id="aee29-292">Pojmenujte **film**třídy.</span><span class="sxs-lookup"><span data-stu-id="aee29-292">Name the class **Movie**.</span></span>
+<span data-ttu-id="fcabc-291">Klikněte pravým tlačítkem na složku *modely* > **Přidat** **třídu** > .</span><span class="sxs-lookup"><span data-stu-id="fcabc-291">Right-click the *Models* folder > **Add** > **Class**.</span></span> <span data-ttu-id="fcabc-292">Pojmenujte **film**třídy.</span><span class="sxs-lookup"><span data-stu-id="fcabc-292">Name the class **Movie**.</span></span>
 
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-293">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-293">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-293">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-293">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-* <span data-ttu-id="aee29-294">Přidejte třídu do složky *modely* s názvem *Movie.cs*.</span><span class="sxs-lookup"><span data-stu-id="aee29-294">Add a class to the *Models* folder named *Movie.cs*.</span></span>
+* <span data-ttu-id="fcabc-294">Přidejte třídu do složky *modely* s názvem *Movie.cs*.</span><span class="sxs-lookup"><span data-stu-id="fcabc-294">Add a class to the *Models* folder named *Movie.cs*.</span></span>
 
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 [!INCLUDE [model 2](~/includes/mvc-intro/model2.md)]
 
 ---
 
-## <a name="scaffold-the-movie-model"></a><span data-ttu-id="aee29-295">Vygenerované uživatelské rozhraní Video modelu</span><span class="sxs-lookup"><span data-stu-id="aee29-295">Scaffold the movie model</span></span>
+## <a name="scaffold-the-movie-model"></a><span data-ttu-id="fcabc-295">Vygenerované uživatelské rozhraní Video modelu</span><span class="sxs-lookup"><span data-stu-id="fcabc-295">Scaffold the movie model</span></span>
 
-<span data-ttu-id="aee29-296">V této části je automaticky generovaný model video.</span><span class="sxs-lookup"><span data-stu-id="aee29-296">In this section, the movie model is scaffolded.</span></span> <span data-ttu-id="aee29-297">To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.</span><span class="sxs-lookup"><span data-stu-id="aee29-297">That is, the scaffolding tool produces pages for Create, Read, Update, and Delete (CRUD) operations for the movie model.</span></span>
+<span data-ttu-id="fcabc-296">V této části je automaticky generovaný model video.</span><span class="sxs-lookup"><span data-stu-id="fcabc-296">In this section, the movie model is scaffolded.</span></span> <span data-ttu-id="fcabc-297">To znamená vytvoří nástroj pro generování uživatelského rozhraní stránky pro operace vytvoření, čtení, aktualizace a odstranění (CRUD) pro model video.</span><span class="sxs-lookup"><span data-stu-id="fcabc-297">That is, the scaffolding tool produces pages for Create, Read, Update, and Delete (CRUD) operations for the movie model.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-298">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-298">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-298">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-298">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="aee29-299">V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku *Controllers* **> přidat > novou vygenerované položky**.</span><span class="sxs-lookup"><span data-stu-id="aee29-299">In **Solution Explorer**, right-click the *Controllers* folder **> Add > New Scaffolded Item**.</span></span>
+<span data-ttu-id="fcabc-299">V **Průzkumník řešení**klikněte pravým tlačítkem myši na složku *Controllers* **> přidat > novou vygenerované položky**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-299">In **Solution Explorer**, right-click the *Controllers* folder **> Add > New Scaffolded Item**.</span></span>
 
 ![zobrazení výše uvedeného kroku](adding-model/_static/add_controller21.png)
 
-<span data-ttu-id="aee29-301">V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte **kontroler MVC se zobrazeními a pomocí Entity Framework > Přidat**.</span><span class="sxs-lookup"><span data-stu-id="aee29-301">In the **Add Scaffold** dialog, select **MVC Controller with views, using Entity Framework > Add**.</span></span>
+<span data-ttu-id="fcabc-301">V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte **kontroler MVC se zobrazeními a pomocí Entity Framework > Přidat**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-301">In the **Add Scaffold** dialog, select **MVC Controller with views, using Entity Framework > Add**.</span></span>
 
 ![Dialogové okno Přidat generování uživatelského rozhraní](adding-model/_static/add_scaffold21.png)
 
-<span data-ttu-id="aee29-303">Dokončete dialog **Přidat řadič** :</span><span class="sxs-lookup"><span data-stu-id="aee29-303">Complete the **Add Controller** dialog:</span></span>
+<span data-ttu-id="fcabc-303">Dokončete dialog **Přidat řadič** :</span><span class="sxs-lookup"><span data-stu-id="fcabc-303">Complete the **Add Controller** dialog:</span></span>
 
-* <span data-ttu-id="aee29-304">**Třída modelu:** *video (MvcMovie. Models)*</span><span class="sxs-lookup"><span data-stu-id="aee29-304">**Model class:** *Movie (MvcMovie.Models)*</span></span>
-* <span data-ttu-id="aee29-305">**Třída kontextu dat:** Vyberte ikonu **+** a přidejte výchozí **MvcMovie. Models. MvcMovieContext** .</span><span class="sxs-lookup"><span data-stu-id="aee29-305">**Data context class:** Select the **+** icon and add the default **MvcMovie.Models.MvcMovieContext**</span></span>
+* <span data-ttu-id="fcabc-304">**Třída modelu:** *video (MvcMovie. Models)*</span><span class="sxs-lookup"><span data-stu-id="fcabc-304">**Model class:** *Movie (MvcMovie.Models)*</span></span>
+* <span data-ttu-id="fcabc-305">**Třída kontextu dat:** Vyberte ikonu **+** a přidejte výchozí **MvcMovie. Models. MvcMovieContext** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-305">**Data context class:** Select the **+** icon and add the default **MvcMovie.Models.MvcMovieContext**</span></span>
 
 ![Přidat kontext dat](adding-model/_static/dc.png)
 
-* <span data-ttu-id="aee29-307">**Zobrazení:** Ponechte výchozí hodnotu u každé zaškrtnuté možnosti.</span><span class="sxs-lookup"><span data-stu-id="aee29-307">**Views:** Keep the default of each option checked</span></span>
-* <span data-ttu-id="aee29-308">**Název kontroleru:** Zachovat výchozí *MoviesController*</span><span class="sxs-lookup"><span data-stu-id="aee29-308">**Controller name:** Keep the default *MoviesController*</span></span>
-* <span data-ttu-id="aee29-309">Vyberte **Přidat**.</span><span class="sxs-lookup"><span data-stu-id="aee29-309">Select **Add**</span></span>
+* <span data-ttu-id="fcabc-307">**Zobrazení:** Ponechte výchozí hodnotu u každé zaškrtnuté možnosti.</span><span class="sxs-lookup"><span data-stu-id="fcabc-307">**Views:** Keep the default of each option checked</span></span>
+* <span data-ttu-id="fcabc-308">**Název kontroleru:** Zachovat výchozí *MoviesController*</span><span class="sxs-lookup"><span data-stu-id="fcabc-308">**Controller name:** Keep the default *MoviesController*</span></span>
+* <span data-ttu-id="fcabc-309">Vyberte **Přidat**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-309">Select **Add**</span></span>
 
 ![Dialogové okno Přidat řadič](adding-model/_static/add_controller2.png)
 
-<span data-ttu-id="aee29-311">Visual Studio vytvoří:</span><span class="sxs-lookup"><span data-stu-id="aee29-311">Visual Studio creates:</span></span>
+<span data-ttu-id="fcabc-311">Visual Studio vytvoří:</span><span class="sxs-lookup"><span data-stu-id="fcabc-311">Visual Studio creates:</span></span>
 
-* <span data-ttu-id="aee29-312">[Třída kontextu databáze](xref:data/ef-mvc/intro#create-the-database-context) Entity Framework Core (*data/MvcMovieContext. cs*)</span><span class="sxs-lookup"><span data-stu-id="aee29-312">An Entity Framework Core [database context class](xref:data/ef-mvc/intro#create-the-database-context) (*Data/MvcMovieContext.cs*)</span></span>
-* <span data-ttu-id="aee29-313">Řadič filmů (*Controllers/MoviesController. cs*)</span><span class="sxs-lookup"><span data-stu-id="aee29-313">A movies controller (*Controllers/MoviesController.cs*)</span></span>
-* <span data-ttu-id="aee29-314">Soubory zobrazení Razor pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/\*. cshtml*)</span><span class="sxs-lookup"><span data-stu-id="aee29-314">Razor view files for Create, Delete, Details, Edit, and Index pages (*Views/Movies/\*.cshtml*)</span></span>
+* <span data-ttu-id="fcabc-312">[Třída kontextu databáze](xref:data/ef-mvc/intro#create-the-database-context) Entity Framework Core (*data/MvcMovieContext. cs*)</span><span class="sxs-lookup"><span data-stu-id="fcabc-312">An Entity Framework Core [database context class](xref:data/ef-mvc/intro#create-the-database-context) (*Data/MvcMovieContext.cs*)</span></span>
+* <span data-ttu-id="fcabc-313">Řadič filmů (*Controllers/MoviesController. cs*)</span><span class="sxs-lookup"><span data-stu-id="fcabc-313">A movies controller (*Controllers/MoviesController.cs*)</span></span>
+* <span data-ttu-id="fcabc-314">Soubory zobrazení Razor pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/\*. cshtml*)</span><span class="sxs-lookup"><span data-stu-id="fcabc-314">Razor view files for Create, Delete, Details, Edit, and Index pages (*Views/Movies/\*.cshtml*)</span></span>
 
-<span data-ttu-id="aee29-315">K automatickému vytvoření kontextu databáze a operací [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (vytvoření, čtení, aktualizace a odstranění) se říká *generování uživatelského rozhraní*.</span><span class="sxs-lookup"><span data-stu-id="aee29-315">The automatic creation of the database context and [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (create, read, update, and delete) action methods and views is known as *scaffolding*.</span></span>
+<span data-ttu-id="fcabc-315">K automatickému vytvoření kontextu databáze a operací [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (vytvoření, čtení, aktualizace a odstranění) se říká *generování uživatelského rozhraní*.</span><span class="sxs-lookup"><span data-stu-id="fcabc-315">The automatic creation of the database context and [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (create, read, update, and delete) action methods and views is known as *scaffolding*.</span></span>
 
-# <a name="visual-studio-code"></a>[<span data-ttu-id="aee29-316">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="aee29-316">Visual Studio Code</span></span>](#tab/visual-studio-code)
+# <a name="visual-studio-code"></a>[<span data-ttu-id="fcabc-316">Visual Studio Code</span><span class="sxs-lookup"><span data-stu-id="fcabc-316">Visual Studio Code</span></span>](#tab/visual-studio-code)
 
 <!--  Until https://github.com/aspnet/Scaffolding/issues/582 is fixed windows needs backslash or the namespace is namespace RazorPagesMovie.Pages_Movies rather than namespace RazorPagesMovie.Pages.Movies
 -->
 
-* <span data-ttu-id="aee29-317">Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).</span><span class="sxs-lookup"><span data-stu-id="aee29-317">Open a command window in the project directory (The directory that contains the *Program.cs*, *Startup.cs*, and *.csproj* files).</span></span>
-* <span data-ttu-id="aee29-318">Nainstalujte nástroj pro generování uživatelského rozhraní:</span><span class="sxs-lookup"><span data-stu-id="aee29-318">Install the scaffolding tool:</span></span>
+* <span data-ttu-id="fcabc-317">Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).</span><span class="sxs-lookup"><span data-stu-id="fcabc-317">Open a command window in the project directory (The directory that contains the *Program.cs*, *Startup.cs*, and *.csproj* files).</span></span>
+* <span data-ttu-id="fcabc-318">Nainstalujte nástroj pro generování uživatelského rozhraní:</span><span class="sxs-lookup"><span data-stu-id="fcabc-318">Install the scaffolding tool:</span></span>
 
   ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* <span data-ttu-id="aee29-319">V systému Linux exportujte cestu k nástroji pro generování uživatelského rozhraní:</span><span class="sxs-lookup"><span data-stu-id="aee29-319">On Linux, export the scaffold tool path:</span></span>
+* <span data-ttu-id="fcabc-319">V systému Linux exportujte cestu k nástroji pro generování uživatelského rozhraní:</span><span class="sxs-lookup"><span data-stu-id="fcabc-319">On Linux, export the scaffold tool path:</span></span>
 
   ```console
     export PATH=$HOME/.dotnet/tools:$PATH
   ```
 
-* <span data-ttu-id="aee29-320">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="aee29-320">Run the following command:</span></span>
+* <span data-ttu-id="fcabc-320">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="fcabc-320">Run the following command:</span></span>
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -493,16 +493,16 @@ return View(movie);
 
 <!-- Mac -------------------------->
 
-# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="aee29-321">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-321">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
+# <a name="visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-321">Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-321">Visual Studio for Mac</span></span>](#tab/visual-studio-mac)
 
-* <span data-ttu-id="aee29-322">Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).</span><span class="sxs-lookup"><span data-stu-id="aee29-322">Open a command window in the project directory (The directory that contains the *Program.cs*, *Startup.cs*, and *.csproj* files).</span></span>
-* <span data-ttu-id="aee29-323">Nainstalujte nástroj pro generování uživatelského rozhraní:</span><span class="sxs-lookup"><span data-stu-id="aee29-323">Install the scaffolding tool:</span></span>
+* <span data-ttu-id="fcabc-322">Otevřete příkazové okno v adresáři projektu (adresář, který obsahuje soubory *program.cs*, *Startup.cs*a *. csproj* ).</span><span class="sxs-lookup"><span data-stu-id="fcabc-322">Open a command window in the project directory (The directory that contains the *Program.cs*, *Startup.cs*, and *.csproj* files).</span></span>
+* <span data-ttu-id="fcabc-323">Nainstalujte nástroj pro generování uživatelského rozhraní:</span><span class="sxs-lookup"><span data-stu-id="fcabc-323">Install the scaffolding tool:</span></span>
 
   ```dotnetcli
    dotnet tool install --global dotnet-aspnet-codegenerator
    ```
 
-* <span data-ttu-id="aee29-324">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="aee29-324">Run the following command:</span></span>
+* <span data-ttu-id="fcabc-324">Spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="fcabc-324">Run the following command:</span></span>
 
   ```dotnetcli
    dotnet aspnet-codegenerator controller -name MoviesController -m Movie -dc MvcMovieContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
@@ -514,9 +514,9 @@ return View(movie);
 
 <!-- End of VS tabs                  -->
 
-<span data-ttu-id="aee29-325">Pokud aplikaci spouštíte a kliknete na **filmový odkaz MVC** , zobrazí se chybová zpráva podobná následující:</span><span class="sxs-lookup"><span data-stu-id="aee29-325">If you run the app and click on the **Mvc Movie** link, you get an error similar to the following:</span></span>
+<span data-ttu-id="fcabc-325">Pokud aplikaci spouštíte a kliknete na **filmový odkaz MVC** , zobrazí se chybová zpráva podobná následující:</span><span class="sxs-lookup"><span data-stu-id="fcabc-325">If you run the app and click on the **Mvc Movie** link, you get an error similar to the following:</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-326">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-326">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-326">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-326">Visual Studio</span></span>](#tab/visual-studio)
 
 ```
 An unhandled exception occurred while processing the request.
@@ -527,7 +527,7 @@ Login failed for user 'Rick'.
 System.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString
 ```
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-327">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-327">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-327">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-327">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
 ```
 An unhandled exception occurred while processing the request.
@@ -538,185 +538,185 @@ Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(int rc, sqlite3 db)
 
 ---
 
-<span data-ttu-id="aee29-328">Musíte vytvořit databázi a k tomu použijte funkci [migrace](xref:data/ef-mvc/migrations) EF Core.</span><span class="sxs-lookup"><span data-stu-id="aee29-328">You need to create the database, and you use the EF Core [Migrations](xref:data/ef-mvc/migrations) feature to do that.</span></span> <span data-ttu-id="aee29-329">Migrace vám umožní vytvořit databázi, která odpovídá vašemu datovému modelu, a aktualizovat schéma databáze při změně datového modelu.</span><span class="sxs-lookup"><span data-stu-id="aee29-329">Migrations lets you create a database that matches your data model and update the database schema when your data model changes.</span></span>
+<span data-ttu-id="fcabc-328">Musíte vytvořit databázi a k tomu použijte funkci [migrace](xref:data/ef-mvc/migrations) EF Core.</span><span class="sxs-lookup"><span data-stu-id="fcabc-328">You need to create the database, and you use the EF Core [Migrations](xref:data/ef-mvc/migrations) feature to do that.</span></span> <span data-ttu-id="fcabc-329">Migrace vám umožní vytvořit databázi, která odpovídá vašemu datovému modelu, a aktualizovat schéma databáze při změně datového modelu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-329">Migrations lets you create a database that matches your data model and update the database schema when your data model changes.</span></span>
 
 <a name="pmc"></a>
 
-## <a name="initial-migration"></a><span data-ttu-id="aee29-330">Počáteční migraci</span><span class="sxs-lookup"><span data-stu-id="aee29-330">Initial migration</span></span>
+## <a name="initial-migration"></a><span data-ttu-id="fcabc-330">Počáteční migraci</span><span class="sxs-lookup"><span data-stu-id="fcabc-330">Initial migration</span></span>
 
-<span data-ttu-id="aee29-331">V této části jsou dokončeny následující úkoly:</span><span class="sxs-lookup"><span data-stu-id="aee29-331">In this section, the following tasks are completed:</span></span>
+<span data-ttu-id="fcabc-331">V této části jsou dokončeny následující úkoly:</span><span class="sxs-lookup"><span data-stu-id="fcabc-331">In this section, the following tasks are completed:</span></span>
 
-* <span data-ttu-id="aee29-332">Přidáte počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="aee29-332">Add an initial migration.</span></span>
-* <span data-ttu-id="aee29-333">Aktualizujte počáteční migraci databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-333">Update the database with the initial migration.</span></span>
+* <span data-ttu-id="fcabc-332">Přidáte počáteční migraci.</span><span class="sxs-lookup"><span data-stu-id="fcabc-332">Add an initial migration.</span></span>
+* <span data-ttu-id="fcabc-333">Aktualizujte počáteční migraci databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-333">Update the database with the initial migration.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-334">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-334">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-334">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-334">Visual Studio</span></span>](#tab/visual-studio)
 
-1. <span data-ttu-id="aee29-335">V nabídce **nástroje** vyberte **správce balíčků NuGet** > **konzolu Správce balíčků** (PMC).</span><span class="sxs-lookup"><span data-stu-id="aee29-335">From the **Tools** menu, select **NuGet Package Manager** > **Package Manager Console** (PMC).</span></span>
+1. <span data-ttu-id="fcabc-335">V nabídce **nástroje** vyberte **správce balíčků NuGet** > **konzolu Správce balíčků** (PMC).</span><span class="sxs-lookup"><span data-stu-id="fcabc-335">From the **Tools** menu, select **NuGet Package Manager** > **Package Manager Console** (PMC).</span></span>
 
    ![PMC nabídky](~/tutorials/first-mvc-app/adding-model/_static/pmc.png)
 
-1. <span data-ttu-id="aee29-337">V konzole PMC zadejte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="aee29-337">In the PMC, enter the following commands:</span></span>
+1. <span data-ttu-id="fcabc-337">V konzole PMC zadejte následující příkazy:</span><span class="sxs-lookup"><span data-stu-id="fcabc-337">In the PMC, enter the following commands:</span></span>
 
    ```powershell
    Add-Migration Initial
    Update-Database
    ```
 
-   <span data-ttu-id="aee29-338">Příkaz `Add-Migration` generuje kód pro vytvoření počátečního schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-338">The `Add-Migration` command generates code to create the initial database schema.</span></span>
+   <span data-ttu-id="fcabc-338">Příkaz `Add-Migration` generuje kód pro vytvoření počátečního schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-338">The `Add-Migration` command generates code to create the initial database schema.</span></span>
 
-   <span data-ttu-id="aee29-339">Schéma databáze je založené na modelu určeném ve třídě `MvcMovieContext`.</span><span class="sxs-lookup"><span data-stu-id="aee29-339">The database schema is based on the model specified in the `MvcMovieContext` class.</span></span> <span data-ttu-id="aee29-340">Argument `Initial` je název migrace.</span><span class="sxs-lookup"><span data-stu-id="aee29-340">The `Initial` argument is the migration name.</span></span> <span data-ttu-id="aee29-341">Můžete použít libovolný název, ale podle konvence se použije název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="aee29-341">Any name can be used, but by convention, a name that describes the migration is used.</span></span> <span data-ttu-id="aee29-342">Další informace naleznete v tématu <xref:data/ef-mvc/migrations>.</span><span class="sxs-lookup"><span data-stu-id="aee29-342">For more information, see <xref:data/ef-mvc/migrations>.</span></span>
+   <span data-ttu-id="fcabc-339">Schéma databáze je založené na modelu určeném ve třídě `MvcMovieContext`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-339">The database schema is based on the model specified in the `MvcMovieContext` class.</span></span> <span data-ttu-id="fcabc-340">Argument `Initial` je název migrace.</span><span class="sxs-lookup"><span data-stu-id="fcabc-340">The `Initial` argument is the migration name.</span></span> <span data-ttu-id="fcabc-341">Můžete použít libovolný název, ale podle konvence se použije název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="fcabc-341">Any name can be used, but by convention, a name that describes the migration is used.</span></span> <span data-ttu-id="fcabc-342">Další informace naleznete v tématu <xref:data/ef-mvc/migrations>.</span><span class="sxs-lookup"><span data-stu-id="fcabc-342">For more information, see <xref:data/ef-mvc/migrations>.</span></span>
 
-   <span data-ttu-id="aee29-343">Příkaz `Update-Database` spustí metodu `Up` v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-343">The `Update-Database` command runs the `Up` method in the *Migrations/{time-stamp}_InitialCreate.cs* file, which creates the database.</span></span>
+   <span data-ttu-id="fcabc-343">Příkaz `Update-Database` spustí metodu `Up` v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-343">The `Update-Database` command runs the `Up` method in the *Migrations/{time-stamp}_InitialCreate.cs* file, which creates the database.</span></span>
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-344">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-344">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-344">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-344">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
-<span data-ttu-id="aee29-345">Příkaz `ef migrations add InitialCreate` generuje kód pro vytvoření počátečního schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-345">The `ef migrations add InitialCreate` command generates code to create the initial database schema.</span></span>
+<span data-ttu-id="fcabc-345">Příkaz `ef migrations add InitialCreate` generuje kód pro vytvoření počátečního schématu databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-345">The `ef migrations add InitialCreate` command generates code to create the initial database schema.</span></span>
 
-<span data-ttu-id="aee29-346">Schéma databáze je založené na modelu určeném ve třídě `MvcMovieContext` (v souboru *data/MvcMovieContext. cs* ).</span><span class="sxs-lookup"><span data-stu-id="aee29-346">The database schema is based on the model specified in the `MvcMovieContext` class (in the *Data/MvcMovieContext.cs* file).</span></span> <span data-ttu-id="aee29-347">Argument `InitialCreate` je název migrace.</span><span class="sxs-lookup"><span data-stu-id="aee29-347">The `InitialCreate` argument is the migration name.</span></span> <span data-ttu-id="aee29-348">Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="aee29-348">Any name can be used, but by convention, a name is selected that describes the migration.</span></span>
+<span data-ttu-id="fcabc-346">Schéma databáze je založené na modelu určeném ve třídě `MvcMovieContext` (v souboru *data/MvcMovieContext. cs* ).</span><span class="sxs-lookup"><span data-stu-id="fcabc-346">The database schema is based on the model specified in the `MvcMovieContext` class (in the *Data/MvcMovieContext.cs* file).</span></span> <span data-ttu-id="fcabc-347">Argument `InitialCreate` je název migrace.</span><span class="sxs-lookup"><span data-stu-id="fcabc-347">The `InitialCreate` argument is the migration name.</span></span> <span data-ttu-id="fcabc-348">Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.</span><span class="sxs-lookup"><span data-stu-id="fcabc-348">Any name can be used, but by convention, a name is selected that describes the migration.</span></span>
 
 ---
 
-## <a name="examine-the-context-registered-with-dependency-injection"></a><span data-ttu-id="aee29-349">Prozkoumání kontextu registrovaný pomocí vkládání závislostí</span><span class="sxs-lookup"><span data-stu-id="aee29-349">Examine the context registered with dependency injection</span></span>
+## <a name="examine-the-context-registered-with-dependency-injection"></a><span data-ttu-id="fcabc-349">Prozkoumání kontextu registrovaný pomocí vkládání závislostí</span><span class="sxs-lookup"><span data-stu-id="fcabc-349">Examine the context registered with dependency injection</span></span>
 
-<span data-ttu-id="aee29-350">ASP.NET Core je sestaven s [vkládáním závislostí (di)](xref:fundamentals/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="aee29-350">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="aee29-351">Služby (například kontext EF Core DB) jsou během spuštění aplikace zaregistrované v DI.</span><span class="sxs-lookup"><span data-stu-id="aee29-351">Services (such as the EF Core DB context) are registered with DI during application startup.</span></span> <span data-ttu-id="aee29-352">Komponenty, které vyžadují tyto služby (například stránky Razor) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru.</span><span class="sxs-lookup"><span data-stu-id="aee29-352">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="aee29-353">Později v tomto kurzu se zobrazí kód konstruktor, který získá instanci kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="aee29-353">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span>
+<span data-ttu-id="fcabc-350">ASP.NET Core je sestaven s [vkládáním závislostí (di)](xref:fundamentals/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="fcabc-350">ASP.NET Core is built with [dependency injection (DI)](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="fcabc-351">Služby (například kontext EF Core DB) jsou během spuštění aplikace zaregistrované v DI.</span><span class="sxs-lookup"><span data-stu-id="fcabc-351">Services (such as the EF Core DB context) are registered with DI during application startup.</span></span> <span data-ttu-id="fcabc-352">Komponenty, které vyžadují tyto služby (například stránky Razor) jsou k dispozici tyto služby prostřednictvím parametry konstruktoru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-352">Components that require these services (such as Razor Pages) are provided these services via constructor parameters.</span></span> <span data-ttu-id="fcabc-353">Později v tomto kurzu se zobrazí kód konstruktor, který získá instanci kontext databáze.</span><span class="sxs-lookup"><span data-stu-id="fcabc-353">The constructor code that gets a DB context instance is shown later in the tutorial.</span></span>
 
-# <a name="visual-studio"></a>[<span data-ttu-id="aee29-354">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aee29-354">Visual Studio</span></span>](#tab/visual-studio)
+# <a name="visual-studio"></a>[<span data-ttu-id="fcabc-354">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="fcabc-354">Visual Studio</span></span>](#tab/visual-studio)
 
-<span data-ttu-id="aee29-355">Nástroj pro generování uživatelského rozhraní automaticky vytvořil kontext databáze a zaregistroval ho pomocí kontejneru DI.</span><span class="sxs-lookup"><span data-stu-id="aee29-355">The scaffolding tool automatically created a DB context and registered it with the DI container.</span></span>
+<span data-ttu-id="fcabc-355">Nástroj pro generování uživatelského rozhraní automaticky vytvořil kontext databáze a zaregistroval ho pomocí kontejneru DI.</span><span class="sxs-lookup"><span data-stu-id="fcabc-355">The scaffolding tool automatically created a DB context and registered it with the DI container.</span></span>
 
-<span data-ttu-id="aee29-356">Projděte si následující metodu `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="aee29-356">Examine the following `Startup.ConfigureServices` method.</span></span> <span data-ttu-id="aee29-357">Zvýrazněný řádek byl přidán modulem scaffolder:</span><span class="sxs-lookup"><span data-stu-id="aee29-357">The highlighted line was added by the scaffolder:</span></span>
+<span data-ttu-id="fcabc-356">Projděte si následující metodu `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-356">Examine the following `Startup.ConfigureServices` method.</span></span> <span data-ttu-id="fcabc-357">Zvýrazněný řádek byl přidán modulem scaffolder:</span><span class="sxs-lookup"><span data-stu-id="fcabc-357">The highlighted line was added by the scaffolder:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=14-15)]
 
-<span data-ttu-id="aee29-358">`MvcMovieContext` koordinuje funkce EF Core (vytváření, čtení, aktualizace, odstranění atd.) pro model `Movie`.</span><span class="sxs-lookup"><span data-stu-id="aee29-358">The `MvcMovieContext` coordinates EF Core functionality (Create, Read, Update, Delete, etc.) for the `Movie` model.</span></span> <span data-ttu-id="aee29-359">Kontext dat (`MvcMovieContext`) je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext).</span><span class="sxs-lookup"><span data-stu-id="aee29-359">The data context (`MvcMovieContext`) is derived from [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext).</span></span> <span data-ttu-id="aee29-360">Kontext dat určuje, které entity jsou v datovém modelu zahrnuté:</span><span class="sxs-lookup"><span data-stu-id="aee29-360">The data context specifies which entities are included in the data model:</span></span>
+<span data-ttu-id="fcabc-358">`MvcMovieContext` koordinuje funkce EF Core (vytváření, čtení, aktualizace, odstranění atd.) pro model `Movie`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-358">The `MvcMovieContext` coordinates EF Core functionality (Create, Read, Update, Delete, etc.) for the `Movie` model.</span></span> <span data-ttu-id="fcabc-359">Kontext dat (`MvcMovieContext`) je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext).</span><span class="sxs-lookup"><span data-stu-id="fcabc-359">The data context (`MvcMovieContext`) is derived from [Microsoft.EntityFrameworkCore.DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext).</span></span> <span data-ttu-id="fcabc-360">Kontext dat určuje, které entity jsou v datovém modelu zahrnuté:</span><span class="sxs-lookup"><span data-stu-id="fcabc-360">The data context specifies which entities are included in the data model:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Data/MvcMovieContext.cs)]
 
-<span data-ttu-id="aee29-361">Předchozí kód vytvoří vlastnost [negenerickými\<Movie >](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit.</span><span class="sxs-lookup"><span data-stu-id="aee29-361">The preceding code creates a [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) property for the entity set.</span></span> <span data-ttu-id="aee29-362">Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky.</span><span class="sxs-lookup"><span data-stu-id="aee29-362">In Entity Framework terminology, an entity set typically corresponds to a database table.</span></span> <span data-ttu-id="aee29-363">Entita odpovídající řádek v tabulce.</span><span class="sxs-lookup"><span data-stu-id="aee29-363">An entity corresponds to a row in the table.</span></span>
+<span data-ttu-id="fcabc-361">Předchozí kód vytvoří vlastnost [negenerickými\<Movie >](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit.</span><span class="sxs-lookup"><span data-stu-id="fcabc-361">The preceding code creates a [DbSet\<Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) property for the entity set.</span></span> <span data-ttu-id="fcabc-362">Terminologie Entity Framework obvykle sadu entit odpovídá databázové tabulky.</span><span class="sxs-lookup"><span data-stu-id="fcabc-362">In Entity Framework terminology, an entity set typically corresponds to a database table.</span></span> <span data-ttu-id="fcabc-363">Entita odpovídající řádek v tabulce.</span><span class="sxs-lookup"><span data-stu-id="fcabc-363">An entity corresponds to a row in the table.</span></span>
 
-<span data-ttu-id="aee29-364">Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) .</span><span class="sxs-lookup"><span data-stu-id="aee29-364">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="aee29-365">Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="aee29-365">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
+<span data-ttu-id="fcabc-364">Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) .</span><span class="sxs-lookup"><span data-stu-id="fcabc-364">The name of the connection string is passed in to the context by calling a method on a [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) object.</span></span> <span data-ttu-id="fcabc-365">Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="fcabc-365">For local development, the [ASP.NET Core configuration system](xref:fundamentals/configuration/index) reads the connection string from the *appsettings.json* file.</span></span>
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="aee29-366">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="aee29-366">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[<span data-ttu-id="fcabc-366">Visual Studio Code/Visual Studio pro Mac</span><span class="sxs-lookup"><span data-stu-id="fcabc-366">Visual Studio Code / Visual Studio for Mac</span></span>](#tab/visual-studio-code+visual-studio-mac)
 
-<span data-ttu-id="aee29-367">Vytvořili jste kontext databáze a zaregistrovali jej pomocí kontejneru DI.</span><span class="sxs-lookup"><span data-stu-id="aee29-367">You created a DB context and registered it with the DI container.</span></span>
+<span data-ttu-id="fcabc-367">Vytvořili jste kontext databáze a zaregistrovali jej pomocí kontejneru DI.</span><span class="sxs-lookup"><span data-stu-id="fcabc-367">You created a DB context and registered it with the DI container.</span></span>
 
 ---
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a><span data-ttu-id="aee29-368">Otestování aplikace</span><span class="sxs-lookup"><span data-stu-id="aee29-368">Test the app</span></span>
+### <a name="test-the-app"></a><span data-ttu-id="fcabc-368">Otestování aplikace</span><span class="sxs-lookup"><span data-stu-id="fcabc-368">Test the app</span></span>
 
-* <span data-ttu-id="aee29-369">Spusťte aplikaci a přidejte `/Movies` k adrese URL v prohlížeči (`http://localhost:port/movies`).</span><span class="sxs-lookup"><span data-stu-id="aee29-369">Run the app and append `/Movies` to the URL in the browser (`http://localhost:port/movies`).</span></span>
+* <span data-ttu-id="fcabc-369">Spusťte aplikaci a přidejte `/Movies` k adrese URL v prohlížeči (`http://localhost:port/movies`).</span><span class="sxs-lookup"><span data-stu-id="fcabc-369">Run the app and append `/Movies` to the URL in the browser (`http://localhost:port/movies`).</span></span>
 
-<span data-ttu-id="aee29-370">Pokud získáte výjimku databáze podobnou následující:</span><span class="sxs-lookup"><span data-stu-id="aee29-370">If you get a database exception similar to the following:</span></span>
+<span data-ttu-id="fcabc-370">Pokud získáte výjimku databáze podobnou následující:</span><span class="sxs-lookup"><span data-stu-id="fcabc-370">If you get a database exception similar to the following:</span></span>
 
 ```console
 SqlException: Cannot open database "MvcMovieContext-GUID" requested by the login. The login failed.
 Login failed for user 'User-name'.
 ```
 
-<span data-ttu-id="aee29-371">Nezmeškali jste [Krok migrace](#pmc).</span><span class="sxs-lookup"><span data-stu-id="aee29-371">You missed the [migrations step](#pmc).</span></span>
+<span data-ttu-id="fcabc-371">Nezmeškali jste [Krok migrace](#pmc).</span><span class="sxs-lookup"><span data-stu-id="fcabc-371">You missed the [migrations step](#pmc).</span></span>
 
-* <span data-ttu-id="aee29-372">Otestujte odkaz pro **Vytvoření** .</span><span class="sxs-lookup"><span data-stu-id="aee29-372">Test the **Create** link.</span></span> <span data-ttu-id="aee29-373">Zadejte a odešlete data.</span><span class="sxs-lookup"><span data-stu-id="aee29-373">Enter and submit data.</span></span>
+* <span data-ttu-id="fcabc-372">Otestujte odkaz pro **Vytvoření** .</span><span class="sxs-lookup"><span data-stu-id="fcabc-372">Test the **Create** link.</span></span> <span data-ttu-id="fcabc-373">Zadejte a odešlete data.</span><span class="sxs-lookup"><span data-stu-id="fcabc-373">Enter and submit data.</span></span>
 
   > [!NOTE]
-  > <span data-ttu-id="aee29-374">V poli `Price` možná nebudete moct zadat desítkové čárky.</span><span class="sxs-lookup"><span data-stu-id="aee29-374">You may not be able to enter decimal commas in the `Price` field.</span></span> <span data-ttu-id="aee29-375">Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální.</span><span class="sxs-lookup"><span data-stu-id="aee29-375">To support [jQuery validation](https://jqueryvalidation.org/) for non-English locales that use a comma (",") for a decimal point and for non US-English date formats, the app must be globalized.</span></span> <span data-ttu-id="aee29-376">Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).</span><span class="sxs-lookup"><span data-stu-id="aee29-376">For globalization instructions, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).</span></span>
+  > <span data-ttu-id="fcabc-374">V poli `Price` možná nebudete moct zadat desítkové čárky.</span><span class="sxs-lookup"><span data-stu-id="fcabc-374">You may not be able to enter decimal commas in the `Price` field.</span></span> <span data-ttu-id="fcabc-375">Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální.</span><span class="sxs-lookup"><span data-stu-id="fcabc-375">To support [jQuery validation](https://jqueryvalidation.org/) for non-English locales that use a comma (",") for a decimal point and for non US-English date formats, the app must be globalized.</span></span> <span data-ttu-id="fcabc-376">Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).</span><span class="sxs-lookup"><span data-stu-id="fcabc-376">For globalization instructions, see [this GitHub issue](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).</span></span>
 
-* <span data-ttu-id="aee29-377">Otestujte odkazy **Upravit**, **Podrobnosti** a **Odstranit**.</span><span class="sxs-lookup"><span data-stu-id="aee29-377">Test the **Edit**, **Details**, and **Delete** links.</span></span>
+* <span data-ttu-id="fcabc-377">Otestujte odkazy **Upravit**, **Podrobnosti** a **Odstranit**.</span><span class="sxs-lookup"><span data-stu-id="fcabc-377">Test the **Edit**, **Details**, and **Delete** links.</span></span>
 
-<span data-ttu-id="aee29-378">Projděte si třídu `Startup`:</span><span class="sxs-lookup"><span data-stu-id="aee29-378">Examine the `Startup` class:</span></span>
+<span data-ttu-id="fcabc-378">Projděte si třídu `Startup`:</span><span class="sxs-lookup"><span data-stu-id="fcabc-378">Examine the `Startup` class:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=13-99)]
 
-<span data-ttu-id="aee29-379">Předchozí zvýrazněný kód ukazuje kontext databáze filmů přidaný do kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) :</span><span class="sxs-lookup"><span data-stu-id="aee29-379">The preceding highlighted code shows the movie database context being added to the [Dependency Injection](xref:fundamentals/dependency-injection) container:</span></span>
+<span data-ttu-id="fcabc-379">Předchozí zvýrazněný kód ukazuje kontext databáze filmů přidaný do kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) :</span><span class="sxs-lookup"><span data-stu-id="fcabc-379">The preceding highlighted code shows the movie database context being added to the [Dependency Injection](xref:fundamentals/dependency-injection) container:</span></span>
 
-* <span data-ttu-id="aee29-380">`services.AddDbContext<MvcMovieContext>(options =>` Určuje databázi, která se má použít, a připojovací řetězec.</span><span class="sxs-lookup"><span data-stu-id="aee29-380">`services.AddDbContext<MvcMovieContext>(options =>` specifies the database to use and the connection string.</span></span>
-* <span data-ttu-id="aee29-381">`=>` je [operátor lambda](/dotnet/articles/csharp/language-reference/operators/lambda-operator)</span><span class="sxs-lookup"><span data-stu-id="aee29-381">`=>` is a [lambda operator](/dotnet/articles/csharp/language-reference/operators/lambda-operator)</span></span>
+* <span data-ttu-id="fcabc-380">`services.AddDbContext<MvcMovieContext>(options =>` Určuje databázi, která se má použít, a připojovací řetězec.</span><span class="sxs-lookup"><span data-stu-id="fcabc-380">`services.AddDbContext<MvcMovieContext>(options =>` specifies the database to use and the connection string.</span></span>
+* <span data-ttu-id="fcabc-381">`=>` je [operátor lambda](/dotnet/articles/csharp/language-reference/operators/lambda-operator)</span><span class="sxs-lookup"><span data-stu-id="fcabc-381">`=>` is a [lambda operator](/dotnet/articles/csharp/language-reference/operators/lambda-operator)</span></span>
 
-<span data-ttu-id="aee29-382">Otevřete soubor *Controllers/MoviesController. cs* a prověřte konstruktor:</span><span class="sxs-lookup"><span data-stu-id="aee29-382">Open the *Controllers/MoviesController.cs* file and examine the constructor:</span></span>
+<span data-ttu-id="fcabc-382">Otevřete soubor *Controllers/MoviesController. cs* a prověřte konstruktor:</span><span class="sxs-lookup"><span data-stu-id="fcabc-382">Open the *Controllers/MoviesController.cs* file and examine the constructor:</span></span>
 
 <!-- l.. Make copy of Movies controller because we comment out the initial index method and update it later  -->
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
 
-<span data-ttu-id="aee29-383">Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru.</span><span class="sxs-lookup"><span data-stu-id="aee29-383">The constructor uses [Dependency Injection](xref:fundamentals/dependency-injection) to inject the database context (`MvcMovieContext`) into the controller.</span></span> <span data-ttu-id="aee29-384">Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.</span><span class="sxs-lookup"><span data-stu-id="aee29-384">The database context is used in each of the [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) methods in the controller.</span></span>
+<span data-ttu-id="fcabc-383">Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-383">The constructor uses [Dependency Injection](xref:fundamentals/dependency-injection) to inject the database context (`MvcMovieContext`) into the controller.</span></span> <span data-ttu-id="fcabc-384">Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.</span><span class="sxs-lookup"><span data-stu-id="fcabc-384">The database context is used in each of the [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) methods in the controller.</span></span>
 
 <a name="strongly-typed-models-keyword-label"></a>
 <a name="strongly-typed-models-and-the--keyword"></a>
 
-## <a name="strongly-typed-models-and-the-model-keyword"></a><span data-ttu-id="aee29-385">Modely silného typu a klíčové slovo @model</span><span class="sxs-lookup"><span data-stu-id="aee29-385">Strongly typed models and the @model keyword</span></span>
+## <a name="strongly-typed-models-and-the-model-keyword"></a><span data-ttu-id="fcabc-385">Modely silného typu a klíčové slovo @model</span><span class="sxs-lookup"><span data-stu-id="fcabc-385">Strongly typed models and the @model keyword</span></span>
 
-<span data-ttu-id="aee29-386">Dříve v tomto kurzu jste viděli, jak může řadič předat data nebo objekty do zobrazení pomocí `ViewData` slovníku.</span><span class="sxs-lookup"><span data-stu-id="aee29-386">Earlier in this tutorial, you saw how a controller can pass data or objects to a view using the `ViewData` dictionary.</span></span> <span data-ttu-id="aee29-387">`ViewData` slovníku je dynamický objekt, který poskytuje pohodlný způsob, jak předat informace zobrazení.</span><span class="sxs-lookup"><span data-stu-id="aee29-387">The `ViewData` dictionary is a dynamic object that provides a convenient late-bound way to pass information to a view.</span></span>
+<span data-ttu-id="fcabc-386">Dříve v tomto kurzu jste viděli, jak může řadič předat data nebo objekty do zobrazení pomocí `ViewData` slovníku.</span><span class="sxs-lookup"><span data-stu-id="fcabc-386">Earlier in this tutorial, you saw how a controller can pass data or objects to a view using the `ViewData` dictionary.</span></span> <span data-ttu-id="fcabc-387">`ViewData` slovníku je dynamický objekt, který poskytuje pohodlný způsob, jak předat informace zobrazení.</span><span class="sxs-lookup"><span data-stu-id="fcabc-387">The `ViewData` dictionary is a dynamic object that provides a convenient late-bound way to pass information to a view.</span></span>
 
-<span data-ttu-id="aee29-388">MVC také poskytuje možnost předat objekty modelu silného typu do zobrazení.</span><span class="sxs-lookup"><span data-stu-id="aee29-388">MVC also provides the ability to pass strongly typed model objects to a view.</span></span> <span data-ttu-id="aee29-389">Tento přístup silného typu umožňuje lepší kompilaci kódu.</span><span class="sxs-lookup"><span data-stu-id="aee29-389">This strongly typed approach enables better compile time checking of your code.</span></span> <span data-ttu-id="aee29-390">Mechanizmus pro generování uživatelského rozhraní používal tento přístup (to znamená předání modelu silného typu) s `MoviesController` třídou a zobrazeními, když vytváří metody a zobrazení.</span><span class="sxs-lookup"><span data-stu-id="aee29-390">The scaffolding mechanism used this approach (that is, passing a strongly typed model) with the `MoviesController` class and views when it created the methods and views.</span></span>
+<span data-ttu-id="fcabc-388">MVC také poskytuje možnost předat objekty modelu silného typu do zobrazení.</span><span class="sxs-lookup"><span data-stu-id="fcabc-388">MVC also provides the ability to pass strongly typed model objects to a view.</span></span> <span data-ttu-id="fcabc-389">Tento přístup silného typu umožňuje lepší kompilaci kódu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-389">This strongly typed approach enables better compile time checking of your code.</span></span> <span data-ttu-id="fcabc-390">Mechanizmus pro generování uživatelského rozhraní používal tento přístup (to znamená předání modelu silného typu) s `MoviesController` třídou a zobrazeními, když vytváří metody a zobrazení.</span><span class="sxs-lookup"><span data-stu-id="fcabc-390">The scaffolding mechanism used this approach (that is, passing a strongly typed model) with the `MoviesController` class and views when it created the methods and views.</span></span>
 
-<span data-ttu-id="aee29-391">Projděte si vygenerovanou metodu `Details` v souboru *Controllers/MoviesController. cs* :</span><span class="sxs-lookup"><span data-stu-id="aee29-391">Examine the generated `Details` method in the *Controllers/MoviesController.cs* file:</span></span>
+<span data-ttu-id="fcabc-391">Projděte si vygenerovanou metodu `Details` v souboru *Controllers/MoviesController. cs* :</span><span class="sxs-lookup"><span data-stu-id="fcabc-391">Examine the generated `Details` method in the *Controllers/MoviesController.cs* file:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_details)]
 
-<span data-ttu-id="aee29-392">Parametr `id` je obecně předán jako data směrování.</span><span class="sxs-lookup"><span data-stu-id="aee29-392">The `id` parameter is generally passed as route data.</span></span> <span data-ttu-id="aee29-393">Například `https://localhost:5001/movies/details/1` sady:</span><span class="sxs-lookup"><span data-stu-id="aee29-393">For example `https://localhost:5001/movies/details/1` sets:</span></span>
+<span data-ttu-id="fcabc-392">Parametr `id` je obecně předán jako data směrování.</span><span class="sxs-lookup"><span data-stu-id="fcabc-392">The `id` parameter is generally passed as route data.</span></span> <span data-ttu-id="fcabc-393">Například `https://localhost:5001/movies/details/1` sady:</span><span class="sxs-lookup"><span data-stu-id="fcabc-393">For example `https://localhost:5001/movies/details/1` sets:</span></span>
 
-* <span data-ttu-id="aee29-394">Kontroler řadiče `movies` (první segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="aee29-394">The controller to the `movies` controller (the first URL segment).</span></span>
-* <span data-ttu-id="aee29-395">Akce, která se má `details` (druhý segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="aee29-395">The action to `details` (the second URL segment).</span></span>
-* <span data-ttu-id="aee29-396">ID na 1 (poslední segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="aee29-396">The id to 1 (the last URL segment).</span></span>
+* <span data-ttu-id="fcabc-394">Kontroler řadiče `movies` (první segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="fcabc-394">The controller to the `movies` controller (the first URL segment).</span></span>
+* <span data-ttu-id="fcabc-395">Akce, která se má `details` (druhý segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="fcabc-395">The action to `details` (the second URL segment).</span></span>
+* <span data-ttu-id="fcabc-396">ID na 1 (poslední segment adresy URL).</span><span class="sxs-lookup"><span data-stu-id="fcabc-396">The id to 1 (the last URL segment).</span></span>
 
-<span data-ttu-id="aee29-397">`id` můžete předat také pomocí řetězce dotazu následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="aee29-397">You can also pass in the `id` with a query string as follows:</span></span>
+<span data-ttu-id="fcabc-397">`id` můžete předat také pomocí řetězce dotazu následujícím způsobem:</span><span class="sxs-lookup"><span data-stu-id="fcabc-397">You can also pass in the `id` with a query string as follows:</span></span>
 
 `https://localhost:5001/movies/details?id=1`
 
-<span data-ttu-id="aee29-398">Parametr `id` je definován jako typ s [možnou hodnotou null](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) pro případ, že není zadána hodnota ID.</span><span class="sxs-lookup"><span data-stu-id="aee29-398">The `id` parameter is defined as a [nullable type](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) in case an ID value isn't provided.</span></span>
+<span data-ttu-id="fcabc-398">Parametr `id` je definován jako typ s [možnou hodnotou null](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) pro případ, že není zadána hodnota ID.</span><span class="sxs-lookup"><span data-stu-id="fcabc-398">The `id` parameter is defined as a [nullable type](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) in case an ID value isn't provided.</span></span>
 
-<span data-ttu-id="aee29-399">[Výraz lambda](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) je předán do `FirstOrDefaultAsync` pro výběr entit videa, které odpovídají datům směrování nebo hodnotě řetězce dotazu.</span><span class="sxs-lookup"><span data-stu-id="aee29-399">A [lambda expression](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) is passed in to `FirstOrDefaultAsync` to select movie entities that match the route data or query string value.</span></span>
+<span data-ttu-id="fcabc-399">[Výraz lambda](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) je předán do `FirstOrDefaultAsync` pro výběr entit videa, které odpovídají datům směrování nebo hodnotě řetězce dotazu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-399">A [lambda expression](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) is passed in to `FirstOrDefaultAsync` to select movie entities that match the route data or query string value.</span></span>
 
 ```csharp
 var movie = await _context.Movie
     .FirstOrDefaultAsync(m => m.Id == id);
 ```
 
-<span data-ttu-id="aee29-400">Pokud je nalezen film, instance `Movie`ho modelu je předána do zobrazení `Details`:</span><span class="sxs-lookup"><span data-stu-id="aee29-400">If a movie is found, an instance of the `Movie` model is passed to the `Details` view:</span></span>
+<span data-ttu-id="fcabc-400">Pokud je nalezen film, instance `Movie`ho modelu je předána do zobrazení `Details`:</span><span class="sxs-lookup"><span data-stu-id="fcabc-400">If a movie is found, an instance of the `Movie` model is passed to the `Details` view:</span></span>
 
 ```csharp
 return View(movie);
    ```
 
-<span data-ttu-id="aee29-401">Projděte si obsah souboru *views/video/details. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="aee29-401">Examine the contents of the *Views/Movies/Details.cshtml* file:</span></span>
+<span data-ttu-id="fcabc-401">Projděte si obsah souboru *views/video/details. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="fcabc-401">Examine the contents of the *Views/Movies/Details.cshtml* file:</span></span>
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/DetailsOriginal.cshtml)]
 
-<span data-ttu-id="aee29-402">Zahrnutím příkazu `@model` v horní části souboru zobrazení můžete určit typ objektu, který zobrazení očekává.</span><span class="sxs-lookup"><span data-stu-id="aee29-402">By including a `@model` statement at the top of the view file, you can specify the type of object that the view expects.</span></span> <span data-ttu-id="aee29-403">Když jste vytvořili kontroler filmů, v horní části souboru *Details. cshtml* byl automaticky zahrnut následující příkaz `@model`:</span><span class="sxs-lookup"><span data-stu-id="aee29-403">When you created the movie controller, the following `@model` statement was automatically included at the top of the *Details.cshtml* file:</span></span>
+<span data-ttu-id="fcabc-402">Zahrnutím příkazu `@model` v horní části souboru zobrazení můžete určit typ objektu, který zobrazení očekává.</span><span class="sxs-lookup"><span data-stu-id="fcabc-402">By including a `@model` statement at the top of the view file, you can specify the type of object that the view expects.</span></span> <span data-ttu-id="fcabc-403">Když jste vytvořili kontroler filmů, v horní části souboru *Details. cshtml* byl automaticky zahrnut následující příkaz `@model`:</span><span class="sxs-lookup"><span data-stu-id="fcabc-403">When you created the movie controller, the following `@model` statement was automatically included at the top of the *Details.cshtml* file:</span></span>
 
 ```cshtml
 @model MvcMovie.Models.Movie
 ```
 
-<span data-ttu-id="aee29-404">Tato direktiva `@model` umožňuje přístup k videu, který kontroler předává do zobrazení pomocí objektu `Model` se silným typem.</span><span class="sxs-lookup"><span data-stu-id="aee29-404">This `@model` directive allows you to access the movie that the controller passed to the view by using a `Model` object that's strongly typed.</span></span> <span data-ttu-id="aee29-405">Například v zobrazení *Details. cshtml* kód předá každé pole videa do `DisplayNameFor` a `DisplayFor` pomocníkům HTML pomocí silně typovaného objektu `Model`.</span><span class="sxs-lookup"><span data-stu-id="aee29-405">For example, in the *Details.cshtml* view, the code passes each movie field to the `DisplayNameFor` and `DisplayFor` HTML Helpers with the strongly typed `Model` object.</span></span> <span data-ttu-id="aee29-406">Metody a zobrazení `Create` a `Edit` také předají objekt `Movie` modelu.</span><span class="sxs-lookup"><span data-stu-id="aee29-406">The `Create` and `Edit` methods and views also pass a `Movie` model object.</span></span>
+<span data-ttu-id="fcabc-404">Tato direktiva `@model` umožňuje přístup k videu, který kontroler předává do zobrazení pomocí objektu `Model` se silným typem.</span><span class="sxs-lookup"><span data-stu-id="fcabc-404">This `@model` directive allows you to access the movie that the controller passed to the view by using a `Model` object that's strongly typed.</span></span> <span data-ttu-id="fcabc-405">Například v zobrazení *Details. cshtml* kód předá každé pole videa do `DisplayNameFor` a `DisplayFor` pomocníkům HTML pomocí silně typovaného objektu `Model`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-405">For example, in the *Details.cshtml* view, the code passes each movie field to the `DisplayNameFor` and `DisplayFor` HTML Helpers with the strongly typed `Model` object.</span></span> <span data-ttu-id="fcabc-406">Metody a zobrazení `Create` a `Edit` také předají objekt `Movie` modelu.</span><span class="sxs-lookup"><span data-stu-id="fcabc-406">The `Create` and `Edit` methods and views also pass a `Movie` model object.</span></span>
 
-<span data-ttu-id="aee29-407">Prohlédněte si zobrazení *index. cshtml* a `Index` metoda v kontroleru filmů.</span><span class="sxs-lookup"><span data-stu-id="aee29-407">Examine the *Index.cshtml* view and the `Index` method in the Movies controller.</span></span> <span data-ttu-id="aee29-408">Všimněte si, jak kód při volání metody `View` vytvoří objekt `List`.</span><span class="sxs-lookup"><span data-stu-id="aee29-408">Notice how the code creates a `List` object when it calls the `View` method.</span></span> <span data-ttu-id="aee29-409">Kód předá tento seznam `Movies` z metody `Index` akce do zobrazení:</span><span class="sxs-lookup"><span data-stu-id="aee29-409">The code passes this `Movies` list from the `Index` action method to the view:</span></span>
+<span data-ttu-id="fcabc-407">Prohlédněte si zobrazení *index. cshtml* a `Index` metoda v kontroleru filmů.</span><span class="sxs-lookup"><span data-stu-id="fcabc-407">Examine the *Index.cshtml* view and the `Index` method in the Movies controller.</span></span> <span data-ttu-id="fcabc-408">Všimněte si, jak kód při volání metody `View` vytvoří objekt `List`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-408">Notice how the code creates a `List` object when it calls the `View` method.</span></span> <span data-ttu-id="fcabc-409">Kód předá tento seznam `Movies` z metody `Index` akce do zobrazení:</span><span class="sxs-lookup"><span data-stu-id="fcabc-409">The code passes this `Movies` list from the `Index` action method to the view:</span></span>
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_index)]
 
-<span data-ttu-id="aee29-410">Když jste vytvořili kontroler filmů, generování uživatelského rozhraní automaticky obsahuje následující příkaz `@model` v horní části souboru *index. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="aee29-410">When you created the movies controller, scaffolding automatically included the following `@model` statement at the top of the *Index.cshtml* file:</span></span>
+<span data-ttu-id="fcabc-410">Když jste vytvořili kontroler filmů, generování uživatelského rozhraní automaticky obsahuje následující příkaz `@model` v horní části souboru *index. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="fcabc-410">When you created the movies controller, scaffolding automatically included the following `@model` statement at the top of the *Index.cshtml* file:</span></span>
 
 <!-- Copy Index.cshtml to IndexOriginal.cshtml -->
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?range=1)]
 
-<span data-ttu-id="aee29-411">Direktiva `@model` umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení, pomocí silně typovaného objektu `Model`.</span><span class="sxs-lookup"><span data-stu-id="aee29-411">The `@model` directive allows you to access the list of movies that the controller passed to the view by using a `Model` object that's strongly typed.</span></span> <span data-ttu-id="aee29-412">Například v zobrazení *index. cshtml* kód cykly projde pomocí příkazu `foreach` v rámci silně typovaného `Model` objektu:</span><span class="sxs-lookup"><span data-stu-id="aee29-412">For example, in the *Index.cshtml* view, the code loops through the movies with a `foreach` statement over the strongly typed `Model` object:</span></span>
+<span data-ttu-id="fcabc-411">Direktiva `@model` umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení, pomocí silně typovaného objektu `Model`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-411">The `@model` directive allows you to access the list of movies that the controller passed to the view by using a `Model` object that's strongly typed.</span></span> <span data-ttu-id="fcabc-412">Například v zobrazení *index. cshtml* kód cykly projde pomocí příkazu `foreach` v rámci silně typovaného `Model` objektu:</span><span class="sxs-lookup"><span data-stu-id="fcabc-412">For example, in the *Index.cshtml* view, the code loops through the movies with a `foreach` statement over the strongly typed `Model` object:</span></span>
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?highlight=1,31,34,37,40,43,46-48)]
 
-<span data-ttu-id="aee29-413">Vzhledem k tomu, že objekt `Model` je silného typu (jako objekt `IEnumerable<Movie>`), jsou všechny položky ve smyčce zadány jako `Movie`.</span><span class="sxs-lookup"><span data-stu-id="aee29-413">Because the `Model` object is strongly typed (as an `IEnumerable<Movie>` object), each item in the loop is typed as `Movie`.</span></span> <span data-ttu-id="aee29-414">Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu:</span><span class="sxs-lookup"><span data-stu-id="aee29-414">Among other benefits, this means that you get compile time checking of the code:</span></span>
+<span data-ttu-id="fcabc-413">Vzhledem k tomu, že objekt `Model` je silného typu (jako objekt `IEnumerable<Movie>`), jsou všechny položky ve smyčce zadány jako `Movie`.</span><span class="sxs-lookup"><span data-stu-id="fcabc-413">Because the `Model` object is strongly typed (as an `IEnumerable<Movie>` object), each item in the loop is typed as `Movie`.</span></span> <span data-ttu-id="fcabc-414">Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu:</span><span class="sxs-lookup"><span data-stu-id="fcabc-414">Among other benefits, this means that you get compile time checking of the code:</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="aee29-415">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="aee29-415">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="fcabc-415">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="fcabc-415">Additional resources</span></span>
 
-* [<span data-ttu-id="aee29-416">Pomocné rutiny značek</span><span class="sxs-lookup"><span data-stu-id="aee29-416">Tag Helpers</span></span>](xref:mvc/views/tag-helpers/intro)
-* [<span data-ttu-id="aee29-417">Globalizace a lokalizace</span><span class="sxs-lookup"><span data-stu-id="aee29-417">Globalization and localization</span></span>](xref:fundamentals/localization)
+* [<span data-ttu-id="fcabc-416">Pomocné rutiny značek</span><span class="sxs-lookup"><span data-stu-id="fcabc-416">Tag Helpers</span></span>](xref:mvc/views/tag-helpers/intro)
+* [<span data-ttu-id="fcabc-417">Globalizace a lokalizace</span><span class="sxs-lookup"><span data-stu-id="fcabc-417">Globalization and localization</span></span>](xref:fundamentals/localization)
 
 > [!div class="step-by-step"]
-> <span data-ttu-id="aee29-418">[Předchozí přidání zobrazení](adding-view.md)
-> [Další práce s databází](working-with-sql.md)</span><span class="sxs-lookup"><span data-stu-id="aee29-418">[Previous Adding a View](adding-view.md)
+> <span data-ttu-id="fcabc-418">[Předchozí přidání zobrazení](adding-view.md)
+> [Další práce s databází](working-with-sql.md)</span><span class="sxs-lookup"><span data-stu-id="fcabc-418">[Previous Adding a View](adding-view.md)
 [Next Working with a database](working-with-sql.md)</span></span>
 
 ::: moniker-end
