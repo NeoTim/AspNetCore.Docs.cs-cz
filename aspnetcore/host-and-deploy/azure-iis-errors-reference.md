@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: dd74b451e396ae1dec61b6ccc9136218db39b949
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 635c4cf6f12e62ca7e795b3b3b47e9445b945551
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78662412"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511597"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
 
@@ -44,7 +44,7 @@ Seznam chyb v tomto tématu není vyčerpávající. Pokud narazíte na chybu, k
 
 **Protokol aplikace:** Načtení knihovny DLL modulu **C:\WINDOWS\system32\inetsrv\aspnetcore.dll** se nezdařilo. Tato data jsou chybná.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Soubory jiného typu než operační systém v adresáři **C:\Windows\SysWOW64\inetsrv** nejsou zachovány během upgradu operačního systému. Pokud je modul ASP.NET Core nainstalován před upgradem operačního systému a potom po upgradu operačního systému běží libovolný fond aplikací v 32ovém režimu, dojde k tomuto problému. Po upgradu operačního systému opravte modul ASP.NET Core. Viz [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle). Po spuštění instalačního programu vyberte možnost **opravit** .
 
@@ -60,7 +60,7 @@ Soubory jiného typu než operační systém v adresáři **C:\Windows\SysWOW64\
 
 * **Protokol ladění ASP.NET Coreho modulu:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. To pravděpodobně znamená, že aplikace je nesprávně nakonfigurovaná. Zkontrolujte prosím verze Microsoft. NetCore. app a Microsoft. AspNetCore. app, na které cílí aplikace a které jsou nainstalované v počítači. Vrácená hodnota HRESULT se vrátila: 0x8000FFFF. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Nebylo možné najít žádnou kompatibilní verzi rozhraní. Zadané rozhraní Microsoft. AspNetCore. app, verze {VERSION}-Preview-\*se nenašlo.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Pokud spouštíte aplikaci ve verzi Preview, nainstalujte buď rozšíření 32 (x86) **nebo** 64-bit (x64), které odpovídá bitová verze aplikace a verzi modulu runtime aplikace. **Neinstalujte obě rozšíření nebo více verzí modulu runtime rozšíření.**
 
@@ -89,7 +89,7 @@ Další informace naleznete v tématu <xref:host-and-deploy/azure-apps/index#ins
 
 Tento scénář je při publikování samostatně obsažené aplikace zachycen sadou SDK. Sada SDK vytvoří chybu, pokud identifikátor RID neodpovídá cíli platformy (například `win10-x64` RID `<PlatformTarget>x86</PlatformTarget>` v souboru projektu).
 
-Odstraňování problémů:
+Řešení potíží:
 
 Pro nasazení závislé na architektuře x86 (`<PlatformTarget>x86</PlatformTarget>`) Povolte fond aplikací IIS pro 32 aplikace. Ve Správci služby IIS otevřete **Rozšířené nastavení** fondu aplikací a nastavte **možnost Povolit 32-bitové aplikace** na **hodnotu true**.
 
@@ -101,7 +101,7 @@ Pro nasazení závislé na architektuře x86 (`<PlatformTarget>x86</PlatformTarg
 
 * **Protokol stdout modulu ASP.NET Core:** Neošetřená výjimka: System. BadImageFormatException: nelze načíst soubor nebo sestavení {ASSEMBLY}. dll. Byl proveden pokus o načtení programu v nesprávném formátu.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
@@ -117,7 +117,7 @@ Odstraňování problémů:
 
 * **Protokol ladění ASP.NET Coreho modulu:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Potvrďte, že se pro aplikaci používá správný koncový bod identifikátoru URI. Ověřte vazby.
 
@@ -127,7 +127,7 @@ Odstraňování problémů:
 
 **Výjimka OS:** Aby bylo možné používat modul ASP.NET Core, musí být nainstalovány funkce IIS 7,0 CoreWebEngine a W3SVC.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Zkontrolujte, jestli jsou povolené správné role a funkce. Viz [Konfigurace služby IIS](xref:host-and-deploy/iis/index#iis-configuration).
 
@@ -141,7 +141,7 @@ Zkontrolujte, jestli jsou povolené správné role a funkce. Viz [Konfigurace sl
 
 * **Protokol ladění ASP.NET Coreho modulu:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřte, že je aplikace ve složce na **fyzické cestě**webu IIS.
 
@@ -155,13 +155,13 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * **Protokol ladění ASP.NET Coreho modulu:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Potvrďte, že je povolená správná role. Viz [Konfigurace služby IIS](xref:host-and-deploy/iis/index#iis-configuration).
 
 * Otevřete **programy & funkce** nebo **aplikace & funkce** a potvrďte, že je nainstalované **hostování Windows serveru** . Pokud se v seznamu nainstalovaných programů nenachází **hostování Windows serveru** , Stáhněte a nainstalujte hostující sadu .NET Core.
 
-  [Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+  [Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   Další informace najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
@@ -185,7 +185,7 @@ Odstraňování problémů:
 
 * **Protokol ladění ASP.NET Coreho modulu:** Protokol událostí: aplikace {PATH} se nedala spustit. Spustitelný soubor se nenašel v cestě {PATH}. Vrácení neúspěšného HRESULT: 0x8007023e
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
@@ -199,7 +199,7 @@ Odstraňování problémů:
 
 * FDD mohla být nasazena bez instalace modulu runtime .NET Core v hostitelském systému. Pokud modul runtime .NET Core není nainstalovaný, spusťte v systému **instalační program sady hostitelských svazků .NET Core** .
 
-  [Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+  [Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   Další informace najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
@@ -215,7 +215,7 @@ Odstraňování problémů:
 
 * **Protokol ladění ASP.NET Coreho modulu:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. To pravděpodobně znamená, že aplikace je nesprávně nakonfigurovaná. Zkontrolujte prosím verze Microsoft. NetCore. app a Microsoft. AspNetCore. app, na které cílí aplikace a které jsou nainstalované v počítači. Neúspěšná vrácená hodnota HRESULT: 0x8000FFFF nemůže najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: měli jste v úmyslu spouštět příkazy sady dotnet SDK? Nainstalujte prosím sadu dotnet SDK z: https://go.microsoft.com/fwlink/?LinkID=798306&clcid=0x409 neúspěšné vrácené hodnoty HRESULT: 0x8000FFFF
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
@@ -233,7 +233,7 @@ Nepodařilo se spustit aplikaci '/LM/W3SVC/5/ROOT ', ErrorCode ' 0x8000FFFF '.
 
 * **Protokol ladění ASP.NET Coreho modulu:** Vrácení neúspěšného HRESULT: 0x8000FFFF
 
-Odstraňování problémů:
+Řešení potíží:
 
 Pro nasazení závislé na rozhraní (FDD) Zkontrolujte, že je v systému nainstalovaný správný modul runtime.
 
@@ -247,7 +247,7 @@ Pro nasazení závislé na rozhraní (FDD) Zkontrolujte, že je v systému nains
 
 * **Protokol ladění ASP.NET Coreho modulu:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Ověřte, že fond aplikací není v *zastaveném* stavu.
 
@@ -261,7 +261,7 @@ Ověřte, že fond aplikací není v *zastaveném* stavu.
 
 * **Protokol ladění ASP.NET Coreho modulu:** Vytvoří se soubor protokolu kořenové aplikace a zobrazí se normální operace. Soubor protokolu dílčí aplikace se nevytvoří.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje oddíl `<handlers>` nebo že dílčí aplikace nedědí obslužné rutiny nadřazené aplikace.
 
@@ -277,7 +277,7 @@ Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje oddíl `<handle
 
 * **Protokol ladění ASP.NET Coreho modulu:** Nelze spustit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll. Zpráva o výjimce: HRESULT 0x80070005 vrácený v {PATH} \aspnetcoremodulev2\commonlib\fileoutputmanager.cpp: 84. Nejde zastavit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll. Zpráva výjimky: HRESULT 0x80070002 vráceno v umístění {PATH}. Nelze spustit přesměrování stdout v umístění {PATH} \ aspnetcorev2_inprocess. dll.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Cesta `stdoutLogFile` zadaná v elementu `<aspNetCore>` souboru *Web. config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
 
@@ -293,7 +293,7 @@ Odstraňování problémů:
 
 * **Protokol ladění ASP.NET Coreho modulu:** Variabilní
 
-Odstraňování problémů:
+Řešení potíží:
 
 Proces se nepovedlo spustit, pravděpodobně v důsledku konfigurace aplikace nebo problému s programováním.
 
@@ -332,7 +332,7 @@ Seznam chyb v tomto tématu není vyčerpávající. Pokud narazíte na chybu, k
 
 **Protokol aplikace:** Načtení knihovny DLL modulu **C:\WINDOWS\system32\inetsrv\aspnetcore.dll** se nezdařilo. Tato data jsou chybná.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Soubory jiného typu než operační systém v adresáři **C:\Windows\SysWOW64\inetsrv** nejsou zachovány během upgradu operačního systému. Pokud je modul ASP.NET Core nainstalován před upgradem operačního systému a potom po upgradu operačního systému běží libovolný fond aplikací v 32ovém režimu, dojde k tomuto problému. Po upgradu operačního systému opravte modul ASP.NET Core. Viz [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle). Po spuštění instalačního programu vyberte možnost **opravit** .
 
@@ -346,7 +346,7 @@ Soubory jiného typu než operační systém v adresáři **C:\Windows\SysWOW64\
 
 * **Protokol stdout modulu ASP.NET Core:** Nebylo možné najít žádnou kompatibilní verzi rozhraní. Zadané rozhraní Microsoft. AspNetCore. app, verze {VERSION}-Preview-\*se nenašlo.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Pokud spouštíte aplikaci ve verzi Preview, nainstalujte buď rozšíření 32 (x86) **nebo** 64-bit (x64), které odpovídá bitová verze aplikace a verzi modulu runtime aplikace. **Neinstalujte obě rozšíření nebo více verzí modulu runtime rozšíření.**
 
@@ -373,7 +373,7 @@ Další informace naleznete v tématu <xref:host-and-deploy/azure-apps/index#ins
 
 Tento scénář je při publikování samostatně obsažené aplikace zachycen sadou SDK. Sada SDK vytvoří chybu, pokud identifikátor RID neodpovídá cíli platformy (například `win10-x64` RID `<PlatformTarget>x86</PlatformTarget>` v souboru projektu).
 
-Odstraňování problémů:
+Řešení potíží:
 
 Pro nasazení závislé na architektuře x86 (`<PlatformTarget>x86</PlatformTarget>`) Povolte fond aplikací IIS pro 32 aplikace. Ve Správci služby IIS otevřete **Rozšířené nastavení** fondu aplikací a nastavte **možnost Povolit 32-bitové aplikace** na **hodnotu true**.
 
@@ -385,7 +385,7 @@ Pro nasazení závislé na architektuře x86 (`<PlatformTarget>x86</PlatformTarg
 
 * **Protokol stdout modulu ASP.NET Core:** Neošetřená výjimka: System. BadImageFormatException: nelze načíst soubor nebo sestavení {ASSEMBLY}. dll. Byl proveden pokus o načtení programu v nesprávném formátu.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
@@ -399,7 +399,7 @@ Odstraňování problémů:
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Potvrďte, že se pro aplikaci používá správný koncový bod identifikátoru URI. Ověřte vazby.
 
@@ -409,7 +409,7 @@ Odstraňování problémů:
 
 **Výjimka OS:** Aby bylo možné používat modul ASP.NET Core, musí být nainstalovány funkce IIS 7,0 CoreWebEngine a W3SVC.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Zkontrolujte, jestli jsou povolené správné role a funkce. Viz [Konfigurace služby IIS](xref:host-and-deploy/iis/index#iis-configuration).
 
@@ -421,7 +421,7 @@ Zkontrolujte, jestli jsou povolené správné role a funkce. Viz [Konfigurace sl
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřte, že je aplikace ve složce na **fyzické cestě**webu IIS.
 
@@ -433,13 +433,13 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Potvrďte, že je povolená správná role. Viz [Konfigurace služby IIS](xref:host-and-deploy/iis/index#iis-configuration).
 
 * Otevřete **programy & funkce** nebo **aplikace & funkce** a potvrďte, že je nainstalované **hostování Windows serveru** . Pokud se v seznamu nainstalovaných programů nenachází **hostování Windows serveru** , Stáhněte a nainstalujte hostující sadu .NET Core.
 
-  [Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+  [Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   Další informace najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
@@ -461,7 +461,7 @@ Odstraňování problémů:
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu je vytvořen, ale je prázdný.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
@@ -475,7 +475,7 @@ Odstraňování problémů:
 
 * FDD mohla být nasazena bez instalace modulu runtime .NET Core v hostitelském systému. Pokud modul runtime .NET Core není nainstalovaný, spusťte v systému **instalační program sady hostitelských svazků .NET Core** .
 
-  [Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+  [Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
   Další informace najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
@@ -489,13 +489,13 @@ Odstraňování problémů:
 
 * **Protokol stdout modulu ASP.NET Core:** Aplikace, která má být spuštěna, neexistuje: ' PATH\{ASSEMBLY}. dll '
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
 * Zkontrolujte atribut *arguments* elementu `<aspNetCore>` v *souboru Web. config* a potvrďte tak, že je to buď (a) `.\{ASSEMBLY}.dll` pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec (`arguments=""`) nebo seznam argumentů aplikace (`arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"`) pro samostatně uzavřené nasazení (SCD).
 
-Odstraňování problémů:
+Řešení potíží:
 
 Pro nasazení závislé na rozhraní (FDD) Zkontrolujte, že je v systému nainstalovaný správný modul runtime.
 
@@ -507,7 +507,7 @@ Pro nasazení závislé na rozhraní (FDD) Zkontrolujte, že je v systému nains
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Ověřte, že fond aplikací není v *zastaveném* stavu.
 
@@ -519,7 +519,7 @@ Ověřte, že fond aplikací není v *zastaveném* stavu.
 
 * **Protokol stdout modulu ASP.NET Core:** Vytvoří se soubor protokolu kořenové aplikace a zobrazí se normální operace. Soubor protokolu dílčí aplikace se nevytvoří.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje oddíl `<handlers>`.
 
@@ -531,7 +531,7 @@ Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje oddíl `<handle
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu není vytvořen.
 
-Odstraňování problémů:
+Řešení potíží:
 
 * Cesta `stdoutLogFile` zadaná v elementu `<aspNetCore>` souboru *Web. config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
 
@@ -545,7 +545,7 @@ Odstraňování problémů:
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu je vytvořen, ale je prázdný.
 
-Odstraňování problémů:
+Řešení potíží:
 
 Proces se nepovedlo spustit, pravděpodobně v důsledku konfigurace aplikace nebo problému s programováním.
 

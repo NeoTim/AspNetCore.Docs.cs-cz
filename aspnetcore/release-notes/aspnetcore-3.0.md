@@ -9,12 +9,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 35accdd2f65ac5430525be88cc621094e37d3e40
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 1a4efcd4e9e3296e9c208f1419bc86734951b0c1
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78667249"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511519"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -517,7 +517,7 @@ ASP.NET Core 3,0 obsahuje mnoho vylepšení, která omezují využití paměti a
 
 ## <a name="aspnet-core-30-only-runs-on-net-core-30"></a>ASP.NET Core 3,0 běží pouze na .NET Core 3,0
 
-Od ASP.NET Core 3,0 .NET Framework již není podporovanou cílovou architekturou. Projekty cílené na .NET Framework můžou v plně podporovaném způsobem dál používat [LTS verzi pro .NET Core 2,1](https://www.microsoft.com/net/download/dotnet-core/2.1). Většina balíčků s podporou ASP.NET Core 2.1. x bude po dobu tří let LTS pro .NET Core 2,1.
+Od ASP.NET Core 3,0 .NET Framework již není podporovanou cílovou architekturou. Projekty cílené na .NET Framework můžou v plně podporovaném způsobem dál používat [LTS verzi pro .NET Core 2,1](https://dotnet.microsoft.com/download/dotnet-core/2.1). Většina balíčků s podporou ASP.NET Core 2.1. x bude po dobu tří let LTS pro .NET Core 2,1.
 
 Informace o migraci najdete v tématu [portování kódu z .NET Framework do .NET Core](/dotnet/core/porting/).
 
@@ -542,3 +542,4 @@ Nejvýznamnější sestavení odebraný ze sdílené architektury ASP.NET Core 3
 ## Additional information
 For the complete list of changes, see the [ASP.NET Core 3.0 Release Notes](WHERE IS THIS????).
 -->
+ 

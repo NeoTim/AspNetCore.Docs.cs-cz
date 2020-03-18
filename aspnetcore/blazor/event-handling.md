@@ -1,27 +1,27 @@
 ---
 title: Zpracování událostí ASP.NET Core Blazor
 author: guardrex
-description: Přečtěte si o scénářích zpracování událostí Blazor, včetně typů argumentů události, zpětných volání událostí a správě výchozích událostí prohlížeče.
+description: Přečtěte si o funkcích zpracování událostí Blazor, včetně typů argumentů události, zpětných volání událostí a správě výchozích událostí prohlížeče.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/event-handling
-ms.openlocfilehash: 25844ef39aee849072d16f3d73eda0a1c20ee788
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c144841805e07a136f153c25a78c7f9af7c5801b
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78661873"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511363"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>Zpracování událostí ASP.NET Core Blazor
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-Komponenty Razor poskytují funkce pro zpracování událostí. Pro atribut elementu HTML s názvem `on{EVENT}` (například `onclick` a `onsubmit`) s hodnotou delegovanou typem, komponenty Razor považují hodnotu atributu za obslužnou rutinu události. Název atributu je vždy formátován [`@on{EVENT}`](xref:mvc/views/razor#onevent).
+Komponenty Razor poskytují funkce pro zpracování událostí. Pro atribut elementu HTML s názvem [`@on{EVENT}`](xref:mvc/views/razor#onevent) (například `@onclick`) s hodnotou delegovanou typem, komponenta Razor považuje hodnotu atributu za obslužnou rutinu události.
 
 Následující kód volá metodu `UpdateHeading`, pokud je tlačítko vybráno v uživatelském rozhraní:
 

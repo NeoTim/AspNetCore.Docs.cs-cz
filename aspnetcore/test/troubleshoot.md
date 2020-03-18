@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: test/troubleshoot
-ms.openlocfilehash: 042e1c84a7226cb4bf56bcc0ff4e576b67e68e1b
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 345967f08cf99ef5f18d0c9bcd59ab29c74454f1
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78655300"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511506"
 ---
 # <a name="troubleshoot-and-debug-aspnet-core-projects"></a>Řešení potíží a ladění ASP.NET Corech projektů
 
@@ -32,7 +32,7 @@ V dialogovém okně **Nový projekt** pro ASP.NET Core se může zobrazit násle
 
 > Jsou nainstalovány 32 a 64 bitové verze .NET Core SDK. Jsou zobrazeny pouze šablony z 64 verzí nainstalovaných v umístění C:\\Program Files\\dotnet\\SDK\\.
 
-Toto upozornění se zobrazí, 32 Pokud jsou nainstalovány 32bitové verze [.NET Core SDK](https://www.microsoft.com/net/download/all) (x86) i 64-bit (x64). Mezi běžné příčiny můžou být nainstalované obě verze:
+Toto upozornění se zobrazí, 32 Pokud jsou nainstalovány 32bitové verze [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) (x86) i 64-bit (x64). Mezi běžné příčiny můžou být nainstalované obě verze:
 
 * Původně jste stáhli instalační službu .NET Core SDK pomocí 32 počítače, ale pak jste ji zkopírovali napříč a nainstalovali na 64 počítač.
 * 32 bitová .NET Core SDK byla nainstalována jinou aplikací.

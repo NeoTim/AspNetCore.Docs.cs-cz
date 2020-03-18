@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 09/24/2019
 uid: fundamentals/metapackage-app
-ms.openlocfilehash: 3ce74bc7329a88ffc6f77baf6b8a311c02951318
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b30c90116f5a53ba487f88544514f36e388233d3
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78663140"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511376"
 ---
 # <a name="microsoftaspnetcoreapp-for-aspnet-core"></a>Microsoft. AspNetCore. app pro ASP.NET Core
 
@@ -107,8 +107,8 @@ aby bylo možné používat `Microsoft.AspNetCore.App`implicitní verze, `<Proje
 
 Aktualizace ASP.NET Core:
 
-* Ve vývojových počítačích a serverech sestavení: Stáhněte a nainstalujte [.NET Core SDK](https://www.microsoft.com/net/download).
-* Na serverech nasazení: Stáhněte a nainstalujte [modul runtime .NET Core](https://www.microsoft.com/net/download).
+* Ve vývojových počítačích a serverech sestavení: Stáhněte a nainstalujte [.NET Core SDK](https://dotnet.microsoft.com/download).
+* Na serverech nasazení: Stáhněte a nainstalujte [modul runtime .NET Core](https://dotnet.microsoft.com/download).
 
  Aplikace přestanou až na nejnovější nainstalovanou verzi při restartu aplikace. V souboru projektu není nutné aktualizovat číslo verze `Microsoft.AspNetCore.App`. Další informace najdete v tématu [předejte vám aplikace závislé na rozhraní](/dotnet/core/versions/selection#framework-dependent-apps-roll-forward).
 

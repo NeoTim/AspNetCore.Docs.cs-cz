@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: c2ca867e3eebdc3fcf512cc5d457ff3c1967f9b1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e4da57001ad369a8df87c7e0887772e3d75c032d
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78657981"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511220"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostitele ASP.NET Core ve Windows se službou IIS
 
@@ -243,14 +243,14 @@ Nainstalujte *hostující sadu .NET Core* do hostitelského systému. Svazek nai
 
 Stažení instalačního programu pomocí následujícího odkazu:
 
-[Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>Starší verze instalačního programu
 
 Chcete-li získat starší verzi instalačního programu:
 
-1. Přejděte do [archivu stahování v rozhraní .NET](https://www.microsoft.com/net/download/archives).
-1. V části **.NET Core**vyberte verzi .NET Core.
+1. Přejděte na stránku [stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core) .
+1. Klikněte na požadovanou verzi .NET Core.
 1. Ve sloupci **Spustit aplikace – modul runtime** vyhledejte řádek požadované verze modulu runtime .NET Core.
 1. Stáhněte instalační program pomocí odkazu **& hostování sady prostředků modulu runtime** .
 
@@ -850,14 +850,14 @@ Nainstalujte *hostující sadu .NET Core* do hostitelského systému. Svazek nai
 
 Stažení instalačního programu pomocí následujícího odkazu:
 
-[Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>Starší verze instalačního programu
 
 Chcete-li získat starší verzi instalačního programu:
 
-1. Přejděte do [archivu stahování v rozhraní .NET](https://www.microsoft.com/net/download/archives).
-1. V části **.NET Core**vyberte verzi .NET Core.
+1. Přejděte na stránku [stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core) .
+1. Klikněte na požadovanou verzi .NET Core.
 1. Ve sloupci **Spustit aplikace – modul runtime** vyhledejte řádek požadované verze modulu runtime .NET Core.
 1. Stáhněte instalační program pomocí odkazu **& hostování sady prostředků modulu runtime** .
 
@@ -1426,14 +1426,14 @@ Nainstalujte *hostující sadu .NET Core* do hostitelského systému. Svazek nai
 
 Stažení instalačního programu pomocí následujícího odkazu:
 
-[Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://www.microsoft.com/net/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
 ### <a name="earlier-versions-of-the-installer"></a>Starší verze instalačního programu
 
 Chcete-li získat starší verzi instalačního programu:
 
-1. Přejděte do [archivu stahování v rozhraní .NET](https://www.microsoft.com/net/download/archives).
-1. V části **.NET Core**vyberte verzi .NET Core.
+1. Přejděte na stránku [stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core) .
+1. Klikněte na požadovanou verzi .NET Core.
 1. Ve sloupci **Spustit aplikace – modul runtime** vyhledejte řádek požadované verze modulu runtime .NET Core.
 1. Stáhněte instalační program pomocí odkazu **& hostování sady prostředků modulu runtime** .
 

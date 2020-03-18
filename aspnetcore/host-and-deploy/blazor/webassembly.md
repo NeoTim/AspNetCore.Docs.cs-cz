@@ -5,17 +5,17 @@ description: Naučte se hostovat a nasazovat Blazor aplikace s využitím ASP.NE
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/11/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 748ac9969134f4c89cc8c1235958dcc7ac1d1080
-ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
+ms.openlocfilehash: ea2c625f424447209a362cdc58bdb18be061e47f
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/17/2020
-ms.locfileid: "79434275"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511350"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -91,8 +91,8 @@ Při publikování Blazor projektu se vytvoří soubor *Web. config* s následuj
   * `application/octet-stream`
   * `application/wasm`
 * Pravidla pro přepis adres URL jsou navázána:
-  * Slouží jako podadresáře, kde se nachází statické prostředky aplikace ( *{název sestavení}/DIST/{Path požádal}* ).
-  * Vytvořte záložní řešení zabezpečeného hesla, aby se požadavky na nesouborové prostředky přesměrovaly do výchozího dokumentu aplikace ve složce statických prostředků ( *{název sestavení}/DIST/index.html*).
+  * Slouží jako podadresáře, kde se nachází statické prostředky aplikace (*wwwroot/{cesta je požadovaná}* ).
+  * Vytvořte záložní záložní postup, aby se požadavky na nesouborové prostředky přesměrovaly do výchozího dokumentu aplikace ve složce statických prostředků (*wwwroot/index.html*).
 
 #### <a name="install-the-url-rewrite-module"></a>Instalace modulu URL pro přepis
 

@@ -5,17 +5,17 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/25/2020
+ms.date: 03/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: e444ebfef5143a6c33ed2d122933903ad3a4f4a7
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 7afc9250cdfb4b791ef939ead0f41b503d83fad8
+ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660697"
+ms.lasthandoff: 03/18/2020
+ms.locfileid: "79511272"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
 
@@ -87,8 +87,6 @@ V součástech Razor (soubory *. Razor* ) nejsou podporované [pomocníky znače
 ## <a name="use-components"></a>Použití komponent
 
 Komponenty mohou zahrnovat další komponenty deklarováním pomocí syntaxe elementu HTML. Označení pro použití komponenty vypadá jako značka HTML, kde název značky je typ komponenty.
-
-Vazba atributu rozlišuje velká a malá písmena. Například `@bind` je platný a `@Bind` je neplatný.
 
 Následující kód v *indexu. Razor* vykresluje instanci `HeadingComponent`:
 
@@ -389,7 +387,7 @@ Vezměte v úvahu v následujícím příkladu:
 ```csharp
 @foreach (var person in People)
 {
-    <DetailsEditor Details="person.Details" />
+    <DetailsEditor Details="@person.Details" />
 }
 
 @code {
@@ -405,7 +403,7 @@ Proces mapování lze řídit pomocí atributu direktivy `@key`. `@key` způsob�
 ```csharp
 @foreach (var person in People)
 {
-    <DetailsEditor @key="person" Details="person.Details" />
+    <DetailsEditor @key="person" Details="@person.Details" />
 }
 
 @code {
