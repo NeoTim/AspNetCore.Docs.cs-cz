@@ -969,6 +969,8 @@
           uid: security/authentication/individual
         - name: Nakonfigurování ověřování pomocí certifikátu
           uid: security/authentication/certauth
+        - name: Ověřování pomocí služby Multi-Factor Authentication
+          uid: security/authentication/mfa
     - name: Autorizace
       items:
         - name: Přehled
