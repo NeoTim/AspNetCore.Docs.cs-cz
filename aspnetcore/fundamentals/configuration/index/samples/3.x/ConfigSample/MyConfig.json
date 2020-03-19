@@ -1,0 +1,15 @@
+{
+    "Position": {
+        "Title": "Můj název konfigurace",
+        "Name": "My Config Smith"
+    },
+    "MyKey": "MyConfig.json Value",
+    "Logging": {
+        "LogLevel": {
+            "Default": "Information",
+            "Microsoft": "Warning",
+            "Microsoft.Hosting.Lifetime": "Information"
+        }
+    },
+    "AllowedHosts": "*"
+}
