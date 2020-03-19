@@ -5,6 +5,6 @@
 
 ::: moniker range=">= aspnetcore-2.1"
 
-[Sada .NET Core SDK 2.1 nebo novější](https://www.microsoft.com/net/download/windows)
+[Sada .NET Core SDK 2.1 nebo novější](https://dotnet.microsoft.com/download)
 
 ::: moniker-end
