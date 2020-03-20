@@ -1,665 +1,483 @@
 ---
 title: Konfigurace v ASP.NET Core
-author: guardrex
+author: rick-anderson
 description: Naučte se, jak pomocí konfiguračního rozhraní API nakonfigurovat aplikaci ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/10/2020
+ms.date: 02/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 3dcabae3f76d81e641057c346dbb9097c2da42c7
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e1237db2625a127bfa5c31ac29b4394be6941b2f
+ms.sourcegitcommit: 9e2b3aaccc9a41291eb23bf4561159e79cf6bc9d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78656329"
+ms.lasthandoff: 03/19/2020
+ms.locfileid: "79546338"
 ---
-# <a name="configuration-in-aspnet-core"></a><span data-ttu-id="f7447-103">Konfigurace v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="f7447-103">Configuration in ASP.NET Core</span></span>
+# <a name="configuration-in-aspnet-core"></a><span data-ttu-id="c927c-103">Konfigurace v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="c927c-103">Configuration in ASP.NET Core</span></span>
 
-<span data-ttu-id="f7447-104">Od [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="f7447-104">By [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="c927c-104">Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Kirka Larkin](https://twitter.com/serpent5)</span><span class="sxs-lookup"><span data-stu-id="c927c-104">By [Rick Anderson](https://twitter.com/RickAndMSFT) and [Kirk Larkin](https://twitter.com/serpent5)</span></span>
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<span data-ttu-id="f7447-105">Konfigurace aplikací v ASP.NET Core je založená na páru klíč-hodnota vytvořených *poskytovateli konfigurací*.</span><span class="sxs-lookup"><span data-stu-id="f7447-105">App configuration in ASP.NET Core is based on key-value pairs established by *configuration providers*.</span></span> <span data-ttu-id="f7447-106">Poskytovatelé konfigurace čtou konfigurační data do párů klíč-hodnota z nejrůznějších zdrojů konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-106">Configuration providers read configuration data into key-value pairs from a variety of configuration sources:</span></span>
+<span data-ttu-id="c927c-105">Konfigurace v ASP.NET Core provádí použití jednoho nebo více [poskytovatelů konfigurace](#cp).</span><span class="sxs-lookup"><span data-stu-id="c927c-105">Configuration in ASP.NET Core is performed using one or more [configuration providers](#cp).</span></span> <span data-ttu-id="c927c-106">Poskytovatelé konfigurace čtou konfigurační data z párů klíč-hodnota pomocí různých zdrojů konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-106">Configuration providers read configuration data from key-value pairs using a variety of configuration sources:</span></span>
 
-* <span data-ttu-id="f7447-107">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="f7447-107">Azure Key Vault</span></span>
-* <span data-ttu-id="f7447-108">Azure App Configuration</span><span class="sxs-lookup"><span data-stu-id="f7447-108">Azure App Configuration</span></span>
-* <span data-ttu-id="f7447-109">Argumenty příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-109">Command-line arguments</span></span>
-* <span data-ttu-id="f7447-110">Vlastní poskytovatelé (nainstalováno nebo vytvořeno)</span><span class="sxs-lookup"><span data-stu-id="f7447-110">Custom providers (installed or created)</span></span>
-* <span data-ttu-id="f7447-111">Soubory adresáře</span><span class="sxs-lookup"><span data-stu-id="f7447-111">Directory files</span></span>
-* <span data-ttu-id="f7447-112">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-112">Environment variables</span></span>
-* <span data-ttu-id="f7447-113">Objekty .NET v paměti</span><span class="sxs-lookup"><span data-stu-id="f7447-113">In-memory .NET objects</span></span>
-* <span data-ttu-id="f7447-114">Soubory nastavení</span><span class="sxs-lookup"><span data-stu-id="f7447-114">Settings files</span></span>
+* <span data-ttu-id="c927c-107">Soubory nastavení, například *appSettings. JSON*</span><span class="sxs-lookup"><span data-stu-id="c927c-107">Settings files, such as *appsettings.json*</span></span>
+* <span data-ttu-id="c927c-108">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-108">Environment variables</span></span>
+* <span data-ttu-id="c927c-109">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="c927c-109">Azure Key Vault</span></span>
+* <span data-ttu-id="c927c-110">Azure App Configuration</span><span class="sxs-lookup"><span data-stu-id="c927c-110">Azure App Configuration</span></span>
+* <span data-ttu-id="c927c-111">Argumenty příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-111">Command-line arguments</span></span>
+* <span data-ttu-id="c927c-112">Vlastní zprostředkovatelé, nainstalované nebo vytvořené</span><span class="sxs-lookup"><span data-stu-id="c927c-112">Custom providers, installed or created</span></span>
+* <span data-ttu-id="c927c-113">Soubory adresáře</span><span class="sxs-lookup"><span data-stu-id="c927c-113">Directory files</span></span>
+* <span data-ttu-id="c927c-114">Objekty .NET v paměti</span><span class="sxs-lookup"><span data-stu-id="c927c-114">In-memory .NET objects</span></span>
 
-<span data-ttu-id="f7447-115">Konfigurační balíčky pro scénáře Common Configuration Provider ([Microsoft. Extensions. Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) jsou implicitně zahrnuty v rámci rozhraní.</span><span class="sxs-lookup"><span data-stu-id="f7447-115">Configuration packages for common configuration provider scenarios ([Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) are included implicitly by the framework.</span></span>
+<span data-ttu-id="c927c-115">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="c927c-115">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-<span data-ttu-id="f7447-116">Příklady kódu, které následují a v ukázkové aplikaci používají obor názvů <xref:Microsoft.Extensions.Configuration>:</span><span class="sxs-lookup"><span data-stu-id="f7447-116">Code examples that follow and in the sample app use the <xref:Microsoft.Extensions.Configuration> namespace:</span></span>
+<a name="default"></a>
 
-```csharp
-using Microsoft.Extensions.Configuration;
-```
+## <a name="default-configuration"></a><span data-ttu-id="c927c-116">Výchozí konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-116">Default configuration</span></span>
 
-<span data-ttu-id="f7447-117">*Vzor možností* je rozšíření konceptů konfigurace popsaných v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="f7447-117">The *options pattern* is an extension of the configuration concepts described in this topic.</span></span> <span data-ttu-id="f7447-118">Možnosti používají třídy pro reprezentaci skupin souvisejících nastavení.</span><span class="sxs-lookup"><span data-stu-id="f7447-118">Options use classes to represent groups of related settings.</span></span> <span data-ttu-id="f7447-119">Další informace naleznete v tématu <xref:fundamentals/configuration/options>.</span><span class="sxs-lookup"><span data-stu-id="f7447-119">For more information, see <xref:fundamentals/configuration/options>.</span></span>
+<span data-ttu-id="c927c-117">ASP.NET Core webové aplikace vytvořené pomocí [dotnet New](/dotnet/core/tools/dotnet-new) nebo sady Visual Studio generují následující kód:</span><span class="sxs-lookup"><span data-stu-id="c927c-117">ASP.NET Core web apps created with [dotnet new](/dotnet/core/tools/dotnet-new) or Visual Studio generate the following code:</span></span>
 
-<span data-ttu-id="f7447-120">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="f7447-120">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/Program.cs?name=snippet&highlight=9)]
 
-## <a name="host-versus-app-configuration"></a><span data-ttu-id="f7447-121">Konfigurace versus konfigurace aplikace</span><span class="sxs-lookup"><span data-stu-id="f7447-121">Host versus app configuration</span></span>
+ <span data-ttu-id="c927c-118"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:</span><span class="sxs-lookup"><span data-stu-id="c927c-118"><xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> provides default configuration for the app in the following order:</span></span>
 
-<span data-ttu-id="f7447-122">Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spuštěný.</span><span class="sxs-lookup"><span data-stu-id="f7447-122">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="f7447-123">Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.</span><span class="sxs-lookup"><span data-stu-id="f7447-123">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="f7447-124">Aplikace i hostitel se konfigurují pomocí zprostředkovatelů konfigurace popsaných v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="f7447-124">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="f7447-125">V konfiguraci aplikace jsou také zahrnuty páry klíč-hodnota konfigurace hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-125">Host configuration key-value pairs are also included in the app's configuration.</span></span> <span data-ttu-id="f7447-126">Další informace o tom, jak se používají poskytovatelé konfigurace, když je hostitel sestavený a jak zdroje konfigurace ovlivňují konfiguraci hostitele, najdete v tématu <xref:fundamentals/index#host>.</span><span class="sxs-lookup"><span data-stu-id="f7447-126">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see <xref:fundamentals/index#host>.</span></span>
+1. <span data-ttu-id="c927c-119">[ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) : přidá existující `IConfiguration` jako zdroj.</span><span class="sxs-lookup"><span data-stu-id="c927c-119">[ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) :  Adds an existing `IConfiguration` as a source.</span></span> <span data-ttu-id="c927c-120">Ve výchozím případu konfigurace přidá konfiguraci [hostitele](#hvac) a nastaví ji jako první zdroj konfigurace _aplikace_ .</span><span class="sxs-lookup"><span data-stu-id="c927c-120">In the default configuration case, adds the [host](#hvac) configuration and setting it as the first source for the _app_ configuration.</span></span>
+1. <span data-ttu-id="c927c-121">[appSettings. JSON](#appsettingsjson) s použitím [poskytovatele konfigurace JSON](#file-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-121">[appsettings.json](#appsettingsjson) using the [JSON configuration provider](#file-configuration-provider).</span></span>
+1. <span data-ttu-id="c927c-122">*appSettings.* `Environment` *. JSON* s použitím [poskytovatele konfigurace JSON](#file-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-122">*appsettings.*`Environment`*.json* using the [JSON configuration provider](#file-configuration-provider).</span></span> <span data-ttu-id="c927c-123">Například *appSettings*. ***Provozní***prostředí. *JSON* a *appSettings*. ***Vývoj***. *JSON*.</span><span class="sxs-lookup"><span data-stu-id="c927c-123">For example, *appsettings*.***Production***.*json* and *appsettings*.***Development***.*json*.</span></span>
+1. <span data-ttu-id="c927c-124">[Tajné kódy aplikace](xref:security/app-secrets) při spuštění aplikace v prostředí `Development`.</span><span class="sxs-lookup"><span data-stu-id="c927c-124">[App secrets](xref:security/app-secrets) when the app runs in the `Development` environment.</span></span>
+1. <span data-ttu-id="c927c-125">Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#evcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-125">Environment variables using the [Environment Variables configuration provider](#evcp).</span></span>
+1. <span data-ttu-id="c927c-126">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-126">Command-line arguments using the [Command-line configuration provider](#command-line-configuration-provider).</span></span>
 
-## <a name="other-configuration"></a><span data-ttu-id="f7447-127">Další konfigurace</span><span class="sxs-lookup"><span data-stu-id="f7447-127">Other configuration</span></span>
+<span data-ttu-id="c927c-127">Poskytovatelé konfigurace, kteří jsou přidáni později, přepíší předchozí nastavení klíče.</span><span class="sxs-lookup"><span data-stu-id="c927c-127">Configuration providers that are added later override previous key settings.</span></span> <span data-ttu-id="c927c-128">Pokud je například `MyKey` nastavena v souboru *appSettings. JSON* i v prostředí, je použita hodnota prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-128">For example, if `MyKey` is set in both *appsettings.json* and the environment, the environment value is used.</span></span> <span data-ttu-id="c927c-129">Pomocí výchozích zprostředkovatelů konfigurace přepíše [Poskytovatel konfigurace příkazového řádku](#command-line-configuration-provider) všechny ostatní poskytovatele.</span><span class="sxs-lookup"><span data-stu-id="c927c-129">Using the default configuration providers, the  [Command-line configuration provider](#command-line-configuration-provider) overrides all other providers.</span></span>
 
-<span data-ttu-id="f7447-128">Toto téma se týká pouze *Konfigurace aplikace*.</span><span class="sxs-lookup"><span data-stu-id="f7447-128">This topic only pertains to *app configuration*.</span></span> <span data-ttu-id="f7447-129">Další aspekty používání a hostování ASP.NET Corech aplikací jsou nakonfigurované pomocí konfiguračních souborů, které nejsou popsané v tomto tématu:</span><span class="sxs-lookup"><span data-stu-id="f7447-129">Other aspects of running and hosting ASP.NET Core apps are configured using configuration files not covered in this topic:</span></span>
+<span data-ttu-id="c927c-130">Další informace o `CreateDefaultBuilder`najdete v tématu [výchozí nastavení tvůrce](xref:fundamentals/host/generic-host#default-builder-settings).</span><span class="sxs-lookup"><span data-stu-id="c927c-130">For more information on `CreateDefaultBuilder`, see [Default builder settings](xref:fundamentals/host/generic-host#default-builder-settings).</span></span>
 
-* <span data-ttu-id="f7447-130">*Launch. json*/*launchSettings. JSON* jsou konfigurační soubory nástroje pro vývojové prostředí, které jsou popsané tady:</span><span class="sxs-lookup"><span data-stu-id="f7447-130">*launch.json*/*launchSettings.json* are tooling configuration files for the Development environment, described:</span></span>
-  * <span data-ttu-id="f7447-131">V <xref:fundamentals/environments#development>.</span><span class="sxs-lookup"><span data-stu-id="f7447-131">In <xref:fundamentals/environments#development>.</span></span>
-  * <span data-ttu-id="f7447-132">V dokumentaci sady, kde se soubory používají ke konfiguraci ASP.NET Core aplikací pro vývojové scénáře.</span><span class="sxs-lookup"><span data-stu-id="f7447-132">Across the documentation set where the files are used to configure ASP.NET Core apps for Development scenarios.</span></span>
-* <span data-ttu-id="f7447-133">*Web. config* je konfigurační soubor serveru, který je popsaný v následujících tématech:</span><span class="sxs-lookup"><span data-stu-id="f7447-133">*web.config* is a server configuration file, described in the following topics:</span></span>
-  * <xref:host-and-deploy/iis/index>
-  * <xref:host-and-deploy/aspnet-core-module>
+<span data-ttu-id="c927c-131">Následující kód zobrazuje povolené poskytovatele konfigurace v pořadí, v jakém byly přidány:</span><span class="sxs-lookup"><span data-stu-id="c927c-131">The following code displays the enabled configuration providers in the order they were added:</span></span>
 
-<span data-ttu-id="f7447-134">Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NET najdete v tématu <xref:migration/proper-to-2x/index#store-configurations>.</span><span class="sxs-lookup"><span data-stu-id="f7447-134">For more information on migrating app configuration from earlier versions of ASP.NET, see <xref:migration/proper-to-2x/index#store-configurations>.</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Index2.cshtml.cs?name=snippet)]
 
-## <a name="default-configuration"></a><span data-ttu-id="f7447-135">Výchozí konfigurace</span><span class="sxs-lookup"><span data-stu-id="f7447-135">Default configuration</span></span>
+### <a name="appsettingsjson"></a><span data-ttu-id="c927c-132">appsettings.json</span><span class="sxs-lookup"><span data-stu-id="c927c-132">appsettings.json</span></span>
 
-<span data-ttu-id="f7447-136">Webové aplikace založené na ASP.NET Core [dotnet nové](/dotnet/core/tools/dotnet-new) šablony volají <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> při sestavování hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-136">Web apps based on the ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new) templates call <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> when building a host.</span></span> <span data-ttu-id="f7447-137">`CreateDefaultBuilder` poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:</span><span class="sxs-lookup"><span data-stu-id="f7447-137">`CreateDefaultBuilder` provides default configuration for the app in the following order:</span></span>
+<span data-ttu-id="c927c-133">Vezměte v úvahu následující soubor *appSettings. JSON* :</span><span class="sxs-lookup"><span data-stu-id="c927c-133">Consider the following *appsettings.json* file:</span></span>
 
-<span data-ttu-id="f7447-138">Následující požadavky se vztahují na aplikace, které používají [obecného hostitele](xref:fundamentals/host/generic-host).</span><span class="sxs-lookup"><span data-stu-id="f7447-138">The following applies to apps using the [Generic Host](xref:fundamentals/host/generic-host).</span></span> <span data-ttu-id="f7447-139">Podrobnosti o výchozí konfiguraci při použití [webového hostitele](xref:fundamentals/host/web-host)naleznete v [ASP.NET Core 2,2 verzi tohoto tématu](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2).</span><span class="sxs-lookup"><span data-stu-id="f7447-139">For details on the default configuration when using the [Web Host](xref:fundamentals/host/web-host), see the [ASP.NET Core 2.2 version of this topic](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2).</span></span>
+[!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
 
-* <span data-ttu-id="f7447-140">Konfigurace hostitele se poskytuje:</span><span class="sxs-lookup"><span data-stu-id="f7447-140">Host configuration is provided from:</span></span>
-  * <span data-ttu-id="f7447-141">Proměnné prostředí s předponou `DOTNET_` (například `DOTNET_ENVIRONMENT`) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-141">Environment variables prefixed with `DOTNET_` (for example, `DOTNET_ENVIRONMENT`) using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="f7447-142">Předpona (`DOTNET_`) je odstraněna, když jsou načteny páry klíč-hodnota konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-142">The prefix (`DOTNET_`) is stripped when the configuration key-value pairs are loaded.</span></span>
-  * <span data-ttu-id="f7447-143">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-143">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
-* <span data-ttu-id="f7447-144">Je navázána výchozí konfigurace webového hostitele (`ConfigureWebHostDefaults`):</span><span class="sxs-lookup"><span data-stu-id="f7447-144">Web Host default configuration is established (`ConfigureWebHostDefaults`):</span></span>
-  * <span data-ttu-id="f7447-145">Kestrel se používá jako webový server a je nakonfigurovaný pomocí poskytovatelů konfigurace aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-145">Kestrel is used as the web server and configured using the app's configuration providers.</span></span>
-  * <span data-ttu-id="f7447-146">Přidejte middleware pro filtrování hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-146">Add Host Filtering Middleware.</span></span>
-  * <span data-ttu-id="f7447-147">Pokud je proměnná prostředí `ASPNETCORE_FORWARDEDHEADERS_ENABLED` nastavená na `true`, přidejte middleware s předanými hlavičkami.</span><span class="sxs-lookup"><span data-stu-id="f7447-147">Add Forwarded Headers Middleware if the `ASPNETCORE_FORWARDEDHEADERS_ENABLED` environment variable is set to `true`.</span></span>
-  * <span data-ttu-id="f7447-148">Povolte integraci služby IIS.</span><span class="sxs-lookup"><span data-stu-id="f7447-148">Enable IIS integration.</span></span>
-* <span data-ttu-id="f7447-149">Konfigurace aplikace se poskytuje:</span><span class="sxs-lookup"><span data-stu-id="f7447-149">App configuration is provided from:</span></span>
-  * <span data-ttu-id="f7447-150">*appSettings. JSON* s použitím [poskytovatele konfigurace souboru](#file-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-150">*appsettings.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
-  * <span data-ttu-id="f7447-151">*appSettings. {Environment}. JSON* s použitím [poskytovatele konfigurace souboru](#file-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-151">*appsettings.{Environment}.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
-  * <span data-ttu-id="f7447-152">[Správce tajných klíčů](xref:security/app-secrets) při spuštění aplikace v prostředí `Development` pomocí sestavení záznamu</span><span class="sxs-lookup"><span data-stu-id="f7447-152">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment using the entry assembly.</span></span>
-  * <span data-ttu-id="f7447-153">Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-153">Environment variables using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span>
-  * <span data-ttu-id="f7447-154">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-154">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
+<span data-ttu-id="c927c-134">Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) zobrazuje několik předchozích nastavení konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-134">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
-## <a name="security"></a><span data-ttu-id="f7447-155">Zabezpečení</span><span class="sxs-lookup"><span data-stu-id="f7447-155">Security</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="f7447-156">Při zabezpečování citlivých konfiguračních dat proveďte následující postupy:</span><span class="sxs-lookup"><span data-stu-id="f7447-156">Adopt the following practices to secure sensitive configuration data:</span></span>
+<span data-ttu-id="c927c-135">Výchozí <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načte konfiguraci v následujícím pořadí:</span><span class="sxs-lookup"><span data-stu-id="c927c-135">The default <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration in the following order:</span></span>
 
-* <span data-ttu-id="f7447-157">Nikdy neukládejte hesla nebo další citlivá data v kódu poskytovatele konfigurace nebo v konfiguračních souborech s prostým textem.</span><span class="sxs-lookup"><span data-stu-id="f7447-157">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span>
-* <span data-ttu-id="f7447-158">Nepoužívejte provozní tajemství ve vývojových nebo testovacích prostředích.</span><span class="sxs-lookup"><span data-stu-id="f7447-158">Don't use production secrets in development or test environments.</span></span>
-* <span data-ttu-id="f7447-159">Zadejte tajné klíče mimo projekt, aby se nemohly omylem potvrdit do úložiště zdrojového kódu.</span><span class="sxs-lookup"><span data-stu-id="f7447-159">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
+1. <span data-ttu-id="c927c-136">*appSettings. JSON*</span><span class="sxs-lookup"><span data-stu-id="c927c-136">*appsettings.json*</span></span>
+1. <span data-ttu-id="c927c-137">*appSettings.* `Environment` *. JSON* : například *appSettings*. ***Provozní***prostředí. *JSON* a *appSettings*. ***Vývoj***. soubory *JSON* .</span><span class="sxs-lookup"><span data-stu-id="c927c-137">*appsettings.*`Environment`*.json* : For example, the *appsettings*.***Production***.*json* and *appsettings*.***Development***.*json* files.</span></span> <span data-ttu-id="c927c-138">Verze prostředí souboru se načte na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span><span class="sxs-lookup"><span data-stu-id="c927c-138">The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span> <span data-ttu-id="c927c-139">Další informace naleznete v tématu <xref:fundamentals/environments>.</span><span class="sxs-lookup"><span data-stu-id="c927c-139">For more information, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="f7447-160">Další informace najdete v následujících tématech:</span><span class="sxs-lookup"><span data-stu-id="f7447-160">For more information, see the following topics:</span></span>
+<span data-ttu-id="c927c-140">*appSettings*.`Environment`. hodnoty *JSON* přepíší klíče v souboru *appSettings. JSON*.</span><span class="sxs-lookup"><span data-stu-id="c927c-140">*appsettings*.`Environment`.*json* values override keys in *appsettings.json*.</span></span> <span data-ttu-id="c927c-141">Například ve výchozím nastavení:</span><span class="sxs-lookup"><span data-stu-id="c927c-141">For example, by default:</span></span>
 
-* <xref:fundamentals/environments>
-* <span data-ttu-id="f7447-161"><xref:security/app-secrets> &ndash; obsahuje rady týkající se používání proměnných prostředí k ukládání citlivých dat.</span><span class="sxs-lookup"><span data-stu-id="f7447-161"><xref:security/app-secrets> &ndash; Includes advice on using environment variables to store sensitive data.</span></span> <span data-ttu-id="f7447-162">Správce tajného kódu používá zprostředkovatele konfigurace souborů k ukládání tajných klíčů uživatele do souboru JSON v místním systému.</span><span class="sxs-lookup"><span data-stu-id="f7447-162">The Secret Manager uses the File Configuration Provider to store user secrets in a JSON file on the local system.</span></span> <span data-ttu-id="f7447-163">Poskytovatel konfigurace souboru je popsán dále v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="f7447-163">The File Configuration Provider is described later in this topic.</span></span>
+* <span data-ttu-id="c927c-142">Ve vývoji, *appSettings*. ***Vývoj***. konfigurace *JSON* Přepisuje hodnoty nalezené v souboru *appSettings. JSON*.</span><span class="sxs-lookup"><span data-stu-id="c927c-142">In development, *appsettings*.***Development***.*json* configuration overwrites values found in *appsettings.json*.</span></span>
+* <span data-ttu-id="c927c-143">V produkčním prostředí, *appSettings*. ***Provozní***prostředí. konfigurace *JSON* Přepisuje hodnoty nalezené v souboru *appSettings. JSON*.</span><span class="sxs-lookup"><span data-stu-id="c927c-143">In production, *appsettings*.***Production***.*json* configuration overwrites values found in *appsettings.json*.</span></span> <span data-ttu-id="c927c-144">Například při nasazení aplikace do Azure.</span><span class="sxs-lookup"><span data-stu-id="c927c-144">For example, when deploying the app to Azure.</span></span>
 
-<span data-ttu-id="f7447-164">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-164">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) safely stores app secrets for ASP.NET Core apps.</span></span> <span data-ttu-id="f7447-165">Další informace naleznete v tématu <xref:security/key-vault-configuration>.</span><span class="sxs-lookup"><span data-stu-id="f7447-165">For more information, see <xref:security/key-vault-configuration>.</span></span>
+<a name="optpat"></a>
 
-## <a name="hierarchical-configuration-data"></a><span data-ttu-id="f7447-166">Hierarchická konfigurační data</span><span class="sxs-lookup"><span data-stu-id="f7447-166">Hierarchical configuration data</span></span>
+#### <a name="bind-hierarchical-configuration-data-using-the-options-pattern"></a><span data-ttu-id="c927c-145">Vytvoření vazby hierarchických konfiguračních dat pomocí vzoru možností</span><span class="sxs-lookup"><span data-stu-id="c927c-145">Bind hierarchical configuration data using the options pattern</span></span>
 
-<span data-ttu-id="f7447-167">Rozhraní API pro konfiguraci umožňuje udržovat hierarchická konfigurační data sloučením hierarchických dat s použitím oddělovače v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="f7447-167">The Configuration API is capable of maintaining hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
-
-<span data-ttu-id="f7447-168">V následujícím souboru JSON existují čtyři klíče ve strukturované hierarchii dvou oddílů:</span><span class="sxs-lookup"><span data-stu-id="f7447-168">In the following JSON file, four keys exist in a structured hierarchy of two sections:</span></span>
+<span data-ttu-id="c927c-146">Upřednostňovaným způsobem, jak číst související konfigurační hodnoty, je použít [vzor možností](xref:fundamentals/configuration/options).</span><span class="sxs-lookup"><span data-stu-id="c927c-146">The preferred way to read related configuration values is using the [options pattern](xref:fundamentals/configuration/options).</span></span> <span data-ttu-id="c927c-147">Například pro čtení následujících konfiguračních hodnot:</span><span class="sxs-lookup"><span data-stu-id="c927c-147">For example, to read the following configuration values:</span></span>
 
 ```json
-{
-  "section0": {
-    "key0": "value",
-    "key1": "value"
-  },
-  "section1": {
-    "key0": "value",
-    "key1": "value"
+  "Position": {
+    "Title": "Editor",
+    "Name": "Joe Smith"
   }
-}
 ```
 
-<span data-ttu-id="f7447-169">Když je soubor čten do konfigurace, jsou vytvořeny jedinečné klíče pro zachování původní hierarchické struktury dat ve zdroji konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-169">When the file is read into configuration, unique keys are created to maintain the original hierarchical data structure of the configuration source.</span></span> <span data-ttu-id="f7447-170">Oddíly a klíče jsou shrnuty s použitím dvojtečky (`:`) k zachování původní struktury:</span><span class="sxs-lookup"><span data-stu-id="f7447-170">The sections and keys are flattened with the use of a colon (`:`) to maintain the original structure:</span></span>
+<span data-ttu-id="c927c-148">Vytvořte následující třídu `PositionOptions`:</span><span class="sxs-lookup"><span data-stu-id="c927c-148">Create the following `PositionOptions` class:</span></span>
 
-* <span data-ttu-id="f7447-171">section0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-171">section0:key0</span></span>
-* <span data-ttu-id="f7447-172">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-172">section0:key1</span></span>
-* <span data-ttu-id="f7447-173">section1:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-173">section1:key0</span></span>
-* <span data-ttu-id="f7447-174">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-174">section1:key1</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/Options/PositionOptions.cs?name=snippet)]
 
-<span data-ttu-id="f7447-175">metody <xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> a <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> jsou k dispozici k izolaci oddílů a podřízených objektů oddílu v konfiguračních datech.</span><span class="sxs-lookup"><span data-stu-id="f7447-175"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="f7447-176">Tyto metody jsou popsány dále v [tématu GetSection, GetChildren a Exists](#getsection-getchildren-and-exists).</span><span class="sxs-lookup"><span data-stu-id="f7447-176">These methods are described later in [GetSection, GetChildren, and Exists](#getsection-getchildren-and-exists).</span></span>
+<span data-ttu-id="c927c-149">Všechny vlastnosti Public pro čtení i zápis typu jsou vázané.</span><span class="sxs-lookup"><span data-stu-id="c927c-149">All the public read-write properties of the type are bound.</span></span> <span data-ttu-id="c927c-150">Pole nejsou ***svázána*** .</span><span class="sxs-lookup"><span data-stu-id="c927c-150">Fields are ***not*** bound.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="f7447-177">Zásady</span><span class="sxs-lookup"><span data-stu-id="f7447-177">Conventions</span></span>
+<span data-ttu-id="c927c-151">Následující kód:</span><span class="sxs-lookup"><span data-stu-id="c927c-151">The following code:</span></span>
 
-### <a name="sources-and-providers"></a><span data-ttu-id="f7447-178">Zdroje a poskytovatelé</span><span class="sxs-lookup"><span data-stu-id="f7447-178">Sources and providers</span></span>
+* <span data-ttu-id="c927c-152">Volá [ConfigurationBinder. Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) pro svázání třídy `PositionOptions` s oddílem `Position`.</span><span class="sxs-lookup"><span data-stu-id="c927c-152">Calls [ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) to bind the `PositionOptions` class to the `Position` section.</span></span>
+* <span data-ttu-id="c927c-153">Zobrazí konfigurační data `Position`.</span><span class="sxs-lookup"><span data-stu-id="c927c-153">Displays the `Position` configuration data.</span></span>
 
-<span data-ttu-id="f7447-179">Při spuštění aplikace se zdroje konfigurace čtou v pořadí, v jakém jsou určení jejich poskytovatelé konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-179">At app startup, configuration sources are read in the order that their configuration providers are specified.</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test22.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="f7447-180">Poskytovatelé konfigurace implementující zjišťování změn mají možnost znovu načíst konfiguraci při změně podkladového nastavení.</span><span class="sxs-lookup"><span data-stu-id="f7447-180">Configuration providers that implement change detection have the ability to reload configuration when an underlying setting is changed.</span></span> <span data-ttu-id="f7447-181">Například poskytovatel konfigurace souboru (popsaný dále v tomto tématu) a [zprostředkovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) implementují detekci změn.</span><span class="sxs-lookup"><span data-stu-id="f7447-181">For example, the File Configuration Provider (described later in this topic) and the [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) implement change detection.</span></span>
+<span data-ttu-id="c927c-154">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) váže a vrátí zadaný typ.</span><span class="sxs-lookup"><span data-stu-id="c927c-154">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="c927c-155">`ConfigurationBinder.Get<T>` může být pohodlnější než použití `ConfigurationBinder.Bind`.</span><span class="sxs-lookup"><span data-stu-id="c927c-155">`ConfigurationBinder.Get<T>` may be more convenient than using `ConfigurationBinder.Bind`.</span></span> <span data-ttu-id="c927c-156">Následující kód ukazuje, jak použít `ConfigurationBinder.Get<T>` s `PositionOptions`ou třídou:</span><span class="sxs-lookup"><span data-stu-id="c927c-156">The following code shows how to use `ConfigurationBinder.Get<T>` with the `PositionOptions` class:</span></span>
 
-<span data-ttu-id="f7447-182"><xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v kontejneru pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-182"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="f7447-183"><xref:Microsoft.Extensions.Configuration.IConfiguration> lze vložit do <xref:Microsoft.AspNetCore.Mvc.Controller> Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> nebo MVC a získat tak konfiguraci pro třídu.</span><span class="sxs-lookup"><span data-stu-id="f7447-183"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> or MVC <xref:Microsoft.AspNetCore.Mvc.Controller> to obtain configuration for the class.</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test21.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="f7447-184">V následujících příkladech se pro přístup k hodnotám konfigurace používá pole `_config`:</span><span class="sxs-lookup"><span data-stu-id="f7447-184">In the following examples, the `_config` field is used to access configuration values:</span></span>
+<span data-ttu-id="c927c-157">Alternativním přístupem při použití ***vzoru možností*** je svázání oddílu `Position` a jeho přidání do [kontejneru služby pro vkládání závislostí](xref:fundamentals/dependency-injection).</span><span class="sxs-lookup"><span data-stu-id="c927c-157">An alternative approach when using the ***options pattern*** is to bind the `Position` section and add it to the [dependency injection service container](xref:fundamentals/dependency-injection).</span></span> <span data-ttu-id="c927c-158">V následujícím kódu je `PositionOptions` přidán do kontejneru služby s <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> a je vázán na konfiguraci:</span><span class="sxs-lookup"><span data-stu-id="c927c-158">In the following code, `PositionOptions` is added to the service container with <xref:Microsoft.Extensions.DependencyInjection.OptionsConfigurationServiceCollectionExtensions.Configure*> and bound to configuration:</span></span>
 
-```csharp
-public class IndexModel : PageModel
-{
-    private readonly IConfiguration _config;
+[!code-csharp[](index/samples/3.x/ConfigSample/Startup.cs?name=snippet)]
 
-    public IndexModel(IConfiguration config)
-    {
-        _config = config;
-    }
-}
-```
+<span data-ttu-id="c927c-159">Pomocí předchozího kódu přečte následující kód možnosti pozice:</span><span class="sxs-lookup"><span data-stu-id="c927c-159">Using the preceding code, the following code reads the position options:</span></span>
 
-```csharp
-public class HomeController : Controller
-{
-    private readonly IConfiguration _config;
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test2.cshtml.cs?name=snippet)]
 
-    public HomeController(IConfiguration config)
-    {
-        _config = config;
-    }
-}
-```
+<span data-ttu-id="c927c-160">Pomocí [výchozí](#default) konfigurace jsou soubory *appSettings. JSON* a *appSettings.* `Environment` *. JSON* povolené pomocí [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75).</span><span class="sxs-lookup"><span data-stu-id="c927c-160">Using the [default](#default) configuration, the *appsettings.json* and *appsettings.*`Environment`*.json* files are enabled with [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75).</span></span> <span data-ttu-id="c927c-161">Změny provedené v souboru *appSettings. JSON* a *appSettings.* `Environment` *. JSON* ***po*** spuštění aplikace čtou [Poskytovatel konfigurace JSON](#jcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-161">Changes made to the *appsettings.json* and *appsettings.*`Environment`*.json* file ***after*** the app starts are read by the [JSON configuration provider](#jcp).</span></span>
 
-<span data-ttu-id="f7447-185">Poskytovatelé konfigurace nemůžou využívat DI, protože není k dispozici, když je nastavil hostitel.</span><span class="sxs-lookup"><span data-stu-id="f7447-185">Configuration providers can't utilize DI, as it's not available when they're set up by the host.</span></span>
+<span data-ttu-id="c927c-162">Informace o přidání dalších konfiguračních souborů JSON najdete v části [Poskytovatel konfigurace JSON](#jcp) v tomto dokumentu.</span><span class="sxs-lookup"><span data-stu-id="c927c-162">See [JSON configuration provider](#jcp) in this document for information on adding additional JSON configuration files.</span></span>
 
-### <a name="keys"></a><span data-ttu-id="f7447-186">Klíče</span><span class="sxs-lookup"><span data-stu-id="f7447-186">Keys</span></span>
+<a name="security"></a>
 
-<span data-ttu-id="f7447-187">Konfigurační klíče přijímají následující konvence:</span><span class="sxs-lookup"><span data-stu-id="f7447-187">Configuration keys adopt the following conventions:</span></span>
+## <a name="security-and-secret-manager"></a><span data-ttu-id="c927c-163">Správce zabezpečení a tajného klíče</span><span class="sxs-lookup"><span data-stu-id="c927c-163">Security and secret manager</span></span>
 
-* <span data-ttu-id="f7447-188">U klíčů se nerozlišují malá a velká písmena.</span><span class="sxs-lookup"><span data-stu-id="f7447-188">Keys are case-insensitive.</span></span> <span data-ttu-id="f7447-189">Například `ConnectionString` a `connectionstring` se považují za ekvivalentní klíče.</span><span class="sxs-lookup"><span data-stu-id="f7447-189">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
-* <span data-ttu-id="f7447-190">Pokud je hodnota pro stejný klíč nastavená stejným nebo jiným poskytovatelem konfigurace, použije se poslední hodnota nastavená v klíči.</span><span class="sxs-lookup"><span data-stu-id="f7447-190">If a value for the same key is set by the same or different configuration providers, the last value set on the key is the value used.</span></span>
-* <span data-ttu-id="f7447-191">Hierarchické klíče</span><span class="sxs-lookup"><span data-stu-id="f7447-191">Hierarchical keys</span></span>
-  * <span data-ttu-id="f7447-192">V rozhraní API pro konfiguraci funguje oddělovač dvojtečky (`:`) na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="f7447-192">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
-  * <span data-ttu-id="f7447-193">V proměnných prostředí nemusí oddělovač dvojtečky fungovat na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="f7447-193">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="f7447-194">Dvojité podtržítko (`__`) je podporováno všemi platformami a je automaticky převedeno na dvojtečku.</span><span class="sxs-lookup"><span data-stu-id="f7447-194">A double underscore (`__`) is supported by all platforms and is automatically converted into a colon.</span></span>
-  * <span data-ttu-id="f7447-195">V Azure Key Vault hierarchické klíče používají `--` (dvě pomlčky) jako oddělovač.</span><span class="sxs-lookup"><span data-stu-id="f7447-195">In Azure Key Vault, hierarchical keys use `--` (two dashes) as a separator.</span></span> <span data-ttu-id="f7447-196">Napište kód, který nahradí pomlčky dvojtečkou, pokud jsou tajné klíče načteny do konfigurace aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-196">Write code to replace the dashes with a colon when the secrets are loaded into the app's configuration.</span></span>
-* <span data-ttu-id="f7447-197"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="f7447-197">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="f7447-198">Vazba pole je popsána v tématu [vazba pole na oddíl třídy](#bind-an-array-to-a-class) .</span><span class="sxs-lookup"><span data-stu-id="f7447-198">Array binding is described in the [Bind an array to a class](#bind-an-array-to-a-class) section.</span></span>
+<span data-ttu-id="c927c-164">Pokyny pro konfigurační data:</span><span class="sxs-lookup"><span data-stu-id="c927c-164">Configuration data guidelines:</span></span>
 
-### <a name="values"></a><span data-ttu-id="f7447-199">Hodnoty</span><span class="sxs-lookup"><span data-stu-id="f7447-199">Values</span></span>
+* <span data-ttu-id="c927c-165">Nikdy neukládejte hesla nebo další citlivá data v kódu poskytovatele konfigurace nebo v konfiguračních souborech s prostým textem.</span><span class="sxs-lookup"><span data-stu-id="c927c-165">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span> <span data-ttu-id="c927c-166">[Správce tajného klíče](xref:security/app-secrets) se dá použít k ukládání tajných kódů do vývoje.</span><span class="sxs-lookup"><span data-stu-id="c927c-166">The [Secret manager](xref:security/app-secrets) can be used to store secrets in development.</span></span>
+* <span data-ttu-id="c927c-167">Nepoužívejte provozní tajemství ve vývojových nebo testovacích prostředích.</span><span class="sxs-lookup"><span data-stu-id="c927c-167">Don't use production secrets in development or test environments.</span></span>
+* <span data-ttu-id="c927c-168">Zadejte tajné klíče mimo projekt, aby se nemohly omylem potvrdit do úložiště zdrojového kódu.</span><span class="sxs-lookup"><span data-stu-id="c927c-168">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
 
-<span data-ttu-id="f7447-200">Konfigurační hodnoty přijímají následující konvence:</span><span class="sxs-lookup"><span data-stu-id="f7447-200">Configuration values adopt the following conventions:</span></span>
+<span data-ttu-id="c927c-169">Ve [výchozím nastavení](#default)přečte [správce tajných klíčů](xref:security/app-secrets) konfigurační nastavení po souboru *appSettings. JSON* a *appSettings.* `Environment` *. JSON*.</span><span class="sxs-lookup"><span data-stu-id="c927c-169">By [default](#default), [Secret manager](xref:security/app-secrets) reads configuration settings after *appsettings.json* and *appsettings.*`Environment`*.json*.</span></span>
 
-* <span data-ttu-id="f7447-201">Hodnoty jsou řetězce.</span><span class="sxs-lookup"><span data-stu-id="f7447-201">Values are strings.</span></span>
-* <span data-ttu-id="f7447-202">Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.</span><span class="sxs-lookup"><span data-stu-id="f7447-202">Null values can't be stored in configuration or bound to objects.</span></span>
+<span data-ttu-id="c927c-170">Další informace o ukládání hesel nebo jiných citlivých dat:</span><span class="sxs-lookup"><span data-stu-id="c927c-170">For more information on storing passwords or other sensitive data:</span></span>
 
-## <a name="providers"></a><span data-ttu-id="f7447-203">Poskytovatelé</span><span class="sxs-lookup"><span data-stu-id="f7447-203">Providers</span></span>
+* <xref:fundamentals/environments>
+* <span data-ttu-id="c927c-171"><xref:security/app-secrets>: obsahuje rady týkající se používání proměnných prostředí k ukládání citlivých dat.</span><span class="sxs-lookup"><span data-stu-id="c927c-171"><xref:security/app-secrets>:  Includes advice on using environment variables to store sensitive data.</span></span> <span data-ttu-id="c927c-172">Správce tajného kódu používá [zprostředkovatele konfigurace souborů](#fcp) k ukládání tajných klíčů uživatele do souboru JSON v místním systému.</span><span class="sxs-lookup"><span data-stu-id="c927c-172">The Secret Manager uses the [File configuration provider](#fcp) to store user secrets in a JSON file on the local system.</span></span>
 
-<span data-ttu-id="f7447-204">V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-204">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
+<span data-ttu-id="c927c-173">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-173">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) safely stores app secrets for ASP.NET Core apps.</span></span> <span data-ttu-id="c927c-174">Další informace naleznete v tématu <xref:security/key-vault-configuration>.</span><span class="sxs-lookup"><span data-stu-id="c927c-174">For more information, see <xref:security/key-vault-configuration>.</span></span>
 
-| <span data-ttu-id="f7447-205">Poskytovatel</span><span class="sxs-lookup"><span data-stu-id="f7447-205">Provider</span></span> | <span data-ttu-id="f7447-206">Poskytuje konfiguraci z&hellip;</span><span class="sxs-lookup"><span data-stu-id="f7447-206">Provides configuration from&hellip;</span></span> |
-| -------- | ----------------------------------- |
-| <span data-ttu-id="f7447-207">[Poskytovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) (témata*zabezpečení* )</span><span class="sxs-lookup"><span data-stu-id="f7447-207">[Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) (*Security* topics)</span></span> | <span data-ttu-id="f7447-208">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="f7447-208">Azure Key Vault</span></span> |
-| <span data-ttu-id="f7447-209">[Poskytovatel konfigurace Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace Azure)</span><span class="sxs-lookup"><span data-stu-id="f7447-209">[Azure App Configuration Provider](/azure/azure-app-configuration/quickstart-aspnet-core-app) (Azure documentation)</span></span> | <span data-ttu-id="f7447-210">Azure App Configuration</span><span class="sxs-lookup"><span data-stu-id="f7447-210">Azure App Configuration</span></span> |
-| [<span data-ttu-id="f7447-211">Zprostředkovatel konfigurace příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-211">Command-line Configuration Provider</span></span>](#command-line-configuration-provider) | <span data-ttu-id="f7447-212">Parametry příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-212">Command-line parameters</span></span> |
-| [<span data-ttu-id="f7447-213">Vlastní poskytovatel konfigurace</span><span class="sxs-lookup"><span data-stu-id="f7447-213">Custom configuration provider</span></span>](#custom-configuration-provider) | <span data-ttu-id="f7447-214">Vlastní zdroj</span><span class="sxs-lookup"><span data-stu-id="f7447-214">Custom source</span></span> |
-| [<span data-ttu-id="f7447-215">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-215">Environment Variables Configuration Provider</span></span>](#environment-variables-configuration-provider) | <span data-ttu-id="f7447-216">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-216">Environment variables</span></span> |
-| [<span data-ttu-id="f7447-217">Poskytovatel konfigurace souboru</span><span class="sxs-lookup"><span data-stu-id="f7447-217">File Configuration Provider</span></span>](#file-configuration-provider) | <span data-ttu-id="f7447-218">Soubory (INI, JSON, XML)</span><span class="sxs-lookup"><span data-stu-id="f7447-218">Files (INI, JSON, XML)</span></span> |
-| [<span data-ttu-id="f7447-219">Poskytovatel konfigurace klíče na soubor</span><span class="sxs-lookup"><span data-stu-id="f7447-219">Key-per-file Configuration Provider</span></span>](#key-per-file-configuration-provider) | <span data-ttu-id="f7447-220">Soubory adresáře</span><span class="sxs-lookup"><span data-stu-id="f7447-220">Directory files</span></span> |
-| [<span data-ttu-id="f7447-221">Poskytovatel konfigurace paměti</span><span class="sxs-lookup"><span data-stu-id="f7447-221">Memory Configuration Provider</span></span>](#memory-configuration-provider) | <span data-ttu-id="f7447-222">Kolekce v paměti</span><span class="sxs-lookup"><span data-stu-id="f7447-222">In-memory collections</span></span> |
-| <span data-ttu-id="f7447-223">[Uživatelské klíče (správce tajných klíčů)](xref:security/app-secrets) (*bezpečnostní* témata)</span><span class="sxs-lookup"><span data-stu-id="f7447-223">[User secrets (Secret Manager)](xref:security/app-secrets) (*Security* topics)</span></span> | <span data-ttu-id="f7447-224">Soubor v adresáři profilu uživatele</span><span class="sxs-lookup"><span data-stu-id="f7447-224">File in the user profile directory</span></span> |
+<a name="evcp"></a>
 
-<span data-ttu-id="f7447-225">Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou jejich poskytovatelé konfigurace určení při spuštění.</span><span class="sxs-lookup"><span data-stu-id="f7447-225">Configuration sources are read in the order that their configuration providers are specified at startup.</span></span> <span data-ttu-id="f7447-226">Poskytovatelé konfigurace popsané v tomto tématu jsou popsány v abecedním pořadí, nikoli v pořadí, v jakém je kód uspořádá.</span><span class="sxs-lookup"><span data-stu-id="f7447-226">The configuration providers described in this topic are described in alphabetical order, not in the order that the code arranges them.</span></span> <span data-ttu-id="f7447-227">Seřazení zprostředkovatelů konfigurace v kódu, aby odpovídal prioritám pro základní zdroje konfigurace vyžadované aplikací.</span><span class="sxs-lookup"><span data-stu-id="f7447-227">Order configuration providers in code to suit the priorities for the underlying configuration sources that the app requires.</span></span>
+## <a name="environment-variables"></a><span data-ttu-id="c927c-175">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-175">Environment variables</span></span>
 
-<span data-ttu-id="f7447-228">Typická posloupnost zprostředkovatelů konfigurace je:</span><span class="sxs-lookup"><span data-stu-id="f7447-228">A typical sequence of configuration providers is:</span></span>
-
-1. <span data-ttu-id="f7447-229">Soubory (*appSettings. JSON*, *appSettings. { Environment}. JSON*, kde `{Environment}` je aktuální hostující prostředí aplikace)</span><span class="sxs-lookup"><span data-stu-id="f7447-229">Files (*appsettings.json*, *appsettings.{Environment}.json*, where `{Environment}` is the app's current hosting environment)</span></span>
-1. [<span data-ttu-id="f7447-230">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="f7447-230">Azure Key Vault</span></span>](xref:security/key-vault-configuration)
-1. <span data-ttu-id="f7447-231">[Uživatelské klíče (správce tajných klíčů)](xref:security/app-secrets) (jenom vývojové prostředí)</span><span class="sxs-lookup"><span data-stu-id="f7447-231">[User secrets (Secret Manager)](xref:security/app-secrets) (Development environment only)</span></span>
-1. <span data-ttu-id="f7447-232">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-232">Environment variables</span></span>
-1. <span data-ttu-id="f7447-233">Argumenty příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-233">Command-line arguments</span></span>
-
-<span data-ttu-id="f7447-234">Běžným postupem je umístit poskytovatele konfigurace příkazového řádku na poslední v řadě zprostředkovatelů, aby argumenty příkazového řádku mohly přepsat konfiguraci nastavenou ostatními zprostředkovateli.</span><span class="sxs-lookup"><span data-stu-id="f7447-234">A common practice is to position the Command-line Configuration Provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
-
-<span data-ttu-id="f7447-235">Předchozí sekvence zprostředkovatelů se používá při inicializaci nového hostitele pomocí `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-235">The preceding sequence of providers is used when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="f7447-236">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-236">For more information, see the [Default configuration](#default-configuration) section.</span></span>
-
-## <a name="configure-the-host-builder-with-configurehostconfiguration"></a><span data-ttu-id="f7447-237">Konfigurace tvůrce hostitele pomocí ConfigureHostConfiguration</span><span class="sxs-lookup"><span data-stu-id="f7447-237">Configure the host builder with ConfigureHostConfiguration</span></span>
-
-<span data-ttu-id="f7447-238">Chcete-li nakonfigurovat tvůrce hostitele, zavolejte <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> a zadejte konfiguraci.</span><span class="sxs-lookup"><span data-stu-id="f7447-238">To configure the host builder, call <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureHostConfiguration*> and supply the configuration.</span></span> <span data-ttu-id="f7447-239">`ConfigureHostConfiguration` slouží k inicializaci <xref:Microsoft.Extensions.Hosting.IHostEnvironment> pro pozdější použití v procesu sestavení.</span><span class="sxs-lookup"><span data-stu-id="f7447-239">`ConfigureHostConfiguration` is used to initialize the <xref:Microsoft.Extensions.Hosting.IHostEnvironment> for use later in the build process.</span></span> <span data-ttu-id="f7447-240">`ConfigureHostConfiguration` lze volat vícekrát pomocí aditivních výsledků.</span><span class="sxs-lookup"><span data-stu-id="f7447-240">`ConfigureHostConfiguration` can be called multiple times with additive results.</span></span>
-
-```csharp
-public static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
-        .ConfigureHostConfiguration(config =>
-        {
-            var dict = new Dictionary<string, string>
-            {
-                {"MemoryCollectionKey1", "value1"},
-                {"MemoryCollectionKey2", "value2"}
-            };
-
-            config.AddInMemoryCollection(dict);
-        })
-        .ConfigureWebHostDefaults(webBuilder =>
-        {
-            webBuilder.UseStartup<Startup>();
-        });
-```
-
-## <a name="configureappconfiguration"></a><span data-ttu-id="f7447-241">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="f7447-241">ConfigureAppConfiguration</span></span>
-
-<span data-ttu-id="f7447-242">Při vytváření hostitele volejte `ConfigureAppConfiguration`, aby bylo možné určit poskytovatele konfigurace aplikace společně s automaticky přidanými `CreateDefaultBuilder`:</span><span class="sxs-lookup"><span data-stu-id="f7447-242">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration providers in addition to those added automatically by `CreateDefaultBuilder`:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=20)]
-
-### <a name="override-previous-configuration-with-command-line-arguments"></a><span data-ttu-id="f7447-243">Přepsat předchozí konfiguraci pomocí argumentů příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-243">Override previous configuration with command-line arguments</span></span>
-
-<span data-ttu-id="f7447-244">Chcete-li poskytnout konfiguraci aplikace, kterou lze přepsat pomocí argumentů příkazového řádku, zavolejte `AddCommandLine` Poslední:</span><span class="sxs-lookup"><span data-stu-id="f7447-244">To provide app configuration that can be overridden with command-line arguments, call `AddCommandLine` last:</span></span>
-
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    // Call other providers here
-    config.AddCommandLine(args);
-})
-```
-
-### <a name="remove-providers-added-by-createdefaultbuilder"></a><span data-ttu-id="f7447-245">Odebrat poskytovatele přidaných pomocí CreateDefaultBuilder</span><span class="sxs-lookup"><span data-stu-id="f7447-245">Remove providers added by CreateDefaultBuilder</span></span>
-
-<span data-ttu-id="f7447-246">Chcete-li odebrat poskytovatele přidaných pomocí `CreateDefaultBuilder`[, zavolejte nejprve](/dotnet/api/system.collections.generic.icollection-1.clear) na [IConfigurationBuilder. sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) :</span><span class="sxs-lookup"><span data-stu-id="f7447-246">To remove the providers added by `CreateDefaultBuilder`, call [Clear](/dotnet/api/system.collections.generic.icollection-1.clear) on the [IConfigurationBuilder.Sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) first:</span></span>
-
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    config.Sources.Clear();
-    // Add providers here
-})
-```
-
-### <a name="consume-configuration-during-app-startup"></a><span data-ttu-id="f7447-247">Využití konfigurace při spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="f7447-247">Consume configuration during app startup</span></span>
-
-<span data-ttu-id="f7447-248">Konfigurace zadaná do aplikace v `ConfigureAppConfiguration` je dostupná během spouštění aplikace, včetně `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="f7447-248">Configuration supplied to the app in `ConfigureAppConfiguration` is available during the app's startup, including `Startup.ConfigureServices`.</span></span> <span data-ttu-id="f7447-249">Další informace najdete v části [Konfigurace přístupu během spuštění](#access-configuration-during-startup) .</span><span class="sxs-lookup"><span data-stu-id="f7447-249">For more information, see the [Access configuration during startup](#access-configuration-during-startup) section.</span></span>
-
-## <a name="command-line-configuration-provider"></a><span data-ttu-id="f7447-250">Zprostředkovatel konfigurace příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-250">Command-line Configuration Provider</span></span>
-
-<span data-ttu-id="f7447-251"><xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> načítá konfiguraci z párů klíč-hodnota argumentu klíč-hodnota za běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-251">The <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs at runtime.</span></span>
-
-<span data-ttu-id="f7447-252">Chcete-li aktivovat konfiguraci příkazového řádku, je jako instance <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>volána metoda rozšíření <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span><span class="sxs-lookup"><span data-stu-id="f7447-252">To activate command-line configuration, the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> extension method is called on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
-
-<span data-ttu-id="f7447-253">`AddCommandLine` je automaticky volána, když je volána `CreateDefaultBuilder(string [])`.</span><span class="sxs-lookup"><span data-stu-id="f7447-253">`AddCommandLine` is automatically called when `CreateDefaultBuilder(string [])` is called.</span></span> <span data-ttu-id="f7447-254">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-254">For more information, see the [Default configuration](#default-configuration) section.</span></span>
-
-<span data-ttu-id="f7447-255">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="f7447-255">`CreateDefaultBuilder` also loads:</span></span>
-
-* <span data-ttu-id="f7447-256">Volitelná konfigurace z *appSettings. JSON* a *appSettings. { Soubory Environment}. JSON* .</span><span class="sxs-lookup"><span data-stu-id="f7447-256">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
-* <span data-ttu-id="f7447-257">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-257">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="f7447-258">Proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-258">Environment variables.</span></span>
-
-<span data-ttu-id="f7447-259">`CreateDefaultBuilder` přidá poskytovatele konfigurace příkazového řádku naposledy.</span><span class="sxs-lookup"><span data-stu-id="f7447-259">`CreateDefaultBuilder` adds the Command-line Configuration Provider last.</span></span> <span data-ttu-id="f7447-260">Argumenty příkazového řádku předané v konfiguraci přepsání za běhu nastavené jinými poskytovateli.</span><span class="sxs-lookup"><span data-stu-id="f7447-260">Command-line arguments passed at runtime override configuration set by the other providers.</span></span>
-
-<span data-ttu-id="f7447-261">`CreateDefaultBuilder` funguje při sestavení hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-261">`CreateDefaultBuilder` acts when the host is constructed.</span></span> <span data-ttu-id="f7447-262">Proto může konfigurace z příkazového řádku aktivované pomocí `CreateDefaultBuilder` ovlivnit způsob konfigurace hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-262">Therefore, command-line configuration activated by `CreateDefaultBuilder` can affect how the host is configured.</span></span>
-
-<span data-ttu-id="f7447-263">Pro aplikace založené na šablonách ASP.NET Core `AddCommandLine` již byly volány `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-263">For apps based on the ASP.NET Core templates, `AddCommandLine` has already been called by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="f7447-264">Chcete-li přidat další poskytovatele konfigurace a zachovat možnost přepsat konfiguraci z těchto zprostředkovatelů pomocí argumentů příkazového řádku, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte `AddCommandLine` Last.</span><span class="sxs-lookup"><span data-stu-id="f7447-264">To add additional configuration providers and maintain the ability to override configuration from those providers with command-line arguments, call the app's additional providers in `ConfigureAppConfiguration` and call `AddCommandLine` last.</span></span>
-
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    // Call other providers here
-    config.AddCommandLine(args);
-})
-```
-
-<span data-ttu-id="f7447-265">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="f7447-265">**Example**</span></span>
-
-<span data-ttu-id="f7447-266">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span><span class="sxs-lookup"><span data-stu-id="f7447-266">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span>
-
-1. <span data-ttu-id="f7447-267">Otevřete příkazový řádek v adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="f7447-267">Open a command prompt in the project's directory.</span></span>
-1. <span data-ttu-id="f7447-268">Zadejte argument příkazového řádku pro příkaz `dotnet run` `dotnet run CommandLineKey=CommandLineValue`.</span><span class="sxs-lookup"><span data-stu-id="f7447-268">Supply a command-line argument to the `dotnet run` command, `dotnet run CommandLineKey=CommandLineValue`.</span></span>
-1. <span data-ttu-id="f7447-269">Po spuštění aplikace otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="f7447-269">After the app is running, open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="f7447-270">Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro argument příkazového řádku konfigurace, který je k dispozici pro `dotnet run`.</span><span class="sxs-lookup"><span data-stu-id="f7447-270">Observe that the output contains the key-value pair for the configuration command-line argument provided to `dotnet run`.</span></span>
-
-### <a name="arguments"></a><span data-ttu-id="f7447-271">Argumenty</span><span class="sxs-lookup"><span data-stu-id="f7447-271">Arguments</span></span>
-
-<span data-ttu-id="f7447-272">Hodnota musí následovat po znaménku rovná se (`=`), nebo klíč musí obsahovat předponu (`--` nebo `/`), pokud se hodnota řídí mezerou.</span><span class="sxs-lookup"><span data-stu-id="f7447-272">The value must follow an equals sign (`=`), or the key must have a prefix (`--` or `/`) when the value follows a space.</span></span> <span data-ttu-id="f7447-273">Hodnota není povinná, pokud se používá znaménko rovná se (například `CommandLineKey=`).</span><span class="sxs-lookup"><span data-stu-id="f7447-273">The value isn't required if an equals sign is used (for example, `CommandLineKey=`).</span></span>
-
-| <span data-ttu-id="f7447-274">Klíčová předpona</span><span class="sxs-lookup"><span data-stu-id="f7447-274">Key prefix</span></span>               | <span data-ttu-id="f7447-275">Příklad</span><span class="sxs-lookup"><span data-stu-id="f7447-275">Example</span></span>                                                |
-| ------------------------ | ------------------------------------------------------ |
-| <span data-ttu-id="f7447-276">Bez předpony</span><span class="sxs-lookup"><span data-stu-id="f7447-276">No prefix</span></span>                | `CommandLineKey1=value1`                               |
-| <span data-ttu-id="f7447-277">Dvě pomlčky (`--`)</span><span class="sxs-lookup"><span data-stu-id="f7447-277">Two dashes (`--`)</span></span>        | <span data-ttu-id="f7447-278">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span><span class="sxs-lookup"><span data-stu-id="f7447-278">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span></span> |
-| <span data-ttu-id="f7447-279">Lomítko (`/`)</span><span class="sxs-lookup"><span data-stu-id="f7447-279">Forward slash (`/`)</span></span>      | <span data-ttu-id="f7447-280">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span><span class="sxs-lookup"><span data-stu-id="f7447-280">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span></span>   |
-
-<span data-ttu-id="f7447-281">V rámci stejného příkazu Nekombinujte páry klíč-hodnota argumentu příkazového řádku, které používají symbol rovná se s páry klíč-hodnota, které používají mezeru.</span><span class="sxs-lookup"><span data-stu-id="f7447-281">Within the same command, don't mix command-line argument key-value pairs that use an equals sign with key-value pairs that use a space.</span></span>
-
-<span data-ttu-id="f7447-282">Příklady příkazů:</span><span class="sxs-lookup"><span data-stu-id="f7447-282">Example commands:</span></span>
-
-```dotnetcli
-dotnet run CommandLineKey1=value1 --CommandLineKey2=value2 /CommandLineKey3=value3
-dotnet run --CommandLineKey1 value1 /CommandLineKey2 value2
-dotnet run CommandLineKey1= CommandLineKey2=value2
-```
-
-### <a name="switch-mappings"></a><span data-ttu-id="f7447-283">Mapování přepínačů</span><span class="sxs-lookup"><span data-stu-id="f7447-283">Switch mappings</span></span>
-
-<span data-ttu-id="f7447-284">Mapování přepínačů povolují logiku nahrazení názvu klíče.</span><span class="sxs-lookup"><span data-stu-id="f7447-284">Switch mappings allow key name replacement logic.</span></span> <span data-ttu-id="f7447-285">Při ručním sestavování konfigurace pomocí <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>zadejte do metody <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> slovník přepínačů pro nahrazení.</span><span class="sxs-lookup"><span data-stu-id="f7447-285">When manually building configuration with a <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>, provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
-
-<span data-ttu-id="f7447-286">Při použití slovníku mapování přepínačů je slovník zaškrtnut pro klíč, který odpovídá klíči poskytnutému argumentem příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="f7447-286">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="f7447-287">Pokud se klíč příkazového řádku nachází ve slovníku, vrátí se hodnota slovníku (nahrazení klíče) zpět, aby se v konfiguraci aplikace nastavil pár klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="f7447-287">If the command-line key is found in the dictionary, the dictionary value (the key replacement) is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="f7447-288">Mapování přepínačů je vyžadováno pro jakýkoliv klíč příkazového řádku s jedním spojovníkem (`-`).</span><span class="sxs-lookup"><span data-stu-id="f7447-288">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
-
-<span data-ttu-id="f7447-289">Pravidla klíče slovníku mapování přepínačů:</span><span class="sxs-lookup"><span data-stu-id="f7447-289">Switch mappings dictionary key rules:</span></span>
-
-* <span data-ttu-id="f7447-290">Přepínače musí začínat spojovníkem (`-`) nebo dvojitou pomlčkou (`--`).</span><span class="sxs-lookup"><span data-stu-id="f7447-290">Switches must start with a dash (`-`) or double-dash (`--`).</span></span>
-* <span data-ttu-id="f7447-291">Slovník mapování přepínačů nesmí obsahovat duplicitní klíče.</span><span class="sxs-lookup"><span data-stu-id="f7447-291">The switch mappings dictionary must not contain duplicate keys.</span></span>
-
-<span data-ttu-id="f7447-292">Vytvořte slovník mapování přepínačů.</span><span class="sxs-lookup"><span data-stu-id="f7447-292">Create a switch mappings dictionary.</span></span> <span data-ttu-id="f7447-293">V následujícím příkladu se vytvoří mapování dvou přepínačů:</span><span class="sxs-lookup"><span data-stu-id="f7447-293">In the following example, two switch mappings are created:</span></span>
-
-```csharp
-public static readonly Dictionary<string, string> _switchMappings = 
-    new Dictionary<string, string>
-    {
-        { "-CLKey1", "CommandLineKey1" },
-        { "-CLKey2", "CommandLineKey2" }
-    };
-```
-
-<span data-ttu-id="f7447-294">Po sestavení hostitele volejte `AddCommandLine` pomocí slovníku mapování přepínačů:</span><span class="sxs-lookup"><span data-stu-id="f7447-294">When the host is built, call `AddCommandLine` with the switch mappings dictionary:</span></span>
-
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    config.AddCommandLine(args, _switchMappings);
-})
-```
-
-<span data-ttu-id="f7447-295">Pro aplikace, které používají mapování přepínačů, by volání `CreateDefaultBuilder` nemělo předávat argumenty.</span><span class="sxs-lookup"><span data-stu-id="f7447-295">For apps that use switch mappings, the call to `CreateDefaultBuilder` shouldn't pass arguments.</span></span> <span data-ttu-id="f7447-296">Volání `AddCommandLine` metody `CreateDefaultBuilder` nezahrnuje mapované přepínače a neexistuje žádný způsob, jak předávat slovník mapování přepínačů na `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-296">The `CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="f7447-297">Řešení nepředá argumenty `CreateDefaultBuilder`, ale namísto toho umožní metodě `AddCommandLine` `ConfigurationBuilder` metody zpracovat argumenty a slovník mapování přepínačů.</span><span class="sxs-lookup"><span data-stu-id="f7447-297">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch mapping dictionary.</span></span>
-
-<span data-ttu-id="f7447-298">Po vytvoření slovníku mapování přepínačů obsahuje data uvedená v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="f7447-298">After the switch mappings dictionary is created, it contains the data shown in the following table.</span></span>
-
-| <span data-ttu-id="f7447-299">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-299">Key</span></span>       | <span data-ttu-id="f7447-300">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-300">Value</span></span>             |
-| --------- | ----------------- |
-| `-CLKey1` | `CommandLineKey1` |
-| `-CLKey2` | `CommandLineKey2` |
-
-<span data-ttu-id="f7447-301">Pokud se klíče mapovaného přepínače používají při spuštění aplikace, konfigurace obdrží hodnotu konfigurace klíče poskytnutého slovníkem:</span><span class="sxs-lookup"><span data-stu-id="f7447-301">If the switch-mapped keys are used when starting the app, configuration receives the configuration value on the key supplied by the dictionary:</span></span>
-
-```dotnetcli
-dotnet run -CLKey1=value1 -CLKey2=value2
-```
-
-<span data-ttu-id="f7447-302">Po spuštění předchozího příkazu obsahuje konfigurace hodnoty uvedené v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="f7447-302">After running the preceding command, configuration contains the values shown in the following table.</span></span>
-
-| <span data-ttu-id="f7447-303">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-303">Key</span></span>               | <span data-ttu-id="f7447-304">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-304">Value</span></span>    |
-| ----------------- | -------- |
-| `CommandLineKey1` | `value1` |
-| `CommandLineKey2` | `value2` |
-
-## <a name="environment-variables-configuration-provider"></a><span data-ttu-id="f7447-305">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-305">Environment Variables Configuration Provider</span></span>
-
-<span data-ttu-id="f7447-306"><xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> načte konfiguraci z páru klíč-hodnota proměnné prostředí za běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-306">The <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs at runtime.</span></span>
-
-<span data-ttu-id="f7447-307">Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-307">To activate environment variables configuration, call the <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-176">Když použijete [výchozí](#default) konfiguraci, <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> načte konfiguraci z párů klíč-hodnota proměnné prostředí po čtení *appSettings. JSON*, *appSettings.* `Environment` *. JSON*a [správce tajných](xref:security/app-secrets)klíčů.</span><span class="sxs-lookup"><span data-stu-id="c927c-176">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs after reading *appsettings.json*, *appsettings.*`Environment`*.json*, and [Secret manager](xref:security/app-secrets).</span></span> <span data-ttu-id="c927c-177">Proto hodnoty klíčů načtené z prostředí přepisují hodnoty načtené z hodnot *appSettings. JSON*, *appSettings.* `Environment` *. JSON*a správce tajných klíčů.</span><span class="sxs-lookup"><span data-stu-id="c927c-177">Therefore, key values read from the environment override values read from *appsettings.json*, *appsettings.*`Environment`*.json*, and Secret manager.</span></span>
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-<span data-ttu-id="f7447-308">[Azure App Service](https://azure.microsoft.com/services/app-service/) povoluje nastavení proměnných prostředí na webu Azure Portal, které mohou přepsat konfiguraci aplikace pomocí poskytovatele konfigurace proměnných prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-308">[Azure App Service](https://azure.microsoft.com/services/app-service/) permits setting environment variables in the Azure Portal that can override app configuration using the Environment Variables Configuration Provider.</span></span> <span data-ttu-id="f7447-309">Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span><span class="sxs-lookup"><span data-stu-id="f7447-309">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
+<span data-ttu-id="c927c-178">Následující příkazy `set`:</span><span class="sxs-lookup"><span data-stu-id="c927c-178">The following `set` commands:</span></span>
 
-<span data-ttu-id="f7447-310">`AddEnvironmentVariables` se používá k načtení proměnných prostředí s předponou `DOTNET_` pro [konfiguraci hostitele](#host-versus-app-configuration) při inicializaci nového hostitele s [obecným hostitelem](xref:fundamentals/host/generic-host) a volání `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-310">`AddEnvironmentVariables` is used to load environment variables prefixed with `DOTNET_` for [host configuration](#host-versus-app-configuration) when a new host builder is initialized with the [Generic Host](xref:fundamentals/host/generic-host) and `CreateDefaultBuilder` is called.</span></span> <span data-ttu-id="f7447-311">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-311">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+* <span data-ttu-id="c927c-179">Nastavte klíče prostředí a hodnoty v [předchozím příkladu](#appsettingsjson) ve Windows.</span><span class="sxs-lookup"><span data-stu-id="c927c-179">Set the environment keys and values of the [preceding example](#appsettingsjson) on Windows.</span></span>
+* <span data-ttu-id="c927c-180">Při použití [ukázkového stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)otestujte nastavení.</span><span class="sxs-lookup"><span data-stu-id="c927c-180">Test the settings when using the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample).</span></span> <span data-ttu-id="c927c-181">Příkaz `dotnet run` musí být spuštěn v adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="c927c-181">The `dotnet run` command must be run in the project directory.</span></span>
 
-<span data-ttu-id="f7447-312">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="f7447-312">`CreateDefaultBuilder` also loads:</span></span>
-
-* <span data-ttu-id="f7447-313">Konfigurace aplikace z neprefixových proměnných prostředí voláním `AddEnvironmentVariables` bez předpony.</span><span class="sxs-lookup"><span data-stu-id="f7447-313">App configuration from unprefixed environment variables by calling `AddEnvironmentVariables` without a prefix.</span></span>
-* <span data-ttu-id="f7447-314">Volitelná konfigurace z *appSettings. JSON* a *appSettings. { Soubory Environment}. JSON* .</span><span class="sxs-lookup"><span data-stu-id="f7447-314">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
-* <span data-ttu-id="f7447-315">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-315">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="f7447-316">Argumenty příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="f7447-316">Command-line arguments.</span></span>
-
-<span data-ttu-id="f7447-317">Poskytovatel konfigurace proměnných prostředí se volá po vytvoření konfigurace z uživatelských tajných kódů a souborů *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="f7447-317">The Environment Variables Configuration Provider is called after configuration is established from user secrets and *appsettings* files.</span></span> <span data-ttu-id="f7447-318">Volání zprostředkovatele v této pozici umožňuje, aby proměnné prostředí byly čteny za běhu, aby bylo možné přepsat konfiguraci nastavenou pomocí tajných kódů uživatelů a souborů *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="f7447-318">Calling the provider in this position allows the environment variables read at runtime to override configuration set by user secrets and *appsettings* files.</span></span>
-
-<span data-ttu-id="f7447-319">Chcete-li poskytnout konfiguraci aplikace z dalších proměnných prostředí, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte `AddEnvironmentVariables` s předponou:</span><span class="sxs-lookup"><span data-stu-id="f7447-319">To provide app configuration from additional environment variables, call the app's additional providers in `ConfigureAppConfiguration` and call `AddEnvironmentVariables` with the prefix:</span></span>
-
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    config.AddEnvironmentVariables(prefix: "PREFIX_");
-})
+```cmd
+set MyKey="My key from Environment"
+set Position__Title=Environment_Editor
+set Position__Name=Environment_Rick
+dotnet run
 ```
 
-<span data-ttu-id="f7447-320">Pokud chcete, aby proměnné prostředí s danou předponou přepsaly hodnoty od jiných zprostředkovatelů, zavolejte `AddEnvironmentVariables` jako poslední.</span><span class="sxs-lookup"><span data-stu-id="f7447-320">Call `AddEnvironmentVariables` last to allow environment variables with the given prefix to override values from other providers.</span></span>
+<span data-ttu-id="c927c-182">Předchozí nastavení prostředí:</span><span class="sxs-lookup"><span data-stu-id="c927c-182">The preceding environment settings:</span></span>
 
-<span data-ttu-id="f7447-321">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="f7447-321">**Example**</span></span>
+* <span data-ttu-id="c927c-183">Jsou nastaveny pouze v procesech spuštěných z příkazového okna, ve kterém byly nastaveny.</span><span class="sxs-lookup"><span data-stu-id="c927c-183">Are only set in processes launched from the command window they were set in.</span></span>
+* <span data-ttu-id="c927c-184">Nebudou přečteny pomocí prohlížečů spuštěných v aplikaci Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="c927c-184">Won't be read by browsers launched with Visual Studio.</span></span>
 
-<span data-ttu-id="f7447-322">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání `AddEnvironmentVariables`.</span><span class="sxs-lookup"><span data-stu-id="f7447-322">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="c927c-185">K nastavení klíčů a hodnot prostředí ve Windows se dají použít následující příkazy [setx](/windows-server/administration/windows-commands/setx) .</span><span class="sxs-lookup"><span data-stu-id="c927c-185">The following [setx](/windows-server/administration/windows-commands/setx) commands can be used to set the environment keys and values on Windows.</span></span> <span data-ttu-id="c927c-186">Na rozdíl od `set`jsou nastavení `setx` trvalá.</span><span class="sxs-lookup"><span data-stu-id="c927c-186">Unlike `set`, `setx` settings are persisted.</span></span> <span data-ttu-id="c927c-187">`/M` nastaví proměnnou v prostředí systému.</span><span class="sxs-lookup"><span data-stu-id="c927c-187">`/M` sets the variable in the system environment.</span></span> <span data-ttu-id="c927c-188">Pokud se přepínač `/M` nepoužívá, je nastavena proměnná prostředí uživatele.</span><span class="sxs-lookup"><span data-stu-id="c927c-188">If the `/M` switch isn't used, a user environment variable is set.</span></span>
 
-1. <span data-ttu-id="f7447-323">Spuštění ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-323">Run the sample app.</span></span> <span data-ttu-id="f7447-324">Otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="f7447-324">Open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="f7447-325">Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro proměnnou prostředí `ENVIRONMENT`.</span><span class="sxs-lookup"><span data-stu-id="f7447-325">Observe that the output contains the key-value pair for the environment variable `ENVIRONMENT`.</span></span> <span data-ttu-id="f7447-326">Hodnota odráží prostředí, ve kterém je aplikace spuštěná, obvykle `Development` při místním spuštění.</span><span class="sxs-lookup"><span data-stu-id="f7447-326">The value reflects the environment in which the app is running, typically `Development` when running locally.</span></span>
-
-<span data-ttu-id="f7447-327">Chcete-li zachovat seznam proměnných prostředí vygenerovaných aplikací v krátkém prostředí, aplikace filtruje proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-327">To keep the list of environment variables rendered by the app short, the app filters environment variables.</span></span> <span data-ttu-id="f7447-328">Podívejte se na soubor *pages/index. cshtml. cs* ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-328">See the sample app's *Pages/Index.cshtml.cs* file.</span></span>
-
-<span data-ttu-id="f7447-329">Pokud chcete zpřístupnit všechny proměnné prostředí dostupné pro aplikaci, změňte `FilteredConfiguration` na *stránce pages/index. cshtml. cs* na následující:</span><span class="sxs-lookup"><span data-stu-id="f7447-329">To expose all of the environment variables available to the app, change the `FilteredConfiguration` in *Pages/Index.cshtml.cs* to the following:</span></span>
-
-```csharp
-FilteredConfiguration = _config.AsEnumerable();
+```cmd
+setx MyKey "My key from setx Environment" /M
+setx Position__Title Setx_Environment_Editor /M
+setx Position__Name Environment_Rick /M
 ```
 
-### <a name="prefixes"></a><span data-ttu-id="f7447-330">Předpony</span><span class="sxs-lookup"><span data-stu-id="f7447-330">Prefixes</span></span>
+<span data-ttu-id="c927c-189">Chcete-li otestovat předchozí příkazy, přepište *apsettings. JSON* a *appSettings.* `Environment` *. JSON*:</span><span class="sxs-lookup"><span data-stu-id="c927c-189">To test that the preceding commands override *apsettings.json* and *appsettings.*`Environment`*.json*:</span></span>
 
-<span data-ttu-id="f7447-331">Proměnné prostředí načtené do konfigurace aplikace jsou filtrovány při zadání předpony metody `AddEnvironmentVariables`.</span><span class="sxs-lookup"><span data-stu-id="f7447-331">Environment variables loaded into the app's configuration are filtered when supplying a prefix to the `AddEnvironmentVariables` method.</span></span> <span data-ttu-id="f7447-332">Chcete-li například filtrovat proměnné prostředí v `CUSTOM_`předpony, zadejte předponu do poskytovatele konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-332">For example, to filter environment variables on the prefix `CUSTOM_`, supply the prefix to the configuration provider:</span></span>
+* <span data-ttu-id="c927c-190">Se sadou Visual Studio: Ukončete a restartujte Visual Studio.</span><span class="sxs-lookup"><span data-stu-id="c927c-190">With Visual Studio: Exit and restart Visual Studio.</span></span>
+* <span data-ttu-id="c927c-191">Pomocí rozhraní příkazového řádku: spusťte nové příkazové okno a zadejte `dotnet run`.</span><span class="sxs-lookup"><span data-stu-id="c927c-191">With the CLI: Start a new command window and enter `dotnet run`.</span></span>
 
-```csharp
-var config = new ConfigurationBuilder()
-    .AddEnvironmentVariables("CUSTOM_")
-    .Build();
+<span data-ttu-id="c927c-192">Pokud chcete zadat předponu pro proměnné prostředí, zavolejte <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> s řetězcem:</span><span class="sxs-lookup"><span data-stu-id="c927c-192">Call <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> with a string to specify a prefix for environment variables:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Program.cs?name=snippet4&highlight=12)]
+
+<span data-ttu-id="c927c-193">V předchozím kódu:</span><span class="sxs-lookup"><span data-stu-id="c927c-193">In the preceding code:</span></span>
+
+* <span data-ttu-id="c927c-194">`config.AddEnvironmentVariables(prefix: "MyCustomPrefix_")` se přidá po [výchozích poskytovatelích konfigurace](#default).</span><span class="sxs-lookup"><span data-stu-id="c927c-194">`config.AddEnvironmentVariables(prefix: "MyCustomPrefix_")` is added after the [default configuration providers](#default).</span></span> <span data-ttu-id="c927c-195">Příklad řazení zprostředkovatelů konfigurace najdete v tématu [zprostředkovatel konfigurace JSON](#jcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-195">For an example of ordering the configuration providers, see [JSON configuration provider](#jcp).</span></span>
+* <span data-ttu-id="c927c-196">Proměnné prostředí nastavené s předponou `MyCustomPrefix_` přepíší [výchozí poskytovatele konfigurace](#default).</span><span class="sxs-lookup"><span data-stu-id="c927c-196">Environment variables set with the `MyCustomPrefix_` prefix override the [default configuration providers](#default).</span></span> <span data-ttu-id="c927c-197">To zahrnuje proměnné prostředí bez předpony.</span><span class="sxs-lookup"><span data-stu-id="c927c-197">This includes environment variables without the prefix.</span></span>
+
+<span data-ttu-id="c927c-198">Pokud jsou načteny páry klíč-hodnota konfigurace, je předpona odstraněna.</span><span class="sxs-lookup"><span data-stu-id="c927c-198">The prefix is stripped off when the configuration key-value pairs are read.</span></span>
+
+<span data-ttu-id="c927c-199">Vlastní předponu otestujete následujícími příkazy:</span><span class="sxs-lookup"><span data-stu-id="c927c-199">The following commands test the custom prefix:</span></span>
+
+```cmd
+set MyCustomPrefix_MyKey="My key with MyCustomPrefix_ Environment"
+set MyCustomPrefix_Position__Title=Editor_with_customPrefix
+set MyCustomPrefix_Position__Name=Environment_Rick_cp
+dotnet run
 ```
 
-<span data-ttu-id="f7447-333">Pokud jsou vytvořeny páry klíč-hodnota konfigurace, je předpona odstraněna.</span><span class="sxs-lookup"><span data-stu-id="f7447-333">The prefix is stripped off when the configuration key-value pairs are created.</span></span>
+<span data-ttu-id="c927c-200">[Výchozí konfigurace](#default) načte proměnné prostředí a argumenty příkazového řádku s předponou `DOTNET_` a `ASPNETCORE_`.</span><span class="sxs-lookup"><span data-stu-id="c927c-200">The [default configuration](#default) loads environment variables and command line arguments prefixed with `DOTNET_` and `ASPNETCORE_`.</span></span> <span data-ttu-id="c927c-201">Předpony `DOTNET_` a `ASPNETCORE_` jsou používány ASP.NET Core pro [konfiguraci hostitele a aplikace](xref:fundamentals/host/generic-host#host-configuration), ale ne pro konfiguraci uživatele.</span><span class="sxs-lookup"><span data-stu-id="c927c-201">The `DOTNET_` and `ASPNETCORE_` prefixes are used by ASP.NET Core for [host and app configuration](xref:fundamentals/host/generic-host#host-configuration), but not for user configuration.</span></span> <span data-ttu-id="c927c-202">Další informace o konfiguraci hostitele a aplikace najdete v tématu [obecný hostitel .NET](xref:fundamentals/host/generic-host).</span><span class="sxs-lookup"><span data-stu-id="c927c-202">For more information on host and app configuration, see [.NET Generic Host](xref:fundamentals/host/generic-host).</span></span>
 
-<span data-ttu-id="f7447-334">Když je vytvořen tvůrce hostitele, konfigurace hostitele je poskytována proměnnými prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-334">When the host builder is created, host configuration is provided by environment variables.</span></span> <span data-ttu-id="f7447-335">Další informace o předponě používané pro tyto proměnné prostředí naleznete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-335">For more information on the prefix used for these environment variables, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="c927c-203">V [Azure App Service](https://azure.microsoft.com/services/app-service/)na stránce **Nastavení > konfigurace** vyberte **nové nastavení aplikace** .</span><span class="sxs-lookup"><span data-stu-id="c927c-203">On [Azure App Service](https://azure.microsoft.com/services/app-service/), select **New application setting** on the **Settings > Configuration** page.</span></span> <span data-ttu-id="c927c-204">Azure App Service nastavení aplikace:</span><span class="sxs-lookup"><span data-stu-id="c927c-204">Azure App Service application settings are:</span></span>
 
-<span data-ttu-id="f7447-336">**Předpony připojovacího řetězce**</span><span class="sxs-lookup"><span data-stu-id="f7447-336">**Connection string prefixes**</span></span>
+* <span data-ttu-id="c927c-205">Šifrované v klidovém stavu a přenášené přes zašifrovaný kanál.</span><span class="sxs-lookup"><span data-stu-id="c927c-205">Encrypted at rest and transmitted over an encrypted channel.</span></span>
+* <span data-ttu-id="c927c-206">Vystaveno jako proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-206">Exposed as environment variables.</span></span>
 
-<span data-ttu-id="f7447-337">Rozhraní API pro konfiguraci má speciální pravidla zpracování pro čtyři proměnné prostředí připojovacích řetězců, které se podílejí na konfiguraci připojovacích řetězců Azure pro prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-337">The Configuration API has special processing rules for four connection string environment variables involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="f7447-338">Proměnné prostředí s předponami, které jsou uvedeny v tabulce, se načtou do aplikace, pokud není k `AddEnvironmentVariables`zadána žádná předpona.</span><span class="sxs-lookup"><span data-stu-id="f7447-338">Environment variables with the prefixes shown in the table are loaded into the app if no prefix is supplied to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="c927c-207">Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span><span class="sxs-lookup"><span data-stu-id="c927c-207">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
 
-| <span data-ttu-id="f7447-339">Předpona připojovacího řetězce</span><span class="sxs-lookup"><span data-stu-id="f7447-339">Connection string prefix</span></span> | <span data-ttu-id="f7447-340">Poskytovatel</span><span class="sxs-lookup"><span data-stu-id="f7447-340">Provider</span></span> |
+<span data-ttu-id="c927c-208">Informace o připojovacích řetězcích Azure Database najdete v tématu [předpony připojovacího řetězce](#constr) .</span><span class="sxs-lookup"><span data-stu-id="c927c-208">See [Connection string prefixes](#constr) for information on Azure database connection strings.</span></span>
+
+<a name="clcp"></a>
+
+## <a name="command-line"></a><span data-ttu-id="c927c-209">Příkazový řádek</span><span class="sxs-lookup"><span data-stu-id="c927c-209">Command-line</span></span>
+
+<span data-ttu-id="c927c-210">Pomocí [výchozí](#default) konfigurace <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> načte konfiguraci z párů klíč-hodnota argumentu klíč-hodnota po následujících zdrojích konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-210">Using the [default](#default) configuration, the <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs after the following configuration sources:</span></span>
+
+* <span data-ttu-id="c927c-211">*appSettings. JSON* a *appSettings*.`Environment`. soubory *JSON* .</span><span class="sxs-lookup"><span data-stu-id="c927c-211">*appsettings.json* and *appsettings*.`Environment`.*json* files.</span></span>
+* <span data-ttu-id="c927c-212">[Tajné kódy aplikací (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-212">[App secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
+* <span data-ttu-id="c927c-213">Proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-213">Environment variables.</span></span>
+
+<span data-ttu-id="c927c-214">Ve [výchozím nastavení](#default)jsou konfigurační hodnoty nastavené pro přepisy hodnot konfigurace na příkazovém řádku nastavené se všemi ostatními zprostředkovateli konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-214">By [default](#default), configuration values set on the command-line override configuration values set with all the other configuration providers.</span></span>
+
+### <a name="command-line-arguments"></a><span data-ttu-id="c927c-215">Argumenty příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-215">Command-line arguments</span></span>
+
+<span data-ttu-id="c927c-216">Následující příkaz nastaví klíče a hodnoty pomocí `=`:</span><span class="sxs-lookup"><span data-stu-id="c927c-216">The following command sets keys and values using `=`:</span></span>
+
+```dotnetcli
+dotnet run MyKey="My key from command line" Position:Title=Cmd Position:Name=Cmd_Rick
+```
+
+<span data-ttu-id="c927c-217">Následující příkaz nastaví klíče a hodnoty pomocí `/`:</span><span class="sxs-lookup"><span data-stu-id="c927c-217">The following command sets keys and values using `/`:</span></span>
+
+```dotnetcli
+dotnet run /MyKey "Using /" /Position:Title=Cmd_ /Position:Name=Cmd_Rick
+```
+
+<span data-ttu-id="c927c-218">Následující příkaz nastaví klíče a hodnoty pomocí `--`:</span><span class="sxs-lookup"><span data-stu-id="c927c-218">The following command sets keys and values using `--`:</span></span>
+
+```dotnetcli
+dotnet run --MyKey "Using --" --Position:Title=Cmd-- --Position:Name=Cmd--Rick
+```
+
+<span data-ttu-id="c927c-219">Hodnota klíče:</span><span class="sxs-lookup"><span data-stu-id="c927c-219">The key value:</span></span>
+
+* <span data-ttu-id="c927c-220">Musí následovat po `=`, nebo klíč musí mít předponu `--` nebo `/`, pokud se hodnota řídí mezerou.</span><span class="sxs-lookup"><span data-stu-id="c927c-220">Must follow `=`, or the key must have a prefix of `--` or `/` when the value follows a space.</span></span>
+* <span data-ttu-id="c927c-221">Není vyžadováno, je-li použito `=`.</span><span class="sxs-lookup"><span data-stu-id="c927c-221">Isn't required if `=` is used.</span></span> <span data-ttu-id="c927c-222">například `MySetting=`.</span><span class="sxs-lookup"><span data-stu-id="c927c-222">For example, `MySetting=`.</span></span>
+
+<span data-ttu-id="c927c-223">V rámci stejného příkazu Nekombinujte páry klíč-hodnota argumentu příkazového řádku, které používají `=` s páry klíč-hodnota, které používají mezeru.</span><span class="sxs-lookup"><span data-stu-id="c927c-223">Within the same command, don't mix command-line argument key-value pairs that use `=` with key-value pairs that use a space.</span></span>
+
+### <a name="switch-mappings"></a><span data-ttu-id="c927c-224">Mapování přepínačů</span><span class="sxs-lookup"><span data-stu-id="c927c-224">Switch mappings</span></span>
+
+<span data-ttu-id="c927c-225">Mapování přepínačů povolují logiku nahrazení názvu **klíče** .</span><span class="sxs-lookup"><span data-stu-id="c927c-225">Switch mappings allow **key** name replacement logic.</span></span> <span data-ttu-id="c927c-226">Poskytněte slovník přemístění přepínačů do metody <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span><span class="sxs-lookup"><span data-stu-id="c927c-226">Provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
+
+<span data-ttu-id="c927c-227">Při použití slovníku mapování přepínačů je slovník zaškrtnut pro klíč, který odpovídá klíči poskytnutému argumentem příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="c927c-227">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="c927c-228">Pokud se klíč příkazového řádku nachází ve slovníku, vrátí se hodnota Dictionary zpátky, aby se v konfiguraci aplikace nastavil pár klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="c927c-228">If the command-line key is found in the dictionary, the dictionary value is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="c927c-229">Mapování přepínačů je vyžadováno pro jakýkoliv klíč příkazového řádku s jedním spojovníkem (`-`).</span><span class="sxs-lookup"><span data-stu-id="c927c-229">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
+
+<span data-ttu-id="c927c-230">Pravidla klíče slovníku mapování přepínačů:</span><span class="sxs-lookup"><span data-stu-id="c927c-230">Switch mappings dictionary key rules:</span></span>
+
+* <span data-ttu-id="c927c-231">Přepínače musí začínat na `-` nebo `--`.</span><span class="sxs-lookup"><span data-stu-id="c927c-231">Switches must start with `-` or `--`.</span></span>
+* <span data-ttu-id="c927c-232">Slovník mapování přepínačů nesmí obsahovat duplicitní klíče.</span><span class="sxs-lookup"><span data-stu-id="c927c-232">The switch mappings dictionary must not contain duplicate keys.</span></span>
+
+<span data-ttu-id="c927c-233">Chcete-li použít slovník mapování přepínačů, předejte jej do volání `AddCommandLine`:</span><span class="sxs-lookup"><span data-stu-id="c927c-233">To use a switch mappings dictionary, pass it into the call to `AddCommandLine`:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramSwitch.cs?name=snippet&highlight=10-18,23)]
+
+<span data-ttu-id="c927c-234">Následující kód ukazuje klíčové hodnoty pro nahrazené klíče:</span><span class="sxs-lookup"><span data-stu-id="c927c-234">The following code shows the key values for the replaced keys:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test3.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-235">Spusťte následující příkaz pro otestování nahrazení klíče:</span><span class="sxs-lookup"><span data-stu-id="c927c-235">Run the following command to test the key replacement:</span></span>
+
+```dotnetcli
+dotnet run -k1=value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
+```
+
+<span data-ttu-id="c927c-236">Poznámka: v současné době nelze `=` použít k nastavení hodnot nahrazení klíče jediným spojovníkem `-`.</span><span class="sxs-lookup"><span data-stu-id="c927c-236">Note: Currently, `=` cannot be used to set key-replacement values with a single dash `-`.</span></span> <span data-ttu-id="c927c-237">Podívejte se na [Tento problém GitHubu](https://github.com/dotnet/extensions/issues/3059).</span><span class="sxs-lookup"><span data-stu-id="c927c-237">See [this GitHub issue](https://github.com/dotnet/extensions/issues/3059).</span></span>
+
+<span data-ttu-id="c927c-238">Následující příkaz funguje pro otestování nahrazení klíče:</span><span class="sxs-lookup"><span data-stu-id="c927c-238">The following command works to test key replacement:</span></span>
+
+```dotnetcli
+dotnet run -k1 value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
+```
+
+<span data-ttu-id="c927c-239">Pro aplikace, které používají mapování přepínačů, by volání `CreateDefaultBuilder` nemělo předávat argumenty.</span><span class="sxs-lookup"><span data-stu-id="c927c-239">For apps that use switch mappings, the call to `CreateDefaultBuilder` shouldn't pass arguments.</span></span> <span data-ttu-id="c927c-240">Volání `AddCommandLine` metody `CreateDefaultBuilder` nezahrnuje mapované přepínače a neexistuje žádný způsob, jak předat slovníku mapování přepínačů na `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="c927c-240">The `CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch-mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="c927c-241">Řešení nebude předávat argumenty `CreateDefaultBuilder`, ale namísto toho umožní metodě `AddCommandLine` `ConfigurationBuilder` metody zpracovat argumenty a slovník mapování přepínačů.</span><span class="sxs-lookup"><span data-stu-id="c927c-241">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch-mapping dictionary.</span></span>
+
+## <a name="hierarchical-configuration-data"></a><span data-ttu-id="c927c-242">Hierarchická konfigurační data</span><span class="sxs-lookup"><span data-stu-id="c927c-242">Hierarchical configuration data</span></span>
+
+<span data-ttu-id="c927c-243">Konfigurační rozhraní API čte hierarchická konfigurační data sloučením hierarchických dat s použitím oddělovače v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="c927c-243">The Configuration API is reads hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
+
+<span data-ttu-id="c927c-244">[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *appSettings. JSON* :</span><span class="sxs-lookup"><span data-stu-id="c927c-244">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *appsettings.json* file:</span></span>
+
+[!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
+
+<span data-ttu-id="c927c-245">Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) zobrazuje několik nastavení konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-245">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the configurations settings:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-246">Upřednostňovaným způsobem, jak číst hierarchická konfigurační data, je použít vzor možností.</span><span class="sxs-lookup"><span data-stu-id="c927c-246">The preferred way to read hierarchical configuration data is using the options pattern.</span></span> <span data-ttu-id="c927c-247">Další informace najdete v tématu [vázání hierarchických konfiguračních dat](#optpat) v tomto dokumentu.</span><span class="sxs-lookup"><span data-stu-id="c927c-247">For more information, see [Bind hierarchical configuration data](#optpat) in this document.</span></span>
+
+<span data-ttu-id="c927c-248">metody <xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> a <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> jsou k dispozici k izolaci oddílů a podřízených objektů oddílu v konfiguračních datech.</span><span class="sxs-lookup"><span data-stu-id="c927c-248"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="c927c-249">Tyto metody jsou popsány dále v [tématu GetSection, GetChildren a Exists](#getsection).</span><span class="sxs-lookup"><span data-stu-id="c927c-249">These methods are described later in [GetSection, GetChildren, and Exists](#getsection).</span></span>
+
+<!--
+[Azure Key Vault configuration provider](xref:security/key-vault-configuration) implement change detection.
+-->
+
+## <a name="configuration-keys-and-values"></a><span data-ttu-id="c927c-250">Konfigurační klíče a hodnoty</span><span class="sxs-lookup"><span data-stu-id="c927c-250">Configuration keys and values</span></span>
+
+<span data-ttu-id="c927c-251">Konfigurační klíče:</span><span class="sxs-lookup"><span data-stu-id="c927c-251">Configuration keys:</span></span>
+
+* <span data-ttu-id="c927c-252">Rozlišují se malá a velká písmena.</span><span class="sxs-lookup"><span data-stu-id="c927c-252">Are case-insensitive.</span></span> <span data-ttu-id="c927c-253">Například `ConnectionString` a `connectionstring` se považují za ekvivalentní klíče.</span><span class="sxs-lookup"><span data-stu-id="c927c-253">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
+* <span data-ttu-id="c927c-254">Pokud je klíč a hodnota nastavená ve více poskytovatelích konfigurace, použije se hodnota z posledního přidaného zprostředkovatele.</span><span class="sxs-lookup"><span data-stu-id="c927c-254">If a key and value is set in more than one configuration providers, the value from the last provider added is used.</span></span> <span data-ttu-id="c927c-255">Další informace najdete v tématu [výchozí konfigurace](#default).</span><span class="sxs-lookup"><span data-stu-id="c927c-255">For more information, see [Default configuration](#default).</span></span>
+* <span data-ttu-id="c927c-256">Hierarchické klíče</span><span class="sxs-lookup"><span data-stu-id="c927c-256">Hierarchical keys</span></span>
+  * <span data-ttu-id="c927c-257">V rozhraní API pro konfiguraci funguje oddělovač dvojtečky (`:`) na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="c927c-257">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
+  * <span data-ttu-id="c927c-258">V proměnných prostředí nemusí oddělovač dvojtečky fungovat na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="c927c-258">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="c927c-259">Dvojité podtržítko, `__`, je podporováno všemi platformami a je automaticky převedeno na `:`dvojtečky.</span><span class="sxs-lookup"><span data-stu-id="c927c-259">A double underscore, `__`, is supported by all platforms and is automatically converted into a colon `:`.</span></span>
+  * <span data-ttu-id="c927c-260">V Azure Key Vault hierarchické klíče používají `--` jako oddělovač.</span><span class="sxs-lookup"><span data-stu-id="c927c-260">In Azure Key Vault, hierarchical keys use `--` as a separator.</span></span> <span data-ttu-id="c927c-261">Napište kód, který nahradí `--` `:` při načtení tajných klíčů do konfigurace aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-261">Write code to replace the `--` with a `:` when the secrets are loaded into the app's configuration.</span></span>
+* <span data-ttu-id="c927c-262"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="c927c-262">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="c927c-263">Vazba pole je popsána v tématu [vazba pole na oddíl třídy](#boa) .</span><span class="sxs-lookup"><span data-stu-id="c927c-263">Array binding is described in the [Bind an array to a class](#boa) section.</span></span>
+
+<span data-ttu-id="c927c-264">Konfigurační hodnoty:</span><span class="sxs-lookup"><span data-stu-id="c927c-264">Configuration values:</span></span>
+
+* <span data-ttu-id="c927c-265">Jsou řetězce.</span><span class="sxs-lookup"><span data-stu-id="c927c-265">Are strings.</span></span>
+* <span data-ttu-id="c927c-266">Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.</span><span class="sxs-lookup"><span data-stu-id="c927c-266">Null values can't be stored in configuration or bound to objects.</span></span>
+
+<a name="cp"></a>
+
+## <a name="configuration-providers"></a><span data-ttu-id="c927c-267">Poskytovatelé konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-267">Configuration providers</span></span>
+
+<span data-ttu-id="c927c-268">V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-268">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
+
+| <span data-ttu-id="c927c-269">Poskytovatel</span><span class="sxs-lookup"><span data-stu-id="c927c-269">Provider</span></span> | <span data-ttu-id="c927c-270">Poskytuje konfiguraci z</span><span class="sxs-lookup"><span data-stu-id="c927c-270">Provides configuration from</span></span> |
+| -------- | ----------------------------------- |
+| [<span data-ttu-id="c927c-271">Zprostředkovatel konfigurace služby Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="c927c-271">Azure Key Vault configuration provider</span></span>](xref:security/key-vault-configuration) | <span data-ttu-id="c927c-272">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="c927c-272">Azure Key Vault</span></span> |
+| [<span data-ttu-id="c927c-273">Poskytovatel konfigurace Azure App</span><span class="sxs-lookup"><span data-stu-id="c927c-273">Azure App configuration provider</span></span>](/azure/azure-app-configuration/quickstart-aspnet-core-app) | <span data-ttu-id="c927c-274">Azure App Configuration</span><span class="sxs-lookup"><span data-stu-id="c927c-274">Azure App Configuration</span></span> |
+| [<span data-ttu-id="c927c-275">Zprostředkovatel konfigurace příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-275">Command-line configuration provider</span></span>](#clcp) | <span data-ttu-id="c927c-276">Parametry příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-276">Command-line parameters</span></span> |
+| [<span data-ttu-id="c927c-277">Vlastní poskytovatel konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-277">Custom configuration provider</span></span>](#custom-configuration-provider) | <span data-ttu-id="c927c-278">Vlastní zdroj</span><span class="sxs-lookup"><span data-stu-id="c927c-278">Custom source</span></span> |
+| [<span data-ttu-id="c927c-279">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-279">Environment Variables configuration provider</span></span>](#evcp) | <span data-ttu-id="c927c-280">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-280">Environment variables</span></span> |
+| [<span data-ttu-id="c927c-281">Poskytovatel konfigurace souboru</span><span class="sxs-lookup"><span data-stu-id="c927c-281">File configuration provider</span></span>](#file-configuration-provider) | <span data-ttu-id="c927c-282">Soubory INI, JSON a XML</span><span class="sxs-lookup"><span data-stu-id="c927c-282">INI, JSON, and XML files</span></span> |
+| [<span data-ttu-id="c927c-283">Poskytovatel konfigurace klíče na soubor</span><span class="sxs-lookup"><span data-stu-id="c927c-283">Key-per-file configuration provider</span></span>](#key-per-file-configuration-provider) | <span data-ttu-id="c927c-284">Soubory adresáře</span><span class="sxs-lookup"><span data-stu-id="c927c-284">Directory files</span></span> |
+| [<span data-ttu-id="c927c-285">Poskytovatel konfigurace paměti</span><span class="sxs-lookup"><span data-stu-id="c927c-285">Memory configuration provider</span></span>](#memory-configuration-provider) | <span data-ttu-id="c927c-286">Kolekce v paměti</span><span class="sxs-lookup"><span data-stu-id="c927c-286">In-memory collections</span></span> |
+| [<span data-ttu-id="c927c-287">Správce tajných klíčů</span><span class="sxs-lookup"><span data-stu-id="c927c-287">Secret Manager</span></span>](xref:security/app-secrets)  | <span data-ttu-id="c927c-288">Soubor v adresáři profilu uživatele</span><span class="sxs-lookup"><span data-stu-id="c927c-288">File in the user profile directory</span></span> |
+
+<span data-ttu-id="c927c-289">Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou zadáni poskytovatelé konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-289">Configuration sources are read in the order that their configuration providers are specified.</span></span> <span data-ttu-id="c927c-290">Seřazení zprostředkovatelů konfigurace v kódu, aby odpovídal prioritám pro základní zdroje konfigurace vyžadované aplikací.</span><span class="sxs-lookup"><span data-stu-id="c927c-290">Order configuration providers in code to suit the priorities for the underlying configuration sources that the app requires.</span></span>
+
+<span data-ttu-id="c927c-291">Typická posloupnost zprostředkovatelů konfigurace je:</span><span class="sxs-lookup"><span data-stu-id="c927c-291">A typical sequence of configuration providers is:</span></span>
+
+1. <span data-ttu-id="c927c-292">*appSettings. JSON*</span><span class="sxs-lookup"><span data-stu-id="c927c-292">*appsettings.json*</span></span>
+1. <span data-ttu-id="c927c-293">*appSettings*.`Environment`. formát *JSON*</span><span class="sxs-lookup"><span data-stu-id="c927c-293">*appsettings*.`Environment`.*json*</span></span>
+1. [<span data-ttu-id="c927c-294">Správce tajných klíčů</span><span class="sxs-lookup"><span data-stu-id="c927c-294">Secret Manager</span></span>](xref:security/app-secrets)
+1. <span data-ttu-id="c927c-295">Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#evcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-295">Environment variables using the [Environment Variables configuration provider](#evcp).</span></span>
+1. <span data-ttu-id="c927c-296">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-296">Command-line arguments using the [Command-line configuration provider](#command-line-configuration-provider).</span></span>
+
+<span data-ttu-id="c927c-297">Běžný postup je přidat poskytovatele konfigurace příkazového řádku na poslední v řadě poskytovatelů, aby argumenty příkazového řádku mohly přepsat konfiguraci nastavenou ostatními zprostředkovateli.</span><span class="sxs-lookup"><span data-stu-id="c927c-297">A common practice is to add the Command-line configuration provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
+
+<span data-ttu-id="c927c-298">Předchozí sekvence zprostředkovatelů se používá ve [výchozí konfiguraci](#default).</span><span class="sxs-lookup"><span data-stu-id="c927c-298">The preceding sequence of providers is used in the [default configuration](#default).</span></span>
+
+<a name="constr"></a>
+
+### <a name="connection-string-prefixes"></a><span data-ttu-id="c927c-299">Předpony připojovacího řetězce</span><span class="sxs-lookup"><span data-stu-id="c927c-299">Connection string prefixes</span></span>
+
+<span data-ttu-id="c927c-300">Rozhraní API pro konfiguraci má speciální pravidla zpracování pro proměnné prostředí pro čtyři připojovací řetězce.</span><span class="sxs-lookup"><span data-stu-id="c927c-300">The Configuration API has special processing rules for four connection string environment variables.</span></span> <span data-ttu-id="c927c-301">Tyto připojovací řetězce jsou součástí konfigurace připojovacích řetězců Azure pro prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-301">These connection strings are involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="c927c-302">Proměnné prostředí s předponami, které jsou uvedené v tabulce, se načtou do aplikace s [výchozí konfigurací](#default) nebo když není `AddEnvironmentVariables`žádná předpona.</span><span class="sxs-lookup"><span data-stu-id="c927c-302">Environment variables with the prefixes shown in the table are loaded into the app with the [default configuration](#default) or when no prefix is supplied to `AddEnvironmentVariables`.</span></span>
+
+| <span data-ttu-id="c927c-303">Předpona připojovacího řetězce</span><span class="sxs-lookup"><span data-stu-id="c927c-303">Connection string prefix</span></span> | <span data-ttu-id="c927c-304">Poskytovatel</span><span class="sxs-lookup"><span data-stu-id="c927c-304">Provider</span></span> |
 | ------------------------ | -------- |
-| `CUSTOMCONNSTR_` | <span data-ttu-id="f7447-341">Vlastní zprostředkovatel</span><span class="sxs-lookup"><span data-stu-id="f7447-341">Custom provider</span></span> |
-| `MYSQLCONNSTR_` | [<span data-ttu-id="f7447-342">MySQL</span><span class="sxs-lookup"><span data-stu-id="f7447-342">MySQL</span></span>](https://www.mysql.com/) |
-| `SQLAZURECONNSTR_` | [<span data-ttu-id="f7447-343">Azure SQL Database</span><span class="sxs-lookup"><span data-stu-id="f7447-343">Azure SQL Database</span></span>](https://azure.microsoft.com/services/sql-database/) |
-| `SQLCONNSTR_` | [<span data-ttu-id="f7447-344">SQL Server</span><span class="sxs-lookup"><span data-stu-id="f7447-344">SQL Server</span></span>](https://www.microsoft.com/sql-server/) |
+| `CUSTOMCONNSTR_` | <span data-ttu-id="c927c-305">Vlastní zprostředkovatel</span><span class="sxs-lookup"><span data-stu-id="c927c-305">Custom provider</span></span> |
+| `MYSQLCONNSTR_` | [<span data-ttu-id="c927c-306">MySQL</span><span class="sxs-lookup"><span data-stu-id="c927c-306">MySQL</span></span>](https://www.mysql.com/) |
+| `SQLAZURECONNSTR_` | [<span data-ttu-id="c927c-307">Azure SQL Database</span><span class="sxs-lookup"><span data-stu-id="c927c-307">Azure SQL Database</span></span>](https://azure.microsoft.com/services/sql-database/) |
+| `SQLCONNSTR_` | [<span data-ttu-id="c927c-308">SQL Server</span><span class="sxs-lookup"><span data-stu-id="c927c-308">SQL Server</span></span>](https://www.microsoft.com/sql-server/) |
 
-<span data-ttu-id="f7447-345">Když je proměnná prostředí zjištěna a načtena do konfigurace se všemi čtyřmi předponami, které jsou uvedeny v tabulce:</span><span class="sxs-lookup"><span data-stu-id="f7447-345">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
+<span data-ttu-id="c927c-309">Když je proměnná prostředí zjištěna a načtena do konfigurace se všemi čtyřmi předponami, které jsou uvedeny v tabulce:</span><span class="sxs-lookup"><span data-stu-id="c927c-309">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
 
-* <span data-ttu-id="f7447-346">Konfigurační klíč se vytvoří odebráním předpony proměnné prostředí a přidáním oddílu konfiguračního klíče (`ConnectionStrings`).</span><span class="sxs-lookup"><span data-stu-id="f7447-346">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
-* <span data-ttu-id="f7447-347">Vytvoří se nová dvojice klíč-hodnota konfigurace, která představuje poskytovatele připojení databáze (s výjimkou `CUSTOMCONNSTR_`, který nemá zadaného poskytovatele).</span><span class="sxs-lookup"><span data-stu-id="f7447-347">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
+* <span data-ttu-id="c927c-310">Konfigurační klíč se vytvoří odebráním předpony proměnné prostředí a přidáním oddílu konfiguračního klíče (`ConnectionStrings`).</span><span class="sxs-lookup"><span data-stu-id="c927c-310">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
+* <span data-ttu-id="c927c-311">Vytvoří se nová dvojice klíč-hodnota konfigurace, která představuje poskytovatele připojení databáze (s výjimkou `CUSTOMCONNSTR_`, který nemá zadaného poskytovatele).</span><span class="sxs-lookup"><span data-stu-id="c927c-311">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
 
-| <span data-ttu-id="f7447-348">Klíč proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-348">Environment variable key</span></span> | <span data-ttu-id="f7447-349">Konfigurační klíč převedený na převod</span><span class="sxs-lookup"><span data-stu-id="f7447-349">Converted configuration key</span></span> | <span data-ttu-id="f7447-350">Položka konfigurace zprostředkovatele</span><span class="sxs-lookup"><span data-stu-id="f7447-350">Provider configuration entry</span></span>                                                    |
+| <span data-ttu-id="c927c-312">Klíč proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-312">Environment variable key</span></span> | <span data-ttu-id="c927c-313">Konfigurační klíč převedený na převod</span><span class="sxs-lookup"><span data-stu-id="c927c-313">Converted configuration key</span></span> | <span data-ttu-id="c927c-314">Položka konfigurace zprostředkovatele</span><span class="sxs-lookup"><span data-stu-id="c927c-314">Provider configuration entry</span></span>                                                    |
 | ------------------------ | --------------------------- | ------------------------------------------------------------------------------- |
-| `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | <span data-ttu-id="f7447-351">Položka konfigurace není vytvořená.</span><span class="sxs-lookup"><span data-stu-id="f7447-351">Configuration entry not created.</span></span>                                                |
-| `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | <span data-ttu-id="f7447-352">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="f7447-352">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="f7447-353">Hodnota: `MySql.Data.MySqlClient`</span><span class="sxs-lookup"><span data-stu-id="f7447-353">Value: `MySql.Data.MySqlClient`</span></span> |
-| `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | <span data-ttu-id="f7447-354">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="f7447-354">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="f7447-355">Hodnota: `System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="f7447-355">Value: `System.Data.SqlClient`</span></span>  |
-| `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | <span data-ttu-id="f7447-356">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="f7447-356">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="f7447-357">Hodnota: `System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="f7447-357">Value: `System.Data.SqlClient`</span></span>  |
+| `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | <span data-ttu-id="c927c-315">Položka konfigurace není vytvořená.</span><span class="sxs-lookup"><span data-stu-id="c927c-315">Configuration entry not created.</span></span>                                                |
+| `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | <span data-ttu-id="c927c-316">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="c927c-316">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="c927c-317">Hodnota: `MySql.Data.MySqlClient`</span><span class="sxs-lookup"><span data-stu-id="c927c-317">Value: `MySql.Data.MySqlClient`</span></span> |
+| `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | <span data-ttu-id="c927c-318">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="c927c-318">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="c927c-319">Hodnota: `System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="c927c-319">Value: `System.Data.SqlClient`</span></span>  |
+| `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | <span data-ttu-id="c927c-320">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="c927c-320">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="c927c-321">Hodnota: `System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="c927c-321">Value: `System.Data.SqlClient`</span></span>  |
 
-<span data-ttu-id="f7447-358">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="f7447-358">**Example**</span></span>
+<a name="jcp"></a>
 
-<span data-ttu-id="f7447-359">Na serveru se vytvoří proměnná prostředí vlastního připojovacího řetězce:</span><span class="sxs-lookup"><span data-stu-id="f7447-359">A custom connection string environment variable is created on the server:</span></span>
+### <a name="json-configuration-provider"></a><span data-ttu-id="c927c-322">Zprostředkovatel konfigurace JSON</span><span class="sxs-lookup"><span data-stu-id="c927c-322">JSON configuration provider</span></span>
 
-* <span data-ttu-id="f7447-360">Název &ndash; `CUSTOMCONNSTR_ReleaseDB`</span><span class="sxs-lookup"><span data-stu-id="f7447-360">Name &ndash; `CUSTOMCONNSTR_ReleaseDB`</span></span>
-* <span data-ttu-id="f7447-361">Hodnota &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span><span class="sxs-lookup"><span data-stu-id="f7447-361">Value &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span></span>
+<span data-ttu-id="c927c-323"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načte konfiguraci z párů klíč-hodnota souboru JSON.</span><span class="sxs-lookup"><span data-stu-id="c927c-323">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs.</span></span>
 
-<span data-ttu-id="f7447-362">Pokud je `IConfiguration` vložená a přiřazená k poli s názvem `_config`, přečtěte si hodnotu:</span><span class="sxs-lookup"><span data-stu-id="f7447-362">If `IConfiguration` is injected and assigned to a field named `_config`, read the value:</span></span>
+<span data-ttu-id="c927c-324">Přetížení můžou specifikovat:</span><span class="sxs-lookup"><span data-stu-id="c927c-324">Overloads can specify:</span></span>
 
-```csharp
-_config["ConnectionStrings:ReleaseDB"]
-```
+* <span data-ttu-id="c927c-325">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="c927c-325">Whether the file is optional.</span></span>
+* <span data-ttu-id="c927c-326">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-326">Whether the configuration is reloaded if the file changes.</span></span>
 
-## <a name="file-configuration-provider"></a><span data-ttu-id="f7447-363">Poskytovatel konfigurace souboru</span><span class="sxs-lookup"><span data-stu-id="f7447-363">File Configuration Provider</span></span>
+<span data-ttu-id="c927c-327">Vezměte v úvahu následující kód:</span><span class="sxs-lookup"><span data-stu-id="c927c-327">Consider the following code:</span></span>
 
-<span data-ttu-id="f7447-364"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> je základní třídou pro načítání konfigurace ze systému souborů.</span><span class="sxs-lookup"><span data-stu-id="f7447-364"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="f7447-365">Následující poskytovatelé konfigurace jsou vyhrazeni pro určité typy souborů:</span><span class="sxs-lookup"><span data-stu-id="f7447-365">The following configuration providers are dedicated to specific file types:</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON.cs?name=snippet&highlight=12-14)]
 
-* [<span data-ttu-id="f7447-366">Poskytovatel konfigurace INI</span><span class="sxs-lookup"><span data-stu-id="f7447-366">INI Configuration Provider</span></span>](#ini-configuration-provider)
-* [<span data-ttu-id="f7447-367">Zprostředkovatel konfigurace JSON</span><span class="sxs-lookup"><span data-stu-id="f7447-367">JSON Configuration Provider</span></span>](#json-configuration-provider)
-* [<span data-ttu-id="f7447-368">Poskytovatel konfigurace XML</span><span class="sxs-lookup"><span data-stu-id="f7447-368">XML Configuration Provider</span></span>](#xml-configuration-provider)
+<span data-ttu-id="c927c-328">Předchozí kód:</span><span class="sxs-lookup"><span data-stu-id="c927c-328">The preceding code:</span></span>
 
-### <a name="ini-configuration-provider"></a><span data-ttu-id="f7447-369">Poskytovatel konfigurace INI</span><span class="sxs-lookup"><span data-stu-id="f7447-369">INI Configuration Provider</span></span>
+* <span data-ttu-id="c927c-329">Nakonfiguruje zprostředkovatele konfigurace JSON pro načtení souboru *MyConfig. JSON* s následujícími možnostmi:</span><span class="sxs-lookup"><span data-stu-id="c927c-329">Configures the JSON configuration provider to load the *MyConfig.json* file with the following options:</span></span>
+  * <span data-ttu-id="c927c-330">`optional: true`: soubor je nepovinný.</span><span class="sxs-lookup"><span data-stu-id="c927c-330">`optional: true`: The file is optional.</span></span>
+  * <span data-ttu-id="c927c-331">`reloadOnChange: true`: soubor se znovu načte při uložení změn.</span><span class="sxs-lookup"><span data-stu-id="c927c-331">`reloadOnChange: true` : The file is reloaded when changes are saved.</span></span>
+* <span data-ttu-id="c927c-332">Přečte [výchozí poskytovatele konfigurace](#default) před souborem *MyConfig. JSON* .</span><span class="sxs-lookup"><span data-stu-id="c927c-332">Reads the [default configuration providers](#default) before the *MyConfig.json* file.</span></span> <span data-ttu-id="c927c-333">Nastavení v přepsání souboru *MyConfig. JSON* ve výchozích poskytovatelích konfigurace, včetně [poskytovatele konfigurace proměnných prostředí](#evcp) a [poskytovatele konfigurace příkazového řádku](#clcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-333">Settings in the *MyConfig.json* file override setting in the default configuration providers, including the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="f7447-370"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> načte konfiguraci z párů klíč-hodnota souboru INI za běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-370">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
+<span data-ttu-id="c927c-334">***Obvykle nechcete, aby vlastní*** soubor JSON přepsal hodnoty nastavené ve [zprostředkovateli konfigurace proměnných prostředí](#evcp) a v [poskytovateli konfigurace příkazového řádku](#clcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-334">You typically ***don't*** want a custom JSON file overriding values set in the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="f7447-371">Chcete-li aktivovat konfiguraci souboru INI, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-371">To activate INI file configuration, call the <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-335">Následující kód vymaže všechny poskytovatele konfigurace a přidá několik poskytovatelů konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-335">The following code clears all the configuration providers and adds several configuration providers:</span></span>
 
-<span data-ttu-id="f7447-372">Dvojtečku lze použít jako oddělovač oddílů v konfiguraci souboru INI.</span><span class="sxs-lookup"><span data-stu-id="f7447-372">The colon can be used to as a section delimiter in INI file configuration.</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON2.cs?name=snippet)]
 
-<span data-ttu-id="f7447-373">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="f7447-373">Overloads permit specifying:</span></span>
+<span data-ttu-id="c927c-336">V předchozím kódu se jedná o nastavení v *MyConfig. JSON* a *MyConfig*.`Environment`. soubory *JSON* :</span><span class="sxs-lookup"><span data-stu-id="c927c-336">In the preceding code, settings in the *MyConfig.json* and  *MyConfig*.`Environment`.*json* files:</span></span>
 
-* <span data-ttu-id="f7447-374">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="f7447-374">Whether the file is optional.</span></span>
-* <span data-ttu-id="f7447-375">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-375">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="f7447-376"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-376">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="c927c-337">Přepsat nastavení v souboru *appSettings. JSON* a *appSettings*.`Environment`. soubory *JSON* .</span><span class="sxs-lookup"><span data-stu-id="c927c-337">Override settings in the *appsettings.json* and *appsettings*.`Environment`.*json* files.</span></span>
+* <span data-ttu-id="c927c-338">Jsou přepsány nastavením ve [zprostředkovateli konfigurace proměnných prostředí](#evcp) a [poskytovatelem konfigurace příkazového řádku](#clcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-338">Are overridden by settings in the [Environment variables configuration provider](#evcp) and the [Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="f7447-377">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="f7447-377">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c927c-339">[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyConfig. JSON* :</span><span class="sxs-lookup"><span data-stu-id="c927c-339">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following  *MyConfig.json* file:</span></span>
 
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    config.AddIniFile(
-        "config.ini", optional: true, reloadOnChange: true);
-})
-```
+[!code-json[](index/samples/3.x/ConfigSample/MyConfig.json)]
 
-<span data-ttu-id="f7447-378">Obecný příklad konfiguračního souboru INI:</span><span class="sxs-lookup"><span data-stu-id="f7447-378">A generic example of an INI configuration file:</span></span>
+<span data-ttu-id="c927c-340">Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) zobrazuje několik předchozích nastavení konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-340">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
-```ini
-[section0]
-key0=value
-key1=value
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-[section1]
-subsection:key=value
+<a name="fcp"></a>
 
-[section2:subsection0]
-key=value
+## <a name="file-configuration-provider"></a><span data-ttu-id="c927c-341">Poskytovatel konfigurace souboru</span><span class="sxs-lookup"><span data-stu-id="c927c-341">File configuration provider</span></span>
 
-[section2:subsection1]
-key=value
-```
+<span data-ttu-id="c927c-342"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> je základní třídou pro načítání konfigurace ze systému souborů.</span><span class="sxs-lookup"><span data-stu-id="c927c-342"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="c927c-343">Následující poskytovatelé konfigurace jsou odvozeni z `FileConfigurationProvider`:</span><span class="sxs-lookup"><span data-stu-id="c927c-343">The following configuration providers derive from `FileConfigurationProvider`:</span></span>
 
-<span data-ttu-id="f7447-379">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="f7447-379">The previous configuration file loads the following keys with `value`:</span></span>
+* [<span data-ttu-id="c927c-344">Poskytovatel konfigurace INI</span><span class="sxs-lookup"><span data-stu-id="c927c-344">INI configuration provider</span></span>](#ini-configuration-provider)
+* [<span data-ttu-id="c927c-345">Zprostředkovatel konfigurace JSON</span><span class="sxs-lookup"><span data-stu-id="c927c-345">JSON configuration provider</span></span>](#jcp)
+* [<span data-ttu-id="c927c-346">Poskytovatel konfigurace XML</span><span class="sxs-lookup"><span data-stu-id="c927c-346">XML configuration provider</span></span>](#xml-configuration-provider)
 
-* <span data-ttu-id="f7447-380">section0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-380">section0:key0</span></span>
-* <span data-ttu-id="f7447-381">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-381">section0:key1</span></span>
-* <span data-ttu-id="f7447-382">Section1: dílčí oddíl: klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-382">section1:subsection:key</span></span>
-* <span data-ttu-id="f7447-383">section2: subsection0: klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-383">section2:subsection0:key</span></span>
-* <span data-ttu-id="f7447-384">section2: subsection1: klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-384">section2:subsection1:key</span></span>
+### <a name="ini-configuration-provider"></a><span data-ttu-id="c927c-347">Poskytovatel konfigurace INI</span><span class="sxs-lookup"><span data-stu-id="c927c-347">INI configuration provider</span></span>
 
-### <a name="json-configuration-provider"></a><span data-ttu-id="f7447-385">Zprostředkovatel konfigurace JSON</span><span class="sxs-lookup"><span data-stu-id="f7447-385">JSON Configuration Provider</span></span>
+<span data-ttu-id="c927c-348"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> načte konfiguraci z párů klíč-hodnota souboru INI za běhu.</span><span class="sxs-lookup"><span data-stu-id="c927c-348">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="f7447-386"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru JSON během běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-386">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs during runtime.</span></span>
+<span data-ttu-id="c927c-349">Následující kód vymaže všechny poskytovatele konfigurace a přidá několik poskytovatelů konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-349">The following code clears all the configuration providers and adds several configuration providers:</span></span>
 
-<span data-ttu-id="f7447-387">Chcete-li aktivovat konfiguraci souboru JSON, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-387">To activate JSON file configuration, call the <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramINI.cs?name=snippet&highlight=10-30)]
 
-<span data-ttu-id="f7447-388">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="f7447-388">Overloads permit specifying:</span></span>
+<span data-ttu-id="c927c-350">V předchozím kódu se jedná o nastavení v *souboru MyIniConfig. ini* a *MyIniConfig*.`Environment`. soubory *ini* jsou přepsány nastavením v:</span><span class="sxs-lookup"><span data-stu-id="c927c-350">In the preceding code, settings in the *MyIniConfig.ini* and  *MyIniConfig*.`Environment`.*ini* files are overridden by settings in the:</span></span>
 
-* <span data-ttu-id="f7447-389">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="f7447-389">Whether the file is optional.</span></span>
-* <span data-ttu-id="f7447-390">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-390">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="f7447-391"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-391">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* [<span data-ttu-id="c927c-351">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-351">Environment variables configuration provider</span></span>](#evcp)
+* <span data-ttu-id="c927c-352">[Poskytovatel konfigurace příkazového řádku](#clcp)</span><span class="sxs-lookup"><span data-stu-id="c927c-352">[Command-line configuration provider](#clcp).</span></span>
 
-<span data-ttu-id="f7447-392">`AddJsonFile` se automaticky volá dvakrát při inicializaci nového hostitele pomocí `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-392">`AddJsonFile` is automatically called twice when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="f7447-393">Metoda je volána pro načtení konfigurace z:</span><span class="sxs-lookup"><span data-stu-id="f7447-393">The method is called to load configuration from:</span></span>
+<span data-ttu-id="c927c-353">[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyIniConfig. ini* :</span><span class="sxs-lookup"><span data-stu-id="c927c-353">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following *MyIniConfig.ini* file:</span></span>
 
-* <span data-ttu-id="f7447-394">*appSettings. json* &ndash; tento soubor je nejdřív načtený.</span><span class="sxs-lookup"><span data-stu-id="f7447-394">*appsettings.json* &ndash; This file is read first.</span></span> <span data-ttu-id="f7447-395">Verze prostředí souboru může přepsat hodnoty poskytnuté souborem *appSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="f7447-395">The environment version of the file can override the values provided by the *appsettings.json* file.</span></span>
-* <span data-ttu-id="f7447-396">*appSettings. {Environment}. JSON* &ndash; verze prostředí souboru je načtená na základě rozhraní [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span><span class="sxs-lookup"><span data-stu-id="f7447-396">*appsettings.{Environment}.json* &ndash; The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span>
+[!code-ini[](index/samples/3.x/ConfigSample/MyIniConfig.ini)]
 
-<span data-ttu-id="f7447-397">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-397">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="c927c-354">Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) zobrazuje několik předchozích nastavení konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-354">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
-<span data-ttu-id="f7447-398">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="f7447-398">`CreateDefaultBuilder` also loads:</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-* <span data-ttu-id="f7447-399">Proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-399">Environment variables.</span></span>
-* <span data-ttu-id="f7447-400">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-400">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="f7447-401">Argumenty příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="f7447-401">Command-line arguments.</span></span>
+### <a name="xml-configuration-provider"></a><span data-ttu-id="c927c-355">Poskytovatel konfigurace XML</span><span class="sxs-lookup"><span data-stu-id="c927c-355">XML configuration provider</span></span>
 
-<span data-ttu-id="f7447-402">Jako první se navázal Poskytovatel konfigurace JSON.</span><span class="sxs-lookup"><span data-stu-id="f7447-402">The JSON Configuration Provider is established first.</span></span> <span data-ttu-id="f7447-403">Proto klíče uživatele, proměnné prostředí a argumenty příkazového řádku přepíší konfiguraci nastavenou soubory *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="f7447-403">Therefore, user secrets, environment variables, and command-line arguments override configuration set by the *appsettings* files.</span></span>
+<span data-ttu-id="c927c-356"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru XML za běhu.</span><span class="sxs-lookup"><span data-stu-id="c927c-356">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="f7447-404">Při sestavování hostitele zavolá `ConfigureAppConfiguration`, aby se určila konfigurace aplikace pro jiné soubory než *appSettings. JSON* a *appSettings. { Prostředí}. JSON*:</span><span class="sxs-lookup"><span data-stu-id="f7447-404">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration for files other than *appsettings.json* and *appsettings.{Environment}.json*:</span></span>
+<span data-ttu-id="c927c-357">Následující kód vymaže všechny poskytovatele konfigurace a přidá několik poskytovatelů konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-357">The following code clears all the configuration providers and adds several configuration providers:</span></span>
 
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    config.AddJsonFile(
-        "config.json", optional: true, reloadOnChange: true);
-})
-```
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramXML.cs?name=snippet)]
 
-<span data-ttu-id="f7447-405">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="f7447-405">**Example**</span></span>
+<span data-ttu-id="c927c-358">V předchozím kódu jsou nastavení v *souboru MyXMLFile. XML* a *MyXMLFile*.`Environment`. soubory *XML* jsou přepsány nastavením v:</span><span class="sxs-lookup"><span data-stu-id="c927c-358">In the preceding code, settings in the *MyXMLFile.xml* and  *MyXMLFile*.`Environment`.*xml* files are overridden by settings in the:</span></span>
 
-<span data-ttu-id="f7447-406">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, což zahrnuje dvě volání `AddJsonFile`:</span><span class="sxs-lookup"><span data-stu-id="f7447-406">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes two calls to `AddJsonFile`:</span></span>
+* [<span data-ttu-id="c927c-359">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-359">Environment variables configuration provider</span></span>](#evcp)
+* <span data-ttu-id="c927c-360">[Poskytovatel konfigurace příkazového řádku](#clcp)</span><span class="sxs-lookup"><span data-stu-id="c927c-360">[Command-line configuration provider](#clcp).</span></span>
 
-* <span data-ttu-id="f7447-407">První volání `AddJsonFile` načte konfiguraci z *appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="f7447-407">The first call to `AddJsonFile` loads configuration from *appsettings.json*:</span></span>
+<span data-ttu-id="c927c-361">[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyXMLFile. XML* :</span><span class="sxs-lookup"><span data-stu-id="c927c-361">The [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) contains the following *MyXMLFile.xml* file:</span></span>
 
-  [!code-json[](index/samples/3.x/ConfigurationSample/appsettings.json)]
+[!code-xml[](index/samples/3.x/ConfigSample/MyXMLFile.xml)]
 
-* <span data-ttu-id="f7447-408">Druhé volání `AddJsonFile` načte konfiguraci z *appSettings. { Environment}. JSON*.</span><span class="sxs-lookup"><span data-stu-id="f7447-408">The second call to `AddJsonFile` loads configuration from *appsettings.{Environment}.json*.</span></span> <span data-ttu-id="f7447-409">Pro *appSettings. Vývoj. JSON* v ukázkové aplikaci je načtený následující soubor:</span><span class="sxs-lookup"><span data-stu-id="f7447-409">For *appsettings.Development.json* in the sample app, the following file is loaded:</span></span>
+<span data-ttu-id="c927c-362">Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) zobrazuje několik předchozích nastavení konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-362">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays several of the preceding configurations settings:</span></span>
 
-  [!code-json[](index/samples/3.x/ConfigurationSample/appsettings.Development.json)]
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
 
-1. <span data-ttu-id="f7447-410">Spuštění ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-410">Run the sample app.</span></span> <span data-ttu-id="f7447-411">Otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="f7447-411">Open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="f7447-412">Výstup obsahuje páry klíč-hodnota pro konfiguraci na základě prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-412">The output contains key-value pairs for the configuration based on the app's environment.</span></span> <span data-ttu-id="f7447-413">Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Debug` při spuštění aplikace ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-413">The log level for the key `Logging:LogLevel:Default` is `Debug` when running the app in the Development environment.</span></span>
-1. <span data-ttu-id="f7447-414">Znovu spusťte ukázkovou aplikaci v produkčním prostředí:</span><span class="sxs-lookup"><span data-stu-id="f7447-414">Run the sample app again in the Production environment:</span></span>
-   1. <span data-ttu-id="f7447-415">Otevřete soubor *Properties/launchSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="f7447-415">Open the *Properties/launchSettings.json* file.</span></span>
-   1. <span data-ttu-id="f7447-416">V profilu `ConfigurationSample` změňte hodnotu proměnné prostředí `ASPNETCORE_ENVIRONMENT` na `Production`.</span><span class="sxs-lookup"><span data-stu-id="f7447-416">In the `ConfigurationSample` profile, change the value of the `ASPNETCORE_ENVIRONMENT` environment variable to `Production`.</span></span>
-   1. <span data-ttu-id="f7447-417">Uložte soubor a spusťte aplikaci pomocí `dotnet run` v příkazovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-417">Save the file and run the app with `dotnet run` in a command shell.</span></span>
-1. <span data-ttu-id="f7447-418">Nastavení v souboru *appSettings. Vývoj. JSON* již nepřepisuje nastavení v souboru *appSettings. JSON*.</span><span class="sxs-lookup"><span data-stu-id="f7447-418">The settings in the *appsettings.Development.json* no longer override the settings in *appsettings.json*.</span></span> <span data-ttu-id="f7447-419">Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Information`.</span><span class="sxs-lookup"><span data-stu-id="f7447-419">The log level for the key `Logging:LogLevel:Default` is `Information`.</span></span>
+<span data-ttu-id="c927c-363">Opakující se prvky, které používají stejný název elementu fungují, pokud atribut `name` slouží k rozlišení prvků:</span><span class="sxs-lookup"><span data-stu-id="c927c-363">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
 
-### <a name="xml-configuration-provider"></a><span data-ttu-id="f7447-420">Poskytovatel konfigurace XML</span><span class="sxs-lookup"><span data-stu-id="f7447-420">XML Configuration Provider</span></span>
+[!code-xml[](index/samples/3.x/ConfigSample/MyXMLFile3.xml)]
 
-<span data-ttu-id="f7447-421"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru XML za běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-421">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
+<span data-ttu-id="c927c-364">Následující kód přečte předchozí konfigurační soubor a zobrazí klíče a hodnoty:</span><span class="sxs-lookup"><span data-stu-id="c927c-364">The following code reads the previous configuration file and displays the keys and values:</span></span>
 
-<span data-ttu-id="f7447-422">Chcete-li aktivovat konfiguraci souboru XML, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-422">To activate XML file configuration, call the <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/XML/Index.cshtml.cs?name=snippet)]
 
-<span data-ttu-id="f7447-423">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="f7447-423">Overloads permit specifying:</span></span>
-
-* <span data-ttu-id="f7447-424">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="f7447-424">Whether the file is optional.</span></span>
-* <span data-ttu-id="f7447-425">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-425">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="f7447-426"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-426">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
-
-<span data-ttu-id="f7447-427">Kořenový uzel konfiguračního souboru je ignorován, pokud jsou vytvořeny páry klíč-hodnota konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-427">The root node of the configuration file is ignored when the configuration key-value pairs are created.</span></span> <span data-ttu-id="f7447-428">Nezadávejte definici typu dokumentu (DTD) nebo obor názvů v souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-428">Don't specify a Document Type Definition (DTD) or namespace in the file.</span></span>
-
-<span data-ttu-id="f7447-429">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="f7447-429">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
-
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    config.AddXmlFile(
-        "config.xml", optional: true, reloadOnChange: true);
-})
-```
-
-<span data-ttu-id="f7447-430">Konfigurační soubory XML mohou používat odlišné názvy elementů pro opakující se oddíly:</span><span class="sxs-lookup"><span data-stu-id="f7447-430">XML configuration files can use distinct element names for repeating sections:</span></span>
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-  <section0>
-    <key0>value</key0>
-    <key1>value</key1>
-  </section0>
-  <section1>
-    <key0>value</key0>
-    <key1>value</key1>
-  </section1>
-</configuration>
-```
-
-<span data-ttu-id="f7447-431">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="f7447-431">The previous configuration file loads the following keys with `value`:</span></span>
-
-* <span data-ttu-id="f7447-432">section0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-432">section0:key0</span></span>
-* <span data-ttu-id="f7447-433">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-433">section0:key1</span></span>
-* <span data-ttu-id="f7447-434">section1:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-434">section1:key0</span></span>
-* <span data-ttu-id="f7447-435">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-435">section1:key1</span></span>
-
-<span data-ttu-id="f7447-436">Opakující se prvky, které používají stejný název elementu fungují, pokud atribut `name` slouží k rozlišení prvků:</span><span class="sxs-lookup"><span data-stu-id="f7447-436">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<configuration>
-  <section name="section0">
-    <key name="key0">value</key>
-    <key name="key1">value</key>
-  </section>
-  <section name="section1">
-    <key name="key0">value</key>
-    <key name="key1">value</key>
-  </section>
-</configuration>
-```
-
-<span data-ttu-id="f7447-437">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="f7447-437">The previous configuration file loads the following keys with `value`:</span></span>
-
-* <span data-ttu-id="f7447-438">section:section0:key:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-438">section:section0:key:key0</span></span>
-* <span data-ttu-id="f7447-439">section:section0:key:key1</span><span class="sxs-lookup"><span data-stu-id="f7447-439">section:section0:key:key1</span></span>
-* <span data-ttu-id="f7447-440">section:section1:key:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-440">section:section1:key:key0</span></span>
-* <span data-ttu-id="f7447-441">oddíl: Section1: Key: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-441">section:section1:key:key1</span></span>
-
-<span data-ttu-id="f7447-442">Atributy lze použít k zadávání hodnot:</span><span class="sxs-lookup"><span data-stu-id="f7447-442">Attributes can be used to supply values:</span></span>
+<span data-ttu-id="c927c-365">Atributy lze použít k zadávání hodnot:</span><span class="sxs-lookup"><span data-stu-id="c927c-365">Attributes can be used to supply values:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -671,25 +489,25 @@ key=value
 </configuration>
 ```
 
-<span data-ttu-id="f7447-443">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="f7447-443">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c927c-366">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="c927c-366">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="f7447-444">Key: – atribut</span><span class="sxs-lookup"><span data-stu-id="f7447-444">key:attribute</span></span>
-* <span data-ttu-id="f7447-445">oddíl: klíč: atribut</span><span class="sxs-lookup"><span data-stu-id="f7447-445">section:key:attribute</span></span>
+* <span data-ttu-id="c927c-367">Key: – atribut</span><span class="sxs-lookup"><span data-stu-id="c927c-367">key:attribute</span></span>
+* <span data-ttu-id="c927c-368">oddíl: klíč: atribut</span><span class="sxs-lookup"><span data-stu-id="c927c-368">section:key:attribute</span></span>
 
-## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="f7447-446">Poskytovatel konfigurace klíče na soubor</span><span class="sxs-lookup"><span data-stu-id="f7447-446">Key-per-file Configuration Provider</span></span>
+## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="c927c-369">Poskytovatel konfigurace klíče na soubor</span><span class="sxs-lookup"><span data-stu-id="c927c-369">Key-per-file configuration provider</span></span>
 
-<span data-ttu-id="f7447-447"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> používá soubory adresáře jako konfigurační páry klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="f7447-447">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="f7447-448">Klíč je název souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-448">The key is the file name.</span></span> <span data-ttu-id="f7447-449">Hodnota obsahuje obsah souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-449">The value contains the file's contents.</span></span> <span data-ttu-id="f7447-450">Poskytovatel konfigurace klíče na soubor se používá ve scénářích hostování Docker.</span><span class="sxs-lookup"><span data-stu-id="f7447-450">The Key-per-file Configuration Provider is used in Docker hosting scenarios.</span></span>
+<span data-ttu-id="c927c-370"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> používá soubory adresáře jako konfigurační páry klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="c927c-370">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="c927c-371">Klíč je název souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-371">The key is the file name.</span></span> <span data-ttu-id="c927c-372">Hodnota obsahuje obsah souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-372">The value contains the file's contents.</span></span> <span data-ttu-id="c927c-373">Poskytovatel konfigurace klíče na soubor se používá ve scénářích hostování Docker.</span><span class="sxs-lookup"><span data-stu-id="c927c-373">The Key-per-file configuration provider is used in Docker hosting scenarios.</span></span>
 
-<span data-ttu-id="f7447-451">Chcete-li aktivovat konfiguraci klíče na soubor, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-451">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="f7447-452">`directoryPath` souborů musí být absolutní cesta.</span><span class="sxs-lookup"><span data-stu-id="f7447-452">The `directoryPath` to the files must be an absolute path.</span></span>
+<span data-ttu-id="c927c-374">Chcete-li aktivovat konfiguraci klíče na soubor, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="c927c-374">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="c927c-375">`directoryPath` souborů musí být absolutní cesta.</span><span class="sxs-lookup"><span data-stu-id="c927c-375">The `directoryPath` to the files must be an absolute path.</span></span>
 
-<span data-ttu-id="f7447-453">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="f7447-453">Overloads permit specifying:</span></span>
+<span data-ttu-id="c927c-376">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="c927c-376">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="f7447-454">Delegát `Action<KeyPerFileConfigurationSource>`, který konfiguruje zdroj.</span><span class="sxs-lookup"><span data-stu-id="f7447-454">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
-* <span data-ttu-id="f7447-455">Zda je adresář nepovinný a cesta k adresáři.</span><span class="sxs-lookup"><span data-stu-id="f7447-455">Whether the directory is optional and the path to the directory.</span></span>
+* <span data-ttu-id="c927c-377">Delegát `Action<KeyPerFileConfigurationSource>`, který konfiguruje zdroj.</span><span class="sxs-lookup"><span data-stu-id="c927c-377">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
+* <span data-ttu-id="c927c-378">Zda je adresář nepovinný a cesta k adresáři.</span><span class="sxs-lookup"><span data-stu-id="c927c-378">Whether the directory is optional and the path to the directory.</span></span>
 
-<span data-ttu-id="f7447-456">Dvojité podtržítko (`__`) se používá jako oddělovač konfiguračního klíče v názvech souborů.</span><span class="sxs-lookup"><span data-stu-id="f7447-456">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="f7447-457">Například název souboru `Logging__LogLevel__System` vytvoří konfigurační klíč `Logging:LogLevel:System`.</span><span class="sxs-lookup"><span data-stu-id="f7447-457">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
+<span data-ttu-id="c927c-379">Dvojité podtržítko (`__`) se používá jako oddělovač konfiguračního klíče v názvech souborů.</span><span class="sxs-lookup"><span data-stu-id="c927c-379">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="c927c-380">Například název souboru `Logging__LogLevel__System` vytvoří konfigurační klíč `Logging:LogLevel:System`.</span><span class="sxs-lookup"><span data-stu-id="c927c-380">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
 
-<span data-ttu-id="f7447-458">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="f7447-458">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c927c-381">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="c927c-381">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -700,516 +518,332 @@ key=value
 })
 ```
 
-## <a name="memory-configuration-provider"></a><span data-ttu-id="f7447-459">Poskytovatel konfigurace paměti</span><span class="sxs-lookup"><span data-stu-id="f7447-459">Memory Configuration Provider</span></span>
+<a name="mcp"></a>
 
-<span data-ttu-id="f7447-460"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> používá kolekci v paměti jako konfigurační páry klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="f7447-460">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
+## <a name="memory-configuration-provider"></a><span data-ttu-id="c927c-382">Poskytovatel konfigurace paměti</span><span class="sxs-lookup"><span data-stu-id="c927c-382">Memory configuration provider</span></span>
 
-<span data-ttu-id="f7447-461">Chcete-li aktivovat konfiguraci kolekce v paměti, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-461">To activate in-memory collection configuration, call the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-383"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> používá kolekci v paměti jako konfigurační páry klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="c927c-383">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
 
-<span data-ttu-id="f7447-462">Zprostředkovatele konfigurace lze inicializovat pomocí `IEnumerable<KeyValuePair<String,String>>`.</span><span class="sxs-lookup"><span data-stu-id="f7447-462">The configuration provider can be initialized with an `IEnumerable<KeyValuePair<String,String>>`.</span></span>
+<span data-ttu-id="c927c-384">Následující kód přidá kolekci paměti do konfiguračního systému:</span><span class="sxs-lookup"><span data-stu-id="c927c-384">The following code adds a memory collection to the configuration system:</span></span>
 
-<span data-ttu-id="f7447-463">Při sestavování hostitele k určení konfigurace aplikace volejte `ConfigureAppConfiguration`.</span><span class="sxs-lookup"><span data-stu-id="f7447-463">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration.</span></span>
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramArray.cs?name=snippet6)]
 
-<span data-ttu-id="f7447-464">V následujícím příkladu je vytvořen konfigurační slovník:</span><span class="sxs-lookup"><span data-stu-id="f7447-464">In the following example, a configuration dictionary is created:</span></span>
+<span data-ttu-id="c927c-385">Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) zobrazuje předchozí nastavení konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-385">The following code from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) displays the preceding configurations settings:</span></span>
 
-```csharp
-public static readonly Dictionary<string, string> _dict = 
-    new Dictionary<string, string>
-    {
-        {"MemoryCollectionKey1", "value1"},
-        {"MemoryCollectionKey2", "value2"}
-    };
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Test.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-386">V předchozím kódu se `config.AddInMemoryCollection(Dict)` přidá po [výchozích poskytovatelích konfigurace](#default).</span><span class="sxs-lookup"><span data-stu-id="c927c-386">In the preceding code, `config.AddInMemoryCollection(Dict)` is added after the [default configuration providers](#default).</span></span> <span data-ttu-id="c927c-387">Příklad řazení zprostředkovatelů konfigurace najdete v tématu [zprostředkovatel konfigurace JSON](#jcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-387">For an example of ordering the configuration providers, see [JSON configuration provider](#jcp).</span></span>
+
+<span data-ttu-id="c927c-388">Příklad řazení zprostředkovatelů konfigurace najdete v tématu [zprostředkovatel konfigurace JSON](#jcp).</span><span class="sxs-lookup"><span data-stu-id="c927c-388">For an example of ordering the configuration providers, see [JSON configuration provider](#jcp).</span></span>
+
+<span data-ttu-id="c927c-389">Viz [vazba pole](#boa) pro jiný příklad pomocí `MemoryConfigurationProvider`.</span><span class="sxs-lookup"><span data-stu-id="c927c-389">See [Bind an array](#boa) for another example using `MemoryConfigurationProvider`.</span></span>
+
+## <a name="getvalue"></a><span data-ttu-id="c927c-390">GetValue</span><span class="sxs-lookup"><span data-stu-id="c927c-390">GetValue</span></span>
+
+<span data-ttu-id="c927c-391">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ:</span><span class="sxs-lookup"><span data-stu-id="c927c-391">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a single value from configuration with a specified key and converts it to the specified type:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestNum.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-392">Pokud v předchozím kódu není `NumberKey` v konfiguraci nalezeno, je použita výchozí hodnota `99`.</span><span class="sxs-lookup"><span data-stu-id="c927c-392">In the preceding code,  if `NumberKey` isn't found in the configuration, the default value of `99` is used.</span></span>
+
+## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="c927c-393">GetSection, GetChildren a Exists</span><span class="sxs-lookup"><span data-stu-id="c927c-393">GetSection, GetChildren, and Exists</span></span>
+
+<span data-ttu-id="c927c-394">V následujících příkladech zvažte následující soubor *MySubsection. JSON* :</span><span class="sxs-lookup"><span data-stu-id="c927c-394">For the examples that follow, consider the following *MySubsection.json* file:</span></span>
+
+[!code-json[](index/samples/3.x/ConfigSample/MySubsection.json)]
+
+<span data-ttu-id="c927c-395">Následující kód přidá *MySubsection. JSON* ke zprostředkovatelům konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-395">The following code adds *MySubsection.json* to the configuration providers:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSONsection.cs?name=snippet)]
+
+### <a name="getsection"></a><span data-ttu-id="c927c-396">GetSection</span><span class="sxs-lookup"><span data-stu-id="c927c-396">GetSection</span></span>
+
+<span data-ttu-id="c927c-397">[IConfiguration. GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) vrátí dílčí část konfigurace se zadaným klíčem dílčího oddílu.</span><span class="sxs-lookup"><span data-stu-id="c927c-397">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) returns a configuration subsection with the specified subsection key.</span></span>
+
+<span data-ttu-id="c927c-398">Následující kód vrátí hodnoty pro `section1`:</span><span class="sxs-lookup"><span data-stu-id="c927c-398">The following code returns values for `section1`:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestSection.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-399">Následující kód vrátí hodnoty pro `section2:subsection0`:</span><span class="sxs-lookup"><span data-stu-id="c927c-399">The following code returns values for `section2:subsection0`:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestSection2.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-400">`GetSection` nikdy nevrátí `null`.</span><span class="sxs-lookup"><span data-stu-id="c927c-400">`GetSection` never returns `null`.</span></span> <span data-ttu-id="c927c-401">Pokud se nenalezne shodný oddíl, vrátí se prázdná `IConfigurationSection`.</span><span class="sxs-lookup"><span data-stu-id="c927c-401">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
+
+<span data-ttu-id="c927c-402">Když `GetSection` vrátí vyhovující oddíl, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> se nezadá.</span><span class="sxs-lookup"><span data-stu-id="c927c-402">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="c927c-403">Když oddíl existuje, vrátí se <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> a <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path>.</span><span class="sxs-lookup"><span data-stu-id="c927c-403">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
+
+### <a name="getchildren-and-exists"></a><span data-ttu-id="c927c-404">GetChildren a existuje</span><span class="sxs-lookup"><span data-stu-id="c927c-404">GetChildren and Exists</span></span>
+
+<span data-ttu-id="c927c-405">Následující kód volá [IConfiguration. GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) a vrátí hodnoty pro `section2:subsection0`:</span><span class="sxs-lookup"><span data-stu-id="c927c-405">The following code calls [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) and returns values for `section2:subsection0`:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/TestSection4.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-406">Předchozí kód volá [ConfigurationExtensions. existuje](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) pro ověření, zda existuje oddíl:</span><span class="sxs-lookup"><span data-stu-id="c927c-406">The preceding code calls [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to verify the  section exists:</span></span>
+
+ <a name="boa"></a>
+
+## <a name="bind-an-array"></a><span data-ttu-id="c927c-407">Vazba pole</span><span class="sxs-lookup"><span data-stu-id="c927c-407">Bind an array</span></span>
+
+<span data-ttu-id="c927c-408">[ConfigurationBinder. Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="c927c-408">The [ConfigurationBinder.Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="c927c-409">Libovolný formát pole, který zveřejňuje numerický klíčový segment, je schopný vytvořit vazbu pole k poli třídy [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) .</span><span class="sxs-lookup"><span data-stu-id="c927c-409">Any array format that exposes a numeric key segment is capable of array binding to a [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) class array.</span></span>
+
+<span data-ttu-id="c927c-410">V [ukázkovém stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)zvažte *myArray. JSON* :</span><span class="sxs-lookup"><span data-stu-id="c927c-410">Consider *MyArray.json* from the [sample download](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample):</span></span>
+
+[!code-json[](index/samples/3.x/ConfigSample/MyArray.json)]
+
+<span data-ttu-id="c927c-411">Následující kód přidá *myArray. JSON* ke zprostředkovatelům konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-411">The following code adds *MyArray.json* to the configuration providers:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSONarray.cs?name=snippet)]
+
+<span data-ttu-id="c927c-412">Následující kód přečte konfiguraci a zobrazí hodnoty:</span><span class="sxs-lookup"><span data-stu-id="c927c-412">The following code reads the configuration and displays the values:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Array.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-413">Předchozí kód vrátí následující výstup:</span><span class="sxs-lookup"><span data-stu-id="c927c-413">The preceding code returns the following output:</span></span>
+
+```text
+Index: 0  Value: value00
+Index: 1  Value: value10
+Index: 2  Value: value20
+Index: 3  Value: value40
+Index: 4  Value: value50
 ```
 
-<span data-ttu-id="f7447-465">Slovník se používá s voláním `AddInMemoryCollection` k poskytnutí konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-465">The dictionary is used with a call to `AddInMemoryCollection` to provide the configuration:</span></span>
+<span data-ttu-id="c927c-414">V předchozím výstupu má index 3 `value40`hodnoty odpovídající `"4": "value40",` v *myArray. JSON*.</span><span class="sxs-lookup"><span data-stu-id="c927c-414">In the preceding output, Index 3 has value `value40`, corresponding to `"4": "value40",` in *MyArray.json*.</span></span> <span data-ttu-id="c927c-415">Vazby vázaného pole jsou souvislé a nejsou vázané na index konfiguračního klíče.</span><span class="sxs-lookup"><span data-stu-id="c927c-415">The bound array indices are continuous and not bound to the configuration key index.</span></span> <span data-ttu-id="c927c-416">Pořadač konfigurace nemůže svázat hodnoty null ani vytvářet položky null ve vázaných objektech.</span><span class="sxs-lookup"><span data-stu-id="c927c-416">The configuration binder isn't capable of binding null values or creating null entries in bound objects</span></span>
 
-```csharp
-.ConfigureAppConfiguration((hostingContext, config) =>
-{
-    config.AddInMemoryCollection(_dict);
-})
+<span data-ttu-id="c927c-417">Následující kód načte konfiguraci `array:entries` s metodou rozšíření <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*>:</span><span class="sxs-lookup"><span data-stu-id="c927c-417">The  following code loads the `array:entries` configuration with the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramArray.cs?name=snippet)]
+
+<span data-ttu-id="c927c-418">Následující kód přečte konfiguraci v `arrayDict` `Dictionary` a zobrazí hodnoty:</span><span class="sxs-lookup"><span data-stu-id="c927c-418">The following code reads the configuration in the `arrayDict` `Dictionary` and displays the values:</span></span>
+
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Array.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-419">Předchozí kód vrátí následující výstup:</span><span class="sxs-lookup"><span data-stu-id="c927c-419">The preceding code returns the following output:</span></span>
+
+```text
+Index: 0  Value: value0
+Index: 1  Value: value1
+Index: 2  Value: value2
+Index: 3  Value: value4
+Index: 4  Value: value5
 ```
 
-## <a name="getvalue"></a><span data-ttu-id="f7447-466">GetValue</span><span class="sxs-lookup"><span data-stu-id="f7447-466">GetValue</span></span>
+<span data-ttu-id="c927c-420">Index &num;3 ve vázaném objektu obsahuje konfigurační data pro konfigurační klíč `array:4` a jeho hodnotu `value4`.</span><span class="sxs-lookup"><span data-stu-id="c927c-420">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="c927c-421">Když jsou data konfigurace obsahující pole svázané, používají se k iteraci konfiguračních dat při vytváření objektu pole indexy v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="c927c-421">When configuration data containing an array is bound, the array indices in the configuration keys are used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="c927c-422">Hodnotu null nelze uchovat v konfiguračních datech a v vázaném objektu není vytvořena položka s hodnotou null, pokud pole v konfiguračních klíčích přeskočí jeden nebo více indexů.</span><span class="sxs-lookup"><span data-stu-id="c927c-422">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
 
-<span data-ttu-id="f7447-467">[ConfigurationBinder. GetValue\<t >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ nekolekce.</span><span class="sxs-lookup"><span data-stu-id="f7447-467">[ConfigurationBinder.GetValue\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a single value from configuration with a specified key and converts it to the specified noncollection type.</span></span> <span data-ttu-id="f7447-468">Přetížení přijímá výchozí hodnotu.</span><span class="sxs-lookup"><span data-stu-id="f7447-468">An overload accepts a default value.</span></span>
+<span data-ttu-id="c927c-423">Chybějící položka konfigurace pro index &num;3 může být zadána před vytvořením vazby na instanci `ArrayExample` pomocí jakéhokoli poskytovatele konfigurace, který čte dvojici klíč/hodnota indexu &num;3.</span><span class="sxs-lookup"><span data-stu-id="c927c-423">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that reads the index &num;3 key/value pair.</span></span> <span data-ttu-id="c927c-424">V ukázkovém stažení zvažte následující soubor *hodnota3. JSON* :</span><span class="sxs-lookup"><span data-stu-id="c927c-424">Consider the following *Value3.json* file from the sample download:</span></span>
 
-<span data-ttu-id="f7447-469">Následující příklad:</span><span class="sxs-lookup"><span data-stu-id="f7447-469">The following example:</span></span>
+[!code-json[](index/samples/3.x/ConfigSample/Value3.json)]
 
-* <span data-ttu-id="f7447-470">Extrahuje hodnotu řetězce z konfigurace pomocí klíče `NumberKey`.</span><span class="sxs-lookup"><span data-stu-id="f7447-470">Extracts the string value from configuration with the key `NumberKey`.</span></span> <span data-ttu-id="f7447-471">Pokud se v konfiguračních klíčích `NumberKey` nenajde, použije se výchozí hodnota `99`.</span><span class="sxs-lookup"><span data-stu-id="f7447-471">If `NumberKey` isn't found in the configuration keys, the default value of `99` is used.</span></span>
-* <span data-ttu-id="f7447-472">Zadá hodnotu jako `int`.</span><span class="sxs-lookup"><span data-stu-id="f7447-472">Types the value as an `int`.</span></span>
-* <span data-ttu-id="f7447-473">Ukládá hodnotu vlastnosti `NumberConfig` pro použití stránkou.</span><span class="sxs-lookup"><span data-stu-id="f7447-473">Stores the value in the `NumberConfig` property for use by the page.</span></span>
+<span data-ttu-id="c927c-425">Následující kód obsahuje konfiguraci pro *hodnota3. JSON* a `arrayDict` `Dictionary`:</span><span class="sxs-lookup"><span data-stu-id="c927c-425">The following code includes configuration for *Value3.json* and the `arrayDict` `Dictionary`:</span></span>
 
-```csharp
-public class IndexModel : PageModel
-{
-    public IndexModel(IConfiguration config)
-    {
-        _config = config;
-    }
+[!code-csharp[](index/samples/3.x/ConfigSample/ProgramArray.cs?name=snippet2)]
 
-    public int NumberConfig { get; private set; }
+<span data-ttu-id="c927c-426">Následující kód přečte předchozí konfiguraci a zobrazí hodnoty:</span><span class="sxs-lookup"><span data-stu-id="c927c-426">The following code reads the preceding configuration and displays the values:</span></span>
 
-    public void OnGet()
-    {
-        NumberConfig = _config.GetValue<int>("NumberKey", 99);
-    }
-}
+[!code-csharp[](index/samples/3.x/ConfigSample/Pages/Array.cshtml.cs?name=snippet)]
+
+<span data-ttu-id="c927c-427">Předchozí kód vrátí následující výstup:</span><span class="sxs-lookup"><span data-stu-id="c927c-427">The preceding code returns the following output:</span></span>
+
+```text
+Index: 0  Value: value0
+Index: 1  Value: value1
+Index: 2  Value: value2
+Index: 3  Value: value3
+Index: 4  Value: value4
+Index: 5  Value: value5
 ```
 
-## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="f7447-474">GetSection, GetChildren a Exists</span><span class="sxs-lookup"><span data-stu-id="f7447-474">GetSection, GetChildren, and Exists</span></span>
+<span data-ttu-id="c927c-428">Vlastní poskytovatelé konfigurace nejsou k implementaci vazby pole potřeba.</span><span class="sxs-lookup"><span data-stu-id="c927c-428">Custom configuration providers aren't required to implement array binding.</span></span>
 
-<span data-ttu-id="f7447-475">V následujících příkladech zvažte následující soubor JSON.</span><span class="sxs-lookup"><span data-stu-id="f7447-475">For the examples that follow, consider the following JSON file.</span></span> <span data-ttu-id="f7447-476">Čtyři klíče se nacházejí ve dvou oddílech, z nichž jeden obsahuje dvojici dílčích částí:</span><span class="sxs-lookup"><span data-stu-id="f7447-476">Four keys are found across two sections, one of which includes a pair of subsections:</span></span>
+## <a name="custom-configuration-provider"></a><span data-ttu-id="c927c-429">Vlastní poskytovatel konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-429">Custom configuration provider</span></span>
 
-```json
-{
-  "section0": {
-    "key0": "value",
-    "key1": "value"
-  },
-  "section1": {
-    "key0": "value",
-    "key1": "value"
-  },
-  "section2": {
-    "subsection0" : {
-      "key0": "value",
-      "key1": "value"
-    },
-    "subsection1" : {
-      "key0": "value",
-      "key1": "value"
-    }
-  }
-}
-```
+<span data-ttu-id="c927c-430">Ukázková aplikace ukazuje, jak vytvořit základního poskytovatele konfigurace, který čte páry klíč-hodnota konfigurace z databáze pomocí [Entity Framework (EF)](/ef/core/).</span><span class="sxs-lookup"><span data-stu-id="c927c-430">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
 
-<span data-ttu-id="f7447-477">Když je soubor čten do konfigurace, vytvoří se následující jedinečné hierarchické klíče, které budou obsahovat hodnoty konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-477">When the file is read into configuration, the following unique hierarchical keys are created to hold the configuration values:</span></span>
+<span data-ttu-id="c927c-431">Zprostředkovatel má následující vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="c927c-431">The provider has the following characteristics:</span></span>
 
-* <span data-ttu-id="f7447-478">section0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-478">section0:key0</span></span>
-* <span data-ttu-id="f7447-479">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-479">section0:key1</span></span>
-* <span data-ttu-id="f7447-480">section1:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-480">section1:key0</span></span>
-* <span data-ttu-id="f7447-481">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-481">section1:key1</span></span>
-* <span data-ttu-id="f7447-482">section2:subsection0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-482">section2:subsection0:key0</span></span>
-* <span data-ttu-id="f7447-483">section2: subsection0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-483">section2:subsection0:key1</span></span>
-* <span data-ttu-id="f7447-484">section2:subsection1:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-484">section2:subsection1:key0</span></span>
-* <span data-ttu-id="f7447-485">section2: subsection1: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-485">section2:subsection1:key1</span></span>
+* <span data-ttu-id="c927c-432">Pro demonstrační účely se používá databáze EF v paměti.</span><span class="sxs-lookup"><span data-stu-id="c927c-432">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="c927c-433">Chcete-li použít databázi, která vyžaduje připojovací řetězec, implementujte sekundární `ConfigurationBuilder` pro zadání připojovacího řetězce od jiného poskytovatele konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-433">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
+* <span data-ttu-id="c927c-434">Poskytovatel čte databázovou tabulku do konfigurace při spuštění.</span><span class="sxs-lookup"><span data-stu-id="c927c-434">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="c927c-435">Zprostředkovatel nedotazuje databázi na bázi jednotlivých klíčů.</span><span class="sxs-lookup"><span data-stu-id="c927c-435">The provider doesn't query the database on a per-key basis.</span></span>
+* <span data-ttu-id="c927c-436">Opětovné načtení není implementováno, takže aktualizace databáze po spuštění aplikace nemá žádný vliv na konfiguraci aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-436">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
 
-### <a name="getsection"></a><span data-ttu-id="f7447-486">GetSection</span><span class="sxs-lookup"><span data-stu-id="f7447-486">GetSection</span></span>
+<span data-ttu-id="c927c-437">Definujte entitu `EFConfigurationValue` pro ukládání konfiguračních hodnot do databáze.</span><span class="sxs-lookup"><span data-stu-id="c927c-437">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
 
-<span data-ttu-id="f7447-487">[IConfiguration. GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extrahuje pododdíl konfigurace se zadaným klíčem dílčího oddílu.</span><span class="sxs-lookup"><span data-stu-id="f7447-487">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extracts a configuration subsection with the specified subsection key.</span></span>
-
-<span data-ttu-id="f7447-488">Chcete-li vrátit <xref:Microsoft.Extensions.Configuration.IConfigurationSection> obsahující pouze páry klíč-hodnota v `section1`, zavolejte `GetSection` a zadejte název oddílu:</span><span class="sxs-lookup"><span data-stu-id="f7447-488">To return an <xref:Microsoft.Extensions.Configuration.IConfigurationSection> containing only the key-value pairs in `section1`, call `GetSection` and supply the section name:</span></span>
-
-```csharp
-var configSection = _config.GetSection("section1");
-```
-
-<span data-ttu-id="f7447-489">`configSection` nemá hodnotu, jenom klíč a cestu.</span><span class="sxs-lookup"><span data-stu-id="f7447-489">The `configSection` doesn't have a value, only a key and a path.</span></span>
-
-<span data-ttu-id="f7447-490">Podobně pokud chcete získat hodnoty pro klíče v `section2:subsection0`, zavolejte `GetSection` a zadejte cestu k oddílu:</span><span class="sxs-lookup"><span data-stu-id="f7447-490">Similarly, to obtain the values for keys in `section2:subsection0`, call `GetSection` and supply the section path:</span></span>
-
-```csharp
-var configSection = _config.GetSection("section2:subsection0");
-```
-
-<span data-ttu-id="f7447-491">`GetSection` nikdy nevrátí `null`.</span><span class="sxs-lookup"><span data-stu-id="f7447-491">`GetSection` never returns `null`.</span></span> <span data-ttu-id="f7447-492">Pokud se nenalezne shodný oddíl, vrátí se prázdná `IConfigurationSection`.</span><span class="sxs-lookup"><span data-stu-id="f7447-492">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
-
-<span data-ttu-id="f7447-493">Když `GetSection` vrátí vyhovující oddíl, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> se nezadá.</span><span class="sxs-lookup"><span data-stu-id="f7447-493">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="f7447-494">Když oddíl existuje, vrátí se <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> a <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path>.</span><span class="sxs-lookup"><span data-stu-id="f7447-494">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
-
-### <a name="getchildren"></a><span data-ttu-id="f7447-495">GetChildren –</span><span class="sxs-lookup"><span data-stu-id="f7447-495">GetChildren</span></span>
-
-<span data-ttu-id="f7447-496">Volání [IConfiguration. GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) v `section2` získá `IEnumerable<IConfigurationSection>`, které obsahuje:</span><span class="sxs-lookup"><span data-stu-id="f7447-496">A call to [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) on `section2` obtains an `IEnumerable<IConfigurationSection>` that includes:</span></span>
-
-* `subsection0`
-* `subsection1`
-
-```csharp
-var configSection = _config.GetSection("section2");
-
-var children = configSection.GetChildren();
-```
-
-### <a name="exists"></a><span data-ttu-id="f7447-497">Existuje</span><span class="sxs-lookup"><span data-stu-id="f7447-497">Exists</span></span>
-
-<span data-ttu-id="f7447-498">Použijte [ConfigurationExtensions. existuje](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) k určení, zda konfigurační oddíl existuje:</span><span class="sxs-lookup"><span data-stu-id="f7447-498">Use [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to determine if a configuration section exists:</span></span>
-
-```csharp
-var sectionExists = _config.GetSection("section2:subsection2").Exists();
-```
-
-<span data-ttu-id="f7447-499">Vzhledem k ukázkovým datům je `sectionExists` `false`, protože konfigurační data nejsou v části `section2:subsection2`.</span><span class="sxs-lookup"><span data-stu-id="f7447-499">Given the example data, `sectionExists` is `false` because there isn't a `section2:subsection2` section in the configuration data.</span></span>
-
-## <a name="bind-to-a-class"></a><span data-ttu-id="f7447-500">Vazba na třídu</span><span class="sxs-lookup"><span data-stu-id="f7447-500">Bind to a class</span></span>
-
-<span data-ttu-id="f7447-501">Konfigurace může být vázána na třídy, které reprezentují skupiny souvisejících nastavení pomocí *vzoru možností*.</span><span class="sxs-lookup"><span data-stu-id="f7447-501">Configuration can be bound to classes that represent groups of related settings using the *options pattern*.</span></span> <span data-ttu-id="f7447-502">Další informace naleznete v tématu <xref:fundamentals/configuration/options>.</span><span class="sxs-lookup"><span data-stu-id="f7447-502">For more information, see <xref:fundamentals/configuration/options>.</span></span>
-
-<span data-ttu-id="f7447-503">Konfigurační hodnoty jsou vraceny jako řetězce, ale volání <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> umožňuje konstrukci objektů [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) .</span><span class="sxs-lookup"><span data-stu-id="f7447-503">Configuration values are returned as strings, but calling <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> enables the construction of [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) objects.</span></span> <span data-ttu-id="f7447-504">Pořadač váže hodnoty ke všem veřejným vlastnostem pro čtení a zápis zadaného typu.</span><span class="sxs-lookup"><span data-stu-id="f7447-504">The binder binds values to all of the public read/write properties of the type provided.</span></span> <span data-ttu-id="f7447-505">Pole nejsou **svázána** .</span><span class="sxs-lookup"><span data-stu-id="f7447-505">Fields are **not** bound.</span></span>
-
-<span data-ttu-id="f7447-506">Ukázková aplikace obsahuje model `Starship` (*modely/Starship. cs*):</span><span class="sxs-lookup"><span data-stu-id="f7447-506">The sample app contains a `Starship` model (*Models/Starship.cs*):</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/Starship.cs?name=snippet1)]
-
-<span data-ttu-id="f7447-507">V části `starship` souboru *Starship. JSON* se vytvoří konfigurace, když ukázková aplikace pomocí zprostředkovatele konfigurace JSON načte konfiguraci:</span><span class="sxs-lookup"><span data-stu-id="f7447-507">The `starship` section of the *starship.json* file creates the configuration when the sample app uses the JSON Configuration Provider to load the configuration:</span></span>
-
-[!code-json[](index/samples/3.x/ConfigurationSample/starship.json)]
-
-<span data-ttu-id="f7447-508">Vytvoří se následující páry klíč-hodnota konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-508">The following configuration key-value pairs are created:</span></span>
-
-| <span data-ttu-id="f7447-509">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-509">Key</span></span>                   | <span data-ttu-id="f7447-510">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-510">Value</span></span>                                             |
-| --------------------- | ------------------------------------------------- |
-| <span data-ttu-id="f7447-511">Starship: název</span><span class="sxs-lookup"><span data-stu-id="f7447-511">starship:name</span></span>         | <span data-ttu-id="f7447-512">USS Enterprise</span><span class="sxs-lookup"><span data-stu-id="f7447-512">USS Enterprise</span></span>                                    |
-| <span data-ttu-id="f7447-513">Starship: Registry</span><span class="sxs-lookup"><span data-stu-id="f7447-513">starship:registry</span></span>     | <span data-ttu-id="f7447-514">NCC-1701</span><span class="sxs-lookup"><span data-stu-id="f7447-514">NCC-1701</span></span>                                          |
-| <span data-ttu-id="f7447-515">Starship: třída</span><span class="sxs-lookup"><span data-stu-id="f7447-515">starship:class</span></span>        | <span data-ttu-id="f7447-516">Založen</span><span class="sxs-lookup"><span data-stu-id="f7447-516">Constitution</span></span>                                      |
-| <span data-ttu-id="f7447-517">Starship: délka</span><span class="sxs-lookup"><span data-stu-id="f7447-517">starship:length</span></span>       | <span data-ttu-id="f7447-518">304,8</span><span class="sxs-lookup"><span data-stu-id="f7447-518">304.8</span></span>                                             |
-| <span data-ttu-id="f7447-519">Starship: vyřazení z provozu</span><span class="sxs-lookup"><span data-stu-id="f7447-519">starship:commissioned</span></span> | <span data-ttu-id="f7447-520">False</span><span class="sxs-lookup"><span data-stu-id="f7447-520">False</span></span>                                             |
-| <span data-ttu-id="f7447-521">Patka</span><span class="sxs-lookup"><span data-stu-id="f7447-521">trademark</span></span>             | <span data-ttu-id="f7447-522">Paramount Pictures Corp. https://www.paramount.com</span><span class="sxs-lookup"><span data-stu-id="f7447-522">Paramount Pictures Corp. https://www.paramount.com</span></span> |
-
-<span data-ttu-id="f7447-523">Ukázková aplikace volá `GetSection` s klíčem `starship`.</span><span class="sxs-lookup"><span data-stu-id="f7447-523">The sample app calls `GetSection` with the `starship` key.</span></span> <span data-ttu-id="f7447-524">Páry klíč-hodnota `starship` jsou izolované.</span><span class="sxs-lookup"><span data-stu-id="f7447-524">The `starship` key-value pairs are isolated.</span></span> <span data-ttu-id="f7447-525">Metoda `Bind` je volána v podsekci předávání instance `Starship` třídy.</span><span class="sxs-lookup"><span data-stu-id="f7447-525">The `Bind` method is called on the subsection passing in an instance of the `Starship` class.</span></span> <span data-ttu-id="f7447-526">Po vytvoření vazby hodnot instance je instance přiřazena k vlastnosti pro vykreslování:</span><span class="sxs-lookup"><span data-stu-id="f7447-526">After binding the instance values, the instance is assigned to a property for rendering:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_starship)]
-
-## <a name="bind-to-an-object-graph"></a><span data-ttu-id="f7447-527">Vytvoření vazby na graf objektů</span><span class="sxs-lookup"><span data-stu-id="f7447-527">Bind to an object graph</span></span>
-
-<span data-ttu-id="f7447-528"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> je schopný svázat celý graf objektů POCO.</span><span class="sxs-lookup"><span data-stu-id="f7447-528"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> is capable of binding an entire POCO object graph.</span></span> <span data-ttu-id="f7447-529">Stejně jako u vazeb jednoduchých objektů jsou vázány pouze veřejné vlastnosti čtení a zápisu.</span><span class="sxs-lookup"><span data-stu-id="f7447-529">As with binding a simple object, only public read/write properties are bound.</span></span>
-
-<span data-ttu-id="f7447-530">Ukázka obsahuje model `TvShow`, jehož graf objektů zahrnuje `Metadata` a třídy `Actors` (*modely/TvShow. cs*):</span><span class="sxs-lookup"><span data-stu-id="f7447-530">The sample contains a `TvShow` model whose object graph includes `Metadata` and `Actors` classes (*Models/TvShow.cs*):</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/TvShow.cs?name=snippet1)]
-
-<span data-ttu-id="f7447-531">Ukázková aplikace obsahuje soubor *tvshow. XML* obsahující konfigurační data:</span><span class="sxs-lookup"><span data-stu-id="f7447-531">The sample app has a *tvshow.xml* file containing the configuration data:</span></span>
-
-[!code-xml[](index/samples/3.x/ConfigurationSample/tvshow.xml)]
-
-<span data-ttu-id="f7447-532">Konfigurace je svázána s celým grafem `TvShow` objektů pomocí metody `Bind`.</span><span class="sxs-lookup"><span data-stu-id="f7447-532">Configuration is bound to the entire `TvShow` object graph with the `Bind` method.</span></span> <span data-ttu-id="f7447-533">Vázaná instance je přiřazena k vlastnosti pro vykreslování:</span><span class="sxs-lookup"><span data-stu-id="f7447-533">The bound instance is assigned to a property for rendering:</span></span>
-
-```csharp
-var tvShow = new TvShow();
-_config.GetSection("tvshow").Bind(tvShow);
-TvShow = tvShow;
-```
-
-<span data-ttu-id="f7447-534">[ConfigurationBinder. Get >\<t](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) vytvoří vazby a vrátí zadaný typ.</span><span class="sxs-lookup"><span data-stu-id="f7447-534">[ConfigurationBinder.Get\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="f7447-535">`Get<T>` je pohodlnější než použití `Bind`.</span><span class="sxs-lookup"><span data-stu-id="f7447-535">`Get<T>` is more convenient than using `Bind`.</span></span> <span data-ttu-id="f7447-536">Následující kód ukazuje, jak použít `Get<T>` s předchozím příkladem, který umožňuje, aby se vázaná instance přímo přiřadila k vlastnosti používané pro vykreslování:</span><span class="sxs-lookup"><span data-stu-id="f7447-536">The following code shows how to use `Get<T>` with the preceding example, which allows the bound instance to be directly assigned to the property used for rendering:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_tvshow)]
-
-## <a name="bind-an-array-to-a-class"></a><span data-ttu-id="f7447-537">Vazba pole na třídu</span><span class="sxs-lookup"><span data-stu-id="f7447-537">Bind an array to a class</span></span>
-
-<span data-ttu-id="f7447-538">*Ukázková aplikace ukazuje koncepty popsané v této části.*</span><span class="sxs-lookup"><span data-stu-id="f7447-538">*The sample app demonstrates the concepts explained in this section.*</span></span>
-
-<span data-ttu-id="f7447-539"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="f7447-539">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="f7447-540">Libovolný formát pole, který zveřejňuje numerický klíčový segment (`:0:`, `:1:`, &hellip; `:{n}:`), je schopný vytvořit vazbu pole k poli třídy POCO.</span><span class="sxs-lookup"><span data-stu-id="f7447-540">Any array format that exposes a numeric key segment (`:0:`, `:1:`, &hellip; `:{n}:`) is capable of array binding to a POCO class array.</span></span>
-
-> [!NOTE]
-> <span data-ttu-id="f7447-541">Vazba je poskytována podle konvence.</span><span class="sxs-lookup"><span data-stu-id="f7447-541">Binding is provided by convention.</span></span> <span data-ttu-id="f7447-542">Vlastní poskytovatelé konfigurace nejsou k implementaci vazby pole potřeba.</span><span class="sxs-lookup"><span data-stu-id="f7447-542">Custom configuration providers aren't required to implement array binding.</span></span>
-
-<span data-ttu-id="f7447-543">**Zpracování pole v paměti**</span><span class="sxs-lookup"><span data-stu-id="f7447-543">**In-memory array processing**</span></span>
-
-<span data-ttu-id="f7447-544">Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="f7447-544">Consider the configuration keys and values shown in the following table.</span></span>
-
-| <span data-ttu-id="f7447-545">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-545">Key</span></span>             | <span data-ttu-id="f7447-546">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-546">Value</span></span>  |
-| :-------------: | :----: |
-| <span data-ttu-id="f7447-547">pole: položky: 0</span><span class="sxs-lookup"><span data-stu-id="f7447-547">array:entries:0</span></span> | <span data-ttu-id="f7447-548">value0</span><span class="sxs-lookup"><span data-stu-id="f7447-548">value0</span></span> |
-| <span data-ttu-id="f7447-549">pole: položky: 1</span><span class="sxs-lookup"><span data-stu-id="f7447-549">array:entries:1</span></span> | <span data-ttu-id="f7447-550">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="f7447-550">value1</span></span> |
-| <span data-ttu-id="f7447-551">pole: položky: 2</span><span class="sxs-lookup"><span data-stu-id="f7447-551">array:entries:2</span></span> | <span data-ttu-id="f7447-552">Argument</span><span class="sxs-lookup"><span data-stu-id="f7447-552">value2</span></span> |
-| <span data-ttu-id="f7447-553">pole: položky: 4</span><span class="sxs-lookup"><span data-stu-id="f7447-553">array:entries:4</span></span> | <span data-ttu-id="f7447-554">value4</span><span class="sxs-lookup"><span data-stu-id="f7447-554">value4</span></span> |
-| <span data-ttu-id="f7447-555">pole: položky: 5</span><span class="sxs-lookup"><span data-stu-id="f7447-555">array:entries:5</span></span> | <span data-ttu-id="f7447-556">value5</span><span class="sxs-lookup"><span data-stu-id="f7447-556">value5</span></span> |
-
-<span data-ttu-id="f7447-557">Tyto klíče a hodnoty se načtou do ukázkové aplikace pomocí poskytovatele konfigurace paměti:</span><span class="sxs-lookup"><span data-stu-id="f7447-557">These keys and values are loaded in the sample app using the Memory Configuration Provider:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,22)]
-
-<span data-ttu-id="f7447-558">Pole přeskočí hodnotu pro index &num;3.</span><span class="sxs-lookup"><span data-stu-id="f7447-558">The array skips a value for index &num;3.</span></span> <span data-ttu-id="f7447-559">Pořadač konfigurace není schopen svázat hodnoty null nebo vytvořit položky null ve vázaných objektech, které se v okamžiku, kdy je znázorněn výsledek vazby tohoto pole k objektu, nejasní.</span><span class="sxs-lookup"><span data-stu-id="f7447-559">The configuration binder isn't capable of binding null values or creating null entries in bound objects, which becomes clear in a moment when the result of binding this array to an object is demonstrated.</span></span>
-
-<span data-ttu-id="f7447-560">V ukázkové aplikaci je k dispozici třída POCO pro uchovávání vázaných konfiguračních dat:</span><span class="sxs-lookup"><span data-stu-id="f7447-560">In the sample app, a POCO class is available to hold the bound configuration data:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/ArrayExample.cs?name=snippet1)]
-
-<span data-ttu-id="f7447-561">Konfigurační data jsou svázána s objektem:</span><span class="sxs-lookup"><span data-stu-id="f7447-561">The configuration data is bound to the object:</span></span>
-
-```csharp
-var arrayExample = new ArrayExample();
-_config.GetSection("array").Bind(arrayExample);
-```
-
-<span data-ttu-id="f7447-562">[ConfigurationBinder.\<Get >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntaxe, která je také možné použít, což má za následek kompaktnější kód:</span><span class="sxs-lookup"><span data-stu-id="f7447-562">[ConfigurationBinder.Get\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntax can also be used, which results in more compact code:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_array)]
-
-<span data-ttu-id="f7447-563">Vázaný objekt, instance `ArrayExample`, obdrží data pole z konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-563">The bound object, an instance of `ArrayExample`, receives the array data from configuration.</span></span>
-
-| <span data-ttu-id="f7447-564">Index `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="f7447-564">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="f7447-565">Hodnota `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="f7447-565">`ArrayExample.Entries` Value</span></span> |
-| :--------------------------: | :--------------------------: |
-| <span data-ttu-id="f7447-566">0</span><span class="sxs-lookup"><span data-stu-id="f7447-566">0</span></span>                            | <span data-ttu-id="f7447-567">value0</span><span class="sxs-lookup"><span data-stu-id="f7447-567">value0</span></span>                       |
-| <span data-ttu-id="f7447-568">1</span><span class="sxs-lookup"><span data-stu-id="f7447-568">1</span></span>                            | <span data-ttu-id="f7447-569">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="f7447-569">value1</span></span>                       |
-| <span data-ttu-id="f7447-570">2</span><span class="sxs-lookup"><span data-stu-id="f7447-570">2</span></span>                            | <span data-ttu-id="f7447-571">Argument</span><span class="sxs-lookup"><span data-stu-id="f7447-571">value2</span></span>                       |
-| <span data-ttu-id="f7447-572">3</span><span class="sxs-lookup"><span data-stu-id="f7447-572">3</span></span>                            | <span data-ttu-id="f7447-573">value4</span><span class="sxs-lookup"><span data-stu-id="f7447-573">value4</span></span>                       |
-| <span data-ttu-id="f7447-574">4</span><span class="sxs-lookup"><span data-stu-id="f7447-574">4</span></span>                            | <span data-ttu-id="f7447-575">value5</span><span class="sxs-lookup"><span data-stu-id="f7447-575">value5</span></span>                       |
-
-<span data-ttu-id="f7447-576">Index &num;3 ve vázaném objektu obsahuje konfigurační data pro konfigurační klíč `array:4` a jeho hodnotu `value4`.</span><span class="sxs-lookup"><span data-stu-id="f7447-576">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="f7447-577">Když jsou data konfigurace obsahující pole svázána, indexy pole v konfiguračních klíčích slouží pouze k iterování konfiguračních dat při vytváření objektu.</span><span class="sxs-lookup"><span data-stu-id="f7447-577">When configuration data containing an array is bound, the array indices in the configuration keys are merely used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="f7447-578">Hodnotu null nelze uchovat v konfiguračních datech a v vázaném objektu není vytvořena položka s hodnotou null, pokud pole v konfiguračních klíčích přeskočí jeden nebo více indexů.</span><span class="sxs-lookup"><span data-stu-id="f7447-578">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
-
-<span data-ttu-id="f7447-579">Chybějící položka konfigurace pro index &num;3 může být zadána před vytvořením vazby na instanci `ArrayExample` pomocí jakéhokoli poskytovatele konfigurace, který vytváří správnou dvojici klíč-hodnota v konfiguraci.</span><span class="sxs-lookup"><span data-stu-id="f7447-579">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that produces the correct key-value pair in configuration.</span></span> <span data-ttu-id="f7447-580">Pokud ukázka zahrnovala dalšího poskytovatele konfigurace JSON s chybějící dvojicí klíč-hodnota, `ArrayExample.Entries` odpovídá kompletnímu poli konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-580">If the sample included an additional JSON Configuration Provider with the missing key-value pair, the `ArrayExample.Entries` matches the complete configuration array:</span></span>
-
-<span data-ttu-id="f7447-581">*missing_value. JSON*:</span><span class="sxs-lookup"><span data-stu-id="f7447-581">*missing_value.json*:</span></span>
-
-```json
-{
-  "array:entries:3": "value3"
-}
-```
-
-<span data-ttu-id="f7447-582">V `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="f7447-582">In `ConfigureAppConfiguration`:</span></span>
-
-```csharp
-config.AddJsonFile(
-    "missing_value.json", optional: false, reloadOnChange: false);
-```
-
-<span data-ttu-id="f7447-583">Pár klíč-hodnota zobrazený v tabulce je načten do konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-583">The key-value pair shown in the table is loaded into configuration.</span></span>
-
-| <span data-ttu-id="f7447-584">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-584">Key</span></span>             | <span data-ttu-id="f7447-585">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-585">Value</span></span>  |
-| :-------------: | :----: |
-| <span data-ttu-id="f7447-586">pole: položky: 3</span><span class="sxs-lookup"><span data-stu-id="f7447-586">array:entries:3</span></span> | <span data-ttu-id="f7447-587">hodnota3</span><span class="sxs-lookup"><span data-stu-id="f7447-587">value3</span></span> |
-
-<span data-ttu-id="f7447-588">Pokud je instance třídy `ArrayExample` vázána poté, co Poskytovatel konfigurace JSON obsahuje položku pro index &num;3, pole `ArrayExample.Entries` obsahuje hodnotu.</span><span class="sxs-lookup"><span data-stu-id="f7447-588">If the `ArrayExample` class instance is bound after the JSON Configuration Provider includes the entry for index &num;3, the `ArrayExample.Entries` array includes the value.</span></span>
-
-| <span data-ttu-id="f7447-589">Index `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="f7447-589">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="f7447-590">Hodnota `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="f7447-590">`ArrayExample.Entries` Value</span></span> |
-| :--------------------------: | :--------------------------: |
-| <span data-ttu-id="f7447-591">0</span><span class="sxs-lookup"><span data-stu-id="f7447-591">0</span></span>                            | <span data-ttu-id="f7447-592">value0</span><span class="sxs-lookup"><span data-stu-id="f7447-592">value0</span></span>                       |
-| <span data-ttu-id="f7447-593">1</span><span class="sxs-lookup"><span data-stu-id="f7447-593">1</span></span>                            | <span data-ttu-id="f7447-594">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="f7447-594">value1</span></span>                       |
-| <span data-ttu-id="f7447-595">2</span><span class="sxs-lookup"><span data-stu-id="f7447-595">2</span></span>                            | <span data-ttu-id="f7447-596">Argument</span><span class="sxs-lookup"><span data-stu-id="f7447-596">value2</span></span>                       |
-| <span data-ttu-id="f7447-597">3</span><span class="sxs-lookup"><span data-stu-id="f7447-597">3</span></span>                            | <span data-ttu-id="f7447-598">hodnota3</span><span class="sxs-lookup"><span data-stu-id="f7447-598">value3</span></span>                       |
-| <span data-ttu-id="f7447-599">4</span><span class="sxs-lookup"><span data-stu-id="f7447-599">4</span></span>                            | <span data-ttu-id="f7447-600">value4</span><span class="sxs-lookup"><span data-stu-id="f7447-600">value4</span></span>                       |
-| <span data-ttu-id="f7447-601">5</span><span class="sxs-lookup"><span data-stu-id="f7447-601">5</span></span>                            | <span data-ttu-id="f7447-602">value5</span><span class="sxs-lookup"><span data-stu-id="f7447-602">value5</span></span>                       |
-
-<span data-ttu-id="f7447-603">**Zpracování pole JSON**</span><span class="sxs-lookup"><span data-stu-id="f7447-603">**JSON array processing**</span></span>
-
-<span data-ttu-id="f7447-604">Pokud soubor JSON obsahuje pole, jsou vytvořeny konfigurační klíče pro prvky pole s indexem oddílu založeným na nule.</span><span class="sxs-lookup"><span data-stu-id="f7447-604">If a JSON file contains an array, configuration keys are created for the array elements with a zero-based section index.</span></span> <span data-ttu-id="f7447-605">V následujícím konfiguračním souboru je `subsection` pole:</span><span class="sxs-lookup"><span data-stu-id="f7447-605">In the following configuration file, `subsection` is an array:</span></span>
-
-[!code-json[](index/samples/3.x/ConfigurationSample/json_array.json)]
-
-<span data-ttu-id="f7447-606">Zprostředkovatel konfigurace JSON načte konfigurační data do následujících párů klíč-hodnota:</span><span class="sxs-lookup"><span data-stu-id="f7447-606">The JSON Configuration Provider reads the configuration data into the following key-value pairs:</span></span>
-
-| <span data-ttu-id="f7447-607">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-607">Key</span></span>                     | <span data-ttu-id="f7447-608">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-608">Value</span></span>  |
-| ----------------------- | :----: |
-| <span data-ttu-id="f7447-609">json_array:key</span><span class="sxs-lookup"><span data-stu-id="f7447-609">json_array:key</span></span>          | <span data-ttu-id="f7447-610">Hodnotaa</span><span class="sxs-lookup"><span data-stu-id="f7447-610">valueA</span></span> |
-| <span data-ttu-id="f7447-611">json_array: pododdíl: 0</span><span class="sxs-lookup"><span data-stu-id="f7447-611">json_array:subsection:0</span></span> | <span data-ttu-id="f7447-612">Hodnotab</span><span class="sxs-lookup"><span data-stu-id="f7447-612">valueB</span></span> |
-| <span data-ttu-id="f7447-613">json_array:subsection:1</span><span class="sxs-lookup"><span data-stu-id="f7447-613">json_array:subsection:1</span></span> | <span data-ttu-id="f7447-614">valueC</span><span class="sxs-lookup"><span data-stu-id="f7447-614">valueC</span></span> |
-| <span data-ttu-id="f7447-615">json_array:subsection:2</span><span class="sxs-lookup"><span data-stu-id="f7447-615">json_array:subsection:2</span></span> | <span data-ttu-id="f7447-616">s</span><span class="sxs-lookup"><span data-stu-id="f7447-616">valueD</span></span> |
-
-<span data-ttu-id="f7447-617">V ukázkové aplikaci je k dispozici následující třída POCO, která umožňuje vytvořit vazby mezi konfiguračními páry klíč-hodnota:</span><span class="sxs-lookup"><span data-stu-id="f7447-617">In the sample app, the following POCO class is available to bind the configuration key-value pairs:</span></span>
-
-[!code-csharp[](index/samples/3.x/ConfigurationSample/Models/JsonArrayExample.cs?name=snippet1)]
-
-<span data-ttu-id="f7447-618">Po vytvoření vazby obsahuje `JsonArrayExample.Key` hodnotu `valueA`.</span><span class="sxs-lookup"><span data-stu-id="f7447-618">After binding, `JsonArrayExample.Key` holds the value `valueA`.</span></span> <span data-ttu-id="f7447-619">Hodnoty pododdílu jsou uloženy ve vlastnosti pole POCO `Subsection`.</span><span class="sxs-lookup"><span data-stu-id="f7447-619">The subsection values are stored in the POCO array property, `Subsection`.</span></span>
-
-| <span data-ttu-id="f7447-620">Index `JsonArrayExample.Subsection`</span><span class="sxs-lookup"><span data-stu-id="f7447-620">`JsonArrayExample.Subsection` Index</span></span> | <span data-ttu-id="f7447-621">Hodnota `JsonArrayExample.Subsection`</span><span class="sxs-lookup"><span data-stu-id="f7447-621">`JsonArrayExample.Subsection` Value</span></span> |
-| :---------------------------------: | :---------------------------------: |
-| <span data-ttu-id="f7447-622">0</span><span class="sxs-lookup"><span data-stu-id="f7447-622">0</span></span>                                   | <span data-ttu-id="f7447-623">Hodnotab</span><span class="sxs-lookup"><span data-stu-id="f7447-623">valueB</span></span>                              |
-| <span data-ttu-id="f7447-624">1</span><span class="sxs-lookup"><span data-stu-id="f7447-624">1</span></span>                                   | <span data-ttu-id="f7447-625">valueC</span><span class="sxs-lookup"><span data-stu-id="f7447-625">valueC</span></span>                              |
-| <span data-ttu-id="f7447-626">2</span><span class="sxs-lookup"><span data-stu-id="f7447-626">2</span></span>                                   | <span data-ttu-id="f7447-627">s</span><span class="sxs-lookup"><span data-stu-id="f7447-627">valueD</span></span>                              |
-
-## <a name="custom-configuration-provider"></a><span data-ttu-id="f7447-628">Vlastní poskytovatel konfigurace</span><span class="sxs-lookup"><span data-stu-id="f7447-628">Custom configuration provider</span></span>
-
-<span data-ttu-id="f7447-629">Ukázková aplikace ukazuje, jak vytvořit základního poskytovatele konfigurace, který čte páry klíč-hodnota konfigurace z databáze pomocí [Entity Framework (EF)](/ef/core/).</span><span class="sxs-lookup"><span data-stu-id="f7447-629">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
-
-<span data-ttu-id="f7447-630">Zprostředkovatel má následující vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="f7447-630">The provider has the following characteristics:</span></span>
-
-* <span data-ttu-id="f7447-631">Pro demonstrační účely se používá databáze EF v paměti.</span><span class="sxs-lookup"><span data-stu-id="f7447-631">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="f7447-632">Chcete-li použít databázi, která vyžaduje připojovací řetězec, implementujte sekundární `ConfigurationBuilder` pro zadání připojovacího řetězce od jiného poskytovatele konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-632">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
-* <span data-ttu-id="f7447-633">Poskytovatel čte databázovou tabulku do konfigurace při spuštění.</span><span class="sxs-lookup"><span data-stu-id="f7447-633">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="f7447-634">Zprostředkovatel nedotazuje databázi na bázi jednotlivých klíčů.</span><span class="sxs-lookup"><span data-stu-id="f7447-634">The provider doesn't query the database on a per-key basis.</span></span>
-* <span data-ttu-id="f7447-635">Opětovné načtení není implementováno, takže aktualizace databáze po spuštění aplikace nemá žádný vliv na konfiguraci aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-635">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
-
-<span data-ttu-id="f7447-636">Definujte entitu `EFConfigurationValue` pro ukládání konfiguračních hodnot do databáze.</span><span class="sxs-lookup"><span data-stu-id="f7447-636">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
-
-<span data-ttu-id="f7447-637">*Modely/EFConfigurationValue. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-637">*Models/EFConfigurationValue.cs*:</span></span>
+<span data-ttu-id="c927c-438">*Modely/EFConfigurationValue. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-438">*Models/EFConfigurationValue.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-638">Přidejte `EFConfigurationContext` pro uložení a přístup k nakonfigurovaným hodnotám.</span><span class="sxs-lookup"><span data-stu-id="f7447-638">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
+<span data-ttu-id="c927c-439">Přidejte `EFConfigurationContext` pro uložení a přístup k nakonfigurovaným hodnotám.</span><span class="sxs-lookup"><span data-stu-id="c927c-439">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
 
-<span data-ttu-id="f7447-639">*EFConfigurationProvider/EFConfigurationContext. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-639">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
+<span data-ttu-id="c927c-440">*EFConfigurationProvider/EFConfigurationContext. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-440">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-640">Vytvořte třídu, která implementuje <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span><span class="sxs-lookup"><span data-stu-id="f7447-640">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
+<span data-ttu-id="c927c-441">Vytvořte třídu, která implementuje <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span><span class="sxs-lookup"><span data-stu-id="c927c-441">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
 
-<span data-ttu-id="f7447-641">*EFConfigurationProvider/EFConfigurationSource. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-641">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
+<span data-ttu-id="c927c-442">*EFConfigurationProvider/EFConfigurationSource. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-442">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-642">Vytvořte vlastního poskytovatele konfigurace děděním z <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span><span class="sxs-lookup"><span data-stu-id="f7447-642">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="f7447-643">Poskytovatel konfigurace inicializuje databázi, pokud je prázdná.</span><span class="sxs-lookup"><span data-stu-id="f7447-643">The configuration provider initializes the database when it's empty.</span></span> <span data-ttu-id="f7447-644">Vzhledem k tomu, že v [konfiguračních klíčích nejsou](#keys)rozlišována velká a malá písmena, je vytvořen slovník použitý k inicializaci databáze s porovnáváním bez rozlišení velkých a malých písmen ([StringComparer. OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)).</span><span class="sxs-lookup"><span data-stu-id="f7447-644">Since [configuration keys are case-insensitive](#keys), the dictionary used to initialize the database is created with the case-insensitive comparer ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)).</span></span>
+<span data-ttu-id="c927c-443">Vytvořte vlastního poskytovatele konfigurace děděním z <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span><span class="sxs-lookup"><span data-stu-id="c927c-443">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="c927c-444">Poskytovatel konfigurace inicializuje databázi, pokud je prázdná.</span><span class="sxs-lookup"><span data-stu-id="c927c-444">The configuration provider initializes the database when it's empty.</span></span> <span data-ttu-id="c927c-445">Vzhledem k tomu, že v [konfiguračních klíčích nejsou](#keys)rozlišována velká a malá písmena, je vytvořen slovník použitý k inicializaci databáze s porovnáváním bez rozlišení velkých a malých písmen ([StringComparer. OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)).</span><span class="sxs-lookup"><span data-stu-id="c927c-445">Since [configuration keys are case-insensitive](#keys), the dictionary used to initialize the database is created with the case-insensitive comparer ([StringComparer.OrdinalIgnoreCase](xref:System.StringComparer.OrdinalIgnoreCase)).</span></span>
 
-<span data-ttu-id="f7447-645">*EFConfigurationProvider/EFConfigurationProvider. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-645">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
+<span data-ttu-id="c927c-446">*EFConfigurationProvider/EFConfigurationProvider. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-446">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-646">Metoda rozšíření `AddEFConfiguration` umožňuje přidání zdroje konfigurace do `ConfigurationBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-646">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
+<span data-ttu-id="c927c-447">Metoda rozšíření `AddEFConfiguration` umožňuje přidání zdroje konfigurace do `ConfigurationBuilder`.</span><span class="sxs-lookup"><span data-stu-id="c927c-447">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
 
-<span data-ttu-id="f7447-647">*Rozšíření/EntityFrameworkExtensions. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-647">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
+<span data-ttu-id="c927c-448">*Rozšíření/EntityFrameworkExtensions. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-448">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Extensions/EntityFrameworkExtensions.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-648">Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *program.cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-648">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
+<span data-ttu-id="c927c-449">Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *program.cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-449">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
 
-## <a name="access-configuration-during-startup"></a><span data-ttu-id="f7447-649">Konfigurace přístupu během spuštění</span><span class="sxs-lookup"><span data-stu-id="f7447-649">Access configuration during startup</span></span>
+<a name="acs"></a>
 
-<span data-ttu-id="f7447-650">Vložení `IConfiguration` do konstruktoru `Startup` pro přístup k hodnotám konfigurace v `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="f7447-650">Inject `IConfiguration` into the `Startup` constructor to access configuration values in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="f7447-651">Chcete-li získat přístup ke konfiguraci v `Startup.Configure`, buď je třeba vložit `IConfiguration` přímo do metody nebo použít instanci z konstruktoru:</span><span class="sxs-lookup"><span data-stu-id="f7447-651">To access configuration in `Startup.Configure`, either inject `IConfiguration` directly into the method or use the instance from the constructor:</span></span>
+## <a name="access-configuration-in-startup"></a><span data-ttu-id="c927c-450">Konfigurace přístupu při spuštění</span><span class="sxs-lookup"><span data-stu-id="c927c-450">Access configuration in Startup</span></span>
 
-```csharp
-public class Startup
-{
-    private readonly IConfiguration _config;
+<span data-ttu-id="c927c-451">Následující kód zobrazuje konfigurační data v `Startup` metodách:</span><span class="sxs-lookup"><span data-stu-id="c927c-451">The following code displays configuration data in `Startup` methods:</span></span>
 
-    public Startup(IConfiguration config)
-    {
-        _config = config;
-    }
+[!code-csharp[](index/samples/3.x/ConfigSample/StartupKey.cs?name=snippet&highlight=13,18)]
 
-    public void ConfigureServices(IServiceCollection services)
-    {
-        var value = _config["key"];
-    }
+<span data-ttu-id="c927c-452">Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuštění aplikace najdete v tématu [metody spuštění aplikace: pohodlí](xref:fundamentals/startup#convenience-methods).</span><span class="sxs-lookup"><span data-stu-id="c927c-452">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
 
-    public void Configure(IApplicationBuilder app, IConfiguration config)
-    {
-        var value = config["key"];
-    }
-}
-```
+## <a name="access-configuration-in-razor-pages"></a><span data-ttu-id="c927c-453">Konfigurace přístupu v Razor Pages</span><span class="sxs-lookup"><span data-stu-id="c927c-453">Access configuration in Razor Pages</span></span>
 
-<span data-ttu-id="f7447-652">Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuštění aplikace najdete v tématu [metody spuštění aplikace: pohodlí](xref:fundamentals/startup#convenience-methods).</span><span class="sxs-lookup"><span data-stu-id="f7447-652">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
+<span data-ttu-id="c927c-454">Následující kód zobrazuje konfigurační data na stránce Razor:</span><span class="sxs-lookup"><span data-stu-id="c927c-454">The following code displays configuration data in a Razor Page:</span></span>
 
-## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a><span data-ttu-id="f7447-653">Přístup ke konfiguraci na Razor Pages stránce nebo zobrazení MVC</span><span class="sxs-lookup"><span data-stu-id="f7447-653">Access configuration in a Razor Pages page or MVC view</span></span>
+[!code-cshtml[](index/samples/3.x/ConfigSample/Pages/Test5.cshtml)]
 
-<span data-ttu-id="f7447-654">Chcete-li získat přístup k nastavení konfigurace na stránce Razor Pages nebo zobrazení MVC, přidejte [direktivu using](xref:mvc/views/razor#using) ([ C# odkaz: using](/dotnet/csharp/language-reference/keywords/using-directive)) pro [obor názvů Microsoft. Extensions. Configuration](xref:Microsoft.Extensions.Configuration) a vložte <xref:Microsoft.Extensions.Configuration.IConfiguration> do stránky nebo zobrazení.</span><span class="sxs-lookup"><span data-stu-id="f7447-654">To access configuration settings in a Razor Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
+## <a name="access-configuration-in-a-mvc-view-file"></a><span data-ttu-id="c927c-455">Přístup ke konfiguraci v souboru zobrazení MVC</span><span class="sxs-lookup"><span data-stu-id="c927c-455">Access configuration in a MVC view file</span></span>
 
-<span data-ttu-id="f7447-655">Na stránce Razor Pages:</span><span class="sxs-lookup"><span data-stu-id="f7447-655">In a Razor Pages page:</span></span>
+<span data-ttu-id="c927c-456">Následující kód zobrazuje konfigurační data v zobrazení MVC:</span><span class="sxs-lookup"><span data-stu-id="c927c-456">The following code displays configuration data in a MVC view:</span></span>
 
-```cshtml
-@page
-@model IndexModel
-@using Microsoft.Extensions.Configuration
-@inject IConfiguration Configuration
+[!code-cshtml[](index/samples/3.x/ConfigSample/Views/Home2/Index.cshtml)]
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Index Page</title>
-</head>
-<body>
-    <h1>Access configuration in a Razor Pages page</h1>
-    <p>Configuration value for 'key': @Configuration["key"]</p>
-</body>
-</html>
-```
+<a name="hvac"></a>
 
-<span data-ttu-id="f7447-656">V zobrazení MVC:</span><span class="sxs-lookup"><span data-stu-id="f7447-656">In an MVC view:</span></span>
+## <a name="host-versus-app-configuration"></a><span data-ttu-id="c927c-457">Konfigurace versus konfigurace aplikace</span><span class="sxs-lookup"><span data-stu-id="c927c-457">Host versus app configuration</span></span>
 
-```cshtml
-@using Microsoft.Extensions.Configuration
-@inject IConfiguration Configuration
+<span data-ttu-id="c927c-458">Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spuštěný.</span><span class="sxs-lookup"><span data-stu-id="c927c-458">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="c927c-459">Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.</span><span class="sxs-lookup"><span data-stu-id="c927c-459">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="c927c-460">Aplikace i hostitel se konfigurují pomocí zprostředkovatelů konfigurace popsaných v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="c927c-460">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="c927c-461">V konfiguraci aplikace jsou také zahrnuty páry klíč-hodnota konfigurace hostitele.</span><span class="sxs-lookup"><span data-stu-id="c927c-461">Host configuration key-value pairs are also included in the app's configuration.</span></span> <span data-ttu-id="c927c-462">Další informace o tom, jak se používají poskytovatelé konfigurace, když je hostitel sestavený a jak zdroje konfigurace ovlivňují konfiguraci hostitele, najdete v tématu <xref:fundamentals/index#host>.</span><span class="sxs-lookup"><span data-stu-id="c927c-462">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see <xref:fundamentals/index#host>.</span></span>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Index View</title>
-</head>
-<body>
-    <h1>Access configuration in an MVC view</h1>
-    <p>Configuration value for 'key': @Configuration["key"]</p>
-</body>
-</html>
-```
+<a name="dhc"></a>
 
-## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="f7447-657">Přidat konfiguraci z externího sestavení</span><span class="sxs-lookup"><span data-stu-id="f7447-657">Add configuration from an external assembly</span></span>
+## <a name="default-host-configuration"></a><span data-ttu-id="c927c-463">Výchozí konfigurace hostitele</span><span class="sxs-lookup"><span data-stu-id="c927c-463">Default host configuration</span></span>
 
-<span data-ttu-id="f7447-658">Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídy aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-658">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="f7447-659">Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.</span><span class="sxs-lookup"><span data-stu-id="f7447-659">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+<span data-ttu-id="c927c-464">Podrobnosti o výchozí konfiguraci při použití [webového hostitele](xref:fundamentals/host/web-host)naleznete v [ASP.NET Core 2,2 verzi tohoto tématu](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2).</span><span class="sxs-lookup"><span data-stu-id="c927c-464">For details on the default configuration when using the [Web Host](xref:fundamentals/host/web-host), see the [ASP.NET Core 2.2 version of this topic](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2).</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="f7447-660">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="f7447-660">Additional resources</span></span>
+* <span data-ttu-id="c927c-465">Konfigurace hostitele se poskytuje:</span><span class="sxs-lookup"><span data-stu-id="c927c-465">Host configuration is provided from:</span></span>
+  * <span data-ttu-id="c927c-466">Proměnné prostředí s předponou `DOTNET_` (například `DOTNET_ENVIRONMENT`) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-466">Environment variables prefixed with `DOTNET_` (for example, `DOTNET_ENVIRONMENT`) using the [Environment Variables configuration provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="c927c-467">Předpona (`DOTNET_`) je odstraněna, když jsou načteny páry klíč-hodnota konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-467">The prefix (`DOTNET_`) is stripped when the configuration key-value pairs are loaded.</span></span>
+  * <span data-ttu-id="c927c-468">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-468">Command-line arguments using the [Command-line configuration provider](#command-line-configuration-provider).</span></span>
+* <span data-ttu-id="c927c-469">Je navázána výchozí konfigurace webového hostitele (`ConfigureWebHostDefaults`):</span><span class="sxs-lookup"><span data-stu-id="c927c-469">Web Host default configuration is established (`ConfigureWebHostDefaults`):</span></span>
+  * <span data-ttu-id="c927c-470">Kestrel se používá jako webový server a je nakonfigurovaný pomocí poskytovatelů konfigurace aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-470">Kestrel is used as the web server and configured using the app's configuration providers.</span></span>
+  * <span data-ttu-id="c927c-471">Přidejte middleware pro filtrování hostitele.</span><span class="sxs-lookup"><span data-stu-id="c927c-471">Add Host Filtering Middleware.</span></span>
+  * <span data-ttu-id="c927c-472">Pokud je proměnná prostředí `ASPNETCORE_FORWARDEDHEADERS_ENABLED` nastavená na `true`, přidejte middleware s předanými hlavičkami.</span><span class="sxs-lookup"><span data-stu-id="c927c-472">Add Forwarded Headers Middleware if the `ASPNETCORE_FORWARDEDHEADERS_ENABLED` environment variable is set to `true`.</span></span>
+  * <span data-ttu-id="c927c-473">Povolte integraci služby IIS.</span><span class="sxs-lookup"><span data-stu-id="c927c-473">Enable IIS integration.</span></span>
 
+## <a name="other-configuration"></a><span data-ttu-id="c927c-474">Další konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-474">Other configuration</span></span>
+
+<span data-ttu-id="c927c-475">Toto téma se týká pouze *Konfigurace aplikace*.</span><span class="sxs-lookup"><span data-stu-id="c927c-475">This topic only pertains to *app configuration*.</span></span> <span data-ttu-id="c927c-476">Další aspekty používání a hostování ASP.NET Corech aplikací jsou nakonfigurované pomocí konfiguračních souborů, které nejsou popsané v tomto tématu:</span><span class="sxs-lookup"><span data-stu-id="c927c-476">Other aspects of running and hosting ASP.NET Core apps are configured using configuration files not covered in this topic:</span></span>
+
+* <span data-ttu-id="c927c-477">*Launch. json*/*launchSettings. JSON* jsou konfigurační soubory nástroje pro vývojové prostředí, které jsou popsané tady:</span><span class="sxs-lookup"><span data-stu-id="c927c-477">*launch.json*/*launchSettings.json* are tooling configuration files for the Development environment, described:</span></span>
+  * <span data-ttu-id="c927c-478">V <xref:fundamentals/environments#development>.</span><span class="sxs-lookup"><span data-stu-id="c927c-478">In <xref:fundamentals/environments#development>.</span></span>
+  * <span data-ttu-id="c927c-479">V dokumentaci sady, kde se soubory používají ke konfiguraci ASP.NET Core aplikací pro vývojové scénáře.</span><span class="sxs-lookup"><span data-stu-id="c927c-479">Across the documentation set where the files are used to configure ASP.NET Core apps for Development scenarios.</span></span>
+* <span data-ttu-id="c927c-480">*Web. config* je konfigurační soubor serveru, který je popsaný v následujících tématech:</span><span class="sxs-lookup"><span data-stu-id="c927c-480">*web.config* is a server configuration file, described in the following topics:</span></span>
+  * <xref:host-and-deploy/iis/index>
+  * <xref:host-and-deploy/aspnet-core-module>
+
+<span data-ttu-id="c927c-481">Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NET najdete v tématu <xref:migration/proper-to-2x/index#store-configurations>.</span><span class="sxs-lookup"><span data-stu-id="c927c-481">For more information on migrating app configuration from earlier versions of ASP.NET, see <xref:migration/proper-to-2x/index#store-configurations>.</span></span>
+
+## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="c927c-482">Přidat konfiguraci z externího sestavení</span><span class="sxs-lookup"><span data-stu-id="c927c-482">Add configuration from an external assembly</span></span>
+
+<span data-ttu-id="c927c-483">Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídy aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-483">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="c927c-484">Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.</span><span class="sxs-lookup"><span data-stu-id="c927c-484">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+
+## <a name="additional-resources"></a><span data-ttu-id="c927c-485">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="c927c-485">Additional resources</span></span>
+
+* [<span data-ttu-id="c927c-486">Zdrojový kód konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-486">Configuration source code</span></span>](https://github.com/dotnet/extensions/tree/master/src/Configuration)
 * <xref:fundamentals/configuration/options>
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<span data-ttu-id="f7447-661">Konfigurace aplikací v ASP.NET Core je založená na páru klíč-hodnota vytvořených *poskytovateli konfigurací*.</span><span class="sxs-lookup"><span data-stu-id="f7447-661">App configuration in ASP.NET Core is based on key-value pairs established by *configuration providers*.</span></span> <span data-ttu-id="f7447-662">Poskytovatelé konfigurace čtou konfigurační data do párů klíč-hodnota z nejrůznějších zdrojů konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-662">Configuration providers read configuration data into key-value pairs from a variety of configuration sources:</span></span>
+<span data-ttu-id="c927c-487">Konfigurace aplikací v ASP.NET Core je založená na páru klíč-hodnota vytvořených *poskytovateli konfigurací*.</span><span class="sxs-lookup"><span data-stu-id="c927c-487">App configuration in ASP.NET Core is based on key-value pairs established by *configuration providers*.</span></span> <span data-ttu-id="c927c-488">Poskytovatelé konfigurace čtou konfigurační data do párů klíč-hodnota z nejrůznějších zdrojů konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-488">Configuration providers read configuration data into key-value pairs from a variety of configuration sources:</span></span>
 
-* <span data-ttu-id="f7447-663">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="f7447-663">Azure Key Vault</span></span>
-* <span data-ttu-id="f7447-664">Azure App Configuration</span><span class="sxs-lookup"><span data-stu-id="f7447-664">Azure App Configuration</span></span>
-* <span data-ttu-id="f7447-665">Argumenty příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-665">Command-line arguments</span></span>
-* <span data-ttu-id="f7447-666">Vlastní poskytovatelé (nainstalováno nebo vytvořeno)</span><span class="sxs-lookup"><span data-stu-id="f7447-666">Custom providers (installed or created)</span></span>
-* <span data-ttu-id="f7447-667">Soubory adresáře</span><span class="sxs-lookup"><span data-stu-id="f7447-667">Directory files</span></span>
-* <span data-ttu-id="f7447-668">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-668">Environment variables</span></span>
-* <span data-ttu-id="f7447-669">Objekty .NET v paměti</span><span class="sxs-lookup"><span data-stu-id="f7447-669">In-memory .NET objects</span></span>
-* <span data-ttu-id="f7447-670">Soubory nastavení</span><span class="sxs-lookup"><span data-stu-id="f7447-670">Settings files</span></span>
+* <span data-ttu-id="c927c-489">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="c927c-489">Azure Key Vault</span></span>
+* <span data-ttu-id="c927c-490">Azure App Configuration</span><span class="sxs-lookup"><span data-stu-id="c927c-490">Azure App Configuration</span></span>
+* <span data-ttu-id="c927c-491">Argumenty příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-491">Command-line arguments</span></span>
+* <span data-ttu-id="c927c-492">Vlastní poskytovatelé (nainstalováno nebo vytvořeno)</span><span class="sxs-lookup"><span data-stu-id="c927c-492">Custom providers (installed or created)</span></span>
+* <span data-ttu-id="c927c-493">Soubory adresáře</span><span class="sxs-lookup"><span data-stu-id="c927c-493">Directory files</span></span>
+* <span data-ttu-id="c927c-494">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-494">Environment variables</span></span>
+* <span data-ttu-id="c927c-495">Objekty .NET v paměti</span><span class="sxs-lookup"><span data-stu-id="c927c-495">In-memory .NET objects</span></span>
+* <span data-ttu-id="c927c-496">Soubory nastavení</span><span class="sxs-lookup"><span data-stu-id="c927c-496">Settings files</span></span>
 
-<span data-ttu-id="f7447-671">Konfigurační balíčky pro scénáře zprostředkovatele běžných konfigurací ([Microsoft. Extensions. Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) jsou zahrnuté ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).</span><span class="sxs-lookup"><span data-stu-id="f7447-671">Configuration packages for common configuration provider scenarios ([Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) are included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
+<span data-ttu-id="c927c-497">Konfigurační balíčky pro scénáře zprostředkovatele běžných konfigurací ([Microsoft. Extensions. Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) jsou zahrnuté ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).</span><span class="sxs-lookup"><span data-stu-id="c927c-497">Configuration packages for common configuration provider scenarios ([Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) are included in the [Microsoft.AspNetCore.App metapackage](xref:fundamentals/metapackage-app).</span></span>
 
-<span data-ttu-id="f7447-672">Příklady kódu, které následují a v ukázkové aplikaci používají obor názvů <xref:Microsoft.Extensions.Configuration>:</span><span class="sxs-lookup"><span data-stu-id="f7447-672">Code examples that follow and in the sample app use the <xref:Microsoft.Extensions.Configuration> namespace:</span></span>
+<span data-ttu-id="c927c-498">Příklady kódu, které následují a v ukázkové aplikaci používají obor názvů <xref:Microsoft.Extensions.Configuration>:</span><span class="sxs-lookup"><span data-stu-id="c927c-498">Code examples that follow and in the sample app use the <xref:Microsoft.Extensions.Configuration> namespace:</span></span>
 
 ```csharp
 using Microsoft.Extensions.Configuration;
 ```
 
-<span data-ttu-id="f7447-673">*Vzor možností* je rozšíření konceptů konfigurace popsaných v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="f7447-673">The *options pattern* is an extension of the configuration concepts described in this topic.</span></span> <span data-ttu-id="f7447-674">Možnosti používají třídy pro reprezentaci skupin souvisejících nastavení.</span><span class="sxs-lookup"><span data-stu-id="f7447-674">Options use classes to represent groups of related settings.</span></span> <span data-ttu-id="f7447-675">Další informace naleznete v tématu <xref:fundamentals/configuration/options>.</span><span class="sxs-lookup"><span data-stu-id="f7447-675">For more information, see <xref:fundamentals/configuration/options>.</span></span>
+<span data-ttu-id="c927c-499">*Vzor možností* je rozšíření konceptů konfigurace popsaných v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="c927c-499">The *options pattern* is an extension of the configuration concepts described in this topic.</span></span> <span data-ttu-id="c927c-500">Možnosti používají třídy pro reprezentaci skupin souvisejících nastavení.</span><span class="sxs-lookup"><span data-stu-id="c927c-500">Options use classes to represent groups of related settings.</span></span> <span data-ttu-id="c927c-501">Další informace naleznete v tématu <xref:fundamentals/configuration/options>.</span><span class="sxs-lookup"><span data-stu-id="c927c-501">For more information, see <xref:fundamentals/configuration/options>.</span></span>
 
-<span data-ttu-id="f7447-676">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="f7447-676">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
+<span data-ttu-id="c927c-502">[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))</span><span class="sxs-lookup"><span data-stu-id="c927c-502">[View or download sample code](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([how to download](xref:index#how-to-download-a-sample))</span></span>
 
-## <a name="host-versus-app-configuration"></a><span data-ttu-id="f7447-677">Konfigurace versus konfigurace aplikace</span><span class="sxs-lookup"><span data-stu-id="f7447-677">Host versus app configuration</span></span>
+## <a name="host-versus-app-configuration"></a><span data-ttu-id="c927c-503">Konfigurace versus konfigurace aplikace</span><span class="sxs-lookup"><span data-stu-id="c927c-503">Host versus app configuration</span></span>
 
-<span data-ttu-id="f7447-678">Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spuštěný.</span><span class="sxs-lookup"><span data-stu-id="f7447-678">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="f7447-679">Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.</span><span class="sxs-lookup"><span data-stu-id="f7447-679">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="f7447-680">Aplikace i hostitel se konfigurují pomocí zprostředkovatelů konfigurace popsaných v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="f7447-680">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="f7447-681">V konfiguraci aplikace jsou také zahrnuty páry klíč-hodnota konfigurace hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-681">Host configuration key-value pairs are also included in the app's configuration.</span></span> <span data-ttu-id="f7447-682">Další informace o tom, jak se používají poskytovatelé konfigurace, když je hostitel sestavený a jak zdroje konfigurace ovlivňují konfiguraci hostitele, najdete v tématu <xref:fundamentals/index#host>.</span><span class="sxs-lookup"><span data-stu-id="f7447-682">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see <xref:fundamentals/index#host>.</span></span>
+<span data-ttu-id="c927c-504">Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spuštěný.</span><span class="sxs-lookup"><span data-stu-id="c927c-504">Before the app is configured and started, a *host* is configured and launched.</span></span> <span data-ttu-id="c927c-505">Hostitel je zodpovědný za spouštění a životního cyklu správy aplikací.</span><span class="sxs-lookup"><span data-stu-id="c927c-505">The host is responsible for app startup and lifetime management.</span></span> <span data-ttu-id="c927c-506">Aplikace i hostitel se konfigurují pomocí zprostředkovatelů konfigurace popsaných v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="c927c-506">Both the app and the host are configured using the configuration providers described in this topic.</span></span> <span data-ttu-id="c927c-507">V konfiguraci aplikace jsou také zahrnuty páry klíč-hodnota konfigurace hostitele.</span><span class="sxs-lookup"><span data-stu-id="c927c-507">Host configuration key-value pairs are also included in the app's configuration.</span></span> <span data-ttu-id="c927c-508">Další informace o tom, jak se používají poskytovatelé konfigurace, když je hostitel sestavený a jak zdroje konfigurace ovlivňují konfiguraci hostitele, najdete v tématu <xref:fundamentals/index#host>.</span><span class="sxs-lookup"><span data-stu-id="c927c-508">For more information on how the configuration providers are used when the host is built and how configuration sources affect host configuration, see <xref:fundamentals/index#host>.</span></span>
 
-## <a name="other-configuration"></a><span data-ttu-id="f7447-683">Další konfigurace</span><span class="sxs-lookup"><span data-stu-id="f7447-683">Other configuration</span></span>
+## <a name="other-configuration"></a><span data-ttu-id="c927c-509">Další konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-509">Other configuration</span></span>
 
-<span data-ttu-id="f7447-684">Toto téma se týká pouze *Konfigurace aplikace*.</span><span class="sxs-lookup"><span data-stu-id="f7447-684">This topic only pertains to *app configuration*.</span></span> <span data-ttu-id="f7447-685">Další aspekty používání a hostování ASP.NET Corech aplikací jsou nakonfigurované pomocí konfiguračních souborů, které nejsou popsané v tomto tématu:</span><span class="sxs-lookup"><span data-stu-id="f7447-685">Other aspects of running and hosting ASP.NET Core apps are configured using configuration files not covered in this topic:</span></span>
+<span data-ttu-id="c927c-510">Toto téma se týká pouze *Konfigurace aplikace*.</span><span class="sxs-lookup"><span data-stu-id="c927c-510">This topic only pertains to *app configuration*.</span></span> <span data-ttu-id="c927c-511">Další aspekty používání a hostování ASP.NET Corech aplikací jsou nakonfigurované pomocí konfiguračních souborů, které nejsou popsané v tomto tématu:</span><span class="sxs-lookup"><span data-stu-id="c927c-511">Other aspects of running and hosting ASP.NET Core apps are configured using configuration files not covered in this topic:</span></span>
 
-* <span data-ttu-id="f7447-686">*Launch. json*/*launchSettings. JSON* jsou konfigurační soubory nástroje pro vývojové prostředí, které jsou popsané tady:</span><span class="sxs-lookup"><span data-stu-id="f7447-686">*launch.json*/*launchSettings.json* are tooling configuration files for the Development environment, described:</span></span>
-  * <span data-ttu-id="f7447-687">V <xref:fundamentals/environments#development>.</span><span class="sxs-lookup"><span data-stu-id="f7447-687">In <xref:fundamentals/environments#development>.</span></span>
-  * <span data-ttu-id="f7447-688">V dokumentaci sady, kde se soubory používají ke konfiguraci ASP.NET Core aplikací pro vývojové scénáře.</span><span class="sxs-lookup"><span data-stu-id="f7447-688">Across the documentation set where the files are used to configure ASP.NET Core apps for Development scenarios.</span></span>
-* <span data-ttu-id="f7447-689">*Web. config* je konfigurační soubor serveru, který je popsaný v následujících tématech:</span><span class="sxs-lookup"><span data-stu-id="f7447-689">*web.config* is a server configuration file, described in the following topics:</span></span>
+* <span data-ttu-id="c927c-512">*Launch. json*/*launchSettings. JSON* jsou konfigurační soubory nástroje pro vývojové prostředí, které jsou popsané tady:</span><span class="sxs-lookup"><span data-stu-id="c927c-512">*launch.json*/*launchSettings.json* are tooling configuration files for the Development environment, described:</span></span>
+  * <span data-ttu-id="c927c-513">V <xref:fundamentals/environments#development>.</span><span class="sxs-lookup"><span data-stu-id="c927c-513">In <xref:fundamentals/environments#development>.</span></span>
+  * <span data-ttu-id="c927c-514">V dokumentaci sady, kde se soubory používají ke konfiguraci ASP.NET Core aplikací pro vývojové scénáře.</span><span class="sxs-lookup"><span data-stu-id="c927c-514">Across the documentation set where the files are used to configure ASP.NET Core apps for Development scenarios.</span></span>
+* <span data-ttu-id="c927c-515">*Web. config* je konfigurační soubor serveru, který je popsaný v následujících tématech:</span><span class="sxs-lookup"><span data-stu-id="c927c-515">*web.config* is a server configuration file, described in the following topics:</span></span>
   * <xref:host-and-deploy/iis/index>
   * <xref:host-and-deploy/aspnet-core-module>
 
-<span data-ttu-id="f7447-690">Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NET najdete v tématu <xref:migration/proper-to-2x/index#store-configurations>.</span><span class="sxs-lookup"><span data-stu-id="f7447-690">For more information on migrating app configuration from earlier versions of ASP.NET, see <xref:migration/proper-to-2x/index#store-configurations>.</span></span>
+<span data-ttu-id="c927c-516">Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NET najdete v tématu <xref:migration/proper-to-2x/index#store-configurations>.</span><span class="sxs-lookup"><span data-stu-id="c927c-516">For more information on migrating app configuration from earlier versions of ASP.NET, see <xref:migration/proper-to-2x/index#store-configurations>.</span></span>
 
-## <a name="default-configuration"></a><span data-ttu-id="f7447-691">Výchozí konfigurace</span><span class="sxs-lookup"><span data-stu-id="f7447-691">Default configuration</span></span>
+## <a name="default-configuration"></a><span data-ttu-id="c927c-517">Výchozí konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-517">Default configuration</span></span>
 
-<span data-ttu-id="f7447-692">Webové aplikace založené na ASP.NET Core [dotnet nové](/dotnet/core/tools/dotnet-new) šablony volají <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> při sestavování hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-692">Web apps based on the ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new) templates call <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> when building a host.</span></span> <span data-ttu-id="f7447-693">`CreateDefaultBuilder` poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:</span><span class="sxs-lookup"><span data-stu-id="f7447-693">`CreateDefaultBuilder` provides default configuration for the app in the following order:</span></span>
+<span data-ttu-id="c927c-518">Webové aplikace založené na ASP.NET Core [dotnet nové](/dotnet/core/tools/dotnet-new) šablony volají <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> při sestavování hostitele.</span><span class="sxs-lookup"><span data-stu-id="c927c-518">Web apps based on the ASP.NET Core [dotnet new](/dotnet/core/tools/dotnet-new) templates call <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> when building a host.</span></span> <span data-ttu-id="c927c-519">`CreateDefaultBuilder` poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:</span><span class="sxs-lookup"><span data-stu-id="c927c-519">`CreateDefaultBuilder` provides default configuration for the app in the following order:</span></span>
 
-<span data-ttu-id="f7447-694">Následující postup platí pro aplikace používající [webového hostitele](xref:fundamentals/host/web-host).</span><span class="sxs-lookup"><span data-stu-id="f7447-694">The following applies to apps using the [Web Host](xref:fundamentals/host/web-host).</span></span> <span data-ttu-id="f7447-695">Podrobnosti o výchozí konfiguraci při použití [obecného hostitele](xref:fundamentals/host/generic-host)najdete v [nejnovější verzi tohoto tématu](xref:fundamentals/configuration/index).</span><span class="sxs-lookup"><span data-stu-id="f7447-695">For details on the default configuration when using the [Generic Host](xref:fundamentals/host/generic-host), see the [latest version of this topic](xref:fundamentals/configuration/index).</span></span>
+<span data-ttu-id="c927c-520">Následující postup platí pro aplikace používající [webového hostitele](xref:fundamentals/host/web-host).</span><span class="sxs-lookup"><span data-stu-id="c927c-520">The following applies to apps using the [Web Host](xref:fundamentals/host/web-host).</span></span> <span data-ttu-id="c927c-521">Podrobnosti o výchozí konfiguraci při použití [obecného hostitele](xref:fundamentals/host/generic-host)najdete v [nejnovější verzi tohoto tématu](xref:fundamentals/configuration/index).</span><span class="sxs-lookup"><span data-stu-id="c927c-521">For details on the default configuration when using the [Generic Host](xref:fundamentals/host/generic-host), see the [latest version of this topic](xref:fundamentals/configuration/index).</span></span>
 
-* <span data-ttu-id="f7447-696">Konfigurace hostitele se poskytuje:</span><span class="sxs-lookup"><span data-stu-id="f7447-696">Host configuration is provided from:</span></span>
-  * <span data-ttu-id="f7447-697">Proměnné prostředí s předponou `ASPNETCORE_` (například `ASPNETCORE_ENVIRONMENT`) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-697">Environment variables prefixed with `ASPNETCORE_` (for example, `ASPNETCORE_ENVIRONMENT`) using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="f7447-698">Předpona (`ASPNETCORE_`) je odstraněna, když jsou načteny páry klíč-hodnota konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-698">The prefix (`ASPNETCORE_`) is stripped when the configuration key-value pairs are loaded.</span></span>
-  * <span data-ttu-id="f7447-699">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-699">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
-* <span data-ttu-id="f7447-700">Konfigurace aplikace se poskytuje:</span><span class="sxs-lookup"><span data-stu-id="f7447-700">App configuration is provided from:</span></span>
-  * <span data-ttu-id="f7447-701">*appSettings. JSON* s použitím [poskytovatele konfigurace souboru](#file-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-701">*appsettings.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
-  * <span data-ttu-id="f7447-702">*appSettings. {Environment}. JSON* s použitím [poskytovatele konfigurace souboru](#file-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-702">*appsettings.{Environment}.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
-  * <span data-ttu-id="f7447-703">[Správce tajných klíčů](xref:security/app-secrets) při spuštění aplikace v prostředí `Development` pomocí sestavení záznamu</span><span class="sxs-lookup"><span data-stu-id="f7447-703">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment using the entry assembly.</span></span>
-  * <span data-ttu-id="f7447-704">Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-704">Environment variables using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span>
-  * <span data-ttu-id="f7447-705">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="f7447-705">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
+* <span data-ttu-id="c927c-522">Konfigurace hostitele se poskytuje:</span><span class="sxs-lookup"><span data-stu-id="c927c-522">Host configuration is provided from:</span></span>
+  * <span data-ttu-id="c927c-523">Proměnné prostředí s předponou `ASPNETCORE_` (například `ASPNETCORE_ENVIRONMENT`) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-523">Environment variables prefixed with `ASPNETCORE_` (for example, `ASPNETCORE_ENVIRONMENT`) using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span> <span data-ttu-id="c927c-524">Předpona (`ASPNETCORE_`) je odstraněna, když jsou načteny páry klíč-hodnota konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-524">The prefix (`ASPNETCORE_`) is stripped when the configuration key-value pairs are loaded.</span></span>
+  * <span data-ttu-id="c927c-525">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-525">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
+* <span data-ttu-id="c927c-526">Konfigurace aplikace se poskytuje:</span><span class="sxs-lookup"><span data-stu-id="c927c-526">App configuration is provided from:</span></span>
+  * <span data-ttu-id="c927c-527">*appSettings. JSON* s použitím [poskytovatele konfigurace souboru](#file-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-527">*appsettings.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
+  * <span data-ttu-id="c927c-528">*appSettings. {Environment}. JSON* s použitím [poskytovatele konfigurace souboru](#file-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-528">*appsettings.{Environment}.json* using the [File Configuration Provider](#file-configuration-provider).</span></span>
+  * <span data-ttu-id="c927c-529">[Správce tajných klíčů](xref:security/app-secrets) při spuštění aplikace v prostředí `Development` pomocí sestavení záznamu</span><span class="sxs-lookup"><span data-stu-id="c927c-529">[Secret Manager](xref:security/app-secrets) when the app runs in the `Development` environment using the entry assembly.</span></span>
+  * <span data-ttu-id="c927c-530">Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-530">Environment variables using the [Environment Variables Configuration Provider](#environment-variables-configuration-provider).</span></span>
+  * <span data-ttu-id="c927c-531">Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).</span><span class="sxs-lookup"><span data-stu-id="c927c-531">Command-line arguments using the [Command-line Configuration Provider](#command-line-configuration-provider).</span></span>
 
-## <a name="security"></a><span data-ttu-id="f7447-706">Zabezpečení</span><span class="sxs-lookup"><span data-stu-id="f7447-706">Security</span></span>
+## <a name="security"></a><span data-ttu-id="c927c-532">Zabezpečení</span><span class="sxs-lookup"><span data-stu-id="c927c-532">Security</span></span>
 
-<span data-ttu-id="f7447-707">Při zabezpečování citlivých konfiguračních dat proveďte následující postupy:</span><span class="sxs-lookup"><span data-stu-id="f7447-707">Adopt the following practices to secure sensitive configuration data:</span></span>
+<span data-ttu-id="c927c-533">Při zabezpečování citlivých konfiguračních dat proveďte následující postupy:</span><span class="sxs-lookup"><span data-stu-id="c927c-533">Adopt the following practices to secure sensitive configuration data:</span></span>
 
-* <span data-ttu-id="f7447-708">Nikdy neukládejte hesla nebo další citlivá data v kódu poskytovatele konfigurace nebo v konfiguračních souborech s prostým textem.</span><span class="sxs-lookup"><span data-stu-id="f7447-708">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span>
-* <span data-ttu-id="f7447-709">Nepoužívejte provozní tajemství ve vývojových nebo testovacích prostředích.</span><span class="sxs-lookup"><span data-stu-id="f7447-709">Don't use production secrets in development or test environments.</span></span>
-* <span data-ttu-id="f7447-710">Zadejte tajné klíče mimo projekt, aby se nemohly omylem potvrdit do úložiště zdrojového kódu.</span><span class="sxs-lookup"><span data-stu-id="f7447-710">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
+* <span data-ttu-id="c927c-534">Nikdy neukládejte hesla nebo další citlivá data v kódu poskytovatele konfigurace nebo v konfiguračních souborech s prostým textem.</span><span class="sxs-lookup"><span data-stu-id="c927c-534">Never store passwords or other sensitive data in configuration provider code or in plain text configuration files.</span></span>
+* <span data-ttu-id="c927c-535">Nepoužívejte provozní tajemství ve vývojových nebo testovacích prostředích.</span><span class="sxs-lookup"><span data-stu-id="c927c-535">Don't use production secrets in development or test environments.</span></span>
+* <span data-ttu-id="c927c-536">Zadejte tajné klíče mimo projekt, aby se nemohly omylem potvrdit do úložiště zdrojového kódu.</span><span class="sxs-lookup"><span data-stu-id="c927c-536">Specify secrets outside of the project so that they can't be accidentally committed to a source code repository.</span></span>
 
-<span data-ttu-id="f7447-711">Další informace najdete v následujících tématech:</span><span class="sxs-lookup"><span data-stu-id="f7447-711">For more information, see the following topics:</span></span>
+<span data-ttu-id="c927c-537">Další informace najdete v následujících tématech:</span><span class="sxs-lookup"><span data-stu-id="c927c-537">For more information, see the following topics:</span></span>
 
 * <xref:fundamentals/environments>
-* <span data-ttu-id="f7447-712"><xref:security/app-secrets> &ndash; obsahuje rady týkající se používání proměnných prostředí k ukládání citlivých dat.</span><span class="sxs-lookup"><span data-stu-id="f7447-712"><xref:security/app-secrets> &ndash; Includes advice on using environment variables to store sensitive data.</span></span> <span data-ttu-id="f7447-713">Správce tajného kódu používá zprostředkovatele konfigurace souborů k ukládání tajných klíčů uživatele do souboru JSON v místním systému.</span><span class="sxs-lookup"><span data-stu-id="f7447-713">The Secret Manager uses the File Configuration Provider to store user secrets in a JSON file on the local system.</span></span> <span data-ttu-id="f7447-714">Poskytovatel konfigurace souboru je popsán dále v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="f7447-714">The File Configuration Provider is described later in this topic.</span></span>
+* <span data-ttu-id="c927c-538"><xref:security/app-secrets> &ndash; obsahuje rady týkající se používání proměnných prostředí k ukládání citlivých dat.</span><span class="sxs-lookup"><span data-stu-id="c927c-538"><xref:security/app-secrets> &ndash; Includes advice on using environment variables to store sensitive data.</span></span> <span data-ttu-id="c927c-539">Správce tajného kódu používá zprostředkovatele konfigurace souborů k ukládání tajných klíčů uživatele do souboru JSON v místním systému.</span><span class="sxs-lookup"><span data-stu-id="c927c-539">The Secret Manager uses the File Configuration Provider to store user secrets in a JSON file on the local system.</span></span> <span data-ttu-id="c927c-540">Poskytovatel konfigurace souboru je popsán dále v tomto tématu.</span><span class="sxs-lookup"><span data-stu-id="c927c-540">The File Configuration Provider is described later in this topic.</span></span>
 
-<span data-ttu-id="f7447-715">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-715">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) safely stores app secrets for ASP.NET Core apps.</span></span> <span data-ttu-id="f7447-716">Další informace naleznete v tématu <xref:security/key-vault-configuration>.</span><span class="sxs-lookup"><span data-stu-id="f7447-716">For more information, see <xref:security/key-vault-configuration>.</span></span>
+<span data-ttu-id="c927c-541">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-541">[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) safely stores app secrets for ASP.NET Core apps.</span></span> <span data-ttu-id="c927c-542">Další informace naleznete v tématu <xref:security/key-vault-configuration>.</span><span class="sxs-lookup"><span data-stu-id="c927c-542">For more information, see <xref:security/key-vault-configuration>.</span></span>
 
-## <a name="hierarchical-configuration-data"></a><span data-ttu-id="f7447-717">Hierarchická konfigurační data</span><span class="sxs-lookup"><span data-stu-id="f7447-717">Hierarchical configuration data</span></span>
+## <a name="hierarchical-configuration-data"></a><span data-ttu-id="c927c-543">Hierarchická konfigurační data</span><span class="sxs-lookup"><span data-stu-id="c927c-543">Hierarchical configuration data</span></span>
 
-<span data-ttu-id="f7447-718">Rozhraní API pro konfiguraci umožňuje udržovat hierarchická konfigurační data sloučením hierarchických dat s použitím oddělovače v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="f7447-718">The Configuration API is capable of maintaining hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
+<span data-ttu-id="c927c-544">Rozhraní API pro konfiguraci umožňuje udržovat hierarchická konfigurační data sloučením hierarchických dat s použitím oddělovače v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="c927c-544">The Configuration API is capable of maintaining hierarchical configuration data by flattening the hierarchical data with the use of a delimiter in the configuration keys.</span></span>
 
-<span data-ttu-id="f7447-719">V následujícím souboru JSON existují čtyři klíče ve strukturované hierarchii dvou oddílů:</span><span class="sxs-lookup"><span data-stu-id="f7447-719">In the following JSON file, four keys exist in a structured hierarchy of two sections:</span></span>
+<span data-ttu-id="c927c-545">V následujícím souboru JSON existují čtyři klíče ve strukturované hierarchii dvou oddílů:</span><span class="sxs-lookup"><span data-stu-id="c927c-545">In the following JSON file, four keys exist in a structured hierarchy of two sections:</span></span>
 
 ```json
 {
@@ -1224,26 +858,26 @@ using Microsoft.Extensions.Configuration;
 }
 ```
 
-<span data-ttu-id="f7447-720">Když je soubor čten do konfigurace, jsou vytvořeny jedinečné klíče pro zachování původní hierarchické struktury dat ve zdroji konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-720">When the file is read into configuration, unique keys are created to maintain the original hierarchical data structure of the configuration source.</span></span> <span data-ttu-id="f7447-721">Oddíly a klíče jsou shrnuty s použitím dvojtečky (`:`) k zachování původní struktury:</span><span class="sxs-lookup"><span data-stu-id="f7447-721">The sections and keys are flattened with the use of a colon (`:`) to maintain the original structure:</span></span>
+<span data-ttu-id="c927c-546">Když je soubor čten do konfigurace, jsou vytvořeny jedinečné klíče pro zachování původní hierarchické struktury dat ve zdroji konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-546">When the file is read into configuration, unique keys are created to maintain the original hierarchical data structure of the configuration source.</span></span> <span data-ttu-id="c927c-547">Oddíly a klíče jsou shrnuty s použitím dvojtečky (`:`) k zachování původní struktury:</span><span class="sxs-lookup"><span data-stu-id="c927c-547">The sections and keys are flattened with the use of a colon (`:`) to maintain the original structure:</span></span>
 
-* <span data-ttu-id="f7447-722">section0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-722">section0:key0</span></span>
-* <span data-ttu-id="f7447-723">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-723">section0:key1</span></span>
-* <span data-ttu-id="f7447-724">section1:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-724">section1:key0</span></span>
-* <span data-ttu-id="f7447-725">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-725">section1:key1</span></span>
+* <span data-ttu-id="c927c-548">section0:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-548">section0:key0</span></span>
+* <span data-ttu-id="c927c-549">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-549">section0:key1</span></span>
+* <span data-ttu-id="c927c-550">section1:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-550">section1:key0</span></span>
+* <span data-ttu-id="c927c-551">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-551">section1:key1</span></span>
 
-<span data-ttu-id="f7447-726">metody <xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> a <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> jsou k dispozici k izolaci oddílů a podřízených objektů oddílu v konfiguračních datech.</span><span class="sxs-lookup"><span data-stu-id="f7447-726"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="f7447-727">Tyto metody jsou popsány dále v [tématu GetSection, GetChildren a Exists](#getsection-getchildren-and-exists).</span><span class="sxs-lookup"><span data-stu-id="f7447-727">These methods are described later in [GetSection, GetChildren, and Exists](#getsection-getchildren-and-exists).</span></span>
+<span data-ttu-id="c927c-552">metody <xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> a <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> jsou k dispozici k izolaci oddílů a podřízených objektů oddílu v konfiguračních datech.</span><span class="sxs-lookup"><span data-stu-id="c927c-552"><xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> and <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> methods are available to isolate sections and children of a section in the configuration data.</span></span> <span data-ttu-id="c927c-553">Tyto metody jsou popsány dále v [tématu GetSection, GetChildren a Exists](#getsection-getchildren-and-exists).</span><span class="sxs-lookup"><span data-stu-id="c927c-553">These methods are described later in [GetSection, GetChildren, and Exists](#getsection-getchildren-and-exists).</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="f7447-728">Zásady</span><span class="sxs-lookup"><span data-stu-id="f7447-728">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="c927c-554">Zásady</span><span class="sxs-lookup"><span data-stu-id="c927c-554">Conventions</span></span>
 
-### <a name="sources-and-providers"></a><span data-ttu-id="f7447-729">Zdroje a poskytovatelé</span><span class="sxs-lookup"><span data-stu-id="f7447-729">Sources and providers</span></span>
+### <a name="sources-and-providers"></a><span data-ttu-id="c927c-555">Zdroje a poskytovatelé</span><span class="sxs-lookup"><span data-stu-id="c927c-555">Sources and providers</span></span>
 
-<span data-ttu-id="f7447-730">Při spuštění aplikace se zdroje konfigurace čtou v pořadí, v jakém jsou určení jejich poskytovatelé konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-730">At app startup, configuration sources are read in the order that their configuration providers are specified.</span></span>
+<span data-ttu-id="c927c-556">Při spuštění aplikace se zdroje konfigurace čtou v pořadí, v jakém jsou určení jejich poskytovatelé konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-556">At app startup, configuration sources are read in the order that their configuration providers are specified.</span></span>
 
-<span data-ttu-id="f7447-731">Poskytovatelé konfigurace implementující zjišťování změn mají možnost znovu načíst konfiguraci při změně podkladového nastavení.</span><span class="sxs-lookup"><span data-stu-id="f7447-731">Configuration providers that implement change detection have the ability to reload configuration when an underlying setting is changed.</span></span> <span data-ttu-id="f7447-732">Například poskytovatel konfigurace souboru (popsaný dále v tomto tématu) a [zprostředkovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) implementují detekci změn.</span><span class="sxs-lookup"><span data-stu-id="f7447-732">For example, the File Configuration Provider (described later in this topic) and the [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) implement change detection.</span></span>
+<span data-ttu-id="c927c-557">Poskytovatelé konfigurace implementující zjišťování změn mají možnost znovu načíst konfiguraci při změně podkladového nastavení.</span><span class="sxs-lookup"><span data-stu-id="c927c-557">Configuration providers that implement change detection have the ability to reload configuration when an underlying setting is changed.</span></span> <span data-ttu-id="c927c-558">Například poskytovatel konfigurace souboru (popsaný dále v tomto tématu) a [zprostředkovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) implementují detekci změn.</span><span class="sxs-lookup"><span data-stu-id="c927c-558">For example, the File Configuration Provider (described later in this topic) and the [Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) implement change detection.</span></span>
 
-<span data-ttu-id="f7447-733"><xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v kontejneru pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-733"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="f7447-734"><xref:Microsoft.Extensions.Configuration.IConfiguration> lze vložit do <xref:Microsoft.AspNetCore.Mvc.Controller> Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> nebo MVC a získat tak konfiguraci pro třídu.</span><span class="sxs-lookup"><span data-stu-id="f7447-734"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> or MVC <xref:Microsoft.AspNetCore.Mvc.Controller> to obtain configuration for the class.</span></span>
+<span data-ttu-id="c927c-559"><xref:Microsoft.Extensions.Configuration.IConfiguration> je k dispozici v kontejneru pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-559"><xref:Microsoft.Extensions.Configuration.IConfiguration> is available in the app's [dependency injection (DI)](xref:fundamentals/dependency-injection) container.</span></span> <span data-ttu-id="c927c-560"><xref:Microsoft.Extensions.Configuration.IConfiguration> lze vložit do <xref:Microsoft.AspNetCore.Mvc.Controller> Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> nebo MVC a získat tak konfiguraci pro třídu.</span><span class="sxs-lookup"><span data-stu-id="c927c-560"><xref:Microsoft.Extensions.Configuration.IConfiguration> can be injected into a Razor Pages <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> or MVC <xref:Microsoft.AspNetCore.Mvc.Controller> to obtain configuration for the class.</span></span>
 
-<span data-ttu-id="f7447-735">V následujících příkladech se pro přístup k hodnotám konfigurace používá pole `_config`:</span><span class="sxs-lookup"><span data-stu-id="f7447-735">In the following examples, the `_config` field is used to access configuration values:</span></span>
+<span data-ttu-id="c927c-561">V následujících příkladech se pro přístup k hodnotám konfigurace používá pole `_config`:</span><span class="sxs-lookup"><span data-stu-id="c927c-561">In the following examples, the `_config` field is used to access configuration values:</span></span>
 
 ```csharp
 public class IndexModel : PageModel
@@ -1269,60 +903,60 @@ public class HomeController : Controller
 }
 ```
 
-<span data-ttu-id="f7447-736">Poskytovatelé konfigurace nemůžou využívat DI, protože není k dispozici, když je nastavil hostitel.</span><span class="sxs-lookup"><span data-stu-id="f7447-736">Configuration providers can't utilize DI, as it's not available when they're set up by the host.</span></span>
+<span data-ttu-id="c927c-562">Poskytovatelé konfigurace nemůžou využívat DI, protože není k dispozici, když je nastavil hostitel.</span><span class="sxs-lookup"><span data-stu-id="c927c-562">Configuration providers can't utilize DI, as it's not available when they're set up by the host.</span></span>
 
-### <a name="keys"></a><span data-ttu-id="f7447-737">Klíče</span><span class="sxs-lookup"><span data-stu-id="f7447-737">Keys</span></span>
+### <a name="keys"></a><span data-ttu-id="c927c-563">Klíče</span><span class="sxs-lookup"><span data-stu-id="c927c-563">Keys</span></span>
 
-<span data-ttu-id="f7447-738">Konfigurační klíče přijímají následující konvence:</span><span class="sxs-lookup"><span data-stu-id="f7447-738">Configuration keys adopt the following conventions:</span></span>
+<span data-ttu-id="c927c-564">Konfigurační klíče přijímají následující konvence:</span><span class="sxs-lookup"><span data-stu-id="c927c-564">Configuration keys adopt the following conventions:</span></span>
 
-* <span data-ttu-id="f7447-739">U klíčů se nerozlišují malá a velká písmena.</span><span class="sxs-lookup"><span data-stu-id="f7447-739">Keys are case-insensitive.</span></span> <span data-ttu-id="f7447-740">Například `ConnectionString` a `connectionstring` se považují za ekvivalentní klíče.</span><span class="sxs-lookup"><span data-stu-id="f7447-740">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
-* <span data-ttu-id="f7447-741">Pokud je hodnota pro stejný klíč nastavená stejným nebo jiným poskytovatelem konfigurace, použije se poslední hodnota nastavená v klíči.</span><span class="sxs-lookup"><span data-stu-id="f7447-741">If a value for the same key is set by the same or different configuration providers, the last value set on the key is the value used.</span></span>
-* <span data-ttu-id="f7447-742">Hierarchické klíče</span><span class="sxs-lookup"><span data-stu-id="f7447-742">Hierarchical keys</span></span>
-  * <span data-ttu-id="f7447-743">V rozhraní API pro konfiguraci funguje oddělovač dvojtečky (`:`) na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="f7447-743">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
-  * <span data-ttu-id="f7447-744">V proměnných prostředí nemusí oddělovač dvojtečky fungovat na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="f7447-744">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="f7447-745">Dvojité podtržítko (`__`) je podporováno všemi platformami a je automaticky převedeno na dvojtečku.</span><span class="sxs-lookup"><span data-stu-id="f7447-745">A double underscore (`__`) is supported by all platforms and is automatically converted into a colon.</span></span>
-  * <span data-ttu-id="f7447-746">V Azure Key Vault hierarchické klíče používají `--` (dvě pomlčky) jako oddělovač.</span><span class="sxs-lookup"><span data-stu-id="f7447-746">In Azure Key Vault, hierarchical keys use `--` (two dashes) as a separator.</span></span> <span data-ttu-id="f7447-747">Napište kód, který nahradí pomlčky dvojtečkou, pokud jsou tajné klíče načteny do konfigurace aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-747">Write code to replace the dashes with a colon when the secrets are loaded into the app's configuration.</span></span>
-* <span data-ttu-id="f7447-748"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="f7447-748">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="f7447-749">Vazba pole je popsána v tématu [vazba pole na oddíl třídy](#bind-an-array-to-a-class) .</span><span class="sxs-lookup"><span data-stu-id="f7447-749">Array binding is described in the [Bind an array to a class](#bind-an-array-to-a-class) section.</span></span>
+* <span data-ttu-id="c927c-565">U klíčů se nerozlišují malá a velká písmena.</span><span class="sxs-lookup"><span data-stu-id="c927c-565">Keys are case-insensitive.</span></span> <span data-ttu-id="c927c-566">Například `ConnectionString` a `connectionstring` se považují za ekvivalentní klíče.</span><span class="sxs-lookup"><span data-stu-id="c927c-566">For example, `ConnectionString` and `connectionstring` are treated as equivalent keys.</span></span>
+* <span data-ttu-id="c927c-567">Pokud je hodnota pro stejný klíč nastavená stejným nebo jiným poskytovatelem konfigurace, použije se poslední hodnota nastavená v klíči.</span><span class="sxs-lookup"><span data-stu-id="c927c-567">If a value for the same key is set by the same or different configuration providers, the last value set on the key is the value used.</span></span>
+* <span data-ttu-id="c927c-568">Hierarchické klíče</span><span class="sxs-lookup"><span data-stu-id="c927c-568">Hierarchical keys</span></span>
+  * <span data-ttu-id="c927c-569">V rozhraní API pro konfiguraci funguje oddělovač dvojtečky (`:`) na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="c927c-569">Within the Configuration API, a colon separator (`:`) works on all platforms.</span></span>
+  * <span data-ttu-id="c927c-570">V proměnných prostředí nemusí oddělovač dvojtečky fungovat na všech platformách.</span><span class="sxs-lookup"><span data-stu-id="c927c-570">In environment variables, a colon separator may not work on all platforms.</span></span> <span data-ttu-id="c927c-571">Dvojité podtržítko (`__`) je podporováno všemi platformami a je automaticky převedeno na dvojtečku.</span><span class="sxs-lookup"><span data-stu-id="c927c-571">A double underscore (`__`) is supported by all platforms and is automatically converted into a colon.</span></span>
+  * <span data-ttu-id="c927c-572">V Azure Key Vault hierarchické klíče používají `--` (dvě pomlčky) jako oddělovač.</span><span class="sxs-lookup"><span data-stu-id="c927c-572">In Azure Key Vault, hierarchical keys use `--` (two dashes) as a separator.</span></span> <span data-ttu-id="c927c-573">Napište kód, který nahradí pomlčky dvojtečkou, pokud jsou tajné klíče načteny do konfigurace aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-573">Write code to replace the dashes with a colon when the secrets are loaded into the app's configuration.</span></span>
+* <span data-ttu-id="c927c-574"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="c927c-574">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="c927c-575">Vazba pole je popsána v tématu [vazba pole na oddíl třídy](#bind-an-array-to-a-class) .</span><span class="sxs-lookup"><span data-stu-id="c927c-575">Array binding is described in the [Bind an array to a class](#bind-an-array-to-a-class) section.</span></span>
 
-### <a name="values"></a><span data-ttu-id="f7447-750">Hodnoty</span><span class="sxs-lookup"><span data-stu-id="f7447-750">Values</span></span>
+### <a name="values"></a><span data-ttu-id="c927c-576">Hodnoty</span><span class="sxs-lookup"><span data-stu-id="c927c-576">Values</span></span>
 
-<span data-ttu-id="f7447-751">Konfigurační hodnoty přijímají následující konvence:</span><span class="sxs-lookup"><span data-stu-id="f7447-751">Configuration values adopt the following conventions:</span></span>
+<span data-ttu-id="c927c-577">Konfigurační hodnoty přijímají následující konvence:</span><span class="sxs-lookup"><span data-stu-id="c927c-577">Configuration values adopt the following conventions:</span></span>
 
-* <span data-ttu-id="f7447-752">Hodnoty jsou řetězce.</span><span class="sxs-lookup"><span data-stu-id="f7447-752">Values are strings.</span></span>
-* <span data-ttu-id="f7447-753">Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.</span><span class="sxs-lookup"><span data-stu-id="f7447-753">Null values can't be stored in configuration or bound to objects.</span></span>
+* <span data-ttu-id="c927c-578">Hodnoty jsou řetězce.</span><span class="sxs-lookup"><span data-stu-id="c927c-578">Values are strings.</span></span>
+* <span data-ttu-id="c927c-579">Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.</span><span class="sxs-lookup"><span data-stu-id="c927c-579">Null values can't be stored in configuration or bound to objects.</span></span>
 
-## <a name="providers"></a><span data-ttu-id="f7447-754">Poskytovatelé</span><span class="sxs-lookup"><span data-stu-id="f7447-754">Providers</span></span>
+## <a name="providers"></a><span data-ttu-id="c927c-580">Poskytovatelé</span><span class="sxs-lookup"><span data-stu-id="c927c-580">Providers</span></span>
 
-<span data-ttu-id="f7447-755">V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-755">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
+<span data-ttu-id="c927c-581">V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-581">The following table shows the configuration providers available to ASP.NET Core apps.</span></span>
 
-| <span data-ttu-id="f7447-756">Poskytovatel</span><span class="sxs-lookup"><span data-stu-id="f7447-756">Provider</span></span> | <span data-ttu-id="f7447-757">Poskytuje konfiguraci z&hellip;</span><span class="sxs-lookup"><span data-stu-id="f7447-757">Provides configuration from&hellip;</span></span> |
+| <span data-ttu-id="c927c-582">Poskytovatel</span><span class="sxs-lookup"><span data-stu-id="c927c-582">Provider</span></span> | <span data-ttu-id="c927c-583">Poskytuje konfiguraci z&hellip;</span><span class="sxs-lookup"><span data-stu-id="c927c-583">Provides configuration from&hellip;</span></span> |
 | -------- | ----------------------------------- |
-| <span data-ttu-id="f7447-758">[Poskytovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) (témata*zabezpečení* )</span><span class="sxs-lookup"><span data-stu-id="f7447-758">[Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) (*Security* topics)</span></span> | <span data-ttu-id="f7447-759">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="f7447-759">Azure Key Vault</span></span> |
-| <span data-ttu-id="f7447-760">[Poskytovatel konfigurace Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace Azure)</span><span class="sxs-lookup"><span data-stu-id="f7447-760">[Azure App Configuration Provider](/azure/azure-app-configuration/quickstart-aspnet-core-app) (Azure documentation)</span></span> | <span data-ttu-id="f7447-761">Azure App Configuration</span><span class="sxs-lookup"><span data-stu-id="f7447-761">Azure App Configuration</span></span> |
-| [<span data-ttu-id="f7447-762">Zprostředkovatel konfigurace příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-762">Command-line Configuration Provider</span></span>](#command-line-configuration-provider) | <span data-ttu-id="f7447-763">Parametry příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-763">Command-line parameters</span></span> |
-| [<span data-ttu-id="f7447-764">Vlastní poskytovatel konfigurace</span><span class="sxs-lookup"><span data-stu-id="f7447-764">Custom configuration provider</span></span>](#custom-configuration-provider) | <span data-ttu-id="f7447-765">Vlastní zdroj</span><span class="sxs-lookup"><span data-stu-id="f7447-765">Custom source</span></span> |
-| [<span data-ttu-id="f7447-766">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-766">Environment Variables Configuration Provider</span></span>](#environment-variables-configuration-provider) | <span data-ttu-id="f7447-767">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-767">Environment variables</span></span> |
-| [<span data-ttu-id="f7447-768">Poskytovatel konfigurace souboru</span><span class="sxs-lookup"><span data-stu-id="f7447-768">File Configuration Provider</span></span>](#file-configuration-provider) | <span data-ttu-id="f7447-769">Soubory (INI, JSON, XML)</span><span class="sxs-lookup"><span data-stu-id="f7447-769">Files (INI, JSON, XML)</span></span> |
-| [<span data-ttu-id="f7447-770">Poskytovatel konfigurace klíče na soubor</span><span class="sxs-lookup"><span data-stu-id="f7447-770">Key-per-file Configuration Provider</span></span>](#key-per-file-configuration-provider) | <span data-ttu-id="f7447-771">Soubory adresáře</span><span class="sxs-lookup"><span data-stu-id="f7447-771">Directory files</span></span> |
-| [<span data-ttu-id="f7447-772">Poskytovatel konfigurace paměti</span><span class="sxs-lookup"><span data-stu-id="f7447-772">Memory Configuration Provider</span></span>](#memory-configuration-provider) | <span data-ttu-id="f7447-773">Kolekce v paměti</span><span class="sxs-lookup"><span data-stu-id="f7447-773">In-memory collections</span></span> |
-| <span data-ttu-id="f7447-774">[Uživatelské klíče (správce tajných klíčů)](xref:security/app-secrets) (*bezpečnostní* témata)</span><span class="sxs-lookup"><span data-stu-id="f7447-774">[User secrets (Secret Manager)](xref:security/app-secrets) (*Security* topics)</span></span> | <span data-ttu-id="f7447-775">Soubor v adresáři profilu uživatele</span><span class="sxs-lookup"><span data-stu-id="f7447-775">File in the user profile directory</span></span> |
+| <span data-ttu-id="c927c-584">[Poskytovatel konfigurace Azure Key Vault](xref:security/key-vault-configuration) (témata*zabezpečení* )</span><span class="sxs-lookup"><span data-stu-id="c927c-584">[Azure Key Vault Configuration Provider](xref:security/key-vault-configuration) (*Security* topics)</span></span> | <span data-ttu-id="c927c-585">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="c927c-585">Azure Key Vault</span></span> |
+| <span data-ttu-id="c927c-586">[Poskytovatel konfigurace Azure App](/azure/azure-app-configuration/quickstart-aspnet-core-app) (dokumentace Azure)</span><span class="sxs-lookup"><span data-stu-id="c927c-586">[Azure App Configuration Provider](/azure/azure-app-configuration/quickstart-aspnet-core-app) (Azure documentation)</span></span> | <span data-ttu-id="c927c-587">Azure App Configuration</span><span class="sxs-lookup"><span data-stu-id="c927c-587">Azure App Configuration</span></span> |
+| [<span data-ttu-id="c927c-588">Zprostředkovatel konfigurace příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-588">Command-line Configuration Provider</span></span>](#command-line-configuration-provider) | <span data-ttu-id="c927c-589">Parametry příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-589">Command-line parameters</span></span> |
+| [<span data-ttu-id="c927c-590">Vlastní poskytovatel konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-590">Custom configuration provider</span></span>](#custom-configuration-provider) | <span data-ttu-id="c927c-591">Vlastní zdroj</span><span class="sxs-lookup"><span data-stu-id="c927c-591">Custom source</span></span> |
+| [<span data-ttu-id="c927c-592">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-592">Environment Variables Configuration Provider</span></span>](#environment-variables-configuration-provider) | <span data-ttu-id="c927c-593">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-593">Environment variables</span></span> |
+| [<span data-ttu-id="c927c-594">Poskytovatel konfigurace souboru</span><span class="sxs-lookup"><span data-stu-id="c927c-594">File Configuration Provider</span></span>](#file-configuration-provider) | <span data-ttu-id="c927c-595">Soubory (INI, JSON, XML)</span><span class="sxs-lookup"><span data-stu-id="c927c-595">Files (INI, JSON, XML)</span></span> |
+| [<span data-ttu-id="c927c-596">Poskytovatel konfigurace klíče na soubor</span><span class="sxs-lookup"><span data-stu-id="c927c-596">Key-per-file Configuration Provider</span></span>](#key-per-file-configuration-provider) | <span data-ttu-id="c927c-597">Soubory adresáře</span><span class="sxs-lookup"><span data-stu-id="c927c-597">Directory files</span></span> |
+| [<span data-ttu-id="c927c-598">Poskytovatel konfigurace paměti</span><span class="sxs-lookup"><span data-stu-id="c927c-598">Memory Configuration Provider</span></span>](#memory-configuration-provider) | <span data-ttu-id="c927c-599">Kolekce v paměti</span><span class="sxs-lookup"><span data-stu-id="c927c-599">In-memory collections</span></span> |
+| <span data-ttu-id="c927c-600">[Uživatelské klíče (správce tajných klíčů)](xref:security/app-secrets) (*bezpečnostní* témata)</span><span class="sxs-lookup"><span data-stu-id="c927c-600">[User secrets (Secret Manager)](xref:security/app-secrets) (*Security* topics)</span></span> | <span data-ttu-id="c927c-601">Soubor v adresáři profilu uživatele</span><span class="sxs-lookup"><span data-stu-id="c927c-601">File in the user profile directory</span></span> |
 
-<span data-ttu-id="f7447-776">Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou jejich poskytovatelé konfigurace určení při spuštění.</span><span class="sxs-lookup"><span data-stu-id="f7447-776">Configuration sources are read in the order that their configuration providers are specified at startup.</span></span> <span data-ttu-id="f7447-777">Poskytovatelé konfigurace popsané v tomto tématu jsou popsány v abecedním pořadí, nikoli v pořadí, v jakém je kód uspořádá.</span><span class="sxs-lookup"><span data-stu-id="f7447-777">The configuration providers described in this topic are described in alphabetical order, not in the order that the code arranges them.</span></span> <span data-ttu-id="f7447-778">Seřazení zprostředkovatelů konfigurace v kódu, aby odpovídal prioritám pro základní zdroje konfigurace vyžadované aplikací.</span><span class="sxs-lookup"><span data-stu-id="f7447-778">Order configuration providers in code to suit the priorities for the underlying configuration sources that the app requires.</span></span>
+<span data-ttu-id="c927c-602">Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou jejich poskytovatelé konfigurace určení při spuštění.</span><span class="sxs-lookup"><span data-stu-id="c927c-602">Configuration sources are read in the order that their configuration providers are specified at startup.</span></span> <span data-ttu-id="c927c-603">Poskytovatelé konfigurace popsané v tomto tématu jsou popsány v abecedním pořadí, nikoli v pořadí, v jakém je kód uspořádá.</span><span class="sxs-lookup"><span data-stu-id="c927c-603">The configuration providers described in this topic are described in alphabetical order, not in the order that the code arranges them.</span></span> <span data-ttu-id="c927c-604">Seřazení zprostředkovatelů konfigurace v kódu, aby odpovídal prioritám pro základní zdroje konfigurace vyžadované aplikací.</span><span class="sxs-lookup"><span data-stu-id="c927c-604">Order configuration providers in code to suit the priorities for the underlying configuration sources that the app requires.</span></span>
 
-<span data-ttu-id="f7447-779">Typická posloupnost zprostředkovatelů konfigurace je:</span><span class="sxs-lookup"><span data-stu-id="f7447-779">A typical sequence of configuration providers is:</span></span>
+<span data-ttu-id="c927c-605">Typická posloupnost zprostředkovatelů konfigurace je:</span><span class="sxs-lookup"><span data-stu-id="c927c-605">A typical sequence of configuration providers is:</span></span>
 
-1. <span data-ttu-id="f7447-780">Soubory (*appSettings. JSON*, *appSettings. { Environment}. JSON*, kde `{Environment}` je aktuální hostující prostředí aplikace)</span><span class="sxs-lookup"><span data-stu-id="f7447-780">Files (*appsettings.json*, *appsettings.{Environment}.json*, where `{Environment}` is the app's current hosting environment)</span></span>
-1. [<span data-ttu-id="f7447-781">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="f7447-781">Azure Key Vault</span></span>](xref:security/key-vault-configuration)
-1. <span data-ttu-id="f7447-782">[Uživatelské klíče (správce tajných klíčů)](xref:security/app-secrets) (jenom vývojové prostředí)</span><span class="sxs-lookup"><span data-stu-id="f7447-782">[User secrets (Secret Manager)](xref:security/app-secrets) (Development environment only)</span></span>
-1. <span data-ttu-id="f7447-783">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-783">Environment variables</span></span>
-1. <span data-ttu-id="f7447-784">Argumenty příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-784">Command-line arguments</span></span>
+1. <span data-ttu-id="c927c-606">Soubory (*appSettings. JSON*, *appSettings. { Environment}. JSON*, kde `{Environment}` je aktuální hostující prostředí aplikace)</span><span class="sxs-lookup"><span data-stu-id="c927c-606">Files (*appsettings.json*, *appsettings.{Environment}.json*, where `{Environment}` is the app's current hosting environment)</span></span>
+1. [<span data-ttu-id="c927c-607">Azure Key Vault</span><span class="sxs-lookup"><span data-stu-id="c927c-607">Azure Key Vault</span></span>](xref:security/key-vault-configuration)
+1. <span data-ttu-id="c927c-608">[Uživatelské klíče (správce tajných klíčů)](xref:security/app-secrets) (jenom vývojové prostředí)</span><span class="sxs-lookup"><span data-stu-id="c927c-608">[User secrets (Secret Manager)](xref:security/app-secrets) (Development environment only)</span></span>
+1. <span data-ttu-id="c927c-609">Proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-609">Environment variables</span></span>
+1. <span data-ttu-id="c927c-610">Argumenty příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-610">Command-line arguments</span></span>
 
-<span data-ttu-id="f7447-785">Běžným postupem je umístit poskytovatele konfigurace příkazového řádku na poslední v řadě zprostředkovatelů, aby argumenty příkazového řádku mohly přepsat konfiguraci nastavenou ostatními zprostředkovateli.</span><span class="sxs-lookup"><span data-stu-id="f7447-785">A common practice is to position the Command-line Configuration Provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
+<span data-ttu-id="c927c-611">Běžným postupem je umístit poskytovatele konfigurace příkazového řádku na poslední v řadě zprostředkovatelů, aby argumenty příkazového řádku mohly přepsat konfiguraci nastavenou ostatními zprostředkovateli.</span><span class="sxs-lookup"><span data-stu-id="c927c-611">A common practice is to position the Command-line Configuration Provider last in a series of providers to allow command-line arguments to override configuration set by the other providers.</span></span>
 
-<span data-ttu-id="f7447-786">Předchozí sekvence zprostředkovatelů se používá při inicializaci nového hostitele pomocí `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-786">The preceding sequence of providers is used when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="f7447-787">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-787">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="c927c-612">Předchozí sekvence zprostředkovatelů se používá při inicializaci nového hostitele pomocí `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="c927c-612">The preceding sequence of providers is used when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="c927c-613">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="c927c-613">For more information, see the [Default configuration](#default-configuration) section.</span></span>
 
-## <a name="configure-the-host-builder-with-useconfiguration"></a><span data-ttu-id="f7447-788">Konfigurace tvůrce hostitele pomocí UseConfiguration</span><span class="sxs-lookup"><span data-stu-id="f7447-788">Configure the host builder with UseConfiguration</span></span>
+## <a name="configure-the-host-builder-with-useconfiguration"></a><span data-ttu-id="c927c-614">Konfigurace tvůrce hostitele pomocí UseConfiguration</span><span class="sxs-lookup"><span data-stu-id="c927c-614">Configure the host builder with UseConfiguration</span></span>
 
-<span data-ttu-id="f7447-789">Chcete-li nakonfigurovat tvůrce hostitele, zavolejte <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> v Tvůrci hostitele s konfigurací.</span><span class="sxs-lookup"><span data-stu-id="f7447-789">To configure the host builder, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> on the host builder with the configuration.</span></span>
+<span data-ttu-id="c927c-615">Chcete-li nakonfigurovat tvůrce hostitele, zavolejte <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> v Tvůrci hostitele s konfigurací.</span><span class="sxs-lookup"><span data-stu-id="c927c-615">To configure the host builder, call <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> on the host builder with the configuration.</span></span>
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args)
@@ -1343,15 +977,15 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 }
 ```
 
-## <a name="configureappconfiguration"></a><span data-ttu-id="f7447-790">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="f7447-790">ConfigureAppConfiguration</span></span>
+## <a name="configureappconfiguration"></a><span data-ttu-id="c927c-616">ConfigureAppConfiguration</span><span class="sxs-lookup"><span data-stu-id="c927c-616">ConfigureAppConfiguration</span></span>
 
-<span data-ttu-id="f7447-791">Při vytváření hostitele volejte `ConfigureAppConfiguration`, aby bylo možné určit poskytovatele konfigurace aplikace společně s automaticky přidanými `CreateDefaultBuilder`:</span><span class="sxs-lookup"><span data-stu-id="f7447-791">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration providers in addition to those added automatically by `CreateDefaultBuilder`:</span></span>
+<span data-ttu-id="c927c-617">Při vytváření hostitele volejte `ConfigureAppConfiguration`, aby bylo možné určit poskytovatele konfigurace aplikace společně s automaticky přidanými `CreateDefaultBuilder`:</span><span class="sxs-lookup"><span data-stu-id="c927c-617">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration providers in addition to those added automatically by `CreateDefaultBuilder`:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=20)]
 
-### <a name="override-previous-configuration-with-command-line-arguments"></a><span data-ttu-id="f7447-792">Přepsat předchozí konfiguraci pomocí argumentů příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-792">Override previous configuration with command-line arguments</span></span>
+### <a name="override-previous-configuration-with-command-line-arguments"></a><span data-ttu-id="c927c-618">Přepsat předchozí konfiguraci pomocí argumentů příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-618">Override previous configuration with command-line arguments</span></span>
 
-<span data-ttu-id="f7447-793">Chcete-li poskytnout konfiguraci aplikace, kterou lze přepsat pomocí argumentů příkazového řádku, zavolejte `AddCommandLine` Poslední:</span><span class="sxs-lookup"><span data-stu-id="f7447-793">To provide app configuration that can be overridden with command-line arguments, call `AddCommandLine` last:</span></span>
+<span data-ttu-id="c927c-619">Chcete-li poskytnout konfiguraci aplikace, kterou lze přepsat pomocí argumentů příkazového řádku, zavolejte `AddCommandLine` Poslední:</span><span class="sxs-lookup"><span data-stu-id="c927c-619">To provide app configuration that can be overridden with command-line arguments, call `AddCommandLine` last:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1361,9 +995,9 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 })
 ```
 
-### <a name="remove-providers-added-by-createdefaultbuilder"></a><span data-ttu-id="f7447-794">Odebrat poskytovatele přidaných pomocí CreateDefaultBuilder</span><span class="sxs-lookup"><span data-stu-id="f7447-794">Remove providers added by CreateDefaultBuilder</span></span>
+### <a name="remove-providers-added-by-createdefaultbuilder"></a><span data-ttu-id="c927c-620">Odebrat poskytovatele přidaných pomocí CreateDefaultBuilder</span><span class="sxs-lookup"><span data-stu-id="c927c-620">Remove providers added by CreateDefaultBuilder</span></span>
 
-<span data-ttu-id="f7447-795">Chcete-li odebrat poskytovatele přidaných pomocí `CreateDefaultBuilder`[, zavolejte nejprve](/dotnet/api/system.collections.generic.icollection-1.clear) na [IConfigurationBuilder. sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) :</span><span class="sxs-lookup"><span data-stu-id="f7447-795">To remove the providers added by `CreateDefaultBuilder`, call [Clear](/dotnet/api/system.collections.generic.icollection-1.clear) on the [IConfigurationBuilder.Sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) first:</span></span>
+<span data-ttu-id="c927c-621">Chcete-li odebrat poskytovatele přidaných pomocí `CreateDefaultBuilder`[, zavolejte nejprve](/dotnet/api/system.collections.generic.icollection-1.clear) na [IConfigurationBuilder. sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) :</span><span class="sxs-lookup"><span data-stu-id="c927c-621">To remove the providers added by `CreateDefaultBuilder`, call [Clear](/dotnet/api/system.collections.generic.icollection-1.clear) on the [IConfigurationBuilder.Sources](xref:Microsoft.Extensions.Configuration.IConfigurationBuilder.Sources) first:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1373,29 +1007,29 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 })
 ```
 
-### <a name="consume-configuration-during-app-startup"></a><span data-ttu-id="f7447-796">Využití konfigurace při spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="f7447-796">Consume configuration during app startup</span></span>
+### <a name="consume-configuration-during-app-startup"></a><span data-ttu-id="c927c-622">Využití konfigurace při spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="c927c-622">Consume configuration during app startup</span></span>
 
-<span data-ttu-id="f7447-797">Konfigurace zadaná do aplikace v `ConfigureAppConfiguration` je dostupná během spouštění aplikace, včetně `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="f7447-797">Configuration supplied to the app in `ConfigureAppConfiguration` is available during the app's startup, including `Startup.ConfigureServices`.</span></span> <span data-ttu-id="f7447-798">Další informace najdete v části [Konfigurace přístupu během spuštění](#access-configuration-during-startup) .</span><span class="sxs-lookup"><span data-stu-id="f7447-798">For more information, see the [Access configuration during startup](#access-configuration-during-startup) section.</span></span>
+<span data-ttu-id="c927c-623">Konfigurace zadaná do aplikace v `ConfigureAppConfiguration` je dostupná během spouštění aplikace, včetně `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="c927c-623">Configuration supplied to the app in `ConfigureAppConfiguration` is available during the app's startup, including `Startup.ConfigureServices`.</span></span> <span data-ttu-id="c927c-624">Další informace najdete v části [Konfigurace přístupu během spuštění](#access-configuration-during-startup) .</span><span class="sxs-lookup"><span data-stu-id="c927c-624">For more information, see the [Access configuration during startup](#access-configuration-during-startup) section.</span></span>
 
-## <a name="command-line-configuration-provider"></a><span data-ttu-id="f7447-799">Zprostředkovatel konfigurace příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="f7447-799">Command-line Configuration Provider</span></span>
+## <a name="command-line-configuration-provider"></a><span data-ttu-id="c927c-625">Zprostředkovatel konfigurace příkazového řádku</span><span class="sxs-lookup"><span data-stu-id="c927c-625">Command-line Configuration Provider</span></span>
 
-<span data-ttu-id="f7447-800"><xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> načítá konfiguraci z párů klíč-hodnota argumentu klíč-hodnota za běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-800">The <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs at runtime.</span></span>
+<span data-ttu-id="c927c-626"><xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> načítá konfiguraci z párů klíč-hodnota argumentu klíč-hodnota za běhu.</span><span class="sxs-lookup"><span data-stu-id="c927c-626">The <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> loads configuration from command-line argument key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="f7447-801">Chcete-li aktivovat konfiguraci příkazového řádku, je jako instance <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>volána metoda rozšíření <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span><span class="sxs-lookup"><span data-stu-id="f7447-801">To activate command-line configuration, the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> extension method is called on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-627">Chcete-li aktivovat konfiguraci příkazového řádku, je jako instance <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>volána metoda rozšíření <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span><span class="sxs-lookup"><span data-stu-id="c927c-627">To activate command-line configuration, the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> extension method is called on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="f7447-802">`AddCommandLine` je automaticky volána, když je volána `CreateDefaultBuilder(string [])`.</span><span class="sxs-lookup"><span data-stu-id="f7447-802">`AddCommandLine` is automatically called when `CreateDefaultBuilder(string [])` is called.</span></span> <span data-ttu-id="f7447-803">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-803">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="c927c-628">`AddCommandLine` je automaticky volána, když je volána `CreateDefaultBuilder(string [])`.</span><span class="sxs-lookup"><span data-stu-id="c927c-628">`AddCommandLine` is automatically called when `CreateDefaultBuilder(string [])` is called.</span></span> <span data-ttu-id="c927c-629">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="c927c-629">For more information, see the [Default configuration](#default-configuration) section.</span></span>
 
-<span data-ttu-id="f7447-804">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="f7447-804">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="c927c-630">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="c927c-630">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="f7447-805">Volitelná konfigurace z *appSettings. JSON* a *appSettings. { Soubory Environment}. JSON* .</span><span class="sxs-lookup"><span data-stu-id="f7447-805">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
-* <span data-ttu-id="f7447-806">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-806">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="f7447-807">Proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-807">Environment variables.</span></span>
+* <span data-ttu-id="c927c-631">Volitelná konfigurace z *appSettings. JSON* a *appSettings. { Soubory Environment}. JSON* .</span><span class="sxs-lookup"><span data-stu-id="c927c-631">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
+* <span data-ttu-id="c927c-632">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-632">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
+* <span data-ttu-id="c927c-633">Proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-633">Environment variables.</span></span>
 
-<span data-ttu-id="f7447-808">`CreateDefaultBuilder` přidá poskytovatele konfigurace příkazového řádku naposledy.</span><span class="sxs-lookup"><span data-stu-id="f7447-808">`CreateDefaultBuilder` adds the Command-line Configuration Provider last.</span></span> <span data-ttu-id="f7447-809">Argumenty příkazového řádku předané v konfiguraci přepsání za běhu nastavené jinými poskytovateli.</span><span class="sxs-lookup"><span data-stu-id="f7447-809">Command-line arguments passed at runtime override configuration set by the other providers.</span></span>
+<span data-ttu-id="c927c-634">`CreateDefaultBuilder` přidá poskytovatele konfigurace příkazového řádku naposledy.</span><span class="sxs-lookup"><span data-stu-id="c927c-634">`CreateDefaultBuilder` adds the Command-line Configuration Provider last.</span></span> <span data-ttu-id="c927c-635">Argumenty příkazového řádku předané v konfiguraci přepsání za běhu nastavené jinými poskytovateli.</span><span class="sxs-lookup"><span data-stu-id="c927c-635">Command-line arguments passed at runtime override configuration set by the other providers.</span></span>
 
-<span data-ttu-id="f7447-810">`CreateDefaultBuilder` funguje při sestavení hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-810">`CreateDefaultBuilder` acts when the host is constructed.</span></span> <span data-ttu-id="f7447-811">Proto může konfigurace z příkazového řádku aktivované pomocí `CreateDefaultBuilder` ovlivnit způsob konfigurace hostitele.</span><span class="sxs-lookup"><span data-stu-id="f7447-811">Therefore, command-line configuration activated by `CreateDefaultBuilder` can affect how the host is configured.</span></span>
+<span data-ttu-id="c927c-636">`CreateDefaultBuilder` funguje při sestavení hostitele.</span><span class="sxs-lookup"><span data-stu-id="c927c-636">`CreateDefaultBuilder` acts when the host is constructed.</span></span> <span data-ttu-id="c927c-637">Proto může konfigurace z příkazového řádku aktivované pomocí `CreateDefaultBuilder` ovlivnit způsob konfigurace hostitele.</span><span class="sxs-lookup"><span data-stu-id="c927c-637">Therefore, command-line configuration activated by `CreateDefaultBuilder` can affect how the host is configured.</span></span>
 
-<span data-ttu-id="f7447-812">Pro aplikace založené na šablonách ASP.NET Core `AddCommandLine` již byly volány `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-812">For apps based on the ASP.NET Core templates, `AddCommandLine` has already been called by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="f7447-813">Chcete-li přidat další poskytovatele konfigurace a zachovat možnost přepsat konfiguraci z těchto zprostředkovatelů pomocí argumentů příkazového řádku, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte `AddCommandLine` Last.</span><span class="sxs-lookup"><span data-stu-id="f7447-813">To add additional configuration providers and maintain the ability to override configuration from those providers with command-line arguments, call the app's additional providers in `ConfigureAppConfiguration` and call `AddCommandLine` last.</span></span>
+<span data-ttu-id="c927c-638">Pro aplikace založené na šablonách ASP.NET Core `AddCommandLine` již byly volány `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="c927c-638">For apps based on the ASP.NET Core templates, `AddCommandLine` has already been called by `CreateDefaultBuilder`.</span></span> <span data-ttu-id="c927c-639">Chcete-li přidat další poskytovatele konfigurace a zachovat možnost přepsat konfiguraci z těchto zprostředkovatelů pomocí argumentů příkazového řádku, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte `AddCommandLine` Last.</span><span class="sxs-lookup"><span data-stu-id="c927c-639">To add additional configuration providers and maintain the ability to override configuration from those providers with command-line arguments, call the app's additional providers in `ConfigureAppConfiguration` and call `AddCommandLine` last.</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1405,28 +1039,28 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args)
 })
 ```
 
-<span data-ttu-id="f7447-814">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="f7447-814">**Example**</span></span>
+<span data-ttu-id="c927c-640">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="c927c-640">**Example**</span></span>
 
-<span data-ttu-id="f7447-815">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span><span class="sxs-lookup"><span data-stu-id="f7447-815">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span>
+<span data-ttu-id="c927c-641">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span><span class="sxs-lookup"><span data-stu-id="c927c-641">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*>.</span></span>
 
-1. <span data-ttu-id="f7447-816">Otevřete příkazový řádek v adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="f7447-816">Open a command prompt in the project's directory.</span></span>
-1. <span data-ttu-id="f7447-817">Zadejte argument příkazového řádku pro příkaz `dotnet run` `dotnet run CommandLineKey=CommandLineValue`.</span><span class="sxs-lookup"><span data-stu-id="f7447-817">Supply a command-line argument to the `dotnet run` command, `dotnet run CommandLineKey=CommandLineValue`.</span></span>
-1. <span data-ttu-id="f7447-818">Po spuštění aplikace otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="f7447-818">After the app is running, open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="f7447-819">Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro argument příkazového řádku konfigurace, který je k dispozici pro `dotnet run`.</span><span class="sxs-lookup"><span data-stu-id="f7447-819">Observe that the output contains the key-value pair for the configuration command-line argument provided to `dotnet run`.</span></span>
+1. <span data-ttu-id="c927c-642">Otevřete příkazový řádek v adresáři projektu.</span><span class="sxs-lookup"><span data-stu-id="c927c-642">Open a command prompt in the project's directory.</span></span>
+1. <span data-ttu-id="c927c-643">Zadejte argument příkazového řádku pro příkaz `dotnet run` `dotnet run CommandLineKey=CommandLineValue`.</span><span class="sxs-lookup"><span data-stu-id="c927c-643">Supply a command-line argument to the `dotnet run` command, `dotnet run CommandLineKey=CommandLineValue`.</span></span>
+1. <span data-ttu-id="c927c-644">Po spuštění aplikace otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="c927c-644">After the app is running, open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="c927c-645">Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro argument příkazového řádku konfigurace, který je k dispozici pro `dotnet run`.</span><span class="sxs-lookup"><span data-stu-id="c927c-645">Observe that the output contains the key-value pair for the configuration command-line argument provided to `dotnet run`.</span></span>
 
-### <a name="arguments"></a><span data-ttu-id="f7447-820">Argumenty</span><span class="sxs-lookup"><span data-stu-id="f7447-820">Arguments</span></span>
+### <a name="arguments"></a><span data-ttu-id="c927c-646">Argumenty</span><span class="sxs-lookup"><span data-stu-id="c927c-646">Arguments</span></span>
 
-<span data-ttu-id="f7447-821">Hodnota musí následovat po znaménku rovná se (`=`), nebo klíč musí obsahovat předponu (`--` nebo `/`), pokud se hodnota řídí mezerou.</span><span class="sxs-lookup"><span data-stu-id="f7447-821">The value must follow an equals sign (`=`), or the key must have a prefix (`--` or `/`) when the value follows a space.</span></span> <span data-ttu-id="f7447-822">Hodnota není povinná, pokud se používá znaménko rovná se (například `CommandLineKey=`).</span><span class="sxs-lookup"><span data-stu-id="f7447-822">The value isn't required if an equals sign is used (for example, `CommandLineKey=`).</span></span>
+<span data-ttu-id="c927c-647">Hodnota musí následovat po znaménku rovná se (`=`), nebo klíč musí obsahovat předponu (`--` nebo `/`), pokud se hodnota řídí mezerou.</span><span class="sxs-lookup"><span data-stu-id="c927c-647">The value must follow an equals sign (`=`), or the key must have a prefix (`--` or `/`) when the value follows a space.</span></span> <span data-ttu-id="c927c-648">Hodnota není povinná, pokud se používá znaménko rovná se (například `CommandLineKey=`).</span><span class="sxs-lookup"><span data-stu-id="c927c-648">The value isn't required if an equals sign is used (for example, `CommandLineKey=`).</span></span>
 
-| <span data-ttu-id="f7447-823">Klíčová předpona</span><span class="sxs-lookup"><span data-stu-id="f7447-823">Key prefix</span></span>               | <span data-ttu-id="f7447-824">Příklad</span><span class="sxs-lookup"><span data-stu-id="f7447-824">Example</span></span>                                                |
+| <span data-ttu-id="c927c-649">Klíčová předpona</span><span class="sxs-lookup"><span data-stu-id="c927c-649">Key prefix</span></span>               | <span data-ttu-id="c927c-650">Příklad</span><span class="sxs-lookup"><span data-stu-id="c927c-650">Example</span></span>                                                |
 | ------------------------ | ------------------------------------------------------ |
-| <span data-ttu-id="f7447-825">Bez předpony</span><span class="sxs-lookup"><span data-stu-id="f7447-825">No prefix</span></span>                | `CommandLineKey1=value1`                               |
-| <span data-ttu-id="f7447-826">Dvě pomlčky (`--`)</span><span class="sxs-lookup"><span data-stu-id="f7447-826">Two dashes (`--`)</span></span>        | <span data-ttu-id="f7447-827">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span><span class="sxs-lookup"><span data-stu-id="f7447-827">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span></span> |
-| <span data-ttu-id="f7447-828">Lomítko (`/`)</span><span class="sxs-lookup"><span data-stu-id="f7447-828">Forward slash (`/`)</span></span>      | <span data-ttu-id="f7447-829">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span><span class="sxs-lookup"><span data-stu-id="f7447-829">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span></span>   |
+| <span data-ttu-id="c927c-651">Bez předpony</span><span class="sxs-lookup"><span data-stu-id="c927c-651">No prefix</span></span>                | `CommandLineKey1=value1`                               |
+| <span data-ttu-id="c927c-652">Dvě pomlčky (`--`)</span><span class="sxs-lookup"><span data-stu-id="c927c-652">Two dashes (`--`)</span></span>        | <span data-ttu-id="c927c-653">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span><span class="sxs-lookup"><span data-stu-id="c927c-653">`--CommandLineKey2=value2`, `--CommandLineKey2 value2`</span></span> |
+| <span data-ttu-id="c927c-654">Lomítko (`/`)</span><span class="sxs-lookup"><span data-stu-id="c927c-654">Forward slash (`/`)</span></span>      | <span data-ttu-id="c927c-655">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span><span class="sxs-lookup"><span data-stu-id="c927c-655">`/CommandLineKey3=value3`, `/CommandLineKey3 value3`</span></span>   |
 
-<span data-ttu-id="f7447-830">V rámci stejného příkazu Nekombinujte páry klíč-hodnota argumentu příkazového řádku, které používají symbol rovná se s páry klíč-hodnota, které používají mezeru.</span><span class="sxs-lookup"><span data-stu-id="f7447-830">Within the same command, don't mix command-line argument key-value pairs that use an equals sign with key-value pairs that use a space.</span></span>
+<span data-ttu-id="c927c-656">V rámci stejného příkazu Nekombinujte páry klíč-hodnota argumentu příkazového řádku, které používají symbol rovná se s páry klíč-hodnota, které používají mezeru.</span><span class="sxs-lookup"><span data-stu-id="c927c-656">Within the same command, don't mix command-line argument key-value pairs that use an equals sign with key-value pairs that use a space.</span></span>
 
-<span data-ttu-id="f7447-831">Příklady příkazů:</span><span class="sxs-lookup"><span data-stu-id="f7447-831">Example commands:</span></span>
+<span data-ttu-id="c927c-657">Příklady příkazů:</span><span class="sxs-lookup"><span data-stu-id="c927c-657">Example commands:</span></span>
 
 ```dotnetcli
 dotnet run CommandLineKey1=value1 --CommandLineKey2=value2 /CommandLineKey3=value3
@@ -1434,18 +1068,18 @@ dotnet run --CommandLineKey1 value1 /CommandLineKey2 value2
 dotnet run CommandLineKey1= CommandLineKey2=value2
 ```
 
-### <a name="switch-mappings"></a><span data-ttu-id="f7447-832">Mapování přepínačů</span><span class="sxs-lookup"><span data-stu-id="f7447-832">Switch mappings</span></span>
+### <a name="switch-mappings"></a><span data-ttu-id="c927c-658">Mapování přepínačů</span><span class="sxs-lookup"><span data-stu-id="c927c-658">Switch mappings</span></span>
 
-<span data-ttu-id="f7447-833">Mapování přepínačů povolují logiku nahrazení názvu klíče.</span><span class="sxs-lookup"><span data-stu-id="f7447-833">Switch mappings allow key name replacement logic.</span></span> <span data-ttu-id="f7447-834">Při ručním sestavování konfigurace pomocí <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>zadejte do metody <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> slovník přepínačů pro nahrazení.</span><span class="sxs-lookup"><span data-stu-id="f7447-834">When manually building configuration with a <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>, provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
+<span data-ttu-id="c927c-659">Mapování přepínačů povolují logiku nahrazení názvu klíče.</span><span class="sxs-lookup"><span data-stu-id="c927c-659">Switch mappings allow key name replacement logic.</span></span> <span data-ttu-id="c927c-660">Při ručním sestavování konfigurace pomocí <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>zadejte do metody <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> slovník přepínačů pro nahrazení.</span><span class="sxs-lookup"><span data-stu-id="c927c-660">When manually building configuration with a <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>, provide a dictionary of switch replacements to the <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> method.</span></span>
 
-<span data-ttu-id="f7447-835">Při použití slovníku mapování přepínačů je slovník zaškrtnut pro klíč, který odpovídá klíči poskytnutému argumentem příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="f7447-835">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="f7447-836">Pokud se klíč příkazového řádku nachází ve slovníku, vrátí se hodnota slovníku (nahrazení klíče) zpět, aby se v konfiguraci aplikace nastavil pár klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="f7447-836">If the command-line key is found in the dictionary, the dictionary value (the key replacement) is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="f7447-837">Mapování přepínačů je vyžadováno pro jakýkoliv klíč příkazového řádku s jedním spojovníkem (`-`).</span><span class="sxs-lookup"><span data-stu-id="f7447-837">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
+<span data-ttu-id="c927c-661">Při použití slovníku mapování přepínačů je slovník zaškrtnut pro klíč, který odpovídá klíči poskytnutému argumentem příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="c927c-661">When the switch mappings dictionary is used, the dictionary is checked for a key that matches the key provided by a command-line argument.</span></span> <span data-ttu-id="c927c-662">Pokud se klíč příkazového řádku nachází ve slovníku, vrátí se hodnota slovníku (nahrazení klíče) zpět, aby se v konfiguraci aplikace nastavil pár klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="c927c-662">If the command-line key is found in the dictionary, the dictionary value (the key replacement) is passed back to set the key-value pair into the app's configuration.</span></span> <span data-ttu-id="c927c-663">Mapování přepínačů je vyžadováno pro jakýkoliv klíč příkazového řádku s jedním spojovníkem (`-`).</span><span class="sxs-lookup"><span data-stu-id="c927c-663">A switch mapping is required for any command-line key prefixed with a single dash (`-`).</span></span>
 
-<span data-ttu-id="f7447-838">Pravidla klíče slovníku mapování přepínačů:</span><span class="sxs-lookup"><span data-stu-id="f7447-838">Switch mappings dictionary key rules:</span></span>
+<span data-ttu-id="c927c-664">Pravidla klíče slovníku mapování přepínačů:</span><span class="sxs-lookup"><span data-stu-id="c927c-664">Switch mappings dictionary key rules:</span></span>
 
-* <span data-ttu-id="f7447-839">Přepínače musí začínat spojovníkem (`-`) nebo dvojitou pomlčkou (`--`).</span><span class="sxs-lookup"><span data-stu-id="f7447-839">Switches must start with a dash (`-`) or double-dash (`--`).</span></span>
-* <span data-ttu-id="f7447-840">Slovník mapování přepínačů nesmí obsahovat duplicitní klíče.</span><span class="sxs-lookup"><span data-stu-id="f7447-840">The switch mappings dictionary must not contain duplicate keys.</span></span>
+* <span data-ttu-id="c927c-665">Přepínače musí začínat spojovníkem (`-`) nebo dvojitou pomlčkou (`--`).</span><span class="sxs-lookup"><span data-stu-id="c927c-665">Switches must start with a dash (`-`) or double-dash (`--`).</span></span>
+* <span data-ttu-id="c927c-666">Slovník mapování přepínačů nesmí obsahovat duplicitní klíče.</span><span class="sxs-lookup"><span data-stu-id="c927c-666">The switch mappings dictionary must not contain duplicate keys.</span></span>
 
-<span data-ttu-id="f7447-841">Vytvořte slovník mapování přepínačů.</span><span class="sxs-lookup"><span data-stu-id="f7447-841">Create a switch mappings dictionary.</span></span> <span data-ttu-id="f7447-842">V následujícím příkladu se vytvoří mapování dvou přepínačů:</span><span class="sxs-lookup"><span data-stu-id="f7447-842">In the following example, two switch mappings are created:</span></span>
+<span data-ttu-id="c927c-667">Vytvořte slovník mapování přepínačů.</span><span class="sxs-lookup"><span data-stu-id="c927c-667">Create a switch mappings dictionary.</span></span> <span data-ttu-id="c927c-668">V následujícím příkladu se vytvoří mapování dvou přepínačů:</span><span class="sxs-lookup"><span data-stu-id="c927c-668">In the following example, two switch mappings are created:</span></span>
 
 ```csharp
 public static readonly Dictionary<string, string> _switchMappings = 
@@ -1456,7 +1090,7 @@ public static readonly Dictionary<string, string> _switchMappings =
     };
 ```
 
-<span data-ttu-id="f7447-843">Po sestavení hostitele volejte `AddCommandLine` pomocí slovníku mapování přepínačů:</span><span class="sxs-lookup"><span data-stu-id="f7447-843">When the host is built, call `AddCommandLine` with the switch mappings dictionary:</span></span>
+<span data-ttu-id="c927c-669">Po sestavení hostitele volejte `AddCommandLine` pomocí slovníku mapování přepínačů:</span><span class="sxs-lookup"><span data-stu-id="c927c-669">When the host is built, call `AddCommandLine` with the switch mappings dictionary:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1465,50 +1099,50 @@ public static readonly Dictionary<string, string> _switchMappings =
 })
 ```
 
-<span data-ttu-id="f7447-844">Pro aplikace, které používají mapování přepínačů, by volání `CreateDefaultBuilder` nemělo předávat argumenty.</span><span class="sxs-lookup"><span data-stu-id="f7447-844">For apps that use switch mappings, the call to `CreateDefaultBuilder` shouldn't pass arguments.</span></span> <span data-ttu-id="f7447-845">Volání `AddCommandLine` metody `CreateDefaultBuilder` nezahrnuje mapované přepínače a neexistuje žádný způsob, jak předávat slovník mapování přepínačů na `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-845">The `CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="f7447-846">Řešení nepředá argumenty `CreateDefaultBuilder`, ale namísto toho umožní metodě `AddCommandLine` `ConfigurationBuilder` metody zpracovat argumenty a slovník mapování přepínačů.</span><span class="sxs-lookup"><span data-stu-id="f7447-846">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch mapping dictionary.</span></span>
+<span data-ttu-id="c927c-670">Pro aplikace, které používají mapování přepínačů, by volání `CreateDefaultBuilder` nemělo předávat argumenty.</span><span class="sxs-lookup"><span data-stu-id="c927c-670">For apps that use switch mappings, the call to `CreateDefaultBuilder` shouldn't pass arguments.</span></span> <span data-ttu-id="c927c-671">Volání `AddCommandLine` metody `CreateDefaultBuilder` nezahrnuje mapované přepínače a neexistuje žádný způsob, jak předávat slovník mapování přepínačů na `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="c927c-671">The `CreateDefaultBuilder` method's `AddCommandLine` call doesn't include mapped switches, and there's no way to pass the switch mapping dictionary to `CreateDefaultBuilder`.</span></span> <span data-ttu-id="c927c-672">Řešení nepředá argumenty `CreateDefaultBuilder`, ale namísto toho umožní metodě `AddCommandLine` `ConfigurationBuilder` metody zpracovat argumenty a slovník mapování přepínačů.</span><span class="sxs-lookup"><span data-stu-id="c927c-672">The solution isn't to pass the arguments to `CreateDefaultBuilder` but instead to allow the `ConfigurationBuilder` method's `AddCommandLine` method to process both the arguments and the switch mapping dictionary.</span></span>
 
-<span data-ttu-id="f7447-847">Po vytvoření slovníku mapování přepínačů obsahuje data uvedená v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="f7447-847">After the switch mappings dictionary is created, it contains the data shown in the following table.</span></span>
+<span data-ttu-id="c927c-673">Po vytvoření slovníku mapování přepínačů obsahuje data uvedená v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="c927c-673">After the switch mappings dictionary is created, it contains the data shown in the following table.</span></span>
 
-| <span data-ttu-id="f7447-848">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-848">Key</span></span>       | <span data-ttu-id="f7447-849">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-849">Value</span></span>             |
+| <span data-ttu-id="c927c-674">Klíč</span><span class="sxs-lookup"><span data-stu-id="c927c-674">Key</span></span>       | <span data-ttu-id="c927c-675">Hodnota</span><span class="sxs-lookup"><span data-stu-id="c927c-675">Value</span></span>             |
 | --------- | ----------------- |
 | `-CLKey1` | `CommandLineKey1` |
 | `-CLKey2` | `CommandLineKey2` |
 
-<span data-ttu-id="f7447-850">Pokud se klíče mapovaného přepínače používají při spuštění aplikace, konfigurace obdrží hodnotu konfigurace klíče poskytnutého slovníkem:</span><span class="sxs-lookup"><span data-stu-id="f7447-850">If the switch-mapped keys are used when starting the app, configuration receives the configuration value on the key supplied by the dictionary:</span></span>
+<span data-ttu-id="c927c-676">Pokud se klíče mapovaného přepínače používají při spuštění aplikace, konfigurace obdrží hodnotu konfigurace klíče poskytnutého slovníkem:</span><span class="sxs-lookup"><span data-stu-id="c927c-676">If the switch-mapped keys are used when starting the app, configuration receives the configuration value on the key supplied by the dictionary:</span></span>
 
 ```dotnetcli
 dotnet run -CLKey1=value1 -CLKey2=value2
 ```
 
-<span data-ttu-id="f7447-851">Po spuštění předchozího příkazu obsahuje konfigurace hodnoty uvedené v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="f7447-851">After running the preceding command, configuration contains the values shown in the following table.</span></span>
+<span data-ttu-id="c927c-677">Po spuštění předchozího příkazu obsahuje konfigurace hodnoty uvedené v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="c927c-677">After running the preceding command, configuration contains the values shown in the following table.</span></span>
 
-| <span data-ttu-id="f7447-852">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-852">Key</span></span>               | <span data-ttu-id="f7447-853">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-853">Value</span></span>    |
+| <span data-ttu-id="c927c-678">Klíč</span><span class="sxs-lookup"><span data-stu-id="c927c-678">Key</span></span>               | <span data-ttu-id="c927c-679">Hodnota</span><span class="sxs-lookup"><span data-stu-id="c927c-679">Value</span></span>    |
 | ----------------- | -------- |
 | `CommandLineKey1` | `value1` |
 | `CommandLineKey2` | `value2` |
 
-## <a name="environment-variables-configuration-provider"></a><span data-ttu-id="f7447-854">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-854">Environment Variables Configuration Provider</span></span>
+## <a name="environment-variables-configuration-provider"></a><span data-ttu-id="c927c-680">Poskytovatel konfigurace proměnných prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-680">Environment Variables Configuration Provider</span></span>
 
-<span data-ttu-id="f7447-855"><xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> načte konfiguraci z páru klíč-hodnota proměnné prostředí za běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-855">The <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs at runtime.</span></span>
+<span data-ttu-id="c927c-681"><xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> načte konfiguraci z páru klíč-hodnota proměnné prostředí za běhu.</span><span class="sxs-lookup"><span data-stu-id="c927c-681">The <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> loads configuration from environment variable key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="f7447-856">Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-856">To activate environment variables configuration, call the <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-682">Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="c927c-682">To activate environment variables configuration, call the <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-<span data-ttu-id="f7447-857">[Azure App Service](https://azure.microsoft.com/services/app-service/) povoluje nastavení proměnných prostředí na webu Azure Portal, které mohou přepsat konfiguraci aplikace pomocí poskytovatele konfigurace proměnných prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-857">[Azure App Service](https://azure.microsoft.com/services/app-service/) permits setting environment variables in the Azure Portal that can override app configuration using the Environment Variables Configuration Provider.</span></span> <span data-ttu-id="f7447-858">Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span><span class="sxs-lookup"><span data-stu-id="f7447-858">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
+<span data-ttu-id="c927c-683">[Azure App Service](https://azure.microsoft.com/services/app-service/) povoluje nastavení proměnných prostředí na webu Azure Portal, které mohou přepsat konfiguraci aplikace pomocí poskytovatele konfigurace proměnných prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-683">[Azure App Service](https://azure.microsoft.com/services/app-service/) permits setting environment variables in the Azure Portal that can override app configuration using the Environment Variables Configuration Provider.</span></span> <span data-ttu-id="c927c-684">Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span><span class="sxs-lookup"><span data-stu-id="c927c-684">For more information, see [Azure Apps: Override app configuration using the Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).</span></span>
 
-<span data-ttu-id="f7447-859">`AddEnvironmentVariables` se používá k načtení proměnných prostředí s předponou `ASPNETCORE_` pro [konfiguraci hostitele](#host-versus-app-configuration) při inicializaci nového hostitele s [webovým hostitelem](xref:fundamentals/host/web-host) a volání `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-859">`AddEnvironmentVariables` is used to load environment variables prefixed with `ASPNETCORE_` for [host configuration](#host-versus-app-configuration) when a new host builder is initialized with the [Web Host](xref:fundamentals/host/web-host) and `CreateDefaultBuilder` is called.</span></span> <span data-ttu-id="f7447-860">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-860">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="c927c-685">`AddEnvironmentVariables` se používá k načtení proměnných prostředí s předponou `ASPNETCORE_` pro [konfiguraci hostitele](#host-versus-app-configuration) při inicializaci nového hostitele s [webovým hostitelem](xref:fundamentals/host/web-host) a volání `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="c927c-685">`AddEnvironmentVariables` is used to load environment variables prefixed with `ASPNETCORE_` for [host configuration](#host-versus-app-configuration) when a new host builder is initialized with the [Web Host](xref:fundamentals/host/web-host) and `CreateDefaultBuilder` is called.</span></span> <span data-ttu-id="c927c-686">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="c927c-686">For more information, see the [Default configuration](#default-configuration) section.</span></span>
 
-<span data-ttu-id="f7447-861">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="f7447-861">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="c927c-687">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="c927c-687">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="f7447-862">Konfigurace aplikace z neprefixových proměnných prostředí voláním `AddEnvironmentVariables` bez předpony.</span><span class="sxs-lookup"><span data-stu-id="f7447-862">App configuration from unprefixed environment variables by calling `AddEnvironmentVariables` without a prefix.</span></span>
-* <span data-ttu-id="f7447-863">Volitelná konfigurace z *appSettings. JSON* a *appSettings. { Soubory Environment}. JSON* .</span><span class="sxs-lookup"><span data-stu-id="f7447-863">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
-* <span data-ttu-id="f7447-864">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-864">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="f7447-865">Argumenty příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="f7447-865">Command-line arguments.</span></span>
+* <span data-ttu-id="c927c-688">Konfigurace aplikace z neprefixových proměnných prostředí voláním `AddEnvironmentVariables` bez předpony.</span><span class="sxs-lookup"><span data-stu-id="c927c-688">App configuration from unprefixed environment variables by calling `AddEnvironmentVariables` without a prefix.</span></span>
+* <span data-ttu-id="c927c-689">Volitelná konfigurace z *appSettings. JSON* a *appSettings. { Soubory Environment}. JSON* .</span><span class="sxs-lookup"><span data-stu-id="c927c-689">Optional configuration from *appsettings.json* and *appsettings.{Environment}.json* files.</span></span>
+* <span data-ttu-id="c927c-690">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-690">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
+* <span data-ttu-id="c927c-691">Argumenty příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="c927c-691">Command-line arguments.</span></span>
 
-<span data-ttu-id="f7447-866">Poskytovatel konfigurace proměnných prostředí se volá po vytvoření konfigurace z uživatelských tajných kódů a souborů *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="f7447-866">The Environment Variables Configuration Provider is called after configuration is established from user secrets and *appsettings* files.</span></span> <span data-ttu-id="f7447-867">Volání zprostředkovatele v této pozici umožňuje, aby proměnné prostředí byly čteny za běhu, aby bylo možné přepsat konfiguraci nastavenou pomocí tajných kódů uživatelů a souborů *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="f7447-867">Calling the provider in this position allows the environment variables read at runtime to override configuration set by user secrets and *appsettings* files.</span></span>
+<span data-ttu-id="c927c-692">Poskytovatel konfigurace proměnných prostředí se volá po vytvoření konfigurace z uživatelských tajných kódů a souborů *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="c927c-692">The Environment Variables Configuration Provider is called after configuration is established from user secrets and *appsettings* files.</span></span> <span data-ttu-id="c927c-693">Volání zprostředkovatele v této pozici umožňuje, aby proměnné prostředí byly čteny za běhu, aby bylo možné přepsat konfiguraci nastavenou pomocí tajných kódů uživatelů a souborů *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="c927c-693">Calling the provider in this position allows the environment variables read at runtime to override configuration set by user secrets and *appsettings* files.</span></span>
 
-<span data-ttu-id="f7447-868">Chcete-li poskytnout konfiguraci aplikace z dalších proměnných prostředí, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte `AddEnvironmentVariables` s předponou:</span><span class="sxs-lookup"><span data-stu-id="f7447-868">To provide app configuration from additional environment variables, call the app's additional providers in `ConfigureAppConfiguration` and call `AddEnvironmentVariables` with the prefix:</span></span>
+<span data-ttu-id="c927c-694">Chcete-li poskytnout konfiguraci aplikace z dalších proměnných prostředí, zavolejte další poskytovatele aplikace v `ConfigureAppConfiguration` a zavolejte `AddEnvironmentVariables` s předponou:</span><span class="sxs-lookup"><span data-stu-id="c927c-694">To provide app configuration from additional environment variables, call the app's additional providers in `ConfigureAppConfiguration` and call `AddEnvironmentVariables` with the prefix:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1517,26 +1151,26 @@ dotnet run -CLKey1=value1 -CLKey2=value2
 })
 ```
 
-<span data-ttu-id="f7447-869">Pokud chcete, aby proměnné prostředí s danou předponou přepsaly hodnoty od jiných zprostředkovatelů, zavolejte `AddEnvironmentVariables` jako poslední.</span><span class="sxs-lookup"><span data-stu-id="f7447-869">Call `AddEnvironmentVariables` last to allow environment variables with the given prefix to override values from other providers.</span></span>
+<span data-ttu-id="c927c-695">Pokud chcete, aby proměnné prostředí s danou předponou přepsaly hodnoty od jiných zprostředkovatelů, zavolejte `AddEnvironmentVariables` jako poslední.</span><span class="sxs-lookup"><span data-stu-id="c927c-695">Call `AddEnvironmentVariables` last to allow environment variables with the given prefix to override values from other providers.</span></span>
 
-<span data-ttu-id="f7447-870">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="f7447-870">**Example**</span></span>
+<span data-ttu-id="c927c-696">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="c927c-696">**Example**</span></span>
 
-<span data-ttu-id="f7447-871">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání `AddEnvironmentVariables`.</span><span class="sxs-lookup"><span data-stu-id="f7447-871">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="c927c-697">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání `AddEnvironmentVariables`.</span><span class="sxs-lookup"><span data-stu-id="c927c-697">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes a call to `AddEnvironmentVariables`.</span></span>
 
-1. <span data-ttu-id="f7447-872">Spuštění ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-872">Run the sample app.</span></span> <span data-ttu-id="f7447-873">Otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="f7447-873">Open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="f7447-874">Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro proměnnou prostředí `ENVIRONMENT`.</span><span class="sxs-lookup"><span data-stu-id="f7447-874">Observe that the output contains the key-value pair for the environment variable `ENVIRONMENT`.</span></span> <span data-ttu-id="f7447-875">Hodnota odráží prostředí, ve kterém je aplikace spuštěná, obvykle `Development` při místním spuštění.</span><span class="sxs-lookup"><span data-stu-id="f7447-875">The value reflects the environment in which the app is running, typically `Development` when running locally.</span></span>
+1. <span data-ttu-id="c927c-698">Spuštění ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-698">Run the sample app.</span></span> <span data-ttu-id="c927c-699">Otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="c927c-699">Open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="c927c-700">Všimněte si, že výstup obsahuje dvojici klíč-hodnota pro proměnnou prostředí `ENVIRONMENT`.</span><span class="sxs-lookup"><span data-stu-id="c927c-700">Observe that the output contains the key-value pair for the environment variable `ENVIRONMENT`.</span></span> <span data-ttu-id="c927c-701">Hodnota odráží prostředí, ve kterém je aplikace spuštěná, obvykle `Development` při místním spuštění.</span><span class="sxs-lookup"><span data-stu-id="c927c-701">The value reflects the environment in which the app is running, typically `Development` when running locally.</span></span>
 
-<span data-ttu-id="f7447-876">Chcete-li zachovat seznam proměnných prostředí vygenerovaných aplikací v krátkém prostředí, aplikace filtruje proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-876">To keep the list of environment variables rendered by the app short, the app filters environment variables.</span></span> <span data-ttu-id="f7447-877">Podívejte se na soubor *pages/index. cshtml. cs* ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-877">See the sample app's *Pages/Index.cshtml.cs* file.</span></span>
+<span data-ttu-id="c927c-702">Chcete-li zachovat seznam proměnných prostředí vygenerovaných aplikací v krátkém prostředí, aplikace filtruje proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-702">To keep the list of environment variables rendered by the app short, the app filters environment variables.</span></span> <span data-ttu-id="c927c-703">Podívejte se na soubor *pages/index. cshtml. cs* ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-703">See the sample app's *Pages/Index.cshtml.cs* file.</span></span>
 
-<span data-ttu-id="f7447-878">Pokud chcete zpřístupnit všechny proměnné prostředí dostupné pro aplikaci, změňte `FilteredConfiguration` na *stránce pages/index. cshtml. cs* na následující:</span><span class="sxs-lookup"><span data-stu-id="f7447-878">To expose all of the environment variables available to the app, change the `FilteredConfiguration` in *Pages/Index.cshtml.cs* to the following:</span></span>
+<span data-ttu-id="c927c-704">Pokud chcete zpřístupnit všechny proměnné prostředí dostupné pro aplikaci, změňte `FilteredConfiguration` na *stránce pages/index. cshtml. cs* na následující:</span><span class="sxs-lookup"><span data-stu-id="c927c-704">To expose all of the environment variables available to the app, change the `FilteredConfiguration` in *Pages/Index.cshtml.cs* to the following:</span></span>
 
 ```csharp
 FilteredConfiguration = _config.AsEnumerable();
 ```
 
-### <a name="prefixes"></a><span data-ttu-id="f7447-879">Předpony</span><span class="sxs-lookup"><span data-stu-id="f7447-879">Prefixes</span></span>
+### <a name="prefixes"></a><span data-ttu-id="c927c-705">Předpony</span><span class="sxs-lookup"><span data-stu-id="c927c-705">Prefixes</span></span>
 
-<span data-ttu-id="f7447-880">Proměnné prostředí načtené do konfigurace aplikace jsou filtrovány při zadání předpony metody `AddEnvironmentVariables`.</span><span class="sxs-lookup"><span data-stu-id="f7447-880">Environment variables loaded into the app's configuration are filtered when supplying a prefix to the `AddEnvironmentVariables` method.</span></span> <span data-ttu-id="f7447-881">Chcete-li například filtrovat proměnné prostředí v `CUSTOM_`předpony, zadejte předponu do poskytovatele konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-881">For example, to filter environment variables on the prefix `CUSTOM_`, supply the prefix to the configuration provider:</span></span>
+<span data-ttu-id="c927c-706">Proměnné prostředí načtené do konfigurace aplikace jsou filtrovány při zadání předpony metody `AddEnvironmentVariables`.</span><span class="sxs-lookup"><span data-stu-id="c927c-706">Environment variables loaded into the app's configuration are filtered when supplying a prefix to the `AddEnvironmentVariables` method.</span></span> <span data-ttu-id="c927c-707">Chcete-li například filtrovat proměnné prostředí v `CUSTOM_`předpony, zadejte předponu do poskytovatele konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-707">For example, to filter environment variables on the prefix `CUSTOM_`, supply the prefix to the configuration provider:</span></span>
 
 ```csharp
 var config = new ConfigurationBuilder()
@@ -1544,69 +1178,69 @@ var config = new ConfigurationBuilder()
     .Build();
 ```
 
-<span data-ttu-id="f7447-882">Pokud jsou vytvořeny páry klíč-hodnota konfigurace, je předpona odstraněna.</span><span class="sxs-lookup"><span data-stu-id="f7447-882">The prefix is stripped off when the configuration key-value pairs are created.</span></span>
+<span data-ttu-id="c927c-708">Pokud jsou vytvořeny páry klíč-hodnota konfigurace, je předpona odstraněna.</span><span class="sxs-lookup"><span data-stu-id="c927c-708">The prefix is stripped off when the configuration key-value pairs are created.</span></span>
 
-<span data-ttu-id="f7447-883">Když je vytvořen tvůrce hostitele, konfigurace hostitele je poskytována proměnnými prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-883">When the host builder is created, host configuration is provided by environment variables.</span></span> <span data-ttu-id="f7447-884">Další informace o předponě používané pro tyto proměnné prostředí naleznete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-884">For more information on the prefix used for these environment variables, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="c927c-709">Když je vytvořen tvůrce hostitele, konfigurace hostitele je poskytována proměnnými prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-709">When the host builder is created, host configuration is provided by environment variables.</span></span> <span data-ttu-id="c927c-710">Další informace o předponě používané pro tyto proměnné prostředí naleznete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="c927c-710">For more information on the prefix used for these environment variables, see the [Default configuration](#default-configuration) section.</span></span>
 
-<span data-ttu-id="f7447-885">**Předpony připojovacího řetězce**</span><span class="sxs-lookup"><span data-stu-id="f7447-885">**Connection string prefixes**</span></span>
+<span data-ttu-id="c927c-711">**Předpony připojovacího řetězce**</span><span class="sxs-lookup"><span data-stu-id="c927c-711">**Connection string prefixes**</span></span>
 
-<span data-ttu-id="f7447-886">Rozhraní API pro konfiguraci má speciální pravidla zpracování pro čtyři proměnné prostředí připojovacích řetězců, které se podílejí na konfiguraci připojovacích řetězců Azure pro prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-886">The Configuration API has special processing rules for four connection string environment variables involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="f7447-887">Proměnné prostředí s předponami, které jsou uvedeny v tabulce, se načtou do aplikace, pokud není k `AddEnvironmentVariables`zadána žádná předpona.</span><span class="sxs-lookup"><span data-stu-id="f7447-887">Environment variables with the prefixes shown in the table are loaded into the app if no prefix is supplied to `AddEnvironmentVariables`.</span></span>
+<span data-ttu-id="c927c-712">Rozhraní API pro konfiguraci má speciální pravidla zpracování pro čtyři proměnné prostředí připojovacích řetězců, které se podílejí na konfiguraci připojovacích řetězců Azure pro prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-712">The Configuration API has special processing rules for four connection string environment variables involved in configuring Azure connection strings for the app environment.</span></span> <span data-ttu-id="c927c-713">Proměnné prostředí s předponami, které jsou uvedeny v tabulce, se načtou do aplikace, pokud není k `AddEnvironmentVariables`zadána žádná předpona.</span><span class="sxs-lookup"><span data-stu-id="c927c-713">Environment variables with the prefixes shown in the table are loaded into the app if no prefix is supplied to `AddEnvironmentVariables`.</span></span>
 
-| <span data-ttu-id="f7447-888">Předpona připojovacího řetězce</span><span class="sxs-lookup"><span data-stu-id="f7447-888">Connection string prefix</span></span> | <span data-ttu-id="f7447-889">Poskytovatel</span><span class="sxs-lookup"><span data-stu-id="f7447-889">Provider</span></span> |
+| <span data-ttu-id="c927c-714">Předpona připojovacího řetězce</span><span class="sxs-lookup"><span data-stu-id="c927c-714">Connection string prefix</span></span> | <span data-ttu-id="c927c-715">Poskytovatel</span><span class="sxs-lookup"><span data-stu-id="c927c-715">Provider</span></span> |
 | ------------------------ | -------- |
-| `CUSTOMCONNSTR_` | <span data-ttu-id="f7447-890">Vlastní zprostředkovatel</span><span class="sxs-lookup"><span data-stu-id="f7447-890">Custom provider</span></span> |
-| `MYSQLCONNSTR_` | [<span data-ttu-id="f7447-891">MySQL</span><span class="sxs-lookup"><span data-stu-id="f7447-891">MySQL</span></span>](https://www.mysql.com/) |
-| `SQLAZURECONNSTR_` | [<span data-ttu-id="f7447-892">Azure SQL Database</span><span class="sxs-lookup"><span data-stu-id="f7447-892">Azure SQL Database</span></span>](https://azure.microsoft.com/services/sql-database/) |
-| `SQLCONNSTR_` | [<span data-ttu-id="f7447-893">SQL Server</span><span class="sxs-lookup"><span data-stu-id="f7447-893">SQL Server</span></span>](https://www.microsoft.com/sql-server/) |
+| `CUSTOMCONNSTR_` | <span data-ttu-id="c927c-716">Vlastní zprostředkovatel</span><span class="sxs-lookup"><span data-stu-id="c927c-716">Custom provider</span></span> |
+| `MYSQLCONNSTR_` | [<span data-ttu-id="c927c-717">MySQL</span><span class="sxs-lookup"><span data-stu-id="c927c-717">MySQL</span></span>](https://www.mysql.com/) |
+| `SQLAZURECONNSTR_` | [<span data-ttu-id="c927c-718">Azure SQL Database</span><span class="sxs-lookup"><span data-stu-id="c927c-718">Azure SQL Database</span></span>](https://azure.microsoft.com/services/sql-database/) |
+| `SQLCONNSTR_` | [<span data-ttu-id="c927c-719">SQL Server</span><span class="sxs-lookup"><span data-stu-id="c927c-719">SQL Server</span></span>](https://www.microsoft.com/sql-server/) |
 
-<span data-ttu-id="f7447-894">Když je proměnná prostředí zjištěna a načtena do konfigurace se všemi čtyřmi předponami, které jsou uvedeny v tabulce:</span><span class="sxs-lookup"><span data-stu-id="f7447-894">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
+<span data-ttu-id="c927c-720">Když je proměnná prostředí zjištěna a načtena do konfigurace se všemi čtyřmi předponami, které jsou uvedeny v tabulce:</span><span class="sxs-lookup"><span data-stu-id="c927c-720">When an environment variable is discovered and loaded into configuration with any of the four prefixes shown in the table:</span></span>
 
-* <span data-ttu-id="f7447-895">Konfigurační klíč se vytvoří odebráním předpony proměnné prostředí a přidáním oddílu konfiguračního klíče (`ConnectionStrings`).</span><span class="sxs-lookup"><span data-stu-id="f7447-895">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
-* <span data-ttu-id="f7447-896">Vytvoří se nová dvojice klíč-hodnota konfigurace, která představuje poskytovatele připojení databáze (s výjimkou `CUSTOMCONNSTR_`, který nemá zadaného poskytovatele).</span><span class="sxs-lookup"><span data-stu-id="f7447-896">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
+* <span data-ttu-id="c927c-721">Konfigurační klíč se vytvoří odebráním předpony proměnné prostředí a přidáním oddílu konfiguračního klíče (`ConnectionStrings`).</span><span class="sxs-lookup"><span data-stu-id="c927c-721">The configuration key is created by removing the environment variable prefix and adding a configuration key section (`ConnectionStrings`).</span></span>
+* <span data-ttu-id="c927c-722">Vytvoří se nová dvojice klíč-hodnota konfigurace, která představuje poskytovatele připojení databáze (s výjimkou `CUSTOMCONNSTR_`, který nemá zadaného poskytovatele).</span><span class="sxs-lookup"><span data-stu-id="c927c-722">A new configuration key-value pair is created that represents the database connection provider (except for `CUSTOMCONNSTR_`, which has no stated provider).</span></span>
 
-| <span data-ttu-id="f7447-897">Klíč proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="f7447-897">Environment variable key</span></span> | <span data-ttu-id="f7447-898">Konfigurační klíč převedený na převod</span><span class="sxs-lookup"><span data-stu-id="f7447-898">Converted configuration key</span></span> | <span data-ttu-id="f7447-899">Položka konfigurace zprostředkovatele</span><span class="sxs-lookup"><span data-stu-id="f7447-899">Provider configuration entry</span></span>                                                    |
+| <span data-ttu-id="c927c-723">Klíč proměnné prostředí</span><span class="sxs-lookup"><span data-stu-id="c927c-723">Environment variable key</span></span> | <span data-ttu-id="c927c-724">Konfigurační klíč převedený na převod</span><span class="sxs-lookup"><span data-stu-id="c927c-724">Converted configuration key</span></span> | <span data-ttu-id="c927c-725">Položka konfigurace zprostředkovatele</span><span class="sxs-lookup"><span data-stu-id="c927c-725">Provider configuration entry</span></span>                                                    |
 | ------------------------ | --------------------------- | ------------------------------------------------------------------------------- |
-| `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | <span data-ttu-id="f7447-900">Položka konfigurace není vytvořená.</span><span class="sxs-lookup"><span data-stu-id="f7447-900">Configuration entry not created.</span></span>                                                |
-| `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | <span data-ttu-id="f7447-901">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="f7447-901">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="f7447-902">Hodnota: `MySql.Data.MySqlClient`</span><span class="sxs-lookup"><span data-stu-id="f7447-902">Value: `MySql.Data.MySqlClient`</span></span> |
-| `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | <span data-ttu-id="f7447-903">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="f7447-903">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="f7447-904">Hodnota: `System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="f7447-904">Value: `System.Data.SqlClient`</span></span>  |
-| `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | <span data-ttu-id="f7447-905">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="f7447-905">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="f7447-906">Hodnota: `System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="f7447-906">Value: `System.Data.SqlClient`</span></span>  |
+| `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | <span data-ttu-id="c927c-726">Položka konfigurace není vytvořená.</span><span class="sxs-lookup"><span data-stu-id="c927c-726">Configuration entry not created.</span></span>                                                |
+| `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | <span data-ttu-id="c927c-727">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="c927c-727">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="c927c-728">Hodnota: `MySql.Data.MySqlClient`</span><span class="sxs-lookup"><span data-stu-id="c927c-728">Value: `MySql.Data.MySqlClient`</span></span> |
+| `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | <span data-ttu-id="c927c-729">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="c927c-729">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="c927c-730">Hodnota: `System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="c927c-730">Value: `System.Data.SqlClient`</span></span>  |
+| `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | <span data-ttu-id="c927c-731">Klíč: `ConnectionStrings:{KEY}_ProviderName`:</span><span class="sxs-lookup"><span data-stu-id="c927c-731">Key: `ConnectionStrings:{KEY}_ProviderName`:</span></span><br><span data-ttu-id="c927c-732">Hodnota: `System.Data.SqlClient`</span><span class="sxs-lookup"><span data-stu-id="c927c-732">Value: `System.Data.SqlClient`</span></span>  |
 
-<span data-ttu-id="f7447-907">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="f7447-907">**Example**</span></span>
+<span data-ttu-id="c927c-733">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="c927c-733">**Example**</span></span>
 
-<span data-ttu-id="f7447-908">Na serveru se vytvoří proměnná prostředí vlastního připojovacího řetězce:</span><span class="sxs-lookup"><span data-stu-id="f7447-908">A custom connection string environment variable is created on the server:</span></span>
+<span data-ttu-id="c927c-734">Na serveru se vytvoří proměnná prostředí vlastního připojovacího řetězce:</span><span class="sxs-lookup"><span data-stu-id="c927c-734">A custom connection string environment variable is created on the server:</span></span>
 
-* <span data-ttu-id="f7447-909">Název &ndash; `CUSTOMCONNSTR_ReleaseDB`</span><span class="sxs-lookup"><span data-stu-id="f7447-909">Name &ndash; `CUSTOMCONNSTR_ReleaseDB`</span></span>
-* <span data-ttu-id="f7447-910">Hodnota &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span><span class="sxs-lookup"><span data-stu-id="f7447-910">Value &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span></span>
+* <span data-ttu-id="c927c-735">Název &ndash; `CUSTOMCONNSTR_ReleaseDB`</span><span class="sxs-lookup"><span data-stu-id="c927c-735">Name &ndash; `CUSTOMCONNSTR_ReleaseDB`</span></span>
+* <span data-ttu-id="c927c-736">Hodnota &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span><span class="sxs-lookup"><span data-stu-id="c927c-736">Value &ndash; `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`</span></span>
 
-<span data-ttu-id="f7447-911">Pokud je `IConfiguration` vložená a přiřazená k poli s názvem `_config`, přečtěte si hodnotu:</span><span class="sxs-lookup"><span data-stu-id="f7447-911">If `IConfiguration` is injected and assigned to a field named `_config`, read the value:</span></span>
+<span data-ttu-id="c927c-737">Pokud je `IConfiguration` vložená a přiřazená k poli s názvem `_config`, přečtěte si hodnotu:</span><span class="sxs-lookup"><span data-stu-id="c927c-737">If `IConfiguration` is injected and assigned to a field named `_config`, read the value:</span></span>
 
 ```csharp
 _config["ConnectionStrings:ReleaseDB"]
 ```
 
-## <a name="file-configuration-provider"></a><span data-ttu-id="f7447-912">Poskytovatel konfigurace souboru</span><span class="sxs-lookup"><span data-stu-id="f7447-912">File Configuration Provider</span></span>
+## <a name="file-configuration-provider"></a><span data-ttu-id="c927c-738">Poskytovatel konfigurace souboru</span><span class="sxs-lookup"><span data-stu-id="c927c-738">File Configuration Provider</span></span>
 
-<span data-ttu-id="f7447-913"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> je základní třídou pro načítání konfigurace ze systému souborů.</span><span class="sxs-lookup"><span data-stu-id="f7447-913"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="f7447-914">Následující poskytovatelé konfigurace jsou vyhrazeni pro určité typy souborů:</span><span class="sxs-lookup"><span data-stu-id="f7447-914">The following configuration providers are dedicated to specific file types:</span></span>
+<span data-ttu-id="c927c-739"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> je základní třídou pro načítání konfigurace ze systému souborů.</span><span class="sxs-lookup"><span data-stu-id="c927c-739"><xref:Microsoft.Extensions.Configuration.FileConfigurationProvider> is the base class for loading configuration from the file system.</span></span> <span data-ttu-id="c927c-740">Následující poskytovatelé konfigurace jsou vyhrazeni pro určité typy souborů:</span><span class="sxs-lookup"><span data-stu-id="c927c-740">The following configuration providers are dedicated to specific file types:</span></span>
 
-* [<span data-ttu-id="f7447-915">Poskytovatel konfigurace INI</span><span class="sxs-lookup"><span data-stu-id="f7447-915">INI Configuration Provider</span></span>](#ini-configuration-provider)
-* [<span data-ttu-id="f7447-916">Zprostředkovatel konfigurace JSON</span><span class="sxs-lookup"><span data-stu-id="f7447-916">JSON Configuration Provider</span></span>](#json-configuration-provider)
-* [<span data-ttu-id="f7447-917">Poskytovatel konfigurace XML</span><span class="sxs-lookup"><span data-stu-id="f7447-917">XML Configuration Provider</span></span>](#xml-configuration-provider)
+* [<span data-ttu-id="c927c-741">Poskytovatel konfigurace INI</span><span class="sxs-lookup"><span data-stu-id="c927c-741">INI Configuration Provider</span></span>](#ini-configuration-provider)
+* [<span data-ttu-id="c927c-742">Zprostředkovatel konfigurace JSON</span><span class="sxs-lookup"><span data-stu-id="c927c-742">JSON Configuration Provider</span></span>](#json-configuration-provider)
+* [<span data-ttu-id="c927c-743">Poskytovatel konfigurace XML</span><span class="sxs-lookup"><span data-stu-id="c927c-743">XML Configuration Provider</span></span>](#xml-configuration-provider)
 
-### <a name="ini-configuration-provider"></a><span data-ttu-id="f7447-918">Poskytovatel konfigurace INI</span><span class="sxs-lookup"><span data-stu-id="f7447-918">INI Configuration Provider</span></span>
+### <a name="ini-configuration-provider"></a><span data-ttu-id="c927c-744">Poskytovatel konfigurace INI</span><span class="sxs-lookup"><span data-stu-id="c927c-744">INI Configuration Provider</span></span>
 
-<span data-ttu-id="f7447-919"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> načte konfiguraci z párů klíč-hodnota souboru INI za běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-919">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
+<span data-ttu-id="c927c-745"><xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> načte konfiguraci z párů klíč-hodnota souboru INI za běhu.</span><span class="sxs-lookup"><span data-stu-id="c927c-745">The <xref:Microsoft.Extensions.Configuration.Ini.IniConfigurationProvider> loads configuration from INI file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="f7447-920">Chcete-li aktivovat konfiguraci souboru INI, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-920">To activate INI file configuration, call the <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-746">Chcete-li aktivovat konfiguraci souboru INI, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="c927c-746">To activate INI file configuration, call the <xref:Microsoft.Extensions.Configuration.IniConfigurationExtensions.AddIniFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="f7447-921">Dvojtečku lze použít jako oddělovač oddílů v konfiguraci souboru INI.</span><span class="sxs-lookup"><span data-stu-id="f7447-921">The colon can be used to as a section delimiter in INI file configuration.</span></span>
+<span data-ttu-id="c927c-747">Dvojtečku lze použít jako oddělovač oddílů v konfiguraci souboru INI.</span><span class="sxs-lookup"><span data-stu-id="c927c-747">The colon can be used to as a section delimiter in INI file configuration.</span></span>
 
-<span data-ttu-id="f7447-922">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="f7447-922">Overloads permit specifying:</span></span>
+<span data-ttu-id="c927c-748">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="c927c-748">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="f7447-923">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="f7447-923">Whether the file is optional.</span></span>
-* <span data-ttu-id="f7447-924">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-924">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="f7447-925"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-925">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="c927c-749">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="c927c-749">Whether the file is optional.</span></span>
+* <span data-ttu-id="c927c-750">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-750">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="c927c-751"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-751">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="f7447-926">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="f7447-926">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c927c-752">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="c927c-752">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1616,7 +1250,7 @@ _config["ConnectionStrings:ReleaseDB"]
 })
 ```
 
-<span data-ttu-id="f7447-927">Obecný příklad konfiguračního souboru INI:</span><span class="sxs-lookup"><span data-stu-id="f7447-927">A generic example of an INI configuration file:</span></span>
+<span data-ttu-id="c927c-753">Obecný příklad konfiguračního souboru INI:</span><span class="sxs-lookup"><span data-stu-id="c927c-753">A generic example of an INI configuration file:</span></span>
 
 ```ini
 [section0]
@@ -1633,42 +1267,42 @@ key=value
 key=value
 ```
 
-<span data-ttu-id="f7447-928">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="f7447-928">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c927c-754">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="c927c-754">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="f7447-929">section0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-929">section0:key0</span></span>
-* <span data-ttu-id="f7447-930">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-930">section0:key1</span></span>
-* <span data-ttu-id="f7447-931">Section1: dílčí oddíl: klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-931">section1:subsection:key</span></span>
-* <span data-ttu-id="f7447-932">section2: subsection0: klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-932">section2:subsection0:key</span></span>
-* <span data-ttu-id="f7447-933">section2: subsection1: klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-933">section2:subsection1:key</span></span>
+* <span data-ttu-id="c927c-755">section0:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-755">section0:key0</span></span>
+* <span data-ttu-id="c927c-756">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-756">section0:key1</span></span>
+* <span data-ttu-id="c927c-757">Section1: dílčí oddíl: klíč</span><span class="sxs-lookup"><span data-stu-id="c927c-757">section1:subsection:key</span></span>
+* <span data-ttu-id="c927c-758">section2: subsection0: klíč</span><span class="sxs-lookup"><span data-stu-id="c927c-758">section2:subsection0:key</span></span>
+* <span data-ttu-id="c927c-759">section2: subsection1: klíč</span><span class="sxs-lookup"><span data-stu-id="c927c-759">section2:subsection1:key</span></span>
 
-### <a name="json-configuration-provider"></a><span data-ttu-id="f7447-934">Zprostředkovatel konfigurace JSON</span><span class="sxs-lookup"><span data-stu-id="f7447-934">JSON Configuration Provider</span></span>
+### <a name="json-configuration-provider"></a><span data-ttu-id="c927c-760">Zprostředkovatel konfigurace JSON</span><span class="sxs-lookup"><span data-stu-id="c927c-760">JSON Configuration Provider</span></span>
 
-<span data-ttu-id="f7447-935"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru JSON během běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-935">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs during runtime.</span></span>
+<span data-ttu-id="c927c-761"><xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru JSON během běhu.</span><span class="sxs-lookup"><span data-stu-id="c927c-761">The <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> loads configuration from JSON file key-value pairs during runtime.</span></span>
 
-<span data-ttu-id="f7447-936">Chcete-li aktivovat konfiguraci souboru JSON, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-936">To activate JSON file configuration, call the <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-762">Chcete-li aktivovat konfiguraci souboru JSON, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="c927c-762">To activate JSON file configuration, call the <xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="f7447-937">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="f7447-937">Overloads permit specifying:</span></span>
+<span data-ttu-id="c927c-763">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="c927c-763">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="f7447-938">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="f7447-938">Whether the file is optional.</span></span>
-* <span data-ttu-id="f7447-939">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-939">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="f7447-940"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-940">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="c927c-764">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="c927c-764">Whether the file is optional.</span></span>
+* <span data-ttu-id="c927c-765">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-765">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="c927c-766"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-766">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="f7447-941">`AddJsonFile` se automaticky volá dvakrát při inicializaci nového hostitele pomocí `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-941">`AddJsonFile` is automatically called twice when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="f7447-942">Metoda je volána pro načtení konfigurace z:</span><span class="sxs-lookup"><span data-stu-id="f7447-942">The method is called to load configuration from:</span></span>
+<span data-ttu-id="c927c-767">`AddJsonFile` se automaticky volá dvakrát při inicializaci nového hostitele pomocí `CreateDefaultBuilder`.</span><span class="sxs-lookup"><span data-stu-id="c927c-767">`AddJsonFile` is automatically called twice when a new host builder is initialized with `CreateDefaultBuilder`.</span></span> <span data-ttu-id="c927c-768">Metoda je volána pro načtení konfigurace z:</span><span class="sxs-lookup"><span data-stu-id="c927c-768">The method is called to load configuration from:</span></span>
 
-* <span data-ttu-id="f7447-943">*appSettings. json* &ndash; tento soubor je nejdřív načtený.</span><span class="sxs-lookup"><span data-stu-id="f7447-943">*appsettings.json* &ndash; This file is read first.</span></span> <span data-ttu-id="f7447-944">Verze prostředí souboru může přepsat hodnoty poskytnuté souborem *appSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="f7447-944">The environment version of the file can override the values provided by the *appsettings.json* file.</span></span>
-* <span data-ttu-id="f7447-945">*appSettings. {Environment}. JSON* &ndash; verze prostředí souboru je načtená na základě rozhraní [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span><span class="sxs-lookup"><span data-stu-id="f7447-945">*appsettings.{Environment}.json* &ndash; The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span>
+* <span data-ttu-id="c927c-769">*appSettings. json* &ndash; tento soubor je nejdřív načtený.</span><span class="sxs-lookup"><span data-stu-id="c927c-769">*appsettings.json* &ndash; This file is read first.</span></span> <span data-ttu-id="c927c-770">Verze prostředí souboru může přepsat hodnoty poskytnuté souborem *appSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="c927c-770">The environment version of the file can override the values provided by the *appsettings.json* file.</span></span>
+* <span data-ttu-id="c927c-771">*appSettings. {Environment}. JSON* &ndash; verze prostředí souboru je načtená na základě rozhraní [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span><span class="sxs-lookup"><span data-stu-id="c927c-771">*appsettings.{Environment}.json* &ndash; The environment version of the file is loaded based on the [IHostingEnvironment.EnvironmentName](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).</span></span>
 
-<span data-ttu-id="f7447-946">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="f7447-946">For more information, see the [Default configuration](#default-configuration) section.</span></span>
+<span data-ttu-id="c927c-772">Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.</span><span class="sxs-lookup"><span data-stu-id="c927c-772">For more information, see the [Default configuration](#default-configuration) section.</span></span>
 
-<span data-ttu-id="f7447-947">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="f7447-947">`CreateDefaultBuilder` also loads:</span></span>
+<span data-ttu-id="c927c-773">`CreateDefaultBuilder` také načte:</span><span class="sxs-lookup"><span data-stu-id="c927c-773">`CreateDefaultBuilder` also loads:</span></span>
 
-* <span data-ttu-id="f7447-948">Proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-948">Environment variables.</span></span>
-* <span data-ttu-id="f7447-949">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-949">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
-* <span data-ttu-id="f7447-950">Argumenty příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="f7447-950">Command-line arguments.</span></span>
+* <span data-ttu-id="c927c-774">Proměnné prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-774">Environment variables.</span></span>
+* <span data-ttu-id="c927c-775">[Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-775">[User secrets (Secret Manager)](xref:security/app-secrets) in the Development environment.</span></span>
+* <span data-ttu-id="c927c-776">Argumenty příkazového řádku.</span><span class="sxs-lookup"><span data-stu-id="c927c-776">Command-line arguments.</span></span>
 
-<span data-ttu-id="f7447-951">Jako první se navázal Poskytovatel konfigurace JSON.</span><span class="sxs-lookup"><span data-stu-id="f7447-951">The JSON Configuration Provider is established first.</span></span> <span data-ttu-id="f7447-952">Proto klíče uživatele, proměnné prostředí a argumenty příkazového řádku přepíší konfiguraci nastavenou soubory *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="f7447-952">Therefore, user secrets, environment variables, and command-line arguments override configuration set by the *appsettings* files.</span></span>
+<span data-ttu-id="c927c-777">Jako první se navázal Poskytovatel konfigurace JSON.</span><span class="sxs-lookup"><span data-stu-id="c927c-777">The JSON Configuration Provider is established first.</span></span> <span data-ttu-id="c927c-778">Proto klíče uživatele, proměnné prostředí a argumenty příkazového řádku přepíší konfiguraci nastavenou soubory *appSettings* .</span><span class="sxs-lookup"><span data-stu-id="c927c-778">Therefore, user secrets, environment variables, and command-line arguments override configuration set by the *appsettings* files.</span></span>
 
-<span data-ttu-id="f7447-953">Při sestavování hostitele zavolá `ConfigureAppConfiguration`, aby se určila konfigurace aplikace pro jiné soubory než *appSettings. JSON* a *appSettings. { Prostředí}. JSON*:</span><span class="sxs-lookup"><span data-stu-id="f7447-953">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration for files other than *appsettings.json* and *appsettings.{Environment}.json*:</span></span>
+<span data-ttu-id="c927c-779">Při sestavování hostitele zavolá `ConfigureAppConfiguration`, aby se určila konfigurace aplikace pro jiné soubory než *appSettings. JSON* a *appSettings. { Prostředí}. JSON*:</span><span class="sxs-lookup"><span data-stu-id="c927c-779">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration for files other than *appsettings.json* and *appsettings.{Environment}.json*:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1678,41 +1312,41 @@ key=value
 })
 ```
 
-<span data-ttu-id="f7447-954">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="f7447-954">**Example**</span></span>
+<span data-ttu-id="c927c-780">**Příklad**</span><span class="sxs-lookup"><span data-stu-id="c927c-780">**Example**</span></span>
 
-<span data-ttu-id="f7447-955">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, což zahrnuje dvě volání `AddJsonFile`:</span><span class="sxs-lookup"><span data-stu-id="f7447-955">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes two calls to `AddJsonFile`:</span></span>
+<span data-ttu-id="c927c-781">Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, což zahrnuje dvě volání `AddJsonFile`:</span><span class="sxs-lookup"><span data-stu-id="c927c-781">The sample app takes advantage of the static convenience method `CreateDefaultBuilder` to build the host, which includes two calls to `AddJsonFile`:</span></span>
 
-* <span data-ttu-id="f7447-956">První volání `AddJsonFile` načte konfiguraci z *appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="f7447-956">The first call to `AddJsonFile` loads configuration from *appsettings.json*:</span></span>
+* <span data-ttu-id="c927c-782">První volání `AddJsonFile` načte konfiguraci z *appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="c927c-782">The first call to `AddJsonFile` loads configuration from *appsettings.json*:</span></span>
 
   [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.json)]
 
-* <span data-ttu-id="f7447-957">Druhé volání `AddJsonFile` načte konfiguraci z *appSettings. { Environment}. JSON*.</span><span class="sxs-lookup"><span data-stu-id="f7447-957">The second call to `AddJsonFile` loads configuration from *appsettings.{Environment}.json*.</span></span> <span data-ttu-id="f7447-958">Pro *appSettings. Vývoj. JSON* v ukázkové aplikaci je načtený následující soubor:</span><span class="sxs-lookup"><span data-stu-id="f7447-958">For *appsettings.Development.json* in the sample app, the following file is loaded:</span></span>
+* <span data-ttu-id="c927c-783">Druhé volání `AddJsonFile` načte konfiguraci z *appSettings. { Environment}. JSON*.</span><span class="sxs-lookup"><span data-stu-id="c927c-783">The second call to `AddJsonFile` loads configuration from *appsettings.{Environment}.json*.</span></span> <span data-ttu-id="c927c-784">Pro *appSettings. Vývoj. JSON* v ukázkové aplikaci je načtený následující soubor:</span><span class="sxs-lookup"><span data-stu-id="c927c-784">For *appsettings.Development.json* in the sample app, the following file is loaded:</span></span>
 
   [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.Development.json)]
 
-1. <span data-ttu-id="f7447-959">Spuštění ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-959">Run the sample app.</span></span> <span data-ttu-id="f7447-960">Otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="f7447-960">Open a browser to the app at `http://localhost:5000`.</span></span>
-1. <span data-ttu-id="f7447-961">Výstup obsahuje páry klíč-hodnota pro konfiguraci na základě prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-961">The output contains key-value pairs for the configuration based on the app's environment.</span></span> <span data-ttu-id="f7447-962">Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Debug` při spuštění aplikace ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-962">The log level for the key `Logging:LogLevel:Default` is `Debug` when running the app in the Development environment.</span></span>
-1. <span data-ttu-id="f7447-963">Znovu spusťte ukázkovou aplikaci v produkčním prostředí:</span><span class="sxs-lookup"><span data-stu-id="f7447-963">Run the sample app again in the Production environment:</span></span>
-   1. <span data-ttu-id="f7447-964">Otevřete soubor *Properties/launchSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="f7447-964">Open the *Properties/launchSettings.json* file.</span></span>
-   1. <span data-ttu-id="f7447-965">V profilu `ConfigurationSample` změňte hodnotu proměnné prostředí `ASPNETCORE_ENVIRONMENT` na `Production`.</span><span class="sxs-lookup"><span data-stu-id="f7447-965">In the `ConfigurationSample` profile, change the value of the `ASPNETCORE_ENVIRONMENT` environment variable to `Production`.</span></span>
-   1. <span data-ttu-id="f7447-966">Uložte soubor a spusťte aplikaci pomocí `dotnet run` v příkazovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="f7447-966">Save the file and run the app with `dotnet run` in a command shell.</span></span>
-1. <span data-ttu-id="f7447-967">Nastavení v souboru *appSettings. Vývoj. JSON* již nepřepisuje nastavení v souboru *appSettings. JSON*.</span><span class="sxs-lookup"><span data-stu-id="f7447-967">The settings in the *appsettings.Development.json* no longer override the settings in *appsettings.json*.</span></span> <span data-ttu-id="f7447-968">Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Warning`.</span><span class="sxs-lookup"><span data-stu-id="f7447-968">The log level for the key `Logging:LogLevel:Default` is `Warning`.</span></span>
+1. <span data-ttu-id="c927c-785">Spuštění ukázkové aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-785">Run the sample app.</span></span> <span data-ttu-id="c927c-786">Otevřete v aplikaci prohlížeč na `http://localhost:5000`.</span><span class="sxs-lookup"><span data-stu-id="c927c-786">Open a browser to the app at `http://localhost:5000`.</span></span>
+1. <span data-ttu-id="c927c-787">Výstup obsahuje páry klíč-hodnota pro konfiguraci na základě prostředí aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-787">The output contains key-value pairs for the configuration based on the app's environment.</span></span> <span data-ttu-id="c927c-788">Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Debug` při spuštění aplikace ve vývojovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-788">The log level for the key `Logging:LogLevel:Default` is `Debug` when running the app in the Development environment.</span></span>
+1. <span data-ttu-id="c927c-789">Znovu spusťte ukázkovou aplikaci v produkčním prostředí:</span><span class="sxs-lookup"><span data-stu-id="c927c-789">Run the sample app again in the Production environment:</span></span>
+   1. <span data-ttu-id="c927c-790">Otevřete soubor *Properties/launchSettings. JSON* .</span><span class="sxs-lookup"><span data-stu-id="c927c-790">Open the *Properties/launchSettings.json* file.</span></span>
+   1. <span data-ttu-id="c927c-791">V profilu `ConfigurationSample` změňte hodnotu proměnné prostředí `ASPNETCORE_ENVIRONMENT` na `Production`.</span><span class="sxs-lookup"><span data-stu-id="c927c-791">In the `ConfigurationSample` profile, change the value of the `ASPNETCORE_ENVIRONMENT` environment variable to `Production`.</span></span>
+   1. <span data-ttu-id="c927c-792">Uložte soubor a spusťte aplikaci pomocí `dotnet run` v příkazovém prostředí.</span><span class="sxs-lookup"><span data-stu-id="c927c-792">Save the file and run the app with `dotnet run` in a command shell.</span></span>
+1. <span data-ttu-id="c927c-793">Nastavení v souboru *appSettings. Vývoj. JSON* již nepřepisuje nastavení v souboru *appSettings. JSON*.</span><span class="sxs-lookup"><span data-stu-id="c927c-793">The settings in the *appsettings.Development.json* no longer override the settings in *appsettings.json*.</span></span> <span data-ttu-id="c927c-794">Úroveň protokolu pro Key `Logging:LogLevel:Default` je `Warning`.</span><span class="sxs-lookup"><span data-stu-id="c927c-794">The log level for the key `Logging:LogLevel:Default` is `Warning`.</span></span>
 
-### <a name="xml-configuration-provider"></a><span data-ttu-id="f7447-969">Poskytovatel konfigurace XML</span><span class="sxs-lookup"><span data-stu-id="f7447-969">XML Configuration Provider</span></span>
+### <a name="xml-configuration-provider"></a><span data-ttu-id="c927c-795">Poskytovatel konfigurace XML</span><span class="sxs-lookup"><span data-stu-id="c927c-795">XML Configuration Provider</span></span>
 
-<span data-ttu-id="f7447-970"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru XML za běhu.</span><span class="sxs-lookup"><span data-stu-id="f7447-970">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
+<span data-ttu-id="c927c-796"><xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> načítá konfiguraci z párů klíč-hodnota souboru XML za běhu.</span><span class="sxs-lookup"><span data-stu-id="c927c-796">The <xref:Microsoft.Extensions.Configuration.Xml.XmlConfigurationProvider> loads configuration from XML file key-value pairs at runtime.</span></span>
 
-<span data-ttu-id="f7447-971">Chcete-li aktivovat konfiguraci souboru XML, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-971">To activate XML file configuration, call the <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-797">Chcete-li aktivovat konfiguraci souboru XML, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="c927c-797">To activate XML file configuration, call the <xref:Microsoft.Extensions.Configuration.XmlConfigurationExtensions.AddXmlFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="f7447-972">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="f7447-972">Overloads permit specifying:</span></span>
+<span data-ttu-id="c927c-798">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="c927c-798">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="f7447-973">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="f7447-973">Whether the file is optional.</span></span>
-* <span data-ttu-id="f7447-974">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-974">Whether the configuration is reloaded if the file changes.</span></span>
-* <span data-ttu-id="f7447-975"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-975">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
+* <span data-ttu-id="c927c-799">Zda je soubor nepovinný.</span><span class="sxs-lookup"><span data-stu-id="c927c-799">Whether the file is optional.</span></span>
+* <span data-ttu-id="c927c-800">Určuje, zda je konfigurace znovu načtena v případě, že dojde ke změně souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-800">Whether the configuration is reloaded if the file changes.</span></span>
+* <span data-ttu-id="c927c-801"><xref:Microsoft.Extensions.FileProviders.IFileProvider>, který se používá pro přístup k souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-801">The <xref:Microsoft.Extensions.FileProviders.IFileProvider> used to access the file.</span></span>
 
-<span data-ttu-id="f7447-976">Kořenový uzel konfiguračního souboru je ignorován, pokud jsou vytvořeny páry klíč-hodnota konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-976">The root node of the configuration file is ignored when the configuration key-value pairs are created.</span></span> <span data-ttu-id="f7447-977">Nezadávejte definici typu dokumentu (DTD) nebo obor názvů v souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-977">Don't specify a Document Type Definition (DTD) or namespace in the file.</span></span>
+<span data-ttu-id="c927c-802">Kořenový uzel konfiguračního souboru je ignorován, pokud jsou vytvořeny páry klíč-hodnota konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-802">The root node of the configuration file is ignored when the configuration key-value pairs are created.</span></span> <span data-ttu-id="c927c-803">Nezadávejte definici typu dokumentu (DTD) nebo obor názvů v souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-803">Don't specify a Document Type Definition (DTD) or namespace in the file.</span></span>
 
-<span data-ttu-id="f7447-978">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="f7447-978">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c927c-804">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="c927c-804">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1722,7 +1356,7 @@ key=value
 })
 ```
 
-<span data-ttu-id="f7447-979">Konfigurační soubory XML mohou používat odlišné názvy elementů pro opakující se oddíly:</span><span class="sxs-lookup"><span data-stu-id="f7447-979">XML configuration files can use distinct element names for repeating sections:</span></span>
+<span data-ttu-id="c927c-805">Konfigurační soubory XML mohou používat odlišné názvy elementů pro opakující se oddíly:</span><span class="sxs-lookup"><span data-stu-id="c927c-805">XML configuration files can use distinct element names for repeating sections:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1738,14 +1372,14 @@ key=value
 </configuration>
 ```
 
-<span data-ttu-id="f7447-980">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="f7447-980">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c927c-806">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="c927c-806">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="f7447-981">section0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-981">section0:key0</span></span>
-* <span data-ttu-id="f7447-982">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-982">section0:key1</span></span>
-* <span data-ttu-id="f7447-983">section1:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-983">section1:key0</span></span>
-* <span data-ttu-id="f7447-984">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-984">section1:key1</span></span>
+* <span data-ttu-id="c927c-807">section0:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-807">section0:key0</span></span>
+* <span data-ttu-id="c927c-808">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-808">section0:key1</span></span>
+* <span data-ttu-id="c927c-809">section1:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-809">section1:key0</span></span>
+* <span data-ttu-id="c927c-810">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-810">section1:key1</span></span>
 
-<span data-ttu-id="f7447-985">Opakující se prvky, které používají stejný název elementu fungují, pokud atribut `name` slouží k rozlišení prvků:</span><span class="sxs-lookup"><span data-stu-id="f7447-985">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
+<span data-ttu-id="c927c-811">Opakující se prvky, které používají stejný název elementu fungují, pokud atribut `name` slouží k rozlišení prvků:</span><span class="sxs-lookup"><span data-stu-id="c927c-811">Repeating elements that use the same element name work if the `name` attribute is used to distinguish the elements:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1761,14 +1395,14 @@ key=value
 </configuration>
 ```
 
-<span data-ttu-id="f7447-986">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="f7447-986">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c927c-812">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="c927c-812">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="f7447-987">section:section0:key:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-987">section:section0:key:key0</span></span>
-* <span data-ttu-id="f7447-988">section:section0:key:key1</span><span class="sxs-lookup"><span data-stu-id="f7447-988">section:section0:key:key1</span></span>
-* <span data-ttu-id="f7447-989">section:section1:key:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-989">section:section1:key:key0</span></span>
-* <span data-ttu-id="f7447-990">oddíl: Section1: Key: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-990">section:section1:key:key1</span></span>
+* <span data-ttu-id="c927c-813">section:section0:key:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-813">section:section0:key:key0</span></span>
+* <span data-ttu-id="c927c-814">section:section0:key:key1</span><span class="sxs-lookup"><span data-stu-id="c927c-814">section:section0:key:key1</span></span>
+* <span data-ttu-id="c927c-815">section:section1:key:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-815">section:section1:key:key0</span></span>
+* <span data-ttu-id="c927c-816">oddíl: Section1: Key: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-816">section:section1:key:key1</span></span>
 
-<span data-ttu-id="f7447-991">Atributy lze použít k zadávání hodnot:</span><span class="sxs-lookup"><span data-stu-id="f7447-991">Attributes can be used to supply values:</span></span>
+<span data-ttu-id="c927c-817">Atributy lze použít k zadávání hodnot:</span><span class="sxs-lookup"><span data-stu-id="c927c-817">Attributes can be used to supply values:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1780,25 +1414,25 @@ key=value
 </configuration>
 ```
 
-<span data-ttu-id="f7447-992">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="f7447-992">The previous configuration file loads the following keys with `value`:</span></span>
+<span data-ttu-id="c927c-818">Předchozí konfigurační soubor načte následující klíče pomocí `value`:</span><span class="sxs-lookup"><span data-stu-id="c927c-818">The previous configuration file loads the following keys with `value`:</span></span>
 
-* <span data-ttu-id="f7447-993">Key: – atribut</span><span class="sxs-lookup"><span data-stu-id="f7447-993">key:attribute</span></span>
-* <span data-ttu-id="f7447-994">oddíl: klíč: atribut</span><span class="sxs-lookup"><span data-stu-id="f7447-994">section:key:attribute</span></span>
+* <span data-ttu-id="c927c-819">Key: – atribut</span><span class="sxs-lookup"><span data-stu-id="c927c-819">key:attribute</span></span>
+* <span data-ttu-id="c927c-820">oddíl: klíč: atribut</span><span class="sxs-lookup"><span data-stu-id="c927c-820">section:key:attribute</span></span>
 
-## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="f7447-995">Poskytovatel konfigurace klíče na soubor</span><span class="sxs-lookup"><span data-stu-id="f7447-995">Key-per-file Configuration Provider</span></span>
+## <a name="key-per-file-configuration-provider"></a><span data-ttu-id="c927c-821">Poskytovatel konfigurace klíče na soubor</span><span class="sxs-lookup"><span data-stu-id="c927c-821">Key-per-file Configuration Provider</span></span>
 
-<span data-ttu-id="f7447-996"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> používá soubory adresáře jako konfigurační páry klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="f7447-996">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="f7447-997">Klíč je název souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-997">The key is the file name.</span></span> <span data-ttu-id="f7447-998">Hodnota obsahuje obsah souboru.</span><span class="sxs-lookup"><span data-stu-id="f7447-998">The value contains the file's contents.</span></span> <span data-ttu-id="f7447-999">Poskytovatel konfigurace klíče na soubor se používá ve scénářích hostování Docker.</span><span class="sxs-lookup"><span data-stu-id="f7447-999">The Key-per-file Configuration Provider is used in Docker hosting scenarios.</span></span>
+<span data-ttu-id="c927c-822"><xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> používá soubory adresáře jako konfigurační páry klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="c927c-822">The <xref:Microsoft.Extensions.Configuration.KeyPerFile.KeyPerFileConfigurationProvider> uses a directory's files as configuration key-value pairs.</span></span> <span data-ttu-id="c927c-823">Klíč je název souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-823">The key is the file name.</span></span> <span data-ttu-id="c927c-824">Hodnota obsahuje obsah souboru.</span><span class="sxs-lookup"><span data-stu-id="c927c-824">The value contains the file's contents.</span></span> <span data-ttu-id="c927c-825">Poskytovatel konfigurace klíče na soubor se používá ve scénářích hostování Docker.</span><span class="sxs-lookup"><span data-stu-id="c927c-825">The Key-per-file Configuration Provider is used in Docker hosting scenarios.</span></span>
 
-<span data-ttu-id="f7447-1000">Chcete-li aktivovat konfiguraci klíče na soubor, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-1000">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="f7447-1001">`directoryPath` souborů musí být absolutní cesta.</span><span class="sxs-lookup"><span data-stu-id="f7447-1001">The `directoryPath` to the files must be an absolute path.</span></span>
+<span data-ttu-id="c927c-826">Chcete-li aktivovat konfiguraci klíče na soubor, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="c927c-826">To activate key-per-file configuration, call the <xref:Microsoft.Extensions.Configuration.KeyPerFileConfigurationBuilderExtensions.AddKeyPerFile*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span> <span data-ttu-id="c927c-827">`directoryPath` souborů musí být absolutní cesta.</span><span class="sxs-lookup"><span data-stu-id="c927c-827">The `directoryPath` to the files must be an absolute path.</span></span>
 
-<span data-ttu-id="f7447-1002">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="f7447-1002">Overloads permit specifying:</span></span>
+<span data-ttu-id="c927c-828">Přetížení umožňují zadat:</span><span class="sxs-lookup"><span data-stu-id="c927c-828">Overloads permit specifying:</span></span>
 
-* <span data-ttu-id="f7447-1003">Delegát `Action<KeyPerFileConfigurationSource>`, který konfiguruje zdroj.</span><span class="sxs-lookup"><span data-stu-id="f7447-1003">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
-* <span data-ttu-id="f7447-1004">Zda je adresář nepovinný a cesta k adresáři.</span><span class="sxs-lookup"><span data-stu-id="f7447-1004">Whether the directory is optional and the path to the directory.</span></span>
+* <span data-ttu-id="c927c-829">Delegát `Action<KeyPerFileConfigurationSource>`, který konfiguruje zdroj.</span><span class="sxs-lookup"><span data-stu-id="c927c-829">An `Action<KeyPerFileConfigurationSource>` delegate that configures the source.</span></span>
+* <span data-ttu-id="c927c-830">Zda je adresář nepovinný a cesta k adresáři.</span><span class="sxs-lookup"><span data-stu-id="c927c-830">Whether the directory is optional and the path to the directory.</span></span>
 
-<span data-ttu-id="f7447-1005">Dvojité podtržítko (`__`) se používá jako oddělovač konfiguračního klíče v názvech souborů.</span><span class="sxs-lookup"><span data-stu-id="f7447-1005">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="f7447-1006">Například název souboru `Logging__LogLevel__System` vytvoří konfigurační klíč `Logging:LogLevel:System`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1006">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
+<span data-ttu-id="c927c-831">Dvojité podtržítko (`__`) se používá jako oddělovač konfiguračního klíče v názvech souborů.</span><span class="sxs-lookup"><span data-stu-id="c927c-831">The double-underscore (`__`) is used as a configuration key delimiter in file names.</span></span> <span data-ttu-id="c927c-832">Například název souboru `Logging__LogLevel__System` vytvoří konfigurační klíč `Logging:LogLevel:System`.</span><span class="sxs-lookup"><span data-stu-id="c927c-832">For example, the file name `Logging__LogLevel__System` produces the configuration key `Logging:LogLevel:System`.</span></span>
 
-<span data-ttu-id="f7447-1007">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="f7447-1007">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
+<span data-ttu-id="c927c-833">Při sestavování hostitele, který určuje konfiguraci aplikace, volejte `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="c927c-833">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1809,17 +1443,17 @@ key=value
 })
 ```
 
-## <a name="memory-configuration-provider"></a><span data-ttu-id="f7447-1008">Poskytovatel konfigurace paměti</span><span class="sxs-lookup"><span data-stu-id="f7447-1008">Memory Configuration Provider</span></span>
+## <a name="memory-configuration-provider"></a><span data-ttu-id="c927c-834">Poskytovatel konfigurace paměti</span><span class="sxs-lookup"><span data-stu-id="c927c-834">Memory Configuration Provider</span></span>
 
-<span data-ttu-id="f7447-1009"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> používá kolekci v paměti jako konfigurační páry klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="f7447-1009">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
+<span data-ttu-id="c927c-835"><xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> používá kolekci v paměti jako konfigurační páry klíč-hodnota.</span><span class="sxs-lookup"><span data-stu-id="c927c-835">The <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationProvider> uses an in-memory collection as configuration key-value pairs.</span></span>
 
-<span data-ttu-id="f7447-1010">Chcete-li aktivovat konfiguraci kolekce v paměti, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="f7447-1010">To activate in-memory collection configuration, call the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
+<span data-ttu-id="c927c-836">Chcete-li aktivovat konfiguraci kolekce v paměti, zavolejte metodu rozšíření <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> v instanci <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span><span class="sxs-lookup"><span data-stu-id="c927c-836">To activate in-memory collection configuration, call the <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> extension method on an instance of <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder>.</span></span>
 
-<span data-ttu-id="f7447-1011">Zprostředkovatele konfigurace lze inicializovat pomocí `IEnumerable<KeyValuePair<String,String>>`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1011">The configuration provider can be initialized with an `IEnumerable<KeyValuePair<String,String>>`.</span></span>
+<span data-ttu-id="c927c-837">Zprostředkovatele konfigurace lze inicializovat pomocí `IEnumerable<KeyValuePair<String,String>>`.</span><span class="sxs-lookup"><span data-stu-id="c927c-837">The configuration provider can be initialized with an `IEnumerable<KeyValuePair<String,String>>`.</span></span>
 
-<span data-ttu-id="f7447-1012">Při sestavování hostitele k určení konfigurace aplikace volejte `ConfigureAppConfiguration`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1012">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration.</span></span>
+<span data-ttu-id="c927c-838">Při sestavování hostitele k určení konfigurace aplikace volejte `ConfigureAppConfiguration`.</span><span class="sxs-lookup"><span data-stu-id="c927c-838">Call `ConfigureAppConfiguration` when building the host to specify the app's configuration.</span></span>
 
-<span data-ttu-id="f7447-1013">V následujícím příkladu je vytvořen konfigurační slovník:</span><span class="sxs-lookup"><span data-stu-id="f7447-1013">In the following example, a configuration dictionary is created:</span></span>
+<span data-ttu-id="c927c-839">V následujícím příkladu je vytvořen konfigurační slovník:</span><span class="sxs-lookup"><span data-stu-id="c927c-839">In the following example, a configuration dictionary is created:</span></span>
 
 ```csharp
 public static readonly Dictionary<string, string> _dict = 
@@ -1830,7 +1464,7 @@ public static readonly Dictionary<string, string> _dict =
     };
 ```
 
-<span data-ttu-id="f7447-1014">Slovník se používá s voláním `AddInMemoryCollection` k poskytnutí konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-1014">The dictionary is used with a call to `AddInMemoryCollection` to provide the configuration:</span></span>
+<span data-ttu-id="c927c-840">Slovník se používá s voláním `AddInMemoryCollection` k poskytnutí konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-840">The dictionary is used with a call to `AddInMemoryCollection` to provide the configuration:</span></span>
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1839,15 +1473,15 @@ public static readonly Dictionary<string, string> _dict =
 })
 ```
 
-## <a name="getvalue"></a><span data-ttu-id="f7447-1015">GetValue</span><span class="sxs-lookup"><span data-stu-id="f7447-1015">GetValue</span></span>
+## <a name="getvalue"></a><span data-ttu-id="c927c-841">GetValue</span><span class="sxs-lookup"><span data-stu-id="c927c-841">GetValue</span></span>
 
-<span data-ttu-id="f7447-1016">[ConfigurationBinder. GetValue\<t >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ nekolekce.</span><span class="sxs-lookup"><span data-stu-id="f7447-1016">[ConfigurationBinder.GetValue\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a single value from configuration with a specified key and converts it to the specified noncollection type.</span></span> <span data-ttu-id="f7447-1017">Přetížení přijímá výchozí hodnotu.</span><span class="sxs-lookup"><span data-stu-id="f7447-1017">An overload accepts a default value.</span></span>
+<span data-ttu-id="c927c-842">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extrahuje jednu hodnotu z konfigurace se zadaným klíčem a převede ji na zadaný typ nekolekce.</span><span class="sxs-lookup"><span data-stu-id="c927c-842">[`ConfigurationBinder.GetValue<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue*) extracts a single value from configuration with a specified key and converts it to the specified noncollection type.</span></span> <span data-ttu-id="c927c-843">Přetížení přijímá výchozí hodnotu.</span><span class="sxs-lookup"><span data-stu-id="c927c-843">An overload accepts a default value.</span></span>
 
-<span data-ttu-id="f7447-1018">Následující příklad:</span><span class="sxs-lookup"><span data-stu-id="f7447-1018">The following example:</span></span>
+<span data-ttu-id="c927c-844">Následující příklad:</span><span class="sxs-lookup"><span data-stu-id="c927c-844">The following example:</span></span>
 
-* <span data-ttu-id="f7447-1019">Extrahuje hodnotu řetězce z konfigurace pomocí klíče `NumberKey`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1019">Extracts the string value from configuration with the key `NumberKey`.</span></span> <span data-ttu-id="f7447-1020">Pokud se v konfiguračních klíčích `NumberKey` nenajde, použije se výchozí hodnota `99`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1020">If `NumberKey` isn't found in the configuration keys, the default value of `99` is used.</span></span>
-* <span data-ttu-id="f7447-1021">Zadá hodnotu jako `int`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1021">Types the value as an `int`.</span></span>
-* <span data-ttu-id="f7447-1022">Ukládá hodnotu vlastnosti `NumberConfig` pro použití stránkou.</span><span class="sxs-lookup"><span data-stu-id="f7447-1022">Stores the value in the `NumberConfig` property for use by the page.</span></span>
+* <span data-ttu-id="c927c-845">Extrahuje hodnotu řetězce z konfigurace pomocí klíče `NumberKey`.</span><span class="sxs-lookup"><span data-stu-id="c927c-845">Extracts the string value from configuration with the key `NumberKey`.</span></span> <span data-ttu-id="c927c-846">Pokud se v konfiguračních klíčích `NumberKey` nenajde, použije se výchozí hodnota `99`.</span><span class="sxs-lookup"><span data-stu-id="c927c-846">If `NumberKey` isn't found in the configuration keys, the default value of `99` is used.</span></span>
+* <span data-ttu-id="c927c-847">Zadá hodnotu jako `int`.</span><span class="sxs-lookup"><span data-stu-id="c927c-847">Types the value as an `int`.</span></span>
+* <span data-ttu-id="c927c-848">Ukládá hodnotu vlastnosti `NumberConfig` pro použití stránkou.</span><span class="sxs-lookup"><span data-stu-id="c927c-848">Stores the value in the `NumberConfig` property for use by the page.</span></span>
 
 ```csharp
 public class IndexModel : PageModel
@@ -1866,9 +1500,9 @@ public class IndexModel : PageModel
 }
 ```
 
-## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="f7447-1023">GetSection, GetChildren a Exists</span><span class="sxs-lookup"><span data-stu-id="f7447-1023">GetSection, GetChildren, and Exists</span></span>
+## <a name="getsection-getchildren-and-exists"></a><span data-ttu-id="c927c-849">GetSection, GetChildren a Exists</span><span class="sxs-lookup"><span data-stu-id="c927c-849">GetSection, GetChildren, and Exists</span></span>
 
-<span data-ttu-id="f7447-1024">V následujících příkladech zvažte následující soubor JSON.</span><span class="sxs-lookup"><span data-stu-id="f7447-1024">For the examples that follow, consider the following JSON file.</span></span> <span data-ttu-id="f7447-1025">Čtyři klíče se nacházejí ve dvou oddílech, z nichž jeden obsahuje dvojici dílčích částí:</span><span class="sxs-lookup"><span data-stu-id="f7447-1025">Four keys are found across two sections, one of which includes a pair of subsections:</span></span>
+<span data-ttu-id="c927c-850">V následujících příkladech zvažte následující soubor JSON.</span><span class="sxs-lookup"><span data-stu-id="c927c-850">For the examples that follow, consider the following JSON file.</span></span> <span data-ttu-id="c927c-851">Čtyři klíče se nacházejí ve dvou oddílech, z nichž jeden obsahuje dvojici dílčích částí:</span><span class="sxs-lookup"><span data-stu-id="c927c-851">Four keys are found across two sections, one of which includes a pair of subsections:</span></span>
 
 ```json
 {
@@ -1893,42 +1527,42 @@ public class IndexModel : PageModel
 }
 ```
 
-<span data-ttu-id="f7447-1026">Když je soubor čten do konfigurace, vytvoří se následující jedinečné hierarchické klíče, které budou obsahovat hodnoty konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-1026">When the file is read into configuration, the following unique hierarchical keys are created to hold the configuration values:</span></span>
+<span data-ttu-id="c927c-852">Když je soubor čten do konfigurace, vytvoří se následující jedinečné hierarchické klíče, které budou obsahovat hodnoty konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-852">When the file is read into configuration, the following unique hierarchical keys are created to hold the configuration values:</span></span>
 
-* <span data-ttu-id="f7447-1027">section0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-1027">section0:key0</span></span>
-* <span data-ttu-id="f7447-1028">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-1028">section0:key1</span></span>
-* <span data-ttu-id="f7447-1029">section1:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-1029">section1:key0</span></span>
-* <span data-ttu-id="f7447-1030">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-1030">section1:key1</span></span>
-* <span data-ttu-id="f7447-1031">section2:subsection0:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-1031">section2:subsection0:key0</span></span>
-* <span data-ttu-id="f7447-1032">section2: subsection0: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-1032">section2:subsection0:key1</span></span>
-* <span data-ttu-id="f7447-1033">section2:subsection1:key0</span><span class="sxs-lookup"><span data-stu-id="f7447-1033">section2:subsection1:key0</span></span>
-* <span data-ttu-id="f7447-1034">section2: subsection1: klíč1</span><span class="sxs-lookup"><span data-stu-id="f7447-1034">section2:subsection1:key1</span></span>
+* <span data-ttu-id="c927c-853">section0:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-853">section0:key0</span></span>
+* <span data-ttu-id="c927c-854">section0: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-854">section0:key1</span></span>
+* <span data-ttu-id="c927c-855">section1:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-855">section1:key0</span></span>
+* <span data-ttu-id="c927c-856">Section1: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-856">section1:key1</span></span>
+* <span data-ttu-id="c927c-857">section2:subsection0:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-857">section2:subsection0:key0</span></span>
+* <span data-ttu-id="c927c-858">section2: subsection0: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-858">section2:subsection0:key1</span></span>
+* <span data-ttu-id="c927c-859">section2:subsection1:key0</span><span class="sxs-lookup"><span data-stu-id="c927c-859">section2:subsection1:key0</span></span>
+* <span data-ttu-id="c927c-860">section2: subsection1: klíč1</span><span class="sxs-lookup"><span data-stu-id="c927c-860">section2:subsection1:key1</span></span>
 
-### <a name="getsection"></a><span data-ttu-id="f7447-1035">GetSection</span><span class="sxs-lookup"><span data-stu-id="f7447-1035">GetSection</span></span>
+### <a name="getsection"></a><span data-ttu-id="c927c-861">GetSection</span><span class="sxs-lookup"><span data-stu-id="c927c-861">GetSection</span></span>
 
-<span data-ttu-id="f7447-1036">[IConfiguration. GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extrahuje pododdíl konfigurace se zadaným klíčem dílčího oddílu.</span><span class="sxs-lookup"><span data-stu-id="f7447-1036">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extracts a configuration subsection with the specified subsection key.</span></span>
+<span data-ttu-id="c927c-862">[IConfiguration. GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extrahuje pododdíl konfigurace se zadaným klíčem dílčího oddílu.</span><span class="sxs-lookup"><span data-stu-id="c927c-862">[IConfiguration.GetSection](xref:Microsoft.Extensions.Configuration.IConfiguration.GetSection*) extracts a configuration subsection with the specified subsection key.</span></span>
 
-<span data-ttu-id="f7447-1037">Chcete-li vrátit <xref:Microsoft.Extensions.Configuration.IConfigurationSection> obsahující pouze páry klíč-hodnota v `section1`, zavolejte `GetSection` a zadejte název oddílu:</span><span class="sxs-lookup"><span data-stu-id="f7447-1037">To return an <xref:Microsoft.Extensions.Configuration.IConfigurationSection> containing only the key-value pairs in `section1`, call `GetSection` and supply the section name:</span></span>
+<span data-ttu-id="c927c-863">Chcete-li vrátit <xref:Microsoft.Extensions.Configuration.IConfigurationSection> obsahující pouze páry klíč-hodnota v `section1`, zavolejte `GetSection` a zadejte název oddílu:</span><span class="sxs-lookup"><span data-stu-id="c927c-863">To return an <xref:Microsoft.Extensions.Configuration.IConfigurationSection> containing only the key-value pairs in `section1`, call `GetSection` and supply the section name:</span></span>
 
 ```csharp
 var configSection = _config.GetSection("section1");
 ```
 
-<span data-ttu-id="f7447-1038">`configSection` nemá hodnotu, jenom klíč a cestu.</span><span class="sxs-lookup"><span data-stu-id="f7447-1038">The `configSection` doesn't have a value, only a key and a path.</span></span>
+<span data-ttu-id="c927c-864">`configSection` nemá hodnotu, jenom klíč a cestu.</span><span class="sxs-lookup"><span data-stu-id="c927c-864">The `configSection` doesn't have a value, only a key and a path.</span></span>
 
-<span data-ttu-id="f7447-1039">Podobně pokud chcete získat hodnoty pro klíče v `section2:subsection0`, zavolejte `GetSection` a zadejte cestu k oddílu:</span><span class="sxs-lookup"><span data-stu-id="f7447-1039">Similarly, to obtain the values for keys in `section2:subsection0`, call `GetSection` and supply the section path:</span></span>
+<span data-ttu-id="c927c-865">Podobně pokud chcete získat hodnoty pro klíče v `section2:subsection0`, zavolejte `GetSection` a zadejte cestu k oddílu:</span><span class="sxs-lookup"><span data-stu-id="c927c-865">Similarly, to obtain the values for keys in `section2:subsection0`, call `GetSection` and supply the section path:</span></span>
 
 ```csharp
 var configSection = _config.GetSection("section2:subsection0");
 ```
 
-<span data-ttu-id="f7447-1040">`GetSection` nikdy nevrátí `null`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1040">`GetSection` never returns `null`.</span></span> <span data-ttu-id="f7447-1041">Pokud se nenalezne shodný oddíl, vrátí se prázdná `IConfigurationSection`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1041">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
+<span data-ttu-id="c927c-866">`GetSection` nikdy nevrátí `null`.</span><span class="sxs-lookup"><span data-stu-id="c927c-866">`GetSection` never returns `null`.</span></span> <span data-ttu-id="c927c-867">Pokud se nenalezne shodný oddíl, vrátí se prázdná `IConfigurationSection`.</span><span class="sxs-lookup"><span data-stu-id="c927c-867">If a matching section isn't found, an empty `IConfigurationSection` is returned.</span></span>
 
-<span data-ttu-id="f7447-1042">Když `GetSection` vrátí vyhovující oddíl, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> se nezadá.</span><span class="sxs-lookup"><span data-stu-id="f7447-1042">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="f7447-1043">Když oddíl existuje, vrátí se <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> a <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path>.</span><span class="sxs-lookup"><span data-stu-id="f7447-1043">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
+<span data-ttu-id="c927c-868">Když `GetSection` vrátí vyhovující oddíl, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> se nezadá.</span><span class="sxs-lookup"><span data-stu-id="c927c-868">When `GetSection` returns a matching section, <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Value> isn't populated.</span></span> <span data-ttu-id="c927c-869">Když oddíl existuje, vrátí se <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> a <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path>.</span><span class="sxs-lookup"><span data-stu-id="c927c-869">A <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Key> and <xref:Microsoft.Extensions.Configuration.IConfigurationSection.Path> are returned when the section exists.</span></span>
 
-### <a name="getchildren"></a><span data-ttu-id="f7447-1044">GetChildren –</span><span class="sxs-lookup"><span data-stu-id="f7447-1044">GetChildren</span></span>
+### <a name="getchildren"></a><span data-ttu-id="c927c-870">GetChildren –</span><span class="sxs-lookup"><span data-stu-id="c927c-870">GetChildren</span></span>
 
-<span data-ttu-id="f7447-1045">Volání [IConfiguration. GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) v `section2` získá `IEnumerable<IConfigurationSection>`, které obsahuje:</span><span class="sxs-lookup"><span data-stu-id="f7447-1045">A call to [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) on `section2` obtains an `IEnumerable<IConfigurationSection>` that includes:</span></span>
+<span data-ttu-id="c927c-871">Volání [IConfiguration. GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) v `section2` získá `IEnumerable<IConfigurationSection>`, které obsahuje:</span><span class="sxs-lookup"><span data-stu-id="c927c-871">A call to [IConfiguration.GetChildren](xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*) on `section2` obtains an `IEnumerable<IConfigurationSection>` that includes:</span></span>
 
 * `subsection0`
 * `subsection1`
@@ -1939,58 +1573,29 @@ var configSection = _config.GetSection("section2");
 var children = configSection.GetChildren();
 ```
 
-### <a name="exists"></a><span data-ttu-id="f7447-1046">Existuje</span><span class="sxs-lookup"><span data-stu-id="f7447-1046">Exists</span></span>
+### <a name="exists"></a><span data-ttu-id="c927c-872">Existuje</span><span class="sxs-lookup"><span data-stu-id="c927c-872">Exists</span></span>
 
-<span data-ttu-id="f7447-1047">Použijte [ConfigurationExtensions. existuje](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) k určení, zda konfigurační oddíl existuje:</span><span class="sxs-lookup"><span data-stu-id="f7447-1047">Use [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to determine if a configuration section exists:</span></span>
+<span data-ttu-id="c927c-873">Použijte [ConfigurationExtensions. existuje](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) k určení, zda konfigurační oddíl existuje:</span><span class="sxs-lookup"><span data-stu-id="c927c-873">Use [ConfigurationExtensions.Exists](xref:Microsoft.Extensions.Configuration.ConfigurationExtensions.Exists*) to determine if a configuration section exists:</span></span>
 
 ```csharp
 var sectionExists = _config.GetSection("section2:subsection2").Exists();
 ```
 
-<span data-ttu-id="f7447-1048">Vzhledem k ukázkovým datům je `sectionExists` `false`, protože konfigurační data nejsou v části `section2:subsection2`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1048">Given the example data, `sectionExists` is `false` because there isn't a `section2:subsection2` section in the configuration data.</span></span>
+<span data-ttu-id="c927c-874">Vzhledem k ukázkovým datům je `sectionExists` `false`, protože konfigurační data nejsou v části `section2:subsection2`.</span><span class="sxs-lookup"><span data-stu-id="c927c-874">Given the example data, `sectionExists` is `false` because there isn't a `section2:subsection2` section in the configuration data.</span></span>
 
-## <a name="bind-to-a-class"></a><span data-ttu-id="f7447-1049">Vazba na třídu</span><span class="sxs-lookup"><span data-stu-id="f7447-1049">Bind to a class</span></span>
+## <a name="bind-to-an-object-graph"></a><span data-ttu-id="c927c-875">Vytvoření vazby na graf objektů</span><span class="sxs-lookup"><span data-stu-id="c927c-875">Bind to an object graph</span></span>
 
-<span data-ttu-id="f7447-1050">Konfigurace může být vázána na třídy, které reprezentují skupiny souvisejících nastavení pomocí *vzoru možností*.</span><span class="sxs-lookup"><span data-stu-id="f7447-1050">Configuration can be bound to classes that represent groups of related settings using the *options pattern*.</span></span> <span data-ttu-id="f7447-1051">Další informace naleznete v tématu <xref:fundamentals/configuration/options>.</span><span class="sxs-lookup"><span data-stu-id="f7447-1051">For more information, see <xref:fundamentals/configuration/options>.</span></span>
+<span data-ttu-id="c927c-876"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> je schopný svázat celý graf objektů POCO.</span><span class="sxs-lookup"><span data-stu-id="c927c-876"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> is capable of binding an entire POCO object graph.</span></span> <span data-ttu-id="c927c-877">Stejně jako u vazeb jednoduchých objektů jsou vázány pouze veřejné vlastnosti čtení a zápisu.</span><span class="sxs-lookup"><span data-stu-id="c927c-877">As with binding a simple object, only public read/write properties are bound.</span></span>
 
-<span data-ttu-id="f7447-1052">Konfigurační hodnoty jsou vraceny jako řetězce, ale volání <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> umožňuje konstrukci objektů [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) .</span><span class="sxs-lookup"><span data-stu-id="f7447-1052">Configuration values are returned as strings, but calling <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> enables the construction of [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) objects.</span></span> <span data-ttu-id="f7447-1053">Pořadač váže hodnoty ke všem veřejným vlastnostem pro čtení a zápis zadaného typu.</span><span class="sxs-lookup"><span data-stu-id="f7447-1053">The binder binds values to all of the public read/write properties of the type provided.</span></span> <span data-ttu-id="f7447-1054">Pole nejsou **svázána** .</span><span class="sxs-lookup"><span data-stu-id="f7447-1054">Fields are **not** bound.</span></span>
-
-<span data-ttu-id="f7447-1055">Ukázková aplikace obsahuje model `Starship` (*modely/Starship. cs*):</span><span class="sxs-lookup"><span data-stu-id="f7447-1055">The sample app contains a `Starship` model (*Models/Starship.cs*):</span></span>
-
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Models/Starship.cs?name=snippet1)]
-
-<span data-ttu-id="f7447-1056">V části `starship` souboru *Starship. JSON* se vytvoří konfigurace, když ukázková aplikace pomocí zprostředkovatele konfigurace JSON načte konfiguraci:</span><span class="sxs-lookup"><span data-stu-id="f7447-1056">The `starship` section of the *starship.json* file creates the configuration when the sample app uses the JSON Configuration Provider to load the configuration:</span></span>
-
-[!code-json[](index/samples/2.x/ConfigurationSample/starship.json)]
-
-<span data-ttu-id="f7447-1057">Vytvoří se následující páry klíč-hodnota konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-1057">The following configuration key-value pairs are created:</span></span>
-
-| <span data-ttu-id="f7447-1058">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-1058">Key</span></span>                   | <span data-ttu-id="f7447-1059">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-1059">Value</span></span>                                             |
-| --------------------- | ------------------------------------------------- |
-| <span data-ttu-id="f7447-1060">Starship: název</span><span class="sxs-lookup"><span data-stu-id="f7447-1060">starship:name</span></span>         | <span data-ttu-id="f7447-1061">USS Enterprise</span><span class="sxs-lookup"><span data-stu-id="f7447-1061">USS Enterprise</span></span>                                    |
-| <span data-ttu-id="f7447-1062">Starship: Registry</span><span class="sxs-lookup"><span data-stu-id="f7447-1062">starship:registry</span></span>     | <span data-ttu-id="f7447-1063">NCC-1701</span><span class="sxs-lookup"><span data-stu-id="f7447-1063">NCC-1701</span></span>                                          |
-| <span data-ttu-id="f7447-1064">Starship: třída</span><span class="sxs-lookup"><span data-stu-id="f7447-1064">starship:class</span></span>        | <span data-ttu-id="f7447-1065">Založen</span><span class="sxs-lookup"><span data-stu-id="f7447-1065">Constitution</span></span>                                      |
-| <span data-ttu-id="f7447-1066">Starship: délka</span><span class="sxs-lookup"><span data-stu-id="f7447-1066">starship:length</span></span>       | <span data-ttu-id="f7447-1067">304,8</span><span class="sxs-lookup"><span data-stu-id="f7447-1067">304.8</span></span>                                             |
-| <span data-ttu-id="f7447-1068">Starship: vyřazení z provozu</span><span class="sxs-lookup"><span data-stu-id="f7447-1068">starship:commissioned</span></span> | <span data-ttu-id="f7447-1069">False</span><span class="sxs-lookup"><span data-stu-id="f7447-1069">False</span></span>                                             |
-| <span data-ttu-id="f7447-1070">Patka</span><span class="sxs-lookup"><span data-stu-id="f7447-1070">trademark</span></span>             | <span data-ttu-id="f7447-1071">Paramount Pictures Corp. https://www.paramount.com</span><span class="sxs-lookup"><span data-stu-id="f7447-1071">Paramount Pictures Corp. https://www.paramount.com</span></span> |
-
-<span data-ttu-id="f7447-1072">Ukázková aplikace volá `GetSection` s klíčem `starship`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1072">The sample app calls `GetSection` with the `starship` key.</span></span> <span data-ttu-id="f7447-1073">Páry klíč-hodnota `starship` jsou izolované.</span><span class="sxs-lookup"><span data-stu-id="f7447-1073">The `starship` key-value pairs are isolated.</span></span> <span data-ttu-id="f7447-1074">Metoda `Bind` je volána v podsekci předávání instance `Starship` třídy.</span><span class="sxs-lookup"><span data-stu-id="f7447-1074">The `Bind` method is called on the subsection passing in an instance of the `Starship` class.</span></span> <span data-ttu-id="f7447-1075">Po vytvoření vazby hodnot instance je instance přiřazena k vlastnosti pro vykreslování:</span><span class="sxs-lookup"><span data-stu-id="f7447-1075">After binding the instance values, the instance is assigned to a property for rendering:</span></span>
-
-[!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_starship)]
-
-## <a name="bind-to-an-object-graph"></a><span data-ttu-id="f7447-1076">Vytvoření vazby na graf objektů</span><span class="sxs-lookup"><span data-stu-id="f7447-1076">Bind to an object graph</span></span>
-
-<span data-ttu-id="f7447-1077"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> je schopný svázat celý graf objektů POCO.</span><span class="sxs-lookup"><span data-stu-id="f7447-1077"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> is capable of binding an entire POCO object graph.</span></span> <span data-ttu-id="f7447-1078">Stejně jako u vazeb jednoduchých objektů jsou vázány pouze veřejné vlastnosti čtení a zápisu.</span><span class="sxs-lookup"><span data-stu-id="f7447-1078">As with binding a simple object, only public read/write properties are bound.</span></span>
-
-<span data-ttu-id="f7447-1079">Ukázka obsahuje model `TvShow`, jehož graf objektů zahrnuje `Metadata` a třídy `Actors` (*modely/TvShow. cs*):</span><span class="sxs-lookup"><span data-stu-id="f7447-1079">The sample contains a `TvShow` model whose object graph includes `Metadata` and `Actors` classes (*Models/TvShow.cs*):</span></span>
+<span data-ttu-id="c927c-878">Ukázka obsahuje model `TvShow`, jehož graf objektů zahrnuje `Metadata` a třídy `Actors` (*modely/TvShow. cs*):</span><span class="sxs-lookup"><span data-stu-id="c927c-878">The sample contains a `TvShow` model whose object graph includes `Metadata` and `Actors` classes (*Models/TvShow.cs*):</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/TvShow.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-1080">Ukázková aplikace obsahuje soubor *tvshow. XML* obsahující konfigurační data:</span><span class="sxs-lookup"><span data-stu-id="f7447-1080">The sample app has a *tvshow.xml* file containing the configuration data:</span></span>
+<span data-ttu-id="c927c-879">Ukázková aplikace obsahuje soubor *tvshow. XML* obsahující konfigurační data:</span><span class="sxs-lookup"><span data-stu-id="c927c-879">The sample app has a *tvshow.xml* file containing the configuration data:</span></span>
 
 [!code-xml[](index/samples/2.x/ConfigurationSample/tvshow.xml)]
 
-<span data-ttu-id="f7447-1081">Konfigurace je svázána s celým grafem `TvShow` objektů pomocí metody `Bind`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1081">Configuration is bound to the entire `TvShow` object graph with the `Bind` method.</span></span> <span data-ttu-id="f7447-1082">Vázaná instance je přiřazena k vlastnosti pro vykreslování:</span><span class="sxs-lookup"><span data-stu-id="f7447-1082">The bound instance is assigned to a property for rendering:</span></span>
+<span data-ttu-id="c927c-880">Konfigurace je svázána s celým grafem `TvShow` objektů pomocí metody `Bind`.</span><span class="sxs-lookup"><span data-stu-id="c927c-880">Configuration is bound to the entire `TvShow` object graph with the `Bind` method.</span></span> <span data-ttu-id="c927c-881">Vázaná instance je přiřazena k vlastnosti pro vykreslování:</span><span class="sxs-lookup"><span data-stu-id="c927c-881">The bound instance is assigned to a property for rendering:</span></span>
 
 ```csharp
 var tvShow = new TvShow();
@@ -1998,67 +1603,67 @@ _config.GetSection("tvshow").Bind(tvShow);
 TvShow = tvShow;
 ```
 
-<span data-ttu-id="f7447-1083">[ConfigurationBinder. Get >\<t](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) vytvoří vazby a vrátí zadaný typ.</span><span class="sxs-lookup"><span data-stu-id="f7447-1083">[ConfigurationBinder.Get\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="f7447-1084">`Get<T>` je pohodlnější než použití `Bind`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1084">`Get<T>` is more convenient than using `Bind`.</span></span> <span data-ttu-id="f7447-1085">Následující kód ukazuje, jak použít `Get<T>` s předchozím příkladem, který umožňuje, aby se vázaná instance přímo přiřadila k vlastnosti používané pro vykreslování:</span><span class="sxs-lookup"><span data-stu-id="f7447-1085">The following code shows how to use `Get<T>` with the preceding example, which allows the bound instance to be directly assigned to the property used for rendering:</span></span>
+<span data-ttu-id="c927c-882">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) váže a vrátí zadaný typ.</span><span class="sxs-lookup"><span data-stu-id="c927c-882">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) binds and returns the specified type.</span></span> <span data-ttu-id="c927c-883">`Get<T>` je pohodlnější než použití `Bind`.</span><span class="sxs-lookup"><span data-stu-id="c927c-883">`Get<T>` is more convenient than using `Bind`.</span></span> <span data-ttu-id="c927c-884">Následující kód ukazuje, jak použít `Get<T>` s předchozím příkladem:</span><span class="sxs-lookup"><span data-stu-id="c927c-884">The following code shows how to use `Get<T>` with the preceding example:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_tvshow)]
 
-## <a name="bind-an-array-to-a-class"></a><span data-ttu-id="f7447-1086">Vazba pole na třídu</span><span class="sxs-lookup"><span data-stu-id="f7447-1086">Bind an array to a class</span></span>
+## <a name="bind-an-array-to-a-class"></a><span data-ttu-id="c927c-885">Vazba pole na třídu</span><span class="sxs-lookup"><span data-stu-id="c927c-885">Bind an array to a class</span></span>
 
-<span data-ttu-id="f7447-1087">*Ukázková aplikace ukazuje koncepty popsané v této části.*</span><span class="sxs-lookup"><span data-stu-id="f7447-1087">*The sample app demonstrates the concepts explained in this section.*</span></span>
+<span data-ttu-id="c927c-886">*Ukázková aplikace ukazuje koncepty popsané v této části.*</span><span class="sxs-lookup"><span data-stu-id="c927c-886">*The sample app demonstrates the concepts explained in this section.*</span></span>
 
-<span data-ttu-id="f7447-1088"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="f7447-1088">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="f7447-1089">Libovolný formát pole, který zveřejňuje numerický klíčový segment (`:0:`, `:1:`, &hellip; `:{n}:`), je schopný vytvořit vazbu pole k poli třídy POCO.</span><span class="sxs-lookup"><span data-stu-id="f7447-1089">Any array format that exposes a numeric key segment (`:0:`, `:1:`, &hellip; `:{n}:`) is capable of array binding to a POCO class array.</span></span>
+<span data-ttu-id="c927c-887"><xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích.</span><span class="sxs-lookup"><span data-stu-id="c927c-887">The <xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*> supports binding arrays to objects using array indices in configuration keys.</span></span> <span data-ttu-id="c927c-888">Libovolný formát pole, který zveřejňuje numerický klíčový segment (`:0:`, `:1:`, &hellip; `:{n}:`), je schopný vytvořit vazbu pole k poli třídy POCO.</span><span class="sxs-lookup"><span data-stu-id="c927c-888">Any array format that exposes a numeric key segment (`:0:`, `:1:`, &hellip; `:{n}:`) is capable of array binding to a POCO class array.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="f7447-1090">Vazba je poskytována podle konvence.</span><span class="sxs-lookup"><span data-stu-id="f7447-1090">Binding is provided by convention.</span></span> <span data-ttu-id="f7447-1091">Vlastní poskytovatelé konfigurace nejsou k implementaci vazby pole potřeba.</span><span class="sxs-lookup"><span data-stu-id="f7447-1091">Custom configuration providers aren't required to implement array binding.</span></span>
+> <span data-ttu-id="c927c-889">Vazba je poskytována podle konvence.</span><span class="sxs-lookup"><span data-stu-id="c927c-889">Binding is provided by convention.</span></span> <span data-ttu-id="c927c-890">Vlastní poskytovatelé konfigurace nejsou k implementaci vazby pole potřeba.</span><span class="sxs-lookup"><span data-stu-id="c927c-890">Custom configuration providers aren't required to implement array binding.</span></span>
 
-<span data-ttu-id="f7447-1092">**Zpracování pole v paměti**</span><span class="sxs-lookup"><span data-stu-id="f7447-1092">**In-memory array processing**</span></span>
+<span data-ttu-id="c927c-891">**Zpracování pole v paměti**</span><span class="sxs-lookup"><span data-stu-id="c927c-891">**In-memory array processing**</span></span>
 
-<span data-ttu-id="f7447-1093">Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="f7447-1093">Consider the configuration keys and values shown in the following table.</span></span>
+<span data-ttu-id="c927c-892">Vezměte v úvahu konfigurační klíče a hodnoty uvedené v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="c927c-892">Consider the configuration keys and values shown in the following table.</span></span>
 
-| <span data-ttu-id="f7447-1094">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-1094">Key</span></span>             | <span data-ttu-id="f7447-1095">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-1095">Value</span></span>  |
+| <span data-ttu-id="c927c-893">Klíč</span><span class="sxs-lookup"><span data-stu-id="c927c-893">Key</span></span>             | <span data-ttu-id="c927c-894">Hodnota</span><span class="sxs-lookup"><span data-stu-id="c927c-894">Value</span></span>  |
 | :-------------: | :----: |
-| <span data-ttu-id="f7447-1096">pole: položky: 0</span><span class="sxs-lookup"><span data-stu-id="f7447-1096">array:entries:0</span></span> | <span data-ttu-id="f7447-1097">value0</span><span class="sxs-lookup"><span data-stu-id="f7447-1097">value0</span></span> |
-| <span data-ttu-id="f7447-1098">pole: položky: 1</span><span class="sxs-lookup"><span data-stu-id="f7447-1098">array:entries:1</span></span> | <span data-ttu-id="f7447-1099">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="f7447-1099">value1</span></span> |
-| <span data-ttu-id="f7447-1100">pole: položky: 2</span><span class="sxs-lookup"><span data-stu-id="f7447-1100">array:entries:2</span></span> | <span data-ttu-id="f7447-1101">Argument</span><span class="sxs-lookup"><span data-stu-id="f7447-1101">value2</span></span> |
-| <span data-ttu-id="f7447-1102">pole: položky: 4</span><span class="sxs-lookup"><span data-stu-id="f7447-1102">array:entries:4</span></span> | <span data-ttu-id="f7447-1103">value4</span><span class="sxs-lookup"><span data-stu-id="f7447-1103">value4</span></span> |
-| <span data-ttu-id="f7447-1104">pole: položky: 5</span><span class="sxs-lookup"><span data-stu-id="f7447-1104">array:entries:5</span></span> | <span data-ttu-id="f7447-1105">value5</span><span class="sxs-lookup"><span data-stu-id="f7447-1105">value5</span></span> |
+| <span data-ttu-id="c927c-895">pole: položky: 0</span><span class="sxs-lookup"><span data-stu-id="c927c-895">array:entries:0</span></span> | <span data-ttu-id="c927c-896">value0</span><span class="sxs-lookup"><span data-stu-id="c927c-896">value0</span></span> |
+| <span data-ttu-id="c927c-897">pole: položky: 1</span><span class="sxs-lookup"><span data-stu-id="c927c-897">array:entries:1</span></span> | <span data-ttu-id="c927c-898">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="c927c-898">value1</span></span> |
+| <span data-ttu-id="c927c-899">pole: položky: 2</span><span class="sxs-lookup"><span data-stu-id="c927c-899">array:entries:2</span></span> | <span data-ttu-id="c927c-900">Argument</span><span class="sxs-lookup"><span data-stu-id="c927c-900">value2</span></span> |
+| <span data-ttu-id="c927c-901">pole: položky: 4</span><span class="sxs-lookup"><span data-stu-id="c927c-901">array:entries:4</span></span> | <span data-ttu-id="c927c-902">value4</span><span class="sxs-lookup"><span data-stu-id="c927c-902">value4</span></span> |
+| <span data-ttu-id="c927c-903">pole: položky: 5</span><span class="sxs-lookup"><span data-stu-id="c927c-903">array:entries:5</span></span> | <span data-ttu-id="c927c-904">value5</span><span class="sxs-lookup"><span data-stu-id="c927c-904">value5</span></span> |
 
-<span data-ttu-id="f7447-1106">Tyto klíče a hodnoty se načtou do ukázkové aplikace pomocí poskytovatele konfigurace paměti:</span><span class="sxs-lookup"><span data-stu-id="f7447-1106">These keys and values are loaded in the sample app using the Memory Configuration Provider:</span></span>
+<span data-ttu-id="c927c-905">Tyto klíče a hodnoty se načtou do ukázkové aplikace pomocí poskytovatele konfigurace paměti:</span><span class="sxs-lookup"><span data-stu-id="c927c-905">These keys and values are loaded in the sample app using the Memory Configuration Provider:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=5-12,22)]
 
-<span data-ttu-id="f7447-1107">Pole přeskočí hodnotu pro index &num;3.</span><span class="sxs-lookup"><span data-stu-id="f7447-1107">The array skips a value for index &num;3.</span></span> <span data-ttu-id="f7447-1108">Pořadač konfigurace není schopen svázat hodnoty null nebo vytvořit položky null ve vázaných objektech, které se v okamžiku, kdy je znázorněn výsledek vazby tohoto pole k objektu, nejasní.</span><span class="sxs-lookup"><span data-stu-id="f7447-1108">The configuration binder isn't capable of binding null values or creating null entries in bound objects, which becomes clear in a moment when the result of binding this array to an object is demonstrated.</span></span>
+<span data-ttu-id="c927c-906">Pole přeskočí hodnotu pro index &num;3.</span><span class="sxs-lookup"><span data-stu-id="c927c-906">The array skips a value for index &num;3.</span></span> <span data-ttu-id="c927c-907">Pořadač konfigurace není schopen svázat hodnoty null nebo vytvořit položky null ve vázaných objektech, které se v okamžiku, kdy je znázorněn výsledek vazby tohoto pole k objektu, nejasní.</span><span class="sxs-lookup"><span data-stu-id="c927c-907">The configuration binder isn't capable of binding null values or creating null entries in bound objects, which becomes clear in a moment when the result of binding this array to an object is demonstrated.</span></span>
 
-<span data-ttu-id="f7447-1109">V ukázkové aplikaci je k dispozici třída POCO pro uchovávání vázaných konfiguračních dat:</span><span class="sxs-lookup"><span data-stu-id="f7447-1109">In the sample app, a POCO class is available to hold the bound configuration data:</span></span>
+<span data-ttu-id="c927c-908">V ukázkové aplikaci je k dispozici třída POCO pro uchovávání vázaných konfiguračních dat:</span><span class="sxs-lookup"><span data-stu-id="c927c-908">In the sample app, a POCO class is available to hold the bound configuration data:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/ArrayExample.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-1110">Konfigurační data jsou svázána s objektem:</span><span class="sxs-lookup"><span data-stu-id="f7447-1110">The configuration data is bound to the object:</span></span>
+<span data-ttu-id="c927c-909">Konfigurační data jsou svázána s objektem:</span><span class="sxs-lookup"><span data-stu-id="c927c-909">The configuration data is bound to the object:</span></span>
 
 ```csharp
 var arrayExample = new ArrayExample();
 _config.GetSection("array").Bind(arrayExample);
 ```
 
-<span data-ttu-id="f7447-1111">[ConfigurationBinder.\<Get >](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntaxe, která je také možné použít, což má za následek kompaktnější kód:</span><span class="sxs-lookup"><span data-stu-id="f7447-1111">[ConfigurationBinder.Get\<T>](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntax can also be used, which results in more compact code:</span></span>
+<span data-ttu-id="c927c-910">lze také použít syntaxi [`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) , což má za následek kompaktnější kód:</span><span class="sxs-lookup"><span data-stu-id="c927c-910">[`ConfigurationBinder.Get<T>`](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Get*) syntax can also be used, which results in more compact code:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Pages/Index.cshtml.cs?name=snippet_array)]
 
-<span data-ttu-id="f7447-1112">Vázaný objekt, instance `ArrayExample`, obdrží data pole z konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-1112">The bound object, an instance of `ArrayExample`, receives the array data from configuration.</span></span>
+<span data-ttu-id="c927c-911">Vázaný objekt, instance `ArrayExample`, obdrží data pole z konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-911">The bound object, an instance of `ArrayExample`, receives the array data from configuration.</span></span>
 
-| <span data-ttu-id="f7447-1113">Index `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="f7447-1113">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="f7447-1114">Hodnota `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="f7447-1114">`ArrayExample.Entries` Value</span></span> |
+| <span data-ttu-id="c927c-912">Index `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="c927c-912">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="c927c-913">Hodnota `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="c927c-913">`ArrayExample.Entries` Value</span></span> |
 | :--------------------------: | :--------------------------: |
-| <span data-ttu-id="f7447-1115">0</span><span class="sxs-lookup"><span data-stu-id="f7447-1115">0</span></span>                            | <span data-ttu-id="f7447-1116">value0</span><span class="sxs-lookup"><span data-stu-id="f7447-1116">value0</span></span>                       |
-| <span data-ttu-id="f7447-1117">1</span><span class="sxs-lookup"><span data-stu-id="f7447-1117">1</span></span>                            | <span data-ttu-id="f7447-1118">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="f7447-1118">value1</span></span>                       |
-| <span data-ttu-id="f7447-1119">2</span><span class="sxs-lookup"><span data-stu-id="f7447-1119">2</span></span>                            | <span data-ttu-id="f7447-1120">Argument</span><span class="sxs-lookup"><span data-stu-id="f7447-1120">value2</span></span>                       |
-| <span data-ttu-id="f7447-1121">3</span><span class="sxs-lookup"><span data-stu-id="f7447-1121">3</span></span>                            | <span data-ttu-id="f7447-1122">value4</span><span class="sxs-lookup"><span data-stu-id="f7447-1122">value4</span></span>                       |
-| <span data-ttu-id="f7447-1123">4</span><span class="sxs-lookup"><span data-stu-id="f7447-1123">4</span></span>                            | <span data-ttu-id="f7447-1124">value5</span><span class="sxs-lookup"><span data-stu-id="f7447-1124">value5</span></span>                       |
+| <span data-ttu-id="c927c-914">0</span><span class="sxs-lookup"><span data-stu-id="c927c-914">0</span></span>                            | <span data-ttu-id="c927c-915">value0</span><span class="sxs-lookup"><span data-stu-id="c927c-915">value0</span></span>                       |
+| <span data-ttu-id="c927c-916">1</span><span class="sxs-lookup"><span data-stu-id="c927c-916">1</span></span>                            | <span data-ttu-id="c927c-917">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="c927c-917">value1</span></span>                       |
+| <span data-ttu-id="c927c-918">2</span><span class="sxs-lookup"><span data-stu-id="c927c-918">2</span></span>                            | <span data-ttu-id="c927c-919">Argument</span><span class="sxs-lookup"><span data-stu-id="c927c-919">value2</span></span>                       |
+| <span data-ttu-id="c927c-920">3</span><span class="sxs-lookup"><span data-stu-id="c927c-920">3</span></span>                            | <span data-ttu-id="c927c-921">value4</span><span class="sxs-lookup"><span data-stu-id="c927c-921">value4</span></span>                       |
+| <span data-ttu-id="c927c-922">4</span><span class="sxs-lookup"><span data-stu-id="c927c-922">4</span></span>                            | <span data-ttu-id="c927c-923">value5</span><span class="sxs-lookup"><span data-stu-id="c927c-923">value5</span></span>                       |
 
-<span data-ttu-id="f7447-1125">Index &num;3 ve vázaném objektu obsahuje konfigurační data pro konfigurační klíč `array:4` a jeho hodnotu `value4`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1125">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="f7447-1126">Když jsou data konfigurace obsahující pole svázána, indexy pole v konfiguračních klíčích slouží pouze k iterování konfiguračních dat při vytváření objektu.</span><span class="sxs-lookup"><span data-stu-id="f7447-1126">When configuration data containing an array is bound, the array indices in the configuration keys are merely used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="f7447-1127">Hodnotu null nelze uchovat v konfiguračních datech a v vázaném objektu není vytvořena položka s hodnotou null, pokud pole v konfiguračních klíčích přeskočí jeden nebo více indexů.</span><span class="sxs-lookup"><span data-stu-id="f7447-1127">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
+<span data-ttu-id="c927c-924">Index &num;3 ve vázaném objektu obsahuje konfigurační data pro konfigurační klíč `array:4` a jeho hodnotu `value4`.</span><span class="sxs-lookup"><span data-stu-id="c927c-924">Index &num;3 in the bound object holds the configuration data for the `array:4` configuration key and its value of `value4`.</span></span> <span data-ttu-id="c927c-925">Když jsou data konfigurace obsahující pole svázána, indexy pole v konfiguračních klíčích slouží pouze k iterování konfiguračních dat při vytváření objektu.</span><span class="sxs-lookup"><span data-stu-id="c927c-925">When configuration data containing an array is bound, the array indices in the configuration keys are merely used to iterate the configuration data when creating the object.</span></span> <span data-ttu-id="c927c-926">Hodnotu null nelze uchovat v konfiguračních datech a v vázaném objektu není vytvořena položka s hodnotou null, pokud pole v konfiguračních klíčích přeskočí jeden nebo více indexů.</span><span class="sxs-lookup"><span data-stu-id="c927c-926">A null value can't be retained in configuration data, and a null-valued entry isn't created in a bound object when an array in configuration keys skip one or more indices.</span></span>
 
-<span data-ttu-id="f7447-1128">Chybějící položka konfigurace pro index &num;3 může být zadána před vytvořením vazby na instanci `ArrayExample` pomocí jakéhokoli poskytovatele konfigurace, který vytváří správnou dvojici klíč-hodnota v konfiguraci.</span><span class="sxs-lookup"><span data-stu-id="f7447-1128">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that produces the correct key-value pair in configuration.</span></span> <span data-ttu-id="f7447-1129">Pokud ukázka zahrnovala dalšího poskytovatele konfigurace JSON s chybějící dvojicí klíč-hodnota, `ArrayExample.Entries` odpovídá kompletnímu poli konfigurace:</span><span class="sxs-lookup"><span data-stu-id="f7447-1129">If the sample included an additional JSON Configuration Provider with the missing key-value pair, the `ArrayExample.Entries` matches the complete configuration array:</span></span>
+<span data-ttu-id="c927c-927">Chybějící položka konfigurace pro index &num;3 může být zadána před vytvořením vazby na instanci `ArrayExample` pomocí jakéhokoli poskytovatele konfigurace, který vytváří správnou dvojici klíč-hodnota v konfiguraci.</span><span class="sxs-lookup"><span data-stu-id="c927c-927">The missing configuration item for index &num;3 can be supplied before binding to the `ArrayExample` instance by any configuration provider that produces the correct key-value pair in configuration.</span></span> <span data-ttu-id="c927c-928">Pokud ukázka zahrnovala dalšího poskytovatele konfigurace JSON s chybějící dvojicí klíč-hodnota, `ArrayExample.Entries` odpovídá kompletnímu poli konfigurace:</span><span class="sxs-lookup"><span data-stu-id="c927c-928">If the sample included an additional JSON Configuration Provider with the missing key-value pair, the `ArrayExample.Entries` matches the complete configuration array:</span></span>
 
-<span data-ttu-id="f7447-1130">*missing_value. JSON*:</span><span class="sxs-lookup"><span data-stu-id="f7447-1130">*missing_value.json*:</span></span>
+<span data-ttu-id="c927c-929">*missing_value. JSON*:</span><span class="sxs-lookup"><span data-stu-id="c927c-929">*missing_value.json*:</span></span>
 
 ```json
 {
@@ -2066,104 +1671,104 @@ _config.GetSection("array").Bind(arrayExample);
 }
 ```
 
-<span data-ttu-id="f7447-1131">V `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="f7447-1131">In `ConfigureAppConfiguration`:</span></span>
+<span data-ttu-id="c927c-930">V `ConfigureAppConfiguration`:</span><span class="sxs-lookup"><span data-stu-id="c927c-930">In `ConfigureAppConfiguration`:</span></span>
 
 ```csharp
 config.AddJsonFile(
     "missing_value.json", optional: false, reloadOnChange: false);
 ```
 
-<span data-ttu-id="f7447-1132">Pár klíč-hodnota zobrazený v tabulce je načten do konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-1132">The key-value pair shown in the table is loaded into configuration.</span></span>
+<span data-ttu-id="c927c-931">Pár klíč-hodnota zobrazený v tabulce je načten do konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-931">The key-value pair shown in the table is loaded into configuration.</span></span>
 
-| <span data-ttu-id="f7447-1133">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-1133">Key</span></span>             | <span data-ttu-id="f7447-1134">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-1134">Value</span></span>  |
+| <span data-ttu-id="c927c-932">Klíč</span><span class="sxs-lookup"><span data-stu-id="c927c-932">Key</span></span>             | <span data-ttu-id="c927c-933">Hodnota</span><span class="sxs-lookup"><span data-stu-id="c927c-933">Value</span></span>  |
 | :-------------: | :----: |
-| <span data-ttu-id="f7447-1135">pole: položky: 3</span><span class="sxs-lookup"><span data-stu-id="f7447-1135">array:entries:3</span></span> | <span data-ttu-id="f7447-1136">hodnota3</span><span class="sxs-lookup"><span data-stu-id="f7447-1136">value3</span></span> |
+| <span data-ttu-id="c927c-934">pole: položky: 3</span><span class="sxs-lookup"><span data-stu-id="c927c-934">array:entries:3</span></span> | <span data-ttu-id="c927c-935">hodnota3</span><span class="sxs-lookup"><span data-stu-id="c927c-935">value3</span></span> |
 
-<span data-ttu-id="f7447-1137">Pokud je instance třídy `ArrayExample` vázána poté, co Poskytovatel konfigurace JSON obsahuje položku pro index &num;3, pole `ArrayExample.Entries` obsahuje hodnotu.</span><span class="sxs-lookup"><span data-stu-id="f7447-1137">If the `ArrayExample` class instance is bound after the JSON Configuration Provider includes the entry for index &num;3, the `ArrayExample.Entries` array includes the value.</span></span>
+<span data-ttu-id="c927c-936">Pokud je instance třídy `ArrayExample` vázána poté, co Poskytovatel konfigurace JSON obsahuje položku pro index &num;3, pole `ArrayExample.Entries` obsahuje hodnotu.</span><span class="sxs-lookup"><span data-stu-id="c927c-936">If the `ArrayExample` class instance is bound after the JSON Configuration Provider includes the entry for index &num;3, the `ArrayExample.Entries` array includes the value.</span></span>
 
-| <span data-ttu-id="f7447-1138">Index `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="f7447-1138">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="f7447-1139">Hodnota `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="f7447-1139">`ArrayExample.Entries` Value</span></span> |
+| <span data-ttu-id="c927c-937">Index `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="c927c-937">`ArrayExample.Entries` Index</span></span> | <span data-ttu-id="c927c-938">Hodnota `ArrayExample.Entries`</span><span class="sxs-lookup"><span data-stu-id="c927c-938">`ArrayExample.Entries` Value</span></span> |
 | :--------------------------: | :--------------------------: |
-| <span data-ttu-id="f7447-1140">0</span><span class="sxs-lookup"><span data-stu-id="f7447-1140">0</span></span>                            | <span data-ttu-id="f7447-1141">value0</span><span class="sxs-lookup"><span data-stu-id="f7447-1141">value0</span></span>                       |
-| <span data-ttu-id="f7447-1142">1</span><span class="sxs-lookup"><span data-stu-id="f7447-1142">1</span></span>                            | <span data-ttu-id="f7447-1143">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="f7447-1143">value1</span></span>                       |
-| <span data-ttu-id="f7447-1144">2</span><span class="sxs-lookup"><span data-stu-id="f7447-1144">2</span></span>                            | <span data-ttu-id="f7447-1145">Argument</span><span class="sxs-lookup"><span data-stu-id="f7447-1145">value2</span></span>                       |
-| <span data-ttu-id="f7447-1146">3</span><span class="sxs-lookup"><span data-stu-id="f7447-1146">3</span></span>                            | <span data-ttu-id="f7447-1147">hodnota3</span><span class="sxs-lookup"><span data-stu-id="f7447-1147">value3</span></span>                       |
-| <span data-ttu-id="f7447-1148">4</span><span class="sxs-lookup"><span data-stu-id="f7447-1148">4</span></span>                            | <span data-ttu-id="f7447-1149">value4</span><span class="sxs-lookup"><span data-stu-id="f7447-1149">value4</span></span>                       |
-| <span data-ttu-id="f7447-1150">5</span><span class="sxs-lookup"><span data-stu-id="f7447-1150">5</span></span>                            | <span data-ttu-id="f7447-1151">value5</span><span class="sxs-lookup"><span data-stu-id="f7447-1151">value5</span></span>                       |
+| <span data-ttu-id="c927c-939">0</span><span class="sxs-lookup"><span data-stu-id="c927c-939">0</span></span>                            | <span data-ttu-id="c927c-940">value0</span><span class="sxs-lookup"><span data-stu-id="c927c-940">value0</span></span>                       |
+| <span data-ttu-id="c927c-941">1</span><span class="sxs-lookup"><span data-stu-id="c927c-941">1</span></span>                            | <span data-ttu-id="c927c-942">Hodnota1</span><span class="sxs-lookup"><span data-stu-id="c927c-942">value1</span></span>                       |
+| <span data-ttu-id="c927c-943">2</span><span class="sxs-lookup"><span data-stu-id="c927c-943">2</span></span>                            | <span data-ttu-id="c927c-944">Argument</span><span class="sxs-lookup"><span data-stu-id="c927c-944">value2</span></span>                       |
+| <span data-ttu-id="c927c-945">3</span><span class="sxs-lookup"><span data-stu-id="c927c-945">3</span></span>                            | <span data-ttu-id="c927c-946">hodnota3</span><span class="sxs-lookup"><span data-stu-id="c927c-946">value3</span></span>                       |
+| <span data-ttu-id="c927c-947">4</span><span class="sxs-lookup"><span data-stu-id="c927c-947">4</span></span>                            | <span data-ttu-id="c927c-948">value4</span><span class="sxs-lookup"><span data-stu-id="c927c-948">value4</span></span>                       |
+| <span data-ttu-id="c927c-949">5</span><span class="sxs-lookup"><span data-stu-id="c927c-949">5</span></span>                            | <span data-ttu-id="c927c-950">value5</span><span class="sxs-lookup"><span data-stu-id="c927c-950">value5</span></span>                       |
 
-<span data-ttu-id="f7447-1152">**Zpracování pole JSON**</span><span class="sxs-lookup"><span data-stu-id="f7447-1152">**JSON array processing**</span></span>
+<span data-ttu-id="c927c-951">**Zpracování pole JSON**</span><span class="sxs-lookup"><span data-stu-id="c927c-951">**JSON array processing**</span></span>
 
-<span data-ttu-id="f7447-1153">Pokud soubor JSON obsahuje pole, jsou vytvořeny konfigurační klíče pro prvky pole s indexem oddílu založeným na nule.</span><span class="sxs-lookup"><span data-stu-id="f7447-1153">If a JSON file contains an array, configuration keys are created for the array elements with a zero-based section index.</span></span> <span data-ttu-id="f7447-1154">V následujícím konfiguračním souboru je `subsection` pole:</span><span class="sxs-lookup"><span data-stu-id="f7447-1154">In the following configuration file, `subsection` is an array:</span></span>
+<span data-ttu-id="c927c-952">Pokud soubor JSON obsahuje pole, jsou vytvořeny konfigurační klíče pro prvky pole s indexem oddílu založeným na nule.</span><span class="sxs-lookup"><span data-stu-id="c927c-952">If a JSON file contains an array, configuration keys are created for the array elements with a zero-based section index.</span></span> <span data-ttu-id="c927c-953">V následujícím konfiguračním souboru je `subsection` pole:</span><span class="sxs-lookup"><span data-stu-id="c927c-953">In the following configuration file, `subsection` is an array:</span></span>
 
 [!code-json[](index/samples/2.x/ConfigurationSample/json_array.json)]
 
-<span data-ttu-id="f7447-1155">Zprostředkovatel konfigurace JSON načte konfigurační data do následujících párů klíč-hodnota:</span><span class="sxs-lookup"><span data-stu-id="f7447-1155">The JSON Configuration Provider reads the configuration data into the following key-value pairs:</span></span>
+<span data-ttu-id="c927c-954">Zprostředkovatel konfigurace JSON načte konfigurační data do následujících párů klíč-hodnota:</span><span class="sxs-lookup"><span data-stu-id="c927c-954">The JSON Configuration Provider reads the configuration data into the following key-value pairs:</span></span>
 
-| <span data-ttu-id="f7447-1156">Klíč</span><span class="sxs-lookup"><span data-stu-id="f7447-1156">Key</span></span>                     | <span data-ttu-id="f7447-1157">Hodnota</span><span class="sxs-lookup"><span data-stu-id="f7447-1157">Value</span></span>  |
+| <span data-ttu-id="c927c-955">Klíč</span><span class="sxs-lookup"><span data-stu-id="c927c-955">Key</span></span>                     | <span data-ttu-id="c927c-956">Hodnota</span><span class="sxs-lookup"><span data-stu-id="c927c-956">Value</span></span>  |
 | ----------------------- | :----: |
-| <span data-ttu-id="f7447-1158">json_array:key</span><span class="sxs-lookup"><span data-stu-id="f7447-1158">json_array:key</span></span>          | <span data-ttu-id="f7447-1159">Hodnotaa</span><span class="sxs-lookup"><span data-stu-id="f7447-1159">valueA</span></span> |
-| <span data-ttu-id="f7447-1160">json_array: pododdíl: 0</span><span class="sxs-lookup"><span data-stu-id="f7447-1160">json_array:subsection:0</span></span> | <span data-ttu-id="f7447-1161">Hodnotab</span><span class="sxs-lookup"><span data-stu-id="f7447-1161">valueB</span></span> |
-| <span data-ttu-id="f7447-1162">json_array:subsection:1</span><span class="sxs-lookup"><span data-stu-id="f7447-1162">json_array:subsection:1</span></span> | <span data-ttu-id="f7447-1163">valueC</span><span class="sxs-lookup"><span data-stu-id="f7447-1163">valueC</span></span> |
-| <span data-ttu-id="f7447-1164">json_array:subsection:2</span><span class="sxs-lookup"><span data-stu-id="f7447-1164">json_array:subsection:2</span></span> | <span data-ttu-id="f7447-1165">s</span><span class="sxs-lookup"><span data-stu-id="f7447-1165">valueD</span></span> |
+| <span data-ttu-id="c927c-957">json_array:key</span><span class="sxs-lookup"><span data-stu-id="c927c-957">json_array:key</span></span>          | <span data-ttu-id="c927c-958">Hodnotaa</span><span class="sxs-lookup"><span data-stu-id="c927c-958">valueA</span></span> |
+| <span data-ttu-id="c927c-959">json_array: pododdíl: 0</span><span class="sxs-lookup"><span data-stu-id="c927c-959">json_array:subsection:0</span></span> | <span data-ttu-id="c927c-960">Hodnotab</span><span class="sxs-lookup"><span data-stu-id="c927c-960">valueB</span></span> |
+| <span data-ttu-id="c927c-961">json_array:subsection:1</span><span class="sxs-lookup"><span data-stu-id="c927c-961">json_array:subsection:1</span></span> | <span data-ttu-id="c927c-962">valueC</span><span class="sxs-lookup"><span data-stu-id="c927c-962">valueC</span></span> |
+| <span data-ttu-id="c927c-963">json_array:subsection:2</span><span class="sxs-lookup"><span data-stu-id="c927c-963">json_array:subsection:2</span></span> | <span data-ttu-id="c927c-964">s</span><span class="sxs-lookup"><span data-stu-id="c927c-964">valueD</span></span> |
 
-<span data-ttu-id="f7447-1166">V ukázkové aplikaci je k dispozici následující třída POCO, která umožňuje vytvořit vazby mezi konfiguračními páry klíč-hodnota:</span><span class="sxs-lookup"><span data-stu-id="f7447-1166">In the sample app, the following POCO class is available to bind the configuration key-value pairs:</span></span>
+<span data-ttu-id="c927c-965">V ukázkové aplikaci je k dispozici následující třída POCO, která umožňuje vytvořit vazby mezi konfiguračními páry klíč-hodnota:</span><span class="sxs-lookup"><span data-stu-id="c927c-965">In the sample app, the following POCO class is available to bind the configuration key-value pairs:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/JsonArrayExample.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-1167">Po vytvoření vazby obsahuje `JsonArrayExample.Key` hodnotu `valueA`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1167">After binding, `JsonArrayExample.Key` holds the value `valueA`.</span></span> <span data-ttu-id="f7447-1168">Hodnoty pododdílu jsou uloženy ve vlastnosti pole POCO `Subsection`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1168">The subsection values are stored in the POCO array property, `Subsection`.</span></span>
+<span data-ttu-id="c927c-966">Po vytvoření vazby obsahuje `JsonArrayExample.Key` hodnotu `valueA`.</span><span class="sxs-lookup"><span data-stu-id="c927c-966">After binding, `JsonArrayExample.Key` holds the value `valueA`.</span></span> <span data-ttu-id="c927c-967">Hodnoty pododdílu jsou uloženy ve vlastnosti pole POCO `Subsection`.</span><span class="sxs-lookup"><span data-stu-id="c927c-967">The subsection values are stored in the POCO array property, `Subsection`.</span></span>
 
-| <span data-ttu-id="f7447-1169">Index `JsonArrayExample.Subsection`</span><span class="sxs-lookup"><span data-stu-id="f7447-1169">`JsonArrayExample.Subsection` Index</span></span> | <span data-ttu-id="f7447-1170">Hodnota `JsonArrayExample.Subsection`</span><span class="sxs-lookup"><span data-stu-id="f7447-1170">`JsonArrayExample.Subsection` Value</span></span> |
+| <span data-ttu-id="c927c-968">Index `JsonArrayExample.Subsection`</span><span class="sxs-lookup"><span data-stu-id="c927c-968">`JsonArrayExample.Subsection` Index</span></span> | <span data-ttu-id="c927c-969">Hodnota `JsonArrayExample.Subsection`</span><span class="sxs-lookup"><span data-stu-id="c927c-969">`JsonArrayExample.Subsection` Value</span></span> |
 | :---------------------------------: | :---------------------------------: |
-| <span data-ttu-id="f7447-1171">0</span><span class="sxs-lookup"><span data-stu-id="f7447-1171">0</span></span>                                   | <span data-ttu-id="f7447-1172">Hodnotab</span><span class="sxs-lookup"><span data-stu-id="f7447-1172">valueB</span></span>                              |
-| <span data-ttu-id="f7447-1173">1</span><span class="sxs-lookup"><span data-stu-id="f7447-1173">1</span></span>                                   | <span data-ttu-id="f7447-1174">valueC</span><span class="sxs-lookup"><span data-stu-id="f7447-1174">valueC</span></span>                              |
-| <span data-ttu-id="f7447-1175">2</span><span class="sxs-lookup"><span data-stu-id="f7447-1175">2</span></span>                                   | <span data-ttu-id="f7447-1176">s</span><span class="sxs-lookup"><span data-stu-id="f7447-1176">valueD</span></span>                              |
+| <span data-ttu-id="c927c-970">0</span><span class="sxs-lookup"><span data-stu-id="c927c-970">0</span></span>                                   | <span data-ttu-id="c927c-971">Hodnotab</span><span class="sxs-lookup"><span data-stu-id="c927c-971">valueB</span></span>                              |
+| <span data-ttu-id="c927c-972">1</span><span class="sxs-lookup"><span data-stu-id="c927c-972">1</span></span>                                   | <span data-ttu-id="c927c-973">valueC</span><span class="sxs-lookup"><span data-stu-id="c927c-973">valueC</span></span>                              |
+| <span data-ttu-id="c927c-974">2</span><span class="sxs-lookup"><span data-stu-id="c927c-974">2</span></span>                                   | <span data-ttu-id="c927c-975">s</span><span class="sxs-lookup"><span data-stu-id="c927c-975">valueD</span></span>                              |
 
-## <a name="custom-configuration-provider"></a><span data-ttu-id="f7447-1177">Vlastní poskytovatel konfigurace</span><span class="sxs-lookup"><span data-stu-id="f7447-1177">Custom configuration provider</span></span>
+## <a name="custom-configuration-provider"></a><span data-ttu-id="c927c-976">Vlastní poskytovatel konfigurace</span><span class="sxs-lookup"><span data-stu-id="c927c-976">Custom configuration provider</span></span>
 
-<span data-ttu-id="f7447-1178">Ukázková aplikace ukazuje, jak vytvořit základního poskytovatele konfigurace, který čte páry klíč-hodnota konfigurace z databáze pomocí [Entity Framework (EF)](/ef/core/).</span><span class="sxs-lookup"><span data-stu-id="f7447-1178">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
+<span data-ttu-id="c927c-977">Ukázková aplikace ukazuje, jak vytvořit základního poskytovatele konfigurace, který čte páry klíč-hodnota konfigurace z databáze pomocí [Entity Framework (EF)](/ef/core/).</span><span class="sxs-lookup"><span data-stu-id="c927c-977">The sample app demonstrates how to create a basic configuration provider that reads configuration key-value pairs from a database using [Entity Framework (EF)](/ef/core/).</span></span>
 
-<span data-ttu-id="f7447-1179">Zprostředkovatel má následující vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="f7447-1179">The provider has the following characteristics:</span></span>
+<span data-ttu-id="c927c-978">Zprostředkovatel má následující vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="c927c-978">The provider has the following characteristics:</span></span>
 
-* <span data-ttu-id="f7447-1180">Pro demonstrační účely se používá databáze EF v paměti.</span><span class="sxs-lookup"><span data-stu-id="f7447-1180">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="f7447-1181">Chcete-li použít databázi, která vyžaduje připojovací řetězec, implementujte sekundární `ConfigurationBuilder` pro zadání připojovacího řetězce od jiného poskytovatele konfigurace.</span><span class="sxs-lookup"><span data-stu-id="f7447-1181">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
-* <span data-ttu-id="f7447-1182">Poskytovatel čte databázovou tabulku do konfigurace při spuštění.</span><span class="sxs-lookup"><span data-stu-id="f7447-1182">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="f7447-1183">Zprostředkovatel nedotazuje databázi na bázi jednotlivých klíčů.</span><span class="sxs-lookup"><span data-stu-id="f7447-1183">The provider doesn't query the database on a per-key basis.</span></span>
-* <span data-ttu-id="f7447-1184">Opětovné načtení není implementováno, takže aktualizace databáze po spuštění aplikace nemá žádný vliv na konfiguraci aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-1184">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
+* <span data-ttu-id="c927c-979">Pro demonstrační účely se používá databáze EF v paměti.</span><span class="sxs-lookup"><span data-stu-id="c927c-979">The EF in-memory database is used for demonstration purposes.</span></span> <span data-ttu-id="c927c-980">Chcete-li použít databázi, která vyžaduje připojovací řetězec, implementujte sekundární `ConfigurationBuilder` pro zadání připojovacího řetězce od jiného poskytovatele konfigurace.</span><span class="sxs-lookup"><span data-stu-id="c927c-980">To use a database that requires a connection string, implement a secondary `ConfigurationBuilder` to supply the connection string from another configuration provider.</span></span>
+* <span data-ttu-id="c927c-981">Poskytovatel čte databázovou tabulku do konfigurace při spuštění.</span><span class="sxs-lookup"><span data-stu-id="c927c-981">The provider reads a database table into configuration at startup.</span></span> <span data-ttu-id="c927c-982">Zprostředkovatel nedotazuje databázi na bázi jednotlivých klíčů.</span><span class="sxs-lookup"><span data-stu-id="c927c-982">The provider doesn't query the database on a per-key basis.</span></span>
+* <span data-ttu-id="c927c-983">Opětovné načtení není implementováno, takže aktualizace databáze po spuštění aplikace nemá žádný vliv na konfiguraci aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-983">Reload-on-change isn't implemented, so updating the database after the app starts has no effect on the app's configuration.</span></span>
 
-<span data-ttu-id="f7447-1185">Definujte entitu `EFConfigurationValue` pro ukládání konfiguračních hodnot do databáze.</span><span class="sxs-lookup"><span data-stu-id="f7447-1185">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
+<span data-ttu-id="c927c-984">Definujte entitu `EFConfigurationValue` pro ukládání konfiguračních hodnot do databáze.</span><span class="sxs-lookup"><span data-stu-id="c927c-984">Define an `EFConfigurationValue` entity for storing configuration values in the database.</span></span>
 
-<span data-ttu-id="f7447-1186">*Modely/EFConfigurationValue. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-1186">*Models/EFConfigurationValue.cs*:</span></span>
+<span data-ttu-id="c927c-985">*Modely/EFConfigurationValue. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-985">*Models/EFConfigurationValue.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/EFConfigurationValue.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-1187">Přidejte `EFConfigurationContext` pro uložení a přístup k nakonfigurovaným hodnotám.</span><span class="sxs-lookup"><span data-stu-id="f7447-1187">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
+<span data-ttu-id="c927c-986">Přidejte `EFConfigurationContext` pro uložení a přístup k nakonfigurovaným hodnotám.</span><span class="sxs-lookup"><span data-stu-id="c927c-986">Add an `EFConfigurationContext` to store and access the configured values.</span></span>
 
-<span data-ttu-id="f7447-1188">*EFConfigurationProvider/EFConfigurationContext. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-1188">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
+<span data-ttu-id="c927c-987">*EFConfigurationProvider/EFConfigurationContext. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-987">*EFConfigurationProvider/EFConfigurationContext.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-1189">Vytvořte třídu, která implementuje <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span><span class="sxs-lookup"><span data-stu-id="f7447-1189">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
+<span data-ttu-id="c927c-988">Vytvořte třídu, která implementuje <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span><span class="sxs-lookup"><span data-stu-id="c927c-988">Create a class that implements <xref:Microsoft.Extensions.Configuration.IConfigurationSource>.</span></span>
 
-<span data-ttu-id="f7447-1190">*EFConfigurationProvider/EFConfigurationSource. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-1190">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
+<span data-ttu-id="c927c-989">*EFConfigurationProvider/EFConfigurationSource. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-989">*EFConfigurationProvider/EFConfigurationSource.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationSource.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-1191">Vytvořte vlastního poskytovatele konfigurace děděním z <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span><span class="sxs-lookup"><span data-stu-id="f7447-1191">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="f7447-1192">Poskytovatel konfigurace inicializuje databázi, pokud je prázdná.</span><span class="sxs-lookup"><span data-stu-id="f7447-1192">The configuration provider initializes the database when it's empty.</span></span>
+<span data-ttu-id="c927c-990">Vytvořte vlastního poskytovatele konfigurace děděním z <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span><span class="sxs-lookup"><span data-stu-id="c927c-990">Create the custom configuration provider by inheriting from <xref:Microsoft.Extensions.Configuration.ConfigurationProvider>.</span></span> <span data-ttu-id="c927c-991">Poskytovatel konfigurace inicializuje databázi, pokud je prázdná.</span><span class="sxs-lookup"><span data-stu-id="c927c-991">The configuration provider initializes the database when it's empty.</span></span>
 
-<span data-ttu-id="f7447-1193">*EFConfigurationProvider/EFConfigurationProvider. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-1193">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
+<span data-ttu-id="c927c-992">*EFConfigurationProvider/EFConfigurationProvider. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-992">*EFConfigurationProvider/EFConfigurationProvider.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationProvider.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-1194">Metoda rozšíření `AddEFConfiguration` umožňuje přidání zdroje konfigurace do `ConfigurationBuilder`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1194">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
+<span data-ttu-id="c927c-993">Metoda rozšíření `AddEFConfiguration` umožňuje přidání zdroje konfigurace do `ConfigurationBuilder`.</span><span class="sxs-lookup"><span data-stu-id="c927c-993">An `AddEFConfiguration` extension method permits adding the configuration source to a `ConfigurationBuilder`.</span></span>
 
-<span data-ttu-id="f7447-1195">*Rozšíření/EntityFrameworkExtensions. cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-1195">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
+<span data-ttu-id="c927c-994">*Rozšíření/EntityFrameworkExtensions. cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-994">*Extensions/EntityFrameworkExtensions.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Extensions/EntityFrameworkExtensions.cs?name=snippet1)]
 
-<span data-ttu-id="f7447-1196">Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *program.cs*:</span><span class="sxs-lookup"><span data-stu-id="f7447-1196">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
+<span data-ttu-id="c927c-995">Následující kód ukazuje, jak použít vlastní `EFConfigurationProvider` v *program.cs*:</span><span class="sxs-lookup"><span data-stu-id="c927c-995">The following code shows how to use the custom `EFConfigurationProvider` in *Program.cs*:</span></span>
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Program.cs?name=snippet_Program&highlight=29-30)]
 
-## <a name="access-configuration-during-startup"></a><span data-ttu-id="f7447-1197">Konfigurace přístupu během spuštění</span><span class="sxs-lookup"><span data-stu-id="f7447-1197">Access configuration during startup</span></span>
+## <a name="access-configuration-during-startup"></a><span data-ttu-id="c927c-996">Konfigurace přístupu během spuštění</span><span class="sxs-lookup"><span data-stu-id="c927c-996">Access configuration during startup</span></span>
 
-<span data-ttu-id="f7447-1198">Vložení `IConfiguration` do konstruktoru `Startup` pro přístup k hodnotám konfigurace v `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="f7447-1198">Inject `IConfiguration` into the `Startup` constructor to access configuration values in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="f7447-1199">Chcete-li získat přístup ke konfiguraci v `Startup.Configure`, buď je třeba vložit `IConfiguration` přímo do metody nebo použít instanci z konstruktoru:</span><span class="sxs-lookup"><span data-stu-id="f7447-1199">To access configuration in `Startup.Configure`, either inject `IConfiguration` directly into the method or use the instance from the constructor:</span></span>
+<span data-ttu-id="c927c-997">Vložení `IConfiguration` do konstruktoru `Startup` pro přístup k hodnotám konfigurace v `Startup.ConfigureServices`.</span><span class="sxs-lookup"><span data-stu-id="c927c-997">Inject `IConfiguration` into the `Startup` constructor to access configuration values in `Startup.ConfigureServices`.</span></span> <span data-ttu-id="c927c-998">Chcete-li získat přístup ke konfiguraci v `Startup.Configure`, buď je třeba vložit `IConfiguration` přímo do metody nebo použít instanci z konstruktoru:</span><span class="sxs-lookup"><span data-stu-id="c927c-998">To access configuration in `Startup.Configure`, either inject `IConfiguration` directly into the method or use the instance from the constructor:</span></span>
 
 ```csharp
 public class Startup
@@ -2187,13 +1792,13 @@ public class Startup
 }
 ```
 
-<span data-ttu-id="f7447-1200">Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuštění aplikace najdete v tématu [metody spuštění aplikace: pohodlí](xref:fundamentals/startup#convenience-methods).</span><span class="sxs-lookup"><span data-stu-id="f7447-1200">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
+<span data-ttu-id="c927c-999">Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuštění aplikace najdete v tématu [metody spuštění aplikace: pohodlí](xref:fundamentals/startup#convenience-methods).</span><span class="sxs-lookup"><span data-stu-id="c927c-999">For an example of accessing configuration using startup convenience methods, see [App startup: Convenience methods](xref:fundamentals/startup#convenience-methods).</span></span>
 
-## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a><span data-ttu-id="f7447-1201">Přístup ke konfiguraci na Razor Pages stránce nebo zobrazení MVC</span><span class="sxs-lookup"><span data-stu-id="f7447-1201">Access configuration in a Razor Pages page or MVC view</span></span>
+## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a><span data-ttu-id="c927c-1000">Přístup ke konfiguraci na Razor Pages stránce nebo zobrazení MVC</span><span class="sxs-lookup"><span data-stu-id="c927c-1000">Access configuration in a Razor Pages page or MVC view</span></span>
 
-<span data-ttu-id="f7447-1202">Chcete-li získat přístup k nastavení konfigurace na stránce Razor Pages nebo zobrazení MVC, přidejte [direktivu using](xref:mvc/views/razor#using) ([ C# odkaz: using](/dotnet/csharp/language-reference/keywords/using-directive)) pro [obor názvů Microsoft. Extensions. Configuration](xref:Microsoft.Extensions.Configuration) a vložte <xref:Microsoft.Extensions.Configuration.IConfiguration> do stránky nebo zobrazení.</span><span class="sxs-lookup"><span data-stu-id="f7447-1202">To access configuration settings in a Razor Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
+<span data-ttu-id="c927c-1001">Chcete-li získat přístup k nastavení konfigurace na stránce Razor Pages nebo zobrazení MVC, přidejte [direktivu using](xref:mvc/views/razor#using) ([ C# odkaz: using](/dotnet/csharp/language-reference/keywords/using-directive)) pro [obor názvů Microsoft. Extensions. Configuration](xref:Microsoft.Extensions.Configuration) a vložte <xref:Microsoft.Extensions.Configuration.IConfiguration> do stránky nebo zobrazení.</span><span class="sxs-lookup"><span data-stu-id="c927c-1001">To access configuration settings in a Razor Pages page or an MVC view, add a [using directive](xref:mvc/views/razor#using) ([C# reference: using directive](/dotnet/csharp/language-reference/keywords/using-directive)) for the [Microsoft.Extensions.Configuration namespace](xref:Microsoft.Extensions.Configuration) and inject <xref:Microsoft.Extensions.Configuration.IConfiguration> into the page or view.</span></span>
 
-<span data-ttu-id="f7447-1203">Na stránce Razor Pages:</span><span class="sxs-lookup"><span data-stu-id="f7447-1203">In a Razor Pages page:</span></span>
+<span data-ttu-id="c927c-1002">Na stránce Razor Pages:</span><span class="sxs-lookup"><span data-stu-id="c927c-1002">In a Razor Pages page:</span></span>
 
 ```cshtml
 @page
@@ -2213,7 +1818,7 @@ public class Startup
 </html>
 ```
 
-<span data-ttu-id="f7447-1204">V zobrazení MVC:</span><span class="sxs-lookup"><span data-stu-id="f7447-1204">In an MVC view:</span></span>
+<span data-ttu-id="c927c-1003">V zobrazení MVC:</span><span class="sxs-lookup"><span data-stu-id="c927c-1003">In an MVC view:</span></span>
 
 ```cshtml
 @using Microsoft.Extensions.Configuration
@@ -2231,11 +1836,11 @@ public class Startup
 </html>
 ```
 
-## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="f7447-1205">Přidat konfiguraci z externího sestavení</span><span class="sxs-lookup"><span data-stu-id="f7447-1205">Add configuration from an external assembly</span></span>
+## <a name="add-configuration-from-an-external-assembly"></a><span data-ttu-id="c927c-1004">Přidat konfiguraci z externího sestavení</span><span class="sxs-lookup"><span data-stu-id="c927c-1004">Add configuration from an external assembly</span></span>
 
-<span data-ttu-id="f7447-1206">Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídy aplikace.</span><span class="sxs-lookup"><span data-stu-id="f7447-1206">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="f7447-1207">Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.</span><span class="sxs-lookup"><span data-stu-id="f7447-1207">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
+<span data-ttu-id="c927c-1005">Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídy aplikace.</span><span class="sxs-lookup"><span data-stu-id="c927c-1005">An <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> implementation allows adding enhancements to an app at startup from an external assembly outside of the app's `Startup` class.</span></span> <span data-ttu-id="c927c-1006">Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.</span><span class="sxs-lookup"><span data-stu-id="c927c-1006">For more information, see <xref:fundamentals/configuration/platform-specific-configuration>.</span></span>
 
-## <a name="additional-resources"></a><span data-ttu-id="f7447-1208">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="f7447-1208">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="c927c-1007">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="c927c-1007">Additional resources</span></span>
 
 * <xref:fundamentals/configuration/options>
 
