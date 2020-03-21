@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/02/2020
 uid: fundamentals/middleware/index
-ms.openlocfilehash: afa71b2c2b75be2c000fadd9545ac3fb4587825a
-ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
+ms.openlocfilehash: 9dcd061d2807fb90884327916d0348af4593df9d
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/10/2020
-ms.locfileid: "78964468"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989723"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -163,12 +163,12 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
-V případě aplikací s jednou stránkou se middleware SPA <xref:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles*> obvykle nachází v kanálu middleware jako poslední. Middleware SPA se vyskytuje jako poslední:
+V případě aplikací s jednou stránkou (jednostránkové) se middleware SPA <xref:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles*> obvykle nachází v kanálu middlewaru jako poslední. Middleware SPA se vyskytuje jako poslední:
 
 * Aby všechny ostatní middleware mohly reagovat na vyhovující požadavky jako první.
 * Povolí spuštění jednostránkové se směrováním na straně klienta pro všechny trasy, které serverová aplikace nerozpoznala.
 
-Další podrobnosti o aplikacích s jednou stránkou naleznete v příručkách pro [reakce](xref:spa/react) a [na](xref:spa/angular) obrazové šablony.
+Další informace o jednostránkové naleznete v příručkách pro [reakce](xref:spa/react) [a na](xref:spa/angular) rozch šablon projektů.
 
 ## <a name="branch-the-middleware-pipeline"></a>Větvení kanálu middlewaru
 

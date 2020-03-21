@@ -4,14 +4,14 @@ author: rick-anderson
 description: Tento kurz ukazuje, integrace ověřování uživatele účtu Google do stávající aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 10/30/2019
+ms.date: 03/19/2020
 uid: security/authentication/google-logins
-ms.openlocfilehash: 83f45143eca1be43410880bfd875a3fce1d2e9c9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: a114d23c25201c9fe31ad0397efaf99fe98a312a
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78667508"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989773"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>Nastavení Google externí přihlášení v technologii ASP.NET Core
 
@@ -28,14 +28,17 @@ V tomto kurzu se dozvíte, jak uživatelům povolit, aby se k účtu Google při
 * Uložte **ID klienta** a **tajný klíč klienta**.
 * Při nasazování lokality Zaregistrujte novou veřejnou adresu URL z **konzoly Google**.
 
-## <a name="store-google-clientid-and-clientsecret"></a>Store Google ClientID a ClientSecret
+## <a name="store-the-google-client-id-and-secret"></a>Uložte si ID a tajný kód klienta Google.
 
-Uložte citlivá nastavení, jako je Google `Client ID` a `Client Secret`, pomocí [správce tajných klíčů](xref:security/app-secrets). Pro účely tohoto kurzu pojmenujte tokeny `Authentication:Google:ClientId` a `Authentication:Google:ClientSecret`:
+Uložte citlivá nastavení, jako je třeba ID klienta Google a tajné hodnoty pomocí [správce tajných](xref:security/app-secrets)kódů. V této ukázce použijte následující postup:
 
-```dotnetcli
-dotnet user-secrets set "Authentication:Google:ClientId" "<client id>"
-dotnet user-secrets set "Authentication:Google:ClientSecret" "<client secret>"
-```
+1. Inicializujte projekt pro tajné úložiště podle pokynů v tématu [Povolení tajného úložiště](xref:security/app-secrets#enable-secret-storage).
+1. Uložte citlivá nastavení do místního úložiště tajných klíčů pomocí tajných klíčů `Authentication:Google:ClientId` a `Authentication:Google:ClientSecret`:
+
+    ```dotnetcli
+    dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
+    dotnet user-secrets set "Authentication:Google:ClientSecret" "<client-secret>"
+    ```
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
