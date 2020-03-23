@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: e1237db2625a127bfa5c31ac29b4394be6941b2f
-ms.sourcegitcommit: 9e2b3aaccc9a41291eb23bf4561159e79cf6bc9d
+ms.openlocfilehash: b4fa082c5a53bc9ecb3c7b8ddcbf243ef0d94ba7
+ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/19/2020
-ms.locfileid: "79546338"
+ms.lasthandoff: 03/21/2020
+ms.locfileid: "79989697"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -31,7 +31,7 @@ Konfigurace v ASP.NET Core provádí použití jednoho nebo více [poskytovatel�
 * Soubory adresáře
 * Objekty .NET v paměti
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 <a name="default"></a>
 
@@ -43,7 +43,7 @@ ASP.NET Core webové aplikace vytvořené pomocí [dotnet New](/dotnet/core/tool
 
  <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:
 
-1. [ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) : přidá existující `IConfiguration` jako zdroj. Ve výchozím případu konfigurace přidá konfiguraci [hostitele](#hvac) a nastaví ji jako první zdroj konfigurace _aplikace_ .
+1. [ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) :  Přidá existující `IConfiguration` jako zdroj. Ve výchozím případu konfigurace přidá konfiguraci [hostitele](#hvac) a nastaví ji jako první zdroj konfigurace _aplikace_ .
 1. [appSettings. JSON](#appsettingsjson) s použitím [poskytovatele konfigurace JSON](#file-configuration-provider).
 1. *appSettings.* `Environment` *. JSON* s použitím [poskytovatele konfigurace JSON](#file-configuration-provider). Například *appSettings*. ***Provozní***prostředí. *JSON* a *appSettings*. ***Vývoj***. *JSON*.
 1. [Tajné kódy aplikace](xref:security/app-secrets) při spuštění aplikace v prostředí `Development`.
@@ -70,8 +70,8 @@ Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotn
 
 Výchozí <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načte konfiguraci v následujícím pořadí:
 
-1. *appSettings. JSON*
-1. *appSettings.* `Environment` *. JSON* : například *appSettings*. ***Provozní***prostředí. *JSON* a *appSettings*. ***Vývoj***. soubory *JSON* . Verze prostředí souboru se načte na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*). Další informace naleznete v tématu <xref:fundamentals/environments>.
+1. *appsettings.json*
+1. *appSettings.* `Environment` *. JSON* : Například *appSettings*. ***Provozní***prostředí. *JSON* a *appSettings*. ***Vývoj***. soubory *JSON* . Verze prostředí souboru se načte na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*). Další informace najdete v tématu <xref:fundamentals/environments>.
 
 *appSettings*.`Environment`. hodnoty *JSON* přepíší klíče v souboru *appSettings. JSON*. Například ve výchozím nastavení:
 
@@ -135,9 +135,9 @@ Ve [výchozím nastavení](#default)přečte [správce tajných klíčů](xref:s
 Další informace o ukládání hesel nebo jiných citlivých dat:
 
 * <xref:fundamentals/environments>
-* <xref:security/app-secrets>: obsahuje rady týkající se používání proměnných prostředí k ukládání citlivých dat. Správce tajného kódu používá [zprostředkovatele konfigurace souborů](#fcp) k ukládání tajných klíčů uživatele do souboru JSON v místním systému.
+* <xref:security/app-secrets>:  Obsahuje rady týkající se používání proměnných prostředí k ukládání citlivých dat. Správce tajného kódu používá [zprostředkovatele konfigurace souborů](#fcp) k ukládání tajných klíčů uživatele do souboru JSON v místním systému.
 
-[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace. Další informace naleznete v tématu <xref:security/key-vault-configuration>.
+[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace. Další informace najdete v tématu <xref:security/key-vault-configuration>.
 
 <a name="evcp"></a>
 
@@ -152,7 +152,7 @@ Následující příkazy `set`:
 * Nastavte klíče prostředí a hodnoty v [předchozím příkladu](#appsettingsjson) ve Windows.
 * Při použití [ukázkového stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)otestujte nastavení. Příkaz `dotnet run` musí být spuštěn v adresáři projektu.
 
-```cmd
+```dotnetcli
 set MyKey="My key from Environment"
 set Position__Title=Environment_Editor
 set Position__Name=Environment_Rick
@@ -172,10 +172,10 @@ setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
 ```
 
-Chcete-li otestovat předchozí příkazy, přepište *apsettings. JSON* a *appSettings.* `Environment` *. JSON*:
+Chcete-li otestovat předchozí příkazy, přepište *appSettings. JSON* a *appSettings.* `Environment` *. JSON*:
 
 * Se sadou Visual Studio: Ukončete a restartujte Visual Studio.
-* Pomocí rozhraní příkazového řádku: spusťte nové příkazové okno a zadejte `dotnet run`.
+* S rozhraním příkazového řádku: Spusťte nové příkazové okno a zadejte `dotnet run`.
 
 Pokud chcete zadat předponu pro proměnné prostředí, zavolejte <xref:Microsoft.Extensions.Configuration.EnvironmentVariablesExtensions.AddEnvironmentVariables*> s řetězcem:
 
@@ -190,7 +190,7 @@ Pokud jsou načteny páry klíč-hodnota konfigurace, je předpona odstraněna.
 
 Vlastní předponu otestujete následujícími příkazy:
 
-```cmd
+```dotnetcli
 set MyCustomPrefix_MyKey="My key with MyCustomPrefix_ Environment"
 set MyCustomPrefix_Position__Title=Editor_with_customPrefix
 set MyCustomPrefix_Position__Name=Environment_Rick_cp
@@ -204,7 +204,7 @@ V [Azure App Service](https://azure.microsoft.com/services/app-service/)na strá
 * Šifrované v klidovém stavu a přenášené přes zašifrovaný kanál.
 * Vystaveno jako proměnné prostředí.
 
-Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
+Další informace najdete v tématu [aplikací Azure: Přepište konfiguraci aplikace pomocí](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)webu Azure Portal.
 
 Informace o připojovacích řetězcích Azure Database najdete v tématu [předpony připojovacího řetězce](#constr) .
 
@@ -243,7 +243,7 @@ dotnet run --MyKey "Using --" --Position:Title=Cmd-- --Position:Name=Cmd--Rick
 Hodnota klíče:
 
 * Musí následovat po `=`, nebo klíč musí mít předponu `--` nebo `/`, pokud se hodnota řídí mezerou.
-* Není vyžadováno, je-li použito `=`. například `MySetting=`.
+* Není vyžadováno, je-li použito `=`. Například, `MySetting=`.
 
 V rámci stejného příkazu Nekombinujte páry klíč-hodnota argumentu příkazového řádku, které používají `=` s páry klíč-hodnota, které používají mezeru.
 
@@ -272,7 +272,7 @@ Spusťte následující příkaz pro otestování nahrazení klíče:
 dotnet run -k1=value1 -k2 value2 --alt3=value2 /alt4=value3 --alt5 value5 /alt6 value6
 ```
 
-Poznámka: v současné době nelze `=` použít k nastavení hodnot nahrazení klíče jediným spojovníkem `-`. Podívejte se na [Tento problém GitHubu](https://github.com/dotnet/extensions/issues/3059).
+Poznámka: V současné době nelze `=` použít k nastavení hodnot nahrazení klíče jediným spojovníkem `-`. Podívejte se na [Tento problém GitHubu](https://github.com/dotnet/extensions/issues/3059).
 
 Následující příkaz funguje pro otestování nahrazení klíče:
 
@@ -341,7 +341,7 @@ Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou zadáni poskytovatel�
 
 Typická posloupnost zprostředkovatelů konfigurace je:
 
-1. *appSettings. JSON*
+1. *appsettings.json*
 1. *appSettings*.`Environment`. formát *JSON*
 1. [Správce tajných klíčů](xref:security/app-secrets)
 1. Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#evcp).
@@ -394,8 +394,8 @@ Vezměte v úvahu následující kód:
 Předchozí kód:
 
 * Nakonfiguruje zprostředkovatele konfigurace JSON pro načtení souboru *MyConfig. JSON* s následujícími možnostmi:
-  * `optional: true`: soubor je nepovinný.
-  * `reloadOnChange: true`: soubor se znovu načte při uložení změn.
+  * `optional: true`: Soubor je nepovinný.
+  * `reloadOnChange: true` : Soubor se znovu načte při uložení změn.
 * Přečte [výchozí poskytovatele konfigurace](#default) před souborem *MyConfig. JSON* . Nastavení v přepsání souboru *MyConfig. JSON* ve výchozích poskytovatelích konfigurace, včetně [poskytovatele konfigurace proměnných prostředí](#evcp) a [poskytovatele konfigurace příkazového řádku](#clcp).
 
 ***Obvykle nechcete, aby vlastní*** soubor JSON přepsal hodnoty nastavené ve [zprostředkovateli konfigurace proměnných prostředí](#evcp) a v [poskytovateli konfigurace příkazového řádku](#clcp).
@@ -673,7 +673,7 @@ Definujte entitu `EFConfigurationValue` pro ukládání konfiguračních hodnot 
 
 Přidejte `EFConfigurationContext` pro uložení a přístup k nakonfigurovaným hodnotám.
 
-*EFConfigurationProvider/EFConfigurationContext. cs*:
+*EFConfigurationProvider/EFConfigurationContext.cs*:
 
 [!code-csharp[](index/samples/3.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
@@ -707,7 +707,7 @@ Následující kód zobrazuje konfigurační data v `Startup` metodách:
 
 [!code-csharp[](index/samples/3.x/ConfigSample/StartupKey.cs?name=snippet&highlight=13,18)]
 
-Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuštění aplikace najdete v tématu [metody spuštění aplikace: pohodlí](xref:fundamentals/startup#convenience-methods).
+Příklad přístupu ke konfiguraci pomocí metod pohodlného spuštění najdete v tématu [spuštění aplikace: Praktické metody](xref:fundamentals/startup#convenience-methods).
 
 ## <a name="access-configuration-in-razor-pages"></a>Konfigurace přístupu v Razor Pages
 
@@ -757,7 +757,7 @@ Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NE
 
 ## <a name="add-configuration-from-an-external-assembly"></a>Přidat konfiguraci z externího sestavení
 
-Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídy aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
+Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
 ## <a name="additional-resources"></a>Další zdroje
 
@@ -787,9 +787,9 @@ Příklady kódu, které následují a v ukázkové aplikaci používají obor n
 using Microsoft.Extensions.Configuration;
 ```
 
-*Vzor možností* je rozšíření konceptů konfigurace popsaných v tomto tématu. Možnosti používají třídy pro reprezentaci skupin souvisejících nastavení. Další informace naleznete v tématu <xref:fundamentals/configuration/options>.
+*Vzor možností* je rozšíření konceptů konfigurace popsaných v tomto tématu. Možnosti používají třídy pro reprezentaci skupin souvisejících nastavení. Další informace najdete v tématu <xref:fundamentals/configuration/options>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples) ([stažení](xref:index#how-to-download-a-sample))
 
 ## <a name="host-versus-app-configuration"></a>Konfigurace versus konfigurace aplikace
 
@@ -832,12 +832,12 @@ Při zabezpečování citlivých konfiguračních dat proveďte následující p
 * Nepoužívejte provozní tajemství ve vývojových nebo testovacích prostředích.
 * Zadejte tajné klíče mimo projekt, aby se nemohly omylem potvrdit do úložiště zdrojového kódu.
 
-Další informace najdete v následujících tématech:
+Další informace naleznete v následujících tématech:
 
 * <xref:fundamentals/environments>
 * <xref:security/app-secrets> &ndash; obsahuje rady týkající se používání proměnných prostředí k ukládání citlivých dat. Správce tajného kódu používá zprostředkovatele konfigurace souborů k ukládání tajných klíčů uživatele do souboru JSON v místním systému. Poskytovatel konfigurace souboru je popsán dále v tomto tématu.
 
-[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace. Další informace naleznete v tématu <xref:security/key-vault-configuration>.
+[Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace. Další informace najdete v tématu <xref:security/key-vault-configuration>.
 
 ## <a name="hierarchical-configuration-data"></a>Hierarchická konfigurační data
 
@@ -867,7 +867,7 @@ Když je soubor čten do konfigurace, jsou vytvořeny jedinečné klíče pro za
 
 metody <xref:Microsoft.Extensions.Configuration.ConfigurationSection.GetSection*> a <xref:Microsoft.Extensions.Configuration.IConfiguration.GetChildren*> jsou k dispozici k izolaci oddílů a podřízených objektů oddílu v konfiguračních datech. Tyto metody jsou popsány dále v [tématu GetSection, GetChildren a Exists](#getsection-getchildren-and-exists).
 
-## <a name="conventions"></a>Zásady
+## <a name="conventions"></a>Konvence
 
 ### <a name="sources-and-providers"></a>Zdroje a poskytovatelé
 
@@ -924,7 +924,7 @@ Konfigurační hodnoty přijímají následující konvence:
 * Hodnoty jsou řetězce.
 * Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.
 
-## <a name="providers"></a>Poskytovatelé
+## <a name="providers"></a>Zprostředkovatelé
 
 V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.
 
@@ -1129,7 +1129,7 @@ Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte metodu rozš
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
-[Azure App Service](https://azure.microsoft.com/services/app-service/) povoluje nastavení proměnných prostředí na webu Azure Portal, které mohou přepsat konfiguraci aplikace pomocí poskytovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
+[Azure App Service](https://azure.microsoft.com/services/app-service/) povoluje nastavení proměnných prostředí na webu Azure Portal, které mohou přepsat konfiguraci aplikace pomocí poskytovatele konfigurace proměnných prostředí. Další informace najdete v tématu [aplikací Azure: Přepište konfiguraci aplikace pomocí](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal)webu Azure Portal.
 
 `AddEnvironmentVariables` se používá k načtení proměnných prostředí s předponou `ASPNETCORE_` pro [konfiguraci hostitele](#host-versus-app-configuration) při inicializaci nového hostitele s [webovým hostitelem](xref:fundamentals/host/web-host) a volání `CreateDefaultBuilder`. Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
 
@@ -1663,7 +1663,7 @@ Index &num;3 ve vázaném objektu obsahuje konfigurační data pro konfiguračn�
 
 Chybějící položka konfigurace pro index &num;3 může být zadána před vytvořením vazby na instanci `ArrayExample` pomocí jakéhokoli poskytovatele konfigurace, který vytváří správnou dvojici klíč-hodnota v konfiguraci. Pokud ukázka zahrnovala dalšího poskytovatele konfigurace JSON s chybějící dvojicí klíč-hodnota, `ArrayExample.Entries` odpovídá kompletnímu poli konfigurace:
 
-*missing_value. JSON*:
+*missing_value.json*:
 
 ```json
 {
@@ -1740,7 +1740,7 @@ Definujte entitu `EFConfigurationValue` pro ukládání konfiguračních hodnot 
 
 Přidejte `EFConfigurationContext` pro uložení a přístup k nakonfigurovaným hodnotám.
 
-*EFConfigurationProvider/EFConfigurationContext. cs*:
+*EFConfigurationProvider/EFConfigurationContext.cs*:
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/EFConfigurationProvider/EFConfigurationContext.cs?name=snippet1)]
 
@@ -1792,7 +1792,7 @@ public class Startup
 }
 ```
 
-Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuštění aplikace najdete v tématu [metody spuštění aplikace: pohodlí](xref:fundamentals/startup#convenience-methods).
+Příklad přístupu ke konfiguraci pomocí metod pohodlného spuštění najdete v tématu [spuštění aplikace: Praktické metody](xref:fundamentals/startup#convenience-methods).
 
 ## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a>Přístup ke konfiguraci na Razor Pages stránce nebo zobrazení MVC
 
@@ -1838,7 +1838,7 @@ V zobrazení MVC:
 
 ## <a name="add-configuration-from-an-external-assembly"></a>Přidat konfiguraci z externího sestavení
 
-Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídy aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
+Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> umožňuje do aplikace přidat různá vylepšení z externího sestavení při jejím spuštění, mimo třídu `Startup` aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
 ## <a name="additional-resources"></a>Další zdroje
 
