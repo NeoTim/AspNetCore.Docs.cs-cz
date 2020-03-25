@@ -1,0 +1,1 @@
+Pokud tento kód čtete v jiném jazyce než v angličtině, dejte nám v tomto [problému diskuze o GitHubu](https://github.com/aspnet/AspNetCore.Docs/issues/16455) informace o tom, jestli byste chtěli zobrazit komentáře k kódu v nativním jazyce.

@@ -1,0 +1,2 @@
+> [!WARNING]
+> Při použití <xref:System.Text.RegularExpressions> pro zpracování nedůvěryhodného vstupu předejte časový limit. Uživatel se zlými úmysly může poskytnout vstup `RegularExpressions` způsobující [útok DoS (Denial-of-Service](https://www.us-cert.gov/ncas/tips/ST04-015)). Rozhraní API rozhraní ASP.NET Core Framework, která používají `RegularExpressions` přejdou na časový limit.

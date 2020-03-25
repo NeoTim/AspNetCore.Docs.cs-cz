@@ -1,17 +1,17 @@
 ---
 title: Publikování aplikace ASP.NET Core do Azure pomocí Visual Studio Code
-author: ricardoserradas
+author: rick-anderson
 description: Naučte se publikovat aplikaci ASP.NET Core pro Azure App Service pomocí Visual Studio Code
 ms.author: riserrad
 ms.custom: mvc
 ms.date: 07/10/2019
 uid: tutorials/publish-to-azure-webapp-using-vscode
-ms.openlocfilehash: eaf9cca61b21d04d127ff15a579f3d8da794f7d9
-ms.sourcegitcommit: 40dc9b00131985abcd99bd567647420d798e798a
+ms.openlocfilehash: 5f117cb2867a6e7b54269ef39abe819256b429ec
+ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/09/2020
-ms.locfileid: "78935428"
+ms.lasthandoff: 03/25/2020
+ms.locfileid: "80242675"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio-code"></a>Publikování aplikace ASP.NET Core do Azure pomocí Visual Studio Code
 
@@ -90,7 +90,7 @@ tasks.json
 
 Jedná se o pomocné soubory, které vám pomůžou sestavovat a ladit webovou aplikaci .NET Core.
 
-## <a name="run-the-app"></a>Spuštění aplikace
+## <a name="run-the-app"></a>Spusťte aplikaci
 
 Než aplikaci nasadíme do Azure, ujistěte se, že je správně spuštěná na místním počítači.
 

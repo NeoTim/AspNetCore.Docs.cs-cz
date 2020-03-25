@@ -5,12 +5,12 @@ description: Naučte se pracovat s metodami kontroleru, zobrazeními a dataanota
 ms.author: riande
 ms.date: 12/13/2018
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: 2c442060872ab1d2d79a2e355ae257fdf1005914
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 87b3cb2f4429157123d30274d1f12cd589c1cc99
+ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78663504"
+ms.lasthandoff: 03/25/2020
+ms.locfileid: "80242507"
 ---
 # <a name="controller-methods-and-views-in-aspnet-core"></a>Metody a zobrazení kontroleru v ASP.NET Core
 
@@ -53,6 +53,8 @@ Odvolání formátu pro sadu [Směrování](xref:mvc/controllers/routing) v soub
 ASP.NET Core `https://localhost:5001/Movies/Edit/4` do žádosti do metody `Edit` akce kontroleru `Movies` s parametrem `Id` 4. (Metody kontroleru se označují také jako metody akcí.)
 
 [Pomocník značek](xref:mvc/views/tag-helpers/intro) je jednou z nejoblíbenějších nových funkcí v ASP.NET Core. Další informace najdete v tématu [Další zdroje](#additional-resources)informací.
+
+<a name="get-post"></a>
 
 Otevřete kontroler `Movies` a prověřte dvě metody akce `Edit`. Následující kód ukazuje metodu `HTTP GET Edit`, která načte film a naplní formulář pro úpravy vygenerovaný souborem *Edit. cshtml* Razor.
 
