@@ -5,17 +5,17 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/routing
-ms.openlocfilehash: 32459f9f42220b01ce04e6444a9bb4a9592ee2da
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 87579c88a37e0258921e199db2b5d8c7627f5499
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78663805"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218892"
 ---
 # <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
 
@@ -198,16 +198,16 @@ Vykresluje se následující kód HTML:
 
 ## <a name="uri-and-navigation-state-helpers"></a>Identifikátory URI a pomocníka pro stav navigace
 
-Použijte `Microsoft.AspNetCore.Components.NavigationManager` pro práci s identifikátory URI a navigací v C# kódu. `NavigationManager` poskytuje událost a metody uvedené v následující tabulce.
+Použijte <xref:Microsoft.AspNetCore.Components.NavigationManager> pro práci s identifikátory URI a navigací v C# kódu. `NavigationManager` poskytuje událost a metody uvedené v následující tabulce.
 
 | Člen | Popis |
 | ------ | ----------- |
-| `Uri` | Získá aktuální absolutní identifikátor URI. |
-| `BaseUri` | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle `BaseUri` odpovídá atributu `href` na `<base>` elementu dokumentu v *wwwroot/index.html* (Blazor WebAssembly) nebo *stránkách/_Host. cshtml* (Blazor Server). |
-| `NavigateTo` | Přejde k zadanému identifikátoru URI. Pokud je `forceLoad` `true`:<ul><li>Směrování na straně klienta se nepoužívá.</li><li>Prohlížeč je nucen načíst novou stránku ze serveru, bez ohledu na to, zda je identifikátor URI obvykle zpracováván směrovačem na straně klienta.</li></ul> |
-| `LocationChanged` | Událost, která se aktivuje, když se změní navigační umístění |
-| `ToAbsoluteUri` | Převede relativní identifikátor URI na absolutní identifikátor URI. |
-| `ToBaseRelativePath` | Vzhledem k základnímu identifikátoru URI (například identifikátor URI, který dříve vrátila `GetBaseUri`), převede absolutní identifikátor URI na identifikátor URI relativní k předponě základního identifikátoru URI. |
+| Uri | Získá aktuální absolutní identifikátor URI. |
+| Identifikátor | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle `BaseUri` odpovídá atributu `href` na `<base>` elementu dokumentu v *wwwroot/index.html* (Blazor WebAssembly) nebo *stránkách/_Host. cshtml* (Blazor Server). |
+| NavigateTo | Přejde k zadanému identifikátoru URI. Pokud je `forceLoad` `true`:<ul><li>Směrování na straně klienta se nepoužívá.</li><li>Prohlížeč je nucen načíst novou stránku ze serveru, bez ohledu na to, zda je identifikátor URI obvykle zpracováván směrovačem na straně klienta.</li></ul> |
+| LocationChanged | Událost, která se aktivuje, když se změní navigační umístění |
+| ToAbsoluteUri | Převede relativní identifikátor URI na absolutní identifikátor URI. |
+| <span style="word-break:normal;word-wrap:normal">ToBaseRelativePath</span> | Vzhledem k základnímu identifikátoru URI (například identifikátor URI, který dříve vrátila `GetBaseUri`), převede absolutní identifikátor URI na identifikátor URI relativní k předponě základního identifikátoru URI. |
 
 Pokud je vybráno tlačítko, přejde následující komponenta na součást `Counter` aplikace:
 
@@ -228,3 +228,34 @@ Pokud je vybráno tlačítko, přejde následující komponenta na součást `Co
     }
 }
 ```
+
+Následující komponenta zpracovává událost změny umístění. Pokud je `Dispose` volána rozhraním, je metoda `HandleLocationChanged` nezavěšena. Odpojování metody umožňuje uvolňování paměti komponenty.
+
+```razor
+@implement IDisposable
+@inject NavigationManager NavigationManager
+
+...
+
+protected override void OnInitialized()
+{
+    NavigationManager.LocationChanged += HandleLocationChanged;
+}
+
+private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+{
+    ...
+}
+
+public void Dispose()
+{
+    NavigationManager.LocationChanged -= HandleLocationChanged;
+}
+```
+
+<xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs> poskytuje následující informace o události:
+
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.Location> &ndash; adresu URL nového umístění.
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted> &ndash; Pokud `true`, Blazor zachycení navigace z prohlížeče. Pokud `false`[NavigationManager. NavigateTo](xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A) způsobila, že dojde k navigaci.
+
+Další informace o vyřazení součástí najdete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.

@@ -5,17 +5,17 @@ description: Naučte se používat metody životního cyklu komponenty Razor v a
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: ecacd0a9728cbefd716e9dc7cd8a8c62f3df6e0d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 831f575afa6ce11d06c016d43ecd1bb59d09eab6
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78659927"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218905"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>Životní cyklus Blazor ASP.NET Core
 
@@ -56,6 +56,8 @@ Chcete-li zabránit tomu, aby kód pro vývojáře v `OnInitializedAsync` běže
 
 I když je aplikace Blazor serveru předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně. Další informace najdete v části [detekce při předvykreslování aplikace](#detect-when-the-app-is-prerendering) .
 
+Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vyřazení. Další informace naleznete v části [Odstranění součásti s](#component-disposal-with-idisposable) rozhraním IDisposable.
+
 ### <a name="before-parameters-are-set"></a>Před nastavením parametrů
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*> nastaví parametry zadané nadřazeným prvkem komponenty ve stromu vykreslování:
@@ -74,6 +76,8 @@ public override async Task SetParametersAsync(ParameterView parameters)
 Výchozí implementace `SetParametersAsync` nastaví hodnotu každé vlastnosti s atributem `[Parameter]` nebo `[CascadingParameter]`, který má odpovídající hodnotu v `ParameterView`. Parametry, které nemají odpovídající hodnotu v `ParameterView`, jsou ponechány beze změny.
 
 Pokud `base.SetParametersAync` není vyvolán, vlastní kód může interpretovat hodnotu příchozích parametrů jakýmkoli způsobem, který je vyžadován. Například neexistuje žádný požadavek na přiřazení příchozích parametrů k vlastnostem třídy.
+
+Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vyřazení. Další informace naleznete v části [Odstranění součásti s](#component-disposal-with-idisposable) rozhraním IDisposable.
 
 ### <a name="after-parameters-are-set"></a>Po nastavení parametrů
 
@@ -100,6 +104,8 @@ protected override void OnParametersSet()
     ...
 }
 ```
+
+Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vyřazení. Další informace naleznete v části [Odstranění součásti s](#component-disposal-with-idisposable) rozhraním IDisposable.
 
 ### <a name="after-component-render"></a>Po vykreslení komponenty
 
@@ -136,6 +142,8 @@ protected override void OnAfterRender(bool firstRender)
 ```
 
 `OnAfterRender` a `OnAfterRenderAsync` *nejsou volány při předvykreslování na serveru.*
+
+Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vyřazení. Další informace naleznete v části [Odstranění součásti s](#component-disposal-with-idisposable) rozhraním IDisposable.
 
 ### <a name="suppress-ui-refreshing"></a>Potlačit aktualizaci uživatelského rozhraní
 
@@ -188,6 +196,16 @@ Pokud komponenta implementuje <xref:System.IDisposable>, je volána [Metoda Disp
 
 > [!NOTE]
 > Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> v `Dispose` není podporováno. `StateHasChanged` může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
+
+Zruší odběr obslužných rutin událostí z událostí .NET. Následující příklady [Blazor formuláře](xref:blazor/forms-validation) ukazují, jak odpojovat obslužnou rutinu události v metodě `Dispose`:
+
+* Přístup k privátnímu poli a lambda
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-1.razor?highlight=23,28)]
+
+* Přístup k privátní metodě
+
+  [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
 
 ## <a name="handle-errors"></a>Zpracování chyb
 

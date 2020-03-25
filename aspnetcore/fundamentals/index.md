@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: fundamentals/index
-ms.openlocfilehash: a16a2fbb4ad2a79f96b6646ffdc359619d361a25
-ms.sourcegitcommit: 5bdc54162d7dea8d9fa54ac3055678db23586af1
+ms.openlocfilehash: 7533242140c31a937f32cc9082d760103347ce25
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/17/2020
-ms.locfileid: "79434314"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219178"
 ---
 # <a name="aspnet-core-fundamentals"></a>ASP.NET Core základy
 

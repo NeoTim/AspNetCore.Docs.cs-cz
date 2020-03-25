@@ -4,6 +4,8 @@
 
 **[Pomocná rutina značky mezipaměti](xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper)**
 
+**[Pomocník značek komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)**
+
 **[Pomocná rutina značky distribuované mezipaměti](xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper)**
 
 **[Pomocník značek prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)**

@@ -5,17 +5,17 @@ description: Naučte se, jak zabezpečit aplikace Blazor WebAssemlby jako aplika
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 03/12/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/index
-ms.openlocfilehash: a65d47e55960d6e7bfeb672c0a1e6a7a305ad7ee
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: 652d4c61110f786396d9d5af4f131b817c40e333
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989486"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219243"
 ---
 # <a name="secure-aspnet-core-opno-locblazor-webassembly"></a>Zabezpečené ASP.NET Core Blazor WebAssembly
 
@@ -54,3 +54,47 @@ Knihovna `Microsoft.AspNetCore.Components.WebAssembly.Authentication` nabízí n
 * Když aplikace Blazor WebAssembly načte koncový bod zpětného volání přihlášení (`/authentication/login-callback`), je zpracována ověřovací odpověď.
   * Pokud se proces ověřování úspěšně dokončí, uživatel se ověří a případně se pošle zpátky na původní chráněnou adresu URL, kterou si uživatel vyžádal.
   * Pokud se proces ověřování z nějakého důvodu nepovede, uživatel se pošle na stránku neúspěšné přihlášení (`/authentication/login-failed`) a zobrazí se chyba.
+  
+## <a name="options-for-hosted-apps-and-third-party-login-providers"></a>Možnosti pro hostované aplikace a poskytovatele přihlašovacích údajů třetích stran
+
+Při ověřování a autorizaci hostované Blazor aplikace WebAssembly s poskytovatelem třetí strany je k dispozici několik možností pro ověření uživatele. Kterou zvolíte, závisí na vašem scénáři.
+
+Další informace naleznete v tématu <xref:security/authentication/social/additional-claims>.
+
+### <a name="authenticate-users-to-only-call-protected-third-party-apis"></a>Ověřování uživatelů pro volání rozhraní API chráněných třetích stran
+
+Ověřit uživatele pomocí toku oAuth na straně klienta proti poskytovateli rozhraní API třetí strany:
+
+ ```csharp
+ builder.services.AddOidcAuthentication(options => { ... });
+ ```
+ 
+ V tomto scénáři:
+
+* Server, který je hostitelem aplikace, nehraje roli.
+* Rozhraní API na serveru nejde chránit.
+* Aplikace může volat jenom chráněná rozhraní API třetích stran.
+
+### <a name="authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party"></a>Ověřování uživatelů pomocí poskytovatele třetí strany a volání chráněných rozhraní API na hostitelském serveru a třetí straně
+
+Nakonfigurujte identitu pomocí poskytovatele přihlášení třetí strany. Získejte tokeny vyžadované pro přístup k rozhraní API třetích stran a uložte je.
+
+Když se uživatel přihlásí, identita shromažďuje přístup a aktualizuje tokeny v rámci procesu ověřování. V tomto okamžiku je k dispozici několik přístupů pro volání rozhraní API třetích stran.
+
+#### <a name="use-a-server-access-token-to-retrieve-the-third-party-access-token"></a>Použití přístupového tokenu serveru k načtení přístupového tokenu třetí strany
+
+K načtení přístupového tokenu třetí strany z koncového bodu rozhraní API serveru použijte přístupový token vygenerovaný na serveru. Odtud pomocí přístupového tokenu třetí strany můžete volat prostředky rozhraní API třetích stran přímo z identity na klientovi.
+
+Tento postup nedoporučujeme. Tento přístup vyžaduje ošetření přístupového tokenu třetí strany, jako kdyby byl vygenerován pro veřejného klienta. V případech oAuth nemá veřejná aplikace tajný klíč klienta, protože nemůže být důvěryhodná pro bezpečné ukládání tajných kódů a přístupového tokenu se vytvoří pro důvěrného klienta. Důvěrný klient je klient, který má tajný klíč klienta a předpokládá, že bude moci bezpečně ukládat tajné klíče.
+
+* Přístupovému tokenu třetí strany se můžou udělit další obory, které budou provádět citlivé operace na základě skutečnosti, že třetí strana vygenerovala token pro více důvěryhodných klientů.
+* Podobně by se aktualizační tokeny neměly vystavit klientovi, který není důvěryhodný, protože by to tak měl klienta bez omezení přístupu, pokud se na ně neukládají jiná omezení.
+
+#### <a name="make-api-calls-from-the-client-to-the-server-api-in-order-to-call-third-party-apis"></a>Volání rozhraní API z klienta na rozhraní API serveru za účelem volání rozhraní API třetích stran
+
+Naplňte volání rozhraní API z klienta na serverové rozhraní API. Ze serveru načtěte přístupový token pro prostředek rozhraní API třetí strany a vydejte jakékoli volání, které je potřeba.
+
+I když tento přístup vyžaduje další síťové směrování prostřednictvím serveru za účelem volání rozhraní API třetí strany, má za následek bezpečnější prostředí:
+
+* Server může ukládat aktualizační tokeny a zajistit, aby aplikace neztratila přístup k prostředkům třetích stran.
+* Aplikace nemůže zajímat přístupové tokeny ze serveru, který může obsahovat citlivá oprávnění.

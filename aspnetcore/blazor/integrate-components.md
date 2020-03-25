@@ -5,17 +5,17 @@ description: Přečtěte si o scénářích datových vazeb pro komponenty a prv
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/integrate-components
-ms.openlocfilehash: de1a37ffd9456c956e3d84fcc69431ecb794513c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: cf6056e0985d5433bddecac8dd183ca3f4c2af5b
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78663315"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218931"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>Integrace součástí ASP.NET Core Razor do Razor Pages a aplikací MVC
 
@@ -124,7 +124,7 @@ Podpora směrování komponent s více prvky Razor v aplikacích Razor Pages:
    });
    ```
 
-1. Přidejte do aplikace směrovatelné součásti. Příklad:
+1. Přidejte do aplikace směrovatelné součásti. Například:
 
    ```razor
    @page "/counter"
@@ -194,7 +194,7 @@ Podpora směrovatelných komponent Razor v aplikacích MVC:
    });
    ```
 
-1. Vytvořte složku *Pages* a přidejte do ní součásti s funkcí směrování. Příklad:
+1. Vytvořte složku *Pages* a přidejte do ní součásti s funkcí směrování. Například:
 
    ```razor
    @page "/counter"
@@ -225,31 +225,10 @@ Další informace naleznete v tématu <xref:blazor/components#import-components>
 
 *Tato část se vztahuje na přidávání komponent na stránky nebo zobrazení, kde součásti nejsou přímo směrovatelné od uživatelských požadavků.*
 
-Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte pomocníka značky `Component`:
-
-```cshtml
-<component type="typeof(Counter)" render-mode="ServerPrerendered" 
-    param-IncrementAmount="10" />
-```
-
-Typ parametru musí být serializovatelný jako JSON, což obvykle znamená, že typ musí mít výchozí konstruktor a nastavitelné vlastnosti. Můžete například zadat hodnotu pro `IncrementAmount`, protože typ `IncrementAmount` je `int`, což je primitivní typ podporovaný serializátorem JSON.
-
-`RenderMode` nakonfiguruje, jestli součást:
-
-* Je předem vykreslen na stránku.
-* Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor z uživatelského agenta.
-
-| `RenderMode`        | Popis |
-| ------------------- | ----------- |
-| `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro aplikaci Blazor Server. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. |
-| `Server`            | Vykreslí značku pro aplikaci Blazor serveru. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije k zavedení Blazor aplikace. |
-| `Static`            | Vykreslí komponentu do statického HTML. |
-
-I když stránky a zobrazení mohou používat komponenty, není tato konverzace pravdivá. Komponenty nemůžou používat scénáře zobrazení a stránky, jako jsou například částečná zobrazení a oddíly. Chcete-li použít logiku z částečného zobrazení v komponentě, rozložte logiku částečného zobrazení do komponenty.
-
-Vykreslování součástí serveru ze statické stránky HTML není podporováno.
+Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte [pomocníka značek komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper).
 
 Další informace o vykreslování komponent, stavu komponent a pomocníka značek `Component` naleznete v následujících článcích:
 
 * <xref:blazor/hosting-models>
 * <xref:blazor/hosting-model-configuration>
+* <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>

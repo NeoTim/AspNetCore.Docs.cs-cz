@@ -5,17 +5,17 @@ description: Zjistěte, jak mohou být součásti součástí aplikace Blazor z 
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2020
+ms.date: 03/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/class-libraries
-ms.openlocfilehash: 32088b43f91174596f6b9251d36782e806f966b9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: f2cc57638922bd1f6ab036adb2ed37209d14c5b0
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660487"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218763"
 ---
 # <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core knihovny tříd součástí Razor
 
@@ -38,7 +38,7 @@ Pokud chcete nakonfigurovat prostředí pro Blazor, postupujte podle pokynů v �
 1. Vytvoření nového projektu
 1. Vyberte **knihovnu tříd Razor**. Vyberte **Další**.
 1. V dialogovém okně **vytvořit novou knihovnu tříd Razor** vyberte **vytvořit**.
-1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Příklady v tomto tématu používají název projektu `MyComponentLib1`. Vyberte **Vytvořit**.
+1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Příklady v tomto tématu používají název projektu `MyComponentLib1`. Vyberte **Create** (Vytvořit).
 1. Přidat RCL do řešení:
    1. Klikněte pravým tlačítkem na řešení. Vyberte **přidat** > **existující projekt**.
    1. Přejděte do souboru projektu RCL.
@@ -114,6 +114,10 @@ Welcome to your new app.
 
 Zahrňte direktivu `@using MyComponentLib1` do souboru *_Import. Razor* nejvyšší úrovně, aby komponenty knihovny byly dostupné pro celý projekt. Přidáním direktivy do souboru *_Import. Razor* na libovolné úrovni můžete použít obor názvů na jednu stránku nebo sadu stránek v rámci složky.
 
+## <a name="create-a-razor-components-class-library-with-static-assets"></a>Vytvoření knihovny tříd součástí Razor se statickými prostředky
+
+RCL může zahrnovat statické prostředky. Statické prostředky jsou k dispozici pro všechny aplikace, které knihovnu využívají. Další informace naleznete v tématu <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.
+
 ## <a name="build-pack-and-ship-to-nuget"></a>Sestavení, balení a odeslání do NuGet
 
 Knihovny součástí jsou standardní knihovny .NET, balení a jejich odeslání do NuGet se neliší od balení a předává jakékoli knihovny do NuGet. Balení se provádí pomocí příkazu [dotnet Pack](/dotnet/core/tools/dotnet-pack) v příkazovém prostředí:
@@ -124,10 +128,7 @@ dotnet pack
 
 Nahrajte balíček do NuGet pomocí příkazu [dotnet NuGet push](/dotnet/core/tools/dotnet-nuget-push) v příkazovém prostředí.
 
-## <a name="create-a-razor-components-class-library-with-static-assets"></a>Vytvoření knihovny tříd součástí Razor se statickými prostředky
-
-RCL může zahrnovat statické prostředky. Statické prostředky jsou k dispozici pro všechny aplikace, které knihovnu využívají. Další informace naleznete v tématu <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.
-
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:razor-pages/ui-class>
+* [Přidání konfiguračního souboru linkeru XML do knihovny](xref:host-and-deploy/blazor/configure-linker#add-an-xml-linker-configuration-file-to-a-library)

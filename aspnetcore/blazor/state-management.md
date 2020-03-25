@@ -5,17 +5,17 @@ description: Přečtěte si, jak zachovat stav v aplikacích Blazor Server.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/18/2019
+ms.date: 03/17/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: 990d392b0e1658774256626eb277701e40287b79
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e8a1959a8fc05ea59362bb5824181a9d2e418811
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78657708"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218866"
 ---
 # <a name="aspnet-core-opno-locblazor-state-management"></a>Správa stavu ASP.NET Core Blazor
 
@@ -242,7 +242,7 @@ Během předvykreslování:
 
 Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předvykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah, dokud nebudou k dispozici `localStorage` nebo `sessionStorage`.
 
-Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte volání `render-mode` pomocníka značky `Component` na `Server`.
+Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte `render-mode` [pomocníka značek komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper) na <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server>.
 
 Předvykreslování může být užitečné pro jiné stránky, které nepoužívají `localStorage` ani `sessionStorage`. Aby bylo možné předvykreslování povolit, odložte operaci načtení, dokud se prohlížeč nepřipojí k okruhu. Následuje příklad uložení hodnoty čítače:
 

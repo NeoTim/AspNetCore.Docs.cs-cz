@@ -5,17 +5,17 @@ description: Naučte se vytvářet progresivní webové aplikace založené na B
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/12/2020
+ms.date: 03/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: 53e1c4d043c0e8faf13668989cda1f1245c7157a
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: fe69e51aefae9c80e5bb4b78151d384ce25d41a7
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989520"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218944"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Core Blazor WebAssembly
 
@@ -128,7 +128,7 @@ Strategie pro první mezipaměť je užitečná z těchto důvodů:
 * **Zajišťuje spolehlivost.** přístup k síti &ndash; není logický stav. Uživatel není jednoduše online nebo offline:
 
   * Zařízení uživatele může předpokládat, že je online, ale síť může být tak pomalá, aby nedošlo k nepraktickému čekání.
-  * síť může u některých adres URL vracet neplatné výsledky, například když je k dispozici nějaký portál Wi-Fi, který aktuálně blokuje nebo přesměrovává určité požadavky.
+  * Síť může u některých adres URL vracet neplatné výsledky, například když je k dispozici nějaký portál WIFI, který aktuálně blokuje nebo přesměrovává určité požadavky.
   
   Důvodem je to, proč `navigator.onLine` rozhraní API prohlížeče není spolehlivé a nemělo by být závislé na.
 

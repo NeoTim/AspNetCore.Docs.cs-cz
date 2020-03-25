@@ -5,17 +5,17 @@ description: Přečtěte si o Blazor scénářích ověřování a autorizace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/13/2020
+ms.date: 02/21/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: ba00c0370094df4e0ae0479aeb23eceea6ef04f0
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.openlocfilehash: f7ffb4c3d5a05cb916b4f00cdfaf5898634a1a6d
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/11/2020
-ms.locfileid: "79083345"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219022"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core ověřování a autorizace Blazor
 
@@ -31,6 +31,8 @@ Scénáře zabezpečení se liší mezi Blazor serverem a Blazor aplikacemi WebA
 * Pravidla přístupu pro oblasti aplikace a součástí
 
 Blazor aplikace WebAssembly běží na klientovi. Autorizace se používá *jenom* k určení možností uživatelského rozhraní, které se mají zobrazit. Vzhledem k tomu, že kontroly na straně klienta mohou být upraveny nebo vynechány uživatelem, aplikace Blazor WebAssembly nemůže vyhovět autorizačním pravidlům.
+
+[Razor Pages konvence autorizace](xref:security/authorization/razor-pages-authorization) se nevztahují na směrovatelné komponenty Razor. Pokud je na [stránce vložena](xref:blazor/integrate-components#render-components-from-a-page-or-view)Nesměrovatelné komponenty Razor, zásady autorizace této stránky nepřímo ovlivňují komponentu Razor společně se zbytkem obsahu stránky.
 
 ## <a name="authentication"></a>Ověřování
 

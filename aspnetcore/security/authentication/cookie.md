@@ -6,12 +6,12 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 02/11/2020
 uid: security/authentication/cookie
-ms.openlocfilehash: 64f881441a7a7f9a5529cb6ee5ce81142ccd69e6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b7c8b2cccb27dd6818330b17439675e41bfef013
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78663000"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80219204"
 ---
 # <a name="use-cookie-authentication-without-aspnet-core-identity"></a>Použití ověřování souborem cookie bez ASP.NET Core identity
 
@@ -89,6 +89,8 @@ Chcete-li vytvořit soubor cookie obsahující informace o uživateli, vytvořte
 Vytvořte <xref:System.Security.Claims.ClaimsIdentity> s libovolným požadovaným <xref:System.Security.Claims.Claim>s a voláním <xref:Microsoft.AspNetCore.Authentication.AuthenticationHttpContextExtensions.SignInAsync*> pro přihlášení uživatele:
 
 [!code-csharp[](cookie/samples/3.x/CookieSample/Pages/Account/Login.cshtml.cs?name=snippet1)]
+
+[!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]
 
 `SignInAsync` vytvoří zašifrovaný soubor cookie a přidá ho k aktuální odpovědi. Pokud není zadaný `AuthenticationScheme`, použije se výchozí schéma.
 

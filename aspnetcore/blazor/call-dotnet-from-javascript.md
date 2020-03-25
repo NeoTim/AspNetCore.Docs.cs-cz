@@ -5,21 +5,21 @@ description: Naučte se volat metody .NET z funkcí JavaScriptu v aplikacích Bl
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/19/2020
+ms.date: 03/24/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: f4964341e261c65269eedafbbd6e676c1054f427
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: dbf44fe7923998c65119e42d97c304890fa95523
+ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78659444"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80218788"
 ---
 # <a name="call-net-methods-from-javascript-functions-in-aspnet-core-opno-locblazor"></a>Volání metod .NET z funkcí JavaScriptu v ASP.NET Core Blazor
 
-[Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Skořepa](https://github.com/danroth27)a [Luke Latham](https://github.com/guardrex)
+[Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Skořepa](https://github.com/danroth27), [Shashikant Rudrawadi](http://wisne.co)a [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -126,7 +126,7 @@ Když je vybráno tlačítko **aktivovat metodu instance .NET HelloHelper. sayHe
 
 *JsInteropClasses/ExampleJsInterop. cs*:
 
-[!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=10-16)]
+[!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=11-18)]
 
 *wwwroot/exampleJsInterop. js*:
 
@@ -144,66 +144,218 @@ Výstup konzoly v vývojářských nástrojích webu v prohlížeči:
 Hello, Blazor!
 ```
 
-Aby nedošlo k nevrácení paměti a povolovalo uvolňování paměti na komponentě, která vytváří `DotNetObjectReference`, Dispose objektu ve třídě, která vytvořila instanci `DotNetObjectReference`:
+Aby nedošlo k nevrácení paměti a povolovalo uvolňování paměti na komponentě, která vytváří `DotNetObjectReference`, proveďte jeden z následujících přístupů:
 
-```csharp
-public class ExampleJsInterop : IDisposable
-{
-    private readonly IJSRuntime _jsRuntime;
-    private DotNetObjectReference<HelloHelper> _objRef;
+* Dispose objektu ve třídě, která vytvořila instanci `DotNetObjectReference`:
 
-    public ExampleJsInterop(IJSRuntime jsRuntime)
+  ```csharp
+  public class ExampleJsInterop : IDisposable
+  {
+      private readonly IJSRuntime _jsRuntime;
+      private DotNetObjectReference<HelloHelper> _objRef;
+
+      public ExampleJsInterop(IJSRuntime jsRuntime)
+      {
+          _jsRuntime = jsRuntime;
+      }
+
+      public ValueTask<string> CallHelloHelperSayHello(string name)
+      {
+          _objRef = DotNetObjectReference.Create(new HelloHelper(name));
+
+          return _jsRuntime.InvokeAsync<string>(
+              "exampleJsFunctions.sayHello",
+              _objRef);
+      }
+
+      public void Dispose()
+      {
+          _objRef?.Dispose();
+      }
+  }
+  ```
+
+  Předchozí vzor zobrazený ve třídě `ExampleJsInterop` lze také implementovat do komponenty:
+
+  ```razor
+  @page "/JSInteropComponent"
+  @using BlazorSample.JsInteropClasses
+  @implements IDisposable
+  @inject IJSRuntime JSRuntime
+
+  <h1>JavaScript Interop</h1>
+
+  <button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
+      Trigger .NET instance method HelloHelper.SayHello
+  </button>
+
+  @code {
+      private DotNetObjectReference<HelloHelper> _objRef;
+
+      public async Task TriggerNetInstanceMethod()
+      {
+          _objRef = DotNetObjectReference.Create(new HelloHelper("Blazor"));
+
+          await JSRuntime.InvokeAsync<string>(
+              "exampleJsFunctions.sayHello",
+              _objRef);
+      }
+
+      public void Dispose()
+      {
+          _objRef?.Dispose();
+      }
+  }
+  ```
+
+* Pokud komponenta nebo třída nevyřadí `DotNetObjectReference`, Dispose objektu na straně klienta voláním `.dispose()`:
+
+  ```javascript
+  window.myFunction = (dotnetHelper) => {
+    dotnetHelper.invokeMethod('BlazorSample', 'MyMethod');
+    dotnetHelper.dispose();
+  }
+  ```
+
+## <a name="component-instance-method-call"></a>Volání metody instance komponenty
+
+Postup při volání metod .NET komponenty:
+
+* Použijte funkci `invokeMethod` nebo `invokeMethodAsync` k vytvoření statické metody pro volání do komponenty.
+* Statická metoda součásti zabalí volání své metody instance jako vyvolanou `Action`.
+
+V JavaScriptu na straně klienta:
+
+```javascript
+function updateMessageCallerJS() {
+  DotNet.invokeMethod('BlazorSample', 'UpdateMessageCaller');
+}
+```
+
+*Stránky/JSInteropComponent. Razor*:
+
+```razor
+@page "/JSInteropComponent"
+
+<p>
+    Message: @_message
+</p>
+
+<p>
+    <button onclick="updateMessageCallerJS()">Call JS Method</button>
+</p>
+
+@code {
+    private static Action _action;
+    private string _message = "Select the button.";
+
+    protected override void OnInitialized()
     {
-        _jsRuntime = jsRuntime;
+        _action = UpdateMessage;
     }
 
-    public ValueTask<string> CallHelloHelperSayHello(string name)
+    private void UpdateMessage()
     {
-        _objRef = DotNetObjectReference.Create(new HelloHelper(name));
-
-        return _jsRuntime.InvokeAsync<string>(
-            "exampleJsFunctions.sayHello",
-            _objRef);
+        _message = "UpdateMessage Called!";
+        StateHasChanged();
     }
 
-    public void Dispose()
+    [JSInvokable]
+    public static void UpdateMessageCaller()
     {
-        _objRef?.Dispose();
+        _action.Invoke();
     }
 }
 ```
-  
-Předchozí vzor zobrazený ve třídě `ExampleJsInterop` lze také implementovat do komponenty:
-  
-```razor
-@page "/JSInteropComponent"
-@using BlazorSample.JsInteropClasses
-@implements IDisposable
-@inject IJSRuntime JSRuntime
 
-<h1>JavaScript Interop</h1>
+V případě, že existuje několik komponent, z nichž každá má metody instance pro volání, použijte pomocnou třídu k vyvolání metod instance (jako `Action`) jednotlivých komponent.
 
-<button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
-    Trigger .NET instance method HelloHelper.SayHello
-</button>
+V následujícím příkladu:
 
-@code {
-    private DotNetObjectReference<HelloHelper> _objRef;
+* Součást `JSInterop` obsahuje několik součástí `ListItem`.
+* Každá komponenta `ListItem` se skládá ze zprávy a tlačítka.
+* Když je vybráno tlačítko komponenty `ListItem`, `ListItem``UpdateMessage` metoda změní text položky seznamu a skryje tlačítko.
 
-    public async Task TriggerNetInstanceMethod()
+*MessageUpdateInvokeHelper.cs*:
+
+```csharp
+using System;
+using Microsoft.JSInterop;
+
+public class MessageUpdateInvokeHelper
+{
+    private Action _action;
+
+    public MessageUpdateInvokeHelper(Action action)
     {
-        _objRef = DotNetObjectReference.Create(new HelloHelper("Blazor"));
-
-        await JSRuntime.InvokeAsync<string>(
-            "exampleJsFunctions.sayHello",
-            _objRef);
+        _action = action;
     }
 
-    public void Dispose()
+    [JSInvokable("BlazorSample")]
+    public void UpdateMessageCaller()
     {
-        _objRef?.Dispose();
+        _action.Invoke();
     }
 }
+```
+
+V JavaScriptu na straně klienta:
+
+```javascript
+window.updateMessageCallerJS = (dotnetHelper) => {
+    dotnetHelper.invokeMethod('BlazorSample', 'UpdateMessageCaller');
+    dotnetHelper.dispose();
+}
+```
+
+*Shared/ListItem. Razor*:
+
+```razor
+@inject IJSRuntime JsRuntime
+
+<li>
+    @_message
+    <button @onclick="InteropCall" style="display:@_display">InteropCall</button>
+</li>
+
+@code {
+    private string _message = "Select one of these list item buttons.";
+    private string _display = "inline-block";
+    private MessageUpdateInvokeHelper _messageUpdateInvokeHelper;
+
+    protected override void OnInitialized()
+    {
+        _messageUpdateInvokeHelper = new MessageUpdateInvokeHelper(UpdateMessage);
+    }
+
+    protected async Task InteropCall()
+    {
+        await JsRuntime.InvokeVoidAsync("updateMessageCallerJS",
+            DotNetObjectReference.Create(_messageUpdateInvokeHelper));
+    }
+
+    private void UpdateMessage()
+    {
+        _message = "UpdateMessage Called!";
+        _display = "none";
+        StateHasChanged();
+    }
+}
+```
+
+*Stránky/JSInterop. Razor*:
+
+```razor
+@page "/JSInterop"
+
+<h1>List of components</h1>
+
+<ul>
+    <ListItem />
+    <ListItem />
+    <ListItem />
+    <ListItem />
+</ul>
 ```
 
 [!INCLUDE[Share interop code in a class library](~/includes/blazor-share-interop-code.md)]
