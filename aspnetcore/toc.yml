@@ -424,6 +424,8 @@
               uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
             - name: Mezipaměť
               uid: mvc/views/tag-helpers/builtin-th/cache-tag-helper
+            - name: Součást
+              uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
             - name: Distribuovaná mezipaměť
               uid: mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper
             - name: Prostředí
