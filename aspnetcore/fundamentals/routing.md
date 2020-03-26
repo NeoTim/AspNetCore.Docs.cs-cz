@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/25/2020
 uid: fundamentals/routing
-ms.openlocfilehash: 69d8aa65084d4d2ee13a8ca0e8e275f4344d08c5
-ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
+ms.openlocfilehash: 2ebba716de90f142a66cf7619b5a4b0c77684bd4
+ms.sourcegitcommit: 0c62042d7d030ec5296c73bccd9f9b961d84496a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/25/2020
-ms.locfileid: "80242653"
+ms.locfileid: "80270443"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -101,7 +101,7 @@ Následující příklad ukazuje směrování s [kontrolami stavu](xref:host-and
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/AuthorizationStartup.cs?name=snippet)]
 
-[!INCLUDE[](~/includes/MTcomments.md)]
+[!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]
 
 Předchozí příklad ukazuje, jak:
 
