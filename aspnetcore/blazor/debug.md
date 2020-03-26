@@ -1,131 +1,150 @@
 ---
-title: Blazor ASP.NET Core ladění
+title: Ladění ASP.NET Core Blazor sestavení
 author: guardrex
 description: Naučte se ladit aplikace Blazor.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/16/2020
+ms.date: 03/26/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 1b0035af48b82807a6ae14835a41a1ecbef06bb6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5dbc900ab68682068a7f9e3ffdaabef89a0c7798
+ms.sourcegitcommit: 6ffb583991d6689326605a24565130083a28ef85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78661705"
+ms.lasthandoff: 03/26/2020
+ms.locfileid: "80306474"
 ---
-# <a name="debug-aspnet-core-blazor"></a>Ladění ASP.NET Core Blazor
+# <a name="debug-aspnet-core-opno-locblazor-webassembly"></a>Ladění ASP.NET Core Blazor sestavení
 
 [Daniel Skořepa](https://github.com/danroth27)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Pro ladění Blazor WebAssembly pomocí nástrojů pro vývoj v Chromu v prohlížečích založených na chromu (Chrome/Edge) existuje *brzké* podpora. Práce probíhá:
+aplikace Blazor WebAssembly je možné ladit pomocí nástrojů pro vývoj v prohlížeči v prohlížečích založených na chromu (Edge/Chrome).  Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
 
-* Zcela povolit ladění v aplikaci Visual Studio.
-* Povolit ladění v Visual Studio Code.
-
-Možnosti ladicího programu jsou omezené. K dispozici jsou tyto scénáře:
+K dispozici jsou tyto scénáře:
 
 * Nastavení a odebrání zarážek.
-* Jeden krok (`F10`) prostřednictvím kódu nebo obnovení (`F8`) provádění kódu.
-* V zobrazení *místních* hodnot Sledujte hodnoty jakýchkoli místních proměnných typu `int`, `string`a `bool`.
+* Spusťte aplikaci s podporou ladění v aplikaci Visual Studio a Visual Studio Code (podpora<kbd>F5</kbd> ).
+* Jednoduchý krok (<kbd>F10</kbd>) prostřednictvím kódu.
+* Pokračuje v provádění kódu pomocí <kbd>F8</kbd> v prohlížeči nebo <kbd>F5</kbd> v aplikaci Visual Studio nebo Visual Studio Code.
+* V zobrazení *místních* hodnot Sledujte hodnoty místních proměnných.
 * Podívejte se do zásobníku volání, včetně řetězů volání, které přecházejí z JavaScriptu do .NET a z .NET do JavaScriptu.
 
-*Nemůžete*:
+Teď *nemůžete*:
 
-* Sledujte hodnoty všech národních prostředí, která nejsou `int`, `string`nebo `bool`.
-* Sledujte hodnoty jakýchkoli vlastností nebo polí třídy.
-* Pokud chcete zobrazit jejich hodnoty, najeďte myší na proměnné.
-* Vyhodnoťte výrazy v konzole.
-* Krok v rámci asynchronních volání.
-* Proveďte většinu dalších běžných scénářů ladění.
+* Zkontrolujte pole.
+* Najeďte myší na kontrolu členů.
+* Krok ladění do spravovaného kódu nebo z něj.
+* Má plnou podporu pro kontrolu hodnotových typů.
+* Přerušit při neošetřených výjimkách.
+* Při spuštění aplikace se zarážky volání.
+* Ladění aplikace pomocí pracovního procesu služby.
 
-Vývoj dalších scénářů ladění je průběžným soustředěním na technický tým.
+V nadcházejících vydáních budeme dál zlepšovat možnosti ladění.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Ladění vyžaduje některý z následujících prohlížečů:
 
+* Microsoft Edge (verze 80 nebo novější)
 * Google Chrome (verze 70 nebo novější)
-* Microsoft Edge Preview ([kanál pro vývoj](https://www.microsoftedgeinsider.com)na webu Edge)
 
-## <a name="procedure"></a>Postup
+## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>Povolit ladění pro Visual Studio a Visual Studio Code
 
-# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+Ladění je povoleno automaticky pro nové projekty, které jsou vytvořeny pomocí šablony projektu ASP.NET Core 3,2 Preview 3 nebo vyšší Blazor.
 
-> [!WARNING]
-> Podpora ladění v aplikaci Visual Studio je v rané fázi vývoje. Ladění **F5** není aktuálně podporováno.
+Chcete-li povolit ladění pro existující aplikaci Blazor WebAssembly, aktualizujte soubor *launchSettings. JSON* ve složce spouštěný projekt tak, aby do každého spouštěcího profilu zahrnoval následující vlastnost `inspectUri`:
 
-1. Spusťte aplikaci Blazor WebAssembly v konfiguraci `Debug` bez ladění (**Ctrl**+**F5** místo **F5**).
-1. Otevřete vlastnosti ladění aplikace (poslední položka v nabídce **ladění** ) a zkopírujte **adresu URL aplikace**http. Přejděte k adrese HTTP (nikoli k adrese HTTPS) aplikace pomocí prohlížeče založeného na chromu (Edge beta nebo Chrome).
-1. Umístěte fokus klávesnice do aplikace v okně prohlížeče, nikoli na panelu nástroje pro vývojáře. Pro tento postup je nejlepší, aby byl panel nástrojů pro vývojáře uzavřený. Po spuštění ladění můžete panel nástroje pro vývojáře znovu otevřít.
-1. Vyberte následující klávesovou zkratku specifickou pro Blazor:
+```json
+"inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
+```
 
-   * `Shift+Alt+D` ve Windows
-   * `Shift+Cmd+D` na macOS
+Po aktualizaci by soubor *launchSettings. JSON* měl vypadat podobně jako v následujícím příkladu:
 
-   Pokud se zobrazí **karta nelze najít laditelné prohlížeče**, přečtěte si téma [Povolení vzdáleného ladění](#enable-remote-debugging).
-   
-   Po povolení vzdáleného ladění:
-   
-   1\. Otevře se nové okno prohlížeče. Zavřete předchozí okno.
+[!code-json[](debug/launchSettings.json?highlight=14,22)]
 
-   2\. Umístěte fokus klávesnice do aplikace v okně prohlížeče.
+Vlastnost `inspectUri`:
 
-   3\. V novém okně prohlížeče vyberte klávesovou zkratku specifickou pro Blazor: `Shift+Alt+D` ve Windows nebo `Shift+Cmd+D` na macOS.
+* Umožňuje rozhraní IDE zjistit, že aplikace je Blazor aplikace WebAssembly.
+* Dá pokyn k tomu, aby se infrastruktura ladění skriptů připojovala k prohlížeči prostřednictvím proxy serveru pro ladění Blazor.
 
-   4\. V prohlížeči se otevře karta **devtools** . **V okně prohlížeče znovu vyberte kartu aplikace.**
+## <a name="visual-studio"></a>Visual Studio
 
-   Chcete-li připojit aplikaci k aplikaci Visual Studio, přečtěte si část [připojit k procesu v aplikaci Visual Studio](#attach-to-process-in-visual-studio) .
+Ladění aplikace Blazor WebAssembly v aplikaci Visual Studio:
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+1. Ujistěte se, že máte [nainstalovanou nejnovější verzi Preview sady Visual Studio 2019 16,6](https://visualstudio.com/preview) (Preview 2 nebo novější).
+1. Vytvořte novou ASP.NET Core hostovanou Blazor aplikaci WebAssembly.
+1. Stisknutím klávesy <kbd>F5</kbd> spusťte aplikaci v ladicím programu.
+1. V metodě `IncrementCount` nastavte zarážku v *čítači. Razor* .
+1. Přejděte na kartu **čítač** a vyberte tlačítko, kde se má zarážka opakovat:
 
-1. Spusťte Blazor aplikaci WebAssembly v konfiguraci `Debug` předáním možnosti `--configuration Debug` do příkazu [dotnet Run](/dotnet/core/tools/dotnet-run) : `dotnet run --configuration Debug`.
-1. Přejděte do aplikace na adrese URL protokolu HTTP zobrazeném v okně prostředí.
-1. Umístěte fokus klávesnice na aplikaci, ne na panel nástroje pro vývojáře. Pro tento postup je nejlepší, aby byl panel nástrojů pro vývojáře uzavřený. Po spuštění ladění můžete panel nástroje pro vývojáře znovu otevřít.
-1. Vyberte následující klávesovou zkratku specifickou pro Blazor:
+   ![Čítač ladění](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-counter.png)
 
-   * `Shift+Alt+D` ve Windows
-   * `Shift+Cmd+D` na macOS
+1. Podívejte se na hodnotu pole `currentCount` v okně místní hodnoty:
 
-   Pokud se zobrazí **karta nelze najít laditelné prohlížeče**, přečtěte si téma [Povolení vzdáleného ladění](#enable-remote-debugging).
-   
-   Po povolení vzdáleného ladění:
-   
-   1\. Otevře se nové okno prohlížeče. Zavřete předchozí okno.
+   ![Zobrazit místní hodnoty](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-locals.png)
 
-   2\. Umístěte fokus klávesnice do aplikace v okně prohlížeče, nikoli na panelu nástroje pro vývojáře.
+1. Pokračujte v provádění stisknutím klávesy <kbd>F5</kbd> .
 
-   3\. V novém okně prohlížeče vyberte klávesovou zkratku specifickou pro Blazor: `Shift+Alt+D` ve Windows nebo `Shift+Cmd+D` na macOS.
+Při ladění aplikace Blazor WebAssembly můžete také ladit kód serveru:
 
----
+1. Nastavte zarážku na stránce *FetchData. Razor* v `OnInitializedAsync`.
+1. Nastavte zarážku v `WeatherForecastController` v metodě `Get` Action.
+1. Přejděte na kartu **načíst data** , abyste narazili na první zarážku v součásti `FetchData` těsně předtím, než VYDÁ požadavek HTTP na server:
 
-## <a name="enable-remote-debugging"></a>Povolit vzdálené ladění
+   ![Ladit načtení dat](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-fetch-data.png)
 
-Pokud je vzdálené ladění zakázané, **nemůžete najít** chybovou stránku karty prohlížeče, která je vygenerovaná v Chrome. Chybová stránka obsahuje pokyny pro spuštění Chrome s otevřeným portem pro ladění, aby se proxy Blazor ladicího programu mohl připojit k aplikaci. *Zavřete všechny instance Chrome* a restartujte Chrome podle pokynů.
+1. Stisknutím klávesy <kbd>F5</kbd> pokračujte v provádění a pak na serveru stiskněte zarážku na `WeatherForecastController`:
 
-## <a name="debug-the-app"></a>Ladění aplikace
+   ![Server ladění](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-server.png)
 
-Po spuštění aplikace Chrome se zapnutým vzdáleným laděním otevře klávesovou zkratku ladění novou kartu ladicího programu. Po chvíli se na kartě **zdroje** zobrazí seznam sestavení .NET v aplikaci. Rozbalte jednotlivá sestavení a vyhledejte soubory *. cs*/ *. Razor* , které jsou k dispozici pro ladění. Nastavte zarážky, přepněte zpět na kartu aplikace a zarážky se spustí při spuštění kódu. Po zablokování je jeden krok (`F10`) prostřednictvím kódu nebo obnovení kódu (`F8`) normálního spuštění.
+1. Stiskněte znovu <kbd>F5</kbd> , aby bylo možné pokračovat v provádění, a podívejte se na vykreslenou tabulku předpovědi počasí.
+
+## <a name="visual-studio-code"></a>Visual Studio Code
+
+Ladění aplikace Blazor WebAssembly v Visual Studio Code:
+ 
+1. Nainstalujte rozšíření [a rozšíření ladicí program JavaScriptu (v noci) s `debug.javascript.usePreview` nastavenou na `true`. C# ](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) [JavaScript Debugger (Nightly)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly)
+
+   ![Rozšíření](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-extensions.png)
+
+   ![JS Preview ladicího programu](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-js-use-preview.png)
+
+1. Otevře existující aplikaci Blazor WebAssembly s povoleným laděním.
+
+   * Pokud obdržíte následující oznámení, že pro povolení ladění je potřeba další nastavení, zkontrolujte, že máte nainstalované správné rozšíření a že je povolené ladění JavaScriptu ve verzi Preview, a pak znovu načtěte okno:
+
+     ![Další požadovaným klíčovým slovům nastavení](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
+
+   * Oznámení nabízí přidání požadovaných prostředků do aplikace pro sestavování a ladění. Vyberte **Ano**:
+
+     ![Přidat požadované prostředky](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-required-assets.png)
+
+1. Spuštění aplikace v ladicím programu je proces se dvěma kroky:
+
+   1\. **Nejdřív**spusťte aplikaci pomocí konfigurace spuštění **.net Core (Blazor Standalone)** .
+
+   2\. **Po spuštění aplikace**spusťte prohlížeč pomocí **ladění .NET Core Blazor webové sestavení v** konfiguraci spouštění Chrome (vyžaduje Chrome). Pokud chcete místo Chromu použít Edge, změňte `type` konfigurace spuštění v *. VSCode/Launch. JSON* z `pwa-chrome` na `pwa-edge`.
+
+1. Nastavte zarážku v metodě `IncrementCount` v součásti `Counter` a potom vyberte tlačítko, kterým se má zarážka opakovat:
+
+   ![Čítač ladění v VS Code](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
+
+## <a name="debug-in-the-browser"></a>Ladit v prohlížeči
+
+1. Spusťte ladicí sestavení aplikace ve vývojovém prostředí.
+
+1. Stiskněte <kbd>Shift</kbd>+<kbd>ALT</kbd>+<kbd>D</kbd>.
+
+1. Prohlížeč musí být spuštěn s povoleným vzdáleným laděním. Pokud je vzdálené ladění zakázané, vygeneruje se chybová stránka karty prohlížeče, která se **nedá najít** . Chybová stránka obsahuje pokyny pro spuštění prohlížeče s otevřeným portem pro ladění, aby se proxy Blazor ladicího programu mohl připojit k aplikaci. *Zavřete všechny instance prohlížeče* a restartujte prohlížeč podle pokynů.
+
+Po spuštění prohlížeče se zapnutým vzdáleným laděním otevře klávesovou zkratku ladění novou kartu ladicího programu. Po chvíli se na kartě **zdroje** zobrazí seznam sestavení .NET v aplikaci. Rozbalte jednotlivá sestavení a vyhledejte soubory *. cs*/ *. Razor* , které jsou k dispozici pro ladění. Nastavte zarážky, přepněte zpět na kartu aplikace a zarážky se spustí při spuštění kódu. Po stisknutí zarážky se provede krok (<kbd>F10</kbd>) prostřednictvím kódu nebo obnovení kódu (<kbd>F8</kbd>) normálně.
 
 Blazor poskytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Při Blazor stisknutí klávesových zkratek ladění DevTools odkazuje na rozhraní Chrome na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
-
-## <a name="attach-to-process-in-visual-studio"></a>Připojení k procesu v aplikaci Visual Studio
-
-Připojení k procesu aplikace v aplikaci Visual Studio je *dočasný* scénář ladění pro Blazor WebAssembly, zatímco ladění **F5** je ve vývoji.
-
-Připojení procesu běžící aplikace k aplikaci Visual Studio:
-
-1. V aplikaci Visual Studio vyberte možnost **ladění** > **připojit k procesu**.
-1. Jako **Typ připojení**vyberte **Chrome DevTools Protocol WebSocket (bez ověřování)** .
-1. Pro **cíl připojení**vložte adresu http (nikoli adresu https) aplikace.
-1. Vyberte **aktualizovat** a aktualizujte položky v části **procesy k dispozici**.
-1. Vyberte proces prohlížeče, který chcete ladit, a vyberte **připojit**.
-1. V dialogovém okně **Vybrat typ kódu** vyberte typ kódu pro konkrétní prohlížeč, ke kterému se připojujete (Edge nebo Chrome), a pak vyberte **OK**.
 
 ## <a name="browser-source-maps"></a>Mapy zdroje prohlížeče
 

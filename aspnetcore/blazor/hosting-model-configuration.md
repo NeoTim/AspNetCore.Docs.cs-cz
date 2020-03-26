@@ -5,17 +5,17 @@ description: Přečtěte si o Blazor konfiguraci modelu hostování, včetně to
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 03/24/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: bd44643877e45c5b48b0972bcc2f637fbc5d98f2
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 1f71ac63bbe9dc9d56cfca2ded19a5b863be828f
+ms.sourcegitcommit: 6ffb583991d6689326605a24565130083a28ef85
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78658303"
+ms.lasthandoff: 03/26/2020
+ms.locfileid: "80306425"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>Konfigurace modelu hostování ASP.NET Core Blazor
 
@@ -25,11 +25,26 @@ Od [Daniel Skořepa](https://github.com/danroth27)
 
 Tento článek popisuje konfiguraci modelu hostování.
 
-<!-- For future use:
+## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-## Blazor WebAssembly
+Od verze ASP.NET Core 3,2 Preview 3 podporuje Blazor WebAssembly konfiguraci z:
 
--->
+* *wwwroot/appSettings. JSON*
+* *wwwroot/appSettings. {ENVIRONMENT}. JSON*
+
+V aplikaci hostované v Blazor je [běhové prostředí](xref:fundamentals/environments) stejné jako hodnota serverové aplikace.
+
+Když aplikaci spouštíte místně, prostředí se nastaví na výchozí vývoj. Při publikování aplikace je prostředí standardně v produkčním prostředí. Další informace, včetně postupu konfigurace prostředí, najdete v tématu <xref:fundamentals/environments>.
+
+> [!WARNING]
+> Konfigurace v aplikaci WebAssembly v Blazor je viditelná pro uživatele. **Neukládejte tajné klíče aplikace ani přihlašovací údaje v konfiguraci.**
+
+Konfigurační soubory jsou ukládány do mezipaměti pro použití v režimu offline. S [progresivními webovými aplikacemi (PWAs)](xref:blazor/progressive-web-app)můžete aktualizovat pouze konfigurační soubory při vytváření nového nasazení. Úprava konfiguračních souborů mezi nasazeními nemá žádný vliv z těchto důvodů:
+
+* Uživatelé mají verze souborů uložených v mezipaměti, které jsou nadále používány.
+* Soubory *Service-Worker. js* a *Service-Worker-assets. js* aplikace PWA je nutné znovu sestavit při kompilaci, který signalizuje aplikaci na další stránce uživatele online, na kterou se aplikace znovu nasadila.
+
+Další informace o tom, jak služba PWAs zpracovává aktualizace na pozadí, najdete v tématu <xref:blazor/progressive-web-app#background-updates>.
 
 ## <a name="blazor-server"></a>Blazor Server
 
