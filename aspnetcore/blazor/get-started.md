@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: abecb640930c1e5770c0fad45a1e9a6df31a20f4
-ms.sourcegitcommit: 6ffb583991d6689326605a24565130083a28ef85
+ms.openlocfilehash: 9ebeb57d2fad7e4c288d61a46911f2bf64cac2fb
+ms.sourcegitcommit: f3b1bcfd108e5d53f73abc0bf2555890869d953b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 03/26/2020
-ms.locfileid: "80306460"
+ms.locfileid: "80320944"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -78,7 +78,7 @@ Pokud chcete začít používat Blazor, postupujte podle pokynů pro výběr ná
 
 1. Rozhraní IDE požaduje, abyste přidali prostředky pro sestavení a ladění projektu. Vyberte **Ano**.
 
-1. Tun aplikaci pomocí ladicího programu Visual Studio Code.
+1. Spusťte aplikaci pomocí ladicího programu Visual Studio Code.
 
 1. V prohlížeči přejděte na `https://localhost:5001`.
 
@@ -191,7 +191,7 @@ Spusťte aplikaci. Komponenta `Index` má vlastní čítač, který při každé
 
 <xref:tutorials/first-blazor-app>
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/templates>
 * <xref:signalr/introduction>

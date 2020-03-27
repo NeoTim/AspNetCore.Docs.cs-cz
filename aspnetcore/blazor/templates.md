@@ -5,17 +5,17 @@ description: Přečtěte si o ASP.NET Core Blazor šablonách aplikací a Blazor
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/29/2020
+ms.date: 03/26/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: acfa4b8a42cbd310c6fc6dc973573578e94ef999
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 71a9d9eee8637dda0b3cecac82ff96a0c3bfedb5
+ms.sourcegitcommit: f3b1bcfd108e5d53f73abc0bf2555890869d953b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78664239"
+ms.lasthandoff: 03/26/2020
+ms.locfileid: "80320983"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>Šablony ASP.NET Core Blazor
 
@@ -58,18 +58,17 @@ Následující soubory a složky tvoří aplikaci Blazor vygenerovanou z šablon
     * Stáhne rozhraní .NET runtime, aplikaci a závislosti aplikace.
     * Inicializuje modul runtime pro spuštění aplikace.
 
-* *Pages/_Host. cshtml* (Blazor Server) &ndash; kořenové stránce aplikace implementované jako stránka Razor:
-  * Po prvním vyžádání stránky aplikace se tato stránka vykreslí a vrátí v odpovědi.
-  * Soubor `_framework/blazor.server.js` JavaScript je načten, což nastaví SignalR připojení v reálném čase mezi prohlížečem a serverem.
-  * Stránka hostitel Určuje, kde je vykreslena součást root `App` (*App. Razor*).
-
 * *App. razor* &ndash; kořenovou komponentu aplikace, která nastaví směrování na straně klienta pomocí komponenty <xref:Microsoft.AspNetCore.Components.Routing.Router>. Komponenta `Router` zachycuje navigaci v prohlížeči a vykreslí stránku, která odpovídá požadované adrese.
 
-* *Pages* &ndash; obsahuje směrovatelný komponenty/stránky ( *. Razor*), které tvoří aplikaci Blazor. Trasa pro každou stránku je určena pomocí direktivy [`@page`](xref:mvc/views/razor#page) . Šablona obsahuje následující součásti:
-  * `Index` (*index. Razor*) &ndash; implementuje domovskou stránku.
+* *Stránky* &ndash; obsahují směrovatelný komponenty/stránky ( *. Razor*), které tvoří aplikaci Blazor a kořenovou stránku Razor aplikace Blazor Server. Trasa pro každou stránku je určena pomocí direktivy [`@page`](xref:mvc/views/razor#page) . Šablona obsahuje následující:
+  * *_Host. cshtml* (Blazor Server) &ndash; kořenové stránce aplikace implementované jako stránka Razor:
+    * Po prvním vyžádání stránky aplikace se tato stránka vykreslí a vrátí v odpovědi.
+    * Soubor `_framework/blazor.server.js` JavaScript je načten, což nastaví SignalR připojení v reálném čase mezi prohlížečem a serverem.
+    * Stránka hostitel Určuje, kde je vykreslena součást root `App` (*App. Razor*).
   * `Counter` (*Counter. Razor*) &ndash; implementuje stránku čítače.
   * `Error` (*Error. Razor*, Blazor Server app) &ndash; vykreslený, když v aplikaci dojde k neošetřené výjimce.
   * `FetchData` (*FetchData. Razor*) &ndash; implementuje stránku načíst data.
+  * `Index` (*index. Razor*) &ndash; implementuje domovskou stránku.
 
 * *Sdílená* složka &ndash; obsahuje jiné součásti uživatelského rozhraní ( *. Razor*) používané aplikací:
   * `MainLayout` (*MainLayout. Razor*) &ndash; komponentu rozložení aplikace.

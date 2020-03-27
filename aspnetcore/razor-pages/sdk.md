@@ -5,16 +5,16 @@ description: Zjistěte, jak v ASP.NET Core Razor Pages díky psaní kódu zamě�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
-ms.date: 08/23/2019
+ms.date: 03/26/2020
 no-loc:
 - Blazor
 uid: razor-pages/sdk
-ms.openlocfilehash: 872d90662494735dc0e4caa01c46fcdcc2606bc6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 2284131ce2d45ec6bc01ce38f91e2c951b108605
+ms.sourcegitcommit: f3b1bcfd108e5d53f73abc0bf2555890869d953b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660067"
+ms.lasthandoff: 03/26/2020
+ms.locfileid: "80321002"
 ---
 # <a name="aspnet-core-razor-sdk"></a>ASP.NET Core Razor SDK
 
@@ -110,8 +110,34 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | `RazorGenerate` | Prvky položky (soubory *. cshtml* ), které jsou vstupy pro generování kódu. |
 | `RazorComponent` | Prvky položky (soubory *. Razor* ), které jsou vstupy pro generování kódu komponenty Razor. |
 | `RazorCompile` | Prvky položky (soubory *. cs* ), které jsou vstupy pro cíle kompilace Razor. Tento `ItemGroup` slouží k určení dalších souborů, které mají být zkompilovány do sestavení Razor. |
-| `RazorTargetAssemblyAttribute` | Položka prvků, které slouží ke kódu generovat atributy pro sestavení Razor. Příklad:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
+| `RazorTargetAssemblyAttribute` | Položka prvků, které slouží ke kódu generovat atributy pro sestavení Razor. Například:  <br>`RazorAssemblyAttribute`<br>`Include="System.Reflection.AssemblyMetadataAttribute"`<br>`_Parameter1="BuildSource" _Parameter2="https://docs.microsoft.com/">` |
 | `RazorEmbeddedResource` | Položky elementy přidané jako vložené prostředky do generovaného sestavení Razor. |
+
+::: moniker range=">= aspnetcore-3.0"
+
+| Vlastnost | Popis |
+| -------- | ----------- |
+| `RazorTargetName` | Název souboru (bez přípony) sestavení vytvořené metodou Razor. |
+| `RazorOutputPath` | Výstupní adresář Razor. |
+| `RazorCompileToolset` | Slouží k určení sady nástrojů použitý k vytvoření sestavení Razor. Platné hodnoty jsou `Implicit`, `RazorSDK`a `PrecompilationTool`. |
+| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | Výchozí hodnota je `true`. Při `true`zahrnuje soubory *Web. config*, *. JSON*a *. cshtml* jako obsah v projektu. Při odkazování prostřednictvím `Microsoft.NET.Sdk.Web`jsou zahrnuty i soubory v souborech *wwwroot* a config. |
+| `EnableDefaultRazorGenerateItems` | Při `true`zahrnuje soubory *. cshtml* z `Content` položek v `RazorGenerate` položkách. |
+| `GenerateRazorTargetAssemblyInfo` | Při `true`vygeneruje soubor *. cs* obsahující atributy určené `RazorAssemblyAttribute` a zahrne soubor do výstupu kompilace. |
+| `EnableDefaultRazorTargetAssemblyInfoAttributes` | Při `true`přidá do `RazorAssemblyAttribute`výchozí sadu atributů sestavení. |
+| `CopyRazorGenerateFilesToPublishDirectory` | Při `true`zkopíruje soubory `RazorGenerate` Items ( *. cshtml*) do adresáře pro publikování. Obvykle nejsou publikované aplikace vyžadovat Razor soubory, pokud se účastní v sestavování v době sestavení nebo publikovat čas. Výchozí hodnota je `false`. |
+| `PreserveCompilationReferences` | Při `true`zkopírujte položky referenčního sestavení do adresáře pro publikování. Obvykle nejsou publikované aplikace vyžadovat referenční sestavení, dojde v okamžiku sestavení nebo publikovat čas kompilace Razor. Nastavte na `true`, pokud publikovaná aplikace vyžaduje kompilaci modulu runtime. Nastavte například hodnotu `true`, pokud aplikace upravuje soubory *. cshtml* za běhu nebo používá vložená zobrazení. Výchozí hodnota je `false`. |
+| `IncludeRazorContentInPack` | Při `true`jsou všechny položky obsahu Razor (soubory *. cshtml* ) označeny pro zahrnutí do generovaného balíčku NuGet. Výchozí hodnota je `false`. |
+| `EmbedRazorGenerateSources` | Při `true`přidá položky RazorGenerate ( *. cshtml*) jako vložené soubory do vygenerovaného sestavení Razor. Výchozí hodnota je `false`. |
+| `UseRazorBuildServer` | Při `true`používá trvalý proces sestavení serveru pro přesměrování práce generování kódu. Výchozí hodnota je `UseSharedCompilation`. |
+| `GenerateMvcApplicationPartsAssemblyAttributes` | Při `true`generuje sada SDK Další atributy, pomocí kterých MVC za běhu provede zjišťování částí aplikace. |
+| `DefaultWebContentItemExcludes` | Vzor expanze názvů pro prvky položky, které mají být vyloučeny ze skupiny položek `Content` v projektech cílících na web nebo sadu Razor SDK |
+| `ExcludeConfigFilesFromBuildOutput` | Při `true`se soubory *. config* a *. JSON* nekopírují do výstupního adresáře sestavení. |
+| `AddRazorSupportForMvc` | Když `true`, nakonfiguruje sadu Razor SDK tak, aby přidala podporu pro konfiguraci MVC, která je požadována při sestavování aplikací obsahujících zobrazení MVC nebo Razor Pages. Tato vlastnost je implicitně nastavená pro projekty .NET Core 3,0 nebo novější, které cílí na webovou sadu SDK. |
+| `RazorLangVersion` | Verze jazyka Razor, na kterou se má cílit |
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-3.0"
 
 | Vlastnost | Popis |
 | -------- | ----------- |
@@ -132,6 +158,8 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | `ExcludeConfigFilesFromBuildOutput` | Při `true`se soubory *. config* a *. JSON* nekopírují do výstupního adresáře sestavení. |
 | `AddRazorSupportForMvc` | Když `true`, nakonfiguruje sadu Razor SDK tak, aby přidala podporu pro konfiguraci MVC, která je požadována při sestavování aplikací obsahujících zobrazení MVC nebo Razor Pages. Tato vlastnost je implicitně nastavená pro projekty .NET Core 3,0 nebo novější, které cílí na webovou sadu SDK. |
 | `RazorLangVersion` | Verze jazyka Razor, na kterou se má cílit |
+
+::: moniker-end
 
 Další informace o vlastnostech naleznete v tématu [vlastnosti MSBuild](/visualstudio/msbuild/msbuild-properties).
 
