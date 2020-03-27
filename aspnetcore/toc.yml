@@ -355,7 +355,7 @@
           uid: blazor/state-management
         - name: Ošetření chyb
           uid: blazor/handle-errors
-        - name: Ladit
+        - name: Ladění aplikací WebAssembly
           uid: blazor/debug
         - name: Volání webového rozhraní API
           uid: blazor/call-web-api
