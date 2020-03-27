@@ -5,12 +5,12 @@ description: Přečtěte si, jak ASP.NET Core MVC používá middleware směrov�
 ms.author: riande
 ms.date: 3/25/2020
 uid: mvc/controllers/routing
-ms.openlocfilehash: be7da9eeaf64c2f52c095b5179ccc22db43d57c3
-ms.sourcegitcommit: 99e71ae03319ab386baf2ebde956fc2d511df8b8
+ms.openlocfilehash: c1c0d978714718af1de0f627e50a54f66ed391ed
+ms.sourcegitcommit: 4b166b49ec557a03f99f872dd069ca5e56faa524
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/25/2020
-ms.locfileid: "80242569"
+ms.lasthandoff: 03/27/2020
+ms.locfileid: "80362658"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování na akce kontroleru v ASP.NET Core
 
@@ -206,7 +206,7 @@ Pokud se dva koncové body shodují přes směrování, musí směrování prov�
 * Vyberte nejlepší kandidáta.
 * Vyvolejte výjimku.
 
-Například:
+Příklad:
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet9)]
 
@@ -847,6 +847,8 @@ Veřejné metody na řadiči, s výjimkou atributu [neaction](xref:Microsoft.Asp
  * Metoda [MyDisplayRouteInfo](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x/main/Extensions/ControllerContextExtensions.cs) je obsažena v [ukázce stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x) a slouží k zobrazení informací o směrování.
 * [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/routing/samples/3.x) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
+[!INCLUDE[](~/includes/dbg-route.md)]
+
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
@@ -998,7 +1000,7 @@ V rámci zpracování žádosti MVC ověří, že hodnoty trasy lze použít k v
 
 ### <a name="disambiguating-actions"></a>Nejednoznačnost akcí
 
-Pokud se dvě akce shodují přes směrování, MVC musí nejednoznačně vybrat kandidáta na nejlepší nebo jinak vyvolat výjimku. Například:
+Pokud se dvě akce shodují přes směrování, MVC musí nejednoznačně vybrat kandidáta na nejlepší nebo jinak vyvolat výjimku. Příklad:
 
 ```csharp
 public class ProductsController : Controller

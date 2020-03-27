@@ -1,0 +1,359 @@
+### YamlMime:Hub
+title: Dokumentace k ASP.NET
+summary: Naučte se používat ASP.NET Core k vytváření webových aplikací a služeb, které jsou rychlé, zabezpečené, pro různé platformy a cloudové. Projděte si kurzy, vzorový kód, základy, Reference k rozhraní API a další.
+brand: aspnet
+metadata:
+  title: Dokumentace k ASP.NET
+  description: Naučte se používat ASP.NET Core k vytváření webových aplikací a služeb, které jsou rychlé, zabezpečené, pro různé platformy a cloudové. Projděte si kurzy, vzorový kód, základy, Reference k rozhraní API a další.
+  ms.product: aspnet
+  ms.topic: hub-page
+  author: WadePickett
+  ms.author: wpickett
+  ms.date: 03/27/2020
+  ms.openlocfilehash: fb6d03616560649a336df8a624e7fb59006a7ea8
+  ms.sourcegitcommit: 4b166b49ec557a03f99f872dd069ca5e56faa524
+  ms.translationtype: MT
+  ms.contentlocale: cs-CZ
+  ms.lasthandoff: 03/27/2020
+  ms.locfileid: "80366650"
+highlightedContent:
+  items:
+  - title: Vytvoření aplikace ASP.NET Core na jakékoli platformě za 5 minut
+    itemType: get-started
+    url: getting-started/index.md
+  - title: Přehled ASP.NET Core
+    itemType: overview
+    url: introduction-to-aspnet-core.md
+  - title: Výuková videa ASP.NET Core
+    itemType: video
+    url: https://www.youtube.com/playlist?list=PLdo4fOcmZ0oW8nviYduHq7bmKode-p8Wy
+  - title: Novinky v dokumentaci k ASP.NET Core
+    itemType: whats-new
+    url: whats-new/index.yml
+  - title: Vytvoření prvního webového uživatelského rozhraní
+    itemType: get-started
+    url: tutorials/build-your-first-blazor-app.md
+  - title: Vytvoření prvního webového rozhraní API
+    itemType: get-started
+    url: tutorials/first-web-api.md
+  - title: Vytvoření první webové aplikace v reálném čase
+    itemType: get-started
+    url: tutorials/signalr.md
+  - title: Vytvoření první datové webové aplikace MVC řízené daty
+    itemType: get-started
+    url: tutorials/first-mvc-app/index.md
+conceptualContent:
+  title: Vývoj aplikací pro ASP.NET Core
+  summary: Výběr interaktivních webových aplikací, webového rozhraní API, MVC – vzorových aplikací, aplikací v reálném čase a dalších
+  items:
+  - title: Interaktivní aplikace Blazor na straně klienta
+    summary: Vývoj s opakovaně použitelnými součástmi uživatelského rozhraní, které mohou využít funkci WebAssembly pro téměř nativní výkon
+    links:
+    - url: blazor/index.md
+      itemType: overview
+      text: Přehled
+    - url: blazor/get-started.md
+      itemType: get-started
+      text: Vytvoření první aplikace v Blazor
+    - url: tutorials/build-your-first-blazor-app.md
+      itemType: get-started
+      text: Vytvoření první aplikace v Blazor pomocí opakovaně použitelných komponent
+    - url: blazor/hosting-models.md
+      itemType: concept
+      text: Modely hostování Blazor
+  - title: Webové aplikace API pro RESTful
+    summary: Vývoj služeb HTTP RESTful pomocí ASP.NET Core webového rozhraní API
+    links:
+    - url: tutorials/first-web-api.md
+      itemType: get-started
+      text: Vytvoření webového rozhraní API pomocí ASP.NET Core
+    - url: https://docs.microsoft.com/learn/modules/build-web-api-net-core/
+      itemType: learn
+      text: Vytváření webových rozhraní API pomocí ASP.NET Core
+    - url: tutorials/web-api-help-pages-using-swagger.md
+      itemType: tutorial
+      text: Generování stránek s webovou pomocí rozhraní API pomocí Swagger/OpenAPI
+    - url: web-api/action-return-types.md
+      itemType: concept
+      text: Návratové typy akcí kontroleru
+    - url: web-api/advanced/formatting.md
+      itemType: concept
+      text: Formátování dat odpovědi
+    - url: web-api/handle-errors.md
+      itemType: concept
+      text: Zpracování chyb
+    - url: tutorials/web-api-javascript.md
+      itemType: tutorial
+      text: Volání ASP.NET Core webového rozhraní API pomocí JavaScriptu
+  - title: Webové uživatelské rozhraní zaměřené na stránku s Razor Pages
+    summary: Vývoj webových aplikací zaměřených na stránku s čistým oddělením obav
+    links:
+    - url: tutorials/razor-pages/razor-pages-start.md
+      itemType: get-started
+      text: Vytvoření první Razor Pages webové aplikace
+    - url: https://docs.microsoft.com/learn/modules/create-razor-pages-aspnet-core/
+      itemType: tutorial
+      text: Vytvoření webového uživatelského rozhraní zaměřeného na stránku, které využívá webové rozhraní API
+    - url: mvc/views/razor.md
+      itemType: concept
+      text: Syntaxe Razor
+    - url: razor-pages/filter.md
+      itemType: concept
+      text: Filtry
+    - url: razor-pages/razor-pages-conventions.md
+      itemType: concept
+      text: Směrování
+  - title: Webové uživatelské rozhraní zaměřené na stránku pomocí MVC
+    summary: Vývoj webových aplikací pomocí vzorového vzoru pro zobrazení modelu
+    links:
+    - url: mvc/overview.md
+      itemType: overview
+      text: Přehled
+    - url: tutorials/first-mvc-app/index.md
+      itemType: get-started
+      text: Vytvoření první ASP.NET Core aplikace MVC
+    - url: mvc/views/overview.md
+      itemType: concept
+      text: Zobrazení
+    - url: mvc/views/partial.md
+      itemType: concept
+      text: Částečná zobrazení
+    - url: mvc/controllers/actions.md
+      itemType: concept
+      text: Kontrolery
+    - url: mvc/controllers/routing.md
+      itemType: concept
+      text: Směrování na akce kontroleru
+    - url: mvc/controllers/testing.md
+      itemType: concept
+      text: Test jednotek
+  - title: Webové aplikace v reálném čase se signálem
+    summary: Přidejte do své webové aplikace funkce v reálném čase a okamžitě povolte kód na straně serveru pro okamžitý nabízení obsahu.
+    links:
+    - url: signalr/introduction.md
+      itemType: overview
+      text: Přehled
+    - url: signalr/introduction.md
+      itemType: get-started
+      text: Vytvoření první aplikace pro Signal
+    - url: tutorials/signalr-blazor-webassembly.md
+      itemType: tutorial
+      text: SignalR s Blazor WebAssembly
+    - url: tutorials/signalr-typescript-webpack.md
+      itemType: tutorial
+      text: SignalR s TypeScriptem
+    - url: https://github.com/aspnet/SignalR-samples
+      itemType: sample
+      text: Ukázky
+    - url: signalr/hubs.md
+      itemType: concept
+      text: Hubs
+    - url: signalr/client-features.md
+      itemType: concept
+      text: Funkce klienta SignalR
+    - url: signalr/scale.md
+      itemType: concept
+      text: Hostitel a škálování
+  - title: Aplikace vzdáleného volání procedur (RPC) – gRPC Services
+    summary: Vývoj služeb a vysoce výkonné služby s gRPC v ASP.NET Core
+    links:
+    - url: grpc/index.md
+      itemType: overview
+      text: Přehled
+    - url: tutorials/grpc/grpc-start.md
+      itemType: get-started
+      text: Vytvoření klienta a serveru gRPC
+    - url: grpc/basics.md
+      itemType: concept
+      text: Koncepty služeb gRPC Services vC#
+    - url: https://github.com/grpc/grpc-dotnet/tree/master/examples
+      itemType: sample
+      text: Ukázky
+    - url: grpc/comparison.md
+      itemType: concept
+      text: Porovnání služeb gRPC pomocí rozhraní HTTP API
+    - url: grpc/aspnetcore.md
+      itemType: tutorial
+      text: Přidání služby gRPC do aplikace ASP.NET Core
+    - url: grpc/client.md
+      itemType: tutorial
+      text: Volání služeb gRPC Services pomocí klienta .NET
+    - url: grpc/browser.md
+      itemType: tutorial
+      text: Použití gRPC v prohlížečových aplikacích
+  - title: Webové aplikace řízené daty
+    summary: Vytváření datově řízených webových aplikací v ASP.NET Core
+    links:
+    - url: tutorials/first-mvc-app/working-with-sql.md
+      itemType: tutorial
+      text: SQL s ASP.NET Core
+    - url: blazor/data-binding.md
+      itemType: concept
+      text: Datová vazba v ASP.NET Core Blazor
+    - url: tutorials/razor-pages/sql.md
+      itemType: tutorial
+      text: SQL Server Express a Razor Pages
+    - url: data/ef-rp/intro.md
+      itemType: tutorial
+      text: Entity Framework Core s Razor Pages
+    - url: data/ef-rp/intro.md
+      itemType: tutorial
+      text: Entity Framework Core s využitím ASP.NET Core MVC
+    - url: https://docs.microsoft.com/visualstudio/azure/vs-azure-tools-connected-services-storage?view=vs-2019&viewFallbackFrom=aspnetcore-3.1
+      itemType: tutorial
+      text: Azure Storage
+    - url: https://docs.microsoft.com/azure/visual-studio/vs-storage-aspnet5-getting-started-blobs?toc=%2Faspnet%2Fcore%2Ftoc.json&bc=%2Faspnet%2Fcore%2Fbreadcrumb%2Ftoc.json&view=aspnetcore-3.1
+      itemType: tutorial
+      text: Blob Storage
+    - url: https://docs.microsoft.com/azure/visual-studio/vs-storage-aspnet5-getting-started-tables?toc=%2Faspnet%2Fcore%2Ftoc.json&bc=%2Faspnet%2Fcore%2Fbreadcrumb%2Ftoc.json&view=aspnetcore-3.1
+      itemType: concept
+      text: Úložiště tabulek v Azure
+  - title: Předchozí verze rozhraní ASP.NET Framework
+    summary: Prozkoumejte přehledy, kurzy, základní koncepty, architekturu a Reference k rozhraní API pro předchozí verze rozhraní ASP.NET Framework.
+    links:
+    - url: https://docs.microsoft.com/aspnet/overview
+      itemType: concept
+      text: ASP.NET 4.x
+additionalContent:
+  sections:
+  - title: Koncepce a funkce
+    items:
+    - title: Reference k rozhraní API pro ASP.NET Core
+      links:
+      - url: https://docs.microsoft.com/dotnet/api/?view=aspnetcore-3.1
+        text: Prohlížeč rozhraní API pro .NET
+    - title: Hostování a nasazení
+      links:
+      - url: host-and-deploy/index.md
+        text: Přehled
+      - url: host-and-deploy/azure-apps/index.md
+        text: Nasazení do Azure App Service
+      - url: azure/devops/index.md
+        text: DevOps s využitím ASP.NET Core a Azure
+      - url: host-and-deploy/linux-apache.md
+        text: Linux na serveru Apache
+      - url: host-and-deploy/linux-nginx.md
+        text: Linux na serveru Nginx
+      - url: fundamentals/servers/kestrel.md
+        text: Kestrel
+      - url: host-and-deploy/iis/index.md
+        text: IIS
+      - url: host-and-deploy/docker/index.md
+        text: Docker
+    - title: Zabezpečení a identita
+      links:
+      - url: security/index.md
+        text: Přehled
+      - url: security/authentication/index.md
+        text: Ověřování
+      - url: security/authorization/introduction.md
+        text: Autorizace
+      - url: https://docs.microsoft.com/learn/modules/secure-aspnet-core-identity/
+        text: 'Kurz: zabezpečení webové aplikace v ASP.NET Core s využitím architektury identity'
+      - url: security/data-protection/introduction.md
+        text: Ochrana dat
+      - url: security/app-secrets.md
+        text: Správa tajných kódů
+      - url: security/enforcing-ssl.md
+        text: Vynucení HTTPS
+      - url: security/docker-https.md
+        text: Hostování Dockeru pomocí protokolu HTTPS
+    - title: Globalizace a lokalizace
+      links:
+      - url: fundamentals/localization.md
+        text: Přehled
+      - url: fundamentals/portable-object-localization.md
+        text: Lokalizace přenosného objektu
+      - url: fundamentals/localization-extensibility.md
+        text: Rozšiřitelnost lokalizace
+      - url: fundamentals/troubleshoot-aspnet-core-localization.md
+        text: Řešení problémů
+    - title: Testování, ladění a odstraňování potíží
+      links:
+      - url: test/razor-pages-tests.md
+        text: Testy jednotek stránek Razor
+      - url: https://docs.microsoft.com/visualstudio/debugger/remote-debugging-azure?view=vs-2019&viewFallbackFrom=aspnetcore-3.1
+        text: Vzdálené ladění
+      - url: https://docs.microsoft.com/azure/azure-monitor/app/snapshot-debugger?toc=%2Faspnet%2Fcore%2Ftoc.json&bc=%2Faspnet%2Fcore%2Fbreadcrumb%2Ftoc.json&view=aspnetcore-3.1
+        text: Ladění snímků
+      - url: test/integration-tests.md
+        text: Integrační testy
+      - url: test/load-tests.md
+        text: Zátěžové testování
+      - url: test/troubleshoot.md
+        text: Řešení problémů a ladění
+      - url: fundamentals/logging/index.md
+        text: Protokolování
+      - url: https://docs.microsoft.com/learn/modules/load-test-web-app-azure-devops/
+        text: Zátěžové testování webových aplikací Azure pomocí Azure DevOps
+    - title: Azure a ASP.NET Core
+      links:
+      - url: https://docs.microsoft.com/azure/app-service/app-service-web-get-started-dotnet
+        text: Nasazení webové aplikace v ASP.NET
+      - url: https://docs.microsoft.com/visualstudio/containers/container-tools?view=vs-2019.md
+        text: ASP.NET Core a Docker
+      - url: https://docs.microsoft.com/learn/modules/host-a-web-app-with-azure-app-service/
+        text: Hostování webové aplikace pomocí Azure App Service
+      - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-dotnet-sqldatabase
+        text: App Service a Azure SQL Database
+      - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-connect-msi
+        text: Spravovaná identita s ASP.NET a Azure SQL Database
+      - url: https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-rest-api
+        text: Webové rozhraní API s CORS v Azure App Service
+      - url: https://docs.microsoft.com/learn/modules/capture-application-logs-app-service/
+        text: Zachytávání protokolů webových aplikací pomocí protokolování diagnostiky App Service
+    - title: Výkon
+      links:
+      - url: performance/performance-best-practices.md
+        text: Přehled
+      - url: performance/memory.md
+        text: Paměť a uvolňování paměti
+      - url: performance/caching/response.md
+        text: Ukládání odpovědí do mezipaměti
+      - url: performance/response-compression.md
+        text: Komprese odpovědí
+      - url: performance/diagnostic-tools.md
+        text: Diagnostické nástroje
+      - url: test/load-tests.md
+        text: Zátěžové testování
+    - title: Pokročilé funkce
+      links:
+      - url: mvc/models/model-binding.md
+        text: Vazby modelu
+      - url: mvc/models/validation.md
+        text: Ověření modelu
+      - url: fundamentals/middleware.md
+        text: Psaní middlewaru
+      - url: fundamentals/middleware/request-response.md
+        text: Operace žádostí a odpovědí
+      - url: fundamentals/url-rewriting.md
+        text: Přepisování adres URL
+    - title: Migrace
+      links:
+      - url: migration/31-to-50.md
+        text: ASP.NET Core 3,1 až 5,0
+      - url: migration/30-to-31.md
+        text: ASP.NET Core 3,0 až 3,1
+      - url: migration/22-to-30.md
+        text: ASP.NET Core 2,2 až 3,0
+      - url: migration/21-to-22.md
+        text: ASP.NET Core 2,1 až 2,2
+      - url: migration/20_21.md
+        text: ASP.NET Core 2,0 až 2,1
+      - url: migration/1x-to-2x/index.md
+        text: ASP.NET Core 1. x až 2,0
+      - url: migration/proper-to-2x/index.md
+        text: Z ASP.NET do ASP.NET Core
+    - title: Architektura
+      links:
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/choose-between-traditional-web-and-single-page-apps
+        text: Volba mezi tradičními webovými aplikacemi a aplikacemi na jedné stránce (jednostránkové)
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/architectural-principles
+        text: Zásady architektury
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures
+        text: Běžné architektury webových aplikací
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/common-client-side-web-technologies
+        text: Běžné webové technologie na straně klienta
+      - url: https://docs.microsoft.com/dotnet/architecture/modern-web-apps-azure/development-process-for-azure
+        text: Proces vývoje pro Azure
+  footer: Přispívat k ASP.NET docs Přečtěte si náš [Průvodce pro přispěvatele](https://github.com/aspnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md).
