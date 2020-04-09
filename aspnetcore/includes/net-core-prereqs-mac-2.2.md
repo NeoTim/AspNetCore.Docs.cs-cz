@@ -1,2 +1,2 @@
-* [<span data-ttu-id="7b445-101">Visual Studio pro Mac verze 8,0 nebo novější</span><span class="sxs-lookup"><span data-stu-id="7b445-101">Visual Studio for Mac version 8.0 or later</span></span>](https://visualstudio.microsoft.com/downloads/)
-* [<span data-ttu-id="7b445-102">.NET Core SDK 2,2 nebo novější</span><span class="sxs-lookup"><span data-stu-id="7b445-102">.NET Core SDK 2.2 or later</span></span>](https://dotnet.microsoft.com/download/dotnet-core)
+* [<span data-ttu-id="2d224-101">Visual Studio pro Mac verze 8.0 nebo novější</span><span class="sxs-lookup"><span data-stu-id="2d224-101">Visual Studio for Mac version 8.0 or later</span></span>](https://visualstudio.microsoft.com/downloads/)
+* [<span data-ttu-id="2d224-102">Sada .NET Core SDK 2.2 nebo novější</span><span class="sxs-lookup"><span data-stu-id="2d224-102">.NET Core SDK 2.2 or later</span></span>](https://dotnet.microsoft.com/download/dotnet-core)

@@ -1082,6 +1082,8 @@
       uid: security/enforcing-ssl
     - name: Hostování Dockeru pomocí protokolu HTTPS
       uid: security/docker-https
+    - name: Docker Compose s HTTPS
+      uid: security/docker-compose-https
     - name: Podpora obecného nařízení EU o ochraně osobních údajů (GDPR)
       uid: security/gdpr
     - name: Ochrana proti padělání požadavků
