@@ -1,21 +1,21 @@
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. Vytvoření nového projektu
-1. Vyberte **službu pracovního procesu**. Vyberte **Další**.
-1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Vyberte **Vytvořit**.
-1. V dialogovém okně **vytvořit novou službu pracovního procesu** vyberte **vytvořit**.
+1. Vyberte **položku Pracovní služba**. Vyberte **další**.
+1. Zadejte název projektu do pole **Název projektu** nebo přijměte výchozí název projektu. Vyberte **Vytvořit**.
+1. V **dialogovém** okně Vytvořit novou pracovní službu vyberte **Vytvořit**.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
 1. Vytvoření nového projektu
-1. Na bočním panelu vyberte **aplikaci** v části **.NET Core** .
-1. V části **ASP.NET Core**vyberte **Worker** . Vyberte **Další**.
-1. Pro **cílovou architekturu**vyberte **.NET Core 3,0** nebo novější. Vyberte **Další**.
-1. Do pole **název projektu** zadejte název. Vyberte **Vytvořit**.
+1. V postranním panelu vyberte **Aplikaci** pod **.NET Core.**
+1. V části **ASP.NET jádrem**vyberte **Možnost Pracovník** . Vyberte **další**.
+1. Vyberte **rozhraní .NET Core 3.0** nebo novější pro **cílovou architekturu**. Vyberte **další**.
+1. Zadejte název do pole **Název projektu.** Vyberte **Vytvořit**.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-Pomocí příkazu [dotnet New](/dotnet/core/tools/dotnet-new) v příkazovém prostředí použijte šablonu Worker Service (`worker`). V následujícím příkladu se vytvoří aplikace pracovní služby s názvem `ContosoWorker`. Složka pro aplikaci `ContosoWorker` se vytvoří automaticky při spuštění příkazu.
+Použijte šablonu`worker`Pracovní služba ( ) s novým příkazem [dotnet](/dotnet/core/tools/dotnet-new) z příkazového prostředí. V následujícím příkladu je vytvořena aplikace `ContosoWorker`Pracovní služba s názvem . Složka aplikace `ContosoWorker` se vytvoří automaticky při spuštění příkazu.
 
 ```dotnetcli
 dotnet new worker -o ContosoWorker

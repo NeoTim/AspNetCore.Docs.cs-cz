@@ -1,7 +1,7 @@
 ---
-title: Součásti ASP.NET Core Blazor šablonou
+title: ASP.NET Blazor komponenty šablony Core
 author: guardrex
-description: Přečtěte si, jak mohou šablony součásti přijmout jednu nebo více šablon uživatelského rozhraní jako parametry, které lze poté použít jako součást logiky vykreslování komponenty.
+description: Zjistěte, jak mohou šablony komponenty přijímat jednu nebo více šablon uživatelského rozhraní jako parametry, které pak lze použít jako součást logiky vykreslování komponenty.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,30 +11,30 @@ no-loc:
 - SignalR
 uid: blazor/templated-components
 ms.openlocfilehash: b57e3fe186402723607e90b1628062f602c77632
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79989502"
 ---
-# <a name="aspnet-core-opno-locblazor-templated-components"></a>Součásti ASP.NET Core Blazor šablonou
+# <a name="aspnet-core-opno-locblazor-templated-components"></a>ASP.NET Blazor komponenty šablony Core
 
-Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
+[Luke Latham](https://github.com/guardrex) a [Daniel Roth](https://github.com/danroth27)
 
-Komponenty se šablonami jsou komponenty, které přijímají jednu nebo více šablon uživatelského rozhraní jako parametry, které lze poté použít jako součást logiky vykreslování komponenty. Komponenty založené na šablonách umožňují vytvářet komponenty vyšší úrovně, které jsou opakovaně použitelné než běžné součásti. Mezi několik příkladů patří:
+Šablony komponenty jsou součásti, které přijímají jednu nebo více šablon uživatelského rozhraní jako parametry, které pak lze použít jako součást logiky vykreslování komponenty. Šablony komponent umožňují vytvářet součásti vyšší úrovně, které jsou opakovaněji než běžné součásti. Několik příkladů patří:
 
-* Tabulková komponenta, která uživateli umožňuje zadat šablony pro záhlaví, řádky a zápatí tabulky.
-* Komponenta seznamu, která umožňuje uživateli určit šablonu pro vykreslování položek v seznamu.
+* Součást tabulky, která umožňuje uživateli zadat šablony pro záhlaví, řádky a zápatí tabulky.
+* Součást seznamu, která umožňuje uživateli zadat šablonu pro vykreslování položek v seznamu.
 
 ## <a name="template-parameters"></a>Parametry šablony
 
-Komponenta se šablonou je definována zadáním jednoho nebo více parametrů součásti typu `RenderFragment` nebo `RenderFragment<T>`. Fragment vykreslování představuje segment uživatelského rozhraní, které se má vykreslit. `RenderFragment<T>` převezme parametr typu, který lze zadat při vyvolání fragmentu vykreslování.
+Šablonovaná komponenta je definována zadáním jednoho nebo `RenderFragment` `RenderFragment<T>`více parametrů komponenttypu nebo . Fragment vykreslení představuje segment ui k vykreslení. `RenderFragment<T>`přebírá parametr typu, který lze zadat při vyvolání fragmentu vykreslení.
 
-součást `TableTemplate`:
+`TableTemplate`Komponenty:
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
 
-Při použití komponenty se šablonou lze parametry šablony zadat pomocí podřízených prvků, které odpovídají názvům parametrů (`TableHeader` a `RowTemplate` v následujícím příkladu):
+Při použití komponenty šablony lze parametry šablony zadat pomocí podřízených prvků,`TableHeader` `RowTemplate` které odpovídají názvům parametrů ( a v následujícím příkladu):
 
 ```razor
 <TableTemplate Items="pets">
@@ -50,11 +50,11 @@ Při použití komponenty se šablonou lze parametry šablony zadat pomocí pod�
 ```
 
 > [!NOTE]
-> Omezení obecného typu budou podporována v budoucí verzi. Další informace najdete v tématu [Povolení omezení obecného typu (dotnet/aspnetcore #8433)](https://github.com/dotnet/aspnetcore/issues/8433).
+> Omezení obecného typu budou podporována v budoucí verzi. Další informace naleznete v tématu [Povolit omezení obecného typu (dotnet/aspnetcore #8433).](https://github.com/dotnet/aspnetcore/issues/8433)
 
-## <a name="template-context-parameters"></a>Kontextové parametry šablony
+## <a name="template-context-parameters"></a>Parametry kontextu šablony
 
-Argumenty součásti typu `RenderFragment<T>` předány jako elementy mají implicitní parametr s názvem `context` (například z předchozí ukázky kódu `@context.PetId`), ale můžete změnit název parametru pomocí atributu `Context` u podřízeného elementu. V následujícím příkladu atribut `Context` elementu `RowTemplate` určuje parametr `pet`:
+Komponenty argumenty `RenderFragment<T>` typu předané jako `context` prvky mají implicitní parametr `@context.PetId`s názvem (například z `Context` předchozí ukázky kódu), ale můžete změnit název parametru pomocí atributu na podřízený prvek. V následujícím příkladu `RowTemplate` `Context` atribut prvku určuje `pet` parametr:
 
 ```razor
 <TableTemplate Items="pets">
@@ -69,7 +69,7 @@ Argumenty součásti typu `RenderFragment<T>` předány jako elementy mají impl
 </TableTemplate>
 ```
 
-Alternativně lze zadat atribut `Context` prvku komponenty. Zadaný atribut `Context` se vztahuje na všechny zadané parametry šablony. To může být užitečné, pokud chcete zadat název parametru obsahu pro implicitní podřízený obsah (bez nutnosti zalamování podřízeného elementu). V následujícím příkladu se atribut `Context` zobrazí u elementu `TableTemplate` a vztahuje se na všechny parametry šablony:
+Případně můžete zadat `Context` atribut prvku komponenty. Zadaný `Context` atribut se vztahuje na všechny zadané parametry šablony. To může být užitečné, pokud chcete zadat název parametru obsahu pro implicitní podřízený obsah (bez obtékání podřízeného prvku). V následujícím příkladu `Context` se atribut `TableTemplate` zobrazí na elementu a vztahuje se na všechny parametry šablony:
 
 ```razor
 <TableTemplate Items="pets" Context="pet">
@@ -84,13 +84,13 @@ Alternativně lze zadat atribut `Context` prvku komponenty. Zadaný atribut `Con
 </TableTemplate>
 ```
 
-## <a name="generic-typed-components"></a>Komponenty s obecným typem
+## <a name="generic-typed-components"></a>Komponenty obecného typu
 
-Komponenty se šablonami jsou často typu obecně typované. Například obecná `ListViewTemplate` komponenta může být použita pro vykreslení `IEnumerable<T>`ch hodnot. Chcete-li definovat obecné komponenty, použijte direktivu [`@typeparam`](xref:mvc/views/razor#typeparam) pro určení parametrů typu:
+Šablony komponenty jsou často typově zadali. Například obecnou `ListViewTemplate` komponentu lze použít `IEnumerable<T>` k vykreslení hodnot. Chcete-li definovat obecnou [`@typeparam`](xref:mvc/views/razor#typeparam) komponentu, použijte direktivu k určení parametrů typu:
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 
-Pokud používáte komponenty s obecným typem, je parametr typu odvozený, pokud je to možné:
+Při použití komponent typu obecného typu je parametr typu pokud možno odvozen:
 
 ```razor
 <ListViewTemplate Items="pets">
@@ -100,7 +100,7 @@ Pokud používáte komponenty s obecným typem, je parametr typu odvozený, poku
 </ListViewTemplate>
 ```
 
-V opačném případě musí být parametr typu explicitně zadán pomocí atributu, který odpovídá názvu parametru typu. V následujícím příkladu `TItem="Pet"` určuje typ:
+V opačném případě musí být parametr typu explicitně určen pomocí atributu, který odpovídá názvu parametru typu. V následujícím příkladu `TItem="Pet"` určuje typ:
 
 ```razor
 <ListViewTemplate Items="pets" TItem="Pet">

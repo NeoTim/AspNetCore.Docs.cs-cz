@@ -1,142 +1,142 @@
 ---
-title: Publikování aplikace ASP.NET Core ve službě IIS
+title: Publikování aplikace ASP.NET Core do iis
 author: rick-anderson
-description: Naučte se hostovat aplikaci ASP.NET Core na serveru IIS.
+description: Přečtěte si, jak hostovat aplikaci ASP.NET Core na serveru Služby IIS.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/03/2019
 uid: tutorials/publish-to-iis
 ms.openlocfilehash: 47f78ba78741a8e0175ce801c0c0e51f091273a8
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79511389"
 ---
-# <a name="publish-an-aspnet-core-app-to-iis"></a>Publikování aplikace ASP.NET Core ve službě IIS
+# <a name="publish-an-aspnet-core-app-to-iis"></a>Publikování aplikace ASP.NET Core do iis
 
-V tomto kurzu se dozvíte, jak hostovat aplikaci ASP.NET Core na serveru IIS.
+Tento kurz ukazuje, jak hostovat aplikaci ASP.NET Core na serveru služby IIS.
 
 Tento kurz se zabývá následujícími tématy:
 
 > [!div class="checklist"]
-> * Nainstalujte hostující sadu .NET Core na Windows Server.
-> * Vytvořte web IIS ve Správci služby IIS.
+> * Nainstalujte sadu .NET Core Hosting Na Windows Server.
+> * Vytvořte web služby IIS ve Správci služby IIS.
 > * Nasaďte aplikaci ASP.NET Core.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
-* [.NET Core SDK](/dotnet/core/sdk) nainstalované na vývojovém počítači.
-* Windows Server nakonfigurovaný pomocí role serveru **webový server (IIS)** . Pokud váš server není nakonfigurovaný na hostování webů se službou IIS, postupujte podle pokynů v části *Konfigurace služby IIS* v <xref:host-and-deploy/iis/index#iis-configuration> článku a pak se vraťte k tomuto kurzu.
+* [Sada .NET Core SDK](/dotnet/core/sdk) nainstalovaná ve vývojovém počítači.
+* Systém Windows Server je nakonfigurován s rolí serveru **Www Server (IIS).** Pokud váš server není nakonfigurován tak, aby hostoval weby se službou IIS, postupujte podle pokynů v části *konfigurace služby IIS* v <xref:host-and-deploy/iis/index#iis-configuration> článku a vraťte se k tomuto kurzu.
 
 > [!WARNING]
-> **Konfigurace služby IIS a zabezpečení webu zahrnují koncepty, na které se tento kurz nevztahuje.** Další informace najdete v dokumentaci ke službě IIS v dokumentaci ke službě [Microsoft IIS](https://www.iis.net/) a v [ASP.NET Core článku o hostování se službou IIS](xref:host-and-deploy/iis/index) před hostováním produkčních aplikací ve službě IIS.
+> **Konfigurace služby IIS a zabezpečení webu zahrnují koncepty, na které se tento kurz nevztahuje.** Před hostováním produkčních aplikací ve službě IIS naleznete pokyny služby IIS v [dokumentaci služby Microsoft IIS](https://www.iis.net/) a [v článku ASP.NET Core o hostování se službou IIS.](xref:host-and-deploy/iis/index)
 >
-> Důležité scénáře pro hostování služby IIS, na které se nevztahuje tento kurz, zahrnují:
+> Mezi důležité scénáře pro hostování služby IIS, na které se tento kurz nevztahuje, patří:
 >
-> * [Vytvoření podregistru pro ochranu ASP.NET Core dat](xref:host-and-deploy/iis/index#data-protection)
-> * [Konfigurace seznamu Access Control fondu aplikací (ACL)](xref:host-and-deploy/iis/index#application-pool-identity)
-> * V tomto kurzu nasadíte v rámci konceptů nasazení služby IIS aplikaci bez zabezpečení HTTPS nakonfigurovanou ve službě IIS. Další informace o hostování aplikace, která je povolená pro protokol HTTPS, najdete v tématech zabezpečení v části [Další zdroje](#additional-resources) tohoto článku. Další pokyny pro hostování ASP.NET Core aplikací jsou k dispozici v článku <xref:host-and-deploy/iis/index>.
+> * [Vytvoření podregistru pro ASP.NET základní ochrany dat](xref:host-and-deploy/iis/index#data-protection)
+> * [Konfigurace seznamu řízení přístupu fondu aplikací (ACL)](xref:host-and-deploy/iis/index#application-pool-identity)
+> * Chcete-li se zaměřit na koncepty nasazení služby IIS, tento kurz nasadí aplikaci bez zabezpečení HTTPS nakonfigurovaného ve službě IIS. Další informace o hostování aplikace povolené pro protokol HTTPS najdete v tématech zabezpečení v části [Další prostředky](#additional-resources) v tomto článku. Další pokyny pro hostování ASP.NET aplikace <xref:host-and-deploy/iis/index> Core jsou uvedeny v článku.
 
-## <a name="install-the-net-core-hosting-bundle"></a>Instalace .NET Core, který je hostitelem svazku
+## <a name="install-the-net-core-hosting-bundle"></a>Instalace balíčku hostingu jádra .NET
 
-Na server IIS nainstalujte *hostující sadu .NET Core* . Svazek nainstaluje modul runtime .NET Core, knihovnu .NET Core a [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Povolí modul ASP.NET Core aplikací ke spuštění za služby IIS.
+Nainstalujte *sadu .NET Core Hosting Na* server služby IIS. Balíček nainstaluje modul .NET Core Runtime, knihovnu .NET Core Library a [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module). Modul umožňuje ASP.NET aplikace Core běžet za službou IIS.
 
-Stažení instalačního programu pomocí následujícího odkazu:
+Stáhněte si instalační program pomocí následujícího odkazu:
 
-[Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[Aktuální instalační program .NET Core Hosting Bundle (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
-1. Spusťte instalační program na serveru IIS.
+1. Spusťte instalační program na serveru služby IIS.
 
-1. Restartujte server nebo spusťte příkaz **net stop** s příponou " **net start w3svc** " v příkazovém prostředí.
+1. Restartujte server nebo spusťte **net stop byl /y** následovaný **net start w3svc** v příkazovém prostředí.
 
-## <a name="create-the-iis-site"></a>Vytvořte web služby IIS
+## <a name="create-the-iis-site"></a>Vytvoření webu iis
 
-1. Na serveru služby IIS vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je jako fyzická cesta k aplikaci služba IIS poskytována jako cesta k této složce.
+1. Na serveru Služby IIS vytvořte složku obsahující publikované složky a soubory aplikace. V následujícím kroku je cesta ke složce k dispozici službu IIS jako fyzická cesta k aplikaci.
 
-1. Ve Správci služby IIS otevřete uzel serveru na panelu **připojení** . Klikněte pravým tlačítkem na složku **weby** . V místní nabídce vyberte **Přidat web** .
+1. Ve Správci služby IIS otevřete uzel serveru v panelu **Připojení.** Klikněte pravým tlačítkem myši na složku **Weby.** V kontextové nabídce vyberte **Přidat web.**
 
-1. Zadejte **název lokality** a nastavte **fyzickou cestu** ke složce pro nasazení aplikace, kterou jste vytvořili. Zadejte konfiguraci **vazby** a vytvořte web výběrem **OK**.
+1. Zadejte **název webu** a nastavte **fyzickou cestu** ke složce nasazení aplikace, kterou jste vytvořili. Zadejte konfiguraci **vazby** a vytvořte web výběrem **možnosti OK**.
 
 ## <a name="create-an-aspnet-core-razor-pages-app"></a>Vytvoření aplikace ASP.NET Core Razor Pages
 
-Pokud chcete vytvořit aplikaci Razor Pages, postupujte podle kurzu <xref:getting-started>.
+Podle <xref:getting-started> kurzu vytvořte aplikaci Razor Pages.
 
 ## <a name="publish-and-deploy-the-app"></a>Publikování a nasazení aplikace
 
-*Publikování aplikace* znamená, že se vytvoří kompilovaná aplikace, která může být hostována serverem. *Nasazení aplikace* znamená přesunutí publikované aplikace do hostitelského systému. Krok publikování je zpracováván [.NET Core SDK](/dotnet/core/sdk), zatímco krok nasazení může být zpracován řadou přístupů. Tento kurz přijme přístup k nasazení *složky* , kde:
+*Publikování aplikace* znamená vytvoření kompilované aplikace, kterou může hostovat server. *Nasazení aplikace* znamená přesunout publikovanou aplikaci do hostitelského systému. Krok publikování je zpracován sadou [.NET Core SDK](/dotnet/core/sdk), zatímco krok nasazení lze zpracovat pomocí různých přístupů. Tento kurz přijímá přístup nasazení *složky,* kde:
 
 * Aplikace se publikuje do složky.
-* Obsah složky se přesune do složky webu IIS ( **fyzická cesta** k lokalitě ve Správci služby IIS).
+* Obsah složky je přesunut do složky webu služby IIS **(fyzická cesta** k webu ve Správci služby IIS).
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. V **Průzkumník řešení** klikněte pravým tlačítkem na projekt a vyberte **publikovat**.
-1. V dialogovém okně **vybrat cíl publikování** vyberte možnost publikování **složky** .
-1. Nastavte **složku nebo cestu sdílení souborů** .
-   * Pokud jste vytvořili složku pro web IIS, která je k dispozici ve vývojovém počítači jako sdílená síťová složka, zadejte cestu ke sdílené složce. Aktuální uživatel musí mít oprávnění k zápisu pro publikování do sdílené složky.
-   * Pokud se nemůžete přímo nasadit do složky webu IIS na serveru služby IIS, proveďte publikování do složky na neodstranitelné médium a fyzicky přesuňte publikovanou aplikaci do složky webu IIS na serveru, což je **fyzická cesta** k webu ve Správci služby IIS. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
+1. Klikněte pravým tlačítkem myši na projekt v **Průzkumníku řešení** a vyberte **publikovat**.
+1. V **dialogovém** okně Vybrat cíl publikování vyberte možnost Publikovat **složku.**
+1. Nastavte cestu **ke složce nebo sdílené složce.**
+   * Pokud jste vytvořili složku pro web služby IIS, která je k dispozici ve vývojovém počítači jako sdílená síťová složka, zadejte cestu ke sdílené položce. Aktuální uživatel musí mít přístup pro zápis, aby mohl publikovat do sdílené položky.
+   * Pokud se vám nedaří nasadit přímo do složky webu služby IIS na serveru služby IIS, publikujte do složky na odstranitelném médiu a fyzicky přesuňte publikovanou aplikaci do složky webu služby IIS na serveru, což je **fyzická cesta** webu ve Správci služby IIS. Přesuňte obsah složky *bin/Release/{TARGET FRAMEWORK}/publish* do složky webu služby IIS na serveru, což je **fyzická cesta** webu ve Správci služby IIS.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-1. V příkazovém prostředí publikujte aplikaci v konfiguraci vydaných verzí pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
+1. V příkazovém prostředí publikujte aplikaci v konfiguraci release pomocí příkazu [dotnet publish:](/dotnet/core/tools/dotnet-publish)
 
    ```dotnetcli
    dotnet publish --configuration Release
    ```
 
-1. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
+1. Přesuňte obsah složky *bin/Release/{TARGET FRAMEWORK}/publish* do složky webu služby IIS na serveru, což je **fyzická cesta** webu ve Správci služby IIS.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-1. Klikněte pravým tlačítkem na projekt v **řešení** a vyberte **publikovat** > **publikovat do složky**.
-1. Nastavte cestu ke **složce** .
-   * Pokud jste vytvořili složku pro web IIS, která je k dispozici ve vývojovém počítači jako sdílená síťová složka, zadejte cestu ke sdílené složce. Aktuální uživatel musí mít oprávnění k zápisu pro publikování do sdílené složky.
-   * Pokud se nemůžete přímo nasadit do složky webu IIS na serveru služby IIS, proveďte publikování do složky na neodstranitelné médium a fyzicky přesuňte publikovanou aplikaci do složky webu IIS na serveru, což je **fyzická cesta** k webu ve Správci služby IIS. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
+1. Klikněte pravým tlačítkem myši na projekt v **části Řešení** a vyberte **publikovat** > **publikovat do složky**.
+1. Nastavte možnost Zvolit cestu **ke složce.**
+   * Pokud jste vytvořili složku pro web služby IIS, která je k dispozici ve vývojovém počítači jako sdílená síťová složka, zadejte cestu ke sdílené položce. Aktuální uživatel musí mít přístup pro zápis, aby mohl publikovat do sdílené položky.
+   * Pokud se vám nedaří nasadit přímo do složky webu služby IIS na serveru služby IIS, publikujte do složky na odstranitelném médiu a fyzicky přesuňte publikovanou aplikaci do složky webu služby IIS na serveru, což je **fyzická cesta** webu ve Správci služby IIS. Přesuňte obsah složky *bin/Release/{TARGET FRAMEWORK}/publish* do složky webu služby IIS na serveru, což je **fyzická cesta** webu ve Správci služby IIS.
 
 ---
 
-## <a name="browse-the-website"></a>Přejděte na web
+## <a name="browse-the-website"></a>Procházení webu
 
-Aplikace je v prohlížeči přístupná, až obdrží první požadavek. Vyžádejte aplikaci na vazbu koncového bodu, kterou jste navázali ve Správci služby IIS pro danou lokalitu.
+Aplikace je přístupná v prohlížeči poté, co obdrží první požadavek. Požádejte o aplikaci na vazbě koncového bodu, kterou jste vytvořili ve Správci služby IIS pro web.
 
 ## <a name="next-steps"></a>Další kroky
 
 V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
-> * Nainstalujte hostující sadu .NET Core na Windows Server.
-> * Vytvořte web IIS ve Správci služby IIS.
+> * Nainstalujte sadu .NET Core Hosting Na Windows Server.
+> * Vytvořte web služby IIS ve Správci služby IIS.
 > * Nasaďte aplikaci ASP.NET Core.
 
-Další informace o hostování ASP.NET Corech aplikací ve službě IIS najdete v článku Přehled služby IIS:
+Další informace o hostování aplikací ASP.NET Core ve službě IIS naleznete v článku Přehled služby IIS:
 
 > [!div class="nextstepaction"]
 > <xref:host-and-deploy/iis/index>
 
 ## <a name="additional-resources"></a>Další zdroje
 
-### <a name="articles-in-the-aspnet-core-documentation-set"></a>Články v sadě dokumentace k ASP.NET Core
+### <a name="articles-in-the-aspnet-core-documentation-set"></a>Články v sadě dokumentace ASP.NET Core
 
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/directory-structure>
 * <xref:test/troubleshoot-azure-iis>
 * <xref:security/enforcing-ssl>
 
-### <a name="articles-pertaining-to-aspnet-core-app-deployment"></a>Články týkající se ASP.NET Coreho nasazení aplikace
+### <a name="articles-pertaining-to-aspnet-core-app-deployment"></a>Články týkající se nasazení aplikace ASP.NET Core
 
 * <xref:tutorials/publish-to-azure-webapp-using-vs>
 * <xref:tutorials/publish-to-azure-webapp-using-vscode>
 * <xref:host-and-deploy/visual-studio-publish-profiles>
-* [Publikování webové aplikace do složky pomocí Visual Studio pro Mac](/visualstudio/mac/publish-folder)
+* [Publikování webové aplikace do složky pomocí Visual Studia pro Mac](/visualstudio/mac/publish-folder)
 
-### <a name="articles-on-iis-https-configuration"></a>Články týkající se konfigurace protokolu HTTPS služby IIS
+### <a name="articles-on-iis-https-configuration"></a>Články o konfiguraci protokolu HTTPS služby IIS
 
-* [Konfigurace SSL ve Správci služby IIS](/iis/manage/configuring-security/configuring-ssl-in-iis-manager)
-* [Jak nastavit SSL v IIS](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
+* [Konfigurace ssl ve Správci služby IIS](/iis/manage/configuring-security/configuring-ssl-in-iis-manager)
+* [Jak nastavit ssl ve službě IIS](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis)
 
-### <a name="articles-on-iis-and-windows-server"></a>Články na IIS a Windows serveru
+### <a name="articles-on-iis-and-windows-server"></a>Články o službě IIS a systému Windows Server
 
-* [Oficiální web Microsoft IIS](https://www.iis.net/)
-* [Knihovna technických obsahu pro Windows Server](/windows-server/windows-server)
+* [Oficiální web služby Microsoft IIS](https://www.iis.net/)
+* [Knihovna technického obsahu systému Windows Server](/windows-server/windows-server)

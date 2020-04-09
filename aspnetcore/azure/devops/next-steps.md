@@ -1,46 +1,46 @@
 ---
-title: Další kroky – DevOps s využitím ASP.NET Core a Azure
+title: Další kroky – DevOps s ASP.NET core a Azure
 author: CamSoper
-description: Další postupy výuky pro vývoj a provoz s ASP.NET Core a Azure.
+description: Další výukové trasy pro DevOps s ASP.NET Core a Azure.
 ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/next-steps
 ms.openlocfilehash: a775dc42551a43bcce72b5f9ca364ed00b1dc4e6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78659472"
 ---
 # <a name="next-steps"></a>Další kroky
 
-V tomto průvodci vytvořit kanál DevOps pro ukázkové aplikace ASP.NET Core. Blahopřejeme! Doufáme, že se vám líbilo učení k publikování webových aplikací ASP.NET Core do služby Azure App Service a automatizovat průběžné integrace změny.
+V této příručce jste vytvořili kanál DevOps pro ukázkovou aplikaci ASP.NET Core. Blahopřejeme! Doufáme, že se vám líbilo publikovat ASP.NET webových aplikací Core do služby Azure App Service a automatizovat průběžnou integraci změn.
 
-Kromě hostování webů a DevOps Azure nabízí širokou škálu služeb Platform-as-a-Service (PaaS) je užitečný pro vývojáře ASP.NET Core. Tato část poskytuje stručný přehled o některé z nejčastěji používaných služeb.
+Kromě web hostingu a DevOps má Azure širokou škálu služeb PaaS (Platform-as-a-Service), které jsou užitečné pro ASP.NET vývojářům Core. Tato část poskytuje stručný přehled některých nejčastěji používaných služeb.
 
-## <a name="storage-and-databases"></a>Úložiště a databází
+## <a name="storage-and-databases"></a>Úložiště a databáze
 
-[Redis Cache](/azure/redis-cache/) je k dispozici ukládání dat do mezipaměti s vysokou propustností a nízkou latencí jako služba. Je možné pro ukládání výstupu stránek, snížení požadavků na databázi a poskytování stavu relace ASP.NET Core do několika instancí aplikace.
+[Redis Cache](/azure/redis-cache/) je ukládání dat s vysokou propustností a nízkou latencí, které je k dispozici jako služba. Lze jej použít pro ukládání výstupu stránky do mezipaměti, snížení požadavků na databázi a poskytování ASP.NET stavu základní relace napříč více instancemi aplikace.
 
-[Azure Storage](/azure/storage/) je rozsáhle škálovatelné cloudové úložiště Azure. Vývojáři mohou využít výhod [Queue Storage](/azure/storage/queues/storage-queues-introduction) pro spolehlivé služby Řízení front zpráv a [Table Storage](/azure/storage/tables/table-storage-overview) je úložiště NoSQL klíč-hodnota navržené pro rychlý vývoj pomocí rozsáhlých, částečně strukturovaných datových sad.
+[Azure Storage](/azure/storage/) je masivně škálovatelné cloudové úložiště Azure. Vývojáři mohou využít [služby Queue Storage](/azure/storage/queues/storage-queues-introduction) pro spolehlivé řízení front zpráv a [table storage](/azure/storage/tables/table-storage-overview) je úložiště hodnot klíčů NoSQL určené pro rychlý vývoj pomocí masivních polostrukturovaných datových sad.
 
-[Azure SQL Database](/azure/sql-database/) poskytuje známé funkce relační databáze jako služba využívající modul Microsoft SQL Server.
+[Azure SQL Database](/azure/sql-database/) poskytuje známé funkce relační databáze jako služba pomocí Microsoft SQL Server Engine.
 
-[Cosmos DB](/azure/cosmos-db/) globálně distribuovaná databázová služba NoSQL pro více modelů. Několik rozhraní API jsou dostupná, včetně rozhraní SQL API (dříve se označovaly jako DocumentDB) a Cassandra, MongoDB.
+[Cosmos DB](/azure/cosmos-db/) globálně distribuovaná databázová služba NoSQL s více modely. K dispozici je více rozhraní API, včetně rozhraní SQL API (dříve nazývané DocumentDB), Cassandra a MongoDB.
 
 ## <a name="identity"></a>Identita
 
-[Azure Active Directory](/azure/active-directory/) a [Azure Active Directory B2C](/azure/active-directory-b2c/) jsou obě služby identity. Azure Active Directory je určená pro podnikové scénáře a umožňuje spolupráci Azure AD B2B (business-to-business), zatímco Azure Active Directory B2C je zamýšlené firmy zákazníka scénářů, včetně přihlášení sociálních sítí.
+[Azure Active Directory](/azure/active-directory/) a [Azure Active Directory B2C](/azure/active-directory-b2c/) jsou obě služby identity. Azure Active Directory je navržený pro podnikové scénáře a umožňuje spolupráci Azure AD B2B (business-to-business), zatímco Azure Active Directory B2C je určen business-to-customer scénáře, včetně přihlášení k sociální síti.
 
-## <a name="mobile"></a>Mobilní
+## <a name="mobile"></a>Mobilní zařízení
 
-[Notification Hubs](/azure/notification-hubs/) je Škálovatelný modul nabízených oznámení pro více platforem, který umožňuje rychle odesílat miliony zpráv aplikacím běžícím na různých typech zařízení.
+[Centra oznámení](/azure/notification-hubs/) jsou multiplatformní škálovatelný modul nabízených oznámení, který rychle odesílá miliony zpráv do aplikací spuštěných na různých typech zařízení.
 
-## <a name="web-infrastructure"></a>Infrastruktura webové
+## <a name="web-infrastructure"></a>Webová infrastruktura
 
-[Azure Container Service](/azure/aks/) spravuje hostované prostředí Kubernetes, které umožňuje rychlé a snadné nasazení a správu kontejnerových aplikací bez znalosti orchestrace kontejnerů.
+[Služba Azure Container Service](/azure/aks/) spravuje vaše hostované prostředí Kubernetes, takže je rychlé a snadné nasadit a spravovat kontejnerizované aplikace bez odborných znalostí orchestrace kontejnerů.
 
-[Azure Search](/azure/search/) slouží k vytvoření podnikového řešení pro vyhledávání v rámci soukromého obsahu heterogenní.
+[Azure Search](/azure/search/) se používá k vytvoření řešení podnikového vyhledávání přes soukromý, heterogenní obsah.
 
-[Service Fabric](/azure/service-fabric/) je platforma distribuovaných systémů usnadňující balení, nasazování a spravování škálovatelných a spolehlivých mikroslužeb a kontejnerů.
+[Service Fabric](/azure/service-fabric/) je platforma distribuovaných systémů, která usnadňuje balení, nasazování a správu škálovatelných a spolehlivých mikroslužeb a kontejnerů.

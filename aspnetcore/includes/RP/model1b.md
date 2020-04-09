@@ -1,14 +1,14 @@
 <!-- THIS INCLUDE USED BY MVC AND RP -->
-Do `Movie` třídy přidejte následující vlastnosti:
+Do třídy přidejte následující vlastnosti: `Movie`
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/Movie.cs?name=snippet1)]
 
 Třída `Movie` obsahuje:
 
-* Pole `ID` vyžaduje databáze pro primární klíč.
-* `[DataType(DataType.Date)]`: atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) určuje typ dat (datum). S tímto atributem:
+* Toto `ID` pole je vyžadováno databází pro primární klíč.
+* `[DataType(DataType.Date)]`: Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) určuje typ dat (datum). S tímto atributem:
 
-  * Uživatel není požádán o zadání informací o čase do pole datum.
-  * Zobrazí se pouze datum, nejedná se o informace o čase.
+  * Uživatel nemusí zadávat informace o čase do pole data.
+  * Zobrazí se pouze datum, nikoli informace o čase.
 
-V pozdějším kurzu jsou uvedena tato [Anotace](/dotnet/api/system.componentmodel.dataannotations) .
+[DataAnnotations](/dotnet/api/system.componentmodel.dataannotations) jsou zahrnuty v pozdější kurz.

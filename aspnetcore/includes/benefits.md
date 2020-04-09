@@ -1,22 +1,22 @@
 ASP.NET Core nabízí následující výhody:
 
 * Jednotné prostředí pro vytváření webového uživatelského rozhraní a webových rozhraní API.
-* Navrženo pro testování.
-* [Razor Pages](xref:razor-pages/index) usnadňuje a pružně zakódovat scénáře zaměřené na stránku.
-* [Blazor](xref:blazor/index) umožňuje používat C# v prohlížeči spolu s JavaScriptem. Sdílení logiky aplikace na straně serveru a na straně klienta, které jsou napsané pomocí .NET
-* Možnost vyvíjet a spouštět v systémech Windows, macOS a Linux.
+* Navrženo pro testovatelnost.
+* [Razor Pages](xref:razor-pages/index) usnadňuje a zprostředkovává kódování scénářů zaměřených na stránky.
+* [Blazor](xref:blazor/index) umožňuje používat C# v prohlížeči vedle JavaScriptu. Sdílet logiku aplikace na straně serveru a klienta, všechny napsané pomocí rozhraní .NET.
+* Schopnost vyvíjet a spouštět na Windows, macOS a Linux.
 * Architektura zaměřená na open-source a [komunitu](https://live.asp.net/)
 * Integrace [moderní architektury klienta](xref:blazor/index) a vývojových pracovních postupů
-* Podpora hostování služeb vzdáleného volání procedur (RPC) pomocí [gRPC](xref:grpc/index).
+* Podpora pro hostování služeb vzdáleného volání procedur (RPC) pomocí [gRPC](xref:grpc/index).
 * [Konfigurační systém](xref:fundamentals/configuration/index) založený na prostředí, který je připravený pro cloud.
 * Integrovaná [injektáž závislostí](xref:fundamentals/dependency-injection).
 * Odlehčený, [vysoce výkonný](https://github.com/aspnet/benchmarks), modulární kanál požadavků HTTP
-* Možnost hostování v následujících aplikacích:
+* Schopnost hostit na následující:
   * [Kestrel](xref:fundamentals/servers/kestrel)
-  * [SLUŽBU](xref:host-and-deploy/iis/index)
+  * [IIS](xref:host-and-deploy/iis/index)
   * [HTTP.sys](xref:fundamentals/servers/httpsys)
   * [Nginx](xref:host-and-deploy/linux-nginx)
   * [Apache](xref:host-and-deploy/linux-apache)
   * [Docker](xref:host-and-deploy/docker/index)
-* [Souběžná Správa verzí](/dotnet/standard/choosing-core-framework-server#a-need-for-side-by-side-of-net-versions-per-application-level).
+* [Souběžná správa verzí](/dotnet/standard/choosing-core-framework-server#a-need-for-side-by-side-of-net-versions-per-application-level).
 * Nabízí nástroje, které usnadňují vývoj moderních webů.

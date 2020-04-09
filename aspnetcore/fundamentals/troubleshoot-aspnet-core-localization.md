@@ -1,29 +1,29 @@
 ---
-title: Řešení potíží s ASP.NET Core lokalizací
+title: Poradce při potížích s lokalizací jádra ASP.NET
 author: hishamco
-description: Naučte se diagnostikovat problémy s lokalizací v ASP.NET Corech aplikacích.
+description: Přečtěte si, jak diagnostikovat problémy s lokalizací v aplikacích ASP.NET Core.
 ms.author: riande
 ms.date: 01/24/2019
 uid: fundamentals/troubleshoot-aspnet-core-localization
 ms.openlocfilehash: 229e274a22e170d984a16d3b1ee64ebc38c4ef77
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78660375"
 ---
-# <a name="troubleshoot-aspnet-core-localization"></a>Řešení potíží s ASP.NET Core lokalizací
+# <a name="troubleshoot-aspnet-core-localization"></a>Poradce při potížích s lokalizací jádra ASP.NET
 
-Podle [Hisham bin Ateya](https://github.com/hishamco)
+Podle [Hisham Bin Ateya](https://github.com/hishamco)
 
-Tento článek poskytuje pokyny, jak diagnostikovat problémy s lokalizací ASP.NET Core aplikací.
+Tento článek obsahuje pokyny, jak diagnostikovat ASP.NET problémy s lokalizací aplikace Core.
 
 ## <a name="localization-configuration-issues"></a>Problémy s konfigurací lokalizace
 
-**Lokalizace pořadí middlewaru**  
-Aplikace nemusí být lokalizována, protože middleware lokalizace není uspořádána podle očekávání.
+**Pořadí middlewaru lokalizace**  
+Aplikace nemusí lokalizovat, protože middleware lokalizace není objednané podle očekávání.
 
-Chcete-li tento problém vyřešit, zajistěte, aby middleware lokalizace byl zaregistrován před middlewarem MVC. V opačném případě se middleware lokalizace nepoužije.
+Chcete-li tento problém vyřešit, ujistěte se, že middleware lokalizace je registrovánpřed MVC middleware. V opačném případě není použit middleware lokalizace.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -34,32 +34,32 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-**Cesta k prostředkům lokalizace nebyla nalezena.**
+**Cesta prostředků lokalizace nebyla nalezena.**
 
-**Podporované jazykové verze v RequestCultureProvider se neshodují s registrací.**  
+**Podporované jazykové verze v RequestCultureProvider neodpovídají registrované jednou**  
 
-## <a name="resource-file-naming-issues"></a>Problémy s pojmenovávání souborů prostředků
+## <a name="resource-file-naming-issues"></a>Problémy s pojmenováním souborů prostředků
 
-ASP.NET Core má předdefinovaná pravidla a pokyny pro pojmenování souborů lokalizačních prostředků, které jsou [zde](xref:fundamentals/localization?view=aspnetcore-2.2#resource-file-naming)podrobně popsané.
+ASP.NET Core má předdefinovaná pravidla a pokyny pro názvy souborů lokalizačních prostředků, které jsou podrobně popsány [zde](xref:fundamentals/localization?view=aspnetcore-2.2#resource-file-naming).
 
-## <a name="missing-resources"></a>Chybějící prostředky
+## <a name="missing-resources"></a>Chybějící zdroje
 
 Mezi běžné příčiny nenalezených prostředků patří:
 
-- V souboru `resx` nebo v žádosti lokalizátora jsou nesprávně napsané názvy prostředků.
-- Prostředek chybí v `resx` pro některé jazyky, ale existuje v ostatních jazycích.
-- Pokud pořád máte problémy, podívejte se na zprávy protokolu lokalizace (které jsou na úrovni protokolu `Debug`), kde najdete další podrobnosti o chybějících prostředcích.
+- Názvy prostředků jsou chybně `resx` napsané v souboru nebo v požadavku lokalizačního systému.
+- Prostředek chybí pro `resx` některé jazyky, ale existuje v jiných jazycích.
+- Pokud máte stále potíže, zkontrolujte zprávy protokolu lokalizace (které jsou na `Debug` úrovni protokolu) další podrobnosti o chybějící prostředky.
 
-_**Pomocný parametr:** Při použití `CookieRequestCultureProvider`ověřte, že jednoduché uvozovky nejsou použity s kulturami uvnitř hodnoty souboru cookie lokalizace. Například `c='en-UK'|uic='en-US'` je neplatná hodnota souboru cookie, zatímco `c=en-UK|uic=en-US` je platná._
+_**Tip:** Při `CookieRequestCultureProvider`použití ověřte, zda se jednoduché uvozovky nepoužívají s jazyky uvnitř hodnoty souboru cookie lokalizace. Například `c='en-UK'|uic='en-US'` je neplatná hodnota `c=en-UK|uic=en-US` cookie, zatímco je platná._
 
-## <a name="resources--class-libraries-issues"></a>Zdroje & problémy knihoven tříd
+## <a name="resources--class-libraries-issues"></a>Zdroje & problémy s knihovnami tříd
 
-ASP.NET Core ve výchozím nastavení poskytuje způsob, jak umožníte knihovnám tříd najít své soubory prostředků prostřednictvím [ResourceLocationAttribute](/dotnet/api/microsoft.extensions.localization.resourcelocationattribute?view=aspnetcore-2.1).
+ASP.NET Core ve výchozím nastavení poskytuje způsob, jak knihovnám tříd umožnit, aby nalezly své soubory prostředků prostřednictvím [resourcelocationattribute](/dotnet/api/microsoft.extensions.localization.resourcelocationattribute?view=aspnetcore-2.1).
 
 Mezi běžné problémy s knihovnami tříd patří:
-- Chybějící `ResourceLocationAttribute` v knihovně tříd zabrání `ResourceManagerStringLocalizerFactory`mu zjišťování prostředků.
-- Pojmenovávání zdrojového souboru. Další informace najdete v části [problémy s pojmenovávání souborů prostředků](#resource-file-naming-issues) .
-- Změna kořenového oboru názvů knihovny tříd. Další informace najdete v části [problémy kořenového oboru názvů](#root-namespace-issues) .
+- Chybějící `ResourceLocationAttribute` v knihovně tříd `ResourceManagerStringLocalizerFactory` zabrání zjišťování prostředků.
+- Pojmenování souboru prostředků. Další informace naleznete v části [Problémy s pojmenováním souborů prostředků.](#resource-file-naming-issues)
+- Změna kořenového oboru názvů knihovny tříd. Další informace naleznete v části [Problémy kořenového oboru názvů.](#root-namespace-issues)
 
 ## <a name="customrequestcultureprovider-doesnt-work-as-expected"></a>CustomRequestCultureProvider nefunguje podle očekávání
 
@@ -69,11 +69,11 @@ Třída `RequestLocalizationOptions` má tři výchozí zprostředkovatele:
 2. `CookieRequestCultureProvider`
 3. `AcceptLanguageHeaderRequestCultureProvider`
 
-[CustomRequestCultureProvider](/dotnet/api/microsoft.aspnetcore.localization.customrequestcultureprovider?view=aspnetcore-2.1) umožňuje přizpůsobit, jak je v aplikaci k dispozici kultura lokalizace. `CustomRequestCultureProvider` se používá v případě, že výchozí zprostředkovatelé nesplňují vaše požadavky.
+[CustomRequestCultureProvider](/dotnet/api/microsoft.aspnetcore.localization.customrequestcultureprovider?view=aspnetcore-2.1) umožňuje přizpůsobit, jak je ve vaší aplikaci poskytována jazyková verze lokalizace. Používá `CustomRequestCultureProvider` se v případě, že výchozí zprostředkovatelé nesplňují vaše požadavky.
 
-- Běžný důvod, který vlastní zprostředkovatel nepracuje správně, je, že se nejedná o prvního poskytovatele v seznamu `RequestCultureProviders`. Řešení tohoto problému:
+- Běžným důvodem, proč vlastní zprostředkovatel nefunguje správně, je `RequestCultureProviders` to, že není prvním poskytovatelem v seznamu. Řešení tohoto problému:
 
-- Vložte vlastního zprostředkovatele na pozici 0 v seznamu `RequestCultureProviders` následujícím způsobem:
+- Vložte vlastního zprostředkovatele na `RequestCultureProviders` pozici 0 v seznamu takto:
 
 ::: moniker range="< aspnetcore-3.0"
 ```csharp
@@ -95,15 +95,15 @@ options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async 
 ```
 ::: moniker-end
 
-- Pomocí `AddInitialRequestCultureProvider` metody rozšíření nastavte vlastního zprostředkovatele jako počátečního poskytovatele.
+- Pomocí `AddInitialRequestCultureProvider` metody rozšíření nastavte vlastního zprostředkovatele jako počátečního zprostředkovatele.
 
 ## <a name="root-namespace-issues"></a>Problémy s kořenovým oborem názvů
 
-Pokud se kořenový obor názvů sestavení liší od názvu sestavení, lokalizace ve výchozím nastavení nefunguje. Chcete-li se tomuto problému vyhnout, použijte [RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1), který je [zde](xref:fundamentals/localization?view=aspnetcore-2.2#resource-file-naming) podrobně popsán.
+Pokud kořenový obor názvů sestavení se liší od názvu sestavení, lokalizace nefunguje ve výchozím nastavení. Chcete-li se tomuto problému vyhnout, použijte [RootNamespace](/dotnet/api/microsoft.extensions.localization.rootnamespaceattribute?view=aspnetcore-2.1), který je podrobně popsán [zde](xref:fundamentals/localization?view=aspnetcore-2.2#resource-file-naming)
 
 > [!WARNING]
-> K tomu může dojít, když název projektu není platným identifikátorem .NET. Instance `my-project-name.csproj` například použije kořenový obor názvů `my_project_name` a název sestavení `my-project-name` což vede k této chybě. 
+> Tato situace může nastat, pokud název projektu není platný identifikátor .NET. Například `my-project-name.csproj` bude používat kořenový obor `my_project_name` `my-project-name` názvů a název sestavení vedoucí k této chybě. 
 
-## <a name="resources--build-action"></a>Prostředky & akci sestavení
+## <a name="resources--build-action"></a>Zdroje & build akce
 
-Pokud používáte soubory prostředků k lokalizaci, je důležité, aby měly odpovídající akci sestavení. Měly by být **vložené prostředky**, jinak `ResourceStringLocalizer` není schopné tyto prostředky najít.
+Pokud používáte soubory prostředků pro lokalizaci, je důležité, aby měly odpovídající akci sestavení. Měly by být **vložené zdroje**, jinak `ResourceStringLocalizer` není schopen najít tyto prostředky.

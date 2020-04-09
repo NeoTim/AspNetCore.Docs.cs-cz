@@ -1,29 +1,29 @@
 ---
 title: Ověřování a autorizace v gRPC pro ASP.NET Core
 author: jamesnk
-description: Naučte se používat ověřování a autorizaci v gRPC pro ASP.NET Core.
+description: Přečtěte si, jak používat ověřování a autorizaci v gRPC pro ASP.NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 12/05/2019
 uid: grpc/authn-and-authz
 ms.openlocfilehash: c0312b186bbb35e3b802984484b7213016d8bf04
-ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/10/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78964432"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>Ověřování a autorizace v gRPC pro ASP.NET Core
 
-Od [James Newton – král](https://twitter.com/jamesnk)
+Podle [James Newton-King](https://twitter.com/jamesnk)
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/grpc/authn-and-authz/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="authenticate-users-calling-a-grpc-service"></a>Ověřování uživatelů volajících služby gRPC
+## <a name="authenticate-users-calling-a-grpc-service"></a>Ověření uživatelů volajících službu gRPC
 
-gRPC se dá použít s [ověřováním ASP.NET Core](xref:security/authentication/identity) k přidružení uživatele ke každému volání.
+gRPC lze použít s [ASP.NET core ověřování](xref:security/authentication/identity) maže přikaždém volání uživatele.
 
-Následuje příklad `Startup.Configure`, který používá ověřování gRPC a ASP.NET Core:
+Následuje příklad, který `Startup.Configure` používá gRPC a ASP.NET základní ověřování:
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -41,11 +41,11 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> Pořadí, ve kterém zaregistrujete ASP.NET Core middlewaru ověřování. Po `UseRouting` a před `UseEndpoints`vždy volejte `UseAuthentication` a `UseAuthorization`.
+> Pořadí, ve kterém zaregistrujete ASP.NET základní ověřování middleware záležitosti. Vždy `UseAuthentication` volejte `UseAuthorization` `UseRouting` a `UseEndpoints`po a před .
 
-Mechanismus ověřování, který vaše aplikace používá během volání, je nutné nakonfigurovat. Konfigurace ověřování je přidaná v `Startup.ConfigureServices` a bude se lišit v závislosti na mechanismu ověřování, který vaše aplikace používá. Příklady zabezpečení aplikací ASP.NET Core najdete v tématu [ukázky ověřování](xref:security/authentication/samples).
+Ověřovací mechanismus, který vaše aplikace používá během volání, musí být nakonfigurován. Konfigurace ověřování se `Startup.ConfigureServices` přidá a bude se lišit v závislosti na mechanismu ověřování, který vaše aplikace používá. Příklady zabezpečení aplikací ASP.NET Core najdete v [tématu Ukázky ověřování](xref:security/authentication/samples).
 
-Po nastavení ověřování bude k uživateli přístup v metodách služby gRPC prostřednictvím `ServerCallContext`.
+Po nastavení ověřování je uživatel přístupný v metodách služby gRPC prostřednictvím `ServerCallContext`rozhraní .
 
 ```csharp
 public override Task<BuyTicketsResponse> BuyTickets(
@@ -58,13 +58,13 @@ public override Task<BuyTicketsResponse> BuyTickets(
 
 ```
 
-### <a name="bearer-token-authentication"></a>Ověřování nosných tokenů
+### <a name="bearer-token-authentication"></a>Ověřování nože tokenu
 
-Klient může pro ověřování poskytnout přístupový token. Server token ověří a použije ho k identifikaci uživatele.
+Klient může poskytnout přístupový token pro ověřování. Server ověří token a použije jej k identifikaci uživatele.
 
-Na serveru je ověřování pomocí tokenu nosiče nakonfigurované pomocí [middleware nosiče JWT](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer).
+Na serveru je ověřování nosnicových tokenů konfigurováno pomocí [middlewaru JWT Bearer](/dotnet/api/microsoft.extensions.dependencyinjection.jwtbearerextensions.addjwtbearer).
 
-V klientovi .NET gRPC je možné token odeslat s voláními jako hlavičku:
+V klientovi .NET gRPC lze token odeslat s voláním jako záhlaví:
 
 ```csharp
 public bool DoAuthenticatedCall(
@@ -80,9 +80,9 @@ public bool DoAuthenticatedCall(
 }
 ```
 
-Konfigurace `ChannelCredentials` na kanálu je alternativní způsob, jak odeslat token službě prostřednictvím volání gRPC. Přihlašovací údaje se spustí pokaždé, když se vytvoří volání gRPC, což zabrání nutnosti psát kód na více místech, aby bylo možné token předat sami.
+Konfigurace `ChannelCredentials` na kanálu je alternativní způsob, jak odeslat token do služby s voláním gRPC. Pověření je spuštěna pokaždé, když je provedeno volání gRPC, což se vyhýbá nutnosti psát kód na více místech předat token sami.
 
-Přihlašovací údaje v následujícím příkladu nakonfiguruje kanál tak, aby odesílal token při každém volání gRPC:
+Pověření v následujícím příkladu konfiguruje kanál pro odeslání tokenu s každým voláním gRPC:
 
 ```csharp
 private static GrpcChannel CreateAuthenticatedChannel(string address)
@@ -106,14 +106,14 @@ private static GrpcChannel CreateAuthenticatedChannel(string address)
 }
 ```
 
-### <a name="client-certificate-authentication"></a>Ověření certifikátu klienta
+### <a name="client-certificate-authentication"></a>Ověření klientského certifikátu
 
-Klient může případně poskytnout klientský certifikát pro ověřování. [Ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Když požadavek vstoupí do ASP.NET Core, [balíček pro ověřování certifikátu klienta](xref:security/authentication/certauth) vám umožní tento certifikát přeložit na `ClaimsPrincipal`.
+Klient by mohl alternativně poskytnout klientský certifikát pro ověřování. [Ověřování certifikátů](https://tools.ietf.org/html/rfc5246#section-7.4.4) probíhá na úrovni TLS, dlouho předtím, než se vůbec dostane k ASP.NET Core. Když požadavek zadá ASP.NET core, [balíček ověřování klientského certifikátu](xref:security/authentication/certauth) umožňuje přeložit certifikát na `ClaimsPrincipal`.
 
 > [!NOTE]
-> Hostitel musí být nakonfigurovaný tak, aby přijímal klientské certifikáty. Informace o přijímání klientských certifikátů v Kestrel, IIS a Azure najdete v tématu [Konfigurace hostitele pro vyžadování certifikátů](xref:security/authentication/certauth#configure-your-host-to-require-certificates) .
+> Hostitel musí být nakonfigurován tak, aby přijímal klientské certifikáty. Viz [konfigurace hostitele tak, aby vyžadoval certifikáty](xref:security/authentication/certauth#configure-your-host-to-require-certificates) pro informace o přijímání klientských certifikátů v Kestrel, IIS a Azure.
 
-V klientovi .NET gRPC se certifikát klienta přidá do `HttpClientHandler`, který se pak používá k vytvoření klienta gRPC:
+V klientovi .NET gRPC je klientský certifikát přidán k `HttpClientHandler` tomu, který se pak použije k vytvoření klienta gRPC:
 
 ```csharp
 public Ticketer.TicketerClient CreateClientWithCert(
@@ -136,29 +136,29 @@ public Ticketer.TicketerClient CreateClientWithCert(
 
 ### <a name="other-authentication-mechanisms"></a>Jiné mechanismy ověřování
 
-Mnoho ASP.NET Core podporovaných mechanismů ověřování funguje s gRPC:
+Mnoho ASP.NET core podporované mechanismy ověřování pracují s gRPC:
 
 * Azure Active Directory
-* Certifikát klienta
+* Klientský certifikát
 * IdentityServer
-* Token JWT
+* JWT Token
 * OAuth 2.0
 * OpenID Connect
 * WS-Federation
 
-Další informace o konfiguraci ověřování na serveru najdete v tématu [ASP.NET Core Authentication](xref:security/authentication/identity).
+Další informace o konfiguraci ověřování na serveru naleznete v [tématu ASP.NET Ověřování jádra](xref:security/authentication/identity).
 
-Konfigurace klienta gRPC na používání ověřování bude záviset na mechanismu ověřování, který používáte. Příklady předchozího nosiče a klientského certifikátu ukazují několik způsobů, jak může být klient gRPC nakonfigurovaný tak, aby odesílal metadata ověřování pomocí volání gRPC:
+Konfigurace klienta gRPC pro použití ověřování bude záviset na mechanismu ověřování, který používáte. Předchozí příklady nože a klientského certifikátu ukazují několik způsobů, jak lze klienta gRPC nakonfigurovat tak, aby odesílá metadata ověřování pomocí volání gRPC:
 
-* Klienti se silným typem gRPC používají `HttpClient` interně. Ověřování lze nakonfigurovat na [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler)nebo přidáním vlastních instancí [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) do `HttpClient`.
-* Každé volání gRPC má volitelný argument `CallOptions`. Vlastní záhlaví lze odeslat pomocí kolekce záhlaví možnosti.
+* Klienti gRPC silného `HttpClient` typu používají interně. Ověřování lze nakonfigurovat na [httpclienthandleru](/dotnet/api/system.net.http.httpclienthandler)nebo přidáním vlastních instancí [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) do . `HttpClient`
+* Každé volání gRPC `CallOptions` má volitelný argument. Vlastní záhlaví lze odeslat pomocí kolekce záhlaví možnosti.
 
 > [!NOTE]
-> Ověřování systému Windows (NTLM/Kerberos/Negotiate) nelze použít s gRPC. gRPC vyžaduje HTTP/2 a HTTP/2 nepodporuje ověřování systému Windows.
+> Ověřování systému Windows (NTLM/Kerberos/Negotiate) nelze použít s gRPC. gRPC vyžaduje protokol HTTP/2 a protokol HTTP/2 nepodporuje ověřování systému Windows.
 
-## <a name="authorize-users-to-access-services-and-service-methods"></a>Autorizace uživatelů přístup k službám a metodám služeb
+## <a name="authorize-users-to-access-services-and-service-methods"></a>Autorizace uživatelů k přístupu ke službám a metodám služeb
 
-Ve výchozím nastavení mohou být všechny metody ve službě volány neověřenými uživateli. Chcete-li vyžadovat ověření, použijte atribut [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) pro službu:
+Ve výchozím nastavení mohou být všechny metody ve službě volány neověřenými uživateli. Chcete-li vyžadovat [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) ověření, použijte atribut pro službu:
 
 ```csharp
 [Authorize]
@@ -167,7 +167,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-Pomocí argumentů konstruktoru a vlastností atributu `[Authorize]` můžete omezit přístup jenom na uživatele, kteří splňují konkrétní [zásady autorizace](xref:security/authorization/policies). Pokud máte například vlastní zásadu autorizace nazvanou `MyAuthorizationPolicy`, zajistěte, aby ke službě měli přístup jenom uživatelé, kteří mají k této zásadě přístup, pomocí následujícího kódu:
+Argumenty konstruktoru a vlastnosti `[Authorize]` atributu můžete použít k omezení přístupu pouze na uživatele odpovídající určitým [zásadám autorizace](xref:security/authorization/policies). Pokud máte například vlastní zásadu `MyAuthorizationPolicy`autorizace s názvem , ujistěte se, že ke službě mají přístup pouze uživatelé odpovídající této zásadě pomocí následujícího kódu:
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
@@ -176,7 +176,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-Jednotlivé metody služby mohou mít také použit atribut `[Authorize]`. Pokud aktuální uživatel neodpovídá zásadám použitým **pro metodu i třídu** , je volajícímu vrácena chyba:
+Jednotlivé metody služby `[Authorize]` mohou mít atribut také použit. Pokud aktuální uživatel neodpovídá zásady použité pro metodu **a** třídy, je volajícímu vrácena chyba:
 
 ```csharp
 [Authorize]
@@ -199,5 +199,5 @@ public class TicketerService : Ticketer.TicketerBase
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Ověřování nosných tokenů v ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
-* [Konfigurace ověřování klientského certifikátu v ASP.NET Core](xref:security/authentication/certauth)
+* [Ověřování nosné tokeny v ASP.NET jádru](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
+* [Konfigurace ověřování klientského certifikátu v ASP.NET jádra](xref:security/authentication/certauth)

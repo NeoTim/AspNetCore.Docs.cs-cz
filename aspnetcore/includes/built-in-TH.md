@@ -1,35 +1,35 @@
-## <a name="built-in-aspnet-core-tag-helpers"></a>Předdefinované pomocníky značek ASP.NET Core
+## <a name="built-in-aspnet-core-tag-helpers"></a>Vestavěné ASP.NET pomocné spoje základních značek
 
-**[Pomocník značek kotvy](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)**
+**[Pomocník značky kotvy](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper)**
 
-**[Pomocná rutina značky mezipaměti](xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper)**
+**[Pomocník pro značky mezipaměti](xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper)**
 
-**[Pomocník značek komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)**
+**[Pomocník pro označení komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper)**
 
-**[Pomocná rutina značky distribuované mezipaměti](xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper)**
+**[Pomocník pro označení distribuované mezipaměti](xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper)**
 
-**[Pomocník značek prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)**
+**[Pomocník značky prostředí](xref:mvc/views/tag-helpers/builtin-th/environment-tag-helper)**
 
-**[Pomocník značek formuláře](xref:mvc/views/working-with-forms#the-form-tag-helper)**
+**[Pomocník pro označení formuláře](xref:mvc/views/working-with-forms#the-form-tag-helper)**
 
-**[Pomocná rutina značky akce formuláře](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
+**[Pomocná pomocná pomoc nápomocek značek akcí formuláře](xref:mvc/views/working-with-forms#the-form-action-tag-helper)**
 
-**[Pomocník značek image](xref:mvc/views/tag-helpers/builtin-th/image-tag-helper)**
+**[Pomocník značky obrázku](xref:mvc/views/tag-helpers/builtin-th/image-tag-helper)**
 
-**[Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms#the-input-tag-helper)**
+**[Pomocník vstupních značek](xref:mvc/views/working-with-forms#the-input-tag-helper)**
 
-**[Pomocník značek Label](xref:mvc/views/working-with-forms#the-label-tag-helper)**
+**[Pomocník značky štítků](xref:mvc/views/working-with-forms#the-label-tag-helper)**
 
-**[Pomocník značek odkazů](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
+**[Pomocník pro značku odkazu](xref:mvc/views/tag-helpers/builtin-th/link-tag-helper)**
 
-**[Pomocník s částečnou značkou](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)**
+**[Pomocník s částečnými značkami](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper)**
 
-**[Pomocník značek Script](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
+**[Pomocník pro značky skriptů](xref:mvc/views/tag-helpers/builtin-th/script-tag-helper)**
 
-**[Vybrat pomocníka značek](xref:mvc/views/working-with-forms#the-select-tag-helper)**
+**[Vybrat pomocnou položku značek](xref:mvc/views/working-with-forms#the-select-tag-helper)**
 
-**[Pomocník značek TextArea](xref:mvc/views/working-with-forms#the-textarea-tag-helper)**
+**[Pomocník značky Textarea](xref:mvc/views/working-with-forms#the-textarea-tag-helper)**
 
-**[Pomocník značek ověřovací zprávy](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)**
+**[Pomocné s ověřovacími značkami zpráv](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)**
 
-**[Nápověda k souhrnným značkám ověřování](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)**
+**[Pomocník pro souhrnnou značku ověření](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper)**

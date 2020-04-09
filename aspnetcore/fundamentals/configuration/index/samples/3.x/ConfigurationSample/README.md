@@ -1,3 +1,3 @@
-# <a name="aspnet-core-configuration-sample"></a>Ukázka konfigurace ASP.NET Core
+# <a name="aspnet-core-configuration-sample"></a>ukázka konfigurace jádra ASP.NET
 
-Tato ukázka znázorňuje použití konfiguračního rozhraní API. Tato ukázka předvádí scénáře popsané v tématu [konfigurace v ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) .
+Tato ukázka ilustruje použití rozhraní API konfigurace. Tato ukázka ukazuje scénáře popsané v [configuration in ASP.NET core](https://docs.microsoft.com/aspnet/core/fundamentals/configuration) téma.

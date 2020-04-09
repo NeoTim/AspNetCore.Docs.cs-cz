@@ -1,80 +1,80 @@
 ---
-title: Zabezpečení Blazor samostatné aplikace ASP.NET Coreového sestavení pomocí Azure Active Directory
+title: Zabezpečení samostatné Blazor aplikace ASP.NET Core WebAssembly pomocí Azure Active Directory
 author: guardrex
 description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/09/2020
+ms.date: 04/08/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory
-ms.openlocfilehash: e12c38ed42a4e2714d785ef8f03097246c40d36e
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: 7e132723657b7e12803b67ec12c3a33f1945baa3
+ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80218973"
+ms.lasthandoff: 04/08/2020
+ms.locfileid: "80976990"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory"></a>Zabezpečení Blazor samostatné aplikace ASP.NET Coreového sestavení pomocí Azure Active Directory
+# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory"></a>Zabezpečení samostatné Blazor aplikace ASP.NET Core WebAssembly pomocí Azure Active Directory
 
-Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
+[Javier Calvarro Nelson](https://github.com/javiercn) a Luke [Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-Vytvoření samostatné aplikace Blazorového sestavení, která pro ověřování používá [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) :
+Vytvoření samostatné Blazor aplikace WebAssembly, která používá [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) pro ověřování:
 
-[Vytvoření TENANTA AAD a webové aplikace](/azure/active-directory/develop/v2-overview):
+[Vytvoření klienta AAD a webové aplikace](/azure/active-directory/develop/v2-overview):
 
-Zaregistrujte aplikaci AAD v **Azure Active Directory** > **Registrace aplikací** oblasti Azure Portal:
+Zaregistrujte aplikaci AAD v oblasti**registrace aplikací** Azure **Active Directory** > na webu Azure Portal:
 
-1. Zadejte **název** aplikace (například **Blazor AAD klienta**).
-1. Vyberte **podporované typy účtů**. **Účty v tomto organizačním adresáři** můžete vybrat jenom pro toto prostředí.
-1. Vynechejte rozevírací seznam **identifikátor URI přesměrování** nastavený na **Web**a zadejte identifikátor URI pro přesměrování `https://localhost:5001/authentication/login-callback`.
-1. Zakažte **oprávnění** > oprávnění **správce udělit OpenID a offline_access oprávnění** .
+1. Zadejte **název** aplikace (například ** Blazor AAD klienta).**
+1. Zvolte **podporované typy účtů**. **V tomto organizačním adresáři** můžete vybrat účty pouze pro toto prostředí.
+1. Ponechejte rozevírací soubor **URI přesměrování** nastavený `https://localhost:5001/authentication/login-callback`na **web**a poskytněte identifikátor URI přesměrování aplikace .
+1. Zamítejte**zaškrtávací** políčko **Oprávnění** > Udělit oprávnění k otevření a offline_access oprávnění.
 1. Vyberte **Zaregistrovat**.
 
-V > ověřování **Konfigurace platforem** > **webu**:
+V**konfiguracích platformy** >  **ověřování** > **web**:
 
-1. Potvrďte, že je k dispozici **identifikátor URI pro přesměrování** `https://localhost:5001/authentication/login-callback`.
-1. V případě **implicitního udělení**zaškrtněte políčka pro **přístupové tokeny** a **tokeny ID**.
-1. Zbývající výchozí hodnoty pro aplikaci jsou pro toto prostředí přijatelné.
+1. Potvrďte, že `https://localhost:5001/authentication/login-callback` je přítomen **identifikátor URI přesměrování.**
+1. V **případě implicitního udělení**zaškrtněte políčka u **tokenů přístupu** a **tokenů ID**.
+1. Zbývající výchozí hodnoty pro aplikaci jsou přijatelné pro toto prostředí.
 1. Vyberte tlačítko **Uložit**.
 
 Zaznamenejte následující informace:
 
-* ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111`)
-* ID adresáře (ID klienta) (například `22222222-2222-2222-2222-222222222222`)
+* ID aplikace (ID klienta) `11111111-1111-1111-1111-111111111111`(například)
+* ID adresáře (ID klienta) `22222222-2222-2222-2222-222222222222`(například)
 
-Zástupné symboly v následujícím příkazu nahraďte dříve zaznamenanými informacemi a spusťte příkaz v příkazovém prostředí:
+Nahraďte zástupné symboly v následujícím příkazu informacemi zaznamenanými dříve a proveďte příkaz v příkazovém prostředí:
 
 ```dotnetcli
 dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "{TENANT ID}"
 ```
 
-Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample`). Název složky se také stal součástí názvu projektu.
+Chcete-li určit výstupní umístění, které vytvoří složku projektu, pokud neexistuje, zahrňte do `-o BlazorSample`příkazu možnost výstupu s cestou (například ). Název složky se také stane součástí názvu projektu.
 
 ## <a name="authentication-package"></a>Ověřovací balíček
 
-Když je aplikace vytvořená tak, aby používala pracovní nebo školní účty (`SingleOrg`), aplikace automaticky obdrží odkaz na balíček pro [knihovnu Microsoft Authentication Library](/azure/active-directory/develop/msal-overview) (`Microsoft.Authentication.WebAssembly.Msal`). Balíček poskytuje sadu primitivních elementů, které aplikaci pomůžou ověřit uživatele a získat tokeny pro volání chráněných rozhraní API.
+Když je aplikace vytvořena pro použití`SingleOrg`pracovních nebo školních účtů ( ), aplikace`Microsoft.Authentication.WebAssembly.Msal`automaticky obdrží odkaz na balíček pro [knihovnu Microsoft Authentication Library](/azure/active-directory/develop/msal-overview) ( ). Balíček obsahuje sadu primitiv, které pomáhají aplikaci ověřovat uživatele a získat tokeny pro volání chráněných api.
 
-Pokud se do aplikace přidává ověřování, přidejte balíček do souboru projektu aplikace ručně:
+Pokud přidáváte ověřování do aplikace, přidejte balíček ručně do souboru projektu aplikace:
 
 ```xml
 <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" 
     Version="{VERSION}" />
 ```
 
-V odkazu na předchozí balíček nahraďte `{VERSION}` verzí balíčku `Microsoft.AspNetCore.Blazor.Templates` zobrazeného v <xref:blazor/get-started> článku.
+Nahraďte `{VERSION}` v předchozím odkazu na `Microsoft.AspNetCore.Blazor.Templates` balíček verzí <xref:blazor/get-started> balíčku uvedenou v článku.
 
-`Microsoft.Authentication.WebAssembly.Msal` balíček do aplikace přidá balíček `Microsoft.AspNetCore.Components.WebAssembly.Authentication`.
+Balíček `Microsoft.Authentication.WebAssembly.Msal` transitively `Microsoft.AspNetCore.Components.WebAssembly.Authentication` přidá balíček do aplikace.
 
 ## <a name="authentication-service-support"></a>Podpora ověřovací služby
 
-Podpora ověřování uživatelů je zaregistrovaná v kontejneru služby s metodou rozšíření `AddMsalAuthentication` poskytovanou balíčkem `Microsoft.Authentication.WebAssembly.Msal`. Tato metoda nastavuje všechny služby, které aplikace potřebuje k interakci s poskytovatelem identity (IP).
+Podpora pro ověřování uživatelů je registrována v `AddMsalAuthentication` kontejneru služby `Microsoft.Authentication.WebAssembly.Msal` s metodou rozšíření poskytované balíček. Tato metoda nastaví všechny služby potřebné pro interakci aplikace s poskytovatelem identity (IP).
 
 *Program.cs*:
 
@@ -87,21 +87,38 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-Metoda `AddMsalAuthentication` přijímá zpětné volání ke konfiguraci parametrů požadovaných k ověření aplikace. Hodnoty požadované pro konfiguraci aplikace lze získat z konfigurace AAD webu Azure Portal při registraci aplikace.
+Metoda `AddMsalAuthentication` přijímá zpětné volání ke konfiguraci parametrů potřebných k ověření aplikace. Hodnoty potřebné pro konfiguraci aplikace lze získat z konfigurace Azure Portal AAD při registraci aplikace.
 
-Šablona Blazor WebAssembly nekonfiguruje automatickou konfiguraci aplikace tak, aby požadovala přístupový token pro zabezpečené rozhraní API. Pokud chcete vytvořit token jako součást toku přihlášení, přidejte obor do výchozích oborů přístupových tokenů `MsalProviderOptions`:
+## <a name="access-token-scopes"></a>Obory přístupových tokenů
+
+Šablona Blazor WebAssembly automaticky nekonfiguruje aplikaci tak, aby požadovala přístupový token pro zabezpečené rozhraní API. Chcete-li zřídit token jako součást toku přihlášení, přidejte obor do `MsalProviderOptions`výchozího oboru přístupového tokenu :
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
 {
     ...
-    options.ProviderOptions.DefaultAccessTokenScopes.Add(
-        "{SERVER API APP CLIENT ID}/{DEFAULT SCOPE}");
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("{SCOPE URI}");
 });
 ```
 
 > [!NOTE]
-> Výchozí rozsah přístupového tokenu musí být ve formátu `{SERVER API APP CLIENT ID}/{DEFAULT SCOPE}` (například `11111111-1111-1111-1111-111111111111/API.Access`). Pokud se schéma nebo schéma a hostitel poskytne nastavení oboru (jak je znázorněno na webu Azure Portal), *klientská aplikace* vyvolá neošetřenou výjimku, pokud obdrží *neautorizovanou odpověď 401* od *aplikace API serveru*.
+> Pokud portál Azure poskytuje identifikátor URI oboru a **aplikace vyvolá neošetřenou výjimku,** když obdrží *neoprávněnou odpověď 401* z rozhraní API, zkuste použít identifikátor URI oboru, který neobsahuje schéma a hostitele. Portál Azure může například poskytovat jeden z následujících formátů identifikátoru URI oboru:
+>
+> * `https://{ORGANIZATION}.onmicrosoft.com/{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
+> * `api://{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
+>
+> Zadej oblast URI oboru bez schématu a hostitele:
+>
+> ```csharp
+> options.ProviderOptions.DefaultAccessTokenScopes.Add(
+>     "{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}");
+> ```
+
+Další informace naleznete v tématu <xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens>.
+
+## <a name="imports-file"></a>Importuje soubor
+
+[!INCLUDE[](~/includes/blazor-security/imports-file-standalone.md)]
 
 ## <a name="index-page"></a>Indexová stránka
 
@@ -119,7 +136,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/logindisplay-component.md)]
 
-## <a name="authentication-component"></a>Součást ověřování
+## <a name="authentication-component"></a>Ověřovací komponenta
 
 [!INCLUDE[](~/includes/blazor-security/authentication-component.md)]
 
@@ -127,4 +144,6 @@ builder.Services.AddMsalAuthentication(options =>
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* [Vyžádání dalších přístupových tokenů](xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens)
 * <xref:security/authentication/azure-active-directory/index>
+* [Dokumentace k platformě Microsoft Identity Platform](/azure/active-directory/develop/)

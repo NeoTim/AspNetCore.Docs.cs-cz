@@ -1,31 +1,31 @@
 ---
-title: Implementace webového serveru HTTP. sys v ASP.NET Core
+title: Implementace webového serveru HTTP.sys v ASP.NET Core
 author: rick-anderson
-description: Přečtěte si o HTTP. sys, webovém serveru pro ASP.NET Core ve Windows. Ovladač HTTP. sys založený na ovladači režimu jádra HTTP. sys je alternativou k Kestrel, která se dá použít k přímému připojení k Internetu bez služby IIS.
+description: Přečtěte si o http.sys, webovém serveru pro ASP.NET Core ve Windows. Http.sys je postaven na ovladači režimu jádra HTTP.sys alternativou ke Kestrelu, který lze použít pro přímé připojení k Internetu bez služby IIS.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: fundamentals/servers/httpsys
 ms.openlocfilehash: 3e858a974d6a5c008969c3c51a507880cc25a7ff
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78666920"
 ---
-# <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru HTTP. sys v ASP.NET Core
+# <a name="httpsys-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru HTTP.sys v ASP.NET Core
 
-[Dykstra](https://github.com/tdykstra) a [Chris Rossův](https://github.com/Tratcher)
+Tom [Dykstra](https://github.com/tdykstra) a [Chris Ross](https://github.com/Tratcher)
 
 ::: moniker range=">= aspnetcore-3.1"
 
-[Http. sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webový server pro ASP.NET Core](xref:fundamentals/servers/index) , který běží pouze v systému Windows. HTTP. sys je alternativou k serveru [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
+[HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webový server pro ASP.NET Core,](xref:fundamentals/servers/index) který běží pouze v systému Windows. HTTP.sys je alternativou k serveru [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
 
 > [!IMPORTANT]
-> HTTP. sys není kompatibilní s [modulem ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a nedá se použít se službou IIS nebo IIS Express.
+> Soubor HTTP.sys není kompatibilní s [ASP.NET základního modulu](xref:host-and-deploy/aspnet-core-module) a nelze jej použít se službou IIS nebo službou IIS Express.
 
-HTTP. sys podporuje následující funkce:
+HTTP.sys podporuje následující funkce:
 
 * [Ověřování systému Windows](xref:security/authentication/windowsauth)
 * Sdílení portů
@@ -40,181 +40,181 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
+## <a name="when-to-use-httpsys"></a>Kdy použít soubor HTTP.sys
 
-HTTP. sys je užitečné pro nasazení, kde:
+Http.sys je užitečné pro nasazení, kde:
 
-* Server je potřeba zveřejnit přímo na internetu bez použití IIS.
+* Je třeba vystavit server přímo na Internetu bez použití služby IIS.
 
-  ![HTTP. sys komunikuje přímo s internetem.](httpsys/_static/httpsys-to-internet.png)
+  ![HTTP.sys komunikuje přímo s Internetem](httpsys/_static/httpsys-to-internet.png)
 
-* Interní nasazení vyžaduje funkci, která není v Kestrel k dispozici, jako je například [ověřování systému Windows](xref:security/authentication/windowsauth).
+* Interní nasazení vyžaduje funkci, která není v kestrelu k dispozici, například [ověřování systému Windows](xref:security/authentication/windowsauth).
 
-  ![HTTP. sys komunikuje přímo s interní sítí.](httpsys/_static/httpsys-to-internal.png)
+  ![HTTP.sys komunikuje přímo s interní sítí](httpsys/_static/httpsys-to-internal.png)
 
-HTTP. sys je Vyspělá technologie, která chrání před mnoha typy útoků a poskytuje odolnost, zabezpečení a škálovatelnost plně funkčního webového serveru. Samotná služba IIS běží jako naslouchací proces HTTP nad HTTP. sys.
+HTTP.sys je vyspělá technologie, která chrání před mnoha typy útoků a poskytuje robustnost, zabezpečení a škálovatelnost plně vybaveného webového serveru. Samotná iis běží jako naslouchací proces HTTP nad http.sys.
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
-[Protokol HTTP/2](https://httpwg.org/specs/rfc7540.html) je povolený pro aplikace ASP.NET Core, pokud jsou splněné následující základní požadavky:
+[HTTP/2](https://httpwg.org/specs/rfc7540.html) je povolena pro ASP.NET základní aplikace, pokud jsou splněny následující základní požadavky:
 
 * Windows Server 2016/Windows 10 nebo novější
-* Připojení [ALPN (Application-Layer Protocol Negotiation)](https://tools.ietf.org/html/rfc7301#section-3)
-* Protokol TLS 1.2 nebo vyšší připojení
+* Připojení [protokolu ap (APPLICATION-Layer Protocol) (ALPN)](https://tools.ietf.org/html/rfc7301#section-3)
+* Připojení TLS 1.2 nebo novější
 
-Pokud je navázáno připojení HTTP/2, `HTTP/2`sestavy [protokolu HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
+Pokud je navázáno připojení HTTP/2, `HTTP/2`protokol [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) hlásí .
 
-HTTP/2 je standardně povolená. Pokud připojení HTTP/2 není navázáno, připojení se vrátí k HTTP/1.1. V budoucí verzi Windows budou k dispozici příznaky konfigurace protokolu HTTP/2, včetně možnosti zakázat protokol HTTP/2 s protokolem HTTP. sys.
+Protokol HTTP/2 je ve výchozím nastavení povolen. Pokud není navázáno připojení HTTP/2, připojení přejde zpět na HTTP/1.1. V budoucí verzi systému Windows budou k dispozici příznaky konfigurace HTTP/2, včetně možnosti zakázat protokol HTTP/2 pomocí protokolu HTTP.sys.
 
 ## <a name="kernel-mode-authentication-with-kerberos"></a>Ověřování v režimu jádra pomocí protokolu Kerberos
 
-Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování protokolem Kerberos. Režim ověřování uživatele nepodporuje protokolů Kerberos a HTTP.sys. Účet počítače musí být použité k dešifrování token/lístek služby Kerberos, která se získá z Active Directory a předá klienta na serveru k ověření uživatele. Zaregistrujte hlavní název služby (SPN) příslušného hostitele není uživatel aplikace.
+Protokol HTTP.sys deleguje ověřování v režimu jádra pomocí ověřovacího protokolu Kerberos. Ověřování v uživatelském režimu není podporováno protokoly Kerberos a HTTP.sys. Účet počítače musí být použit k dešifrování tokenu nebo lístku protokolu Kerberos, který je získán ze služby Active Directory a předán klientem na server k ověření uživatele. Zaregistrujte hlavní název služby (SPN) pro hostitele, nikoli uživatele aplikace.
 
-## <a name="how-to-use-httpsys"></a>Jak používat HTTP. sys
+## <a name="how-to-use-httpsys"></a>Jak používat http.sys
 
-### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití HTTP. sys
+### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití protokolu HTTP.sys
 
-Při sestavování hostitele zavolejte metodu rozšíření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> a určete všechny požadované <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions>. Následující příklad nastaví možnosti na jejich výchozí hodnoty:
+Volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> metody rozšíření při vytváření hostitele, <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions>zadání mj. Následující příklad nastaví možnosti jejich výchozí hodnoty:
 
 [!code-csharp[](httpsys/samples/3.x/SampleApp/Program.cs?name=snippet1&highlight=5-13)]
 
-Další konfiguraci HTTP. sys bude zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
+Další konfigurace http.sys je zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
-**Možnosti HTTP. sys**
+**Možnosti protokolu HTTP.sys**
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Určuje, zda je pro `HttpContext.Request.Body` a `HttpContext.Response.Body`povolen synchronní vstup/výstup. | `false` |
-| [Ověřování. AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povoluje anonymní požadavky. | `true` |
-| [Ověřování. schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Určete povolená schémata ověřování. Může být kdykoli změněno před vyřazením naslouchacího procesu. Hodnoty jsou k dispozici ve [výčtu schémata AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes): `Basic`, `Kerberos`, `Negotiate`, `None`a `NTLM`. | `None` |
-| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokusit se o ukládání do mezipaměti v [režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) pro odpovědi s oprávněnými záhlavími. Odpověď nesmí zahrnovat hlavičky `Set-Cookie`, `Vary`nebo `Pragma`. Musí zahrnovat hlavičku `Cache-Control` `public` a buď hodnotu `shared-max-age` nebo `max-age`, nebo hlavičku `Expires`. | `true` |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijetí. | 5 &times; [prostředí.<br>ProcessorCount](xref:System.Environment.ProcessorCount) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení, která se mají přijmout Použijte `-1` pro nekonečné. Pomocí `null` můžete použít nastavení pro počítač v rámci registru. | `null`<br>(počítačově v šířce<br>nastavením |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
-| `RequestQueueMode` | Označuje, zda je server zodpovědný za vytvoření a konfiguraci fronty požadavků nebo zda se má připojit k existující frontě.<br>Většina stávajících možností konfigurace se nedá použít při připojování k existující frontě. | `RequestQueueMode.Create` |
-| `RequestQueueName` | Název fronty požadavků HTTP. sys. | `null` (anonymní fronta) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte konfiguraci <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> HTTP. sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; dobu povolenou pro rozhraní API serveru http, které má vyprázdnit tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; dobu povolenou pro rozhraní API serveru http, aby bylo možné analyzovat hlavičku požadavku.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; minimální přenosovou rychlost odeslání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; čas, který může požadavek zůstat ve frontě požadavků předtím, než ji aplikace vybere.</li></ul> |  |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection>, který se má zaregistrovat v HTTP. sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
+| [PovolitsynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Ovládejte, zda je synchronní `HttpContext.Request.Body` vstup/výstup povolen pro a . `HttpContext.Response.Body` | `false` |
+| [Ověřování.AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povolit anonymní požadavky. | `true` |
+| [Ověřování.Schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Zadejte povolená schémata ověřování. Může být změněn kdykolipřed likvidací posluchače. Hodnoty jsou uvedeny ve [výčtu AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`: , `Kerberos` `Negotiate`, `None`, a `NTLM`. | `None` |
+| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokus te se o ukládání odpovědí do [mezipaměti v režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) s způsobilými záhlavími. Odpověď nesmí `Set-Cookie`obsahovat `Vary`hlavičky nebo `Pragma` záhlaví . Musí obsahovat `Cache-Control` záhlaví, `public` které je `shared-max-age` `max-age` a nebo `Expires` hodnota, nebo záhlaví. | `true` |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijímá. | 5 &times; [Životní<br> prostředí. Počet procesorů](xref:System.Environment.ProcessorCount) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení přijmout. Použít `-1` pro nekonečno. Slouží `null` k použití nastavení celého počítače v registru. | `null`<br>(celostrojově<br>nastavení) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize.</a> | 30000000 bajtů<br>(~28,6 MB) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které mohou být zařazeny do fronty. | 1000 |
+| `RequestQueueMode` | Označuje, zda je server zodpovědný za vytvoření a konfiguraci fronty požadavků nebo zda by se měl připojit k existující frontě.<br>Většina existujících možností konfigurace se nepoužije při připojování k existující frontě. | `RequestQueueMode.Create` |
+| `RequestQueueName` | Název fronty požadavků HTTP.sys. | `null`(Anonymní fronta) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Označte, zda by zápisy v těle odpovědi, které se nezdaří z důvodu odpojení klienta, měly vyvolat výjimky nebo je dokončit normálně. | `false`<br>(kompletní normálně) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavit konfiguraci HTTP.sys, <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> která může být také nakonfigurována v registru. Další informace o jednotlivých nastaveních, včetně výchozích hodnot, najdete v odkazech rozhraní API:<ul><li>[TimeoutManager.DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; Čas povolen pro rozhraní API http serveru vyprázdnit tělo entity na keep-alive připojení.</li><li>[TimeoutManager.EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; Čas povolen pro tělo entity požadavku k doručení.</li><li>[TimeoutManager.HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; Čas povolen pro rozhraní API serveru HTTP analyzovat hlavičku požadavku.</li><li>[TimeoutManager.IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; Čas povolen pro nečinné připojení.</li><li>[TimeoutManager.MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; Minimální rychlost odesílání pro odpověď.</li><li>[TimeoutManager.RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; Čas povolen pro požadavek zůstat ve frontě požadavků před aplikace zvedne.</li></ul> |  |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> registraci pomocí souboru HTTP.sys. Nejužitečnější je [UrlPrefixCollection.Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být změněny kdykolipřed likvidací posluchače. |  |
 
 <a name="maxrequestbodysize"></a>
 
-**MaxRequestBodySize**
+**Velikost maxrequestbodysize**
 
-Maximální povolená velikost libovolného textu žádosti v bajtech Pokud je nastavena hodnota `null`, maximální velikost textu požadavku je neomezená. Toto omezení nemá žádný vliv na upgradovaná připojení, která jsou vždycky neomezená.
+Maximální povolená velikost libovolného těla požadavku v bajtech. Pokud je `null`nastavena na , maximální velikost těla požadavku je neomezená. Toto omezení nemá žádný vliv na inovovaná připojení, která jsou vždy neomezená.
 
-Doporučená metoda pro přepsání limitu v aplikaci ASP.NET Core MVC pro jednu `IActionResult` je použití atributu <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> u metody Action:
+Doporučená metoda přepsat limit v aplikaci ASP.NET Core MVC pro jeden `IActionResult` je použít <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> atribut na metodu akce:
 
 ```csharp
 [RequestSizeLimit(100000000)]
 public IActionResult MyActionMethod()
 ```
 
-Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit žádosti poté, co aplikace začne číst požadavek. Vlastnost `IsReadOnly` lze použít k označení, zda je vlastnost `MaxRequestBodySize` ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
+Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit na požadavek poté, co aplikace začala číst požadavek. Vlastnost `IsReadOnly` lze použít k označení, pokud je `MaxRequestBodySize` vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě na konfiguraci limitu.
 
-Pokud by měla aplikace přepsat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> podle požadavků, použijte <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>:
+Pokud by aplikace <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> měla přepsat na <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>žádost, použijte :
 
 [!code-csharp[](httpsys/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=6-7)]
 
-Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná tak, aby spouštěla službu IIS nebo IIS Express.
+Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná pro spuštění služby IIS nebo Služby IIS Express.
 
-V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcete-li spustit projekt jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
+V sadě Visual Studio je výchozí profil spuštění pro iis express. Chcete-li projekt spustit jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
 
-![Vybrat profil aplikace konzoly](httpsys/_static/vs-choose-profile.png)
+![Výběr profilu konzolové aplikace](httpsys/_static/vs-choose-profile.png)
 
-### <a name="configure-windows-server"></a>Konfigurace Windows serveru
+### <a name="configure-windows-server"></a>Konfigurace systému Windows Server
 
-1. Určete porty, které se mají otevřít pro aplikaci, a pomocí [brány Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo rutiny [New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) prostředí PowerShell otevřete porty brány firewall, aby bylo možné provozovat přes protokol HTTP. sys. V následujících příkazech a konfiguraci aplikace se používá port 443.
+1. Určete porty, které chcete pro aplikaci otevřít, a pomocí brány [Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo rutiny [Prostředí PowerShell New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) otevřete porty brány firewall, abyste umožnili přenosy dosáhnout souboru HTTP.sys. V následujících příkazech a konfiguraci aplikace se používá port 443.
 
-1. Při nasazování na virtuální počítač Azure otevřete porty ve [skupině zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následujících příkazech a konfiguraci aplikace se používá port 443.
+1. Při nasazování do virtuálního počítače Azure otevřete porty ve [skupině zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následujících příkazech a konfiguraci aplikace se používá port 443.
 
-1. V případě potřeby Získejte a nainstalujte certifikáty X. 509.
+1. V případě potřeby získejte a nainstalujte certifikáty X.509.
 
-   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+   V systému Windows vytvořte certifikáty podepsané svým držitelem pomocí [rutiny prostředí New-SelfSignedCertificate PowerShell](/powershell/module/pkiclient/new-selfsignedcertificate). Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome.ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
 
-   Nainstalujte certifikáty podepsané svým držitelem nebo certifikační autoritou v **místním počítači** serveru > **osobním** úložišti.
+   Nainstalujte certifikáty podepsané svým držitelem nebo certifikáty podepsané certifikační autoritou do **osobního** úložiště **místního počítače** > na serveru.
 
-1. Pokud se jedná o [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte rozhraní .NET core, .NET Framework nebo obojí (Pokud je aplikace aplikace .NET Core cílící na .NET Framework).
+1. Pokud je aplikace [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte .NET Core, .NET Framework nebo obojí (pokud je aplikace .NET Core aplikace cílení na rozhraní .NET Framework).
 
-   * **.NET core** &ndash; Pokud aplikace vyžaduje .NET Core, Získejte a spusťte instalační program **modulu runtime .NET Core** ze [souborů ke stažení pro .NET Core](https://dotnet.microsoft.com/download). Neinstalujte na server plnou sadu SDK.
-   * **.NET Framework** &ndash;, pokud aplikace vyžaduje .NET Framework, přečtěte si [Průvodce instalací .NET Framework](/dotnet/framework/install/). Nainstalujte požadovanou .NET Framework. Instalační program pro nejnovější .NET Framework je k dispozici na stránce [soubory ke stažení pro .NET Core](https://dotnet.microsoft.com/download) .
+   * **.NET Core** &ndash; Pokud aplikace vyžaduje .NET Core, získejte a spusťte instalační program **.NET Core Runtime** z [souborů .NET Core Downloads](https://dotnet.microsoft.com/download). Neinstalujte úplnou sadu SDK na server.
+   * **Rozhraní .NET Framework:** &ndash; Pokud aplikace vyžaduje rozhraní .NET Framework, přečtěte si [příručku k instalaci rozhraní .NET Framework](/dotnet/framework/install/). Nainstalujte požadovanou architekturu .NET Framework. Instalační program pro nejnovější rozhraní .NET Framework je k dispozici na stránce [Stahování jádra .NET.](https://dotnet.microsoft.com/download)
 
-   Pokud je aplikace samostatným [nasazením](/dotnet/core/deploying/#self-contained-deployments-scd), aplikace zahrne modul runtime do svého nasazení. Na serveru není nutná žádná instalace rozhraní.
+   Pokud je aplikace [samostatné nasazení](/dotnet/core/deploying/#self-contained-deployments-scd), aplikace obsahuje runtime v jeho nasazení. Na serveru není vyžadována žádná instalace architektury.
 
-1. Konfigurace adres URL a portů v aplikaci
+1. Konfigurace adres URL a portů v aplikaci.
 
-   Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000`. Pokud chcete nakonfigurovat předpony a porty adresy URL, můžete použít tyto možnosti:
+   Ve výchozím nastavení se `http://localhost:5000`ASP.NET jádro váže na . Chcete-li nakonfigurovat předpony adres URL a porty, možnosti zahrnují:
 
    * <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*>
-   * `urls` argument příkazového řádku
-   * `ASPNETCORE_URLS` proměnná prostředí
+   * `urls`argument příkazového řádku
+   * `ASPNETCORE_URLS`proměnná prostředí
    * <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes>
 
-   Následující příklad kódu ukazuje, jak použít <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou serveru `10.0.0.4` na portu 443:
+   Následující příklad kódu ukazuje, <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> jak se používat s `10.0.0.4` místní IP adresou serveru na portu 443:
 
    [!code-csharp[](httpsys/samples_snapshot/3.x/Program.cs?highlight=7)]
 
-   Výhodou `UrlPrefixes` je, že se okamžitě generuje chybová zpráva pro nesprávně naformátované předpony.
+   Výhodou `UrlPrefixes` je, že chybová zpráva je generována okamžitě pro nesprávně formátované předpony.
 
-   Nastavení v `UrlPrefixes` přepsat `UseUrls`nastavení /`urls`/`ASPNETCORE_URLS`. Proto je výhodou `UseUrls`, `urls`a `ASPNETCORE_URLS` proměnnou prostředí, že je snazší přepínat mezi Kestrel a HTTP. sys.
+   Nastavení v `UrlPrefixes` nastavení `UseUrls` / `urls` / `ASPNETCORE_URLS` přepsání. Výhodou aplikace `UseUrls`, `urls`a proměnné `ASPNETCORE_URLS` prostředí je proto, že je snazší přepínat mezi kestrelem a protokolem HTTP.sys.
 
-   HTTP. sys používá [formáty řetězce UrlPrefix HTTP serveru API](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx).
+   Protokol HTTP.sys používá [formáty řetězců URLPrefix rozhraní HTTP Server.](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
 
    > [!WARNING]
-   > **Nesmí** být použita vazba zástupných znaků nejvyšší úrovně (`http://*:80/` a `http://+:80`). Vazby na zástupné znaky na nejvyšší úrovni vytvoří chyby zabezpečení aplikace. To platí pro silné a slabé zástupné znaky. Místo zástupných znaků použijte explicitní názvy hostitelů nebo IP adresy. Vazba zástupných znaků subdomény (například `*.mysub.com`) není bezpečnostním rizikem, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [dokumentu RFC 7230: oddíl 5,4: Host](https://tools.ietf.org/html/rfc7230#section-5.4).
+   > Vazby se zástupnými`http://*:80/` symboly nejvyšší úrovně ( a `http://+:80`) by **neměly** být používány. Vazby se zástupnými znaky nejvyšší úrovně vytvářejí chyby zabezpečení aplikace. To platí pro silné i slabé zástupné znaky. Používejte explicitní názvy hostitelů nebo adresy IP místo zástupných znaků. Vazba se zástupnými znaky subdomény (například ) není bezpečnostní riziko, `*.mysub.com`pokud `*.com`řídíte celou nadřazenou doménu (na rozdíl od , která je zranitelná). Další informace naleznete v [tématu RFC 7230: Oddíl 5.4: Host](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-1. Předregistrujte předpony adresy URL na serveru.
+1. Předpony url předregister na serveru.
 
-   Integrovaný nástroj pro konfiguraci souboru HTTP. sys je *netsh. exe*. pomocí *nástroje Netsh. exe* můžete rezervovat PŘEDPONY adres URL a přiřazovat certifikáty X. 509. Nástroj vyžaduje oprávnění správce.
+   Vestavěný nástroj pro konfiguraci http.sys je *netsh.exe*. *netsh.exe* se používá k rezervaci předpon URL a přiřazení certifikátů X.509. Nástroj vyžaduje oprávnění správce.
 
-   Registrace adres URL pro aplikaci pomocí nástroje *netsh. exe* :
+   Pomocí nástroje *netsh.exe* zaregistrujte adresy URL aplikace:
 
    ```console
    netsh http add urlacl url=<URL> user=<USER>
    ```
 
-   * `<URL>` &ndash; plně kvalifikované adresy URL (Uniform Resource Locator). Nepoužívejte vazbu zástupných znaků. Použijte platný název hostitele nebo místní IP adresu. *Adresa URL musí obsahovat koncové lomítko.*
-   * `<USER>` &ndash; určuje jméno uživatele nebo název skupiny.
+   * `<URL>`&ndash; Plně kvalifikovaný jednotný lokátor zdrojů (URL). Nepoužívejte vazby zástupných symbolů. Použijte platný název hostitele nebo místní ADRESU IP. *Adresa URL musí obsahovat koncové lomítko.*
+   * `<USER>`&ndash; Určuje název uživatele nebo skupiny uživatelů.
 
-   V následujícím příkladu je místní IP adresa serveru `10.0.0.4`:
+   V následujícím příkladu je `10.0.0.4`místní IP adresa serveru :
 
    ```console
    netsh http add urlacl url=https://10.0.0.4:443/ user=Users
    ```
 
-   Když je adresa URL registrována, nástroj odpoví pomocí `URL reservation successfully added`.
+   Když je adresa URL zaregistrována, nástroj odpoví pomocí . `URL reservation successfully added`
 
-   Pokud chcete odstranit registrovanou adresu URL, použijte příkaz `delete urlacl`:
+   Chcete-li odstranit registrovanou `delete urlacl` adresu URL, použijte příkaz:
 
    ```console
    netsh http delete urlacl url=<URL>
    ```
 
-1. Zaregistrujte certifikáty X. 509 na serveru.
+1. Zaregistrujte certifikáty X.509 na serveru.
 
-   K registraci certifikátů pro aplikaci použijte nástroj *netsh. exe* :
+   Pomocí nástroje *netsh.exe* zaregistrujte certifikáty pro aplikaci:
 
    ```console
    netsh http add sslcert ipport=<IP>:<PORT> certhash=<THUMBPRINT> appid="{<GUID>}"
    ```
 
-   * `<IP>` &ndash; určuje místní IP adresu pro vazbu. Nepoužívejte vazbu zástupných znaků. Použijte platnou IP adresu.
-   * `<PORT>` &ndash; Určuje port pro vazbu.
-   * `<THUMBPRINT>` &ndash; kryptografický otisk certifikátu X. 509.
-   * `<GUID>` &ndash; identifikátor GUID generovaný vývojářem, který představuje aplikaci pro informativní účely.
+   * `<IP>`&ndash; Určuje místní adresu IP pro vazbu. Nepoužívejte vazby zástupných symbolů. Použijte platnou adresu IP.
+   * `<PORT>`&ndash; Určuje port pro vazbu.
+   * `<THUMBPRINT>`&ndash; Kryptografický otisk certifikátu X.509.
+   * `<GUID>`&ndash; Identifikátor GUID generovaný vývojářem, který představuje aplikaci pro informační účely.
 
    Pro referenční účely uložte identifikátor GUID do aplikace jako značku balíčku:
 
    * V sadě Visual Studio:
-     * Otevřete vlastnosti projektu aplikace tak, že kliknete pravým tlačítkem na aplikaci v **Průzkumník řešení** a vyberete **vlastnosti**.
-     * Vyberte kartu **balíček** .
-     * Zadejte identifikátor GUID, který jste vytvořili v poli **značky** .
-   * Když nepoužíváte Visual Studio:
+     * Otevřete vlastnosti projektu aplikace kliknutím pravým tlačítkem myši na aplikaci v **Průzkumníku řešení** a výběrem **možnosti Vlastnosti**.
+     * Vyberte kartu **Balíček.**
+     * Zadejte identifikátor GUID, který jste vytvořili, do pole **Značky.**
+   * Pokud nepoužíváte Visual Studio:
      * Otevřete soubor projektu aplikace.
-     * Přidejte vlastnost `<PackageTags>` k novému nebo existujícímu `<PropertyGroup>` s identifikátorem GUID, který jste vytvořili:
+     * Přidejte `<PackageTags>` vlastnost do nové `<PropertyGroup>` nebo existující s identifikátorem GUID, který jste vytvořili:
 
        ```xml
        <PropertyGroup>
@@ -224,8 +224,8 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
    V následujícím příkladu:
 
-   * Místní IP adresa serveru je `10.0.0.4`.
-   * Generátor náhodných identifikátorů GUID online poskytuje `appid`ou hodnotu.
+   * Místní ADRESA IP serveru `10.0.0.4`je .
+   * Online generátor náhodných identifikátorů GUID poskytuje hodnotu. `appid`
 
    ```console
    netsh http add sslcert 
@@ -234,38 +234,38 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
        appid="{9412ee86-c21b-4eb8-bd89-f650fbf44931}"
    ```
 
-   Když je certifikát zaregistrován, nástroj odpoví `SSL Certificate successfully added`.
+   Při registraci certifikátu nástroj odpoví `SSL Certificate successfully added`pomocí .
 
-   Chcete-li odstranit registraci certifikátu, použijte příkaz `delete sslcert`:
+   Chcete-li odstranit registraci `delete sslcert` certifikátu, použijte příkaz:
 
    ```console
    netsh http delete sslcert ipport=<IP>:<PORT>
    ```
 
-   Referenční dokumentace k nástroji *netsh. exe*:
+   Referenční dokumentace pro *netsh.exe*:
 
-   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](https://technet.microsoft.com/library/cc725882.aspx)
-   * [UrlPrefix řetězce](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
+   * [Příkazy Netsh pro protokol HTTP (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [Řetězce urlprefix](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
 
 1. Spusťte aplikaci.
 
-   Oprávnění správce nejsou nutná ke spuštění aplikace při vytváření vazby na localhost pomocí protokolu HTTP (ne HTTPS) s číslem portu větším než 1024. U ostatních konfigurací (například pomocí místní IP adresy nebo vazby na port 443) spusťte aplikaci s oprávněními správce.
+   Oprávnění správce nejsou nutné ke spuštění aplikace při vazbě na localhost pomocí PROTOKOLU HTTP (nikoli HTTPS) s číslem portu větší než 1024. Pro ostatní konfigurace (například pomocí místní IP adresy nebo vazby na port 443) spusťte aplikaci s oprávněními správce.
 
-   Aplikace odpoví na veřejnou IP adresu serveru. V tomto příkladu je server dosažitelný z Internetu na jeho veřejné IP adrese `104.214.79.47`.
+   Aplikace reaguje na veřejnou IP adresu serveru. V tomto příkladu je server osloven z Internetu `104.214.79.47`na jeho veřejné IP adrese .
 
-   V tomto příkladu se používá vývojový certifikát. Stránka se načte bezpečně po obejít upozornění na nedůvěryhodný certifikát v prohlížeči.
+   V tomto příkladu se používá certifikát vývoje. Stránka se načte bezpečně po vynechání upozornění nedůvěryhodného certifikátu prohlížeče.
 
-   ![Okno prohlížeče zobrazující načtenou stránku indexu aplikace](httpsys/_static/browser.png)
+   ![Okno prohlížeče zobrazující načtenou stránku Indexu aplikace](httpsys/_static/browser.png)
 
-## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
+## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a vyrovnávání zatížení
 
-Pro aplikace hostované souborem HTTP. sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+U aplikací hostovaných protokolem HTTP.sys, které interagují s požadavky z Internetu nebo podnikové sítě, může být při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadována další konfigurace. Další informace naleznete v [tématu Configure ASP.NET Core to work with proxy servers and load balancers](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Povolit ověřování systému Windows pomocí HTTP. sys](xref:security/authentication/windowsauth#httpsys)
+* [Povolení ověřování systému Windows pomocí protokolu HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
-* [úložiště GitHubu ASPNET/HttpSysServer (zdrojový kód)](https://github.com/aspnet/HttpSysServer/)
+* [úložiště aspnet/HttpSysServer GitHub (zdrojový kód)](https://github.com/aspnet/HttpSysServer/)
 * [Hostitel](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>
 
@@ -273,12 +273,12 @@ Pro aplikace hostované souborem HTTP. sys, které komunikují s požadavky z In
 
 ::: moniker range="= aspnetcore-3.0"
 
-[Http. sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webový server pro ASP.NET Core](xref:fundamentals/servers/index) , který běží pouze v systému Windows. HTTP. sys je alternativou k serveru [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
+[HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webový server pro ASP.NET Core,](xref:fundamentals/servers/index) který běží pouze v systému Windows. HTTP.sys je alternativou k serveru [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
 
 > [!IMPORTANT]
-> HTTP. sys není kompatibilní s [modulem ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a nedá se použít se službou IIS nebo IIS Express.
+> Soubor HTTP.sys není kompatibilní s [ASP.NET základního modulu](xref:host-and-deploy/aspnet-core-module) a nelze jej použít se službou IIS nebo službou IIS Express.
 
-HTTP. sys podporuje následující funkce:
+HTTP.sys podporuje následující funkce:
 
 * [Ověřování systému Windows](xref:security/authentication/windowsauth)
 * Sdílení portů
@@ -293,179 +293,179 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
+## <a name="when-to-use-httpsys"></a>Kdy použít soubor HTTP.sys
 
-HTTP. sys je užitečné pro nasazení, kde:
+Http.sys je užitečné pro nasazení, kde:
 
-* Server je potřeba zveřejnit přímo na internetu bez použití IIS.
+* Je třeba vystavit server přímo na Internetu bez použití služby IIS.
 
-  ![HTTP. sys komunikuje přímo s internetem.](httpsys/_static/httpsys-to-internet.png)
+  ![HTTP.sys komunikuje přímo s Internetem](httpsys/_static/httpsys-to-internet.png)
 
-* Interní nasazení vyžaduje funkci, která není v Kestrel k dispozici, jako je například [ověřování systému Windows](xref:security/authentication/windowsauth).
+* Interní nasazení vyžaduje funkci, která není v kestrelu k dispozici, například [ověřování systému Windows](xref:security/authentication/windowsauth).
 
-  ![HTTP. sys komunikuje přímo s interní sítí.](httpsys/_static/httpsys-to-internal.png)
+  ![HTTP.sys komunikuje přímo s interní sítí](httpsys/_static/httpsys-to-internal.png)
 
-HTTP. sys je Vyspělá technologie, která chrání před mnoha typy útoků a poskytuje odolnost, zabezpečení a škálovatelnost plně funkčního webového serveru. Samotná služba IIS běží jako naslouchací proces HTTP nad HTTP. sys.
+HTTP.sys je vyspělá technologie, která chrání před mnoha typy útoků a poskytuje robustnost, zabezpečení a škálovatelnost plně vybaveného webového serveru. Samotná iis běží jako naslouchací proces HTTP nad http.sys.
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
-[Protokol HTTP/2](https://httpwg.org/specs/rfc7540.html) je povolený pro aplikace ASP.NET Core, pokud jsou splněné následující základní požadavky:
+[HTTP/2](https://httpwg.org/specs/rfc7540.html) je povolena pro ASP.NET základní aplikace, pokud jsou splněny následující základní požadavky:
 
 * Windows Server 2016/Windows 10 nebo novější
-* Připojení [ALPN (Application-Layer Protocol Negotiation)](https://tools.ietf.org/html/rfc7301#section-3)
-* Protokol TLS 1.2 nebo vyšší připojení
+* Připojení [protokolu ap (APPLICATION-Layer Protocol) (ALPN)](https://tools.ietf.org/html/rfc7301#section-3)
+* Připojení TLS 1.2 nebo novější
 
-Pokud je navázáno připojení HTTP/2, `HTTP/2`sestavy [protokolu HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
+Pokud je navázáno připojení HTTP/2, `HTTP/2`protokol [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) hlásí .
 
-HTTP/2 je standardně povolená. Pokud připojení HTTP/2 není navázáno, připojení se vrátí k HTTP/1.1. V budoucí verzi Windows budou k dispozici příznaky konfigurace protokolu HTTP/2, včetně možnosti zakázat protokol HTTP/2 s protokolem HTTP. sys.
+Protokol HTTP/2 je ve výchozím nastavení povolen. Pokud není navázáno připojení HTTP/2, připojení přejde zpět na HTTP/1.1. V budoucí verzi systému Windows budou k dispozici příznaky konfigurace HTTP/2, včetně možnosti zakázat protokol HTTP/2 pomocí protokolu HTTP.sys.
 
 ## <a name="kernel-mode-authentication-with-kerberos"></a>Ověřování v režimu jádra pomocí protokolu Kerberos
 
-Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování protokolem Kerberos. Režim ověřování uživatele nepodporuje protokolů Kerberos a HTTP.sys. Účet počítače musí být použité k dešifrování token/lístek služby Kerberos, která se získá z Active Directory a předá klienta na serveru k ověření uživatele. Zaregistrujte hlavní název služby (SPN) příslušného hostitele není uživatel aplikace.
+Protokol HTTP.sys deleguje ověřování v režimu jádra pomocí ověřovacího protokolu Kerberos. Ověřování v uživatelském režimu není podporováno protokoly Kerberos a HTTP.sys. Účet počítače musí být použit k dešifrování tokenu nebo lístku protokolu Kerberos, který je získán ze služby Active Directory a předán klientem na server k ověření uživatele. Zaregistrujte hlavní název služby (SPN) pro hostitele, nikoli uživatele aplikace.
 
-## <a name="how-to-use-httpsys"></a>Jak používat HTTP. sys
+## <a name="how-to-use-httpsys"></a>Jak používat http.sys
 
-### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití HTTP. sys
+### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití protokolu HTTP.sys
 
-Při sestavování hostitele zavolejte metodu rozšíření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> a určete všechny požadované <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions>. Následující příklad nastaví možnosti na jejich výchozí hodnoty:
+Volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> metody rozšíření při vytváření hostitele, <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions>zadání mj. Následující příklad nastaví možnosti jejich výchozí hodnoty:
 
 [!code-csharp[](httpsys/samples/3.x/SampleApp/Program.cs?name=snippet1&highlight=5-13)]
 
-Další konfiguraci HTTP. sys bude zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
+Další konfigurace http.sys je zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
-**Možnosti HTTP. sys**
+**Možnosti protokolu HTTP.sys**
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Určuje, zda je pro `HttpContext.Request.Body` a `HttpContext.Response.Body`povolen synchronní vstup/výstup. | `false` |
-| [Ověřování. AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povoluje anonymní požadavky. | `true` |
-| [Ověřování. schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Určete povolená schémata ověřování. Může být kdykoli změněno před vyřazením naslouchacího procesu. Hodnoty jsou k dispozici ve [výčtu schémata AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes): `Basic`, `Kerberos`, `Negotiate`, `None`a `NTLM`. | `None` |
-| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokusit se o ukládání do mezipaměti v [režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) pro odpovědi s oprávněnými záhlavími. Odpověď nesmí zahrnovat hlavičky `Set-Cookie`, `Vary`nebo `Pragma`. Musí zahrnovat hlavičku `Cache-Control` `public` a buď hodnotu `shared-max-age` nebo `max-age`, nebo hlavičku `Expires`. | `true` |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijetí. | 5 &times; [prostředí.<br>ProcessorCount](xref:System.Environment.ProcessorCount) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení, která se mají přijmout Použijte `-1` pro nekonečné. Pomocí `null` můžete použít nastavení pro počítač v rámci registru. | `null`<br>(počítačově v šířce<br>nastavením |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte konfiguraci <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> HTTP. sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; dobu povolenou pro rozhraní API serveru http, které má vyprázdnit tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; dobu povolenou pro rozhraní API serveru http, aby bylo možné analyzovat hlavičku požadavku.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; minimální přenosovou rychlost odeslání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; čas, který může požadavek zůstat ve frontě požadavků předtím, než ji aplikace vybere.</li></ul> |  |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection>, který se má zaregistrovat v HTTP. sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
+| [PovolitsynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Ovládejte, zda je synchronní `HttpContext.Request.Body` vstup/výstup povolen pro a . `HttpContext.Response.Body` | `false` |
+| [Ověřování.AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povolit anonymní požadavky. | `true` |
+| [Ověřování.Schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Zadejte povolená schémata ověřování. Může být změněn kdykolipřed likvidací posluchače. Hodnoty jsou uvedeny ve [výčtu AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`: , `Kerberos` `Negotiate`, `None`, a `NTLM`. | `None` |
+| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokus te se o ukládání odpovědí do [mezipaměti v režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) s způsobilými záhlavími. Odpověď nesmí `Set-Cookie`obsahovat `Vary`hlavičky nebo `Pragma` záhlaví . Musí obsahovat `Cache-Control` záhlaví, `public` které je `shared-max-age` `max-age` a nebo `Expires` hodnota, nebo záhlaví. | `true` |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijímá. | 5 &times; [Životní<br> prostředí. Počet procesorů](xref:System.Environment.ProcessorCount) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení přijmout. Použít `-1` pro nekonečno. Slouží `null` k použití nastavení celého počítače v registru. | `null`<br>(celostrojově<br>nastavení) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize.</a> | 30000000 bajtů<br>(~28,6 MB) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které mohou být zařazeny do fronty. | 1000 |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Označte, zda by zápisy v těle odpovědi, které se nezdaří z důvodu odpojení klienta, měly vyvolat výjimky nebo je dokončit normálně. | `false`<br>(kompletní normálně) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavit konfiguraci HTTP.sys, <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> která může být také nakonfigurována v registru. Další informace o jednotlivých nastaveních, včetně výchozích hodnot, najdete v odkazech rozhraní API:<ul><li>[TimeoutManager.DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; Čas povolen pro rozhraní API http serveru vyprázdnit tělo entity na keep-alive připojení.</li><li>[TimeoutManager.EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; Čas povolen pro tělo entity požadavku k doručení.</li><li>[TimeoutManager.HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; Čas povolen pro rozhraní API serveru HTTP analyzovat hlavičku požadavku.</li><li>[TimeoutManager.IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; Čas povolen pro nečinné připojení.</li><li>[TimeoutManager.MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; Minimální rychlost odesílání pro odpověď.</li><li>[TimeoutManager.RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; Čas povolen pro požadavek zůstat ve frontě požadavků před aplikace zvedne.</li></ul> |  |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> registraci pomocí souboru HTTP.sys. Nejužitečnější je [UrlPrefixCollection.Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být změněny kdykolipřed likvidací posluchače. |  |
 
 <a name="maxrequestbodysize"></a>
 
-**MaxRequestBodySize**
+**Velikost maxrequestbodysize**
 
-Maximální povolená velikost libovolného textu žádosti v bajtech Pokud je nastavena hodnota `null`, maximální velikost textu požadavku je neomezená. Toto omezení nemá žádný vliv na upgradovaná připojení, která jsou vždycky neomezená.
+Maximální povolená velikost libovolného těla požadavku v bajtech. Pokud je `null`nastavena na , maximální velikost těla požadavku je neomezená. Toto omezení nemá žádný vliv na inovovaná připojení, která jsou vždy neomezená.
 
-Doporučená metoda pro přepsání limitu v aplikaci ASP.NET Core MVC pro jednu `IActionResult` je použití atributu <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> u metody Action:
+Doporučená metoda přepsat limit v aplikaci ASP.NET Core MVC pro jeden `IActionResult` je použít <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> atribut na metodu akce:
 
 ```csharp
 [RequestSizeLimit(100000000)]
 public IActionResult MyActionMethod()
 ```
 
-Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit žádosti poté, co aplikace začne číst požadavek. Vlastnost `IsReadOnly` lze použít k označení, zda je vlastnost `MaxRequestBodySize` ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
+Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit na požadavek poté, co aplikace začala číst požadavek. Vlastnost `IsReadOnly` lze použít k označení, pokud je `MaxRequestBodySize` vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě na konfiguraci limitu.
 
-Pokud by měla aplikace přepsat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> podle požadavků, použijte <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>:
+Pokud by aplikace <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> měla přepsat na <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>žádost, použijte :
 
 [!code-csharp[](httpsys/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=6-7)]
 
-Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná tak, aby spouštěla službu IIS nebo IIS Express.
+Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná pro spuštění služby IIS nebo Služby IIS Express.
 
-V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcete-li spustit projekt jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
+V sadě Visual Studio je výchozí profil spuštění pro iis express. Chcete-li projekt spustit jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
 
-![Vybrat profil aplikace konzoly](httpsys/_static/vs-choose-profile.png)
+![Výběr profilu konzolové aplikace](httpsys/_static/vs-choose-profile.png)
 
-### <a name="configure-windows-server"></a>Konfigurace Windows serveru
+### <a name="configure-windows-server"></a>Konfigurace systému Windows Server
 
-1. Určete porty, které se mají otevřít pro aplikaci, a pomocí [brány Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo rutiny [New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) prostředí PowerShell otevřete porty brány firewall, aby bylo možné provozovat přes protokol HTTP. sys. V následujících příkazech a konfiguraci aplikace se používá port 443.
+1. Určete porty, které chcete pro aplikaci otevřít, a pomocí brány [Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo rutiny [Prostředí PowerShell New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) otevřete porty brány firewall, abyste umožnili přenosy dosáhnout souboru HTTP.sys. V následujících příkazech a konfiguraci aplikace se používá port 443.
 
-1. Při nasazování na virtuální počítač Azure otevřete porty ve [skupině zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následujících příkazech a konfiguraci aplikace se používá port 443.
+1. Při nasazování do virtuálního počítače Azure otevřete porty ve [skupině zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následujících příkazech a konfiguraci aplikace se používá port 443.
 
-1. V případě potřeby Získejte a nainstalujte certifikáty X. 509.
+1. V případě potřeby získejte a nainstalujte certifikáty X.509.
 
-   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+   V systému Windows vytvořte certifikáty podepsané svým držitelem pomocí [rutiny prostředí New-SelfSignedCertificate PowerShell](/powershell/module/pkiclient/new-selfsignedcertificate). Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome.ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
 
-   Nainstalujte certifikáty podepsané svým držitelem nebo certifikační autoritou v **místním počítači** serveru > **osobním** úložišti.
+   Nainstalujte certifikáty podepsané svým držitelem nebo certifikáty podepsané certifikační autoritou do **osobního** úložiště **místního počítače** > na serveru.
 
-1. Pokud se jedná o [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte rozhraní .NET core, .NET Framework nebo obojí (Pokud je aplikace aplikace .NET Core cílící na .NET Framework).
+1. Pokud je aplikace [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte .NET Core, .NET Framework nebo obojí (pokud je aplikace .NET Core aplikace cílení na rozhraní .NET Framework).
 
-   * **.NET core** &ndash; Pokud aplikace vyžaduje .NET Core, Získejte a spusťte instalační program **modulu runtime .NET Core** ze [souborů ke stažení pro .NET Core](https://dotnet.microsoft.com/download). Neinstalujte na server plnou sadu SDK.
-   * **.NET Framework** &ndash;, pokud aplikace vyžaduje .NET Framework, přečtěte si [Průvodce instalací .NET Framework](/dotnet/framework/install/). Nainstalujte požadovanou .NET Framework. Instalační program pro nejnovější .NET Framework je k dispozici na stránce [soubory ke stažení pro .NET Core](https://dotnet.microsoft.com/download) .
+   * **.NET Core** &ndash; Pokud aplikace vyžaduje .NET Core, získejte a spusťte instalační program **.NET Core Runtime** z [souborů .NET Core Downloads](https://dotnet.microsoft.com/download). Neinstalujte úplnou sadu SDK na server.
+   * **Rozhraní .NET Framework:** &ndash; Pokud aplikace vyžaduje rozhraní .NET Framework, přečtěte si [příručku k instalaci rozhraní .NET Framework](/dotnet/framework/install/). Nainstalujte požadovanou architekturu .NET Framework. Instalační program pro nejnovější rozhraní .NET Framework je k dispozici na stránce [Stahování jádra .NET.](https://dotnet.microsoft.com/download)
 
-   Pokud je aplikace samostatným [nasazením](/dotnet/core/deploying/#self-contained-deployments-scd), aplikace zahrne modul runtime do svého nasazení. Na serveru není nutná žádná instalace rozhraní.
+   Pokud je aplikace [samostatné nasazení](/dotnet/core/deploying/#self-contained-deployments-scd), aplikace obsahuje runtime v jeho nasazení. Na serveru není vyžadována žádná instalace architektury.
 
-1. Konfigurace adres URL a portů v aplikaci
+1. Konfigurace adres URL a portů v aplikaci.
 
-   Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000`. Pokud chcete nakonfigurovat předpony a porty adresy URL, můžete použít tyto možnosti:
+   Ve výchozím nastavení se `http://localhost:5000`ASP.NET jádro váže na . Chcete-li nakonfigurovat předpony adres URL a porty, možnosti zahrnují:
 
    * <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*>
-   * `urls` argument příkazového řádku
-   * `ASPNETCORE_URLS` proměnná prostředí
+   * `urls`argument příkazového řádku
+   * `ASPNETCORE_URLS`proměnná prostředí
    * <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes>
 
-   Následující příklad kódu ukazuje, jak použít <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou serveru `10.0.0.4` na portu 443:
+   Následující příklad kódu ukazuje, <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> jak se používat s `10.0.0.4` místní IP adresou serveru na portu 443:
 
    [!code-csharp[](httpsys/samples_snapshot/3.x/Program.cs?highlight=7)]
 
-   Výhodou `UrlPrefixes` je, že se okamžitě generuje chybová zpráva pro nesprávně naformátované předpony.
+   Výhodou `UrlPrefixes` je, že chybová zpráva je generována okamžitě pro nesprávně formátované předpony.
 
-   Nastavení v `UrlPrefixes` přepsat `UseUrls`nastavení /`urls`/`ASPNETCORE_URLS`. Proto je výhodou `UseUrls`, `urls`a `ASPNETCORE_URLS` proměnnou prostředí, že je snazší přepínat mezi Kestrel a HTTP. sys.
+   Nastavení v `UrlPrefixes` nastavení `UseUrls` / `urls` / `ASPNETCORE_URLS` přepsání. Výhodou aplikace `UseUrls`, `urls`a proměnné `ASPNETCORE_URLS` prostředí je proto, že je snazší přepínat mezi kestrelem a protokolem HTTP.sys.
 
-   HTTP. sys používá [formáty řetězce UrlPrefix HTTP serveru API](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx).
+   Protokol HTTP.sys používá [formáty řetězců URLPrefix rozhraní HTTP Server.](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
 
    > [!WARNING]
-   > **Nesmí** být použita vazba zástupných znaků nejvyšší úrovně (`http://*:80/` a `http://+:80`). Vazby na zástupné znaky na nejvyšší úrovni vytvoří chyby zabezpečení aplikace. To platí pro silné a slabé zástupné znaky. Místo zástupných znaků použijte explicitní názvy hostitelů nebo IP adresy. Vazba zástupných znaků subdomény (například `*.mysub.com`) není bezpečnostním rizikem, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [dokumentu RFC 7230: oddíl 5,4: Host](https://tools.ietf.org/html/rfc7230#section-5.4).
+   > Vazby se zástupnými`http://*:80/` symboly nejvyšší úrovně ( a `http://+:80`) by **neměly** být používány. Vazby se zástupnými znaky nejvyšší úrovně vytvářejí chyby zabezpečení aplikace. To platí pro silné i slabé zástupné znaky. Používejte explicitní názvy hostitelů nebo adresy IP místo zástupných znaků. Vazba se zástupnými znaky subdomény (například ) není bezpečnostní riziko, `*.mysub.com`pokud `*.com`řídíte celou nadřazenou doménu (na rozdíl od , která je zranitelná). Další informace naleznete v [tématu RFC 7230: Oddíl 5.4: Host](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-1. Předregistrujte předpony adresy URL na serveru.
+1. Předpony url předregister na serveru.
 
-   Integrovaný nástroj pro konfiguraci souboru HTTP. sys je *netsh. exe*. pomocí *nástroje Netsh. exe* můžete rezervovat PŘEDPONY adres URL a přiřazovat certifikáty X. 509. Nástroj vyžaduje oprávnění správce.
+   Vestavěný nástroj pro konfiguraci http.sys je *netsh.exe*. *netsh.exe* se používá k rezervaci předpon URL a přiřazení certifikátů X.509. Nástroj vyžaduje oprávnění správce.
 
-   Registrace adres URL pro aplikaci pomocí nástroje *netsh. exe* :
+   Pomocí nástroje *netsh.exe* zaregistrujte adresy URL aplikace:
 
    ```console
    netsh http add urlacl url=<URL> user=<USER>
    ```
 
-   * `<URL>` &ndash; plně kvalifikované adresy URL (Uniform Resource Locator). Nepoužívejte vazbu zástupných znaků. Použijte platný název hostitele nebo místní IP adresu. *Adresa URL musí obsahovat koncové lomítko.*
-   * `<USER>` &ndash; určuje jméno uživatele nebo název skupiny.
+   * `<URL>`&ndash; Plně kvalifikovaný jednotný lokátor zdrojů (URL). Nepoužívejte vazby zástupných symbolů. Použijte platný název hostitele nebo místní ADRESU IP. *Adresa URL musí obsahovat koncové lomítko.*
+   * `<USER>`&ndash; Určuje název uživatele nebo skupiny uživatelů.
 
-   V následujícím příkladu je místní IP adresa serveru `10.0.0.4`:
+   V následujícím příkladu je `10.0.0.4`místní IP adresa serveru :
 
    ```console
    netsh http add urlacl url=https://10.0.0.4:443/ user=Users
    ```
 
-   Když je adresa URL registrována, nástroj odpoví pomocí `URL reservation successfully added`.
+   Když je adresa URL zaregistrována, nástroj odpoví pomocí . `URL reservation successfully added`
 
-   Pokud chcete odstranit registrovanou adresu URL, použijte příkaz `delete urlacl`:
+   Chcete-li odstranit registrovanou `delete urlacl` adresu URL, použijte příkaz:
 
    ```console
    netsh http delete urlacl url=<URL>
    ```
 
-1. Zaregistrujte certifikáty X. 509 na serveru.
+1. Zaregistrujte certifikáty X.509 na serveru.
 
-   K registraci certifikátů pro aplikaci použijte nástroj *netsh. exe* :
+   Pomocí nástroje *netsh.exe* zaregistrujte certifikáty pro aplikaci:
 
    ```console
    netsh http add sslcert ipport=<IP>:<PORT> certhash=<THUMBPRINT> appid="{<GUID>}"
    ```
 
-   * `<IP>` &ndash; určuje místní IP adresu pro vazbu. Nepoužívejte vazbu zástupných znaků. Použijte platnou IP adresu.
-   * `<PORT>` &ndash; Určuje port pro vazbu.
-   * `<THUMBPRINT>` &ndash; kryptografický otisk certifikátu X. 509.
-   * `<GUID>` &ndash; identifikátor GUID generovaný vývojářem, který představuje aplikaci pro informativní účely.
+   * `<IP>`&ndash; Určuje místní adresu IP pro vazbu. Nepoužívejte vazby zástupných symbolů. Použijte platnou adresu IP.
+   * `<PORT>`&ndash; Určuje port pro vazbu.
+   * `<THUMBPRINT>`&ndash; Kryptografický otisk certifikátu X.509.
+   * `<GUID>`&ndash; Identifikátor GUID generovaný vývojářem, který představuje aplikaci pro informační účely.
 
    Pro referenční účely uložte identifikátor GUID do aplikace jako značku balíčku:
 
    * V sadě Visual Studio:
-     * Otevřete vlastnosti projektu aplikace tak, že kliknete pravým tlačítkem na aplikaci v **Průzkumník řešení** a vyberete **vlastnosti**.
-     * Vyberte kartu **balíček** .
-     * Zadejte identifikátor GUID, který jste vytvořili v poli **značky** .
-   * Když nepoužíváte Visual Studio:
+     * Otevřete vlastnosti projektu aplikace kliknutím pravým tlačítkem myši na aplikaci v **Průzkumníku řešení** a výběrem **možnosti Vlastnosti**.
+     * Vyberte kartu **Balíček.**
+     * Zadejte identifikátor GUID, který jste vytvořili, do pole **Značky.**
+   * Pokud nepoužíváte Visual Studio:
      * Otevřete soubor projektu aplikace.
-     * Přidejte vlastnost `<PackageTags>` k novému nebo existujícímu `<PropertyGroup>` s identifikátorem GUID, který jste vytvořili:
+     * Přidejte `<PackageTags>` vlastnost do nové `<PropertyGroup>` nebo existující s identifikátorem GUID, který jste vytvořili:
 
        ```xml
        <PropertyGroup>
@@ -475,8 +475,8 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
    V následujícím příkladu:
 
-   * Místní IP adresa serveru je `10.0.0.4`.
-   * Generátor náhodných identifikátorů GUID online poskytuje `appid`ou hodnotu.
+   * Místní ADRESA IP serveru `10.0.0.4`je .
+   * Online generátor náhodných identifikátorů GUID poskytuje hodnotu. `appid`
 
    ```console
    netsh http add sslcert 
@@ -485,38 +485,38 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
        appid="{9412ee86-c21b-4eb8-bd89-f650fbf44931}"
    ```
 
-   Když je certifikát zaregistrován, nástroj odpoví `SSL Certificate successfully added`.
+   Při registraci certifikátu nástroj odpoví `SSL Certificate successfully added`pomocí .
 
-   Chcete-li odstranit registraci certifikátu, použijte příkaz `delete sslcert`:
+   Chcete-li odstranit registraci `delete sslcert` certifikátu, použijte příkaz:
 
    ```console
    netsh http delete sslcert ipport=<IP>:<PORT>
    ```
 
-   Referenční dokumentace k nástroji *netsh. exe*:
+   Referenční dokumentace pro *netsh.exe*:
 
-   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](https://technet.microsoft.com/library/cc725882.aspx)
-   * [UrlPrefix řetězce](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
+   * [Příkazy Netsh pro protokol HTTP (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [Řetězce urlprefix](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
 
 1. Spusťte aplikaci.
 
-   Oprávnění správce nejsou nutná ke spuštění aplikace při vytváření vazby na localhost pomocí protokolu HTTP (ne HTTPS) s číslem portu větším než 1024. U ostatních konfigurací (například pomocí místní IP adresy nebo vazby na port 443) spusťte aplikaci s oprávněními správce.
+   Oprávnění správce nejsou nutné ke spuštění aplikace při vazbě na localhost pomocí PROTOKOLU HTTP (nikoli HTTPS) s číslem portu větší než 1024. Pro ostatní konfigurace (například pomocí místní IP adresy nebo vazby na port 443) spusťte aplikaci s oprávněními správce.
 
-   Aplikace odpoví na veřejnou IP adresu serveru. V tomto příkladu je server dosažitelný z Internetu na jeho veřejné IP adrese `104.214.79.47`.
+   Aplikace reaguje na veřejnou IP adresu serveru. V tomto příkladu je server osloven z Internetu `104.214.79.47`na jeho veřejné IP adrese .
 
-   V tomto příkladu se používá vývojový certifikát. Stránka se načte bezpečně po obejít upozornění na nedůvěryhodný certifikát v prohlížeči.
+   V tomto příkladu se používá certifikát vývoje. Stránka se načte bezpečně po vynechání upozornění nedůvěryhodného certifikátu prohlížeče.
 
-   ![Okno prohlížeče zobrazující načtenou stránku indexu aplikace](httpsys/_static/browser.png)
+   ![Okno prohlížeče zobrazující načtenou stránku Indexu aplikace](httpsys/_static/browser.png)
 
-## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
+## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a vyrovnávání zatížení
 
-Pro aplikace hostované souborem HTTP. sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+U aplikací hostovaných protokolem HTTP.sys, které interagují s požadavky z Internetu nebo podnikové sítě, může být při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadována další konfigurace. Další informace naleznete v [tématu Configure ASP.NET Core to work with proxy servers and load balancers](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Povolit ověřování systému Windows pomocí HTTP. sys](xref:security/authentication/windowsauth#httpsys)
+* [Povolení ověřování systému Windows pomocí protokolu HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
-* [úložiště GitHubu ASPNET/HttpSysServer (zdrojový kód)](https://github.com/aspnet/HttpSysServer/)
+* [úložiště aspnet/HttpSysServer GitHub (zdrojový kód)](https://github.com/aspnet/HttpSysServer/)
 * [Hostitel](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>
 
@@ -524,12 +524,12 @@ Pro aplikace hostované souborem HTTP. sys, které komunikují s požadavky z In
 
 ::: moniker range="= aspnetcore-2.2"
 
-[Http. sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webový server pro ASP.NET Core](xref:fundamentals/servers/index) , který běží pouze v systému Windows. HTTP. sys je alternativou k serveru [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
+[HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webový server pro ASP.NET Core,](xref:fundamentals/servers/index) který běží pouze v systému Windows. HTTP.sys je alternativou k serveru [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
 
 > [!IMPORTANT]
-> HTTP. sys není kompatibilní s [modulem ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a nedá se použít se službou IIS nebo IIS Express.
+> Soubor HTTP.sys není kompatibilní s [ASP.NET základního modulu](xref:host-and-deploy/aspnet-core-module) a nelze jej použít se službou IIS nebo službou IIS Express.
 
-HTTP. sys podporuje následující funkce:
+HTTP.sys podporuje následující funkce:
 
 * [Ověřování systému Windows](xref:security/authentication/windowsauth)
 * Sdílení portů
@@ -544,181 +544,181 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
+## <a name="when-to-use-httpsys"></a>Kdy použít soubor HTTP.sys
 
-HTTP. sys je užitečné pro nasazení, kde:
+Http.sys je užitečné pro nasazení, kde:
 
-* Server je potřeba zveřejnit přímo na internetu bez použití IIS.
+* Je třeba vystavit server přímo na Internetu bez použití služby IIS.
 
-  ![HTTP. sys komunikuje přímo s internetem.](httpsys/_static/httpsys-to-internet.png)
+  ![HTTP.sys komunikuje přímo s Internetem](httpsys/_static/httpsys-to-internet.png)
 
-* Interní nasazení vyžaduje funkci, která není v Kestrel k dispozici, jako je například [ověřování systému Windows](xref:security/authentication/windowsauth).
+* Interní nasazení vyžaduje funkci, která není v kestrelu k dispozici, například [ověřování systému Windows](xref:security/authentication/windowsauth).
 
-  ![HTTP. sys komunikuje přímo s interní sítí.](httpsys/_static/httpsys-to-internal.png)
+  ![HTTP.sys komunikuje přímo s interní sítí](httpsys/_static/httpsys-to-internal.png)
 
-HTTP. sys je Vyspělá technologie, která chrání před mnoha typy útoků a poskytuje odolnost, zabezpečení a škálovatelnost plně funkčního webového serveru. Samotná služba IIS běží jako naslouchací proces HTTP nad HTTP. sys.
+HTTP.sys je vyspělá technologie, která chrání před mnoha typy útoků a poskytuje robustnost, zabezpečení a škálovatelnost plně vybaveného webového serveru. Samotná iis běží jako naslouchací proces HTTP nad http.sys.
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
-[Protokol HTTP/2](https://httpwg.org/specs/rfc7540.html) je povolený pro aplikace ASP.NET Core, pokud jsou splněné následující základní požadavky:
+[HTTP/2](https://httpwg.org/specs/rfc7540.html) je povolena pro ASP.NET základní aplikace, pokud jsou splněny následující základní požadavky:
 
 * Windows Server 2016/Windows 10 nebo novější
-* Připojení [ALPN (Application-Layer Protocol Negotiation)](https://tools.ietf.org/html/rfc7301#section-3)
-* Protokol TLS 1.2 nebo vyšší připojení
+* Připojení [protokolu ap (APPLICATION-Layer Protocol) (ALPN)](https://tools.ietf.org/html/rfc7301#section-3)
+* Připojení TLS 1.2 nebo novější
 
-Pokud je navázáno připojení HTTP/2, `HTTP/2`sestavy [protokolu HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
+Pokud je navázáno připojení HTTP/2, `HTTP/2`protokol [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) hlásí .
 
-HTTP/2 je standardně povolená. Pokud připojení HTTP/2 není navázáno, připojení se vrátí k HTTP/1.1. V budoucí verzi Windows budou k dispozici příznaky konfigurace protokolu HTTP/2, včetně možnosti zakázat protokol HTTP/2 s protokolem HTTP. sys.
+Protokol HTTP/2 je ve výchozím nastavení povolen. Pokud není navázáno připojení HTTP/2, připojení přejde zpět na HTTP/1.1. V budoucí verzi systému Windows budou k dispozici příznaky konfigurace HTTP/2, včetně možnosti zakázat protokol HTTP/2 pomocí protokolu HTTP.sys.
 
 ## <a name="kernel-mode-authentication-with-kerberos"></a>Ověřování v režimu jádra pomocí protokolu Kerberos
 
-Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování protokolem Kerberos. Režim ověřování uživatele nepodporuje protokolů Kerberos a HTTP.sys. Účet počítače musí být použité k dešifrování token/lístek služby Kerberos, která se získá z Active Directory a předá klienta na serveru k ověření uživatele. Zaregistrujte hlavní název služby (SPN) příslušného hostitele není uživatel aplikace.
+Protokol HTTP.sys deleguje ověřování v režimu jádra pomocí ověřovacího protokolu Kerberos. Ověřování v uživatelském režimu není podporováno protokoly Kerberos a HTTP.sys. Účet počítače musí být použit k dešifrování tokenu nebo lístku protokolu Kerberos, který je získán ze služby Active Directory a předán klientem na server k ověření uživatele. Zaregistrujte hlavní název služby (SPN) pro hostitele, nikoli uživatele aplikace.
 
-## <a name="how-to-use-httpsys"></a>Jak používat HTTP. sys
+## <a name="how-to-use-httpsys"></a>Jak používat http.sys
 
-### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití HTTP. sys
+### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití protokolu HTTP.sys
 
-Odkaz na balíček v souboru projektu není vyžadován při použití [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) ([NuGet.org](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)). Pokud nepoužíváte `Microsoft.AspNetCore.App` Metapackage, přidejte odkaz na balíček do [Microsoft. AspNetCore. Server. HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/).
+Odkaz na balíček v souboru projektu není vyžadován při použití [metabalíčku Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app) ([nuget.org](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)). Pokud metabalíček nepoužíváte, `Microsoft.AspNetCore.App` přidejte odkaz na balíček [microsoft.aspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/).
 
-Při sestavování hostitele zavolejte metodu rozšíření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> a určete všechny požadované <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions>. Následující příklad nastaví možnosti na jejich výchozí hodnoty:
+Volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> metody rozšíření při vytváření hostitele, <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions>zadání mj. Následující příklad nastaví možnosti jejich výchozí hodnoty:
 
 [!code-csharp[](httpsys/samples/2.x/SampleApp/Program.cs?name=snippet1&highlight=4-12)]
 
-Další konfiguraci HTTP. sys bude zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
+Další konfigurace http.sys je zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
-**Možnosti HTTP. sys**
+**Možnosti protokolu HTTP.sys**
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Určuje, zda je pro `HttpContext.Request.Body` a `HttpContext.Response.Body`povolen synchronní vstup/výstup. | `true` |
-| [Ověřování. AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povoluje anonymní požadavky. | `true` |
-| [Ověřování. schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Určete povolená schémata ověřování. Může být kdykoli změněno před vyřazením naslouchacího procesu. Hodnoty jsou k dispozici ve [výčtu schémata AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes): `Basic`, `Kerberos`, `Negotiate`, `None`a `NTLM`. | `None` |
-| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokusit se o ukládání do mezipaměti v [režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) pro odpovědi s oprávněnými záhlavími. Odpověď nesmí zahrnovat hlavičky `Set-Cookie`, `Vary`nebo `Pragma`. Musí zahrnovat hlavičku `Cache-Control` `public` a buď hodnotu `shared-max-age` nebo `max-age`, nebo hlavičku `Expires`. | `true` |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijetí. | 5 &times; [prostředí.<br>ProcessorCount](xref:System.Environment.ProcessorCount) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení, která se mají přijmout Použijte `-1` pro nekonečné. Pomocí `null` můžete použít nastavení pro počítač v rámci registru. | `null`<br>(počítačově v šířce<br>nastavením |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte konfiguraci <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> HTTP. sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; dobu povolenou pro rozhraní API serveru http, které má vyprázdnit tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; dobu povolenou pro rozhraní API serveru http, aby bylo možné analyzovat hlavičku požadavku.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; minimální přenosovou rychlost odeslání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; čas, který může požadavek zůstat ve frontě požadavků předtím, než ji aplikace vybere.</li></ul> |  |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection>, který se má zaregistrovat v HTTP. sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
+| [PovolitsynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Ovládejte, zda je synchronní `HttpContext.Request.Body` vstup/výstup povolen pro a . `HttpContext.Response.Body` | `true` |
+| [Ověřování.AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povolit anonymní požadavky. | `true` |
+| [Ověřování.Schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Zadejte povolená schémata ověřování. Může být změněn kdykolipřed likvidací posluchače. Hodnoty jsou uvedeny ve [výčtu AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`: , `Kerberos` `Negotiate`, `None`, a `NTLM`. | `None` |
+| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokus te se o ukládání odpovědí do [mezipaměti v režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) s způsobilými záhlavími. Odpověď nesmí `Set-Cookie`obsahovat `Vary`hlavičky nebo `Pragma` záhlaví . Musí obsahovat `Cache-Control` záhlaví, `public` které je `shared-max-age` `max-age` a nebo `Expires` hodnota, nebo záhlaví. | `true` |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijímá. | 5 &times; [Životní<br> prostředí. Počet procesorů](xref:System.Environment.ProcessorCount) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení přijmout. Použít `-1` pro nekonečno. Slouží `null` k použití nastavení celého počítače v registru. | `null`<br>(celostrojově<br>nastavení) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize.</a> | 30000000 bajtů<br>(~28,6 MB) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které mohou být zařazeny do fronty. | 1000 |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Označte, zda by zápisy v těle odpovědi, které se nezdaří z důvodu odpojení klienta, měly vyvolat výjimky nebo je dokončit normálně. | `false`<br>(kompletní normálně) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavit konfiguraci HTTP.sys, <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> která může být také nakonfigurována v registru. Další informace o jednotlivých nastaveních, včetně výchozích hodnot, najdete v odkazech rozhraní API:<ul><li>[TimeoutManager.DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; Čas povolen pro rozhraní API http serveru vyprázdnit tělo entity na keep-alive připojení.</li><li>[TimeoutManager.EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; Čas povolen pro tělo entity požadavku k doručení.</li><li>[TimeoutManager.HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; Čas povolen pro rozhraní API serveru HTTP analyzovat hlavičku požadavku.</li><li>[TimeoutManager.IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; Čas povolen pro nečinné připojení.</li><li>[TimeoutManager.MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; Minimální rychlost odesílání pro odpověď.</li><li>[TimeoutManager.RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; Čas povolen pro požadavek zůstat ve frontě požadavků před aplikace zvedne.</li></ul> |  |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> registraci pomocí souboru HTTP.sys. Nejužitečnější je [UrlPrefixCollection.Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být změněny kdykolipřed likvidací posluchače. |  |
 
 <a name="maxrequestbodysize"></a>
 
-**MaxRequestBodySize**
+**Velikost maxrequestbodysize**
 
-Maximální povolená velikost libovolného textu žádosti v bajtech Pokud je nastavena hodnota `null`, maximální velikost textu požadavku je neomezená. Toto omezení nemá žádný vliv na upgradovaná připojení, která jsou vždycky neomezená.
+Maximální povolená velikost libovolného těla požadavku v bajtech. Pokud je `null`nastavena na , maximální velikost těla požadavku je neomezená. Toto omezení nemá žádný vliv na inovovaná připojení, která jsou vždy neomezená.
 
-Doporučená metoda pro přepsání limitu v aplikaci ASP.NET Core MVC pro jednu `IActionResult` je použití atributu <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> u metody Action:
+Doporučená metoda přepsat limit v aplikaci ASP.NET Core MVC pro jeden `IActionResult` je použít <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> atribut na metodu akce:
 
 ```csharp
 [RequestSizeLimit(100000000)]
 public IActionResult MyActionMethod()
 ```
 
-Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit žádosti poté, co aplikace začne číst požadavek. Vlastnost `IsReadOnly` lze použít k označení, zda je vlastnost `MaxRequestBodySize` ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
+Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit na požadavek poté, co aplikace začala číst požadavek. Vlastnost `IsReadOnly` lze použít k označení, pokud je `MaxRequestBodySize` vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě na konfiguraci limitu.
 
-Pokud by měla aplikace přepsat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> podle požadavků, použijte <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>:
+Pokud by aplikace <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> měla přepsat na <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>žádost, použijte :
 
 [!code-csharp[](httpsys/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=6-7)]
 
-Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná tak, aby spouštěla službu IIS nebo IIS Express.
+Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná pro spuštění služby IIS nebo Služby IIS Express.
 
-V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcete-li spustit projekt jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
+V sadě Visual Studio je výchozí profil spuštění pro iis express. Chcete-li projekt spustit jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
 
-![Vybrat profil aplikace konzoly](httpsys/_static/vs-choose-profile.png)
+![Výběr profilu konzolové aplikace](httpsys/_static/vs-choose-profile.png)
 
-### <a name="configure-windows-server"></a>Konfigurace Windows serveru
+### <a name="configure-windows-server"></a>Konfigurace systému Windows Server
 
-1. Určete porty, které se mají otevřít pro aplikaci, a pomocí [brány Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo rutiny [New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) prostředí PowerShell otevřete porty brány firewall, aby bylo možné provozovat přes protokol HTTP. sys. V následujících příkazech a konfiguraci aplikace se používá port 443.
+1. Určete porty, které chcete pro aplikaci otevřít, a pomocí brány [Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo rutiny [Prostředí PowerShell New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) otevřete porty brány firewall, abyste umožnili přenosy dosáhnout souboru HTTP.sys. V následujících příkazech a konfiguraci aplikace se používá port 443.
 
-1. Při nasazování na virtuální počítač Azure otevřete porty ve [skupině zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následujících příkazech a konfiguraci aplikace se používá port 443.
+1. Při nasazování do virtuálního počítače Azure otevřete porty ve [skupině zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následujících příkazech a konfiguraci aplikace se používá port 443.
 
-1. V případě potřeby Získejte a nainstalujte certifikáty X. 509.
+1. V případě potřeby získejte a nainstalujte certifikáty X.509.
 
-   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+   V systému Windows vytvořte certifikáty podepsané svým držitelem pomocí [rutiny prostředí New-SelfSignedCertificate PowerShell](/powershell/module/pkiclient/new-selfsignedcertificate). Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome.ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
 
-   Nainstalujte certifikáty podepsané svým držitelem nebo certifikační autoritou v **místním počítači** serveru > **osobním** úložišti.
+   Nainstalujte certifikáty podepsané svým držitelem nebo certifikáty podepsané certifikační autoritou do **osobního** úložiště **místního počítače** > na serveru.
 
-1. Pokud se jedná o [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte rozhraní .NET core, .NET Framework nebo obojí (Pokud je aplikace aplikace .NET Core cílící na .NET Framework).
+1. Pokud je aplikace [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte .NET Core, .NET Framework nebo obojí (pokud je aplikace .NET Core aplikace cílení na rozhraní .NET Framework).
 
-   * **.NET core** &ndash; Pokud aplikace vyžaduje .NET Core, Získejte a spusťte instalační program **modulu runtime .NET Core** ze [souborů ke stažení pro .NET Core](https://dotnet.microsoft.com/download). Neinstalujte na server plnou sadu SDK.
-   * **.NET Framework** &ndash;, pokud aplikace vyžaduje .NET Framework, přečtěte si [Průvodce instalací .NET Framework](/dotnet/framework/install/). Nainstalujte požadovanou .NET Framework. Instalační program pro nejnovější .NET Framework je k dispozici na stránce [soubory ke stažení pro .NET Core](https://dotnet.microsoft.com/download) .
+   * **.NET Core** &ndash; Pokud aplikace vyžaduje .NET Core, získejte a spusťte instalační program **.NET Core Runtime** z [souborů .NET Core Downloads](https://dotnet.microsoft.com/download). Neinstalujte úplnou sadu SDK na server.
+   * **Rozhraní .NET Framework:** &ndash; Pokud aplikace vyžaduje rozhraní .NET Framework, přečtěte si [příručku k instalaci rozhraní .NET Framework](/dotnet/framework/install/). Nainstalujte požadovanou architekturu .NET Framework. Instalační program pro nejnovější rozhraní .NET Framework je k dispozici na stránce [Stahování jádra .NET.](https://dotnet.microsoft.com/download)
 
-   Pokud je aplikace samostatným [nasazením](/dotnet/core/deploying/#self-contained-deployments-scd), aplikace zahrne modul runtime do svého nasazení. Na serveru není nutná žádná instalace rozhraní.
+   Pokud je aplikace [samostatné nasazení](/dotnet/core/deploying/#self-contained-deployments-scd), aplikace obsahuje runtime v jeho nasazení. Na serveru není vyžadována žádná instalace architektury.
 
-1. Konfigurace adres URL a portů v aplikaci
+1. Konfigurace adres URL a portů v aplikaci.
 
-   Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000`. Pokud chcete nakonfigurovat předpony a porty adresy URL, můžete použít tyto možnosti:
+   Ve výchozím nastavení se `http://localhost:5000`ASP.NET jádro váže na . Chcete-li nakonfigurovat předpony adres URL a porty, možnosti zahrnují:
 
    * <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*>
-   * `urls` argument příkazového řádku
-   * `ASPNETCORE_URLS` proměnná prostředí
+   * `urls`argument příkazového řádku
+   * `ASPNETCORE_URLS`proměnná prostředí
    * <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes>
 
-   Následující příklad kódu ukazuje, jak použít <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou serveru `10.0.0.4` na portu 443:
+   Následující příklad kódu ukazuje, <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> jak se používat s `10.0.0.4` místní IP adresou serveru na portu 443:
 
    [!code-csharp[](httpsys/samples_snapshot/2.x/Program.cs?highlight=6)]
 
-   Výhodou `UrlPrefixes` je, že se okamžitě generuje chybová zpráva pro nesprávně naformátované předpony.
+   Výhodou `UrlPrefixes` je, že chybová zpráva je generována okamžitě pro nesprávně formátované předpony.
 
-   Nastavení v `UrlPrefixes` přepsat `UseUrls`nastavení /`urls`/`ASPNETCORE_URLS`. Proto je výhodou `UseUrls`, `urls`a `ASPNETCORE_URLS` proměnnou prostředí, že je snazší přepínat mezi Kestrel a HTTP. sys.
+   Nastavení v `UrlPrefixes` nastavení `UseUrls` / `urls` / `ASPNETCORE_URLS` přepsání. Výhodou aplikace `UseUrls`, `urls`a proměnné `ASPNETCORE_URLS` prostředí je proto, že je snazší přepínat mezi kestrelem a protokolem HTTP.sys.
 
-   HTTP. sys používá [formáty řetězce UrlPrefix HTTP serveru API](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx).
+   Protokol HTTP.sys používá [formáty řetězců URLPrefix rozhraní HTTP Server.](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
 
    > [!WARNING]
-   > **Nesmí** být použita vazba zástupných znaků nejvyšší úrovně (`http://*:80/` a `http://+:80`). Vazby na zástupné znaky na nejvyšší úrovni vytvoří chyby zabezpečení aplikace. To platí pro silné a slabé zástupné znaky. Místo zástupných znaků použijte explicitní názvy hostitelů nebo IP adresy. Vazba zástupných znaků subdomény (například `*.mysub.com`) není bezpečnostním rizikem, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [dokumentu RFC 7230: oddíl 5,4: Host](https://tools.ietf.org/html/rfc7230#section-5.4).
+   > Vazby se zástupnými`http://*:80/` symboly nejvyšší úrovně ( a `http://+:80`) by **neměly** být používány. Vazby se zástupnými znaky nejvyšší úrovně vytvářejí chyby zabezpečení aplikace. To platí pro silné i slabé zástupné znaky. Používejte explicitní názvy hostitelů nebo adresy IP místo zástupných znaků. Vazba se zástupnými znaky subdomény (například ) není bezpečnostní riziko, `*.mysub.com`pokud `*.com`řídíte celou nadřazenou doménu (na rozdíl od , která je zranitelná). Další informace naleznete v [tématu RFC 7230: Oddíl 5.4: Host](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-1. Předregistrujte předpony adresy URL na serveru.
+1. Předpony url předregister na serveru.
 
-   Integrovaný nástroj pro konfiguraci souboru HTTP. sys je *netsh. exe*. pomocí *nástroje Netsh. exe* můžete rezervovat PŘEDPONY adres URL a přiřazovat certifikáty X. 509. Nástroj vyžaduje oprávnění správce.
+   Vestavěný nástroj pro konfiguraci http.sys je *netsh.exe*. *netsh.exe* se používá k rezervaci předpon URL a přiřazení certifikátů X.509. Nástroj vyžaduje oprávnění správce.
 
-   Registrace adres URL pro aplikaci pomocí nástroje *netsh. exe* :
+   Pomocí nástroje *netsh.exe* zaregistrujte adresy URL aplikace:
 
    ```console
    netsh http add urlacl url=<URL> user=<USER>
    ```
 
-   * `<URL>` &ndash; plně kvalifikované adresy URL (Uniform Resource Locator). Nepoužívejte vazbu zástupných znaků. Použijte platný název hostitele nebo místní IP adresu. *Adresa URL musí obsahovat koncové lomítko.*
-   * `<USER>` &ndash; určuje jméno uživatele nebo název skupiny.
+   * `<URL>`&ndash; Plně kvalifikovaný jednotný lokátor zdrojů (URL). Nepoužívejte vazby zástupných symbolů. Použijte platný název hostitele nebo místní ADRESU IP. *Adresa URL musí obsahovat koncové lomítko.*
+   * `<USER>`&ndash; Určuje název uživatele nebo skupiny uživatelů.
 
-   V následujícím příkladu je místní IP adresa serveru `10.0.0.4`:
+   V následujícím příkladu je `10.0.0.4`místní IP adresa serveru :
 
    ```console
    netsh http add urlacl url=https://10.0.0.4:443/ user=Users
    ```
 
-   Když je adresa URL registrována, nástroj odpoví pomocí `URL reservation successfully added`.
+   Když je adresa URL zaregistrována, nástroj odpoví pomocí . `URL reservation successfully added`
 
-   Pokud chcete odstranit registrovanou adresu URL, použijte příkaz `delete urlacl`:
+   Chcete-li odstranit registrovanou `delete urlacl` adresu URL, použijte příkaz:
 
    ```console
    netsh http delete urlacl url=<URL>
    ```
 
-1. Zaregistrujte certifikáty X. 509 na serveru.
+1. Zaregistrujte certifikáty X.509 na serveru.
 
-   K registraci certifikátů pro aplikaci použijte nástroj *netsh. exe* :
+   Pomocí nástroje *netsh.exe* zaregistrujte certifikáty pro aplikaci:
 
    ```console
    netsh http add sslcert ipport=<IP>:<PORT> certhash=<THUMBPRINT> appid="{<GUID>}"
    ```
 
-   * `<IP>` &ndash; určuje místní IP adresu pro vazbu. Nepoužívejte vazbu zástupných znaků. Použijte platnou IP adresu.
-   * `<PORT>` &ndash; Určuje port pro vazbu.
-   * `<THUMBPRINT>` &ndash; kryptografický otisk certifikátu X. 509.
-   * `<GUID>` &ndash; identifikátor GUID generovaný vývojářem, který představuje aplikaci pro informativní účely.
+   * `<IP>`&ndash; Určuje místní adresu IP pro vazbu. Nepoužívejte vazby zástupných symbolů. Použijte platnou adresu IP.
+   * `<PORT>`&ndash; Určuje port pro vazbu.
+   * `<THUMBPRINT>`&ndash; Kryptografický otisk certifikátu X.509.
+   * `<GUID>`&ndash; Identifikátor GUID generovaný vývojářem, který představuje aplikaci pro informační účely.
 
    Pro referenční účely uložte identifikátor GUID do aplikace jako značku balíčku:
 
    * V sadě Visual Studio:
-     * Otevřete vlastnosti projektu aplikace tak, že kliknete pravým tlačítkem na aplikaci v **Průzkumník řešení** a vyberete **vlastnosti**.
-     * Vyberte kartu **balíček** .
-     * Zadejte identifikátor GUID, který jste vytvořili v poli **značky** .
-   * Když nepoužíváte Visual Studio:
+     * Otevřete vlastnosti projektu aplikace kliknutím pravým tlačítkem myši na aplikaci v **Průzkumníku řešení** a výběrem **možnosti Vlastnosti**.
+     * Vyberte kartu **Balíček.**
+     * Zadejte identifikátor GUID, který jste vytvořili, do pole **Značky.**
+   * Pokud nepoužíváte Visual Studio:
      * Otevřete soubor projektu aplikace.
-     * Přidejte vlastnost `<PackageTags>` k novému nebo existujícímu `<PropertyGroup>` s identifikátorem GUID, který jste vytvořili:
+     * Přidejte `<PackageTags>` vlastnost do nové `<PropertyGroup>` nebo existující s identifikátorem GUID, který jste vytvořili:
 
        ```xml
        <PropertyGroup>
@@ -728,8 +728,8 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
    V následujícím příkladu:
 
-   * Místní IP adresa serveru je `10.0.0.4`.
-   * Generátor náhodných identifikátorů GUID online poskytuje `appid`ou hodnotu.
+   * Místní ADRESA IP serveru `10.0.0.4`je .
+   * Online generátor náhodných identifikátorů GUID poskytuje hodnotu. `appid`
 
    ```console
    netsh http add sslcert 
@@ -738,38 +738,38 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
        appid="{9412ee86-c21b-4eb8-bd89-f650fbf44931}"
    ```
 
-   Když je certifikát zaregistrován, nástroj odpoví `SSL Certificate successfully added`.
+   Při registraci certifikátu nástroj odpoví `SSL Certificate successfully added`pomocí .
 
-   Chcete-li odstranit registraci certifikátu, použijte příkaz `delete sslcert`:
+   Chcete-li odstranit registraci `delete sslcert` certifikátu, použijte příkaz:
 
    ```console
    netsh http delete sslcert ipport=<IP>:<PORT>
    ```
 
-   Referenční dokumentace k nástroji *netsh. exe*:
+   Referenční dokumentace pro *netsh.exe*:
 
-   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](https://technet.microsoft.com/library/cc725882.aspx)
-   * [UrlPrefix řetězce](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
+   * [Příkazy Netsh pro protokol HTTP (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [Řetězce urlprefix](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
 
 1. Spusťte aplikaci.
 
-   Oprávnění správce nejsou nutná ke spuštění aplikace při vytváření vazby na localhost pomocí protokolu HTTP (ne HTTPS) s číslem portu větším než 1024. U ostatních konfigurací (například pomocí místní IP adresy nebo vazby na port 443) spusťte aplikaci s oprávněními správce.
+   Oprávnění správce nejsou nutné ke spuštění aplikace při vazbě na localhost pomocí PROTOKOLU HTTP (nikoli HTTPS) s číslem portu větší než 1024. Pro ostatní konfigurace (například pomocí místní IP adresy nebo vazby na port 443) spusťte aplikaci s oprávněními správce.
 
-   Aplikace odpoví na veřejnou IP adresu serveru. V tomto příkladu je server dosažitelný z Internetu na jeho veřejné IP adrese `104.214.79.47`.
+   Aplikace reaguje na veřejnou IP adresu serveru. V tomto příkladu je server osloven z Internetu `104.214.79.47`na jeho veřejné IP adrese .
 
-   V tomto příkladu se používá vývojový certifikát. Stránka se načte bezpečně po obejít upozornění na nedůvěryhodný certifikát v prohlížeči.
+   V tomto příkladu se používá certifikát vývoje. Stránka se načte bezpečně po vynechání upozornění nedůvěryhodného certifikátu prohlížeče.
 
-   ![Okno prohlížeče zobrazující načtenou stránku indexu aplikace](httpsys/_static/browser.png)
+   ![Okno prohlížeče zobrazující načtenou stránku Indexu aplikace](httpsys/_static/browser.png)
 
-## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
+## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a vyrovnávání zatížení
 
-Pro aplikace hostované souborem HTTP. sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+U aplikací hostovaných protokolem HTTP.sys, které interagují s požadavky z Internetu nebo podnikové sítě, může být při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadována další konfigurace. Další informace naleznete v [tématu Configure ASP.NET Core to work with proxy servers and load balancers](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Povolit ověřování systému Windows pomocí HTTP. sys](xref:security/authentication/windowsauth#httpsys)
+* [Povolení ověřování systému Windows pomocí protokolu HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
-* [úložiště GitHubu ASPNET/HttpSysServer (zdrojový kód)](https://github.com/aspnet/HttpSysServer/)
+* [úložiště aspnet/HttpSysServer GitHub (zdrojový kód)](https://github.com/aspnet/HttpSysServer/)
 * [Hostitel](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>
 
@@ -777,12 +777,12 @@ Pro aplikace hostované souborem HTTP. sys, které komunikují s požadavky z In
 
 ::: moniker range="< aspnetcore-2.2"
 
-[Http. sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webový server pro ASP.NET Core](xref:fundamentals/servers/index) , který běží pouze v systému Windows. HTTP. sys je alternativou k serveru [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
+[HTTP.sys](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#hypertext-transfer-protocol-stack-httpsys) je [webový server pro ASP.NET Core,](xref:fundamentals/servers/index) který běží pouze v systému Windows. HTTP.sys je alternativou k serveru [Kestrel](xref:fundamentals/servers/kestrel) a nabízí některé funkce, které Kestrel neposkytuje.
 
 > [!IMPORTANT]
-> HTTP. sys není kompatibilní s [modulem ASP.NET Core](xref:host-and-deploy/aspnet-core-module) a nedá se použít se službou IIS nebo IIS Express.
+> Soubor HTTP.sys není kompatibilní s [ASP.NET základního modulu](xref:host-and-deploy/aspnet-core-module) a nelze jej použít se službou IIS nebo službou IIS Express.
 
-HTTP. sys podporuje následující funkce:
+HTTP.sys podporuje následující funkce:
 
 * [Ověřování systému Windows](xref:security/authentication/windowsauth)
 * Sdílení portů
@@ -797,181 +797,181 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/servers/httpsys/samples) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="when-to-use-httpsys"></a>Kdy použít protokol HTTP. sys
+## <a name="when-to-use-httpsys"></a>Kdy použít soubor HTTP.sys
 
-HTTP. sys je užitečné pro nasazení, kde:
+Http.sys je užitečné pro nasazení, kde:
 
-* Server je potřeba zveřejnit přímo na internetu bez použití IIS.
+* Je třeba vystavit server přímo na Internetu bez použití služby IIS.
 
-  ![HTTP. sys komunikuje přímo s internetem.](httpsys/_static/httpsys-to-internet.png)
+  ![HTTP.sys komunikuje přímo s Internetem](httpsys/_static/httpsys-to-internet.png)
 
-* Interní nasazení vyžaduje funkci, která není v Kestrel k dispozici, jako je například [ověřování systému Windows](xref:security/authentication/windowsauth).
+* Interní nasazení vyžaduje funkci, která není v kestrelu k dispozici, například [ověřování systému Windows](xref:security/authentication/windowsauth).
 
-  ![HTTP. sys komunikuje přímo s interní sítí.](httpsys/_static/httpsys-to-internal.png)
+  ![HTTP.sys komunikuje přímo s interní sítí](httpsys/_static/httpsys-to-internal.png)
 
-HTTP. sys je Vyspělá technologie, která chrání před mnoha typy útoků a poskytuje odolnost, zabezpečení a škálovatelnost plně funkčního webového serveru. Samotná služba IIS běží jako naslouchací proces HTTP nad HTTP. sys.
+HTTP.sys je vyspělá technologie, která chrání před mnoha typy útoků a poskytuje robustnost, zabezpečení a škálovatelnost plně vybaveného webového serveru. Samotná iis běží jako naslouchací proces HTTP nad http.sys.
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
-[Protokol HTTP/2](https://httpwg.org/specs/rfc7540.html) je povolený pro aplikace ASP.NET Core, pokud jsou splněné následující základní požadavky:
+[HTTP/2](https://httpwg.org/specs/rfc7540.html) je povolena pro ASP.NET základní aplikace, pokud jsou splněny následující základní požadavky:
 
 * Windows Server 2016/Windows 10 nebo novější
-* Připojení [ALPN (Application-Layer Protocol Negotiation)](https://tools.ietf.org/html/rfc7301#section-3)
-* Protokol TLS 1.2 nebo vyšší připojení
+* Připojení [protokolu ap (APPLICATION-Layer Protocol) (ALPN)](https://tools.ietf.org/html/rfc7301#section-3)
+* Připojení TLS 1.2 nebo novější
 
-Pokud je navázáno připojení HTTP/2, `HTTP/1.1`sestavy [protokolu HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
+Pokud je navázáno připojení HTTP/2, `HTTP/1.1`protokol [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) hlásí .
 
-HTTP/2 je standardně povolená. Pokud připojení HTTP/2 není navázáno, připojení se vrátí k HTTP/1.1. V budoucí verzi Windows budou k dispozici příznaky konfigurace protokolu HTTP/2, včetně možnosti zakázat protokol HTTP/2 s protokolem HTTP. sys.
+Protokol HTTP/2 je ve výchozím nastavení povolen. Pokud není navázáno připojení HTTP/2, připojení přejde zpět na HTTP/1.1. V budoucí verzi systému Windows budou k dispozici příznaky konfigurace HTTP/2, včetně možnosti zakázat protokol HTTP/2 pomocí protokolu HTTP.sys.
 
 ## <a name="kernel-mode-authentication-with-kerberos"></a>Ověřování v režimu jádra pomocí protokolu Kerberos
 
-Ovladač HTTP.sys delegáty pro ověřování v režimu jádra ověřování protokolem Kerberos. Režim ověřování uživatele nepodporuje protokolů Kerberos a HTTP.sys. Účet počítače musí být použité k dešifrování token/lístek služby Kerberos, která se získá z Active Directory a předá klienta na serveru k ověření uživatele. Zaregistrujte hlavní název služby (SPN) příslušného hostitele není uživatel aplikace.
+Protokol HTTP.sys deleguje ověřování v režimu jádra pomocí ověřovacího protokolu Kerberos. Ověřování v uživatelském režimu není podporováno protokoly Kerberos a HTTP.sys. Účet počítače musí být použit k dešifrování tokenu nebo lístku protokolu Kerberos, který je získán ze služby Active Directory a předán klientem na server k ověření uživatele. Zaregistrujte hlavní název služby (SPN) pro hostitele, nikoli uživatele aplikace.
 
-## <a name="how-to-use-httpsys"></a>Jak používat HTTP. sys
+## <a name="how-to-use-httpsys"></a>Jak používat http.sys
 
-### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití HTTP. sys
+### <a name="configure-the-aspnet-core-app-to-use-httpsys"></a>Konfigurace aplikace ASP.NET Core pro použití protokolu HTTP.sys
 
-Odkaz na balíček v souboru projektu není vyžadován při použití [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) ([NuGet.org](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)). Pokud nepoužíváte `Microsoft.AspNetCore.App` Metapackage, přidejte odkaz na balíček do [Microsoft. AspNetCore. Server. HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/).
+Odkaz na balíček v souboru projektu není vyžadován při použití [metabalíčku Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app) ([nuget.org](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)). Pokud metabalíček nepoužíváte, `Microsoft.AspNetCore.App` přidejte odkaz na balíček [microsoft.aspNetCore.Server.HttpSys](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.HttpSys/).
 
-Při sestavování hostitele zavolejte metodu rozšíření <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> a určete všechny požadované <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions>. Následující příklad nastaví možnosti na jejich výchozí hodnoty:
+Volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderHttpSysExtensions.UseHttpSys*> metody rozšíření při vytváření hostitele, <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions>zadání mj. Následující příklad nastaví možnosti jejich výchozí hodnoty:
 
 [!code-csharp[](httpsys/samples/2.x/SampleApp/Program.cs?name=snippet1&highlight=4-12)]
 
-Další konfiguraci HTTP. sys bude zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
+Další konfigurace http.sys je zpracována prostřednictvím [nastavení registru](https://support.microsoft.com/help/820129/http-sys-registry-settings-for-windows).
 
-**Možnosti HTTP. sys**
+**Možnosti protokolu HTTP.sys**
 
 | Vlastnost | Popis | Výchozí |
 | -------- | ----------- | :-----: |
-| [AllowSynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Určuje, zda je pro `HttpContext.Request.Body` a `HttpContext.Response.Body`povolen synchronní vstup/výstup. | `true` |
-| [Ověřování. AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povoluje anonymní požadavky. | `true` |
-| [Ověřování. schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Určete povolená schémata ověřování. Může být kdykoli změněno před vyřazením naslouchacího procesu. Hodnoty jsou k dispozici ve [výčtu schémata AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes): `Basic`, `Kerberos`, `Negotiate`, `None`a `NTLM`. | `None` |
-| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokusit se o ukládání do mezipaměti v [režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) pro odpovědi s oprávněnými záhlavími. Odpověď nesmí zahrnovat hlavičky `Set-Cookie`, `Vary`nebo `Pragma`. Musí zahrnovat hlavičku `Cache-Control` `public` a buď hodnotu `shared-max-age` nebo `max-age`, nebo hlavičku `Expires`. | `true` |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijetí. | 5 &times; [prostředí.<br>ProcessorCount](xref:System.Environment.ProcessorCount) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení, která se mají přijmout Použijte `-1` pro nekonečné. Pomocí `null` můžete použít nastavení pro počítač v rámci registru. | `null`<br>(počítačově v šířce<br>nastavením |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize</a> . | 30000000 bajtů<br>(~ 28,6 MB) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které lze zařadit do fronty. | 1000 |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Určuje, jestli tělo odpovědi zapisuje, které selhalo kvůli odpojení klienta, by mělo vyvolat výjimky nebo dokončit normálně. | `false`<br>(normálně dokončit) |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavte konfiguraci <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> HTTP. sys, která může být v registru nakonfigurovaná taky. Pomocí odkazů rozhraní API získáte další informace o jednotlivých nastaveních, včetně výchozích hodnot:<ul><li>[TimeoutManager. DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; dobu povolenou pro rozhraní API serveru http, které má vyprázdnit tělo entity u připojení Keep-Alive.</li><li>[TimeoutManager. EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; čas povolený pro doručení těla entity požadavku.</li><li>[TimeoutManager. HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; dobu povolenou pro rozhraní API serveru http, aby bylo možné analyzovat hlavičku požadavku.</li><li>[TimeoutManager. IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; čas povolený pro nečinné připojení.</li><li>[TimeoutManager. MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; minimální přenosovou rychlost odeslání odpovědi.</li><li>[TimeoutManager. RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; čas, který může požadavek zůstat ve frontě požadavků předtím, než ji aplikace vybere.</li></ul> |  |
-| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection>, který se má zaregistrovat v HTTP. sys. Nejužitečnější je [UrlPrefixCollection. Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být kdykoliv změněny předtím, než se naslouchací proces vyřazuje. |  |
+| [PovolitsynchronousIO](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.AllowSynchronousIO) | Ovládejte, zda je synchronní `HttpContext.Request.Body` vstup/výstup povolen pro a . `HttpContext.Response.Body` | `true` |
+| [Ověřování.AllowAnonymous](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.AllowAnonymous) | Povolit anonymní požadavky. | `true` |
+| [Ověřování.Schémata](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationManager.Schemes) | Zadejte povolená schémata ověřování. Může být změněn kdykolipřed likvidací posluchače. Hodnoty jsou uvedeny ve [výčtu AuthenticationSchemes](xref:Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes) `Basic`: , `Kerberos` `Negotiate`, `None`, a `NTLM`. | `None` |
+| [EnableResponseCaching](xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.EnableResponseCaching) | Pokus te se o ukládání odpovědí do [mezipaměti v režimu jádra](/windows-hardware/drivers/gettingstarted/user-mode-and-kernel-mode) s způsobilými záhlavími. Odpověď nesmí `Set-Cookie`obsahovat `Vary`hlavičky nebo `Pragma` záhlaví . Musí obsahovat `Cache-Control` záhlaví, `public` které je `shared-max-age` `max-age` a nebo `Expires` hodnota, nebo záhlaví. | `true` |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxAccepts> | Maximální počet souběžných přijímá. | 5 &times; [Životní<br> prostředí. Počet procesorů](xref:System.Environment.ProcessorCount) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxConnections> | Maximální počet souběžných připojení přijmout. Použít `-1` pro nekonečno. Slouží `null` k použití nastavení celého počítače v registru. | `null`<br>(celostrojově<br>nastavení) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> | Viz část <a href="#maxrequestbodysize">MaxRequestBodySize.</a> | 30000000 bajtů<br>(~28,6 MB) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.RequestQueueLimit> | Maximální počet požadavků, které mohou být zařazeny do fronty. | 1000 |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.ThrowWriteExceptions> | Označte, zda by zápisy v těle odpovědi, které se nezdaří z důvodu odpojení klienta, měly vyvolat výjimky nebo je dokončit normálně. | `false`<br>(kompletní normálně) |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.Timeouts> | Vystavit konfiguraci HTTP.sys, <xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager> která může být také nakonfigurována v registru. Další informace o jednotlivých nastaveních, včetně výchozích hodnot, najdete v odkazech rozhraní API:<ul><li>[TimeoutManager.DrainEntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.DrainEntityBody) &ndash; Čas povolen pro rozhraní API http serveru vyprázdnit tělo entity na keep-alive připojení.</li><li>[TimeoutManager.EntityBody](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.EntityBody) &ndash; Čas povolen pro tělo entity požadavku k doručení.</li><li>[TimeoutManager.HeaderWait](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.HeaderWait) &ndash; Čas povolen pro rozhraní API serveru HTTP analyzovat hlavičku požadavku.</li><li>[TimeoutManager.IdleConnection](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.IdleConnection) &ndash; Čas povolen pro nečinné připojení.</li><li>[TimeoutManager.MinSendBytesPerSecond](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.MinSendBytesPerSecond) &ndash; Minimální rychlost odesílání pro odpověď.</li><li>[TimeoutManager.RequestQueue](xref:Microsoft.AspNetCore.Server.HttpSys.TimeoutManager.RequestQueue) &ndash; Čas povolen pro požadavek zůstat ve frontě požadavků před aplikace zvedne.</li></ul> |  |
+| <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> | Zadejte <xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection> registraci pomocí souboru HTTP.sys. Nejužitečnější je [UrlPrefixCollection.Add](xref:Microsoft.AspNetCore.Server.HttpSys.UrlPrefixCollection.Add*), který se používá k přidání předpony do kolekce. Ty mohou být změněny kdykolipřed likvidací posluchače. |  |
 
 <a name="maxrequestbodysize"></a>
 
-**MaxRequestBodySize**
+**Velikost maxrequestbodysize**
 
-Maximální povolená velikost libovolného textu žádosti v bajtech Pokud je nastavena hodnota `null`, maximální velikost textu požadavku je neomezená. Toto omezení nemá žádný vliv na upgradovaná připojení, která jsou vždycky neomezená.
+Maximální povolená velikost libovolného těla požadavku v bajtech. Pokud je `null`nastavena na , maximální velikost těla požadavku je neomezená. Toto omezení nemá žádný vliv na inovovaná připojení, která jsou vždy neomezená.
 
-Doporučená metoda pro přepsání limitu v aplikaci ASP.NET Core MVC pro jednu `IActionResult` je použití atributu <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> u metody Action:
+Doporučená metoda přepsat limit v aplikaci ASP.NET Core MVC pro jeden `IActionResult` je použít <xref:Microsoft.AspNetCore.Mvc.RequestSizeLimitAttribute> atribut na metodu akce:
 
 ```csharp
 [RequestSizeLimit(100000000)]
 public IActionResult MyActionMethod()
 ```
 
-Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit žádosti poté, co aplikace začne číst požadavek. Vlastnost `IsReadOnly` lze použít k označení, zda je vlastnost `MaxRequestBodySize` ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
+Výjimka je vyvolána, pokud se aplikace pokusí nakonfigurovat limit na požadavek poté, co aplikace začala číst požadavek. Vlastnost `IsReadOnly` lze použít k označení, pokud je `MaxRequestBodySize` vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě na konfiguraci limitu.
 
-Pokud by měla aplikace přepsat <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> podle požadavků, použijte <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>:
+Pokud by aplikace <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.MaxRequestBodySize> měla přepsat na <xref:Microsoft.AspNetCore.Http.Features.IHttpMaxRequestBodySizeFeature>žádost, použijte :
 
 [!code-csharp[](httpsys/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=6-7)]
 
-Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná tak, aby spouštěla službu IIS nebo IIS Express.
+Pokud používáte Visual Studio, ujistěte se, že aplikace není nakonfigurovaná pro spuštění služby IIS nebo Služby IIS Express.
 
-V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcete-li spustit projekt jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
+V sadě Visual Studio je výchozí profil spuštění pro iis express. Chcete-li projekt spustit jako konzolovou aplikaci, ručně změňte vybraný profil, jak je znázorněno na následujícím snímku obrazovky:
 
-![Vybrat profil aplikace konzoly](httpsys/_static/vs-choose-profile.png)
+![Výběr profilu konzolové aplikace](httpsys/_static/vs-choose-profile.png)
 
-### <a name="configure-windows-server"></a>Konfigurace Windows serveru
+### <a name="configure-windows-server"></a>Konfigurace systému Windows Server
 
-1. Určete porty, které se mají otevřít pro aplikaci, a pomocí [brány Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo rutiny [New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) prostředí PowerShell otevřete porty brány firewall, aby bylo možné provozovat přes protokol HTTP. sys. V následujících příkazech a konfiguraci aplikace se používá port 443.
+1. Určete porty, které chcete pro aplikaci otevřít, a pomocí brány [Windows Firewall](/windows/security/threat-protection/windows-firewall/create-an-inbound-port-rule) nebo rutiny [Prostředí PowerShell New-NetFirewallRule](/powershell/module/netsecurity/new-netfirewallrule) otevřete porty brány firewall, abyste umožnili přenosy dosáhnout souboru HTTP.sys. V následujících příkazech a konfiguraci aplikace se používá port 443.
 
-1. Při nasazování na virtuální počítač Azure otevřete porty ve [skupině zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následujících příkazech a konfiguraci aplikace se používá port 443.
+1. Při nasazování do virtuálního počítače Azure otevřete porty ve [skupině zabezpečení sítě](/azure/virtual-machines/windows/nsg-quickstart-portal). V následujících příkazech a konfiguraci aplikace se používá port 443.
 
-1. V případě potřeby Získejte a nainstalujte certifikáty X. 509.
+1. V případě potřeby získejte a nainstalujte certifikáty X.509.
 
-   V systému Windows vytvořte pomocí [rutiny prostředí PowerShell New-SelfSignedCertificate](/powershell/module/pkiclient/new-selfsignedcertificate)certifikáty podepsané svým držitelem. Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome. ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
+   V systému Windows vytvořte certifikáty podepsané svým držitelem pomocí [rutiny prostředí New-SelfSignedCertificate PowerShell](/powershell/module/pkiclient/new-selfsignedcertificate). Nepodporovaný příklad naleznete v tématu [UpdateIISExpressSSLForChrome.ps1](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/includes/make-x509-cert/UpdateIISExpressSSLForChrome.ps1).
 
-   Nainstalujte certifikáty podepsané svým držitelem nebo certifikační autoritou v **místním počítači** serveru > **osobním** úložišti.
+   Nainstalujte certifikáty podepsané svým držitelem nebo certifikáty podepsané certifikační autoritou do **osobního** úložiště **místního počítače** > na serveru.
 
-1. Pokud se jedná o [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte rozhraní .NET core, .NET Framework nebo obojí (Pokud je aplikace aplikace .NET Core cílící na .NET Framework).
+1. Pokud je aplikace [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd), nainstalujte .NET Core, .NET Framework nebo obojí (pokud je aplikace .NET Core aplikace cílení na rozhraní .NET Framework).
 
-   * **.NET core** &ndash; Pokud aplikace vyžaduje .NET Core, Získejte a spusťte instalační program **modulu runtime .NET Core** ze [souborů ke stažení pro .NET Core](https://dotnet.microsoft.com/download). Neinstalujte na server plnou sadu SDK.
-   * **.NET Framework** &ndash;, pokud aplikace vyžaduje .NET Framework, přečtěte si [Průvodce instalací .NET Framework](/dotnet/framework/install/). Nainstalujte požadovanou .NET Framework. Instalační program pro nejnovější .NET Framework je k dispozici na stránce [soubory ke stažení pro .NET Core](https://dotnet.microsoft.com/download) .
+   * **.NET Core** &ndash; Pokud aplikace vyžaduje .NET Core, získejte a spusťte instalační program **.NET Core Runtime** z [souborů .NET Core Downloads](https://dotnet.microsoft.com/download). Neinstalujte úplnou sadu SDK na server.
+   * **Rozhraní .NET Framework:** &ndash; Pokud aplikace vyžaduje rozhraní .NET Framework, přečtěte si [příručku k instalaci rozhraní .NET Framework](/dotnet/framework/install/). Nainstalujte požadovanou architekturu .NET Framework. Instalační program pro nejnovější rozhraní .NET Framework je k dispozici na stránce [Stahování jádra .NET.](https://dotnet.microsoft.com/download)
 
-   Pokud je aplikace samostatným [nasazením](/dotnet/core/deploying/#self-contained-deployments-scd), aplikace zahrne modul runtime do svého nasazení. Na serveru není nutná žádná instalace rozhraní.
+   Pokud je aplikace [samostatné nasazení](/dotnet/core/deploying/#self-contained-deployments-scd), aplikace obsahuje runtime v jeho nasazení. Na serveru není vyžadována žádná instalace architektury.
 
-1. Konfigurace adres URL a portů v aplikaci
+1. Konfigurace adres URL a portů v aplikaci.
 
-   Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000`. Pokud chcete nakonfigurovat předpony a porty adresy URL, můžete použít tyto možnosti:
+   Ve výchozím nastavení se `http://localhost:5000`ASP.NET jádro váže na . Chcete-li nakonfigurovat předpony adres URL a porty, možnosti zahrnují:
 
    * <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*>
-   * `urls` argument příkazového řádku
-   * `ASPNETCORE_URLS` proměnná prostředí
+   * `urls`argument příkazového řádku
+   * `ASPNETCORE_URLS`proměnná prostředí
    * <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes>
 
-   Následující příklad kódu ukazuje, jak použít <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> s místní IP adresou serveru `10.0.0.4` na portu 443:
+   Následující příklad kódu ukazuje, <xref:Microsoft.AspNetCore.Server.HttpSys.HttpSysOptions.UrlPrefixes> jak se používat s `10.0.0.4` místní IP adresou serveru na portu 443:
 
    [!code-csharp[](httpsys/samples_snapshot/2.x/Program.cs?highlight=6)]
 
-   Výhodou `UrlPrefixes` je, že se okamžitě generuje chybová zpráva pro nesprávně naformátované předpony.
+   Výhodou `UrlPrefixes` je, že chybová zpráva je generována okamžitě pro nesprávně formátované předpony.
 
-   Nastavení v `UrlPrefixes` přepsat `UseUrls`nastavení /`urls`/`ASPNETCORE_URLS`. Proto je výhodou `UseUrls`, `urls`a `ASPNETCORE_URLS` proměnnou prostředí, že je snazší přepínat mezi Kestrel a HTTP. sys.
+   Nastavení v `UrlPrefixes` nastavení `UseUrls` / `urls` / `ASPNETCORE_URLS` přepsání. Výhodou aplikace `UseUrls`, `urls`a proměnné `ASPNETCORE_URLS` prostředí je proto, že je snazší přepínat mezi kestrelem a protokolem HTTP.sys.
 
-   HTTP. sys používá [formáty řetězce UrlPrefix HTTP serveru API](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx).
+   Protokol HTTP.sys používá [formáty řetězců URLPrefix rozhraní HTTP Server.](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
 
    > [!WARNING]
-   > **Nesmí** být použita vazba zástupných znaků nejvyšší úrovně (`http://*:80/` a `http://+:80`). Vazby na zástupné znaky na nejvyšší úrovni vytvoří chyby zabezpečení aplikace. To platí pro silné a slabé zástupné znaky. Místo zástupných znaků použijte explicitní názvy hostitelů nebo IP adresy. Vazba zástupných znaků subdomény (například `*.mysub.com`) není bezpečnostním rizikem, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [dokumentu RFC 7230: oddíl 5,4: Host](https://tools.ietf.org/html/rfc7230#section-5.4).
+   > Vazby se zástupnými`http://*:80/` symboly nejvyšší úrovně ( a `http://+:80`) by **neměly** být používány. Vazby se zástupnými znaky nejvyšší úrovně vytvářejí chyby zabezpečení aplikace. To platí pro silné i slabé zástupné znaky. Používejte explicitní názvy hostitelů nebo adresy IP místo zástupných znaků. Vazba se zástupnými znaky subdomény (například ) není bezpečnostní riziko, `*.mysub.com`pokud `*.com`řídíte celou nadřazenou doménu (na rozdíl od , která je zranitelná). Další informace naleznete v [tématu RFC 7230: Oddíl 5.4: Host](https://tools.ietf.org/html/rfc7230#section-5.4).
 
-1. Předregistrujte předpony adresy URL na serveru.
+1. Předpony url předregister na serveru.
 
-   Integrovaný nástroj pro konfiguraci souboru HTTP. sys je *netsh. exe*. pomocí *nástroje Netsh. exe* můžete rezervovat PŘEDPONY adres URL a přiřazovat certifikáty X. 509. Nástroj vyžaduje oprávnění správce.
+   Vestavěný nástroj pro konfiguraci http.sys je *netsh.exe*. *netsh.exe* se používá k rezervaci předpon URL a přiřazení certifikátů X.509. Nástroj vyžaduje oprávnění správce.
 
-   Registrace adres URL pro aplikaci pomocí nástroje *netsh. exe* :
+   Pomocí nástroje *netsh.exe* zaregistrujte adresy URL aplikace:
 
    ```console
    netsh http add urlacl url=<URL> user=<USER>
    ```
 
-   * `<URL>` &ndash; plně kvalifikované adresy URL (Uniform Resource Locator). Nepoužívejte vazbu zástupných znaků. Použijte platný název hostitele nebo místní IP adresu. *Adresa URL musí obsahovat koncové lomítko.*
-   * `<USER>` &ndash; určuje jméno uživatele nebo název skupiny.
+   * `<URL>`&ndash; Plně kvalifikovaný jednotný lokátor zdrojů (URL). Nepoužívejte vazby zástupných symbolů. Použijte platný název hostitele nebo místní ADRESU IP. *Adresa URL musí obsahovat koncové lomítko.*
+   * `<USER>`&ndash; Určuje název uživatele nebo skupiny uživatelů.
 
-   V následujícím příkladu je místní IP adresa serveru `10.0.0.4`:
+   V následujícím příkladu je `10.0.0.4`místní IP adresa serveru :
 
    ```console
    netsh http add urlacl url=https://10.0.0.4:443/ user=Users
    ```
 
-   Když je adresa URL registrována, nástroj odpoví pomocí `URL reservation successfully added`.
+   Když je adresa URL zaregistrována, nástroj odpoví pomocí . `URL reservation successfully added`
 
-   Pokud chcete odstranit registrovanou adresu URL, použijte příkaz `delete urlacl`:
+   Chcete-li odstranit registrovanou `delete urlacl` adresu URL, použijte příkaz:
 
    ```console
    netsh http delete urlacl url=<URL>
    ```
 
-1. Zaregistrujte certifikáty X. 509 na serveru.
+1. Zaregistrujte certifikáty X.509 na serveru.
 
-   K registraci certifikátů pro aplikaci použijte nástroj *netsh. exe* :
+   Pomocí nástroje *netsh.exe* zaregistrujte certifikáty pro aplikaci:
 
    ```console
    netsh http add sslcert ipport=<IP>:<PORT> certhash=<THUMBPRINT> appid="{<GUID>}"
    ```
 
-   * `<IP>` &ndash; určuje místní IP adresu pro vazbu. Nepoužívejte vazbu zástupných znaků. Použijte platnou IP adresu.
-   * `<PORT>` &ndash; Určuje port pro vazbu.
-   * `<THUMBPRINT>` &ndash; kryptografický otisk certifikátu X. 509.
-   * `<GUID>` &ndash; identifikátor GUID generovaný vývojářem, který představuje aplikaci pro informativní účely.
+   * `<IP>`&ndash; Určuje místní adresu IP pro vazbu. Nepoužívejte vazby zástupných symbolů. Použijte platnou adresu IP.
+   * `<PORT>`&ndash; Určuje port pro vazbu.
+   * `<THUMBPRINT>`&ndash; Kryptografický otisk certifikátu X.509.
+   * `<GUID>`&ndash; Identifikátor GUID generovaný vývojářem, který představuje aplikaci pro informační účely.
 
    Pro referenční účely uložte identifikátor GUID do aplikace jako značku balíčku:
 
    * V sadě Visual Studio:
-     * Otevřete vlastnosti projektu aplikace tak, že kliknete pravým tlačítkem na aplikaci v **Průzkumník řešení** a vyberete **vlastnosti**.
-     * Vyberte kartu **balíček** .
-     * Zadejte identifikátor GUID, který jste vytvořili v poli **značky** .
-   * Když nepoužíváte Visual Studio:
+     * Otevřete vlastnosti projektu aplikace kliknutím pravým tlačítkem myši na aplikaci v **Průzkumníku řešení** a výběrem **možnosti Vlastnosti**.
+     * Vyberte kartu **Balíček.**
+     * Zadejte identifikátor GUID, který jste vytvořili, do pole **Značky.**
+   * Pokud nepoužíváte Visual Studio:
      * Otevřete soubor projektu aplikace.
-     * Přidejte vlastnost `<PackageTags>` k novému nebo existujícímu `<PropertyGroup>` s identifikátorem GUID, který jste vytvořili:
+     * Přidejte `<PackageTags>` vlastnost do nové `<PropertyGroup>` nebo existující s identifikátorem GUID, který jste vytvořili:
 
        ```xml
        <PropertyGroup>
@@ -981,8 +981,8 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
 
    V následujícím příkladu:
 
-   * Místní IP adresa serveru je `10.0.0.4`.
-   * Generátor náhodných identifikátorů GUID online poskytuje `appid`ou hodnotu.
+   * Místní ADRESA IP serveru `10.0.0.4`je .
+   * Online generátor náhodných identifikátorů GUID poskytuje hodnotu. `appid`
 
    ```console
    netsh http add sslcert 
@@ -991,38 +991,38 @@ V aplikaci Visual Studio je výchozím spouštěcím profilem IIS Express. Chcet
        appid="{9412ee86-c21b-4eb8-bd89-f650fbf44931}"
    ```
 
-   Když je certifikát zaregistrován, nástroj odpoví `SSL Certificate successfully added`.
+   Při registraci certifikátu nástroj odpoví `SSL Certificate successfully added`pomocí .
 
-   Chcete-li odstranit registraci certifikátu, použijte příkaz `delete sslcert`:
+   Chcete-li odstranit registraci `delete sslcert` certifikátu, použijte příkaz:
 
    ```console
    netsh http delete sslcert ipport=<IP>:<PORT>
    ```
 
-   Referenční dokumentace k nástroji *netsh. exe*:
+   Referenční dokumentace pro *netsh.exe*:
 
-   * [Příkazy Netsh pro protokol HTTP (Hypertext Transfer Protocol)](https://technet.microsoft.com/library/cc725882.aspx)
-   * [UrlPrefix řetězce](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
+   * [Příkazy Netsh pro protokol HTTP (HTTP)](https://technet.microsoft.com/library/cc725882.aspx)
+   * [Řetězce urlprefix](https://msdn.microsoft.com/library/windows/desktop/aa364698.aspx)
 
 1. Spusťte aplikaci.
 
-   Oprávnění správce nejsou nutná ke spuštění aplikace při vytváření vazby na localhost pomocí protokolu HTTP (ne HTTPS) s číslem portu větším než 1024. U ostatních konfigurací (například pomocí místní IP adresy nebo vazby na port 443) spusťte aplikaci s oprávněními správce.
+   Oprávnění správce nejsou nutné ke spuštění aplikace při vazbě na localhost pomocí PROTOKOLU HTTP (nikoli HTTPS) s číslem portu větší než 1024. Pro ostatní konfigurace (například pomocí místní IP adresy nebo vazby na port 443) spusťte aplikaci s oprávněními správce.
 
-   Aplikace odpoví na veřejnou IP adresu serveru. V tomto příkladu je server dosažitelný z Internetu na jeho veřejné IP adrese `104.214.79.47`.
+   Aplikace reaguje na veřejnou IP adresu serveru. V tomto příkladu je server osloven z Internetu `104.214.79.47`na jeho veřejné IP adrese .
 
-   V tomto příkladu se používá vývojový certifikát. Stránka se načte bezpečně po obejít upozornění na nedůvěryhodný certifikát v prohlížeči.
+   V tomto příkladu se používá certifikát vývoje. Stránka se načte bezpečně po vynechání upozornění nedůvěryhodného certifikátu prohlížeče.
 
-   ![Okno prohlížeče zobrazující načtenou stránku indexu aplikace](httpsys/_static/browser.png)
+   ![Okno prohlížeče zobrazující načtenou stránku Indexu aplikace](httpsys/_static/browser.png)
 
-## <a name="proxy-server-and-load-balancer-scenarios"></a>Proxy server a scénáře pro nástroj pro vyrovnávání zatížení
+## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a vyrovnávání zatížení
 
-Pro aplikace hostované souborem HTTP. sys, které komunikují s požadavky z Internetu nebo podnikové sítě, se může při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadovat další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+U aplikací hostovaných protokolem HTTP.sys, které interagují s požadavky z Internetu nebo podnikové sítě, může být při hostování za proxy servery a nástroji pro vyrovnávání zatížení vyžadována další konfigurace. Další informace naleznete v [tématu Configure ASP.NET Core to work with proxy servers and load balancers](xref:host-and-deploy/proxy-load-balancer).
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Povolit ověřování systému Windows pomocí HTTP. sys](xref:security/authentication/windowsauth#httpsys)
+* [Povolení ověřování systému Windows pomocí protokolu HTTP.sys](xref:security/authentication/windowsauth#httpsys)
 * [Rozhraní API serveru HTTP](https://msdn.microsoft.com/library/windows/desktop/aa364510.aspx)
-* [úložiště GitHubu ASPNET/HttpSysServer (zdrojový kód)](https://github.com/aspnet/HttpSysServer/)
+* [úložiště aspnet/HttpSysServer GitHub (zdrojový kód)](https://github.com/aspnet/HttpSysServer/)
 * [Hostitel](xref:fundamentals/index#host)
 * <xref:test/troubleshoot>
 

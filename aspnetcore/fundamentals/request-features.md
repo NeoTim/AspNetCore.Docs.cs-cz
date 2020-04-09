@@ -1,73 +1,73 @@
 ---
-title: Žádosti o funkce v ASP.NET Core
+title: Funkce požadavku v ASP.NET jádra
 author: ardalis
-description: Přečtěte si o podrobnostech implementace webového serveru souvisejících s požadavky HTTP a odpověďmi, které jsou definované v rozhraních pro ASP.NET Core.
+description: Informace o podrobnostech implementace webového serveru souvisejících s požadavky HTTP a odpověďmi, které jsou definovány v rozhraních pro ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
 uid: fundamentals/request-features
 ms.openlocfilehash: d0f3ae521d1f314dd04cb581d9a921da4719273d
-ms.sourcegitcommit: 98bcf5fe210931e3eb70f82fd675d8679b33f5d6
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/16/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79416224"
 ---
-# <a name="request-features-in-aspnet-core"></a>Žádosti o funkce v ASP.NET Core
+# <a name="request-features-in-aspnet-core"></a>Funkce požadavku v ASP.NET jádra
 
-[Steve Smith](https://ardalis.com/)
+Podle [Steve Smith](https://ardalis.com/)
 
-Implementační detaily webového serveru související s HTTP požadavky a odpověďmi jsou definovány v rozhraních. Tato rozhraní používá implementace serveru a middleware k vytváření a úpravám kanálu hostování aplikace.
+Podrobnosti implementace webového serveru související s požadavky HTTP a odpověďmi jsou definovány v rozhraních. Tato rozhraní jsou používány implementace serveru a middleware k vytvoření a úpravě hostitelského kanálu aplikace.
 
 ## <a name="feature-interfaces"></a>Rozhraní funkcí
 
-ASP.NET Core definuje počet rozhraní funkcí HTTP v `Microsoft.AspNetCore.Http.Features` používaných servery k identifikaci funkcí, které podporují. Následující rozhraní funkcí řídí požadavky a návratové odpovědi:
+ASP.NET Core definuje řadu rozhraní funkcí `Microsoft.AspNetCore.Http.Features` PROTOKOLU HTTP, ve kterých servery používají k identifikaci funkcí, které podporují. Následující rozhraní funkcí zpracovávají požadavky a vracejí odpovědi:
 
-`IHttpRequestFeature` definuje strukturu požadavku HTTP, včetně protokolu, cesty, řetězce dotazu, záhlaví a textu.
+`IHttpRequestFeature`Definuje strukturu požadavku HTTP, včetně protokolu, cesty, řetězce dotazu, záhlaví a těla.
 
-`IHttpResponseFeature` definuje strukturu odpovědi HTTP, včetně stavového kódu, hlaviček a textu odpovědi.
+`IHttpResponseFeature`Definuje strukturu odpovědi HTTP, včetně stavového kódu, záhlaví a těla odpovědi.
 
-`IHttpAuthenticationFeature` definuje podporu pro identifikaci uživatelů na základě `ClaimsPrincipal` a určení obslužné rutiny ověřování.
+`IHttpAuthenticationFeature`Definuje podporu pro identifikaci uživatelů `ClaimsPrincipal` na základě a zadání obslužné rutiny ověřování.
 
-`IHttpUpgradeFeature` definuje podporu pro [upgrady http](https://tools.ietf.org/html/rfc2616.html#section-14.42). díky tomu může klient určit, které další protokoly chcete použít, pokud si server přeje přepínat protokoly.
+`IHttpUpgradeFeature`Definuje podporu [pro upgrady protokolu HTTP](https://tools.ietf.org/html/rfc2616.html#section-14.42), které umožňují klientovi určit, které další protokoly chce použít, pokud chce server přepínat protokoly.
 
-`IHttpBufferingFeature` definuje metody pro zákaz ukládání požadavků do vyrovnávací paměti nebo odpovědí.
+`IHttpBufferingFeature`Definuje metody pro zakázání ukládání požadavků nebo odpovědí do vyrovnávací paměti.
 
-`IHttpConnectionFeature` definuje vlastnosti pro místní a vzdálené adresy a porty.
+`IHttpConnectionFeature`Definuje vlastnosti pro místní a vzdálené adresy a porty.
 
-`IHttpRequestLifetimeFeature` definuje podporu pro přerušení připojení nebo zjištění, zda byla žádost ukončena předčasně, například odpojením klienta.
+`IHttpRequestLifetimeFeature`Definuje podporu pro přerušení připojení nebo zjištění, zda byl požadavek předčasně ukončen, například odpojením klienta.
 
-`IHttpSendFileFeature` definuje metodu pro asynchronní posílání souborů.
+`IHttpSendFileFeature`Definuje metodu pro asynchronní odesílání souborů.
 
-`IHttpWebSocketFeature` definuje rozhraní API pro podpůrné webové sokety.
+`IHttpWebSocketFeature`Definuje rozhraní API pro podporu webových soketů.
 
-`IHttpRequestIdentifierFeature` přidá vlastnost, která může být implementována k jednoznačné identifikaci požadavků.
+`IHttpRequestIdentifierFeature`Přidá vlastnost, která může být implementována k jednoznačné identifikaci požadavků.
 
-`ISessionFeature` definuje `ISessionFactory` a `ISession` abstrakce pro podporu uživatelských relací.
+`ISessionFeature`Definuje `ISessionFactory` a `ISession` abstrakce pro podporu uživatelských relací.
 
-`ITlsConnectionFeature` definuje rozhraní API pro načítání klientských certifikátů.
+`ITlsConnectionFeature`Definuje rozhraní API pro načítání klientských certifikátů.
 
-`ITlsTokenBindingFeature` definuje metody pro práci s parametry vazby tokenu TLS.
+`ITlsTokenBindingFeature`Definuje metody pro práci s parametry vazby tokenu TLS.
 
 > [!NOTE]
-> `ISessionFeature` není funkcí serveru, ale je implementována `SessionMiddleware` (viz [Správa stavu aplikace](app-state.md)).
+> `ISessionFeature`není funkce serveru, ale je implementována `SessionMiddleware` (viz Správa stavu [aplikace](app-state.md)).
 
 ## <a name="feature-collections"></a>Kolekce funkcí
 
-Vlastnost `Features` `HttpContext` poskytuje rozhraní pro získání a nastavení dostupných funkcí protokolu HTTP pro aktuální požadavek. Vzhledem k tomu, že je kolekce funkcí proměnlivá i v rámci požadavku, je možné použít middleware pro úpravu kolekce a přidání podpory pro další funkce.
+Vlastnost `Features` `HttpContext` poskytuje rozhraní pro získání a nastavení dostupných funkcí PROTOKOLU HTTP pro aktuální požadavek. Vzhledem k tomu, že kolekce funkcí je proměnlivá i v rámci požadavku, middlewar lze použít k úpravě kolekce a přidání podpory pro další funkce.
 
-## <a name="middleware-and-request-features"></a>Middleware a žádosti o funkce
+## <a name="middleware-and-request-features"></a>Middleware a funkce požadavků
 
-I když jsou servery zodpovědné za vytvoření kolekce funkcí, může middleware přidat do této kolekce a využívat funkce z kolekce. Například `StaticFileMiddleware` přistupuje k funkci `IHttpSendFileFeature`. Pokud tato funkce existuje, používá se k odeslání požadovaného statického souboru z jeho fyzické cesty. V opačném případě se k odeslání souboru použije pomalejší alternativní metoda. Pokud je k dispozici, `IHttpSendFileFeature` umožňuje operačnímu systému otevřít soubor a provést přímou kopii režimu jádra na síťové kartě.
+Zatímco servery jsou zodpovědné za vytváření kolekce funkcí, middleware můžete přidat do této kolekce a využívat funkce z kolekce. Například přistupuje `StaticFileMiddleware` k `IHttpSendFileFeature` funkci. Pokud funkce existuje, slouží k odeslání požadovaného statického souboru z jeho fyzické cesty. V opačném případě se k odeslání souboru použije pomalejší alternativní metoda. Pokud `IHttpSendFileFeature` je k dispozici, umožňuje operačnímu systému otevřít soubor a provést přímou kopii režimu jádra na síťovou kartu.
 
-Middleware může navíc přidat do kolekce funkcí zřízené serverem. Existující funkce můžou být i nahrazovány middlewarem a umožňují middlewaru rozšířit funkčnost serveru. Funkce přidané do kolekce jsou hned k dispozici pro další middleware nebo podkladové aplikace přímo v kanálu požadavků.
+Kromě toho middleware můžete přidat do kolekce funkcí vytvořených serverem. Stávající funkce mohou být dokonce nahrazeny middleware, což middleware rozšířit funkčnost serveru. Funkce přidané do kolekce jsou okamžitě k dispozici pro jiné middleware nebo základní aplikace sama později v kanálu požadavku.
 
-Kombinací vlastních implementací serveru a konkrétních vylepšení middlewaru může být vytvořena přesně sada funkcí, které aplikace vyžaduje. To umožňuje, aby chybějící funkce byly přidány bez nutnosti změny v serveru a zajistila zpřístupnění pouze minimálního množství funkcí, čímž se omezuje prostor pro útoky a zvýšil se výkon.
+Kombinací vlastních serverových implementací a specifických vylepšení middlewaru lze vytvořit přesnou sadu funkcí, které aplikace vyžaduje. To umožňuje přidat chybějící funkce bez nutnosti změny na serveru a zajišťuje pouze minimální množství funkcí, které jsou vystaveny, čímž se omezí plocha útoku a zlepší výkon.
 
 ## <a name="summary"></a>Souhrn
 
-Rozhraní funkcí definují konkrétní funkce protokolu HTTP, které může daný požadavek podporovat. Servery definují kolekce funkcí a počáteční sadu funkcí, které tento server podporuje, ale middleware je možné využít ke zlepšení těchto funkcí.
+Rozhraní funkcí definují specifické funkce protokolu HTTP, které může daný požadavek podporovat. Servery definují kolekce funkcí a počáteční sadu funkcí podporovaných tímto serverem, ale middleware lze použít k vylepšení těchto funkcí.
 
-## <a name="additional-resources"></a>Další zdroje informací:
+## <a name="additional-resources"></a>Další zdroje
 
 * [Servery](xref:fundamentals/servers/index)
 * [Middleware](xref:fundamentals/middleware/index)

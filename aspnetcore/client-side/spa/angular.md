@@ -1,86 +1,86 @@
 ---
-title: Použití šablony úhlového projektu s ASP.NET Core
+title: Použití šablony projektu Angular s jádrem ASP.NET
 author: SteveSandersonMS
-description: Naučte se, jak začít pracovat s ASP.NET Core šablonou projektu s jednou stránkou (SPA) pro úhlové a úhlové rozhraní příkazového řádku.
+description: Přečtěte si, jak začít s šablonou projektu ASP.NET základní jednostránkové aplikace (SPA) pro úhlové a úhlové cli.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: stevesa
 ms.custom: mvc
 ms.date: 02/06/2020
 uid: spa/angular
 ms.openlocfilehash: fee872ff237e14cbe491efed9b320809df4c5654
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78657631"
 ---
-# <a name="use-the-angular-project-template-with-aspnet-core"></a>Použití šablony úhlového projektu s ASP.NET Core
+# <a name="use-the-angular-project-template-with-aspnet-core"></a>Použití šablony projektu Angular s jádrem ASP.NET
 
-Aktualizovaná šablona úhlového projektu poskytuje pohodlný výchozí bod pro ASP.NET Core aplikace pomocí úhlů a úhlů CLI pro implementaci bohatě funkčního uživatelského rozhraní (UI) na straně klienta.
+Aktualizovaná šablona projektu Angular poskytuje vhodný výchozí bod pro ASP.NET základní aplikace pomocí úhlového a úhlového rozhraní CLI k implementaci bohatého uživatelského rozhraní na straně klienta.
 
-Šablona je ekvivalentní k vytvoření ASP.NET Core projektu, který se má chovat jako back-end rozhraní API, a s úhlovým projektem CLI, který bude fungovat jako uživatelské rozhraní. Šablona nabízí pohodlí hostování obou typů projektů v jednom projektu aplikace. V důsledku toho může být projekt aplikace sestaven a publikován jako jediná jednotka.
+Šablona je ekvivalentní k vytvoření ASP.NET core projektu fungovat jako back-end rozhraní API a úhlové cli projekt fungovat jako uživatelské rozhraní. Šablona nabízí pohodlí hostování obou typů projektů v jednom projektu aplikace. V důsledku toho může být projekt aplikace sestaven a publikován jako jedna jednotka.
 
 ## <a name="create-a-new-app"></a>Vytvoření nové aplikace
 
-Pokud máte nainstalovanou ASP.NET Core 2,1, není potřeba instalovat úhlovou šablonu projektu.
+Pokud máte nainstalovanou ASP.NET Core 2.1, není nutné instalovat šablonu projektu Angular.
 
-Vytvoření nového projektu z příkazového řádku pomocí příkazu `dotnet new angular` v prázdném adresáři. Například následující příkazy vytvoří aplikaci v adresáři *My-New-App* a přepne do tohoto adresáře:
+Vytvořte nový projekt z příkazového `dotnet new angular` řádku pomocí příkazu v prázdném adresáři. Například následující příkazy vytvoří aplikaci v adresáři *moje nová aplikace* a přejdou do tohoto adresáře:
 
 ```dotnetcli
 dotnet new angular -o my-new-app
 cd my-new-app
 ```
 
-Spusťte aplikaci buď ze sady Visual Studio, nebo z .NET Core CLI:
+Spusťte aplikaci z Visual Studia nebo rozhraní .NET Core CLI:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
-Otevřete vygenerovaný soubor *. csproj* a z něj spusťte aplikaci jako normální.
+Otevřete vygenerovaný soubor *.csproj* a spusťte aplikaci jako obvykle.
 
-Proces sestavení obnoví závislosti npm při prvním spuštění, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
+Proces sestavení obnoví npm závislosti na první spuštění, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
-Ujistěte se, že máte proměnnou prostředí nazvanou `ASPNETCORE_Environment` s hodnotou `Development`. V systému Windows (v případě výzev mimo PowerShell) spusťte `SET ASPNETCORE_Environment=Development`. V systému Linux nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
+Ujistěte se, že `ASPNETCORE_Environment` máte proměnnou prostředí volanou s hodnotou `Development`. Ve Windows (v výzvách, které `SET ASPNETCORE_Environment=Development`nejsou powershelly), spusťte . Na Linuxu nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
 
-Spusťte [sestavení dotnet](/dotnet/core/tools/dotnet-build) a ověřte správné sestavení aplikace. Při prvním spuštění proces sestavení obnoví závislosti NPM, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
+Spusťte [dotnet sestavení](/dotnet/core/tools/dotnet-build) ověřit sestavení aplikace správně. Při prvním spuštění proces sestavení obnoví npm závislosti, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
-Spuštěním příkazu [dotnet](/dotnet/core/tools/dotnet-run) spusťte aplikaci. Protokoluje se zpráva podobná následující:
+Spuštění [montovny dotnet](/dotnet/core/tools/dotnet-run) spusťte. Je zaznamenána zpráva podobná následující:
 
 ```console
 Now listening on: http://localhost:<port>
 ```
 
-V prohlížeči přejděte na tuto adresu URL.
+Přejděte na tuto adresu URL v prohlížeči.
 
 > [!WARNING]
-> Aplikace spustí instanci úhlového CLI serveru na pozadí. Protokoluje se zpráva podobná následující: *NG živý vývojový server naslouchá na localhost:&lt;otherport&gt;otevřete prohlížeč http://localhost:&lt; otherport&gt;/* . Tuto zprávu ignorujte&mdash;nejedná **se o** adresu URL pro kombinované ASP.NET Core a úhlové aplikace CLI.
+> Aplikace spustí instanci úhlového cli serveru na pozadí. Zpráva podobná následující je zaznamenána: *NG Live Development Server&lt;poslouchá&gt;na localhost: http://localhost:&ltotherport&gt;, otevřete prohlížeč ;otherport*. Ignorovat tuto&mdash;zprávu **není** adresa URL pro kombinované ASP.NET core a úhlové CLI aplikace.
 
 ---
 
-Šablona projektu vytvoří aplikaci ASP.NET Core a úhlovou aplikaci. Aplikace ASP.NET Core je určena k použití pro přístup k datům, autorizaci a další aspekty na straně serveru. Úhlová aplikace, která je umístěná v podadresáři *clientapp* , má být použita pro všechny aspekty uživatelského rozhraní.
+Šablona projektu vytvoří aplikaci ASP.NET Core a aplikaci Angular. Aplikace ASP.NET Core je určena pro přístup k datům, autorizaci a další problémy na straně serveru. Angular aplikace, s bydlištěm v podadresáři *ClientApp,* je určen pro všechny problémy s rozhraním.
 
-## <a name="add-pages-images-styles-modules-etc"></a>Přidat stránky, obrázky, styly, moduly atd.
+## <a name="add-pages-images-styles-modules-etc"></a>Přidejte stránky, obrázky, styly, moduly atd.
 
-Adresář *clientapp* obsahuje standardní aplikaci s úhlovými CLI. Další informace najdete v oficiálních [úhlových dokumentaci](https://angular.io) .
+Adresář *ClientApp* obsahuje standardní aplikaci Úhlové cli. Další informace naleznete v oficiální [dokumentaci angular.](https://angular.io)
 
-Existují mírné rozdíly mezi úhlovými aplikacemi vytvořenými touto šablonou a šablonou vytvořenou pomocí úhlů CLI (prostřednictvím `ng new`); Možnosti aplikace se ale nezměnily. Aplikace vytvořená šablonou obsahuje rozložení založené na [bootstrap](https://getbootstrap.com/)a základní příklad směrování.
+Existují mírné rozdíly mezi aplikací Angular vytvořenou touto šablonou a aplikací vytvořenou samotným úhlovým CLI (přes); `ng new` možnosti aplikace se však nemění. Aplikace vytvořená šablonou obsahuje rozložení založené na [Bootstrapu](https://getbootstrap.com/)a základní příklad směrování.
 
-## <a name="run-ng-commands"></a>Spustit příkazy NG
+## <a name="run-ng-commands"></a>Spuštění příkazů ng
 
-V příkazovém řádku přejděte do podadresáře *clientapp* :
+V příkazovém řádku přepněte do podadresáře *ClientApp:*
 
 ```console
 cd ClientApp
 ```
 
-Pokud máte nástroj `ng` nainstalovaný globálně, můžete spustit libovolný z jeho příkazů. Můžete například spustit `ng lint`, `ng test`nebo kterýkoli z dalších [úhlů příkazů CLI](https://angular.io/cli). Nemusíte spouštět `ng serve` ale, protože vaše aplikace ASP.NET Core se zabývá poskytováním součástí aplikace na straně serveru i na straně klienta. Interně používá `ng serve` při vývoji.
+Pokud máte `ng` nástroj nainstalován globálně, můžete spustit některý z jeho příkazů. Můžete například spustit `ng lint` `ng test`, nebo některý z dalších [příkazů úhlového příkazu cli](https://angular.io/cli). Není však třeba `ng serve` spouštět, protože vaše aplikace ASP.NET Core se zabývá zobrazováním částí aplikace na straně serveru i na straně klienta. Interně se `ng serve` používá ve vývoji.
 
-Pokud nemáte nainstalovaný nástroj `ng`, spusťte místo toho `npm run ng`. Můžete například spustit `npm run ng lint` nebo `npm run ng test`.
+Pokud nástroj nemáte nainstalovaný, `ng` spusťte `npm run ng` jej. Můžete například spustit `npm run ng lint` `npm run ng test`nebo .
 
 ## <a name="install-npm-packages"></a>Instalace balíčků npm
 
-K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Příklad:
+Chcete-li nainstalovat balíčky npm od jiných výrobců, použijte příkazový řádek v podadresáři *ClientApp.* Příklad:
 
 ```console
 cd ClientApp
@@ -89,19 +89,19 @@ npm install --save <package_name>
 
 ## <a name="publish-and-deploy"></a>Publikování a nasazení
 
-Ve vývoji se aplikace spouští v režimu optimalizovaném pro usnadnění vývoje. Například sady prostředků JavaScriptu obsahují zdrojové mapy (takže při ladění uvidíte původní kód TypeScriptu). Aplikace sleduje změny souborů TypeScriptu, HTML a CSS na disku a automaticky znovu zkompiluje a znovu načte, když se tyto soubory uvidí.
+Ve vývoji aplikace běží v režimu optimalizovaném pro vývojáře. Například javascriptové balíčky obsahují zdrojové mapy (takže při ladění můžete vidět původní kód TypeScript). Aplikace sleduje změny souborů TypeScript, HTML a CSS na disku a automaticky se znovu zkompiluje a znovu načte, když vidí, že se tyto soubory mění.
 
-V produkčním prostředí poskytuje verzi vaší aplikace optimalizované pro výkon. To se nakonfiguruje tak, aby se automaticky stalo. Když publikujete, konfigurace sestavení generuje minifikovaného sestavení zkompilovaného kódu na straně klienta (AoT). Na rozdíl od sestavení pro vývoj není v produkčním sestavení nutné nainstalovat Node. js na server (Pokud jste nepovolili vykreslování na straně serveru (SSR)).
+V produkčním prostředí můžete poskytovat verzi aplikace optimalizovanou pro výkon. Tato možnost je nakonfigurována tak, aby se stala automaticky. Při publikování konfigurace sestavení vyzařuje minified, ahead-of-time (AoT) zkompilované sestavení kódu na straně klienta. Na rozdíl od vývojového sestavení nevyžaduje produkční sestavení instalaci node.js na server (pokud jste nepovolili vykreslování na straně serveru (SSR)).
 
-Můžete použít standardní [ASP.NET Core hostování a metody nasazení](xref:host-and-deploy/index).
+Můžete použít standardní [ASP.NET core hosting a metody nasazení](xref:host-and-deploy/index).
 
-## <a name="run-ng-serve-independently"></a>Spustit "NG obsluhu" nezávisle
+## <a name="run-ng-serve-independently"></a>Spustit "ng sloužit" nezávisle
 
-Projekt je nakonfigurován tak, aby spouštěl svou vlastní instanci serveru úhlů CLI na pozadí při spuštění aplikace ASP.NET Core v režimu vývoje. To je vhodné, protože nemusíte spouštět samostatný server ručně.
+Projekt je nakonfigurován tak, aby spustil vlastní instanci serveru Úhlové cli na pozadí při spuštění aplikace ASP.NET Core v režimu vývoje. To je výhodné, protože není nutné spustit samostatný server ručně.
 
-Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte C# kód a ASP.NET Core aplikace se musí restartovat, dojde k restartování serveru s úhlovým CLI. Pro spuštění zálohování je nutné asi 10 sekund. Pokud provádíte časté C# úpravy kódu a nechcete čekat na restartování úhlového CLI, spusťte server úhlového CLI externě, nezávisle na procesu ASP.NET Core. Postupujte následovně:
+Toto výchozí nastavení má nevýhodu. Pokaždé, když upravíte kód C# a aplikace ASP.NET Core musí restartovat, restartuje se server Úhlové cli. Pro spuštění zálohy je zapotřebí přibližně 10 sekund. Pokud provádíte časté úpravy kódu jazyka C# a nechcete čekat na restartování úhlového cli, spusťte server angular CLI externě, nezávisle na procesu ASP.NET Core. Postupujte následovně:
 
-1. V příkazovém řádku přejděte do podadresáře *clientapp* a spusťte vývojový server s úhlovými CLI:
+1. V příkazovém řádku přepněte do podadresáře *ClientApp* a spusťte vývojový server Úhlové rozhraní příkazového řádku:
 
     ```console
     cd ClientApp
@@ -109,19 +109,19 @@ Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte C# kód a AS
     ```
 
     > [!IMPORTANT]
-    > Pomocí `npm start` můžete spustit vývojový server úhlového CLI, který není `ng serve`, aby byla dodržena konfigurace v *Package. JSON* . K předání dalších parametrů serveru úhlového CLI je přidejte do příslušného `scripts` řádku v souboru *Package. JSON* .
+    > Slouží `npm start` ke spuštění úhlového cli `ng serve`vývojový server, nikoli , tak, aby konfigurace v *package.json* je respektována. Chcete-li předat další parametry serveru úhlového rozhraní `scripts` CLI, přidejte je do příslušného řádku v souboru *package.json.*
 
-2. Upravte aplikaci ASP.NET Core tak, aby používala vnější instanci úhlů CLI místo spuštění vlastní. Ve vaší *spouštěcí* třídě nahraďte `spa.UseAngularCliServer` vyvolání následujícím způsobem:
+2. Upravte aplikaci ASP.NET Core tak, aby místo spuštění vlastní instance úhlového cli používala externí instanci úhlového cli. Ve třídě *Startup* nahraďte `spa.UseAngularCliServer` vyvolání následujícím:
 
     ```csharp
     spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
     ```
 
-Když spustíte aplikaci ASP.NET Core, nespustí se server úhlů CLI. Místo toho se použije instance, kterou jste spustili ručně. To umožňuje, aby se rychleji spouštěla a restartovala. Nečeká se na to, že rozhraní příkazového řádku pro každou chvíli znovu sestaví klientskou aplikaci.
+Když spustíte aplikaci ASP.NET Core, nespustí se server úhlového cli. Místo toho se použije instance, kterou jste spustili ručně. To umožňuje rychlejší spuštění a restartování. Už nečeká na úhlové cli znovu sestavit klientskou aplikaci pokaždé.
 
-### <a name="pass-data-from-net-code-into-typescript-code"></a>Předání dat z kódu .NET do kódu TypeScript
+### <a name="pass-data-from-net-code-into-typescript-code"></a>Předání dat z kódu .NET do kódu Typu Typu Script
 
-Během služby SSR budete možná chtít předat data z vaší aplikace ASP.NET Core do své aplikace v úhlovém požadavku. Můžete třeba předat informace cookie nebo něco přečíst z databáze. Provedete to tak, že upravíte třídu *Startup* . Ve zpětném volání pro `UseSpaPrerendering`nastavte hodnotu pro `options.SupplyData`, například následující:
+Během SSR můžete chtít předat data na žádost z aplikace ASP.NET Core do aplikace Angular. Můžete například předat informace o souborech cookie nebo něco přečteného z databáze. Chcete-li to provést, upravte třídu *Po spuštění.* V zpětném `UseSpaPrerendering`volání pro nastavte `options.SupplyData` hodnotu, například následující:
 
 ```csharp
 options.SupplyData = (context, data) =>
@@ -131,17 +131,17 @@ options.SupplyData = (context, data) =>
 };
 ```
 
-`SupplyData` zpětné volání umožňuje předat libovolná data, která jsou serializovatelný s hodnotou JSON (například řetězce, logické hodnoty nebo čísla). Váš *hlavní kód. Server. TS* obdrží tuto `params.data`. Například předchozí ukázka kódu předává logickou hodnotu jako `params.data.isHttpsRequest` do zpětného volání `createServerRenderer`. Tuto možnost můžete předat ostatním částem aplikace jakýmkoli způsobem podporovaným úhlovým. Například můžete zjistit, jak *hlavní. Server. TS* předá hodnotu `BASE_URL` do jakékoli komponenty, jejíž konstruktor je deklarován pro příjem.
+Zpětné `SupplyData` volání umožňuje předat libovolná data json-serializovatelná data (například řetězce, logické hodnoty nebo čísla). Váš kód *main.server.ts* obdrží `params.data`toto jako . Například předchozí ukázka kódu předá logickou hodnotu jako `params.data.isHttpsRequest` do zpětného `createServerRenderer` volání. Můžete předat do jiných částí aplikace v libovolném způsobem podporované Angular. Například podívejte se, jak *main.server.ts* předá hodnotu `BASE_URL` jakékoli součásti, jejíž konstruktor je deklarován k jeho přijetí.
 
 ### <a name="drawbacks-of-ssr"></a>Nevýhody SSR
 
-Ne všechny aplikace využívají SSR. Hlavní výhodou je vnímaný výkon. Návštěvníci, kteří dosáhnou vaší aplikace přes pomalé připojení k síti nebo pomalá mobilní zařízení, uvidí počáteční uživatelské rozhraní rychle, a to i v případě, že nějakou dobu trvá a načítají nebo analyzují sady JavaScript. Mnohé jednostránkové se ale používají hlavně v rychlé interní síti společnosti na rychlých počítačích, kde se aplikace zobrazuje skoro okamžitě.
+Ne všechny aplikace mají prospěch z SSR. Hlavním přínosem je vnímaný výkon. Návštěvníci, kteří se k vaší aplikaci dostanou prostředpou prostředpou k pomalému síťovému připojení nebo na pomalých mobilních zařízeních, uvidí počáteční ui rychle, i když trvá nějakou dobu, než načte nebo analyzují balíčky JavaScriptu. Nicméně, mnoho SA se používá hlavně přes rychlé, interní firemní sítě na rychlých počítačích, kde se aplikace objeví téměř okamžitě.
 
-Ve stejnou chvíli existují významné nevýhody povolování SSR. Přináší složitost vašemu procesu vývoje. Váš kód musí běžet ve dvou různých prostředích: na straně klienta a na straně serveru (v prostředí Node. js vyvolaném z ASP.NET Core). Tady je několik věcí, které je potřeba mít na paměti:
+Současně existují významné nevýhody povolení SSR. To zvyšuje složitost procesu vývoje. Váš kód musí běžet ve dvou různých prostředích: na straně klienta a na straně serveru (v prostředí Node.js vyvolaném z ASP.NET Core). Zde je několik věcí, které je třeba mít na paměti:
 
-* SSR vyžaduje instalaci Node. js na produkčních serverech. Toto je automaticky pro některé scénáře nasazení, jako je například Azure App Services, ale ne pro jiné, jako je například Azure Service Fabric.
-* Povolení příznaku `BuildServerSideRenderer` sestavení způsobí, že se váš adresář *node_modules* publikovat. Tato složka obsahuje 20 000 souborů, což zvyšuje dobu nasazení.
-* Chcete-li spustit kód v prostředí Node. js, nemůže spoléhat na existenci rozhraní JavaScript API specifických pro prohlížeč, například `window` nebo `localStorage`. Pokud váš kód (nebo některá z knihoven třetích stran, na které odkazujete) se pokusí použít tato rozhraní API, během průběhu SSR se zobrazí chyba. Nepoužívejte například jQuery, protože odkazuje na rozhraní API specifická pro prohlížeč na mnoha místech. Aby nedocházelo k chybám, musíte buď zabránit SSR nebo nejenom k rozhraní API nebo knihovnám specifickým pro prohlížeč. V rámci kontrol můžete zabalit jakákoli volání těchto rozhraní API, aby se zajistilo, že se nebudou vyvolávat během SSR. Použijte například následující příkaz v kódu JavaScript nebo TypeScript:
+* SSR vyžaduje instalaci Node.js na produkčních serverech. To je automaticky případ pro některé scénáře nasazení, jako je například Azure App Services, ale ne pro jiné, jako je například Azure Service Fabric.
+* Povolení `BuildServerSideRenderer` příznaku sestavení způsobí publikování *node_modules* adresáře. Tato složka obsahuje více než 20 000 souborů, což zvyšuje dobu nasazení.
+* Chcete-li spustit kód v prostředí Node.js, nemůže se spoléhat na existenci javascriptových api specifických pro prohlížeč, jako `window` jsou nebo `localStorage`. Pokud váš kód (nebo některé knihovny třetích stran, na které odkazujete) se pokusí použít tato rozhraní API, zobrazí se chyba během SSR. Například nepoužívejte jQuery, protože odkazuje na prohlížeče specifické api na mnoha místech. Chcete-li zabránit chybám, musíte se buď vyhnout SSR nebo se vyhnout prohlížeče specifické pro api nebo knihovny. Můžete zabalit všechna volání těchto api v kontrolách zajistit, že nejsou vyvolány během SSR. V kódu Jazyka JavaScript nebo TypeScript použijte například následující:
 
     ```javascript
     if (typeof window !== 'undefined') {

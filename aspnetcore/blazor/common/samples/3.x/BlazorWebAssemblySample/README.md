@@ -1,12 +1,12 @@
 # <a name="blazor-webassembly-sample-app"></a>Ukázková aplikace Blazor WebAssembly
 
-Tato ukázka znázorňuje použití scénářů Blazor popsaných v dokumentaci k Blazor.
+Tato ukázka ilustruje použití blazorských scénářů popsaných v dokumentaci Blazor.
 
-## <a name="call-web-api-example"></a>Příklad volání webového rozhraní API
+## <a name="call-web-api-example"></a>Příklad webového rozhraní API volání
 
-Příklad webového rozhraní API vyžaduje běžící webové rozhraní API na základě ukázkové aplikace pro <a href="https://docs.microsoft.com/aspnet/core/tutorials/first-web-api">Vytvoření webového rozhraní API s ASP.NET Coreým</a> tématem, které ve výchozím nastavení používá stejný port HTTPS (5001) jako ukázková aplikace Blazor. Pokud chcete současně použít obě aplikace na stejném počítači, změňte port webového rozhraní API (například použijte port 10000). Ukázková aplikace dává žádosti na webové rozhraní API na `https://localhost:10000/api/TodoItems`. Pokud se používá jiná adresa webového rozhraní API, aktualizujte `ServiceEndpoint` hodnotu konstanty v bloku `@code` komponenty Razor.</p>
+Příklad webového rozhraní API vyžaduje spuštěné webové rozhraní API založené na ukázkové aplikaci pro <a href="https://docs.microsoft.com/aspnet/core/tutorials/first-web-api">vytvoření webového rozhraní API s tématem ASP.NET Core,</a> které ve výchozím nastavení používá stejný port HTTPS (5001) jako ukázkovou aplikaci Blazor. Chcete-li používat obě aplikace ve stejném počítači současně, změňte port webového rozhraní API (například použijte port 10000). Ukázková aplikace provádí požadavky na `https://localhost:10000/api/TodoItems`webové rozhraní API na adrese . Pokud se používá jiná adresa webového rozhraní API, aktualizujte `ServiceEndpoint` konstantní hodnotu v bloku komponenty `@code` Razor.</p>
 
-Ukázková aplikace vytvoří žádost o <a href="https://docs.microsoft.com/aspnet/core/security/cors">sdílení prostředků mezi zdroji (CORS)</a> od `http://localhost:5000` nebo `https://localhost:5001` k webovému rozhraní API. Přihlašovací údaje (autorizační soubory cookie/hlavičky) jsou povolené. Do metody `Startup.Configure` webového rozhraní API přidejte následující konfiguraci middlewaru CORS:</p>
+Ukázková aplikace vytvoří požadavek na sdílení prostředků `http://localhost:5000` mezi `https://localhost:5001` <a href="https://docs.microsoft.com/aspnet/core/security/cors">zdroji (CORS)</a> z webového rozhraní API nebo do něj. Pověření (autorizační soubory cookie/záhlaví) jsou povolena. Přidejte do metody webového `Startup.Configure` rozhraní API následující konfiguraci middlewaru CORS:</p>
 
 ```csharp
 app.UseCors(policy => 
@@ -16,6 +16,6 @@ app.UseCors(policy =>
     .AllowCredentials());
 ```
 
-Upravte domény a porty `WithOrigins` podle potřeby aplikace Blazor.
+Upravte domény a `WithOrigins` porty podle potřeby pro aplikaci Blazor.
 
-Webové rozhraní API je nakonfigurované pro CORS a povoluje autorizační soubory cookie, hlavičky a požadavky z klientského kódu, ale webové rozhraní API, jak ho vytvořil kurz, ve skutečnosti neautorizuje žádosti. Pokyny k implementaci najdete v <a href="https://docs.microsoft.com/aspnet/core/security/">článcích ASP.NET Core zabezpečení a identita</a> .
+Webové rozhraní API je nakonfigurováno pro CORS k povolení autorizačních souborů cookie/ záhlaví a požadavků z klientského kódu, ale webové rozhraní API vytvořené kurzem ve skutečnosti neautorizuje požadavky. Pokyny k implementaci najdete v <a href="https://docs.microsoft.com/aspnet/core/security/">článcích ASP.NET základní zabezpečení a identity.</a>

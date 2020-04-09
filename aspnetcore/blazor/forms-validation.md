@@ -1,7 +1,7 @@
 ---
-title: ASP.NET Core Blazor formuláře a ověřování
+title: ASP.NET Blazor základní formuláře a validace
 author: guardrex
-description: Naučte se používat scénáře ověřování formulářů a polí v Blazor.
+description: Přečtěte si, jak používat Blazorformuláře a scénáře ověření polí v aplikacích .
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,19 +11,19 @@ no-loc:
 - SignalR
 uid: blazor/forms-validation
 ms.openlocfilehash: 0359a9337860d9b8ce0b81d8833a034a898b05a5
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218957"
 ---
-# <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core formuláře a ověřování Blazor
+# <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET core blazor formuláře a validace
 
-Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
+[Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
-Formuláře a ověřování se v Blazor podporují pomocí [datových poznámek](xref:mvc/models/validation).
+Formuláře a validace jsou podporovány v Blazoru pomocí [datových anotací](xref:mvc/models/validation).
 
-Následující `ExampleModel` typ definuje logiku ověřování pomocí datových poznámek:
+Následující `ExampleModel` typ definuje logiku ověřování pomocí datových anotací:
 
 ```csharp
 using System.ComponentModel.DataAnnotations;
@@ -36,7 +36,7 @@ public class ExampleModel
 }
 ```
 
-Formulář je definován pomocí komponenty `EditForm`. Následující formulář ukazuje typické prvky, komponenty a kód Razor:
+Formulář je definován `EditForm` pomocí komponenty. Následující formulář ukazuje typické prvky, součásti a kód Razor:
 
 ```razor
 <EditForm Model="@_exampleModel" OnValidSubmit="HandleValidSubmit">
@@ -60,15 +60,15 @@ Formulář je definován pomocí komponenty `EditForm`. Následující formulá�
 
 V předchozím příkladu:
 
-* Formulář ověřuje vstup uživatele v poli `name` pomocí ověřování definovaného v `ExampleModel` typu. Model se vytvoří v bloku `@code` komponenty a je uložený v soukromém poli (`_exampleModel`). Pole je přiřazeno atributu `Model` elementu `<EditForm>`.
-* `@bind-Value` vazby `InputText` komponenty:
-  * Vlastnost modelu (`_exampleModel.Name`) na vlastnost `Value` komponenty `InputText`
-  * Delegát události změny pro vlastnost `ValueChanged` `InputText` součásti.
-* Komponenta `DataAnnotationsValidator` připojí podporu ověřování pomocí datových poznámek.
+* Formulář ověří vstup uživatele `name` v poli pomocí `ExampleModel` ověření definovaného v typu. Model je vytvořen v bloku `@code` komponenty a držen`_exampleModel`v soukromém poli ( ). Pole je přiřazeno `Model` atributu `<EditForm>` prvku.
+* Složky `InputText` se `@bind-Value` váže:
+  * Vlastnost modelu`_exampleModel.Name`( ) `InputText` k `Value` vlastnosti komponenty.
+  * Delegát události změny `InputText` na vlastnost `ValueChanged` komponenty.
+* Komponenta `DataAnnotationsValidator` připojuje podporu ověřování pomocí datových poznámk.
 * Komponenta `ValidationSummary` shrnuje ověřovací zprávy.
-* `HandleValidSubmit` se spustí, když formulář úspěšně odešle (projde ověřením).
+* `HandleValidSubmit`se aktivuje, když se formulář úspěšně odešle (projde ověřením).
 
-K dispozici je sada předdefinovaných vstupních komponent pro příjem a ověření vstupu uživatele. Vstupy jsou ověřovány při jejich změně a při odeslání formuláře. Dostupné vstupní komponenty jsou uvedené v následující tabulce.
+Sada vestavěných vstupních součástí je k dispozici pro příjem a ověřování vstupu uživatele. Vstupy jsou ověřeny při změně a při odeslání formuláře. Dostupné vstupní součásti jsou uvedeny v následující tabulce.
 
 | Vstupní komponenta | Vykresleno jako&hellip;       |
 | --------------- | ------------------------- |
@@ -79,11 +79,11 @@ K dispozici je sada předdefinovaných vstupních komponent pro příjem a ově�
 | `InputCheckbox` | `<input type="checkbox">` |
 | `InputDate`     | `<input type="date">`     |
 
-Všechny vstupní komponenty, včetně `EditForm`, podporují libovolné atributy. Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do vykresleného prvku HTML.
+Všechny vstupní součásti, `EditForm`včetně , podporují libovolné atributy. Do vykresleného prvku HTML se přidá libovolný atribut, který neodpovídá parametru komponenty.
 
-Vstupní komponenty poskytují výchozí chování pro ověřování při úpravách a změně jejich třídy CSS tak, aby odrážely stav pole. Některé součásti obsahují užitečnou logiku analýzy. Například `InputDate` a `InputNumber` zpracovávat neanalyzovatelné hodnoty tak, že je zaregistrujete jako chyby ověřování. Typy, které mohou přijmout hodnoty null, podporují také hodnotu null cílového pole (například `int?`).
+Vstupní součásti poskytují výchozí chování pro ověřování při úpravách a změně třídy CSS tak, aby odrážela stav pole. Některé součásti obsahují užitečnou logiku analýzy. Například `InputDate` a `InputNumber` řádně zpracovat neanalyzovatelné hodnoty jejich registrací jako chyby ověření. Typy, které mohou přijímat hodnoty null, také podporují `int?`nullability cílového pole (například).
 
-Následující `Starship` typ definuje logiku ověřování pomocí větší sady vlastností a poznámek k datům než předchozí `ExampleModel`:
+Následující `Starship` typ definuje logiku ověření pomocí větší sady vlastností a `ExampleModel`datových anotací než předchozí :
 
 ```csharp
 using System;
@@ -113,9 +113,9 @@ public class Starship
 }
 ```
 
-V předchozím příkladu je `Description` nepovinný, protože nejsou k dispozici žádné anotace dat.
+V předchozím příkladu `Description` je volitelné, protože nejsou k dispozici žádné poznámky dat.
 
-Následující formulář ověřuje vstup uživatele pomocí ověřování definovaného v modelu `Starship`:
+Následující formulář ověřuje vstup uživatele `Starship` pomocí ověření definovaného v modelu:
 
 ```razor
 @page "/FormsValidation"
@@ -189,14 +189,14 @@ Následující formulář ověřuje vstup uživatele pomocí ověřování defin
 }
 ```
 
-`EditForm` vytvoří `EditContext` jako [kaskádovou hodnotu](xref:blazor/components#cascading-values-and-parameters) , která sleduje metadata procesu úprav, včetně polí, která byla změněna, a aktuálních zpráv ověření. `EditForm` taky poskytuje praktické události pro platná a neplatná odeslání (`OnValidSubmit`, `OnInvalidSubmit`). Alternativně můžete použít `OnSubmit` k aktivaci ověřování a hodnot polí pro kontrolu pomocí vlastního ověřovacího kódu.
+Vytvoří `EditForm` `EditContext` jako [kaskádovou hodnotu,](xref:blazor/components#cascading-values-and-parameters) která sleduje metadata o procesu úprav, včetně polí, která byla změněna, a aktuálních ověřovacích zpráv. Poskytuje `EditForm` také pohodlné události pro platné`OnValidSubmit`a `OnInvalidSubmit`neplatné odeslání ( , ). Případně můžete `OnSubmit` použít k aktivaci hodnoty ověřovacího a kontrolního pole s vlastním ověřovacím kódem.
 
 V následujícím příkladu:
 
-* Metoda `HandleSubmit` se spustí, když je vybráno tlačítko **Odeslat** .
-* Formulář se ověří pomocí `EditContext`formuláře.
-* Formulář se dále ověří předáním `EditContext` do metody `ServerValidate`, která volá koncový bod webového rozhraní API na serveru (*není zobrazený*).
-* Další kód se spustí v závislosti na výsledku ověřování na straně klienta a serveru kontrolou `isValid`.
+* Metoda `HandleSubmit` se spustí, když je vybráno tlačítko **Odeslat.**
+* Formulář je ověřen pomocí formuláře `EditContext`.
+* Formulář je dále ověřen předáním `EditContext` `ServerValidate` metody, která volá koncový bod webového rozhraní API na serveru *(není zobrazen).*
+* Další kód je spuštěn v závislosti na výsledku ověření na `isValid`straně klienta a serveru kontrolou .
 
 ```razor
 <EditForm EditContext="@_editContext" OnSubmit="@HandleSubmit">
@@ -239,11 +239,11 @@ V následujícím příkladu:
 }
 ```
 
-## <a name="inputtext-based-on-the-input-event"></a>InputText na základě události vstupu
+## <a name="inputtext-based-on-the-input-event"></a>InputText založený na vstupní události
 
-Komponentu `InputText` použijte k vytvoření vlastní komponenty, která používá událost `input` namísto události `change`.
+Komponenta `InputText` slouží k vytvoření vlastní `input` součásti, `change` která používá událost namísto události.
 
-Vytvořte komponentu s následujícím kódem a použijte komponentu stejně jako `InputText` se používá:
+Vytvořte komponentu s následujícími značkami a `InputText` použijte ji tak, jak se používá:
 
 ```razor
 @inherits InputText
@@ -256,12 +256,12 @@ Vytvořte komponentu s následujícím kódem a použijte komponentu stejně jak
         this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
 ```
 
-## <a name="work-with-radio-buttons"></a>Práce s přepínači
+## <a name="work-with-radio-buttons"></a>Práce s přepínacími tlačítky
 
-Při práci s přepínači ve formuláři je datová vazba zpracovávána jinak než jiné prvky, protože přepínače jsou vyhodnocovány jako skupina. Hodnota každého přepínacího tlačítka je pevná, ale hodnota skupiny přepínačů je hodnota vybraného přepínacího tlačítka. Následující příklad ukazuje postup:
+Při práci s přepínači ve formuláři je datová vazba zpracována jinak než jiné prvky, protože přepínací tlačítka jsou vyhodnocována jako skupina. Hodnota každého přepínacího tlačítka je pevná, ale hodnota skupiny přepínacích tlačítek je hodnota vybraného přepínacího tlačítka. Následující příklad ukazuje, jak:
 
-* Zpracuje datovou vazbu pro skupinu přepínačů.
-* Podpora ověřování pomocí vlastní součásti `InputRadio`.
+* Zpracování datové vazby pro skupinu přepínacích tlačítek.
+* Podporujte ověřování `InputRadio` pomocí vlastní součásti.
 
 ```razor
 @using System.Globalization
@@ -303,7 +303,7 @@ Při práci s přepínači ve formuláři je datová vazba zpracovávána jinak 
 }
 ```
 
-Následující `EditForm` používá předchozí součást `InputRadio` k získání a ověření hodnocení od uživatele:
+Následující `EditForm` používá předchozí `InputRadio` součást získat a ověřit hodnocení od uživatele:
 
 ```razor
 @page "/RadioButtonExample"
@@ -344,40 +344,40 @@ Následující `EditForm` používá předchozí součást `InputRadio` k získ�
 }
 ```
 
-## <a name="validation-support"></a>Podpora ověřování
+## <a name="validation-support"></a>Podpora pro ověření
 
-Součást `DataAnnotationsValidator` připojuje ověřování pomocí datových poznámek k kaskádovým `EditContext`ům. Povolení podpory pro ověřování pomocí datových poznámek vyžaduje toto explicitní gesto. Chcete-li použít jiný systém ověřování než datové poznámky, nahraďte `DataAnnotationsValidator` vlastní implementací. ASP.NET Core implementace je k dispozici pro kontrolu v referenčním zdroji: [DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).
+Komponenta `DataAnnotationsValidator` připojuje podporu ověřování pomocí datových anotací ke kaskádovitě `EditContext`. Povolení podpory pro ověřování pomocí datových poznámk vyžaduje toto explicitní gesto. Chcete-li použít jiný ověřovací systém než poznámky dat, nahraďte `DataAnnotationsValidator` vlastní implementaci. ASP.NET Core implementace je k dispozici pro kontrolu v referenčním zdroji: [DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).
 
-Blazor provádí dva typy ověřování:
+Blazorprovádí dva typy validace:
 
-* *Ověřování polí* se provede, když se karty uživatele nacházejí v poli. Při ověřování pole přidruží komponenta `DataAnnotationsValidator` všechny hlášené výsledky ověření k poli.
-* *Ověřování modelu* se provede, když uživatel formulář odešle. Při ověřování modelu se `DataAnnotationsValidator` komponenta pokusí určit pole na základě názvu člena, který sestavy výsledků ověření. Výsledky ověření, které nejsou přidruženy k jednotlivým členům, jsou přidruženy k modelu, nikoli poli.
+* *Ověření pole* se provádí, když uživatel karty z pole. Během ověřování pole `DataAnnotationsValidator` komponenta přidruží všechny hlášené výsledky ověření k poli.
+* *Ověření modelu* se provádí, když uživatel odešle formulář. Během ověřování modelu `DataAnnotationsValidator` se komponenta pokusí určit pole na základě názvu člena, který hlásí výsledek ověření. Výsledky ověření, které nejsou přidruženy k jednotlivému členu, jsou přidruženy k modelu, nikoli k poli.
 
-### <a name="validation-summary-and-validation-message-components"></a>Komponenty zprávy pro Shrnutí a ověření
+### <a name="validation-summary-and-validation-message-components"></a>Součásti souhrnu ověření a ověřovací zprávy
 
-Komponenta `ValidationSummary` shrnuje všechny zprávy o ověřování, které se podobají [pomocníka značek Shrnutí ověřování](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper):
+Komponenta `ValidationSummary` shrnuje všechny ověřovací zprávy, které jsou podobné [pomocníku pro souhrnnou značku ověření](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper):
 
 ```razor
 <ValidationSummary />
 ```
 
-Zprávy ověřování výstupu pro určitý model s parametrem `Model`:
+Výstupní ověřovací zprávy pro konkrétní `Model` model s parametrem:
   
 ```razor
 <ValidationSummary Model="@_starship" />
 ```
 
-Komponenta `ValidationMessage` zobrazí ověřovací zprávy pro konkrétní pole, které je podobné [Pomocníkovi značky ověřovací zprávy](xref:mvc/views/working-with-forms#the-validation-message-tag-helper). Zadejte pole pro ověřování pomocí atributu `For` a lambda výrazu pojmenování vlastnosti modelu:
+Komponenta `ValidationMessage` zobrazuje ověřovací zprávy pro určité pole, které je podobné [pomocné](xref:mvc/views/working-with-forms#the-validation-message-tag-helper)službě Validation Message Tag Er . Zadejte pole pro `For` ověření s atributem a výraz lambda pojmenování vlastnosti modelu:
 
 ```razor
 <ValidationMessage For="@(() => _starship.MaximumAccommodation)" />
 ```
 
-Komponenty `ValidationMessage` a `ValidationSummary` podporují libovolné atributy. Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do generovaného `<div>` nebo `<ul>` elementu.
+`ValidationMessage` Komponenty `ValidationSummary` a podporují libovolné atributy. Všechny atributy, které neodpovídá parametru komponenty, jsou přidány do generovaného `<div>` prvku nebo `<ul>` prvku.
 
-### <a name="custom-validation-attributes"></a>Vlastní ověřovací atributy
+### <a name="custom-validation-attributes"></a>Vlastní atributy ověření
 
-Chcete-li zajistit, aby byl výsledek ověření správně přidružen k poli při použití [vlastního ověřovacího atributu](xref:mvc/models/validation#custom-attributes), předejte <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName> ověřovacího kontextu při vytváření <xref:System.ComponentModel.DataAnnotations.ValidationResult>:
+Chcete-li zajistit, aby byl výsledek ověření správně přidružen k poli při <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName> použití vlastního <xref:System.ComponentModel.DataAnnotations.ValidationResult> [atributu ověření](xref:mvc/models/validation#custom-attributes), předajte při vytváření : kontextu ověření kontextu ověření .
 
 ```csharp
 using System;
@@ -396,19 +396,19 @@ private class MyCustomValidator : ValidationAttribute
 }
 ```
 
-### <a name="opno-locblazor-data-annotations-validation-package"></a>Blazor balíček pro ověření datových poznámek
+### <a name="opno-locblazor-data-annotations-validation-package"></a>Blazorověřovací balíček anotací dat
 
-[Microsoft. AspNetCore. Components. Dataanotaces. Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) je balíček, který vyplní mezery v prostředí ověřování pomocí komponenty `DataAnnotationsValidator`. Balíček je momentálně *experimentální*.
+[Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) je balíček, který vyplňuje `DataAnnotationsValidator` mezery zkušeností ověření pomocí komponenty. Balíček je v současné době *experimentální*.
 
-### <a name="compareproperty-attribute"></a>[CompareProperty] – atribut
+### <a name="compareproperty-attribute"></a>[CompareProperty] atribut
 
-<xref:System.ComponentModel.DataAnnotations.CompareAttribute> nepracuje dobře s komponentou `DataAnnotationsValidator`, protože nepřiřazuje výsledek ověření k určitému členovi. To může vést k nekonzistentnímu chování mezi ověřováním na úrovni polí a při ověřování celého modelu při odeslání. Balíček [Microsoft. AspNetCore. Components. DataAnnotations. Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) *experiment* zavádí další ověřovací atribut `ComparePropertyAttribute`, který tato omezení funguje. V Blazor aplikaci `[CompareProperty]` je přímá náhrada pro atribut `[Compare]`.
+Nefunguje <xref:System.ComponentModel.DataAnnotations.CompareAttribute> dobře s komponentou, `DataAnnotationsValidator` protože nepřidružuje výsledek ověření s konkrétním členem. To může mít za následek nekonzistentní chování mezi ověřením na úrovni pole a při ověření celého modelu při odeslání. *Experimentální* balíček [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) zavádí další `ComparePropertyAttribute`atribut ověření , který funguje kolem těchto omezení. V Blazor aplikaci `[CompareProperty]` je přímou `[Compare]` náhradou atributu.
 
-### <a name="nested-models-collection-types-and-complex-types"></a>Vnořené modely, typy kolekcí a komplexní typy
+### <a name="nested-models-collection-types-and-complex-types"></a>Vnořené modely, typy kolekcí a složité typy
 
-Blazor poskytuje podporu pro ověřování vstupu formuláře pomocí datových poznámek s integrovaným `DataAnnotationsValidator`. `DataAnnotationsValidator` však pouze ověřuje vlastnosti nejvyšší úrovně modelu vázaného na formulář, který není typu kolekce nebo komplexního typu.
+Blazorposkytuje podporu pro ověřování vstupu formuláře pomocí datových anotací s vestavěným `DataAnnotationsValidator`. `DataAnnotationsValidator` Však pouze ověří nejvyšší úrovně vlastnosti modelu vázané na formulář, které nejsou vlastnosti kolekce nebo komplexní typ.
 
-Chcete-li ověřit celý graf objektu vázaného modelu, včetně vlastností kolekce a komplexního typu, použijte `ObjectGraphDataAnnotationsValidator` od *experimentálního* balíčku [Microsoft. AspNetCore. Components. DataAnnotations. ověřovací](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) balíček:
+Chcete-li ověřit celý objektový graf vázaného modelu, včetně vlastností typu kolekce a komplexního typu, použijte `ObjectGraphDataAnnotationsValidator` balíček poskytnutý *experimentálním* balíčkem [Microsoft.AspNetCore.Components.DataAnnotations.Validation:](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation)
 
 ```razor
 <EditForm Model="@_model" OnValidSubmit="HandleValidSubmit">
@@ -417,7 +417,7 @@ Chcete-li ověřit celý graf objektu vázaného modelu, včetně vlastností ko
 </EditForm>
 ```
 
-Přidávejte do vlastností modelu poznámky pomocí `[ValidateComplexType]`. V následujících třídách modelu obsahuje Třída `ShipDescription` další datové poznámky, které lze ověřit, je-li model svázán s formulářem:
+Oslnění vlastností modelu pomocí aplikace `[ValidateComplexType]`. V následujících třídách `ShipDescription` modelu třída obsahuje další datové poznámky k ověření, když je model vázán na formulář:
 
 *Starship.cs*:
 
@@ -454,13 +454,13 @@ public class ShipDescription
 }
 ```
 
-### <a name="enable-the-submit-button-based-on-form-validation"></a>Povolit tlačítko Odeslat na základě ověření formuláře
+### <a name="enable-the-submit-button-based-on-form-validation"></a>Povolení tlačítka odeslat na základě ověření formuláře
 
-Povolení a zakázání tlačítka Odeslat na základě ověření formuláře:
+Povolení a zakázání tlačítka odeslat na základě ověření formuláře:
 
-* K přiřazení modelu při inicializaci komponenty použijte `EditContext` formuláře.
-* Pokud chcete povolit a zakázat tlačítko Odeslat, ověřte formulář v `OnFieldChanged`ovém zpětném volání kontextu.
-* Odpojte obslužnou rutinu události v metodě `Dispose`. Další informace naleznete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.
+* Pomocí formuláře `EditContext` přiřaďte model při inicializování komponenty.
+* Ověřte formulář v `OnFieldChanged` kontextu zpětného volání povolit a zakázat tlačítko odeslat.
+* Unhook obslužné rutiny události v metodě. `Dispose` Další informace naleznete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.
 
 ```razor
 @implements IDisposable
@@ -498,15 +498,15 @@ Povolení a zakázání tlačítka Odeslat na základě ověření formuláře:
 }
 ```
 
-V předchozím příkladu nastavte `_formInvalid` na `false`, pokud:
+V předchozím příkladu `_formInvalid` nastavte `false` if:
 
-* Formulář je předem načten s platnými výchozími hodnotami.
-* Chcete povolit tlačítko Odeslat, když se formulář načte.
+* Formulář je předinstalován s platnými výchozími hodnotami.
+* Chcete po načtení formuláře aktivovat tlačítko odeslat.
 
-Vedlejším účinkem předchozího přístupu je, že komponenta `ValidationSummary` se naplní neplatnými poli poté, co uživatel pracuje s libovolným polem. Tento scénář je možné vyřešit jedním z následujících způsobů:
+Vedlejším účinkem předchozího přístupu `ValidationSummary` je, že součást je naplněna neplatnými poli poté, co uživatel interaguje s jedním polem. Tento scénář lze řešit jedním z následujících způsobů:
 
-* Ve formuláři nepoužívejte komponentu `ValidationSummary`.
-* Zpřístupní komponentu `ValidationSummary`, když je vybráno tlačítko Odeslat (například v metodě `HandleValidSubmit`).
+* Nepoužívejte `ValidationSummary` součást ve formuláři.
+* Po `ValidationSummary` výběru tlačítka odeslat zviditelněte komponentu `HandleValidSubmit` (například v metodě).
 
 ```razor
 <EditForm EditContext="@_editContext" OnValidSubmit="HandleValidSubmit">

@@ -1,91 +1,91 @@
 ---
-title: Hostování ASP.NET Core v systému Linux pomocí Nginx
+title: Host ASP.NET Core na Linuxu s Nginx
 author: rick-anderson
-description: Naučte se, jak nastavit Nginx jako reverzní proxy na Ubuntu 16,04 pro přeposílání provozu HTTP do ASP.NET Core webové aplikace běžící na Kestrel.
+description: Naučte se, jak nastavit Nginx jako reverzní proxy na Ubuntu 16.04 pro předávání http provozu do ASP.NET webové aplikace Core běžící na Kestrelu.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/05/2020
 uid: host-and-deploy/linux-nginx
 ms.openlocfilehash: 320a5364efe85b06028d8e80000e3455bb8ebd18
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78657911"
 ---
-# <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
+# <a name="host-aspnet-core-on-linux-with-nginx"></a>Host ASP.NET Core na Linuxu s Nginx
 
-Od [sourabh Shirhatti](https://twitter.com/sshirhatti)
+Podle [Sourabh Shirhatti](https://twitter.com/sshirhatti)
 
-V této příručce se dozvíte, jak na serveru Ubuntu 16,04 nastavit prostředí pro ASP.NET Core připravené pro produkční prostředí. Tyto pokyny pravděpodobně fungují s novějšími verzemi Ubuntu, ale pokyny nebyly testovány s novějšími verzemi.
+Tato příručka vysvětluje nastavení prostředí ASP.NET Core připraveného pro produkční prostředí na serveru Ubuntu 16.04. Tyto pokyny pravděpodobně pracují s novějšími verzemi Ubuntu, ale pokyny nebyly testovány s novějšími verzemi.
 
-Informace o dalších distribucích systému Linux podporovaných nástrojem ASP.NET Core najdete v tématu [předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites).
+Informace o dalších linuxových distribucích podporovaných ASP.NET Core najdete [v tématu Požadavky pro .NET Core v Linuxu](/dotnet/core/linux-prerequisites).
 
 > [!NOTE]
-> Pro Ubuntu *14,04 se doporučuje* jako řešení pro monitorování procesu Kestrel. *systém* není k dispozici na Ubuntu 14,04. Pokyny pro Ubuntu 14,04 najdete v [předchozí verzi tohoto tématu](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md).
+> Pro Ubuntu 14.04 se doporučuje *dohledu* jako řešení pro sledování procesu Kestrel. *systemd* není k dispozici na Ubuntu 14.04. Pokyny k Ubuntu 14.04 najdete v [předchozí verzi tohoto tématu](https://github.com/dotnet/AspNetCore.Docs/blob/e9c1419175c4dd7e152df3746ba1df5935aaafd5/aspnetcore/publishing/linuxproduction.md).
 
 Tato příručka:
 
 * Umístí existující aplikaci ASP.NET Core za reverzní proxy server.
-* Nastaví reverzní proxy server pro přeposílání požadavků na webový server Kestrel.
-* Zajistí, aby se webová aplikace spouštěla při spuštění jako démon.
-* Nakonfiguruje Nástroj pro správu procesů, který vám může pomáhat s restartováním webové aplikace.
+* Nastaví reverzní proxy server pro předávání požadavků na webový server Kestrel.
+* Zajišťuje, že webová aplikace běží při spuštění jako daemon.
+* Nakonfiguruje nástroj pro správu procesů, který pomáhá restartovat webovou aplikaci.
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
-1. Přístup k serveru Ubuntu 16,04 se standardním uživatelským účtem s oprávněním sudo.
-1. Nainstalujte modul runtime .NET Core na server.
-   1. Navštivte [stránku stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core).
-   1. Vyberte nejnovější verzi rozhraní .NET Core, která není ve verzi Preview.
-   1. Stáhněte si nejnovější modul runtime bez verze Preview v tabulce v části **Spustit aplikace – modul runtime**.
-   1. Vyberte odkaz **pokyny správce balíčků** pro Linux a postupujte podle pokynů pro Ubuntu pro vaši verzi Ubuntu.
+1. Přístup k serveru Ubuntu 16.04 se standardním uživatelským účtem s oprávněním sudo.
+1. Nainstalujte na server runtime jádra .NET.
+   1. Navštivte [stránku Download .NET Core](https://dotnet.microsoft.com/download/dotnet-core).
+   1. Vyberte nejnovější verzi jádra .NET bez náhledu.
+   1. Stáhněte si nejnovější runtime bez náhledu v tabulce v části **Spustit aplikace - Runtime**.
+   1. Vyberte odkaz **na pokyny správce balíčků** Linuxu a postupujte podle pokynů Ubuntu pro vaši verzi Ubuntu.
 1. Existující aplikace ASP.NET Core.
 
-V jakémkoli okamžiku v budoucnu po upgradu sdílené architektury restartujte aplikace ASP.NET Core hostované serverem.
+Kdykoli v budoucnu po upgradu sdíleného rozhraní restartujte aplikace ASP.NET Core hostované serverem.
 
 ## <a name="publish-and-copy-over-the-app"></a>Publikování a kopírování přes aplikaci
 
-Nakonfigurujte aplikaci pro [nasazení závislé na rozhraní](/dotnet/core/deploying/#framework-dependent-deployments-fdd).
+Nakonfigurujte aplikaci pro [nasazení závislé na rámci](/dotnet/core/deploying/#framework-dependent-deployments-fdd).
 
-Pokud je aplikace spuštěná místně a není nakonfigurovaná tak, aby přijímala zabezpečené připojení (HTTPS), proveďte jednu z následujících metod:
+Pokud je aplikace spuštěná místně a není nakonfigurovaná pro zabezpečená připojení (HTTPS), přijměte některý z následujících přístupů:
 
-* Nakonfigurujte aplikaci tak, aby zpracovávala Zabezpečená místní připojení. Další informace najdete v části [konfigurace https](#https-configuration) .
-* Z vlastnosti `applicationUrl` v souboru *Properties/launchSettings. JSON* odeberte `https://localhost:5001` (Pokud je k dispozici).
+* Nakonfigurujte aplikaci tak, aby zpracovávala zabezpečená místní připojení. Další informace naleznete v části [konfigurace protokolu HTTPS.](#https-configuration)
+* Odebrat `https://localhost:5001` (pokud je `applicationUrl` k dispozici) z vlastnosti v *properties/launchSettings.json* souboru.
 
-Spuštěním [dotnet Publish](/dotnet/core/tools/dotnet-publish) z vývojového prostředí zabalíte aplikaci do adresáře (například *bin/Release/&lt;target_framework_moniker&gt;/Publish*), která se dají spustit na serveru:
+Spusťte [publikování dotnet](/dotnet/core/tools/dotnet-publish) z vývojového prostředí a zabalte aplikaci do adresáře (například *&lt;bin/Release/ target_framework_moniker&gt;/publish),* který lze spustit na serveru:
 
 ```dotnetcli
 dotnet publish --configuration Release
 ```
 
-Pokud nechcete zachovat modul runtime .NET Core na serveru, můžete aplikaci publikovat také jako samostatné [nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) .
+Aplikace může být také publikována jako [samostatné nasazení,](/dotnet/core/deploying/#self-contained-deployments-scd) pokud nechcete udržovat runtime .NET Core na serveru.
 
-Zkopírujte aplikaci ASP.NET Core na server pomocí nástroje, který se integruje do pracovního postupu organizace (například SCP, SFTP). Je běžné najít webové aplikace v adresáři *var* (například *var/www/helloapp*).
+Zkopírujte aplikaci ASP.NET Core na server pomocí nástroje, který se integruje do pracovního postupu organizace (například SCP, SFTP). Je běžné vyhledat webové aplikace v adresáři *var* (například *var/www/helloapp*).
 
 > [!NOTE]
-> V rámci scénáře nasazení v produkčním prostředí provádí pracovní postup průběžné integrace publikování aplikace a zkopírování prostředků na server.
+> Podle scénáře nasazení v produkčním prostředí provádí pracovní postup průběžné integrace publikování aplikace a kopírování datových zdrojů na server.
 
-Testování aplikace:
+Otestujte aplikaci:
 
-1. Z příkazového řádku spusťte aplikaci: `dotnet <app_assembly>.dll`.
-1. V prohlížeči přejděte na `http://<serveraddress>:<port>` a ověřte, že aplikace funguje na Linux místně.
+1. Na příkazovém řádku spusťte aplikaci: `dotnet <app_assembly>.dll`.
+1. V prohlížeči přejděte na `http://<serveraddress>:<port>` ověření, že aplikace funguje na Linuxu místně.
 
-## <a name="configure-a-reverse-proxy-server"></a>Konfigurace reverzního proxy server
+## <a name="configure-a-reverse-proxy-server"></a>Konfigurace serveru reverzního proxy serveru
 
-Reverzní proxy je běžné nastavení pro obsluhu dynamických webových aplikací. Reverzní proxy ukončí požadavek HTTP a předá ho do aplikace ASP.NET Core.
+Reverzní proxy je běžné nastavení pro zobrazování dynamických webových aplikací. Reverzní proxy ukončí požadavek HTTP a předá jej do aplikace ASP.NET Core.
 
-### <a name="use-a-reverse-proxy-server"></a>Použít reverzní proxy server
+### <a name="use-a-reverse-proxy-server"></a>Použití reverzního proxy serveru
 
-Kestrel je ideální pro obsluhu dynamického obsahu z ASP.NET Core. Webový server, který obsluhuje možnosti, ale není jako funkce bohatě funkční jako servery jako IIS, Apache nebo Nginx. Reverzní proxy server může přesměrovat práci, jako je například obsluhující statický obsah, požadavky na ukládání do mezipaměti, komprimace požadavků a ukončení HTTPS ze serveru HTTP. Reverzní proxy server může být umístěná na vyhrazeném počítači nebo může být nasazena spolu s HTTP serverem.
+Kestrel je skvělý pro podávání dynamického obsahu z ASP.NET Core. Možnosti webové hosvírování však nejsou tak bohaté na funkce jako servery, jako je Služba IIS, Apache nebo Nginx. Reverzní proxy server může offload práce, jako je například obsluha statického obsahu, ukládání požadavků do mezipaměti, komprese požadavků a ukončení HTTPS ze serveru HTTP. Reverzní proxy server může být umístěn na vyhrazeném počítači nebo může být nasazen společně se serverem HTTP.
 
-Pro účely tohoto průvodce se používá jedna instance Nginx. Spouští se na stejném serveru společně se serverem HTTP. Na základě požadavků může být zvoleno jiné nastavení.
+Pro účely této příručky se používá jedna instance Nginx. Běží na stejném serveru, vedle http serveru. Na základě požadavků může být zvoleno jiné nastavení.
 
-Vzhledem k tomu, že požadavky jsou předávány reverzním proxy, použijte [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) z balíčku [Microsoft. AspNetCore. HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) . Middleware aktualizuje `Request.Scheme`pomocí hlavičky `X-Forwarded-Proto`, aby identifikátory URI pro přesměrování a další zásady zabezpečení fungovaly správně.
+Vzhledem k tomu, že požadavky jsou předávány reverzním proxy serverem, použijte [middleware s předanými hlavičkami](xref:host-and-deploy/proxy-load-balancer) z balíčku [Microsoft.AspNetCore.HttpOverrides.](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) Middleware aktualizuje `Request.Scheme`, pomocí `X-Forwarded-Proto` záhlaví, takže přesměrování IDENTIFIKÁTORŮ URI a dalších zásad zabezpečení pracovat správně.
 
-Po vyvolání middlewaru předávaných hlaviček musí být všechny komponenty, které jsou závislé na schématu, jako je ověřování, generace odkazů, přesměrování a zeměpisná poloha, umístěny. Jako obecné pravidlo by měl middleware předaných hlaviček běžet před jiným middlewarem, kromě diagnostiky a middlewaru pro zpracování chyb. Toto řazení zajišťuje, aby middleware spoléhající se na předané informace hlaviček mohl spotřebovat hodnoty hlaviček pro zpracování.
+Každá součást, která závisí na schématu, jako je ověřování, generování propojení, přesměrování a geografické umístění, musí být umístěna po vyvolání middlewaru předávaných záhlaví. Obecně platí, že middleware s předaným záhlavím by měl být spuštěn před jiným middlewarem s výjimkou diagnostiky a zpracování chyb middlewaru. Toto pořadí zajišťuje, že middleware spoléhající na předávané informace záhlaví může spotřebovat hodnoty záhlaví pro zpracování.
 
-Vyvolejte metodu <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> v `Startup.Configure` před voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> nebo podobného middlewaru schématu ověřování. Nakonfigurujte middleware pro přeposílání `X-Forwarded-For` a `X-Forwarded-Proto` hlavičky:
+Vyvolat <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> metodu `Startup.Configure` v <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> před voláním nebo podobné schéma ověřování middleware. Nakonfigurujte middleware tak, aby předával záhlaví `X-Forwarded-For` a: `X-Forwarded-Proto`
 
 ```csharp
 // using Microsoft.AspNetCore.HttpOverrides;
@@ -98,9 +98,9 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthentication();
 ```
 
-Pokud pro middlewari nejsou zadány žádné <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>, jsou výchozí hlavičky pro přeposílání `None`.
+Pokud <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> middlewaru nezadali, výchozí hlavičky `None`pro předávání jsou .
 
-Proxy servery běžící na adresách zpětné smyčky (127.0.0.0/8, [:: 1]), včetně standardní adresy localhost (127.0.0.1), jsou ve výchozím nastavení důvěryhodné. Pokud jiné důvěryhodné proxy servery nebo sítě v rámci organizace zařídí žádosti mezi Internetem a webovým serverem, přidejte je do seznamu <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> nebo <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> pomocí <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>. Následující příklad přidá důvěryhodnou proxy server na IP adresu 10.0.0.100 k `KnownProxies` middlewaru s přesměrovanými hlavičkami v `Startup.ConfigureServices`:
+Proxy servery spuštěné na adresách zpětné smyčky (127.0.0.0/8, [::1]), včetně standardní adresy localhost (127.0.0.1), jsou ve výchozím nastavení důvěryhodné. Pokud jiné důvěryhodné servery proxy nebo sítě v rámci organizace zpracovávají požadavky mezi <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> Internetem a webovým serverem, přidejte je do seznamu nebo <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> s <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>aplikací . Následující příklad přidá důvěryhodný proxy server na adrese IP 10.0.0.100 `KnownProxies` do `Startup.ConfigureServices`middlewaru Předávaných záhlaví v :
 
 ```csharp
 // using System.Net;
@@ -113,24 +113,24 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 Další informace naleznete v tématu <xref:host-and-deploy/proxy-load-balancer>.
 
-### <a name="install-nginx"></a>Nainstalovat Nginx
+### <a name="install-nginx"></a>Instalace Nginx
 
-K instalaci Nginx použijte `apt-get`. Instalační program vytvoří *systémový* skript init, který spustí Nginx jako démon při spuštění systému. Postupujte podle pokynů k instalaci Ubuntu na [Nginx: oficiální balíčky Debian/Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages).
+Slouží `apt-get` k instalaci Nginx. Instalátor vytvoří *systemd* init skript, který běží Nginx jako daemon při spuštění systému. Postupujte podle pokynů k instalaci pro Ubuntu na [Nginx: Oficiální Debian / Ubuntu balíčky](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages).
 
 > [!NOTE]
-> Pokud jsou vyžadovány Volitelné moduly Nginx, může být nutné sestavit Nginx ze zdroje.
+> Pokud jsou požadovány volitelné moduly Nginx, může být vyžadována stavba Nginx ze zdroje.
 
-Vzhledem k tomu, že se Nginx nainstaloval poprvé, explicitně ho spusťte spuštěním:
+Vzhledem k tomu, že nginx byl nainstalován poprvé, explicitně spustit spuštěním:
 
 ```bash
 sudo service nginx start
 ```
 
-Ověřte, že prohlížeč zobrazuje výchozí cílovou stránku pro Nginx. Cílová stránka je dosažitelná na `http://<server_IP_address>/index.nginx-debian.html`.
+Ověřte, zda prohlížeč zobrazuje výchozí vstupní stránku nginxu. Vstupní stránka je dostupná na adrese `http://<server_IP_address>/index.nginx-debian.html`.
 
-### <a name="configure-nginx"></a>Konfigurace nginx
+### <a name="configure-nginx"></a>Konfigurace služby Nginx
 
-Pokud chcete nakonfigurovat Nginx jako reverzní proxy server pro přeposílání požadavků do vaší aplikace ASP.NET Core, upravte */etc/Nginx/sites-available/default*. Otevřete ho v textovém editoru a nahraďte jeho obsah následujícím textem:
+Chcete-li nakonfigurovat Nginx jako reverzní proxy server pro předávání požadavků na aplikaci ASP.NET Core, upravte */etc/nginx/sites-available/default*. Otevřete jej v textovém editoru a nahraďte obsah následujícím:
 
 ```nginx
 server {
@@ -149,9 +149,9 @@ server {
 }
 ```
 
-Pokud je aplikace Blazor serverová aplikace, která spoléhá na WebSockets signálu, přečtěte si téma <xref:host-and-deploy/blazor/server#linux-with-nginx>, kde najdete informace o tom, jak nastavit `Connection` hlavičku.
+Pokud je aplikace aplikace Blazor Server, která závisí na <xref:host-and-deploy/blazor/server#linux-with-nginx> SignalR WebSockets, `Connection` přečtěte si informace o tom, jak nastavit záhlaví.
 
-Pokud se neshodují `server_name`, Nginx použije výchozí server. Pokud není definován žádný výchozí server, je první server v konfiguračním souboru výchozím serverem. Osvědčeným postupem je přidat konkrétní výchozí server, který vrátí stavový kód 444 do konfiguračního souboru. Výchozím příkladem konfigurace serveru je:
+Pokud `server_name` žádná shoda, Nginx používá výchozí server. Pokud není definován žádný výchozí server, je výchozím serverem první server v konfiguračním souboru. Jako osvědčený postup přidejte konkrétní výchozí server, který vrátí stavový kód 444 v konfiguračním souboru. Výchozí příklad konfigurace serveru je:
 
 ```nginx
 server {
@@ -161,35 +161,35 @@ server {
 }
 ```
 
-S předchozím konfiguračním souborem a výchozím serverem Nginx přijímá veřejný provoz na portu 80 s hlavičkou hostitele `example.com` nebo `*.example.com`. Požadavky, které se neshodují s těmito hostiteli, se nebudou přesílat na Kestrel. Nginx přepošle požadavky na Kestrel na `http://localhost:5000`. Další informace najdete v tématu [jak Nginx zpracovává požadavek](https://nginx.org/docs/http/request_processing.html) . Pokud chcete změnit IP adresu/port Kestrel, přečtěte si téma [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
+S předchozím konfiguračním souborem a výchozím serverem nginx `example.com` přijímá `*.example.com`veřejný provoz na portu 80 s hlavičkou hostitele nebo . Požadavky, které neodpovídají těmto hostitelům, nebudou předány ke kestrelu. Nginx předá odpovídající požadavky Kestrel `http://localhost:5000`na . Podívejte [se, jak nginx zpracovává žádost o](https://nginx.org/docs/http/request_processing.html) další informace. Chcete-li změnit protokol Kestrel IP/port, přečtěte si část [Kestrel: Konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
-> Nepovedlo se určit správnou [direktivu server_name](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace zpřístupňuje bezpečnostním hrozbám. Vazba zástupných znaků subdomény (například `*.example.com`) nepředstavuje toto bezpečnostní riziko, pokud ovládáte celou nadřazenou doménu (na rozdíl od `*.com`, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
+> Pokud nezadáte správnou [server_name direktivu,](https://nginx.org/docs/http/server_names.html) aplikace se zpřístupní slabým místům zabezpečení. Vazba se zástupnými znaky subdomény (například) nepředstavuje toto bezpečnostní riziko, `*.example.com` `*.com`pokud řídíte celou nadřazenou doménu (na rozdíl od , která je zranitelná). Viz [rfc7230 sekce-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) pro více informací.
 
-Po navázání konfigurace nginx spusťte `sudo nginx -t` a ověřte syntaxi konfiguračních souborů. Pokud je test konfiguračního souboru úspěšný, vynutí Nginx, aby se změny vybraly spuštěním `sudo nginx -s reload`.
+Po navázání konfigurace Nginx `sudo nginx -t` spusťte ověření syntaxe konfiguračních souborů. Pokud je test konfiguračního souboru úspěšný, vynuťte nginx, aby změny zachytil spuštěním `sudo nginx -s reload`.
 
-Postup při přímém spuštění aplikace na serveru:
+Přímé spuštění aplikace na serveru:
 
 1. Přejděte do adresáře aplikace.
-1. Spusťte aplikaci: `dotnet <app_assembly.dll>`, kde `app_assembly.dll` je název souboru sestavení aplikace.
+1. Spusťte `dotnet <app_assembly.dll>`aplikaci: , kde `app_assembly.dll` je název souboru sestavení aplikace.
 
-Pokud aplikace běží na serveru, ale neodpoví přes Internet, zkontrolujte bránu firewall serveru a ověřte, že je port 80 otevřený. Pokud používáte virtuální počítač Azure Ubuntu, přidejte pravidlo skupiny zabezpečení sítě (NSG), které umožňuje příchozí provoz portu 80. Není nutné povolit odchozí pravidlo portu 80, protože odchozí přenosy jsou automaticky uděleny, když je povolené příchozí pravidlo.
+Pokud aplikace běží na serveru, ale nereaguje přes Internet, zkontrolujte bránu firewall serveru a zkontrolujte, zda je otevřený port 80. Pokud používáte virtuální počítač Azure Ubuntu, přidejte pravidlo skupiny zabezpečení sítě (NSG), které umožňuje příchozí port 80 provoz. Není nutné povolit pravidlo odchozího portu 80, protože odchozí provoz je automaticky udělen, když je povoleno příchozí pravidlo.
 
-Po dokončení testování aplikace ukončete aplikaci pomocí `Ctrl+C` na příkazovém řádku.
+Po dokončení testování aplikace, vypněte `Ctrl+C` aplikaci s na příkazovém řádku.
 
 ## <a name="monitor-the-app"></a>Sledování aplikace
 
-Server je nastavený tak, aby předal požadavky na `http://<serveraddress>:80` do ASP.NET Core aplikace běžící na Kestrel na `http://127.0.0.1:5000`. Nginx ale není nastavené na správu procesu Kestrel. *systém* lze použít k vytvoření souboru služby ke spuštění a sledování základní webové aplikace. *systém* je systémem init, který poskytuje mnoho výkonných funkcí pro spouštění, zastavování a správu procesů. 
+Server je nastaven tak, aby `http://<serveraddress>:80` předával požadavky na aplikaci ASP.NET `http://127.0.0.1:5000`Core spuštěnou na kestrelu na adrese . Nginx však není nastaven pro správu procesu Kestrel. *systemd* lze použít k vytvoření souboru služby pro spuštění a sledování základní webové aplikace. *systemd* je init systém, který poskytuje mnoho výkonných funkcí pro spouštění, zastavování a správu procesů. 
 
 ### <a name="create-the-service-file"></a>Vytvoření souboru služby
 
-Vytvořte definiční soubor služby:
+Vytvořte soubor definice služby:
 
 ```bash
 sudo nano /etc/systemd/system/kestrel-helloapp.service
 ```
 
-Následuje příklad souboru služby pro aplikaci:
+Následuje ukázkový soubor služby pro aplikaci:
 
 ```ini
 [Unit]
@@ -211,24 +211,24 @@ Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 WantedBy=multi-user.target
 ```
 
-V předchozím příkladu je uživatel, který spravuje službu, určen pomocí možnosti `User`. Uživatel (`www-data`) musí existovat a mít správné vlastnictví souborů aplikace.
+V předchozím příkladu je uživatel, který spravuje službu, určen `User` možností. Uživatel (`www-data`) musí existovat a mít správné vlastnictví souborů aplikace.
 
-Pomocí `TimeoutStopSec` můžete nastavit dobu, po kterou se má čekat na vypnutí aplikace po přijetí počátečního signálu přerušení. Pokud se aplikace v tomto období neukončí, SIGKILL se vydá pro ukončení aplikace. Zadejte hodnotu jako nejednotkové sekundy (například `150`), hodnotu časového rozsahu (například `2min 30s`) nebo `infinity`, aby byl časový limit zakázán. `TimeoutStopSec` výchozí hodnota `DefaultTimeoutStopSec` v konfiguračním souboru správce (*systemed-System. conf*, *System. conf. d*, *systemd-User. conf*, *User. conf. d*). Výchozí časový limit pro většinu distribucí je 90 sekund.
+Slouží `TimeoutStopSec` ke konfiguraci doby čekání na vypnutí aplikace po přijetí signálu počátečního přerušení. Pokud se aplikace v tomto období nevypne, je vydána aplikace SIGKILL, aby aplikaci ukončila. Zadejte hodnotu jako sekundy `150`bez jednotky (například ), `2min 30s`hodnotu `infinity` časového rozpětí (například ) nebo zakázat časový rozsah. `TimeoutStopSec`výchozí hodnota v `DefaultTimeoutStopSec` konfiguračním souboru správce (*systemd-system.conf*, *system.conf.d*, *systemd-user.conf*, *user.conf.d*). Výchozí časový limit pro většinu distribucí je 90 sekund.
 
 ```
 # The default value is 90 seconds for most distributions.
 TimeoutStopSec=90
 ```
 
-Linux má systém souborů s rozlišováním velkých a malých písmen. Když se nastaví ASPNETCORE_ENVIRONMENT k produkci, vyhledá se konfigurační soubor *appSettings. Produkční. JSON*, nikoli *appSettings. produkční. JSON*.
+Linux má systém souborů rozlišující malá a velká písmena. Nastavení ASPNETCORE_ENVIRONMENT na "Produkční" má za následek hledání nastavení konfiguračního *souboru. Production.json*, ne *appsettings.production.json*.
 
-Některé hodnoty (například připojovací řetězce SQL) musí být uvozené řídicími znaky, aby poskytovatelé konfigurace mohli číst proměnné prostředí. Pomocí následujícího příkazu vygenerujte správně uvozenou hodnotu pro použití v konfiguračním souboru:
+Některé hodnoty (například připojovací řetězce SQL) musí být uvozeny, aby zprostředkovatelé konfigurace mohli číst proměnné prostředí. Pomocí následujícího příkazu vygenerujte správně uvozenou hodnotu pro použití v konfiguračním souboru:
 
 ```console
 systemd-escape "<value-to-escape>"
 ```
 
-Oddělovače dvojtečky (`:`) nejsou v názvech proměnných prostředí podporovány. Místo dvojtečky použijte dvojité podtržítko (`__`). [Poskytovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider) převádí dvojitá podtržítka na dvojtečky, když jsou proměnné prostředí čteny do konfigurace. V následujícím příkladu je klíč připojovacího řetězce `ConnectionStrings:DefaultConnection` v definičním souboru služby nastaven jako `ConnectionStrings__DefaultConnection`:
+Oddělovače dvojtečky (`:`) nejsou v názvech proměnných prostředí podporovány. Místo dvojtečky`__`použijte dvojité podtržítko ( ). [Zprostředkovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider) převádí dvojité podtržítka na dvojtečky při čtení proměnných prostředí do konfigurace. V následujícím příkladu je `ConnectionStrings:DefaultConnection` klíč připojovacího `ConnectionStrings__DefaultConnection`řetězce nastaven do souboru definice služby jako :
 
 ```
 Environment=ConnectionStrings__DefaultConnection={Connection String}
@@ -254,7 +254,7 @@ Main PID: 9021 (dotnet)
             └─9021 /usr/local/bin/dotnet /var/www/helloapp/helloapp.dll
 ```
 
-Když je server reverzní proxy nakonfigurovaný a Kestrel spravovaný prostřednictvím systému, je webová aplikace plně nakonfigurovaná a dá se k nim dostat z prohlížeče v místním počítači na `http://localhost`. Je dostupná taky ze vzdáleného počítače a znemožňuje bránu firewall, která může být zablokovaná. Při kontrole hlaviček odpovědí se v hlavičce `Server` zobrazuje ASP.NET Core aplikace, kterou obsluhuje Kestrel.
+S reverzní proxy nakonfigurován a Kestrel spravuje prostřednictvím systemd, webová aplikace je plně `http://localhost`nakonfigurován a lze přistupovat z prohlížeče na místním počítači na . Je také přístupný ze vzdáleného počítače, blokování firewallu, který by mohl blokovat. Při kontrole záhlaví odpovědí `Server` se v záhlaví zobrazí aplikace ASP.NET Core obsluhovaná společností Kestrel.
 
 ```text
 HTTP/1.1 200 OK
@@ -267,13 +267,13 @@ Transfer-Encoding: chunked
 
 ### <a name="view-logs"></a>Zobrazení protokolů
 
-Vzhledem k tomu, že je webová aplikace používající Kestrel spravovaná pomocí `systemd`, všechny události a procesy se zaprotokolují do centralizovaného deníku. Tento deník ale obsahuje všechny položky pro všechny služby a procesy spravované pomocí `systemd`. Chcete-li zobrazit položky specifické pro `kestrel-helloapp.service`, použijte následující příkaz:
+Vzhledem k tomu, že webová aplikace pomocí Kestrel je spravována pomocí `systemd`, všechny události a procesy jsou protokolovány do centralizovaného deníku. Tento deník však obsahuje všechny položky `systemd`pro všechny služby a procesy spravované společností . Chcete-li `kestrel-helloapp.service`zobrazit specifické položky, použijte následující příkaz:
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service
 ```
 
-Pro další filtrování, časová nastavení, například `--since today`, `--until 1 hour ago` nebo kombinace těchto možností může snížit množství vrácených položek.
+Pro další filtrování mohou možnosti času, například `--since today`, `--until 1 hour ago` nebo jejich kombinace snížit množství vrácených položek.
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-10-18 04:00"
@@ -281,22 +281,22 @@ sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-
 
 ## <a name="data-protection"></a>Ochrana dat
 
-[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru ověřování (například middleware souborů cookie) a ochrany proti padělání žádostí mezi weby (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, je třeba chránit data, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud není nakonfigurovaná ochrana dat, jsou klíče uložené v paměti a při restartování aplikace.
+Zásobník [ASP.NET Core Data Protection](xref:security/data-protection/introduction) používá několik [middlewares](xref:fundamentals/middleware/index)ASP.NET Core , včetně autentizačního middlewaru (například middleware souborů cookie) a ochrany padělání požadavků na více webů (CSRF). I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, ochrana dat by měla být nakonfigurována tak, aby vytvořila trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurována, klíče jsou uloženy v paměti a po restartování aplikace zahozeny.
 
-Pokud kanál klíče jsou uloženy v paměti, při restartování aplikace:
+Pokud je kroužek klíče uložen v paměti při restartování aplikace:
 
-* Všechny tokeny ověřování na základě souborů cookie nejsou zneplatněny.
-* Uživatelé se musí znovu přihlásit v jejich další požadavek.
-* Všechna data chráněná pomocí aktualizační kanál, který klíč můžete už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
+* Všechny ověřovací tokeny založené na souborech cookie jsou zrušeny.
+* Uživatelé se musí znovu přihlásit při dalším požadavku.
+* Všechna data chráněná kroužkem klíče již nelze dešifrovat. To může zahrnovat [tokeny CSRF](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET základní soubory cookie MVC TempData](xref:fundamentals/app-state#tempdata).
 
-Pokud chcete nakonfigurovat ochranu dat, aby zachovala a zašifroval klíč Ring, přečtěte si:
+Chcete-li nakonfigurovat ochranu dat tak, aby byla zachována a zašifrována kroužek klíče, přečtěte si následující:
 
 * <xref:security/data-protection/implementation/key-storage-providers>
 * <xref:security/data-protection/implementation/key-encryption-at-rest>
 
-## <a name="long-request-header-fields"></a>Pole hlavičky dlouhé žádosti
+## <a name="long-request-header-fields"></a>Pole záhlaví dlouhého požadavku
 
-Výchozí nastavení proxy serveru obvykle omezuje pole hlaviček požadavku na 4 KB nebo 8 KB v závislosti na platformě. Aplikace může vyžadovat pole delší než výchozí (například aplikace, které používají [Azure Active Directory](https://azure.microsoft.com/services/active-directory/)). Pokud jsou požadována delší pole, je výchozí nastavení proxy server vyžadovat úpravu. Hodnoty, které mají být použity, závisí na scénáři. Další informace najdete v dokumentaci k vašemu serveru.
+Výchozí nastavení proxy serveru obvykle omezují pole hlaviček požadavků na 4 K nebo 8 K v závislosti na platformě. Aplikace může vyžadovat pole delší než výchozí (například aplikace, které používají [Azure Active Directory).](https://azure.microsoft.com/services/active-directory/) Pokud jsou vyžadována delší pole, výchozí nastavení proxy serveru vyžaduje úpravy. Hodnoty, které mají být aplikovány, závisí na scénáři. Další informace naleznete v dokumentaci k serveru.
 
 * [proxy_buffer_size](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffer_size)
 * [proxy_buffers](https://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffers)
@@ -304,22 +304,22 @@ Výchozí nastavení proxy serveru obvykle omezuje pole hlaviček požadavku na 
 * [large_client_header_buffers](https://nginx.org/docs/http/ngx_http_core_module.html#large_client_header_buffers)
 
 > [!WARNING]
-> Nerozšiřujte výchozí hodnoty vyrovnávací paměti proxy, pokud je to nutné. Zvýšení těchto hodnot zvyšuje riziko přetečení vyrovnávací paměti (přetečení) a útok DoS (Denial of Service) uživateli se zlými úmysly.
+> Pokud to není nutné, nezvyšujte výchozí hodnoty proxy vyrovnávacích pamětí. Zvýšení těchto hodnot zvyšuje riziko přetečení vyrovnávací paměti (přetečení) a odmítnutí služby (DoS) útoky uživatelů se zlými úmysly.
 
 ## <a name="secure-the-app"></a>Zabezpečení aplikace
 
 ### <a name="enable-apparmor"></a>Povolit AppArmor
 
-Moduly zabezpečení Linux (LSM) jsou rozhraní, které je součástí jádra Linux od verze Linux 2,6. LSM podporuje různé implementace modulů zabezpečení. [AppArmor](https://wiki.ubuntu.com/AppArmor) je lsm, který implementuje povinný Access Control systém, který umožňuje programu confining program na omezené sady prostředků. Ujistěte se, že je povolená a správně nakonfigurovaná možnost AppArmor.
+Linux Security Modules (LSM) je framework, který je součástí linuxového jádra od Linuxu 2.6. LSM podporuje různé implementace bezpečnostních modulů. [AppArmor](https://wiki.ubuntu.com/AppArmor) je LSM, který implementuje systém povinného řízení přístupu, který umožňuje omezit program na omezenou sadu prostředků. Ujistěte se, že apparmor je povolena a správně nakonfigurována.
 
 ### <a name="configure-the-firewall"></a>Konfigurace brány firewall
 
-Zavřete všechny externí porty, které se nepoužívají. Nesložitá brána firewall (UFW) poskytuje front-end pro `iptables` tím, že poskytuje rozhraní příkazového řádku pro konfiguraci brány firewall.
+Zavřete všechny externí porty, které se nepoužívají. Nekomplikovaná brána firewall (ufw) poskytuje front-end `iptables` tím, že poskytuje CLI pro konfiguraci brány firewall.
 
 > [!WARNING]
-> Brána firewall zabrání přístupu k celému systému, pokud není správně nakonfigurovaný. Pokud se k připojení použijete přes SSH, nebudete moct zadat správný port SSH. Výchozí port je 22. Další informace najdete v [úvodu k UFW](https://help.ubuntu.com/community/UFW) a [příručce](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html).
+> Brána firewall zabrání přístupu k celému systému, pokud není správně nakonfigurován. Pokud nezadáte správný port SSH, efektivně vás uzamknete ze systému, pokud k němu používáte SSH. Výchozí port je 22. Další informace naleznete v [úvodu k ufw](https://help.ubuntu.com/community/UFW) a [manuálu](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html).
 
-Nainstalujte `ufw` a nakonfigurujte ho tak, aby povoloval přenosy na všech potřebných portech.
+Nainstalujte `ufw` a nakonfigurujte jej tak, aby umožňoval přenos na všech potřebných portech.
 
 ```bash
 sudo apt-get install ufw
@@ -331,86 +331,86 @@ sudo ufw allow 443/tcp
 sudo ufw enable
 ```
 
-### <a name="secure-nginx"></a>Zabezpečení Nginx
+### <a name="secure-nginx"></a>Bezpečné Nginx
 
-#### <a name="change-the-nginx-response-name"></a>Změnit název odpovědi Nginx
+#### <a name="change-the-nginx-response-name"></a>Změna názvu odpovědi Nginx
 
-Upravit *Src/http/ngx_http_header_filter_module. c*:
+Upravit *src/http/ngx_http_header_filter_module.c*:
 
 ```
 static char ngx_http_server_string[] = "Server: Web Server" CRLF;
 static char ngx_http_server_full_string[] = "Server: Web Server" CRLF;
 ```
 
-#### <a name="configure-options"></a>Konfigurovat možnosti
+#### <a name="configure-options"></a>Konfigurace možností
 
-Nakonfigurujte server s dalšími požadovanými moduly. Zvažte použití brány firewall webových aplikací, jako je například [ModSecurity](https://www.modsecurity.org/), k posílení aplikace.
+Nakonfigurujte server pomocí dalších požadovaných modulů. Zvažte použití brány firewall webové aplikace, jako je [ModSecurity](https://www.modsecurity.org/), k posílení zabezpečení aplikace.
 
-#### <a name="https-configuration"></a>Konfigurace HTTPS
+#### <a name="https-configuration"></a>Konfigurace PROTOKOLU HTTPS
 
-**Konfigurace místních připojení (HTTPS) aplikace pro zabezpečení**
+**Konfigurace aplikace pro zabezpečená místní připojení (HTTPS)**
 
-Příkaz příkazového řádku [dotnet](/dotnet/core/tools/dotnet-run) používá soubor *Properties/launchSettings. JSON* aplikace, který nakonfiguruje aplikaci tak, aby naslouchala adresám url poskytnutým vlastností `applicationUrl` (například `https://localhost:5001; http://localhost:5000`).
+Příkaz [dotnet run](/dotnet/core/tools/dotnet-run) používá soubor *Vlastnosti/launchSettings.json* aplikace, který konfiguruje aplikaci tak, aby naslouchala adresám URL poskytovaným `applicationUrl` vlastností (například ). `https://localhost:5001;http://localhost:5000`
 
-Nakonfigurujte aplikaci tak, aby používala certifikát ve vývoji pro příkaz `dotnet run` nebo vývojové prostředí (F5 nebo CTRL + F5 v Visual Studio Code) pomocí jednoho z následujících přístupů:
+Nakonfigurujte aplikaci tak, `dotnet run` aby používala certifikát ve vývoji pro prostředí příkazů nebo vývoje (F5 nebo Ctrl+F5 v kódu Visual Studia) pomocí jednoho z následujících přístupů:
 
-* [Nahradit výchozí certifikát z konfigurace](xref:fundamentals/servers/kestrel#configuration) (*doporučeno*)
+* [Nahrazení výchozího certifikátu z konfigurace](xref:fundamentals/servers/kestrel#configuration) *(doporučeno)*
 * [KestrelServerOptions.ConfigureHttpsDefaults](xref:fundamentals/servers/kestrel#configurehttpsdefaultsactionhttpsconnectionadapteroptions)
 
-**Konfigurace připojení klienta reverzního proxy serveru pro zabezpečení (HTTPS)**
+**Konfigurace reverzního proxy serveru pro zabezpečená připojení klientů (HTTPS)**
 
-* Nakonfigurujte server tak, aby naslouchal provozu protokolu HTTPS na portu `443` tím, že zadáte platný certifikát vydaný důvěryhodnou certifikační autoritou (CA).
+* Nakonfigurujte server tak, `443` aby naslouchal přenosům HTTPS na portu zadáním platného certifikátu vydaného důvěryhodnou certifikační autoritou (CA).
 
-* Posílit zabezpečení tím, že se využívaly některé postupy, které jsou znázorněné v následujícím souboru */etc/Nginx/Nginx.conf* . Mezi příklady patří výběr silnější šifry a přesměrování veškerého provozu přes protokol HTTP na HTTPS.
+* Zpevněte zabezpečení použitím některých postupů zobrazených v následujícím souboru */etc/nginx/nginx.conf.* Mezi příklady patří výběr silnější šifry a přesměrování veškerého provozu přes PROTOKOL HTTP na protokol HTTPS.
 
-* Přidáním hlavičky `HTTP Strict-Transport-Security` (HSTS) se zajistí, že všechny následné požadavky, které klient provede, budou přes protokol HTTPS.
+* Přidání `HTTP Strict-Transport-Security` hlavičky (HSTS) zajišťuje, že všechny následné požadavky provedené klientem jsou přes protokol HTTPS.
 
-* Nepřidejte hlavičku HSTS ani zvolte vhodný `max-age`, pokud bude v budoucnu zakázán protokol HTTPS.
+* Nepřidávejte hlavičku HSTS ani `max-age` nezvolte vhodné, pokud https bude zakázán v budoucnu.
 
-Přidejte konfigurační soubor */etc/Nginx/proxy.conf* :
+Přidejte konfigurační soubor */etc/nginx/proxy.conf:*
 
 [!code-nginx[](linux-nginx/proxy.conf)]
 
-Upravte konfigurační soubor */etc/Nginx/Nginx.conf* . Příklad obsahuje oddíly `http` a `server` v jednom konfiguračním souboru.
+Upravte konfigurační soubor */etc/nginx/nginx.conf.* Příklad obsahuje `http` oddíly v `server` jednom konfiguračním souboru.
 
 [!code-nginx[](linux-nginx/nginx.conf?highlight=2)]
 
-#### <a name="secure-nginx-from-clickjacking"></a>Zabezpečení Nginx z clickjacking
+#### <a name="secure-nginx-from-clickjacking"></a>Zabezpečit Nginx z clickjacking
 
-[Clickjacking](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger), označovaný také jako *útok s opravou uživatelského rozhraní*, je škodlivý útok, při kterém návštěvník webu získá odkaz nebo tlačítko na jiné stránce, než se právě navštíví. K zabezpečení webu použijte `X-FRAME-OPTIONS`.
+[Clickjacking](https://blog.qualys.com/securitylabs/2015/10/20/clickjacking-a-common-implementation-mistake-that-can-put-your-websites-in-danger), také známý jako *útok na nápravu ui*, je škodlivý útok, kdy je návštěvník webových stránek podveden, aby klikl na odkaz nebo tlačítko na jiné stránce, než je v současné době na návštěvě. Slouží `X-FRAME-OPTIONS` k zabezpečení webu.
 
-Zmírnění útoků Clickjacking:
+Chcete-li zmírnit clickjacking útoky:
 
-1. Upravte soubor *Nginx. conf* :
+1. Upravte soubor *nginx.conf:*
 
    ```bash
    sudo nano /etc/nginx/nginx.conf
    ```
 
-   Přidejte `add_header X-Frame-Options "SAMEORIGIN";`řádku.
+   Přidejte řádek `add_header X-Frame-Options "SAMEORIGIN";`.
 1. Uložte soubor.
-1. Restartujte Nginx.
+1. Restartujte nginx.
 
-#### <a name="mime-type-sniffing"></a>Sledování typu MIME
+#### <a name="mime-type-sniffing"></a>Čichání typu MIME
 
-Toto záhlaví brání většině prohlížečů ze služby MIME-sledovat odpověď od deklarovaného typu obsahu, protože záhlaví instruuje prohlížeč, že nepřepisuje typ obsahu odpovědi. Pokud je v případě, že server říká, že obsah je text/HTML, prohlížeč je vykreslí jako text/HTML. `nosniff`
+Toto záhlaví zabraňuje většině prohlížečů z MIME-sniffing odpověď od deklarovaného typu obsahu, jako záhlaví pokyn prohlížeč není přepsat typ obsahu odpovědi. S `nosniff` možností, pokud server říká, že obsah je "text / html", prohlížeč vykresluje jako "text / html".
 
-Upravte soubor *Nginx. conf* :
+Upravte soubor *nginx.conf:*
 
 ```bash
 sudo nano /etc/nginx/nginx.conf
 ```
 
-Přidejte `add_header X-Content-Type-Options "nosniff";` řádku a uložte soubor a pak restartujte Nginx.
+Přidejte `add_header X-Content-Type-Options "nosniff";` řádek a uložte soubor a restartujte Nginx.
 
 ## <a name="additional-nginx-suggestions"></a>Další návrhy Nginx
 
-Po upgradu sdílené architektury na serveru restartujte aplikace ASP.NET Core hostované serverem.
+Po upgradu sdíleného rozhraní na serveru restartujte aplikace ASP.NET Core hostované serverem.
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites)
-* [Nginx: binární verze: oficiální balíčky Debian/Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)
+* [Předpoklady pro .NET Core na Linuxu](/dotnet/core/linux-prerequisites)
+* [Nginx: Binární verze: Oficiální balíčky Debian/Ubuntu](https://www.nginx.com/resources/wiki/start/topics/tutorials/install/#official-debian-ubuntu-packages)
 * <xref:test/troubleshoot>
 * <xref:host-and-deploy/proxy-load-balancer>
-* [NGINX: používá se předávaná hlavička.](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)
+* [NGINX: Použití předaných záhlaví](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/)

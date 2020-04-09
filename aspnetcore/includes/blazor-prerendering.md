@@ -3,15 +3,15 @@ no-loc:
 - Blazor
 - SignalR
 ms.openlocfilehash: 5f3e22e04fe18149ec5a8acb42f42a8ef83a7664
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78659717"
 ---
-I když je aplikace Blazor serveru předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně.
+Zatímco Blazor aplikace Server je předběžné vykreslování, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Součásti může být nutné vykreslit odlišně, když jsou předem vykresleny.
 
-Chcete-li spojit volání interoperability JavaScriptu až po navázání spojení s prohlížečem, můžete použít [událost životního cyklu součásti OnAfterRenderAsync](xref:blazor/lifecycle#after-component-render). Tato událost se volá jenom v případě, že se aplikace úplně vykreslí a naváže se připojení klienta.
+Chcete-li odložit volání meziop jazyka JavaScript až po navázání připojení k prohlížeči, můžete použít [událost životního cyklu komponenty OnAfterRenderAsync](xref:blazor/lifecycle#after-component-render). Tato událost je volána pouze po úplné vykreslení aplikace a navázání připojení klienta.
 
 ```cshtml
 @using Microsoft.JSInterop
@@ -33,7 +33,7 @@ Chcete-li spojit volání interoperability JavaScriptu až po navázání spojen
 }
 ```
 
-Pro předchozí příklad kódu poskytněte funkci `setElementText` JavaScriptu uvnitř elementu `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *pages/_Host. cshtml* (Blazor Server). Funkce je volána pomocí `IJSRuntime.InvokeVoidAsync` a nevrací hodnotu:
+Pro předchozí ukázkový kód `setElementText` zadejte funkci `<head>` JavaScript uvnitřBlazor elementu *wwwroot/index.html* (WebAssembly)Blazor nebo *Pages/_Host.cshtml* (Server). Funkce je volána s `IJSRuntime.InvokeVoidAsync` a nevrací hodnotu:
 
 ```html
 <script>
@@ -42,13 +42,13 @@ Pro předchozí příklad kódu poskytněte funkci `setElementText` JavaScriptu 
 ```
 
 > [!WARNING]
-> Předchozí příklad upravuje model DOM (Document Object Model) (DOM) přímo pro demonstrační účely. Přímá úprava modelu DOM pomocí JavaScriptu se ve většině scénářů nedoporučuje, protože JavaScript může kolidovat se sledováním změn Blazor.
+> Předchozí příklad upravuje objektový model dokumentu (DOM) přímo pro demonstrační účely. Přímo úprava DOM s JavaScriptem se nedoporučuje ve většině Blazorscénářů, protože JavaScript může zasahovat do 's sledování změn.
 
-Následující komponenta ukazuje, jak použít zprostředkovatele komunikace s JavaScriptem jako součást logiky inicializace komponenty způsobem, který je kompatibilní s předvykreslováním. Tato součást ukazuje, že je možné aktivovat aktualizaci vykreslování z `OnAfterRenderAsync`zevnitř. Vývojář se musí v tomto scénáři vyhnout vytvoření nekonečné smyčky.
+Následující komponenta ukazuje, jak používat interop JavaScript jako součást logiky inicializace komponenty způsobem, který je kompatibilní s předběžným vykreslováním. Komponenta ukazuje, že je možné spustit aktualizaci vykreslování zevnitř `OnAfterRenderAsync`. Vývojář se musí vyhnout vytváření nekonečné smyčky v tomto scénáři.
 
-Tam, kde je volána `JSRuntime.InvokeAsync`, `ElementRef` je použita pouze v `OnAfterRenderAsync` a nikoli v dřívějším způsobu životního cyklu, protože není k dispozici žádný element JavaScriptu, dokud není komponenta vykreslena.
+Kde `JSRuntime.InvokeAsync` se `ElementRef` nazývá, se `OnAfterRenderAsync` používá pouze v a ne v žádné dřívější metody životního cyklu, protože neexistuje žádný element JavaScript až po vykreslení komponenty.
 
-[StateHasChanged](xref:blazor/lifecycle#state-changes) se volá, aby se komponenta znovu vykreslila s novým stavem získaným z volání interoperability JavaScript. Kód nevytváří nekonečnou smyčku, protože `StateHasChanged` je volána pouze v případě, že `infoFromJs` je `null`.
+[StateHasChanged](xref:blazor/lifecycle#state-changes) je volána k rerender komponenty s novým stavem získaným z volání interop JavaScript. Kód nevytváří nekonečnou smyčku, `StateHasChanged` protože `infoFromJs` `null`je volána pouze v případě, že je .
 
 ```cshtml
 @page "/prerendered-interop"
@@ -81,7 +81,7 @@ Set value via JS interop call:
 }
 ```
 
-Pro předchozí příklad kódu poskytněte funkci `setElementText` JavaScriptu uvnitř elementu `<head>` *wwwroot/index.html* (Blazor WebAssembly) nebo *pages/_Host. cshtml* (Blazor Server). Funkce je volána pomocí `IJSRuntime.InvokeAsync` a vrací hodnotu:
+Pro předchozí ukázkový kód `setElementText` zadejte funkci `<head>` JavaScript uvnitřBlazor elementu *wwwroot/index.html* (WebAssembly)Blazor nebo *Pages/_Host.cshtml* (Server). Funkce je volána s `IJSRuntime.InvokeAsync` a vrátí hodnotu:
 
 ```html
 <script>
@@ -93,4 +93,4 @@ Pro předchozí příklad kódu poskytněte funkci `setElementText` JavaScriptu 
 ```
 
 > [!WARNING]
-> Předchozí příklad upravuje model DOM (Document Object Model) (DOM) přímo pro demonstrační účely. Přímá úprava modelu DOM pomocí JavaScriptu se ve většině scénářů nedoporučuje, protože JavaScript může kolidovat se sledováním změn Blazor.
+> Předchozí příklad upravuje objektový model dokumentu (DOM) přímo pro demonstrační účely. Přímo úprava DOM s JavaScriptem se nedoporučuje ve většině Blazorscénářů, protože JavaScript může zasahovat do 's sledování změn.

@@ -1,3 +1,3 @@
-# <a name="blazor-server-sample-app"></a>Ukázková aplikace Blazor serveru
+# <a name="blazor-server-sample-app"></a>Ukázková aplikace serveru Blazor
 
-Tato ukázka znázorňuje použití scénářů Blazor popsaných v dokumentaci k Blazor.
+Tato ukázka ilustruje použití blazorských scénářů popsaných v dokumentaci Blazor.

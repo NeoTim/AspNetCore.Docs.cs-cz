@@ -1,10 +1,10 @@
-# <a name="aspnet-core-middleware-extensibility-sample"></a>Ukázka rozšiřitelnosti ASP.NET Core middlewaru
+# <a name="aspnet-core-middleware-extensibility-sample"></a>ukázka rozšiřitelnosti ASP.NET základního souboru Middleware
 
-Tato ukázka předvádí scénáře popsané v tématu [Aktivace middlewaru založeného na výrobě v ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/middleware-extensibility).
+Tato ukázka ukazuje scénáře popsané v [aktivaci middlewaru založené na výrobě v ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/middleware-extensibility).
 
-Ukázková aplikace demonstruje middleware aktivované:
+Ukázková aplikace ukazuje middleware aktivovaný:
 
-* Úmluva. Další informace o konvenční aktivaci middlewaru najdete v tématu [middleware](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/) .
-* Implementace [IMiddleware](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.http.imiddleware) Výchozí třída [IMiddlewareFactory](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.http.imiddlewarefactory) aktivuje middleware.
+* Úmluvy. Další informace o konvenční aktivaci middlewaru naleznete v tématu [Middleware.](https://docs.microsoft.com/aspnet/core/fundamentals/middleware/)
+* Implementace [IMiddleware.](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.http.imiddleware) Výchozí třída [IMiddlewareFactory](https://docs.microsoft.com/dotnet/api/microsoft.aspnetcore.http.imiddlewarefactory) aktivuje middleware.
 
-Implementace middlewaru jsou identicky a zaznamenají hodnotu poskytnutou parametrem řetězce dotazu (`key`). Middleware používají vložený databázový kontext (Oborová služba) k záznamu hodnoty řetězce dotazu do databáze v paměti.
+Implementace middlewaru fungují identicky a zaznamenávají hodnotu`key`poskytovanou parametrem řetězce dotazu ( ). Middlewares použít vložené kontextu databáze (oborové služby) zaznamenat hodnotu řetězce dotazu v databázi v paměti.

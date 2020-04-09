@@ -1,15 +1,15 @@
-Visual Studio pro Mac zobrazí následující automaticky otevíraná okna:
+Visual Studio pro Mac zobrazuje následující vyskakovací okno:
 
-![Vývojový certifikát HTTPS se nenašel. Chcete certifikát nainstalovat a důvěřovat?](~/getting-started/_static/trustCertMac.png)
+![Certifikát vývoje PROTOKOLU HTTPS nebyl nalezen. Chcete certifikát nainstalovat a důvěřovat certifikátu?](~/getting-started/_static/trustCertMac.png)
 
-Pokud důvěřujete vývojovému certifikátu, vyberte **Ano** .
+Pokud certifikátu vývoje důvěřujete, vyberte **ano.**
 
-Zobrazí se následující dialogové okno:
+Zobrazí se následující dialog:
 
 ![Dialogové okno upozornění zabezpečení](~/getting-started/_static/certMac.png)
 
-Zadejte své heslo a vyberte **OK** .
+Zadejte heslo a vyberte **OK**
 
-Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, vyberte **Ano** .
+Pokud souhlasíte s tím, že certifikátu vývoje důvěřujete, vyberte **možnost Ano.**
 
-Další informace najdete v tématu [důvěryhodnost certifikátu vývoje ASP.NET Core https](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) .
+Další informace naleznete [v tématu Trust the ASP.NET Core HTTPS development certificate](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos) for more information

@@ -1,200 +1,200 @@
 ---
-title: Přidání kontroleru do aplikace ASP.NET Core MVC
+title: Přidání ovladače do aplikace Core MVC ASP.NET
 author: rick-anderson
-description: Naučte se, jak přidat kontroler do jednoduché aplikace ASP.NET Core MVC.
+description: Přečtěte si, jak přidat ovladač do jednoduché aplikace ASP.NET Core MVC.
 ms.author: riande
 ms.date: 08/05/2017
 uid: tutorials/first-mvc-app/adding-controller
 ms.openlocfilehash: fb670902b0dafa7dce2b3372e550095387844936
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78666990"
 ---
-# <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>Přidání kontroleru do aplikace ASP.NET Core MVC
+# <a name="add-a-controller-to-an-aspnet-core-mvc-app"></a>Přidání ovladače do aplikace Core MVC ASP.NET
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Architektonický vzor architektury MVC (Model-View-Controller) odděluje aplikaci na tři hlavní komponenty: **M**Odel, **V a v** **C**ontroller. Vzor MVC vám pomůže vytvářet aplikace, které jsou více testovatelné a snáze aktualizovat než tradiční aplikace monolitické. Aplikace založené na MVC obsahují:
+Model-View-Controller (MVC) architektonický vzor odděluje aplikaci do tří hlavních součástí: **M**odel, **V**tj. a **C**ontroller. Vzor MVC vám pomůže vytvářet aplikace, které jsou více testovatelné a snadněji aktualizovatelné než tradiční monolitické aplikace. Aplikace založené na MVC obsahují:
 
-* **M**Odels: třídy, které reprezentují data aplikace. Třídy modelu používají ověřovací logiku k vyhodnocování obchodních pravidel pro tato data. Objekty modelu obvykle načítají a ukládají stav modelu v databázi. V tomto kurzu model `Movie` načítá z databáze filmové data a poskytuje ji zobrazení nebo aktualizuje. Aktualizovaná data jsou zapsána do databáze.
+* **M**odels: Třídy, které představují data aplikace. Třídy modelu používají logiku ověření k vynucení obchodních pravidel pro tato data. Objekty modelu obvykle načítají a ukládají stav modelu v databázi. V tomto kurzu `Movie` model načte filmová data z databáze, poskytuje je do zobrazení nebo jej aktualizuje. Aktualizovaná data jsou zapsána do databáze.
 
-* **V**Iews: zobrazení jsou komponenty, které zobrazují uživatelské rozhraní (UI) aplikace. Obecně toto uživatelské rozhraní zobrazuje data modelu.
+* **V**iews: Zobrazení jsou součásti, které zobrazují uživatelské rozhraní aplikace (UI). Obecně platí, že toto uI zobrazí data modelu.
 
-* **C**Ontrollers: třídy, které zpracovávají požadavky prohlížeče. Načítají data modelu a šablony zobrazení volání, které vracejí odpověď. V aplikaci MVC zobrazení zobrazuje pouze informace; kontroler zpracovává a reaguje na vstupy a interakce uživatele. Například kontroler zpracovává směrování dat a hodnot řetězce dotazu a předá tyto hodnoty do modelu. Model může tyto hodnoty použít k dotazování databáze. Například `https://localhost:5001/Home/Privacy` má směrovat data `Home` (kontroler) a `Privacy` (metoda Action pro volání na domovském řadiči). `https://localhost:5001/Movies/Edit/5` je požadavek na úpravu filmu s ID = 5 pomocí kontroleru filmů. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
+* **C**ontrollers: Třídy, které zpracovávají požadavky prohlížeče. Načítají data modelu a šablony zobrazení volání, které vracejí odpověď. V aplikaci MVC zobrazení zobrazuje pouze informace; ovladač zpracovává a reaguje na vstup a interakci uživatele. Například řadič zpracovává hodnoty směrování dat a řetězce dotazu a předá tyto hodnoty modelu. Model může použít tyto hodnoty k dotazování databáze. Například `https://localhost:5001/Home/Privacy` má data `Home` trasy (kontroleru) a `Privacy` (metoda akce pro volání na domácím řadiči). `https://localhost:5001/Movies/Edit/5`je požadavek na úpravu filmu pomocí ID=5 pomocí filmového ovladače. Data trasy jsou vysvětlena dále v kurzu.
 
-Vzor MVC vám pomůže vytvářet aplikace, které oddělují různé aspekty aplikace (vstupní logika, obchodní logika a logika uživatelského rozhraní), a současně poskytuje volné spojení mezi těmito prvky. Vzor určuje, kde by měl být každý druh logiky umístěný v aplikaci. Logika uživatelského rozhraní patří do zobrazení. Logika vstupu patří do kontroleru. Obchodní logika patří do modelu. Toto oddělení vám pomůže se správou složitosti při sestavování aplikace, protože umožňuje pracovat na jednom aspektu implementace v čase, aniž by to mělo vliv na jiný kód. Můžete například pracovat s kódem zobrazení bez závislosti na kódu obchodní logiky.
+Vzor MVC pomáhá vytvářet aplikace, které oddělují různé aspekty aplikace (vstupní logika, obchodní logika a logika uživatelského rozhraní) a zároveň poskytují volné párování mezi těmito prvky. Vzor určuje, kde by měl být každý druh logiky umístěn v aplikaci. Logika ui patří do zobrazení. Vstupní logika patří do řadiče. Obchodní logika patří do modelu. Toto oddělení pomáhá spravovat složitost při vytváření aplikace, protože umožňuje pracovat na jednom aspektu implementace najednou bez dopadu na kód jiného. Můžete například pracovat na kódu zobrazení bez v závislosti na kódu obchodní logiky.
 
-Tyto koncepty popisujeme v této sérii kurzů a ukážeme vám, jak je použít k vytvoření filmové aplikace. Projekt MVC obsahuje složky pro *řadiče* a *zobrazení*.
+Tyto koncepty pokrýváme v této sérii kurzů a ukážeme vám, jak je používat k vytvoření filmové aplikace. Projekt MVC obsahuje složky pro *řadiče* a *zobrazení*.
 
 ## <a name="add-a-controller"></a>Přidání kontroleru
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat >** 
-  ![kontextové nabídce](adding-controller/_static/add_controller.png)
+* V **Průzkumníku řešení**klepněte pravým tlačítkem myši na **položku Řadiče > kontextová nabídka Přidat > řadiče.**
+  ![](adding-controller/_static/add_controller.png)
 
-* V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte možnost **kontroler MVC – prázdné** .
+* V dialogovém okně **Přidat písmo** vyberte **Ovladač MVC – prázdný.**
 
-  ![Přidat kontroler MVC a pojmenovat](adding-controller/_static/ac.png)
+  ![Přidejte řadič MVC a pojmenujte jej](adding-controller/_static/ac.png)
 
-* V **dialogovém okně Přidat prázdný řadič MVC**zadejte **HelloWorldController** a vyberte **Přidat**.
+* V **dialogovém okně Přidat prázdný řadič MVC**zadejte **HelloWorldController** a vyberte **PŘIDAT**.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Vyberte ikonu **Průzkumníka** a potom klikněte na řídicí panel (klikněte pravým tlačítkem myši) **> nový soubor** a pojmenujte nový soubor *HelloWorldController.cs*.
+Vyberte ikonu **EXPLORER** a potom klepněte na ovladače (po kliknutí pravým tlačítkem myši) **> nový soubor** a pojmenujte nový soubor *HelloWorldController.cs*.
 
   ![Kontextová nabídka](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat > nový soubor**.
-Kontextová nabídka ![](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
+V **Průzkumníku řešení**klepněte pravým tlačítkem myši na **položku Řadiče > přidat > nový soubor**.
+![Kontextová nabídka](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
 
-Vyberte **ASP.NET Core** a **třídu kontroleru MVC**.
+Vyberte **ASP.NET třídu řadiče jádra** a **MVC**.
 
-Pojmenujte kontroler **HelloWorldController**.
+Pojmenujte řadič **HelloWorldController**.
 
-![Přidat kontroler MVC a pojmenovat](~/tutorials/first-mvc-app-mac/adding-controller/_static/ac.png)
+![Přidejte řadič MVC a pojmenujte jej](~/tutorials/first-mvc-app-mac/adding-controller/_static/ac.png)
 
 ---
 
-Obsah *Controllers/HelloWorldController. cs* nahraďte následujícím způsobem:
+Nahraďte obsah *controllers/HelloWorldController.cs* následujícím:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_1)]
 
-Každá metoda `public` v kontroleru se může volat jako koncový bod HTTP. V ukázce výše obě metody vrací řetězec. Všimněte si komentářů před jednotlivými metodami.
+Každá `public` metoda v řadiči je volatelná jako koncový bod HTTP. Ve výše uvedeném vzorku obě metody vrátí řetězec. Všimněte si komentáře předcházející jednotlivé metody.
 
-Koncový bod HTTP je cílová adresa URL ve webové aplikaci, například `https://localhost:5001/HelloWorld`, a kombinuje použitý protokol: `HTTPS`, umístění v síti webového serveru (včetně portu TCP): `localhost:5001` a cílový identifikátor URI `HelloWorld`.
+Koncový bod HTTP je cílitelná adresa URL `https://localhost:5001/HelloWorld`ve webové aplikaci, `HTTPS`například , a kombinuje použitý protokol: , `localhost:5001` síťové umístění `HelloWorld`webového serveru (včetně portu TCP): a cílový identifikátor URI .
 
-První komentář uvádí metodu [HTTP GET](https://www.w3schools.com/tags/ref_httpmethods.asp) , která je vyvolána připojením `/HelloWorld/` k základní adrese URL. Druhý komentář určuje metodu [HTTP GET](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) , která je vyvolána připojením `/HelloWorld/Welcome/` k adrese URL. Později v tomto kurzu se modul generování uživatelského rozhraní používá ke generování `HTTP POST` metod, které aktualizují data.
+První komentář uvádí, že se jedná o metodu `/HelloWorld/` [HTTP GET,](https://www.w3schools.com/tags/ref_httpmethods.asp) která je vyvolána připojením k základní adrese URL. Druhý komentář určuje metodu [HTTP GET,](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) která je `/HelloWorld/Welcome/` vyvolána připojením k adrese URL. Později v tutoriálu generování uživatelského stroji `HTTP POST` se používá ke generování metod, které aktualizují data.
 
-Spusťte aplikaci v režimu bez ladění a přidejte "HelloWorld" do cesty na adresním řádku. Metoda `Index` vrací řetězec.
+Spusťte aplikaci v režimu bez ladění a připojte "HelloWorld" k cestě v adresním řádku. Metoda `Index` vrátí řetězec.
 
-![Okno prohlížeče zobrazující odezvu aplikace na toto je moje výchozí akce.](~/tutorials/first-mvc-app/adding-controller/_static/hell1.png)
+![Okno prohlížeče zobrazující odpověď aplikace Toto je moje výchozí akce](~/tutorials/first-mvc-app/adding-controller/_static/hell1.png)
 
-MVC vyvolá třídy kontroleru (a metody akcí v nich) v závislosti na příchozí adrese URL. Výchozí [logika směrování adres URL](xref:mvc/controllers/routing) , kterou používá MVC, používá formát podobný tomuto: k určení kódu, který se má vyvolat:
+MVC vyvolá třídy kontroleru (a metody akce v nich) v závislosti na příchozí adrese URL. Výchozí [logika směrování adres URL](xref:mvc/controllers/routing) používaná mvc používá formát, jako je tento k určení, jaký kód vyvolat:
 
 `/[Controller]/[ActionName]/[Parameters]`
 
-Formát směrování je nastaven v metodě `Configure` v souboru *Startup.cs* .
+Formát směrování je nastaven `Configure` v metodě v *Startup.cs* souboru.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_1&highlight=5)]
 
-Když přejdete do aplikace a nezadáte žádné segmenty adresy URL, použije se výchozí řídicí řadič a metoda "index" zadaná na řádku šablony, který se výše zvýrazní.
+Když přejdete do aplikace a nezadáte žádné segmenty URL, výchozí nastavení "Home" řadič a "Index" metoda zadaná v řádku šablony zvýrazněné výše.
 
-První segment adresy URL určuje třídu kontroleru, která se má spustit. Proto `localhost:{PORT}/HelloWorld` namapována na třídu kontroleru **HelloWorld**. Druhá část segmentu adresy URL určuje metodu Action třídy. Takže `localhost:{PORT}/HelloWorld/Index` by mohla být spuštěna metoda `Index` třídy `HelloWorldController`. Všimněte si, že jste museli procházet pouze `localhost:{PORT}/HelloWorld` a ve výchozím nastavení byla volána metoda `Index`. To je proto, že `Index` je výchozí metoda, která bude volána na řadiči, pokud není explicitně zadán název metody. Třetí část segmentu adresy URL (`id`) je určena pro data směrování. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
+První segment adresy URL určuje třídu řadiče ke spuštění. Takže `localhost:{PORT}/HelloWorld` mapy **helloworld**controller třídy. Druhá část segmentu URL určuje metodu akce ve třídě. Tak `localhost:{PORT}/HelloWorld/Index` by `Index` způsobit spuštění `HelloWorldController` metody třídy. Všimněte si, že `localhost:{PORT}/HelloWorld` jste `Index` museli pouze procházet a metoda byla volána ve výchozím nastavení. Je to `Index` proto, že je výchozí metoda, která bude volána na řadiči, pokud název metody není explicitně zadán. Třetí část segmentu URL `id`( ) je pro data trasy. Data trasy jsou vysvětlena dále v kurzu.
 
-Přejděte na `https://localhost:{PORT}/HelloWorld/Welcome`. Metoda `Welcome` se spustí a vrátí řetězec `This is the Welcome action method...`. Pro tuto adresu URL se kontroler `HelloWorld` a `Welcome` je metoda Action. Zatím jste nepoužili `[Parameters]` část této adresy URL.
+Přejděte na `https://localhost:{PORT}/HelloWorld/Welcome`. Metoda `Welcome` spustí a vrátí `This is the Welcome action method...`řetězec . Pro tuto adresu URL `HelloWorld` `Welcome` je a je metoda akce. Část adresy URL `[Parameters]` jste ještě nepoužili.
 
-![Okno prohlížeče ukazující odezvu aplikace na toto je metoda akce Welcome](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
+![Okno prohlížeče zobrazující odpověď aplikace Toto je metoda uvítací akce](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
-Upravte kód tak, aby předával některé informace o parametrech z adresy URL kontroleru. například `/HelloWorld/Welcome?name=Rick&numtimes=4`. Změňte metodu `Welcome` tak, aby zahrnovala dva parametry, jak je znázorněno v následujícím kódu.
+Upravte kód tak, aby předává některé informace o parametrech z adresy URL do řadiče. Například, `/HelloWorld/Welcome?name=Rick&numtimes=4`. Změňte `Welcome` metodu tak, aby zahrnovala dva parametry, jak je znázorněno v následujícím kódu.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_2)]
 
-Předchozí kód:
+Předcházející kód:
 
-* Používá funkci C# volitelného parametru k označení, že parametr `numTimes` má výchozí hodnotu 1, pokud není pro tento parametr předána žádná hodnota. <!-- remove for simplified -->
-* Používá `HtmlEncoder.Default.Encode` k ochraně aplikace před škodlivým vstupem (konkrétně JavaScript).
-* Používá [interpolované řetězce](/dotnet/articles/csharp/language-reference/keywords/interpolated-strings) v `$"Hello {name}, NumTimes is: {numTimes}"`. <!-- remove for simplified -->
+* Používá c# volitelné parametr funkce k `numTimes` označení, že parametr výchozí 1, pokud žádná hodnota je předána pro tento parametr. <!-- remove for simplified -->
+* Používá `HtmlEncoder.Default.Encode` se k ochraně aplikace před škodlivým vstupem (jmenovitě JavaScript).
+* Používá [interpolované řetězce](/dotnet/articles/csharp/language-reference/keywords/interpolated-strings) `$"Hello {name}, NumTimes is: {numTimes}"`v . <!-- remove for simplified -->
 
-Spusťte aplikaci a přejděte do:
+Spusťte aplikaci a přejděte na:
 
    `https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
-(Nahraďte `{PORT}` číslem portu.) Můžete zkusit jiné hodnoty pro `name` a `numtimes` v adrese URL. Systém [vazby modelu](xref:mvc/models/model-binding) MVC automaticky mapuje pojmenované parametry z řetězce dotazu v adresním řádku na parametry v metodě. Další informace najdete v tématu [vazba modelu](xref:mvc/models/model-binding) .
+(Nahraďte `{PORT}` číslem portu.) Můžete vyzkoušet různé `name` `numtimes` hodnoty pro a v adrese URL. Systém [vazby modelu](xref:mvc/models/model-binding) MVC automaticky mapuje pojmenované parametry z řetězce dotazu v adresním řádku na parametry ve vaší metodě. Další informace naleznete [v tématu Vazba modelu.](xref:mvc/models/model-binding)
 
-![Okno prohlížeče zobrazující odezvu aplikace Hello Rick, NumTimes je\: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
+![Okno prohlížeče zobrazující odpověď aplikace Hello Rick, NumTimes je\: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
-Na obrázku výše se nepoužívá segment adresy URL (`Parameters`), parametry `name` a `numTimes` jsou předány v [řetězci dotazu](https://wikipedia.org/wiki/Query_string). `?` (otazník) na výše uvedené adrese URL je oddělovač a následuje řetězec dotazu. Znak `&` odděluje páry pole a hodnoty.
+Na obrázku výše se`Parameters`segment URL ( ) `name` `numTimes` nepoužívá, parametry a jsou předány v [řetězci dotazu](https://wikipedia.org/wiki/Query_string). `?` (otazník) ve výše uvedené adrese URL je oddělovač a následuje řetězec dotazu. Znak `&` odděluje dvojice polí a hodnot.
 
 Nahraďte metodu `Welcome` následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_3)]
 
-Spusťte aplikaci a zadejte následující adresu URL: `https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
+Spusťte aplikaci a zadejte následující adresu URL:`https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
 
-Tentokrát se třetí segment adresy URL shodoval s parametrem trasy `id`. Metoda `Welcome` obsahuje parametr `id`, který se shodoval s šablonou URL v metodě `MapControllerRoute`. Koncová `?` (v `id?`) značí, že parametr `id` je volitelný.
+Tentokrát třetí segment URL odpovídal parametru `id`trasy . Metoda `Welcome` obsahuje parametr, `id` který odpovídá šabloně `MapControllerRoute` adresy URL v metodě. Koncové `?` (in `id?`) označuje, že `id` parametr je volitelný.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_1&highlight=5)]
 
-V těchto příkladech kontroler provedl "VC" část MVC – to znamená, **že v obrazovém panelu a**v **C**ontroller Work. Kontroler přímo vrací HTML. Obecně nechcete, aby řadiče vracely kód HTML přímo, protože to může být velmi náročné na kód a údržbu. Místo toho k vygenerování odpovědi HTML obvykle používáte samostatný soubor šablony zobrazení Razor. Provedete to v dalším kurzu.
+V těchto příkladech regulátor dělá "VC" část MVC - to znamená, **že V**tj a **C**ontroller práce. Řadič vrací HTML přímo. Obecně nechcete, aby řadiče vracet HTML přímo, protože to se stává velmi těžkopádné kód a udržovat. Místo toho obvykle používáte samostatný soubor šablony zobrazení Razor ke generování odpovědi HTML. Můžete to udělat v dalším tutoriálu.
 
 > [!div class="step-by-step"]
 > [Předchozí](start-mvc.md)
-> [Další](adding-view.md)
+> [další](adding-view.md)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Architektonický vzor architektury MVC (Model-View-Controller) odděluje aplikaci na tři hlavní komponenty: **M**Odel, **V a v** **C**ontroller. Vzor MVC vám pomůže vytvářet aplikace, které jsou více testovatelné a snáze aktualizovat než tradiční aplikace monolitické. Aplikace založené na MVC obsahují:
+Model-View-Controller (MVC) architektonický vzor odděluje aplikaci do tří hlavních součástí: **M**odel, **V**tj. a **C**ontroller. Vzor MVC vám pomůže vytvářet aplikace, které jsou více testovatelné a snadněji aktualizovatelné než tradiční monolitické aplikace. Aplikace založené na MVC obsahují:
 
-* **M**Odels: třídy, které reprezentují data aplikace. Třídy modelu používají ověřovací logiku k vyhodnocování obchodních pravidel pro tato data. Objekty modelu obvykle načítají a ukládají stav modelu v databázi. V tomto kurzu model `Movie` načítá z databáze filmové data a poskytuje ji zobrazení nebo aktualizuje. Aktualizovaná data jsou zapsána do databáze.
+* **M**odels: Třídy, které představují data aplikace. Třídy modelu používají logiku ověření k vynucení obchodních pravidel pro tato data. Objekty modelu obvykle načítají a ukládají stav modelu v databázi. V tomto kurzu `Movie` model načte filmová data z databáze, poskytuje je do zobrazení nebo jej aktualizuje. Aktualizovaná data jsou zapsána do databáze.
 
-* **V**Iews: zobrazení jsou komponenty, které zobrazují uživatelské rozhraní (UI) aplikace. Obecně toto uživatelské rozhraní zobrazuje data modelu.
+* **V**iews: Zobrazení jsou součásti, které zobrazují uživatelské rozhraní aplikace (UI). Obecně platí, že toto uI zobrazí data modelu.
 
-* **C**Ontrollers: třídy, které zpracovávají požadavky prohlížeče. Načítají data modelu a šablony zobrazení volání, které vracejí odpověď. V aplikaci MVC zobrazení zobrazuje pouze informace; kontroler zpracovává a reaguje na vstupy a interakce uživatele. Například kontroler zpracovává směrování dat a hodnot řetězce dotazu a předá tyto hodnoty do modelu. Model může tyto hodnoty použít k dotazování databáze. Například `https://localhost:5001/Home/About` má směrovat data `Home` (kontroler) a `About` (metoda Action pro volání na domovském řadiči). `https://localhost:5001/Movies/Edit/5` je požadavek na úpravu filmu s ID = 5 pomocí kontroleru filmů. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
+* **C**ontrollers: Třídy, které zpracovávají požadavky prohlížeče. Načítají data modelu a šablony zobrazení volání, které vracejí odpověď. V aplikaci MVC zobrazení zobrazuje pouze informace; ovladač zpracovává a reaguje na vstup a interakci uživatele. Například řadič zpracovává hodnoty směrování dat a řetězce dotazu a předá tyto hodnoty modelu. Model může použít tyto hodnoty k dotazování databáze. Například `https://localhost:5001/Home/About` má data `Home` trasy (kontroleru) a `About` (metoda akce pro volání na domácím řadiči). `https://localhost:5001/Movies/Edit/5`je požadavek na úpravu filmu pomocí ID=5 pomocí filmového ovladače. Data trasy jsou vysvětlena dále v kurzu.
 
-Vzor MVC vám pomůže vytvářet aplikace, které oddělují různé aspekty aplikace (vstupní logika, obchodní logika a logika uživatelského rozhraní), a současně poskytuje volné spojení mezi těmito prvky. Vzor určuje, kde by měl být každý druh logiky umístěný v aplikaci. Logika uživatelského rozhraní patří do zobrazení. Logika vstupu patří do kontroleru. Obchodní logika patří do modelu. Toto oddělení vám pomůže se správou složitosti při sestavování aplikace, protože umožňuje pracovat na jednom aspektu implementace v čase, aniž by to mělo vliv na jiný kód. Můžete například pracovat s kódem zobrazení bez závislosti na kódu obchodní logiky.
+Vzor MVC pomáhá vytvářet aplikace, které oddělují různé aspekty aplikace (vstupní logika, obchodní logika a logika uživatelského rozhraní) a zároveň poskytují volné párování mezi těmito prvky. Vzor určuje, kde by měl být každý druh logiky umístěn v aplikaci. Logika ui patří do zobrazení. Vstupní logika patří do řadiče. Obchodní logika patří do modelu. Toto oddělení pomáhá spravovat složitost při vytváření aplikace, protože umožňuje pracovat na jednom aspektu implementace najednou bez dopadu na kód jiného. Můžete například pracovat na kódu zobrazení bez v závislosti na kódu obchodní logiky.
 
-Tyto koncepty popisujeme v této sérii kurzů a ukážeme vám, jak je použít k vytvoření filmové aplikace. Projekt MVC obsahuje složky pro *řadiče* a *zobrazení*.
+Tyto koncepty pokrýváme v této sérii kurzů a ukážeme vám, jak je používat k vytvoření filmové aplikace. Projekt MVC obsahuje složky pro *řadiče* a *zobrazení*.
 
 ## <a name="add-a-controller"></a>Přidání kontroleru
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat >** 
-  ![kontextové nabídce](adding-controller/_static/add_controller.png)
+* V **Průzkumníku řešení**klepněte pravým tlačítkem myši na **položku Řadiče > kontextová nabídka Přidat > řadiče.**
+  ![](adding-controller/_static/add_controller.png)
 
-* V dialogovém okně **Přidat generování uživatelského rozhraní** vyberte možnost **kontroler MVC – prázdné** .
+* V dialogovém okně **Přidat písmo** vyberte **Ovladač MVC – prázdný.**
 
-  ![Přidat kontroler MVC a pojmenovat](adding-controller/_static/ac.png)
+  ![Přidejte řadič MVC a pojmenujte jej](adding-controller/_static/ac.png)
 
-* V **dialogovém okně Přidat prázdný řadič MVC**zadejte **HelloWorldController** a vyberte **Přidat**.
+* V **dialogovém okně Přidat prázdný řadič MVC**zadejte **HelloWorldController** a vyberte **PŘIDAT**.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Vyberte ikonu **Průzkumníka** a potom klikněte na řídicí panel (klikněte pravým tlačítkem myši) **> nový soubor** a pojmenujte nový soubor *HelloWorldController.cs*.
+Vyberte ikonu **EXPLORER** a potom klepněte na ovladače (po kliknutí pravým tlačítkem myši) **> nový soubor** a pojmenujte nový soubor *HelloWorldController.cs*.
 
   ![Kontextová nabídka](~/tutorials/first-mvc-app-xplat/adding-controller/_static/new_file.png)
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-V **Průzkumník řešení**klikněte pravým tlačítkem na **řadiče > přidat > nový soubor**.
-Kontextová nabídka ![](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
+V **Průzkumníku řešení**klepněte pravým tlačítkem myši na **položku Řadiče > přidat > nový soubor**.
+![Kontextová nabídka](~/tutorials/first-mvc-app-mac/adding-controller/_static/add_controller.png)
 
-Vyberte **ASP.NET Core** a **třídu kontroleru MVC**.
+Vyberte **ASP.NET třídu řadiče jádra** a **MVC**.
 
-Pojmenujte kontroler **HelloWorldController**.
+Pojmenujte řadič **HelloWorldController**.
 
-![Přidat kontroler MVC a pojmenovat](~/tutorials/first-mvc-app-mac/adding-controller/_static/ac.png)
+![Přidejte řadič MVC a pojmenujte jej](~/tutorials/first-mvc-app-mac/adding-controller/_static/ac.png)
 
 ---
 
-Obsah *Controllers/HelloWorldController. cs* nahraďte následujícím způsobem:
+Nahraďte obsah *controllers/HelloWorldController.cs* následujícím:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_1)]
 
-Každá metoda `public` v kontroleru se může volat jako koncový bod HTTP. V ukázce výše obě metody vrací řetězec. Všimněte si komentářů před jednotlivými metodami.
+Každá `public` metoda v řadiči je volatelná jako koncový bod HTTP. Ve výše uvedeném vzorku obě metody vrátí řetězec. Všimněte si komentáře předcházející jednotlivé metody.
 
-Koncový bod HTTP je cílová adresa URL ve webové aplikaci, například `https://localhost:5001/HelloWorld`, a kombinuje použitý protokol: `HTTPS`, umístění v síti webového serveru (včetně portu TCP): `localhost:5001` a cílový identifikátor URI `HelloWorld`.
+Koncový bod HTTP je cílitelná adresa URL `https://localhost:5001/HelloWorld`ve webové aplikaci, `HTTPS`například , a kombinuje použitý protokol: , `localhost:5001` síťové umístění `HelloWorld`webového serveru (včetně portu TCP): a cílový identifikátor URI .
 
-První komentář uvádí metodu [HTTP GET](https://www.w3schools.com/tags/ref_httpmethods.asp) , která je vyvolána připojením `/HelloWorld/` k základní adrese URL. Druhý komentář určuje metodu [HTTP GET](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) , která je vyvolána připojením `/HelloWorld/Welcome/` k adrese URL. Později v tomto kurzu se modul generování uživatelského rozhraní používá ke generování `HTTP POST` metod, které aktualizují data.
+První komentář uvádí, že se jedná o metodu `/HelloWorld/` [HTTP GET,](https://www.w3schools.com/tags/ref_httpmethods.asp) která je vyvolána připojením k základní adrese URL. Druhý komentář určuje metodu [HTTP GET,](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html) která je `/HelloWorld/Welcome/` vyvolána připojením k adrese URL. Později v tutoriálu generování uživatelského stroji `HTTP POST` se používá ke generování metod, které aktualizují data.
 
-Spusťte aplikaci v režimu bez ladění a přidejte "HelloWorld" do cesty na adresním řádku. Metoda `Index` vrací řetězec.
+Spusťte aplikaci v režimu bez ladění a připojte "HelloWorld" k cestě v adresním řádku. Metoda `Index` vrátí řetězec.
 
-![Okno prohlížeče zobrazující odezvu aplikace na toto je moje výchozí akce.](~/tutorials/first-mvc-app/adding-controller/_static/hell1.png)
+![Okno prohlížeče zobrazující odpověď aplikace Toto je moje výchozí akce](~/tutorials/first-mvc-app/adding-controller/_static/hell1.png)
 
-MVC vyvolá třídy kontroleru (a metody akcí v nich) v závislosti na příchozí adrese URL. Výchozí [logika směrování adres URL](xref:mvc/controllers/routing) , kterou používá MVC, používá formát podobný tomuto: k určení kódu, který se má vyvolat:
+MVC vyvolá třídy kontroleru (a metody akce v nich) v závislosti na příchozí adrese URL. Výchozí [logika směrování adres URL](xref:mvc/controllers/routing) používaná mvc používá formát, jako je tento k určení, jaký kód vyvolat:
 
 `/[Controller]/[ActionName]/[Parameters]`
 
-Formát směrování je nastaven v metodě `Configure` v souboru *Startup.cs* .
+Formát směrování je nastaven `Configure` v metodě v *Startup.cs* souboru.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?name=snippet_1&highlight=5)]
 
@@ -203,48 +203,48 @@ Add link to explain lambda.
 Remove link for simplified tutorial.
 -->
 
-Když přejdete do aplikace a nezadáte žádné segmenty adresy URL, použije se výchozí řídicí řadič a metoda "index" zadaná na řádku šablony, který se výše zvýrazní.
+Když přejdete do aplikace a nezadáte žádné segmenty URL, výchozí nastavení "Home" řadič a "Index" metoda zadaná v řádku šablony zvýrazněné výše.
 
-První segment adresy URL určuje třídu kontroleru, která se má spustit. Proto `localhost:{PORT}/HelloWorld` namapuje na třídu `HelloWorldController`. Druhá část segmentu adresy URL určuje metodu Action třídy. Takže `localhost:{PORT}/HelloWorld/Index` by mohla být spuštěna metoda `Index` třídy `HelloWorldController`. Všimněte si, že jste museli procházet pouze `localhost:{PORT}/HelloWorld` a ve výchozím nastavení byla volána metoda `Index`. Důvodem je, že `Index` je výchozí metoda, která bude volána na řadiči, pokud název metody není explicitně zadán. Třetí část segmentu adresy URL (`id`) je určena pro data směrování. Údaje o trasách jsou vysvětleny dále v tomto kurzu.
+První segment adresy URL určuje třídu řadiče ke spuštění. Takže `localhost:{PORT}/HelloWorld` mapy `HelloWorldController` do třídy. Druhá část segmentu URL určuje metodu akce ve třídě. Tak `localhost:{PORT}/HelloWorld/Index` by `Index` způsobit spuštění `HelloWorldController` metody třídy. Všimněte si, že `localhost:{PORT}/HelloWorld` jste `Index` museli pouze procházet a metoda byla volána ve výchozím nastavení. Důvodem `Index` je výchozí metoda, která bude volána na řadiči, pokud název metody není explicitně zadán. Třetí část segmentu URL `id`( ) je pro data trasy. Data trasy jsou vysvětlena dále v kurzu.
 
-Přejděte na `https://localhost:{PORT}/HelloWorld/Welcome`. Metoda `Welcome` se spustí a vrátí řetězec `This is the Welcome action method...`. Pro tuto adresu URL se kontroler `HelloWorld` a `Welcome` je metoda Action. Zatím jste nepoužili `[Parameters]` část této adresy URL.
+Přejděte na `https://localhost:{PORT}/HelloWorld/Welcome`. Metoda `Welcome` spustí a vrátí `This is the Welcome action method...`řetězec . Pro tuto adresu URL `HelloWorld` `Welcome` je a je metoda akce. Část adresy URL `[Parameters]` jste ještě nepoužili.
 
-![Okno prohlížeče ukazující odezvu aplikace na toto je metoda akce Welcome](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
+![Okno prohlížeče zobrazující odpověď aplikace Toto je metoda uvítací akce](~/tutorials/first-mvc-app/adding-controller/_static/welcome.png)
 
-Upravte kód tak, aby předával některé informace o parametrech z adresy URL kontroleru. například `/HelloWorld/Welcome?name=Rick&numtimes=4`. Změňte metodu `Welcome` tak, aby zahrnovala dva parametry, jak je znázorněno v následujícím kódu.
+Upravte kód tak, aby předává některé informace o parametrech z adresy URL do řadiče. Například, `/HelloWorld/Welcome?name=Rick&numtimes=4`. Změňte `Welcome` metodu tak, aby zahrnovala dva parametry, jak je znázorněno v následujícím kódu.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_2)]
 
-Předchozí kód:
+Předcházející kód:
 
-* Používá funkci C# volitelného parametru k označení, že parametr `numTimes` má výchozí hodnotu 1, pokud není pro tento parametr předána žádná hodnota. <!-- remove for simplified -->
-* Používá `HtmlEncoder.Default.Encode` k ochraně aplikace před škodlivým vstupem (konkrétně JavaScript).
-* Používá [interpolované řetězce](/dotnet/articles/csharp/language-reference/keywords/interpolated-strings) v `$"Hello {name}, NumTimes is: {numTimes}"`. <!-- remove for simplified -->
+* Používá c# volitelné parametr funkce k `numTimes` označení, že parametr výchozí 1, pokud žádná hodnota je předána pro tento parametr. <!-- remove for simplified -->
+* Používá `HtmlEncoder.Default.Encode` se k ochraně aplikace před škodlivým vstupem (jmenovitě JavaScript).
+* Používá [interpolované řetězce](/dotnet/articles/csharp/language-reference/keywords/interpolated-strings) `$"Hello {name}, NumTimes is: {numTimes}"`v . <!-- remove for simplified -->
 
-Spusťte aplikaci a přejděte do:
+Spusťte aplikaci a přejděte na:
 
    `https://localhost:{PORT}/HelloWorld/Welcome?name=Rick&numtimes=4`
 
-(Nahraďte `{PORT}` číslem portu.) Můžete zkusit jiné hodnoty pro `name` a `numtimes` v adrese URL. Systém [vazby modelu](xref:mvc/models/model-binding) MVC automaticky mapuje pojmenované parametry z řetězce dotazu v adresním řádku na parametry v metodě. Další informace najdete v tématu [vazba modelu](xref:mvc/models/model-binding) .
+(Nahraďte `{PORT}` číslem portu.) Můžete vyzkoušet různé `name` `numtimes` hodnoty pro a v adrese URL. Systém [vazby modelu](xref:mvc/models/model-binding) MVC automaticky mapuje pojmenované parametry z řetězce dotazu v adresním řádku na parametry ve vaší metodě. Další informace naleznete [v tématu Vazba modelu.](xref:mvc/models/model-binding)
 
-![Okno prohlížeče zobrazující odezvu aplikace Hello Rick, NumTimes je\: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
+![Okno prohlížeče zobrazující odpověď aplikace Hello Rick, NumTimes je\: 4](~/tutorials/first-mvc-app/adding-controller/_static/rick4.png)
 
-Na obrázku výše se nepoužívá segment adresy URL (`Parameters`), parametry `name` a `numTimes` jsou předány v [řetězci dotazu](https://wikipedia.org/wiki/Query_string). `?` (otazník) na výše uvedené adrese URL je oddělovač a následuje řetězec dotazu. Znak `&` odděluje páry pole a hodnoty.
+Na obrázku výše se`Parameters`segment URL ( ) `name` `numTimes` nepoužívá, parametry a jsou předány v [řetězci dotazu](https://wikipedia.org/wiki/Query_string). `?` (otazník) ve výše uvedené adrese URL je oddělovač a následuje řetězec dotazu. Znak `&` odděluje dvojice polí a hodnot.
 
 Nahraďte metodu `Welcome` následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Controllers/HelloWorldController.cs?name=snippet_3)]
 
-Spusťte aplikaci a zadejte následující adresu URL: `https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
+Spusťte aplikaci a zadejte následující adresu URL:`https://localhost:{PORT}/HelloWorld/Welcome/3?name=Rick`
 
-Tentokrát se třetí segment adresy URL shodoval s parametrem trasy `id`. Metoda `Welcome` obsahuje parametr `id`, který se shodoval s šablonou URL v metodě `MapRoute`. Koncová `?` (v `id?`) značí, že parametr `id` je volitelný.
+Tentokrát třetí segment URL odpovídal parametru `id`trasy . Metoda `Welcome` obsahuje parametr, `id` který odpovídá šabloně `MapRoute` adresy URL v metodě. Koncové `?` (in `id?`) označuje, že `id` parametr je volitelný.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Startup.cs?name=snippet_1&highlight=5)]
 
-V těchto příkladech kontroler provedl "VC" část MVC – to znamená, že zobrazení a kontroler funguje. Kontroler přímo vrací HTML. Obecně nechcete, aby řadiče vracely kód HTML přímo, protože to může být velmi náročné na kód a údržbu. Místo toho se obvykle používá samostatný soubor šablony zobrazení Razor, který vám umožní vygenerovat odpověď HTML. Provedete to v dalším kurzu.
+V těchto příkladech řadič provádí část "VC" MVC - to znamená, že zobrazení a kontrolor práce. Řadič vrací HTML přímo. Obecně nechcete, aby řadiče vracet HTML přímo, protože to se stává velmi těžkopádné kód a udržovat. Místo toho obvykle používáte samostatný soubor šablony zobrazení Razor, který pomáhá generovat odpověď HTML. Můžete to udělat v dalším tutoriálu.
 
 > [!div class="step-by-step"]
 > [Předchozí](start-mvc.md)
-> [Další](adding-view.md)
+> [další](adding-view.md)
 
 ::: moniker-end

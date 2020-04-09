@@ -1,79 +1,79 @@
 ---
-title: Zabezpečení Blazor samostatné aplikace ASP.NET Coreového sestavení pomocí Azure Active Directory B2C
+title: Zabezpečení samostatné Blazor aplikace ASP.NET Core WebAssembly pomocí služby Azure Active Directory B2C
 author: guardrex
 description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/16/2020
+ms.date: 04/08/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: bb03ef1e6d216cfc06e2b91919c64f92f2ef634e
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: 0734bad2d4281eb856783a362ef8c608a303c17a
+ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80219269"
+ms.lasthandoff: 04/08/2020
+ms.locfileid: "80977051"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor samostatné aplikace ASP.NET Coreového sestavení pomocí Azure Active Directory B2C
+# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>Zabezpečení samostatné Blazor aplikace ASP.NET Core WebAssembly pomocí služby Azure Active Directory B2C
 
-Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
+[Javier Calvarro Nelson](https://github.com/javiercn) a Luke [Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-Vytvoření samostatné aplikace Blazorového sestavení, která pro ověřování používá [Azure Active Directory (AAD) B2C](/azure/active-directory-b2c/overview) :
+Vytvoření samostatné Blazor aplikace WebAssembly, která používá pro ověřování [B2C služby Azure Active Directory (AAD):](/azure/active-directory-b2c/overview)
 
-1. Při vytváření tenanta a registraci webové aplikace na webu Azure Portal postupujte podle pokynů v následujících tématech:
+1. Podle pokynů v následujících tématech vytvořte klienta a zaregistrujte webovou aplikaci na webu Azure Portal:
 
-   * [Vytvořte klienta AAD B2C](/azure/active-directory-b2c/tutorial-create-tenant) &ndash; zaznamenejte následující informace:
+   * &ndash; [Vytvořte klienta AAD B2C](/azure/active-directory-b2c/tutorial-create-tenant) Zaznamenejte následující informace:
 
      1\. Instance AAD B2C (například `https://contoso.b2clogin.com/`, která zahrnuje koncové lomítko)<br>
-     2\. AAD B2C domény klienta (například `contoso.onmicrosoft.com`)
+     2\. Doména klienta AAD B2C (například `contoso.onmicrosoft.com`)
 
-   * [Registrace webové aplikace](/azure/active-directory-b2c/tutorial-register-applications) &ndash; proveďte následující výběry během registrace aplikace:
+   * [Zaregistrujte webovou aplikaci](/azure/active-directory-b2c/tutorial-register-applications) &ndash; Při registraci aplikace proveďte následující výběry:
 
-     1\. Nastavte **Web App/Web API** na **Ano**.<br>
-     2\. Nastavte možnost **povoluje implicitní tok** na **hodnotu Ano**.<br>
-     3\. Přidejte **adresu URL odpovědi** `https://localhost:5001/authentication/login-callback`.
+     1\. Nastavte **webové aplikace / webové rozhraní API** na **ano**.<br>
+     2\. Nastavit **povolit implicitní tok** na **Ano**.<br>
+     3\. Přidejte adresu `https://localhost:5001/authentication/login-callback`URL **odpovědi** společnosti .
 
-     Poznamenejte si ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111`).
+     Zaznamenejte ID aplikace (ID `11111111-1111-1111-1111-111111111111`klienta) (například).
 
-   * [Vytvořte toky uživatelů](/azure/active-directory-b2c/tutorial-create-user-flows) &ndash; vytvořte uživatelský tok pro registraci a přihlašování.
+   * [Vytvoření toků](/azure/active-directory-b2c/tutorial-create-user-flows) &ndash; uživatelů: Vytvoření toku registrace a přihlášení uživatele.
 
-     Pokud chcete naplnit `context.User.Identity.Name` ve `LoginDisplay` komponentě (*Shared/LoginDisplay. Razor*), vyberte minimálně hodnotu **deklarace identity aplikace** > atribut pro **zobrazení názvu** uživatele.
+     Vyberte minimálně uživatelský atribut**Zobrazení názvu** **aplikace,** >  `LoginDisplay` chcete-li `context.User.Identity.Name` naplnit v komponentě (*Shared/LoginDisplay.razor).*
 
-     Zaznamenejte si název uživatelského toku pro registraci a přihlašování vytvořený pro aplikaci (například `B2C_1_signupsignin`).
+     Zaznamenejte název uživatelského toku registrace a přihlášení `B2C_1_signupsignin`vytvořený pro aplikaci (například).
 
-1. Zástupné symboly v následujícím příkazu nahraďte dříve zaznamenanými informacemi a spusťte příkaz v příkazovém prostředí:
+1. Nahraďte zástupné symboly v následujícím příkazu informacemi zaznamenanými dříve a proveďte příkaz v příkazovém prostředí:
 
    ```dotnetcli
    dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --client-id "{CLIENT ID}" --domain "{DOMAIN}" -ssp "{SIGN UP OR SIGN IN POLICY}"
    ```
 
-   Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample`). Název složky se také stal součástí názvu projektu.
+   Chcete-li určit výstupní umístění, které vytvoří složku projektu, pokud neexistuje, zahrňte do `-o BlazorSample`příkazu možnost výstupu s cestou (například ). Název složky se také stane součástí názvu projektu.
 
 ## <a name="authentication-package"></a>Ověřovací balíček
 
-Když je aplikace vytvořená tak, aby používala individuální účet B2C (`IndividualB2C`), aplikace automaticky obdrží odkaz na balíček pro [knihovnu Microsoft Authentication Library](/azure/active-directory/develop/msal-overview) (`Microsoft.Authentication.WebAssembly.Msal`). Balíček poskytuje sadu primitivních elementů, které aplikaci pomůžou ověřit uživatele a získat tokeny pro volání chráněných rozhraní API.
+Když je aplikace vytvořena pro použití individuálního`IndividualB2C`účtu B2C ( ), aplikace automaticky`Microsoft.Authentication.WebAssembly.Msal`obdrží odkaz na balíček pro [knihovnu Microsoft Authentication Library](/azure/active-directory/develop/msal-overview) ( ). Balíček obsahuje sadu primitiv, které pomáhají aplikaci ověřovat uživatele a získat tokeny pro volání chráněných api.
 
-Pokud se do aplikace přidává ověřování, přidejte balíček do souboru projektu aplikace ručně:
+Pokud přidáváte ověřování do aplikace, přidejte balíček ručně do souboru projektu aplikace:
 
 ```xml
 <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" 
     Version="{VERSION}" />
 ```
 
-V odkazu na předchozí balíček nahraďte `{VERSION}` verzí balíčku `Microsoft.AspNetCore.Blazor.Templates` zobrazeného v <xref:blazor/get-started> článku.
+Nahraďte `{VERSION}` v předchozím odkazu na `Microsoft.AspNetCore.Blazor.Templates` balíček verzí <xref:blazor/get-started> balíčku uvedenou v článku.
 
-`Microsoft.Authentication.WebAssembly.Msal` balíček do aplikace přidá balíček `Microsoft.AspNetCore.Components.WebAssembly.Authentication`.
+Balíček `Microsoft.Authentication.WebAssembly.Msal` transitively `Microsoft.AspNetCore.Components.WebAssembly.Authentication` přidá balíček do aplikace.
 
 ## <a name="authentication-service-support"></a>Podpora ověřovací služby
 
-Podpora ověřování uživatelů je zaregistrovaná v kontejneru služby s metodou rozšíření `AddMsalAuthentication` poskytovanou balíčkem `Microsoft.Authentication.WebAssembly.Msal`. Tato metoda nastavuje všechny služby, které aplikace potřebuje k interakci s poskytovatelem identity (IP).
+Podpora pro ověřování uživatelů je registrována v `AddMsalAuthentication` kontejneru služby `Microsoft.Authentication.WebAssembly.Msal` s metodou rozšíření poskytované balíček. Tato metoda nastaví všechny služby potřebné pro interakci aplikace s poskytovatelem identity (IP).
 
 *Program.cs*:
 
@@ -88,18 +88,38 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-Metoda `AddMsalAuthentication` přijímá zpětné volání ke konfiguraci parametrů požadovaných k ověření aplikace. Hodnoty požadované pro konfiguraci aplikace lze získat z konfigurace AAD webu Azure Portal při registraci aplikace.
+Metoda `AddMsalAuthentication` přijímá zpětné volání ke konfiguraci parametrů potřebných k ověření aplikace. Hodnoty potřebné pro konfiguraci aplikace lze získat z konfigurace Azure Portal AAD při registraci aplikace.
 
-Šablona Blazor WebAssembly nekonfiguruje automatickou konfiguraci aplikace tak, aby požadovala přístupový token pro zabezpečené rozhraní API. Pokud chcete vytvořit token jako součást toku přihlášení, přidejte obor do výchozích oborů přístupových tokenů `MsalProviderOptions`:
+## <a name="access-token-scopes"></a>Obory přístupových tokenů
+
+Šablona Blazor WebAssembly automaticky nekonfiguruje aplikaci tak, aby požadovala přístupový token pro zabezpečené rozhraní API. Chcete-li zřídit token jako součást toku přihlášení, přidejte obor do `MsalProviderOptions`výchozího oboru přístupového tokenu :
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
 {
     ...
-    options.ProviderOptions.DefaultAccessTokenScopes.Add(
-        "{API ID URI}/{SCOPE}");
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("{SCOPE URI}");
 });
 ```
+
+> [!NOTE]
+> Pokud portál Azure poskytuje identifikátor URI oboru a **aplikace vyvolá neošetřenou výjimku,** když obdrží *neoprávněnou odpověď 401* z rozhraní API, zkuste použít identifikátor URI oboru, který neobsahuje schéma a hostitele. Portál Azure může například poskytovat jeden z následujících formátů identifikátoru URI oboru:
+>
+> * `https://{ORGANIZATION}.onmicrosoft.com/{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
+> * `api://{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
+>
+> Zadej oblast URI oboru bez schématu a hostitele:
+>
+> ```csharp
+> options.ProviderOptions.DefaultAccessTokenScopes.Add(
+>     "{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}");
+> ```
+
+Další informace naleznete v tématu <xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens>.
+
+## <a name="imports-file"></a>Importuje soubor
+
+[!INCLUDE[](~/includes/blazor-security/imports-file-standalone.md)]
 
 ## <a name="index-page"></a>Indexová stránka
 
@@ -117,7 +137,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/logindisplay-component.md)]
 
-## <a name="authentication-component"></a>Součást ověřování
+## <a name="authentication-component"></a>Ověřovací komponenta
 
 [!INCLUDE[](~/includes/blazor-security/authentication-component.md)]
 
@@ -125,5 +145,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 ## <a name="additional-resources"></a>Další zdroje
 
+* [Vyžádání dalších přístupových tokenů](xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens)
 * <xref:security/authentication/azure-ad-b2c>
 * [Kurz: Vytvoření tenanta Azure Active Directory B2C](/azure/active-directory-b2c/tutorial-create-tenant)
+* [Dokumentace k platformě Microsoft Identity Platform](/azure/active-directory/develop/)

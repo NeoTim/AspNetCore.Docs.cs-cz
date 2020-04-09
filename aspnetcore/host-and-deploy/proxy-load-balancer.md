@@ -1,67 +1,67 @@
 ---
-title: Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení
+title: Konfigurace ASP.NET Core pro práci s proxy servery a vyrovnáváním zatížení
 author: rick-anderson
-description: Přečtěte si o konfiguraci pro aplikace hostované za servery proxy a nástroje pro vyrovnávání zatížení, které často překrývají důležité informace o žádostech.
+description: Přečtěte si o konfiguraci aplikací hostovaných za proxy servery a nástroji pro vyrovnávání zatížení, které často zakrývají důležité informace o požadavcích.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: host-and-deploy/proxy-load-balancer
 ms.openlocfilehash: b5c81e0cfa29cddeb1aeed1119a711fca4d91ae4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78659381"
 ---
-# <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení
+# <a name="configure-aspnet-core-to-work-with-proxy-servers-and-load-balancers"></a>Konfigurace ASP.NET Core pro práci s proxy servery a vyrovnáváním zatížení
 
-Autor – [Chris Rossův](https://github.com/Tratcher)
+Podle [Chris Ross](https://github.com/Tratcher)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V Doporučené konfiguraci pro ASP.NET Core se aplikace hostuje pomocí IIS/ASP. Modul NET Core, Nginx nebo Apache. Proxy servery, nástroje pro vyrovnávání zatížení a další síťová zařízení často překrývají informace o žádosti předtím, než dosáhnou aplikace:
+V doporučené konfiguraci pro ASP.NET Core je aplikace hostována pomocí core modulu IIS/ASP.NET Core Module, Nginx nebo Apache. Proxy servery, vykladače zatížení a další síťová zařízení často zakrývají informace o požadavku před tím, než se dostane do aplikace:
 
-* Pokud jsou požadavky HTTPS proxy serverem přes HTTP, původní schéma (HTTPS) se ztratí a musí se přenášet v hlavičce.
-* Vzhledem k tomu, že aplikace obdrží požadavek od proxy serveru a ne jeho skutečný zdroj v Internetu nebo podnikové síti, musí být zdrojová adresa IP klienta předána také v hlavičce.
+* Pokud jsou požadavky HTTPS proxied přes HTTP, původní schéma (HTTPS) je ztracena a musí být předány v záhlaví.
+* Vzhledem k tomu, že aplikace obdrží požadavek z proxy serveru a není jeho skutečný zdroj v síti Internet nebo podnikové sítě, původní klient IP adresa musí být také předány v záhlaví.
 
-Tyto informace můžou být důležité ve zpracování žádostí, například v přesměrování, ověřování, generování odkazů, vyhodnocení zásad a geografická poloha klienta.
+Tyto informace mohou být důležité při zpracování požadavků, například při přesměrování, ověřování, generování propojení, vyhodnocení zásad a geografickém umístění klienta.
 
 ## <a name="forwarded-headers"></a>Předávaná záhlaví
 
-Podle konvence proxy předávají informace v hlavičkách protokolu HTTP.
+Podle konvence proxy předávat informace v hlavičkách HTTP.
 
 | Hlavička | Popis |
 | ------ | ----------- |
-| X-předané – pro | Uchovává informace o klientovi, který inicioval požadavek a následné proxy servery v řetězci proxy serverů. Tento parametr může obsahovat IP adresy (a volitelně také čísla portů). V řetězci proxy serverů označuje první parametr klienta, ve kterém se žádost poprvé nastavila. Následující identifikátory proxy následují. Poslední proxy server v řetězci není uveden v seznamu parametrů. Poslední IP adresa proxy serveru a volitelně je číslo portu, které je k dispozici jako Vzdálená IP adresa v transportní vrstvě. |
-| X-Forwarded-Proto | Hodnota původního schématu (HTTP/HTTPS). Hodnota může být také seznamem schémat, pokud je požadavek procházen více proxy. |
-| X-Forwarded-Host | Původní hodnota pole hlavičky hostitele Servery proxy většinou nemění hlavičku hostitele. Viz informační [zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787](https://github.com/aspnet/Announcements/issues/295) pro informace o chybě zabezpečení zvýšení oprávnění, která má vliv na systémy, ve kterých server proxy neověřuje nebo omezuje hlavičky hostitele na známé správné hodnoty. |
+| X-Forwarded-Pro | Obsahuje informace o klientovi, který inicioval požadavek a následné proxy servery v řetězci proxy. Tento parametr může obsahovat IP adresy (a volitelně čísla portů). V řetězci proxy serverů první parametr označuje klienta, kde byl požadavek poprvé proveden. Následují následné proxy identifikátory. Poslední proxy server v řetězci není v seznamu parametrů. Adresa IP posledního serveru proxy a volitelně číslo portu jsou k dispozici jako vzdálená adresa IP ve vrstvě přenosu. |
+| X-Forwarded-Proto | Hodnota původního schématu (HTTP/HTTPS). Hodnota může být také seznam schémat, pokud požadavek prošel více proxy servery. |
+| X-Forwarded-Host | Původní hodnota pole záhlaví Hostitele. Proxy servery obvykle nemění záhlaví Hostitele. Informace o chybě zabezpečení, která ovlivňuje systémy, kde proxy server neověřuje nebo neomezuje záhlaví hostitele na známé dobré hodnoty, naleznete v [tématu Microsoft Security Advisory CVE-2018-0787.](https://github.com/aspnet/Announcements/issues/295) |
 
-Middleware předávaných hlaviček z balíčku [Microsoft. AspNetCore. HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) přečte tato záhlaví a vyplní přidružené pole na <xref:Microsoft.AspNetCore.Http.HttpContext>.
+Middleware S předaná záhlaví z balíčku [Microsoft.AspNetCore.HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) přečte tato záhlaví a <xref:Microsoft.AspNetCore.Http.HttpContext>vyplní přidružená pole na webu .
 
-Aktualizace middlewaru:
+Middleware aktualizace:
 
-* [HttpContext. Connection. RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress) &ndash; nastaveno pomocí hodnoty `X-Forwarded-For` hlavičky. Další nastavení mají vliv na to, jak middleware nastaví `RemoteIpAddress`. Podrobnosti najdete v tématu [Možnosti middlewaru předávaných hlaviček](#forwarded-headers-middleware-options).
-* [HttpContext. Request. schéma](xref:Microsoft.AspNetCore.Http.HttpRequest.Scheme) &ndash; sada s použitím hodnoty `X-Forwarded-Proto` hlavičky.
-* [HttpContext. Request. Host](xref:Microsoft.AspNetCore.Http.HttpRequest.Host) &ndash; nastaveno pomocí hodnoty `X-Forwarded-Host` hlavičky.
+* [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress) &ndash; Set `X-Forwarded-For` pomocí hodnoty záhlaví. Další nastavení ovlivňují nastavení `RemoteIpAddress`middlewaru . Podrobnosti naleznete v možnostech [middlewaru předávaných záhlaví](#forwarded-headers-middleware-options).
+* [HttpContext.Request.Scheme](xref:Microsoft.AspNetCore.Http.HttpRequest.Scheme) &ndash; Set `X-Forwarded-Proto` pomocí hodnoty záhlaví.
+* [HttpContext.Request.Host](xref:Microsoft.AspNetCore.Http.HttpRequest.Host) &ndash; Set `X-Forwarded-Host` pomocí hodnoty hlavičky.
 
-Je možné nakonfigurovat [výchozí nastavení](#forwarded-headers-middleware-options) middlewaru u předávaných hlaviček. Výchozí nastavení:
+Lze nakonfigurovat [výchozí nastavení](#forwarded-headers-middleware-options) middlewaru s předanou hlavičkou. Výchozí nastavení jsou:
 
-* Mezi aplikací a zdrojem požadavků je jenom *jeden proxy server* .
-* Pro známé proxy servery a známé sítě jsou nakonfigurovány pouze adresy zpětné smyčky.
-* Předané hlavičky jsou pojmenovány `X-Forwarded-For` a `X-Forwarded-Proto`.
+* Existuje pouze *jeden proxy server* mezi aplikací a zdrojem požadavků.
+* Pouze adresy zpětné smyčky jsou konfigurovány pro známé proxy servery a známé sítě.
+* Předávaná záhlaví `X-Forwarded-For` `X-Forwarded-Proto`jsou pojmenována a .
 
-Ne všechna síťová zařízení přidávají hlavičky `X-Forwarded-For` a `X-Forwarded-Proto` bez další konfigurace. Zeptejte se na pokyny výrobce zařízení, jestli proxy požadavky při přístupu do aplikace tyto hlavičky neobsahují. Pokud zařízení používá jiné názvy hlaviček než `X-Forwarded-For` a `X-Forwarded-Proto`, nastavte <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> a <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> možnosti tak, aby odpovídaly názvům hlaviček používaným zařízením. Další informace najdete v tématu [předané možnosti a konfigurace middlewarových hlaviček](#forwarded-headers-middleware-options) [pro proxy server, který používá jiné názvy hlaviček](#configuration-for-a-proxy-that-uses-different-header-names).
+Ne všechna síťová `X-Forwarded-For` `X-Forwarded-Proto` zařízení přidávají záhlaví a bez další konfigurace. Pokud proxied požadavky neobsahují tyto hlavičky, když se dostanou do aplikace, přečtěte si pokyny výrobce zařízení. Pokud zařízení používá jiné `X-Forwarded-For` názvy záhlaví než a `X-Forwarded-Proto`, nastavte možnosti <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> a <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> tak, aby odpovídaly názvům záhlaví používaným zařízením. Další informace naleznete v tématech [Možnosti middlewaru předávaných záhlaví](#forwarded-headers-middleware-options) a [Konfigurace pro proxy server, který používá různé názvy záhlaví](#configuration-for-a-proxy-that-uses-different-header-names).
 
-## <a name="iisiis-express-and-aspnet-core-module"></a>Modul IIS/IIS Express a ASP.NET Core
+## <a name="iisiis-express-and-aspnet-core-module"></a>IIS/IIS Express a základní modul ASP.NET
 
-Middleware předávaných hlaviček je ve výchozím nastavení povolená službou [IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) , když je aplikace hostovaná [mimo](xref:host-and-deploy/iis/index#out-of-process-hosting-model) službu IIS a modul ASP.NET Core. Middleware předávaných hlaviček se aktivují, aby se nejdříve spouštěl v kanálu middleware s omezenou konfigurací určenou pro modul ASP.NET Core, protože se jedná o obavy týkající se důvěryhodnosti se předanými hlavičkami (například [falšování IP adres](https://www.iplocation.net/ip-spoofing)). Middleware je nakonfigurované pro přeposílání `X-Forwarded-For` a `X-Forwarded-Proto` hlaviček a je omezený na jeden localhost proxy. Pokud se vyžaduje další konfigurace, přečtěte si téma [Možnosti middlewaru předávaných hlaviček](#forwarded-headers-middleware-options).
+Middleware s předaná záhlaví je ve výchozím nastavení povolen [middlewarem integrace služby IIS,](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) pokud je aplikace hostována mimo proces za [službou](xref:host-and-deploy/iis/index#out-of-process-hosting-model) IIS a ASP.NET core modulem. Předaných záhlaví Middleware je aktivován pro spuštění jako první v middleware potrubí s omezenou konfiguraci specifickou pro ASP.NET Core Module z důvodu důvěry obavy s předanými záhlaví (například [IP spoofing](https://www.iplocation.net/ip-spoofing)). Middleware je nakonfigurován `X-Forwarded-For` tak, aby předal a `X-Forwarded-Proto` záhlaví a je omezen na jeden proxy localhost. Pokud je požadována další konfigurace, podívejte se na [možnosti middlewaru předávaných záhlaví](#forwarded-headers-middleware-options).
 
-## <a name="other-proxy-server-and-load-balancer-scenarios"></a>Další scénáře proxy server a nástroje pro vyrovnávání zatížení
+## <a name="other-proxy-server-and-load-balancer-scenarios"></a>Další scénáře proxy serveru a vyrovnávání zatížení
 
-Bez použití [integrace služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) při hostování [mimo procesy](xref:host-and-deploy/iis/index#out-of-process-hosting-model)není middleware předávaných hlaviček ve výchozím nastavení povolená. Middleware předaných hlaviček musí být povolená pro aplikaci, která zpracovává předávaná záhlaví s <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>. Po povolení middlewaru v případě, že middleware není zadána žádná <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>, výchozí hodnota [ForwardedHeadersOptions. ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) je [ForwardedHeaders. None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders).
+Mimo použití [integrace služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) při hostování [mimoproces](xref:host-and-deploy/iis/index#out-of-process-hosting-model), není middleware předaných záhlaví ve výchozím nastavení povoleno. Middleware s předanými záhlavími musí být povolen, <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>aby aplikace zpracovala předávaná záhlaví pomocí aplikace . Po povolení middlewaru, pokud middlewar u <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> nezadaných nejsou, jsou výchozí [položky ForwardedHeaders.ForwardedHeaders.None](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) . [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)
 
-Nakonfigurujte middleware pomocí <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> pro přeposílání `X-Forwarded-For` a `X-Forwarded-Proto` hlaviček v `Startup.ConfigureServices`. Vyvolejte metodu <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> v `Startup.Configure` před voláním jiného middleware:
+Nakonfigurujte <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> middleware `X-Forwarded-For` `X-Forwarded-Proto` s pro `Startup.ConfigureServices`předávání a záhlaví v aplikaci . Vyvolat <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> metodu `Startup.Configure` v před voláním jinémiddleware:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -96,23 +96,23 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```
 
 > [!NOTE]
-> Pokud nejsou zadány žádné <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> v `Startup.ConfigureServices` nebo přímo k metodě rozšíření <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>, výchozí hlavičky pro přeposílání jsou [ForwardedHeaders. None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders). Vlastnost <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> musí být nakonfigurována s hlavičkou, aby byla předána.
+> Pokud <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> nejsou zadány v `Startup.ConfigureServices` metodě <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>rozšíření nebo přímo k ní , výchozí hlavičky pro předávání jsou [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders). Vlastnost <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> musí být nakonfigurována s hlavičkami dopředu.
 
-## <a name="nginx-configuration"></a>Konfigurace nginx
+## <a name="nginx-configuration"></a>Konfigurace Nginx
 
-Pro přeposílání hlaviček `X-Forwarded-For` a `X-Forwarded-Proto` naleznete v tématu <xref:host-and-deploy/linux-nginx#configure-nginx>. Další informace najdete v tématu [Nginx: použití předané hlavičky](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/).
+Chcete-li `X-Forwarded-For` `X-Forwarded-Proto` záhlaví a <xref:host-and-deploy/linux-nginx#configure-nginx>předat dál, přečtěte si informace o tom, zda neobsahuje hlavní a Další informace naleznete v [tématu NGINX: Použití hlavičky Přeposílané](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/).
 
 ## <a name="apache-configuration"></a>Konfigurace Apache
 
-`X-Forwarded-For` se přidá automaticky (viz [Mod_proxy modulu Apache: hlavičky reverzních požadavků na proxy server](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#x-headers)). Informace o tom, jak přeslat hlavičku `X-Forwarded-Proto`, najdete v tématu <xref:host-and-deploy/linux-apache#configure-apache>.
+`X-Forwarded-For`(viz Apache [Module mod_proxy: Reverse Proxy Request Headers](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#x-headers)). Informace o tom, `X-Forwarded-Proto` jak předat <xref:host-and-deploy/linux-apache#configure-apache>záhlaví dál, naleznete v tématu .
 
-## <a name="forwarded-headers-middleware-options"></a>Možnosti middlewaru předávaných hlaviček
+## <a name="forwarded-headers-middleware-options"></a>Možnosti middlewaru předávaných záhlaví
 
-<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> řízení chování middlewaru předávaných hlaviček. Následující příklad změní výchozí hodnoty:
+<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>chování middlewaru Předávaných záhlaví. Následující příklad změní výchozí hodnoty:
 
-* Omezte počet záznamů v předaných hlavičkách na `2`.
-* Přidejte známou adresu proxy serveru `127.0.10.1`.
-* Změňte název předané hlavičky z výchozí `X-Forwarded-For` na `X-Forwarded-For-My-Custom-Header-Name`.
+* Omezte počet položek v předaných záhlavích na `2`.
+* Přidejte známou `127.0.10.1`adresu proxy aplikace .
+* Změňte předaný název `X-Forwarded-For` záhlaví `X-Forwarded-For-My-Custom-Header-Name`z výchozího na .
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>
@@ -125,24 +125,24 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 | Možnost | Popis |
 | ------ | ----------- |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> | Omezuje hostitele v hlavičce `X-Forwarded-Host` na zadané hodnoty.<ul><li>Hodnoty se porovnávají pomocí pořadí – ignorovat – případ.</li><li>Čísla portů musí být vyloučena.</li><li>Pokud je seznam prázdný, jsou povoleny všichni hostitelé.</li><li>Zástupný znak nejvyšší úrovně `*` umožňuje všem neprázdným hostitelům.</li><li>Zástupné znaky subdomény jsou povolené, ale neodpovídají kořenové doméně. `*.contoso.com` například odpovídá subdoméně `foo.contoso.com` ale nikoli ke kořenové doméně `contoso.com`.</li><li>Názvy hostitelů Unicode jsou povoleny, ale jsou převedeny na [Punycode](https://tools.ietf.org/html/rfc3492) pro porovnání.</li><li>[Adresy IPv6](https://tools.ietf.org/html/rfc4291) musí zahrnovat ohraničující závorky a musí být v [konvenčním formátu](https://tools.ietf.org/html/rfc4291#section-2.2) (například `[ABCD:EF01:2345:6789:ABCD:EF01:2345:6789]`). IPv6 adresy nejsou speciální – použita pro kontrolu logické rovnosti mezi různými formáty a neprovádí se žádné kanonikalizace.</li><li>Nepodaří-li se omezit povolené hostitele, může útočníkovi umožnit přístup k falešným odkazům generovanými službou.</li></ul>Výchozí hodnota je prázdná `IList<string>`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XForwardedForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedForHeaderName). Tato možnost se používá, když proxy nebo předávací server nepoužívá hlavičku `X-Forwarded-For`, ale k přeposílání informací používá jiné záhlaví.<br><br>Výchozí formát je `X-Forwarded-For`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> | Určuje, které předávacíci by se měly zpracovat. Seznam polí, která platí, najdete v tématu [ForwardedHeaders enum](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders) . Typické hodnoty přiřazené k této vlastnosti jsou `ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto`.<br><br>Výchozí hodnota je [ForwardedHeaders. None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders). |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHostHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XForwardedHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedHostHeaderName). Tato možnost se používá, když proxy nebo předávací server nepoužívá hlavičku `X-Forwarded-Host`, ale k přeposílání informací používá jiné záhlaví.<br><br>Výchozí formát je `X-Forwarded-Host`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XForwardedProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedProtoHeaderName). Tato možnost se používá, když proxy nebo předávací server nepoužívá hlavičku `X-Forwarded-Proto`, ale k přeposílání informací používá jiné záhlaví.<br><br>Výchozí formát je `X-Forwarded-Proto`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardLimit> | Omezuje počet položek v záhlavích, které jsou zpracovávány. Nastavte na `null` pro zákaz tohoto limitu, ale to byste měli udělat jenom v případě, že jsou nakonfigurované `KnownProxies` nebo `KnownNetworks`. Nastavení ne`null` hodnoty je preventivní opatrnost (ale ne záruka) pro ochranu proti nesprávně konfigurovaným proxy a škodlivým požadavkům přicházejících ze dvoustranných kanálů v síti.<br><br>Middleware předávaných hlaviček zpracovává hlavičky v obráceném pořadí zprava doleva. Pokud se použije výchozí hodnota (`1`), zpracuje se jenom hodnota zprava z hlaviček, pokud se nezvýší hodnota `ForwardLimit`.<br><br>Výchozí formát je `1`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks> | Rozsahy adres známých sítí, ze kterých se mají přijímat předávací hlavičky. Zadejte rozsahy IP adres pomocí zápisu CIDR (Classless prosměrování mezi doménami).<br><br>Pokud server používá sokety s duálním režimem, adresy IPv4 se dodávají ve formátu IPv6 (například `10.0.0.1` ve službě IPv4 reprezentované protokolem IPv6 jako `::ffff:10.0.0.1`). Viz [IPAddress. MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). V části [HttpContext. Connection. RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*)Zjistěte, jestli je tento formát vyžadován. Další informace najdete v části [konfigurace pro adresu IPv4 reprezentovanou jako oddíl IPv6 adresa](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address) .<br><br>Výchozí hodnota je `IList`\<<xref:Microsoft.AspNetCore.HttpOverrides.IPNetwork>> obsahujícím jednu položku pro `IPAddress.Loopback`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies> | Adresy známých proxy adres, ze kterých se mají přijímat předávací hlavičky. Pomocí `KnownProxies` můžete zadat přesné shody IP adres.<br><br>Pokud server používá sokety s duálním režimem, adresy IPv4 se dodávají ve formátu IPv6 (například `10.0.0.1` ve službě IPv4 reprezentované protokolem IPv6 jako `::ffff:10.0.0.1`). Viz [IPAddress. MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). V části [HttpContext. Connection. RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*)Zjistěte, jestli je tento formát vyžadován. Další informace najdete v části [konfigurace pro adresu IPv4 reprezentovanou jako oddíl IPv6 adresa](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address) .<br><br>Výchozí hodnota je `IList`\<<xref:System.Net.IPAddress>> obsahujícím jednu položku pro `IPAddress.IPv6Loopback`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalForHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XOriginalForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalForHeaderName).<br><br>Výchozí formát je `X-Original-For`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalHostHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XOriginalHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalHostHeaderName).<br><br>Výchozí formát je `X-Original-Host`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalProtoHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XOriginalProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalProtoHeaderName).<br><br>Výchozí formát je `X-Original-Proto`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.RequireHeaderSymmetry> | Vyžaduje, aby byl počet synchronizovaných hodnot hlaviček mezi zpracovávaným [ForwardedHeadersOptions. ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) .<br><br>Výchozí hodnota v ASP.NET Core 1. x je `true`. Výchozí hodnota v ASP.NET Core 2,0 nebo novější je `false`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> | Omezí hostitele záhlavím `X-Forwarded-Host` na uvedené hodnoty.<ul><li>Hodnoty jsou porovnány pomocí ordinal-ignore-case.</li><li>Čísla portů musí být vyloučena.</li><li>Pokud je seznam prázdný, jsou povoleni všichni hostitelé.</li><li>Zástupný znak `*` nejvyšší úrovně umožňuje všem neprázdným hostitelům.</li><li>Zástupné znaky subdomény jsou povoleny, ale neodpovídají kořenové doméně. Například `*.contoso.com` odpovídá subdoméně, `foo.contoso.com` ale `contoso.com`ne kořenové doméně .</li><li>Názvy hostitelů Unicode jsou [povoleny,](https://tools.ietf.org/html/rfc3492) ale jsou převedeny na Punycode pro porovnávání.</li><li>[Adresy IPv6](https://tools.ietf.org/html/rfc4291) musí obsahovat ohraničovací závorky a musí být v [konvenční podobě](https://tools.ietf.org/html/rfc4291#section-2.2) (například `[ABCD:EF01:2345:6789:ABCD:EF01:2345:6789]`). Adresy IPv6 nejsou zvláštní pro kontrolu logické rovnosti mezi různými formáty a neprovádí se žádná kanonizace.</li><li>Neomezení povolených hostitelů může útočníkovi umožnit falšovat odkazy generované službou.</li></ul>Výchozí hodnota je `IList<string>`prázdná . |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [serverem ForwardedHeadersDefaults.XForwardedForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedForHeaderName). Tato možnost se používá, když proxy/server `X-Forwarded-For` pro předávání nepoužívá záhlaví, ale používá některé jiné záhlaví k předání informací.<br><br>Výchozí formát je `X-Forwarded-For`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> | Určuje, které předávání by mělo být zpracováno. Seznam polí, která platí, naleznete v [výčtu předávaných záhlaví.](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders) Typické hodnoty přiřazené `ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto`k této vlastnosti jsou .<br><br>Výchozí hodnota je [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders). |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHostHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XForwardedHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedHostHeaderName). Tato možnost se používá, když proxy/server `X-Forwarded-Host` pro předávání nepoužívá záhlaví, ale používá některé jiné záhlaví k předání informací.<br><br>Výchozí formát je `X-Forwarded-Host`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XForwardedProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedProtoHeaderName). Tato možnost se používá, když proxy/server `X-Forwarded-Proto` pro předávání nepoužívá záhlaví, ale používá některé jiné záhlaví k předání informací.<br><br>Výchozí formát je `X-Forwarded-Proto`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardLimit> | Omezuje počet položek v hlavičkách, které jsou zpracovány. Nastavte `null` zakázat limit, ale to by `KnownProxies` mělo `KnownNetworks` být provedeno pouze v případě, nebo jsou nakonfigurovány. Nastavení nehodnoty`null` je preventivní opatření (ale nikoli záruka) k ochraně před nesprávně nakonfigurovanými proxy servery a škodlivými požadavky přicházejícími z bočních kanálů v síti.<br><br>Předávané hlavičky Middleware zpracovává hlavičky v opačném pořadí zprava doleva. Pokud je použita výchozí hodnota (`1`), je zpracována pouze hodnota zcela `ForwardLimit` vpravo ze záhlaví, pokud není zvýšena hodnota.<br><br>Výchozí formát je `1`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks> | Rozsahy adres známých sítí, ze kterých mají být přijímána předávaná záhlaví. Poskytněte rozsahy IP adres pomocí zápisu classless interdomain routing (CIDR).<br><br>Pokud server používá sokety s duálním režimem, jsou adresy IPv4 `10.0.0.1` dodávány ve formátu IPv6 `::ffff:10.0.0.1`(například v ipv4 reprezentovaném v ipv6 jako ). Viz [IPAddress.MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). Zjistěte, zda je tento formát vyžadován na adrese [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*). Další informace naleznete v [části Konfigurace adresy IPv4 reprezentované jako adresa Protokolu IPv6.](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address)<br><br>Výchozí hodnota `IList` \< <xref:Microsoft.AspNetCore.HttpOverrides.IPNetwork> je> obsahující jednu položku pro aplikaci `IPAddress.Loopback`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies> | Adresy známých proxy serverů, ze kterých mají být přijímána předávaná záhlaví. Slouží `KnownProxies` k určení přesných shod IP adres.<br><br>Pokud server používá sokety s duálním režimem, jsou adresy IPv4 `10.0.0.1` dodávány ve formátu IPv6 `::ffff:10.0.0.1`(například v ipv4 reprezentovaném v ipv6 jako ). Viz [IPAddress.MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). Zjistěte, zda je tento formát vyžadován na adrese [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*). Další informace naleznete v [části Konfigurace adresy IPv4 reprezentované jako adresa Protokolu IPv6.](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address)<br><br>Výchozí hodnota `IList` \< <xref:System.Net.IPAddress> je> obsahující jednu položku pro aplikaci `IPAddress.IPv6Loopback`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalForHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XOriginalForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalForHeaderName).<br><br>Výchozí formát je `X-Original-For`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalHostHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XOriginalHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalHostHeaderName).<br><br>Výchozí formát je `X-Original-Host`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalProtoHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XOriginalProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalProtoHeaderName).<br><br>Výchozí formát je `X-Original-Proto`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.RequireHeaderSymmetry> | Vyžadovat, aby byl počet hodnot záhlaví synchronizován mezi zpracovávané hlavičky [Předvoj.](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders)<br><br>Výchozí hodnota v ASP.NET Core `true`1.x je . Výchozí hodnota v ASP.NET jádrem `false`2.0 nebo novějším je . |
 
 ## <a name="scenarios-and-use-cases"></a>Scénáře a případy použití
 
-### <a name="when-it-isnt-possible-to-add-forwarded-headers-and-all-requests-are-secure"></a>Pokud není možné přidat předávané hlavičky a všechny požadavky jsou zabezpečené
+### <a name="when-it-isnt-possible-to-add-forwarded-headers-and-all-requests-are-secure"></a>Pokud není možné přidat předané hlavičky a všechny požadavky jsou zabezpečené
 
-V některých případech nemusí být možné přidat předávaná záhlaví do požadavků, které jsou proxy k aplikaci. Pokud proxy vynucuje, že všechny veřejné externí požadavky jsou HTTPS, můžete schéma ručně nastavit v `Startup.Configure` před použitím libovolného typu middlewaru:
+V některých případech nemusí být možné přidat předávané záhlaví k požadavkům proxied do aplikace. Pokud proxy server vynucuje, že všechny veřejné externí požadavky `Startup.Configure` jsou HTTPS, schéma lze ručně nastavit před použitím libovolného typu middleware:
 
 ```csharp
 app.Use((context, next) =>
@@ -152,21 +152,21 @@ app.Use((context, next) =>
 });
 ```
 
-Tento kód může být zakázán pomocí proměnné prostředí nebo jiného nastavení konfigurace ve vývojovém nebo přípravném prostředí.
+Tento kód lze zakázat s proměnnou prostředí nebo jiné nastavení konfigurace ve vývojovém nebo pracovním prostředí.
 
-### <a name="deal-with-path-base-and-proxies-that-change-the-request-path"></a>Práce se základními a proxy servery, které mění cestu požadavku
+### <a name="deal-with-path-base-and-proxies-that-change-the-request-path"></a>Řešení základny cesty a proxy, které mění cestu požadavku
 
-Některé proxy servery předávají cestu beze změny, ale se základní cestou aplikace, která by se měla odebrat, aby směrování fungovalo správně. Middleware [UsePathBaseExtensions. UsePathBase](xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*) middleware rozdělí cestu do [HttpRequest. cesta](xref:Microsoft.AspNetCore.Http.HttpRequest.Path) a základní cestu aplikace do [HttpRequest. PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase).
+Některé proxy servery předat cestu beze změny, ale se základní cestu aplikace, která by měla být odebrána tak, aby směrování funguje správně. [Middleware UsePathBaseExtensions.UsePathBase](xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*) rozdělí cestu na [HttpRequest.Path](xref:Microsoft.AspNetCore.Http.HttpRequest.Path) a základní cestu aplikace na [HttpRequest.PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase).
 
-Pokud je `/foo` základní cestu aplikace pro cestu k proxy serveru předanou jako `/foo/api/1`, `Request.PathBase` sady middlewaru `/foo` a `Request.Path` `/api/1` pomocí následujícího příkazu:
+Pokud `/foo` je základní cesta aplikace pro `/foo/api/1`cestu proxy předávané jako , middleware `Request.PathBase` nastaví `/foo` a `Request.Path` `/api/1` s následujícím příkazem:
 
 ```csharp
 app.UsePathBase("/foo");
 ```
 
-Původní cesta a základ cesty se znovu aplikují, když se middleware znovu zavolá v opačném případě. Další informace o zpracování pořadí middlewaru najdete v tématu <xref:fundamentals/middleware/index>.
+Původní cesta a základna cesty jsou znovu použity, když middleware je volána znovu v opačném směru. Další informace o zpracování objednávek <xref:fundamentals/middleware/index>middlewaru naleznete v tématu .
 
-Pokud proxy ořízne cestu (například předávání `/foo/api/1` do `/api/1`), opravte přesměrování a odkazy nastavením vlastnosti [PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase) žádosti:
+Pokud proxy server ořízne cestu `/foo/api/1` (například předávání na `/api/1`), opravte přesměrování a odkazy nastavením [vlastnosti PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase) požadavku:
 
 ```csharp
 app.Use((context, next) =>
@@ -176,7 +176,7 @@ app.Use((context, next) =>
 });
 ```
 
-Pokud proxy přidává data cest, zahodí část cesty pro opravu přesměrování a odkazy pomocí <xref:Microsoft.AspNetCore.Http.PathString.StartsWithSegments*> a přiřazení k vlastnosti <xref:Microsoft.AspNetCore.Http.HttpRequest.Path>:
+Pokud proxy server přidává data cesty, zahoďte část cesty a <xref:Microsoft.AspNetCore.Http.PathString.StartsWithSegments*> opravte přesměrování <xref:Microsoft.AspNetCore.Http.HttpRequest.Path> a odkazy pomocí vlastnosti a přiřazováním k ní:
 
 ```csharp
 app.Use((context, next) =>
@@ -190,9 +190,9 @@ app.Use((context, next) =>
 });
 ```
 
-### <a name="configuration-for-a-proxy-that-uses-different-header-names"></a>Konfigurace proxy serveru, který používá jiné názvy hlaviček
+### <a name="configuration-for-a-proxy-that-uses-different-header-names"></a>Konfigurace pro proxy server, který používá různé názvy záhlaví
 
-Pokud proxy nepoužívá hlavičky s názvem `X-Forwarded-For` a `X-Forwarded-Proto` přesměrovat informace o adrese a portu proxy serveru a informace o původním schématu, nastavte <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> a <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> možnosti tak, aby odpovídaly názvům hlaviček používaných proxy serverem:
+Pokud proxy server nepoužívá záhlaví `X-Forwarded-For` s `X-Forwarded-Proto` názvem a předává informace o adrese/portu proxy a původním schématu, nastavte možnosti <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> a <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> tak, aby odpovídaly názvům záhlaví používaným proxy serverem:
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>
@@ -202,18 +202,18 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-### <a name="configuration-for-an-ipv4-address-represented-as-an-ipv6-address"></a>Konfigurace pro adresu IPv4 reprezentovanou jako IPv6 adresa
+### <a name="configuration-for-an-ipv4-address-represented-as-an-ipv6-address"></a>Konfigurace adresy IPv4 reprezentované jako adresa IPv6
 
-Pokud server používá sokety s duálním režimem, adresy IPv4 jsou zadány ve formátu protokolu IPv6 (například `10.0.0.1` ve službě IPv4 reprezentované protokolem IPv6 jako `::ffff:10.0.0.1` nebo `::ffff:a00:1`). Viz [IPAddress. MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). V části [HttpContext. Connection. RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*)Zjistěte, jestli je tento formát vyžadován.
+Pokud server používá sokety s duálním režimem, jsou adresy IPv4 `10.0.0.1` dodávány ve formátu IPv6 `::ffff:10.0.0.1` (například v ipv4 reprezentovaném v ipv6 jako nebo `::ffff:a00:1`). Viz [IPAddress.MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). Zjistěte, zda je tento formát vyžadován na adrese [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*).
 
-V následujícím příkladu se do seznamu `KnownNetworks` ve formátu protokolu IPv6 přidají síťová adresa, která poskytuje předávaná záhlaví.
+V následujícím příkladu je do `KnownNetworks` seznamu ve formátu IPv6 přidána síťová adresa, která dodává předávaná záhlaví.
 
-Adresa IPv4: `10.11.12.1/8`
+Adresa IPv4:`10.11.12.1/8`
 
-Převedená adresa IPv6: `::ffff:10.11.12.1`  
-Délka převedené předpony: 104
+Převedená adresa IPv6:`::ffff:10.11.12.1`  
+Převedená délka předpony: 104
 
-Adresu můžete také uvést v šestnáctkovém formátu (`10.11.12.1` představovali v protokolu IPv6 jako `::ffff:0a0b:0c01`). Při převodu adresy IPv4 na IPv6 přidejte 96 k délce předpony CIDR (`8` v příkladu), aby se zohlednila další předpona IPv6 `::ffff:` (8 + 96 = 104). 
+Adresu můžete zadat také v šestnáctkovém formátu`10.11.12.1` (reprezentované `::ffff:0a0b:0c01`v iPv6 jako). Při převodu adresy IPv4 na IPv6 přidejte 96 do`8` délky předpony CIDR `::ffff:` (v příkladu) tak, aby se zohlednila další předpona IPv6 (8 + 96 = 104). 
 
 ```csharp
 // To access IPNetwork and IPAddress, add the following namespaces:
@@ -228,11 +228,11 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>Předejte schéma pro reverzní proxy servery se systémy Linux a non-IIS.
+## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>Předání systému pro reverzní proxy servery Linux a jiné systémy iis
 
-Aplikace, které volají <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> a <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> umístí lokalitu do nekonečné smyčky, pokud je nasazená na App Service Azure Linux, virtuální počítač se systémem Azure Linux nebo za jakýkoli jiný reverzní proxy server, kromě služby IIS. Protokol TLS je ukončen reverzním proxy serverem a Kestrel není informován o správném schématu požadavků. OAuth a OIDC v této konfiguraci selže, protože generují nesprávná přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> přidává a konfiguruje middleware předávaných hlaviček při spuštění za IIS, ale neexistuje žádná vyhovující Automatická konfigurace pro Linux (integrace Apache nebo Nginx).
+Aplikace, <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> které <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> volají a umisťují web do nekonečné smyčky, pokud jsou nasazeny do služby Azure Linux App Service, virtuálního počítače Azure Linux (VM) nebo za jakýmkoli jiným reverzním proxy serverem kromě Služby IIS. TLS je ukončena reverzní proxy server a Kestrel není informován o správné schéma požadavků. OAuth a OIDC také nezdaří v této konfiguraci, protože generují nesprávné přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*>přidává a konfiguruje přeposílané záhlaví Middleware při spuštění za IIS, ale neexistuje žádná odpovídající automatická konfigurace pro Linux (Apache nebo Nginx integrace).
 
-Pro přeposílání schématu od proxy serveru ve scénářích mimo službu IIS přidejte a nakonfigurujte middleware s předanými hlavičkami. V `Startup.ConfigureServices`použijte následující kód:
+Chcete-li předávat schéma z proxy serveru ve scénářích mimo službu IIS, přidejte a nakonfigurujte middleware předávaných záhlaví. V `Startup.ConfigureServices`, použijte následující kód:
 
 ```csharp
 // using Microsoft.AspNetCore.HttpOverrides;
@@ -258,16 +258,16 @@ if (string.Equals(
 
 ### <a name="azure"></a>Azure
 
-Pokud chcete nakonfigurovat Azure App Service pro předávání certifikátů, přečtěte si téma [Konfigurace vzájemného ověřování TLS pro Azure App Service](/azure/app-service/app-service-web-configure-tls-mutual-auth). Následující pokyny se týkají konfigurace aplikace ASP.NET Core.
+Pokud chcete nakonfigurovat službu Azure App Service pro předávání certifikátů, přečtěte si informace [o konfiguraci vzájemného ověřování TLS pro službu Azure App Service](/azure/app-service/app-service-web-configure-tls-mutual-auth). Následující pokyny se týkající se konfigurace aplikace ASP.NET Core.
 
-V `Startup.Configure`před voláním `app.UseAuthentication();`přidejte následující kód:
+V `Startup.Configure`oblasti přidejte před volání `app.UseAuthentication();`mj.
 
 ```csharp
 app.UseCertificateForwarding();
 ```
 
 
-Nakonfigurujte middleware předávání certifikátů a určete název hlavičky, kterou používá Azure. V `Startup.ConfigureServices`přidejte následující kód pro konfiguraci hlavičky, ze které middleware vytváří certifikát:
+Nakonfigurujte Middleware pro předávání certifikátů a zadejte název záhlaví, který Azure používá. V `Startup.ConfigureServices`aplikaci přidejte následující kód pro konfiguraci záhlaví, ze kterého middleware vytváří certifikát:
 
 ```csharp
 services.AddCertificateForwarding(options =>
@@ -276,20 +276,20 @@ services.AddCertificateForwarding(options =>
 
 ### <a name="other-web-proxies"></a>Další webové proxy servery
 
-Pokud se používá proxy server, který není službou IIS nebo Azure App Service směrování žádostí na aplikace (ARR), nakonfigurujte proxy server tak, aby předal certifikát, který přijal v hlavičce protokolu HTTP. V `Startup.Configure`před voláním `app.UseAuthentication();`přidejte následující kód:
+Pokud se používá proxy server, který není Službou IIS nebo směrováním žádostí o žádosti o aplikační aplikace služby Azure App Service (ARR), nakonfigurujte proxy server tak, aby předal certifikát, který obdržel v hlavičce HTTP. V `Startup.Configure`oblasti přidejte před volání `app.UseAuthentication();`mj.
 
 ```csharp
 app.UseCertificateForwarding();
 ```
 
-Nakonfigurujte middleware předávání certifikátů a zadejte název záhlaví. V `Startup.ConfigureServices`přidejte následující kód pro konfiguraci hlavičky, ze které middleware vytváří certifikát:
+Nakonfigurujte middleware pro předávání certifikátů tak, aby zadával název záhlaví. V `Startup.ConfigureServices`aplikaci přidejte následující kód pro konfiguraci záhlaví, ze kterého middleware vytváří certifikát:
 
 ```csharp
 services.AddCertificateForwarding(options =>
     options.CertificateHeader = "YOUR_CERTIFICATE_HEADER_NAME");
 ```
 
-Pokud proxy server nepodporuje kódování Base64 (jako je případ s Nginx), nastavte možnost `HeaderConverter`. Vezměte v úvahu následující příklad `Startup.ConfigureServices`:
+Pokud proxy není base64-kódování certifikátu (jako je tomu v případě `HeaderConverter` Nginx), nastavte možnost. Vezměme si `Startup.ConfigureServices`následující příklad v :
 
 ```csharp
 services.AddCertificateForwarding(options =>
@@ -306,9 +306,9 @@ services.AddCertificateForwarding(options =>
 
 ## <a name="troubleshoot"></a>Řešení potíží
 
-Když hlavičky nejsou předávány podle očekávání, povolte [protokolování](xref:fundamentals/logging/index). Pokud protokoly neposkytují dostatek informací pro řešení tohoto problému, vytvořte výčet hlaviček požadavků přijatých serverem. K zápisu hlaviček požadavků do odpovědi aplikace nebo k protokolování hlaviček použijte vložený middlewarový middleware. 
+Pokud záhlaví nejsou předávána podle očekávání, povolte [protokolování](xref:fundamentals/logging/index). Pokud protokoly neposkytují dostatečné informace k řešení problému, výčet záhlaví požadavku přijaté serverem. Pomocí vřádkového middlewaru zapíšete záhlaví požadavků do odpovědi na aplikaci nebo zaznamenejte záhlaví. 
 
-Pokud chcete zapsat hlavičky do odpovědi aplikace, umístěte následující vložený middleware terminálu hned po volání <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> v `Startup.Configure`:
+Chcete-li napište záhlaví do odpovědi aplikace, umístěte následující inline middleware <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> `Startup.Configure`terminálu ihned po volání do aplikace :
 
 ```csharp
 app.Run(async (context) =>
@@ -340,12 +340,12 @@ app.Run(async (context) =>
 });
 ```
 
-Do protokolů můžete zapisovat místo těla odpovědi. Zápis do protokolů umožňuje, aby lokalita fungovala normálně během ladění.
+Můžete zapisovat do protokolů namísto těla odpovědi. Zápis do protokolů umožňuje webu fungovat normálně při ladění.
 
-Zápis protokolů místo textu odpovědi:
+Chcete-li zapsat protokoly spíše než do těla odpovědi:
 
-* Vložení `ILogger<Startup>` do `Startup` třídy, jak je popsáno v tématu [vytvoření protokolů při spuštění](xref:fundamentals/logging/index#create-logs-in-startup).
-* Ihned po volání <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> v `Startup.Configure`umístěte následující vložený middleware.
+* Vložte `ILogger<Startup>` `Startup` do třídy, jak je popsáno v [vytvořit protokoly v startupu](xref:fundamentals/logging/index#create-logs-in-startup).
+* Ihned po volání do <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> souboru na `Startup.Configure`místo umístěte následující vřaditý middleware.
 
 ```csharp
 app.Use(async (context, next) =>
@@ -369,15 +369,15 @@ app.Use(async (context, next) =>
 });
 ```
 
-Při zpracování `X-Forwarded-{For|Proto|Host}` hodnoty přesunuty do `X-Original-{For|Proto|Host}`. Pokud existuje více hodnot v dané hlavičce, middleware pro přesměrované hlavičky zpracovává záhlaví v opačném pořadí zprava doleva. Výchozí `ForwardLimit` je `1` (jedna), takže se zpracovává jenom hodnota nejvíce vpravo od hlaviček, pokud se hodnota `ForwardLimit` nezvýší.
+Při zpracování `X-Forwarded-{For|Proto|Host}` jsou hodnoty `X-Original-{For|Proto|Host}`přesunuty do . Pokud je v dané hlavičce více hodnot, middleware s předaným záhlavím zpracuje záhlaví v opačném pořadí zprava doleva. Výchozí `ForwardLimit` hodnota `1` je (jedna), takže je zpracována pouze hodnota zcela `ForwardLimit` vpravo ze záhlaví, pokud není zvýšena hodnota.
 
-Původní Vzdálená IP adresa žádosti se musí shodovat s položkou v `KnownProxies` nebo v seznamech `KnownNetworks` před zpracováním předávaných hlaviček. To omezuje falšování hlaviček tím, že nepřijímá předávací servery od nedůvěryhodných proxy serverů. Při zjištění neznámého proxy serveru se zobrazí zpráva s informacemi o adrese proxy serveru:
+Původní vzdálená ip adresa požadavku musí `KnownProxies` odpovídat položce v seznamu nebo `KnownNetworks` před zpracováním předaných záhlaví. To omezuje falšování záhlaví tím, že nepřijímá servery pro předávání z nedůvěryhodných serverů proxy. Pokud je zjištěn neznámý proxy server, protokolování označuje adresu proxy serveru:
 
 ```console
 September 20th 2018, 15:49:44.168 Unknown proxy: 10.0.0.100:54321
 ```
 
-V předchozím příkladu je 10.0.0.100 proxy server. Pokud je server důvěryhodným proxy serverem, přidejte IP adresu serveru do `KnownProxies` (nebo přidejte důvěryhodnou síť do `KnownNetworks`) v `Startup.ConfigureServices`. Další informace najdete v části [Možnosti middlewaru předávaných hlaviček](#forwarded-headers-middleware-options) .
+V předchozím příkladu je 10.0.0.100 proxy server. Pokud je server důvěryhodným proxy serverem, přidejte adresu IP serveru `KnownNetworks`do `Startup.ConfigureServices` `KnownProxies` aplikace . Další informace naleznete v části [Možnosti middlewaru s předávaných záhlaví.](#forwarded-headers-middleware-options)
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>
@@ -387,59 +387,59 @@ services.Configure<ForwardedHeadersOptions>(options =>
 ```
 
 > [!IMPORTANT]
-> Povoluje pouze důvěryhodné proxy servery a sítě pro přeposílání hlaviček. V opačném případě jsou možné útoky s [falešnou IP adresou](https://www.iplocation.net/ip-spoofing) .
+> Povolit pouze důvěryhodné proxy servery a sítě předávat záhlaví. V opačném případě jsou možné útoky [spoofing IP.](https://www.iplocation.net/ip-spoofing)
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:host-and-deploy/web-farm>
-* [Informační zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787: ASP.NET Core zvýšení zabezpečení oprávnění](https://github.com/aspnet/Announcements/issues/295)
+* [Informační zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787: ASP.NET základní ohrožení zabezpečení oprávnění](https://github.com/aspnet/Announcements/issues/295)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-V Doporučené konfiguraci pro ASP.NET Core se aplikace hostuje pomocí IIS/ASP. Modul NET Core, Nginx nebo Apache. Proxy servery, nástroje pro vyrovnávání zatížení a další síťová zařízení často překrývají informace o žádosti předtím, než dosáhnou aplikace:
+V doporučené konfiguraci pro ASP.NET Core je aplikace hostována pomocí core modulu IIS/ASP.NET Core Module, Nginx nebo Apache. Proxy servery, vykladače zatížení a další síťová zařízení často zakrývají informace o požadavku před tím, než se dostane do aplikace:
 
-* Pokud jsou požadavky HTTPS proxy serverem přes HTTP, původní schéma (HTTPS) se ztratí a musí se přenášet v hlavičce.
-* Vzhledem k tomu, že aplikace obdrží požadavek od proxy serveru a ne jeho skutečný zdroj v Internetu nebo podnikové síti, musí být zdrojová adresa IP klienta předána také v hlavičce.
+* Pokud jsou požadavky HTTPS proxied přes HTTP, původní schéma (HTTPS) je ztracena a musí být předány v záhlaví.
+* Vzhledem k tomu, že aplikace obdrží požadavek z proxy serveru a není jeho skutečný zdroj v síti Internet nebo podnikové sítě, původní klient IP adresa musí být také předány v záhlaví.
 
-Tyto informace můžou být důležité ve zpracování žádostí, například v přesměrování, ověřování, generování odkazů, vyhodnocení zásad a geografická poloha klienta.
+Tyto informace mohou být důležité při zpracování požadavků, například při přesměrování, ověřování, generování propojení, vyhodnocení zásad a geografickém umístění klienta.
 
 ## <a name="forwarded-headers"></a>Předávaná záhlaví
 
-Podle konvence proxy předávají informace v hlavičkách protokolu HTTP.
+Podle konvence proxy předávat informace v hlavičkách HTTP.
 
 | Hlavička | Popis |
 | ------ | ----------- |
-| X-předané – pro | Uchovává informace o klientovi, který inicioval požadavek a následné proxy servery v řetězci proxy serverů. Tento parametr může obsahovat IP adresy (a volitelně také čísla portů). V řetězci proxy serverů označuje první parametr klienta, ve kterém se žádost poprvé nastavila. Následující identifikátory proxy následují. Poslední proxy server v řetězci není uveden v seznamu parametrů. Poslední IP adresa proxy serveru a volitelně je číslo portu, které je k dispozici jako Vzdálená IP adresa v transportní vrstvě. |
-| X-Forwarded-Proto | Hodnota původního schématu (HTTP/HTTPS). Hodnota může být také seznamem schémat, pokud je požadavek procházen více proxy. |
-| X-Forwarded-Host | Původní hodnota pole hlavičky hostitele Servery proxy většinou nemění hlavičku hostitele. Viz informační [zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787](https://github.com/aspnet/Announcements/issues/295) pro informace o chybě zabezpečení zvýšení oprávnění, která má vliv na systémy, ve kterých server proxy neověřuje nebo omezuje hlavičky hostitele na známé správné hodnoty. |
+| X-Forwarded-Pro | Obsahuje informace o klientovi, který inicioval požadavek a následné proxy servery v řetězci proxy. Tento parametr může obsahovat IP adresy (a volitelně čísla portů). V řetězci proxy serverů první parametr označuje klienta, kde byl požadavek poprvé proveden. Následují následné proxy identifikátory. Poslední proxy server v řetězci není v seznamu parametrů. Adresa IP posledního serveru proxy a volitelně číslo portu jsou k dispozici jako vzdálená adresa IP ve vrstvě přenosu. |
+| X-Forwarded-Proto | Hodnota původního schématu (HTTP/HTTPS). Hodnota může být také seznam schémat, pokud požadavek prošel více proxy servery. |
+| X-Forwarded-Host | Původní hodnota pole záhlaví Hostitele. Proxy servery obvykle nemění záhlaví Hostitele. Informace o chybě zabezpečení, která ovlivňuje systémy, kde proxy server neověřuje nebo neomezuje záhlaví hostitele na známé dobré hodnoty, naleznete v [tématu Microsoft Security Advisory CVE-2018-0787.](https://github.com/aspnet/Announcements/issues/295) |
 
-Middleware předávaných hlaviček z balíčku [Microsoft. AspNetCore. HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) přečte tato záhlaví a vyplní přidružené pole na <xref:Microsoft.AspNetCore.Http.HttpContext>.
+Middleware S předaná záhlaví z balíčku [Microsoft.AspNetCore.HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) přečte tato záhlaví a <xref:Microsoft.AspNetCore.Http.HttpContext>vyplní přidružená pole na webu .
 
-Aktualizace middlewaru:
+Middleware aktualizace:
 
-* [HttpContext. Connection. RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress) &ndash; nastaveno pomocí hodnoty `X-Forwarded-For` hlavičky. Další nastavení mají vliv na to, jak middleware nastaví `RemoteIpAddress`. Podrobnosti najdete v tématu [Možnosti middlewaru předávaných hlaviček](#forwarded-headers-middleware-options).
-* [HttpContext. Request. schéma](xref:Microsoft.AspNetCore.Http.HttpRequest.Scheme) &ndash; sada s použitím hodnoty `X-Forwarded-Proto` hlavičky.
-* [HttpContext. Request. Host](xref:Microsoft.AspNetCore.Http.HttpRequest.Host) &ndash; nastaveno pomocí hodnoty `X-Forwarded-Host` hlavičky.
+* [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress) &ndash; Set `X-Forwarded-For` pomocí hodnoty záhlaví. Další nastavení ovlivňují nastavení `RemoteIpAddress`middlewaru . Podrobnosti naleznete v možnostech [middlewaru předávaných záhlaví](#forwarded-headers-middleware-options).
+* [HttpContext.Request.Scheme](xref:Microsoft.AspNetCore.Http.HttpRequest.Scheme) &ndash; Set `X-Forwarded-Proto` pomocí hodnoty záhlaví.
+* [HttpContext.Request.Host](xref:Microsoft.AspNetCore.Http.HttpRequest.Host) &ndash; Set `X-Forwarded-Host` pomocí hodnoty hlavičky.
 
-Je možné nakonfigurovat [výchozí nastavení](#forwarded-headers-middleware-options) middlewaru u předávaných hlaviček. Výchozí nastavení:
+Lze nakonfigurovat [výchozí nastavení](#forwarded-headers-middleware-options) middlewaru s předanou hlavičkou. Výchozí nastavení jsou:
 
-* Mezi aplikací a zdrojem požadavků je jenom *jeden proxy server* .
-* Pro známé proxy servery a známé sítě jsou nakonfigurovány pouze adresy zpětné smyčky.
-* Předané hlavičky jsou pojmenovány `X-Forwarded-For` a `X-Forwarded-Proto`.
+* Existuje pouze *jeden proxy server* mezi aplikací a zdrojem požadavků.
+* Pouze adresy zpětné smyčky jsou konfigurovány pro známé proxy servery a známé sítě.
+* Předávaná záhlaví `X-Forwarded-For` `X-Forwarded-Proto`jsou pojmenována a .
 
-Ne všechna síťová zařízení přidávají hlavičky `X-Forwarded-For` a `X-Forwarded-Proto` bez další konfigurace. Zeptejte se na pokyny výrobce zařízení, jestli proxy požadavky při přístupu do aplikace tyto hlavičky neobsahují. Pokud zařízení používá jiné názvy hlaviček než `X-Forwarded-For` a `X-Forwarded-Proto`, nastavte <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> a <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> možnosti tak, aby odpovídaly názvům hlaviček používaným zařízením. Další informace najdete v tématu [předané možnosti a konfigurace middlewarových hlaviček](#forwarded-headers-middleware-options) [pro proxy server, který používá jiné názvy hlaviček](#configuration-for-a-proxy-that-uses-different-header-names).
+Ne všechna síťová `X-Forwarded-For` `X-Forwarded-Proto` zařízení přidávají záhlaví a bez další konfigurace. Pokud proxied požadavky neobsahují tyto hlavičky, když se dostanou do aplikace, přečtěte si pokyny výrobce zařízení. Pokud zařízení používá jiné `X-Forwarded-For` názvy záhlaví než a `X-Forwarded-Proto`, nastavte možnosti <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> a <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> tak, aby odpovídaly názvům záhlaví používaným zařízením. Další informace naleznete v tématech [Možnosti middlewaru předávaných záhlaví](#forwarded-headers-middleware-options) a [Konfigurace pro proxy server, který používá různé názvy záhlaví](#configuration-for-a-proxy-that-uses-different-header-names).
 
-## <a name="iisiis-express-and-aspnet-core-module"></a>Modul IIS/IIS Express a ASP.NET Core
+## <a name="iisiis-express-and-aspnet-core-module"></a>IIS/IIS Express a základní modul ASP.NET
 
-Middleware předávaných hlaviček je ve výchozím nastavení povolená službou [IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) , když je aplikace hostovaná [mimo](xref:host-and-deploy/iis/index#out-of-process-hosting-model) službu IIS a modul ASP.NET Core. Middleware předávaných hlaviček se aktivují, aby se nejdříve spouštěl v kanálu middleware s omezenou konfigurací určenou pro modul ASP.NET Core, protože se jedná o obavy týkající se důvěryhodnosti se předanými hlavičkami (například [falšování IP adres](https://www.iplocation.net/ip-spoofing)). Middleware je nakonfigurované pro přeposílání `X-Forwarded-For` a `X-Forwarded-Proto` hlaviček a je omezený na jeden localhost proxy. Pokud se vyžaduje další konfigurace, přečtěte si téma [Možnosti middlewaru předávaných hlaviček](#forwarded-headers-middleware-options).
+Middleware s předaná záhlaví je ve výchozím nastavení povolen [middlewarem integrace služby IIS,](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) pokud je aplikace hostována mimo proces za [službou](xref:host-and-deploy/iis/index#out-of-process-hosting-model) IIS a ASP.NET core modulem. Předaných záhlaví Middleware je aktivován pro spuštění jako první v middleware potrubí s omezenou konfiguraci specifickou pro ASP.NET Core Module z důvodu důvěry obavy s předanými záhlaví (například [IP spoofing](https://www.iplocation.net/ip-spoofing)). Middleware je nakonfigurován `X-Forwarded-For` tak, aby předal a `X-Forwarded-Proto` záhlaví a je omezen na jeden proxy localhost. Pokud je požadována další konfigurace, podívejte se na [možnosti middlewaru předávaných záhlaví](#forwarded-headers-middleware-options).
 
-## <a name="other-proxy-server-and-load-balancer-scenarios"></a>Další scénáře proxy server a nástroje pro vyrovnávání zatížení
+## <a name="other-proxy-server-and-load-balancer-scenarios"></a>Další scénáře proxy serveru a vyrovnávání zatížení
 
-Bez použití [integrace služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) při hostování [mimo procesy](xref:host-and-deploy/iis/index#out-of-process-hosting-model)není middleware předávaných hlaviček ve výchozím nastavení povolená. Middleware předaných hlaviček musí být povolená pro aplikaci, která zpracovává předávaná záhlaví s <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>. Po povolení middlewaru v případě, že middleware není zadána žádná <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>, výchozí hodnota [ForwardedHeadersOptions. ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) je [ForwardedHeaders. None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders).
+Mimo použití [integrace služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) při hostování [mimoproces](xref:host-and-deploy/iis/index#out-of-process-hosting-model), není middleware předaných záhlaví ve výchozím nastavení povoleno. Middleware s předanými záhlavími musí být povolen, <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>aby aplikace zpracovala předávaná záhlaví pomocí aplikace . Po povolení middlewaru, pokud middlewar u <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> nezadaných nejsou, jsou výchozí [položky ForwardedHeaders.ForwardedHeaders.None](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) . [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders)
 
-Nakonfigurujte middleware pomocí <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> pro přeposílání `X-Forwarded-For` a `X-Forwarded-Proto` hlaviček v `Startup.ConfigureServices`. Vyvolejte metodu <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> v `Startup.Configure` před voláním jiného middleware:
+Nakonfigurujte <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> middleware `X-Forwarded-For` `X-Forwarded-Proto` s pro `Startup.ConfigureServices`předávání a záhlaví v aplikaci . Vyvolat <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> metodu `Startup.Configure` v před voláním jinémiddleware:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -474,23 +474,23 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 ```
 
 > [!NOTE]
-> Pokud nejsou zadány žádné <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> v `Startup.ConfigureServices` nebo přímo k metodě rozšíření <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>, výchozí hlavičky pro přeposílání jsou [ForwardedHeaders. None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders). Vlastnost <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> musí být nakonfigurována s hlavičkou, aby byla předána.
+> Pokud <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> nejsou zadány v `Startup.ConfigureServices` metodě <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*>rozšíření nebo přímo k ní , výchozí hlavičky pro předávání jsou [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders). Vlastnost <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> musí být nakonfigurována s hlavičkami dopředu.
 
-## <a name="nginx-configuration"></a>Konfigurace nginx
+## <a name="nginx-configuration"></a>Konfigurace Nginx
 
-Pro přeposílání hlaviček `X-Forwarded-For` a `X-Forwarded-Proto` naleznete v tématu <xref:host-and-deploy/linux-nginx#configure-nginx>. Další informace najdete v tématu [Nginx: použití předané hlavičky](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/).
+Chcete-li `X-Forwarded-For` `X-Forwarded-Proto` záhlaví a <xref:host-and-deploy/linux-nginx#configure-nginx>předat dál, přečtěte si informace o tom, zda neobsahuje hlavní a Další informace naleznete v [tématu NGINX: Použití hlavičky Přeposílané](https://www.nginx.com/resources/wiki/start/topics/examples/forwarded/).
 
 ## <a name="apache-configuration"></a>Konfigurace Apache
 
-`X-Forwarded-For` se přidá automaticky (viz [Mod_proxy modulu Apache: hlavičky reverzních požadavků na proxy server](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#x-headers)). Informace o tom, jak přeslat hlavičku `X-Forwarded-Proto`, najdete v tématu <xref:host-and-deploy/linux-apache#configure-apache>.
+`X-Forwarded-For`(viz Apache [Module mod_proxy: Reverse Proxy Request Headers](https://httpd.apache.org/docs/2.4/mod/mod_proxy.html#x-headers)). Informace o tom, `X-Forwarded-Proto` jak předat <xref:host-and-deploy/linux-apache#configure-apache>záhlaví dál, naleznete v tématu .
 
-## <a name="forwarded-headers-middleware-options"></a>Možnosti middlewaru předávaných hlaviček
+## <a name="forwarded-headers-middleware-options"></a>Možnosti middlewaru předávaných záhlaví
 
-<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> řízení chování middlewaru předávaných hlaviček. Následující příklad změní výchozí hodnoty:
+<xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions>chování middlewaru Předávaných záhlaví. Následující příklad změní výchozí hodnoty:
 
-* Omezte počet záznamů v předaných hlavičkách na `2`.
-* Přidejte známou adresu proxy serveru `127.0.10.1`.
-* Změňte název předané hlavičky z výchozí `X-Forwarded-For` na `X-Forwarded-For-My-Custom-Header-Name`.
+* Omezte počet položek v předaných záhlavích na `2`.
+* Přidejte známou `127.0.10.1`adresu proxy aplikace .
+* Změňte předaný název `X-Forwarded-For` záhlaví `X-Forwarded-For-My-Custom-Header-Name`z výchozího na .
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>
@@ -503,24 +503,24 @@ services.Configure<ForwardedHeadersOptions>(options =>
 
 | Možnost | Popis |
 | ------ | ----------- |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> | Omezuje hostitele v hlavičce `X-Forwarded-Host` na zadané hodnoty.<ul><li>Hodnoty se porovnávají pomocí pořadí – ignorovat – případ.</li><li>Čísla portů musí být vyloučena.</li><li>Pokud je seznam prázdný, jsou povoleny všichni hostitelé.</li><li>Zástupný znak nejvyšší úrovně `*` umožňuje všem neprázdným hostitelům.</li><li>Zástupné znaky subdomény jsou povolené, ale neodpovídají kořenové doméně. `*.contoso.com` například odpovídá subdoméně `foo.contoso.com` ale nikoli ke kořenové doméně `contoso.com`.</li><li>Názvy hostitelů Unicode jsou povoleny, ale jsou převedeny na [Punycode](https://tools.ietf.org/html/rfc3492) pro porovnání.</li><li>[Adresy IPv6](https://tools.ietf.org/html/rfc4291) musí zahrnovat ohraničující závorky a musí být v [konvenčním formátu](https://tools.ietf.org/html/rfc4291#section-2.2) (například `[ABCD:EF01:2345:6789:ABCD:EF01:2345:6789]`). IPv6 adresy nejsou speciální – použita pro kontrolu logické rovnosti mezi různými formáty a neprovádí se žádné kanonikalizace.</li><li>Nepodaří-li se omezit povolené hostitele, může útočníkovi umožnit přístup k falešným odkazům generovanými službou.</li></ul>Výchozí hodnota je prázdná `IList<string>`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XForwardedForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedForHeaderName). Tato možnost se používá, když proxy nebo předávací server nepoužívá hlavičku `X-Forwarded-For`, ale k přeposílání informací používá jiné záhlaví.<br><br>Výchozí formát je `X-Forwarded-For`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> | Určuje, které předávacíci by se měly zpracovat. Seznam polí, která platí, najdete v tématu [ForwardedHeaders enum](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders) . Typické hodnoty přiřazené k této vlastnosti jsou `ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto`.<br><br>Výchozí hodnota je [ForwardedHeaders. None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders). |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHostHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XForwardedHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedHostHeaderName). Tato možnost se používá, když proxy nebo předávací server nepoužívá hlavičku `X-Forwarded-Host`, ale k přeposílání informací používá jiné záhlaví.<br><br>Výchozí formát je `X-Forwarded-Host`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XForwardedProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedProtoHeaderName). Tato možnost se používá, když proxy nebo předávací server nepoužívá hlavičku `X-Forwarded-Proto`, ale k přeposílání informací používá jiné záhlaví.<br><br>Výchozí formát je `X-Forwarded-Proto`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardLimit> | Omezuje počet položek v záhlavích, které jsou zpracovávány. Nastavte na `null` pro zákaz tohoto limitu, ale to byste měli udělat jenom v případě, že jsou nakonfigurované `KnownProxies` nebo `KnownNetworks`. Nastavení ne`null` hodnoty je preventivní opatrnost (ale ne záruka) pro ochranu proti nesprávně konfigurovaným proxy a škodlivým požadavkům přicházejících ze dvoustranných kanálů v síti.<br><br>Middleware předávaných hlaviček zpracovává hlavičky v obráceném pořadí zprava doleva. Pokud se použije výchozí hodnota (`1`), zpracuje se jenom hodnota zprava z hlaviček, pokud se nezvýší hodnota `ForwardLimit`.<br><br>Výchozí formát je `1`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks> | Rozsahy adres známých sítí, ze kterých se mají přijímat předávací hlavičky. Zadejte rozsahy IP adres pomocí zápisu CIDR (Classless prosměrování mezi doménami).<br><br>Pokud server používá sokety s duálním režimem, adresy IPv4 se dodávají ve formátu IPv6 (například `10.0.0.1` ve službě IPv4 reprezentované protokolem IPv6 jako `::ffff:10.0.0.1`). Viz [IPAddress. MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). V části [HttpContext. Connection. RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*)Zjistěte, jestli je tento formát vyžadován. Další informace najdete v části [konfigurace pro adresu IPv4 reprezentovanou jako oddíl IPv6 adresa](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address) .<br><br>Výchozí hodnota je `IList`\<<xref:Microsoft.AspNetCore.HttpOverrides.IPNetwork>> obsahujícím jednu položku pro `IPAddress.Loopback`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies> | Adresy známých proxy adres, ze kterých se mají přijímat předávací hlavičky. Pomocí `KnownProxies` můžete zadat přesné shody IP adres.<br><br>Pokud server používá sokety s duálním režimem, adresy IPv4 se dodávají ve formátu IPv6 (například `10.0.0.1` ve službě IPv4 reprezentované protokolem IPv6 jako `::ffff:10.0.0.1`). Viz [IPAddress. MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). V části [HttpContext. Connection. RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*)Zjistěte, jestli je tento formát vyžadován. Další informace najdete v části [konfigurace pro adresu IPv4 reprezentovanou jako oddíl IPv6 adresa](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address) .<br><br>Výchozí hodnota je `IList`\<<xref:System.Net.IPAddress>> obsahujícím jednu položku pro `IPAddress.IPv6Loopback`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalForHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XOriginalForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalForHeaderName).<br><br>Výchozí formát je `X-Original-For`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalHostHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XOriginalHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalHostHeaderName).<br><br>Výchozí formát je `X-Original-Host`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalProtoHeaderName> | Použijte hlavičku určenou touto vlastností místo od ta, kterou Určuje [ForwardedHeadersDefaults. XOriginalProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalProtoHeaderName).<br><br>Výchozí formát je `X-Original-Proto`. |
-| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.RequireHeaderSymmetry> | Vyžaduje, aby byl počet synchronizovaných hodnot hlaviček mezi zpracovávaným [ForwardedHeadersOptions. ForwardedHeaders](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders) .<br><br>Výchozí hodnota v ASP.NET Core 1. x je `true`. Výchozí hodnota v ASP.NET Core 2,0 nebo novější je `false`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> | Omezí hostitele záhlavím `X-Forwarded-Host` na uvedené hodnoty.<ul><li>Hodnoty jsou porovnány pomocí ordinal-ignore-case.</li><li>Čísla portů musí být vyloučena.</li><li>Pokud je seznam prázdný, jsou povoleni všichni hostitelé.</li><li>Zástupný znak `*` nejvyšší úrovně umožňuje všem neprázdným hostitelům.</li><li>Zástupné znaky subdomény jsou povoleny, ale neodpovídají kořenové doméně. Například `*.contoso.com` odpovídá subdoméně, `foo.contoso.com` ale `contoso.com`ne kořenové doméně .</li><li>Názvy hostitelů Unicode jsou [povoleny,](https://tools.ietf.org/html/rfc3492) ale jsou převedeny na Punycode pro porovnávání.</li><li>[Adresy IPv6](https://tools.ietf.org/html/rfc4291) musí obsahovat ohraničovací závorky a musí být v [konvenční podobě](https://tools.ietf.org/html/rfc4291#section-2.2) (například `[ABCD:EF01:2345:6789:ABCD:EF01:2345:6789]`). Adresy IPv6 nejsou zvláštní pro kontrolu logické rovnosti mezi různými formáty a neprovádí se žádná kanonizace.</li><li>Neomezení povolených hostitelů může útočníkovi umožnit falšovat odkazy generované službou.</li></ul>Výchozí hodnota je `IList<string>`prázdná . |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [serverem ForwardedHeadersDefaults.XForwardedForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedForHeaderName). Tato možnost se používá, když proxy/server `X-Forwarded-For` pro předávání nepoužívá záhlaví, ale používá některé jiné záhlaví k předání informací.<br><br>Výchozí formát je `X-Forwarded-For`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders> | Určuje, které předávání by mělo být zpracováno. Seznam polí, která platí, naleznete v [výčtu předávaných záhlaví.](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders) Typické hodnoty přiřazené `ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto`k této vlastnosti jsou .<br><br>Výchozí hodnota je [ForwardedHeaders.None](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders). |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHostHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XForwardedHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedHostHeaderName). Tato možnost se používá, když proxy/server `X-Forwarded-Host` pro předávání nepoužívá záhlaví, ale používá některé jiné záhlaví k předání informací.<br><br>Výchozí formát je `X-Forwarded-Host`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XForwardedProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XForwardedProtoHeaderName). Tato možnost se používá, když proxy/server `X-Forwarded-Proto` pro předávání nepoužívá záhlaví, ale používá některé jiné záhlaví k předání informací.<br><br>Výchozí formát je `X-Forwarded-Proto`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardLimit> | Omezuje počet položek v hlavičkách, které jsou zpracovány. Nastavte `null` zakázat limit, ale to by `KnownProxies` mělo `KnownNetworks` být provedeno pouze v případě, nebo jsou nakonfigurovány. Nastavení nehodnoty`null` je preventivní opatření (ale nikoli záruka) k ochraně před nesprávně nakonfigurovanými proxy servery a škodlivými požadavky přicházejícími z bočních kanálů v síti.<br><br>Předávané hlavičky Middleware zpracovává hlavičky v opačném pořadí zprava doleva. Pokud je použita výchozí hodnota (`1`), je zpracována pouze hodnota zcela `ForwardLimit` vpravo ze záhlaví, pokud není zvýšena hodnota.<br><br>Výchozí formát je `1`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks> | Rozsahy adres známých sítí, ze kterých mají být přijímána předávaná záhlaví. Poskytněte rozsahy IP adres pomocí zápisu classless interdomain routing (CIDR).<br><br>Pokud server používá sokety s duálním režimem, jsou adresy IPv4 `10.0.0.1` dodávány ve formátu IPv6 `::ffff:10.0.0.1`(například v ipv4 reprezentovaném v ipv6 jako ). Viz [IPAddress.MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). Zjistěte, zda je tento formát vyžadován na adrese [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*). Další informace naleznete v [části Konfigurace adresy IPv4 reprezentované jako adresa Protokolu IPv6.](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address)<br><br>Výchozí hodnota `IList` \< <xref:Microsoft.AspNetCore.HttpOverrides.IPNetwork> je> obsahující jednu položku pro aplikaci `IPAddress.Loopback`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies> | Adresy známých proxy serverů, ze kterých mají být přijímána předávaná záhlaví. Slouží `KnownProxies` k určení přesných shod IP adres.<br><br>Pokud server používá sokety s duálním režimem, jsou adresy IPv4 `10.0.0.1` dodávány ve formátu IPv6 `::ffff:10.0.0.1`(například v ipv4 reprezentovaném v ipv6 jako ). Viz [IPAddress.MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). Zjistěte, zda je tento formát vyžadován na adrese [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*). Další informace naleznete v [části Konfigurace adresy IPv4 reprezentované jako adresa Protokolu IPv6.](#configuration-for-an-ipv4-address-represented-as-an-ipv6-address)<br><br>Výchozí hodnota `IList` \< <xref:System.Net.IPAddress> je> obsahující jednu položku pro aplikaci `IPAddress.IPv6Loopback`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalForHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XOriginalForHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalForHeaderName).<br><br>Výchozí formát je `X-Original-For`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalHostHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XOriginalHostHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalHostHeaderName).<br><br>Výchozí formát je `X-Original-Host`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.OriginalProtoHeaderName> | Použijte záhlaví určené touto vlastností namísto záhlaví určeného [parametrem ForwardedHeadersDefaults.XOriginalProtoHeaderName](xref:Microsoft.AspNetCore.HttpOverrides.ForwardedHeadersDefaults.XOriginalProtoHeaderName).<br><br>Výchozí formát je `X-Original-Proto`. |
+| <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.RequireHeaderSymmetry> | Vyžadovat, aby byl počet hodnot záhlaví synchronizován mezi zpracovávané hlavičky [Předvoj.](xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedHeaders)<br><br>Výchozí hodnota v ASP.NET Core `true`1.x je . Výchozí hodnota v ASP.NET jádrem `false`2.0 nebo novějším je . |
 
 ## <a name="scenarios-and-use-cases"></a>Scénáře a případy použití
 
-### <a name="when-it-isnt-possible-to-add-forwarded-headers-and-all-requests-are-secure"></a>Pokud není možné přidat předávané hlavičky a všechny požadavky jsou zabezpečené
+### <a name="when-it-isnt-possible-to-add-forwarded-headers-and-all-requests-are-secure"></a>Pokud není možné přidat předané hlavičky a všechny požadavky jsou zabezpečené
 
-V některých případech nemusí být možné přidat předávaná záhlaví do požadavků, které jsou proxy k aplikaci. Pokud proxy vynucuje, že všechny veřejné externí požadavky jsou HTTPS, můžete schéma ručně nastavit v `Startup.Configure` před použitím libovolného typu middlewaru:
+V některých případech nemusí být možné přidat předávané záhlaví k požadavkům proxied do aplikace. Pokud proxy server vynucuje, že všechny veřejné externí požadavky `Startup.Configure` jsou HTTPS, schéma lze ručně nastavit před použitím libovolného typu middleware:
 
 ```csharp
 app.Use((context, next) =>
@@ -530,21 +530,21 @@ app.Use((context, next) =>
 });
 ```
 
-Tento kód může být zakázán pomocí proměnné prostředí nebo jiného nastavení konfigurace ve vývojovém nebo přípravném prostředí.
+Tento kód lze zakázat s proměnnou prostředí nebo jiné nastavení konfigurace ve vývojovém nebo pracovním prostředí.
 
-### <a name="deal-with-path-base-and-proxies-that-change-the-request-path"></a>Práce se základními a proxy servery, které mění cestu požadavku
+### <a name="deal-with-path-base-and-proxies-that-change-the-request-path"></a>Řešení základny cesty a proxy, které mění cestu požadavku
 
-Některé proxy servery předávají cestu beze změny, ale se základní cestou aplikace, která by se měla odebrat, aby směrování fungovalo správně. Middleware [UsePathBaseExtensions. UsePathBase](xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*) middleware rozdělí cestu do [HttpRequest. cesta](xref:Microsoft.AspNetCore.Http.HttpRequest.Path) a základní cestu aplikace do [HttpRequest. PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase).
+Některé proxy servery předat cestu beze změny, ale se základní cestu aplikace, která by měla být odebrána tak, aby směrování funguje správně. [Middleware UsePathBaseExtensions.UsePathBase](xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*) rozdělí cestu na [HttpRequest.Path](xref:Microsoft.AspNetCore.Http.HttpRequest.Path) a základní cestu aplikace na [HttpRequest.PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase).
 
-Pokud je `/foo` základní cestu aplikace pro cestu k proxy serveru předanou jako `/foo/api/1`, `Request.PathBase` sady middlewaru `/foo` a `Request.Path` `/api/1` pomocí následujícího příkazu:
+Pokud `/foo` je základní cesta aplikace pro `/foo/api/1`cestu proxy předávané jako , middleware `Request.PathBase` nastaví `/foo` a `Request.Path` `/api/1` s následujícím příkazem:
 
 ```csharp
 app.UsePathBase("/foo");
 ```
 
-Původní cesta a základ cesty se znovu aplikují, když se middleware znovu zavolá v opačném případě. Další informace o zpracování pořadí middlewaru najdete v tématu <xref:fundamentals/middleware/index>.
+Původní cesta a základna cesty jsou znovu použity, když middleware je volána znovu v opačném směru. Další informace o zpracování objednávek <xref:fundamentals/middleware/index>middlewaru naleznete v tématu .
 
-Pokud proxy ořízne cestu (například předávání `/foo/api/1` do `/api/1`), opravte přesměrování a odkazy nastavením vlastnosti [PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase) žádosti:
+Pokud proxy server ořízne cestu `/foo/api/1` (například předávání na `/api/1`), opravte přesměrování a odkazy nastavením [vlastnosti PathBase](xref:Microsoft.AspNetCore.Http.HttpRequest.PathBase) požadavku:
 
 ```csharp
 app.Use((context, next) =>
@@ -554,7 +554,7 @@ app.Use((context, next) =>
 });
 ```
 
-Pokud proxy přidává data cest, zahodí část cesty pro opravu přesměrování a odkazy pomocí <xref:Microsoft.AspNetCore.Http.PathString.StartsWithSegments*> a přiřazení k vlastnosti <xref:Microsoft.AspNetCore.Http.HttpRequest.Path>:
+Pokud proxy server přidává data cesty, zahoďte část cesty a <xref:Microsoft.AspNetCore.Http.PathString.StartsWithSegments*> opravte přesměrování <xref:Microsoft.AspNetCore.Http.HttpRequest.Path> a odkazy pomocí vlastnosti a přiřazováním k ní:
 
 ```csharp
 app.Use((context, next) =>
@@ -568,9 +568,9 @@ app.Use((context, next) =>
 });
 ```
 
-### <a name="configuration-for-a-proxy-that-uses-different-header-names"></a>Konfigurace proxy serveru, který používá jiné názvy hlaviček
+### <a name="configuration-for-a-proxy-that-uses-different-header-names"></a>Konfigurace pro proxy server, který používá různé názvy záhlaví
 
-Pokud proxy nepoužívá hlavičky s názvem `X-Forwarded-For` a `X-Forwarded-Proto` přesměrovat informace o adrese a portu proxy serveru a informace o původním schématu, nastavte <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> a <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> možnosti tak, aby odpovídaly názvům hlaviček používaných proxy serverem:
+Pokud proxy server nepoužívá záhlaví `X-Forwarded-For` s `X-Forwarded-Proto` názvem a předává informace o adrese/portu proxy a původním schématu, nastavte možnosti <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedForHeaderName> a <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.ForwardedProtoHeaderName> tak, aby odpovídaly názvům záhlaví používaným proxy serverem:
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>
@@ -580,18 +580,18 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-### <a name="configuration-for-an-ipv4-address-represented-as-an-ipv6-address"></a>Konfigurace pro adresu IPv4 reprezentovanou jako IPv6 adresa
+### <a name="configuration-for-an-ipv4-address-represented-as-an-ipv6-address"></a>Konfigurace adresy IPv4 reprezentované jako adresa IPv6
 
-Pokud server používá sokety s duálním režimem, adresy IPv4 jsou zadány ve formátu protokolu IPv6 (například `10.0.0.1` ve službě IPv4 reprezentované protokolem IPv6 jako `::ffff:10.0.0.1` nebo `::ffff:a00:1`). Viz [IPAddress. MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). V části [HttpContext. Connection. RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*)Zjistěte, jestli je tento formát vyžadován.
+Pokud server používá sokety s duálním režimem, jsou adresy IPv4 `10.0.0.1` dodávány ve formátu IPv6 `::ffff:10.0.0.1` (například v ipv4 reprezentovaném v ipv6 jako nebo `::ffff:a00:1`). Viz [IPAddress.MapToIPv6](xref:System.Net.IPAddress.MapToIPv6*). Zjistěte, zda je tento formát vyžadován na adrese [HttpContext.Connection.RemoteIpAddress](xref:Microsoft.AspNetCore.Http.ConnectionInfo.RemoteIpAddress*).
 
-V následujícím příkladu se do seznamu `KnownNetworks` ve formátu protokolu IPv6 přidají síťová adresa, která poskytuje předávaná záhlaví.
+V následujícím příkladu je do `KnownNetworks` seznamu ve formátu IPv6 přidána síťová adresa, která dodává předávaná záhlaví.
 
-Adresa IPv4: `10.11.12.1/8`
+Adresa IPv4:`10.11.12.1/8`
 
-Převedená adresa IPv6: `::ffff:10.11.12.1`  
-Délka převedené předpony: 104
+Převedená adresa IPv6:`::ffff:10.11.12.1`  
+Převedená délka předpony: 104
 
-Adresu můžete také uvést v šestnáctkovém formátu (`10.11.12.1` představovali v protokolu IPv6 jako `::ffff:0a0b:0c01`). Při převodu adresy IPv4 na IPv6 přidejte 96 k délce předpony CIDR (`8` v příkladu), aby se zohlednila další předpona IPv6 `::ffff:` (8 + 96 = 104). 
+Adresu můžete zadat také v šestnáctkovém formátu`10.11.12.1` (reprezentované `::ffff:0a0b:0c01`v iPv6 jako). Při převodu adresy IPv4 na IPv6 přidejte 96 do`8` délky předpony CIDR `::ffff:` (v příkladu) tak, aby se zohlednila další předpona IPv6 (8 + 96 = 104). 
 
 ```csharp
 // To access IPNetwork and IPAddress, add the following namespaces:
@@ -606,11 +606,11 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>Předejte schéma pro reverzní proxy servery se systémy Linux a non-IIS.
+## <a name="forward-the-scheme-for-linux-and-non-iis-reverse-proxies"></a>Předání systému pro reverzní proxy servery Linux a jiné systémy iis
 
-Aplikace, které volají <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> a <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> umístí lokalitu do nekonečné smyčky, pokud je nasazená na App Service Azure Linux, virtuální počítač se systémem Azure Linux nebo za jakýkoli jiný reverzní proxy server, kromě služby IIS. Protokol TLS je ukončen reverzním proxy serverem a Kestrel není informován o správném schématu požadavků. OAuth a OIDC v této konfiguraci selže, protože generují nesprávná přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> přidává a konfiguruje middleware předávaných hlaviček při spuštění za IIS, ale neexistuje žádná vyhovující Automatická konfigurace pro Linux (integrace Apache nebo Nginx).
+Aplikace, <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> které <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> volají a umisťují web do nekonečné smyčky, pokud jsou nasazeny do služby Azure Linux App Service, virtuálního počítače Azure Linux (VM) nebo za jakýmkoli jiným reverzním proxy serverem kromě Služby IIS. TLS je ukončena reverzní proxy server a Kestrel není informován o správné schéma požadavků. OAuth a OIDC také nezdaří v této konfiguraci, protože generují nesprávné přesměrování. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*>přidává a konfiguruje přeposílané záhlaví Middleware při spuštění za IIS, ale neexistuje žádná odpovídající automatická konfigurace pro Linux (Apache nebo Nginx integrace).
 
-Pro přeposílání schématu od proxy serveru ve scénářích mimo službu IIS přidejte a nakonfigurujte middleware s předanými hlavičkami. V `Startup.ConfigureServices`použijte následující kód:
+Chcete-li předávat schéma z proxy serveru ve scénářích mimo službu IIS, přidejte a nakonfigurujte middleware předávaných záhlaví. V `Startup.ConfigureServices`, použijte následující kód:
 
 ```csharp
 // using Microsoft.AspNetCore.HttpOverrides;
@@ -634,9 +634,9 @@ if (string.Equals(
 
 ## <a name="troubleshoot"></a>Řešení potíží
 
-Když hlavičky nejsou předávány podle očekávání, povolte [protokolování](xref:fundamentals/logging/index). Pokud protokoly neposkytují dostatek informací pro řešení tohoto problému, vytvořte výčet hlaviček požadavků přijatých serverem. K zápisu hlaviček požadavků do odpovědi aplikace nebo k protokolování hlaviček použijte vložený middlewarový middleware. 
+Pokud záhlaví nejsou předávána podle očekávání, povolte [protokolování](xref:fundamentals/logging/index). Pokud protokoly neposkytují dostatečné informace k řešení problému, výčet záhlaví požadavku přijaté serverem. Pomocí vřádkového middlewaru zapíšete záhlaví požadavků do odpovědi na aplikaci nebo zaznamenejte záhlaví. 
 
-Pokud chcete zapsat hlavičky do odpovědi aplikace, umístěte následující vložený middleware terminálu hned po volání <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> v `Startup.Configure`:
+Chcete-li napište záhlaví do odpovědi aplikace, umístěte následující inline middleware <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> `Startup.Configure`terminálu ihned po volání do aplikace :
 
 ```csharp
 app.Run(async (context) =>
@@ -668,12 +668,12 @@ app.Run(async (context) =>
 });
 ```
 
-Do protokolů můžete zapisovat místo těla odpovědi. Zápis do protokolů umožňuje, aby lokalita fungovala normálně během ladění.
+Můžete zapisovat do protokolů namísto těla odpovědi. Zápis do protokolů umožňuje webu fungovat normálně při ladění.
 
-Zápis protokolů místo textu odpovědi:
+Chcete-li zapsat protokoly spíše než do těla odpovědi:
 
-* Vložení `ILogger<Startup>` do `Startup` třídy, jak je popsáno v tématu [vytvoření protokolů při spuštění](xref:fundamentals/logging/index#create-logs-in-startup).
-* Ihned po volání <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> v `Startup.Configure`umístěte následující vložený middleware.
+* Vložte `ILogger<Startup>` `Startup` do třídy, jak je popsáno v [vytvořit protokoly v startupu](xref:fundamentals/logging/index#create-logs-in-startup).
+* Ihned po volání do <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> souboru na `Startup.Configure`místo umístěte následující vřaditý middleware.
 
 ```csharp
 app.Use(async (context, next) =>
@@ -697,15 +697,15 @@ app.Use(async (context, next) =>
 });
 ```
 
-Při zpracování `X-Forwarded-{For|Proto|Host}` hodnoty přesunuty do `X-Original-{For|Proto|Host}`. Pokud existuje více hodnot v dané hlavičce, middleware pro přesměrované hlavičky zpracovává záhlaví v opačném pořadí zprava doleva. Výchozí `ForwardLimit` je `1` (jedna), takže se zpracovává jenom hodnota nejvíce vpravo od hlaviček, pokud se hodnota `ForwardLimit` nezvýší.
+Při zpracování `X-Forwarded-{For|Proto|Host}` jsou hodnoty `X-Original-{For|Proto|Host}`přesunuty do . Pokud je v dané hlavičce více hodnot, middleware s předaným záhlavím zpracuje záhlaví v opačném pořadí zprava doleva. Výchozí `ForwardLimit` hodnota `1` je (jedna), takže je zpracována pouze hodnota zcela `ForwardLimit` vpravo ze záhlaví, pokud není zvýšena hodnota.
 
-Původní Vzdálená IP adresa žádosti se musí shodovat s položkou v `KnownProxies` nebo v seznamech `KnownNetworks` před zpracováním předávaných hlaviček. To omezuje falšování hlaviček tím, že nepřijímá předávací servery od nedůvěryhodných proxy serverů. Při zjištění neznámého proxy serveru se zobrazí zpráva s informacemi o adrese proxy serveru:
+Původní vzdálená ip adresa požadavku musí `KnownProxies` odpovídat položce v seznamu nebo `KnownNetworks` před zpracováním předaných záhlaví. To omezuje falšování záhlaví tím, že nepřijímá servery pro předávání z nedůvěryhodných serverů proxy. Pokud je zjištěn neznámý proxy server, protokolování označuje adresu proxy serveru:
 
 ```console
 September 20th 2018, 15:49:44.168 Unknown proxy: 10.0.0.100:54321
 ```
 
-V předchozím příkladu je 10.0.0.100 proxy server. Pokud je server důvěryhodným proxy serverem, přidejte IP adresu serveru do `KnownProxies` (nebo přidejte důvěryhodnou síť do `KnownNetworks`) v `Startup.ConfigureServices`. Další informace najdete v části [Možnosti middlewaru předávaných hlaviček](#forwarded-headers-middleware-options) .
+V předchozím příkladu je 10.0.0.100 proxy server. Pokud je server důvěryhodným proxy serverem, přidejte adresu IP serveru `KnownNetworks`do `Startup.ConfigureServices` `KnownProxies` aplikace . Další informace naleznete v části [Možnosti middlewaru s předávaných záhlaví.](#forwarded-headers-middleware-options)
 
 ```csharp
 services.Configure<ForwardedHeadersOptions>(options =>
@@ -715,11 +715,11 @@ services.Configure<ForwardedHeadersOptions>(options =>
 ```
 
 > [!IMPORTANT]
-> Povoluje pouze důvěryhodné proxy servery a sítě pro přeposílání hlaviček. V opačném případě jsou možné útoky s [falešnou IP adresou](https://www.iplocation.net/ip-spoofing) .
+> Povolit pouze důvěryhodné proxy servery a sítě předávat záhlaví. V opačném případě jsou možné útoky [spoofing IP.](https://www.iplocation.net/ip-spoofing)
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:host-and-deploy/web-farm>
-* [Informační zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787: ASP.NET Core zvýšení zabezpečení oprávnění](https://github.com/aspnet/Announcements/issues/295)
+* [Informační zpravodaj zabezpečení společnosti Microsoft CVE-2018-0787: ASP.NET základní ohrožení zabezpečení oprávnění](https://github.com/aspnet/Announcements/issues/295)
 
 ::: moniker-end

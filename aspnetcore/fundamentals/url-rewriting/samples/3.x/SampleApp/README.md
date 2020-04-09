@@ -1,46 +1,46 @@
-# <a name="aspnet-core-url-rewriting-sample"></a>Ukázka přepisování adresy URL ASP.NET Core
+# <a name="aspnet-core-url-rewriting-sample"></a>ukázka přepisování ASP.NET url
 
-Tato ukázka ukazuje použití middlewaru přepisu adresy URL ASP.NET Core. Aplikace ukazuje přesměrování adresy URL a možnosti přepisování adresy URL.
+Tato ukázka ilustruje použití ASP.NET základní url přepisování Middleware. Aplikace ukazuje možnosti přesměrování adres URL a přepisování adres URL.
 
-Pokud se spustí ukázka, nesouborové odpovědi vrátí přepsanou nebo přesměrovanou adresu URL, pokud se jedno z pravidel použije na adresu URL požadavku. Příklady XML a textový soubor, soubor middleware statického souboru slouží po přepsání adresy URL pro middleware.
+Při spuštění ukázky vrátí nesouborové odpovědi přepsanou nebo přesměrovanou adresu URL, pokud je na adresu URL požadavku použito jedno z pravidel. Pro příklady XML a textového souboru, Statická soubor Middleware slouží soubor po požadavku URL je přepsán middleware.
 
 ## <a name="examples-in-this-sample"></a>Příklady v této ukázce
 
 * `AddRedirect("redirect-rule/(.*)", "redirected/$1")`
-  - Stavový kód úspěchu: 302 (našlo se)
-  - Příklad (přesměrování): **/redirect-rule/{capture_group}** na **/Redirected/{capture_group}**
+  - Stavový kód úspěchu: 302 (Nalezeno)
+  - Příklad (přesměrování): **/redirect-rule/{capture_group}** to **/redirected/{capture_group}**
 * `AddRewrite(@"^rewrite-rule/(\d+)/(\d+)", "rewritten?var1=$1&var2=$2", skipRemainingRules: true)`
   - Stavový kód úspěchu: 200 (OK)
-  - Příklad (přepsání): **/rewrite-rule/{capture_group_1}/{capture_group_2}** na **/rewritten? var1 = {capture_group_1} & var2 = {capture_group_2}**
+  - Příklad (přepis): **/rewrite-rule/{capture_group_1}/{capture_group_2}** na **/rewritten?var1={capture_group_1}&var2={capture_group_2}**
 * `AddApacheModRewrite(env.ContentRootFileProvider, "ApacheModRewrite.txt")`
-  - Stavový kód úspěchu: 302 (našlo se)
-  - Příklad (přesměrování): **/apache-mod-rules-redirect/{capture_group}** na **/Redirected? id = {capture_group}**
+  - Stavový kód úspěchu: 302 (Nalezeno)
+  - Příklad (přesměrování): **/apache-mod-rules-redirect/{capture_group}** na **/redirected?id={capture_group}**
 * `AddIISUrlRewrite(env.ContentRootFileProvider, "IISUrlRewrite.xml")`
   - Stavový kód úspěchu: 200 (OK)
-  - Příklad (přepsání): **/iis-rules-rewrite/{capture_group}** na **/rewritten? id = {capture_group}**
+  - Příklad (přepis): **/iis-rules-rewrite/{capture_group}** na **/rewritten?id={capture_group}**
 * `Add(RedirectXmlFileRequests)`
-  - Stavový kód úspěchu: 301 (trvale přesunuto)
-  - Příklad (přesměrování): **/File.XML** na **/xmlfiles/File.XML**
+  - Stavový kód úspěchu: 301 (Trvale přesunuto)
+  - Příklad (přesměrování): **/file.xml** to **/xmlfiles/file.xml**
 * `Add(RewriteTextFileRequests)`
   - Stavový kód úspěchu: 200 (OK)
-  - Příklad (přepis): **/some_file. txt** pro **/File.txt**
+  - Příklad (přepsání): **/some_file.txt** to **/file.txt**
 * `Add(new RedirectImageRequests(".png", "/png-images")))`<br>`Add(new RedirectImageRequests(".jpg", "/jpg-images")))`
-  - Stavový kód úspěchu: 301 (trvale přesunuto)
-  - Příklad (přesměrování): **/image.png** na **/PNG-images/image.png**
+  - Stavový kód úspěchu: 301 (Trvale přesunuto)
+  - Příklad (přesměrování): **/image.png** to **/png-images/image.png**
   - Příklad (přesměrování): **/image.jpg** na **/jpg-images/image.jpg**
 
-## <a name="use-a-physicalfileprovider"></a>Použití PhysicalFileProvider
+## <a name="use-a-physicalfileprovider"></a>Použití fyzického zprostředkovatele souborů
 
-Můžete také získat `IFileProvider` vytvořením `PhysicalFileProvider`, který se předává do `AddApacheModRewrite()` a `AddIISUrlRewrite()`ch metod:
+Můžete také získat `IFileProvider` vytvořením `PhysicalFileProvider` převést `AddApacheModRewrite()` do `AddIISUrlRewrite()` a metody:
 
 ```csharp
 using Microsoft.Extensions.FileProviders;
 PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
 ```
 
-## <a name="secure-redirection-extensions"></a>Rozšíření zabezpečení přesměrování
+## <a name="secure-redirection-extensions"></a>Zabezpečené rozšíření přesměrování
 
-Tato ukázka zahrnuje konfiguraci `WebHostBuilder` pro aplikaci, aby používala adresy URL (`https://localhost:5001`, `https://localhost`) a testovací certifikát (*testCert. pfx*), která vám pomůže prozkoumat metody zabezpečeného přesměrování. Pokud má server již port 443 přiřazen nebo používán, `https://localhost` příklad nefunguje&mdash;odeberte `ListenOptions` pro port 443 v metodě `CreateWebHostBuilder` souboru *program.cs* nebo zrušte vazbu portu 443 na serveru tak, aby Kestrel mohl použít port.
+Tato `WebHostBuilder` ukázka zahrnuje konfiguraci pro aplikaci používat adresy URL (`https://localhost:5001`, `https://localhost`) a testovací certifikát *(testCert.pfx)* pomoci při zkoumání metody zabezpečené přesměrování. Pokud server již má port 443 přiřazený nebo v provozu, `https://localhost` příklad nefunguje&mdash;odebrat `ListenOptions` pro port 443 v `CreateWebHostBuilder` metodě *Program.cs* souboru nebo zrušit vazbu port 443 na serveru tak, aby Kestrel můžete použít port.
 
 | Metoda                           | Stavový kód |    Port    |
 | -------------------------------- | :---------: | :--------: |

@@ -1,59 +1,98 @@
 ---
-title: ASP.NET Core Blazor další scénáře zabezpečení pro WebAssembly
+title: ASP.NET Blazor další scénáře zabezpečení Core WebAssembly
 author: guardrex
 description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/19/2020
+ms.date: 03/30/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: ccb512392341e3eea33f4ab45740b7900f7b63f9
-ms.sourcegitcommit: 9b6e7f421c243963d5e419bdcfc5c4bde71499aa
+ms.openlocfilehash: 516132379ae20bd31c0f3b3261bb09b3f5b218f2
+ms.sourcegitcommit: 1d8f1396ccc66a0c3fcb5e5f36ea29b50db6d92a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/21/2020
-ms.locfileid: "79989464"
+ms.lasthandoff: 04/01/2020
+ms.locfileid: "80501130"
 ---
-# <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>Další scénáře zabezpečení ASP.NET Core Blazor pro WebAssembly
+# <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly další scénáře zabezpečení
 
-[Javier Calvarro Nelson](https://github.com/javiercn)
+Podle [Javier Calvarro Nelson](https://github.com/javiercn)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-## <a name="handle-token-request-errors"></a>Zpracování chyb požadavků na tokeny
+## <a name="request-additional-access-tokens"></a>Vyžádání dalších přístupových tokenů
 
-Když jedna stránková aplikace (SPA) ověřuje uživatele pomocí funkce Open ID Connect (OIDC), je stav ověřování udržován místně v zabezpečeném uživatelském rozhraní (SPA) a ve zprostředkovateli identity (IP) ve formě souboru cookie relace, který je nastaven jako výsledek uživatele, který poskytuje své přihlašovací údaje.
+Většina aplikací vyžaduje k interakci s chráněnými prostředky, které používají, jenom přístupový token. V některých případech může aplikace vyžadovat více než jeden token pro interakci se dvěma nebo více prostředky.
 
-Tokeny, které jsou pro uživatele vysílané, jsou obvykle platné po krátkou dobu přibližně jedna hodina, takže klientská aplikace musí pravidelně načítat nové tokeny. V opačném případě se uživatel odhlásí po vypršení platnosti udělených tokenů. Ve většině případů můžou klienti OIDC zřizovat nové tokeny, aniž by museli znovu ověřovat uživatele díky stavu ověřování nebo "relaci", která se udržuje v rámci IP adresy.
+V následujícím příkladu jsou další obory rozhraní MICROSOFT GRAPH API Azure Active Directory (AAD) vyžadovány aplikací ke čtení uživatelských dat a odesílání pošty. Po přidání oprávnění rozhraní MICROSOFT Graph API na portálu Azure AAD se`Program.Main`nakonfigurují další obory v klientské aplikaci ( , *Program.cs*):
 
-V některých případech může klient získat token bez zásahu uživatele, například pokud z nějakého důvodu se uživatel výslovně odhlásí z IP adresy. K tomuto scénáři dojde, pokud uživatel navštíví `https://login.microsoftonline.com` a odhlásí se. V těchto scénářích aplikace neví hned, že se uživatel odhlásil. Libovolný token, který může klient obsahovat, již nemusí být platný. Klient navíc nemůže zřídit nový token bez zásahu uživatele po vypršení platnosti tohoto tokenu.
+```csharp
+builder.Services.AddMsalAuthentication(options =>
+{
+    ...
 
-Tyto scénáře nejsou specifické pro ověřování založené na tokenech. Jsou součástí charakteru jednostránkové. ZABEZPEČENÉ ověřování pomocí souborů cookie také nedokáže volat rozhraní API serveru, pokud je soubor cookie ověření odebrán.
+    options.ProviderOptions.AdditionalScopesToConsent.Add(
+        "https://graph.microsoft.com/Mail.Send");
+    options.ProviderOptions.AdditionalScopesToConsent.Add(
+        "https://graph.microsoft.com/User.Read");
+}
+```
 
-Když aplikace provede volání rozhraní API k chráněným prostředkům, musíte mít na paměti následující informace:
+Metoda `IAccessTokenProvider.RequestToken` poskytuje přetížení, které umožňuje aplikaci zřídit token s danou sadou oborů, jak je vidět v následujícím příkladu:
 
-* Pro zřízení nového přístupového tokenu pro volání rozhraní API může být uživatel požádán o ověření znovu.
-* I v případě, že má klient token, který je pravděpodobně platný, volání serveru může selhat, protože byl token odvolán uživatelem.
+```csharp
+var tokenResult = await AuthenticationService.RequestAccessToken(
+    new AccessTokenRequestOptions
+    {
+        Scopes = new[] { "https://graph.microsoft.com/Mail.Send", 
+            "https://graph.microsoft.com/User.Read" }
+    });
 
-Když aplikace požaduje token, existují dva možné výsledky:
+if (tokenResult.TryGetToken(out var token))
+{
+    ...
+}
+```
+
+`TryGetToken`Vrátí:
+
+* `true``token` pro použití.
+* `false`pokud token není načten.
+
+## <a name="handle-token-request-errors"></a>Zpracování chyb požadavku tokenu
+
+Když jednostránková aplikace (SPA) ověřuje uživatele pomocí Open ID Connect (OIDC), stav ověřování je udržován místně v rámci spa a u zprostředkovatele identity (IP) ve formě souboru cookie relace, který je nastaven v důsledku, že uživatel zadá svá pověření.
+
+Tokeny, které IP vydává pro uživatele, jsou obvykle platné pro krátká časová období, přibližně jednu hodinu normálně, takže klientská aplikace musí pravidelně načítat nové tokeny. V opačném případě by byl uživatel po vypršení platnosti udělených tokenů odhlášen. Ve většině případů oidc klienti jsou schopni zřídit nové tokeny bez nutnosti uživatele znovu ověřit díky stavu ověřování nebo "relace", která je uložena v rámci IP adresy.
+
+Existují některé případy, ve kterých klient nemůže získat token bez interakce s uživatelem, například když se z nějakého důvodu uživatel explicitně odhlásí z IP adresy. K tomuto scénáři `https://login.microsoftonline.com` dochází, pokud uživatel navštíví a odhlásí. V těchto scénářích aplikace neví okamžitě, že uživatel se odhlásil. Token, který má klient v držení již nemusí být platný. Klient také není schopen zřídit nový token bez interakce uživatele po vypršení platnosti aktuálního tokenu.
+
+Tyto scénáře nejsou specifické pro ověřování založené na tokenech. Jsou součástí povahy sa. Spa pomocí souborů cookie také nedokáže volat server API, pokud je odebrán ověřovací soubor cookie.
+
+Když aplikace provádí volání rozhraní API pro chráněné prostředky, musíte si být vědomi následujících:
+
+* Chcete-li zřídit nový přístupový token pro volání rozhraní API, může být uživatel povinen znovu ověřit.
+* I v případě, že klient má token, který se zdá být platný, volání na server může selhat, protože token byl odvolán uživatelem.
+
+Když aplikace požádá o token, existují dva možné výsledky:
 
 * Požadavek je úspěšný a aplikace má platný token.
-* Požadavek se nezdařil a aplikace musí znovu ověřit uživatele, aby získal nový token.
+* Požadavek se nezdaří a aplikace musí znovu ověřit uživatele získat nový token.
 
-Pokud se žádost o token nezdařila, musíte se rozhodnout, zda chcete před provedením přesměrování Uložit aktuální stav. Existuje několik přístupů se zvýšenými úrovněmi složitosti:
+Pokud se požadavek na token nezdaří, musíte se rozhodnout, zda chcete před provedením přesměrování uložit libovolný aktuální stav. Existuje několik přístupů s rostoucí úrovní složitosti:
 
-* Uloží aktuální stav stránky do úložiště relace. Během `OnInitializeAsync`ověřte, zda je možné obnovit stav, než budete pokračovat.
-* Přidejte parametr řetězce dotazu a použijte ho jako způsob, jak aplikaci signalizovat, že potřebuje znovu Hydrate dříve uložený stav.
-* Přidejte parametr řetězce dotazu s jedinečným identifikátorem pro ukládání dat v úložišti relace bez rizikových kolizí s ostatními položkami.
+* Uložte aktuální stav stránky do úložiště relací. Během `OnInitializeAsync`kontroly, zda lze stav obnovit před pokračováním.
+* Přidejte parametr řetězce dotazu a použijte jej jako způsob, jak signalizovat aplikaci, že potřebuje znovu hydratovat dříve uložený stav.
+* Přidejte parametr řetězce dotazu s jedinečným identifikátorem pro ukládání dat v úložišti relace bez rizika kolizí s jinými položkami.
 
-Následující příklad ukazuje postup:
+Následující příklad ukazuje, jak:
 
-* Zachovat stav před přesměrováním na přihlašovací stránku
+* Před přesměrováním na přihlašovací stránku zachovejte stav.
 * Obnovte předchozí stav po ověření pomocí parametru řetězce dotazu.
 
 ```razor
@@ -115,11 +154,11 @@ Následující příklad ukazuje postup:
 }
 ```
 
-## <a name="save-app-state-before-an-authentication-operation"></a>Uložení stavu aplikace před operací ověřování
+## <a name="save-app-state-before-an-authentication-operation"></a>Uložení stavu aplikace před ověřovací operací
 
-Během operace ověřování existují případy, kdy chcete uložit stav aplikace, než se prohlížeč přesměruje na IP adresu. To může být případ, kdy používáte něco jako kontejner stavu a chcete obnovit stav po úspěšném ověření. Vlastní objekt stavu ověřování můžete použít k zachování stavu specifického pro aplikaci nebo odkaz na něj a obnovení tohoto stavu po úspěšném dokončení operace ověřování.
+Během operace ověřování existují případy, kdy chcete uložit stav aplikace před přesměrováním prohlížeče na IP adresu. To může být případ, kdy používáte něco jako kontejner stavu a chcete obnovit stav po úspěšném ověření. Vlastní objekt stavu ověřování můžete použít k zachování stavu specifického pro aplikaci nebo odkaz na něj a obnovit tento stav po úspěšném dokončení operace ověřování.
 
-součást `Authentication` (*stránky/ověřování. Razor*):
+`Authentication`komponenta (*Stránky/Authentication.razor*):
 
 ```razor
 @page "/authentication/{action}"
@@ -163,40 +202,27 @@ součást `Authentication` (*stránky/ověřování. Razor*):
 }
 ```
 
-## <a name="request-additional-access-tokens"></a>Vyžádání dalších přístupových tokenů
+## <a name="customize-app-routes"></a>Přizpůsobení tras aplikací
 
-Většina aplikací vyžaduje přístupový token pro interakci s chráněnými prostředky, které používají. V některých scénářích může aplikace vyžadovat více než jeden token, aby bylo možné pracovat se dvěma nebo více prostředky. Metoda `IAccessTokenProvider.RequestToken` poskytuje přetížení, které umožňuje aplikaci zřídit token s danou sadou oborů, jak je vidět v následujícím příkladu:
-
-```csharp
-var tokenResult = await AuthenticationService.RequestAccessToken(
-    new AccessTokenRequestOptions
-    {
-        Scopes = new[] { "https://graph.microsoft.com/Mail.Send", 
-            "https://graph.microsoft.com/User.Read" }
-    });
-```
-
-## <a name="customize-app-routes"></a>Přizpůsobení směrování aplikací
-
-Ve výchozím nastavení používá knihovna `Microsoft.AspNetCore.Components.WebAssembly.Authentication` trasy, které jsou uvedeny v následující tabulce, pro reprezentace různých stavů ověřování.
+Ve výchozím `Microsoft.AspNetCore.Components.WebAssembly.Authentication` nastavení knihovna používá trasy uvedené v následující tabulce pro reprezentaci různých stavů ověřování.
 
 | Trasa                            | Účel |
 | -------------------------------- | ------- |
 | `authentication/login`           | Spustí operaci přihlášení. |
 | `authentication/login-callback`  | Zpracovává výsledek jakékoli operace přihlášení. |
-| `authentication/login-failed`    | Zobrazí chybové zprávy, když se z nějakého důvodu nepovede operace přihlášení. |
-| `authentication/logout`          | Spustí operaci odhlášení. |
-| `authentication/logout-callback` | Zpracovává výsledek operace odhlášení. |
-| `authentication/logout-failed`   | Zobrazí chybové zprávy, když se z nějakého důvodu nepovede operace odhlášení. |
-| `authentication/logged-out`      | Indikuje, že se uživatel úspěšně odhlásit. |
-| `authentication/profile`         | Aktivuje operaci pro úpravu profilu uživatele. |
-| `authentication/register`        | Aktivuje operaci pro registraci nového uživatele. |
+| `authentication/login-failed`    | Zobrazí chybové zprávy, když se z nějakého důvodu nezdaří operace přihlášení. |
+| `authentication/logout`          | Spustí operaci odhlašování. |
+| `authentication/logout-callback` | Zpracovává výsledek operace odhlašování. |
+| `authentication/logout-failed`   | Zobrazí chybové zprávy, když se z nějakého důvodu nezdaří operace odhlášení. |
+| `authentication/logged-out`      | Označuje, že uživatel úspěšně odhlášení. |
+| `authentication/profile`         | Spustí operaci pro úpravu profilu uživatele. |
+| `authentication/register`        | Spustí operaci k registraci nového uživatele. |
 
-Trasy zobrazené v předchozí tabulce lze konfigurovat prostřednictvím `RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths`. Při nastavování možností pro poskytování vlastních tras potvrďte, že aplikace má trasu, která zpracovává jednotlivé cesty.
+Trasy zobrazené v předchozí tabulce lze `RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths`konfigurovat pomocí aplikace . Při nastavování možností pro poskytování vlastních tras zkontrolujte, zda má aplikace trasu, která zpracovává každou cestu.
 
-V následujícím příkladu jsou všechny cesty s předponou `/security`.
+V následujícím příkladu jsou všechny cesty `/security`předponou .
 
-součást `Authentication` (*stránky/ověřování. Razor*):
+`Authentication`komponenta (*Stránky/Authentication.razor*):
 
 ```razor
 @page "/security/{action}"
@@ -210,7 +236,7 @@ součást `Authentication` (*stránky/ověřování. Razor*):
 }
 ```
 
-`Program.Main` (*program.cs*):
+`Program.Main`*(Program.cs*):
 
 ```csharp
 builder.Services.AddApiAuthorization(options => { 
@@ -226,7 +252,7 @@ builder.Services.AddApiAuthorization(options => {
 });
 ```
 
-Pokud požadavek volá zcela jiné cesty, nastavte trasy popsané dříve a vykreslete `RemoteAuthenticatorView` s parametrem explicitní akce:
+Pokud požadavek vyžaduje zcela odlišné cesty, nastavte trasy, jak `RemoteAuthenticatorView` je popsáno výše a vykreslete s parametrem explicitní akce:
 
 ```razor
 @page "/register"
@@ -234,13 +260,13 @@ Pokud požadavek volá zcela jiné cesty, nastavte trasy popsané dříve a vykr
 <RemoteAuthenticatorView Action="@RemoteAuthenticationActions.Register" />
 ```
 
-Pokud se rozhodnete tak učinit, můžete uživatelské rozhraní přerušit na jiné stránky.
+Pokud se tak rozhodnete, můžete ui rozdělit na různé stránky.
 
 ## <a name="customize-the-authentication-user-interface"></a>Přizpůsobení uživatelského rozhraní ověřování
 
-`RemoteAuthenticatorView` obsahuje výchozí sadu částí uživatelského rozhraní pro každý stav ověřování. Každý stav se dá přizpůsobit předáním vlastního `RenderFragment`. K přizpůsobení zobrazeného textu během procesu prvotního přihlášení může `RemoteAuthenticatorView` změnit následujícím způsobem.
+`RemoteAuthenticatorView`obsahuje výchozí sadu částí ui pro každý stav ověřování. Každý stav lze přizpůsobit předáním `RenderFragment`vlastní . Chcete-li přizpůsobit zobrazený text během počátečního `RemoteAuthenticatorView` procesu přihlášení, můžete změnit následující.
 
-součást `Authentication` (*stránky/ověřování. Razor*):
+`Authentication`komponenta (*Stránky/Authentication.razor*):
 
 ```razor
 @page "/security/{action}"
@@ -258,7 +284,7 @@ součást `Authentication` (*stránky/ověřování. Razor*):
 }
 ```
 
-`RemoteAuthenticatorView` má jeden fragment, který je možné použít pro jednu trasu ověřování, jak je znázorněno v následující tabulce.
+Má `RemoteAuthenticatorView` jeden fragment, který lze použít na trasu ověřování uvedené v následující tabulce.
 
 | Trasa                            | Fragment                |
 | -------------------------------- | ----------------------- |

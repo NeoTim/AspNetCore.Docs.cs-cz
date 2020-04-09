@@ -1,9 +1,9 @@
-## <a name="forward-request-information-with-a-proxy-or-load-balancer"></a>Dopředné informace o žádosti pomocí proxy serveru nebo nástroje pro vyrovnávání zatížení
+## <a name="forward-request-information-with-a-proxy-or-load-balancer"></a>Předávání informací o požadavku pomocí proxy serveru nebo vyrovnávání zatížení
 
-Pokud je aplikace nasazená za proxy server nebo nástrojem pro vyrovnávání zatížení, můžou se některé původní informace žádosti přeslat do aplikace v hlavičkách žádostí. Tyto informace obvykle zahrnují schéma zabezpečeného požadavku (`https`), hostitele a IP adresu klienta. Aplikace nečtou tyto hlavičky požadavků automaticky ke zjištění a používání původních informací o požadavku.
+Pokud je aplikace nasazená za proxy serverem nebo vyrovnáváním zatížení, některé z původních informací o požadavku mohou být předány aplikaci v hlavičkách požadavku. Tyto informace obvykle zahrnují zabezpečené`https`schéma požadavků ( ), hostitele a IP adresu klienta. Aplikace tyto hlavičky požadavků automaticky nečtou, aby zjistily a používaly původní informace o žádosti.
 
-Schéma se používá v generaci odkazů, které má vliv na tok ověřování s externími poskytovateli. Ztráta schématu Secure (`https`) způsobí, že aplikace generuje nesprávné adresy URL nezabezpečeného přesměrování.
+Schéma se používá v generování propojení, které ovlivňuje tok ověřování s externími zprostředkovateli. Ztráta zabezpečeného`https`schématu ( ) má za následek, že aplikace vygeneruje nesprávné adresy URL přesměrování nezabezpečených.
 
-Použijte middleware předaných hlaviček k zpřístupnění původních informací o požadavku aplikaci pro zpracování žádostí.
+Pomocí middlewaru s předaných záhlaví zpřístupníte původní informace o požadavku aplikaci pro zpracování požadavků.
 
 Další informace naleznete v tématu <xref:host-and-deploy/proxy-load-balancer>.

@@ -1,6 +1,6 @@
 ---
-title: 'Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC'
-description: Toto je první v sérii kurzů, které vysvětlují, jak vytvořit ukázkovou aplikaci Contoso University od začátku.
+title: 'Kurz: Začínáme s EF Core ve ASP.NET webové aplikaci MVC'
+description: Toto je první z řady výukových programů, které vysvětlují, jak vytvořit ukázkovou aplikaci Contoso University od začátku.
 author: rick-anderson
 ms.author: riande
 ms.custom: mvc
@@ -8,229 +8,229 @@ ms.date: 02/06/2019
 ms.topic: tutorial
 uid: data/ef-mvc/intro
 ms.openlocfilehash: fca9fdc425506ec8b4eec5c609237208f4c0d7b5
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79511298"
 ---
-# <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve webové aplikaci ASP.NET MVC
+# <a name="tutorial-get-started-with-ef-core-in-an-aspnet-mvc-web-app"></a>Kurz: Začínáme s EF Core ve ASP.NET webové aplikaci MVC
 
-Tento **kurz se** neaktualizoval na ASP.NET Core 3,0. [Verze Razor Pages](xref:data/ef-rp/intro) byla aktualizována. Většina změn kódu pro ASP.NET Core 3,0 a novější verzi tohoto kurzu:
+Tento kurz **nebyl** aktualizován na ASP.NET Core 3.0. [Verze Razor Pages](xref:data/ef-rp/intro) byla aktualizována. Většina změn kódu pro ASP.NET Core 3.0 a novější verzi tohoto kurzu:
 
-* Jsou v souborech *Startup.cs* a *program.cs* .
-* Lze najít v [Razor Pages verzi](xref:data/ef-rp/intro). 
+* Jsou v *Startup.cs* a *Program.cs* souborů.
+* Lze nalézt ve [verzi Razor Pages](xref:data/ef-rp/intro). 
 
-Informace o tom, kdy je možné aktualizaci aktualizovat, najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/13920).
+Informace o tom, kdy to může být aktualizován, naleznete [v tomto problému GitHub](https://github.com/dotnet/AspNetCore.Docs/issues/13920).
 
 [!INCLUDE [RP better than MVC](~/includes/RP-EF/rp-over-mvc.md)]
 
-Ukázková webová aplikace společnosti Contoso University ukazuje, jak vytvářet webové aplikace ASP.NET Core 2,2 MVC pomocí Entity Framework (EF) Core 2,2 a Visual Studio 2017 nebo 2019.
+Ukázková webová aplikace Contoso University ukazuje, jak vytvořit ASP.NET webových aplikací Core 2.2 MVC pomocí core 2.2 rozhraní Entity Framework (EF) a Visual Studio 2017 nebo 2019.
 
-Ukázková aplikace je web pro fiktivní univerzitě společnosti Contoso. Zahrnuje funkce, jako student přijetí, kurz vytvoření a přiřazení instruktorem. Toto je první v sérii kurzů, které vysvětlují, jak vytvořit ukázkovou aplikaci Contoso University od začátku.
+Ukázková aplikace je webová stránka fiktivní univerzity Contoso. Zahrnuje funkce, jako je přijetí studentů, tvorba kurzů a úkoly instruktora. Toto je první z řady výukových programů, které vysvětlují, jak vytvořit ukázkovou aplikaci Contoso University od začátku.
 
-V tomto kurzu se naučíte:
+V tomto kurzu jste:
 
 > [!div class="checklist"]
 > * Vytvoření webové aplikace ASP.NET Core MVC
-> * Nastavit styl lokality
-> * Další informace o EF Core balíčcích NuGet
+> * Nastavení stylu webu
+> * Další informace o balíčcích EF Core NuGet
 > * Vytvoření datového modelu
 > * Vytvoření kontextu databáze
 > * Registrace kontextu pro vkládání závislostí
-> * Inicializace databáze s testovacími daty
-> * Vytvoření kontroleru a zobrazení
-> * Zobrazení databáze
+> * Inicializovat databázi testovacími daty
+> * Vytvoření ovladače a zobrazení
+> * Zobrazit databázi
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
-* [.NET Core SDK 2,2](https://dotnet.microsoft.com/download)
+* [Sada .NET Core SDK 2.2](https://dotnet.microsoft.com/download)
 * [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s následujícími úlohami:
-  * **ASP.NET a webové vývojové** úlohy
-  * **Vývojová úloha .NET Core pro různé platformy**
+  * **ASP.NET a pracovní zátěž pro vývoj webových** aplikací
+  * Pracovní **vytížení napříč platformami .NET Core**
 
 ## <a name="troubleshooting"></a>Řešení potíží
 
-Pokud narazíte na problém, který nelze vyřešit, můžete řešení obecně najít porovnáním kódu s [dokončeným projektem](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final). Seznam běžných chyb a jejich řešení najdete v [části věnované řešení potíží v posledním kurzu v řadě](advanced.md#common-errors). Pokud tam nenajdete, co potřebujete, můžete odeslat otázku do StackOverflow.com pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
+Pokud narazíte na problém, který nelze vyřešit, můžete obecně najít řešení porovnáním kódu s [dokončeným projektem](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final). Seznam běžných chyb a jejich řešení naleznete [v části Poradce při potížích v posledním kurzu v řadě](advanced.md#common-errors). Pokud tam nenajdete to, co potřebujete, můžete odeslat dotaz, který StackOverflow.com pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
 > [!TIP]
-> Toto je série 10 kurzů, z nichž každá sestaví na tom, co se děje v předchozích kurzech. Zvažte uložení kopie projektu po každém úspěšném dokončení kurzu. Pak Pokud narazíte na problémy, můžete začít znovu z předchozího kurzu a nemusíte se vrátit na začátek celé řady.
+> Jedná se o sérii 10 výukových programů, z nichž každý staví na tom, co se děje v předchozích kurzech. Zvažte uložení kopie projektu po každém úspěšném dokončení kurzu. Pak, pokud narazíte na problémy, můžete začít znovu z předchozího kurzu namísto návratu na začátek celé série.
 
-## <a name="contoso-university-web-app"></a>Webová aplikace Contoso University
+## <a name="contoso-university-web-app"></a>Webová aplikace Univerzity Contoso
 
-Aplikace, kterou budete sestavovat v těchto kurzech, je jednoduchý web na univerzitě.
+Aplikace, kterou budete vytvářet v těchto kurzech, je jednoduchá univerzita webové stránky.
 
-Uživatelé mohou zobrazit a aktualizovat Všichni studenti, kurz a informace instruktorem. Tady je několik obrazovek, které vytvoříte.
+Uživatelé mohou zobrazit a aktualizovat informace o studentovi, kurzu a instruktorovi. Zde je několik obrazovek, které vytvoříte.
 
-![Studenti indexová stránka](intro/_static/students-index.png)
+![Stránka Studentský index](intro/_static/students-index.png)
 
-![Stránky pro úpravu studentů](intro/_static/student-edit.png)
+![Stránka Úpravy studentů](intro/_static/student-edit.png)
 
 ## <a name="create-web-app"></a>Vytvoření webové aplikace
 
 * Otevřete sadu Visual Studio.
 
-* V nabídce **soubor** vyberte **Nový > projekt**.
+* V nabídce **Soubor** vyberte **Nový > Project**.
 
-* V levém podokně vyberte **nainstalované > Visual C# > Web**.
+* V levém podokně vyberte **možnost Nainstalováno > visual c# > web**.
 
-* Vyberte šablonu projektu **ASP.NET Core webové aplikace** .
+* Vyberte šablonu projektu **základní webové aplikace ASP.NET.**
 
-* Jako název zadejte **ContosoUniversity** a klikněte na **OK**.
+* Jako název zadejte **ContosoUniversity** a klepněte na tlačítko **OK**.
 
   ![Dialogové okno Nový projekt](intro/_static/new-project2.png)
 
-* Počkejte, než se zobrazí dialogové okno **nové webové aplikace ASP.NET Core** .
+* Počkejte, až se zobrazí dialogové okno **Nová ASP.NET základní webová aplikace.**
 
-* Vyberte **.NET Core**, **ASP.NET Core 2,2** a šablonu **Webová aplikace (model-zobrazení-kontroler)** .
+* Vyberte **.NET Core** **, ASP.NET Core 2.2** a **šablonu webové aplikace (Model-View-Controller).**
 
-* Ujistěte se, že je **ověřování** nastaveno na **bez ověřování**.
+* Ujistěte **se,** že je možnost Ověřování nastavena na **možnost Žádné ověřování**.
 
-* Vyberte **OK**.
+* Vybrat **OK**
 
-  ![Dialog nového projektu ASP.NET Core](intro/_static/new-aspnet2.png)
+  ![Dialogové okno Nový ASP.NET základní projekt](intro/_static/new-aspnet2.png)
 
-## <a name="set-up-the-site-style"></a>Nastavit styl lokality
+## <a name="set-up-the-site-style"></a>Nastavení stylu webu
 
-V několika jednoduchých změnách se nastaví nabídka web, rozložení a Domovská stránka.
+Několik jednoduchých změn nastaví nabídku webu, rozložení a domovskou stránku.
 
-Otevřete *views/Shared/_Layout. cshtml* a proveďte následující změny:
+Otevřete *zobrazení/Sdílené/_Layout.cshtml* a proveďte následující změny:
 
-* Změňte všechny výskyty "ContosoUniversity" na "University společnosti Contoso". Existují tři výskyty.
+* Změňte každý výskyt "ContosoUniversity" na "Contoso University". Existují tři výskyty.
 
-* Přidejte položky **nabídky pro,** **studenty**, **kurzy**, **instruktory**a **oddělení**a odstraňte položku nabídky **osobních údajů** .
+* Přidejte položky nabídky **Pro Informace**, **Studenti**, **Kurzy**, **Instruktoři**a **Oddělení**a odstraňte položku nabídky **Ochrana osobních údajů.**
 
-Změny jsou zvýrazněné.
+Změny jsou zvýrazněny.
 
 [!code-cshtml[](intro/samples/cu/Views/Shared/_Layout.cshtml?highlight=6,34-48,63)]
 
-V *zobrazeních/Home/index. cshtml*nahraďte obsah souboru následujícím kódem, který nahradí text o ASP.NET a MVC textem o této aplikaci:
+V *části Zobrazení/Home/Index.cshtml*nahraďte obsah souboru následujícím kódem, který nahradí text o ASP.NET a MVC textem o této aplikaci:
 
 [!code-cshtml[](intro/samples/cu/Views/Home/Index.cshtml)]
 
-Stisknutím kombinace kláves CTRL + F5 spusťte projekt nebo zvolte možnost **ladění > spustit bez ladění** z nabídky. Zobrazí se stránka domů s kartami pro stránky, které vytvoříte v těchto kurzech.
+Stisknutím kláves CTRL+F5 spusťte projekt nebo z nabídky zvolte **Ladění > Spustit bez ladění.** Zobrazí se domovská stránka s kartami pro stránky, které vytvoříte v těchto kurzech.
 
-![Domovská stránka společnosti Contoso University](intro/_static/home-page.png)
+![Domovská stránka Univerzity Contoso](intro/_static/home-page.png)
 
-## <a name="about-ef-core-nuget-packages"></a>Informace o EF Core balíčků NuGet
+## <a name="about-ef-core-nuget-packages"></a>O balíčcích EF Core NuGet
 
-Chcete-li přidat do projektu podporu EF Core, nainstalujte poskytovatele databáze, na který chcete cílit. V tomto kurzu se používá SQL Server a balíček poskytovatele je [Microsoft. EntityFrameworkCore. SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/). Tento balíček je zahrnutý ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), takže nemusíte odkazovat na balíček.
+Chcete-li přidat podporu EF Core do projektu, nainstalujte poskytovatele databáze, na kterého chcete cílit. Tento kurz používá SQL Server a balíček zprostředkovatele je [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/). Tento balíček je součástí [metabalíčku Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app), takže na balíček nemusíte odkazovat.
 
-Balíček EF SQL Server a jeho závislosti (`Microsoft.EntityFrameworkCore` a `Microsoft.EntityFrameworkCore.Relational`) poskytují běhovou podporu pro EF. Přidáte balíček nástrojů později v kurzu [migrace](migrations.md) .
+Balíček EF SQL Server a`Microsoft.EntityFrameworkCore` `Microsoft.EntityFrameworkCore.Relational`jeho závislosti ( a ) poskytují podporu modulu runtime pro EF. Balíček nástrojů přidáte později v kurzu [Migrace.](migrations.md)
 
-Informace o dalších poskytovatelích databází, které jsou k dispozici pro Entity Framework Core, najdete v tématu [poskytovatelé databáze](/ef/core/providers/).
+Informace o jiných zprostředkovatelích databáze, které jsou k dispozici pro core entity frameworku, naleznete v [tématu zprostředkovatelé databáze](/ef/core/providers/).
 
 ## <a name="create-the-data-model"></a>Vytvoření datového modelu
 
-V dalším kroku vytvoříte třídy entit pro aplikaci Contoso University. Začnete s následujícími třemi entitami.
+Dále vytvoříte třídy entit pro aplikaci Contoso University. Začnete s následujícími třemi entitami.
 
-![Kurz – registrace – studentech modelového diagramu](intro/_static/data-model-diagram.png)
+![Diagram datového modelu zápisu do kurzu-studenta](intro/_static/data-model-diagram.png)
 
-Mezi entitami `Student` a `Enrollment` existuje vztah 1:1 a mezi `Course`mi a `Enrollment` entitami existuje vztah 1: n. Jinými slovy, student může být zaregistrovaný v jakémkoli počtu kurzů a kurz může mít zaregistrovaný libovolný počet studentů.
+Existuje `Student` vztah 1:N mezi entitami `Enrollment` a existuje vztah 1:N mezi `Course` entitami. `Enrollment` Jinými slovy, student může být zapsán do libovolného počtu kurzů a kurz může mít libovolný počet studentů zapsaných v něm.
 
 V následujících částech vytvoříte třídu pro každou z těchto entit.
 
-### <a name="the-student-entity"></a>Entita studenta
+### <a name="the-student-entity"></a>Studentská entita
 
-![Diagram entity studenta](intro/_static/student-entity.png)
+![Diagram studentských entit](intro/_static/student-entity.png)
 
-Ve složce *modely* vytvořte soubor třídy s názvem *student.cs* a nahraďte kód šablony následujícím kódem.
+Ve složce *Modely* vytvořte soubor třídy s názvem *Student.cs* a nahraďte kód šablony následujícím kódem.
 
 [!code-csharp[](intro/samples/cu/Models/Student.cs?name=snippet_Intro)]
 
-Vlastnost `ID` se změní na sloupec primárního klíče tabulky databáze, který odpovídá této třídě. Ve výchozím nastavení Entity Framework interpretuje vlastnost s názvem `ID` nebo `classnameID` jako primární klíč.
+Vlastnost `ID` se stane sloupcem primárního klíče databázové tabulky, který odpovídá této třídě. Ve výchozím nastavení interpretuje Entity Framework vlastnost s názvem `ID` nebo `classnameID` jako primární klíč.
 
-Vlastnost `Enrollments` je [navigační vlastnost](/ef/core/modeling/relationships). Navigační vlastnosti obsahují další entity, které se vztahují k této entitě. V tomto případě bude vlastnost `Enrollments` `Student entity` obsahovat všechny entity `Enrollment`, které souvisejí s entitou `Student`. Jinými slovy, pokud daný řádek studenta v databázi obsahuje dva související řádky zápisu (řádky, které obsahují hodnotu primárního klíče tohoto studenta ve sloupci StudentID cizí klíč), tato vlastnost `Enrollments` navigace `Student` entit bude obsahovat tyto dvě entity `Enrollment`.
+Vlastnost `Enrollments` je [navigační vlastnost](/ef/core/modeling/relationships). Navigační vlastnosti mají další entity, které souvisejí s touto entitou. V tomto případě `Enrollments` bude `Student entity` vlastnost a obsahovat všechny `Enrollment` entity, `Student` které jsou ve spojení s touto entitou. Jinými slovy, pokud daný řádek Student v databázi obsahuje dva související řádky zápisu (řádky, které obsahují `Student` hodnotu `Enrollments` primárního klíče studenta ve sloupci cizího klíče StudentID), navigační vlastnost této entity bude obsahovat tyto dvě `Enrollment` entity.
 
-Pokud navigační vlastnost může obsahovat více entit (jako v relacích m:n nebo 1:1), musí se jednat o seznam, ve kterém lze přidávat, odstraňovat a aktualizovat položky, například `ICollection<T>`. Můžete zadat `ICollection<T>` nebo typ, jako je například `List<T>` nebo `HashSet<T>`. Pokud zadáte `ICollection<T>`, EF vytvoří ve výchozím nastavení kolekci `HashSet<T>`.
+Pokud navigační vlastnost může obsahovat více entit (jako v relacích N:N nebo 1:N), musí být jejím typem `ICollection<T>`seznam, ve kterém lze položky přidávat, odstraňovat a aktualizovat, například . Můžete zadat `ICollection<T>` nebo typ, `List<T>` `HashSet<T>`například nebo . Pokud zadáte `ICollection<T>`, EF `HashSet<T>` vytvoří kolekci ve výchozím nastavení.
 
-### <a name="the-enrollment-entity"></a>Registrace entity
+### <a name="the-enrollment-entity"></a>Entita Zápis
 
-![Diagram entity registrace](intro/_static/enrollment-entity.png)
+![Diagram entit zápisu](intro/_static/enrollment-entity.png)
 
-Ve složce *modely* vytvořte *Enrollment.cs* a nahraďte existující kód následujícím kódem:
+Ve složce *Modely* vytvořte *Enrollment.cs* a nahraďte existující kód následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Models/Enrollment.cs?name=snippet_Intro)]
 
-Vlastnost `EnrollmentID` bude primární klíč. Tato entita používá `classnameID` vzor místo `ID` sám sebe, jako jste viděli v entitě `Student`. Obvykle byste zvolili jeden model a používali ho v rámci svého datového modelu. V tomto příkladu variace znázorňuje, že můžete použít libovolný vzor. V [pozdějším kurzu](inheritance.md)uvidíte, jak použít ID bez ClassName, usnadňuje implementaci dědičnosti v datovém modelu.
+Vlastnost `EnrollmentID` bude primárním klíčem; tato entita `classnameID` používá `ID` vzor místo sebe, `Student` jak jste viděli v entitě. Obvykle byste zvolit jeden vzor a použít jej v celém datovém modelu. Zde varianta ilustruje, že můžete použít buď vzor. V [pozdějším kurzu](inheritance.md)uvidíte, jak použití ID bez názvu třídy usnadňuje implementaci dědičnosti v datovém modelu.
 
-Vlastnost `Grade` je `enum`. Otazník po deklaraci typu `Grade` označuje, že vlastnost `Grade` může mít hodnotu null. Na podnikové úrovni, který má hodnotu null se liší od nulové třída – null znamená, že známku vyjádřenou není znám nebo ještě nebyly přiřazeny.
+Ubytovací `Grade` zařízení `enum`je . Otazník za `Grade` deklarací typu `Grade` označuje, že vlastnost je nullable. Stupeň, který je null se liší od nulové třídy - null znamená, že platová třída není známa nebo ještě nebyla přiřazena.
 
-Vlastnost `StudentID` je cizí klíč a odpovídající navigační vlastnost je `Student`. Entita `Enrollment` je přidružená k jedné entitě `Student`, takže vlastnost může uchovávat jenom jednu entitu `Student` (na rozdíl od `Student.Enrollments` navigační vlastnost, kterou jste viděli dříve, která může obsahovat několik entit `Enrollment`).
+Vlastnost `StudentID` je cizí klíč a odpovídající navigační `Student`vlastnost je . `Enrollment` Entita je `Student` přidružena k jedné entitě, takže vlastnost může obsahovat pouze jednu `Student` entitu `Student.Enrollments` (na rozdíl od navigační vlastnosti, kterou jste viděli dříve, která může obsahovat více `Enrollment` entit).
 
-Vlastnost `CourseID` je cizí klíč a odpovídající navigační vlastnost je `Course`. Entita `Enrollment` je přidružená k jedné entitě `Course`.
+Vlastnost `CourseID` je cizí klíč a odpovídající navigační `Course`vlastnost je . Entita `Enrollment` je `Course` přidružena k jedné entitě.
 
-Entity Framework interpretuje vlastnost jako vlastnost cizího klíče, pokud má název `<navigation property name><primary key property name>` (například `StudentID` pro vlastnost `Student` navigace, protože je `Student` primární klíč entity `ID`). Vlastnosti cizího klíče lze také pojmenovat jednoduše `<primary key property name>` (například `CourseID`, protože primární klíč entity `Course` je `CourseID`).
+Entity Framework interpretuje vlastnost jako vlastnost cizího `<navigation property name><primary key property name>` klíče, `StudentID` pokud `Student` je pojmenována `Student` (například pro `ID`navigační vlastnost, protože je primární klíč entity ). Vlastnosti cizího klíče `<primary key property name>` lze také `CourseID` jednoduše `Course` pojmenovat (například `CourseID`vzhledem k tomu, že je primárníklíč entity).
 
-### <a name="the-course-entity"></a>Kurz entity
+### <a name="the-course-entity"></a>Entita Kurzu
 
-![Diagram kurzu entity](intro/_static/course-entity.png)
+![Diagram entity kurzu](intro/_static/course-entity.png)
 
-Ve složce *modely* vytvořte *Course.cs* a nahraďte existující kód následujícím kódem:
+Ve složce *Modely* vytvořte *Course.cs* a nahraďte existující kód následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Models/Course.cs?name=snippet_Intro)]
 
-Vlastnost `Enrollments` je navigační vlastnost. Entita `Course` může souviset s libovolným počtem entit `Enrollment`.
+Vlastnost `Enrollments` je navigační vlastnost. Entita `Course` může souviset `Enrollment` s libovolným počtem entit.
 
-Další informace o atributu `DatabaseGenerated` v [pozdějším kurzu](complex-data-model.md) této série. V podstatě vám tento atribut umožňuje zadat primární klíč pro kurz místo toho, aby ho databáze vygenerovala.
+O atributu `DatabaseGenerated` řekneme více v [pozdějším kurzu](complex-data-model.md) v této sérii. V podstatě tento atribut umožňuje zadat primární klíč pro kurz, nikoli databáze generovat.
 
 ## <a name="create-the-database-context"></a>Vytvoření kontextu databáze
 
-Hlavní třída, která koordinuje funkce Entity Framework pro daný datový model, je třída kontextu databáze. Tuto třídu vytvoříte odvozením z `Microsoft.EntityFrameworkCore.DbContext` třídy. Ve vašem kódu určíte, které entity budou zahrnuty v datovém modelu. Můžete také přizpůsobit určité chování Entity Framework. V tomto projektu je třída pojmenována `SchoolContext`.
+Hlavní třída, která koordinuje entity framework funkce pro daný datový model je třída kontextu databáze. Tuto třídu vytvoříte odvozením `Microsoft.EntityFrameworkCore.DbContext` ze třídy. V kódu určíte, které entity budou zahrnuty do datového modelu. Můžete také přizpůsobit určité chování entity framework. V tomto projektu je `SchoolContext`třída pojmenována .
 
-Ve složce projektu vytvořte složku s názvem *data*.
+Ve složce projektu vytvořte složku s názvem *Data*.
 
-Ve složce *data* vytvořte nový soubor třídy s názvem *SchoolContext.cs*a nahraďte kód šablony následujícím kódem:
+Ve složce *Data* vytvořte nový soubor třídy s názvem *SchoolContext.cs*a nahraďte kód šablony následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Data/SchoolContext.cs?name=snippet_Intro)]
 
-Tento kód vytvoří vlastnost `DbSet` pro každou sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce.
+Tento kód `DbSet` vytvoří vlastnost pro každou sadu entit. V terminologii entity Framework sada entit obvykle odpovídá databázové tabulce a entita odpovídá řádku v tabulce.
 
-Mohli jste vynechat příkazy `DbSet<Enrollment>` a `DbSet<Course>` a ta by fungovala stejně. Entity Framework by je implicitně zahrnuly, protože `Student` entita odkazuje na entitu `Enrollment` a entita `Enrollment` odkazuje na entitu `Course`.
+Mohli jste vynechat `DbSet<Enrollment>` a `DbSet<Course>` prohlášení a fungovalo by to stejně. Rámec entity by je implicitně `Student` zahrnoval, `Enrollment` protože účetní `Enrollment` jednotka odkazuje `Course` na účetní jednotku a účetní jednotka na účetní jednotku odkazuje.
 
-Při vytvoření databáze EF vytvoří tabulky, které mají názvy stejné jako názvy vlastností `DbSet`. Názvy vlastností pro kolekce jsou obvykle plural (Students spíše než student), ale vývojáři nesouhlasí, zda by měly být názvy tabulek v množném čísle. V těchto kurzech potlačíte výchozí chování zadáním názvů tabulek na jednotném čísle v DbContext. K tomu přidejte následující zvýrazněný kód za poslední vlastnost Negenerickými.
+Při vytvoření databáze EF vytvoří tabulky, které mají `DbSet` názvy stejné jako názvy vlastností. Názvy vlastností pro kolekce jsou obvykle množné číslo (Studenti spíše než Student), ale vývojáři nesouhlasí o tom, zda názvy tabulek by měly být pluralized nebo ne. Pro tyto kurzy budete přepsat výchozí chování zadáním názvů tabulek jednotného čísla v DbContext. Chcete-li to provést, přidejte následující zvýrazněný kód za poslední Vlastnost DbSet.
 
 [!code-csharp[](intro/samples/cu/Data/SchoolContext.cs?name=snippet_TableNames&highlight=16-21)]
 
-## <a name="register-the-schoolcontext"></a>Zaregistrovat SchoolContext
+## <a name="register-the-schoolcontext"></a>Zaregistrujte schoolcontext
 
-ASP.NET Core implementuje [vkládání závislostí](../../fundamentals/dependency-injection.md) ve výchozím nastavení. Služby (jako kontext databáze EF) jsou registrovány pomocí injektáže závislosti během spuštění aplikace. Komponenty, které vyžadují tyto služby (například řadiče MVC), poskytují tyto služby prostřednictvím parametrů konstruktoru. V tomto kurzu se zobrazí kód konstruktoru kontroleru, který získá instanci kontextu později.
+ASP.NET Core implementuje [vkládání závislostí](../../fundamentals/dependency-injection.md) ve výchozím nastavení. Služby (například kontext databáze EF) jsou registrovány s vkládání závislostí při spuštění aplikace. Součásti, které vyžadují tyto služby (například řadiče MVC) jsou poskytovány tyto služby prostřednictvím parametrů konstruktoru. Uvidíte kód konstruktoru řadiče, který získá instanci kontextu dále v tomto kurzu.
 
-Chcete-li zaregistrovat `SchoolContext` jako službu, otevřete *Startup.cs*a přidejte zvýrazněné řádky do metody `ConfigureServices`.
+Chcete-li se zaregistrovat `SchoolContext` jako služba, otevřete `ConfigureServices` *Startup.cs*a přidejte zvýrazněné řádky do metody.
 
 [!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_SchoolContext&highlight=9-10)]
 
-Název připojovacího řetězce je předán do kontextu voláním metody pro objekt `DbContextOptionsBuilder`. Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .
+Název připojovacího řetězce je předán do kontextu `DbContextOptionsBuilder` voláním metody na objektu. Pro místní vývoj [ASP.NET konfiguračnísystém Core](xref:fundamentals/configuration/index) přečte připojovací řetězec ze souboru *appsettings.json.*
 
-Přidejte `using` příkazy pro obory názvů `ContosoUniversity.Data` a `Microsoft.EntityFrameworkCore` a potom Sestavte projekt.
+Přidejte `using` `ContosoUniversity.Data` příkazy pro a `Microsoft.EntityFrameworkCore` obory názvů a pak vytvořte projekt.
 
 [!code-csharp[](intro/samples/cu/Startup.cs?name=snippet_Usings)]
 
-Otevřete soubor *appSettings. JSON* a přidejte připojovací řetězec, jak je znázorněno v následujícím příkladu.
+Otevřete soubor *appsettings.json* a přidejte připojovací řetězec, jak je znázorněno v následujícím příkladu.
 
 [!code-json[](./intro/samples/cu/appsettings1.json?highlight=2-4)]
 
-### <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
+### <a name="sql-server-express-localdb"></a>Místní databáze SQL Server Express
 
-Připojovací řetězec určuje SQL Server databázi LocalDB. LocalDB je zjednodušená verze databázového stroje SQL Server Express a je určena pro vývoj aplikací, nikoli za použití v produkčním prostředí. LocalDB spustí na vyžádání a běží v uživatelském režimu, takže není bez složité konfigurace. Ve výchozím nastavení LocalDB vytvoří soubory databáze *. mdf* v adresáři `C:/Users/<user>`.
+Připojovací řetězec určuje databázi SQL Server LocalDB. LocalDB je odlehčená verze sql server express databázový stroj a je určen pro vývoj aplikací, nikoli produkční použití. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje žádná složitá konfigurace. Ve výchozím nastavení localdb vytvoří *.mdf* databázové soubory v adresáři. `C:/Users/<user>`
 
-## <a name="initialize-db-with-test-data"></a>Inicializovat databázi s testovacími daty
+## <a name="initialize-db-with-test-data"></a>Inicializovat DB s testovacími daty
 
-Entity Framework pro vás vytvoří prázdnou databázi. V této části napíšete metodu, která je volána po vytvoření databáze, aby se naplnila testovacími daty.
+Entity Framework vytvoří prázdnou databázi pro vás. V této části napíšete metodu, která je volána po vytvoření databáze, aby byla naplněna testovacími daty.
 
-Tady použijete metodu `EnsureCreated` k automatickému vytvoření databáze. V [pozdějším kurzu](migrations.md) se dozvíte, jak zpracovat změny modelu pomocí migrace Code First ke změně schématu databáze místo vyřazení a opětovnému vytvoření databáze.
+Zde budete používat `EnsureCreated` metodu k automatickému vytvoření databáze. V [pozdějším kurzu](migrations.md) uvidíte, jak zpracovat změny modelu pomocí migrace Code First změnit schéma databáze namísto uvolnění a opětovné vytvoření databáze.
 
-Ve složce *data* vytvořte nový soubor třídy s názvem *DbInitializer.cs* a nahraďte kód šablony následujícím kódem, což způsobí, že se databáze vytvoří v případě potřeby a načte testovací data do nové databáze.
+Ve složce *Data* vytvořte nový soubor třídy s názvem *DbInitializer.cs* a nahraďte kód šablony následujícím kódem, který způsobí, že databáze bude v případě potřeby vytvořena a načte testovací data do nové databáze.
 
 [!code-csharp[](intro/samples/cu/Data/DbInitializer.cs?name=snippet_Intro)]
 
-Kód kontroluje, zda jsou v databázi nějaké studenty, a pokud ne, předpokládá se, že je databáze nová a je nutné ji naplnit testovacími daty. Načítá testovací data do polí místo `List<T>` kolekcí za účelem optimalizace výkonu.
+Kód zkontroluje, zda jsou v databázi nějaké studenty, a pokud ne, předpokládá, že databáze je nová a musí být nasazena s testovacími daty. Načte testovací data do `List<T>` polí, nikoli do kolekcí pro optimalizaci výkonu.
 
-V *program.cs*upravte metodu `Main` a proveďte následující akce při spuštění aplikace:
+V *Program.cs*upravte metodu `Main` tak, aby při spuštění aplikace učinila následující kroky:
 
-* Získá instanci kontextu databáze z kontejneru vkládání závislostí.
-* Zavolejte metodu počáteční hodnoty a předejte jí kontext.
-* Uvolněte kontext, pokud je metoda počáteční hodnoty hotová.
+* Získejte instanci kontextu databáze z kontejneru vkládání závislostí.
+* Volání metody osiva, předávání k ní kontextu.
+* Dispose kontextu po dokončení metody osiva.
 
 [!code-csharp[](intro/samples/cu/Program.cs?name=snippet_Seed&highlight=3-20)]
 
@@ -238,151 +238,151 @@ Přidat `using` příkazy:
 
 [!code-csharp[](intro/samples/cu/Program.cs?name=snippet_Usings)]
 
-Ve starších kurzech se může v *Startup.cs*zobrazit podobný kód v metodě `Configure`. K nastavení kanálu požadavků doporučujeme použít metodu `Configure`. Spouštěcí kód aplikace patří do metody `Main`.
+Ve starších kurzech, můžete vidět `Configure` podobný kód v metodě v *Startup.cs*. Doporučujeme použít metodu `Configure` pouze k nastavení kanálu požadavku. Kód spuštění aplikace `Main` patří do metody.
 
-Nyní při prvním spuštění aplikace se vytvoří databáze a dokončí se testovacími daty. Kdykoli změníte datový model, můžete databázi odstranit, aktualizovat metodu počáteční hodnoty a začít afresh s novou databází stejným způsobem. V dalších kurzech se dozvíte, jak změnit databázi při změně datového modelu, aniž byste ho museli odstranit a znovu vytvořit.
+Nyní při prvním spuštění aplikace, bude databáze vytvořena a nasazena s testovacími daty. Kdykoli změníte datový model, můžete odstranit databázi, aktualizovat metodu osiva a začít znovu s novou databází stejným způsobem. V pozdějších kurzech uvidíte, jak upravit databázi při změně datového modelu, aniž byste ji museli snímat a znovu vytvářet.
 
-## <a name="create-controller-and-views"></a>Vytvořit kontroler a zobrazení
+## <a name="create-controller-and-views"></a>Vytvoření ovladače a zobrazení
 
-V dalším kroku použijete modul generování uživatelského rozhraní v aplikaci Visual Studio a přidáte kontroler MVC a zobrazení, které budou používat EF k dotazování a ukládání dat.
+Dále budete používat modul generování uživatelského a uživatelského čítaču v sadě Visual Studio k přidání řadiče MVC a zobrazení, která budou používat EF k dotazování a ukládání dat.
 
-Automatické vytváření metod a zobrazení akcí CRUD se označuje jako generování uživatelského rozhraní. Generování uživatelského rozhraní se liší od generování kódu v tom, že generovaný kód je výchozím bodem, který lze upravit tak, aby vyhovoval vašim vlastním požadavkům, zatímco obvykle neupravujete generovaný kód. Pokud potřebujete přizpůsobit generovaný kód, použijete částečné třídy nebo znovu vygenerujete kód při změně.
+Automatické vytváření metod a zobrazení akce CRUD se označuje jako generování uživatelského líačku. Generování uživatelského rozhraní se liší od generování kódu v tom, že kód generování generování generování uživatelského rozhraní je výchozím bodem, který můžete upravit tak, aby vyhovoval vašim vlastním požadavkům, zatímco obvykle neupravujete generovaný kód. Když potřebujete přizpůsobit generovaný kód, použijte částečné třídy nebo znovu vygenerovat kód při změně věci.
 
-* V **Průzkumník řešení** klikněte pravým tlačítkem na složku **řadiče** a vyberte **Přidat > Nová vygenerovaná položka**.
+* Klepněte pravým tlačítkem myši na složku **Řadiče** v **Průzkumníku řešení** a vyberte **přidat > novou položku scaffolded item**.
 
-* V dialogovém okně **Přidat generování uživatelského rozhraní** :
+* V dialogovém okně **Přidat kancovací okno:**
 
-  * **Pomocí Entity Framework vyberte kontroler MVC se zobrazeními**.
+  * Vyberte **řadič MVC se zobrazeními pomocí entity Framework**.
 
-  * Klikněte na **Přidat**. Zobrazí se dialogové okno **Přidat kontroler MVC se Entity Framework zobrazeními** .
+  * Klikněte na **Přidat**. Zobrazí se dialogové **okno Přidat řadič MVC se zobrazeními pomocí entity Framework.**
 
-    ![Student pro generování uživatelského rozhraní](intro/_static/scaffold-student2.png)
+    ![Lešení Student](intro/_static/scaffold-student2.png)
 
-  * V **třídě model** vyberte **student**.
+  * Ve **třídě Model** vyberte možnost **Student**.
 
-  * V oblasti **datový kontext** vyberte **SchoolContext**.
+  * V **datovém kontextu třídy** vyberte **SchoolContext**.
 
-  * Přijměte výchozí **StudentsController** jako název.
+  * Přijmout výchozí **StudentsController** jako název.
 
   * Klikněte na **Přidat**.
 
-  Když kliknete na tlačítko **Přidat**, modul generování uživatelského rozhraní sady Visual Studio vytvoří soubor *StudentsController.cs* a sadu zobrazení (soubory *. cshtml* ), které pracují s řadičem.
+  Po klepnutí na tlačítko **Přidat**vytvoří modul zaslechnutí pomocí sady uživatelského zařízení *sady StudentsController.cs* soubor a sadu zobrazení (*soubory CSHTML),* které pracují s řadičem.
 
-(Modul generování uživatelského rozhraní může také vytvořit kontext databáze za vás, pokud ho nevytvoříte ručně, jako jste předtím v tomto kurzu. Novou třídu kontextu můžete zadat v poli **Přidat kontrolér** kliknutím na znaménko plus napravo od **třídy Context data**.  Visual Studio potom vytvoří třídu `DbContext` a také kontroler a zobrazení.)
+(Modul zaschlovacího systému můžete také vytvořit kontext databáze pro vás, pokud nechcete vytvořit ručně nejprve jako dříve pro tento kurz. Novou třídu kontextu můžete zadat v poli **Přidat kontroleru** klepnutím na znaménko plus napravo od **třídy kontextu Dat**.  Visual Studio pak `DbContext` vytvoří třídu, stejně jako řadič a zobrazení.)
 
-Všimnete si, že kontroler přebírá `SchoolContext` jako parametr konstruktoru.
+Všimněte si, že řadič `SchoolContext` bere jako parametr konstruktoru.
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_Context&highlight=5,7,9)]
 
-Vkládání závislostí ASP.NET Core se postará o předání instance `SchoolContext` do kontroleru. V souboru *Startup.cs* jste předtím nakonfigurovali.
+ASP.NET vkládání závislostí jádra se `SchoolContext` postará o předání instance do řadiče. Nakonfiguroval jste to v *Startup.cs* souboru dříve.
 
-Kontroler obsahuje metodu `Index` akce, která zobrazí všechny studenty v databázi. Metoda získá seznam studentů ze sady entit studentů načtením vlastnosti `Students` instance kontextu databáze:
+Kontrolid `Index` obsahuje metodu akce, která zobrazuje všechny studenty v databázi. Metoda získá seznam studentů z entity Students nastavenou čtením vlastnosti `Students` instance kontextu databáze:
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_ScaffoldedIndex&highlight=3)]
 
-O asynchronních programovacích prvcích v tomto kódu se dozvíte později v tomto kurzu.
+O asynchronních programovacích prvcích v tomto kódu se dozvíte dále v kurzu.
 
-Zobrazení */studenty/index. cshtml* zobrazí tento seznam v tabulce:
+*Zobrazení/Studenti/Index.cshtml* zobrazí tento seznam v tabulce:
 
 [!code-cshtml[](intro/samples/cu/Views/Students/Index1.cshtml)]
 
-Stisknutím kombinace kláves CTRL + F5 spusťte projekt nebo zvolte možnost **ladění > spustit bez ladění** z nabídky.
+Stisknutím kláves CTRL+F5 spusťte projekt nebo z nabídky zvolte **Ladění > Spustit bez ladění.**
 
-Kliknutím na kartu Students zobrazíte testovací data, která byla vložená metodou `DbInitializer.Initialize`. V závislosti na tom, jak úzká je okno prohlížeče, uvidíte v horní části stránky odkaz na kartu `Students` nebo kliknutím na navigační ikonu v pravém horním rohu zobrazíte odkaz.
+Kliknutím na kartu Studenti zobrazíte `DbInitializer.Initialize` testovací data, která metoda vložila. V závislosti na tom, jak je okno `Students` prohlížeče úzké, uvidíte odkaz na kartu v horní části stránky nebo budete muset kliknout na ikonu navigace v pravém horním rohu, abyste viděli odkaz.
 
-![Úzká Domovská stránka společnosti Contoso University](intro/_static/home-page-narrow.png)
+![Domovská stránka Univerzity Contoso úzká](intro/_static/home-page-narrow.png)
 
-![Studenti indexová stránka](intro/_static/students-index.png)
+![Stránka Studentský index](intro/_static/students-index.png)
 
-## <a name="view-the-database"></a>Zobrazení databáze
+## <a name="view-the-database"></a>Zobrazit databázi
 
-Při spuštění aplikace `DbInitializer.Initialize` metoda volá `EnsureCreated`. EF zjistil, že neexistovala žádná databáze a proto byla vytvořena, a zbývající část kódu metody `Initialize` naplní databázi daty. K zobrazení databáze v aplikaci Visual Studio můžete použít **Průzkumník objektů systému SQL Server** (SSOX).
+Při spuštění aplikace `DbInitializer.Initialize` volání `EnsureCreated`metody . EF viděl, že neexistuje žádná databáze, a tak `Initialize` ji vytvořil, pak zbytek kódu metody naplnil databázi daty. K zobrazení databáze v sadě Visual Studio můžete použít **Průzkumník objektů serveru SQL Server** (SSOX).
 
 Zavřete prohlížeč.
 
-Pokud okno SSOX ještě není otevřené, vyberte ho v nabídce **zobrazení** v aplikaci Visual Studio.
+Pokud okno SSOX ještě není otevřené, vyberte ho z nabídky **Zobrazení** v sadě Visual Studio.
 
-V SSOX klikněte na **(LocalDB) \MSSQLLocalDB > databáze**a potom klikněte na položku pro název databáze, která se nachází v připojovacím řetězci v souboru *appSettings. JSON* .
+Ve ssoxu klikněte na **(localdb)\MSSQLLocalDB > Databases**a potom klikněte na položku názvu databáze, která je v připojovacím řetězci v souboru *appsettings.json.*
 
-Rozbalte uzel **tabulky** , aby se zobrazily tabulky v databázi.
+Rozbalte uzel **Tabulky,** abyste viděli tabulky v databázi.
 
 ![Tabulky v SSOX](intro/_static/ssox-tables.png)
 
-Klikněte pravým tlačítkem myši na tabulku **student** a kliknutím na **Zobrazit data** Zobrazte sloupce, které byly vytvořeny, a řádky, které byly vloženy do tabulky.
+Klikněte pravým tlačítkem myši na tabulku **Student** a kliknutím na **Zobrazit data** zobrazte sloupce, které byly vytvořeny, a řádky, které byly vloženy do tabulky.
 
-![Tabulka studenta v SSOX](intro/_static/ssox-student-table.png)
+![Studentský stůl ve SSOX](intro/_static/ssox-student-table.png)
 
-Soubory databáze *. mdf* a *. ldf* jsou ve složce *C:\Users\\\<uživatelské_jméno >* .
+Soubory databáze *MDF* a *LDF* jsou ve složce *C:\Users, ve\\\<které je vaše uživatelské jméno>.*
 
-Vzhledem k tomu, že voláte `EnsureCreated` v metodě inicializátoru, která se spouští při spuštění aplikace, můžete nyní provést změnu `Student` třídy, odstranit databázi, znovu spustit aplikaci a databáze by se automaticky znovu vytvořila, aby odpovídala vaší změně. Například pokud přidáte vlastnost `EmailAddress` do třídy `Student`, zobrazí se nový `EmailAddress` sloupec v znovu vytvořené tabulce.
+Vzhledem k `EnsureCreated` tomu, že voláte metodu initializer, která běží `Student` při spuštění aplikace, můžete nyní provést změnu třídy, odstranit databázi, znovu spustit aplikaci a databáze by byla automaticky znovu vytvořena tak, aby odpovídala vaší změně. Pokud například přidáte `EmailAddress` vlastnost do `Student` třídy, zobrazí se `EmailAddress` v znovu vytvořené tabulce nový sloupec.
 
 ## <a name="conventions"></a>Zásady
 
-Množství kódu, který jste museli zapsat, aby Entity Framework mohl vytvořit úplnou databázi, je minimální z důvodu použití konvencí nebo předpokladů, které Entity Framework provádí.
+Množství kódu, který jste museli napsat, aby rozhraní Entity Framework bylo možné vytvořit úplnou databázi pro vás je minimální z důvodu použití konvencí nebo předpoklady, které umožňuje entity framework.
 
-* Názvy vlastností `DbSet` se používají jako názvy tabulek. U entit, na které se neodkazuje vlastnost `DbSet`, se názvy tříd entit používají jako názvy tabulek.
+* Názvy `DbSet` vlastností se používají jako názvy tabulek. Pro entity, na které `DbSet` není odkazováno vlastností, se názvy tříd entit používají jako názvy tabulek.
 
-* Názvy vlastností entit se používají pro názvy sloupců.
+* Názvy vlastností entity se používají pro názvy sloupců.
 
-* Vlastnosti entity s názvem ID nebo classnameID jsou rozpoznány jako vlastnosti primárního klíče.
+* Vlastnosti entity, které jsou pojmenovány ID nebo classnameID jsou rozpoznány jako vlastnosti primárního klíče.
 
-* Vlastnost je interpretována jako vlastnost cizího klíče, pokud je pojmenována *\<název vlastnosti navigace >\<název vlastnosti primárního klíče >* (například `StudentID` pro `Student` navigační vlastnost, protože je `Student` primární klíč entity `ID`). Vlastnosti cizího klíče lze také pojmenovat jednoduše *\<název vlastnosti primárního klíče >* (například `EnrollmentID`, protože primární klíč entity `Enrollment` je `EnrollmentID`).
+* Vlastnost je interpretována jako vlastnost cizího klíče, `StudentID` pokud je pojmenována `Student` `Student` `ID` * \<název vlastnosti navigace>\<název vlastnosti primárního klíče>* (například pro vlastnost navigace od doby, kdy je primární klíč entity ). Vlastnosti cizího klíče lze také pojmenovat jednoduše `EnrollmentID` `Enrollment` `EnrollmentID` * \<název vlastnosti primárního klíče>* (například vzhledem k tomu, že primární klíč entity je ).
 
-Konvenční chování se dá přepsat. Můžete například explicitně zadat názvy tabulek, jak jste viděli dříve v tomto kurzu. A můžete nastavit názvy sloupců a nastavit jakoukoli vlastnost jako primární klíč nebo cizí klíč, protože se v [pozdějším kurzu](complex-data-model.md) v této sérii zobrazí.
+Konvenční chování může být přepsáno. Můžete například explicitně zadat názvy tabulek, jak jste viděli dříve v tomto kurzu. A můžete nastavit názvy sloupců a nastavit libovolnou vlastnost jako primární klíč nebo cizí klíč, jak uvidíte v [pozdějším kurzu](complex-data-model.md) v této sérii.
 
 ## <a name="asynchronous-code"></a>Asynchronní kód
 
-Asynchronní programování je výchozím režimem pro ASP.NET Core a EF Core.
+Asynchronní programování je výchozí režim pro ASP.NET Core a EF Core.
 
-Webový server má omezený počet vláken, které jsou k dispozici, a v situacích, vysokého zatížení všech dostupných vláken může být používán. Pokud k tomu dojde, server nemůže zpracovat nové žádosti, dokud se uvolnit vlákna. Přestože se nejedná skutečně každé dílo vzhledem k tomu, že čekání na vstupně-výstupních operací na dokončení, může kódem synchronní svázané několika vlákny. Asynchronní kód když proces čeká na vstupně-výstupních operací na dokončení, je jeho vlákno uvolněn pro server určený pro zpracováním jiných požadavků. V důsledku toho asynchronního kódu umožňuje prostředky serveru použije efektivněji a aby zvládla větší provoz bez zpoždění je povoleno na serveru.
+Webový server má omezený počet vláken k dispozici a v situacích s vysokým zatížením všechny dostupné podprocesy mohou být používány. V takovém případě server nemůže zpracovat nové požadavky, dokud vlákna jsou uvolněny. Pomocí synchronního kódu může být mnoho vláken svázáno, zatímco ve skutečnosti nepracují, protože čekají na dokončení vstupně-up. S asynchronním kódem, když proces čeká na dokončení vstupně-va, jeho vlákno je uvolněno pro server pro zpracování jiných požadavků. V důsledku toho asynchronní kód umožňuje efektivnější použití prostředků serveru a server je povolen pro zpracování většího provozu bez zpoždění.
 
-Asynchronní kód zavádí malé množství režie za běhu, ale u situací s nízkým objemem provozu je dosaženo zanedbatelného výkonu, zatímco v případě vysoké situace v provozu je potenciální zlepšení výkonu značné.
+Asynchronní kód zavést malé množství režie za běhu, ale pro situace s nízkým provozem je přístupů k výkonu zanedbatelný, zatímco pro vysoké dopravní situace potenciální zlepšení výkonu je podstatné.
 
-V následujícím kódu je klíčové slovo `async`, `Task<T>` návratová hodnota, `await` klíčová slova a metoda `ToListAsync` provede asynchronní spouštění kódu.
+V následujícím kódu `async` klíčové `Task<T>` slovo, `await` vrácená `ToListAsync` hodnota, klíčové slovo a metoda provést spuštění kódu asynchronně.
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_ScaffoldedIndex)]
 
-* Klíčové slovo `async` instruuje kompilátor, aby vygeneroval zpětná volání pro části těla metody a automaticky vytvořila vráceného objektu `Task<IActionResult>`.
+* Klíčové `async` slovo říká kompilátoru generovat zpětná volání pro části `Task<IActionResult>` těla metody a automaticky vytvořit objekt, který je vrácen.
 
-* Návratový typ `Task<IActionResult>` představuje průběžnou práci s výsledkem typu `IActionResult`.
+* Návratový `Task<IActionResult>` typ představuje probíhající práci `IActionResult`s výsledkem typu .
 
-* Klíčové slovo `await` způsobí, že kompilátor rozdělí metodu do dvou částí. První část končí operace, která se spustí asynchronně. Druhá část je nepoužili metodu zpětného volání, která je volána po dokončení operace.
+* Klíčové `await` slovo způsobí, že kompilátor rozdělit metodu do dvou částí. První část končí operací, která byla spuštěna asynchronně. Druhá část je umístěn a callback metoda, která je volána po dokončení operace.
 
-* `ToListAsync` je asynchronní verze `ToList` metody rozšíření.
+* `ToListAsync`je asynchronní verze metody `ToList` rozšíření.
 
-Některé věci, které je potřeba znát při psaní asynchronního kódu, který používá Entity Framework:
+Některé věci, které je třeba znát při psaní asynchronního kódu, který používá entity framework:
 
-* Asynchronně jsou spouštěny pouze příkazy, které způsobují odeslání dotazů nebo příkazů do databáze. To zahrnuje například `ToListAsync`, `SingleOrDefaultAsync`a `SaveChangesAsync`. Neobsahuje například příkazy, které pouze mění `IQueryable`, například `var students = context.Students.Where(s => s.LastName == "Davolio")`.
+* Pouze příkazy, které způsobují dotazy nebo příkazy, které mají být odeslány do databáze jsou prováděny asynchronně. To zahrnuje například `ToListAsync` `SingleOrDefaultAsync`, `SaveChangesAsync`, a . Neobsahuje například příkazy, které pouze `IQueryable`mění , `var students = context.Students.Where(s => s.LastName == "Davolio")`například .
 
-* Kontext EF není bezpečný pro přístup z více vláken: Nepokoušejte se souběžně provádět více operací. Při volání jakékoli asynchronní metody EF vždy použijte klíčové slovo `await`.
+* Kontext EF není bezpečné pro přístup z více vláken: nepokoušejte se provést více operací paralelně. Při volání jakékoli asynchronní metody `await` EF vždy použijte klíčové slovo.
 
-* Chcete-li využít výhod výkonu asynchronního kódu, zajistěte, aby všechny balíčky knihovny, které používáte (například pro stránkování), používaly také Async, pokud volají jakékoli Entity Framework metody, které způsobují odesílání dotazů do databáze.
+* Pokud chcete využít výhod výkonu asynchronního kódu, ujistěte se, že všechny balíčky knihovny, které používáte (například pro stránkování), také použít async, pokud volají všechny entity Framework metody, které způsobují dotazy, které mají být odeslány do databáze.
 
-Další informace o asynchronním programování v rozhraní .NET naleznete v tématu [Async Overview](/dotnet/articles/standard/async).
+Další informace o asynchronním programování v rozhraní .NET naleznete v [tématu Async Overview](/dotnet/articles/standard/async).
 
 ## <a name="get-the-code"></a>Získání kódu
 
-[Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stáhněte nebo zobrazte dokončenou aplikaci.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu se naučíte:
+V tomto kurzu jste:
 
 > [!div class="checklist"]
-> * Vytvořená webová aplikace ASP.NET Core MVC
-> * Nastavit styl lokality
-> * Seznámili jste se s EF Core balíčky NuGet
+> * Vytvořeno ASP.NET základní webové aplikace MVC
+> * Nastavení stylu webu
+> * Informace o balíčcích EF Core NuGet
 > * Vytvoření datového modelu
-> * Byl vytvořen kontext databáze.
-> * Zaregistrováno rozhraní SchoolContext
-> * Inicializovaná databáze s testovacími daty
-> * Vytvořen kontroler a zobrazení
+> * Vytvoření kontextu databáze
+> * Zaregistrováno SchoolContext
+> * Inicializovaná DB s testovacími daty
+> * Vytvořený ovladač a zobrazení
 > * Zobrazení databáze
 
-V následujícím kurzu se dozvíte, jak provádět základní operace CRUD (vytváření, čtení, aktualizace, odstranění).
+V následujícím kurzu se dozvíte, jak provádět základní operace CRUD (vytvářet, číst, aktualizovat, odstraňovat).
 
-Přejděte k dalšímu kurzu, kde se dozvíte, jak provádět základní operace CRUD (vytváření, čtení, aktualizace, odstranění).
+Přejdete k dalšímu kurzu, kde se dozvíte, jak provádět základní operace CRUD (vytvářet, číst, aktualizovat, odstraňovat).
 
 > [!div class="nextstepaction"]
-> [Implementace základní funkce CRUD](crud.md)
+> [Implementace základních funkcí CRUD](crud.md)
 

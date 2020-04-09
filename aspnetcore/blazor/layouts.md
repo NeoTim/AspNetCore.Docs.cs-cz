@@ -1,7 +1,7 @@
 ---
-title: ASP.NET Core Blazor rozložení
+title: ASP.NET Blazor základní rozložení
 author: guardrex
-description: Naučte se vytvářet opakovaně použitelné součásti rozložení pro aplikace Blazor.
+description: Přečtěte si, jak vytvořit opakovaně Blazor použitelné komponenty rozložení pro aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,90 +11,90 @@ no-loc:
 - SignalR
 uid: blazor/layouts
 ms.openlocfilehash: 5b6e1c7ceb4a6e41230e31bbe379bde1bb0a8286
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78660410"
 ---
-# <a name="aspnet-core-opno-locblazor-layouts"></a>ASP.NET Core Blazor rozložení
+# <a name="aspnet-core-opno-locblazor-layouts"></a>ASP.NET Blazor základní rozložení
 
 Od [Rainer Stropek](https://www.timecockpit.com) a [Luke Latham](https://github.com/guardrex)
 
-Některé prvky aplikace, jako jsou nabídky, zprávy o autorských právech a logo společnosti, jsou obvykle součástí celkového rozložení aplikace a používají se v každé součásti aplikace. Kopírování kódu těchto prvků do všech komponent aplikace není účinný přístup&mdash;pokaždé, když jeden z elementů vyžaduje aktualizaci, musí být každá součást aktualizována. Takové duplikace je obtížné udržovat a může v průběhu času vést k nekonzistentnímu obsahu. *Rozložení* řeší tento problém.
+Některé prvky aplikace, jako jsou nabídky, zprávy o autorských právech a loga společnosti, jsou obvykle součástí celkového rozložení aplikace a používají je všechny součásti v aplikaci. Kopírování kódu těchto prvků do všech součástí aplikace není efektivní přístup&mdash;pokaždé, když jeden z prvků vyžaduje aktualizaci, musí být aktualizovány všechny součásti. Tato duplikace je obtížné udržet a může vést k nekonzistentnímu obsahu v průběhu času. *Rozložení* vyřešit tento problém.
 
-Technicky, rozložení je pouze jiná komponenta. Rozložení je definováno v šabloně Razor nebo v C# kódu a může používat [datové vazby](xref:blazor/data-binding), [vkládání závislostí](xref:blazor/dependency-injection)a další scénáře komponent.
+Technicky je rozložení jen další součástí. Rozložení je definováno v šabloně Razor nebo v kódu Jazyka C# a může používat [datové vazby](xref:blazor/data-binding), [vkládání závislostí](xref:blazor/dependency-injection)a další scénáře komponent.
 
-Chcete-li změnit *komponentu* na *rozložení*, součást:
+Chcete-li *komponentu* přeměnit na *rozvržení*, součást:
 
-* Dědí z `LayoutComponentBase`, který definuje vlastnost `Body` vykresleného obsahu v rámci rozložení.
-* Používá `@Body` syntaxe Razor k určení umístění v označení rozložení, kde se obsah vykresluje.
+* Dědí `LayoutComponentBase`z , který `Body` definuje vlastnost pro vykreslený obsah uvnitř rozložení.
+* Syntaxe `@Body` Razor k určení umístění ve značkách rozložení, kde je obsah vykreslen.
 
-Následující ukázka kódu ukazuje šablonu Razor komponenty layout *MainLayout. Razor*. Rozložení dědí `LayoutComponentBase` a nastaví `@Body` mezi navigačním panelem a zápatím:
+Následující ukázka kódu ukazuje šablonu Razor komponenty rozložení *MainLayout.razor*. Rozložení dědí `LayoutComponentBase` a `@Body` nastavuje mezi navigační panel a zápatí:
 
 [!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
-V aplikaci, která je založená na jedné z Blazor šablon aplikací, se `MainLayout` součást (*MainLayout. Razor*) nachází ve *sdílené* složce aplikace.
+V aplikaci založené na Blazor jedné ze `MainLayout` šablon aplikace je komponenta (*MainLayout.razor*) ve složce *Shared* aplikace.
 
 ## <a name="default-layout"></a>Výchozí rozložení
 
-Zadejte výchozí rozložení aplikace v součásti `Router` v souboru App *. Razor* aplikace. Následující součást `Router`, která je poskytována výchozími šablonami Blazor, nastaví výchozí rozložení na součást `MainLayout`:
+Zadejte výchozí rozložení `Router` aplikace v komponentě v souboru *App.razor* aplikace. Následující `Router` komponenta, která je k Blazor dispozici ve výchozích šablonách, nastaví výchozí rozložení na komponentu: `MainLayout`
 
 [!code-razor[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
-Chcete-li zadat výchozí rozložení pro `NotFound` obsah, zadejte `LayoutView` pro `NotFound` obsah:
+Chcete-li zadat `NotFound` výchozí rozložení `LayoutView` obsahu, zadejte pro `NotFound` obsah:
 
 [!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
-Další informace o komponentě `Router` najdete v tématu <xref:blazor/routing>.
+Další informace o `Router` součásti <xref:blazor/routing>naleznete v tématu .
 
-Určení rozložení jako výchozího rozložení ve směrovači je užitečný postup, protože je možné ho přepsat pro jednotlivé komponenty nebo pro jednotlivé složky. Upřednostňujete použití směrovače k nastavení výchozího rozložení aplikace, protože se jedná o nejobecnější postup.
+Zadání rozložení jako výchozího rozložení ve směrovači je užitečné, protože může být přepsáno na základě jednotlivých komponent nebo složek. Raději pomocí směrovače nastavit výchozí rozložení aplikace, protože je to nejobecnější technika.
 
 ## <a name="specify-a-layout-in-a-component"></a>Určení rozložení v součásti
 
-Použijte `@layout` direktivy Razor pro použití rozložení na komponentu. Kompilátor převede `@layout` na `LayoutAttribute`, který je použit pro třídu komponenty.
+Použití razor `@layout` směrnice použít rozložení komponenty. Kompilátor převede `@layout` `LayoutAttribute`na , který je použit na třídu komponenty.
 
-Obsah následující `MasterList` komponenty je vložen do `MasterLayout` na pozici `@Body`:
+Obsah následující `MasterList` součásti se vkládá `MasterLayout` do polohy `@Body`:
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterList.razor?highlight=1)]
 
-Určením rozložení přímo v součásti dojde k přepsání *výchozí sady rozložení* ve směrovači nebo direktivy `@layout` naimportované z *_Imports. Razor*.
+Zadání rozložení přímo v součásti přepíše *výchozí sadu rozvržení* ve směrovači nebo direktivu `@layout` importovnou z *_Imports.razor*.
 
-## <a name="centralized-layout-selection"></a>Centralizovaný výběr rozložení
+## <a name="centralized-layout-selection"></a>Centralizovaný výběr rozvržení
 
-Každá složka aplikace může volitelně obsahovat soubor šablony s názvem *_Imports. Razor*. Kompilátor obsahuje direktivy uvedené v souboru Imports ve všech šablonách Razor ve stejné složce a rekurzivně ve všech jejích podsložkách. Proto soubor *_Imports. Razor* obsahující `@layout MyCoolLayout` zajistí, že všechny součásti ve složce používají `MyCoolLayout`. Nemusíte opakovaně přidávat `@layout MyCoolLayout` do všech souborů *. Razor* v rámci složky a podsložek. direktivy `@using` jsou také aplikovány na komponenty stejným způsobem.
+Každá složka aplikace může volitelně obsahovat soubor šablony s názvem *_Imports.razor*. Kompilátor obsahuje direktivy zadané v souboru importů ve všech šablonách Razor ve stejné složce a rekurzivně ve všech jeho podsložkách. Proto *soubor _Imports.razor* obsahující `@layout MyCoolLayout` zajišťuje, že všechny součásti ve `MyCoolLayout`složce použít . Není třeba opakovaně přidávat `@layout MyCoolLayout` do všech souborů *.razor* ve složce a podsložkách. `@using`stejným způsobem se stejným způsobem uplatňují i směrnice.
 
-Následující soubor *_Imports. Razor* importuje:
+Následující *_Imports.razor* soubor importuje:
 
 * `MyCoolLayout`.
-* Všechny součásti Razor ve stejné složce a v jejích podsložkách.
-* Obor názvů `BlazorApp1.Data`.
+* Všechny komponenty Razor ve stejné složce a ve všech podsložkách.
+* Obor `BlazorApp1.Data` názvů.
  
 [!code-razor[](layouts/sample_snapshot/3.x/_Imports.razor)]
 
-Soubor *_Imports. Razor* je podobný [souboru _ViewImports. cshtml pro zobrazení a stránky Razor](xref:mvc/views/layout#importing-shared-directives) , ale používá se konkrétně pro soubory komponenty Razor.
+Soubor *_Imports.razor* je podobný [souboru _ViewImports.cshtml pro zobrazení a stránky Razor,](xref:mvc/views/layout#importing-shared-directives) ale je aplikován speciálně na soubory komponent Razor.
 
-Určení rozložení v *_Imports. Razor* přepíše rozložení zadané jako *výchozí rozložení*směrovače.
+Určení rozložení v *souboru _Imports.razor* přepíše rozložení určené jako *výchozí rozložení*směrovače .
 
 ## <a name="nested-layouts"></a>Vnořená rozložení
 
-Aplikace se můžou skládat z vnořených rozložení. Komponenta může odkazovat na rozložení, které zase odkazuje na jiné rozložení. Například vnořování rozložení slouží k vytvoření struktury nabídky na více úrovních.
+Aplikace se mohou skládat z vnořených rozložení. Komponenta může odkazovat na rozložení, které zase odkazuje na jiné rozložení. Například vnoření rozložení se používají k vytvoření víceúrovňové struktury nabídky.
 
-Následující příklad ukazuje, jak použít vnořená rozložení. Soubor *EpisodesComponent. Razor* je komponenta, která se má zobrazit. Komponenta odkazuje na `MasterListLayout`:
+Následující příklad ukazuje, jak používat vnořená rozložení. Soubor *EpisodesComponent.razor* je komponenta, která se má zobrazit. Komponenta odkazuje `MasterListLayout`na :
 
 [!code-razor[](layouts/sample_snapshot/3.x/EpisodesComponent.razor?highlight=1)]
 
-Soubor *MasterListLayout. Razor* poskytuje `MasterListLayout`. Rozložení odkazuje na jiné rozložení, `MasterLayout`, kde je vykresleno. `EpisodesComponent` se vykreslí, kde se `@Body` zobrazí:
+Soubor *MasterListLayout.razor* poskytuje `MasterListLayout`soubor . Rozložení odkazuje na jiné `MasterLayout`rozložení , kde je vykresleno. `EpisodesComponent`je vykreslena `@Body` tam, kde se objeví:
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterListLayout.razor?highlight=1,9)]
 
-Nakonec `MasterLayout` v *MasterLayout. Razor* obsahuje prvky rozložení na nejvyšší úrovni, jako je záhlaví, hlavní nabídka a zápatí. `MasterListLayout` `EpisodesComponent` se vykreslí tam, kde se zobrazí `@Body`:
+Nakonec `MasterLayout` v *MasterLayout.razor* obsahuje prvky rozložení nejvyšší úrovně, jako je například záhlaví, hlavní nabídka a zápatí. `MasterListLayout`s `EpisodesComponent` vykreslením, `@Body` kde se objeví:
 
 [!code-razor[](layouts/sample_snapshot/3.x/MasterLayout.razor?highlight=6)]
 
-## <a name="share-a-razor-pages-layout-with-integrated-components"></a>Sdílení Razor Pages rozložení s integrovanými komponentami
+## <a name="share-a-razor-pages-layout-with-integrated-components"></a>Sdílení rozložení Razor Pages s integrovanými komponentami
 
-Pokud jsou směrovatelný komponenty integrovány do aplikace Razor Pages, lze s komponentami použít sdílené rozložení aplikace. Další informace naleznete v tématu <xref:blazor/integrate-components>.
+Když jsou směrovatelné součásti integrovány do aplikace Razor Pages, sdílené rozložení aplikace lze použít s komponentami. Další informace naleznete v tématu <xref:blazor/integrate-components>.
 
 ## <a name="additional-resources"></a>Další zdroje
 

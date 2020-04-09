@@ -1,9 +1,9 @@
-## <a name="share-interop-code-in-a-class-library"></a>Sdílení kódu spolupráce v knihovně tříd
+## <a name="share-interop-code-in-a-class-library"></a>Sdílení kódu interop v knihovně tříd
 
-Kód interoperability JS lze zahrnout do knihovny tříd, která umožňuje sdílení kódu v balíčku NuGet.
+JS interop kód může být součástí knihovny tříd, který umožňuje sdílet kód v balíčku NuGet.
 
-Knihovna tříd zpracovává vložení prostředků JavaScriptu do sestaveného sestavení. Soubory JavaScriptu jsou umístěny ve složce *wwwroot* . Nástroj při sestavování knihovny postará o vkládání prostředků.
+Knihovna tříd zpracovává vkládání prostředků JavaScriptu do sestaveného sestavení. Soubory JavaScriptu jsou umístěny ve složce *wwwroot.* Nástroj se postará o vkládání prostředků při budování knihovny.
 
-Na sestavený balíček NuGet se odkazuje v souboru projektu aplikace stejným způsobem, jako na který se odkazuje na balíček NuGet. Po obnovení balíčku kód aplikace může zavolat do JavaScriptu, jako kdyby byl C#.
+Vytvořený balíček NuGet je odkazován v souboru projektu aplikace stejným způsobem, že je odkazováno na libovolný balíček NuGet. Po obnovení balíčku může kód aplikace volat do JavaScriptu, jako by to bylo C#.
 
 Další informace naleznete v tématu <xref:blazor/class-libraries>.

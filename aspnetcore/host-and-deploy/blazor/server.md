@@ -1,7 +1,7 @@
 ---
-title: Hostování a nasazení ASP.NET Core Blazor serveru
+title: Hostování a nasazení Blazor ASP.NET Core Server
 author: guardrex
-description: Naučte se hostovat a nasazovat aplikace Blazor serveru pomocí ASP.NET Core.
+description: Přečtěte si, jak Blazor hostovat a nasazovat serverovou aplikaci pomocí ASP.NET Core.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,55 +11,55 @@ no-loc:
 - SignalR
 uid: host-and-deploy/blazor/server
 ms.openlocfilehash: 866bb348180c872d8ab20787283cfb7217183a8d
-ms.sourcegitcommit: 3ca4a2235a8129def9e480d0a6ad54cc856920ec
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/10/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79025429"
 ---
-# <a name="host-and-deploy-opno-locblazor-server"></a>Hostování a nasazení serveru Blazor
+# <a name="host-and-deploy-opno-locblazor-server"></a>Hostování a Blazor nasazení serveru
 
-Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)
+[Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), a [Daniel Roth](https://github.com/danroth27)
 
 ## <a name="host-configuration-values"></a>Hodnoty konfigurace hostitele
 
-[aplikaceBlazor serveru](xref:blazor/hosting-models#blazor-server) můžou přijímat [hodnoty konfigurace obecného hostitele](xref:fundamentals/host/generic-host#host-configuration).
+Serverové aplikace mohou přijímat [obecné hodnoty konfigurace hostitele](xref:fundamentals/host/generic-host#host-configuration). [ Blazor ](xref:blazor/hosting-models#blazor-server)
 
 ## <a name="deployment"></a>Nasazení
 
-Pomocí [modelu hostováníBlazor serveru](xref:blazor/hosting-models#blazor-server)se Blazor spouští na serveru z aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu jsou zpracovávána prostřednictvím [SignalRho](xref:signalr/introduction) připojení.
+Pomocí [ Blazor modelu hostování](xref:blazor/hosting-models#blazor-server) Blazor serveru se na serveru spouští z aplikace ASP.NET Core. Aktualizace ui, zpracování událostí a volání JavaScriptu jsou zpracovávány prostředpou [SignalR](xref:signalr/introduction) připojení.
 
-Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core. Visual Studio obsahuje šablonu projektu **aplikaceBlazor Server** (šablona`blazorserverside` při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ).
+Je vyžadován webový server schopný hostit aplikaci ASP.NET Core. Visual Studio ** Blazor ** obsahuje šablonu`blazorserverside` projektu Server App (šablona při použití [dotnet new](/dotnet/core/tools/dotnet-new) příkazu).
 
 ## <a name="scalability"></a>Škálovatelnost
 
-Naplánujte nasazení, aby se zajistilo co nejlepší využití dostupné infrastruktury pro aplikaci Blazor serveru. Pro řešení Blazor škálovatelnosti aplikací serveru se podívejte na následující zdroje informací:
+Naplánujte nasazení, abyste co nejlépe využili Blazor dostupnou infrastrukturu pro aplikaci Server. Podívejte se na Blazor následující prostředky, které řeší škálovatelnost aplikací server:
 
 * [Základy Blazor serverových aplikací](xref:blazor/hosting-models#blazor-server)
 * <xref:security/blazor/server>
 
-### <a name="deployment-server"></a>Server nasazení
+### <a name="deployment-server"></a>Server pro nasazení
 
-Při zvažování škálovatelnosti jednoho serveru (horizontální navýšení kapacity) je pravděpodobným zdrojem dostupným pro aplikaci první prostředek, který bude aplikace vyčerpat při zvýšení požadavků uživatelů. Dostupná paměť na serveru má vliv na:
+Při zvažování škálovatelnosti jednoho serveru (vertikálně navýšit kapacitu) je paměť dostupná pro aplikaci pravděpodobně prvním prostředkem, který aplikace vyčerpá, protože se zvýší požadavky uživatelů. Dostupná paměť na serveru ovlivňuje:
 
-* Počet aktivních okruhů, které může server podporovat.
-* Latence uživatelského rozhraní u klienta.
+* Počet aktivních obvodů, které může server podporovat.
+* Latence ui na straně klienta.
 
-Pokyny k vytváření zabezpečených a škálovatelných aplikací Blazor serveru najdete v tématu <xref:security/blazor/server>.
+Pokyny k vytváření zabezpečených a Blazor <xref:security/blazor/server>škálovatelných serverových aplikací naleznete v tématu .
 
-Každý okruh používá pro minimální aplikaci *Hello World*ve stylu přibližně 250 kB paměti. Velikost okruhu závisí na kódu aplikace a požadavcích na údržbu stavu přidružených k jednotlivým součástem. Doporučujeme změřit požadavky na prostředky během vývoje vaší aplikace a infrastruktury, ale následující standardní hodnoty můžou být výchozím bodem plánování nasazení. Pokud očekáváte, že aplikace bude podporovat 5 000 souběžných uživatelů, zvažte rozpočtování na do aplikace je minimálně 1,3 GB paměti serveru (nebo ~ 273 KB na uživatele).
+Každý okruh používá přibližně 250 kB paměti pro minimální *Hello World*-style aplikace. Velikost okruhu závisí na kódu aplikace a požadavcích na údržbu stavu přidružených ke každé součásti. Doporučujeme měřit požadavky na prostředky během vývoje pro vaši aplikaci a infrastrukturu, ale následující směrný plán může být výchozím bodem při plánování cíle nasazení: Pokud očekáváte, že vaše aplikace bude podporovat 5 000 souběžných uživatelů, zvažte rozpočtování alespoň 1,3 GB paměti serveru do aplikace (nebo ~273 kB na uživatele).
 
-### <a name="opno-locsignalr-configuration"></a>Konfigurace SignalR
+### <a name="opno-locsignalr-configuration"></a>SignalRKonfigurace
 
-aplikace Blazor serveru používají ke komunikaci s prohlížečem ASP.NET Core SignalR. [podmínky hostování a škálováníSignalR](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor serverových aplikací.
+BlazorServerové aplikace SignalR používají ke komunikaci s prohlížečem ASP.NET Core. Podmínky hostování a škálování Blazor programu se vztahují na serverové aplikace. [ SignalR](xref:signalr/publish-to-azure-web-app)
 
-Blazor funguje nejlépe při použití WebSockets jako SignalR přenosů z důvodu nižší latence, spolehlivosti a [zabezpečení](xref:signalr/security). Dlouhé cyklické dotazování používá SignalR, když nejsou objekty WebSocket dostupné, nebo když je aplikace explicitně nakonfigurovaná tak, aby používala dlouhé cyklické dotazování. Při nasazování do Azure App Service nakonfigurujte aplikaci tak, aby používala objekty WebSocket v nastaveních Azure Portal služby. Podrobnosti o konfiguraci aplikace pro Azure App Service najdete v tématu [SignalR pokyny pro publikování](xref:signalr/publish-to-azure-web-app).
+BlazorFunguje nejlépe při použití WebSockets jako přenos z SignalR důvodu nižší latence, spolehlivosti a [zabezpečení](xref:signalr/security). Dlouhé dotazování SignalR se používá, když WebSockets není k dispozici, nebo když je aplikace explicitně nakonfigurován a používat dlouhé dotazování. Při nasazování do služby Azure App Service nakonfigurujte aplikaci tak, aby používala WebSockets v nastavení portálu Azure pro službu. Podrobnosti o konfiguraci aplikace pro službu Azure App Service najdete v [ SignalR pokynech pro publikování](xref:signalr/publish-to-azure-web-app).
 
-#### <a name="azure-opno-locsignalr-service"></a>Služba Azure SignalR
+#### <a name="azure-opno-locsignalr-service"></a>Služba SignalR Azure
 
-Pro Blazor serverových aplikací doporučujeme používat [službu Azure SignalR](/azure/azure-signalr) . Služba umožňuje horizontální navýšení kapacity aplikace Blazor serveru na velký počet souběžných připojení SignalR. Kromě toho je globální dosahování a vysoce výkonná datová centra služby SignalR významně pomáhají při snižování latence z důvodu geografické oblasti. Konfigurace aplikace (a volitelně zřízení) služby Azure SignalR:
+Doporučujeme používat aplikace Blazor [Azure SignalR Service](/azure/azure-signalr) for Server. Služba umožňuje škálování aplikace Blazor server na velký počet SignalR souběžných připojení. Globální dosah SignalR služby a vysoce výkonná datová centra navíc výrazně pomáhají snižovat latenci kvůli zeměpisné poloze. Konfigurace aplikace (a volitelně zřízení) SignalR služby Azure:
 
-1. Povolte službě podporovat *rychlé relace*, kde se klienti [při předvykreslování přesměrují zpátky na stejný server](xref:blazor/hosting-models#connection-to-the-server). Nastavte možnost `ServerStickyMode` nebo hodnotu konfigurace na `Required`. Aplikace obvykle vytváří konfiguraci pomocí **jednoho** z následujících přístupů:
+1. Povolte službu pro podporu *náročných relací*, kde jsou klienti [při předběžném vykreslování přesměrováni zpět na stejný server](xref:blazor/hosting-models#connection-to-the-server). Nastavte `ServerStickyMode` možnost nebo hodnotu konfigurace na . `Required` Aplikace obvykle vytvoří konfiguraci pomocí **jednoho** z následujících přístupů:
 
    * `Startup.ConfigureServices`:
   
@@ -73,28 +73,28 @@ Pro Blazor serverových aplikací doporučujeme používat [službu Azure Signal
 
    * Konfigurace (použijte **jeden** z následujících přístupů):
   
-     * *appSettings. JSON*:
+     * *appsettings.json*:
 
        ```json
        "Azure:SignalR:ServerStickyMode": "Required"
        ```
 
-     * **Konfigurace** app Service > **nastavení aplikace** v Azure Portal (**název**: `Azure:SignalR:ServerStickyMode`, **hodnota**: `Required`).
+     * Nastavení **konfigurační** > **aplikace** služby aplikace na webu Azure Portal (**Název** `Azure:SignalR:ServerStickyMode`: , **Hodnota**: `Required`).
 
-1. Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro aplikaci Blazor Server.
-1. Přidejte do profilu závislost **služby Azure SignalR** . Pokud předplatné Azure nemá stávající instanci služby Azure SignalR, která se má přiřadit k aplikaci, vyberte **vytvořit novou instanci služby azure SignalR** a zřídit novou instanci služby.
+1. Vytvořte profil publikování Aplikací Azure Blazor ve Visual Studiu pro aplikaci Server.
+1. Přidejte závislost **služby Azure SignalR ** do profilu. Pokud předplatné Azure nemá již existující instanci služby Azure, SignalR kterou chcete přiřadit k aplikaci, vyberte Vytvořit novou **instanci služby Azure SignalR ** pro zřízení nové instance služby.
 1. Publikovat aplikaci do Azure
 
 #### <a name="iis"></a>IIS
 
-Při použití služby IIS povolte:
+Při používání služby IIS povolte:
 
 * [WebSockets ve službě IIS](xref:fundamentals/websockets#enabling-websockets-on-iis).
-* [Rychlé relace s směrováním žádostí o aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing)
+* [Důležité relace s směrováním žádostí o aplikaci](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).
 
 #### <a name="kubernetes"></a>Kubernetes
 
-Vytvořte definici příchozího přenosu dat s následujícími [Kubernetes poznámkami pro rychlé relace](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/):
+Vytvořte definici příchozího přenosu dat s [následujícími poznámkami Kubernetes pro rychlé relace](https://kubernetes.github.io/ingress-nginx/examples/affinity/cookie/):
 
 ```yaml
 apiVersion: extensions/v1beta1
@@ -110,10 +110,10 @@ metadata:
 
 #### <a name="linux-with-nginx"></a>Linux na serveru Nginx
 
-Aby se SignalR objekty WebSocket správně fungovaly, zkontrolujte, že je `Upgrade` a `Connection` hlaviček proxy serveru nastavené na následující hodnoty a že `$connection_upgrade` je namapovaný buď na:
+Aby SignalR websockety fungovaly správně, zkontrolujte, `Connection` zda jsou proxy servery `$connection_upgrade` a záhlaví nastaveny na následující hodnoty a které jsou mapovány na:For WebSockets to function properly, confirm that the proxy's `Upgrade` and headers are set to the following values and that is mapapped to either:
 
-* Hodnota hlavičky upgradu je standardně nastavená.
-* `close`, pokud hlavička upgradu chybí nebo je prázdná.
+* Hodnota hlavičky Upgradu je ve výchozím nastavení.
+* `close`pokud záhlaví upgradu chybí nebo je prázdné.
 
 ```
 http {
@@ -139,15 +139,15 @@ http {
 }
 ```
 
-Další informace najdete v následujících článcích:
+Další informace najdete v těchto článcích:
 
 * [NGINX jako proxy server WebSocket](https://www.nginx.com/blog/websocket-nginx/)
-* [Proxy server WebSocket](http://nginx.org/docs/http/websocket.html)
+* [Proxy websocket](http://nginx.org/docs/http/websocket.html)
 * <xref:host-and-deploy/linux-nginx>
 
 ### <a name="measure-network-latency"></a>Měření latence sítě
 
-[Zprostředkovatel komunikace js](xref:blazor/call-javascript-from-dotnet) lze použít k měření latence sítě, jak ukazuje následující příklad:
+[JS interop](xref:blazor/call-javascript-from-dotnet) lze použít k měření latence sítě, jak ukazuje následující příklad:
 
 ```razor
 @inject IJSRuntime JS
@@ -175,4 +175,4 @@ else
 }
 ```
 
-Pro přiměřené prostředí uživatelského rozhraní doporučujeme, abyste trvalou latenci uživatelského rozhraní 250ms nebo méně.
+Pro rozumné prostředí uživatelského prostředí doporučujeme trvalou latenci uživatelského prostředí 250 ms nebo méně.

@@ -1,37 +1,37 @@
 ---
 title: Vývoj aplikací ASP.NET Core pomocí sledovacího procesu souborů
 author: rick-anderson
-description: V tomto kurzu se dozvíte, jak nainstalovat a používat nástroj sledovacího procesu souborů (dotnet Watch) .NET Core CLI v aplikaci ASP.NET Core.
+description: Tento kurz ukazuje, jak nainstalovat a používat nástroj sledování souborů (dotnet watch) rozhraní .NET Core CLI v aplikaci ASP.NET Core.
 ms.author: riande
 ms.date: 05/31/2018
 uid: tutorials/dotnet-watch
 ms.openlocfilehash: bedb3e6a65839db915ca7bc821a267a14d34bf30
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78667410"
 ---
 # <a name="develop-aspnet-core-apps-using-a-file-watcher"></a>Vývoj aplikací ASP.NET Core pomocí sledovacího procesu souborů
 
-Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [vítěz Hurdugaci](https://twitter.com/victorhurdugaci)
+[Rick Anderson](https://twitter.com/RickAndMSFT) a [Victor Hurdugaci](https://twitter.com/victorhurdugaci)
 
-[dotnet Watch](https://www.nuget.org/packages/dotnet-watch) je nástroj, který spouští příkaz [.NET Core CLI](/dotnet/core/tools) , když se změní zdrojové soubory. Například změna souboru může aktivovat kompilaci, spuštění testu nebo nasazení.
+[Dotnet watch](https://www.nuget.org/packages/dotnet-watch) je nástroj, který při změně zdrojových souborů spouští příkaz [.NET Core CLI.](/dotnet/core/tools) Změna souboru může například aktivovat kompilaci, spuštění testu nebo nasazení.
 
-V tomto kurzu se používá existující webové rozhraní API se dvěma koncovými body: jeden, který vrací součet, a jeden, který vrací produkt. Metoda produktu obsahuje chybu, která je v tomto kurzu opravena.
+Tento kurz používá existující webové rozhraní API se dvěma koncovými body: jeden, který vrací součet a jeden, který vrací produkt. Metoda produktu má chybu, která je opravena v tomto kurzu.
 
-Stáhněte si [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample). Skládá se ze dvou projektů: *WebApp* (ASP.NET Core Web API) a *WebAppTests* (testování částí webového rozhraní API).
+Stáhněte si [ukázkovou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/dotnet-watch/sample). Skládá se ze dvou projektů: *WebApp* (ASP.NET základní webové rozhraní API) a *WebAppTests* (testování částí pro webové rozhraní API).
 
-V příkazovém prostředí přejděte do složky *WebApp* . Spusťte následující příkaz:
+V příkazovém prostředí přejděte do složky *WebApp.* Spusťte následující příkaz:
 
 ```dotnetcli
 dotnet run
 ```
 
 > [!NOTE]
-> Pomocí `dotnet run --project <PROJECT>` můžete určit projekt, který se má spustit. Například spuštění `dotnet run --project WebApp` z kořenového adresáře ukázkové aplikace spustí také projekt *WebApp* .
+> Můžete použít `dotnet run --project <PROJECT>` k určení projektu ke spuštění. Například spuštění `dotnet run --project WebApp` z kořenového adresáře ukázkové aplikace také spustí projekt *WebApp.*
 
-Výstup konzoly zobrazuje zprávy podobné následujícímu (což značí, že aplikace běží a čekají na žádosti):
+Výstup konzoly zobrazuje zprávy podobné následujícímu (označující, že aplikace je spuštěná a čeká na požadavky):
 
 ```console
 $ dotnet run
@@ -41,17 +41,17 @@ Now listening on: http://localhost:5000
 Application started. Press Ctrl+C to shut down.
 ```
 
-Ve webovém prohlížeči přejděte na `http://localhost:<port number>/api/math/sum?a=4&b=5`. Měl by se zobrazit výsledek `9`.
+Ve webovém prohlížeči přejděte na adresu `http://localhost:<port number>/api/math/sum?a=4&b=5`. Měli byste vidět `9`výsledek .
 
-Přejděte na rozhraní API produktu (`http://localhost:<port number>/api/math/product?a=4&b=5`). Vrátí `9`, ne `20` podle očekávání. Tento problém je opravený později v tomto kurzu.
+Přejděte do rozhraní`http://localhost:<port number>/api/math/product?a=4&b=5`API produktu ( ). Vrací `9`se `20` , ne tak, jak byste očekávali. Tento problém je vyřešen později v tutoriálu.
 
 ::: moniker range="<= aspnetcore-2.0"
 
-## <a name="add-dotnet-watch-to-a-project"></a>Přidání `dotnet watch` do projektu
+## <a name="add-dotnet-watch-to-a-project"></a>Přidat `dotnet watch` do projektu
 
-Nástroj `dotnet watch` sledovacího procesu souborů je součástí verze 2.1.300 .NET Core SDK. Při použití starší verze .NET Core SDK jsou vyžadovány následující kroky.
+Nástroj `dotnet watch` pro sledování souborů je součástí verze 2.1.300 sady .NET Core SDK. Při použití starší verze sady .NET Core SDK jsou vyžadovány následující kroky.
 
-1. Přidat `Microsoft.DotNet.Watcher.Tools` odkaz na balíček do souboru *. csproj* :
+1. Přidejte `Microsoft.DotNet.Watcher.Tools` odkaz na balíček do souboru *.csproj:*
 
     ```xml
     <ItemGroup>
@@ -59,7 +59,7 @@ Nástroj `dotnet watch` sledovacího procesu souborů je součástí verze 2.1.3
     </ItemGroup>
     ```
 
-1. Nainstalujte balíček `Microsoft.DotNet.Watcher.Tools` spuštěním následujícího příkazu:
+1. Nainstalujte `Microsoft.DotNet.Watcher.Tools` balíček spuštěním následujícího příkazu:
 
     ```dotnetcli
     dotnet restore
@@ -67,27 +67,27 @@ Nástroj `dotnet watch` sledovacího procesu souborů je součástí verze 2.1.3
 
 ::: moniker-end
 
-## <a name="run-net-core-cli-commands-using-dotnet-watch"></a>Spouštění příkazů .NET Core CLI pomocí `dotnet watch`
+## <a name="run-net-core-cli-commands-using-dotnet-watch"></a>Spuštění příkazů rozhraní PŘÍKAZOVÉHO PŘÍKAZU .NET Core CLI pomocí`dotnet watch`
 
-Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit s `dotnet watch`. Příklad:
+Libovolný [příkaz CLI jádra .NET](/dotnet/core/tools#cli-commands) lze spustit pomocí příkazu `dotnet watch`. Příklad:
 
-| Příkaz | Příkaz se sledováním |
+| Příkaz | Příkaz s hodinkami |
 | ---- | ----- |
-| dotnet run | dotnet – běh kukátka |
-| příkaz dotnet Run-f netcoreapp 2.0 | dotnet Watch Run-f netcoreapp 2.0 |
-| dotnet Run-f netcoreapp 2.0----arg1 | dotnet Watch Run-f netcoreapp 2.0----arg1 |
-| dotnet test | test výrazu dotnet |
+| dotnet run | dotnet sledovat spustit |
+| dotnet běh -f netcoreapp2.0 | dotnet hodinky spustit -f netcoreapp2.0 |
+| dotnet běh -f netcoreapp2.0 -- --arg1 | dotnet hodinky spustit -f netcoreapp2.0 -- --arg1 |
+| dotnet test | dotnet hodinky test |
 
-Spusťte `dotnet watch run` ve složce *WebApp* . Výstup konzoly indikuje, `watch` bylo zahájeno.
+Spustit `dotnet watch run` ve složce *WebApp.* Výstup konzoly `watch` indikuje, že byl spuštěn.
 
 > [!NOTE]
-> Pomocí `dotnet watch --project <PROJECT>` můžete určit projekt, který chcete sledovat. Například spuštění `dotnet watch --project WebApp run` z kořenového adresáře ukázkové aplikace bude také spuštěno a sledovat projekt *WebApp* .
+> Můžete použít `dotnet watch --project <PROJECT>` k určení projektu ke sledování. Například spuštění `dotnet watch --project WebApp run` z kořenového adresáře ukázkové aplikace se také spustí a bude sledovat projekt *WebApp.*
 
-## <a name="make-changes-with-dotnet-watch"></a>Provedení změn pomocí `dotnet watch`
+## <a name="make-changes-with-dotnet-watch"></a>Provádění změn pomocí`dotnet watch`
 
-Ujistěte se, že je spuštěný `dotnet watch`.
+Ujistěte `dotnet watch` se, že běží.
 
-Opravte chybu v metodě `Product` *MathController.cs* , takže vrátí produkt, a ne součet:
+Opravte chybu `Product` v metodě *MathController.cs* tak, aby se vrátil produkt a ne součet:
 
 ```csharp
 public static int Product(int a, int b)
@@ -96,35 +96,35 @@ public static int Product(int a, int b)
 }
 ```
 
-Uložte soubor. Výstup konzoly indikuje, že `dotnet watch` zjistil změnu souboru a restartuje aplikaci.
+Uložte soubor. Výstup konzoly `dotnet watch` indikuje, že zjistil změnu souboru a restartoval aplikaci.
 
-Ověřte, `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí správný výsledek.
+Ověřit `http://localhost:<port number>/api/math/product?a=4&b=5` vrátí správný výsledek.
 
-## <a name="run-tests-using-dotnet-watch"></a>Spouštění testů pomocí `dotnet watch`
+## <a name="run-tests-using-dotnet-watch"></a>Spuštění testů pomocí`dotnet watch`
 
-1. Změňte metodu `Product` *MathController.cs* zpět na vrácení součtu. Uložte soubor.
-1. V příkazovém prostředí přejděte do složky *WebAppTests* .
-1. Spusťte [dotnet Restore](/dotnet/core/tools/dotnet-restore).
-1. Spusťte `dotnet watch test`. Jeho výstup označuje, že se test nezdařil a že sledovací proces čeká na změny souborů:
+1. Změňte `Product` metodu *MathController.cs* zpět na vrácení součtu. Uložte soubor.
+1. V příkazovém prostředí přejděte do složky *WebAppTests.*
+1. Spusťte [dotnet restore](/dotnet/core/tools/dotnet-restore).
+1. Spusťte `dotnet watch test`. Jeho výstup označuje, že test se nezdařil a že sledovací proces čeká na změny souboru:
 
      ```console
      Total tests: 2. Passed: 1. Failed: 1. Skipped: 0.
      Test Run Failed.
      ```
 
-1. Opravte kód metody `Product` tak, aby vrátil produkt. Uložte soubor.
+1. Opravte `Product` kód metody tak, aby vrátil produkt. Uložte soubor.
 
-`dotnet watch` detekuje změnu souboru a znovu spustí testy. Výstup konzoly indikuje úspěšné testy.
+`dotnet watch`detekuje změnu souboru a znovu spustí testy. Výstup konzoly označuje, že testy byly předány.
 
-## <a name="customize-files-list-to-watch"></a>Přizpůsobení seznamu souborů pro sledování
+## <a name="customize-files-list-to-watch"></a>Přizpůsobení seznamu souborů ke sledování
 
-Ve výchozím nastavení `dotnet-watch` sleduje všechny soubory, které odpovídají následujícím vzorům glob:
+Ve výchozím `dotnet-watch` nastavení sleduje všechny soubory odpovídající následujícím vzorům globu:
 
 * `**/*.cs`
 * `*.csproj`
 * `**/*.resx`
 
-Další položky lze přidat do seznamu sledování úpravou souboru *. csproj* . Položky lze zadat jednotlivě nebo pomocí glob vzorů.
+Další položky lze přidat do seznamu sledovaných položek úpravou souboru *.csproj.* Položky lze zadat jednotlivě nebo pomocí glob vzory.
 
 ```xml
 <ItemGroup>
@@ -133,9 +133,9 @@ Další položky lze přidat do seznamu sledování úpravou souboru *. csproj* 
 </ItemGroup>
 ```
 
-## <a name="opt-out-of-files-to-be-watched"></a>Výslovný souhlas se soubory, které se mají sledovat
+## <a name="opt-out-of-files-to-be-watched"></a>Odhlášení ze sledovaných souborů
 
-`dotnet-watch` lze nakonfigurovat tak, aby ignorovala výchozí nastavení. Chcete-li ignorovat konkrétní soubory, přidejte atribut `Watch="false"` do definice položky v souboru *. csproj* :
+`dotnet-watch`lze nakonfigurovat tak, aby ignorovala jeho výchozí nastavení. Chcete-li ignorovat určité `Watch="false"` soubory, přidejte atribut do definice položky v souboru *CSProJ:*
 
 ```xml
 <ItemGroup>
@@ -150,15 +150,15 @@ Další položky lze přidat do seznamu sledování úpravou souboru *. csproj* 
 </ItemGroup>
 ```
 
-## <a name="custom-watch-projects"></a>Vlastní projekty kukátka
+## <a name="custom-watch-projects"></a>Vlastní projekty sledování
 
-`dotnet-watch` nejsou omezeny C# na projekty. Je možné vytvořit vlastní projekty kukátka pro zpracování různých scénářů. Vezměte v úvahu následující rozložení projektu:
+`dotnet-watch`není omezena na projekty Jazyka C#. Vlastní sledovat projekty lze vytvořit pro zpracování různých scénářů. Zvažte následující rozložení projektu:
 
-* **napaden**
-  * *UnitTests/UnitTests. csproj*
-  * *IntegrationTests/IntegrationTests. csproj*
+* **test/**
+  * *UnitTests/UnitTests.csproj*
+  * *IntegraceTesty/IntegraceTests.csproj*
 
-Pokud je cílem sledovat oba projekty, vytvořte vlastní soubor projektu nakonfigurovaný pro sledování obou projektů:
+Pokud je cílem sledovat oba projekty, vytvořte vlastní soubor projektu nakonfigurovaný tak, aby sledoval oba projekty:
 
 ```xml
 <Project>
@@ -175,14 +175,14 @@ Pokud je cílem sledovat oba projekty, vytvořte vlastní soubor projektu nakonf
 </Project>
 ```
 
-Chcete-li spustit sledování souborů na obou projektech, přejděte do složky *test* . Spusťte následující příkaz:
+Chcete-li spustit sledování souborů v obou projektech, změňte na *testovací* složku. Spusťte následující příkaz:
 
 ```dotnetcli
 dotnet watch msbuild /t:Test
 ```
 
-VSTest se spustí při každé změně souboru v jednom testovacím projektu.
+VSTest se spustí, když se všechny změny souboru v obou testovacích projektu.
 
-## <a name="dotnet-watch-in-github"></a>`dotnet-watch` v GitHubu
+## <a name="dotnet-watch-in-github"></a>`dotnet-watch`v GitHubu
 
-`dotnet-watch` je součástí [úložiště dotnet/AspNetCore](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch)v GitHubu.
+`dotnet-watch`je součástí úložiště GitHub [dotnet/AspNetCore](https://github.com/dotnet/AspNetCore/tree/master/src/Tools/dotnet-watch).

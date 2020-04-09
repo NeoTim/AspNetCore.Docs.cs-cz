@@ -1,144 +1,144 @@
 ---
-title: Razor Pages s EF Core v ASP.NET Core – řazení, filtrování, stránkování – 3 z 8
+title: Razor Stránky s EF jádrem v ASP.NET jádru - Řazení, filtr, stránkování - 3 z 8
 author: rick-anderson
-description: V tomto kurzu přidáte na stránku Razor funkce řazení, filtrování a stránkování pomocí ASP.NET Core a Entity Framework Core.
+description: V tomto kurzu přidáte funkce řazení, filtrování a stránkování na stránku Razor pomocí ASP.NET jádra a jádra frameworku entity.
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/22/2019
 uid: data/ef-rp/sort-filter-page
 ms.openlocfilehash: 9563f3ef52ce429eb0a58b468acb8e9cd7b276e2
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78656462"
 ---
-# <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>Razor Pages s EF Core v ASP.NET Core – řazení, filtrování, stránkování – 3 z 8
+# <a name="razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging---3-of-8"></a>Razor Stránky s EF jádrem v ASP.NET jádru - Řazení, filtr, stránkování - 3 z 8
 
-Tím, že [Dykstra](https://github.com/tdykstra), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Jan P Smith](https://twitter.com/thereformedprog)
+[Tom Dykstra](https://github.com/tdykstra), [Rick Anderson](https://twitter.com/RickAndMSFT), a Jon [P Smith](https://twitter.com/thereformedprog)
 
 [!INCLUDE [about the series](~/includes/RP-EF/intro.md)]
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Tento kurz přináší na stránky studentů funkce řazení, filtrování a stránkování.
+Tento kurz přidá funkce řazení, filtrování a stránkování na stránky Studenti.
 
-Na následujícím obrázku je znázorněna Dokončená stránka. Záhlaví sloupců jsou kliknutí na odkazy pro řazení sloupce. Chcete-li přepínat mezi vzestupném a sestupným řazením, klikněte na záhlaví sloupce opakovaně.
+Následující obrázek znázorňuje dokončenou stránku. Záhlaví sloupců jsou odkazy, na které lze kliknout, aby bylo možné sloupec seřadit. Opakovaným klepnutím na záhlaví sloupce přepnete mezi vzestupným a sestupným pořadím řazení.
 
 ![Stránka indexu studentů](sort-filter-page/_static/paging30.png)
 
-## <a name="add-sorting"></a>Přidat řazení
+## <a name="add-sorting"></a>Přidání řazení
 
-Nahraďte kód na *stránkách/Students/index. cshtml. cs* následujícím kódem pro přidání řazení.
+Nahraďte kód v *Pages/Students/Index.cshtml.cs* následujícím kódem pro přidání řazení.
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_All&highlight=21-24,26,28-52)]
 
-Předchozí kód:
+Předcházející kód:
 
 * Přidá vlastnosti, které obsahují parametry řazení.
-* Změní název vlastnosti `Student` na `Students`.
-* Nahradí kód v metodě `OnGetAsync`.
+* Změní název vlastnosti `Student` `Students`na .
+* Nahradí kód v `OnGetAsync` metodě.
 
-Metoda `OnGetAsync` přijímá parametr `sortOrder` z řetězce dotazu v adrese URL. Adresa URL (včetně řetězce dotazu) je vygenerována [pomocníkem značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper).
+Metoda `OnGetAsync` obdrží `sortOrder` parametr z řetězce dotazu v adrese URL. Adresa URL (včetně řetězce dotazu) je generována [pomocníkem pro značku ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper).
 
-Parametr `sortOrder` je buď "Name", nebo "date". Pro parametr `sortOrder` lze volitelně použít "_desc" a zadat sestupné pořadí. Výchozí pořadí řazení je vzestupné.
+Parametr `sortOrder` je buď "Název" nebo "Datum". Parametr `sortOrder` je volitelně následuje "_desc" pro určení sestupné pořadí. Výchozí pořadí řazení je vzestupně.
 
-Když se na stránku indexu požaduje odkaz na **studenty** , neexistuje žádný řetězec dotazu. Studenti se zobrazí ve vzestupném pořadí podle příjmení. V příkazu `switch` je výchozí hodnota vzestupného pořadí podle příjmení. Když uživatel klikne na odkaz záhlaví sloupce, je v hodnotě řetězce dotazu uvedena odpovídající hodnota `sortOrder`.
+Když je požadována stránka Index z odkazu **Studenti,** neexistuje žádný řetězec dotazu. Studenti jsou zobrazeni ve vzestupném pořadí podle příjmení. Vzestupné pořadí podle příjmení je výchozí (pád-through `switch` případ) v příkazu. Když uživatel klepne na odkaz záhlaví `sortOrder` sloupce, příslušná hodnota je uvedena v hodnotě řetězce dotazu.
 
-Stránka Razor používá `NameSort` a `DateSort` ke konfiguraci hypertextových odkazů záhlaví sloupce odpovídajícím hodnotám řetězce dotazu:
+`NameSort`a `DateSort` jsou používány razor page ke konfiguraci záhlaví sloupce hypertextové odkazy s příslušnými hodnotami řetězce dotazu:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_Ternary)]
 
-Kód používá C# podmíněný operátor [?:](/dotnet/csharp/language-reference/operators/conditional-operator). Operátor `?:` je Ternární operátor (používá tři operandy). První řádek určuje, že pokud `sortOrder` má hodnotu null nebo je prázdné, `NameSort` je nastavena na hodnotu "name_desc." Pokud `sortOrder` není **null nebo prázdné,** `NameSort` je nastaven na prázdný řetězec.
+Kód používá podmíněný operátor [C#?:](/dotnet/csharp/language-reference/operators/conditional-operator). Operátor `?:` je ternární operátor (trvá tři operandy). První řádek určuje, `sortOrder` že pokud je `NameSort` null nebo prázdný, je nastavena na "name_desc." Pokud `sortOrder` **není** null nebo `NameSort` prázdné, je nastavena na prázdný řetězec.
 
-Tyto dva příkazy umožňují, aby stránka nastavila hypertextové odkazy záhlaví sloupce následujícím způsobem:
+Tyto dva příkazy umožňují stránce nastavit hypertextové odkazy záhlaví sloupců takto:
 
-| Aktuální pořadí řazení   | Hypertextový odkaz na poslední jméno | Hypertextový odkaz na datum |
+| Aktuální pořadí řazení   | Hypertextový odkaz příjmení | Hypertextový odkaz data |
 |:--------------------:|:-------------------:|:--------------:|
-| Příjmení vzestupné  | descending          | ascending      |
+| Příjmení vzestupně  | descending          | ascending      |
 | Příjmení sestupně | ascending           | ascending      |
-| Datum vzestupné       | ascending           | descending     |
-| Datum sestupné      | ascending           | ascending      |
+| Datum vzestupně       | ascending           | descending     |
+| Datum sestupně      | ascending           | ascending      |
 
-Metoda používá LINQ to Entities k určení sloupce, podle kterého se má řadit. Kód inicializuje `IQueryable<Student>` před příkazem Switch a upraví ho v příkazu switch:
+Metoda používá LINQ entity k určení sloupce, podle kterého se má řadit. Kód inicializuje `IQueryable<Student>` před příkazem switch a upraví jej v příkazu switch:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_IQueryable)]
 
-Když se vytvoří nebo upraví`IQueryable`, do databáze se nepošle žádný dotaz. Dotaz se neprovede, dokud se objekt `IQueryable` nepřevede na kolekci. `IQueryable` jsou převedeny na kolekci voláním metody, jako je například `ToListAsync`. Proto `IQueryable` kód způsobí jeden dotaz, který se neprovede, dokud následující příkaz:
+Při`IQueryable` vytvoření nebo změně je do databáze odeslán žádný dotaz. Dotaz není proveden, `IQueryable` dokud objekt je převeden do kolekce. `IQueryable`jsou převedeny do kolekce voláním `ToListAsync`metody, jako je například . Proto výsledkem `IQueryable` kódu je jeden dotaz, který není proveden až do následujícího příkazu:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_SortOnlyRtn)]
 
-`OnGetAsync` může získat podrobné zobrazení s velkým počtem sloupců, které lze seřadit. Informace o alternativním způsobu, jak tuto funkci zakódovat, najdete v tématu [použití dynamického LINQ ke zjednodušení kódu](xref:data/ef-mvc/advanced#dynamic-linq) ve verzi MVC této série kurzů.
+`OnGetAsync`může získat podrobné s velkým počtem seřaditelných sloupců. Informace o alternativní způsob, jak kód této funkce, najdete [v tématu použití dynamické LINQ pro zjednodušení kódu](xref:data/ef-mvc/advanced#dynamic-linq) ve verzi MVC této řady kurzů.
 
-### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>Přidat hypertextové odkazy na záhlaví sloupce na stránku indexu studenta
+### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>Přidání hypertextových odkazů záhlaví sloupců na stránku Studentský index
 
-Nahraďte kód v *Students/index. cshtml*s následujícím kódem. Změny jsou zvýrazněné.
+Nahraďte kód v *students/index.cshtml*následujícím kódem. Změny jsou zvýrazněny.
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml?highlight=5,8,17-19,22,25-27,33)]
 
-Předchozí kód:
+Předcházející kód:
 
-* Přidá hypertextové odkazy na záhlaví sloupců `LastName` a `EnrollmentDate`.
-* Používá informace v `NameSort` a `DateSort` k nastavení hypertextových odkazů s aktuálními hodnotami pořadí řazení.
-* Změní záhlaví stránky z indexu na studenty.
-* Změní `Model.Student` na `Model.Students`.
+* Přidá hypertextové `LastName` odkazy `EnrollmentDate` k záhlaví a sloupců.
+* Používá informace `NameSort` v `DateSort` aplikace a k nastavení hypertextových odkazů s aktuálními hodnotami pořadí řazení.
+* Změní záhlaví stránky z Rejstříku na Studenty.
+* Změny `Model.Student` `Model.Students`.
 
 Ověření, že řazení funguje:
 
-* Spusťte aplikaci a vyberte kartu **Students** .
+* Spusťte aplikaci a vyberte kartu **Studenti.**
 * Klikněte na záhlaví sloupců.
 
-## <a name="add-filtering"></a>Přidat filtrování
+## <a name="add-filtering"></a>Přidání filtrování
 
-Postup přidání filtrování na stránku indexu studentů:
+Přidání filtrování na stránku Students Index:
 
-* Do stránky Razor se přidá textové pole a tlačítko Odeslat. Textové pole poskytuje hledaný řetězec pro první nebo poslední název.
-* Model stránky je aktualizován tak, aby používal hodnotu textového pole.
+* Na stránku Razor se přidá textové pole a tlačítko odeslat. Textové pole poskytuje vyhledávací řetězec na jméno nebo příjmení.
+* Model stránky se aktualizuje tak, aby používal hodnotu textového pole.
 
 ### <a name="update-the-ongetasync-method"></a>Aktualizace metody OnGetAsync
 
-Nahraďte kód v *Students/index. cshtml. cs* následujícím kódem pro přidání filtrování:
+Nahraďte kód ve *students/index.cshtml.cs* následujícím kódem pro přidání filtrování:
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml.cs?name=snippet_All&highlight=28,33,37-41)]
 
-Předchozí kód:
+Předcházející kód:
 
-* Přidá parametr `searchString` do metody `OnGetAsync` a uloží hodnotu parametru do vlastnosti `CurrentFilter`. Hodnota hledaného řetězce se přijímá z textového pole, které se přidalo v další části.
-* Přidá do příkazu LINQ klauzuli `Where`. Klauzule `Where` vybere pouze studenty, jejichž křestní jméno nebo příjmení obsahuje hledaný řetězec. Příkaz LINQ se spustí pouze v případě, že existuje hodnota, která se má vyhledat.
+* Přidá `searchString` parametr k `OnGetAsync` metodě a uloží hodnotu `CurrentFilter` parametru do vlastnosti. Hodnota hledaného řetězce je přijata z textového pole, které je přidáno v další části.
+* Přidá do linq `Where` příkazu klauzule. Klauzule `Where` vybere pouze studenty, jejichž křestní jméno nebo příjmení obsahuje hledaný řetězec. Linq příkaz je proveden pouze v případě, že je hodnota hledat.
 
 ### <a name="iqueryable-vs-ienumerable"></a>IQueryable vs. IEnumerable
 
-Kód volá metodu `Where` u objektu `IQueryable` a filtr je zpracován na serveru. V některých scénářích může aplikace volat metodu `Where` jako metodu rozšíření v kolekci v paměti. Předpokládejme například `_context.Students` změny z EF Core `DbSet` na metodu úložiště, která vrací kolekci `IEnumerable`. Výsledek by byl normálně stejný, ale v některých případech se může lišit.
+Kód volá `Where` metodu `IQueryable` na objekt u objektu a filtr je zpracován na serveru. V některých případech aplikace může `Where` volat metodu jako metodu rozšíření v kolekci v paměti. Předpokládejme `_context.Students` například změny `DbSet` z EF Core na `IEnumerable` metodu úložiště, která vrací kolekci. Výsledek by za normálních okolností byl stejný, ale v některých případech může být odlišný.
 
-Například .NET Framework implementace `Contains` při výchozím nastavení provádí porovnání s rozlišováním velkých a malých písmen. V SQL Server je `Contains` rozlišování velkých a malých písmen určeno nastavením kolace instance SQL Server. Výchozí hodnota SQL Server nerozlišuje malá a velká písmena. Výchozí hodnota SQLite rozlišuje velká a malá písmena. je možné volat `ToUpper`, aby test explicitně nerozlišovat velikost písmen:
+Například implementace rozhraní .NET `Contains` Framework provádí porovnání rozlišování velkých a malých písmen ve výchozím nastavení. V SQL `Contains` Server rozlišování velkých a malých písmen je určena řazení nastavení instance serveru SQL Server. SQL Server výchozí malá a velká písmena. SQLite výchozí rozlišování velkých a malých písmen. `ToUpper`může být volána, aby test explicitně malá a velká písmena:
 
 ```csharp
 Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
 ```
 
-Předchozí kód zajistí, že filtr rozlišuje velká a malá písmena, i když je metoda `Where` volána v `IEnumerable` nebo se spouští na SQLite.
+Předchozí kód by zajistil, že filtr nerozlišuje malá a velká písmena i v případě, že `Where` je metoda volána na `IEnumerable` nebo spuštěna na SQLite.
 
-Pokud je pro kolekci `IEnumerable` volána metoda `Contains`, je použita implementace .NET Core. Je-li pro objekt `IQueryable` volána metoda `Contains`, je použita implementace databáze.
+Když `Contains` je volána na `IEnumerable` kolekci, je použita implementace .NET Core. Když `Contains` je volána na `IQueryable` objekt, je použita implementace databáze.
 
-Volání `Contains` na `IQueryable` je obvykle vhodnější z důvodů výkonu. Pomocí `IQueryable`je filtrování provedeno databázovým serverem. Pokud je nejprve vytvořena `IEnumerable`, všechny řádky musí být vráceny z databázového serveru.
+Volání `Contains` na `IQueryable` je obvykle vhodnější z důvodů výkonu. Pomocí `IQueryable`služby filtrování provádí databázový server. Pokud `IEnumerable` je vytvořen jako první, všechny řádky musí být vráceny z databázového serveru.
 
-K dispozici je snížení výkonu pro volání `ToUpper`. Kód `ToUpper` přidá funkci v klauzuli WHERE příkazu TSQL SELECT. Přidaná funkce brání Optimalizátoru v používání indexu. Vzhledem k tomu, že SQL je nainstalován jako nerozlišující velká a malá písmena, je nejlepší vyhnout se volání `ToUpper`, když není potřeba.
+Za volání je pokuta `ToUpper`za výkon. Kód `ToUpper` přidá funkci do klauzule WHERE příkazu TSQL SELECT. Přidaná funkce zabraňuje optimalizátoru používat index. Vzhledem k tomu, že SQL je nainstalován jako `ToUpper` malá a velká písmena, je nejlepší se vyhnout volání, když to není potřeba.
 
-Další informace najdete v tématu [jak použít dotaz nerozlišující malá a velká písmena se zprostředkovatelem SQLite](https://github.com/aspnet/EntityFrameworkCore/issues/11414).
+Další informace naleznete v tématu [Použití dotazu bez rozlišování velkých a malých písmen s poskytovatelem Sqlite](https://github.com/aspnet/EntityFrameworkCore/issues/11414).
 
 ### <a name="update-the-razor-page"></a>Aktualizace stránky Razor
 
-Nahraďte kód na *stránkách/Students/index. cshtml* a vytvořte tak tlačítko **hledání** a roztříděte Chrome.
+Nahraďte kód v *Pages/Students/Index.cshtml* a vytvořte tlačítko **Hledat** a různé chromy.
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml?highlight=14-23)]
 
-Předchozí kód používá [pomocníka značek](xref:mvc/views/tag-helpers/intro) `<form>` k přidání textového pole a tlačítka hledání. Ve výchozím nastavení pomocník značek `<form>` odesílá data formuláře pomocí příspěvku. V případě příspěvku jsou parametry předány v těle zprávy HTTP a nikoli v adrese URL. Když se použije HTTP GET, data formuláře se předávají v adrese URL jako řetězce dotazu. Předání dat pomocí řetězců dotazů umožňuje uživatelům záložku adresy URL. Pokud akce nevede k aktualizaci, doporučuje se použít [pokyny pro W3C](https://www.w3.org/2001/tag/doc/whenToUseGet.html) .
+Předchozí kód používá `<form>` [pomocníka pro označení](xref:mvc/views/tag-helpers/intro) k přidání vyhledávacího textového pole a tlačítka. Ve výchozím `<form>` nastavení odešle pomocník značky data formuláře s post. S POST parametry jsou předány v textu zprávy HTTP a není v adrese URL. Při použití protokolu HTTP GET jsou data formuláře předána v adrese URL jako řetězce dotazu. Předávání dat pomocí řetězců dotazu umožňuje uživatelům záložku url. [W3C pokyny](https://www.w3.org/2001/tag/doc/whenToUseGet.html) doporučujeme GET by měl být použit, pokud akce nemá za následek aktualizaci.
 
-Testování aplikace:
+Otestujte aplikaci:
 
-* Vyberte kartu **Students** a zadejte hledaný řetězec. Pokud používáte SQLite, filtr rozlišuje velká a malá písmena pouze v případě, že jste implementovali volitelný `ToUpper` kód uvedený výše.
+* Vyberte kartu **Studenti** a zadejte hledaný řetězec. Pokud používáte SQLite, filtr nerozlišuje malá a `ToUpper` velká písmena pouze v případě, že jste implementovali volitelný kód zobrazený dříve.
 
-* Vyberte **Hledat**.
+* Vyberte **hledat**.
 
 Všimněte si, že adresa URL obsahuje hledaný řetězec. Příklad:
 
@@ -146,114 +146,114 @@ Všimněte si, že adresa URL obsahuje hledaný řetězec. Příklad:
 https://localhost:<port>/Students?SearchString=an
 ```
 
-Pokud je stránka záložkou, obsahuje záložka adresu URL stránky a řetězec `SearchString` dotazu. `method="get"` ve značce `form` je to, co způsobilo vygenerování řetězce dotazu.
+Pokud je stránka označena záložkou, záložka obsahuje `SearchString` adresu URL stránky a řetězec dotazu. Ve `method="get"` značce `form` je to, co způsobilo, že řetězec dotazu má být generován.
 
-V současné době je při výběru odkazu na řazení záhlaví sloupce ztracena hodnota filtru z **vyhledávacího** pole. Hodnota ztraceného filtru je opravena v následující části.
+V současné době, když je vybrán odkaz na řazení záhlaví sloupce, dojde ke ztrátě hodnoty filtru z pole **Hledat.** Hodnota ztraceného filtru je stanovena v další části.
 
-## <a name="add-paging"></a>Přidat stránkování
+## <a name="add-paging"></a>Přidání stránkování
 
-V této části je vytvořena třída `PaginatedList` pro podporu stránkování. Třída `PaginatedList` používá příkazy `Skip` a `Take` k filtrování dat na serveru místo načtení všech řádků tabulky. Následující ilustrace znázorňuje stránkování tlačítek.
+V této části `PaginatedList` je vytvořena třída pro podporu stránkování. Třída `PaginatedList` používá `Skip` `Take` a příkazy filtrovat data na serveru namísto načítání všech řádků tabulky. Následující obrázek znázorňuje tlačítka stránkování.
 
-![Stránka indexu studentů s odkazy na stránkování](sort-filter-page/_static/paging30.png)
+![Stránka indexu studentů s pagingovými odkazy](sort-filter-page/_static/paging30.png)
 
 ### <a name="create-the-paginatedlist-class"></a>Vytvoření třídy PaginatedList
 
-Ve složce projektu vytvořte `PaginatedList.cs` s následujícím kódem:
+Ve složce projektu `PaginatedList.cs` vytvořte s následujícím kódem:
 
 [!code-csharp[Main](intro/samples/cu30/PaginatedList.cs)]
 
-Metoda `CreateAsync` v předchozím kódu má velikost stránky a číslo stránky a aplikuje příslušné `Skip` a `Take` příkazy na `IQueryable`. Když je na `IQueryable`volána metoda `ToListAsync`, vrátí seznam obsahující pouze požadovanou stránku. Vlastnosti `HasPreviousPage` a `HasNextPage` slouží k povolení nebo zakázání tlačítek **předchozí** a **Další** stránkování.
+Metoda `CreateAsync` v předchozím kódu přebírá velikost stránky a číslo `Skip` stránky `Take` a `IQueryable`použije příslušné příkazy pro . Když `ToListAsync` je volána na `IQueryable`, vrátí List obsahující pouze požadovanou stránku. Vlastnosti `HasPreviousPage` `HasNextPage` a slouží k povolení nebo zakázání **předchozí** a **další** stránkovací tlačítka.
 
-Metoda `CreateAsync` slouží k vytvoření `PaginatedList<T>`. Konstruktor nemůže vytvořit objekt `PaginatedList<T>`; konstruktory nemůžou spouštět asynchronní kód.
+Metoda `CreateAsync` se používá k `PaginatedList<T>`vytvoření . Konstruktor nemůže vytvořit `PaginatedList<T>` objekt; konstruktory nelze spustit asynchronní kód.
 
-### <a name="add-paging-to-the-pagemodel-class"></a>Přidat stránkování do třídy PageModel
+### <a name="add-paging-to-the-pagemodel-class"></a>Přidání stránkování do třídy PageModel
 
-Nahraďte kód v *Students/index. cshtml. cs* a přidejte stránkování.
+Nahraďte kód v *Students/Index.cshtml.cs* a přidejte stránkování.
 
 [!code-csharp[Main](intro/samples/cu30/Pages/Students/Index.cshtml.cs?name=snippet_All&highlight=26,28-29,31,34-41,68-70)]
 
-Předchozí kód:
+Předcházející kód:
 
-* Změní typ vlastnosti `Students` z `IList<Student>` na `PaginatedList<Student>`.
-* Přidá index stránky, aktuální `sortOrder`a `currentFilter` do podpisu metody `OnGetAsync`.
+* Změní typ vlastnosti `Students` `IList<Student>` z `PaginatedList<Student>`na .
+* Přidá index stránky, `sortOrder`aktuální a `currentFilter` podpis `OnGetAsync` metody.
 * Uloží pořadí řazení do vlastnosti CurrentSort.
-* Obnoví index stránky na hodnotu 1, pokud je k dispozici nový hledaný řetězec.
-* Používá třídu `PaginatedList` k získání entit studenta.
+* Obnoví index stránky na hodnotu 1, pokud je nový vyhledávací řetězec.
+* Používá `PaginatedList` třídu k získání studentských entit.
 
-Všechny parametry, které `OnGetAsync` obdrží, jsou null v těchto případech:
+Všechny parametry, `OnGetAsync` které obdrží, jsou null, pokud:
 
-* Stránka je volána z odkazu **Students** .
-* Uživatel nekliknul na odkaz na stránkování nebo řazení.
+* Stránka je volána z odkazu **Studenti.**
+* Uživatel neklikl na odkaz pro stránkování nebo řazení.
 
-Po kliknutí na odkaz na stránkování obsahuje proměnná index stránky číslo stránky, která se má zobrazit.
+Po klepnutí na odkaz stránkování obsahuje proměnná indexu stránky číslo stránky, které se má zobrazit.
 
-Vlastnost `CurrentSort` poskytuje stránku Razor s aktuálním pořadím řazení. Aktuální pořadí řazení musí být ve stránkovacích odkazech zahrnuto, aby při stránkování zůstalo pořadí řazení.
+Vlastnost `CurrentSort` poskytuje Razor Page s aktuální pořadí řazení. Aktuální pořadí řazení musí být zahrnuto do stránkovacích odkazů, aby bylo pořadí řazení při stránkování zachováno.
 
-Vlastnost `CurrentFilter` poskytuje stránku Razor s aktuálním řetězcem filtru. Hodnota `CurrentFilter`:
+Vlastnost `CurrentFilter` poskytuje Razor Page s aktuální řetězec filtru. Hodnota: `CurrentFilter`
 
-* Musí být součástí odkazů stránkování, aby bylo možné zachovat nastavení filtru během stránkování.
-* Po zobrazení stránky se musí obnovit do textového pole.
+* Musí být zahrnuty do stránkovacíodkazy, aby bylo zachováno nastavení filtru během stránkování.
+* Při opětovném zobrazení stránky musí být obnovendo textového pole.
 
-Pokud se hledaný řetězec změní během stránkování, stránka je resetována na 1. Stránka musí být obnovena na 1, protože nový filtr může mít za následek zobrazení různých dat. Když je zadána hodnota vyhledávání a je vybrána možnost **Odeslat** :
+Pokud se vyhledávací řetězec během stránkování změní, stránka se obnoví na 1. Stránka musí být resetována na hodnotu 1, protože nový filtr může vést k zobrazení různých dat. Když je zadána vyhledávací hodnota a je vybrána možnost **Odeslat:**
 
-  * Hledaný řetězec se změnil.
-  * Parametr `searchString` nemá hodnotu null.
+  * Hledaný řetězec se změní.
+  * Parametr `searchString` není null.
 
-  Metoda `PaginatedList.CreateAsync` převede dotaz studenta na jednu stránku studentů v typu kolekce, který podporuje stránkování. Tato jediná stránka studentů je předána na stránku Razor.
+  Metoda `PaginatedList.CreateAsync` převede studentdotaz na jednu stránku studentů v typu kolekce, která podporuje stránkování. Tato jediná stránka studentů je předána na Stránku břitvy.
 
-  Dvě otazníky po `pageIndex` v volání `PaginatedList.CreateAsync` reprezentují [operátor slučování s hodnotou null](/dotnet/csharp/language-reference/operators/null-conditional-operator). Operátor slučování null definuje výchozí hodnotu pro typ s možnou hodnotou null. Výraz `(pageIndex ?? 1)` znamená vrátit hodnotu `pageIndex`, pokud má hodnotu. Pokud `pageIndex` nemá hodnotu, vraťte hodnotu 1.
+  Dva otazníky `pageIndex` po `PaginatedList.CreateAsync` ve volání představují [null-coalescing operátor](/dotnet/csharp/language-reference/operators/null-conditional-operator). Operátor null-coalescing definuje výchozí hodnotu pro typ s možnou hodnotou null. Výraz `(pageIndex ?? 1)` znamená vrátit hodnotu, `pageIndex` pokud má hodnotu. Pokud `pageIndex` nemá hodnotu, vrátí 1.
 
-### <a name="add-paging-links-to-the-razor-page"></a>Přidat odkazy na stránkování na stránku Razor
+### <a name="add-paging-links-to-the-razor-page"></a>Přidání stránkovacích odkazů na stránku Razor
 
-Nahraďte kód v *Students/index. cshtml* následujícím kódem. Změny jsou zvýrazněny:
+Nahraďte kód v *Students/Index.cshtml* následujícím kódem. Změny jsou zvýrazněny:
 
 [!code-cshtml[Main](intro/samples/cu30/Pages/Students/Index.cshtml?highlight=29-32,38-41,69-87)]
 
-Záhlaví sloupce odkazuje pomocí řetězce dotazu k předání aktuálního hledaného řetězce metodě `OnGetAsync`:
+Odkazy záhlaví sloupce používají řetězec dotazu k předání `OnGetAsync` aktuálního vyhledávacího řetězce metodě:
 
 [!code-cshtml[Main](intro/samples/cu30/Pages/Students/Index.cshtml?range=29-32)]
 
-Tlačítka pro stránkování se zobrazují v pomocníkech značek:
+Tlačítka stránkování jsou zobrazena pomocníky značek:
 
 [!code-cshtml[Main](intro/samples/cu30/Pages/Students/Index.cshtml?range=73-87)]
 
-Spusťte aplikaci a přejděte na stránku students.
+Spusťte aplikaci a přejděte na stránku studentů.
 
-* Chcete-li zajistit, aby stránkování fungovalo, klikněte na odkazy na stránkování v různých objednávkách řazení.
-* Pokud chcete ověřit, že stránkování funguje správně s řazením a filtrováním, zadejte hledaný řetězec a zkuste použít stránkování.
+* Chcete-li zajistit, aby stránkování fungovalo, klepněte na stránkovací odkazy v různých pořadích řazení.
+* Chcete-li ověřit, zda stránkování funguje správně při řazení a filtrování, zadejte hledaný řetězec a zkuste stránkování.
 
-![Stránka indexu studentů s odkazy na stránkování](sort-filter-page/_static/paging30.png)
+![studenty index stránku s paging odkazy](sort-filter-page/_static/paging30.png)
 
 ## <a name="add-grouping"></a>Přidat seskupení
 
-Tato část obsahuje informace o stránce s informacemi o tom, kolik studentů bylo zaregistrováno pro každé datum zápisu. Tato aktualizace používá seskupení a obsahuje následující kroky:
+Tato část vytvoří stránku Informace, která zobrazuje, kolik studentů se zaregistrovalo pro každé datum registrace. Aktualizace používá seskupení a zahrnuje následující kroky:
 
-* Vytvořte model zobrazení pro data používaná na stránce **About** .
-* Aktualizujte stránku o, aby používala model zobrazení.
+* Vytvořte model zobrazení pro data používaná stránkou **Informace.**
+* Aktualizujte stránku Informace tak, aby používala model zobrazení.
 
-### <a name="create-the-view-model"></a>Vytvoření modelu zobrazení
+### <a name="create-the-view-model"></a>Vytvoření modelu pohledu
 
-Vytvořte *modely/složku SchoolViewModels* .
+Vytvořte složku *Models/SchoolViewModels.*
 
-Vytvořte *SchoolViewModels/EnrollmentDateGroup. cs* s následujícím kódem:
+Vytvořte *soubor SchoolViewModels/EnrollmentDateGroup.cs* s následujícím kódem:
 
 [!code-csharp[Main](intro/samples/cu30/Models/SchoolViewModels/EnrollmentDateGroup.cs)]
 
-### <a name="create-the-razor-page"></a>Vytvoření stránky Razor
+### <a name="create-the-razor-page"></a>Vytvoření stránky Břitva
 
-Vytvořte *stránky/o souboru. cshtml* pomocí následujícího kódu:
+Vytvořte soubor *Pages/About.cshtml* s následujícím kódem:
 
 [!code-cshtml[Main](intro/samples/cu30/Pages/About.cshtml)]
 
 ### <a name="create-the-page-model"></a>Vytvoření modelu stránky
 
-Vytvořte *stránky/o soubor. cshtml. cs* s následujícím kódem:
+Vytvořte soubor *Pages/About.cshtml.cs* s následujícím kódem:
 
 [!code-csharp[Main](intro/samples/cu30/Pages/About.cshtml.cs)]
 
-Příkaz LINQ seskupuje entity studenta podle data registrace, vypočítá počet entit v každé skupině a ukládá výsledky do kolekce `EnrollmentDateGroup` objektů modelu zobrazení.
+Příkaz LINQ seskupuje entity studenta podle data zápisu, vypočítá počet entit v každé `EnrollmentDateGroup` skupině a uloží výsledky do kolekce objektů modelu zobrazení.
 
-Spusťte aplikaci a přejděte na stránku o produktu. V tabulce se zobrazí počet studentů pro každé datum zápisu.
+Spusťte aplikaci a přejděte na stránku Informace. Počet studentů pro každé datum zápisu se zobrazí v tabulce.
 
 ![O stránce](sort-filter-page/_static/about30.png)
 
@@ -269,130 +269,130 @@ V dalším kurzu aplikace používá migrace k aktualizaci datového modelu.
 
 ::: moniker range="< aspnetcore-3.0"
 
-V tomto kurzu se přidávají funkce řazení, filtrování, seskupování a stránkování.
+V tomto kurzu je přidáno řazení, filtrování, seskupování a stránkování.
 
-Na následujícím obrázku je znázorněna Dokončená stránka. Záhlaví sloupců jsou kliknutí na odkazy pro řazení sloupce. Kliknutí na záhlaví sloupce se opakovaně přepíná mezi vzestupném a sestupným řazením.
+Následující obrázek znázorňuje dokončenou stránku. Záhlaví sloupců jsou odkazy, na které lze kliknout, aby bylo možné sloupec seřadit. Opakovaným klepnutím na záhlaví sloupce přepínáte mezi vzestupným a sestupným pořadím řazení.
 
 ![Stránka indexu studentů](sort-filter-page/_static/paging.png)
 
-Pokud narazíte na problémy, které nemůžete vyřešit, stáhněte [dokončenou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
+Pokud narazíte na problémy, které nelze vyřešit, stáhněte si [dokončenou aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples).
 
-## <a name="add-sorting-to-the-index-page"></a>Přidat řazení na stránku indexu
+## <a name="add-sorting-to-the-index-page"></a>Přidání řazení na stránku Rejstřík
 
-Přidejte řetězce do *studentů/index. cshtml. cs* `PageModel`, které obsahují parametry řazení:
+Přidejte řetězce *students/Index.cshtml.cs,* `PageModel` které obsahují parametry řazení:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet1&highlight=10-13)]
 
-Aktualizujte *studenty/index. cshtml. cs* `OnGetAsync` s následujícím kódem:
+Aktualizujte *studentskou stránku/index.cshtml.cs* `OnGetAsync` pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnly)]
 
-Předchozí kód obdrží parametr `sortOrder` z řetězce dotazu v adrese URL. Adresa URL (včetně řetězce dotazu) je vygenerována [pomocníkem značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-) .
+Předchozí kód obdrží `sortOrder` parametr z řetězce dotazu v adrese URL. Adresa URL (včetně řetězce dotazu) je generována [pomocníkem značky kotvy.](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper
+)
 
-Parametr `sortOrder` je buď "Name", nebo "date". Pro parametr `sortOrder` lze volitelně použít "_desc" a zadat sestupné pořadí. Výchozí pořadí řazení je vzestupné.
+Parametr `sortOrder` je buď "Název" nebo "Datum". Parametr `sortOrder` je volitelně následuje "_desc" pro určení sestupné pořadí. Výchozí pořadí řazení je vzestupně.
 
-Když se na stránku indexu požaduje odkaz na **studenty** , neexistuje žádný řetězec dotazu. Studenti se zobrazí ve vzestupném pořadí podle příjmení. V příkazu `switch` je výchozí hodnota vzestupného pořadí podle příjmení. Když uživatel klikne na odkaz záhlaví sloupce, je v hodnotě řetězce dotazu uvedena odpovídající hodnota `sortOrder`.
+Když je požadována stránka Index z odkazu **Studenti,** neexistuje žádný řetězec dotazu. Studenti jsou zobrazeni ve vzestupném pořadí podle příjmení. Vzestupné pořadí podle příjmení je výchozí (pád-through `switch` případ) v příkazu. Když uživatel klepne na odkaz záhlaví `sortOrder` sloupce, příslušná hodnota je uvedena v hodnotě řetězce dotazu.
 
-Stránka Razor používá `NameSort` a `DateSort` ke konfiguraci hypertextových odkazů záhlaví sloupce odpovídajícím hodnotám řetězce dotazu:
+`NameSort`a `DateSort` jsou používány razor page ke konfiguraci záhlaví sloupce hypertextové odkazy s příslušnými hodnotami řetězce dotazu:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnly&highlight=3-4)]
 
-Následující kód obsahuje C# podmíněný [operátor?:](/dotnet/csharp/language-reference/operators/conditional-operator).
+Následující kód obsahuje c# podmíněný [?: operátor](/dotnet/csharp/language-reference/operators/conditional-operator):
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_Ternary)]
 
-První řádek určuje, že pokud `sortOrder` má hodnotu null nebo je prázdné, `NameSort` je nastavena na hodnotu "name_desc." Pokud `sortOrder` není **null nebo prázdné,** `NameSort` je nastaven na prázdný řetězec.
+První řádek určuje, `sortOrder` že pokud je `NameSort` null nebo prázdný, je nastavena na "name_desc." Pokud `sortOrder` **není** null nebo `NameSort` prázdné, je nastavena na prázdný řetězec.
 
-`?: operator` je také označován jako Ternární operátor.
+Je `?: operator` také známý jako ternární operátor.
 
-Tyto dva příkazy umožňují, aby stránka nastavila hypertextové odkazy záhlaví sloupce následujícím způsobem:
+Tyto dva příkazy umožňují stránce nastavit hypertextové odkazy záhlaví sloupců takto:
 
-| Aktuální pořadí řazení | Hypertextový odkaz na poslední jméno | Hypertextový odkaz na datum |
+| Aktuální pořadí řazení | Hypertextový odkaz příjmení | Hypertextový odkaz data |
 |:--------------------:|:-------------------:|:--------------:|
-| Příjmení vzestupné | descending        | ascending      |
+| Příjmení vzestupně | descending        | ascending      |
 | Příjmení sestupně | ascending           | ascending      |
-| Datum vzestupné       | ascending           | descending     |
-| Datum sestupné      | ascending           | ascending      |
+| Datum vzestupně       | ascending           | descending     |
+| Datum sestupně      | ascending           | ascending      |
 
-Metoda používá LINQ to Entities k určení sloupce, podle kterého se má řadit. Kód inicializuje `IQueryable<Student>` před příkazem Switch a upraví ho v příkazu switch:
+Metoda používá LINQ entity k určení sloupce, podle kterého se má řadit. Kód inicializuje `IQueryable<Student>` před příkazem switch a upraví jej v příkazu switch:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnly&highlight=6-999)]
 
- Když se vytvoří nebo upraví`IQueryable`, do databáze se nepošle žádný dotaz. Dotaz se neprovede, dokud se objekt `IQueryable` nepřevede na kolekci. `IQueryable` jsou převedeny na kolekci voláním metody, jako je například `ToListAsync`. Proto `IQueryable` kód způsobí jeden dotaz, který se neprovede, dokud následující příkaz:
+ Při`IQueryable` vytvoření nebo změně je do databáze odeslán žádný dotaz. Dotaz není proveden, `IQueryable` dokud objekt je převeden do kolekce. `IQueryable`jsou převedeny do kolekce voláním `ToListAsync`metody, jako je například . Proto výsledkem `IQueryable` kódu je jeden dotaz, který není proveden až do následujícího příkazu:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortOnlyRtn)]
 
-`OnGetAsync` může získat podrobné zobrazení s velkým počtem sloupců, které lze seřadit.
+`OnGetAsync`může získat podrobné s velkým počtem seřaditelných sloupců.
 
-### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>Přidat hypertextové odkazy na záhlaví sloupce na stránku indexu studenta
+### <a name="add-column-heading-hyperlinks-to-the-student-index-page"></a>Přidání hypertextových odkazů záhlaví sloupců na stránku Studentský index
 
-Nahraďte kód v *Students/index. cshtml*s následujícím zvýrazněným kódem:
+Nahraďte kód ve *students/index.cshtml*následujícím zvýrazněným kódem:
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index2.cshtml?highlight=17-19,25-27)]
 
-Předchozí kód:
+Předcházející kód:
 
-* Přidá hypertextové odkazy na záhlaví sloupců `LastName` a `EnrollmentDate`.
-* Používá informace v `NameSort` a `DateSort` k nastavení hypertextových odkazů s aktuálními hodnotami pořadí řazení.
+* Přidá hypertextové `LastName` odkazy `EnrollmentDate` k záhlaví a sloupců.
+* Používá informace `NameSort` v `DateSort` aplikace a k nastavení hypertextových odkazů s aktuálními hodnotami pořadí řazení.
 
 Ověření, že řazení funguje:
 
-* Spusťte aplikaci a vyberte kartu **Students** .
-* Klikněte na **jméno a příjmení**.
-* Klikněte na **Datum registrace**.
+* Spusťte aplikaci a vyberte kartu **Studenti.**
+* Klepněte na **položku Příjmení**.
+* Klepněte na **položku Datum registrace**.
 
-Chcete-li získat lepší informace o kódu:
+Chcete-li získat lepší pochopení kódu:
 
-* V nabídce *Students/index. cshtml. cs*nastavte zarážku na `switch (sortOrder)`.
-* Přidejte kukátko pro `NameSort` a `DateSort`.
-* V nabídce *Students/index. cshtml*nastavte zarážku na `@Html.DisplayNameFor(model => model.Student[0].LastName)`.
+* V *souboru Students/Index.cshtml.cs*nastavte `switch (sortOrder)`zarážku na .
+* Přidejte hodinky pro `NameSort` a `DateSort`.
+* V *souboru Students/Index.cshtml*nastavte `@Html.DisplayNameFor(model => model.Student[0].LastName)`zarážku na .
 
-Projděte si ladicí program.
+Projděte ladicím programem.
 
-## <a name="add-a-search-box-to-the-students-index-page"></a>Přidání vyhledávacího pole na stránku indexu studentů
+## <a name="add-a-search-box-to-the-students-index-page"></a>Přidání vyhledávacího pole na stránku Studentský index
 
-Postup přidání filtrování na stránku indexu studentů:
+Přidání filtrování na stránku Students Index:
 
-* Do stránky Razor se přidá textové pole a tlačítko Odeslat. Textové pole poskytuje hledaný řetězec pro první nebo poslední název.
-* Model stránky je aktualizován tak, aby používal hodnotu textového pole.
+* Na stránku Razor se přidá textové pole a tlačítko odeslat. Textové pole poskytuje vyhledávací řetězec na jméno nebo příjmení.
+* Model stránky se aktualizuje tak, aby používal hodnotu textového pole.
 
-### <a name="add-filtering-functionality-to-the-index-method"></a>Přidání funkce filtrování do metody index
+### <a name="add-filtering-functionality-to-the-index-method"></a>Přidání funkce filtrování do metody Index
 
-Aktualizujte *studenty/index. cshtml. cs* `OnGetAsync` s následujícím kódem:
+Aktualizujte *studentskou stránku/index.cshtml.cs* `OnGetAsync` pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilter&highlight=1,5,9-13)]
 
-Předchozí kód:
+Předcházející kód:
 
-* Přidá parametr `searchString` do metody `OnGetAsync`. Hodnota hledaného řetězce se přijímá z textového pole, které se přidalo v další části.
-* Přidáno do příkazu LINQ klauzule `Where`. Klauzule `Where` vybere pouze studenty, jejichž křestní jméno nebo příjmení obsahuje hledaný řetězec. Příkaz LINQ se spustí pouze v případě, že existuje hodnota, která se má vyhledat.
+* Přidá `searchString` parametr k `OnGetAsync` metodě. Hodnota hledaného řetězce je přijata z textového pole, které je přidáno v další části.
+* Přidáno do `Where` linq prohlášení klauzule. Klauzule `Where` vybere pouze studenty, jejichž křestní jméno nebo příjmení obsahuje hledaný řetězec. Linq příkaz je proveden pouze v případě, že je hodnota hledat.
 
-Poznámka: předchozí kód volá metodu `Where` u objektu `IQueryable` a filtr se zpracovává na serveru. V některých scénářích může aplikace volat metodu `Where` jako metodu rozšíření v kolekci v paměti. Předpokládejme například `_context.Students` změny z EF Core `DbSet` na metodu úložiště, která vrací kolekci `IEnumerable`. Výsledek by byl normálně stejný, ale v některých případech se může lišit.
+Poznámka: Předchozí kód volá `Where` metodu `IQueryable` na objektu a filtr je zpracován na serveru. V některých případech aplikace může `Where` volat metodu jako metodu rozšíření v kolekci v paměti. Předpokládejme `_context.Students` například změny `DbSet` z EF Core na `IEnumerable` metodu úložiště, která vrací kolekci. Výsledek by za normálních okolností byl stejný, ale v některých případech může být odlišný.
 
-Například .NET Framework implementace `Contains` při výchozím nastavení provádí porovnání s rozlišováním velkých a malých písmen. V SQL Server je `Contains` rozlišování velkých a malých písmen určeno nastavením kolace instance SQL Server. Výchozí hodnota SQL Server nerozlišuje malá a velká písmena. je možné volat `ToUpper`, aby test explicitně nerozlišovat velikost písmen:
+Například implementace rozhraní .NET `Contains` Framework provádí porovnání rozlišování velkých a malých písmen ve výchozím nastavení. V SQL `Contains` Server rozlišování velkých a malých písmen je určena řazení nastavení instance serveru SQL Server. SQL Server výchozí malá a velká písmena. `ToUpper`může být volána, aby test explicitně malá a velká písmena:
 
 `Where(s => s.LastName.ToUpper().Contains(searchString.ToUpper())`
 
-Předchozí kód zajistí, že výsledky budou nerozlišovat velká a malá písmena, pokud se kód změní na použití `IEnumerable`. Pokud je pro kolekci `IEnumerable` volána metoda `Contains`, je použita implementace .NET Core. Je-li pro objekt `IQueryable` volána metoda `Contains`, je použita implementace databáze. Vrácení `IEnumerable` z úložiště může mít výrazné snížení výkonu:
+Předchozí kód by zajistil, že výsledky jsou malá a `IEnumerable`velká písmena, pokud se kód změní na použití . Když `Contains` je volána na `IEnumerable` kolekci, je použita implementace .NET Core. Když `Contains` je volána na `IQueryable` objekt, je použita implementace databáze. Vrácení z `IEnumerable` úložiště může mít významný trest výkonu:
 
-1. Všechny řádky jsou vráceny ze serveru databáze.
+1. Všechny řádky jsou vráceny ze serveru DB.
 1. Filtr se použije na všechny vrácené řádky v aplikaci.
 
-K dispozici je snížení výkonu pro volání `ToUpper`. Kód `ToUpper` přidá funkci v klauzuli WHERE příkazu TSQL SELECT. Přidaná funkce brání Optimalizátoru v používání indexu. Vzhledem k tomu, že SQL je nainstalován jako nerozlišující velká a malá písmena, je nejlepší vyhnout se volání `ToUpper`, když není potřeba.
+Za volání je pokuta `ToUpper`za výkon. Kód `ToUpper` přidá funkci do klauzule WHERE příkazu TSQL SELECT. Přidaná funkce zabraňuje optimalizátoru používat index. Vzhledem k tomu, že SQL je nainstalován jako `ToUpper` malá a velká písmena, je nejlepší se vyhnout volání, když to není potřeba.
 
-### <a name="add-a-search-box-to-the-student-index-page"></a>Přidání vyhledávacího pole na stránku indexu studenta
+### <a name="add-a-search-box-to-the-student-index-page"></a>Přidání vyhledávacího pole na stránku Studentský index
 
-Na *stránce Pages/Students/index. cshtml*přidejte následující zvýrazněný kód pro vytvoření tlačítka **hledání** a roztřídění Chrome.
+Do *stránky/studenti/index.cshtml*přidejte následující zvýrazněný kód pro vytvoření tlačítka **Hledat** a různého chromu.
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index3.cshtml?highlight=14-23&range=1-25)]
 
-Předchozí kód používá [pomocníka značek](xref:mvc/views/tag-helpers/intro) `<form>` k přidání textového pole a tlačítka hledání. Ve výchozím nastavení pomocník značek `<form>` odesílá data formuláře pomocí příspěvku. V případě příspěvku jsou parametry předány v těle zprávy HTTP a nikoli v adrese URL. Když se použije HTTP GET, data formuláře se předávají v adrese URL jako řetězce dotazu. Předání dat pomocí řetězců dotazů umožňuje uživatelům záložku adresy URL. Pokud akce nevede k aktualizaci, doporučuje se použít [pokyny pro W3C](https://www.w3.org/2001/tag/doc/whenToUseGet.html) .
+Předchozí kód používá `<form>` [pomocníka pro označení](xref:mvc/views/tag-helpers/intro) k přidání vyhledávacího textového pole a tlačítka. Ve výchozím `<form>` nastavení odešle pomocník značky data formuláře s post. S POST parametry jsou předány v textu zprávy HTTP a není v adrese URL. Při použití protokolu HTTP GET jsou data formuláře předána v adrese URL jako řetězce dotazu. Předávání dat pomocí řetězců dotazu umožňuje uživatelům záložku url. [W3C pokyny](https://www.w3.org/2001/tag/doc/whenToUseGet.html) doporučujeme GET by měl být použit, pokud akce nemá za následek aktualizaci.
 
-Testování aplikace:
+Otestujte aplikaci:
 
-* Vyberte kartu **Students** a zadejte hledaný řetězec.
-* Vyberte **Hledat**.
+* Vyberte kartu **Studenti** a zadejte hledaný řetězec.
+* Vyberte **hledat**.
 
 Všimněte si, že adresa URL obsahuje hledaný řetězec.
 
@@ -400,141 +400,141 @@ Všimněte si, že adresa URL obsahuje hledaný řetězec.
 http://localhost:5000/Students?SearchString=an
 ```
 
-Pokud je stránka záložkou, obsahuje záložka adresu URL stránky a řetězec `SearchString` dotazu. `method="get"` ve značce `form` je to, co způsobilo vygenerování řetězce dotazu.
+Pokud je stránka označena záložkou, záložka obsahuje `SearchString` adresu URL stránky a řetězec dotazu. Ve `method="get"` značce `form` je to, co způsobilo, že řetězec dotazu má být generován.
 
-V současné době je při výběru odkazu na řazení záhlaví sloupce ztracena hodnota filtru z **vyhledávacího** pole. Hodnota ztraceného filtru je opravena v následující části.
+V současné době, když je vybrán odkaz na řazení záhlaví sloupce, dojde ke ztrátě hodnoty filtru z pole **Hledat.** Hodnota ztraceného filtru je stanovena v další části.
 
-## <a name="add-paging-functionality-to-the-students-index-page"></a>Přidat funkci stránkování na stránku indexu studentů
+## <a name="add-paging-functionality-to-the-students-index-page"></a>Přidání funkcí stránkování na stránku Studentindex
 
-V této části je vytvořena třída `PaginatedList` pro podporu stránkování. Třída `PaginatedList` používá příkazy `Skip` a `Take` k filtrování dat na serveru místo načtení všech řádků tabulky. Následující ilustrace znázorňuje stránkování tlačítek.
+V této části `PaginatedList` je vytvořena třída pro podporu stránkování. Třída `PaginatedList` používá `Skip` `Take` a příkazy filtrovat data na serveru namísto načítání všech řádků tabulky. Následující obrázek znázorňuje tlačítka stránkování.
 
-![Stránka indexu studentů s odkazy na stránkování](sort-filter-page/_static/paging.png)
+![Stránka indexu studentů s pagingovými odkazy](sort-filter-page/_static/paging.png)
 
-Ve složce projektu vytvořte `PaginatedList.cs` s následujícím kódem:
+Ve složce projektu `PaginatedList.cs` vytvořte s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu21/PaginatedList.cs)]
 
-Metoda `CreateAsync` v předchozím kódu má velikost stránky a číslo stránky a aplikuje příslušné `Skip` a `Take` příkazy na `IQueryable`. Když je na `IQueryable`volána metoda `ToListAsync`, vrátí seznam obsahující pouze požadovanou stránku. Vlastnosti `HasPreviousPage` a `HasNextPage` slouží k povolení nebo zakázání tlačítek **předchozí** a **Další** stránkování.
+Metoda `CreateAsync` v předchozím kódu přebírá velikost stránky a číslo `Skip` stránky `Take` a `IQueryable`použije příslušné příkazy pro . Když `ToListAsync` je volána na `IQueryable`, vrátí List obsahující pouze požadovanou stránku. Vlastnosti `HasPreviousPage` `HasNextPage` a slouží k povolení nebo zakázání **předchozí** a **další** stránkovací tlačítka.
 
-Metoda `CreateAsync` slouží k vytvoření `PaginatedList<T>`. Konstruktor nemůže vytvořit objekt `PaginatedList<T>`, konstruktory nemůžou spustit asynchronní kód.
+Metoda `CreateAsync` se používá k `PaginatedList<T>`vytvoření . Konstruktor nemůže vytvořit `PaginatedList<T>` objekt, konstruktory nelze spustit asynchronní kód.
 
-## <a name="add-paging-functionality-to-the-index-method"></a>Přidání funkce stránkování do metody index
+## <a name="add-paging-functionality-to-the-index-method"></a>Přidání funkce stránkování do metody Index
 
-V části *studenti/index. cshtml. cs*aktualizujte typ `Student` z `IList<Student>` na `PaginatedList<Student>`:
+V *části Students/Index.cshtml.cs*aktualizujte typ `Student` z do `IList<Student>` `PaginatedList<Student>`:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPageType)]
 
-Aktualizujte *studenty/index. cshtml. cs* `OnGetAsync` s následujícím kódem:
+Aktualizujte *studentskou stránku/index.cshtml.cs* `OnGetAsync` pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPage&highlight=1-4,7-14,41-999)]
 
-Předchozí kód přidá index stránky, aktuální `sortOrder`a `currentFilter` do podpisu metody.
+Předchozí kód přidá index stránky, `sortOrder`aktuální a `currentFilter` podpis metody.
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPage2)]
 
-Všechny parametry mají hodnotu null, pokud:
+Všechny parametry jsou null, pokud:
 
-* Stránka je volána z odkazu **Students** .
-* Uživatel nekliknul na odkaz na stránkování nebo řazení.
+* Stránka je volána z odkazu **Studenti.**
+* Uživatel neklikl na odkaz pro stránkování nebo řazení.
 
-Po kliknutí na odkaz na stránkování obsahuje proměnná index stránky číslo stránky, která se má zobrazit.
+Po klepnutí na odkaz stránkování obsahuje proměnná indexu stránky číslo stránky, které se má zobrazit.
 
-`CurrentSort` poskytuje stránku Razor s aktuálním pořadím řazení. Aktuální pořadí řazení musí být ve stránkovacích odkazech zahrnuto, aby při stránkování zůstalo pořadí řazení.
+`CurrentSort`poskytuje Razor Page s aktuální pořadí řazení. Aktuální pořadí řazení musí být zahrnuto do stránkovacích odkazů, aby bylo pořadí řazení při stránkování zachováno.
 
-`CurrentFilter` poskytuje stránku Razor s aktuálním řetězcem filtru. Hodnota `CurrentFilter`:
+`CurrentFilter`poskytuje Razor Page s aktuálnířetězec filtru. Hodnota: `CurrentFilter`
 
-* Musí být součástí odkazů stránkování, aby bylo možné zachovat nastavení filtru během stránkování.
-* Po zobrazení stránky se musí obnovit do textového pole.
+* Musí být zahrnuty do stránkovacíodkazy, aby bylo zachováno nastavení filtru během stránkování.
+* Při opětovném zobrazení stránky musí být obnovendo textového pole.
 
-Pokud se hledaný řetězec změní během stránkování, stránka je resetována na 1. Stránka musí být obnovena na 1, protože nový filtr může mít za následek zobrazení různých dat. Když je zadána hodnota vyhledávání a je vybrána možnost **Odeslat** :
+Pokud se vyhledávací řetězec během stránkování změní, stránka se obnoví na 1. Stránka musí být resetována na hodnotu 1, protože nový filtr může vést k zobrazení různých dat. Když je zadána vyhledávací hodnota a je vybrána možnost **Odeslat:**
 
-* Hledaný řetězec se změnil.
-* Parametr `searchString` nemá hodnotu null.
+* Hledaný řetězec se změní.
+* Parametr `searchString` není null.
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPage3)]
 
-Metoda `PaginatedList.CreateAsync` převede dotaz studenta na jednu stránku studentů v typu kolekce, který podporuje stránkování. Tato jediná stránka studentů je předána na stránku Razor.
+Metoda `PaginatedList.CreateAsync` převede studentdotaz na jednu stránku studentů v typu kolekce, která podporuje stránkování. Tato jediná stránka studentů je předána na Stránku břitvy.
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilterPage4)]
 
-Dvě otazníky v `PaginatedList.CreateAsync` reprezentují [operátor slučování s hodnotou null](/dotnet/csharp/language-reference/operators/null-conditional-operator). Operátor slučování null definuje výchozí hodnotu pro typ s možnou hodnotou null. Výraz `(pageIndex ?? 1)` znamená vrátit hodnotu `pageIndex`, pokud má hodnotu. Pokud `pageIndex` nemá hodnotu, vraťte hodnotu 1.
+Dva otazníky `PaginatedList.CreateAsync` v představují [null-coalescing operátor](/dotnet/csharp/language-reference/operators/null-conditional-operator). Operátor null-coalescing definuje výchozí hodnotu pro typ s možnou hodnotou null. Výraz `(pageIndex ?? 1)` znamená vrátit hodnotu, `pageIndex` pokud má hodnotu. Pokud `pageIndex` nemá hodnotu, vrátí 1.
 
-## <a name="add-paging-links-to-the-student-razor-page"></a>Přidat odkazy na stránkování na stránku pro studenty Razor
+## <a name="add-paging-links-to-the-student-razor-page"></a>Přidání stránkovacích odkazů na stránku razor studenta
 
-Aktualizujte značky v *Students/index. cshtml*. Změny jsou zvýrazněny:
+Aktualizujte značky v *students/index.cshtml*. Změny jsou zvýrazněny:
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?highlight=28-31,37-40,68-999)]
 
-Záhlaví sloupce odkazuje pomocí řetězce dotazu k předání aktuálního hledaného řetězce metodě `OnGetAsync`, aby uživatel mohl seřadit výsledky filtru:
+Odkazy záhlaví sloupce používají řetězec dotazu k předání `OnGetAsync` aktuálního vyhledávacího řetězce metodě, aby uživatel mohl řadit ve výsledcích filtru:
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?range=28-31)]
 
-Tlačítka pro stránkování se zobrazují v pomocníkech značek:
+Tlačítka stránkování jsou zobrazena pomocníky značek:
 
 [!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?range=72-)]
 
-Spusťte aplikaci a přejděte na stránku students.
+Spusťte aplikaci a přejděte na stránku studentů.
 
-* Chcete-li zajistit, aby stránkování fungovalo, klikněte na odkazy na stránkování v různých objednávkách řazení.
-* Pokud chcete ověřit, že stránkování funguje správně s řazením a filtrováním, zadejte hledaný řetězec a zkuste použít stránkování.
+* Chcete-li zajistit, aby stránkování fungovalo, klepněte na stránkovací odkazy v různých pořadích řazení.
+* Chcete-li ověřit, zda stránkování funguje správně při řazení a filtrování, zadejte hledaný řetězec a zkuste stránkování.
 
-![Stránka indexu studentů s odkazy na stránkování](sort-filter-page/_static/paging.png)
+![studenty index stránku s paging odkazy](sort-filter-page/_static/paging.png)
 
-Chcete-li získat lepší informace o kódu:
+Chcete-li získat lepší pochopení kódu:
 
-* V nabídce *Students/index. cshtml. cs*nastavte zarážku na `switch (sortOrder)`.
-* Přidejte kukátko pro `NameSort`, `DateSort`, `CurrentSort`a `Model.Student.PageIndex`.
-* V nabídce *Students/index. cshtml*nastavte zarážku na `@Html.DisplayNameFor(model => model.Student[0].LastName)`.
+* V *souboru Students/Index.cshtml.cs*nastavte `switch (sortOrder)`zarážku na .
+* Přidejte hodinky `DateSort` `CurrentSort`pro `NameSort` `Model.Student.PageIndex`, , a .
+* V *souboru Students/Index.cshtml*nastavte `@Html.DisplayNameFor(model => model.Student[0].LastName)`zarážku na .
 
-Projděte si ladicí program.
+Projděte ladicím programem.
 
-## <a name="update-the-about-page-to-show-student-statistics"></a>Aktualizace stránky o produktu pro zobrazení statistik studenta
+## <a name="update-the-about-page-to-show-student-statistics"></a>Aktualizace stránky Informace zobrazí statistiky studentů
 
-V tomto kroku se aktualizují *stránky/o. cshtml* , aby se zobrazilo, kolik studentů bylo zaregistrované pro každé datum registrace. Tato aktualizace používá seskupení a obsahuje následující kroky:
+V tomto kroku se aktualizuje *pages/About.cshtml,* aby se zobrazilo, kolik studentů se zaregistrovalo pro každé datum zápisu. Aktualizace používá seskupení a zahrnuje následující kroky:
 
-* Vytvořte model zobrazení pro data používaná na stránce **About** .
-* Aktualizujte stránku o, aby používala model zobrazení.
+* Vytvořte model zobrazení pro data používaná stránkou **Informace.**
+* Aktualizujte stránku Informace tak, aby používala model zobrazení.
 
-### <a name="create-the-view-model"></a>Vytvoření modelu zobrazení
+### <a name="create-the-view-model"></a>Vytvoření modelu pohledu
 
-Vytvořte složku *SchoolViewModels* ve složce *modely* .
+Vytvořte složku *SchoolViewModels* ve složce *Modely.*
 
 Ve složce *SchoolViewModels* přidejte *EnrollmentDateGroup.cs* s následujícím kódem:
 
 [!code-csharp[](intro/samples/cu21/Models/SchoolViewModels/EnrollmentDateGroup.cs)]
 
-### <a name="update-the-about-page-model"></a>Aktualizace modelu stránky
+### <a name="update-the-about-page-model"></a>Aktualizace modelu stránky Informace
 
-Webové šablony v ASP.NET Core 2,2 neobsahují stránku About. Pokud používáte ASP.NET Core 2,2, vytvořte stránku about Razor.
+Webové šablony v ASP.NET jádrem 2.2 neobsahují stránku Informace. Pokud používáte ASP.NET Core 2.2, vytvořte stránku O břitvě.
 
-Aktualizujte soubor *stránky/o. cshtml. cs* následujícím kódem:
+Aktualizujte soubor *Pages/About.cshtml.cs* pomocí následujícího kódu:
 
 [!code-csharp[](intro/samples/cu21/Pages/About.cshtml.cs)]
 
-Příkaz LINQ seskupuje entity studenta podle data registrace, vypočítá počet entit v každé skupině a ukládá výsledky do kolekce `EnrollmentDateGroup` objektů modelu zobrazení.
+Příkaz LINQ seskupuje entity studenta podle data zápisu, vypočítá počet entit v každé `EnrollmentDateGroup` skupině a uloží výsledky do kolekce objektů modelu zobrazení.
 
-### <a name="modify-the-about-razor-page"></a>Úprava stránky se základními informacemi o Razor
+### <a name="modify-the-about-razor-page"></a>Změna stránky O břitvě
 
-Nahraďte kód v souboru *Pages/About. cshtml* následujícím kódem:
+Nahraďte kód v souboru *Pages/About.cshtml* následujícím kódem:
 
 [!code-html[](intro/samples/cu21/Pages/About.cshtml)]
 
-Spusťte aplikaci a přejděte na stránku o produktu. V tabulce se zobrazí počet studentů pro každé datum zápisu.
+Spusťte aplikaci a přejděte na stránku Informace. Počet studentů pro každé datum zápisu se zobrazí v tabulce.
 
-Pokud narazíte na problémy, které nemůžete vyřešit, Stáhněte si [dokončenou aplikaci pro tuto fázi](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting).
+Pokud narazíte na problémy, které nelze vyřešit, stáhněte si [dokončenou aplikaci pro tuto fázi](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples/StageSnapShots/cu-part3-sorting).
 
 ![O stránce](sort-filter-page/_static/about.png)
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Ladění zdrojového kódu ASP.NET Core 2. x](https://github.com/dotnet/AspNetCore.Docs/issues/4155)
-* [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=MDs7PFpoMqI)
+* [Ladění ASP.NET zdroj Core 2.x](https://github.com/dotnet/AspNetCore.Docs/issues/4155)
+* [Verze tohoto kurzu pro YouTube](https://www.youtube.com/watch?v=MDs7PFpoMqI)
 
 V dalším kurzu aplikace používá migrace k aktualizaci datového modelu.
 
 > [!div class="step-by-step"]
 > [Předchozí](xref:data/ef-rp/crud)
-> [Další](xref:data/ef-rp/migrations)
+> [další](xref:data/ef-rp/migrations)
 
 ::: moniker-end
 

@@ -1,10 +1,10 @@
 * `-h|--help`
 
-  Zobrazí informace o nápovědě.
+  Zobrazit informace nápovědy.
 
 * `--verbosity <LEVEL>`
 
-  Nastaví podrobnost výstupu. Nahraďte `<LEVEL>` jednou z následujících hodnot:
+  Nastavte podrobnost výstupu. Nahraďte `<LEVEL>` se jednou z následujících hodnot:
   
   * `quiet`
   * `normal`

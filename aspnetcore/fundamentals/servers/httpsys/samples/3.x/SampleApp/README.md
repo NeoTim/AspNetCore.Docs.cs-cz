@@ -1,3 +1,3 @@
-# <a name="aspnet-core-httpsys-sample"></a>Ukázka ASP.NET Core HTTP. sys
+# <a name="aspnet-core-httpsys-sample"></a>ASP.NET základní soubor HTTP.sys
 
-Tato ukázka demonstruje použití souboru HTTP. sys. Tato ukázka předvádí funkce popsané v tématu [implementace webového serveru http. sys](https://docs.microsoft.com/aspnet/core/fundamentals/servers/httpsys) .
+Tato ukázka ilustruje použití http.sys. Tato ukázka ukazuje funkce popsané v tématu [implementace webového serveru HTTP.sys.](https://docs.microsoft.com/aspnet/core/fundamentals/servers/httpsys)

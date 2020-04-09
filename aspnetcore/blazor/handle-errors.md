@@ -1,38 +1,38 @@
 ---
-title: Zpracování chyb v aplikacích ASP.NET Core Blazor
+title: Zpracování chyb v Blazor aplikacích ASP.NET Core
 author: guardrex
-description: Zjistěte, jak ASP.NET Core Blazor jak Blazor spravuje neošetřené výjimky a jak vyvíjet aplikace, které zjišťují a zpracovávají chyby.
+description: Zjistěte, Blazor jak Blazor ASP.NET Core spravuje neošetřené výjimky a jak vyvíjet aplikace, které detekují a zpracovávají chyby.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/17/2020
+ms.date: 03/29/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 2177edb9c3197588a9335f3d14495b86d5d53f65
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: 4fdaf7fb90d126b8f7f029aac3af49eec3b69e74
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80218918"
+ms.lasthandoff: 04/06/2020
+ms.locfileid: "80382272"
 ---
-# <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v aplikacích ASP.NET Core Blazor
+# <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v Blazor aplikacích ASP.NET Core
 
-Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
+Podle [Steve Sanderson](https://github.com/SteveSandersonMS)
 
 Tento článek popisuje, jak Blazor spravuje neošetřené výjimky a jak vyvíjet aplikace, které zjišťují a zpracovávají chyby.
 
-## <a name="detailed-errors-during-development"></a>Podrobné chyby při vývoji
+## <a name="detailed-errors-during-development"></a>Podrobné chyby během vývoje
 
-Když aplikace Blazor během vývoje nefunguje správně, při řešení potíží a řešení těchto potíží získá podrobné informace o chybě z aplikace. Když dojde k chybě, Blazor aplikace zobrazí v dolní části obrazovky zlatý pruh:
+Když Blazor aplikace během vývoje nefunguje správně, zobrazení podrobných informací o chybách z aplikace pomáhá při řešení potíží a řešení problému. Když dojde k Blazor chybě, aplikace zobrazí zlatý pruh v dolní části obrazovky:
 
-* Během vývoje se zlatý panel vás přesměruje na konzolu prohlížeče, kde vidíte výjimku.
-* V produkčním okně upozorňuje uživatel, že došlo k chybě, a doporučuje aktualizovat prohlížeč.
+* Během vývoje vás zlatá lišta přesměruje na konzolu prohlížeče, kde můžete vidět výjimku.
+* Ve výrobě zlatý pruh upozorní uživatele, že došlo k chybě a doporučuje aktualizovat prohlížeč.
 
-Uživatelské rozhraní tohoto prostředí pro zpracování chyb je součástí Blazor šablon projektů.
+Uživatelské rozhraní pro toto prostředí zpracování Blazor chyb je součástí šablony projektu.
 
-V Blazor aplikaci WebAssembly, přizpůsobte si prostředí v souboru *wwwroot/index.html* :
+V Blazor aplikaci WebAssembly přizpůsobte prostředí v *wwwroot/index.html* souboru:
 
 ```html
 <div id="blazor-error-ui">
@@ -42,7 +42,7 @@ V Blazor aplikaci WebAssembly, přizpůsobte si prostředí v souboru *wwwroot/i
 </div>
 ```
 
-V aplikaci Blazor serveru upravte prostředí v souboru *Pages/_Host. cshtml* :
+V Blazor aplikaci Server přizpůsobte prostředí v souboru *Pages/_Host.cshtml:*
 
 ```cshtml
 <div id="blazor-error-ui">
@@ -57,64 +57,85 @@ V aplikaci Blazor serveru upravte prostředí v souboru *Pages/_Host. cshtml* :
 </div>
 ```
 
-Element `blazor-error-ui` je skrytý styly zahrnutými v šablonách Blazor a pak se zobrazí, když dojde k chybě.
+Prvek `blazor-error-ui` je skryt styly Blazor obsaženými v šablonách *(wwwroot/css/site.css)* a poté zobrazen, když dojde k chybě:
 
-## <a name="how-a-opno-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Jak aplikace Blazor serveru reaguje na neošetřené výjimky
+```css
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
 
-Blazor Server je stavový systém. I když uživatelé pracují s aplikací, udržují připojení k serveru známému jako *okruh*. Okruh obsahuje aktivní instance komponent a mnoho dalších aspektů stavu, například:
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+```
 
-* Poslední Vykreslený výstup komponent.
-* Aktuální sada delegátů zpracovávajících události, které mohou být aktivovány událostmi na straně klienta.
+## <a name="how-a-opno-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Jak Blazor serverová aplikace reaguje na neošetřené výjimky
 
-Pokud uživatel otevře aplikaci na více kartách prohlížeče, má několik nezávislých okruhů.
+BlazorServer je stavové rozhraní. Zatímco uživatelé pracují s aplikací, udržují připojení k serveru známému jako *okruh*. Obvod obsahuje instance aktivní součásti a mnoho dalších aspektů stavu, například:
 
-Blazor považuje většinu neošetřených výjimek za závažné v okruhu, ve kterém se vyskytují. Pokud je okruh ukončen z důvodu neošetřené výjimky, uživatel může pokračovat v interakci s aplikací pouze tak, že znovu načte stránku, aby vytvořila nový okruh. Nejsou ovlivněny okruhy mimo tu, která je ukončená, což jsou okruhy pro ostatní uživatele nebo jiné karty prohlížeče. Tento scénář je podobný aplikaci klasické pracovní plochy, která selže,&mdash;je nutné restartovat aplikaci, ale ostatní aplikace to neovlivnily.
+* Nejnovější vykreslený výstup komponent.
+* Aktuální sada delegátů zpracování událostí, které by mohly být vyvolány událostmi na straně klienta.
 
-Okruh se ukončí, když dojde k neošetřené výjimce z následujících důvodů:
+Pokud uživatel otevře aplikaci na více kartách prohlížeče, má více nezávislých obvodů.
 
-* Neošetřená výjimka často opustí okruh v nedefinovaném stavu.
-* Po neošetřené výjimce nelze zaručit normální operaci aplikace.
-* V případě, že okruh pokračuje, mohou se v aplikaci zobrazit slabá místa zabezpečení.
+Blazorzachází s většinou neošetřených výjimek jako fatální pro okruh, kde k nim dochází. Pokud je okruh ukončen z důvodu neošetřené výjimky, uživatel může pokračovat v interakci s aplikací pouze opětovným načtením stránky a vytvořit nový okruh. Obvody mimo ten, který je ukončen, což jsou obvody pro ostatní uživatele nebo jiné karty prohlížeče, nejsou ovlivněny. Tento scénář je podobný desktopové&mdash;aplikaci, která havaruje, že havarovaná aplikace musí být restartována, ale ostatní aplikace nejsou ovlivněny.
 
-## <a name="manage-unhandled-exceptions-in-developer-code"></a>Správa neošetřených výjimek v kódu pro vývojáře
+Okruh je ukončen, pokud dojde k neošetřené výjimce z následujících důvodů:
 
-Aby aplikace pokračovala i po chybě, aplikace musí mít logiku zpracování chyb. Pozdější části tohoto článku popisují možné zdroje neošetřených výjimek.
+* Neošetřená výjimka často ponechá okruh v nedefinovaném stavu.
+* Normální provoz aplikace nelze zaručit po neošetřené výjimce.
+* Pokud okruh pokračuje, mohou se v aplikaci objevit chyby zabezpečení.
 
-V produkčním prostředí nevykresluje zprávy o výjimkách rozhraní nebo trasování zásobníku v uživatelském rozhraní. Vykreslování zpráv výjimek nebo trasování zásobníku může:
+## <a name="manage-unhandled-exceptions-in-developer-code"></a>Správa neošetřených výjimek v kódu vývojáře
 
-* Vyzradit citlivé informace koncovým uživatelům.
-* Pomáhat uživateli se zlými úmysly zjišťovat slabiny v aplikaci, která může ohrozit zabezpečení aplikace, serveru nebo sítě.
+Aby aplikace mohla pokračovat po chybě, musí mít logiku zpracování chyb. Další části tohoto článku popisují potenciální zdroje neošetřených výjimek.
 
-## <a name="log-errors-with-a-persistent-provider"></a>Protokolovat chyby trvalého poskytovatele
+V produkčním prostředí nevykresluj zprávy o výjimkách rozhraní nebo trasování zásobníku v unovém rozhraní. Vykreslování zpráv výjimek nebo trasování zásobníku může:
 
-Pokud dojde k neošetřené výjimce, zaznamená se výjimka do <xref:Microsoft.Extensions.Logging.ILogger> instancí nakonfigurovaných v kontejneru služby. Ve výchozím nastavení se aplikace Blazor do výstupu konzoly přihlásí pomocí zprostředkovatele protokolování konzoly. Zvažte možnost protokolování do trvalého umístění u poskytovatele, který spravuje velikost protokolu a rotaci protokolů. Další informace naleznete v tématu <xref:fundamentals/logging/index>.
+* Zpřístupňte citlivé informace koncovým uživatelům.
+* Pomozte uživateli se zlými úmysly odhalit slabiny v aplikaci, které mohou ohrozit zabezpečení aplikace, serveru nebo sítě.
 
-Během vývoje Blazor obvykle odesílá úplné podrobnosti o výjimkách do konzoly prohlížeče, aby bylo možné v ladění. V produkčním prostředí jsou podrobné chyby v konzole prohlížeče ve výchozím nastavení zakázané, což znamená, že se do klientů neodesílají chyby, ale úplné podrobnosti o výjimce se pořád protokolují na straně serveru. Další informace naleznete v tématu <xref:fundamentals/error-handling>.
+## <a name="log-errors-with-a-persistent-provider"></a>Protokolovat chyby u trvalého zprostředkovatele
 
-Musíte se rozhodnout, které incidenty se mají protokolovat, a úroveň závažnosti protokolovaných incidentů. Nepřátelským uživatelům může být možné aktivovat chyby záměrně. Například Neprotokolujte incident z chyby, kde je v adrese URL komponenty, která zobrazuje podrobnosti o produktu, zadán neznámý `ProductId`. Ne všechny chyby by se měly považovat za incidenty s vysokou závažností pro protokolování.
+Pokud dojde k neošetřené výjimce, <xref:Microsoft.Extensions.Logging.ILogger> je výjimka zaznamenána do instancí nakonfigurovaných v kontejneru služby. Ve výchozím Blazor nastavení se aplikace přihlašují ke výstupu konzoly pomocí zprostředkovatele protokolování konzoly. Zvažte protokolování do trvalejšího umístění s poskytovatelem, který spravuje velikost protokolu a střídání protokolů. Další informace naleznete v tématu <xref:fundamentals/logging/index>.
+
+Během vývoje Blazor obvykle odešle úplné podrobnosti o výjimkách do konzole prohlížeče na pomoc při ladění. V produkčním prostředí jsou podrobné chyby v konzole prohlížeče ve výchozím nastavení zakázány, což znamená, že chyby nejsou odesílány klientům, ale úplné podrobnosti výjimky jsou stále zaznamenány na straně serveru. Další informace naleznete v tématu <xref:fundamentals/error-handling>.
+
+Musíte se rozhodnout, které incidenty se mají protokolovat a úroveň závažnosti zaznamenaných incidentů. Nepřátelští uživatelé mohou být schopni spustit chyby úmyslně. Nezahlcovat například incident z chyby, kdy je v adrese URL komponenty, která zobrazuje podrobnosti o produktu, zadánneznámý `ProductId` případ. Ne všechny chyby by měly být považovány za incidenty s vysokou závažností pro protokolování.
 
 ## <a name="places-where-errors-may-occur"></a>Místa, kde může dojít k chybám
 
-Rozhraní a kód aplikace mohou aktivovat neošetřené výjimky v žádném z následujících umístění:
+Architektura a kód aplikace může vyvolat neošetřené výjimky v některém z následujících umístění:
 
-* [Instance komponenty](#component-instantiation)
+* [Vytvoření instance komponenty](#component-instantiation)
 * [Metody životního cyklu](#lifecycle-methods)
-* [Logika vykreslování](#rendering-logic)
+* [Vykreslovací logika](#rendering-logic)
 * [Obslužné rutiny událostí](#event-handlers)
-* [Vyřazení součásti](#component-disposal)
-* [Zprostředkovatel komunikace s JavaScriptem](#javascript-interop)
-* [Blazor převykreslování serveru](#blazor-server-prerendering)
+* [Likvidace součástí](#component-disposal)
+* [Interoperabilita JavaScriptu](#javascript-interop)
+* [BlazorVykreslení serveru](#blazor-server-prerendering)
 
 Předchozí neošetřené výjimky jsou popsány v následujících částech tohoto článku.
 
-### <a name="component-instantiation"></a>Instance komponenty
+### <a name="component-instantiation"></a>Vytvoření instance komponenty
 
-Když Blazor vytvoří instanci komponenty:
+Když Blazor vytvoříte instanci komponenty:
 
-* Je vyvolán konstruktor součásti.
-* Konstruktory jakékoliv nejednoznačné služby DI Services dodávané konstruktoru komponenty prostřednictvím direktivy [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component) nebo atributu [`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component) jsou vyvolány.
+* Konstruktor komponenty je vyvolán.
+* Konstruktory všech služeb di singleton DI dodávané konstruktoru [`@inject`](xref:blazor/dependency-injection#request-a-service-in-a-component) komponenty [`[Inject]`](xref:blazor/dependency-injection#request-a-service-in-a-component) prostřednictvím směrnice nebo atributu jsou vyvolány.
 
-Okruh serveru Blazor se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter pro jakoukoliv vlastnost `[Inject]` vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Server Blazor okruh selže, když všechny provedené konstruktor `[Inject]` nebo setter pro libovolnou vlastnost vyvolá neošetřené výjimky. Výjimka je závažná, protože rozhraní framework nelze vytvořit instanci součásti. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla soutisk výjimky pomocí [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) prohlášení s zpracování chyb a protokolování.
 
 ### <a name="lifecycle-methods"></a>Metody životního cyklu
 
@@ -125,127 +146,127 @@ Během životnosti komponenty Blazor vyvolá následující [metody životního 
 * `ShouldRender` / `ShouldRenderAsync`
 * `OnAfterRender` / `OnAfterRenderAsync`
 
-Pokud jakákoli metoda životního cyklu vyvolá výjimku synchronně nebo asynchronně, je výjimka závažná pro okruh serveru Blazor. Pro součásti, které se zabývat chybami v metodách životního cyklu, přidejte logiku zpracování chyb.
+Pokud jakákoli metoda životního cyklu vyvolá výjimku synchronně nebo asynchronně, výjimka Blazor je závažná pro serverový obvod. Pro součásti řešit chyby v metodách životního cyklu, přidejte logiku zpracování chyb.
 
-V následujícím příkladu, kde `OnParametersSetAsync` volá metodu pro získání produktu:
+V následujícím příkladu, kde `OnParametersSetAsync` volá metodu k získání produktu:
 
-* Výjimka vyvolaná v metodě `ProductRepository.GetProductByIdAsync` je zpracována pomocí příkazu `try-catch`.
-* Po spuštění bloku `catch`:
-  * `loadFailed` je nastavená na `true`, která se používá k zobrazení chybové zprávy uživateli.
-  * Chyba je zaznamenána do protokolu.
+* Výjimka vyvolána `ProductRepository.GetProductByIdAsync` v metodě `try-catch` je zpracována příkazem.
+* Při `catch` spuštění bloku:
+  * `loadFailed`je nastavena na `true`, která slouží k zobrazení chybové zprávy uživateli.
+  * Chyba je zaznamenána.
 
 [!code-razor[](handle-errors/samples_snapshot/3.x/product-details.razor?highlight=11,27-39)]
 
-### <a name="rendering-logic"></a>Logika vykreslování
+### <a name="rendering-logic"></a>Vykreslovací logika
 
-Deklarativní označení v souboru komponenty `.razor` je zkompilováno do C# metody nazvané `BuildRenderTree`. Když se komponenta vykreslí, `BuildRenderTree` spustí a vytvoří strukturu dat popisující prvky, text a podřízené komponenty vykreslené komponenty.
+Deklarativní značky v souboru `.razor` komponenty jsou `BuildRenderTree`zkompilovány do metody C# s názvem . Když komponenta vykreslí, `BuildRenderTree` spustí a vytvoří datovou strukturu popisující prvky, text a podřízené součásti vykreslené součásti.
 
-Logika vykreslování může vyvolat výjimku. K tomuto scénáři dochází například při vyhodnocování `@someObject.PropertyName`, ale `@someObject` je `null`. Neošetřená výjimka vyvolaná logikou vykreslování je závažná pro okruh serveru Blazor.
+Vykreslovací logika může vyvolat výjimku. Příklad tohoto scénáře nastane, `@someObject.PropertyName` když `@someObject` `null`je vyhodnocena, ale je . Neošetřená výjimka vyzdvižená logikou vykreslování je pro obvod serveru závažná. Blazor
 
-Chcete-li zabránit výjimce odkazu s hodnotou null v logice vykreslování, vyhledejte objekt `null` před přístupem k jeho členům. V následujícím příkladu nejsou k dispozici `person.Address` vlastnosti, pokud je `person.Address` `null`:
+Chcete-li zabránit výjimku nulového odkazu `null` v vykreslovací logice, zkontrolujte objekt před přístupem k jeho členům. V následujícím příkladu nejsou vlastnosti `person.Address` `person.Address` přístupné, pokud je `null`:
 
 [!code-razor[](handle-errors/samples_snapshot/3.x/person-example.razor?highlight=1)]
 
-Předchozí kód předpokládá, že `person` není `null`. Struktura kódu často zaručuje, že objekt existuje v době, kdy je komponenta vykreslena. V těchto případech není nutné kontrolovat `null` logikou vykreslování. V předchozím příkladu může být zaručeno, že `person` existuje, protože `person` se vytvoří při vytvoření instance komponenty.
+Předchozí kód předpokládá, `person` že není `null`. Struktura kódu často zaručuje, že objekt existuje v době vykreslení komponenty. V těchto případech není nutné zkontrolovat `null` v logice vykreslování. V předchozím příkladu může být zaručeno, že existuje, `person` protože `person` je vytvořen při vytvoření instance komponenty.
 
 ### <a name="event-handlers"></a>Obslužné rutiny událostí
 
-Kód na straně klienta vyvolá volání C# kódu při vytváření obslužných rutin událostí pomocí:
+Kód na straně klienta aktivuje vyvolání kódu jazyka C# při vytváření obslužných rutin událostí pomocí:
 
 * `@onclick`
 * `@onchange`
-* Jiné atributy `@on...`
+* Další `@on...` atributy
 * `@bind`
 
-Kód obslužné rutiny události může v těchto scénářích vyvolat neošetřenou výjimku.
+Kód obslužné rutiny události může vyvolat neošetřenou výjimku v těchto scénářích.
 
-Pokud obslužná rutina události vyvolá neošetřenou výjimku (například databázový dotaz neuspěje), je výjimka závažná pro okruh serveru Blazor. Pokud aplikace volá kód, který může selhat z externích důvodů, Zachyťte výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud obslužná rutina události vyvolá neošetřenou výjimku (například Blazor databázový dotaz selže), výjimka je závažná pro serverový obvod. Pokud aplikace volá kód, který může selhat z externích důvodů, soutisk výjimky pomocí [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) prohlášení s zpracování chyb a protokolování.
 
-Pokud uživatelský kód neprovede soutisk a zpracuje výjimku, rozhraní zaprotokoluje výjimku a ukončí okruh.
+Pokud uživatelský kód není soutisk a zpracování výjimky, rozhraní protokoluje výjimku a ukončí okruh.
 
-### <a name="component-disposal"></a>Vyřazení součásti
+### <a name="component-disposal"></a>Likvidace součástí
 
-Součást může být odebrána z uživatelského rozhraní, například proto, že uživatel přešel na jinou stránku. Když je komponenta, která implementuje <xref:System.IDisposable?displayProperty=fullName>, odebrána z uživatelského rozhraní, rozhraní zavolá metodu <xref:System.IDisposable.Dispose*> součásti.
+Komponenta může být odebrána z uživatelského rozhraní, například proto, že uživatel přejde na jinou stránku. Když je komponenta, která implementuje, <xref:System.IDisposable?displayProperty=fullName> odebrána z <xref:System.IDisposable.Dispose*> ui, rozhraní nazývá metodu komponenty.
 
-Pokud metoda `Dispose` komponenty vyvolá neošetřenou výjimku, je výjimka závažná pro okruh Blazorho serveru. Pokud logika vyřazení může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud `Dispose` metoda komponenty vyvolá neošetřenou výjimku, výjimka Blazor je závažná pro obvod serveru. Pokud logika likvidace může vyvolat výjimky, aplikace by měla soutisk výjimky pomocí [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) prohlášení s zpracování chyb a protokolování.
 
-Další informace o vyřazení součástí najdete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.
+Další informace o likvidaci <xref:blazor/lifecycle#component-disposal-with-idisposable>součástí naleznete v tématu .
 
 ### <a name="javascript-interop"></a>Interoperabilita JavaScriptu
 
-`IJSRuntime.InvokeAsync<T>` umožňuje kódu .NET provádět asynchronní volání prostředí JavaScript Runtime v prohlížeči uživatele.
+`IJSRuntime.InvokeAsync<T>`umožňuje kódu .NET provádět asynchronní volání modulu runtime javascriptu v prohlížeči uživatele.
 
-Při zpracování chyb pomocí `InvokeAsync<T>`platí následující podmínky:
+Následující podmínky platí pro `InvokeAsync<T>`zpracování chyb s :
 
-* Pokud se volání `InvokeAsync<T>` nezdařila synchronně, dojde k výjimce .NET. Volání `InvokeAsync<T>` může selhat, například proto, že zadané argumenty nemohou být serializovány. Kód pro vývojáře musí zachytit výjimku. Pokud kód aplikace v metodě obslužné rutiny události nebo životní cyklus komponenty nezpracovává výjimku, je výsledná výjimka závažná pro okruh serveru Blazor.
-* Pokud se volání `InvokeAsync<T>` asynchronně nezdařilo, <xref:System.Threading.Tasks.Task> .NET dojde k chybě. Volání `InvokeAsync<T>` může selhat, například proto, že kód na straně JavaScriptu vyvolá výjimku nebo vrátí `Promise`, která byla dokončena jako `rejected`. Kód pro vývojáře musí zachytit výjimku. Při použití operátoru [await](/dotnet/csharp/language-reference/keywords/await) zvažte zabalení volání metody v příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním. V opačném případě selhání kódu způsobí neošetřenou výjimku, která je závažná pro okruh serveru Blazor.
-* Ve výchozím nastavení musí být volání `InvokeAsync<T>` dokončena v určitou dobu nebo jinak vyprší časový limit volání. Výchozí doba časového limitu je jedna minuta. Časový limit chrání kód proti ztrátě v připojení k síti nebo kódu JavaScriptu, který nikdy neposílá zpět zprávu o dokončení. Pokud vyprší časový limit volání, výsledné `Task` se nezdařila s <xref:System.OperationCanceledException>. Depeše a zpracovává výjimku pomocí protokolování.
+* Pokud volání `InvokeAsync<T>` nezdaří synchronně, dojde k výjimce .NET. Volání může `InvokeAsync<T>` selhat, například protože zadané argumenty nelze serializovat. Kód vývojáře musí zachytit výjimku. Pokud kód aplikace v obslužné rutině události nebo metodě životního cyklu Blazor komponenty nezpracovává výjimku, výsledná výjimka je pro obvod serveru závažná.
+* Pokud volání `InvokeAsync<T>` nezdaří asynchronně, .NET <xref:System.Threading.Tasks.Task> selže. Volání může `InvokeAsync<T>` selhat, například proto, že kód na straně `Promise` JavaScript `rejected`vyvolá výjimku nebo vrátí, který byl dokončen jako . Kód vývojáře musí zachytit výjimku. Pokud používáte operátor [await,](/dotnet/csharp/language-reference/keywords/await) zvažte zabalení volání metody v příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s chybovým zpracováním a protokolováním. V opačném případě selhání kódu má za následek neošetřené výjimky, která je závažná pro server obvodu. Blazor
+* Ve výchozím nastavení `InvokeAsync<T>` musí být volání dokončeno v určité lhůtě, jinak je čas volání out. Výchozí časový limit je jedna minuta. Časový čas chrání kód před ztrátou připojení k síti nebo kódu Jazyka JavaScript, který nikdy neodešle zpět zprávu o dokončení. Pokud je časový čas volání, `Task` výsledné <xref:System.OperationCanceledException>selže s . Soutisk a zpracování výjimky s protokolováním.
 
-Podobně kód JavaScriptu může iniciovat volání metod .NET, které jsou označeny atributem [`[JSInvokable]`](xref:blazor/call-dotnet-from-javascript) . Pokud tyto metody rozhraní .NET vyvolají neošetřenou výjimku:
+Podobně javascriptový kód může iniciovat volání [`[JSInvokable]`](xref:blazor/call-dotnet-from-javascript) metod .NET označených atributem. Pokud tyto metody .NET vyvolat neošetřené výjimky:
 
-* Výjimka není považována za závažnou pro okruh serveru Blazor.
-* `Promise` na straně JavaScriptu se zamítlo.
+* Výjimka není považována za závažnou Blazor pro serverový okruh.
+* JavaScript-strana `Promise` je odmítnuta.
 
-Máte možnost použít kód pro zpracování chyb na straně .NET nebo na straně JavaScriptu volání metody.
+Máte možnost použít kód zpracování chyb na straně .NET nebo javascriptové straně volání metody.
 
-Další informace najdete v následujících článcích:
+Další informace najdete v těchto článcích:
 
 * <xref:blazor/call-javascript-from-dotnet>
 * <xref:blazor/call-dotnet-from-javascript>
 
-### <a name="opno-locblazor-server-prerendering"></a>předvykreslování serveru Blazor
+### <a name="opno-locblazor-server-prerendering"></a>BlazorPředběžné vykreslování serveru
 
-komponenty Blazor lze předem vykreslovat pomocí [pomocníka tag komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper) , aby byly vykreslené značky HTML vráceny jako součást počátečního požadavku HTTP uživatele. Funguje to takto:
+Blazorsoučásti mohou být předem vykresleny pomocí [pomocníka pro značku komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper) tak, aby jejich vykreslené značky HTML byly vráceny jako součást počátečního požadavku HTTP uživatele. To funguje takto:
 
-* Vytváření nového okruhu pro všechny předem vykreslené komponenty, které jsou součástí stejné stránky.
-* Generování počátečního kódu HTML.
-* Považovat okruh za `disconnected`, dokud prohlížeč uživatele nevytvoří SignalR připojení zpátky ke stejnému serveru. Po navázání spojení se v okruhu obnoví interakce mezi aktivitami a kód HTML značek se aktualizuje.
+* Vytvoření nového okruhu pro všechny předvykreslované součásti, které jsou součástí stejné stránky.
+* Generování počátečního KÓDU HTML.
+* Zacházet s `disconnected` okruhem jako do prohlížeče SignalR uživatele naváže připojení zpět na stejný server. Po navázání připojení je obnovena interaktivita na okruhu a aktualizovány značky HTML komponent.
 
-Pokud nějaká komponenta vyvolá neošetřenou výjimku při předvykreslování, například během metody životního cyklu nebo v logice vykreslování:
+Pokud některé součásti vyvolá neošetřené výjimky během prerendering, například během metody životního cyklu nebo v logice vykreslování:
 
-* Výjimka je pro okruh závažná.
-* Výjimka vyvolá zásobník volání z pomocníka značky `Component`. Proto se celý požadavek HTTP nezdařil, pokud není výjimka výslovně zachycena kódem vývojáře.
+* Výjimka je fatální pro obvod.
+* Výjimka je vyvolána zásobníku `Component` volání z pomocníka tageru. Proto se nezdaří celý požadavek HTTP, pokud výjimka je explicitně zachycena kódem vývojáře.
 
-Za běžných okolností, když se předvykreslování nepovede, pokračuje sestavení a vykreslení komponenty nesmysl, protože pracovní komponenta se nedá vykreslit.
+Za normálních okolností při předběžném vykreslování selže, pokračování v sestavení a vykreslení komponenty nedává smysl, protože pracovní součást nelze vykreslit.
 
-Chcete-li tolerovat chyby, ke kterým může dojít při předvykreslování, musí být logika zpracování chyb umístěna v rámci součásti, která může vyvolat výjimky. Použijte příkazy [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s ošetřením a protokolováním chyb. Namísto zabalení pomocníka značky `Component` v příkazu `try-catch`, umístěte logiku zpracování chyb do komponenty vygenerované pomocníkem `Component` značek.
+Chcete-li tolerovat chyby, které mohou nastat během předběžného vykreslování, musí být logika zpracování chyb umístěna uvnitř součásti, která může vyvolat výjimky. Pomocí příkazů [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) se zpracováním chyb a protokolováním. Místo zabalení `Component` pomocníka tagu do příkazu `try-catch` umístěte logiku zpracování `Component` chyb do komponenty vykreslené pomocníkem značek.
 
 ## <a name="advanced-scenarios"></a>Pokročilé scénáře
 
 ### <a name="recursive-rendering"></a>Rekurzivní vykreslování
 
-Komponenty lze rekurzivně vnořovat. To je užitečné pro reprezentaci rekurzivních datových struktur. Například komponenta `TreeNode` může vykreslovat více `TreeNode` komponent pro každý podřízený uzel.
+Součásti mohou být vnořeny rekurzivně. To je užitečné pro rekurzivní datové struktury. Komponenta `TreeNode` může například `TreeNode` vykreslit více součástí pro každou podřízené součásti uzlu.
 
-Při rekurzivním vykreslování Vyhněte se vzorům kódování, které vedou k nekonečné rekurzi:
+Při rekurzivním vykreslování se vyhněte vzorcům kódování, které vedou k nekonečné rekurzi:
 
-* Neprovádějte rekurzivní vykreslování struktury dat, která obsahuje cyklus. Například nevykreslují uzel stromu, jehož podřízené položky zahrnují sám sebe.
-* Nevytvářejte řetěz rozložení, které obsahují cyklus. Nevytvářejte například rozložení, jehož rozložení je samotné.
-* Neumožněte koncovému uživateli narušovat invariantní rekurzivních dat (pravidla) prostřednictvím škodlivých vstupů dat nebo volání interoperability JavaScriptu.
+* Neobnovujte datovou strukturu, která obsahuje cyklus. Například nevykreslovat uzel stromu, jehož podřízené položky zahrnuje sám.
+* Nevytvářejte řetězec rozvržení, které obsahují cyklus. Nevytvářejte například rozložení, jehož rozložení je samo o sobě.
+* Nedovolte koncovému uživateli porušovat rekurzní invarianty (pravidla) prostřednictvím zadávání škodlivých dat nebo volání interop javascriptu.
 
-Nekonečná smyčka během vykreslování:
+Nekonečné smyčky při vykreslování:
 
-* Způsobí, že proces vykreslování bude trvale pokračovat.
-* Je ekvivalentní vytvořit neukončenou smyčku.
+* Způsobí, že proces vykreslování bude pokračovat navždy.
+* Je ekvivalentní k vytvoření neukončené smyčky.
 
-V těchto scénářích se ovlivněný okruh serveru Blazor nezdaří a vlákno se obvykle pokouší:
+V těchto scénářích Blazor se nezdaří ohrožený server obvod u tváře a podproces se obvykle pokusí:
 
-* Spotřebujte tolik času procesoru povolený operačním systémem, a to po dobu neurčitou.
-* Spotřebovává neomezený objem paměti serveru. Spotřebovávání neomezené paměti je ekvivalentem k situaci, kdy neukončená smyčka přidá položky do kolekce při každé iteraci.
+* Spotřebovávat tolik času procesoru, kolik je povoleno operačním systémem, po neomezenou dobu.
+* Spotřebovávat neomezené množství paměti serveru. Spotřebovávající neomezenou paměť je ekvivalentní scénář, kde neukončené smyčky přidá položky do kolekce na každé iteraci.
 
-Aby se zabránilo nekonečným vzorům rekurzování, ujistěte se, že kód rekurzivního vykreslování obsahuje vhodné podmínky
+Chcete-li se vyhnout nekonečné rekurze vzory, ujistěte se, že rekurzivní vykreslování kód obsahuje vhodné podmínky zastavení.
 
-### <a name="custom-render-tree-logic"></a>Vlastní logika stromu vykreslování
+### <a name="custom-render-tree-logic"></a>Vlastní logika stromu vykreslení
 
-Většina Blazor komponenty jsou implementovány jako soubory *. Razor* a jsou kompilovány k vytvoření logiky, která pracuje na `RenderTreeBuilder` pro vykreslení výstupu. Vývojář může ručně implementovat `RenderTreeBuilder` logiku pomocí procedurálního C# kódu. Další informace naleznete v tématu <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>.
+Většina Blazor komponent jsou implementovány jako *.razor* soubory a jsou `RenderTreeBuilder` kompilovány k vytvoření logiky, která pracuje na vykreslení jejich výstup. Vývojář může ručně `RenderTreeBuilder` implementovat logiku pomocí procedurálního kódu Jazyka C#. Další informace naleznete v tématu <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>.
 
 > [!WARNING]
-> Použití logiky tvůrce stromu ručního vykreslování je považováno za pokročilý a nebezpečný scénář, nedoporučuje se pro obecný vývoj komponent.
+> Použití ruční logiky vytváření vykreslování stromu je považován za pokročilý a nebezpečný scénář, nedoporučuje se pro vývoj obecných součástí.
 
-Pokud je zapsán `RenderTreeBuilder` kód, vývojář musí zaručit správnost kódu. Vývojář například musí zajistit, aby:
+Pokud `RenderTreeBuilder` je kód zapsán, vývojář musí zaručit správnost kódu. Vývojář musí například zajistit, aby:
 
-* Volání `OpenElement` a `CloseElement` jsou správně vyvážená.
-* Atributy se přidávají jenom na správných místech.
+* Volání `OpenElement` a `CloseElement` jsou správně vyvážené.
+* Atributy jsou přidávány pouze na správných místech.
 
-Nesprávná logika tvůrce stromu ručního vykreslování může způsobit libovolné nedefinované chování, včetně havárií, zablokování serveru a ohrožení zabezpečení.
+Nesprávné ruční vykreslení stromu tvůrce logiky může způsobit libovolné nedefinované chování, včetně selhání, server zablokuje a slabá místa zabezpečení.
 
-Zvažte ruční vykreslování logiky tvůrce stromu na stejné úrovni složitosti a se stejnou úrovní *nebezpečí* při psaní kódu sestavení nebo instrukcí jazyka MSIL ručně.
+Zvažte ruční vykreslovat strom stavitel logiku na stejné úrovni složitosti a se stejnou úrovní *nebezpečí* jako psaní kódu sestavení nebo msil pokyny ručně.

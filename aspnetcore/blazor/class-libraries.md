@@ -1,7 +1,7 @@
 ---
-title: ASP.NET Core knihovny tříd součástí Razor
+title: ASP.NET knihovny tříd komponent Core Razor
 author: guardrex
-description: Zjistěte, jak mohou být součásti součástí aplikace Blazor z externí knihovny součástí.
+description: Zjistěte, jak lze Blazor komponenty zahrnout do aplikací z knihovny externích komponent.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,69 +11,69 @@ no-loc:
 - SignalR
 uid: blazor/class-libraries
 ms.openlocfilehash: f2cc57638922bd1f6ab036adb2ed37209d14c5b0
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "80218763"
 ---
-# <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET Core knihovny tříd součástí Razor
+# <a name="aspnet-core-razor-components-class-libraries"></a>ASP.NET knihovny tříd komponent Core Razor
 
-Od [Simon Timms](https://github.com/stimms)
+Podle [Simon Timms](https://github.com/stimms)
 
-Komponenty lze sdílet v [knihovně tříd Razor (RCL)](xref:razor-pages/ui-class) napříč projekty. *Knihovna tříd prvků Razor* může obsahovat:
+Součásti mohou být sdíleny v [knihovně třídy Razor (RCL)](xref:razor-pages/ui-class) napříč projekty. Knihovnu *tříd komponent Razor* lze zahrnout z:
 
-* Jiný projekt v řešení.
+* Další projekt v řešení.
 * Balíček NuGet.
 * Odkazovaná knihovna .NET.
 
-Stejně jako komponenty jsou běžné typy .NET, komponenty poskytované RCL jsou normální sestavení .NET.
+Stejně jako součásti jsou běžné typy .NET, součásti poskytované rcl jsou normální sestavení .NET.
 
-## <a name="create-an-rcl"></a>Vytvoření RCL
+## <a name="create-an-rcl"></a>Vytvoření rcl
 
-Pokud chcete nakonfigurovat prostředí pro Blazor, postupujte podle pokynů v článku o <xref:blazor/get-started>.
+Postupujte podle <xref:blazor/get-started> pokynů v článku nakonfigurovat prostředí pro Blazor.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 1. Vytvoření nového projektu
-1. Vyberte **knihovnu tříd Razor**. Vyberte **Další**.
-1. V dialogovém okně **vytvořit novou knihovnu tříd Razor** vyberte **vytvořit**.
-1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Příklady v tomto tématu používají název projektu `MyComponentLib1`. Vyberte **Create** (Vytvořit).
-1. Přidat RCL do řešení:
-   1. Klikněte pravým tlačítkem na řešení. Vyberte **přidat** > **existující projekt**.
-   1. Přejděte do souboru projektu RCL.
-   1. Vyberte soubor projektu RCL ( *. csproj*).
+1. Vyberte **knihovnu tříd razor**. Vyberte **další**.
+1. V **dialogovém** okně Vytvořit novou knihovnu tříd Razor vyberte **Vytvořit**.
+1. Zadejte název projektu do pole **Název projektu** nebo přijměte výchozí název projektu. Příklady v tomto tématu `MyComponentLib1`používají název projektu . Vyberte **Vytvořit**.
+1. Přidejte RCL do řešení:
+   1. Klikněte pravým tlačítkem myši na řešení. Vyberte **Přidat** > **existující projekt**.
+   1. Přejděte do souboru projektu rcl.
+   1. Vyberte soubor projektu RCL (*.csproj*).
 1. Přidejte odkaz na RCL z aplikace:
-   1. Klikněte pravým tlačítkem na projekt aplikace. Vyberte **přidat** > **odkaz**.
+   1. Klikněte pravým tlačítkem myši na projekt aplikace. Vyberte **Přidat** > **odkaz**.
    1. Vyberte projekt RCL. Vyberte **OK**.
 
 > [!NOTE]
-> Pokud je zaškrtnuté políčko **stránky podpory a zobrazení** při generování RCL ze šablony, přidejte také soubor *_Imports. Razor* do kořenového adresáře vygenerovaného projektu s následujícím obsahem, který umožní vytváření komponent Razor:
+> Pokud je při generování rcl ze šablony zaškrtnuto **políčko Stránky podpory a zobrazení,** přidejte také soubor *_Imports.razor* do kořenového adresáře generovaného projektu s následujícím obsahem, který umožní vytváření komponent Razor:
 >
 > ```razor
 > @using Microsoft.AspNetCore.Components.Web
 > ```
 >
-> Ručně přidejte soubor do kořenového adresáře vygenerovaného projektu.
+> Ručně přidejte kořenový adresář generovaného projektu.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-1. Použijte šablonu **knihovny tříd Razor** (`razorclasslib`) pomocí příkazu [dotnet New](/dotnet/core/tools/dotnet-new) v příkazovém prostředí. V následujícím příkladu je vytvořena RCL s názvem `MyComponentLib1`. Složka, která obsahuje `MyComponentLib1`, je vytvořena automaticky při spuštění příkazu:
+1. Použijte šablonu **Knihovny tříd razor** (`razorclasslib`) s novým příkazem [dotnet](/dotnet/core/tools/dotnet-new) v příkazovém prostředí. V následujícím příkladu je vytvořen `MyComponentLib1`rcl s názvem . Složka, která `MyComponentLib1` obsahuje, je vytvořena automaticky při spuštění příkazu:
 
    ```dotnetcli
    dotnet new razorclasslib -o MyComponentLib1
    ```
 
    > [!NOTE]
-   > Pokud se při generování RCL ze šablony používá přepínač `-s|--support-pages-and-views`, přidejte také soubor *_Imports. Razor* do kořenového adresáře vygenerovaného projektu s následujícím obsahem, který umožňuje vytváření komponent Razor:
+   > Pokud `-s|--support-pages-and-views` se přepínač používá při generování RCL ze šablony, přidejte také soubor *_Imports.razor* do kořenového adresáře generovaného projektu s následujícím obsahem, který umožní vytváření komponent Razor:
    >
    > ```razor
    > @using Microsoft.AspNetCore.Components.Web
    > ```
    >
-   > Ručně přidejte soubor do kořenového adresáře vygenerovaného projektu.
+   > Ručně přidejte kořenový adresář generovaného projektu.
 
-1. Chcete-li přidat knihovnu do existujícího projektu, použijte příkaz [dotnet Add Reference](/dotnet/core/tools/dotnet-add-reference) v příkazovém prostředí. V následujícím příkladu se RCL přidá do aplikace. Spusťte následující příkaz ze složky projektu aplikace s cestou ke knihovně:
+1. Chcete-li přidat knihovnu do existujícího projektu, použijte příkaz [dotnet add reference](/dotnet/core/tools/dotnet-add-reference) v příkazovém prostředí. V následujícím příkladu rcl je přidán do aplikace. Spusťte následující příkaz ze složky projektu aplikace s cestou ke knihovně:
 
    ```dotnetcli
    dotnet add reference {PATH TO LIBRARY}
@@ -83,14 +83,14 @@ Pokud chcete nakonfigurovat prostředí pro Blazor, postupujte podle pokynů v �
 
 ## <a name="consume-a-library-component"></a>Využití komponenty knihovny
 
-Aby bylo možné využívat komponenty definované v knihovně v jiném projektu, použijte některý z následujících přístupů:
+Chcete-li využívat součásti definované v knihovně v jiném projektu, použijte některý z následujících přístupů:
 
 * Použijte úplný název typu s oborem názvů.
-* Pomocí direktivy [using\@](xref:mvc/views/razor#using) Razor. Jednotlivé komponenty lze přidat podle názvu.
+* Použijte Razor [ \@pomocí](xref:mvc/views/razor#using) směrnice. Jednotlivé součásti lze přidat podle názvu.
 
-V následujících příkladech je `MyComponentLib1` knihovnou komponent obsahující `SalesReport` komponentu.
+V následujících příkladech `MyComponentLib1` je knihovna `SalesReport` komponent obsahující komponentu.
 
-Na součást `SalesReport` lze odkazovat pomocí jejího úplného názvu typu s oborem názvů:
+Na `SalesReport` komponentu lze odkazovat pomocí úplného názvu typu s oborem názvů:
 
 ```razor
 <h1>Hello, world!</h1>
@@ -100,7 +100,7 @@ Welcome to your new app.
 <MyComponentLib1.SalesReport />
 ```
 
-Na komponentu lze také odkazovat, je-li knihovna přenesena do rozsahu s `@using` direktivou:
+Komponenta může být také odkazováno, pokud `@using` je knihovna uvedena do oboru pomocí směrnice:
 
 ```razor
 @using MyComponentLib1
@@ -112,21 +112,21 @@ Welcome to your new app.
 <SalesReport />
 ```
 
-Zahrňte direktivu `@using MyComponentLib1` do souboru *_Import. Razor* nejvyšší úrovně, aby komponenty knihovny byly dostupné pro celý projekt. Přidáním direktivy do souboru *_Import. Razor* na libovolné úrovni můžete použít obor názvů na jednu stránku nebo sadu stránek v rámci složky.
+Zahrnout `@using MyComponentLib1` direktivu do souboru *_Import.razor* nejvyšší úrovně, aby byly komponenty knihovny k dispozici pro celý projekt. Přidejte direktivu do souboru *_Import.razor* na libovolné úrovni, abyste použili obor názvů na jednu stránku nebo sadu stránek ve složce.
 
-## <a name="create-a-razor-components-class-library-with-static-assets"></a>Vytvoření knihovny tříd součástí Razor se statickými prostředky
+## <a name="create-a-razor-components-class-library-with-static-assets"></a>Vytvoření knihovny tříd komponent Razor se statickými datovými zdroji
 
-RCL může zahrnovat statické prostředky. Statické prostředky jsou k dispozici pro všechny aplikace, které knihovnu využívají. Další informace naleznete v tématu <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.
+RCL může obsahovat statické prostředky. Statické datové zdroje jsou k dispozici pro všechny aplikace, které spotřebovává knihovnu. Další informace naleznete v tématu <xref:razor-pages/ui-class#create-an-rcl-with-static-assets>.
 
 ## <a name="build-pack-and-ship-to-nuget"></a>Sestavení, balení a odeslání do NuGet
 
-Knihovny součástí jsou standardní knihovny .NET, balení a jejich odeslání do NuGet se neliší od balení a předává jakékoli knihovny do NuGet. Balení se provádí pomocí příkazu [dotnet Pack](/dotnet/core/tools/dotnet-pack) v příkazovém prostředí:
+Vzhledem k tomu, že knihovny komponent jsou standardní knihovny .NET, balení a jejich odesílání do NuGet se nijak neliší od balení a odesílání libovolné knihovny do NuGet. Balení se provádí pomocí příkazu [dotnet pack](/dotnet/core/tools/dotnet-pack) v příkazovém prostředí:
 
 ```dotnetcli
 dotnet pack
 ```
 
-Nahrajte balíček do NuGet pomocí příkazu [dotnet NuGet push](/dotnet/core/tools/dotnet-nuget-push) v příkazovém prostředí.
+Nahrajte balíček do NuGet pomocí příkazu [dotnet nuget push](/dotnet/core/tools/dotnet-nuget-push) v příkazovém prostředí.
 
 ## <a name="additional-resources"></a>Další zdroje
 

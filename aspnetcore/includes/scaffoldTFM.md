@@ -1,4 +1,4 @@
-Pokud se zobrazí chyba generování uživatelského rozhraní, ověřte, že moniker cílového rozhraní (TFM) odpovídá verzi balíčku NuGet v souboru projektu. Například následující soubor projektu obsahuje verzi 3,1 pro .NET Core a uvedené balíčky NuGet:
+Pokud se zobrazí chyba ve schématu, ověřte, zda zástupný název cílového rámce (TFM) odpovídá verzi balíčku NuGet v souboru projektu. Například následující soubor projektu obsahuje verzi 3.1 pro rozhraní .NET Core a uvedené balíčky NuGet:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">

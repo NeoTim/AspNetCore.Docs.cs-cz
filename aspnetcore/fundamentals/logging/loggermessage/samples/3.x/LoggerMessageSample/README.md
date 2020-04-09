@@ -1,3 +1,3 @@
-# <a name="aspnet-core-loggermessage-sample"></a>Ukázka LoggerMessage ASP.NET Core
+# <a name="aspnet-core-loggermessage-sample"></a>ukázka loggermessage ASP.NET core
 
-Tato ukázka demonstruje použití [LoggerMessage](https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.loggermessage). Tato ukázka předvádí funkce popsané v tématu [protokolování s vysokým výkonem pomocí LoggerMessage](https://docs.microsoft.com/aspnet/core/fundamentals/logging/loggermessage) .
+Tento příklad ilustruje použití [LoggerMessage](https://docs.microsoft.com/dotnet/api/microsoft.extensions.logging.loggermessage). Tato ukázka ukazuje funkce popsané v [protokolování vysoký výkon s LoggerMessage](https://docs.microsoft.com/aspnet/core/fundamentals/logging/loggermessage) téma.

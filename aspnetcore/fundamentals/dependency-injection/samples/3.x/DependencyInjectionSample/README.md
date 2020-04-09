@@ -1,3 +1,3 @@
-# <a name="aspnet-core-dependency-injection"></a>Vkládání závislostí ASP.NET Core
+# <a name="aspnet-core-dependency-injection"></a>ASP.NET vkládání závislostí jádra
 
-Tato ukázka znázorňuje použití injektáže závislosti s ASP.NET Core. Tato ukázka předvádí Scénář popsaný v článku [vkládání závislostí v ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) tématu.
+Tato ukázka ilustruje použití vkládání závislostí s ASP.NET Core. Tato ukázka ukazuje scénář popsaný v [vkládání závislostí v ASP.NET core](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection) téma.

@@ -1,17 +1,17 @@
 
 > [!NOTE]
-> V tomto kurzu použijete funkci Entity Framework Core *migrace* , pokud je to možné. Migrace aktualizuje schéma databáze tak, aby odpovídalo změnám v datovém modelu. Migrace ale můžou dělat jenom typy změn, které podporuje zprostředkovatel EF Core, a schopnosti poskytovatele SQLite jsou omezené. Například přidání sloupce je podporováno, ale odebrání nebo změna sloupce není podporováno. Pokud se vytvoří migrace pro odebrání nebo změnu sloupce, příkaz `ef migrations add` se zdaří, ale příkaz `ef database update` selže. V souvislosti s těmito omezeními nepoužívá tento kurz migrace pro změny schématu SQLite. Místo toho se při změně schématu vyřadí a znovu vytvoří databáze.
+> Pro účely tohoto kurzu můžete použít funkci *migrace* core entity frameworku, kde je to možné. Migrace aktualizuje schéma databáze tak, aby odpovídalo změnám v datovém modelu. Migrace však můžete provést pouze druhy změn, které podporuje zprostředkovatele EF Core a možnosti zprostředkovatele SQLite jsou omezené. Například přidání sloupce je podporováno, ale odebrání nebo změna sloupce není podporována. Pokud je vytvořena migrace k odebrání nebo `ef migrations add` změně sloupce, `ef database update` příkaz proběhne úspěšně, ale příkaz se nezdaří. Z důvodu těchto omezení tento kurz nepoužívá migrace pro změny schématu SQLite. Místo toho při změně schématu přetažení a znovu vytvořit databázi.
 >
->Alternativním řešením pro omezení SQLite je ruční psaní kódu migrace, který provede opakované sestavení tabulky, když se něco v tabulce změní. Nové sestavení tabulky zahrnuje:
+>Řešení pro omezení SQLite je ručně psát migrace kód provést znovu sestavit tabulku při něco v tabulce změní. Opětovné sestavení tabulky zahrnuje:
 >
->* Vytváří se nová tabulka.
->* Kopírování dat z původní tabulky do nové tabulky.
->* Vynechává se stará tabulka.
->* Probíhá přejmenování nové tabulky.
+>* Vytvoření nové tabulky.
+>* Kopírování dat ze staré tabulky do nové tabulky.
+>* Upustil starý stůl.
+>* Přejmenování nové tabulky.
 >
->Další informace najdete v následujících zdrojích:
+>Další informace najdete v následujících materiálech:
 >
-> * [Omezení zprostředkovatele databáze EF Core SQLite](/ef/core/providers/sqlite/limitations)
+> * [Omezení zprostředkovatele základní databáze SQLite EF](/ef/core/providers/sqlite/limitations)
 > * [Přizpůsobení kódu migrace](/ef/core/managing-schemas/migrations/#customize-migration-code)
-> * [Osazení dat](/ef/core/modeling/data-seeding)
-  * [Příkaz ALTER TABLE v SQLite](https://sqlite.org/lang_altertable.html)
+> * [Osávání dat](/ef/core/modeling/data-seeding)
+  * [SQLite ALTER TABLE, příkaz](https://sqlite.org/lang_altertable.html)

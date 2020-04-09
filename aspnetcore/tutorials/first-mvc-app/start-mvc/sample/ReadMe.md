@@ -1,1 +1,1 @@
-Hotová ukázka je ve složce *2,2-Completed* . Ukázka *MvcMovie22* se používá k dokumentaci a je obtížné ji použít.
+Dokončená ukázka je ve složce *s 2.2 dokončena.* Ukázka *MvcMovie22* se používá pro dokumentaci a je obtížné použít.

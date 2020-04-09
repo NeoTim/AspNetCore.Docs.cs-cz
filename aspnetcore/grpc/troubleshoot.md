@@ -1,30 +1,30 @@
 ---
-title: Řešení potíží s gRPC pro .NET Core
+title: Poradce při potížích s gRPC v jádru rozhraní .NET
 author: jamesnk
-description: Řešení chyb při použití gRPC v .NET Core
+description: Poradce při potížích při použití gRPC na .NET Core.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.custom: mvc
 ms.date: 10/16/2019
 uid: grpc/troubleshoot
 ms.openlocfilehash: c501cda14f3bac9297695ece59cbc4634e4b7895
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78664127"
 ---
-# <a name="troubleshoot-grpc-on-net-core"></a>Řešení potíží s gRPC pro .NET Core
+# <a name="troubleshoot-grpc-on-net-core"></a>Poradce při potížích s gRPC v jádru rozhraní .NET
 
-Od [James Newton – král](https://twitter.com/jamesnk)
+Podle [James Newton-King](https://twitter.com/jamesnk)
 
-Tento dokument popisuje běžně zjištěné problémy při vývoji aplikací gRPC na platformě .NET.
+Tento dokument popisuje běžně se vyskytující problémy při vývoji gRPC aplikací na rozhraní .NET.
 
-## <a name="mismatch-between-client-and-service-ssltls-configuration"></a>Neshoda mezi konfigurací klienta a služby SSL/TLS
+## <a name="mismatch-between-client-and-service-ssltls-configuration"></a>Neshoda mezi konfigurací SSL/TLS klienta a služby
 
-Šablona gRPC a ukázky používají protokol [TLS (Transport Layer Security)](https://tools.ietf.org/html/rfc5246) k zabezpečení služeb gRPC ve výchozím nastavení. gRPC klienti musí používat zabezpečené připojení k úspěšnému volání zabezpečených služeb gRPC.
+Šablona gRPC a ukázky používají [zabezpečení transportní vrstvy (TLS)](https://tools.ietf.org/html/rfc5246) k zabezpečení služeb gRPC ve výchozím nastavení. gRPC klienti musí k úspěšnému volání zabezpečených služeb gRPC používat zabezpečené připojení.
 
-Můžete ověřit, že služba ASP.NET Core gRPC používá protokol TLS v protokolech zapsaných při spuštění aplikace. Služba bude naslouchat na koncovém bodu HTTPS:
+Můžete ověřit, ASP.NET služba Core gRPC používá TLS v protokolech napsaných při spuštění aplikace. Služba bude poslouchat na koncovém bodu HTTPS:
 
 ```
 info: Microsoft.Hosting.Lifetime[0]
@@ -35,7 +35,7 @@ info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 ```
 
-Klient .NET Core musí v adrese serveru použít `https` k zajištění volání s zabezpečeným připojením:
+Klient .NET Core `https` musí použít v adrese serveru volání se zabezpečeným připojením:
 
 ```csharp
 static async Task Main(string[] args)
@@ -46,18 +46,18 @@ static async Task Main(string[] args)
 }
 ```
 
-Všechny implementace klientů gRPC podporují protokol TLS. gRPC klienti z jiných jazyků obvykle vyžadují kanál nakonfigurovaný pomocí `SslCredentials`. `SslCredentials` Určuje certifikát, který bude klient používat, a musí se používat místo nezabezpečených přihlašovacích údajů. Příklady konfigurace různých implementací klientů gRPC k použití protokolu TLS najdete v tématu [ověřování gRPC](https://www.grpc.io/docs/guides/auth/).
+Všechny implementace klientů gRPC podporují TLS. klienti gRPC z jiných jazyků obvykle `SslCredentials`vyžadují kanál nakonfigurovaný pomocí aplikace . `SslCredentials`určuje certifikát, který bude klient používat, a musí být použit namísto nezabezpečených pověření. Příklady konfigurace různých implementací klienta gRPC pro použití Protokolu TLS naleznete [v tématu gRPC Authentication](https://www.grpc.io/docs/guides/auth/).
 
 ## <a name="call-a-grpc-service-with-an-untrustedinvalid-certificate"></a>Volání služby gRPC s nedůvěryhodným/neplatným certifikátem
 
-Klient .NET gRPC vyžaduje, aby služba měla důvěryhodný certifikát. Při volání služby gRPC bez důvěryhodného certifikátu se vrátí následující chybová zpráva:
+Klient gRPC rozhraní vyžaduje, aby služba měla důvěryhodný certifikát. Při volání služby gRPC bez důvěryhodného certifikátu je vrácena následující chybová zpráva:
 
-> Neošetřená výjimka. System .NET. http. HttpRequestException: nepovedlo se navázat připojení SSL, viz vnitřní výjimka.
-> ---> System. Security. Authentication. AuthenticationException –: vzdálený certifikát je podle ověřovací procedury neplatný.
+> Neošetřená výjimka. System.Net.Http.HttpRequestException: Připojení SSL nelze navázat, viz vnitřní výjimka.
+> ---> System.Security.Authentication.AuthenticationException: Vzdálený certifikát je podle ověřovacího postupu neplatný.
 
-Tato chyba se může zobrazit, pokud testujete aplikaci místně a ASP.NET Core certifikát pro vývoj HTTPS není důvěryhodný. Pokyny k vyřešení tohoto problému naleznete v tématu [Trust ASP.NET Core certifikát pro vývoj https ve Windows a MacOS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos).
+Tato chyba se může zobrazit, pokud testujete aplikaci místně a ASP.NET vývojový certifikát Core HTTPS není důvěryhodný. Pokyny k vyřešení tohoto problému naleznete [v tématu Trust ASP.NET core https development certificate ve Windows a macOS](xref:security/enforcing-ssl#trust-the-aspnet-core-https-development-certificate-on-windows-and-macos).
 
-Pokud voláte službu gRPC na jiném počítači a nemůžete důvěřovat certifikátu, může být klient gRPC nakonfigurovaný tak, aby ignoroval neplatný certifikát. Následující kód používá [HttpClientHandler. ServerCertificateCustomValidationCallback](/dotnet/api/system.net.http.httpclienthandler.servercertificatecustomvalidationcallback) k povolení volání bez důvěryhodného certifikátu:
+Pokud voláte službu gRPC v jiném počítači a nemůžete certifikátu důvěřovat, pak lze klienta gRPC nakonfigurovat tak, aby ignoroval neplatný certifikát. Následující kód používá [httpClientHandler.ServerCertificateValidationValidationCallback](/dotnet/api/system.net.http.httpclienthandler.servercertificatecustomvalidationcallback) k povolení volání bez důvěryhodného certifikátu:
 
 ```csharp
 var httpClientHandler = new HttpClientHandler();
@@ -72,11 +72,11 @@ var client = new Greet.GreeterClient(channel);
 ```
 
 > [!WARNING]
-> Nedůvěryhodné certifikáty by se měly používat jenom při vývoji aplikací. Produkční aplikace by měly vždy používat platné certifikáty.
+> Nedůvěryhodné certifikáty by se měly používat pouze během vývoje aplikací. Produkční aplikace by měly vždy používat platné certifikáty.
 
-## <a name="call-insecure-grpc-services-with-net-core-client"></a>Volání nezabezpečených služeb gRPC pomocí klienta .NET Core
+## <a name="call-insecure-grpc-services-with-net-core-client"></a>Volání nezabezpečených služeb gRPC s klientem .NET Core
 
-Pro volání nezabezpečených služeb gRPC s klientem .NET Core je vyžadována další konfigurace. Klient gRPC musí nastavit přepínač `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport` na `true` a použít `http` na adrese serveru:
+Další konfigurace je vyžadována pro volání nezabezpečené služby gRPC s klientem .NET Core. Klient gRPC musí `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport` nastavit `true` přepínač `http` a použít v adrese serveru:
 
 ```csharp
 // This switch must be set before creating the GrpcChannel/HttpClient.
@@ -88,15 +88,15 @@ var channel = GrpcChannel.ForAddress("http://localhost:5000");
 var client = new Greet.GreeterClient(channel);
 ```
 
-## <a name="unable-to-start-aspnet-core-grpc-app-on-macos"></a>Nepovedlo se spustit aplikaci ASP.NET Core gRPC v macOS
+## <a name="unable-to-start-aspnet-core-grpc-app-on-macos"></a>Nelze spustit aplikaci core gRPC ASP.NET v systému macOS
 
-Kestrel nepodporuje HTTP/2 s TLS v macOS a ve starších verzích Windows, jako je Windows 7. ASP.NET Core šablona a ukázky gRPC standardně používají protokol TLS. Při pokusu o spuštění serveru gRPC se zobrazí následující chybová zpráva:
+Kestrel nepodporuje HTTP/2 s TLS v systému macOS a starších verzích systému Windows, jako je Windows 7. Šablona ASP.NET Core gRPC a ukázky ve výchozím nastavení používají TLS. Při pokusu o spuštění serveru gRPC se zobrazí následující chybová zpráva:
 
-> Nepovedlo se vytvořit připojení k https://localhost:5001 na rozhraní IPv4 zpětné smyčky: HTTP/2 přes TLS se v macOS nepodporuje kvůli chybějící podpoře ALPN.
+> Nelze vytvořit https://localhost:5001 vazbu na rozhraní zpětné smyčky IPv4: "HTTP/2 přes TLS není v systému macOS podporován z důvodu chybějící podpory ALPN.'.
 
-Pokud chcete tento problém obejít, nakonfigurujte Kestrel a klienta gRPC na použití HTTP/2 *bez* TLS. To byste měli udělat jenom během vývoje. Nepoužíváte-li protokol TLS, budou zasílány zprávy gRPC bez šifrování.
+Chcete-li tento problém vyřešit, nakonfigurujte Kestrel a klientgRPC používat HTTP/2 *bez* TLS. Měli byste to provést pouze během vývoje. Nepoužívání TLS bude mít za následek gRPC zprávy odesílané bez šifrování.
 
-Kestrel musí Konfigurovat koncový bod HTTP/2 bez TLS v *program.cs*:
+Poštolka musí nakonfigurovat koncový bod HTTP/2 bez TLS v *Program.cs*:
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -113,30 +113,30 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastavené na `HttpProtocols.Http2`. `HttpProtocols.Http1AndHttp2` nelze použít, protože pro vyjednání HTTP/2 je vyžadován protokol TLS. Bez TLS budou všechna připojení ke koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC neúspěšná.
+Pokud je koncový bod HTTP/2 nakonfigurován bez protokolu TLS, musí být `HttpProtocols.Http2`protokol [ListenOptions.Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven na . `HttpProtocols.Http1AndHttp2`nelze použít, protože tls je nutné vyjednat HTTP/2. Bez TLS všechna připojení ke koncovému bodu výchozí HTTP/1.1 a gRPC volání nezdaří.
 
-Klient gRPC musí být taky nakonfigurovaný tak, aby nepoužíval protokol TLS. Další informace najdete v tématu [Calling The gRPC Services with a .NET Core Client](#call-insecure-grpc-services-with-net-core-client).
+Klient gRPC musí být také nakonfigurován tak, aby nepoužíval TLS. Další informace naleznete [v tématu Volání nezabezpečených služeb gRPC s klientem .NET Core](#call-insecure-grpc-services-with-net-core-client).
 
 > [!WARNING]
-> HTTP/2 bez protokolu TLS by se mělo používat jenom při vývoji aplikací. Provozní aplikace by měly vždycky používat zabezpečení přenosu. Další informace najdete v tématu věnovaném [hlediskům zabezpečení v gRPC pro ASP.NET Core](xref:grpc/security#transport-security).
+> HTTP/2 bez TLS by se měl používat pouze během vývoje aplikace. Produkční aplikace by měly vždy používat zabezpečení přenosu. Další informace naleznete [v tématu Důležité informace o zabezpečení v gRPC pro ASP.NET Core](xref:grpc/security#transport-security).
 
-## <a name="grpc-c-assets-are-not-code-generated-from-proto-files"></a>prostředky C# gRPC nejsou generovány z kódu. Proto soubory
+## <a name="grpc-c-assets-are-not-code-generated-from-proto-files"></a>GRPC C# assets are not code generated from .proto files gRPC C# assets are not code generated from .proto files gRPC C# assets are not code generated from .proto files gR
 
-generování kódu gRPC konkrétní klienti a základní třídy služby vyžaduje soubory protobuf a nástroje, na které se odkazuje z projektu. Musíte zahrnout:
+gRPC generování kódu konkrétních klientů a základní třídy služeb vyžaduje protobuf soubory a nástroje, které mají být odkazovány z projektu. Musíte uvést:
 
-* *. proto* soubory, které chcete použít ve skupině položek `<Protobuf>`. [Importováno *. proto* ](https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions) musí být na soubory odkazováno v projektu.
-* Odkaz na balíček nástrojů pro gRPC nástrojů pro [gRPC. Tools](https://www.nuget.org/packages/Grpc.Tools/).
+* *.proto* soubory, které chcete `<Protobuf>` použít ve skupině položek. [Importované soubory *.proto* ](https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions) musí být projektem odkazovány.
+* Odkaz na balíček gRPC tooling package [Grpc.Tools](https://www.nuget.org/packages/Grpc.Tools/).
 
-Další informace o generování prostředků gRPC C# naleznete v tématu <xref:grpc/basics>.
+Další informace o generování prostředků gRPC <xref:grpc/basics>C# naleznete v tématu .
 
-Ve výchozím nastavení vygeneruje odkaz `<Protobuf>` konkrétního klienta a základní třídu služby. Atribut `GrpcServices` elementu reference lze použít k omezení C# generování prostředků. Platné možnosti `GrpcServices`:
+Ve výchozím `<Protobuf>` nastavení odkaz generuje konkrétníklienta a základní třídu služby. Atribut referenčního `GrpcServices` prvku lze použít k omezení generování majetku jazyka C#. Platné `GrpcServices` možnosti jsou:
 
-* `Both` (výchozí, není-li k dispozici)
+* `Both`(výchozí, pokud není přítomen)
 * `Server`
 * `Client`
 * `None`
 
-ASP.NET Core webová aplikace hostující služby gRPC potřebuje jenom vygenerovanou základní třídu služby:
+ASP.NET Základní webová aplikace hostující služby gRPC potřebuje pouze vygenerovanou třídu služby:
 
 ```xml
 <ItemGroup>
@@ -144,7 +144,7 @@ ASP.NET Core webová aplikace hostující služby gRPC potřebuje jenom vygenero
 </ItemGroup>
 ```
 
-Klientská aplikace gRPC, která provádí volání gRPC, potřebuje jenom konkrétního vygenerovaného klienta:
+Klientská aplikace gRPC, která provádí volání gRPC, potřebuje pouze konkrétního klienta generovaného:
 
 ```xml
 <ItemGroup>
@@ -152,20 +152,20 @@ Klientská aplikace gRPC, která provádí volání gRPC, potřebuje jenom konkr
 </ItemGroup>
 ```
 
-## <a name="wpf-projects-unable-to-generate-grpc-c-assets-from-proto-files"></a>Projekty WPF nemůžou generovat gRPC C# prostředky z. Proto soubory
+## <a name="wpf-projects-unable-to-generate-grpc-c-assets-from-proto-files"></a>WPF projekty nelze generovat gRPC C# prostředky ze souborů .proto
 
-Projekty WPF mají [známý problém](https://github.com/dotnet/wpf/issues/810) , který brání správnému fungování generování kódu gRPC. Všechny typy gRPC generované v projektu WPF odkazem na `Grpc.Tools` a *. proto* soubory vytvoří chyby kompilace při použití:
+WPF projekty mají [známý problém,](https://github.com/dotnet/wpf/issues/810) který brání generování kódu gRPC pracovat správně. Všechny typy gRPC generované v projektu WPF odkazem `Grpc.Tools` a *.proto* soubory vytvoří chyby kompilace při použití:
 
-> Chyba CS0246: nepovedlo se najít typ nebo název oboru názvů ' MyGrpcServices ' (nechybí Direktiva using nebo odkaz na sestavení?)
+> chyba CS0246: Typ nebo název oboru názvů MyGrpcServices nebyl nalezen (chybí vám direktiva using nebo odkaz na sestavení?)
 
-Tento problém můžete vyřešit pomocí těchto potíží:
+Tento problém můžete vyřešit takto:
 
 1. Vytvořte nový projekt knihovny tříd .NET Core.
-2. V novém projektu přidejte odkazy pro povolení [ C# generování kódu z *\*. proto* soubory](xref:grpc/basics#generated-c-assets):
-    * Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .
-    * Přidejte *\*...* soubory do skupiny položek `<Protobuf>`.
+2. V novém projektu přidejte odkazy, které umožní [generování kódu Jazyka C# ze * \** souborů .proto](xref:grpc/basics#generated-c-assets):
+    * Přidejte odkaz na balíček do balíčku [Grpc.Tools.](https://www.nuget.org/packages/Grpc.Tools/)
+    * Přidejte * \** soubory .proto do skupiny `<Protobuf>` položek.
 3. V aplikaci WPF přidejte odkaz na nový projekt.
 
-Aplikace WPF může použít gRPC generované typy z nového projektu knihovny tříd.
+Aplikace WPF můžete použít gRPC generované typy z projektu nové knihovny tříd.
 
 [!INCLUDE[](~/includes/gRPCazure.md)]

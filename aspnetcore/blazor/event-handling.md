@@ -1,7 +1,7 @@
 ---
-title: Zpracování událostí ASP.NET Core Blazor
+title: zpracování Blazor událostí ASP.NET Core
 author: guardrex
-description: Přečtěte si o funkcích zpracování událostí Blazor, včetně typů argumentů události, zpětných volání událostí a správě výchozích událostí prohlížeče.
+description: Informace Blazoro funkcích zpracování událostí společnosti , včetně typů argumentů událostí, zpětná volání událostí a správy výchozích událostí prohlížeče.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,19 +11,19 @@ no-loc:
 - SignalR
 uid: blazor/event-handling
 ms.openlocfilehash: c144841805e07a136f153c25a78c7f9af7c5801b
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "79511363"
 ---
-# <a name="aspnet-core-blazor-event-handling"></a>Zpracování událostí ASP.NET Core Blazor
+# <a name="aspnet-core-blazor-event-handling"></a>ASP.NET Zpracování událostí Core Blazor
 
-Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
+[Luke Latham](https://github.com/guardrex) a [Daniel Roth](https://github.com/danroth27)
 
-Komponenty Razor poskytují funkce pro zpracování událostí. Pro atribut elementu HTML s názvem [`@on{EVENT}`](xref:mvc/views/razor#onevent) (například `@onclick`) s hodnotou delegovanou typem, komponenta Razor považuje hodnotu atributu za obslužnou rutinu události.
+Komponenty Razor poskytují funkce zpracování událostí. Pro atribut elementu [`@on{EVENT}`](xref:mvc/views/razor#onevent) HTML s `@onclick`názvem (například) s hodnotou typu delegáta komponenta Razor zachází s hodnotou atributu jako s obslužnou rutinou události.
 
-Následující kód volá metodu `UpdateHeading`, pokud je tlačítko vybráno v uživatelském rozhraní:
+Následující kód volá `UpdateHeading` metodu, když je tlačítko vybrané v ui:
 
 ```razor
 <button class="btn btn-primary" @onclick="UpdateHeading">
@@ -38,7 +38,7 @@ Následující kód volá metodu `UpdateHeading`, pokud je tlačítko vybráno v
 }
 ```
 
-Následující kód volá metodu `CheckChanged`, když je zaškrtávací políčko v uživatelském rozhraní změněno:
+Následující kód volá `CheckChanged` metodu při změně zaškrtávacího políčka v ui:
 
 ```razor
 <input type="checkbox" class="form-check-input" @onchange="CheckChanged" />
@@ -51,9 +51,9 @@ Následující kód volá metodu `CheckChanged`, když je zaškrtávací políč
 }
 ```
 
-Obslužné rutiny událostí mohou být také asynchronní a vracet <xref:System.Threading.Tasks.Task>. Není nutné ručně volat [StateHasChanged](xref:blazor/lifecycle#state-changes). Výjimky jsou protokolovány, když k nim dojde.
+Obslužné rutiny událostí mohou <xref:System.Threading.Tasks.Task>být také asynchronní a vrátit . Není třeba ručně volat [StateHasChanged](xref:blazor/lifecycle#state-changes). Výjimky jsou zaznamenány, když k nim dojde.
 
-V následujícím příkladu je `UpdateHeading` volána asynchronně, když je vybráno tlačítko:
+V následujícím příkladu `UpdateHeading` se nazývá asynchronně, když je vybráno tlačítko:
 
 ```razor
 <button class="btn btn-primary" @onclick="UpdateHeading">
@@ -70,39 +70,39 @@ V následujícím příkladu je `UpdateHeading` volána asynchronně, když je v
 
 ## <a name="event-argument-types"></a>Typy argumentů události
 
-U některých událostí jsou povoleny typy argumentů události. Zadání typu události ve volání metody je nezbytné pouze v případě, že je typ události použit v metodě.
+U některých událostí jsou povoleny typy argumentů události. Zadání typu události ve volání metody je nezbytné pouze v případě, že typ události je použit v metodě.
 
 Podporované `EventArgs` jsou uvedeny v následující tabulce.
 
-| Událost            | Třída                | Události a poznámky modelu DOM |
+| Událost            | Třída                | Události a poznámky dom |
 | ---------------- | -------------------- | -------------------- |
 | Schránka        | `ClipboardEventArgs` | `oncut`, `oncopy`, `onpaste` |
-| Přetažení             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer` a `DataTransferItem` uchování přetažených dat položky. |
+| Přetáhněte             | `DragEventArgs`      | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br>`DataTransfer`a `DataTransferItem` podržte přetažená data položek. |
 | Chyba            | `ErrorEventArgs`     | `onerror` |
-| Událost            | `EventArgs`          | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Input* (Vstup)<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart``onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting` |
-| Vybrána            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>Neobsahuje podporu pro `relatedTarget`. |
+| Událost            | `EventArgs`          | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Vstup*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, `onsubmit`<br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting` |
+| Zaměření            | `FocusEventArgs`     | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>Nezahrnuje podporu pro `relatedTarget`. |
 | Vstup            | `ChangeEventArgs`    | `onchange`, `oninput` |
 | Klávesnice         | `KeyboardEventArgs`  | `onkeydown`, `onkeypress`, `onkeyup` |
-| Stisknut            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
-| Ukazatele myši    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
+| Myš            | `MouseEventArgs`     | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
+| Ukazatel myši    | `PointerEventArgs`   | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
 | Kolečko myši      | `WheelEventArgs`     | `onwheel`, `onmousewheel` |
-| Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress``ontimeout` |
-| Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave``ontouchcancel`<br><br>`TouchPoint` představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
+| Průběh         | `ProgressEventArgs`  | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
+| Dotykové ovládání            | `TouchEventArgs`     | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br>`TouchPoint`představuje jediné kontaktní místo na zařízení citlivém na dotyk. |
 
-Další informace najdete v následujících zdrojích:
+Další informace najdete v následujících materiálech:
 
-* [Třídy EventArgs ve zdroji odkazů ASP.NET Core (větev dotnet/aspnetcore Release/3.1)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web).
-* [MDN web Docs: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers) &ndash; obsahuje informace o tom, které prvky HTML podporují jednotlivé události modelu DOM.
+* [EventArgs třídy v ASP.NET základní referenční zdroj (dotnet/aspnetcore release/3.1 větev)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web).
+* [MDN webové dokumenty: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers) &ndash; Obsahuje informace o tom, které prvky HTML podporují každou událost DOM.
 
 ## <a name="lambda-expressions"></a>Výrazy lambda
 
-[Lambda výrazy](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions) lze také použít:
+[Lambda výrazy](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions) mohou být také použity:
 
 ```razor
 <button @onclick="@(e => Console.WriteLine("Hello, world!"))">Say hello</button>
 ```
 
-Je často vhodné uzavřít další hodnoty, jako například při iteraci přes sadu prvků. Následující příklad vytvoří tři tlačítka, z nichž každá volá `UpdateHeading` předání argumentu události (`MouseEventArgs`) a jeho číslo tlačítka (`buttonNumber`), pokud je vybráno v uživatelském rozhraní:
+Často je vhodné zavřít přes další hodnoty, například při itaci přes sadu prvků. Následující příklad vytvoří tři tlačítka, `UpdateHeading` z nichž každé`MouseEventArgs`volá předávání argumentu události ( ) a jeho číslo tlačítka (`buttonNumber`) při výběru v ui:
 
 ```razor
 <h2>@_message</h2>
@@ -129,19 +129,19 @@ Je často vhodné uzavřít další hodnoty, jako například při iteraci přes
 ```
 
 > [!NOTE]
-> Nepoužívejte **proměnnou** smyčky (`i`) ve `for` smyčce přímo ve výrazu lambda. V opačném případě se stejná proměnná používá u všech výrazů lambda, které způsobují, že hodnota `i`být stejná ve všech výrazech lambda. Vždycky zachytit svou hodnotu v místní proměnné (`buttonNumber` v předchozím příkladu) a pak ji použít.
+> **Nepoužívejte** proměnnou smyčky`i`( `for` ) ve smyčce přímo ve výrazu lambda. V opačném případě je stejná proměnná použita všemi výrazy lambda, které způsobují, `i`že hodnota společnosti je stejná ve všech lambdách. Vždy zachyťte jeho`buttonNumber` hodnotu v místní proměnné (v předchozím příkladu) a pak ji použijte.
 
-## <a name="eventcallback"></a>Vnořenou eventCallback
+## <a name="eventcallback"></a>EventCallback
 
-Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřazené komponenty, když dojde k události podřízené součásti&mdash;například při výskytu události `onclick` v podřízeném objektu. Chcete-li zobrazit události napříč komponentami, použijte `EventCallback`. Nadřazená komponenta může přiřadit metodu zpětného volání podřízené `EventCallback`komponenty.
+Běžný scénář s vnořenými součástmi je touha spustit metodu nadřazené součásti, když dojde k události podřízené součásti,&mdash;například když dojde k `onclick` události v podřízeném objektu. Chcete-li vystavit události napříč součástmi, použijte `EventCallback`. Nadřazená komponenta může přiřadit metodu `EventCallback`zpětného volání k podřízené součásti .
 
-`ChildComponent` v ukázkové aplikaci (*Components/ChildComponent. Razor*) ukazuje, jak je nastavená obslužná rutina `onclick` tlačítka pro příjem `EventCallback`ho delegáta z `ParentComponent`ukázky. `EventCallback` se zadává pomocí `MouseEventArgs`, která je vhodná pro událost `onclick` z periferního zařízení:
+V `ChildComponent` ukázkové aplikaci *(Components/ChildComponent.razor)* ukazuje, `onclick` jak je nastavena `EventCallback` obslužná `ParentComponent`rutina tlačítka pro příjem delegáta z ukázky . Je `EventCallback` zadán s `MouseEventArgs`, který je `onclick` vhodný pro událost z periferního zařízení:
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=5-7,17-18)]
 
-`ParentComponent` nastaví `EventCallback<T>` (`OnClickCallback`) dítěte na svou `ShowMessage` metodu.
+Nastaví `ParentComponent` způsob `EventCallback<T>` dítěte`OnClickCallback`( ). `ShowMessage`
 
-*Stránky/ParentComponent. Razor*:
+*Stránky/ParentComponent.razor*:
 
 ```razor
 @page "/ParentComponent"
@@ -166,33 +166,33 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
 }
 ```
 
-Když je vybráno tlačítko v `ChildComponent`:
+Když je tlačítko vybráno v : `ChildComponent`
 
-* Je volána metoda `ShowMessage` `ParentComponent`. `_messageText` se aktualizuje a zobrazí v `ParentComponent`.
-* Volání [StateHasChanged](xref:blazor/lifecycle#state-changes) není vyžadováno v metodě zpětného volání (`ShowMessage`). `StateHasChanged` se zavolá automaticky, aby se `ParentComponent`znovu vykreslila, stejně jako podřízené události spouštějí revykreslování komponenty v obslužných rutinách události, které se spouštějí v rámci podřízeného objektu
+* Je `ParentComponent`volána metoda 's. `ShowMessage` `_messageText`je aktualizována a `ParentComponent`zobrazena v .
+* Volání [StateHasChanged](xref:blazor/lifecycle#state-changes) není vyžadováno v metodě zpětného`ShowMessage`volání ( ). `StateHasChanged`je volána automaticky `ParentComponent`překreslit , stejně jako podřízené události aktivují opětovné vykreslení komponenty v obslužných rutinách událostí, které se spouštějí v rámci podřízeného.
 
-`EventCallback` a `EventCallback<T>` povolují asynchronní delegáty. `EventCallback<T>` je silného typu a vyžaduje konkrétní typ argumentu. `EventCallback` je slabě typované a umožňuje jakýkoli typ argumentu.
+`EventCallback`a `EventCallback<T>` povolit asynchronní delegáty. `EventCallback<T>`je silně zadán a vyžaduje konkrétní typ argumentu. `EventCallback`je slabě zadaný a umožňuje libovolný typ argumentu.
 
 ```razor
 <ChildComponent 
     OnClickCallback="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
 ```
 
-Vyvolat `EventCallback` nebo `EventCallback<T>` s `InvokeAsync` a očekávat <xref:System.Threading.Tasks.Task>:
+Vyvolat `EventCallback` nebo `EventCallback<T>` `InvokeAsync` s a <xref:System.Threading.Tasks.Task>čekat na :
 
 ```csharp
 await callback.InvokeAsync(arg);
 ```
 
-Pro zpracování událostí a parametry komponenty vazby použijte `EventCallback` a `EventCallback<T>`.
+Použití `EventCallback` `EventCallback<T>` a pro zpracování událostí a parametry součásti vazby.
 
-Preferovat `EventCallback<T>` silného typu přes `EventCallback`. `EventCallback<T>` poskytuje uživatelům součásti lepší zpětnou vazbu k chybám. Podobně jako u jiných obslužných rutin událostí uživatelského rozhraní je zadání parametru události volitelné. Použijte `EventCallback`, pokud není předána žádná hodnota zpětnému volání.
+Preferujte silně `EventCallback<T>` zadaný `EventCallback`přes . `EventCallback<T>`poskytuje uživatelům komponenty lepší zpětnou vazbu k chybám. Podobně jako u jiných obslužných rutin událostí rozhraní je zadání parametru události volitelné. Použijte, `EventCallback` pokud není předána žádná hodnota zpětného volání.
 
 ## <a name="prevent-default-actions"></a>Zabránit výchozím akcím
 
-Chcete-li zabránit výchozí akci pro událost, použijte atribut direktiva [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault) .
+Pomocí [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault) atributu direktivy zabraňte výchozí akci události.
 
-Když je vybraný klíč na vstupním zařízení a fokus prvku je v textovém poli, prohlížeč normálně zobrazuje znak klíče v textovém poli. V následujícím příkladu je znemožněno výchozí chování zadáním atributu direktiva `@onkeypress:preventDefault`. Čítač zvýší a **+** klíč není zachycen do hodnoty `<input>` elementu:
+Když je na vstupním zařízení vybrána klávesa a fokus prvku je na textovém poli, prohlížeč obvykle zobrazí znak klíče v textovém poli. V následujícím příkladu je výchozí chování zabráněno `@onkeypress:preventDefault` zadáním atributu direktivy. Čítač se zíhá a **+** klíč není `<input>` zachycen do hodnoty prvku:
 
 ```razor
 <input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
@@ -210,21 +210,21 @@ Když je vybraný klíč na vstupním zařízení a fokus prvku je v textovém p
 }
 ```
 
-Zadání atributu `@on{EVENT}:preventDefault` bez hodnoty je ekvivalentem `@on{EVENT}:preventDefault="true"`.
+Zadání atributu `@on{EVENT}:preventDefault` bez hodnoty je `@on{EVENT}:preventDefault="true"`ekvivalentní .
 
-Hodnotou atributu může být také výraz. V následujícím příkladu je `_shouldPreventDefault` `bool` pole nastaveno na hodnotu `true` nebo `false`:
+Hodnota atributu může být také výraz. V `_shouldPreventDefault` následujícím příkladu `bool` je pole `true` nastaveno na jedno nebo `false`:
 
 ```razor
 <input @onkeypress:preventDefault="_shouldPreventDefault" />
 ```
 
-Obslužná rutina události není nutná, aby se zabránilo výchozí akci. Obslužná rutina události a zabraňuje použití výchozích akcí, lze použít nezávisle.
+Obslužná rutina události není nutné zabránit výchozí akci. Obslužnou rutinu události a zabránit výchozí scénáře akce lze použít nezávisle.
 
 ## <a name="stop-event-propagation"></a>Zastavit šíření událostí
 
-Pro zastavení šíření události použijte atribut direktiva [`@on{EVENT}:stopPropagation`](xref:mvc/views/razor#oneventstoppropagation) .
+Pomocí [`@on{EVENT}:stopPropagation`](xref:mvc/views/razor#oneventstoppropagation) atributu direktiva zastavte šíření událostí.
 
-V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na události z druhého podřízeného `<div>` z rozšiřování do nadřazené `<div>`:
+V následujícím příkladu zabráníte zaškrtnutí políčka, aby `<div>` se události z druhého `<div>`podřízeného objektu nešířily do nadřazeného objektu :
 
 ```razor
 <label>

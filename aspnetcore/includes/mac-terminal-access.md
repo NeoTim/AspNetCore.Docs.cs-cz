@@ -1,18 +1,18 @@
-### <a name="accessing-a-command-terminal-on-visual-studios-for-mac"></a>Přístup k terminálovému terminálu na Visual studia pro Mac
+### <a name="accessing-a-command-terminal-on-visual-studios-for-mac"></a>Přístup k příkazovému terminálu na vizuálních studiích pro Mac
 
-Při prvním přístupu k terminálovému příkazu na Macu vyžaduje následující nastavení konfigurace:
+První přístup k příkazovému terminálu na Macu vyžaduje následující konfigurace nastavení:
 
-* Přejděte na **Předvolby systému > klávesové zkratky > kláves > Services**.
-* V části **soubory a složky**ověřte, že je vybraná možnost ověřit, že je vybraná možnost **nový terminál ve složce**
+* Přejděte na **předvolby systému > klávesové zkratky > > služby**.
+* V části **Soubory a složky**ověřte, zda je vybrán **nový terminál ve složce.**
 
-Předchozí pokyny umožňují přístup k terminálovému terminálu pomocí dvou způsobů: v rámci sady **Visual Studio** nebo ze služby **Finder**. 
+Předchozí pokyny umožňují přístup k terminálu příkazu dvěma způsoby: z aplikace **Visual Studio** nebo z **Finderu**. 
 
-#### <a name="to-access-a-command-terminal-from-visual-studio-for-mac"></a>Přístup k příkazovému terminálu z Visual Studio pro Mac:
+#### <a name="to-access-a-command-terminal-from-visual-studio-for-mac"></a>Přístup k příkazovému terminálu z Visual Studia pro Mac:
 
 * Klikněte pravým tlačítkem myši na název projektu.
-* Přejděte na **nástroje > otevřít v terminálu**.
+* Přejděte na **možnost Nástroje > otevřít v terminálu**.
 
-#### <a name="to-access-a-command-terminal-from-finder"></a>Přístup k terminálu příkazu ze služby Finder:
+#### <a name="to-access-a-command-terminal-from-finder"></a>Přístup k příkazovému terminálu z Finderu:
 
-* Klikněte pravým tlačítkem na požadovanou složku.
-* V dolní části seznamu vyberte **nový terminál ve složce**.
+* Klikněte pravým tlačítkem myši na požadovanou složku.
+* V dolní části seznamu vyberte **Nový terminál ve složce**.

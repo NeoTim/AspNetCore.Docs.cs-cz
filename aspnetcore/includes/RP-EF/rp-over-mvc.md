@@ -1,12 +1,12 @@
-V tomto kurzu se naučíte ASP.NET Core MVC a Entity Framework Core s řadiči a zobrazeními. [Razor Pages](xref:razor-pages/index) je alternativním programovacím modelem, který byl představen v ASP.NET Core 2,0. Pro nový vývoj doporučujeme Razor Pages přes MVC s řadiči a zobrazeními. K dispozici je [Razor Pages](xref:data/ef-rp/intro) verze tohoto kurzu. Každý kurz se zabývá některými materiály, které ještě nejsou:
+Tento kurz učí ASP.NET Core MVC a Entity Framework Core s řadiči a zobrazení. [Razor Pages](xref:razor-pages/index) je alternativní programovací model, který byl představen v ASP.NET Core 2.0. Pro nový vývoj doporučujeme Razor Pages přes MVC s ovladači a zobrazeními. K dispozici je [verze Razor Pages](xref:data/ef-rp/intro) tohoto kurzu. Každý výukový program se vztahuje na některé materiály, druhý není:
 
-Některé věci tohoto kurzu MVC mají tento kurz Razor Pages:
+Některé věci tento výukový program MVC má, že Razor Stránky výukový program není:
 
-* Implementace dědičnosti v datovém modelu
+* Implementovat dědičnost v datovém modelu
 * Provádění nezpracovaných dotazů SQL
-* Zjednodušení kódu pomocí dynamického jazyka LINQ
+* Zjednodušení kódu pomocí dynamického LINQ
  
-V tomto kurzu Razor Pages tento kurz:
+Některé věci Razor Stránky tutorial má, že tohle nemá:
 
-* Pro načtení souvisejících dat použít metodu Select
-* Verze dostupná pro ASP.NET Core 3,0
+* Použití metody Select k načtení souvisejících dat
+* Verze dostupná pro ASP.NET Core 3.0

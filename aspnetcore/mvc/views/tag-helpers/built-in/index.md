@@ -1,25 +1,25 @@
 ---
-title: ASP.NET Core integrovaných pomocníků značek
+title: ASP.NET Core integrované pomocné spoje značek
 author: pkellner
-description: Zjistěte, jak ASP.NET Core integrovaných pomocníků značek zvyšuje vaši produktivitu.
+description: Zjistěte, jak ASP.NET integrované pomocné sanem značek core zvyšují vaši produktivitu.
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
 uid: mvc/views/tag-helpers/builtin-th/Index
 ms.openlocfilehash: f19cfa5b843bde8a8633ce778562707e566bebb9
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78662720"
 ---
-# <a name="aspnet-core-built-in-tag-helpers"></a>ASP.NET Core integrovaných pomocníků značek
+# <a name="aspnet-core-built-in-tag-helpers"></a>ASP.NET Core integrované pomocné spoje značek
 
-Od [Petra Kellner](https://peterkellner.net)
+Podle [Peter Kellner](https://peterkellner.net)
 
-Přehled pomocníků značek naleznete v tématu <xref:mvc/views/tag-helpers/intro>.
+Přehled pomocníků značek naleznete <xref:mvc/views/tag-helpers/intro>v tématu .
 
-K dispozici jsou předdefinované pomocníky značek, které nejsou uvedené v tomto dokumentu. Neuvedené pomocníky značek se používají interně modulem zobrazení [Razor](xref:mvc/views/razor) . Pomocná rutina značky pro znak `~` (tilda) není v seznamu. Pomocný pomocník značek vlnovek se rozšíří na kořenovou cestu webu.
+Existují integrované pomocné spoje značek, které nejsou uvedeny v tomto dokumentu. Neuvedené tag pomocné sazby jsou používány interně [razor](xref:mvc/views/razor) zobrazení motoru. Pomocník tagů pro `~` znak (tilda) není uveden. Pomocné s značkou tildy se rozbalí na kořenovou cestu webu.
 
 [!INCLUDE[](~/includes/built-in-TH.md)]
 

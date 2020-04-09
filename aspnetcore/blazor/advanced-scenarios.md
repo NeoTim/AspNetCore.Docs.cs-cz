@@ -1,7 +1,7 @@
 ---
-title: ASP.NET Core Blazor pokročilé scénáře
+title: ASP.NET Blazor pokročilé scénáře Core
 author: guardrex
-description: Přečtěte si o rozšířených scénářích Blazor, včetně postupu ručního začlenění RenderTreeBuilder logiky do aplikace.
+description: Další informace o Blazorpokročilých scénářích v aplikaci , včetně toho, jak začlenit ruční logiku RenderTreeBuilder do aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -11,19 +11,19 @@ no-loc:
 - SignalR
 uid: blazor/advanced-scenarios
 ms.openlocfilehash: 5edbbe36e8389bac0335594b1e4331aee1c02867
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/06/2020
 ms.locfileid: "78659451"
 ---
-# <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core pokročilé scénáře pro Blazor
+# <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET core blazor pokročilé scénáře
 
-Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
+[Luke Latham](https://github.com/guardrex) a [Daniel Roth](https://github.com/danroth27)
 
-## <a name="blazor-server-circuit-handler"></a>Obslužná rutina okruhu serveru Blazor
+## <a name="blazor-server-circuit-handler"></a>Obslužná rutina obvodu serveru Blazor
 
-Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje připojení Open Signal:
+Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu na změny stavu okruhu uživatele. Obslužná rutina okruhu `CircuitHandler` je implementována odvozením a registrací třídy v kontejneru služeb aplikace. Následující příklad obslužné rutiny obvodu sleduje otevřená připojení SignalR:
 
 ```csharp
 using System.Collections.Generic;
@@ -55,7 +55,7 @@ public class TrackingCircuitHandler : CircuitHandler
 }
 ```
 
-Obslužné rutiny okruhu jsou registrovány pomocí DI. Vymezené instance se vytvářejí pro jednotlivé instance okruhu. Pomocí `TrackingCircuitHandler` v předchozím příkladu je vytvořena služba typu Singleton, protože stav všech okruhů musí být sledován:
+Obslužné rutiny obvodu jsou registrovány pomocí DI. Instance s vymezeným oborem jsou vytvořeny pro instanci okruhu. Pomocí `TrackingCircuitHandler` v předchozím příkladu je vytvořena služba singleton, protože musí být sledován stav všech obvodů:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -65,18 +65,18 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro okruh serveru Blazor. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více příkazech [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud metody obslužné rutiny vlastního okruhu vyvolat neošetřené výjimky, výjimka je fatální blazor server obvodu. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód do jednoho nebo více příkazů [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) se zpracováním chyb a protokolováním.
 
-Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí stav okruhu, rozhraní uvolní obor DI okruhu. Při likvidaci oboru se uvolní jakékoli služby DI Services s rozsahem okruhů, které implementují <xref:System.IDisposable?displayProperty=fullName>. Pokud jakákoli služba DI vyvolá neošetřenou výjimku při vyřazení, rozhraní zaprotokoluje výjimku.
+Pokud obvod končí, protože uživatel má odpojena a rozhraní je vyčištění stavu obvodu, rozhraní disponuje oboru DI obvodu. Odstranění oboru disponuje všechny služby DI <xref:System.IDisposable?displayProperty=fullName>s rozsahem okruhu, které implementují . Pokud všechny služby DI vyvolá neošetřené výjimky během likvidace, rozhraní protokoluje výjimku.
 
-## <a name="manual-rendertreebuilder-logic"></a>Ruční logika RenderTreeBuilder
+## <a name="manual-rendertreebuilder-logic"></a>Ruční rendertreebuilder logika
 
-`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder` poskytuje metody pro práci s komponentami a prvky, včetně sestavování C# komponent ručně v kódu.
+`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder`poskytuje metody pro manipulaci s komponentami a prvky, včetně vytváření komponent ručně v kódu jazyka C#.
 
 > [!NOTE]
-> Použití `RenderTreeBuilder` k vytváření komponent je pokročilý scénář. Poškozená komponenta (například značka neuzavřeného označení) může mít za následek nedefinované chování.
+> Použití `RenderTreeBuilder` k vytvoření komponent je pokročilý scénář. Poškozená součást (například neuzavřená značkovací značka) může mít za následek nedefinované chování.
 
-Vezměte v úvahu následující součást `PetDetails`, kterou je možné ručně vytvořit do jiné komponenty:
+Zvažte `PetDetails` následující součást, která může být ručně zabudována do jiné součásti:
 
 ```razor
 <h2>Pet Details Component</h2>
@@ -90,9 +90,9 @@ Vezměte v úvahu následující součást `PetDetails`, kterou je možné ručn
 }
 ```
 
-V následujícím příkladu smyčka v metodě `CreateComponent` generuje tři komponenty `PetDetails`. Při volání metod `RenderTreeBuilder` pro vytvoření komponent (`OpenComponent` a `AddAttribute`) jsou pořadová čísla čísla řádků zdrojového kódu. Algoritmus rozdílu Blazor spoléhá na pořadová čísla, která odpovídají jedinečným řádkům kódu, a neliší vyvolání volání. Při vytváření komponenty s metodami `RenderTreeBuilder` nekódujte pevně argumenty pro pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadového čísla může vést k špatnému výkonu.** Další informace naleznete v části [pořadové číslo se vztahuje na čísla řádků kódu a nikoli na oddíl pořadí provádění](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) .
+V následujícím příkladu smyčka `CreateComponent` v metodě `PetDetails` generuje tři součásti. Při `RenderTreeBuilder` volání metod pro vytvoření`OpenComponent` `AddAttribute`komponent (a ) pořadová čísla jsou čísla řádků kódu původu. Blazorův algoritmus rozdílu závisí na pořadových číslech odpovídajících odlišným řádkům kódu, nikoli odlišným voláním volání. Při vytváření komponenty pomocí `RenderTreeBuilder` metod pevně zakódujte argumenty pro pořadová čísla. **Použití výpočtu nebo čítače ke generování pořadového čísla může vést ke snížení výkonu.** Další informace naleznete v [části Pořadová čísla se vztahují k číslům řádků kódu a nikoli k oddílu pořadí provádění.](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order)
 
-součást `BuiltContent`:
+`BuiltContent`Komponenty:
 
 ```razor
 @page "/BuiltContent"
@@ -126,15 +126,15 @@ součást `BuiltContent`:
 ```
 
 > [!WARNING]
-> Typy v `Microsoft.AspNetCore.Components.RenderTree` umožňují zpracování *výsledků* operací vykreslování. Jedná se o interní podrobnosti implementace Blazor Framework. Tyto typy by měly být považovány za *nestabilní* a mohou se změnit v budoucích verzích.
+> Typy v `Microsoft.AspNetCore.Components.RenderTree` umožňují zpracování *výsledků* vykreslování operací. Jedná se o interní podrobnosti implementace rámce Blazor. Tyto typy by měly být považovány za *nestabilní* a v budoucích verzích by se měly měnit.
 
-### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>Pořadová čísla se vztahují na čísla řádků kódu a nikoli na pořadí provádění.
+### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>Pořadová čísla se vztahují k číslům řádků kódu a nikoli k příkazu k provedení
 
-Soubory komponent Razor ( *. Razor*) jsou vždy kompilovány. Kompilace je potenciální výhodou pro interpretaci kódu, protože krok kompilace lze použít k vložení informací, které zvyšují výkon aplikace za běhu.
+Soubory komponent razor (*.razor*) jsou vždy kompilovány. Kompilace je potenciální výhodou oproti interpretaci kódu, protože krok kompilace lze použít k vložení informací, které zlepšují výkon aplikace za běhu.
 
-Hlavní příklad těchto vylepšení zahrnuje *pořadová čísla*. Pořadová čísla označují modul runtime, ze kterého výstupy pocházejí, ze kterých se liší a seřazené řádky kódu. Modul runtime používá tyto informace k vygenerování efektivních rozdílů stromu v lineárním čase, což je mnohem rychlejší než obvykle pro obecný rozdílový algoritmus stromu.
+Klíčovým příkladem těchto vylepšení jsou *pořadová čísla*. Pořadová čísla označují do běhu, které výstupy pocházejí z, ze kterých odlišných a seřazených řádků kódu. Runtime používá tyto informace ke generování efektivní strom rozdíly v lineární čas, což je mnohem rychlejší, než je obvykle možné pro obecný algoritmus rozdílu stromu.
 
-Vezměte v úvahu následující soubor součásti Razor ( *. Razor*):
+Zvažte následující soubor komponenty Razor (*.razor):*
 
 ```razor
 @if (someFlag)
@@ -145,7 +145,7 @@ Vezměte v úvahu následující soubor součásti Razor ( *. Razor*):
 Second
 ```
 
-Předchozí kód se zkompiluje jako následující:
+Předchozí kód zkompiluje na něco jako následující:
 
 ```csharp
 if (someFlag)
@@ -156,26 +156,26 @@ if (someFlag)
 builder.AddContent(1, "Second");
 ```
 
-Při prvním spuštění kódu, pokud je `someFlag` `true`, tvůrce obdrží:
+Při prvním spuštění kódu, pokud `someFlag` je `true`, tvůrce obdrží:
 
-| Pořadí | Typ      | Data   |
+| Sequence | Typ      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | 1 sekunda |
 
-Představte si, že `someFlag` se budou `false`a kód se znovu vykreslí. Tentokrát Tvůrce získá:
+Představte `someFlag` `false`si, že se stane , a značky je vykreslen znovu. Tentokrát tvůrce obdrží:
 
-| Pořadí | Typ       | Data   |
+| Sequence | Typ       | Data   |
 | :------: | ---------- | :----: |
 | 1        | Textový uzel  | 1 sekunda |
 
-Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci `0` byla odebrána, takže generuje následující skript triviálního *úprav*:
+Když runtime provede rozdíl, zjistí, že položka `0` v sekvenci byla odebrána, takže generuje následující triviální *editační skript*:
 
 * Odeberte první textový uzel.
 
-### <a name="the-problem-with-generating-sequence-numbers-programmatically"></a>Problém s tím, že se pořadová čísla generují programově
+### <a name="the-problem-with-generating-sequence-numbers-programmatically"></a>Problém s generováním pořadových čísel programově
 
-Představte si, že jste napsali následující logiku tvůrce stromu vykreslování:
+Představte si, že místo toho jste napsali následující logiku tvůrce vykreslení:
 
 ```csharp
 var seq = 0;
@@ -188,62 +188,62 @@ if (someFlag)
 builder.AddContent(seq++, "Second");
 ```
 
-Teď je první výstup:
+Nyní je první výstup:
 
-| Pořadí | Typ      | Data   |
+| Sequence | Typ      | Data   |
 | :------: | --------- | :----: |
 | 0        | Textový uzel | První  |
 | 1        | Textový uzel | 1 sekunda |
 
-Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag` je `false` při druhém vykreslování a výstup je:
+Tento výsledek je totožný s předchozím případem, takže neexistují žádné negativní problémy. `someFlag`je `false` na druhé vykreslení a výstup je:
 
-| Pořadí | Typ      | Data   |
+| Sequence | Typ      | Data   |
 | :------: | --------- | ------ |
 | 0        | Textový uzel | 1 sekunda |
 
-Tentokrát rozdílový algoritmus uvidí, že došlo ke *dvěma* změnám, a algoritmus generuje následující skript pro úpravy:
+Tentokrát algoritmus diff zjistí, že došlo ke *dvěma* změnám a algoritmus generuje následující skript pro úpravy:
 
 * Změňte hodnotu prvního textového uzlu na `Second`.
 * Odeberte druhý textový uzel.
 
-Generování pořadových čísel ztratilo všechny užitečné informace o tom, kde `if/else` větve a smyčky byly obsaženy v původním kódu. To vede ke rozdílu **dvakrát, jak dlouho** chcete.
+Generování pořadových čísel ztratilo všechny užitečné `if/else` informace o tom, kde byly větve a smyčky přítomny v původním kódu. To má za následek rozdíl **dvakrát tak dlouho jako** dříve.
 
-Toto je triviální příklad. Ve složitějších případech se složitými a hluboce vnořenými strukturami a zejména s cykly jsou náklady na výkon obvykle vyšší. Místo toho, aby ihned identifikovaly, které bloky nebo větve smyčky byly vloženy nebo odebrány, je třeba rozdílový algoritmus přepracovat hluboko do stromů vykreslování. To obvykle vede k sestavování delších úprav skriptů, protože rozdílový algoritmus je neinformován o tom, jak se stará a nová struktura vzájemně souvisí.
+Toto je triviální příklad. V realističtějších případech se složitými a hluboce vnořenými strukturami a zejména se smyčkami jsou náklady na výkon obvykle vyšší. Namísto okamžitého určení, které smyčky bloky nebo větve byly vloženy nebo odstraněny, algoritmus diff musí recurse hluboko do vykreslovat stromy. To obvykle vede k nutnosti vytvářet delší upravit skripty, protože algoritmus diff je nesprávně informován o tom, jak staré a nové struktury se vztahují k sobě navzájem.
 
-### <a name="guidance-and-conclusions"></a>Doprovodné materiály a závěry
+### <a name="guidance-and-conclusions"></a>Pokyny a závěry
 
-* Pokud jsou automaticky generována pořadová čísla, je výkon aplikace zhoršen.
-* Rozhraní nemůže automaticky vytvořit vlastní pořadová čísla za běhu, protože potřebné informace neexistují, pokud není zachycena v době kompilace.
-* Nepište dlouhé bloky manuálně implementované `RenderTreeBuilder` logiky. Preferovat soubory *. Razor* a umožněte kompilátoru, aby se zabývat pořadovým číslem. Nemůžete-li se vyhnout ruční logice `RenderTreeBuilder`, rozdělte dlouhé bloky kódu do menších částí zabalených do `OpenRegion`/`CloseRegion` volání. Každá oblast má vlastní oddělený prostor pořadových čísel, takže v každé oblasti můžete restartovat z nuly (nebo jakéhokoli jiného libovolného čísla).
-* Pokud jsou pořadová čísla pevně zakódované, rozdílový algoritmus vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou nepodstatné. Jednou z oprávněných možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit podle hodnoty nebo stovky (případně z upřednostňovaného intervalu). 
-* Blazor používá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdíly jsou mnohem rychlejší, když se používají pořadová čísla, a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře vytvářející soubory *. Razor* .
+* Výkon aplikace trpí, pokud jsou dynamicky generována pořadová čísla.
+* Rozhraní framework nelze vytvořit vlastní pořadová čísla automaticky za běhu, protože potřebné informace neexistuje, pokud je zachycena v době kompilace.
+* Nepište dlouhé bloky ručně implementované `RenderTreeBuilder` logiky. Preferujte soubory *.razor* a povolte kompilátoru, aby se zabýval pořadovými čísly. Pokud se nemůžete vyhnout `RenderTreeBuilder` ruční logice, rozdělte dlouhé bloky `OpenRegion` / `CloseRegion` kódu na menší části zabalené do volání. Každá oblast má svůj vlastní samostatný prostor pořadových čísel, takže můžete restartovat z nuly (nebo jiné libovolné číslo) uvnitř každé oblasti.
+* Pokud jsou posloupná čísla pevně zakódována, algoritmus rozdílu vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou irelevantní. Jednou z legitimních možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit o jedny nebo stovky (nebo jakýkoli preferovaný interval). 
+* Blazorpoužívá pořadová čísla, zatímco jiné architektury ui, které rozptylují strom, je nepoužívají. Rozptylování je mnohem rychlejší při použití Blazor pořadových čísel a má tu výhodu, že kompiluje krok, který se automaticky zabývá pořadovými čísly pro vývojáře, kteří authoritují soubory *.razor.*
 
-## <a name="perform-large-data-transfers-in-opno-locblazor-server-apps"></a>Provádění rozsáhlých přenosů dat v Blazor serverových aplikacích
+## <a name="perform-large-data-transfers-in-opno-locblazor-server-apps"></a>Provádění velkých přenosů dat v Blazor serverových aplikacích
 
-V některých scénářích je nutné přenášet velké objemy dat mezi JavaScriptem a Blazor. K přenosu velkých objemů dat se obvykle dochází v těchto případech:
+V některých případech musí být mezi Jazykem BlazorJavaScript a . K velkým přenosům dat obvykle dochází, když:
 
-* Rozhraní API pro systém souborů v prohlížeči slouží k nahrání nebo stažení souboru.
-* Je vyžadována interoperabilita s knihovnou třetích stran.
+* Rozhraní API systému souborů prohlížeče se používají k nahrání nebo stažení souboru.
+* Interop s knihovnou třetí strany je vyžadován.
 
-V Blazorm serveru je omezené omezení, které zabraňuje předávání jednoduchých zpráv, které mohou způsobit problémy s výkonem.
+V Blazor serveru je zavedeno omezení, které zabraňuje předávání jednu velké zprávy, které mohou mít za následek problémy s výkonem.
 
-Při vývoji kódu, který přenáší data mezi JavaScriptem a Blazor, vezměte v úvahu následující pokyny:
+Při vývoji kódu, který přenáší data Blazormezi Jazykem JavaScript a :
 
-* Rozdělí data na menší části a datové segmenty se postupně odesílají, dokud server neobdrží všechna data.
-* Nepřiřazujte velké objekty v JavaScriptu C# a kódu.
-* Při odesílání nebo přijímání dat Neblokujte hlavní vlákno uživatelského rozhraní pro dlouhá období.
-* Uvolněte veškerou paměť, která je spotřebována při dokončení nebo zrušení procesu.
-* Vyjistěte následující další požadavky pro účely zabezpečení:
-  * Deklarujte maximální velikost souboru nebo dat, která se dají předat.
-  * Deklarujte minimální rychlost nahrávání z klienta na server.
-* Po přijetí dat serverem můžou být tato data:
-  * Dočasně uloženo do vyrovnávací paměti, dokud nebudou všechny segmenty shromažďovány.
-  * Spotřebované hned. Data můžete například uložit hned do databáze nebo zapsat na disk při přijetí každého segmentu.
+* Řez data na menší části a odeslat datové segmenty postupně, dokud všechna data přijata serverem.
+* Nepřidělujte velké objekty v kódu JavaScriptu a C#.
+* Při odesílání nebo přijímání dat neblokujte hlavní vlákno uživatelského rozhraní po dlouhou dobu.
+* Uvolněte všechny paměti spotřebované po dokončení nebo zrušení procesu.
+* Vynucujte následující další požadavky pro účely zabezpečení:
+  * Deklarujte maximální velikost souboru nebo dat, která může být předána.
+  * Deklarujte minimální rychlost odesílání z klienta na server.
+* Po přijetí dat serverem mohou být data:
+  * Dočasně uloženy ve vyrovnávací paměti, dokud všechny segmenty jsou shromažďovány.
+  * Spotřebované okamžitě. Data mohou být například okamžitě uložena v databázi nebo zapsána na disk při přijetí každého segmentu.
 
-Následující třída pro odeslání souborů zpracovává zprostředkovatele komunikace JS s klientem. Třída odeslání používá zprostředkovatele komunikace JS na:
+Následující třída nahrazovače souborů zpracovává js interop s klientem. Třída uploader používá js interop k:
 
-* Cyklické dotazování klienta o odeslání datového segmentu.
-* Zruší transakci, pokud vyprší časový limit pro cyklické dotazování.
+* Dotazování klienta odeslat datový segment.
+* Přerušit transakci, pokud časový interval dotazování.
 
 ```csharp
 using System;
@@ -332,16 +332,16 @@ public class FileUploader : IDisposable
 
 V předchozím příkladu:
 
-* `_maxBase64SegmentSize` je nastavená na `8192`, která se počítá z `_maxBase64SegmentSize = _segmentSize * 4 / 3`.
-* Rozhraní API pro správu paměti nižší úrovně v rozhraní .NET Core slouží k ukládání segmentů paměti na serveru v `_uploadedSegments`.
-* Metoda `ReceiveFile` se používá ke zpracování nahrávání prostřednictvím zprostředkovatele komunikace JS:
-  * Velikost souboru je určena v bajtech přes interoperabilitu JS s `_jsRuntime.InvokeAsync<FileInfo>('getFileSize', selector)`.
-  * Počet segmentů, které se mají přijmout, se vypočítá a uloží v `numberOfSegments`.
-  * Segmenty jsou požadovány v `for` smyčka prostřednictvím zprostředkovatele komunikace JS s `_jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)`. Všechny segmenty, ale poslední, musí mít 8 192 bajtů před dekódováním. Klient je nucen posílat data účinným způsobem.
-  * Pro každý přijatý segment jsou kontroly provedeny před dekódováním pomocí <xref:System.Convert.TryFromBase64String*>.
-  * Po dokončení nahrávání se datový proud s daty vrátí jako nový <xref:System.IO.Stream> (`SegmentedStream`).
+* Je `_maxBase64SegmentSize` nastavena `8192`na , `_maxBase64SegmentSize = _segmentSize * 4 / 3`která je vypočtena z .
+* Rozhraní API pro správu paměti .NET core nízké úrovně se `_uploadedSegments`používají k ukládání segmentů paměti na serveru v .
+* Metoda `ReceiveFile` se používá ke zpracování nahrávání prostřednictvím JS interop:
+  * Velikost souboru je určena v bajtů `_jsRuntime.InvokeAsync<FileInfo>('getFileSize', selector)`prostřednictvím JS interop s .
+  * Počet segmentů, které mají být `numberOfSegments`přijímány, se vypočítá a uloží do .
+  * Segmenty jsou požadovány `for` ve smyčce prostřednictvím JS interop s `_jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)`. Všechny segmenty, ale poslední musí být 8 192 bajtů před dekódováním. Klient je nucen odeslat data efektivním způsobem.
+  * Pro každý přijatý segment se před <xref:System.Convert.TryFromBase64String*>dekódováním pomocí kontroly provádějí kontroly.
+  * Datový proud s daty je <xref:System.IO.Stream> `SegmentedStream`vrácen jako nový ( ) po dokončení nahrávání.
 
-Třída segmentace Stream zpřístupňuje seznam segmentů jako typ ReadOnly, který nelze prohledávat <xref:System.IO.Stream>:
+Segmentovaná třída datového proudu zveřejňuje seznam segmentů jako nevyhledatelný <xref:System.IO.Stream>seznam pouze pro čtení :
 
 ```csharp
 using System;
@@ -437,7 +437,7 @@ public class SegmentedStream : Stream
 }
 ```
 
-Následující kód implementuje funkce JavaScriptu pro příjem dat:
+Následující kód implementuje funkce Jazyka JavaScript pro příjem dat:
 
 ```javascript
 function getFileSize(selector) {

@@ -1,3 +1,3 @@
-# <a name="error-handling-sample-application"></a>Chyba při zpracování ukázkové aplikace
+# <a name="error-handling-sample-application"></a>Zpracování ukázkové aplikace při zpracování chyb
 
-Tato ukázková aplikace ukazuje scénáře popsané v tématu [zpracování chyb v ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/error-handling).
+Tato ukázková aplikace ukazuje scénáře popsané v [popisovač chyby v ASP.NET Core](https://docs.microsoft.com/aspnet/core/fundamentals/error-handling).
