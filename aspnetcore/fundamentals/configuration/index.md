@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 3/29/2020
 uid: fundamentals/configuration/index
-ms.openlocfilehash: d76ca78bc988f859b4e99752a0e88735e1df1d82
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 506f01ace72d6e915c0f3ebdaae5b4a3328a79b9
+ms.sourcegitcommit: e72a58d6ebde8604badd254daae8077628f9d63e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80501330"
+ms.lasthandoff: 04/10/2020
+ms.locfileid: "81007155"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET jádru
 
@@ -311,7 +311,7 @@ Konfigurační klíče:
 * Hierarchické klíče
   * V rámci rozhraní API konfigurace`:`funguje oddělovač dvojtečky ( ) na všech platformách.
   * V proměnných prostředí oddělovač dvojtečky nemusí fungovat na všech platformách. Dvojité podtržítko , `__`je podporováno všemi platformami a je automaticky převedeno na dvojtečku `:`.
-  * V azure key vault hierarchické klíče použít `--` jako oddělovač. Napište kód, `--` který `:` nahradí při načítání tajných kódů do konfigurace aplikace.
+  * V azure key vault hierarchické klíče použít `--` jako oddělovač. [Zprostředkovatel konfigurace úložiště klíčů](xref:security/key-vault-configuration) Azure `--` vault `:` automaticky nahradí při načítání tajných kódů do konfigurace aplikace.
 * Podporuje <xref:Microsoft.Extensions.Configuration.ConfigurationBinder> vazby pole na objekty pomocí indexů pole v konfiguračních klíčích. Vazba pole je popsána v části [Bind pole.](#boa)
 
 Hodnoty konfigurace:

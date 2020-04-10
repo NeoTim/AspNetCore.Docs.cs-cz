@@ -5,17 +5,17 @@ description: Můžete začít Blazor s Blazor tím, že vytvoříte aplikaci s n
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 04/09/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: c49209afde21046a6bc0b197cc4b8d93b164b23e
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: e9e6eeeb1d29aa529e43d75f5d3951d2c4384d7e
+ms.sourcegitcommit: 4506a8f71ece921010ad6b7edebc8b200618f40d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80471812"
+ms.lasthandoff: 04/09/2020
+ms.locfileid: "81002909"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -78,7 +78,9 @@ Chcete-li začít s Blazorem, postupujte podle pokynů pro výběr nástrojů:
 
 1. IDE požadavky, které přidáte prostředky k sestavení a ladění projektu. Vyberte **ano**.
 
-1. Spusťte aplikaci pomocí ladicího programu kódu Visual Studia.
+1. S Blazor Server, spusťte aplikaci pomocí ladicího programu Visual Studio Kód.
+
+   S Blazor WebAssembly spusťte aplikaci pomocí konfigurace spuštění **.NET Core Launch (Blazor Standalone)** a poté spusťte prohlížeč pomocí **webové sestavy .NET Core Debug Blazor v** konfiguraci spuštění Chromu (vyžaduje Chrome). Další informace naleznete v tématu <xref:blazor/debug#visual-studio-code>.
 
 1. V prohlížeči přejděte na . `https://localhost:5001`
 

@@ -8,12 +8,12 @@ ms.date: 11/21/2019
 no-loc:
 - SignalR
 uid: tutorials/signalr
-ms.openlocfilehash: 55ebdbfa4556deca74a6cdf0638307425cd1a01a
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 869eb325ee95a78e4b16c61c5b0573bb094292e3
+ms.sourcegitcommit: 9a46e78c79d167e5fa0cddf89c1ef584e5fe1779
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78666745"
+ms.lasthandoff: 04/09/2020
+ms.locfileid: "80994623"
 ---
 # <a name="tutorial-get-started-with-aspnet-core-signalr"></a>Kurz: Začínáme s ASP.NET Core SignalR
 
@@ -89,7 +89,7 @@ Na konci budete mít funkční chatovací aplikaci:
 
 ## <a name="add-the-signalr-client-library"></a>Přidání klientské knihovny SignalR
 
-Knihovna serveru SignalR je součástí ASP.NET sdíleného rozhraní Core 3.0. Klientská knihovna JavaScriptu není automaticky zahrnuta do projektu. V tomto kurzu pomocí Správce knihovny (LibMan) získat klientskou knihovnu z *unpkg*. unpkg je síť pro doručování obsahu (CDN)), která může dodat cokoli, co se nachází v npm, Správce balíčků Node.js.
+Knihovna serveru SignalR je součástí ASP.NET sdíleného rozhraní Core 3.0. Klientská knihovna JavaScriptu není automaticky zahrnuta do projektu. V tomto kurzu pomocí Správce knihovny (LibMan) získat klientskou knihovnu z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může dodat cokoli, co se nachází v npm, správce balíčků Node.js.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
@@ -320,7 +320,7 @@ Na konci budete mít funkční chatovou ![aplikaci: Ukázková aplikace SignalR]
 
 ## <a name="add-the-signalr-client-library"></a>Přidání klientské knihovny SignalR   
 
-Knihovna serveru SignalR je `Microsoft.AspNetCore.App` součástí metabalíčku. Klientská knihovna JavaScriptu není automaticky zahrnuta do projektu. V tomto kurzu pomocí Správce knihovny (LibMan) získat klientskou knihovnu z *unpkg*. unpkg je síť pro doručování obsahu (CDN)), která může dodat cokoli, co se nachází v npm, Správce balíčků Node.js.    
+Knihovna serveru SignalR je `Microsoft.AspNetCore.App` součástí metabalíčku. Klientská knihovna JavaScriptu není automaticky zahrnuta do projektu. V tomto kurzu pomocí Správce knihovny (LibMan) získat klientskou knihovnu z *unpkg*. unpkg je síť pro doručování obsahu (CDN), která může dodat cokoli, co se nachází v npm, správce balíčků Node.js. 
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)  
 

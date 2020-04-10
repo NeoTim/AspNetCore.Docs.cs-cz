@@ -5,14 +5,14 @@ description: Přečtěte si o adresářové struktuře publikovaných aplikací 
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/20/2020
+ms.date: 04/09/2020
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: 0e7bf40520385b7719cb37120709e0a3fd2442e3
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 3ed27db31c5fda8376ed108568ea74b657d30531
+ms.sourcegitcommit: 4506a8f71ece921010ad6b7edebc8b200618f40d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79989732"
+ms.lasthandoff: 04/09/2020
+ms.locfileid: "81002935"
 ---
 # <a name="aspnet-core-directory-structure"></a>ASP.NET Základní adresářová struktura
 
@@ -28,7 +28,7 @@ Adresář *publikování* obsahuje nasaditelné prostředky aplikace vytvořené
 
 | Typ aplikací | Adresářová struktura |
 | -------- | ------------------- |
-| [Spustitelný soubor závislý na rámci (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>Publikovat&dagger;<ul><li>Zobrazení&dagger; aplikací MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; Aplikace MVC nebo Razor Pages, pokud stránky nejsou předkompilované</li><li>wwwroot&dagger;</li><li>\*Soubory DLL</li><li>{NÁZEV SESTAVENÍ}.deps.json</li><li>{NÁZEV SESTAVENÍ}.dll</li><li>{NÁZEV SESTAVENÍ} {. ROZŠÍŘENÍ} *.exe* rozšíření v systému Windows, žádné rozšíření na macOS nebo Linux</li><li>{NÁZEV SESTAVENÍ}.pdb</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.dll</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.pdb</li><li>{NÁZEV SESTAVENÍ}.runtimeconfig.json</li><li>web.config (nasazení služby IIS)</li><li>createdump ([Linux createdump nástroj](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*.so (Linux knihovna sdílených objektů)</li><li>\*.a (archiv macOS)</li><li>\*.dylib (dynamická knihovna macOS)</li></ul></li></ul> |
+| [Spustitelný soubor závislý na rámci (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>Publikovat&dagger;<ul><li>Zobrazení&dagger; aplikací MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; Aplikace MVC nebo Razor Pages, pokud stránky nejsou předkompilované</li><li>wwwroot&dagger;</li><li>\*Soubory DLL</li><li>{NÁZEV SESTAVENÍ}.deps.json</li><li>{NÁZEV SESTAVENÍ}.dll</li><li>{NÁZEV SESTAVENÍ} {. ROZŠÍŘENÍ} .exe rozšíření v systému Windows, žádné rozšíření na macOS nebo Linux</li><li>{NÁZEV SESTAVENÍ}.pdb</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.dll</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.pdb</li><li>{NÁZEV SESTAVENÍ}.runtimeconfig.json</li><li>web.config (nasazení služby IIS)</li><li>createdump ([Linux createdump nástroj](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*.so (Linux knihovna sdílených objektů)</li><li>\*.a (archiv macOS)</li><li>\*.dylib (dynamická knihovna macOS)</li></ul></li></ul> |
 | [Samostatné nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>Publikovat&dagger;<ul><li>Zobrazení&dagger; aplikací MVC, pokud zobrazení nejsou předkompilované</li><li>Stránky&dagger; Aplikace MVC nebo Razor Pages, pokud stránky nejsou předkompilované</li><li>wwwroot&dagger;</li><li>\*Soubory DLL</li><li>{NÁZEV SESTAVENÍ}.deps.json</li><li>{NÁZEV SESTAVENÍ}.dll</li><li>{NÁZEV SESTAVENÍ}.exe</li><li>{NÁZEV SESTAVENÍ}.pdb</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.dll</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.pdb</li><li>{NÁZEV SESTAVENÍ}.runtimeconfig.json</li><li>web.config (nasazení služby IIS)</li></ul></li></ul> |
 
 &dagger;Označuje adresář.
@@ -58,9 +58,9 @@ Adresář *publikování* obsahuje nasaditelné prostředky aplikace vytvořené
 
 | Typ aplikací | Adresářová struktura |
 | -------- | ------------------- |
-| [Spustitelný soubor závislý na rámci (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>Publikovat&dagger;<ul><li>Zobrazení&dagger; aplikací MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; Aplikace MVC nebo Razor Pages, pokud stránky nejsou předkompilované</li><li>wwwroot&dagger;</li><li>\*Soubory DLL</li><li>{NÁZEV SESTAVENÍ}.deps.json</li><li>{NÁZEV SESTAVENÍ}.dll</li><li>{NÁZEV SESTAVENÍ} {. ROZŠÍŘENÍ} *.exe* rozšíření v systému Windows, žádné rozšíření na macOS nebo Linux</li><li>{NÁZEV SESTAVENÍ}.pdb</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.dll</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.pdb</li><li>{NÁZEV SESTAVENÍ}.runtimeconfig.json</li><li>web.config (nasazení služby IIS)</li><li>createdump ([Linux createdump nástroj](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*.so (Linux knihovna sdílených objektů)</li><li>\*.a (archiv macOS)</li><li>\*.dylib (dynamická knihovna macOS)</li></ul></li></ul> |
+| [Spustitelný soubor závislý na rámci (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>Publikovat&dagger;<ul><li>Zobrazení&dagger; aplikací MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; Aplikace MVC nebo Razor Pages, pokud stránky nejsou předkompilované</li><li>wwwroot&dagger;</li><li>\*Soubory DLL</li><li>{NÁZEV SESTAVENÍ}.deps.json</li><li>{NÁZEV SESTAVENÍ}.dll</li><li>{NÁZEV SESTAVENÍ} {. ROZŠÍŘENÍ} .exe rozšíření v systému Windows, žádné rozšíření na macOS nebo Linux</li><li>{NÁZEV SESTAVENÍ}.pdb</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.dll</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.pdb</li><li>{NÁZEV SESTAVENÍ}.runtimeconfig.json</li><li>web.config (nasazení služby IIS)</li><li>createdump ([Linux createdump nástroj](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*.so (Linux knihovna sdílených objektů)</li><li>\*.a (archiv macOS)</li><li>\*.dylib (dynamická knihovna macOS)</li></ul></li></ul> |
 | [Samostatné nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>Publikovat&dagger;<ul><li>Zobrazení&dagger; aplikací MVC, pokud zobrazení nejsou předkompilované</li><li>Stránky&dagger; Aplikace MVC nebo Razor Pages, pokud stránky nejsou předkompilované</li><li>wwwroot&dagger;</li><li>\*Soubory DLL</li><li>{NÁZEV SESTAVENÍ}.deps.json</li><li>{NÁZEV SESTAVENÍ}.dll</li><li>{NÁZEV SESTAVENÍ}.exe</li><li>{NÁZEV SESTAVENÍ}.pdb</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.dll</li><li>{NÁZEV SESTAVENÍ}. Zobrazení.pdb</li><li>{NÁZEV SESTAVENÍ}.runtimeconfig.json</li><li>web.config (nasazení služby IIS)</li></ul></li></ul> |
--
+
 &dagger;Označuje adresář.
 
 Adresář *publikování* představuje *kořenovou cestu obsahu*, označovanou také jako cesta základní *aplikace*, nasazení. Bez ohledu na název *adresáře publikování* nasazené aplikace na serveru, jeho umístění slouží jako fyzická cesta k hostované aplikaci serveru.
