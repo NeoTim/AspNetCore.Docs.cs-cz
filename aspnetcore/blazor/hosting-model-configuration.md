@@ -5,17 +5,17 @@ description: Přečtěte Blazor si o hostování konfigurace modelu, včetně to
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/24/2020
+ms.date: 04/07/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: 1f71ac63bbe9dc9d56cfca2ded19a5b863be828f
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: ca1b3ea9092640ca561b3fbe02ddce6f974c525e
+ms.sourcegitcommit: e8dc30453af8bbefcb61857987090d79230a461d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80306425"
+ms.lasthandoff: 04/11/2020
+ms.locfileid: "81123377"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET konfigurace hostingového modelu Core Blazor
 
@@ -27,14 +27,73 @@ Tento článek popisuje konfiguraci hostitelského modelu.
 
 ## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
+### <a name="environment"></a>Prostředí
+
+Při spuštění aplikace místně, prostředí výchozí vývoj. Po publikování aplikace prostředí výchozí produkční.
+
+Hostovaná aplikace Blazor WebAssembly snímá prostředí ze serveru prostřednictvím middlewaru, který `blazor-environment` komunikuje prostředí s prohlížečem přidáním záhlaví. Hodnota záhlaví je prostředí. Hostovaná aplikace Blazor a serverová aplikace sdílejí stejné prostředí. Další informace, včetně konfigurace prostředí, <xref:fundamentals/environments>naleznete v tématu .
+
+Pro samostatnou aplikaci spuštěnou místně přidá `blazor-environment` vývojový server záhlaví, které určuje vývojové prostředí. Chcete-li určit prostředí pro jiná `blazor-environment` hostitelská prostředí, přidejte záhlaví.
+
+V následujícím příkladu služby IIS přidejte vlastní záhlaví do publikovaného souboru *web.config.* Soubor *web.config* je umístěn ve složce *bin/Release/{TARGET FRAMEWORK}/publish:*
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <system.webServer>
+
+    ...
+
+    <httpProtocol>
+      <customHeaders>
+        <add name="blazor-environment" value="Staging" />
+      </customHeaders>
+    </httpProtocol>
+  </system.webServer>
+</configuration>
+```
+
+> [!NOTE]
+> Informace o použití vlastního souboru *web.config* pro službu IIS, který *publish* není při <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig>publikování aplikace do složky publikování přepsán, naleznete v tématu .
+
+Získejte prostředí aplikace v komponentě `IWebAssemblyHostEnvironment` vložením `Environment` a přečtením vlastnosti:
+
+```razor
+@page "/"
+@using Microsoft.AspNetCore.Components.WebAssembly.Hosting
+@inject IWebAssemblyHostEnvironment HostEnvironment
+
+<h1>Environment example</h1>
+
+<p>Environment: @HostEnvironment.Environment</p>
+```
+
+### <a name="configuration"></a>Konfigurace
+
 Od vydání ASP.NET Core 3.2 Preview 3 podporuje Blazor WebAssembly konfiguraci z:
 
 * *wwwroot/appsettings.json*
 * *wwwroot/appsettings. {PROSTŘEDÍ}.json*
 
-V aplikaci Blazor Hosted je [runtime prostředí](xref:fundamentals/environments) stejné jako hodnota serverové aplikace.
+Přidejte soubor *appsettings.json* do složky *wwwroot:*
 
-Při spuštění aplikace místně, prostředí výchozí vývoj. Po publikování aplikace prostředí výchozí produkční. Další informace, včetně konfigurace prostředí, <xref:fundamentals/environments>naleznete v tématu .
+```json
+{
+  "message": "Hello from config!"
+}
+```
+
+Vstříkněte <xref:Microsoft.Extensions.Configuration.IConfiguration> instanci do komponenty pro přístup k konfiguračním datům:
+
+```razor
+@page "/"
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<h1>Configuration example</h1>
+
+<p>Message: @Configuration["message"]</p>
+```
 
 > [!WARNING]
 > Konfigurace v aplikaci Blazor WebAssembly je viditelná pro uživatele. **Neuklápejte tajné kódy aplikací nebo přihlašovací údaje v konfiguraci.**

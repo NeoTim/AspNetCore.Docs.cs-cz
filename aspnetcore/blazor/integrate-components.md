@@ -5,17 +5,17 @@ description: Seznamte se se scénáři datových Blazor vazeb pro komponenty a p
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/17/2020
+ms.date: 04/01/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/integrate-components
-ms.openlocfilehash: cf6056e0985d5433bddecac8dd183ca3f4c2af5b
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 6efa84c550a4605bde5e1f2bca4f2d1aa4a2667b
+ms.sourcegitcommit: e8dc30453af8bbefcb61857987090d79230a461d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80218931"
+ms.lasthandoff: 04/11/2020
+ms.locfileid: "81123367"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>Integrace komponent ASP.NET Core Razor do břitvových stránek a aplikací MVC
 
@@ -60,13 +60,13 @@ Stávající aplikace Razor Pages nebo MVC dokáže integrovat komponenty Razor 
    @using MyAppNamespace
    ```
 
-1. V `Startup.ConfigureServices`, Blazor zaregistrujte serverovou službu:
+1. V `Startup.ConfigureServices`, zaregistrujte službu Blazor Server:
 
    ```csharp
    services.AddServerSideBlazor();
    ```
 
-1. V `Startup.Configure`bodě Blazor přidejte koncový `app.UseEndpoints`bod centra do :
+1. V `Startup.Configure`doplňku Blazor Hub `app.UseEndpoints`přidejte do doplňku :
 
    ```csharp
    endpoints.MapBlazorHub();
@@ -112,6 +112,19 @@ Podpora směrovatelných komponent Razor v aplikacích Razor Pages:
    ```
 
    Komponenty používají pro své rozložení sdílený soubor *_Layout.cshtml.*
+
+   <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>konfiguruje, `App` zda součást:
+
+   * Je prerendered do stránky.
+   * Je vykreslen jako statické HTML na stránce, nebo pokud obsahuje potřebné informace k bootstrap aplikace Blazor od uživatelského agenta.
+
+   | Režim vykreslení | Popis |
+   | ----------- | ----------- |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického KÓDU Blazor HTML a obsahuje značku pro serverovou aplikaci. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku Blazor pro serverovou aplikaci. Výstup z `App` komponenty není zahrnut. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | Vykreslí `App` komponentu do statického HTML. |
+
+   Další informace o pomocníku pro <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>označení součásti naleznete v tématu .
 
 1. Přidejte trasu s nízkou prioritou pro konfiguraci stránky `Startup.Configure` *_Host.cshtml* do konfigurace koncového bodu v aplikaci :
 
