@@ -5,14 +5,14 @@ description: Naučte se nastavit Apache jako reverzní proxy server na CentOS p�
 monikerRange: '>= aspnetcore-2.1'
 ms.author: shboyer
 ms.custom: mvc
-ms.date: 02/05/2020
+ms.date: 04/10/2020
 uid: host-and-deploy/linux-apache
-ms.openlocfilehash: 3a3edd961b08c1952e6ded8038ed7ada381c54b0
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 1256f6d21f94ef6c4baad7aae4bd0e751af5c675
+ms.sourcegitcommit: 6f1b516e0c899a49afe9a29044a2383ce2ada3c7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78657897"
+ms.lasthandoff: 04/13/2020
+ms.locfileid: "81224034"
 ---
 # <a name="host-aspnet-core-on-linux-with-apache"></a>Host ASP.NET Core na Linuxu s Apache
 
@@ -64,7 +64,7 @@ Vzhledem k tomu, že požadavky jsou předávány reverzním proxy serverem, pou
 
 Každá součást, která závisí na schématu, jako je ověřování, generování propojení, přesměrování a geografické umístění, musí být umístěna po vyvolání middlewaru předávaných záhlaví. Obecně platí, že middleware s předaným záhlavím by měl být spuštěn před jiným middlewarem s výjimkou diagnostiky a zpracování chyb middlewaru. Toto pořadí zajišťuje, že middleware spoléhající na předávané informace záhlaví může spotřebovat hodnoty záhlaví pro zpracování.
 
-Vyvolat <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> metodu `Startup.Configure` v <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> před voláním nebo podobné schéma ověřování middleware. Nakonfigurujte middleware tak, aby předával záhlaví `X-Forwarded-For` a: `X-Forwarded-Proto`
+Vyvolat <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> metodu v `Startup.Configure` horní části před voláním jiné middleware. Nakonfigurujte middleware tak, aby předával záhlaví `X-Forwarded-For` a: `X-Forwarded-Proto`
 
 ```csharp
 // using Microsoft.AspNetCore.HttpOverrides;
