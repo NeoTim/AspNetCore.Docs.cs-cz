@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core MVC používá middlewar směrování k
 ms.author: riande
 ms.date: 3/25/2020
 uid: mvc/controllers/routing
-ms.openlocfilehash: 74afd0a076ca8bd753000f547ef0a26308e8a884
-ms.sourcegitcommit: e8dc30453af8bbefcb61857987090d79230a461d
+ms.openlocfilehash: 9f7a26a482cb115697a0a3d7439c14a062677c92
+ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/11/2020
-ms.locfileid: "81123490"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81277129"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování k akcím řadiče v ASP.NET jádra
 
@@ -530,6 +530,7 @@ Je `RouteTokenTransformerConvention` registrován jako možnost `ConfigureServic
 
 Viz [MDN webové dokumenty na Slimák](https://developer.mozilla.org/docs/Glossary/Slug) pro definici Slimák.
 
+[!INCLUDE[](~/includes/regex.md)]
 <a name="routing-multiple-routes-ref-label"></a>
 
 ### <a name="multiple-attribute-routes"></a>Více tras atributů

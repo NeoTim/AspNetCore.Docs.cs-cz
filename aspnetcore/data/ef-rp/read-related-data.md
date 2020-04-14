@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 09/28/2019
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: d244ce1527486466bcbc6557ec35869aa206bc4f
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 0835dbf6b5434e4224d9f56ea3335df4b5d9e119
+ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78656574"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81277324"
 ---
 # <a name="razor-pages-with-ef-core-in-aspnet-core---read-related-data---6-of-8"></a>Razor Stránky s EF core v ASP.NET Core - Číst související data - 6 z 8
 
@@ -136,6 +136,8 @@ Metoda `OnGetAsync` načte související `Include` data s metodou. Metoda `Selec
 Následující kód načte související `Select` data s metodou:
 
 [!code-csharp[](intro/samples/cu30snapshots/6-related/Pages/Courses/IndexSelect.cshtml.cs?name=snippet_RevisedIndexMethod&highlight=6)]
+
+Předchozí kód nevrátí žádné typy entit, proto se neprovádí žádné sledování. Další informace o ef sledování, naleznete [v tématu sledování vs bez sledování dotazy](/ef/core/querying/tracking).
 
 V: `CourseViewModel`
 

@@ -6,12 +6,12 @@ ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: df41f296e9c4e1eff6e31d45b29ec30ee1e20cf4
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: d7ee3e42d320d35c2aaff6e097203c45289ec5b1
+ms.sourcegitcommit: fbdb8b9ab5a52656384b117ff6e7c92ae070813c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78657743"
+ms.lasthandoff: 04/13/2020
+ms.locfileid: "81228124"
 ---
 # <a name="deploy-an-app-to-app-service"></a>Nasazení aplikace do služby App Service
 
@@ -85,7 +85,7 @@ Chcete-li aplikaci nasadit, budete muset vytvořit [webovou aplikaci](/azure/app
 
     b. Vytvořte skupinu prostředků. Skupiny prostředků poskytují prostředky k agregaci prostředků Azure, které mají být spravovány jako skupina.
 
-    ```azure-cli
+    ```azurecli
     az group create --location centralus --name AzureTutorial
     ```
 
@@ -93,25 +93,25 @@ Chcete-li aplikaci nasadit, budete muset vytvořit [webovou aplikaci](/azure/app
 
     c. Vytvořte plán služby App Service ve vrstvě S1. Plán služby App Service je seskupení webových aplikací, které sdílejí stejnou cenovou úroveň. Úroveň S1 není zdarma, ale je vyžadována pro funkci pracovních slotů.
 
-    ```azure-cli
+    ```azurecli
     az appservice plan create --name $webappname --resource-group AzureTutorial --sku S1
     ```
 
     d. Vytvořte prostředek webové aplikace pomocí plánu služby App Service ve stejné skupině prostředků.
 
-    ```azure-cli
+    ```azurecli
     az webapp create --name $webappname --resource-group AzureTutorial --plan $webappname
     ```
 
     e. Nastavte přihlašovací údaje nasazení. Tato pověření nasazení platí pro všechny webové aplikace ve vašem předplatném. V uživatelském jménu nepoužívejte speciální znaky.
 
-    ```azure-cli
+    ```azurecli
     az webapp deployment user set --user-name REPLACE_WITH_USER_NAME --password REPLACE_WITH_PASSWORD
     ```
 
     f. Nakonfigurujte webovou aplikaci tak, aby přijímala nasazení z místního Gitu a zobrazovala *adresu URL nasazení Gitu*. **Poznámka: Tato adresa URL pro pozdější odkaz**.
 
-    ```azure-cli
+    ```azurecli
     echo Git deployment URL: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --query url --output tsv)
     ```
 
@@ -170,13 +170,13 @@ Sloty pro nasazení podporují přípravu změn bez dopadu na aplikaci spuštěn
 
     a. Vytvořte slot nasazení s *názvem pracovní*.
 
-    ```azure-cli
+    ```azurecli
     az webapp deployment slot create --name $webappname --resource-group AzureTutorial --slot staging
     ```
 
     b. Nakonfigurujte pracovní slot tak, aby používal nasazení z místního Gitu a získal adresu URL **testovacího** nasazení. **Poznámka: Tato adresa URL pro pozdější odkaz**.
 
-    ```azure-cli
+    ```azurecli
     echo Git deployment URL for staging: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --slot staging --query url --output tsv)
     ```
 
@@ -216,7 +216,7 @@ Sloty pro nasazení podporují přípravu změn bez dopadu na aplikaci spuštěn
 
 7. V prostředí Cloud Shell vyměňte ověřený/zahřátý pracovní slot do produkčního prostředí.
 
-    ```azure-cli
+    ```azurecli
     az webapp deployment slot swap --name $webappname --resource-group AzureTutorial --slot staging
     ```
 

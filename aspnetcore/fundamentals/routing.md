@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 4/1/2020
 uid: fundamentals/routing
-ms.openlocfilehash: 5742ac6879ce46e01247ddd2f8bfe3e3b8a2a02a
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 0fc89ccf15c14c67f284a7084a21159af300a195
+ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80751157"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81277220"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET jádru
 
@@ -454,6 +454,8 @@ Použití šablony je obecně nejjednodušší přístup k směrování. Omezen�
 
 Složité segmenty jsou zpracovány porovnáním literálových oddělovačů zprava [doleva nechamtivým](#greedy) způsobem. Například `[Route("/a{b}c{d}")]` je složitý segment.
 Složité segmenty fungují určitým způsobem, který je třeba chápat, aby byly úspěšně používány. Příklad v této části ukazuje, proč složité segmenty skutečně fungují dobře pouze v případě, že se text oddělovače nezobrazuje uvnitř hodnot parametrů. Použití [regulárního výrazu](/dotnet/standard/base-types/regular-expressions) a následné ruční extrahování hodnot je potřeba pro složitější případy.
+
+[!INCLUDE[](~/includes/regex.md)]
 
 Toto je souhrn kroků, které směrování `/a{b}c{d}` provádí se `/abcd`šablonou a cestou url . Slouží `|` k vizualizaci, jak algoritmus funguje:
 
