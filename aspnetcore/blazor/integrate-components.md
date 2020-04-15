@@ -5,17 +5,17 @@ description: Seznamte se se scénáři datových Blazor vazeb pro komponenty a p
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/01/2020
+ms.date: 04/14/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/integrate-components
-ms.openlocfilehash: 6efa84c550a4605bde5e1f2bca4f2d1aa4a2667b
-ms.sourcegitcommit: e8dc30453af8bbefcb61857987090d79230a461d
+ms.openlocfilehash: c242fbef70d289929d5c005abc0aa431619862b3
+ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/11/2020
-ms.locfileid: "81123367"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81383971"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>Integrace komponent ASP.NET Core Razor do břitvových stránek a aplikací MVC
 
@@ -23,7 +23,14 @@ ms.locfileid: "81123367"
 
 Komponenty Razor lze integrovat do stránek Razor pages a aplikací MVC. Při vykreslení stránky nebo zobrazení lze komponenty předběžně vykreslit současně.
 
-## <a name="prepare-the-app-to-use-components-in-pages-and-views"></a>Příprava aplikace na používání komponent na stránkách a v zobrazeních
+Po [přípravě aplikace](#prepare-the-app)použijte pokyny v následujících částech v závislosti na požadavcích aplikace:
+
+* Směrovatelné součásti &ndash; Pro součásti, které jsou přímo směrovatelné z požadavků uživatelů. Postupujte podle těchto pokynů, pokud návštěvníci by měli mít možnost [`@page`](xref:mvc/views/razor#page) provést požadavek HTTP ve svém prohlížeči pro komponentu se směrnicí.
+  * [Použití směrovatelných součástí v aplikaci Razor Pages](#use-routable-components-in-a-razor-pages-app)
+  * [Použití směrovatelných součástí v aplikaci MVC](#use-routable-components-in-an-mvc-app)
+* [Vykreslení součástí ze stránky nebo zobrazení](#render-components-from-a-page-or-view) &ndash; Pro součásti, které nejsou přímo směrovatelné z požadavků uživatelů. Tento návod postupujte takto, když aplikace vloží součásti do existujících stránek a zobrazení pomocí [pomocníka pro značku komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper).
+
+## <a name="prepare-the-app"></a>Příprava aplikace
 
 Stávající aplikace Razor Pages nebo MVC dokáže integrovat komponenty Razor do stránek a zobrazení:
 
@@ -80,7 +87,7 @@ Stávající aplikace Razor Pages nebo MVC dokáže integrovat komponenty Razor 
 
 Podpora směrovatelných komponent Razor v aplikacích Razor Pages:
 
-1. Postupujte podle pokynů v části [Příprava aplikace na používání komponent na stránkách a v](#prepare-the-app-to-use-components-in-pages-and-views) zobrazeních.
+1. Postupujte podle pokynů v části [Příprava aplikace.](#prepare-the-app)
 
 1. Přidejte soubor *App.razor* do kořenového adresáře projektu s následujícím obsahem:
 
@@ -120,8 +127,8 @@ Podpora směrovatelných komponent Razor v aplikacích Razor Pages:
 
    | Režim vykreslení | Popis |
    | ----------- | ----------- |
-   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického KÓDU Blazor HTML a obsahuje značku pro serverovou aplikaci. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
-   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku Blazor pro serverovou aplikaci. Výstup z `App` komponenty není zahrnut. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického HTML a obsahuje značku pro aplikaci Blazor Server. Když se spustí user-agent, tato značka se používá k zavádění aplikace Blazor. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro aplikaci Blazor Server. Výstup z `App` komponenty není zahrnut. Když se spustí user-agent, tato značka se používá k zavádění aplikace Blazor. |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | Vykreslí `App` komponentu do statického HTML. |
 
    Další informace o pomocníku pro <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>označení součásti naleznete v tématu .
@@ -147,7 +154,7 @@ Podpora směrovatelných komponent Razor v aplikacích Razor Pages:
    ...
    ```
 
-   Další informace o oborech názvů naleznete v části [Obory názvů komponenty.](#component-namespaces)
+Další informace o oborech názvů naleznete v části [Obory názvů komponenty.](#component-namespaces)
 
 ## <a name="use-routable-components-in-an-mvc-app"></a>Použití směrovatelných součástí v aplikaci MVC
 
@@ -155,7 +162,7 @@ Podpora směrovatelných komponent Razor v aplikacích Razor Pages:
 
 Podpora směrovatelných komponent Razor v aplikacích MVC:
 
-1. Postupujte podle pokynů v části [Příprava aplikace na používání komponent na stránkách a v](#prepare-the-app-to-use-components-in-pages-and-views) zobrazeních.
+1. Postupujte podle pokynů v části [Příprava aplikace.](#prepare-the-app)
 
 1. Přidejte soubor *App.razor* do kořenového adresáře projektu s následujícím obsahem:
 
@@ -186,6 +193,19 @@ Podpora směrovatelných komponent Razor v aplikacích MVC:
    ```
 
    Komponenty používají pro své rozložení sdílený soubor *_Layout.cshtml.*
+   
+   <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>konfiguruje, `App` zda součást:
+
+   * Je prerendered do stránky.
+   * Je vykreslen jako statické HTML na stránce, nebo pokud obsahuje potřebné informace k bootstrap aplikace Blazor od uživatelského agenta.
+
+   | Režim vykreslení | Popis |
+   | ----------- | ----------- |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického KÓDU Blazor HTML a obsahuje značku pro serverovou aplikaci. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku Blazor pro serverovou aplikaci. Výstup z `App` komponenty není zahrnut. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | Vykreslí `App` komponentu do statického HTML. |
+
+   Další informace o pomocníku pro <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>označení součásti naleznete v tématu .
 
 1. Přidejte akci do domácího ovladače:
 
@@ -217,7 +237,19 @@ Podpora směrovatelných komponent Razor v aplikacích MVC:
    ...
    ```
 
-   Další informace o oborech názvů naleznete v části [Obory názvů komponenty.](#component-namespaces)
+Další informace o oborech názvů naleznete v části [Obory názvů komponenty.](#component-namespaces)
+
+## <a name="render-components-from-a-page-or-view"></a>Vykreslení součástí ze stránky nebo zobrazení
+
+*Tato část se týká přidávání součástí na stránky nebo zobrazení, kde součásti nejsou přímo směrovatelné z požadavků uživatelů.*
+
+Chcete-li vykreslit komponentu ze stránky nebo ze zobrazení, použijte [pomocníka pro označení součásti](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper).
+
+Další informace o způsobu vykreslení součástí, stavu `Component` komponent a pomocné značce naleznete v následujících článcích:
+
+* <xref:blazor/hosting-models>
+* <xref:blazor/hosting-model-configuration>
+* <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>
 
 ## <a name="component-namespaces"></a>Obory názvů komponent
 
@@ -233,15 +265,3 @@ Při použití vlastní složky k uložení součástí aplikace přidejte obor 
 Soubor *_ViewImports.cshtml* se nachází ve složce *Stránky* aplikace Razor Pages nebo ve složce *Zobrazení* aplikace MVC.
 
 Další informace naleznete v tématu <xref:blazor/components#import-components>.
-
-## <a name="render-components-from-a-page-or-view"></a>Vykreslení součástí ze stránky nebo zobrazení
-
-*Tato část se týká přidávání součástí na stránky nebo zobrazení, kde součásti nejsou přímo směrovatelné z požadavků uživatelů.*
-
-Chcete-li vykreslit komponentu ze stránky nebo ze zobrazení, použijte [pomocníka pro označení součásti](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper).
-
-Další informace o způsobu vykreslení součástí, stavu `Component` komponent a pomocné značce naleznete v následujících článcích:
-
-* <xref:blazor/hosting-models>
-* <xref:blazor/hosting-model-configuration>
-* <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>

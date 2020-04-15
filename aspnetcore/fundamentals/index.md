@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/30/2020
 uid: fundamentals/index
-ms.openlocfilehash: da2b42a7cf5d116a36d1dd9fa586d40ab31fc52d
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: c675644d8480ef7a5290045067e6cec2ea6f4764
+ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80417643"
+ms.lasthandoff: 04/14/2020
+ms.locfileid: "81384064"
 ---
 # <a name="aspnet-core-fundamentals"></a>Základy ASP.NET Core
 
@@ -205,7 +205,7 @@ Kořen obsahu je základní cesta pro:
   * Datové soubory (*.db*)
 * [Kořenový adresář webu](#web-root), obvykle složka *wwwroot.*
 
-Během vývoje je kořenový obsah výchozí kořenový adresář projektu. Tento adresář je také základní cestou pro soubory obsahu aplikace i [pro kořenový adresář webu](#web-root). Zadejte jiný kořen obsahu nastavením jeho cesty při [vytváření hostitele](#host). Další informace naleznete v [tématu Kořenový obsah](xref:fundamentals/host/generic-host#contentrootpath-1).
+Během vývoje je kořenový obsah výchozí kořenový adresář projektu. Tento adresář je také základní cestou pro soubory obsahu aplikace i [pro kořenový adresář webu](#web-root). Zadejte jiný kořen obsahu nastavením jeho cesty při [vytváření hostitele](#host). Další informace naleznete v [tématu Kořenový obsah](xref:fundamentals/host/generic-host#contentroot).
 
 ## <a name="web-root"></a>Kořenový adresář webu
 
@@ -215,7 +215,7 @@ Kořenový adresář webu je základní cesta pro veřejné statické soubory pr
 * JavaScript (*.js*)
 * Obrázky (*.png*, *.jpg*)
 
-Ve výchozím nastavení jsou statické soubory obsluhovány pouze z kořenového adresáře webu a jeho podadresářů. Webová kořenová cesta je výchozí na *{content root}/wwwroot*. Zadejte jiný kořen webu nastavením jeho cesty při [vytváření hostitele](#host). Další informace naleznete v [tématu Kořenový adresář webu](xref:fundamentals/host/generic-host#webroot-1).
+Ve výchozím nastavení jsou statické soubory obsluhovány pouze z kořenového adresáře webu a jeho podadresářů. Webová kořenová cesta je výchozí na *{content root}/wwwroot*. Zadejte jiný kořen webu nastavením jeho cesty při [vytváření hostitele](#host). Další informace naleznete v [tématu Kořenový adresář webu](xref:fundamentals/host/generic-host#webroot).
 
 Zabránit publikování souborů v *wwwroot* s [ \<položkou projektu Content>](/visualstudio/msbuild/common-msbuild-project-items#content) v souboru projektu. Následující příklad brání publikování obsahu v *wwwroot/local* a jeho podadresářích:
 
