@@ -4,17 +4,17 @@ author: guardrex
 ms.author: riande
 description: Přečtěte si, jak pomocí pomocníka ASP.NET základní hořce a označení komponent k vykreslení komponent Razor na stránkách a v zobrazeních.
 ms.custom: mvc
-ms.date: 04/01/2020
+ms.date: 04/15/2020
 no-loc:
 - Blazor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: 4a6b21229ce086099fcddfeb51c3a959ef639f24
-ms.sourcegitcommit: e8dc30453af8bbefcb61857987090d79230a461d
+ms.openlocfilehash: aaa4b92a8912b4f52d861ed07432aa7cf3ca5240
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/11/2020
-ms.locfileid: "81123432"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440958"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>Pomocník s tagy komponenty v ASP.NET jádru
 
@@ -24,7 +24,7 @@ Chcete-li vykreslit komponentu ze stránky nebo ze zobrazení, použijte [pomocn
 
 ## <a name="prerequisites"></a>Požadavky
 
-Postupujte podle pokynů v *připravte aplikaci na použití komponent na stránkách a zobrazení* části <xref:blazor/integrate-components#prepare-the-app-to-use-components-in-pages-and-views> článku.
+Postupujte podle pokynů v *připravte aplikaci na použití komponent na stránkách a zobrazení* části <xref:blazor/integrate-components#prepare-the-app> článku.
 
 ## <a name="component-tag-helper"></a>Pomocník pro označení komponenty
 

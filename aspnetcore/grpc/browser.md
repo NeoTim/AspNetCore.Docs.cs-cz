@@ -4,14 +4,14 @@ author: jamesnk
 description: Přečtěte si, jak nakonfigurovat služby gRPC na ASP.NET Core tak, aby byly volatelné z aplikací prohlížeče pomocí gRPC-Web.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 02/16/2020
+ms.date: 04/15/2020
 uid: grpc/browser
-ms.openlocfilehash: 0bb8157525ccd32991d8925816c1b599c3d21a92
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: a20e604488b1fb919f18932599ba690bfa308f0c
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80977142"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440763"
 ---
 # <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
@@ -28,6 +28,15 @@ Podle [James Newton-King](https://twitter.com/jamesnk)
 > Prosím, zanechte zpětnou vazbu na [https://github.com/grpc/grpc-dotnet](https://github.com/grpc/grpc-dotnet) zajistit, abychom vytvořit něco, co vývojáři rádi a jsou produktivní s.
 
 Není možné volat službu HTTP/2 gRPC z aplikace založené na prohlížeči. [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) je protokol, který umožňuje prohlížeči JavaScript a Blazor aplikace volat gRPC služby. Tento článek vysvětluje, jak používat gRPC-Web v .NET Core.
+
+## <a name="grpc-web-in-aspnet-core-vs-envoy"></a>gRPC-Web v ASP.NET Core vs. vyslanec
+
+Existují dvě možnosti, jak přidat gRPC-Web do aplikace ASP.NET Core:
+
+* Podpora gRPC-Web vedle gRPC HTTP/2 v ASP.NET Core. Tato možnost používá middleware `Grpc.AspNetCore.Web` poskytované balíček.
+* Použijte podporu gRPC-Web [proxy vyslance](https://www.envoyproxy.io/) k překladu gRPC-Web na gRPC HTTP/2. Přeložené volání se pak přenese do aplikace ASP.NET Core.
+
+Každý přístup má klady a zápory. Pokud už používáte funkci Envoy jako proxy server v prostředí aplikace, může mít smysl ji použít také k poskytování podpory gRPC-Web. Pokud chcete jednoduché řešení pro gRPC-Web, který `Grpc.AspNetCore.Web` vyžaduje pouze ASP.NET Core, je dobrá volba.
 
 ## <a name="configure-grpc-web-in-aspnet-core"></a>Konfigurace gRPC-Web v ASP.NET jádru
 
@@ -100,7 +109,7 @@ Předcházející kód:
 Při `GrpcWebHandler` vytvoření má následující možnosti konfigurace:
 
 * **InnerHandler**: <xref:System.Net.Http.HttpMessageHandler> Podklad, který dělá gRPC HTTP `HttpClientHandler`požadavek, například .
-* **Režim**: Typ výčtu, který určuje, zda `Content-Type` je `application/grpc-web` `application/grpc-web-text`požadavek požadavku http gRPC nebo .
+* **Režim**: Typ výčtu, který určuje, zda `Content-Type` `application/grpc-web` je `application/grpc-web-text`požadavek gRPC HTTP nebo .
     * `GrpcWebMode.GrpcWeb`konfiguruje obsah, který má být odeslán bez kódování. Výchozí hodnota.
     * `GrpcWebMode.GrpcWebText`konfiguruje obsah tak, aby byl kódován base64. Vyžadováno pro volání datových proudů serveru v prohlížečích.
 * **HttpVersion**: `Version` HTTP protokol používaný k nastavení [httprequestmessage.version](xref:System.Net.Http.HttpRequestMessage.Version) na podkladovém gRPC HTTP požadavku. gRPC-Web nevyžaduje konkrétní verzi a nepřepisuje výchozí hodnotu, pokud není zadána.

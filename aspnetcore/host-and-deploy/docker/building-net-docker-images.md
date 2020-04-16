@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/15/2020
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: 31161d6841986cb0bd8080468e5d523d59400490
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: ced0cb7cbeed1b8811813a70035c2e0b42c3e35a
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80405927"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440776"
 ---
 # <a name="docker-images-for-aspnet-core"></a>Image Dockeru pro ASP.NET jádro
 
@@ -262,7 +262,8 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 * [ASP.NET ukázka Core Dockeru](https://github.com/dotnet/dotnet-docker) (ta použitá v tomto kurzu.)
 * [Konfigurace ASP.NET Core pro práci s proxy servery a vyrovnáváním zatížení](/aspnet/core/host-and-deploy/proxy-load-balancer)
 * [Práce s nástroji Visual Studio Docker](https://docs.microsoft.com/aspnet/core/publishing/visual-studio-tools-for-docker)
-* [Ladění pomocí kódu sady Visual Studio](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers) 
+* [Ladění pomocí kódu sady Visual Studio](https://code.visualstudio.com/docs/nodejs/debugging-recipes#_debug-nodejs-in-docker-containers)
+* [GC pomocí Dockeru a malých kontejnerů](xref:performance/memory#sc)
 
 ## <a name="next-steps"></a>Další kroky
 

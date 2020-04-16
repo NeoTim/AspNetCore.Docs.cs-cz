@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak probíhá kompilace souborů Razor v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/13/2020
+ms.date: 04/14/2020
 uid: mvc/views/view-compilation
-ms.openlocfilehash: 67bbeb88cd944791b522900b69bd10cff38c9f3a
-ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
+ms.openlocfilehash: 3d871ab960de28a565280d9e4cb2c597832e2455
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81277263"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440932"
 ---
 # <a name="razor-file-compilation-in-aspnet-core"></a>Kompilace souborů Razor v ASP.NET Core
 
@@ -83,13 +83,23 @@ V následujícím příkladu je ve vývojovém prostředí `IIS Express` pro `Ra
 
 Ve `Startup` třídě projektu nejsou potřeba žádné změny kódu. Za běhu ASP.NET Core hledá [atribut HostingStartup na](xref:fundamentals/configuration/platform-specific-configuration#hostingstartup-attribute) `Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation`úrovni sestavení v aplikaci . Atribut `HostingStartup` určuje spouštěcí kód aplikace, který má být spuštěn. Tento spouštěcí kód umožňuje kompilaci runtime.
 
+## <a name="enable-runtime-compilation-for-a-razor-class-library"></a>Povolení kompilace za běhu pro knihovnu tříd Razor
+
+Zvažte scénář, ve kterém projekt Razor Pages odkazuje na [knihovnu třídy Razor (RCL)](xref:razor-pages/ui-class) s názvem *MyClassLib*. RCL obsahuje soubor *_Layout.cshtml,* který všechny projekty MVC a Razor Pages vašeho týmu spotřebovávají. Chcete povolit kompilaci modulu runtime pro soubor *_Layout.cshtml* v tomto rcl. Proveďte následující změny v projektu Razor Pages:
+
+1. Povolit kompilaci runtime s pokyny na [Podmíněně povolit kompilaci runtime v existujícím projektu](#conditionally-enable-runtime-compilation-in-an-existing-project).
+1. Konfigurace možností kompilace `Startup.ConfigureServices`runtime v aplikaci :
+
+    [!code-csharp[](~/mvc/views/view-compilation/samples/3.1/Startup.cs?name=snippet_ConfigureServices&highlight=5-10)]
+
+    V předchozím kódu je vytvořena absolutní cesta k *MyClassLib* RCL. Rozhraní [API PhysicalFileProvider](xref:fundamentals/file-providers#physicalfileprovider) se používá k vyhledání adresářů a souborů na této absolutní cestě. Nakonec je `PhysicalFileProvider` instance přidána do kolekce zprostředkovatelů souborů, která umožňuje přístup k souborům *.cshtml* rcl.
+
 ## <a name="additional-resources"></a>Další zdroje
 
 * [Vlastnosti RazorCompileOnBuild a RazorCompileOnPublish.](xref:razor-pages/sdk#properties)
 * <xref:razor-pages/index>
 * <xref:mvc/views/overview>
 * <xref:razor-pages/sdk>
-* Podívejte se [na ukázku kompilace runtime na GitHubu](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/mvc/runtimecompilation) pro ukázku, která ukazuje, že kompilace runtime funguje napříč projekty.
 
 ::: moniker-end
 

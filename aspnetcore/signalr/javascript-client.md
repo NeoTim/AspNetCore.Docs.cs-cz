@@ -9,12 +9,12 @@ ms.date: 04/08/2020
 no-loc:
 - SignalR
 uid: signalr/javascript-client
-ms.openlocfilehash: a99c1dd2aba6ef6ff925783762a98e2c81ed7225
-ms.sourcegitcommit: 9a46e78c79d167e5fa0cddf89c1ef584e5fe1779
+ms.openlocfilehash: 43b2cacf9f415ec422a00b28246f30c8ad74de29
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/09/2020
-ms.locfileid: "80994574"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440854"
 ---
 # <a name="aspnet-core-opno-locsignalr-javascript-client"></a>ASP.NET SignalR klient javascriptu Core
 
@@ -145,9 +145,9 @@ SignalRurčuje, kterou metodu klienta má volat porovnáním `SendAsync` `connec
 
 Zřetězení `catch` metody na `start` konec metody pro zpracování chyb na straně klienta. Slouží `console.error` k výstupu chyb do konzole prohlížeče.
 
-[!code-javascript[Error handling](javascript-client/sample/wwwroot/js/chat.js?range=49-51)]
+[!code-javascript[Error handling](javascript-client/sample/wwwroot/js/chat.js?range=50)]
 
-Nastavení trasování protokolu na straně klienta předáním protokolovacího procesu a typu události, která se má přihlásit při navádění připojení. Zprávy jsou protokolovány se zadanou úrovní protokolu a vyšší. Dostupné úrovně protokolu jsou následující:
+Nastavte trasování protokolu na straně klienta předáním protokolovacího nástroje a typu události, která se přihlásí při navádění připojení. Zprávy jsou protokolovány se zadanou úrovní protokolu a vyšší. Dostupné úrovně protokolu jsou následující:
 
 * `signalR.LogLevel.Error`&ndash; Chybové zprávy. Zaznamenává `Error` pouze zprávy.
 * `signalR.LogLevel.Warning`&ndash; Varovné zprávy o možných chybách. Protokoly `Warning`a `Error` zprávy.
@@ -178,7 +178,7 @@ Bez jakýchkoli parametrů `withAutomaticReconnect()` nakonfiguruje klienta tak,
 Před zahájením jakékoli pokusy `HubConnection` o opětovné `HubConnectionState.Reconnecting` připojení bude `onreconnecting` přechod do stavu a požární `Disconnected` jeho zpětná `onclose` volání namísto `HubConnection` přechodu do stavu a aktivaci jeho zpětná volání jako bez automatického opětovného připojení nakonfigurován. To poskytuje příležitost upozornit uživatele, že připojení bylo ztraceno a zakázat prvky uživatelského rozhraní.
 
 ```javascript
-connection.onreconnecting((error) => {
+connection.onreconnecting(error => {
     console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
 
     document.getElementById("messageInput").disabled = true;
@@ -197,7 +197,7 @@ Vzhledem k tomu, že připojení vypadá `connectionId` zcela nové na `onreconn
 > Parametr `onreconnected` zpětného `connectionId` volání nebude definován, `HubConnection` pokud byl nakonfigurován tak, aby [přeskočoval vyjednávání](xref:signalr/configuration#configure-client-options).
 
 ```javascript
-connection.onreconnected((connectionId) => {
+connection.onreconnected(connectionId => {
     console.assert(connection.state === signalR.HubConnectionState.Connected);
 
     document.getElementById("messageInput").disabled = false;
@@ -227,7 +227,7 @@ async function start() {
 Pokud klient není úspěšně znovu připojit v rámci své `HubConnection` první čtyři `Disconnected` pokusy, bude přechod do stavu a požární jeho připojení [k uzavření](/javascript/api/%40aspnet/signalr/hubconnection#onclose) zpětná volání. To poskytuje příležitost informovat uživatele, že připojení bylo trvale ztraceno, a doporučujeme aktualizovat stránku:
 
 ```javascript
-connection.onclose((error) => {
+connection.onclose(error => {
     console.assert(connection.state === signalR.HubConnectionState.Disconnected);
 
     document.getElementById("messageInput").disabled = true;

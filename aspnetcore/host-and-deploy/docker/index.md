@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 01/08/2018
 uid: host-and-deploy/docker/index
-ms.openlocfilehash: cb5f774db5fab46a57f8ca4bbbca148f20f371ba
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 78eb6f467c7e779e1bf998e8ac8e917a90895db9
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78664078"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440724"
 ---
 # <a name="host-aspnet-core-in-docker-containers"></a>Hostování ASP.NET jádra v kontejnerech Dockeru
 
@@ -39,3 +39,5 @@ Zjistěte, jak pomocí rozšíření Nástroje kontejneru Visual Studio nasadit 
 
 [Konfigurace ASP.NET Core pro práci s proxy servery a vyrovnáváním zatížení](xref:host-and-deploy/proxy-load-balancer)  
 Další konfigurace může být vyžadována pro aplikace hostované za proxy servery a nástroji pro vyrovnávání zatížení. Předávání požadavků prostřednictvím proxy serveru často zakrývá informace o původním požadavku, jako je například schéma a IP klienta. Může být nutné předat některé informace o požadavku ručně do aplikace.
+
+[GC pomocí Dockeru a malých kontejnerů](xref:performance/memory#sc) Popisuje výběr GC s malými kontejnery.

@@ -5,12 +5,12 @@ description: Zjistěte, jak ASP.NET Core poskytuje služby a middleware pro loka
 ms.author: riande
 ms.date: 11/30/2019
 uid: fundamentals/localization
-ms.openlocfilehash: b175354220a8a71c029e005f27443d5a72749a11
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 91db83eb8685c7bee5e976f386c2a12c4090b734
+ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78662118"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81440815"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET jádru
 
@@ -120,11 +120,11 @@ V předchozím kódu `SharedResource` je třída odpovídající resx, kde jsou 
 
 ### <a name="supportedcultures-and-supporteduicultures"></a>Podporované kultury a podporované uikultury
 
-ASP.NET Core umožňuje zadat dvě `SupportedCultures` hodnoty `SupportedUICultures`jazykové verze a . [Objekt CultureInfo](/dotnet/api/system.globalization.cultureinfo) `SupportedCultures` pro určuje výsledky funkcí závislých na jazykové verzi, jako je například datum, čas, číslo a formátování měny. `SupportedCultures`také určuje pořadí řazení textu, konvencí písmen a porovnávání řetězců. Viz [CultureInfo.CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) další informace o tom, jak server získá jazykovou verzi. Určuje, `SupportedUICultures` které překládá řetězce (z *.resx* soubory) jsou vyhledány [ResourceManager](/dotnet/api/system.resources.resourcemanager). Jednoduše `ResourceManager` vyhledá řetězce specifické pro jazykovou verzi, které jsou určeny . `CurrentUICulture` Každé vlákno v `CurrentCulture` rozhraní `CurrentUICulture` .NET má a objekty. ASP.NET Core kontroluje tyto hodnoty při vykreslování funkcí závislých na jazykové verzi. Například pokud je jazyková verze aktuálního vlákna nastavena na "en US" (angličtina, Spojené státy), `DateTime.Now.ToLongDateString()` zobrazí `CurrentCulture` se "Čtvrtek, únor 18, 2016", ale pokud je nastavena na "es-ES" (španělština, Španělsko), výstup bude "jueves, 18 de febrero de 2016".
+ASP.NET Core umožňuje zadat dvě `SupportedCultures` hodnoty `SupportedUICultures`jazykové verze a . [Objekt CultureInfo](/dotnet/api/system.globalization.cultureinfo) `SupportedCultures` pro určuje výsledky funkcí závislých na jazykové verzi, jako je například datum, čas, číslo a formátování měny. `SupportedCultures`také určuje pořadí řazení textu, konvencí písmen a porovnávání řetězců. Viz [CultureInfo.CurrentCulture](/dotnet/api/system.stringcomparer.currentculture#System_StringComparer_CurrentCulture) další informace o tom, jak server získá jazykovou verzi. Určuje, `SupportedUICultures` které přeložené řetězce (ze souborů *.resx)* jsou vyhledány [ResourceManager](/dotnet/api/system.resources.resourcemanager). Jednoduše `ResourceManager` vyhledá řetězce specifické pro jazykovou verzi, které jsou určeny . `CurrentUICulture` Každé vlákno v `CurrentCulture` rozhraní `CurrentUICulture` .NET má a objekty. ASP.NET Core kontroluje tyto hodnoty při vykreslování funkcí závislých na jazykové verzi. Například pokud je jazyková verze aktuálního vlákna nastavena na "en US" (angličtina, Spojené státy), `DateTime.Now.ToLongDateString()` zobrazí `CurrentCulture` se "Čtvrtek, únor 18, 2016", ale pokud je nastavena na "es-ES" (španělština, Španělsko), výstup bude "jueves, 18 de febrero de 2016".
 
 ## <a name="resource-files"></a>Soubory prostředků
 
-Soubor prostředků je užitečný mechanismus pro oddělení lokalizovatelných řetězců od kódu. Přeložené řetězce pro nevýchozí jazyk jsou izolované soubory prostředků *Resx.* Můžete například vytvořit španělský soubor prostředků s názvem *Welcome.es.resx* obsahující přeložené řetězce. "es" je kód jazyka pro španělštinu. Vytvoření tohoto souboru prostředků v sadě Visual Studio:
+Soubor prostředků je užitečný mechanismus pro oddělení lokalizovatelných řetězců od kódu. Přeložené řetězce pro nevýchozí jazyk jsou izolovány v souborech prostředků *.resx.* Můžete například vytvořit španělský soubor prostředků s názvem *Welcome.es.resx* obsahující přeložené řetězce. "es" je kód jazyka pro španělštinu. Vytvoření tohoto souboru prostředků v sadě Visual Studio:
 
 1. V **Průzkumníku řešení**klikněte pravým tlačítkem myši na složku, která bude obsahovat soubor prostředků > **Přidat** > **novou položku**.
 
