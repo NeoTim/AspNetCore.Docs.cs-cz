@@ -5,17 +5,17 @@ description: Zjistěte, jak hostovat a nasazovat Blazor aplikaci pomocí ASP.NET
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/06/2020
+ms.date: 04/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: f364d94085d175fde5596c222ef21852c0106ec1
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: f3508144f1e472ee906a35e427fc57f536008ab6
+ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80751128"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81488855"
 ---
 # <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení Blazor ASP.NET Core WebAssembly
 
@@ -25,13 +25,17 @@ ms.locfileid: "80751128"
 
 S [ Blazor modelem hostování websestavy](xref:blazor/hosting-models#blazor-webassembly):
 
-* Aplikace, Blazor její závislosti a za běhu .NET jsou staženy do prohlížeče.
+* Aplikace, Blazor její závislosti a za běhu .NET jsou staženy do prohlížeče paralelně.
 * Aplikace se spouští přímo ve vlákně uživatelského rozhraní prohlížeče.
 
 Podporovány jsou následující strategie nasazení:
 
 * Aplikace Blazor je obsluhována aplikací ASP.NET Core. Tato strategie je [popsána v části Hostované nasazení s ASP.NET jádrem.](#hosted-deployment-with-aspnet-core)
 * Aplikace Blazor je umístěna na statickém hostingovém webovém serveru nebo Blazor službě, kde se rozhraní .NET nepoužívá k poskytování aplikace. Tato strategie je popsána v části [Samostatné nasazení,](#standalone-deployment) která obsahuje informace o hostování aplikace Blazor WebAssembly jako podaplikace služby IIS.
+
+## <a name="brotli-precompression"></a>Brotli předkompresí
+
+Při Blazor publikování aplikace WebAssembly je výstup předem komprimován pomocí [kompresního algoritmu Brotli](https://tools.ietf.org/html/rfc7932) na nejvyšší úrovni, aby se zmenšila velikost aplikace a odstranila potřeba komprese za běhu.
 
 ## <a name="rewrite-urls-for-correct-routing"></a>Přepsat adresy URL pro správné směrování
 

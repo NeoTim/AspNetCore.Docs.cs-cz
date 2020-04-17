@@ -7,18 +7,18 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 4/17/2020
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: b528a33fa52bfe56faaf9f3ff8c7e43db0d4e184
-ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
+ms.openlocfilehash: 46a56c278e889778e58a1fbb41ec217aaf023b13
+ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81384026"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81488771"
 ---
 # <a name="net-generic-host"></a>Obecný hostitel rozhraní .NET
 
 ::: moniker range=">= aspnetcore-3.0 <= aspnetcore-3.1"
 
-Šablony ASP.NET Core vytvoří obecný hostitel jádra .NET (<xref:Microsoft.Extensions.Hosting.HostBuilder>).
+Šablony ASP.NET Core vytvoří obecný hostitel jádra .NET . <xref:Microsoft.Extensions.Hosting.HostBuilder>
 
 ## <a name="host-definition"></a>Definice hostitele
 
@@ -40,7 +40,7 @@ Hostitel je obvykle nakonfigurován, sestaven a spuštěn `Program` podle kódu 
 * Volá `CreateHostBuilder` metodu k vytvoření a konfiguraci objektu tvůrce.
 * Volání `Build` `Run` a metody objektu tvůrce.
 
-Webové šablony ASP.NET Core generují následující kód pro vytvoření hostitele:
+Webové šablony ASP.NET Core generují následující kód pro vytvoření obecného hostitele:
 
 ```csharp
 public class Program
@@ -59,7 +59,7 @@ public class Program
 }
 ```
 
-Následující kód vytvoří úlohu bez `IHostedService` protokolu HTTP s implementací přidanou do kontejneru DI.
+Následující kód vytvoří obecný hostitel pomocí úlohy bez protokolu HTTP. Implementace `IHostedService` je přidána do kontejneru DI:
 
 ```csharp
 public class Program
@@ -88,6 +88,8 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
             webBuilder.UseStartup<Startup>();
         });
 ```
+
+Předchozí kód je generován šablonami ASP.NET Core.
 
 Pokud aplikace používá Core entity frameworku, neměňte `CreateHostBuilder` název nebo podpis metody. [Nástroje Entity Framework Core](/ef/core/miscellaneous/cli/) očekávají, že najdou metodu, `CreateHostBuilder` která konfiguruje hostitele bez spuštění aplikace. Další informace naleznete v [tématu Návrh-time DbContext Vytvoření](/ef/core/miscellaneous/cli/dbcontext-creation).
 

@@ -5,17 +5,17 @@ description: Přečtěte Blazor si o hostování konfigurace modelu, včetně to
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/07/2020
+ms.date: 04/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: ca1b3ea9092640ca561b3fbe02ddce6f974c525e
-ms.sourcegitcommit: e8dc30453af8bbefcb61857987090d79230a461d
+ms.openlocfilehash: 1b0f5f4071be7134d7de08615ec016ca6567385d
+ms.sourcegitcommit: 49c91ad4b69f4f8032394cbf2d5ae1b19a7f863b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/11/2020
-ms.locfileid: "81123377"
+ms.lasthandoff: 04/17/2020
+ms.locfileid: "81544840"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET konfigurace hostingového modelu Core Blazor
 
@@ -68,9 +68,39 @@ Získejte prostředí aplikace v komponentě `IWebAssemblyHostEnvironment` vlož
 <p>Environment: @HostEnvironment.Environment</p>
 ```
 
+Během spuštění `WebAssemblyHostBuilder` zpřístupňuje `IWebAssemblyHostEnvironment` prostřednictvím `HostEnvironment` vlastnosti, která umožňuje vývojářům mít logiku specifické pro prostředí v jejich kódu:
+
+```csharp
+if (builder.HostEnvironment.Environment == "Custom")
+{
+    ...
+};
+```
+
+Následující metody rozšíření pohodlí umožňují kontrolu aktuálního prostředí pro vývoj, produkční, pracovní a vlastní názvy prostředí:
+
+* `IsDevelopment()`
+* `IsProduction()`
+* `IsStaging()`
+* 'ISEnvironment("{NÁZEV PROSTŘEDÍ}")
+
+```csharp
+if (builder.HostEnvironment.IsStaging())
+{
+    ...
+};
+
+if (builder.HostEnvironment.IsEnvironment("Custom"))
+{
+    ...
+};
+```
+
+Vlastnost `IWebAssemblyHostEnvironment.BaseAddress` lze použít při spuštění, `NavigationManager` když služba není k dispozici.
+
 ### <a name="configuration"></a>Konfigurace
 
-Od vydání ASP.NET Core 3.2 Preview 3 podporuje Blazor WebAssembly konfiguraci z:
+Od vydání ASP.NET Core 3.2 Preview 3[(aktuální verze je 3.2 Preview 4)](xref:blazor/get-started)podporuje Blazor WebAssembly konfiguraci z:
 
 * *wwwroot/appsettings.json*
 * *wwwroot/appsettings. {PROSTŘEDÍ}.json*

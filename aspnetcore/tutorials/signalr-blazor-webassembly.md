@@ -5,17 +5,17 @@ description: Vytvořte chatovací aplikaci, která používá ASP.NET Core Signa
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 04/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: c4843dc282e1978b39738e206ecc79ded87fcff9
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 798068c83e16070d3279c88c44af0cd96d182fe2
+ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80306573"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81488881"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET core signalr s Blazor WebAssembly
 
@@ -61,7 +61,7 @@ Na konci tohoto kurzu budete mít pracovní chatovací aplikaci.
 Pokud nepoužíváte Visual Studio verze 16.6 Preview 2 nebo novější, nainstalujte šablonu [Blazor WebAssembly.](xref:blazor/hosting-models#blazor-webassembly) Balíček [Microsoft.AspNetCore.Components.WebAssembly.Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Templates/) má verzi preview, zatímco Blazor WebAssembly je ve verzi preview. V příkazovém prostředí proveďte následující příkaz:
 
 ```dotnetcli
-dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview3.20168.3
+dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview4.20210.8
 ```
 
 Postupujte podle pokynů pro výběr nástrojů:

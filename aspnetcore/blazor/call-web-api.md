@@ -1,21 +1,21 @@
 ---
-title: Volání webového rozhraní API z ASP.NET CoreBlazor
+title: Volání webového rozhraní Blazor API z ASP.NET Core WebAssembly
 author: guardrex
-description: Zjistěte, jak volat webové Blazor rozhraní API z aplikace pomocí pomocníků JSON, včetně vytváření požadavků na sdílení prostředků napříč zdroji (CORS).
+description: Zjistěte, jak volat webové Blazor rozhraní API z aplikace WebAssembly pomocí pomocníků JSON, včetně vytváření požadavků na sdílení prostředků napříč zdroji (CORS).
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/22/2020
+ms.date: 04/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: e6996f0e6731b05038d0a9329152b8afd5f6796d
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 2f2d4150f4fa1e7f47310f2a88b816f445cd1d3a
+ms.sourcegitcommit: 49c91ad4b69f4f8032394cbf2d5ae1b19a7f863b
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78660144"
+ms.lasthandoff: 04/17/2020
+ms.locfileid: "81544853"
 ---
 # <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>Volání webového rozhraní API z ASP.NET CoreBlazor
 
@@ -36,9 +36,19 @@ Podívejte se na následující součásti v ukázkové aplikaci *BlazorWebAssem
 
 ## <a name="packages"></a>Balíčky
 
-Odkaz na *experimentální* [Microsoft.AspNetCore.Blazor. Balíček HttpClient](https://www.nuget.org/packages/Microsoft.AspNetCore.Blazor.HttpClient/) NuGet v souboru projektu. `Microsoft.AspNetCore.Blazor.HttpClient`je založen `HttpClient` na a [System.Text.Json](https://www.nuget.org/packages/System.Text.Json/).
+Odkaz na balíček [System.Net.Http.Json](https://www.nuget.org/packages/System.Net.Http.Json/) NuGet v souboru projektu.
 
-Chcete-li použít stabilní rozhraní API, použijte balíček [Microsoft.AspNet.WebApi.Client,](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/) který používá [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/)/[Json.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm). Použití stabilní rozhraní `Microsoft.AspNet.WebApi.Client` API v neposkytuje pomocné názvy JSON popsané v `Microsoft.AspNetCore.Blazor.HttpClient` tomto tématu, které jsou jedinečné pro experimentální balíček.
+## <a name="add-the-httpclient-service"></a>Přidání služby HttpClient
+
+V `Program.Main`aplikaci `HttpClient` přidejte službu, pokud ještě neexistuje:
+
+```csharp
+builder.Services.AddSingleton(
+    new HttpClient
+    {
+        BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+    });
+```
 
 ## <a name="httpclient-and-json-helpers"></a>Pomocníci httpclient a json
 
@@ -72,7 +82,7 @@ private class TodoItem
 
 Pomocné metody JSON odesílají požadavky uri (webové rozhraní API v následujících příkladech) a zpracovávají odpověď:
 
-* `GetJsonAsync`&ndash; Odešle požadavek HTTP GET a analyzuje tělo odpovědi JSON k vytvoření objektu.
+* `GetFromJsonAsync`&ndash; Odešle požadavek HTTP GET a analyzuje tělo odpovědi JSON k vytvoření objektu.
 
   V následujícím kódu `_todoItems` jsou zobrazeny komponenty. Metoda `GetTodoItems` se aktivuje po dokončení vykreslování komponenty ([OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)). Úplný příklad najdete v ukázkové aplikaci.
 
@@ -84,11 +94,11 @@ Pomocné metody JSON odesílají požadavky uri (webové rozhraní API v násled
       private TodoItem[] _todoItems;
 
       protected override async Task OnInitializedAsync() => 
-          _todoItems = await Http.GetJsonAsync<TodoItem[]>("api/TodoItems");
+          _todoItems = await Http.GetFromJsonAsync<TodoItem[]>("api/TodoItems");
   }
   ```
 
-* `PostJsonAsync`&ndash; Odešle požadavek HTTP POST, včetně obsahu kódovaného JSON, a analyzuje tělo odpovědi JSON k vytvoření objektu.
+* `PostAsJsonAsync`&ndash; Odešle požadavek HTTP POST, včetně obsahu kódovaného JSON, a analyzuje tělo odpovědi JSON k vytvoření objektu.
 
   V následujícím kódu `_newItemName` je poskytována vázaný prvek komponenty. Metoda `AddItem` se aktivuje výběrem `<button>` prvku. Úplný příklad najdete v ukázkové aplikaci.
 
@@ -105,12 +115,14 @@ Pomocné metody JSON odesílají požadavky uri (webové rozhraní API v násled
       private async Task AddItem()
       {
           var addItem = new TodoItem { Name = _newItemName, IsComplete = false };
-          await Http.PostJsonAsync("api/TodoItems", addItem);
+          await Http.PostAsJsonAsync("api/TodoItems", addItem);
       }
   }
   ```
+  
+  Volání `PostAsJsonAsync` pro <xref:System.Net.Http.HttpResponseMessage>návrat .
 
-* `PutJsonAsync`&ndash; Odešle požadavek HTTP PUT, včetně obsahu kódovaného protokolem JSON.
+* `PutAsJsonAsync`&ndash; Odešle požadavek HTTP PUT, včetně obsahu kódovaného protokolem JSON.
 
   V následujícím kódu `_editItem` jsou `Name` `IsCompleted` hodnoty pro a jsou poskytovány vázané prvky komponenty. Položka `Id` je nastavena, když je položka vybrána v `EditItem` jiné části ui a je volána. Metoda `SaveItem` se spustí výběrem `<button>` Uložit prvek. Úplný příklad najdete v ukázkové aplikaci.
 
@@ -133,9 +145,11 @@ Pomocné metody JSON odesílají požadavky uri (webové rozhraní API v násled
       }
 
       private async Task SaveItem() =>
-          await Http.PutJsonAsync($"api/TodoItems/{_editItem.Id}, _editItem);
+          await Http.PutAsJsonAsync($"api/TodoItems/{_editItem.Id}, _editItem);
   }
   ```
+  
+  Volání `PutAsJsonAsync` pro <xref:System.Net.Http.HttpResponseMessage>návrat .
 
 <xref:System.Net.Http>obsahuje další metody rozšíření pro odesílání požadavků HTTP a příjem odpovědí HTTP. [HttpClient.DeleteAsync](xref:System.Net.Http.HttpClient.DeleteAsync*) slouží k odeslání požadavku HTTP DELETE do webového rozhraní API.
 
