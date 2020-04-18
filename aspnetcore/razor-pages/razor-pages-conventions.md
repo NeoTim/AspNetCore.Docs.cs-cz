@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: razor-pages/razor-pages-conventions
-ms.openlocfilehash: b42d63c8f1b5b48fcfc771923171e1105d3f0a29
-ms.sourcegitcommit: 5af16166977da598953f82da3ed3b7712d38f6cb
+ms.openlocfilehash: 6124554d5f9859179edfb5c545cf0b082369c0c9
+ms.sourcegitcommit: 3d07e21868dafc503530ecae2cfa18a7490b58a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81277311"
+ms.lasthandoff: 04/18/2020
+ms.locfileid: "81642736"
 ---
 # <a name="razor-pages-route-and-app-conventions-in-aspnet-core"></a>Konvence trasy a aplikací Razor Pages v ASP.NET Core
 
@@ -24,13 +24,13 @@ Pokud potřebujete nakonfigurovat vlastní trasy stránek pro jednotlivé strán
 
 Chcete-li určit trasu stránky, přidat segmenty trasy nebo přidat parametry do trasy, použijte direktivu `@page` stránky. Další informace naleznete [v tématu Vlastní trasy](xref:razor-pages/index#custom-routes).
 
-Existují vyhrazená slova, která nelze použít jako segmenty trasy nebo názvy parametrů. Další informace naleznete v [tématu Směrování: Vyhrazené názvy směrování](xref:fundamentals/routing#reserved-routing-names).
+Existují vyhrazená slova, která nelze použít jako segmenty trasy nebo názvy parametrů. Další informace naleznete v [tématu Směrování: Vyhrazené názvy směrování](xref:mvc/controllers/routing#reserved-routing-names).
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/razor-pages-conventions/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
 | Scénář | Vzorek ukazuje ... |
 | -------- | --------------------------- |
-| [Konvence modelu](#model-conventions)<br><br>Conventions.Add<ul><li>IPageRouteModelConvention</li><li>IPageApplicationModelConvention</li><li>IPageHandlerModelConvention</li></ul> | Přidejte šablonu trasy a záhlaví na stránky aplikace. |
+| [Modelové konvence](#model-conventions)<br><br>Conventions.Add<ul><li>IPageRouteModelConvention</li><li>IPageApplicationModelConvention</li><li>IPageHandlerModelConvention</li></ul> | Přidejte šablonu trasy a záhlaví na stránky aplikace. |
 | [Konvence akcí trasy stránky](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidejte šablonu trasy na stránky ve složce a na jednu stránku. |
 | [Konvence akcí modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (třída filtru, výraz lambda nebo továrna filtrů)</li></ul> | Přidejte záhlaví na stránky ve složce, přidejte záhlaví na jednu stránku a nakonfigurujte [továrnu filtrů](xref:mvc/controllers/filters#ifilterfactory) tak, aby přidala záhlaví na stránky aplikace. |
 
@@ -79,7 +79,7 @@ Pokud je to možné, vyhněte se v závislosti na zavedeném pořadí zpracován
 
 Razor Pages směrování a MVC řadič směrování sdílet implementaci. Informace o pořadí tras v tématech MVC jsou k dispozici na [adrese Akce Směrování k kontrolorovi: Řazení tras atributů](xref:mvc/controllers/routing#ordering-attribute-routes).
 
-## <a name="model-conventions"></a>Konvence modelu
+## <a name="model-conventions"></a>Modelové konvence
 
 Přidejte delegáta pro <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> přidání [konvencí modelu,](xref:mvc/controllers/application-model#conventions) které se vztahují k razor pages.
 
@@ -313,7 +313,7 @@ Existují vyhrazená slova, která nelze použít jako segmenty trasy nebo názv
 
 | Scénář | Vzorek ukazuje ... |
 | -------- | --------------------------- |
-| [Konvence modelu](#model-conventions)<br><br>Conventions.Add<ul><li>IPageRouteModelConvention</li><li>IPageApplicationModelConvention</li><li>IPageHandlerModelConvention</li></ul> | Přidejte šablonu trasy a záhlaví na stránky aplikace. |
+| [Modelové konvence](#model-conventions)<br><br>Conventions.Add<ul><li>IPageRouteModelConvention</li><li>IPageApplicationModelConvention</li><li>IPageHandlerModelConvention</li></ul> | Přidejte šablonu trasy a záhlaví na stránky aplikace. |
 | [Konvence akcí trasy stránky](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidejte šablonu trasy na stránky ve složce a na jednu stránku. |
 | [Konvence akcí modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (třída filtru, výraz lambda nebo továrna filtrů)</li></ul> | Přidejte záhlaví na stránky ve složce, přidejte záhlaví na jednu stránku a nakonfigurujte [továrnu filtrů](xref:mvc/controllers/filters#ifilterfactory) tak, aby přidala záhlaví na stránky aplikace. |
 
@@ -362,7 +362,7 @@ Pokud je to možné, vyhněte se v závislosti na zavedeném pořadí zpracován
 
 Razor Pages směrování a MVC řadič směrování sdílet implementaci. Informace o pořadí tras v tématech MVC jsou k dispozici na [adrese Akce Směrování k kontrolorovi: Řazení tras atributů](xref:mvc/controllers/routing#ordering-attribute-routes).
 
-## <a name="model-conventions"></a>Konvence modelu
+## <a name="model-conventions"></a>Modelové konvence
 
 Přidejte delegáta pro <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> přidání [konvencí modelu,](xref:mvc/controllers/application-model#conventions) které se vztahují k razor pages.
 
@@ -603,7 +603,7 @@ Existují vyhrazená slova, která nelze použít jako segmenty trasy nebo názv
 
 | Scénář | Vzorek ukazuje ... |
 | -------- | --------------------------- |
-| [Konvence modelu](#model-conventions)<br><br>Conventions.Add<ul><li>IPageRouteModelConvention</li><li>IPageApplicationModelConvention</li><li>IPageHandlerModelConvention</li></ul> | Přidejte šablonu trasy a záhlaví na stránky aplikace. |
+| [Modelové konvence](#model-conventions)<br><br>Conventions.Add<ul><li>IPageRouteModelConvention</li><li>IPageApplicationModelConvention</li><li>IPageHandlerModelConvention</li></ul> | Přidejte šablonu trasy a záhlaví na stránky aplikace. |
 | [Konvence akcí trasy stránky](#page-route-action-conventions)<ul><li>AddFolderRouteModelConvention</li><li>AddPageRouteModelConvention</li><li>AddPageRoute</li></ul> | Přidejte šablonu trasy na stránky ve složce a na jednu stránku. |
 | [Konvence akcí modelu stránky](#page-model-action-conventions)<ul><li>AddFolderApplicationModelConvention</li><li>AddPageApplicationModelConvention</li><li>ConfigureFilter (třída filtru, výraz lambda nebo továrna filtrů)</li></ul> | Přidejte záhlaví na stránky ve složce, přidejte záhlaví na jednu stránku a nakonfigurujte [továrnu filtrů](xref:mvc/controllers/filters#ifilterfactory) tak, aby přidala záhlaví na stránky aplikace. |
 
@@ -652,7 +652,7 @@ Pokud je to možné, vyhněte se v závislosti na zavedeném pořadí zpracován
 
 Razor Pages směrování a MVC řadič směrování sdílet implementaci. Informace o pořadí tras v tématech MVC jsou k dispozici na [adrese Akce Směrování k kontrolorovi: Řazení tras atributů](xref:mvc/controllers/routing#ordering-attribute-routes).
 
-## <a name="model-conventions"></a>Konvence modelu
+## <a name="model-conventions"></a>Modelové konvence
 
 Přidejte delegáta pro <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.IPageConvention> přidání [konvencí modelu,](xref:mvc/controllers/application-model#conventions) které se vztahují k razor pages.
 

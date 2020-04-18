@@ -4,14 +4,14 @@ author: rick-anderson
 description: Zjistěte, jak cors jako standard pro povolení nebo odmítnutí požadavků napříč původem v aplikaci ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/23/2020
+ms.date: 04/17/2020
 uid: security/cors
-ms.openlocfilehash: e7731fd967c206679ac93209fdb84f40367bea37
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: 56a339d9018f619af38aecc6f4c2ff40c3c43d2f
+ms.sourcegitcommit: 3d07e21868dafc503530ecae2cfa18a7490b58a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440906"
+ms.lasthandoff: 04/18/2020
+ms.locfileid: "81642689"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolit požadavky na příčný původ (CORS) v ASP.NET jádru
 
@@ -71,7 +71,7 @@ CORS Middleware zpracovává požadavky napříč původy. Následující kód p
 Předcházející kód:
 
 * Nastaví název `_myAllowSpecificOrigins`zásady na . Název zásady je libovolný.
-* Volá <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> metodu rozšíření a `_myAllowSpecificOrigins` určuje zásady CORS. `UseCors`dodává middleware CORS.
+* Volá <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> metodu rozšíření a `_myAllowSpecificOrigins` určuje zásady CORS. `UseCors`dodává middleware CORS. Volání do `UseCors` musí být `UseRouting`umístěno `UseAuthorization`po , ale před . Další informace naleznete [v tématu Middleware order](xref:fundamentals/middleware/index#middleware-order).
 * Volání <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*> s [lambda výrazem](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Lambda má <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> předmět. [Možnosti konfigurace](#cors-policy-options) `WithOrigins`, například , jsou popsány dále v tomto článku.
 * Povolí `_myAllowSpecificOrigins` zásady CORS pro všechny koncové body řadiče. Viz [směrování koncového bodu](#ecors) použít zásadu CORS pro konkrétní koncové body.
 

@@ -5,16 +5,27 @@ description: Přečtěte si, jak hostovat aplikace ASP.NET Core v Internetové i
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/07/2020
+ms.date: 04/17/2020
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 819c53f945c1e5bb2cedcef8fc39d4c8761e4549
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: 77f07ba89de4449c6d13006a5fd61499cb5cdfc0
+ms.sourcegitcommit: 3d07e21868dafc503530ecae2cfa18a7490b58a6
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80977025"
+ms.lasthandoff: 04/18/2020
+ms.locfileid: "81642752"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostování ASP.NET jádra ve službě Windows se službou IIS
+
+<!-- 
+
+    NOTE FOR 5.0
+    
+    When making the 5.0 version of this topic, remove the Hosting Bundle
+    direct download section from the (new) <5.0 & >2.2 version and modify 
+    the text and heading for the *Earlier versions of the installer* 
+    section. See the 2.2 version for an example.
+    
+-->
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -250,9 +261,9 @@ Stáhněte si instalační program pomocí následujícího odkazu:
 Chcete-li získat starší verzi instalačního programu:
 
 1. Přejděte na stránku [Stáhnout jádro rozhraní .NET.](https://dotnet.microsoft.com/download/dotnet-core)
-1. Klikněte na požadovanou verzi .NET Core.
+1. Vyberte požadovanou verzi .NET Core.
 1. Ve sloupci **Spustit aplikace – runtime** najděte požadovaný řádek požadované verze runtime .NET Core.
-1. Stáhněte si instalační program pomocí odkazu **Runtime & Hosting Bundle.**
+1. Stáhněte si instalační program pomocí odkazu **Hosting Bundle.**
 
 > [!WARNING]
 > Některé instalační programy obsahují verze, které dosáhly konce životnosti (EOL) a které již nejsou podporovány společností Microsoft. Další informace naleznete v [zásadách podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
@@ -846,20 +857,12 @@ Nainstalujte *balíček .NET Core Hosting do* hostitelského systému. Balíček
 >
 > Pokud je sada Hosting Bundle nainstalována po instalaci 64bitové (x64) verze rozhraní .NET Core, mohou se zdát, že sady SDK chybí ([byly zjištěny sady SDK .Net Core .](xref:test/troubleshoot#no-net-core-sdks-were-detected) Chcete-li problém <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>vyřešit, naleznete v tématu .
 
-### <a name="direct-download-current-version"></a>Přímé stahování (aktuální verze)
-
-Stáhněte si instalační program pomocí následujícího odkazu:
-
-[Aktuální instalační program .NET Core Hosting Bundle (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
-
-### <a name="earlier-versions-of-the-installer"></a>Dřívější verze instalačního programu
-
-Chcete-li získat starší verzi instalačního programu:
+### <a name="download"></a>Stáhnout
 
 1. Přejděte na stránku [Stáhnout jádro rozhraní .NET.](https://dotnet.microsoft.com/download/dotnet-core)
-1. Klikněte na požadovanou verzi .NET Core.
+1. Vyberte požadovanou verzi .NET Core.
 1. Ve sloupci **Spustit aplikace – runtime** najděte požadovaný řádek požadované verze runtime .NET Core.
-1. Stáhněte si instalační program pomocí odkazu **Runtime & Hosting Bundle.**
+1. Stáhněte si instalační program pomocí odkazu **Hosting Bundle.**
 
 > [!WARNING]
 > Některé instalační programy obsahují verze, které dosáhly konce životnosti (EOL) a které již nejsou podporovány společností Microsoft. Další informace naleznete v [zásadách podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
@@ -1422,20 +1425,12 @@ Nainstalujte *balíček .NET Core Hosting do* hostitelského systému. Balíček
 >
 > Pokud je sada Hosting Bundle nainstalována po instalaci 64bitové (x64) verze rozhraní .NET Core, mohou se zdát, že sady SDK chybí ([byly zjištěny sady SDK .Net Core .](xref:test/troubleshoot#no-net-core-sdks-were-detected) Chcete-li problém <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>vyřešit, naleznete v tématu .
 
-### <a name="direct-download-current-version"></a>Přímé stahování (aktuální verze)
-
-Stáhněte si instalační program pomocí následujícího odkazu:
-
-[Aktuální instalační program .NET Core Hosting Bundle (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
-
-### <a name="earlier-versions-of-the-installer"></a>Dřívější verze instalačního programu
-
-Chcete-li získat starší verzi instalačního programu:
+### <a name="download"></a>Stáhnout
 
 1. Přejděte na stránku [Stáhnout jádro rozhraní .NET.](https://dotnet.microsoft.com/download/dotnet-core)
-1. Klikněte na požadovanou verzi .NET Core.
+1. Vyberte požadovanou verzi .NET Core.
 1. Ve sloupci **Spustit aplikace – runtime** najděte požadovaný řádek požadované verze runtime .NET Core.
-1. Stáhněte si instalační program pomocí odkazu **Runtime & Hosting Bundle.**
+1. Stáhněte si instalační program pomocí odkazu **Hosting Bundle.**
 
 > [!WARNING]
 > Některé instalační programy obsahují verze, které dosáhly konce životnosti (EOL) a které již nejsou podporovány společností Microsoft. Další informace naleznete v [zásadách podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
