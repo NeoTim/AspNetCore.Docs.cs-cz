@@ -38,7 +38,7 @@ Pokud se požadavek nezdařil, protože token nelze zřídit bez zásahu uživat
         {
             httpClient.DefaultRequestHeaders.Add("Authorization", 
                 $"Bearer {token.Value}");
-            forecasts = await httpClient.GetJsonAsync<WeatherForecast[]>(
+            forecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>(
                 "WeatherForecast");
         }
         else

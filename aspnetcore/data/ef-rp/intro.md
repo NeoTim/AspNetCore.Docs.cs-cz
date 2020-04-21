@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
 uid: data/ef-rp/intro
-ms.openlocfilehash: 94783aa9014aef4c5f775fc8f36a2c3a7715e4b6
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 07faf5e596e7ea8b134d13caa0259c1e9d74ff1b
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78656819"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661618"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>Razor stránky s jádrem entity framework u ASP.NET jádra - výuka 1 z 8
 
@@ -45,7 +45,7 @@ Visual Studio kód pokyny použít [SQLite](https://www.sqlite.org/), databázov
 
 Pokud se rozhodnete použít SQLite, stáhněte a nainstalujte nástroj třetí strany pro správu a prohlížení databáze SQLite, například [DB Browser pro SQLite](https://sqlitebrowser.org/).
 
-## <a name="troubleshooting"></a>Řešení potíží
+## <a name="troubleshooting"></a>Poradce při potížích
 
 Pokud narazíte na problém, který nelze vyřešit, porovnejte kód s [dokončeným projektem](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples). Dobrým způsobem, jak získat pomoc, je odeslání otázky do StackOverflow.com pomocí [značky ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [značky EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
@@ -159,7 +159,7 @@ Student se může zapsat do libovolného počtu kurzů a v kurzu může být zap
 
   [!code-csharp[Main](intro/samples/cu30snapshots/1-intro/Models/Student.cs)]
 
-Vlastnost `ID` se stane sloupcem primárního klíče databázové tabulky, který odpovídá této třídě. Ve výchozím nastavení EF Core interpretuje `ID` `classnameID` vlastnost, která je pojmenována nebo jako primární klíč. Alternativní automaticky rozpoznaný `Student` název primárního klíče třídy je `StudentID`tedy .
+Vlastnost `ID` se stane sloupcem primárního klíče databázové tabulky, který odpovídá této třídě. Ve výchozím nastavení EF Core interpretuje `ID` `classnameID` vlastnost, která je pojmenována nebo jako primární klíč. Alternativní automaticky rozpoznaný `Student` název primárního klíče třídy je `StudentID`tedy . Další informace naleznete v tématu [EF Core - Keys](/ef/core/modeling/keys?tabs=data-annotations).
 
 Vlastnost `Enrollments` je [navigační vlastnost](/ef/core/modeling/relationships). Navigační vlastnosti mají další entity, které souvisejí s touto entitou. V tomto případě `Enrollments` vlastnost `Student` entity obsahuje všechny `Enrollment` entity, které souvisejí s tímto studentem. Například pokud Student řádek v databázi obsahuje dva `Enrollments` související Zápis řádky, navigační vlastnost obsahuje tyto dvě entity Zápisu. 
 
@@ -474,7 +474,7 @@ Ukázková aplikace je webová stránka fiktivní univerzity Contoso. Zahrnuje f
 
 Znalost razor [stránek](xref:razor-pages/index). Noví programátoři by měli před zahájením této série dokončit [začínáme se stránkami Razor Pages.](xref:tutorials/razor-pages/razor-pages-start)
 
-## <a name="troubleshooting"></a>Řešení potíží
+## <a name="troubleshooting"></a>Poradce při potížích
 
 Pokud narazíte na problém, který nelze vyřešit, můžete obecně najít řešení porovnáním kódu s [dokončeným projektem](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples). Dobrým způsobem, jak získat pomoc, je zveřejnění matné otázky [StackOverflow.com](https://stackoverflow.com/questions/tagged/asp.net-core) pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 

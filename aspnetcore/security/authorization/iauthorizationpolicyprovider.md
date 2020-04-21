@@ -6,12 +6,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 11/14/2019
 uid: security/authorization/iauthorizationpolicyprovider
-ms.openlocfilehash: 2a8b189cc9f17529a962a1f9642c7bb199d5781b
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: 2c67e25ff73bc8c3a5f3af4730a509b2385fc1cf
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440919"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661775"
 ---
 # <a name="custom-authorization-policy-providers-using-iauthorizationpolicyprovider-in-aspnet-core"></a>Vlastní zprostředkovatelé autorizačních zásad používající iAuthorizationPolicyProvider v ASP.NET jádru 
 
@@ -25,7 +25,7 @@ Příklady scénářů, kde může být užitečný vlastní [IAuthorizationPoli
 * Použití široké škály zásad (například pro různá čísla nebo věk) proto nemá smysl přidávat `AuthorizationOptions.AddPolicy` jednotlivé zásady autorizace pomocí hovoru.
 * Vytváření zásad za běhu na základě informací v externím zdroji dat (například databáze) nebo dynamického určení požadavků na autorizaci prostřednictvím jiného mechanismu.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/dotnet/AspNetCore/tree/release/2.2/src/Security/samples/CustomPolicyProvider) z [úložiště AspNetCore GitHub](https://github.com/dotnet/AspNetCore). Stáhněte si soubor ZIP úložiště dotnet/AspNetCore. Rozbalte soubor. Přejděte do složky projektu *src/Security/samples/CustomPolicyProvider.*
+[Zobrazení nebo stažení ukázkového kódu](https://github.com/dotnet/aspnetcore/tree/v3.1.3/src/Security/samples/CustomPolicyProvider) z [úložiště AspNetCore GitHub](https://github.com/dotnet/AspNetCore). Stáhněte si soubor ZIP úložiště dotnet/AspNetCore. Rozbalte soubor. Přejděte do složky projektu *src/Security/samples/CustomPolicyProvider.*
 
 ## <a name="customize-policy-retrieval"></a>Přizpůsobení načítání zásad
 
@@ -183,4 +183,4 @@ Chcete-li používat `IAuthorizationPolicyProvider`vlastní zásady z aplikace ,
 services.AddSingleton<IAuthorizationPolicyProvider, MinimumAgePolicyProvider>();
 ```
 
-Kompletní vlastní `IAuthorizationPolicyProvider` ukázka je k dispozici v [úložišti GitHub dotnet/aspnetcore](https://github.com/dotnet/aspnetcore/tree/ea555458dc61e04314598c25b3ab8c56362a5123/src/Security/samples/CustomPolicyProvider).
+Kompletní vlastní `IAuthorizationPolicyProvider` ukázka je k dispozici v [úložišti GitHub dotnet/aspnetcore](https://github.com/dotnet/aspnetcore/tree/v3.1.3/src/Security/samples/CustomPolicyProvider).

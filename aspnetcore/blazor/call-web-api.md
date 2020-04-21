@@ -5,17 +5,17 @@ description: Zjistěte, jak volat webové Blazor rozhraní API z aplikace WebAss
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2020
+ms.date: 04/19/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 2f2d4150f4fa1e7f47310f2a88b816f445cd1d3a
-ms.sourcegitcommit: 49c91ad4b69f4f8032394cbf2d5ae1b19a7f863b
+ms.openlocfilehash: 943f9d440adbe11ac1977f28aebee53a5510a86b
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2020
-ms.locfileid: "81544853"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661581"
 ---
 # <a name="call-a-web-api-from-aspnet-core-opno-locblazor"></a>Volání webového rozhraní API z ASP.NET CoreBlazor
 
@@ -120,7 +120,11 @@ Pomocné metody JSON odesílají požadavky uri (webové rozhraní API v násled
   }
   ```
   
-  Volání `PostAsJsonAsync` pro <xref:System.Net.Http.HttpResponseMessage>návrat .
+  Volání `PostAsJsonAsync` pro <xref:System.Net.Http.HttpResponseMessage>návrat . Chcete-li dekonstruovat obsah JSON ze `ReadFromJsonAsync<T>` zprávy odpovědi, použijte metodu rozšíření:
+  
+  ```csharp
+  var content = response.content.ReadFromJsonAsync<WeatherForecast>();
+  ```
 
 * `PutAsJsonAsync`&ndash; Odešle požadavek HTTP PUT, včetně obsahu kódovaného protokolem JSON.
 
@@ -149,7 +153,11 @@ Pomocné metody JSON odesílají požadavky uri (webové rozhraní API v násled
   }
   ```
   
-  Volání `PutAsJsonAsync` pro <xref:System.Net.Http.HttpResponseMessage>návrat .
+  Volání `PutAsJsonAsync` pro <xref:System.Net.Http.HttpResponseMessage>návrat . Chcete-li dekonstruovat obsah JSON ze `ReadFromJsonAsync<T>` zprávy odpovědi, použijte metodu rozšíření:
+  
+  ```csharp
+  var content = response.content.ReadFromJsonAsync<WeatherForecast>();
+  ```
 
 <xref:System.Net.Http>obsahuje další metody rozšíření pro odesílání požadavků HTTP a příjem odpovědí HTTP. [HttpClient.DeleteAsync](xref:System.Net.Http.HttpClient.DeleteAsync*) slouží k odeslání požadavku HTTP DELETE do webového rozhraní API.
 

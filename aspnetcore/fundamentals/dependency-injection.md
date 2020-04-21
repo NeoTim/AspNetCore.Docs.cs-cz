@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 03/26/2020
 uid: fundamentals/dependency-injection
-ms.openlocfilehash: 943ea30c2e4887638f69b6dcdb7e323bcee40240
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 4e990329b7ebcfc9cbbff8a3c9895604a22461d3
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80405978"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661701"
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Injektáž závislostí v ASP.NET Core
 
@@ -196,7 +196,7 @@ Přechodné služby životnosti (<xref:Microsoft.Extensions.DependencyInjection.
 Služby životnosti<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>s rozsahem ( ) jsou vytvořeny jednou za požadavek klienta (připojení).
 
 > [!WARNING]
-> Při použití služby s vymezeným oborem v `Invoke` `InvokeAsync` middleware, vložte službu do metody nebo. Nevstřikovat prostřednictvím vstřikování konstruktoru, protože nutí službu chovat jako singleton. Další informace naleznete v tématu <xref:fundamentals/middleware/write#per-request-middleware-dependencies>.
+> Při použití služby s vymezeným oborem v `Invoke` `InvokeAsync` middleware, vložte službu do metody nebo. Nevstřikovat prostřednictvím [vstřikování konstruktoru,](xref:mvc/controllers/dependency-injection#constructor-injection) protože nutí službu chovat jako singleton. Další informace naleznete v tématu <xref:fundamentals/middleware/write#per-request-middleware-dependencies>.
 
 ### <a name="singleton"></a>Singleton
 
@@ -261,9 +261,9 @@ Služby lze vyřešit dvěma mechanismy:
 
 Konstruktory mohou přijímat argumenty, které nejsou poskytovány vkládání závislostí, ale argumenty musí přiřadit výchozí hodnoty.
 
-Pokud jsou služby vyřešeny `IServiceProvider` nebo `ActivatorUtilities`, vstřikování konstruktoru vyžaduje *veřejný* konstruktor.
+Pokud jsou služby `IServiceProvider` vyřešeny `ActivatorUtilities`nebo , [vstřikování konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) vyžaduje *veřejný* konstruktor.
 
-Pokud jsou služby vyřešeny `ActivatorUtilities`, vstřikování konstruktoru vyžaduje, aby existoval pouze jeden příslušný konstruktor. Přetížení konstruktoru jsou podporovány, ale může existovat pouze jedno přetížení, jehož argumenty mohou být splněny vkládáním závislostí.
+Pokud jsou služby vyřešeny `ActivatorUtilities`, [vstřikování konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) vyžaduje, aby existoval pouze jeden příslušný konstruktor. Přetížení konstruktoru jsou podporovány, ale může existovat pouze jedno přetížení, jehož argumenty mohou být splněny vkládáním závislostí.
 
 ## <a name="entity-framework-contexts"></a>Kontexty rozhraní entity
 
@@ -733,7 +733,7 @@ Přechodné služby životnosti (<xref:Microsoft.Extensions.DependencyInjection.
 Služby životnosti<xref:Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddScoped*>s rozsahem ( ) jsou vytvořeny jednou za požadavek klienta (připojení).
 
 > [!WARNING]
-> Při použití služby s vymezeným oborem v `Invoke` `InvokeAsync` middleware, vložte službu do metody nebo. Nevstřikovat prostřednictvím vstřikování konstruktoru, protože nutí službu chovat jako singleton. Další informace naleznete v tématu <xref:fundamentals/middleware/write#per-request-middleware-dependencies>.
+> Při použití služby s vymezeným oborem v `Invoke` `InvokeAsync` middleware, vložte službu do metody nebo. Nevstřikovat prostřednictvím [vstřikování konstruktoru,](xref:mvc/controllers/dependency-injection#constructor-injection) protože nutí službu chovat jako singleton. Další informace naleznete v tématu <xref:fundamentals/middleware/write#per-request-middleware-dependencies>.
 
 ### <a name="singleton"></a>Singleton
 
@@ -798,9 +798,9 @@ Služby lze vyřešit dvěma mechanismy:
 
 Konstruktory mohou přijímat argumenty, které nejsou poskytovány vkládání závislostí, ale argumenty musí přiřadit výchozí hodnoty.
 
-Pokud jsou služby vyřešeny `IServiceProvider` nebo `ActivatorUtilities`, vstřikování konstruktoru vyžaduje *veřejný* konstruktor.
+Pokud jsou služby `IServiceProvider` vyřešeny `ActivatorUtilities`nebo , [vstřikování konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) vyžaduje *veřejný* konstruktor.
 
-Pokud jsou služby vyřešeny `ActivatorUtilities`, vstřikování konstruktoru vyžaduje, aby existoval pouze jeden příslušný konstruktor. Přetížení konstruktoru jsou podporovány, ale může existovat pouze jedno přetížení, jehož argumenty mohou být splněny vkládáním závislostí.
+Pokud jsou služby vyřešeny `ActivatorUtilities`, [vstřikování konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) vyžaduje, aby existoval pouze jeden příslušný konstruktor. Přetížení konstruktoru jsou podporovány, ale může existovat pouze jedno přetížení, jehož argumenty mohou být splněny vkládáním závislostí.
 
 ## <a name="entity-framework-contexts"></a>Kontexty rozhraní entity
 

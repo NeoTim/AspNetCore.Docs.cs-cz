@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
 uid: test/troubleshoot-azure-iis
-ms.openlocfilehash: 671f68da2ea261cb8ae32a9d5ef875217859054d
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: f994cd1274bda9082a7cd8b637968b2769db1671
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78655328"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661713"
 ---
 # <a name="troubleshoot-aspnet-core-on-azure-app-service-and-iis"></a>Řešení potíží ASP.NET jádro ve službě Azure App Service a IIS
 
@@ -159,6 +159,15 @@ Chcete-li tuto chybu opravit, opravte instalaci [sady .NET Core Hosting Bundle](
 Ancm se nepodařilo spustit v rámci provied čas spuštění časového limitu. Ve výchozím nastavení je časový limit 120 sekund.
 
 K této chybě může dojít při spuštění velkého počtu aplikací ve stejném počítači. Při spuštění zkontrolujte špičky využití procesoru a paměti na serveru. Možná budete muset rozložit proces spuštění více aplikací.
+
+### <a name="50038-ancm-application-dll-not-found"></a>500.38 DLL aplikace ANCM nebyla nalezena
+
+ANCM se nepodařilo najít dll aplikace, která by měla být vedle spustitelného souboru.
+
+K této chybě dochází při hostování aplikace zabalené jako [spustitelný soubor s jedním souborem](/dotnet/core/whats-new/dotnet-core-3-0#single-file-executables) pomocí modelu hostování v procesu. V procesu model vyžaduje, aby ANCM načíst .NET Core aplikace do existujícího procesu IIS. Tento scénář není podporován modelem nasazení s jedním souborem. K opravě této chyby použijte **jeden** z následujících přístupů v souboru projektu aplikace:
+
+1. Zakázání publikování jednoho souboru nastavením `PublishSingleFile` `false`vlastnosti MSBuild na .
+1. Přepněte na mimoprocesový model hostování `AspNetCoreHostingModel` nastavením vlastnosti `OutOfProcess`MSBuild na .
 
 ### <a name="5025-process-failure"></a>502.5 – Selhání procesu
 

@@ -5,17 +5,17 @@ description: Přečtěte si Blazor o ASP.NET Blazor šablon aplikací Core a str
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 04/19/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 71a9d9eee8637dda0b3cecac82ff96a0c3bfedb5
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 0a4a508beeae3d7bc665372d925989aa4e34ad52
+ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80320983"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81661718"
 ---
 # <a name="aspnet-core-opno-locblazor-templates"></a>ASP.NET Blazor základní šablony
 
@@ -31,6 +31,13 @@ Rámec Blazor poskytuje šablony pro vývoj aplikací Blazor pro každý z hosti
 Další informace Blazoro hostitelských modelech společnosti naleznete v tématu <xref:blazor/hosting-models>.
 
 Podrobné pokyny k vytvoření Blazor aplikace ze šablony najdete <xref:blazor/get-started>v tématu .
+
+Možnosti šablony jsou `--help` k dispozici předáním [možnosti dotnet nový](/dotnet/core/tools/dotnet-new) příkaz příkazu příkazu příkazu příkazu příkazu příkazu příkazu příkazu příkazu příkazu příkazu příkazu:Template options are available by passing the option to the dotnet new CLI
+
+```dotnetcli
+dotnet new blazorwasm --help
+dotnet new blazorserver --help
+```
 
 ## <a name="opno-locblazor-project-structure"></a>Blazorstruktura projektu
 
