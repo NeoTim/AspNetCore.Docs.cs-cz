@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: 1b0f5f4071be7134d7de08615ec016ca6567385d
-ms.sourcegitcommit: 49c91ad4b69f4f8032394cbf2d5ae1b19a7f863b
+ms.openlocfilehash: 6a3731657d11faed0b005b429058343b2be4c44b
+ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2020
-ms.locfileid: "81544840"
+ms.lasthandoff: 04/22/2020
+ms.locfileid: "81791476"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET konfigurace hostingového modelu Core Blazor
 
@@ -134,6 +134,10 @@ Konfigurační soubory jsou ukládány do mezipaměti pro použití v režimu of
 * Pwa *service-worker.js* a *service-worker-assets.js* soubory musí být znovu sestaveny na kompilaci, které signalizují aplikaci na další online návštěvu uživatele, že aplikace byla znovu nasazena.
 
 Další informace o tom, jak pwa <xref:blazor/progressive-web-app#background-updates>zpracovávají aktualizace na pozadí, naleznete v tématu .
+
+### <a name="logging"></a>protokolování
+
+Informace o podpoře protokolování aplikace Blazor WebAssembly naleznete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor-webassembly>.
 
 ## <a name="blazor-server"></a>Blazor Server
 

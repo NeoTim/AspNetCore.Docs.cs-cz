@@ -6,7 +6,7 @@ Do třídy přidejte následující vlastnosti: `Movie`
 Třída `Movie` obsahuje:
 
 * Toto `ID` pole je vyžadováno databází pro primární klíč.
-* `[DataType(DataType.Date)]`: Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) určuje typ dat (datum). S tímto atributem:
+* `[DataType(DataType.Date)]`: Atribut [DataType](xref:System.ComponentModel.DataAnnotations.DataTypeAttribute) určuje typ dat (datum). S tímto atributem:
 
   * Uživatel nemusí zadávat informace o čase do pole data.
   * Zobrazí se pouze datum, nikoli informace o čase.

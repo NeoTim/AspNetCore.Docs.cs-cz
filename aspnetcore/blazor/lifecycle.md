@@ -5,17 +5,17 @@ description: Přečtěte si, jak používat metody Blazor životního cyklu komp
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/17/2020
+ms.date: 04/16/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: 831f575afa6ce11d06c016d43ecd1bb59d09eab6
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: e7450ad57acc87500bb977aa8349c6ee009e3bf4
+ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80218905"
+ms.lasthandoff: 04/22/2020
+ms.locfileid: "81791455"
 ---
 # <a name="aspnet-core-opno-locblazor-lifecycle"></a>ASP.NET Blazor životní cyklus jádra
 
@@ -207,13 +207,13 @@ Odhlášení obslužných rutin událostí z událostí rozhraní .NET. Následu
 
   [!code-razor[](lifecycle/samples_snapshot/3.x/event-handler-disposal-2.razor?highlight=16,26)]
 
-## <a name="handle-errors"></a>Zpracování chyb
+## <a name="handle-errors"></a>Ošetření chyb
 
 Informace o zpracování chyb během provádění <xref:blazor/handle-errors#lifecycle-methods>metody životního cyklu naleznete v tématu .
 
 ## <a name="stateful-reconnection-after-prerendering"></a>Stavové opětovné připojení po předběžném vykreslování
 
-V Blazor aplikaci `RenderMode` Server, když je `ServerPrerendered`, je komponenta zpočátku vykreslena staticky jako součást stránky. Jakmile prohlížeč naváže připojení zpět k serveru, komponenta je *vykreslena znovu*a komponenta je nyní interaktivní. Pokud je k dispozici metoda životního cyklu [OnInitialized{Async}](xref:blazor/lifecycle#component-initialization-methods) pro inicializaci komponenty, je metoda provedena *dvakrát*:
+V Blazor aplikaci `RenderMode` Server, když je `ServerPrerendered`, je komponenta zpočátku vykreslena staticky jako součást stránky. Jakmile prohlížeč naváže připojení zpět k serveru, komponenta je *vykreslena znovu*a komponenta je nyní interaktivní. Pokud je k dispozici metoda životního cyklu [OnInitialized{Async}](#component-initialization-methods) pro inicializaci komponenty, je metoda provedena *dvakrát*:
 
 * Když je komponenta předvykrestoustaticky.
 * Po navázání připojení k serveru.

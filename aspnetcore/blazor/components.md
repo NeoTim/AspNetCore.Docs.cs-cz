@@ -5,21 +5,21 @@ description: Naučte se vytvářet a používat komponenty Razor, včetně toho,
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/25/2020
+ms.date: 04/21/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: bc1d07aef9cd60b89343a034168daa6754f4421b
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 4434636992cb2506ef6525996690946f97c43764
+ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80306501"
+ms.lasthandoff: 04/22/2020
+ms.locfileid: "81791491"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytvářejte a používejte komponenty ASP.NET Core Razor
 
-[Luke Latham](https://github.com/guardrex) a [Daniel Roth](https://github.com/danroth27)
+[Luke Latham](https://github.com/guardrex), [Daniel Roth](https://github.com/danroth27)a [Tobias Bartsch](https://www.aveo-solutions.com/)
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
@@ -141,6 +141,9 @@ V následujícím příkladu z ukázkové aplikace nastaví `ParentComponent` ho
 *Stránky/ParentComponent.razor*:
 
 [!code-razor[](components/samples_snapshot/ParentComponent.razor?highlight=5-6)]
+
+> [!WARNING]
+> Nevytvářejte součásti, které zapisují do *vlastních parametrů komponenty*, použijte místo toho soukromé pole. Další informace naleznete v části [Nevytvářet součásti, které zapisují do vlastních vlastností parametrů.](#dont-create-components-that-write-to-their-own-parameter-properties)
 
 ## <a name="child-content"></a>Podřízený obsah
 
@@ -400,7 +403,7 @@ Uvažujte následující příklad:
 
 Obsah kolekce `People` se může změnit s vloženými, odstraněnými nebo znovu objednanými položkami. Když se komponenta znovu `<DetailsEditor>` vykreslí, `Details` může se změnit, aby přijínala různé hodnoty parametrů. To může způsobit složitější rerendering, než bylo očekáváno. V některých případech může rerendering vést k viditelné rozdíly chování, jako je například ztráta fokusu prvku.
 
-Proces mapování lze řídit `@key` pomocí atributu direktivy. `@key`způsobí, že algoritmus diffing zaručit zachování prvků nebo součástí na základě hodnoty klíče:
+Proces mapování lze řídit [`@key`](xref:mvc/views/razor#key) pomocí atributu direktivy. `@key`způsobí, že algoritmus diffing zaručit zachování prvků nebo součástí na základě hodnoty klíče:
 
 ```csharp
 @foreach (var person in People)
@@ -453,6 +456,99 @@ Obecně má smysl dodávat jeden z následujících `@key`druhů hodnoty pro :
 * Jedinečné identifikátory (například hodnoty primárního `string`klíče `Guid`typu `int`, nebo ).
 
 Ujistěte se, `@key` že hodnoty použité pro nekolidovat. Pokud jsou zjištěny kolidující hodnoty Blazor v rámci stejného nadřazeného prvku, vyvolá výjimku, protože nemůže deterministicky mapovat staré prvky nebo součásti na nové prvky nebo součásti. Používejte pouze odlišné hodnoty, například instance objektů nebo hodnoty primárního klíče.
+
+## <a name="dont-create-components-that-write-to-their-own-parameter-properties"></a>Nevytvářejte součásti, které zapisují do vlastních vlastností parametrů
+
+Parametry jsou přepsány za následujících podmínek:
+
+* Podřízený prvek obsah je vykreslen `RenderFragment`s .
+* <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>se nazývá v nadřazené součásti.
+
+Parametry jsou resetovány, protože nadřazená komponenta se znovu vykresluje, když <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> je volána, a do podřízené součásti jsou dodávány nové hodnoty parametrů.
+
+Zvažte `Expander` následující součást, která:
+
+* Vykreslí podřízený obsah.
+* Přepíná zobrazení podřízeného obsahu s parametrem komponenty.
+
+```razor
+<div @onclick="@Toggle">
+    Toggle (Expanded = @Expanded)
+
+    @if (Expanded)
+    {
+        @ChildContent
+    }
+</div>
+
+@code {
+    [Parameter]
+    public bool Expanded { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private void Toggle()
+    {
+        Expanded = !Expanded;
+    }
+}
+```
+
+Komponenta `Expander` je přidána do nadřazené součásti, která může volat `StateHasChanged`:
+
+```razor
+<Expander Expanded="true">
+    <h1>Hello, world!</h1>
+</Expander>
+
+<Expander Expanded="true" />
+
+<button @onclick="@(() => StateHasChanged())">
+    Call StateHasChanged
+</button>
+```
+
+Zpočátku `Expander` součásti chovat nezávisle, `Expanded` když jsou jejich vlastnosti přepnuto. Podřízené součásti udržovat jejich stavy podle očekávání. Když `StateHasChanged` je volána v `Expanded` nadřazeném, parametr první podřízené`true`součásti je obnoven zpět na počáteční hodnotu ( ). `Expanded` Hodnota druhé `Expander` součásti není resetována, protože v druhé součásti není vykreslen žádný podřízený obsah.
+
+Chcete-li zachovat stav v předchozím scénáři, `Expander` použijte soukromé *pole* v komponentě k zachování jeho přeplovaný stav.
+
+Následující `Expander` součást:
+
+* Přijme hodnotu parametru `Expanded` komponenty z nadřazeného objektu.
+* Přiřadí hodnotu parametru komponenty`_expanded` *soukromému poli* ( ) v události [OnInitialized](xref:blazor/lifecycle#component-initialization-methods).
+* Používá soukromé pole k zachování jeho vnitřní přepnout stav.
+
+```razor
+<div @onclick="@Toggle">
+    Toggle (Expanded = @_expanded)
+
+    @if (_expanded)
+    {
+        @ChildContent
+    }
+</div>
+
+@code {
+    [Parameter]
+    public bool Expanded { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private bool _expanded;
+
+    protected override void OnInitialized()
+    {
+        _expanded = Expanded;
+    }
+
+    private void Toggle()
+    {
+        _expanded = !_expanded;
+    }
+}
+```
 
 ## <a name="partial-class-support"></a>Podpora částečné třídy
 

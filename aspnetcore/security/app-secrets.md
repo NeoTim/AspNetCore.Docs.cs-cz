@@ -6,12 +6,12 @@ ms.author: scaddie
 ms.custom: mvc
 ms.date: 4/20/2020
 uid: security/app-secrets
-ms.openlocfilehash: 9d4e59c003afc253971ee64fce523c7188d3582a
-ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
+ms.openlocfilehash: c62c5e59ad0a72506fb72bda82aa821a4f1719c8
+ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81661806"
+ms.lasthandoff: 04/22/2020
+ms.locfileid: "81791589"
 ---
 # <a name="safe-storage-of-app-secrets-in-development-in-aspnet-core"></a>Bezpečné ukládání tajných kódů aplikací ve vývoji v ASP.NET Core
 
@@ -75,7 +75,7 @@ dotnet user-secrets init
 
 Předchozí příkaz přidá `UserSecretsId` prvek do `PropertyGroup` souboru *.csproj.* Ve výchozím nastavení `UserSecretsId` je vnitřní text identifikátoru GUID. Vnitřní text je libovolný, ale je jedinečný pro projekt.
 
-[!code-xml[](app-secrets/samples/2.x/UserSecrets/UserSecrets.csproj?name=snippet_PropertyGroup&highlight=3)]
+[!code-xml[](app-secrets/samples/3.x/UserSecrets/UserSecrets.csproj?name=snippet_PropertyGroup&highlight=3)]
 
 V sadě Visual Studio klikněte pravým tlačítkem myši na projekt v Průzkumníkovi řešení a v místní nabídce vyberte **Spravovat tajné kódy uživatelů.** Toto gesto `UserSecretsId` přidá prvek naplněný identifikátorem GUID do souboru *.csproj.*
 
@@ -142,18 +142,17 @@ Otevřete příkazové prostředí a proveďte následující příkaz:
 
 Rozhraní [ASP.NET jádrové konfigurace rozhraní API](xref:fundamentals/configuration/index) poskytuje přístup k tajným klíčům správce tajných barev.
 
-V ASP.NET Core 2.0 nebo novější, zdroj konfigurace uživatelských tajných <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> kódů je automaticky přidán do režimu vývoje, když projekt volá inicializovat novou instanci hostitele s předkonfigurovanými výchozími hodnotami. `CreateDefaultBuilder`volání, <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> když <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>je :
+Zdroj konfigurace uživatelských tajných kódů je <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder%2A> automaticky přidán do režimu vývoje, když projekt volá k inicializaci nové instance hostitele s předkonfigurovanými výchozími hodnotami. `CreateDefaultBuilder`volání, <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> <xref:Microsoft.Extensions.Hosting.IHostEnvironment.EnvironmentName> když <xref:Microsoft.Extensions.Hosting.EnvironmentName.Development>je :
 
 [!code-csharp[](app-secrets/samples/3.x/UserSecrets/Program.cs?name=snippet_CreateHostBuilder&highlight=2)]
 
-Když `CreateDefaultBuilder` není volána, přidejte zdroj konfigurace <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> uživatelských `Startup` tajných kódů explicitně voláním v konstruktoru. Volat `AddUserSecrets` pouze v případě, že aplikace běží ve vývojovém prostředí, jak je znázorněno v následujícím příkladu:
+Když `CreateDefaultBuilder` není volána, přidejte zdroj konfigurace <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A>uživatelských tajných kódů explicitně voláním . Volat `AddUserSecrets` pouze v případě, že aplikace běží ve vývojovém prostředí, jak je znázorněno v následujícím příkladu:
 
-[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup2.cs?name=snippet_StartupConstructor&highlight=12)]
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Program2.cs?name=snippet_Host&highlight=6-9)]
 
 Uživatelské tajné klíče lze `Configuration` načíst prostřednictvím rozhraní API:
 
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup.cs?name=snippet_StartupClass&highlight=14)]
-
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup.cs?name=snippet_StartupClass&highlight=14)]
 
 ## <a name="map-secrets-to-a-poco"></a>Mapovat tajné kódy na POCO
 
@@ -163,17 +162,17 @@ Mapování literálu celého objektu na POCO (jednoduchá třída .NET s vlastno
 
 Chcete-li mapovat předchozí tajné klíče `Configuration` na POCO, použijte funkci [vazby vazby grafu objektů](xref:fundamentals/configuration/index#bind-to-an-object-graph) rozhraní API. Následující kód se váže `MovieSettings` na vlastní POCO `ServiceApiKey` a přistupuje k hodnotě vlastnosti:
 
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup3.cs?name=snippet_BindToObjectGraph)]
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup3.cs?name=snippet_BindToObjectGraph)]
 
 A `Movies:ConnectionString` `Movies:ServiceApiKey` tajné klíče jsou mapovány `MovieSettings`na příslušné vlastnosti v :
 
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Models/MovieSettings.cs?name=snippet_MovieSettingsClass)]
 
 ## <a name="string-replacement-with-secrets"></a>Nahrazení řetězce tajnými kódy
 
 Ukládání hesel ve formátu prostého textu je nezabezpečené. Například připojovací řetězec databáze uložený v *souboru appsettings.json* může obsahovat heslo pro zadaného uživatele:
 
-[!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
+[!code-json[](app-secrets/samples/3.x/UserSecrets/appsettings-unsecure.json?highlight=3)]
 
 Bezpečnější přístup je uložení hesla jako tajný klíč. Příklad:
 
@@ -183,11 +182,11 @@ dotnet user-secrets set "DbPassword" "pass123"
 
 Odeberte dvojici `Password` klíč-hodnota z připojovacího řetězce v *souboru appsettings.json*. Příklad:
 
-[!code-json[](app-secrets/samples/2.x/UserSecrets/appsettings.json?highlight=3)]
+[!code-json[](app-secrets/samples/3.x/UserSecrets/appsettings.json?highlight=3)]
 
 Hodnotu tajného klíče lze <xref:System.Data.SqlClient.SqlConnectionStringBuilder> nastavit na <xref:System.Data.SqlClient.SqlConnectionStringBuilder.Password%2A> vlastnost objektu k dokončení připojovacího řetězce:
 
-[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup2.cs?name=snippet_StartupClass&highlight=14-17)]
+[!code-csharp[](app-secrets/samples/3.x/UserSecrets/Startup2.cs?name=snippet_StartupClass&highlight=14-17)]
 
 ## <a name="list-the-secrets"></a>Seznam tajemství
 
@@ -388,15 +387,13 @@ Rozhraní [ASP.NET jádrové konfigurace rozhraní API](xref:fundamentals/config
 
 Pokud váš projekt cílí na rozhraní .NET Framework, nainstalujte balíček [Microsoft.Extensions.Configuration.UserSecrets](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.UserSecrets) NuGet.
 
-
 V ASP.NET Core 2.0 nebo novější, zdroj konfigurace uživatelských tajných <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder%2A> kódů je automaticky přidán do režimu vývoje, když projekt volá inicializovat novou instanci hostitele s předkonfigurovanými výchozími hodnotami. `CreateDefaultBuilder`volání, <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.EnvironmentName> když <xref:Microsoft.AspNetCore.Hosting.EnvironmentName.Development>je :
 
 [!code-csharp[](app-secrets/samples/2.x/UserSecrets/Program.cs?name=snippet_CreateWebHostBuilder&highlight=2)]
 
-
 Když `CreateDefaultBuilder` není volána, přidejte zdroj konfigurace <xref:Microsoft.Extensions.Configuration.UserSecretsConfigurationExtensions.AddUserSecrets%2A> uživatelských `Startup` tajných kódů explicitně voláním v konstruktoru. Volat `AddUserSecrets` pouze v případě, že aplikace běží ve vývojovém prostředí, jak je znázorněno v následujícím příkladu:
 
-[!code-csharp[](app-secrets/samples/1.x/UserSecrets/Startup.cs?name=snippet_StartupConstructor&highlight=12)]
+[!code-csharp[](app-secrets/samples/2.x/UserSecrets/Startup3.cs?name=snippet_StartupConstructor&highlight=12)]
 
 Uživatelské tajné klíče lze `Configuration` načíst prostřednictvím rozhraní API:
 

@@ -5,17 +5,17 @@ description: Vytvořte chatovací aplikaci, která používá ASP.NET Core Signa
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2020
+ms.date: 04/21/2020
 no-loc:
 - Blazor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 798068c83e16070d3279c88c44af0cd96d182fe2
-ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
+ms.openlocfilehash: 03db8b48bdacec1d6877a4ea09f97c242761c42d
+ms.sourcegitcommit: f976dce28ad887bbd31720c318fd4a97cf96cc6d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81488881"
+ms.lasthandoff: 04/21/2020
+ms.locfileid: "81738014"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET core signalr s Blazor WebAssembly
 
@@ -168,7 +168,7 @@ V projektu **BlazorSignalRApp.Server** vytvořte složku *Hubs* (plural) `ChatHu
 
 [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Hubs/ChatHub.cs)]
 
-## <a name="add-signalr-services-and-an-endpoint-for-the-signalr-hub"></a>Přidání služeb SignalR a koncového bodu pro rozbočovač SignalR
+## <a name="add-services-and-an-endpoint-for-the-signalr-hub"></a>Přidání služeb a koncového bodu pro rozbočovač SignalR
 
 1. V projektu **BlazorSignalRApp.Server** otevřete soubor *Startup.cs.*
 
@@ -178,15 +178,13 @@ V projektu **BlazorSignalRApp.Server** vytvořte složku *Hubs* (plural) `ChatHu
    using BlazorSignalRApp.Server.Hubs;
    ```
 
-1. Přidejte služby `Startup.ConfigureServices`SignalR do :
+1. Přidat SignalR a komprese odezvy Middleware služby `Startup.ConfigureServices`:
 
-   ```csharp
-   services.AddSignalR();
-   ```
+   [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_ConfigureServices&highlight=3,5-9)]
 
-1. Mezi `Startup.Configure` koncové body pro výchozí trasu řadiče a záložní straně klienta přidejte koncový bod pro rozbočovač:
+1. Mezi `Startup.Configure` koncové body pro řadiče a záložní straně klienta přidejte koncový bod pro rozbočovač:
 
-   [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet&highlight=4)]
+   [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_UseEndpoints&highlight=4)]
 
 ## <a name="add-razor-component-code-for-chat"></a>Přidat kód komponenty Razor pro chat
 
@@ -202,7 +200,7 @@ V projektu **BlazorSignalRApp.Server** vytvořte složku *Hubs* (plural) `ChatHu
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. V **Průzkumníku řešení**vyberte projekt **BlazorSignalRApp.Server.** Stisknutím **kombinace kláves Ctrl+F5** spusťte aplikaci bez ladění.
+1. V **Průzkumníku řešení**vyberte projekt **BlazorSignalRApp.Server.** Stisknutím <kbd>klávesy F5</kbd> spusťte aplikaci s laděním nebo <kbd>klávesou Ctrl</kbd>+<kbd>F5,</kbd> chcete-li aplikaci spustit bez ladění.
 
 1. Zkopírujte adresu URL z adresního řádku, otevřete jinou instanci prohlížeče nebo kartu a vložte ji do adresního řádku.
 
@@ -214,7 +212,13 @@ V projektu **BlazorSignalRApp.Server** vytvořte složku *Hubs* (plural) `ChatHu
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-1. Na panelu nástrojů vyberte **Možnost Ladění** > **spustit bez ladění.**
+1. Když VS Code nabízí vytvoření profilu spuštění aplikace Server (*.vscode/launch.json*), `program` položka se zobrazí podobně`{APPLICATION NAME}.Server.dll`jako následující, aby ukazovala na sestavení aplikace ( ):
+
+   ```json
+   "program": "${workspaceFolder}/Server/bin/Debug/netcoreapp3.1/{APPLICATION NAME}.Server.dll"
+   ```
+
+1. Stisknutím <kbd>klávesy F5</kbd> spusťte aplikaci s laděním nebo <kbd>klávesou Ctrl</kbd>+<kbd>F5,</kbd> chcete-li aplikaci spustit bez ladění.
 
 1. Zkopírujte adresu URL z adresního řádku, otevřete jinou instanci prohlížeče nebo kartu a vložte ji do adresního řádku.
 
@@ -226,7 +230,7 @@ V projektu **BlazorSignalRApp.Server** vytvořte složku *Hubs* (plural) `ChatHu
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-1. V postranním panelu **Řešení** vyberte projekt **BlazorSignalRApp.Server.** V nabídce vyberte **Spustit** > **start bez ladění**.
+1. V postranním panelu **Řešení** vyberte projekt **BlazorSignalRApp.Server.** Stisknutím <kbd>tlačítka</kbd>+<kbd>↩</kbd>** spustíte aplikaci s laděním nebo <kbd>⌥</kbd>+<kbd>↩</kbd>+<kbd>↩</kbd> pro spuštění aplikace bez ladění.
 
 1. Zkopírujte adresu URL z adresního řádku, otevřete jinou instanci prohlížeče nebo kartu a vložte ji do adresního řádku.
 

@@ -7,12 +7,12 @@ ms.author: riande
 ms.custom: mvc
 ms.date: 4/17/2020
 uid: fundamentals/logging/index
-ms.openlocfilehash: a3c63b738d3eaa51249475b88d78572038348a7a
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: b897d0d775da62a11f01a64f39b47b6c5abebc8b
+ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440737"
+ms.lasthandoff: 04/22/2020
+ms.locfileid: "81791564"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení do jádra rozhraní .NET core a ASP.NET core
 
@@ -164,6 +164,23 @@ Pokud potřebujete nakonfigurovat službu, `ILogger<T>`která závisí na , mů�
 [!code-csharp[](index/samples/3.x/TodoApiSample/Startup.cs?name=snippet_ConfigureServices&highlight=6-10)]
 
 Předchozí zvýrazněný kód `Func` je, který běží poprvé kontejner UD potřebuje `MyService`k vytvoření instance . Tímto způsobem můžete přistupovat k libovolné registrované službě.
+
+### <a name="create-logs-in-blazor-webassembly"></a>Vytváření protokolů v Blazor WebAssembly
+
+Konfigurace protokolování v aplikacích Blazor WebAssembly s vlastností `WebAssemblyHostBuilder.Logging` v `Program.Main`:
+
+```csharp
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+
+...
+
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+builder.Logging.SetMinimumLevel(LogLevel.Debug);
+builder.Logging.AddProvider(new CustomLoggingProvider());
+```
+
+Vlastnost `Logging` je typu <xref:Microsoft.Extensions.Logging.ILoggingBuilder>, takže všechny metody <xref:Microsoft.Extensions.Logging.ILoggingBuilder> rozšíření jsou `Logging`k dispozici také na .
 
 ### <a name="no-asynchronous-logger-methods"></a>Žádné asynchronní metody protokolování
 
