@@ -1,9 +1,9 @@
 ## <a name="usermanager-and-signinmanager"></a>UserManager a SignInManager
 
-Nastavte typ deklarace identifikátoru uživatele, když aplikace Server vyžaduje:
+Nastavte typ deklarace identity uživatele, když serverová aplikace vyžaduje:
 
-* <xref:Microsoft.AspNetCore.Identity.UserManager%601>nebo <xref:Microsoft.AspNetCore.Identity.SignInManager%601> v koncovém bodě rozhraní API.
-* <xref:Microsoft.AspNetCore.Identity.IdentityUser>podrobnosti, jako je jméno uživatele, e-mailová adresa nebo čas ukončení uzamčení.
+* <xref:Microsoft.AspNetCore.Identity.UserManager%601>nebo <xref:Microsoft.AspNetCore.Identity.SignInManager%601> v koncovém bodu rozhraní API.
+* <xref:Microsoft.AspNetCore.Identity.IdentityUser>Podrobnosti, jako je jméno uživatele, e-mailová adresa nebo koncový čas uzamčení.
 
 V `Startup.ConfigureServices`:
 
@@ -12,7 +12,7 @@ services.Configure<IdentityOptions>(options =>
     options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 ```
 
-Následující `WeatherForecastController` protokoly <xref:Microsoft.AspNetCore.Identity.IdentityUser%601.UserName> při `Get` volání metody:
+Následující `WeatherForecastController` protokoluje <xref:Microsoft.AspNetCore.Identity.IdentityUser%601.UserName> při volání `Get` metody:
 
 ```csharp
 using System;
@@ -23,10 +23,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using BlazorAppIdentityServer.Server.Models;
-using BlazorAppIdentityServer.Shared;
+using {APP NAMESPACE}.Server.Models;
+using {APP NAMESPACE}.Shared;
 
-namespace BlazorAppIdentityServer.Server.Controllers
+namespace {APP NAMESPACE}.Server.Controllers
 {
     [Authorize]
     [ApiController]

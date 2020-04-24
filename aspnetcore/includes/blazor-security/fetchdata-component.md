@@ -1,26 +1,25 @@
-Komponenta `FetchData` ukazuje, jak:
+Tato `FetchData` součást ukazuje, jak:
 
-* Zřízení přístupového tokenu.
-* Pomocí přístupového tokenu můžete volat rozhraní API chráněného prostředku v aplikaci *Server.*
+* Zřízení přístupového tokenu
+* Pomocí přístupového tokenu v *serverové* aplikaci zavolejte chráněné rozhraní API prostředků.
 
-Směrnice `@attribute [Authorize]` označuje systému autorizace Blazor WebAssembly, že uživatel musí být oprávněn k návštěvě této součásti. Přítomnost atributu v *klientské* aplikaci nezabrání volání rozhraní API na serveru bez správných přihlašovacích údajů. Server *Server* ová aplikace `[Authorize]` také musí použít na příslušné koncové body správně chránit.
+Tato `@attribute [Authorize]` direktiva označuje Blazor autorizačnímu systému WebAssembly, že uživatel musí mít autorizaci, aby mohl navštívit tuto součást. Přítomnost atributu v *klientské* aplikaci nebrání volání rozhraní API na serveru bez správných přihlašovacích údajů. *Serverová* aplikace musí také použít `[Authorize]` příslušné koncové body k jejich správné ochraně.
 
-`AuthenticationService.RequestAccessToken();`postará o vyžádání přístupového tokenu, který lze přidat do požadavku na volání rozhraní API. Pokud je token uložen do mezipaměti nebo služba je schopna zřídit nový přístupový token bez interakce s uživatelem, požadavek na token uspěje. V opačném případě se nezdaří požadavek tokenu.
+`AuthenticationService.RequestAccessToken();`postará o vyžadování přístupového tokenu, který se dá přidat do žádosti o volání rozhraní API. Pokud je token uložen v mezipaměti nebo služba může zřídit nový přístupový token bez zásahu uživatele, požadavek na token je úspěšný. V opačném případě se požadavek na token nezdařil.
 
-Chcete-li získat skutečný token zahrnout do požadavku, aplikace musí zkontrolovat, `tokenResult.TryGetToken(out var token)`zda požadavek proběhl úspěšně voláním . 
+Aby bylo možné získat skutečný token, který se má zahrnout do žádosti, musí aplikace ověřit, jestli žádost proběhla úspěšně `tokenResult.TryGetToken(out var token)`voláním. 
 
-Pokud byl požadavek úspěšný, proměnná tokenu je naplněna přístupovým tokenem. Vlastnost `Value` tokenu zpřístupňuje literál řetězec `Authorization` zahrnout do hlavičky požadavku.
+Pokud byl požadavek úspěšný, je proměnná tokenu naplněná přístupovým tokenem. `Value` Vlastnost tokenu zpřístupňuje řetězec literálu, který má být zahrnut `Authorization` v hlavičce požadavku.
 
-Pokud se požadavek nezdařil, protože token nelze zřídit bez zásahu uživatele, výsledek tokenu obsahuje adresu URL přesměrování. Přechod na tuto adresu URL přenese uživatele na přihlašovací stránku a po úspěšném ověření se vrátí na aktuální stránku.
+Pokud se žádost nezdařila, protože se token nepodařilo zřídit bez zásahu uživatele, výsledek tokenu obsahuje adresu URL pro přesměrování. Když přejdete na tuto adresu URL, uživatel přejde na přihlašovací stránku a vrátí se zpátky na aktuální stránku po úspěšném ověření.
 
 ```razor
 @page "/fetchdata"
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-@inject IAccessTokenProvider AuthenticationService
-@inject NavigationManager Navigation
-@using {APPLICATION NAMESPACE}.Shared
+@using {APP NAMESPACE}.Shared
 @attribute [Authorize]
+@inject HttpClient Http
 
 ...
 
@@ -29,25 +28,16 @@ Pokud se požadavek nezdařil, protože token nelze zřídit bez zásahu uživat
 
     protected override async Task OnInitializedAsync()
     {
-        var httpClient = new HttpClient();
-        httpClient.BaseAddress = new Uri(Navigation.BaseUri);
-
-        var tokenResult = await AuthenticationService.RequestAccessToken();
-
-        if (tokenResult.TryGetToken(out var token))
+        try
         {
-            httpClient.DefaultRequestHeaders.Add("Authorization", 
-                $"Bearer {token.Value}");
-            forecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>(
-                "WeatherForecast");
+            forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
         }
-        else
+        catch (AccessTokenNotAvailableException exception)
         {
-            Navigation.NavigateTo(tokenResult.RedirectUrl);
+            exception.Redirect();
         }
-
     }
 }
 ```
 
-Další informace najdete [v tématu Uložení stavu aplikace před ověřovací operací](xref:security/blazor/webassembly/additional-scenarios#save-app-state-before-an-authentication-operation).
+Další informace najdete v tématu [uložení stavu aplikace před operací ověřování](xref:security/blazor/webassembly/additional-scenarios#save-app-state-before-an-authentication-operation).
