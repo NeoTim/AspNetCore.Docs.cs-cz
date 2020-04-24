@@ -1,41 +1,41 @@
 ---
-title: konfigurace Blazor modelu ASP.NET hostingu
+title: ASP.NET Core Blazor konfigurace modelu hostování
 author: guardrex
-description: Přečtěte Blazor si o hostování konfigurace modelu, včetně toho, jak integrovat komponenty Razor do stránek Razor a aplikací MVC.
+description: Přečtěte Blazor si o konfiguraci modelu hostování, včetně toho, jak integrovat komponenty Razor do aplikací Razor Pages a MVC.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2020
+ms.date: 04/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: 6a3731657d11faed0b005b429058343b2be4c44b
-ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
+ms.openlocfilehash: cf5776109368dc7353d7e21bcad1e947561e7eb4
+ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2020
-ms.locfileid: "81791476"
+ms.lasthandoff: 04/24/2020
+ms.locfileid: "82111055"
 ---
-# <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET konfigurace hostingového modelu Core Blazor
+# <a name="aspnet-core-blazor-hosting-model-configuration"></a>Konfigurace modelu hostování ASP.NET Core Blazor
 
-Podle [Daniel Roth](https://github.com/danroth27)
+Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Tento článek popisuje konfiguraci hostitelského modelu.
+Tento článek popisuje konfiguraci modelu hostování.
 
 ## <a name="blazor-webassembly"></a>Blazor WebAssembly
 
 ### <a name="environment"></a>Prostředí
 
-Při spuštění aplikace místně, prostředí výchozí vývoj. Po publikování aplikace prostředí výchozí produkční.
+Při místním spuštění aplikace je prostředí standardně vyvíjené. Při publikování aplikace je prostředí standardně v produkčním prostředí.
 
-Hostovaná aplikace Blazor WebAssembly snímá prostředí ze serveru prostřednictvím middlewaru, který `blazor-environment` komunikuje prostředí s prohlížečem přidáním záhlaví. Hodnota záhlaví je prostředí. Hostovaná aplikace Blazor a serverová aplikace sdílejí stejné prostředí. Další informace, včetně konfigurace prostředí, <xref:fundamentals/environments>naleznete v tématu .
+Hostovaná aplikace WebAssembly Blazor vybírá prostředí ze serveru prostřednictvím middlewaru, který toto prostředí komunikuje do prohlížeče přidáním `blazor-environment` hlavičky. Hodnota hlavičky je prostředí. Hostovaná aplikace Blazor a serverová aplikace sdílejí stejné prostředí. Další informace, včetně postupu konfigurace prostředí, najdete v tématu <xref:fundamentals/environments>.
 
-Pro samostatnou aplikaci spuštěnou místně přidá `blazor-environment` vývojový server záhlaví, které určuje vývojové prostředí. Chcete-li určit prostředí pro jiná `blazor-environment` hostitelská prostředí, přidejte záhlaví.
+Pro samostatnou spuštěnou aplikaci, která je spuštěna místně, `blazor-environment` vývojový server přidá hlavičku pro určení vývojového prostředí. Chcete-li určit prostředí pro jiná hostující prostředí, přidejte `blazor-environment` hlavičku.
 
-V následujícím příkladu služby IIS přidejte vlastní záhlaví do publikovaného souboru *web.config.* Soubor *web.config* je umístěn ve složce *bin/Release/{TARGET FRAMEWORK}/publish:*
+V následujícím příkladu pro službu IIS přidejte vlastní hlavičku do publikovaného souboru *Web. config* . Soubor *Web. config* je umístěný ve složce *bin/Release/{Target Framework}/Publish* :
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -54,9 +54,9 @@ V následujícím příkladu služby IIS přidejte vlastní záhlaví do publiko
 ```
 
 > [!NOTE]
-> Informace o použití vlastního souboru *web.config* pro službu IIS, který *publish* není při <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig>publikování aplikace do složky publikování přepsán, naleznete v tématu .
+> Chcete-li použít vlastní soubor *Web. config* pro službu IIS, který není po publikování aplikace ve složce pro *publikování* přepsán, <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig>Přečtěte si téma.
 
-Získejte prostředí aplikace v komponentě `IWebAssemblyHostEnvironment` vložením `Environment` a přečtením vlastnosti:
+Získání prostředí aplikace v součásti vložením `IWebAssemblyHostEnvironment` a čtením `Environment` vlastnosti:
 
 ```razor
 @page "/"
@@ -68,7 +68,7 @@ Získejte prostředí aplikace v komponentě `IWebAssemblyHostEnvironment` vlož
 <p>Environment: @HostEnvironment.Environment</p>
 ```
 
-Během spuštění `WebAssemblyHostBuilder` zpřístupňuje `IWebAssemblyHostEnvironment` prostřednictvím `HostEnvironment` vlastnosti, která umožňuje vývojářům mít logiku specifické pro prostředí v jejich kódu:
+Během spouštění `WebAssemblyHostBuilder` zpřístupňuje `IWebAssemblyHostEnvironment` `HostEnvironment` vlastnost prostřednictvím vlastnosti, která vývojářům umožňuje mít v kódu logiku konkrétního prostředí:
 
 ```csharp
 if (builder.HostEnvironment.Environment == "Custom")
@@ -77,12 +77,12 @@ if (builder.HostEnvironment.Environment == "Custom")
 };
 ```
 
-Následující metody rozšíření pohodlí umožňují kontrolu aktuálního prostředí pro vývoj, produkční, pracovní a vlastní názvy prostředí:
+Následující rozšiřující metody umožňují kontrolu aktuálního prostředí pro názvy pro vývoj, produkci, přípravu a vlastní prostředí:
 
 * `IsDevelopment()`
 * `IsProduction()`
 * `IsStaging()`
-* 'ISEnvironment("{NÁZEV PROSTŘEDÍ}")
+* "Prostředí" ("{název prostředí}")
 
 ```csharp
 if (builder.HostEnvironment.IsStaging())
@@ -96,16 +96,25 @@ if (builder.HostEnvironment.IsEnvironment("Custom"))
 };
 ```
 
-Vlastnost `IWebAssemblyHostEnvironment.BaseAddress` lze použít při spuštění, `NavigationManager` když služba není k dispozici.
+`IWebAssemblyHostEnvironment.BaseAddress` Vlastnost lze použít při spuštění, když není `NavigationManager` služba k dispozici.
 
 ### <a name="configuration"></a>Konfigurace
 
-Od vydání ASP.NET Core 3.2 Preview 3[(aktuální verze je 3.2 Preview 4)](xref:blazor/get-started)podporuje Blazor WebAssembly konfiguraci z:
+Blazor WebAssembly podporuje konfiguraci z:
 
-* *wwwroot/appsettings.json*
-* *wwwroot/appsettings. {PROSTŘEDÍ}.json*
+* [Poskytovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) pro soubory nastavení aplikace ve výchozím nastavení:
+  * *wwwroot/appSettings. JSON*
+  * *wwwroot/appSettings. {ENVIRONMENT}. JSON*
+* Další [poskytovatelé konfigurace](xref:fundamentals/configuration/index) zaregistrované aplikací
 
-Přidejte soubor *appsettings.json* do složky *wwwroot:*
+> [!WARNING]
+> Konfigurace v aplikaci WebAssembly v Blazor je viditelná pro uživatele. **Neukládejte tajné klíče aplikace ani přihlašovací údaje v konfiguraci.**
+
+Další informace o poskytovatelích konfigurace najdete v <xref:fundamentals/configuration/index>tématu.
+
+#### <a name="app-settings-configuration"></a>Konfigurace nastavení aplikace
+
+*wwwroot/appSettings. JSON*:
 
 ```json
 {
@@ -113,7 +122,7 @@ Přidejte soubor *appsettings.json* do složky *wwwroot:*
 }
 ```
 
-Vstříkněte <xref:Microsoft.Extensions.Configuration.IConfiguration> instanci do komponenty pro přístup k konfiguračním datům:
+Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do komponenty pro přístup k datům konfigurace:
 
 ```razor
 @page "/"
@@ -125,27 +134,132 @@ Vstříkněte <xref:Microsoft.Extensions.Configuration.IConfiguration> instanci 
 <p>Message: @Configuration["message"]</p>
 ```
 
-> [!WARNING]
-> Konfigurace v aplikaci Blazor WebAssembly je viditelná pro uživatele. **Neuklápejte tajné kódy aplikací nebo přihlašovací údaje v konfiguraci.**
+#### <a name="provider-configuration"></a>Konfigurace zprostředkovatele
 
-Konfigurační soubory jsou ukládány do mezipaměti pro použití v režimu offline. Pomocí [progresivních webových aplikací (PWA)](xref:blazor/progressive-web-app)můžete aktualizovat konfigurační soubory pouze při vytváření nového nasazení. Úpravy konfiguračních souborů mezi nasazeními nemají žádný vliv, protože:
+Následující příklad používá <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> a [zprostředkovatele konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) k poskytnutí další konfigurace:
 
-* Uživatelé mají uložené verze souborů, které nadále používají, uložené v mezipaměti.
-* Pwa *service-worker.js* a *service-worker-assets.js* soubory musí být znovu sestaveny na kompilaci, které signalizují aplikaci na další online návštěvu uživatele, že aplikace byla znovu nasazena.
+`Program.Main`:
 
-Další informace o tom, jak pwa <xref:blazor/progressive-web-app#background-updates>zpracovávají aktualizace na pozadí, naleznete v tématu .
+```csharp
+using Microsoft.Extensions.Configuration;
+
+...
+
+var vehicleData = new Dictionary<string, string>()
+{
+    { "color", "blue" },
+    { "type", "car" },
+    { "wheels:count", "3" },
+    { "wheels:brand", "Blazin" },
+    { "wheels:brand:type", "rally" },
+    { "wheels:year", "2008" },
+};
+
+var memoryConfig = new MemoryConfigurationSource { InitialData = vehicleData };
+
+...
+
+builder.Configuration
+    .Add(memoryConfig)
+    .AddJsonFile("cars.json", optional: false, reloadOnChange: true);
+```
+
+Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do komponenty pro přístup k datům konfigurace:
+
+```razor
+@page "/"
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+<h1>Configuration example</h1>
+
+<h2>Wheels</h2>
+
+<ul>
+    <li>Count: @Configuration["wheels:count"]</p>
+    <li>Brand: @Configuration["wheels:brand"]</p>
+    <li>Type: @Configuration["wheels:brand:type"]</p>
+    <li>Year: @Configuration["wheels:year"]</p>
+</ul>
+
+@code {
+    var wheelsSection = Configuration.GetSection("wheels");
+    
+    ...
+}
+```
+
+#### <a name="authentication-configuration"></a>Konfigurace ověřování
+
+*wwwroot/appSettings. JSON*:
+
+```json
+{
+  "AzureAD": {
+    "Authority": "https://login.microsoftonline.com/",
+    "ClientId": "aeaebf0f-d416-4d92-a08f-e1d5b51fc494"
+  }
+}
+```
+
+`Program.Main`:
+
+```csharp
+builder.Services.AddOidcAuthentication(options =>
+    builder.Configuration.Bind("AzureAD", options);
+```
+
+#### <a name="logging-configuration"></a>Konfigurace protokolování
+
+*wwwroot/appSettings. JSON*:
+
+```json
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  }
+}
+```
+
+`Program.Main`:
+
+```csharp
+builder.Logging.AddConfiguration(
+    builder.Configuration.GetSection("Logging"));
+```
+
+#### <a name="host-builder-configuration"></a>Konfigurace tvůrce hostitele
+
+`Program.Main`:
+
+```csharp
+var hostname = builder.Configuration["HostName"];
+```
+
+#### <a name="cached-configuration"></a>Konfigurace uložená v mezipaměti
+
+Konfigurační soubory jsou ukládány do mezipaměti pro použití v režimu offline. S [progresivními webovými aplikacemi (PWAs)](xref:blazor/progressive-web-app)můžete aktualizovat pouze konfigurační soubory při vytváření nového nasazení. Úprava konfiguračních souborů mezi nasazeními nemá žádný vliv z těchto důvodů:
+
+* Uživatelé mají verze souborů uložených v mezipaměti, které jsou nadále používány.
+* Soubory *Service-Worker. js* a *Service-Worker-assets. js* aplikace PWA je nutné znovu sestavit při kompilaci, který signalizuje aplikaci na další stránce uživatele online, na kterou se aplikace znovu nasadila.
+
+Další informace o tom, jak služba PWAs zpracovává aktualizace na pozadí, <xref:blazor/progressive-web-app#background-updates>naleznete v tématu.
 
 ### <a name="logging"></a>protokolování
 
-Informace o podpoře protokolování aplikace Blazor WebAssembly naleznete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor-webassembly>.
+Informace o podpoře protokolování WebAssembly v Blazor naleznete v <xref:fundamentals/logging/index#create-logs-in-blazor>tématu.
 
 ## <a name="blazor-server"></a>Blazor Server
 
-### <a name="reflect-the-connection-state-in-the-ui"></a>Odrážet stav připojení v ui
+### <a name="reflect-the-connection-state-in-the-ui"></a>Odrážet stav připojení v uživatelském rozhraní
 
-Když klient zjistí, že připojení bylo ztraceno, zobrazí se uživateli výchozí uživatelské rozhraní, zatímco se klient pokusí znovu připojit. Pokud se opětovné připojení nezdaří, uživatel i možnost opakovat.
+Když klient zjistí, že došlo ke ztrátě připojení, zobrazí se uživateli výchozí uživatelské rozhraní, zatímco se klient pokusí znovu připojit. Pokud se opětovné připojení nepovede, uživateli se zobrazí možnost opakovat akci.
 
-Chcete-li přizpůsobit ui, definujte `components-reconnect-modal` prvek `<body>` s `id` v *_Host.cshtml* Razor stránky:
+Chcete-li přizpůsobit uživatelské rozhraní, `id` definujte element `components-reconnect-modal` `<body>` na stránce *_Host. cshtml* Razor:
 
 ```cshtml
 <div id="components-reconnect-modal">
@@ -153,18 +267,18 @@ Chcete-li přizpůsobit ui, definujte `components-reconnect-modal` prvek `<body>
 </div>
 ```
 
-Následující tabulka popisuje třídy CSS `components-reconnect-modal` použité pro prvek.
+Následující tabulka popisuje třídy CSS použité pro `components-reconnect-modal` element.
 
-| Třída CSS                       | Označuje&hellip; |
+| CSS – třída                       | Označující&hellip; |
 | ------------------------------- | ----------------- |
-| `components-reconnect-show`     | Ztracené spojení. Klient se pokouší znovu připojit. Zobrazit modální. |
-| `components-reconnect-hide`     | K serveru je obnoveno aktivní připojení. Skryjte modální. |
-| `components-reconnect-failed`   | Opětovné připojení se nezdařilo, pravděpodobně z důvodu selhání sítě. Chcete-li se `window.Blazor.reconnect()`pokusit o opětovné připojení, volejte . |
-| `components-reconnect-rejected` | Opětovné připojení bylo odmítnuto. Server byl dosažen, ale odmítl připojení a stav uživatele na serveru je ztracen. Chcete-li aplikaci `location.reload()`znovu načíst, zavolejte . Tento stav připojení může vyústit v těchto možnostech:<ul><li>Dojde k chybě v obvodu na straně serveru.</li><li>Klient je odpojen dostatečně dlouho na to, aby server přetavit stav uživatele. Instance součástí, se kterými uživatel pracuje, jsou vyřazeny.</li><li>Server je restartován nebo pracovní proces aplikace je recyklován.</li></ul> |
+| `components-reconnect-show`     | Ztracené připojení. Klient se pokouší znovu připojit. Zobrazit modální okno. |
+| `components-reconnect-hide`     | K serveru se znovu naváže aktivní připojení. Skryje modální okno. |
+| `components-reconnect-failed`   | Opětovné připojení se nezdařilo, pravděpodobně kvůli selhání sítě. Chcete-li se pokusit `window.Blazor.reconnect()`znovu připojit, zavolejte. |
+| `components-reconnect-rejected` | Opětovné připojení bylo zamítnuto. Server byl dosažen, ale odmítl připojení a stav uživatele na serveru je ztracen. K opětovnému načtení aplikace zavolejte `location.reload()`. Tento stav připojení může mít za následek:<ul><li>Dojde k chybě okruhu na straně serveru.</li><li>Klient je dostatečně odpojený, aby server vynechal stav uživatele. Instance komponent, se kterými uživatel pracuje, jsou vyřazeny.</li><li>Server se restartuje nebo se pracovní proces aplikace recykluje.</li></ul> |
 
-### <a name="render-mode"></a>Režim vykreslení
+### <a name="render-mode"></a>Režim vykreslování
 
-Aplikace Blazor Server jsou ve výchozím nastavení nastaveny tak, aby předběžně vykreslovaly uI na serveru před navázáním připojení klienta k serveru. Toto nastavení je nastaveno na stránce *_Host.cshtml* Razor:
+Aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před vytvořením připojení klienta k serveru předvedlo uživatelské rozhraní na serveru. To je nastaveno na stránce *_Host. cshtml* Razor:
 
 ```cshtml
 <body>
@@ -176,30 +290,30 @@ Aplikace Blazor Server jsou ve výchozím nastavení nastaveny tak, aby předbě
 </body>
 ```
 
-`RenderMode`konfiguruje, zda součást:
+`RenderMode`nakonfiguruje, jestli součást:
 
-* Je prerendered do stránky.
-* Je vykreslen jako statické HTML na stránce, nebo pokud obsahuje potřebné informace k bootstrap aplikace Blazor od uživatelského agenta.
+* Je předem vykreslen na stránku.
+* Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor z uživatelského agenta.
 
 | `RenderMode`        | Popis |
 | ------------------- | ----------- |
-| `ServerPrerendered` | Vykreslí komponentu do statického KÓDU Blazor HTML a obsahuje značku pro serverovou aplikaci. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
-| `Server`            | Vykreslí značku Blazor pro serverovou aplikaci. Výstup z komponenty není zahrnut. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
+| `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
+| `Server`            | Vykreslí značku pro Blazor serverovou aplikaci. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
 | `Static`            | Vykreslí komponentu do statického HTML. |
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Vykreslení stavových interaktivních komponent ze stránek a zobrazení Razor
+### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Vykreslovat stavově interaktivní komponenty ze stránek a zobrazení Razor
 
-Stavové interaktivní komponenty lze přidat na stránku Razor nebo do zobrazení.
+Stavové interaktivní komponenty lze přidat na stránku nebo zobrazení Razor.
 
-Když se stránka nebo zobrazení vykreslí:
+Při vykreslení stránky nebo zobrazení:
 
-* Komponenta je předobrazována pomocí stránky nebo zobrazení.
-* Počáteční stav součásti použitý pro předběžné vykreslování je ztracen.
-* Nový stav součásti SignalR je vytvořen při navázání připojení.
+* Komponenta je předem vykreslena se stránkou nebo zobrazením.
+* Počáteční stav součásti, který se používá pro předvykreslování, bude ztracen.
+* Po navázání SignalR připojení se vytvoří nový stav součásti.
 
-Následující stránka Razor vykreslí komponentu: `Counter`
+Následující stránka Razor vykresluje `Counter` komponentu:
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -213,9 +327,9 @@ Následující stránka Razor vykreslí komponentu: `Counter`
 }
 ```
 
-### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Vykreslení neinteraktivních komponent ze stránek a zobrazení Razor
+### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Vykreslování neinteraktivních komponent ze stránek a zobrazení Razor
 
-Na následující stránce Razor `Counter` je komponenta staticky vykreslena s počáteční hodnotou, která je určena pomocí formuláře:
+Na následující stránce Razor je `Counter` komponenta staticky vykreslena s počáteční hodnotou zadanou pomocí formuláře:
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -234,16 +348,16 @@ Na následující stránce Razor `Counter` je komponenta staticky vykreslena s p
 }
 ```
 
-Vzhledem k tomu, `MyComponent` že je staticky vykreslen, komponenta nemůže být interaktivní.
+Vzhledem `MyComponent` k tomu, že se staticky vykreslují, komponenta nemůže být interaktivní.
 
-### <a name="configure-the-opno-locsignalr-client-for-opno-locblazor-server-apps"></a>Konfigurace SignalR klienta Blazor pro serverové aplikace
+### <a name="configure-the-opno-locsignalr-client-for-opno-locblazor-server-apps"></a>Konfigurace SignalR klienta pro Blazor serverové aplikace
 
-Někdy je třeba nakonfigurovat klienta SignalR používaného serverovými aplikacemi. Blazor Můžete například nakonfigurovat protokolování SignalR klienta tak, aby diagnostikoval problém s připojením.
+V SignalR některých případech je potřeba nakonfigurovat klienta používaného Blazor serverovými aplikacemi. Například můžete chtít nakonfigurovat protokolování na SignalR straně klienta, aby bylo možné diagnostikovat problém s připojením.
 
-Postup konfigurace SignalR klienta v souboru *Pages/_Host.cshtml:*
+Chcete-li SignalR nakonfigurovat klienta v souboru *pages/_Host. cshtml* :
 
-* Přidejte `autostart="false"` atribut `<script>` ke značce skriptu. `blazor.server.js`
-* Volání `Blazor.start` a předání v objektu SignalR konfigurace, který určuje tvůrce.
+* Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
+* Zavolejte `Blazor.start` a předejte do konfiguračního objektu, který určuje SignalR tvůrce.
 
 ```html
 <script src="_framework/blazor.server.js" autostart="false"></script>
@@ -255,3 +369,7 @@ Postup konfigurace SignalR klienta v souboru *Pages/_Host.cshtml:*
   });
 </script>
 ```
+
+### <a name="logging"></a>protokolování
+
+Informace o Blazor podpoře protokolování serveru najdete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor>.

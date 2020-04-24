@@ -1,140 +1,130 @@
 ---
-title: Hostování a nasazení Blazor ASP.NET Core WebAssembly
+title: Hostování a nasazení ASP.NET Core Blazor WebAssembly
 author: guardrex
-description: Zjistěte, jak hostovat a nasazovat Blazor aplikaci pomocí ASP.NET, sítí pro doručování obsahu (CDN), souborových serverů a stránek GitHubu.
+description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Core, stránek Content Delivery Networks (CDN), souborových serverů a GitHubu.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2020
+ms.date: 04/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: f3508144f1e472ee906a35e427fc57f536008ab6
-ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
+ms.openlocfilehash: daaaab360e93de1cf10feec2db21d3acc25920bd
+ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81488855"
+ms.lasthandoff: 04/24/2020
+ms.locfileid: "82110873"
 ---
-# <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení Blazor ASP.NET Core WebAssembly
+# <a name="host-and-deploy-aspnet-core-opno-locblazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
-[Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), a [Daniel Roth](https://github.com/danroth27)
+Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com), [Daniel Skořepa](https://github.com/danroth27)a [Robert Adams](https://twitter.com/ben_a_adams).
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-S [ Blazor modelem hostování websestavy](xref:blazor/hosting-models#blazor-webassembly):
+S modelem hostování WebAssembly: [ Blazor ](xref:blazor/hosting-models#blazor-webassembly)
 
-* Aplikace, Blazor její závislosti a za běhu .NET jsou staženy do prohlížeče paralelně.
-* Aplikace se spouští přímo ve vlákně uživatelského rozhraní prohlížeče.
+* Blazor Aplikace, její závislosti a modul runtime .NET jsou stahovány do prohlížeče paralelně.
+* Aplikace se spustí přímo ve vlákně uživatelského rozhraní prohlížeče.
 
-Podporovány jsou následující strategie nasazení:
+Podporují se tyto strategie nasazení:
 
-* Aplikace Blazor je obsluhována aplikací ASP.NET Core. Tato strategie je [popsána v části Hostované nasazení s ASP.NET jádrem.](#hosted-deployment-with-aspnet-core)
-* Aplikace Blazor je umístěna na statickém hostingovém webovém serveru nebo Blazor službě, kde se rozhraní .NET nepoužívá k poskytování aplikace. Tato strategie je popsána v části [Samostatné nasazení,](#standalone-deployment) která obsahuje informace o hostování aplikace Blazor WebAssembly jako podaplikace služby IIS.
+* Blazor Aplikaci obsluhuje aplikace ASP.NET Core. Tato strategie je popsaná v části [hostované nasazení s ASP.NET Core](#hosted-deployment-with-aspnet-core) .
+* Blazor Aplikace se umístí na statický hostující webový server nebo službu, kde rozhraní .NET se k obsluze Blazor aplikace nepoužívá. Tato strategie je popsaná v části [samostatné nasazení](#standalone-deployment) , která obsahuje informace o hostování Blazor aplikace WebAssembly jako dílčí aplikace služby IIS.
 
-## <a name="brotli-precompression"></a>Brotli předkompresí
+## <a name="brotli-precompression"></a>Předkomprese Brotli
 
-Při Blazor publikování aplikace WebAssembly je výstup předem komprimován pomocí [kompresního algoritmu Brotli](https://tools.ietf.org/html/rfc7932) na nejvyšší úrovni, aby se zmenšila velikost aplikace a odstranila potřeba komprese za běhu.
+Blazor Při publikování aplikace WebAssembly je výstup komprimován pomocí [kompresního algoritmu Brotli](https://tools.ietf.org/html/rfc7932) na nejvyšší úrovni, aby se snížila velikost aplikace a odstranila se nutnost komprese za běhu.
 
-## <a name="rewrite-urls-for-correct-routing"></a>Přepsat adresy URL pro správné směrování
+Konfiguraci komprese *souboru Web. config* služby IIS najdete v části [IIS: Brotli a komprese GZip](#brotli-and-gzip-compression) .
 
-Směrování požadavků na komponenty Blazor stránky v aplikaci WebAssembly není tak Blazor jednoduché jako požadavky na směrování v hostované aplikaci server. Zvažte Blazor aplikaci WebAssembly se dvěma součástmi:
+## <a name="rewrite-urls-for-correct-routing"></a>Přepište adresy URL pro správné směrování.
 
-* *Main.razor* &ndash; načte v kořenovém adresáři `About` aplikace`href="About"`a obsahuje odkaz na komponentu ( ).
-* *Součást About.razor.* &ndash; `About`
+Žádosti o směrování pro součásti stránky v Blazor aplikaci WebAssembly nejsou tak jednoduché jako požadavky směrování na Blazor serveru, v němž je umístěná aplikace. Blazor Zvažte aplikaci WebAssembly se dvěma součástmi:
 
-Pokud je požadován výchozí dokument aplikace pomocí adresního řádku `https://www.contoso.com/`prohlížeče (například ):
+* *Main. Razor* &ndash; se načte do kořenového adresáře aplikace a obsahuje odkaz na `About` komponentu (`href="About"`).
+* *O komponentě. Razor* &ndash; `About` .
 
-1. Prohlížeč podá požadavek.
-1. Je vrácena výchozí stránka, která je obvykle *index.html*.
-1. *index.html* bootstraps aplikace.
-1. Blazornačte se směrovač a `Main` komponenta Razor je vykreslena.
+Pokud je výchozí dokument aplikace požadován pomocí panelu Adresa prohlížeče (například `https://www.contoso.com/`):
 
-Na hlavní stránce výběr odkazu na `About` komponentu funguje na Blazor straně klienta, protože směrovač zabrání `www.contoso.com` `About` prohlížeči v `About` podání požadavku na Internetu do aplikace for a slouží samotné vykreslené součásti. Všechny požadavky na interní koncové body *v aplikaci Blazor WebAssembly* fungují stejným způsobem: Požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru v Internetu. Směrovač zpracovává požadavky interně.
+1. Prohlížeč vytvoří požadavek.
+1. Vrátí se výchozí stránka, což je obvykle *index. html*.
+1. *index. html* se v aplikaci zabootstrap.
+1. Blazorse načte ze směrovače a komponenta Razor `Main` se vykreslí.
 
-Pokud je požadavek podán pomocí adresního řádku prohlížeče pro `www.contoso.com/About`, požadavek se nezdaří. Žádný takový prostředek neexistuje na internetovém hostiteli aplikace, takže je vrácena odpověď *404 - Not Found.*
+Na `About` hlavní stránce vyberte odkaz na komponentu na klientovi, protože Blazor směrovač zastaví v prohlížeči, aby `www.contoso.com` odeslal požadavek na Internet pro `About` a sloužil přímo vykreslené `About` součásti. Všechny požadavky na vnitřní koncové body *v Blazor aplikaci WebAssembly* fungují stejným způsobem: požadavky neaktivují požadavky založené na prohlížeči na prostředky hostované na serveru na internetu. Směrovač zpracovává požadavky interně.
 
-Vzhledem k tomu, že prohlížeče pořazují internetové hostitele pro stránky na straně klienta, musí webové servery a hostitelské služby přepsat všechny požadavky na prostředky, které nejsou fyzicky na serveru, na stránku *index.html.* Po vrácení *souboru index.html* Blazor převezme směrovač aplikace a odpoví správným zdrojem.
+Pokud je žádost vytvořena pomocí panelu Adresa prohlížeče pro `www.contoso.com/About`, požadavek se nezdařil. Žádný takový prostředek na internetovém hostiteli aplikace neexistuje, takže se vrátí odpověď *404 – Nenalezeno* .
 
-Při nasazování na server služby IIS můžete použít modul přepisování adres URL s publikovaným souborem *web.config* aplikace. Další informace naleznete v části [IIS.](#iis)
+Vzhledem k tomu, že prohlížeče vytvářejí požadavky na internetové hostitele pro stránky na straně klienta, webové servery a hostitelské služby musí přepsat všechny požadavky na prostředky, které nejsou fyzicky na serveru, na stránku *index. html* . Když se vrátí *index. html* , Blazor směrovač aplikace převezme a odpoví správným prostředkem.
 
-## <a name="hosted-deployment-with-aspnet-core"></a>Hostované nasazení s ASP.NET jádrem
+Při nasazování na server služby IIS můžete použít modul pro přepis adres URL pomocí publikovaného souboru *Web. config* aplikace. Další informace najdete v části [IIS](#iis) .
 
-*Hostované nasazení* slouží Blazor aplikaci WebAssembly do prohlížečů z [aplikace ASP.NET Core,](xref:index) která běží na webovém serveru.
+## <a name="hosted-deployment-with-aspnet-core"></a>Hostované nasazení s ASP.NET Core
 
-Klientská Blazor aplikace WebAssembly je publikována do složky */bin/Release/{TARGET FRAMEWORK}/publish/wwwroot* serverové aplikace spolu s dalšími statickými webovými prostředky serverové aplikace. Tyto dvě aplikace se nasazují společně. Webový server, který je schopen hostování aplikace ASP.NET Core je vyžadován. Pro`-ho|--hosted` hostované nasazení visual studio obsahuje šablonu `dotnet new` `blazorwasm` ** Blazor ** projektu aplikace WebAssembly App (šablona při použití [dotnet new](/dotnet/core/tools/dotnet-new) command) s vybranou volbou **Hosted** (při použití příkazu).
+*Hostované nasazení* obsluhuje Blazor aplikaci WebAssembly pro prohlížeče z [aplikace ASP.NET Core](xref:index) , která běží na webovém serveru.
 
-Další informace o hostování a nasazení <xref:host-and-deploy/index>aplikací ASP.NET Core najdete v tématu .
+Klientská Blazor aplikace WebAssembly je publikovaná do složky */bin/Release/{Target Framework}/Publish/wwwroot* aplikace v serverové aplikaci společně s dalšími statickými webovými prostředky serverové aplikace. Obě aplikace se nasazují dohromady. Vyžaduje se webový server, který podporuje hostování aplikace ASP.NET Core. V případě hostovaného nasazení Visual Studio zahrnuje šablonu projektu ** Blazor aplikace pro WebAssembly** (`blazorwasm` šablona při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ) s vybranou možností **Hosted** (`-ho|--hosted` při použití `dotnet new` příkazu).
 
-Informace o nasazení do služby <xref:tutorials/publish-to-azure-webapp-using-vs>Azure App Service najdete v tématu .
+Další informace o ASP.NET Core hostování a nasazení aplikací najdete v tématu <xref:host-and-deploy/index>.
+
+Informace o nasazení do Azure App Service najdete v tématu <xref:tutorials/publish-to-azure-webapp-using-vs>.
 
 ## <a name="standalone-deployment"></a>Samostatné nasazení
 
-*Samostatné nasazení* slouží Blazor aplikaci WebAssembly jako sadu statických souborů, které jsou požadovány přímo klienty. Aplikace je schopna obsluhovat Blazor libovolný statický souborový server.
+*Samostatné nasazení* obsluhuje Blazor aplikaci WebAssembly jako sadu statických souborů, které jsou požadovány přímo klienty. Každý statický souborový server může Blazor aplikaci zpracovat.
 
-Prostředky samostatného nasazení jsou publikovány do složky */bin/Release/{TARGET FRAMEWORK}/publish/wwwroot.*
+Samostatné prostředky nasazení se publikují do složky */bin/Release/{Target Framework}/Publish/wwwroot* .
 
 ### <a name="iis"></a>IIS
 
-Služba IIS je schopný Blazor statický souborový server pro aplikace. Informace o konfiguraci Blazorslužby IIS jako hostitele naleznete [v tématu Vytvoření statického webu ve službě IIS](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis).
+Služba IIS je schopným statickým souborovým serverem pro Blazor aplikace. Chcete-li nakonfigurovat službu BlazorIIS na hostování, přečtěte si téma [vytvoření statického webu ve službě IIS](/iis/manage/creating-websites/scenario-build-a-static-website-on-iis).
 
-Publikované datové zdroje jsou vytvářeny ve složce */bin/Release/{TARGET FRAMEWORK}/publish.* Hostujte obsah složky *publikování* na webovém serveru nebo hostitelské službě.
+Publikované assety se vytvoří ve složce */bin/Release/{Target Framework}/Publish* . Hostovat obsah složky pro *publikování* na webovém serveru nebo v hostitelské službě.
 
-#### <a name="webconfig"></a>Souboru web.config
+#### <a name="webconfig"></a>Web. config
 
-Při Blazor publikování projektu je vytvořen soubor *web.config* s následující konfigurací služby IIS:
+Při publikování Blazor projektu se vytvoří soubor *Web. config* s následující konfigurací služby IIS:
 
 * Typy MIME jsou nastaveny pro následující přípony souborů:
-  * *.dll* &ndash;`application/octet-stream`
-  * *.json* &ndash;`application/json`
-  * *.wasm* &ndash;`application/wasm`
-  * *.woff* &ndash;`application/font-woff`
-  * *.woff2* &ndash;`application/font-woff`
-* Komprese HTTP je povolena pro následující typy MIME:
+  * *. dll* &ndash;`application/octet-stream`
+  * *. JSON* &ndash;`application/json`
+  * *. wasm* &ndash;`application/wasm`
+  * *. woff* &ndash;`application/font-woff`
+  * *. woff2* &ndash;`application/font-woff`
+* Pro následující typy MIME je povolena komprese protokolu HTTP:
   * `application/octet-stream`
   * `application/wasm`
-* Pravidla modulu přepisování adres URL jsou stanovena:
-  * Obsluhuj podadresář, ve kterém se nacházejí statické datové zdroje aplikace *(wwwroot/{PATH REQUESTED}*).
-  * Vytvořte záložní směrování spa, aby byly požadavky na nesouborové datové zdroje přesměrovány na výchozí dokument aplikace ve složce statických datových zdrojů (*wwwroot/index.html*).
+* Pravidla pro přepis adres URL jsou navázána:
+  * Slouží jako podadresáře, kde se nachází statické prostředky aplikace (*wwwroot/{cesta je požadovaná}*).
+  * Vytvořte záložní záložní postup, aby se požadavky na nesouborové prostředky přesměrovaly do výchozího dokumentu aplikace ve složce statických prostředků (*wwwroot/index.html*).
   
-#### <a name="use-a-custom-webconfig"></a>Použití vlastního souboru web.config
+#### <a name="use-a-custom-webconfig"></a>Použít vlastní web. config
 
-Použití vlastního souboru *web.config:*
+Chcete-li použít vlastní soubor *Web. config* , umístěte vlastní soubor *Web. config* do kořenové složky projektu a publikujte projekt.
 
-1. Umístěte vlastní soubor *web.config* do kořenového adresáře složky projektu.
-1. Přidejte do souboru projektu následující cíl (*.csproj*):
+#### <a name="install-the-url-rewrite-module"></a>Instalace modulu URL pro přepis
 
-   ```xml
-   <Target Name="CopyWebConfigOnPublish" AfterTargets="Publish">
-     <Copy SourceFiles="web.config" DestinationFolder="$(PublishDir)" />
-   </Target>
-   ```
-   
-> [!NOTE]
-> Použití nastavené vlastnosti `<IsWebConfigTransformDisabled>` MSBuild na `true` Blazor není v aplikacích WebAssembly podporováno [stejně jako pro ASP.NET aplikace Core nasazené do služby IIS](xref:host-and-deploy/iis/index#webconfig-file). Další informace naleznete v [tématu Blazor Copy target required to provide custom WASM web.config (dotnet/aspnetcore #20569)](https://github.com/dotnet/aspnetcore/issues/20569).
+Pro přepis adres URL je vyžadován [modul URL Rewrite](https://www.iis.net/downloads/microsoft/url-rewrite) . Modul není nainstalován ve výchozím nastavení a není k dispozici pro instalaci jako funkci služby role Webový server (IIS). Modul se musí stáhnout z webu IIS. K instalaci modulu použijte instalační program webové platformy:
 
-#### <a name="install-the-url-rewrite-module"></a>Instalace modulu přepisování adres URL
-
-K přepsání adres URL je [nutný modul přepisování adres URL.](https://www.iis.net/downloads/microsoft/url-rewrite) Modul není ve výchozím nastavení nainstalován a není k dispozici pro instalaci jako funkce služby role Web Server (IIS). Modul musí být stažen z webových stránek iis. Modul nainstalujte pomocí Instalační služby webové platformy:
-
-1. Místně přejděte na [stránku stažení modulu přepisování adres URL](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads). V anglické verzi vyberte **WebPI** a stáhněte instalační program WebPI. Pro ostatní jazyky vyberte příslušnou architekturu pro server (x86/x64) a stáhněte si instalační program.
-1. Zkopírujte instalační program na server. Spusťte instalační program. Vyberte tlačítko **Instalovat** a přijměte licenční podmínky. Restartování serveru není po dokončení instalace nutné.
+1. Místně přejděte na [stránku ke stažení modulu pro přepsání adresy URL](https://www.iis.net/downloads/microsoft/url-rewrite#additionalDownloads). V případě anglické verze vyberte **WebPI** a Stáhněte si instalační program WebPI. Pro jiné jazyky vyberte příslušnou architekturu pro server (x86/x64) a stáhněte instalační program.
+1. Zkopírujte instalační program na server. Spusťte instalační program. Vyberte tlačítko **nainstalovat** a přijměte licenční podmínky. Po dokončení instalace není restartování serveru vyžadováno.
 
 #### <a name="configure-the-website"></a>Konfigurace webu
 
-Nastavte **fyzickou cestu** k složce aplikace. Složka obsahuje:
+Nastavte **fyzickou cestu** webu na složku aplikace. Složka obsahuje:
 
-* Soubor *web.config,* který službu IIS používá ke konfiguraci webu, včetně požadovaných pravidel přesměrování a typů obsahu souborů.
-* Složka statických datových zdrojů aplikace.
+* Soubor *Web. config* , který služba IIS používá ke konfiguraci webu, včetně požadovaných pravidel přesměrování a typů obsahu souborů.
+* Složka statických prostředků aplikace
 
-#### <a name="host-as-an-iis-sub-app"></a>Hostovat jako podaplikaci iis
+#### <a name="host-as-an-iis-sub-app"></a>Hostování jako dílčí aplikace služby IIS
 
-Pokud je samostatná aplikace hostovaná jako podaplikace iis, proveďte jednu z následujících akcí:
+Pokud je samostatná aplikace hostovaná jako dílčí aplikace služby IIS, proveďte jednu z následujících akcí:
 
-* Zakažte zděděnou obslužnou rutinu ASP.NET základního modulu.
+* Zakažte zděděnou obslužnou rutinu modulu ASP.NET Core.
 
-  Odeberte obslužnou rutinu v Blazor publikovaném `<handlers>` souboru *web.config* aplikace přidáním oddílu do souboru:
+  Odeberte obslužnou rutinu v Blazor publikovaném souboru *Web. config* aplikace přidáním `<handlers>` oddílu do souboru:
 
   ```xml
   <handlers>
@@ -142,7 +132,7 @@ Pokud je samostatná aplikace hostovaná jako podaplikace iis, proveďte jednu z
   </handlers>
   ```
 
-* Zakažte `<system.webServer>` dědičnost oddílu kořenové `<location>` (nadřazené) aplikace pomocí prvku s `inheritInChildApplications` nastavenou na `false`:
+* Zakažte dědění `<system.webServer>` kořenového oddílu (nadřazené) aplikace `<location>` pomocí elementu s `inheritInChildApplications` nastavením na: `false`
 
   ```xml
   <?xml version="1.0" encoding="utf-8"?>
@@ -158,28 +148,32 @@ Pokud je samostatná aplikace hostovaná jako podaplikace iis, proveďte jednu z
   </configuration>
   ```
 
-Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [konfigurace základní cesty aplikace](xref:host-and-deploy/blazor/index#app-base-path). Nastavte základní cestu aplikace v souboru *index.html* aplikace na alias služby IIS používaný při konfiguraci podaplikace ve službách IIS.
+Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [Konfigurace základní cesty aplikace](xref:host-and-deploy/blazor/index#app-base-path). Nastavte základní cestu aplikace v souboru *index. html* aplikace na alias služby IIS, který se používá při konfiguraci dílčí aplikace v IIS.
+
+#### <a name="brotli-and-gzip-compression"></a>Komprese Brotli a gzip
+
+Službu IIS lze konfigurovat pomocí *souboru Web. config* pro poskytování komprimovaných Blazor prostředků Brotli nebo gzip. Příklad konfigurace naleznete v tématu [Web. config](webassembly/_samples/web.config?raw=true).
 
 #### <a name="troubleshooting"></a>Řešení potíží
 
-Pokud je *přijata interní chyba serveru 500* a Správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, zkontrolujte, zda je nainstalován modul přepisování adres URL. Není-li modul nainstalován, nemůže být soubor *web.config* službou IIS analyzován. Správce služby IIS tak nemůže načíst konfiguraci webu Blazora web ve zobrazování statických souborů webu.
+Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, soubor *Web. config* nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web Blazorze statických souborů obsluhy.
 
-Další informace o řešení potíží s nasazením ve službě IIS naleznete v tématu <xref:test/troubleshoot-azure-iis>.
+Další informace o řešení potíží s nasazeními služby IIS najdete <xref:test/troubleshoot-azure-iis>v tématu.
 
 ### <a name="azure-storage"></a>Azure Storage
 
-Azure [Storage](/azure/storage/) statický soubor Blazor hosting umožňuje serverbez aplikace hosting. Vlastní názvy domén, síť pro doručování obsahu Azure (CDN) a HTTPS jsou podporované.
+Hostování statického souboru [Azure Storage](/azure/storage/) umožňuje hostování Blazor aplikací bez serveru. Podporují se názvy vlastních domén, Azure Content Delivery Network (CDN) a HTTPS.
 
-Když je služba blob povolená pro statické hostování webových stránek na účtu úložiště:
+Když je u služby BLOB Service povolené hostování statických webů v účtu úložiště:
 
-* Nastavte **název dokumentu Rejstříku** na . `index.html`
-* Nastavte **cestu dokumentu Chyby** na `index.html`. Komponenty holicího strojku a jiné koncové body mimo soubor nejsou umístěny na fyzické cesty ve statickém obsahu uloženém službou objektů blob. Pokud je přijat požadavek na jeden Blazor z těchto prostředků, který by měl směrovač zpracovat, chyba *404 - Not Found* generovaná službou objektů blob směruje požadavek na **cestu dokumentu Chyba**. Je vrácen objekt blob *index.html* a Blazor směrovač načte a zpracuje cestu.
+* Nastavte **název dokumentu indexu** na `index.html`.
+* Nastavte **cestu k chybovému dokumentu** na `index.html`. Komponenty Razor a jiné nesouborové koncové body se neukládají na fyzických cestách se statickým obsahem uloženým ve službě BLOB Service. Když se přijme žádost o jeden z těchto prostředků, kterou by Blazor měl směrovač zpracovat, Chyba *404 – nenalezená* služba BLOB Service směruje požadavek na **cestu k chybovému dokumentu**. Vrátí se objekt BLOB *index. html* a Blazor směrovač načte a zpracuje cestu.
 
-Další informace najdete [v tématu Statický web hosting v Azure Storage](/azure/storage/blobs/storage-blob-static-website).
+Další informace najdete v tématu [statické hostování webů v Azure Storage](/azure/storage/blobs/storage-blob-static-website).
 
 ### <a name="nginx"></a>Nginx
 
-Následující soubor *nginx.conf* je zjednodušen, aby ukázal, jak nakonfigurovat Nginx pro odeslání souboru *index.html,* kdykoli nemůže najít odpovídající soubor na disku.
+Následující soubor *Nginx. conf* je zjednodušený a ukazuje, jak nakonfigurovat Nginx pro odeslání souboru *index. html* pokaždé, když nemůže najít odpovídající soubor na disku.
 
 ```
 events { }
@@ -195,13 +189,13 @@ http {
 }
 ```
 
-Další informace o konfiguraci produkčního webového serveru Nginx naleznete v [tématu Vytváření konfiguračních souborů NGINX Plus a NGINX](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/).
+Další informace o konfiguraci webového serveru Nginx v produkčním prostředí najdete v tématu [vytváření konfiguračních souborů Nginx plus a Nginx](https://docs.nginx.com/nginx/admin-guide/basic-functionality/managing-configuration-files/).
 
-### <a name="nginx-in-docker"></a>Nginx v Dockeru
+### <a name="nginx-in-docker"></a>Nginx v Docker
 
-Chcete-li hostovat Blazor v Dockeru pomocí Nginx, nastavte Dockerfile pro použití image Nginx založené na alpském. Aktualizujte soubor Dockerfile a zkopírujte soubor *nginx.config* do kontejneru.
+Pokud chcete Blazor hostovat v Docker pomocí Nginx, nastavte souboru Dockerfile na použití Nginx image založené na Alpine. Aktualizujte souboru Dockerfile a zkopírujte soubor *Nginx. config* do kontejneru.
 
-Přidejte jeden řádek do dockerfile, jak je znázorněno v následujícím příkladu:
+Do souboru Dockerfile přidejte jeden řádek, jak je znázorněno v následujícím příkladu:
 
 ```dockerfile
 FROM nginx:alpine
@@ -211,9 +205,9 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 ### <a name="apache"></a>Apache
 
-Nasazení aplikace Blazor WebAssembly do CentOS 7 nebo novějšího:
+Nasazení Blazor aplikace WebAssembly na CentOS 7 nebo novější:
 
-1. Vytvořte konfigurační soubor Apache. Následující příklad je zjednodušený konfigurační soubor (*blazorapp.config*):
+1. Vytvořte konfigurační soubor Apache. Následující příklad je zjednodušený konfigurační soubor (*blazorapp. config*):
 
    ```
    <VirtualHost *:80>
@@ -249,66 +243,66 @@ Nasazení aplikace Blazor WebAssembly do CentOS 7 nebo novějšího:
    </VirtualHost>
    ```
 
-1. Umístěte konfigurační `/etc/httpd/conf.d/` soubor Apache do adresáře, což je výchozí konfigurační adresář Apache v CentOS 7.
+1. Soubor konfigurace Apache umístěte do `/etc/httpd/conf.d/` adresáře, který je výchozím adresářem konfigurace Apache v CentOS 7.
 
-1. Umístěte soubory aplikace do `/var/www/blazorapp` adresáře (umístění `DocumentRoot` určené v konfiguračním souboru).
+1. Umístěte soubory aplikace do `/var/www/blazorapp` adresáře (umístění zadaného do `DocumentRoot` konfiguračního souboru).
 
 1. Restartujte službu Apache.
 
-Další informace naleznete [v tématu mod_mime](https://httpd.apache.org/docs/2.4/mod/mod_mime.html) a [mod_deflate](https://httpd.apache.org/docs/current/mod/mod_deflate.html).
+Další informace najdete v tématu [mod_mime](https://httpd.apache.org/docs/2.4/mod/mod_mime.html) a [mod_deflate](https://httpd.apache.org/docs/current/mod/mod_deflate.html).
 
 ### <a name="github-pages"></a>Stránky GitHubu
 
-Chcete-li zpracovat přepsání adresy URL, přidejte soubor *404.html* se skriptem, který zpracovává přesměrování požadavku na stránku *index.html.* Příklad implementace poskytované komunitou najdete [v tématu Jednostránkové aplikace pro stránky GitHub](https://spa-github-pages.rafrex.com/) [(rafrex/spa-github-pages na GitHubu).](https://github.com/rafrex/spa-github-pages#readme) Příklad použití komunitního přístupu lze vidět na [blazor-demo/blazor-demo.github.io na GitHubu](https://github.com/blazor-demo/blazor-demo.github.io) [(live site](https://blazor-demo.github.io/)).
+Chcete-li zpracovat přepisy adresy URL, přidejte soubor *404. html* pomocí skriptu, který zpracovává přesměrování požadavku na stránku *index. html* . Ukázkovou implementaci poskytovanou komunitou najdete v tématu [jednostránkové aplikace pro stránky GitHubu](https://spa-github-pages.rafrex.com/) ([rafrex/Spa – GitHub-Pages na GitHubu](https://github.com/rafrex/spa-github-pages#readme)). Příklad použití přístupu komunity se dá zobrazit v [blazor-demo/blazor-demo. GitHub. IO na GitHubu](https://github.com/blazor-demo/blazor-demo.github.io) ([živý web](https://blazor-demo.github.io/)).
 
-Pokud používáte web projektu místo webu organizace, `<base>` přidejte nebo aktualizujte značku v *souboru index.html*. Nastavte `href` hodnotu atributu na název úložiště GitHub s koncovým lomítkem (například `my-repository/`.
+Při použití webu projektu místo webu organizace přidejte nebo aktualizujte `<base>` značku v souboru *index. html*. Nastavte hodnotu `href` atributu na název úložiště GitHub s koncovým lomítkem (například `my-repository/`.
 
 ## <a name="host-configuration-values"></a>Hodnoty konfigurace hostitele
 
-Aplikace WebAssembly mohou přijímat následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí. [ Blazor ](xref:blazor/hosting-models#blazor-webassembly)
+Aplikace WebAssembly můžou přijmout následující hodnoty konfigurace hostitele jako argumenty příkazového řádku za běhu ve vývojovém prostředí. [ Blazor ](xref:blazor/hosting-models#blazor-webassembly)
 
 ### <a name="content-root"></a>Kořen obsahu
 
-Argument `--contentroot` nastaví absolutní cestu k adresáři, který obsahuje soubory obsahu aplikace[(kořen obsahu).](xref:fundamentals/index#content-root) V následujících příkladech `/content-root-path` je kořenová cesta obsahu aplikace.
+`--contentroot` Argument nastavuje absolutní cestu k adresáři, který obsahuje soubory obsahu aplikace ([kořen obsahu](xref:fundamentals/index#content-root)). V následujících příkladech `/content-root-path` je kořenová cesta obsahu aplikace.
 
-* Předajte argument při místním spuštění aplikace na příkazovém řádku. Z adresáře aplikace spusťte:
+* Předejte argument při místním spuštění aplikace z příkazového řádku. Z adresáře aplikace spusťte:
 
   ```dotnetcli
   dotnet run --contentroot=/content-root-path
   ```
 
-* Přidejte položku do souboru *launchSettings.json* aplikace v profilu **Služby IIS Express.** Toto nastavení se používá při spuštění aplikace s ladicím programem sady Visual Studio a z příkazového řádku s `dotnet run`aplikací .
+* Přidejte položku do souboru *launchSettings. JSON* aplikace v profilu **IIS Express** . Toto nastavení se používá při spuštění aplikace s ladicím programem sady Visual Studio a z příkazového řádku s `dotnet run`.
 
   ```json
   "commandLineArgs": "--contentroot=/content-root-path"
   ```
 
-* V sadě Visual Studio zadejte argument v**argumentech aplikace****ladění** >  **vlastností** > . Nastavení argumentu na stránce vlastností sady Visual Studio přidá argument do souboru *launchSettings.json.*
+* V aplikaci Visual Studio zadejte argument v části **vlastnosti** > **ladit** > **argumenty aplikace**. Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá argument do souboru *launchSettings. JSON* .
 
   ```console
   --contentroot=/content-root-path
   ```
 
-### <a name="path-base"></a>Základna cesty
+### <a name="path-base"></a>Základ cesty
 
-Argument `--pathbase` nastaví základní cestu aplikace pro aplikaci spuštěnou místně s `<base>` nekořenovou relativní adresou URL (značka `href` je nastavena na jinou cestu než `/` pro pracovní a produkční). V následujících příkladech `/relative-URL-path` je základem cesty aplikace. Další informace naleznete v [tématu Základní cesta aplikace](xref:host-and-deploy/blazor/index#app-base-path).
+`--pathbase` Argument nastaví základní cestu aplikace pro aplikaci spouštěnou místně s nekořenovou cestou relativní adresy URL ( `<base>` značka `href` je nastavená na jinou cestu než `/` pro pracovní a produkční). V následujících příkladech `/relative-URL-path` je základ cesty aplikace. Další informace najdete v tématu [základní cesta k aplikaci](xref:host-and-deploy/blazor/index#app-base-path).
 
 > [!IMPORTANT]
-> Na rozdíl od `href` cesty `<base>` poskytnuté ke značce nezahrnte při `--pathbase` předávání hodnoty argumentu koncové lomítko (`/`). Pokud je základní cesta aplikace `<base>` k `<base href="/CoolApp/">` dispozici ve značce jako (obsahuje koncové lomítko), předaj hodnotu argumentu příkazového řádku jako `--pathbase=/CoolApp` (žádné koncové lomítko).
+> Na rozdíl od cesty, která `href` je k `<base>` dispozici pro značku, nezahrnujte koncové lomítko`/`() při předávání `--pathbase` hodnoty argumentu. Pokud se základní cesta aplikace poskytuje ve `<base>` značce jako `<base href="/CoolApp/">` (zahrnuje koncové lomítko), předejte hodnotu argumentu příkazového řádku jako `--pathbase=/CoolApp` (žádné koncové lomítko).
 
-* Předajte argument při místním spuštění aplikace na příkazovém řádku. Z adresáře aplikace spusťte:
+* Předejte argument při místním spuštění aplikace z příkazového řádku. Z adresáře aplikace spusťte:
 
   ```dotnetcli
   dotnet run --pathbase=/relative-URL-path
   ```
 
-* Přidejte položku do souboru *launchSettings.json* aplikace v profilu **Služby IIS Express.** Toto nastavení se používá při spuštění aplikace s ladicím `dotnet run`programem sady Visual Studio a z příkazového řádku s aplikací .
+* Přidejte položku do souboru *launchSettings. JSON* aplikace v profilu **IIS Express** . Toto nastavení se používá při spuštění aplikace pomocí ladicího programu sady Visual Studio a z příkazového řádku `dotnet run`s.
 
   ```json
   "commandLineArgs": "--pathbase=/relative-URL-path"
   ```
 
-* V sadě Visual Studio zadejte argument v**argumentech aplikace****ladění** >  **vlastností** > . Nastavení argumentu na stránce vlastností sady Visual Studio přidá argument do souboru *launchSettings.json.*
+* V aplikaci Visual Studio zadejte argument v části **vlastnosti** > **ladit** > **argumenty aplikace**. Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá argument do souboru *launchSettings. JSON* .
 
   ```console
   --pathbase=/relative-URL-path
@@ -316,21 +310,21 @@ Argument `--pathbase` nastaví základní cestu aplikace pro aplikaci spuštěno
 
 ### <a name="urls"></a>Adresy URL
 
-Argument `--urls` nastaví adresy IP nebo hostitelské adresy s porty a protokoly pro naslouchání požadavkům.
+`--urls` Argument nastaví IP adresy nebo adresy hostitelů s porty a protokoly, které se mají na požadavky naslouchat.
 
-* Předajte argument při místním spuštění aplikace na příkazovém řádku. Z adresáře aplikace spusťte:
+* Předejte argument při místním spuštění aplikace z příkazového řádku. Z adresáře aplikace spusťte:
 
   ```dotnetcli
   dotnet run --urls=http://127.0.0.1:0
   ```
 
-* Přidejte položku do souboru *launchSettings.json* aplikace v profilu **Služby IIS Express.** Toto nastavení se používá při spuštění aplikace s ladicím `dotnet run`programem sady Visual Studio a z příkazového řádku s aplikací .
+* Přidejte položku do souboru *launchSettings. JSON* aplikace v profilu **IIS Express** . Toto nastavení se používá při spuštění aplikace pomocí ladicího programu sady Visual Studio a z příkazového řádku `dotnet run`s.
 
   ```json
   "commandLineArgs": "--urls=http://127.0.0.1:0"
   ```
 
-* V sadě Visual Studio zadejte argument v**argumentech aplikace****ladění** >  **vlastností** > . Nastavení argumentu na stránce vlastností sady Visual Studio přidá argument do souboru *launchSettings.json.*
+* V aplikaci Visual Studio zadejte argument v části **vlastnosti** > **ladit** > **argumenty aplikace**. Nastavení argumentu na stránce vlastností aplikace Visual Studio přidá argument do souboru *launchSettings. JSON* .
 
   ```console
   --urls=http://127.0.0.1:0
@@ -338,4 +332,4 @@ Argument `--urls` nastaví adresy IP nebo hostitelské adresy s porty a protokol
 
 ## <a name="configure-the-linker"></a>Konfigurace Linkeru
 
-Blazorprovede propojení zprostředkujícíjazyk (IL) na každé sestavení verze odebrat zbytečné IL z výstupních sestavení. Další informace naleznete v tématu <xref:host-and-deploy/blazor/configure-linker>.
+Blazorprovede propojení s mezijazykem (IL) na každém sestavení vydaných verzí a odebere z výstupních sestavení zbytečné IL. Další informace naleznete v tématu <xref:host-and-deploy/blazor/configure-linker>.

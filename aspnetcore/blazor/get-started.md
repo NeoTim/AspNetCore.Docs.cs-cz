@@ -1,7 +1,7 @@
 ---
 title: Začínáme s ASP.NET CoreBlazor
 author: guardrex
-description: Můžete začít Blazor s Blazor tím, že vytvoříte aplikaci s nástroji, které si vyberete.
+description: Začněte Blazor tím, že sestavíte Blazor aplikaci s vámi zvoleným nástrojem.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -10,122 +10,122 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: 7fe4fbb082f08d4f71684c836a826d8b6dd888f6
-ms.sourcegitcommit: 77c046331f3d633d7cc247ba77e58b89e254f487
+ms.openlocfilehash: 2f10b00adce31c020d46d107c087159c17341beb
+ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81488725"
+ms.lasthandoff: 04/24/2020
+ms.locfileid: "82111068"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
-[Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
+Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Chcete-li začít s Blazorem, postupujte podle pokynů pro výběr nástrojů:
+Pokud chcete začít používat Blazor, postupujte podle pokynů pro výběr nástrojů:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. Chcete-li vytvářet aplikace Blazor Server, nainstalujte nejnovější verzi [Visual Studia 2019](https://visualstudio.microsoft.com/downloads/) s **ASP.NET a zatížením vývoje webu.**
+1. Chcete-li vytvořit aplikace serveru Blazor, nainstalujte nejnovější verzi sady [Visual Studio 2019](https://visualstudio.microsoft.com/downloads/) s úlohou **vývoje ASP.NET a webu** .
 
-   Chcete-li vytvořit aplikace Blazor Server a Blazor WebAssembly, nainstalujte nejnovější náhled [Visual Studia 2019](https://visualstudio.microsoft.com/vs/preview/) s **ASP.NET a zatížením vývoje webu.**
+   Chcete-li vytvořit Blazor Server a Blazor aplikace WebAssembly, nainstalujte nejnovější verzi Preview sady [Visual Studio 2019](https://visualstudio.microsoft.com/vs/preview/) s úlohou **vývoj pro ASP.NET a web** .
 
-   Informace o dvou modelech Blazor hosting, *Blazor WebAssembly* <xref:blazor/hosting-models>a *Blazor Server*, naleznete v tématu .
+   Informace o dvou modelech hostování Blazor, *Blazor WebAssembly* a *Blazor serveru*naleznete v tématu <xref:blazor/hosting-models>.
 
-1. Nainstalujte šablonu náhledu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) spuštěním následujícího příkazu:
+1. Nainstalujte šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) Preview spuštěním následujícího příkazu:
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview4.20210.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
    ```
 
 1. Vytvoření nového projektu
 
-1. Vyberte **Aplikaci Blazor**. Vyberte **Další**.
+1. Vyberte **aplikaci Blazor**. Vyberte **Další**.
 
-1. Zadejte název projektu do pole **Název projektu** nebo přijměte výchozí název projektu. Potvrďte, že položka **Umístění** je správná, nebo zadejte umístění projektu. Vyberte **Vytvořit**.
+1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
-1. Pro prostředí Blazor WebAssembly (Visual Studio 16.6 Preview 2 nebo novější) zvolte šablonu **aplikace Blazor WebAssembly.** Pro prostředí Blazor Server (Visual Studio 16.4 nebo novější) zvolte šablonu **aplikace Blazor Server.** Vyberte **Vytvořit**.
+1. Pro prostředí WebAssembly Blazor (Visual Studio 16,6 Preview 2 nebo novější) vyberte šablonu **aplikace Blazor WebAssembly** . Pro prostředí serveru Blazor (Visual Studio 16,4 nebo novější) vyberte šablonu **aplikace serveru Blazor** . Vyberte **Vytvořit**.
 
-1. Stisknutím <kbd>klávesy Ctrl</kbd>+<kbd>F5</kbd> aplikaci spusťte.
+1. Spusťte aplikaci stisknutím klávesy <kbd>CTRL</kbd>+<kbd>F5</kbd> .
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-1. Nainstalujte sadu [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+1. Nainstalujte [sadu .NET Core 3,1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1).
 
-1. Volitelně nainstalujte šablonu náhledu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) spuštěním následujícího příkazu:
+1. Volitelně můžete nainstalovat šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) Preview spuštěním následujícího příkazu:
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview4.20210.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
    ```
 
    > [!NOTE]
-   > K použití šablony 3.2 Preview 4 Blazor WebAssembly je **vyžadována** sada [.NET Core SDK verze 3.1.201 nebo novější.](https://dotnet.microsoft.com/download/dotnet-core/3.1) Potvrďte nainstalovanou verzi sady .NET Core SDK spuštěním `dotnet --version` v příkazovém prostředí.
+   > [.NET Core SDK verze 3.1.201 nebo novější](https://dotnet.microsoft.com/download/dotnet-core/3.1) je **vyžadována** pro použití šablony sestavení Blazor verze 3,2 Preview 4. Ověřte nainstalovanou verzi .NET Core SDK spuštěním `dotnet --version` příkazu v příkazovém prostředí.
 
-1. Nainstalujte [kód sady Visual Studio](https://code.visualstudio.com/).
+1. Nainstalujte [Visual Studio Code](https://code.visualstudio.com/).
 
-1. Nainstalujte nejnovější [c# pro rozšíření kódu Sady Visual Studio](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) a rozšíření [debugger u v jazyce JavaScript (Nightly)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly) s `debug.javascript.usePreview` nastavenou na `true`.
+1. Nainstalujte nejnovější [rozšíření C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) a [ladicí program JavaScript (v noci)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly) s `debug.javascript.usePreview` nastavením na `true`.
 
-1. Pro prostředí Serveru Blazor proveďte následující příkaz v příkazovém prostředí:
+1. Pro prostředí Blazor serveru spusťte v příkazovém prostředí následující příkaz:
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
    ```
 
-   Pro prostředí Blazor WebAssembly proveďte následující příkaz v příkazovém prostředí:
+   Pro prostředí WebAssembly Blazor spusťte následující příkaz v příkazovém prostředí:
 
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
    ```
 
-   Informace o dvou modelech Blazor hosting, *Blazor Server* a <xref:blazor/hosting-models> *Blazor WebAssembly*, naleznete v tématu .
+   Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
 
-1. Otevřete složku *WebApplication1* v kódu sady Visual Studio.
+1. Otevřete složku *WebApplication1* v Visual Studio Code.
 
-1. IDE požadavky, které přidáte prostředky k sestavení a ladění projektu. Vyberte **ano**.
+1. Rozhraní IDE požaduje, abyste přidali prostředky pro sestavení a ladění projektu. Vyberte **Ano**.
 
-1. S Blazor Server, spusťte aplikaci pomocí ladicího programu Visual Studio Kód.
+1. Se serverem Blazor spusťte aplikaci pomocí ladicího programu Visual Studio Code.
 
-   S Blazor WebAssembly spusťte aplikaci pomocí konfigurace spuštění **.NET Core Launch (Blazor Standalone)** a poté spusťte prohlížeč pomocí **webové sestavy .NET Core Debug Blazor v** konfiguraci spuštění Chromu (vyžaduje Chrome). Další informace naleznete v tématu <xref:blazor/debug#visual-studio-code>.
+   V případě Blazor WebAssembly spusťte aplikaci pomocí **spouštěcího rozhraní .NET Core (Blazor Standalone)** a pak spusťte prohlížeč pomocí **webového sestavení .NET Core Blazor web Assembly v konfiguraci spuštění aplikace Chrome** (vyžaduje Chrome). Další informace naleznete v tématu <xref:blazor/debug#visual-studio-code>.
 
-1. V prohlížeči přejděte na . `https://localhost:5001`
+1. V prohlížeči přejděte na `https://localhost:5001`.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Blazor Server je podporován v Sadě Visual Studio pro Mac. Blazor WebAssembly není v tuto chvíli podporována. Chcete-li vytvořit aplikace Blazor WebAssembly v systému macOS, postupujte podle pokynů na kartě **.NET Core CLI.**
+Blazor Server je podporován v Visual Studio pro Mac. WebAssembly Blazor se v tuto chvíli nepodporuje. Pokud chcete v macOS sestavovat Blazor aplikace WebAssembly, postupujte podle pokynů na kartě **.NET Core CLI** .
 
 1. Nainstalujte [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/).
 
-1. Vyberte **Soubor** > **nové řešení** nebo vytvořit nový **projekt**.
+1. Vyberte **soubor** > **nové řešení** nebo vytvořte **Nový projekt**.
 
-1. Na postranním panelu vyberte **.NET Core** > **App**.
+1. Na bočním panelu vyberte**aplikace** **.NET Core** > .
 
-1. Vyberte šablonu **aplikace Blazor Server.** Vyberte **Vytvořit**.
+1. Vyberte šablonu **aplikace Blazor serveru** . Vyberte **Vytvořit**.
 
-   Informace o hostitelském modelu serveru Blazor naleznete v tématu <xref:blazor/hosting-models>.
+   Informace o modelu hostování serveru Blazor naleznete v tématu <xref:blazor/hosting-models>.
 
-1. Nastavte **cílovou architekturu** na **.NET Core 3.1** a vyberte **Další**.
+1. Nastavte **cílovou architekturu** na **.NET Core 3,1** a vyberte **Další**.
 
-1. V poli **Název projektu** pojmenujte aplikaci `WebApplication1`. Vyberte **Vytvořit**.
+1. Do pole **název projektu** název aplikace `WebApplication1`. Vyberte **Vytvořit**.
 
-1. Chcete-li spustit aplikaci *bez ladicího programu ,* vyberte **spustit** > **spustit bez ladění** . Spusťte aplikaci s **startem ladění** spustit aplikaci *s ladicím programem*.
+1. Chcete-li spustit aplikaci *bez ladicího programu*, vyberte možnost **Spustit** > **běh bez ladění** . Spusťte aplikaci s použitím **Spustit ladění** a spusťte aplikaci *pomocí ladicího programu*.
 
-Pokud se zobrazí výzva, která důvěryhodně důvěřuje certifikátu vývoje, důvěřujte certifikátu a pokračujte.
+Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřujete certifikátu a pokračujte.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
-1. Nainstalujte sadu [.NET Core 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1).
+1. Nainstalujte [sadu .NET Core 3,1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1).
 
-1. Volitelně nainstalujte šablonu náhledu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) spuštěním následujícího příkazu:
+1. Volitelně můžete nainstalovat šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) Preview spuštěním následujícího příkazu:
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview4.20210.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
    ```
 
    > [!NOTE]
-   > K použití šablony 3.2 Preview 4 Blazor WebAssembly je **vyžadována** sada [.NET Core SDK verze 3.1.201 nebo novější.](https://dotnet.microsoft.com/download/dotnet-core/3.1) Potvrďte nainstalovanou verzi sady .NET Core SDK spuštěním `dotnet --version` v příkazovém prostředí.
+   > [.NET Core SDK verze 3.1.201 nebo novější](https://dotnet.microsoft.com/download/dotnet-core/3.1) je **vyžadována** pro použití šablony sestavení Blazor verze 3,2 Preview 4. Ověřte nainstalovanou verzi .NET Core SDK spuštěním `dotnet --version` příkazu v příkazovém prostředí.
 
-1. Pro prostředí Serveru Blazor proveďte v příkazovém prostředí následující příkazy:
+1. Pro prostředí Blazor serveru spusťte v příkazovém prostředí následující příkazy:
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
@@ -133,7 +133,7 @@ Pokud se zobrazí výzva, která důvěryhodně důvěřuje certifikátu vývoje
    dotnet run
    ```
 
-   Pro prostředí Blazor WebAssembly proveďte následující příkazy v příkazovém prostředí:
+   Pro prostředí WebAssembly Blazor spusťte následující příkazy v příkazovém prostředí:
 
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
@@ -141,65 +141,65 @@ Pokud se zobrazí výzva, která důvěryhodně důvěřuje certifikátu vývoje
    dotnet run
    ```
 
-   Informace o dvou modelech Blazor hosting, *Blazor Server* a <xref:blazor/hosting-models> *Blazor WebAssembly*, naleznete v tématu .
+   Informace o dvou modelech hostování Blazor, *serveru Blazor* a *Blazor WebAssembly*naleznete v tématu <xref:blazor/hosting-models>.
 
-1. V prohlížeči přejděte na . `https://localhost:5001`
+1. V prohlížeči přejděte na `https://localhost:5001`.
 
 ---
 
-Více stránek je k dispozici na kartách v postranním panelu:
+Na kartách na bočním panelu je k dispozici více stránek:
 
 * Domů
 * Čítač
-* Načtení dat
+* Načíst data
 
-Na stránce Čítač vyberte tlačítko Klikněte na **mě,** chcete-li čítač narůst bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní Blazor JavaScriptu, ale s můžete použít C#.
+Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale s Blazor můžete použít jazyk C#.
 
-*Stránky/Counter.razor*:
+*Stránky/čítač. Razor*:
 
 [!code-razor[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
-Požadavek `/counter` v prohlížeči, jak `@page` je určeno směrnice v `Counter` horní části, způsobí, že komponenta vykreslit jeho obsah. Součásti vykreslování do reprezentace v paměti stromu vykreslení, které pak lze použít k aktualizaci ui flexibilní majestátu a efektivním způsobem.
+Požadavek na `/counter` v prohlížeči, jak je uveden v `@page` direktivě nahoře, způsobí, že `Counter` komponenta vykreslí svůj obsah. Komponenty vykreslí do reprezentace v paměti stromu vykreslování, který lze poté použít k flexibilnímu a efektivnímu způsobu aktualizace uživatelského rozhraní.
 
-Pokaždé, když je vybráno tlačítko **Klikni na mě:**
+Pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** :
 
-* Událost `onclick` je aktivována.
-* Metoda `IncrementCount` je volána.
-* Je `currentCount` se zpřísněn.
-* Součást je vykreslenznovu.
+* `onclick` Událost je aktivována.
+* `IncrementCount` Metoda je volána.
+* Dojde `currentCount` k zvýšení.
+* Komponenta se znovu vykreslí.
 
-Runtime porovná nový obsah s předchozím obsahem a použije pouze změněný obsah na objektový model dokumentu (DOM).
+Modul runtime porovná nový obsah s předchozím obsahem a na model DOM (Document Object Model) (DOM) použije pouze změněný obsah.
 
-Přidejte komponentu do jiné součásti pomocí syntaxe HTML. Můžete například `Counter` přidat komponentu na domovskou stránku aplikace přidáním `<Counter />` prvku do komponenty. `Index`
+Přidejte komponentu do jiné komponenty pomocí syntaxe jazyka HTML. Například přidejte `Counter` komponentu do domovské stránky aplikace přidáním `<Counter />` elementu do `Index` komponenty.
 
-*Stránky/Index.holicí strojek*:
+*Pages/index. Razor*:
 
 [!code-razor[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
-Spusťte aplikaci. Domovská stránka má svůj vlastní `Counter` čítač poskytovaný komponentou.
+Spusťte aplikaci. Domovská stránka má vlastní počítadlo poskytované `Counter` komponentou.
 
-Parametry komponenty jsou určeny pomocí atributů nebo [podřízeného obsahu](xref:blazor/components#child-content), které umožňují nastavit vlastnosti podřízené součásti. Chcete-li do `Counter` komponenty přidat parametr, `@code` aktualizujte blok komponenty:
+Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu](xref:blazor/components#child-content), který umožňuje nastavit vlastnosti pro podřízenou komponentu. Chcete-li přidat parametr do `Counter` komponenty, aktualizujte `@code` blok komponenty:
 
-* Přidejte veřejnou `IncrementAmount` vlastnost `[Parameter]` s atributem.
-* Změňte `IncrementCount` metodu, `IncrementAmount` která se `currentCount`má použít při zvyšování hodnoty .
+* Přidejte veřejnou vlastnost pro `IncrementAmount` s `[Parameter]` atributem.
+* Změňte `IncrementCount` metodu na použití `IncrementAmount` při zvyšování hodnoty. `currentCount`
 
-*Stránky/Counter.razor*:
+*Stránky/čítač. Razor*:
 
 [!code-razor[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
-Zadejte `IncrementAmount` prvek `Index` v `<Counter>` elementu komponenty pomocí atributu.
+Zadejte `IncrementAmount` v `Index` `<Counter>` elementu komponenty pomocí atributu.
 
-*Stránky/Index.holicí strojek*:
+*Pages/index. Razor*:
 
 [!code-razor[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-Spusťte aplikaci. Komponenta `Index` má svůj vlastní čítač, který se pohybuje o deset pokaždé, když je vybráno tlačítko **Klikněte na mě.** Komponenta `Counter` (*Counter.razor*) pokračuje `/counter` v přírůstcích o jednu.
+Spusťte aplikaci. `Index` Komponenta má vlastní čítač, který se zvýší o deset pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** . Komponenta `Counter` (*Counter. Razor*) se `/counter` stále zvyšuje o jednu.
 
 ## <a name="next-steps"></a>Další kroky
 
 <xref:tutorials/first-blazor-app>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:blazor/templates>
 * <xref:signalr/introduction>

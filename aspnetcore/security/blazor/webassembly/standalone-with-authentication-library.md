@@ -1,47 +1,50 @@
 ---
-title: Zabezpečení samostatné Blazor aplikace ASP.NET Core WebAssembly pomocí knihovny Ověřování
+title: Zabezpečení samostatné aplikace Blazor ASP.NET Coreového sestavení pomocí knihovny ověřování
 author: guardrex
 description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/08/2020
+ms.date: 04/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: 893fff10df37e1c2be549604f4cb83cd20049108
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: 043e4548ad6f40fdf1e6c27cd51946c7bf59a66e
+ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80977038"
+ms.lasthandoff: 04/24/2020
+ms.locfileid: "82110942"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-the-authentication-library"></a>Zabezpečení samostatné Blazor aplikace ASP.NET Core WebAssembly pomocí knihovny Ověřování
+# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-standalone-app-with-the-authentication-library"></a>Zabezpečení samostatné aplikace Blazor ASP.NET Coreového sestavení pomocí knihovny ověřování
 
-[Javier Calvarro Nelson](https://github.com/javiercn) a Luke [Latham](https://github.com/guardrex)
+Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-*Pro Azure Active Directory (AAD) a Azure Active Directory B2C (AAD B2C) nepostupujte podle pokynů v tomto tématu. Viz témata AAD a AAD B2C v tomto uzlu obsahu.*
+> [!NOTE]
+> Pokyny v tomto článku se týkají ASP.NET Core 3,2 Preview 4. Toto téma se bude aktualizovat na verzi Preview 5 v pátek, 24. dubna.
 
-Chcete-li Blazor vytvořit samostatnou aplikaci WebAssembly, která používá `Microsoft.AspNetCore.Components.WebAssembly.Authentication` knihovnu, spusťte v příkazovém prostředí následující příkaz:
+*V případě Azure Active Directory (AAD) a Azure Active Directory B2C (AAD B2C) nepostupujte podle pokynů v tomto tématu. Podívejte se na témata AAD a AAD B2C v tomto uzlu obsah.*
+
+Chcete-li Blazor vytvořit samostatnou aplikaci WebAssembly `Microsoft.AspNetCore.Components.WebAssembly.Authentication` , která používá knihovnu, spusťte v příkazovém prostředí následující příkaz:
 
 ```dotnetcli
 dotnet new blazorwasm -au Individual
 ```
 
-Chcete-li určit výstupní umístění, které vytvoří složku projektu, pokud neexistuje, zahrňte do `-o BlazorSample`příkazu možnost výstupu s cestou (například ). Název složky se také stane součástí názvu projektu.
+Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample`). Název složky se také stal součástí názvu projektu.
 
-V Sadě Visual Studio [vytvořte Blazor aplikaci WebAssembly](xref:blazor/get-started). Nastavte **ověřování** na **jednotlivé uživatelské účty** pomocí možnosti uživatelské účty Store v **aplikaci.**
+V aplikaci Visual Studio [vytvořte Blazor aplikaci WebAssembly](xref:blazor/get-started). Nastavte **ověřování** na **jednotlivé uživatelské účty** s možností **Uložit uživatelské účty do aplikace** .
 
 ## <a name="authentication-package"></a>Ověřovací balíček
 
-Když je aplikace vytvořena pro použití individuálních uživatelských účtů, `Microsoft.AspNetCore.Components.WebAssembly.Authentication` aplikace automaticky obdrží odkaz na balíček pro balíček v souboru projektu aplikace. Balíček obsahuje sadu primitiv, které pomáhají aplikaci ověřovat uživatele a získat tokeny pro volání chráněných api.
+Když je aplikace vytvořená tak, aby používala jednotlivé uživatelské účty, aplikace automaticky obdrží odkaz `Microsoft.AspNetCore.Components.WebAssembly.Authentication` na balíček v souboru projektu aplikace. Balíček poskytuje sadu primitivních elementů, které aplikaci pomůžou ověřit uživatele a získat tokeny pro volání chráněných rozhraní API.
 
-Pokud přidáváte ověřování do aplikace, přidejte balíček ručně do souboru projektu aplikace:
+Pokud se do aplikace přidává ověřování, přidejte balíček do souboru projektu aplikace ručně:
 
 ```xml
 <PackageReference 
@@ -49,11 +52,11 @@ Pokud přidáváte ověřování do aplikace, přidejte balíček ručně do sou
     Version="{VERSION}" />
 ```
 
-Nahraďte `{VERSION}` v předchozím odkazu na `Microsoft.AspNetCore.Blazor.Templates` balíček verzí <xref:blazor/get-started> balíčku uvedenou v článku.
+Nahraďte `{VERSION}` odkazem na předchozí balíček verzí `Microsoft.AspNetCore.Blazor.Templates` balíčku, který je uvedený v <xref:blazor/get-started> článku.
 
 ## <a name="authentication-service-support"></a>Podpora ověřovací služby
 
-Podpora pro ověřování uživatelů je registrována v `AddOidcAuthentication` kontejneru služby `Microsoft.AspNetCore.Components.WebAssembly.Authentication` s metodou rozšíření poskytované balíček. Tato metoda nastaví všechny služby potřebné pro interakci aplikace s poskytovatelem identity (IP).
+Podpora ověřování uživatelů je registrovaná v kontejneru služby s metodou `AddOidcAuthentication` rozšíření poskytovanou `Microsoft.AspNetCore.Components.WebAssembly.Authentication` balíčkem. Tato metoda nastavuje všechny služby, které aplikace potřebuje k interakci s poskytovatelem identity (IP).
 
 *Program.cs*:
 
@@ -65,11 +68,11 @@ builder.Services.AddOidcAuthentication(options =>
 });
 ```
 
-Podpora ověřování pro samostatné aplikace je nabízena pomocí open id connect (OIDC). Metoda `AddOidcAuthentication` přijímá zpětné volání ke konfiguraci parametrů potřebných k ověření aplikace pomocí OIDC. Hodnoty potřebné pro konfiguraci aplikace lze získat z IP kompatibilní s OIDC. Získat hodnoty při registraci aplikace, která se obvykle vyskytuje v jejich online portálu.
+Podpora ověřování pro samostatné aplikace se nabízí pomocí Open ID Connect (OIDC). `AddOidcAuthentication` Metoda přijímá zpětné volání ke konfiguraci parametrů požadovaných k ověření aplikace pomocí OIDC. Hodnoty požadované pro konfiguraci aplikace lze získat z IP adresy kompatibilní s OIDC. Získejte hodnoty při registraci aplikace, ke kterým obvykle dochází na online portálu.
 
-## <a name="access-token-scopes"></a>Obory přístupových tokenů
+## <a name="access-token-scopes"></a>Obory přístupového tokenu
 
-Šablona Blazor WebAssembly automaticky nekonfiguruje aplikaci tak, aby požadovala přístupový token pro zabezpečené rozhraní API. Chcete-li zřídit token jako součást toku přihlášení, přidejte obor `OidcProviderOptions`do výchozích oborů tokenu :
+Blazor Šablona protokolu WebAssembly nekonfiguruje aplikaci automaticky pro vyžádání přístupového tokenu pro zabezpečené rozhraní API. Chcete-li zřídit token jako součást toku přihlášení, přidejte obor do výchozího oboru tokenu `OidcProviderOptions`:
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>
@@ -80,12 +83,12 @@ builder.Services.AddOidcAuthentication(options =>
 ```
 
 > [!NOTE]
-> Pokud portál Azure poskytuje identifikátor URI oboru a **aplikace vyvolá neošetřenou výjimku,** když obdrží *neoprávněnou odpověď 401* z rozhraní API, zkuste použít identifikátor URI oboru, který neobsahuje schéma a hostitele. Portál Azure může například poskytovat jeden z následujících formátů identifikátoru URI oboru:
+> Pokud Azure Portal poskytne identifikátor URI oboru a **aplikace vyvolá neošetřenou výjimku** , když obdrží od rozhraní API *neautorizovanou odpověď 401* , zkuste použít identifikátor URI oboru, který neobsahuje schéma a hostitele. Azure Portal například může poskytovat jeden z následujících formátů identifikátoru URI oboru:
 >
 > * `https://{ORGANIZATION}.onmicrosoft.com/{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
 > * `api://{API CLIENT ID OR CUSTOM VALUE}/{SCOPE NAME}`
 >
-> Zadej oblast URI oboru bez schématu a hostitele:
+> Zadejte identifikátor URI oboru bez schématu a hostitele:
 >
 > ```csharp
 > options.ProviderOptions.DefaultScopes.Add(
@@ -94,7 +97,11 @@ builder.Services.AddOidcAuthentication(options =>
 
 Další informace naleznete v tématu <xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens>.
 
-## <a name="imports-file"></a>Importuje soubor
+<!--
+    For more information, see <xref:security/blazor/webassembly/additional-scenarios#attach-tokens-to-outgoing-requests>.
+-->
+
+## <a name="imports-file"></a>Importovat soubor
 
 [!INCLUDE[](~/includes/blazor-security/imports-file-standalone.md)]
 
@@ -114,12 +121,13 @@ Další informace naleznete v tématu <xref:security/blazor/webassembly/addition
 
 [!INCLUDE[](~/includes/blazor-security/logindisplay-component.md)]
 
-## <a name="authentication-component"></a>Ověřovací komponenta
+## <a name="authentication-component"></a>Součást ověřování
 
 [!INCLUDE[](~/includes/blazor-security/authentication-component.md)]
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Vyžádání dalších přístupových tokenů](xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens)
+* <xref:security/blazor/webassembly/additional-scenarios>
+ 

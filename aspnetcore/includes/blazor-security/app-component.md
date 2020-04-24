@@ -1,8 +1,8 @@
-Komponenta `App` (*App. Razor*) se podobá komponentě `App` v aplikacích serveru Blazor:
+Součást (*App. Razor*) je podobná `App` komponentě, kterou najdete v Blazor serverových aplikacích: `App`
 
-* Komponenta `CascadingAuthenticationState` spravuje vystavení `AuthenticationState` do zbytku aplikace.
-* Komponenta `AuthorizeRouteView` zajistí, že aktuální uživatel má oprávnění pro přístup k dané stránce, nebo jinak vykreslí `RedirectToLogin` komponentu.
-* Komponenta `RedirectToLogin` spravuje přesměrování neautorizovaných uživatelů na přihlašovací stránku.
+* `CascadingAuthenticationState` Komponenta spravuje vystavení `AuthenticationState` do zbytku aplikace.
+* `AuthorizeRouteView` Komponenta zajistí, že aktuální uživatel má oprávnění pro přístup k dané stránce nebo jinak vykreslí `RedirectToLogin` součást.
+* `RedirectToLogin` Komponenta spravuje přesměrování neautorizovaných uživatelů na přihlašovací stránku.
 
 ```razor
 <CascadingAuthenticationState>
@@ -11,7 +11,17 @@ Komponenta `App` (*App. Razor*) se podobá komponentě `App` v aplikacích serve
             <AuthorizeRouteView RouteData="@routeData" 
                 DefaultLayout="@typeof(MainLayout)">
                 <NotAuthorized>
-                    <RedirectToLogin />
+                    @if (!context.User.Identity.IsAuthenticated)
+                    {
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <p>
+                            You are not authorized to access 
+                            this resource.
+                        </p>
+                    }
                 </NotAuthorized>
             </AuthorizeRouteView>
         </Found>

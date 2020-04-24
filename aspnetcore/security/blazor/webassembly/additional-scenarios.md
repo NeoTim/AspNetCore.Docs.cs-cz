@@ -1,35 +1,38 @@
 ---
-title: ASP.NET Blazor další scénáře zabezpečení Core WebAssembly
+title: ASP.NET Core Blazor další scénáře zabezpečení pro WebAssembly
 author: guardrex
 description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/19/2020
+ms.date: 04/23/2020
 no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: 314a7b54ab87295b8ca814f5e369942ae911407e
-ms.sourcegitcommit: 5547d920f322e5a823575c031529e4755ab119de
+ms.openlocfilehash: 2dbb2bbd07c427c594a12b8037f35cfff2228191
+ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/21/2020
-ms.locfileid: "81661598"
+ms.lasthandoff: 04/24/2020
+ms.locfileid: "82111172"
 ---
-# <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor WebAssembly další scénáře zabezpečení
+# <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>Další scénáře zabezpečení ASP.NET Core Blazor pro WebAssembly
 
-Podle [Javier Calvarro Nelson](https://github.com/javiercn)
+[Javier Calvarro Nelson](https://github.com/javiercn)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
+> [!NOTE]
+> Pokyny v tomto článku se týkají ASP.NET Core 3,2 Preview 4. Toto téma se bude aktualizovat na verzi Preview 5 v pátek, 24. dubna.
+
 ## <a name="request-additional-access-tokens"></a>Vyžádání dalších přístupových tokenů
 
-Většina aplikací vyžaduje k interakci s chráněnými prostředky, které používají, jenom přístupový token. V některých případech může aplikace vyžadovat více než jeden token pro interakci se dvěma nebo více prostředky.
+Většina aplikací vyžaduje přístupový token pro interakci s chráněnými prostředky, které používají. V některých scénářích může aplikace vyžadovat více než jeden token, aby bylo možné pracovat se dvěma nebo více prostředky.
 
-V následujícím příkladu jsou další obory rozhraní MICROSOFT GRAPH API Azure Active Directory (AAD) vyžadovány aplikací ke čtení uživatelských dat a odesílání pošty. Po přidání oprávnění rozhraní MICROSOFT Graph API na portálu Azure AAD se`Program.Main`nakonfigurují další obory v klientské aplikaci ( , *Program.cs*):
+V následujícím příkladu jsou vyžadovány další Azure Active Directory (AAD) Microsoft Graph obory rozhraní API pro čtení uživatelských dat a odesílání e-mailů. Po přidání oprávnění Microsoft Graph API na portálu Azure AAD jsou další obory nakonfigurované v klientské aplikaci (`Program.Main` *program.cs*):
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -43,7 +46,7 @@ builder.Services.AddMsalAuthentication(options =>
 }
 ```
 
-Metoda `IAccessTokenProvider.RequestToken` poskytuje přetížení, které umožňuje aplikaci zřídit token s danou sadou oborů, jak je vidět v následujícím příkladu:
+`IAccessTokenProvider.RequestToken` Metoda poskytuje přetížení, které umožňuje aplikaci zřídit token s danou sadou oborů, jak je vidět v následujícím příkladu:
 
 ```csharp
 var tokenResult = await AuthenticationService.RequestAccessToken(
@@ -59,40 +62,142 @@ if (tokenResult.TryGetToken(out var token))
 }
 ```
 
-`TryGetToken`Vrátí:
+`TryGetToken`Vrátí
 
-* `true``token` pro použití.
-* `false`pokud token není načten.
+* `true`s nástrojem `token` pro použití.
+* `false`Pokud se token nenačte.
 
-## <a name="handle-token-request-errors"></a>Zpracování chyb požadavku tokenu
+## <a name="attach-tokens-to-outgoing-requests"></a>Připojit tokeny k odchozím žádostem
 
-Když jednostránková aplikace (SPA) ověřuje uživatele pomocí Open ID Connect (OIDC), stav ověřování je udržován místně v rámci spa a u zprostředkovatele identity (IP) ve formě souboru cookie relace, který je nastaven v důsledku, že uživatel zadá svá pověření.
+`AuthorizationMessageHandler` Službu lze použít s nástrojem `HttpClient` k připojení přístupových tokenů k odchozím žádostem. Tokeny se získávají pomocí existující `IAccessTokenProvider` služby. Pokud token nelze získat, `AccessTokenNotAvailableException` je vyvolána výjimka. `AccessTokenNotAvailableException`má `Redirect` metodu, která se dá použít k navigaci uživatele na poskytovatele identity za účelem získání nového tokenu. Pomocí `AuthorizationMessageHandler` `ConfigureHandler` metody lze konfigurovat pomocí autorizovaných adres URL, oborů a návratové adresy URL.
 
-Tokeny, které IP vydává pro uživatele, jsou obvykle platné pro krátká časová období, přibližně jednu hodinu normálně, takže klientská aplikace musí pravidelně načítat nové tokeny. V opačném případě by byl uživatel po vypršení platnosti udělených tokenů odhlášen. Ve většině případů oidc klienti jsou schopni zřídit nové tokeny bez nutnosti uživatele znovu ověřit díky stavu ověřování nebo "relace", která je uložena v rámci IP adresy.
+V následujícím `AuthorizationMessageHandler` příkladu nakonfiguruje `HttpClient` v `Program.Main` (*program.cs*):
 
-Existují některé případy, ve kterých klient nemůže získat token bez interakce s uživatelem, například když se z nějakého důvodu uživatel explicitně odhlásí z IP adresy. K tomuto scénáři `https://login.microsoftonline.com` dochází, pokud uživatel navštíví a odhlásí. V těchto scénářích aplikace neví okamžitě, že uživatel se odhlásil. Token, který má klient v držení již nemusí být platný. Klient také není schopen zřídit nový token bez interakce uživatele po vypršení platnosti aktuálního tokenu.
+```csharp
+builder.Services.AddSingleton(sp =>
+{
+    return new HttpClient(sp.GetRequiredService<AuthorizationMessageHandler>()
+        .ConfigureHandler(
+            new [] { "https://www.example.com/base" },
+            scopes: new[] { "example.read", "example.write" }))
+        {
+            BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+        };
+});
+```
 
-Tyto scénáře nejsou specifické pro ověřování založené na tokenech. Jsou součástí povahy sa. Spa pomocí souborů cookie také nedokáže volat server API, pokud je odebrán ověřovací soubor cookie.
+Pro usnadnění práce `BaseAddressAuthorizationMessageHandler` je součástí předem nakonfigurovaná základní adresa aplikace jako autorizovaná adresa URL. Šablony WebAssembly Blazor `HttpClient` s povoleným ověřováním teď pomocí `BaseAddressAuthorizationMessageHandler` [IHttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests) nastaví pomocí:
 
-Když aplikace provádí volání rozhraní API pro chráněné prostředky, musíte si být vědomi následujících:
+```csharp
+builder.Services.AddHttpClient("BlazorWithIdentityApp1.ServerAPI", 
+    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+        .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
-* Chcete-li zřídit nový přístupový token pro volání rozhraní API, může být uživatel povinen znovu ověřit.
-* I v případě, že klient má token, který se zdá být platný, volání na server může selhat, protože token byl odvolán uživatelem.
+builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorWithIdentityApp1.ServerAPI"));
+```
 
-Když aplikace požádá o token, existují dva možné výsledky:
+Tam, kde je klient vytvořen `CreateClient` pomocí v předchozím příkladu, `HttpClient` se dodávají instance, které zahrnují přístupové tokeny při vytváření požadavků na serverový projekt.
+
+Nakonfigurovaná `HttpClient` se pak používá k provádění autorizovaných požadavků pomocí jednoduchého `try-catch` vzoru. Následující `FetchData` součást požaduje data předpovědi počasí:
+
+```csharp
+protected override async Task OnInitializedAsync()
+{
+    try
+    {
+        forecasts = 
+            await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+    }
+    catch (AccessTokenNotAvailableException exception)
+    {
+        exception.Redirect();
+    }
+}
+```
+
+Případně můžete definovat typového klienta, který zpracovává všechny aspekty získání HTTP a tokenu v rámci jedné třídy:
+
+*WeatherClient.cs*:
+
+```csharp
+public class WeatherClient
+{
+    private readonly HttpClient httpClient;
+ 
+    public WeatherClient(HttpClient httpClient)
+    {
+        this.httpClient = httpClient;
+    }
+ 
+    public async Task<IEnumerable<WeatherForecast>> GetWeatherForeacasts()
+    {
+        IEnumerable<WeatherForecast> forecasts = new WeatherForecast[0];
+
+        try
+        {
+            forecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>(
+                "WeatherForecast");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+
+        return forecasts;
+    }
+}
+```
+
+*Program.cs*:
+
+```csharp
+builder.Services.AddHttpClient<WeatherClient>(
+    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+    .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
+```
+
+*FetchData. Razor*:
+
+```razor
+@inject WeatherClient WeatherClient
+
+...
+
+protected override async Task OnInitializedAsync()
+{
+    forecasts = await WeatherClient.GetWeatherForeacasts();
+}
+```
+
+## <a name="handle-token-request-errors"></a>Zpracování chyb požadavků na tokeny
+
+Když jedna stránková aplikace (SPA) ověřuje uživatele pomocí funkce Open ID Connect (OIDC), je stav ověřování udržován místně v zabezpečeném uživatelském rozhraní (SPA) a ve zprostředkovateli identity (IP) ve formě souboru cookie relace, který je nastaven v důsledku zadání přihlašovacích údajů uživatelem.
+
+Tokeny, které jsou pro uživatele vysílané, jsou obvykle platné po krátkou dobu přibližně jedna hodina, takže klientská aplikace musí pravidelně načítat nové tokeny. V opačném případě se uživatel odhlásí po vypršení platnosti udělených tokenů. Ve většině případů můžou klienti OIDC zřizovat nové tokeny, aniž by museli znovu ověřovat uživatele díky stavu ověřování nebo "relaci", která se udržuje v rámci IP adresy.
+
+V některých případech může klient získat token bez zásahu uživatele, například pokud z nějakého důvodu se uživatel výslovně odhlásí z IP adresy. K tomuto scénáři dochází, pokud uživatel `https://login.microsoftonline.com` navštíví a odhlásí. V těchto scénářích aplikace neví hned, že se uživatel odhlásil. Libovolný token, který může klient obsahovat, již nemusí být platný. Klient navíc nemůže zřídit nový token bez zásahu uživatele po vypršení platnosti tohoto tokenu.
+
+Tyto scénáře nejsou specifické pro ověřování založené na tokenech. Jsou součástí charakteru jednostránkové. ZABEZPEČENÉ ověřování pomocí souborů cookie také nedokáže volat rozhraní API serveru, pokud je soubor cookie ověření odebrán.
+
+Když aplikace provede volání rozhraní API k chráněným prostředkům, musíte mít na paměti následující informace:
+
+* Pro zřízení nového přístupového tokenu pro volání rozhraní API může být uživatel požádán o ověření znovu.
+* I v případě, že má klient token, který je pravděpodobně platný, volání serveru může selhat, protože byl token odvolán uživatelem.
+
+Když aplikace požaduje token, existují dva možné výsledky:
 
 * Požadavek je úspěšný a aplikace má platný token.
-* Požadavek se nezdaří a aplikace musí znovu ověřit uživatele získat nový token.
+* Požadavek se nezdařil a aplikace musí znovu ověřit uživatele, aby získal nový token.
 
-Pokud se požadavek na token nezdaří, musíte se rozhodnout, zda chcete před provedením přesměrování uložit libovolný aktuální stav. Existuje několik přístupů s rostoucí úrovní složitosti:
+Pokud se žádost o token nezdařila, musíte se rozhodnout, zda chcete před provedením přesměrování Uložit aktuální stav. Existuje několik přístupů se zvýšenými úrovněmi složitosti:
 
-* Uložte aktuální stav stránky do úložiště relací. Během `OnInitializeAsync`kontroly, zda lze stav obnovit před pokračováním.
-* Přidejte parametr řetězce dotazu a použijte jej jako způsob, jak signalizovat aplikaci, že potřebuje znovu hydratovat dříve uložený stav.
-* Přidejte parametr řetězce dotazu s jedinečným identifikátorem pro ukládání dat v úložišti relace bez rizika kolizí s jinými položkami.
+* Uloží aktuální stav stránky do úložiště relace. Během `OnInitializeAsync`této operace ověřte, zda je možné obnovit stav, než budete pokračovat.
+* Přidejte parametr řetězce dotazu a použijte ho jako způsob, jak aplikaci signalizovat, že potřebuje znovu Hydrate dříve uložený stav.
+* Přidejte parametr řetězce dotazu s jedinečným identifikátorem pro ukládání dat v úložišti relace bez rizikových kolizí s ostatními položkami.
 
 Následující příklad ukazuje, jak:
 
-* Před přesměrováním na přihlašovací stránku zachovejte stav.
+* Zachovat stav před přesměrováním na přihlašovací stránku
 * Obnovte předchozí stav po ověření pomocí parametru řetězce dotazu.
 
 ```razor
@@ -154,11 +259,11 @@ Následující příklad ukazuje, jak:
 }
 ```
 
-## <a name="save-app-state-before-an-authentication-operation"></a>Uložení stavu aplikace před ověřovací operací
+## <a name="save-app-state-before-an-authentication-operation"></a>Uložení stavu aplikace před operací ověřování
 
-Během operace ověřování existují případy, kdy chcete uložit stav aplikace před přesměrováním prohlížeče na IP adresu. To může být případ, kdy používáte něco jako kontejner stavu a chcete obnovit stav po úspěšném ověření. Vlastní objekt stavu ověřování můžete použít k zachování stavu specifického pro aplikaci nebo odkaz na něj a obnovit tento stav po úspěšném dokončení operace ověřování.
+Během operace ověřování existují případy, kdy chcete uložit stav aplikace, než se prohlížeč přesměruje na IP adresu. To může být případ, kdy používáte něco jako kontejner stavu a chcete obnovit stav po úspěšném ověření. Vlastní objekt stavu ověřování můžete použít k zachování stavu specifického pro aplikaci nebo odkaz na něj a obnovení tohoto stavu po úspěšném dokončení operace ověřování.
 
-`Authentication`komponenta (*Stránky/Authentication.razor*):
+`Authentication`součást (*stránky/ověřování. Razor*):
 
 ```razor
 @page "/authentication/{action}"
@@ -202,27 +307,27 @@ Během operace ověřování existují případy, kdy chcete uložit stav aplika
 }
 ```
 
-## <a name="customize-app-routes"></a>Přizpůsobení tras aplikací
+## <a name="customize-app-routes"></a>Přizpůsobení směrování aplikací
 
-Ve výchozím `Microsoft.AspNetCore.Components.WebAssembly.Authentication` nastavení knihovna používá trasy uvedené v následující tabulce pro reprezentaci různých stavů ověřování.
+Ve výchozím nastavení `Microsoft.AspNetCore.Components.WebAssembly.Authentication` knihovna používá trasy, které jsou uvedeny v následující tabulce, pro reprezentace různých stavů ověřování.
 
 | Trasa                            | Účel |
 | -------------------------------- | ------- |
 | `authentication/login`           | Spustí operaci přihlášení. |
 | `authentication/login-callback`  | Zpracovává výsledek jakékoli operace přihlášení. |
-| `authentication/login-failed`    | Zobrazí chybové zprávy, když se z nějakého důvodu nezdaří operace přihlášení. |
-| `authentication/logout`          | Spustí operaci odhlašování. |
-| `authentication/logout-callback` | Zpracovává výsledek operace odhlašování. |
-| `authentication/logout-failed`   | Zobrazí chybové zprávy, když se z nějakého důvodu nezdaří operace odhlášení. |
-| `authentication/logged-out`      | Označuje, že uživatel úspěšně odhlášení. |
-| `authentication/profile`         | Spustí operaci pro úpravu profilu uživatele. |
-| `authentication/register`        | Spustí operaci k registraci nového uživatele. |
+| `authentication/login-failed`    | Zobrazí chybové zprávy, když se z nějakého důvodu nepovede operace přihlášení. |
+| `authentication/logout`          | Spustí operaci odhlášení. |
+| `authentication/logout-callback` | Zpracovává výsledek operace odhlášení. |
+| `authentication/logout-failed`   | Zobrazí chybové zprávy, když se z nějakého důvodu nepovede operace odhlášení. |
+| `authentication/logged-out`      | Indikuje, že se uživatel úspěšně odhlásit. |
+| `authentication/profile`         | Aktivuje operaci pro úpravu profilu uživatele. |
+| `authentication/register`        | Aktivuje operaci pro registraci nového uživatele. |
 
-Trasy zobrazené v předchozí tabulce lze `RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths`konfigurovat pomocí aplikace . Při nastavování možností pro poskytování vlastních tras zkontrolujte, zda má aplikace trasu, která zpracovává každou cestu.
+Trasy zobrazené v předchozí tabulce lze konfigurovat prostřednictvím `RemoteAuthenticationOptions<TProviderOptions>.AuthenticationPaths`. Při nastavování možností pro poskytování vlastních tras potvrďte, že aplikace má trasu, která zpracovává jednotlivé cesty.
 
-V následujícím příkladu jsou všechny cesty `/security`předponou .
+V následujícím příkladu jsou všechny cesty s `/security`předponou.
 
-`Authentication`komponenta (*Stránky/Authentication.razor*):
+`Authentication`součást (*stránky/ověřování. Razor*):
 
 ```razor
 @page "/security/{action}"
@@ -236,7 +341,7 @@ V následujícím příkladu jsou všechny cesty `/security`předponou .
 }
 ```
 
-`Program.Main`*(Program.cs*):
+`Program.Main`(*Program.cs*):
 
 ```csharp
 builder.Services.AddApiAuthorization(options => { 
@@ -252,7 +357,7 @@ builder.Services.AddApiAuthorization(options => {
 });
 ```
 
-Pokud požadavek vyžaduje zcela odlišné cesty, nastavte trasy, jak `RemoteAuthenticatorView` je popsáno výše a vykreslete s parametrem explicitní akce:
+Pokud požadavek volá zcela různé cesty, nastavte trasy popsané dříve a vykreslete `RemoteAuthenticatorView` s parametrem explicitní akce:
 
 ```razor
 @page "/register"
@@ -260,13 +365,13 @@ Pokud požadavek vyžaduje zcela odlišné cesty, nastavte trasy, jak `RemoteAut
 <RemoteAuthenticatorView Action="@RemoteAuthenticationActions.Register" />
 ```
 
-Pokud se tak rozhodnete, můžete ui rozdělit na různé stránky.
+Pokud se rozhodnete tak učinit, můžete uživatelské rozhraní přerušit na jiné stránky.
 
 ## <a name="customize-the-authentication-user-interface"></a>Přizpůsobení uživatelského rozhraní ověřování
 
-`RemoteAuthenticatorView`obsahuje výchozí sadu částí ui pro každý stav ověřování. Každý stav lze přizpůsobit předáním `RenderFragment`vlastní . Chcete-li přizpůsobit zobrazený text během počátečního `RemoteAuthenticatorView` procesu přihlášení, můžete změnit následující.
+`RemoteAuthenticatorView`obsahuje výchozí sadu částí uživatelského rozhraní pro každý stav ověřování. Každý stav lze přizpůsobit předáním vlastního `RenderFragment`. K přizpůsobení zobrazeného textu během procesu prvotního přihlášení může změnit `RemoteAuthenticatorView` následující postup.
 
-`Authentication`komponenta (*Stránky/Authentication.razor*):
+`Authentication`součást (*stránky/ověřování. Razor*):
 
 ```razor
 @page "/security/{action}"
@@ -284,7 +389,7 @@ Pokud se tak rozhodnete, můžete ui rozdělit na různé stránky.
 }
 ```
 
-Má `RemoteAuthenticatorView` jeden fragment, který lze použít na trasu ověřování uvedené v následující tabulce.
+`RemoteAuthenticatorView` Má jeden fragment, který se dá použít pro jednu trasu ověřování, jak je znázorněno v následující tabulce.
 
 | Trasa                            | Fragment                |
 | -------------------------------- | ----------------------- |
@@ -297,3 +402,130 @@ Má `RemoteAuthenticatorView` jeden fragment, který lze použít na trasu ově�
 | `authentication/logged-out`      | `<LogOutSucceeded>`     |
 | `authentication/profile`         | `<UserProfile>`         |
 | `authentication/register`        | `<Registering>`         |
+
+## <a name="support-prerendering-with-authentication"></a>Podpora předběžného vykreslování s ověřováním
+
+Po použití pokynů v některém z hostovaných Blazor témat aplikace WebAssembly použijte následující pokyny k vytvoření aplikace, která:
+
+* Předem vykreslí cesty, pro které není nutná autorizace.
+* Nejedná se o cesty PreRender, pro které se vyžaduje autorizace.
+
+V rámci `Program` třídy klientské aplikace (*program.cs*) se služba Factoring Common registruje do samostatné metody (například `ConfigureCommonServices`):
+
+```csharp
+public class Program
+{
+    public static async Task Main(string[] args)
+    {
+        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        builder.RootComponents.Add<App>("app");
+
+        builder.Services.AddSingleton(new HttpClient 
+        {
+            BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+        });
+
+        services.Add...;
+
+        ConfigureCommonServices(builder.Services);
+
+        await builder.Build().RunAsync();
+    }
+
+    public static void ConfigureCommonServices(IServiceCollection services)
+    {
+        // Common service registrations
+    }
+}
+```
+
+V serverové aplikaci `Startup.ConfigureServices`Zaregistrujte následující další služby:
+
+```csharp
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+public void ConfigureServices(IServiceCollection services)
+{
+    ...
+
+    services.AddRazorPages();
+    services.AddScoped<AuthenticationStateProvider, ServerAuthenticationStateProvider>();
+    services.AddScoped<SignOutSessionStateManager>();
+
+    Client.Program.ConfigureCommonServices(services);
+}
+```
+
+V `Startup.Configure` metodě serverové aplikace nahraďte `endpoints.MapFallbackToFile("index.html")` `endpoints.MapFallbackToPage("/_Host")`:
+
+```csharp
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+    endpoints.MapFallbackToPage("/_Host");
+});
+```
+
+V serverové aplikaci vytvořte složku *stránky* , pokud neexistuje. Vytvořte stránku *_Host. cshtml* ve složce *stránek* serverové aplikace. Vložte obsah ze souboru *wwwroot/index.html* klientské aplikace do souboru *pages/_Host. cshtml* . Aktualizujte obsah souboru:
+
+* Přidejte `@page "_Host"` na začátek souboru.
+* `<app>Loading...</app>` Značku nahraďte následujícím:
+
+  ```cshtml
+  <app>
+      @if (!HttpContext.Request.Path.StartsWithSegments("/authentication"))
+      {
+          <component type="typeof(Wasm.Authentication.Client.App)" render-mode="Static" />
+      }
+      else
+      {
+          <text>Loading...</text>
+      }
+  </app>
+  ```
+  
+## <a name="options-for-hosted-apps-and-third-party-login-providers"></a>Možnosti pro hostované aplikace a poskytovatele přihlašovacích údajů třetích stran
+
+Při ověřování a autorizaci hostované Blazor aplikace WebAssembly s poskytovatelem třetí strany je k dispozici několik možností pro ověření uživatele. Kterou zvolíte, závisí na vašem scénáři.
+
+Další informace naleznete v tématu <xref:security/authentication/social/additional-claims>.
+
+### <a name="authenticate-users-to-only-call-protected-third-party-apis"></a>Ověřování uživatelů pro volání rozhraní API chráněných třetích stran
+
+Ověřit uživatele pomocí toku OAuth na straně klienta proti poskytovateli rozhraní API třetí strany:
+
+ ```csharp
+ builder.services.AddOidcAuthentication(options => { ... });
+ ```
+ 
+ V tomto scénáři:
+
+* Server, který je hostitelem aplikace, nehraje roli.
+* Rozhraní API na serveru nejde chránit.
+* Aplikace může volat jenom chráněná rozhraní API třetích stran.
+
+### <a name="authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party"></a>Ověřování uživatelů pomocí poskytovatele třetí strany a volání chráněných rozhraní API na hostitelském serveru a třetí straně
+
+Nakonfigurujte identitu pomocí poskytovatele přihlášení třetí strany. Získejte tokeny vyžadované pro přístup k rozhraní API třetích stran a uložte je.
+
+Když se uživatel přihlásí, identita shromažďuje přístup a aktualizuje tokeny v rámci procesu ověřování. V tomto okamžiku je k dispozici několik přístupů pro volání rozhraní API třetích stran.
+
+#### <a name="use-a-server-access-token-to-retrieve-the-third-party-access-token"></a>Použití přístupového tokenu serveru k načtení přístupového tokenu třetí strany
+
+K načtení přístupového tokenu třetí strany z koncového bodu rozhraní API serveru použijte přístupový token vygenerovaný na serveru. Odtud pomocí přístupového tokenu třetí strany můžete volat prostředky rozhraní API třetích stran přímo z identity na klientovi.
+
+Tento postup nedoporučujeme. Tento přístup vyžaduje ošetření přístupového tokenu třetí strany, jako kdyby byl vygenerován pro veřejného klienta. V případech OAuth nemá veřejná aplikace tajný klíč klienta, protože nemůže být důvěryhodná pro bezpečné ukládání tajných kódů a přístupového tokenu se vytvoří pro důvěrného klienta. Důvěrný klient je klient, který má tajný klíč klienta a předpokládá, že bude moci bezpečně ukládat tajné klíče.
+
+* Přístupovému tokenu třetí strany se můžou udělit další obory, které budou provádět citlivé operace na základě skutečnosti, že třetí strana vygenerovala token pro více důvěryhodných klientů.
+* Podobně by se aktualizační tokeny neměly vystavit klientovi, který není důvěryhodný, protože by to tak měl klienta bez omezení přístupu, pokud se na ně neukládají jiná omezení.
+
+#### <a name="make-api-calls-from-the-client-to-the-server-api-in-order-to-call-third-party-apis"></a>Volání rozhraní API z klienta na rozhraní API serveru za účelem volání rozhraní API třetích stran
+
+Naplňte volání rozhraní API z klienta na serverové rozhraní API. Ze serveru načtěte přístupový token pro prostředek rozhraní API třetí strany a vydejte jakékoli volání, které je potřeba.
+
+I když tento přístup vyžaduje další síťové směrování prostřednictvím serveru za účelem volání rozhraní API třetí strany, má za následek bezpečnější prostředí:
+
+* Server může ukládat aktualizační tokeny a zajistit, aby aplikace neztratila přístup k prostředkům třetích stran.
+* Aplikace nemůže zajímat přístupové tokeny ze serveru, který může obsahovat citlivá oprávnění.
