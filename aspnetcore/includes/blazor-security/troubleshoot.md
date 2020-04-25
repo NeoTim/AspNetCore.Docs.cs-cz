@@ -1,22 +1,34 @@
 ## <a name="troubleshoot"></a>Řešení potíží
 
-### <a name="cookies-and-site-data"></a>Soubory cookie a údaje o webu
+### <a name="cookies-and-site-data"></a>Soubory cookie a data webu
 
-Soubory cookie a data webu mohou přetrvávat v rámci aktualizací aplikací a zasahovat do testování a odstraňování problémů. Zrušte následující položky při provádění změn kódu aplikace, změn uživatelského účtu u poskytovatele nebo změn konfigurace aplikace zprostředkovatele:
+Soubory cookie a data lokality můžou trvat mezi aktualizacemi aplikací a rušit testování a řešit potíže. Při provádění změn kódu aplikace zrušte zaškrtnutí těchto políček, změní se uživatelský účet se zprostředkovatelem nebo se změní konfigurace aplikace poskytovatele:
 
-* Soubory cookie pro přihlášení uživatelů
-* Soubory cookie aplikací
-* Uložená a uložená data webu uložená v mezipaměti
+* Soubory cookie pro přihlašování uživatelů
+* Soubory cookie aplikace
+* Data uložených v mezipaměti a uložená data webu
 
-Jedním z přístupů, jak zabránit tomu, aby přetrvávající soubory cookie a data webu zasahovaly do testování a odstraňování problémů, je:
+Jedním z způsobů, jak zabránit kolizím souborů cookie a dat lokality při testování a řešení potíží, je:
 
-* Pro testování, které můžete nakonfigurovat tak, aby při každém zavření prohlížeče odstranili všechna data souborů cookie a webu, použijte prohlížeč, který můžete nakonfigurovat tak, aby odstranil všechna data souborů cookie a webu.
-* Zavřete prohlížeč mezi jakoukoli změnou konfigurace aplikace, testovacího uživatele nebo zprostředkovatele.
+* Konfigurace prohlížeče
+  * Použijte prohlížeč pro testování, který můžete nakonfigurovat tak, aby při každém zavření prohlížeče odstranil všechna data cookie a data lokality.
+  * Ujistěte se, že je prohlížeč uzavřený ručně nebo pomocí integrovaného vývojového prostředí (IDE) mezi jakoukoli změnou aplikace, testovacího uživatele nebo zprostředkovatele.
+* Použití vlastního příkazu k otevření prohlížeče v anonymním nebo privátním režimu v aplikaci Visual Studio:
+  * Otevřete dialogové okno **Procházet s pomocí** tlačítka **Spustit** v aplikaci Visual Studio.
+  * Vyberte tlačítko **Přidat** .
+  * Zadejte cestu k prohlížeči do pole **program** .
+  * V poli **argumenty** zadejte parametr příkazového řádku, který prohlížeč používá pro otevření v anonymním nebo privátním režimu a adresu URL aplikace. Příklad:
+    * Google Chrome &ndash;`--incognito --new-window https://localhost:5001`
+    * Mozilla Firefox &ndash;`-private -url https://localhost:5001`
+  * Do pole **popisný název** zadejte název. Například, `Firefox Auth Testing`.
+  * Vyberte tlačítko **OK**.
+  * Chcete-li se vyhnout nutnosti vybrat profil prohlížeče pro každou iteraci testování s aplikací, nastavte profil jako výchozí pomocí tlačítka **nastavit jako výchozí** .
+  * Ujistěte se, že je prohlížeč uzavřený pomocí integrovaného vývojového prostředí (IDE) mezi každou změnou aplikace, testovacího uživatele nebo konfigurace poskytovatele.
 
-### <a name="run-the-server-app"></a>Spuštění aplikace Server
+### <a name="run-the-server-app"></a>Spuštění serverové aplikace
 
-Při testování a řešení potíží s hostovkou aplikace Blazor se ujistěte, že aplikaci spouštěte z projektu **Server.** Například v sadě Visual Studio před spuštěním aplikace s některou z následujících přístupů zkontrolujte, že projekt serveru je zvýrazněn v **Průzkumníkovi řešení:**
+Při testování a řešení potíží s hostovanou aplikací Blazor se ujistěte, že jste spustili aplikaci z projektu **serveru** . Například v aplikaci Visual Studio ověřte, že je serverový projekt zvýrazněný v **Průzkumník řešení** před spuštěním aplikace s některým z následujících přístupů:
 
 * Vyberte tlačítko **Spustit**.
-* Použijte **ladění** > **start ladění** z nabídky.
-* Stiskněte <kbd>klávesu F5</kbd>.
+*  > Použijte **ladění****Spustit ladění** z nabídky.
+* Stiskněte klávesu <kbd>F5</kbd>.

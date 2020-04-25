@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory
-ms.openlocfilehash: 5c1113a8177d54bfe71f41e1fd34c25d4dd03012
-ms.sourcegitcommit: 4f91da9ce4543b39dba5e8920a9500d3ce959746
+ms.openlocfilehash: 8557ea1695f18fbe1ee3543ff438228ced27465d
+ms.sourcegitcommit: 6d271f4b4c3cd1e82267f51d9bfb6de221c394fe
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 04/24/2020
-ms.locfileid: "82138582"
+ms.locfileid: "82150016"
 ---
 # <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-azure-active-directory"></a>Zabezpečení hostované aplikace Blazor ASP.NET Core WebAssembly pomocí Azure Active Directory
 
@@ -254,11 +254,11 @@ Konfigurace je dodána souborem *wwwroot/appSettings. JSON* :
 
 ```json
 {
-    "AzureAd": {
-        "Authority": "https://login.microsoftonline.com/{TENANT ID}",
-        "ClientId": "{CLIENT APP CLIENT ID}",
-        "ValidateAuthority": true
-    }
+  "AzureAd": {
+    "Authority": "https://login.microsoftonline.com/{TENANT ID}",
+    "ClientId": "{CLIENT APP CLIENT ID}",
+    "ValidateAuthority": true
+  }
 }
 ```
 
@@ -266,11 +266,11 @@ Příklad:
 
 ```json
 {
-    "AzureAd": {
-        "Authority": "https://login.microsoftonline.com/e86c78e2-...-918e0565a45e",
-        "ClientId": "4369008b-21fa-427c-abaa-9b53bf58e538",
-        "ValidateAuthority": true
-    }
+  "AzureAd": {
+    "Authority": "https://login.microsoftonline.com/e86c78e2-...-918e0565a45e",
+    "ClientId": "4369008b-21fa-427c-abaa-9b53bf58e538",
+    "ValidateAuthority": true
+  }
 }
 ```
 

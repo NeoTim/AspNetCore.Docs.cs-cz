@@ -39,5 +39,3 @@ Pokud se žádost nezdařila, protože se token nepodařilo zřídit bez zásahu
     }
 }
 ```
-
-Další informace najdete v tématu [uložení stavu aplikace před operací ověřování](xref:security/blazor/webassembly/additional-scenarios#save-app-state-before-an-authentication-operation).
