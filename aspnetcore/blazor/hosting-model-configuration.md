@@ -5,17 +5,17 @@ description: Přečtěte Blazor si o konfiguraci modelu hostování, včetně to
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/23/2020
+ms.date: 04/25/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: cf5776109368dc7353d7e21bcad1e947561e7eb4
-ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
+ms.openlocfilehash: c7e8d1f2dcba6432072a5cc11a6c5d78e50c2398
+ms.sourcegitcommit: c6f5ea6397af2dd202632cf2be66fc30f3357bcc
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82111055"
+ms.lasthandoff: 04/26/2020
+ms.locfileid: "82159616"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>Konfigurace modelu hostování ASP.NET Core Blazor
 
@@ -302,53 +302,6 @@ Aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před
 | `Static`            | Vykreslí komponentu do statického HTML. |
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
-
-### <a name="render-stateful-interactive-components-from-razor-pages-and-views"></a>Vykreslovat stavově interaktivní komponenty ze stránek a zobrazení Razor
-
-Stavové interaktivní komponenty lze přidat na stránku nebo zobrazení Razor.
-
-Při vykreslení stránky nebo zobrazení:
-
-* Komponenta je předem vykreslena se stránkou nebo zobrazením.
-* Počáteční stav součásti, který se používá pro předvykreslování, bude ztracen.
-* Po navázání SignalR připojení se vytvoří nový stav součásti.
-
-Následující stránka Razor vykresluje `Counter` komponentu:
-
-```cshtml
-<h1>My Razor Page</h1>
-
-<component type="typeof(Counter)" render-mode="ServerPrerendered" 
-    param-InitialValue="InitialValue" />
-
-@code {
-    [BindProperty(SupportsGet=true)]
-    public int InitialValue { get; set; }
-}
-```
-
-### <a name="render-noninteractive-components-from-razor-pages-and-views"></a>Vykreslování neinteraktivních komponent ze stránek a zobrazení Razor
-
-Na následující stránce Razor je `Counter` komponenta staticky vykreslena s počáteční hodnotou zadanou pomocí formuláře:
-
-```cshtml
-<h1>My Razor Page</h1>
-
-<form>
-    <input type="number" asp-for="InitialValue" />
-    <button type="submit">Set initial value</button>
-</form>
-
-<component type="typeof(Counter)" render-mode="Static" 
-    param-InitialValue="InitialValue" />
-
-@code {
-    [BindProperty(SupportsGet=true)]
-    public int InitialValue { get; set; }
-}
-```
-
-Vzhledem `MyComponent` k tomu, že se staticky vykreslují, komponenta nemůže být interaktivní.
 
 ### <a name="configure-the-opno-locsignalr-client-for-opno-locblazor-server-apps"></a>Konfigurace SignalR klienta pro Blazor serverové aplikace
 
