@@ -299,14 +299,14 @@
           uid: blazor/data-binding
         - name: Zpracování událostí
           uid: blazor/event-handling
+        - name: Životní cyklus
+          uid: blazor/lifecycle
         - name: Komponenty bez vizuálního vzhledu
           uid: blazor/templated-components
         - name: Integrace komponent
           uid: blazor/integrate-components
         - name: Globalizace a lokalizace
           uid: blazor/globalization-localization
-        - name: Životní cyklus
-          uid: blazor/lifecycle
         - name: Rozložení
           uid: blazor/layouts
         - name: Formuláře a ověřování
