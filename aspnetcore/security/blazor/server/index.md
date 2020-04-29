@@ -1,0 +1,103 @@
+---
+title: Zabezpečené aplikace Blazor ASP.NET Core serveru
+author: guardrex
+description: Naučte se zabezpečit Blazor serverové aplikace jako aplikace ASP.NET Core.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 04/27/2020
+no-loc:
+- Blazor
+- SignalR
+uid: security/blazor/server/index
+ms.openlocfilehash: 0021911b731e57bc6eabf857c27a13462e7400ae
+ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 04/28/2020
+ms.locfileid: "82206366"
+---
+# <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečené ASP.NET Core aplikace serveru Blazor
+
+Od [Luke Latham](https://github.com/guardrex)
+
+## <a name="blazor-server-project-template"></a>Šablona projektu serveru Blazor
+
+Šablonu projektu serveru Blazor lze nakonfigurovat pro ověřování při vytvoření projektu.
+
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+Pokud chcete vytvořit nový projekt serveru Blazor <xref:blazor/get-started> s ověřovacím mechanismem, postupujte podle pokynů pro Visual Studio v článku.
+
+Po výběru šablony **aplikace Blazor serveru** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
+
+Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pro jiné projekty ASP.NET Core:
+
+* **Bez ověřování**
+* Uživatelské účty **jednotlivých uživatelských účtů** &ndash; mohou být uloženy:
+  * V aplikaci, která používá systém [identit](xref:security/authentication/identity) ASP.NET Core.
+  * S [Azure AD B2C](xref:security/authentication/azure-ad-b2c).
+* **Pracovní nebo školní účty**
+* **Ověřování systému Windows**
+
+# <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
+
+Postupujte podle pokynů Visual Studio Code v <xref:blazor/get-started> článku Vytvoření nového projektu serveru Blazor s mechanismem ověřování:
+
+```dotnetcli
+dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
+```
+
+Přípustné hodnoty ověřování (`{AUTHENTICATION}`) jsou uvedeny v následující tabulce.
+
+| Mechanismus ověřování | Popis |
+| ------------------------ | ----------- |
+| `None`výchozí         | Bez ověřování |
+| `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET Core identity |
+| `IndividualB2C`          | Uživatelé uložení v [Azure AD B2C](xref:security/authentication/azure-ad-b2c) |
+| `SingleOrg`              | Ověřování organizace pro jednoho tenanta |
+| `MultiOrg`               | Ověřování organizace pro více tenantů |
+| `Windows`                | Ověřování systému Windows |
+
+Pomocí `-o|--output` možnosti příkaz používá hodnotu poskytnutou pro `{APP NAME}` zástupný text pro:
+
+* Vytvořte složku pro projekt.
+* Pojmenujte projekt.
+
+Další informace najdete v tématu [dotnet New](/dotnet/core/tools/dotnet-new) v příručce .NET Core.
+
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+1. Postupujte podle pokynů Visual Studio pro Mac v <xref:blazor/get-started> článku.
+
+1. V kroku **Konfigurace nového aplikace Blazor serveru** vyberte v rozevíracím seznamu **ověřování** možnost **individuální ověřování (v aplikaci)** .
+
+1. Aplikace se vytvoří pro jednotlivé uživatele uložené v aplikaci s ASP.NET Core identitou.
+
+# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+
+Postupujte podle pokynů .NET Core CLI v <xref:blazor/get-started> článku Vytvoření nového projektu serveru Blazor s mechanismem ověřování:
+
+```dotnetcli
+dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
+```
+
+Přípustné hodnoty ověřování (`{AUTHENTICATION}`) jsou uvedeny v následující tabulce.
+
+| Mechanismus ověřování | Popis |
+| ------------------------ | ----------- |
+| `None`výchozí         | Bez ověřování |
+| `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET Core identity |
+| `IndividualB2C`          | Uživatelé uložení v [Azure AD B2C](xref:security/authentication/azure-ad-b2c) |
+| `SingleOrg`              | Ověřování organizace pro jednoho tenanta |
+| `MultiOrg`               | Ověřování organizace pro více tenantů |
+| `Windows`                | Ověřování systému Windows |
+
+Pomocí `-o|--output` možnosti příkaz používá hodnotu poskytnutou pro `{APP NAME}` zástupný text pro:
+
+* Vytvořte složku pro projekt.
+* Pojmenujte projekt.
+
+Další informace najdete v tématu [dotnet New](/dotnet/core/tools/dotnet-new) v příručce .NET Core.
+
+---
