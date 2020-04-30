@@ -10,12 +10,12 @@ no-loc:
 - Blazor
 - SignalR
 uid: blazor/integrate-components
-ms.openlocfilehash: 282f96a4198d20b7fa38c186721b48ace5219ca6
-ms.sourcegitcommit: c6f5ea6397af2dd202632cf2be66fc30f3357bcc
+ms.openlocfilehash: 4e2103b7e8b65478808093d7a31e8cfe29b04984
+ms.sourcegitcommit: f9a5069577e8f7c53f8bcec9e13e117950f4f033
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2020
-ms.locfileid: "82159603"
+ms.lasthandoff: 04/29/2020
+ms.locfileid: "82558914"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>Integrace součástí ASP.NET Core Razor do Razor Pages a aplikací MVC
 
@@ -269,7 +269,7 @@ Následující stránka Razor vykresluje `Counter` komponentu:
 }
 ```
 
-Další informace naleznete v tématu <xref:xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>.
+Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>.
 
 ### <a name="render-noninteractive-components"></a>Vykreslit neinteraktivní součásti
 
@@ -292,7 +292,7 @@ Na následující stránce Razor je `Counter` komponenta staticky vykreslena s p
 }
 ```
 
-Další informace naleznete v tématu <xref:xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>.
+Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper>.
 
 ## <a name="component-namespaces"></a>Obory názvů součásti
 

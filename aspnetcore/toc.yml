@@ -348,7 +348,13 @@
                 - name: Další scénáře
                   uid: security/blazor/webassembly/additional-scenarios
             - name: Blazor Server
-              uid: security/blazor/server
+              items:
+                - name: Přehled
+                  uid: security/blazor/server/index
+                - name: Snižování rizik při ohrožení
+                  uid: security/blazor/server/threat-mitigation
+                - name: Další scénáře
+                  uid: security/blazor/server/additional-scenarios
             - name: Zásady zabezpečení obsahu
               uid: security/blazor/content-security-policy
         - name: Řízení stavu
@@ -1135,7 +1141,13 @@
             - name: Další scénáře
               uid: security/blazor/webassembly/additional-scenarios
         - name: Blazor Server
-          uid: security/blazor/server
+          items:
+            - name: Přehled
+              uid: security/blazor/server/index
+            - name: Snižování rizik při ohrožení
+              uid: security/blazor/server/threat-mitigation
+            - name: Další scénáře
+              uid: security/blazor/server/additional-scenarios
         - name: Zásady zabezpečení obsahu
           uid: security/blazor/content-security-policy
 - name: Výkon
