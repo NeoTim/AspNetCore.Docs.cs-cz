@@ -5,17 +5,17 @@ description: Začněte Blazor tím, že sestavíte Blazor aplikaci s vámi zvole
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2020
+ms.date: 04/30/2020
 no-loc:
 - Blazor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: 2f10b00adce31c020d46d107c087159c17341beb
-ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
+ms.openlocfilehash: 8ef55b92c45aa07113fd4601a3c7464b42125623
+ms.sourcegitcommit: 6318d2bdd63116e178c34492a904be85ec9ac108
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82111068"
+ms.lasthandoff: 04/30/2020
+ms.locfileid: "82604763"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET Core Blazor
 
@@ -36,7 +36,7 @@ Pokud chcete začít používat Blazor, postupujte podle pokynů pro výběr ná
 1. Nainstalujte šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) Preview spuštěním následujícího příkazu:
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-rc1.20223.4
    ```
 
 1. Vytvoření nového projektu
@@ -56,7 +56,7 @@ Pokud chcete začít používat Blazor, postupujte podle pokynů pro výběr ná
 1. Volitelně můžete nainstalovat šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) Preview spuštěním následujícího příkazu:
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-rc1.20223.4
    ```
 
    > [!NOTE]
@@ -98,19 +98,19 @@ Blazor Server je podporován v Visual Studio pro Mac. WebAssembly Blazor se v tu
 
 1. Vyberte **soubor** > **nové řešení** nebo vytvořte **Nový projekt**.
 
-1. Na bočním panelu vyberte**aplikace** **.NET Core** > .
+1. Na bočním panelu vyberte **Webová a konzolová** > **aplikace**.
 
-1. Vyberte šablonu **aplikace Blazor serveru** . Vyberte **Vytvořit**.
+1. Vyberte šablonu **aplikace Blazor serveru** . Vyberte **Další**.
 
    Informace o modelu hostování serveru Blazor naleznete v tématu <xref:blazor/hosting-models>.
 
-1. Nastavte **cílovou architekturu** na **.NET Core 3,1** a vyberte **Další**.
+1. Potvrďte, že je **Cílová architektura** nastavená na **.NET Core 3,1** , a vyberte **Další**.
 
 1. Do pole **název projektu** název aplikace `WebApplication1`. Vyberte **Vytvořit**.
 
-1. Chcete-li spustit aplikaci *bez ladicího programu*, vyberte možnost **Spustit** > **běh bez ladění** . Spusťte aplikaci s použitím **Spustit ladění** a spusťte aplikaci *pomocí ladicího programu*.
+1. Chcete-li spustit aplikaci *bez ladicího programu*, vyberte možnost **Spustit** > **běh bez ladění** . Spusťte aplikaci pomocí tlačítka **Spustit ladění** nebo spustit (&#9654;) a spusťte aplikaci *pomocí ladicího programu*.
 
-Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřujete certifikátu a pokračujte.
+Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřujete certifikátu a pokračujte. Certifikát uživatele a řetězce klíčů je nutný k důvěřování certifikátu.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
 
@@ -119,7 +119,7 @@ Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřu
 1. Volitelně můžete nainstalovat šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) Preview spuštěním následujícího příkazu:
 
    ```dotnetcli
-   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
+   dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-rc1.20223.4
    ```
 
    > [!NOTE]

@@ -1,42 +1,42 @@
 ---
-title: Konfigurace propojovacího programu pro ASP.NET jádraBlazor
+title: Konfigurace linkeru pro ASP.NET CoreBlazor
 author: guardrex
-description: Přečtěte si, jak řídit propojovací Blazor linku mezilehlého jazyka (IL) při vytváření aplikace.
+description: Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/23/2020
+ms.date: 04/29/2020
 no-loc:
 - Blazor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 109da5ef400c3b9d64ccf3ceb33a5387ea6b5618
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 94cf1f09ddff47aa41181e9f5c52b4c65dc2ecf1
+ms.sourcegitcommit: 6318d2bdd63116e178c34492a904be85ec9ac108
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80218658"
+ms.lasthandoff: 04/30/2020
+ms.locfileid: "82604776"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Blazor WebAssembly provádí [propojení mezijazyk (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení k oříznutí zbytečné IL z výstupních sestavení aplikace. Propojovací systém je zakázán při vytváření konfigurace ladění. Aplikace musí být v konfiguraci vydání, aby bylo možné propojovat linker. Při nasazování aplikací Blazor WebAssembly doporučujeme vytvářet ve verzi. 
+Blazor WebAssembly provádí propojování [Intermediate Language (IL)](/dotnet/standard/managed-code#intermediate-language--execution) během sestavení za účelem oříznutí zbytečných Il z výstupních sestavení aplikace. Linker je při sestavování konfigurace ladění zakázán. Aby bylo možné linker povolit, musí aplikace sestavit v konfiguraci vydání. Při nasazování aplikací Blazor WebAssembly doporučujeme sestavovat v vydaných verzích. 
 
-Propojení aplikace optimalizuje velikost, ale může mít škodlivé účinky. Aplikace, které používají reflexe nebo související dynamické funkce může přerušit při oříznutí, protože propojovací služba neví o tomto dynamickém chování a nemůže obecně určit, které typy jsou požadovány pro reflexi za běhu. Chcete-li tyto aplikace oříznout, propojovací program musí být informován o všech typech vyžadovaných reflexí v kódu a v balíčcích nebo architekturách, na kterých aplikace závisí. 
+Propojení aplikace se optimalizuje pro velikost, ale může mít škodlivé účinky. Aplikace, které používají reflexi nebo související dynamické funkce, mohou být při oříznutí přerušeny, protože linker neví o tomto dynamickém chování a nemůže určit obecně, které typy jsou požadovány pro reflexi za běhu. Aby bylo možné tyto aplikace oříznout, musí být linker informován o jakýchkoli typech vyžadovaných odrazem v kódu a v balíčcích nebo architekturách, na kterých aplikace závisí. 
 
-Chcete-li zajistit, aby oříznutá aplikace fungovala správně po nasazení, je důležité testovat sestavení aplikace release často při vývoji.
+Aby se zajistilo, že bude aplikace po nasazení správně fungovat, je důležité otestovat sestavení vydaných verzí aplikace často během vývoje.
 
-Propojení pro aplikace Blazor lze konfigurovat pomocí těchto funkcí MSBuild:
+Odkazy na aplikace Blazor se dají konfigurovat pomocí těchto funkcí MSBuild:
 
-* Nakonfigurujte globální propojení s [vlastností MSBuild](#control-linking-with-an-msbuild-property).
-* Řízení propojení pro jedno sestavení s [konfiguračním souborem](#control-linking-with-a-configuration-file).
+* Nakonfigurujte globálně propojení s [vlastností MSBuild](#control-linking-with-an-msbuild-property).
+* Řízení propojení podle jednotlivých sestavení pomocí [konfiguračního souboru](#control-linking-with-a-configuration-file).
 
-## <a name="control-linking-with-an-msbuild-property"></a>Řízení propojení s vlastností MSBuild
+## <a name="control-linking-with-an-msbuild-property"></a>Řízení propojení pomocí vlastnosti MSBuild
 
-Propojení je povoleno, když `Release` je aplikace postavena v konfiguraci. Chcete-li to `BlazorWebAssemblyEnableLinking` změnit, nakonfigurujte vlastnost MSBuild v souboru projektu:
+Propojení je povoleno, pokud je aplikace integrována `Release` v konfiguraci. Chcete-li toto nastavení změnit `BlazorWebAssemblyEnableLinking` , nakonfigurujte vlastnost MSBuild v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -44,9 +44,9 @@ Propojení je povoleno, když `Release` je aplikace postavena v konfiguraci. Chc
 </PropertyGroup>
 ```
 
-## <a name="control-linking-with-a-configuration-file"></a>Ovládání propojení s konfiguračním souborem
+## <a name="control-linking-with-a-configuration-file"></a>Řízení propojování pomocí konfiguračního souboru
 
-Zadejte propojení na základě sestavení poskytnutím konfiguračního souboru XML a zadáním souboru jako položky MSBuild v souboru projektu:
+Řízení propojení na základě sestavení zadáním konfiguračního souboru XML a zadáním souboru jako položky MSBuild v souboru projektu:
 
 ```xml
 <ItemGroup>
@@ -54,7 +54,7 @@ Zadejte propojení na základě sestavení poskytnutím konfiguračního souboru
 </ItemGroup>
 ```
 
-*LinkerConfig.xml*:
+*LinkerConfig. XML*:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -86,13 +86,13 @@ Zadejte propojení na základě sestavení poskytnutím konfiguračního souboru
 </linker>
 ```
 
-Další informace naleznete [v tématu Link xml file examples (mono/linker GitHub repository)](https://github.com/mono/linker#link-xml-file-examples).
+Další informace naleznete v tématu [Příklady souborů XML odkazů (úložiště GitHub mono/Linker)](https://github.com/mono/linker#link-xml-file-examples).
 
 ## <a name="add-an-xml-linker-configuration-file-to-a-library"></a>Přidání konfiguračního souboru linkeru XML do knihovny
 
-Chcete-li nakonfigurovat propojovací síť pro určitou knihovnu, přidejte do knihovny jako vložený prostředek konfigurační soubor linkeru XML. Vložený prostředek musí mít stejný název jako sestavení.
+Chcete-li nakonfigurovat linker pro konkrétní knihovnu, přidejte konfigurační soubor linkeru XML do knihovny jako vložený prostředek. Vložený prostředek musí mít stejný název jako sestavení.
 
-V následujícím příkladu je soubor *LinkerConfig.xml* určen jako vložený prostředek, který má stejný název jako sestavení knihovny:
+V následujícím příkladu je soubor *LinkerConfig. XML* zadán jako vložený prostředek, který má stejný název jako sestavení knihovny:
 
 ```xml
 <ItemGroup>
@@ -102,28 +102,28 @@ V následujícím příkladu je soubor *LinkerConfig.xml* určen jako vložený 
 </ItemGroup>
 ```
 
-### <a name="configure-the-linker-for-internationalization"></a>Konfigurace propojovacího programu pro internacionalizaci
+### <a name="configure-the-linker-for-internationalization"></a>Konfigurace linkeru pro mezinárodní využití
 
-Ve výchozím nastavení blazorje propojovací zařízení konfigurace pro aplikace Blazor WebAssembly strips out internacionalizace informace s výjimkou národních prostředí výslovně požadováno. Odebrání těchto sestavení minimalizuje velikost aplikace.
+Ve výchozím nastavení konfigurace linkeru Blazor pro aplikace Blazor WebAssembly vyřadí informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Odebrání těchto sestavení minimalizuje velikost aplikace.
 
-Chcete-li určit, která sestavení I18N `<MonoLinkerI18NAssemblies>` budou zachována, nastavte vlastnost MSBuild v souboru projektu:
+Chcete-li určit, která sestavení I18N jsou zachována, nastavte vlastnost `<BlazorWebAssemblyI18NAssemblies>` MSBuild v souboru projektu:
 
 ```xml
 <PropertyGroup>
-  <MonoLinkerI18NAssemblies>{all|none|REGION1,REGION2,...}</MonoLinkerI18NAssemblies>
+  <BlazorWebAssemblyI18NAssemblies>{all|none|REGION1,REGION2,...}</BlazorWebAssemblyI18NAssemblies>
 </PropertyGroup>
 ```
 
-| Hodnota oblasti     | Sestavení mono oblasti    |
+| Hodnota oblasti     | Sestavení oblasti mono    |
 | ---------------- | ----------------------- |
-| `all`            | Všechny sestavy zahrnuty |
+| `all`            | Všechna sestavení, která jsou součástí |
 | `cjk`            | *I18N.CJK.dll*          |
 | `mideast`        | *I18N.MidEast.dll*      |
-| `none`(výchozí) | Žádný                    |
+| `none`výchozí | Žádná                    |
 | `other`          | *I18N.Other.dll*        |
 | `rare`           | *I18N.Rare.dll*         |
 | `west`           | *I18N.West.dll*         |
 
-Čárkou oddělte více hodnot `mideast,west`(například).
+Oddělte více hodnot pomocí čárky (například `mideast,west`).
 
-Další informace naleznete v tématu [I18N: Pnetlib Internationalization Framework Library (mono/mono GitHub repository)](https://github.com/mono/mono/tree/master/mcs/class/I18N).
+Další informace najdete v tématu [i18n: knihovna rozhraní Pnetlib pro mezinárodní navýšení (mono/mono úložiště GitHub)](https://github.com/mono/mono/tree/master/mcs/class/I18N).

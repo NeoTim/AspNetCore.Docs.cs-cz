@@ -5,17 +5,17 @@ description: Vytvořte aplikaci Chat, která používá ASP.NET Core SignalR s B
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/23/2020
+ms.date: 04/30/2020
 no-loc:
 - Blazor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 78c5fbb8b91b934bcb34525672e9e26b6a95290e
-ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
+ms.openlocfilehash: e86047c9a830cd3ea906d0798f61d90eaee5a18c
+ms.sourcegitcommit: 6318d2bdd63116e178c34492a904be85ec9ac108
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82111146"
+ms.lasthandoff: 04/30/2020
+ms.locfileid: "82604828"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET Coreového signálu s Blazor WebAssembly
 
@@ -36,7 +36,7 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/signalr-blazor-webassembly/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Požadované součásti
+## <a name="prerequisites"></a>Požadavky
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -61,7 +61,7 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 Pokud nepoužíváte Visual Studio verze 16,6 Preview 2 nebo novější, nainstalujte šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) . Balíček [Microsoft. AspNetCore. Components. WebAssembly. Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Templates/) obsahuje verzi Preview, zatímco Blazor WebAssembly je ve verzi Preview. V příkazovém prostředí spusťte následující příkaz:
 
 ```dotnetcli
-dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-preview5.20216.8
+dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-rc1.20223.4
 ```
 
 Postupujte podle pokynů pro výběr nástrojů:

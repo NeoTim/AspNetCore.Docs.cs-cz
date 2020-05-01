@@ -5,14 +5,14 @@ description: Naučte se, jak generovat identitu uživatelského rozhraní v proj
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2020
+ms.date: 5/1/2020
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: b3e077aeac11e62d9e992884100476f7be35b59a
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ac95035b114274ddaa6ccb0b5b6e3da98885e39e
+ms.sourcegitcommit: 6318d2bdd63116e178c34492a904be85ec9ac108
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78663868"
+ms.lasthandoff: 04/30/2020
+ms.locfileid: "82604724"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>Identita uživatelského rozhraní v ASP.NET Corech projektech
 
@@ -30,13 +30,25 @@ Doporučujeme používat systém správy zdrojového kódu, který zobrazuje roz
 
 Služby jsou vyžadovány při použití [dvou ověření](xref:security/authentication/identity-enable-qrcodes), [potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm)a dalších funkcí zabezpečení s identitou. Služby nebo zástupné procedury služby nejsou generovány při generování uživatelského rozhraní. Služby, které umožňují tyto funkce povolit, je nutné přidat ručně. Podívejte se například na příkaz [vyžadovat potvrzení e-mailu](xref:security/authentication/accconfirm#require-email-confirmation).
 
-Tento dokument obsahuje podrobnější pokyny než soubor *ScaffoldingReadme. txt* , který je generován při spuštění lešení.
+Při generování identity s novým kontextem dat do projektu se stávajícími jednotlivými účty:
+
+* V `Startup.ConfigureServices`nástroji odeberte volání na:
+  * `AddDbContext`
+  * `AddDefaultIdentity`
+
+Například `AddDbContext` a `AddDefaultIdentity` jsou zakomentovány v následujícím kódu:
+
+[!code-csharp[](scaffold-identity/3.1sample/StartupRemove.cs?name=snippet)]
+
+Předchozí kód oddělí kód, který je duplikován v *oblasti/identity/IdentityHostingStartup. cs.*
+
+Aplikace, které byly vytvořeny pomocí jednotlivých účtů ***, by obvykle neměly vytvářet*** nový kontext dat.
 
 ## <a name="scaffold-identity-into-an-empty-project"></a>Identita uživatelského rozhraní do prázdného projektu
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Aktualizujte třídu `Startup` podobným kódem jako následující:
+Aktualizujte `Startup` třídu podobným kódem jako v následujícím příkladu:
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupMVC.cs?name=snippet)]
 
@@ -85,7 +97,7 @@ Identita je nakonfigurovaná v *oblasti/identity/IdentityHostingStartup. cs*. Da
 
 ### <a name="enable-authentication"></a>Povolit ověřování
 
-Aktualizujte třídu `Startup` podobným kódem jako následující:
+Aktualizujte `Startup` třídu podobným kódem jako v následujícím příkladu:
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupRP.cs?name=snippet)]
 
@@ -131,7 +143,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Volitelné: do souboru *views/Shared/_Layout. cshtml* Přidejte částečnou přihlašování (`_LoginPartial`):
+Volitelné: přidejte částečné přihlášení (`_LoginPartial`) do souboru *views/shared/_Layout. cshtml* :
 
 [!code-html[Main](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
@@ -141,7 +153,7 @@ Identita je nakonfigurovaná v *oblasti/identity/IdentityHostingStartup. cs*. Da
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
-Aktualizujte třídu `Startup` podobným kódem jako následující:
+Aktualizujte `Startup` třídu podobným kódem jako v následujícím příkladu:
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupMVC.cs?name=snippet)]
 
@@ -177,7 +189,7 @@ Následující kód nastaví [LoginPath](/dotnet/api/microsoft.aspnetcore.authen
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet3)]
 
-Zaregistrujte implementaci `IEmailSender`, například:
+Zaregistrujte `IEmailSender` implementaci, například:
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet4)]
 
@@ -222,7 +234,7 @@ Zakázání registrace uživatele:
 * Aktualizuje stránku *oblasti/identita/stránky/účet/RegisterConfirmation* .
 
   * Odeberte kód a odkazy ze souboru CSHTML.
-  * Odeberte potvrzovací kód z `PageModel`:
+  * Odstraňte potvrzovací kód z `PageModel`:
 
   ```csharp
    [AllowAnonymous]
@@ -259,9 +271,9 @@ Podobný přístup je možné vyřídit v produkčních scénářích.
 
 ## <a name="prevent-publish-of-static-identity-assets"></a>Zabránit publikování prostředků statické identity
 
-Pokud chcete zabránit publikování prostředků statických identit do kořenového adresáře webu, přečtěte si téma <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>.
+Chcete-li zabránit publikování statických prostředků identity do kořenového <xref:security/authentication/identity#prevent-publish-of-static-identity-assets>adresáře webu, přečtěte si téma.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Změny ověřovacího kódu na ASP.NET Core 2,1 a novější](xref:migration/20_21#changes-to-authentication-code)
 
@@ -286,7 +298,7 @@ Doporučujeme používat systém správy zdrojového kódu, který zobrazuje roz
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Přidejte následující zvýrazněná volání do třídy `Startup`:
+Do `Startup` třídy přidejte následující zvýrazněná volání:
 
 [!code-csharp[](scaffold-identity/sample/StartupEmpty.cs?name=snippet1&highlight=5,20-23)]
 
@@ -327,7 +339,7 @@ Identita je nakonfigurovaná v *oblasti/identity/IdentityHostingStartup. cs*. Da
 
 ### <a name="enable-authentication"></a>Povolit ověřování
 
-V metodě `Configure` třídy `Startup` volejte [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) po `UseStaticFiles`:
+V `Configure` metodě `Startup` třídy volejte [UseAuthentication](/dotnet/api/microsoft.aspnetcore.builder.authappbuilderextensions.useauthentication?view=aspnetcore-2.0#Microsoft_AspNetCore_Builder_AuthAppBuilderExtensions_UseAuthentication_Microsoft_AspNetCore_Builder_IApplicationBuilder_) po `UseStaticFiles`:
 
 [!code-csharp[](scaffold-identity/sample/StartupRPnoAuth.cs?name=snippet1&highlight=29)]
 
@@ -373,7 +385,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Volitelné: do souboru *views/Shared/_Layout. cshtml* Přidejte částečnou přihlašování (`_LoginPartial`):
+Volitelné: přidejte částečné přihlášení (`_LoginPartial`) do souboru *views/shared/_Layout. cshtml* :
 
 [!code-html[](scaffold-identity/sample/_LayoutMvc.cshtml?highlight=37)]
 
@@ -421,7 +433,7 @@ Následující kód nastaví [LoginPath](/dotnet/api/microsoft.aspnetcore.authen
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet3)]
 
-Zaregistrujte implementaci `IEmailSender`, například:
+Zaregistrujte `IEmailSender` implementaci, například:
 
 [!code-csharp[](scaffold-identity/sample/StartupFull.cs?name=snippet4)]
 
@@ -466,7 +478,7 @@ Zakázání registrace uživatele:
 * Aktualizuje stránku *oblasti/identita/stránky/účet/RegisterConfirmation* .
 
   * Odeberte kód a odkazy ze souboru CSHTML.
-  * Odeberte potvrzovací kód z `PageModel`:
+  * Odstraňte potvrzovací kód z `PageModel`:
 
   ```csharp
    [AllowAnonymous]
@@ -501,7 +513,7 @@ Následující osnovy kódu přidávají uživatele:
 
 Podobný přístup je možné vyřídit v produkčních scénářích.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Změny ověřovacího kódu na ASP.NET Core 2,1 a novější](xref:migration/20_21#changes-to-authentication-code)
 
