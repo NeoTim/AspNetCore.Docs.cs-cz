@@ -5,6 +5,8 @@
     - name: 2020
       expanded: true
       items:
+        - name: Duben
+          href: 2020-04.md
         - name: Březen
           href: 2020-03.md
         - name: Únor
@@ -18,5 +20,3 @@
           href: 2019-12.md
         - name: Listopad
           href: 2019-11.md
-        - name: Říjen
-          href: 2019-10.md
