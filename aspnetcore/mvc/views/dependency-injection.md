@@ -4,13 +4,19 @@ author: ardalis
 description: Přečtěte si, jak ASP.NET Core podporuje vkládání závislostí do zobrazení MVC.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: 6241bb8e262f64e2e30721bc5fe6f8f1be84b60d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: aee4152bed50576f087862142e7ce9f261c7da19
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78656098"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775450"
 ---
 # <a name="dependency-injection-into-views-in-aspnet-core"></a>Vkládání závislostí do zobrazení v ASP.NET Core
 
@@ -36,7 +42,7 @@ Příklad souboru *appSettings. JSON* :
 }
 ```
 
-Syntaxe pro `@inject`: `@inject <type> <name>`
+Syntaxe pro `@inject`:`@inject <type> <name>`
 
 Příklad použití `@inject`:
 
@@ -51,15 +57,15 @@ Příklad použití `@inject`:
 
 ## <a name="service-injection"></a>Vložení služby
 
-Službu lze vložit do zobrazení pomocí direktivy `@inject`. Můžete si představit `@inject` jako přidání vlastnosti do zobrazení a naplnění vlastnosti pomocí DI.
+Službu lze vložit do zobrazení pomocí `@inject` direktivy. Můžete si představit `@inject` jako přidání vlastnosti do zobrazení a naplnění vlastnosti pomocí di.
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/ToDo/Index.cshtml?highlight=4,5,15,16,17)]
 
-Toto zobrazení obsahuje seznam instancí `ToDoItem` spolu se souhrnem znázorňujícím celkové statistiky. Shrnutí se vyplní ze vložených `StatisticsService`. Tato služba je zaregistrovaná pro vkládání závislostí v `ConfigureServices` v *Startup.cs*:
+Toto zobrazení obsahuje seznam `ToDoItem` instancí spolu se souhrnem znázorňujícím celkovou statistiku. Shrnutí se vyplní ze vložených `StatisticsService`. Tato služba je zaregistrovaná pro vkládání `ConfigureServices` závislostí v v *Startup.cs*:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Startup.cs?highlight=6,7&range=15-22)]
 
-`StatisticsService` provádí některé výpočty se sadou `ToDoItem` instancí, ke kterým přistupuje prostřednictvím úložiště:
+`StatisticsService` Provede některé výpočty se sadou `ToDoItem` instancí, ke kterým přistupuje prostřednictvím úložiště:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Model/Services/StatisticsService.cs?highlight=15,20,25)]
 
@@ -71,7 +77,7 @@ Ukázka zobrazuje data z modelu svázaného se zobrazením a služba je vložena
 
 ## <a name="populating-lookup-data"></a>Naplnění dat vyhledávání
 
-Injektáže zobrazení může být užitečné k naplnění možností v prvcích uživatelského rozhraní, jako jsou rozevírací seznamy. Vezměte v úvahu formulář profilu uživatele, který obsahuje možnosti pro určení rovnosti, stavu a dalších předvoleb. Vykreslení takového formuláře pomocí přístupu ke standardní MVC by vyžadovalo, aby kontroler požadoval služby Data Access pro každou z těchto sad možností a pak naplnil model nebo `ViewBag` s každou sadou možností, které mají být vázány.
+Injektáže zobrazení může být užitečné k naplnění možností v prvcích uživatelského rozhraní, jako jsou rozevírací seznamy. Vezměte v úvahu formulář profilu uživatele, který obsahuje možnosti pro určení rovnosti, stavu a dalších předvoleb. Vykreslení takového formuláře pomocí přístupu ke standardní MVC by vyžadovalo, aby kontroler požadoval služby Data Access pro každou z těchto sad možností a pak naplnil model nebo `ViewBag` každou sadu možností, které se mají svázat.
 
 Alternativní metoda přímo vloží služby do zobrazení a získá možnosti. Tím se minimalizuje množství kódu, který vyžaduje kontroler, přesunutím této logiky konstrukce zobrazení do samotného zobrazení. Akce kontroleru pro zobrazení formuláře pro úpravy profilu musí předat pouze formulář instance profilu:
 
@@ -85,12 +91,12 @@ Tyto seznamy jsou vyplněny službou, která byla vložena do zobrazení:
 
 [!code-cshtml[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/Profile/Index.cshtml?highlight=4,16,17,21,22,26,27)]
 
-`ProfileOptionsService` je služba na úrovni uživatelského rozhraní navržená tak, aby poskytovala pouze data potřebná pro tento formulář:
+Je `ProfileOptionsService` služba na úrovni uživatelského rozhraní navržená tak, aby poskytovala pouze data potřebná pro tento formulář:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Model/Services/ProfileOptionsService.cs?highlight=7,13,24)]
 
 > [!IMPORTANT]
-> Nezapomeňte zaregistrovat typy, které požadujete, pomocí vkládání závislostí v `Startup.ConfigureServices`. Neregistrovaný typ vyvolá výjimku za běhu, protože poskytovatel služby je interně dotazován prostřednictvím [GetRequiredService](/dotnet/api/microsoft.extensions.dependencyinjection.serviceproviderserviceextensions.getrequiredservice).
+> Nezapomeňte zaregistrovat typy, které požadujete, prostřednictvím injektáže závislosti `Startup.ConfigureServices`v. Neregistrovaný typ vyvolá výjimku za běhu, protože poskytovatel služby je interně dotazován prostřednictvím [GetRequiredService](/dotnet/api/microsoft.extensions.dependencyinjection.serviceproviderserviceextensions.getrequiredservice).
 
 ## <a name="overriding-services"></a>Přepsání služeb
 
@@ -98,7 +104,7 @@ Kromě vkládání nových služeb se tato technika dá také použít k přeps�
 
 ![Kontextová nabídka technologie IntelliSense na typovaném typu @ symbol seznam polí HTML, Component, StatsService a URL](dependency-injection/_static/razor-fields.png)
 
-Jak vidíte, výchozí pole zahrnují `Html`, `Component`a `Url` (a také `StatsService`, které jsme vložili). Pokud byste chtěli například nahradit výchozí pomocníky HTML vlastními, můžete to snadno použít `@inject`:
+Jak vidíte, výchozí pole `Html`zahrnují, `Component`a (a `Url` také `StatsService` vložené). Pokud byste chtěli například nahradit výchozí pomocníky HTML vlastními, můžete to snadno použít `@inject`:
 
 [!code-cshtml[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/Helper/Index.cshtml?highlight=3,11)]
 

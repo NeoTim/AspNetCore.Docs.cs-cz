@@ -4,13 +4,19 @@ author: rick-anderson
 description: Schémata zásad ověřování usnadňují jedno logické schéma ověřování.
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/policyschemes
-ms.openlocfilehash: f02d8e5cac20a9b60c5eddbd28253efacf682ea1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: ddedf62c5e8363bd93c9948fd2d3418abc566539
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660732"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767314"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>Schémata zásad v ASP.NET Core
 
@@ -19,7 +25,7 @@ Schémata zásad ověřování usnadňují použití jediného logického schém
 * Snadné přeposílání jakékoli akce ověřování do jiného schématu.
 * Dynamické směrování na základě požadavku.
 
-Všechna schémata ověřování, která používají odvozený <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> a související [AuthenticationHandler\<TOptions >](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
+Všechna schémata ověřování, která používají <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> odvozená a přidružená [\<AuthenticationHandler TOptions>](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
 
 * Jsou automatická schémata zásad v ASP.NET Core 2,1 a novějších.
 * Dá se povolit prostřednictvím konfigurace možností schématu.

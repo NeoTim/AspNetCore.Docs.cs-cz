@@ -1,55 +1,61 @@
 ---
-title: Nasazení aplikace do služby App Service – DevOps s ASP.NET core a Azure
+title: Nasazení aplikace pro App Service DevOps s využitím ASP.NET Core a Azure
 author: CamSoper
-description: Nasazení aplikace ASP.NET Core do služby Azure App Service, což je první krok pro DevOps s ASP.NET Core a Azure.
+description: Nasaďte aplikaci ASP.NET Core do Azure App Service, což je první krok pro DevOps s ASP.NET Core a Azure.
 ms.author: casoper
 ms.custom: mvc, seodec18
 ms.date: 10/24/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: d7ee3e42d320d35c2aaff6e097203c45289ec5b1
-ms.sourcegitcommit: fbdb8b9ab5a52656384b117ff6e7c92ae070813c
+ms.openlocfilehash: 811b6d047e344fa98ce14f436d3cd8f03c786aff
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/13/2020
-ms.locfileid: "81228124"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767028"
 ---
-# <a name="deploy-an-app-to-app-service"></a>Nasazení aplikace do služby App Service
+# <a name="deploy-an-app-to-app-service"></a>Nasazení aplikace pro App Service
 
-[Azure App Service](/azure/app-service/) je webhostingová platforma Azure. Nasazení webové aplikace do služby Azure App Service lze provést ručně nebo automatizovaným procesem. Tato část příručky popisuje metody nasazení, které lze aktivovat ručně nebo skriptem pomocí příkazového řádku nebo se aktivují ručně pomocí sady Visual Studio.
+[Azure App Service](/azure/app-service/) platforma pro hostování webů v Azure. Nasazení webové aplikace do Azure App Service lze provést ručně nebo pomocí automatizovaného procesu. Tato část příručky popisuje metody nasazení, které lze aktivovat ručně nebo pomocí skriptu pomocí příkazového řádku nebo aktivované ručně pomocí sady Visual Studio.
 
-V této části budete provádět následující úkoly:
+V této části budete provádět následující úlohy:
 
-* Stáhněte a sestavte ukázkovou aplikaci.
-* Vytvořte webovou aplikaci služby Azure App Service pomocí Azure Cloud Shell.
+* Stáhněte si a sestavte ukázkovou aplikaci.
+* Vytvořte Azure App Service webové aplikace pomocí Azure Cloud Shell.
 * Nasaďte ukázkovou aplikaci do Azure pomocí Gitu.
-* Nasaďte změnu do aplikace pomocí Visual Studia.
-* Přidejte pracovní slot do webové aplikace.
-* Nasaďte aktualizaci do pracovního slotu.
+* Nasaďte do aplikace změnu pomocí sady Visual Studio.
+* Přidejte do webové aplikace pracovní slot.
+* Nasaďte aktualizaci do přípravného slotu.
 * Prohoďte přípravný a produkční slot.
 
-## <a name="download-and-test-the-app"></a>Stažení a testování aplikace
+## <a name="download-and-test-the-app"></a>Stažení a otestování aplikace
 
-Aplikace použitá v této příručce je předem vytvořená aplikace ASP.NET Core, [Simple Feed Reader](https://github.com/Azure-Samples/simple-feed-reader/). Je to aplikace Razor Pages, `Microsoft.SyndicationFeed.ReaderWriter` která používá rozhraní API k načtení informačního kanálu RSS/Atom a zobrazení novinek v seznamu.
+Aplikace použitá v tomto průvodci je předem vytvořená aplikace ASP.NET Core, [Jednoduchá čtečka kanálů](https://github.com/Azure-Samples/simple-feed-reader/). Jedná se o Razor stránku aplikace, která používá `Microsoft.SyndicationFeed.ReaderWriter` rozhraní API k načtení informačního kanálu RSS/Atom a zobrazení položek zpráv v seznamu.
 
-Nebojte se přečíst kód, ale je důležité si uvědomit, že na této aplikaci není nic zvláštního. Je to jen jednoduchá aplikace ASP.NET Core pro ilustrační účely.
+Tento kód si můžete prohlédnout, ale je důležité pochopit, že tato aplikace nemá nic zvláštní. Je to jenom jednoduchá ASP.NET Core aplikace pro ilustrativní účely.
 
-Z příkazového prostředí stáhněte kód, vytvořte projekt a spusťte jej následujícím způsobem.
+Z příkazového prostředí Stáhněte kód, sestavte projekt a spusťte jej následujícím způsobem.
 
-> *Poznámka: Uživatelé Linuxu/macOS by měli provést příslušné změny pro`/`cesty, například`\`pomocí lomítka ( ) spíše než zpětný lomítko ( ).*
+> *Poznámka: uživatelé systému Linux/macOS by měli provádět vhodné změny cest, např. pomocí lomítka (`/`) místo zpětného lomítka`\`().*
 
-1. Klonujte kód do složky v místním počítači.
+1. Naklonujte kód do složky na místním počítači.
 
     ```console
     git clone https://github.com/Azure-Samples/simple-feed-reader/
     ```
 
-2. Změňte pracovní složku na složku *s jednoduchou čtečkou,* která byla vytvořena.
+2. Změňte pracovní složku na vytvořenou složku s *jednoduchým kanálem pro čtení* .
 
     ```console
     cd .\simple-feed-reader\SimpleFeedReader
     ```
 
-3. Obnovte balíčky a vytvořte řešení.
+3. Obnovte balíčky a sestavte řešení.
 
     ```dotnetcli
     dotnet build
@@ -61,67 +67,67 @@ Z příkazového prostředí stáhněte kód, vytvořte projekt a spusťte jej n
     dotnet run
     ```
 
-    ![Příkaz dotnet run je úspěšný.](./media/deploying-to-app-service/dotnet-run.png)
+    ![Příkaz dotnet Run je úspěšný.](./media/deploying-to-app-service/dotnet-run.png)
 
-5. Otevřete prohlížeč a přejděte na adresu `http://localhost:5000`. Aplikace umožňuje zadat nebo vložit adresu URL zdroje syndikace a zobrazit seznam diskusních příspěvků.
+5. Otevřete prohlížeč a přejděte na adresu `http://localhost:5000`. Aplikace umožňuje zadat nebo vložit adresu URL informačního kanálu syndikace a zobrazit seznam položek zpráv.
 
-     ![Aplikace zobrazující obsah informačního kanálu RSS](./media/deploying-to-app-service/app-in-browser.png)
+     ![Aplikace, která zobrazuje obsah informačního kanálu RSS](./media/deploying-to-app-service/app-in-browser.png)
 
-6. Jakmile jste spokojeni, že aplikace funguje správně, vypněte ji stisknutím **ctrl**+**c** v příkazovém prostředí.
+6. Jakmile budete spokojeni s tím, že aplikace funguje správně, vypněte ji stisknutím **kombinace kláves CTRL +**+**C** v příkazovém prostředí.
 
-## <a name="create-the-azure-app-service-web-app"></a>Vytvoření webové aplikace Služby aplikací Azure
+## <a name="create-the-azure-app-service-web-app"></a>Vytvoření webové aplikace v Azure App Service
 
-Chcete-li aplikaci nasadit, budete muset vytvořit [webovou aplikaci](/azure/app-service/app-service-web-overview)služby App Service . Po vytvoření webové aplikace se do ní nasadíte z místního počítače pomocí Gitu.
+K nasazení aplikace budete muset vytvořit [webovou aplikaci](/azure/app-service/app-service-web-overview)App Service. Po vytvoření webové aplikace ji nasadíte z místního počítače pomocí Gitu.
 
-1. Přihlaste se do [prostředí Azure Cloud Shell](https://shell.azure.com/bash). Poznámka: Při prvním přihlášení cloudové prostředí vyzve k vytvoření účtu úložiště pro konfigurační soubory. Přijměte výchozí hodnoty nebo zadejte jedinečný název.
+1. Přihlaste se k [Azure Cloud Shell](https://shell.azure.com/bash). Poznámka: když se poprvé přihlásíte, Cloud Shell se zobrazí výzva k vytvoření účtu úložiště pro konfigurační soubory. Přijměte výchozí hodnoty nebo zadejte jedinečný název.
 
-2. Pro následující kroky použijte prostředí Cloud Shell.
+2. Následující postup použijte Cloud Shell.
 
-    a. Deklarujte proměnnou pro uložení názvu webové aplikace. Název musí být jedinečný, aby mohl být použit ve výchozí adrese URL. Použití `$RANDOM` Bash funkce k vytvoření názvu zaručuje jedinečnost `webappname99999`a výsledky ve formátu .
+    a. Deklarujte proměnnou pro uložení názvu vaší webové aplikace. Název musí být jedinečný, aby bylo možné použít výchozí adresu URL. Použití funkce `$RANDOM` bash k vytvoření názvu garantuje jedinečnost a výsledky ve formátu `webappname99999`.
 
     ```console
     webappname=mywebapp$RANDOM
     ```
 
-    b. Vytvořte skupinu prostředků. Skupiny prostředků poskytují prostředky k agregaci prostředků Azure, které mají být spravovány jako skupina.
+    b. Vytvořte skupinu prostředků. Skupiny prostředků poskytují prostředky pro agregaci prostředků Azure, které se mají spravovat jako skupina.
 
     ```azurecli
     az group create --location centralus --name AzureTutorial
     ```
 
-    Příkaz `az` vyvolá [příkaz cli Azure](/cli/azure/). ClI lze spustit místně, ale jeho použití v prostředí Cloud Šetří čas a konfiguraci.
+    `az` Příkaz VYVOLÁ [Azure CLI](/cli/azure/). Rozhraní příkazového řádku lze spustit místně, ale jeho použití v Cloud Shell šetří čas a konfiguraci.
 
-    c. Vytvořte plán služby App Service ve vrstvě S1. Plán služby App Service je seskupení webových aplikací, které sdílejí stejnou cenovou úroveň. Úroveň S1 není zdarma, ale je vyžadována pro funkci pracovních slotů.
+    c. Vytvořte plán App Service v úrovni S1. Plán App Service je seskupení webových aplikací, které sdílejí stejnou cenovou úroveň. Vrstva S1 není volná, ale vyžaduje se pro funkci přípravného slotu.
 
     ```azurecli
     az appservice plan create --name $webappname --resource-group AzureTutorial --sku S1
     ```
 
-    d. Vytvořte prostředek webové aplikace pomocí plánu služby App Service ve stejné skupině prostředků.
+    d. Vytvořte prostředek webové aplikace pomocí App Serviceho plánu ve stejné skupině prostředků.
 
     ```azurecli
     az webapp create --name $webappname --resource-group AzureTutorial --plan $webappname
     ```
 
-    e. Nastavte přihlašovací údaje nasazení. Tato pověření nasazení platí pro všechny webové aplikace ve vašem předplatném. V uživatelském jménu nepoužívejte speciální znaky.
+    e. Nastavte přihlašovací údaje pro nasazení. Tyto přihlašovací údaje pro nasazení platí pro všechny webové aplikace v rámci vašeho předplatného. V uživatelském jméně Nepoužívejte speciální znaky.
 
     ```azurecli
     az webapp deployment user set --user-name REPLACE_WITH_USER_NAME --password REPLACE_WITH_PASSWORD
     ```
 
-    f. Nakonfigurujte webovou aplikaci tak, aby přijímala nasazení z místního Gitu a zobrazovala *adresu URL nasazení Gitu*. **Poznámka: Tato adresa URL pro pozdější odkaz**.
+    f. Nakonfigurujte webovou aplikaci tak, aby přijímala nasazení z místního Gitu a zobrazila *adresu URL nasazení Git*. **Poznamenejte si tuto adresu URL pro referenci později**.
 
     ```azurecli
     echo Git deployment URL: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --query url --output tsv)
     ```
 
-    g. Zobrazí *adresu URL webové aplikace*. Přejděte na tuto adresu URL a podívejte se na prázdnou webovou aplikaci. **Poznámka: Tato adresa URL pro pozdější odkaz**.
+    g. Zobrazí *adresu URL webové aplikace*. Pokud chcete zobrazit prázdnou webovou aplikaci, přejděte na tuto adresu URL. **Poznamenejte si tuto adresu URL pro referenci později**.
 
     ```console
     echo Web app URL: http://$webappname.azurewebsites.net
     ```
 
-3. Pomocí příkazového prostředí v místním počítači přejděte do složky `.\simple-feed-reader\SimpleFeedReader`projektu webové aplikace (například). Chcete-li nastavit Git tak, aby se přemisťuje na adresu URL nasazení, proveďte následující příkazy:
+3. Pomocí příkazového prostředí v místním počítači přejděte do složky projektu webové aplikace (například `.\simple-feed-reader\SimpleFeedReader`). Spusťte následující příkazy a nastavte Git tak, aby se nastavila na adresu URL nasazení:
 
     a. Přidejte vzdálenou adresu URL do místního úložiště.
 
@@ -129,72 +135,72 @@ Chcete-li aplikaci nasadit, budete muset vytvořit [webovou aplikaci](/azure/app
     git remote add azure-prod GIT_DEPLOYMENT_URL
     ```
 
-    b. Posuňte místní *hlavní* větev do *hlavní* větve *vzdáleného zařízení azure-prod.*
+    b. Vložení místní *Hlavní* větve do *hlavní* větve *Azure-prod* Remote 's.
 
     ```console
     git push azure-prod master
     ```
 
-    Budete vyzváni k zadání přihlašovacích údajů pro nasazení, které jste vytvořili dříve. Sledujte výstup v příkazovém prostředí. Azure staví aplikaci ASP.NET Core na dálku.
+    Zobrazí se výzva k zadání přihlašovacích údajů pro nasazení, které jste vytvořili dříve. Sledujte výstup v příkazovém prostředí. Azure vytvoří aplikaci ASP.NET Core vzdáleně.
 
-4. V prohlížeči přejděte na *adresu URL webové aplikace* a všimněte si, že aplikace byla vytvořena a nasazena. Další změny mohou být potvrzeny do `git commit`místního úložiště Git s . Tyto změny jsou zasunuty `git push` do Azure pomocí předchozího příkazu.
+4. V prohlížeči přejděte na *adresu URL webové aplikace* a Všimněte si, že je aplikace sestavená a nasazená. Další změny můžete zapsat do místního úložiště Git pomocí `git commit`. Tyto změny se vloží do Azure pomocí předchozího `git push` příkazu.
 
-## <a name="deployment-with-visual-studio"></a>Nasazení v sadě Visual Studio
+## <a name="deployment-with-visual-studio"></a>Nasazení pomocí sady Visual Studio
 
-> *Poznámka: Tato část se vztahuje pouze na Windows. Uživatelé Linuxu a macOS by měli provést změnu popsanou v kroku 2 níže. Uložte soubor a potvrďte změnu `git commit`v místním úložišti pomocí aplikace . Nakonec zatlačte `git push`změnu s , jako v první části.*
+> *Poznámka: Tato část se vztahuje pouze na systém Windows. Uživatelé Linux a macOS by měli provést změnu popsanou v kroku 2 níže. Uložte soubor a potvrďte změnu v místním úložišti pomocí `git commit`. Nakonec nahrajte změnu pomocí `git push`, jako v první části.*
 
-Aplikace již byla nasazena z příkazového prostředí. K nasazení aktualizace do aplikace použijeme integrované nástroje visual studia. Na pozadí Visual Studio dosahuje stejnou věc jako nástroje příkazového řádku, ale v rámci známého ui sady Visual Studio.
+Aplikace už je nasazená z příkazového prostředí. Pojďme k nasazení aktualizace do aplikace použít integrované nástroje sady Visual Studio. Aplikace Visual Studio na pozadí dosáhne stejného účelu jako nástroj příkazového řádku, ale ve známém uživatelském rozhraní sady Visual Studio.
 
-1. Otevřete *soubor SimpleFeedReader.sln* v sadě Visual Studio.
-2. V Průzkumníku řešení otevřete *Stránky\Index.cshtml*. Změnit `<h2>Simple Feed Reader</h2>` `<h2>Simple Feed Reader - V2</h2>`na .
-3. Stisknutím **klávesy Ctrl**+**Shift**+**B** vytvořte aplikaci.
-4. V Průzkumníku řešení klikněte pravým tlačítkem myši na projekt a klikněte na **Publikovat**.
+1. Otevřete *SimpleFeedReader. sln* v aplikaci Visual Studio.
+2. V Průzkumník řešení otevřete *Pages\Index.cshtml*. Změňte `<h2>Simple Feed Reader</h2>` na `<h2>Simple Feed Reader - V2</h2>`.
+3. Stisknutím **kombinace kláves CTRL**+**+ SHIFT**+**B** sestavíte aplikaci.
+4. V Průzkumník řešení klikněte pravým tlačítkem na projekt a klikněte na **publikovat**.
 
-    ![Snímek obrazovky s pravým tlačítkem myši, publikování](./media/deploying-to-app-service/publish.png)
-5. Visual Studio můžete vytvořit nový prostředek služby App Service, ale tato aktualizace bude publikována přes existující nasazení. V **dialogovém** okně Vybrat cíl publikování vyberte **službu App Service** ze seznamu vlevo a pak **vyberte Vybrat existující**. Klikněte na **Publikovat**.
-6. V dialogovém okně **Služba aplikace** zkontrolujte, že účet Microsoft nebo organizace použitý k vytvoření předplatného Azure se zobrazí v pravém horním okně. Pokud tomu tak není, klikněte na rozevírací soubor a přidejte ho.
-7. Zkontrolujte, že je vybráno správné **předplatné** Azure. V **popřípadě zobrazit**vyberte **položku Skupina prostředků**. Rozbalte skupinu prostředků **AzureTutorial** a vyberte existující webovou aplikaci. Klikněte na tlačítko **OK**.
+    ![Snímek obrazovky, který ukazuje kliknutí pravým tlačítkem, publikování](./media/deploying-to-app-service/publish.png)
+5. Visual Studio může vytvořit nový prostředek App Service, ale tato aktualizace se publikuje v rámci stávajícího nasazení. V dialogovém okně **vybrat cíl publikování** vyberte v seznamu na levé straně položku **App Service** a pak vyberte **Vybrat existující**. Klikněte na **Publikovat**.
+6. V dialogovém okně **App Service** potvrďte, že se v pravém horním rohu zobrazuje účet Microsoft nebo organizace, který se používá k vytvoření vašeho předplatného Azure. Pokud není, klikněte na rozevírací nabídku a přidejte ji.
+7. Zkontrolujte, jestli je vybrané správné **předplatné** Azure. V **zobrazení**vyberte **Skupina prostředků**. Rozbalte skupinu prostředků **AzureTutorial** a pak vyberte existující webovou aplikaci. Klikněte na tlačítko **OK**.
 
-    ![Snímek obrazovky s dialogovým oknem Publikovat službu aplikace](./media/deploying-to-app-service/publish-dialog.png)
+    ![Snímek obrazovky s dialogem App Service pro publikování](./media/deploying-to-app-service/publish-dialog.png)
 
-Visual Studio sestavuje a nasazuje aplikaci do Azure. Přejděte na adresu URL webové aplikace. Ověřte, zda je změna `<h2>` prvku aktivní.
+Visual Studio sestaví a nasadí aplikaci do Azure. Přejděte na adresu URL webové aplikace. Ověřte, zda `<h2>` je úprava prvku živá.
 
 ![Aplikace se změněným názvem](./media/deploying-to-app-service/app-v2.png)
 
 ## <a name="deployment-slots"></a>Nasazovací sloty
 
-Sloty pro nasazení podporují přípravu změn bez dopadu na aplikaci spuštěnou v produkčním prostředí. Jakmile je připravená verze aplikace ověřena týmem pro zajištění kvality, produkční a pracovní sloty mohou být vyměněny. Aplikace v pracovní min. je tímto způsobem povýšena na produkční. Následující kroky vytvoří pracovní slot, nasadí některé změny a zamění pracovní slot s produkčním prostředím po ověření.
+Sloty nasazení podporují přípravu změn bez ovlivnění aplikace spuštěné v produkčním prostředí. Jakmile se dvoufázové verze aplikace ověří týmem zabezpečování kvality, produkční a přípravné sloty je možné prohodit. Aplikace v pracovním prostředí se tímto způsobem převýší na produkční prostředí. V následujících krocích se vytvoří přípravný slot, nasadí se nějaké změny a pracovní slot se po ověření zahodí k produkci.
 
-1. Pokud už nejste přihlášeni, přihlaste se do [prostředí Azure Cloud Shell.](https://shell.azure.com/bash)
+1. Přihlaste se k [Azure Cloud Shell](https://shell.azure.com/bash), pokud ještě není přihlášený.
 2. Vytvořte pracovní slot.
 
-    a. Vytvořte slot nasazení s *názvem pracovní*.
+    a. Vytvořte slot nasazení s názvem *Příprava*.
 
     ```azurecli
     az webapp deployment slot create --name $webappname --resource-group AzureTutorial --slot staging
     ```
 
-    b. Nakonfigurujte pracovní slot tak, aby používal nasazení z místního Gitu a získal adresu URL **testovacího** nasazení. **Poznámka: Tato adresa URL pro pozdější odkaz**.
+    b. Nakonfigurujte pracovní slot pro použití nasazení z místního Gitu a získejte adresu URL **pracovního** nasazení. **Poznamenejte si tuto adresu URL pro referenci později**.
 
     ```azurecli
     echo Git deployment URL for staging: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --slot staging --query url --output tsv)
     ```
 
-    c. Zobrazí adresu URL pracovního slotu. Přejděte na adresu URL a podívejte se na prázdný pracovní slot. **Poznámka: Tato adresa URL pro pozdější odkaz**.
+    c. Zobrazit adresu URL přípravného slotu. Přejděte na adresu URL, abyste viděli prázdný přípravný slot. **Poznamenejte si tuto adresu URL pro referenci později**.
 
     ```console
     echo Staging web app URL: http://$webappname-staging.azurewebsites.net
     ```
 
-3. V textovém editoru nebo v sadě Visual Studio znovu `<h2>` upravte *pages/index.cshtml* tak, aby element přečte `<h2>Simple Feed Reader - V3</h2>` a uloží soubor.
+3. V textovém editoru nebo v aplikaci Visual Studio upravte *stránky nebo index. cshtml* tak, aby `<h2>` element četl `<h2>Simple Feed Reader - V3</h2>` a uložil soubor.
 
-4. Potvrdíme soubor do místního úložiště Git pomocí stránky **Změny** na kartě *Průzkumník týmu* sady Visual Studio nebo zadáním následujícího příkazového prostředí místního počítače:
+4. Potvrďte soubor do místního úložiště Git, a to pomocí stránky **změny** na kartě *Team Explorer* sady Visual Studio nebo zadáním následujícího příkazu pomocí příkazového prostředí místního počítače:
 
     ```console
     git commit -a -m "upgraded to V3"
     ```
 
-5. Pomocí příkazového prostředí místního počítače přidejte adresu URL pracovního nasazení jako vzdálený ovladač Gitu a zatlačte potvrzené změny:
+5. Pomocí příkazového prostředí místního počítače přidejte adresu URL pracovního nasazení jako vzdálené úložiště Git a odešlete potvrzené změny:
 
     a. Přidejte vzdálenou adresu URL pro přípravu do místního úložiště Git.
 
@@ -202,25 +208,25 @@ Sloty pro nasazení podporují přípravu změn bez dopadu na aplikaci spuštěn
     git remote add azure-staging <Git_staging_deployment_URL>
     ```
 
-    b. Posuňte místní *hlavní* větev do *hlavní* větve *vzdáleného azure-staging.*
+    b. Nahrajte místní *Hlavní* větev do *hlavní* větve vzdálené údržby *Azure* .
 
     ```console
     git push azure-staging master
     ```
 
-    Počkejte, než Azure vytvoří a nasadí aplikaci.
+    Počkejte, než Azure sestaví a nasadí aplikaci.
 
-6. Chcete-li ověřit, že V3 byl nasazen do pracovního slotu, otevřete dvě okna prohlížeče. V jednom okně přejděte na původní adresu URL webové aplikace. V druhém okně přejděte na adresu URL pracovní webové aplikace. Produkční adresa URL obsluhuje V2 aplikace. Pracovní adresa URL obsluhuje V3 aplikace.
+6. Pokud chcete ověřit, že je hodnota V3 nasazená do přípravného slotu, otevřete dvě okna prohlížeče. V jednom okně přejděte na původní adresu URL webové aplikace. V druhém okně přejděte na adresu URL pracovní webové aplikace. Produkční adresa URL slouží jako v2 aplikace. Pracovní adresa URL slouží jako V3 aplikace.
 
-    ![Snímek obrazovky se srovnáním oken prohlížeče](./media/deploying-to-app-service/ready-to-swap.png)
+    ![Snímek obrazovky s porovnáním oken prohlížeče](./media/deploying-to-app-service/ready-to-swap.png)
 
-7. V prostředí Cloud Shell vyměňte ověřený/zahřátý pracovní slot do produkčního prostředí.
+7. V Cloud Shell Proměňte v produkčním prostředí ověřené/teplé pracovní sloty.
 
     ```azurecli
     az webapp deployment slot swap --name $webappname --resource-group AzureTutorial --slot staging
     ```
 
-8. Ověřte, zda k prohození došlo aktualizací dvou oken prohlížeče.
+8. Pomocí obnovení dvou oken prohlížeče ověřte, zda došlo k výměně.
 
     ![Porovnání oken prohlížeče po prohození](./media/deploying-to-app-service/swapped.png)
 
@@ -228,19 +234,19 @@ Sloty pro nasazení podporují přípravu změn bez dopadu na aplikaci spuštěn
 
 V této části byly dokončeny následující úkoly:
 
-* Stáhli a vytvořili ukázkovou aplikaci.
-* Pomocí Azure Cloud Shellu jste vytvořili webovou aplikaci služby Azure App Service.
-* Nasazené ukázkové aplikace do Azure pomocí Gitu.
-* Nasadí změnu do aplikace pomocí Visual Studia.
-* Do webové aplikace byl přidán pracovní slot.
-* Nasadí aktualizaci pracovního slotu.
-* Vyměnil pracovní a produkční sloty.
+* Stáhli a vytvořili jste ukázkovou aplikaci.
+* Vytvořili Azure App Service webovou aplikaci pomocí Azure Cloud Shell.
+* Nasadili jste ukázkovou aplikaci do Azure pomocí Gitu.
+* Nasadili jste do aplikace změnu pomocí sady Visual Studio.
+* Do webové aplikace se přidal pracovní slot.
+* Nasazení aktualizace do přípravného slotu.
+* Pracovní a produkční sloty se vyměnily.
 
-V další části se dozvíte, jak vytvořit kanál DevOps s Azure Pipelines.
+V další části se dozvíte, jak vytvořit kanál DevOps pomocí Azure Pipelines.
 
-## <a name="additional-reading"></a>Dodatečné čtení
+## <a name="additional-reading"></a>Další čtení
 
-* [Přehled webových aplikací](/azure/app-service/app-service-web-overview)
+* [Přehled Web Apps](/azure/app-service/app-service-web-overview)
 * [Vytvoření webové aplikace .NET Core využívající SQL Database ve službě Azure App Service](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
-* [Konfigurace přihlašovacích údajů pro nasazení služby Azure App Service](/azure/app-service/app-service-deployment-credentials)
+* [Nakonfigurovat přihlašovací údaje nasazení pro Azure App Service](/azure/app-service/app-service-deployment-credentials)
 * [Nastavení přípravných prostředí ve službě Azure App Service](/azure/app-service/web-sites-staged-publishing)

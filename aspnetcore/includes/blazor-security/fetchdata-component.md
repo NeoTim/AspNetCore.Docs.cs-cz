@@ -5,7 +5,7 @@ Tato `FetchData` součást ukazuje, jak:
 
 Tato `@attribute [Authorize]` direktiva označuje Blazor autorizačnímu systému WebAssembly, že uživatel musí mít autorizaci, aby mohl navštívit tuto součást. Přítomnost atributu v *klientské* aplikaci nebrání volání rozhraní API na serveru bez správných přihlašovacích údajů. *Serverová* aplikace musí také použít `[Authorize]` příslušné koncové body k jejich správné ochraně.
 
-`AuthenticationService.RequestAccessToken();`postará o vyžadování přístupového tokenu, který se dá přidat do žádosti o volání rozhraní API. Pokud je token uložen v mezipaměti nebo služba může zřídit nový přístupový token bez zásahu uživatele, požadavek na token je úspěšný. V opačném případě se požadavek na token nezdařil.
+`IAccessTokenProvider.RequestAccessToken();`postará o vyžadování přístupového tokenu, který se dá přidat do žádosti o volání rozhraní API. Pokud je token uložen v mezipaměti nebo služba může zřídit nový přístupový token bez zásahu uživatele, požadavek na token je úspěšný. V opačném případě požadavek na token selže `AccessTokenNotAvailableException` s chybou, která je zachycena v `try-catch` příkazu.
 
 Aby bylo možné získat skutečný token, který se má zahrnout do žádosti, musí aplikace ověřit, jestli žádost proběhla úspěšně `tokenResult.TryGetToken(out var token)`voláním. 
 

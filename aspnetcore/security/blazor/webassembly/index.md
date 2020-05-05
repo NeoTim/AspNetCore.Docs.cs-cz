@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/24/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/webassembly/index
-ms.openlocfilehash: c096419f4866ea2f1db135594c4b88c89c7c90d1
-ms.sourcegitcommit: 4f91da9ce4543b39dba5e8920a9500d3ce959746
+ms.openlocfilehash: e8ea5e6b6d7e28906e6109e6730ac25f190b4191
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82138414"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767997"
 ---
-# <a name="secure-aspnet-core-opno-locblazor-webassembly"></a>Zabezpečené ASP.NET Core Blazor WebAssembly
+# <a name="secure-aspnet-core-blazor-webassembly"></a>Zabezpečené ASP.NET Core Blazor WebAssembly
 
 [Javier Calvarro Nelson](https://github.com/javiercn)
 
@@ -29,14 +32,14 @@ BlazorAplikace pro WebAssembly jsou zabezpečené stejným způsobem jako aplika
 
 ## <a name="authentication-library"></a>Knihovna ověřování
 
-BlazorWebAssembly podporuje ověřování a autorizaci aplikací pomocí OIDC prostřednictvím `Microsoft.AspNetCore.Components.WebAssembly.Authentication` knihovny. Knihovna poskytuje sadu primitivních hodnot pro bezproblémové ověřování proti ASP.NET Core back-endy. Knihovna se integruje ASP.NET Core identitou, která podporuje autorizaci rozhraní API, která je postavená na [serveru identit](https://identityserver.io/). Knihovna se může ověřit u libovolného zprostředkovatele identity (IP) třetí strany, který podporuje OIDC, kterým se říká poskytovatelé OpenID (OP).
+BlazorWebAssembly podporuje ověřování a autorizaci aplikací pomocí OIDC prostřednictvím `Microsoft.AspNetCore.Components.WebAssembly.Authentication` knihovny. Knihovna poskytuje sadu primitivních hodnot pro bezproblémové ověřování proti ASP.NET Core back-endy. Knihovna se integruje ASP.NET Core Identity s podporou autorizace rozhraní API postavenou na [ Identity serveru](https://identityserver.io/). Knihovna se může ověřit u libovolného poskytovatele (IP Identity ) třetí strany, který podporuje OIDC, kterým se říká poskytovatelé OPENID (OP).
 
 Podpora ověřování ve Blazor WebAssembly je postavená na knihovně *oidc-Client. js* , která se používá ke zpracování podrobností o podkladovém protokolu ověřování.
 
 K dispozici jsou další možnosti ověřování jednostránkové, jako je například použití souborů cookie SameSite. Technický návrh Blazor WebAssembly se ale v aplikacích OAuth a OIDC vyrovnává jako nejlepší možnost pro ověřování v Blazor aplikacích pro WebAssembly. [Ověřování založené na tokenech](xref:security/anti-request-forgery#token-based-authentication) založené na [webových tokenech JSON (JWTs)](https://self-issued.info/docs/draft-ietf-oauth-json-web-token.html) bylo vybráno při [ověřování pomocí souborů cookie](xref:security/anti-request-forgery#cookie-based-authentication) pro funkční a bezpečnostní účely:
 
 * Použití protokolu založeného na tokenu nabízí menší prostor pro útoky, protože tokeny se neodesílají v rámci všech požadavků.
-* Koncové body serveru nevyžadují ochranu proti [padělání žádostí mezi lokalitami (CSRF)](xref:security/anti-request-forgery) , protože tokeny se odesílají explicitně. To umožňuje hostovat Blazor aplikace pro WebAssembly společně s aplikacemi MVC nebo stránek Razor.
+* Koncové body serveru nevyžadují ochranu proti [padělání žádostí mezi lokalitami (CSRF)](xref:security/anti-request-forgery) , protože tokeny se odesílají explicitně. To umožňuje hostovat Blazor aplikace WebAssembly společně s aplikacemi MVC nebo Razor Pages.
 * Tokeny mají užší oprávnění než soubory cookie. Například tokeny nelze použít ke správě uživatelského účtu nebo změně hesla uživatele, pokud nejsou tyto funkce explicitně implementovány.
 * Tokeny mají krátkou životnost, jednu hodinu ve výchozím nastavení, což omezuje okno útoku. Tokeny je také možné kdykoli odvolat.
 * Samostatná JWTs nabízí záruky pro klienta a server o procesu ověřování. Například klient má prostředky ke zjištění a ověření, že tokeny, které obdrží, jsou legitimní a byly vygenerovány jako součást daného ověřovacího procesu. Pokud se třetí strana pokusí o přepnutí tokenu uprostřed procesu ověřování, může klient detekovat přepínaný token a vyhnout se jeho použití.
@@ -49,13 +52,13 @@ K dispozici jsou další možnosti ověřování jednostránkové, jako je např
 
 * Když anonymní uživatel vybere tlačítko pro přihlášení nebo požádá o stránku s použitým [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) atributem, uživatel se přesměruje na přihlašovací stránku aplikace (`/authentication/login`).
 * Na přihlašovací stránce se knihovna ověřování připraví na přesměrování na koncový bod autorizace. Koncový bod autorizace je mimo Blazor aplikaci WebAssembly a je možné ho hostovat v samostatném zdroji. Koncový bod zodpovídá za zjištění, jestli je uživatel ověřený a který vydává jednu nebo více tokenů v reakci. Knihovna ověřování poskytuje zpětné volání přihlašovacího jména pro příjem ověřovací odpovědi.
-  * Pokud uživatel není ověřený, bude uživatel přesměrován do základního ověřovacího systému, který je obvykle ASP.NET Core identitou.
+  * Pokud uživatel není ověřený, bude uživatel přesměrován do základního ověřovacího systému, který je obvykle ASP.NET Core Identity.
   * Pokud byl uživatel již ověřen, koncový bod autorizace vygeneruje odpovídající tokeny a přesměruje prohlížeč zpět na koncový bod zpětného volání přihlašovacího jména (`/authentication/login-callback`).
 * Blazor Když aplikace WebAssembly načte koncový bod zpětného volání přihlašovacího jména (`/authentication/login-callback`), je zpracována ověřovací odpověď.
   * Pokud se proces ověřování úspěšně dokončí, uživatel se ověří a případně se pošle zpátky na původní chráněnou adresu URL, kterou si uživatel vyžádal.
   * Pokud se proces ověřování z nějakého důvodu nepovede, uživatel se pošle na stránku neúspěšného přihlášení (`/authentication/login-failed`) a zobrazí se chyba.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * Články v tomto *přehledu* obsahují informace o ověřování uživatelů v aplikacích Blazor pro WebAssembly pro konkrétní poskytovatele.
 * <xref:security/blazor/webassembly/additional-scenarios>

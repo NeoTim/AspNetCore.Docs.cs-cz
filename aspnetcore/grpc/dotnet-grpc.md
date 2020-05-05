@@ -1,56 +1,62 @@
 ---
 title: Správa odkazů Protobuf pomocí dotnet-grpc
 author: juntaoluo
-description: Další informace o přidávání, aktualizaci, odebírání a výpisu odkazů Protobuf pomocí globálního nástroje dotnet-grpc.
+description: Přečtěte si, jak přidávat, aktualizovat, odebírat a zobrazovat odkazy na Protobuf s globálním nástrojem dotnet-grpc.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 10/17/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/dotnet-grpc
-ms.openlocfilehash: 994597c854a95bb33de1686ab025cb3744cf6845
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 0990013947be2cee5045deac92efc3c6bcf12e03
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78667333"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768832"
 ---
 # <a name="manage-protobuf-references-with-dotnet-grpc"></a>Správa odkazů Protobuf pomocí dotnet-grpc
 
-Podle [John Luo](https://github.com/juntaoluo)
+Od [Jan Luo](https://github.com/juntaoluo)
 
-`dotnet-grpc`je globální nástroj .NET Core pro správu odkazů [Protobuf (*.proto*)](xref:grpc/basics#proto-file) v rámci projektu .NET gRPC. Nástroj lze použít k přidání, aktualizaci, odebrání a seznamu odkazů Protobuf.
+`dotnet-grpc`je globální nástroj .NET Core pro správu [Protobuf (*.* a)](xref:grpc/basics#proto-file) v rámci projektu .NET gRPC. Nástroj lze použít k přidání, aktualizaci, odebrání a výpisu odkazů Protobuf.
 
 ## <a name="installation"></a>Instalace
 
-Chcete-li `dotnet-grpc` nainstalovat [globální nástroj .NET Core](/dotnet/core/tools/global-tools), spusťte následující příkaz:
+Pokud chcete nainstalovat `dotnet-grpc` [globální nástroj .NET Core](/dotnet/core/tools/global-tools), spusťte následující příkaz:
 
 ```dotnetcli
 dotnet tool install -g dotnet-grpc
 ```
 
-## <a name="add-references"></a>Přidání odkazů
+## <a name="add-references"></a>Přidat odkazy
 
-`dotnet-grpc`lze přidat odkazy Protobuf jako `<Protobuf />` položky do souboru *.csproj:*
+`dotnet-grpc`lze použít k přidání odkazů Protobuf jako `<Protobuf />` položek do souboru *. csproj* :
 
 ```xml
 <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
 ```
 
-Odkazy Protobuf se používají ke generování prostředků klienta c# nebo serveru. Nástroj `dotnet-grpc` může:
+Odkazy na Protobuf slouží ke generování prostředků v jazyce C# a/nebo serveru. `dotnet-grpc` Nástroj může:
 
 * Vytvořte odkaz Protobuf z místních souborů na disku.
-* Vytvořte odkaz Protobuf ze vzdáleného souboru určeného adresou URL.
-* Ujistěte se, že správné gRPC balíček závislosti jsou přidány do projektu.
+* Vytvoří odkaz Protobuf ze vzdáleného souboru zadaného adresou URL.
+* Zajistěte, aby se do projektu přidaly správné závislosti balíčků gRPC.
 
-Balíček se `Grpc.AspNetCore` například přidá do webové aplikace. `Grpc.AspNetCore`obsahuje gRPC server a klientské knihovny a podporu nástrojů. Alternativně `Grpc.Net.Client`, `Grpc.Tools` a `Google.Protobuf` balíčky, které obsahují pouze gRPC klientské knihovny a podporu nástrojů, jsou přidány do aplikace Konzola.
+Například `Grpc.AspNetCore` balíček se přidá do webové aplikace. `Grpc.AspNetCore`obsahuje gRPC Server a klientské knihovny a podporu nástrojů. Do konzolové aplikace `Grpc.Tools` jsou `Google.Protobuf` přidány také balíčky, a, které obsahují pouze klientské knihovny gRPC a podpora nástrojů. `Grpc.Net.Client`
 
 ### <a name="add-file"></a>Přidat soubor
 
-Příkaz `add-file` se používá k přidání místních souborů na disk jako odkazy Protobuf. Cesty k souboru jsou k dispozici:
+`add-file` Příkaz se používá k přidání místních souborů na disk jako Protobuf odkazů. Zadané cesty k souborům:
 
-* Může být relativní vzhledem k aktuálnímu adresáři nebo absolutní cesty.
-* Může obsahovat zástupné znaky pro [globbing](https://wikipedia.org/wiki/Glob_(programming))souborů založených na vzoru .
+* Může být relativní vzhledem k aktuálnímu adresáři nebo absolutním cestám.
+* Může obsahovat zástupné znaky pro [expanzi](https://wikipedia.org/wiki/Glob_(programming))souborů založené na vzorcích.
 
-Pokud jsou některé soubory mimo `Link` adresář projektu, je přidán prvek `Protos` pro zobrazení souboru pod složkou v sadě Visual Studio.
+Pokud jsou některé soubory mimo adresář projektu, je přidán `Link` prvek pro zobrazení souboru ve složce `Protos` v aplikaci Visual Studio.
 
 ### <a name="usage"></a>Využití
 
@@ -62,20 +68,20 @@ dotnet grpc add-file [options] <files>...
 
 | Argument | Popis |
 |-|-|
-| files | Protobuf soubor odkazy. Může to být cesta k globu pro místní protobufové soubory. |
+| files | Odkazy na soubor protobuf. Může se jednat o cestu k glob pro místní soubory protobuf. |
 
 #### <a name="options"></a>Možnosti
 
-| Krátká volba | Dlouhá volba | Popis |
+| Krátká možnost | Možnost Long | Popis |
 |-|-|-|
-| -p | --projekt | Cesta k souboru projektu, na kterém chcete pracovat. Pokud soubor není zadán, příkaz prohledá aktuální adresář pro jeden.
-| -s | --služby | Typ služeb gRPC, které by měly být generovány. Pokud `Default` je `Both` zadán, se používá `Client` pro webové projekty a používá se pro jiné než webové projekty. Přijaté hodnoty `Both` `Client`jsou `Default` `None`, `Server`, , , .
-| -i | --additional-import-dirs | Další adresáře, které mají být použity při řešení importů pro soubory protobuf. Toto je středník oddělený seznam cest.
-| | --přístup | Modifikátor přístupu pro generované třídy Jazyka C#. Výchozí hodnota je `Public`. Přijaté hodnoty `Internal` `Public`jsou a .
+| -p | --Project | Cesta k souboru projektu, na kterém má být provozována. Pokud soubor není zadán, příkaz vyhledá v aktuálním adresáři.
+| -s | – služby | Typ gRPC služeb, které se mají vygenerovat Je `Default` -li zadán `Both` , je použit pro webové projekty `Client` a používá se pro newebové projekty. Přijaté hodnoty jsou `Both`, `Client`, `Default`, `None`, `Server`.
+| -i | --Další-import-adresářů | Další adresáře, které se mají použít při překladu importu souborů protobuf Toto je seznam cest oddělených středníky.
+| | – přístup | Modifikátor přístupu, který má být použit pro vygenerované třídy jazyka C#. Výchozí hodnota je `Public`. Přijaté hodnoty jsou `Internal` a `Public`.
 
 ### <a name="add-url"></a>Přidat adresu URL
 
-Příkaz `add-url` se používá k přidání vzdáleného souboru určeného zdrojovou adresou URL jako odkazu Protobuf. Musí být k dispozici cesta k souboru, která určuje, kam má být vzdálený soubor stažen. Cesta k souboru může být relativní vzhledem k aktuálnímu adresáři nebo absolutní cestě. Pokud je cesta k souboru `Link` mimo adresář projektu, přidá se `Protos` prvek, který zobrazí soubor pod virtuální složkou v sadě Visual Studio.
+`add-url` Příkaz se používá k přidání vzdáleného souboru zadaného ZDROJOVOU adresou URL jako odkaz na Protobuf. Aby bylo možné určit, kam Stáhnout vzdálený soubor, je nutné zadat cestu k souboru. Cesta k souboru může být relativní vzhledem k aktuálnímu adresáři nebo absolutní cestě. Pokud je cesta k souboru mimo adresář projektu, je přidán `Link` element pro zobrazení souboru ve virtuální složce `Protos` v aplikaci Visual Studio.
 
 ### <a name="usage"></a>Využití
 
@@ -87,24 +93,24 @@ dotnet-grpc add-url [options] <url>
 
 | Argument | Popis |
 |-|-|
-| url | Adresa URL vzdáleného souboru protobuf. |
+| url | Adresa URL vzdáleného souboru protobuf |
 
 #### <a name="options"></a>Možnosti
 
-| Krátká volba | Dlouhá volba | Popis |
+| Krátká možnost | Možnost Long | Popis |
 |-|-|-|
-| -o | --output | Určuje cestu ke stažení pro vzdálený soubor protobuf. Tato možnost je povinná.
-| -p | --projekt | Cesta k souboru projektu, na kterém chcete pracovat. Pokud soubor není zadán, příkaz prohledá aktuální adresář pro jeden.
-| -s | --služby | Typ služeb gRPC, které by měly být generovány. Pokud `Default` je `Both` zadán, se používá `Client` pro webové projekty a používá se pro jiné než webové projekty. Přijaté hodnoty `Both` `Client`jsou `Default` `None`, `Server`, , , .
-| -i | --additional-import-dirs | Další adresáře, které mají být použity při řešení importů pro soubory protobuf. Toto je středník oddělený seznam cest.
-| | --přístup | Modifikátor přístupu pro generované třídy Jazyka C#. Výchozí hodnota `Public`je . Přijaté hodnoty `Internal` `Public`jsou a .
+| -o | --output | Určuje cestu pro stažení vzdáleného souboru protobuf. Tato možnost je povinná.
+| -p | --Project | Cesta k souboru projektu, na kterém má být provozována. Pokud soubor není zadán, příkaz vyhledá v aktuálním adresáři.
+| -s | – služby | Typ gRPC služeb, které se mají vygenerovat Je `Default` -li zadán `Both` , je použit pro webové projekty `Client` a používá se pro newebové projekty. Přijaté hodnoty jsou `Both`, `Client`, `Default`, `None`, `Server`.
+| -i | --Další-import-adresářů | Další adresáře, které se mají použít při překladu importu souborů protobuf Toto je seznam cest oddělených středníky.
+| | – přístup | Modifikátor přístupu, který má být použit pro vygenerované třídy jazyka C#. Výchozí hodnota je `Public`. Přijaté hodnoty jsou `Internal` a `Public`.
 
 ## <a name="remove"></a>Odebrat
 
-Příkaz `remove` se používá k odebrání odkazů Protobuf ze souboru *.csproj.* Příkaz přijímá argumenty cesty a zdrojové adresy URL jako argumenty. Nástroj:
+`remove` Příkaz slouží k odebrání odkazů Protobuf ze souboru *. csproj* . Příkaz přijímá argumenty cesty a zdrojové adresy URL jako argumenty. Nástroj:
 
 * Odebere pouze odkaz Protobuf.
-* Neodstraní soubor *.proto,* i když byl původně stažen ze vzdálené adresy URL.
+* Neodstraní soubor *...* i v případě, že byl původně stažen ze vzdálené adresy URL.
 
 ### <a name="usage"></a>Využití
 
@@ -116,22 +122,22 @@ dotnet-grpc remove [options] <references>...
 
 | Argument | Popis |
 |-|-|
-| odkazy | Adresy URL nebo cesty k souborům odkazů protobuf odebrat. |
+| odkazy | Adresy URL nebo cesty k souborům protobuf odkazů, které se mají odebrat. |
 
 ### <a name="options"></a>Možnosti
 
-| Krátká volba | Dlouhá volba | Popis |
+| Krátká možnost | Možnost Long | Popis |
 |-|-|-|
-| -p | --projekt | Cesta k souboru projektu, na kterém chcete pracovat. Pokud soubor není zadán, příkaz prohledá aktuální adresář pro jeden.
+| -p | --Project | Cesta k souboru projektu, na kterém má být provozována. Pokud soubor není zadán, příkaz vyhledá v aktuálním adresáři.
 
 ## <a name="refresh"></a>Obnovení
 
-Příkaz `refresh` se používá k aktualizaci vzdáleného odkazu s nejnovějším obsahem ze zdrojové adresy URL. Cestu ke stažení souboru i zdrojovou adresu URL lze použít k určení odkazu, který má být aktualizován. Poznámka:
+`refresh` Příkaz slouží k aktualizaci vzdáleného odkazu s nejnovějším obsahem ze zdrojové adresy URL. K určení odkazu, který se má aktualizovat, se dá použít jak cestu souboru ke stažení, tak i zdrojová adresa URL. Poznámka:
 
-* Porovnané hodnoty hashe obsahu souboru, aby bylo možné určit, zda má být místní soubor aktualizován.
-* Nejsou porovnány žádné informace o časovém razítku.
+* Hodnoty hash obsahu souboru se porovnávají s cílem určit, jestli se má místní soubor aktualizovat.
+* Nesrovnávají se žádné informace o časovém razítku.
 
-Nástroj vždy nahradí místní soubor vzdáleným souborem, pokud je nutná aktualizace.
+Nástroj vždy nahradí místní soubor vzdáleným souborem, pokud je požadována aktualizace.
 
 ### <a name="usage"></a>Využití
 
@@ -143,18 +149,18 @@ dotnet-grpc refresh [options] [<references>...]
 
 | Argument | Popis |
 |-|-|
-| odkazy | Adresy URL nebo cesty k souborům ke vzdáleným protobuf odkazům, které by měly být aktualizovány. Ponechte tento argument prázdný, chcete-li aktualizovat všechny vzdálené odkazy. |
+| odkazy | Adresy URL nebo cesty k souborům pro vzdálené protobuf odkazují na odkazy, které by se měly aktualizovat. Pokud chcete aktualizovat všechny vzdálené odkazy, ponechte tento argument prázdný. |
 
 ### <a name="options"></a>Možnosti
 
-| Krátká volba | Dlouhá volba | Popis |
+| Krátká možnost | Možnost Long | Popis |
 |-|-|-|
-| -p | --projekt | Cesta k souboru projektu, na kterém chcete pracovat. Pokud soubor není zadán, příkaz prohledá aktuální adresář pro jeden.
-| | --běh na suchu | Vypíše seznam souborů, které by byly aktualizovány bez stahování nového obsahu.
+| -p | --Project | Cesta k souboru projektu, na kterém má být provozována. Pokud soubor není zadán, příkaz vyhledá v aktuálním adresáři.
+| | --suché-běh | Vytvoří výstup seznamu souborů, které by se aktualizovaly bez stažení nového obsahu.
 
 ## <a name="list"></a>Seznam
 
-Příkaz `list` se používá k zobrazení všech odkazů Protobuf v souboru projektu. Pokud jsou všechny hodnoty sloupce výchozími hodnotami, může být sloupec vynechán.
+`list` Příkaz slouží k zobrazení všech odkazů Protobuf v souboru projektu. Pokud jsou všechny hodnoty sloupce výchozí hodnoty, sloupec může být vynechán.
 
 ### <a name="usage"></a>Využití
 
@@ -164,9 +170,9 @@ dotnet-grpc list [options]
 
 ### <a name="options"></a>Možnosti
 
-| Krátká volba | Dlouhá volba | Popis |
+| Krátká možnost | Možnost Long | Popis |
 |-|-|-|
-| -p | --projekt | Cesta k souboru projektu, na kterém chcete pracovat. Pokud soubor není zadán, příkaz prohledá aktuální adresář pro jeden.
+| -p | --Project | Cesta k souboru projektu, na kterém má být provozována. Pokud soubor není zadán, příkaz vyhledá v aktuálním adresáři.
 
 ## <a name="additional-resources"></a>Další zdroje
 

@@ -1,5 +1,5 @@
 ---
-title: Zabezpečení hostované aplikace Blazor ASP.NET Core WebAssembly pomocí serveru identit
+title: Zabezpečení hostované aplikace Blazor ASP.NET Core WebAssembly se Identity serverem
 author: guardrex
 description: Vytvoření nové Blazor hostované aplikace s ověřováním v sadě Visual Studio, které používá back-end [IdentityServer](https://identityserver.io/)
 monikerRange: '>= aspnetcore-3.1'
@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/24/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-identity-server
-ms.openlocfilehash: ffdcd30ae9ce5350113569a500e99cf8db82ad65
-ms.sourcegitcommit: 4f91da9ce4543b39dba5e8920a9500d3ce959746
+ms.openlocfilehash: bf2298618e922df412e0742177afd390c4116388
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82138600"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768117"
 ---
-# <a name="secure-an-aspnet-core-opno-locblazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení hostované aplikace Blazor ASP.NET Core WebAssembly pomocí serveru identit
+# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení hostované aplikace Blazor ASP.NET Core WebAssembly se Identity serverem
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
@@ -51,7 +54,7 @@ Následující části popisují přidání do projektu, pokud je zahrnutá Podp
 
 * V `Startup.ConfigureServices`:
 
-  * Odcizen
+  * Identity:
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -104,7 +107,7 @@ Následující části popisují přidání do projektu, pokud je zahrnutá Podp
 
 ### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
 
-<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> Pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování. Zásady jsou nakonfigurovány tak, aby umožňovaly identitě zpracovávat všechny požadavky směrované na jakoukoli dílčí cestu v prostoru `/Identity`adres URL identity. <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> Zpracovává všechny ostatní požadavky. Tato metoda navíc:
+<xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> Pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování. Zásady jsou nakonfigurovány tak, Identity aby umožňovaly zpracování všech požadavků směrovaných na jakoukoli dílčí Identity cestu v `/Identity`prostoru URL. <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> Zpracovává všechny ostatní požadavky. Tato metoda navíc:
 
 * Zaregistruje prostředek `{APPLICATION NAME}API` rozhraní API s IdentityServer s výchozím oborem `{APPLICATION NAME}API`.
 * Konfiguruje middleware tokenu JWT nosiče k ověření tokenů vydaných IdentityServer pro aplikaci.
@@ -115,9 +118,9 @@ V `WeatherForecastController` (*Controllers/WeatherForecastController. cs*) je [
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
-V `ApplicationDbContext` (*data/ApplicationDbContext. cs*) se používá stejná <xref:Microsoft.EntityFrameworkCore.DbContext> v identitě s výjimkou, kterou rozšiřuje <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> , aby zahrnovala schéma pro IdentityServer. <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>je odvozen z <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>.
+`ApplicationDbContext` V (*data/ApplicationDbContext. cs*) se <xref:Microsoft.EntityFrameworkCore.DbContext> stejný používá v Identity s výjimkou, kterou rozšiřuje <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> , aby zahrnovalo schéma pro IdentityServer. <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>je odvozen z <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>.
 
-Chcete-li získat úplné řízení schématu databáze, zdědit jednu z dostupných tříd identity <xref:Microsoft.EntityFrameworkCore.DbContext> a nakonfigurovat kontext tak, aby zahrnoval schéma identity voláním `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` `OnModelCreating` metody.
+Chcete-li získat úplné řízení schématu databáze, zdědit jednu Identity <xref:Microsoft.EntityFrameworkCore.DbContext> z dostupných tříd a nakonfigurovat kontext pro zahrnutí Identity schématu voláním `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` v `OnModelCreating` metodě.
 
 ### <a name="oidcconfigurationcontroller"></a>OidcConfigurationController
 
@@ -185,7 +188,7 @@ Součást (*Shared/LoginDisplay. Razor*) je vykreslena ve `MainLayout` komponent
 
 * Pro ověřené uživatele:
   * Zobrazí aktuální uživatelské jméno.
-  * Nabízí odkaz na stránku profilu uživatele v ASP.NET Core identita.
+  * Nabízí odkaz na stránku profil uživatele v ASP.NET Core Identity.
   * Nabízí tlačítko pro odhlášení od aplikace.
 * Pro anonymní uživatele:
   * Nabízí možnost registrace.
@@ -235,6 +238,6 @@ Spusťte aplikaci z projektu serveru. Při použití sady Visual Studio vyberte 
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/blazor/webassembly/additional-scenarios>

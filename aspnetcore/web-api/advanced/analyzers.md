@@ -6,17 +6,23 @@ monikerRange: '>= aspnetcore-2.2'
 ms.author: prkrishn
 ms.custom: mvc
 ms.date: 09/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: web-api/advanced/analyzers
-ms.openlocfilehash: 7b6a7328deb8718a2a1c67c104cec359a4f13497
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 530ce2d2a7f67f549f6d188a0c571a5d58518377
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78661915"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776243"
 ---
 # <a name="use-web-api-analyzers"></a>Použití analyzátorů webového rozhraní API
 
-ASP.NET Core 2,2 a novější poskytuje balíček pro analyzátory MVC, který je určený pro použití s projekty webového rozhraní API. Analyzátory při vytváření [konvencí webového rozhraní API](xref:web-api/advanced/conventions)pracují s řadiči poznámkou s <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute>.
+ASP.NET Core 2,2 a novější poskytuje balíček pro analyzátory MVC, který je určený pro použití s projekty webového rozhraní API. Analyzátory při sestavování <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> [KONVENCÍ webového rozhraní API](xref:web-api/advanced/conventions)pracují s řadiči, které jsou v systému poznámy.
 
 Balíček analyzátory vás upozorní na jakoukoli akci kontroleru, která:
 
@@ -29,7 +35,7 @@ Balíček analyzátory vás upozorní na jakoukoli akci kontroleru, která:
 
 ## <a name="reference-the-analyzer-package"></a>Odkaz na balíček analyzátoru
 
-V ASP.NET Core 3,0 nebo novějších jsou analyzátory zahrnuté v .NET Core SDK. Chcete-li povolit analyzátor v projektu, zahrňte do souboru projektu vlastnost `IncludeOpenAPIAnalyzers`:
+V ASP.NET Core 3,0 nebo novějších jsou analyzátory zahrnuté v .NET Core SDK. Chcete-li povolit analyzátor v projektu, zahrňte `IncludeOpenAPIAnalyzers` vlastnost do souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -48,7 +54,7 @@ Nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. API. analyzers](https:
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 V okně **konzoly Správce balíčků** :
-  * Přejít na **zobrazení** > **Další** > **konzoly Správce balíčků**Windows.
+  * Přejít k **zobrazení** > **jiné** > **konzoly Správce balíčků**Windows.
   * Přejděte do adresáře, ve kterém existuje soubor *ApiConventions. csproj* .
   * Spusťte následující příkaz:
 
@@ -58,7 +64,7 @@ V okně **konzoly Správce balíčků** :
 
 ### <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení** > **Přidat balíčky...** .
+* Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení** > **Přidat balíčky...**.
 * Nastavte rozevírací seznam pro **zdroj** okna **Přidat balíčky** na hodnotu "NuGet.org".
 * Do vyhledávacího pole zadejte Microsoft. AspNetCore. Mvc. API. Analyzer.
 * V podokně výsledků vyberte balíček Microsoft. AspNetCore. Mvc. API. Analyzer a klikněte na **Přidat balíček**.
@@ -85,9 +91,9 @@ dotnet add ApiConventions.csproj package Microsoft.AspNetCore.Mvc.Api.Analyzers
 
 ## <a name="analyzers-for-web-api-conventions"></a>Analyzátory pro konvence webového rozhraní API
 
-Dokumenty OpenAPI obsahují stavové kódy a typy odezvy, které může akce vracet. V ASP.NET Core MVC se k dokumentování akce používají atributy jako <xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> a <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute>. <xref:tutorials/web-api-help-pages-using-swagger> se podrobněji doprovází do dokumentu webového rozhraní API.
+Dokumenty OpenAPI obsahují stavové kódy a typy odezvy, které může akce vracet. Ve ASP.NET Core MVC jsou atributy jako <xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute> a <xref:Microsoft.AspNetCore.Mvc.ProducesAttribute> použity k dokumentaci akce. <xref:tutorials/web-api-help-pages-using-swagger>přejdete k podrobnostem o dokumentaci k webovému rozhraní API.
 
-Jeden z analyzátorů v balíčku kontroluje řadiče s poznámkou <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> a identifikuje akce, které neobsahují své odpovědi zcela. Vezměte v úvahu v následujícím příkladu:
+Jeden z analyzátorů v balíčku kontroluje řadiče s <xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute> poznámkami a identifikuje akce, které neobsahují odpovědi. Uvažujte následující příklad:
 
 [!code-csharp[](conventions/sample/Controllers/ContactsController.cs?name=missing404docs&highlight=10)]
 

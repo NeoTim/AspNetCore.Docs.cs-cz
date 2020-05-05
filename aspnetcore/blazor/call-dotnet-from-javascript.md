@@ -1,41 +1,44 @@
 ---
 title: Volání metod .NET z funkcí JavaScriptu v ASP.NET CoreBlazor
 author: guardrex
-description: Přečtěte si, jak vyvolat metody Blazor .NET z funkcí JavaScriptu v aplikacích.
+description: Naučte se volat metody .NET z funkcí JavaScriptu v Blazor aplikacích.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/07/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/call-dotnet-from-javascript
-ms.openlocfilehash: e2344dd15efd243a405373b6cf0362f28b48173a
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: 1bc75f0825b114a24def287bb7ccb11c27514f01
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80976947"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767184"
 ---
-# <a name="call-net-methods-from-javascript-functions-in-aspnet-core-opno-locblazor"></a>Volání metod .NET z funkcí JavaScriptu v ASP.NET CoreBlazor
+# <a name="call-net-methods-from-javascript-functions-in-aspnet-core-blazor"></a>Volání metod .NET z funkcí JavaScriptu v ASP.NET CoreBlazor
 
-[Javier Calvarro Nelson](https://github.com/javiercn), Daniel [Roth](https://github.com/danroth27), [Shashikant Rudrawadi](http://wisne.co)a [Luke Latham](https://github.com/guardrex)
+[Javier Calvarro Nelson](https://github.com/javiercn), [Daniel Skořepa](https://github.com/danroth27), [Shashikant Rudrawadi](http://wisne.co)a [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Aplikace Blazor může vyvolat funkce JavaScriptu z metod .NET a .NET z funkcí JavaScriptu. Tyto scénáře se nazývají *interoperabilita JavaScriptu* *(JS interop).*
+Blazor Aplikace může vyvolat funkce JavaScriptu z metod .NET a metod .NET z funkcí jazyka JavaScript. Tyto scénáře se nazývají *interoperabilita JavaScriptu* (interoperabilita*js*).
 
-Tento článek popisuje vyvolání metod .NET z JavaScriptu. Informace o volání funkcí JavaScriptu z <xref:blazor/call-javascript-from-dotnet>rozhraní .NET naleznete v tématu .
+Tento článek se zabývá vyvoláním metod .NET z JavaScriptu. Informace o volání funkcí jazyka JavaScript z rozhraní .NET naleznete v tématu <xref:blazor/call-javascript-from-dotnet>.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="static-net-method-call"></a>Statické volání metody .NET
 
-Chcete-li vyvolat statickou metodu .NET z JavaScriptu, použijte funkce `DotNet.invokeMethod` or. `DotNet.invokeMethodAsync` Předejte identifikátor statické metody, kterou chcete volat, název sestavení obsahující funkci a všechny argumenty. Asynchronní verze je upřednostňována pro podporu Blazor scénářů serveru. Metoda .NET musí být veřejná, `[JSInvokable]` statická a musí mít atribut. Volání otevřených obecných metod není aktuálně podporováno.
+Chcete-li vyvolat statickou metodu .NET z JavaScriptu, použijte `DotNet.invokeMethod` funkce `DotNet.invokeMethodAsync` nebo. Předejte identifikátor statické metody, kterou chcete volat, název sestavení obsahující funkce a všechny argumenty. Asynchronní verze je preferována pro podporu Blazor scénářů serveru. Metoda .NET musí být veřejná, statická a musí mít `[JSInvokable]` atribut. Volání otevřených obecných metod není aktuálně podporováno.
 
-Ukázková aplikace obsahuje metodu C# pro vrácení `int` pole. Atribut `JSInvokable` je použit pro metodu.
+Ukázková aplikace obsahuje metodu C# pro návrat `int` pole. `JSInvokable` Atribut je použit pro metodu.
 
-*Stránky/JsInterop.břitva*:
+*Stránky/JsInterop. Razor*:
 
 ```razor
 <button type="button" class="btn btn-primary"
@@ -52,23 +55,23 @@ Ukázková aplikace obsahuje metodu C# pro vrácení `int` pole. Atribut `JSInvo
 }
 ```
 
-JavaScript obsluhovaný klientovi vyvolá metodu C# .NET.
+JavaScript, který obsluhuje klient, vyvolá metodu C# .NET.
 
-*wwwroot/exampleJsInterop.js*:
+*wwwroot/exampleJsInterop. js*:
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=8-14)]
 
-Když je vybráno tlačítko **Trigger .NET static method ReturnArrayAsync,** zkontrolujte výstup konzoly v nástrojích webového vývojáře prohlížeče.
+Pokud je vybráno tlačítko **aktivovat .NET static Method ReturnArrayAsync** , Projděte si výstup konzoly v webových vývojářských nástrojích prohlížeče.
 
-Výstup konzoly je:
+Výstup konzoly:
 
 ```console
 Array(4) [ 1, 2, 3, 4 ]
 ```
 
-Čtvrtá hodnota pole je posunuta do pole (`data.push(4);`) vráceného . `ReturnArrayAsync`
+Čtvrtá hodnota pole je vložena do pole (`data.push(4);`) vráceného `ReturnArrayAsync`.
 
-Ve výchozím nastavení je identifikátor metody název metody, ale můžete `JSInvokableAttribute` zadat jiný identifikátor pomocí konstruktoru:
+Ve výchozím nastavení je identifikátor metody název metody, ale můžete zadat jiný identifikátor pomocí `JSInvokableAttribute` konstruktoru:
 
 ```csharp
 @code {
@@ -80,7 +83,7 @@ Ve výchozím nastavení je identifikátor metody název metody, ale můžete `J
 }
 ```
 
-V souboru JavaScript na straně klienta:
+V souboru JavaScriptu na straně klienta:
 
 ```javascript
 returnArrayAsyncJs: function () {
@@ -94,19 +97,19 @@ returnArrayAsyncJs: function () {
 
 ## <a name="instance-method-call"></a>Volání metody instance
 
-Můžete také volat metody instance .NET z JavaScriptu. Postup vyvolání metody instance .NET z JavaScriptu:
+Můžete také volat metody instance rozhraní .NET z JavaScriptu. Vyvolání metody instance rozhraní .NET z JavaScriptu:
 
-* Předajte instanci .NET odkazem na JavaScript:
-  * Proveďte statické `DotNetObjectReference.Create`volání .
-  * Zabalit instanci `DotNetObjectReference` v `Create` instanci a volání na `DotNetObjectReference` instanci. Zlikvidujte `DotNetObjectReference` objekty (příklad se zobrazí dále v této části).
-* Vyvolat metody instance .NET na `invokeMethod` `invokeMethodAsync` instanci pomocí funkce or. Instanci .NET lze také předat jako argument při vyvolání jiných metod .NET z JavaScriptu.
+* Předání instance rozhraní .NET odkazem na jazyk JavaScript:
+  * Proveďte statické volání `DotNetObjectReference.Create`.
+  * Zabalte instanci v `DotNetObjectReference` instanci a zavolejte `Create` na `DotNetObjectReference` instanci. Dispose `DotNetObjectReference` objektů (příklad se zobrazí později v této části).
+* Vyvolat metody instance .NET v instanci pomocí funkcí `invokeMethod` nebo. `invokeMethodAsync` Instance rozhraní .NET může být také předána jako argument při vyvolání jiných metod rozhraní .NET z JavaScriptu.
 
 > [!NOTE]
-> Ukázková aplikace protokoluje zprávy do konzole na straně klienta. Následující příklady demonstrované ukázkovou aplikací našetujte výstup konzoly prohlížeče v vývojářských nástrojích prohlížeče.
+> Ukázková aplikace protokoluje zprávy do konzoly na straně klienta. Pro následující příklady znázorněné ukázkovou aplikací si Projděte výstup konzoly v prohlížeči v vývojářských nástrojích prohlížeče.
 
-Když je **vybrána metoda instance Trigger .NET HelloHelper.SayHello,** `ExampleJsInterop.CallHelloHelperSayHello` `Blazor`je volána a předá metodě název , .
+Když je vybráno tlačítko **aktivovat metodu instance .NET HelloHelper. sayHello** , `ExampleJsInterop.CallHelloHelperSayHello` je volána a předá metodě název `Blazor`.
 
-*Stránky/JsInterop.břitva*:
+*Stránky/JsInterop. Razor*:
 
 ```razor
 <button type="button" class="btn btn-primary" @onclick="TriggerNetInstanceMethod">
@@ -122,31 +125,31 @@ Když je **vybrána metoda instance Trigger .NET HelloHelper.SayHello,** `Exampl
 }
 ```
 
-`CallHelloHelperSayHello`vyvolá funkci `sayHello` JavaScript s novou `HelloHelper`instancí aplikace .
+`CallHelloHelperSayHello`vyvolá funkci `sayHello` JavaScriptu s novou instancí `HelloHelper`.
 
-*JsInteropClasses/ExampleJsInterop.cs*:
+*JsInteropClasses/ExampleJsInterop. cs*:
 
 [!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/ExampleJsInterop.cs?name=snippet1&highlight=11-18)]
 
-*wwwroot/exampleJsInterop.js*:
+*wwwroot/exampleJsInterop. js*:
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=15-18)]
 
-Název je předán `HelloHelper`konstruktoru společnosti , `HelloHelper.Name` který nastaví vlastnost. Po spuštění funkce `sayHello` JavaScript `HelloHelper.SayHello` vrátí `Hello, {Name}!` zprávu, která je do konzoly zapsána funkcí JavaScriptu.
+Název je předán `HelloHelper`konstruktoru, který nastaví `HelloHelper.Name` vlastnost. Při spuštění funkce `sayHello` JavaScriptu `HelloHelper.SayHello` vrátí `Hello, {Name}!` zprávu, která je zapsána do konzoly funkcí JavaScriptu.
 
-*JsInteropClasses/HelloHelper.cs*:
+*JsInteropClasses/HelloHelper. cs*:
 
 [!code-csharp[](./common/samples/3.x/BlazorWebAssemblySample/JsInteropClasses/HelloHelper.cs?name=snippet1&highlight=5,10-11)]
 
-Výstup konzoly v nástrojích pro webové vývojáře prohlížeče:
+Výstup konzoly v vývojářských nástrojích webu v prohlížeči:
 
 ```console
 Hello, Blazor!
 ```
 
-Chcete-li se vyhnout nevracení paměti a `DotNetObjectReference`povolit uvolňování paměti na součást, která vytvoří , přijmout jeden z následujících přístupů:
+Aby nedošlo k nevrácení paměti a povolovalo uvolňování paměti na komponentě, která vytváří `DotNetObjectReference`, proveďte jeden z následujících přístupů:
 
-* Dispose objektu ve třídě, `DotNetObjectReference` která vytvořila instanci:
+* Dispose objektu ve třídě, která vytvořila `DotNetObjectReference` instanci:
 
   ```csharp
   public class ExampleJsInterop : IDisposable
@@ -175,7 +178,7 @@ Chcete-li se vyhnout nevracení paměti a `DotNetObjectReference`povolit uvolňo
   }
   ```
 
-  Předchozí vzor zobrazený `ExampleJsInterop` ve třídě lze také implementovat v komponentě:
+  Předchozí vzor zobrazený ve `ExampleJsInterop` třídě může být také implementován v součásti:
 
   ```razor
   @page "/JSInteropComponent"
@@ -208,7 +211,7 @@ Chcete-li se vyhnout nevracení paměti a `DotNetObjectReference`povolit uvolňo
   }
   ```
 
-* Pokud součást nebo třída není vyřazení `DotNetObjectReference`, nakládat objekt na `.dispose()`straně klienta voláním :
+* Pokud komponenta nebo třída neodstraní `DotNetObjectReference`, vyřadí objekt na straně klienta voláním: `.dispose()`
 
   ```javascript
   window.myFunction = (dotnetHelper) => {
@@ -219,12 +222,12 @@ Chcete-li se vyhnout nevracení paměti a `DotNetObjectReference`povolit uvolňo
 
 ## <a name="component-instance-method-call"></a>Volání metody instance komponenty
 
-Chcete-li vyvolat metody rozhraní .NET komponenty:
+Postup při volání metod .NET komponenty:
 
-* Pomocí `invokeMethod` funkce `invokeMethodAsync` nebo můžete provést volání komponenty statickou metodou.
-* Statická metoda komponenty zabalí volání metody instance jako `Action`vyvolání .
+* Pomocí funkce `invokeMethod` or `invokeMethodAsync` vytvořte statické volání metody do komponenty.
+* Statická metoda součásti zabalí volání své metody instance jako vyvolanou `Action`.
 
-V javascriptu na straně klienta:
+V JavaScriptu na straně klienta:
 
 ```javascript
 function updateMessageCallerJS() {
@@ -232,7 +235,7 @@ function updateMessageCallerJS() {
 }
 ```
 
-*Stránky/JSInteropComponent.holicí strojek*:
+*Stránky/JSInteropComponent. Razor*:
 
 ```razor
 @page "/JSInteropComponent"
@@ -268,13 +271,13 @@ function updateMessageCallerJS() {
 }
 ```
 
-Pokud existuje několik součástí, z nichž každá s metodami instance volat, použijte `Action`pomocnou třídu k vyvolání metod instance (jako s) každé součásti.
+V případě, že existuje několik komponent, z nichž každá má metody instance pro volání, použijte pomocnou třídu k vyvolání metod `Action`instancí jednotlivých komponent.
 
 V následujícím příkladu:
 
-* Komponenta `JSInterop` obsahuje `ListItem` několik součástí.
-* Každá `ListItem` součást se skládá ze zprávy a tlačítka.
-* Je-li vybráno `ListItem` tlačítko `ListItem`komponenty, `UpdateMessage` tato metoda změní text položky seznamu a skryje tlačítko.
+* `JSInterop` Komponenta obsahuje několik `ListItem` komponent.
+* Každá `ListItem` komponenta se skládá ze zprávy a tlačítka.
+* Když je `ListItem` vybráno tlačítko komponenty, tato `ListItem` `UpdateMessage` metoda změní text položky seznamu a skryje tlačítko.
 
 *MessageUpdateInvokeHelper.cs*:
 
@@ -299,7 +302,7 @@ public class MessageUpdateInvokeHelper
 }
 ```
 
-V javascriptu na straně klienta:
+V JavaScriptu na straně klienta:
 
 ```javascript
 window.updateMessageCallerJS = (dotnetHelper) => {
@@ -308,7 +311,7 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 }
 ```
 
-*Shared/ListItem.holicí strojek*:
+*Shared/ListItem. Razor*:
 
 ```razor
 @inject IJSRuntime JsRuntime
@@ -343,7 +346,7 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 }
 ```
 
-*Stránky/JSInterop.břitva*:
+*Stránky/JSInterop. Razor*:
 
 ```razor
 @page "/JSInterop"
@@ -360,20 +363,20 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 
 [!INCLUDE[Share interop code in a class library](~/includes/blazor-share-interop-code.md)]
 
-## <a name="avoid-circular-object-references"></a>Vyhněte se cyklické odkazy na objekty
+## <a name="avoid-circular-object-references"></a>Vyhnout se cyklickým odkazům na objekty
 
-Objekty, které obsahují cyklické odkazy nelze serializovat na straně klienta pro:
+Objekty, které obsahují kruhové odkazy, nelze v klientovi serializovat pro:
 
-* Volání metody .NET.
-* JavaScript metoda volá z Jazyka C#, pokud návratový typ má cyklické odkazy.
+* Volání metod .NET.
+* Volání metody JavaScriptu z C#, když návratový typ obsahuje cyklické odkazy.
 
-Další informace naleznete v následujících problémech:
+Další informace najdete v následujících problémech:
 
-* [Cyklické odkazy nejsou podporovány, trvat dva (dotnet/aspnetcore #20525)](https://github.com/dotnet/aspnetcore/issues/20525)
-* [Návrh: Přidání mechanismu pro zpracování cyklické odkazy při serializace (dotnet/runtime #30820)](https://github.com/dotnet/runtime/issues/30820)
+* [Cyklické odkazy nejsou podporované, musí být dva (dotnet/aspnetcore #20525).](https://github.com/dotnet/aspnetcore/issues/20525)
+* [Návrh: Přidání mechanismu pro zpracování cyklických odkazů při serializaci (dotnet/runtime #30820)](https://github.com/dotnet/runtime/issues/30820)
 
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:blazor/call-javascript-from-dotnet>
-* [Příklad InteropComponent.razor (dotnet/AspNetCore GitHub repository, 3.1 release branch)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
-* [Provádění velkých přenosů dat v Blazor serverových aplikacích](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)
+* [Příklad InteropComponent. Razor (dotnet/AspNetCore, úložiště GitHub, větev vydání 3,1)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
+* [Provádění rozsáhlých přenosů Blazor dat v serverových aplikacích](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)

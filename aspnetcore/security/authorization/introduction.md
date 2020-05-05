@@ -4,13 +4,19 @@ author: rick-anderson
 description: Seznamte se se základy autorizace a principem ověřování v aplikacích ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authorization/introduction
-ms.openlocfilehash: b5e60b3c256941fff5e54e1a02e077c34c535902
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 241ef8b00e9dcbd1983d32edcd9c1db2eaa5c687
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660711"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777524"
 ---
 # <a name="introduction-to-authorization-in-aspnet-core"></a>Úvod k autorizaci v ASP.NET Core
 
@@ -26,8 +32,8 @@ Další informace o ověřování v ASP.NET Core najdete v tématu <xref:securit
 
 ASP.NET Core Authorization poskytuje jednoduchou, deklarativní [roli](xref:security/authorization/roles) a bohatý model [založený na zásadách](xref:security/authorization/policies) . Autorizace je vyjádřena v požadavcích a obslužné rutiny vyhodnocují deklarace identity uživatele proti požadavkům. Imperativní kontroly můžou být založené na jednoduchých zásadách nebo zásadách, které vyhodnocují identitu uživatele i vlastnosti prostředku, ke kterému se uživatel pokouší získat přístup.
 
-## <a name="namespaces"></a>Obory názvů
+## <a name="namespaces"></a>Jmenné prostory
 
-Autorizační komponenty, včetně atributů `AuthorizeAttribute` a `AllowAnonymousAttribute`, se nacházejí v oboru názvů `Microsoft.AspNetCore.Authorization`.
+Autorizační komponenty, včetně atributů `AuthorizeAttribute` a `AllowAnonymousAttribute` , se nacházejí v `Microsoft.AspNetCore.Authorization` oboru názvů.
 
 Projděte si dokumentaci k [jednoduché autorizaci](xref:security/authorization/simple).

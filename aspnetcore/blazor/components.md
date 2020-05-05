@@ -1,23 +1,26 @@
 ---
-title: Vytváření a používání ASP.NET Corech komponent Razor
+title: Vytvoření a použití komponent Razor ASP.NET Core
 author: guardrex
-description: Naučte se vytvářet a používat komponenty Razor, včetně toho, jak navazovat na data, zpracovávat události a spravovat životní cykly komponent.
+description: Naučte se vytvářet a používat Razor komponenty, včetně toho, jak navazovat data, zpracovávat události a spravovat životní cykly komponent.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/21/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: a9ae84c36716bfc07ae3cf86214e48ad24770401
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: f8b1ffef1b8375337f66c93d9b4652ad3c5dd616
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82205953"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767744"
 ---
-# <a name="create-and-use-aspnet-core-razor-components"></a>Vytváření a používání ASP.NET Corech komponent Razor
+# <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití komponent Razor ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex), [Daniel Skořepa](https://github.com/danroth27)a [Tobias Bartsch](https://www.aveo-solutions.com/)
 
@@ -27,11 +30,11 @@ Blazoraplikace jsou sestavené pomocí *komponent*. Součást je samostatně obs
 
 ## <a name="component-classes"></a>Třídy komponent
 
-Komponenty jsou implementovány v souborech komponenty [Razor](xref:mvc/views/razor) (*. Razor*) pomocí kombinace kódu jazyka C# a HTML. Komponenta v Blazor je formálně označována jako *Komponenta Razor*.
+Komponenty jsou implementovány [Razor](xref:mvc/views/razor) v souborech součástí (*. Razor*) pomocí kombinace kódu jazyka C# a HTML. Komponenta v Blazor je formálně označována jako * Razor komponenta*.
 
 Název součásti musí začínat velkým znakem. Například *MyCoolComponent. Razor* je platný a *MyCoolComponent. Razor* je neplatný.
 
-Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynamická logika vykreslování (například smyčky, podmíněné výrazy, výrazy) je přidána pomocí vložené syntaxe jazyka C# s názvem [Razor](xref:mvc/views/razor). Při kompilaci aplikace jsou značky HTML a vykreslování jazyka C# převedeny na třídu komponenty. Název generované třídy se shoduje s názvem souboru.
+Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynamická logika vykreslování (například cykly, podmíněné výrazy, výrazy) je přidána pomocí vložené syntaxe jazyka C# s názvem [Razor](xref:mvc/views/razor). Při kompilaci aplikace jsou značky HTML a vykreslování jazyka C# převedeny na třídu komponenty. Název generované třídy se shoduje s názvem souboru.
 
 Členy třídy komponenty jsou definovány v `@code` bloku. V `@code` bloku je stav součásti (vlastnosti, pole) zadán pomocí metod pro zpracování událostí nebo pro definování jiné logiky komponent. Je přípustný více `@code` než jeden blok.
 
@@ -76,13 +79,13 @@ Použijte základní cestu (`/`) pro odkaz na webový kořenový adresář pro s
 <img alt="Company logo" src="/images/logo.png" />
 ```
 
-Komponenty Razor **nepodporují znak** tilda () s`~/`vlnovým lomítkem ().
+Razorkomponenty **nepodporují** vlnové lomítko (`~/`).
 
 Informace o nastavení základní cesty aplikace najdete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
 
 ## <a name="tag-helpers-arent-supported-in-components"></a>V součástech nejsou podporovány pomocníky značek.
 
-V součástech Razor (soubory *. Razor* ) nejsou podporované [pomocníky značek](xref:mvc/views/tag-helpers/intro) . Chcete-li poskytnout funkci Blazor, jako je například Pomocník pro vytváření značek, vytvořte komponentu se stejnou funkcí jako pomocník značek a místo ní použijte komponentu.
+V Razor součástech (soubory *. Razor* ) nejsou podporované [pomocníky značek](xref:mvc/views/tag-helpers/intro) . Chcete-li poskytnout funkci Blazor, jako je například Pomocník pro vytváření značek, vytvořte komponentu se stejnou funkcí jako pomocník značek a místo ní použijte komponentu.
 
 ## <a name="use-components"></a>Použití komponent
 
@@ -104,7 +107,7 @@ Pokud komponenta obsahuje element HTML s velkým prvním písmenem, které neodp
 
 Směrování do Blazor se dosahuje tím, že poskytuje šablonu směrování pro každou dostupnou součást aplikace.
 
-Když je zkompilován soubor Razor s `@page` direktivou, vygenerovaná třída je dána <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadáním šablony trasy. V době běhu Směrovač vyhledává třídy komponent pomocí `RouteAttribute` a a vykreslí, že jakákoli součást má šablonu směrování, která odpovídá požadované adrese URL.
+Když je Razor zkompilován soubor s `@page` direktivou, vygenerovaná třída je dána <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadáním šablony trasy. V době běhu Směrovač vyhledává třídy komponent pomocí `RouteAttribute` a a vykreslí, že jakákoli součást má šablonu směrování, která odpovídá požadované adrese URL.
 
 ```razor
 @page "/ParentComponent"
@@ -126,7 +129,7 @@ Komponenty mohou přijímat parametry směrování z šablony směrování uvede
 
 Volitelné parametry nejsou podporovány, takže v `@page` předchozím příkladu jsou aplikovány dvě direktivy. První umožňuje navigaci na součást bez parametru. Druhá `@page` direktiva přijme parametr `{text}` Route a přiřadí hodnotu `Text` vlastnosti.
 
-*Catch-All* Parameter Syntax (`*`/`**`), která zachycuje cestu mezi více hranicemi složek, není v součástech Razor (*. Razor* **) podporován.**
+*Catch-All* Parameter Syntax (`*`/`**`), která zachycuje cestu mezi více hranicemi složek **, není v** Razor součástech (*. Razor*) podporován.
 
 ### <a name="component-parameters"></a>Parametry součásti
 
@@ -166,7 +169,7 @@ V následujícím příkladu `ChildComponent` má `ChildContent` vlastnost, kter
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>Seskupováním atributů a libovolné parametry
 
-Komponenty mohou kromě deklarovaných parametrů komponenty zachytit a vykreslovat další atributy. Další atributy mohou být zachyceny ve slovníku a poté *splatted* na prvek při vykreslení komponenty pomocí direktivy [`@attributes`](xref:mvc/views/razor#attributes) Razor. Tento scénář je užitečný při definování komponenty, která vytváří prvek značky, který podporuje nejrůznější přizpůsobení. Například může být zdlouhavé definovat atributy samostatně pro objekt `<input>` , který podporuje mnoho parametrů.
+Komponenty mohou kromě deklarovaných parametrů komponenty zachytit a vykreslovat další atributy. Další atributy mohou být zachyceny ve slovníku a poté *splatted* na prvek při vykreslení komponenty pomocí [`@attributes`](xref:mvc/views/razor#attributes) Razor direktivy. Tento scénář je užitečný při definování komponenty, která vytváří prvek značky, který podporuje nejrůznější přizpůsobení. Například může být zdlouhavé definovat atributy samostatně pro objekt `<input>` , který podporuje mnoho parametrů.
 
 V následujícím `<input>` příkladu první prvek (`id="useIndividualParams"`) používá jednotlivé parametry komponenty, zatímco druhý `<input>` element (`id="useAttributesDict"`) používá atribut seskupováním:
 
@@ -552,12 +555,12 @@ Následující `Expander` součást:
 
 ## <a name="partial-class-support"></a>Podpora částečné třídy
 
-Komponenty Razor jsou generovány jako částečné třídy. Komponenty Razor jsou vytvořeny některým z následujících přístupů:
+Razorkomponenty jsou generovány jako částečné třídy. Razorkomponenty jsou vytvořeny jedním z následujících přístupů:
 
-* Kód jazyka C# je definován v [`@code`](xref:mvc/views/razor#code) bloku s označením HTML a kódem Razor v jednom souboru. Blazoršablony definují své komponenty Razor pomocí tohoto přístupu.
+* Kód jazyka C# je definován v [`@code`](xref:mvc/views/razor#code) bloku s označením HTML Razor a kódem v jednom souboru. Blazoršablony definují své Razor komponenty pomocí tohoto přístupu.
 * Kód jazyka C# je umístěn v souboru kódu na pozadí, který je definován jako částečná třída.
 
-Následující příklad ukazuje výchozí `Counter` komponentu s `@code` blokem v aplikaci vygenerovanou ze Blazor šablony. HTML značky, kód Razor a kód jazyka C# jsou ve stejném souboru:
+Následující příklad ukazuje výchozí `Counter` komponentu s `@code` blokem v aplikaci vygenerovanou ze Blazor šablony. Razor Kód HTML kódu a kód jazyka C# jsou ve stejném souboru:
 
 *Čítač. Razor*:
 
@@ -611,7 +614,7 @@ namespace BlazorApp.Pages
 }
 ```
 
-Podle potřeby přidejte všechny požadované obory názvů do souboru dílčí třídy. Mezi obvyklé obory názvů používané komponentami Razor patří:
+Podle potřeby přidejte všechny požadované obory názvů do souboru dílčí třídy. Mezi obvyklé obory Razor názvů používané komponentami patří:
 
 ```csharp
 using Microsoft.AspNetCore.Authorization;
@@ -652,7 +655,7 @@ namespace BlazorSample
 
 ## <a name="specify-an-attribute"></a>Zadat atribut
 
-Atributy lze zadat v součástech Razor s [`@attribute`](xref:mvc/views/razor#attribute) direktivou. Následující příklad používá `[Authorize]` atribut pro třídu komponenty:
+Atributy lze zadat v Razor součástech s [`@attribute`](xref:mvc/views/razor#attribute) direktivou. Následující příklad používá `[Authorize]` atribut pro třídu komponenty:
 
 ```razor
 @page "/"
@@ -661,15 +664,15 @@ Atributy lze zadat v součástech Razor s [`@attribute`](xref:mvc/views/razor#at
 
 ## <a name="import-components"></a>Importovat součásti
 
-Obor názvů komponenty, která je vytvořená pomocí Razor, je založen na (v pořadí podle priority):
+Obor názvů komponenty, která se vytvořila Razor , je založený na (v pořadí podle priority):
 
-* [`@namespace`](xref:mvc/views/razor#namespace)označení v souboru Razor (*. Razor*) značky (`@namespace BlazorSample.MyNamespace`).
+* [`@namespace`](xref:mvc/views/razor#namespace)označení v Razor souboru (*. Razor*) značky (`@namespace BlazorSample.MyNamespace`).
 * Projekt `RootNamespace` v souboru projektu (`<RootNamespace>BlazorSample</RootNamespace>`).
 * Název projektu, pořízený z názvu souboru projektu (*. csproj*) a cesta z kořenového adresáře projektu ke komponentě. Rozhraní například překládá *{root]/pages/index.Razor* (*BlazorSample. csproj*) na obor názvů `BlazorSample.Pages`. Komponenty následují pravidla vazeb názvů C#. Pro `Index` komponentu v tomto příkladu komponenty v oboru jsou všechny komponenty:
   * Ve stejné složce *stránky*.
   * Komponenty v kořenu projektu, které explicitně neurčují jiný obor názvů.
 
-Komponenty definované v jiném oboru názvů se přenesou do rozsahu pomocí [`@using`](xref:mvc/views/razor#using) direktivy Razor.
+Komponenty definované v jiném oboru názvů se přenesou do rozsahu Razor [`@using`](xref:mvc/views/razor#using) direktivy using.
 
 Pokud jiná komponenta, `NavMenu.razor`existuje ve složce *BlazorSample/Shared/* Folder, lze komponentu použít v `Index.razor` příkazu s následujícím `@using` příkazem:
 
@@ -912,9 +915,9 @@ Podřízené komponenty `Tab` zachytí objekt obsahující `TabSet` jako kaskád
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/Tab.razor)]
 
-## <a name="razor-templates"></a>Šablony Razor
+## <a name="razor-templates"></a>Razoršablony
 
-Fragmenty vykreslování lze definovat pomocí syntaxe šablony Razor. Šablony Razor představují způsob, jak definovat fragment uživatelského rozhraní a předpokládat následující formát:
+Fragmenty vykreslování lze definovat pomocí Razor syntaxe šablony. RazorŠablony představují způsob, jak definovat fragment uživatelského rozhraní a předpokládat následující formát:
 
 ```razor
 @<{HTML tag}>...</{HTML tag}>

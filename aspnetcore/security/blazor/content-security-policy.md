@@ -1,23 +1,26 @@
 ---
-title: Vynutili zásady zabezpečení obsahu pro ASP.NET Core Blazor
+title: Vynutili zásady zabezpečení obsahu pro ASP.NET CoreBlazor
 author: guardrex
-description: Naučte se používat zásady zabezpečení obsahu (CSP) s aplikacemi ASP.NET Core Blazor, které vám pomůžou chránit před útoky XSS (mezi lokalitami).
+description: Naučte se používat zásady zabezpečení obsahu (CSP) s aplikacemi ASP.NET Core Blazor k ochraně proti útokům skriptování mezi weby (XSS).
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/02/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/content-security-policy
-ms.openlocfilehash: 1cfebf7b3d3bbb98a671b6f2db7c6518cda74b65
-ms.sourcegitcommit: 51c86c003ab5436598dbc42f26ea4a83a795fd6e
+ms.openlocfilehash: 8c5e1c5dd2d41efade91a612bea2855569a61fee
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/10/2020
-ms.locfileid: "78964548"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775580"
 ---
-# <a name="enforce-a-content-security-policy-for-aspnet-core-opno-locblazor"></a>Vynutili zásady zabezpečení obsahu pro ASP.NET Core Blazor
+# <a name="enforce-a-content-security-policy-for-aspnet-core-blazor"></a>Vynutili zásady zabezpečení obsahu pro ASP.NET CoreBlazor
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
@@ -29,37 +32,37 @@ Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https:/
 * Akce provedená stránkou a určením povolených cílů adres URL formulářů.
 * Moduly plug-in, které lze načíst.
 
-Pokud chcete použít zprostředkovatele CSP pro aplikaci, vývojář určí několik *direktiv* zabezpečení obsahu CSP v jednom nebo více `Content-Security-Policy` hlaviček nebo `<meta>` tagů.
+Pokud chcete použít zprostředkovatele CSP pro aplikaci, vývojář určí několik *direktiv* zabezpečení obsahu CSP v jedné nebo několika `Content-Security-Policy` hlavičkách nebo `<meta>` značkách.
 
-Zásady jsou vyhodnocovány prohlížečem během načítání stránky. Prohlížeč zkontroluje zdroje stránky a určí, zda splňují požadavky na direktivy zabezpečení obsahu. Pokud se pro prostředek nesplní směrnice zásad, prohlížeč nenačte prostředek. Představte si třeba zásadu, která nepovoluje skripty třetích stran. Pokud stránka obsahuje značku `<script>` se zdrojem třetí strany v atributu `src`, prohlížeč brání načtení skriptu.
+Zásady jsou vyhodnocovány prohlížečem během načítání stránky. Prohlížeč zkontroluje zdroje stránky a určí, zda splňují požadavky na direktivy zabezpečení obsahu. Pokud se pro prostředek nesplní směrnice zásad, prohlížeč nenačte prostředek. Představte si třeba zásadu, která nepovoluje skripty třetích stran. Pokud stránka obsahuje `<script>` značku se zdrojem třetí strany v `src` atributu, prohlížeč brání načtení skriptu.
 
-CSP se podporuje ve většině moderních desktopových a mobilních prohlížečích, včetně Chrome, Edge, Firefox, Operau a Safari. Pro aplikace Blazor se doporučuje CSP.
+CSP se podporuje ve většině moderních desktopových a mobilních prohlížečích, včetně Chrome, Edge, Firefox, Operau a Safari. Pro Blazor aplikace se doporučuje CSP.
 
 ## <a name="policy-directives"></a>Direktivy zásad
 
-Minimálně zadejte následující direktivy a zdroje pro aplikace Blazor. Podle potřeby přidejte další direktivy a zdroje. V části [použití zásad](#apply-the-policy) v tomto článku se používají následující direktivy, kde jsou k dispozici příklady zásad zabezpečení pro Blazor WebAssembly a Blazor Server:
+Minimálně zadejte následující direktivy a zdroje pro Blazor aplikace. Podle potřeby přidejte další direktivy a zdroje. V části [použití zásad](#apply-the-policy) v tomto článku se používají následující direktivy, kde jsou k dispozici příklady zásad Blazor zabezpečení pro WebAssembly a Blazor Server:
 
-* [Base-uri](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri) &ndash; omezují adresy URL pro značku `<base>` stránky. Zadejte `self` pro označení, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
-* [blok-All-Mixed-content](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content) &ndash; znemožňuje načtení smíšeného obsahu HTTP a HTTPS.
-* [Výchozí hodnota-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/default-src) &ndash; označuje zálohu pro zdrojové direktivy, které nejsou explicitně určeny zásadou. Zadejte `self` pro označení, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
+* [základní identifikátor URI](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri) &ndash; omezuje adresy URL pro `<base>` značku stránky. Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
+* [blokování všech smíšených obsahu](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content) &ndash; zabraňuje načtení smíšeného obsahu HTTP a HTTPS.
+* [Výchozí hodnota – src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/default-src) &ndash; označuje zálohu pro zdrojové direktivy, které nejsou explicitně určeny zásadou. Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
 * [img-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/img-src) &ndash; označuje platné zdroje pro obrázky.
-  * Zadejte `data:` pro povolení načítání imagí z adres URL `data:`.
-  * Zadejte `https:` pro povolení načítání imagí z koncových bodů HTTPS.
-* [objekt-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/object-src) &ndash; označuje platné zdroje pro značky `<object>`, `<embed>`a `<applet>`. Zadejte `none`, aby se zabránilo všem zdrojům adresy URL.
-* [skript-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src) &ndash; označuje platné zdroje pro skripty.
-  * Zadejte zdroj hostitele `https://stackpath.bootstrapcdn.com/` pro skripty Bootstrap.
-  * Zadejte `self` pro označení, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
-  * V Blazor aplikaci WebAssembly:
-    * Zadejte následující hodnoty hash, aby bylo možné načíst požadované Blazor vložené skripty protokolu WebAssembly:
+  * Určuje `data:` , že se mají povolit `data:` načítání imagí z adres URL.
+  * Určuje `https:` , že se mají povolit načítání imagí z koncových bodů https.
+* [objekt-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/object-src) &ndash; označuje platné zdroje pro značky `<object>`, `<embed>`a `<applet>` . Určete `none` , aby se zabránilo všem zdrojům adresy URL.
+* [skript – src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src) &ndash; označuje platné zdroje pro skripty.
+  * Zadejte zdroj `https://stackpath.bootstrapcdn.com/` hostitele pro skripty Bootstrap.
+  * Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
+  * Blazor V aplikaci WebAssembly:
+    * Zadejte následující hodnoty hash, aby bylo možné načíst Blazor požadované vložené skripty pro sestavení:
       * `sha256-v8ZC9OgMhcnEQ/Me77/R9TlJfzOBqrMTW8e1KuqLaqc=`
       * `sha256-If//FtbPc03afjLezvWHnC3Nbu4fDM04IIzkPaf3pH0=`
       * `sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=`
-    * Zadejte `unsafe-eval` pro použití `eval()` a metod pro vytvoření kódu z řetězců.
-  * V aplikaci Blazor Server zadejte hodnotu hash `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` vloženého skriptu, který provádí záložní detekci pro šablony stylů.
+    * Určete `unsafe-eval` , že `eval()` se mají použít metody a pro vytvoření kódu z řetězců.
+  * V Blazor serverové aplikaci zadejte `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` hodnotu hash vloženého skriptu, který provádí záložní detekci pro šablony stylů.
 * [style-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src) &ndash; označuje platné zdroje pro šablony stylů.
-  * Zadejte zdroj hostitele `https://stackpath.bootstrapcdn.com/` pro spouštěcí šablony stylů.
-  * Zadejte `self` pro označení, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
-  * Zadejte `unsafe-inline`, aby bylo možné použít vložené styly. Vložená deklarace je vyžadována pro uživatelské rozhraní v aplikacích Blazor Server pro opětovné připojení klienta a serveru po počátečním požadavku. V budoucí verzi je možné odebrat vložené styly, aby se `unsafe-inline` už nevyžadovala.
+  * Zadejte zdroj `https://stackpath.bootstrapcdn.com/` hostitele pro Bootstrap šablon stylů.
+  * Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
+  * Určete `unsafe-inline` , aby bylo možné použít vložené styly. Vložená deklarace se vyžaduje pro uživatelské rozhraní v Blazor serverových aplikacích pro opětovné připojení klienta a serveru po počátečním požadavku. V budoucí verzi `unsafe-inline` je možné odebrat vložené styly, aby se už nevyžadovaly.
 * [upgrade – nezabezpečené – požadavky](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests) &ndash; označují, že adresy URL obsahu z nezabezpečených (http) zdrojů by měly být zabezpečeny prostřednictvím protokolu HTTPS.
 
 Předchozí direktivy jsou podporovány všemi prohlížeči kromě aplikace Microsoft Internet Explorer.
@@ -67,24 +70,24 @@ Předchozí direktivy jsou podporovány všemi prohlížeči kromě aplikace Mic
 Získání hodnot hash SHA pro další vložené skripty:
 
 * Použijte zprostředkovatele CSP, který je uveden v části [použití zásad](#apply-the-policy) .
-* Přístup ke konzole nástroje pro vývojáře v prohlížeči, při které se aplikace spouští místně Prohlížeč vypočítá a zobrazí hodnoty hash pro blokované skripty, pokud je k dispozici hlavička CSP nebo `meta` značka.
-* Zkopírujte hodnoty hash poskytované prohlížečem do zdrojů `script-src`. Kolem každé hodnoty hash použijte jednoduché uvozovky.
+* Přístup ke konzole nástroje pro vývojáře v prohlížeči, při které se aplikace spouští místně Prohlížeč vypočítá a zobrazí hodnoty hash pro blokované skripty, když je přítomna hlavička `meta` nebo značka CSP.
+* Zkopírujte hodnoty hash poskytované prohlížečem do `script-src` zdrojů. Kolem každé hodnoty hash použijte jednoduché uvozovky.
 
 Informace o podpoře prohlížečů úrovně zásad zabezpečení obsahu 2 najdete v tématu [Jak můžu použít: úroveň zásad zabezpečení obsahu 2](https://www.caniuse.com/#feat=contentsecuritypolicy2).
 
 ## <a name="apply-the-policy"></a>Použít zásady
 
-Použití značky `<meta>` k aplikování zásad:
+Použijte `<meta>` značku pro aplikování zásad:
 
-* Nastavte hodnotu atributu `http-equiv` na `Content-Security-Policy`.
-* Direktivy umístěte do hodnoty atributu `content`. Oddělte direktivy středníkem (`;`).
-* Vždy umístit značku `meta` do obsahu `<head>`.
+* Nastavte hodnotu `http-equiv` atributu na `Content-Security-Policy`.
+* Umístěte direktivy do hodnoty `content` atributu. Oddělte direktivy středníkem`;`().
+* Vždy umístit `meta` značku do `<head>` obsahu.
 
-V následujících částech jsou uvedeny příklady zásad pro Blazor WebAssembly a Blazor Server. Tyto příklady jsou ve verzi tohoto článku pro každou verzi Blazor. Pokud chcete použít verzi vhodnou pro vaši verzi, vyberte na této webové stránce verzi dokumentu s rozevíracím selektorem **verzí** .
+V následujících částech jsou uvedeny příklady zásad Blazor pro WebAssembly Blazor a Server. Tyto příklady jsou ve verzi tohoto článku pro každou verzi Blazor. Pokud chcete použít verzi vhodnou pro vaši verzi, vyberte na této webové stránce verzi dokumentu s rozevíracím selektorem **verzí** .
 
-### <a name="opno-locblazor-webassembly"></a>Blazor WebAssembly
+### <a name="blazor-webassembly"></a>BlazorWebAssembly
 
-V `<head>`ovém obsahu stránky hostitele *wwwroot/index.html* použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
+V `<head>` obsahu stránky hostitele *wwwroot/index.html* použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
 
 ```html
 <meta http-equiv="Content-Security-Policy" 
@@ -105,7 +108,7 @@ V `<head>`ovém obsahu stránky hostitele *wwwroot/index.html* použijte direkti
                upgrade-insecure-requests;">
 ```
 
-### <a name="opno-locblazor-server"></a>Server Blazor
+### <a name="blazor-server"></a>BlazorWebServer
 
 V `<head>` obsahu stránky hostitele *stránky/_Host. cshtml* použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
 
@@ -127,7 +130,7 @@ V `<head>` obsahu stránky hostitele *stránky/_Host. cshtml* použijte direktiv
 
 ## <a name="meta-tag-limitations"></a>Omezení meta značek
 
-Zásady značky `<meta>` nepodporují následující direktivy:
+Zásady `<meta>` značek nepodporují následující direktivy:
 
 * [předchůdci v rámci](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/frame-ancestors)
 * [Sestava – do](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)
@@ -140,14 +143,14 @@ Pro podporu předchozích direktiv použijte záhlaví s názvem `Content-Securi
 
 Testování pomáhá ověřit, jestli se skripty třetích stran při vytváření počátečních zásad nechtěně nezablokovaly.
 
-Chcete-li testovat zásadu v časovém intervalu bez vynucení direktiv zásad, nastavte atribut `http-equiv` `<meta>` značky nebo název záhlaví zásady na základě hlaviček na `Content-Security-Policy-Report-Only`. Zprávy o chybách se odesílají do zadané adresy URL jako dokumenty JSON. Další informace najdete v tématu [MDN web Docs: Content-Security-Policy-Report-Only](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only).
+Chcete-li testovat zásadu v časovém intervalu bez vynucování direktiv zásad, nastavte `<meta>` `http-equiv` atribut značky nebo záhlaví zásady na základě záhlaví na. `Content-Security-Policy-Report-Only` Zprávy o chybách se odesílají do zadané adresy URL jako dokumenty JSON. Další informace najdete v tématu [MDN web Docs: Content-Security-Policy-Report-Only](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only).
 
 Pro vytváření sestav o porušeních, když je zásada aktivní, se podívejte na následující články:
 
 * [Sestava – do](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/report-to)
 * [identifikátor URI sestavy](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/report-uri)
 
-I když se už `report-uri` nedoporučuje používat, měli byste použít obě direktivy, dokud `report-to` nepodporují všechny hlavní prohlížeče. Nepoužívejte výhradně `report-uri`, protože podpora `report-uri` se *v* těchto prohlížečích může kdykoli vyřadit. Pokud je `report-to` plně podporovaná, odeberte podporu pro `report-uri` v zásadách. Pokud chcete sledovat přijetí `report-to`, přečtěte si téma [možné použití: Report-to](https://caniuse.com/#feat=mdn-http_headers_csp_content-security-policy_report-to).
+I `report-uri` když se už nedoporučuje používat, obě direktivy by se měly `report-to` používat, dokud je nepodporují všechny hlavní prohlížeče. Nepoužívejte `report-uri` výhradně, protože podpora `report-uri` pro je předmětem *vyřazení z prohlížečů kdykoli.* Pokud `report-to` je podpora `report-uri` plně podporovaná, odeberte ji ve svých zásadách. Informace o tom `report-to`, jak se dá sledovat, najdete v tématu [použití: Report-to](https://caniuse.com/#feat=mdn-http_headers_csp_content-security-policy_report-to).
 
 Otestujte a aktualizujte zásady aplikace při každé vydané verzi.
 

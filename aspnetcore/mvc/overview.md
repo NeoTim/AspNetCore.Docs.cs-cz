@@ -4,13 +4,19 @@ author: ardalis
 description: Přečtěte si, jak ASP.NET Core MVC je bohatá architektura pro vytváření webových aplikací a rozhraní API pomocí vzorového vzoru pro zobrazení modelu.
 ms.author: riande
 ms.date: 02/12/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/overview
-ms.openlocfilehash: 2911399f6ed4e14345171c908c4306b9c3e33805
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c6c7fd1d0cb7a462b3a13d5e31a50c704a00c0ef
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78658429"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775463"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -37,11 +43,11 @@ Model v aplikaci MVC představuje stav aplikace a jakékoli obchodní logiky neb
 
 ### <a name="view-responsibilities"></a>Zobrazit odpovědnosti
 
-Zobrazení jsou zodpovědná za prezentaci obsahu prostřednictvím uživatelského rozhraní. Používají [zobrazovací modul Razor](#razor-view-engine) k vložení kódu .NET do kódu HTML. V zobrazeních by měla být minimální logika a každá logika v nich by se měla vztahovat k prezentaci obsahu. Pokud zjistíte, že je potřeba provést skvělou možnost logiky v zobrazení souborů, abyste mohli zobrazit data ze složitého modelu, zvažte použití šablony [View Component](views/view-components.md), ViewModel nebo View pro zjednodušení zobrazení.
+Zobrazení jsou zodpovědná za prezentaci obsahu prostřednictvím uživatelského rozhraní. Používají [ Razor modul zobrazení](#razor-view-engine) k vložení kódu .NET do kódu HTML. V zobrazeních by měla být minimální logika a každá logika v nich by se měla vztahovat k prezentaci obsahu. Pokud zjistíte, že je potřeba provést skvělou možnost logiky v zobrazení souborů, abyste mohli zobrazit data ze složitého modelu, zvažte použití šablony [View Component](views/view-components.md), ViewModel nebo View pro zjednodušení zobrazení.
 
 ### <a name="controller-responsibilities"></a>Odpovědnosti řadiče
 
-Řadiče jsou komponenty, které zpracovávají interakci uživatele, pracují s modelem a nakonec vykreslí zobrazení, které se má vykreslit. V aplikaci MVC zobrazení pouze zobrazuje informace, zatímco kontroler zpracovává vstup uživatele a interakci s uživatelem a reaguje na ně. Ve vzoru MVC je kontroler počátečním vstupním bodem a zodpovídá za výběr typů modelů, se kterými se má pracovat, a které zobrazení se má vykreslit (takže jeho název určuje, jak aplikace reaguje na daný požadavek).
+Řadiče jsou komponenty, které zpracovávají interakci uživatele, pracují s modelem a nakonec vykreslí zobrazení, které se má vykreslit. V aplikaci MVC zobrazení zobrazuje pouze informace; kontroler zpracovává a reaguje na vstupy a interakce uživatele. Ve vzoru MVC je kontroler počátečním vstupním bodem a zodpovídá za výběr typů modelů, se kterými se má pracovat, a které zobrazení se má vykreslit (takže jeho název určuje, jak aplikace reaguje na daný požadavek).
 
 > [!NOTE]
 > Řadiče by neměly být příliš komplikované o příliš mnoho zodpovědností. Aby se logika kontroléru stala nepřesnou složitou, měla by být nabízena obchodní logika z kontroleru a do doménového modelu.
@@ -62,12 +68,12 @@ ASP.NET Core MVC zahrnuje následující:
 * [Směrování](#routing)
 * [Vazby modelu](#model-binding)
 * [Ověření modelu](#model-validation)
-* [Vkládání závislostí](../fundamentals/dependency-injection.md)
+* [Injektáž závislostí](../fundamentals/dependency-injection.md)
 * [Filtry](#filters)
 * [Oblasti](#areas)
 * [Webová rozhraní API](#web-apis)
 * [Testovatelnosti](#testability)
-* [Modul zobrazení Razor](#razor-view-engine)
+* [RazorZobrazit modul](#razor-view-engine)
 * [Zobrazení silného typu](#strongly-typed-views)
 * [Pomocné rutiny značek](#tag-helpers)
 * [Zobrazit součásti](#view-components)
@@ -141,11 +147,11 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 Rozhraní zpracovává ověřování dat žádostí na straně klienta i serveru. Logika ověřování zadaná u typů modelů je přidána do vykreslených zobrazení jako nenáročná anotace a je vyhodnocena v prohlížeči s [ověřováním jQuery](https://jqueryvalidation.org/).
 
-### <a name="dependency-injection"></a>Injektáž závislosti
+### <a name="dependency-injection"></a>Injektáž závislostí
 
 ASP.NET Core obsahuje integrovanou podporu pro [vkládání závislostí (di)](../fundamentals/dependency-injection.md). V ASP.NET Core MVC můžou [řadiče](controllers/dependency-injection.md) požadovat služby potřebné prostřednictvím svých konstruktorů, takže by mohli postupovat podle [principu explicitní závislosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 
-Aplikace může také používat [vkládání závislostí v souborech zobrazení](views/dependency-injection.md)pomocí direktivy `@inject`:
+Aplikace může také používat [vkládání závislostí v souborech zobrazení](views/dependency-injection.md)pomocí `@inject` direktivy:
 
 ```cshtml
 @inject SomeService ServiceName
@@ -163,7 +169,7 @@ Aplikace může také používat [vkládání závislostí v souborech zobrazen�
 
 ### <a name="filters"></a>Filtry
 
-[Filtry](controllers/filters.md) , které vývojářům pomůžou zapouzdřit věci mimo průřez, jako je zpracování výjimek nebo autorizace. Filtry umožňují spuštění vlastní logiky před a po zpracování pro metody akcí a lze je nakonfigurovat tak, aby běžely v určitých bodech v rámci kanálu spuštění pro daný požadavek. Filtry lze použít u řadičů nebo akcí jako atributů (nebo je lze spustit globálně). V rámci rozhraní je zahrnuto několik filtrů (například `Authorize`). `[Authorize]` je atribut, který slouží k vytváření ověřovacích filtrů MVC.
+[Filtry](controllers/filters.md) , které vývojářům pomůžou zapouzdřit věci mimo průřez, jako je zpracování výjimek nebo autorizace. Filtry umožňují spuštění vlastní logiky před a po zpracování pro metody akcí a lze je nakonfigurovat tak, aby běžely v určitých bodech v rámci kanálu spuštění pro daný požadavek. Filtry lze použít u řadičů nebo akcí jako atributů (nebo je lze spustit globálně). V rámci rozhraní je zahrnuto několik filtrů (například `Authorize`). `[Authorize]`je atribut, který se používá k vytváření ověřovacích filtrů MVC.
 
 ```csharp
 [Authorize]
@@ -186,9 +192,9 @@ Pokud chcete povolit podporu pro multimédia, použijte generaci odkazů. Umož�
 
 Použití rozhraní a vkládání závislostí v rozhraní je vhodné pro testování částí a rozhraní zahrnuje funkce (jako je TestHost a inMemory Provider pro Entity Framework), které umožňují provádět i rychlé a snadné [testy integrace](xref:test/integration-tests) . Přečtěte si další informace o [testování logiky kontroleru](controllers/testing.md).
 
-### <a name="razor-view-engine"></a>Modul zobrazení Razor
+### <a name="razor-view-engine"></a>RazorZobrazit modul
 
-[ASP.NET Core zobrazení MVC](views/overview.md) používají k vykreslování zobrazení [modul zobrazení Razor](views/razor.md) . Razor je kompaktní, přehledové a kapalné jazyky pro označování zobrazení pomocí vloženého C# kódu. Syntaxe Razor slouží k dynamickému generování webového obsahu na serveru. Kód serveru můžete vyčistit pomocí obsahu a kódu na straně klienta.
+[ASP.NET Core zobrazení MVC](views/overview.md) používají k vykreslování zobrazení [ Razor modul zobrazení](views/razor.md) . Razorje kompaktní, expresně a jazyk kapalinového kódu pro definování zobrazení pomocí vloženého kódu jazyka C#. Razorslouží k dynamickému generování webového obsahu na serveru. Kód serveru můžete vyčistit pomocí obsahu a kódu na straně klienta.
 
 ```cshtml
 <ul>
@@ -198,11 +204,11 @@ Použití rozhraní a vkládání závislostí v rozhraní je vhodné pro testov
 </ul>
 ```
 
-Pomocí zobrazovacího modulu Razor můžete definovat [rozložení](views/layout.md), [částečná zobrazení](views/partial.md) a nahraditelné oddíly.
+Pomocí modulu Razor zobrazení můžete definovat [rozložení](views/layout.md), [částečná zobrazení](views/partial.md) a nahraditelné oddíly.
 
 ### <a name="strongly-typed-views"></a>Zobrazení silného typu
 
-Zobrazení Razor v MVC lze silně napsat na základě vašeho modelu. Řadiče můžou předat model silného typu k zobrazením, která umožňují, aby vaše zobrazení měla kontrolu typů a podporu technologie IntelliSense.
+Razorzobrazení v MVC můžou být na základě vašeho modelu silného typu. Řadiče můžou předat model silného typu k zobrazením, která umožňují, aby vaše zobrazení měla kontrolu typů a podporu technologie IntelliSense.
 
 Například následující zobrazení vykresluje model typu `IEnumerable<Product>`:
 
@@ -218,9 +224,9 @@ Například následující zobrazení vykresluje model typu `IEnumerable<Product
 
 ### <a name="tag-helpers"></a>Pomocné rutiny značek
 
-[Pomocník značek](views/tag-helpers/intro.md) povolit kód na straně serveru, který se účastní vytváření a vykreslování prvků HTML v souborech Razor. Můžete použít pomocníka značek k definování vlastních značek (například `<environment>`) nebo k úpravě chování existujících značek (například `<label>`). Přihlaste se k určitým prvkům na základě názvu elementu a jeho atributů pomocí rutiny tag. Poskytují výhody vykreslování na straně serveru a zároveň zachovává prostředí pro úpravy HTML.
+[Pomocník značek](views/tag-helpers/intro.md) povolit kód na straně serveru pro účast v vytváření a vykreslování prvků HTML v Razor souborech. Můžete použít pomocníka značek k definování vlastních značek (například `<environment>`) nebo k úpravě chování existujících značek (například `<label>`). Přihlaste se k určitým prvkům na základě názvu elementu a jeho atributů pomocí rutiny tag. Poskytují výhody vykreslování na straně serveru a zároveň zachovává prostředí pro úpravy HTML.
 
-K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako je vytváření formulářů, odkazů, načítání assetů a ještě více dostupných ve veřejných úložištích GitHub a jako balíčky NuGet. Pomocníky značek jsou vytvořeny v C#a jsou cíleny na prvky HTML na základě názvu elementu, názvu atributu nebo nadřazené značky. Například integrovaný LinkTagHelper lze použít k vytvoření odkazu na akci `Login` `AccountsController`:
+K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako je vytváření formulářů, odkazů, načítání assetů a ještě více dostupných ve veřejných úložištích GitHub a jako balíčky NuGet. Pomocníky značek jsou vytvořeny v jazyce C# a jsou cíleny na prvky HTML na základě názvu elementu, názvu atributu nebo nadřazené značky. Například integrovaný LinkTagHelper lze použít k vytvoření odkazu na `Login` akci pro: `AccountsController`
 
 ```cshtml
 <p>
@@ -229,7 +235,7 @@ K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako
 </p>
 ```
 
-`EnvironmentTagHelper` lze použít k zahrnutí různých skriptů do vašich zobrazení (například RAW nebo minifikovaného) na základě běhového prostředí, jako je vývoj, příprava nebo produkce:
+`EnvironmentTagHelper` Dá se použít k zahrnutí různých skriptů do vašich zobrazení (například RAW nebo minifikovaného) na základě běhového prostředí, jako je vývoj, příprava nebo produkce:
 
 ```cshtml
 <environment names="Development">
@@ -243,7 +249,7 @@ K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako
 </environment>
 ```
 
-Značky pomocníků poskytují prostředí pro vývoj ve formátu HTML a bohatou technologii IntelliSense pro vytváření značek HTML a Razor. Většina vestavěných pomocníků značek cílí na existující prvky HTML a poskytují atributy na straně serveru pro element.
+Značky pomocníků poskytují prostředí pro vývoj ve formátu HTML a bohatou technologii IntelliSense pro vytváření kódu HTML Razor a značek. Většina vestavěných pomocníků značek cílí na existující prvky HTML a poskytují atributy na straně serveru pro element.
 
 ### <a name="view-components"></a>Zobrazit součásti
 
@@ -251,11 +257,11 @@ Značky pomocníků poskytují prostředí pro vývoj ve formátu HTML a bohatou
 
 ## <a name="compatibility-version"></a>Kompatibilita – verze
 
-Metoda <xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
+<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
 
 Další informace naleznete v tématu <xref:mvc/compatibility-version>.
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [MyTested. AspNetCore. Mvc-Fluent test Library pro ASP.NET Core Mvc](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; knihovnu testování jednotek se silnými typy a poskytuje rozhraní Fluent pro testování MVC a webových aplikací API. (*Společnost Microsoft nespravuje ani nepodporuje.* )
+* [MyTested. AspNetCore. Mvc-Fluent testuje knihovnu pro ASP.NET Core knihovnu pro](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; testování částí se silnými typy MVC a poskytuje rozhraní Fluent pro testování MVC a webových aplikací API. (*Společnost Microsoft nespravuje ani nepodporuje.*)
 * <xref:blazor/integrate-components>
