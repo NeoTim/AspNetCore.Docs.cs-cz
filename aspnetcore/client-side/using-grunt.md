@@ -1,62 +1,68 @@
 ---
-title: Použití Grunt v ASP.NET Core
+title: Použití grunt v ASP.NET Core
 author: rick-anderson
-description: Použití Grunt v ASP.NET Core
+description: Použití grunt v ASP.NET Core
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: client-side/using-grunt
-ms.openlocfilehash: e516b85da7e94d0c93be642086fede0a11fea3c2
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: b51973e82bb1bd382be68a501c40ba613217fb03
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78657589"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773637"
 ---
-# <a name="use-grunt-in-aspnet-core"></a>Použití Grunt v ASP.NET Core
+# <a name="use-grunt-in-aspnet-core"></a>Použití grunt v ASP.NET Core
 
-Grunt je javascriptový plánovač úloh, který automatizuje minifikaci skriptů, kompilaci TypeScript, nástroje pro kvalitu kódu "lint", předprocesory CSS a téměř jakoukoli opakující se práci, která potřebuje dělat, aby podpořila vývoj klientů. Grunt je plně podporován v sadě Visual Studio.
+Grunt je Spouštěč úloh JavaScriptu, který automatizuje skripty minifikace, kompilaci TypeScript, kvality kódu "Lint", pre-procesory šablon stylů CSS a stejně jako všechny opakující se Chore, které jsou potřeba k podpoře vývoje klienta. Grunt je plně podporovaný v aplikaci Visual Studio.
 
-Tento příklad používá prázdný ASP.NET core projektu jako výchozí bod, ukázat, jak automatizovat proces sestavení klienta od začátku.
+V tomto příkladu se jako výchozí bod používá prázdný projekt ASP.NET Core, který ukazuje, jak automatizovat proces sestavení klienta od začátku.
 
-Hotový příklad čistí cílový adresář nasazení, kombinuje soubory JavaScriptu, kontroluje kvalitu kódu, kondenzuje obsah souboru JavaScript a nasazuje se do kořenového adresáře webové aplikace. Použijeme následující balíčky:
+Příklad dokončení čistí cílový adresář nasazení, kombinuje soubory jazyka JavaScript, kontroluje kvalitu kódu, zúžení obsahu souboru JavaScriptu a nasadí do kořenového adresáře vaší webové aplikace. Budeme používat tyto balíčky:
 
-* **grunt**: Grunt úkol běžec balíček.
+* **grunt**: balíček Spouštěče úloh grunt.
 
-* **grunt-contrib-clean**: Plugin, který odstraňuje soubory nebo adresáře.
+* **grunt-contrib-Clean**: modul plug-in, který odebírá soubory nebo adresáře.
 
-* **grunt-contrib-jshint**: plugin, který rekapituluje kvalitu kódu JavaScriptu.
+* **grunt-contrib-jshint**: modul plug-in, který kontroluje kvalitu kódu JavaScriptu.
 
-* **grunt-contrib-concat**: Plugin, který spojuje soubory do jednoho souboru.
+* **grunt-contrib-Concat**: modul plug-in, který spojuje soubory do jednoho souboru.
 
-* **grunt-contrib-uglify**: Plugin, který minifies JavaScript ke snížení velikosti.
+* **grunt-contrib-uglify**: modul plug-in, který minifies JavaScript, aby se snížila velikost.
 
-* **grunt-contrib-watch**: Plugin, který sleduje aktivitu souborů.
+* **grunt-contrib-Watch**: modul plug-in, který sleduje aktivitu souboru.
 
 ## <a name="preparing-the-application"></a>Příprava aplikace
 
-Chcete-li začít, nastavte novou prázdnou webovou aplikaci a přidejte ukázkové soubory jazyka TypeScript. Soubory TypeScript ukládají se automaticky do JavaScriptu pomocí výchozího nastavení sady Visual Studio a budou naší surovinou pro zpracování pomocí Grunt.
+Začněte tím, že nastavíte novou prázdnou webovou aplikaci a přidáte ukázkové soubory TypeScript. Soubory TypeScript jsou automaticky zkompilovány do JavaScriptu pomocí výchozího nastavení sady Visual Studio a bude se jednat o náš nezpracovaný materiál pro zpracování pomocí grunt.
 
-1. V sadě Visual Studio `ASP.NET Web Application`vytvořte nový .
+1. V aplikaci Visual Studio vytvořte nový `ASP.NET Web Application`.
 
-2. V dialogovém **okně Nový ASP.NET projekt** vyberte šablonu ASP.NET Jádro **prázdné** a klepněte na tlačítko OK.
+2. V dialogovém okně **Nový projekt ASP.NET** vyberte ASP.NET Core **prázdnou** šablonu a klikněte na tlačítko OK.
 
-3. V Průzkumníku řešení zkontrolujte strukturu projektu. Složka `\src` obsahuje `wwwroot` prázdné `Dependencies` a uzly.
+3. V Průzkumník řešení zkontrolujte strukturu projektu. `\src` Složka obsahuje prázdné `wwwroot` a `Dependencies` uzly.
 
     ![prázdné webové řešení](using-grunt/_static/grunt-solution-explorer.png)
 
-4. Přidejte do `TypeScript` adresáře projektu novou složku s názvem.
+4. Přidejte novou složku s názvem `TypeScript` do adresáře projektu.
 
-5. Před přidáním souborů se ujistěte, že visual studio má možnost "kompilace při uložení" pro soubory Typu Script zaškrtnuta. Přejděte na**možnosti** >  **nástrojů** > **Textový editor** > **typescript** > **projektu**:
+5. Před přidáním všech souborů se ujistěte, že má Visual Studio zaškrtnutou možnost kompilovat při uložení pro soubory TypeScript. Přejděte k **Tools** > **Možnosti** > nástroje**textový editor** > **Typescript** > **projekt**TypeScript:
 
-    ![volby nastavení automatické kompilace souborů jazyka TypeScript](using-grunt/_static/typescript-options.png)
+    ![možnosti nastavení automatické kompilace souborů TypeScriptu](using-grunt/_static/typescript-options.png)
 
-6. Klepněte pravým `TypeScript` tlačítkem myši na adresář a z kontextové nabídky vyberte **Přidat > novou položku.** Vyberte položku **souboru JavaScript** a pojmenujte \*soubor *Tastes.ts* (všimněte si přípony .ts). Zkopírujte řádek kódu TypeScript u níže do souboru (při uložení se se zdrojem JavaScriptu zobrazí nový soubor *Tastes.js).*
+6. Klikněte pravým tlačítkem `TypeScript` na adresář a v místní nabídce vyberte **Přidat > nová položka** . Vyberte položku **souboru JavaScriptu** a pojmenujte soubor *chuti. TS* (poznamenejte \*si příponu. TS). Zkopírujte řádek kódu TypeScript níže do souboru (při uložení se zobrazí nový soubor *. js* se zdrojem JavaScriptu).
 
     ```typescript
     enum Tastes { Sweet, Sour, Salty, Bitter }
     ```
 
-7. Přidejte druhý soubor do **adresáře TypeScript** a pojmenujte jej `Food.ts`. Zkopírujte níže uvedený kód do souboru.
+7. Přidejte do adresáře **TypeScript** druhý soubor a pojmenujte ho `Food.ts`. Zkopírujte následující kód do souboru.
 
     ```typescript
     class Food {
@@ -83,20 +89,20 @@ Chcete-li začít, nastavte novou prázdnou webovou aplikaci a přidejte ukázko
     }
     ```
 
-## <a name="configuring-npm"></a>Konfigurace npm
+## <a name="configuring-npm"></a>Konfigurace NPM
 
-Dále nakonfigurujte NPM ke stažení grunt a grunt-úkoly.
+Dále nakonfigurujte NPM tak, aby stahoval grunt a Grunt-Tasks.
 
-1. V Průzkumníku řešení klikněte pravým tlačítkem myši na projekt a z kontextové nabídky vyberte **Přidat > novou položku.** Vyberte položku **konfiguračního souboru NPM,** ponechte výchozí název *package.json*a klepněte na tlačítko **Přidat.**
+1. V Průzkumník řešení klikněte pravým tlačítkem myši na projekt a vyberte **přidat > novou položku** z kontextové nabídky. Vyberte položku **konfiguračního souboru npm** , ponechejte výchozí název, *Package. JSON*a klikněte na tlačítko **Přidat** .
 
-2. V souboru *package.json* `devDependencies` zadejte uvnitř závorek objektu "grunt". Vyberte `grunt` ze seznamu Intellisense a stiskněte klávesu Enter. Visual Studio bude citovat grunt název balíčku a přidat dvojtečku. Napravo od dvojtečky vyberte nejnovější stabilní verzi balíčku z horní části seznamu `Ctrl-Space` Intellisense (stiskněte, pokud se nezobrazí Intellisense).
+2. Do souboru *Package. JSON* uvnitř složených závorek `devDependencies` objektu zadejte "grunt". Vyberte `grunt` ze seznamu IntelliSense a stiskněte klávesu ENTER. Sada Visual Studio nabídne název balíčku grunt a přidá dvojtečku. Napravo od dvojtečky vyberte nejnovější stabilní verzi balíčku z horní části seznamu technologie IntelliSense (stiskněte `Ctrl-Space` , pokud se IntelliSense nezobrazuje).
 
-    ![grunt Intellisense](using-grunt/_static/devdependencies-grunt.png)
+    ![grunt IntelliSense](using-grunt/_static/devdependencies-grunt.png)
 
     > [!NOTE]
-    > NPM používá [sémantické správu verzí](https://semver.org/) k uspořádání závislostí. Sémantické správu verzí, označované také jako SemVer, identifikuje balíčky s schématem \<číslování hlavní>. \<menší>. \<> náplasti. Technologie Intellisense zjednodušuje sémantickou správu verzí tím, že zobrazuje pouze několik běžných možností. Horní položka v seznamu Intellisense (0.4.5 v příkladu výše) je považována za nejnovější stabilní verzi balíčku. Symbol stříšky (^) odpovídá nejnovější hlavní verzi a vlnovce (~) odpovídá nejnovější dílčí verzi. Podívejte se na [npm semver verze analyzátor odkaz](https://www.npmjs.com/package/semver) jako vodítko k plné expresivity, které poskytuje SemVer.
+    > NPM používá [sémantickou správu verzí](https://semver.org/) k uspořádání závislostí. Sémantická verze, označovaná také jako SemVer, identifikuje balíčky se systémovým \<schématem hlavní>. \<vedlejší>. \<oprava>. Technologie IntelliSense zjednodušuje sémantickou správu verzí zobrazením pouze několika běžných možností. Horní položka v seznamu IntelliSense (0.4.5 v příkladu výše) je považována za nejnovější stabilní verzi balíčku. Symbol stříšky (^) odpovídá nejnovější hlavní verzi a znak tilda (~) odpovídá nejnovější dílčí verzi. Podívejte se na referenční informace o [analyzátoru npm semver verze](https://www.npmjs.com/package/semver) jako průvodce úplným expressivity, které poskytuje semver.
 
-3. Přidejte další závislosti pro načtení balíčků\* grunt-contrib- pro *clean*, *jshint*, *concat*, *uglify*a *sledujte,* jak je znázorněno v příkladu níže. Verze nemusí odpovídat příkladu.
+3. Přidejte další závislosti pro načtení grunt-contrib-\* Packages pro *Vyčištění*, *jshint*, *Concat*, *uglify*a *Sledujte* , jak je znázorněno v následujícím příkladu. Verze se nemusí shodovat s příkladem.
 
     ```json
     "devDependencies": {
@@ -109,24 +115,24 @@ Dále nakonfigurujte NPM ke stažení grunt a grunt-úkoly.
     }
     ```
 
-4. Uložte soubor *package.json.*
+4. Uložte soubor *Package. JSON* .
 
-Balíčky pro `devDependencies` každou položku se stáhnou spolu se všemi soubory, které každý balíček vyžaduje. Soubory balíčků můžete najít v *node_modules* adresáři povolením tlačítka **Zobrazit všechny soubory** v **Průzkumníku řešení**.
+Balíčky pro každou `devDependencies` položku budou staženy společně se všemi soubory, které každý balíček vyžaduje. Soubory balíčku můžete najít v adresáři *node_modules* tím, že v **Průzkumník řešení**povolíte tlačítko **Zobrazit všechny soubory** .
 
-![chrochtat node_modules](using-grunt/_static/node-modules.png)
+![grunt node_modules](using-grunt/_static/node-modules.png)
 
 > [!NOTE]
-> Pokud potřebujete, můžete ručně obnovit závislosti v **Průzkumníku řešení** `Dependencies\NPM` kliknutím pravým tlačítkem myši na a výběrem možnosti nabídky **Obnovit balíčky.**
+> Pokud potřebujete, můžete závislosti v **Průzkumník řešení** ručně obnovit kliknutím pravým tlačítkem na `Dependencies\NPM` položku a výběrem možnosti nabídky **obnovit balíčky** .
 
-![obnovení balíčků](using-grunt/_static/restore-packages.png)
+![obnovit balíčky](using-grunt/_static/restore-packages.png)
 
-## <a name="configuring-grunt"></a>Konfigurace Grunt
+## <a name="configuring-grunt"></a>Konfigurace grunt
 
-Grunt je konfigurován pomocí manifestu s názvem *Gruntfile.js,* který definuje, načte a registruje úlohy, které lze spustit ručně nebo nakonfigurovat tak, aby se spouštěly automaticky na základě událostí v sadě Visual Studio.
+Grunt je nakonfigurován pomocí manifestu s názvem *Gruntfile. js* , který definuje, načítá a registruje úlohy, které lze spustit ručně nebo které jsou nakonfigurovány pro automatické spouštění na základě událostí v aplikaci Visual Studio.
 
-1. Klepněte pravým tlačítkem myši na projekt a vyberte **přidat** > **novou položku**. Vyberte šablonu **položky souboru JavaScriptu,** změňte název na *Gruntfile.js*a klepněte na tlačítko **Přidat.**
+1. Klikněte pravým tlačítkem myši na projekt a vyberte možnost **Přidat** > **novou položku**. Vyberte šablonu položky **soubor JavaScriptu** , změňte název na *Gruntfile. js*a klikněte na tlačítko **Přidat** .
 
-1. Přidejte následující kód do *souboru Gruntfile.js*. Funkce `initConfig` nastaví možnosti pro každý balíček a zbytek modulu načte a zaregistruje úkoly.
+1. Do *Gruntfile. js*přidejte následující kód. `initConfig` Funkce nastaví možnosti pro každý balíček a zbytek modulu načítá a registruje úlohy.
 
    ```javascript
    module.exports = function (grunt) {
@@ -135,7 +141,7 @@ Grunt je konfigurován pomocí manifestu s názvem *Gruntfile.js,* který definu
    };
    ```
 
-1. Uvnitř `initConfig` funkce přidejte možnosti pro úlohu, `clean` jak je znázorněno v příkladu *Gruntfile.js* níže. Úloha `clean` přijímá pole adresářových řetězců. Tato úloha odebere soubory z *wwwroot/lib* a odebere celý *adresář /temp.*
+1. Uvnitř `initConfig` funkce přidejte možnosti pro `clean` úlohu, jak je znázorněno v příkladu *Gruntfile. js* níže. `clean` Úkol přijme pole řetězců adresáře. Tato úloha odebere soubory z *wwwroot/lib* a odebere celý adresář */TEMP* .
 
     ```javascript
     module.exports = function (grunt) {
@@ -145,34 +151,34 @@ Grunt je konfigurován pomocí manifestu s názvem *Gruntfile.js,* který definu
     };
     ```
 
-1. Pod `initConfig` funkci přidejte volání `grunt.loadNpmTasks`do aplikace . Tím bude úloha spustitelné z visual studia.
+1. Pod `initConfig` funkcí přidejte volání do `grunt.loadNpmTasks`. Tím se úkol spustitelný ze sady Visual Studio.
 
     ```javascript
     grunt.loadNpmTasks("grunt-contrib-clean");
     ```
 
-1. Uložit *Gruntfile.js*. Soubor by měl vypadat podobně jako snímek obrazovky níže.
+1. Uložte *Gruntfile. js*. Soubor by měl vypadat přibližně jako snímek obrazovky níže.
 
     ![počáteční gruntfile](using-grunt/_static/gruntfile-js-initial.png)
 
-1. Klikněte pravým tlačítkem myši na *soubor Gruntfile.js* a z kontextové nabídky vyberte **Průzkumníka průzkumníka úloh.** Otevře se okno **Průzkumníka plánovače úloh.**
+1. Klikněte pravým tlačítkem na *Gruntfile. js* a v místní nabídce vyberte **Průzkumník Spouštěče úloh** . Otevře se okno **Průzkumník Spouštěče úloh** .
 
-    ![nabídka průzkumníka posuzujícíúlohy úloh](using-grunt/_static/task-runner-explorer-menu.png)
+    ![Nabídka Průzkumníka Spouštěče úloh](using-grunt/_static/task-runner-explorer-menu.png)
 
-1. Ověřte, že `clean` se zobrazuje v části **Úkoly** v **Průzkumníku průzkumníka plánovače úloh**.
+1. Ověřte, `clean` že je v části **úlohy** v **Průzkumníkovi Spouštěče úloh**zobrazeno.
 
-    ![seznam úloh průzkumníka posuzování úloh](using-grunt/_static/task-runner-explorer-tasks.png)
+    ![seznam úkolů v Průzkumníkovi Spouštěče úloh](using-grunt/_static/task-runner-explorer-tasks.png)
 
-1. Klepněte pravým tlačítkem myši na čistou úlohu a z kontextové nabídky vyberte **Spustit.** Příkazové okno zobrazuje průběh úkolu.
+1. Klikněte pravým tlačítkem na úlohu vyčistit a v místní nabídce vyberte **Spustit** . V příkazovém okně se zobrazuje průběh úkolu.
 
-    ![průzkumník úloh spustit čistou úlohu](using-grunt/_static/task-runner-explorer-run-clean.png)
+    ![Průzkumník Spouštěče úloh – spustit čištění úlohy](using-grunt/_static/task-runner-explorer-run-clean.png)
 
     > [!NOTE]
-    > Zatím nejsou k dispozici žádné soubory ani adresáře, které by bylo možné vyčistit. Pokud chcete, můžete je ručně vytvořit v Průzkumníku řešení a potom spustit čistou úlohu jako test.
+    > Neexistují žádné soubory ani adresáře k vyčištění. Pokud chcete, můžete je ručně vytvořit v Průzkumník řešení a pak spustit čistou úlohu jako test.
 
-1. Do `initConfig` funkce přidejte položku pro `concat` použití níže uvedeného kódu.
+1. Ve `initConfig` funkci přidejte položku pro `concat` použití kódu níže.
 
-    Pole `src` vlastností obsahuje seznam souborů, které mají být kombinovány, v pořadí, v jakém by měly být kombinovány. Vlastnost `dest` přiřadí cestu k kombinovanému souboru, který je vytvořen.
+    Pole `src` vlastností seznam souborů, které se mají kombinovat, v pořadí, ve kterém by měly být kombinovány. `dest` Vlastnost přiřadí cestu k kombinovanému souboru, který je vytvořen.
 
     ```javascript
     concat: {
@@ -184,11 +190,11 @@ Grunt je konfigurován pomocí manifestu s názvem *Gruntfile.js,* který definu
     ```
 
     > [!NOTE]
-    > Vlastnost `all` ve výše uvedeném kódu je název cíle. Cíle se používají v některých úlohách Grunt povolit více prostředí sestavení. Integrované cíle můžete zobrazit pomocí technologie IntelliSense nebo přiřadit vlastní.
+    > `all` Vlastnost ve výše uvedeném kódu je název cíle. Cíle se používají v některých úlohách grunt k povolení více prostředí sestavení. Můžete zobrazit předdefinované cíle pomocí technologie IntelliSense nebo přiřadit vlastní.
 
-1. Přidejte `jshint` úkol pomocí níže uvedeného kódu.
+1. Přidejte `jshint` úlohu pomocí následujícího kódu.
 
-    Nástroj jshint `code-quality` je spuštěn proti každému souboru JavaScriptu, který se nachází v *dočasném* adresáři.
+    Nástroj jshint `code-quality` se spustí pro všechny soubory JavaScriptu nalezené v *dočasném* adresáři.
 
     ```javascript
     jshint: {
@@ -200,11 +206,11 @@ Grunt je konfigurován pomocí manifestu s názvem *Gruntfile.js,* který definu
     ```
 
     > [!NOTE]
-    > Možnost "-W069" je chyba vytvořená jshintem, když JavaScript používá syntaxi závorek `Tastes["Sweet"]` k `Tastes.Sweet`přiřazení vlastnosti namísto tečkového zápisu, tj. Tato možnost vypne upozornění, aby zbytek procesu mohl pokračovat.
+    > Možnost "-W069" je chyba vytvořená jshint, když JavaScript používá syntaxi závorky k přiřazení vlastnosti namísto zápisu tečky, tj. `Tastes["Sweet"]` místo. `Tastes.Sweet` Možnost vypne upozornění, aby zbytek procesu mohl pokračovat.
 
-1. Přidejte `uglify` úkol pomocí níže uvedeného kódu.
+1. Přidejte `uglify` úlohu pomocí následujícího kódu.
 
-    Úloha minifikuje soubor *combined.js* nalezený v dočasném adresáři a vytvoří výsledný soubor v souboru wwwroot/lib podle standardního * \<názvu\>souboru konvence _min.js*.
+    Úloha minifies soubor *kombinovaného. js* , který se nachází v dočasném adresáři, a vytvoří soubor výsledku v wwwroot/lib podle standardního * \<názvu\>souboru. min. js*.
 
     ```javascript
     uglify: {
@@ -215,7 +221,7 @@ Grunt je konfigurován pomocí manifestu s názvem *Gruntfile.js,* který definu
     },
     ```
 
-1. Pod volání, `grunt.loadNpmTasks` které `grunt-contrib-clean`načte , zahrnout stejné volání pro jshint, concat a uglify pomocí níže uvedeného kódu.
+1. Pod voláním `grunt.loadNpmTasks` této zátěže `grunt-contrib-clean`zahrňte stejné volání pro jshint, Concat a uglify pomocí níže uvedeného kódu.
 
     ```javascript
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -223,36 +229,36 @@ Grunt je konfigurován pomocí manifestu s názvem *Gruntfile.js,* který definu
     grunt.loadNpmTasks('grunt-contrib-uglify');
     ```
 
-1. Uložit *Gruntfile.js*. Soubor by měl vypadat podobně jako v níže uvedeném příkladu.
+1. Uložte *Gruntfile. js*. Soubor by měl vypadat nějak podobně jako v následujícím příkladu.
 
-    ![kompletní příklad grunt souboru](using-grunt/_static/gruntfile-js-complete.png)
+    ![Příklad úplného souboru grunt](using-grunt/_static/gruntfile-js-complete.png)
 
-1. Všimněte si, že seznam `clean` `concat`Úlohy `uglify` **průzkumníka plánovače úloh** obsahuje aplikace , `jshint` a úkoly. Spusťte každou úlohu v pořadí a sledujte výsledky v **Průzkumníku řešení**. Každá úloha by měla být spuštěna bez chyb.
+1. Všimněte si, že seznam úkolů v **Průzkumníkovi Spouštěče úloh** obsahuje `clean`úlohy, `concat` `jshint` a `uglify` . Spusťte jednotlivé úlohy v daném pořadí a sledujte výsledky v **Průzkumník řešení**. Každý úkol by měl běžet bez chyb.
 
-    ![Průzkumník průzkumníka úloh spustit každou úlohu](using-grunt/_static/task-runner-explorer-run-each-task.png)
+    ![Průzkumník Spouštěče úloh spouští jednotlivé úlohy.](using-grunt/_static/task-runner-explorer-run-each-task.png)
 
-    Úloha concat vytvoří nový soubor *combined.js* a umístí jej do dočasného adresáře. Úloha `jshint` se jednoduše spustí a nevytváří výstup. Úloha `uglify` vytvoří nový soubor *combined.min.js* a umístí jej do *wwwroot/lib*. Po dokončení by řešení mělo vypadat podobně jako na následujícím snímku obrazovky:
+    Úkol Concat vytvoří nový kombinovaný soubor *. js* a umístí ho do dočasného adresáře. Úloha `jshint` se jednoduše spustí a nevyprodukuje výstup. `uglify` Úloha vytvoří nový soubor s *příponou. min. js* a umístí jej do *wwwroot/lib*. Po dokončení by řešení mělo vypadat přibližně jako snímek obrazovky níže:
 
-    ![průzkumník řešení po všech úkolech](using-grunt/_static/solution-explorer-after-all-tasks.png)
+    ![Průzkumník řešení po všech úlohách](using-grunt/_static/solution-explorer-after-all-tasks.png)
 
     > [!NOTE]
-    > Další informace o možnostech každého [https://www.npmjs.com/](https://www.npmjs.com/) balíčku naleznete a vyhledejte název balíčku ve vyhledávacím poli na hlavní stránce. Můžete například vyhledat balíček grunt-contrib-clean a získat odkaz na dokumentaci, který vysvětluje všechny jeho parametry.
+    > Další informace o možnostech jednotlivých balíčků najdete v části [https://www.npmjs.com/](https://www.npmjs.com/) a v poli hledání na hlavní stránce vyhledejte název balíčku. Můžete například vyhledat balíček grunt-contrib-Clean a získat odkaz na dokumentaci, který vysvětluje všechny jeho parametry.
 
 ### <a name="all-together-now"></a>Teď všechno dohromady
 
-Pomocí metody Grunt `registerTask()` spusťte řadu úloh v určitém pořadí. Chcete-li například spustit výše uvedené příkladové kroky v pořadí clean -> concat -> jshint -> uglify, přidejte níže uvedený kód do modulu. Kód by měl být přidán na stejnou úroveň jako volání loadNpmTasks() mimo initConfig.
+Použijte metodu grunt `registerTask()` ke spuštění řady úkolů v konkrétní sekvenci. Pokud například chcete spustit příklad výše uvedených kroků v pořadí vyčistit-> Concat-> jshint-> uglify, přidejte kód níže do modulu. Kód by měl být přidán na stejnou úroveň jako volání loadNpmTasks (), mimo initConfig.
 
 ```javascript
 grunt.registerTask("all", ['clean', 'concat', 'jshint', 'uglify']);
 ```
 
-Nový úkol se zobrazí v Průzkumníkovi úloh v části Alias úkoly. Můžete klepnout pravým tlačítkem myši a spustit jej stejně jako ostatní úkoly. Úloha `all` bude `clean` `concat`spuštěna `uglify`v `jshint` pořadí .
+Nový úkol se zobrazí v Průzkumníku Spouštěče úloh v části úkoly s aliasem. Můžete kliknout pravým tlačítkem a spustit stejným způsobem jako jiné úkoly. `all` `clean`Úloha se spustí `concat`, `jshint` a `uglify`v uvedeném pořadí.
 
-![alias grunt úkoly](using-grunt/_static/alias-tasks.png)
+![úkoly grunt aliasu](using-grunt/_static/alias-tasks.png)
 
 ## <a name="watching-for-changes"></a>Sledování změn
 
-Úkol `watch` sleduje soubory a adresáře. Hodinky spustí úlohy automaticky, pokud zjistí změny. Přidejte níže uvedený kód do initConfig a sledujte změny souborů \*JS v adresáři TypeScript. Pokud dojde ke změně `watch` souboru `all` JavaScriptu, spustí se úloha.
+`watch` Úkol zachovává oči souborů a adresářů. Pokud se změny detekuje, sledování se automaticky aktivuje. Přidejte následující kód, který bude initConfig ke sledování změn souborů \*. js v adresáři TypeScript. Pokud dojde ke změně souboru JavaScriptu, `watch` `all` úloha se spustí.
 
 ```javascript
 watch: {
@@ -261,26 +267,26 @@ watch: {
 }
 ```
 
-Přidáním volání `loadNpmTasks()` zobrazíte `watch` úkol v Průzkumníkovi úloh.
+Přidejte volání k `loadNpmTasks()` zobrazení `watch` úlohy v Průzkumníku Spouštěče úloh.
 
 ```javascript
 grunt.loadNpmTasks('grunt-contrib-watch');
 ```
 
-Klikněte pravým tlačítkem myši na úlohu sledování v Průzkumníkovi běhu úloh a z kontextové nabídky vyberte Spustit. Ve příkazovém okně, které zobrazuje spuštěnou úlohu sledování, se zobrazí "Čekání..." Zprávu. Otevřete jeden ze souborů TypeScriptu, přidejte mezeru a uložte soubor. Tím se spustí úloha sledování a ostatní úlohy spustit v pořadí. Snímek obrazovky níže ukazuje ukázkový běh.
+V Průzkumníku Spouštěče úloh klikněte pravým tlačítkem myši na úlohu kukátka a v místní nabídce vyberte spustit. Příkazové okno, které zobrazuje spuštěný úkol kukátka, zobrazí "čekání..." Zpráva. Otevřete jeden ze souborů TypeScriptu, přidejte mezeru a pak soubor uložte. Tím se aktivuje úloha kukátka a spustí se další úlohy, které se spustí v daném pořadí. Níže uvedený snímek obrazovky ukazuje vzorový běh.
 
-![spuštění výstupu úloh](using-grunt/_static/watch-running.png)
+![výstup spuštěných úloh](using-grunt/_static/watch-running.png)
 
-## <a name="binding-to-visual-studio-events"></a>Vazba na události sady Visual Studio
+## <a name="binding-to-visual-studio-events"></a>Vytvoření vazby na události sady Visual Studio
 
-Pokud nechcete ručně spustit úkoly při každé práci v sadě Visual Studio, svázat úkoly **před sestavením**, **po sestavení**, **vyčistit**a **otevřít projekt** události.
+Pokud nechcete spouštět úlohy ručně při každé práci v aplikaci Visual Studio, navažte úkoly na **před sestavením**, **po sestavení**, **Vyčištění**a otevřených událostech **projektu** .
 
-Bind `watch` tak, aby se spustí při každém otevření sady Visual Studio. V Průzkumníku úloh y klikněte pravým tlačítkem myši na úkol sledování a z kontextové nabídky vyberte **možnost Vazby** > **projektu Otevřít.**
+Vytvoří `watch` vazby tak, že se spustí při každém otevření sady Visual Studio. V Průzkumníku Spouštěče úloh klikněte pravým tlačítkem myši na úlohu kukátka a vyberte projekt **vazby** > **otevřít** z místní nabídky.
 
-![svázat úkol s otevřením projektu](using-grunt/_static/bindings-project-open.png)
+![navázání úlohy k otevření projektu](using-grunt/_static/bindings-project-open.png)
 
-Uvolnění a opětovné načtení projektu. Při znovunačtení projektu se úloha sledování spustí automaticky.
+Uvolněte a znovu načtěte projekt. Po opětovném načtení projektu se úloha kukátka začne automaticky spouštět.
 
 ## <a name="summary"></a>Souhrn
 
-Grunt je výkonný plánovač úloh, který lze použít k automatizaci většiny úloh sestavení klienta. Grunt využívá NPM k doručování svých balíčků a nabízí integraci nástrojů s Visual Studio. Průzkumník Průzkumník úloh sady Visual Studio detekuje změny konfiguračních souborů a poskytuje pohodlné rozhraní pro spouštění úloh, zobrazení spuštěných úloh a svázání úloh s událostmi sady Visual Studio.
+Grunt je výkonný Spouštěč úloh, který se dá použít k automatizaci většiny úloh sestavení klientů. Grunt využívá NPM k doručování svých balíčků a funkcí pro integraci nástrojů se sadou Visual Studio. Průzkumník Spouštěče úloh sady Visual Studio detekuje změny konfiguračních souborů a poskytuje praktické rozhraní pro spouštění úkolů, zobrazení spuštěných úloh a vázání úloh k událostem sady Visual Studio.

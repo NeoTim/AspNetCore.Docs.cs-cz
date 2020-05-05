@@ -5,23 +5,29 @@ description: Zjistíte, jak použít částečná zobrazení k rozdělení velk�
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/12/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/partial
-ms.openlocfilehash: 04b6d6e620f34ac7154728b1b3048195e87c5860
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 1bce6b9cdc876062b050eae6eb3c4acf0127ce92
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78663049"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777121"
 ---
 # <a name="partial-views-in-aspnet-core"></a>Částečná zobrazení v ASP.NET Core
 
 [Steve Smith](https://ardalis.com/), [Maher JENDOUBI](https://twitter.com/maherjend), [Rick Anderson](https://twitter.com/RickAndMSFT)a [Scott Sauber](https://twitter.com/scottsauber)
 
-Částečné zobrazení je soubor značek [Razor](xref:mvc/views/razor) ( *. cshtml*), který vykresluje výstup HTML *v rámci* jiného vykresleného výstupu souboru s označením.
+Částečné zobrazení je soubor [Razor](xref:mvc/views/razor) označení (*. cshtml*), který vykresluje výstup HTML *v rámci* dalšího vykresleného výstupu souboru s označením.
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Termín *částečné zobrazení* se používá při vývoji aplikace MVC, kde jsou soubory značek označovány jako *zobrazení*nebo Razor Pages aplikace, kde se soubory označení nazývají *stránky*. Toto téma obecně odkazuje na zobrazení MVC a stránky Razor Pages jako *soubory značek*.
+Termín *částečné zobrazení* se používá při vývoji aplikace MVC, kde se soubory značek nazývají *zobrazení*nebo aplikace Razor stránky, kde se soubory značek nazývají *stránky*. Toto téma obecně odkazuje na zobrazení MVC a Razor stránky stránek jako *soubory značek*.
 
 ::: moniker-end
 
@@ -46,9 +52,9 @@ Nepoužívejte částečné zobrazení, kde je pro vykreslení značky nutná sl
 
 ::: moniker range=">= aspnetcore-2.0"
 
-Částečné zobrazení je soubor s označením *. cshtml* udržovaný ve složce *zobrazení* (MVC) nebo ve složce *stránek* (Razor Pages).
+Částečné zobrazení je soubor s označením *. cshtml* udržovaný ve složce *zobrazení* (MVC) nebo ve složce *stránek* (Razor stránky).
 
-V ASP.NET Core MVC je <xref:Microsoft.AspNetCore.Mvc.ViewResult> kontroleru schopný vracet buď zobrazení, nebo částečné zobrazení. V Razor Pages může <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> vracet částečné zobrazení reprezentované jako objekt <xref:Microsoft.AspNetCore.Mvc.PartialViewResult>. Odkazování na částečné zobrazení a jejich vykreslování je popsané v části [Reference k částečnému zobrazení](#reference-a-partial-view) .
+V ASP.NET Core MVC může řadič <xref:Microsoft.AspNetCore.Mvc.ViewResult> vracet buď zobrazení, nebo částečné zobrazení. Na Razor stránkách <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> může vracet částečné zobrazení reprezentované jako <xref:Microsoft.AspNetCore.Mvc.PartialViewResult> objekt. Odkazování na částečné zobrazení a jejich vykreslování je popsané v části [Reference k částečnému zobrazení](#reference-a-partial-view) .
 
 Na rozdíl od zobrazení MVC nebo vykreslování stránky neběží částečné zobrazení *_ViewStart. cshtml*. Další informace o *_ViewStart. cshtml*naleznete v tématu <xref:mvc/views/layout>.
 
@@ -60,7 +66,7 @@ Názvy souborů částečného zobrazení často začínají podtržítkem (`_`)
 
 Částečné zobrazení je soubor označení *. cshtml* spravovaný ve složce *views* .
 
-<xref:Microsoft.AspNetCore.Mvc.ViewResult> kontroleru může vracet buď zobrazení, nebo částečné zobrazení. Odkazování na částečné zobrazení a jejich vykreslování je popsané v části [Reference k částečnému zobrazení](#reference-a-partial-view) .
+Řadič <xref:Microsoft.AspNetCore.Mvc.ViewResult> může vracet buď zobrazení, nebo částečné zobrazení. Odkazování na částečné zobrazení a jejich vykreslování je popsané v části [Reference k částečnému zobrazení](#reference-a-partial-view) .
 
 Na rozdíl od vykreslování zobrazení MVC neběží částečné zobrazení *_ViewStart. cshtml*. Další informace o *_ViewStart. cshtml*naleznete v tématu <xref:mvc/views/layout>.
 
@@ -72,9 +78,9 @@ Názvy souborů částečného zobrazení často začínají podtržítkem (`_`)
 
 ::: moniker range=">= aspnetcore-2.0"
 
-### <a name="use-a-partial-view-in-a-razor-pages-pagemodel"></a>Použití částečného zobrazení v Razor Pages PageModel
+### <a name="use-a-partial-view-in-a-razor-pages-pagemodel"></a>Použití částečného zobrazení na Razor stránkách PageModel
 
-V ASP.NET Core 2,0 nebo 2,1 následující metoda obslužné rutiny vykresluje částečné zobrazení *\_AuthorPartialRP. cshtml* na odpověď:
+V ASP.NET Core 2,0 nebo 2,1, následující metoda obslužné rutiny vykresluje částečné zobrazení * \_AuthorPartialRP. cshtml* na odpověď:
 
 ```csharp
 public IActionResult OnGetPartial() =>
@@ -89,7 +95,7 @@ public IActionResult OnGetPartial() =>
 
 ::: moniker range=">= aspnetcore-2.2"
 
-V ASP.NET Core 2,2 nebo novější, metoda obslužné rutiny může alternativně volat metodu <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> a vytvořit `PartialViewResult` objekt:
+V ASP.NET Core 2,2 nebo novější, metoda obslužné rutiny může alternativně <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageBase.Partial*> zavolat metodu pro vytvoření `PartialViewResult` objektu:
 
 [!code-csharp[](partial/sample/PartialViewsSample/Pages/DiscoveryRP.cshtml.cs?name=snippet_OnGetPartial)]
 
@@ -119,7 +125,7 @@ Doporučujeme, aby aplikace používaly [asynchronní NÁPOVĚDU HTML](#asynchro
 
 ::: moniker range=">= aspnetcore-2.1"
 
-### <a name="partial-tag-helper"></a>Pomocník s částečnou značkou
+### <a name="partial-tag-helper"></a>Pomocná rutina částečné značky
 
 [Pomocník pro částečnou značku](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) vyžaduje ASP.NET Core 2,1 nebo novější.
 
@@ -137,7 +143,7 @@ Pokud je k dispozici Přípona souboru, pomocník značek odkazuje na částečn
 
 Následující příklad odkazuje na částečné zobrazení z kořene aplikace. Cesty, které začínají znakem tildy (`~/`) nebo lomítkem (`/`), odkazují na kořen aplikace:
 
-**Stránky Razor**
+**RazorStránky**
 
 ```cshtml
 <partial name="~/Pages/Folder/_PartialName.cshtml" />
@@ -163,7 +169,7 @@ Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/par
 
 ### <a name="asynchronous-html-helper"></a>Asynchronní pomocník HTML
 
-Při použití pomocníka jazyka HTML je osvědčeným postupem použití <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>. `PartialAsync` vrátí typ <xref:Microsoft.AspNetCore.Html.IHtmlContent> zabalený do <xref:System.Threading.Tasks.Task%601>. Na metodu se odkazuje pomocí předpony očekávaného volání s `@`m znakem:
+Při použití pomocníka jazyka HTML je nejvhodnější použít <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.PartialAsync*>. `PartialAsync`Vrátí <xref:Microsoft.AspNetCore.Html.IHtmlContent> typ zabalený v <xref:System.Threading.Tasks.Task%601>. Na metodu se odkazuje pomocí předpony očekávaného volání s `@` znakem:
 
 ```cshtml
 @await Html.PartialAsync("_PartialName")
@@ -179,7 +185,7 @@ Následující příklad odkazuje na částečné zobrazení z kořene aplikace.
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Stránky Razor**
+**RazorStránky**
 
 ```cshtml
 @await Html.PartialAsync("~/Pages/Folder/_PartialName.cshtml")
@@ -201,26 +207,26 @@ Následující příklad odkazuje na částečné zobrazení s relativní cestou
 @await Html.PartialAsync("../Account/_LoginPartial.cshtml")
 ```
 
-Alternativně můžete vykreslit částečné zobrazení pomocí <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*>. Tato metoda nevrací <xref:Microsoft.AspNetCore.Html.IHtmlContent>. Streamuje Vykreslený výstup přímo k odpovědi. Vzhledem k tomu, že metoda nevrací výsledek, musí být volána v rámci bloku kódu Razor:
+Alternativně můžete vykreslit částečné zobrazení pomocí <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartialAsync*>. Tato metoda nevrací <xref:Microsoft.AspNetCore.Html.IHtmlContent>. Streamuje Vykreslený výstup přímo k odpovědi. Vzhledem k tomu, že metoda nevrací výsledek, musí být volána v Razor rámci bloku kódu:
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Home/Discovery.cshtml?name=snippet_RenderPartialAsync)]
 
-Vzhledem k tomu, že `RenderPartialAsync` streamy vykreslený obsah, poskytuje v některých scénářích lepší výkon. V situacích, které kritické pro výkon, srovnávací testy stránky pomocí obou přístupů a používejte přístup, který generuje rychlejší odpověď.
+Vzhledem `RenderPartialAsync` k tomu, že streamy vykreslují obsah, poskytuje v některých scénářích lepší výkon. V situacích, které kritické pro výkon, srovnávací testy stránky pomocí obou přístupů a používejte přístup, který generuje rychlejší odpověď.
 
 ### <a name="synchronous-html-helper"></a>Synchronní pomocník HTML
 
-<xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.Partial*> a <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartial*> jsou synchronní ekvivalent `PartialAsync` a `RenderPartialAsync`v uvedeném pořadí. Synchronní ekvivalenty se nedoporučují, protože existují scénáře, ve kterých se zablokují. Synchronní metody jsou zaměřené na odebrání v budoucí verzi.
+<xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.Partial*>a <xref:Microsoft.AspNetCore.Mvc.Rendering.HtmlHelperPartialExtensions.RenderPartial*> jsou synchronní ekvivalenty `PartialAsync` a `RenderPartialAsync`v uvedeném pořadí. Synchronní ekvivalenty se nedoporučují, protože existují scénáře, ve kterých se zablokují. Synchronní metody jsou zaměřené na odebrání v budoucí verzi.
 
 > [!IMPORTANT]
 > Pokud potřebujete spustit kód, použijte místo částečného zobrazení [komponentu zobrazení](xref:mvc/views/view-components) .
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Volání `Partial` nebo `RenderPartial` vede k upozornění analyzátoru sady Visual Studio. Například přítomnost `Partial` vrací následující upozornění:
+Volání `Partial` nebo `RenderPartial` výsledky v upozornění analyzátoru sady Visual Studio. Například přítomnost `Partial` poskytne následující zprávu upozornění:
 
-> Použití IHtmlHelper. Partial může způsobit zablokování aplikace. Zvažte použití rutiny &lt;částečné&gt; značky nebo IHtmlHelper. PartialAsync.
+> Použití IHtmlHelper. Partial může způsobit zablokování aplikace. Zvažte použití &lt;pomocníka s částečnou&gt; značkou nebo IHtmlHelper. PartialAsync.
 
-Nahraďte volání `@Html.Partial` pomocí `@await Html.PartialAsync` nebo [Pomocníka s částečnou značkou](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper). Další informace o migraci pomocníka částečné značky najdete v tématu [migrace z pomocníka jazyka HTML](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper).
+Nahraďte volání `@Html.Partial` pomocí `@await Html.PartialAsync` nebo [částečného pomocníka značek](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper). Další informace o migraci pomocníka částečné značky najdete v tématu [migrace z pomocníka jazyka HTML](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper#migrate-from-an-html-helper).
 
 ::: moniker-end
 
@@ -230,7 +236,7 @@ Pokud se na částečné zobrazení odkazuje pomocí názvu bez přípony soubor
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Stránky Razor**
+**RazorStránky**
 
 1. Aktuálně prováděná složka stránky
 1. Adresář grafu nad složkou stránky
@@ -263,14 +269,14 @@ Následující konvence se vztahují na zjišťování částečného zobrazení
 
 * Různá částečná zobrazení se stejným názvem souboru jsou povolena, pokud jsou částečná zobrazení v různých složkách.
 * Při odkazování na částečné zobrazení podle názvu bez přípony souboru a částečného zobrazení se nachází ve složce volajícího i ve *sdílené* složce, částečné zobrazení ve složce volajícího poskytuje částečné zobrazení. Pokud se částečné zobrazení nenachází ve složce volajícího, částečné zobrazení se poskytuje ze *sdílené* složky. Částečná zobrazení ve *sdílené* složce se nazývají *sdílená částečná zobrazení* nebo *výchozí částečná zobrazení*.
-* Částečná zobrazení lze *řetězit*&mdash;částečné zobrazení může volat jiné částečné zobrazení, pokud cyklický odkaz není vytvořen voláními. Relativní cesty jsou vždycky relativní vzhledem k aktuálnímu souboru, ne ke kořenu nebo nadřazenému souboru.
+* Částečná zobrazení mohou být *zřetězena*&mdash;z částečného zobrazení, pokud cyklický odkaz není vytvořen voláními. Relativní cesty jsou vždycky relativní vzhledem k aktuálnímu souboru, ne ke kořenu nebo nadřazenému souboru.
 
 > [!NOTE]
-> `section` [Razor](xref:mvc/views/razor) definovaná v částečném zobrazení je neviditelná pro nadřazené soubory značek. `section` je viditelné pouze pro částečné zobrazení, ve kterém je definováno.
+> [Razor](xref:mvc/views/razor) Definice v částečném zobrazení je neviditelná pro nadřazené soubory `section` značek. `section` Je viditelný pouze pro částečné zobrazení, ve kterém je definováno.
 
 ## <a name="access-data-from-partial-views"></a>Přístup k datům z částečných zobrazení
 
-Když je vytvořena instance částečného zobrazení, obdrží *kopii* `ViewData` slovníku nadřazených objektů. Aktualizace dat v rámci částečného zobrazení nejsou trvale uložené v nadřazeném zobrazení. Při vrácení částečného zobrazení dojde ke ztrátě `ViewData`ch změn v částečném zobrazení.
+Když je vytvořena instance částečného zobrazení, obdrží *kopii* nadřazeného `ViewData` slovníku. Aktualizace dat v rámci částečného zobrazení nejsou trvale uložené v nadřazeném zobrazení. `ViewData`změny v částečném zobrazení jsou po vrácení částečného zobrazení ztraceny.
 
 Následující příklad ukazuje, jak předat instanci [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) do částečného zobrazení:
 
@@ -278,7 +284,7 @@ Následující příklad ukazuje, jak předat instanci [ViewDataDictionary](/dot
 @await Html.PartialAsync("_PartialName", customViewData)
 ```
 
-Model můžete předat do částečného zobrazení. Modelem může být vlastní objekt. Model můžete předat `PartialAsync` (vykreslí blok obsahu volajícímu) nebo `RenderPartialAsync` (streamuje obsah do výstupu):
+Model můžete předat do částečného zobrazení. Modelem může být vlastní objekt. Můžete předat model s `PartialAsync` (vykreslí blok obsahu volajícímu) nebo `RenderPartialAsync` (streamuje obsah do výstupu):
 
 ```cshtml
 @await Html.PartialAsync("_PartialName", model)
@@ -286,9 +292,9 @@ Model můžete předat do částečného zobrazení. Modelem může být vlastn�
 
 ::: moniker range=">= aspnetcore-2.1"
 
-**Stránky Razor**
+**RazorStránky**
 
-Následující značky v ukázkové aplikaci jsou ze stránky *stránky/ArticlesRP/ReadRP. cshtml* . Stránka obsahuje dvě částečná zobrazení. Druhé částečné zobrazení projde model a `ViewData` částečnému zobrazení. Přetížení konstruktoru `ViewDataDictionary` slouží k předání nového slovníku `ViewData` při zachování existujícího slovníku `ViewData`.
+Následující značky v ukázkové aplikaci jsou ze stránky *stránky/ArticlesRP/ReadRP. cshtml* . Stránka obsahuje dvě částečná zobrazení. Druhé částečné zobrazení projde v modelu a `ViewData` částečném zobrazení. Přetížení `ViewDataDictionary` konstruktoru se používá k předání nového `ViewData` slovníku při zachování existujícího `ViewData` slovníku.
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Pages/ArticlesRP/ReadRP.cshtml?name=snippet_ReadPartialViewRP&highlight=5,15-20)]
 
@@ -304,7 +310,7 @@ Následující značky v ukázkové aplikaci jsou ze stránky *stránky/Articles
 
 ::: moniker-end
 
-Následující kód v ukázkové aplikaci zobrazuje zobrazení */články/čtení. cshtml* . Zobrazení obsahuje dvě částečná zobrazení. Druhé částečné zobrazení projde model a `ViewData` částečnému zobrazení. Přetížení konstruktoru `ViewDataDictionary` slouží k předání nového slovníku `ViewData` při zachování existujícího slovníku `ViewData`.
+Následující kód v ukázkové aplikaci zobrazuje zobrazení */články/čtení. cshtml* . Zobrazení obsahuje dvě částečná zobrazení. Druhé částečné zobrazení projde v modelu a `ViewData` částečném zobrazení. Přetížení `ViewDataDictionary` konstruktoru se používá k předání nového `ViewData` slovníku při zachování existujícího `ViewData` slovníku.
 
 [!code-cshtml[](partial/sample/PartialViewsSample/Views/Articles/Read.cshtml?name=snippet_ReadPartialView&highlight=5,15-20)]
 
@@ -320,7 +326,7 @@ V době běhu jsou fragmenty vykresleny do vykresleného výstupu nadřazeného 
 
 > Abraham Lincoln
 >
-> Toto částečné zobrazení z &lt;sdílené cesty k souboru částečného zobrazení&gt;.
+> Toto částečné zobrazení ze &lt;sdílené cesty&gt;k souboru částečného zobrazení.
 > 11/19/1863 12:00:00 DOP.
 
 Druhé částečné zobrazení vykreslí oddíly článku:

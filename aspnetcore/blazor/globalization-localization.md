@@ -1,95 +1,98 @@
 ---
-title: ASP.NET Blazor Core globalizace a lokalizace
+title: ASP.NET Core Blazor globalizace a lokalizace
 author: guardrex
-description: Naučte se, jak zpřístupnit komponenty Razor uživatelům ve více kulturách a jazycích.
+description: Naučte se, Razor jak zpřístupnit součásti uživatelům v různých jazykových verzích a jazycích.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/14/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 1b0db66b23c0caffc6b7c4e4af723c020609612a
-ms.sourcegitcommit: d5d45d84fe488427d418de770000f7df44a08370
+ms.openlocfilehash: b39695f8b506744b4af27a1d7e09bfac9594d7ca
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/17/2020
-ms.locfileid: "81539658"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772488"
 ---
-# <a name="aspnet-core-opno-locblazor-globalization-and-localization"></a>ASP.NET Blazor Core globalizace a lokalizace
+# <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor globalizace a lokalizace
 
-[Luke Latham](https://github.com/guardrex) a [Daniel Roth](https://github.com/danroth27)
+Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-Komponenty razor mohou být přístupné uživatelům ve více kulturách a jazycích. K dispozici jsou následující scénáře globalizace a lokalizace rozhraní .NET:
+Razorkomponenty lze zpřístupnit uživatelům v různých jazykových verzích a jazycích. K dispozici jsou následující scénáře globalizace a lokalizace rozhraní .NET:
 
-* . NET je zdroje systému
+* . Systém prostředků netto
 * Formátování čísla a data specifické pro jazykovou verzi
 
-V současné době je podporována omezená sada scénářů lokalizace ASP.NET jádra:
+V současné době se podporuje omezená sada scénářů lokalizace ASP.NET Core:
 
-* `IStringLocalizer<>`*je podporována* v Blazor aplikacích.
-* `IHtmlLocalizer<>`, `IViewLocalizer<>`a data poznámky lokalizace jsou ASP.NET scénáře Core Blazor MVC a **není podporovánv** aplikacích.
+* `IStringLocalizer<>`*je podporováno* v Blazor aplikacích.
+* `IHtmlLocalizer<>`lokalizace datových poznámek, `IViewLocalizer<>`a jsou ASP.NET Core scénáře MVC a **nejsou** v Blazor aplikacích podporovány.
 
 Další informace naleznete v tématu <xref:fundamentals/localization>.
 
 ## <a name="globalization"></a>Globalizace
 
-BlazorFunkce `@bind` společnosti provádí formáty a analyzuje hodnoty pro zobrazení na základě aktuální jazykové verze uživatele.
+Blazor`@bind` funkce provádí formáty a analyzuje hodnoty pro zobrazení na základě aktuální jazykové verze uživatele.
 
-Aktuální jazyková verze je <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName> přístupná z vlastnosti.
+K aktuální jazykové verzi je možné přistupovat z <xref:System.Globalization.CultureInfo.CurrentCulture?displayProperty=fullName> vlastnosti.
 
-[CultureInfo.InvariantCulture](xref:System.Globalization.CultureInfo.InvariantCulture) se používá pro následující`<input type="{TYPE}" />`typy polí ( ):
+[CultureInfo. InvariantCulture](xref:System.Globalization.CultureInfo.InvariantCulture) se používá pro následující typy polí (`<input type="{TYPE}" />`):
 
 * `date`
 * `number`
 
 Předchozí typy polí:
 
-* Jsou zobrazeny pomocí příslušných pravidel formátování založených na prohlížeči.
-* Nesmí obsahovat volný text.
-* Poskytněte charakteristiky interakce uživatele na základě implementace prohlížeče.
+* Se zobrazují pomocí příslušných pravidel formátování založených na prohlížeči.
+* Text s volným formulářem nemůže obsahovat.
+* Poskytněte charakteristiky interakce s uživatelem na základě implementace prohlížeče.
 
-Následující typy polí mají specifické požadavky na formátování a Blazor nejsou aktuálně podporovány, protože nejsou podporovány všemi hlavními prohlížeči:
+Následující typy polí mají specifické požadavky na formátování a aktuálně nejsou podporovány, Blazor protože nejsou podporovány ve všech hlavních prohlížečích:
 
 * `datetime-local`
 * `month`
 * `week`
 
-`@bind`podporuje `@bind:culture` parametr pro <xref:System.Globalization.CultureInfo?displayProperty=fullName> analýzu a formátování hodnoty. Určení jazykové verze se nedoporučuje při `date` `number` použití typů polí a. `date`a `number` mají integrovanou Blazor podporu, která poskytuje požadovanou jazykovou verzi.
+`@bind`podporuje `@bind:culture` parametr <xref:System.Globalization.CultureInfo?displayProperty=fullName> pro zajištění analýzy a formátování hodnoty. Specifikace jazykové verze není doporučena při použití `date` typů `number` polí a. `date`a `number` mají integrovanou Blazor podporu, která poskytuje požadovanou jazykovou verzi.
 
 ## <a name="localization"></a>Lokalizace
 
-### <a name="opno-locblazor-webassembly"></a>BlazorWebová sestava
+### <a name="blazor-webassembly"></a>BlazorWebAssembly
 
-BlazorAplikace WebAssembly nastavují jazykovou verzi pomocí [jazykových předvoleb](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)uživatele .
+BlazorAplikace WebAssembly nastavily jazykovou verzi pomocí [Předvolby jazyka](https://developer.mozilla.org/docs/Web/API/NavigatorLanguage/languages)uživatele.
 
-Chcete-li explicitně `CultureInfo.DefaultThreadCurrentCulture` nakonfigurovat jazykovou verzi, nastavte a `CultureInfo.DefaultThreadCurrentUICulture` v `Program.Main`.
+Chcete-li explicitně konfigurovat jazykovou `CultureInfo.DefaultThreadCurrentCulture` verzi `CultureInfo.DefaultThreadCurrentUICulture` , `Program.Main`nastavte a v.
 
-Ve výchozím Blazornastavení konfigurace propojovacího programu pro aplikace Blazor WebAssembly prokládá internacionalizaci s výjimkou explicitně požadovaných národních prostředí. Další informace a pokyny k řízení chování propojovacího systému naleznete v tématu <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>.
+Ve výchozím nastavení Blazorse konfigurace linkeru Blazor pro aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Další informace a pokyny k řízení chování linkeru naleznete v tématu <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization>.
 
-Zatímco jazyková Blazor verze, která vybere ve výchozím nastavení může být dostatečná pro většinu uživatelů, zvažte možnost nabídnout uživatelům způsob, jak zadat své upřednostňované národní prostředí. Ukázková Blazor aplikace WebAssembly s výběrem jazykové verze najdete v ukázkové aplikaci [LocSample.](https://github.com/pranavkm/LocSample)
+I když jazyková verze Blazor , která je standardně vybrána, může být pro většinu uživatelů dostačující, doporučujeme nabídnout uživatelům možnost zadat své upřednostňované národní prostředí. Blazor Ukázkovou aplikaci pro WebAssembly s použitím výběru jazykové verze najdete v ukázkové aplikaci [LocSample](https://github.com/pranavkm/LocSample) Localization.
 
-### <a name="opno-locblazor-server"></a>BlazorServer
+### <a name="blazor-server"></a>BlazorWebServer
 
-BlazorServerové aplikace jsou lokalizovány pomocí [middlewaru lokalizace](xref:fundamentals/localization#localization-middleware). Middleware vybere příslušnou jazykovou verzi pro uživatele požadující prostředky z aplikace.
+BlazorServerové aplikace jsou lokalizovány pomocí [middlewaru lokalizace](xref:fundamentals/localization#localization-middleware). Middleware vybere vhodnou jazykovou verzi pro uživatele, kteří žádají o prostředky z aplikace.
 
-Jazykovou verzi lze nastavit pomocí jednoho z následujících přístupů:
+Tuto jazykovou verzi lze nastavit pomocí jednoho z následujících přístupů:
 
 * [Soubory cookie](#cookies)
-* [Poskytnout uI zvolit jazykovou verzi](#provide-ui-to-choose-the-culture)
+* [Poskytnutí uživatelského rozhraní pro výběr jazykové verze](#provide-ui-to-choose-the-culture)
 
-Další informace a příklady <xref:fundamentals/localization>naleznete v tématu .
+Další informace a příklady naleznete v tématu <xref:fundamentals/localization>.
 
 #### <a name="cookies"></a>Soubory cookie
 
-Soubor cookie jazykové verze lokalizace může zachovat jazykovou verzi uživatele. Soubor cookie je `OnGet` vytvořen metodou hostitelské stránky aplikace (*Pages/Host.cshtml.cs*). Middleware lokalizace přečte soubor cookie na následné požadavky na nastavení jazykové verze uživatele. 
+Soubor cookie lokalizační kultury může zachovat jazykovou verzi uživatele. Soubor cookie je vytvořen `OnGet` metodou stránky hostitele aplikace (*stránky/Host. cshtml. cs*). Middleware lokalizace přečte soubor cookie při následných požadavcích na nastavení jazykové verze uživatele. 
 
-Použití souboru cookie zajišťuje, že připojení WebSocket může správně šířit jazykovou verzi. Pokud jsou lokalizační schémata založena na cestě url nebo řetězci dotazu, nemusí být schéma schopno pracovat s websockety, a proto se nepodaří zachovat jazykovou verzi. Proto použití souboru cookie jazykové verze lokalizace je doporučený přístup.
+Použití souboru cookie zajistí, že připojení protokolu WebSocket dokáže správně rozšířit jazykovou verzi. Pokud jsou schémata lokalizací založena na cestě URL nebo řetězci dotazu, nemusí být schopná pracovat s objekty WebSockets, takže nepůjde zachovat jazykovou verzi. Proto je doporučený přístup použití souboru cookie lokalizační kultury.
 
-Libovolnou techniku lze použít k přiřazení jazykové verze, pokud je jazyková verze trvalá v lokalizačním souboru cookie. Pokud aplikace již má zavedené schéma lokalizace pro ASP.NET core na straně serveru, pokračujte v používání stávající infrastruktury lokalizace aplikace a nastavte soubor cookie jazykové verze lokalizace v rámci schématu aplikace.
+Pokud je jazyková verze uložena v souboru cookie lokalizace, je možné použít jakoukoli techniku k přiřazení jazykové verze. Pokud už aplikace má zavedené lokalizační schéma pro ASP.NET Core na straně serveru, pokračujte v používání stávající infrastruktury lokalizace a nastavte soubor cookie lokalizační kultury v rámci schématu aplikace.
 
-Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v souboru cookie, který lze číst middlewaru lokalizace. Vytvořte soubor *Pages/_Host.cshtml.cs* s následujícím Blazor obsahem v aplikaci Server:
+Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v souboru cookie, který lze přečíst pomocí middleware Localization. Vytvořte soubor *Pages/_Host. cshtml. cs* s následujícím obsahem v Blazor serverové aplikaci:
 
 ```csharp
 public class HostModel : PageModel
@@ -106,22 +109,22 @@ public class HostModel : PageModel
 }
 ```
 
-Lokalizace je zpracována aplikací v následujícím pořadí událostí:
+Lokalizace je zpracována aplikací v následující posloupnosti událostí:
 
-1. Prohlížeč odešle do aplikace počáteční požadavek HTTP.
-1. Jazyková verze je přiřazena middlewaru lokalizace.
-1. Metoda `OnGet` v *_Host.cshtml.cs* přetrvává jazykovou verzi v souboru cookie jako součást odpovědi.
-1. Prohlížeč otevře připojení WebSocket a Blazor vytvoří interaktivní relaci serveru.
+1. Prohlížeč pošle do aplikace počáteční požadavek HTTP.
+1. Jazyková verze je přiřazena pomocí middleware Localization.
+1. `OnGet` Metoda v *_Host. cshtml. cs* uchovává v souboru cookie jazykovou verzi jako součást odpovědi.
+1. Prohlížeč otevře připojení pomocí protokolu WebSocket a vytvoří interaktivní Blazor relaci serveru.
 1. Middleware lokalizace přečte soubor cookie a přiřadí jazykovou verzi.
 1. Relace Blazor serveru začíná správnou jazykovou verzí.
 
-#### <a name="provide-ui-to-choose-the-culture"></a>Poskytnout uI zvolit jazykovou verzi
+#### <a name="provide-ui-to-choose-the-culture"></a>Poskytnutí uživatelského rozhraní pro výběr jazykové verze
 
-Chcete-li poskytnout uživatelské rozhraní, které uživateli umožní vybrat jazykovou verzi, doporučuje se *přístup založený na přesměrování.* Tento proces je podobný tomu, co se děje ve webové aplikaci, když se uživatel pokusí o přístup k zabezpečenému prostředku. Uživatel je přesměrován na přihlašovací stránku a poté přesměrován zpět na původní prostředek. 
+K poskytnutí uživatelského rozhraní, které uživateli umožní vybrat jazykovou verzi, se doporučuje *přístup založený na přesměrování* . Proces se podobá tomu, co se stane ve webové aplikaci, když se uživatel pokusí o přístup k zabezpečenému prostředku. Uživatel se přesměruje na přihlašovací stránku a pak se přesměruje zpátky na původní prostředek. 
 
-Aplikace zachová vybranou jazykovou verzi uživatele prostřednictvím přesměrování na řadič. Kontroler nastaví vybranou jazykovou verzi uživatele do souboru cookie a přesměruje uživatele zpět na původní identifikátor URI.
+Aplikace zachovává vybranou jazykovou verzi uživatele prostřednictvím přesměrování na kontroler. Řadič Nastaví vybranou jazykovou verzi uživatele na soubor cookie a přesměruje uživatele zpět na původní identifikátor URI.
 
-Vytvořte koncový bod HTTP na serveru, který nastaví vybranou jazykovou verzi uživatele v souboru cookie a provede přesměrování zpět na původní identifikátor URI:
+Vytvořte koncový bod HTTP na serveru pro nastavení vybrané jazykové verze uživatele v souboru cookie a proveďte přesměrování zpátky na původní identifikátor URI:
 
 ```csharp
 [Route("[controller]/[action]")]
@@ -143,7 +146,7 @@ public class CultureController : Controller
 ```
 
 > [!WARNING]
-> Výsledek `LocalRedirect` akce použijte k zabránění útokům otevřeného přesměrování. Další informace naleznete v tématu <xref:security/preventing-open-redirects>.
+> Pomocí výsledku `LocalRedirect` akce zabráníte otevírání útoků přes přesměrování. Další informace naleznete v tématu <xref:security/preventing-open-redirects>.
 
 Následující komponenta ukazuje příklad, jak provést počáteční přesměrování, když uživatel vybere jazykovou verzi:
 

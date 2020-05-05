@@ -1,20 +1,24 @@
 ---
-title: ASP.NET Core SignalR hostování a škálování v produkčním prostředí
+title: ASP.NET Core SignalR hostování a škálování provozu
 author: bradygaster
-description: Naučte se, jak se vyhnout problémům s výkonem a škálováním v aplikacích, které používají ASP.NET Core SignalR.
+description: Naučte se, jak se vyhnout problémům s výkonem a škálováním SignalRv aplikacích, které používají ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/17/2020
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: signalr/scale
-ms.openlocfilehash: 260e2f0c16288fec2e0a694d070f357529782d8d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 23ac2b1c80b9d73d6e9ac57f0ef774ac2ea54be4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78668152"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775073"
 ---
 # <a name="aspnet-core-signalr-hosting-and-scaling"></a>Hostování a škálování signalizace ASP.NET Core
 
@@ -94,12 +98,12 @@ Výše zmíněné výhody služby signálů Azure jsou nevýhody pro Redis repl�
   * Všichni klienti jsou nakonfigurovaní tak, aby používali **jenom** objekty WebSockets.
   * [Nastavení SkipNegotiation](xref:signalr/configuration#configure-additional-options) je v konfiguraci klienta povoleno. 
    Po zahájení připojení na serveru musí připojení zůstat na tomto serveru.
-* SignalR aplikace musí škálovat na základě počtu klientů i v případě, že je odesíláno několik zpráv.
-* SignalR aplikace používá podstatně více prostředků připojení, než je webová aplikace bez SignalR.
+* SignalR Aplikace musí škálovat na základě počtu klientů i v případě, že je odesíláno několik zpráv.
+* SignalR Aplikace používá podstatně více prostředků připojení než webová aplikace bez SignalR.
 
 ## <a name="iis-limitations-on-windows-client-os"></a>Omezení služby IIS na klientském operačním systému Windows
 
-Windows 10 a Windows 8. x jsou klientské operační systémy. Služba IIS v klientských operačních systémech má omezení 10 souběžných připojení. připojení SignalRjsou:
+Windows 10 a Windows 8. x jsou klientské operační systémy. Služba IIS v klientských operačních systémech má omezení 10 souběžných připojení. SignalRjsou připojení:
 
 * Přechodný a často znovu navázáno.
 * Neodstraněno okamžitě, pokud **se** už nepoužívá.
@@ -111,7 +115,7 @@ Předchozí podmínky mají za to, že na klientském operačním systému budou
 
 ## <a name="linux-with-nginx"></a>Linux na serveru Nginx
 
-Pro SignalR WebSockets nastavte `Connection` a `Upgrade` hlavičku proxy serveru na následující:
+Pro SignalR objekty WebSockets `Upgrade` nastavte proxy `Connection` a záhlaví na následující:
 
 ```nginx
 proxy_set_header Upgrade $http_upgrade;
@@ -120,14 +124,14 @@ proxy_set_header Connection $connection_upgrade;
 
 Další informace najdete v tématu [Nginx jako proxy server WebSocket](https://www.nginx.com/blog/websocket-nginx/).
 
-## <a name="third-party-opno-locsignalr-backplane-providers"></a>Poskytovatelé přeplánování SignalR třetích stran
+## <a name="third-party-signalr-backplane-providers"></a>Poskytovatelé pro SignalR replánování třetích stran
 
 * [NCache](https://www.alachisoft.com/ncache/asp-net-core-signalr.html)
 * [Orleans](https://github.com/OrleansContrib/SignalR.Orleans)
 
 ## <a name="next-steps"></a>Další kroky
 
-Další informace najdete v následujících zdrojích:
+Další informace najdete v následujících materiálech:
 
-* [Dokumentace ke službě Azure SignalR](/azure/azure-signalr/signalr-overview)
+* [Dokumentace SignalR ke službě Azure](/azure/azure-signalr/signalr-overview)
 * [Nastavení Redisho plánu](xref:signalr/redis-backplane)

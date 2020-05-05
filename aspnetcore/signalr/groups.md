@@ -1,5 +1,5 @@
 ---
-title: Správa uživatelů a skupin v SignalR
+title: Správa uživatelů a skupin v nástrojiSignalR
 author: bradygaster
 description: Přehled ASP.NET Core SignalR správy uživatelů a skupin.
 monikerRange: '>= aspnetcore-2.1'
@@ -7,37 +7,41 @@ ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: signalr/groups
-ms.openlocfilehash: 7e8c85dcbc46daa68988374f499f19a9d2cead47
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: af498575899fcfa407aba9f9f49c0bfeabadc7a7
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78665863"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776295"
 ---
-# <a name="manage-users-and-groups-in-opno-locsignalr"></a>Správa uživatelů a skupin v SignalR
+# <a name="manage-users-and-groups-in-signalr"></a>Správa uživatelů a skupin v nástrojiSignalR
 
 Od [Brennan Conroy](https://github.com/BrennanConroy)
 
-SignalR umožňuje odesílání zpráv do všech připojení přidružených ke konkrétnímu uživateli a k pojmenovaným skupinám připojení.
+SignalRumožňuje posílat zprávy na všechna připojení přidružená ke konkrétnímu uživateli i k pojmenovaným skupinám připojení.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/groups/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="users-in-opno-locsignalr"></a>Uživatelé v SignalR
+## <a name="users-in-signalr"></a>Uživatelé vSignalR
 
-SignalR umožňuje odesílat zprávy všem připojením přidruženým ke konkrétnímu uživateli. Ve výchozím nastavení SignalR používá `ClaimTypes.NameIdentifier` z `ClaimsPrincipal` přidruženého k připojení jako identifikátor uživatele. Jeden uživatel může mít několik připojení k aplikaci SignalR. Například uživatel může být připojen na svém počítači a také na telefonu. Každé zařízení má samostatné SignalR připojení, ale všechny jsou přidružené ke stejnému uživateli. Pokud se uživateli pošle zpráva, zobrazí se tato zpráva u všech připojení přidružených k tomuto uživateli. K identifikátoru uživatele pro připojení lze použít vlastnost `Context.UserIdentifier` ve vašem centru.
+SignalRumožňuje odesílat zprávy na všechna připojení přidružená ke konkrétnímu uživateli. Ve výchozím nastavení SignalR používá nástroj `ClaimTypes.NameIdentifier` z `ClaimsPrincipal` přidruženého k připojení jako identifikátor uživatele. Jeden uživatel může mít několik připojení k SignalR aplikaci. Například uživatel může být připojen na svém počítači a také na telefonu. Každé zařízení má samostatné SignalR připojení, ale všechny jsou přidružené ke stejnému uživateli. Pokud se uživateli pošle zpráva, zobrazí se tato zpráva u všech připojení přidružených k tomuto uživateli. K identifikátoru uživatele pro připojení se dá použít `Context.UserIdentifier` vlastnost ve vašem centru.
 
-Odeslat zprávu konkrétnímu uživateli předáním identifikátoru uživatele do funkce `User` v metodě hub, jak je znázorněno v následujícím příkladu:
+Odeslat zprávu konkrétnímu uživateli předáním identifikátoru uživatele do `User` funkce v metodě centra, jak je znázorněno v následujícím příkladu:
 
 > [!NOTE]
 > Identifikátor uživatele rozlišuje velká a malá písmena.
 
 [!code-csharp[Configure service](groups/sample/hubs/chathub.cs?range=29-32)]
 
-## <a name="groups-in-opno-locsignalr"></a>Skupiny v SignalR
+## <a name="groups-in-signalr"></a>Skupiny vSignalR
 
-Skupina je kolekcí připojení přidružených k názvu. Zprávy je možné odesílat do všech připojení ve skupině. Skupiny jsou doporučeným způsobem, jak odeslat připojení nebo více připojení, protože skupiny jsou spravovány aplikací. Připojení může být členem více skupin. Díky tomu jsou skupiny ideální pro něco podobného aplikaci Chat, kde každou místnost lze reprezentovat jako skupinu. Do skupin můžete přidat nebo odebrat připojení prostřednictvím `AddToGroupAsync` a `RemoveFromGroupAsync`ch metod.
+Skupina je kolekcí připojení přidružených k názvu. Zprávy je možné odesílat do všech připojení ve skupině. Skupiny jsou doporučeným způsobem, jak odeslat připojení nebo více připojení, protože skupiny jsou spravovány aplikací. Připojení může být členem více skupin. Díky tomu jsou skupiny ideální pro něco podobného aplikaci Chat, kde každou místnost lze reprezentovat jako skupinu. Připojení můžete přidat nebo odebrat ze skupin prostřednictvím metod `AddToGroupAsync` a. `RemoveFromGroupAsync`
 
 [!code-csharp[Hub methods](groups/sample/hubs/chathub.cs?range=15-27)]
 
@@ -52,4 +56,4 @@ K ochraně přístupu k prostředkům při používání skupin použijte funkci
 
 * [Začínáme](xref:tutorials/signalr)
 * [Centra](xref:signalr/hubs)
-* [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
+* [Publikování aplikací do Azure](xref:signalr/publish-to-azure-web-app)

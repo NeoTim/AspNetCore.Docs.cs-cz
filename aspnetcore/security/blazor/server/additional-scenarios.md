@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 04/27/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/server/additional-scenarios
-ms.openlocfilehash: 1a3e5a215daedbb9b97c1924275701915806983e
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: 95e9e57889fdbb5270f895874c9b8148ae4ca48d
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206387"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772801"
 ---
 # <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>Další Blazor scénáře zabezpečení ASP.NET Core serveru
 
@@ -23,9 +26,9 @@ ms.locfileid: "82206387"
 
 ## <a name="pass-tokens-to-a-blazor-server-app"></a>Předávání tokenů Blazor serverové aplikaci
 
-Tokeny dostupné mimo součásti Razor v Blazor serverové aplikaci lze předat komponentám s přístupem popsaným v této části. Vzorový kód, včetně kompletního `Startup.ConfigureServices` příkladu, najdete v tématu [předávání tokenů do aplikace na straně Blazor serveru](https://github.com/javiercn/blazor-server-aad-sample).
+Tokeny dostupné mimo Razor součásti v Blazor serverové aplikaci je možné předat komponentám s přístupem popsaným v této části. Vzorový kód, včetně kompletního `Startup.ConfigureServices` příkladu, najdete v tématu [předávání tokenů do aplikace na straně Blazor serveru](https://github.com/javiercn/blazor-server-aad-sample).
 
-Ověřte aplikaci Blazor serveru stejně, jako byste měli v běžné Razor Pages nebo aplikaci MVC. Zajistěte a uložte tokeny do souboru cookie pro ověřování. Příklad:
+Ověřte aplikaci Blazor serveru stejně, jako byste použili běžné Razor stránky nebo aplikace MVC. Zajistěte a uložte tokeny do souboru cookie pro ověřování. Příklad:
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;

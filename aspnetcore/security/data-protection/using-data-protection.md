@@ -5,14 +5,18 @@ description: Naučte se používat ASP.NET Core rozhraní API ochrany dat pro oc
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/data-protection/using-data-protection
-ms.openlocfilehash: 8c3f3c7fb21434cf335591c41741f0ce868df33e
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: d5e9e61db39a67e8ccb7b345dfa4c97353312857
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78664435"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774259"
 ---
 # <a name="get-started-with-the-data-protection-apis-in-aspnet-core"></a>Začínáme s rozhraními API pro ochranu dat v ASP.NET Core
 
@@ -22,9 +26,9 @@ V nejjednodušším případě ochrana dat sestává z následujících kroků:
 
 1. Vytvořte ochranu dat od poskytovatele ochrany dat.
 
-2. Zavolejte metodu `Protect` s daty, která chcete chránit.
+2. Zavolejte `Protect` metodu s daty, která chcete chránit.
 
-3. Zavolejte metodu `Unprotect` s daty, která chcete převést zpět na prostý text.
+3. Zavolejte `Unprotect` metodu s daty, která chcete převést zpět na prostý text.
 
 Většina architektur a modelů aplikací, jako je například ASP.NET Core nebo SignalR, již konfigurují systém ochrany dat a přidávají ho do kontejneru služby, ke kterému přistupujete prostřednictvím injektáže závislosti. Následující příklad znázorňuje konfiguraci kontejneru služby pro vkládání závislostí a registraci zásobníku ochrany dat, příjem poskytovatele ochrany dat přes DI, vytvoření ochrany a ochrana před tím, než se data odeberou.
 
@@ -33,6 +37,6 @@ Většina architektur a modelů aplikací, jako je například ASP.NET Core nebo
 Při vytváření ochrany musíte zadat jeden nebo více [řetězců účelu](xref:security/data-protection/consumer-apis/purpose-strings). Řetězec účelu poskytuje izolaci mezi spotřebiteli. Například ochrana vytvořená pomocí řetězce "zelená" by nedokázala zrušit ochranu dat poskytovaných ochranou s účelem "fialové".
 
 >[!TIP]
-> Instance `IDataProtectionProvider` a `IDataProtector` jsou bezpečné pro přístup z více vláken pro více volajících. Je určeno, že jakmile komponenta získá odkaz na `IDataProtector` prostřednictvím volání `CreateProtector`, bude tento odkaz použit pro více volání `Protect` a `Unprotect`.
+> Instance `IDataProtectionProvider` a `IDataProtector` jsou bezpečné pro přístup z více vláken pro více volajících. Je určeno, že jakmile komponenta získá odkaz `IDataProtector` na volání `CreateProtector`, použije tento odkaz na více volání `Protect` a. `Unprotect`
 >
->Volání `Unprotect` vyvolá CryptographicException –, pokud nelze ověřit nebo dešifrovat chráněnou datovou část. Některé součásti můžou během operace zrušení ochrany ignorovat chyby; komponenta, která čte soubory cookie ověřování, může tuto chybu zpracovat a považovat požadavek za neúspěšného uložení souboru cookie. Součásti, které chtějí toto chování by měly specificky zachytit CryptographicException – místo požití všech výjimek.
+>Volání `Unprotect` bude vyvolat CryptographicException –, pokud nelze ověřit nebo dešifrovat chráněnou datovou část. Některé součásti můžou během operace zrušení ochrany ignorovat chyby; komponenta, která čte soubory cookie ověřování, může tuto chybu zpracovat a považovat požadavek za neúspěšného uložení souboru cookie. Součásti, které chtějí toto chování by měly specificky zachytit CryptographicException – místo požití všech výjimek.

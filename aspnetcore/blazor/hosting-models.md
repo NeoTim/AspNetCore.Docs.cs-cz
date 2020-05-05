@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 03/31/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 48f5b09199091b2b55974010a2b0715c28eb1bae
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: 524fd015278d1a5f784fa306f077d06b865201c4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82205966"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772084"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 
@@ -94,9 +97,9 @@ Model Blazor serverové aplikace podporuje [kontejnery Docker](/dotnet/standard/
 
 ### <a name="comparison-to-server-rendered-ui"></a>Porovnání s uživatelským rozhraním vykresleným serverem
 
-Jedním ze způsobů, Blazor jak pochopit serverové aplikace, je pochopit, jak se liší od tradičních modelů pro vykreslování uživatelského rozhraní v aplikacích ASP.NET Core pomocí zobrazení Razor nebo Razor Pages. Oba modely používají jazyk Razor k popisu obsahu HTML, ale významně se liší v tom, jak se vykreslují kód.
+Jedním ze způsobů, Blazor jak pochopit serverové aplikace, je pochopit, jak se liší od tradičních modelů pro vykreslování uživatelského rozhraní v Razor aplikacích ASP.NET Core Razor pomocí zobrazení nebo stránek. Oba modely používají Razor jazyk k popisu obsahu HTML, ale významně se liší v tom, jak se vykreslují kód.
 
-Když je vykreslena stránka nebo zobrazení Razor, každý řádek kódu Razor generuje kód HTML v textovém formátu. Po vykreslení Server uvolní instanci stránky nebo zobrazení, včetně veškerého stavu, který byl vytvořen. Pokud dojde k jiné žádosti na stránku, například když se ověření serveru nepovede a zobrazí se shrnutí ověření:
+Když je Razor vykreslena stránka nebo zobrazení, každý řádek Razor kódu generuje kód HTML v textovém formátu. Po vykreslení Server uvolní instanci stránky nebo zobrazení, včetně veškerého stavu, který byl vytvořen. Pokud dojde k jiné žádosti na stránku, například když se ověření serveru nepovede a zobrazí se shrnutí ověření:
 
 * Celá stránka se znovu vykreslí do textu HTML.
 * Stránka je odeslána klientovi.
@@ -106,7 +109,7 @@ Blazor Aplikace se skládá z opakovaně použitelných prvků uživatelského r
 * Byl převeden na text HTML (během předvykreslování&dagger;).
 * Slouží k efektivní aktualizaci značek během pravidelného vykreslování.
 
-&dagger;Předem *vykreslí* &ndash; se požadovaná komponenta Razor na server do statického HTML a pošle se klientovi, kde se uživateli vykreslí. Po navázání spojení mezi klientem a serverem se statické předem vykreslené prvky součásti nahrazují pomocí interaktivních prvků. Předvykreslování umožňuje aplikaci lépe reagovat na uživatele.
+&dagger;*Předvykreslování* &ndash; požadované Razor součásti je kompilováno na serveru do statického kódu HTML a odesláno klientovi, kde je vygenerováno uživateli. Po navázání spojení mezi klientem a serverem se statické předem vykreslené prvky součásti nahrazují pomocí interaktivních prvků. Předvykreslování umožňuje aplikaci lépe reagovat na uživatele.
 
 Aktualizace uživatelského rozhraní v Blazor nástroji je aktivována:
 

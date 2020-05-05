@@ -5,13 +5,19 @@ description: Ukazuje, jak pomocí nástroje Microsoft. dotnet-openapi přidat od
 ms.author: rybrande
 ms.date: 09/26/2019
 monikerRange: '>= aspnetcore-3.0'
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: web-api/Microsoft.dotnet-openapi
-ms.openlocfilehash: 079e36511b63c186ffa7726bdb1e3c3bcbda9d34
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 1924fb8ee5ac1ba8dc31d2175a336c8333c81fb2
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78655265"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775710"
 ---
 # <a name="develop-aspnet-core-apps-using-openapi-tools"></a>Vývoj aplikací pro ASP.NET Core pomocí nástrojů pro OpenAPI
 
@@ -21,7 +27,7 @@ Služba Ryan Brandenburg
 
 ## <a name="installation"></a>Instalace
 
-Pokud chcete nainstalovat `Microsoft.dotnet-openapi`, spusťte následující příkaz:
+K instalaci `Microsoft.dotnet-openapi`spusťte následující příkaz:
 
 ```dotnetcli
 dotnet tool install -g Microsoft.dotnet-openapi
@@ -29,7 +35,7 @@ dotnet tool install -g Microsoft.dotnet-openapi
 
 ## <a name="add"></a>Přidat
 
-Přidání odkazu OpenAPI pomocí kteréhokoli z příkazů na této stránce přidá prvek `<OpenApiReference />` podobný následujícímu souboru *. csproj* :
+Přidání odkazu OpenAPI pomocí kteréhokoli z příkazů na této stránce přidá do souboru `<OpenApiReference />` *. csproj* prvek podobný následujícímu:
 
 ```xml
 <OpenApiReference Include="openapi.json" />
@@ -59,7 +65,7 @@ Předchozí odkaz je vyžadován, aby aplikace volala generovaný kód klienta.
 | Krátká možnost| Možnost Long| Popis | Příklad |
 |-------|------|-------|---------|
 | -p|--updateProject | Projekt, na kterém má být provozován. |dotnet openapi přidat soubor *--updateProject .\Ref.csproj* .\OpenAPI.JSON |
-| -c|--generátor kódu| Generátor kódu, který se má použít na odkaz Možnosti jsou `NSwagCSharp` a `NSwagTypeScript`. Pokud `--code-generator` není zadán, výchozí nastavení nástrojů `NSwagCSharp`.|dotnet openapi přidat soubor .\OpenApi.json--generátor kódu
+| -c|--generátor kódu| Generátor kódu, který se má použít na odkaz Možnosti jsou `NSwagCSharp` a `NSwagTypeScript`. Pokud `--code-generator` parametr není zadán, je výchozím nastavením nástrojů `NSwagCSharp`.|dotnet openapi přidat soubor .\OpenApi.json--generátor kódu
 | -h|--Help|Zobrazit informace o nápovědě|dotnet openapi přidat soubor--Help|
 
 #### <a name="arguments"></a>Argumenty
@@ -74,8 +80,8 @@ Předchozí odkaz je vyžadován, aby aplikace volala generovaný kód klienta.
 
 | Krátká možnost| Možnost Long| Popis | Příklad |
 |-------|------|-------------|---------|
-| -p|--updateProject | Projekt, na kterém má být provozován. |dotnet openapi Add URL *--updateProject .\Ref.csproj* `https://contoso.com/openapi.json` |
-| -o|--výstupní soubor | Kam umístit místní kopii souboru OpenAPI. |dotnet openapi přidání adresy URL `https://contoso.com/openapi.json` *--Output-File MyClient. JSON* |
+| -p|--updateProject | Projekt, na kterém má být provozován. |dotnet openapi Add URL *--updateProject .\Ref.csproj*`https://contoso.com/openapi.json` |
+| -o|--výstupní soubor | Kam umístit místní kopii souboru OpenAPI. |dotnet openapi Add URL `https://contoso.com/openapi.json` *--Output-File MyClient. JSON* |
 | -c|--generátor kódu| Generátor kódu, který se má použít na odkaz Možnosti jsou `NSwagCSharp` a `NSwagTypeScript`. |dotnet openapi přidat soubor .\OpenApi.json--generátor kódu
 | -h|--Help|Zobrazit informace o nápovědě|dotnet openapi přidat URL – Help|
 
@@ -83,7 +89,7 @@ Předchozí odkaz je vyžadován, aby aplikace volala generovaný kód klienta.
 
 |  Argument  | Popis | Příklad |
 |-------------|-------------|---------|
-| Adresa URL zdroje | Zdroj, ze kterého má být vytvořen odkaz. Musí se jednat o adresu URL. |dotnet openapi přidání adresy URL `https://contoso.com/openapi.json` |
+| Adresa URL zdroje | Zdroj, ze kterého má být vytvořen odkaz. Musí se jednat o adresu URL. |dotnet openapi přidat adresu URL`https://contoso.com/openapi.json` |
 
 ## <a name="remove"></a>Odebrat
 
@@ -110,11 +116,11 @@ Aktualizuje místní verzi souboru, který byl stažen pomocí nejnovějšího o
 
 | Krátká možnost| Možnost Long| Popis | Příklad |
 |-------|------|-------------|---------|
-| -p|--updateProject | Projekt, na kterém má být provozován. | dotnet openapi Refresh *--updateProject .\Ref.csproj* `https://contoso.com/openapi.json` |
+| -p|--updateProject | Projekt, na kterém má být provozován. | dotnet openapi Refresh *--updateProject .\Ref.csproj*`https://contoso.com/openapi.json` |
 | -h|--Help|Zobrazit informace o nápovědě|dotnet openapi Refresh--Help|
 
 ### <a name="arguments"></a>Argumenty
 
 |  Argument  | Popis | Příklad |
 | ------------|-------------|---------|
-| Adresa URL zdroje | Adresa URL, ze které se má aktualizovat odkaz | dotnet openapi Refresh `https://contoso.com/openapi.json` |
+| Adresa URL zdroje | Adresa URL, ze které se má aktualizovat odkaz | dotnet – aktualizace openapi`https://contoso.com/openapi.json` |

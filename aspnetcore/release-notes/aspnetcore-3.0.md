@@ -1,89 +1,92 @@
 ---
-title: Co je nového v ASP.NET Core 3.0
+title: Co je nového v ASP.NET Core 3,0
 author: rick-anderson
-description: Seznamte se s novými funkcemi v ASP.NET Core 3.0.
+description: Seznamte se s novými funkcemi v ASP.NET Core 3,0.
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 4886673a9b16b8be8d9a0b0d5c7002a91760544e
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: aa0b2b51632cff729449018f9823c38cc26ce612
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80976973"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774090"
 ---
-# <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3.0
+# <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
-Tento článek upozorňuje na nejvýznamnější změny v ASP.NET Jádrem 3.0 s odkazy na příslušnou dokumentaci.
+Tento článek popisuje nejvýznamnější změny v ASP.NET Core 3,0 s odkazy na příslušnou dokumentaci.
 
 ## Blazor
 
-Blazorje nový framework v ASP.NET Core pro vytváření interaktivního webového uživatelského rozhraní na straně klienta s rozhraním .NET:
+Blazorje nová architektura v ASP.NET Core pro vytváření interaktivního webového uživatelského rozhraní na straně klienta pomocí .NET:
 
-* Vytvořte bohaté interaktivní umělá použití jazyka C# místo JavaScriptu.
-* Sdílejte logiku aplikace na straně serveru a klienta napsanou v rozhraní .NET.
-* Vykreslete ui jako HTML a CSS pro širokou podporu prohlížeče, včetně mobilních prohlížečů.
+* Vytvářejte bohatá interaktivní uživatelská rozhraní pomocí jazyka C# namísto JavaScriptu.
+* Sdílejte logiku aplikace na straně serveru a klienta napsanou v .NET.
+* Vykreslete uživatelské rozhraní jako HTML a CSS pro podporu pro rozsáhlou prohlížeč, včetně mobilních prohlížečů.
 
-Blazorrámcových scénářů:
+Blazorscénáře podporované rozhraním:
 
-* Opakovaně použitelné součásti ui (komponenty Razor)
+* Opakovaně použitelné součásti uživatelského rozhraníRazor (součásti)
 * Směrování na straně klienta
 * Rozložení komponent
-* Podpora vkládání závislostí
+* Podpora pro vkládání závislostí
 * Formuláře a ověřování
-* Vytváření knihoven komponent pomocí knihoven tříd Razor
+* Sestavení knihoven komponent pomocí Razor knihoven tříd
 * Interoperabilita JavaScriptu
 
 Další informace naleznete v tématu <xref:blazor/index>.
 
-### <a name="opno-locblazor-server"></a>BlazorServer
+### <a name="blazor-server"></a>BlazorWebServer
 
-Blazorodděluje logiku vykreslování komponent od způsobu použití aktualizací ui. BlazorServer poskytuje podporu pro hostování komponent Razor na serveru v aplikaci ASP.NET Core. Aktualizace ui jsou SignalR zpracovávány přes připojení. BlazorServer je podporován v ASP.NET Core 3.0.
+Blazorodpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. BlazorServer poskytuje podporu pro hostování Razor komponent na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes SignalR připojení. BlazorServer je podporován v ASP.NET Core 3,0.
 
-### <a name="opno-locblazor-webassembly-preview"></a>BlazorWebassembly (náhled)
+### <a name="blazor-webassembly-preview"></a>BlazorWebAssembly (Preview)
 
-Blazoraplikace lze také spouštět přímo v prohlížeči pomocí runtime rozhraní .NET založeného na webové sestavě. BlazorWebAssembly je ve verzi Preview a *není* podporován a není podporován v ASP.NET Jádrem 3.0. BlazorWebAssembly bude podporovánv budoucí verzi ASP.NET Core.
+Blazoraplikace je také možné spustit přímo v prohlížeči pomocí rozhraní .NET runtime založeného na WebAssembly. BlazorSestavení WebAssembly je ve verzi Preview a *není* podporované v ASP.NET Core 3,0. BlazorWebAssembly bude podporováno v budoucí verzi ASP.NET Core.
 
-### <a name="razor-components"></a>Komponenty pro břitvy
+### <a name="razor-components"></a>Razorkonstrukční
 
-Blazoraplikace jsou sestaveny z komponent. Součásti jsou samostatné bloky uživatelského rozhraní ( UI), například stránka, dialog nebo formulář. Součásti jsou normální třídy .NET, které definují logiku vykreslování rozhraní a obslužné rutiny událostí na straně klienta. Bohaté interaktivní webové aplikace můžete vytvářet bez JavaScriptu.
+Blazoraplikace jsou sestavené z komponent. Komponenty jsou samostatné bloky uživatelského rozhraní (UI), jako je například stránka, dialogové okno nebo formulář. Komponenty jsou normální třídy .NET, které definují logiku vykreslování uživatelského rozhraní a obslužné rutiny událostí na straně klienta. Můžete vytvářet bohatě interaktivní webové aplikace bez JavaScriptu.
 
-Komponenty Blazor v jsou obvykle vytvářeny pomocí syntaxe Razor, přirozené směsi HTML a C#. Razor komponenty jsou podobné Razor Stránky a MVC zobrazení v tom, že oba používají Razor. Na rozdíl od stránek a zobrazení, které jsou založeny na modelu požadavku odpověď, komponenty se používají speciálně pro zpracování složení uživatelského panelu.
+Komponenty v Blazor jsou obvykle vytvořeny pomocí Razor syntaxe, přirozeného Blendu HTML a jazyka C#. Razorkomponenty jsou podobné zobrazením Razor stránky a MVC v tom, že obě Razorpoužívají. Na rozdíl od stránek a zobrazení, které jsou založeny na modelu požadavek-odpověď, se komponenty používají konkrétně pro zpracování kompozice uživatelského rozhraní.
 
 ## <a name="grpc"></a>gRPC
 
 [gRPC](https://grpc.io/):
 
-* Je populární, vysoce výkonné RPC (vzdálené volání procedur) framework.
-* Nabízí umíněný přístup k vývoji rozhraní API.
-* Využívá moderní technologie, jako jsou:
+* Je oblíbeným a vysoce výkonným rozhraním vzdáleného volání procedur (RPC).
+* Nabízí dogmatickýmý přístup k vývoji rozhraní API, který je prvním kontraktem.
+* Používá moderní technologie, jako jsou:
 
-  * HTTP/2 pro přepravu.
+  * HTTP/2 pro přenos.
   * Vyrovnávací paměti protokolu jako jazyk popisu rozhraní.
-  * Binární formát serializace.
-* Poskytuje funkce, jako jsou:
+  * Formát binární serializace.
+* Poskytuje funkce, jako například:
 
   * Authentication
   * Obousměrné streamování a řízení toku.
-  * Zrušení a časové lhůty.
+  * Zrušení a vypršení časového limitu.
 
-funkce gRPC v ASP.NET Core 3.0 obsahuje:
+funkce gRPC v ASP.NET Core 3,0 obsahuje:
 
-* [Grpc.AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) &ndash; ASP.NET Core framework pro hostování služeb gRPC. gRPC na ASP.NET Core se integruje se standardními funkcemi ASP.NET Core, jako je protokolování, vkládání závislostí (DI), ověřování a autorizace.
-* [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) &ndash; Klient gRPC pro .NET Core, `HttpClient`který staví na známém .
-* [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) &ndash; gRPC integrace `HttpClientFactory`klienta s .
+* [Grpc. AspNetCore](https://www.nuget.org/packages/Grpc.AspNetCore) &ndash; rozhraní ASP.NET Core Framework pro hostování služeb Grpc Services. gRPC se na ASP.NET Core integruje se standardními ASP.NET Core funkcemi, jako je protokolování, vkládání závislostí (DI), ověřování a autorizace.
+* [Grpc .NET. Client](https://www.nuget.org/packages/Grpc.Net.Client) &ndash; klient Grpc pro .NET Core, který sestaví na známém `HttpClient`.
+* [Grpc .NET. ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) &ndash; Grpc Client Integration `HttpClientFactory`with.
 
 Další informace naleznete v tématu <xref:grpc/index>.
 
 ## SignalR
 
-Pokyny [ SignalR k migraci najdete v tématu Update code.](xref:migration/22-to-30#signalr) SignalRNyní `System.Text.Json` používá serializovat/rekonstruovat zprávy JSON. Pokyny [k](xref:migration/22-to-30#switch-to-newtonsoftjson) obnovení serializátoru `Newtonsoft.Json`na bázi č.
+Pokyny k migraci najdete v tématu [aktualizace SignalR kódu](xref:migration/22-to-30#signalr) . SignalRnyní používá `System.Text.Json` k serializaci nebo deserializaci zpráv JSON. Pokyny pro obnovení `Newtonsoft.Json`serializátoru založeného na [Newtonsoft. JSON najdete v tématu Přepnutí do. JSON](xref:migration/22-to-30#switch-to-newtonsoftjson) .
 
-V jazyce JavaScript a SignalRklienti .NET pro byla přidána podpora pro automatické opětovné připojení. Ve výchozím nastavení se klient pokusí okamžitě znovu připojit a v případě potřeby to zkusit po 2, 10 a 30 sekundách. Pokud se klient úspěšně znovu připojí, obdrží nové ID připojení. Automatické opětovné připojení je opt-in:
+V klientech JavaScript a .NET pro SignalRse podpora přidala pro automatické opětovné připojení. Ve výchozím nastavení se klient pokusí znovu připojit hned a v případě potřeby opakovat po 2, 10 a 30 sekundách. Pokud se klient úspěšně znovu připojí, obdrží nové ID připojení. Automatické opětovné připojení je výslovný souhlas:
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
@@ -92,28 +95,28 @@ const connection = new signalR.HubConnectionBuilder()
     .build();
 ```
 
-Intervaly opětovného připojení lze zadat předáním pole milisekundových dob trvání:
+Intervaly opětovného připojení lze zadat předáním pole doby trvání založené na milisekundách:
 
 ```javascript
 .withAutomaticReconnect([0, 3000, 5000, 10000, 15000, 30000])
 //.withAutomaticReconnect([0, 2000, 10000, 30000]) The default intervals.
 ```
 
-Vlastní implementace může být předána pro úplnou kontrolu intervalů opětovného připojení.
+Vlastní implementaci lze předat v rámci úplného řízení intervalů opětovného připojení.
 
-Pokud se opětovné připojení nezdaří po posledním intervalu opětovného připojení:
+Pokud se opětovné připojení nezdařilo po intervalu posledního opětovného připojení:
 
-* Klient se domnívá, že připojení je offline.
-* Klient se přestane pokoušet o opětovné připojení.
+* Klient považuje připojení za offline.
+* Klient se ukončí pokus o opětovné připojení.
 
-Během pokusů o opětovné připojení aktualizujte uživatelské rozhraní aplikace a upozorněte uživatele, že se pokouší o opětovné připojení.
+Během opakovaného pokusu o připojení aktualizujte uživatelské rozhraní aplikace a upozorněte uživatele, že probíhá pokus o opětovné připojení.
 
-Chcete-li poskytnout zpětnou vazbu SignalR uživatelského rozhraní při přerušení připojení, klientské rozhraní API bylo rozšířeno tak, aby zahrnovalo následující obslužné rutiny událostí:
+Pokud chcete poskytnout zpětnou vazbu uživatelského rozhraní při přerušení připojení SignalR , rozhraní API klienta se rozšířilo tak, aby zahrnovalo následující obslužné rutiny událostí:
 
-* `onreconnecting`: Poskytuje vývojářům možnost zakázat uživatelské rozhraní nebo dát uživatelům vědět, že aplikace je offline.
-* `onreconnected`: Poskytuje vývojářům možnost aktualizovat ui po obnovení připojení.
+* `onreconnecting`: Dává vývojářům možnost zakázat uživatelské rozhraní nebo upozornit uživatele na to, že je aplikace offline.
+* `onreconnected`: Dává vývojářům možnost aktualizovat uživatelské rozhraní po opětovném navázání připojení.
 
-Následující kód `onreconnecting` používá k aktualizaci ui při pokusu o připojení:
+Následující kód používá `onreconnecting` k aktualizaci uživatelského rozhraní při pokusu o připojení:
 
 ```javascript
 connection.onreconnecting((error) => {
@@ -124,7 +127,7 @@ connection.onreconnecting((error) => {
 });
 ```
 
-Následující kód `onreconnected` používá k aktualizaci uI na připojení:
+Následující kód používá `onreconnected` k aktualizaci uživatelského rozhraní při připojení:
 
 ```javascript
 connection.onreconnected((connectionId) => {
@@ -135,13 +138,13 @@ connection.onreconnected((connectionId) => {
 });
 ```
 
-SignalR3.0 a novější poskytuje vlastní prostředek pro obslužné rutiny autorizace, když metoda rozbočovače vyžaduje autorizaci. Prostředek je instancí třídy `HubInvocationContext`. Zahrnuje: `HubInvocationContext`
+SignalR3,0 a novější poskytuje vlastní prostředek pro obslužné rutiny autorizace, pokud metoda rozbočovače vyžaduje autorizaci. Prostředek je instancí `HubInvocationContext`. `HubInvocationContext` Obsahuje:
 
 * `HubCallerContext`
-* Název volané metody rozbočovače.
-* Argumenty metody rozbočovače.
+* Název vyvolané metody centra
+* Argumenty metody hub.
 
-Vezměme si následující příklad aplikace chatovací místnosti, která umožňuje více organizací přihlášení prostřednictvím služby Azure Active Directory. Kdokoli s účtem Microsoft se může přihlásit k chatu, ale pouze členové vlastnící organizace mohou zakázat uživatelům nebo zobrazit historii chatu uživatelů. Aplikace může omezit určité funkce od konkrétních uživatelů.
+Vezměte v úvahu následující příklad aplikace chatovací místnosti umožňující přihlášení více organizací prostřednictvím Azure Active Directory. Kdokoli s účet Microsoft se může přihlásit ke konverzaci, ale jenom členové vlastnící organizace můžou zakázat nebo zobrazit historie chatu uživatelů. Aplikace může omezit určité funkce pro konkrétní uživatele.
 
 ```csharp
 public class DomainRestrictedRequirement :
@@ -177,16 +180,16 @@ public class DomainRestrictedRequirement :
 }
 ```
 
-V předchozím kódu `DomainRestrictedRequirement` slouží jako `IAuthorizationRequirement`vlastní . Vzhledem `HubInvocationContext` k tomu, že parametr prostředku je předáván, vnitřní logika může:
+V předchozím kódu `DomainRestrictedRequirement` slouží jako vlastní `IAuthorizationRequirement`. Vzhledem k `HubInvocationContext` tomu, že se parametr prostředku předává, interní logika může:
 
-* Zkontrolujte kontext, ve kterém je volána hub.
-* Rozhoduj se o povolení uživatele provádět jednotlivé metody hubu.
+* Zkontrolujte kontext, ve kterém se centrum volá.
+* Rozhodnutí, jak umožnit uživateli spouštět jednotlivé metody rozbočovače.
 
-Jednotlivé metody rozbočovače mohou být označeny názvem zásady, kterou kód kontroluje za běhu. Jako klienti se pokoušejí volat `DomainRestrictedRequirement` jednotlivé metody Hub, obslužná rutina běží a řídí přístup k metodám. Na základě způsobu `DomainRestrictedRequirement` přístupu k ovládacím prvkům:
+Jednotlivé metody rozbočovače mohou být označeny názvem zásady, které kontrolují kód v době běhu. Jelikož se klienti pokoušejí zavolat jednotlivé metody centra, obslužná `DomainRestrictedRequirement` rutina se spustí a řídí přístup k metodám. Na základě způsobu přístupu k `DomainRestrictedRequirement` ovládacím prvkům:
 
-* Metodu `SendMessage` mohou volat všichni přihlášení uživatelé.
-* Historii uživatelů mohou zobrazit pouze `@jabbr.net` uživatelé, kteří se přihlásili pomocí e-mailové adresy.
-* Pouze `bob42@jabbr.net` může zakázat uživatelům z chatovací místnosti.
+* Všichni přihlášení uživatelé mohou zavolat `SendMessage` metodu.
+* Historie uživatelů mohou zobrazit pouze uživatelé, kteří `@jabbr.net` se přihlásili pomocí e-mailové adresy.
+* Může `bob42@jabbr.net` zakázat jenom uživatele z konverzační místnosti.
 
 ```csharp
 [Authorize]
@@ -208,11 +211,11 @@ public class ChatHub : Hub
 }
 ```
 
-Vytvoření `DomainRestricted` zásady může zahrnovat:
+Vytváření `DomainRestricted` zásad může zahrnovat:
 
-* V *Startup.cs*přidání nové zásady.
-* Zadejte `DomainRestrictedRequirement` vlastní požadavek jako parametr.
-* Registrace `DomainRestricted` pomocí autorizačního middlewaru.
+* V *Startup.cs*přidejte novou zásadu.
+* Zadejte vlastní `DomainRestrictedRequirement` požadavek jako parametr.
+* Probíhá `DomainRestricted` registrace pomocí middleware autorizace.
 
 ```csharp
 services
@@ -225,7 +228,7 @@ services
     });
 ```
 
-SignalRrozbočovače používají [směrování koncových bodů](xref:fundamentals/routing). SignalRpřipojení k rozbočovači bylo dříve provedeno explicitně:
+SignalRcentra používají [Směrování koncových bodů](xref:fundamentals/routing). SignalRpřipojení k rozbočovači bylo dříve provedeno explicitně:
 
 ```csharp
 app.UseSignalR(routes =>
@@ -234,7 +237,7 @@ app.UseSignalR(routes =>
 });
 ```
 
-V předchozí verzi vývojáři potřebovali drátovat řadiče, stránky Razor a rozbočovače na různých místech. Explicitní připojení má za následek řadu téměř identických segmentů směrování:
+V předchozí verzi potřebují vývojáři na nejrůznějších místech nastavovat Razor řadiče, stránky a centra. Explicitní výsledky připojení v řadě téměř stejných segmentů směrování:
 
 ```csharp
 app.UseSignalR(routes =>
@@ -248,7 +251,7 @@ app.UseRouting(routes =>
 });
 ```
 
-SignalRRozbočovače 3.0 lze směrovat prostřednictvím směrování koncových bodů. Při směrování koncových bodů lze obvykle `UseRouting`nakonfigurovat všechny směrování v :
+SignalRcentra 3,0 se dají směrovat přes směrování koncových bodů. Se směrováním koncových bodů se obvykle dá nakonfigurovat všechny `UseRouting`směrování v nástroji:
 
 ```csharp
 app.UseRouting(routes =>
@@ -258,9 +261,9 @@ app.UseRouting(routes =>
 });
 ```
 
-ASP.NET Core 3.0 SignalR přidáno:
+Bylo přidáno SignalR ASP.NET Core 3,0:
 
-Streamování klient-server. Při streamování klient-server mohou metody na straně serveru trvat instance buď nebo `IAsyncEnumerable<T>` . `ChannelReader<T>` V následující ukázce `UploadStream` jazyka C# metoda v centru obdrží datový proud řetězců z klienta:
+Streamování mezi klientem a serverem. U datových proudů mezi klientem a serverem můžou metody na straně serveru přebírat instance `IAsyncEnumerable<T>` nebo. `ChannelReader<T>` V následující ukázce jazyka C# bude `UploadStream` metoda v centru přijímat proud řetězců z klienta:
 
 ```csharp
 public async Task UploadStream(IAsyncEnumerable<string> stream)
@@ -272,9 +275,9 @@ public async Task UploadStream(IAsyncEnumerable<string> stream)
 }
 ```
 
-Klientské aplikace .NET `IAsyncEnumerable<T>` mohou `ChannelReader<T>` předat `stream` buď nebo `UploadStream` instanci jako argument výše uvedené metody Hub.
+Klientské aplikace .NET můžou předat `IAsyncEnumerable<T>` instanci nebo `ChannelReader<T>` jako `stream` argument metody `UploadStream` hub výše.
 
-Po `for` dokončení smyčky a ukončení místní funkce je odesláno dokončení datového proudu:
+Až se `for` smyčka dokončí a místní funkce se ukončí, pošle se dokončování datového proudu:
 
 ```csharp
 async IAsyncEnumerable<string> clientStreamData()
@@ -289,59 +292,59 @@ async IAsyncEnumerable<string> clientStreamData()
 await connection.SendAsync("UploadStream", clientStreamData());
 ```
 
-Klientské aplikace JavaScriptu SignalR `Subject` používají (nebo [Předmět RxJS)](https://rxjs.dev/api/index/class/Subject)pro `stream` argument výše uvedené metody `UploadStream` Hub.
+Klientské SignalR `Subject` aplikace JavaScriptu používají pro `stream` argument výše uvedené metody `UploadStream` hub (nebo [Předmět RxJS](https://rxjs.dev/api/index/class/Subject)).
 
 ```javascript
 let subject = new signalR.Subject();
 await connection.send("StartStream", "MyAsciiArtStream", subject);
 ```
 
-Kód JavaScriptu může `subject.next` použít metodu pro zpracování řetězců, jak jsou zachyceny a připraveny k odeslání na server.
+Kód jazyka JavaScript může použít `subject.next` metodu ke zpracování řetězců při jejich zachycení a připravení na odeslání na server.
 
 ```javascript
 subject.next("example");
 subject.complete();
 ```
 
-Pomocí kódu, jako jsou dva předchozí úryvky, lze vytvořit prostředí streamování v reálném čase.
+Pomocí kódu, například dvou předchozích fragmentů, lze vytvořit prostředí streamování v reálném čase.
 
 ## <a name="new-json-serialization"></a>Nová serializace JSON
 
-ASP.NET Core 3.0 <xref:System.Text.Json> nyní používá ve výchozím nastavení pro serializaci JSON:
+ASP.NET Core 3,0 teď používá <xref:System.Text.Json> standardně pro serializaci JSON:
 
 * Čte a zapisuje JSON asynchronně.
-* Je optimalizován pro Text UTF-8.
-* Obvykle vyšší výkon `Newtonsoft.Json`než .
+* Je optimalizován pro text v kódování UTF-8.
+* Obvykle vyšší výkon než `Newtonsoft.Json`.
 
-Chcete-li přidat Json.NET do ASP.NET Core 3.0, viz [Přidání podpory formátu JSON založeného na newtonsoftu.Json](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support).
+Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidání podpory formátu JSON založeného na Newtonsoft. JSON](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support).
 
-## <a name="new-razor-directives"></a>Nové direktivy břitvy
+## <a name="new-razor-directives"></a>Nové Razor direktivy
 
-Následující seznam obsahuje nové direktivy Razor:
+Následující seznam obsahuje nové Razor direktivy:
 
-* [`@attribute`](xref:mvc/views/razor#attribute)&ndash; Směrnice `@attribute` použije daný atribut pro třídu generované stránky nebo zobrazení. Například, `@attribute [Authorize]`.
-* [`@implements`](xref:mvc/views/razor#implements)&ndash; Směrnice `@implements` implementuje rozhraní pro generované třídy. Například, `@implements IDisposable`.
+* [`@attribute`](xref:mvc/views/razor#attribute)&ndash; Direktiva použije daný atribut na třídu generované stránky nebo `@attribute` zobrazení. Například, `@attribute [Authorize]`.
+* [`@implements`](xref:mvc/views/razor#implements)&ndash; Direktiva implementuje rozhraní pro generovanou `@implements` třídu. Například, `@implements IDisposable`.
 
-## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 podporuje ověřování a autorizaci pro webová api a spa
+## <a name="identityserver4-supports-authentication-and-authorization-for-web-apis-and-spas"></a>IdentityServer4 podporuje ověřování a autorizaci pro webová rozhraní API a jednostránkové.
 
-ASP.NET Core 3.0 nabízí ověřování v jednostránkových aplikacích (SPA) pomocí podpory autorizace webového rozhraní API. ASP.NET základní identity pro ověřování a ukládání uživatelů je v kombinaci s [IdentityServer4](https://identityserver.io/) pro implementaci Open ID Connect.
+ASP.NET Core 3,0 nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) s využitím podpory pro autorizaci webového rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelů se v kombinaci s [IdentityServer4](https://identityserver.io/) pro implementaci otevřeného ID Connect.
 
-IdentityServer4 je openid připojit a OAuth 2.0 framework pro ASP.NET Core 3.0. Umožňuje následující funkce zabezpečení:
+IdentityServer4 je rozhraní OpenID Connect a OAuth 2,0 Framework pro ASP.NET Core 3,0. Umožňuje následující funkce zabezpečení:
 
 * Ověřování jako služba (AaaS)
-* Jednotné přihlašování/vypínání (SSO) přes více typů aplikací
-* Řízení přístupu pro api
+* Jednotné přihlašování/vypínání (SSO) nad více typy aplikací
+* Řízení přístupu pro rozhraní API
 * Federační brána
 
-Další informace naleznete [v dokumentaci identityServer4](http://docs.identityserver.io/en/latest/index.html) nebo [ověřování a autorizace pro spa](xref:security/authentication/identity/spa).
+Další informace najdete v [dokumentaci k IdentityServer4 nebo v](http://docs.identityserver.io/en/latest/index.html) článku věnovaném [ověřování a autorizaci pro jednostránkové](xref:security/authentication/identity/spa).
 
-## <a name="certificate-and-kerberos-authentication"></a>Ověřování certifikátu a protokolu Kerberos
+## <a name="certificate-and-kerberos-authentication"></a>Ověřování pomocí certifikátů a protokolu Kerberos
 
-Ověření certifikátu vyžaduje:
+Ověřování certifikátu vyžaduje:
 
-* Konfigurace serveru pro přijímání certifikátů.
-* Přidání ověřovacího middlewaru do souboru `Startup.Configure`.
-* Přidání služby ověřování `Startup.ConfigureServices`certifikátů do souboru .
+* Konfigurace serveru pro příjem certifikátů.
+* Přidání middleware ověřování v `Startup.Configure`.
+* Přidání služby ověřování certifikátů v `Startup.ConfigureServices`nástroji.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -361,13 +364,13 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 Možnosti ověřování certifikátů zahrnují možnost:
 
-* Přijímejte certifikáty podepsané svým držitelem.
-* Zkontrolujte odvolání certifikátu.
-* Zkontrolujte, zda je v nabízeném certifikátu správné příznaky použití.
+* Přijměte certifikáty podepsané svým držitelem.
+* Kontrolovat odvolání certifikátu.
+* Ověřte, že certifikát proffered má v něm správné příznaky použití.
 
-Výchozí uživatelský objekt zabezpečení je vytvořen z vlastností certifikátu. Uživatelský objekt zabezpečení obsahuje událost, která umožňuje doplnění nebo nahrazení objektu zabezpečení. Další informace naleznete v tématu <xref:security/authentication/certauth>.
+Výchozí objekt zabezpečení uživatele je vytvořen z vlastností certifikátu. Objekt zabezpečení uživatele obsahuje událost, která umožňuje doplňování nebo nahrazení objektu zabezpečení. Další informace naleznete v tématu <xref:security/authentication/certauth>.
 
-[Ověřování systému Windows](/windows-server/security/windows-authentication/windows-authentication-overview) bylo rozšířeno na Linux a macOS. V předchozích verzích bylo ověřování systému Windows omezeno na [služby IIS](xref:host-and-deploy/iis/index) a [httpsys](xref:fundamentals/servers/httpsys). V ASP.NET Core 3.0, [Kestrel](xref:fundamentals/servers/kestrel) má možnost používat Vyjednat, [Kerberos](/windows-server/security/kerberos/kerberos-authentication-overview)a [NTLM na Windows](/windows-server/security/kerberos/ntlm-overview), Linux a macOS pro windows domény-připojen hostitelé. Podpora kestrelu těchto schémat ověřování je poskytována balíčkem [Microsoft.AspNetCore.Authentication.Negotiate NuGet.](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) Stejně jako u ostatních ověřovacích služeb nakonfigurujte ověřovací aplikaci pro celou a pak nakonfigurujte službu:
+[Ověřování systému Windows](/windows-server/security/windows-authentication/windows-authentication-overview) bylo rozšířeno na Linux a MacOS. V předchozích verzích bylo ověřování systému Windows omezeno na [službu IIS](xref:host-and-deploy/iis/index) a [HttpSys](xref:fundamentals/servers/httpsys). V ASP.NET Core 3,0 může [Kestrel](xref:fundamentals/servers/kestrel) používat funkci Negotiate, [Kerberos](/windows-server/security/kerberos/kerberos-authentication-overview)a [NTLM v systémech Windows](/windows-server/security/kerberos/ntlm-overview), Linux a MacOS pro hostitele připojené k doméně systému Windows. Podporu Kestrel těchto schémat ověřování poskytuje balíček [NuGet Microsoft. AspNetCore. Authentication. Negotiate](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.Negotiate) . Stejně jako u ostatních ověřovacích služeb nakonfigurujte aplikaci ověřování na šířku a pak nakonfigurujte službu:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -384,81 +387,81 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Požadavky hostitele:
+Požadavky na hostitele:
 
-* Hostitelé systému Windows musí mít k uživatelskému účtu hostujícímu aplikaci [přidaná názvy hlavních](/windows/win32/ad/service-principal-names) názvů služeb (SPN).
-* Počítače s Linuxem a macOS musí být připojeny k doméně.
-  * Hlavní aktualizace služeb při obslužné síti musí být vytvořeny pro webový proces.
-  * [Soubory záložek klíčů](https://blogs.technet.microsoft.com/pie/2018/01/03/all-you-need-to-know-about-keytab-files/) musí být generovány a nakonfigurovány v hostitelském počítači.
+* Hostitelé systému Windows musí mít k uživatelskému účtu, který je hostitelem aplikace, přidány [hlavní názvy služby](/windows/win32/ad/service-principal-names) (SPN).
+* Počítače se systémem Linux a macOS musí být připojeny k doméně.
+  * Pro webový proces musí být vytvořeny hlavní názvy služby (SPN).
+  * Na hostitelském počítači musí být vygenerovány a nakonfigurovány [soubory keytab](https://blogs.technet.microsoft.com/pie/2018/01/03/all-you-need-to-know-about-keytab-files/) .
 
 Další informace naleznete v tématu <xref:security/authentication/windowsauth>.
 
 ## <a name="template-changes"></a>Změny šablony
 
-Webové šablony uživatelského uživatelského nastavení (Razor Pages, MVC s ovladačem a zobrazení) byly odstraněny následující:
+Šablony uživatelského rozhraní webu (Razor stránky, MVC s kontrolérem a zobrazeními) mají následující odebrané:
 
-* UI souhlasu se soubory cookie již není zahrnuto. Informace o povolení funkce souhlasu se soubory cookie v aplikaci ASP.NET aplikaci generovanou šablonou Core 3.0 naleznete v tématu <xref:security/gdpr>.
-* Skripty a související statické datové zdroje jsou nyní odkazovány jako místní soubory namísto použití souborů CDN. Další informace naleznete v [tématu Skripty a související statické datové zdroje jsou nyní odkazovány jako místní soubory namísto použití sítí CDN na základě aktuálního prostředí (aspnet/AspNetCore.Docs #14350).](https://github.com/dotnet/AspNetCore.Docs/issues/14350)
+* Uživatelské rozhraní pro vyjádření souhlasu souborů cookie již není zahrnuto. Pokud chcete povolit funkci vyjádření souhlasu souborů cookie v aplikaci vygenerovanou šablonou ASP.NET Core 3,0 <xref:security/gdpr>, přečtěte si téma.
+* Skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN. Další informace najdete v tématu [skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN v závislosti na aktuálním prostředí (ASPNET/AspNetCore. Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350).
 
-Úhlová šablona byla aktualizována tak, aby používala úhlové 8.
+Úhlová šablona se aktualizovala tak, aby používala úhlové 8.
 
-Šablona třídy Razor (RCL) ve výchozím nastavení ve výchozím nastavení na vývoj komponenty Razor. Nová možnost šablony v sadě Visual Studio poskytuje podporu šablon pro stránky a zobrazení. Při vytváření RCL ze šablony v příkazovém prostředí předavěte `--support-pages-and-views` možnost (`dotnet new razorclasslib --support-pages-and-views`).
+Šablona Razor knihovny tříd (RCL) se standardně Razor používá pro vývoj komponent. Nová možnost šablony v aplikaci Visual Studio poskytuje podporu šablon pro stránky a zobrazení. Při vytváření RCL ze šablony v příkazovém prostředí, předejte `--support-pages-and-views` možnost (`dotnet new razorclasslib --support-pages-and-views`).
 
 ## <a name="generic-host"></a>Obecný hostitel
 
-Používají šablony ASP.NET Core 3.0 <xref:fundamentals/host/generic-host>. Předchozí použité <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>verze . Použití obecného hostitele .NET Core (<xref:Microsoft.Extensions.Hosting.HostBuilder>) poskytuje lepší integraci aplikací ASP.NET Core s jinými serverovými scénáři, které nejsou specifické pro web. Další informace naleznete v tématu [HostBuilder nahrazuje WebHostBuilder](xref:migration/22-to-30?view=aspnetcore-2.2#hostbuilder-replaces-webhostbuilder).
+Šablony ASP.NET Core 3,0 používají <xref:fundamentals/host/generic-host>. Používaly <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder>se předchozí verze. Použití obecného hostitele .NET Core (<xref:Microsoft.Extensions.Hosting.HostBuilder>) poskytuje lepší integraci ASP.NET Corech aplikací s jinými serverovými scénáři, které nejsou specifické pro web. Další informace najdete v tématu [HostBuilder nahrazuje WebHostBuilder](xref:migration/22-to-30?view=aspnetcore-2.2#hostbuilder-replaces-webhostbuilder).
 
 ### <a name="host-configuration"></a>Konfigurace hostitele
 
-Před vydáním ASP.NET Core 3.0 byly proměnné `ASPNETCORE_` prostředí s předponou načteny pro konfiguraci hostitele webového hostitele. V 3.0 `AddEnvironmentVariables` se používá k načtení `DOTNET_` proměnných prostředí `CreateDefaultBuilder`s předponou pro konfiguraci hostitele s .
+Před vydáním verze ASP.NET Core 3,0 byly načteny proměnné prostředí s `ASPNETCORE_` předponou pro konfiguraci hostitele webového hostitele. V 3,0 `AddEnvironmentVariables` se používá k načtení proměnných prostředí s `DOTNET_` předponou pro pro konfiguraci hostitele s `CreateDefaultBuilder`.
 
-### <a name="changes-to-startup-constructor-injection"></a>Změny vstřikování konstruktoru startupu
+### <a name="changes-to-startup-constructor-injection"></a>Změny při vkládání spouštěcích konstruktorů
 
-Obecný hostitel podporuje pouze následující `Startup` typy pro vkládání konstruktoru:
+Obecný hostitel podporuje pouze následující typy pro `Startup` injektáže konstruktoru:
 
 * <xref:Microsoft.Extensions.Hosting.IHostEnvironment>
 * `IWebHostEnvironment`
 * <xref:Microsoft.Extensions.Configuration.IConfiguration>
 
-Všechny služby mohou být stále vloženy `Startup.Configure` přímo jako argumenty metody. Další informace naleznete [v tématu Obecný hostitel omezuje vstřikování konstruktoru spuštění (aspnet/Oznámení #353)](https://github.com/aspnet/Announcements/issues/353).
+Všechny služby mohou být stále vloženy přímo jako argumenty `Startup.Configure` metody. Další informace najdete v tématu [obecný hostitel omezuje úvodní vkládání spouštěcího konstruktoru (ASPNET/](https://github.com/aspnet/Announcements/issues/353)informers #353).
 
 ## <a name="kestrel"></a>Kestrel
 
-* Konfigurace kestrelu byla aktualizována pro migraci na obecný hostitel. V 3.0, Kestrel je konfigurován na tvůrce `ConfigureWebHostDefaults`webhost poskytované .
-* Adaptéry připojení byly odebrány z Kestrel a nahrazeny připojení middleware, který je podobný HTTP Middleware v kanálu ASP.NET Core, ale pro připojení nižší úrovně.
-* Transportní vrstva Kestrel byla vystavena `Connections.Abstractions`jako veřejné rozhraní v .
-* Nejednoznačnost mezi záhlavími a přívěsy byla vyřešena přesunutím koncových záhlaví do nové kolekce.
-* Synchronní vstupně-v., jako `HttpRequest.Body.Read`je například , jsou běžným zdrojem nedostatku podprocesů, což vede k selhání aplikace. V 3.0 `AllowSynchronousIO` je ve výchozím nastavení zakázán.
+* Konfigurace Kestrel byla aktualizována pro migraci na obecného hostitele. V 3,0 je Kestrel nakonfigurovaný na tvůrci webového hostitele, který poskytuje `ConfigureWebHostDefaults`.
+* Připojovací adaptéry byly odebrány z Kestrel a nahrazeny middlewarem připojení, který je v kanálu ASP.NET Core podobný Middlewari HTTP, ale pro připojení nižší úrovně.
+* Přenosová vrstva Kestrel byla vystavena jako veřejné rozhraní v `Connections.Abstractions`.
+* Nejednoznačnost mezi záhlavími a přípojnou čárkou byla vyřešena přesunutím koncových hlaviček do nové kolekce.
+* Synchronní vstupně-výstupní rozhraní API, jako `HttpRequest.Body.Read`je například, jsou běžným zdrojem vyčerpání vláken, který vede k chybám aplikace. V 3,0 `AllowSynchronousIO` je ve výchozím nastavení zakázáno.
 
 Další informace naleznete v tématu <xref:migration/22-to-30#kestrel>.
 
-## <a name="http2-enabled-by-default"></a>HTTP/2 ve výchozím nastavení povolena
+## <a name="http2-enabled-by-default"></a>HTTP/2 povoleno ve výchozím nastavení
 
-HTTP/2 je ve výchozím nastavení povolen v Kestrel u koncových bodů HTTPS. Podpora protokolu HTTP/2 pro službu IIS nebo soubor HTTP.sys je povolena, pokud ji podporuje operační systém.
+Protokol HTTP/2 je ve výchozím nastavení povolený pro koncové body HTTPS v Kestrel. Podpora HTTP/2 pro IIS nebo HTTP. sys je povolená, když operační systém podporuje.
 
-## <a name="eventcounters-on-request"></a>EventCounters na vyžádání
+## <a name="eventcounters-on-request"></a>EventCounters na žádost
 
-Hosting EventSource, `Microsoft.AspNetCore.Hosting`, vydává následující <xref:System.Diagnostics.Tracing.EventCounter> nové typy související s příchozí požadavky:
+Hostování EventSource, `Microsoft.AspNetCore.Hosting`vygeneruje následující nové <xref:System.Diagnostics.Tracing.EventCounter> typy týkající se příchozích požadavků:
 
 * `requests-per-second`
 * `total-requests`
 * `current-requests`
 * `failed-requests`
 
-## <a name="endpoint-routing"></a>Směrování koncového bodu
+## <a name="endpoint-routing"></a>Směrování koncových bodů
 
-Směrování koncových bodů, které umožňuje, aby rozhraní (například MVC) dobře fungovaly s middlewarem, je vylepšeno:
+Směrování koncového bodu, které umožňuje architekturám (například MVC) pracovat dobře s middlewarem, je vylepšeno:
 
-* Pořadí middleware a koncové body je konfigurovatelné v `Startup.Configure`kanálu zpracování požadavků .
-* Koncové body a middleware dobře tvoří s dalšími ASP.NET technologiemi založenými na jádru, jako jsou kontroly stavu.
-* Koncové body můžete implementovat zásady, jako je například CORS nebo autorizace, v middleware a MVC.
+* Pořadí middlewaru a koncových bodů je možné nakonfigurovat v kanálu zpracování požadavků `Startup.Configure`.
+* Koncové body a middleware se dobře zakládají s dalšími ASP.NET Core technologiemi, jako jsou například kontroly stavu.
+* Koncové body můžou implementovat zásadu, třeba CORS nebo autorizaci, a to v middlewaru i MVC.
 * Filtry a atributy lze umístit na metody v řadičích.
 
 Další informace naleznete v tématu <xref:fundamentals/routing#routing-basics>.
 
 ## <a name="health-checks"></a>Kontroly stavu
 
-Kontroly stavu používají směrování koncových bodů s obecným hostitelem. V `Startup.Configure`aplikace `MapHealthChecks` volejte tvůrce koncového bodu s adresou URL koncového bodu nebo relativní cestou:
+Kontroly stavu používají směrování koncových bodů u obecného hostitele. V `Startup.Configure`nástroji zavolejte `MapHealthChecks` na tvůrce koncového bodu s adresou URL koncového bodu nebo relativní cestou:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -467,76 +470,76 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-Koncové body kontroly stavu mohou:
+Koncové body kontrol stavu můžou:
 
-* Zadejte jeden nebo více povolených hostitelů/portů.
+* Zadejte minimálně jednoho povoleného hostitele nebo portů.
 * Vyžadovat autorizaci.
-* Vyžadovat CORS.
+* Vyžadovat CORS
 
 Další informace najdete v těchto článcích:
 
 * <xref:migration/22-to-30#health-checks>
 * <xref:host-and-deploy/health-checks>
 
-## <a name="pipes-on-httpcontext"></a>Kanály na httpcontext
+## <a name="pipes-on-httpcontext"></a>Kanály na HttpContext
 
-Nyní je možné číst tělo požadavku a zapsat <xref:System.IO.Pipelines> tělo odpovědi pomocí rozhraní API. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader`vlastnost poskytuje, <xref:System.IO.Pipelines.PipeReader> které lze použít ke čtení těla požadavku. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter`vlastnost poskytuje, <xref:System.IO.Pipelines.PipeWriter> které lze použít k zápisu těla odpovědi. `HttpRequest.BodyReader`je analogový `HttpRequest.Body` proud. `HttpResponse.BodyWriter`je analogový `HttpResponse.Body` proud.
+Nyní je možné číst text žádosti a zapsat tělo odpovědi pomocí <xref:System.IO.Pipelines> rozhraní API. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader`vlastnost poskytuje objekt <xref:System.IO.Pipelines.PipeReader> , který lze použít ke čtení textu žádosti. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter`vlastnost poskytuje <xref:System.IO.Pipelines.PipeWriter> , kterou lze použít k zápisu textu odpovědi. `HttpRequest.BodyReader`je analogkou `HttpRequest.Body` datového proudu. `HttpResponse.BodyWriter`je analogkou `HttpResponse.Body` datového proudu.
 
 <!-- indirectly related, https://github.com/dotnet/docs/pull/14414 won't be published by 9/23  -->
 
-## <a name="improved-error-reporting-in-iis"></a>Vylepšené zasílání zpráv o chybách ve správě IIS
+## <a name="improved-error-reporting-in-iis"></a>Vylepšené zasílání zpráv o chybách ve službě IIS
 
-Chyby při spuštění při hostování aplikací ASP.NET Core ve službě IIS nyní vytvářejí bohatší diagnostická data. Tyto chyby jsou hlášeny do protokolu událostí systému Windows s trasování zásobníku, pokud je to možné. Kromě toho jsou všechna upozornění, chyby a neošetřené výjimky zaznamenány do protokolu událostí systému Windows.
+Chyby při spuštění při hostování ASP.NET Corech aplikací ve službě IIS teď vytváří rozsáhlejší diagnostická data. Tyto chyby jsou hlášeny do protokolu událostí systému Windows s trasováním zásobníku, kdykoli je to možné. Kromě toho jsou všechna upozornění, chyby a neošetřené výjimky protokolovány do protokolu událostí systému Windows.
 
-## <a name="worker-service-and-worker-sdk"></a>Pracovní služba a sada SDK pracovníka
+## <a name="worker-service-and-worker-sdk"></a>Služba pracovních procesů a sada SDK pracovních procesů
 
-.NET Core 3.0 zavádí novou šablonu aplikace pracovní služby. Tato šablona poskytuje výchozí bod pro zápis dlouhotrvajících služeb v rozhraní .NET Core.
+.NET Core 3,0 zavádí novou šablonu aplikace služby pracovního procesu. Tato šablona poskytuje výchozí bod pro psaní dlouhých služeb, které běží v .NET Core.
 
 Další informace naleznete v tématu:
 
-* [Základní pracovníci rozhraní .NET jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
+* [Pracovní procesy .NET Core jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>
 * <xref:host-and-deploy/windows-service>
 
-## <a name="forwarded-headers-middleware-improvements"></a>Vylepšení middlewaru předávaných záhlaví
+## <a name="forwarded-headers-middleware-improvements"></a>Vylepšení middlewaru u předávaných hlaviček
 
-V předchozích verzích ASP.NET <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> Core, volání a byly problematické při nasazení na Azure Linux nebo za reverzní proxy než IIS. Oprava předchozích verzí je popsána v části [Předat schéma pro linuxové a neisis reverzní proxy servery](xref:host-and-deploy/proxy-load-balancer#forward-the-scheme-for-linux-and-non-iis-reverse-proxies).
+V předchozích verzích ASP.NET Core volání <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> a <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> bylo problematické při nasazení do Azure Linux nebo za libovolný reverzní proxy server jiný než IIS. Oprava pro předchozí verze je popsána v [části dopředného schématu pro reverzní proxy servery se systémy Linux a non-IIS](xref:host-and-deploy/proxy-load-balancer#forward-the-scheme-for-linux-and-non-iis-reverse-proxies).
 
-Tento scénář je opraven v ASP.NET jádrem 3.0. Hostitel povolí [middleware s předaných záhlaví,](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options) `ASPNETCORE_FORWARDEDHEADERS_ENABLED` pokud `true`je proměnná prostředí nastavena na . `ASPNETCORE_FORWARDEDHEADERS_ENABLED`je nastavena na `true` v našich nánosů.
+Tento scénář je opravený v ASP.NET Core 3,0. Hostitel povoluje [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options) , pokud `ASPNETCORE_FORWARDEDHEADERS_ENABLED` je proměnná prostředí nastavena na `true`. `ASPNETCORE_FORWARDEDHEADERS_ENABLED`je nastavené `true` na obrázky kontejnerů.
 
 ## <a name="performance-improvements"></a>Zlepšení výkonu
 
-ASP.NET Core 3.0 obsahuje mnoho vylepšení, která snižují využití paměti a zlepšují propustnost:
+ASP.NET Core 3,0 obsahuje mnoho vylepšení, která omezují využití paměti a zvyšují propustnost:
 
-* Snížení využití paměti při použití integrovaného kontejneru vkládání závislostí pro služby s vymezeným oborem.
-* Snížení přidělení v rámci, včetně middleware scénáře a směrování.
-* Snížení využití paměti pro připojení WebSocket.
-* Vylepšení snížení paměti a propustnost pro připojení HTTPS.
+* Snížení využití paměti při použití integrovaného kontejneru vkládání závislostí pro vymezené služby.
+* Snížení počtu přidělení napříč rámec, včetně scénářů middlewaru a směrování.
+* Snížení využití paměti pro připojení protokolu WebSocket.
+* Snižování paměti a vylepšení propustnosti pro připojení HTTPS.
 * Nový optimalizovaný a plně asynchronní serializátor JSON.
-* Snížení využití paměti a zlepšení propustnosti v parsování formulářů.
+* Snížení využití paměti a vylepšení propustnosti při analýze formuláře.
 
-## <a name="aspnet-core-30-only-runs-on-net-core-30"></a>ASP.NET Core 3.0 běží pouze na rozhraní .NET Core 3.0
+## <a name="aspnet-core-30-only-runs-on-net-core-30"></a>ASP.NET Core 3,0 běží pouze na .NET Core 3,0
 
-Od ASP.NET jádra 3.0 rozhraní .NET Framework již není podporovanou cílovou architekturou. Projekty zaměřené na rozhraní .NET Framework mohou pokračovat plně podporovaným způsobem pomocí [verze .NET Core 2.1 LTS](https://dotnet.microsoft.com/download/dotnet-core/2.1). Většina ASP.NET balíčky související s jádrem 2.1.x budou podporovány neomezeně dlouho, po dobu tří LTS pro .NET Core 2.1.
+Od ASP.NET Core 3,0 .NET Framework již není podporovanou cílovou architekturou. Projekty cílené na .NET Framework můžou v plně podporovaném způsobem dál používat [LTS verzi pro .NET Core 2,1](https://dotnet.microsoft.com/download/dotnet-core/2.1). Většina balíčků s podporou ASP.NET Core 2.1. x bude po dobu tří let LTS pro .NET Core 2,1.
 
-Informace o migraci naleznete [v tématu Port kódu z rozhraní .NET Framework do jádra .NET](/dotnet/core/porting/).
+Informace o migraci najdete v tématu [portování kódu z .NET Framework do .NET Core](/dotnet/core/porting/).
 
-## <a name="use-the-aspnet-core-shared-framework"></a>Použití sdíleného rámce ASP.NET Core
+## <a name="use-the-aspnet-core-shared-framework"></a>Použití sdíleného rozhraní ASP.NET Core
 
-Sdílené rozhraní ASP.NET Core 3.0 obsažené v [metabalíčku Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app)již `<PackageReference />` nevyžaduje explicitní prvek v souboru projektu. Sdílená architektura je automaticky `Microsoft.NET.Sdk.Web` odkazována při použití sady SDK v souboru projektu:
+Sdílené rozhraní ASP.NET Core 3,0, obsažené v souboru [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), již nevyžaduje explicitní `<PackageReference />` prvek v souboru projektu. Sdílené rozhraní je automaticky odkazováno při použití `Microsoft.NET.Sdk.Web` sady SDK v souboru projektu:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
 ```
 
-## <a name="assemblies-removed-from-the-aspnet-core-shared-framework"></a>Sestavení odebraná ze sdíleného rozhraní ASP.NET Core
+## <a name="assemblies-removed-from-the-aspnet-core-shared-framework"></a>Sestavení odebraná z ASP.NET Core sdílené rozhraní
 
-Nejvýznamnější sestavení odebraná ze sdíleného rámce ASP.NET Core 3.0 jsou:
+Nejvýznamnější sestavení odebraný ze sdílené architektury ASP.NET Core 3,0 jsou:
 
-* [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/) (Json.NET). Chcete-li přidat Json.NET do ASP.NET Core 3.0, viz [Přidání podpory formátu JSON založeného na newtonsoftu.Json](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support). ASP.NET Core 3.0 `System.Text.Json` zavádí pro čtení a psaní JSON. Další informace naleznete v [tématu Nová serializace JSON](#new-json-serialization) v tomto dokumentu.
+* [Newtonsoft. JSON](https://www.nuget.org/packages/Newtonsoft.Json/) (JSON.NET). Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidání podpory formátu JSON založeného na Newtonsoft. JSON](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support). ASP.NET Core 3,0 zavádí `System.Text.Json` pro čtení a zápis formátu JSON. Další informace najdete v tématu [Nová serializace JSON](#new-json-serialization) v tomto dokumentu.
 * [Entity Framework Core](/ef/core/)
 
-Úplný seznam sestavení odebraných ze sdílené ho rozhraní naleznete v [tématu Sestavení odebírá z Microsoft.AspNetCore.App 3.0](https://github.com/dotnet/AspNetCore/issues/3755). Další informace o motivaci pro tuto změnu naleznete [v tématu Breaking changes to Microsoft.AspNetCore.App in 3.0](https://github.com/aspnet/Announcements/issues/325) and [A first look at changes coming in ASP.NET Core 3.0](https://devblogs.microsoft.com/aspnet/a-first-look-at-changes-coming-in-asp-net-core-3-0/).
+Úplný seznam sestavení odebraných ze sdíleného rozhraní najdete v tématu sestavení, [která jsou odebírána z Microsoft. AspNetCore. App 3,0](https://github.com/dotnet/AspNetCore/issues/3755). Další informace o motivaci této změny najdete v tématu přemístění [změn do Microsoft. AspNetCore. app v 3,0](https://github.com/aspnet/Announcements/issues/325) a [první pohled na změny, které přicházejí v ASP.NET Core 3,0](https://devblogs.microsoft.com/aspnet/a-first-look-at-changes-coming-in-asp-net-core-3-0/).
 
 <!-- 
 ## Additional information

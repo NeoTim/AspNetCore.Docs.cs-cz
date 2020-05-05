@@ -5,17 +5,23 @@ description: Přečtěte si, jak nakonfigurovat ověřování certifikátů v AS
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 01/02/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 280daa86510d4445c791b6952653122961f13aeb
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 2cee719014d57fa01b5e8b14edd703c192cfbe18
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78665324"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776640"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
-`Microsoft.AspNetCore.Authentication.Certificate` obsahuje implementaci podobnou [ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) pro ASP.NET Core. Ověřování certifikátu se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Přesněji platí, že se jedná o obslužnou rutinu ověřování, která certifikát ověřuje, a pak poskytuje událost, na kterou můžete tento certifikát vyřešit `ClaimsPrincipal`. 
+`Microsoft.AspNetCore.Authentication.Certificate`obsahuje implementaci podobnou [ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) pro ASP.NET Core. Ověřování certifikátu se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Přesněji platí, že se jedná o obslužnou rutinu ověřování, která certifikát ověřuje, a pak poskytuje událost, kde můžete tento certifikát vyřešit na `ClaimsPrincipal`. 
 
 [Nakonfigurujte hostitele](#configure-your-host-to-require-certificates) pro ověřování certifikátů, jako IIS, Kestrel, Azure Web Apps nebo cokoli jiného, co používáte.
 
@@ -32,11 +38,11 @@ Alternativou k ověřování certifikátů v prostředích, kde se používají 
 
 Získejte certifikát HTTPS, použijte ho a [Nakonfigurujte hostitele](#configure-your-host-to-require-certificates) tak, aby vyžadoval certifikáty.
 
-Do webové aplikace přidejte odkaz na balíček `Microsoft.AspNetCore.Authentication.Certificate`. Potom v metodě `Startup.ConfigureServices` volejte `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` s vašimi možnostmi a poskytněte delegátovi `OnCertificateValidated`, aby provedl dodatečné ověřování klientského certifikátu odeslaného pomocí požadavků. Zapněte tyto informace do `ClaimsPrincipal` a nastavte ji na vlastnost `context.Principal`.
+Do webové aplikace přidejte odkaz na `Microsoft.AspNetCore.Authentication.Certificate` balíček. Potom v `Startup.ConfigureServices` metodě zavolejte `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` s vašimi možnostmi a poskytněte delegátovi, `OnCertificateValidated` aby provedl dodatečné ověřování klientského certifikátu odeslaného pomocí požadavků. Zapněte tyto informace do `ClaimsPrincipal` a nastavte ji na `context.Principal` vlastnost.
 
-Pokud se ověření nepovede, vrátí tato obslužná rutina místo `401 (Unauthorized)``403 (Forbidden)` odpověď, jak byste to mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
+Pokud se ověření nepovede, vrátí tato `403 (Forbidden)` obslužná rutina `401 (Unauthorized)`odpověď místo toho, jak byste mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
 
-Přidejte také `app.UseAuthentication();` do metody `Startup.Configure`. V opačném případě `HttpContext.User` nebude nastaven na `ClaimsPrincipal` vytvořené z certifikátu. Příklad:
+Přidejte `app.UseAuthentication();` také do `Startup.Configure` metody. `HttpContext.User` V opačném případě nebude nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Příklad:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -59,29 +65,29 @@ Předchozí příklad ukazuje výchozí způsob, jak přidat ověřování certi
 
 ## <a name="configure-certificate-validation"></a>Konfigurace ověření certifikátu
 
-Obslužná rutina `CertificateAuthenticationOptions` obsahuje některá Vestavěná ověření, která jsou minimálními ověřeními, která byste měli provést na certifikátu. Každé z těchto nastavení je ve výchozím nastavení povoleno.
+`CertificateAuthenticationOptions` Obslužná rutina obsahuje některá Vestavěná ověření, která jsou minimálními ověřeními, které byste měli provést na certifikátu. Každé z těchto nastavení je ve výchozím nastavení povoleno.
 
 ### <a name="allowedcertificatetypes--chained-selfsigned-or-all-chained--selfsigned"></a>AllowedCertificateTypes = Chained, SelfSigned nebo All (zřetězené | SelfSigned)
 
-Výchozí hodnota: `CertificateTypes.Chained`
+Výchozí hodnota:`CertificateTypes.Chained`
 
-Tato kontrola ověří, zda je povolen pouze příslušný typ certifikátu. Pokud aplikace používá certifikáty podepsané svým držitelem, musí být tato možnost nastavená na `CertificateTypes.All` nebo `CertificateTypes.SelfSigned`.
+Tato kontrola ověří, zda je povolen pouze příslušný typ certifikátu. Pokud aplikace používá certifikáty podepsané svým držitelem, musí být tato možnost nastavená na `CertificateTypes.All` nebo. `CertificateTypes.SelfSigned`
 
 ### <a name="validatecertificateuse"></a>ValidateCertificateUse
 
-Výchozí hodnota: `true`
+Výchozí hodnota:`true`
 
 Tato kontrola ověří, že certifikát prezentovaný klientem má rozšířené použití klíče (EKU) ověřování klienta (EKU) nebo žádný rozšířená použití klíče. Pokud se jako specifikace nezadá žádné rozšířené použití klíče, považují se všechny rozšířená použití klíče za platné.
 
 ### <a name="validatevalidityperiod"></a>ValidateValidityPeriod
 
-Výchozí hodnota: `true`
+Výchozí hodnota:`true`
 
 Tato kontrola ověří, že se certifikát nachází v období platnosti. U každé žádosti obslužná rutina zajišťuje, že platnost certifikátu, který byl platný při jeho předložení, vypršela během aktuální relace.
 
 ### <a name="revocationflag"></a>RevocationFlag
 
-Výchozí hodnota: `X509RevocationFlag.ExcludeRoot`
+Výchozí hodnota:`X509RevocationFlag.ExcludeRoot`
 
 Příznak, který určuje, které certifikáty v řetězci mají být zkontrolovány pro odvolání.
 
@@ -89,7 +95,7 @@ Kontroly odvolání se provádějí jenom v případě, že je certifikát zřet
 
 ### <a name="revocationmode"></a>RevocationMode
 
-Výchozí hodnota: `X509RevocationMode.Online`
+Výchozí hodnota:`X509RevocationMode.Online`
 
 Příznak, který určuje, jak se provádí kontroly odvolání.
 
@@ -105,10 +111,10 @@ To není možné. Zapamatujte si, že výměna certifikátu se dokončila, když
 
 Obslužná rutina má dvě události:
 
-* `OnAuthenticationFailed` &ndash; volána, pokud dojde k výjimce během ověřování a umožní vám reagovat.
-* `OnCertificateValidated` &ndash; voláno po ověření certifikátu, bylo úspěšně vytvořeno ověření a výchozí objekt zabezpečení. Tato událost umožňuje provádět vlastní ověřování a rozšíření nebo nahrazení objektu zabezpečení. Příklady zahrnují:
+* `OnAuthenticationFailed`&ndash; Volá se, pokud dojde k výjimce během ověřování a umožňuje reagovat.
+* `OnCertificateValidated`&ndash; Volá se po ověření certifikátu. vytvořil se ověření a vytvořil se výchozí objekt zabezpečení. Tato událost umožňuje provádět vlastní ověřování a rozšíření nebo nahrazení objektu zabezpečení. Příklady zahrnují:
   * Určení, jestli se pro vaše služby ví certifikát.
-  * Sestavování vlastního objektu zabezpečení. Vezměte v úvahu následující příklad `Startup.ConfigureServices`:
+  * Sestavování vlastního objektu zabezpečení. Vezměte v `Startup.ConfigureServices`úvahu následující příklad:
 
 ```csharp
 services.AddAuthentication(
@@ -142,9 +148,9 @@ services.AddAuthentication(
     });
 ```
 
-Pokud zjistíte, že příchozí certifikát nesplňuje vaše dodatečné ověření, zavolejte `context.Fail("failure reason")` s důvodem selhání.
+Pokud zjistíte, že příchozí certifikát nesplňuje vaše dodatečné ověření, `context.Fail("failure reason")` zavolejte důvod selhání.
 
-Pro reálné funkce pravděpodobně budete chtít volat službu registrovanou v injektáže závislosti, který se připojuje k databázi nebo jinému typu úložiště uživatele. Ke službě získáte přístup pomocí kontextu předaného do vašeho delegáta. Vezměte v úvahu následující příklad `Startup.ConfigureServices`:
+Pro reálné funkce pravděpodobně budete chtít volat službu registrovanou v injektáže závislosti, který se připojuje k databázi nebo jinému typu úložiště uživatele. Ke službě získáte přístup pomocí kontextu předaného do vašeho delegáta. Vezměte v `Startup.ConfigureServices`úvahu následující příklad:
 
 ```csharp
 services.AddAuthentication(
@@ -187,7 +193,7 @@ services.AddAuthentication(
     });
 ```
 
-V koncepčním případě je ověření certifikátu v takovém případě oprávnění. Přidání kontroly, například vystavitele nebo kryptografického otisku v zásadách autorizace místo v rámci `OnCertificateValidated`, je naprosto přijatelné.
+V koncepčním případě je ověření certifikátu v takovém případě oprávnění. Přidání kontroly, například vystavitele nebo kryptografického otisku v zásadách autorizace, nikoli uvnitř `OnCertificateValidated`, je naprosto přijatelné.
 
 ## <a name="configure-your-host-to-require-certificates"></a>Konfigurace hostitele pro vyžadování certifikátů
 
@@ -243,12 +249,12 @@ Pro Azure se nevyžaduje žádná konfigurace předávání. Toto je již nastav
 
 ### <a name="use-certificate-authentication-in-custom-web-proxies"></a>Použití ověřování certifikátů ve vlastních webových proxy serverech
 
-Metoda `AddCertificateForwarding` slouží k zadání:
+`AddCertificateForwarding` Metoda slouží k zadání:
 
 * Název hlavičky klienta.
-* Způsob načtení certifikátu (pomocí vlastnosti `HeaderConverter`).
+* Způsob načtení certifikátu (pomocí `HeaderConverter` vlastnosti).
 
-Ve vlastních webových proxy serverech se certifikát předává jako vlastní hlavička žádosti, například `X-SSL-CERT`. Pokud ho chcete použít, nakonfigurujte předávání certifikátů v `Startup.ConfigureServices`:
+Ve vlastních webových proxy serverech se certifikát předává jako vlastní Hlavička požadavku, například `X-SSL-CERT`. Pokud ho chcete použít, nakonfigurujte předávání certifikátů `Startup.ConfigureServices`v nástroji:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -285,7 +291,7 @@ private static byte[] StringToByteArray(string hex)
 }
 ```
 
-Metoda `Startup.Configure` pak přidá middleware. `UseCertificateForwarding` se volá před volání `UseAuthentication` a `UseAuthorization`:
+`Startup.Configure` Metoda pak přidá middleware. `UseCertificateForwarding`je volána před voláním `UseAuthentication` a: `UseAuthorization`
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -305,7 +311,7 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 }
 ```
 
-Samostatnou třídu lze použít k implementaci logiky ověřování. Protože v tomto příkladu se používá stejný certifikát podepsaný svým držitelem, ujistěte se, že se dá použít jenom váš certifikát. Ověřte, že se neshodují kryptografické otisky certifikátu klienta i certifikátu serveru. v opačném případě se dá použít libovolný certifikát, který bude pro ověření stačit. To by bylo použito v rámci metody `AddCertificate`. V případě použití zprostředkujících nebo podřízených certifikátů můžete také ověřit předmět nebo vystavitele.
+Samostatnou třídu lze použít k implementaci logiky ověřování. Protože v tomto příkladu se používá stejný certifikát podepsaný svým držitelem, ujistěte se, že se dá použít jenom váš certifikát. Ověřte, že se neshodují kryptografické otisky certifikátu klienta i certifikátu serveru. v opačném případě se dá použít libovolný certifikát, který bude pro ověření stačit. Tato `AddCertificate` metoda by se použila uvnitř metody. V případě použití zprostředkujících nebo podřízených certifikátů můžete také ověřit předmět nebo vystavitele.
 
 ```csharp
 using System.IO;
@@ -414,7 +420,7 @@ Pokud se do serveru pošle správný certifikát, vrátí se data. Pokud se nepo
 
 ### <a name="create-certificates-in-powershell"></a>Vytvoření certifikátů v PowerShellu
 
-Vytvoření certifikátů je nejzávažnou součástí nastavení tohoto toku. Kořenový certifikát se dá vytvořit pomocí rutiny `New-SelfSignedCertificate` PowerShellu. Při vytváření certifikátu použijte silné heslo. Je důležité přidat parametr `KeyUsageProperty` a parametr `KeyUsage`, jak je znázorněno.
+Vytvoření certifikátů je nejzávažnou součástí nastavení tohoto toku. Kořenový certifikát se dá vytvořit pomocí rutiny `New-SelfSignedCertificate` PowerShellu. Při vytváření certifikátu použijte silné heslo. Je důležité přidat `KeyUsageProperty` parametr a `KeyUsage` parametr, jak je znázorněno.
 
 #### <a name="create-root-ca"></a>Vytvořit kořenovou certifikační autoritu
 
@@ -429,7 +435,7 @@ Export-Certificate -Cert cert:\localMachine\my\"The thumbprint..." -FilePath roo
 ```
 
 > [!NOTE]
-> Hodnota parametru `-DnsName` musí odpovídat cíli nasazení aplikace. Například "localhost" pro vývoj.
+> Hodnota `-DnsName` parametru musí odpovídat cíli nasazení aplikace. Například "localhost" pro vývoj.
 
 #### <a name="install-in-the-trusted-root"></a>Nainstalovat do důvěryhodného kořenového adresáře
 
@@ -439,7 +445,7 @@ https://social.msdn.microsoft.com/Forums/SqlServer/5ed119ef-1704-4be4-8a4f-ef11d
 
 #### <a name="intermediate-certificate"></a>Zprostředkující certifikát
 
-Zprostředkující certifikát se teď dá vytvořit z kořenového certifikátu. To není vyžadováno pro všechny případy použití, ale možná budete muset vytvořit mnoho certifikátů nebo musíte aktivovat nebo zakázat skupiny certifikátů. Parametr `TextExtension` je vyžadován pro nastavení délky cesty v základních omezeních certifikátu.
+Zprostředkující certifikát se teď dá vytvořit z kořenového certifikátu. To není vyžadováno pro všechny případy použití, ale možná budete muset vytvořit mnoho certifikátů nebo musíte aktivovat nebo zakázat skupiny certifikátů. `TextExtension` Parametr je vyžadován pro nastavení délky cesty v základních omezeních certifikátu.
 
 Zprostředkující certifikát je pak možné přidat do důvěryhodného zprostředkujícího certifikátu v hostitelském systému Windows.
 

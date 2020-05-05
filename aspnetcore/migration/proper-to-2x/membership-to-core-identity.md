@@ -1,17 +1,23 @@
 ---
-title: Migrace z ověřování členství ASP.NET do identity ASP.NET Core 2,0
+title: Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0Identity
 author: isaac2004
-description: Naučte se migrovat existující aplikace ASP.NET pomocí ověřování členství ASP.NET Core identitě 2,0.
+description: Naučte se migrovat existující aplikace ASP.NET pomocí ověřování členství na ASP.NET Core 2,0 Identity.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 01/10/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: 3b708da13ff9f2887eee87ea17844312a4fe1b8d
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b5205ef69943f3744bba8381701008369dd0843c
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78659241"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774506"
 ---
 # <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-identity"></a>Migrace z ověřování členství ASP.NET do identity ASP.NET Core 2,0
 
@@ -36,16 +42,16 @@ ASP.NET Core 2,0 se řídí principem [identity](/aspnet/identity/index) předst
 
 Nejrychlejší způsob, jak zobrazit schéma pro ASP.NET Core 2,0 identity, je vytvoření nové aplikace ASP.NET Core 2,0. Postupujte podle těchto kroků v aplikaci Visual Studio 2017:
 
-1. Vyberte **Soubor** > **Nový** > **Projekt**.
+1. Vyberte **soubor** > **Nový** > **projekt**.
 1. Vytvořte nový projekt **ASP.NET Core webové aplikace** s názvem *CoreIdentitySample*.
 1. V rozevíracím seznamu vyberte **ASP.NET Core 2,0** a potom vyberte **Webová aplikace**. Tato šablona vytvoří aplikaci [Razor Pages](xref:razor-pages/index) . Než kliknete na **OK**, klikněte na **změnit ověřování**.
 1. Vyberte **jednotlivé uživatelské účty** pro šablony identity. Nakonec klikněte na **OK**a pak na **OK**. Visual Studio vytvoří projekt pomocí šablony ASP.NET Core identity.
-1. Výběrem **nástrojů** > **správce balíčků NuGet** > **konzole správce balíčků** otevřete okno **konzoly Správce balíčků** (PMC).
-1. Přejděte do kořenového adresáře projektu v PMC a spusťte příkaz [Entity Framework (EF) Core](/ef/core) `Update-Database`.
+1. Vyberte **nástroje** > **správce** > balíčků NuGet**Konzola správce balíčků** a otevřete tak okno **konzoly Správce balíčků** (PMC).
+1. Přejděte do kořenového adresáře projektu v PMC a spusťte příkaz [Entity Framework (EF) Core](/ef/core) `Update-Database` .
 
     Identita ASP.NET Core 2,0 používá EF Core k interakci s databází, která ukládá ověřovací data. Aby nově vytvořená aplikace fungovala, musí být databáze pro uložení těchto dat. Po vytvoření nové aplikace je nejrychlejší způsob, jak zkontrolovat schéma v databázovém prostředí, vytvořit databázi pomocí [EF Core migrace](/ef/core/managing-schemas/migrations/). Tento proces vytvoří databázi buď místně, nebo jinde, což napodobuje toto schéma. Další informace najdete v předchozí dokumentaci.
 
-    Příkazy EF Core používají připojovací řetězec pro databázi určenou v souboru *appSettings. JSON*. Následující připojovací řetězec cílí na databázi na *localhost* s názvem *ASP-NET-Core-identity*. V tomto nastavení je EF Core nakonfigurovaná tak, aby používala připojovací řetězec `DefaultConnection`.
+    Příkazy EF Core používají připojovací řetězec pro databázi určenou v souboru *appSettings. JSON*. Následující připojovací řetězec cílí na databázi na *localhost* s názvem *ASP-NET-Core-identity*. V tomto nastavení je EF Core nakonfigurován pro použití `DefaultConnection` připojovacího řetězce.
 
     ```json
     {
@@ -55,9 +61,9 @@ Nejrychlejší způsob, jak zobrazit schéma pro ASP.NET Core 2,0 identity, je v
     }
     ```
 
-1. Vyberte **zobrazení** > **Průzkumník objektů systému SQL Server**. Rozbalte uzel odpovídající názvu databáze zadané ve vlastnosti `ConnectionStrings:DefaultConnection` *appSettings. JSON*.
+1. Vyberte **zobrazení** > **Průzkumník objektů systému SQL Server**. Rozbalte uzel odpovídající názvu databáze zadané ve `ConnectionStrings:DefaultConnection` vlastnosti *appSettings. JSON*.
 
-    Příkaz `Update-Database` vytvořil databázi zadanou pomocí schématu a všechna data potřebná pro inicializaci aplikace. Následující obrázek znázorňuje strukturu tabulky, která je vytvořená pomocí předchozích kroků.
+    `Update-Database` Příkaz vytvořil databázi zadanou se schématem a všemi daty potřebnými k inicializaci aplikace. Následující obrázek znázorňuje strukturu tabulky, která je vytvořená pomocí předchozích kroků.
 
     ![Tabulky identity](identity/_static/identity-tables.png)
 
@@ -67,7 +73,7 @@ Existují drobné rozdíly v strukturách tabulek a polích pro členství i ASP
 
 ### <a name="users"></a>Uživatelé
 
-|*<br>identity (dbo. AspNetUsers)*        ||*<br>členství (dbo. aspnet_Users/dbo. aspnet_Membership)*||
+|*Identita<br>(dbo. AspNetUsers)*        ||*Členství<br>(dbo. aspnet_Users/dbo. aspnet_Membership)*||
 |----------------------------------------|-----------------------------------------------------------|
 |**Název pole**                 |**Typ**|**Název pole**                                    |**Typ**|
 |`Id`                           |řetězec  |`aspnet_Users.UserId`                             |řetězec  |
@@ -76,23 +82,23 @@ Existují drobné rozdíly v strukturách tabulek a polích pro členství i ASP
 |`NormalizedUserName`           |řetězec  |`aspnet_Users.LoweredUserName`                    |řetězec  |
 |`NormalizedEmail`              |řetězec  |`aspnet_Membership.LoweredEmail`                  |řetězec  |
 |`PhoneNumber`                  |řetězec  |`aspnet_Users.MobileAlias`                        |řetězec  |
-|`LockoutEnabled`               |bit     |`aspnet_Membership.IsLockedOut`                   |bit     |
+|`LockoutEnabled`               |bitové     |`aspnet_Membership.IsLockedOut`                   |bitové     |
 
 > [!NOTE]
-> Ne všechna mapování polí se podobají relacím 1:1 z členství ASP.NET Core identitou. Předchozí tabulka přijímá výchozí schéma uživatele členství a mapuje je na ASP.NET Core schématu identity. Všechna další vlastní pole, která byla použita pro členství, je nutné namapovat ručně. V tomto mapování není k dispozici žádná mapa hesel, protože mezi těmito dvěma kritérii hesla a resůl hesla nedojde k migraci. **Doporučuje se ponechat heslo jako null a požádat uživatele, aby obnovili hesla.** V ASP.NET Core identit by `LockoutEnd` měla být nastavená na nějaké datum v budoucnu, pokud je uživatel uzamčený. Tato ukázka se zobrazí ve skriptu migrace.
+> Ne všechna mapování polí se podobají relacím 1:1 z členství ASP.NET Core identitou. Předchozí tabulka přijímá výchozí schéma uživatele členství a mapuje je na ASP.NET Core schématu identity. Všechna další vlastní pole, která byla použita pro členství, je nutné namapovat ručně. V tomto mapování není k dispozici žádná mapa hesel, protože mezi těmito dvěma kritérii hesla a resůl hesla nedojde k migraci. **Doporučuje se ponechat heslo jako null a požádat uživatele, aby obnovili hesla.** Pokud je uživatel uzamčený, `LockoutEnd` musí se v ASP.NET Core identita nastavit na nějaké datum v budoucnosti. Tato ukázka se zobrazí ve skriptu migrace.
 
 ### <a name="roles"></a>Role
 
-|*<br>identity (dbo. AspNetRoles)*        ||*<br>členství (dbo. aspnet_Roles)*||
+|*Identita<br>(dbo. AspNetRoles)*        ||*Členství<br>(dbo. aspnet_Roles)*||
 |----------------------------------------|-----------------------------------|
 |**Název pole**                 |**Typ**|**Název pole**   |**Typ**         |
 |`Id`                           |řetězec  |`RoleId`         | řetězec          |
 |`Name`                         |řetězec  |`RoleName`       | řetězec          |
 |`NormalizedName`               |řetězec  |`LoweredRoleName`| řetězec          |
 
-### <a name="user-roles"></a>Uživatelské role
+### <a name="user-roles"></a>User Roles
 
-|*<br>identity (dbo. AspNetUserRoles)*||*<br>členství (dbo. aspnet_UsersInRoles)*||
+|*Identita<br>(dbo. AspNetUserRoles)*||*Členství<br>(dbo. aspnet_UsersInRoles)*||
 |------------------------------------|------------------------------------------|
 |**Název pole**           |**Typ**  |**Název pole**|**Typ**                   |
 |`RoleId`                 |řetězec    |`RoleId`      |řetězec                     |
@@ -187,15 +193,15 @@ IF @@ERROR <> 0
 COMMIT TRANSACTION MigrateUsersAndRoles
 ```
 
-Po dokončení předchozího skriptu se dříve vytvořená aplikace ASP.NET Core identity vyplní uživateli členství. Uživatelé musí před přihlášením změnit svoje heslo.
+Po dokončení předchozího skriptu se dříve vytvořená aplikace Identity ASP.NET Core naplní uživateli členství. Uživatelé musí před přihlášením změnit svoje heslo.
 
 > [!NOTE]
-> Pokud má systém členství uživatele s uživatelskými jmény, které neodpovídaly jejich e-mailové adrese, je nutné aplikaci vytvořenou dříve změnit. Výchozí šablona očekává `UserName` a `Email` stejné. V situacích, kdy se liší, je třeba změnit proces přihlášení, aby používal `UserName` místo `Email`.
+> Pokud má systém členství uživatele s uživatelskými jmény, které neodpovídaly jejich e-mailové adrese, je nutné aplikaci vytvořenou dříve změnit. Výchozí šablona očekává `UserName` a `Email` bude stejná. V situacích, kdy se liší, je třeba změnit proces přihlášení, aby používal `UserName` místo. `Email`
 
-V `PageModel` přihlašovací stránky, která se nachází na adrese *Pages\Account\Login.cshtml.cs*, odeberte atribut `[EmailAddress]` z vlastnosti *e-mail* . Přejmenujte ho na *uživatelské jméno*. To vyžaduje změnu všude, kde je uvedeno `EmailAddress`, a to v *zobrazení* a *PageModel*. Výsledek bude vypadat následovně:
+Na stránce `PageModel` pro přihlášení, která se nachází na adrese *Pages\Account\Login.cshtml.cs*, odeberte `[EmailAddress]` atribut z vlastnosti *e-mail* . Přejmenujte ho na *uživatelské jméno*. To vyžaduje změnu, kdykoli `EmailAddress` je uvedeno v *zobrazení* a *PageModel*. Výsledek bude vypadat následovně:
 
  ![Pevné přihlášení](identity/_static/fixed-login.png)
 
 ## <a name="next-steps"></a>Další kroky
 
-V tomto kurzu jste se naučili, jak připravovat uživatele z členství SQL k ASP.NET Core 2,0 identit. Další informace týkající se ASP.NET Core identity najdete v tématu [Úvod do identity](xref:security/authentication/identity).
+V tomto kurzu jste se naučili, jak přenést uživatele z členství SQL do ASP.NET Core Identity2,0. Další informace týkající se ASP.NET Core Identitynajdete v tématu [Úvod Identitydo ](xref:security/authentication/identity).

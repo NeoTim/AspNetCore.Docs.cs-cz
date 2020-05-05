@@ -1,34 +1,37 @@
 ---
-title: Pomocník s tagy komponenty v ASP.NET jádru
+title: Pomocná značka komponenty v ASP.NET Core
 author: guardrex
 ms.author: riande
-description: Přečtěte si, jak pomocí pomocníka ASP.NET základní hořce a označení komponent k vykreslení komponent Razor na stránkách a v zobrazeních.
+description: Naučte se používat ASP.NET Core pomocníka značek komponenty k vykreslování Razor komponent na stránkách a v zobrazeních.
 ms.custom: mvc
 ms.date: 04/15/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: aaa4b92a8912b4f52d861ed07432aa7cf3ca5240
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: 4e003e5ed5e7863d8a218c0f02bb37e214e31910
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440958"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773926"
 ---
-# <a name="component-tag-helper-in-aspnet-core"></a>Pomocník s tagy komponenty v ASP.NET jádru
+# <a name="component-tag-helper-in-aspnet-core"></a>Pomocná značka komponenty v ASP.NET Core
 
-[Daniel Roth](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
+Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
-Chcete-li vykreslit komponentu ze stránky nebo ze zobrazení, použijte [pomocníka pro označení součásti](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper).
+Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte [pomocníka značek komponenty](xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper).
 
 ## <a name="prerequisites"></a>Požadavky
 
-Postupujte podle pokynů v *připravte aplikaci na použití komponent na stránkách a zobrazení* části <xref:blazor/integrate-components#prepare-the-app> článku.
+Postupujte podle pokynů v části *Příprava aplikace na používání součástí na stránkách a pohledech v* <xref:blazor/integrate-components#prepare-the-app> článku.
 
-## <a name="component-tag-helper"></a>Pomocník pro označení komponenty
+## <a name="component-tag-helper"></a>Pomocník značek komponenty
 
-Následující pomocník s značkami `Counter` komponent vykreslí komponentu na stránce nebo v zobrazení:
+Následující pomocník značek komponent vykresluje `Counter` komponentu na stránce nebo zobrazení:
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -39,9 +42,9 @@ Následující pomocník s značkami `Counter` komponent vykreslí komponentu na
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 ```
 
-Předchozí příklad předpokládá, že `Counter` komponenta je ve složce *Stránky* aplikace.
+Předchozí příklad předpokládá, že je `Counter` komponenta ve složce *stránky* aplikace.
 
-Pomocník s tagy komponenty může také předat parametry součástem. Vezměte v `ColorfulCheckbox` úvahu následující součást, která nastavuje barvu a velikost popisku zaškrtávacího políčka:
+Pomocný objekt tag komponenty může také předat parametry komponentám. Vezměte v úvahu `ColorfulCheckbox` následující komponentu, která nastaví barvu a velikost popisku zaškrtávacího políčka:
 
 ```razor
 <label style="font-size:@(Size)px;color:@Color">
@@ -69,7 +72,7 @@ Pomocník s tagy komponenty může také předat parametry součástem. Vezměte
 }
 ```
 
-`Size` `int` [Parametry komponenty](xref:blazor/components#component-parameters) ( ) a `Color` (`string`) lze nastavit pomocí pomocníka pro značku součásti:
+`Size` [Parametry komponenty](xref:blazor/components#component-parameters) (`int`) `Color` a`string`() lze nastavit pomocí pomocníka značky komponenty:
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -81,9 +84,9 @@ Pomocník s tagy komponenty může také předat parametry součástem. Vezměte
     param-Size="14" param-Color="@("blue")" />
 ```
 
-Předchozí příklad předpokládá, že `ColorfulCheckbox` komponenta je ve složce *Shared* aplikace.
+Předchozí příklad předpokládá, že je `ColorfulCheckbox` komponenta ve *sdílené* složce aplikace.
 
-Na stránce nebo v zobrazení se vykresluje následující kód HTML:
+Na stránce nebo zobrazení se vykreslí následující kód HTML:
 
 ```html
 <label style="font-size:24px;color:blue">
@@ -92,11 +95,11 @@ Na stránce nebo v zobrazení se vykresluje následující kód HTML:
 </label>
 ```
 
-Předání řetězce v uvozovkách vyžaduje explicitní `param-Color` výraz [Razor](xref:mvc/views/razor#explicit-razor-expressions), jak je znázorněno v předchozím příkladu. Chování analýzy holicího `string` strojku pro hodnotu `param-*` typu se nevztahuje na atribut, protože atribut je `object` typ.
+Předání řetězce v uvozovkách vyžaduje [explicitní výraz Razor](xref:mvc/views/razor#explicit-razor-expressions), jak je znázorněno `param-Color` v předchozím příkladu. Chování analýzy Razor pro hodnotu `string` typu se nevztahuje na `param-*` atribut, protože atribut je `object` typu.
 
-Typ parametru musí být JSON serializovatelný, což obvykle znamená, že typ musí mít výchozí konstruktor a nastavitelné vlastnosti. Můžete například zadat hodnotu `Size` `Color` pro a v předchozím příkladu, protože`int` typy `string` `Size` a `Color` jsou primitivní typy ( a ), které jsou podporovány serializátorem JSON.
+Typ parametru musí být serializovatelný jako JSON, což obvykle znamená, že typ musí mít výchozí konstruktor a nastavitelné vlastnosti. Například můžete `Size` zadat hodnotu pro a `Color` v předchozím příkladu, protože typy `Size` a `Color` jsou primitivní typy (`int` a `string`), které jsou podporovány serializátorem JSON.
 
-V následujícím příkladu je objekt třídy předán komponentě:
+V následujícím příkladu je objekt třídy předán do komponenty:
 
 *MyClass.cs*:
 
@@ -114,7 +117,7 @@ public class MyClass
 
 **Třída musí mít veřejný konstruktor bez parametrů.**
 
-*Shared/MyComponent.razor*:
+*Shared/MyComponent. Razor*:
 
 ```razor
 <h2>MyComponent</h2>
@@ -129,7 +132,7 @@ public class MyClass
 }
 ```
 
-*Stránky/MyPage.cshtml*:
+*Pages/MyPage. cshtml*:
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -148,20 +151,20 @@ public class MyClass
     param-MyObject="@myObject" />
 ```
 
-Předchozí příklad předpokládá, že `MyComponent` komponenta je ve složce *Shared* aplikace. `MyClass`je v oboru názvů aplikace`{APP ASSEMBLY}`( ).
+Předchozí příklad předpokládá, že je `MyComponent` komponenta ve *sdílené* složce aplikace. `MyClass`je v oboru názvů aplikace (`{APP ASSEMBLY}`).
 
-<xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>konfiguruje, zda součást:
+<xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>nakonfiguruje, jestli součást:
 
-* Je prerendered do stránky.
-* Je vykreslen jako statické HTML na stránce, nebo pokud obsahuje potřebné informace k bootstrap aplikace Blazor od uživatelského agenta.
+* Je předem vykreslen na stránku.
+* Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor z uživatelského agenta.
 
-| Režim vykreslení | Popis |
+| Režim vykreslování | Popis |
 | ----------- | ----------- |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí komponentu do statického KÓDU Blazor HTML a obsahuje značku pro serverovou aplikaci. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
-| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku Blazor pro serverovou aplikaci. Výstup z komponenty není zahrnut. Při spuštění uživatelského agenta se tato značka Blazor používá k zavádění aplikace. |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
+| <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor serverovou aplikaci. Výstup komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
 | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | Vykreslí komponentu do statického HTML. |
 
-Zatímco stránky a zobrazení mohou používat komponenty, konverzace není pravdivá. Součásti nemohou používat funkce specifické pro zobrazení a stránku, jako jsou částečná zobrazení a oddíly. Chcete-li použít logiku z částečného pohledu v komponentě, faktor out částečné zobrazení logiky do komponenty.
+I když stránky a zobrazení mohou používat komponenty, není tato konverzace pravdivá. Komponenty nemůžou používat funkce pro zobrazení a stránky, jako jsou například částečná zobrazení a oddíly. Chcete-li použít logiku ze částečného zobrazení v komponentě, rozložte logiku částečného zobrazení do komponenty.
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 

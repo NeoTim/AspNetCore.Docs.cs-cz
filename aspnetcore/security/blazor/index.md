@@ -5,17 +5,20 @@ description: Přečtěte Blazor si o scénářích ověřování a autorizace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/26/2020
+ms.date: 05/04/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/index
-ms.openlocfilehash: ced8e90147b08bc75aec4534fdd8d8552506f88c
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: d55880265ed1ceedf8f115412e5ac47309521239
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206096"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772892"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor ověřování a autorizace
 
@@ -35,10 +38,10 @@ Scénáře zabezpečení se liší Blazor mezi serverem Blazor a aplikacemi WebA
 
 BlazorAplikace WebAssembly běží na klientovi. Autorizace se používá *jenom* k určení možností uživatelského rozhraní, které se mají zobrazit. Vzhledem k tomu, že kontroly na straně klienta může uživatel upravit nebo obejít, Blazor nemůže aplikace typu WebAssembly vyhovět autorizačním pravidlům.
 
-[Razor Pages konvence autorizace](xref:security/authorization/razor-pages-authorization) se nevztahují na směrovatelné komponenty Razor. Pokud je na [stránce vložena](xref:blazor/integrate-components#render-components-from-a-page-or-view)Nesměrovatelné komponenty Razor, zásady autorizace této stránky nepřímo ovlivňují komponentu Razor společně se zbytkem obsahu stránky.
+Konvence autorizace stránek se nevztahují na směrovatelné Razor součásti. [ Razor ](xref:security/authorization/razor-pages-authorization) Pokud je na Razor [stránce vložena](xref:blazor/integrate-components#render-components-from-a-page-or-view)Nesměrovatelné komponenty, zásady autorizace stránky nepřímo ovlivňují Razor komponentu spolu se zbytkem obsahu stránky.
 
 > [!NOTE]
-> <xref:Microsoft.AspNetCore.Identity.SignInManager%601>a <xref:Microsoft.AspNetCore.Identity.UserManager%601> nejsou podporovány v součástech Razor.
+> <xref:Microsoft.AspNetCore.Identity.SignInManager%601>a <xref:Microsoft.AspNetCore.Identity.UserManager%601> nejsou podporovány v Razor součástech.
 
 ## <a name="authentication"></a>Authentication
 
@@ -246,7 +249,7 @@ Přístup je obvykle udělen nebo odepřen na základě toho, zda:
 * Uživatel má *deklaraci identity*.
 * Byla splněna *zásada* .
 
-Každá z těchto konceptů je stejná jako u ASP.NET Core MVC nebo Razor Pages aplikace. Další informace o ASP.NET Core zabezpečení najdete v článcích [ASP.NET Core Security and identity](xref:security/index).
+Každá z těchto konceptů je stejná jako v aplikaci ASP.NET Core MVC nebo Razor Pages. Další informace o ASP.NET Core zabezpečení najdete v článcích [ASP.NET Core Security a Identity ](xref:security/index).
 
 ## <a name="authorizeview-component"></a>Komponenta AuthorizeView
 
@@ -338,7 +341,7 @@ Tento přístup se obvykle nevztahuje na Blazor serverové aplikace. BlazorServe
 
 ## <a name="authorize-attribute"></a>[Autorizační] – atribut
 
-`[Authorize]` Atribut lze použít v součástech Razor:
+`[Authorize]` Atribut lze použít v Razor součástech:
 
 ```razor
 @page "/"
@@ -426,6 +429,7 @@ Pokud aplikace zjistí, že se změnila základní data stavu ověřování (nap
 Pokud je aplikace nutná k kontrole autorizačních pravidel v rámci procedurální logiky, použijte k získání uživatele kaskádový parametr `Task<AuthenticationState>` typu <xref:System.Security.Claims.ClaimsPrincipal>. `Task<AuthenticationState>`lze kombinovat s jinými službami, například `IAuthorizationService`, k vyhodnocení zásad.
 
 ```razor
+@using Microsoft.AspNetCore.Authorization
 @inject IAuthorizationService AuthorizationService
 
 <button @onclick="@DoSomething">Do something important</button>

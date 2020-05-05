@@ -4,13 +4,19 @@ author: ardalis
 description: ''
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/controllers/actions
-ms.openlocfilehash: 715a73863513870d1cbd522e75013d41830da1e7
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: b7c4d61c4a71939e84bdea180a2f77b6438b15d5
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78662790"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774194"
 ---
 # <a name="handle-requests-with-controllers-in-aspnet-core-mvc"></a>Zpracování požadavků s řadiči ve službě ASP.NET Core MVC
 
@@ -29,11 +35,11 @@ Podle konvence třídy kontroleru:
 
 Kontroler je třída instantiable, ve které je splněná alespoň jedna z následujících podmínek:
 
-* Název třídy má příponu `Controller`.
-* Třída dědí z třídy, jejíž název je přípona s `Controller`.
-* Atribut `[Controller]` je použit pro třídu.
+* Název třídy je s `Controller`příponou.
+* Třída dědí z třídy, jejíž název je přípona `Controller`.
+* `[Controller]` Atribut je použit pro třídu.
 
-Třída kontroleru nesmí mít přidružený atribut `[NonController]`.
+Třída kontroleru nesmí mít přidružený `[NonController]` atribut.
 
 Řadiče by měly dodržovat [Princip explicitní závislosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies). K implementaci tohoto principu existuje několik přístupů. Pokud více akcí kontroleru vyžaduje stejnou službu, zvažte použití [Injektáže konstruktoru](xref:mvc/controllers/dependency-injection#constructor-injection) pro vyžádání těchto závislostí. Pokud je služba potřebná jenom pomocí jediné metody akce, můžete pro vyžádání závislosti použít [vkládání akcí](xref:mvc/controllers/dependency-injection#action-injection-with-fromservices) .
 
@@ -45,7 +51,7 @@ Kontroler je abstrakce na *úrovni uživatelského rozhraní* . Jejich zodpověd
 
 ## <a name="defining-actions"></a>Definování akcí
 
-Veřejné metody na řadiči, s výjimkou atributů `[NonAction]`, jsou akce. Parametry v akcích jsou vázány na data požadavku a jsou ověřovány pomocí [vazby modelu](xref:mvc/models/model-binding). K ověřování modelu dochází pro všechny objekty, které jsou vázány na model. Hodnota vlastnosti `ModelState.IsValid` určuje, zda se vazba a ověření modelu zdařilo.
+Veřejné metody na řadiči, s výjimkou `[NonAction]` atributů, jsou akce. Parametry v akcích jsou vázány na data požadavku a jsou ověřovány pomocí [vazby modelu](xref:mvc/models/model-binding). K ověřování modelu dochází pro všechny objekty, které jsou vázány na model. Hodnota `ModelState.IsValid` vlastnosti označuje, zda se vazba a ověření modelu zdařilo.
 
 Metody akcí by měly obsahovat logiku pro mapování požadavků na obchodní obavy. Obchodní aspekty by se obvykle měly vystupovat jako služby, ke kterým řadič přistupuje prostřednictvím [Injektáže závislosti](xref:mvc/controllers/dependency-injection). Akce pak namapuje výsledek obchodní akce do stavu aplikace.
 
@@ -57,47 +63,47 @@ Akce mohou vracet cokoli, ale často vracejí instanci `IActionResult` (nebo `Ta
 
 #### <a name="1-methods-resulting-in-an-empty-response-body"></a>1. metody, které mají za následek prázdné tělo odpovědi
 
-Není obsažena žádná hlavička `Content-Type` HTTP odpovědi, protože tělo odpovědi nemá obsah k popisu.
+Není `Content-Type` obsažena hlavička odpovědi HTTP, protože tělo odpovědi nemá obsah k popisu.
 
 V této kategorii existují dva typy výsledků: přesměrování a stavový kód HTTP.
 
 * **Stavový kód HTTP**
 
-    Tento typ vrátí stavový kód HTTP. Několik pomocných metod tohoto typu je `BadRequest`, `NotFound`a `Ok`. Například `return BadRequest();` generuje stavový kód 400 při spuštění. Když jsou přetížené metody, jako jsou `BadRequest`, `NotFound`a `Ok`, již nejsou kvalifikovány jako reakce na stavový kód HTTP, protože probíhá vyjednávání obsahu.
+    Tento typ vrátí stavový kód HTTP. Několik pomocných metod tohoto typu jsou `BadRequest`, `NotFound`a. `Ok` Například `return BadRequest();` generuje stavový kód 400 při spuštění. Když metody jako `BadRequest`, `NotFound`a `Ok` jsou přetíženy, již nejsou kvalifikovány jako reakce na stavový kód HTTP, protože probíhá vyjednávání obsahu.
 
-* **Požadavek**
+* **Přesměrování**
 
-    Tento typ vrátí přesměrování na akci nebo cíl (pomocí `Redirect`, `LocalRedirect`, `RedirectToAction`nebo `RedirectToRoute`). Například `return RedirectToAction("Complete", new {id = 123});` přesměrovává na `Complete`a předání anonymního objektu.
+    Tento typ vrátí přesměrování na akci nebo cíl ( `Redirect`pomocí, `LocalRedirect` `RedirectToAction`, nebo `RedirectToRoute`). Například `return RedirectToAction("Complete", new {id = 123});` přesměrování na `Complete`, předání anonymního objektu.
 
-    Typ výsledku přesměrování se liší od typu stavového kódu HTTP primárně v přidání `Location` hlavičce odpovědi HTTP.
+    Typ výsledku přesměrování se liší od typu stavového kódu HTTP primárně v kombinaci s hlavičkou odpovědi `Location` http.
 
 #### <a name="2-methods-resulting-in-a-non-empty-response-body-with-a-predefined-content-type"></a>2. metody, které mají za následek neprázdné tělo odpovědi s předdefinovaným typem obsahu
 
-Většina pomocných metod v této kategorii zahrnuje vlastnost `ContentType`, která umožňuje nastavit hlavičku odpovědi `Content-Type` na popis těla odpovědi.
+Většina pomocných metod v této kategorii zahrnuje `ContentType` vlastnost, která umožňuje nastavit hlavičku `Content-Type` odpovědi pro popis těla odpovědi.
 
 V této kategorii existují dva typy výsledků: [zobrazení](xref:mvc/views/overview) a [formátovaná odpověď](xref:web-api/advanced/formatting).
 
-* **Zobrazení**
+* **Zobrazit**
 
-    Tento typ vrátí zobrazení, které používá model pro vykreslení kódu HTML. Například `return View(customer);` předá zobrazení modelu pro datovou vazbu.
+    Tento typ vrátí zobrazení, které používá model pro vykreslení kódu HTML. Například `return View(customer);` předává model do zobrazení pro datovou vazbu.
 
 * **Naformátovaná odpověď**
 
-    Tento typ vrátí JSON nebo podobný formát výměny dat, který reprezentuje objekt určitým způsobem. Například `return Json(customer);` serializaci zadaného objektu do formátu JSON.
+    Tento typ vrátí JSON nebo podobný formát výměny dat, který reprezentuje objekt určitým způsobem. Například `return Json(customer);` serializaci poskytnutého objektu do formátu JSON.
     
     Mezi další běžné metody tohoto typu patří `File` a `PhysicalFile`. Například `return PhysicalFile(customerFilePath, "text/xml");` vrátí [PhysicalFileResult](/dotnet/api/microsoft.aspnetcore.mvc.physicalfileresult).
 
 #### <a name="3-methods-resulting-in-a-non-empty-response-body-formatted-in-a-content-type-negotiated-with-the-client"></a>3. metody, které mají za následek neprázdné tělo odpovědi formátované v typu obsahu vyjednané s klientem
 
-Tato kategorie je lépe známá jako **vyjednávání obsahu**. [Vyjednávání obsahu](xref:web-api/advanced/formatting#content-negotiation) se aplikuje vždy, když akce vrátí [ObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.objectresult) typ nebo něco jiného než implementace [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) . Akce, která vrací implementaci bez`IActionResult` (například `object`), také vrací formátovanou odpověď.
+Tato kategorie je lépe známá jako **vyjednávání obsahu**. [Vyjednávání obsahu](xref:web-api/advanced/formatting#content-negotiation) se aplikuje vždy, když akce vrátí [ObjectResult](/dotnet/api/microsoft.aspnetcore.mvc.objectresult) typ nebo něco jiného než implementace [IActionResult](/dotnet/api/microsoft.aspnetcore.mvc.iactionresult) . Akce, která vrací`IActionResult` neimplementující (například), `object`vrátí také formátovanou odpověď.
 
-Mezi pomocné metody tohoto typu patří `BadRequest`, `CreatedAtRoute`a `Ok`. Mezi příklady těchto metod patří `return BadRequest(modelState);`, `return CreatedAtRoute("routename", values, newobject);`a `return Ok(value);`v uvedeném pořadí. Všimněte si, že `BadRequest` a `Ok` provádět vyjednávání obsahu pouze v případě, že byla předána hodnota; bez předávání hodnoty místo toho slouží jako typy výsledku stavového kódu protokolu HTTP. Metoda `CreatedAtRoute`, na druhé straně, vždy provádí vyjednávání obsahu, protože jejich přetížení vyžaduje předání hodnoty.
+Mezi pomocné metody tohoto typu patří `BadRequest`, `CreatedAtRoute`a. `Ok` Příklady těchto metod jsou `return BadRequest(modelState);`, `return CreatedAtRoute("routename", values, newobject);`, a `return Ok(value);`v uvedeném pořadí. Všimněte si `BadRequest` , `Ok` že a provede vyjednávání obsahu pouze v případě, že byla předána hodnota. bez předávání hodnoty místo toho slouží jako typy výsledku stavového kódu protokolu HTTP. `CreatedAtRoute` Na druhé straně, vždy provádí vyjednávání obsahu, protože jeho přetížení vyžaduje předání hodnoty.
 
 ### <a name="cross-cutting-concerns"></a>Otázky pro průřezy
 
 Aplikace obvykle sdílí části svého pracovního postupu. Mezi příklady patří aplikace, která vyžaduje ověření pro přístup k nákupnímu košíku, nebo aplikaci, která na některých stránkách ukládá data do mezipaměti. Chcete-li provést logiku před nebo za metodou akce, použijte *Filtr*. Použití [filtrů](xref:mvc/controllers/filters) při průřezových záležitostech může snížit duplicity.
 
-Většinu atributů filtru, jako je například `[Authorize]`, lze použít na úrovni řadiče nebo akce v závislosti na požadované úrovni členitosti.
+Většinu atributů filtru, jako `[Authorize]`je například, lze použít na úrovni řadiče nebo akce v závislosti na požadované úrovni členitosti.
 
 Zpracování chyb a ukládání odpovědí do mezipaměti často souvisí mezi různými aspekty:
 * [Ošetření chyb](xref:mvc/controllers/filters#exception-filters)

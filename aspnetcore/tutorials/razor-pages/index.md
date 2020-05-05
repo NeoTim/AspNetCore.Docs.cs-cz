@@ -1,34 +1,40 @@
 ---
-title: 'Kurz: Vytvořte webovou aplikaci Razor Pages s ASP.NET Core'
+title: 'Kurz: Vytvoření webové Razor aplikace Pages pomocí ASP.NET Core'
 author: rick-anderson
-description: Vytvořte webovou aplikaci Razor Pages ve Windows s Visual Studio, ASP.NET Core a EF Core.
+description: Vytvoření webové Razor aplikace stránky ve Windows pomocí sady Visual Studio, ASP.NET Core a EF Core.
 ms.author: riande
 ms.date: 08/09/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/index
-ms.openlocfilehash: 03acfc381cf5dca2f8b834da75191cd8053e0da4
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 2a75c4c4133642d53349437ea83413e96c40baf5
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78665002"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774532"
 ---
-# <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>Kurz: Vytvořte webovou aplikaci Razor Pages s ASP.NET Core
+# <a name="tutorial-create-a-razor-pages-web-app-with-aspnet-core"></a>Kurz: Vytvoření webové Razor aplikace Pages pomocí ASP.NET Core
 
-Tato série výukových programů vysvětluje základy vytváření webové aplikace Razor Pages. 
+Tato série kurzů vysvětluje základy vytváření webových aplikací Razor stránky. 
 
 [!INCLUDE[](~/includes/advancedRP.md)]
 
-Tato série obsahuje následující kurzy:
+Tato řada obsahuje následující kurzy:
 
-1. [Vytvoření webové aplikace Stránky Razor](xref:tutorials/razor-pages/razor-pages-start)
+1. [Vytvoření webové Razor aplikace Pages](xref:tutorials/razor-pages/razor-pages-start)
 1. [Přidání modelu do aplikace Razor Pages](xref:tutorials/razor-pages/model)
-1. [Lešení (generovat) Žiletky stránky](xref:tutorials/razor-pages/page)
+1. [Stránky generování uživatelského rozhraní Razor (generování)](xref:tutorials/razor-pages/page)
 1. [Práce s databází](xref:tutorials/razor-pages/sql)
-1. [Aktualizovat stránky Razor](xref:tutorials/razor-pages/da1)
+1. [Aktualizovat Razor stránky](xref:tutorials/razor-pages/da1)
 1. [Přidání vyhledávání](xref:tutorials/razor-pages/search)
 1. [Přidání nového pole](xref:tutorials/razor-pages/new-field)
 1. [Přidání ověřování](xref:tutorials/razor-pages/validation)
 
-Na konci budete mít aplikaci, která může zobrazit a spravovat databázi filmů.
+Na konci budete mít aplikaci, která může zobrazovat a spravovat databázi filmů.
 
 ![Ukázková stránka ukázkové aplikace](index/_static/sample-page.png)

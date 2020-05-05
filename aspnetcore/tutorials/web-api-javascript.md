@@ -1,27 +1,33 @@
 ---
-title: 'Kurz: Volání webového rozhraní API ASP.NET Core pomocí JavaScriptu'
+title: 'Kurz: volání ASP.NET Core webového rozhraní API pomocí JavaScriptu'
 author: rick-anderson
-description: Přečtěte si, jak volat ASP.NET základní webové rozhraní API pomocí JavaScriptu.
+description: Naučte se volat ASP.NET Core webového rozhraní API pomocí JavaScriptu.
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/26/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: 2a19a7d16ca8b8f5d6ac8eb99ad919b89f1e368b
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: c3eb003812a31d8cf3168453fcc11601ffba19fb
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78655251"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774350"
 ---
-# <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>Kurz: Volání webového rozhraní API ASP.NET Core pomocí JavaScriptu
+# <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>Kurz: volání ASP.NET Core webového rozhraní API pomocí JavaScriptu
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Tento kurz ukazuje, jak volat ASP.NET základní webové rozhraní API s JavaScriptem pomocí [načíst rozhraní API](https://developer.mozilla.org/docs/Web/API/Fetch_API).
+V tomto kurzu se dozvíte, jak volat ASP.NET Core webového rozhraní API s JavaScriptem pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API).
 
 ::: moniker range="< aspnetcore-3.0"
 
-Informace ASP.NET Core 2.2 naleznete v 2.2 verzi [volání webového rozhraní API pomocí JavaScriptu](xref:tutorials/first-web-api#call-the-web-api-with-javascript).
+Pro ASP.NET Core 2,2 se podívejte na verzi 2,2 [volání webového rozhraní API pomocí JavaScriptu](xref:tutorials/first-web-api#call-the-web-api-with-javascript).
 
 ::: moniker-end
 
@@ -29,79 +35,79 @@ Informace ASP.NET Core 2.2 naleznete v 2.2 verzi [volání webového rozhraní A
 
 ## <a name="prerequisites"></a>Požadavky
 
-* Kompletní [kurz: Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
-* Znalost CSS, HTML a JavaScriptu
+* Úplný [kurz: Vytvoření webového rozhraní API](xref:tutorials/first-web-api)
+* Znalost šablon stylů CSS, HTML a JavaScript
 
 ## <a name="call-the-web-api-with-javascript"></a>Volání webového rozhraní API pomocí JavaScriptu
 
-V této části přidáte stránku HTML obsahující formuláře pro vytváření a správu položek. Obslužné rutiny událostí jsou připojeny k prvkům na stránce. Výsledkem obslužných rutin událostí jsou požadavky HTTP pro metody akce webového rozhraní API. `fetch` Funkce rozhraní Fetch API iniciuje každý požadavek HTTP.
+V této části přidáte stránku HTML obsahující formuláře pro vytváření a správu položek úkolů. Obslužné rutiny událostí jsou připojeny k prvkům na stránce. Obslužné rutiny událostí mají za následek požadavky HTTP na metody akcí webového rozhraní API. `fetch` Funkce načíst rozhraní API inicializuje jednotlivé požadavky HTTP.
 
-Funkce `fetch` vrátí objekt [Promise,](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) který obsahuje odpověď `Response` HTTP reprezentovanou jako objekt. Běžným vzorem je extrahovat tělo odezvy JSON vyvoláním `json` funkce na objektu. `Response` JavaScript aktualizuje stránku podrobnostmi z odpovědi webového rozhraní API.
+Funkce vrátí objekt [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) , který obsahuje odpověď HTTP reprezentovanou jako `Response` objekt. `fetch` Běžným vzorem je extrakce textu odpovědi JSON vyvoláním `json` funkce na `Response` objektu. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
 
-Nejjednodušší `fetch` volání přijme jeden parametr představující trasu. Druhý parametr, označovaný `init` jako objekt, je volitelný. `init`slouží ke konfiguraci požadavku HTTP.
+Nejjednodušší `fetch` volání přijímá jeden parametr reprezentující trasu. Druhý parametr, známý jako `init` objekt, je volitelný. `init`slouží ke konfiguraci požadavku HTTP.
 
-1. Nakonfigurujte aplikaci tak, aby [zobrazovala statické soubory](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolila výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_). Následující zvýrazněný kód je `Configure` potřeba v metodě *Startup.cs*:
+1. Nakonfigurujte aplikaci tak, aby [sloužila statickým souborům](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolovala výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_). V `Configure` metodě *Startup.cs*je potřeba následující zvýrazněný kód:
 
     [!code-csharp[](first-web-api/samples/3.0/TodoApi/StartupJavaScript.cs?highlight=8-9&name=snippet_configure)]
 
-1. Vytvořte složku *wwwroot* v kořenovém adresáři projektu.
+1. Vytvořte složku *wwwroot* v kořenu projektu.
 
-1. Vytvořte složku *js* uvnitř složky *wwwroot.*
+1. Vytvořte složku *js* ve složce *wwwroot* .
 
-1. Přidejte soubor HTML s názvem *index.html* do složky *wwwroot.* Nahraďte obsah *souboru index.html* následujícími značkami:
+1. Do složky *wwwroot* přidejte soubor HTML s názvem *index. html* . Obsah souboru *index. html* nahraďte následujícím kódem:
 
     [!code-html[](first-web-api/samples/3.0/TodoApi/wwwroot/index.html)]
 
-1. Přidejte soubor JavaScript s názvem *site.js* do složky *wwwroot/js.* Nahraďte obsah souboru *site.js* následujícím kódem:
+1. Do složky *wwwroot/js* přidejte soubor JavaScriptu s názvem *Web. js* . Obsah *stránky site. js* nahraďte následujícím kódem:
 
     [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_SiteJs)]
 
-Ke místnímu testování stránky HTML může být nutná změna nastavení spuštění projektu ASP.NET Core:
+Pro místní testování stránky HTML může být nutné změnit nastavení spouštění ASP.NET Core projektu:
 
-1. *Spusťte položku Properties\launchSettings.json*.
-1. Odeberte `launchUrl` vlastnost, chcete-li aplikaci vynutit otevření na *adrese index.html*&mdash;výchozího souboru projektu.
+1. Otevřete *Properties\launchSettings.JSON*.
+1. Odeberte `launchUrl` vlastnost, která vynutí otevření aplikace v *indexu. html*&mdash;výchozí soubor projektu.
 
 Tato ukázka volá všechny metody CRUD webového rozhraní API. Následují vysvětlení požadavků webového rozhraní API.
 
-### <a name="get-a-list-of-to-do-items"></a>Získání seznamu položek úkolů
+### <a name="get-a-list-of-to-do-items"></a>Získat seznam úkolů
 
-V následujícím kódu je na trasu *API/TodoItems* odeslán požadavek HTTP GET:
+V následujícím kódu se pošle požadavek HTTP GET do trasy *API/TodoItems* :
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_GetItems)]
 
-Když webové rozhraní API vrátí úspěšný `_displayItems` stavový kód, funkce je vyvolána. Každá položka soupou v `_displayItems` parametru pole přijatá tlačítkem Je přidána do tabulky pomocí tlačítek **Upravit** a **Odstranit.** Pokud se požadavek webového rozhraní API nezdaří, je do konzoly prohlížeče zaznamenána chyba.
+Když webové rozhraní API vrátí úspěšný kód stavu, `_displayItems` funkce se vyvolá. Každá položka úkolů v parametru pole Accepted `_displayItems` je přidána do tabulky s tlačítky **Upravit** a **Odstranit** . Pokud se požadavek webového rozhraní API nepovede, do konzoly prohlížeče se zaprotokoluje chyba.
 
-### <a name="add-a-to-do-item"></a>Přidání položky s cílem
+### <a name="add-a-to-do-item"></a>Přidat položku úkolů
 
 V následujícím kódu:
 
-* Proměnná `item` je deklarována k vytvoření literálové reprezentace objektu položky, kterou chcete provést.
-* Požadavek na načtení je nakonfigurován s následujícími možnostmi:
-  * `method`&mdash;určuje sloveso akce POST HTTP.
-  * `body`&mdash;určuje reprezentaci JSON těla požadavku. JSON je vytvořen předáním literálu `item` objektu uloženého v [json.stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) funkce.
-  * `headers`&mdash;určuje `Accept` hlavičky `Content-Type` požadavků a http. Obě záhlaví jsou `application/json` nastavena tak, aby určovat typ média přijímány a odesílané, v uvedeném pořadí.
-* Požadavek HTTP POST je odeslán na trasu *api/TodoItems.*
+* `item` Proměnná je deklarována pro sestavení řetězcové literálové reprezentace položky.
+* Požadavek na načtení je nakonfigurovaný s následujícími možnostmi:
+  * `method`&mdash;Určuje operaci POST HTTP Action.
+  * `body`&mdash;Určuje reprezentaci textu žádosti ve formátu JSON. KÓD JSON je vytvořen předáním literálu objektu uloženého `item` v do funkce [JSON. stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) .
+  * `headers`&mdash;Určuje hlavičky `Accept` požadavků `Content-Type` a http. Obě hlavičky jsou nastaveny na `application/json` zadání typu média přijímaného a odeslaného v uvedeném pořadí.
+* Požadavek HTTP POST se odešle do trasy *API/TodoItems* .
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_AddItem)]
 
-Pokud webové rozhraní API vrátí úspěšný `getItems` stavový kód, funkce je vyvolána k aktualizaci tabulky HTML. Pokud se požadavek webového rozhraní API nezdaří, je do konzoly prohlížeče zaznamenána chyba.
+Když webové rozhraní API vrátí úspěšný kód stavu, `getItems` funkce se vyvolá, aby se aktualizovala tabulka HTML. Pokud se požadavek webového rozhraní API nepovede, do konzoly prohlížeče se zaprotokoluje chyba.
 
-### <a name="update-a-to-do-item"></a>Aktualizace položky s cílem
+### <a name="update-a-to-do-item"></a>Aktualizace položky úkolů
 
-Aktualizace položky s cílem je podobná přidání položky; existují však dva významné rozdíly:
+Aktualizace položky úkolů je podobná přidání. Existují však dva významné rozdíly:
 
-* Trasa je připnout s jedinečným identifikátorem položky k aktualizaci. Například *api/TodoItems/1*.
-* Sloveso akce HTTP je PUT, `method` jak je uvedeno v možnosti.
+* Trasa má příponu s jedinečným identifikátorem položky, která se má aktualizovat. Například *API/TodoItems/1*.
+* Operace HTTP Action je PUT, jak je uvedeno v `method` možnosti.
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_UpdateItem)]
 
-### <a name="delete-a-to-do-item"></a>Odstranění položky pro práci
+### <a name="delete-a-to-do-item"></a>Odstranění položky úkolů
 
-Chcete-li odstranit položku pro zadání, `method` nastavte `DELETE` možnost požadavku na jedinečný identifikátor položky v adrese URL a zadejte její jedinečný identifikátor.
+Chcete-li odstranit položku, nastavte `method` možnost žádosti na `DELETE` a v adrese URL zadejte jedinečný identifikátor položky.
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_DeleteItem)]
 
-Přejdete k dalšímu kurzu, kde se dozvíte, jak generovat stránky nápovědy webového rozhraní API:
+Přejděte k dalšímu kurzu, kde se dozvíte, jak vygenerovat stránky s usnadněním webového rozhraní API:
 
 > [!div class="nextstepaction"]
 > <xref:tutorials/get-started-with-swashbuckle>

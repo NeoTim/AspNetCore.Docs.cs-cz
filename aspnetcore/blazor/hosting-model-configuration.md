@@ -1,21 +1,24 @@
 ---
 title: ASP.NET Core Blazor konfigurace modelu hostování
 author: guardrex
-description: Přečtěte Blazor si o konfiguraci modelu hostování, včetně toho, jak integrovat komponenty Razor do aplikací Razor Pages a MVC.
+description: Přečtěte Blazor si o konfiguraci modelu hostování, včetně postupu Razor při integraci Razor komponent do stránek a aplikací MVC.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/25/2020
+ms.date: 05/04/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: c7e8d1f2dcba6432072a5cc11a6c5d78e50c2398
-ms.sourcegitcommit: c6f5ea6397af2dd202632cf2be66fc30f3357bcc
+ms.openlocfilehash: 17ed43a12643f067da73658bec72400acbe1be43
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/26/2020
-ms.locfileid: "82159616"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772071"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>Konfigurace modelu hostování ASP.NET Core Blazor
 
@@ -100,12 +103,12 @@ if (builder.HostEnvironment.IsEnvironment("Custom"))
 
 ### <a name="configuration"></a>Konfigurace
 
-Blazor WebAssembly podporuje konfiguraci z:
+Blazor WebAssembly načítá konfiguraci z:
 
-* [Poskytovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) pro soubory nastavení aplikace ve výchozím nastavení:
+* Soubory nastavení aplikace ve výchozím nastavení:
   * *wwwroot/appSettings. JSON*
   * *wwwroot/appSettings. {ENVIRONMENT}. JSON*
-* Další [poskytovatelé konfigurace](xref:fundamentals/configuration/index) zaregistrované aplikací
+* Další [poskytovatelé konfigurace](xref:fundamentals/configuration/index) zaregistrované aplikací Ne všichni poskytovatelé jsou vhodné pro aplikace Blazor WebAssembly. Vyjasnění, které poskytovatele se podporují pro Blazor WebAssembly, je sledováno pomocí [vysvětlení poskytovatelé konfigurace pro BLAZOR WASM (dotnet/AspNetCore. Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).
 
 > [!WARNING]
 > Konfigurace v aplikaci WebAssembly v Blazor je viditelná pro uživatele. **Neukládejte tajné klíče aplikace ani přihlašovací údaje v konfiguraci.**
@@ -136,12 +139,12 @@ Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do k
 
 #### <a name="provider-configuration"></a>Konfigurace zprostředkovatele
 
-Následující příklad používá <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> a [zprostředkovatele konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) k poskytnutí další konfigurace:
+Následující příklad používá <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> k poskytnutí další konfigurace:
 
 `Program.Main`:
 
 ```csharp
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Memory;
 
 ...
 
@@ -159,9 +162,7 @@ var memoryConfig = new MemoryConfigurationSource { InitialData = vehicleData };
 
 ...
 
-builder.Configuration
-    .Add(memoryConfig)
-    .AddJsonFile("cars.json", optional: false, reloadOnChange: true);
+builder.Configuration.Add(memoryConfig);
 ```
 
 Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do komponenty pro přístup k datům konfigurace:
@@ -176,10 +177,10 @@ Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do k
 <h2>Wheels</h2>
 
 <ul>
-    <li>Count: @Configuration["wheels:count"]</p>
-    <li>Brand: @Configuration["wheels:brand"]</p>
-    <li>Type: @Configuration["wheels:brand:type"]</p>
-    <li>Year: @Configuration["wheels:year"]</p>
+    <li>Count: @Configuration["wheels:count"]</li>
+    <li>Brand: @Configuration["wheels:brand"]</li>
+    <li>Type: @Configuration["wheels:brand:type"]</li>
+    <li>Year: @Configuration["wheels:year"]</li>
 </ul>
 
 @code {
@@ -187,6 +188,36 @@ Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do k
     
     ...
 }
+```
+
+Chcete-li číst další konfigurační soubory ze složky *wwwroot* do konfigurace, použijte `HttpClient` k získání obsahu souboru. Při použití tohoto přístupu existující `HttpClient` registrace služby může použít místního klienta vytvořeného pro čtení souboru, jak ukazuje následující příklad:
+
+*wwwroot/automobily. JSON*:
+
+```json
+{
+    "size": "tiny"
+}
+```
+
+`Program.Main`:
+
+```csharp
+using Microsoft.Extensions.Configuration;
+
+...
+
+var client = new HttpClient()
+{
+    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
+};
+
+builder.Services.AddTransient(sp => client);
+
+using var response = await client.GetAsync("cars.json");
+using var stream = await response.Content.ReadAsStreamAsync();
+
+builder.Configuration.AddJsonStream(stream);
 ```
 
 #### <a name="authentication-configuration"></a>Konfigurace ověřování
@@ -303,7 +334,7 @@ Aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-### <a name="configure-the-opno-locsignalr-client-for-opno-locblazor-server-apps"></a>Konfigurace SignalR klienta pro Blazor serverové aplikace
+### <a name="configure-the-signalr-client-for-blazor-server-apps"></a>Konfigurace SignalR klienta pro Blazor serverové aplikace
 
 V SignalR některých případech je potřeba nakonfigurovat klienta používaného Blazor serverovými aplikacemi. Například můžete chtít nakonfigurovat protokolování na SignalR straně klienta, aby bylo možné diagnostikovat problém s připojením.
 

@@ -1,90 +1,96 @@
 ---
-title: Migrace z ASP.NET jádra 1.x na 2.0
+title: Migrace z ASP.NET Core 1. x na 2,0
 author: scottaddie
-description: Tento článek popisuje požadavky a nejběžnější kroky pro migraci ASP.NET projektu Core 1.x do ASP.NET Core 2.0.
+description: V tomto článku najdete popis požadavků a nejběžnějších kroků migrace projektu ASP.NET Core 1. x na ASP.NET Core 2,0.
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: c46f50a418cf630980ac2ba94407e4370d36e7d5
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 1b7b89b130f66c851bf01d0eb6d643e4b3676a1e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78667613"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774220"
 ---
-# <a name="migrate-from-aspnet-core-1x-to-20"></a>Migrace z ASP.NET jádra 1.x na 2.0
+# <a name="migrate-from-aspnet-core-1x-to-20"></a>Migrace z ASP.NET Core 1. x na 2,0
 
-Podle [Scott Addie](https://github.com/scottaddie)
+[Scott Addie](https://github.com/scottaddie)
 
-V tomto článku vás provedeme aktualizací existujícího projektu ASP.NET Core 1.x, který ASP.NET Core 2.0. Migrace aplikace do ASP.NET jádrem 2.0 umožňuje využívat [mnoho nových funkcí a vylepšení výkonu](xref:aspnetcore-2.0).
+V tomto článku Vás provedeme aktualizací existujícího projektu ASP.NET Core 1. x na ASP.NET Core 2,0. Migrace aplikace na ASP.NET Core 2,0 vám umožní využít [spoustu nových funkcí a vylepšení výkonu](xref:aspnetcore-2.0).
 
-Existující aplikace ASP.NET Core 1.x jsou založeny mimo šablony projektů specifické pro verzi. Jak se vyvíjí ASP.NET core framework, tak se šablony projektu a počáteční kód obsažený v nich. Kromě aktualizace ASP.NET core framework, je třeba aktualizovat kód pro vaši aplikaci.
+Stávající aplikace ASP.NET Core 1. x jsou založeny na šablonách projektů specifických pro danou verzi. Jak se vyvíjí rozhraní ASP.NET Core, takže proveďte šablony projektu a počáteční kód obsažený v nich. Kromě aktualizace ASP.NET Coreho rozhraní je potřeba aktualizovat kód pro vaši aplikaci.
 
 <a name="prerequisites"></a>
 
 ## <a name="prerequisites"></a>Požadavky
 
-Viz [Začínáme s ASP.NET jádrem](xref:getting-started).
+Viz Začínáme [s ASP.NET Core](xref:getting-started).
 
 <a name="tfm"></a>
 
-## <a name="update-target-framework-moniker-tfm"></a>Aktualizovat zástupný název cílového rámce (TFM)
+## <a name="update-target-framework-moniker-tfm"></a>Aktualizovat moniker cílového rozhraní (TFM)
 
-Projekty zaměřené na rozhraní .NET Core by měly používat [TFM](/dotnet/standard/frameworks) verze větší nebo rovna .NET Core 2.0. Vyhledejte `<TargetFramework>` uzel v souboru *.csproj* a nahraďte jeho vnitřní text `netcoreapp2.0`:
+Projekty cílené na .NET Core by měly používat [TFM](/dotnet/standard/frameworks) verze, která je větší nebo rovna .net Core 2,0. Vyhledejte `<TargetFramework>` uzel v souboru *. csproj* a nahraďte jeho vnitřní text `netcoreapp2.0`:
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=3)]
 
-Projekty zaměřené na rozhraní .NET Framework by měly používat TFM verze větší nebo rovna rozhraní .NET Framework 4.6.1. Vyhledejte `<TargetFramework>` uzel v souboru *.csproj* a nahraďte jeho vnitřní text `net461`:
+Projekty cílené na .NET Framework by měly používat TFM verze, která je větší nebo rovna .NET Framework 4.6.1. Vyhledejte `<TargetFramework>` uzel v souboru *. csproj* a nahraďte jeho vnitřní text `net461`:
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=4)]
 
 > [!NOTE]
-> .NET Core 2.0 nabízí mnohem větší plochu než .NET Core 1.x. Pokud cílíte na rozhraní .NET Framework výhradně z důvodu chybějících rozhraní API v rozhraní .NET Core 1.x, cílení na rozhraní .NET Core 2.0 bude pravděpodobně fungovat.
+> .NET Core 2,0 nabízí mnohem větší plochu než .NET Core 1. x. Pokud cílíte .NET Framework výhradně z důvodu chybějících rozhraní API v rozhraní .NET Core 1. x, bude pravděpodobně fungovat cílení na .NET Core 2,0.
 
-Pokud soubor projektu `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>`obsahuje , podívejte se na [tento problém GitHub](https://github.com/dotnet/AspNetCore/issues/3221#issuecomment-413094268).
+Pokud soubor projektu obsahuje `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>`, přečtěte si [Tento problém GitHub](https://github.com/dotnet/AspNetCore/issues/3221#issuecomment-413094268).
 
 <a name="global-json"></a>
 
-## <a name="update-net-core-sdk-version-in-globaljson"></a>Aktualizace verze sady .NET Core SDK v souboru global.json
+## <a name="update-net-core-sdk-version-in-globaljson"></a>Aktualizace verze .NET Core SDK v Global. JSON
 
-Pokud vaše řešení spoléhá na soubor [global.json,](/dotnet/core/tools/global-json) aby se zaměřilo na `version` konkrétní verzi sady .NET Core SDK, aktualizujte jeho vlastnost tak, aby používala verzi 2.0 nainstalovanou v počítači:
+Pokud vaše řešení využívá soubor [Global. JSON](/dotnet/core/tools/global-json) pro cílení na konkrétní verzi .NET Core SDK, aktualizujte jeho `version` vlastnost tak, aby používala verzi 2,0 nainstalovanou na vašem počítači:
 
 [!code-json[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/global.json?highlight=3)]
 
 <a name="package-reference"></a>
 
-## <a name="update-package-references"></a>Aktualizovat odkazy na balíčky
+## <a name="update-package-references"></a>Aktualizovat odkazy na balíček
 
-Soubor *.csproj* v projektu 1.x uvádí každý balíček NuGet používaný v projektu.
+Soubor *. csproj* v projektu 1. x obsahuje seznam všech balíčků NuGet používaných projektem.
 
-V ASP.NET projektu Core 2.0 zaměřeného na rozhraní .NET Core 2.0 nahradí kolekci balíčků jeden odkaz [na metabalíček](xref:fundamentals/metapackage) v souboru *.csproj:*
+V projektu ASP.NET Core 2,0 cíleném na rozhraní .NET Core 2,0 nahrazuje jeden odkaz [Metapackage](xref:fundamentals/metapackage) v souboru *. csproj* kolekci balíčků:
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=8-10)]
 
-Všechny funkce ASP.NET Core 2.0 a Entity Framework Core 2.0 jsou zahrnuty v metabalíčku.
+Do Metapackage jsou zahrnuté všechny funkce ASP.NET Core 2,0 a Entity Framework Core 2,0.
 
-ASP.NET Core 2.0 projekty cílení .NET Framework by měl y nadále odkazovat na jednotlivé balíčky NuGet. Aktualizujte `Version` atribut `<PackageReference />` každého uzlu na 2.0.0.
+Projekty ASP.NET Core 2,0 cílené na .NET Framework by měly dál odkazovat na jednotlivé balíčky NuGet. Aktualizujte `Version` atribut každého `<PackageReference />` uzlu na 2.0.0.
 
-Zde je například seznam `<PackageReference />` uzlů používaných v typickém ASP.NET cílování projektu Core 2.0 .NET Framework:
+Tady je například seznam `<PackageReference />` uzlů použitých v typickém projektu ASP.NET Core 2,0, který cílí na .NET Framework:
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=9-22)]
 
 <a name="dot-net-cli-tool-reference"></a>
 
-## <a name="update-net-core-cli-tools"></a>Aktualizace nástrojů rozhraní CLI .NET Core
+## <a name="update-net-core-cli-tools"></a>Aktualizovat .NET Core CLI nástroje
 
-V souboru *.csproj* `Version` aktualizujte `<DotNetCliToolReference />` atribut každého uzlu na 2.0.0.
+V souboru *. csproj* aktualizujte `Version` atribut každého `<DotNetCliToolReference />` uzlu na 2.0.0.
 
-Tady je například seznam nástrojů rozhraní CLI používaných v typickém ASP.NET cílení na projekt Core 2.0 .NET Core 2.0:
+Tady je například seznam nástrojů rozhraní příkazového řádku, které se používají v typickém ASP.NET Core 2,0 projektu cílící na .NET Core 2,0:
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=12-16)]
 
 <a name="package-target-fallback"></a>
 
-## <a name="rename-package-target-fallback-property"></a>Přejmenovat záložní cíl balíčku, vlastnost
+## <a name="rename-package-target-fallback-property"></a>Přejmenovat záložní vlastnost cílového balíčku
 
-Soubor *.csproj* projektu 1.x používal `PackageTargetFallback` uzel a proměnnou:
+Soubor *. csproj* v projektu 1. x používal `PackageTargetFallback` uzel a proměnnou:
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App.csproj?range=5)]
 
@@ -94,17 +100,17 @@ Přejmenujte uzel i proměnnou na `AssetTargetFallback`:
 
 <a name="program-cs"></a>
 
-## <a name="update-main-method-in-programcs"></a>Aktualizovat hlavní metodu v Program.cs
+## <a name="update-main-method-in-programcs"></a>Aktualizace metody Main v Program.cs
 
-V projektech 1.x vypadala `Main` metoda *Program.cs* takto:
+V projektech 1. x `Main` metoda *program.cs* vypadala takto:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Program.cs?name=snippet_ProgramCs&highlight=8-19)]
 
-U projektů 2.0 `Main` byla metoda *Program.cs* zjednodušena:
+V projektech 2,0 je `Main` metoda *program.cs* zjednodušená:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program.cs?highlight=8-11)]
 
-Přijetí tohoto nového vzoru 2.0 je vysoce doporučeno a je vyžadováno pro funkce produktu, jako je [core migrace entity framework (EF)](xref:data/ef-mvc/migrations) pro práci. Například spuštění `Update-Database` z okna konzoly `dotnet ef database update` Správce balíčků nebo z příkazového řádku (u projektů převedených na ASP.NET jádrem 2.0) generuje následující chybu:
+Přijetí tohoto nového vzoru 2,0 se důrazně doporučuje a vyžaduje se pro funkce produktu, jako jsou [základní migrace pro Entity Framework (EF)](xref:data/ef-mvc/migrations) . Například spuštění `Update-Database` z okna konzoly Správce balíčků nebo `dotnet ef database update` z příkazového řádku (v projektech převedených na ASP.NET Core 2,0) generuje následující chybu:
 
 ```
 Unable to create an object of type '<Context>'. Add an implementation of 'IDesignTimeDbContextFactory<Context>' to the project, or see https://go.microsoft.com/fwlink/?linkid=851728 for additional patterns supported at design time.
@@ -112,88 +118,88 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 <a name="add-modify-configuration"></a>
 
-## <a name="add-configuration-providers"></a>Přidání zprostředkovatelů konfigurace
+## <a name="add-configuration-providers"></a>Přidat poskytovatele konfigurace
 
-V projektech 1.x bylo přidání poskytovatelů konfigurace `Startup` do aplikace provedeno prostřednictvím konstruktoru. Kroky zahrnovaly vytvoření `ConfigurationBuilder`instance , načítání příslušných zprostředkovatelů (proměnné prostředí, nastavení aplikace `IConfigurationRoot`atd.) a inicializaci člena aplikace .
+V projektech 1. x bylo přidání poskytovatelů konfigurace do aplikace provedeno prostřednictvím `Startup` konstruktoru. Kroky při vytváření instance `ConfigurationBuilder`, načtení použitelných zprostředkovatelů (proměnné prostředí, nastavení aplikace atd.) a inicializace člena. `IConfigurationRoot`
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_1xStartup)]
 
-Předchozí příklad načte `Configuration` člena s nastavením konfigurace z *appsettings.json,* stejně jako všechny *appsettings.\< EnvironmentName\>.json* soubor `IHostingEnvironment.EnvironmentName` odpovídající vlastnost. Umístění těchto souborů je na stejné cestě jako *Startup.cs*.
+Předchozí příklad načte `Configuration` člena s nastavením konfigurace z *appSettings. JSON* a také libovolnými *appSettings\< . Soubor Environment\>. JSON* , který `IHostingEnvironment.EnvironmentName` odpovídá vlastnosti Umístění těchto souborů je na stejné cestě jako *Startup.cs*.
 
-V projektech 2.0 je standardní konfigurační kód vlastní 1.x projekty běží na pozadí. Například proměnné prostředí a nastavení aplikace se načítají při spuštění. Ekvivalentní *Startup.cs* kód je `IConfiguration` snížena na inicializaci s instřikované instance:
+V projektech 2,0 se standardní konfigurační kód, který je podstatný pro 1. x, spouští za pozadí. Například proměnné prostředí a nastavení aplikace jsou načítány při spuštění. Ekvivalentní kód *Startup.cs* se zkracuje na `IConfiguration` inicializaci s vloženou instancí:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Startup.cs?name=snippet_2xStartup)]
 
-Chcete-li odebrat `WebHostBuilder.CreateDefaultBuilder`výchozí zprostředkovatele přidané `IConfigurationBuilder.Sources` aplikace `ConfigureAppConfiguration`, vyvolat `Clear` metodu na vlastnost uvnitř . Chcete-li přidat zprostředkovatele zpět, použijte metodu `ConfigureAppConfiguration` v *Program.cs*:
+Chcete-li odebrat výchozí zprostředkovatele přidaných `WebHostBuilder.CreateDefaultBuilder`pomocí `Clear` , volejte metodu `IConfigurationBuilder.Sources` vlastnosti v rámci `ConfigureAppConfiguration`. Chcete-li přidat poskytovatele zpět, `ConfigureAppConfiguration` Využijte metodu v *program.cs*:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Program.cs?name=snippet_ProgramMainConfigProviders&highlight=9-14)]
 
-Konfigurace použitá `CreateDefaultBuilder` metodou v předchozím fragmentu kódu je k vidění [zde](https://github.com/aspnet/MetaPackages/blob/rel/2.0.0/src/Microsoft.AspNetCore/WebHost.cs#L152).
+Konfiguraci použitou `CreateDefaultBuilder` metodou v předchozím fragmentu kódu lze zobrazit [zde](https://github.com/aspnet/MetaPackages/blob/rel/2.0.0/src/Microsoft.AspNetCore/WebHost.cs#L152).
 
-Další informace naleznete [v tématu Konfigurace v ASP.NET jádru](xref:fundamentals/configuration/index).
+Další informace najdete v tématu [konfigurace v ASP.NET Core](xref:fundamentals/configuration/index).
 
 <a name="db-init-code"></a>
 
-## <a name="move-database-initialization-code"></a>Přesunutí kódu inicializace databáze
+## <a name="move-database-initialization-code"></a>Přesunout inicializační kód databáze
 
-V projektech 1.x pomocí EF Core 1.x, příkaz, jako `dotnet ef migrations add` je například následující:
+V projektech 1. x, které `dotnet ef migrations add` používají EF Core 1. x, příkaz například provede následující:
 
-1. Vytvoření instance instance `Startup`
-1. Vyvolá metodu `ConfigureServices` registrace všech služeb s vkládání `DbContext` závislostí (včetně typů)
-1. Provádí požadované úkoly
+1. Vytvoří instanci `Startup` instance.
+1. Vyvolá `ConfigureServices` metodu pro registraci všech služeb pomocí injektáže závislosti (včetně `DbContext` typů).
+1. Provede požadované úlohy.
 
-V 2.0 projekty pomocí EF `Program.BuildWebHost` Core 2.0, je vyvolána k získání aplikačních služeb. Na rozdíl od 1.x, to má další `Startup.Configure`vedlejší účinek vyvolání . Pokud vaše aplikace 1.x vyvolala inicializační kód databáze ve své `Configure` metodě, může dojít k neočekávaným problémům. Například pokud databáze ještě neexistuje, kód nastavení se spustí před spuštěním příkazu EF Core Migrations. Tento problém `dotnet ef migrations list` způsobí selhání příkazu, pokud databáze ještě neexistuje.
+V 2,0ch projektech, které používají `Program.BuildWebHost` EF Core 2,0, je vyvoláno získání aplikačních služeb. Na rozdíl od 1. x to má další vedlejší účinek vyvolání `Startup.Configure`. Pokud vaše aplikace 1. x vyvolala inicializační kód databáze `Configure` ve své metodě, může dojít k neočekávaným problémům. Například pokud databáze ještě neexistuje, kód pro osazení se spustí před spuštěním příkazu EF Core migrace. Tento problém způsobí selhání `dotnet ef migrations list` příkazu, pokud databáze ještě neexistuje.
 
-Vezměme si následující 1.x počáteční `Configure` inicializační kód v metodě *Startup.cs*:
+V `Configure` metodě *Startup.cs*Vezměte v úvahu následující inicializační kód počátečního použití: 1. x:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_ConfigureSeedData&highlight=8)]
 
-V projektech 2.0 `SeedData.Initialize` přesuňte `Main` volání na metodu *Program.cs*:
+V projektech 2,0 přesuňte `SeedData.Initialize` volání `Main` metody *program.cs*:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program2.cs?name=snippet_Main2Code&highlight=10)]
 
-Od 2.0 je špatné dělat cokoli v `BuildWebHost` jiném než vytvořit a nakonfigurovat webhosting. Cokoli, co je o spuštění aplikace `BuildWebHost` &mdash; by měly `Main` být zpracovány mimo obvykle v metodě *Program.cs*.
+Od 2,0 se nejedná o špatný postup, který se dá `BuildWebHost` dělat s výjimkou sestavení a konfigurace webového hostitele. Cokoli, co je o spuštění aplikace, by mělo být zpracováno mimo `BuildWebHost` &mdash; obvykle `Main` v metodě *program.cs*.
 
 <a name="view-compilation"></a>
 
-## <a name="review-razor-view-compilation-setting"></a>Zkontrolovat nastavení kompilace zobrazení Razor
+## <a name="review-razor-view-compilation-setting"></a>Kontrola Razor nastavení kompilace zobrazení
 
-Rychlejší spuštění aplikace a menší publikované balíčky jsou pro vás nesmírně důležité. Z těchto důvodů je [kompilace Razor view](xref:mvc/views/view-compilation) ve výchozím nastavení povolena v ASP.NET Core 2.0.
+Rychlejší čas spuštění aplikace a menší publikované sady mají největší důležitost. Z těchto důvodů je ve výchozím nastavení povoleno [ Razor zobrazení kompilace](xref:mvc/views/view-compilation) v ASP.NET Core 2,0.
 
-Nastavení `MvcRazorCompileOnPublish` vlastnosti na hodnotu true již není nutné. Pokud nezakážete kompilaci zobrazení, může být vlastnost odebrána ze souboru *.csproj.*
+Nastavení `MvcRazorCompileOnPublish` vlastnosti na hodnotu true již není vyžadováno. Pokud nezakážete kompilaci zobrazení, vlastnost může být odebrána ze souboru *. csproj* .
 
-Při cílení na rozhraní .NET Framework je stále nutné explicitně odkazovat na balíček [Microsoft.AspNetCore.Mvc.Razor.ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation) NuGet ve vašem souboru *.csproj:*
+Při cílení na .NET Framework stále musíte explicitně odkazovat na [Microsoft. AspNetCore. Mvc.Razor ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation) balíček NuGet v souboru *. csproj* :
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=15)]
 
 <a name="app-insights"></a>
 
-## <a name="rely-on-application-insights-light-up-features"></a>Spolehněte se na funkce Application Insights "light-up"
+## <a name="rely-on-application-insights-light-up-features"></a>Spoléhá se na Application Insights funkce "světlého".
 
-Snadné nastavení přístrojové desky výkonu aplikace je důležité. Nyní se můžete spolehnout na nové funkce [Application Insights](/azure/application-insights/app-insights-overview) "light-up", které jsou k dispozici v nástrojích Visual Studio 2017.
+Snadné nastavení instrumentace výkonu aplikace je důležité. Nyní se můžete spoléhat na [Application Insights](/azure/application-insights/app-insights-overview) nové funkce "světlého", které jsou k dispozici v nástrojích sady Visual Studio 2017.
 
-ASP.NET Core 1.1 projekty vytvořené ve Visual Studiu 2017 přidalapplication insights ve výchozím nastavení. Pokud nepoužíváte sdk application insights přímo, mimo *Program.cs* a *Startup.cs*, postupujte takto:
+V aplikaci Visual Studio 2017 byly ve výchozím nastavení přidány Application Insights projekty ASP.NET Core 1,1. Pokud nepoužíváte Application Insights SDK přímo, mimo *program.cs* a *Startup.cs*, postupujte podle těchto kroků:
 
-1. Pokud cílíte na jádro `<PackageReference />` .NET Core, odeberte ze souboru *.csproj* následující uzel:
+1. Pokud cílíte na rozhraní .NET Core, `<PackageReference />` odeberte následující uzel ze souboru *. csproj* :
 
     [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App.csproj?range=10)]
 
-2. Pokud cílení .NET Core, odeberte vyvolání metody `UseApplicationInsights` rozšíření z *Program.cs*:
+2. Pokud cílíte na `UseApplicationInsights` rozhraní .NET Core, odeberte volání rozšiřující metody z *program.cs*:
 
     [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Program.cs?name=snippet_ProgramCsMain&highlight=8)]
 
-3. Odeberte volání rozhraní API na straně klienta Application Insights z *_Layout.cshtml*. Skládá se z těchto dvou řádků kódu:
+3. Odeberte Application Insights volání rozhraní API na straně klienta z *_Layout. cshtml*. Obsahuje následující dva řádky kódu:
 
     [!code-cshtml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Views/Shared/_Layout.cshtml?range=1,19&dedent=4)]
 
-Pokud používáte sady Application Insights SDK přímo, pokračujte v tom. [Metabalíček](xref:fundamentals/metapackage) 2.0 obsahuje nejnovější verzi Application Insights, takže se zobrazí chyba downgradu balíčku, pokud odkazujete na starší verzi.
+Pokud používáte sadu Application Insights SDK přímo, pokračujte v tomto případě. 2,0 [Metapackage](xref:fundamentals/metapackage) zahrnuje nejnovější verzi Application Insights, takže při odkazování na starší verzi se zobrazí chyba downgrade balíčku.
 
 <a name="auth-and-identity"></a>
 
-## <a name="adopt-authenticationidentity-improvements"></a>Přijmout vylepšení ověřování a identity
+## <a name="adopt-authenticationidentity-improvements"></a>Přijmout ověřování/Identity vylepšení
 
-ASP.NET Core 2.0 má nový model ověřování a řadu významných změn ASP.NET základní identity. Pokud jste projekt vytvořili s povolenými individuálními uživatelskými účty nebo jste ručně přidali ověřování nebo identitu, přečtěte si informace [o migraci ověřování a identity do ASP.NET jádra 2.0](xref:migration/1x-to-2x/identity-2x).
+ASP.NET Core 2,0 má nový model ověřování a řadu významných změn, které se ASP.NET Core Identity. Pokud jste vytvořili projekt s povolenými jednotlivými uživatelskými účty, nebo pokud jste ručně přidali ověřování Identity, přečtěte si téma [migrace ověřování a Identity ASP.NET Core 2,0](xref:migration/1x-to-2x/identity-2x).
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Prolomení změn v ASP.NET jádra 2.0](https://github.com/aspnet/announcements/issues?page=1&q=is%3Aissue+is%3Aopen+label%3A2.0.0+label%3A%22Breaking+change%22&utf8=%E2%9C%93)
+* [Přerušující změny v ASP.NET Core 2,0](https://github.com/aspnet/announcements/issues?page=1&q=is%3Aissue+is%3Aopen+label%3A2.0.0+label%3A%22Breaking+change%22&utf8=%E2%9C%93)
