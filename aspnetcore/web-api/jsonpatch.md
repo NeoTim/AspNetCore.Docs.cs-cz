@@ -1,32 +1,38 @@
 ---
-title: JsonPatch v ASP.NET základní webové rozhraní API
+title: JsonPatch v ASP.NET Core Web API
 author: rick-anderson
-description: Zjistěte, jak zpracovat požadavky na opravu JSON v ASP.NET základníwebové rozhraní API.
+description: Naučte se zpracovávat požadavky na opravy JSON ve ASP.NET Core webovém rozhraní API.
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/02/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: web-api/jsonpatch
-ms.openlocfilehash: be4115e870dac818aeb6b1e65ddfb21e89d9cf25
-ms.sourcegitcommit: 9675db7bf4b67ae269f9226b6f6f439b5cce4603
+ms.openlocfilehash: 3a78fa268cce8cff10fedf5814d61ce0e5faaf4b
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/03/2020
-ms.locfileid: "80625871"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82766664"
 ---
-# <a name="jsonpatch-in-aspnet-core-web-api"></a>JsonPatch v ASP.NET základní webové rozhraní API
+# <a name="jsonpatch-in-aspnet-core-web-api"></a>JsonPatch v ASP.NET Core Web API
 
-Tom [Dykstra](https://github.com/tdykstra) a [Kirk Larkin](https://github.com/serpent5)
+[Dykstra](https://github.com/tdykstra) a [Kirka Larkin](https://github.com/serpent5)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Tento článek vysvětluje, jak zpracovat požadavky na opravu JSON v ASP.NET základní webové rozhraní API.
+Tento článek vysvětluje, jak zpracovat žádosti o opravu JSON ve ASP.NET Core webovém rozhraní API.
 
 ## <a name="package-installation"></a>Instalace balíčku
 
-Chcete-li ve své aplikaci povolit podporu aplikace JSON Patch, proveďte následující kroky:
+Pokud chcete ve své aplikaci povolit podporu oprav JSON, proveďte následující kroky:
 
-1. Nainstalujte balíček [Microsoft.AspNetCore.Mvc.NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) NuGet.
-1. Aktualizujte `Startup.ConfigureServices` metodu projektu <xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*>tak, aby volala . Příklad:
+1. Nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) .
+1. Aktualizujte `Startup.ConfigureServices` metodu projektu pro volání <xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*>. Příklad:
 
     ```csharp
     services
@@ -40,27 +46,27 @@ Chcete-li ve své aplikaci povolit podporu aplikace JSON Patch, proveďte násle
 * <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews*>
 * <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers*>
 
-## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>JSON Patch, AddNewtonsoftJson a System.Text.Json
+## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>JSON patch, AddNewtonsoftJson a System. text. JSON
 
-`AddNewtonsoftJson`nahradí `System.Text.Json`vstupní a výstupní promorávací věci používané pro formátování **veškerého** obsahu JSON. Chcete-li přidat podporu pro `Newtonsoft.Json`JSON Patch pomocí , zatímco ostatní `Startup.ConfigureServices` formatters beze změny, aktualizujte metodu projektu takto:
+`AddNewtonsoftJson``System.Text.Json`nahradí vstupní a výstupní formátovací moduly používané pro formátování **veškerého** obsahu JSON. Chcete-li přidat podporu pro opravu `Newtonsoft.Json`JSON pomocí příkazu, zatímco ostatní formátovací moduly zůstaly beze změny, `Startup.ConfigureServices` aktualizujte metodu projektu následujícím způsobem:
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet)]
 
-Předchozí kód vyžaduje `Microsoft.AspNetCore.Mvc.NewtonsoftJson` balíček a `using` následující příkazy:
+Předchozí kód vyžaduje `Microsoft.AspNetCore.Mvc.NewtonsoftJson` balíček a následující `using` příkazy:
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet1)]
 
-## <a name="patch-http-request-method"></a>Metoda požadavku PATCH HTTP
+## <a name="patch-http-request-method"></a>Oprava metody požadavku HTTP
 
-Metody PUT a [PATCH](https://tools.ietf.org/html/rfc5789) se používají k aktualizaci existujícího prostředku. Rozdíl mezi nimi je, že PUT nahradí celý prostředek, zatímco PATCH určuje pouze změny.
+Metody PUT a [patch](https://tools.ietf.org/html/rfc5789) se používají k aktualizaci existujícího prostředku. Rozdíl mezi nimi spočívá v tom, že PUT nahradí celý prostředek, zatímco PATCH zadává pouze změny.
 
-## <a name="json-patch"></a>JSON Patch
+## <a name="json-patch"></a>Oprava JSON
 
-[JSON Patch](https://tools.ietf.org/html/rfc6902) je formát pro určení aktualizací, které mají být použity pro prostředek. Dokument Záplaty JSON má řadu *operací*. Každá operace identifikuje určitý typ změny. Příklady takových změn zahrnují přidání prvku pole nebo nahrazení hodnoty vlastnosti.
+[Oprava JSON](https://tools.ietf.org/html/rfc6902) je formát pro určení aktualizací, které se mají použít u prostředku. Dokument opravy JSON má pole *operací*. Každá operace identifikuje konkrétní typ změny. Příklady takových změn zahrnují přidání prvku pole nebo nahrazení hodnoty vlastnosti.
 
-Například následující dokumenty JSON představují prostředek, dokument Záplata JSON pro prostředek a výsledek použití operací Opravy.
+Následující dokumenty JSON například reprezentují prostředek, dokument opravy JSON pro daný prostředek a výsledek použití operací opravy.
 
-### <a name="resource-example"></a>Příklad zdroje
+### <a name="resource-example"></a>Příklad prostředku
 
 [!code-json[](jsonpatch/samples/2.2/JSON/customer.json)]
 
@@ -68,15 +74,15 @@ Například následující dokumenty JSON představují prostředek, dokument Z�
 
 [!code-json[](jsonpatch/samples/2.2/JSON/add.json)]
 
-V předchozím JSON:
+V předchozím kódu JSON:
 
-* Vlastnost `op` označuje typ operace.
-* Vlastnost `path` označuje prvek aktualizovat.
-* Vlastnost `value` poskytuje novou hodnotu.
+* `op` Vlastnost určuje typ operace.
+* `path` Vlastnost určuje prvek, který se má aktualizovat.
+* `value` Vlastnost poskytuje novou hodnotu.
 
-### <a name="resource-after-patch"></a>Zdroj po opravě
+### <a name="resource-after-patch"></a>Prostředek po opravě
 
-Zde je zdroj po použití předchozího dokumentu Opravy JSON:
+Toto je prostředek po použití předchozího dokumentu opravy JSON:
 
 ```json
 {
@@ -98,60 +104,60 @@ Zde je zdroj po použití předchozího dokumentu Opravy JSON:
 }
 ```
 
-Změny provedené použitím dokumentu Záplaty JSON na prostředek jsou atomické. Pokud se některá operace v seznamu nezdaří, nebude použita žádná operace v seznamu.
+Změny provedené při použití dokumentu opravy JSON na prostředek jsou atomické. Pokud se některá operace v seznamu nezdařila, nebude použita žádná operace v seznamu.
 
 ## <a name="path-syntax"></a>Syntaxe cesty
 
 Vlastnost [path](https://tools.ietf.org/html/rfc6901) objektu operace má lomítka mezi úrovněmi. Například, `"/address/zipCode"`.
 
-Indexy založené na nule se používají k určení prvků pole. První prvek `addresses` pole by se `/addresses/0`na . Na `add` konec pole použijte místo čísla`-` `/addresses/-`indexu pomlčku ( ).
+Indexy založené na nule slouží k určení prvků pole. První prvek `addresses` pole by byl na `/addresses/0`. Na `add` konec pole použijte spojovník (`-`) místo čísla indexu:. `/addresses/-`
 
 ### <a name="operations"></a>Operace
 
-V následující tabulce jsou uvedeny podporované operace definované ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
+V následující tabulce jsou uvedeny podporované operace, jak je definováno ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
 
 |Operace  | Poznámky |
 |-----------|--------------------------------|
-| `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: set value.|
-| `remove`  | Odeberte vlastnost nebo prvek pole. |
-| `replace` | Stejné `remove` jako `add` na stejném místě. |
-| `move`    | Stejné `remove` jako ze `add` zdroje následuje cíl pomocí hodnoty ze zdroje. |
-| `copy`    | Stejné `add` jako k cíli pomocí hodnoty ze zdroje. |
-| `test`    | Vrátit kód stavu úspěchu, pokud hodnota na `path` = za předpokladu `value`.|
+| `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu.|
+| `remove`  | Odebere vlastnost nebo prvek pole. |
+| `replace` | Stejné jako `remove` následováno `add` ve stejném umístění. |
+| `move`    | Stejné jako `remove` u zdroje, po `add` kterém následuje k cíli, pomocí hodnoty ze zdroje. |
+| `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. |
+| `test`    | Vrátí stavový kód úspěšného zpracování `path` , pokud `value`je zadána hodnota at.|
 
-## <a name="json-patch-in-aspnet-core"></a>JSON Patch v ASP.NET jádru
+## <a name="json-patch-in-aspnet-core"></a>Oprava JSON v ASP.NET Core
 
-ASP.NET Core implementace JSON Patch je k dispozici v balíčku [Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet.
+Implementace opravy JSON ASP.NET Core je k dispozici v balíčku NuGet [Microsoft. AspNetCore. JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) .
 
 ## <a name="action-method-code"></a>Kód metody akce
 
-V řadiči rozhraní API metoda akce pro opravu JSON:
+V řadiči rozhraní API metoda Action pro opravu JSON:
 
-* Je anotován `HttpPatch` s atributem.
-* Přijímá `JsonPatchDocument<T>`, obvykle s `[FromBody]`.
-* Zavolá `ApplyTo` dokument opravy použít změny.
+* Je označen `HttpPatch` atributem.
+* Akceptuje `JsonPatchDocument<T>`, obvykle s `[FromBody]`.
+* Změny `ApplyTo` se projeví v dokumentu opravy.
 
 Tady je příklad:
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_PatchAction&highlight=1,3,9)]
 
-Tento kód z ukázkové aplikace `Customer` funguje s následujícím modelem:
+Tento kód z ukázkové aplikace funguje s následujícím `Customer` modelem:
 
 [!code-csharp[](jsonpatch/samples/2.2/Models/Customer.cs?name=snippet_Customer)]
 
 [!code-csharp[](jsonpatch/samples/2.2/Models/Order.cs?name=snippet_Order)]
 
-Ukázková metoda akce:
+Ukázková akce metody:
 
 * Vytvoří `Customer`.
-* Aplikuje náplast.
+* Aplikuje opravu.
 * Vrátí výsledek v těle odpovědi.
 
-V reálné aplikaci by kód načetl data z úložiště, jako je například databáze, a po použití opravy databázi aktualizoval.
+V reálné aplikaci kód načetl data z úložiště, jako je databáze, a po použití opravy aktualizuje databázi.
 
 ### <a name="model-state"></a>Stav modelu
 
-Příklad předchozí metody akce volá `ApplyTo` přetížení, které trvá stav modelu jako jeden z jeho parametrů. Pomocí této možnosti můžete získat chybové zprávy v odpovědích. Následující příklad ukazuje tělo 400 chybný požadavek `test` odpověď pro operaci:
+Předchozí příklad metody volá přetížení `ApplyTo` , které přijímá stav modelu jako jeden z jeho parametrů. Pomocí této možnosti můžete získat chybové zprávy v odpovědích. Následující příklad ukazuje tělo 400 chybné odpovědi žádosti pro `test` operaci:
 
 ```json
 {
@@ -163,116 +169,116 @@ Příklad předchozí metody akce volá `ApplyTo` přetížení, které trvá st
 
 ### <a name="dynamic-objects"></a>Dynamické objekty
 
-Následující příklad metody akce ukazuje, jak aplikovat opravu na dynamický objekt:
+Následující příklad metody akce ukazuje, jak použít opravu na dynamický objekt:
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_Dynamic)]
 
 ## <a name="the-add-operation"></a>Operace přidání
 
-* Pokud `path` odkazuje na prvek pole: vloží nový prvek `path`před ten, který je určen .
+* Odkazuje `path` -li na prvek pole: vloží nový prvek před první, který je `path`určen parametrem.
 * Pokud `path` odkazuje na vlastnost: nastaví hodnotu vlastnosti.
 * Pokud `path` odkazuje na neexistující umístění:
-  * Pokud prostředek k opravě je dynamický objekt: přidá vlastnost.
-  * Pokud prostředek k opravě je statický objekt: požadavek se nezdaří.
+  * Pokud je prostředek k opravě dynamický objekt: Přidá vlastnost.
+  * Pokud je prostředek k opravě statický objekt: požadavek se nezdařil.
 
-Následující ukázkový dokument opravy `CustomerName` nastaví `Order` hodnotu a přidá `Orders` objekt na konec pole.
+Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a přidá `Order` objekt na konec `Orders` pole.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/add.json)]
 
-## <a name="the-remove-operation"></a>Operace odebrání
+## <a name="the-remove-operation"></a>Operace Remove
 
-* Pokud `path` odkazuje na prvek pole: odebere prvek.
+* Pokud `path` odkazuje na element pole: Odebere prvek.
 * Pokud `path` odkazuje na vlastnost:
-  * Pokud prostředek k opravě je dynamický objekt: odebere vlastnost.
-  * Pokud je prostředek k opravě statický objekt:
-    * Pokud je vlastnost nullable: nastaví ji na hodnotu null.
-    * Pokud je vlastnost nenulovatelná, `default<T>`nastaví ji na .
+  * Pokud je prostředek k opravě dynamický objekt: Odebere vlastnost.
+  * Pokud je prostředek pro opravu statickým objektem:
+    * Pokud je vlastnost Nullable: nastaví ji na null.
+    * Pokud vlastnost nemůže mít hodnotu null, nastaví ji na `default<T>`.
 
-Následující ukázkový dokument `CustomerName` opravy se `Orders[0]`nastaví na hodnotu null a odstraní :
+Následující ukázkový dokument opravy se nastaví `CustomerName` na hodnotu null a `Orders[0]`odstraní:
 
 [!code-json[](jsonpatch/samples/2.2/JSON/remove.json)]
 
-## <a name="the-replace-operation"></a>Operace výměny
+## <a name="the-replace-operation"></a>Operace Replace
 
-Tato operace je funkčně `remove` stejná `add`jako následuje .
+Tato operace je funkčně stejná jako `remove` následováno. `add`
 
-Následující ukázkový dokument opravy `CustomerName` nastaví `Orders[0]`hodnotu `Order` a nahradí novým objektem:
+Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a nahrazuje `Orders[0]`novým `Order` objektem:
 
 [!code-json[](jsonpatch/samples/2.2/JSON/replace.json)]
 
-## <a name="the-move-operation"></a>Operace přesunu
+## <a name="the-move-operation"></a>Operace přesunutí
 
-* Pokud `path` odkazuje na prvek `from` pole: zkopíruje prvek do umístění `path` prvku, pak spustí `remove` operaci na `from` prvek.
-* Pokud `path` odkazuje na vlastnost: `from` zkopíruje `path` hodnotu vlastnosti vlastnosti, spustí `remove` operaci vlastnosti. `from`
+* Pokud `path` odkazuje na element `from` pole: zkopíruje element do umístění `path` elementu a potom spustí `remove` operaci na `from` elementu.
+* Pokud `path` `from` odkazuje na vlastnost: zkopíruje hodnotu vlastnosti na `path` vlastnost a potom spustí `remove` operaci pro `from` vlastnost.
 * Pokud `path` odkazuje na neexistující vlastnost:
-  * Pokud prostředek k opravě je statický objekt: požadavek se nezdaří.
-  * Pokud prostředek k opravě je `from` dynamický objekt: zkopíruje vlastnost do umístění `path`označeného , pak spustí `remove` operaci na `from` vlastnost.
+  * Pokud je prostředek k opravě statický objekt: požadavek se nezdařil.
+  * Pokud je prostředek pro opravu dynamický objekt: `from` zkopíruje vlastnost do umístění označeného `path`a potom spustí `remove` operaci pro `from` vlastnost.
 
-Následující ukázkový dokument o opravě:
+Následující ukázkový dokument opravy:
 
-* Zkopíruje hodnotu `CustomerName`do . `Orders[0].OrderName`
-* Nastaví `Orders[0].OrderName` hodnotu null.
-* Přesune `Orders[1]` se `Orders[0]`do before .
+* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName`.
+* Nastaví `Orders[0].OrderName` na hodnotu null.
+* Přesune `Orders[1]` se na `Orders[0]`dřív.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/move.json)]
 
 ## <a name="the-copy-operation"></a>Operace kopírování
 
-Tato operace je funkčně `move` stejná `remove` jako operace bez posledního kroku.
+Tato operace je funkčně stejná jako `move` operace bez posledního `remove` kroku.
 
-Následující ukázkový dokument o opravě:
+Následující ukázkový dokument opravy:
 
-* Zkopíruje hodnotu `CustomerName`do . `Orders[0].OrderName`
+* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName`.
 * Vloží kopii `Orders[1]` před `Orders[0]`.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/copy.json)]
 
-## <a name="the-test-operation"></a>Zkušební operace
+## <a name="the-test-operation"></a>Operace testu
 
-Pokud se hodnota v umístění `path` označeném v písmenu `value`a) liší od hodnoty uvedené v písmenu , požadavek se nezdaří. V takovém případě se nezdaří celý požadavek PATCH i v případě, že všechny ostatní operace v dokumentu opravy by jinak úspěšné.
+Pokud hodnota v umístění, která `path` je uvedena v, se liší od hodnoty uvedené `value`v, požadavek se nezdařil. V takovém případě celá žádost o opravu selže i v případě, že všechny ostatní operace v dokumentu opravy by jinak uspěly.
 
-Operace `test` se běžně používá k zabránění aktualizaci, když dojde ke konfliktu souběžnosti.
+Tato `test` operace se běžně používá k tomu, aby se zabránilo aktualizaci v případě konfliktu souběžnosti.
 
-Následující ukázkový dokument opravy nemá žádný `CustomerName` vliv, pokud počáteční hodnota je "Jan", protože test se nezdaří:
+Následující ukázkový dokument opravy nemá žádný vliv, pokud `CustomerName` je původní hodnota "Jan", protože test se nezdařil:
 
 [!code-json[](jsonpatch/samples/2.2/JSON/test-fail.json)]
 
 ## <a name="get-the-code"></a>Získání kódu
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples). ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples). ([Stažení](xref:index#how-to-download-a-sample)).
 
-Chcete-li vzorek otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
+Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
 
-* Adresu url:`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
+* Adresa URL`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * Metoda HTTP:`PATCH`
-* Záhlaví:`Content-Type: application/json-patch+json`
-* Tělo: Zkopírujte a vložte jeden z vzorků dokumentu opravy JSON ze složky projektu *JSON.*
+* Hlaviček`Content-Type: application/json-patch+json`
+* Tělo: Zkopírujte a vložte jeden ze vzorků dokumentů opravy JSON ze složky projektu *JSON* .
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Specifikace metody IETF RFC 5789 PATCH](https://tools.ietf.org/html/rfc5789)
-* [Specifikace opravy IETF RFC 6902 JSON](https://tools.ietf.org/html/rfc6902)
-* [Specifikace formátu cesty záplaty IETF RFC 6901 JSON](https://tools.ietf.org/html/rfc6901)
-* [Dokumentace k záplatě JSON](https://jsonpatch.com/). Obsahuje odkazy na prostředky pro vytváření dokumentů opravy JSON.
-* [zdrojový kód opravy ASP.NET Jádra JSON](https://github.com/dotnet/AspNetCore/tree/master/src/Features/JsonPatch/src)
+* [IETF RFC 5789 – specifikace metody opravy](https://tools.ietf.org/html/rfc5789)
+* [Specifikace opravy JSON pro IETF RFC 6902](https://tools.ietf.org/html/rfc6902)
+* [IETF RFC 6901 JSON – specifikace formátu pro cestu k opravě](https://tools.ietf.org/html/rfc6901)
+* [Dokumentace k opravě JSON](https://jsonpatch.com/). Obsahuje odkazy na zdroje informací pro vytváření dokumentů oprav JSON.
+* [ASP.NET Core zdrojový kód opravy JSON](https://github.com/dotnet/AspNetCore/tree/master/src/Features/JsonPatch/src)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Tento článek vysvětluje, jak zpracovat požadavky na opravu JSON v ASP.NET základní webové rozhraní API.
+Tento článek vysvětluje, jak zpracovat žádosti o opravu JSON ve ASP.NET Core webovém rozhraní API.
 
-## <a name="patch-http-request-method"></a>Metoda požadavku PATCH HTTP
+## <a name="patch-http-request-method"></a>Oprava metody požadavku HTTP
 
-Metody PUT a [PATCH](https://tools.ietf.org/html/rfc5789) se používají k aktualizaci existujícího prostředku. Rozdíl mezi nimi je, že PUT nahradí celý prostředek, zatímco PATCH určuje pouze změny.
+Metody PUT a [patch](https://tools.ietf.org/html/rfc5789) se používají k aktualizaci existujícího prostředku. Rozdíl mezi nimi spočívá v tom, že PUT nahradí celý prostředek, zatímco PATCH zadává pouze změny.
 
-## <a name="json-patch"></a>JSON Patch
+## <a name="json-patch"></a>Oprava JSON
 
-[JSON Patch](https://tools.ietf.org/html/rfc6902) je formát pro určení aktualizací, které mají být použity pro prostředek. Dokument Záplaty JSON má řadu *operací*. Každá operace identifikuje určitý typ změny, například přidat prvek pole nebo nahradit hodnotu vlastnosti.
+[Oprava JSON](https://tools.ietf.org/html/rfc6902) je formát pro určení aktualizací, které se mají použít u prostředku. Dokument opravy JSON má pole *operací*. Každá operace identifikuje konkrétní typ změny, jako je například přidání prvku pole nebo nahrazení hodnoty vlastnosti.
 
-Například následující dokumenty JSON představují prostředek, dokument opravy JSON pro prostředek a výsledek použití operací opravy.
+Následující dokumenty JSON například reprezentují prostředek, dokument opravy JSON pro daný prostředek a výsledek použití operací opravy.
 
-### <a name="resource-example"></a>Příklad zdroje
+### <a name="resource-example"></a>Příklad prostředku
 
 [!code-json[](jsonpatch/samples/2.2/JSON/customer.json)]
 
@@ -280,15 +286,15 @@ Například následující dokumenty JSON představují prostředek, dokument op
 
 [!code-json[](jsonpatch/samples/2.2/JSON/add.json)]
 
-V předchozím JSON:
+V předchozím kódu JSON:
 
-* Vlastnost `op` označuje typ operace.
-* Vlastnost `path` označuje prvek aktualizovat.
-* Vlastnost `value` poskytuje novou hodnotu.
+* `op` Vlastnost určuje typ operace.
+* `path` Vlastnost určuje prvek, který se má aktualizovat.
+* `value` Vlastnost poskytuje novou hodnotu.
 
-### <a name="resource-after-patch"></a>Zdroj po opravě
+### <a name="resource-after-patch"></a>Prostředek po opravě
 
-Zde je zdroj po použití předchozího dokumentu Opravy JSON:
+Toto je prostředek po použití předchozího dokumentu opravy JSON:
 
 ```json
 {
@@ -310,60 +316,60 @@ Zde je zdroj po použití předchozího dokumentu Opravy JSON:
 }
 ```
 
-Změny provedené použitím dokumentu Záplaty JSON na prostředek jsou atomické: pokud se nezdaří jakákoli operace v seznamu, nebude použita žádná operace v seznamu.
+Změny provedené při použití dokumentu opravy JSON na prostředek jsou atomické: Pokud se některá operace v seznamu nezdařila, nepoužije se žádná operace v seznamu.
 
 ## <a name="path-syntax"></a>Syntaxe cesty
 
 Vlastnost [path](https://tools.ietf.org/html/rfc6901) objektu operace má lomítka mezi úrovněmi. Například, `"/address/zipCode"`.
 
-Indexy založené na nule se používají k určení prvků pole. První prvek `addresses` pole by se `/addresses/0`na . Na `add` konec pole použijte pomlčku (-) místo čísla indexu: `/addresses/-`.
+Indexy založené na nule slouží k určení prvků pole. První prvek `addresses` pole by byl na `/addresses/0`. Na `add` konec pole, použijte spojovník (-) místo čísla indexu: `/addresses/-`.
 
 ### <a name="operations"></a>Operace
 
-V následující tabulce jsou uvedeny podporované operace definované ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
+V následující tabulce jsou uvedeny podporované operace, jak je definováno ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
 
 |Operace  | Poznámky |
 |-----------|--------------------------------|
-| `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: set value.|
-| `remove`  | Odeberte vlastnost nebo prvek pole. |
-| `replace` | Stejné `remove` jako `add` na stejném místě. |
-| `move`    | Stejné `remove` jako ze `add` zdroje následuje cíl pomocí hodnoty ze zdroje. |
-| `copy`    | Stejné `add` jako k cíli pomocí hodnoty ze zdroje. |
-| `test`    | Vrátit kód stavu úspěchu, pokud hodnota na `path` = za předpokladu `value`.|
+| `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu.|
+| `remove`  | Odebere vlastnost nebo prvek pole. |
+| `replace` | Stejné jako `remove` následováno `add` ve stejném umístění. |
+| `move`    | Stejné jako `remove` u zdroje, po `add` kterém následuje k cíli, pomocí hodnoty ze zdroje. |
+| `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. |
+| `test`    | Vrátí stavový kód úspěšného zpracování `path` , pokud `value`je zadána hodnota at.|
 
-## <a name="jsonpatch-in-aspnet-core"></a>JsonPatch v ASP.NET jádru
+## <a name="jsonpatch-in-aspnet-core"></a>JsonPatch v ASP.NET Core
 
-ASP.NET Core implementace JSON Patch je k dispozici v balíčku [Microsoft.AspNetCore.JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) NuGet. Balíček je součástí metabalíčku [Microsoft.AspnetCore.App.](xref:fundamentals/metapackage-app)
+Implementace opravy JSON ASP.NET Core je k dispozici v balíčku NuGet [Microsoft. AspNetCore. JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) . Balíček obsahuje [Microsoft. AspnetCore. app](xref:fundamentals/metapackage-app) Metapackage.
 
 ## <a name="action-method-code"></a>Kód metody akce
 
-V řadiči rozhraní API metoda akce pro opravu JSON:
+V řadiči rozhraní API metoda Action pro opravu JSON:
 
-* Je anotován `HttpPatch` s atributem.
-* Přijímá `JsonPatchDocument<T>`, obvykle s `[FromBody]`.
-* Zavolá `ApplyTo` dokument opravy použít změny.
+* Je označen `HttpPatch` atributem.
+* Akceptuje `JsonPatchDocument<T>`, obvykle s `[FromBody]`.
+* Změny `ApplyTo` se projeví v dokumentu opravy.
 
 Tady je příklad:
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_PatchAction&highlight=1,3,9)]
 
-Tento kód z ukázkové aplikace `Customer` pracuje s následujícím modelem.
+Tento kód z ukázkové aplikace funguje s následujícím `Customer` modelem.
 
 [!code-csharp[](jsonpatch/samples/2.2/Models/Customer.cs?name=snippet_Customer)]
 
 [!code-csharp[](jsonpatch/samples/2.2/Models/Order.cs?name=snippet_Order)]
 
-Ukázková metoda akce:
+Ukázková akce metody:
 
 * Vytvoří `Customer`.
-* Aplikuje náplast.
+* Aplikuje opravu.
 * Vrátí výsledek v těle odpovědi.
 
- V reálné aplikaci by kód načetl data z úložiště, jako je například databáze, a po použití opravy databázi aktualizoval.
+ V reálné aplikaci kód načetl data z úložiště, jako je databáze, a po použití opravy aktualizuje databázi.
 
 ### <a name="model-state"></a>Stav modelu
 
-Příklad předchozí metody akce volá `ApplyTo` přetížení, které trvá stav modelu jako jeden z jeho parametrů. Pomocí této možnosti můžete získat chybové zprávy v odpovědích. Následující příklad ukazuje tělo 400 chybný požadavek `test` odpověď pro operaci:
+Předchozí příklad metody volá přetížení `ApplyTo` , které přijímá stav modelu jako jeden z jeho parametrů. Pomocí této možnosti můžete získat chybové zprávy v odpovědích. Následující příklad ukazuje tělo 400 chybné odpovědi žádosti pro `test` operaci:
 
 ```json
 {
@@ -375,97 +381,97 @@ Příklad předchozí metody akce volá `ApplyTo` přetížení, které trvá st
 
 ### <a name="dynamic-objects"></a>Dynamické objekty
 
-Následující příklad metody akce ukazuje, jak aplikovat opravu na dynamický objekt.
+Následující příklad metody akce ukazuje, jak použít opravu na dynamický objekt.
 
 [!code-csharp[](jsonpatch/samples/2.2/Controllers/HomeController.cs?name=snippet_Dynamic)]
 
 ## <a name="the-add-operation"></a>Operace přidání
 
-* Pokud `path` odkazuje na prvek pole: vloží nový prvek `path`před ten, který je určen .
+* Odkazuje `path` -li na prvek pole: vloží nový prvek před první, který je `path`určen parametrem.
 * Pokud `path` odkazuje na vlastnost: nastaví hodnotu vlastnosti.
 * Pokud `path` odkazuje na neexistující umístění:
-  * Pokud prostředek k opravě je dynamický objekt: přidá vlastnost.
-  * Pokud prostředek k opravě je statický objekt: požadavek se nezdaří.
+  * Pokud je prostředek k opravě dynamický objekt: Přidá vlastnost.
+  * Pokud je prostředek k opravě statický objekt: požadavek se nezdařil.
 
-Následující ukázkový dokument opravy `CustomerName` nastaví `Order` hodnotu a přidá `Orders` objekt na konec pole.
+Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a přidá `Order` objekt na konec `Orders` pole.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/add.json)]
 
-## <a name="the-remove-operation"></a>Operace odebrání
+## <a name="the-remove-operation"></a>Operace Remove
 
-* Pokud `path` odkazuje na prvek pole: odebere prvek.
+* Pokud `path` odkazuje na element pole: Odebere prvek.
 * Pokud `path` odkazuje na vlastnost:
-  * Pokud prostředek k opravě je dynamický objekt: odebere vlastnost.
-  * Pokud je prostředek k opravě statický objekt:
-    * Pokud je vlastnost nullable: nastaví ji na hodnotu null.
-    * Pokud je vlastnost nenulovatelná, `default<T>`nastaví ji na .
+  * Pokud je prostředek k opravě dynamický objekt: Odebere vlastnost.
+  * Pokud je prostředek pro opravu statickým objektem:
+    * Pokud je vlastnost Nullable: nastaví ji na null.
+    * Pokud vlastnost nemůže mít hodnotu null, nastaví ji na `default<T>`.
 
-Následující ukázkový dokument `CustomerName` opravy se `Orders[0]`nastaví na hodnotu null a odstraní .
+Následující ukázkový dokument opravy se nastaví `CustomerName` na hodnotu null a `Orders[0]`odstraní.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/remove.json)]
 
-## <a name="the-replace-operation"></a>Operace výměny
+## <a name="the-replace-operation"></a>Operace Replace
 
-Tato operace je funkčně `remove` stejná `add`jako následuje .
+Tato operace je funkčně stejná jako `remove` následováno. `add`
 
-Následující ukázkový dokument opravy `CustomerName` nastaví `Orders[0]`hodnotu `Order` a nahradí novým objektem.
+Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a nahrazuje `Orders[0]`novým `Order` objektem.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/replace.json)]
 
-## <a name="the-move-operation"></a>Operace přesunu
+## <a name="the-move-operation"></a>Operace přesunutí
 
-* Pokud `path` odkazuje na prvek `from` pole: zkopíruje prvek do umístění `path` prvku, pak spustí `remove` operaci na `from` prvek.
-* Pokud `path` odkazuje na vlastnost: `from` zkopíruje `path` hodnotu vlastnosti vlastnosti, spustí `remove` operaci vlastnosti. `from`
+* Pokud `path` odkazuje na element `from` pole: zkopíruje element do umístění `path` elementu a potom spustí `remove` operaci na `from` elementu.
+* Pokud `path` `from` odkazuje na vlastnost: zkopíruje hodnotu vlastnosti na `path` vlastnost a potom spustí `remove` operaci pro `from` vlastnost.
 * Pokud `path` odkazuje na neexistující vlastnost:
-  * Pokud prostředek k opravě je statický objekt: požadavek se nezdaří.
-  * Pokud prostředek k opravě je `from` dynamický objekt: zkopíruje vlastnost do umístění `path`označeného , pak spustí `remove` operaci na `from` vlastnost.
+  * Pokud je prostředek k opravě statický objekt: požadavek se nezdařil.
+  * Pokud je prostředek pro opravu dynamický objekt: `from` zkopíruje vlastnost do umístění označeného `path`a potom spustí `remove` operaci pro `from` vlastnost.
 
-Následující ukázkový dokument o opravě:
+Následující ukázkový dokument opravy:
 
-* Zkopíruje hodnotu `CustomerName`do . `Orders[0].OrderName`
-* Nastaví `Orders[0].OrderName` hodnotu null.
-* Přesune `Orders[1]` se `Orders[0]`do before .
+* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName`.
+* Nastaví `Orders[0].OrderName` na hodnotu null.
+* Přesune `Orders[1]` se na `Orders[0]`dřív.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/move.json)]
 
 ## <a name="the-copy-operation"></a>Operace kopírování
 
-Tato operace je funkčně `move` stejná `remove` jako operace bez posledního kroku.
+Tato operace je funkčně stejná jako `move` operace bez posledního `remove` kroku.
 
-Následující ukázkový dokument o opravě:
+Následující ukázkový dokument opravy:
 
-* Zkopíruje hodnotu `CustomerName`do . `Orders[0].OrderName`
+* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName`.
 * Vloží kopii `Orders[1]` před `Orders[0]`.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/copy.json)]
 
-## <a name="the-test-operation"></a>Zkušební operace
+## <a name="the-test-operation"></a>Operace testu
 
-Pokud se hodnota v umístění `path` označeném v písmenu `value`a) liší od hodnoty uvedené v písmenu , požadavek se nezdaří. V takovém případě se nezdaří celý požadavek PATCH i v případě, že všechny ostatní operace v dokumentu opravy by jinak úspěšné.
+Pokud hodnota v umístění, která `path` je uvedena v, se liší od hodnoty uvedené `value`v, požadavek se nezdařil. V takovém případě celá žádost o opravu selže i v případě, že všechny ostatní operace v dokumentu opravy by jinak uspěly.
 
-Operace `test` se běžně používá k zabránění aktualizaci, když dojde ke konfliktu souběžnosti.
+Tato `test` operace se běžně používá k tomu, aby se zabránilo aktualizaci v případě konfliktu souběžnosti.
 
-Následující ukázkový dokument opravy nemá žádný `CustomerName` vliv, pokud počáteční hodnota je "Jan", protože test se nezdaří:
+Následující ukázkový dokument opravy nemá žádný vliv, pokud `CustomerName` je původní hodnota "Jan", protože test se nezdařil:
 
 [!code-json[](jsonpatch/samples/2.2/JSON/test-fail.json)]
 
 ## <a name="get-the-code"></a>Získání kódu
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Jak stáhnout](xref:index#how-to-download-a-sample)).
+[Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/jsonpatch/samples/2.2). ([Stažení](xref:index#how-to-download-a-sample)).
 
-Chcete-li vzorek otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
+Pokud chcete ukázku otestovat, spusťte aplikaci a odešlete požadavky HTTP s následujícím nastavením:
 
-* Adresu url:`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
+* Adresa URL`http://localhost:{port}/jsonpatch/jsonpatchwithmodelstate`
 * Metoda HTTP:`PATCH`
-* Záhlaví:`Content-Type: application/json-patch+json`
-* Tělo: Zkopírujte a vložte jeden z vzorků dokumentu opravy JSON ze složky projektu *JSON.*
+* Hlaviček`Content-Type: application/json-patch+json`
+* Tělo: Zkopírujte a vložte jeden ze vzorků dokumentů opravy JSON ze složky projektu *JSON* .
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Specifikace metody IETF RFC 5789 PATCH](https://tools.ietf.org/html/rfc5789)
-* [Specifikace opravy IETF RFC 6902 JSON](https://tools.ietf.org/html/rfc6902)
-* [Specifikace formátu cesty záplaty IETF RFC 6901 JSON](https://tools.ietf.org/html/rfc6901)
-* [Dokumentace k záplatě JSON](https://jsonpatch.com/). Obsahuje odkazy na prostředky pro vytváření dokumentů opravy JSON.
-* [zdrojový kód opravy ASP.NET Jádra JSON](https://github.com/dotnet/AspNetCore/tree/master/src/Features/JsonPatch/src)
+* [IETF RFC 5789 – specifikace metody opravy](https://tools.ietf.org/html/rfc5789)
+* [Specifikace opravy JSON pro IETF RFC 6902](https://tools.ietf.org/html/rfc6902)
+* [IETF RFC 6901 JSON – specifikace formátu pro cestu k opravě](https://tools.ietf.org/html/rfc6901)
+* [Dokumentace k opravě JSON](https://jsonpatch.com/). Obsahuje odkazy na zdroje informací pro vytváření dokumentů oprav JSON.
+* [ASP.NET Core zdrojový kód opravy JSON](https://github.com/dotnet/AspNetCore/tree/master/src/Features/JsonPatch/src)
 
 ::: moniker-end

@@ -7,14 +7,18 @@ ms.author: rick-anderson
 ms.custom: mvc
 ms.date: 03/17/2020
 no-loc:
+- Blazor
 - Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/mfa
-ms.openlocfilehash: 6220688d53f0718ca5be5f63dd5d9539d37e2391
-ms.sourcegitcommit: d64ef143c64ee4fdade8f9ea0b753b16752c5998
+ms.openlocfilehash: e2f34a72515a700223ce83ce6ec8b55020599ab0
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/18/2020
-ms.locfileid: "79520195"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767418"
 ---
 # <a name="multi-factor-authentication-in-aspnet-core"></a>Multi-Factor Authentication v ASP.NET Core
 
@@ -25,7 +29,7 @@ Multi-Factor Authentication (MFA) je proces, při kterém se uživatel během p�
 Tento článek se zabývá následujícími oblastmi:
 
 * Co je MFA a jaké jsou doporučené toky MFA
-* Konfigurace MFA pro stránky správy pomocí ASP.NET Core Identity
+* Konfigurace MFA pro stránky správy pomocí ASP.NET CoreIdentity
 * Odeslat požadavek na přihlášení MFA serveru OpenID Connect
 * Vynutit, ASP.NET Core OpenID připojit klienta k vyžádání MFA
 
@@ -37,7 +41,7 @@ Dvojúrovňové ověřování (2FA) je jako podmnožina MFA, ale rozdíl mezi t�
 
 ### <a name="mfa-totp-time-based-one-time-password-algorithm"></a>MFA TOTP (jednorázový algoritmus hesla na základě času)
 
-Vícefaktorové ověřování pomocí TOTP je podporovaná implementace pomocí IdentityASP.NET Core. Tato možnost se dá použít společně s veškerou aplikací dodržujících ověřovacích dat, včetně:
+Vícefaktorové ověřování pomocí TOTP je podporovanou implementací Identitypomocí ASP.NET Core. Tato možnost se dá použít společně s veškerou aplikací dodržujících ověřovacích dat, včetně:
 
 * Aplikace Microsoft Authenticator
 * Aplikace Google Authenticator
@@ -63,13 +67,13 @@ VÍCEFAKTOROVÉ ověřování pomocí SMS zvyšuje zabezpečení v porovnání s
 
 [Pokyny pro NIST](https://pages.nist.gov/800-63-3/sp800-63b.html)
 
-## <a name="configure-mfa-for-administration-pages-using-aspnet-core-opno-locidentity"></a>Konfigurace MFA pro stránky správy pomocí ASP.NET Core Identity
+## <a name="configure-mfa-for-administration-pages-using-aspnet-core-identity"></a>Konfigurace MFA pro stránky správy pomocí ASP.NET CoreIdentity
 
-Vícefaktorové ověřování může být pro uživatele vynucené k přístupu k citlivým stránkám v aplikaci ASP.NET Core Identity. To může být užitečné pro aplikace, kde pro různé identity existují různé úrovně přístupu. Uživatelé můžou například zobrazit profilová data pomocí přihlašovacího hesla, ale pro přístup ke stránkám pro správu musel správce použít MFA.
+Vícefaktorové ověřování může být pro uživatele vynucené k přístupu k citlivým Identity stránkám v aplikaci ASP.NET Core. To může být užitečné pro aplikace, kde pro různé identity existují různé úrovně přístupu. Uživatelé můžou například zobrazit profilová data pomocí přihlašovacího hesla, ale pro přístup ke stránkám pro správu musel správce použít MFA.
 
 ### <a name="extend-the-login-with-an-mfa-claim"></a>Prodloužení přihlašovacích údajů s deklarací MFA
 
-Ukázkový kód je nastaven pomocí ASP.NET Core s Identity a Razor Pages. Metoda `AddIdentity` se používá místo `AddDefaultIdentity` jednoho, takže k přidání deklarací identity do identity po úspěšném přihlášení se dá použít `IUserClaimsPrincipalFactory` implementace.
+Ukázkový kód je nastaven pomocí ASP.NET Core se Identity stránkami Razor a. `AddIdentity` Metoda se používá místo `AddDefaultIdentity` jedné, takže `IUserClaimsPrincipalFactory` implementaci lze použít k přidání deklarací identity do identity po úspěšném přihlášení.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -95,7 +99,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Třída `AdditionalUserClaimsPrincipalFactory` přidává deklaraci identity `amr` deklaracím identity uživatele až po úspěšném přihlášení. Hodnota deklarace identity je čtena z databáze. Deklarace identity se tady přidá, protože uživatel by měl mít přístup jenom k vyššímu chráněnému zobrazení, pokud se identita přihlásila pomocí MFA. Pokud je zobrazení databáze čteno z databáze přímo namísto použití deklarace identity, je možné získat přístup k zobrazení bez MFA přímo po aktivaci MFA.
+`AdditionalUserClaimsPrincipalFactory` Třída přidá `amr` deklaraci identity uživateli až po úspěšném přihlášení. Hodnota deklarace identity je čtena z databáze. Deklarace identity se tady přidá, protože uživatel by měl mít přístup jenom k vyššímu chráněnému zobrazení, pokud se identita přihlásila pomocí MFA. Pokud je zobrazení databáze čteno z databáze přímo namísto použití deklarace identity, je možné získat přístup k zobrazení bez MFA přímo po aktivaci MFA.
 
 ```csharp
 using Microsoft.AspNetCore.Identity;
@@ -140,7 +144,7 @@ namespace IdentityStandaloneMfa
 }
 ```
 
-Vzhledem k tomu, že se instalace služby Identity ve třídě `Startup` změnila, je nutné aktualizovat rozvržení Identity. Vygenerování uživatelského rozhraní Identity stránek do aplikace Definujte rozložení v souboru *Identity/Account/Manage/_Layout. cshtml* .
+Vzhledem k Identity tomu, že došlo ke `Startup` změně nastavení služby ve třídě, Identity je nutné aktualizovat rozložení. Vygenerování Identity uživatelského rozhraní stránek do aplikace Definujte rozložení v souboru * Identity/Account/Manage/_Layout. cshtml* .
 
 ```cshtml
 @{
@@ -148,7 +152,7 @@ Vzhledem k tomu, že se instalace služby Identity ve třídě `Startup` změnil
 }
 ```
 
-Přiřaďte také rozložení pro všechny stránky pro správu z Identity stránek:
+Přiřaďte také rozložení pro všechny stránky pro správu ze Identity stránek:
 
 ```cshtml
 @{
@@ -158,7 +162,7 @@ Přiřaďte také rozložení pro všechny stránky pro správu z Identity strá
 
 ### <a name="validate-the-mfa-requirement-in-the-administration-page"></a>Ověřit požadavek MFA na stránce pro správu
 
-Stránka pro správu Razor ověřuje, jestli se uživatel přihlásil pomocí vícefaktorového ověřování. V metodě `OnGet` se identita používá pro přístup k deklaracím uživatelů. `amr` deklarace identity je zaškrtnuta `mfa`hodnoty. Pokud v identitě chybí tato deklarace nebo `false`, stránka se přesměruje na stránku povolit MFA. To je možné, protože uživatel se už přihlásil, ale bez MFA.
+Stránka Správa Razor ověří, zda se uživatel přihlásil pomocí vícefaktorového ověřování. V `OnGet` metodě se identita používá pro přístup k deklaracím uživatelů. `amr` Deklarace identity je kontrolována na hodnotu `mfa`. Pokud v identitě chybí tato deklarace identity nebo `false`je, stránka se přesměruje na stránku povolit MFA. To je možné, protože uživatel se už přihlásil, ale bez MFA.
 
 ```csharp
 using System;
@@ -196,7 +200,7 @@ namespace IdentityStandaloneMfa
 
 ### <a name="ui-logic-to-toggle-user-login-information"></a>Logika uživatelského rozhraní pro přepnutí přihlašovacích údajů uživatele
 
-Při spuštění se přidaly zásady autorizace. Tato zásada vyžaduje `amr` deklarace identity s hodnotou `mfa`.
+Při spuštění se přidaly zásady autorizace. Tato zásada vyžaduje `amr` deklaraci identity s hodnotou `mfa`.
 
 ```csharp
 services.AddAuthorization(options =>
@@ -204,7 +208,7 @@ services.AddAuthorization(options =>
         x => x.RequireClaim("amr", "mfa")));
 ```
 
-Tato zásada se pak dá použít v zobrazení `_Layout` k zobrazení nebo skrytí nabídky **správce** s upozorněním:
+Tato zásada se pak dá v `_Layout` zobrazení použít k zobrazení nebo skrytí nabídky **správce** s upozorněním:
 
 ```cshtml
 @using Microsoft.AspNetCore.Authorization
@@ -250,16 +254,16 @@ Po kliknutí na odkaz pro **správu** se uživatel přesměruje na zobrazení pr
 
 ## <a name="send-mfa-sign-in-requirement-to-openid-connect-server"></a>Odeslat požadavek na přihlášení MFA serveru OpenID Connect 
 
-Parametr `acr_values` lze použít k předání `mfa` požadované hodnoty z klienta na server v žádosti o ověření.
+`acr_values` Parametr lze použít k předání `mfa` požadované hodnoty z klienta na server v žádosti o ověření.
 
 > [!NOTE]
-> Aby tato funkce fungovala, musí být na serveru otevřeného ID Connect zpracován parametr `acr_values`.
+> Aby `acr_values` Tato funkce fungovala, musí být na serveru otevřeného ID Connect zpracován parametr.
 
 ### <a name="openid-connect-aspnet-core-client"></a>OpenID Connect ASP.NET Core klienta
 
-Klientská aplikace ASP.NET Core Razor Pages Open ID Connect používá metodu `AddOpenIdConnect` pro přihlášení k serveru s otevřeným ID Connect. Parametr `acr_values` se nastaví s hodnotou `mfa` a pošle se s požadavkem na ověření. `OpenIdConnectEvents` slouží k přidání.
+Aplikace ASP.NET Core Razor Open ID Connect Client App používá `AddOpenIdConnect` metodu pro přihlášení k serveru s otevřeným ID Connect. `acr_values` Parametr je nastaven s `mfa` hodnotou a odeslán s požadavkem na ověření. `OpenIdConnectEvents` Slouží k přidání.
 
-Doporučené hodnoty parametrů `acr_values` najdete v tématu [referenční hodnoty metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08).
+Doporučené `acr_values` hodnoty parametrů najdete v tématu [referenční hodnoty metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08).
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -296,7 +300,7 @@ public void ConfigureServices(IServiceCollection services)
     });
 ```
 
-### <a name="example-openid-connect-identityserver-4-server-with-aspnet-core-opno-locidentity"></a>Příklad OpenID připojení serveru IdentityServer 4 pomocí ASP.NET Core Identity
+### <a name="example-openid-connect-identityserver-4-server-with-aspnet-core-identity"></a>Příklad OpenID připojení serveru IdentityServer 4 pomocí ASP.NET CoreIdentity
 
 Na serveru OpenID Connect, který je implementován pomocí ASP.NET Core Identity s zobrazeními MVC, je vytvořeno nové zobrazení s názvem *ErrorEnable2FA. cshtml* . Zobrazení:
 
@@ -319,9 +323,9 @@ You can enable MFA to login here:
 <a asp-controller="Manage" asp-action="TwoFactorAuthentication">Enable MFA</a>
 ```
 
-V metodě `Login` se `IIdentityServerInteractionService` implementace rozhraní `_interaction` používá pro přístup k parametrům Open ID Connect Request. Parametr `acr_values` je k dispozici pomocí vlastnosti `AcrValues`. Protože klient tuto operaci odeslal pomocí `mfa` sady, dá se zkontrolovat.
+V `Login` metodě se implementace `IIdentityServerInteractionService` `_interaction` rozhraní používá pro přístup k parametrům Open ID Connect Request. K `acr_values` parametru je přistup pomocí `AcrValues` vlastnosti. Jak klient tuto `mfa` možnost odeslal, je možné ho zkontrolovat.
 
-Pokud je vyžadováno MFA a uživatel v ASP.NET Core Identity má povolený MFA, přihlášení pokračuje. Pokud uživatel nemá povolené vícefaktorové ověřování, uživatel se přesměruje na vlastní zobrazení *ErrorEnable2FA. cshtml*. Pak ASP.NET Core Identity uživatele přihlásí.
+Pokud je vyžadováno MFA a uživatel v ASP.NET Core Identity má povolené MFA, přihlášení pokračuje. Pokud uživatel nemá povolené vícefaktorové ověřování, uživatel se přesměruje na vlastní zobrazení *ErrorEnable2FA. cshtml*. Pak ASP.NET Core Identity podepíše uživatele v.
 
 ```csharp
 //
@@ -346,7 +350,7 @@ public async Task<IActionResult> Login(LoginInputModel model)
     // code omitted for brevity
 ```
 
-Metoda `ExternalLoginCallback` funguje jako místní Identity přihlášení. Pro hodnotu `mfa` je zaškrtnuta vlastnost `AcrValues`. Pokud je hodnota `mfa` přítomna, MFA se před dokončením přihlášení vynutí (například přesměrovat na `ErrorEnable2FA` zobrazení).
+`ExternalLoginCallback` Metoda funguje jako místní Identity přihlášení. `AcrValues` Vlastnost je kontrolována na `mfa` hodnotu. Pokud je `mfa` hodnota přítomna, ověřování MFA je vynuceno před dokončením přihlášení (například přesměrované `ErrorEnable2FA` na zobrazení).
 
 ```csharp
 //
@@ -402,15 +406,15 @@ public async Task<IActionResult> ExternalLoginCallback(
 Pokud je už uživatel přihlášený, klientská aplikace:
 
 * Stále ověřuje `amr` deklaraci identity.
-* Umožňuje nastavit MFA s odkazem na Identity zobrazení ASP.NET Core.
+* Můžete nastavit MFA s odkazem na zobrazení ASP.NET Core Identity .
 
 ![acr_values-1](mfa/_static/acr_values-1.png)
 
 ## <a name="force-aspnet-core-openid-connect-client-to-require-mfa"></a>Vynutit, ASP.NET Core OpenID připojit klienta k vyžádání MFA
 
-Tento příklad ukazuje, jak ASP.NET Core aplikace se stránkou Razor, která používá OpenID Connect pro přihlášení, může vyžadovat, aby se uživatelé ověřili pomocí vícefaktorového ověřování.
+Tento příklad ukazuje, jak aplikace Razor ASP.NET Core Page, která používá OpenID Connect k přihlášení, může vyžadovat, aby se uživatelé ověřili pomocí vícefaktorového ověřování.
 
-Pokud chcete ověřit požadavek MFA, vytvoří se `IAuthorizationRequirement` požadavek. Tato stránka se přidá na stránky pomocí zásady, která vyžaduje MFA.
+Chcete-li ověřit požadavek MFA, `IAuthorizationRequirement` je vytvořen požadavek. Tato stránka se přidá na stránky pomocí zásady, která vyžaduje MFA.
 
 ```csharp
 using Microsoft.AspNetCore.Authorization;
@@ -421,11 +425,11 @@ namespace AspNetCoreRequireMfaOidc
 }
 ```
 
-Je implementována `AuthorizationHandler`, která bude používat deklaraci identity `amr` a kontrolu `mfa`hodnoty. `amr` se vrátí v `id_token` úspěšného ověření a může mít mnoho různých hodnot definovaných ve specifikaci [referenčních hodnot metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08) .
+`AuthorizationHandler` Je implementována, která bude používat `amr` deklaraci identity a kontroluje hodnotu `mfa`. `amr` Je vrácen v rámci `id_token` úspěšného ověření a může mít mnoho různých hodnot definovaných ve specifikaci [referenčních hodnot metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08) .
 
 Vrácená hodnota závisí na tom, jak identita byla ověřena, a na základě implementace serveru Connect pro připojení.
 
-`AuthorizationHandler` používá požadavek `RequireMfa` a ověřuje deklaraci identity `amr`. Server OpenID Connect se dá implementovat pomocí IdentityServer4 s ASP.NET Core Identity. Když se uživatel přihlásí pomocí TOTP, vrátí se deklarace identity `amr` s hodnotou MFA. Pokud používáte jinou implementaci serveru OpenID Connect nebo jiný typ MFA, deklarace `amr` bude nebo může mít jinou hodnotu. Aby bylo možné tuto akci přijmout, je nutné kód rozšířit.
+`AuthorizationHandler` Použije `RequireMfa` požadavek a ověří `amr` deklaraci identity. Server OpenID Connect se dá implementovat pomocí IdentityServer4 s ASP.NET Core Identity. Když se uživatel přihlásí pomocí TOTP, `amr` deklarace identity se vrátí s hodnotou MFA. Pokud používáte jinou implementaci serveru OpenID Connect nebo jiný typ MFA, `amr` deklarace identity bude nebo může mít jinou hodnotu. Aby bylo možné tuto akci přijmout, je nutné kód rozšířit.
 
 ```csharp
 using Microsoft.AspNetCore.Authorization;
@@ -460,7 +464,7 @@ namespace AspNetCoreRequireMfaOidc
 }
 ```
 
-V metodě `Startup.ConfigureServices` se jako výchozí schéma výzvou používá `AddOpenIdConnect` metoda. Obslužná rutina autorizace, která se používá ke kontrole deklarace `amr`, se přidá do inverze řídicího kontejneru. Pak se vytvoří zásada, která přidá požadavek `RequireMfa`.
+V `Startup.ConfigureServices` metodě se jako výchozí `AddOpenIdConnect` schéma výzvou používá metoda. Obslužná rutina autorizace, která se používá k ověření `amr` deklarace identity, je přidána do inverze řídicího kontejneru. Pak se vytvoří zásada, která `RequireMfa` požadavek přidá.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -505,7 +509,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Tato zásada se pak na stránce Razor použije podle potřeby. Zásady se dají globálně přidat i pro celou aplikaci.
+Tato zásada se pak na Razor stránce použije podle potřeby. Zásady se dají globálně přidat i pro celou aplikaci.
 
 ```csharp
 using System;
@@ -536,7 +540,7 @@ namespace AspNetCoreRequireMfaOidc.Pages
 }
 ```
 
-Pokud se uživatel ověřuje bez MFA, `amr` deklarace identity pravděpodobně bude mít hodnotu `pwd`. Požadavek nebude autorizovaný pro přístup k této stránce. Pomocí výchozích hodnot se uživatel přesměruje na stránku *účet/AccessDenied* . Toto chování lze změnit nebo můžete implementovat vlastní logiku. V tomto příkladu se přidá odkaz, aby platný uživatel mohl nastavit MFA pro svůj účet.
+Pokud se uživatel ověřuje bez MFA, `amr` deklarace identity pravděpodobně bude mít `pwd` hodnotu. Požadavek nebude autorizovaný pro přístup k této stránce. Pomocí výchozích hodnot se uživatel přesměruje na stránku *účet/AccessDenied* . Toto chování lze změnit nebo můžete implementovat vlastní logiku. V tomto příkladu se přidá odkaz, aby platný uživatel mohl nastavit MFA pro svůj účet.
 
 ```cshtml
 @page
@@ -553,11 +557,11 @@ You require MFA to login here
 <a href="https://localhost:44352/Manage/TwoFactorAuthentication">Enable MFA</a>
 ```
 
-Nyní mají přístup k této stránce nebo webu pouze uživatelé, kteří ověřují pomocí VÍCEFAKTOROVÉHO ověřování. Pokud se používá jiné typy MFA nebo pokud je 2FA v pořádku, bude mít deklarace `amr` jiné hodnoty a musí se zpracovat správně. Jiné otevřené ID připojení servery také vrátí jiné hodnoty pro tuto deklaraci identity a nemusí následovat po specifikaci [referenčních hodnot metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08) .
+Nyní mají přístup k této stránce nebo webu pouze uživatelé, kteří ověřují pomocí VÍCEFAKTOROVÉHO ověřování. Pokud se používá jiné typy MFA nebo pokud je 2FA v `amr` pořádku, bude mít deklarace jiné hodnoty a musí se zpracovat správně. Jiné otevřené ID připojení servery také vrátí jiné hodnoty pro tuto deklaraci identity a nemusí následovat po specifikaci [referenčních hodnot metod ověřování](https://tools.ietf.org/html/draft-ietf-oauth-amr-values-08) .
 
 Pokud se přihlašujete bez MFA (například pomocí hesla jenom heslo):
 
-* `amr` má hodnotu `pwd`:
+* `amr` Má `pwd` hodnotu:
 
     ![require_mfa_oidc_02. png](mfa/_static/require_mfa_oidc_02.png)
 
@@ -565,7 +569,7 @@ Pokud se přihlašujete bez MFA (například pomocí hesla jenom heslo):
 
     ![require_mfa_oidc_03. png](mfa/_static/require_mfa_oidc_03.png)
 
-Případně se přihlaste pomocí jednorázového hesla pomocí Identity:
+Další možností je přihlášení pomocí jednorázového Identityhesla pomocí:
 
 ![require_mfa_oidc_01. png](mfa/_static/require_mfa_oidc_01.png)
 

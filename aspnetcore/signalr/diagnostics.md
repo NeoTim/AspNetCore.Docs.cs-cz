@@ -1,20 +1,24 @@
 ---
-title: Protokolování a diagnostika v ASP.NET Core SignalR
+title: Protokolování a diagnostika v ASP.NET CoreSignalR
 author: anurse
-description: Naučte se shromažďovat diagnostiku z vaší aplikace ASP.NET Core SignalR.
+description: Naučte se shromažďovat diagnostiku z vaší SignalR aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: signalr
 ms.date: 11/12/2019
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: c5bd2ac27f8ca486b0d75aed8439747f72448625
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5fda458c2418c3570d55d551ce5144730afd7f85
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660970"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82767223"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a diagnostika v nástroji ASP.NET Core Signal
 
@@ -31,14 +35,14 @@ Vzhledem k tomu, že je signál, který je součástí ASP.NET Core, používá 
 
 Návěstí používá dvě kategorie protokolovacího nástroje:
 
-* `Microsoft.AspNetCore.SignalR` &ndash; protokolů souvisejících s protokoly hub, aktivací Center, voláním metod a dalšími aktivitami souvisejícími s centrem.
-* `Microsoft.AspNetCore.Http.Connections` &ndash; pro protokoly týkající se přenosů, jako jsou WebSockets, dlouhé cyklické dotazování a události odeslané serverem a infrastruktura signalizace nízké úrovně.
+* `Microsoft.AspNetCore.SignalR`&ndash; pro protokoly související s protokoly centra, aktivací Center, vyvoláním metod a dalšími aktivitami souvisejícími s centrem.
+* `Microsoft.AspNetCore.Http.Connections`&ndash; pro protokoly týkající se přenosů, jako jsou například WebSockets, dlouhé cyklické dotazování a události odeslané serverem a infrastruktura signalizace nízké úrovně.
 
-Pokud chcete povolit podrobné protokoly ze služby Signal, nakonfigurujte obě předchozí předpony na úroveň `Debug` v souboru *appSettings. JSON* přidáním následujících položek do dílčí části `LogLevel` v `Logging`:
+Pokud chcete povolit podrobné protokoly ze služby Signal, nakonfigurujte obě `Debug` předchozí předpony na úroveň v souboru *appSettings. JSON* přidáním následujících položek do `LogLevel` dílčí části v: `Logging`
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
-Tuto možnost lze také nakonfigurovat v kódu v metodě `CreateWebHostBuilder`:
+Tuto možnost lze také nakonfigurovat v kódu v `CreateWebHostBuilder` metodě:
 
 [!code-csharp[](diagnostics/logging-config-code.cs?highlight=5-6)]
 
@@ -47,9 +51,9 @@ Pokud nepoužíváte konfiguraci založenou na formátu JSON, nastavte v konfigu
 * `Logging:LogLevel:Microsoft.AspNetCore.SignalR` = `Debug`
 * `Logging:LogLevel:Microsoft.AspNetCore.Http.Connections` = `Debug`
 
-Informace o tom, jak zadat hodnoty vnořených konfigurací, najdete v dokumentaci ke konfiguračnímu systému. Například při použití proměnných prostředí se místo `:` používá dva `_` znaky (například `Logging__LogLevel__Microsoft.AspNetCore.SignalR`).
+Informace o tom, jak zadat hodnoty vnořených konfigurací, najdete v dokumentaci ke konfiguračnímu systému. Například při použití proměnných prostředí jsou místo `_` `:` (například `Logging__LogLevel__Microsoft.AspNetCore.SignalR`) použity dva znaky (například).
 
-Při shromažďování podrobnějších diagnostických informací pro vaši aplikaci doporučujeme použít `Debug` úroveň. Úroveň `Trace` vytváří vysoce nízkou diagnostiku a je zřídka nutná pro diagnostiku problémů ve vaší aplikaci.
+Tuto `Debug` úroveň doporučujeme používat při shromažďování podrobnějších diagnostických nástrojů pro vaši aplikaci. `Trace` Úroveň přináší vysoce nízkou diagnostiku a je zřídka nutná pro diagnostiku problémů ve vaší aplikaci.
 
 ## <a name="access-server-side-logs"></a>Přístup k protokolům na straně serveru
 
@@ -69,18 +73,18 @@ V části **diagnostické protokoly** na portálu Azure App Service povolte mož
 
 ### <a name="other-environments"></a>Další prostředí
 
-Pokud je aplikace nasazená do jiného prostředí (například Docker, Kubernetes nebo Windows), přečtěte si téma <xref:fundamentals/logging/index>, kde najdete další informace o tom, jak nakonfigurovat zprostředkovatele protokolování vhodné pro prostředí.
+Pokud je aplikace nasazená do jiného prostředí (například Docker, Kubernetes nebo Windows), najdete <xref:fundamentals/logging/index> Další informace o tom, jak nakonfigurovat zprostředkovatele protokolování vhodné pro prostředí.
 
 ## <a name="javascript-client-logging"></a>Protokolování klienta JavaScript
 
 > [!WARNING]
 > Protokoly na straně klienta můžou obsahovat citlivé informace z vaší aplikace. **Nikdy** nezveřejňujte nezpracované protokoly z produkčních aplikací do veřejných fór, jako je GitHub.
 
-Při použití klienta JavaScriptu můžete nakonfigurovat možnosti protokolování pomocí metody `configureLogging` v `HubConnectionBuilder`:
+Při použití klienta JavaScriptu můžete nakonfigurovat možnosti protokolování pomocí `configureLogging` metody na: `HubConnectionBuilder`
 
 [!code-javascript[](diagnostics/logging-config-js.js?highlight=3)]
 
-Pokud chcete protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v metodě `configureLogging`.
+Chcete-li protokolování zcela zakázat `signalR.LogLevel.None` , zadejte `configureLogging` v metodě.
 
 V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta jazyka JavaScript. Nastavením úrovně protokolu na jednu z těchto hodnot povolíte protokolování na této úrovni a všechny úrovně nad ním v tabulce.
 
@@ -96,7 +100,7 @@ V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta j
 
 Po nakonfigurování podrobností se protokoly zapíší do konzoly prohlížeče (nebo standardního výstupu v aplikaci NodeJS).
 
-Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující rozhraní `ILogger`. Jedinou metodou, kterou je třeba implementovat, je `log`, která přebírá úroveň události a zprávu spojenou s událostí. Příklad:
+Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující `ILogger` rozhraní. Jedinou metodou, kterou je třeba implementovat, je `log`, která přebírá úroveň události a zprávu spojenou s událostí. Příklad:
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
@@ -105,29 +109,29 @@ Pokud chcete odesílat protokoly do vlastního systému protokolování, můžet
 > [!WARNING]
 > Protokoly na straně klienta můžou obsahovat citlivé informace z vaší aplikace. **Nikdy** nezveřejňujte nezpracované protokoly z produkčních aplikací do veřejných fór, jako je GitHub.
 
-Chcete-li získat protokoly z klienta rozhraní .NET, můžete použít metodu `ConfigureLogging` v `HubConnectionBuilder`. To funguje stejným způsobem jako metoda `ConfigureLogging` v `WebHostBuilder` a `HostBuilder`. Můžete nakonfigurovat stejné poskytovatele protokolování, které používáte v ASP.NET Core. Je však nutné ručně nainstalovat a povolit balíčky NuGet pro jednotlivé zprostředkovatele protokolování.
+Chcete-li získat protokoly z klienta rozhraní .NET, můžete použít `ConfigureLogging` metodu na `HubConnectionBuilder`. To funguje stejným způsobem jako `ConfigureLogging` metoda na `WebHostBuilder` a. `HostBuilder` Můžete nakonfigurovat stejné poskytovatele protokolování, které používáte v ASP.NET Core. Je však nutné ručně nainstalovat a povolit balíčky NuGet pro jednotlivé zprostředkovatele protokolování.
 
 ### <a name="console-logging"></a>Protokolování konzoly
 
-Aby bylo možné povolit protokolování konzoly, přidejte balíček [Microsoft. Extensions. Logging. Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) . Pak použijte metodu `AddConsole` ke konfiguraci protokolovacího nástroje konzoly:
+Aby bylo možné povolit protokolování konzoly, přidejte balíček [Microsoft. Extensions. Logging. Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console) . Pak použijte `AddConsole` metodu ke konfiguraci protokolovacího nástroje konzoly:
 
 [!code-csharp[](diagnostics/net-client-console-log.cs?highlight=6)]
 
 ### <a name="debug-output-window-logging"></a>Protokolování výstupního okna ladění
 
-Můžete také nakonfigurovat protokoly pro přechod do okna **výstup** v aplikaci Visual Studio. Nainstalujte balíček [Microsoft. Extensions. Logging. Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) a použijte metodu `AddDebug`:
+Můžete také nakonfigurovat protokoly pro přechod do okna **výstup** v aplikaci Visual Studio. Nainstalujte balíček [Microsoft. Extensions. Logging. Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug) a použijte `AddDebug` metodu:
 
 [!code-csharp[](diagnostics/net-client-debug-log.cs?highlight=6)]
 
 ### <a name="other-logging-providers"></a>Další zprostředkovatelé protokolování
 
-SignalR podporuje jiné poskytovatele protokolování, jako je Serilog, SEQ, NLog nebo jakýkoli jiný systém protokolování, který se integruje s `Microsoft.Extensions.Logging`. Pokud váš systém protokolování poskytuje `ILoggerProvider`, můžete ho zaregistrovat pomocí `AddProvider`:
+SignalRpodporuje jiné poskytovatele protokolování, jako je Serilog, SEQ, NLog nebo jakýkoli jiný systém protokolování, který se integruje s `Microsoft.Extensions.Logging`. Pokud váš systém protokolování poskytuje `ILoggerProvider`, můžete ho zaregistrovat pomocí: `AddProvider`
 
 [!code-csharp[](diagnostics/net-client-custom-log.cs?highlight=6)]
 
 ### <a name="control-verbosity"></a>Podrobnost ovládacího prvku
 
-Pokud se přihlašujete z jiných míst v aplikaci, Změna výchozí úrovně na `Debug` může být příliš podrobná. Pomocí filtru můžete nakonfigurovat úroveň protokolování pro protokoly SignalR. To lze provést v kódu, podobně jako na serveru:
+Pokud se přihlašujete z jiných míst v aplikaci, Změna výchozí úrovně na `Debug` může být příliš podrobná. Pomocí filtru můžete nakonfigurovat úroveň protokolování pro SignalR protokoly. To lze provést v kódu, podobně jako na serveru:
 
 [!code-csharp[Controlling verbosity in .NET client](diagnostics/logging-config-client-code.cs?highlight=9-10)]
 
@@ -154,13 +158,13 @@ Po shromáždění trasování můžete trasování exportovat výběrem možnos
 
 Tato metoda se používá pro všechny aplikace.
 
-Nezpracované trasování TCP můžete shromažďovat pomocí tcpdump spuštěním následujícího příkazu z příkazového prostředí. Pokud se zobrazí chyba oprávnění, možná budete muset `root` nebo prefixovat příkaz s `sudo`.
+Nezpracované trasování TCP můžete shromažďovat pomocí tcpdump spuštěním následujícího příkazu z příkazového prostředí. Pokud se zobrazí chyba oprávnění `root` , může být nutné, `sudo` abyste museli být nebo začínat příkazem.
 
 ```console
 tcpdump -i [interface] -w trace.pcap
 ```
 
-Nahraďte `[interface]` síťovým rozhraním, na kterém chcete zachytit. Obvykle se jedná o něco podobného jako `/dev/eth0` (pro standardní rozhraní sítě Ethernet) nebo `/dev/lo0` (pro přenosy v localhost). Další informace najdete na stránce `tcpdump` Man v hostitelském systému.
+Nahraďte `[interface]` síťovým rozhraním, na kterém chcete zachytit. Obvykle se jedná o něco podobného `/dev/eth0` (pro standardní rozhraní sítě Ethernet) `/dev/lo0` nebo (pro přenosy v localhost). Další informace najdete na stránce `tcpdump` muž v hostitelském systému.
 
 ## <a name="collect-a-network-trace-in-the-browser"></a>Shromáždění trasování sítě v prohlížeči
 
@@ -199,7 +203,7 @@ Většina prohlížečů Vývojářské nástroje mít kartu síť, která umož
 
 ## <a name="attach-diagnostics-files-to-github-issues"></a>Připojení diagnostických souborů k problémům GitHubu
 
-Diagnostické soubory můžete k problémům s GitHubem připojit tak, že je přejmenujete, aby měly rozšíření `.txt` a pak je přetáhnete na problém.
+Diagnostické soubory můžete k problémům s GitHubem připojit tak, že je přejmenujete, aby měly `.txt` rozšíření a pak je přetáhnete na problém.
 
 > [!NOTE]
 > Do problému GitHubu prosím nevložíme obsah souborů protokolu ani trasování sítě. Tyto protokoly a trasování můžou být poměrně velké a GitHub je obvykle ořízne.
