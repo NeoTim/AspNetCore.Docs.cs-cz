@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 04/06/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/tag-helpers/builtin-th/partial-tag-helper
-ms.openlocfilehash: 269be9ece674b39d03cb50720f4fb182c565a639
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: d3207969dfbeb9a81e0da88f38a38c6889bbfba9
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78659647"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775866"
 ---
 # <a name="partial-tag-helper-in-aspnet-core"></a>Podpora částečné značky v ASP.NET Core
 
@@ -24,7 +30,7 @@ Přehled pomocníků značek naleznete v tématu <xref:mvc/views/tag-helpers/int
 
 ## <a name="overview"></a>Přehled
 
-Pomocník s částečnou značkou se používá pro vykreslování [částečného zobrazení](xref:mvc/views/partial) v aplikacích Razor Pages a MVC. Vezměte v úvahu:
+Pomocník s částečnou značkou se používá pro vykreslování [částečného zobrazení](xref:mvc/views/partial) na Razor stránkách a aplikacích MVC. Vezměte v úvahu:
 
 * Vyžaduje ASP.NET Core 2,1 nebo novější.
 * Je alternativou k [syntaxi pomocníka HTML](xref:mvc/views/partial#reference-a-partial-view).
@@ -45,7 +51,7 @@ Následuje inventarizace atributů pomocníka částečné značky.
 
 ## <a name="name"></a>jméno
 
-`name` Atribut je vyžadován. Označuje název nebo cestu k částečnému zobrazení, které se má vykreslit. Je-li zadán název částečného zobrazení, je zahájen proces [zjišťování zobrazení](xref:mvc/views/overview#view-discovery) . Tento proces se obejít, když je zadána explicitní cesta. Všechny přijatelné hodnoty `name` najdete v tématu [zjišťování částečného zobrazení](xref:mvc/views/partial#partial-view-discovery).
+`name` Atribut je vyžadován. Označuje název nebo cestu k částečnému zobrazení, které se má vykreslit. Je-li zadán název částečného zobrazení, je zahájen proces [zjišťování zobrazení](xref:mvc/views/overview#view-discovery) . Tento proces se obejít, když je zadána explicitní cesta. Všechny přijatelné `name` hodnoty najdete v tématu [zjišťování částečného zobrazení](xref:mvc/views/partial#partial-view-discovery).
 
 Následující kód používá explicitní cestu, která značí, že *_ProductPartial. cshtml* má být načten ze *sdílené* složky. Pomocí atributu [for](#for) je model předán do částečného zobrazení pro vazbu.
 
@@ -53,31 +59,31 @@ Následující kód používá explicitní cestu, která značí, že *_ProductP
 
 ## <a name="for"></a>pro
 
-Atribut `for` přiřadí [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression) k vyhodnocení proti aktuálnímu modelu. `ModelExpression` odvodí `@Model.` syntaxi. Například `for="Product"` lze použít místo `for="@Model.Product"`. Toto výchozí chování odvození je přepsáno pomocí symbolu `@` pro definování vloženého výrazu.
+`for` Atribut přiřadí [ModelExpression](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.modelexpression) k vyhodnocení proti aktuálnímu modelu. A `ModelExpression` odvodí `@Model.` syntaxi. Například `for="Product"` lze použít místo `for="@Model.Product"`. Toto výchozí chování odvození je potlačeno pomocí `@` symbolu pro definování vloženého výrazu.
 
 Následující kód načte *_ProductPartial. cshtml*:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Product.cshtml?name=snippet_For)]
 
-Částečné zobrazení je vázáno na vlastnost `Product` přidruženého modelu stránky:
+Částečné zobrazení je vázáno na `Product` vlastnost přidruženého modelu stránky:
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Pages/Product.cshtml.cs?highlight=8)]
 
 ## <a name="model"></a>model
 
-Atribut `model` přiřadí instanci modelu, aby byla předána částečnému zobrazení. Atribut `model` nelze použít s atributem [for](#for) .
+`model` Atribut přiřadí instanci modelu, aby byla předána částečnému zobrazení. `model` Atribut nelze použít s atributem [for](#for) .
 
-V následujícím kódu je vytvořen nový objekt `Product` a předán do atributu `model` pro vazbu:
+V následujícím kódu je vytvořena instance nového `Product` objektu a předána do `model` atributu pro vazbu:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Product.cshtml?name=snippet_Model)]
 
-## <a name="view-data"></a>view-data
+## <a name="view-data"></a>zobrazení dat
 
-Atribut `view-data` přiřadí objekt [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) , který se má předat částečnému zobrazení. Následující kód zpřístupňuje celou kolekci ViewData pro částečné zobrazení:
+`view-data` Atribut přiřadí objekt [ViewDataDictionary](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.viewdatadictionary) , který se má předat částečnému zobrazení. Následující kód zpřístupňuje celou kolekci ViewData pro částečné zobrazení:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Product.cshtml?name=snippet_ViewData&highlight=5-)]
 
-V předchozím kódu je hodnota `IsNumberReadOnly` klíče nastavena na `true` a přidána do kolekce ViewData. V důsledku toho je `ViewData["IsNumberReadOnly"]` k dispozici v následujícím částečném zobrazení:
+V předchozím kódu je `IsNumberReadOnly` klíčová hodnota nastavena na `true` a přidána do kolekce ViewData. V důsledku `ViewData["IsNumberReadOnly"]` toho je k dispozici v následujícím částečném zobrazení:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Shared/_ProductViewDataPartial.cshtml?highlight=5)]
 
@@ -85,15 +91,15 @@ V tomto příkladu hodnota `ViewData["IsNumberReadOnly"]` určuje, zda se pole *
 
 ## <a name="migrate-from-an-html-helper"></a>Migrace z pomocníka jazyka HTML
 
-Zvažte následující příklad asynchronní pomocné rutiny HTML. Kolekce produktů je iterovaná a zobrazená. Na první parametr metody `PartialAsync` je načteno částečné zobrazení *_ProductPartial. cshtml* . Instance `Product`ho modelu je předána do částečného zobrazení pro vazbu.
+Zvažte následující příklad asynchronní pomocné rutiny HTML. Kolekce produktů je iterovaná a zobrazená. Na první `PartialAsync` parametr metody je načteno částečné zobrazení *_ProductPartial. cshtml* . Instance `Product` modelu je předána do částečného zobrazení pro vazbu.
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Products.cshtml?name=snippet_HtmlHelper&highlight=3)]
 
-Následující pomocník částečné značky dosáhne stejného chování při asynchronním vykreslování jako pomocníka `PartialAsync` HTML. Atributu `model` je přiřazena instance `Product` modelu pro vazbu k částečnému zobrazení.
+Následující pomocník částečné značky dosáhne stejné chování při asynchronním vykreslování jako pomocník `PartialAsync` HTML. `model` Atributu je přiřazena instance `Product` modelu pro vazbu k částečnému zobrazení.
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Pages/Products.cshtml?name=snippet_TagHelper&highlight=3)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:mvc/views/partial>
 * <xref:mvc/views/overview#weakly-typed-data-viewdata-viewdata-attribute-and-viewbag>

@@ -1,25 +1,31 @@
 ---
 title: Ověření modelu ve ASP.NET Core MVC
 author: rick-anderson
-description: Přečtěte si o ověřování modelu ve ASP.NET Core MVC a Razor Pages.
+description: Přečtěte si o ověřování modelu v ASP.NET Core Razor MVC a stránkách.
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: 0e3d4f4705dbfdae00943de2d85c603b6762a2f8
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: a0f7c070514de26ae007526a5587c13d26d1eb1b
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82205888"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777173"
 ---
-# <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověřování modelu ve ASP.NET Core MVC a Razor Pages
+# <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu ve ASP.NET Core MVC a Razor stránkách
 
 ::: moniker range=">= aspnetcore-3.0"
 
 Od [Kirka Larkin](https://github.com/serpent5)
 
-Tento článek vysvětluje, jak ověřit vstup uživatele ve ASP.NET Core MVC nebo v aplikaci Razor Pages.
+Tento článek vysvětluje, jak ověřit vstup uživatele v aplikaci ASP.NET Core MVC nebo Razor stránky.
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
@@ -27,7 +33,7 @@ Tento článek vysvětluje, jak ověřit vstup uživatele ve ASP.NET Core MVC ne
 
 Stav modelu představuje chyby, které pocházejí ze dvou subsystémů: vazby modelu a ověření modelu. Chyby, které pocházejí z [vazby mezi modely](model-binding.md) , jsou obvykle chyby převodu dat. Například "x" je zadáno v poli typu Integer. K ověření modelu dochází po vazbě modelu a hlášení chyb, kde data neodpovídají obchodním pravidlům. Například hodnota 0 se zadává v poli, které očekává hodnocení mezi 1 a 5.
 
-Před provedením akce kontroleru nebo obslužné rutiny Razor Pages dojde k ověření vazby modelů i k ověřování modelu. U webových aplikací je zodpovědností aplikace vhodné je kontrolovat `ModelState.IsValid` a reagovat. Webové aplikace obvykle znovu zobrazí stránku s chybovou zprávou:
+Vazba modelů i ověřování modelu proběhne před provedením akce kontroleru nebo metody obslužné rutiny Razor stránky. U webových aplikací je zodpovědností aplikace vhodné je kontrolovat `ModelState.IsValid` a reagovat. Webové aplikace obvykle znovu zobrazí stránku s chybovou zprávou:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml.cs?name=snippet_OnPostAsync&highlight=3-6)]
 
@@ -367,7 +373,7 @@ Tato metoda vykreslování `data-` atributů ve formátu HTML je používána `C
 
 ## <a name="disable-client-side-validation"></a>Zakázat ověřování na straně klienta
 
-Následující kód zakáže ověřování klienta v Razor Pages:
+Následující kód zakáže ověřování klienta na Razor stránkách:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_DisableClientValidation&highlight=2-5)]
 
@@ -376,9 +382,9 @@ Další možnosti zakázání ověřování na straně klienta:
 * Odkomentujte odkaz na `_ValidationScriptsPartial` ve všech souborech *. cshtml* .
 * Odeberte obsah souboru *Pages\Shared\_ValidationScriptsPartial. cshtml* .
 
-Předchozí přístup nezabrání ověřování na straně klienta ASP.NET Core knihovně tříd identity Razor. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>.
+Předchozí přístup nebrání ověřování na straně klienta ASP.NET Core Identity Razor knihovny tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazba modelu](model-binding.md)
@@ -387,7 +393,7 @@ Předchozí přístup nezabrání ověřování na straně klienta ASP.NET Core 
 
 ::: moniker range="< aspnetcore-3.0"
 
-Tento článek vysvětluje, jak ověřit vstup uživatele ve ASP.NET Core MVC nebo v aplikaci Razor Pages.
+Tento článek vysvětluje, jak ověřit vstup uživatele v aplikaci ASP.NET Core MVC nebo Razor stránky.
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample)).
 
@@ -395,7 +401,7 @@ Tento článek vysvětluje, jak ověřit vstup uživatele ve ASP.NET Core MVC ne
 
 Stav modelu představuje chyby, které pocházejí ze dvou subsystémů: vazby modelu a ověření modelu. Chyby, které pocházejí z [vazby mezi modely](model-binding.md) , jsou obvykle chyby převodu dat (například "x" je zadáno v poli, které očekává celé číslo). K ověření modelu dochází po vazbě modelu a hlášení chyb, kde data neodpovídají obchodním pravidlům (například hodnota 0 je zadána v poli, které očekává hodnocení mezi 1 a 5).
 
-Před provedením akce kontroleru nebo obslužné rutiny Razor Pages se vyskytuje jak vazba modelů, tak ověřování. U webových aplikací je zodpovědností aplikace vhodné je kontrolovat `ModelState.IsValid` a reagovat. Webové aplikace obvykle znovu zobrazí stránku s chybovou zprávou:
+Vazba modelů i ověřování probíhá před provedením akce kontroleru nebo metody obslužné rutiny Razor stránky. U webových aplikací je zodpovědností aplikace vhodné je kontrolovat `ModelState.IsValid` a reagovat. Webové aplikace obvykle znovu zobrazí stránku s chybovou zprávou:
 
 [!code-csharp[](validation/samples_snapshot/2.x/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
@@ -418,7 +424,7 @@ Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti m
 Mezi předdefinované atributy ověřování patří:
 
 * `[CreditCard]`: Ověří, zda má vlastnost formát kreditní karty.
-* `[Compare]`: Ověří, že se dvě vlastnosti v modelu shodují. Například soubor *Register.cshtml.cs* používá `[Compare]` k ověření, že se dvě zadaná hesla shodují. [Identita uživatelského rozhraní](xref:security/authentication/scaffold-identity) pro zobrazení kódu registrace.
+* `[Compare]`: Ověří, že se dvě vlastnosti v modelu shodují. Například soubor *Register.cshtml.cs* používá `[Compare]` k ověření, že se dvě zadaná hesla shodují. [Uživatelské Identity rozhraní](xref:security/authentication/scaffold-identity) pro zobrazení kódu registrace.
 * `[EmailAddress]`: Ověří, zda má vlastnost formát e-mailu.
 * `[Phone]`: Ověří, zda má vlastnost formát telefonního čísla.
 * `[Range]`: Ověří, že hodnota vlastnosti spadá do zadaného rozsahu.
@@ -742,13 +748,13 @@ Následující kód zakáže ověřování klienta v zobrazeních MVC:
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup2.cs?name=snippet_DisableClientValidation)]
 
-A v Razor Pages:
+A na Razor stránkách:
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup3.cs?name=snippet_DisableClientValidation)]
 
 Další možností pro zakázání ověřování klienta je přidat komentář k odkazu do `_ValidationScriptsPartial` souboru *. cshtml* .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazba modelu](model-binding.md)

@@ -4,13 +4,19 @@ author: ardalis
 description: Naučte se, jak začít migrovat projekt ASP.NET MVC na ASP.NET Core MVC.
 ms.author: riande
 ms.date: 04/06/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/mvc
-ms.openlocfilehash: 6c9449fb43960d05db8aa6dcba64d3d830834cdb
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 59a10c002958e5f719dbd59686f21df69da5f43e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78661166"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777043"
 ---
 # <a name="migrate-from-aspnet-mvc-to-aspnet-core-mvc"></a>Migrace z ASP.NET MVC na ASP.NET Core MVC
 
@@ -61,13 +67,13 @@ Vytvořte novou *prázdnou* ASP.NET Core webovou aplikaci se stejným názvem ja
 
 ::: moniker-end
 
-`Microsoft.AspNetCore.Mvc` je rozhraní ASP.NET Core MVC. `Microsoft.AspNetCore.StaticFiles` je obslužná rutina statického souboru. Modul runtime ASP.NET Core je modulární a musíte explicitně vyjádřit výslovný souhlas s poskytováním statických souborů (viz [statické soubory](xref:fundamentals/static-files)).
+`Microsoft.AspNetCore.Mvc`je ASP.NET Core architekturu MVC. `Microsoft.AspNetCore.StaticFiles`je obslužná rutina statického souboru. Modul runtime ASP.NET Core je modulární a musíte explicitně vyjádřit výslovný souhlas s poskytováním statických souborů (viz [statické soubory](xref:fundamentals/static-files)).
 
 * Otevřete soubor *Startup.cs* a změňte kód tak, aby odpovídal následujícímu:
 
   [!code-csharp[](mvc/sample/Startup.cs?highlight=13,26-31)]
 
-Metoda rozšíření `UseStaticFiles` přidá obslužnou rutinu statického souboru. Jak už bylo zmíněno dříve, modul runtime ASP.NET je modulární a musíte explicitně vyjádřit výslovný souhlas s poskytováním statických souborů. Metoda rozšíření `UseMvc` přidává směrování. Další informace najdete v tématu [spuštění](xref:fundamentals/startup) a [Směrování](xref:fundamentals/routing)aplikace.
+Metoda `UseStaticFiles` rozšíření přidá obslužnou rutinu statického souboru. Jak už bylo zmíněno dříve, modul runtime ASP.NET je modulární a musíte explicitně vyjádřit výslovný souhlas s poskytováním statických souborů. Metoda `UseMvc` rozšíření přidává směrování. Další informace najdete v tématu [spuštění](xref:fundamentals/startup) a [Směrování](xref:fundamentals/routing)aplikace.
 
 ## <a name="add-a-controller-and-view"></a>Přidat kontroler a zobrazení
 
@@ -83,7 +89,7 @@ V této části přidáte minimální kontroler a zobrazení, které slouží ja
 
 * Přidat *zobrazení/domovskou* složku.
 
-* Přidejte **zobrazení Razor** s názvem *index. cshtml* do složky *views/Home* .
+* Přidejte ** Razor zobrazení** s názvem *index. cshtml* do složky *views/Home* .
 
 ![Dialogové okno Přidat novou položku](mvc/_static/view.png)
 
@@ -109,23 +115,23 @@ Teď, když máme minimální pracovní ASP.NET Core projekt, můžeme začít m
 
 * kontrolery
 
-* views
+* zobrazení
 
 * modely
 
-* Sdružování
+* sdružování
 
-* Filtry
+* filtry
 
-* Přihlaste se a přihlaste se k identitě (Tato práce se provádí v dalším kurzu).
+* Přihlaste se nebo Identity se přihlaste (to se provádí v dalším kurzu).
 
 ## <a name="controllers-and-views"></a>Řadiče a zobrazení
 
-* Zkopírujte všechny metody z ASP.NET MVC `HomeController` do nového `HomeController`. Všimněte si, že ve službě ASP.NET MVC je návratový typ metody kontroleru vestavěné šablony [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC metody akcí vrátí `IActionResult` místo toho. `ActionResult` implementuje `IActionResult`, takže není nutné měnit návratový typ vašich metod akcí.
+* Zkopírujte každou z metod z ASP.NET MVC `HomeController` do nové. `HomeController` Všimněte si, že ve službě ASP.NET MVC je návratový typ metody kontroleru vestavěné šablony [ActionResult](https://msdn.microsoft.com/library/system.web.mvc.actionresult(v=vs.118).aspx); ve ASP.NET Core MVC se místo toho vrací `IActionResult` metody akcí. `ActionResult`implementuje `IActionResult`, takže není nutné měnit návratový typ vašich metod akcí.
 
 * Zkopírujte soubory *About. cshtml*, *Contact. cshtml*a *index. cshtml* Razor zobrazení z projektu ASP.NET MVC do projektu ASP.NET Core.
 
-* Spusťte aplikaci ASP.NET Core a otestujte všechny metody. Zatím jsme nemigrovali soubor rozložení ani styly, takže vykreslená zobrazení obsahují jenom obsah v zobrazení souborů. Nebudete mít odkazy vygenerované tímto souborem rozložení pro `About` a `Contact` zobrazení, takže je budete muset vyvolat z prohlížeče (nahraďte **4492** číslem portu použitým v projektu).
+* Spusťte aplikaci ASP.NET Core a otestujte všechny metody. Zatím jsme nemigrovali soubor rozložení ani styly, takže vykreslená zobrazení obsahují jenom obsah v zobrazení souborů. Nebudete mít odkazy vygenerované souborem rozložení pro `About` zobrazení `Contact` a, takže je budete muset vyvolat z prohlížeče (nahraďte **4492** číslem portu použitým v projektu).
 
   * `http://localhost:4492/home/about`
 
@@ -133,7 +139,7 @@ Teď, když máme minimální pracovní ASP.NET Core projekt, můžeme začít m
 
 ![Stránka kontaktu](mvc/_static/contact-page.png)
 
-Všimněte si nedostatku stylů a položek nabídky. To Změníme v další části.
+Všimněte si nedostatku stylů a položek nabídky. Opravujeme ho v další části.
 
 ## <a name="static-content"></a>Statický obsah
 
@@ -155,15 +161,15 @@ Starý projekt ASP.NET MVC používá pro svůj styl [bootstrap](https://getboot
 
 Otevřete soubor *_Layout. cshtml* a proveďte následující změny (dokončený kód je zobrazen níže):
 
-* Nahraďte `@Styles.Render("~/Content/css")` prvkem `<link>` pro načtení *bootstrap. CSS* (viz níže).
+* Nahraďte `@Styles.Render("~/Content/css")` `<link>` elementem pro načtení *bootstrap. CSS* (viz níže).
 
-* Odeberte `@Scripts.Render("~/bundles/modernizr")`.
+* Odebrat `@Scripts.Render("~/bundles/modernizr")`.
 
-* Odkomentujte `@Html.Partial("_LoginPartial")` čáru (Obklopte řádek `@*...*@`). Další informace najdete v tématu [migrace ověřování a identity pro ASP.NET Core](xref:migration/identity)
+* Odkomentujte `@Html.Partial("_LoginPartial")` řádek kolem řádku (Obklopte řádek s `@*...*@`). Další informace najdete v tématu [migrace ověřování Identity a ASP.NET Core](xref:migration/identity)
 
-* Nahraďte `@Scripts.Render("~/bundles/jquery")` prvkem `<script>` (viz níže).
+* Nahraďte `@Scripts.Render("~/bundles/jquery")` `<script>` elementem (viz níže).
 
-* Nahraďte `@Scripts.Render("~/bundles/bootstrap")` prvkem `<script>` (viz níže).
+* Nahraďte `@Scripts.Render("~/bundles/bootstrap")` `<script>` elementem (viz níže).
 
 Náhradní značky pro spuštění šablony stylů Bootstrap:
 
@@ -196,13 +202,13 @@ Informace o tom, jak nakonfigurovat sdružování a minifikace, najdete v člán
 
 ## <a name="solve-http-500-errors"></a>Řešení chyb HTTP 500
 
-Existuje mnoho problémů, které mohou způsobit chybovou zprávu HTTP 500, která neobsahuje žádné informace o zdroji problému. Například pokud soubor *views/_ViewImports. cshtml* obsahuje obor názvů, který v projektu neexistuje, zobrazí se chyba HTTP 500. Ve výchozím nastavení se v aplikacích ASP.NET Core aplikace `UseDeveloperExceptionPage` rozšíření přidá do `IApplicationBuilder` a spustí se při *vývoji*konfigurace. Toto je podrobně popsáno v následujícím kódu:
+Existuje mnoho problémů, které mohou způsobit chybovou zprávu HTTP 500, která neobsahuje žádné informace o zdroji problému. Například pokud soubor *views/_ViewImports. cshtml* obsahuje obor názvů, který v projektu neexistuje, zobrazí se chyba HTTP 500. Ve výchozím nastavení se v ASP.NET Core aplikace `UseDeveloperExceptionPage` rozšíření přidá do `IApplicationBuilder` a spustí se při *vývoji*konfigurace. Toto je podrobně popsáno v následujícím kódu:
 
 [!code-csharp[](mvc/sample/Startup.cs?highlight=19-22)]
 
 ASP.NET Core převede neošetřené výjimky ve webové aplikaci na odpovědi na chyby HTTP 500. V těchto odpovědích obvykle nejsou podrobnosti o chybě zahrnuty, aby nedocházelo k odhalení potenciálně citlivých informací o serveru. Další informace najdete v tématu **použití stránky s výjimkou vývojáře** v tématu [zpracování chyb](../fundamentals/error-handling.md) .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:blazor/index>
 * <xref:mvc/views/tag-helpers/intro>

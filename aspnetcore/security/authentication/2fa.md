@@ -1,39 +1,45 @@
 ---
-title: Dvoufaktorové ověřování přes SMS v ASP.NET Core
+title: Dvojúrovňové ověřování pomocí SMS v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak nastavit dvojúrovňového ověřování (2FA) s aplikací ASP.NET Core.
+description: Naučte se, jak pomocí aplikace ASP.NET Core nastavit dvojúrovňové ověřování (2FA).
 monikerRange: < aspnetcore-2.0
 ms.author: riande
 ms.date: 09/22/2018
 ms.custom: mvc, seodec18
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/2fa
-ms.openlocfilehash: 424d21e446de02b39daa7685205a00931361b326
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e33f22356de983c8c4e0211822d5027a33b48de6
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78661453"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775827"
 ---
-# <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>Dvoufaktorové ověřování přes SMS v ASP.NET Core
+# <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>Dvojúrovňové ověřování pomocí SMS v ASP.NET Core
 
 Od [Ricke Anderson](https://twitter.com/RickAndMSFT) a [Švýcarska – vývojáři](https://github.com/Swiss-Devs)
 
 >[!WARNING]
-> Dva faktoru ověřování (2FA), pomocí časovou synchronizací jednorázové heslo algoritmus (TOTP), jsou tyto aplikace v oboru doporučenému přístupu pro 2FA. 2FA pomocí TOTP je upřednostňována před SMS 2FA. Další informace najdete v tématu [Povolení generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core](xref:security/authentication/identity-enable-qrcodes) pro ASP.NET Core 2,0 a novější.
+> TOTP (2FA) ověřovací aplikace pro ověřování pomocí času založeného na čase () jsou doporučeným oborem přístupu pro 2FA. 2FA pomocí TOTP se upřednostňuje pro SMS 2FA. Další informace najdete v tématu [Povolení generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core](xref:security/authentication/identity-enable-qrcodes) pro ASP.NET Core 2,0 a novější.
 
-Tento kurz ukazuje, jak nastavit dvojúrovňového ověřování (2FA) pomocí serveru SMS. Pokyny jsou uvedené pro [Twilio](https://www.twilio.com/) a [ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/), ale můžete použít jakéhokoli jiného poskytovatele serveru SMS. Než začnete s tímto kurzem, doporučujeme dokončit [potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm) .
+V tomto kurzu se dozvíte, jak nastavit dvojúrovňové ověřování (2FA) pomocí serveru SMS. Pokyny jsou uvedené pro [Twilio](https://www.twilio.com/) a [ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/), ale můžete použít jakéhokoli jiného poskytovatele serveru SMS. Než začnete s tímto kurzem, doporučujeme dokončit [potvrzení účtu a obnovení hesla](xref:security/authentication/accconfirm) .
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/2fa/sample/Web2FA). [Jak stáhnout](xref:index#how-to-download-a-sample).
 
-## <a name="create-a-new-aspnet-core-project"></a>Vytvořte nový projekt ASP.NET Core
+## <a name="create-a-new-aspnet-core-project"></a>Vytvoření nového projektu ASP.NET Core
 
-Vytvořte novou ASP.NET Core webovou aplikaci s názvem `Web2FA` s jednotlivými uživatelskými účty. Podle pokynů v části <xref:security/enforcing-ssl> nastavte a vyžadovat protokol HTTPS.
+Vytvořte novou ASP.NET Core webovou aplikaci s názvem `Web2FA` s jednotlivými uživatelskými účty. Při nastavování <xref:security/enforcing-ssl> a VYŽADOVÁNÍ protokolu HTTPS postupujte podle pokynů v části.
 
-### <a name="create-an-sms-account"></a>Vytvoření účtu služby SMS
+### <a name="create-an-sms-account"></a>Vytvoření účtu serveru SMS
 
-Vytvořte účet serveru SMS, například z [Twilio](https://www.twilio.com/) nebo [ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/). Zaznamenejte přihlašovací údaje pro ověřování (pro twilio: accountSid a ověřovacího tokenu pro ASPSMS: vlastnosti userkey jedná a heslo).
+Vytvořte účet serveru SMS, například z [Twilio](https://www.twilio.com/) nebo [ASPSMS](https://www.aspsms.com/asp.net/identity/core/testcredits/). Zaznamenejte přihlašovací údaje pro ověřování (pro Twilio: accountSid a authToken, pro ASPSMS: vlastnosti UserKey a heslo).
 
-#### <a name="figuring-out-sms-provider-credentials"></a>Zjištění přihlašovací údaje poskytovatele serveru SMS
+#### <a name="figuring-out-sms-provider-credentials"></a>Zjišťování přihlašovacích údajů poskytovatele služby SMS
 
 **Twilio**
 
@@ -43,9 +49,9 @@ Na kartě řídicí panel účtu Twilio zkopírujte **identifikátor SID účtu*
 
 V nastavení účtu přejděte na **vlastnosti UserKey** a zkopírujte ho společně s vaším **heslem**.
 
-Tyto hodnoty budeme později ukládat pomocí nástroje Správce tajných klíčů v rámci klíčů `SMSAccountIdentification` a `SMSAccountPassword`.
+Tyto hodnoty budeme později ukládat v nástroji pomocí Správce tajného klíče v rámci klíčů `SMSAccountIdentification` a. `SMSAccountPassword`
 
-#### <a name="specifying-senderid--originator"></a>Určení SenderID / původce
+#### <a name="specifying-senderid--originator"></a>Zadání SenderID/původce
 
 **Twilio:** Na kartě čísla zkopírujte své Twilio **telefonní číslo**.
 
@@ -53,22 +59,22 @@ Tyto hodnoty budeme později ukládat pomocí nástroje Správce tajných klíč
 
 Později tuto hodnotu uložíme pomocí nástroje Správce tajných klíčů v rámci klíče `SMSAccountFrom`.
 
-### <a name="provide-credentials-for-the-sms-service"></a>Zadejte přihlašovací údaje služby SMS
+### <a name="provide-credentials-for-the-sms-service"></a>Zadejte přihlašovací údaje pro službu SMS.
 
 Pro přístup k uživatelskému účtu a nastavení klíče použijeme [vzor možností](xref:fundamentals/configuration/options) .
 
-* Vytvoření třídy k načtení zabezpečený klíč serveru SMS. V této ukázce je třída `SMSoptions` vytvořena v souboru *Services/SMSoptions. cs* .
+* Vytvořte třídu, která načte zabezpečený klíč SMS. V této ukázce je `SMSoptions` třída vytvořena v souboru *Services/SMSoptions. cs* .
 
 [!code-csharp[](2fa/sample/Web2FA/Services/SMSoptions.cs)]
 
-Pomocí [nástroje Správce tajných](xref:security/app-secrets)kódů nastavte `SMSAccountIdentification``SMSAccountPassword` a `SMSAccountFrom`. Příklad:
+`SMSAccountIdentification`Pomocí `SMSAccountPassword` [nástroje Správce tajných klíčů](xref:security/app-secrets)nastavte a `SMSAccountFrom` . Příklad:
 
 ```none
 C:/Web2FA/src/WebApp1>dotnet user-secrets set SMSAccountIdentification 12345
 info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 ```
 
-* Přidání balíčku NuGet pro poskytovatele serveru SMS. Z balíčku správce konzoly (konzolu PMC) spusťte:
+* Přidejte balíček NuGet pro poskytovatele služby SMS. V konzole správce balíčků (PMC) spusťte:
 
 **Twilio**
 
@@ -78,7 +84,7 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 
 `Install-Package ASPSMS`
 
-* Přidejte kód do souboru *Services/MessageServices. cs* pro povolení serveru SMS. Použijte Twilio nebo ASPSMS části:
+* Přidejte kód do souboru *Services/MessageServices. cs* pro povolení serveru SMS. Použijte buď Twilio, nebo část ASPSMS:
 
 **Twilio**  
 [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_twilio.cs)]
@@ -86,9 +92,9 @@ info: Successfully saved SMSAccountIdentification = 12345 to the secret store.
 **ASPSMS:**  
 [!code-csharp[](2fa/sample/Web2FA/Services/MessageServices_ASPSMS.cs)]
 
-### <a name="configure-startup-to-use-smsoptions"></a>Konfigurace spuštění pro použití `SMSoptions`
+### <a name="configure-startup-to-use-smsoptions"></a>Konfigurace spuštění pro použití`SMSoptions`
 
-Přidejte `SMSoptions` do kontejneru služby v metodě `ConfigureServices` v *Startup.cs*:
+Přidejte `SMSoptions` do kontejneru služby v `ConfigureServices` metodě v *Startup.cs*:
 
 [!code-csharp[](2fa/sample/Web2FA/Startup.cs?name=snippet1&highlight=4)]
 
@@ -96,57 +102,57 @@ Přidejte `SMSoptions` do kontejneru služby v metodě `ConfigureServices` v *St
 
 Otevřete soubor zobrazení */Správa/index. cshtml* Razor zobrazení a odeberte znaky komentáře (takže se neoznačí jako komentář žádné značky).
 
-## <a name="log-in-with-two-factor-authentication"></a>Přihlaste se pomocí dvojúrovňového ověřování
+## <a name="log-in-with-two-factor-authentication"></a>Přihlášení Pomocí dvojúrovňového ověřování
 
-* Spusťte aplikaci a zaregistrovat nový uživatel
+* Spuštění aplikace a registrace nového uživatele
 
-![Webová aplikace zaregistrovat, zobrazení otevřít v Microsoft Edge](2fa/_static/login2fa1.png)
+![Zobrazení registru webové aplikace otevřené v Microsoft Edge](2fa/_static/login2fa1.png)
 
-* Klepněte na své uživatelské jméno, které aktivuje metodu `Index` akce na stránce Spravovat kontroler. Pak klepněte na telefonní číslo **Přidat** odkaz.
+* Klepněte na své uživatelské jméno, které aktivuje metodu `Index` Action na stránce Spravovat kontroler. Pak klepněte na telefonní číslo **Přidat** odkaz.
 
-![Správa zobrazení – klepnout na odkaz "Přidání"](2fa/_static/login2fa2.png)
+![Spravovat zobrazení – klepněte na odkaz Přidat](2fa/_static/login2fa2.png)
 
 * Přidejte telefonní číslo, které bude přijímat ověřovací kód, a klepněte na **Odeslat ověřovací kód**.
 
-![Přidat telefonní číslo stránky](2fa/_static/login2fa3.png)
+![Přidat stránku telefonního čísla](2fa/_static/login2fa3.png)
 
-* Zobrazí se zpráva SMS s ověřovacím kódem. Zadejte ho a klepněte na **Odeslat** .
+* Obdržíte textovou zprávu s ověřovacím kódem. Zadejte ho a klepněte na **Odeslat** .
 
-![Ověřit telefonní číslo stránky](2fa/_static/login2fa4.png)
+![Ověřit stránku telefonního čísla](2fa/_static/login2fa4.png)
 
-Pokud vám textovou zprávu, přečtěte si téma twilio protokolu stránky.
+Pokud neobdržíte textovou zprávu, přečtěte si stránku protokol Twilio.
 
-* Správa zobrazení ukazuje že vaše telefonní číslo bylo úspěšně přidán.
+* V zobrazení Správa se zobrazí vaše telefonní číslo bylo úspěšně přidáno.
 
-![Správa zobrazení – telefonní číslo se úspěšně přidal](2fa/_static/login2fa5.png)
+![Správa zobrazení – Telefonní číslo bylo úspěšně přidáno.](2fa/_static/login2fa5.png)
 
 * Klepnutím na **Povolit** povolte dvojúrovňové ověřování.
 
-![Správa zobrazení – povolení dvoufaktorového ověřování](2fa/_static/login2fa6.png)
+![Spravovat zobrazení – povolit dvojúrovňové ověřování](2fa/_static/login2fa6.png)
 
-### <a name="test-two-factor-authentication"></a>Test dvoufaktorového ověřování
+### <a name="test-two-factor-authentication"></a>Test dvojúrovňového ověřování
 
 * Odhlaste se.
 
 * Přihlaste se.
 
-* Uživatelský účet povolila dvojúrovňové ověřování, takže je nutné zadat druhý faktor ověřování. V tomto kurzu jste povolili ověření pomocí telefonu. Integrované šablony lze také nastavit e-mail jako druhý faktor. Můžete nastavit další druhý faktory pro ověřování, jako je kódy QR. Klepněte na **Odeslat**.
+* Uživatelský účet má povolené dvojúrovňové ověřování, takže musíte zadat druhý faktor ověřování. V tomto kurzu jste povolili ověřování pro telefon. Předdefinované šablony také umožňují nastavit e-maily jako druhý faktor. Můžete nastavit další druhý faktor pro ověřování, jako jsou kódy QR. Klepněte na **Odeslat**.
 
-![Poslat ověřovací kód zobrazení](2fa/_static/login2fa7.png)
+![Odeslat zobrazení ověřovacího kódu](2fa/_static/login2fa7.png)
 
 * Zadejte kód, který se zobrazí ve zprávě SMS.
 
-* Kliknutím na zaškrtávací políčko **Zapamatovat tento prohlížeč** nebudete muset použít 2FA k přihlášení při použití stejného zařízení a prohlížeče. Povolení 2FA a kliknutí na **Zapamatovat si tento prohlížeč** vám poskytne silnou 2FA ochranu od uživatelů se zlými úmysly, kteří se pokoušejí získat přístup k vašemu účtu, pokud nemají přístup k vašemu zařízení. Můžete to provést na libovolném privátní zařízení, kterou používáte pravidelně. Nastavením **Zapamatovat si tento prohlížeč**, získáte přizpůsobenou bezpečnost 2FA ze zařízení, která pravidelně nepoužíváte, a získáte pohodlí, takže nemusíte přecházet na 2FA na svých vlastních zařízeních.
+* Kliknutím na zaškrtávací políčko **Zapamatovat tento prohlížeč** nebudete muset použít 2FA k přihlášení při použití stejného zařízení a prohlížeče. Povolení 2FA a kliknutí na **Zapamatovat si tento prohlížeč** vám poskytne silnou 2FA ochranu od uživatelů se zlými úmysly, kteří se pokoušejí získat přístup k vašemu účtu, pokud nemají přístup k vašemu zařízení. To můžete provést na jakémkoli soukromém zařízení, které pravidelně používáte. Nastavením **Zapamatovat si tento prohlížeč**, získáte přizpůsobenou bezpečnost 2FA ze zařízení, která pravidelně nepoužíváte, a získáte pohodlí, takže nemusíte přecházet na 2FA na svých vlastních zařízeních.
 
-![Ověření zobrazení](2fa/_static/login2fa8.png)
+![Ověřit zobrazení](2fa/_static/login2fa8.png)
 
 ## <a name="account-lockout-for-protecting-against-brute-force-attacks"></a>Uzamčení účtu pro ochranu před útoky hrubou silou
 
-Uzamčení účtu, doporučujeme pomocí 2FA. Když se uživatel přihlásí pomocí místního účtu nebo účtu na sociální síti, se ukládají jednotlivé neúspěšné pokusy o na 2FA. Pokud je dosaženo maximální neúspěšných pokusů o přístup, je uživatel uzamčen (výchozí: pětiminutový uzamčení po 5 neúspěšných pokusů o přístup). Po provedení úspěšného ověření resetuje počet pokusů o neúspěšných přístupů a resetuje na hodiny. Maximální počet neúspěšných pokusů o přístup a čas uzamčení lze nastavit pomocí [MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts) a [DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan). Následující nakonfiguruje uzamčení účtu po dobu 10 minut po 10 neúspěšných pokusů o přístup:
+Pro 2FA se doporučuje uzamčení účtu. Jakmile se uživatel přihlásí prostřednictvím místního účtu nebo účtu sociálních sítí, uloží se každý pokus o selhání na 2FA. Pokud je dosaženo maximálního počtu neúspěšných pokusů o přístup, uživatel je uzamčen (výchozí: uzamčení je 5 minut po 5 neúspěšných pokusech o přístup). Úspěšné ověření obnoví počet neúspěšných pokusů o přístup a resetuje hodiny. Maximální počet neúspěšných pokusů o přístup a čas uzamčení lze nastavit pomocí [MaxFailedAccessAttempts](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.maxfailedaccessattempts) a [DefaultLockoutTimeSpan](/dotnet/api/microsoft.aspnetcore.identity.lockoutoptions.defaultlockouttimespan). Následující konfigurace uzamčení účtu po 10 minutách po 10 neúspěšných pokusech o přístup:
 
 [!code-csharp[](2fa/sample/Web2FA/Startup.cs?name=snippet2&highlight=13-17)]
 
-Potvrďte, že [PasswordSignInAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.passwordsigninasync) sady `lockoutOnFailure` `true`:
+Potvrďte [PasswordSignInAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.passwordsigninasync) , že `lockoutOnFailure` PasswordSignInAsync `true`sady:
 
 ```csharp
 var result = await _signInManager.PasswordSignInAsync(

@@ -4,21 +4,27 @@ author: rick-anderson
 description: Přečtěte si podrobnosti o implementaci ASP.NET Core zprostředkovatelů ochrany před dočasnými daty.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/key-storage-ephemeral
-ms.openlocfilehash: e4b0014ab3bdbf90b91383e8a33102f94faa8153
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 22a332230e15256dc33fd1d06f2da3ea8d34d3bc
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78664736"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776887"
 ---
 # <a name="ephemeral-data-protection-providers-in-aspnet-core"></a>Zprostředkovatelé dočasné ochrany dat v ASP.NET Core
 
 <a name="data-protection-implementation-key-storage-ephemeral"></a>
 
-Existují situace, kdy aplikace potřebuje throwaway `IDataProtectionProvider`. Vývojář může například experimentovat pouze v jednorázových konzolových aplikacích, nebo je samotná aplikace přechodná (je to skriptový projekt nebo test jednotky). Pro podporu těchto scénářů obsahuje balíček [Microsoft. AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/) typ `EphemeralDataProtectionProvider`. Tento typ poskytuje základní implementaci `IDataProtectionProvider`, jejichž úložiště klíčů je uchováváno pouze v paměti a není zapsáno do žádného záložního úložiště.
+Existují situace, kdy aplikace potřebuje throwaway `IDataProtectionProvider`. Vývojář může například experimentovat pouze v jednorázových konzolových aplikacích, nebo je samotná aplikace přechodná (je to skriptový projekt nebo test jednotky). Pro podporu těchto scénářů obsahuje balíček [Microsoft. AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/) typ `EphemeralDataProtectionProvider`. Tento typ poskytuje základní implementaci, `IDataProtectionProvider` jejíž úložiště klíčů je uchováváno pouze v paměti a není zapsáno do žádného záložního úložiště.
 
-Každá instance `EphemeralDataProtectionProvider` používá vlastní jedinečný hlavní klíč. Proto pokud `IDataProtector` rootem v `EphemeralDataProtectionProvider` vygeneruje chráněnou datovou část, může být tato datová část chráněná jenom ekvivalentním `IDataProtector` (pro stejný řetěz [účelu](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-consumer-apis-purposes) ), která se zadává na stejné `EphemeralDataProtectionProvider` instanci.
+Každá instance `EphemeralDataProtectionProvider` používá vlastní jedinečný hlavní klíč. `IDataProtector` Proto pokud kořenový adresář `EphemeralDataProtectionProvider` vygeneruje chráněnou datovou část, lze tuto datovou část odemknout pouze pomocí ekvivalentu `IDataProtector` (pro stejný řetěz [účelu](xref:security/data-protection/consumer-apis/purpose-strings#data-protection-consumer-apis-purposes) ) root ve stejné `EphemeralDataProtectionProvider` instanci.
 
 Následující příklad ukazuje vytvoření instance `EphemeralDataProtectionProvider` a její použití k ochraně a neochraně dat.
 

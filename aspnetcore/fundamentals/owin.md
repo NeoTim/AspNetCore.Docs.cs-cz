@@ -1,41 +1,47 @@
 ---
-title: Otevřít webové rozhraní pro rozhraní .NET (OWIN) s ASP.NET jádrem
+title: Otevřete web interface for .NET (OWIN) s ASP.NET Core
 author: ardalis
-description: Zjistěte, jak ASP.NET Core podporuje otevřené webové rozhraní pro rozhraní .NET (OWIN), které umožňuje oddělení webových aplikací od webových serverů.
+description: Zjistěte, jak ASP.NET Core podporuje rozhraní Open Web Interface for .NET (OWIN), které umožňuje oddělit webové aplikace od webových serverů.
 ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/owin
-ms.openlocfilehash: 14b23ba6d284413e20417bbd4142e19a656350ac
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: defbf428634a04e6fa3862926136dc98b88da589
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78666682"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775957"
 ---
-# <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřít webové rozhraní pro rozhraní .NET (OWIN) s ASP.NET jádrem
+# <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřete web interface for .NET (OWIN) s ASP.NET Core
 
 [Steve Smith](https://ardalis.com/) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-ASP.NET Core podporuje otevřené webové rozhraní pro rozhraní .NET (OWIN). OWIN umožňuje oddělení webových aplikací od webových serverů. Definuje standardní způsob, jak middleware, které mají být použity v kanálu pro zpracování požadavků a přidružené odpovědi. ASP.NET Core aplikace a middleware mohou spolupracovat s aplikacemi, servery a middlewarem založenými na OWIN.
+ASP.NET Core podporuje otevřené webové rozhraní pro .NET (OWIN). OWIN umožňuje oddělit webové aplikace od webových serverů. Definuje standardní způsob, jakým se má middleware použít v kanálu ke zpracování požadavků a přidružených odpovědí. ASP.NET Core aplikace a middleware se můžou vzájemně spolupracovat s aplikacemi, servery a middlewarem založeným na OWIN.
 
-OWIN poskytuje vrstvu oddělení, která umožňuje použití dvou rámců s různorodými objektovými modely. Balíček `Microsoft.AspNetCore.Owin` obsahuje dvě implementace adaptéru:
+OWIN poskytuje rozvětvenou vrstvu, která umožňuje používat dvě architektury s různorodými objektovými modely. `Microsoft.AspNetCore.Owin` Balíček poskytuje dva implementace adaptérů:
 
-* ASP.NET jádro pro OWIN 
-* OWIN na ASP.NET jádro
+* ASP.NET Core OWIN 
+* OWIN na ASP.NET Core
 
-To umožňuje ASP.NET Core, které mají být umístěny na vrcholu OWIN kompatibilní server / host nebo pro jiné OWIN kompatibilní komponenty, které mají být spuštěny na vrcholu ASP.NET Core.
+To umožňuje, aby se ASP.NET Core hostovat na serveru nebo hostiteli kompatibilním s OWIN nebo pro jiné součásti kompatibilní s OWIN, které se mají spustit nad ASP.NET Core.
 
 > [!NOTE]
-> Použití těchto adaptérů je dodáváno s náklady na výkon. Aplikace, které používají jenom ASP.NET `Microsoft.AspNetCore.Owin` komponenty Core, by neměly používat balíček nebo adaptéry.
+> Používání těchto adaptérů se dodává s náklady na výkon. Aplikace, které `Microsoft.AspNetCore.Owin` používají jenom ASP.NET Core komponenty, by neměly používat balíčky ani adaptéry.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="running-owin-middleware-in-the-aspnet-core-pipeline"></a>Spuštění middlewaru OWIN v potrubí ASP.NET Core
+## <a name="running-owin-middleware-in-the-aspnet-core-pipeline"></a>Spuštění middlewaru OWIN v kanálu ASP.NET Core
 
-ASP.NET owin podpora Core je nasazenjako `Microsoft.AspNetCore.Owin` součást balíčku. Podporu OWIN můžete importovat do projektu instalací tohoto balíčku.
+Podpora OWIN ASP.NET Core je nasazena jako součást `Microsoft.AspNetCore.Owin` balíčku. Podporu OWIN můžete do svého projektu importovat instalací tohoto balíčku.
 
-Middleware OWIN odpovídá [specifikaci OWIN](https://owin.org/spec/spec/owin-1.0.0.html) `Func<IDictionary<string, object>, Task>` , která vyžaduje rozhraní, a `owin.ResponseBody`nastaví se konkrétní klíče (například ). Následující jednoduchý middleware OWIN zobrazuje "Hello World":
+Middleware OWIN je v souladu se [specifikací Owin](https://owin.org/spec/spec/owin-1.0.0.html), která vyžaduje `Func<IDictionary<string, object>, Task>` rozhraní a nastavené konkrétní klíče (například `owin.ResponseBody`). Následující jednoduchý middleware OWIN zobrazí "Hello World":
 
 ```csharp
 public Task OwinHello(IDictionary<string, object> environment)
@@ -54,9 +60,9 @@ public Task OwinHello(IDictionary<string, object> environment)
 }
 ```
 
-Ukázkový podpis `Task` vrátí a `IDictionary<string, object>` přijme podle požadavků OWIN.
+Vzorový podpis vrátí `Task` a přijme, `IDictionary<string, object>` jak vyžaduje Owin.
 
-Následující kód ukazuje, jak `OwinHello` přidat middleware (viz výše) do `UseOwin` kanálu ASP.NET Core s metodou rozšíření.
+Následující kód ukazuje, jak přidat `OwinHello` middleware (viz výše) do kanálu ASP.NET Core s metodou `UseOwin` rozšíření.
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -68,13 +74,13 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
-Můžete nakonfigurovat další akce, které se uskuteční v rámci kanálu OWIN.
+Můžete nakonfigurovat další akce, které budou provedeny v rámci kanálu OWIN.
 
 > [!NOTE]
-> Hlavičky odpovědí by měly být změněny pouze před prvním zápisem do datového proudu odpovědí.
+> Hlavičky odpovědi by se měly upravovat jenom před prvním zápisem do datového proudu odpovědí.
 
 > [!NOTE]
-> Více volání `UseOwin` do se nedoporučuje z důvodů výkonu. Komponenty OWIN budou fungovat nejlépe, pokud budou seskupeny.
+> Z důvodů výkonu `UseOwin` není doporučeno více volání. Komponenty OWIN budou fungovat nejlépe, pokud jsou seskupeny dohromady.
 
 ```csharp
 app.UseOwin(pipeline =>
@@ -93,17 +99,17 @@ app.UseOwin(pipeline =>
 
 <a name="hosting-on-owin"></a>
 
-## <a name="using-aspnet-core-hosting-on-an-owin-based-server"></a>Použití ASP.NET Core Hosting na serveru založeném na OWIN
+## <a name="using-aspnet-core-hosting-on-an-owin-based-server"></a>Použití ASP.NET Core hostování na serveru založeném na OWIN
 
-Servery založené na OWIN mohou hostovat ASP.NET aplikace Core. Jeden takový server je [Nowin](https://github.com/Bobris/Nowin), .NET OWIN webový server. V ukázce pro tento článek jsem zahrnul projekt, který odkazuje `IServer` na Nowin a používá jej k vytvoření schopnosti vlastního hostování ASP.NET Core.
+Servery založené na OWIN můžou hostovat aplikace ASP.NET Core. Jeden takový server je [Nowin](https://github.com/Bobris/Nowin), webový server .NET Owin. V ukázce tohoto článku jsme zahrnuli projekt, který odkazuje na Nowin a používá ho k vytvoření ASP.NET Core `IServer` schopného samoobslužného hostování.
 
 [!code-csharp[](owin/sample/src/NowinSample/Program.cs?highlight=15)]
 
-`IServer`je rozhraní, které `Features` vyžaduje `Start` vlastnost a metodu.
+`IServer`je rozhraní, které vyžaduje `Features` vlastnost a `Start` metodu.
 
-`Start`je zodpovědný za konfiguraci a spuštění serveru, což se v tomto případě provádí prostřednictvím řady fluent API volání, která nastavit adresy analyzované z IServerAddressesFeature. Všimněte si, že `_builder` plynulá konfigurace proměnné určuje, `appFunc` že požadavky budou zpracovány definované dříve v metodě. To `Func` se nazývá na každý požadavek na zpracování příchozích požadavků.
+`Start`zodpovídá za konfiguraci a spuštění serveru, který v tomto případě provádí řada volání rozhraní Fluent API, která nastavila adresy přeložené z IServerAddressesFeature. Všimněte si, že konfigurace Fluent `_builder` proměnné určuje, že požadavky budou zpracovávány `appFunc` definované dříve v metodě. Tato `Func` metoda se volá u každé žádosti o zpracování příchozích požadavků.
 
-Přidáme také rozšíření, `IWebHostBuilder` které vám usnadní přidání a konfiguraci serveru Nowin.
+Přidáme také `IWebHostBuilder` rozšíření, které usnadňuje přidání a konfiguraci serveru Nowin.
 
 ```csharp
 using System;
@@ -136,7 +142,7 @@ namespace Microsoft.AspNetCore.Hosting
 }
 ```
 
-S tímto na místě, vyvolat rozšíření v *Program.cs* spustit aplikaci ASP.NET Core pomocí tohoto vlastního serveru:
+Když to zavoláte, vyvolejte rozšíření v *program.cs* a spusťte aplikaci ASP.NET Core s použitím tohoto vlastního serveru:
 
 ```csharp
 using System;
@@ -165,11 +171,11 @@ namespace NowinSample
 }
 ```
 
-Další informace o [ASP.NET základních serverech](xref:fundamentals/servers/index).
+Přečtěte si další informace o [ASP.NET Corech serverech](xref:fundamentals/servers/index).
 
-## <a name="run-aspnet-core-on-an-owin-based-server-and-use-its-websockets-support"></a>Spuštění ASP.NET jádra na serveru založeném na OWIN a použití jeho podpory websockets
+## <a name="run-aspnet-core-on-an-owin-based-server-and-use-its-websockets-support"></a>Spusťte ASP.NET Core na serveru založeném na OWIN a využijte podporu WebSockets.
 
-Dalším příkladem toho, jak funkce serverů založených na OWIN mohou být využívány ASP.NET Core je přístup k funkcím, jako je WebSockets. Webový server .NET OWIN použitý v předchozím příkladu má vestavěnou podporu webových soketů, kterou může využít aplikace ASP.NET Core. Následující příklad ukazuje jednoduchou webovou aplikaci, která podporuje webové sokety a vrací zpět vše odeslané na server prostřednictvím websockets.
+Dalším příkladem použití ASP.NET Core funkcí serverů založených na OWIN je přístup k funkcím, jako jsou WebSockets. Webový server .NET OWIN použitý v předchozím příkladu obsahuje podporu pro integrované webové sokety, které může využívat ASP.NET Core aplikace. Níže uvedený příklad ukazuje jednoduchou webovou aplikaci, která podporuje webové sokety, a vrátí zpátky vše odeslané na server prostřednictvím objektů WebSockets.
 
 ```csharp
 public class Startup
@@ -217,13 +223,13 @@ public class Startup
 }
 ```
 
-Tato [ukázka](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) je `NowinServer` konfigurována pomocí stejného jako předchozí – jediný rozdíl `Configure` je v tom, jak je aplikace konfigurována ve své metodě. Test pomocí [jednoduchého klienta websocket](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en) demonstruje aplikaci:
+Tato [Ukázka](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/owin/sample) je nakonfigurována pomocí stejné `NowinServer` jako předchozí, jediný rozdíl je v tom, jak je aplikace konfigurována v příslušné `Configure` metodě. Test použití [jednoduchého klienta protokolu WebSocket](https://chrome.google.com/webstore/detail/simple-websocket-client/pfdhoblngboilpfeibdedpjgfnlcodoo?hl=en) ukazuje aplikaci:
 
 ![Testovací klient webového soketu](owin/_static/websocket-test.png)
 
 ## <a name="owin-environment"></a>Prostředí OWIN
 
-Prostředí OWIN můžete vytvořit `HttpContext`pomocí .
+Prostředí OWIN můžete vytvořit pomocí `HttpContext`.
 
 ```csharp
 
@@ -233,87 +239,87 @@ Prostředí OWIN můžete vytvořit `HttpContext`pomocí .
 
 ## <a name="owin-keys"></a>OWIN klíče
 
-OWIN závisí `IDictionary<string,object>` na objektu pro komunikaci informací v rámci výměny požadavků a odpovědí HTTP. ASP.NET Core implementuje klíče uvedené níže. Podívejte se na [primární specifikace, rozšíření](https://owin.org/#spec)a [OWIN klíčové pokyny a společné klíče](https://owin.org/spec/spec/CommonKeys.html).
+OWIN závisí na `IDictionary<string,object>` objektu, který komunikuje informace v rámci výměny požadavků a odpovědí HTTP. ASP.NET Core implementuje níže uvedené klíče. Prohlédněte si [základní pravidla specifikace, rozšíření](https://owin.org/#spec)a [Owin Key a běžné klíče](https://owin.org/spec/spec/CommonKeys.html).
 
-### <a name="request-data-owin-v100"></a>Údaje o požadavku (OWIN v1.0.0)
+### <a name="request-data-owin-v100"></a>Data požadavku (OWIN v 1.0.0)
 
-| Klíč               | Hodnota (typ) | Popis |
+| Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| owin. RequestScheme | `String` |  |
-| owin. RequestMethod  | `String` | |    
-| owin. RequestPathBase  | `String` | |    
-| owin. Cesta aplikace RequestPath | `String` | |     
-| owin. PožadavekNařetězec  | `String` | |    
-| owin. Protokol RequestProtocol  | `String` | |    
-| owin. Hlavičky požadavků | `IDictionary<string,string[]>`  | |
-| owin. RequestBody | `Stream`  | |
+| Owin. RequestScheme | `String` |  |
+| Owin. RequestMethod  | `String` | |    
+| Owin. RequestPathBase  | `String` | |    
+| Owin. RequestPath | `String` | |     
+| Owin. RequestQueryString  | `String` | |    
+| Owin. RequestProtocol  | `String` | |    
+| Owin. RequestHeaders hostitele | `IDictionary<string,string[]>`  | |
+| Owin. Částmi | `Stream`  | |
 
-### <a name="request-data-owin-v110"></a>Údaje o požadavku (OWIN v1.1.0)
+### <a name="request-data-owin-v110"></a>Data požadavku (OWIN v 1.1.0)
 
-| Klíč               | Hodnota (typ) | Popis |
+| Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| owin. Requestid | `String` | Nepovinné |
+| Owin. Identifikátor | `String` | Nepovinné |
 
-### <a name="response-data-owin-v100"></a>Údaje o odezvě (OWIN v1.0.0)
+### <a name="response-data-owin-v100"></a>Data odpovědi (OWIN v 1.0.0)
 
-| Klíč               | Hodnota (typ) | Popis |
+| Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| owin. ResponseStatusCode | `int` | Nepovinné |
-| owin. ResponseReasonPhrase | `String` | Nepovinné |
-| owin. Hlavičky odpovědí | `IDictionary<string,string[]>`  | |
-| owin. ResponseBody | `Stream`  | |
+| Owin. ResponseStatusCode | `int` | Nepovinné |
+| Owin. ResponseReasonPhrase | `String` | Nepovinné |
+| Owin. ResponseHeaders hostitele | `IDictionary<string,string[]>`  | |
+| Owin. ResponseBody | `Stream`  | |
 
-### <a name="other-data-owin-v100"></a>Další údaje (OWIN v1.0.0)
+### <a name="other-data-owin-v100"></a>Jiná data (OWIN v 1.0.0)
 
-| Klíč               | Hodnota (typ) | Popis |
+| Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| owin. Volání zrušeno | `CancellationToken` |  |
-| owin. Verze  | `String` | |   
+| Owin. CallCancelled | `CancellationToken` |  |
+| Owin. Znění  | `String` | |   
 
-### <a name="common-keys"></a>Běžné klávesy
+### <a name="common-keys"></a>Společné klíče
 
-| Klíč               | Hodnota (typ) | Popis |
+| Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| Ssl. Klientský certifikát | `X509Certificate` |  |
-| Ssl. LoadClientCertAsync  | `Func<Task>` | |    
-| Server. Vzdálená ipadresa  | `String` | |    
-| Server. Vzdálený port | `String` | |     
-| Server. Adresa LocalIpAddress  | `String` | |    
-| Server. LocalPort  | `String` | |    
-| Server. IsMístní  | `bool` | |    
-| Server. OnSendingHeaders  | `Action<Action<object>,object>` | |
+| zabezpečení. ClientCertificate | `X509Certificate` |  |
+| zabezpečení. LoadClientCertAsync  | `Func<Task>` | |    
+| WebServer. RemoteIpAddress  | `String` | |    
+| WebServer. RemotePort | `String` | |     
+| WebServer. LocalIpAddress  | `String` | |    
+| WebServer. LocalPort  | `String` | |    
+| WebServer. Místní  | `bool` | |    
+| WebServer. OnSendingHeaders  | `Action<Action<object>,object>` | |
 
-### <a name="sendfiles-v030"></a>SendFiles v0.3.0
+### <a name="sendfiles-v030"></a>SendFiles v 0.3.0
 
-| Klíč               | Hodnota (typ) | Popis |
+| Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| souboru odeslání. Sendasync | Viz [podpis delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) | Na požadavek |
+| sendfile. SendAsync | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) | Za požadavek |
 
-### <a name="opaque-v030"></a>Neprůhledné v0.3.0
+### <a name="opaque-v030"></a>Neprůhledný v 0.3.0
 
-| Klíč               | Hodnota (typ) | Popis |
+| Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| Neprůhledné. Verze | `String` |  |
-| Neprůhledné. Upgrade | `OpaqueUpgrade` | Viz [podpis delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
-| Neprůhledné. Proudu | `Stream` |  |
-| Neprůhledné. Volání zrušeno | `CancellationToken` |  |
+| krytím. Znění | `String` |  |
+| krytím. Přejít | `OpaqueUpgrade` | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
+| krytím. Stream | `Stream` |  |
+| krytím. CallCancelled | `CancellationToken` |  |
 
-### <a name="websocket-v030"></a>WebSocket v0.3.0
+### <a name="websocket-v030"></a>WebSocket v 0.3.0
 
-| Klíč               | Hodnota (typ) | Popis |
+| Key               | Hodnota (typ) | Popis |
 | ----------------- | ------------ | ----------- |
-| websocket. Verze | `String` |  |
-| websocket. Přijmout | `WebSocketAccept` | Viz [podpis delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
-| websocket. Přijmoutalt |  | Nespecifikace |
-| websocket. Podprotokol | `String` | Viz [RFC6455 Oddíl 4.2.2](https://tools.ietf.org/html/rfc6455#section-4.2.2) Krok 5.5 |
-| websocket. Sendasync | `WebSocketSendAsync` | Viz [podpis delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
-| websocket. ReceiveAsync | `WebSocketReceiveAsync` | Viz [podpis delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
-| websocket. CloseAsync | `WebSocketCloseAsync` | Viz [podpis delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
-| websocket. Volání zrušeno | `CancellationToken` |  |
-| websocket. Stav klienta CloseStatus | `int` | Nepovinné |
-| websocket. Popis klienta | `String` | Nepovinné |
+| protokolu WebSocket. Znění | `String` |  |
+| protokolu WebSocket. Vyjádřit | `WebSocketAccept` | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
+| protokolu WebSocket. AcceptAlt |  | Bez specifikace |
+| protokolu WebSocket. Dílčí protokol | `String` | Viz [část RFC6455 4.2.2](https://tools.ietf.org/html/rfc6455#section-4.2.2) krok 5,5 |
+| protokolu WebSocket. SendAsync | `WebSocketSendAsync` | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
+| protokolu WebSocket. Metody ReceiveAsync | `WebSocketReceiveAsync` | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
+| protokolu WebSocket. CloseAsync | `WebSocketCloseAsync` | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm)  |
+| protokolu WebSocket. CallCancelled | `CancellationToken` |  |
+| protokolu WebSocket. ClientCloseStatus | `int` | Nepovinné |
+| protokolu WebSocket. ClientCloseDescription | `String` | Nepovinné |
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Middleware](xref:fundamentals/middleware/index)
 * [Servery](xref:fundamentals/servers/index)

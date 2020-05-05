@@ -1,19 +1,25 @@
 ---
-title: Publikování aplikace ASP.NET Core do Azure pomocí Visual Studia
+title: Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
 author: rick-anderson
-description: Zjistěte, jak publikovat aplikaci ASP.NET Core do služby Azure App Service pomocí Visual Studia.
+description: Naučte se publikovat aplikaci ASP.NET Core pro Azure App Service pomocí sady Visual Studio.
 ms.author: riande
 ms.custom: mvc
 ms.date: 07/10/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/publish-to-azure-webapp-using-vs
-ms.openlocfilehash: 7fc3644df3dcb957f2537538aaa9506c6b38a480
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 634fb821ef0478dbcf57fdbb991a2e8bbb9402f1
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78662202"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777082"
 ---
-# <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Publikování aplikace ASP.NET Core do Azure pomocí Visual Studia
+# <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 ::: moniker range=">= aspnetcore-3.0"
@@ -23,174 +29,174 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 ::: moniker-end
 
 
-Pokud pracujete na macOS, přečtěte si [informace o publikování webové aplikace do služby Azure App Service pomocí Visual Studia pro Mac.](https://docs.microsoft.com/visualstudio/mac/publish-app-svc?view=vsmac-2019)
+Pokud pracujete na macOS, přečtěte si téma [publikování webové aplikace pro Azure App Service používání Visual Studio pro Mac](https://docs.microsoft.com/visualstudio/mac/publish-app-svc?view=vsmac-2019) .
 
-Informace o řešení problému s <xref:test/troubleshoot-azure-iis>nasazením služby App Service naleznete v tématu .
+Problémy s nasazením App Service najdete v tématu <xref:test/troubleshoot-azure-iis>.
 
-## <a name="set-up"></a>Nastavit
+## <a name="set-up"></a>Nastavení
 
-* Pokud ho nemáte, otevřete si [bezplatný účet Azure.](https://azure.microsoft.com/free/dotnet/) 
+* Pokud ho nemáte, otevřete [bezplatný účet Azure](https://azure.microsoft.com/free/dotnet/) . 
 
 ## <a name="create-a-web-app"></a>Vytvoření webové aplikace
 
-Na úvodní stránce Visual Studia vyberte **Soubor > Nový > project...**
+Na úvodní stránce sady Visual Studio vyberte **soubor > nový > projekt...**
 
 ![Nabídka Soubor](publish-to-azure-webapp-using-vs/_static/file_new_project.png)
 
-Dokončete dialogové okno **Nový projekt:**
+Dokončete dialog **nového projektu** :
 
-* V levém podokně vyberte **položku .NET Core**.
-* V prostředním podokně vyberte **ASP.NET Základní webová aplikace**.
+* V levém podokně vyberte **.NET Core**.
+* V prostředním podokně vyberte **ASP.NET Core webová aplikace**.
 * Vyberte **OK**.
 
 ![Dialogové okno Nový projekt](publish-to-azure-webapp-using-vs/_static/new_prj.png)
 
-V dialogovém **okně Nová ASP.NET základní webová aplikace:**
+V dialogovém okně **nový ASP.NET Core webové aplikace** :
 
-* Vyberte **webovou aplikaci**.
-* Vyberte **možnost Změnit ověřování**.
+* Vyberte **Webová aplikace**.
+* Vyberte **změnit ověřování**.
 
 ![Dialogové okno Nový projekt](publish-to-azure-webapp-using-vs/_static/new_prj_2.png)
 
-Zobrazí se dialogové okno **Změnit ověřování.** 
+Zobrazí se dialogové okno **změnit ověřování** . 
 
 * Vyberte **jednotlivé uživatelské účty**.
-* Výběrem **možnosti OK** se vrátíte do **nové ASP.NET základní webové aplikace**a pak znovu vyberte **OK.**
+* Kliknutím na **tlačítko OK** se vraťte do **nové ASP.NET Core webové aplikace**a pak znovu vyberte **OK** .
 
-![Dialogové okno nového ASP.NET základního webového ověřování](publish-to-azure-webapp-using-vs/_static/new_prj_auth.png) 
+![Dialog nové ASP.NET Core webového ověřování](publish-to-azure-webapp-using-vs/_static/new_prj_auth.png) 
 
 Visual Studio vytvoří řešení.
 
 ## <a name="run-the-app"></a>Spuštění aplikace
 
-* Stisknutím kláves CTRL+F5 spusťte projekt.
-* Otestujte odkazy **O a** **Kontakt.**
+* Stisknutím kombinace kláves CTRL + F5 spusťte projekt.
+* Otestujte odkazy **na adresu** a **kontakt** .
 
-![Webová aplikace otevřená v Microsoft Edge na localhost](publish-to-azure-webapp-using-vs/_static/show.png)
+![Webová aplikace otevřená v Microsoft Edge na místním hostiteli](publish-to-azure-webapp-using-vs/_static/show.png)
 
 ### <a name="register-a-user"></a>Registrace uživatele
 
-* Vyberte **Registrovat** a zaregistrujte nového uživatele. Můžete použít fiktivní e-mailovou adresu. Při odeslání se na stránce zobrazí následující chyba:
+* Vyberte **Registrovat** a registrovat nového uživatele. Můžete použít fiktivní e-mailovou adresu. Při odeslání se na stránce zobrazí následující chyba:
 
-    *"Vnitřní chyba serveru: Při zpracování požadavku se nezdařila operace databáze. Výjimka SQL: Databázi nelze otevřít. Použití existující migrace pro kontext aplikační db může vyřešit tento problém."*
-* Vyberte **Použít migrace** a po aktualizaci stránky stránku aktualizujte.
+    *"Došlo k vnitřní chybě serveru: databázová operace se při zpracování požadavku nezdařila. Výjimka SQL: databázi nelze otevřít. Tento problém může vyřešit použití existujících migrací pro kontext aplikační databáze. "*
+* Vyberte možnost **použít migrace** a po aktualizaci stránky aktualizujte stránku.
 
-![Vnitřní chyba serveru: Při zpracování požadavku se nezdařila operace databáze. Výjimka SQL: Databázi nelze otevřít. Použití existující migrace pro kontext databáze aplikace může vyřešit tento problém.](publish-to-azure-webapp-using-vs/_static/mig.png)
+![Došlo k vnitřní chybě serveru: databázová operace se při zpracování požadavku nezdařila. Výjimka SQL: databázi nelze otevřít. Tento problém může vyřešit použití existujících migrací pro kontext aplikační databáze.](publish-to-azure-webapp-using-vs/_static/mig.png)
 
-Aplikace zobrazí e-mail použitý k registraci nového uživatele a odkaz **odhlásit.**
+Aplikace zobrazí e-mail, který se používá k registraci nového uživatele a odkaz na **odhlášení** .
 
-![Webová aplikace otevřena v aplikaci Microsoft Edge. Odkaz Registr je nahrazen textem email@domain.comDobrý den !](publish-to-azure-webapp-using-vs/_static/hello.png)
+![Webová aplikace je otevřená v Microsoft Edge. Odkaz na registraci je nahrazen textem Hello email@domain.com!](publish-to-azure-webapp-using-vs/_static/hello.png)
 
 ## <a name="deploy-the-app-to-azure"></a>Nasadit aplikaci do Azure
 
-Klikněte pravým tlačítkem myši na projekt v Průzkumníku řešení a vyberte **publikovat...**.
+Klikněte pravým tlačítkem na projekt v Průzkumník řešení a vyberte **publikovat...**.
 
-![Otevřená kontextová nabídka se zvýrazněným odkazem Publikovat](publish-to-azure-webapp-using-vs/_static/pub.png)
+![Kontextová nabídka otevřená se zvýrazněným odkazem pro publikování](publish-to-azure-webapp-using-vs/_static/pub.png)
 
-V dialogovém okně **Publikovat:**
+V dialogovém okně **publikovat** :
 
-* Vyberte **službu Microsoft Azure App Service**.
-* Vyberte ikonu ozubeného kola a pak vyberte **Vytvořit profil**.
+* Vyberte **Microsoft Azure App Service**.
+* Vyberte ikonu ozubeného kolečka a pak vyberte **vytvořit profil**.
 * Vyberte **Vytvořit profil**.
 
-![Dialogové okno Publikovat](publish-to-azure-webapp-using-vs/_static/maas1.png)
+![Dialog publikovat](publish-to-azure-webapp-using-vs/_static/maas1.png)
 
 ### <a name="create-azure-resources"></a>Vytvoření prostředků Azure
 
-Zobrazí se dialogové okno **Vytvořit službu App Service:**
+Zobrazí se dialogové okno **vytvořit App Service** :
 
 * Zadejte své předplatné.
-* Jsou vyplněna pole **Název aplikace**, **Skupina prostředků**a **Plán služby App** Service. Můžete si tyto názvy ponechat nebo je změnit.
+* Vyplní se pole **název aplikace**, **Skupina prostředků**a položka **plánu App Service** . Tyto názvy můžete zachovat nebo je změnit.
 
-![Dialogové okno Služba Aplikace](publish-to-azure-webapp-using-vs/_static/newrg1.png)
+![Dialog App Service](publish-to-azure-webapp-using-vs/_static/newrg1.png)
 
-* Chcete-li vytvořit novou databázi, vyberte kartu **Služby.**
+* Vyberte kartu **služby** a vytvořte novou databázi.
 
-* Výběrzelené **+** ikony pro vytvoření nové databáze SQL
+* Vyberte zelenou **+** ikonu pro vytvoření nového SQL Database
 
 ![Nová databáze SQL](publish-to-azure-webapp-using-vs/_static/sql.png)
 
-* **Vdialogovéce Konfigurovat databázi SQL** vyberte **Nový...** a vytvořte novou databázi.
+* Vyberte **Nový...** v dialogovém okně **Konfigurace SQL Database** vytvořte novou databázi.
 
-![Nová databáze sql a server](publish-to-azure-webapp-using-vs/_static/conf.png)
+![Nové SQL Database a Server](publish-to-azure-webapp-using-vs/_static/conf.png)
 
-Zobrazí se dialogové okno **Konfigurovat sql server.**
+Zobrazí se dialogové okno **konfigurace SQL Server** .
 
-* Zadejte uživatelské jméno a heslo správce a vyberte **ok**. Můžete zachovat výchozí **název serveru**. 
+* Zadejte uživatelské jméno a heslo správce a pak vyberte **OK**. Můžete ponechat výchozí **název serveru**. 
 
 > [!NOTE]
-> "admin" není povoleno jako uživatelské jméno správce.
+> správce není povolený jako uživatelské jméno správce.
 
-![Dialogové okno Konfigurovat server SQL Server](publish-to-azure-webapp-using-vs/_static/conf_servername.png)
+![Dialogové okno Konfigurace SQL Server](publish-to-azure-webapp-using-vs/_static/conf_servername.png)
 
 * Vyberte **OK**.
 
-Visual Studio se vrátí do dialogového okna **Vytvořit službu aplikace.**
+Visual Studio se vrátí do dialogového okna **vytvořit App Service** .
 
-* V dialogovém okně **Vytvořit službu aplikace** vyberte **Vytvořit.**
+* V dialogovém okně **vytvořit App Service** vyberte **vytvořit** .
 
-![Dialogové okno Konfigurovat databázi SQL](publish-to-azure-webapp-using-vs/_static/conf_final.png)
+![Dialogové okno Konfigurace SQL Database](publish-to-azure-webapp-using-vs/_static/conf_final.png)
 
-Visual Studio vytvoří webovou aplikaci a SQL Server v Azure. Tento krok může trvat několik minut. Informace o vytvořených zdrojích naleznete v tématu [Další zdroje](#additional-resources).
+Visual Studio vytvoří webovou aplikaci a SQL Server v Azure. Tento krok může trvat několik minut. Informace o vytvořených prostředcích najdete v tématu [Další zdroje](#additional-resources)informací.
 
 Po dokončení nasazení vyberte **Nastavení**:
 
-![Dialogové okno Konfigurovat server SQL Server](publish-to-azure-webapp-using-vs/_static/set.png)
+![Dialogové okno Konfigurace SQL Server](publish-to-azure-webapp-using-vs/_static/set.png)
 
-Na stránce **Nastavení** dialogového okna **Publikovat:**
+Na stránce **Nastavení** dialogového okna **publikovat** :
 
-* Rozbalte **položku Databáze** a **zaškrtněte políčko Použít tento připojovací řetězec za běhu**.
-* Rozbalte **migrace entity framework u** publikování . **Apply this migration on publish**
+* Rozbalte položku **databáze** a potom **pomocí tohoto připojovacího řetězce za běhu**.
+* Rozbalte **Entity Framework migrace** a **při publikování zaškrtnout možnost použít tuto migraci**.
 
-* Vyberte **Uložit**. Visual Studio se vrátí do dialogového okna **Publikovat.** 
+* Vyberte **Uložit**. Visual Studio se vrátí do dialogového okna **publikovat** . 
 
-![Dialogové okno Publikovat: Panel Nastavení](publish-to-azure-webapp-using-vs/_static/pubs.png)
+![Dialog publikovat: panel nastavení](publish-to-azure-webapp-using-vs/_static/pubs.png)
 
 Klikněte na **Publikovat**. Visual Studio publikuje vaši aplikaci do Azure. Po dokončení nasazení se aplikace otevře v prohlížeči.
 
 ### <a name="test-your-app-in-azure"></a>Testování aplikace v Azure
 
-* Testování odkazů **O o** **kontaktech** a Kontakt
+* Testování odkazů **About** a **kontakt**
 
 * Registrace nového uživatele
 
-![Webová aplikace otevřená v Microsoft Edge ve službě Azure App Service](publish-to-azure-webapp-using-vs/_static/register.png)
+![Webová aplikace otevřená v Microsoft Edge na Azure App Service](publish-to-azure-webapp-using-vs/_static/register.png)
 
 ### <a name="update-the-app"></a>Aktualizace aplikace
 
-* Upravte stránku *Pages/About.cshtml* Razor a změňte její obsah. Můžete například upravit odstavec tak, aby vyslovoval "Hello ASP.NET Core!":
+* Upravte stránku *stránky/About. cshtml* Razor a změňte její obsah. Například můžete změnit odstavec a vyslovit "Hello ASP.NET Core!":
 
     [!code-html[About](publish-to-azure-webapp-using-vs/sample/about.cshtml?highlight=9&range=1-9)]
 
-* Klikněte pravým tlačítkem myši na projekt a vyberte **publikovat...** znovu.
+* Klikněte pravým tlačítkem na projekt a vyberte **publikovat...** znovu.
 
-![Otevřená kontextová nabídka se zvýrazněným odkazem Publikovat](publish-to-azure-webapp-using-vs/_static/pub.png)
+![Kontextová nabídka otevřená se zvýrazněným odkazem pro publikování](publish-to-azure-webapp-using-vs/_static/pub.png)
 
-* Po publikování aplikace ověřte, zda jsou provedené změny dostupné v Azure.
+* Po publikování aplikace ověřte, že provedené změny jsou k dispozici v Azure.
 
-![Ověření dokončení úkolu](publish-to-azure-webapp-using-vs/_static/final.png)
+![Ověření dokončení úlohy](publish-to-azure-webapp-using-vs/_static/final.png)
 
 ### <a name="clean-up"></a>Vyčištění
 
-Až dokončíte testování aplikace, přejděte na [portál Azure](https://portal.azure.com/) a aplikaci odstraňte.
+Po dokončení testování aplikace přejdete na [Azure Portal](https://portal.azure.com/) a aplikaci odstraníte.
 
-* Vyberte **skupiny prostředků**a vyberte skupinu prostředků, kterou jste vytvořili.
+* Vyberte **skupiny prostředků**a pak vyberte skupinu prostředků, kterou jste vytvořili.
 
-![Portál Azure: Skupiny prostředků v postranním panelu](publish-to-azure-webapp-using-vs/_static/portalrg.png)
+![Azure Portal: skupiny prostředků v nabídce bočního panelu](publish-to-azure-webapp-using-vs/_static/portalrg.png)
 
-* Na stránce **Skupiny prostředků** vyberte **Odstranit**.
+* Na stránce **skupiny prostředků** vyberte **Odstranit**.
 
-![Azure Portal: Stránka Skupiny prostředků](publish-to-azure-webapp-using-vs/_static/rgd.png)
+![Azure Portal: stránka skupin prostředků](publish-to-azure-webapp-using-vs/_static/rgd.png)
 
-* Zadejte název skupiny prostředků a vyberte **Odstranit**. Vaše aplikace a všechny ostatní prostředky vytvořené v tomto kurzu se teď odstraní z Azure.
+* Zadejte název skupiny prostředků a vyberte **Odstranit**. Vaše aplikace a všechny ostatní prostředky vytvořené v tomto kurzu se teď z Azure odstraní.
 
 ### <a name="next-steps"></a>Další kroky
 
 * <xref:host-and-deploy/azure-apps/azure-continuous-deployment>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* Kód sady Visual Studio najdete [v tématu Publikování profilů](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles).
+* Visual Studio Code najdete v tématu [publikování profilů](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles).
 * [Azure App Service](/azure/app-service/app-service-web-overview)
 * [Skupiny prostředků Azure](/azure/azure-resource-manager/resource-group-overview#resource-groups)
 * [Azure SQL Database](/azure/sql-database/)

@@ -1,16 +1,22 @@
 ---
-title: Úvod do identity na ASP.NET Core
+title: Úvod do Identity ASP.NET Core
 author: rick-anderson
-description: Použijte identitu s aplikací ASP.NET Core. Přečtěte si, jak nastavit požadavky na heslo (RequireDigit, RequiredLength, RequiredUniqueChars a další).
+description: Použijte Identity s aplikací ASP.NET Core. Přečtěte si, jak nastavit požadavky na heslo (RequireDigit, RequiredLength, RequiredUniqueChars a další).
 ms.author: riande
 ms.date: 01/15/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/identity
-ms.openlocfilehash: 4bc5f206b3aee7c2d34055703acc5b6c5218f964
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: d596a8357c5c812b94950809eedf35718328747c
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82205940"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777004"
 ---
 # <a name="introduction-to-identity-on-aspnet-core"></a>Úvod do identity na ASP.NET Core
 
@@ -391,30 +397,30 @@ Příspěvek je zadán ve *stránkách/Shared/_LoginPartial. cshtml*:
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Shared/_LoginPartial.cshtml?highlight=16)]
 
-## <a name="test-identity"></a>Test identity
+## <a name="test-identity"></a>NapadenIdentity
 
-Výchozí šablony webového projektu umožňují anonymní přístup k domovské stránce. Chcete-li otestovat identitu [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) , přidejte na stránku soukromí.
+Výchozí šablony webového projektu umožňují anonymní přístup k domovské stránce. Chcete- Identityli otestovat [`[Authorize]`](/dotnet/api/microsoft.aspnetcore.authorization.authorizeattribute) , přidejte na stránku soukromí.
 
 [!code-csharp[](identity/sample/WebApp1/Pages/Privacy.cshtml.cs?highlight=7)]
 
 Pokud jste přihlášeni, odhlaste se. Spusťte aplikaci a vyberte odkaz na **ochranu osobních údajů** . Budete přesměrováni na přihlašovací stránku.
 
-### <a name="explore-identity"></a>Prozkoumat identitu
+### <a name="explore-identity"></a>OknoIdentity
 
-Podrobněji prozkoumat identitu:
+Podrobněji prozkoumat Identity :
 
 * [Vytvořit úplný zdroj uživatelského rozhraní identity](xref:security/authentication/scaffold-identity#create-full-identity-ui-source)
 * Projděte si zdroj každé stránky a proveďte krok pomocí ladicího programu.
 
-## <a name="identity-components"></a>Komponenty identity
+## <a name="identity-components"></a>IdentityKonstrukční
 
-Všechny balíčky NuGet závislé na identitě jsou zahrnuté ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
+Všechny Identity závislé balíčky NuGet jsou součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
-Primárním balíčkem identity je [Microsoft. AspNetCore. identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/). Tento balíček obsahuje základní sadu rozhraní pro ASP.NET Core identitu a je zahrnutý v `Microsoft.AspNetCore.Identity.EntityFrameworkCore`.
+Primární balíček pro Identity je [Microsoft. AspNetCore.Identity](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity/). Tento balíček obsahuje základní sadu rozhraní pro ASP.NET Core Identitya je součástí nástroje. `Microsoft.AspNetCore.Identity.EntityFrameworkCore`
 
-## <a name="migrating-to-aspnet-core-identity"></a>Migrace na ASP.NET Core identity
+## <a name="migrating-to-aspnet-core-identity"></a>Migrace na ASP.NET CoreIdentity
 
-Další informace a pokyny k migraci stávajícího úložiště identit najdete v tématu [migrace ověřování a identity](xref:migration/identity).
+Další informace a pokyny k migraci stávajícího Identity úložiště najdete v tématu [migrace ověřování a Identity ](xref:migration/identity).
 
 ## <a name="setting-password-strength"></a>Nastavení síly hesla
 
@@ -422,8 +428,8 @@ V části [Konfigurace](#pw) najdete ukázku, která nastavuje minimální poža
 
 ## <a name="next-steps"></a>Další kroky
 
-* Informace o konfiguraci identity pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) .
-* [Konfigurace systému Identity](xref:security/authentication/identity-configuration)
+* Informace o konfiguraci Identity pomocí SQLite najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/5131) .
+* [KonfiguraceIdentity](xref:security/authentication/identity-configuration)
 * <xref:security/authorization/secure-data>
 * <xref:security/authentication/add-user-data>
 * <xref:security/authentication/identity-enable-qrcodes>

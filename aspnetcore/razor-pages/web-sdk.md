@@ -1,29 +1,33 @@
 ---
-title: ASP.NET základní webovou sadou SDK
+title: ASP.NET Core web SDK
 author: Rick-Anderson
-description: Přehled webu Microsoft.NET.Sdk.Web.
+description: Přehled Microsoft. NET. SDK. Web.
 ms.author: riande
 ms.date: 01/25/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: razor-pages/web-sdk
-ms.openlocfilehash: 6a9d531efd2188aed525c949bb124914c31119db
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 2797f0b3003b8ad89093fe1115dee2acc8650c73
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78661054"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777160"
 ---
-# <a name="aspnet-core-web-sdk"></a>ASP.NET základní webovou sadou SDK
+# <a name="aspnet-core-web-sdk"></a>ASP.NET Core web SDK
 
 ### <a name="overview"></a>Přehled
 
-`Microsoft.NET.Sdk.Web`je [sada SDK projektu MSBuild](https://docs.microsoft.com/visualstudio/msbuild/how-to-use-project-sdk) pro vytváření ASP.NET základních aplikací. Je možné vytvořit aplikaci ASP.NET Core bez této sady SDK, webová sada SDK je však:
+`Microsoft.NET.Sdk.Web`je [projektová sada SDK pro MSBuild](https://docs.microsoft.com/visualstudio/msbuild/how-to-use-project-sdk) pro vytváření ASP.NET Corech aplikací. Je možné vytvořit aplikaci ASP.NET Core bez této sady SDK, ale webová sada SDK je:
 
-* Šité na míru pro poskytování prvotřídního zážitku.
+* Přizpůsobené pro poskytování prvotřídního prostředí.
 * Doporučený cíl pro většinu uživatelů.
 
-Použití sady Web.SDK v projektu:
+Použijte web. SDK v projektu:
 
   ```xml
   <Project Sdk="Microsoft.NET.Sdk.Web">
@@ -31,18 +35,18 @@ Použití sady Web.SDK v projektu:
   </Project>
   ```
 
-Funkce povolené pomocí sady Web SDK:
+Funkce, které jsou povolené pomocí webové sady SDK:
 
-* Projekty, které cílí na rozhraní .NET Core 3.0 nebo novější implicitně odkazují:
+* Projekty cílené na .NET Core 3,0 nebo novější, na které se implicitně odkazují:
 
-  * Sdílený [rámec ASP.NET Core](xref:fundamentals/metapackage-app).
-  * [Analyzátory](/visualstudio/extensibility/getting-started-with-roslyn-analyzers) navržené pro vytváření aplikací ASP.NET Core.
-* Sada Web SDK importuje cíle MSBuild, které umožňují použití profilů publikování a publikování pomocí aplikace WebDeploy.
+  * [ASP.NET Core sdílené rozhraní](xref:fundamentals/metapackage-app).
+  * [Analyzátory](/visualstudio/extensibility/getting-started-with-roslyn-analyzers) navržené pro vytváření ASP.NET Corech aplikací
+* Webová sada SDK importuje cíle MSBuild, které umožňují použití profilů publikování a publikování pomocí nástroje WebDeploy.
 
 ### <a name="properties"></a>Vlastnosti
 
 | Vlastnost | Popis |
 | -------- | ----------- |
-| `DisableImplicitFrameworkReferences` | Zakáže implicitní `Microsoft.AspNetCore.App` odkaz na sdílené rozhraní. |
-| `DisableImplicitAspNetCoreAnalyzers` | Zakáže implicitní odkaz na ASP.NET core analyzátory. |
-| `DisableImplicitComponentsAnalyzers` | Zakáže implicitní odkaz na analyzátory komponent razor při vytváření Blazor (serverových) aplikací. |
+| `DisableImplicitFrameworkReferences` | Zakáže implicitní odkaz na `Microsoft.AspNetCore.App` sdílené rozhraní. |
+| `DisableImplicitAspNetCoreAnalyzers` | Zakáže implicitní odkaz na analyzátory ASP.NET Core. |
+| `DisableImplicitComponentsAnalyzers` | Zakáže implicitní odkaz na Razor analyzátory komponent při vytváření Blazor aplikací (Server). |

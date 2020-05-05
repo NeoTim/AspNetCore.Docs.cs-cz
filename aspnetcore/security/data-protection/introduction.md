@@ -5,19 +5,25 @@ description: Přečtěte si o konceptu ochrany dat a zásadách návrhu rozhran�
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/24/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/introduction
-ms.openlocfilehash: 37f170a3e8a46ef2215b0999358d46dd402636df
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: db2c22454fc6c7e663ca603e9d70b6c12ce31af4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78664442"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775801"
 ---
 # <a name="aspnet-core-data-protection"></a>Ochrana dat ASP.NET Core
 
 Webové aplikace často potřebují ukládat data citlivá na zabezpečení. Systém Windows poskytuje rozhraní DPAPI pro aplikace klasické pracovní plochy, ale není vhodné pro webové aplikace. Sada ASP.NET Core Data Protection Stack nabízí jednoduché a snadno použitelné kryptografické rozhraní API, které může vývojář použít k ochraně dat, včetně správy klíčů a rotace.
 
-Sada ASP.NET Core Data Protection Stack je navržená tak, aby sloužila jako dlouhodobá náhrada prvku &lt;machineKey&gt; v ASP.NET 1. x-4. x. Byl navržen tak, aby využíval mnoho nedostatků starého kryptografického zásobníku a zároveň poskytovalo předem připravené řešení pro většinu případů použití moderních aplikací, které se mohou vyskytnout.
+Sada ASP.NET Core Data Protection Stack je navržena tak, aby sloužila jako dlouhodobá náhrada &lt;elementu&gt; machineKey v ASP.NET 1. x-4. x. Byl navržen tak, aby využíval mnoho nedostatků starého kryptografického zásobníku a zároveň poskytovalo předem připravené řešení pro většinu případů použití moderních aplikací, které se mohou vyskytnout.
 
 ## <a name="problem-statement"></a>Popis problému
 
@@ -67,16 +73,16 @@ Systém ochrany dat je rozdělen na pět hlavních balíčků. Různé aspekty t
 
 Zásobník ochrany dat se skládá z pěti balíčků.
 
-* [Microsoft. AspNetCore. DataProtection. abstrakce](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/) obsahuje rozhraní <xref:Microsoft.AspNetCore.DataProtection.IDataProtectionProvider> a <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> pro vytváření služeb ochrany dat. Obsahuje také užitečné metody rozšíření pro práci s těmito typy (například [IDataProtector. Protect](xref:Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Protect*)). Pokud je systém ochrany dat vytvořen jinde a používáte rozhraní API, referenční `Microsoft.AspNetCore.DataProtection.Abstractions`.
+* [Microsoft. AspNetCore. DataProtection. abstrakce](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Abstractions/) obsahují rozhraní <xref:Microsoft.AspNetCore.DataProtection.IDataProtectionProvider> a <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> pro vytváření služeb ochrany dat. Obsahuje také užitečné metody rozšíření pro práci s těmito typy (například [IDataProtector. Protect](xref:Microsoft.AspNetCore.DataProtection.DataProtectionCommonExtensions.Protect*)). Pokud je systém ochrany dat vytvořen jinde a používáte rozhraní API, reference `Microsoft.AspNetCore.DataProtection.Abstractions`.
 
-* [Microsoft. AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/) obsahuje základní implementaci systému ochrany dat, včetně základních kryptografických operací, správy klíčů, konfigurace a rozšiřitelnosti. Chcete-li vytvořit instanci systému ochrany dat (například přidání do <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>) nebo úpravou nebo rozšířením jeho chování, odkazujte na `Microsoft.AspNetCore.DataProtection`.
+* [Microsoft. AspNetCore. DataProtection](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection/) obsahuje základní implementaci systému ochrany dat, včetně základních kryptografických operací, správy klíčů, konfigurace a rozšiřitelnosti. Chcete-li vytvořit instanci systému ochrany dat (například přidat ho do objektu <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection>) nebo upravit nebo rozšířit jeho chování, odkaz. `Microsoft.AspNetCore.DataProtection`
 
 * [Microsoft. AspNetCore. DataProtection. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Extensions/) obsahuje další rozhraní API, která vývojáři můžou najít užitečnou, ale nepatří do balíčku Core. Například tento balíček obsahuje metody výrobního rozhraní pro vytvoření instance systému ochrany dat pro ukládání klíčů do umístění v systému souborů bez vkládání závislostí (viz <xref:Microsoft.AspNetCore.DataProtection.DataProtectionProvider>). Obsahuje také metody rozšíření pro omezení životnosti chráněných datových částí (viz <xref:Microsoft.AspNetCore.DataProtection.ITimeLimitedDataProtector>).
 
-* [Microsoft. AspNetCore. DataProtection. SystemWeb](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.SystemWeb/) se dá nainstalovat do existující aplikace ASP.NET 4. x, která přesměruje jeho operace `<machineKey>` na použití nového zásobníku ASP.NET Core ochrany dat. Další informace naleznete v tématu <xref:security/data-protection/compatibility/replacing-machinekey>.
+* [Microsoft. AspNetCore. DataProtection. SystemWeb](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.SystemWeb/) se dá nainstalovat do existující aplikace ASP.NET 4. x pro přesměrování svých `<machineKey>` operací na použití nového zásobníku ASP.NET Core Data Protection. Další informace naleznete v tématu <xref:security/data-protection/compatibility/replacing-machinekey>.
 
 * [Odvození od společnosti Microsoft. AspNetCore. Cryptography. devozuje](https://www.nuget.org/packages/Microsoft.AspNetCore.Cryptography.KeyDerivation/) poskytuje implementaci rutiny hash hesla PBKDF2 a může být používána systémy, které musí bezpečně zpracovávat hesla uživatelů. Další informace naleznete v tématu <xref:security/data-protection/consumer-apis/password-hashing>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 <xref:host-and-deploy/web-farm>

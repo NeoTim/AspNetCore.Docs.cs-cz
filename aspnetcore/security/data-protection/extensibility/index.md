@@ -1,18 +1,24 @@
 ---
-title: ASP.NET jádrová data ochrany rozšiřitelnosti API
+title: Rozhraní API pro rozšíření ASP.NET Core ochrany dat
 author: rick-anderson
-description: Seznamte se s různými tématy ASP.NET ochrany dat core.
+description: Seznamte se s různými tématy pro rozšíření ochrany dat ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/extensibility/index
-ms.openlocfilehash: 6a5a50f13fa3c7c437ec7d98da4dab67e4870f71
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 7b73f4ba9315ad662c59f421668c0ed78602526a
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78663560"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775762"
 ---
-# <a name="aspnet-core-data-protection-extensibility-apis"></a>ASP.NET jádrová data ochrany rozšiřitelnosti API
+# <a name="aspnet-core-data-protection-extensibility-apis"></a>Rozhraní API pro rozšíření ASP.NET Core ochrany dat
 
 * [Rozšiřitelnost základní kryptografie](xref:security/data-protection/extensibility/core-crypto)
 

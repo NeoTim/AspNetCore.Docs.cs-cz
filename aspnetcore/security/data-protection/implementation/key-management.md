@@ -4,13 +4,19 @@ author: rick-anderson
 description: Přečtěte si podrobnosti o implementaci rozhraní API pro správu klíčů ASP.NET Core Data Protection.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/key-management
-ms.openlocfilehash: c571222d734fa69183563aefa5cc6ce5a10e7612
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 0f54ceedf3558fb4fa2349903461fdfdb4dc02e6
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78664708"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776900"
 ---
 # <a name="key-management-in-aspnet-core"></a>Správa klíčů v ASP.NET Core
 
@@ -59,7 +65,7 @@ services.AddDataProtection()
        .SetDefaultKeyLifetime(TimeSpan.FromDays(14));
 ```
 
-Správce může změnit také výchozí systém, přestože explicitní volání `SetDefaultKeyLifetime` přepíše všechny zásady pro systém. Výchozí životnost klíče nemůže být kratší než 7 dní.
+Správce může změnit také výchozí systém, přestože explicitní volání `SetDefaultKeyLifetime` přepíše jakékoli zásady pro celé systémy. Výchozí životnost klíče nemůže být kratší než 7 dní.
 
 ## <a name="automatic-key-ring-refresh"></a>Automatická aktualizace klíčového kruhu
 
@@ -68,11 +74,11 @@ Po inicializaci systému ochrany dat přečte klíčovou Ring z podkladového ú
 >[!WARNING]
 > Vývojáři by měli velmi zřídka používat rozhraní API pro správu klíčů přímo. Systém ochrany dat provede automatickou správu klíčů, jak je popsáno výše.
 
-Systém ochrany dat zpřístupňuje `IKeyManager` rozhraní, které lze použít ke kontrole a provádění změn ve službě Key Ring. Systém DI, který poskytuje instanci `IDataProtectionProvider`, může také poskytnout instanci `IKeyManager` pro vaši spotřebu. Alternativně můžete `IKeyManager` načíst přímo z `IServiceProvider` jako v následujícím příkladu.
+Systém ochrany dat zpřístupňuje rozhraní `IKeyManager` , které lze použít ke kontrole a provádění změn ve službě Key Ring. Systém DI, který poskytl instanci, `IDataProtectionProvider` může také poskytnout instanci `IKeyManager` pro vaši spotřebu. Alternativně můžete načíst `IKeyManager` přímo z, `IServiceProvider` jak je uvedeno v následujícím příkladu.
 
 Jakákoli operace, která upravuje klíč Ring (explicitní vytvoření nového klíče nebo zrušení odvolání), zruší platnost mezipaměti v paměti. Další volání `Protect` nebo `Unprotect` způsobí, že systém ochrany dat znovu přečte klíč Ring a znovu vytvoří mezipaměť.
 
-Následující ukázka ukazuje použití rozhraní `IKeyManager` ke kontrole a manipulaci s kroužkem klíčů, včetně odvolání existujících klíčů a vygenerování nového klíče ručně.
+Následující ukázka ukazuje použití `IKeyManager` rozhraní pro kontrolu a manipulaci s kanálem, včetně odvolání existujících klíčů a vygenerování nového klíče ručně.
 
 [!code-csharp[](key-management/samples/key-management.cs)]
 

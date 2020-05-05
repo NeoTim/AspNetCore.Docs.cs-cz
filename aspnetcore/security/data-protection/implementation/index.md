@@ -1,22 +1,28 @@
 ---
-title: ASP.NET implementace základní ochrany dat
+title: ASP.NET Core implementace ochrany dat
 author: rick-anderson
-description: Seznamte se s různými tématy implementace ASP.NET core data protection.
+description: Seznamte se s různými tématy k implementaci ochrany dat ASP.NET Core.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/index
-ms.openlocfilehash: a21738ee2c092a9d14b7d448f7d3c7694f456ca8
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: aa5ebc3bfec996298ef5d203a9aa93ebbac521b0
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78667424"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776939"
 ---
-# <a name="aspnet-core-data-protection-implementation"></a>ASP.NET implementace základní ochrany dat
+# <a name="aspnet-core-data-protection-implementation"></a>ASP.NET Core implementace ochrany dat
 
 * [Podrobnosti ověřeného šifrování](xref:security/data-protection/implementation/authenticated-encryption-details)
 
-* [Derivace podklíče a ověřené šifrování](xref:security/data-protection/implementation/subkeyderivation)
+* [Odvození podklíče a ověřené šifrování](xref:security/data-protection/implementation/subkeyderivation)
 
 * [Kontextová záhlaví](xref:security/data-protection/implementation/context-headers)
 
@@ -24,7 +30,7 @@ ms.locfileid: "78667424"
 
 * [Zprostředkovatelé úložiště klíčů](xref:security/data-protection/implementation/key-storage-providers)
 
-* [Šifrování klíčů v klidovém stavu](xref:security/data-protection/implementation/key-encryption-at-rest)
+* [Šifrování klíče v klidovém umístění](xref:security/data-protection/implementation/key-encryption-at-rest)
 
 * [Neměnnost klíče a nastavení](xref:security/data-protection/implementation/key-immutability)
 

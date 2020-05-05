@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 4/23/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/logging/index
-ms.openlocfilehash: 7be8cef3377132ed43efde209db67401d7bdb6dc
-ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
+ms.openlocfilehash: ca62e374c6031ca3c2d438df87f2d13636d9c612
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82110912"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776100"
 ---
 # <a name="logging-in-net-core-and-aspnet-core"></a>Přihlášení v .NET Core a ASP.NET Core
 
@@ -1358,7 +1364,7 @@ Tady je několik kategorií používaných ASP.NET Core a Entity Framework Core 
 | Microsoft. AspNetCore. DataProtection | Které klíče byly zváženy, nalezeny a použity. |
 | Microsoft. AspNetCore. HostFiltering  | Hostitelé povoleni. |
 | Microsoft. AspNetCore. hosting        | Doba, po kterou trvalo dokončení požadavků HTTP a čas jejich spuštění. Která hostující spouštěcí sestavení byla načtena. |
-| Microsoft. AspNetCore. Mvc            | Diagnostika MVC a Razor Vazba modelů, spuštění filtru, zobrazení kompilace, výběr akce. |
+| Microsoft. AspNetCore. Mvc            | MVC a Razor Diagnostika. Vazba modelů, spuštění filtru, zobrazení kompilace, výběr akce. |
 | Microsoft. AspNetCore. Routing        | Informace o shodě trasy. |
 | Microsoft. AspNetCore. Server         | Připojení – spouštění, zastavování a udržování reakcí na Alive. Informace o certifikátu HTTPS |
 | Microsoft. AspNetCore. StaticFiles    | Soubory byly obsluhovány. |

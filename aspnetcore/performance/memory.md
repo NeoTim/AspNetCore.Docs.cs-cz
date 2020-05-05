@@ -1,92 +1,98 @@
 ---
 title: Správa paměti a vzory v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak je paměť spravována v ASP.NET Core a jak funguje systém uvolňování paměti (GC).
+description: Přečtěte si, jak je paměť spravovaná v ASP.NET Core a jak funguje uvolňování paměti (GC).
 ms.author: riande
 ms.custom: mvc
 ms.date: 4/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: performance/memory
-ms.openlocfilehash: b2af9cb567cdb1d7b2d0942601fcc3ebd999a5d9
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: db6f8e867fc83a211170aa59f5bad604d9c2730d
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440945"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776113"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>Správa paměti a uvolňování paměti (GC) v ASP.NET Core
 
-[Sébastien Ros](https://github.com/sebastienros) a [Rick Anderson](https://twitter.com/RickAndMSFT)
+Od [Sébastien ROS](https://github.com/sebastienros) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Správa paměti je složitá, a to i ve spravovaném rámci, jako je rozhraní .NET. Analýza a pochopení problémů s pamětí může být náročné. Tento článek:
+Správa paměti je složitá, i ve spravovaném rozhraní, jako je .NET. Analýza a porozumění problémům s pamětí může být náročné. Tento článek:
 
-* Byl motivován mnoha *nevracení paměti* a *GC nefunguje* problémy. Většina těchto problémů byla způsobena tím, že nechápu, jak funguje spotřeba paměti v .NET Core, nebo nepochopení, jak se měří.
+* Bylo motivované mnoha *nevrácenými* chybami a uvolňováním paměti, které *nefunguje* . Většina těchto problémů byla způsobena tím, že nerozumíte tomu, jak spotřeba paměti funguje v rozhraní .NET Core, nebo pokud nerozumíte, jak se měří.
 * Ukazuje problematické využití paměti a navrhuje alternativní přístupy.
 
-## <a name="how-garbage-collection-gc-works-in-net-core"></a>Jak funguje uvolňování paměti (GC) v rozhraní .NET Core
+## <a name="how-garbage-collection-gc-works-in-net-core"></a>Jak funguje uvolňování paměti (GC) v .NET Core
 
-Gc přiděluje segmenty haldy, kde každý segment je souvislý rozsah paměti. Objekty umístěné v haldě jsou rozděleny do jedné ze 3 generací: 0, 1 nebo 2. Generování určuje frekvenci GC pokusí uvolnit paměť na spravované objekty, které jsou již odkazuje aplikace. Nižší číslované generace jsou GC'd častěji.
+GC přiděluje segmenty haldy, kde jsou jednotlivé segmenty souvislým rozsahem paměti. Objekty umístěné v haldě jsou rozdělené do jedné ze 3 generací: 0, 1 nebo 2. Generace Určuje četnost, po kterou se GC pokusí uvolnit paměť na spravovaných objektech, na které už neodkazuje aplikace. Nižší očíslované generace jsou GC častěji.
 
-Objekty jsou přesunuty z jedné generace do druhé na základě jejich životnosti. Jak objekty žijí déle, jsou přesunuty do vyšší generace. Jak již bylo zmíněno dříve, vyšší generace jsou GC'd méně často. Krátkodobé žil objekty vždy zůstávají v generaci 0. Například objekty, které jsou odkazovány během životnosti webové žádosti jsou krátkodobé. [Singletons](xref:fundamentals/dependency-injection#service-lifetimes) na úrovni aplikace obvykle migrují do generace 2.
+Objekty jsou přesunuty z jedné generace do jiné na základě jejich životnosti. Jelikož objekty jsou po dobu provozu, jsou přesunuty do vyšší generace. Jak už bylo uvedeno výše, vyšší generace paměti GC jsou méně často. Krátkodobé dlouhodobé objekty vždy zůstávají v generaci 0. Například objekty, které jsou odkazovány během životnosti webové žádosti, jsou krátkodobé. [Jednoznačné](xref:fundamentals/dependency-injection#service-lifetimes) úrovně aplikace se obvykle migrují do generace 2.
 
-Když se spustí aplikace ASP.NET Core, gc:
+Při spuštění aplikace ASP.NET Core se v GC:
 
-* Rezervuje některé paměti pro počáteční segmenty haldy.
-* Potvrdí malou část paměti při načtení běhu.
+* Rezervuje určitou paměť pro počáteční segmenty haldy.
+* Po načtení modulu runtime potvrdí malou část paměti.
 
-Předchozí přidělení paměti se provádí z důvodů výkonu. Výhoda výkonu pochází z haldy segmenty v souvislé paměti.
+Předchozí přidělení paměti se provádí z důvodů výkonu. Výhoda výkonu přichází z segmentů haldy v souvislé paměti.
 
-### <a name="call-gccollect"></a>Volejte GC. Shromažďovat
+### <a name="call-gccollect"></a>Vyvolejte GC. Shromáždění
 
-Volám [GC. Shromážděte](xref:System.GC.Collect*) explicitně:
+Volání [GC. Shromažďovat](xref:System.GC.Collect*) explicitně:
 
-* **Nemělo** by se to provádět produkčními aplikacemi ASP.NET Core.
+* By **se nemělo provádět v** produkčních ASP.NET Corech aplikacích.
 * Je užitečné při zkoumání nevracení paměti.
-* Při zkoumání ověří GC odstranil všechny visící objekty z paměti, takže paměť může být měřena.
+* Při šetření ověří GC, že se z paměti odebraly všechny objekty dangling, takže je možné změřit paměť.
 
-## <a name="analyzing-the-memory-usage-of-an-app"></a>Analýza využití paměti aplikace
+## <a name="analyzing-the-memory-usage-of-an-app"></a>Analýza využití paměti aplikací
 
 Vyhrazené nástroje mohou pomoci analyzovat využití paměti:
 
-- Odkazy na objekty inventury
-- Měření, jaký vliv má gc na využití procesoru
+- Počítání odkazů na objekty
+- Měření vlivu GC na využití procesoru
 - Měření paměťového prostoru používaného pro každou generaci
 
 K analýze využití paměti použijte následující nástroje:
 
-* [dotnet-trace](/dotnet/core/diagnostics/dotnet-trace): Lze použít na výrobních strojích.
+* [dotnet-Trace](/dotnet/core/diagnostics/dotnet-trace): lze použít na produkčních počítačích.
 * [Analýza využití paměti bez ladicího programu sady Visual Studio](/visualstudio/profiling/memory-usage-without-debugging2)
 * [Využití paměti profilu v sadě Visual Studio](/visualstudio/profiling/memory-usage)
 
 ### <a name="detecting-memory-issues"></a>Zjišťování problémů s pamětí
 
-Správce úloh lze získat představu o tom, kolik paměti ASP.NET aplikace používá. Hodnota paměti Správce úloh:
+Správce úloh se dá použít k získání nápadu o tom, kolik paměti aplikace ASP.NET používá. Hodnota paměti Správce úloh:
 
-* Představuje množství paměti, která se používá procesem ASP.NET.
-* Zahrnuje živé objekty aplikace a další spotřebitele paměti, jako je například využití nativní paměti.
+* Představuje velikost paměti, která je používána procesem ASP.NET.
+* Zahrnuje živé objekty aplikace a další uživatele paměti, jako je využití nativní paměti.
 
-Pokud hodnota paměti Správce úloh se zvyšuje neomezeně dlouho a nikdy se nevylučuje, aplikace má nevracení paměti. V následujících částech demonstrovat a vysvětlit několik vzorů využití paměti.
+Pokud se hodnota paměti Správce úloh zvětšuje na neomezenou dobu a nikdy nesloučí, aplikace bude mít nevrácenou paměť. Následující části ukazují a vysvětlují několik vzorců využití paměti.
 
-## <a name="sample-display-memory-usage-app"></a>Ukázková aplikace pro využití paměti zobrazení
+## <a name="sample-display-memory-usage-app"></a>Ukázková aplikace pro zobrazení využití paměti
 
 [Ukázková aplikace MemoryLeak](https://github.com/sebastienros/memoryleak) je k dispozici na GitHubu. Aplikace MemoryLeak:
 
-* Obsahuje diagnostický řadič, který shromažďuje paměť v reálném čase a gc data pro aplikaci.
-* Má index stránku, která zobrazuje paměť a GC data. Stránka Rejstřík je aktualizována každou sekundu.
-* Obsahuje řadič rozhraní API, který poskytuje různé vzory načítání paměti.
-* Není však podporovanýnástroj, lze jej však použít k zobrazení vzorců využití paměti aplikací ASP.NET Core.
+* Obsahuje diagnostický kontroler, který shromažďuje data paměti a GC v reálném čase pro aplikaci.
+* Má stránku index, která zobrazuje data paměti a GC. Stránka index se aktualizuje každou sekundu.
+* Obsahuje kontroler rozhraní API, který poskytuje různé vzory zatížení paměti.
+* Nástroj není podporovaným nástrojem, ale dá se použít k zobrazení vzorců využití paměti aplikací ASP.NET Core.
 
-Spusťte únik paměti. Přidělená paměť se pomalu zvyšuje, dokud nedojde k gc. Paměť se zvyšuje, protože nástroj přiděluje vlastní objekt pro sběr dat. Následující obrázek znázorňuje stránku MemoryLeak Index, když dojde k Gen 0 GC. Graf zobrazuje 0 RPS (Požadavky za sekundu), protože nebyly volány žádné koncové body rozhraní API z řadiče rozhraní API.
+Spusťte MemoryLeak. Přidělená paměť se pomalu zvyšuje, dokud nedojde k GC. Paměť roste, protože nástroj přiděluje vlastní objekt pro zachycení dat. Následující obrázek ukazuje stránku indexu MemoryLeak, když dojde k GC 0. generace. Graf zobrazuje 0 RPS (počet požadavků za sekundu), protože nebyly volány koncové body rozhraní API z řadiče rozhraní API.
 
 ![předchozí graf](memory/_static/0RPS.png)
 
 Graf zobrazuje dvě hodnoty využití paměti:
 
-- Přiděleno: velikost paměti obsazené spravovanými objekty
-- [Pracovní sada](/windows/win32/memory/working-set): Sada stránek ve virtuálním adresovém prostoru procesu, které jsou aktuálně rezidentní ve fyzické paměti. Zobrazená pracovní sada má stejnou hodnotu Správce úloh.
+- Přiděleno: množství paměti obsazené spravovanými objekty
+- [Pracovní sada](/windows/win32/memory/working-set): sada stránek ve virtuálním adresním prostoru procesu, které jsou aktuálně rezidenty ve fyzické paměti. Zobrazená pracovní sada má stejnou hodnotu jako správce úloh.
 
 ### <a name="transient-objects"></a>Přechodné objekty
 
-Následující rozhraní API vytvoří instanci string 10 kB a vrátí ji klientovi. Při každém požadavku je nový objekt přidělen v paměti a zapsán do odpovědi. Řetězce jsou uloženy jako znaky UTF-16 v rozhraní .NET, takže každý znak trvá 2 bajty v paměti.
+Následující rozhraní API vytvoří instanci řetězce 10 KB a vrátí ji klientovi. V každé žádosti je nový objekt přidělen v paměti a zapsán do odpovědi. Řetězce jsou uloženy v rozhraní .NET jako UTF-16 znaků, takže každý znak trvá 2 bajty paměti.
 
 ```csharp
 [HttpGet("bigstring")]
@@ -96,40 +102,40 @@ public ActionResult<string> GetBigString()
 }
 ```
 
-Následující graf je generován s relativně malé zatížení v ukázat, jak přidělení paměti jsou ovlivněny GC.
+Následující graf se generuje s poměrně malým zatížením, aby se zobrazilo, jaký vliv má GC na přidělení paměti.
 
 ![předchozí graf](memory/_static/bigstring.png)
 
-Předchozí graf ukazuje:
+Předchozí graf znázorňuje:
 
-* 4K RPS (Požadavky za sekundu).
-* Generace 0 GC kolekce dojít přibližně každé dvě sekundy.
-* Pracovní sada je konstantní na přibližně 500 MB.
-* CPU je 12%.
-* Spotřeba paměti a uvolnění (prostřednictvím GC) je stabilní.
+* 4K RPS (počet požadavků za sekundu).
+* K kolekcím GC generace 0 dochází každé dvě sekundy.
+* Pracovní sada je konstanta o velikosti přibližně 500 MB.
+* PROCESOR je 12%.
+* Spotřeba paměti a verze (prostřednictvím GC) je stabilní.
 
-Následující graf je proveden na maximální propustnost, která může být zpracována strojem.
+Následující graf se seřizuje s maximální propustností, kterou může počítač zpracovat.
 
 ![předchozí graf](memory/_static/bigstring2.png)
 
-Předchozí graf ukazuje:
+Předchozí graf znázorňuje:
 
 * 22K RPS
-* Generace 0 GC kolekce dojít několikrát za sekundu.
-* Generace 1 kolekce jsou spuštěny, protože aplikace přiděleno výrazně více paměti za sekundu.
-* Pracovní sada je konstantní na přibližně 500 MB.
-* CPU je 33%.
-* Spotřeba paměti a uvolnění (prostřednictvím GC) je stabilní.
-* Procesor (33%) není nadměrně využívána, proto může uvolňování paměti držet krok s vysokým počtem přidělení.
+* Kolekce GC pro generaci 0 se probíhají několikrát za sekundu.
+* Kolekce 1. generace se spouštějí, protože aplikace přidělila mnohem více paměti za sekundu.
+* Pracovní sada je konstanta o velikosti přibližně 500 MB.
+* PROCESOR je 33%.
+* Spotřeba paměti a verze (prostřednictvím GC) je stabilní.
+* PROCESOR (33%) není přetížený, takže uvolňování paměti může udržovat vysoký počet přidělení.
 
-### <a name="workstation-gc-vs-server-gc"></a>Pracovní stanice GC vs. Server GC
+### <a name="workstation-gc-vs-server-gc"></a>GC pro pracovní stanice vs. GC serveru
 
-Uvolňování paměti .NET má dva různé režimy:
+Systém uvolňování paměti .NET má dva různé režimy:
 
-* **Pracovní stanice GC**: Optimalizováno pro stolní počítače.
-* **Server GC**. Výchozí gc pro ASP.NET základní aplikace. Optimalizováno pro server.
+* **GC pracovní stanice**: optimalizováno pro plochu.
+* **GC serveru**. Výchozí GC pro aplikace ASP.NET Core. Optimalizováno pro server.
 
-Režim GC lze explicitně nastavit v souboru projektu nebo v souboru *runtimeconfig.json* publikované aplikace. V souboru projektu `ServerGarbageCollection` jsou zobrazeny následující značky:
+Režim GC se dá explicitně nastavit v souboru projektu nebo v souboru *runtimeconfig. JSON* publikované aplikace. Následující kód ukazuje nastavení `ServerGarbageCollection` v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -139,31 +145,31 @@ Režim GC lze explicitně nastavit v souboru projektu nebo v souboru *runtimecon
 
 Změna `ServerGarbageCollection` v souboru projektu vyžaduje, aby byla aplikace znovu sestavena.
 
-**Poznámka:** Uvolňování paměti serveru **není** k dispozici na počítačích s jedním jádrem. Další informace naleznete v tématu <xref:System.Runtime.GCSettings.IsServerGC>.
+**Poznámka:** Uvolňování paměti serveru **není k dispozici na** počítačích s jedním jádrem. Další informace naleznete v tématu <xref:System.Runtime.GCSettings.IsServerGC>.
 
-Následující obrázek znázorňuje profil paměti v rámci 5K RPS pomocí pracovní stanice GC.
+Následující obrázek ukazuje profil paměti v rámci 5K RPS pomocí GC pracovní stanice.
 
 ![předchozí graf](memory/_static/workstation.png)
 
 Rozdíly mezi tímto grafem a verzí serveru jsou významné:
 
 - Pracovní sada klesne z 500 MB na 70 MB.
-- Gc dělá generace 0 kolekce vícekrát za sekundu namísto každé dvě sekundy.
-- GC klesne z 300 MB na 10 MB.
+- Uvolňování paměti v GC vyprší víckrát za sekundu místo každé dvě sekundy.
+- Uvolňování paměti se zamítá z 300 MB na 10 MB.
 
-V typickém prostředí webového serveru je využití procesoru důležitější než paměť, proto je lepší server GC. Pokud je využití paměti vysoké a využití procesoru je relativně nízká, pracovní stanice GC může být výkonnější. Například vysoká hustota hostování několika webových aplikací, kde je nedostatek paměti.
+V typických prostředích webového serveru je využití procesoru důležitější než paměť, proto je server GC lepší. Pokud je využití paměti vysoké a využití procesoru je poměrně nízké, může být UVOLŇOVÁNí paměti pracovní stanice více výkonné. Například vysoká hustota hostující několik webových aplikací, kde je paměť omezených.
 
 <a name="sc"></a>
 
-### <a name="gc-using-docker-and-small-containers"></a>GC pomocí Dockeru a malých kontejnerů
+### <a name="gc-using-docker-and-small-containers"></a>GC s použitím Docker a malých kontejnerů
 
-Pokud je v jednom počítači spuštěno více kontejnerizovaných aplikací, může být pracovní stanice GC více než server GC. Další informace naleznete [v tématu Spuštění s serverem GC v malém kontejneru](https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-0/) a [spuštěno se serverem GC v části 1 scénáře malého kontejneru – pevný limit pro haldu GC](https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-1-hard-limit-for-the-gc-heap/).
+Když je na jednom počítači spuštěných víc aplikací s více kontejnery, může být uvolňování paměti v GC více než v GC serveru. Další informace najdete v tématu [spuštění s uvolňováním paměti serveru v malém kontejneru](https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-0/) a [spuštění s uvolňováním paměti serveru v případě malých kontejnerů v části 1 – pevný limit pro haldu GC](https://devblogs.microsoft.com/dotnet/running-with-server-gc-in-a-small-container-scenario-part-1-hard-limit-for-the-gc-heap/).
 
 ### <a name="persistent-object-references"></a>Trvalé odkazy na objekty
 
-Gc nemůže uvolnit objekty, které jsou odkazovány. Objekty, které jsou odkazovány, ale již nejsou potřeba, mají za následek nevracení paměti. Pokud aplikace často přiděluje objekty a nepodaří je uvolnit poté, co již nejsou potřeba, využití paměti se časem zvýší.
+GC nemůže uvolnit objekty, na které se odkazuje. Objekty, na které se odkazuje, ale které už nepotřebují, mají za následek nevracení paměti. Pokud aplikace často přiděluje objekty a neuvolní je až po jejich nepotřebení, využití paměti se v průběhu času zvýší.
 
-Následující rozhraní API vytvoří instanci string 10 kB a vrátí ji klientovi. Rozdíl oproti předchozímu příkladu je, že tato instance je odkazována statickým členem, což znamená, že není nikdy k dispozici pro sběr.
+Následující rozhraní API vytvoří instanci řetězce 10 KB a vrátí ji klientovi. Rozdíl s předchozím příkladem je, že tato instance je odkazována statickým členem, což znamená, že není nikdy k dispozici pro shromažďování.
 
 ```csharp
 private static ConcurrentBag<string> _staticStrings = new ConcurrentBag<string>();
@@ -179,24 +185,24 @@ public ActionResult<string> GetStaticString()
 
 Předcházející kód:
 
-* Je příkladem typické nevracení paměti.
-* Při častých voláních způsobí, že se `OutOfMemory` paměť aplikace zvětší, dokud se proces nezhroutí s výjimkou.
+* Je příkladem typické nevrácení paměti.
+* S častými voláními způsobí, že se paměť aplikace zvětšuje, dokud `OutOfMemory` proces neselže s výjimkou.
 
 ![předchozí graf](memory/_static/eternal.png)
 
 Na předchozím obrázku:
 
-* Zátěžové `/api/staticstring` testování koncového bodu způsobí lineární zvýšení paměti.
-* Gc se pokusí uvolnit paměť jako tlak paměti roste voláním generace 2 kolekce.
-* Gc nelze uvolnit nevrácené paměti. Přidělené a pracovní sady se časem zvyšují.
+* Zátěžové testování `/api/staticstring` : koncový bod způsobuje lineární zvětšení paměti.
+* GC se pokusí uvolnit paměť, protože tlak paměti roste, voláním kolekce 2. generace.
+* GC nemůže uvolnit nevrácenou paměť. Přidělená a pracovní sada se zvýšila s časem.
 
-Některé scénáře, jako je například ukládání do mezipaměti, vyžadují, aby byly odkazy na objekt y drženy, dokud je tlak paměti nevynutí uvolnění. Třídu <xref:System.WeakReference> lze použít pro tento typ kódu ukládání do mezipaměti. Objekt `WeakReference` je shromažďována pod tlaky paměti. Výchozí implementace <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache> použití `WeakReference`.
+Některé scénáře, jako je například ukládání do mezipaměti, vyžadují, aby byly uloženy odkazy na objekty, dokud tlak vynutí uvolnění paměti. <xref:System.WeakReference> Třídu lze použít pro tento typ kódu pro ukládání do mezipaměti. `WeakReference` Objekt je shromážděn v části tlaky paměti. Výchozí implementace <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache> použití `WeakReference`.
 
 ### <a name="native-memory"></a>Nativní paměť
 
-Některé objekty .NET Core spoléhají na nativní paměť. Nativní paměť **nemůže** být shromažďována GC. Objekt .NET používající nativní paměť jej musí uvolnit pomocí nativního kódu.
+Některé objekty .NET Core spoléhají na nativní paměť. UVOLŇOVÁNí paměti **nelze shromáždit** nativní paměť. Objekt .NET s použitím nativní paměti musí uvolnit pomocí nativního kódu.
 
-Rozhraní .NET <xref:System.IDisposable> poskytuje rozhraní, které umožňuje vývojářům uvolnit nativní paměť. I <xref:System.IDisposable.Dispose*> když není volána, `Dispose` správně implementované třídy volání při spuštění [finalizační metody.](/dotnet/csharp/programming-guide/classes-and-structs/destructors)
+Rozhraní .NET poskytuje <xref:System.IDisposable> rozhraní, které vývojářům umožňuje uvolnit nativní paměť. I když <xref:System.IDisposable.Dispose*> není volána, správně implementované třídy volají `Dispose` při spuštění [finalizační metody](/dotnet/csharp/programming-guide/classes-and-structs/destructors) .
 
 Uvažujte následující kód:
 
@@ -209,44 +215,44 @@ public void GetFileProvider()
 }
 ```
 
-[PhysicalFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0) je spravovaná třída, takže všechny instance budou shromažďovány na konci požadavku.
+[PhysicalFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0) je spravovaná třída, takže všechny instance budou shromážděny na konci žádosti.
 
-Následující obrázek znázorňuje profil paměti `fileprovider` při vyvolání rozhraní API nepřetržitě.
+Následující obrázek ukazuje profil paměti při průběžném vyvolání `fileprovider` rozhraní API.
 
 ![předchozí graf](memory/_static/fileprovider.png)
 
-Předchozí graf ukazuje zřejmý problém s implementací této třídy, protože stále zvyšuje využití paměti. Jedná se o známý problém, který je sledován v [tomto vydání](https://github.com/dotnet/aspnetcore/issues/3110).
+Předchozí graf znázorňuje zjevné problémy s implementací této třídy, protože zajišťuje zvýšení využití paměti. Jedná se o známý problém, který se sleduje v [tomto problému](https://github.com/dotnet/aspnetcore/issues/3110).
 
-Stejný únik může dojít v uživatelském kódu, jedním z následujících:
+Stejná netěsnost by mohla být provedena v uživatelském kódu, a to jedním z následujících způsobů:
 
-* Není uvolnění třídy správně.
-* Zapomínání vyvolat `Dispose`metodu závislé objekty, které by měly být uvolněny.
+* Neuvolňuje třídu správně.
+* Forgetting k vyvolání `Dispose`metody závislých objektů, které by měly být uvolněny.
 
-### <a name="large-objects-heap"></a>Hromada velkých objektů
+### <a name="large-objects-heap"></a>Halda velkých objektů
 
-Časté přidělení paměti/volné cykly může fragmentovat paměť, zejména při přidělování velké bloky paměti. Objekty jsou přiděleny v souvislých blocích paměti. Chcete-li zmírnit fragmentaci, když GC uvolní paměť, pokusí se ji defragmentovat. Tento proces se nazývá **zhutnění**. Zhutnění zahrnuje přesouvání objektů. Přesunutí velkých objektů ukládá snížení výkonu. Z tohoto důvodu GC vytvoří speciální paměťovou zónu pro _velké_ objekty, nazývané [haldy velkých objektů](/dotnet/standard/garbage-collection/large-object-heap) (LOH). Objekty, které jsou větší než 85 000 bajtů (přibližně 83 kB), jsou:
+Časté přiřazování paměti/bezplatné cykly můžou rozdělit paměť, zejména při přidělování velkých bloků paměti. Objekty jsou přidělovány v souvislém bloku paměti. Aby se zmírnila fragmentace, když GC uvolní paměť, trys ji defragmentovat. Tento proces se nazývá **komprimace**. Komprimace zahrnuje přesun objektů. Přesunutí velkých objektů ukládá snížení výkonu. Z tohoto důvodu GC vytvoří speciální zónu paměti pro _velké_ objekty označované jako [halda velkých objektů](/dotnet/standard/garbage-collection/large-object-heap) (LOH). Objekty, které jsou větší než 85 000 bajtů (přibližně 83 KB), jsou:
 
-* Umístěnna na LOH.
-* Není zhutněný.
-* Shromažďovány během generace 2 GCs.
+* Umístit do LOH.
+* Není zkomprimováno.
+* Shromážděno během generace 2 GC.
 
-Když LOH je plná, GC spustí generace 2 kolekce. Kolekce Generace 2:
+Když je LOH plný, GC spustí kolekci 2. generace. Kolekce 2. generace:
 
-* Jsou ze své podstaty pomalé.
-* Navíc vznikají náklady na aktivaci kolekce na všech ostatních generacích.
+* Jsou ve své podstatě pomalé.
+* Navíc se účtují náklady na aktivaci kolekce na všech ostatních generacích.
 
-Následující kód okamžitě zkomprimuje LOH:
+Následující kód komprimuje LOH hned:
 
 ```csharp
 GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
 GC.Collect();
 ```
 
-Viz <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode> informace o zhutnění LOH.
+Informace <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode> o komprimaci LOH najdete v tématu.
 
-V kontejnerech pomocí .NET Core 3.0 a novější loh je automaticky komprimován.
+V kontejnerech pomocí .NET Core 3,0 a novějších se LOH automaticky zkomprimuje.
 
-Následující rozhraní API, které ilustruje toto chování:
+Toto chování ilustruje následující rozhraní API:
 
 ```csharp
 [HttpGet("loh/{size=85000}")]
@@ -256,48 +262,48 @@ public int GetLOH1(int size)
 }
 ```
 
-Následující graf zobrazuje profil paměti `/api/loh/84975` volání koncového bodu při maximálním zatížení:
+Následující graf znázorňuje profil paměti volání `/api/loh/84975` koncového bodu v rámci maximálního zatížení:
 
 ![předchozí graf](memory/_static/loh1.png)
 
-Následující graf znázorňuje profil `/api/loh/84976` paměti volání koncového bodu a přiděluje *ještě jeden bajt*:
+Následující graf znázorňuje profil paměti volajícího `/api/loh/84976` koncového bodu, který přiděluje *pouze jeden bajt*:
 
 ![předchozí graf](memory/_static/loh2.png)
 
-Poznámka: `byte[]` Struktura má režijní bajty. To je důvod, proč 84,976 bajtů aktivuje limit 85,000.
+Poznámka: `byte[]` struktura má režijní bajty. To je důvod, proč 84 976 bajtů spouští limit 85 000.
 
 Porovnání dvou předchozích grafů:
 
-* Pracovní sada je podobná pro oba scénáře, asi 450 MB.
-* Pod Požadavky LOH (84,975 bajtů) zobrazuje většinou generace 0 kolekce.
-* Přes Požadavky LOH generovat konstantní generace 2 kolekce. Generace 2 kolekce jsou drahé. Je zapotřebí více procesoru a propustnost klesá téměř o 50 %.
+* Pracovní sada je pro oba scénáře podobná, přibližně 450 MB.
+* V části požadavky LOH (84 975 bajtů) se zobrazí hlavně kolekce 0. generace.
+* Požadavky over LOH generují kolekce konstant generace 2. Kolekce 2. generace jsou nákladné. Je potřeba více PROCESORů a propustnost se sníží téměř 50%.
 
-Dočasné velké objekty jsou obzvláště problematické, protože způsobují gen2 GC.
+Dočasné velké objekty jsou obzvláště problematické, protože způsobují Gen2 GC.
 
-Pro maximální výkon by mělo být minimalizováno použití velkých objektů. Pokud je to možné, rozdělte velké objekty. Například [middleware pro ukládání do mezipaměti odpovědi](xref:performance/caching/response) v ASP.NET Core rozdělilo položky mezipaměti na bloky menší než 85 000 bajtů.
+Pro maximální výkon by se mělo minimalizovat použití velkých objektů. Pokud je to možné, rozdělte velké objekty. Například middleware pro [ukládání odpovědí do mezipaměti](xref:performance/caching/response) v ASP.NET Core rozdělí položky mezipaměti do bloků menších než 85 000 bajtů.
 
-Následující odkazy ukazují ASP.NET základní přístup k udržování objektů pod limitem LOH:
+Následující odkazy znázorňují ASP.NET Core přístup k udržení objektů pod limitem LOH:
 
-* [ResponseCaching/Streams/StreamUtilities.cs](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
-* [ResponseCaching/MemoryResponseCache.cs](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
+* [ResponseCaching/Streams/StreamUtilities. cs](https://github.com/dotnet/AspNetCore/blob/v3.0.0/src/Middleware/ResponseCaching/src/Streams/StreamUtilities.cs#L16)
+* [ResponseCaching/MemoryResponseCache. cs](https://github.com/aspnet/ResponseCaching/blob/c1cb7576a0b86e32aec990c22df29c780af29ca5/src/Microsoft.AspNetCore.ResponseCaching/Internal/MemoryResponseCache.cs#L55)
 
 Další informace naleznete v tématu:
 
-* [Velká objektová halda odkrytá](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
-* [Hromada velkých objektů](/dotnet/standard/garbage-collection/large-object-heap)
+* [Nekrytá halda Large Object](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
+* [Halda velkých objektů](/dotnet/standard/garbage-collection/large-object-heap)
 
 ### <a name="httpclient"></a>HttpClient
 
-Nesprávné použití <xref:System.Net.Http.HttpClient> může mít za následek nevracení prostředků. Systémové prostředky, jako jsou připojení k databázi, sokety, popisovače souborů atd.:
+Nesprávné použití <xref:System.Net.Http.HttpClient> může mít za následek nevracení prostředků. Systémové prostředky, jako jsou databázová připojení, sokety, popisovače souborů atd.:
 
-* Jsou vzácnější než paměť.
-* Jsou problematičtější při úniku než paměti.
+* Je více omezených než paměť.
+* Jsou více problematické při nevracení paměti.
 
-Zkušení vývojáři rozhraní <xref:System.IDisposable.Dispose*> .NET vědí, že mají volat objekty, které implementují <xref:System.IDisposable>. Není likvidace objektů, `IDisposable` které implementují obvykle vede k nevracení paměti nebo nevracení systémových prostředků.
+Zkušení vývojáři rozhraní .NET znají volání <xref:System.IDisposable.Dispose*> objektů, které implementují <xref:System.IDisposable>. Pokud nedojde k vyřazení `IDisposable` objektů, které implementují, obvykle dojde k nevrácené paměti nebo nevráceným systémovým prostředkům
 
-`HttpClient`vynucuje `IDisposable`, ale **neměl** by být zlikvidován při každém vyvolání. Spíše `HttpClient` by měly být znovu použity.
+`HttpClient`implementuje `IDisposable`, **ale nemělo by být** uvolněno při každém vyvolání. Místo toho `HttpClient` by se mělo použít znovu.
 
-Následující koncový bod vytvoří a `HttpClient` zmaže novou instanci na každém požadavku:
+Následující koncový bod vytvoří a odstraní novou `HttpClient` instanci na každém požadavku:
 
 ```csharp
 [HttpGet("httpclient1")]
@@ -311,7 +317,7 @@ public async Task<int> GetHttpClient1(string url)
 }
 ```
 
-Při načtení jsou zaznamenány následující chybové zprávy:
+Při načtení se zaprotokolují následující chybové zprávy:
 
 ```
 fail: Microsoft.AspNetCore.Server.Kestrel[13]
@@ -325,9 +331,9 @@ System.Net.Http.HttpRequestException: Only one usage of each socket address
     CancellationToken cancellationToken)
 ```
 
-Přestože `HttpClient` jsou instance uvolněny, skutečné síťové připojení trvá nějakou dobu, než bude uvolněno operačním systémem. Neustálým vytvářením nových připojení dochází k _vyčerpání portů._ Každé připojení klienta vyžaduje vlastní port klienta.
+I když jsou `HttpClient` instance vyřazené, vlastní síťové připojení bude nějakou dobu vydávat operačnímu systému. Průběžným vytvářením nových připojení dojde k _vyčerpání portů_ . Každé připojení klienta vyžaduje svůj vlastní port klienta.
 
-Jedním ze způsobů, jak zabránit vyčerpání portu, je opětovné použití stejné `HttpClient` instance:
+Jedním ze způsobů, jak zabránit vyčerpání portů, je opakované `HttpClient` použití stejné instance:
 
 ```csharp
 private static readonly HttpClient _httpClient = new HttpClient();
@@ -340,27 +346,27 @@ public async Task<int> GetHttpClient2(string url)
 }
 ```
 
-Instance `HttpClient` se uvolní, když se aplikace zastaví. Tento příklad ukazuje, že ne každý jednorázový prostředek by měl být uvolněn po každém použití.
+`HttpClient` Instance se uvolní při zastavení aplikace. Tento příklad ukazuje, že po každém použití by mělo být uvolněno každý prostředek na jedno použití.
 
-Lepší způsob zpracování životnosti `HttpClient` instance najdete v následujících tématech:
+Pro lepší způsob zpracování životnosti `HttpClient` instance se podívejte na následující:
 
-* [HttpClient a správa životnosti](/aspnet/core/fundamentals/http-requests#httpclient-and-lifetime-management)
-* [Blog o výrobě klienta HTTPClient](https://devblogs.microsoft.com/aspnet/asp-net-core-2-1-preview1-introducing-httpclient-factory/)
+* [Správa HttpClient a životního cyklu](/aspnet/core/fundamentals/http-requests#httpclient-and-lifetime-management)
+* [Blog o továrně HTTPClient](https://devblogs.microsoft.com/aspnet/asp-net-core-2-1-preview1-introducing-httpclient-factory/)
  
 ### <a name="object-pooling"></a>Sdružování objektů
 
-Předchozí příklad ukázal, `HttpClient` jak může být instance statická a znovu použita všemi požadavky. Opakované použití zabraňuje vyčerpání prostředků.
+Předchozí příklad ukázal, jak může `HttpClient` být instance vytvořena staticky a znovu použita všemi požadavky. Při opakovaném použití se nebudete moci dostat z prostředků.
 
 Sdružování objektů:
 
-* Použije vzorek opakovaného použití.
-* Je určen pro objekty, které jsou nákladné vytvořit.
+* Používá vzor opakovaného použití.
+* Je určený pro objekty, které je náročné vytvořit.
 
-Fond je kolekce předem inicializovaných objektů, které mohou být vyhrazeny a uvolněny v podprocesech. Fondy mohou definovat pravidla přidělení, jako jsou omezení, předdefinované velikosti nebo rychlost růstu.
+Fond je kolekce předem inicializovaných objektů, které mohou být rezervovány a vydány v rámci vláken. Fondy můžou definovat pravidla přidělování, jako jsou limity, předdefinované velikosti nebo míry růstu.
 
-Balíček NuGet [Microsoft.Extensions.ObjectPool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/) obsahuje třídy, které pomáhají spravovat tyto fondy.
+Balíček NuGet [Microsoft. Extensions. fond objectpool](https://www.nuget.org/packages/Microsoft.Extensions.ObjectPool/) obsahuje třídy, které vám pomůžou tyto fondy spravovat.
 
-Následující koncový bod rozhraní API `byte` inkonzisuje vyrovnávací paměť, která je vyplněna náhodnými čísly na každém požadavku:
+Následující koncový bod rozhraní API vytvoří instanci `byte` vyrovnávací paměti, která je vyplněna náhodnými čísly na každém požadavku:
 
 ```csharp
         [HttpGet("array/{size}")]
@@ -374,25 +380,25 @@ Následující koncový bod rozhraní API `byte` inkonzisuje vyrovnávací pamě
         }
 ```
 
-Následující graf zobrazuje volání předchozího rozhraní API s mírným zatížením:
+Následující zobrazení grafu volá předchozí rozhraní API se středním zatížením:
 
 ![předchozí graf](memory/_static/array.png)
 
-V předchozím grafu generace 0 kolekce dojít přibližně jednou za sekundu.
+V předchozím grafu se kolekce generace 0 nevyskytují přibližně jednou za sekundu.
 
-Předchozí kód lze optimalizovat sdružováním `byte` vyrovnávací paměti pomocí [>ArrayPool\<T ](xref:System.Buffers.ArrayPool`1). Statická instance je znovu použita napříč požadavky.
+Předchozí kód může být optimalizován pomocí sdružování `byte` vyrovnávací paměti pomocí [ArrayPool\<T>](xref:System.Buffers.ArrayPool`1). Statická instance se opakovaně používá napříč požadavky.
 
-Co se liší s tímto přístupem je, že sdružený objekt je vrácena z rozhraní API. To znamená:
+To se liší od tohoto přístupu je to, že objekt ve fondu je vrácen z rozhraní API. To znamená:
 
-* Objekt je mimo vaši kontrolu, jakmile se vrátíte z metody.
-* Objekt nelze uvolnit.
+* Objekt je mimo váš ovládací prvek, jakmile se vrátíte z metody.
+* Nemůžete uvolnit objekt.
 
-Chcete-li nastavit likvidaci objektu:
+Nastavení vyřazení objektu:
 
-* Zapouzdřit sdružené pole v objektu na jedno použití.
-* Zaregistrujte sdružený objekt pomocí [httpcontext.response.registerFordispose](xref:Microsoft.AspNetCore.Http.HttpResponse.RegisterForDispose*).
+* Zapouzdřuje pole ve fondu na jedno a více objektů.
+* Zaregistrujte objekt ve fondu s [HttpContext. Response. RegisterForDispose](xref:Microsoft.AspNetCore.Http.HttpResponse.RegisterForDispose*).
 
-`RegisterForDispose`postará o volání `Dispose`cílového objektu tak, aby byl vydán pouze po dokončení požadavku HTTP.
+`RegisterForDispose`postará o volání `Dispose`cílového objektu, aby bylo uvolněno pouze v případě, že je požadavek HTTP dokončen.
 
 ```csharp
 private static ArrayPool<byte> _arrayPool = ArrayPool<byte>.Create();
@@ -426,15 +432,15 @@ public byte[] GetPooledArray(int size)
 }
 ```
 
-Použití stejnézatížení jako nesdružená verze má za následek následující graf:
+Použití stejného zatížení jako nesdružené verze vede k následujícímu grafu:
 
 ![předchozí graf](memory/_static/pooledarray.png)
 
-Hlavní rozdíl je přidělena bajtů a v důsledku toho mnohem méně generace 0 kolekce.
+Hlavní rozdíl je přidělený bajtů a jako důsledek je to mnohem méně kolekcí 0. generace.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Uvolněné](/dotnet/standard/garbage-collection/)
-* [Principy různých režimů GC pomocí vizualizéru souběžnosti](https://blogs.msdn.microsoft.com/seteplia/2017/01/05/understanding-different-gc-modes-with-concurrency-visualizer/)
-* [Velká objektová halda odkrytá](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
-* [Hromada velkých objektů](/dotnet/standard/garbage-collection/large-object-heap)
+* [Uvolňování paměti](/dotnet/standard/garbage-collection/)
+* [Porozumění různým režimům GC s Vizualizérm souběžnosti](https://blogs.msdn.microsoft.com/seteplia/2017/01/05/understanding-different-gc-modes-with-concurrency-visualizer/)
+* [Nekrytá halda Large Object](https://devblogs.microsoft.com/dotnet/large-object-heap-uncovered-from-an-old-msdn-article/)
+* [Halda velkých objektů](/dotnet/standard/garbage-collection/large-object-heap)

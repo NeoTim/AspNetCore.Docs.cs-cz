@@ -4,19 +4,25 @@ author: rick-anderson
 description: Zjistěte, jak nahradit parametr machineKey v ASP.NET, aby bylo možné používat nový a bezpečnější systém ochrany dat.
 ms.author: riande
 ms.date: 04/06/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/compatibility/replacing-machinekey
-ms.openlocfilehash: 2317cb50cfe63226baf336ebfc5d681d1cebe5c6
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 72e736f820ec243a7ad1461fc70e2711ac8b76ee
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78667984"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777459"
 ---
 # <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>Nahraďte ASP.NET machineKey v ASP.NET Core
 
 <a name="compatibility-replacing-machinekey"></a>
 
-Implementaci prvku `<machineKey>` v ASP.NET [je nahraditelný](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/). To umožňuje směrování většiny volání ASP.NET kryptografických rutin pomocí náhradního mechanismu ochrany dat, včetně nového systému ochrany dat.
+Implementaci `<machineKey>` elementu v ASP.NET [je nahraditelný](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/). To umožňuje směrování většiny volání ASP.NET kryptografických rutin pomocí náhradního mechanismu ochrany dat, včetně nového systému ochrany dat.
 
 ## <a name="package-installation"></a>Instalace balíčku
 
@@ -67,9 +73,9 @@ namespace DataProtectionDemo
 ```
 
 >[!TIP]
-> Místo explicitního volání SetApplicationName můžete také použít `<machineKey applicationName="my-app" ... />`. Toto je praktický mechanismus, který vám umožní vynutit, aby vývojář vytvořil typ odvozený od DataProtectionStartup, pokud všechny, které chtěli nakonfigurovat, nastavoval název aplikace.
+> Můžete také použít `<machineKey applicationName="my-app" ... />` místo explicitního volání SetApplicationName. Toto je praktický mechanismus, který vám umožní vynutit, aby vývojář vytvořil typ odvozený od DataProtectionStartup, pokud všechny, které chtěli nakonfigurovat, nastavoval název aplikace.
 
-Chcete-li povolit tuto vlastní konfiguraci, vraťte se zpět do souboru Web. config a vyhledejte element `<appSettings>`, který balíček do konfiguračního souboru přidal. Bude vypadat jako v následujícím kódu:
+Chcete-li povolit tuto vlastní konfiguraci, vraťte se zpět do souboru Web. config `<appSettings>` a vyhledejte prvek, který balíček nainstaloval do konfiguračního souboru. Bude vypadat jako v následujícím kódu:
 
 ```xml
 <appSettings>

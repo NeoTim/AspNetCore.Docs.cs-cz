@@ -1,56 +1,62 @@
 ---
-title: Nastavení externího přihlášení účtu Microsoft s ASP.NET Core
+title: Nastavení externího přihlášení k účtu Microsoft pomocí ASP.NET Core
 author: rick-anderson
-description: Tato ukázka ukazuje integraci ověřování uživatelů účtu Microsoft do existující aplikace ASP.NET Core.
+description: Tato ukázka demonstruje integraci účet Microsoft ověřování uživatelů do existující aplikace ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/microsoft-logins
-ms.openlocfilehash: 12c86456dad86731b86487a3a4dd725f36677002
-ms.sourcegitcommit: f29a12486313e38e0163a643d8a97c8cecc7e871
+ms.openlocfilehash: 731a17085a1fd01852bb3fe2f0fc9f3e7a9ac30f
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/14/2020
-ms.locfileid: "81384043"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775658"
 ---
-# <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Nastavení externího přihlášení účtu Microsoft s ASP.NET Core
+# <a name="microsoft-account-external-login-setup-with-aspnet-core"></a>Nastavení externího přihlášení k účtu Microsoft pomocí ASP.NET Core
 
-[Valerij Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
+Od [Valeriy Novytskyy](https://github.com/01binary) a [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V této ukázce se zobrazí, jak uživatelům umožnit přihlášení pomocí pracovního, školního nebo osobního účtu Microsoft pomocí projektu ASP.NET Core 3.0 vytvořeného na [předchozí stránce](xref:security/authentication/social/index).
+V této ukázce se dozvíte, jak uživatelům povolit, aby se přihlásili pomocí své pracovní, školní nebo osobní účet Microsoft pomocí projektu ASP.NET Core 3,0 vytvořeného na [předchozí stránce](xref:security/authentication/social/index).
 
-## <a name="create-the-app-in-microsoft-developer-portal"></a>Vytvoření aplikace na portálu Microsoft Developer Portal
+## <a name="create-the-app-in-microsoft-developer-portal"></a>Vytvoření aplikace na portálu Microsoftu pro vývojáře
 
-* Přidejte do projektu balíček [Microsoft.AspNetCore.Authentication.MicrosoftAccount](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount/) NuGet.
-* Přejděte na stránku [Registrace aplikací Azure –](https://go.microsoft.com/fwlink/?linkid=2083908) registrace aplikací a vytvořte nebo přihlaste účet Microsoft:
+* Do projektu přidejte balíček NuGet [Microsoft. AspNetCore. Authentication. MicrosoftAccount](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.MicrosoftAccount/) .
+* Přejděte na stránku [Azure Portal-registrace aplikací](https://go.microsoft.com/fwlink/?linkid=2083908) a vytvořte nebo Přihlaste se ke účet Microsoft:
 
-Pokud nemáte účet Microsoft, vyberte **Vytvořit jeden**. Po přihlášení budete přesměrováni na stránku **Registrace aplikací:**
+Pokud nemáte účet Microsoft, vyberte **vytvořit**. Po přihlášení budete přesměrováni na stránku **Registrace aplikací** :
 
 * Vybrat **novou registraci**
 * Zadejte **název**.
 * Vyberte možnost pro **podporované typy účtů**.  <!-- Accounts for any org work with MS domain accounts. Most folks probably want the last option, personal MS accounts. It took 24 hours after setting this up for the keys to work -->
-* V části **Přesměrování identifikátoru**URI `/signin-microsoft` zadejte adresu URL vývoje s připojeným. Například, `https://localhost:5001/signin-microsoft`. Schéma ověřování společnosti Microsoft nakonfigurované dále `/signin-microsoft` v této ukázce bude automaticky zpracovávat požadavky na cestě k implementaci toku OAuth.
-* Vybrat **registr**
+* V části **identifikátor URI přesměrování**zadejte adresu URL pro `/signin-microsoft` vývoj s připojením. Například, `https://localhost:5001/signin-microsoft`. Schéma ověřování společnosti Microsoft nakonfigurované později v této ukázce bude automaticky zpracovávat požadavky `/signin-microsoft` na trase za účelem implementace toku OAuth.
+* Vybrat **registraci**
 
 ### <a name="create-client-secret"></a>Vytvořit tajný klíč klienta
 
-* V levém podokně vyberte **certifikáty & tajných kódů**.
-* V části **Tajné klíče klienta**vyberte **Nový tajný klíč klienta.**
+* V levém podokně vyberte **certifikáty & tajných**kódů.
+* V části **tajné klíče klienta**vyberte **nový tajný klíč klienta** .
 
-  * Přidejte popis tajného klíče klienta.
-  * Vyberte tlačítko **Přidat.**
+  * Přidejte popis pro tajný klíč klienta.
+  * Vyberte tlačítko **Přidat** .
 
-* V části **Tajné klíče klienta**zkopírujte hodnotu tajného klíče klienta.
+* V části **tajné klíče klienta**Zkopírujte hodnotu tajného klíče klienta.
 
-Segment `/signin-microsoft` URI je nastaven jako výchozí zpětné volání zprostředkovatele ověřování společnosti Microsoft. Výchozí identifikátor URI zpětného volání můžete změnit při konfiguraci middlewaru ověřování společnosti Microsoft prostřednictvím zděděné [vlastnosti RemoteAuthenticationOptions.CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [MicrosoftAccountOptions.](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions)
+Segment `/signin-microsoft` identifikátoru URI je nastaven jako výchozí zpětné volání poskytovatele ověřování společnosti Microsoft. Výchozí identifikátor URI zpětného volání můžete změnit během konfigurace middleware ověřování od společnosti Microsoft prostřednictvím zděděné vlastnosti [RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.authentication.microsoftaccount.microsoftaccountoptions) .
 
-## <a name="store-the-microsoft-client-id-and-secret"></a>Uložení ID klienta Microsoftu a tajného klíče
+## <a name="store-the-microsoft-client-id-and-secret"></a>Uložte si ID a tajný kód klienta Microsoft.
 
-Uklápěte citlivá nastavení, jako je ID klienta Microsoft a tajné hodnoty, pomocí [Správce tajných barev](xref:security/app-secrets). Pro tuto ukázku použijte následující kroky:
+Uložte citlivá nastavení, jako je ID klienta Microsoftu a tajné hodnoty pomocí [správce tajných](xref:security/app-secrets)kódů. V této ukázce použijte následující postup:
 
-1. Inicializovat projekt pro tajné úložiště podle pokynů na [Povolit tajné úložiště](xref:security/app-secrets#enable-secret-storage).
-1. Uložte citlivá nastavení v místním tajném úložišti s tajnými klíči `Authentication:Microsoft:ClientId` a `Authentication:Microsoft:ClientSecret`:
+1. Inicializujte projekt pro tajné úložiště podle pokynů v tématu [Povolení tajného úložiště](xref:security/app-secrets#enable-secret-storage).
+1. Uložte citlivá nastavení do místního úložiště tajných klíčů pomocí tajných `Authentication:Microsoft:ClientId` klíčů `Authentication:Microsoft:ClientSecret`a:
 
     ```dotnetcli
     dotnet user-secrets set "Authentication:Microsoft:ClientId" "<client-id>"
@@ -61,21 +67,21 @@ Uklápěte citlivá nastavení, jako je ID klienta Microsoft a tajné hodnoty, p
 
 ## <a name="configure-microsoft-account-authentication"></a>Konfigurace ověřování účtu Microsoft
 
-Přidejte službu Účet `Startup.ConfigureServices`Microsoft do :
+Přidejte službu účtu Microsoft do `Startup.ConfigureServices`:
 
 [!code-csharp[](~/security/authentication/social/social-code/3.x/StartupMS3x.cs?name=snippet&highlight=10-14)]
 
 [!INCLUDE [default settings configuration](includes/default-settings.md)]
 
-Další informace o možnostech konfigurace podporovaných ověřováním účtu Microsoft najdete v tématu Odkaz na rozhraní [API MicrosoftAccountOptions.](/dotnet/api/microsoft.aspnetcore.builder.microsoftaccountoptions) To lze použít k vyžádání různých informací o uživateli.
+Další informace o možnostech Konfigurace podporovaných ověřováním účtů Microsoft najdete v referenčních informacích k rozhraní [MicrosoftAccountOptions](/dotnet/api/microsoft.aspnetcore.builder.microsoftaccountoptions) API. Dá se použít k vyžádání různých informací o uživateli.
 
-## <a name="sign-in-with-microsoft-account"></a>Přihlášení pomocí účtu Microsoft
+## <a name="sign-in-with-microsoft-account"></a>Účet Přihlásit se účtem Microsoft
 
-Spusťte aplikaci a klepněte na tlačítko **Přihlásit se**. Zobrazí se možnost přihlásit se pomocí společnosti Microsoft. Po kliknutí na společnost Microsoft budete přesměrováni na společnost Microsoft k ověření. Po přihlášení pomocí účtu Microsoft budete vyzváni k tomu, abyste aplikaci dovolili přístup k vašim údajům:
+Spusťte aplikaci a klikněte na **Přihlásit se**. Zobrazí se možnost přihlásit se s Microsoftem. Když kliknete na Microsoft, budete přesměrováni na Microsoft pro ověřování. Po přihlášení pomocí účtu Microsoft se zobrazí výzva, abyste aplikaci dali přístup k vašim informacím:
 
 Klepněte na **Ano** a budete přesměrováni zpět na web, kde můžete nastavit e-mail.
 
-Nyní jste přihlášeni pomocí pověření společnosti Microsoft:
+Nyní jste přihlášeni pomocí přihlašovacích údajů Microsoftu:
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
@@ -83,16 +89,16 @@ Nyní jste přihlášeni pomocí pověření společnosti Microsoft:
 
 ## <a name="troubleshooting"></a>Řešení potíží
 
-* Pokud vás poskytovatel účtu Microsoft přesměruje na přihlašovací chybovou stránku, poznamenejte `#` si parametry řetězce názvu chyby a popisu dotazu přímo za (hashtag) v uri.
+* Pokud vám poskytovatel účtu Microsoft přesměruje na chybovou stránku pro přihlášení, poznamenejte si parametry řetězce chyby a popis v parametrech řetězce dotazu `#` přímo za (hashtag) v identifikátoru URI.
 
-  Přestože se zdá, že chybová zpráva označuje problém s ověřováním společnosti Microsoft, nejčastější příčinou je, že aplikace Uri neodpovídá žádné z **identifikátorů URI přesměrování** zadaných pro **webovou** platformu.
-* Pokud identita není nakonfigurován `services.AddIdentity` `ConfigureServices`voláním , pokus o ověření bude mít za následek *ArgumentException: "SignInScheme" možnost musí být k dispozici*. Šablona projektu použitá v této ukázce zajišťuje, že se tak děje.
-* Pokud databáze lokality nebyla vytvořena použitím počáteční migrace, zobrazí se *operace databáze, která se nezdařila při zpracování chyby požadavku.* Klepnutím na **Použít migrace vytvořte** databázi a aktualizujte, abyste pokračovali v minulosti za chybou.
+  I když se chybová zpráva jeví jako problém s ověřováním Microsoftu, Nejběžnější příčinou je, že identifikátor URI vaší aplikace neodpovídá žádnému identifikátoru **URI přesměrování** , který je zadaný pro **webovou** platformu.
+* Pokud Identity není nakonfigurováno `services.AddIdentity` voláním `ConfigureServices`v, pokus o ověření bude mít za následek *ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použitá v této ukázce zajišťuje, že je to hotové.
+* Pokud se databáze lokality nevytvořila při použití prvotní migrace, při zpracování chyby žádosti se zobrazí *operace databáze* . Klepnutím na **použít migrace** vytvořte databázi a aktualizujte, aby pokračovala i po chybě.
 
 ## <a name="next-steps"></a>Další kroky
 
-* Tento článek ukazuje, jak můžete ověřit s Microsoft. Můžete postupovat podobným způsobem k ověření s jinými zprostředkovateli uvedenými na [předchozí stránce](xref:security/authentication/social/index).
+* Tento článek ukazuje, jak se dá ověřit u Microsoftu. Můžete postupovat podle podobného přístupu k ověřování u jiných poskytovatelů uvedených na [předchozí stránce](xref:security/authentication/social/index).
 
-* Po publikování webu do webové aplikace Azure vytvořte nové tajné kódy klientů na portálu Microsoft Developer Portal.
+* Po publikování webu do webové aplikace Azure vytvořte nové tajné klíče klienta na portálu Microsoftu pro vývojáře.
 
-* Nastavte `Authentication:Microsoft:ClientId` nastavení `Authentication:Microsoft:ClientSecret` aplikace a jako na webu Azure Portal. Konfigurační systém je nastaven pro čtení klíčů z proměnných prostředí.
+* Nastavte nastavení `Authentication:Microsoft:ClientId` a `Authentication:Microsoft:ClientSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastaven na čtení klíčů z proměnných prostředí.

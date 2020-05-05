@@ -4,13 +4,19 @@ author: rick-anderson
 description: Objevte články na základě ASP.NET Core projektů vytvořených pomocí individuálních uživatelských účtů.
 ms.author: riande
 ms.date: 12/11/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/individual
-ms.openlocfilehash: 7ef0d5eabded61d04fb9fe7be384a663ad7ea5f4
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 26f53b6452e307bbd0816c1a3604f38b04c6af15
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78659619"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768647"
 ---
 # <a name="articles-based-on-aspnet-core-projects-created-with-individual-user-accounts"></a>Články založené na ASP.NET Core projektech vytvořených pomocí individuálních uživatelských účtů
 
@@ -42,7 +48,7 @@ Podívejte se na [Tento problém GitHubu](https://github.com/dotnet/AspNetCore/i
 
 ## <a name="no-authentication"></a>Bez ověřování
 
-Ověřování je zadáno v .NET Core CLI s možností `-au`. V aplikaci Visual Studio je k dispozici dialog **Změna ověřování** pro nové webové aplikace. Výchozí pro nové webové aplikace v aplikaci Visual Studio není **ověřování**.
+Ověřování je zadáno v .NET Core CLI s `-au` možností. V aplikaci Visual Studio je k dispozici dialog **Změna ověřování** pro nové webové aplikace. Výchozí pro nové webové aplikace v aplikaci Visual Studio není **ověřování**.
 
 Projekty vytvořené bez ověřování:
 
@@ -53,7 +59,7 @@ Projekty vytvořené bez ověřování:
 
 ## <a name="windows-authentication"></a>Ověřování systému Windows
 
-Ověřování systému Windows je zadáno pro nové webové aplikace v .NET Core CLI s možností `-au Windows`. V aplikaci Visual Studio je v dialogovém okně pro **změnu ověřování** k dispozici možnost **ověřování systému Windows** .
+Ověřování systému Windows je zadáno pro nové webové aplikace v .NET Core CLI s `-au Windows` možností. V aplikaci Visual Studio je v dialogovém okně pro **změnu ověřování** k dispozici možnost **ověřování systému Windows** .
 
 Pokud je vybraná možnost ověřování systému Windows, aplikace je nakonfigurovaná tak, aby používala [modul služby IIS pro ověřování systému Windows](xref:host-and-deploy/iis/modules). Ověřování systému Windows je určeno pro intranetové weby.
 
@@ -61,7 +67,7 @@ Pokud je vybraná možnost ověřování systému Windows, aplikace je nakonfigu
 
 V následující tabulce jsou uvedené možnosti ověřování pro nové webové aplikace:
 
-| Možnost | Typ ověřování | Odkaz pro další informace |
+| Možnost | Typ ověřování | Odkaz na další informace |
  | ----------------- | ------------ | ---------- |
 | Žádná            |  Bez ověřování | | 
 | Jednoho      |  Individuální ověřování | <xref:security/authentication/identity>
@@ -74,7 +80,7 @@ V následující tabulce jsou uvedené možnosti ověřování pro nové webové
 
 V následující tabulce jsou uvedeny možnosti ověřování, které jsou k dispozici při vytváření nové webové aplikace pomocí sady Visual Studio:
 
-| Možnost | Typ ověřování | Odkaz pro další informace |
+| Možnost | Typ ověřování | Odkaz na další informace |
  | ----------------- | ------------ | ---------- |
 | Žádná            |  Bez ověřování | | 
 | Individuální uživatelské účty/úložiště uživatelských účtů v aplikaci |  Individuální ověřování | <xref:security/authentication/identity> |

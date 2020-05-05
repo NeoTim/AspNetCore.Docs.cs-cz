@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 12/11/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: d9beae68cc869b665ff5d2b6cf34f120406098dc
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 4d0200cd412cce6eda473a64d132d74d8641db34
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78661887"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777095"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -26,17 +32,17 @@ Smyčka HTTP Read-Eval-Print (REPL) je:
 
 Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/microsoft/api-guidelines/blob/vNext/Guidelines.md#74-supported-methods) :
 
-* [DELETE](#test-http-delete-requests)
-* [GET](#test-http-get-requests)
+* [DSTRANIT](#test-http-delete-requests)
+* [Čtěte](#test-http-get-requests)
 * [ZÁHLAVÍ](#test-http-head-requests)
 * [NASTAVENÍ](#test-http-options-requests)
 * [POUŽITA](#test-http-patch-requests)
 * [POST](#test-http-post-requests)
-* [PUT](#test-http-put-requests)
+* [PŘEVÉST](#test-http-put-requests)
 
 Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhraní API nebo si ho stáhněte](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([jak si ho stáhnout](xref:index#how-to-download-a-sample)).
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 * [!INCLUDE [2.1-SDK](~/includes/2.1-SDK.md)]
 
@@ -134,7 +140,7 @@ Připojte se k webovému rozhraní API spuštěním následujícího příkazu:
 httprepl <ROOT URI>
 ```
 
-`<ROOT URI>` je základní identifikátor URI pro webové rozhraní API. Příklad:
+`<ROOT URI>`je základní identifikátor URI pro webové rozhraní API. Příklad:
 
 ```console
 httprepl https://localhost:5001
@@ -154,7 +160,7 @@ Příklad:
 
 ## <a name="manually-point-to-the-swagger-document-for-the-web-api"></a>Ruční odkazování na dokument Swagger pro webové rozhraní API
 
-Výše uvedený příkaz Connect se pokusí najít dokument Swagger automaticky. Pokud z nějakého důvodu to není možné, můžete zadat identifikátor URI dokumentu Swagger pro webové rozhraní API pomocí možnosti `--swagger`:
+Výše uvedený příkaz Connect se pokusí najít dokument Swagger automaticky. Pokud z nějakého důvodu to není možné, můžete zadat identifikátor URI dokumentu Swagger pro webové rozhraní API pomocí `--swagger` možnosti:
 
 ```console
 connect <ROOT URI> --swagger <SWAGGER URI>
@@ -170,7 +176,7 @@ Příklad:
 
 ### <a name="view-available-endpoints"></a>Zobrazit dostupné koncové body
 
-Pokud chcete zobrazit seznam různých koncových bodů (řadičů) na aktuální cestě adresy webového rozhraní API, spusťte příkaz `ls` nebo `dir`:
+Pokud chcete zobrazit seznam různých koncových bodů (řadičů) na aktuální cestě adresy webového rozhraní API, spusťte `ls` příkaz `dir` nebo:
 
 ```console
 https://localhot:5001/~ ls
@@ -186,9 +192,9 @@ People   [get|post]
 https://localhost:5001/~
 ```
 
-Předchozí výstup ukazuje, že jsou k dispozici dva řadiče: `Fruits` a `People`. Oba řadiče podporují operace HTTP GET a POST bez parametrů.
+Předchozí výstup ukazuje, že jsou k dispozici dva řadiče `Fruits` : `People`a. Oba řadiče podporují operace HTTP GET a POST bez parametrů.
 
-Přechod na konkrétní kontroler odhalí více podrobností. Například výstup následujícího příkazu ukazuje, že řadič `Fruits` také podporuje operace HTTP GET, PUT a DELETE. Každá z těchto operací očekává v trase parametr `id`:
+Přechod na konkrétní kontroler odhalí více podrobností. Například výstup následujícího příkazu ukazuje, že `Fruits` kontroler také podporuje operace HTTP GET, PUT a DELETE. Každá z těchto operací očekává v `id` trase parametr:
 
 ```console
 https://localhost:5001/fruits~ ls
@@ -199,7 +205,7 @@ https://localhost:5001/fruits~ ls
 https://localhost:5001/fruits~
 ```
 
-Případně můžete spuštěním příkazu `ui` otevřít stránku uživatelského rozhraní Swagger webového rozhraní API v prohlížeči. Příklad:
+Případně spusťte `ui` příkaz a otevřete stránku uživatelského rozhraní Swagger webového rozhraní API v prohlížeči. Příklad:
 
 ```console
 https://localhost:5001/~ ui
@@ -207,13 +213,13 @@ https://localhost:5001/~ ui
 
 ### <a name="navigate-to-an-endpoint"></a>Přejít na koncový bod
 
-Pokud chcete přejít na jiný koncový bod webového rozhraní API, spusťte příkaz `cd`:
+Pokud chcete přejít na jiný koncový bod webového rozhraní API, spusťte `cd` příkaz:
 
 ```console
 https://localhost:5001/~ cd people
 ```
 
-Cesta za příkazem `cd` nerozlišuje velká a malá písmena. Zobrazí se následující výstupní formát:
+Cesta za `cd` příkazem nerozlišuje velká a malá písmena. Zobrazí se následující výstupní formát:
 
 ```console
 /people    [get|post]
@@ -243,7 +249,7 @@ Soubor *. httpreplprefs* je načten při spuštění a není monitorován pro zm
 
 ### <a name="view-the-settings"></a>Zobrazit nastavení
 
-Chcete-li zobrazit dostupná nastavení, spusťte příkaz `pref get`. Příklad:
+Dostupná nastavení zobrazíte spuštěním `pref get` příkazu. Příklad:
 
 ```console
 https://localhost:5001/~ pref get
@@ -264,7 +270,7 @@ colors.status=BoldYellow
 
 ### <a name="set-color-preferences"></a>Nastavit předvolby barev
 
-Vybarvení odpovědi je aktuálně podporováno pouze pro JSON. Chcete-li přizpůsobit výchozí barevné vybarvení nástroje HTTP REPL, vyhledejte klíč odpovídající barvě, který má být změněn. Pokyny k vyhledání klíčů najdete v části [zobrazení nastavení](#view-the-settings) . Můžete například změnit hodnotu `colors.json` klíče z `Green` na `White` následujícím způsobem:
+Vybarvení odpovědi je aktuálně podporováno pouze pro JSON. Chcete-li přizpůsobit výchozí barevné vybarvení nástroje HTTP REPL, vyhledejte klíč odpovídající barvě, který má být změněn. Pokyny k vyhledání klíčů najdete v části [zobrazení nastavení](#view-the-settings) . Například hodnotu `colors.json` klíče můžete změnit z `Green` na `White` následujícím způsobem:
 
 ```console
 https://localhost:5001/people~ pref set colors.json White
@@ -274,10 +280,10 @@ Mohou být použity pouze [povolené barvy](https://github.com/dotnet/HttpRepl/b
 
 Pokud nejsou nastavené určité klíče barev, považují se za obecnější klíče. K předvedení tohoto nouzového chování Vezměte v úvahu následující příklad:
 
-* Pokud `colors.json.name` nemá hodnotu, použije se `colors.json.string`.
-* Pokud `colors.json.string` nemá hodnotu, použije se `colors.json.literal`.
-* Pokud `colors.json.literal` nemá hodnotu, použije se `colors.json`. 
-* Pokud `colors.json` nemá hodnotu, použije se výchozí barva textu (`AllowedColors.None`) příkazového prostředí.
+* Pokud `colors.json.name` nemá hodnotu, `colors.json.string` je použita hodnota.
+* Pokud `colors.json.string` nemá hodnotu, `colors.json.literal` je použita hodnota.
+* Pokud `colors.json.literal` nemá hodnotu, `colors.json` je použita hodnota. 
+* Pokud `colors.json` hodnota nemá hodnotu, použije se výchozí barva textu (`AllowedColors.None`) příkazového prostředí.
 
 ### <a name="set-indentation-size"></a>Nastavit velikost odsazení
 
@@ -300,7 +306,7 @@ Přizpůsobení velikosti odsazení odpovědí se v současné době podporuje j
 ]
 ```
 
-Chcete-li změnit výchozí velikost, nastavte klíč `formatting.json.indentSize`. Například pokud chcete vždy použít čtyři mezery:
+Chcete-li změnit výchozí velikost, nastavte `formatting.json.indentSize` klíč. Například pokud chcete vždy použít čtyři mezery:
 
 ```console
 pref set formatting.json.indentSize 4
@@ -333,7 +339,7 @@ Ve výchozím nastavení nemá protokol HTTP REPL nakonfigurovaný žádný text
 pref set editor.command.default "<EXECUTABLE>"
 ```
 
-V předchozím příkazu je `<EXECUTABLE>` úplnou cestu ke spustitelnému souboru textového editoru. Například spusťte následující příkaz, který nastaví Visual Studio Code jako výchozí textový editor:
+V předchozím příkazu `<EXECUTABLE>` je úplná cesta ke spustitelnému souboru textového editoru. Například spusťte následující příkaz, který nastaví Visual Studio Code jako výchozí textový editor:
 
 # <a name="linux"></a>[Linux](#tab/linux)
 
@@ -355,7 +361,7 @@ pref set editor.command.default "C:\Program Files\Microsoft VS Code\Code.exe"
 
 ---
 
-Chcete-li spustit výchozí textový editor s konkrétními argumenty rozhraní příkazového řádku, nastavte klíč `editor.command.default.arguments`. Předpokládejme například, že Visual Studio Code je výchozím textovým editorem a chcete, aby se v nové relaci s vypnutými rozšířeními otevřela Visual Studio Code HTTP REPL. Spusťte následující příkaz:
+Chcete-li spustit výchozí textový editor s konkrétními argumenty rozhraní příkazového řádku, nastavte `editor.command.default.arguments` klíč. Předpokládejme například, že Visual Studio Code je výchozím textovým editorem a chcete, aby se v nové relaci s vypnutými rozšířeními otevřela Visual Studio Code HTTP REPL. Spusťte následující příkaz:
 
 ```console
 pref set editor.command.default.arguments "--disable-extensions --new-window"
@@ -363,14 +369,14 @@ pref set editor.command.default.arguments "--disable-extensions --new-window"
 
 ### <a name="set-the-swagger-search-paths"></a>Nastavení vyhledávacích cest Swagger
 
-Ve výchozím nastavení má REPL HTTP sadu relativních cest, které používá k nalezení dokumentu Swagger při provádění příkazu `connect` bez možnosti `--swagger`. Tyto relativní cesty jsou kombinovány s kořenovou a základní cestou zadanou v příkazu `connect`. Výchozí relativní cesty jsou:
+Ve výchozím nastavení má REPL HTTP sadu relativních cest, které používá k nalezení dokumentu Swagger při provádění `connect` příkazu bez `--swagger` možnosti. Tyto relativní cesty jsou kombinovány s kořenovou a základní cestou specifikovanou `connect` v příkazu. Výchozí relativní cesty jsou:
 
 - *Swagger. JSON*
 - *Swagger/v1/Swagger. JSON*
 - */swagger.json*
 - */swagger/v1/swagger.json*
 
-Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte předvolbu `swagger.searchPaths`. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Příklad:
+Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte `swagger.searchPaths` předvolby. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Příklad:
 
 ```console
 pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
@@ -392,7 +398,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 ### <a name="options"></a>Možnosti
 
-Pro příkaz `get` jsou k dispozici následující možnosti:
+Pro `get` příkaz jsou k dispozici následující možnosti:
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
@@ -400,7 +406,7 @@ Pro příkaz `get` jsou k dispozici následující možnosti:
 
 Vystavení požadavku HTTP GET:
 
-1. Spusťte příkaz `get` na koncovém bodu, který ho podporuje:
+1. Spusťte `get` příkaz na koncovém bodu, který ho podporuje:
 
     ```console
     https://localhost:5001/people~ get
@@ -484,13 +490,13 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Vystavení požadavku HTTP POST:
 
-1. Spusťte příkaz `post` na koncovém bodu, který ho podporuje:
+1. Spusťte `post` příkaz na koncovém bodu, který ho podporuje:
 
     ```console
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
 
-    V předchozím příkazu je hlavička požadavku HTTP `Content-Type` nastavena tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
+    V předchozím příkazu je hlavička požadavku `Content-Type` http nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
 
     ```json
     {
@@ -554,7 +560,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Vydání požadavku HTTP PUT:
 
-1. *Volitelné*: pro zobrazení dat před úpravou použijte příkaz `get`:
+1. *Volitelné*: pro zobrazení `get` dat před úpravou spusťte příkaz:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -580,13 +586,13 @@ Vydání požadavku HTTP PUT:
     ]
     ```
 
-1. Spusťte příkaz `put` na koncovém bodu, který ho podporuje:
+1. Spusťte `put` příkaz na koncovém bodu, který ho podporuje:
 
     ```console
     https://localhost:5001/fruits~ put 2 -h Content-Type=application/json
     ```
 
-    V předchozím příkazu je hlavička požadavku HTTP `Content-Type` nastavena tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
+    V předchozím příkazu je hlavička požadavku `Content-Type` http nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
 
     ```json
     {
@@ -616,7 +622,7 @@ Vydání požadavku HTTP PUT:
     Server: Kestrel
     ```
 
-1. *Volitelné*: vydejte `get` příkaz pro zobrazení úprav. Například pokud jste v textovém editoru zadali "" ", `get` vrátí následující:
+1. *Volitelné*: vydejte `get` příkaz pro zobrazení úprav. Například pokud jste v textovém editoru zadali "třešně", `get` vrátí následující:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -667,7 +673,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Postup při vystavení žádosti o odstranění protokolu HTTP:
 
-1. *Volitelné*: pro zobrazení dat před úpravou použijte příkaz `get`:
+1. *Volitelné*: pro zobrazení `get` dat před úpravou spusťte příkaz:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -693,7 +699,7 @@ Postup při vystavení žádosti o odstranění protokolu HTTP:
     ]
     ```
 
-1. Spusťte příkaz `delete` na koncovém bodu, který ho podporuje:
+1. Spusťte `delete` příkaz na koncovém bodu, který ho podporuje:
 
     ```console
     https://localhost:5001/fruits~ delete 2
@@ -707,7 +713,7 @@ Postup při vystavení žádosti o odstranění protokolu HTTP:
     Server: Kestrel
     ```
 
-1. *Volitelné*: vydejte `get` příkaz pro zobrazení úprav. V tomto příkladu `get` vrátí následující:
+1. *Volitelné*: vydejte `get` příkaz pro zobrazení úprav. V tomto příkladu, `get` vrátí následující:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -798,7 +804,7 @@ Pokud chcete nastavit hlavičku požadavku HTTP, použijte jeden z následujíc�
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
     
-    V případě předchozího přístupu vyžaduje každá samostatná Hlavička požadavku HTTP vlastní možnost `-h`.
+    V případě předchozího přístupu vyžaduje každá samostatná Hlavička požadavku HTTP vlastní `-h` možnost.
 
 * Nastaveno před odesláním požadavku HTTP. Příklad:
 
@@ -852,7 +858,7 @@ Pokud chcete získat přístup ke koncovému bodu hostovanému v Azure nebo pou�
     httprepl https://management.azure.com
     ```
 
-1. Nastavte `Authorization` hlavičce požadavku HTTP:
+1. Nastavte hlavičku `Authorization` požadavku http:
 
     ```console
     https://management.azure.com/> set header Authorization "bearer <ACCESS TOKEN>"
@@ -900,7 +906,7 @@ Ve výchozím nastavení se zobrazí potlačení požadavku HTTP na odeslání. 
 
 ### <a name="enable-request-display"></a>Povolit zobrazení žádosti
 
-Spuštěním příkazu `echo on` Zobrazte požadavek HTTP, který odesíláte. Příklad:
+Spuštěním `echo on` příkazu ZOBRAZTE požadavek HTTP, který odesíláte. Příklad:
 
 ```console
 https://localhost:5001/people~ echo on
@@ -945,7 +951,7 @@ https://localhost:5001/people~
 
 ### <a name="disable-request-display"></a>Zakázat zobrazení žádosti
 
-Potlačit zobrazení požadavku HTTP odesílaného spuštěním příkazu `echo off`. Příklad:
+Potlačit zobrazení požadavku HTTP odesílaného spuštěním `echo off` příkazu Příklad:
 
 ```console
 https://localhost:5001/people~ echo off
@@ -954,7 +960,7 @@ Request echoing is off
 
 ## <a name="run-a-script"></a>Spuštění skriptu
 
-Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložení do textového souboru. Příkazy v souboru přebírají stejnou formu, jakou byly provedeny ručně na příkazovém řádku. Příkazy lze spustit v dávce způsobem pomocí příkazu `run`. Příklad:
+Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložení do textového souboru. Příkazy v souboru přebírají stejnou formu, jakou byly provedeny ručně na příkazovém řádku. Příkazy lze spustit v dávce způsobem pomocí `run` příkazu. Příklad:
 
 1. Vytvoří textový soubor obsahující sadu příkazů s oddělovači na nový řádek. Pro ilustraci zvažte soubor *People-Script. txt* , který obsahuje následující příkazy:
 
@@ -966,13 +972,13 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
     get 1
     ```
 
-1. Spusťte příkaz `run` a předejte cestu k textovému souboru. Příklad:
+1. Spusťte `run` příkaz a předejte cestu k textovému souboru. Příklad:
 
     ```console
     https://localhost:5001/~ run C:\http-repl-scripts\people-script.txt
     ```
 
-    Zobrazí se následující výstup:
+    Zobrazí se výstup:
 
     ```console
     https://localhost:5001/~ set base https://localhost:5001
@@ -1009,7 +1015,7 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
 
 ## <a name="clear-the-output"></a>Vymazat výstup
 
-Pokud chcete odebrat veškerý výstup napsaný do příkazového prostředí nástrojem HTTP REPL, spusťte příkaz `clear` nebo `cls`. K ilustraci si představte, že příkazové prostředí obsahuje následující výstup:
+Pokud chcete odebrat veškerý výstup napsaný do příkazového prostředí nástrojem HTTP REPL, spusťte příkaz `clear` nebo `cls` . K ilustraci si představte, že příkazové prostředí obsahuje následující výstup:
 
 ```console
 httprepl https://localhost:5001

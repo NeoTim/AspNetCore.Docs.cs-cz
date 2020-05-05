@@ -4,13 +4,19 @@ author: rick-anderson
 description: Přečtěte si o podpoře pro nastavení výchozích zásad pro všechny aplikace, které využívají ASP.NET Core ochraně dat v celém počítači.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/configuration/machine-wide-policy
-ms.openlocfilehash: 70aaca7afcd3df22cebb4466fbd9845a2277688c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 84f54b37dfff3112ea5ca84f931103624cfde90a
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78667949"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776835"
 ---
 # <a name="data-protection-machine-wide-policy-support-in-aspnet-core"></a>Podpora zásad ochrany dat na úrovni počítače v ASP.NET Core
 
@@ -34,7 +40,7 @@ Níže jsou uvedené podporované hodnoty.
 | Hodnota              | Typ   | Popis |
 | ------------------ | :----: | ----------- |
 | EncryptionType     | řetězec | Určuje, které algoritmy by se měly používat pro ochranu dat. Hodnota musí být CNG-CBC, CNG-GCM nebo spravovaná a jsou podrobněji popsány níže. |
-| DefaultKeyLifetime | DWORD  | Určuje dobu života nově vygenerovaných klíčů. Hodnota je zadána ve dnech a musí být > = 7. |
+| DefaultKeyLifetime | DWORD  | Určuje dobu života nově vygenerovaných klíčů. Hodnota je zadána ve dnech a musí být >= 7. |
 | KeyEscrowSinks     | řetězec | Určuje typy, které se používají pro Key v úschově. Hodnota je čárkami oddělený seznam jímky Key v úschově, kde každý prvek v seznamu je kvalifikovaný název sestavení typu, který implementuje [IKeyEscrowSink](/dotnet/api/microsoft.aspnetcore.dataprotection.keymanagement.ikeyescrowsink). |
 
 ## <a name="encryption-types"></a>Typy šifrování

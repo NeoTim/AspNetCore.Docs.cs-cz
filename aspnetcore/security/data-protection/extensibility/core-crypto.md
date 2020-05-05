@@ -4,20 +4,26 @@ author: rick-anderson
 description: Seznamte se s IAuthenticatedEncryptor, IAuthenticatedEncryptorDescriptor, IAuthenticatedEncryptorDescriptorDeserializer a továrnou nejvyšší úrovně.
 ms.author: riande
 ms.date: 08/11/2017
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/extensibility/core-crypto
-ms.openlocfilehash: a5f651e3313cc579b995b45905826a5bffcc241c
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c63cc124e1893f23c18581841194fa66848a2a1e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78663567"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776419"
 ---
 # <a name="core-cryptography-extensibility-in-aspnet-core"></a>Rozšiřitelnost základního kryptografie v ASP.NET Core
 
 <a name="data-protection-extensibility-core-crypto"></a>
 
 >[!WARNING]
-> Typy, které implementují některý z následujících rozhraní by měly být bezpečné pro vlákna pro více volání.
+> Typy, které implementují některá z následujících rozhraní, by měly být bezpečné pro přístup z více vláken pro více volajících.
 
 <a name="data-protection-extensibility-core-crypto-iauthenticatedencryptor"></a>
 
@@ -139,9 +145,9 @@ Metoda ImportFromXml přijímá XElement vrácenou funkcí [IAuthenticatedEncryp
 
 Typy, které implementují IAuthenticatedEncryptorDescriptorDeserializer, by měly mít jeden z následujících dvou veřejných konstruktorů:
 
-* .ctor(IServiceProvider)
+* . ctor (IServiceProvider)
 
-* .ctor()
+* . ctor ()
 
 > [!NOTE]
 > Objekt IServiceProvider předaný konstruktoru může mít hodnotu null.

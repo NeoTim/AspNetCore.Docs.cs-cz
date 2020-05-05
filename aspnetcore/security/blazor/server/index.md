@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 05/02/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/server/index
-ms.openlocfilehash: 324b3e8ed2d931c81bb41381caa469b0ec2f2fda
-ms.sourcegitcommit: c19e388c83c981232e6f128d97440262adfe06e2
+ms.openlocfilehash: bbd8b6fcd357b8929bf097450854d98fbea2570e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/02/2020
-ms.locfileid: "82727801"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772632"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečené ASP.NET Core aplikace serveru Blazor
 
