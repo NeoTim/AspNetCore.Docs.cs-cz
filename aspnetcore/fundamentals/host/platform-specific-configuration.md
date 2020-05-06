@@ -1,52 +1,58 @@
 ---
-title: Použití hostitelských spouštěcích sestavení v ASP.NET Core
+title: Použití hostování spouštěcích sestavení v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak vylepšit aplikaci ASP.NET Core z externího sestavení pomocí implementace IHostingStartup.
+description: Zjistěte, jak vylepšit ASP.NET Core aplikaci z externího sestavení pomocí implementace IHostingStartup.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc, seodec18
 ms.date: 09/26/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/configuration/platform-specific-configuration
-ms.openlocfilehash: ac667b0205f5daad395d86fbe129beb509a044a6
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: afbffc752f9c184ef32c9518464a94a615828dab
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "80417624"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776575"
 ---
-# <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>Použití hostitelských spouštěcích sestavení v ASP.NET Core
+# <a name="use-hosting-startup-assemblies-in-aspnet-core"></a>Použití hostování spouštěcích sestavení v ASP.NET Core
 
-Podle [Pavel Krymets](https://github.com/pakrym)
+Od [Pavel Krymets](https://github.com/pakrym)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> (hostování při spuštění) přidává vylepšení aplikace při spuštění z externího sestavení. Externí knihovna může například použít implementaci hostitelského spuštění k poskytování dalších poskytovatelů konfigurace nebo služeb pro aplikaci.
+Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> (hostující spuštění) přidává vylepšení aplikace při spuštění z externího sestavení. Externí knihovna může například použít hostitelskou implementaci při spuštění k poskytnutí dalších poskytovatelů konfigurace nebo služeb do aplikace.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="hostingstartup-attribute"></a>Atribut HostingStartup
+## <a name="hostingstartup-attribute"></a>HostingStartup – atribut
 
-Atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) označuje přítomnost hostitelského spouštěcího sestavení, které se aktivuje za běhu.
+Atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) označuje přítomnost hostitelského sestavení po spuštění, které se aktivuje za běhu.
 
-Sestavení položky nebo sestavení `Startup` obsahující třídu je automaticky `HostingStartup` zkontrolováno pro atribut. Seznam sestavení pro `HostingStartup` vyhledávání atributů je načten za běhu z konfigurace v [souboru WebHostDefaults.HostingStartupAssembliesKey](xref:Microsoft.AspNetCore.Hosting.WebHostDefaults.HostingStartupAssembliesKey). Seznam sestavení, která mají být vyloučena z zjišťování, je načten z [webu WebHostDefaults.HostingStartupExcludeAssembliesKey](xref:Microsoft.AspNetCore.Hosting.WebHostDefaults.HostingStartupExcludeAssembliesKey).
+Pro zadání sestavení nebo sestavení obsahujícího `Startup` třídu se automaticky vyhledá `HostingStartup` atribut. Seznam sestavení pro vyhledávání `HostingStartup` atributů je načten za běhu z konfigurace ve [WebHostDefaults. HostingStartupAssembliesKey](xref:Microsoft.AspNetCore.Hosting.WebHostDefaults.HostingStartupAssembliesKey). Seznam sestavení pro vyloučení ze zjišťování je načten z [WebHostDefaults. HostingStartupExcludeAssembliesKey](xref:Microsoft.AspNetCore.Hosting.WebHostDefaults.HostingStartupExcludeAssembliesKey).
 
-V následujícím příkladu je `StartupEnhancement`obor názvů hostitelského spouštěcího sestavení . Třída obsahující kód hostitelského `StartupEnhancementHostingStartup`spuštění je :
+V následujícím příkladu je `StartupEnhancement`obor názvů hostujícího spouštěcího sestavení. Třída obsahující spouštěcí kód hostování je `StartupEnhancementHostingStartup`:
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/3.x/StartupEnhancement.cs?name=snippet1)]
 
-Atribut `HostingStartup` je obvykle umístěn v hostitelském `IHostingStartup` spouštěcím sestavení implementační ho souboru třídy.
+`HostingStartup` Atribut je obvykle umístěn v souboru `IHostingStartup` implementační třídy sestavení, který spouští.
 
-## <a name="discover-loaded-hosting-startup-assemblies"></a>Objevte načtená hostitelská spouštěcí sestavení
+## <a name="discover-loaded-hosting-startup-assemblies"></a>Najít načtená hostování spouštěcích sestavení
 
-Chcete-li zjistit načtená sestavení po spuštění hostingu, povolte protokolování a zkontrolujte protokoly aplikace. Chyby, ke kterým dochází při načítání sestavení jsou protokolovány. Načtená hostitelská spouštěcí sestavení jsou protokolována na úrovni ladění a jsou protokolovány všechny chyby.
+Chcete-li zjistit načtená hostování spouštěcích sestavení, povolte protokolování a ověřte protokoly aplikace. Chyby, ke kterým dochází při načítání sestavení, jsou protokolovány. Načtená hostující spouštěcí sestavení jsou protokolována na úrovni ladění a všechny chyby jsou protokolovány.
 
-## <a name="disable-automatic-loading-of-hosting-startup-assemblies"></a>Zakázat automatické načítání hostitelských spouštěcích sestavení
+## <a name="disable-automatic-loading-of-hosting-startup-assemblies"></a>Zakázat automatické načítání hostujících spouštěcích sestavení
 
-Chcete-li zakázat automatické načítání hostitelských spouštěcích sestavení, použijte jeden z následujících přístupů:
+Chcete-li zakázat automatické načítání hostujících spouštěcích sestavení, použijte jeden z následujících přístupů:
 
-* Chcete-li zabránit načítání všech hostitelských spouštěcích `true` sestavení, nastavte jednu z následujících možností na nebo `1`:
+* Chcete-li zabránit načtení všech spouštěcích sestavení hostování, nastavte jednu z následujících `true` možností `1`na nebo:
 
-  * Zabránit nastavení konfigurace hostitele po spuštění:
+  * Zabránit hostování nastavení konfigurace hostitele po spuštění:
 
     ```csharp
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -59,11 +65,11 @@ Chcete-li zakázat automatické načítání hostitelských spouštěcích sesta
             });
     ```
 
-  * `ASPNETCORE_PREVENTHOSTINGSTARTUP`proměnné prostředí.
+  * `ASPNETCORE_PREVENTHOSTINGSTARTUP`Proměnná prostředí.
 
-* Chcete-li zabránit načítání konkrétních hostitelských spouštěcích sestavení, nastavte jednu z následujících na řetězec hostitelských spouštěcích sestavení oddělených středníkem, který chcete při spuštění vyloučit:
+* Chcete-li zabránit tomu, aby se konkrétní hostování spouštěcích sestavení načetlo, nastavte jednu z následujících hodnot na řetězec, který je hostitelem spouštěcích sestavení s oddělovači, aby při spuštění vyloučil:
 
-  * Hostování nastavení konfigurace hostitele sestavení spouštění:
+  * Hostování nastavení konfigurace vyloučení sestavení hostitele:
 
     ```csharp
     public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -77,99 +83,99 @@ Chcete-li zakázat automatické načítání hostitelských spouštěcích sesta
             });
     ```
 
-  * `ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES`proměnné prostředí.
+  * `ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES`Proměnná prostředí.
 
-Pokud je nastaveno nastavení konfigurace hostitele i proměnná prostředí, řídí chování nastavení hostitele.
+Pokud je nastavené nastavení konfigurace hostitele i proměnná prostředí, řídí se chování nastavení hostitele.
 
-Zakázání hostitelských spouštěcích sestavení pomocí nastavení hostitele nebo proměnné prostředí zakáže sestavení globálně a může zakázat několik charakteristik aplikace.
+Zakázání hostování spouštěcích sestavení pomocí nastavení hostitele nebo proměnné prostředí zakáže sestavení globálně a může zakázat několik vlastností aplikace.
 
 ## <a name="project"></a>Project
 
-Vytvořte hostitelské spuštění s jedním z následujících typů projektů:
+Vytvořte hostování po spuštění s některým z následujících typů projektů:
 
 * [Knihovna tříd](#class-library)
 * [Konzolová aplikace bez vstupního bodu](#console-app-without-an-entry-point)
 
 ### <a name="class-library"></a>Knihovna tříd
 
-Vylepšení spuštění hostingu lze poskytnout v knihovně tříd. Knihovna obsahuje `HostingStartup` atribut.
+Rozšíření spouštění hostitele lze poskytnout v knihovně tříd. Knihovna obsahuje `HostingStartup` atribut.
 
-[Ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) obsahuje aplikaci Razor Pages, *HostingStartupApp*a knihovnu tříd *HostingStartupLibrary*. Knihovna tříd:
+[Vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) obsahuje Razor stránku aplikace, *HostingStartupApp*a knihovnu tříd *HostingStartupLibrary*. Knihovna tříd:
 
-* Obsahuje třídu spuštění `ServiceKeyInjection`hostitele , `IHostingStartup`která implementuje . `ServiceKeyInjection`přidá dvojici řetězců služby do konfigurace aplikace pomocí zprostředkovatele konfigurace v paměti ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)).
-* Obsahuje `HostingStartup` atribut, který identifikuje obor názvů a třídu hostitelského spuštění.
+* Obsahuje hostující spouštěcí třídu, `ServiceKeyInjection`která implementuje. `IHostingStartup` `ServiceKeyInjection`Přidá dvojici řetězců služby k konfiguraci aplikace pomocí zprostředkovatele konfigurace v paměti ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)).
+* Obsahuje `HostingStartup` atribut, který identifikuje obor názvů a třídu pro spuštění hostingu.
 
-Metoda třídy používá <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> doplněk k přidání vylepšení do aplikace. `ServiceKeyInjection` <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*>
+<xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> Metoda `ServiceKeyInjection` třídy používá k přidání vylepšení aplikace.
 
-*HostingStartupLibrary/ServiceKeyInjection.cs*:
+*HostingStartupLibrary/ServiceKeyInjection. cs*:
 
 [!code-csharp[](platform-specific-configuration/samples/3.x/HostingStartupLibrary/ServiceKeyInjection.cs?name=snippet1)]
 
-Stránka Index aplikace čte a vykreslí hodnoty konfigurace pro dva klíče nastavené hostitelským spouštěcím sestavením knihovny tříd:
+Stránka indexu aplikace načte a vykreslí hodnoty konfigurace pro dva klíče nastavené hostujícím sestavením pro spuštění knihovny tříd:
 
-*HostingStartupApp/Pages/Index.cshtml.cs*:
+*HostingStartupApp/pages/index. cshtml. cs*:
 
 [!code-csharp[](platform-specific-configuration/samples/3.x/HostingStartupApp/Pages/Index.cshtml.cs?name=snippet1&highlight=5-6,11-12)]
 
-[Ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) také obsahuje projekt balíčku NuGet, který poskytuje samostatné hostování *spuštění, HostingStartupPackage*. Balíček má stejné vlastnosti knihovny tříd popsaných výše. Balíček:
+[Vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) obsahuje také projekt balíčku NuGet, který poskytuje samostatné hostování spouštěné *HostingStartupPackage*. Balíček má stejné charakteristiky jako knihovna tříd popsané výše. Balíček:
 
-* Obsahuje třídu spuštění `ServiceKeyInjection`hostitele , `IHostingStartup`která implementuje . `ServiceKeyInjection`přidá do konfigurace aplikace dvojici řetězců služeb.
-* Zahrnuje `HostingStartup` atribut.
+* Obsahuje hostující spouštěcí třídu, `ServiceKeyInjection`která implementuje. `IHostingStartup` `ServiceKeyInjection`Přidá do konfigurace aplikace dvojici řetězců služby.
+* Obsahuje `HostingStartup` atribut.
 
-*HostingStartupPackage/ServiceKeyInjection.cs*:
+*HostingStartupPackage/ServiceKeyInjection. cs*:
 
 [!code-csharp[](platform-specific-configuration/samples/3.x/HostingStartupPackage/ServiceKeyInjection.cs?name=snippet1)]
 
-Stránka Index aplikace čte a vykreslí hodnoty konfigurace pro dva klíče nastavené sestavením hostitelského spuštění balíčku:
+Stránka indexu aplikace čte a vykresluje konfigurační hodnoty pro dva klíče nastavené hostujícím sestavením pro spuštění balíčku:
 
-*HostingStartupApp/Pages/Index.cshtml.cs*:
+*HostingStartupApp/pages/index. cshtml. cs*:
 
 [!code-csharp[](platform-specific-configuration/samples/3.x/HostingStartupApp/Pages/Index.cshtml.cs?name=snippet1&highlight=7-8,13-14)]
 
 ### <a name="console-app-without-an-entry-point"></a>Konzolová aplikace bez vstupního bodu
 
-*Tento přístup je k dispozici pouze pro aplikace .NET Core, nikoli rozhraní .NET Framework.*
+*Tento přístup je k dispozici pouze pro aplikace .NET Core, nikoli .NET Framework.*
 
-Dynamické vylepšení spuštění hostingu, které nevyžaduje odkaz na aktivaci v době kompilace, může být `HostingStartup` poskytnuto v konzolové aplikaci bez vstupního bodu, který obsahuje atribut. Publikování konzolové aplikace vytvoří hostitelské spouštěcí sestavení, které lze spotřebovat z runtime úložiště.
+Dynamické rozšíření spouštění, které nevyžaduje odkazování v době kompilace pro aktivaci, lze poskytnout v konzolové aplikaci bez vstupního bodu, který obsahuje `HostingStartup` atribut. Publikování konzolové aplikace vytváří hostující spouštěcí sestavení, které lze spotřebovat z běhového úložiště.
 
-Konzolová aplikace bez vstupního bodu se používá v tomto procesu, protože:
+V tomto procesu se používá Konzolová aplikace bez vstupního bodu, protože:
 
-* Soubor závislostí je nutné využívat hostování spuštění v hostitelském spouštěcím sestavení. Soubor závislostí je spustitelný prostředek aplikace, který se vytváří publikováním aplikace, nikoli knihovny.
-* Knihovnu nelze přidat přímo do [úložiště balíčků runtime](/dotnet/core/deploying/runtime-store), což vyžaduje spustitelný projekt, který cílí na sdílený runtime.
+* Soubor závislostí je vyžadován ke využívání hostování při spouštění v sestavení, ve kterém se spouští. Soubor závislostí je spustitelný App Asset, který je vytvořený publikováním aplikace, ne knihovny.
+* Knihovnu nelze přidat přímo do [úložiště balíčků modulu runtime](/dotnet/core/deploying/runtime-store), což vyžaduje projekt spustitelný, který cílí na sdílený modul runtime.
 
-Při vytváření dynamického hostování spuštění:
+Při vytváření dynamického spuštění hostování:
 
-* Hostitelské spouštěcí sestavení je vytvořeno z konzolové aplikace bez vstupního bodu, který:
-  * Zahrnuje třídu, `IHostingStartup` která obsahuje implementaci.
-  * Zahrnuje [Atribut HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) k `IHostingStartup` identifikaci třídy implementace.
-* Konzolová aplikace je publikována, aby získala závislosti spuštění hostitele. Důsledkem publikování konzolové aplikace je, že nepoužívané závislosti jsou oříznuty ze souboru závislostí.
-* Soubor závislostí je upraven tak, aby nastavil umístění runtime hostitelského spouštěcího sestavení.
-* Hostitelské spouštěcí sestavení a jeho soubor závislostí je umístěn do úložiště balíčků runtime. Chcete-li zjistit hostitelské spouštěcí sestavení a jeho soubor závislostí, jsou uvedeny v dvojici proměnných prostředí.
+* Hostující spouštěcí sestavení je vytvořeno z konzolové aplikace bez vstupního bodu, který:
+  * Obsahuje třídu, která obsahuje `IHostingStartup` implementaci.
+  * Obsahuje atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) pro identifikaci `IHostingStartup` implementační třídy.
+* Konzolová aplikace se publikuje, aby získala závislosti hostování při spuštění. V důsledku publikování konzolové aplikace je, že nevyužité závislosti se oříznou ze souboru závislostí.
+* Soubor závislostí je upraven, aby bylo možné nastavit umístění modulu runtime hostujícího spouštěcí sestavení.
+* Hostování spouštěcího sestavení a jeho souboru závislostí je umístěno do úložiště balíčků modulu runtime. Chcete-li zjistit hostující sestavení po spuštění a jeho soubor závislosti, jsou uvedeny ve dvojici proměnných prostředí.
 
-Konzolová aplikace odkazuje na balíček [Microsoft.AspNetCore.Hosting.Abstractions:](https://www.nuget.org/packages/Microsoft.AspNetCore.Hosting.Abstractions/)
+Aplikace konzoly odkazuje na balíček [Microsoft. AspNetCore. hostinging. Abstractions](https://www.nuget.org/packages/Microsoft.AspNetCore.Hosting.Abstractions/) :
 
 [!code-xml[](platform-specific-configuration/samples-snapshot/3.x/StartupEnhancement.csproj)]
 
-Atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) identifikuje třídu jako `IHostingStartup` implementaci pro načítání a <xref:Microsoft.AspNetCore.Hosting.IWebHost>provádění při vytváření . V následujícím příkladu je `StartupEnhancement`obor názvů a `StartupEnhancementHostingStartup`třída je :
+Atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) identifikuje třídu jako implementaci `IHostingStartup` pro načítání a spouštění při sestavování. <xref:Microsoft.AspNetCore.Hosting.IWebHost> V následujícím příkladu je `StartupEnhancement`obor názvů a třída: `StartupEnhancementHostingStartup`
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/3.x/StartupEnhancement.cs?name=snippet1)]
 
-Třída implementuje `IHostingStartup`. <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> Metoda třídy používá <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> doplněk k přidání vylepšení do aplikace. `IHostingStartup.Configure`v hostiteli spouštěcí sestavení je volána runtime před `Startup.Configure` v uživatelském kódu, který umožňuje uživatelský kód přepsat libovolnou konfiguraci poskytovanou sestavení mnoství po spuštění hostitele.
+Třída implementuje `IHostingStartup`. <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> Metoda třídy používá <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> k přidání vylepšení aplikace. `IHostingStartup.Configure`ve spouštěcím sestavení, které je voláno modulem `Startup.Configure` runtime před v uživatelském kódu, což umožňuje přepsání libovolné konfigurace poskytované hostováním sestavení po spuštění.
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/3.x/StartupEnhancement.cs?name=snippet2&highlight=3,5)]
 
-Při vytváření `IHostingStartup` projektu nastaví soubor závislostí (*.deps.json*) `runtime` umístění sestavení do složky *přihrádky:*
+Při sestavování `IHostingStartup` projektu, soubor závislosti (*. DEPS. JSON*) nastaví `runtime` umístění sestavení do složky *bin* :
 
 [!code-json[](platform-specific-configuration/samples-snapshot/3.x/StartupEnhancement1.deps.json?range=2-13&highlight=8)]
 
 Zobrazí se pouze část souboru. Název sestavení v příkladu je `StartupEnhancement`.
 
-## <a name="configuration-provided-by-the-hosting-startup"></a>Konfigurace poskytovaná spuštěním hostingu
+## <a name="configuration-provided-by-the-hosting-startup"></a>Konfigurace poskytovaná spuštěním hostování
 
-Existují dva přístupy ke zpracování konfigurace v závislosti na tom, zda chcete, aby konfigurace hostitelského spuštění měla přednost nebo aby měla přednost konfigurace aplikace:
+Existují dva přístupy ke zpracování konfigurace v závislosti na tom, jestli chcete, aby měla konfigurace hostujícího spuštění přednost, nebo jestli má přednost konfigurace aplikace:
 
-1. Poskytněte konfiguraci aplikaci pomocí <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> načtení <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> konfigurace po spuštění delegátů aplikace. Hostování konfigurace spuštění má přednost před konfigurací aplikace pomocí tohoto přístupu.
-1. Poskytněte konfiguraci aplikaci pomocí <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> načtení <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> konfigurace před spuštěním delegátů aplikace. Hodnoty konfigurace aplikace mají přednost před hodnotami poskytovanými spuštěním hostování pomocí tohoto přístupu.
+1. Poskytněte konfiguraci do aplikace pomocí nástroje <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> , aby se konfigurace po spuštění <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> delegátů aplikace načetla. Hostování spouštěcí konfigurace má přednost před konfigurací aplikace pomocí tohoto přístupu.
+1. Zadejte konfiguraci do aplikace pomocí nástroje <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> , aby se konfigurace načetla předtím <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> , než se spustí Delegáti aplikace. Hodnoty konfigurace aplikace mají přednost před metodami poskytovanými při spuštění hostování pomocí tohoto přístupu.
 
 ```csharp
 public class ConfigurationInjection : IHostingStartup
@@ -206,17 +212,17 @@ public class ConfigurationInjection : IHostingStartup
 }
 ```
 
-## <a name="specify-the-hosting-startup-assembly"></a>Určení hostitelského spouštěcího sestavení
+## <a name="specify-the-hosting-startup-assembly"></a>Zadejte hostující sestavení pro spuštění
 
-Pro spuštění hostování dodané knihovnou nebo konzolovou aplikací zadejte název `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` hostitelského spouštěcího sestavení v proměnné prostředí. Proměnná prostředí je seznam sestav oddělených středníkem.
+V případě knihovny tříd nebo konzolové aplikace dodané po spuštění zadejte název hostujícího spouštěcího sestavení v proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí. Proměnná prostředí je seznam sestavení oddělených středníky.
 
-Pro tento `HostingStartup` atribut jsou prohledány pouze hostitelské spouštěcí sestavení. Pro ukázkovou aplikaci *HostingStartupApp*, chcete-li zjistit hostitelské startupy popsané výše, proměnná prostředí je nastavena na následující hodnotu:
+Pro `HostingStartup` atribut jsou kontrolována pouze spouštěcí sestavení hostování. Pro ukázkovou aplikaci *HostingStartupApp*, aby bylo možné zjistit, jak jsou popsány v předchozí části, je proměnná prostředí nastavena na následující hodnotu:
 
 ```
 HostingStartupLibrary;HostingStartupPackage;StartupDiagnostics
 ```
 
-Hostitelské spouštěcí sestavení lze také nastavit pomocí nastavení konfigurace hostitele hostitelských sestavení hostování:
+Hostování spouštěcího sestavení lze také nastavit pomocí nastavení konfigurace hostování po spouštěcích sestaveních hostitele:
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -230,48 +236,48 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-Pokud je k dispozici více <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> hostitelských sestavení po spuštění, jejich metody jsou provedeny v pořadí, ve které jsou uvedena sestavení.
+Pokud je přítomno více sestavení hostování po spuštění, <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> jejich metody jsou spouštěny v pořadí, ve kterém jsou uvedena.
 
 ## <a name="activation"></a>Aktivace
 
-Možnosti pro aktivaci pospuštění hostingu jsou:
+Možnosti pro hostování aktivace po spuštění jsou:
 
-* [Aktivace runtime úložiště](#runtime-store) &ndash; nevyžaduje odkaz na dobu kompilace pro aktivaci. Ukázková aplikace umístí hostitelské spouštěcí sestavení a soubory závislostí do složky, *nasazení*, aby se usnadnilo nasazení hostitelského spuštění v prostředí s více počítači. Složka *nasazení* také obsahuje skript prostředí PowerShell, který vytváří nebo upravuje proměnné prostředí v systému nasazení, aby bylo možné povolit hostování při spuštění.
-* Odkaz na dobu kompilace potřebný pro aktivaci
+* Aktivace &ndash; [úložiště modulu runtime](#runtime-store) nevyžaduje pro aktivaci odkaz na čas kompilace. Ukázková aplikace umístí hostující spouštěcí sestavení a soubory závislostí do složky, *nasazení*, aby se usnadnilo nasazení hostitelského spouštění v prostředí s více počítači. Složka pro *nasazení* obsahuje také skript PowerShellu, který vytvoří nebo upraví proměnné prostředí v systému nasazení, aby bylo možné hostující spuštění.
+* Pro aktivaci se vyžaduje odkaz na čas kompilace.
   * [Balíček NuGet](#nuget-package)
-  * [Složka přihrádky projektu](#project-bin-folder)
+  * [Složka Bin projektu](#project-bin-folder)
 
-### <a name="runtime-store"></a>Runtime úložiště
+### <a name="runtime-store"></a>Běhové úložiště
 
-Implementace spuštění hostitele je umístěna v [runtime úložišti](/dotnet/core/deploying/runtime-store). Odkaz na sestavení v době kompilace není vyžadován vylepšenou aplikací.
+Hostitelská implementace spuštění je umístěna v [úložišti modulu runtime](/dotnet/core/deploying/runtime-store). Rozšířená aplikace nevyžaduje odkaz na sestavení v době kompilace.
 
-Po vytvoření hostitelského spuštění je generováno runtime úložiště pomocí souboru manifestu projektu a příkazu [dotnet store.](/dotnet/core/tools/dotnet-store)
+Po sestavení hostitelského spuštění je úložiště modulu runtime vygenerováno pomocí souboru manifestu projektu a příkazu [dotnet Store](/dotnet/core/tools/dotnet-store) .
 
 ```dotnetcli
 dotnet store --manifest {MANIFEST FILE} --runtime {RUNTIME IDENTIFIER} --output {OUTPUT LOCATION} --skip-optimization
 ```
 
-V ukázkové aplikaci *(RuntimeStore* project) se používá následující příkaz:
+V ukázkové aplikaci (projekt*RuntimeStore* ) se používá následující příkaz:
 
 ```dotnetcli
 dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./deployment/store --skip-optimization
 ```
 
-Pro runtime ke zjištění runtime úložiště, umístění runtime úložiště `DOTNET_SHARED_STORE` je přidán do proměnné prostředí.
+Aby modul runtime zjistil běhové úložiště, je umístění úložiště modulu runtime přidáno do proměnné `DOTNET_SHARED_STORE` prostředí.
 
-**Úprava a umístění souboru závislostí hostitelského spuštění**
+**Upravit a umístit soubor závislostí se spouštěním hostitele**
 
-Chcete-li aktivovat vylepšení bez odkazu na balíček vylepšení, `additionalDeps`zadejte další závislosti na běhu s . `additionalDeps`umožňuje:
+Chcete-li aktivovat vylepšení bez odkazu na balíček na vylepšení, určete další závislosti modulu runtime pomocí `additionalDeps`. `additionalDeps`umožňuje:
 
-* Rozšiřte graf knihovny aplikace poskytnutím sady dalších souborů *.deps.json,* které se při spuštění sloučí s vlastním souborem *.deps.json.*
-* Nastavení hostitelského spouštěcího sestavení zjistitelné a načítatelné.
+* Rozšíří graf knihovny aplikace tím, že poskytuje sadu dalších souborů *. DEPS. JSON* pro sloučení s vlastním souborem *. DEPS. JSON* aplikace při spuštění.
+* Zpřístupněte hostující spouštěcí sestavení, které je zjistitelné a spustitelný.
 
-Doporučený mdla pro generování dalšího souboru závislostí je:
+Doporučený postup pro generování dalších souborů závislostí:
 
- 1. Spusťte `dotnet publish` v souboru manifestu runtime store, na který odkazuje předchozí část.
- 1. Odeberte odkaz na manifest `runtime` z knihoven a části výsledného souboru *.deps.json.*
+ 1. Spustit `dotnet publish` v souboru manifestu úložiště modulu runtime odkazovaného v předchozí části.
+ 1. Odeberte odkaz na manifest z knihoven a `runtime` část výsledného souboru *. DEPS. JSON* .
 
-V ukázkovém `store.manifest/1.0.0` projektu je vlastnost `targets` `libraries` odebrána z oddílu a:
+V příkladu projektu je `store.manifest/1.0.0` vlastnost odebrána z oddílu `targets` a: `libraries`
 
 ```json
 {
@@ -317,73 +323,73 @@ V ukázkovém `store.manifest/1.0.0` projektu je vlastnost `targets` `libraries`
 }
 ```
 
-Umístěte soubor *.deps.json* do následujícího umístění:
+Soubor *. DEPS. JSON* umístěte do následujícího umístění:
 
 ```
 {ADDITIONAL DEPENDENCIES PATH}/shared/{SHARED FRAMEWORK NAME}/{SHARED FRAMEWORK VERSION}/{ENHANCEMENT ASSEMBLY NAME}.deps.json
 ```
 
-* `{ADDITIONAL DEPENDENCIES PATH}`&ndash; Umístění přidané `DOTNET_ADDITIONAL_DEPS` do proměnné prostředí.
-* `{SHARED FRAMEWORK NAME}`&ndash; Pro tento další soubor závislostí je vyžadovánsdílený rámec.
-* `{SHARED FRAMEWORK VERSION}`&ndash; Minimální verze sdílené ho rámce.
-* `{ENHANCEMENT ASSEMBLY NAME}`&ndash; Název sestavení vylepšení.
+* `{ADDITIONAL DEPENDENCIES PATH}`&ndash; Umístění bylo přidáno do `DOTNET_ADDITIONAL_DEPS` proměnné prostředí.
+* `{SHARED FRAMEWORK NAME}`&ndash; Sdílené rozhraní požadované pro tento další soubor závislostí.
+* `{SHARED FRAMEWORK VERSION}`&ndash; Minimální verze sdíleného rozhraní .NET Framework.
+* `{ENHANCEMENT ASSEMBLY NAME}`&ndash; Název sestavení rozšíření.
 
-V ukázkové aplikaci (projekt*RuntimeStore)* se další soubor závislostí umístí do následujícího umístění:
+V ukázkové aplikaci (projekt*RuntimeStore* ) se další soubor závislosti umístí do následujícího umístění:
 
 ```
 deployment/additionalDeps/shared/Microsoft.AspNetCore.App/3.0.0/StartupDiagnostics.deps.json
 ```
 
-Pro runtime ke zjištění umístění úložiště runtime je do proměnné `DOTNET_ADDITIONAL_DEPS` prostředí přidáno další umístění souboru závislostí.
+Aby modul runtime zjistil umístění úložiště za běhu, bylo do proměnné `DOTNET_ADDITIONAL_DEPS` prostředí přidáno umístění souboru další závislosti.
 
-V ukázkové aplikaci *(runtimestore* projektu), vytváření runtime úložiště a generování další soubor závislostí se provádí pomocí skriptu [Prostředí PowerShell.](/powershell/scripting/powershell-scripting)
+V ukázkové aplikaci (projekt*RuntimeStore* ) sestavíte běhové úložiště a vygenerujete další soubor závislosti pomocí skriptu [PowerShellu](/powershell/scripting/powershell-scripting) .
 
-Příklady nastavení proměnných prostředí pro různé operační systémy naleznete v tématu [Použití více prostředí](xref:fundamentals/environments).
+Příklady nastavení proměnných prostředí pro různé operační systémy najdete v tématu [použití více prostředí](xref:fundamentals/environments).
 
 **Nasazení**
 
-Pro usnadnění nasazení hostitelského spuštění v prostředí s více počítači vytvoří ukázková aplikace složku *nasazení* v publikovaném výstupu, která obsahuje:
+Aby se usnadnilo nasazení hostujícího spouštění v prostředí s více počítači, vytvoří ukázková aplikace složku pro *nasazení* v publikovaném výstupu, která obsahuje:
 
-* Hostitelské spouštěcí runtime úložiště.
-* Hostitelský soubor závislostí při spuštění.
-* Skript prostředí PowerShell, který vytváří `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES`nebo `DOTNET_SHARED_STORE`upravuje `DOTNET_ADDITIONAL_DEPS` , a podporuje aktivaci hostitelského spuštění. Spusťte skript z příkazového řádku prostředí PowerShell pro správu v systému nasazení.
+* Hostování běhového úložiště při spuštění.
+* Hostující soubor závislostí po spuštění.
+* Skript PowerShellu, který vytvoří nebo `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES`upraví `DOTNET_SHARED_STORE`, a `DOTNET_ADDITIONAL_DEPS` pro podporu aktivace hostitelského spuštění. Spusťte skript z příkazového řádku PowerShellu pro správu v systému nasazení.
 
 ### <a name="nuget-package"></a>Balíček NuGet
 
-Vylepšení spuštění hostingu může být k dispozici v balíčku NuGet. Balíček `HostingStartup` má atribut. Typy spuštění hostování poskytované balíčkem jsou k dispozici aplikaci pomocí některého z následujících přístupů:
+Rozšíření spouštění hostitele lze poskytnout v balíčku NuGet. Balíček má `HostingStartup` atribut. Typy spuštění hostování poskytované balíčkem jsou k dispozici v aplikaci pomocí některého z následujících přístupů:
 
-* Soubor projektu rozšířené aplikace vytvoří odkaz na balíček pro hostování spuštění v souboru projektu aplikace (odkaz na kompilaci). S odkazem na dobu kompilace na místě, hostování spouštěcí sestavení a všechny jeho závislosti jsou začleněny do souboru závislostí aplikace (*.deps.json*). Tento přístup se vztahuje na balíček sestavení hostitelského spuštění publikovaného pro [nuget.org](https://www.nuget.org/).
-* Soubor závislostí hostitelského spuštění je k dispozici rozšířené aplikaci, jak je popsáno v části [Runtime store](#runtime-store) (bez odkazu na kompilaci).
+* Soubor projektu rozšířené aplikace vytvoří odkaz na balíček pro hostování spouštěné v souboru projektu aplikace (Referenční dokumentace při kompilaci). V případě referenčního odkazu v době kompilace jsou hostující sestavení po spuštění a všechny jeho závislosti začleněny do souboru závislostí aplikace (*. DEPS. JSON*). Tento přístup se vztahuje na hostující hostitelský balíček pro sestavení, který je publikovaný na [NuGet.org](https://www.nuget.org/).
+* K dispozici je soubor závislostí při spuštění hostující aplikaci, jak je popsáno v části [úložiště za běhu](#runtime-store) (bez referenčních informací v době kompilace).
 
-Další informace o balíčcích NuGet a runtime úložišti naleznete v následujících tématech:
+Další informace o balíčcích NuGet a úložišti modulu runtime najdete v následujících tématech:
 
-* [Jak vytvořit balíček NuGet s nástroji křížové platformy](/dotnet/core/deploying/creating-nuget-packages)
+* [Postup vytvoření balíčku NuGet pomocí nástrojů pro různé platformy](/dotnet/core/deploying/creating-nuget-packages)
 * [Publikování balíčků](/nuget/create-packages/publish-a-package)
 * [Úložiště balíčků modulu runtime](/dotnet/core/deploying/runtime-store)
 
-### <a name="project-bin-folder"></a>Složka přihrádky projektu
+### <a name="project-bin-folder"></a>Složka Bin projektu
 
-Vylepšení spouštění hostingu může být poskytnuto sestavením nasazeným *přihrádkou*v rozšířené aplikaci. Typy spuštění hostování poskytované sestavením jsou k dispozici aplikaci pomocí jednoho z následujících přístupů:
+Rozšíření spouštění hostitele může být k dispozici sestavením nasazeným *přihrádkou*v rozšířené aplikaci. Typy spuštění hostování poskytované sestavením jsou zpřístupněny pro aplikaci pomocí jednoho z následujících přístupů:
 
-* Soubor projektu rozšířené aplikace odkazuje na hostování spuštění (odkaz na kompilaci). S odkazem na dobu kompilace na místě, hostování spouštěcí sestavení a všechny jeho závislosti jsou začleněny do souboru závislostí aplikace (*.deps.json*). Tento přístup platí, když scénář nasazení volá pro vytvoření odkazu na sestavení hostitelského spuštění *(soubor dll)* a přesunutí sestavení buď:
-  * Náročný projekt.
-  * Umístění přístupné náročným projektem.
-* Soubor závislostí hostitelského spuštění je k dispozici rozšířené aplikaci, jak je popsáno v části [Runtime store](#runtime-store) (bez odkazu na kompilaci).
-* Při cílení na rozhraní .NET Framework je sestavení načítatelné ve výchozím kontextu zatížení, což v rozhraní .NET Framework znamená, že sestavení je umístěno v některém z následujících umístění:
-  * Cesta &ndash; k základně aplikace Složka *přihrádky,* ve které je umístěn spustitelný soubor aplikace (*EXE*).
-  * Globální mezipaměti sestavení &ndash; (GAC) GAC ukládá sestavení, které sdílejí několik aplikací rozhraní .NET Framework. Další informace naleznete v [tématu Postup: Instalace sestavení do globální mezipaměti sestavení](/dotnet/framework/app-domains/how-to-install-an-assembly-into-the-gac) v dokumentaci rozhraní .NET Framework.
+* Soubor projektu rozšířené aplikace vytvoří odkaz na sestavení pro spuštění hostování (Referenční dokumentace při kompilaci). V případě referenčního odkazu v době kompilace jsou hostující sestavení po spuštění a všechny jeho závislosti začleněny do souboru závislostí aplikace (*. DEPS. JSON*). Tento přístup se používá v případě, že scénář nasazení volá pro vytvoření reference v čase kompilace na sestavení hostujícího spuštění sestavení (soubor *. dll* ) a přesunutí sestavení na jednu z těchto možností:
+  * Projekt, který je k disnáročné.
+  * Umístění přístupné pro náročný projekt.
+* K dispozici je soubor závislostí při spuštění hostující aplikaci, jak je popsáno v části [úložiště za běhu](#runtime-store) (bez referenčních informací v době kompilace).
+* Při cílení na .NET Framework sestavení je spustitelný ve výchozím kontextu načtení, což na .NET Framework znamená, že sestavení je umístěno v jednom z následujících umístění:
+  * Základní cesta &ndash; aplikace složka *bin* , kde se nachází spustitelný soubor aplikace (*. exe*).
+  * Globální mezipaměť sestavení (GAC) &ndash; GAC ukládá sestavení, která sdílí několik aplikací .NET Framework. Další informace naleznete v tématu [Postupy: Instalace sestavení do globální mezipaměti sestavení (](/dotnet/framework/app-domains/how-to-install-an-assembly-into-the-gac) GAC) v dokumentaci k .NET Framework.
 
 ## <a name="sample-code"></a>Ukázka kódu
 
-[Ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) ([jak stáhnout](xref:index#how-to-download-a-sample)) ukazuje hostování scénářů implementace spuštění:
+[Vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample)) znázorňuje hostování scénářů implementace spouštění:
 
-* Dvě hostitelská spouštěcí sestavení (knihovny tříd) nastavují dvojici párů klíč-hodnota konfigurace v paměti:
+* Dvě hostování spouštěcích sestavení (knihovny tříd) nastaví dvojici dvojic klíč-hodnota klíče pro konfiguraci v paměti každý:
   * Balíček NuGet (*HostingStartupPackage*)
   * Knihovna tříd (*HostingStartupLibrary*)
-* Hostitelské spuštění je aktivováno z runtime store nasazeného sestavení (*StartupDiagnostics*). Sestavení přidá do aplikace při spuštění dva middlewares, které poskytují diagnostické informace o:
+* Hostující spuštění je aktivováno ze sestavení s nasazeným úložištěm (*StartupDiagnostics*) za běhu. Sestavení přidá do aplikace dvě middlewary při spuštění, které poskytují diagnostické informace o:
   * Registrované služby
-  * Adresa (schéma, hostitel, základna cesty, cesta, řetězec dotazu)
-  * Připojení (vzdálená IP adresa, vzdálený port, lokální IP, místní port, klientský certifikát)
+  * Adresa (schéma, hostitel, základ cesty, cesta, řetězec dotazu)
+  * Připojení (Vzdálená IP adresa, vzdálený port, místní IP adresa, místní port, klientský certifikát)
   * Hlavičky požadavku
   * Proměnné prostředí
 
@@ -391,9 +397,9 @@ Spuštění ukázky:
 
 **Aktivace z balíčku NuGet**
 
-1. Zkompilujte balíček *HostingStartupPackage* pomocí příkazu [dotnet pack.](/dotnet/core/tools/dotnet-pack)
-1. Přidejte název sestavení balíčku *HostingStartupPackage* do `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` proměnné prostředí.
-1. Zkompilujte a spusťte aplikaci. Odkaz na balíček je k dispozici v rozšířené aplikaci (odkaz na kompilaci). A `<PropertyGroup>` v souboru projektu aplikace určuje výstup projektu balíčku (*.. /HostingStartupPackage/bin/Debug*) jako zdroj balíčku. To umožňuje aplikaci používat balíček bez nahrání balíčku do [nuget.org](https://www.nuget.org/). Další informace naleznete v poznámkách v souboru projektu HostingStartupApp.
+1. Zkompilujte balíček *HostingStartupPackage* pomocí příkazu [dotnet Pack](/dotnet/core/tools/dotnet-pack) .
+1. Přidejte název sestavení balíčku *HostingStartupPackage* do proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí.
+1. Zkompilujte a spusťte aplikaci. Odkaz na balíček se nachází v rozšířené aplikaci (Referenční dokumentace při kompilaci). `<PropertyGroup>` V souboru projektu aplikace určuje výstup projektu balíčku (*.. /HostingStartupPackage/bin/Debug*) jako zdroj balíčku. To umožňuje aplikaci používat balíček bez nahrání balíčku do [NuGet.org](https://www.nuget.org/). Další informace naleznete v poznámkách v souboru projektu HostingStartupApp.
 
    ```xml
    <PropertyGroup>
@@ -401,9 +407,9 @@ Spuštění ukázky:
    </PropertyGroup>
    ```
 
-1. Všimněte si, že hodnoty konfiguračního klíče služby vykreslené na stránce Index odpovídají hodnotám nastaveným `ServiceKeyInjection.Configure` metodou balíčku.
+1. Pozor, aby hodnoty konfiguračního klíče služby vygenerované stránkou indexu odpovídaly hodnotám nastaveným `ServiceKeyInjection.Configure` metodou balíčku.
 
-Pokud provedete změny v projektu *HostingStartupPackage* a znovu jej zkompilovat, zrušte místní mezipaměti balíčku NuGet, abyste zajistili, že *HostingStartupApp* obdrží aktualizovaný balíček a ne zastaralý balíček z místní mezipaměti. Chcete-li vymazat místní mezipaměti NuGet, spusťte následující příkaz [místní chod dotnet nuget:](/dotnet/core/tools/dotnet-nuget-locals)
+Pokud provedete změny v projektu *HostingStartupPackage* a znovu zkompilujete, vymažte místní mezipaměti balíčků NuGet, abyste zajistili, že *HostingStartupApp* přijme aktualizovaný balíček a nejedná se o zastaralý balíček z místní mezipaměti. K vymazání místních mezipamětí NuGet spusťte následující příkaz [dotnet NuGet Locals](/dotnet/core/tools/dotnet-nuget-locals) :
 
 ```dotnetcli
 dotnet nuget locals all --clear
@@ -411,10 +417,10 @@ dotnet nuget locals all --clear
 
 **Aktivace z knihovny tříd**
 
-1. Zkompilujte knihovnu tříd *HostingStartupLibrary* pomocí příkazu [dotnet build.](/dotnet/core/tools/dotnet-build)
-1. Přidejte název sestavení knihovny tříd *hostingStartupLibrary* do proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí.
-1. *bin*-nasadit sestavení knihovny tříd do aplikace zkopírováním souboru *HostingStartupLibrary.dll* z kompilovaného výstupu knihovny tříd do složky *bin/Ladění* aplikace.
-1. Zkompilujte a spusťte aplikaci. Soubor `<ItemGroup>` projektu aplikace odkazuje na sestavení knihovny tříd (*.\bin\Debug\netcoreapp3.0\HostingStartupLibrary.dll*) (odkaz na kompilaci). Další informace naleznete v poznámkách v souboru projektu HostingStartupApp.
+1. Zkompilujte knihovnu tříd *HostingStartupLibrary* pomocí příkazu [dotnet Build](/dotnet/core/tools/dotnet-build) .
+1. Přidejte název sestavení knihovny tříd *HostingStartupLibrary* do proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí.
+1. *bin*– nasazení sestavení knihovny tříd do aplikace zkopírováním souboru *HostingStartupLibrary. dll* z zkompilovaného výstupu knihovny tříd do složky *bin nebo ladění* aplikace.
+1. Zkompilujte a spusťte aplikaci. `<ItemGroup>` V souboru projektu aplikace odkazuje na sestavení knihovny tříd (*.\bin\Debug\netcoreapp3.0\HostingStartupLibrary.dll*) (Referenční dokumentace při kompilaci). Další informace naleznete v poznámkách v souboru projektu HostingStartupApp.
 
    ```xml
    <ItemGroup>
@@ -425,149 +431,149 @@ dotnet nuget locals all --clear
    </ItemGroup>
    ```
 
-1. Všimněte si, že hodnoty konfiguračního klíče služby vykreslené `ServiceKeyInjection.Configure` na stránce Index odpovídají hodnotám nastaveným metodou knihovny tříd.
+1. Pozor, aby hodnoty konfiguračního klíče služby vygenerované stránkou indexu odpovídaly hodnotám nastaveným `ServiceKeyInjection.Configure` metodou knihovny tříd.
 
-**Aktivace z runtime store nasazeného sestavení**
+**Aktivace z běhového úložiště – nasazené sestavení**
 
-1. Projekt *StartupDiagnostics* používá [prostředí PowerShell](/powershell/scripting/powershell-scripting) k úpravě souboru *StartupDiagnostics.deps.json.* Prostředí PowerShell je ve výchozím nastavení nainstalováno v systému Windows počínaje systémy Windows 7 SP1 a Windows Server 2008 R2 SP1. Informace o získání prostředí PowerShell na jiných platformách naleznete [v tématu Instalace různých verzí prostředí PowerShell](/powershell/scripting/install/installing-powershell).
-1. Spusťte skript *build.ps1* ve složce *RuntimeStore.* Skript:
-   * Generuje balíček ve `StartupDiagnostics` složce *obj\packages.*
-   * Generuje runtime úložiště `StartupDiagnostics` pro ve složce *úložiště.* Příkaz `dotnet store` ve skriptu `win7-x64` používá [identifikátor runtime (RID)](/dotnet/core/rid-catalog) pro hostitelské spuštění nasazené v systému Windows. Při poskytování hostitelského spuštění pro jiný běhový čas nahraďte správný rid na řádku 37 skriptu. Runtime úložiště `StartupDiagnostics` pro by později přesunuta do úložiště runtime uživatele nebo systému v počítači, kde bude spotřebována sestavení. Umístění instalace úložiště runtime `StartupDiagnostics` uživatele pro sestavení je *.dotnet/store/x64/netcoreapp3.0/startupdiagnostics/1.0.0/lib/netcoreapp3.0/StartupDiagnostics.dll*.
-   * Generuje `additionalDeps` for `StartupDiagnostics` ve složce *additionalDeps.* Další závislosti by později byly přesunuty do dalších závislostí uživatele nebo systému. Umístění `StartupDiagnostics` instalace dalších závislostí uživatele *mj.*
-   * Umístí soubor *deploy.ps1* do složky *nasazení.*
-1. Spusťte skript *deploy.ps1* ve složce *nasazení.* Skript se připojí:
-   * `StartupDiagnostics`k `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` proměnné prostředí.
-   * Cesta k hostitelským závislostem při spuštění (ve složce `DOTNET_ADDITIONAL_DEPS` *nasazení* projektu RuntimeStore) do proměnné prostředí.
-   * Cesta runtime úložiště (ve složce *nasazení* projektu RuntimeStore) do proměnné `DOTNET_SHARED_STORE` prostředí.
+1. Projekt *StartupDiagnostics* používá k úpravě souboru *StartupDiagnostics. DEPS. JSON* [PowerShell](/powershell/scripting/powershell-scripting) . PowerShell je ve výchozím nastavení nainstalován v systému Windows počínaje systémy Windows 7 SP1 a Windows Server 2008 R2 SP1. Pokud chcete získat PowerShell na jiných platformách, přečtěte si téma [instalace různých verzí PowerShellu](/powershell/scripting/install/installing-powershell).
+1. Spusťte skript *Build. ps1* ve složce *RuntimeStore* . Skript:
+   * Vygeneruje `StartupDiagnostics` balíček ve složce *obj\packages* .
+   * Vygeneruje běhové úložiště `StartupDiagnostics` pro ve složce *Store* . `dotnet store` Příkaz ve skriptu používá `win7-x64` [identifikátor modulu runtime (RID)](/dotnet/core/rid-catalog) pro hostování po spuštění nasazené do systému Windows. Při poskytování hostitelského spuštění pro jiný modul runtime nahraďte správný identifikátor RID na řádku 37 skriptu. Běhové úložiště pro `StartupDiagnostics` by bylo později přesunuto do úložiště modulu runtime uživatele nebo systému v počítači, kde bude sestavení spotřebováno. Umístění instalace úložiště modulu runtime uživatele pro `StartupDiagnostics` sestavení je *. dotnet/Store/x64/netcoreapp 3.0/startupdiagnostics/1.0.0/lib/Netcoreapp 3.0/startupdiagnostics. dll*.
+   * Vygeneruje `additionalDeps` pro `StartupDiagnostics` ve složce *additionalDeps* . Další závislosti by se později přesunuly na další závislosti uživatele nebo systému. Umístění pro `StartupDiagnostics` instalaci dalších závislostí uživatele je *. dotnet/x64/additionalDeps/StartupDiagnostics/Shared/Microsoft. NETCore. app/3.0.0/StartupDiagnostics. DEPS. JSON*.
+   * Umístí soubor *Deploy. ps1* do složky pro *nasazení* .
+1. Spusťte skript *Deploy. ps1* ve složce pro *nasazení* . Skript připojí:
+   * `StartupDiagnostics`do proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí.
+   * Cesta ke spouštěcím závislostem hostitele (ve složce *nasazení* projektu RuntimeStore) do proměnné `DOTNET_ADDITIONAL_DEPS` prostředí.
+   * Cesta k úložišti za běhu (ve složce pro *nasazení* projektu RuntimeStore) do proměnné `DOTNET_SHARED_STORE` prostředí.
 1. Spusťte ukázkovou aplikaci.
-1. Požádejte `/services` koncový bod, abyste viděli registrované služby aplikace. Požádejte `/diag` koncový bod, abyste viděli diagnostické informace.
+1. Požádejte `/services` o koncový bod, aby se zobrazily registrované služby aplikace. Požádejte `/diag` koncový bod, aby zobrazil diagnostické informace.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> (hostování při spuštění) přidává vylepšení aplikace při spuštění z externího sestavení. Externí knihovna může například použít implementaci hostitelského spuštění k poskytování dalších poskytovatelů konfigurace nebo služeb pro aplikaci.
+Implementace <xref:Microsoft.AspNetCore.Hosting.IHostingStartup> (hostující spuštění) přidává vylepšení aplikace při spuštění z externího sestavení. Externí knihovna může například použít hostitelskou implementaci při spuštění k poskytnutí dalších poskytovatelů konfigurace nebo služeb do aplikace.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="hostingstartup-attribute"></a>Atribut HostingStartup
+## <a name="hostingstartup-attribute"></a>HostingStartup – atribut
 
-Atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) označuje přítomnost hostitelského spouštěcího sestavení, které se aktivuje za běhu.
+Atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) označuje přítomnost hostitelského sestavení po spuštění, které se aktivuje za běhu.
 
-Sestavení položky nebo sestavení `Startup` obsahující třídu je automaticky `HostingStartup` zkontrolováno pro atribut. Seznam sestavení pro `HostingStartup` vyhledávání atributů je načten za běhu z konfigurace v [souboru WebHostDefaults.HostingStartupAssembliesKey](xref:Microsoft.AspNetCore.Hosting.WebHostDefaults.HostingStartupAssembliesKey). Seznam sestavení, která mají být vyloučena z zjišťování, je načten z [webu WebHostDefaults.HostingStartupExcludeAssembliesKey](xref:Microsoft.AspNetCore.Hosting.WebHostDefaults.HostingStartupExcludeAssembliesKey). Další informace naleznete v [tématu Web Host: Hostování spouštěcích sestavení](xref:fundamentals/host/web-host#hosting-startup-assemblies) a [Web Host: Hostování sestavení vyloučení spuštění](xref:fundamentals/host/web-host#hosting-startup-exclude-assemblies).
+Pro zadání sestavení nebo sestavení obsahujícího `Startup` třídu se automaticky vyhledá `HostingStartup` atribut. Seznam sestavení pro vyhledávání `HostingStartup` atributů je načten za běhu z konfigurace ve [WebHostDefaults. HostingStartupAssembliesKey](xref:Microsoft.AspNetCore.Hosting.WebHostDefaults.HostingStartupAssembliesKey). Seznam sestavení pro vyloučení ze zjišťování je načten z [WebHostDefaults. HostingStartupExcludeAssembliesKey](xref:Microsoft.AspNetCore.Hosting.WebHostDefaults.HostingStartupExcludeAssembliesKey). Další informace najdete v tématu [webový hostitel: hostování spouštěcích sestavení](xref:fundamentals/host/web-host#hosting-startup-assemblies) a [webového hostitele: hostování spouštěcích vyloučení sestavení](xref:fundamentals/host/web-host#hosting-startup-exclude-assemblies).
 
-V následujícím příkladu je `StartupEnhancement`obor názvů hostitelského spouštěcího sestavení . Třída obsahující kód hostitelského `StartupEnhancementHostingStartup`spuštění je :
+V následujícím příkladu je `StartupEnhancement`obor názvů hostujícího spouštěcího sestavení. Třída obsahující spouštěcí kód hostování je `StartupEnhancementHostingStartup`:
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement.cs?name=snippet1)]
 
-Atribut `HostingStartup` je obvykle umístěn v hostitelském `IHostingStartup` spouštěcím sestavení implementační ho souboru třídy.
+`HostingStartup` Atribut je obvykle umístěn v souboru `IHostingStartup` implementační třídy sestavení, který spouští.
 
-## <a name="discover-loaded-hosting-startup-assemblies"></a>Objevte načtená hostitelská spouštěcí sestavení
+## <a name="discover-loaded-hosting-startup-assemblies"></a>Najít načtená hostování spouštěcích sestavení
 
-Chcete-li zjistit načtená sestavení po spuštění hostingu, povolte protokolování a zkontrolujte protokoly aplikace. Chyby, ke kterým dochází při načítání sestavení jsou protokolovány. Načtená hostitelská spouštěcí sestavení jsou protokolována na úrovni ladění a jsou protokolovány všechny chyby.
+Chcete-li zjistit načtená hostování spouštěcích sestavení, povolte protokolování a ověřte protokoly aplikace. Chyby, ke kterým dochází při načítání sestavení, jsou protokolovány. Načtená hostující spouštěcí sestavení jsou protokolována na úrovni ladění a všechny chyby jsou protokolovány.
 
-## <a name="disable-automatic-loading-of-hosting-startup-assemblies"></a>Zakázat automatické načítání hostitelských spouštěcích sestavení
+## <a name="disable-automatic-loading-of-hosting-startup-assemblies"></a>Zakázat automatické načítání hostujících spouštěcích sestavení
 
-Chcete-li zakázat automatické načítání hostitelských spouštěcích sestavení, použijte jeden z následujících přístupů:
+Chcete-li zakázat automatické načítání hostujících spouštěcích sestavení, použijte jeden z následujících přístupů:
 
-* Chcete-li zabránit načítání všech hostitelských spouštěcích `true` sestavení, nastavte jednu z následujících možností na nebo `1`:
-  * Zabránit nastavení konfigurace hostitele [po spuštění.](xref:fundamentals/host/web-host#prevent-hosting-startup)
-  * `ASPNETCORE_PREVENTHOSTINGSTARTUP`proměnné prostředí.
-* Chcete-li zabránit načítání konkrétních hostitelských spouštěcích sestavení, nastavte jednu z následujících na řetězec hostitelských spouštěcích sestavení oddělených středníkem, který chcete při spuštění vyloučit:
-  * Hostování nastavení konfigurace hostitele [sestavení spouštění.](xref:fundamentals/host/web-host#hosting-startup-exclude-assemblies)
-  * `ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES`proměnné prostředí.
+* Chcete-li zabránit načtení všech spouštěcích sestavení hostování, nastavte jednu z následujících `true` možností `1`na nebo:
+  * Zabrání hostování nastavení konfigurace hostitele [po spuštění](xref:fundamentals/host/web-host#prevent-hosting-startup) .
+  * `ASPNETCORE_PREVENTHOSTINGSTARTUP`Proměnná prostředí.
+* Chcete-li zabránit tomu, aby se konkrétní hostování spouštěcích sestavení načetlo, nastavte jednu z následujících hodnot na řetězec, který je hostitelem spouštěcích sestavení s oddělovači, aby při spuštění vyloučil:
+  * Hostování nastavení konfigurace hostitele [vyloučení sestavení](xref:fundamentals/host/web-host#hosting-startup-exclude-assemblies)
+  * `ASPNETCORE_HOSTINGSTARTUPEXCLUDEASSEMBLIES`Proměnná prostředí.
 
-Pokud je nastaveno nastavení konfigurace hostitele i proměnná prostředí, řídí chování nastavení hostitele.
+Pokud je nastavené nastavení konfigurace hostitele i proměnná prostředí, řídí se chování nastavení hostitele.
 
-Zakázání hostitelských spouštěcích sestavení pomocí nastavení hostitele nebo proměnné prostředí zakáže sestavení globálně a může zakázat několik charakteristik aplikace.
+Zakázání hostování spouštěcích sestavení pomocí nastavení hostitele nebo proměnné prostředí zakáže sestavení globálně a může zakázat několik vlastností aplikace.
 
 ## <a name="project"></a>Project
 
-Vytvořte hostitelské spuštění s jedním z následujících typů projektů:
+Vytvořte hostování po spuštění s některým z následujících typů projektů:
 
 * [Knihovna tříd](#class-library)
 * [Konzolová aplikace bez vstupního bodu](#console-app-without-an-entry-point)
 
 ### <a name="class-library"></a>Knihovna tříd
 
-Vylepšení spuštění hostingu lze poskytnout v knihovně tříd. Knihovna obsahuje `HostingStartup` atribut.
+Rozšíření spouštění hostitele lze poskytnout v knihovně tříd. Knihovna obsahuje `HostingStartup` atribut.
 
-[Ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) obsahuje aplikaci Razor Pages, *HostingStartupApp*a knihovnu tříd *HostingStartupLibrary*. Knihovna tříd:
+[Vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) obsahuje Razor stránku aplikace, *HostingStartupApp*a knihovnu tříd *HostingStartupLibrary*. Knihovna tříd:
 
-* Obsahuje třídu spuštění `ServiceKeyInjection`hostitele , `IHostingStartup`která implementuje . `ServiceKeyInjection`přidá dvojici řetězců služby do konfigurace aplikace pomocí zprostředkovatele konfigurace v paměti ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)).
-* Obsahuje `HostingStartup` atribut, který identifikuje obor názvů a třídu hostitelského spuštění.
+* Obsahuje hostující spouštěcí třídu, `ServiceKeyInjection`která implementuje. `IHostingStartup` `ServiceKeyInjection`Přidá dvojici řetězců služby k konfiguraci aplikace pomocí zprostředkovatele konfigurace v paměti ([AddInMemoryCollection](xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*)).
+* Obsahuje `HostingStartup` atribut, který identifikuje obor názvů a třídu pro spuštění hostingu.
 
-Metoda třídy používá <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> doplněk k přidání vylepšení do aplikace. `ServiceKeyInjection` <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*>
+<xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> Metoda `ServiceKeyInjection` třídy používá k přidání vylepšení aplikace.
 
-*HostingStartupLibrary/ServiceKeyInjection.cs*:
+*HostingStartupLibrary/ServiceKeyInjection. cs*:
 
 [!code-csharp[](platform-specific-configuration/samples/2.x/HostingStartupLibrary/ServiceKeyInjection.cs?name=snippet1)]
 
-Stránka Index aplikace čte a vykreslí hodnoty konfigurace pro dva klíče nastavené hostitelským spouštěcím sestavením knihovny tříd:
+Stránka indexu aplikace načte a vykreslí hodnoty konfigurace pro dva klíče nastavené hostujícím sestavením pro spuštění knihovny tříd:
 
-*HostingStartupApp/Pages/Index.cshtml.cs*:
+*HostingStartupApp/pages/index. cshtml. cs*:
 
 [!code-csharp[](platform-specific-configuration/samples/2.x/HostingStartupApp/Pages/Index.cshtml.cs?name=snippet1&highlight=5-6,11-12)]
 
-[Ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) také obsahuje projekt balíčku NuGet, který poskytuje samostatné hostování *spuštění, HostingStartupPackage*. Balíček má stejné vlastnosti knihovny tříd popsaných výše. Balíček:
+[Vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) obsahuje také projekt balíčku NuGet, který poskytuje samostatné hostování spouštěné *HostingStartupPackage*. Balíček má stejné charakteristiky jako knihovna tříd popsané výše. Balíček:
 
-* Obsahuje třídu spuštění `ServiceKeyInjection`hostitele , `IHostingStartup`která implementuje . `ServiceKeyInjection`přidá do konfigurace aplikace dvojici řetězců služeb.
-* Zahrnuje `HostingStartup` atribut.
+* Obsahuje hostující spouštěcí třídu, `ServiceKeyInjection`která implementuje. `IHostingStartup` `ServiceKeyInjection`Přidá do konfigurace aplikace dvojici řetězců služby.
+* Obsahuje `HostingStartup` atribut.
 
-*HostingStartupPackage/ServiceKeyInjection.cs*:
+*HostingStartupPackage/ServiceKeyInjection. cs*:
 
 [!code-csharp[](platform-specific-configuration/samples/2.x/HostingStartupPackage/ServiceKeyInjection.cs?name=snippet1)]
 
-Stránka Index aplikace čte a vykreslí hodnoty konfigurace pro dva klíče nastavené sestavením hostitelského spuštění balíčku:
+Stránka indexu aplikace čte a vykresluje konfigurační hodnoty pro dva klíče nastavené hostujícím sestavením pro spuštění balíčku:
 
-*HostingStartupApp/Pages/Index.cshtml.cs*:
+*HostingStartupApp/pages/index. cshtml. cs*:
 
 [!code-csharp[](platform-specific-configuration/samples/2.x/HostingStartupApp/Pages/Index.cshtml.cs?name=snippet1&highlight=7-8,13-14)]
 
 ### <a name="console-app-without-an-entry-point"></a>Konzolová aplikace bez vstupního bodu
 
-*Tento přístup je k dispozici pouze pro aplikace .NET Core, nikoli rozhraní .NET Framework.*
+*Tento přístup je k dispozici pouze pro aplikace .NET Core, nikoli .NET Framework.*
 
-Dynamické vylepšení spuštění hostingu, které nevyžaduje odkaz na aktivaci v době kompilace, může být `HostingStartup` poskytnuto v konzolové aplikaci bez vstupního bodu, který obsahuje atribut. Publikování konzolové aplikace vytvoří hostitelské spouštěcí sestavení, které lze spotřebovat z runtime úložiště.
+Dynamické rozšíření spouštění, které nevyžaduje odkazování v době kompilace pro aktivaci, lze poskytnout v konzolové aplikaci bez vstupního bodu, který obsahuje `HostingStartup` atribut. Publikování konzolové aplikace vytváří hostující spouštěcí sestavení, které lze spotřebovat z běhového úložiště.
 
-Konzolová aplikace bez vstupního bodu se používá v tomto procesu, protože:
+V tomto procesu se používá Konzolová aplikace bez vstupního bodu, protože:
 
-* Soubor závislostí je nutné využívat hostování spuštění v hostitelském spouštěcím sestavení. Soubor závislostí je spustitelný prostředek aplikace, který se vytváří publikováním aplikace, nikoli knihovny.
-* Knihovnu nelze přidat přímo do [úložiště balíčků runtime](/dotnet/core/deploying/runtime-store), což vyžaduje spustitelný projekt, který cílí na sdílený runtime.
+* Soubor závislostí je vyžadován ke využívání hostování při spouštění v sestavení, ve kterém se spouští. Soubor závislostí je spustitelný App Asset, který je vytvořený publikováním aplikace, ne knihovny.
+* Knihovnu nelze přidat přímo do [úložiště balíčků modulu runtime](/dotnet/core/deploying/runtime-store), což vyžaduje projekt spustitelný, který cílí na sdílený modul runtime.
 
-Při vytváření dynamického hostování spuštění:
+Při vytváření dynamického spuštění hostování:
 
-* Hostitelské spouštěcí sestavení je vytvořeno z konzolové aplikace bez vstupního bodu, který:
-  * Zahrnuje třídu, `IHostingStartup` která obsahuje implementaci.
-  * Zahrnuje [Atribut HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) k `IHostingStartup` identifikaci třídy implementace.
-* Konzolová aplikace je publikována, aby získala závislosti spuštění hostitele. Důsledkem publikování konzolové aplikace je, že nepoužívané závislosti jsou oříznuty ze souboru závislostí.
-* Soubor závislostí je upraven tak, aby nastavil umístění runtime hostitelského spouštěcího sestavení.
-* Hostitelské spouštěcí sestavení a jeho soubor závislostí je umístěn do úložiště balíčků runtime. Chcete-li zjistit hostitelské spouštěcí sestavení a jeho soubor závislostí, jsou uvedeny v dvojici proměnných prostředí.
+* Hostující spouštěcí sestavení je vytvořeno z konzolové aplikace bez vstupního bodu, který:
+  * Obsahuje třídu, která obsahuje `IHostingStartup` implementaci.
+  * Obsahuje atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) pro identifikaci `IHostingStartup` implementační třídy.
+* Konzolová aplikace se publikuje, aby získala závislosti hostování při spuštění. V důsledku publikování konzolové aplikace je, že nevyužité závislosti se oříznou ze souboru závislostí.
+* Soubor závislostí je upraven, aby bylo možné nastavit umístění modulu runtime hostujícího spouštěcí sestavení.
+* Hostování spouštěcího sestavení a jeho souboru závislostí je umístěno do úložiště balíčků modulu runtime. Chcete-li zjistit hostující sestavení po spuštění a jeho soubor závislosti, jsou uvedeny ve dvojici proměnných prostředí.
 
-Konzolová aplikace odkazuje na balíček [Microsoft.AspNetCore.Hosting.Abstractions:](https://www.nuget.org/packages/Microsoft.AspNetCore.Hosting.Abstractions/)
+Aplikace konzoly odkazuje na balíček [Microsoft. AspNetCore. hostinging. Abstractions](https://www.nuget.org/packages/Microsoft.AspNetCore.Hosting.Abstractions/) :
 
 [!code-xml[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement.csproj)]
 
-Atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) identifikuje třídu jako `IHostingStartup` implementaci pro načítání a <xref:Microsoft.AspNetCore.Hosting.IWebHost>provádění při vytváření . V následujícím příkladu je `StartupEnhancement`obor názvů a `StartupEnhancementHostingStartup`třída je :
+Atribut [HostingStartup](xref:Microsoft.AspNetCore.Hosting.HostingStartupAttribute) identifikuje třídu jako implementaci `IHostingStartup` pro načítání a spouštění při sestavování. <xref:Microsoft.AspNetCore.Hosting.IWebHost> V následujícím příkladu je `StartupEnhancement`obor názvů a třída: `StartupEnhancementHostingStartup`
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement.cs?name=snippet1)]
 
-Třída implementuje `IHostingStartup`. <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> Metoda třídy používá <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> doplněk k přidání vylepšení do aplikace. `IHostingStartup.Configure`v hostiteli spouštěcí sestavení je volána runtime před `Startup.Configure` v uživatelském kódu, který umožňuje uživatelský kód přepsat libovolnou konfiguraci poskytovanou sestavení mnoství po spuštění hostitele.
+Třída implementuje `IHostingStartup`. <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> Metoda třídy používá <xref:Microsoft.AspNetCore.Hosting.IWebHostBuilder> k přidání vylepšení aplikace. `IHostingStartup.Configure`ve spouštěcím sestavení, které je voláno modulem `Startup.Configure` runtime před v uživatelském kódu, což umožňuje přepsání libovolné konfigurace poskytované hostováním sestavení po spuštění.
 
 [!code-csharp[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement.cs?name=snippet2&highlight=3,5)]
 
-Při vytváření `IHostingStartup` projektu nastaví soubor závislostí (*.deps.json*) `runtime` umístění sestavení do složky *přihrádky:*
+Při sestavování `IHostingStartup` projektu, soubor závislosti (*. DEPS. JSON*) nastaví `runtime` umístění sestavení do složky *bin* :
 
 [!code-json[](platform-specific-configuration/samples-snapshot/2.x/StartupEnhancement1.deps.json?range=2-13&highlight=8)]
 
 Zobrazí se pouze část souboru. Název sestavení v příkladu je `StartupEnhancement`.
 
-## <a name="configuration-provided-by-the-hosting-startup"></a>Konfigurace poskytovaná spuštěním hostingu
+## <a name="configuration-provided-by-the-hosting-startup"></a>Konfigurace poskytovaná spuštěním hostování
 
-Existují dva přístupy ke zpracování konfigurace v závislosti na tom, zda chcete, aby konfigurace hostitelského spuštění měla přednost nebo aby měla přednost konfigurace aplikace:
+Existují dva přístupy ke zpracování konfigurace v závislosti na tom, jestli chcete, aby měla konfigurace hostujícího spuštění přednost, nebo jestli má přednost konfigurace aplikace:
 
-1. Poskytněte konfiguraci aplikaci pomocí <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> načtení <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> konfigurace po spuštění delegátů aplikace. Hostování konfigurace spuštění má přednost před konfigurací aplikace pomocí tohoto přístupu.
-1. Poskytněte konfiguraci aplikaci pomocí <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> načtení <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> konfigurace před spuštěním delegátů aplikace. Hodnoty konfigurace aplikace mají přednost před hodnotami poskytovanými spuštěním hostování pomocí tohoto přístupu.
+1. Poskytněte konfiguraci do aplikace pomocí nástroje <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> , aby se konfigurace po spuštění <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> delegátů aplikace načetla. Hostování spouštěcí konfigurace má přednost před konfigurací aplikace pomocí tohoto přístupu.
+1. Zadejte konfiguraci do aplikace pomocí nástroje <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseConfiguration*> , aby se konfigurace načetla předtím <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureAppConfiguration*> , než se spustí Delegáti aplikace. Hodnoty konfigurace aplikace mají přednost před metodami poskytovanými při spuštění hostování pomocí tohoto přístupu.
 
 ```csharp
 public class ConfigurationInjection : IHostingStartup
@@ -604,60 +610,60 @@ public class ConfigurationInjection : IHostingStartup
 }
 ```
 
-## <a name="specify-the-hosting-startup-assembly"></a>Určení hostitelského spouštěcího sestavení
+## <a name="specify-the-hosting-startup-assembly"></a>Zadejte hostující sestavení pro spuštění
 
-Pro spuštění hostování dodané knihovnou nebo konzolovou aplikací zadejte název `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` hostitelského spouštěcího sestavení v proměnné prostředí. Proměnná prostředí je seznam sestav oddělených středníkem.
+V případě knihovny tříd nebo konzolové aplikace dodané po spuštění zadejte název hostujícího spouštěcího sestavení v proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí. Proměnná prostředí je seznam sestavení oddělených středníky.
 
-Pro tento `HostingStartup` atribut jsou prohledány pouze hostitelské spouštěcí sestavení. Pro ukázkovou aplikaci *HostingStartupApp*, chcete-li zjistit hostitelské startupy popsané výše, proměnná prostředí je nastavena na následující hodnotu:
+Pro `HostingStartup` atribut jsou kontrolována pouze spouštěcí sestavení hostování. Pro ukázkovou aplikaci *HostingStartupApp*, aby bylo možné zjistit, jak jsou popsány v předchozí části, je proměnná prostředí nastavena na následující hodnotu:
 
 ```
 HostingStartupLibrary;HostingStartupPackage;StartupDiagnostics
 ```
 
-Hostitelské spouštěcí sestavení lze také nastavit pomocí nastavení konfigurace hostitele hostitelských sestavení [hostování.](xref:fundamentals/host/web-host#hosting-startup-assemblies)
+Hostování spouštěcího sestavení lze také nastavit pomocí nastavení konfigurace hostitele [po spouštěcích sestaveních](xref:fundamentals/host/web-host#hosting-startup-assemblies) .
 
-Pokud je k dispozici více <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> hostitelských sestavení po spuštění, jejich metody jsou provedeny v pořadí, ve které jsou uvedena sestavení.
+Pokud je přítomno více sestavení hostování po spuštění, <xref:Microsoft.AspNetCore.Hosting.IHostingStartup.Configure*> jejich metody jsou spouštěny v pořadí, ve kterém jsou uvedena.
 
 ## <a name="activation"></a>Aktivace
 
-Možnosti pro aktivaci pospuštění hostingu jsou:
+Možnosti pro hostování aktivace po spuštění jsou:
 
-* [Aktivace runtime úložiště](#runtime-store) &ndash; nevyžaduje odkaz na dobu kompilace pro aktivaci. Ukázková aplikace umístí hostitelské spouštěcí sestavení a soubory závislostí do složky, *nasazení*, aby se usnadnilo nasazení hostitelského spuštění v prostředí s více počítači. Složka *nasazení* také obsahuje skript prostředí PowerShell, který vytváří nebo upravuje proměnné prostředí v systému nasazení, aby bylo možné povolit hostování při spuštění.
-* Odkaz na dobu kompilace potřebný pro aktivaci
+* Aktivace &ndash; [úložiště modulu runtime](#runtime-store) nevyžaduje pro aktivaci odkaz na čas kompilace. Ukázková aplikace umístí hostující spouštěcí sestavení a soubory závislostí do složky, *nasazení*, aby se usnadnilo nasazení hostitelského spouštění v prostředí s více počítači. Složka pro *nasazení* obsahuje také skript PowerShellu, který vytvoří nebo upraví proměnné prostředí v systému nasazení, aby bylo možné hostující spuštění.
+* Pro aktivaci se vyžaduje odkaz na čas kompilace.
   * [Balíček NuGet](#nuget-package)
-  * [Složka přihrádky projektu](#project-bin-folder)
+  * [Složka Bin projektu](#project-bin-folder)
 
-### <a name="runtime-store"></a>Runtime úložiště
+### <a name="runtime-store"></a>Běhové úložiště
 
-Implementace spuštění hostitele je umístěna v [runtime úložišti](/dotnet/core/deploying/runtime-store). Odkaz na sestavení v době kompilace není vyžadován vylepšenou aplikací.
+Hostitelská implementace spuštění je umístěna v [úložišti modulu runtime](/dotnet/core/deploying/runtime-store). Rozšířená aplikace nevyžaduje odkaz na sestavení v době kompilace.
 
-Po vytvoření hostitelského spuštění je generováno runtime úložiště pomocí souboru manifestu projektu a příkazu [dotnet store.](/dotnet/core/tools/dotnet-store)
+Po sestavení hostitelského spuštění je úložiště modulu runtime vygenerováno pomocí souboru manifestu projektu a příkazu [dotnet Store](/dotnet/core/tools/dotnet-store) .
 
 ```dotnetcli
 dotnet store --manifest {MANIFEST FILE} --runtime {RUNTIME IDENTIFIER} --output {OUTPUT LOCATION} --skip-optimization
 ```
 
-V ukázkové aplikaci *(RuntimeStore* project) se používá následující příkaz:
+V ukázkové aplikaci (projekt*RuntimeStore* ) se používá následující příkaz:
 
 ```dotnetcli
 dotnet store --manifest store.manifest.csproj --runtime win7-x64 --output ./deployment/store --skip-optimization
 ```
 
-Pro runtime ke zjištění runtime úložiště, umístění runtime úložiště `DOTNET_SHARED_STORE` je přidán do proměnné prostředí.
+Aby modul runtime zjistil běhové úložiště, je umístění úložiště modulu runtime přidáno do proměnné `DOTNET_SHARED_STORE` prostředí.
 
-**Úprava a umístění souboru závislostí hostitelského spuštění**
+**Upravit a umístit soubor závislostí se spouštěním hostitele**
 
-Chcete-li aktivovat vylepšení bez odkazu na balíček vylepšení, `additionalDeps`zadejte další závislosti na běhu s . `additionalDeps`umožňuje:
+Chcete-li aktivovat vylepšení bez odkazu na balíček na vylepšení, určete další závislosti modulu runtime pomocí `additionalDeps`. `additionalDeps`umožňuje:
 
-* Rozšiřte graf knihovny aplikace poskytnutím sady dalších souborů *.deps.json,* které se při spuštění sloučí s vlastním souborem *.deps.json.*
-* Nastavení hostitelského spouštěcího sestavení zjistitelné a načítatelné.
+* Rozšíří graf knihovny aplikace tím, že poskytuje sadu dalších souborů *. DEPS. JSON* pro sloučení s vlastním souborem *. DEPS. JSON* aplikace při spuštění.
+* Zpřístupněte hostující spouštěcí sestavení, které je zjistitelné a spustitelný.
 
-Doporučený mdla pro generování dalšího souboru závislostí je:
+Doporučený postup pro generování dalších souborů závislostí:
 
- 1. Spusťte `dotnet publish` v souboru manifestu runtime store, na který odkazuje předchozí část.
- 1. Odeberte odkaz na manifest `runtime` z knihoven a části výsledného souboru *.deps.json.*
+ 1. Spustit `dotnet publish` v souboru manifestu úložiště modulu runtime odkazovaného v předchozí části.
+ 1. Odeberte odkaz na manifest z knihoven a `runtime` část výsledného souboru *. DEPS. JSON* .
 
-V ukázkovém `store.manifest/1.0.0` projektu je vlastnost `targets` `libraries` odebrána z oddílu a:
+V příkladu projektu je `store.manifest/1.0.0` vlastnost odebrána z oddílu `targets` a: `libraries`
 
 ```json
 {
@@ -703,73 +709,73 @@ V ukázkovém `store.manifest/1.0.0` projektu je vlastnost `targets` `libraries`
 }
 ```
 
-Umístěte soubor *.deps.json* do následujícího umístění:
+Soubor *. DEPS. JSON* umístěte do následujícího umístění:
 
 ```
 {ADDITIONAL DEPENDENCIES PATH}/shared/{SHARED FRAMEWORK NAME}/{SHARED FRAMEWORK VERSION}/{ENHANCEMENT ASSEMBLY NAME}.deps.json
 ```
 
-* `{ADDITIONAL DEPENDENCIES PATH}`&ndash; Umístění přidané `DOTNET_ADDITIONAL_DEPS` do proměnné prostředí.
-* `{SHARED FRAMEWORK NAME}`&ndash; Pro tento další soubor závislostí je vyžadovánsdílený rámec.
-* `{SHARED FRAMEWORK VERSION}`&ndash; Minimální verze sdílené ho rámce.
-* `{ENHANCEMENT ASSEMBLY NAME}`&ndash; Název sestavení vylepšení.
+* `{ADDITIONAL DEPENDENCIES PATH}`&ndash; Umístění bylo přidáno do `DOTNET_ADDITIONAL_DEPS` proměnné prostředí.
+* `{SHARED FRAMEWORK NAME}`&ndash; Sdílené rozhraní požadované pro tento další soubor závislostí.
+* `{SHARED FRAMEWORK VERSION}`&ndash; Minimální verze sdíleného rozhraní .NET Framework.
+* `{ENHANCEMENT ASSEMBLY NAME}`&ndash; Název sestavení rozšíření.
 
-V ukázkové aplikaci (projekt*RuntimeStore)* se další soubor závislostí umístí do následujícího umístění:
+V ukázkové aplikaci (projekt*RuntimeStore* ) se další soubor závislosti umístí do následujícího umístění:
 
 ```
 deployment/additionalDeps/shared/Microsoft.AspNetCore.App/2.1.0/StartupDiagnostics.deps.json
 ```
 
-Pro runtime ke zjištění umístění úložiště runtime je do proměnné `DOTNET_ADDITIONAL_DEPS` prostředí přidáno další umístění souboru závislostí.
+Aby modul runtime zjistil umístění úložiště za běhu, bylo do proměnné `DOTNET_ADDITIONAL_DEPS` prostředí přidáno umístění souboru další závislosti.
 
-V ukázkové aplikaci *(runtimestore* projektu), vytváření runtime úložiště a generování další soubor závislostí se provádí pomocí skriptu [Prostředí PowerShell.](/powershell/scripting/powershell-scripting)
+V ukázkové aplikaci (projekt*RuntimeStore* ) sestavíte běhové úložiště a vygenerujete další soubor závislosti pomocí skriptu [PowerShellu](/powershell/scripting/powershell-scripting) .
 
-Příklady nastavení proměnných prostředí pro různé operační systémy naleznete v tématu [Použití více prostředí](xref:fundamentals/environments).
+Příklady nastavení proměnných prostředí pro různé operační systémy najdete v tématu [použití více prostředí](xref:fundamentals/environments).
 
 **Nasazení**
 
-Pro usnadnění nasazení hostitelského spuštění v prostředí s více počítači vytvoří ukázková aplikace složku *nasazení* v publikovaném výstupu, která obsahuje:
+Aby se usnadnilo nasazení hostujícího spouštění v prostředí s více počítači, vytvoří ukázková aplikace složku pro *nasazení* v publikovaném výstupu, která obsahuje:
 
-* Hostitelské spouštěcí runtime úložiště.
-* Hostitelský soubor závislostí při spuštění.
-* Skript prostředí PowerShell, který vytváří `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES`nebo `DOTNET_SHARED_STORE`upravuje `DOTNET_ADDITIONAL_DEPS` , a podporuje aktivaci hostitelského spuštění. Spusťte skript z příkazového řádku prostředí PowerShell pro správu v systému nasazení.
+* Hostování běhového úložiště při spuštění.
+* Hostující soubor závislostí po spuštění.
+* Skript PowerShellu, který vytvoří nebo `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES`upraví `DOTNET_SHARED_STORE`, a `DOTNET_ADDITIONAL_DEPS` pro podporu aktivace hostitelského spuštění. Spusťte skript z příkazového řádku PowerShellu pro správu v systému nasazení.
 
 ### <a name="nuget-package"></a>Balíček NuGet
 
-Vylepšení spuštění hostingu může být k dispozici v balíčku NuGet. Balíček `HostingStartup` má atribut. Typy spuštění hostování poskytované balíčkem jsou k dispozici aplikaci pomocí některého z následujících přístupů:
+Rozšíření spouštění hostitele lze poskytnout v balíčku NuGet. Balíček má `HostingStartup` atribut. Typy spuštění hostování poskytované balíčkem jsou k dispozici v aplikaci pomocí některého z následujících přístupů:
 
-* Soubor projektu rozšířené aplikace vytvoří odkaz na balíček pro hostování spuštění v souboru projektu aplikace (odkaz na kompilaci). S odkazem na dobu kompilace na místě, hostování spouštěcí sestavení a všechny jeho závislosti jsou začleněny do souboru závislostí aplikace (*.deps.json*). Tento přístup se vztahuje na balíček sestavení hostitelského spuštění publikovaného pro [nuget.org](https://www.nuget.org/).
-* Soubor závislostí hostitelského spuštění je k dispozici rozšířené aplikaci, jak je popsáno v části [Runtime store](#runtime-store) (bez odkazu na kompilaci).
+* Soubor projektu rozšířené aplikace vytvoří odkaz na balíček pro hostování spouštěné v souboru projektu aplikace (Referenční dokumentace při kompilaci). V případě referenčního odkazu v době kompilace jsou hostující sestavení po spuštění a všechny jeho závislosti začleněny do souboru závislostí aplikace (*. DEPS. JSON*). Tento přístup se vztahuje na hostující hostitelský balíček pro sestavení, který je publikovaný na [NuGet.org](https://www.nuget.org/).
+* K dispozici je soubor závislostí při spuštění hostující aplikaci, jak je popsáno v části [úložiště za běhu](#runtime-store) (bez referenčních informací v době kompilace).
 
-Další informace o balíčcích NuGet a runtime úložišti naleznete v následujících tématech:
+Další informace o balíčcích NuGet a úložišti modulu runtime najdete v následujících tématech:
 
-* [Jak vytvořit balíček NuGet s nástroji křížové platformy](/dotnet/core/deploying/creating-nuget-packages)
+* [Postup vytvoření balíčku NuGet pomocí nástrojů pro různé platformy](/dotnet/core/deploying/creating-nuget-packages)
 * [Publikování balíčků](/nuget/create-packages/publish-a-package)
 * [Úložiště balíčků modulu runtime](/dotnet/core/deploying/runtime-store)
 
-### <a name="project-bin-folder"></a>Složka přihrádky projektu
+### <a name="project-bin-folder"></a>Složka Bin projektu
 
-Vylepšení spouštění hostingu může být poskytnuto sestavením nasazeným *přihrádkou*v rozšířené aplikaci. Typy spuštění hostování poskytované sestavením jsou k dispozici aplikaci pomocí jednoho z následujících přístupů:
+Rozšíření spouštění hostitele může být k dispozici sestavením nasazeným *přihrádkou*v rozšířené aplikaci. Typy spuštění hostování poskytované sestavením jsou zpřístupněny pro aplikaci pomocí jednoho z následujících přístupů:
 
-* Soubor projektu rozšířené aplikace odkazuje na hostování spuštění (odkaz na kompilaci). S odkazem na dobu kompilace na místě, hostování spouštěcí sestavení a všechny jeho závislosti jsou začleněny do souboru závislostí aplikace (*.deps.json*). Tento přístup platí, když scénář nasazení volá pro vytvoření odkazu na sestavení hostitelského spuštění *(soubor dll)* a přesunutí sestavení buď:
-  * Náročný projekt.
-  * Umístění přístupné náročným projektem.
-* Soubor závislostí hostitelského spuštění je k dispozici rozšířené aplikaci, jak je popsáno v části [Runtime store](#runtime-store) (bez odkazu na kompilaci).
-* Při cílení na rozhraní .NET Framework je sestavení načítatelné ve výchozím kontextu zatížení, což v rozhraní .NET Framework znamená, že sestavení je umístěno v některém z následujících umístění:
-  * Cesta &ndash; k základně aplikace Složka *přihrádky,* ve které je umístěn spustitelný soubor aplikace (*EXE*).
-  * Globální mezipaměti sestavení &ndash; (GAC) GAC ukládá sestavení, které sdílejí několik aplikací rozhraní .NET Framework. Další informace naleznete v [tématu Postup: Instalace sestavení do globální mezipaměti sestavení](/dotnet/framework/app-domains/how-to-install-an-assembly-into-the-gac) v dokumentaci rozhraní .NET Framework.
+* Soubor projektu rozšířené aplikace vytvoří odkaz na sestavení pro spuštění hostování (Referenční dokumentace při kompilaci). V případě referenčního odkazu v době kompilace jsou hostující sestavení po spuštění a všechny jeho závislosti začleněny do souboru závislostí aplikace (*. DEPS. JSON*). Tento přístup se používá v případě, že scénář nasazení volá pro vytvoření reference v čase kompilace na sestavení hostujícího spuštění sestavení (soubor *. dll* ) a přesunutí sestavení na jednu z těchto možností:
+  * Projekt, který je k disnáročné.
+  * Umístění přístupné pro náročný projekt.
+* K dispozici je soubor závislostí při spuštění hostující aplikaci, jak je popsáno v části [úložiště za běhu](#runtime-store) (bez referenčních informací v době kompilace).
+* Při cílení na .NET Framework sestavení je spustitelný ve výchozím kontextu načtení, což na .NET Framework znamená, že sestavení je umístěno v jednom z následujících umístění:
+  * Základní cesta &ndash; aplikace složka *bin* , kde se nachází spustitelný soubor aplikace (*. exe*).
+  * Globální mezipaměť sestavení (GAC) &ndash; GAC ukládá sestavení, která sdílí několik aplikací .NET Framework. Další informace naleznete v tématu [Postupy: Instalace sestavení do globální mezipaměti sestavení (](/dotnet/framework/app-domains/how-to-install-an-assembly-into-the-gac) GAC) v dokumentaci k .NET Framework.
 
 ## <a name="sample-code"></a>Ukázka kódu
 
-[Ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) ([jak stáhnout](xref:index#how-to-download-a-sample)) ukazuje hostování scénářů implementace spuštění:
+[Vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/host/platform-specific-configuration/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample)) znázorňuje hostování scénářů implementace spouštění:
 
-* Dvě hostitelská spouštěcí sestavení (knihovny tříd) nastavují dvojici párů klíč-hodnota konfigurace v paměti:
+* Dvě hostování spouštěcích sestavení (knihovny tříd) nastaví dvojici dvojic klíč-hodnota klíče pro konfiguraci v paměti každý:
   * Balíček NuGet (*HostingStartupPackage*)
   * Knihovna tříd (*HostingStartupLibrary*)
-* Hostitelské spuštění je aktivováno z runtime store nasazeného sestavení (*StartupDiagnostics*). Sestavení přidá do aplikace při spuštění dva middlewares, které poskytují diagnostické informace o:
+* Hostující spuštění je aktivováno ze sestavení s nasazeným úložištěm (*StartupDiagnostics*) za běhu. Sestavení přidá do aplikace dvě middlewary při spuštění, které poskytují diagnostické informace o:
   * Registrované služby
-  * Adresa (schéma, hostitel, základna cesty, cesta, řetězec dotazu)
-  * Připojení (vzdálená IP adresa, vzdálený port, lokální IP, místní port, klientský certifikát)
+  * Adresa (schéma, hostitel, základ cesty, cesta, řetězec dotazu)
+  * Připojení (Vzdálená IP adresa, vzdálený port, místní IP adresa, místní port, klientský certifikát)
   * Hlavičky požadavku
   * Proměnné prostředí
 
@@ -777,9 +783,9 @@ Spuštění ukázky:
 
 **Aktivace z balíčku NuGet**
 
-1. Zkompilujte balíček *HostingStartupPackage* pomocí příkazu [dotnet pack.](/dotnet/core/tools/dotnet-pack)
-1. Přidejte název sestavení balíčku *HostingStartupPackage* do `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` proměnné prostředí.
-1. Zkompilujte a spusťte aplikaci. Odkaz na balíček je k dispozici v rozšířené aplikaci (odkaz na kompilaci). A `<PropertyGroup>` v souboru projektu aplikace určuje výstup projektu balíčku (*.. /HostingStartupPackage/bin/Debug*) jako zdroj balíčku. To umožňuje aplikaci používat balíček bez nahrání balíčku do [nuget.org](https://www.nuget.org/). Další informace naleznete v poznámkách v souboru projektu HostingStartupApp.
+1. Zkompilujte balíček *HostingStartupPackage* pomocí příkazu [dotnet Pack](/dotnet/core/tools/dotnet-pack) .
+1. Přidejte název sestavení balíčku *HostingStartupPackage* do proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí.
+1. Zkompilujte a spusťte aplikaci. Odkaz na balíček se nachází v rozšířené aplikaci (Referenční dokumentace při kompilaci). `<PropertyGroup>` V souboru projektu aplikace určuje výstup projektu balíčku (*.. /HostingStartupPackage/bin/Debug*) jako zdroj balíčku. To umožňuje aplikaci používat balíček bez nahrání balíčku do [NuGet.org](https://www.nuget.org/). Další informace naleznete v poznámkách v souboru projektu HostingStartupApp.
 
    ```xml
    <PropertyGroup>
@@ -787,9 +793,9 @@ Spuštění ukázky:
    </PropertyGroup>
    ```
 
-1. Všimněte si, že hodnoty konfiguračního klíče služby vykreslené na stránce Index odpovídají hodnotám nastaveným `ServiceKeyInjection.Configure` metodou balíčku.
+1. Pozor, aby hodnoty konfiguračního klíče služby vygenerované stránkou indexu odpovídaly hodnotám nastaveným `ServiceKeyInjection.Configure` metodou balíčku.
 
-Pokud provedete změny v projektu *HostingStartupPackage* a znovu jej zkompilovat, zrušte místní mezipaměti balíčku NuGet, abyste zajistili, že *HostingStartupApp* obdrží aktualizovaný balíček a ne zastaralý balíček z místní mezipaměti. Chcete-li vymazat místní mezipaměti NuGet, spusťte následující příkaz [místní chod dotnet nuget:](/dotnet/core/tools/dotnet-nuget-locals)
+Pokud provedete změny v projektu *HostingStartupPackage* a znovu zkompilujete, vymažte místní mezipaměti balíčků NuGet, abyste zajistili, že *HostingStartupApp* přijme aktualizovaný balíček a nejedná se o zastaralý balíček z místní mezipaměti. K vymazání místních mezipamětí NuGet spusťte následující příkaz [dotnet NuGet Locals](/dotnet/core/tools/dotnet-nuget-locals) :
 
 ```dotnetcli
 dotnet nuget locals all --clear
@@ -797,10 +803,10 @@ dotnet nuget locals all --clear
 
 **Aktivace z knihovny tříd**
 
-1. Zkompilujte knihovnu tříd *HostingStartupLibrary* pomocí příkazu [dotnet build.](/dotnet/core/tools/dotnet-build)
-1. Přidejte název sestavení knihovny tříd *hostingStartupLibrary* do proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí.
-1. *bin*-nasadit sestavení knihovny tříd do aplikace zkopírováním souboru *HostingStartupLibrary.dll* z kompilovaného výstupu knihovny tříd do složky *bin/Ladění* aplikace.
-1. Zkompilujte a spusťte aplikaci. Soubor `<ItemGroup>` projektu aplikace odkazuje na sestavení knihovny tříd (*.\bin\Debug\netcoreapp2.1\HostingStartupLibrary.dll*) (odkaz na kompilaci). Další informace naleznete v poznámkách v souboru projektu HostingStartupApp.
+1. Zkompilujte knihovnu tříd *HostingStartupLibrary* pomocí příkazu [dotnet Build](/dotnet/core/tools/dotnet-build) .
+1. Přidejte název sestavení knihovny tříd *HostingStartupLibrary* do proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí.
+1. *bin*– nasazení sestavení knihovny tříd do aplikace zkopírováním souboru *HostingStartupLibrary. dll* z zkompilovaného výstupu knihovny tříd do složky *bin nebo ladění* aplikace.
+1. Zkompilujte a spusťte aplikaci. `<ItemGroup>` V souboru projektu aplikace odkazuje na sestavení knihovny tříd (*.\bin\Debug\netcoreapp2.1\HostingStartupLibrary.dll*) (Referenční dokumentace při kompilaci). Další informace naleznete v poznámkách v souboru projektu HostingStartupApp.
 
    ```xml
    <ItemGroup>
@@ -811,21 +817,21 @@ dotnet nuget locals all --clear
    </ItemGroup>
    ```
 
-1. Všimněte si, že hodnoty konfiguračního klíče služby vykreslené `ServiceKeyInjection.Configure` na stránce Index odpovídají hodnotám nastaveným metodou knihovny tříd.
+1. Pozor, aby hodnoty konfiguračního klíče služby vygenerované stránkou indexu odpovídaly hodnotám nastaveným `ServiceKeyInjection.Configure` metodou knihovny tříd.
 
-**Aktivace z runtime store nasazeného sestavení**
+**Aktivace z běhového úložiště – nasazené sestavení**
 
-1. Projekt *StartupDiagnostics* používá [prostředí PowerShell](/powershell/scripting/powershell-scripting) k úpravě souboru *StartupDiagnostics.deps.json.* Prostředí PowerShell je ve výchozím nastavení nainstalováno v systému Windows počínaje systémy Windows 7 SP1 a Windows Server 2008 R2 SP1. Informace o získání prostředí PowerShell na jiných platformách naleznete [v tématu Instalace různých verzí prostředí PowerShell](/powershell/scripting/install/installing-powershell).
-1. Spusťte skript *build.ps1* ve složce *RuntimeStore.* Skript:
-   * Generuje balíček ve `StartupDiagnostics` složce *obj\packages.*
-   * Generuje runtime úložiště `StartupDiagnostics` pro ve složce *úložiště.* Příkaz `dotnet store` ve skriptu `win7-x64` používá [identifikátor runtime (RID)](/dotnet/core/rid-catalog) pro hostitelské spuštění nasazené v systému Windows. Při poskytování hostitelského spuštění pro jiný běhový čas nahraďte správný rid na řádku 37 skriptu. Runtime úložiště `StartupDiagnostics` pro by později přesunuta do úložiště runtime uživatele nebo systému v počítači, kde bude spotřebována sestavení. Umístění instalace úložiště runtime `StartupDiagnostics` uživatele pro sestavení je *.dotnet/store/x64/netcoreapp2.2/startupdiagnostics/1.0.0/lib/netcoreapp2.2/StartupDiagnostics.dll*.
-   * Generuje `additionalDeps` for `StartupDiagnostics` ve složce *additionalDeps.* Další závislosti by později byly přesunuty do dalších závislostí uživatele nebo systému. Umístění `StartupDiagnostics` instalace dalších závislostí uživatele *mj.*
-   * Umístí soubor *deploy.ps1* do složky *nasazení.*
-1. Spusťte skript *deploy.ps1* ve složce *nasazení.* Skript se připojí:
-   * `StartupDiagnostics`k `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` proměnné prostředí.
-   * Cesta k hostitelským závislostem při spuštění (ve složce `DOTNET_ADDITIONAL_DEPS` *nasazení* projektu RuntimeStore) do proměnné prostředí.
-   * Cesta runtime úložiště (ve složce *nasazení* projektu RuntimeStore) do proměnné `DOTNET_SHARED_STORE` prostředí.
+1. Projekt *StartupDiagnostics* používá k úpravě souboru *StartupDiagnostics. DEPS. JSON* [PowerShell](/powershell/scripting/powershell-scripting) . PowerShell je ve výchozím nastavení nainstalován v systému Windows počínaje systémy Windows 7 SP1 a Windows Server 2008 R2 SP1. Pokud chcete získat PowerShell na jiných platformách, přečtěte si téma [instalace různých verzí PowerShellu](/powershell/scripting/install/installing-powershell).
+1. Spusťte skript *Build. ps1* ve složce *RuntimeStore* . Skript:
+   * Vygeneruje `StartupDiagnostics` balíček ve složce *obj\packages* .
+   * Vygeneruje běhové úložiště `StartupDiagnostics` pro ve složce *Store* . `dotnet store` Příkaz ve skriptu používá `win7-x64` [identifikátor modulu runtime (RID)](/dotnet/core/rid-catalog) pro hostování po spuštění nasazené do systému Windows. Při poskytování hostitelského spuštění pro jiný modul runtime nahraďte správný identifikátor RID na řádku 37 skriptu. Běhové úložiště pro `StartupDiagnostics` by bylo později přesunuto do úložiště modulu runtime uživatele nebo systému v počítači, kde bude sestavení spotřebováno. Umístění instalace úložiště modulu runtime uživatele pro `StartupDiagnostics` sestavení je *. dotnet/Store/x64/netcoreapp 2.2/startupdiagnostics/1.0.0/lib/Netcoreapp 2.2/startupdiagnostics. dll*.
+   * Vygeneruje `additionalDeps` pro `StartupDiagnostics` ve složce *additionalDeps* . Další závislosti by se později přesunuly na další závislosti uživatele nebo systému. Umístění pro `StartupDiagnostics` instalaci dalších závislostí uživatele je *. dotnet/x64/additionalDeps/StartupDiagnostics/Shared/Microsoft. NETCore. app/2.2.0/StartupDiagnostics. DEPS. JSON*.
+   * Umístí soubor *Deploy. ps1* do složky pro *nasazení* .
+1. Spusťte skript *Deploy. ps1* ve složce pro *nasazení* . Skript připojí:
+   * `StartupDiagnostics`do proměnné `ASPNETCORE_HOSTINGSTARTUPASSEMBLIES` prostředí.
+   * Cesta ke spouštěcím závislostem hostitele (ve složce *nasazení* projektu RuntimeStore) do proměnné `DOTNET_ADDITIONAL_DEPS` prostředí.
+   * Cesta k úložišti za běhu (ve složce pro *nasazení* projektu RuntimeStore) do proměnné `DOTNET_SHARED_STORE` prostředí.
 1. Spusťte ukázkovou aplikaci.
-1. Požádejte `/services` koncový bod, abyste viděli registrované služby aplikace. Požádejte `/diag` koncový bod, abyste viděli diagnostické informace.
+1. Požádejte `/services` o koncový bod, aby se zobrazily registrované služby aplikace. Požádejte `/diag` koncový bod, aby zobrazil diagnostické informace.
 
 ::: moniker-end

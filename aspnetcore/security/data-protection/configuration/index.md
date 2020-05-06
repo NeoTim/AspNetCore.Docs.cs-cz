@@ -1,29 +1,35 @@
 ---
 title: Konfigurace ochrany dat v ASP.NET Core
 author: rick-anderson
-description: Objevte témata, která vysvětlují, jak nakonfigurovat ochranu dat v ASP.NET Core.
+description: Objevte témata, která vysvětlují konfiguraci ochrany dat v ASP.NET Core.
 ms.author: riande
 ms.date: 10/12/2017
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/configuration/index
-ms.openlocfilehash: d6b87f8c0b20572929cf7449379c6fa3ade123ad
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 2d9330867357cecbf58be808cdfcb01b6bb25eb1
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78667956"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777433"
 ---
 # <a name="data-protection-configuration-in-aspnet-core"></a>Konfigurace ochrany dat v ASP.NET Core
 
-Na stránce S více informací o konfiguraci ochrany dat v ASP.NET Core najdete v těchto tématech:
+Další informace o konfiguraci ochrany dat v ASP.NET Core najdete v těchto tématech:
 
-* [Konfigurace ASP.NET základní ochrany dat](xref:security/data-protection/configuration/overview)  
-  Přehled konfigurace ASP.NET Základní ochrana dat.
+* [Konfigurace ochrany ASP.NET Core dat](xref:security/data-protection/configuration/overview)  
+  Přehled konfigurace ASP.NET Core ochrany dat
 
-* [Správa klíčů a životnost klíčů pro ochranu dat](xref:security/data-protection/configuration/default-settings)  
-  Informace o správě klíčů a životnosti klíčů pro ochranu osobních údajů.
+* [Správa klíčů a doba života ochrany dat](xref:security/data-protection/configuration/default-settings)  
+  Informace o správě a životnosti klíčů pro ochranu dat.
 
-* [Podpora zásad ochrany dat pro celý systém](xref:security/data-protection/configuration/machine-wide-policy)  
-  Podrobnosti o nastavení výchozí zásady pro celý počítač pro všechny aplikace, které používají ochranu dat.
+* [Podpora zásad na úrovni počítače pro ochranu dat](xref:security/data-protection/configuration/machine-wide-policy)  
+  Podrobnosti o nastavení výchozích zásad pro celý počítač pro všechny aplikace, které používají ochranu dat.
 
-* [Scénáře, které nejsou vědomi DI pro ochranu dat v ASP.NET Core](xref:security/data-protection/configuration/non-di-scenarios)  
-  Jak používat [DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider) konkrétní typ používat ochranu dat bez procházení cesty kódu specifické pro DI.
+* [Scénáře, které se nepoužívají při ochraně dat v ASP.NET Core](xref:security/data-protection/configuration/non-di-scenarios)  
+  Použití konkrétního typu [DataProtectionProvider](/dotnet/api/Microsoft.AspNetCore.DataProtection.DataProtectionProvider) k použití ochrany dat bez přechodu přes cesty kódu specifické pro di.

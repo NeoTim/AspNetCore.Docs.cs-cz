@@ -4,17 +4,23 @@ author: rick-anderson
 description: Naučte se vytvářet a používat vlastní formátovací moduly pro webová rozhraní API v ASP.NET Core.
 ms.author: riande
 ms.date: 02/08/2017
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: web-api/advanced/custom-formatters
-ms.openlocfilehash: dd25cda460ba758cd07de094eaadd1f2d8c28657
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 0836fc288a015adb9a6223c5a2b681b1b03bded4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78667669"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777316"
 ---
 # <a name="custom-formatters-in-aspnet-core-web-api"></a>Vlastní formátovací moduly v ASP.NET Core Web API
 
-tím, že [Dykstra](https://github.com/tdykstra)
+Tím, že [Dykstra](https://github.com/tdykstra)
 
 ASP.NET Core MVC podporuje výměnu dat ve webových rozhraních API pomocí formátování vstupu a výstupu. Vstupní formátovací moduly jsou používány [vazbami modelů](xref:mvc/models/model-binding). Výstupní formátovací moduly se používají k [formátování odpovědí](xref:web-api/advanced/formatting).
 
@@ -36,7 +42,7 @@ Tady je postup vytvoření a použití vlastního formátovacího modulu:
 
 * Vytvořte výstupní třídu formátování výstupu, pokud chcete serializovat data pro odeslání klientovi.
 * Vytvořte vstupní třídu formátování, pokud chcete deserializovat data přijatá z klienta.
-* Přidejte instance formátovacích modulů do kolekce `InputFormatters` a `OutputFormatters` v [MvcOptions](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions).
+* Přidejte instance formátovacích modulů do kolekcí `InputFormatters` a `OutputFormatters` v [MvcOptions](/dotnet/api/microsoft.aspnetcore.mvc.mvcoptions).
 
 Následující části obsahují pokyny a příklady kódu pro každý z těchto kroků.
 
@@ -46,8 +52,8 @@ Vytvoření formátovacího modulu:
 
 * Odvodit třídu od příslušné základní třídy.
 * Zadejte platné typy médií a kódování v konstruktoru.
-* Přepsat `CanReadType`/`CanWriteType` metody
-* Přepsat `ReadRequestBodyAsync`/`WriteResponseBodyAsync` metody
+* Metody `CanReadType` / `CanWriteType` přepsání
+* Metody `ReadRequestBodyAsync` / `WriteResponseBodyAsync` přepsání
   
 ### <a name="derive-from-the-appropriate-base-class"></a>Odvození od příslušné základní třídy
 
@@ -61,7 +67,7 @@ Pro binární typy je odvozeno od základní třídy [InputFormatter](/dotnet/ap
 
 ### <a name="specify-valid-media-types-and-encodings"></a>Zadejte platné typy médií a kódování.
 
-V konstruktoru zadejte platné typy médií a kódování přidáním do kolekce `SupportedMediaTypes` a `SupportedEncodings`.
+V konstruktoru zadejte platné typy médií a kódování přidáním do kolekce `SupportedMediaTypes` a. `SupportedEncodings`
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=ctor&highlight=3,5-6)]
 
@@ -72,7 +78,7 @@ Příklad vstupního formátovacího modulu najdete v [ukázkové aplikaci](http
 
 ### <a name="override-canreadtypecanwritetype"></a>Přepsat CanReadType/CanWriteType
 
-Zadejte typ, který lze deserializovat nebo serializovat, přepsáním `CanReadType` nebo `CanWriteType`ch metod. Můžete například vytvořit text v vCard pouze z `Contact`ho typu a naopak.
+Zadejte typ, který lze deserializovat nebo serializovat, přepsáním metod `CanReadType` nebo. `CanWriteType` Například může být možné pouze vytvořit text v vCard z `Contact` typu a naopak.
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=canwritetype)]
 
@@ -80,19 +86,19 @@ Příklad vstupního formátovacího modulu najdete v [ukázkové aplikaci](http
 
 #### <a name="the-canwriteresult-method"></a>Metoda CanWriteResult
 
-V některých případech je nutné přepsat `CanWriteResult` místo `CanWriteType`. Pokud jsou splněné následující podmínky, použijte `CanWriteResult`:
+V některých případech je nutné přepsat `CanWriteResult` místo. `CanWriteType` Použijte `CanWriteResult` , pokud jsou splněné následující podmínky:
 
 * Vaše metoda akce vrátí třídu modelu.
 * K dispozici jsou odvozené třídy, které mohou být vráceny za běhu.
 * Je potřeba znát za běhu, který tato akce vrátila odvozenou třídu.
 
-Předpokládejme například, že váš podpis metody akce vrací typ `Person`, ale může vracet `Student` nebo `Instructor` typ, který je odvozen od `Person`. Chcete-li, aby formátovací modul zpracovával pouze `Student` objekty, ověřte typ [objektu](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object) v objektu Context, který je k dispozici metodě `CanWriteResult`. Všimněte si, že není nutné použít `CanWriteResult`, když metoda akce vrátí `IActionResult`; v takovém případě metoda `CanWriteType` přijímá typ modulu runtime.
+Předpokládejme například, že váš podpis `Person` metody akce vrací typ, ale může vracet typ `Student` nebo `Instructor` , který je odvozen z. `Person` Chcete-li, aby formátovací modul zpracovával `Student` pouze objekty, ověřte typ [objektu](/dotnet/api/microsoft.aspnetcore.mvc.formatters.outputformattercanwritecontext.object#Microsoft_AspNetCore_Mvc_Formatters_OutputFormatterCanWriteContext_Object) v objektu Context, který je `CanWriteResult` k metodě k dispozici. Všimněte si, že není nutné použít `CanWriteResult` při návratu `IActionResult`metody Action; v takovém případě `CanWriteType` metoda přijímá typ modulu runtime.
 
 <a id="read-write"></a>
 
-### <a name="override-readrequestbodyasyncwriteresponsebodyasync"></a>Override ReadRequestBodyAsync/WriteResponseBodyAsync
+### <a name="override-readrequestbodyasyncwriteresponsebodyasync"></a>Přepsat ReadRequestBodyAsync/WriteResponseBodyAsync
 
-Provedete skutečnou práci při deserializaci nebo serializaci v `ReadRequestBodyAsync` nebo `WriteResponseBodyAsync`. Zvýrazněné řádky v následujícím příkladu ukazují, jak získat služby z kontejneru vkládání závislostí (nemůžete je získat z parametrů konstruktoru).
+Provedete skutečnou práci deserializace nebo serializace v `ReadRequestBodyAsync` nebo. `WriteResponseBodyAsync` Zvýrazněné řádky v následujícím příkladu ukazují, jak získat služby z kontejneru vkládání závislostí (nemůžete je získat z parametrů konstruktoru).
 
 [!code-csharp[](custom-formatters/sample/Formatters/VcardOutputFormatter.cs?name=writeresponse&highlight=3-4)]
 
@@ -100,7 +106,7 @@ Příklad vstupního formátovacího modulu najdete v [ukázkové aplikaci](http
 
 ## <a name="how-to-configure-mvc-to-use-a-custom-formatter"></a>Jak konfigurovat MVC pro použití vlastního formátovacího modulu
 
-Chcete-li použít vlastní formátovací modul, přidejte instanci formátovací třídy do kolekce `InputFormatters` nebo `OutputFormatters`.
+Chcete-li použít vlastní formátovací modul, přidejte instanci formátovací třídy do kolekce `InputFormatters` nebo. `OutputFormatters`
 
 [!code-csharp[](custom-formatters/sample/Startup.cs?name=mvcoptions&highlight=3-4)]
 
@@ -115,10 +121,11 @@ BEGIN:VCARD
 VERSION:2.1
 N:Davolio;Nancy
 FN:Nancy Davolio
-UID:20293482-9240-4d68-b475-325df4a83728
+no-loc: [Blazor, "Identity", "Let's Encrypt", Razor, SignalR]
+uid:20293482-9240-4d68-b475-325df4a83728
 END:VCARD
 ```
 
-Chcete-li zobrazit výstup v programu vCard, spusťte aplikaci a odešlete požadavek GET s hlavičkou Accept "text/vCard" do `http://localhost:63313/api/contacts/` (při spuštění ze sady Visual Studio) nebo `http://localhost:5000/api/contacts/` (při spuštění z příkazového řádku).
+Chcete-li zobrazit výstup v programu vCard, spusťte aplikaci a odešlete požadavek GET s hlavičkou Accept "text `http://localhost:63313/api/contacts/` /vCard" do (při spuštění ze `http://localhost:5000/api/contacts/` sady Visual Studio) nebo (při spuštění z příkazového řádku).
 
 Chcete-li přidat soubor vCard do kolekce kontaktů v paměti, odešlete požadavek post na stejnou adresu URL s hlavičkou Content-Type "text/vCard" a textem vCard v těle, který je formátován jako příklad výše.

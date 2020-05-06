@@ -1,20 +1,26 @@
 ---
-title: Hostování ASP.NET jádra ve službě Windows se službou IIS
+title: Hostování ASP.NET Core ve Windows se službou IIS
 author: rick-anderson
-description: Přečtěte si, jak hostovat aplikace ASP.NET Core v Internetové informační službě (IIS) systému Windows Server.
+description: Naučte se hostovat aplikace ASP.NET Core v systému Windows Server Internetová informační služba (IIS).
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 04/17/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 77f07ba89de4449c6d13006a5fd61499cb5cdfc0
-ms.sourcegitcommit: 3d07e21868dafc503530ecae2cfa18a7490b58a6
+ms.openlocfilehash: 72f433ffdc7d08e23fb68fc6ed9903a39959363b
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/18/2020
-ms.locfileid: "81642752"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775983"
 ---
-# <a name="host-aspnet-core-on-windows-with-iis"></a>Hostování ASP.NET jádra ve službě Windows se službou IIS
+# <a name="host-aspnet-core-on-windows-with-iis"></a>Hostování ASP.NET Core ve Windows se službou IIS
 
 <!-- 
 
@@ -29,9 +35,9 @@ ms.locfileid: "81642752"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Výukové prostředí o publikování aplikace ASP.NET Core na server <xref:tutorials/publish-to-iis>služby IIS naleznete v tématu .
+Kurz týkající se publikování ASP.NET Core aplikace na server služby IIS najdete v tématu <xref:tutorials/publish-to-iis>.
 
-[Instalace balíčku hostingu jádra .NET](#install-the-net-core-hosting-bundle)
+[Instalace hostující sady .NET Core](#install-the-net-core-hosting-bundle)
 
 ## <a name="supported-operating-systems"></a>Podporované operační systémy
 
@@ -40,75 +46,75 @@ Podporovány jsou následující operační systémy:
 * Windows 7 nebo novější
 * Windows Server 2012 R2 nebo novější
 
-[Server HTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaný WebListener) nefunguje v konfiguraci reverzního proxy serveru se službou IIS. Použijte [server Kestrel](xref:fundamentals/servers/kestrel).
+[Http. sys Server](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru se službou IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
 
-Informace o hostování v <xref:host-and-deploy/azure-apps/index>Azure najdete v tématu .
+Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-apps/index>.
 
-Pokyny pro řešení <xref:test/troubleshoot>potíží naleznete v tématu .
+Pokyny k řešení potíží najdete <xref:test/troubleshoot>v tématu.
 
 ## <a name="supported-platforms"></a>Podporované platformy
 
-Podporovány jsou aplikace publikované pro 32bitové (x86) nebo 64bitové (x64) nasazení. Nasazení 32bitové aplikace s 32bitovou sadou .NET Core SDK, pokud ji ne:
+Podporují se aplikace publikované pro nasazení 32 (x86) nebo 64-bit (x64). Nasazení 32 aplikace s 32 (x86) .NET Core SDK, pokud aplikace:
 
-* Vyžaduje větší adresní prostor virtuální paměti, který je k dispozici pro 64bitovou aplikaci.
-* Vyžaduje větší velikost zásobníku iis.
-* Má 64bitové nativní závislosti.
+* Vyžaduje větší dostupný adresní prostor virtuální paměti pro 64 aplikaci.
+* Vyžaduje větší velikost zásobníku služby IIS.
+* Má 64 nativní závislosti.
 
-K publikování 64bitové sady SDK jádra (x64) použijte 64bitovou sadu .NET Core SDK. V hostitelském systému musí být k dispozici 64bitový běhový čas.
+K publikování 64 aplikace použijte 64 .NET Core SDK (x64). V hostitelském systému musí být nainstalován 64 modul runtime.
 
 ## <a name="hosting-models"></a>Modely hostingu
 
 ### <a name="in-process-hosting-model"></a>Model hostování v procesu
 
-Pomocí hostování v rámci procesu běží aplikace ASP.NET Core ve stejném procesu jako pracovní proces služby IIS. Hostování v procesu poskytuje lepší výkon než mimoproceshosting, protože požadavky nejsou proxied přes adaptér zpětné smyčky, síťové rozhraní, které vrací odchozí síťový provoz zpět do stejného počítače. Služba IIS zpracovává správu procesů pomocí [služby aktivace procesů systému Windows (WAS).](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was)
+Při použití hostování v rámci procesu ASP.NET Core aplikace běží ve stejném procesu jako jeho pracovní proces služby IIS. Hostování v rámci procesů poskytují lepší výkon než hostování mimo procesy, protože požadavky nejsou proxy serverem přes adaptér zpětné smyčky, síťové rozhraní, které vrátí odchozí síťový provoz zpátky do stejného počítače. Služba IIS zpracovává správu procesů pomocí [aktivační služby procesů systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
-Základní [modul ASP.NET](xref:host-and-deploy/aspnet-core-module):
+[Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module):
 
 * Provede inicializaci aplikace.
   * Načte [CoreCLR](/dotnet/standard/glossary#coreclr).
   * Volání `Program.Main`.
 * Zpracovává životnost nativního požadavku služby IIS.
 
-Model hostování v procesu není podporován pro aplikace ASP.NET Core, které cílí na rozhraní .NET Framework.
+Model hostování v rámci procesu není podporován pro aplikace ASP.NET Core, které cílí na .NET Framework.
 
-Následující diagram znázorňuje vztah mezi iis, ASP.NET základní modul a aplikace hostované v procesu:
+Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Core a aplikací hostovanou v procesu:
 
-![ASP.NET core modul ve scénáři hostování v procesu](index/_static/ancm-inprocess.png)
+![ASP.NET Core modul ve scénáři hostování v rámci procesu](index/_static/ancm-inprocess.png)
 
-Požadavek přichází z webu na ovladač HTTP.sys v režimu jádra. Řidič směruje nativní požadavek do služby IIS na nakonfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Základní modul ASP.NET obdrží nativní požadavek a předá`IISHttpServer`jej serveru HTTP služby IIS ( ). Server HTTP služby IIS je implementace serveru v procesu pro službu IIS, která převádí požadavek z nativního na spravovaný.
+Požadavek přijde z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje nativní požadavek na IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul ASP.NET Core obdrží nativní požadavek a předá ho k serveru HTTP služby IIS (`IISHttpServer`). HTTP server IIS je vnitroprocesové implementace v rámci procesového serveru pro službu IIS, která převádí požadavek z nativního na spravovanou.
 
-Po zpracování požadavku serverem HTTP služby IIS je požadavek odeslán do kanálu middlewaru ASP.NET Core. Middleware kanálu zpracovává požadavek a předá `HttpContext` jej jako instanci logiky aplikace. Odpověď aplikace je předána zpět do služby IIS prostřednictvím serveru HTTP služby IIS. Služba IIS odešle odpověď klientovi, který požadavek inicioval.
+Poté, co server HTTP služby IIS požadavek zpracuje, je požadavek vložen do kanálu middleware ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Odpověď aplikace se předává zpět službě IIS prostřednictvím serveru IIS HTTP. Služba IIS odešle odpověď klientovi, který žádost inicioval.
 
-Hostování v procesu je přihlášení pro stávající aplikace, ale [dotnet nové](/dotnet/core/tools/dotnet-new) šablony výchozí v procesu hostování modelu pro všechny scénáře služby IIS a IIS Express.
+Vnitroprocesové hostování v rámci procesu je výslovný souhlas pro existující aplikace, ale [dotnet nové](/dotnet/core/tools/dotnet-new) šablony jsou výchozí pro všechny scénáře hostování v rámci procesu pro všechny služby IIS a IIS Express.
 
-`CreateDefaultBuilder`přidá <xref:Microsoft.AspNetCore.Hosting.Server.IServer> instanci <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> voláním metody pro spuštění [coreclru](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*w3wp.exe* nebo *iisexpress.exe*). Testy výkonu ukazují, že hostování aplikace .NET Core v procesu přináší výrazně vyšší propustnost požadavků ve srovnání s hostováním aplikací mimo proces a proxy požadavků na server [Kestrel.](xref:fundamentals/servers/kestrel)
+`CreateDefaultBuilder`<xref:Microsoft.AspNetCore.Hosting.Server.IServer> přidá instanci <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> voláním metody pro spuštění [CoreCLR](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*W3wp. exe* nebo *IISExpress. exe*). Testy výkonu označují, že hostování aplikace .NET Core v rámci procesu přináší výrazně vyšší propustnost žádostí v porovnání s hostováním aplikací mimo proces a požadavky na proxy serveru na [Kestrel](xref:fundamentals/servers/kestrel) Server.
 
 > [!NOTE]
-> Aplikace publikované jako jeden soubor spustitelný soubor nelze načíst v procesu hostování modelu.
+> Aplikace publikované jako spustitelný soubor s jedním souborem nejde načíst pomocí modelu hostování v rámci procesu.
 
 ### <a name="out-of-process-hosting-model"></a>Model hostování mimo proces
 
-Vzhledem k tomu, že aplikace ASP.NET Core běží v procesu odděleném od pracovního procesu služby IIS, zpracovává ASP.NET core module správu procesů. Modul spustí proces pro aplikaci ASP.NET Core při příchodu prvního požadavku a restartuje aplikaci, pokud se vypne nebo dojde k chybě. Toto je v podstatě stejné chování jako u aplikací, které běží v procesu, které jsou spravovány [službou aktivace procesu systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
+Vzhledem k tomu, že ASP.NET Core aplikace běží v procesu odděleném od pracovního procesu služby IIS, modul ASP.NET Core zpracovává správu procesů. Modul spustí proces pro aplikaci ASP.NET Core, když první požadavek dorazí a restartuje aplikaci, pokud se ukončí nebo dojde k chybě. To je v podstatě stejné chování jako u aplikací, které běží v procesu, které jsou spravovány službou was [(Windows Process Activation Service)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
-Následující diagram znázorňuje vztah mezi iis, ASP.NET základní modul a aplikace hostované mimo proces:
+Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Core a aplikací hostovanou mimo proces:
 
-![ASP.NET základní modul ve scénáři mimoproceshostingového hostingu](index/_static/ancm-outofprocess.png)
+![ASP.NET Core modul ve scénáři hostování mimo proces](index/_static/ancm-outofprocess.png)
 
-Požadavky dorazí z webu do ovladače HTTP.sys v režimu jádra. Řidič směruje požadavky do služby IIS na nakonfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky Kestrel na náhodný port pro aplikaci, která není port 80 nebo 443.
+Požadavky přicházející z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
 
-Modul určuje port prostřednictvím proměnné prostředí při <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> spuštění a rozšíření konfiguruje server pro naslouchání . `http://localhost:{PORT}` Jsou prováděny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání https, takže požadavky jsou předávány přes HTTP i v případě, že přijaté službou IIS přes protokol HTTPS.
+Modul Určuje port přes proměnnou prostředí při spuštění a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> rozšíření nakonfiguruje server tak, aby naslouchal. `http://localhost:{PORT}` Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS, takže požadavky se předávají přes protokol HTTP i v případě, že je služba IIS prostřednictvím protokolu HTTPS přijímá.
 
-Poté, co Kestrel vyzvedne požadavek z modulu, je požadavek posunut do kanálu ASP.NET middleware. Middleware kanálu zpracovává požadavek a předá `HttpContext` jej jako instanci logiky aplikace. Middleware přidané integrací služby IIS aktualizuje schéma, vzdálenou IP adresu a pathbase tak, aby odpovídaly předání požadavku ke společnosti Kestrel. Odpověď aplikace je předána zpět do služby IIS, která ji odešle zpět do klienta HTTP, který inicioval požadavek.
+Po Kestrel žádosti z modulu se požadavek odešle do kanálu middlewaru ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Middleware přidaný integrací služby IIS: aktualizace schématu, vzdálené IP adresy a pathbase pro přesměrování požadavku do Kestrel. Odpověď aplikace se předává zpátky do služby IIS, která ji přenáší zpátky do klienta HTTP, který žádost inicioval.
 
-Pokyny ke konfiguraci ASP.NET <xref:host-and-deploy/aspnet-core-module>core modulem naleznete v tématu .
+Pokyny ke konfiguraci ASP.NET Core modulu najdete v <xref:host-and-deploy/aspnet-core-module>tématu.
 
-Další informace o hostování najdete [v tématu Host in ASP.NET Core](xref:fundamentals/index#host).
+Další informace o hostování najdete v tématu [hostitel v ASP.NET Core](xref:fundamentals/index#host).
 
 ## <a name="application-configuration"></a>Konfigurace aplikací
 
-### <a name="enable-the-iisintegration-components"></a>Povolení součástí Integrace iIS
+### <a name="enable-the-iisintegration-components"></a>Povolit komponenty IISIntegration
 
-Při vytváření hostitele `CreateHostBuilder` v *(Program.cs*) volání <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> umožňující integraci iis:
+Při sestavování hostitele `CreateHostBuilder` v (*program.cs*) zavolejte <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> na Povolit integraci služby IIS:
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -116,13 +122,13 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         ...
 ```
 
-Další informace `CreateDefaultBuilder`naleznete <xref:fundamentals/host/generic-host#default-builder-settings>v tématu .
+Další informace o `CreateDefaultBuilder`naleznete v tématu <xref:fundamentals/host/generic-host#default-builder-settings>.
 
-### <a name="iis-options"></a>Možnosti iis
+### <a name="iis-options"></a>Možnosti služby IIS
 
 **Model hostování v procesu**
 
-Chcete-li konfigurovat možnosti serveru IIS, zahrňte konfiguraci služby v <xref:Microsoft.AspNetCore.Builder.IISServerOptions> aplikaci <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>. Následující příklad zakáže automatické ověřování:
+Pokud chcete nakonfigurovat možnosti serveru IIS, zahrňte do nástroje <xref:Microsoft.AspNetCore.Builder.IISServerOptions> konfiguraci <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>služby pro. Následující příklad zakáže AutomaticAuthentication:
 
 ```csharp
 services.Configure<IISServerOptions>(options => 
@@ -133,14 +139,14 @@ services.Configure<IISServerOptions>(options =>
 
 | Možnost                         | Výchozí | Nastavení |
 | ------------------------------ | :-----: | ------- |
-| `AutomaticAuthentication`      | `true`  | Pokud `true`server IIS `HttpContext.User` nastaví ověřené ověřování [systému Windows](xref:security/authentication/windowsauth). Pokud `false`server poskytuje identitu pouze `HttpContext.User` pro výzvy a reaguje na `AuthenticationScheme`ně, pokud o to výslovně požádá . Aby bylo možné službu `AutomaticAuthentication` IIS fungovat, musí být ve službě IIS povoleno ověřování systému Windows. Další informace naleznete v tématu [Ověřování systému Windows](xref:security/authentication/windowsauth). |
-| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazované jméno zobrazené uživatelům na přihlašovacích stránkách. |
-| `AllowSynchronousIO`           | `false` | Zda synchronní V/O je `HttpContext.Request` povoleno `HttpContext.Response`pro a . |
-| `MaxRequestBodySize`           | `30000000`  | Získá nebo nastaví maximální velikost `HttpRequest`těla požadavku pro . Všimněte si, že `maxAllowedContentLength` iis sám má `MaxRequestBodySize` limit, `IISServerOptions`který bude zpracován před soubor v . Změna `MaxRequestBodySize` nebude mít vliv `maxAllowedContentLength`na . Chcete-li zvýšit `maxAllowedContentLength`, přidejte položku `maxAllowedContentLength` do *web.config* nastavit na vyšší hodnotu. Další podrobnosti naleznete v [tématu Konfigurace](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/#configuration). |
+| `AutomaticAuthentication`      | `true`  | Pokud `true`server IIS nastaví `HttpContext.User` ověřený [ověřováním systému Windows](xref:security/authentication/windowsauth). Pokud `false`Server poskytuje pouze identitu pro `HttpContext.User` a reaguje na výzvy, pokud je `AuthenticationScheme`explicitně vyžádala. `AutomaticAuthentication` Aby mohla služba fungovat, musí být ve službě IIS povolená možnost ověřování systému Windows. Další informace najdete v tématu [ověřování systému Windows](xref:security/authentication/windowsauth). |
+| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se zobrazí uživatelům na přihlašovacích stránkách. |
+| `AllowSynchronousIO`           | `false` | Zda je povolena synchronní I/O pro `HttpContext.Request` a. `HttpContext.Response` |
+| `MaxRequestBodySize`           | `30000000`  | Získá nebo nastaví velikost textu maximálního požadavku pro `HttpRequest`. Všimněte si, že samotná služba `maxAllowedContentLength` IIS má limit, který bude `MaxRequestBodySize` zpracován před nastavením `IISServerOptions`v. `MaxRequestBodySize` Změna neovlivní `maxAllowedContentLength`. Chcete- `maxAllowedContentLength`li zvýšit, přidejte položku do *souboru Web. config* a `maxAllowedContentLength` nastavte ji na vyšší hodnotu. Další podrobnosti najdete v tématu [Konfigurace](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/#configuration). |
 
 **Model hostování mimo proces**
 
-Chcete-li konfigurovat možnosti služby <xref:Microsoft.AspNetCore.Builder.IISOptions> <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>IIS, zahrňte konfiguraci služby v aplikaci . Následující příklad zabrání aplikaci v naplnění `HttpContext.Connection.ClientCertificate`:
+Pokud chcete nakonfigurovat možnosti služby IIS, zahrňte do <xref:Microsoft.AspNetCore.Builder.IISOptions> nástroje <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>konfiguraci služby pro. Následující příklad zabrání aplikaci v naplnění `HttpContext.Connection.ClientCertificate`:
 
 ```csharp
 services.Configure<IISOptions>(options => 
@@ -151,29 +157,29 @@ services.Configure<IISOptions>(options =>
 
 | Možnost                         | Výchozí | Nastavení |
 | ------------------------------ | :-----: | ------- |
-| `AutomaticAuthentication`      | `true`  | Pokud `true` [middleware integrace služby IIS](#enable-the-iisintegration-components) nastaví ověřené ověřování systému `HttpContext.User` [Windows](xref:security/authentication/windowsauth). Pokud `false`middleware poskytuje identitu `HttpContext.User` a reaguje na problémy pouze na `AuthenticationScheme`žádost . Aby bylo možné službu `AutomaticAuthentication` IIS fungovat, musí být ve službě IIS povoleno ověřování systému Windows. Další informace naleznete v tématu [Ověřování systému Windows.](xref:security/authentication/windowsauth) |
-| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazované jméno zobrazené uživatelům na přihlašovacích stránkách. |
-| `ForwardClientCertificate`     | `true`  | Pokud `true` a `MS-ASPNETCORE-CLIENTCERT` hlavička požadavku `HttpContext.Connection.ClientCertificate` je k dispozici, je naplněn. |
+| `AutomaticAuthentication`      | `true`  | Pokud `true` [Služba IIS Integration middleware](#enable-the-iisintegration-components) nastaví `HttpContext.User` ověření [ověřováním systému Windows](xref:security/authentication/windowsauth). V `false`případě, middleware poskytuje pouze identitu pro `HttpContext.User` a reaguje na výzvy, pokud je `AuthenticationScheme`explicitně vyžádala. `AutomaticAuthentication` Aby mohla služba fungovat, musí být ve službě IIS povolená možnost ověřování systému Windows. Další informace najdete v tématu [ověřování systému Windows](xref:security/authentication/windowsauth) . |
+| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se zobrazí uživatelům na přihlašovacích stránkách. |
+| `ForwardClientCertificate`     | `true`  | Pokud `true` je k `MS-ASPNETCORE-CLIENTCERT` dispozici hlavička žádosti, `HttpContext.Connection.ClientCertificate` je naplněna hodnota. |
 
-### <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a vyrovnávání zatížení
+### <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
 
-[Middleware integrace služby IIS](#enable-the-iisintegration-components), který konfiguruje middleware předávaných záhlaví a ASP.NET základní modul, jsou nakonfigurovány tak, aby předávaly schéma (HTTP/HTTPS) a vzdálenou adresu IP, ze které požadavek pochází. Další konfigurace může být vyžadována pro aplikace hostované za dalšími proxy servery a nástroji pro vyrovnávání zatížení. Další informace naleznete v [tématu Configure ASP.NET Core to work with proxy servers and load balancers](xref:host-and-deploy/proxy-load-balancer).
+[Služba IIS Integration middleware](#enable-the-iisintegration-components), která konfiguruje middleware předávaných hlaviček, a modul ASP.NET Core je nakonfigurován tak, aby přenesl schéma (http/https) a vzdálenou IP adresu, kam pochází požadavek. Pro aplikace hostované za dalšími proxy servery a nástroji pro vyrovnávání zatížení může být vyžadována další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-### <a name="webconfig-file"></a>soubor web.config
+### <a name="webconfig-file"></a>soubor Web. config
 
-Soubor *web.config* konfiguruje [základní modul ASP.NET](xref:host-and-deploy/aspnet-core-module). Při publikování projektu je vytváření, transformace a publikování souboru *web.config* zpracováno cílem MSBuild (`_TransformWebConfig`). Tento cíl je k dispozici v`Microsoft.NET.Sdk.Web`cílech sady Web SDK ( ). Sada SDK je nastavena v horní části souboru projektu:
+Soubor *Web. config* konfiguruje [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Vytváření, transformace a publikování souboru *Web. config* je zpracováno nástrojem MSBuild cíl (`_TransformWebConfig`) při publikování projektu. Tento cíl je k dispozici v cíle webové sady`Microsoft.NET.Sdk.Web`SDK (). Sada SDK je nastavena v horní části souboru projektu:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
 ```
 
-Pokud soubor *web.config* není v projektu přítomen, je soubor vytvořen se správnou *processPath* a *argumenty* pro konfiguraci ASP.NET základnímodul a přesunutna do [publikovaného výstupu](xref:host-and-deploy/directory-structure).
+Pokud soubor *Web. config* není v projektu přítomen, je vytvořen soubor se správným *processPath* a *argumenty* pro konfiguraci modulu ASP.NET Core a přesunutí do [publikovaného výstupu](xref:host-and-deploy/directory-structure).
 
-Pokud *web.config* soubor je přítomen v projektu, soubor je transformován se správným *processPath* a *argumenty* pro konfiguraci ASP.NET core modul a přesunuta do publikovaného výstupu. Transformace nezmění nastavení konfigurace služby IIS v souboru.
+Pokud je soubor *Web. config* přítomen v projektu, soubor je transformován se správným *processPath* a *argumenty* pro konfiguraci modulu ASP.NET Core a přesunutí do publikovaného výstupu. Transformace nemění nastavení konfigurace služby IIS v souboru.
 
-Soubor *web.config* může poskytovat další nastavení konfigurace služby IIS, která řídí aktivní moduly služby IIS. Informace o modulech služby IIS, které jsou schopné zpracovávat požadavky pomocí aplikací ASP.NET Core, naleznete v tématu [modulů služby IIS.](xref:host-and-deploy/iis/modules)
+Soubor *Web. config* může poskytovat další nastavení konfigurace služby IIS, která ovládají aktivní moduly IIS. Informace o modulech služby IIS, které jsou schopné zpracovávat požadavky s ASP.NET Core aplikacemi, najdete v tématu [IIS modules](xref:host-and-deploy/iis/modules) .
 
-Chcete-li zabránit webové sady SDK v transformaci souboru *web.config,* použijte vlastnost ** \<IsTransformWebConfigDisabled>** v souboru projektu:
+Chcete-li webové sadě SDK zabránit ve transformaci souboru *Web. config* , použijte vlastnost ** \<IsTransformWebConfigDisabled>** v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -181,111 +187,111 @@ Chcete-li zabránit webové sady SDK v transformaci souboru *web.config,* použi
 </PropertyGroup>
 ```
 
-Při zakázání webové sady SDK z transformace souboru *processPath* a argumenty by měly být ručně *nastaveny* vývojářem. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
+Při zakazování webové sady SDK z transformace souboru by měl vývojář *processPath* a *argumenty* ručně nastavit. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
-### <a name="webconfig-file-location"></a>umístění souboru web.config
+### <a name="webconfig-file-location"></a>umístění souboru Web. config
 
-Aby bylo možné správně nastavit [ASP.NET core modul,](xref:host-and-deploy/aspnet-core-module) musí být soubor *web.config* přítomen na [cestě kořenového obsahu](xref:fundamentals/index#content-root) (obvykle základní cesta aplikace) nasazené aplikace. Jedná se o stejné umístění jako fyzická cesta k webu poskytnutá službu IIS. Soubor *web.config* je vyžadován v kořenovém adresáři aplikace, aby bylo možné publikovat více aplikací pomocí nasazení webu.
+Aby bylo možné správně nastavit [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) , musí být soubor *Web. config* přítomen v [kořenové cestě obsahu](xref:fundamentals/index#content-root) (obvykle v základní cestě aplikace) nasazené aplikace. Toto je stejné umístění jako fyzická cesta k webu poskytované službě IIS. Soubor *Web. config* je vyžadován v kořenu aplikace, aby bylo možné publikovat více aplikací pomocí nasazení webu.
 
-Na fyzické cestě aplikace existují citlivé soubory, například * \<assembly>.runtimeconfig.json*, * \<assembly>.xml* (komentáře xml documentation) a * \<assembly>.deps.json*. Pokud je soubor *web.config* přítomen a web se spustí normálně, služby IIS tyto citlivé soubory neobsluhuje, pokud jsou požadovány. Pokud soubor *web.config* chybí, je nesprávně pojmenován nebo jej nelze nakonfigurovat pro normální spuštění, může služba IIS veřejně sloužit citlivým souborům.
+Citlivé soubory existují na fyzické cestě aplikace, jako je například * \<Assembly>. runtimeconfig. JSON*, * \<Assembly>. XML* (dokumentační komentáře XML) a * \<Assembly>. DEPS. JSON*. Když je přítomen soubor *Web. config* a lokalita se spouští normálně, služba IIS tyto citlivé soubory po vyžádání neobsluhuje. Pokud soubor *Web. config* chybí, je nesprávně pojmenovaný nebo nemůže nakonfigurovat lokalitu pro normální spuštění, služba IIS může obsluhovat citlivé soubory veřejně.
 
-**Soubor *web.config* musí být v nasazení vždy přítomen, správně pojmenovaný a musí být schopen nakonfigurovat web pro normální spuštění. Nikdy neodstraňujte soubor *web.config* z produkčního nasazení.**
+**Soubor *Web. config* musí být současně přítomen v nasazení, správně pojmenován a může nakonfigurovat lokalitu pro normální spuštění. Nikdy neodstraňujte soubor *Web. config* z produkčního nasazení.**
 
 ### <a name="transform-webconfig"></a>Transformace souboru web.config
 
-Pokud potřebujete transformovat *web.config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si viz <xref:host-and-deploy/iis/transform-webconfig>.
+Pokud potřebujete transformovat *Web. config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig>.
 
 ## <a name="iis-configuration"></a>Konfigurace služby IIS
 
 **Operační systémy Windows Server**
 
-Povolte roli serveru **webového serveru (IIS)** a vytvořte služby rolí.
+Povolte roli serveru **webový server (IIS)** a vytvořte služby rolí.
 
-1. Použijte Průvodce **přidáním rolí a funkcí** z nabídky **Spravovat** nebo odkaz ve **Správci serveru**. V kroku **Role serveru** zaškrtněte políčko **U webového serveru (IIS).**
+1. Použijte průvodce **přidáním rolí a funkcí** z nabídky **Správa** nebo odkazu v **Správce serveru**. V kroku **role serveru** zaškrtněte políčko **webový server (IIS)**.
 
-   ![Role služby IIS webového serveru je vybrána v kroku Vybrat role serveru.](index/_static/server-roles-ws2016.png)
+   ![V kroku vybrat role serveru je vybraná role Webový server IIS.](index/_static/server-roles-ws2016.png)
 
-1. Po kroku **Funkce** se krok **služby role** načte pro webový server (IIS). Vyberte požadované služby rolí služby IIS nebo přijměte výchozí služby rolí, které jsou k dispozici.
+1. Po kroku **funkce** se krok **služby rolí** načte pro webový server (IIS). Vyberte požadované služby role IIS nebo přijměte výchozí poskytnuté služby rolí.
 
-   ![Výchozí služby rolí jsou vybrány v kroku Vybrat služby rolí.](index/_static/role-services-ws2016.png)
+   ![Výchozí služby rolí se vyberou v kroku vybrat služby rolí.](index/_static/role-services-ws2016.png)
 
    **Ověřování systému Windows (volitelné)**  
-   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**Zabezpečení** **webového serveru** > . Vyberte funkci **Ověřování systému Windows.** Další informace naleznete v [tématech Ověřování \<systému Windows windowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a Konfigurace ověřování [systému Windows](xref:security/authentication/windowsauth).
+   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**zabezpečení** **webového serveru** > . Vyberte funkci **ověřování systému Windows** . Další informace najdete v tématu [ověřování \<systému Windows WindowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
    **WebSockets (volitelné)**  
-   WebSockets je podporován ASP.NET jádrem 1.1 nebo novějším. Chcete-li povolit rozhraní WebSockets, rozbalte následující uzly:**Vývoj aplikací webového** **serveru** > . Vyberte funkci **WebSocket Protocol.** Další informace naleznete v tématu [WebSockets](xref:fundamentals/websockets).
+   Objekty WebSocket jsou podporované ASP.NET Core 1,1 nebo novějším. Chcete-li povolit objekty WebSockets, rozbalte následující uzly:**vývoj aplikací** **webového serveru** > . Vyberte funkci **protokolu WebSocket** . Další informace najdete v tématu [objekty WebSockets](xref:fundamentals/websockets).
 
-1. Pokračujte v **potvrzovacím** kroku a nainstalujte roli a služby webového serveru. Po instalaci role **webového serveru (IIS)** není restartování serveru nebo služby IIS vyžadováno.
+1. Chcete-li nainstalovat roli a služby webového serveru, postupujte podle kroků pro **potvrzení** . Po instalaci role **webový server (IIS)** není nutné restartovat server nebo službu IIS.
 
 **Desktopové operační systémy Windows**
 
-Povolte **konzolu pro správu služby IIS** a **služby World Wide Web Services**.
+Povolte **konzolu pro správu služby IIS** a **webové služby**.
 
-1. Přejděte na **Ovládací panely** > **Programy** > **a funkce** > **Zapněte nebo vypněte funkce systému Windows** (levá strana obrazovky).
+1. Přejděte na **Ovládací panely** > **programy** > programy **a funkce** > **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
 
-1. Otevřete uzel **Internetové informační služby.** Otevřete uzel **Nástroje pro správu webu.**
+1. Otevřete uzel **Internetová informační služba** . Otevřete uzel **Nástroje webové správy** .
 
-1. Zaškrtněte políčko **U konzole pro správu služby IIS**.
+1. Zaškrtněte políčko pro **konzolu pro správu služby IIS**.
 
-1. Zaškrtněte políčko **U služeb World Wide Web Services**.
+1. Zaškrtněte políčko u **webových služeb**.
 
-1. Přijměte výchozí funkce **pro služby World Wide Web Services** nebo upravte funkce služby IIS.
+1. Přijměte výchozí funkce pro **webové služby** nebo upravte funkce služby IIS.
 
    **Ověřování systému Windows (volitelné)**  
-   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly: **World Wide Web Services** > **Security**. Vyberte funkci **Ověřování systému Windows.** Další informace naleznete v [tématech Ověřování \<systému Windows windowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a Konfigurace ověřování [systému Windows](xref:security/authentication/windowsauth).
+   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**zabezpečení** **webové služby** > . Vyberte funkci **ověřování systému Windows** . Další informace najdete v tématu [ověřování \<systému Windows WindowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
    **WebSockets (volitelné)**  
-   WebSockets je podporován ASP.NET jádrem 1.1 nebo novějším. Chcete-li povolit rozhraní WebSockets, rozbalte následující uzly: Funkce**vývoje aplikací**pro **webové služby** > . Vyberte funkci **WebSocket Protocol.** Další informace naleznete v tématu [WebSockets](xref:fundamentals/websockets).
+   Objekty WebSocket jsou podporované ASP.NET Core 1,1 nebo novějším. Chcete-li povolit objekty WebSockets, rozbalte následující uzly:**funkce pro vývoj aplikací**v **rámci webové služby** > . Vyberte funkci **protokolu WebSocket** . Další informace najdete v tématu [objekty WebSockets](xref:fundamentals/websockets).
 
-1. Pokud instalace služby IIS vyžaduje restartování, restartujte systém.
+1. Pokud instalace služby IIS vyžaduje restart, restartujte systém.
 
-![V funkcích systému Windows jsou vybrány konzoly IIS Management Console a služby World Wide Web Services.](index/_static/windows-features-win10.png)
+![V rámci funkcí systému Windows jsou vybrána Konzola pro správu služby IIS a webové služby.](index/_static/windows-features-win10.png)
 
-## <a name="install-the-net-core-hosting-bundle"></a>Instalace balíčku hostingu jádra .NET
+## <a name="install-the-net-core-hosting-bundle"></a>Instalace hostující sady .NET Core
 
-Nainstalujte *balíček .NET Core Hosting do* hostitelského systému. Balíček nainstaluje modul .NET Core Runtime, knihovnu .NET Core Library a [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module). Modul umožňuje ASP.NET aplikace Core běžet za službou IIS.
+Nainstalujte *hostující sadu .NET Core* do hostitelského systému. Svazek nainstaluje modul runtime .NET Core, knihovnu .NET Core a [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Modul umožňuje, aby aplikace ASP.NET Core běžely za službou IIS.
 
 > [!IMPORTANT]
-> Pokud je sada Hosting Bundle nainstalována před službou IIS, musí být instalace balíčku opravena. Po instalaci služby IIS znovu spusťte instalační program sady Hosting Bundle.
+> Pokud je hostující sada nainstalována před službou IIS, je nutné opravit instalaci sady prostředků. Spusťte znovu instalační program hostující sady po instalaci služby IIS.
 >
-> Pokud je sada Hosting Bundle nainstalována po instalaci 64bitové (x64) verze rozhraní .NET Core, mohou se zdát, že sady SDK chybí ([byly zjištěny sady SDK .Net Core .](xref:test/troubleshoot#no-net-core-sdks-were-detected) Chcete-li problém <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>vyřešit, naleznete v tématu .
+> Pokud se hostující sada nainstaluje po instalaci 64 (x64) verze .NET Core, můžou se zdát, že sady SDK chybí ([nezjistily se žádné sady .NET Core SDK](xref:test/troubleshoot#no-net-core-sdks-were-detected)). Chcete-li tento problém vyřešit <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>, přečtěte si téma.
 
-### <a name="direct-download-current-version"></a>Přímé stahování (aktuální verze)
+### <a name="direct-download-current-version"></a>Přímé stažení (aktuální verze)
 
-Stáhněte si instalační program pomocí následujícího odkazu:
+Stáhněte instalační program pomocí následujícího odkazu:
 
-[Aktuální instalační program .NET Core Hosting Bundle (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
+[Aktuální instalační program sady hostujících sad .NET Core (přímé stahování)](https://dotnet.microsoft.com/permalink/dotnetcore-current-windows-runtime-bundle-installer)
 
-### <a name="earlier-versions-of-the-installer"></a>Dřívější verze instalačního programu
+### <a name="earlier-versions-of-the-installer"></a>Starší verze instalačního programu
 
 Chcete-li získat starší verzi instalačního programu:
 
-1. Přejděte na stránku [Stáhnout jádro rozhraní .NET.](https://dotnet.microsoft.com/download/dotnet-core)
+1. Přejděte na stránku [stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core) .
 1. Vyberte požadovanou verzi .NET Core.
-1. Ve sloupci **Spustit aplikace – runtime** najděte požadovaný řádek požadované verze runtime .NET Core.
-1. Stáhněte si instalační program pomocí odkazu **Hosting Bundle.**
+1. Ve sloupci **Spustit aplikace – modul runtime** vyhledejte řádek požadované verze modulu runtime .NET Core.
+1. Stáhněte instalační program pomocí odkazu **hostující sada** .
 
 > [!WARNING]
-> Některé instalační programy obsahují verze, které dosáhly konce životnosti (EOL) a které již nejsou podporovány společností Microsoft. Další informace naleznete v [zásadách podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
+> Některé instalační programy obsahují verze vydaných verzí, které dosáhly svého konce životnosti (konce řádku) a které už nejsou podporovány společností Microsoft. Další informace najdete v tématu [zásady podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
 
-### <a name="install-the-hosting-bundle"></a>Nainstalujte balíček hostingu
+### <a name="install-the-hosting-bundle"></a>Instalace hostitelského balíčku
 
 1. Spusťte instalační program na serveru. Při spuštění instalačního programu z příkazového prostředí správce jsou k dispozici následující parametry:
 
-   * `OPT_NO_ANCM=1`&ndash; Přeskočte instalaci ASP.NET základního modulu.
-   * `OPT_NO_RUNTIME=1`&ndash; Přeskočte instalaci runtime jádra .NET. Používá se v případě, že server hostuje pouze [samostatná nasazení (SCD).](/dotnet/core/deploying/#self-contained-deployments-scd)
-   * `OPT_NO_SHAREDFX=1`&ndash; Přeskočit instalaci ASP.NET sdíleného rozhraní (ASP.NET runtime). Používá se v případě, že server hostuje pouze [samostatná nasazení (SCD).](/dotnet/core/deploying/#self-contained-deployments-scd)
-   * `OPT_NO_X86=1`&ndash; Přeskočit instalaci za běhu x86. Tento parametr použijte, pokud víte, že nebudete hostovat 32bitové aplikace. Pokud existuje nějaká šance, že budete v budoucnu hostovat 32bitové i 64bitové aplikace, nepoužívejte tento parametr a nainstalujte oba runtimes.
-   * `OPT_NO_SHARED_CONFIG_CHECK=1`&ndash; Zakažte kontrolu použití sdílené konfigurace služby IIS, pokud je sdílená konfigurace *(applicationHost.config)* ve stejném počítači jako instalace služby IIS. *K dispozici pouze pro ASP.NET instalačních programů hostingu Bundler nebo novějším.* Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>.
-1. Restartujte systém nebo proveďte následující příkazy v příkazovém prostředí:
+   * `OPT_NO_ANCM=1`&ndash; Přeskočte instalaci modulu ASP.NET Core.
+   * `OPT_NO_RUNTIME=1`&ndash; Přeskočte nainstalovat modul runtime .NET Core. Používá se, když Server hostuje jenom [samostatná nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+   * `OPT_NO_SHAREDFX=1`&ndash; Přeskočte na instalaci sdíleného rozhraní ASP.NET (ASP.NET Runtime). Používá se, když Server hostuje jenom [samostatná nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+   * `OPT_NO_X86=1`&ndash; Přeskočte instalaci běhových prostředí x86. Tento parametr použijte, pokud víte, že nebudete hostovat 32 aplikace. Pokud existuje možnost, že v budoucnosti budete hostovat jak 32, tak i 64 aplikace, tento parametr nepoužívejte a nainstalujete oba moduly runtime.
+   * `OPT_NO_SHARED_CONFIG_CHECK=1`&ndash; Pokud je sdílená konfigurace (*ApplicationHost. config*) ve stejném počítači jako instalace služby IIS, zakažte kontrolu použití sdílené konfigurace služby IIS. *K dispozici jenom pro ASP.NET Core 2,2 nebo novější instalační programy hostujících prostředků.* Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>.
+1. Restartujte systém nebo v příkazovém prostředí spusťte následující příkazy:
 
    ```console
    net stop was /y
    net start w3svc
    ```
-   Restartování služby IIS vyvolá změnu systémové cesty, což je proměnná prostředí provedená instalačním programem.
+   Restartování služby IIS zabere změny v systémové cestě, což je proměnná prostředí vytvořená instalačním programem.
 
-ASP.NET Core nepřijímá chování pro převrácení pro verze oprav sdílených rámců. Po upgradu sdíleného frameworku instalací nového hostingového balíčku restartujte systém nebo spusťte následující příkazy v příkazovém prostředí:
+ASP.NET Core nesplňuje chování při přeposílání pro vydání oprav pro balíčky sdílených rozhraní. Po upgradu sdíleného rozhraní instalací nové hostitelské sady restartujte systém nebo v příkazovém prostředí spusťte následující příkazy:
 
 ```console
 net stop was /y
@@ -293,81 +299,81 @@ net start w3svc
 ```
 
 > [!NOTE]
-> Informace o sdílené konfiguraci služby IIS naleznete [v tématu ASP.NET Core Module se sdílenou konfigurací služby IIS](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration).
+> Informace o sdílené konfiguraci služby IIS najdete v tématu [modul ASP.NET Core se sdílenou konfigurací služby IIS](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration).
 
-## <a name="install-web-deploy-when-publishing-with-visual-studio"></a>Instalace nasazení webu při publikování pomocí sady Visual Studio
+## <a name="install-web-deploy-when-publishing-with-visual-studio"></a>Při publikování v aplikaci Visual Studio nainstalovat Nasazení webu
 
-Při nasazování aplikací na servery s [nasazením webu](/iis/install/installing-publishing-technologies/installing-and-configuring-web-deploy-on-iis-80-or-later)nainstalujte na server nejnovější verzi nasazení webu. Chcete-li nainstalovat nasazení webu, použijte [Instalační službu webové platformy (WebPI)](https://www.microsoft.com/web/downloads/platform.aspx) nebo získejte instalační program přímo ze [služby Stažení softwaru](https://www.microsoft.com/download/details.aspx?id=43717). Upřednostňovanou metodou je použití webpi. WebPI nabízí samostatné nastavení a konfiguraci pro poskytovatele hostingu.
+Při nasazování aplikací na servery s [nasazení webu](/iis/install/installing-publishing-technologies/installing-and-configuring-web-deploy-on-iis-80-or-later)nainstalujte na server nejnovější verzi nasazení webu. Chcete-li nainstalovat Nasazení webu, použijte [instalační program webové platformy (WebPI)](https://www.microsoft.com/web/downloads/platform.aspx) nebo si instalační program Získejte přímo z webu [služby Stažení softwaru](https://www.microsoft.com/download/details.aspx?id=43717). Upřednostňovanou metodou je použití WebPI. WebPI nabízí samostatnou instalaci a konfiguraci pro poskytovatele hostingu.
 
-## <a name="create-the-iis-site"></a>Vytvoření webu iis
+## <a name="create-the-iis-site"></a>Vytvoření webu služby IIS
 
-1. V hostitelském systému vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je cesta ke složce k dispozici službu IIS jako fyzická cesta k aplikaci. Další informace o složce nasazení aplikace a <xref:host-and-deploy/directory-structure>rozložení souborů naleznete v tématu .
+1. V hostitelském systému vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je jako fyzická cesta k aplikaci služba IIS poskytována jako cesta k této složce. Další informace o složce nasazení aplikace a rozložení souborů naleznete v tématu <xref:host-and-deploy/directory-structure>.
 
-1. Ve Správci služby IIS otevřete uzel serveru v panelu **Připojení.** Klikněte pravým tlačítkem myši na složku **Weby.** V kontextové nabídce vyberte **Přidat web.**
+1. Ve Správci služby IIS otevřete uzel serveru na panelu **připojení** . Klikněte pravým tlačítkem na složku **weby** . V místní nabídce vyberte **Přidat web** .
 
-1. Zadejte **název webu** a nastavte **fyzickou cestu** ke složce nasazení aplikace. Zadejte konfiguraci **vazby** a vytvořte web výběrem **možnosti OK**:
+1. Zadejte **název lokality** a nastavte **fyzickou cestu** ke složce pro nasazení aplikace. Zadejte konfiguraci **vazby** a vytvořte web výběrem **OK**:
 
-   ![V kroku Přidat web zadejte název webu, fyzickou cestu a název hostitele.](index/_static/add-website-ws2016.png)
+   ![Zadejte název lokality, fyzickou cestu a název hostitele v kroku přidat web.](index/_static/add-website-ws2016.png)
 
    > [!WARNING]
-   > Vazby se zástupnými`http://*:80/` symboly nejvyšší úrovně ( a `http://+:80`) by **neměly** být používány. Vazby se zástupnými symboly nejvyšší úrovně mohou otevřít vaši aplikaci slabá místa zabezpečení. To platí pro silné i slabé zástupné znaky. Používejte explicitní názvy hostitelů místo zástupných znaků. Vazba se zástupnými znaky subdomény (například) nemá toto bezpečnostní riziko, `*.mysub.com` `*.com`pokud řídíte celou nadřazenou doménu (na rozdíl od , která je zranitelná). Viz [rfc7230 sekce-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) pro více informací.
+   > Nelze použít vazby zástupných`http://*:80/` znaků `http://+:80`na nejvyšší **not** úrovni (a). Vazby zástupných znaků nejvyšší úrovně můžou aplikaci otevřít pro slabá místa zabezpečení. To platí pro silné i slabé zástupné znaky. Místo zástupných znaků použijte explicitní názvy hostitelů. Vazba zástupných znaků subdomény ( `*.mysub.com`například) nemá toto bezpečnostní riziko `*.com`, pokud ovládáte celou nadřazenou doménu (na rozdíl od, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
 
-1. Pod uzlovým serverem vyberte **fondy aplikací**.
+1. V uzlu serveru vyberte **fondy aplikací**.
 
-1. Klikněte pravým tlačítkem myši na fond aplikací webu a v kontextové nabídce vyberte **Základní nastavení.**
+1. Klikněte pravým tlačítkem myši na fond aplikací webu a v místní nabídce vyberte **základní nastavení** .
 
-1. V okně **Upravit fond aplikací** nastavte verzi **.NET CLR** na **Žádný spravovaný kód**:
+1. V okně **Upravit fond aplikací** nastavte **verzi .NET CLR** na **bez spravovaného kódu**:
 
-   ![Pro verzi CLR rozhraní .NET nenastavte žádný spravovaný kód.](index/_static/edit-apppool-ws2016.png)
+   ![Pro verzi .NET CLR nenastavte žádný spravovaný kód.](index/_static/edit-apppool-ws2016.png)
 
-    ASP.NET Core běží v samostatném procesu a spravuje runtime. ASP.NET Core nespoléhá na načtení plochy CLR (.NET CLR)&mdash;Core Common Language Runtime (CoreCLR) pro .NET Core je spuštěn pro hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** na **žádný spravovaný kód** je volitelné, ale doporučeno.
+    ASP.NET Core běží v samostatném procesu a spravuje modul runtime. ASP.NET Core nespoléhá na načítání CLR desktopových aplikací (.NET CLR&mdash;), modul CLR (Common Language Runtime) pro .NET Core se spouští k hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** na **žádný spravovaný kód** není volitelné, ale doporučuje se.
 
-1. *ASP.NET jádra 2.2 nebo novějšího:* Pro 64bitové (x64) [samostatné nasazení,](/dotnet/core/deploying/#self-contained-deployments-scd) které používá [model hostování v procesu](#in-process-hosting-model), zakažte fond aplikací pro 32bitové (x86) procesy.
+1. *ASP.NET Core 2,2 nebo novější*: 64 u samostatného [nasazeného nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) (x64), které používá [model hostování v rámci procesu](#in-process-hosting-model), zakažte fond aplikací pro procesy 32 (x86).
 
-   V postranním panelu **Akce** správce služby IIS > **fondy aplikací**vyberte **možnost Nastavit výchozí nastavení fondu aplikací** nebo **Upřesnit nastavení**. Vyhledejte **funkci Povolit 32bitové aplikace** a nastavte hodnotu na . `False` Toto nastavení nemá vliv na aplikace nasazené pro [mimoprocesový hosting](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model).
+   V bočním panelu **Akce** Správce služby IIS > **fondy aplikací**vyberte možnost **nastavit výchozí hodnoty fondu aplikací** nebo **Upřesnit nastavení**. Vyhledejte **možnost povolit 32 – bitové aplikace** a nastavte hodnotu na `False`. Toto nastavení nemá vliv na aplikace nasazené pro [hostování mimo proces](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model).
 
 1. Potvrďte, že identita modelu procesu má správná oprávnění.
 
-   Pokud se výchozí identita fondu aplikací **(identita****procesního modelu** > ) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, zda nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Fond aplikací například vyžaduje přístup pro čtení a zápis do složek, kde aplikace čte a zapisuje soubory.
+   Pokud se výchozí identita fondu aplikací ( > **Identita****modelu procesu**) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
 
-**Konfigurace ověřování systému Windows (volitelná)**  
-Další informace naleznete v [tématu Configure Windows authentication](xref:security/authentication/windowsauth).
+**Konfigurace ověřování systému Windows (volitelné)**  
+Další informace najdete v tématu [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
 ## <a name="deploy-the-app"></a>Nasazení aplikace
 
-Nasaďte aplikaci do složky **Fyzické cesty** služby IIS, která byla vytvořena v části Vytvořit [web služby IIS.](#create-the-iis-site) [Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) je doporučený mechanismus pro nasazení, ale existuje několik možností pro přesunutí aplikace ze složky *publikování* projektu do složky nasazení hostitelského systému.
+Nasaďte aplikaci do složky **fyzické cesty** služby IIS, která byla navázána v části [Vytvoření webu služby IIS](#create-the-iis-site) . [Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) je doporučeným mechanismem pro nasazení, ale existuje několik možností pro přesun aplikace ze složky *publikování* projektu do složky pro nasazení hostitelského systému.
 
-### <a name="web-deploy-with-visual-studio"></a>Nasazení webu pomocí sady Visual Studio
+### <a name="web-deploy-with-visual-studio"></a>Nasazení webu se sadou Visual Studio
 
-Podívejte se na [profily publikování aplikace Visual Studio pro téma nasazení aplikace ASP.NET Core,](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) kde se dozvíte, jak vytvořit profil publikování pro použití s nasazením webu. Pokud poskytovatel hostingu poskytuje profil publikování nebo podporu pro jeho vytvoření, stáhněte si jeho profil a importujte jej pomocí dialogového okna **Publikovat** sady Visual Studio:
+Informace o tom, jak vytvořit profil publikování pro použití s Nasazení webu, najdete v tématu [publikační profily sady Visual Studio pro ASP.NET Core nasazení aplikací](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) . Pokud poskytovatel hostingu poskytuje profil publikování nebo podporu pro jeho vytvoření, Stáhněte si jeho profil a importujte ho pomocí dialogového okna pro **publikování** sady Visual Studio:
 
-![Stránka dialogového okna Publikovat](index/_static/pub-dialog.png)
+![Stránka publikovat dialog](index/_static/pub-dialog.png)
 
 ### <a name="web-deploy-outside-of-visual-studio"></a>Nasazení webu mimo Visual Studio
 
-[Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) lze také použít mimo Visual Studio z příkazového řádku. Další informace naleznete v [tématu Web Deployment Tool](/iis/publish/using-web-deploy/use-the-web-deployment-tool).
+[Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) lze použít také mimo sadu Visual Studio z příkazového řádku. Další informace najdete v tématu [Nástroj pro nasazení webu](/iis/publish/using-web-deploy/use-the-web-deployment-tool).
 
-### <a name="alternatives-to-web-deploy"></a>Alternativy k nasazení webu
+### <a name="alternatives-to-web-deploy"></a>Alternativy k Nasazení webu
 
-Pomocí některé z několika metod přesuňte aplikaci do hostitelského systému, jako je ruční kopírování, [Xcopy](/windows-server/administration/windows-commands/xcopy), [Robocopy](/windows-server/administration/windows-commands/robocopy)nebo [PowerShell](/powershell/).
+K přesunu aplikace do hostitelského systému, jako je ruční kopírování, [xcopy](/windows-server/administration/windows-commands/xcopy), [Robocopy](/windows-server/administration/windows-commands/robocopy)nebo [PowerShell](/powershell/), použijte libovolný z několika způsobů.
 
-Další informace o ASP.NET nasazení jádra do služby IIS naleznete v části [Prostředky nasazení pro správce služby IIS.](#deployment-resources-for-iis-administrators)
+Další informace o nasazení ASP.NET Core do služby IIS najdete v části [prostředky nasazení pro správce služby IIS](#deployment-resources-for-iis-administrators) .
 
-## <a name="browse-the-website"></a>Procházení webu
+## <a name="browse-the-website"></a>Procházet web
 
-Po nasazení aplikace do hostitelského systému požádejte o jeden z veřejných koncových bodů aplikace.
+Po nasazení aplikace do hostitelského systému vytvořte žádost jednomu z veřejných koncových bodů aplikace.
 
-V následujícím příkladu je web vázán na název `www.mysite.com` **hostitele** iis na **portu** `80`. Žádost se podává `http://www.mysite.com`na :
+V následujícím příkladu je lokalita svázána s **názvem hostitele** služby IIS `www.mysite.com` na **portu** `80`. Odeslala se žádost `http://www.mysite.com`:
 
-![Prohlížeč Microsoft Edge načetl úvodní stránku služby IIS.](index/_static/browsewebsite.png)
+![Prohlížeč Microsoft Edge načetl spouštěcí stránku služby IIS.](index/_static/browsewebsite.png)
 
 ## <a name="locked-deployment-files"></a>Uzamčené soubory nasazení
 
-Soubory ve složce nasazení jsou uzamčeny, když je aplikace spuštěná. Uzamčené soubory nelze během nasazení přepsat. Chcete-li uvolnit uzamčené soubory v nasazení, zastavte fond aplikací pomocí **jednoho z** následujících přístupů:
+Soubory ve složce pro nasazení jsou zamčené, když je aplikace spuštěná. Uzamčené soubory nejde během nasazování přepsat. Chcete-li uvolnit uzamčené soubory v nasazení, zastavte fond aplikací pomocí **jednoho** z následujících přístupů:
 
-* Použijte nasazení webu `Microsoft.NET.Sdk.Web` a odkaz v souboru projektu. Soubor *app_offline.htm* je umístěn v kořenovém adresáři webové aplikace. Když je soubor k dispozici, ASP.NET základní modul řádně vypne aplikaci a slouží *souboru app_offline.htm* během nasazení. Další informace naleznete v [odkazu na konfiguraci ASP.NET core modulem](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
-* Ručně zastavit fond aplikací ve Správci služby IIS na serveru.
-* Použití Prostředí PowerShell k přetažení *app_offline.htm* (vyžaduje PowerShell 5 nebo novější):
+* V souboru projektu použijte `Microsoft.NET.Sdk.Web` nasazení webu a odkaz. Soubor *App_offline. htm* se umístí do kořenové složky adresáře webové aplikace. Když je soubor přítomen, modul ASP.NET Core aplikaci korektně ukončí a během nasazování zachová soubor *App_offline. htm* . Další informace najdete v referenčních informacích k [konfiguraci modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
+* Ručně Zastavte fond aplikací ve Správci služby IIS na serveru.
+* Použití PowerShellu k vyřazení *App_offline. htm* (vyžaduje PowerShell 5 nebo novější):
 
   ```powershell
   $pathToApp = 'PATH_TO_APP'
@@ -384,205 +390,205 @@ Soubory ve složce nasazení jsou uzamčeny, když je aplikace spuštěná. Uzam
 
 ## <a name="data-protection"></a>Ochrana dat
 
-Zásobník [ASP.NET Core Data Protection](xref:security/data-protection/introduction) používá několik [middlewares](xref:fundamentals/middleware/index)ASP.NET Core , včetně middlewaru používaného při ověřování. I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, ochrana dat by měla být nakonfigurována pomocí skriptu nasazení nebo v uživatelském kódu, aby se vytvořilo trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurována, klíče jsou uloženy v paměti a po restartování aplikace zahozeny.
+[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru používaného při ověřování. I v případě, že rozhraní API ochrany dat není voláno uživatelským kódem, je třeba nakonfigurovat ochranu dat pomocí skriptu nasazení nebo v uživatelském kódu, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
 
-Pokud je kroužek klíče uložen v paměti při restartování aplikace:
+Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou zrušeny. 
-* Uživatelé se musí znovu přihlásit při dalším požadavku. 
-* Všechna data chráněná kroužkem klíče již nelze dešifrovat. To může zahrnovat [tokeny CSRF](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET základní soubory cookie MVC TempData](xref:fundamentals/app-state#tempdata).
+* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené. 
+* Uživatelé se musí znovu přihlásit na svůj další požadavek. 
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
 
-Chcete-li nakonfigurovat ochranu dat ve službě IIS tak, aby zachycovací byl kroužek klíče, použijte **jeden** z následujících postupů:
+Pokud chcete v rámci služby IIS nakonfigurovat ochranu dat a zachovat přitom klíčového prstence, použijte **některý** z následujících přístupů:
 
 * **Vytvoření klíčů registru ochrany dat**
 
-  Klíče ochrany dat používané ASP.NET aplikace Core jsou uloženy v registru mimo aplikace. Chcete-li zachovat klíče pro danou aplikaci, vytvořte klíče registru pro fond aplikací.
+  Klíče ochrany dat, které používá aplikace ASP.NET Core, jsou uložené v registru externě pro aplikace. Pokud chcete zachovat klíče pro danou aplikaci, vytvořte klíče registru pro fond aplikací.
 
-  Pro samostatné instalace služby IIS mimo webfarmu lze [skript prostředí PowerShell Pro poskytování ochrany dat-AutoGenKeys.ps1](https://github.com/dotnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1) použít pro každý fond aplikací používaný s aplikací ASP.NET Core. Tento skript vytvoří klíč registru v registru HKLM, který je přístupný pouze pro účet pracovního procesu fondu aplikací. Klíče jsou šifrovány v klidovém stavu pomocí dpapi s klíčem pro celý počítač.
+  Pro samostatnou instalaci služby IIS, která není součástí webfarmu, se dá [skript PowerShellu pro ochranu dat provision-AutoGenKeys. ps1](https://github.com/dotnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1) použít pro každý fond aplikací, který se používá v aplikaci ASP.NET Core. Tento skript vytvoří klíč registru v registru HKLM, který je přístupný jenom pro účet pracovního procesu fondu aplikací aplikace. Klíče jsou v klidovém stavu zašifrované pomocí rozhraní DPAPI s klíčem celého počítače.
 
-  Ve scénářích webové farmy lze aplikaci nakonfigurovat tak, aby k ukládání kroužku klíčů pro ochranu dat používala cestu UNC. Ve výchozím nastavení nejsou klíče ochrany dat šifrovány. Ujistěte se, že oprávnění k souborům pro sdílenou síť ovou složku jsou omezena na účet Windows, pod kterým aplikace běží. Certifikát X509 lze použít k ochraně klíčů v klidovém stavu. Zvažte mechanismus, který uživatelům umožní nahrávat certifikáty: Umístěte certifikáty do úložiště důvěryhodných certifikátů uživatele a ujistěte se, že jsou k dispozici na všech počítačích, kde je spuštěna aplikace uživatele. Podrobnosti [najdete v tématu Konfigurace ochrany základních dat ASP.NET.](xref:security/data-protection/configuration/overview)
+  Ve scénářích webové farmy může být aplikace nakonfigurovaná tak, aby používala cestu UNC k uložení svého prstence s klíčem pro ochranu dat. Ve výchozím nastavení nejsou klíče ochrany dat šifrované. Ujistěte se, že oprávnění k souborům pro sdílenou síťovou složku jsou omezená na účet systému Windows, pod kterým je aplikace spuštěná. K ochraně neaktivních klíčů je možné použít certifikát x509. Vezměte v úvahu mechanismus, který umožní uživatelům odeslat certifikáty: Umístěte certifikáty do důvěryhodného úložiště certifikátů uživatele a ujistěte se, že jsou k dispozici na všech počítačích, kde je aplikace uživatele spuštěna. Podrobnosti najdete v tématu [Konfigurace ochrany ASP.NET Core dat](xref:security/data-protection/configuration/overview) .
 
 * **Konfigurace fondu aplikací služby IIS pro načtení profilu uživatele**
 
-  Toto nastavení je v části **Model procesu** v části **Upřesnit nastavení** pro fond aplikací. Nastavte **profil načtení uživatele** na `True`. Pokud je `True`nastavena možnost , jsou klíče uloženy v adresáři profilu uživatele a chráněny pomocí rozhraní DPAPI klíčem specifickým pro uživatelský účet. Klíče jsou uloženy ve složce *%LOCALAPPDATA%/ASP.NET/DataProtection-Keys.*
+  Toto nastavení se nachází v části **model procesu** v části **Rozšířená nastavení** fondu aplikací. Nastavte **načíst profil uživatele** na `True`. Pokud je nastaveno `True`na, klíče jsou uloženy v adresáři profilu uživatele a chráněny pomocí rozhraní DPAPI s klíčem specifickým pro uživatelský účet. Klíče jsou uchovány ve složce *% localappdata%/ASP.NET/DataProtection-Keys* .
 
-  [Atribut setProfileEnvironment](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) fondu aplikací musí být také povolen. Výchozí hodnota `setProfileEnvironment` je `true`. V některých scénářích (například `setProfileEnvironment` operační `false`systém Windows) je nastavena na . Pokud klíče nejsou uloženy v adresáři profilu uživatele podle očekávání:
+  Musí být povolený i [atribut setProfileEnvironment](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) fondu aplikací. Výchozí hodnota `setProfileEnvironment` je `true`. V některých scénářích (například operační systém Windows) `setProfileEnvironment` je nastavena na. `false` Pokud se klíče neukládají v adresáři profilu uživatele podle očekávání:
 
-  1. Přejděte do složky *%windir%/system32/inetsrv/config.*
-  1. Otevřete soubor *applicationHost.config.*
+  1. Přejděte do složky *% windir%/system32/Inetsrv/config* .
+  1. Otevřete soubor *ApplicationHost. config* .
   1. Vyhledejte element `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>`.
-  1. Zkontrolujte, `setProfileEnvironment` zda atribut není k dispozici, `true`což je výchozí hodnota na `true`, nebo explicitně nastavte hodnotu atributu na .
+  1. Potvrďte, `setProfileEnvironment` že atribut není přítomen, přičemž výchozí hodnota je `true`, nebo explicitně nastavte hodnotu atributu na `true`.
 
-* **Použití systému souborů jako úložiště kroužků na klíče**
+* **Použití systému souborů jako úložiště pro Key Ring**
 
-  Upravte kód aplikace tak, aby [používal systém souborů jako úložiště kroužků klíčů](xref:security/data-protection/configuration/overview). K ochraně kroužku na klíče a zajištění, že certifikát je důvěryhodný, použijte certifikát X509. Pokud je certifikát podepsaný svým držitelem, umístěte jej do úložiště Důvěryhodného kořenového adresáře.
+  Upravte kód aplikace tak, aby [používal systém souborů jako úložiště ve službě Key Ring](xref:security/data-protection/configuration/overview). K ochraně služby Key Ring použijte certifikát x509 a ujistěte se, že certifikát je důvěryhodný certifikát. Pokud je certifikát podepsaný svým držitelem, umístěte certifikát do důvěryhodného kořenového úložiště.
 
   Při použití služby IIS ve webové farmě:
 
   * Použijte sdílenou složku, ke které mají přístup všechny počítače.
-  * Nasazení certifikátu X509 do každého počítače. Konfigurace [ochrany dat v kódu](xref:security/data-protection/configuration/overview).
+  * Nasaďte do každého počítače certifikát x509. Konfigurace [ochrany dat v kódu](xref:security/data-protection/configuration/overview).
 
-* **Nastavení celopočítačových zásad pro ochranu dat**
+* **Nastavení zásad pro ochranu dat na úrovni počítače**
 
-  Systém ochrany dat má omezenou podporu pro nastavení výchozí [zásady celého počítače](xref:security/data-protection/configuration/machine-wide-policy) pro všechny aplikace, které spotřebovávají data protection API. Další informace naleznete v tématu <xref:security/data-protection/introduction>.
+  Systém ochrany dat má omezená podpora pro nastavení výchozích [zásad](xref:security/data-protection/configuration/machine-wide-policy) pro všechny aplikace, které využívají rozhraní API pro ochranu dat. Další informace naleznete v tématu <xref:security/data-protection/introduction>.
 
 ## <a name="virtual-directories"></a>Virtuální adresáře
 
-[Virtuální adresáře služby IIS](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#virtual-directories) nejsou podporovány aplikacemi ASP.NET Core. Aplikace může být hostována jako [podaplikace](#sub-applications).
+Aplikace ASP.NET Core nepodporují [virtuální adresáře služby IIS](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#virtual-directories) . Aplikace může být hostována jako [dílčí aplikace](#sub-applications).
 
 ## <a name="sub-applications"></a>Dílčí aplikace
 
-Aplikaci ASP.NET Core lze hostovat jako [podaplikaci služby IIS (podaplikaci).](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#applications) Cesta podaplikace se stane součástí adresy URL kořenové aplikace.
+Aplikace ASP.NET Core může být hostovaná jako [podaplikace služby IIS (dílčí aplikace)](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#applications). Cesta k dílčí aplikaci se stala součástí adresy URL kořenové aplikace.
 
-Statické odkazy datových zdrojů v rámci podaplikace`~/`by měly používat zápis tildového lomítka ( ). Zápis tildového lomítka aktivuje [pomocníka tagu,](xref:mvc/views/tag-helpers/intro) který předřává základnu cesty podaplikace k vykreslenérelativní vazbě. Pro podaplikaci `/subapp_path`na adrese , `src="~/image.png"` obrázek `src="/subapp_path/image.png"`spojený s je vykreslen jako . Middleware statického souboru kořenové aplikace nezpracovává požadavek na statický soubor. Požadavek je zpracován middlewarem statického souboru podaplikace.
+Propojení statických prostředků v rámci dílčí aplikace by měla používat notaci vlnovku`~/`(). Znak tildy vlnovkou spustí [pomocnou nápovědu](xref:mvc/views/tag-helpers/intro) k předřazení pathbase dílčí aplikace na vykreslený relativní odkaz. V případě dílčí aplikace na `/subapp_path`je obrázek propojený s `src="~/image.png"` objektem vykreslen jako. `src="/subapp_path/image.png"` Middleware statických souborů kořenové aplikace nezpracovává požadavek na statický soubor. Požadavek zpracovává middleware statických souborů v dílčí aplikaci.
 
-Pokud je atribut `src` statického datového zdroje nastaven na `src="/image.png"`absolutní cestu (například), odkaz se vykreslí bez vytvoření cesty podaplikace. Middleware statického souboru kořenové aplikace se pokouší obsluhovat datový zdroj z [kořenového kořenového kořenového adresáře](xref:fundamentals/index#web-root)aplikace , což má za následek odpověď *404 - Not Found,* pokud není statický datový zdroj k dispozici z kořenové aplikace.
+Pokud je `src` atribut statického prostředku nastavený na absolutní cestu (například `src="/image.png"`), odkaz se vykreslí bez pathbase dílčí aplikace. Middleware statických souborů v kořenové aplikaci se pokusí o poskytování assetu z [kořenového adresáře webu](xref:fundamentals/index#web-root)kořenové aplikace, což má za následek *404 – nenalezené* odpovědi, pokud není k dispozici statický prostředek z kořenové aplikace.
 
-Hostování aplikace ASP.NET Core jako podaplikace pod jinou aplikací ASP.NET Core:
+Hostování aplikace ASP.NET Core jako dílčí aplikace v jiné aplikaci ASP.NET Core:
 
-1. Vytvořte fond aplikací pro podaplikaci. Nastavte **verzi .NET CLR** na **žádný spravovaný kód,** protože prostředí Core Common Language Runtime (CoreCLR) pro .NET Core je spuštěno pro hostování aplikace v pracovním procesu, nikoli na ploše CLR (.NET CLR).
+1. Vytvořte fond aplikací pro dílčí aplikaci. Nastavte **verzi .NET CLR** na **žádný spravovaný kód** , protože základní modul CLR (Common Language Runtime) pro .NET Core se spouští k hostování aplikace v pracovním procesu, ne CLR Desktop (.NET CLR).
 
-1. Přidejte kořenový web ve Správci služby IIS s podaplikací ve složce pod kořenovým webem.
+1. Přidejte kořenovou lokalitu ve Správci služby IIS pomocí dílčí aplikace do složky v kořenové lokalitě.
 
-1. Klikněte pravým tlačítkem myši na složku podaplikace ve Správci služby IIS a vyberte **příkaz Převést na aplikaci**.
+1. Klikněte pravým tlačítkem na složku dílčí aplikace ve Správci služby IIS a vyberte **převést na aplikaci**.
 
-1. V dialogovém okně **Přidat aplikaci** přiřaďte pomocí tlačítka **Vybrat** pro **fond aplikací** fond aplikací, který jste vytvořili pro podaplikaci. Vyberte **OK**.
+1. V dialogovém okně **Přidat aplikaci** použijte pro **fond aplikací** tlačítko **Vybrat** , abyste přiřadili fond aplikací, který jste vytvořili pro dílčí aplikaci. Vyberte **OK**.
 
-Přiřazení samostatného fondu aplikací do podaplikace je požadavek při použití modelu hostování v procesu.
+Přiřazení samostatného fondu aplikací k dílčí aplikaci je požadavek při použití modelu hostování v rámci procesu.
 
-Další informace o modelu hostování v procesu a konfiguraci <xref:host-and-deploy/aspnet-core-module>ASP.NET core modulu naleznete v tématu .
+Další informace o modelu hostování v rámci procesu a konfiguraci modulu ASP.NET Core naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
-## <a name="configuration-of-iis-with-webconfig"></a>Konfigurace služby IIS pomocí souboru web.config
+## <a name="configuration-of-iis-with-webconfig"></a>Konfigurace služby IIS pomocí souboru Web. config
 
-Konfigurace služby IIS `<system.webServer>` je ovlivněna částí *web.config* pro scénáře služby IIS, které jsou funkční pro ASP.NET aplikace Core pomocí ASP.NET core modulem. Například konfigurace služby IIS je funkční pro dynamickou kompresi. Pokud je služba IIS nakonfigurována na `<urlCompression>` úrovni serveru pro použití dynamické komprese, prvek v souboru *web.config* aplikace jej může zakázat pro aplikaci ASP.NET Core.
+Konfigurace služby IIS má vliv na `<system.webServer>` část souboru *Web. config* pro scénáře služby IIS, které jsou funkční pro ASP.NET Core aplikací s modulem ASP.NET Core. Například konfigurace služby IIS je funkční pro dynamickou kompresi. Pokud je služba IIS nakonfigurovaná na úrovni serveru, aby používala dynamickou kompresi, `<urlCompression>` element v souboru *Web. config* aplikace ho může zakázat pro ASP.NET Core aplikaci.
 
 Další informace najdete v následujících tématech:
 
-* [Odkaz na \<konfiguraci pro>system.webServer](/iis/configuration/system.webServer/)
+* [Referenční informace o \<konfiguraci pro System. webServer>](/iis/configuration/system.webServer/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
 
-Chcete-li nastavit proměnné prostředí pro jednotlivé aplikace spuštěné v izolovaných fondech aplikací (podporované pro službu IIS 10.0 nebo novější), přečtěte si část *příkazu AppCmd.exe* v tématu [Environment Variables environmentvariables>\<](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) tématu v referenční dokumentaci služby IIS.
+Pokud chcete nastavit proměnné prostředí pro jednotlivé aplikace běžící v izolovaných fondech aplikací (podporované pro IIS 10,0 nebo novější), přečtěte si část *příkazového řádku Appcmd. exe* v tématu [proměnné \<prostředí environmentVariables>](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) v referenční dokumentaci ke službě IIS.
 
-## <a name="configuration-sections-of-webconfig"></a>Konfigurační části web.config
+## <a name="configuration-sections-of-webconfig"></a>Konfigurační oddíly souboru Web. config
 
-Části konfigurace aplikací ASP.NET 4.x v *souboru web.config* nepoužívají aplikace ASP.NET Core pro konfiguraci:
+Konfigurační oddíly aplikací ASP.NET 4. x v *souboru Web. config* nepoužívá aplikace ASP.NET Core pro konfiguraci:
 
 * `<system.web>`
 * `<appSettings>`
 * `<connectionStrings>`
 * `<location>`
 
-ASP.NET aplikace Core jsou konfigurovány pomocí jiných poskytovatelů konfigurace. Další informace naleznete v [tématu Konfigurace](xref:fundamentals/configuration/index).
+Aplikace ASP.NET Core jsou nakonfigurovány pomocí jiných poskytovatelů konfigurace. Další informace najdete v tématu [Konfigurace](xref:fundamentals/configuration/index).
 
 ## <a name="application-pools"></a>Fondy aplikací
 
-Izolace fondu aplikací je určena modelem hostování:
+Izolaci fondu aplikací určuje model hostování:
 
-* V průběhu &ndash; procesu hosting ové aplikace jsou nutné ke spuštění v samostatných fondech aplikací.
-* Mimoprocesový hosting &ndash; Doporučujeme izolovat aplikace od sebe navzájem spuštěním každé aplikace ve vlastním fondu aplikací.
+* Aplikace hostující hostování &ndash; v procesu jsou nutné ke spuštění v samostatných fondech aplikací.
+* Hostování &ndash; mimo procesy doporučujeme vzájemně izolovat aplikace tím, že spustíte každou aplikaci ve svém vlastním fondu aplikací.
 
-Dialogové okno **IIS Přidat web** se ve výchozím nastavení používá do jednoho fondu aplikací na aplikaci. Když je k dispozici **název webu,** text se automaticky přenese do textového pole **Fondu aplikací.** Při přidání webu se vytvoří nový fond aplikací s názvem webu.
+Dialogové okno **Přidat web** do služby IIS je ve výchozím nastavení nastaveno na jeden fond aplikací na aplikaci. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
 ## <a name="application-pool-identity"></a>Identita fondu aplikací
 
-Účet identity fondu aplikací umožňuje aplikaci spouštět pod jedinečným účtem, aniž by bylo třeba vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8.0 nebo novější vytvoří pracovní proces správce služby IIS (WAS) virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zkontrolujte, zda je **identita** nastavená na použití **applicationpoolidentity**:
+Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byla **Identita** nastavená na použití **ApplicationPoolIdentity**:
 
 ![Dialogové okno Upřesnit nastavení fondu aplikací](index/_static/apppool-identity.png)
 
-Proces správy služby IIS vytvoří zabezpečený identifikátor s názvem fondu aplikací v systému zabezpečení systému Windows. Prostředky lze zabezpečit pomocí této identity. Tato identita však není reálný uživatelský účet a nezobrazuje se v konzole pro správu uživatelů systému Windows.
+Proces správy služby IIS vytvoří v systému zabezpečení systému Windows zabezpečený identifikátor s názvem fondu aplikací. Prostředky je možné zabezpečit pomocí této identity. Tato identita ale není skutečným uživatelským účtem a nezobrazuje se v konzole pro správu uživatelů Windows.
 
-Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, upravte seznam řízení přístupu (ACL) pro adresář obsahující aplikaci:
+Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, upravte seznam Access Control (ACL) pro adresář obsahující aplikaci:
 
-1. Sem otevřete Průzkumníka Windows a přejděte do adresáře.
+1. Otevřete Průzkumníka Windows a přejděte do adresáře.
 
-1. Klepněte pravým tlačítkem myši na adresář a vyberte příkaz **Vlastnosti**.
+1. Klikněte pravým tlačítkem na adresář a vyberte **vlastnosti**.
 
-1. Na kartě **Zabezpečení** vyberte tlačítko **Upravit** a pak **tlačítko Přidat.**
+1. Na kartě **zabezpečení** vyberte tlačítko **Upravit** a pak klikněte na tlačítko **Přidat** .
 
-1. Vyberte tlačítko **Umístění** a ujistěte se, že je vybrán systém.
+1. Vyberte tlačítko **umístění** a ujistěte se, že je vybraný systém.
 
-1. Zadejte **\\<<iIS app_pool_name>** **zadejte názvy objektů, které chcete vybrat.** Vyberte tlačítko **Zkontrolovat jména.** Pro *DefaultAppPool* zkontrolujte názvy pomocí **IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko **Zkontrolovat názvy,** je v oblasti názvů objektů uvedena hodnota **DefaultAppPool.** Název fondu aplikací není možné zadat přímo do oblasti názvů objektů. Při kontrole názvu objektu použijte<<app_pool_name>formátu **IIS AppPool.\\ **
+1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte **<App_pool_name služby IIS AppPool\\>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte **<app_pool_name>formátu\\ IIS AppPool** .
 
-   ![Dialogové okno Vybrat uživatele nebo skupiny pro složku aplikace: Název fondu aplikací "DefaultAppPool" se připojí k "IIS AppPool\" v oblasti názvů objektů před výběrem možnosti Zkontrolovat názvy".](index/_static/select-users-or-groups-1.png)
+   ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: název fondu aplikací "DefaultAppPool" se připojí k "rozhraní IIS AppPool\" " v oblasti názvy objektů před výběrem "kontrolovat jména".](index/_static/select-users-or-groups-1.png)
 
 1. Vyberte **OK**.
 
-   ![Dialogové okno Vybrat uživatele nebo skupiny pro složku aplikace: Po výběru možnosti Zkontrolovat názvy se v oblasti názvů objektů zobrazí název objektu DefaultAppPool.](index/_static/select-users-or-groups-2.png)
+   ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: po výběru možnosti kontrolovat názvy se v oblasti názvy objektů zobrazí název objektu DefaultAppPool.](index/_static/select-users-or-groups-2.png)
 
-1. Oprávnění &amp; ke spuštění čtení by měla být udělena ve výchozím nastavení. Podle potřeby zadejte další oprávnění.
+1. Ve &amp; výchozím nastavení by měla být udělena oprávnění ke čtení. V případě potřeby zadejte další oprávnění.
 
-Přístup lze také udělit na příkazovém řádku pomocí nástroje **ICACLS.** Jako příklad použijete *defaultapppool,* který používá následující příkaz:
+Přístup se dá taky udělit na příkazovém řádku pomocí nástroje **Icacls** . Pomocí příkazu *DefaultAppPool* jako příkladu se používá následující příkaz:
 
 ```console
 ICACLS C:\sites\MyWebApp /grant "IIS AppPool\DefaultAppPool":F
 ```
 
-Další informace naleznete v tématu [icacls.](/windows-server/administration/windows-commands/icacls)
+Další informace najdete v tématu [Icacls](/windows-server/administration/windows-commands/icacls) .
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
-[Protokol HTTP/2](https://httpwg.org/specs/rfc7540.html) je podporován ASP.NET jádrem v následujících scénářích nasazení služby IIS:
+[Http/2](https://httpwg.org/specs/rfc7540.html) se podporuje s ASP.NET Core v následujících scénářích nasazení služby IIS:
 
-* Neprocesové
+* V procesu
   * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
-  * Připojení TLS 1.2 nebo novější
+  * Připojení TLS 1,2 nebo novější
 * Mimo proces
   * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
-  * Připojení serveru edge směřující mj. [Kestrel server](xref:fundamentals/servers/kestrel)
-  * Připojení TLS 1.2 nebo novější
+  * Veřejná připojení hraničních serverů používají protokol HTTP/2, ale připojení reverzního proxy [serveru Kestrel](xref:fundamentals/servers/kestrel) používá protokol HTTP/1.1.
+  * Připojení TLS 1,2 nebo novější
 
-Pro nasazení v procesu při navázání připojení HTTP/2 `HTTP/2`protokol [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) hlásí . Pro mimoprocesové nasazení při navázání připojení HTTP/2 hlásí protokol `HTTP/1.1` [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
+Pro nasazení v rámci procesu, když je vytvořeno připojení HTTP/2, `HTTP/2`sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) . Pro nasazení mimo proces, když je vytvořeno připojení HTTP/2, sestavy `HTTP/1.1` [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
 
-Další informace o modelech hostování v procesu a <xref:host-and-deploy/aspnet-core-module>mimo proces naleznete v tématu .
+Další informace o modelech hostování v procesu a mimoprocesové procesy naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
-Protokol HTTP/2 je ve výchozím nastavení povolen. Připojení se vrátí na HTTP/1.1, pokud není navázáno připojení HTTP/2. Další informace o konfiguraci protokolu HTTP/2 s nasazením služby IIS naleznete [v tématu HTTP/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis).
+HTTP/2 je ve výchozím nastavení povolené. Pokud není navázáno připojení HTTP/2, připojení se vrátí k HTTP/1.1. Další informace o konfiguraci HTTP/2 v nasazeních služby IIS najdete v tématu [http/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis).
 
-## <a name="cors-preflight-requests"></a>Požadavky cors kontroly před výstupem
+## <a name="cors-preflight-requests"></a>Požadavky na kontrolu před výstupem CORS
 
-*Tato část se vztahuje pouze na ASP.NET základní aplikace, které se zaměřují na rozhraní .NET Framework.*
+*Tato část platí jenom pro ASP.NET Core aplikace, které cílí na .NET Framework.*
 
-Pro aplikaci ASP.NET Core, která cílí na rozhraní .NET Framework, nejsou požadavky OPTIONS ve výchozím nastavení ve službách IIS předány do aplikace. Informace o konfiguraci obslužných rutin služby IIS aplikace v *souboru web.config* tak, aby předávály požadavky OPTIONS, naleznete v tématu [Povolení požadavků napříč původy v ASP.NET webovém rozhraní API 2: Jak funguje cors](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works).
+Pro ASP.NET Core aplikaci, která cílí na .NET Framework, požadavky na možnosti nejsou ve výchozím nastavení ve službě IIS předány do aplikace. Informace o tom, jak nakonfigurovat obslužné rutiny IIS aplikace v *souboru Web. config* , aby předávala požadavky na možnosti, najdete v tématu [Povolení žádostí o více zdrojů v ASP.NET webovém rozhraní API 2: jak CORS funguje](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works).
 
 ## <a name="application-initialization-module-and-idle-timeout"></a>Modul inicializace aplikace a časový limit nečinnosti
 
-Pokud je ve správě ve správě iis hostován ASP.NET základnímodul verze 2:
+Při hostování ve službě IIS pomocí modulu ASP.NET Core verze 2:
 
-* [Aplikace Inicializační modul](#application-initialization-module) &ndash; aplikace hostované [v procesu](#in-process-hosting-model) nebo [mimo proces](#out-of-process-hosting-model) lze nakonfigurovat tak, aby se automaticky spouštěla při restartování pracovního procesu nebo restartování serveru.
-* [Nevyužitý časový limit](#idle-timeout) &ndash; aplikace hostované [v procesu](#in-process-hosting-model) lze nakonfigurovat tak, aby časový limit během období nečinnosti.
+* [Aplikace modulu](#application-initialization-module) &ndash; inicializace aplikace hostované [v procesu](#in-process-hosting-model) nebo [mimo proces](#out-of-process-hosting-model) se dá nakonfigurovat tak, aby se automaticky spouštěla v případě restartování nebo restartování serveru v pracovním procesu.
+* Hostování hostovaného procesu aplikace [časového limitu](#idle-timeout) &ndash; nečinnosti se dá nakonfigurovat tak, aby nevypršel časový limit [v](#in-process-hosting-model) období nečinnosti.
 
-### <a name="application-initialization-module"></a>Inicializační modul aplikace
+### <a name="application-initialization-module"></a>Modul inicializace aplikace
 
-*Platí pro aplikace hostované v průběhu procesu a mimo proces.*
+*Platí pro aplikace hostované v procesu a mimo proces.*
 
-[Inicializace aplikace služby IIS](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization) je funkce služby IIS, která odesílá požadavek HTTP do aplikace při spuštění nebo recyklaci fondu aplikací. Požadavek spustí spuštění aplikace. Ve výchozím nastavení služba IIS vydá požadavek`/`na kořenovou adresu URL aplikace ( ) o inicializaci aplikace (další podrobnosti o konfiguraci najdete v [dalších zdrojích](#application-initialization-module-and-idle-timeout-additional-resources) informací).
+[Inicializace aplikace IIS](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization) je funkce služby IIS, která do aplikace pošle požadavek HTTP, když se spustí nebo recykluje fond aplikací. Požadavek spustí spuštění aplikace. Služba IIS ve výchozím nastavení vydá požadavek na kořenovou adresu URL aplikace (`/`) k inicializaci aplikace (Další informace o konfiguraci najdete v [dalších zdrojích](#application-initialization-module-and-idle-timeout-additional-resources) ).
 
-Zkontrolujte, zda je funkce role Inicializace aplikace služby IIS povolena:
+Potvrďte, že je povolená funkce role inicializace aplikace služby IIS:
 
-V desktopových systémech se systémem Windows 7 nebo novějších při místním používání služby IIS:
+V systémech Windows 7 nebo novějších stolních počítačích při používání služby IIS v místním prostředí:
 
-1. Přejděte na **Ovládací panely** > **Programy** > **a funkce** > **Zapněte nebo vypněte funkce systému Windows** (levá strana obrazovky).
-1. Otevřete funkce **vývoje aplikací** **internetových informačních služeb** > **World Wide Web Services** > .
+1. Přejděte na **Ovládací panely** > **programy** > programy **a funkce** > **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
+1. Otevřete **Internetová informační služba** > **funkce pro vývoj aplikací** **webové služby** > .
 1. Zaškrtněte políčko pro **inicializaci aplikace**.
 
 V systému Windows Server 2008 R2 nebo novějším:
 
 1. Otevřete **Průvodce přidáním rolí a funkcí**.
-1. V panelu **Vybrat služby rolí** otevřete uzel **Vývoj aplikací.**
+1. Na panelu **Vybrat služby rolí** otevřete uzel **vývoj aplikací** .
 1. Zaškrtněte políčko pro **inicializaci aplikace**.
 
-K povolení modulu inicializace aplikace pro lokalitu použijte některý z následujících přístupů:
+Pomocí některého z následujících přístupů povolte modul inicializace aplikace pro danou lokalitu:
 
 * Pomocí Správce služby IIS:
 
-  1. V panelu **Připojení** vyberte **fondy aplikací.**
-  1. Klikněte pravým tlačítkem myši na fond aplikací v seznamu a vyberte **Upřesnit nastavení**.
-  1. Výchozí **režim spuštění** je **OnDemand**. Nastavte **režim spuštění** na **vždy spuštěný**. Vyberte **OK**.
-  1. Otevřete uzel **Weby** v panelu **Připojení.**
-  1. Klikněte pravým tlačítkem myši na aplikaci a vyberte Spravovat **upřesnit nastavení** **webu** > .
-  1. Výchozí nastavení **Preload Enabled** je **False**. Nastavte **předběžné načtení povoleno** na **hodnotu True**. Vyberte **OK**.
+  1. Na panelu **připojení** vyberte **fondy aplikací** .
+  1. V seznamu klikněte pravým tlačítkem na fond aplikací aplikace a vyberte **Upřesnit nastavení**.
+  1. Výchozí **režim spuštění** je **OnDemand**. Nastavte **režim Start** na **AlwaysRunning**. Vyberte **OK**.
+  1. Otevřete uzel **lokality** na panelu **připojení** .
+  1. Klikněte pravým tlačítkem na aplikaci a vyberte **Spravovat** > **Rozšířená nastavení**webu.
+  1. Výchozí nastavení pro **Povolení přednačtení** je **false**. Nastavte **předběžné načtení povoleno** na **hodnotu true**. Vyberte **OK**.
 
-* Pomocí `<applicationInitialization>` `doAppInitAfterRestart` *souboru web.config*přidejte `true` prvek `<system.webServer>` s nastavenou na do prvků v souboru *web.config* aplikace:
+* Pomocí souboru *Web. config*přidejte `<applicationInitialization>` element s `doAppInitAfterRestart` nastavením `true` do `<system.webServer>` prvků v souboru *Web. config* aplikace:
 
   ```xml
   <?xml version="1.0" encoding="utf-8"?>
@@ -597,30 +603,30 @@ K povolení modulu inicializace aplikace pro lokalitu použijte některý z nás
 
 ### <a name="idle-timeout"></a>Časový limit nečinnosti
 
-*Platí pouze pro aplikace hostované v procesu.*
+*Platí jenom pro aplikace hostované v procesu.*
 
-Chcete-li aplikaci zabránit v volnoběhu, nastavte časový limit nečinnosti fondu aplikací pomocí Správce služby IIS:
+Pokud chcete zabránit volnoběhu aplikace, nastavte časový limit nečinnosti fondu aplikací pomocí Správce služby IIS:
 
-1. V panelu **Připojení** vyberte **fondy aplikací.**
-1. Klikněte pravým tlačítkem myši na fond aplikací v seznamu a vyberte **Upřesnit nastavení**.
+1. Na panelu **připojení** vyberte **fondy aplikací** .
+1. V seznamu klikněte pravým tlačítkem na fond aplikací aplikace a vyberte **Upřesnit nastavení**.
 1. Výchozí **časový limit nečinnosti (minuty)** je **20** minut. Nastavte **časový limit nečinnosti (minuty)** na **0** (nula). Vyberte **OK**.
 1. Recyklujte pracovní proces.
 
-Chcete-li zabránit vypršení časového limitu aplikací hostovaných [mimo proces,](#out-of-process-hosting-model) použijte některý z následujících přístupů:
+Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-model) vypršení časového limitu, použijte některý z následujících přístupů:
 
-* Příkazping aplikace z externí služby, aby byla spuštěna.
-* Pokud aplikace hostuje pouze služby na pozadí, vyhněte se hostování služby IIS a pomocí [služby Windows service hostujte aplikaci ASP.NET Core](xref:host-and-deploy/windows-service).
+* Pomocí příkazu otestujete aplikaci z externí služby, aby byla spuštěná.
+* Pokud aplikace hostuje jenom služby na pozadí, vyhněte se hostování služby IIS a použití [služby Windows k hostování aplikace ASP.NET Core](xref:host-and-deploy/windows-service).
 
-### <a name="application-initialization-module-and-idle-timeout-additional-resources"></a>Modul inicializace aplikace a časový limit nečinnosti další prostředky
+### <a name="application-initialization-module-and-idle-timeout-additional-resources"></a>Modul inicializace aplikace a další prostředky časového limitu nečinnosti
 
-* [Inicializace aplikace služby IIS 8.0](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)
-* [Aplikace Inicializace \<aplikaceInicializační>](/iis/configuration/system.webserver/applicationinitialization/).
-* [Zpracovat nastavení modelu \<pro proces fondu aplikacíModel>](/iis/configuration/system.applicationhost/applicationpools/add/processmodel).
+* [Inicializace aplikace IIS 8,0](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)
+* [ApplicationInitialization inicializace \<aplikace>](/iis/configuration/system.webserver/applicationinitialization/).
+* [Nastavení modelu procesu pro fond \<aplikací processModel>](/iis/configuration/system.applicationhost/applicationpools/add/processmodel).
 
 ## <a name="deployment-resources-for-iis-administrators"></a>Prostředky nasazení pro správce služby IIS
 
-* [Dokumentace iis](/iis)
-* [Začínáme se Správcem služby IIS ve službách IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
+* [Dokumentace ke službě IIS](/iis)
+* [Začínáme ve službě IIS pomocí Správce služby IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
 * [Nasazení aplikace .NET Core](/dotnet/core/deploying/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/directory-structure>
@@ -632,8 +638,8 @@ Chcete-li zabránit vypršení časového limitu aplikací hostovaných [mimo pr
 
 * <xref:test/troubleshoot>
 * <xref:index>
-* [Oficiální web služby Microsoft IIS](https://www.iis.net/)
-* [Knihovna technického obsahu systému Windows Server](/windows-server/windows-server)
+* [Oficiální web Microsoft IIS](https://www.iis.net/)
+* [Knihovna technických obsahu pro Windows Server](/windows-server/windows-server)
 * [HTTP/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis)
 * <xref:host-and-deploy/iis/transform-webconfig>
 
@@ -641,9 +647,9 @@ Chcete-li zabránit vypršení časového limitu aplikací hostovaných [mimo pr
 
 ::: moniker range="= aspnetcore-2.2"
 
-Výukové prostředí o publikování aplikace ASP.NET Core na server <xref:tutorials/publish-to-iis>služby IIS naleznete v tématu .
+Kurz týkající se publikování ASP.NET Core aplikace na server služby IIS najdete v tématu <xref:tutorials/publish-to-iis>.
 
-[Instalace balíčku hostingu jádra .NET](#install-the-net-core-hosting-bundle)
+[Instalace hostující sady .NET Core](#install-the-net-core-hosting-bundle)
 
 ## <a name="supported-operating-systems"></a>Podporované operační systémy
 
@@ -652,72 +658,72 @@ Podporovány jsou následující operační systémy:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Server HTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaný WebListener) nefunguje v konfiguraci reverzního proxy serveru se službou IIS. Použijte [server Kestrel](xref:fundamentals/servers/kestrel).
+[Http. sys Server](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru se službou IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
 
-Informace o hostování v <xref:host-and-deploy/azure-apps/index>Azure najdete v tématu .
+Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-apps/index>.
 
-Pokyny pro řešení <xref:test/troubleshoot>potíží naleznete v tématu .
+Pokyny k řešení potíží najdete <xref:test/troubleshoot>v tématu.
 
 ## <a name="supported-platforms"></a>Podporované platformy
 
-Podporovány jsou aplikace publikované pro 32bitové (x86) nebo 64bitové (x64) nasazení. Nasazení 32bitové aplikace s 32bitovou sadou .NET Core SDK, pokud ji ne:
+Podporují se aplikace publikované pro nasazení 32 (x86) nebo 64-bit (x64). Nasazení 32 aplikace s 32 (x86) .NET Core SDK, pokud aplikace:
 
-* Vyžaduje větší adresní prostor virtuální paměti, který je k dispozici pro 64bitovou aplikaci.
-* Vyžaduje větší velikost zásobníku iis.
-* Má 64bitové nativní závislosti.
+* Vyžaduje větší dostupný adresní prostor virtuální paměti pro 64 aplikaci.
+* Vyžaduje větší velikost zásobníku služby IIS.
+* Má 64 nativní závislosti.
 
-K publikování 64bitové sady SDK jádra (x64) použijte 64bitovou sadu .NET Core SDK. V hostitelském systému musí být k dispozici 64bitový běhový čas.
+K publikování 64 aplikace použijte 64 .NET Core SDK (x64). V hostitelském systému musí být nainstalován 64 modul runtime.
 
 ## <a name="hosting-models"></a>Modely hostingu
 
 ### <a name="in-process-hosting-model"></a>Model hostování v procesu
 
-Pomocí hostování v rámci procesu běží aplikace ASP.NET Core ve stejném procesu jako pracovní proces služby IIS. Hostování v procesu poskytuje lepší výkon než mimoproceshosting, protože požadavky nejsou proxied přes adaptér zpětné smyčky, síťové rozhraní, které vrací odchozí síťový provoz zpět do stejného počítače. Služba IIS zpracovává správu procesů pomocí [služby aktivace procesů systému Windows (WAS).](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was)
+Při použití hostování v rámci procesu ASP.NET Core aplikace běží ve stejném procesu jako jeho pracovní proces služby IIS. Hostování v rámci procesů poskytují lepší výkon než hostování mimo procesy, protože požadavky nejsou proxy serverem přes adaptér zpětné smyčky, síťové rozhraní, které vrátí odchozí síťový provoz zpátky do stejného počítače. Služba IIS zpracovává správu procesů pomocí [aktivační služby procesů systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
-Základní [modul ASP.NET](xref:host-and-deploy/aspnet-core-module):
+[Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module):
 
 * Provede inicializaci aplikace.
   * Načte [CoreCLR](/dotnet/standard/glossary#coreclr).
   * Volání `Program.Main`.
 * Zpracovává životnost nativního požadavku služby IIS.
 
-Model hostování v procesu není podporován pro aplikace ASP.NET Core, které cílí na rozhraní .NET Framework.
+Model hostování v rámci procesu není podporován pro aplikace ASP.NET Core, které cílí na .NET Framework.
 
-Následující diagram znázorňuje vztah mezi iis, ASP.NET základní modul a aplikace hostované v procesu:
+Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Core a aplikací hostovanou v procesu:
 
-![ASP.NET core modul ve scénáři hostování v procesu](index/_static/ancm-inprocess.png)
+![ASP.NET Core modul ve scénáři hostování v rámci procesu](index/_static/ancm-inprocess.png)
 
-Požadavek přichází z webu na ovladač HTTP.sys v režimu jádra. Řidič směruje nativní požadavek do služby IIS na nakonfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Základní modul ASP.NET obdrží nativní požadavek a předá`IISHttpServer`jej serveru HTTP služby IIS ( ). Server HTTP služby IIS je implementace serveru v procesu pro službu IIS, která převádí požadavek z nativního na spravovaný.
+Požadavek přijde z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje nativní požadavek na IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul ASP.NET Core obdrží nativní požadavek a předá ho k serveru HTTP služby IIS (`IISHttpServer`). HTTP server IIS je vnitroprocesové implementace v rámci procesového serveru pro službu IIS, která převádí požadavek z nativního na spravovanou.
 
-Po zpracování požadavku serverem HTTP služby IIS je požadavek odeslán do kanálu middlewaru ASP.NET Core. Middleware kanálu zpracovává požadavek a předá `HttpContext` jej jako instanci logiky aplikace. Odpověď aplikace je předána zpět do služby IIS prostřednictvím serveru HTTP služby IIS. Služba IIS odešle odpověď klientovi, který požadavek inicioval.
+Poté, co server HTTP služby IIS požadavek zpracuje, je požadavek vložen do kanálu middleware ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Odpověď aplikace se předává zpět službě IIS prostřednictvím serveru IIS HTTP. Služba IIS odešle odpověď klientovi, který žádost inicioval.
 
-Hostování v procesu je přihlášení pro stávající aplikace, ale [dotnet nové](/dotnet/core/tools/dotnet-new) šablony výchozí v procesu hostování modelu pro všechny scénáře služby IIS a IIS Express.
+Vnitroprocesové hostování v rámci procesu je výslovný souhlas pro existující aplikace, ale [dotnet nové](/dotnet/core/tools/dotnet-new) šablony jsou výchozí pro všechny scénáře hostování v rámci procesu pro všechny služby IIS a IIS Express.
 
-`CreateDefaultBuilder`přidá <xref:Microsoft.AspNetCore.Hosting.Server.IServer> instanci <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> voláním metody pro spuštění [coreclru](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*w3wp.exe* nebo *iisexpress.exe*). Testy výkonu ukazují, že hostování aplikace .NET Core v procesu přináší výrazně vyšší propustnost požadavků ve srovnání s hostováním aplikací mimo proces a proxy požadavků na server [Kestrel.](xref:fundamentals/servers/kestrel)
+`CreateDefaultBuilder`<xref:Microsoft.AspNetCore.Hosting.Server.IServer> přidá instanci <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> voláním metody pro spuštění [CoreCLR](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*W3wp. exe* nebo *IISExpress. exe*). Testy výkonu označují, že hostování aplikace .NET Core v rámci procesu přináší výrazně vyšší propustnost žádostí v porovnání s hostováním aplikací mimo proces a požadavky na proxy serveru na [Kestrel](xref:fundamentals/servers/kestrel) Server.
 
 ### <a name="out-of-process-hosting-model"></a>Model hostování mimo proces
 
-Vzhledem k tomu, že aplikace ASP.NET Core běží v procesu odděleném od pracovního procesu služby IIS, zpracovává ASP.NET core module správu procesů. Modul spustí proces pro aplikaci ASP.NET Core při příchodu prvního požadavku a restartuje aplikaci, pokud se vypne nebo dojde k chybě. Toto je v podstatě stejné chování jako u aplikací, které běží v procesu, které jsou spravovány [službou aktivace procesu systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
+Vzhledem k tomu, že ASP.NET Core aplikace běží v procesu odděleném od pracovního procesu služby IIS, modul ASP.NET Core zpracovává správu procesů. Modul spustí proces pro aplikaci ASP.NET Core, když první požadavek dorazí a restartuje aplikaci, pokud se ukončí nebo dojde k chybě. To je v podstatě stejné chování jako u aplikací, které běží v procesu, které jsou spravovány službou was [(Windows Process Activation Service)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
-Následující diagram znázorňuje vztah mezi iis, ASP.NET základní modul a aplikace hostované mimo proces:
+Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Core a aplikací hostovanou mimo proces:
 
-![ASP.NET základní modul ve scénáři mimoproceshostingového hostingu](index/_static/ancm-outofprocess.png)
+![ASP.NET Core modul ve scénáři hostování mimo proces](index/_static/ancm-outofprocess.png)
 
-Požadavky dorazí z webu do ovladače HTTP.sys v režimu jádra. Řidič směruje požadavky do služby IIS na nakonfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky Kestrel na náhodný port pro aplikaci, která není port 80 nebo 443.
+Požadavky přicházející z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
 
-Modul určuje port prostřednictvím proměnné prostředí při <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> spuštění a rozšíření konfiguruje server pro naslouchání . `http://localhost:{PORT}` Jsou prováděny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání https, takže požadavky jsou předávány přes HTTP i v případě, že přijaté službou IIS přes protokol HTTPS.
+Modul Určuje port přes proměnnou prostředí při spuštění a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> rozšíření nakonfiguruje server tak, aby naslouchal. `http://localhost:{PORT}` Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS, takže požadavky se předávají přes protokol HTTP i v případě, že je služba IIS prostřednictvím protokolu HTTPS přijímá.
 
-Poté, co Kestrel vyzvedne požadavek z modulu, je požadavek posunut do kanálu ASP.NET middleware. Middleware kanálu zpracovává požadavek a předá `HttpContext` jej jako instanci logiky aplikace. Middleware přidané integrací služby IIS aktualizuje schéma, vzdálenou IP adresu a pathbase tak, aby odpovídaly předání požadavku ke společnosti Kestrel. Odpověď aplikace je předána zpět do služby IIS, která ji odešle zpět do klienta HTTP, který inicioval požadavek.
+Po Kestrel žádosti z modulu se požadavek odešle do kanálu middlewaru ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Middleware přidaný integrací služby IIS: aktualizace schématu, vzdálené IP adresy a pathbase pro přesměrování požadavku do Kestrel. Odpověď aplikace se předává zpátky do služby IIS, která ji přenáší zpátky do klienta HTTP, který žádost inicioval.
 
-Pokyny ke konfiguraci ASP.NET <xref:host-and-deploy/aspnet-core-module>core modulem naleznete v tématu .
+Pokyny ke konfiguraci ASP.NET Core modulu najdete v <xref:host-and-deploy/aspnet-core-module>tématu.
 
-Další informace o hostování najdete [v tématu Host in ASP.NET Core](xref:fundamentals/index#host).
+Další informace o hostování najdete v tématu [hostitel v ASP.NET Core](xref:fundamentals/index#host).
 
 ## <a name="application-configuration"></a>Konfigurace aplikací
 
-### <a name="enable-the-iisintegration-components"></a>Povolení součástí Integrace iIS
+### <a name="enable-the-iisintegration-components"></a>Povolit komponenty IISIntegration
 
-Při vytváření hostitele `CreateWebHostBuilder` v *(Program.cs*) volání <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> umožňující integraci iis:
+Při sestavování hostitele `CreateWebHostBuilder` v (*program.cs*) zavolejte <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> na Povolit integraci služby IIS:
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -725,13 +731,13 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         ...
 ```
 
-Další informace `CreateDefaultBuilder`naleznete <xref:fundamentals/host/web-host#set-up-a-host>v tématu .
+Další informace o `CreateDefaultBuilder`naleznete v tématu <xref:fundamentals/host/web-host#set-up-a-host>.
 
-### <a name="iis-options"></a>Možnosti iis
+### <a name="iis-options"></a>Možnosti služby IIS
 
 **Model hostování v procesu**
 
-Chcete-li konfigurovat možnosti serveru IIS, zahrňte konfiguraci služby v <xref:Microsoft.AspNetCore.Builder.IISServerOptions> aplikaci <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>. Následující příklad zakáže automatické ověřování:
+Pokud chcete nakonfigurovat možnosti serveru IIS, zahrňte do nástroje <xref:Microsoft.AspNetCore.Builder.IISServerOptions> konfiguraci <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>služby pro. Následující příklad zakáže AutomaticAuthentication:
 
 ```csharp
 services.Configure<IISServerOptions>(options => 
@@ -742,12 +748,12 @@ services.Configure<IISServerOptions>(options =>
 
 | Možnost                         | Výchozí | Nastavení |
 | ------------------------------ | :-----: | ------- |
-| `AutomaticAuthentication`      | `true`  | Pokud `true`server IIS `HttpContext.User` nastaví ověřené ověřování [systému Windows](xref:security/authentication/windowsauth). Pokud `false`server poskytuje identitu pouze `HttpContext.User` pro výzvy a reaguje na `AuthenticationScheme`ně, pokud o to výslovně požádá . Aby bylo možné službu `AutomaticAuthentication` IIS fungovat, musí být ve službě IIS povoleno ověřování systému Windows. Další informace naleznete v tématu [Ověřování systému Windows](xref:security/authentication/windowsauth). |
-| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazované jméno zobrazené uživatelům na přihlašovacích stránkách. |
+| `AutomaticAuthentication`      | `true`  | Pokud `true`server IIS nastaví `HttpContext.User` ověřený [ověřováním systému Windows](xref:security/authentication/windowsauth). Pokud `false`Server poskytuje pouze identitu pro `HttpContext.User` a reaguje na výzvy, pokud je `AuthenticationScheme`explicitně vyžádala. `AutomaticAuthentication` Aby mohla služba fungovat, musí být ve službě IIS povolená možnost ověřování systému Windows. Další informace najdete v tématu [ověřování systému Windows](xref:security/authentication/windowsauth). |
+| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se zobrazí uživatelům na přihlašovacích stránkách. |
 
 **Model hostování mimo proces**
 
-Chcete-li konfigurovat možnosti služby <xref:Microsoft.AspNetCore.Builder.IISOptions> <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>IIS, zahrňte konfiguraci služby v aplikaci . Následující příklad zabrání aplikaci v naplnění `HttpContext.Connection.ClientCertificate`:
+Pokud chcete nakonfigurovat možnosti služby IIS, zahrňte do <xref:Microsoft.AspNetCore.Builder.IISOptions> nástroje <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>konfiguraci služby pro. Následující příklad zabrání aplikaci v naplnění `HttpContext.Connection.ClientCertificate`:
 
 ```csharp
 services.Configure<IISOptions>(options => 
@@ -758,29 +764,29 @@ services.Configure<IISOptions>(options =>
 
 | Možnost                         | Výchozí | Nastavení |
 | ------------------------------ | :-----: | ------- |
-| `AutomaticAuthentication`      | `true`  | Pokud `true` [middleware integrace služby IIS](#enable-the-iisintegration-components) nastaví ověřené ověřování systému `HttpContext.User` [Windows](xref:security/authentication/windowsauth). Pokud `false`middleware poskytuje identitu `HttpContext.User` a reaguje na problémy pouze na `AuthenticationScheme`žádost . Aby bylo možné službu `AutomaticAuthentication` IIS fungovat, musí být ve službě IIS povoleno ověřování systému Windows. Další informace naleznete v tématu [Ověřování systému Windows.](xref:security/authentication/windowsauth) |
-| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazované jméno zobrazené uživatelům na přihlašovacích stránkách. |
-| `ForwardClientCertificate`     | `true`  | Pokud `true` a `MS-ASPNETCORE-CLIENTCERT` hlavička požadavku `HttpContext.Connection.ClientCertificate` je k dispozici, je naplněn. |
+| `AutomaticAuthentication`      | `true`  | Pokud `true` [Služba IIS Integration middleware](#enable-the-iisintegration-components) nastaví `HttpContext.User` ověření [ověřováním systému Windows](xref:security/authentication/windowsauth). V `false`případě, middleware poskytuje pouze identitu pro `HttpContext.User` a reaguje na výzvy, pokud je `AuthenticationScheme`explicitně vyžádala. `AutomaticAuthentication` Aby mohla služba fungovat, musí být ve službě IIS povolená možnost ověřování systému Windows. Další informace najdete v tématu [ověřování systému Windows](xref:security/authentication/windowsauth) . |
+| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se zobrazí uživatelům na přihlašovacích stránkách. |
+| `ForwardClientCertificate`     | `true`  | Pokud `true` je k `MS-ASPNETCORE-CLIENTCERT` dispozici hlavička žádosti, `HttpContext.Connection.ClientCertificate` je naplněna hodnota. |
 
-### <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a vyrovnávání zatížení
+### <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
 
-[Middleware integrace služby IIS](#enable-the-iisintegration-components), který konfiguruje middleware předávaných záhlaví a ASP.NET základní modul, jsou nakonfigurovány tak, aby předávaly schéma (HTTP/HTTPS) a vzdálenou adresu IP, ze které požadavek pochází. Další konfigurace může být vyžadována pro aplikace hostované za dalšími proxy servery a nástroji pro vyrovnávání zatížení. Další informace naleznete v [tématu Configure ASP.NET Core to work with proxy servers and load balancers](xref:host-and-deploy/proxy-load-balancer).
+[Služba IIS Integration middleware](#enable-the-iisintegration-components), která konfiguruje middleware předávaných hlaviček, a modul ASP.NET Core je nakonfigurován tak, aby přenesl schéma (http/https) a vzdálenou IP adresu, kam pochází požadavek. Pro aplikace hostované za dalšími proxy servery a nástroji pro vyrovnávání zatížení může být vyžadována další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-### <a name="webconfig-file"></a>soubor web.config
+### <a name="webconfig-file"></a>soubor Web. config
 
-Soubor *web.config* konfiguruje [základní modul ASP.NET](xref:host-and-deploy/aspnet-core-module). Při publikování projektu je vytváření, transformace a publikování souboru *web.config* zpracováno cílem MSBuild (`_TransformWebConfig`). Tento cíl je k dispozici v`Microsoft.NET.Sdk.Web`cílech sady Web SDK ( ). Sada SDK je nastavena v horní části souboru projektu:
+Soubor *Web. config* konfiguruje [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Vytváření, transformace a publikování souboru *Web. config* je zpracováno nástrojem MSBuild cíl (`_TransformWebConfig`) při publikování projektu. Tento cíl je k dispozici v cíle webové sady`Microsoft.NET.Sdk.Web`SDK (). Sada SDK je nastavena v horní části souboru projektu:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
 ```
 
-Pokud soubor *web.config* není v projektu přítomen, je soubor vytvořen se správnou *processPath* a *argumenty* pro konfiguraci ASP.NET základnímodul a přesunutna do [publikovaného výstupu](xref:host-and-deploy/directory-structure).
+Pokud soubor *Web. config* není v projektu přítomen, je vytvořen soubor se správným *processPath* a *argumenty* pro konfiguraci modulu ASP.NET Core a přesunutí do [publikovaného výstupu](xref:host-and-deploy/directory-structure).
 
-Pokud *web.config* soubor je přítomen v projektu, soubor je transformován se správným *processPath* a *argumenty* pro konfiguraci ASP.NET core modul a přesunuta do publikovaného výstupu. Transformace nezmění nastavení konfigurace služby IIS v souboru.
+Pokud je soubor *Web. config* přítomen v projektu, soubor je transformován se správným *processPath* a *argumenty* pro konfiguraci modulu ASP.NET Core a přesunutí do publikovaného výstupu. Transformace nemění nastavení konfigurace služby IIS v souboru.
 
-Soubor *web.config* může poskytovat další nastavení konfigurace služby IIS, která řídí aktivní moduly služby IIS. Informace o modulech služby IIS, které jsou schopné zpracovávat požadavky pomocí aplikací ASP.NET Core, naleznete v tématu [modulů služby IIS.](xref:host-and-deploy/iis/modules)
+Soubor *Web. config* může poskytovat další nastavení konfigurace služby IIS, která ovládají aktivní moduly IIS. Informace o modulech služby IIS, které jsou schopné zpracovávat požadavky s ASP.NET Core aplikacemi, najdete v tématu [IIS modules](xref:host-and-deploy/iis/modules) .
 
-Chcete-li zabránit webové sady SDK v transformaci souboru *web.config,* použijte vlastnost ** \<IsTransformWebConfigDisabled>** v souboru projektu:
+Chcete-li webové sadě SDK zabránit ve transformaci souboru *Web. config* , použijte vlastnost ** \<IsTransformWebConfigDisabled>** v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -788,182 +794,182 @@ Chcete-li zabránit webové sady SDK v transformaci souboru *web.config,* použi
 </PropertyGroup>
 ```
 
-Při zakázání webové sady SDK z transformace souboru *processPath* a argumenty by měly být ručně *nastaveny* vývojářem. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
+Při zakazování webové sady SDK z transformace souboru by měl vývojář *processPath* a *argumenty* ručně nastavit. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
-### <a name="webconfig-file-location"></a>umístění souboru web.config
+### <a name="webconfig-file-location"></a>umístění souboru Web. config
 
-Aby bylo možné správně nastavit [ASP.NET core modul,](xref:host-and-deploy/aspnet-core-module) musí být soubor *web.config* přítomen na [cestě kořenového obsahu](xref:fundamentals/index#content-root) (obvykle základní cesta aplikace) nasazené aplikace. Jedná se o stejné umístění jako fyzická cesta k webu poskytnutá službu IIS. Soubor *web.config* je vyžadován v kořenovém adresáři aplikace, aby bylo možné publikovat více aplikací pomocí nasazení webu.
+Aby bylo možné správně nastavit [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) , musí být soubor *Web. config* přítomen v [kořenové cestě obsahu](xref:fundamentals/index#content-root) (obvykle v základní cestě aplikace) nasazené aplikace. Toto je stejné umístění jako fyzická cesta k webu poskytované službě IIS. Soubor *Web. config* je vyžadován v kořenu aplikace, aby bylo možné publikovat více aplikací pomocí nasazení webu.
 
-Na fyzické cestě aplikace existují citlivé soubory, například * \<assembly>.runtimeconfig.json*, * \<assembly>.xml* (komentáře xml documentation) a * \<assembly>.deps.json*. Pokud je soubor *web.config* přítomen a web se spustí normálně, služby IIS tyto citlivé soubory neobsluhuje, pokud jsou požadovány. Pokud soubor *web.config* chybí, je nesprávně pojmenován nebo jej nelze nakonfigurovat pro normální spuštění, může služba IIS veřejně sloužit citlivým souborům.
+Citlivé soubory existují na fyzické cestě aplikace, jako je například * \<Assembly>. runtimeconfig. JSON*, * \<Assembly>. XML* (dokumentační komentáře XML) a * \<Assembly>. DEPS. JSON*. Když je přítomen soubor *Web. config* a lokalita se spouští normálně, služba IIS tyto citlivé soubory po vyžádání neobsluhuje. Pokud soubor *Web. config* chybí, je nesprávně pojmenovaný nebo nemůže nakonfigurovat lokalitu pro normální spuštění, služba IIS může obsluhovat citlivé soubory veřejně.
 
-**Soubor *web.config* musí být v nasazení vždy přítomen, správně pojmenovaný a musí být schopen nakonfigurovat web pro normální spuštění. Nikdy neodstraňujte soubor *web.config* z produkčního nasazení.**
+**Soubor *Web. config* musí být současně přítomen v nasazení, správně pojmenován a může nakonfigurovat lokalitu pro normální spuštění. Nikdy neodstraňujte soubor *Web. config* z produkčního nasazení.**
 
 ### <a name="transform-webconfig"></a>Transformace souboru web.config
 
-Pokud potřebujete transformovat *web.config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si viz <xref:host-and-deploy/iis/transform-webconfig>.
+Pokud potřebujete transformovat *Web. config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig>.
 
 ## <a name="iis-configuration"></a>Konfigurace služby IIS
 
 **Operační systémy Windows Server**
 
-Povolte roli serveru **webového serveru (IIS)** a vytvořte služby rolí.
+Povolte roli serveru **webový server (IIS)** a vytvořte služby rolí.
 
-1. Použijte Průvodce **přidáním rolí a funkcí** z nabídky **Spravovat** nebo odkaz ve **Správci serveru**. V kroku **Role serveru** zaškrtněte políčko **U webového serveru (IIS).**
+1. Použijte průvodce **přidáním rolí a funkcí** z nabídky **Správa** nebo odkazu v **Správce serveru**. V kroku **role serveru** zaškrtněte políčko **webový server (IIS)**.
 
-   ![Role služby IIS webového serveru je vybrána v kroku Vybrat role serveru.](index/_static/server-roles-ws2016.png)
+   ![V kroku vybrat role serveru je vybraná role Webový server IIS.](index/_static/server-roles-ws2016.png)
 
-1. Po kroku **Funkce** se krok **služby role** načte pro webový server (IIS). Vyberte požadované služby rolí služby IIS nebo přijměte výchozí služby rolí, které jsou k dispozici.
+1. Po kroku **funkce** se krok **služby rolí** načte pro webový server (IIS). Vyberte požadované služby role IIS nebo přijměte výchozí poskytnuté služby rolí.
 
-   ![Výchozí služby rolí jsou vybrány v kroku Vybrat služby rolí.](index/_static/role-services-ws2016.png)
+   ![Výchozí služby rolí se vyberou v kroku vybrat služby rolí.](index/_static/role-services-ws2016.png)
 
    **Ověřování systému Windows (volitelné)**  
-   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**Zabezpečení** **webového serveru** > . Vyberte funkci **Ověřování systému Windows.** Další informace naleznete v [tématech Ověřování \<systému Windows windowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a Konfigurace ověřování [systému Windows](xref:security/authentication/windowsauth).
+   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**zabezpečení** **webového serveru** > . Vyberte funkci **ověřování systému Windows** . Další informace najdete v tématu [ověřování \<systému Windows WindowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
    **WebSockets (volitelné)**  
-   WebSockets je podporován ASP.NET jádrem 1.1 nebo novějším. Chcete-li povolit rozhraní WebSockets, rozbalte následující uzly:**Vývoj aplikací webového** **serveru** > . Vyberte funkci **WebSocket Protocol.** Další informace naleznete v tématu [WebSockets](xref:fundamentals/websockets).
+   Objekty WebSocket jsou podporované ASP.NET Core 1,1 nebo novějším. Chcete-li povolit objekty WebSockets, rozbalte následující uzly:**vývoj aplikací** **webového serveru** > . Vyberte funkci **protokolu WebSocket** . Další informace najdete v tématu [objekty WebSockets](xref:fundamentals/websockets).
 
-1. Pokračujte v **potvrzovacím** kroku a nainstalujte roli a služby webového serveru. Po instalaci role **webového serveru (IIS)** není restartování serveru nebo služby IIS vyžadováno.
+1. Chcete-li nainstalovat roli a služby webového serveru, postupujte podle kroků pro **potvrzení** . Po instalaci role **webový server (IIS)** není nutné restartovat server nebo službu IIS.
 
 **Desktopové operační systémy Windows**
 
-Povolte **konzolu pro správu služby IIS** a **služby World Wide Web Services**.
+Povolte **konzolu pro správu služby IIS** a **webové služby**.
 
-1. Přejděte na **Ovládací panely** > **Programy** > **a funkce** > **Zapněte nebo vypněte funkce systému Windows** (levá strana obrazovky).
+1. Přejděte na **Ovládací panely** > **programy** > programy **a funkce** > **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
 
-1. Otevřete uzel **Internetové informační služby.** Otevřete uzel **Nástroje pro správu webu.**
+1. Otevřete uzel **Internetová informační služba** . Otevřete uzel **Nástroje webové správy** .
 
-1. Zaškrtněte políčko **U konzole pro správu služby IIS**.
+1. Zaškrtněte políčko pro **konzolu pro správu služby IIS**.
 
-1. Zaškrtněte políčko **U služeb World Wide Web Services**.
+1. Zaškrtněte políčko u **webových služeb**.
 
-1. Přijměte výchozí funkce **pro služby World Wide Web Services** nebo upravte funkce služby IIS.
+1. Přijměte výchozí funkce pro **webové služby** nebo upravte funkce služby IIS.
 
    **Ověřování systému Windows (volitelné)**  
-   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly: **World Wide Web Services** > **Security**. Vyberte funkci **Ověřování systému Windows.** Další informace naleznete v [tématech Ověřování \<systému Windows windowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a Konfigurace ověřování [systému Windows](xref:security/authentication/windowsauth).
+   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**zabezpečení** **webové služby** > . Vyberte funkci **ověřování systému Windows** . Další informace najdete v tématu [ověřování \<systému Windows WindowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
    **WebSockets (volitelné)**  
-   WebSockets je podporován ASP.NET jádrem 1.1 nebo novějším. Chcete-li povolit rozhraní WebSockets, rozbalte následující uzly: Funkce**vývoje aplikací**pro **webové služby** > . Vyberte funkci **WebSocket Protocol.** Další informace naleznete v tématu [WebSockets](xref:fundamentals/websockets).
+   Objekty WebSocket jsou podporované ASP.NET Core 1,1 nebo novějším. Chcete-li povolit objekty WebSockets, rozbalte následující uzly:**funkce pro vývoj aplikací**v **rámci webové služby** > . Vyberte funkci **protokolu WebSocket** . Další informace najdete v tématu [objekty WebSockets](xref:fundamentals/websockets).
 
-1. Pokud instalace služby IIS vyžaduje restartování, restartujte systém.
+1. Pokud instalace služby IIS vyžaduje restart, restartujte systém.
 
-![V funkcích systému Windows jsou vybrány konzoly IIS Management Console a služby World Wide Web Services.](index/_static/windows-features-win10.png)
+![V rámci funkcí systému Windows jsou vybrána Konzola pro správu služby IIS a webové služby.](index/_static/windows-features-win10.png)
 
-## <a name="install-the-net-core-hosting-bundle"></a>Instalace balíčku hostingu jádra .NET
+## <a name="install-the-net-core-hosting-bundle"></a>Instalace hostující sady .NET Core
 
-Nainstalujte *balíček .NET Core Hosting do* hostitelského systému. Balíček nainstaluje modul .NET Core Runtime, knihovnu .NET Core Library a [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module). Modul umožňuje ASP.NET aplikace Core běžet za službou IIS.
+Nainstalujte *hostující sadu .NET Core* do hostitelského systému. Svazek nainstaluje modul runtime .NET Core, knihovnu .NET Core a [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Modul umožňuje, aby aplikace ASP.NET Core běžely za službou IIS.
 
 > [!IMPORTANT]
-> Pokud je sada Hosting Bundle nainstalována před službou IIS, musí být instalace balíčku opravena. Po instalaci služby IIS znovu spusťte instalační program sady Hosting Bundle.
+> Pokud je hostující sada nainstalována před službou IIS, je nutné opravit instalaci sady prostředků. Spusťte znovu instalační program hostující sady po instalaci služby IIS.
 >
-> Pokud je sada Hosting Bundle nainstalována po instalaci 64bitové (x64) verze rozhraní .NET Core, mohou se zdát, že sady SDK chybí ([byly zjištěny sady SDK .Net Core .](xref:test/troubleshoot#no-net-core-sdks-were-detected) Chcete-li problém <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>vyřešit, naleznete v tématu .
+> Pokud se hostující sada nainstaluje po instalaci 64 (x64) verze .NET Core, můžou se zdát, že sady SDK chybí ([nezjistily se žádné sady .NET Core SDK](xref:test/troubleshoot#no-net-core-sdks-were-detected)). Chcete-li tento problém vyřešit <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>, přečtěte si téma.
 
 ### <a name="download"></a>Stáhnout
 
-1. Přejděte na stránku [Stáhnout jádro rozhraní .NET.](https://dotnet.microsoft.com/download/dotnet-core)
+1. Přejděte na stránku [stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core) .
 1. Vyberte požadovanou verzi .NET Core.
-1. Ve sloupci **Spustit aplikace – runtime** najděte požadovaný řádek požadované verze runtime .NET Core.
-1. Stáhněte si instalační program pomocí odkazu **Hosting Bundle.**
+1. Ve sloupci **Spustit aplikace – modul runtime** vyhledejte řádek požadované verze modulu runtime .NET Core.
+1. Stáhněte instalační program pomocí odkazu **hostující sada** .
 
 > [!WARNING]
-> Některé instalační programy obsahují verze, které dosáhly konce životnosti (EOL) a které již nejsou podporovány společností Microsoft. Další informace naleznete v [zásadách podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
+> Některé instalační programy obsahují verze vydaných verzí, které dosáhly svého konce životnosti (konce řádku) a které už nejsou podporovány společností Microsoft. Další informace najdete v tématu [zásady podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
 
-### <a name="install-the-hosting-bundle"></a>Nainstalujte balíček hostingu
+### <a name="install-the-hosting-bundle"></a>Instalace hostitelského balíčku
 
 1. Spusťte instalační program na serveru. Při spuštění instalačního programu z příkazového prostředí správce jsou k dispozici následující parametry:
 
-   * `OPT_NO_ANCM=1`&ndash; Přeskočte instalaci ASP.NET základního modulu.
-   * `OPT_NO_RUNTIME=1`&ndash; Přeskočte instalaci runtime jádra .NET. Používá se v případě, že server hostuje pouze [samostatná nasazení (SCD).](/dotnet/core/deploying/#self-contained-deployments-scd)
-   * `OPT_NO_SHAREDFX=1`&ndash; Přeskočit instalaci ASP.NET sdíleného rozhraní (ASP.NET runtime). Používá se v případě, že server hostuje pouze [samostatná nasazení (SCD).](/dotnet/core/deploying/#self-contained-deployments-scd)
-   * `OPT_NO_X86=1`&ndash; Přeskočit instalaci za běhu x86. Tento parametr použijte, pokud víte, že nebudete hostovat 32bitové aplikace. Pokud existuje nějaká šance, že budete v budoucnu hostovat 32bitové i 64bitové aplikace, nepoužívejte tento parametr a nainstalujte oba runtimes.
-   * `OPT_NO_SHARED_CONFIG_CHECK=1`&ndash; Zakažte kontrolu použití sdílené konfigurace služby IIS, pokud je sdílená konfigurace *(applicationHost.config)* ve stejném počítači jako instalace služby IIS. *K dispozici pouze pro ASP.NET instalačních programů hostingu Bundler nebo novějším.* Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>.
-1. Restartujte systém nebo proveďte následující příkazy v příkazovém prostředí:
+   * `OPT_NO_ANCM=1`&ndash; Přeskočte instalaci modulu ASP.NET Core.
+   * `OPT_NO_RUNTIME=1`&ndash; Přeskočte nainstalovat modul runtime .NET Core. Používá se, když Server hostuje jenom [samostatná nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+   * `OPT_NO_SHAREDFX=1`&ndash; Přeskočte na instalaci sdíleného rozhraní ASP.NET (ASP.NET Runtime). Používá se, když Server hostuje jenom [samostatná nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+   * `OPT_NO_X86=1`&ndash; Přeskočte instalaci běhových prostředí x86. Tento parametr použijte, pokud víte, že nebudete hostovat 32 aplikace. Pokud existuje možnost, že v budoucnosti budete hostovat jak 32, tak i 64 aplikace, tento parametr nepoužívejte a nainstalujete oba moduly runtime.
+   * `OPT_NO_SHARED_CONFIG_CHECK=1`&ndash; Pokud je sdílená konfigurace (*ApplicationHost. config*) ve stejném počítači jako instalace služby IIS, zakažte kontrolu použití sdílené konfigurace služby IIS. *K dispozici jenom pro ASP.NET Core 2,2 nebo novější instalační programy hostujících prostředků.* Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>.
+1. Restartujte systém nebo v příkazovém prostředí spusťte následující příkazy:
 
    ```console
    net stop was /y
    net start w3svc
    ```
-   Restartování služby IIS vyvolá změnu systémové cesty, což je proměnná prostředí provedená instalačním programem.
+   Restartování služby IIS zabere změny v systémové cestě, což je proměnná prostředí vytvořená instalačním programem.
 
-Při instalaci balíčku Hosting Bundle není nutné ručně zastavovat jednotlivé weby ve službách IIS. Hostované aplikace (weby služby IIS) se restartují při restartování služby IIS. Aplikace se znovu spustí, když obdrží svůj první požadavek, včetně z [modulu inicializace aplikace](#application-initialization-module-and-idle-timeout).
+Při instalaci hostujícího balíčku není nutné ručně zastavit jednotlivé weby ve službě IIS. Hostované aplikace (weby IIS) se restartují po restartování služby IIS. Aplikace se po přijetí první žádosti spustí znovu, včetně [modulu inicializace aplikace](#application-initialization-module-and-idle-timeout).
 
-ASP.NET Core přijímá roll-forward chování pro opravy vydání sdílených rámců. Když se aplikace hostované službou IIS restartují se službou IIS, aplikace se načítají nejnovějšími verzemi oprav svých odkazovaných balíčků, když obdrží svůj první požadavek. Pokud služba IIS není restartována, aplikace se restartují a vykazují chování pro předávání vpřed, když jsou jejich pracovní procesy recyklovány a obdrží první požadavek.
+ASP.NET Core přijímá postup při přeposílání pro vydání oprav pro balíčky sdílených balíčků rozhraní. Když se aplikace hostované službou IIS restartují se službou IIS, aplikace při přijetí jejich prvního požadavku načtou nejnovější verze oprav jejich odkazovaných balíčků. Pokud se služba IIS nerestartuje, aplikace se restartují a projeví se chování při přeposílání, když se jejich pracovní procesy recyklují a obdrží první požadavek.
 
 > [!NOTE]
-> Informace o sdílené konfiguraci služby IIS naleznete [v tématu ASP.NET Core Module se sdílenou konfigurací služby IIS](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration).
+> Informace o sdílené konfiguraci služby IIS najdete v tématu [modul ASP.NET Core se sdílenou konfigurací služby IIS](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration).
 
-## <a name="install-web-deploy-when-publishing-with-visual-studio"></a>Instalace nasazení webu při publikování pomocí sady Visual Studio
+## <a name="install-web-deploy-when-publishing-with-visual-studio"></a>Při publikování v aplikaci Visual Studio nainstalovat Nasazení webu
 
-Při nasazování aplikací na servery s [nasazením webu](/iis/install/installing-publishing-technologies/installing-and-configuring-web-deploy-on-iis-80-or-later)nainstalujte na server nejnovější verzi nasazení webu. Chcete-li nainstalovat nasazení webu, použijte [Instalační službu webové platformy (WebPI)](https://www.microsoft.com/web/downloads/platform.aspx) nebo získejte instalační program přímo ze [služby Stažení softwaru](https://www.microsoft.com/download/details.aspx?id=43717). Upřednostňovanou metodou je použití webpi. WebPI nabízí samostatné nastavení a konfiguraci pro poskytovatele hostingu.
+Při nasazování aplikací na servery s [nasazení webu](/iis/install/installing-publishing-technologies/installing-and-configuring-web-deploy-on-iis-80-or-later)nainstalujte na server nejnovější verzi nasazení webu. Chcete-li nainstalovat Nasazení webu, použijte [instalační program webové platformy (WebPI)](https://www.microsoft.com/web/downloads/platform.aspx) nebo si instalační program Získejte přímo z webu [služby Stažení softwaru](https://www.microsoft.com/download/details.aspx?id=43717). Upřednostňovanou metodou je použití WebPI. WebPI nabízí samostatnou instalaci a konfiguraci pro poskytovatele hostingu.
 
-## <a name="create-the-iis-site"></a>Vytvoření webu iis
+## <a name="create-the-iis-site"></a>Vytvoření webu služby IIS
 
-1. V hostitelském systému vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je cesta ke složce k dispozici službu IIS jako fyzická cesta k aplikaci. Další informace o složce nasazení aplikace a <xref:host-and-deploy/directory-structure>rozložení souborů naleznete v tématu .
+1. V hostitelském systému vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je jako fyzická cesta k aplikaci služba IIS poskytována jako cesta k této složce. Další informace o složce nasazení aplikace a rozložení souborů naleznete v tématu <xref:host-and-deploy/directory-structure>.
 
-1. Ve Správci služby IIS otevřete uzel serveru v panelu **Připojení.** Klikněte pravým tlačítkem myši na složku **Weby.** V kontextové nabídce vyberte **Přidat web.**
+1. Ve Správci služby IIS otevřete uzel serveru na panelu **připojení** . Klikněte pravým tlačítkem na složku **weby** . V místní nabídce vyberte **Přidat web** .
 
-1. Zadejte **název webu** a nastavte **fyzickou cestu** ke složce nasazení aplikace. Zadejte konfiguraci **vazby** a vytvořte web výběrem **možnosti OK**:
+1. Zadejte **název lokality** a nastavte **fyzickou cestu** ke složce pro nasazení aplikace. Zadejte konfiguraci **vazby** a vytvořte web výběrem **OK**:
 
-   ![V kroku Přidat web zadejte název webu, fyzickou cestu a název hostitele.](index/_static/add-website-ws2016.png)
+   ![Zadejte název lokality, fyzickou cestu a název hostitele v kroku přidat web.](index/_static/add-website-ws2016.png)
 
    > [!WARNING]
-   > Vazby se zástupnými`http://*:80/` symboly nejvyšší úrovně ( a `http://+:80`) by **neměly** být používány. Vazby se zástupnými symboly nejvyšší úrovně mohou otevřít vaši aplikaci slabá místa zabezpečení. To platí pro silné i slabé zástupné znaky. Používejte explicitní názvy hostitelů místo zástupných znaků. Vazba se zástupnými znaky subdomény (například) nemá toto bezpečnostní riziko, `*.mysub.com` `*.com`pokud řídíte celou nadřazenou doménu (na rozdíl od , která je zranitelná). Viz [rfc7230 sekce-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) pro více informací.
+   > Nelze použít vazby zástupných`http://*:80/` znaků `http://+:80`na nejvyšší **not** úrovni (a). Vazby zástupných znaků nejvyšší úrovně můžou aplikaci otevřít pro slabá místa zabezpečení. To platí pro silné i slabé zástupné znaky. Místo zástupných znaků použijte explicitní názvy hostitelů. Vazba zástupných znaků subdomény ( `*.mysub.com`například) nemá toto bezpečnostní riziko `*.com`, pokud ovládáte celou nadřazenou doménu (na rozdíl od, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
 
-1. Pod uzlovým serverem vyberte **fondy aplikací**.
+1. V uzlu serveru vyberte **fondy aplikací**.
 
-1. Klikněte pravým tlačítkem myši na fond aplikací webu a v kontextové nabídce vyberte **Základní nastavení.**
+1. Klikněte pravým tlačítkem myši na fond aplikací webu a v místní nabídce vyberte **základní nastavení** .
 
-1. V okně **Upravit fond aplikací** nastavte verzi **.NET CLR** na **Žádný spravovaný kód**:
+1. V okně **Upravit fond aplikací** nastavte **verzi .NET CLR** na **bez spravovaného kódu**:
 
-   ![Pro verzi CLR rozhraní .NET nenastavte žádný spravovaný kód.](index/_static/edit-apppool-ws2016.png)
+   ![Pro verzi .NET CLR nenastavte žádný spravovaný kód.](index/_static/edit-apppool-ws2016.png)
 
-    ASP.NET Core běží v samostatném procesu a spravuje runtime. ASP.NET Core nespoléhá na načtení plochy CLR (.NET CLR)&mdash;Core Common Language Runtime (CoreCLR) pro .NET Core je spuštěn pro hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** na **žádný spravovaný kód** je volitelné, ale doporučeno.
+    ASP.NET Core běží v samostatném procesu a spravuje modul runtime. ASP.NET Core nespoléhá na načítání CLR desktopových aplikací (.NET CLR&mdash;), modul CLR (Common Language Runtime) pro .NET Core se spouští k hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** na **žádný spravovaný kód** není volitelné, ale doporučuje se.
 
-1. *ASP.NET jádra 2.2 nebo novějšího:* Pro 64bitové (x64) [samostatné nasazení,](/dotnet/core/deploying/#self-contained-deployments-scd) které používá [model hostování v procesu](#in-process-hosting-model), zakažte fond aplikací pro 32bitové (x86) procesy.
+1. *ASP.NET Core 2,2 nebo novější*: 64 u samostatného [nasazeného nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) (x64), které používá [model hostování v rámci procesu](#in-process-hosting-model), zakažte fond aplikací pro procesy 32 (x86).
 
-   V postranním panelu **Akce** správce služby IIS > **fondy aplikací**vyberte **možnost Nastavit výchozí nastavení fondu aplikací** nebo **Upřesnit nastavení**. Vyhledejte **funkci Povolit 32bitové aplikace** a nastavte hodnotu na . `False` Toto nastavení nemá vliv na aplikace nasazené pro [mimoprocesový hosting](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model).
+   V bočním panelu **Akce** Správce služby IIS > **fondy aplikací**vyberte možnost **nastavit výchozí hodnoty fondu aplikací** nebo **Upřesnit nastavení**. Vyhledejte **možnost povolit 32 – bitové aplikace** a nastavte hodnotu na `False`. Toto nastavení nemá vliv na aplikace nasazené pro [hostování mimo proces](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model).
 
 1. Potvrďte, že identita modelu procesu má správná oprávnění.
 
-   Pokud se výchozí identita fondu aplikací **(identita****procesního modelu** > ) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, zda nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Fond aplikací například vyžaduje přístup pro čtení a zápis do složek, kde aplikace čte a zapisuje soubory.
+   Pokud se výchozí identita fondu aplikací ( > **Identita****modelu procesu**) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
 
-**Konfigurace ověřování systému Windows (volitelná)**  
-Další informace naleznete v [tématu Configure Windows authentication](xref:security/authentication/windowsauth).
+**Konfigurace ověřování systému Windows (volitelné)**  
+Další informace najdete v tématu [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
 ## <a name="deploy-the-app"></a>Nasazení aplikace
 
-Nasaďte aplikaci do složky **Fyzické cesty** služby IIS, která byla vytvořena v části Vytvořit [web služby IIS.](#create-the-iis-site) [Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) je doporučený mechanismus pro nasazení, ale existuje několik možností pro přesunutí aplikace ze složky *publikování* projektu do složky nasazení hostitelského systému.
+Nasaďte aplikaci do složky **fyzické cesty** služby IIS, která byla navázána v části [Vytvoření webu služby IIS](#create-the-iis-site) . [Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) je doporučeným mechanismem pro nasazení, ale existuje několik možností pro přesun aplikace ze složky *publikování* projektu do složky pro nasazení hostitelského systému.
 
-### <a name="web-deploy-with-visual-studio"></a>Nasazení webu pomocí sady Visual Studio
+### <a name="web-deploy-with-visual-studio"></a>Nasazení webu se sadou Visual Studio
 
-Podívejte se na [profily publikování aplikace Visual Studio pro téma nasazení aplikace ASP.NET Core,](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) kde se dozvíte, jak vytvořit profil publikování pro použití s nasazením webu. Pokud poskytovatel hostingu poskytuje profil publikování nebo podporu pro jeho vytvoření, stáhněte si jeho profil a importujte jej pomocí dialogového okna **Publikovat** sady Visual Studio:
+Informace o tom, jak vytvořit profil publikování pro použití s Nasazení webu, najdete v tématu [publikační profily sady Visual Studio pro ASP.NET Core nasazení aplikací](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) . Pokud poskytovatel hostingu poskytuje profil publikování nebo podporu pro jeho vytvoření, Stáhněte si jeho profil a importujte ho pomocí dialogového okna pro **publikování** sady Visual Studio:
 
-![Stránka dialogového okna Publikovat](index/_static/pub-dialog.png)
+![Stránka publikovat dialog](index/_static/pub-dialog.png)
 
 ### <a name="web-deploy-outside-of-visual-studio"></a>Nasazení webu mimo Visual Studio
 
-[Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) lze také použít mimo Visual Studio z příkazového řádku. Další informace naleznete v [tématu Web Deployment Tool](/iis/publish/using-web-deploy/use-the-web-deployment-tool).
+[Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) lze použít také mimo sadu Visual Studio z příkazového řádku. Další informace najdete v tématu [Nástroj pro nasazení webu](/iis/publish/using-web-deploy/use-the-web-deployment-tool).
 
-### <a name="alternatives-to-web-deploy"></a>Alternativy k nasazení webu
+### <a name="alternatives-to-web-deploy"></a>Alternativy k Nasazení webu
 
-Pomocí některé z několika metod přesuňte aplikaci do hostitelského systému, jako je ruční kopírování, [Xcopy](/windows-server/administration/windows-commands/xcopy), [Robocopy](/windows-server/administration/windows-commands/robocopy)nebo [PowerShell](/powershell/).
+K přesunu aplikace do hostitelského systému, jako je ruční kopírování, [xcopy](/windows-server/administration/windows-commands/xcopy), [Robocopy](/windows-server/administration/windows-commands/robocopy)nebo [PowerShell](/powershell/), použijte libovolný z několika způsobů.
 
-Další informace o ASP.NET nasazení jádra do služby IIS naleznete v části [Prostředky nasazení pro správce služby IIS.](#deployment-resources-for-iis-administrators)
+Další informace o nasazení ASP.NET Core do služby IIS najdete v části [prostředky nasazení pro správce služby IIS](#deployment-resources-for-iis-administrators) .
 
-## <a name="browse-the-website"></a>Procházení webu
+## <a name="browse-the-website"></a>Procházet web
 
-Po nasazení aplikace do hostitelského systému požádejte o jeden z veřejných koncových bodů aplikace.
+Po nasazení aplikace do hostitelského systému vytvořte žádost jednomu z veřejných koncových bodů aplikace.
 
-V následujícím příkladu je web vázán na název `www.mysite.com` **hostitele** iis na **portu** `80`. Žádost se podává `http://www.mysite.com`na :
+V následujícím příkladu je lokalita svázána s **názvem hostitele** služby IIS `www.mysite.com` na **portu** `80`. Odeslala se žádost `http://www.mysite.com`:
 
-![Prohlížeč Microsoft Edge načetl úvodní stránku služby IIS.](index/_static/browsewebsite.png)
+![Prohlížeč Microsoft Edge načetl spouštěcí stránku služby IIS.](index/_static/browsewebsite.png)
 
 ## <a name="locked-deployment-files"></a>Uzamčené soubory nasazení
 
-Soubory ve složce nasazení jsou uzamčeny, když je aplikace spuštěná. Uzamčené soubory nelze během nasazení přepsat. Chcete-li uvolnit uzamčené soubory v nasazení, zastavte fond aplikací pomocí **jednoho z** následujících přístupů:
+Soubory ve složce pro nasazení jsou zamčené, když je aplikace spuštěná. Uzamčené soubory nejde během nasazování přepsat. Chcete-li uvolnit uzamčené soubory v nasazení, zastavte fond aplikací pomocí **jednoho** z následujících přístupů:
 
-* Použijte nasazení webu `Microsoft.NET.Sdk.Web` a odkaz v souboru projektu. Soubor *app_offline.htm* je umístěn v kořenovém adresáři webové aplikace. Když je soubor k dispozici, ASP.NET základní modul řádně vypne aplikaci a slouží *souboru app_offline.htm* během nasazení. Další informace naleznete v [odkazu na konfiguraci ASP.NET core modulem](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
-* Ručně zastavit fond aplikací ve Správci služby IIS na serveru.
-* Použití Prostředí PowerShell k přetažení *app_offline.htm* (vyžaduje PowerShell 5 nebo novější):
+* V souboru projektu použijte `Microsoft.NET.Sdk.Web` nasazení webu a odkaz. Soubor *App_offline. htm* se umístí do kořenové složky adresáře webové aplikace. Když je soubor přítomen, modul ASP.NET Core aplikaci korektně ukončí a během nasazování zachová soubor *App_offline. htm* . Další informace najdete v referenčních informacích k [konfiguraci modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
+* Ručně Zastavte fond aplikací ve Správci služby IIS na serveru.
+* Použití PowerShellu k vyřazení *App_offline. htm* (vyžaduje PowerShell 5 nebo novější):
 
   ```powershell
   $pathToApp = 'PATH_TO_APP'
@@ -980,205 +986,205 @@ Soubory ve složce nasazení jsou uzamčeny, když je aplikace spuštěná. Uzam
 
 ## <a name="data-protection"></a>Ochrana dat
 
-Zásobník [ASP.NET Core Data Protection](xref:security/data-protection/introduction) používá několik [middlewares](xref:fundamentals/middleware/index)ASP.NET Core , včetně middlewaru používaného při ověřování. I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, ochrana dat by měla být nakonfigurována pomocí skriptu nasazení nebo v uživatelském kódu, aby se vytvořilo trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurována, klíče jsou uloženy v paměti a po restartování aplikace zahozeny.
+[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru používaného při ověřování. I v případě, že rozhraní API ochrany dat není voláno uživatelským kódem, je třeba nakonfigurovat ochranu dat pomocí skriptu nasazení nebo v uživatelském kódu, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
 
-Pokud je kroužek klíče uložen v paměti při restartování aplikace:
+Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou zrušeny. 
-* Uživatelé se musí znovu přihlásit při dalším požadavku. 
-* Všechna data chráněná kroužkem klíče již nelze dešifrovat. To může zahrnovat [tokeny CSRF](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET základní soubory cookie MVC TempData](xref:fundamentals/app-state#tempdata).
+* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené. 
+* Uživatelé se musí znovu přihlásit na svůj další požadavek. 
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
 
-Chcete-li nakonfigurovat ochranu dat ve službě IIS tak, aby zachycovací byl kroužek klíče, použijte **jeden** z následujících postupů:
+Pokud chcete v rámci služby IIS nakonfigurovat ochranu dat a zachovat přitom klíčového prstence, použijte **některý** z následujících přístupů:
 
 * **Vytvoření klíčů registru ochrany dat**
 
-  Klíče ochrany dat používané ASP.NET aplikace Core jsou uloženy v registru mimo aplikace. Chcete-li zachovat klíče pro danou aplikaci, vytvořte klíče registru pro fond aplikací.
+  Klíče ochrany dat, které používá aplikace ASP.NET Core, jsou uložené v registru externě pro aplikace. Pokud chcete zachovat klíče pro danou aplikaci, vytvořte klíče registru pro fond aplikací.
 
-  Pro samostatné instalace služby IIS mimo webfarmu lze [skript prostředí PowerShell Pro poskytování ochrany dat-AutoGenKeys.ps1](https://github.com/dotnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1) použít pro každý fond aplikací používaný s aplikací ASP.NET Core. Tento skript vytvoří klíč registru v registru HKLM, který je přístupný pouze pro účet pracovního procesu fondu aplikací. Klíče jsou šifrovány v klidovém stavu pomocí dpapi s klíčem pro celý počítač.
+  Pro samostatnou instalaci služby IIS, která není součástí webfarmu, se dá [skript PowerShellu pro ochranu dat provision-AutoGenKeys. ps1](https://github.com/dotnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1) použít pro každý fond aplikací, který se používá v aplikaci ASP.NET Core. Tento skript vytvoří klíč registru v registru HKLM, který je přístupný jenom pro účet pracovního procesu fondu aplikací aplikace. Klíče jsou v klidovém stavu zašifrované pomocí rozhraní DPAPI s klíčem celého počítače.
 
-  Ve scénářích webové farmy lze aplikaci nakonfigurovat tak, aby k ukládání kroužku klíčů pro ochranu dat používala cestu UNC. Ve výchozím nastavení nejsou klíče ochrany dat šifrovány. Ujistěte se, že oprávnění k souborům pro sdílenou síť ovou složku jsou omezena na účet Windows, pod kterým aplikace běží. Certifikát X509 lze použít k ochraně klíčů v klidovém stavu. Zvažte mechanismus, který uživatelům umožní nahrávat certifikáty: Umístěte certifikáty do úložiště důvěryhodných certifikátů uživatele a ujistěte se, že jsou k dispozici na všech počítačích, kde je spuštěna aplikace uživatele. Podrobnosti [najdete v tématu Konfigurace ochrany základních dat ASP.NET.](xref:security/data-protection/configuration/overview)
+  Ve scénářích webové farmy může být aplikace nakonfigurovaná tak, aby používala cestu UNC k uložení svého prstence s klíčem pro ochranu dat. Ve výchozím nastavení nejsou klíče ochrany dat šifrované. Ujistěte se, že oprávnění k souborům pro sdílenou síťovou složku jsou omezená na účet systému Windows, pod kterým je aplikace spuštěná. K ochraně neaktivních klíčů je možné použít certifikát x509. Vezměte v úvahu mechanismus, který umožní uživatelům odeslat certifikáty: Umístěte certifikáty do důvěryhodného úložiště certifikátů uživatele a ujistěte se, že jsou k dispozici na všech počítačích, kde je aplikace uživatele spuštěna. Podrobnosti najdete v tématu [Konfigurace ochrany ASP.NET Core dat](xref:security/data-protection/configuration/overview) .
 
 * **Konfigurace fondu aplikací služby IIS pro načtení profilu uživatele**
 
-  Toto nastavení je v části **Model procesu** v části **Upřesnit nastavení** pro fond aplikací. Nastavte **profil načtení uživatele** na `True`. Pokud je `True`nastavena možnost , jsou klíče uloženy v adresáři profilu uživatele a chráněny pomocí rozhraní DPAPI klíčem specifickým pro uživatelský účet. Klíče jsou uloženy ve složce *%LOCALAPPDATA%/ASP.NET/DataProtection-Keys.*
+  Toto nastavení se nachází v části **model procesu** v části **Rozšířená nastavení** fondu aplikací. Nastavte **načíst profil uživatele** na `True`. Pokud je nastaveno `True`na, klíče jsou uloženy v adresáři profilu uživatele a chráněny pomocí rozhraní DPAPI s klíčem specifickým pro uživatelský účet. Klíče jsou uchovány ve složce *% localappdata%/ASP.NET/DataProtection-Keys* .
 
-  [Atribut setProfileEnvironment](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) fondu aplikací musí být také povolen. Výchozí hodnota `setProfileEnvironment` je `true`. V některých scénářích (například `setProfileEnvironment` operační `false`systém Windows) je nastavena na . Pokud klíče nejsou uloženy v adresáři profilu uživatele podle očekávání:
+  Musí být povolený i [atribut setProfileEnvironment](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) fondu aplikací. Výchozí hodnota `setProfileEnvironment` je `true`. V některých scénářích (například operační systém Windows) `setProfileEnvironment` je nastavena na. `false` Pokud se klíče neukládají v adresáři profilu uživatele podle očekávání:
 
-  1. Přejděte do složky *%windir%/system32/inetsrv/config.*
-  1. Otevřete soubor *applicationHost.config.*
+  1. Přejděte do složky *% windir%/system32/Inetsrv/config* .
+  1. Otevřete soubor *ApplicationHost. config* .
   1. Vyhledejte element `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>`.
-  1. Zkontrolujte, `setProfileEnvironment` zda atribut není k dispozici, `true`což je výchozí hodnota na `true`, nebo explicitně nastavte hodnotu atributu na .
+  1. Potvrďte, `setProfileEnvironment` že atribut není přítomen, přičemž výchozí hodnota je `true`, nebo explicitně nastavte hodnotu atributu na `true`.
 
-* **Použití systému souborů jako úložiště kroužků na klíče**
+* **Použití systému souborů jako úložiště pro Key Ring**
 
-  Upravte kód aplikace tak, aby [používal systém souborů jako úložiště kroužků klíčů](xref:security/data-protection/configuration/overview). K ochraně kroužku na klíče a zajištění, že certifikát je důvěryhodný, použijte certifikát X509. Pokud je certifikát podepsaný svým držitelem, umístěte jej do úložiště Důvěryhodného kořenového adresáře.
+  Upravte kód aplikace tak, aby [používal systém souborů jako úložiště ve službě Key Ring](xref:security/data-protection/configuration/overview). K ochraně služby Key Ring použijte certifikát x509 a ujistěte se, že certifikát je důvěryhodný certifikát. Pokud je certifikát podepsaný svým držitelem, umístěte certifikát do důvěryhodného kořenového úložiště.
 
   Při použití služby IIS ve webové farmě:
 
   * Použijte sdílenou složku, ke které mají přístup všechny počítače.
-  * Nasazení certifikátu X509 do každého počítače. Konfigurace [ochrany dat v kódu](xref:security/data-protection/configuration/overview).
+  * Nasaďte do každého počítače certifikát x509. Konfigurace [ochrany dat v kódu](xref:security/data-protection/configuration/overview).
 
-* **Nastavení celopočítačových zásad pro ochranu dat**
+* **Nastavení zásad pro ochranu dat na úrovni počítače**
 
-  Systém ochrany dat má omezenou podporu pro nastavení výchozí [zásady celého počítače](xref:security/data-protection/configuration/machine-wide-policy) pro všechny aplikace, které spotřebovávají data protection API. Další informace naleznete v tématu <xref:security/data-protection/introduction>.
+  Systém ochrany dat má omezená podpora pro nastavení výchozích [zásad](xref:security/data-protection/configuration/machine-wide-policy) pro všechny aplikace, které využívají rozhraní API pro ochranu dat. Další informace naleznete v tématu <xref:security/data-protection/introduction>.
 
 ## <a name="virtual-directories"></a>Virtuální adresáře
 
-[Virtuální adresáře služby IIS](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#virtual-directories) nejsou podporovány aplikacemi ASP.NET Core. Aplikace může být hostována jako [podaplikace](#sub-applications).
+Aplikace ASP.NET Core nepodporují [virtuální adresáře služby IIS](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#virtual-directories) . Aplikace může být hostována jako [dílčí aplikace](#sub-applications).
 
 ## <a name="sub-applications"></a>Dílčí aplikace
 
-Aplikaci ASP.NET Core lze hostovat jako [podaplikaci služby IIS (podaplikaci).](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#applications) Cesta podaplikace se stane součástí adresy URL kořenové aplikace.
+Aplikace ASP.NET Core může být hostovaná jako [podaplikace služby IIS (dílčí aplikace)](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#applications). Cesta k dílčí aplikaci se stala součástí adresy URL kořenové aplikace.
 
-Statické odkazy datových zdrojů v rámci podaplikace`~/`by měly používat zápis tildového lomítka ( ). Zápis tildového lomítka aktivuje [pomocníka tagu,](xref:mvc/views/tag-helpers/intro) který předřává základnu cesty podaplikace k vykreslenérelativní vazbě. Pro podaplikaci `/subapp_path`na adrese , `src="~/image.png"` obrázek `src="/subapp_path/image.png"`spojený s je vykreslen jako . Middleware statického souboru kořenové aplikace nezpracovává požadavek na statický soubor. Požadavek je zpracován middlewarem statického souboru podaplikace.
+Propojení statických prostředků v rámci dílčí aplikace by měla používat notaci vlnovku`~/`(). Znak tildy vlnovkou spustí [pomocnou nápovědu](xref:mvc/views/tag-helpers/intro) k předřazení pathbase dílčí aplikace na vykreslený relativní odkaz. V případě dílčí aplikace na `/subapp_path`je obrázek propojený s `src="~/image.png"` objektem vykreslen jako. `src="/subapp_path/image.png"` Middleware statických souborů kořenové aplikace nezpracovává požadavek na statický soubor. Požadavek zpracovává middleware statických souborů v dílčí aplikaci.
 
-Pokud je atribut `src` statického datového zdroje nastaven na `src="/image.png"`absolutní cestu (například), odkaz se vykreslí bez vytvoření cesty podaplikace. Middleware statického souboru kořenové aplikace se pokouší obsluhovat datový zdroj z [kořenového kořenového kořenového adresáře](xref:fundamentals/index#web-root)aplikace , což má za následek odpověď *404 - Not Found,* pokud není statický datový zdroj k dispozici z kořenové aplikace.
+Pokud je `src` atribut statického prostředku nastavený na absolutní cestu (například `src="/image.png"`), odkaz se vykreslí bez pathbase dílčí aplikace. Middleware statických souborů v kořenové aplikaci se pokusí o poskytování assetu z [kořenového adresáře webu](xref:fundamentals/index#web-root)kořenové aplikace, což má za následek *404 – nenalezené* odpovědi, pokud není k dispozici statický prostředek z kořenové aplikace.
 
-Hostování aplikace ASP.NET Core jako podaplikace pod jinou aplikací ASP.NET Core:
+Hostování aplikace ASP.NET Core jako dílčí aplikace v jiné aplikaci ASP.NET Core:
 
-1. Vytvořte fond aplikací pro podaplikaci. Nastavte **verzi .NET CLR** na **žádný spravovaný kód,** protože prostředí Core Common Language Runtime (CoreCLR) pro .NET Core je spuštěno pro hostování aplikace v pracovním procesu, nikoli na ploše CLR (.NET CLR).
+1. Vytvořte fond aplikací pro dílčí aplikaci. Nastavte **verzi .NET CLR** na **žádný spravovaný kód** , protože základní modul CLR (Common Language Runtime) pro .NET Core se spouští k hostování aplikace v pracovním procesu, ne CLR Desktop (.NET CLR).
 
-1. Přidejte kořenový web ve Správci služby IIS s podaplikací ve složce pod kořenovým webem.
+1. Přidejte kořenovou lokalitu ve Správci služby IIS pomocí dílčí aplikace do složky v kořenové lokalitě.
 
-1. Klikněte pravým tlačítkem myši na složku podaplikace ve Správci služby IIS a vyberte **příkaz Převést na aplikaci**.
+1. Klikněte pravým tlačítkem na složku dílčí aplikace ve Správci služby IIS a vyberte **převést na aplikaci**.
 
-1. V dialogovém okně **Přidat aplikaci** přiřaďte pomocí tlačítka **Vybrat** pro **fond aplikací** fond aplikací, který jste vytvořili pro podaplikaci. Vyberte **OK**.
+1. V dialogovém okně **Přidat aplikaci** použijte pro **fond aplikací** tlačítko **Vybrat** , abyste přiřadili fond aplikací, který jste vytvořili pro dílčí aplikaci. Vyberte **OK**.
 
-Přiřazení samostatného fondu aplikací do podaplikace je požadavek při použití modelu hostování v procesu.
+Přiřazení samostatného fondu aplikací k dílčí aplikaci je požadavek při použití modelu hostování v rámci procesu.
 
-Další informace o modelu hostování v procesu a konfiguraci <xref:host-and-deploy/aspnet-core-module>ASP.NET core modulu naleznete v tématu .
+Další informace o modelu hostování v rámci procesu a konfiguraci modulu ASP.NET Core naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
-## <a name="configuration-of-iis-with-webconfig"></a>Konfigurace služby IIS pomocí souboru web.config
+## <a name="configuration-of-iis-with-webconfig"></a>Konfigurace služby IIS pomocí souboru Web. config
 
-Konfigurace služby IIS `<system.webServer>` je ovlivněna částí *web.config* pro scénáře služby IIS, které jsou funkční pro ASP.NET aplikace Core pomocí ASP.NET core modulem. Například konfigurace služby IIS je funkční pro dynamickou kompresi. Pokud je služba IIS nakonfigurována na `<urlCompression>` úrovni serveru pro použití dynamické komprese, prvek v souboru *web.config* aplikace jej může zakázat pro aplikaci ASP.NET Core.
+Konfigurace služby IIS má vliv na `<system.webServer>` část souboru *Web. config* pro scénáře služby IIS, které jsou funkční pro ASP.NET Core aplikací s modulem ASP.NET Core. Například konfigurace služby IIS je funkční pro dynamickou kompresi. Pokud je služba IIS nakonfigurovaná na úrovni serveru, aby používala dynamickou kompresi, `<urlCompression>` element v souboru *Web. config* aplikace ho může zakázat pro ASP.NET Core aplikaci.
 
 Další informace najdete v následujících tématech:
 
-* [Odkaz na \<konfiguraci pro>system.webServer](/iis/configuration/system.webServer/)
+* [Referenční informace o \<konfiguraci pro System. webServer>](/iis/configuration/system.webServer/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
 
-Chcete-li nastavit proměnné prostředí pro jednotlivé aplikace spuštěné v izolovaných fondech aplikací (podporované pro službu IIS 10.0 nebo novější), přečtěte si část *příkazu AppCmd.exe* v tématu [Environment Variables environmentvariables>\<](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) tématu v referenční dokumentaci služby IIS.
+Pokud chcete nastavit proměnné prostředí pro jednotlivé aplikace běžící v izolovaných fondech aplikací (podporované pro IIS 10,0 nebo novější), přečtěte si část *příkazového řádku Appcmd. exe* v tématu [proměnné \<prostředí environmentVariables>](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) v referenční dokumentaci ke službě IIS.
 
-## <a name="configuration-sections-of-webconfig"></a>Konfigurační části web.config
+## <a name="configuration-sections-of-webconfig"></a>Konfigurační oddíly souboru Web. config
 
-Části konfigurace aplikací ASP.NET 4.x v *souboru web.config* nepoužívají aplikace ASP.NET Core pro konfiguraci:
+Konfigurační oddíly aplikací ASP.NET 4. x v *souboru Web. config* nepoužívá aplikace ASP.NET Core pro konfiguraci:
 
 * `<system.web>`
 * `<appSettings>`
 * `<connectionStrings>`
 * `<location>`
 
-ASP.NET aplikace Core jsou konfigurovány pomocí jiných poskytovatelů konfigurace. Další informace naleznete v [tématu Konfigurace](xref:fundamentals/configuration/index).
+Aplikace ASP.NET Core jsou nakonfigurovány pomocí jiných poskytovatelů konfigurace. Další informace najdete v tématu [Konfigurace](xref:fundamentals/configuration/index).
 
 ## <a name="application-pools"></a>Fondy aplikací
 
-Izolace fondu aplikací je určena modelem hostování:
+Izolaci fondu aplikací určuje model hostování:
 
-* V průběhu &ndash; procesu hosting ové aplikace jsou nutné ke spuštění v samostatných fondech aplikací.
-* Mimoprocesový hosting &ndash; Doporučujeme izolovat aplikace od sebe navzájem spuštěním každé aplikace ve vlastním fondu aplikací.
+* Aplikace hostující hostování &ndash; v procesu jsou nutné ke spuštění v samostatných fondech aplikací.
+* Hostování &ndash; mimo procesy doporučujeme vzájemně izolovat aplikace tím, že spustíte každou aplikaci ve svém vlastním fondu aplikací.
 
-Dialogové okno **IIS Přidat web** se ve výchozím nastavení používá do jednoho fondu aplikací na aplikaci. Když je k dispozici **název webu,** text se automaticky přenese do textového pole **Fondu aplikací.** Při přidání webu se vytvoří nový fond aplikací s názvem webu.
+Dialogové okno **Přidat web** do služby IIS je ve výchozím nastavení nastaveno na jeden fond aplikací na aplikaci. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
 ## <a name="application-pool-identity"></a>Identita fondu aplikací
 
-Účet identity fondu aplikací umožňuje aplikaci spouštět pod jedinečným účtem, aniž by bylo třeba vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8.0 nebo novější vytvoří pracovní proces správce služby IIS (WAS) virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zkontrolujte, zda je **identita** nastavená na použití **applicationpoolidentity**:
+Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, aby byla **Identita** nastavená na použití **ApplicationPoolIdentity**:
 
 ![Dialogové okno Upřesnit nastavení fondu aplikací](index/_static/apppool-identity.png)
 
-Proces správy služby IIS vytvoří zabezpečený identifikátor s názvem fondu aplikací v systému zabezpečení systému Windows. Prostředky lze zabezpečit pomocí této identity. Tato identita však není reálný uživatelský účet a nezobrazuje se v konzole pro správu uživatelů systému Windows.
+Proces správy služby IIS vytvoří v systému zabezpečení systému Windows zabezpečený identifikátor s názvem fondu aplikací. Prostředky je možné zabezpečit pomocí této identity. Tato identita ale není skutečným uživatelským účtem a nezobrazuje se v konzole pro správu uživatelů Windows.
 
-Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, upravte seznam řízení přístupu (ACL) pro adresář obsahující aplikaci:
+Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, upravte seznam Access Control (ACL) pro adresář obsahující aplikaci:
 
-1. Sem otevřete Průzkumníka Windows a přejděte do adresáře.
+1. Otevřete Průzkumníka Windows a přejděte do adresáře.
 
-1. Klepněte pravým tlačítkem myši na adresář a vyberte příkaz **Vlastnosti**.
+1. Klikněte pravým tlačítkem na adresář a vyberte **vlastnosti**.
 
-1. Na kartě **Zabezpečení** vyberte tlačítko **Upravit** a pak **tlačítko Přidat.**
+1. Na kartě **zabezpečení** vyberte tlačítko **Upravit** a pak klikněte na tlačítko **Přidat** .
 
-1. Vyberte tlačítko **Umístění** a ujistěte se, že je vybrán systém.
+1. Vyberte tlačítko **umístění** a ujistěte se, že je vybraný systém.
 
-1. Zadejte **\\<<iIS app_pool_name>** **zadejte názvy objektů, které chcete vybrat.** Vyberte tlačítko **Zkontrolovat jména.** Pro *DefaultAppPool* zkontrolujte názvy pomocí **IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko **Zkontrolovat názvy,** je v oblasti názvů objektů uvedena hodnota **DefaultAppPool.** Název fondu aplikací není možné zadat přímo do oblasti názvů objektů. Při kontrole názvu objektu použijte<<app_pool_name>formátu **IIS AppPool.\\ **
+1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte **<App_pool_name služby IIS AppPool\\>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte **<app_pool_name>formátu\\ IIS AppPool** .
 
-   ![Dialogové okno Vybrat uživatele nebo skupiny pro složku aplikace: Název fondu aplikací "DefaultAppPool" se připojí k "IIS AppPool\" v oblasti názvů objektů před výběrem možnosti Zkontrolovat názvy".](index/_static/select-users-or-groups-1.png)
+   ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: název fondu aplikací "DefaultAppPool" se připojí k "rozhraní IIS AppPool\" " v oblasti názvy objektů před výběrem "kontrolovat jména".](index/_static/select-users-or-groups-1.png)
 
 1. Vyberte **OK**.
 
-   ![Dialogové okno Vybrat uživatele nebo skupiny pro složku aplikace: Po výběru možnosti Zkontrolovat názvy se v oblasti názvů objektů zobrazí název objektu DefaultAppPool.](index/_static/select-users-or-groups-2.png)
+   ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: po výběru možnosti kontrolovat názvy se v oblasti názvy objektů zobrazí název objektu DefaultAppPool.](index/_static/select-users-or-groups-2.png)
 
-1. Oprávnění &amp; ke spuštění čtení by měla být udělena ve výchozím nastavení. Podle potřeby zadejte další oprávnění.
+1. Ve &amp; výchozím nastavení by měla být udělena oprávnění ke čtení. V případě potřeby zadejte další oprávnění.
 
-Přístup lze také udělit na příkazovém řádku pomocí nástroje **ICACLS.** Jako příklad použijete *defaultapppool,* který používá následující příkaz:
+Přístup se dá taky udělit na příkazovém řádku pomocí nástroje **Icacls** . Pomocí příkazu *DefaultAppPool* jako příkladu se používá následující příkaz:
 
 ```console
 ICACLS C:\sites\MyWebApp /grant "IIS AppPool\DefaultAppPool":F
 ```
 
-Další informace naleznete v tématu [icacls.](/windows-server/administration/windows-commands/icacls)
+Další informace najdete v tématu [Icacls](/windows-server/administration/windows-commands/icacls) .
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
-[Protokol HTTP/2](https://httpwg.org/specs/rfc7540.html) je podporován ASP.NET jádrem v následujících scénářích nasazení služby IIS:
+[Http/2](https://httpwg.org/specs/rfc7540.html) se podporuje s ASP.NET Core v následujících scénářích nasazení služby IIS:
 
-* Neprocesové
+* V procesu
   * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
-  * Připojení TLS 1.2 nebo novější
+  * Připojení TLS 1,2 nebo novější
 * Mimo proces
   * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
-  * Připojení serveru edge směřující mj. [Kestrel server](xref:fundamentals/servers/kestrel)
-  * Připojení TLS 1.2 nebo novější
+  * Veřejná připojení hraničních serverů používají protokol HTTP/2, ale připojení reverzního proxy [serveru Kestrel](xref:fundamentals/servers/kestrel) používá protokol HTTP/1.1.
+  * Připojení TLS 1,2 nebo novější
 
-Pro nasazení v procesu při navázání připojení HTTP/2 `HTTP/2`protokol [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) hlásí . Pro mimoprocesové nasazení při navázání připojení HTTP/2 hlásí protokol `HTTP/1.1` [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
+Pro nasazení v rámci procesu, když je vytvořeno připojení HTTP/2, `HTTP/2`sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) . Pro nasazení mimo proces, když je vytvořeno připojení HTTP/2, sestavy `HTTP/1.1` [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
 
-Další informace o modelech hostování v procesu a <xref:host-and-deploy/aspnet-core-module>mimo proces naleznete v tématu .
+Další informace o modelech hostování v procesu a mimoprocesové procesy naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
-Protokol HTTP/2 je ve výchozím nastavení povolen. Připojení se vrátí na HTTP/1.1, pokud není navázáno připojení HTTP/2. Další informace o konfiguraci protokolu HTTP/2 s nasazením služby IIS naleznete [v tématu HTTP/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis).
+HTTP/2 je ve výchozím nastavení povolené. Pokud není navázáno připojení HTTP/2, připojení se vrátí k HTTP/1.1. Další informace o konfiguraci HTTP/2 v nasazeních služby IIS najdete v tématu [http/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis).
 
-## <a name="cors-preflight-requests"></a>Požadavky cors kontroly před výstupem
+## <a name="cors-preflight-requests"></a>Požadavky na kontrolu před výstupem CORS
 
-*Tato část se vztahuje pouze na ASP.NET základní aplikace, které se zaměřují na rozhraní .NET Framework.*
+*Tato část platí jenom pro ASP.NET Core aplikace, které cílí na .NET Framework.*
 
-Pro aplikaci ASP.NET Core, která cílí na rozhraní .NET Framework, nejsou požadavky OPTIONS ve výchozím nastavení ve službách IIS předány do aplikace. Informace o konfiguraci obslužných rutin služby IIS aplikace v *souboru web.config* tak, aby předávály požadavky OPTIONS, naleznete v tématu [Povolení požadavků napříč původy v ASP.NET webovém rozhraní API 2: Jak funguje cors](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works).
+Pro ASP.NET Core aplikaci, která cílí na .NET Framework, požadavky na možnosti nejsou ve výchozím nastavení ve službě IIS předány do aplikace. Informace o tom, jak nakonfigurovat obslužné rutiny IIS aplikace v *souboru Web. config* , aby předávala požadavky na možnosti, najdete v tématu [Povolení žádostí o více zdrojů v ASP.NET webovém rozhraní API 2: jak CORS funguje](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works).
 
 ## <a name="application-initialization-module-and-idle-timeout"></a>Modul inicializace aplikace a časový limit nečinnosti
 
-Pokud je ve správě ve správě iis hostován ASP.NET základnímodul verze 2:
+Při hostování ve službě IIS pomocí modulu ASP.NET Core verze 2:
 
-* [Aplikace Inicializační modul](#application-initialization-module) &ndash; aplikace hostované [v procesu](#in-process-hosting-model) nebo [mimo proces](#out-of-process-hosting-model) lze nakonfigurovat tak, aby se automaticky spouštěla při restartování pracovního procesu nebo restartování serveru.
-* [Nevyužitý časový limit](#idle-timeout) &ndash; aplikace hostované [v procesu](#in-process-hosting-model) lze nakonfigurovat tak, aby časový limit během období nečinnosti.
+* [Aplikace modulu](#application-initialization-module) &ndash; inicializace aplikace hostované [v procesu](#in-process-hosting-model) nebo [mimo proces](#out-of-process-hosting-model) se dá nakonfigurovat tak, aby se automaticky spouštěla v případě restartování nebo restartování serveru v pracovním procesu.
+* Hostování hostovaného procesu aplikace [časového limitu](#idle-timeout) &ndash; nečinnosti se dá nakonfigurovat tak, aby nevypršel časový limit [v](#in-process-hosting-model) období nečinnosti.
 
-### <a name="application-initialization-module"></a>Inicializační modul aplikace
+### <a name="application-initialization-module"></a>Modul inicializace aplikace
 
-*Platí pro aplikace hostované v průběhu procesu a mimo proces.*
+*Platí pro aplikace hostované v procesu a mimo proces.*
 
-[Inicializace aplikace služby IIS](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization) je funkce služby IIS, která odesílá požadavek HTTP do aplikace při spuštění nebo recyklaci fondu aplikací. Požadavek spustí spuštění aplikace. Ve výchozím nastavení služba IIS vydá požadavek`/`na kořenovou adresu URL aplikace ( ) o inicializaci aplikace (další podrobnosti o konfiguraci najdete v [dalších zdrojích](#application-initialization-module-and-idle-timeout-additional-resources) informací).
+[Inicializace aplikace IIS](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization) je funkce služby IIS, která do aplikace pošle požadavek HTTP, když se spustí nebo recykluje fond aplikací. Požadavek spustí spuštění aplikace. Služba IIS ve výchozím nastavení vydá požadavek na kořenovou adresu URL aplikace (`/`) k inicializaci aplikace (Další informace o konfiguraci najdete v [dalších zdrojích](#application-initialization-module-and-idle-timeout-additional-resources) ).
 
-Zkontrolujte, zda je funkce role Inicializace aplikace služby IIS povolena:
+Potvrďte, že je povolená funkce role inicializace aplikace služby IIS:
 
-V desktopových systémech se systémem Windows 7 nebo novějších při místním používání služby IIS:
+V systémech Windows 7 nebo novějších stolních počítačích při používání služby IIS v místním prostředí:
 
-1. Přejděte na **Ovládací panely** > **Programy** > **a funkce** > **Zapněte nebo vypněte funkce systému Windows** (levá strana obrazovky).
-1. Otevřete funkce **vývoje aplikací** **internetových informačních služeb** > **World Wide Web Services** > .
+1. Přejděte na **Ovládací panely** > **programy** > programy **a funkce** > **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
+1. Otevřete **Internetová informační služba** > **funkce pro vývoj aplikací** **webové služby** > .
 1. Zaškrtněte políčko pro **inicializaci aplikace**.
 
 V systému Windows Server 2008 R2 nebo novějším:
 
 1. Otevřete **Průvodce přidáním rolí a funkcí**.
-1. V panelu **Vybrat služby rolí** otevřete uzel **Vývoj aplikací.**
+1. Na panelu **Vybrat služby rolí** otevřete uzel **vývoj aplikací** .
 1. Zaškrtněte políčko pro **inicializaci aplikace**.
 
-K povolení modulu inicializace aplikace pro lokalitu použijte některý z následujících přístupů:
+Pomocí některého z následujících přístupů povolte modul inicializace aplikace pro danou lokalitu:
 
 * Pomocí Správce služby IIS:
 
-  1. V panelu **Připojení** vyberte **fondy aplikací.**
-  1. Klikněte pravým tlačítkem myši na fond aplikací v seznamu a vyberte **Upřesnit nastavení**.
-  1. Výchozí **režim spuštění** je **OnDemand**. Nastavte **režim spuštění** na **vždy spuštěný**. Vyberte **OK**.
-  1. Otevřete uzel **Weby** v panelu **Připojení.**
-  1. Klikněte pravým tlačítkem myši na aplikaci a vyberte Spravovat **upřesnit nastavení** **webu** > .
-  1. Výchozí nastavení **Preload Enabled** je **False**. Nastavte **předběžné načtení povoleno** na **hodnotu True**. Vyberte **OK**.
+  1. Na panelu **připojení** vyberte **fondy aplikací** .
+  1. V seznamu klikněte pravým tlačítkem na fond aplikací aplikace a vyberte **Upřesnit nastavení**.
+  1. Výchozí **režim spuštění** je **OnDemand**. Nastavte **režim Start** na **AlwaysRunning**. Vyberte **OK**.
+  1. Otevřete uzel **lokality** na panelu **připojení** .
+  1. Klikněte pravým tlačítkem na aplikaci a vyberte **Spravovat** > **Rozšířená nastavení**webu.
+  1. Výchozí nastavení pro **Povolení přednačtení** je **false**. Nastavte **předběžné načtení povoleno** na **hodnotu true**. Vyberte **OK**.
 
-* Pomocí `<applicationInitialization>` `doAppInitAfterRestart` *souboru web.config*přidejte `true` prvek `<system.webServer>` s nastavenou na do prvků v souboru *web.config* aplikace:
+* Pomocí souboru *Web. config*přidejte `<applicationInitialization>` element s `doAppInitAfterRestart` nastavením `true` do `<system.webServer>` prvků v souboru *Web. config* aplikace:
 
   ```xml
   <?xml version="1.0" encoding="utf-8"?>
@@ -1193,30 +1199,30 @@ K povolení modulu inicializace aplikace pro lokalitu použijte některý z nás
 
 ### <a name="idle-timeout"></a>Časový limit nečinnosti
 
-*Platí pouze pro aplikace hostované v procesu.*
+*Platí jenom pro aplikace hostované v procesu.*
 
-Chcete-li aplikaci zabránit v volnoběhu, nastavte časový limit nečinnosti fondu aplikací pomocí Správce služby IIS:
+Pokud chcete zabránit volnoběhu aplikace, nastavte časový limit nečinnosti fondu aplikací pomocí Správce služby IIS:
 
-1. V panelu **Připojení** vyberte **fondy aplikací.**
-1. Klikněte pravým tlačítkem myši na fond aplikací v seznamu a vyberte **Upřesnit nastavení**.
+1. Na panelu **připojení** vyberte **fondy aplikací** .
+1. V seznamu klikněte pravým tlačítkem na fond aplikací aplikace a vyberte **Upřesnit nastavení**.
 1. Výchozí **časový limit nečinnosti (minuty)** je **20** minut. Nastavte **časový limit nečinnosti (minuty)** na **0** (nula). Vyberte **OK**.
 1. Recyklujte pracovní proces.
 
-Chcete-li zabránit vypršení časového limitu aplikací hostovaných [mimo proces,](#out-of-process-hosting-model) použijte některý z následujících přístupů:
+Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-model) vypršení časového limitu, použijte některý z následujících přístupů:
 
-* Příkazping aplikace z externí služby, aby byla spuštěna.
-* Pokud aplikace hostuje pouze služby na pozadí, vyhněte se hostování služby IIS a pomocí [služby Windows service hostujte aplikaci ASP.NET Core](xref:host-and-deploy/windows-service).
+* Pomocí příkazu otestujete aplikaci z externí služby, aby byla spuštěná.
+* Pokud aplikace hostuje jenom služby na pozadí, vyhněte se hostování služby IIS a použití [služby Windows k hostování aplikace ASP.NET Core](xref:host-and-deploy/windows-service).
 
-### <a name="application-initialization-module-and-idle-timeout-additional-resources"></a>Modul inicializace aplikace a časový limit nečinnosti další prostředky
+### <a name="application-initialization-module-and-idle-timeout-additional-resources"></a>Modul inicializace aplikace a další prostředky časového limitu nečinnosti
 
-* [Inicializace aplikace služby IIS 8.0](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)
-* [Aplikace Inicializace \<aplikaceInicializační>](/iis/configuration/system.webserver/applicationinitialization/).
-* [Zpracovat nastavení modelu \<pro proces fondu aplikacíModel>](/iis/configuration/system.applicationhost/applicationpools/add/processmodel).
+* [Inicializace aplikace IIS 8,0](/iis/get-started/whats-new-in-iis-8/iis-80-application-initialization)
+* [ApplicationInitialization inicializace \<aplikace>](/iis/configuration/system.webserver/applicationinitialization/).
+* [Nastavení modelu procesu pro fond \<aplikací processModel>](/iis/configuration/system.applicationhost/applicationpools/add/processmodel).
 
 ## <a name="deployment-resources-for-iis-administrators"></a>Prostředky nasazení pro správce služby IIS
 
-* [Dokumentace iis](/iis)
-* [Začínáme se Správcem služby IIS ve službách IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
+* [Dokumentace ke službě IIS](/iis)
+* [Začínáme ve službě IIS pomocí Správce služby IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
 * [Nasazení aplikace .NET Core](/dotnet/core/deploying/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/directory-structure>
@@ -1228,8 +1234,8 @@ Chcete-li zabránit vypršení časového limitu aplikací hostovaných [mimo pr
 
 * <xref:test/troubleshoot>
 * <xref:index>
-* [Oficiální web služby Microsoft IIS](https://www.iis.net/)
-* [Knihovna technického obsahu systému Windows Server](/windows-server/windows-server)
+* [Oficiální web Microsoft IIS](https://www.iis.net/)
+* [Knihovna technických obsahu pro Windows Server](/windows-server/windows-server)
 * [HTTP/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis)
 * <xref:host-and-deploy/iis/transform-webconfig>
 
@@ -1237,9 +1243,9 @@ Chcete-li zabránit vypršení časového limitu aplikací hostovaných [mimo pr
 
 ::: moniker range="< aspnetcore-2.2"
 
-Výukové prostředí o publikování aplikace ASP.NET Core na server <xref:tutorials/publish-to-iis>služby IIS naleznete v tématu .
+Kurz týkající se publikování ASP.NET Core aplikace na server služby IIS najdete v tématu <xref:tutorials/publish-to-iis>.
 
-[Instalace balíčku hostingu jádra .NET](#install-the-net-core-hosting-bundle)
+[Instalace hostující sady .NET Core](#install-the-net-core-hosting-bundle)
 
 ## <a name="supported-operating-systems"></a>Podporované operační systémy
 
@@ -1248,57 +1254,57 @@ Podporovány jsou následující operační systémy:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-[Server HTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaný WebListener) nefunguje v konfiguraci reverzního proxy serveru se službou IIS. Použijte [server Kestrel](xref:fundamentals/servers/kestrel).
+[Http. sys Server](xref:fundamentals/servers/httpsys) (dříve označovaný jako weblisten) nefunguje v konfiguraci reverzního proxy serveru se službou IIS. Použijte [Server Kestrel](xref:fundamentals/servers/kestrel).
 
-Informace o hostování v <xref:host-and-deploy/azure-apps/index>Azure najdete v tématu .
+Informace o hostování v Azure najdete v tématu <xref:host-and-deploy/azure-apps/index>.
 
-Pokyny pro řešení <xref:test/troubleshoot>potíží naleznete v tématu .
+Pokyny k řešení potíží najdete <xref:test/troubleshoot>v tématu.
 
 ## <a name="supported-platforms"></a>Podporované platformy
 
-Podporovány jsou aplikace publikované pro 32bitové (x86) nebo 64bitové (x64) nasazení. Nasazení 32bitové aplikace s 32bitovou sadou .NET Core SDK, pokud ji ne:
+Podporují se aplikace publikované pro nasazení 32 (x86) nebo 64-bit (x64). Nasazení 32 aplikace s 32 (x86) .NET Core SDK, pokud aplikace:
 
-* Vyžaduje větší adresní prostor virtuální paměti, který je k dispozici pro 64bitovou aplikaci.
-* Vyžaduje větší velikost zásobníku iis.
-* Má 64bitové nativní závislosti.
+* Vyžaduje větší dostupný adresní prostor virtuální paměti pro 64 aplikaci.
+* Vyžaduje větší velikost zásobníku služby IIS.
+* Má 64 nativní závislosti.
 
-K publikování 64bitové sady SDK jádra (x64) použijte 64bitovou sadu .NET Core SDK. V hostitelském systému musí být k dispozici 64bitový běhový čas.
+K publikování 64 aplikace použijte 64 .NET Core SDK (x64). V hostitelském systému musí být nainstalován 64 modul runtime.
 
-ASP.NET Core je dodáván se [serverem Kestrel](xref:fundamentals/servers/kestrel), což je výchozí http server pro více platforem.
+ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel), výchozím serverem HTTP pro různé platformy.
 
-Při použití [služby IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [služby IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)je aplikace spuštěna v procesu odděleném od pracovního procesu služby IIS *(mimo proces)* se [serverem Kestrel](xref:fundamentals/servers/index#kestrel).
+Při použití [služby IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)aplikace běží v procesu odděleně od pracovního procesu služby IIS (*mimo proces*) se [serverem Kestrel](xref:fundamentals/servers/index#kestrel).
 
-Vzhledem k tomu, ASP.NET základní aplikace spustit v procesu odděleném od pracovního procesu služby IIS, modul zpracovává správu procesů. Modul spustí proces pro aplikaci ASP.NET Core při příchodu prvního požadavku a restartuje aplikaci, pokud se vypne nebo dojde k chybě. Toto je v podstatě stejné chování jako u aplikací, které běží v procesu, které jsou spravovány [službou aktivace procesu systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
+Vzhledem k tomu, že ASP.NET Core aplikace běží v procesu odděleném od pracovního procesu služby IIS, modul zpracovává správu procesů. Modul spustí proces pro aplikaci ASP.NET Core, když první požadavek dorazí a restartuje aplikaci, pokud se ukončí nebo dojde k chybě. To je v podstatě stejné chování jako u aplikací, které běží v procesu, které jsou spravovány službou was [(Windows Process Activation Service)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
-Následující diagram znázorňuje vztah mezi iis, ASP.NET základní modul a aplikace hostované mimo proces:
+Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Core a aplikací hostovanou mimo proces:
 
 ![Modul ASP.NET Core](index/_static/ancm-outofprocess.png)
 
-Požadavky dorazí z webu do ovladače HTTP.sys v režimu jádra. Řidič směruje požadavky do služby IIS na nakonfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky Kestrel na náhodný port pro aplikaci, která není port 80 nebo 443.
+Požadavky přicházející z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
 
-Modul určuje port prostřednictvím proměnné prostředí při spuštění a [middleware integrace služby IIS](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) nakonfiguruje server tak, aby naslouchal . `http://localhost:{port}` Jsou prováděny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání https, takže požadavky jsou předávány přes HTTP i v případě, že přijaté službou IIS přes protokol HTTPS.
+Modul Určuje port prostřednictvím proměnné prostředí při spuštění a [Služba IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) nakonfiguruje server, na kterém má naslouchat `http://localhost:{port}`. Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS, takže požadavky se předávají přes protokol HTTP i v případě, že je služba IIS prostřednictvím protokolu HTTPS přijímá.
 
-Poté, co Kestrel vyzvedne požadavek z modulu, je požadavek posunut do kanálu ASP.NET middleware. Middleware kanálu zpracovává požadavek a předá `HttpContext` jej jako instanci logiky aplikace. Middleware přidané integrací služby IIS aktualizuje schéma, vzdálenou IP adresu a pathbase tak, aby odpovídaly předání požadavku ke společnosti Kestrel. Odpověď aplikace je předána zpět do služby IIS, která ji odešle zpět do klienta HTTP, který inicioval požadavek.
+Po Kestrel žádosti z modulu se požadavek odešle do kanálu middlewaru ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Middleware přidaný integrací služby IIS: aktualizace schématu, vzdálené IP adresy a pathbase pro přesměrování požadavku do Kestrel. Odpověď aplikace se předává zpátky do služby IIS, která ji přenáší zpátky do klienta HTTP, který žádost inicioval.
 
-`CreateDefaultBuilder`Konfiguruje server [Kestrel](xref:fundamentals/servers/kestrel) jako webový server a umožňuje integraci služby IIS konfigurací základní cesty a portu pro [základní modul ASP.NET .](xref:host-and-deploy/aspnet-core-module)
+`CreateDefaultBuilder`nakonfiguruje server [Kestrel](xref:fundamentals/servers/kestrel) jako webový server a povolí integraci služby IIS konfigurací základní cesty a portu pro [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module).
 
-Základní modul ASP.NET generuje dynamický port, který má být přiřazen k procesu back-endu. `CreateDefaultBuilder`volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> metodu. `UseIISIntegration`konfiguruje Kestrel poslouchat na dynamickém portu na localhost IP adresu (`127.0.0.1`). Pokud je dynamický port 1234, Kestrel naslouchá na `127.0.0.1:1234`. Tato konfigurace nahrazuje další konfigurace adres URL poskytované:
+Modul ASP.NET Core generuje dynamický port, který se přiřadí back-end procesu. `CreateDefaultBuilder`volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> metodu. `UseIISIntegration`Konfiguruje Kestrel k naslouchání na dynamickém portu na IP adrese místního hostitele`127.0.0.1`(). Pokud je dynamický port 1234, Kestrel naslouchá na `127.0.0.1:1234`. Tato konfigurace nahrazuje jiné konfigurace adres URL, které poskytl:
 
 * `UseUrls`
-* [Kestrel je Poslouchat API](xref:fundamentals/servers/kestrel#endpoint-configuration)
-* [Konfigurace](xref:fundamentals/configuration/index) (nebo [možnost --urls příkazového řádku)](xref:fundamentals/host/web-host#override-configuration)
+* [Rozhraní API pro naslouchání Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration)
+* [Konfigurace](xref:fundamentals/configuration/index) (nebo [příkazového řádku – možnost adresy URL](xref:fundamentals/host/web-host#override-configuration))
 
-Volání `UseUrls` nebo Kestrel `Listen` api nejsou vyžadovány při použití modulu. Pokud `UseUrls` `Listen` nebo je volána, Kestrel naslouchá na portu určeném pouze při spuštění aplikace bez iis.
+Při použití `UseUrls` modulu se nevyžadují volání `Listen` rozhraní API nebo Kestrel. Pokud `UseUrls` je `Listen` volána nebo, Kestrel naslouchá na portu určeném pouze při spuštění aplikace bez služby IIS.
 
-Pokyny ke konfiguraci ASP.NET <xref:host-and-deploy/aspnet-core-module>core modulem naleznete v tématu .
+Pokyny ke konfiguraci ASP.NET Core modulu najdete v <xref:host-and-deploy/aspnet-core-module>tématu.
 
-Další informace o hostování najdete [v tématu Host in ASP.NET Core](xref:fundamentals/index#host).
+Další informace o hostování najdete v tématu [hostitel v ASP.NET Core](xref:fundamentals/index#host).
 
 ## <a name="application-configuration"></a>Konfigurace aplikací
 
-### <a name="enable-the-iisintegration-components"></a>Povolení součástí Integrace iIS
+### <a name="enable-the-iisintegration-components"></a>Povolit komponenty IISIntegration
 
-Při vytváření hostitele `CreateWebHostBuilder` v *(Program.cs*) volání <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> umožňující integraci iis:
+Při sestavování hostitele `CreateWebHostBuilder` v (*program.cs*) zavolejte <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> na Povolit integraci služby IIS:
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1306,16 +1312,16 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         ...
 ```
 
-Další informace `CreateDefaultBuilder`naleznete <xref:fundamentals/host/web-host#set-up-a-host>v tématu .
+Další informace o `CreateDefaultBuilder`naleznete v tématu <xref:fundamentals/host/web-host#set-up-a-host>.
 
-### <a name="iis-options"></a>Možnosti iis
+### <a name="iis-options"></a>Možnosti služby IIS
 
 | Možnost                         | Výchozí | Nastavení |
 | ------------------------------ | :-----: | ------- |
-| `AutomaticAuthentication`      | `true`  | Pokud `true`server IIS `HttpContext.User` nastaví ověřené ověřování [systému Windows](xref:security/authentication/windowsauth). Pokud `false`server poskytuje identitu pouze `HttpContext.User` pro výzvy a reaguje na `AuthenticationScheme`ně, pokud o to výslovně požádá . Aby bylo možné službu `AutomaticAuthentication` IIS fungovat, musí být ve službě IIS povoleno ověřování systému Windows. Další informace naleznete v tématu [Ověřování systému Windows](xref:security/authentication/windowsauth). |
-| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazované jméno zobrazené uživatelům na přihlašovacích stránkách. |
+| `AutomaticAuthentication`      | `true`  | Pokud `true`server IIS nastaví `HttpContext.User` ověřený [ověřováním systému Windows](xref:security/authentication/windowsauth). Pokud `false`Server poskytuje pouze identitu pro `HttpContext.User` a reaguje na výzvy, pokud je `AuthenticationScheme`explicitně vyžádala. `AutomaticAuthentication` Aby mohla služba fungovat, musí být ve službě IIS povolená možnost ověřování systému Windows. Další informace najdete v tématu [ověřování systému Windows](xref:security/authentication/windowsauth). |
+| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se zobrazí uživatelům na přihlašovacích stránkách. |
 
-Chcete-li konfigurovat možnosti služby <xref:Microsoft.AspNetCore.Builder.IISOptions> <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>IIS, zahrňte konfiguraci služby v aplikaci . Následující příklad zabrání aplikaci v naplnění `HttpContext.Connection.ClientCertificate`:
+Pokud chcete nakonfigurovat možnosti služby IIS, zahrňte do <xref:Microsoft.AspNetCore.Builder.IISOptions> nástroje <xref:Microsoft.AspNetCore.Hosting.IStartup.ConfigureServices*>konfiguraci služby pro. Následující příklad zabrání aplikaci v naplnění `HttpContext.Connection.ClientCertificate`:
 
 ```csharp
 services.Configure<IISOptions>(options => 
@@ -1326,29 +1332,29 @@ services.Configure<IISOptions>(options =>
 
 | Možnost                         | Výchozí | Nastavení |
 | ------------------------------ | :-----: | ------- |
-| `AutomaticAuthentication`      | `true`  | Pokud `true` [middleware integrace služby IIS](#enable-the-iisintegration-components) nastaví ověřené ověřování systému `HttpContext.User` [Windows](xref:security/authentication/windowsauth). Pokud `false`middleware poskytuje identitu `HttpContext.User` a reaguje na problémy pouze na `AuthenticationScheme`žádost . Aby bylo možné službu `AutomaticAuthentication` IIS fungovat, musí být ve službě IIS povoleno ověřování systému Windows. Další informace naleznete v tématu [Ověřování systému Windows.](xref:security/authentication/windowsauth) |
-| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazované jméno zobrazené uživatelům na přihlašovacích stránkách. |
-| `ForwardClientCertificate`     | `true`  | Pokud `true` a `MS-ASPNETCORE-CLIENTCERT` hlavička požadavku `HttpContext.Connection.ClientCertificate` je k dispozici, je naplněn. |
+| `AutomaticAuthentication`      | `true`  | Pokud `true` [Služba IIS Integration middleware](#enable-the-iisintegration-components) nastaví `HttpContext.User` ověření [ověřováním systému Windows](xref:security/authentication/windowsauth). V `false`případě, middleware poskytuje pouze identitu pro `HttpContext.User` a reaguje na výzvy, pokud je `AuthenticationScheme`explicitně vyžádala. `AutomaticAuthentication` Aby mohla služba fungovat, musí být ve službě IIS povolená možnost ověřování systému Windows. Další informace najdete v tématu [ověřování systému Windows](xref:security/authentication/windowsauth) . |
+| `AuthenticationDisplayName`    | `null`  | Nastaví zobrazovaný název, který se zobrazí uživatelům na přihlašovacích stránkách. |
+| `ForwardClientCertificate`     | `true`  | Pokud `true` je k `MS-ASPNETCORE-CLIENTCERT` dispozici hlavička žádosti, `HttpContext.Connection.ClientCertificate` je naplněna hodnota. |
 
-### <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a vyrovnávání zatížení
+### <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
 
-[Middleware integrace služby IIS](#enable-the-iisintegration-components), který konfiguruje middleware předávaných záhlaví a ASP.NET základní modul, jsou nakonfigurovány tak, aby předávaly schéma (HTTP/HTTPS) a vzdálenou adresu IP, ze které požadavek pochází. Další konfigurace může být vyžadována pro aplikace hostované za dalšími proxy servery a nástroji pro vyrovnávání zatížení. Další informace naleznete v [tématu Configure ASP.NET Core to work with proxy servers and load balancers](xref:host-and-deploy/proxy-load-balancer).
+[Služba IIS Integration middleware](#enable-the-iisintegration-components), která konfiguruje middleware předávaných hlaviček, a modul ASP.NET Core je nakonfigurován tak, aby přenesl schéma (http/https) a vzdálenou IP adresu, kam pochází požadavek. Pro aplikace hostované za dalšími proxy servery a nástroji pro vyrovnávání zatížení může být vyžadována další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
-### <a name="webconfig-file"></a>soubor web.config
+### <a name="webconfig-file"></a>soubor Web. config
 
-Soubor *web.config* konfiguruje [základní modul ASP.NET](xref:host-and-deploy/aspnet-core-module). Při publikování projektu je vytváření, transformace a publikování souboru *web.config* zpracováno cílem MSBuild (`_TransformWebConfig`). Tento cíl je k dispozici v`Microsoft.NET.Sdk.Web`cílech sady Web SDK ( ). Sada SDK je nastavena v horní části souboru projektu:
+Soubor *Web. config* konfiguruje [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Vytváření, transformace a publikování souboru *Web. config* je zpracováno nástrojem MSBuild cíl (`_TransformWebConfig`) při publikování projektu. Tento cíl je k dispozici v cíle webové sady`Microsoft.NET.Sdk.Web`SDK (). Sada SDK je nastavena v horní části souboru projektu:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
 ```
 
-Pokud soubor *web.config* není v projektu přítomen, je soubor vytvořen se správnou *processPath* a *argumenty* pro konfiguraci ASP.NET základnímodul a přesunutna do [publikovaného výstupu](xref:host-and-deploy/directory-structure).
+Pokud soubor *Web. config* není v projektu přítomen, je vytvořen soubor se správným *processPath* a *argumenty* pro konfiguraci modulu ASP.NET Core a přesunutí do [publikovaného výstupu](xref:host-and-deploy/directory-structure).
 
-Pokud *web.config* soubor je přítomen v projektu, soubor je transformován se správným *processPath* a *argumenty* pro konfiguraci ASP.NET core modul a přesunuta do publikovaného výstupu. Transformace nezmění nastavení konfigurace služby IIS v souboru.
+Pokud je soubor *Web. config* přítomen v projektu, soubor je transformován se správným *processPath* a *argumenty* pro konfiguraci modulu ASP.NET Core a přesunutí do publikovaného výstupu. Transformace nemění nastavení konfigurace služby IIS v souboru.
 
-Soubor *web.config* může poskytovat další nastavení konfigurace služby IIS, která řídí aktivní moduly služby IIS. Informace o modulech služby IIS, které jsou schopné zpracovávat požadavky pomocí aplikací ASP.NET Core, naleznete v tématu [modulů služby IIS.](xref:host-and-deploy/iis/modules)
+Soubor *Web. config* může poskytovat další nastavení konfigurace služby IIS, která ovládají aktivní moduly IIS. Informace o modulech služby IIS, které jsou schopné zpracovávat požadavky s ASP.NET Core aplikacemi, najdete v tématu [IIS modules](xref:host-and-deploy/iis/modules) .
 
-Chcete-li zabránit webové sady SDK v transformaci souboru *web.config,* použijte vlastnost ** \<IsTransformWebConfigDisabled>** v souboru projektu:
+Chcete-li webové sadě SDK zabránit ve transformaci souboru *Web. config* , použijte vlastnost ** \<IsTransformWebConfigDisabled>** v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -1356,182 +1362,182 @@ Chcete-li zabránit webové sady SDK v transformaci souboru *web.config,* použi
 </PropertyGroup>
 ```
 
-Při zakázání webové sady SDK z transformace souboru *processPath* a argumenty by měly být ručně *nastaveny* vývojářem. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
+Při zakazování webové sady SDK z transformace souboru by měl vývojář *processPath* a *argumenty* ručně nastavit. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
-### <a name="webconfig-file-location"></a>umístění souboru web.config
+### <a name="webconfig-file-location"></a>umístění souboru Web. config
 
-Aby bylo možné správně nastavit [ASP.NET core modul,](xref:host-and-deploy/aspnet-core-module) musí být soubor *web.config* přítomen na [cestě kořenového obsahu](xref:fundamentals/index#content-root) (obvykle základní cesta aplikace) nasazené aplikace. Jedná se o stejné umístění jako fyzická cesta k webu poskytnutá službu IIS. Soubor *web.config* je vyžadován v kořenovém adresáři aplikace, aby bylo možné publikovat více aplikací pomocí nasazení webu.
+Aby bylo možné správně nastavit [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module) , musí být soubor *Web. config* přítomen v [kořenové cestě obsahu](xref:fundamentals/index#content-root) (obvykle v základní cestě aplikace) nasazené aplikace. Toto je stejné umístění jako fyzická cesta k webu poskytované službě IIS. Soubor *Web. config* je vyžadován v kořenu aplikace, aby bylo možné publikovat více aplikací pomocí nasazení webu.
 
-Na fyzické cestě aplikace existují citlivé soubory, například * \<assembly>.runtimeconfig.json*, * \<assembly>.xml* (komentáře xml documentation) a * \<assembly>.deps.json*. Pokud je soubor *web.config* přítomen a web se spustí normálně, služby IIS tyto citlivé soubory neobsluhuje, pokud jsou požadovány. Pokud soubor *web.config* chybí, je nesprávně pojmenován nebo jej nelze nakonfigurovat pro normální spuštění, může služba IIS veřejně sloužit citlivým souborům.
+Citlivé soubory existují na fyzické cestě aplikace, jako je například * \<Assembly>. runtimeconfig. JSON*, * \<Assembly>. XML* (dokumentační komentáře XML) a * \<Assembly>. DEPS. JSON*. Když je přítomen soubor *Web. config* a lokalita se spouští normálně, služba IIS tyto citlivé soubory po vyžádání neobsluhuje. Pokud soubor *Web. config* chybí, je nesprávně pojmenovaný nebo nemůže nakonfigurovat lokalitu pro normální spuštění, služba IIS může obsluhovat citlivé soubory veřejně.
 
-**Soubor *web.config* musí být v nasazení vždy přítomen, správně pojmenovaný a musí být schopen nakonfigurovat web pro normální spuštění. Nikdy neodstraňujte soubor *web.config* z produkčního nasazení.**
+**Soubor *Web. config* musí být současně přítomen v nasazení, správně pojmenován a může nakonfigurovat lokalitu pro normální spuštění. Nikdy neodstraňujte soubor *Web. config* z produkčního nasazení.**
 
 ### <a name="transform-webconfig"></a>Transformace souboru web.config
 
-Pokud potřebujete transformovat *web.config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si viz <xref:host-and-deploy/iis/transform-webconfig>.
+Pokud potřebujete transformovat *Web. config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig>.
 
 ## <a name="iis-configuration"></a>Konfigurace služby IIS
 
 **Operační systémy Windows Server**
 
-Povolte roli serveru **webového serveru (IIS)** a vytvořte služby rolí.
+Povolte roli serveru **webový server (IIS)** a vytvořte služby rolí.
 
-1. Použijte Průvodce **přidáním rolí a funkcí** z nabídky **Spravovat** nebo odkaz ve **Správci serveru**. V kroku **Role serveru** zaškrtněte políčko **U webového serveru (IIS).**
+1. Použijte průvodce **přidáním rolí a funkcí** z nabídky **Správa** nebo odkazu v **Správce serveru**. V kroku **role serveru** zaškrtněte políčko **webový server (IIS)**.
 
-   ![Role služby IIS webového serveru je vybrána v kroku Vybrat role serveru.](index/_static/server-roles-ws2016.png)
+   ![V kroku vybrat role serveru je vybraná role Webový server IIS.](index/_static/server-roles-ws2016.png)
 
-1. Po kroku **Funkce** se krok **služby role** načte pro webový server (IIS). Vyberte požadované služby rolí služby IIS nebo přijměte výchozí služby rolí, které jsou k dispozici.
+1. Po kroku **funkce** se krok **služby rolí** načte pro webový server (IIS). Vyberte požadované služby role IIS nebo přijměte výchozí poskytnuté služby rolí.
 
-   ![Výchozí služby rolí jsou vybrány v kroku Vybrat služby rolí.](index/_static/role-services-ws2016.png)
+   ![Výchozí služby rolí se vyberou v kroku vybrat služby rolí.](index/_static/role-services-ws2016.png)
 
    **Ověřování systému Windows (volitelné)**  
-   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**Zabezpečení** **webového serveru** > . Vyberte funkci **Ověřování systému Windows.** Další informace naleznete v [tématech Ověřování \<systému Windows windowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a Konfigurace ověřování [systému Windows](xref:security/authentication/windowsauth).
+   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**zabezpečení** **webového serveru** > . Vyberte funkci **ověřování systému Windows** . Další informace najdete v tématu [ověřování \<systému Windows WindowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
    **WebSockets (volitelné)**  
-   WebSockets je podporován ASP.NET jádrem 1.1 nebo novějším. Chcete-li povolit rozhraní WebSockets, rozbalte následující uzly:**Vývoj aplikací webového** **serveru** > . Vyberte funkci **WebSocket Protocol.** Další informace naleznete v tématu [WebSockets](xref:fundamentals/websockets).
+   Objekty WebSocket jsou podporované ASP.NET Core 1,1 nebo novějším. Chcete-li povolit objekty WebSockets, rozbalte následující uzly:**vývoj aplikací** **webového serveru** > . Vyberte funkci **protokolu WebSocket** . Další informace najdete v tématu [objekty WebSockets](xref:fundamentals/websockets).
 
-1. Pokračujte v **potvrzovacím** kroku a nainstalujte roli a služby webového serveru. Po instalaci role **webového serveru (IIS)** není restartování serveru nebo služby IIS vyžadováno.
+1. Chcete-li nainstalovat roli a služby webového serveru, postupujte podle kroků pro **potvrzení** . Po instalaci role **webový server (IIS)** není nutné restartovat server nebo službu IIS.
 
 **Desktopové operační systémy Windows**
 
-Povolte **konzolu pro správu služby IIS** a **služby World Wide Web Services**.
+Povolte **konzolu pro správu služby IIS** a **webové služby**.
 
-1. Přejděte na **Ovládací panely** > **Programy** > **a funkce** > **Zapněte nebo vypněte funkce systému Windows** (levá strana obrazovky).
+1. Přejděte na **Ovládací panely** > **programy** > programy **a funkce** > **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
 
-1. Otevřete uzel **Internetové informační služby.** Otevřete uzel **Nástroje pro správu webu.**
+1. Otevřete uzel **Internetová informační služba** . Otevřete uzel **Nástroje webové správy** .
 
-1. Zaškrtněte políčko **U konzole pro správu služby IIS**.
+1. Zaškrtněte políčko pro **konzolu pro správu služby IIS**.
 
-1. Zaškrtněte políčko **U služeb World Wide Web Services**.
+1. Zaškrtněte políčko u **webových služeb**.
 
-1. Přijměte výchozí funkce **pro služby World Wide Web Services** nebo upravte funkce služby IIS.
+1. Přijměte výchozí funkce pro **webové služby** nebo upravte funkce služby IIS.
 
    **Ověřování systému Windows (volitelné)**  
-   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly: **World Wide Web Services** > **Security**. Vyberte funkci **Ověřování systému Windows.** Další informace naleznete v [tématech Ověřování \<systému Windows windowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a Konfigurace ověřování [systému Windows](xref:security/authentication/windowsauth).
+   Chcete-li povolit ověřování systému Windows, rozbalte následující uzly:**zabezpečení** **webové služby** > . Vyberte funkci **ověřování systému Windows** . Další informace najdete v tématu [ověřování \<systému Windows WindowsAuthentication>](/iis/configuration/system.webServer/security/authentication/windowsAuthentication/) a [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
    **WebSockets (volitelné)**  
-   WebSockets je podporován ASP.NET jádrem 1.1 nebo novějším. Chcete-li povolit rozhraní WebSockets, rozbalte následující uzly: Funkce**vývoje aplikací**pro **webové služby** > . Vyberte funkci **WebSocket Protocol.** Další informace naleznete v tématu [WebSockets](xref:fundamentals/websockets).
+   Objekty WebSocket jsou podporované ASP.NET Core 1,1 nebo novějším. Chcete-li povolit objekty WebSockets, rozbalte následující uzly:**funkce pro vývoj aplikací**v **rámci webové služby** > . Vyberte funkci **protokolu WebSocket** . Další informace najdete v tématu [objekty WebSockets](xref:fundamentals/websockets).
 
-1. Pokud instalace služby IIS vyžaduje restartování, restartujte systém.
+1. Pokud instalace služby IIS vyžaduje restart, restartujte systém.
 
-![V funkcích systému Windows jsou vybrány konzoly IIS Management Console a služby World Wide Web Services.](index/_static/windows-features-win10.png)
+![V rámci funkcí systému Windows jsou vybrána Konzola pro správu služby IIS a webové služby.](index/_static/windows-features-win10.png)
 
-## <a name="install-the-net-core-hosting-bundle"></a>Instalace balíčku hostingu jádra .NET
+## <a name="install-the-net-core-hosting-bundle"></a>Instalace hostující sady .NET Core
 
-Nainstalujte *balíček .NET Core Hosting do* hostitelského systému. Balíček nainstaluje modul .NET Core Runtime, knihovnu .NET Core Library a [ASP.NET Core Module](xref:host-and-deploy/aspnet-core-module). Modul umožňuje ASP.NET aplikace Core běžet za službou IIS.
+Nainstalujte *hostující sadu .NET Core* do hostitelského systému. Svazek nainstaluje modul runtime .NET Core, knihovnu .NET Core a [modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module). Modul umožňuje, aby aplikace ASP.NET Core běžely za službou IIS.
 
 > [!IMPORTANT]
-> Pokud je sada Hosting Bundle nainstalována před službou IIS, musí být instalace balíčku opravena. Po instalaci služby IIS znovu spusťte instalační program sady Hosting Bundle.
+> Pokud je hostující sada nainstalována před službou IIS, je nutné opravit instalaci sady prostředků. Spusťte znovu instalační program hostující sady po instalaci služby IIS.
 >
-> Pokud je sada Hosting Bundle nainstalována po instalaci 64bitové (x64) verze rozhraní .NET Core, mohou se zdát, že sady SDK chybí ([byly zjištěny sady SDK .Net Core .](xref:test/troubleshoot#no-net-core-sdks-were-detected) Chcete-li problém <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>vyřešit, naleznete v tématu .
+> Pokud se hostující sada nainstaluje po instalaci 64 (x64) verze .NET Core, můžou se zdát, že sady SDK chybí ([nezjistily se žádné sady .NET Core SDK](xref:test/troubleshoot#no-net-core-sdks-were-detected)). Chcete-li tento problém vyřešit <xref:test/troubleshoot#missing-sdk-after-installing-the-net-core-hosting-bundle>, přečtěte si téma.
 
 ### <a name="download"></a>Stáhnout
 
-1. Přejděte na stránku [Stáhnout jádro rozhraní .NET.](https://dotnet.microsoft.com/download/dotnet-core)
+1. Přejděte na stránku [stáhnout jádro .NET Core](https://dotnet.microsoft.com/download/dotnet-core) .
 1. Vyberte požadovanou verzi .NET Core.
-1. Ve sloupci **Spustit aplikace – runtime** najděte požadovaný řádek požadované verze runtime .NET Core.
-1. Stáhněte si instalační program pomocí odkazu **Hosting Bundle.**
+1. Ve sloupci **Spustit aplikace – modul runtime** vyhledejte řádek požadované verze modulu runtime .NET Core.
+1. Stáhněte instalační program pomocí odkazu **hostující sada** .
 
 > [!WARNING]
-> Některé instalační programy obsahují verze, které dosáhly konce životnosti (EOL) a které již nejsou podporovány společností Microsoft. Další informace naleznete v [zásadách podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
+> Některé instalační programy obsahují verze vydaných verzí, které dosáhly svého konce životnosti (konce řádku) a které už nejsou podporovány společností Microsoft. Další informace najdete v tématu [zásady podpory](https://dotnet.microsoft.com/platform/support/policy/dotnet-core).
 
-### <a name="install-the-hosting-bundle"></a>Nainstalujte balíček hostingu
+### <a name="install-the-hosting-bundle"></a>Instalace hostitelského balíčku
 
 1. Spusťte instalační program na serveru. Při spuštění instalačního programu z příkazového prostředí správce jsou k dispozici následující parametry:
 
-   * `OPT_NO_ANCM=1`&ndash; Přeskočte instalaci ASP.NET základního modulu.
-   * `OPT_NO_RUNTIME=1`&ndash; Přeskočte instalaci runtime jádra .NET. Používá se v případě, že server hostuje pouze [samostatná nasazení (SCD).](/dotnet/core/deploying/#self-contained-deployments-scd)
-   * `OPT_NO_SHAREDFX=1`&ndash; Přeskočit instalaci ASP.NET sdíleného rozhraní (ASP.NET runtime). Používá se v případě, že server hostuje pouze [samostatná nasazení (SCD).](/dotnet/core/deploying/#self-contained-deployments-scd)
-   * `OPT_NO_X86=1`&ndash; Přeskočit instalaci za běhu x86. Tento parametr použijte, pokud víte, že nebudete hostovat 32bitové aplikace. Pokud existuje nějaká šance, že budete v budoucnu hostovat 32bitové i 64bitové aplikace, nepoužívejte tento parametr a nainstalujte oba runtimes.
-   * `OPT_NO_SHARED_CONFIG_CHECK=1`&ndash; Zakažte kontrolu použití sdílené konfigurace služby IIS, pokud je sdílená konfigurace *(applicationHost.config)* ve stejném počítači jako instalace služby IIS. *K dispozici pouze pro ASP.NET instalačních programů hostingu Bundler nebo novějším.* Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>.
-1. Restartujte systém nebo proveďte následující příkazy v příkazovém prostředí:
+   * `OPT_NO_ANCM=1`&ndash; Přeskočte instalaci modulu ASP.NET Core.
+   * `OPT_NO_RUNTIME=1`&ndash; Přeskočte nainstalovat modul runtime .NET Core. Používá se, když Server hostuje jenom [samostatná nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+   * `OPT_NO_SHAREDFX=1`&ndash; Přeskočte na instalaci sdíleného rozhraní ASP.NET (ASP.NET Runtime). Používá se, když Server hostuje jenom [samostatná nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+   * `OPT_NO_X86=1`&ndash; Přeskočte instalaci běhových prostředí x86. Tento parametr použijte, pokud víte, že nebudete hostovat 32 aplikace. Pokud existuje možnost, že v budoucnosti budete hostovat jak 32, tak i 64 aplikace, tento parametr nepoužívejte a nainstalujete oba moduly runtime.
+   * `OPT_NO_SHARED_CONFIG_CHECK=1`&ndash; Pokud je sdílená konfigurace (*ApplicationHost. config*) ve stejném počítači jako instalace služby IIS, zakažte kontrolu použití sdílené konfigurace služby IIS. *K dispozici jenom pro ASP.NET Core 2,2 nebo novější instalační programy hostujících prostředků.* Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration>.
+1. Restartujte systém nebo v příkazovém prostředí spusťte následující příkazy:
 
    ```console
    net stop was /y
    net start w3svc
    ```
-   Restartování služby IIS vyvolá změnu systémové cesty, což je proměnná prostředí provedená instalačním programem.
+   Restartování služby IIS zabere změny v systémové cestě, což je proměnná prostředí vytvořená instalačním programem.
 
-Při instalaci balíčku Hosting Bundle není nutné ručně zastavovat jednotlivé weby ve službách IIS. Hostované aplikace (weby služby IIS) se restartují při restartování služby IIS. Aplikace se znovu spustí, když obdrží svůj první požadavek, včetně z [modulu inicializace aplikace](#application-initialization-module-and-idle-timeout).
+Při instalaci hostujícího balíčku není nutné ručně zastavit jednotlivé weby ve službě IIS. Hostované aplikace (weby IIS) se restartují po restartování služby IIS. Aplikace se po přijetí první žádosti spustí znovu, včetně [modulu inicializace aplikace](#application-initialization-module-and-idle-timeout).
 
-ASP.NET Core přijímá roll-forward chování pro opravy vydání sdílených rámců. Když se aplikace hostované službou IIS restartují se službou IIS, aplikace se načítají nejnovějšími verzemi oprav svých odkazovaných balíčků, když obdrží svůj první požadavek. Pokud služba IIS není restartována, aplikace se restartují a vykazují chování pro předávání vpřed, když jsou jejich pracovní procesy recyklovány a obdrží první požadavek.
+ASP.NET Core přijímá postup při přeposílání pro vydání oprav pro balíčky sdílených balíčků rozhraní. Když se aplikace hostované službou IIS restartují se službou IIS, aplikace při přijetí jejich prvního požadavku načtou nejnovější verze oprav jejich odkazovaných balíčků. Pokud se služba IIS nerestartuje, aplikace se restartují a projeví se chování při přeposílání, když se jejich pracovní procesy recyklují a obdrží první požadavek.
 
 > [!NOTE]
-> Informace o sdílené konfiguraci služby IIS naleznete [v tématu ASP.NET Core Module se sdílenou konfigurací služby IIS](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration).
+> Informace o sdílené konfiguraci služby IIS najdete v tématu [modul ASP.NET Core se sdílenou konfigurací služby IIS](xref:host-and-deploy/aspnet-core-module#aspnet-core-module-with-an-iis-shared-configuration).
 
-## <a name="install-web-deploy-when-publishing-with-visual-studio"></a>Instalace nasazení webu při publikování pomocí sady Visual Studio
+## <a name="install-web-deploy-when-publishing-with-visual-studio"></a>Při publikování v aplikaci Visual Studio nainstalovat Nasazení webu
 
-Při nasazování aplikací na servery s [nasazením webu](/iis/install/installing-publishing-technologies/installing-and-configuring-web-deploy-on-iis-80-or-later)nainstalujte na server nejnovější verzi nasazení webu. Chcete-li nainstalovat nasazení webu, použijte [Instalační službu webové platformy (WebPI)](https://www.microsoft.com/web/downloads/platform.aspx) nebo získejte instalační program přímo ze [služby Stažení softwaru](https://www.microsoft.com/download/details.aspx?id=43717). Upřednostňovanou metodou je použití webpi. WebPI nabízí samostatné nastavení a konfiguraci pro poskytovatele hostingu.
+Při nasazování aplikací na servery s [nasazení webu](/iis/install/installing-publishing-technologies/installing-and-configuring-web-deploy-on-iis-80-or-later)nainstalujte na server nejnovější verzi nasazení webu. Chcete-li nainstalovat Nasazení webu, použijte [instalační program webové platformy (WebPI)](https://www.microsoft.com/web/downloads/platform.aspx) nebo si instalační program Získejte přímo z webu [služby Stažení softwaru](https://www.microsoft.com/download/details.aspx?id=43717). Upřednostňovanou metodou je použití WebPI. WebPI nabízí samostatnou instalaci a konfiguraci pro poskytovatele hostingu.
 
-## <a name="create-the-iis-site"></a>Vytvoření webu iis
+## <a name="create-the-iis-site"></a>Vytvoření webu služby IIS
 
-1. V hostitelském systému vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je cesta ke složce k dispozici službu IIS jako fyzická cesta k aplikaci. Další informace o složce nasazení aplikace a <xref:host-and-deploy/directory-structure>rozložení souborů naleznete v tématu .
+1. V hostitelském systému vytvořte složku, která bude obsahovat publikované složky a soubory aplikace. V následujícím kroku je jako fyzická cesta k aplikaci služba IIS poskytována jako cesta k této složce. Další informace o složce nasazení aplikace a rozložení souborů naleznete v tématu <xref:host-and-deploy/directory-structure>.
 
-1. Ve Správci služby IIS otevřete uzel serveru v panelu **Připojení.** Klikněte pravým tlačítkem myši na složku **Weby.** V kontextové nabídce vyberte **Přidat web.**
+1. Ve Správci služby IIS otevřete uzel serveru na panelu **připojení** . Klikněte pravým tlačítkem na složku **weby** . V místní nabídce vyberte **Přidat web** .
 
-1. Zadejte **název webu** a nastavte **fyzickou cestu** ke složce nasazení aplikace. Zadejte konfiguraci **vazby** a vytvořte web výběrem **možnosti OK**:
+1. Zadejte **název lokality** a nastavte **fyzickou cestu** ke složce pro nasazení aplikace. Zadejte konfiguraci **vazby** a vytvořte web výběrem **OK**:
 
-   ![V kroku Přidat web zadejte název webu, fyzickou cestu a název hostitele.](index/_static/add-website-ws2016.png)
+   ![Zadejte název lokality, fyzickou cestu a název hostitele v kroku přidat web.](index/_static/add-website-ws2016.png)
 
    > [!WARNING]
-   > Vazby se zástupnými`http://*:80/` symboly nejvyšší úrovně ( a `http://+:80`) by **neměly** být používány. Vazby se zástupnými symboly nejvyšší úrovně mohou otevřít vaši aplikaci slabá místa zabezpečení. To platí pro silné i slabé zástupné znaky. Používejte explicitní názvy hostitelů místo zástupných znaků. Vazba se zástupnými znaky subdomény (například) nemá toto bezpečnostní riziko, `*.mysub.com` `*.com`pokud řídíte celou nadřazenou doménu (na rozdíl od , která je zranitelná). Viz [rfc7230 sekce-5.4](https://tools.ietf.org/html/rfc7230#section-5.4) pro více informací.
+   > Nelze použít vazby zástupných`http://*:80/` znaků `http://+:80`na nejvyšší **not** úrovni (a). Vazby zástupných znaků nejvyšší úrovně můžou aplikaci otevřít pro slabá místa zabezpečení. To platí pro silné i slabé zástupné znaky. Místo zástupných znaků použijte explicitní názvy hostitelů. Vazba zástupných znaků subdomény ( `*.mysub.com`například) nemá toto bezpečnostní riziko `*.com`, pokud ovládáte celou nadřazenou doménu (na rozdíl od, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
 
-1. Pod uzlovým serverem vyberte **fondy aplikací**.
+1. V uzlu serveru vyberte **fondy aplikací**.
 
-1. Klikněte pravým tlačítkem myši na fond aplikací webu a v kontextové nabídce vyberte **Základní nastavení.**
+1. Klikněte pravým tlačítkem myši na fond aplikací webu a v místní nabídce vyberte **základní nastavení** .
 
-1. V okně **Upravit fond aplikací** nastavte verzi **.NET CLR** na **Žádný spravovaný kód**:
+1. V okně **Upravit fond aplikací** nastavte **verzi .NET CLR** na **bez spravovaného kódu**:
 
-   ![Pro verzi CLR rozhraní .NET nenastavte žádný spravovaný kód.](index/_static/edit-apppool-ws2016.png)
+   ![Pro verzi .NET CLR nenastavte žádný spravovaný kód.](index/_static/edit-apppool-ws2016.png)
 
-    ASP.NET Core běží v samostatném procesu a spravuje runtime. ASP.NET Core nespoléhá na načtení plochy CLR (.NET CLR)&mdash;Core Common Language Runtime (CoreCLR) pro .NET Core je spuštěn pro hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** na **žádný spravovaný kód** je volitelné, ale doporučeno.
+    ASP.NET Core běží v samostatném procesu a spravuje modul runtime. ASP.NET Core nespoléhá na načítání CLR desktopových aplikací (.NET CLR&mdash;), modul CLR (Common Language Runtime) pro .NET Core se spouští k hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** na **žádný spravovaný kód** není volitelné, ale doporučuje se.
 
-1. *ASP.NET jádra 2.2 nebo novějšího:* Pro 64bitové (x64) [samostatné nasazení,](/dotnet/core/deploying/#self-contained-deployments-scd) které používá [model hostování v procesu](#in-process-hosting-model), zakažte fond aplikací pro 32bitové (x86) procesy.
+1. *ASP.NET Core 2,2 nebo novější*: 64 u samostatného [nasazeného nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) (x64), které používá [model hostování v rámci procesu](#in-process-hosting-model), zakažte fond aplikací pro procesy 32 (x86).
 
-   V postranním panelu **Akce** správce služby IIS > **fondy aplikací**vyberte **možnost Nastavit výchozí nastavení fondu aplikací** nebo **Upřesnit nastavení**. Vyhledejte **funkci Povolit 32bitové aplikace** a nastavte hodnotu na . `False` Toto nastavení nemá vliv na aplikace nasazené pro [mimoprocesový hosting](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model).
+   V bočním panelu **Akce** Správce služby IIS > **fondy aplikací**vyberte možnost **nastavit výchozí hodnoty fondu aplikací** nebo **Upřesnit nastavení**. Vyhledejte **možnost povolit 32 – bitové aplikace** a nastavte hodnotu na `False`. Toto nastavení nemá vliv na aplikace nasazené pro [hostování mimo proces](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model).
 
 1. Potvrďte, že identita modelu procesu má správná oprávnění.
 
-   Pokud se výchozí identita fondu aplikací **(identita****procesního modelu** > ) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, zda nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Fond aplikací například vyžaduje přístup pro čtení a zápis do složek, kde aplikace čte a zapisuje soubory.
+   Pokud se výchozí identita fondu aplikací (**modelu** > **Identity** procesu) změní z **ApplicationPoolIdentity** na jinou identitu, ověřte, že Nová identita má požadovaná oprávnění pro přístup ke složce, databázi a dalším požadovaným prostředkům aplikace. Například fond aplikací vyžaduje přístup pro čtení a zápis ke složkám, kde aplikace čte a zapisuje soubory.
 
-**Konfigurace ověřování systému Windows (volitelná)**  
-Další informace naleznete v [tématu Configure Windows authentication](xref:security/authentication/windowsauth).
+**Konfigurace ověřování systému Windows (volitelné)**  
+Další informace najdete v tématu [Konfigurace ověřování systému Windows](xref:security/authentication/windowsauth).
 
 ## <a name="deploy-the-app"></a>Nasazení aplikace
 
-Nasaďte aplikaci do složky **Fyzické cesty** služby IIS, která byla vytvořena v části Vytvořit [web služby IIS.](#create-the-iis-site) [Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) je doporučený mechanismus pro nasazení, ale existuje několik možností pro přesunutí aplikace ze složky *publikování* projektu do složky nasazení hostitelského systému.
+Nasaďte aplikaci do složky **fyzické cesty** služby IIS, která byla navázána v části [Vytvoření webu služby IIS](#create-the-iis-site) . [Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) je doporučeným mechanismem pro nasazení, ale existuje několik možností pro přesun aplikace ze složky *publikování* projektu do složky pro nasazení hostitelského systému.
 
-### <a name="web-deploy-with-visual-studio"></a>Nasazení webu pomocí sady Visual Studio
+### <a name="web-deploy-with-visual-studio"></a>Nasazení webu se sadou Visual Studio
 
-Podívejte se na [profily publikování aplikace Visual Studio pro téma nasazení aplikace ASP.NET Core,](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) kde se dozvíte, jak vytvořit profil publikování pro použití s nasazením webu. Pokud poskytovatel hostingu poskytuje profil publikování nebo podporu pro jeho vytvoření, stáhněte si jeho profil a importujte jej pomocí dialogového okna **Publikovat** sady Visual Studio:
+Informace o tom, jak vytvořit profil publikování pro použití s Nasazení webu, najdete v tématu [publikační profily sady Visual Studio pro ASP.NET Core nasazení aplikací](xref:host-and-deploy/visual-studio-publish-profiles#publish-profiles) . Pokud poskytovatel hostingu poskytuje profil publikování nebo podporu pro jeho vytvoření, Stáhněte si jeho profil a importujte ho pomocí dialogového okna pro **publikování** sady Visual Studio:
 
-![Stránka dialogového okna Publikovat](index/_static/pub-dialog.png)
+![Stránka publikovat dialog](index/_static/pub-dialog.png)
 
 ### <a name="web-deploy-outside-of-visual-studio"></a>Nasazení webu mimo Visual Studio
 
-[Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) lze také použít mimo Visual Studio z příkazového řádku. Další informace naleznete v [tématu Web Deployment Tool](/iis/publish/using-web-deploy/use-the-web-deployment-tool).
+[Nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) lze použít také mimo sadu Visual Studio z příkazového řádku. Další informace najdete v tématu [Nástroj pro nasazení webu](/iis/publish/using-web-deploy/use-the-web-deployment-tool).
 
-### <a name="alternatives-to-web-deploy"></a>Alternativy k nasazení webu
+### <a name="alternatives-to-web-deploy"></a>Alternativy k Nasazení webu
 
-Pomocí některé z několika metod přesuňte aplikaci do hostitelského systému, jako je ruční kopírování, [Xcopy](/windows-server/administration/windows-commands/xcopy), [Robocopy](/windows-server/administration/windows-commands/robocopy)nebo [PowerShell](/powershell/).
+K přesunu aplikace do hostitelského systému, jako je ruční kopírování, [xcopy](/windows-server/administration/windows-commands/xcopy), [Robocopy](/windows-server/administration/windows-commands/robocopy)nebo [PowerShell](/powershell/), použijte libovolný z několika způsobů.
 
-Další informace o ASP.NET nasazení jádra do služby IIS naleznete v části [Prostředky nasazení pro správce služby IIS.](#deployment-resources-for-iis-administrators)
+Další informace o nasazení ASP.NET Core do služby IIS najdete v části [prostředky nasazení pro správce služby IIS](#deployment-resources-for-iis-administrators) .
 
-## <a name="browse-the-website"></a>Procházení webu
+## <a name="browse-the-website"></a>Procházet web
 
-Po nasazení aplikace do hostitelského systému požádejte o jeden z veřejných koncových bodů aplikace.
+Po nasazení aplikace do hostitelského systému vytvořte žádost jednomu z veřejných koncových bodů aplikace.
 
-V následujícím příkladu je web vázán na název `www.mysite.com` **hostitele** iis na **portu** `80`. Žádost se podává `http://www.mysite.com`na :
+V následujícím příkladu je lokalita svázána s **názvem hostitele** služby IIS `www.mysite.com` na **portu** `80`. Odeslala se žádost `http://www.mysite.com`:
 
-![Prohlížeč Microsoft Edge načetl úvodní stránku služby IIS.](index/_static/browsewebsite.png)
+![Prohlížeč Microsoft Edge načetl spouštěcí stránku služby IIS.](index/_static/browsewebsite.png)
 
 ## <a name="locked-deployment-files"></a>Uzamčené soubory nasazení
 
-Soubory ve složce nasazení jsou uzamčeny, když je aplikace spuštěná. Uzamčené soubory nelze během nasazení přepsat. Chcete-li uvolnit uzamčené soubory v nasazení, zastavte fond aplikací pomocí **jednoho z** následujících přístupů:
+Soubory ve složce pro nasazení jsou zamčené, když je aplikace spuštěná. Uzamčené soubory nejde během nasazování přepsat. Chcete-li uvolnit uzamčené soubory v nasazení, zastavte fond aplikací pomocí **jednoho** z následujících přístupů:
 
-* Použijte nasazení webu `Microsoft.NET.Sdk.Web` a odkaz v souboru projektu. Soubor *app_offline.htm* je umístěn v kořenovém adresáři webové aplikace. Když je soubor k dispozici, ASP.NET základní modul řádně vypne aplikaci a slouží *souboru app_offline.htm* během nasazení. Další informace naleznete v [odkazu na konfiguraci ASP.NET core modulem](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
-* Ručně zastavit fond aplikací ve Správci služby IIS na serveru.
-* Použití Prostředí PowerShell k přetažení *app_offline.htm* (vyžaduje PowerShell 5 nebo novější):
+* V souboru projektu použijte `Microsoft.NET.Sdk.Web` nasazení webu a odkaz. Soubor *App_offline. htm* se umístí do kořenové složky adresáře webové aplikace. Když je soubor přítomen, modul ASP.NET Core aplikaci korektně ukončí a během nasazování zachová soubor *App_offline. htm* . Další informace najdete v referenčních informacích k [konfiguraci modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
+* Ručně Zastavte fond aplikací ve Správci služby IIS na serveru.
+* Použití PowerShellu k vyřazení *App_offline. htm* (vyžaduje PowerShell 5 nebo novější):
 
   ```powershell
   $pathToApp = 'PATH_TO_APP'
@@ -1548,59 +1554,59 @@ Soubory ve složce nasazení jsou uzamčeny, když je aplikace spuštěná. Uzam
 
 ## <a name="data-protection"></a>Ochrana dat
 
-Zásobník [ASP.NET Core Data Protection](xref:security/data-protection/introduction) používá několik [middlewares](xref:fundamentals/middleware/index)ASP.NET Core , včetně middlewaru používaného při ověřování. I v případě, že rozhraní API ochrany dat nejsou volána uživatelským kódem, ochrana dat by měla být nakonfigurována pomocí skriptu nasazení nebo v uživatelském kódu, aby se vytvořilo trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurována, klíče jsou uloženy v paměti a po restartování aplikace zahozeny.
+[Sada ASP.NET Core Data Protection Stack](xref:security/data-protection/introduction) je používána několika ASP.NET Core [middlewary](xref:fundamentals/middleware/index), včetně middlewaru používaného při ověřování. I v případě, že rozhraní API ochrany dat není voláno uživatelským kódem, je třeba nakonfigurovat ochranu dat pomocí skriptu nasazení nebo v uživatelském kódu, aby bylo možné vytvořit trvalé úložiště kryptografických [klíčů](xref:security/data-protection/implementation/key-management). Pokud ochrana dat není nakonfigurovaná, klíče se uchovávají v paměti a při restartování aplikace se zahodí.
 
-Pokud je kroužek klíče uložen v paměti při restartování aplikace:
+Pokud se klíčového prstence při restartu aplikace uloží do paměti:
 
-* Všechny ověřovací tokeny založené na souborech cookie jsou zrušeny. 
-* Uživatelé se musí znovu přihlásit při dalším požadavku. 
-* Všechna data chráněná kroužkem klíče již nelze dešifrovat. To může zahrnovat [tokeny CSRF](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET základní soubory cookie MVC TempData](xref:fundamentals/app-state#tempdata).
+* Všechny ověřovací tokeny založené na souborech cookie jsou neověřené. 
+* Uživatelé se musí znovu přihlásit na svůj další požadavek. 
+* Data chráněná pomocí Key ringu už nebude možné dešifrovat. To může zahrnovat [CSRF tokeny](xref:security/anti-request-forgery#aspnet-core-antiforgery-configuration) a [ASP.NET Core soubory cookie TempData MVC](xref:fundamentals/app-state#tempdata).
 
-Chcete-li nakonfigurovat ochranu dat ve službě IIS tak, aby zachycovací byl kroužek klíče, použijte **jeden** z následujících postupů:
+Pokud chcete v rámci služby IIS nakonfigurovat ochranu dat a zachovat přitom klíčového prstence, použijte **některý** z následujících přístupů:
 
 * **Vytvoření klíčů registru ochrany dat**
 
-  Klíče ochrany dat používané ASP.NET aplikace Core jsou uloženy v registru mimo aplikace. Chcete-li zachovat klíče pro danou aplikaci, vytvořte klíče registru pro fond aplikací.
+  Klíče ochrany dat, které používá aplikace ASP.NET Core, jsou uložené v registru externě pro aplikace. Pokud chcete zachovat klíče pro danou aplikaci, vytvořte klíče registru pro fond aplikací.
 
-  Pro samostatné instalace služby IIS mimo webfarmu lze [skript prostředí PowerShell Pro poskytování ochrany dat-AutoGenKeys.ps1](https://github.com/dotnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1) použít pro každý fond aplikací používaný s aplikací ASP.NET Core. Tento skript vytvoří klíč registru v registru HKLM, který je přístupný pouze pro účet pracovního procesu fondu aplikací. Klíče jsou šifrovány v klidovém stavu pomocí dpapi s klíčem pro celý počítač.
+  Pro samostatnou instalaci služby IIS, která není součástí webfarmu, se dá [skript PowerShellu pro ochranu dat provision-AutoGenKeys. ps1](https://github.com/dotnet/AspNetCore/blob/master/src/DataProtection/Provision-AutoGenKeys.ps1) použít pro každý fond aplikací, který se používá v aplikaci ASP.NET Core. Tento skript vytvoří klíč registru v registru HKLM, který je přístupný jenom pro účet pracovního procesu fondu aplikací aplikace. Klíče jsou v klidovém stavu zašifrované pomocí rozhraní DPAPI s klíčem celého počítače.
 
-  Ve scénářích webové farmy lze aplikaci nakonfigurovat tak, aby k ukládání kroužku klíčů pro ochranu dat používala cestu UNC. Ve výchozím nastavení nejsou klíče ochrany dat šifrovány. Ujistěte se, že oprávnění k souborům pro sdílenou síť ovou složku jsou omezena na účet Windows, pod kterým aplikace běží. Certifikát X509 lze použít k ochraně klíčů v klidovém stavu. Zvažte mechanismus, který uživatelům umožní nahrávat certifikáty: Umístěte certifikáty do úložiště důvěryhodných certifikátů uživatele a ujistěte se, že jsou k dispozici na všech počítačích, kde je spuštěna aplikace uživatele. Podrobnosti [najdete v tématu Konfigurace ochrany základních dat ASP.NET.](xref:security/data-protection/configuration/overview)
+  Ve scénářích webové farmy může být aplikace nakonfigurovaná tak, aby používala cestu UNC k uložení svého prstence s klíčem pro ochranu dat. Ve výchozím nastavení nejsou klíče ochrany dat šifrované. Ujistěte se, že oprávnění k souborům pro sdílenou síťovou složku jsou omezená na účet systému Windows, pod kterým je aplikace spuštěná. K ochraně neaktivních klíčů je možné použít certifikát x509. Vezměte v úvahu mechanismus, který umožní uživatelům odeslat certifikáty: Umístěte certifikáty do důvěryhodného úložiště certifikátů uživatele a ujistěte se, že jsou k dispozici na všech počítačích, kde je aplikace uživatele spuštěna. Podrobnosti najdete v tématu [Konfigurace ochrany ASP.NET Core dat](xref:security/data-protection/configuration/overview) .
 
 * **Konfigurace fondu aplikací služby IIS pro načtení profilu uživatele**
 
-  Toto nastavení je v části **Model procesu** v části **Upřesnit nastavení** pro fond aplikací. Nastavte **profil načtení uživatele** na `True`. Pokud je `True`nastavena možnost , jsou klíče uloženy v adresáři profilu uživatele a chráněny pomocí rozhraní DPAPI klíčem specifickým pro uživatelský účet. Klíče jsou uloženy ve složce *%LOCALAPPDATA%/ASP.NET/DataProtection-Keys.*
+  Toto nastavení se nachází v části **model procesu** v části **Rozšířená nastavení** fondu aplikací. Nastavte **načíst profil uživatele** na `True`. Pokud je nastaveno `True`na, klíče jsou uloženy v adresáři profilu uživatele a chráněny pomocí rozhraní DPAPI s klíčem specifickým pro uživatelský účet. Klíče jsou uchovány ve složce *% localappdata%/ASP.NET/DataProtection-Keys* .
 
-  [Atribut setProfileEnvironment](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) fondu aplikací musí být také povolen. Výchozí hodnota `setProfileEnvironment` je `true`. V některých scénářích (například `setProfileEnvironment` operační `false`systém Windows) je nastavena na . Pokud klíče nejsou uloženy v adresáři profilu uživatele podle očekávání:
+  Musí být povolený i [atribut setProfileEnvironment](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) fondu aplikací. Výchozí hodnota `setProfileEnvironment` je `true`. V některých scénářích (například operační systém Windows) `setProfileEnvironment` je nastavena na. `false` Pokud se klíče neukládají v adresáři profilu uživatele podle očekávání:
 
-  1. Přejděte do složky *%windir%/system32/inetsrv/config.*
-  1. Otevřete soubor *applicationHost.config.*
+  1. Přejděte do složky *% windir%/system32/Inetsrv/config* .
+  1. Otevřete soubor *ApplicationHost. config* .
   1. Vyhledejte element `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>`.
-  1. Zkontrolujte, `setProfileEnvironment` zda atribut není k dispozici, `true`což je výchozí hodnota na `true`, nebo explicitně nastavte hodnotu atributu na .
+  1. Potvrďte, `setProfileEnvironment` že atribut není přítomen, přičemž výchozí hodnota je `true`, nebo explicitně nastavte hodnotu atributu na `true`.
 
-* **Použití systému souborů jako úložiště kroužků na klíče**
+* **Použití systému souborů jako úložiště pro Key Ring**
 
-  Upravte kód aplikace tak, aby [používal systém souborů jako úložiště kroužků klíčů](xref:security/data-protection/configuration/overview). K ochraně kroužku na klíče a zajištění, že certifikát je důvěryhodný, použijte certifikát X509. Pokud je certifikát podepsaný svým držitelem, umístěte jej do úložiště Důvěryhodného kořenového adresáře.
+  Upravte kód aplikace tak, aby [používal systém souborů jako úložiště ve službě Key Ring](xref:security/data-protection/configuration/overview). K ochraně služby Key Ring použijte certifikát x509 a ujistěte se, že certifikát je důvěryhodný certifikát. Pokud je certifikát podepsaný svým držitelem, umístěte certifikát do důvěryhodného kořenového úložiště.
 
   Při použití služby IIS ve webové farmě:
 
   * Použijte sdílenou složku, ke které mají přístup všechny počítače.
-  * Nasazení certifikátu X509 do každého počítače. Konfigurace [ochrany dat v kódu](xref:security/data-protection/configuration/overview).
+  * Nasaďte do každého počítače certifikát x509. Konfigurace [ochrany dat v kódu](xref:security/data-protection/configuration/overview).
 
-* **Nastavení celopočítačových zásad pro ochranu dat**
+* **Nastavení zásad pro ochranu dat na úrovni počítače**
 
-  Systém ochrany dat má omezenou podporu pro nastavení výchozí [zásady celého počítače](xref:security/data-protection/configuration/machine-wide-policy) pro všechny aplikace, které spotřebovávají data protection API. Další informace naleznete v tématu <xref:security/data-protection/introduction>.
+  Systém ochrany dat má omezená podpora pro nastavení výchozích [zásad](xref:security/data-protection/configuration/machine-wide-policy) pro všechny aplikace, které využívají rozhraní API pro ochranu dat. Další informace naleznete v tématu <xref:security/data-protection/introduction>.
 
 ## <a name="virtual-directories"></a>Virtuální adresáře
 
-[Virtuální adresáře služby IIS](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#virtual-directories) nejsou podporovány aplikacemi ASP.NET Core. Aplikace může být hostována jako [podaplikace](#sub-applications).
+Aplikace ASP.NET Core nepodporují [virtuální adresáře služby IIS](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#virtual-directories) . Aplikace může být hostována jako [dílčí aplikace](#sub-applications).
 
 ## <a name="sub-applications"></a>Dílčí aplikace
 
-Aplikaci ASP.NET Core lze hostovat jako [podaplikaci služby IIS (podaplikaci).](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#applications) Cesta podaplikace se stane součástí adresy URL kořenové aplikace.
+Aplikace ASP.NET Core může být hostovaná jako [podaplikace služby IIS (dílčí aplikace)](/iis/get-started/planning-your-iis-architecture/understanding-sites-applications-and-virtual-directories-on-iis#applications). Cesta k dílčí aplikaci se stala součástí adresy URL kořenové aplikace.
 
-Podaplikace by neměla obsahovat ASP.NET core modul jako obslužnou rutinu. Pokud je modul přidán jako obslužná rutina do souboru *web.config* podaplikace, při pokusu o procházení podaplikace se zobrazí *interní chyba serveru 500.19* odkazující na vadný konfigurační soubor.
+Dílčí aplikace by neměla obsahovat modul ASP.NET Core jako obslužnou rutinu. Pokud se modul přidá jako obslužná rutina v souboru *Web. config* dílčí aplikace 500,19, při pokusu o procházení dílčí aplikace se obdrží *interní chyba serveru* odkazující na chybný konfigurační soubor.
 
-Následující příklad ukazuje publikovaný soubor *web.config* pro podaplikaci ASP.NET Core:
+Následující příklad ukazuje publikovaný soubor *Web. config* pro ASP.NET Core dílčí aplikaci:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -1614,7 +1620,7 @@ Následující příklad ukazuje publikovaný soubor *web.config* pro podaplikac
 </configuration>
 ```
 
-Při hostování podřízené aplikace non-ASP.NET Core pod aplikací ASP.NET Core explicitně odeberte zděděnou obslužnou rutinu v souboru *web.config* pod podřízené aplikace:
+Když se v aplikaci ASP.NET Core hostuje podaplikace Core non-ASP.NET, explicitně se odebere zděděná obslužná rutina v souboru *Web. config* dílčí aplikace:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -1631,110 +1637,110 @@ Při hostování podřízené aplikace non-ASP.NET Core pod aplikací ASP.NET Co
 </configuration>
 ```
 
-Statické odkazy datových zdrojů v rámci podaplikace`~/`by měly používat zápis tildového lomítka ( ). Zápis tildového lomítka aktivuje [pomocníka tagu,](xref:mvc/views/tag-helpers/intro) který předřává základnu cesty podaplikace k vykreslenérelativní vazbě. Pro podaplikaci `/subapp_path`na adrese , `src="~/image.png"` obrázek `src="/subapp_path/image.png"`spojený s je vykreslen jako . Middleware statického souboru kořenové aplikace nezpracovává požadavek na statický soubor. Požadavek je zpracován middlewarem statického souboru podaplikace.
+Propojení statických prostředků v rámci dílčí aplikace by měla používat notaci vlnovku`~/`(). Znak tildy vlnovkou spustí [pomocnou nápovědu](xref:mvc/views/tag-helpers/intro) k předřazení pathbase dílčí aplikace na vykreslený relativní odkaz. V případě dílčí aplikace na `/subapp_path`je obrázek propojený s `src="~/image.png"` objektem vykreslen jako. `src="/subapp_path/image.png"` Middleware statických souborů kořenové aplikace nezpracovává požadavek na statický soubor. Požadavek zpracovává middleware statických souborů v dílčí aplikaci.
 
-Pokud je atribut `src` statického datového zdroje nastaven na `src="/image.png"`absolutní cestu (například), odkaz se vykreslí bez vytvoření cesty podaplikace. Middleware statického souboru kořenové aplikace se pokouší obsluhovat datový zdroj z [kořenového kořenového kořenového adresáře](xref:fundamentals/index#web-root)aplikace , což má za následek odpověď *404 - Not Found,* pokud není statický datový zdroj k dispozici z kořenové aplikace.
+Pokud je `src` atribut statického prostředku nastavený na absolutní cestu (například `src="/image.png"`), odkaz se vykreslí bez pathbase dílčí aplikace. Middleware statických souborů v kořenové aplikaci se pokusí o poskytování assetu z [kořenového adresáře webu](xref:fundamentals/index#web-root)kořenové aplikace, což má za následek *404 – nenalezené* odpovědi, pokud není k dispozici statický prostředek z kořenové aplikace.
 
-Hostování aplikace ASP.NET Core jako podaplikace pod jinou aplikací ASP.NET Core:
+Hostování aplikace ASP.NET Core jako dílčí aplikace v jiné aplikaci ASP.NET Core:
 
-1. Vytvořte fond aplikací pro podaplikaci. Nastavte **verzi .NET CLR** na **žádný spravovaný kód,** protože prostředí Core Common Language Runtime (CoreCLR) pro .NET Core je spuštěno pro hostování aplikace v pracovním procesu, nikoli na ploše CLR (.NET CLR).
+1. Vytvořte fond aplikací pro dílčí aplikaci. Nastavte **verzi .NET CLR** na **žádný spravovaný kód** , protože základní modul CLR (Common Language Runtime) pro .NET Core se spouští k hostování aplikace v pracovním procesu, ne CLR Desktop (.NET CLR).
 
-1. Přidejte kořenový web ve Správci služby IIS s podaplikací ve složce pod kořenovým webem.
+1. Přidejte kořenovou lokalitu ve Správci služby IIS pomocí dílčí aplikace do složky v kořenové lokalitě.
 
-1. Klikněte pravým tlačítkem myši na složku podaplikace ve Správci služby IIS a vyberte **příkaz Převést na aplikaci**.
+1. Klikněte pravým tlačítkem na složku dílčí aplikace ve Správci služby IIS a vyberte **převést na aplikaci**.
 
-1. V dialogovém okně **Přidat aplikaci** přiřaďte pomocí tlačítka **Vybrat** pro **fond aplikací** fond aplikací, který jste vytvořili pro podaplikaci. Vyberte **OK**.
+1. V dialogovém okně **Přidat aplikaci** použijte pro **fond aplikací** tlačítko **Vybrat** , abyste přiřadili fond aplikací, který jste vytvořili pro dílčí aplikaci. Vyberte **OK**.
 
-Přiřazení samostatného fondu aplikací do podaplikace je požadavek při použití modelu hostování v procesu.
+Přiřazení samostatného fondu aplikací k dílčí aplikaci je požadavek při použití modelu hostování v rámci procesu.
 
-Další informace o modelu hostování v procesu a konfiguraci <xref:host-and-deploy/aspnet-core-module>ASP.NET core modulu naleznete v tématu .
+Další informace o modelu hostování v rámci procesu a konfiguraci modulu ASP.NET Core naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
-## <a name="configuration-of-iis-with-webconfig"></a>Konfigurace služby IIS pomocí souboru web.config
+## <a name="configuration-of-iis-with-webconfig"></a>Konfigurace služby IIS pomocí souboru Web. config
 
-Konfigurace služby IIS `<system.webServer>` je ovlivněna částí *web.config* pro scénáře služby IIS, které jsou funkční pro ASP.NET aplikace Core pomocí ASP.NET core modulem. Například konfigurace služby IIS je funkční pro dynamickou kompresi. Pokud je služba IIS nakonfigurována na `<urlCompression>` úrovni serveru pro použití dynamické komprese, prvek v souboru *web.config* aplikace jej může zakázat pro aplikaci ASP.NET Core.
+Konfigurace služby IIS má vliv na `<system.webServer>` část souboru *Web. config* pro scénáře služby IIS, které jsou funkční pro ASP.NET Core aplikací s modulem ASP.NET Core. Například konfigurace služby IIS je funkční pro dynamickou kompresi. Pokud je služba IIS nakonfigurovaná na úrovni serveru, aby používala dynamickou kompresi, `<urlCompression>` element v souboru *Web. config* aplikace ho může zakázat pro ASP.NET Core aplikaci.
 
 Další informace najdete v následujících tématech:
 
-* [Odkaz na \<konfiguraci pro>system.webServer](/iis/configuration/system.webServer/)
+* [Referenční informace o \<konfiguraci pro System. webServer>](/iis/configuration/system.webServer/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/iis/modules>
 
-Chcete-li nastavit proměnné prostředí pro jednotlivé aplikace spuštěné v izolovaných fondech aplikací (podporované pro službu IIS 10.0 nebo novější), přečtěte si část *příkazu AppCmd.exe* v tématu [Environment Variables environmentvariables>\<](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) tématu v referenční dokumentaci služby IIS.
+Pokud chcete nastavit proměnné prostředí pro jednotlivé aplikace běžící v izolovaných fondech aplikací (podporované pro IIS 10,0 nebo novější), přečtěte si část *příkazového řádku Appcmd. exe* v tématu [proměnné \<prostředí environmentVariables>](/iis/configuration/system.applicationHost/applicationPools/add/environmentVariables/#appcmdexe) v referenční dokumentaci ke službě IIS.
 
-## <a name="configuration-sections-of-webconfig"></a>Konfigurační části web.config
+## <a name="configuration-sections-of-webconfig"></a>Konfigurační oddíly souboru Web. config
 
-Části konfigurace aplikací ASP.NET 4.x v *souboru web.config* nepoužívají aplikace ASP.NET Core pro konfiguraci:
+Konfigurační oddíly aplikací ASP.NET 4. x v *souboru Web. config* nepoužívá aplikace ASP.NET Core pro konfiguraci:
 
 * `<system.web>`
 * `<appSettings>`
 * `<connectionStrings>`
 * `<location>`
 
-ASP.NET aplikace Core jsou konfigurovány pomocí jiných poskytovatelů konfigurace. Další informace naleznete v [tématu Konfigurace](xref:fundamentals/configuration/index).
+Aplikace ASP.NET Core jsou nakonfigurovány pomocí jiných poskytovatelů konfigurace. Další informace najdete v tématu [Konfigurace](xref:fundamentals/configuration/index).
 
 ## <a name="application-pools"></a>Fondy aplikací
 
-Když hostujete více webů na serveru, doporučujeme izolovat aplikace od sebe spuštěním jednotlivých aplikací ve vlastním fondu aplikací. Dialogové okno **Přidat web** služby IIS je výchozí pro tuto konfiguraci. Když je k dispozici **název webu,** text se automaticky přenese do textového pole **Fondu aplikací.** Při přidání webu se vytvoří nový fond aplikací s názvem webu.
+Při hostování více webů na serveru doporučujeme vzájemně izolovat aplikace tím, že spustíte každou aplikaci ve svém vlastním fondu aplikací. Do této konfigurace se nastaví dialogové okno **Přidat web** do služby IIS. Když je zadaný **název lokality** , text se automaticky přenese do textového pole **fondu aplikací** . Po přidání webu se vytvoří nový fond aplikací s názvem lokality.
 
-## <a name="application-pool-identity"></a>Identita fondu aplikací
+## <a name="application-pool-identity"></a>Fond aplikacíIdentity
 
-Účet identity fondu aplikací umožňuje aplikaci spouštět pod jedinečným účtem, aniž by bylo třeba vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8.0 nebo novější vytvoří pracovní proces správce služby IIS (WAS) virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zkontrolujte, zda je **identita** nastavená na použití **applicationpoolidentity**:
+Účet identity fondu aplikací umožňuje aplikaci běžet v rámci jedinečného účtu, aniž by bylo nutné vytvářet a spravovat domény nebo místní účty. Ve službě IIS 8,0 nebo novější služba pracovní proces správce služby IIS (WAS) vytvoří virtuální účet s názvem nového fondu aplikací a ve výchozím nastavení spustí pracovní procesy fondu aplikací v rámci tohoto účtu. V konzole pro správu služby IIS v části **Upřesnit nastavení** fondu aplikací zajistěte, **Identity** aby byl nastaven na použití **ApplicationPoolIdentity**:
 
 ![Dialogové okno Upřesnit nastavení fondu aplikací](index/_static/apppool-identity.png)
 
-Proces správy služby IIS vytvoří zabezpečený identifikátor s názvem fondu aplikací v systému zabezpečení systému Windows. Prostředky lze zabezpečit pomocí této identity. Tato identita však není reálný uživatelský účet a nezobrazuje se v konzole pro správu uživatelů systému Windows.
+Proces správy služby IIS vytvoří v systému zabezpečení systému Windows zabezpečený identifikátor s názvem fondu aplikací. Prostředky je možné zabezpečit pomocí této identity. Tato identita ale není skutečným uživatelským účtem a nezobrazuje se v konzole pro správu uživatelů Windows.
 
-Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, upravte seznam řízení přístupu (ACL) pro adresář obsahující aplikaci:
+Pokud pracovní proces služby IIS vyžaduje zvýšený přístup k aplikaci, upravte seznam Access Control (ACL) pro adresář obsahující aplikaci:
 
-1. Sem otevřete Průzkumníka Windows a přejděte do adresáře.
+1. Otevřete Průzkumníka Windows a přejděte do adresáře.
 
-1. Klepněte pravým tlačítkem myši na adresář a vyberte příkaz **Vlastnosti**.
+1. Klikněte pravým tlačítkem na adresář a vyberte **vlastnosti**.
 
-1. Na kartě **Zabezpečení** vyberte tlačítko **Upravit** a pak **tlačítko Přidat.**
+1. Na kartě **zabezpečení** vyberte tlačítko **Upravit** a pak klikněte na tlačítko **Přidat** .
 
-1. Vyberte tlačítko **Umístění** a ujistěte se, že je vybrán systém.
+1. Vyberte tlačítko **umístění** a ujistěte se, že je vybraný systém.
 
-1. Zadejte **\\<<iIS app_pool_name>** **zadejte názvy objektů, které chcete vybrat.** Vyberte tlačítko **Zkontrolovat jména.** Pro *DefaultAppPool* zkontrolujte názvy pomocí **IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko **Zkontrolovat názvy,** je v oblasti názvů objektů uvedena hodnota **DefaultAppPool.** Název fondu aplikací není možné zadat přímo do oblasti názvů objektů. Při kontrole názvu objektu použijte<<app_pool_name>formátu **IIS AppPool.\\ **
+1. Do pole **Zadejte názvy objektů k výběru** oblasti zadejte **<App_pool_name služby IIS AppPool\\>** . Vyberte tlačítko pro **kontrolu názvů** . Pro službu *DefaultAppPool* ověřte názvy pomocí **služby IIS AppPool\DefaultAppPool**. Když je vybráno tlačítko pro **kontrolu názvů** , hodnota **DefaultAppPool** je uvedena v oblasti názvy objektů. Není možné zadat název fondu aplikací přímo do oblasti názvy objektů. Při kontrole názvu objektu použijte **<app_pool_name>formátu\\ IIS AppPool** .
 
-   ![Dialogové okno Vybrat uživatele nebo skupiny pro složku aplikace: Název fondu aplikací "DefaultAppPool" se připojí k "IIS AppPool\" v oblasti názvů objektů před výběrem možnosti Zkontrolovat názvy".](index/_static/select-users-or-groups-1.png)
+   ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: název fondu aplikací "DefaultAppPool" se připojí k "rozhraní IIS AppPool\" " v oblasti názvy objektů před výběrem "kontrolovat jména".](index/_static/select-users-or-groups-1.png)
 
 1. Vyberte **OK**.
 
-   ![Dialogové okno Vybrat uživatele nebo skupiny pro složku aplikace: Po výběru možnosti Zkontrolovat názvy se v oblasti názvů objektů zobrazí název objektu DefaultAppPool.](index/_static/select-users-or-groups-2.png)
+   ![Dialogová okna pro výběr uživatelů nebo skupin pro složku aplikace: po výběru možnosti kontrolovat názvy se v oblasti názvy objektů zobrazí název objektu DefaultAppPool.](index/_static/select-users-or-groups-2.png)
 
-1. Oprávnění &amp; ke spuštění čtení by měla být udělena ve výchozím nastavení. Podle potřeby zadejte další oprávnění.
+1. Ve &amp; výchozím nastavení by měla být udělena oprávnění ke čtení. V případě potřeby zadejte další oprávnění.
 
-Přístup lze také udělit na příkazovém řádku pomocí nástroje **ICACLS.** Jako příklad použijete *defaultapppool,* který používá následující příkaz:
+Přístup se dá taky udělit na příkazovém řádku pomocí nástroje **Icacls** . Pomocí příkazu *DefaultAppPool* jako příkladu se používá následující příkaz:
 
 ```console
 ICACLS C:\sites\MyWebApp /grant "IIS AppPool\DefaultAppPool":F
 ```
 
-Další informace naleznete v tématu [icacls.](/windows-server/administration/windows-commands/icacls)
+Další informace najdete v tématu [Icacls](/windows-server/administration/windows-commands/icacls) .
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
-[Protokol HTTP/2](https://httpwg.org/specs/rfc7540.html) je podporován pro mimoprocesová nasazení, která splňují následující základní požadavky:
+[Http/2](https://httpwg.org/specs/rfc7540.html) se podporuje pro nasazení mimo procesy, která splňují následující základní požadavky:
 
 * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
-* Připojení serveru edge směřující mj. [Kestrel server](xref:fundamentals/servers/kestrel)
-* Cílová architektura: Nevztahuje se na mimoprocesová nasazení, protože připojení HTTP/2 je plně zpracováno službou IIS.
-* Připojení TLS 1.2 nebo novější
+* Veřejná připojení hraničních serverů používají protokol HTTP/2, ale připojení reverzního proxy [serveru Kestrel](xref:fundamentals/servers/kestrel) používá protokol HTTP/1.1.
+* Cílová architektura: neplatí pro nasazení mimo procesy, protože připojení HTTP/2 je zpracováváno výhradně službou IIS.
+* Připojení TLS 1,2 nebo novější
 
-Pokud je navázáno připojení HTTP/2, `HTTP/1.1`protokol [HttpRequest.Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) hlásí .
+Pokud je vytvořeno připojení HTTP/2, `HTTP/1.1`sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
 
-Protokol HTTP/2 je ve výchozím nastavení povolen. Připojení se vrátí na HTTP/1.1, pokud není navázáno připojení HTTP/2. Další informace o konfiguraci protokolu HTTP/2 s nasazením služby IIS naleznete [v tématu HTTP/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis).
+HTTP/2 je ve výchozím nastavení povolené. Pokud není navázáno připojení HTTP/2, připojení se vrátí k HTTP/1.1. Další informace o konfiguraci HTTP/2 v nasazeních služby IIS najdete v tématu [http/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis).
 
-## <a name="cors-preflight-requests"></a>Požadavky cors kontroly před výstupem
+## <a name="cors-preflight-requests"></a>Požadavky na kontrolu před výstupem CORS
 
-*Tato část se vztahuje pouze na ASP.NET základní aplikace, které se zaměřují na rozhraní .NET Framework.*
+*Tato část platí jenom pro ASP.NET Core aplikace, které cílí na .NET Framework.*
 
-Pro aplikaci ASP.NET Core, která cílí na rozhraní .NET Framework, nejsou požadavky OPTIONS ve výchozím nastavení ve službách IIS předány do aplikace. Informace o konfiguraci obslužných rutin služby IIS aplikace v *souboru web.config* tak, aby předávály požadavky OPTIONS, naleznete v tématu [Povolení požadavků napříč původy v ASP.NET webovém rozhraní API 2: Jak funguje cors](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works).
+Pro ASP.NET Core aplikaci, která cílí na .NET Framework, požadavky na možnosti nejsou ve výchozím nastavení ve službě IIS předány do aplikace. Informace o tom, jak nakonfigurovat obslužné rutiny IIS aplikace v *souboru Web. config* , aby předávala požadavky na možnosti, najdete v tématu [Povolení žádostí o více zdrojů v ASP.NET webovém rozhraní API 2: jak CORS funguje](/aspnet/web-api/overview/security/enabling-cross-origin-requests-in-web-api#how-cors-works).
 
 ## <a name="deployment-resources-for-iis-administrators"></a>Prostředky nasazení pro správce služby IIS
 
-* [Dokumentace iis](/iis)
-* [Začínáme se Správcem služby IIS ve službách IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
+* [Dokumentace ke službě IIS](/iis)
+* [Začínáme ve službě IIS pomocí Správce služby IIS](/iis/get-started/getting-started-with-iis/getting-started-with-the-iis-manager-in-iis-7-and-iis-8)
 * [Nasazení aplikace .NET Core](/dotnet/core/deploying/)
 * <xref:host-and-deploy/aspnet-core-module>
 * <xref:host-and-deploy/directory-structure>
@@ -1746,8 +1752,8 @@ Pro aplikaci ASP.NET Core, která cílí na rozhraní .NET Framework, nejsou po�
 
 * <xref:test/troubleshoot>
 * <xref:index>
-* [Oficiální web služby Microsoft IIS](https://www.iis.net/)
-* [Knihovna technického obsahu systému Windows Server](/windows-server/windows-server)
+* [Oficiální web Microsoft IIS](https://www.iis.net/)
+* [Knihovna technických obsahu pro Windows Server](/windows-server/windows-server)
 * [HTTP/2 ve službě IIS](/iis/get-started/whats-new-in-iis-10/http2-on-iis)
 * <xref:host-and-deploy/iis/transform-webconfig>
 

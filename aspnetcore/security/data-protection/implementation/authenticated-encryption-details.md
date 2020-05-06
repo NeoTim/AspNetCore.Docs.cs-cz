@@ -4,13 +4,19 @@ author: rick-anderson
 description: Přečtěte si podrobnosti o implementaci ověřovaného šifrování ASP.NET Core ochrany dat.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/authenticated-encryption-details
-ms.openlocfilehash: 9def03e6b27e19fc34a839e923d6152e086889db
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 3066cd505781ed2ddad46626dda9d9ce35307877
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78667760"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776965"
 ---
 # <a name="authenticated-encryption-details-in-aspnet-core"></a>Podrobnosti o ověřeném šifrování v ASP.NET Core
 
@@ -55,4 +61,4 @@ Dalších 128 bitů, neboli 16 bajtů, je identifikátor klíče (80 9C 81 0C 19
 Zbývající část obsahuje datovou část a je specifická pro použitý formát.
 
 > [!WARNING]
-> Všechna datová zatížení chráněná k danému klíči budou začínat stejným hlavičkou (Magic Value, ID klíče). Správci mohou tuto skutečnost využít k tomu, aby byly diagnostické účely při vygenerování datové části přibližné. Například výše uvedená datová část odpovídá klíči {0c819c80-6619-4019-9536-53f8aaffee57}. Pokud po kontrole úložiště klíčů zjistíte, že toto datum aktivace konkrétního klíče bylo 2015-01-01 a datum vypršení jeho platnosti bylo 2015-03-01, pak je vhodné předpokládat, že v rámci tohoto okna byla vygenerována datová část (v případě neúmyslného poškození), podejte nebo zajistěte malou Fudge faktor na obou stranách.
+> Všechna datová zatížení chráněná k danému klíči budou začínat stejným hlavičkou (Magic Value, ID klíče). Správci mohou tuto skutečnost využít k tomu, aby byly diagnostické účely při vygenerování datové části přibližné. Například výše uvedená datová část odpovídá klíči {0c819c80-6619-4019-9536-53f8aaffee57}. Pokud po kontrole úložiště klíčů zjistíte, že toto datum aktivace konkrétního klíče bylo 2015-01-01 a datum vypršení jeho platnosti bylo 2015-03-01, pak je vhodné předpokládat, že v rámci tohoto okna byla vygenerována datová část (v případě, že nebyla úmyslně poškozena), podělte nebo využijte malý Fudge faktor na obou stranách.

@@ -1,25 +1,28 @@
 ---
-title: ASP.NET Blazor platformy podporované core
+title: ASP.NET Core Blazor podporované platformy
 author: guardrex
-description: Další informace o podporovaných Blazorplatformách pro ASP.NET Core .
+description: Přečtěte si o podporovaných platformách Blazorpro ASP.NET Core.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/18/2019
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/supported-platforms
-ms.openlocfilehash: 505974280b5c96ec2bcae42c6e076ab67a15bb07
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 1c78803e6468f924bf8c8e9403a34565b114006f
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78658856"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82771113"
 ---
-# <a name="aspnet-core-blazor-supported-platforms"></a>platformy podporované ASP.NET Core Blazor
+# <a name="aspnet-core-blazor-supported-platforms"></a>Podporované platformy ASP.NET Core Blazor
 
-Podle [Luke Latham](https://github.com/guardrex)
+Od [Luke Latham](https://github.com/guardrex)
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
@@ -27,7 +30,7 @@ Podle [Luke Latham](https://github.com/guardrex)
 
 ### <a name="blazor-webassembly"></a>Blazor WebAssembly
 
-| Prohlížeč                          | Version               |
+| Prohlížeč                          | Verze               |
 | -------------------------------- | :-------------------: |
 | Microsoft Edge                   | Current               |
 | Mozilla Firefox                  | Current               |
@@ -35,19 +38,19 @@ Podle [Luke Latham](https://github.com/guardrex)
 | Safari, včetně iOS            | Current               |
 | Microsoft Internet Explorer      | Nepodporuje se&dagger; |
 
-&dagger;Aplikace Microsoft Internet Explorer nepodporuje [webovou sestavu](https://webassembly.org).
+&dagger;Aplikace Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
 
 ### <a name="blazor-server"></a>Blazor Server
 
-| Prohlížeč                          | Version    |
+| Prohlížeč                          | Verze    |
 | -------------------------------- | :--------: |
 | Microsoft Edge                   | Current    |
 | Mozilla Firefox                  | Current    |
 | Google Chrome, včetně Androidu | Current    |
 | Safari, včetně iOS            | Current    |
-| Microsoft Internet Explorer      | 11&dagger; |
+| Microsoft Internet Explorer      | odst&dagger; |
 
-&dagger;Jsou vyžadovány další polyfilly (například sliby lze přidat prostřednictvím [Polyfill.io](https://polyfill.io/v3/) svazku).
+&dagger;Jsou vyžadovány další obslužné nabídky (například příslibů lze přidat prostřednictvím [Polyfill.IO](https://polyfill.io/v3/) sady).
 
 ## <a name="additional-resources"></a>Další zdroje
 

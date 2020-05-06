@@ -1,71 +1,77 @@
 ---
-title: Metabalíček Microsoft.AspNetCore.All pro ASP.NET Core 2.0
+title: Microsoft. AspNetCore. All Metapackage for ASP.NET Core 2,0
 author: Rick-Anderson
-description: Metabalíček Microsoft.AspNetCore.All se nedoporučuje pro ASP.NET Core 2.1 a novější.
+description: Microsoft. AspNetCore. All Metapackage se nedoporučuje pro ASP.NET Core 2,1 a novější.
 monikerRange: '>= aspnetcore-2.0'
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/25/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/metapackage
-ms.openlocfilehash: cc00c075909da5c17a4aa2fd252c9e662e5a0fc9
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: fe9e2f8f8970f9e5c182b68b2660c35cd09b97b2
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79511064"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775541"
 ---
-# <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>Metabalíček Microsoft.AspNetCore.All pro ASP.NET Core 2.0
+# <a name="microsoftaspnetcoreall-metapackage-for-aspnet-core-20"></a>Microsoft. AspNetCore. All Metapackage for ASP.NET Core 2,0
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Metabalíček `Microsoft.AspNetCore.All` není součástí ASP.NET Core 3.0 a novější. Další informace naleznete v [tomto problému GitHub](https://github.com/aspnet/Announcements/issues/314).
+`Microsoft.AspNetCore.All` Metapackage není součástí ASP.NET Core 3,0 a novějších. Další informace najdete v [tomto problému GitHubu](https://github.com/aspnet/Announcements/issues/314).
 
 ::: moniker-end
 
 > [!NOTE]
-> Doporučujeme aplikace zaměřené ASP.NET Core 2.1 a novější používat [metabalíček Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app) spíše než tento balíček. V tomto článku najdete [téma Migrace z Microsoft.AspNetCore.All na Microsoft.AspNetCore.App.](#migrate)
+> Doporučujeme, abyste pro aplikace cílí na ASP.NET Core 2,1 a později používali [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a ne tento balíček. Viz téma [migrace z Microsoft. AspNetCore. All do Microsoft. AspNetCore. app](#migrate) v tomto článku.
 
-Tato funkce vyžaduje ASP.NET cílení na jádro 2.x .NET Core 2.x.
+Tato funkce vyžaduje ASP.NET Core 2. x cílící na rozhraní .NET Core 2. x.
 
-[Microsoft.AspNetCore.All](https://www.nuget.org/packages/Microsoft.AspNetCore.All) je metabalíček, který odkazuje na sdílené rozhraní. *Sdílená architektura* je sada sestavení (*soubory DLL),* které nejsou ve složkách aplikace. Sdílená architektura musí být nainstalována v počítači, aby bylo možné aplikaci spustit. Další informace naleznete [v tématu sdílený rámec](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
+[Microsoft. AspNetCore. All](https://www.nuget.org/packages/Microsoft.AspNetCore.All) je Metapackage, který odkazuje na sdílené rozhraní. *Sdílené rozhraní* je sada sestavení (soubory *. dll* ), která nejsou ve složkách aplikace. Aby bylo možné aplikaci spustit, musí být na počítači nainstalována sdílená rozhraní. Další informace najdete v tématu [sdílené rozhraní](https://natemcmaster.com/blog/2018/08/29/netcore-primitives-2/).
 
-Sdílený rámec, `Microsoft.AspNetCore.All` který odkazuje, zahrnuje:
+Sdílené rozhraní, které `Microsoft.AspNetCore.All` odkazuje na:
 
-* Všechny podporované balíčky ASP.NET core týmu.
-* Všechny podporované balíčky jádrem entity frameworku.
-* Interní závislosti a závislosti třetích stran používané ASP.NET jádrem jádra a entity frameworku.
+* Všechny podporované balíčky ASP.NET Core týmu.
+* Všechny podporované balíčky Entity Framework Core.
+* Interní a nezávislé závislosti třetích stran používané ASP.NET Core a Entity Framework Core.
 
-Všechny funkce ASP.NET Core 2.x a Entity Framework Core `Microsoft.AspNetCore.All` 2.x jsou součástí balíčku. Výchozí šablony projektu zaměřené na ASP.NET Core 2.0 používají tento balíček.
+Do `Microsoft.AspNetCore.All` balíčku jsou zahrnuté všechny funkce ASP.NET Core 2. x a Entity Framework Core 2. x. Výchozí šablony projektu, které cílí na ASP.NET Core 2,0, používají tento balíček.
 
-Číslo verze `Microsoft.AspNetCore.All` metabalíčku představuje minimální verzi ASP.NET Core a core verze entity frameworku.
+Číslo verze `Microsoft.AspNetCore.All` Metapackage představuje minimální verzi ASP.NET Core a Entity Framework Core verzi.
 
-Následující soubor *.csproj* odkazuje `Microsoft.AspNetCore.All` na metabalíček pro ASP.NET Core:
+Následující soubor *. csproj* odkazuje na `Microsoft.AspNetCore.All` Metapackage pro ASP.NET Core:
 
 [!code-xml[](metapackage/samples/Metapackage.All.Example.csproj?highlight=8)]
 
 ::: moniker range=">= aspnetcore-2.1"
 
-## <a name="implicit-versioning"></a>Implicitní správa verzí
+## <a name="implicit-versioning"></a>Implicitní Správa verzí
 
-V ASP.NET Jádrem 2.1 nebo `Microsoft.AspNetCore.All` novějším můžete zadat odkaz na balíček bez verze. Pokud není zadána verze, implicitní verze je určena`Microsoft.NET.Sdk.Web`sadou SDK ( ). Doporučujeme spoléhat se na implicitní verzi určenou sadou SDK a neexplicitně nastavit číslo verze v odkazu na balíček. Pokud máte dotazy týkající se tohoto přístupu, zanechte komentář GitHub u [implicitní verze Diskuse o microsoft.AspNetCore.App](https://github.com/dotnet/AspNetCore.Docs/issues/6430).
+V ASP.NET Core 2,1 nebo novější můžete zadat odkaz na `Microsoft.AspNetCore.All` balíček bez verze. Není-li zadána verze, je implicitní verze určena sadou SDK (`Microsoft.NET.Sdk.Web`). Doporučujeme, abyste se spoléhali na implicitní verzi určenou sadou SDK a neexplicitně nastavoval číslo verze na odkaz na balíček. Pokud máte dotazy týkající se tohoto přístupu, ponechte komentář GitHubu v [diskuzi o implicitní verzi Microsoft. AspNetCore. app](https://github.com/dotnet/AspNetCore.Docs/issues/6430).
 
-Implicitní verze je `major.minor.0` nastavena na pro přenosné aplikace. Mechanismus přetáčení sdíleného rozhraní spouští aplikaci na nejnovější kompatibilní verzi mezi nainstalovanými sdílenými rámci. Chcete-li zaručit, že stejná verze se používá ve vývoji, testování a výrobě, ujistěte se, že stejná verze sdíleného rozhraní je nainstalována ve všech prostředích. U samostatných aplikací je implicitní číslo verze `major.minor.patch` nastaveno na sdílenou architekturu, která je součástí nainstalované sady SDK.
+Implicitní verze je nastavená na `major.minor.0` pro přenosné aplikace. Mechanismus pro přetečení sdíleného rozhraní spustí aplikaci na nejnovější kompatibilní verzi z nainstalovaných sdílených rozhraní. Aby bylo zaručeno, že stejná verze se používá ve vývoji, testování a produkčním prostředí, zajistěte, aby byla stejná verze sdíleného rozhraní nainstalovaná ve všech prostředích. U samostatných aplikací je implicitní číslo verze nastaveno na sdílené rozhraní, které je `major.minor.patch` v nainstalované sadě SDK součástí sady.
 
-Zadání čísla verze v `Microsoft.AspNetCore.All` odkazu na balíček **nezaručuje,** že je vybrána verze sdíleného rozhraní. Předpokládejme například, že je zadána verze "2.1.1", ale je nainstalována verze "2.1.3". V takovém případě bude aplikace používat "2.1.3". I když se nedoporučuje, můžete zakázat roll vpřed (patch a / nebo menší). Další informace týkající se dotnet hostitele roll-forward a jak nakonfigurovat jeho chování, naleznete [v tématu dotnet hostitele posunout vpřed](https://github.com/dotnet/core-setup/blob/master/Documentation/design-docs/roll-forward-on-no-candidate-fx.md).
+Zadání čísla verze na odkaz na `Microsoft.AspNetCore.All` balíček **nezaručuje,** že je zvolena verze sdíleného rozhraní. Například Předpokládejme, že je zadána verze "2.1.1", ale je nainstalována aplikace "2.1.3". V takovém případě bude aplikace používat "2.1.3". I když se to nedoporučuje, můžete zablokovat přeposlání (oprava nebo podverze). Další informace o tom, jak integrovat hostitele dotnet a jak nakonfigurovat jeho chování, najdete v tématu [dotnet Host – přesměrování](https://github.com/dotnet/core-setup/blob/master/Documentation/design-docs/roll-forward-on-no-candidate-fx.md).
 
-Sada SDK projektu musí být `Microsoft.NET.Sdk.Web` nastavena na v souboru `Microsoft.AspNetCore.All`projektu, aby bylo možné použít implicitní verzi aplikace . Pokud `Microsoft.NET.Sdk` je zadána sada`<Project Sdk="Microsoft.NET.Sdk">` SDK (v horní části souboru projektu), je generováno následující upozornění:
+Sada SDK projektu musí být nastavena na `Microsoft.NET.Sdk.Web` hodnotu v souboru projektu, aby používala implicitní verzi. `Microsoft.AspNetCore.All` Při zadání `Microsoft.NET.Sdk` sady SDK (`<Project Sdk="Microsoft.NET.Sdk">` v horní části souboru projektu) se vygeneruje následující upozornění:
 
-*Upozornění NU1604: Závislost projektu Microsoft.AspNetCore.All neobsahuje včetně dolní mez. Zahrnout dolní mez ve verzi závislosti zajistit konzistentní výsledky obnovení.*
+*Upozornění NU1604: závislost projektu Microsoft. AspNetCore. All neobsahuje žádné zahrnutí dolní meze. Zahrňte do verze závislosti dolní mez, aby se zajistilo konzistentní výsledky obnovení.*
 
-Jedná se o známý problém s sadou .NET Core 2.1 SDK a bude opraven v sada .NET Core 2.2 SDK.
+Jedná se o známý problém se sadou .NET Core 2,1 SDK a bude opraven v sadě .NET Core 2,2 SDK.
 
 ::: moniker-end
 
 <a name="migrate"></a>
 
-## <a name="migrating-from-microsoftaspnetcoreall-to-microsoftaspnetcoreapp"></a>Migrace z Microsoft.AspNetCore.All na Microsoft.AspNetCore.App
+## <a name="migrating-from-microsoftaspnetcoreall-to-microsoftaspnetcoreapp"></a>Migruje se z Microsoft. AspNetCore. All do Microsoft. AspNetCore. app.
 
-Následující balíčky jsou `Microsoft.AspNetCore.All` zahrnuty `Microsoft.AspNetCore.App` v balíčku, ale ne balíček.
+K dispozici jsou tyto balíčky `Microsoft.AspNetCore.All` , ale ne `Microsoft.AspNetCore.App` balíček.
 
 * `Microsoft.AspNetCore.ApplicationInsights.HostingStartup`
 * `Microsoft.AspNetCore.AzureAppServices.HostingStartup`
@@ -83,17 +89,17 @@ Následující balíčky jsou `Microsoft.AspNetCore.All` zahrnuty `Microsoft.Asp
 * `Microsoft.Extensions.Logging.AzureAppServices`
 * `Microsoft.VisualStudio.Web.BrowserLink`
 
-Pokud se `Microsoft.AspNetCore.All` `Microsoft.AspNetCore.App`chcete přesunout z aplikace do aplikace, pokud vaše aplikace používá nějaká api z výše uvedených balíčků nebo balíčky, které tyto balíčky přinesly, přidejte odkazy na tyto balíčky v projektu.
+Pokud chcete přejít `Microsoft.AspNetCore.All` z `Microsoft.AspNetCore.App`na, pokud vaše aplikace používá rozhraní API z výše uvedených balíčků nebo balíčky, které tyto balíčky přidávají, přidejte odkazy na tyto balíčky v projektu.
 
-Všechny závislosti předchozí balíčky, které jinak nejsou `Microsoft.AspNetCore.App` závislosti nejsou implicitně zahrnuty. Příklad:
+Všechny závislosti předchozích balíčků, které jinak nejsou závislé `Microsoft.AspNetCore.App` na, nejsou implicitně zahrnuté. Příklad:
 
 * `StackExchange.Redis`jako závislost`Microsoft.Extensions.Caching.Redis`
 * `Microsoft.ApplicationInsights`jako závislost`Microsoft.AspNetCore.ApplicationInsights.HostingStartup`
 
-## <a name="update-aspnet-core-21"></a>Aktualizace ASP.NET jádra 2.1
+## <a name="update-aspnet-core-21"></a>Aktualizace ASP.NET Core 2,1
 
-Doporučujeme migrovat `Microsoft.AspNetCore.App` na metabalíček pro 2.1 a novější. Chcete-li `Microsoft.AspNetCore.All` pokračovat v používání metabalíčku a zajistit nasazení nejnovější verze opravy:
+Doporučujeme migrovat na `Microsoft.AspNetCore.App` metapackage pro 2,1 a novější. Chcete-li nadále `Microsoft.AspNetCore.All` používat Metapackage a zajistit, aby byla nasazena nejnovější verze opravy:
 
-* Na vývojových počítačích a serverech sestavení: Nainstalujte nejnovější [sadu .NET Core SDK](https://dotnet.microsoft.com/download).
-* Na serverech nasazení: Nainstalujte nejnovější [runtime jádra .NET](https://dotnet.microsoft.com/download).
- Aplikace se při restartování aplikace posune dopředu na nejnovější nainstalovanou verzi.
+* Ve vývojových počítačích a serverech sestavení: Nainstalujte nejnovější [.NET Core SDK](https://dotnet.microsoft.com/download).
+* Na serverech nasazení: Nainstalujte nejnovější [modul runtime .NET Core](https://dotnet.microsoft.com/download).
+ Vaše aplikace bude předána na nejnovější nainstalovanou verzi při restartu aplikace.

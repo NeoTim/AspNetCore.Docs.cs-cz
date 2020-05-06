@@ -1,61 +1,65 @@
 ---
-title: Odkaz na prohlížeč v ASP.NET jádru
+title: Odkaz na prohlížeč v ASP.NET Core
 author: ncarandini
-description: Vysvětluje, jak odkaz prohlížeče je funkce sady Visual Studio, která propojuje vývojové prostředí s jedním nebo více webových prohlížečů.
+description: Vysvětluje, jak je odkaz v prohlížeči funkcí sady Visual Studio, která propojuje vývojové prostředí s jedním nebo více webovými prohlížeči.
 ms.author: riande
 ms.custom: H1Hack27Feb2017
 ms.date: 01/09/2020
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: client-side/using-browserlink
-ms.openlocfilehash: 19cc3c2ed91bd9e05df3c036123c78ecbf81fcc0
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 619d19ba90298b2455d4a558fea138c86a751f07
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78658849"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773654"
 ---
-# <a name="browser-link-in-aspnet-core"></a>Odkaz na prohlížeč v ASP.NET jádru
+# <a name="browser-link-in-aspnet-core"></a>Odkaz na prohlížeč v ASP.NET Core
 
-Od [Nicolò Carandini](https://github.com/ncarandini), [Mike Wasson](https://github.com/MikeWasson), a [Tom Dykstra](https://github.com/tdykstra)
+[Nicolò Carandini](https://github.com/ncarandini), [Mike Wasson](https://github.com/MikeWasson)a [Dykstra](https://github.com/tdykstra)
 
-Odkaz prohlížeče je funkce sady Visual Studio. Vytvoří komunikační kanál mezi vývojovým prostředím a jedním nebo více webovými prohlížeči. Pomocí odkazu prohlížeče můžete aktualizovat webovou aplikaci v několika prohlížečích najednou, což je užitečné pro testování mezi prohlížeči.
+Odkaz na prohlížeč je funkce sady Visual Studio. Vytvoří komunikační kanál mezi vývojovým prostředím a jedním nebo více webovými prohlížeči. Odkaz na prohlížeč můžete použít k aktualizaci webové aplikace v několika prohlížečích najednou, což je užitečné pro testování v různých prohlížečích.
 
 ## <a name="browser-link-setup"></a>Nastavení odkazu na prohlížeč
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Přidejte do projektu balíček [Microsoft.VisualStudio.Web.BrowserLink.](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) Pro ASP.NET Core Razor Pages nebo MVC projekty, také povolit runtime <xref:mvc/views/view-compilation>kompilaci Razor (*.cshtml*) soubory, jak je popsáno v . Změny syntaxe holicího strojku se použijí pouze v případě, že byla povolena kompilace modulu runtime.
+Přidejte do projektu balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) . Pro ASP.NET Core Razor stránky nebo projekty MVC také povolte kompilaci za běhu souborů Razor (*. cshtml*), jak je popsáno <xref:mvc/views/view-compilation>v. Razorzměny syntaxe se aplikují jenom v případě, že je povolená kompilace za běhu.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-Při převodu projektu ASP.NET Core 2.0 na ASP.NET jádrem 2.1 a při přechodu na [metabalíček Microsoft.AspNetCore.App](xref:fundamentals/metapackage-app)nainstalujte balíček [Microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) pro funkci Odkaz prohlížeče. Šablony projektu ASP.NET Core 2.1 `Microsoft.AspNetCore.App` používají metabalíček ve výchozím nastavení.
+Při převodu projektu ASP.NET Core 2,0 na ASP.NET Core 2,1 a přechodu na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app)nainstalujte balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) pro funkce připojení prohlížeče. Šablony projektu ASP.NET Core 2,1 ve výchozím nastavení `Microsoft.AspNetCore.App` používají Metapackage.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-Šablony projektu ASP.NET Core 2.0 **,** **Empty**a **Web API** používají [metabalíček Microsoft.AspNetCore.All](xref:fundamentals/metapackage), který obsahuje odkaz na balíček pro [microsoft.VisualStudio.Web.BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/). Proto použití `Microsoft.AspNetCore.All` metabalíčku nevyžaduje žádné další akce, aby odkaz prohlížeče k dispozici pro použití.
+Šablony projektů **webové aplikace**ASP.NET Core 2,0 **, prázdné**a **webové rozhraní API** používají soubor [Microsoft. AspNetCore. All Metapackage](xref:fundamentals/metapackage), který obsahuje odkaz na balíček pro [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/). Proto použití Metapackage nevyžaduje `Microsoft.AspNetCore.All` žádné další kroky k tomu, aby byl odkaz na prohlížeč dostupný pro použití.
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
 
-Šablona projektu ASP.NET Core 1.x **Web Application** obsahuje odkaz na balíček pro balíček [Microsoft.VisualStudio.Web.BrowserLink.](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) Jiné typy projektů vyžadují přidání odkazu `Microsoft.VisualStudio.Web.BrowserLink`na balíček do aplikace .
+Šablona projektu **webové aplikace** ASP.NET Core 1. x obsahuje odkaz na balíček pro balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) . Jiné typy projektů vyžadují, abyste přidali odkaz na balíček `Microsoft.VisualStudio.Web.BrowserLink`.
 
 ::: moniker-end
 
 ### <a name="configuration"></a>Konfigurace
 
-Volání `UseBrowserLink` `Startup.Configure` metody:
+Zavolejte `UseBrowserLink` v `Startup.Configure` metodě:
 
 ```csharp
 app.UseBrowserLink();
 ```
 
-Volání `UseBrowserLink` je obvykle umístěn `if` uvnitř bloku, který umožňuje pouze odkaz prohlížeče ve vývojovém prostředí. Příklad:
+`UseBrowserLink` Volání je obvykle umístěno uvnitř `if` bloku, který povoluje pouze odkaz na prohlížeč ve vývojovém prostředí. Příklad:
 
 ```csharp
 if (env.IsDevelopment())
@@ -67,70 +71,70 @@ if (env.IsDevelopment())
 
 Další informace naleznete v tématu <xref:fundamentals/environments>.
 
-## <a name="how-to-use-browser-link"></a>Jak používat odkaz na prohlížeč
+## <a name="how-to-use-browser-link"></a>Jak používat Browser Link
 
-Pokud máte otevřený ASP.NET základní projekt, Visual Studio zobrazí ovládací prvek panelu nástrojů Odkaz prohlížeče vedle ovládacího prvku panelu nástrojů **Ladění cíle:**
+Pokud máte otevřený projekt ASP.NET Core, Visual Studio zobrazí ovládací prvek panelu nástrojů pro odkaz na prohlížeč vedle ovládacího prvku panel nástrojů **cíl ladění** :
 
-![Rozevírací nabídka Odkaz prohlížeče](using-browserlink/_static/browserLink-dropdown-menu.png)
+![Rozevírací nabídka připojit k prohlížeči](using-browserlink/_static/browserLink-dropdown-menu.png)
 
-V ovládacím panelu nástrojů Odkaz prohlížeče můžete:
+Z ovládacího prvku panel nástrojů odkaz na prohlížeč můžete:
 
 * Aktualizujte webovou aplikaci v několika prohlížečích najednou.
-* Otevřete **řídicí panel odkazu prohlížeče**.
-* Povolte nebo zakažte **odkaz na prohlížeč**. Poznámka: Odkaz prohlížeče je ve výchozím nastavení v sadě Visual Studio zakázán.
-* Povolte nebo zakažte [automatické synchronizaci CSS](#enable-or-disable-css-auto-sync).
+* Otevřete **řídicí panel odkaz na prohlížeč**.
+* Povolí nebo zakáže **odkaz na prohlížeč**. Poznámka: ve výchozím nastavení v aplikaci Visual Studio je odkaz na prohlížeč zakázán.
+* Povolí nebo zakáže [automatickou synchronizaci šablon stylů CSS](#enable-or-disable-css-auto-sync).
 
 ## <a name="refresh-the-web-app-in-several-browsers-at-once"></a>Aktualizace webové aplikace v několika prohlížečích najednou
 
-Chcete-li vybrat jeden webový prohlížeč, který chcete spustit při spuštění projektu, použijte rozevírací nabídku v ovládacím panelu nástrojů **Ladění cíle:**
+Chcete-li zvolit jeden webový prohlížeč, který má být spuštěn při spuštění projektu, použijte rozevírací nabídku v ovládacím prvku panel nástrojů **cíl ladění** :
 
 ![Rozevírací nabídka F5](using-browserlink/_static/debug-target-dropdown-menu.png)
 
-Chcete-li otevřít více prohlížečů najednou, zvolte **Procházet pomocí...** ze stejného rozevíracího balíčku. Podržením klávesy <kbd>Ctrl</kbd> vyberte požadované prohlížeče a klikněte na **Procházet**:
+Chcete-li otevřít více prohlížečů najednou, vyberte možnost **Procházet se...** ze stejného rozevíracího seznamu. Podržte stisknutou klávesu <kbd>CTRL</kbd> a vyberte požadované prohlížeče a potom klikněte na **Procházet**:
 
-![Otevření mnoha prohlížečů najednou](using-browserlink/_static/open-many-browsers-at-once.png)
+![Otevřít spoustu prohlížečů najednou](using-browserlink/_static/open-many-browsers-at-once.png)
 
-Následující snímek obrazovky ukazuje Visual Studio s otevřeným zobrazením Rejstříku a dvěma otevřenými prohlížeči:
+Následující snímek obrazovky ukazuje Visual Studio s otevřeným zobrazením index a dvěma otevřenými prohlížeči:
 
 ![Příklad synchronizace se dvěma prohlížeči](using-browserlink/_static/sync-with-two-browsers-example.png)
 
-Chcete-li zobrazit prohlížeče připojené k projektu, najeďte na panel nástrojů Odkaz prohlížeče:
+Najeďte myší na ovládací prvek panelu nástrojů propojení prohlížeče, aby se zobrazily prohlížeče, které jsou připojené k projektu:
 
-![Špička pro vznášení](using-browserlink/_static/hoover-tip.png)
+![Hrot přechodu myši](using-browserlink/_static/hoover-tip.png)
 
-Změňte zobrazení rejstříku a všechny připojené prohlížeče se aktualizují, když kliknete na tlačítko Aktualizovat odkaz prohlížeče:
+Změňte zobrazení indexu a po kliknutí na tlačítko pro obnovení propojení prohlížeče se aktualizují všechny připojené prohlížeče:
 
-![prohlížeče-synchronizace se změnami](using-browserlink/_static/browsers-sync-to-changes.png)
+![prohlížeče – synchronizace změn](using-browserlink/_static/browsers-sync-to-changes.png)
 
-Odkaz na prohlížeč funguje také s prohlížeči, které spustíte z externího visual studia a přejdete na adresu URL aplikace.
+Odkaz na prohlížeč funguje taky s prohlížeči, které spouštíte z vnějšku sady Visual Studio, a přejdete na adresu URL aplikace.
 
-### <a name="the-browser-link-dashboard"></a>Řídicí panel odkazu prohlížeče
+### <a name="the-browser-link-dashboard"></a>Řídicí panel propojení prohlížeče
 
-Chcete-li spravovat připojení s otevřenými prohlížeči, otevřete okno **Řídicí panel odkazu prohlížeče** v rozevírací nabídce Odkaz prohlížeče:
+Otevřete okno **řídicí panel pro propojení prohlížeče** z rozevírací nabídky odkaz na prohlížeč ke správě připojení s otevřenými prohlížeči:
 
-![open-browserslink-dashboard](using-browserlink/_static/open-browserlink-dashboard.png)
+![otevřít – browserslink – řídicí panel](using-browserlink/_static/open-browserlink-dashboard.png)
 
-Pokud není připojen žádný prohlížeč, můžete zahájit relaci bez ladění výběrem odkazu **Zobrazení v prohlížeči:**
+Pokud není připojený žádný prohlížeč, můžete spustit relaci bez ladění tak, že vyberete odkaz **Zobrazit v prohlížeči** :
 
-![browserlink-dashboard-no-connections](using-browserlink/_static/browserlink-dashboard-no-connections.png)
+![browserlink – řídicí panel – No – připojení](using-browserlink/_static/browserlink-dashboard-no-connections.png)
 
-V opačném případě se připojené prohlížeče zobrazí s cestou ke stránce, kterou každý prohlížeč zobrazuje:
+V opačném případě jsou připojené prohlížeče zobrazeny s cestou ke stránce, kterou zobrazují jednotlivé prohlížeče:
 
-![odkaz na prohlížeč-řídicí panel-dvě připojení](using-browserlink/_static/browserlink-dashboard-two-connections.png)
+![browserlink-řídicí panel – dvě připojení](using-browserlink/_static/browserlink-dashboard-two-connections.png)
 
 Můžete také kliknout na název jednotlivého prohlížeče a aktualizovat pouze tento prohlížeč.
 
-### <a name="enable-or-disable-browser-link"></a>Povolení nebo zakázání odkazu prohlížeče
+### <a name="enable-or-disable-browser-link"></a>Povolit nebo zakázat odkaz na prohlížeč
 
-Po opětovném povolení odkazu prohlížeče po jeho zakázání je nutné aktualizovat prohlížeče, abyste je znovu připojili.
+Když znovu povolíte odkaz na prohlížeč po jeho zakázání, je nutné aktualizovat prohlížeče, aby se znovu připojily.
 
-### <a name="enable-or-disable-css-auto-sync"></a>Povolení nebo zakázání automatické synchronizace CSS
+### <a name="enable-or-disable-css-auto-sync"></a>Povolí nebo zakáže automatickou synchronizaci šablon stylů CSS.
 
-Je-li povolena automatická synchronizace CSS, připojené prohlížeče se automaticky aktualizují, když provedete jakoukoli změnu souborů CSS.
+Pokud je povolena automatická synchronizace šablon stylů CSS, připojené prohlížeče se automaticky aktualizují, když provedete změny v souborech CSS.
 
 ## <a name="how-it-works"></a>Jak to funguje
 
-Odkaz prohlížeče [SignalR](xref:signalr/introduction) používá k vytvoření komunikačního kanálu mezi Visual Studio a prohlížečem. Je-li povoleno propojení prohlížeče, SignalR visual studio funguje jako server, který více klientů (prohlížečů) se může připojit k. Browser Link také registruje middleware komponenty v kanálu ASP.NET požadavků Core. Tato součást vloží `<script>` speciální odkazy do každého požadavku na stránku ze serveru. Odkazy na skripty můžete zobrazit tak, že v prohlížeči vyberete `<body>` zdroj **zobrazení** a posunete se na konec obsahu značky:
+Odkaz na prohlížeč [SignalR](xref:signalr/introduction) používá k vytvoření komunikačního kanálu mezi Visual Studio a prohlížečem. Pokud je povolen odkaz na prohlížeč, Visual Studio funguje jako SignalR Server, ke kterému se může připojit více klientů (prohlížečů). Odkaz na prohlížeč také zaregistruje součást middleware v kanálu žádosti ASP.NET Core. Tato součást vloží speciální `<script>` odkazy na všechny žádosti stránky ze serveru. Odkazy na skript můžete zobrazit tak, že v prohlížeči vyberete **Zobrazit zdroj** a posunete se na konec obsahu `<body>` značky:
 
 ```html
     <!-- Visual Studio Browser Link -->
@@ -142,6 +146,6 @@ Odkaz prohlížeče [SignalR](xref:signalr/introduction) používá k vytvořen�
 </body>
 ```
 
-Zdrojové soubory se nezmění. Middleware komponenta vloží odkazy skriptu dynamicky.
+Vaše zdrojové soubory se nemění. Komponenta middlewaru vloží odkaz na skript dynamicky.
 
-Vzhledem k tomu, že kód na straně prohlížeče SignalR je veškerý JavaScript, funguje ve všech prohlížečích, které podporují bez nutnosti modulu plug-in prohlížeče.
+Vzhledem k tomu, že kód na straně prohlížeče je JavaScript, funguje na všech prohlížečích, které SignalR podporují bez nutnosti použití modulu plug-in prohlížeče.

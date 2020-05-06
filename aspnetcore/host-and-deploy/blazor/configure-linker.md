@@ -5,17 +5,20 @@ description: Naučte se řídit linker zprostředkujícího jazyka (IL) při ses
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/29/2020
+ms.date: 05/04/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: host-and-deploy/blazor/configure-linker
-ms.openlocfilehash: 94cf1f09ddff47aa41181e9f5c52b4c65dc2ecf1
-ms.sourcegitcommit: 6318d2bdd63116e178c34492a904be85ec9ac108
+ms.openlocfilehash: b274752b375f68cca0c0a9adf9c146bc525d9eba
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/30/2020
-ms.locfileid: "82604776"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775177"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace linkeru pro ASP.NET Core Blazor
 
@@ -86,7 +89,7 @@ Propojení je povoleno, pokud je aplikace integrována `Release` v konfiguraci. 
 </linker>
 ```
 
-Další informace naleznete v tématu [Příklady souborů XML odkazů (úložiště GitHub mono/Linker)](https://github.com/mono/linker#link-xml-file-examples).
+Další informace a příklady naleznete v tématu [formáty dat (úložiště GitHub mono/Linker)](https://github.com/mono/linker/blob/master/docs/data-formats.md).
 
 ## <a name="add-an-xml-linker-configuration-file-to-a-library"></a>Přidání konfiguračního souboru linkeru XML do knihovny
 

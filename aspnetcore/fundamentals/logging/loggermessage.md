@@ -1,65 +1,71 @@
 ---
-title: Vysoce výkonné protokolování pomocí LoggerMessage v ASP.NET Core
+title: Protokolování s vysokým výkonem pomocí LoggerMessage v ASP.NET Core
 author: rick-anderson
-description: Zjistěte, jak pomocí LoggerMessage vytvořit delegáty s mezipamětí, které vyžadují méně přidělení objektů pro scénáře protokolování s vysokým výkonem.
+description: Naučte se používat LoggerMessage k vytváření protokolovaných delegátů, kteří vyžadují méně přidělení objektů pro scénáře protokolování s vysokým výkonem.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 08/26/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/logging/loggermessage
-ms.openlocfilehash: 48ebba69b5c15a0f9a42f7f6b3d2c1fcb0a2211c
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 67281b99f1ed8955ee29eb68b446d71a0c5c7838
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78663217"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768361"
 ---
-# <a name="high-performance-logging-with-loggermessage-in-aspnet-core"></a>Vysoce výkonné protokolování pomocí LoggerMessage v ASP.NET Core
+# <a name="high-performance-logging-with-loggermessage-in-aspnet-core"></a>Protokolování s vysokým výkonem pomocí LoggerMessage v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<xref:Microsoft.Extensions.Logging.LoggerMessage>Funkce vytvořit cache delegátů, které vyžadují méně přidělení objektů a sníženou výpočetní režii ve srovnání s [metodami rozšíření protokolů](xref:Microsoft.Extensions.Logging.LoggerExtensions), například <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation*> a <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogDebug*>. Pro scénáře protokolování s <xref:Microsoft.Extensions.Logging.LoggerMessage> vysokým výkonem použijte vzor.
+<xref:Microsoft.Extensions.Logging.LoggerMessage>funkce vytvářejí delegáty, které umožňují ukládání do mezipaměti, které vyžadují méně přidělení objektů a snižují výpočetní režii v porovnání <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation*> s <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogDebug*> [metodami rozšíření protokolovacího](xref:Microsoft.Extensions.Logging.LoggerExtensions)nástroje, jako jsou a. Pro scénáře protokolování s vysokým výkonem použijte <xref:Microsoft.Extensions.Logging.LoggerMessage> vzor.
 
-<xref:Microsoft.Extensions.Logging.LoggerMessage>poskytuje následující výhody výkonu oproti metody rozšíření protokolování:
+<xref:Microsoft.Extensions.Logging.LoggerMessage>poskytuje následující výhody výkonu v rámci rozšiřujících metod protokolovacího nástroje:
 
-* Metody rozšíření protokolování vyžadují typy hodnot "zabalení" (převod), například `int`na . `object` Vzor <xref:Microsoft.Extensions.Logging.LoggerMessage> zabraňuje zabalení pomocí <xref:System.Action> statických polí a rozšiřujícímetody s parametry silného typu.
-* Metody rozšíření protokolovacího nástroje musí analyzovat šablonu zprávy (pojmenovanou formátovací řetězec) při každém zápisu zprávy protokolu. <xref:Microsoft.Extensions.Logging.LoggerMessage>pouze vyžaduje analýzu šablony jednou, když je zpráva definována.
+* Metody rozšíření protokolovacího nástroje vyžadují "zabalení" (převod) typů hodnot `int`, například `object`do. <xref:Microsoft.Extensions.Logging.LoggerMessage> Vzor zabraňuje zabalení pomocí statických <xref:System.Action> polí a metod rozšíření s parametry silného typu.
+* Metody rozšíření protokolovacího nástroje musí při každém zápisu zprávy protokolu analyzovat šablonu zprávy (pojmenovaný řetězec formátu). <xref:Microsoft.Extensions.Logging.LoggerMessage>pouze při definování zprávy vyžaduje pouze analýzu šablony.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Ukázková aplikace <xref:Microsoft.Extensions.Logging.LoggerMessage> ukazuje funkce se základním systémem sledování nabídek. Aplikace přidává a odstraňuje uvozovky pomocí databáze v paměti. Při těchto operacích jsou zprávy protokolu <xref:Microsoft.Extensions.Logging.LoggerMessage> generovány pomocí vzoru.
+Ukázková aplikace ukazuje <xref:Microsoft.Extensions.Logging.LoggerMessage> funkce se základním systémem pro sledování nabídek. Aplikace přidá a odstraní uvozovky pomocí databáze v paměti. Při výskytu těchto operací se zprávy protokolu generují pomocí <xref:Microsoft.Extensions.Logging.LoggerMessage> vzoru.
 
-## <a name="loggermessagedefine"></a>LoggerMessage.Definovat
+## <a name="loggermessagedefine"></a>LoggerMessage. define
 
-[Define(LogLevel, EventId, String)](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*) vytvoří delegáta <xref:System.Action> pro protokolování zprávy. <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*>přetížení umožňují předání až šesti parametrů typu pojmenovanému formátovacímu řetězci (šabloně).
+[Define (LogLevel, ID události, String)](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*) vytvoří <xref:System.Action> delegáta pro protokolování zprávy. <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*>přetížení povolují předání až šesti parametrů typu pojmenovanému formátovacímu řetězci (Template).
 
-Řetězec poskytnutý metodě <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> je šablona a nikoli interpolovaný řetězec. Zástupné symboly jsou vyplněny v pořadí, ve které jsou zadány typy. Zástupné názvy v šabloně by měly být popisné a konzistentní napříč šablonami. Slouží jako názvy vlastností v rámci strukturovaných dat protokolu. Pro zástupné názvy doporučujeme [kryty Pascal.](/dotnet/standard/design-guidelines/capitalization-conventions) Například `{Count}`, `{FirstName}`.
+Řetězec poskytnutý <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> metodě je šablona, nikoli interpolovaná řetězec. Zástupné symboly jsou vyplněny v pořadí, v jakém jsou typy zadány. Zástupné názvy v šabloně by měly být popisné a konzistentní v rámci šablon. Slouží jako názvy vlastností v rámci strukturovaných dat protokolu. Pro názvy zástupných symbolů doporučujeme použít [velká písmena Pascal](/dotnet/standard/design-guidelines/capitalization-conventions) . Například `{Count}`, `{FirstName}`.
 
-Každá zpráva protokolu <xref:System.Action> je držena ve statickém poli vytvořeném [LoggerMessage.Define](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*). Ukázková aplikace například vytvoří pole popisující zprávu protokolu pro požadavek GET pro stránku index *(Internal/LoggerExtensions.cs*):
+Každá zpráva protokolu je <xref:System.Action> držená ve statickém poli vytvořeném pomocí [LoggerMessage. define](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*). Ukázková aplikace například vytvoří pole pro popis zprávy protokolu pro požadavek GET na stránku indexu (*interní/LoggerExtensions. cs*):
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet1)]
 
-Pro <xref:System.Action>, uveďte:
+<xref:System.Action>Pro zadejte:
 
 * Úroveň protokolování
-* Jedinečný identifikátor události<xref:Microsoft.Extensions.Logging.EventId>( ) s názvem metody statického rozšíření.
-* Šablona zprávy (pojmenovaná formátovací řetězec). 
+* Jedinečný identifikátor události (<xref:Microsoft.Extensions.Logging.EventId>) s názvem statické metody rozšíření.
+* Šablona zprávy (pojmenovaný řetězec formátu). 
 
-Stránka S dotazem na index ukázkové aplikace nastaví:
+Požadavek na stránku index ukázkové aplikace nastaví:
 
-* Úroveň protokolu `Information`na .
-* Id události `1` s názvem `IndexPageRequested` metody.
-* Šablona zprávy (pojmenovaná formátovací řetězec) k řetězci.
+* Úroveň protokolu do `Information`.
+* ID události na `1` název `IndexPageRequested` metody
+* Šablona zprávy (pojmenovaný řetězec formátu) k řetězci.
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet5)]
 
-Úložiště strukturovaného protokolování mohou používat název události, pokud je dodáván s id události k obohacení protokolování. [Například Serilog](https://github.com/serilog/serilog-extensions-logging) používá název události.
+Úložiště strukturovaného protokolování můžou použít název události, když se poskytne s ID události pro rozšíření protokolování. [Serilog](https://github.com/serilog/serilog-extensions-logging) například používá název události.
 
-Je <xref:System.Action> vyvolána prostřednictvím metody rozšíření silného typu. Metoda `IndexPageRequested` přihlásí zprávu pro požadavek ZÍSKAT stránku indexu v ukázkové aplikaci:
+<xref:System.Action> Je vyvolána prostřednictvím rozšiřující metody silného typu. `IndexPageRequested` Metoda zaznamená zprávu pro požadavek na stránku indexu v ukázkové aplikaci:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet9)]
 
-`IndexPageRequested`je volána na `OnGetAsync` logger v metodě v *Pages/Index.cshtml.cs*:
+`IndexPageRequested`se volá v protokolovacím nástroji v `OnGetAsync` metodě na *stránkách pages/index. cshtml. cs*:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet2&highlight=3)]
 
@@ -71,19 +77,19 @@ info: LoggerMessageSample.Pages.IndexModel[1]
       GET request for Index page
 ```
 
-Chcete-li předat parametry do zprávy protokolu, definujte při vytváření statického pole až šest typů. Ukázková aplikace přihlásí řetězec při přidání nabídky `string` definováním <xref:System.Action> typu pole:
+Chcete-li předat parametry do zprávy protokolu, definujte při vytváření statického pole až šest typů. Ukázková aplikace při přidávání nabídky zaznamená řetězec tak, že definuje `string` typ <xref:System.Action> pole:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet2)]
 
-Šablona protokolu delegáta obdrží své zástupné hodnoty z typů, které jsou k dispozici. Ukázková aplikace definuje delegáta pro přidání nabídky, `string`kde je parametr nabídky :
+Šablona zprávy protokolu delegáta přijímá své zástupné hodnoty z poskytnutých typů. Ukázková aplikace definuje delegáta pro přidání nabídky, kde je parametrem nabídky `string`:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet6)]
 
-Metoda statického rozšíření pro `QuoteAdded`přidání nabídky , obdrží hodnotu argumentu nabídky a předá ji <xref:System.Action> delegátovi:
+Statická rozšiřující metoda pro přidání nabídky, `QuoteAdded`přijímá hodnotu argumentu citace a předá ji <xref:System.Action> delegátovi:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet10)]
 
-V modelu stránky Rejstříku (*Pages/Index.cshtml.cs*) `QuoteAdded` se volá zpráva:
+V modelu stránky indexu stránky (*pages/index. cshtml. cs*) se volá `QuoteAdded` , aby se zaprotokoloval zpráva:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet3&highlight=6)]
 
@@ -96,17 +102,17 @@ info: LoggerMessageSample.Pages.IndexModel[2]
           consequences of avoiding reality. - Ayn Rand')
 ```
 
-Ukázková aplikace implementuje [vzor catch try&ndash;](/dotnet/csharp/language-reference/keywords/try-catch) pro odstranění nabídky. Informační zpráva je zaznamenána pro úspěšnou operaci odstranění. Při vyvolání výjimky je zaznamenána chybová zpráva pro operaci odstranění. Zpráva protokolu pro neúspěšnou operaci odstranění zahrnuje trasování zásobníku výjimek (*Internal/LoggerExtensions.cs*):
+Ukázková aplikace implementuje vzorek [&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) pro odstranění uvozovek. Informační zpráva se zaznamená do protokolu pro úspěšnou operaci odstranění. Pokud je vyvolána výjimka, je zaznamenána chybová zpráva pro operaci odstranění. Zpráva protokolu pro neúspěšnou operaci odstranění zahrnuje trasování zásobníku výjimky (*interní/LoggerExtensions. cs*):
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet3)]
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet7)]
 
-Všimněte si, jak je `QuoteDeleteFailed`výjimka předána delegátovi v :
+Všimněte si, jak je výjimka předána delegátovi `QuoteDeleteFailed`v:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet11)]
 
-V modelu stránky pro index stránky úspěšné odstranění `QuoteDeleted` nabídky volá metodu na protokolování. Pokud není nalezena nabídka pro <xref:System.ArgumentNullException> odstranění, je vyvolána. Výjimka je zachycena příkazem [try&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) `QuoteDeleteFailed` a zaznamenána voláním metody na protokolovacím paměťci v bloku [catch](/dotnet/csharp/language-reference/keywords/try-catch) (*Pages/Index.cshtml.cs*):
+V modelu stránky pro stránku index je úspěšné odstranění citace voláním `QuoteDeleted` metody protokolovacího nástroje. Pokud se nabídka nenajde pro odstranění, vyvolá <xref:System.ArgumentNullException> se. Výjimka je zachycena příkazem [Try&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) a protokolována voláním `QuoteDeleteFailed` metody v protokolovacím nástroji v bloku [catch](/dotnet/csharp/language-reference/keywords/try-catch) (*pages/index. cshtml. cs*):
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet5&highlight=9,13)]
 
@@ -119,7 +125,7 @@ info: LoggerMessageSample.Pages.IndexModel[4]
           consequences of avoiding reality. - Ayn Rand' Id = 1)
 ```
 
-Pokud se odstranění nabídky nezdaří, zkontrolujte výstup konzoly aplikace. Všimněte si, že výjimka je součástí zprávy protokolu:
+Pokud se odstranění citace nepovede, zkontrolujte výstup konzoly aplikace. Všimněte si, že je tato výjimka součástí zprávy protokolu:
 
 ```console
 LoggerMessageSample.Pages.IndexModel: Error: Quote delete failed (Id = 999)
@@ -133,37 +139,37 @@ System.NullReferenceException: Object reference not set to an instance of an obj
    at LoggerMessageSample.Pages.IndexModel.OnPostDeleteQuoteAsync(Int32 id) in c:\Users\guard\Documents\GitHub\Docs\aspnetcore\fundamentals\logging\loggermessage\samples\3.x\LoggerMessageSample\Pages\Index.cshtml.cs:line 77
 ```
 
-## <a name="loggermessagedefinescope"></a>LoggerMessage.DefineScope
+## <a name="loggermessagedefinescope"></a>LoggerMessage. Definescope –
 
-[DefineScope(String)](xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*) vytvoří <xref:System.Func%601> delegáta pro definování [oboru protokolu](xref:fundamentals/logging/index#log-scopes). <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*>přetížení umožňují předání až tří parametrů typu pojmenovanému formátovacímu řetězci (šabloně).
+[Definescope – (String)](xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*) vytvoří <xref:System.Func%601> delegáta pro definování [oboru protokolu](xref:fundamentals/logging/index#log-scopes). <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*>přetížení povolují předání až tří parametrů typu pojmenovanému formátovacímu řetězci (Template).
 
-Stejně jako v <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> případě metody je řetězec <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> poskytnutý metodě šablonou a nikoli interpolovaným řetězcem. Zástupné symboly jsou vyplněny v pořadí, ve které jsou zadány typy. Zástupné názvy v šabloně by měly být popisné a konzistentní napříč šablonami. Slouží jako názvy vlastností v rámci strukturovaných dat protokolu. Pro zástupné názvy doporučujeme [kryty Pascal.](/dotnet/standard/design-guidelines/capitalization-conventions) Například `{Count}`, `{FirstName}`.
+Stejně jako v případě <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> metody, řetězec poskytnutý <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> metodě je šablona, nikoli interpolovaná řetězec. Zástupné symboly jsou vyplněny v pořadí, v jakém jsou typy zadány. Zástupné názvy v šabloně by měly být popisné a konzistentní v rámci šablon. Slouží jako názvy vlastností v rámci strukturovaných dat protokolu. Pro názvy zástupných symbolů doporučujeme použít [velká písmena Pascal](/dotnet/standard/design-guidelines/capitalization-conventions) . Například `{Count}`, `{FirstName}`.
 
-Definujte [obor protokolu,](xref:fundamentals/logging/index#log-scopes) který se použije <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> na řadu zpráv protokolu pomocí metody.
+Definujte [Rozsah protokolu](xref:fundamentals/logging/index#log-scopes) , který se má použít pro řadu zpráv protokolu pomocí <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> metody.
 
-Ukázková aplikace má tlačítko **Vymazat vše** pro odstranění všech nabídek v databázi. Uvozovky jsou odstraněny jejich odebráním jeden po druhém. Pokaždé, když je odstraněn `QuoteDeleted` a uvozovky, metoda je volána na protokolování. Do těchto zpráv protokolu je přidán obor protokolu.
+Ukázková aplikace má tlačítko **Zrušit vše** pro odstranění všech nabídek v databázi. Tyto nabídky jsou odstraněny po jednom jejich odebráním. Pokaždé, když se odstraní citace, `QuoteDeleted` metoda se zavolá do protokolovacího nástroje. Do těchto zpráv protokolu se přidá rozsah protokolu.
 
-Povolit `IncludeScopes` v sekci protokolování konzoly *appsettings.json*:
+Povolit `IncludeScopes` v části protokolovacího nástroje konzoly souboru *appSettings. JSON*:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
 
-Chcete-li vytvořit obor protokolu, přidejte pole pro uložení delegáta <xref:System.Func%601> pro obor. Ukázková aplikace vytvoří `_allQuotesDeletedScope` pole s názvem *(Internal/LoggerExtensions.cs*):
+Chcete-li vytvořit rozsah protokolu, přidejte pole pro blokování <xref:System.Func%601> delegáta oboru. Ukázková aplikace vytvoří pole s názvem `_allQuotesDeletedScope` (*interní/LoggerExtensions. cs*):
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet4)]
 
-Slouží <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> k vytvoření delegáta. Až tři typy lze zadat pro použití jako argumenty šablony při vyvolání delegáta. Ukázková aplikace používá šablonu zprávy, která obsahuje `int` počet odstraněných uvozovek (typ):
+Použijte <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> k vytvoření delegáta. Až tři typy lze zadat pro použití jako argumenty šablony při volání delegáta. Ukázková aplikace používá šablonu zprávy, která obsahuje počet odstraněných uvozovek ( `int` typ):
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet8)]
 
-Zadejte statickou metodu rozšíření pro zprávu protokolu. Zahrňte všechny parametry typu pro pojmenované vlastnosti, které se zobrazí v šabloně zprávy. Ukázková aplikace bere `count` v uvozovkách `_allQuotesDeletedScope`odstranit a vrátí :
+Zadejte statickou metodu rozšíření pro zprávu protokolu. Zahrňte všechny parametry typu pro pojmenované vlastnosti, které se zobrazí v šabloně zprávy. Ukázková aplikace se převezme `count` v uvozovkách, které se `_allQuotesDeletedScope`mají odstranit a vrátí:
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet12)]
 
-Obor zabalí volání rozšíření protokolování v [using](/dotnet/csharp/language-reference/keywords/using-statement) bloku:
+Obor zabalí volání rozšíření protokolování v bloku [using](/dotnet/csharp/language-reference/keywords/using-statement) :
 
 [!code-csharp[](loggermessage/samples/3.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet4&highlight=5-6,14)]
 
-Zkontrolujte zprávy protokolu ve výstupu konzoly aplikace. Následující výsledek ukazuje tři uvozovky odstraněné se zprávou oboru protokolu zahrnuty:
+Zkontrolujte zprávy protokolu ve výstupu konzoly aplikace. Následující výsledek obsahuje tři nabídky odstraněné se zprávou rozsah protokolu, která je součástí:
 
 ```console
 info: LoggerMessageSample.Pages.IndexModel[4]
@@ -184,48 +190,48 @@ info: LoggerMessageSample.Pages.IndexModel[4]
 
 ::: moniker range="< aspnetcore-3.0"
 
-<xref:Microsoft.Extensions.Logging.LoggerMessage>Funkce vytvořit cache delegátů, které vyžadují méně přidělení objektů a sníženou výpočetní režii ve srovnání s [metodami rozšíření protokolů](xref:Microsoft.Extensions.Logging.LoggerExtensions), například <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation*> a <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogDebug*>. Pro scénáře protokolování s <xref:Microsoft.Extensions.Logging.LoggerMessage> vysokým výkonem použijte vzor.
+<xref:Microsoft.Extensions.Logging.LoggerMessage>funkce vytvářejí delegáty, které umožňují ukládání do mezipaměti, které vyžadují méně přidělení objektů a snižují výpočetní režii v porovnání <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogInformation*> s <xref:Microsoft.Extensions.Logging.LoggerExtensions.LogDebug*> [metodami rozšíření protokolovacího](xref:Microsoft.Extensions.Logging.LoggerExtensions)nástroje, jako jsou a. Pro scénáře protokolování s vysokým výkonem použijte <xref:Microsoft.Extensions.Logging.LoggerMessage> vzor.
 
-<xref:Microsoft.Extensions.Logging.LoggerMessage>poskytuje následující výhody výkonu oproti metody rozšíření protokolování:
+<xref:Microsoft.Extensions.Logging.LoggerMessage>poskytuje následující výhody výkonu v rámci rozšiřujících metod protokolovacího nástroje:
 
-* Metody rozšíření protokolování vyžadují typy hodnot "zabalení" (převod), například `int`na . `object` Vzor <xref:Microsoft.Extensions.Logging.LoggerMessage> zabraňuje zabalení pomocí <xref:System.Action> statických polí a rozšiřujícímetody s parametry silného typu.
-* Metody rozšíření protokolovacího nástroje musí analyzovat šablonu zprávy (pojmenovanou formátovací řetězec) při každém zápisu zprávy protokolu. <xref:Microsoft.Extensions.Logging.LoggerMessage>pouze vyžaduje analýzu šablony jednou, když je zpráva definována.
+* Metody rozšíření protokolovacího nástroje vyžadují "zabalení" (převod) typů hodnot `int`, například `object`do. <xref:Microsoft.Extensions.Logging.LoggerMessage> Vzor zabraňuje zabalení pomocí statických <xref:System.Action> polí a metod rozšíření s parametry silného typu.
+* Metody rozšíření protokolovacího nástroje musí při každém zápisu zprávy protokolu analyzovat šablonu zprávy (pojmenovaný řetězec formátu). <xref:Microsoft.Extensions.Logging.LoggerMessage>pouze při definování zprávy vyžaduje pouze analýzu šablony.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/logging/loggermessage/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Ukázková aplikace <xref:Microsoft.Extensions.Logging.LoggerMessage> ukazuje funkce se základním systémem sledování nabídek. Aplikace přidává a odstraňuje uvozovky pomocí databáze v paměti. Při těchto operacích jsou zprávy protokolu <xref:Microsoft.Extensions.Logging.LoggerMessage> generovány pomocí vzoru.
+Ukázková aplikace ukazuje <xref:Microsoft.Extensions.Logging.LoggerMessage> funkce se základním systémem pro sledování nabídek. Aplikace přidá a odstraní uvozovky pomocí databáze v paměti. Při výskytu těchto operací se zprávy protokolu generují pomocí <xref:Microsoft.Extensions.Logging.LoggerMessage> vzoru.
 
-## <a name="loggermessagedefine"></a>LoggerMessage.Definovat
+## <a name="loggermessagedefine"></a>LoggerMessage. define
 
-[Define(LogLevel, EventId, String)](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*) vytvoří delegáta <xref:System.Action> pro protokolování zprávy. <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*>přetížení umožňují předání až šesti parametrů typu pojmenovanému formátovacímu řetězci (šabloně).
+[Define (LogLevel, ID události, String)](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*) vytvoří <xref:System.Action> delegáta pro protokolování zprávy. <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*>přetížení povolují předání až šesti parametrů typu pojmenovanému formátovacímu řetězci (Template).
 
-Řetězec poskytnutý metodě <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> je šablona a nikoli interpolovaný řetězec. Zástupné symboly jsou vyplněny v pořadí, ve které jsou zadány typy. Zástupné názvy v šabloně by měly být popisné a konzistentní napříč šablonami. Slouží jako názvy vlastností v rámci strukturovaných dat protokolu. Pro zástupné názvy doporučujeme [kryty Pascal.](/dotnet/standard/design-guidelines/capitalization-conventions) Například `{Count}`, `{FirstName}`.
+Řetězec poskytnutý <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> metodě je šablona, nikoli interpolovaná řetězec. Zástupné symboly jsou vyplněny v pořadí, v jakém jsou typy zadány. Zástupné názvy v šabloně by měly být popisné a konzistentní v rámci šablon. Slouží jako názvy vlastností v rámci strukturovaných dat protokolu. Pro názvy zástupných symbolů doporučujeme použít [velká písmena Pascal](/dotnet/standard/design-guidelines/capitalization-conventions) . Například `{Count}`, `{FirstName}`.
 
-Každá zpráva protokolu <xref:System.Action> je držena ve statickém poli vytvořeném [LoggerMessage.Define](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*). Ukázková aplikace například vytvoří pole popisující zprávu protokolu pro požadavek GET pro stránku index *(Internal/LoggerExtensions.cs*):
+Každá zpráva protokolu je <xref:System.Action> držená ve statickém poli vytvořeném pomocí [LoggerMessage. define](xref:Microsoft.Extensions.Logging.LoggerMessage.Define*). Ukázková aplikace například vytvoří pole pro popis zprávy protokolu pro požadavek GET na stránku indexu (*interní/LoggerExtensions. cs*):
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet1)]
 
-Pro <xref:System.Action>, uveďte:
+<xref:System.Action>Pro zadejte:
 
 * Úroveň protokolování
-* Jedinečný identifikátor události<xref:Microsoft.Extensions.Logging.EventId>( ) s názvem metody statického rozšíření.
-* Šablona zprávy (pojmenovaná formátovací řetězec). 
+* Jedinečný identifikátor události (<xref:Microsoft.Extensions.Logging.EventId>) s názvem statické metody rozšíření.
+* Šablona zprávy (pojmenovaný řetězec formátu). 
 
-Stránka S dotazem na index ukázkové aplikace nastaví:
+Požadavek na stránku index ukázkové aplikace nastaví:
 
-* Úroveň protokolu `Information`na .
-* Id události `1` s názvem `IndexPageRequested` metody.
-* Šablona zprávy (pojmenovaná formátovací řetězec) k řetězci.
+* Úroveň protokolu do `Information`.
+* ID události na `1` název `IndexPageRequested` metody
+* Šablona zprávy (pojmenovaný řetězec formátu) k řetězci.
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet5)]
 
-Úložiště strukturovaného protokolování mohou používat název události, pokud je dodáván s id události k obohacení protokolování. [Například Serilog](https://github.com/serilog/serilog-extensions-logging) používá název události.
+Úložiště strukturovaného protokolování můžou použít název události, když se poskytne s ID události pro rozšíření protokolování. [Serilog](https://github.com/serilog/serilog-extensions-logging) například používá název události.
 
-Je <xref:System.Action> vyvolána prostřednictvím metody rozšíření silného typu. Metoda `IndexPageRequested` přihlásí zprávu pro požadavek ZÍSKAT stránku indexu v ukázkové aplikaci:
+<xref:System.Action> Je vyvolána prostřednictvím rozšiřující metody silného typu. `IndexPageRequested` Metoda zaznamená zprávu pro požadavek na stránku indexu v ukázkové aplikaci:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet9)]
 
-`IndexPageRequested`je volána na `OnGetAsync` logger v metodě v *Pages/Index.cshtml.cs*:
+`IndexPageRequested`se volá v protokolovacím nástroji v `OnGetAsync` metodě na *stránkách pages/index. cshtml. cs*:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet2&highlight=3)]
 
@@ -237,19 +243,19 @@ info: LoggerMessageSample.Pages.IndexModel[1]
       GET request for Index page
 ```
 
-Chcete-li předat parametry do zprávy protokolu, definujte při vytváření statického pole až šest typů. Ukázková aplikace přihlásí řetězec při přidání nabídky `string` definováním <xref:System.Action> typu pole:
+Chcete-li předat parametry do zprávy protokolu, definujte při vytváření statického pole až šest typů. Ukázková aplikace při přidávání nabídky zaznamená řetězec tak, že definuje `string` typ <xref:System.Action> pole:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet2)]
 
-Šablona protokolu delegáta obdrží své zástupné hodnoty z typů, které jsou k dispozici. Ukázková aplikace definuje delegáta pro přidání nabídky, `string`kde je parametr nabídky :
+Šablona zprávy protokolu delegáta přijímá své zástupné hodnoty z poskytnutých typů. Ukázková aplikace definuje delegáta pro přidání nabídky, kde je parametrem nabídky `string`:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet6)]
 
-Metoda statického rozšíření pro `QuoteAdded`přidání nabídky , obdrží hodnotu argumentu nabídky a předá ji <xref:System.Action> delegátovi:
+Statická rozšiřující metoda pro přidání nabídky, `QuoteAdded`přijímá hodnotu argumentu citace a předá ji <xref:System.Action> delegátovi:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet10)]
 
-V modelu stránky Rejstříku (*Pages/Index.cshtml.cs*) `QuoteAdded` se volá zpráva:
+V modelu stránky indexu stránky (*pages/index. cshtml. cs*) se volá `QuoteAdded` , aby se zaprotokoloval zpráva:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet3&highlight=6)]
 
@@ -262,17 +268,17 @@ info: LoggerMessageSample.Pages.IndexModel[2]
           consequences of avoiding reality. - Ayn Rand')
 ```
 
-Ukázková aplikace implementuje [vzor catch try&ndash;](/dotnet/csharp/language-reference/keywords/try-catch) pro odstranění nabídky. Informační zpráva je zaznamenána pro úspěšnou operaci odstranění. Při vyvolání výjimky je zaznamenána chybová zpráva pro operaci odstranění. Zpráva protokolu pro neúspěšnou operaci odstranění zahrnuje trasování zásobníku výjimek (*Internal/LoggerExtensions.cs*):
+Ukázková aplikace implementuje vzorek [&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) pro odstranění uvozovek. Informační zpráva se zaznamená do protokolu pro úspěšnou operaci odstranění. Pokud je vyvolána výjimka, je zaznamenána chybová zpráva pro operaci odstranění. Zpráva protokolu pro neúspěšnou operaci odstranění zahrnuje trasování zásobníku výjimky (*interní/LoggerExtensions. cs*):
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet3)]
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet7)]
 
-Všimněte si, jak je `QuoteDeleteFailed`výjimka předána delegátovi v :
+Všimněte si, jak je výjimka předána delegátovi `QuoteDeleteFailed`v:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet11)]
 
-V modelu stránky pro index stránky úspěšné odstranění `QuoteDeleted` nabídky volá metodu na protokolování. Pokud není nalezena nabídka pro <xref:System.ArgumentNullException> odstranění, je vyvolána. Výjimka je zachycena příkazem [try&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) `QuoteDeleteFailed` a zaznamenána voláním metody na protokolovacím paměťci v bloku [catch](/dotnet/csharp/language-reference/keywords/try-catch) (*Pages/Index.cshtml.cs*):
+V modelu stránky pro stránku index je úspěšné odstranění citace voláním `QuoteDeleted` metody protokolovacího nástroje. Pokud se nabídka nenajde pro odstranění, vyvolá <xref:System.ArgumentNullException> se. Výjimka je zachycena příkazem [Try&ndash;catch](/dotnet/csharp/language-reference/keywords/try-catch) a protokolována voláním `QuoteDeleteFailed` metody v protokolovacím nástroji v bloku [catch](/dotnet/csharp/language-reference/keywords/try-catch) (*pages/index. cshtml. cs*):
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet5&highlight=14,18)]
 
@@ -285,7 +291,7 @@ info: LoggerMessageSample.Pages.IndexModel[4]
           consequences of avoiding reality. - Ayn Rand' Id = 1)
 ```
 
-Pokud se odstranění nabídky nezdaří, zkontrolujte výstup konzoly aplikace. Všimněte si, že výjimka je součástí zprávy protokolu:
+Pokud se odstranění citace nepovede, zkontrolujte výstup konzoly aplikace. Všimněte si, že je tato výjimka součástí zprávy protokolu:
 
 ```console
 fail: LoggerMessageSample.Pages.IndexModel[5]
@@ -301,37 +307,37 @@ Parameter name: entity
       in <PATH>\sample\Pages\Index.cshtml.cs:line 87
 ```
 
-## <a name="loggermessagedefinescope"></a>LoggerMessage.DefineScope
+## <a name="loggermessagedefinescope"></a>LoggerMessage. Definescope –
 
-[DefineScope(String)](xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*) vytvoří <xref:System.Func%601> delegáta pro definování [oboru protokolu](xref:fundamentals/logging/index#log-scopes). <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*>přetížení umožňují předání až tří parametrů typu pojmenovanému formátovacímu řetězci (šabloně).
+[Definescope – (String)](xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*) vytvoří <xref:System.Func%601> delegáta pro definování [oboru protokolu](xref:fundamentals/logging/index#log-scopes). <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*>přetížení povolují předání až tří parametrů typu pojmenovanému formátovacímu řetězci (Template).
 
-Stejně jako v <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> případě metody je řetězec <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> poskytnutý metodě šablonou a nikoli interpolovaným řetězcem. Zástupné symboly jsou vyplněny v pořadí, ve které jsou zadány typy. Zástupné názvy v šabloně by měly být popisné a konzistentní napříč šablonami. Slouží jako názvy vlastností v rámci strukturovaných dat protokolu. Pro zástupné názvy doporučujeme [kryty Pascal.](/dotnet/standard/design-guidelines/capitalization-conventions) Například `{Count}`, `{FirstName}`.
+Stejně jako v případě <xref:Microsoft.Extensions.Logging.LoggerMessage.Define*> metody, řetězec poskytnutý <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> metodě je šablona, nikoli interpolovaná řetězec. Zástupné symboly jsou vyplněny v pořadí, v jakém jsou typy zadány. Zástupné názvy v šabloně by měly být popisné a konzistentní v rámci šablon. Slouží jako názvy vlastností v rámci strukturovaných dat protokolu. Pro názvy zástupných symbolů doporučujeme použít [velká písmena Pascal](/dotnet/standard/design-guidelines/capitalization-conventions) . Například `{Count}`, `{FirstName}`.
 
-Definujte [obor protokolu,](xref:fundamentals/logging/index#log-scopes) který se použije <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> na řadu zpráv protokolu pomocí metody.
+Definujte [Rozsah protokolu](xref:fundamentals/logging/index#log-scopes) , který se má použít pro řadu zpráv protokolu pomocí <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> metody.
 
-Ukázková aplikace má tlačítko **Vymazat vše** pro odstranění všech nabídek v databázi. Uvozovky jsou odstraněny jejich odebráním jeden po druhém. Pokaždé, když je odstraněn `QuoteDeleted` a uvozovky, metoda je volána na protokolování. Do těchto zpráv protokolu je přidán obor protokolu.
+Ukázková aplikace má tlačítko **Zrušit vše** pro odstranění všech nabídek v databázi. Tyto nabídky jsou odstraněny po jednom jejich odebráním. Pokaždé, když se odstraní citace, `QuoteDeleted` metoda se zavolá do protokolovacího nástroje. Do těchto zpráv protokolu se přidá rozsah protokolu.
 
-Povolit `IncludeScopes` v sekci protokolování konzoly *appsettings.json*:
+Povolit `IncludeScopes` v části protokolovacího nástroje konzoly souboru *appSettings. JSON*:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/appsettings.json?highlight=3-5)]
 
-Chcete-li vytvořit obor protokolu, přidejte pole pro uložení delegáta <xref:System.Func%601> pro obor. Ukázková aplikace vytvoří `_allQuotesDeletedScope` pole s názvem *(Internal/LoggerExtensions.cs*):
+Chcete-li vytvořit rozsah protokolu, přidejte pole pro blokování <xref:System.Func%601> delegáta oboru. Ukázková aplikace vytvoří pole s názvem `_allQuotesDeletedScope` (*interní/LoggerExtensions. cs*):
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet4)]
 
-Slouží <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> k vytvoření delegáta. Až tři typy lze zadat pro použití jako argumenty šablony při vyvolání delegáta. Ukázková aplikace používá šablonu zprávy, která obsahuje `int` počet odstraněných uvozovek (typ):
+Použijte <xref:Microsoft.Extensions.Logging.LoggerMessage.DefineScope*> k vytvoření delegáta. Až tři typy lze zadat pro použití jako argumenty šablony při volání delegáta. Ukázková aplikace používá šablonu zprávy, která obsahuje počet odstraněných uvozovek ( `int` typ):
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet8)]
 
-Zadejte statickou metodu rozšíření pro zprávu protokolu. Zahrňte všechny parametry typu pro pojmenované vlastnosti, které se zobrazí v šabloně zprávy. Ukázková aplikace bere `count` v uvozovkách `_allQuotesDeletedScope`odstranit a vrátí :
+Zadejte statickou metodu rozšíření pro zprávu protokolu. Zahrňte všechny parametry typu pro pojmenované vlastnosti, které se zobrazí v šabloně zprávy. Ukázková aplikace se převezme `count` v uvozovkách, které se `_allQuotesDeletedScope`mají odstranit a vrátí:
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Internal/LoggerExtensions.cs?name=snippet12)]
 
-Obor zabalí volání rozšíření protokolování v [using](/dotnet/csharp/language-reference/keywords/using-statement) bloku:
+Obor zabalí volání rozšíření protokolování v bloku [using](/dotnet/csharp/language-reference/keywords/using-statement) :
 
 [!code-csharp[](loggermessage/samples/2.x/LoggerMessageSample/Pages/Index.cshtml.cs?name=snippet4&highlight=5-6,14)]
 
-Zkontrolujte zprávy protokolu ve výstupu konzoly aplikace. Následující výsledek ukazuje tři uvozovky odstraněné se zprávou oboru protokolu zahrnuty:
+Zkontrolujte zprávy protokolu ve výstupu konzoly aplikace. Následující výsledek obsahuje tři nabídky odstraněné se zprávou rozsah protokolu, která je součástí:
 
 ```console
 info: LoggerMessageSample.Pages.IndexModel[4]
@@ -352,4 +358,4 @@ info: LoggerMessageSample.Pages.IndexModel[4]
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Protokolování](xref:fundamentals/logging/index)
+* [protokolování](xref:fundamentals/logging/index)

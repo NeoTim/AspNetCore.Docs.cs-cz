@@ -8,16 +8,19 @@ ms.custom: mvc
 ms.date: 04/23/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 63bb791958785fa9a4a676f1aab79126c6873068
-ms.sourcegitcommit: 7bb14d005155a5044c7902a08694ee8ccb20c113
+ms.openlocfilehash: 7eefc988da275c0efccd97958d04e76f04e7cad4
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/24/2020
-ms.locfileid: "82111042"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772110"
 ---
-# <a name="handle-errors-in-aspnet-core-opno-locblazor-apps"></a>Zpracování chyb v aplikacích Blazor ASP.NET Core
+# <a name="handle-errors-in-aspnet-core-blazor-apps"></a>Zpracování chyb v aplikacích Blazor ASP.NET Core
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
@@ -80,7 +83,7 @@ V Blazor serverové aplikaci si přizpůsobte prostředí v souboru *pages/_Host
 }
 ```
 
-## <a name="how-a-opno-locblazor-server-app-reacts-to-unhandled-exceptions"></a>Jak Blazor serverová aplikace reaguje na neošetřené výjimky
+## <a name="how-a-blazor-server-app-reacts-to-unhandled-exceptions"></a>Jak Blazor serverová aplikace reaguje na neošetřené výjimky
 
 BlazorServer je stavový rámec. I když uživatelé pracují s aplikací, udržují připojení k serveru známému jako *okruh*. Okruh obsahuje aktivní instance komponent a mnoho dalších aspektů stavu, například:
 
@@ -216,7 +219,7 @@ Další informace najdete v těchto článcích:
 * <xref:blazor/call-javascript-from-dotnet>
 * <xref:blazor/call-dotnet-from-javascript>
 
-### <a name="opno-locblazor-server-prerendering"></a>BlazorPředvykreslování serveru
+### <a name="blazor-server-prerendering"></a>BlazorPředvykreslování serveru
 
 Blazorkomponenty mohou být předem vykresleny pomocí [pomocníka tag komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper) , aby byly vykreslené značky HTML vráceny jako součást počátečního požadavku HTTP uživatele. Funguje to takto:
 

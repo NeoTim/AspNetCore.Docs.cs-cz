@@ -1,48 +1,54 @@
 ---
-title: Aktualizace vygenerovaných stránek v aplikaci ASP.NET Core
+title: Aktualizovat vygenerované stránky v aplikaci ASP.NET Core
 author: rick-anderson
-description: Přečtěte si, jak aktualizovat generované stránky v aplikaci ASP.NET Core.
+description: Naučte se aktualizovat vygenerované stránky v ASP.NET Core aplikaci.
 ms.author: riande
 ms.date: 12/20/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/da1
-ms.openlocfilehash: 0f6535462fe2d308825bf7289c10d2b0690cebd4
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: d9ab20b7ed4b394c154141efe3a94481efaf063c
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78666213"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774545"
 ---
-# <a name="update-the-generated-pages-in-an-aspnet-core-app"></a>Aktualizace vygenerovaných stránek v aplikaci ASP.NET Core
+# <a name="update-the-generated-pages-in-an-aspnet-core-app"></a>Aktualizovat vygenerované stránky v aplikaci ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Šálnatá filmová aplikace má dobrý začátek, ale prezentace není ideální. **Datum vydání** by mělo být **datum vydání** (dvě slova).
+Aplikace filmového vygenerovaného uživatelského rozhraní má dobrý Start, ale prezentace není ideální. **ReleaseDate** by mělo být **Datum vydání** (dvě slova).
 
-![Filmová aplikace otevřená v Chromu](sql/_static/m55.png)
+![Aplikace Movie otevřená v Chrome](sql/_static/m55.png)
 
-## <a name="update-the-generated-code"></a>Aktualizace generovaného kódu
+## <a name="update-the-generated-code"></a>Aktualizovat generovaný kód
 
-Otevřete soubor *Models/Movie.cs* a přidejte zvýrazněné řádky zobrazené v následujícím kódu:
+Otevřete soubor *Models/video. cs* a přidejte zvýrazněné řádky, které jsou uvedeny v následujícím kódu:
 
 [!code-csharp[Main](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateFixed.cs?name=snippet_1&highlight=3,12,17)]
 
-Anotace `[Column(TypeName = "decimal(18, 2)")]` dat umožňuje core entity `Price` framework správně mapovat na měnu v databázi. Další informace naleznete [v tématu Datové typy](/ef/core/modeling/relational/data-types).
+`[Column(TypeName = "decimal(18, 2)")]` Datová anotace umožňuje, aby Entity Framework Core správně `Price` namapovala na měnu v databázi. Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).
 
-[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) je popsána v dalším kurzu. Display [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) Atribut určuje, co se má zobrazit pro název pole (v tomto případě "Datum vydání" místo "ReleaseDate"). Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) určuje typ dat (datum), takže se nezobrazí informace o čase uložené v poli.
+V dalším kurzu jsou uvedena tato [Anotace](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) . Atribut [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) určuje, co se má zobrazit pro název pole (v tomto případě "Datum vydání" místo "ReleaseDate"). Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) určuje typ dat (datum), takže se nezobrazí informace o čase uložené v poli.
 
-Přejděte na Stránky/filmy a najeďte na odkaz **Upravit a** podívejte se na cílovou adresu URL.
+Přejděte na stránky a filmy a najeďte myší na odkaz pro **Úpravy** a zobrazte tak cílovou adresu URL.
 
-![Okno prohlížeče s myší na odkaz Upravit http://localhost:1234/Movies/Edit/5 a zobrazí se adresa URL odkazu](~/tutorials/razor-pages/da1/edit7.png)
+![Zobrazí se okno prohlížeče s myší přes odkaz upravit a adresa URL http://localhost:1234/Movies/Edit/5 odkazu.](~/tutorials/razor-pages/da1/edit7.png)
 
-Odkazy **Upravit**, **Podrobnosti**a **Odstranit** jsou generovány [pomocníkem značky ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) v souboru *Pages/Movies/Index.cshtml.*
+Odkazy **Upravit**, **Podrobnosti**a **Odstranit** jsou generovány [pomocníkem značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) v souboru *Pages/Movies/index. cshtml* .
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
-[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML. V předchozím kódu `AnchorTagHelper` dynamicky generuje hodnotu `href` atributu HTML ze stránky Razor Page `asp-page`(trasa je`asp-route-id`relativní), a id trasy ( ). Další informace najdete [v tématu generování adres URL pro stránky.](xref:razor-pages/index#url-generation-for-pages)
+[Pomáhat pomocníkům](xref:mvc/views/tag-helpers/intro) při vytváření kódu a vykreslování prvků HTML v Razor souborech, které umožňují kód na straně serveru V předchozím kódu `AnchorTagHelper` dynamicky generuje hodnotu atributu HTML `href` ze Razor stránky (trasa je relativní), `asp-page`a ID trasy (`asp-route-id`). Další informace najdete v tématu [generování adresy URL pro stránky](xref:razor-pages/index#url-generation-for-pages) .
 
-Pomocí **zdroje zobrazení** z vašeho oblíbeného prohlížeče zkontrolujte generované značky. Část generovaného HTML je uvedena níže:
+Pomocí **zobrazení zdroje** z oblíbeného prohlížeče Prohlédněte vygenerovaný kód. Část vygenerovaného kódu HTML je zobrazena níže:
 
 ```html
 <td>
@@ -52,11 +58,11 @@ Pomocí **zdroje zobrazení** z vašeho oblíbeného prohlížeče zkontrolujte 
 </td>
 ```
 
-Dynamicky generované odkazy předat ID filmu s řetězcem dotazu `?id=1` `https://localhost:5001/Movies/Details?id=1`(například in).
+Dynamicky vygenerované odkazy předají ID filmu pomocí řetězce dotazu (například `?id=1` v `https://localhost:5001/Movies/Details?id=1`).
 
-### <a name="add-route-template"></a>Přidat šablonu postupu
+### <a name="add-route-template"></a>Přidat šablonu směrování
 
-Aktualizujte stránky upravit, podrobnosti a odstranit holicí strojek, abyste použili šablonu trasy {id:int}. Změňte direktivu stránky `@page` `@page "{id:int}"`pro každou z těchto stránek z na . Spusťte aplikaci a pak zobrazte zdroj. Vygenerovaný KÓD HTML přidá ID k části cesty adresy URL:
+Aktualizujte stránky upravit, podrobnosti a odstranit Razor tak, aby používaly šablonu trasy {ID: int}. Změňte direktivu Page na každou z těchto stránek z `@page` na `@page "{id:int}"`. Spusťte aplikaci a potom zobrazte zdroj. Vygenerovaný kód HTML přidá ID do části cesty adresy URL:
 
 ```html
 <td>
@@ -66,98 +72,98 @@ Aktualizujte stránky upravit, podrobnosti a odstranit holicí strojek, abyste p
 </td>
 ```
 
-Požadavek na stránku se šablonou postupu {id:int}, která **neobsahuje** celé číslo, vrátí chybu HTTP 404 (nebyl nalezen). Například `http://localhost:5000/Movies/Details` vrátí chybu 404. Chcete-li, aby id `?` volitelné, připojit k omezení trasy:
+Požadavek na stránku se šablonou trasy {ID: int}, která **nezahrnuje celé** číslo, vrátí chybu HTTP 404 (Nenalezeno). Například `http://localhost:5000/Movies/Details` vrátí chybu 404. Pokud chcete ID nastavit jako volitelné, `?` připojovat se k omezení trasy:
 
  ```cshtml
 @page "{id:int?}"
 ```
 
-Chcete-li otestovat chování `@page "{id:int?}"`:
+Postup při testování chování `@page "{id:int?}"`:
 
-* Nastavte direktivu stránky v *pages/movies/details.cshtml* na `@page "{id:int?}"`.
-* Nastavte bod přerušení `public async Task<IActionResult> OnGetAsync(int? id)` v (v *Pages/Movies/Details.cshtml.cs).*
+* Nastavte direktivu Page na *Pages/video/details. cshtml* na `@page "{id:int?}"`.
+* Nastavte bod přerušení v `public async Task<IActionResult> OnGetAsync(int? id)` ( *stránky/filmy/podrobnosti. cshtml. cs*).
 * Přejděte na adresu `https://localhost:5001/Movies/Details/`.
 
-Se `@page "{id:int}"` směrnicí není bod přerušení nikdy zasažen. Modul pro směrování vrátí protokol HTTP 404. Pomocí `@page "{id:int?}"`, `OnGetAsync` metoda `NotFound` vrátí (HTTP 404).
+V případě `@page "{id:int}"` direktivy není bod přerušení nikdy vyzasažen. Modul směrování vrátí HTTP 404. Pomocí `@page "{id:int?}"`nástroje vrátí `OnGetAsync` `NotFound` metoda (HTTP 404).
 
-### <a name="review-concurrency-exception-handling"></a>Zkontrolovat zpracování výjimky souběžnosti
+### <a name="review-concurrency-exception-handling"></a>Kontrola zpracování výjimek souběžnosti
 
-Zkontrolujte `OnPostAsync` metodu v souboru *Pages/Movies/Edit.cshtml.cs:*
+Zkontrolujte `OnPostAsync` metodu v souboru *Pages/video/Edit. cshtml. cs* :
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Edit.cshtml.cs?name=snippet)]
 
-Předchozí kód zjistí výjimky souběžnosti, když jeden klient odstraní film a druhý klient odešle změny filmu.
+Předchozí kód detekuje výjimky souběžnosti, když jeden klient odstraní film a druhý klient odešle změny do filmu.
 
-Chcete-li `catch` blok otestovat:
+Test `catch` bloku:
 
-* Nastavení zarážky`catch (DbUpdateConcurrencyException)`
-* Vyberte **Upravit** film, proveďte změny, ale nezadávejte **uložit**.
+* Nastavit zarážku na`catch (DbUpdateConcurrencyException)`
+* Vyberte **Upravit** pro film, proveďte změny, ale nezadávejte možnost **Uložit**.
 * V jiném okně prohlížeče vyberte odkaz **Odstranit** pro stejný film a pak film odstraňte.
-* V předchozím okně prohlížeče zaúčtujete změny filmu.
+* V předchozím okně prohlížeče se změny publikují ve videu.
 
-Produkční kód může chtít zjistit konflikty souběžnosti. Další informace naleznete [v tématu Zpracování konfliktů souběžnosti.](xref:data/ef-rp/concurrency)
+Produkční kód může chtít detekovat konflikty souběžnosti. Další informace najdete v tématu [zpracování konfliktů souběžnosti](xref:data/ef-rp/concurrency) .
 
-### <a name="posting-and-binding-review"></a>Zaúčtování a závazná recenze
+### <a name="posting-and-binding-review"></a>Publikování a kontrola vazeb
 
-Prohlédněte si soubor *Pages/Movies/Edit.cshtml.cs:*
+Prověřte soubory *Pages/video/Edit. cshtml. cs* :
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/SnapShots/Edit.cshtml.cs?name=snippet2)]
 
-Při požadavku HTTP GET na stránku Filmy/Úpravy `http://localhost:5000/Movies/Edit/2`(například ):
+Když se na stránce filmy/úpravy provede požadavek HTTP GET (například `http://localhost:5000/Movies/Edit/2`):
 
-* Metoda `OnGetAsync` načte film z databáze a `Page` vrátí metodu.
-* Metoda `Page` vykreslí *stránky /filmy/Edit.cshtml* Razor Page. Soubor *Pages/Movies/Edit.cshtml* obsahuje direktivu modelu (`@model RazorPagesMovie.Pages.Movies.EditModel`), která zpřístupňuje filmový model na stránce.
-* Formulář Úpravy se zobrazí s hodnotami z filmu.
+* `OnGetAsync` Metoda načte film z databáze a vrátí `Page` metodu.
+* Metoda vykresluje stránku *stránky/filmy/upravit. cshtml* Razor `Page` Soubor *Pages/video/Edit. cshtml* obsahuje direktivu modelu (`@model RazorPagesMovie.Pages.Movies.EditModel`), která umožňuje, aby byl model filmu dostupný na stránce.
+* Formulář pro úpravy se zobrazí s hodnotami z filmu.
 
-Když je stránka Filmy/Úpravy zaúčtována:
+Když se publikuje video/úprava stránky:
 
-* Hodnoty formuláře na stránce jsou `Movie` vázány na vlastnost. Atribut `[BindProperty]` umožňuje [Model vazby](xref:mvc/models/model-binding).
+* Hodnoty formuláře na stránce jsou vázány na `Movie` vlastnost. `[BindProperty]` Atribut umožňuje [vazbu modelu](xref:mvc/models/model-binding).
 
   ```csharp
   [BindProperty]
   public Movie Movie { get; set; }
   ```
 
-* Pokud jsou chyby ve stavu modelu `ReleaseDate` (například nelze převést na datum), formulář je znovu zobrazen s odeslanými hodnotami.
-* Pokud nejsou k dispozici žádné chyby modelu, film se uloží.
+* Pokud dojde k chybám ve stavu modelu (například `ReleaseDate` nelze je převést na datum), formulář se znovu zobrazí u odeslaných hodnot.
+* Pokud nedochází k žádným chybám modelu, je film uložený.
 
-Metody HTTP GET na stránkách Index, Create a Delete Razor postupujte podle podobného vzoru. Metoda HTTP `OnPostAsync` POST na stránce Vytvořit břitvu `OnPostAsync` se řídí podobným vzorem jako metoda na stránce Upravit holicí strojek.
+Metody HTTP GET v indexech, vytváření a odstraňování Razor stránek následují podobně jako vzor. Metoda HTTP POST `OnPostAsync` na stránce vytvořit Razor následuje podobný vzor jako `OnPostAsync` metoda na stránce pro úpravy. Razor
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 > [!div class="step-by-step"]
-> [Předchozí: Práce s databází](xref:tutorials/razor-pages/sql)
-> [Další: Přidat hledání](xref:tutorials/razor-pages/search)
+> [Předchozí: práce s databází](xref:tutorials/razor-pages/sql)
+> [Next: Přidat hledání](xref:tutorials/razor-pages/search)
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Šálnatá filmová aplikace má dobrý začátek, ale prezentace není ideální. **Datum vydání** by mělo být **datum vydání** (dvě slova).
+Aplikace filmového vygenerovaného uživatelského rozhraní má dobrý Start, ale prezentace není ideální. **ReleaseDate** by mělo být **Datum vydání** (dvě slova).
 
-![Filmová aplikace otevřená v Chromu](sql/_static/m55.png)
+![Aplikace Movie otevřená v Chrome](sql/_static/m55.png)
 
-## <a name="update-the-generated-code"></a>Aktualizace generovaného kódu
+## <a name="update-the-generated-code"></a>Aktualizovat generovaný kód
 
-Otevřete soubor *Models/Movie.cs* a přidejte zvýrazněné řádky zobrazené v následujícím kódu:
+Otevřete soubor *Models/video. cs* a přidejte zvýrazněné řádky, které jsou uvedeny v následujícím kódu:
 
 [!code-csharp[Main](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateFixed.cs?name=snippet_1&highlight=3,12,17)]
 
-Anotace `[Column(TypeName = "decimal(18, 2)")]` dat umožňuje core entity `Price` framework správně mapovat na měnu v databázi. Další informace naleznete [v tématu Datové typy](/ef/core/modeling/relational/data-types).
+`[Column(TypeName = "decimal(18, 2)")]` Datová anotace umožňuje, aby Entity Framework Core správně `Price` namapovala na měnu v databázi. Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).
 
-[DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) je popsána v dalším kurzu. Display [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) Atribut určuje, co se má zobrazit pro název pole (v tomto případě "Datum vydání" místo "ReleaseDate"). Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) určuje typ dat (datum), takže se nezobrazí informace o čase uložené v poli.
+V dalším kurzu jsou uvedena tato [Anotace](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) . Atribut [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) určuje, co se má zobrazit pro název pole (v tomto případě "Datum vydání" místo "ReleaseDate"). Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) určuje typ dat (datum), takže se nezobrazí informace o čase uložené v poli.
 
-Přejděte na Stránky/filmy a najeďte na odkaz **Upravit a** podívejte se na cílovou adresu URL.
+Přejděte na stránky a filmy a najeďte myší na odkaz pro **Úpravy** a zobrazte tak cílovou adresu URL.
 
-![Okno prohlížeče s myší na odkaz Upravit http://localhost:1234/Movies/Edit/5 a zobrazí se adresa URL odkazu](~/tutorials/razor-pages/da1/edit7.png)
+![Zobrazí se okno prohlížeče s myší přes odkaz upravit a adresa URL http://localhost:1234/Movies/Edit/5 odkazu.](~/tutorials/razor-pages/da1/edit7.png)
 
-Odkazy **Upravit**, **Podrobnosti**a **Odstranit** jsou generovány [pomocníkem značky ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) v souboru *Pages/Movies/Index.cshtml.*
+Odkazy **Upravit**, **Podrobnosti**a **Odstranit** jsou generovány [pomocníkem značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) v souboru *Pages/Movies/index. cshtml* .
 
 [!code-cshtml[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Index.cshtml?highlight=16-18&range=32-)]
 
-[Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML. V předchozím kódu `AnchorTagHelper` dynamicky generuje hodnotu `href` atributu HTML ze stránky Razor Page `asp-page`(trasa je`asp-route-id`relativní), a id trasy ( ). Další informace najdete [v tématu generování adres URL pro stránky.](xref:razor-pages/index#url-generation-for-pages)
+[Pomáhat pomocníkům](xref:mvc/views/tag-helpers/intro) při vytváření kódu a vykreslování prvků HTML v Razor souborech, které umožňují kód na straně serveru V předchozím kódu `AnchorTagHelper` dynamicky generuje hodnotu atributu HTML `href` ze Razor stránky (trasa je relativní), `asp-page`a ID trasy (`asp-route-id`). Další informace najdete v tématu [generování adresy URL pro stránky](xref:razor-pages/index#url-generation-for-pages) .
 
-Pomocí **zdroje zobrazení** z vašeho oblíbeného prohlížeče zkontrolujte generované značky. Část generovaného HTML je uvedena níže:
+Pomocí **zobrazení zdroje** z oblíbeného prohlížeče Prohlédněte vygenerovaný kód. Část vygenerovaného kódu HTML je zobrazena níže:
 
 ```html
 <td>
@@ -167,9 +173,9 @@ Pomocí **zdroje zobrazení** z vašeho oblíbeného prohlížeče zkontrolujte 
 </td>
 ```
 
-Dynamicky generované odkazy předat ID filmu s řetězcem dotazu `?id=1` `https://localhost:5001/Movies/Details?id=1`(například in).
+Dynamicky vygenerované odkazy předají ID filmu pomocí řetězce dotazu (například `?id=1` v `https://localhost:5001/Movies/Details?id=1`).
 
-Aktualizujte stránky upravit, podrobnosti a odstranit holicí strojek, abyste použili šablonu trasy {id:int}. Změňte direktivu stránky `@page` `@page "{id:int}"`pro každou z těchto stránek z na . Spusťte aplikaci a pak zobrazte zdroj. Vygenerovaný KÓD HTML přidá ID k části cesty adresy URL:
+Aktualizujte stránky upravit, podrobnosti a odstranit Razor tak, aby používaly šablonu trasy {ID: int}. Změňte direktivu Page na každou z těchto stránek z `@page` na `@page "{id:int}"`. Spusťte aplikaci a potom zobrazte zdroj. Vygenerovaný kód HTML přidá ID do části cesty adresy URL:
 
 ```html
 <td>
@@ -179,71 +185,71 @@ Aktualizujte stránky upravit, podrobnosti a odstranit holicí strojek, abyste p
 </td>
 ```
 
-Požadavek na stránku se šablonou postupu {id:int}, která **neobsahuje** celé číslo, vrátí chybu HTTP 404 (nebyl nalezen). Například `http://localhost:5000/Movies/Details` vrátí chybu 404. Chcete-li, aby id `?` volitelné, připojit k omezení trasy:
+Požadavek na stránku se šablonou trasy {ID: int}, která **nezahrnuje celé** číslo, vrátí chybu HTTP 404 (Nenalezeno). Například `http://localhost:5000/Movies/Details` vrátí chybu 404. Pokud chcete ID nastavit jako volitelné, `?` připojovat se k omezení trasy:
 
  ```cshtml
 @page "{id:int?}"
 ```
 
-Chcete-li otestovat chování `@page "{id:int?}"`:
+Postup při testování chování `@page "{id:int?}"`:
 
-* Nastavte direktivu stránky v *pages/movies/details.cshtml* na `@page "{id:int?}"`.
-* Nastavte bod přerušení `public async Task<IActionResult> OnGetAsync(int? id)` v (v *Pages/Movies/Details.cshtml.cs).*
+* Nastavte direktivu Page na *Pages/video/details. cshtml* na `@page "{id:int?}"`.
+* Nastavte bod přerušení v `public async Task<IActionResult> OnGetAsync(int? id)` ( *stránky/filmy/podrobnosti. cshtml. cs*).
 * Přejděte na adresu `https://localhost:5001/Movies/Details/`.
 
-Se `@page "{id:int}"` směrnicí není bod přerušení nikdy zasažen. Modul pro směrování vrátí protokol HTTP 404. Pomocí `@page "{id:int?}"`, `OnGetAsync` metoda `NotFound` vrátí (HTTP 404).
+V případě `@page "{id:int}"` direktivy není bod přerušení nikdy vyzasažen. Modul směrování vrátí HTTP 404. Pomocí `@page "{id:int?}"`nástroje vrátí `OnGetAsync` `NotFound` metoda (HTTP 404).
 
-### <a name="review-concurrency-exception-handling"></a>Zkontrolovat zpracování výjimky souběžnosti
+### <a name="review-concurrency-exception-handling"></a>Kontrola zpracování výjimek souběžnosti
 
-Zkontrolujte `OnPostAsync` metodu v souboru *Pages/Movies/Edit.cshtml.cs:*
+Zkontrolujte `OnPostAsync` metodu v souboru *Pages/video/Edit. cshtml. cs* :
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Edit.cshtml.cs?name=snippet)]
 
-Předchozí kód zjistí výjimky souběžnosti, když jeden klient odstraní film a druhý klient odešle změny filmu.
+Předchozí kód detekuje výjimky souběžnosti, když jeden klient odstraní film a druhý klient odešle změny do filmu.
 
-Chcete-li `catch` blok otestovat:
+Test `catch` bloku:
 
-* Nastavení zarážky`catch (DbUpdateConcurrencyException)`
-* Vyberte **Upravit** film, proveďte změny, ale nezadávejte **uložit**.
+* Nastavit zarážku na`catch (DbUpdateConcurrencyException)`
+* Vyberte **Upravit** pro film, proveďte změny, ale nezadávejte možnost **Uložit**.
 * V jiném okně prohlížeče vyberte odkaz **Odstranit** pro stejný film a pak film odstraňte.
-* V předchozím okně prohlížeče zaúčtujete změny filmu.
+* V předchozím okně prohlížeče se změny publikují ve videu.
 
-Produkční kód může chtít zjistit konflikty souběžnosti. Další informace naleznete [v tématu Zpracování konfliktů souběžnosti.](xref:data/ef-rp/concurrency)
+Produkční kód může chtít detekovat konflikty souběžnosti. Další informace najdete v tématu [zpracování konfliktů souběžnosti](xref:data/ef-rp/concurrency) .
 
-### <a name="posting-and-binding-review"></a>Zaúčtování a závazná recenze
+### <a name="posting-and-binding-review"></a>Publikování a kontrola vazeb
 
-Prohlédněte si soubor *Pages/Movies/Edit.cshtml.cs:*
+Prověřte soubory *Pages/video/Edit. cshtml. cs* :
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/snapshot_sample/RazorPagesMovie/Pages/Movies/Edit21.cshtml.cs?name=snippet2)]
 
-Při požadavku HTTP GET na stránku Filmy/Úpravy `http://localhost:5000/Movies/Edit/2`(například ):
+Když se na stránce filmy/úpravy provede požadavek HTTP GET (například `http://localhost:5000/Movies/Edit/2`):
 
-* Metoda `OnGetAsync` načte film z databáze a `Page` vrátí metodu. 
-* Metoda `Page` vykreslí *stránky /filmy/Edit.cshtml* Razor Page. Soubor *Pages/Movies/Edit.cshtml* obsahuje direktivu modelu (`@model RazorPagesMovie.Pages.Movies.EditModel`), která zpřístupňuje filmový model na stránce.
-* Formulář Úpravy se zobrazí s hodnotami z filmu.
+* `OnGetAsync` Metoda načte film z databáze a vrátí `Page` metodu. 
+* Metoda vykresluje stránku *stránky/filmy/upravit. cshtml* Razor `Page` Soubor *Pages/video/Edit. cshtml* obsahuje direktivu modelu (`@model RazorPagesMovie.Pages.Movies.EditModel`), která umožňuje, aby byl model filmu dostupný na stránce.
+* Formulář pro úpravy se zobrazí s hodnotami z filmu.
 
-Když je stránka Filmy/Úpravy zaúčtována:
+Když se publikuje video/úprava stránky:
 
-* Hodnoty formuláře na stránce jsou `Movie` vázány na vlastnost. Atribut `[BindProperty]` umožňuje [Model vazby](xref:mvc/models/model-binding).
+* Hodnoty formuláře na stránce jsou vázány na `Movie` vlastnost. `[BindProperty]` Atribut umožňuje [vazbu modelu](xref:mvc/models/model-binding).
 
   ```csharp
   [BindProperty]
   public Movie Movie { get; set; }
   ```
 
-* Pokud jsou chyby ve stavu modelu `ReleaseDate` (například nelze převést na datum), formulář se zobrazí s odeslanými hodnotami.
-* Pokud nejsou k dispozici žádné chyby modelu, film se uloží.
+* Pokud dojde k chybám ve stavu modelu (například `ReleaseDate` nelze je převést na datum), zobrazí se formulář s odeslanými hodnotami.
+* Pokud nedochází k žádným chybám modelu, je film uložený.
 
-Metody HTTP GET na stránkách Index, Create a Delete Razor postupujte podle podobného vzoru. Metoda HTTP `OnPostAsync` POST na stránce Vytvořit břitvu `OnPostAsync` se řídí podobným vzorem jako metoda na stránce Upravit holicí strojek.
+Metody HTTP GET v indexech, vytváření a odstraňování Razor stránek následují podobně jako vzor. Metoda HTTP POST `OnPostAsync` na stránce vytvořit Razor následuje podobný vzor jako `OnPostAsync` metoda na stránce pro úpravy. Razor
 
-Hledání je přidánv dalším kurzu.
+Hledání se přidá v dalším kurzu.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Verze tohoto kurzu pro YouTube](https://youtu.be/yLnnleREMtQ)
+* [Verze YouTube tohoto kurzu](https://youtu.be/yLnnleREMtQ)
 
 > [!div class="step-by-step"]
-> [Předchozí: Práce s databází](xref:tutorials/razor-pages/sql)
-> [Další: Přidat hledání](xref:tutorials/razor-pages/search)
+> [Předchozí: práce s databází](xref:tutorials/razor-pages/sql)
+> [Next: Přidat hledání](xref:tutorials/razor-pages/search)
 
 ::: moniker-end

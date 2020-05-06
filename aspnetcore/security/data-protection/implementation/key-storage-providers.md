@@ -1,23 +1,29 @@
 ---
 title: Zprostředkovatelé úložiště klíčů v ASP.NET Core
 author: rick-anderson
-description: Další informace o poskytovatele úložiště klíčů v ASP.NET Core a jak konfigurovat umístění úložiště klíčů.
+description: Přečtěte si o poskytovatelích úložiště klíčů v ASP.NET Core a o tom, jak nakonfigurovat umístění úložiště klíčů.
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: 19f64e816d88d2fc156915e31dc147645c5a630a
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: a8d38f17b066a0aa9a38b1bdfea3491f733cf1bc
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78662958"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776874"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>Zprostředkovatelé úložiště klíčů v ASP.NET Core
 
-Systém ochrany dat [ve výchozím nastavení využívá mechanismus zjišťování](xref:security/data-protection/configuration/default-settings) , aby určil, kde by měly být zachovány kryptografické klíče. Vývojář můžete přepsat výchozí mechanismus pro zjišťování a ručně zadejte jeho umístění.
+Systém ochrany dat [ve výchozím nastavení využívá mechanismus zjišťování](xref:security/data-protection/configuration/default-settings) , aby určil, kde by měly být zachovány kryptografické klíče. Vývojář může přepsat výchozí mechanismus zjišťování a ručně zadat umístění.
 
 > [!WARNING]
-> Pokud chcete zadat umístění služby explicitní trvalost klíče, systém ochrany dat deregisters výchozí šifrování klíčů v rest mechanismus, takže klíče jsou už v klidovém stavu zašifrovaná. Pro produkční nasazení doporučujeme zadat také [explicitní šifrovací mechanismus klíčů](xref:security/data-protection/implementation/key-encryption-at-rest) .
+> Pokud zadáte explicitní umístění trvalosti klíčů, systém ochrany dat zruší registraci výchozího šifrování klíče v mechanismu REST, takže klíče už nebudou zašifrované v klidovém stavu. Pro produkční nasazení doporučujeme zadat také [explicitní šifrovací mechanismus klíčů](xref:security/data-protection/implementation/key-encryption-at-rest) .
 
 ## <a name="file-system"></a>Systém souborů
 
@@ -31,11 +37,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-`DirectoryInfo` může ukazovat na adresář v místním počítači nebo může ukazovat na složku ve sdílené síťové složce. Pokud odkazujete na adresář v místním počítači (a scénář je, že pouze aplikace na místním počítači vyžadují přístup k používání tohoto úložiště), zvažte použití rozhraní [Windows DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) (ve Windows) k šifrování neaktivních klíčů. V opačném případě zvažte použití [certifikátu X. 509](xref:security/data-protection/implementation/key-encryption-at-rest) k šifrování neaktivních klíčů.
+`DirectoryInfo` Může odkazovat na adresář v místním počítači nebo může ukazovat na složku ve sdílené síťové složce. Pokud odkazujete na adresář v místním počítači (a scénář je, že pouze aplikace na místním počítači vyžadují přístup k používání tohoto úložiště), zvažte použití rozhraní [Windows DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) (ve Windows) k šifrování neaktivních klíčů. V opačném případě zvažte použití [certifikátu X. 509](xref:security/data-protection/implementation/key-encryption-at-rest) k šifrování neaktivních klíčů.
 
 ## <a name="azure-storage"></a>Azure Storage
 
-Balíček [Microsoft. AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) umožňuje ukládat klíče ochrany dat v Azure Blob Storage. Klíče mohou být sdíleny napříč několika instancemi webové aplikace. Aplikace můžete sdílet soubory cookie pro ověřování nebo CSRF ochrany napříč několika servery.
+Balíček [Microsoft. AspNetCore. DataProtection. AzureStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.AzureStorage/) umožňuje ukládat klíče ochrany dat v Azure Blob Storage. Klíče lze sdílet mezi několika instancemi webové aplikace. Aplikace můžou sdílet soubory cookie ověřování nebo CSRF ochranu napříč několika servery.
 
 Pokud chcete nakonfigurovat poskytovatele služby Azure Blob Storage, zavolejte jedno z přetížení [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage) .
 
@@ -70,13 +76,13 @@ Přečtěte si [Další podrobnosti o konfiguraci ověřování služba-služba.
 
 ::: moniker range=">= aspnetcore-2.2"
 
-Balíček [Microsoft. AspNetCore. DataProtection. StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/) umožňuje ukládat klíče ochrany dat do mezipaměti Redis. Klíče mohou být sdíleny napříč několika instancemi webové aplikace. Aplikace můžete sdílet soubory cookie pro ověřování nebo CSRF ochrany napříč několika servery.
+Balíček [Microsoft. AspNetCore. DataProtection. StackExchangeRedis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.StackExchangeRedis/) umožňuje ukládat klíče ochrany dat do mezipaměti Redis. Klíče lze sdílet mezi několika instancemi webové aplikace. Aplikace můžou sdílet soubory cookie ověřování nebo CSRF ochranu napříč několika servery.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-2.2"
 
-Balíček [Microsoft. AspNetCore. DataProtection. Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/) umožňuje ukládat klíče ochrany dat do mezipaměti Redis. Klíče mohou být sdíleny napříč několika instancemi webové aplikace. Aplikace můžete sdílet soubory cookie pro ověřování nebo CSRF ochrany napříč několika servery.
+Balíček [Microsoft. AspNetCore. DataProtection. Redis](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.Redis/) umožňuje ukládat klíče ochrany dat do mezipaměti Redis. Klíče lze sdílet mezi několika instancemi webové aplikace. Aplikace můžou sdílet soubory cookie ověřování nebo CSRF ochranu napříč několika servery.
 
 ::: moniker-end
 
@@ -120,7 +126,7 @@ Další informace najdete v následujících tématech:
 
 **Platí jenom pro nasazení systému Windows.**
 
-Aplikace v některých případech nemusí mít oprávnění k zápisu do systému souborů. Vezměte v úvahu scénář, ve kterém je aplikace spuštěná jako účet virtuální služby (například identita fondu aplikací *W3wp. exe*). V těchto případech můžete zřizovat správce klíč registru, který je přístupný pro identitu účtu služby. Zavolejte metodu rozšíření [PersistKeysToRegistry](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystoregistry) , jak je znázorněno níže. Zadejte [RegistryKey](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository.registrykey) ukazující na místo, kde se mají ukládat kryptografické klíče:
+Někdy může aplikace mít k systému souborů přístup pro zápis. Vezměte v úvahu scénář, ve kterém je aplikace spuštěná jako účet virtuální služby (například identita fondu aplikací *W3wp. exe*). V těchto případech může správce zřídit klíč registru, který je přístupný pro identitu účtu služby. Zavolejte metodu rozšíření [PersistKeysToRegistry](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystoregistry) , jak je znázorněno níže. Zadejte [RegistryKey](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository.registrykey) ukazující na místo, kde se mají ukládat kryptografické klíče:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -137,21 +143,21 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="entity-framework-core"></a>Entity Framework Core
 
-Balíček [Microsoft. AspNetCore. DataProtection. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/) poskytuje mechanismus pro ukládání klíčů ochrany dat do databáze pomocí Entity Framework Core. Balíček NuGet `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` musí být přidán do souboru projektu, není součástí souboru [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
+Balíček [Microsoft. AspNetCore. DataProtection. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/) poskytuje mechanismus pro ukládání klíčů ochrany dat do databáze pomocí Entity Framework Core. Balíček `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` NuGet se musí přidat do souboru projektu, není součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
-S tímto balíčkem klíče mohou být sdíleny napříč několika instancemi webové aplikace.
+S tímto balíčkem je možné klíče sdílet mezi několika instancemi webové aplikace.
 
-Chcete-li nakonfigurovat poskytovatele EF Core, zavolejte metodu [PersistKeysToDbContext\<TContext >](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext) :
+Chcete-li nakonfigurovat poskytovatele EF Core, zavolejte [metodu\<>PersistKeysToDbContext TContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext) :
 
 [!code-csharp[Main](key-storage-providers/sample/Startup.cs?name=snippet&highlight=13-20)]
 
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
-Obecný parametr `TContext`, musí dědit z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) a implementovat [IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext):
+Obecný parametr, `TContext`, musí dědit z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) a implementovat [IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext):
 
 [!code-csharp[Main](key-storage-providers/sample/MyKeysContext.cs)]
 
-Vytvořte tabulku `DataProtectionKeys`.
+Vytvořte `DataProtectionKeys` tabulku.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -173,9 +179,9 @@ dotnet ef database update --context MyKeysContext
 
 ---
 
-`MyKeysContext` je `DbContext` definována v předchozí ukázce kódu. Pokud používáte `DbContext` s jiným názvem, nahraďte `MyKeysContext`název `DbContext`.
+`MyKeysContext`je `DbContext` definován v předchozí ukázce kódu. Pokud používáte `DbContext` s jiným názvem, nahraďte své `DbContext` jméno pro. `MyKeysContext`
 
-Třída `DataProtectionKeys`/entita přijímá strukturu zobrazenou v následující tabulce.
+`DataProtectionKeys` Třída nebo entita přijímá strukturu zobrazenou v následující tabulce.
 
 | Vlastnost nebo pole | Typ CLR | Typ SQL              |
 | -------------- | -------- | --------------------- |
@@ -185,6 +191,6 @@ Třída `DataProtectionKeys`/entita přijímá strukturu zobrazenou v následuj�
 
 ::: moniker-end
 
-## <a name="custom-key-repository"></a>Vlastní klíče úložiště
+## <a name="custom-key-repository"></a>Vlastní úložiště klíčů
 
 Pokud nejsou mechanismy v krabici vhodné, může vývojář určit vlastní mechanismus trvalosti klíčů tím, že poskytuje vlastní [IXmlRepository](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.ixmlrepository).

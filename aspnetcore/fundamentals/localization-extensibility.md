@@ -1,51 +1,57 @@
 ---
 title: Rozšiřitelnost lokalizace
 author: hishamco
-description: Přečtěte si, jak rozšířit lokalizační api v aplikacích ASP.NET Core.
+description: Naučte se, jak roztáhnout rozhraní API lokalizace v aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 08/03/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/localization-extensibility
-ms.openlocfilehash: dfa2efe78b2e1e118e6b3f09bfc41f3330e1d721
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 152146992f1ea3cace14a2e702762af942a6c289
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78662097"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774337"
 ---
 # <a name="localization-extensibility"></a>Rozšiřitelnost lokalizace
 
-Podle [Hisham Bin Ateya](https://github.com/hishamco)
+Podle [Hisham bin Ateya](https://github.com/hishamco)
 
 Tento článek:
 
-* Zobrazí seznam bodů rozšiřitelnosti v lokalizačních apich.
-* Obsahuje pokyny, jak rozšířit ASP.NET lokalizaci aplikace Core.
+* Uvádí body rozšiřitelnosti na rozhraních API lokalizace.
+* Poskytuje pokyny, jak roztáhnout lokalizaci aplikace ASP.NET Core.
 
-## <a name="extensible-points-in-localization-apis"></a>Rozšiřitelné body v lokalizačních API
+## <a name="extensible-points-in-localization-apis"></a>Rozšiřitelné body v rozhraních API lokalizace
 
-ASP.NET jádra lokalizační api jsou postaveny tak, aby rozšiřitelné. Rozšiřitelnost umožňuje vývojářům přizpůsobit lokalizaci podle jejich potřeb. Například [OrchardCore](https://github.com/orchardCMS/OrchardCore/) má `POStringLocalizer`. `POStringLocalizer`Popisuje podrobně pomocí [lokalizace přenosných objektů](xref:fundamentals/portable-object-localization) k použití `PO` souborů k ukládání prostředků lokalizace.
+Rozhraní API pro lokalizaci ASP.NET Core jsou sestavená tak, aby byla rozšiřitelná. Rozšiřitelnost umožňuje vývojářům přizpůsobit lokalizaci podle jejich potřeb. Například [OrchardCore](https://github.com/orchardCMS/OrchardCore/) má `POStringLocalizer`. `POStringLocalizer`podrobně popisuje použití [lokalizace přenosných objektů](xref:fundamentals/portable-object-localization) k `PO` používání souborů k ukládání prostředků lokalizace.
 
-Tento článek uvádí dva hlavní body rozšiřitelnosti, které poskytují lokalizační prostředí API: 
+Tento článek obsahuje seznam dvou hlavních bodů rozšiřitelnosti, které poskytují rozhraní API pro lokalizaci: 
 
 * <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider>
 * <xref:Microsoft.Extensions.Localization.IStringLocalizer>
 
-## <a name="localization-culture-providers"></a>Zprostředkovatelé jazykové verze lokalizace
+## <a name="localization-culture-providers"></a>Poskytovatelé jazykové verze lokalizace
 
-ASP.NET jádrová lokalizační api mají čtyři výchozí zprostředkovatele, kteří mohou určit aktuální jazykovou verzi spuštěného požadavku:
+Rozhraní API pro ASP.NET Core lokalizace mají čtyři výchozí poskytovatele, kteří mohou určit aktuální jazykovou verzi zpracovávané žádosti:
 
 * <xref:Microsoft.AspNetCore.Localization.QueryStringRequestCultureProvider>
 * <xref:Microsoft.AspNetCore.Localization.CookieRequestCultureProvider>
 * <xref:Microsoft.AspNetCore.Localization.AcceptLanguageHeaderRequestCultureProvider>
 * <xref:Microsoft.AspNetCore.Localization.CustomRequestCultureProvider>
 
-Předchozí zprostředkovatelé jsou podrobně popsány v [dokumentaci middlewaru lokalizace.](xref:fundamentals/localization) Pokud výchozí zprostředkovatelé nesplňují vaše potřeby, vytvořte vlastního zprostředkovatele pomocí jednoho z následujících přístupů:
+Předchozí poskytovatelé jsou podrobněji popsáni v dokumentaci k [lokalizačnímu middlewaru](xref:fundamentals/localization) . Pokud výchozí zprostředkovatelé nevyhovují vašim potřebám, sestavte vlastního zprostředkovatele pomocí jednoho z následujících přístupů:
 
-### <a name="use-customrequestcultureprovider"></a>Použít zprostředkovatele CustomRequestCulture
+### <a name="use-customrequestcultureprovider"></a>Použití CustomRequestCultureProvider
 
-<xref:Microsoft.AspNetCore.Localization.CustomRequestCultureProvider>poskytuje vlastní, <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> který používá jednoduchý delegát k určení aktuální jazykovou verzi lokalizace:
+<xref:Microsoft.AspNetCore.Localization.CustomRequestCultureProvider>poskytuje vlastní <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> použití jednoduchého delegáta k určení aktuální jazykové verze lokalizace:
 
 ::: moniker range="< aspnetcore-3.0"
 ```csharp
@@ -89,11 +95,11 @@ options.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(async 
 
 ::: moniker-end
 
-### <a name="use-a-new-implemetation-of-requestcultureprovider"></a>Použít novou implemetation RequestCultureProvider
+### <a name="use-a-new-implemetation-of-requestcultureprovider"></a>Použít nový implemetation z RequestCultureProvider
 
-Můžete vytvořit <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> novou implementaci, která určuje informace o jazykové verzi požadavku z vlastního zdroje. Vlastní zdroj může být například konfigurační soubor nebo databáze.
+Je <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> možné vytvořit novou implementaci, která určuje informace o jazykové verzi žádosti z vlastního zdroje. Vlastní zdroj může být například konfigurační soubor nebo databáze.
 
-Následující příklad `AppSettingsRequestCultureProvider`ukazuje , který <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> rozšiřuje k určení informace o jazykové verzi požadavku z *appsettings.json*:
+Následující příklad ukazuje `AppSettingsRequestCultureProvider`, který rozšiřuje na <xref:Microsoft.AspNetCore.Localization.RequestCultureProvider> k určení informací o jazykové verzi žádosti z *appSettings. JSON*:
 
 ```csharp
 public class AppSettingsRequestCultureProvider : RequestCultureProvider
@@ -137,11 +143,11 @@ public class AppSettingsRequestCultureProvider : RequestCultureProvider
 
 ## <a name="localization-resources"></a>Prostředky lokalizace
 
-ASP.NET core lokalizace poskytuje <xref:Microsoft.Extensions.Localization.ResourceManagerStringLocalizer>. <xref:Microsoft.Extensions.Localization.ResourceManagerStringLocalizer>je <xref:Microsoft.Extensions.Localization.IStringLocalizer> implementace, která `resx` se používá k ukládání prostředků lokalizace.
+ASP.NET Core lokalizace <xref:Microsoft.Extensions.Localization.ResourceManagerStringLocalizer>. <xref:Microsoft.Extensions.Localization.ResourceManagerStringLocalizer>je implementací <xref:Microsoft.Extensions.Localization.IStringLocalizer> , která se používá `resx` k ukládání prostředků lokalizace.
 
-Nejste omezeni na `resx` používání souborů. Implementací `IStringLocalized`lze použít libovolný zdroj dat.
+Nejste omezeni používáním `resx` souborů. Implementací `IStringLocalized`lze použít libovolný zdroj dat.
 
-Následující příklad projektů <xref:Microsoft.Extensions.Localization.IStringLocalizer>implementovat : 
+Následující příklady projektů implementují <xref:Microsoft.Extensions.Localization.IStringLocalizer>: 
 
 * [EFStringLocalizer](https://github.com/aspnet/Entropy/tree/master/samples/Localization.EntityFramework)
 * [JsonStringLocalizer](https://github.com/hishamco/My.Extensions.Localization.Json)

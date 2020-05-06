@@ -5,13 +5,19 @@ ms.author: riande
 description: Seznamte se s atributy pomocníka značek ASP.NET Core odkazů a role, kterou každý atribut hraje při rozšiřování chování značky odkazu HTML.
 ms.custom: mvc
 ms.date: 09/24/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
-ms.openlocfilehash: d7514433bee8a138cd7d75bfd15c9798d4fd31a3
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 1efd7c1a63baea4312a4a01cd9cd9c7582375d97
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78662727"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777351"
 ---
 # <a name="link-tag-helper-in-aspnet-core"></a>Pomocná pomůcka značky v ASP.NET Core
 
@@ -23,7 +29,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 Pomocník značek odkazů umožňuje zadat CDN pro soubor CSS a zálohu, pokud CDN není k dispozici. Pomocník značek odkazů nabízí výkonnou výhodu sítě CDN s odolností místního hostování.
 
-Následující kód Razor ukazuje `head` element souboru rozložení vytvořeného pomocí šablony ASP.NET Core webové aplikace:
+Následující Razor kód ukazuje `head` prvek souboru rozložení vytvořeného pomocí šablony ASP.NET Core webové aplikace:
 
 [!code-html[](link-tag-helper/sample/_Layout.cshtml?name=snippet)]
 
@@ -31,13 +37,13 @@ Následující kód vykreslí kód HTML z předchozího kódu (v nevývojovém p
 
 [!code-csharp[](link-tag-helper/sample/HtmlPage1.html)]
 
-V předchozím kódu pomocník značek odkazů vygeneroval prvek `<meta name="x-stylesheet-fallback-test" content="" class="sr-only" />` a následující JavaScript, který slouží k ověření požadovaného souboru *bootstrap. min. CSS* , je k dispozici v CDN. V tomto případě byl soubor CSS k dispozici, takže pomocná rutina značky vygenerovala prvek `<link />` se souborem. CSS pro CDN.
+V předchozím kódu pomocník značek odkazů vygeneroval `<meta name="x-stylesheet-fallback-test" content="" class="sr-only" />` prvek a následující JavaScript, který slouží k ověření požadovaného souboru *bootstrap. min. CSS* , je k dispozici v CDN. V tomto případě byl k dispozici soubor CSS, aby pomocník značek vygeneroval `<link />` prvek se souborem. CSS CDN.
 
 ## <a name="commonly-used-link-tag-helper-attributes"></a>Běžně používané pomocné atributy značek odkazů
 
 U všech pomocných atributů, vlastností a metod odkazů můžete zobrazit nápovědu pro [značku odkazu](xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper) .
 
-### <a name="href"></a>href
+### <a name="href"></a>odkaz
 
 Upřednostňovaná adresa propojeného prostředku Adresa je předána na vygenerovaný kód HTML ve všech případech.
 
@@ -57,7 +63,7 @@ Název vlastnosti CSS, který má být použit pro záložní test. Další info
 
 Hodnota vlastnosti CSS, která má být použita pro záložní test. Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestValue>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:mvc/views/tag-helpers/intro>
 * <xref:mvc/controllers/areas>

@@ -1,25 +1,31 @@
 ---
-title: ASP.NET Core integrované pomocné spoje značek
+title: ASP.NET Core integrovaných pomocníků značek
 author: pkellner
-description: Zjistěte, jak ASP.NET integrované pomocné sanem značek core zvyšují vaši produktivitu.
+description: Zjistěte, jak ASP.NET Core integrovaných pomocníků značek zvyšuje vaši produktivitu.
 ms.author: riande
 ms.custom: mvc
 ms.date: 10/10/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/views/tag-helpers/builtin-th/Index
-ms.openlocfilehash: f19cfa5b843bde8a8633ce778562707e566bebb9
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 2caf4a20302fa4d94b5eab7f814d7e22b048fbc8
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78662720"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777394"
 ---
-# <a name="aspnet-core-built-in-tag-helpers"></a>ASP.NET Core integrované pomocné spoje značek
+# <a name="aspnet-core-built-in-tag-helpers"></a>ASP.NET Core integrovaných pomocníků značek
 
-Podle [Peter Kellner](https://peterkellner.net)
+Od [Petra Kellner](https://peterkellner.net)
 
-Přehled pomocníků značek naleznete <xref:mvc/views/tag-helpers/intro>v tématu .
+Přehled pomocníků značek naleznete v tématu <xref:mvc/views/tag-helpers/intro>.
 
-Existují integrované pomocné spoje značek, které nejsou uvedeny v tomto dokumentu. Neuvedené tag pomocné sazby jsou používány interně [razor](xref:mvc/views/razor) zobrazení motoru. Pomocník tagů pro `~` znak (tilda) není uveden. Pomocné s značkou tildy se rozbalí na kořenovou cestu webu.
+K dispozici jsou předdefinované pomocníky značek, které nejsou uvedené v tomto dokumentu. Neuvedené pomocníky značek se používají interně modulem [Razor](xref:mvc/views/razor) zobrazení. Pomocník značek pro `~` znak tildy není v seznamu. Pomocný pomocník značek vlnovek se rozšíří na kořenovou cestu webu.
 
 [!INCLUDE[](~/includes/built-in-TH.md)]
 

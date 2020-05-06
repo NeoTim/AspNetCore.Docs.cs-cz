@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 04/30/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: e86047c9a830cd3ea906d0798f61d90eaee5a18c
-ms.sourcegitcommit: 6318d2bdd63116e178c34492a904be85ec9ac108
+ms.openlocfilehash: 1579b92dbc9db08bfdc5572e5d4245bd18d50590
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/30/2020
-ms.locfileid: "82604828"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773785"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET Coreového signálu s Blazor WebAssembly
 
@@ -268,13 +271,13 @@ V tomto kurzu jste se naučili:
 > * Přidat SignalR klientskou knihovnu
 > * Přidání SignalR centra
 > * Přidání SignalR služeb a koncového bodu pro SignalR centrum
-> * Přidat kód komponenty Razor pro chat
+> * Přidat Razor kód komponenty pro chat
 
 Další informace o vytváření Blazor aplikací najdete v Blazor dokumentaci:
 
 > [!div class="nextstepaction"]
 > <xref:blazor/index>
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:signalr/introduction>

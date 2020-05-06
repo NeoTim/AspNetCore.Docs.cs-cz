@@ -1,35 +1,41 @@
 ---
-title: 'Kurz: Další informace o pokročilých scénářích – ASP.NET MVC s EF Core'
-description: Tento kurz představuje užitečná témata pro překročení základy vývoje ASP.NET základní webové aplikace, které používají Entity Framework Core.
+title: 'Kurz: informace o pokročilých scénářích – ASP.NET MVC pomocí EF Core'
+description: V tomto kurzu se seznámíte s užitečnými tématy, která se týkají vývoje ASP.NET Core webových aplikací, které používají Entity Framework Core.
 author: rick-anderson
 ms.author: riande
 ms.custom: mvc
 ms.date: 03/27/2019
 ms.topic: tutorial
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: fc6f8d8c4ab09848cf316be2e522bf5ce3b9ac76
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 74153b9a185d382a3418dd9470ce6ca4c3c70041
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "79416231"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773611"
 ---
-# <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: Další informace o pokročilých scénářích – ASP.NET MVC s EF Core
+# <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: informace o pokročilých scénářích – ASP.NET MVC pomocí EF Core
 
-V předchozím kurzu jste implementovali dědičnost tabulky na hierarchii. Tento kurz představuje několik témat, která jsou užitečná, abyste si byli vědomi, když překročíte základy vývoje ASP.NET základní webové aplikace, které používají core entity frameworku.
+V předchozím kurzu jste implementovali dědičnost tabulek na hierarchii. V tomto kurzu se seznámíte s několika tématy, která jsou užitečná, když překročíte základy vývoje ASP.NET Core webových aplikací, které používají Entity Framework Core.
 
 V tomto kurzu jste:
 
 > [!div class="checklist"]
 > * Provádění nezpracovaných dotazů SQL
-> * Volání dotazu k vrácení entit
+> * Volání dotazu pro vrácení entit
 > * Volání dotazu pro vrácení jiných typů
 > * Volání aktualizačního dotazu
-> * Prozkoumání dotazů SQL
+> * Kontrola dotazů SQL
 > * Vytvoření vrstvy abstrakce
 > * Další informace o automatickém zjišťování změn
-> * Informace o zdrojovém kódu EF Core a plánech rozvoje
-> * Naučte se používat dynamické LINQ ke zjednodušení kódu
+> * Další informace o EF Core zdrojového kódu a vývojářských plánech
+> * Naučte se používat dynamickou technologii LINQ ke zjednodušení kódu
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -37,33 +43,33 @@ V tomto kurzu jste:
 
 ## <a name="perform-raw-sql-queries"></a>Provádění nezpracovaných dotazů SQL
 
-Jednou z výhod použití entity framework je, že se zabrání vázání kódu příliš úzce na konkrétní metodu ukládání dat. Je to tím, že generuje SQL dotazy a příkazy pro vás, což také osvobozuje od nutnosti psát sami. Existují však výjimečné scénáře, kdy potřebujete spustit konkrétní dotazy SQL, které jste vytvořili ručně. Pro tyto scénáře entity framework code first api obsahuje metody, které umožňují předat příkazy SQL přímo do databáze. V EF Core 1.0 máte následující možnosti:
+Jednou z výhod používání Entity Framework je, že se vyhnete tomu, že váš kód je příliš úzce k určité metodě ukládání dat. Provede to tím, že vygeneruje dotazy a příkazy SQL za vás, což vám taky zabrání v jejich psaní. Existují však výjimečné scénáře, pokud potřebujete spustit konkrétní dotazy SQL, které jste vytvořili ručně. V těchto scénářích obsahuje rozhraní API Entity Framework Code First metody, které vám umožní předat příkazy SQL přímo do databáze. V EF Core 1,0 máte následující možnosti:
 
-* Metodu `DbSet.FromSql` použijte pro dotazy, které vracejí typy entit. Vrácené objekty musí být typu `DbSet` očekávaného objektem a jsou automaticky sledovány kontextem databáze, pokud sledování [nevypnete](crud.md#no-tracking-queries).
+* Použijte `DbSet.FromSql` metodu pro dotazy, které vracejí typy entit. Vrácené objekty musí být typu očekávaného `DbSet` objektem a automaticky sledovány pomocí kontextu databáze, pokud nevypnete [sledování](crud.md#no-tracking-queries).
 
-* Použijte `Database.ExecuteSqlCommand` pro příkazy bez dotazu.
+* Použijte příkaz `Database.ExecuteSqlCommand` pro příkazy, které nejsou dotazem.
 
-Pokud potřebujete spustit dotaz, který vrací typy, které nejsou entity, můžete použít ADO.NET s připojením k databázi poskytované EF. Vrácená data nejsou sledována kontextem databáze, i když tuto metodu použijete k načtení typů entit.
+Pokud potřebujete spustit dotaz, který vrací typy, které nejsou entitami, můžete použít ADO.NET s databázovým připojením poskytovaným EF. Vrácená data nejsou sledována kontextem databáze, a to i v případě, že použijete tuto metodu k načtení typů entit.
 
-Jak je vždy pravda při spuštění příkazů SQL ve webové aplikaci, je nutné přijmout opatření k ochraně webu před útoky injektáže SQL. Jedním ze způsobů, jak to udělat, je použít parametrizované dotazy a ujistěte se, že řetězce odeslané webovou stránkou nelze interpretovat jako příkazy SQL. V tomto kurzu budete používat parametrizované dotazy při integraci vstupu uživatele do dotazu.
+Jak je vždy true při provádění příkazů SQL ve webové aplikaci, je nutné podniknout preventivní opatření k ochraně vašeho webu před útoky prostřednictvím injektáže SQL. Jedním ze způsobů, jak to provést, je použít parametrizované dotazy, aby se zajistilo, že řetězce odeslané webovou stránkou nejde interpretovat jako příkazy SQL. V tomto kurzu použijete parametrizované dotazy při integraci vstupu uživatele do dotazu.
 
-## <a name="call-a-query-to-return-entities"></a>Volání dotazu k vrácení entit
+## <a name="call-a-query-to-return-entities"></a>Volání dotazu pro vrácení entit
 
-Třída `DbSet<TEntity>` poskytuje metodu, kterou můžete použít ke spuštění dotazu, který vrací entitu typu `TEntity`. Chcete-li zjistit, jak to funguje, `Details` změníte kód v metodě řadiče oddělení.
+`DbSet<TEntity>` Třída poskytuje metodu, kterou lze použít ke spuštění dotazu, který vrací entitu typu `TEntity`. Chcete-li zjistit, jak to funguje, změňte kód v `Details` metodě řadiče oddělení.
 
-V *DepartmentsController.cs*v `Details` metodě nahraďte kód, který `FromSql` načítá oddělení voláním metody, jak je znázorněno v následujícím zvýrazněném kódu:
+V *DepartmentsController.cs*v `Details` metodě nahraďte kód, který získá oddělení, pomocí volání `FromSql` metody, jak je znázorněno v následujícím zvýrazněném kódu:
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10)]
 
-Chcete-li ověřit, zda nový kód funguje správně, vyberte kartu **Oddělení** a potom **podrobnosti** pro jedno z oddělení.
+Chcete-li ověřit, zda nový kód funguje správně, vyberte kartu **oddělení** a potom **Podrobnosti** pro jedno z oddělení.
 
 ![Podrobnosti o oddělení](advanced/_static/department-details.png)
 
 ## <a name="call-a-query-to-return-other-types"></a>Volání dotazu pro vrácení jiných typů
 
-Dříve jste pro stránku Informace vytvořili mřížku statistik studentů, která zobrazuje počet studentů pro každé datum zápisu. Získali jste data ze sady`_context.Students`entit Studenty ( ) a `EnrollmentDateGroup` použili jste LINQ k promítání výsledků do seznamu objektů modelu zobrazení. Předpokládejme, že chcete napsat sql sám spíše než pomocí LINQ. Chcete-li to provést, je třeba spustit dotaz SQL, který vrací něco jiného než objekty entity. V EF Core 1.0 jedním ze způsobů, jak to udělat, je napsat ADO.NET kódu a získat připojení k databázi z EF.
+Dříve jste vytvořili tabulku statistik studentů pro stránku o produktu, která ukázala počet studentů pro každé datum registrace. Dostali jste data ze sady entit Students (`_context.Students`) a pomocí LINQ můžete promítnout výsledky do seznamu objektů modelu `EnrollmentDateGroup` zobrazení. Předpokládejme, že chcete napsat samotný SQL místo použití LINQ. K tomu je nutné spustit dotaz SQL, který vrací jinou hodnotu než objekty entity. V EF Core 1,0 je jedním ze způsobů, jak to udělat, je zápis ADO.NET kódu a získání připojení k databázi z EF.
 
-V *HomeController.cs*nahraďte metodu `About` následujícím kódem:
+V *HomeController.cs*nahraďte `About` metodu následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_UseRawSQL&highlight=3-32)]
 
@@ -71,57 +77,57 @@ Přidejte příkaz using:
 
 [!code-csharp[](intro/samples/cu/Controllers/HomeController.cs?name=snippet_Usings2)]
 
-Spusťte aplikaci a přejděte na stránku Informace. Zobrazuje stejná data jako předtím.
+Spusťte aplikaci a pokračujte na stránku o produktu. Zobrazuje stejná data jako předtím.
 
 ![O stránce](advanced/_static/about.png)
 
 ## <a name="call-an-update-query"></a>Volání aktualizačního dotazu
 
-Předpokládejme, že správci Univerzity Contoso chtějí provádět globální změny v databázi, například změnu počtu kreditů pro každý kurz. V případě, že univerzita má velký počet kurzů, bylo by neefektivní získat je všechny jako subjekty a změnit je jednotlivě. V této části budete implementovat webovou stránku, která umožňuje uživateli určit faktor, kterým chcete změnit počet kreditů pro všechny kurzy a provedete změnu spuštěním příkazu SQL UPDATE. Webová stránka bude vypadat na následujícím obrázku:
+Předpokládejme, že správci služby contoso University chtějí v databázi provádět globální změny, jako je třeba Změna počtu kreditů pro každý kurz. Pokud má univerzita velký počet kurzů, je třeba je neefektivně načíst jako entity a jednotlivě je měnit. V této části implementujete webovou stránku, která uživateli umožní zadat faktor, podle kterého se má změnit počet kreditů pro všechny kurzy, a provedete změnu provedením příkazu SQL UPDATE. Webová stránka bude vypadat jako na následujícím obrázku:
 
-![Aktualizovat stránku Kreditů kurzu](advanced/_static/update-credits.png)
+![Stránka aktualizovat kredity kurzu](advanced/_static/update-credits.png)
 
-V *CoursesController.cs*přidejte metody UpdateCourseCredits pro HttpGet a HttpPost:
+V *CoursesController.cs*přidejte metody UpdateCourseCredits pro HttpGet a HTTPPOST:
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_UpdateGet)]
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_UpdatePost)]
 
-Když řadič zpracuje požadavek HttpGet, `ViewData["RowsAffected"]`nic se vrátí v aplikaci a zobrazení zobrazí prázdné textové pole a tlačítko odeslat, jak je znázorněno na předchozím obrázku.
+Když kontroler zpracuje požadavek HttpGet, nic se nevrátí `ViewData["RowsAffected"]`a v zobrazení se zobrazí prázdné textové pole a tlačítko Odeslat, jak je znázorněno na předchozím obrázku.
 
-Po klepnutí na tlačítko **Aktualizovat** je volána metoda HttpPost a multiplikátor má hodnotu zadanou v textovém poli. Kód pak spustí SQL, který aktualizuje kurzy a vrátí počet `ViewData`ovlivněných řádků do zobrazení v aplikaci . Když zobrazení získá `RowsAffected` hodnotu, zobrazí počet aktualizovaných řádků.
+Po kliknutí na tlačítko **aktualizovat** se zavolá metoda HTTPPOST a násobitel má hodnotu zadanou v textovém poli. Kód potom spustí SQL, který aktualizuje kurzy a vrátí počet ovlivněných řádků do zobrazení v `ViewData`. Když zobrazení získá `RowsAffected` hodnotu, zobrazí se počet aktualizovaných řádků.
 
-V **Průzkumníku řešení**klepněte pravým tlačítkem myši na složku *Zobrazení nebo Kurzy* a potom klepněte na příkaz **Přidat > novou položku**.
+V **Průzkumník řešení**klikněte pravým tlačítkem na složku *views/kurzy* a pak klikněte na **Přidat > nová položka**.
 
-V dialogovém okně **Přidat novou položku** klepněte na **ASP.NET jádro** v části **Nainstalováno** v levém podokně, klepněte na **položku Razor View**a pojmenujte nové zobrazení *UpdateCourseCredits.cshtml*.
+V dialogovém okně **Přidat novou položku** klikněte **ASP.NET Core** v části **nainstalováno** v levém podokně klikněte na možnost ** Razor zobrazit**a pojmenujte nové zobrazení *UpdateCourseCredits. cshtml*.
 
-V *části Zobrazení/Kurzy/UpdateCourseCredits.cshtml*nahraďte kód šablony následujícím kódem:
+V *zobrazeních/kurzů/UpdateCourseCredits. cshtml*nahraďte kód šablony následujícím kódem:
 
 [!code-html[](intro/samples/cu/Views/Courses/UpdateCourseCredits.cshtml)]
 
-Spusťte metodu `UpdateCourseCredits` výběrem karty **Kurzy** a poté přidáte "/UpdateCourseCredits" na konec adresy URL `http://localhost:5813/Courses/UpdateCourseCredits`v adresním řádku prohlížeče (například: ). Do textového pole zadejte číslo:
+Spusťte `UpdateCourseCredits` metodu tak, že vyberete kartu **kurzy** a pak na konec adresy URL v adresním řádku prohlížeče přidáte "/UpdateCourseCredits" (například: `http://localhost:5813/Courses/UpdateCourseCredits`). Do textového pole zadejte číslo:
 
-![Aktualizovat stránku Kreditů kurzu](advanced/_static/update-credits.png)
+![Stránka aktualizovat kredity kurzu](advanced/_static/update-credits.png)
 
 Klikněte na **Aktualizovat**. Zobrazí se počet ovlivněných řádků:
 
-![Aktualizace ovlivněných řádků stránky Kredity kurzu](advanced/_static/update-credits-rows-affected.png)
+![Aktualizace ovlivněných řádků na stránce kurzů](advanced/_static/update-credits-rows-affected.png)
 
-Kliknutím na **Zpět do seznamu** zobrazíte seznam kurzů s revidovaným počtem kreditů.
+Kliknutím na **zpět na seznam** zobrazíte seznam kurzů s revidovaným počtem kreditů.
 
-Všimněte si, že produkční kód by zajistil, že aktualizace vždy za následek platná data. Zde uvedený zjednodušený kód by mohl znásobit počet kreditů natolik, aby vedl k číslům větším než 5. (Vlastnost `Credits` má `[Range(0, 5)]` atribut.) Aktualizační dotaz by fungoval, ale neplatná data by mohla způsobit neočekávané výsledky v jiných částech systému, které předpokládají, že počet kreditů je 5 nebo méně.
+Všimněte si, že produkční kód zajistí, že aktualizace vždy mají za následek platná data. Zde zobrazený zjednodušený kód může vynásobit počet kreditů, které jsou dostatečné k tomu, aby byly čísla větší než 5. ( `Credits` Vlastnost má `[Range(0, 5)]` atribut.) Aktualizační dotaz by mohl fungovat, ale neplatná data by mohla způsobit neočekávané výsledky v jiných částech systému, které předpokládají, že počet kreditů je 5 nebo méně.
 
-Další informace o nezpracovaných dotazech SQL naleznete [v tématu Raw SQL Queries](/ef/core/querying/raw-sql).
+Další informace o nezpracovaných dotazech SQL naleznete v tématu [raw SQL dotazy](/ef/core/querying/raw-sql).
 
-## <a name="examine-sql-queries"></a>Prozkoumání dotazů SQL
+## <a name="examine-sql-queries"></a>Kontrola dotazů SQL
 
-Někdy je užitečné mít možnost zobrazit skutečné dotazy SQL, které jsou odesílány do databáze. Vestavěné funkce protokolování pro ASP.NET Core se automaticky používá EF Core k zápisu protokolů, které obsahují SQL pro dotazy a aktualizace. V této části uvidíte několik příkladů protokolování SQL.
+Někdy je užitečné, abyste si mohli prohlédnout skutečné dotazy SQL, které se odesílají do databáze. Integrovaná funkce protokolování pro ASP.NET Core automaticky používá EF Core k zápisu protokolů, které obsahují SQL pro dotazy a aktualizace. V této části se zobrazí některé příklady protokolování SQL.
 
-Otevřete *StudentsController.cs* `Details` a v metodě `if (student == null)` nastavte zarážku na příkazu.
+Otevřete *StudentsController.cs* a v `Details` metodě nastavte zarážku na `if (student == null)` příkazu.
 
-Spusťte aplikaci v režimu ladění a přejděte na stránku Podrobnosti pro studenta.
+Spusťte aplikaci v režimu ladění a pokračujte na stránku podrobností pro studenta.
 
-Přejděte do okna **Výstup** zobrazující výstup ladění a zobrazí se dotaz:
+Přejděte do okna **výstup** zobrazující výstup ladění a zobrazí se dotaz:
 
 ```
 Microsoft.EntityFrameworkCore.Database.Command:Information: Executed DbCommand (56ms) [Parameters=[@__id_0='?'], CommandType='Text', CommandTimeout='30']
@@ -142,124 +148,124 @@ INNER JOIN (
 ORDER BY [t].[ID]
 ```
 
-Zde si všimnete něčeho, co vás může překvapit:`TOP(2)`SQL vybere až 2 řádky ( ) z tabulky Osoba. Metoda `SingleOrDefaultAsync` není přeložit na 1 řádek na serveru. Důvod:
+Všimnete si, že se vám může stát, že váš příkaz SQL vybere až 2 řádky (`TOP(2)`) z tabulky Person. `SingleOrDefaultAsync` Metoda není přeložena na 1 řádek na serveru. Důvod:
 
-* Pokud dotaz vrátí více řádků, metoda vrátí null.
-* Chcete-li zjistit, zda dotaz vrátí více řádků, EF musí zkontrolovat, zda vrátí alespoň 2.
+* Pokud by dotaz vrátil více řádků, vrátí metoda hodnotu null.
+* Chcete-li zjistit, zda dotaz by vrátil více řádků, EF musí ověřit, zda se vrátí alespoň 2.
 
-Všimněte si, že není třeba použít režim ladění a zastavit na zarážky získat výstup protokolování v okně **Výstup.** Je to jen pohodlný způsob, jak zastavit protokolování v okamžiku, kdy se chcete podívat na výstup. Pokud tak neučiníte, protokolování pokračuje a budete muset posunout zpět najít části, které vás zajímají.
+Všimněte si, že nemusíte používat režim ladění a zastavte zarážku, abyste získali výstup protokolování v okně **výstup** . Je to jenom pohodlný způsob, jak zastavit protokolování v místě, kde chcete podívat na výstup. Pokud to neuděláte, budete pokračovat v protokolování a budete muset přejít zpátky a vyhledat části, které vás zajímají.
 
 ## <a name="create-an-abstraction-layer"></a>Vytvoření vrstvy abstrakce
 
-Mnoho vývojářů psát kód k implementaci úložiště a jednotky pracovních vzorů jako obálku kolem kódu, který pracuje s entity framework. Tyto vzory jsou určeny k vytvoření vrstvy abstrakce mezi vrstvou přístupu k datům a vrstvou obchodní logiky aplikace. Implementace těchto vzorů může pomoci izolovat vaši aplikaci před změnami v úložišti dat a může usnadnit automatizované testování částí nebo vývoj řízený testováním (TDD). Psaní dalšího kódu k implementaci těchto vzorů však není vždy nejlepší volbou pro aplikace, které používají EF, z několika důvodů:
+Mnoho vývojářů napíše kód, který implementuje úložiště a pracovní postupy jako obálku kolem kódu, který pracuje s Entity Framework. Tyto vzory mají za cíl vytvořit vrstvu abstrakce mezi vrstvou pro přístup k datům a vrstvou obchodní logiky aplikace. Implementace těchto vzorů vám může přispět k izolaci aplikace před změnami v úložišti dat a může usnadnit automatizované testování částí nebo vývoj řízený testováním (TDD). Nicméně psaní dalšího kódu pro implementaci těchto vzorů není vždy nejlepší volbou pro aplikace, které používají EF, z několika důvodů:
 
-* Třída kontextu EF sama o sobě izoluje váš kód z kódu specifické pro úložiště dat.
+* Třída kontextu EF sama neizolací váš kód z kódu specifického pro úložiště dat.
 
-* Třída kontextu EF může fungovat jako jednotka práce třídy pro aktualizace databáze, které používáte EF.
+* Třída kontextu EF může fungovat jako jednotka pro práci s aktualizacemi databáze, které používáte pomocí EF.
 
-* EF obsahuje funkce pro implementaci TDD bez psaní kódu úložiště.
+* EF obsahuje funkce pro implementaci služby TDD bez psaní kódu úložiště.
 
-Informace o tom, jak implementovat úložiště a jednotky pracovních vzorů, naleznete [v entity Framework 5 verze této série kurzů](/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application).
+Informace o implementaci vzorového úložiště a pracovní jednotky najdete v části [Entity Framework 5 této série kurzů](/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application).
 
-Entity Framework Core implementuje poskytovatele databáze v paměti, který lze použít pro testování. Další informace naleznete v [tématu Test with InMemory](/ef/core/miscellaneous/testing/in-memory).
+Entity Framework Core implementuje poskytovatele databáze v paměti, který lze použít k testování. Další informace najdete v tématu [test s Nepamětí](/ef/core/miscellaneous/testing/in-memory).
 
-## <a name="automatic-change-detection"></a>Automatická detekce změn
+## <a name="automatic-change-detection"></a>Automatické zjišťování změn
 
-Entity Framework určuje, jak se účetní jednotka změnila (a proto je třeba odeslat aktualizace do databáze) porovnáním aktuálních hodnot entity s původními hodnotami. Původní hodnoty jsou uloženy při dotazování nebo připojení entity. Některé metody, které způsobují automatické zjišťování změn, jsou následující:
+Entity Framework určuje, jak se entita změnila (takže se aktualizace musí odeslat do databáze) porovnáním aktuálních hodnot entity s původními hodnotami. Původní hodnoty se uloží, když je entita dotazována nebo připojena. Některé z metod, které způsobují automatickou detekci změn, jsou následující:
 
-* DbContext.SaveChanges
+* DbContext. SaveChanges
 
-* DbContext.Položka
+* DbContext. entry
 
-* ChangeTracker.Položky
+* ChangeTracker. Entries
 
-Pokud sledujete velký počet entit a voláte jednu z těchto metod mnohokrát ve smyčce, můžete získat významné `ChangeTracker.AutoDetectChangesEnabled` zlepšení výkonu dočasným vypnutím automatického zjišťování změn pomocí vlastnosti. Příklad:
+Pokud sledujete velký počet entit a v rámci smyčky několikrát voláte jednu z těchto metod, můžete dosáhnout výrazného zlepšení výkonu tím, že se `ChangeTracker.AutoDetectChangesEnabled` při automatickém vypnutí automatického zjišťování změn použije vlastnost. Příklad:
 
 ```csharp
 _context.ChangeTracker.AutoDetectChangesEnabled = false;
 ```
 
-## <a name="ef-core-source-code-and-development-plans"></a>EF Základní zdrojový kód a plány rozvoje
+## <a name="ef-core-source-code-and-development-plans"></a>EF Core zdrojový kód a vývojové plány
 
-Zdroj core entity framework [https://github.com/dotnet/efcore](https://github.com/dotnet/efcore)je na . Úložiště EF Core obsahuje noční sestavení, sledování problémů, specifikace funkcí, poznámky k návrhu schůzky a [plán budoucího vývoje](https://github.com/dotnet/efcore/wiki/Roadmap). Můžete soubor nebo najít chyby, a přispět.
+Zdroj Entity Framework Core je v [https://github.com/dotnet/efcore](https://github.com/dotnet/efcore). EF Core úložiště obsahuje noční buildy, sledování problémů, specifikace funkcí, návrhy poznámek na schůzce a [plán pro budoucí vývoj](https://github.com/dotnet/efcore/wiki/Roadmap). Můžete soubor nebo najít chyby a přispívat.
 
-Přestože zdrojový kód je otevřený, Entity Framework Core je plně podporován jako produkt společnosti Microsoft. Tým Microsoft Entity Framework udržuje kontrolu nad příspěvky, které jsou přijímány a testuje všechny změny kódu, aby byla zajištěna kvalita každé verze.
+I když je zdrojový kód otevřený, Entity Framework Core je plně podporovaný jako produkt společnosti Microsoft. Tým Microsoft Entity Framework udržuje kontrolu nad tím, které příspěvky jsou přijaty, a testuje všechny změny kódu, aby se zajistila kvalita jednotlivých verzí.
 
-## <a name="reverse-engineer-from-existing-database"></a>Zpětná inženýrská instrukace z existující databáze
+## <a name="reverse-engineer-from-existing-database"></a>Zpětná analýza z existující databáze
 
-Chcete-li zpětně analyzovat datový model včetně tříd entit z existující databáze, použijte příkaz [scaffold-dbcontext.](/ef/core/miscellaneous/cli/powershell#scaffold-dbcontext) Podívejte se na [výuku začínáme](/ef/core/get-started/aspnetcore/existing-db).
+Chcete-li provést zpětnou analýzu datového modelu, včetně tříd entit z existující databáze, použijte příkaz pro [generování uživatelského rozhraní (DbContext](/ef/core/miscellaneous/cli/powershell#scaffold-dbcontext) ). Přečtěte si [Úvodní kurz](/ef/core/get-started/aspnetcore/existing-db).
 
 <a id="dynamic-linq"></a>
 
-## <a name="use-dynamic-linq-to-simplify-code"></a>Zjednodušení kódu pomocí dynamického LINQ
+## <a name="use-dynamic-linq-to-simplify-code"></a>Zjednodušení kódu pomocí dynamického jazyka LINQ
 
-[Třetí kurz v této sérii](sort-filter-page.md) ukazuje, jak psát kód LINQ `switch` pomocí pevně kódující názvy sloupců v příkazu. Se dvěma sloupci na výběr, to funguje dobře, ale pokud máte mnoho sloupců kód může získat podrobné. Chcete-li tento problém vyřešit, můžete použít metodu `EF.Property` k určení názvu vlastnosti jako řetězec. Chcete-li vyzkoušet tento `Index` přístup, `StudentsController` nahraďte metodu v následujícím kódu.
+[Třetí kurz v této sérii](sort-filter-page.md) ukazuje, jak napsat kód LINQ pomocí pevného kódování názvů sloupců v `switch` příkazu. Se dvěma sloupci, ze kterých si můžete vybrat, to funguje dobře, ale pokud máte mnoho sloupců, může kód získat podrobné. Chcete-li tento problém vyřešit, můžete použít `EF.Property` metodu k určení názvu vlastnosti jako řetězce. Chcete-li vyzkoušet tento přístup, nahraďte `Index` metodu v `StudentsController` kódu následujícím kódem.
 
 [!code-csharp[](intro/samples/cu/Controllers/StudentsController.cs?name=snippet_DynamicLinq)]
 
 ## <a name="acknowledgments"></a>Poděkování
 
-Tom Dykstra a Rick @RickAndMSFTAnderson (twitter) napsal tento výukový program. Rowan Miller, Diego Vega a další členové týmu Entity Framework pomáhali s revizemi kódu a pomáhali ladit problémy, které vznikly při psaní kódu pro kurzy. John Parente a Paul Goldman pracovali na aktualizaci kurzu pro ASP.NET Core 2.2.
+V tomto kurzu jste napsali Dykstra @RickAndMSFTa Rick Anderson (Twitter). Rowan Miller, Diegu Vega a další členové Entity Framework týmu s asistencí revize kódu a pomohli ladit problémy, které vznikly při psaní kódu pro kurzy. Jan rodiče a Paul Goldman pracovali na aktualizaci kurzu pro ASP.NET Core 2,2.
 
 <a id="common-errors"></a>
 
 ## <a name="troubleshoot-common-errors"></a>Odstraňování běžných chyb
 
-### <a name="contosouniversitydll-used-by-another-process"></a>ContosoUniversity.dll používá jiný proces
+### <a name="contosouniversitydll-used-by-another-process"></a>ContosoUniversity. dll používá jiný proces.
 
 Chybová zpráva:
 
-> Nelze otevřít '... bin\Debug\netcoreapp1.0\ContosoUniversity.dll' pro zápis – Proces nemůže získat přístup k souboru ...\bin\Debug\netcoreapp1.0\ContosoUniversity.dll', protože je používán jiným procesem.
+> Nejde otevřít... bin\Debug\netcoreapp1.0\ContosoUniversity.dll ' pro zápis-' proces nemůže získat přístup k souboru '. ..\bin\Debug\netcoreapp1.0\ContosoUniversity.dll ', protože je používán jiným procesem.
 
 Řešení:
 
-Zastavte web ve správě IIS Express. Přejděte na panel windows, najděte službu IIS Express a klepněte pravým tlačítkem myši na její ikonu, vyberte web Univerzity Contoso a klepněte na příkaz **Zastavit web**.
+Zastavte lokalitu v IIS Express. Přejděte na hlavní panel systému Windows, vyhledejte IIS Express a klikněte pravým tlačítkem na jeho ikonu, vyberte web společnosti Contoso University a pak klikněte na **Zastavit Web**.
 
-### <a name="migration-scaffolded-with-no-code-in-up-and-down-methods"></a>Migrace šavle bez kódu v metodách Nahoru a Dolů
+### <a name="migration-scaffolded-with-no-code-in-up-and-down-methods"></a>Replikace – generování uživatelského rozhraní bez kódu v rámci metod up a Down
 
 Možná příčina:
 
-Příkazy příkazového příkazu PŘÍKAZEf automaticky neuzavírají a neukládají soubory kódu. Pokud máte neuložené změny při `migrations add` spuštění příkazu, EF nenajde změny.
+Příkazy EF CLI automaticky nezavřou a neukládají soubory kódu. Pokud máte neuložené změny při spuštění `migrations add` příkazu, EF nezjistí vaše změny.
 
 Řešení:
 
-Spusťte `migrations remove` příkaz, uložte změny `migrations add` kódu a znovu spusťte příkaz.
+Spusťte `migrations remove` příkaz, uložte změny kódu a spusťte `migrations add` příkaz znovu.
 
 ### <a name="errors-while-running-database-update"></a>Chyby při spuštění aktualizace databáze
 
-Je možné získat další chyby při provádění změn schématu v databázi, která má existující data. Pokud se vám budou chyby migrace vyřešit, můžete změnit název databáze v připojovacím řetězci nebo databázi odstranit. S novou databází nejsou k dispozici žádná data k migraci a příkaz databáze aktualizací je mnohem pravděpodobnější, že bude dokončen bez chyb.
+Při provádění změn schématu v databázi, která obsahuje existující data, je možné získat další chyby. Pokud se zobrazí chyby migrace, které nemůžete vyřešit, můžete buď změnit název databáze v připojovacím řetězci, nebo databázi odstranit. V případě nové databáze není k dispozici žádná data k migraci a příkaz Update-Database je mnohem pravděpodobnější, že se nedokončí bez chyb.
 
-Nejjednodušší přístup je přejmenovat databázi v *appsettings.json*. Při příštím spuštění `database update`bude vytvořena nová databáze.
+Nejjednodušším přístupem je přejmenovat databázi v souboru *appSettings. JSON*. Při příštím spuštění `database update`se vytvoří nová databáze.
 
-Chcete-li odstranit databázi ve ssoxu, klepněte pravým tlačítkem myši na databázi, klepněte na příkaz **Odstranit**a potom v dialogovém okně **Odstranit databázi** vyberte **zavřít existující připojení** a klepněte na tlačítko **OK**.
+Databázi v SSOX odstraníte tak, že kliknete pravým tlačítkem na databázi, kliknete na **Odstranit**a pak v dialogovém okně **odstranit databázi** vyberete **Zavřít existující připojení** a kliknete na **OK**.
 
-Chcete-li odstranit databázi pomocí příkazového příkazu příkazového příkazu, spusťte příkaz příkazu příkazu příkazu k příkazu: `database drop`
+Chcete-li odstranit databázi pomocí rozhraní příkazového řádku, `database drop` spusťte příkaz CLI:
 
 ```dotnetcli
 dotnet ef database drop
 ```
 
-### <a name="error-locating-sql-server-instance"></a>Při vyhledání instance serveru SQL Server došlo k chybě.
+### <a name="error-locating-sql-server-instance"></a>Při hledání instance SQL Server došlo k chybě.
 
 Chybová zpráva:
 
-> Při navazování připojení k SQL Serveru došlo k chybě související se sítí nebo konkrétní instancí. Server se nenašel nebo nebyl dostupný. Ověřte, zda je název instance správný a zda je server SQL Server nakonfigurován tak, aby umožňoval vzdálená připojení. (poskytovatel: SQL Network Interfaces, error: 26 - Error Locating Server/Instance Specified)
+> Při navazování připojení k SQL Serveru došlo k chybě související se sítí nebo konkrétní instancí. Server se nenašel nebo nebyl dostupný. Ověřte, zda je název instance správný a zda je SQL Server nakonfigurovaná tak, aby povolovala vzdálená připojení. (poskytovatel: síťová rozhraní SQL, chyba: 26 – Chyba při hledání zadaného serveru nebo instance)
 
 Řešení:
 
-Zkontrolujte připojovací řetězec. Pokud jste ručně odstranili soubor databáze, změňte název databáze ve stavebním řetězci a začněte znovu s novou databází.
+Ověřte připojovací řetězec. Pokud jste soubor databáze odstranili ručně, změňte název databáze v řetězci konstrukce, aby bylo možné začít znovu s novou databází.
 
 ## <a name="get-the-code"></a>Získání kódu
 
-[Stáhněte nebo zobrazte dokončenou aplikaci.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
+[Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
 ## <a name="additional-resources"></a>Další zdroje
 
-Další informace o ef core naleznete [v dokumentaci core entity frameworku](/ef/core). Kniha je také k dispozici: [Entity Framework Core in Action](https://www.manning.com/books/entity-framework-core-in-action).
+Další informace o EF Core najdete v dokumentaci k [Entity Framework Core](/ef/core). K dispozici je také kniha: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
 
-Informace o nasazení webové aplikace naleznete <xref:host-and-deploy/index>v tématu .
+Informace o tom, jak nasadit webovou aplikaci, najdete v <xref:host-and-deploy/index>tématu.
 
-Informace o dalších tématech souvisejících s ASP.NET core MVC, například ověřování a autorizace, naleznete v tématu <xref:index>.
+Informace o dalších tématech souvisejících s ASP.NET Core MVC, jako je ověřování a autorizace, najdete v <xref:index>tématu.
 
 ## <a name="next-steps"></a>Další kroky
 
@@ -267,16 +273,16 @@ V tomto kurzu jste:
 
 > [!div class="checklist"]
 > * Provedené nezpracované dotazy SQL
-> * Nazývá se dotaz na vrácení entit
-> * Volal dotaz vrátit jiné typy
-> * Nazývá se aktualizační dotaz
-> * Zkoumané dotazy SQL
-> * Vytvoření vrstvy abstrakce
-> * Informace o automatickém zjišťování změn
-> * Informace o zdrojovém kódu EF Core a plánech rozvoje
-> * Naučili se používat dynamické LINQ ke zjednodušení kódu
+> * Volal se dotaz na vrácení entit.
+> * Volal se dotaz, který vrátí jiné typy.
+> * Volal se dotaz na aktualizaci.
+> * Prověření dotazů SQL
+> * Vytvořila se vrstva abstrakce.
+> * Seznámili jste se o automatické detekci změn
+> * Dozvěděli jste se o EF Core zdrojového kódu a vývojářských plánech.
+> * Zjistili jsme, jak pomocí dynamického jazyka LINQ zjednodušit kód
 
-Tím se dokončí tato řada kurzů o použití jádra entity frameworku v ASP.NET základní aplikace MVC. Tato řada pracovala s novou databází; Alternativou je zpětná inženýrská organizace modelu z existující databáze.
+Tím se dokončí Tato série kurzů na používání Entity Framework Core v aplikaci ASP.NET Core MVC. Tato série se pracovala s novou databází. alternativou je provést zpětnou analýzu modelu z existující databáze.
 
 > [!div class="nextstepaction"]
-> [Kurz: EF Core s MVC, existující databáze](/ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json)
+> [Kurz: EF Core s MVC, stávající databáze](/ef/core/get-started/aspnetcore/existing-db?toc=/aspnet/core/toc.json&bc=/aspnet/core/breadcrumb/toc.json)

@@ -1,95 +1,101 @@
 ---
-title: Moduly IIS s ASP.NET jádrem
+title: Moduly IIS s ASP.NET Core
 author: rick-anderson
-description: Objevte aktivní a neaktivní moduly služby IIS pro ASP.NET aplikace Core a způsob správy modulů služby IIS.
+description: Objevte aktivní a neaktivní moduly IIS pro aplikace ASP.NET Core a Správa modulů IIS.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/iis/modules
-ms.openlocfilehash: 0f13ef3eb1da03960ef1fa54d33532b6ebbdc128
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 7262b9ea18e4cf6acd278d087fcc44262f8f9c80
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78657904"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775944"
 ---
-# <a name="iis-modules-with-aspnet-core"></a>Moduly IIS s ASP.NET jádrem
+# <a name="iis-modules-with-aspnet-core"></a>Moduly IIS s ASP.NET Core
 
-Některé nativní moduly služby IIS a všechny moduly spravované službou IIS nejsou schopny zpracovávat požadavky na ASP.NET základní aplikace. V mnoha případech ASP.NET Core nabízí alternativu ke scénářům, které řeší nativní a spravované moduly iis.
+Některé z nativních modulů služby IIS a všechny spravované moduly služby IIS nemohou zpracovávat požadavky na aplikace ASP.NET Core. V mnoha případech ASP.NET Core nabízí alternativu k scénářům řešeným nativními a spravovanými moduly služby IIS.
 
 ## <a name="native-modules"></a>Nativní moduly
 
-V tabulce jsou uvedeny nativní moduly služby IIS, které jsou funkční s aplikacemi ASP.NET Core a ASP.NET Core Module.
+Tato tabulka uvádí nativní moduly služby IIS, které jsou funkční s ASP.NET Core aplikacemi a modulem ASP.NET Core.
 
-| Modul | Funkční s aplikacemi ASP.NET Core | ASP.NET základní možnost |
+| Modul | Funkce ASP.NET Corech aplikací | Možnost ASP.NET Core |
 | --- | :---: | --- |
 | **Anonymní ověřování**<br>`AnonymousAuthenticationModule`                                  | Ano | |
 | **Základní ověření**<br>`BasicAuthenticationModule`                                          | Ano | |
 | **Ověřování mapování certifikace klientů**<br>`CertificateMappingAuthenticationModule`      | Ano | |
 | **CGI**<br>`CgiModule`                                                                           | Ne  | |
 | **Ověření konfigurace**<br>`ConfigurationValidationModule`                                  | Ano | |
-| **Chyby protokolu HTTP**<br>`CustomErrorModule`                                                           | Ne  | [Middleware stránky stavu](xref:fundamentals/error-handling#usestatuscodepages) |
+| **Chyby protokolu HTTP**<br>`CustomErrorModule`                                                           | Ne  | [Middleware stránky stavového kódu](xref:fundamentals/error-handling#usestatuscodepages) |
 | **Vlastní protokolování**<br>`CustomLoggingModule`                                                      | Ano | |
-| **Výchozí dokument**<br>`DefaultDocumentModule`                                                  | Ne  | [Výchozí soubor middlewar](xref:fundamentals/static-files#serve-a-default-document) |
+| **Výchozí dokument**<br>`DefaultDocumentModule`                                                  | Ne  | [Middleware výchozích souborů](xref:fundamentals/static-files#serve-a-default-document) |
 | **Ověřování hodnotou hash**<br>`DigestAuthenticationModule`                                        | Ano | |
-| **Procházení adresářů**<br>`DirectoryListingModule`                                               | Ne  | [Middleware pro procházení adresářů](xref:fundamentals/static-files#enable-directory-browsing) |
-| **Dynamická komprese**<br>`DynamicCompressionModule`                                            | Ano | [Middleware komprese odpovědí](xref:performance/response-compression) |
-| **Trasování neúspěšných požadavků**<br>`FailedRequestsTracingModule`                                     | Ano | [ASP.NET základní protokolování](xref:fundamentals/logging/index#tracesource-provider) |
+| **Procházení adresářů**<br>`DirectoryListingModule`                                               | Ne  | [Middleware procházení adresářů](xref:fundamentals/static-files#enable-directory-browsing) |
+| **Dynamická komprese**<br>`DynamicCompressionModule`                                            | Ano | [Middleware pro kompresi odpovědí](xref:performance/response-compression) |
+| **Trasování chybných žádostí**<br>`FailedRequestsTracingModule`                                     | Ano | [Protokolování ASP.NET Core](xref:fundamentals/logging/index#tracesource-provider) |
 | **Ukládání souborů do mezipaměti**<br>`FileCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
-| **Ukládání do mezipaměti HTTP**<br>`HttpCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
-| **Protokolování HTTP**<br>`HttpLoggingModule`                                                          | Ano | [ASP.NET základní protokolování](xref:fundamentals/logging/index) |
+| **Ukládání HTTP do mezipaměti**<br>`HttpCacheModule`                                                            | Ne  | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
+| **Protokolování HTTP**<br>`HttpLoggingModule`                                                          | Ano | [Protokolování ASP.NET Core](xref:fundamentals/logging/index) |
 | **Přesměrování protokolu HTTP**<br>`HttpRedirectionModule`                                                  | Ano | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
 | **Trasování HTTP**<br>`TracingModule`                                                              | Ano | |
-| **Ověřování klientských certifikátů služby IIS**<br>`IISCertificateMappingAuthenticationModule` | Ano | |
-| **Omezení IP adres a domény**<br>`IpRestrictionModule`                                          | Ano | |
+| **Ověřování mapování klientských certifikátů služby IIS**<br>`IISCertificateMappingAuthenticationModule` | Ano | |
+| **Omezení podle IP adresy a domény**<br>`IpRestrictionModule`                                          | Ano | |
 | **Filtry ISAPI**<br>`IsapiFilterModule`                                                         | Ano | [Middleware](xref:fundamentals/middleware/index) |
-| **Isapi**<br>`IsapiModule`                                                                       | Ano | [Middleware](xref:fundamentals/middleware/index) |
-| **Podpora protokolu**<br>`ProtocolSupportModule`                                                  | Ano | |
-| **Filtrování požadavků**<br>`RequestFilteringModule`                                                | Ano | [Přepisování middlewaru adres URL`IRule`](xref:fundamentals/url-rewriting#irule-based-rule) |
+| **ISAPI**<br>`IsapiModule`                                                                       | Ano | [Middleware](xref:fundamentals/middleware/index) |
+| **Podpora protokolů**<br>`ProtocolSupportModule`                                                  | Ano | |
+| **Filtrování požadavků**<br>`RequestFilteringModule`                                                | Ano | [Middleware pro přepis adres URL`IRule`](xref:fundamentals/url-rewriting#irule-based-rule) |
 | **Sledování požadavků**<br>`RequestMonitorModule`                                                    | Ano | |
-| **Přepisování adres URL**&#8224;<br>`RewriteModule`                                                      | Ano | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
-| **Zahrnuje na straně serveru**<br>`ServerSideIncludeModule`                                            | Ne  | |
-| **Statická komprese**<br>`StaticCompressionModule`                                              | Ne  | [Middleware komprese odpovědí](xref:performance/response-compression) |
-| **Statický obsah**<br>`StaticFileModule`                                                         | Ne  | [Middleware statického souboru](xref:fundamentals/static-files) |
+| &#8224; **přepsání adresy URL**<br>`RewriteModule`                                                      | Ano | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
+| **Začlenění na straně serveru**<br>`ServerSideIncludeModule`                                            | Ne  | |
+| **Statická komprese**<br>`StaticCompressionModule`                                              | Ne  | [Middleware pro kompresi odpovědí](xref:performance/response-compression) |
+| **Statický obsah**<br>`StaticFileModule`                                                         | Ne  | [Middleware statických souborů](xref:fundamentals/static-files) |
 | **Ukládání tokenů do mezipaměti**<br>`TokenCacheModule`                                                          | Ano | |
-| **Ukládání do mezipaměti identifikátoru URI**<br>`UriCacheModule`                                                              | Ano | |
-| **Autorizace adresy URL**<br>`UrlAuthorizationModule`                                                | Ano | [ASP.NET základní identity](xref:security/authentication/identity) |
+| **Ukládání identifikátorů URI do mezipaměti**<br>`UriCacheModule`                                                              | Ano | |
+| **Autorizace adres URL**<br>`UrlAuthorizationModule`                                                | Ano | [ASP.NET Core identity](xref:security/authentication/identity) |
 | **Ověřování systému Windows**<br>`WindowsAuthenticationModule`                                      | Ano | |
 
-&#8224;Typy `isFile` modulu přepisování `isDirectory` adres URL a shody nefungují s aplikacemi ASP.NET Core kvůli změnám ve [struktuře adresářů](xref:host-and-deploy/directory-structure).
+&#8224;typy `isFile` a `isDirectory` porovnávání v rámci adresy URL nefungují s ASP.NET Core aplikacemi z důvodu změn ve [struktuře adresářové](xref:host-and-deploy/directory-structure)služby.
 
 ## <a name="managed-modules"></a>Spravované moduly
 
-Spravované moduly *nejsou* funkční s hostovanými aplikacemi ASP.NET Core, pokud je verze .NET CLR fondu aplikací nastavena na **žádný spravovaný kód**. ASP.NET Core nabízí middleware alternativy v několika případech.
+Spravované moduly nejsou *funkční u* hostovaných ASP.NET Core aplikací, pokud je verze .NET CLR fondu aplikací nastavená na **žádný spravovaný kód**. ASP.NET Core nabízí alternativy middlewaru v několika případech.
 
-| Modul                  | ASP.NET základní možnost |
+| Modul                  | Možnost ASP.NET Core |
 | ----------------------- | ------------------- |
-| Anonymousidentification | |
-| Výchozí ověřování   | |
-| Autorizace souboru       | |
-| Ověřování formulářů     | [Middleware pro ověřování souborů cookie](xref:security/authentication/cookie) |
-| Outputcache             | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
+| AnonymousIdentification | |
+| DefaultAuthentication   | |
+| Autorace       | |
+| FormsAuthentication     | [Middleware pro ověřování souborů cookie](xref:security/authentication/cookie) |
+| OutputCache             | [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) |
 | Profil                 | |
-| Rolemanager             | |
-| Modul skriptu-4.0        | |
+| RoleManager             | |
+| ScriptModule-4,0        | |
 | Relace                 | [Middleware relace](xref:fundamentals/app-state) |
 | UrlAuthorization        | |
-| UrlMappingsModul       | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
-| UrlRoutingModule-4.0    | [ASP.NET základní identity](xref:security/authentication/identity) |
-| Ověřování systému Windows   | |
+| UrlMappingsModule       | [Middleware pro přepis adres URL](xref:fundamentals/url-rewriting) |
+| UrlRoutingModule-4,0    | [ASP.NET CoreIdentity](xref:security/authentication/identity) |
+| WindowsAuthentication   | |
 
-## <a name="iis-manager-application-changes"></a>Změny aplikací Správce služby IIS
+## <a name="iis-manager-application-changes"></a>Změny aplikace Správce služby IIS
 
-Při konfiguraci nastavení pomocí Správce služby IIS se změní soubor *web.config* aplikace. Pokud nasazujete aplikaci a zahrnujete *web.config*, všechny změny provedené ve Správci služby IIS jsou přepsány nasazeným souborem *web.config.* Pokud jsou v souboru *web.config* serveru provedeny změny, zkopírujte okamžitě aktualizovaný soubor *web.config* na serveru do místního projektu.
+Při použití Správce služby IIS ke konfiguraci nastavení se změní soubor *Web. config* aplikace. Pokud nasazujete aplikaci a včetně *souboru Web. config*, všechny změny provedené ve Správci služby IIS se přepíší nasazeným souborem *Web. config* . Pokud provedete změny v souboru *Web. config* serveru, Zkopírujte aktualizovaný soubor *Web. config* na server do místního projektu hned.
 
-## <a name="disabling-iis-modules"></a>Zakázání modulů iIS
+## <a name="disabling-iis-modules"></a>Zakázání modulů IIS
 
-Pokud je modul služby IIS nakonfigurován na úrovni serveru, který musí být pro aplikaci zakázán, může modul zakázat doplněk k souboru *web.config* aplikace. Buď nechte modul na místě a deaktivujte jej pomocí nastavení konfigurace (pokud je k dispozici), nebo modul z aplikace odeberte.
+Pokud je modul IIS nakonfigurovaný na úrovni serveru, která musí být pro aplikaci zakázaná, může se tento modul zakázat přidáním do souboru *Web. config* aplikace. Ponechte modul na místě a deaktivujte ho pomocí nastavení konfigurace (Pokud je dostupné) nebo odeberte modul z aplikace.
 
 ### <a name="module-deactivation"></a>Deaktivace modulu
 
-Mnoho modulů nabízí nastavení konfigurace, které umožňuje jejich zakázání bez odebrání modulu z aplikace. Jedná se o nejjednodušší a nejrychlejší způsob deaktivace modulu. Modul přesměrování HTTP lze například zakázat `<httpRedirect>` pomocí prvku v *souboru web.config*:
+Mnoho modulů nabízí konfigurační nastavení, které umožňuje jejich zakázání bez odebrání modulu z aplikace. Toto je nejjednodušší a nejrychlejší způsob, jak deaktivovat modul. Například modul Přesměrování HTTP může být zakázán pomocí `<httpRedirect>` elementu v *souboru Web. config*:
 
 ```xml
 <configuration>
@@ -99,19 +105,19 @@ Mnoho modulů nabízí nastavení konfigurace, které umožňuje jejich zakázá
 </configuration>
 ```
 
-Další informace o zakázání modulů s nastavením konfigurace naleznete v odkazech v části *Podřízené prvky* [ \<systému IIS system.webServer>](/iis/configuration/system.webServer/).
+Další informace o zakázání modulů s nastavením konfigurace najdete v tématu odkazy v části *podřízené prvky* v rámci [služby IIS \<System. webServer>](/iis/configuration/system.webServer/).
 
 ### <a name="module-removal"></a>Odebrání modulu
 
-Pokud se rozhodnete odstranit modul s nastavením v *web.config* `<modules>` , odemknout modul a odemknout sekci *web.config* první:
+Pokud se rozhodnete odebrat modul s nastavením v *souboru Web. config*, odemkněte modul a nejdříve odemkněte `<modules>` oddíl *Web. config* :
 
-1. Odemkněte modul na úrovni serveru. V postranním panelu **Připojení** správce služby IIS vyberte server Služby IIS. Otevřete **moduly** v oblasti **iis.** Vyberte modul v seznamu. V postranním panelu **Akce** vpravo vyberte **Odemknout**. Pokud se položka akce pro modul zobrazí jako **zámek**, modul je již odemčen a není vyžadována žádná akce. Odemkněte tolik modulů, kolik chcete později odebrat z *web.config.*
+1. Odemkněte modul na úrovni serveru. Vyberte server IIS na postranním panelu **připojení** Správce služby IIS. Otevřete **moduly** v oblasti **IIS** . Vyberte modul v seznamu. Na bočním panelu **Akce** na pravé straně vyberte **odemknout**. Pokud se položka akce pro modul zobrazí jako **Zámek**, modul už je odemčený a nevyžaduje se žádná akce. V případě, že plánujete odebrat ze *souboru Web. config* , odemkněte tolik modulů.
 
-2. Nasazení aplikace bez `<modules>` oddílu v *web.config*. Pokud je aplikace nasazená s *web.config* obsahující `<modules>` oddíl bez odemknutí oddílu jako první ve Správci služby IIS, správce konfigurace vyvolá výjimku při pokusu o odemknutí oddílu. Proto nasadit aplikaci `<modules>` bez oddílu.
+2. Nasaďte aplikaci bez `<modules>` části v *souboru Web. config*. Pokud je aplikace nasazená pomocí *souboru Web. config* , který `<modules>` obsahuje oddíl, aniž byste nejdřív odemkli oddíl ve správci služby IIS, Configuration Manager při pokusu o odemknutí této části výjimku vyvolá. Proto aplikaci nasaďte bez `<modules>` části.
 
-3. Odemkněte `<modules>` sekci *web.config*. Na postranním panelu **Připojení** vyberte web v **části Weby**. V oblasti **Správa** otevřete **Editor konfigurace**. Pomocí navigačních ovládacích `system.webServer/modules` prvků vyberte oddíl. V postranním panelu **Akce** vpravo vyberte **odemknutí** oddílu. Pokud se položka akce pro oddíl modulu zobrazí jako **Zamknout oddíl**, část modulu je již odemčena a není vyžadována žádná akce.
+3. Odemkněte `<modules>` oddíl souboru *Web. config*. Na bočním panelu **připojení** vyberte web na **webech**. V oblasti **Správa** otevřete **Editor konfigurací**. K výběru `system.webServer/modules` oddílu použijte navigační ovládací prvky. Na bočním panelu **Akce** na pravé straně vyberte možnost **odemknout** oddíl. Pokud se položka akce pro modul zobrazuje jako **Zámek**, oddíl Module už je odemčený a nevyžaduje se žádná akce.
 
-4. Přidejte `<modules>` oddíl do místního souboru *web.config* aplikace s `<remove>` prvkem, který modul z aplikace odebere. Přidejte `<remove>` více prvků pro odebrání více modulů. Pokud jsou na serveru provedeny změny *web.config,* okamžitě proveďte stejné změny v souboru *web.config* projektu místně. Odebrání modulu pomocí tohoto přístupu nemá vliv na použití modulu s jinými aplikacemi na serveru.
+4. Přidejte `<modules>` oddíl do místního souboru *Web. config* aplikace s `<remove>` elementem, aby se modul z aplikace odebral. Přidejte více `<remove>` prvků pro odebrání více modulů. Pokud jsou na serveru provedeny změny *Web. config* , okamžitě proveďte stejné změny v souboru *Web. config* projektu místně. Odebrání modulu s použitím tohoto přístupu neovlivní použití modulu s jinými aplikacemi na serveru.
 
    ```xml
    <configuration>
@@ -123,11 +129,11 @@ Pokud se rozhodnete odstranit modul s nastavením v *web.config* `<modules>` , o
    </configuration>
    ```
 
-Chcete-li přidat nebo odebrat moduly pro službu IIS Express pomocí *souboru web.config*, upravte *soubor applicationHost.config:* `<modules>`
+Chcete-li přidat nebo odebrat moduly pro IIS Express pomocí souboru *Web. config*, upravte soubor *ApplicationHost. config* a `<modules>` odemkněte oddíl:
 
-1. Otevřete *soubor\\{APPLICATION ROOT} .vs\config\applicationhost.config*.
+1. Otevřete *aplikaci {root}\\. vs\config\applicationhost.config*.
 
-1. Vyhledejte `<section>` prvek pro moduly `overrideModeDefault` iis a změňte z `Deny` na `Allow`:
+1. Vyhledejte `<section>` element pro moduly IIS a změňte `overrideModeDefault` z `Deny` na: `Allow`
 
    ```xml
    <section name="modules"
@@ -135,21 +141,21 @@ Chcete-li přidat nebo odebrat moduly pro službu IIS Express pomocí *souboru w
             overrideModeDefault="Allow" />
    ```
 
-1. Vyhledejte část `<location path="" overrideMode="Allow"><system.webServer><modules>`. Pro všechny moduly, které chcete `lockItem` `true` odebrat, nastavte z na . `false` V následujícím příkladu je modul CGI odemčen:
+1. Vyhledejte část `<location path="" overrideMode="Allow"><system.webServer><modules>`. U všech modulů, které chcete odebrat, nastavte `lockItem` z `true` na. `false` V následujícím příkladu je modul CGI odemčený:
 
    ```xml
    <add name="CgiModule" lockItem="false" />
    ```
 
-1. Po `<modules>` odemknutí oddílu a jednotlivých modulů můžete přidat nebo odebrat moduly služby IIS pomocí souboru *web.config* aplikace pro spuštění aplikace ve službě IIS Express.
+1. Po odemčení `<modules>` oddílu a jednotlivých modulů můžete přidat nebo odebrat moduly IIS pomocí souboru *Web. config* aplikace pro spuštění aplikace na IIS Express.
 
-Modul iis lze také odebrat pomocí *programu Appcmd.exe*. Zadejte `MODULE_NAME` `APPLICATION_NAME` a v příkazu:
+Pomocí nástroje *Appcmd. exe*lze také odebrat modul IIS. Zadejte `MODULE_NAME` a `APPLICATION_NAME` v příkazu:
 
 ```console
 Appcmd.exe delete module MODULE_NAME /app.name:APPLICATION_NAME
 ```
 
-Můžete například `DynamicCompressionModule` odebrat výchozí web:
+Odeberte například `DynamicCompressionModule` z výchozího webu:
 
 ```console
 %windir%\system32\inetsrv\appcmd.exe delete module DynamicCompressionModule /app.name:"Default Web Site"
@@ -157,15 +163,15 @@ Můžete například `DynamicCompressionModule` odebrat výchozí web:
 
 ## <a name="minimum-module-configuration"></a>Minimální konfigurace modulu
 
-Jediné moduly potřebné ke spuštění aplikace ASP.NET Core jsou modul anonymního ověřování a ASP.NET core modul.
+Jediným modulem požadovaným pro spuštění aplikace ASP.NET Core jsou modul anonymního ověřování a modul ASP.NET Core.
 
-Modul ukládání do mezipaměti URI (`UriCacheModule`) umožňuje službu IIS ukládat do mezipaměti konfiguraci webu na úrovni adresy URL. Bez tohoto modulu musí služba IIS číst a analyzovat konfiguraci při každém požadavku, i když je opakovaně požadována stejná adresa URL. Analýza konfigurace každý požadavek má za následek významné snížení výkonu. *Přestože modul ukládání do mezipaměti URI není nezbytně nutné pro hostované aplikace ASP.NET Core ke spuštění, doporučujeme, aby byl povolen modul ukládání do mezipaměti URI pro všechna ASP.NET nasazení jádra.*
+Modul ukládání identifikátorů URI`UriCacheModule`() umožňuje službě IIS ukládat do mezipaměti konfiguraci webu na úrovni URL. Bez tohoto modulu musí služba IIS číst a analyzovat konfiguraci každého požadavku, a to i v případě, že se stejná adresa URL opakovaně požaduje. Analýza konfigurace každé žádosti vede k výraznému snížení výkonu. *I když je modul pro ukládání identifikátorů URI do mezipaměti bezpodmínečně vyžadován pro spuštění hostované aplikace ASP.NET Core, doporučujeme, aby byl modul mezipaměti identifikátoru URI povolen pro všechna nasazení ASP.NET Core.*
 
-Modul ukládání do mezipaměti HTTP (`HttpCacheModule`) implementuje výstupní mezipaměť iis a také logiku pro ukládání položek do mezipaměti HTTP.sys. Bez tohoto modulu již není obsah ukládán do mezipaměti v režimu jádra a profily mezipaměti jsou ignorovány. Odebrání modulu ukládání do mezipaměti HTTP má obvykle nepříznivé účinky na výkon a využití prostředků. *Přestože modul ukládání do mezipaměti HTTP není nezbytně nutné pro hostované ASP.NET aplikace Core ke spuštění, doporučujeme, aby modul ukládání do mezipaměti HTTP být povolena pro všechny ASP.NET nasazení jádra.*
+Modul HTTP cache (`HttpCacheModule`) implementuje výstupní mezipaměť služby IIS a také logiku pro ukládání položek do mezipaměti HTTP. sys. Bez tohoto modulu už není obsah uložený v mezipaměti v režimu jádra a profily mezipaměti se ignorují. Odebrání modulu mezipaměti HTTP má obvykle negativní vliv na výkon a využití prostředků. *I když modul mezipaměti HTTP není nezbytně nutný pro spuštění hostované aplikace ASP.NET Core, doporučujeme, aby byl modul mezipaměti protokolu HTTP povolen pro všechna nasazení ASP.NET Core.*
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Úvod do architektur IIS: Moduly ve SB](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#modules-in-iis)
-* [Přehled modulů iIS](/iis/get-started/introduction-to-iis/iis-modules-overview)
-* [Přizpůsobení rolí a modulů iIS 7.0](https://technet.microsoft.com/library/cc627313.aspx)
-* [>\<serveru System.webServer služby IIS](/iis/configuration/system.webServer/)
+* [Seznámení s architekturami služby IIS: moduly ve službě IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture#modules-in-iis)
+* [Přehled modulů služby IIS](/iis/get-started/introduction-to-iis/iis-modules-overview)
+* [Přizpůsobení rolí a modulů služby IIS 7,0](https://technet.microsoft.com/library/cc627313.aspx)
+* [>\<IIS System. webServer](/iis/configuration/system.webServer/)

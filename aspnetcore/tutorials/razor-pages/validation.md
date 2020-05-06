@@ -1,90 +1,96 @@
 ---
-title: Přidání ověření na stránku ASP.NET core razor
+title: Přidání ověřování na stránku ASP.NET Core Razor
 author: rick-anderson
-description: Zjistěte, jak přidat ověření na stránku Razor v ASP.NET jádra.
+description: Zjistěte, jak přidat ověřování na Razor stránku v ASP.NET Core.
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: f283234ed8a32dc9b7904bc6fee1cc9c04741029
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 91f0ac5fcd607f2423f9fc4647413b2bbb2336fc
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78666017"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773772"
 ---
-# <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověření na stránku ASP.NET core razor
+# <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování na stránku ASP.NET Core Razor
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-V této části je do `Movie` modelu přidána logika ověření. Ověřovací pravidla jsou vynucena pokaždé, když uživatel vytvoří nebo uvede film.
+V této části je logika ověřování přidána do `Movie` modelu. Ověřovací pravidla se vynutily pokaždé, když uživatel vytvoří nebo upraví film.
 
 ## <a name="validation"></a>Ověřování
 
-Klíčovým principem vývoje softwaru se nazývá [DRY](https://wikipedia.org/wiki/Don%27t_repeat_yourself) **("D**on't **R**epeat **Y**ourself"). Razor Pages podporuje vývoj, kde je jednou zadána funkčnost a odráží se v celé aplikaci. DRY může pomoci:
+Key principem vývoje softwaru se nazývá [suchý](https://wikipedia.org/wiki/Don%27t_repeat_yourself) ("**D**on't **R**EPEAT **Y**ourself"). Razor Pages podporuje vývoj, ve kterém jsou funkce zadány jednou a které se projeví v celé aplikaci. Bezsuchá může pomáhat:
 
 * Snižte množství kódu v aplikaci.
-* Aby kód méně náchylné k chybám a snadněji testovat a udržovat.
+* Udělejte kód méně náchylné k chybám a usnadněte si testování a údržbu.
 
-Podpora validace poskytovaná razor pages a entity framework je dobrým příkladem principu DRY. Ověřovací pravidla jsou deklarativně zadána na jednom místě (ve třídě modelu) a pravidla jsou vynucena všude v aplikaci.
+Podpora ověřování, kterou poskytuje Razor Pages a Entity Framework, je dobrým příkladem SUCHÉho principu. Ověřovací pravidla jsou deklarativně určena na jednom místě (ve třídě modelu) a pravidla jsou vynutila všude v aplikaci.
 
-## <a name="add-validation-rules-to-the-movie-model"></a>Přidání ověřovacích pravidel do filmového modelu
+## <a name="add-validation-rules-to-the-movie-model"></a>Přidání ověřovacích pravidel do modelu filmů
 
-Obor názvů DataAnnotations poskytuje sadu předdefinovaných ověřovacích atributů, které jsou deklarativně použity na třídu nebo vlastnost. DataAnnotations také obsahuje atributy `DataType` formátování, jako je to, které pomáhají s formátováním a neposkytují žádné ověření.
+Obor názvů DataAnnotations poskytuje sadu předdefinovaných ověřovacích atributů, které se aplikují deklarativně na třídu nebo vlastnost. Tato dataanotace také obsahuje atributy formátování `DataType` , jako jsou tyto informace užitečné při formátování a neposkytují žádné ověřování.
 
-Aktualizujte `Movie` třídu, abyste využili `Required`výhod `StringLength` `RegularExpression`předdefinovaných atributů , a `Range` validation.
+Aktualizujte `Movie` třídu pro využití vestavěných atributů `Required`ověřování, `StringLength`, `RegularExpression`a. `Range`
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDA.cs?name=snippet1)]
 
-Atributy ověření určují chování, které chcete vynutit u vlastností modelu, na které se použijí:
+Atributy ověřování určují chování, které chcete vyhovět pro vlastnosti modelu, na které se aplikují:
 
-* `Required` Atributy `MinimumLength` a označují, že vlastnost musí mít hodnotu; ale nic nebrání uživateli v zadání prázdného místa k uspokojení tohoto ověření.
-* Atribut `RegularExpression` se používá k omezení, jaké znaky lze zadat. V předchozím kódu "Žánr":
+* Atributy `Required` a `MinimumLength` označují, že vlastnost musí mít hodnotu. ale nic nebrání uživateli v zadání prázdného místa pro splnění tohoto ověření.
+* `RegularExpression` Atribut slouží k omezení znaků, které lze zadat. V předchozím kódu "Žánr":
 
-  * Musí používat pouze písmena.
-  * První písmeno musí být velkými písmeny. Prázdné znaky, čísla a speciální znaky nejsou povoleny.
+  * Je nutné použít pouze písmena.
+  * První písmeno musí být velkými písmeny. Mezery, číslice a speciální znaky nejsou povoleny.
 
-* "Hodnocení": `RegularExpression`
+* `RegularExpression` Hodnocení:
 
-  * Vyžaduje, aby první znak byl velké písmeno.
-  * Umožňuje speciální znaky a čísla v následujících mezerách. "PG-13" je platný pro hodnocení, ale selže pro "Žánr".
+  * Vyžaduje, aby byl první znak velkým písmenem.
+  * Umožňuje speciální znaky a čísla v následujících mezerách. "PG-13" je platné pro hodnocení, ale pro "Žánr" se nezdařilo.
 
 * Atribut `Range` omezuje hodnotu v konkrétním rozsahu.
-* Atribut `StringLength` umožňuje nastavit maximální délku vlastnosti řetězce a volitelně její minimální délku.
-* Typy `decimal`hodnot (například `float` `DateTime`, `int`, ) jsou ze své `[Required]` podstaty povinné a nepotřebují atribut.
+* `StringLength` Atribut umožňuje nastavit maximální délku řetězcové vlastnosti a volitelně její minimální délku.
+* Typy hodnot `decimal`(například, `int`, `float`, `DateTime`) jsou podstatně požadovány a nepotřebují `[Required]` atribut.
 
-Díky tomu, že se ověřovací pravidla automaticky vynucují pomocí ASP.NET Core, vaše aplikace bude robustnější. Také zajišťuje, že nemůžete zapomenout na ověření něco a nechtěně nechat špatná data do databáze.
+Automatické vynucení ověřovacích pravidel nástrojem ASP.NET Core pomáhá zajistit větší odolnost aplikace. Také zajišťuje, že se nebudete moci zapomenout a neúmyslně ověřit data v databázi.
 
-### <a name="validation-error-ui-in-razor-pages"></a>U rozhraní chyby ověření na stránkách Břitva
+### <a name="validation-error-ui-in-razor-pages"></a>Uživatelské rozhraní chyby ověřování v Razor Pages
 
-Spusťte aplikaci a přejděte na Stránky/filmy.
+Spusťte aplikaci a přejděte na stránky/filmy.
 
-Vyberte odkaz **Vytvořit nový.** Vyplňte formulář s některými neplatnými hodnotami. Když ověření na straně klienta jQuery zjistí chybu, zobrazí se chybová zpráva.
+Vyberte odkaz **vytvořit nový** . Vyplňte formulář s neplatnými hodnotami. Když při ověřování na straně klienta zjistí chybu, zobrazí se chybová zpráva.
 
-![Formulář zobrazení filmu s více chybami ověření na straně klienta jQuery](validation/_static/val.png)
+![Formulář zobrazení videa s několika chybami ověřování na straně klienta jQuery](validation/_static/val.png)
 
 [!INCLUDE[](~/includes/localization/currency.md)]
 
-Všimněte si, jak formulář automaticky vykreslil chybovou zprávu ověření v každém poli obsahující neplatnou hodnotu. Chyby jsou vynuceny jak na straně klienta (pomocí JavaScriptu a jQuery), tak na straně serveru (pokud má uživatel JavaScript zakázán).
+Všimněte si, jak formulář automaticky vykresluje chybovou zprávu ověřování v každém poli, které obsahuje neplatnou hodnotu. Chyby se vynutily na straně klienta (pomocí JavaScriptu a jQuery) a na straně serveru (když má uživatel zakázaný JavaScript).
 
-Významnou výhodou je, že na stránkách Vytvořit nebo Upravit nebyly nutné **žádné** změny kódu. Jakmile dataAnnotations byly použity pro model, bylo povoleno ověřovací ui. Stránky razor vytvořené v tomto kurzu automaticky zvedl ověřovací pravidla (pomocí `Movie` ověřovací atributy na vlastnosti třídy modelu). Test ověření pomocí upravit stránku, stejné ověření se použije.
+Významnou výhodou je, že na stránkách vytvořit nebo upravit nebyly nutné **žádné** změny kódu. Jakmile se v modelu aplikují dataanotace, uživatelské rozhraní ověřování je povolené. Razor Pages vytvořená v tomto kurzu automaticky vybrala ověřovací pravidla (pomocí atributů ověřování ve vlastnostech třídy `Movie` modelu). Ověření testu pomocí stránky pro úpravy je použito stejné ověřování.
 
-Data formuláře nejsou zaúčtována na server, dokud neexistují žádné chyby ověření na straně klienta. Ověřte, zda data formuláře nejsou zaúčtována jedním nebo více z následujících přístupů:
+Data formuláře se na server neúčtují, dokud nedojde k žádným chybám při ověřování na straně klienta. Ověřte, že data formuláře nejsou publikovaná jedním nebo více z následujících přístupů:
 
-* Vložte bod přerušení `OnPostAsync` do metody. Odešlete formulář (vyberte **Vytvořit** nebo **Uložit**). Bod zlomu není nikdy zasažen.
-* Použijte [nástroj šumavka](https://www.telerik.com/fiddler).
-* Pomocí nástrojů pro vývojáře prohlížeče můžete sledovat síťový provoz.
+* Umístěte bod přerušení do `OnPostAsync` metody. Odešlete formulář (vyberte **vytvořit** nebo **Uložit**). Není k dispozice žádný bod přerušení.
+* Použijte [Nástroj Fiddler](https://www.telerik.com/fiddler).
+* Pomocí vývojářských nástrojů pro prohlížeč můžete monitorovat síťový provoz.
 
-### <a name="server-side-validation"></a>Ověření na straně serveru
+### <a name="server-side-validation"></a>Ověřování na straně serveru
 
-Pokud je JavaScript v prohlížeči zakázán, odeslání formuláře s chybami se odešle na server.
+Pokud je v prohlížeči zakázán jazyk JavaScript, odesláním formuláře s chybami bude odesláno na server.
 
-Volitelné ověření na straně serveru:
+Volitelné, testovací ověřování na straně serveru:
 
-* Zakažte JavaScript v prohlížeči. JavaScript můžete zakázat pomocí vývojářských nástrojů prohlížeče. Pokud nemůžete v prohlížeči zakázat JavaScript, zkuste jiný prohlížeč.
-* Nastavte bod přerušení `OnPostAsync` v metodě stránky Vytvořit nebo upravit.
-* Odešlete formulář s neplatnými údaji.
-* Ověřte, zda je stav modelu neplatný:
+* Zakáže JavaScript v prohlížeči. JavaScript můžete zakázat pomocí vývojářských nástrojů v prohlížeči. Pokud nemůžete zakázat JavaScript v prohlížeči, zkuste použít jiný prohlížeč.
+* Nastavte bod přerušení v `OnPostAsync` metodě stránky vytvořit nebo upravit.
+* Odešle formulář s neplatnými daty.
+* Ověřte, že stav modelu není platný:
 
   ```csharp
    if (!ModelState.IsValid)
@@ -93,73 +99,73 @@ Volitelné ověření na straně serveru:
    }
   ```
   
-Případně můžete [zakázat ověřování na straně klienta na serveru](xref:mvc/models/validation#disable-client-side-validation).
+Případně můžete [na serveru vypnout ověřování na straně klienta](xref:mvc/models/validation#disable-client-side-validation).
 
-Následující kód ukazuje část *Create.cshtml* stránky šetrné dříve v kurzu. Stránky Vytvořit a upravit jej používají k zobrazení počátečního formuláře a k opětovnému zobrazení formuláře v případě chyby.
+Následující kód ukazuje část vygenerovaného uživatelského rozhraní stránky *vytvořit. cshtml* dříve v tomto kurzu. Používá se na stránkách vytvořit a upravit k zobrazení počátečního formuláře a k opětovnému zobrazení formuláře v případě chyby.
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie/Pages/Movies/Create.cshtml?range=14-20)]
 
-Pomocník [vstupníznačky](xref:mvc/views/working-with-forms) používá [atributy DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) a vytváří atributy HTML potřebné pro ověření jQuery na straně klienta. Pomocná [pomoc s ověřovacíznačkou](xref:mvc/views/working-with-forms#the-validation-tag-helpers) zobrazuje chyby ověření. Další informace naleznete v [tématu Ověření.](xref:mvc/models/validation)
+[Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) používá atributy [DataAnnotations](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) a vytváří atributy HTML potřebné k ověření jQuery na straně klienta. [Pomocník pro ověřování značek](xref:mvc/views/working-with-forms#the-validation-tag-helpers) zobrazí chyby ověřování. Další informace najdete v tématu [ověření](xref:mvc/models/validation) .
 
-Na stránkách Vytvořit a upravit nejsou žádná ověřovací pravidla. Ověřovací pravidla a chybové řetězce jsou `Movie` určeny pouze ve třídě. Tato ověřovací pravidla se automaticky použijí `Movie` na stránky Razor, které modelu upravují.
+Na stránkách pro vytváření a úpravy nejsou v nich žádná ověřovací pravidla. Ověřovací pravidla a řetězce chyb jsou určeny pouze ve `Movie` třídě. Tato ověřovací pravidla se automaticky aplikují na Razor Pages, která `Movie` model upravují.
 
-Když se logika ověření musí změnit, provádí se pouze v modelu. Ověření se používá konzistentně v celé aplikaci (ověřovací logika je definována na jednom místě). Ověření na jednom místě pomáhá udržovat kód čistý a usnadňuje údržbu a aktualizaci.
+Když je potřeba logiku ověřování změnit, provede se jenom v modelu. Ověřování se konzistentně používá v celé aplikaci (logika ověřování je definovaná na jednom místě). Ověřování na jednom místě usnadňuje vyčištění kódu a usnadňuje údržbu a aktualizaci.
 
-## <a name="using-datatype-attributes"></a>Použití atributů datového typu
+## <a name="using-datatype-attributes"></a>Použití atributů DataType
 
-Prozkoumejte `Movie` třídu. Obor `System.ComponentModel.DataAnnotations` názvů poskytuje kromě předdefinované sady atributů ověření také atributy formátování. Pro vlastnosti `ReleaseDate` a `Price` je použit atribut `DataType`.
+Prověřte `Movie` třídu. `System.ComponentModel.DataAnnotations` Obor názvů poskytuje kromě předdefinované sady ověřovacích atributů i atributy formátování. Pro vlastnosti `ReleaseDate` a `Price` je použit atribut `DataType`.
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie/Models/MovieDateRatingDA.cs?highlight=2,6&name=snippet2)]
 
-Atributy `DataType` poskytují pouze rady pro modul zobrazení pro formátování dat (a `<a>` dodává atributy, jako jsou adresy URL a `<a href="mailto:EmailAddress.com">` e-mail). Pomocí `RegularExpression` atributu ověřte formát dat. Atribut `DataType` se používá k určení datového typu, který je konkrétnější než vnitřní typ databáze. `DataType`atributy nejsou atributy ověření. V ukázkové aplikaci se zobrazí pouze datum bez času.
+`DataType` Atributy poskytují nápovědu pouze pro modul zobrazení k formátování dat (a poskytování atributů, jako je `<a>` například adresa URL a `<a href="mailto:EmailAddress.com">` e-mailu). Použijte `RegularExpression` atribut k ověření formátu dat. `DataType` Atribut slouží k určení datového typu, který je konkrétnější než vnitřní typ databáze. `DataType`atributy nejsou ověřovány. V ukázkové aplikaci se zobrazí pouze datum, a to bez času.
 
-`DataType` Výčet poskytuje mnoho datových typů, jako je například datum, čas, telefonní číslo, měna, e-mailová adresa a další. Atribut `DataType` může také povolit aplikaci automaticky poskytovat funkce specifické pro daný typ. Odkaz lze `mailto:` například vytvořit `DataType.EmailAddress`pro aplikaci . Volič data může být k `DataType.Date` dispozici v prohlížečích, které podporují HTML5. Atributy `DataType` vyzařují atributy HTML 5 `data-` (vyslovuje se pomlčka dat), které prohlížeče HTML 5 spotřebovávají. Atributy `DataType` **neposkytují** žádné ověření.
+`DataType` Výčet poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. `DataType` Atribut může také povolit aplikaci automatické poskytování funkcí specifických pro typ. Můžete například vytvořit `mailto:` odkaz pro `DataType.EmailAddress`. Selektor data lze zadat pro `DataType.Date` v prohlížečích, které podporují HTML5. `DataType` Atributy emitují atributy HTML 5 `data-` (vyslovované datové přerušované), které používají prohlížeče formátu HTML 5. `DataType` Atributy **neposkytují žádné** ověřování.
 
-`DataType.Date`neurčuje formát zobrazeného data. Ve výchozím nastavení je datové pole zobrazeno podle výchozích formátů založených na souborech serveru `CultureInfo`.
+`DataType.Date`neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech založených na serveru `CultureInfo`.
 
-Anotace `[Column(TypeName = "decimal(18, 2)")]` dat je vyžadována, aby `Price` bylo jádro entity správně mapováno na měnu v databázi. Další informace naleznete [v tématu Datové typy](/ef/core/modeling/relational/data-types).
+`[Column(TypeName = "decimal(18, 2)")]` Datová anotace je vyžadována, aby Entity Framework Core mohl správně `Price` mapovat na měnu v databázi. Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).
 
-Atribut `DisplayFormat` se používá k explicitnímu zadání formátu data:
+`DisplayFormat` Atribut slouží k explicitnímu zadání formátu data:
 
 ```csharp
 [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
 public DateTime ReleaseDate { get; set; }
 ```
 
-Toto `ApplyFormatInEditMode` nastavení určuje, že formátování má být použito při zobrazení hodnoty pro úpravy. Toto chování možná nebudete chtít u některých polí. Například v hodnotách měny pravděpodobně nechcete symbol měny v uměle upravit.
+Toto `ApplyFormatInEditMode` nastavení určuje, že se má formátování použít při zobrazení hodnoty pro úpravy. Pro některá pole možná nebudete chtít toto chování. Například v hodnotách měn pravděpodobně nebudete chtít symbol měny v uživatelském rozhraní úprav.
 
-Atribut `DisplayFormat` lze použít samostatně, ale je obecně vhodné použít `DataType` atribut. Atribut `DataType` vyjadřuje sémantiku dat na rozdíl od způsobu jejich vykreslení na obrazovce a poskytuje následující výhody, které nezískáte s DisplayFormat:
+`DisplayFormat` Atribut může být použit sám sebe, ale obecně je vhodné použít `DataType` atribut. `DataType` Atribut předává sémantiku dat na rozdíl od způsobu vykreslování na obrazovce a poskytuje následující výhody, které nezískáte pomocí DisplayFormat:
 
-* Prohlížeč může povolit funkce HTML5 (například pro zobrazení ovládacího prvku kalendáře, symbolměny odpovídající národnímu prostředí, odkazy na e-mailatd.)
-* Ve výchozím nastavení prohlížeč vykreslí data ve správném formátu na základě národního prostředí.
-* Atribut `DataType` může povolit ASP.NET core framework zvolit správnou šablonu pole pro vykreslení dat. If `DisplayFormat` používá sám používá šablonu řetězce.
+* Prohlížeč může povolit funkce HTML5 (například pro zobrazení ovládacího prvku kalendáře, symbolu měny odpovídající národním prostředí, e-mailových odkazů atd.)
+* Ve výchozím nastavení bude prohlížeč data vykreslovat pomocí správného formátu na základě vašeho národního prostředí.
+* `DataType` Atribut může ASP.NET Core rozhraní povolit výběr pravé šablony pole k vykreslení dat. V `DisplayFormat` případě, že se používá samostatně, používá šablonu řetězce.
 
-Poznámka: jQuery ověření nefunguje `Range` s `DateTime`atributem a . Například následující kód vždy zobrazí chybu ověření na straně klienta, i když je datum v zadaném rozsahu:
+Poznámka: ověřování jQuery nefunguje s `Range` atributem a `DateTime`. Například následující kód bude vždy zobrazovat chybu ověřování na straně klienta, i když je datum v zadaném rozsahu:
 
 ```csharp
 [Range(typeof(DateTime), "1/1/1966", "1/1/2020")]
    ```
 
-Obecně není vhodné kompilovat tvrdá data ve vašich `Range` modelech, takže použití atributu a `DateTime` je odrazováno.
+Obvykle není dobrým zvykem při kompilování pevných dat ve vašich modelech, takže použití `Range` atributu a `DateTime` nedoporučuje se.
 
 Následující kód ukazuje kombinování atributů na jednom řádku:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDAmult.cs?name=snippet1)]
 
-[Začínáme s Razor Pages a EF Core](xref:data/ef-rp/intro) ukazuje pokročilé EF Core operace s Razor Pages.
+[Začínáme se Razor Pages a EF Core](xref:data/ef-rp/intro) zobrazuje pokročilé EF Core operace s Razor Pages.
 
-### <a name="apply-migrations"></a>Použití migrace
+### <a name="apply-migrations"></a>Použít migrace
 
-DataAnnotations aplikované na třídu změnit schéma. Například dataAnnotations aplikované `Title` na pole:
+Tato dataanotace použitá pro třídu mění schéma. Například dataanotace použité pro `Title` pole:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRatingDA.cs?name=snippet11)]
 
-* Omezuje znaky na 60.
-* Neumožňuje hodnotu. `null`
+* Omezí znaky na 60.
+* Nepovoluje `null` hodnotu.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Tabulka `Movie` má aktuálně následující schéma:
+`Movie` Tabulka teď má následující schéma:
 
 ```sql
 CREATE TABLE [dbo].[Movie] (
@@ -173,21 +179,21 @@ CREATE TABLE [dbo].[Movie] (
 );
 ```
 
-Předchozí změny schématu nezpůsobí EF vyvolat výjimku. Vytvořte však migraci, aby schéma bylo konzistentní s modelem.
+Předchozí změny schématu nezpůsobí výjimku EF k vyvolání výjimky. Vytvořte ale migraci tak, aby schéma bylo konzistentní s modelem.
 
-V nabídce **Nástroje** vyberte **položku NuGet Package Manager > Konzola správce balíčků**.
-Do pmc zadejte následující příkazy:
+V nabídce **nástroje** vyberte **správce balíčků NuGet > konzolu Správce balíčků**.
+Do PMC zadejte následující příkazy:
 
 ```powershell
 Add-Migration New_DataAnnotations
 Update-Database
 ```
 
-`Update-Database`spustí `Up` metody třídy. `New_DataAnnotations` Zkontrolujte `Up` metodu:
+`Update-Database`spustí `Up` metody `New_DataAnnotations` třídy. Projděte `Up` si metodu:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Migrations/20190724163003_New_DataAnnotations.cs?name=snippet)]
 
-Aktualizovaná `Movie` tabulka obsahuje následující schéma:
+Aktualizovaná `Movie` tabulka má následující schéma:
 
 ```sql
 CREATE TABLE [dbo].[Movie] (
@@ -201,17 +207,17 @@ CREATE TABLE [dbo].[Movie] (
 );
 ```
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
-Migrace nejsou vyžadovány pro SQLite.
+Migrace nejsou pro SQLite požadovány.
 
 ---
 
 ### <a name="publish-to-azure"></a>Publikování aplikací do Azure
 
-Informace o nasazení do Azure najdete [v tématu Kurz: Vytvoření aplikace ASP.NET Core v Azure s databází SQL .](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb)
+Informace o nasazení do Azure najdete v tématu [kurz: sestavení aplikace ASP.NET Core v Azure pomocí SQL Database](/azure/app-service/app-service-web-tutorial-dotnetcore-sqldb).
 
-Děkujeme za dokončení tohoto úvodu do Razor Stránek. [Začínáme s Razor Pages a EF Core](xref:data/ef-rp/intro) je vynikající sledování tohoto kurzu.
+Děkujeme za dokončení tohoto úvodu na Razor stránky. Začněte [se stránkami a EF Core Razor ](xref:data/ef-rp/intro) je vynikajícím postupem v tomto kurzu.
 
 ## <a name="additional-resources"></a>Další zdroje
 
@@ -219,7 +225,7 @@ Děkujeme za dokončení tohoto úvodu do Razor Stránek. [Začínáme s Razor P
 * <xref:fundamentals/localization>
 * <xref:mvc/views/tag-helpers/intro>
 * <xref:mvc/views/tag-helpers/authoring>
-* [Verze tohoto kurzu pro YouTube](https://youtu.be/b63m66eu7us)
+* [Verze YouTube tohoto kurzu](https://youtu.be/b63m66eu7us)
 
 > [!div class="step-by-step"]
 > [Předchozí: Přidání nového pole](xref:tutorials/razor-pages/new-field)

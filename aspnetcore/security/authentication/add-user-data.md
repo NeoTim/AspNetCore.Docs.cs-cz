@@ -1,30 +1,36 @@
 ---
-title: Přidání, stažení a odstranění uživatelských dat do identity v projektu ASP.NET Core
+title: Přidání, stažení a odstranění uživatelských dat Identity v ASP.NET Core projektu
 author: rick-anderson
-description: Přečtěte si, jak přidat vlastní uživatelská data do identity v projektu ASP.NET Core. Smazat data podle GDPR.
+description: Naučte se, jak do projektu ASP.NET Core Identity přidat vlastní uživatelská data. Odstranit data na GDPR
 ms.author: riande
 ms.date: 03/26/2020
 ms.custom: mvc, seodec18
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/add-user-data
-ms.openlocfilehash: 76b83df22381429feab80056c36dbdac1e5f20c7
-ms.sourcegitcommit: 1d8f1396ccc66a0c3fcb5e5f36ea29b50db6d92a
+ms.openlocfilehash: 29c23e10d11eb1042b64fc071c221a9ead857fcc
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/01/2020
-ms.locfileid: "80501233"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82777329"
 ---
-# <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>Přidání, stažení a odstranění vlastních uživatelských dat do identity v projektu ASP.NET Core
+# <a name="add-download-and-delete-custom-user-data-to-identity-in-an-aspnet-core-project"></a>Přidání, stažení a odstranění vlastních uživatelských dat do identity v ASP.NET Core projektu
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-Tento článek ukazuje, jak:
+V tomto článku se dozvíte, jak:
 
-* Přidejte vlastní uživatelská data do webové aplikace ASP.NET Core.
-* Označte vlastní uživatelský <xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute> datový model atributem tak, aby byl automaticky k dispozici ke stažení a odstranění. Zpřístupnění dat ke stažení a smazání pomáhá splnit požadavky [GDPR.](xref:security/gdpr)
+* Přidejte vlastní uživatelská data do ASP.NET Core webové aplikace.
+* Označte vlastní uživatelský datový model s <xref:Microsoft.AspNetCore.Identity.PersonalDataAttribute> atributem tak, aby byl automaticky dostupný ke stažení a odstranění. Zpřístupnění dat, které je možné stáhnout a odstranit, pomůže splnit [GDPR](xref:security/gdpr) požadavky.
 
-Ukázka projektu se vytvoří z webové aplikace Razor Pages, ale pokyny jsou podobné pro ASP.NET webové aplikace Core MVC.
+Ukázka projektu je vytvořena z Razor Pages webové aplikace, ale pokyny jsou podobné pro webovou aplikaci ASP.NET Core MVC.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/add-user-data) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authentication/add-user-data) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -46,21 +52,21 @@ Ukázka projektu se vytvoří z webové aplikace Razor Pages, ale pokyny jsou po
 
 ::: moniker range=">= aspnetcore-3.0"
 
-* V nabídce **Soubor** sady Visual Studio vyberte **Nový** > **projekt**. Název projektu **WebApp1,** pokud chcete, aby odpovídaly oboru názvů [ke stažení ukázkový](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data) kód.
-* Vybrat **ASP.NET základní webovou aplikaci** > **OK**
-* V rozevíracím souboru vyberte **ASP.NET jádrem 3.0.**
-* Vybrat **webovou aplikaci** > **ok**
-* Sestavení a spuštění projektu.
+* V nabídce **soubor** sady Visual Studio vyberte **Nový** > **projekt**. Pojmenujte projekt **WebApp1** , pokud chcete, aby odpovídal oboru názvů [ukázkového kódu ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data) .
+* Vyberte **ASP.NET Core webové aplikace** > **OK** .
+* V rozevíracím seznamu vyberte **ASP.NET Core 3,0** .
+* Vybrat **webovou aplikaci** > v **pořádku**
+* Sestavte a spusťte projekt.
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-* V nabídce **Soubor** sady Visual Studio vyberte **Nový** > **projekt**. Název projektu **WebApp1,** pokud chcete, aby odpovídaly oboru názvů [ke stažení ukázkový](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data) kód.
-* Vybrat **ASP.NET základní webovou aplikaci** > **OK**
-* V rozevíracím souboru vyberte **ASP.NET Core 2.2.**
-* Vybrat **webovou aplikaci** > **ok**
-* Sestavení a spuštění projektu.
+* V nabídce **soubor** sady Visual Studio vyberte **Nový** > **projekt**. Pojmenujte projekt **WebApp1** , pokud chcete, aby odpovídal oboru názvů [ukázkového kódu ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/live/aspnetcore/security/authentication/add-user-data) .
+* Vyberte **ASP.NET Core webové aplikace** > **OK** .
+* V rozevíracím seznamu vyberte **ASP.NET Core 2,2** .
+* Vybrat **webovou aplikaci** > v **pořádku**
+* Sestavte a spusťte projekt.
 
 ::: moniker-end
 
@@ -73,43 +79,43 @@ dotnet new webapp -o WebApp1
 
 ---
 
-## <a name="run-the-identity-scaffolder"></a>Spuštění složky scaffolder identity
+## <a name="run-the-identity-scaffolder"></a>Spustit generování uživatelského rozhraní identity
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* V **Průzkumníku řešení**klepněte pravým tlačítkem myši na projekt > **Přidat** > **novou položku scaffolded item**.
-* V levém podokně dialogového okna **Přidat poslíšovací systém** vyberte **Přidat identitu** > **.**
-* V dialogovém okně Přidat identitu následující **volby:**
-  * Vyberte existující soubor rozložení *~/Pages/Shared/_Layout.cshtml*
+* Z **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt > **Přidat** > **novou vygenerované položky**.
+* V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identita** > **Přidat**.
+* V dialogovém okně **Přidat identitu** tyto možnosti:
+  * Vyberte existující soubor rozložení *~/Pages/Shared/_Layout. cshtml.*
   * Vyberte následující soubory, které chcete přepsat:
     * **Účet/registr**
-    * **Účet/Správa/Index**
-  * Vyberte **+** tlačítko pro vytvoření nové **třídy kontextu Dat**. Přijměte typ (**WebApp1.Models.WebApp1Context,** pokud projekt s názvem **WebApp1**).
-  * Vyberte **+** tlačítko pro vytvoření nové **třídy User**. Přijměte typ (**WebApp1User,** pokud projekt s názvem **WebApp1**) > **Přidat**.
+    * **Účet/Správa/index**
+  * Vyberte **+** tlačítko pro vytvoření nové **třídy datového kontextu**. Přijměte typ (**WebApp1. Models. WebApp1Context** , pokud se projekt jmenuje **WebApp1**).
+  * Výběrem **+** tlačítka vytvoříte novou **třídu uživatelů**. Přijměte typ (**WebApp1User** , pokud se projekt jmenuje **WebApp1**) > **Přidat**.
 * Vyberte **Přidat**.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-Pokud jste dříve nenainstalovali ASP.NET složky core, nainstalujte jej nyní:
+Pokud jste předtím ASP.NET Core lešení nenainstalovali, nainstalujte ho hned takto:
 
 ```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-Přidejte odkaz na balíček [microsoft.VisualStudio.Web.CodeGeneration.Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do souboru projektu (.csproj). V adresáři projektu spusťte následující příkaz:
+Přidejte odkaz na balíček do [Microsoft. VisualStudio. Web. strategii. Design](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.CodeGeneration.Design/) do souboru projektu (. csproj). V adresáři projektu spusťte následující příkaz:
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet restore
 ```
 
-Spuštěním následujícího příkazu zobrazíte seznam možností složky identity:
+Spuštěním následujícího příkazu zobrazíte seznam možností generování identit:
 
 ```dotnetcli
 dotnet aspnet-codegenerator identity -h
 ```
 
-Ve složce projektu spusťte složku scaffolder identity:
+Ve složce projektu spusťte generování uživatelského rozhraní identity:
 
 ```dotnetcli
 dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account.Manage.Index
@@ -117,21 +123,21 @@ dotnet aspnet-codegenerator identity -u WebApp1User -fi Account.Register;Account
 
 ---
 
-Postupujte podle pokynů v [migraci, UseAuthentication a rozložení](xref:security/authentication/scaffold-identity#efm) provést následující kroky:
+Postupujte podle pokynů v části [migrace, UseAuthentication a rozložení a](xref:security/authentication/scaffold-identity#efm) proveďte následující kroky:
 
 * Vytvořte migraci a aktualizujte databázi.
 * Add `UseAuthentication` to `Startup.Configure`.
-* Přidat `<partial name="_LoginPartial" />` do souboru rozložení.
+* Přidejte `<partial name="_LoginPartial" />` do souboru rozložení.
 * Otestujte aplikaci:
   * Registrace uživatele
-  * Vyberte nové uživatelské jméno (vedle odkazu **Odhlásit** se). Možná budete muset rozbalit okno nebo vybrat ikonu navigačního panelu, aby se zobrazilo uživatelské jméno a další odkazy.
-  * Vyberte kartu **Osobní údaje.**
-  * Vyberte tlačítko **Stáhnout** a prohlédněte si soubor *PersonalData.json.*
-  * Otestujte tlačítko **Odstranit,** které odstraní přihlášeného uživatele.
+  * Vyberte nové uživatelské jméno (vedle odkazu pro **odhlášení** ). Možná budete muset rozbalit okno nebo vybrat ikonu navigačního panelu a zobrazit uživatelské jméno a další odkazy.
+  * Vyberte kartu **osobní data** .
+  * Vyberte tlačítko **Download (stáhnout** ) a prověřit soubor *personaldata. JSON* .
+  * Otestujte tlačítko **Odstranit** , které odstraní přihlášeného uživatele.
 
-## <a name="add-custom-user-data-to-the-identity-db"></a>Přidání vlastních uživatelských dat do databáze identity
+## <a name="add-custom-user-data-to-the-identity-db"></a>Přidat vlastní uživatelská data do databáze identity
 
-Aktualizujte `IdentityUser` odvozenou třídu vlastními vlastnostmi. Pokud jste projekt pojmenovali WebApp1, soubor se jmenuje *Oblasti/Identita/Data/WebApp1User.cs*. Aktualizujte soubor pomocí následujícího kódu:
+Aktualizujte `IdentityUser` odvozenou třídu vlastními vlastnostmi. Pokud jste jmenovali projekt WebApp1, soubor má název *areas/identity/data/WebApp1User. cs*. Aktualizujte soubor pomocí následujícího kódu:
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -145,20 +151,20 @@ Aktualizujte `IdentityUser` odvozenou třídu vlastními vlastnostmi. Pokud jste
 
 ::: moniker-end
 
-Vlastnosti s atributem [PersonalData](/dotnet/api/microsoft.aspnetcore.identity.personaldataattribute) jsou:
+Vlastnosti s atributem [personaldata](/dotnet/api/microsoft.aspnetcore.identity.personaldataattribute) jsou:
 
-* Odstraněno při volání *stránek/identity/stránek/účtu/správy/odstranění osobního data.cshtml* `UserManager.Delete`.
-* Zahrnuto do stažených dat *na stránce Areas/Identity/Pages/Account/Manage/DownloadPersonalData.cshtml* Razor Page.
+* Odstraní se při volání `UserManager.Delete`stránky *oblasti/identita, stránky/účet/Správa/DeletePersonalData. cshtml* Razor.
+* Obsahuje stažená data na stránce *oblasti/identita/stránky/účet/Správa/DownloadPersonalData. cshtml* Razor.
 
-### <a name="update-the-accountmanageindexcshtml-page"></a>Aktualizace stránky Účet/Správa/Index.cshtml
+### <a name="update-the-accountmanageindexcshtml-page"></a>Aktualizuje stránku účet/Správa/index. cshtml.
 
-Aktualizujte `InputModel` v *oblastech/Identita/Stránky/Účet/Spravovat/Index.cshtml.cs* s následujícím zvýrazněným kódem:
+Aktualizujte `InputModel` v části *oblasti/identita/stránky/účet/Správa/index. cshtml. cs* následující zvýrazněný kód:
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs?name=snippet&highlight=24-32,48-49,96-104,106)]
 
-Aktualizujte *oblasti/Identity/Stránky/Účet/Spravovat/Index.cshtml* pomocí následujících zvýrazněných značek:
+Aktualizujte *oblasti/identita/stránky/účet/Správa/index. cshtml* pomocí následujícího zvýrazněného označení:
 
 [!code-cshtml[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml?highlight=18-25)]
 
@@ -168,21 +174,21 @@ Aktualizujte *oblasti/Identity/Stránky/Účet/Spravovat/Index.cshtml* pomocí n
 
 [!code-csharp[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml.cs?name=snippet&highlight=28-36,63-64,98-106,119)]
 
-Aktualizujte *oblasti/Identity/Stránky/Účet/Spravovat/Index.cshtml* pomocí následujících zvýrazněných značek:
+Aktualizujte *oblasti/identita/stránky/účet/Správa/index. cshtml* pomocí následujícího zvýrazněného označení:
 
 [!code-cshtml[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Manage/Index.cshtml?highlight=35-42)]
 
 ::: moniker-end
 
-### <a name="update-the-accountregistercshtml-page"></a>Aktualizace stránky Účet/Register.cshtml
+### <a name="update-the-accountregistercshtml-page"></a>Aktualizace stránky account/Register. cshtml
 
-Aktualizujte `InputModel` v *oblastech/Identity/Pages/Account/Register.cshtml.cs* následujícím zvýrazněným kódem:
+Aktualizujte `InputModel` v části *oblasti/identita/stránky/účet/Register. cshtml. cs* následující zvýrazněný kód:
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-csharp[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=30-38,70-71)]
 
-Aktualizujte *oblasti/Identity/Stránky/Účet/Register.cshtml* pomocí následujících zvýrazněných značek:
+Aktualizujte *oblasti/identita/stránky/účet/Register. cshtml* pomocí následujícího zvýrazněného označení:
 
 [!code-cshtml[](add-user-data/samples/3.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml?highlight=16-25)]
 
@@ -192,7 +198,7 @@ Aktualizujte *oblasti/Identity/Stránky/Účet/Register.cshtml* pomocí následu
 
 [!code-csharp[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml.cs?name=snippet&highlight=28-36,67,66)]
 
-Aktualizujte *oblasti/Identity/Stránky/Účet/Register.cshtml* pomocí následujících zvýrazněných značek:
+Aktualizujte *oblasti/identita/stránky/účet/Register. cshtml* pomocí následujícího zvýrazněného označení:
 
 [!code-cshtml[](add-user-data/samples/2.x/SampleApp/Areas/Identity/Pages/Account/Register.cshtml?highlight=16-25)]
 
@@ -205,7 +211,7 @@ Sestavte projekt.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V konzole **Správce balíčků**sady Visual Studio :
+V **konzole správce balíčků**sady Visual Studio:
 
 ```powershell
 Add-Migration CustomUserData
@@ -221,17 +227,17 @@ dotnet ef database update
 
 ---
 
-## <a name="test-create-view-download-delete-custom-user-data"></a>Testování vytváření, zobrazení, stahování, odstraňování vlastních uživatelských dat
+## <a name="test-create-view-download-delete-custom-user-data"></a>Test vytvoření, zobrazení, stažení, odstranění vlastních uživatelských dat
 
 Otestujte aplikaci:
 
 * Zaregistrujte nového uživatele.
-* Zobrazení vlastních uživatelských `/Identity/Account/Manage` dat na stránce.
-* Stáhněte si a prohlédněte `/Identity/Account/Manage/PersonalData` si osobní údaje uživatelů ze stránky.
+* Zobrazte si vlastní uživatelská data na `/Identity/Account/Manage` stránce.
+* Stáhněte a zobrazte si osobní údaje uživatelů ze `/Identity/Account/Manage/PersonalData` stránky.
 
-## <a name="add-claims-to-identity-using-iuserclaimsprincipalfactoryapplicationuser"></a>Přidání deklarací identity pomocí aplikace IUserClaimsPrincipalFactory<ApplicationUser>
+## <a name="add-claims-to-identity-using-iuserclaimsprincipalfactoryapplicationuser"></a>Přidání deklarací identity Identity pro použití IUserClaimsPrincipalFactory<ApplicationUser>
 
-Další deklarace identity lze přidat do `IUserClaimsPrincipalFactory<T>` ASP.NET základní identity pomocí rozhraní. Tuto třídu lze přidat do `Startup.ConfigureServices` aplikace v metodě. Přidejte vlastní implementaci třídy takto:
+Další deklarace identity je možné přidat do Identity ASP.NET Core pomocí `IUserClaimsPrincipalFactory<T>` rozhraní. Tato třída se dá do aplikace přidat v `Startup.ConfigureServices` metodě. Přidejte vlastní implementaci třídy následujícím způsobem:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -244,7 +250,7 @@ public void ConfigureServices(IServiceCollection services)
         AdditionalUserClaimsPrincipalFactory>();
 ```
 
-Demo kód používá `ApplicationUser` třídu. Tato třída `IsAdmin` přidá vlastnost, která se používá k přidání další deklarace.
+Ukázkový kód používá `ApplicationUser` třídu. Tato třída přidá `IsAdmin` vlastnost, která se používá k přidání dodatečné deklarace identity.
 
 ```csharp
 public class ApplicationUser : IdentityUser
@@ -253,7 +259,7 @@ public class ApplicationUser : IdentityUser
 }
 ```
 
-Implementuje `AdditionalUserClaimsPrincipalFactory` `UserClaimsPrincipalFactory` rozhraní. Do souboru . je `ClaimsPrincipal`přidána nová deklarace role.
+`AdditionalUserClaimsPrincipalFactory` Implementuje `UserClaimsPrincipalFactory` rozhraní. Do se `ClaimsPrincipal`přidá nová deklarace identity role.
 
 ```csharp
 public class AdditionalUserClaimsPrincipalFactory 
@@ -287,7 +293,7 @@ public class AdditionalUserClaimsPrincipalFactory
 }
 ```
 
-Další deklarace pak může být použita v aplikaci. Na stránce Razor `IAuthorizationService` lze instanci použít pro přístup k hodnotě deklarace.
+Další deklaraci identity pak můžete v aplikaci použít. Na Razor stránce lze `IAuthorizationService` instanci použít pro přístup k hodnotě deklarace identity.
 
 ```cshtml
 @using Microsoft.AspNetCore.Authorization

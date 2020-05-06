@@ -1,19 +1,25 @@
 ---
-title: Přidání nového pole na stránku Razor v ASP.NET jádru
+title: Přidat nové pole na Razor stránku v ASP.NET Core
 author: rick-anderson
-description: Ukazuje, jak přidat nové pole na stránku Razor s jádrem entity frameworku
+description: Ukazuje, jak přidat nové pole na Razor stránku pomocí Entity Framework Core
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: d34b938dbd1b512ddb167cac0c035837889cd38f
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 683d6718f4dcdb73c45cbcf94f6ac4f477b71bcd
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78657813"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82769731"
 ---
-# <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidání nového pole na stránku Razor v ASP.NET jádru
+# <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole na stránku Razor v ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -21,27 +27,27 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-V této části [entity framework](/ef/core/get-started/aspnetcore/new-db) code first migrace se používá k:
+V této části se [Entity Framework](/ef/core/get-started/aspnetcore/new-db) migrace Code First používá pro:
 
 * Přidejte do modelu nové pole.
-* Migrujte změnu nového schématu pole do databáze.
+* Migrujte novou změnu schématu pole do databáze.
 
-Při použití EF code First k automatickému vytvoření databáze, Code First:
+Při použití Code First EF k automatickému vytvoření databáze Code First:
 
-* Přidá `__EFMigrationsHistory` do databáze tabulku ke sledování, zda je schéma databáze synchronizováno s třídami modelu, ze kterých byla generována.
-* Pokud třídy modelu nejsou synchronizovány s DB, EF vyvolá výjimku.
+* Přidá do `__EFMigrationsHistory` databáze tabulku, která bude sledovat, zda je schéma databáze synchronizováno s třídami modelů, ze kterých byla vygenerována.
+* Pokud třídy modelů nejsou synchronizovány s databází, EF vyvolá výjimku.
 
-Automatické ověření schématu/modelu v synchronizaci usnadňuje hledání nekonzistentních problémů s databází a kódem.
+Automatické ověření schématu nebo modelu v synchronizaci usnadňuje vyhledání nekonzistentních problémů s databází či kódem.
 
-## <a name="adding-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti hodnocení do filmového modelu
+## <a name="adding-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti hodnocení do modelu videa
 
-Otevřete soubor *Models/Movie.cs* `Rating` a přidejte vlastnost:
+Otevřete soubor *Models/video. cs* a přidejte `Rating` vlastnost:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 Sestavení aplikace
 
-Upravte *stránky/filmy/index.cshtml*a `Rating` přidejte pole:
+Upravit *stránky/filmy/index. cshtml*a přidat `Rating` pole:
 
 <a name="addrat"></a>
 
@@ -49,31 +55,31 @@ Upravte *stránky/filmy/index.cshtml*a `Rating` přidejte pole:
 
 Aktualizujte následující stránky:
 
-* Přidejte `Rating` pole na stránky Odstranit a Podrobnosti.
-* Aktualizujte [create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) s polem. `Rating`
-* Přidejte `Rating` pole na stránku Úpravy.
+* Přidejte `Rating` pole na stránky odstranit a podrobnosti.
+* Aktualizace [Create. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) s `Rating` polem
+* Přidejte `Rating` pole do stránky pro úpravy.
 
-Aplikace nebude fungovat, dokud db je aktualizován tak, aby zahrnovala nové pole. Spuštění aplikace bez aktualizace databáze `SqlException`vyvolá :
+Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Spuštění aplikace bez aktualizace databáze vyvolá `SqlException`:
 
 `SqlException: Invalid column name 'Rating'.`
 
-Výjimka `SqlException` je způsobena tím, že aktualizovaná třída modelu Movie se liší od schématu tabulky Movie databáze. (V databázové `Rating` tabulce není žádný sloupec.)
+`SqlException` Výjimka je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů v databázi. (V tabulce databáze `Rating` není žádný sloupec.)
 
-Existuje několik přístupů k řešení chyby:
+K řešení této chyby je potřeba několik přístupů:
 
-1. Mají entity framework automaticky přetažení a znovu vytvořit databázi pomocí nového schématu třídy modelu. Tento přístup je vhodný na počátku vývojového cyklu; umožňuje rychle vyvíjet schéma modelu a databáze společně. Nevýhodou je, že ztratíte existující data v databázi. Nepoužívejte tento přístup v produkční databázi! Uvolnění DB na změny schématu a pomocí inicializátoru automaticky osiva databáze s testovací data je často produktivní způsob, jak vyvinout aplikaci.
+1. Entity Framework automaticky vyřadit a znovu vytvořit databázi pomocí nového schématu třídy modelu. Tento přístup je v brzké fázi vývojový cyklus vhodný; umožňuje rychlou vývoj modelu a schématu databáze dohromady. Nevýhodou je, že ztratíte stávající data v databázi. Nepoužívejte tento přístup k provozní databázi. Vyřazení databáze při změnách schématu a použití inicializátoru k automatickému osazení databáze s testovacími daty je často produktivním způsobem, jak vyvíjet aplikace.
 
-2. Explicitně upravte schéma existující databáze tak, aby odpovídala třídám modelu. Výhodou tohoto přístupu je, že uchováváte data. Tuto změnu můžete provést ručně nebo vytvořením skriptu pro změnu databáze.
+2. Explicitně upravte schéma existující databáze tak, aby odpovídalo třídám modelu. Výhodou tohoto přístupu je, že zachováte data. Tuto změnu můžete provést buď ručně, nebo vytvořením skriptu změny databáze.
 
-3. K aktualizaci schématu databáze použijte migrace prvního kódu.
+3. K aktualizaci schématu databáze použijte Migrace Code First.
 
-V tomto kurzu použijte migrace Code First.
+Pro tento kurz použijte Migrace Code First.
 
-Aktualizujte `SeedData` třídu tak, aby poskytovala hodnotu pro nový sloupec. Ukázková změna je uvedena níže, ale tuto změnu `new Movie` budete chtít provést pro každý blok.
+Aktualizujte `SeedData` třídu tak, aby poskytovala hodnotu pro nový sloupec. Níže je uvedená vzorová změna, ale tuto změnu budete chtít udělat pro každý `new Movie` blok.
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-Podívejte se na [vyplněný soubor SeedData.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs).
+Podívejte se na [dokončený soubor SeedData.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Models/SeedDataRating.cs).
 
 Sestavte řešení.
 
@@ -81,34 +87,34 @@ Sestavte řešení.
 
 <a name="pmc"></a>
 
-### <a name="add-a-migration-for-the-rating-field"></a>Přidání migrace do pole hodnocení
+### <a name="add-a-migration-for-the-rating-field"></a>Přidání migrace pro pole hodnocení
 
-V nabídce **Nástroje** vyberte **položku NuGet Package Manager > Konzola správce balíčků**.
-Do pmc zadejte následující příkazy:
+V nabídce **nástroje** vyberte **správce balíčků NuGet > konzolu Správce balíčků**.
+Do PMC zadejte následující příkazy:
 
 ```powershell
 Add-Migration Rating
 Update-Database
 ```
 
-Příkaz `Add-Migration` říká rozhraní:
+`Add-Migration` Příkaz instruuje rozhraní:
 
-* Porovnejte `Movie` `Movie` model se schématem DB.
-* Vytvořte kód pro migraci schématu DB do nového modelu.
+* Porovnejte `Movie` model se schématem `Movie` databáze.
+* Vytvořte kód pro migraci schématu databáze do nového modelu.
 
-Název "Hodnocení" je libovolný a používá se k pojmenování migračního souboru. Je užitečné použít smysluplný název pro soubor migrace.
+Název "hodnocení" je libovolný a slouží k pojmenování souboru migrace. Je užitečné použít pro migrační soubor smysluplný název.
 
-Příkaz `Update-Database` říká rozhraní použít změny schématu v databázi a zachovat existující data.
+`Update-Database` Příkaz instruuje rozhraní, aby se změny schématu projevily v databázi a zachovaly stávající data.
 
 <a name="ssox"></a>
 
-Pokud odstraníte všechny záznamy v DB, inicializátor zaznamená DB a zahrne `Rating` pole. Můžete to provést pomocí odstranění odkazů v prohlížeči nebo z [Průzkumníka objektů sql serveru](xref:tutorials/razor-pages/sql#ssox) (SSOX).
+Pokud odstraníte všechny záznamy v databázi, inicializátor tuto databázi dosadí a zahrne `Rating` pole. Můžete to provést pomocí odkazů DELETE v prohlížeči nebo z [SQL Server Průzkumník objektů](xref:tutorials/razor-pages/sql#ssox) (SSOX).
 
-Další možností je odstranění databáze a použití migrace znovu vytvořit databázi. Odstranění databáze ve SSOX:
+Další možností je odstranit databázi a použít migrace k opětovnému vytvoření databáze. Odstranění databáze v SSOX:
 
-* Vyberte databázi ve SSOX.
-* Klikněte pravým tlačítkem myši na databázi a vyberte *příkaz Odstranit*.
-* Zaškrtněte **políčko Zavřít existující připojení**.
+* Vyberte databázi v SSOX.
+* Klikněte pravým tlačítkem na databázi a vyberte *Odstranit*.
+* Podívejte se na **Zavřít existující připojení**.
 * Vyberte **OK**.
 * V [PMC](xref:tutorials/razor-pages/new-field#pmc)aktualizujte databázi:
 
@@ -116,9 +122,9 @@ Další možností je odstranění databáze a použití migrace znovu vytvořit
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
-### <a name="drop-and-re-create-the-database"></a>Přetažení a opětovné vytvoření databáze
+### <a name="drop-and-re-create-the-database"></a>Vyřazení a opětovné vytvoření databáze
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
@@ -132,15 +138,15 @@ dotnet ef database update
 
 ---
 
-Spusťte aplikaci a ověřte, zda `Rating` můžete vytvářet/ upravovat/zobrazovat filmy pomocí pole. Pokud databáze není nasazena, nastavte bod přerušení `SeedData.Initialize` v metodě.
+Spusťte aplikaci a ověřte, že můžete vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Pokud databáze není osazena, nastavte v `SeedData.Initialize` metodě bod přerušení.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Verze tohoto kurzu pro YouTube](https://youtu.be/3i7uMxiGGR8)
+* [Verze YouTube tohoto kurzu](https://youtu.be/3i7uMxiGGR8)
 
 > [!div class="step-by-step"]
-> [Předchozí: Přidání hledání](xref:tutorials/razor-pages/search)
-> [další: Přidání ověření](xref:tutorials/razor-pages/validation)
+> [Předchozí: Přidání vyhledávání](xref:tutorials/razor-pages/search)
+> v[Další: Přidání ověřování](xref:tutorials/razor-pages/validation)
 
 ::: moniker-end
 
@@ -148,57 +154,57 @@ Spusťte aplikaci a ověřte, zda `Rating` můžete vytvářet/ upravovat/zobraz
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-V této části [entity framework](/ef/core/get-started/aspnetcore/new-db) code first migrace se používá k:
+V této části se [Entity Framework](/ef/core/get-started/aspnetcore/new-db) migrace Code First používá pro:
 
 * Přidejte do modelu nové pole.
-* Migrujte změnu nového schématu pole do databáze.
+* Migrujte novou změnu schématu pole do databáze.
 
-Při použití EF code First k automatickému vytvoření databáze, Code First:
+Při použití Code First EF k automatickému vytvoření databáze Code First:
 
-* Přidá do databáze tabulku ke sledování, zda je schéma databáze synchronizováno s třídami modelu, ze kterých byla generována.
-* Pokud třídy modelu nejsou synchronizovány s DB, EF vyvolá výjimku.
+* Přidá do databáze tabulku, která bude sledovat, zda je schéma databáze synchronizováno s třídami modelů, ze kterých byla vygenerována.
+* Pokud třídy modelů nejsou synchronizovány s databází, EF vyvolá výjimku.
 
-Automatické ověření schématu/modelu v synchronizaci usnadňuje hledání nekonzistentních problémů s databází a kódem.
+Automatické ověření schématu nebo modelu v synchronizaci usnadňuje vyhledání nekonzistentních problémů s databází či kódem.
 
-## <a name="adding-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti hodnocení do filmového modelu
+## <a name="adding-a-rating-property-to-the-movie-model"></a>Přidání vlastnosti hodnocení do modelu videa
 
-Otevřete soubor *Models/Movie.cs* `Rating` a přidejte vlastnost:
+Otevřete soubor *Models/video. cs* a přidejte `Rating` vlastnost:
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
 Sestavení aplikace
 
-Upravte *stránky/filmy/index.cshtml*a `Rating` přidejte pole:
+Upravit *stránky/filmy/index. cshtml*a přidat `Rating` pole:
 
 [!code-cshtml[](razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/IndexRating.cshtml?highlight=40-42,61-63)]
 
 Aktualizujte následující stránky:
 
-* Přidejte `Rating` pole na stránky Odstranit a Podrobnosti.
-* Aktualizujte [create.cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) s polem. `Rating`
-* Přidejte `Rating` pole na stránku Úpravy.
+* Přidejte `Rating` pole na stránky odstranit a podrobnosti.
+* Aktualizace [Create. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) s `Rating` polem
+* Přidejte `Rating` pole do stránky pro úpravy.
 
-Aplikace nebude fungovat, dokud db je aktualizován tak, aby zahrnovala nové pole. Pokud běží nyní, aplikace `SqlException`vyvolá :
+Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud nyní spustí aplikace, vyvolá `SqlException`:
 
 `SqlException: Invalid column name 'Rating'.`
 
-Tato chyba je způsobena tím, že aktualizovaná třída modelu Movie se liší od schématu tabulky Movie databáze. (V databázové `Rating` tabulce není žádný sloupec.)
+Tato chyba je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů databáze. (V tabulce databáze `Rating` není žádný sloupec.)
 
-Existuje několik přístupů k řešení chyby:
+K řešení této chyby je potřeba několik přístupů:
 
-1. Mají entity framework automaticky přetažení a znovu vytvořit databázi pomocí nového schématu třídy modelu. Tento přístup je vhodný na počátku vývojového cyklu; umožňuje rychle vyvíjet schéma modelu a databáze společně. Nevýhodou je, že ztratíte existující data v databázi. Nepoužívejte tento přístup v produkční databázi! Uvolnění DB na změny schématu a pomocí inicializátoru automaticky osiva databáze s testovací data je často produktivní způsob, jak vyvinout aplikaci.
+1. Entity Framework automaticky vyřadit a znovu vytvořit databázi pomocí nového schématu třídy modelu. Tento přístup je v brzké fázi vývojový cyklus vhodný; umožňuje rychlou vývoj modelu a schématu databáze dohromady. Nevýhodou je, že ztratíte stávající data v databázi. Nepoužívejte tento přístup k provozní databázi. Vyřazení databáze při změnách schématu a použití inicializátoru k automatickému osazení databáze s testovacími daty je často produktivním způsobem, jak vyvíjet aplikace.
 
-2. Explicitně upravte schéma existující databáze tak, aby odpovídala třídám modelu. Výhodou tohoto přístupu je, že uchováváte data. Tuto změnu můžete provést ručně nebo vytvořením skriptu pro změnu databáze.
+2. Explicitně upravte schéma existující databáze tak, aby odpovídalo třídám modelu. Výhodou tohoto přístupu je, že zachováte data. Tuto změnu můžete provést buď ručně, nebo vytvořením skriptu změny databáze.
 
-3. K aktualizaci schématu databáze použijte migrace prvního kódu.
+3. K aktualizaci schématu databáze použijte Migrace Code First.
 
-V tomto kurzu použijte migrace Code First.
+Pro tento kurz použijte Migrace Code First.
 
-Aktualizujte `SeedData` třídu tak, aby poskytovala hodnotu pro nový sloupec. Ukázková změna je uvedena níže, ale tuto změnu `new Movie` budete chtít provést pro každý blok.
+Aktualizujte `SeedData` třídu tak, aby poskytovala hodnotu pro nový sloupec. Níže je uvedená vzorová změna, ale tuto změnu budete chtít udělat pro každý `new Movie` blok.
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs?name=snippet1&highlight=8)]
 
-Podívejte se na [vyplněný soubor SeedData.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).
+Podívejte se na [dokončený soubor SeedData.cs](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Models/SeedDataRating.cs).
 
 Sestavte řešení.
 
@@ -206,34 +212,34 @@ Sestavte řešení.
 
 <a name="pmc"></a>
 
-### <a name="add-a-migration-for-the-rating-field"></a>Přidání migrace do pole hodnocení
+### <a name="add-a-migration-for-the-rating-field"></a>Přidání migrace pro pole hodnocení
 
-V nabídce **Nástroje** vyberte **položku NuGet Package Manager > Konzola správce balíčků**.
-Do pmc zadejte následující příkazy:
+V nabídce **nástroje** vyberte **správce balíčků NuGet > konzolu Správce balíčků**.
+Do PMC zadejte následující příkazy:
 
 ```powershell
 Add-Migration Rating
 Update-Database
 ```
 
-Příkaz `Add-Migration` říká rozhraní:
+`Add-Migration` Příkaz instruuje rozhraní:
 
-* Porovnejte `Movie` `Movie` model se schématem DB.
-* Vytvořte kód pro migraci schématu DB do nového modelu.
+* Porovnejte `Movie` model se schématem `Movie` databáze.
+* Vytvořte kód pro migraci schématu databáze do nového modelu.
 
-Název "Hodnocení" je libovolný a používá se k pojmenování migračního souboru. Je užitečné použít smysluplný název pro soubor migrace.
+Název "hodnocení" je libovolný a slouží k pojmenování souboru migrace. Je užitečné použít pro migrační soubor smysluplný název.
 
-Příkaz `Update-Database` říká rozhraní pro použití změny schématu v databázi.
+`Update-Database` Příkaz instruuje rozhraní, aby se změny schématu projevily v databázi.
 
 <a name="ssox"></a>
 
-Pokud odstraníte všechny záznamy v DB, inicializátor zaznamená DB a zahrne `Rating` pole. Můžete to provést pomocí odstranění odkazů v prohlížeči nebo z [Průzkumníka objektů sql serveru](xref:tutorials/razor-pages/sql#ssox) (SSOX).
+Pokud odstraníte všechny záznamy v databázi, inicializátor tuto databázi dosadí a zahrne `Rating` pole. Můžete to provést pomocí odkazů DELETE v prohlížeči nebo z [SQL Server Průzkumník objektů](xref:tutorials/razor-pages/sql#ssox) (SSOX).
 
-Další možností je odstranění databáze a použití migrace znovu vytvořit databázi. Odstranění databáze ve SSOX:
+Další možností je odstranit databázi a použít migrace k opětovnému vytvoření databáze. Odstranění databáze v SSOX:
 
-* Vyberte databázi ve SSOX.
-* Klikněte pravým tlačítkem myši na databázi a vyberte *příkaz Odstranit*.
-* Zaškrtněte **políčko Zavřít existující připojení**.
+* Vyberte databázi v SSOX.
+* Klikněte pravým tlačítkem na databázi a vyberte *Odstranit*.
+* Podívejte se na **Zavřít existující připojení**.
 * Vyberte **OK**.
 * V [PMC](xref:tutorials/razor-pages/new-field#pmc)aktualizujte databázi:
 
@@ -241,13 +247,13 @@ Další možností je odstranění databáze a použití migrace znovu vytvořit
   Update-Database
   ```
 
-# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code / Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
+# <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
-### <a name="drop-and-re-create-the-database"></a>Přetažení a opětovné vytvoření databáze
+### <a name="drop-and-re-create-the-database"></a>Vyřazení a opětovné vytvoření databáze
 
 [!INCLUDE[](~/includes/RP-mvc-shared/sqlite-warn.md)]
 
-Odstraňte databázi a použijte migrace znovu vytvořit databázi. Chcete-li databázi odstranit, odstraňte databázový soubor (*MvcMovie.db*). Pak spusťte `ef database update` příkaz:
+Odstraňte databázi a pomocí migrace znovu vytvořte databázi. Chcete-li odstranit databázi, odstraňte soubor databáze (*MvcMovie. DB*). Pak spusťte `ef database update` příkaz:
 
 ```dotnetcli
 dotnet ef database update
@@ -255,14 +261,14 @@ dotnet ef database update
 
 ---
 
-Spusťte aplikaci a ověřte, zda `Rating` můžete vytvářet/ upravovat/zobrazovat filmy pomocí pole. Pokud databáze není nasazena, nastavte bod přerušení `SeedData.Initialize` v metodě.
+Spusťte aplikaci a ověřte, že můžete vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Pokud databáze není osazena, nastavte v `SeedData.Initialize` metodě bod přerušení.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [Verze tohoto kurzu pro YouTube](https://youtu.be/3i7uMxiGGR8)
+* [Verze YouTube tohoto kurzu](https://youtu.be/3i7uMxiGGR8)
 
 > [!div class="step-by-step"]
-> [Předchozí: Přidání hledání](xref:tutorials/razor-pages/search)
-> [další: Přidání ověření](xref:tutorials/razor-pages/validation)
+> [Předchozí: Přidání vyhledávání](xref:tutorials/razor-pages/search)
+> v[Další: Přidání ověřování](xref:tutorials/razor-pages/validation)
 
 ::: moniker-end
