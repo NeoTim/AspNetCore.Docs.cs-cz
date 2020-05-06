@@ -7,14 +7,17 @@ ms.custom: mvc
 ms.date: 04/17/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: index
-ms.openlocfilehash: d70998d0149a0cc7018946a93ab63b5e10b76b78
-ms.sourcegitcommit: f9a5069577e8f7c53f8bcec9e13e117950f4f033
+ms.openlocfilehash: 7f46051193681ecac59428b77ca1e36830c7bb63
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/29/2020
-ms.locfileid: "82558930"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776333"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -170,7 +173,7 @@ Jako úvod do vývoje aplikací ASP.NET Core doporučujeme následující poslou
 
    |Scénář  |Tutoriál  |
    |----------|----------|
-   | Vývoj nové aplikace        |[Razor Pages pomocí Entity Framework Core](xref:data/ef-rp/intro) |
+   | Vývoj nové aplikace        |[RazorStránky s Entity Framework Core](xref:data/ef-rp/intro) |
    | Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro) |
 
 1. Přečtěte si přehled ASP.NET Core [základních](xref:fundamentals/index) součástí, které se vztahují na všechny typy aplikací.

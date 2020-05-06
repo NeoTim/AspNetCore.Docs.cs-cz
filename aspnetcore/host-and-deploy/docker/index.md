@@ -1,43 +1,49 @@
 ---
-title: Hostování ASP.NET jádra v kontejnerech Dockeru
+title: Hostování ASP.NET Core v kontejnerech Docker
 author: rick-anderson
-description: Seznamte se s odkazy na materiály, kde se dozvíte, jak hostovat aplikace ASP.NET Core v kontejnerech Dockeru.
+description: Seznamte se s odkazy na zdroje a Naučte se, jak hostovat aplikace ASP.NET Core v kontejnerech Docker.
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/08/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: host-and-deploy/docker/index
-ms.openlocfilehash: 78eb6f467c7e779e1bf998e8ac8e917a90895db9
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: 94996f279929f6e3837efb613c99927edbd9143e
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440724"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774584"
 ---
-# <a name="host-aspnet-core-in-docker-containers"></a>Hostování ASP.NET jádra v kontejnerech Dockeru
+# <a name="host-aspnet-core-in-docker-containers"></a>Hostování ASP.NET Core v kontejnerech Docker
 
-Následující články jsou k dispozici pro informace o hostování ASP.NET základních aplikací v Dockeru:
+Následující články jsou k dispozici pro získání informací o hostování ASP.NET Corech aplikací v Docker:
 
 [Úvod ke kontejnerům a Dockeru](/dotnet/standard/microservices-architecture/container-docker-introduction/index)  
-Podívejte se, jak kontejnerizace je přístup k vývoji softwaru, ve kterém aplikace nebo služby, její závislosti a jeho konfigurace jsou zabaleny společně jako image kontejneru. Bitovou kopii lze testovat a poté nasadit do hostitele.
+Podívejte se, jak vytváření kontejnerů představuje přístup k vývoji softwaru, ve kterém je aplikace nebo služba, její závislosti a její konfigurace zabaleny společně jako image kontejneru. Bitovou kopii lze otestovat a následně nasadit na hostitele.
 
 [Co je Docker](/dotnet/standard/microservices-architecture/container-docker-introduction/docker-defined)  
-Zjistěte, jak je Docker open source projekt pro automatizaci nasazení aplikací jako přenosných, soběstačných kontejnerů, které můžou běžet v cloudu nebo v místním prostředí.
+Seznamte se s tím, jak Docker je open source projekt pro automatizaci nasazení aplikací jako přenosných a vlastních kontejnerů, které můžou běžet v cloudu nebo místně.
 
-[Terminologie Dockeru](/dotnet/standard/microservices-architecture/container-docker-introduction/docker-terminology)  
-Seznamte se s termíny a definicemi pro technologii Dockeru.
+[Terminologie Docker](/dotnet/standard/microservices-architecture/container-docker-introduction/docker-terminology)  
+Seznamte se s podmínkami a definicemi pro technologii Docker.
 
 [Registry, image a kontejnery Dockeru](/dotnet/standard/microservices-architecture/container-docker-introduction/docker-containers-images-registries)  
-Zjistěte, jak jsou image kontejnerů Dockeru uloženy v registru bitových kopií pro konzistentní nasazení napříč prostředími.
+Zjistěte, jak jsou image kontejnerů Docker uložené v registru imagí pro konzistentní nasazení napříč prostředími.
 
-<xref:host-and-deploy/docker/building-net-docker-images>Přečtěte si, jak vytvořit a získat ASP.NET aplikaci Core. Prozkoumejte image Dockeru spravované společností Microsoft a prozkoumejte případy použití.
+<xref:host-and-deploy/docker/building-net-docker-images>Naučte se sestavovat a ukotvovat aplikaci ASP.NET Core. Prozkoumejte image Docker udržované Microsoftem a prozkoumejte případy použití.
 
 [Nástroje kontejneru sady Visual Studio](xref:host-and-deploy/docker/visual-studio-tools-for-docker)  
-Zjistěte, jak Visual Studio podporuje vytváření, ladění a spouštění aplikací ASP.NET Core zaměřených na rozhraní .NET Framework nebo .NET Core v Dockeru pro Windows. Jsou podporovány kontejnery Windows i Linux.
+Zjistěte, jak Visual Studio podporuje sestavování, ladění a spouštění aplikací ASP.NET Core cílících na .NET Framework nebo .NET Core na Docker for Windows. Podporují se kontejnery Windows i Linux.
 
 [Publikování do služby Azure Container Registry](/azure/vs-azure-tools-docker-hosting-web-apps-in-docker)  
-Zjistěte, jak pomocí rozšíření Nástroje kontejneru Visual Studio nasadit aplikaci ASP.NET Core do hostitele Dockeru v Azure pomocí PowerShellu.
+Zjistěte, jak pomocí rozšíření sady Visual Studio Container Tools nasadit aplikaci ASP.NET Core do hostitele Docker v Azure pomocí PowerShellu.
 
-[Konfigurace ASP.NET Core pro práci s proxy servery a vyrovnáváním zatížení](xref:host-and-deploy/proxy-load-balancer)  
-Další konfigurace může být vyžadována pro aplikace hostované za proxy servery a nástroji pro vyrovnávání zatížení. Předávání požadavků prostřednictvím proxy serveru často zakrývá informace o původním požadavku, jako je například schéma a IP klienta. Může být nutné předat některé informace o požadavku ručně do aplikace.
+[Konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer)  
+Pro aplikace hostované za proxy servery a nástroji pro vyrovnávání zatížení může být vyžadována další konfigurace. Předávání požadavků prostřednictvím proxy serveru často překrývá informace o původní žádosti, jako je například schéma a IP adresa klienta. Může být nutné přeslat některé informace o žádosti do aplikace ručně.
 
-[GC pomocí Dockeru a malých kontejnerů](xref:performance/memory#sc) Popisuje výběr GC s malými kontejnery.
+[GC s použitím Docker a malých kontejnerů](xref:performance/memory#sc) Popisuje výběr GC s malými kontejnery.

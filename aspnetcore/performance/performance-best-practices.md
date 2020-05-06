@@ -1,350 +1,354 @@
 ---
-title: ASP.NET základní doporučené postupy pro výkon
+title: Osvědčené postupy týkající se ASP.NET Core výkonu
 author: mjrousos
-description: Tipy pro zvýšení výkonu v aplikacích ASP.NET Core a zamezení běžným problémům s výkonem.
+description: Tipy pro zvýšení výkonu v aplikacích ASP.NET Core a předcházení běžným problémům s výkonem.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.date: 04/06/2020
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: performance/performance-best-practices
-ms.openlocfilehash: 068a35fbe410dad24030fe68c0dfd062b402212c
-ms.sourcegitcommit: f0aeeab6ab6e09db713bb9b7862c45f4d447771b
+ms.openlocfilehash: e83019a0f905fa9cd0f0c39960b787bc5b13b64f
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/08/2020
-ms.locfileid: "80977181"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775385"
 ---
-# <a name="aspnet-core-performance-best-practices"></a>ASP.NET základní doporučené postupy pro výkon
+# <a name="aspnet-core-performance-best-practices"></a>Osvědčené postupy týkající se ASP.NET Core výkonu
 
-Podle [Mike Rousos](https://github.com/mjrousos)
+O [Jan Rousos](https://github.com/mjrousos)
 
-Tento článek obsahuje pokyny pro doporučené postupy výkonu s ASP.NET Core.
+Tento článek poskytuje pokyny pro osvědčené postupy výkonu ASP.NET Core.
 
-## <a name="cache-aggressively"></a>Mezipaměť agresivně
+## <a name="cache-aggressively"></a>Ukládat do mezipaměti agresivní
 
-Ukládání do mezipaměti je diskutováno v několika částech tohoto dokumentu. Další informace naleznete v tématu <xref:performance/caching/response>.
+Mezipaměť je popsána v několika částech tohoto dokumentu. Další informace naleznete v tématu <xref:performance/caching/response>.
 
-## <a name="understand-hot-code-paths"></a>Porozumět horkým cestám kódu
+## <a name="understand-hot-code-paths"></a>Pochopení cest k horkému kódu
 
-V tomto dokumentu je *horká cesta kódu* definována jako cesta kódu, která je často volána a kde dochází k velké části doby provádění. Cesty horkého kódu obvykle omezují horizontální navýšení kapacity aplikací a výkon a jsou popsány v několika částech tohoto dokumentu.
+V tomto dokumentu je *horká cesta kódu* definována jako cesta kódu, která je často volána a kde velká doba spuštění nastane. Cesty horkého kódu obvykle omezují škálování a výkon aplikace a jsou popsány v několika částech tohoto dokumentu.
 
-## <a name="avoid-blocking-calls"></a>Vyhněte se blokování hovorů
+## <a name="avoid-blocking-calls"></a>Vyhnout se blokování volání
 
-ASP.NET základní aplikace by měly být navrženy tak, aby zpracovávaly mnoho požadavků současně. Asynchronní rozhraní API umožňují malý fond podprocesů pro zpracování tisíců souběžných požadavků tím, že nečeká na blokování volání. Spíše než čekat na dlouhotrvající synchronní úlohu k dokončení, vlákno může pracovat na jiný požadavek.
+ASP.NET Core aplikace by měly být navržené tak, aby souběžně zpracovaly hodně požadavků. Asynchronní rozhraní API umožňují malému fondu vláken zpracovávat tisíce souběžných požadavků a nečekají na blokující volání. Místo čekání na dokončení dlouhotrvající synchronní úlohy může vlákno pracovat na jiné žádosti.
 
-Běžnýproblém výkonu v aplikacích ASP.NET Core blokuje volání, která mohou být asynchronní. Mnoho synchronní blokování volání vést k [fondu vláken hladovění](https://blogs.msdn.microsoft.com/vancem/2018/10/16/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall/) a zhoršené doby odezvy.
+Běžný problém s výkonem v ASP.NET Core aplikace blokuje volání, která by mohla být asynchronní. Mnoho synchronních blokujících volání vede k [vyčerpání fondu vláken](https://blogs.msdn.microsoft.com/vancem/2018/10/16/diagnosing-net-core-threadpool-starvation-with-perfview-why-my-service-is-not-saturating-all-cores-or-seems-to-stall/) a snížení doby odezvy.
 
-**Ne :**
+**Nepoužívejte**:
 
-* Blokovat asynchronní spuštění voláním [Task.Wait](/dotnet/api/system.threading.tasks.task.wait) nebo [Task.Result](/dotnet/api/system.threading.tasks.task-1.result).
-* Získejte zámky v běžných cestách kódu. ASP.NET Základní aplikace jsou nejvýkonnější při navrhování pro paralelní spouštění kódu.
-* Volejte [Task.Run](/dotnet/api/system.threading.tasks.task.run) a okamžitě na něj čekat. ASP.NET Core již spouští kód aplikace v normálních vláknech fondu vláken, takže volání Task.Run má za následek pouze další zbytečné plánování fondu vláken. I v případě, že naplánovaný kód by blokovat vlákno, Task.Run nezabrání tomu.
+* Zablokuje asynchronní spuštění voláním [Task. Wait](/dotnet/api/system.threading.tasks.task.wait) nebo [Task. Result](/dotnet/api/system.threading.tasks.task-1.result).
+* Získejte zámky v běžných cestách kódu. ASP.NET Core aplikace jsou nejvíc výkonné, když je navrženo paralelní spouštění kódu.
+* Zavolejte [úlohu. Spusťte](/dotnet/api/system.threading.tasks.task.run) ji a ihned ji proveďte. ASP.NET Core v normálních vláknech fondu vláken již spouští kód aplikace, takže volání úlohy. Výsledkem je nadbytečné plánování nepotřebného fondu vláken. I v případě, že je v plánovaném kódu zablokované vlákno, úloha. Run nebrání.
 
 **Do**:
 
-* Vytvořte [horké cesty kódu](#understand-hot-code-paths) asynchronní.
-* Volání přístupu k datům, vstupně-místa a dlouhotrvající operace rozhraní API asynchronně, pokud je k dispozici asynchronní rozhraní API. **Nepoužívejte** [Task.Run,](/dotnet/api/system.threading.tasks.task.run) aby synchronní rozhraní API asynchronní.
-* Aby akce řadiče/Holicí strojek asynchronně. Celý zásobník volání je asynchronní, aby bylo možné využívat vzory [async/await.](/dotnet/csharp/programming-guide/concepts/async/)
+* Proveďte asynchronní vytváření [cest kódu](#understand-hot-code-paths) .
+* Pokud je k dispozici asynchronní rozhraní API, volejte asynchronní rozhraní API pro přístup k datům, vstupně-výstupní operace a dlouhotrvající provozní rozhraní. Nepoužívejte rutinu [Task. Run](/dotnet/api/system.threading.tasks.task.run) , aby rozhraní API synchronus bylo asynchronní. **not**
+* Provede asynchronní akceRazor kontroleru nebo stránky. Celý zásobník volání je asynchronní, aby bylo možné využívat vzory [Async/await](/dotnet/csharp/programming-guide/concepts/async/) .
 
-Profiler, například [PerfView](https://github.com/Microsoft/perfview), lze použít k vyhledání podprocesů často přidaných do [fondu vláken](/windows/desktop/procthread/thread-pools). Událost `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` označuje vlákno přidané do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
+Profiler, například [PerfView](https://github.com/Microsoft/perfview), lze použít k nalezení často přidaných vláken do [fondu vláken](/windows/desktop/procthread/thread-pools). `Microsoft-Windows-DotNETRuntime/ThreadPoolWorkerThread/Start` Událost indikuje vlákno přidané do fondu vláken. <!--  For more information, see [async guidance docs](TBD-Link_To_Davifowl_Doc)  -->
 
 ## <a name="minimize-large-object-allocations"></a>Minimalizace přidělení velkých objektů
 
-[Systém uvolňování paměti .NET Core](/dotnet/standard/garbage-collection/) automaticky spravuje přidělení a uvolnění paměti v aplikacích ASP.NET Core. Automatické uvolňování paměti obecně znamená, že vývojáři nemusí starat o tom, jak nebo kdy je uvolněna paměť. Vyčištění neodkazovaných objektů však trvá čas procesoru, takže vývojáři by měli minimalizovat přidělování objektů v [cestách horkékód](#understand-hot-code-paths). Uvolňování paměti je obzvláště nákladné na velké objekty (> 85 k B). Velké objekty jsou uloženy na [haldě velkého objektu](/dotnet/standard/garbage-collection/large-object-heap) a vyžadují úplné (generace 2) uvolnění paměti k vyčištění. Na rozdíl od generace 0 a generace 1 kolekce generace 2 kolekce vyžaduje dočasné pozastavení spuštění aplikace. Časté přidělování a delokace velkých objektů může způsobit nekonzistentní výkon.
+[Systém uvolňování paměti .NET Core](/dotnet/standard/garbage-collection/) spravuje přidělování a uvolňování paměti automaticky v aplikacích ASP.NET Core. Automatické uvolňování paměti obvykle znamená, že se vývojáři nemuseli starat o způsob uvolnění paměti. Vyčištění neodkazovaných objektů však zabere čas procesoru, takže vývojáři by měli minimalizovat přidělování objektů v [Hot recestách kódu](#understand-hot-code-paths). Uvolňování paměti je mimořádně nákladné u velkých objektů (> 85 KB). Velké objekty jsou uloženy v [haldě velkých objektů](/dotnet/standard/garbage-collection/large-object-heap) a vyžadují úplné uvolnění paměti (2. generace) pro vyčištění. Na rozdíl od generace 0 a 1. generace kolekce vyžaduje shromažďování 2 dočasné pozastavení provádění aplikace. Časté přidělení a zrušení přidělení velkých objektů může způsobit nekonzistentní výkon.
 
-Doporučení:
+Doporučit
 
-* **Zvažte** ukládání velkých objektů do mezipaměti, které se často používají. Ukládání velkých objektů do mezipaměti zabraňuje nákladné přidělení.
-* **Do** fondu vyrovnávacích pamětí pomocí [ArrayPool\<T>](/dotnet/api/system.buffers.arraypool-1) pro ukládání velkých polí.
-* **Nepřidělujte** mnoho, krátkodobé velké objekty na [cesty horké kód](#understand-hot-code-paths).
+* **Zvažte ukládání** velkých často používaných objektů do mezipaměti. Ukládání velkých objektů do mezipaměti brání nákladným přidělením.
+* Ukládání **do vyrovnávací** paměti pomocí [\<ArrayPool T>](/dotnet/api/system.buffers.arraypool-1) k uložení velkých polí.
+* **Nepřiřazujte** mnoho nenáročnéch velkých objektů na [cesty horkého kódu](#understand-hot-code-paths).
 
-Problémy s pamětí, jako je například předchozí, mohou být diagnostikovány kontrolou statistik uvolňování paměti (GC) v [PerfView](https://github.com/Microsoft/perfview) a zkoumáním:
+Problémy s pamětí, jako je například předchozí, lze diagnostikovat podle statistik uvolňování paměti (GC) v [PerfView](https://github.com/Microsoft/perfview) a prověřování:
 
-* Uvolnění paměti pozastavit čas.
-* Jaké procento času procesoru je vynaloženo v uvolňování paměti.
-* Kolik uvolnění paměti jsou generace 0, 1 a 2.
+* Doba pozastavení uvolňování paměti
+* Jaké procento času procesoru stráví uvolňováním paměti.
+* Kolik uvolňování paměti je generace 0, 1 a 2.
 
-Další informace naleznete v [tématu Uvolňování paměti a výkon](/dotnet/standard/garbage-collection/performance).
+Další informace najdete v tématu [shromažďování a výkon uvolňování paměti](/dotnet/standard/garbage-collection/performance).
 
-## <a name="optimize-data-access-and-io"></a>Optimalizace přístupu k datům a vstupně-to
+## <a name="optimize-data-access-and-io"></a>Optimalizujte přístup k datům a vstupně-výstupní operace
 
-Interakce s úložištěm dat a dalšími vzdálenými službami jsou často nejpomalejší částí aplikace ASP.NET Core. Efektivní čtení a zápis dat je rozhodující pro dobrý výkon.
+Interakce s úložištěm dat a dalšími vzdálenými službami jsou často nejpomalejšími částmi ASP.NET Core aplikace. Efektivní čtení a zápis dat je zásadní pro dobrý výkon.
 
-Doporučení:
+Doporučit
 
-* **Volat** všechna data přístupu api asynchronně.
-* **Nenačítejte** více dat, než je nutné. Napište dotazy vrátit pouze data, která je nezbytná pro aktuální požadavek HTTP.
-* **Zvažte** ukládání často přistupovaných dat z databáze nebo vzdálené služby do mezipaměti, pokud jsou přijatelná mírně zastaralá data. V závislosti na scénáři použijte [MemoryCache](xref:performance/caching/memory) nebo [DistributedCache](xref:performance/caching/distributed). Další informace naleznete v tématu <xref:performance/caching/response>.
-* **Minimalizujte** síťové zpáteční lety. Cílem je načíst požadovaná data v jednom volání, nikoli několik volání.
-* **Při** [přístupu k datům](/ef/core/querying/tracking#no-tracking-queries) pro účely jen pro čtení používejte dotazy bez sledování v jádru entity frameworku. EF Core můžete vrátit výsledky bez sledování dotazů efektivněji.
-* **Filtrujte** a agregujte dotazy `.Where` `.Select`LINQ `.Sum` (například s , nebo příkazy) tak, aby filtrování prováděla databáze.
-* **Myslíte** si, že EF Core řeší některé operátory dotazu na straně klienta, což může vést k neefektivní spuštění dotazu. Další informace naleznete v [tématu Problémy s výkonem hodnocení klienta](/ef/core/querying/client-eval#client-evaluation-performance-issues).
-* **Nepoužívejte** projekční dotazy na kolekce, což může mít za následek provádění dotazů SQL "N + 1". Další informace naleznete v [tématu Optimalizace korelovaných poddotazů](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries).
+* **Volejte všechna** rozhraní API pro přístup k datům asynchronně.
+* **Nečítat více** dat, než je nutné. Zápis dotazů, které vrátí pouze data potřebná pro aktuální požadavek HTTP.
+* **Zvažte ukládání** často používaných dat načtených z databáze nebo vzdálené služby, pokud jsou přijatelné mírně zastaralá data. V závislosti na scénáři použijte [MemoryCache](xref:performance/caching/memory) nebo [DistributedCache](xref:performance/caching/distributed). Další informace naleznete v tématu <xref:performance/caching/response>.
+* **Minimalizujte** síťové zpáteční cykly. Cílem je načíst požadovaná data v jednom volání namísto několika volání.
+* Při přístupu k datům pro účely jen pro **čtení používejte v** Entity Framework Core [dotazy bez sledování](/ef/core/querying/tracking#no-tracking-queries) . EF Core může vracet výsledky nesledovaných dotazů efektivněji.
+* **Filtrujte a** agregovat dotazy LINQ (například pomocí `.Where`příkazů `.Select`,, `.Sum` nebo), aby bylo filtrování provedeno v databázi.
+* **Vezměte v** úvahu, že EF Core řeší některé operátory pro dotazování v klientovi, což může vést k neefektivnímu provádění dotazů. Další informace najdete v tématu [problémy s výkonem Hodnocení klientů](/ef/core/querying/client-eval#client-evaluation-performance-issues).
+* **Nepoužívejte dotazy** projekce na kolekcích, což může vést k provádění dotazů SQL N + 1. Další informace najdete v tématu [optimalizace korelačních poddotazů](/ef/core/what-is-new/ef-core-2.1#optimization-of-correlated-subqueries).
 
-Přístupy, které mohou zlepšit výkon v aplikacích ve velkém měřítku, najdete v tématu [EF High Performance:](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries)
+Podívejte se na [vysoký výkon](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries) pro přístupy, které můžou zlepšit výkon v vysoce škálovatelných aplikacích:
 
-* [Sdružování kontextu DbContext](/ef/core/what-is-new/ef-core-2.0#dbcontext-pooling)
-* [Explicitně zkompilované dotazy](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries)
+* [Sdružování DbContext](/ef/core/what-is-new/ef-core-2.0#dbcontext-pooling)
+* [Explicitně kompilované dotazy](/ef/core/what-is-new/ef-core-2.0#explicitly-compiled-queries)
 
-Doporučujeme měřit dopad předchozích vysoce výkonných přístupů před potvrzením základu kódu. Další složitost zkompilovaných dotazů nemusí odůvodnit zlepšení výkonu.
+Před potvrzením základu kódu doporučujeme měřit dopad předchozích přístupů. Další složitost kompilovaných dotazů nemusí zlepšit zvýšení výkonu.
 
-Problémy s dotazy lze zjistit kontrolou času stráveného přístupem k datům pomocí [application insights](/azure/application-insights/app-insights-overview) nebo pomocí nástrojů profilování. Většina databází také zpřístupnit statistické údaje týkající se často spouštěné dotazy.
+Problémy s dotazy se dají zjistit tak, že si prohlédnete čas strávený přístupem k datům pomocí [Application Insights](/azure/application-insights/app-insights-overview) nebo pomocí nástrojů pro profilaci. Většina databází také zpřístupňuje statistické údaje týkající se často spuštěných dotazů.
 
-## <a name="pool-http-connections-with-httpclientfactory"></a>Připojení HTTP fondu s aplikací HttpClientFactory
+## <a name="pool-http-connections-with-httpclientfactory"></a>Připojení fondů HTTP k HttpClientFactory
 
-Přestože [HttpClient](/dotnet/api/system.net.http.httpclient) `IDisposable` implementuje rozhraní, je určen pro opakované použití. Uzavřené `HttpClient` instance ponechávají sokety otevřené ve `TIME_WAIT` stavu po krátkou dobu. Pokud cesta kódu, která vytváří `HttpClient` a zprostředkovává objekty se často používá, aplikace může vyčerpat dostupné sokety. [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) byl představen v ASP.NET Core 2.1 jako řešení tohoto problému. Zpracovává sdružování připojení HTTP pro optimalizaci výkonu a spolehlivosti.
+I když [HttpClient](/dotnet/api/system.net.http.httpclient) implementuje `IDisposable` rozhraní, je navrženo pro opakované použití. Uzavřené `HttpClient` instance nechají v krátké době otevřené `TIME_WAIT` sokety ve stavu. Pokud se často používá cesta kódu, která vytváří a `HttpClient` uvolňuje objekty, může aplikace vyčerpat dostupné sokety. [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) byl představen v ASP.NET Core 2,1 jako řešení tohoto problému. Zpracovává připojení HTTP ve fondu za účelem optimalizace výkonu a spolehlivosti.
 
-Doporučení:
+Doporučit
 
-* **Nevytvářejte** a `HttpClient` nevyřazujte instance přímo.
-* **Použijte** [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) k `HttpClient` načtení instancí. Další informace naleznete [v tématu HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests).
+* **Nevytvářejte a neodstraňujte** `HttpClient` instance přímo.
+* K načtení [HttpClientFactory](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests) `HttpClient` **instancí použijte** HttpClientFactory. Další informace najdete v tématu [použití HttpClientFactory k implementaci odolných požadavků HTTP](/dotnet/standard/microservices-architecture/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests).
 
-## <a name="keep-common-code-paths-fast"></a>Rychlé zachování běžných cest kódu
+## <a name="keep-common-code-paths-fast"></a>Rychlé udržování běžných cest kódu
 
-Chcete, aby byl celý kód rychlý. Často nazývané cesty kódu jsou nejkritičtější pro optimalizaci. Mezi ně patří:
+Chcete, aby byl veškerý kód rychlý. Často volané cesty kódu jsou nejdůležitější pro optimalizaci. Mezi ně patří:
 
-* Součásti Middleware v kanálu zpracování požadavků aplikace, zejména middleware spustit v rané fázi kanálu. Tyto součásti mají velký vliv na výkon.
-* Kód, který je proveden pro každý požadavek nebo vícekrát na požadavek. Například vlastní protokolování, obslužné rutiny autorizace nebo inicializace přechodných služeb.
+* Komponenty middlewaru v kanálu zpracování požadavků aplikace, zejména middleware spouštěné včas v kanálu. Tyto součásti mají velký dopad na výkon.
+* Kód, který se spustí pro každý požadavek nebo vícekrát na požadavek. Například vlastní protokolování, obslužné rutiny autorizace nebo inicializace přechodných služeb.
 
-Doporučení:
+Doporučit
 
-* **Nepoužívejte** vlastní komponenty middlewaru s dlouhotrvajícími úlohami.
-* **K** identifikaci [cest horkého kódu](#understand-hot-code-paths)používejte nástroje pro profilování výkonu, například [nástroje Visual Studio Diagnostic Tools](/visualstudio/profiling/profiling-feature-tour) nebo [PerfView](https://github.com/Microsoft/perfview)).
+* **Nepoužívejte vlastní** součásti middlewaru s dlouhodobě běžícími úkoly.
+* **Pomocí nástrojů** pro profilaci výkonu, jako je [Visual Studio diagnostické nástroje](/visualstudio/profiling/profiling-feature-tour) nebo [PerfView](https://github.com/Microsoft/perfview)), identifikujte [cesty k horkému kódu](#understand-hot-code-paths).
 
 ## <a name="complete-long-running-tasks-outside-of-http-requests"></a>Dokončení dlouhotrvajících úloh mimo požadavky HTTP
 
-Většinu požadavků na aplikaci ASP.NET Core může zpracovat řadič nebo model stránky, který volá nezbytné služby a vrací odpověď HTTP. U některých požadavků, které zahrnují dlouhotrvající úlohy, je lepší, aby celý proces požadavku a odpovědi asynchronní.
+Většinu požadavků na aplikaci ASP.NET Core může zpracovat řadič nebo model stránky, který volá potřebné služby a vrací odpověď HTTP. U některých požadavků, které zahrnují dlouhotrvající úlohy, je lepší provést asynchronní zpracování celého procesu požadavků a odpovědí.
 
-Doporučení:
+Doporučit
 
-* **Nečekejte** na dlouhotrvající úlohy k dokončení jako součást běžnézpracování požadavku HTTP.
-* **Zvažte** zpracování dlouhotrvající požadavky se [službami na pozadí](xref:fundamentals/host/hosted-services) nebo mimo proces s Azure [function](/azure/azure-functions/). Dokončení práce mimo proces je obzvláště výhodné pro úlohy náročné na procesor.
-* **Ke** komunikaci s klienty asynchronně používejte možnosti komunikace v reálném čase, například [SignalR](xref:signalr/introduction).
+* **Nečekejte** na dokončení dlouhotrvajících úloh jako součást běžného zpracování požadavků protokolu HTTP.
+* **Vezměte v** úvahu zpracování dlouho běžících požadavků se [službami na pozadí](xref:fundamentals/host/hosted-services) nebo mimo proces s [funkcí Azure Functions](/azure/azure-functions/). Dokončení práce mimo proces je zvláště užitečné pro úlohy náročné na procesor.
+* K asynchronní komunikaci s **klienty použijte možnosti** komunikace v reálném [SignalR](xref:signalr/introduction)čase, například.
 
-## <a name="minify-client-assets"></a>Minify klientská aktiva
+## <a name="minify-client-assets"></a>Prostředky klienta minimalizuje
 
-ASP.NET Základní aplikace se složitými front-endy často obsluhují mnoho souborů JavaScriptu, CSS nebo obrázků. Výkon počátečních požadavků na zatížení lze zlepšit pomocí:
+ASP.NET Core aplikace s komplexní front-endy často obsluhují mnoho souborů JavaScript, CSS nebo obrázků. Výkon požadavků na počáteční zatížení může zlepšit:
 
-* Svazování, které kombinuje více souborů do jednoho.
-* Minifying, který zmenšuje velikost souborů odebráním mezery a komentáře.
+* Sdružování, které kombinuje více souborů do jednoho.
+* Minifikace, která zmenšuje velikost souborů odebráním prázdných znaků a komentářů.
 
-Doporučení:
+Doporučit
 
-* **Používejte** integrovanou [podporu](xref:client-side/bundling-and-minification) ASP.NET Core pro svazování a minifying klientských aktiv.
-* **Zvažte** další nástroje třetích stran, jako je [například Webpack](https://webpack.js.org/), pro komplexní správu aktiv klienta.
+* **Využijte** [předdefinovanou podporu](xref:client-side/bundling-and-minification) ASP.NET Core pro sdružování a minifikaceí prostředků klientů.
+* Pro komplexní správu prostředků **klienta zvažte další** nástroje třetích stran, jako je například [Webpack](https://webpack.js.org/).
 
-## <a name="compress-responses"></a>Komprese odpovědí
+## <a name="compress-responses"></a>Komprimovat odpovědi
 
- Zmenšení velikosti odpovědi obvykle zvyšuje odezvu aplikace, často dramaticky. Jedním ze způsobů, jak snížit velikost datové části, je komprimovat odpovědi aplikace. Další informace naleznete v [tématu Komprese odezvy](xref:performance/response-compression).
+ Zmenšení velikosti odpovědi obvykle zvyšuje rychlost odezvy aplikace, často výrazně. Jedním ze způsobů, jak omezit velikost datových částí, je komprimace reakcí aplikace. Další informace najdete v tématu [odezva komprese](xref:performance/response-compression).
 
-## <a name="use-the-latest-aspnet-core-release"></a>Použití nejnovější verze ASP.NET Core
+## <a name="use-the-latest-aspnet-core-release"></a>Použít nejnovější verzi ASP.NET Core
 
-Každá nová verze ASP.NET Core obsahuje vylepšení výkonu. Optimalizace v .NET Core a ASP.NET Core znamenají, že novější verze obecně předčí starší verze. Například .NET Core 2.1 přidal podporu pro kompilované regulární výrazy a těžil z [Span\<T>](https://msdn.microsoft.com/magazine/mt814808.aspx). ASP.NET Core 2.2 přidal podporu pro HTTP/2. [ASP.NET Core 3.0 přidává mnoho vylepšení,](xref:aspnetcore-3.0) která snižují využití paměti a zlepšují propustnost. Pokud je prioritou výkon, zvažte upgrade na aktuální verzi ASP.NET core.
+Každé nové vydání ASP.NET Core zahrnuje vylepšení výkonu. Optimalizace v .NET Core a ASP.NET Core znamenají, že novější verze obecně překoná starší verze. Například rozhraní .NET Core 2,1 přidalo podporu kompilovaných regulárních výrazů a benefitted [z\<rozsahu T>](https://msdn.microsoft.com/magazine/mt814808.aspx). ASP.NET Core 2,2 přidali podporu pro HTTP/2. [ASP.NET Core 3,0 přidává mnoho vylepšení](xref:aspnetcore-3.0) , která omezují využití paměti a zvyšují propustnost. Pokud je výkon prioritou, zvažte upgrade na aktuální verzi ASP.NET Core.
 
 ## <a name="minimize-exceptions"></a>Minimalizace výjimek
 
-Výjimky by měly být vzácné. Vyvolání a zachycení výjimky je pomalé vzhledem k jiné vzory toku kódu. Z tohoto důvodu by výjimky neměly být použity k řízení normálního toku programu.
+Výjimky by měly být vzácné. Vyvolávání a zachycování výjimek je pomalé vzhledem k jiným vzorům toku kódu. Z tohoto důvodu by se výjimky neměly používat k řízení normálního toku programu.
 
-Doporučení:
+Doporučit
 
-* **Nepoužívejte** vyvolání nebo zachycení výjimky jako prostředek normální tok programu, zejména v [horké cesty kódu](#understand-hot-code-paths).
-* **Do** zahrnout logiku v aplikaci ke zjištění a zpracování podmínek, které by způsobily výjimku.
-* **Do** vyvolat nebo zachytit výjimky pro neobvyklé nebo neočekávané podmínky.
+* **Nepoužívejte vyvolání** nebo zachycení výjimek jako způsob normálního toku programu, zejména v případě [aktivních cest kódu](#understand-hot-code-paths).
+* **Do aplikace zahrňte logiku** , která zjišťuje a zpracovává podmínky, které by způsobily výjimku.
+* **Vyvolejte nebo** Zachyťte výjimky pro neobvyklé nebo neočekávané podmínky.
 
-Diagnostické nástroje aplikací, jako je Application Insights, můžou pomoct identifikovat běžné výjimky v aplikaci, které můžou ovlivnit výkon.
+Nástroje pro diagnostiku aplikací, jako je například Application Insights, můžou pomáhat identifikovat běžné výjimky v aplikaci, která může mít vliv na výkon.
 
 ## <a name="performance-and-reliability"></a>Výkon a spolehlivost
 
-Následující části obsahují tipy pro výkon a známé problémy se spolehlivostí a řešení.
+V následujících částech najdete tipy ke zvýšení výkonu a známé problémy s spolehlivostí a řešení.
 
-## <a name="avoid-synchronous-read-or-write-on-httprequesthttpresponse-body"></a>Vyhněte se synchronní čtení nebo zápisu na těle HttpRequest/HttpResponse
+## <a name="avoid-synchronous-read-or-write-on-httprequesthttpresponse-body"></a>Vyhněte se synchronnímu čtení nebo zápisu na HttpRequest/HttpResponse tělo
 
-Všechny vstupně-v. v ASP.NET core je asynchronní. Servery `Stream` implementují rozhraní, které má synchronní i asynchronní přetížení. Asynchronní by měly být upřednostňovány, aby se zabránilo blokování vláken fondu vláken. Blokování podprocesů může vést k hladovění fondu vláken.
+Všechny vstupně-výstupní operace v ASP.NET Core jsou asynchronní. Servery implementují `Stream` rozhraní, které má synchronní i asynchronní přetížení. Asynchronní objekty by měly být upřednostňovány, aby se zabránilo blokování vláken fondu vláken. Blokování vláken může vést k vyčerpání fondu vláken.
 
-**Nedělají toto:** Následující příklad používá <xref:System.IO.StreamReader.ReadToEnd*>. Blokuje aktuální vlákno čekat na výsledek. Toto je příklad [synchronizace přes asynchronní](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
+**Neprovádět tyto akce:** Následující příklad používá <xref:System.IO.StreamReader.ReadToEnd*>. Zablokuje aktuální vlákno, aby čekal na výsledek. Toto je příklad [synchronizace přes Async](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
 ).
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MyFirstController.cs?name=snippet1)]
 
-V předchozím kódu `Get` synchronně přečte celé tělo požadavku HTTP do paměti. Pokud se klient pomalu nahrává, aplikace provádí synchronizaci přes asynchronní. Aplikace se synchronizuje přes asynchronní, protože Kestrel **nepodporuje** synchronní čtení.
+V předchozím kódu `Get` synchronně přečte celý text požadavku HTTP do paměti. Pokud se klient pomalu odesílá, aplikace provádí synchronizaci přes Async. Aplikace provádí synchronizaci přes Async, protože **Kestrel nepodporuje synchronní** čtení.
 
-**Proveďte toto:** Následující příklad <xref:System.IO.StreamReader.ReadToEndAsync*> používá a neblokuje vlákno při čtení.
+**Postupujte takto:** Následující příklad používá <xref:System.IO.StreamReader.ReadToEndAsync*> a neblokuje vlákno při čtení.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MyFirstController.cs?name=snippet2)]
 
-Předchozí kód asynchronně přečte celé tělo požadavku HTTP do paměti.
+Předchozí kód asynchronně načte celý text požadavku HTTP do paměti.
 
 > [!WARNING]
-> Pokud je požadavek velký, čtení celého těla požadavku HTTP do paměti může vést k nedostatku paměti (OOM). OOM může mít za následek odmítnutí služby.  Další informace naleznete v [tématu Vyhněte se čtení velkých těl požadavků nebo těl odpovědí do paměti](#arlb) v tomto dokumentu.
+> Pokud je žádost velká, čtení celého textu požadavku HTTP do paměti by mohlo vést k nedostatku paměti (OOM). OOM může mít za následek odepření služby.  Další informace najdete v tématu [zamezení čtení velkých těla žádostí nebo těla reakcí do paměti](#arlb) v tomto dokumentu.
 
-**Proveďte toto:** Následující příklad je plně asynchronní pomocí těla požadavku bez vyrovnávací paměti:
+**Postupujte takto:** Následující příklad je plně asynchronní pomocí textu žádosti bez vyrovnávací paměti:
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MyFirstController.cs?name=snippet3)]
 
-Předchozí kód asynchronně deserializuje tělo požadavku do c# objektu.
+Předchozí kód asynchronně deserializace tělo požadavku do objektu jazyka C#.
 
-## <a name="prefer-readformasync-over-requestform"></a>Preferovat ReadFormAsync před Request.Form
+## <a name="prefer-readformasync-over-requestform"></a>Preferovat ReadFormAsync přes Request. Form
 
-Místo `HttpContext.Request.ReadFormAsync` použít `HttpContext.Request.Form`.
-`HttpContext.Request.Form`lze bezpečně číst pouze za následujících podmínek:
+Místo `HttpContext.Request.ReadFormAsync` použijte `HttpContext.Request.Form`.
+`HttpContext.Request.Form`lze bezpečně číst pouze s následujícími podmínkami:
 
-* Formulář byl přečten voláním `ReadFormAsync`na a
-* Hodnota formuláře uložená v mezipaměti se čte pomocí`HttpContext.Request.Form`
+* Formulář byl přečten voláním `ReadFormAsync`a
+* Hodnota formuláře v mezipaměti je čtena pomocí`HttpContext.Request.Form`
 
-**Nedělají toto:** Následující příklad `HttpContext.Request.Form`používá .  `HttpContext.Request.Form`používá [synchronizaci přes asynchronizaci](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
-) a může vést k hladovění fondu vláken.
+**Neprovádět tyto akce:** Následující příklad používá `HttpContext.Request.Form`.  `HttpContext.Request.Form`používá [synchronizaci přes Async](https://github.com/davidfowl/AspNetCoreDiagnosticScenarios/blob/master/AsyncGuidance.md#warning-sync-over-async
+) a může vést k vyčerpání fondu vláken.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MySecondController.cs?name=snippet1)]
 
-**Proveďte toto:** Následující příklad `HttpContext.Request.ReadFormAsync` používá ke čtení těla formuláře asynchronně.
+**Postupujte takto:** Následující příklad používá `HttpContext.Request.ReadFormAsync` pro asynchronní čtení těla formuláře.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/MySecondController.cs?name=snippet2)]
 
 <a name="arlb"></a>
 
-## <a name="avoid-reading-large-request-bodies-or-response-bodies-into-memory"></a>Vyhněte se čtení velkých těl požadavků nebo těl odpovědí do paměti
+## <a name="avoid-reading-large-request-bodies-or-response-bodies-into-memory"></a>Vyhněte se čtení velkých těla žádostí nebo těla reakcí do paměti
 
-V rozhraní .NET každé přidělení objektu větší než 85 KB skončí v haldě velkého objektu ([LOH](https://blogs.msdn.microsoft.com/maoni/2006/04/19/large-object-heap/)). Velké objekty jsou drahé dvěma způsoby:
+V rozhraní .NET končí každá alokace objektu větší než 85 KB v haldě velkých objektů ([LOH](https://blogs.msdn.microsoft.com/maoni/2006/04/19/large-object-heap/)). Velké objekty jsou nákladné dvěma způsoby:
 
-* Náklady na přidělení je vysoká, protože paměť pro nově přidělený velký objekt musí být vymazány. CLR zaručuje, že paměť pro všechny nově přidělené objekty je vymazána.
-* LOH se shromažďuje se zbytkem haldy. LOH vyžaduje úplné [uvolnění paměti](/dotnet/standard/garbage-collection/fundamentals) nebo [Gen2 kolekce](/dotnet/standard/garbage-collection/fundamentals#generations).
+* Náklady na přidělení jsou vysoké, protože paměť pro nově přidělený velký objekt musí být smazána. Modul CLR garantuje, že paměť pro všechny nově přidělené objekty jsou vymazány.
+* LOH se shromáždí se zbytkem haldy. LOH vyžaduje úplné [uvolňování paměti](/dotnet/standard/garbage-collection/fundamentals) nebo [kolekci Gen2](/dotnet/standard/garbage-collection/fundamentals#generations).
 
-Tento [blog post](https://adamsitnik.com/Array-Pool/#the-problem) popisuje problém stručně:
+Tento [Blogový příspěvek](https://adamsitnik.com/Array-Pool/#the-problem) popisuje stručně problém:
 
-> Když je přidělen velký objekt, je označen jako objekt Gen 2. Ne Gen 0 jako pro malé objekty. Důsledky jsou, že pokud vám dojdou paměti v LOH, GC vyčistí celou spravovanou haldu, nejen LOH. Takže to uklízí Gen 0, Gen 1 a Gen 2 včetně LOH. To se nazývá úplné uvolnění paměti a je nejvíce časově náročné uvolňování paměti. Pro mnoho aplikací může být přijatelné. Ale rozhodně ne pro vysoce výkonné webové servery, kde je zapotřebí několik velkých vyrovnávacích pamětí pro zpracování průměrného webového požadavku (čtení ze soketu, dekomprese, dekódování JSON & další).
+> Když je přidělen velký objekt, je označen jako objekt Gen 2. Nejedná se o gen 0 jako u malých objektů. Důsledkem je, že pokud vyčerpáte paměť v LOH, UVOLŇOVÁNí paměti vyčistí celou spravovanou haldu, nejen LOH. Proto vyčistí obecné 0, obecné 1 a obecné 2 včetně LOH. Nazývá se to úplné uvolňování paměti a je to nejvíce časově náročné uvolňování paměti. U mnoha aplikací může být přijatelné. Ale pro vysoce výkonné webové servery, u kterých je potřeba pár paměťových vyrovnávacích pamětí potřebných ke zpracování průměrného webového požadavku (čtení z soketu, dekomprese, dekódování JSON & více), ale opravdu ne.
 
-Naivně ukládání velké žádosti nebo odpovědi těla do jednoho `byte[]` nebo `string`:
+Naively ukládání velkého textu žádosti nebo odpovědi do jednoho `byte[]` nebo `string`více:
 
-* Může mít za následek rychlý nedostatek místa v LOH.
-* Může způsobit problémy s výkonem aplikace z důvodu úplného spuštění řadičů domény.
+* Může způsobit, že dojde k rychlému vyzkoušení volného místa v LOH.
+* Může způsobit problémy s výkonem aplikace z důvodu úplného GC běhu.
 
 ## <a name="working-with-a-synchronous-data-processing-api"></a>Práce s rozhraním API pro synchronní zpracování dat
 
-Při použití serializátoru/deserializátoru, který podporuje pouze synchronní čtení a zápisy (například [JSON.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm)):
+Při použití serializátoru/zrušení serializátoru, který podporuje pouze synchronní čtení a zápisy (například [JSON.NET](https://www.newtonsoft.com/json/help/html/Introduction.htm)):
 
-* Před jejich předáním do serializátoru/deserializátoru asynchronně udeřit data do paměti.
+* Ukládat data do vyrovnávací paměti asynchronně předtím, než je předáte do serializátoru/zrušení serializátoru.
 
 > [!WARNING]
-> Pokud je požadavek velký, může vést k nedostatku paměti (OOM) podmínku. OOM může mít za následek odmítnutí služby.  Další informace naleznete v [tématu Vyhněte se čtení velkých těl požadavků nebo těl odpovědí do paměti](#arlb) v tomto dokumentu.
+> Pokud je žádost velká, může to vést k nedostatku paměti (OOM). OOM může mít za následek odepření služby.  Další informace najdete v tématu [zamezení čtení velkých těla žádostí nebo těla reakcí do paměti](#arlb) v tomto dokumentu.
 
-ASP.NET Core 3.0 používá <xref:System.Text.Json> ve výchozím nastavení pro serializaci JSON. <xref:System.Text.Json>:
+ASP.NET Core 3,0 používá <xref:System.Text.Json> ve výchozím nastavení pro serializaci JSON. <xref:System.Text.Json>:
 
 * Čte a zapisuje JSON asynchronně.
-* Je optimalizován pro Text UTF-8.
-* Obvykle vyšší výkon `Newtonsoft.Json`než .
+* Je optimalizován pro text v kódování UTF-8.
+* Obvykle vyšší výkon než `Newtonsoft.Json`.
 
-## <a name="do-not-store-ihttpcontextaccessorhttpcontext-in-a-field"></a>Neukládat iHttpContextAccessor.HttpContext do pole
+## <a name="do-not-store-ihttpcontextaccessorhttpcontext-in-a-field"></a>Do pole neukládejte IHttpContextAccessor. HttpContext.
 
-[IHttpContextAccessor.HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) vrátí `HttpContext` aktivní požadavek při přístupu z vlákna požadavku. By `IHttpContextAccessor.HttpContext` **neměly** být uloženy v poli nebo proměnné.
+[IHttpContextAccessor. HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext) vrací `HttpContext` aktivní požadavek při přístupu z vlákna požadavku. `IHttpContextAccessor.HttpContext` **Neměl by být uložen** v poli nebo proměnné.
 
-**Nedělají toto:** Následující příklad uloží `HttpContext` pole a pokusí se jej použít později.
+**Neprovádět tyto akce:** V následujícím příkladu je uloženo `HttpContext` v poli a pak se pokusí o pozdější použití.
 
 [!code-csharp[](performance-best-practices/samples/3.0/MyType.cs?name=snippet1)]
 
-Předchozí kód často zachycuje null nebo `HttpContext` nesprávné v konstruktoru.
+Předchozí kód často zachycuje v konstruktoru hodnotu null nebo `HttpContext` není správný.
 
-**Proveďte toto:** Následující příklad:
+**Postupujte takto:** Následující příklad:
 
-* Ukládá <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> do pole.
-* Použije `HttpContext` pole ve správný čas `null`a zkontroluje .
+* Uloží pole <xref:Microsoft.AspNetCore.Http.IHttpContextAccessor> do pole.
+* Používá `HttpContext` pole ve správné době a kontroluje pro `null`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/MyType.cs?name=snippet2)]
 
-## <a name="do-not-access-httpcontext-from-multiple-threads"></a>Nepřistupovat httpcontext z více vláken
+## <a name="do-not-access-httpcontext-from-multiple-threads"></a>Nepřistupovat k HttpContext z více vláken
 
-`HttpContext`*Není bezpečné* pro přístup z více vláken. Přístup `HttpContext` z více vláken paralelně může mít za následek nedefinované chování, jako je zablokování, selhání a poškození dat.
+`HttpContext`není bezpečná pro přístup *z více vláken* . Přístup `HttpContext` z více vláken paralelně může způsobit nedefinované chování, jako je například zablokování, zhroucení a poškození dat.
 
-**Nedělají toto:** Následující příklad provede tři paralelní požadavky a protokoly příchozí požadavek cestu před a po odchozí požadavek HTTP. Cesta požadavku je přístupná z více vláken, potenciálně paralelně.
+**Neprovádět tyto akce:** Následující příklad vytvoří tři paralelní požadavky a zaznamená příchozí cestu požadavku před a za odchozí požadavek HTTP. Cesta k požadavku je k dispozici z více vláken, potenciálně paralelně.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/AsyncFirstController.cs?name=snippet1&highlight=25,28)]
 
-**Proveďte toto:** Následující příklad zkopíruje všechna data z příchozí požadavek před provedením tři paralelní požadavky.
+**Postupujte takto:** Následující příklad kopíruje všechna data z příchozího požadavku a teprve potom provádí tři paralelní požadavky.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/AsyncFirstController.cs?name=snippet2&highlight=6,8,22,28)]
 
-## <a name="do-not-use-the-httpcontext-after-the-request-is-complete"></a>Nepoužívejte httpcontext po dokončení požadavku
+## <a name="do-not-use-the-httpcontext-after-the-request-is-complete"></a>Nepoužívat HttpContext po dokončení žádosti
 
-`HttpContext`Je platný pouze tak dlouho, dokud je aktivní požadavek HTTP v kanálu ASP.NET Jádra. Celý kanál ASP.NET Core je asynchronní řetězec delegátů, který provede každý požadavek. Po `Task` dokončení vrácené z tohoto `HttpContext` řetězce je recyklován.
+`HttpContext`je platná pouze tak dlouho, dokud je v kanálu ASP.NET Core aktivní požadavek HTTP. Celý kanál ASP.NET Core je asynchronní řetěz delegátů, který provádí všechny požadavky. Po dokončení `Task` operace vrácené z tohoto řetězu `HttpContext` se recykluje.
 
-**Nedělají toto:** Následující příklad `async void` používá, který umožňuje požadavek `await` HTTP dokončit po dosažení prvního:
+**Neprovádět tyto akce:** Následující příklad používá `async void` , aby byl požadavek HTTP dokončen při prvním dosažení prvního `await` :
 
-* Což je **vždy** špatná praxe v ASP.NET aplikace Core.
-* Přistupuje po `HttpResponse` dokončení požadavku HTTP.
+* Což je **vždy** špatný postup v aplikacích ASP.NET Core.
+* Přístup k `HttpResponse` po dokončení požadavku HTTP.
 * Dojde k chybě procesu.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/AsyncBadVoidController.cs?name=snippet1)]
 
-**Proveďte toto:** Následující příklad vrátí `Task` a do rámce, takže požadavek HTTP nedokončí, dokud nebude akce dokončena.
+**Postupujte takto:** Následující příklad vrátí `Task` rozhraní, takže požadavek HTTP nebude dokončen, dokud se akce nedokončí.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/AsyncSecondController.cs?name=snippet1)]
 
-## <a name="do-not-capture-the-httpcontext-in-background-threads"></a>Nezachytávat HttpContext ve vláknech na pozadí
+## <a name="do-not-capture-the-httpcontext-in-background-threads"></a>Nezachytit vlastnost HttpContext v vláknech na pozadí
 
-**Nedělají toto:** Následující příklad ukazuje uzavření je `HttpContext` zachycení `Controller` z vlastnosti. To to je špatný postup, protože pracovní položka může:
+**Neprovádět tyto akce:** Následující příklad ukazuje, že uzavření zachytí `HttpContext` z `Controller` vlastnosti. Toto je špatný postup, protože pracovní položka by mohla:
 
-* Spustit mimo obor požadavku.
-* Pokus te se `HttpContext`přečíst špatné .
+* Spustit mimo rozsah požadavku.
+* Došlo k pokusu o `HttpContext`čtení špatného.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetFirstController.cs?name=snippet1)]
 
-**Proveďte toto:** Následující příklad:
+**Postupujte takto:** Následující příklad:
 
-* Zkopíruje data požadovaná v úkolu na pozadí během požadavku.
-* Neodkazuje na nic z ovladače.
+* Zkopíruje data potřebná v úloze na pozadí během žádosti.
+* Neodkazuje na cokoli z kontroleru.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetFirstController.cs?name=snippet2)]
 
-Úlohy na pozadí by měly být implementovány jako hostované služby. Další informace naleznete [v tématu Úlohy na pozadí s hostovanými službami](xref:fundamentals/host/hosted-services).
+Úlohy na pozadí by se měly implementovat jako hostované služby. Další informace najdete v tématu [úlohy na pozadí s hostovanými službami](xref:fundamentals/host/hosted-services).
 
-## <a name="do-not-capture-services-injected-into-the-controllers-on-background-threads"></a>Nezachytávat služby vložené do řadičů na podprocesech na pozadí
+## <a name="do-not-capture-services-injected-into-the-controllers-on-background-threads"></a>Nezachytávat služby vložené do řadičů v vláknech na pozadí
 
-**Nedělají toto:** Následující příklad ukazuje uzavření je `DbContext` zachycení `Controller` z parametru akce. Tohle je špatná praxe.  Pracovní položka může být spuštěna mimo obor požadavku. Rozsah `ContosoDbContext` je na požadavek, výsledkem `ObjectDisposedException`.
+**Neprovádět tyto akce:** Následující příklad ukazuje, že uzavření zachytí `DbContext` z parametru `Controller` Action. Toto je špatný postup.  Pracovní položka by mohla běžet mimo rozsah požadavku. `ContosoDbContext` Je vymezen na žádost, výsledkem je `ObjectDisposedException`.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetSecondController.cs?name=snippet1)]
 
-**Proveďte toto:** Následující příklad:
+**Postupujte takto:** Následující příklad:
 
-* Vloží <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> vysazení v za účelem vytvoření oboru v pracovní položce na pozadí. `IServiceScopeFactory`je singleton.
-* Vytvoří nový obor vkládání závislostí ve vlákně na pozadí.
-* Neodkazuje na nic z ovladače.
-* Nezachytí `ContosoDbContext` příchozí požadavek.
+* Vloží objekt <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory> , aby bylo možné vytvořit obor v pracovní položce na pozadí. `IServiceScopeFactory`je typu singleton.
+* Vytvoří nový rozsah vkládání závislostí ve vlákně na pozadí.
+* Neodkazuje na cokoli z kontroleru.
+* Nezachycuje `ContosoDbContext` z příchozího požadavku.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetSecondController.cs?name=snippet2)]
 
 Následující zvýrazněný kód:
 
-* Vytvoří obor pro životnost operace na pozadí a řeší služby z něj.
-* Používá `ContosoDbContext` ze správného oboru.
+* Vytvoří obor pro dobu života operace na pozadí a vyřeší z něj služby.
+* Používá `ContosoDbContext` se správným oborem.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Controllers/FireAndForgetSecondController.cs?name=snippet2&highlight=9-16)]
 
-## <a name="do-not-modify-the-status-code-or-headers-after-the-response-body-has-started"></a>Po spuštění textu odpovědi neupravujte stavový kód ani záhlaví
+## <a name="do-not-modify-the-status-code-or-headers-after-the-response-body-has-started"></a>Neměňte stavový kód ani hlavičky po zahájení textu odpovědi
 
-ASP.NET Core neuvádí tělo odpovědi HTTP. Při prvním zápisu odpovědi:
+ASP.NET Core neukládá obsah odpovědi HTTP do vyrovnávací paměti. Při prvním zápisu odpovědi:
 
-* Hlavičky jsou odesílány spolu s tímto blokem těla klientovi.
-* Již není možné měnit záhlaví odpovědí.
+* Hlavičky jsou odesílány spolu s tímto blokem těla do klienta.
+* Již není možné měnit hlavičky odpovědí.
 
-**Nedělají toto:** Následující kód se pokusí přidat záhlaví odpovědí po již spuštění odpovědi:
+**Neprovádět tyto akce:** Následující kód se pokusí přidat hlavičky odpovědi poté, co byla odpověď již spuštěna:
 
 [!code-csharp[](performance-best-practices/samples/3.0/Startup22.cs?name=snippet1)]
 
-V předchozím kódu `context.Response.Headers["test"] = "test value";` vyvolá výjimku, `next()` pokud byla zapsána do odpovědi.
+V předchozím kódu vyvolá výjimku `context.Response.Headers["test"] = "test value";` , pokud `next()` zapisuje do odpovědi.
 
-**Proveďte toto:** Následující příklad zkontroluje, zda byla před úpravou záhlaví spuštěna odpověď HTTP.
+**Postupujte takto:** Následující příklad zkontroluje, zda byla před úpravou hlaviček spuštěna odpověď protokolu HTTP.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Startup22.cs?name=snippet2)]
 
-**Proveďte toto:** Následující příklad `HttpResponse.OnStarting` používá k nastavení záhlaví před hlavičky odpovědi jsou vyprázdněny do klienta.
+**Postupujte takto:** Následující příklad používá `HttpResponse.OnStarting` k nastavení hlaviček před vyprázdněním hlaviček odpovědí na klienta.
 
-Kontrola, zda odpověď nebyla spuštěna umožňuje registraci zpětného volání, které bude vyvoláno těsně před zápisem hlaviček odpovědí. Kontrola, zda odpověď nebyla spuštěna:
+Kontrola, zda odpověď nezačala, umožňuje registraci zpětného volání, které bude vyvoláno těsně před zápisem hlaviček odpovědí. Kontroluje se, jestli odpověď nezačala:
 
-* Poskytuje možnost připojit nebo přepsat záhlaví právě včas.
-* Nevyžaduje znalost dalšího middlewaru v potrubí.
+* Poskytuje možnost připojit nebo přepsat hlavičky v čase.
+* Nevyžaduje znalosti dalšího middlewaru v kanálu.
 
 [!code-csharp[](performance-best-practices/samples/3.0/Startup22.cs?name=snippet3)]
 
-## <a name="do-not-call-next-if-you-have-already-started-writing-to-the-response-body"></a>Nevolejte next(), pokud jste již začali psát do těla odpovědi
+## <a name="do-not-call-next-if-you-have-already-started-writing-to-the-response-body"></a>Nevolejte Next (), pokud jste již začali zapisovat do těla odpovědi
 
-Součásti očekávat pouze v případě, že je možné pro ně zpracovat a manipulovat s odpovědí.
+Součásti, které mají být volány, jsou očekávány pouze v případě, že je možné je zpracovat a manipulovat s ní.

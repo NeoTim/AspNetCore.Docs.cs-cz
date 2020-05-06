@@ -4,13 +4,19 @@ author: ardalis
 description: Naučte se číst model aplikace a manipulovat s ním, abyste mohli změnit způsob, jakým se prvky MVC chovají v ASP.NET Core.
 ms.author: riande
 ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/controllers/application-model
-ms.openlocfilehash: 4b6c978e5752eb320412a1c204df8e3d288fe4a1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 5e31d2e6611321bec7442534ce41350de10478e0
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78666430"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768660"
 ---
 # <a name="work-with-the-application-model-in-aspnet-core"></a>Práce s modelem aplikace v ASP.NET Core
 
@@ -29,7 +35,7 @@ Model aplikace ASP.NET Core MVC má následující strukturu:
     * Akce (ActionModel)
       * Parametry (ParameterModel)
 
-Každá úroveň modelu má přístup ke společné kolekci `Properties` a nižší úrovně mají přístup k hodnotám vlastností nastaveným pomocí vyšších úrovní v hierarchii a můžou je přepsat. Vlastnosti jsou trvale uložené v `ActionDescriptor.Properties` při vytváření akcí. Po zpracování žádosti se pak k jakýmkoli vlastnostem, ke které je přidaný nebo upravená konvence, dostanete prostřednictvím `ActionContext.ActionDescriptor.Properties`. Použití vlastností je skvělý způsob konfigurace filtrů, vazeb modelů atd. na základě jednotlivých akcí.
+Každá úroveň modelu má přístup ke společné `Properties` kolekci a nižší úrovně mají přístup k hodnotám vlastností nastaveným pomocí vyšších úrovní v hierarchii a můžou na nich být přepsány. Vlastnosti jsou uchovány `ActionDescriptor.Properties` při vytváření akcí. Při zpracování žádosti se pak ke všem vlastnostem, ke kterým je přidaný nebo upravená konvence, dostanete prostřednictvím `ActionContext.ActionDescriptor.Properties`. Použití vlastností je skvělý způsob konfigurace filtrů, vazeb modelů atd. na základě jednotlivých akcí.
 
 > [!NOTE]
 > Kolekce `ActionDescriptor.Properties` není bezpečná pro přístup z více vláken (pro zápisy) po dokončení spuštění aplikace. Konvence představují nejlepší způsob, jak bezpečně přidat data do této kolekce.
@@ -38,9 +44,9 @@ Každá úroveň modelu má přístup ke společné kolekci `Properties` a niž�
 
 ASP.NET Core MVC načte aplikační model pomocí vzoru poskytovatele definovaného rozhraním [IApplicationModelProvider](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iapplicationmodelprovider) . Tato část se zabývá některými interními podrobnými informacemi o tom, jak tento poskytovatel funguje. Toto je pokročilé téma – většina aplikací, které využívají aplikační model, by tak měly fungovat pomocí konvencí.
 
-Implementace rozhraní `IApplicationModelProvider` "Wrap" navzájem a každá implementace volá `OnProvidersExecuting` ve vzestupném pořadí podle jeho vlastnosti `Order`. Metoda `OnProvidersExecuted` je pak volána v obráceném pořadí. Rozhraní definuje několik zprostředkovatelů:
+Implementace `IApplicationModelProvider` rozhraní "Wrap" navzájem a každá implementace volá `OnProvidersExecuting` vzestupné pořadí na základě jeho `Order` vlastnosti. `OnProvidersExecuted` Metoda je pak volána v opačném pořadí. Rozhraní definuje několik zprostředkovatelů:
 
-První (`Order=-1000`):
+First (`Order=-1000`):
 
 * [`DefaultApplicationModelProvider`](/dotnet/api/microsoft.aspnetcore.mvc.internal.defaultapplicationmodelprovider)
 
@@ -50,12 +56,12 @@ Pak (`Order=-990`):
 * [`CorsApplicationModelProvider`](/dotnet/api/microsoft.aspnetcore.mvc.cors.internal.corsapplicationmodelprovider)
 
 > [!NOTE]
-> Pořadí, ve kterém jsou volány dva zprostředkovatelé se stejnou hodnotou pro `Order`, nejsou definovány, a proto by se neměly spoléhat na.
+> Pořadí, ve kterém jsou voláni dva zprostředkovatelé se `Order` stejnou hodnotou pro, není definováno, a proto by nemělo být spoléhat na.
 
 > [!NOTE]
-> `IApplicationModelProvider` je pokročilý koncept pro rozšíření pro autory architektury. Obecně platí, že aplikace by měly používat konvence a rozhraní, které by měly používat poskytovatele. Klíčovým rozdílem je to, že poskytovatelé se vždycky spouštějí před konvencemi.
+> `IApplicationModelProvider`je pokročilý koncept pro rozšíření pro autory architektury. Obecně platí, že aplikace by měly používat konvence a rozhraní, které by měly používat poskytovatele. Klíčovým rozdílem je to, že poskytovatelé se vždycky spouštějí před konvencemi.
 
-`DefaultApplicationModelProvider` zavádí mnoho výchozích chování používaných ASP.NET Core MVC. Mezi tyto povinnosti patří:
+`DefaultApplicationModelProvider` Naváže mnoho výchozích chování, které používá ASP.NET Core MVC. Mezi tyto povinnosti patří:
 
 * Přidávání globálních filtrů do kontextu
 * Přidání řadičů do kontextu
@@ -63,13 +69,13 @@ Pak (`Order=-990`):
 * Přidání parametrů metody akce do kontextu
 * Použití směrování a dalších atributů
 
-Některá Vestavěná chování jsou implementována `DefaultApplicationModelProvider`. Tento zprostředkovatel zodpovídá za vytváření [`ControllerModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel), což zase odkazuje na instance [`ActionModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel), [`PropertyModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel)a [`ParameterModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel) . Třída `DefaultApplicationModelProvider` je podrobnosti implementace interního rozhraní, které se mohou v budoucnu změnit. 
+Některá Vestavěná chování jsou implementovaná pomocí `DefaultApplicationModelProvider`. Tento poskytovatel zodpovídá za [`ControllerModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.controllermodel)vytváření, což zase odkazuje [`ActionModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.actionmodel) [`PropertyModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.propertymodel)na instance a. [`ParameterModel`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.parametermodel) `DefaultApplicationModelProvider` Třída je podrobnosti implementace interního rozhraní, které se mohou v budoucnu změnit. 
 
-`AuthorizationApplicationModelProvider` zodpovídá za použití chování přidruženého k atributům `AuthorizeFilter` a `AllowAnonymousFilter`. [Přečtěte si další informace o těchto atributech](xref:security/authorization/simple).
+`AuthorizationApplicationModelProvider` Zodpovídá za použití chování přidruženého k atributům `AuthorizeFilter` a `AllowAnonymousFilter` . [Přečtěte si další informace o těchto atributech](xref:security/authorization/simple).
 
-`CorsApplicationModelProvider` implementuje chování spojené s `IEnableCorsAttribute` a `IDisableCorsAttribute`a `DisableCorsAuthorizationFilter`. [Přečtěte si další informace o CORS](xref:security/cors).
+`CorsApplicationModelProvider` Implementuje chování spojené s `IEnableCorsAttribute` a `IDisableCorsAttribute` `DisableCorsAuthorizationFilter`. [Přečtěte si další informace o CORS](xref:security/cors).
 
-## <a name="conventions"></a>Zásady
+## <a name="conventions"></a>Konvence
 
 Model aplikace definuje abstrakce konvence, které poskytují jednodušší způsob přizpůsobení chování modelů, než je přepsání celého modelu nebo poskytovatele. Tyto abstrakce jsou doporučeným způsobem, jak upravit chování vaší aplikace. Konvence poskytují způsob, jak napsat kód, který bude dynamicky používat vlastní nastavení. [Filtry](xref:mvc/controllers/filters) sice poskytují prostředky pro úpravu chování rozhraní. vlastní nastavení vám umožní řídit, jak celá aplikace funguje dohromady.
 
@@ -80,7 +86,7 @@ K dispozici jsou následující konvence:
 * [`IActionModelConvention`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iactionmodelconvention)
 * [`IParameterModelConvention`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.iparametermodelconvention)
 
-Konvence se aplikují přidáním do možností MVC nebo implementací `Attribute`s a jejich aplikováním na řadiče, akce nebo parametry akce (podobně jako [`Filters`](xref:mvc/controllers/filters)). Na rozdíl od filtrů se konvence spouští jenom při spuštění aplikace, ne jako součást každé žádosti.
+Konvence se použijí tak, že je přidáte do možností MVC `Attribute`nebo implementujete s a použijete je na řadiče, akce nebo parametry akce [`Filters`](xref:mvc/controllers/filters)(podobně jako). Na rozdíl od filtrů se konvence spouští jenom při spuštění aplikace, ne jako součást každé žádosti.
 
 ### <a name="sample-modifying-the-applicationmodel"></a>Ukázka: Změna ApplicationModel
 
@@ -88,11 +94,11 @@ Následující konvence se používá k přidání vlastnosti do aplikačního m
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/ApplicationDescription.cs)]
 
-Konvence aplikačního modelu se aplikují jako možnosti při přidání MVC do `ConfigureServices` v `Startup`.
+Konvence aplikačního modelu se používají jako možnosti při přidání MVC `ConfigureServices` do `Startup`v.
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=5)]
 
-Vlastnosti jsou přístupné z kolekce vlastností `ActionDescriptor` v rámci akcí kontroleru:
+Vlastnosti jsou přístupné z kolekce `ActionDescriptor` Properties v rámci akcí kontroleru:
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/AppModelController.cs?name=AppModelController)]
 
@@ -120,7 +126,7 @@ Použití této akce u kontroleru v předchozím příkladu ukazuje, jak Přepis
 
 ### <a name="sample-modifying-the-parametermodel"></a>Ukázka: Změna ParameterModel
 
-Následující konvenci lze použít na parametry akcí pro úpravu jejich `BindingInfo`. Následující konvence vyžaduje, aby parametr byl parametrem trasy; Další možné zdroje vazeb (například hodnoty řetězce dotazu) se ignorují.
+Následující konvenci je možné použít na parametry akce a upravit jejich `BindingInfo`. Následující konvence vyžaduje, aby parametr byl parametrem trasy; Další možné zdroje vazeb (například hodnoty řetězce dotazu) se ignorují.
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/MustBeInRouteParameterModelConvention.cs)]
 
@@ -130,7 +136,7 @@ Atribut lze použít pro libovolný parametr akce:
 
 ### <a name="sample-modifying-the-actionmodel-name"></a>Ukázka: Změna názvu ActionModel
 
-Následující konvence upraví `ActionModel`, aby aktualizovala *název* akce, na kterou se aplikuje. Nový název je zadán jako parametr atributu. Tento nový název je používán směrováním, takže bude mít vliv na trasu použitou k dosažení této metody akce.
+Následující konvence upravuje `ActionModel` a aktualizuje *název* akce, na kterou se aplikuje. Nový název je zadán jako parametr atributu. Tento nový název je používán směrováním, takže bude mít vliv na trasu použitou k dosažení této metody akce.
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/CustomActionNameAttribute.cs)]
 
@@ -138,14 +144,14 @@ Tento atribut se používá pro metodu akce v `HomeController`:
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Controllers/HomeController.cs?name=ActionModelConvention&highlight=2)]
 
-I když je název metody `SomeName`, atribut přepíše konvenci MVC pomocí názvu metody a nahradí název akce `MyCoolAction`. Proto je trasa použitá k dosažení této akce `/Home/MyCoolAction`.
+I když je `SomeName`název metody, atribut přepíše konvenci MVC pomocí názvu metody a nahradí název akce `MyCoolAction`. Proto trasa použitá k dosažení této akce je `/Home/MyCoolAction`.
 
 > [!NOTE]
 > Tento příklad je v podstatě stejný jako při použití předdefinovaného atributu [Action](/dotnet/api/microsoft.aspnetcore.mvc.actionnameattribute) .
 
 ### <a name="sample-custom-routing-convention"></a>Ukázka: vlastní konvence směrování
 
-K přizpůsobení fungování směrování můžete použít `IApplicationModelConvention`. Například následující konvence zahrne do svých tras obory názvů Controllers a nahradí `.` v oboru názvů pomocí `/` v trase:
+`IApplicationModelConvention` K přizpůsobení fungování směrování můžete použít. Například následující konvence zahrne do svých tras obory názvů řadiče a nahradí `.` je v oboru názvů `/` v cestě:
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/NamespaceRoutingConvention.cs)]
 
@@ -154,7 +160,7 @@ Konvence je přidána jako možnost při spuštění.
 [!code-csharp[](./application-model/sample/src/AppModelSample/Startup.cs?name=ConfigureServices&highlight=6)]
 
 > [!TIP]
-> K vašemu [middlewaru](xref:fundamentals/middleware/index) můžete přidat konvence tím, že získáte přístup k `MvcOptions` pomocí `services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));`
+> K vašemu [middlewaru](xref:fundamentals/middleware/index) můžete přidat konvence tím `MvcOptions` , že budete přistupovat pomocí`services.Configure<MvcOptions>(c => c.Conventions.Add(YOURCONVENTION));`
 
 Tato ukázka používá tuto konvenci na trasy, které nepoužívají směrování atributů, kde Controller má v názvu "Namespace". Následující kontroler znázorňuje tuto konvenci:
 
@@ -167,7 +173,7 @@ ASP.NET Core MVC používá jinou sadu konvencí z webového rozhraní API 2 pro
 > [!NOTE]
 > Přečtěte si další informace o [migraci z webového rozhraní API ASP.NET](xref:migration/webapi).
 
-Chcete-li použít překrytí kompatibility webového rozhraní API, je nutné přidat balíček do projektu a pak přidat konvence do MVC voláním `AddWebApiConventions` v `Startup`:
+Chcete-li použít překrytí kompatibility webového rozhraní API, je nutné přidat balíček do projektu a pak přidat konvence do MVC `AddWebApiConventions` voláním `Startup`:
 
 ```csharp
 services.AddMvc().AddWebApiConventions();
@@ -182,25 +188,25 @@ Konvence překrytí se aplikují jenom na části aplikace, u kterých se použ�
 
 ### <a name="action-conventions"></a>Konvence akcí
 
-`UseWebApiActionConventionsAttribute` slouží k mapování metody HTTP na akce založené na jejich názvu (například `Get` by se namapovalo na `HttpGet`). Vztahuje se pouze na akce, které nepoužívají směrování atributů.
+`UseWebApiActionConventionsAttribute` Slouží k mapování metody HTTP na akce založené na jejich názvu (například `Get` by namapovaly na `HttpGet`). Vztahuje se pouze na akce, které nepoužívají směrování atributů.
 
 ### <a name="overloading"></a>Přetížení
 
-`UseWebApiOverloadingAttribute` slouží k použití konvence `WebApiOverloadingApplicationModelConvention`. Tato konvence přidává `OverloadActionConstraint` do procesu výběru akce, který omezuje akce kandidátů na ty, pro které požadavek splňuje všechny nepovinné parametry.
+`UseWebApiOverloadingAttribute` Slouží k použití `WebApiOverloadingApplicationModelConvention` úmluvy. Tato konvence přičítá `OverloadActionConstraint` k procesu výběru akce, který omezuje akce kandidáta na ty, pro které požadavek splňuje všechny nepovinné parametry.
 
 ### <a name="parameter-conventions"></a>Konvence parametrů
 
-`UseWebApiParameterConventionsAttribute` slouží k použití konvence akce `WebApiParameterConventionsApplicationModelConvention`. Tato konvence určuje, že jednoduché typy používané jako parametry akce jsou ve výchozím nastavení vázány z identifikátoru URI, zatímco komplexní typy jsou vázány z textu žádosti.
+`UseWebApiParameterConventionsAttribute` Slouží k použití úmluvy `WebApiParameterConventionsApplicationModelConvention` akce. Tato konvence určuje, že jednoduché typy používané jako parametry akce jsou ve výchozím nastavení vázány z identifikátoru URI, zatímco komplexní typy jsou vázány z textu žádosti.
 
 ### <a name="routes"></a>Trasy
 
-`UseWebApiRoutesAttribute` určuje, zda je použita konvence kontroleru `WebApiApplicationModelConvention`. V případě povolení se tato konvence používá k přidání podpory pro [oblasti](xref:mvc/controllers/areas) do trasy.
+`UseWebApiRoutesAttribute` Určuje, zda je `WebApiApplicationModelConvention` použita konvence kontroleru. V případě povolení se tato konvence používá k přidání podpory pro [oblasti](xref:mvc/controllers/areas) do trasy.
 
-Kromě sady konvencí zahrnuje balíček kompatibility `System.Web.Http.ApiController` základní třídu, která nahrazuje rozhraní API, které poskytuje webové rozhraní API. To umožňuje řadičům napsaným pro webové rozhraní API a dědění z jeho `ApiController`, aby fungovalo tak, jak byly navrženy a běžely na ASP.NET Core MVC. Všechny výše uvedené atributy `UseWebApi*` jsou aplikovány na základní třídu kontroleru. `ApiController` zpřístupňuje vlastnosti, metody a typy výsledků, které jsou kompatibilní s typy nalezenými ve webovém rozhraní API.
+Kromě sady konvencí balíček kompatibility zahrnuje `System.Web.Http.ApiController` základní třídu, která nahrazuje rozhraní API, které poskytuje webové rozhraní API. To umožňuje řadičům napsaným pro webové rozhraní API a dědění z jeho `ApiController` fungování, aby fungovalo tak, jak byly navrženy a běžely na ASP.NET Core MVC. Všechny výše uvedené `UseWebApi*` atributy jsou aplikovány na základní třídu kontroleru. `ApiController` Zpřístupňuje vlastnosti, metody a typy výsledků, které jsou kompatibilní s metodami nalezenými ve webovém rozhraní API.
 
 ## <a name="using-apiexplorer-to-document-your-app"></a>Použití ApiExplorer k dokumentování aplikace
 
-Aplikační model zpřístupňuje vlastnost [`ApiExplorer`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.apiexplorermodel) na každé úrovni, kterou lze použít k procházení struktury aplikace. To lze použít ke [generování stránek s nápovědu pro vaše webová rozhraní API pomocí nástrojů jako Swagger](xref:tutorials/web-api-help-pages-using-swagger). Vlastnost `ApiExplorer` zpřístupňuje vlastnost `IsVisible`, kterou lze nastavit tak, aby určovala, které části modelu vaší aplikace by měly být vystaveny. Toto nastavení můžete nakonfigurovat pomocí konvence:
+Aplikační model zpřístupňuje [`ApiExplorer`](/dotnet/api/microsoft.aspnetcore.mvc.applicationmodels.apiexplorermodel) vlastnost na každé úrovni, kterou lze použít k procházení struktury aplikace. To lze použít ke [generování stránek s nápovědu pro vaše webová rozhraní API pomocí nástrojů jako Swagger](xref:tutorials/web-api-help-pages-using-swagger). `ApiExplorer` Vlastnost zpřístupňuje `IsVisible` vlastnost, která může být nastavena tak, aby určovala, které části modelu vaší aplikace by měly být vystaveny. Toto nastavení můžete nakonfigurovat pomocí konvence:
 
 [!code-csharp[](./application-model/sample/src/AppModelSample/Conventions/EnableApiExplorerApplicationConvention.cs)]
 

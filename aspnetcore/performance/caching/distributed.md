@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: performance/caching/distributed
-ms.openlocfilehash: a4d2a59c8f81ad3e3f020e73a6657864885aa39a
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 206ff55aa530cd06c162e49f400b436e9fb9f07a
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78659185"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775294"
 ---
 # <a name="distributed-caching-in-aspnet-core"></a>Distribuované ukládání do mezipaměti v ASP.NET Core
 
@@ -30,11 +36,11 @@ Když jsou data v mezipaměti distribuována, data:
 * Zachová se restarty serveru a nasazení aplikací.
 * Nepoužívá místní paměť.
 
-Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>.
+Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> rozhraní.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Pokud chcete použít SQL Server distribuovanou mezipaměť, přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Caching. SqlServer](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer) .
 
@@ -44,12 +50,12 @@ Pokud chcete použít distribuovanou mezipaměť NCache, přidejte odkaz na bal�
 
 ## <a name="idistributedcache-interface"></a>Rozhraní IDistributedCache
 
-Rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> poskytuje následující metody pro manipulaci s položkami v implementaci distribuované mezipaměti:
+<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> Rozhraní poskytuje následující metody pro manipulaci s položkami v implementaci distribuované mezipaměti:
 
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Get*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.GetAsync*> &ndash; přijímá klíč řetězce a načítá položku uloženou v mezipaměti jako `byte[]` pole, pokud je v mezipaměti nalezeno.
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Set*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.SetAsync*> &ndash; přidá do mezipaměti položku (jako `byte[]` Array) pomocí řetězcového klíče.
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Refresh*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RefreshAsync*> &ndash; aktualizuje položku v mezipaměti na základě jejího klíče a resetuje časový limit klouzavého vypršení platnosti (pokud existuje).
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Remove*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RemoveAsync*> &ndash; odstraní položku mezipaměti na základě jejího řetězcového klíče.
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Get*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.GetAsync*> &ndash; Přijímá klíč řetězce a načte položku uloženou v mezipaměti jako `byte[]` pole, pokud je v mezipaměti nalezeno.
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Set*>Přidá do mezipaměti položku (jako `byte[]` pole) pomocí řetězcového klíče. <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.SetAsync*> &ndash;
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Refresh*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RefreshAsync*> &ndash; Aktualizuje položku v mezipaměti na základě jejího klíče a resetuje časový limit klouzavého vypršení platnosti (pokud existuje).
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Remove*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RemoveAsync*> &ndash; Odebere položku mezipaměti na základě jejího řetězcového klíče.
 
 ## <a name="establish-distributed-caching-services"></a>Vytvoření služby distribuované mezipaměti
 
@@ -62,22 +68,22 @@ Zaregistrujte implementaci <xref:Microsoft.Extensions.Caching.Distributed.IDistr
 
 ### <a name="distributed-memory-cache"></a>Mezipaměť distribuované paměti
 
-Mezipaměť distribuované paměti (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) je implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, která ukládá položky do paměti. Mezipaměť distribuované paměti není skutečnou distribuovanou mezipamětí. Položky uložené v mezipaměti jsou uloženy instancí aplikace na serveru, na kterém je aplikace spuštěná.
+Mezipaměť distribuované paměti (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) je implementací rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> , které ukládá položky v paměti. Mezipaměť distribuované paměti není skutečnou distribuovanou mezipamětí. Položky uložené v mezipaměti jsou uloženy instancí aplikace na serveru, na kterém je aplikace spuštěná.
 
 Mezipaměť distribuované paměti je užitečnou implementací:
 
 * Ve scénářích vývoje a testování.
 * Pokud se jeden server používá v produkčním prostředí a spotřeba paměti není problém. Implementace vydaných mezipamětí mezipaměti úložiště dat v mezipaměti. Umožňuje implementaci skutečného distribuovaného řešení pro ukládání do mezipaměti v budoucnu, pokud je potřeba několik uzlů nebo odolnost proti chybám.
 
-Ukázková aplikace využívá mezipaměť distribuované paměti při spuštění aplikace ve vývojovém prostředí v `Startup.ConfigureServices`:
+Ukázková aplikace využívá mezipaměť distribuované paměti při spuštění aplikace ve vývojovém prostředí v `Startup.ConfigureServices`nástroji:
 
 [!code-csharp[](distributed/samples/3.x/DistCacheSample/Startup.cs?name=snippet_AddDistributedMemoryCache)]
 
 ### <a name="distributed-sql-server-cache"></a>Distribuovaná mezipaměť SQL Server
 
-Implementace distribuované mezipaměti SQL Server (<xref:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions.AddDistributedSqlServerCache*>) umožňuje distribuované mezipaměti používat jako záložní úložiště databázi SQL Server. Chcete-li vytvořit tabulku položek SQL Server v mezipaměti v instanci SQL Server, můžete použít nástroj pro `sql-cache`. Nástroj vytvoří tabulku se zadaným názvem a schématem.
+Distributed SQL Server cache Implementation<xref:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions.AddDistributedSqlServerCache*>() umožňuje distribuované mezipaměti používat jako záložní úložiště databázi SQL Server. Chcete-li vytvořit tabulku položek SQL Server v mezipaměti v instanci SQL Server, můžete použít `sql-cache` nástroj. Nástroj vytvoří tabulku se zadaným názvem a schématem.
 
-Vytvořte tabulku v SQL Server spuštěním příkazu `sql-cache create`. Zadejte instanci SQL Server (`Data Source`), databázi (`Initial Catalog`), schéma (například `dbo`) a název tabulky (například `TestCache`):
+Vytvořte tabulku v SQL Server spuštěním `sql-cache create` příkazu. Zadejte instanci SQL Server`Data Source`(), databázi (`Initial Catalog`), schéma (například `dbo`) a název tabulky (například `TestCache`):
 
 ```dotnetcli
 dotnet sql-cache create "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DistCache;Integrated Security=True;" dbo TestCache
@@ -89,25 +95,25 @@ Zpráva, která označuje, že nástroj byl úspěšný, je zaznamenána do prot
 Table and index were created successfully.
 ```
 
-Tabulka vytvořená nástrojem `sql-cache` má následující schéma:
+Tabulka vytvořená `sql-cache` nástrojem má následující schéma:
 
 ![Tabulka mezipaměti SqlServer](distributed/_static/SqlServerCacheTable.png)
 
 > [!NOTE]
-> Aplikace by měla manipulovat s hodnotami mezipaměti pomocí instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, nikoli <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>.
+> Aplikace by měla manipulovat s hodnotami mezipaměti pomocí instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, nikoli. <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>
 
-Ukázková aplikace implementuje <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache> v nevývojovém prostředí v `Startup.ConfigureServices`:
+Ukázková aplikace implementuje <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache> v prostředí bez vývoje `Startup.ConfigureServices`:
 
 [!code-csharp[](distributed/samples/3.x/DistCacheSample/Startup.cs?name=snippet_AddDistributedSqlServerCache)]
 
 > [!NOTE]
-> <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString*> (a volitelně <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName*> a <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName*>) se obvykle ukládají mimo správu zdrojového kódu (například uložená [správcem tajných klíčů](xref:security/app-secrets) nebo v souboru *appsettings. JSON*/*appSettings. { ENVIRONMENT}. JSON* soubory. Připojovací řetězec může obsahovat přihlašovací údaje, které by měly být zachovány ze systémů správy zdrojového kódu.
+> A <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString*> (a <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName*> volitelně i <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName*>) se obvykle ukládají mimo správu zdrojového kódu (například uložené správcem [tajných klíčů](xref:security/app-secrets) nebo v souboru *appSettings. JSON*/*appSettings. { ENVIRONMENT}. JSON* soubory. Připojovací řetězec může obsahovat přihlašovací údaje, které by měly být zachovány ze systémů správy zdrojového kódu.
 
 ### <a name="distributed-redis-cache"></a>Distribuované Redis Cache
 
 [Redis](https://redis.io/) je open source úložiště dat v paměti, které se často používá jako distribuovaná mezipaměť. Redis můžete použít místně a můžete nakonfigurovat [Azure Redis Cache](https://azure.microsoft.com/services/cache/) pro aplikace ASP.NET Core hostované pro Azure.
 
-Aplikace konfiguruje implementaci mezipaměti pomocí <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> instance (<xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*>) v nevývojovém prostředí v `Startup.ConfigureServices`:
+Aplikace konfiguruje implementaci mezipaměti pomocí <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> instance (<xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*>) v nevývojovém prostředí v: `Startup.ConfigureServices`
 
 [!code-csharp[](distributed/samples/3.x/DistCacheSample/Startup.cs?name=snippet_AddStackExchangeRedisCache)]
 
@@ -126,7 +132,7 @@ Konfigurace NCache:
 
 1. Nainstalujte [NCache Open Source NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/).
 1. Nakonfigurujte cluster mezipaměti v [Client. ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html).
-1. Přidejte následující kód pro `Startup.ConfigureServices`:
+1. Přidejte následující kód do `Startup.ConfigureServices`:
 
    ```csharp
    services.AddNCacheDistributedCache(configuration =>    
@@ -139,28 +145,28 @@ Konfigurace NCache:
 
 ## <a name="use-the-distributed-cache"></a>Použít distribuovanou mezipaměť
 
-Chcete-li použít rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, požádejte o instanci <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> z libovolného konstruktoru v aplikaci. Instance je poskytována [vložením závislosti (di)](xref:fundamentals/dependency-injection).
+Chcete-li <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> použít rozhraní, vyžádejte si <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instanci z libovolného konstruktoru v aplikaci. Instance je poskytována [vložením závislosti (di)](xref:fundamentals/dependency-injection).
 
-Po spuštění ukázkové aplikace se <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> vloží do `Startup.Configure`. Aktuální čas je uložen v mezipaměti pomocí <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> (Další informace najdete v tématu [Generic host: IHostApplicationLifetime](xref:fundamentals/host/generic-host#ihostapplicationlifetime)):
+Po spuštění ukázkové aplikace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> je vložena do. `Startup.Configure` Aktuální čas je uložen v mezipaměti <xref:Microsoft.Extensions.Hosting.IHostApplicationLifetime> pomocí (Další informace najdete v tématu [Generic host: IHostApplicationLifetime](xref:fundamentals/host/generic-host#ihostapplicationlifetime)):
 
 [!code-csharp[](distributed/samples/3.x/DistCacheSample/Startup.cs?name=snippet_Configure&highlight=10)]
 
-Ukázková aplikace vloží <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> do `IndexModel` pro použití stránkou indexu.
+Ukázková aplikace se vloží <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> do `IndexModel` pro použití stránkou indexu.
 
-Pokaždé, když je načtena stránka indexu, je v `OnGetAsync`zkontrolován čas uložený v mezipaměti. Pokud doba v mezipaměti nevypršela, zobrazí se čas. Pokud uplynula 20 sekund od poslední posledního přistupu k době ukládání do mezipaměti (při poslední načtení této stránky), stránka zobrazuje časový limit *v mezipaměti*.
+Pokaždé, když je načtena stránka indexu, je v `OnGetAsync`mezipaměti kontrolována doba uložená v mezipaměti. Pokud doba v mezipaměti nevypršela, zobrazí se čas. Pokud uplynula 20 sekund od poslední posledního přistupu k době ukládání do mezipaměti (při poslední načtení této stránky), stránka zobrazuje časový limit *v mezipaměti*.
 
-Okamžitě aktualizovat čas uložený v mezipaměti na aktuální čas výběrem tlačítka **obnovit čas v mezipaměti** . Tlačítko aktivuje metodu obslužné rutiny `OnPostResetCachedTime`.
+Okamžitě aktualizovat čas uložený v mezipaměti na aktuální čas výběrem tlačítka **obnovit čas v mezipaměti** . Tlačítko aktivuje metodu `OnPostResetCachedTime` obslužné rutiny.
 
 [!code-csharp[](distributed/samples/3.x/DistCacheSample/Pages/Index.cshtml.cs?name=snippet_IndexModel&highlight=7,14-20,25-29)]
 
 > [!NOTE]
-> Pro instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> (alespoň pro předdefinované implementace) nemusíte používat singleton ani vymezenou dobu života.
+> Pro <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instance není nutné používat singleton nebo vymezenou dobu života (alespoň pro předdefinované implementace).
 >
-> Můžete také vytvořit instanci <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, kdykoli budete možná potřebovat místo použití metody DI, ale vytvoření instance v kódu může ztížit testování a porušování [explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
+> Můžete také vytvořit <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instanci, kdykoli budete možná potřebovat místo použití di, ale vytvoření instance v kódu může ztížit testování a porušování [explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 
 ## <a name="recommendations"></a>Doporučení
 
-Při rozhodování, která implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> je pro vaši aplikaci nejvhodnější, vezměte v úvahu následující skutečnosti:
+Při rozhodování, která implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> nástroje je pro vaši aplikaci nejvhodnější, vezměte v úvahu následující skutečnosti:
 
 * Stávající infrastruktura
 * Požadavky na výkon
@@ -173,10 +179,10 @@ Obecně platí, že mezipaměť Redis poskytuje vyšší propustnost a nižší 
 
 Když se SQL Server používá jako úložiště zálohování distribuované mezipaměti, použití stejné databáze pro mezipaměť a běžné ukládání a načítání dat aplikace může negativně ovlivnit výkon obou. Pro úložiště záloh distribuované mezipaměti doporučujeme použít vyhrazenou instanci SQL Server.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Redis Cache v Azure](/azure/azure-cache-for-redis/)
-* [SQL Database v Azure](/azure/sql-database/)
+* [Databáze SQL v Azure](/azure/sql-database/)
 * [ASP.NET Core poskytovatel IDistributedCache pro NCache ve webových farmách](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache))
 * <xref:performance/caching/memory>
 * <xref:fundamentals/change-tokens>
@@ -200,26 +206,26 @@ Když jsou data v mezipaměti distribuována, data:
 * Zachová se restarty serveru a nasazení aplikací.
 * Nepoužívá místní paměť.
 
-Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>.
+Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> rozhraní.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Pokud chcete použít SQL Server distribuovanou mezipaměť, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Caching. SqlServer](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer) .
 
-Pokud chcete použít distribuovanou mezipaměť Redis, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Caching. StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis) . Balíček Redis není zahrnutý v balíčku `Microsoft.AspNetCore.App`, takže musíte odkazovat na balíček Redis samostatně v souboru projektu.
+Pokud chcete použít distribuovanou mezipaměť Redis, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Caching. StackExchangeRedis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis) . Balíček Redis není součástí `Microsoft.AspNetCore.App` balíčku, takže musíte odkazovat na balíček Redis samostatně v souboru projektu.
 
-Pokud chcete použít distribuovanou mezipaměť NCache, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a přidejte odkaz na balíček do balíčku [NCache. Microsoft. Extensions. Caching. opensource](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource) . Balíček NCache není zahrnutý v balíčku `Microsoft.AspNetCore.App`, takže musíte odkazovat na balíček NCache samostatně v souboru projektu.
+Pokud chcete použít distribuovanou mezipaměť NCache, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a přidejte odkaz na balíček do balíčku [NCache. Microsoft. Extensions. Caching. opensource](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource) . Balíček NCache není součástí `Microsoft.AspNetCore.App` balíčku, takže musíte odkazovat na balíček NCache samostatně v souboru projektu.
 
 ## <a name="idistributedcache-interface"></a>Rozhraní IDistributedCache
 
-Rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> poskytuje následující metody pro manipulaci s položkami v implementaci distribuované mezipaměti:
+<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> Rozhraní poskytuje následující metody pro manipulaci s položkami v implementaci distribuované mezipaměti:
 
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Get*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.GetAsync*> &ndash; přijímá klíč řetězce a načítá položku uloženou v mezipaměti jako `byte[]` pole, pokud je v mezipaměti nalezeno.
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Set*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.SetAsync*> &ndash; přidá do mezipaměti položku (jako `byte[]` Array) pomocí řetězcového klíče.
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Refresh*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RefreshAsync*> &ndash; aktualizuje položku v mezipaměti na základě jejího klíče a resetuje časový limit klouzavého vypršení platnosti (pokud existuje).
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Remove*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RemoveAsync*> &ndash; odstraní položku mezipaměti na základě jejího řetězcového klíče.
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Get*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.GetAsync*> &ndash; Přijímá klíč řetězce a načte položku uloženou v mezipaměti jako `byte[]` pole, pokud je v mezipaměti nalezeno.
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Set*>Přidá do mezipaměti položku (jako `byte[]` pole) pomocí řetězcového klíče. <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.SetAsync*> &ndash;
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Refresh*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RefreshAsync*> &ndash; Aktualizuje položku v mezipaměti na základě jejího klíče a resetuje časový limit klouzavého vypršení platnosti (pokud existuje).
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Remove*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RemoveAsync*> &ndash; Odebere položku mezipaměti na základě jejího řetězcového klíče.
 
 ## <a name="establish-distributed-caching-services"></a>Vytvoření služby distribuované mezipaměti
 
@@ -232,22 +238,22 @@ Zaregistrujte implementaci <xref:Microsoft.Extensions.Caching.Distributed.IDistr
 
 ### <a name="distributed-memory-cache"></a>Mezipaměť distribuované paměti
 
-Mezipaměť distribuované paměti (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) je implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, která ukládá položky do paměti. Mezipaměť distribuované paměti není skutečnou distribuovanou mezipamětí. Položky uložené v mezipaměti jsou uloženy instancí aplikace na serveru, na kterém je aplikace spuštěná.
+Mezipaměť distribuované paměti (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) je implementací rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> , které ukládá položky v paměti. Mezipaměť distribuované paměti není skutečnou distribuovanou mezipamětí. Položky uložené v mezipaměti jsou uloženy instancí aplikace na serveru, na kterém je aplikace spuštěná.
 
 Mezipaměť distribuované paměti je užitečnou implementací:
 
 * Ve scénářích vývoje a testování.
 * Pokud se jeden server používá v produkčním prostředí a spotřeba paměti není problém. Implementace vydaných mezipamětí mezipaměti úložiště dat v mezipaměti. Umožňuje implementaci skutečného distribuovaného řešení pro ukládání do mezipaměti v budoucnu, pokud je potřeba několik uzlů nebo odolnost proti chybám.
 
-Ukázková aplikace využívá mezipaměť distribuované paměti při spuštění aplikace ve vývojovém prostředí v `Startup.ConfigureServices`:
+Ukázková aplikace využívá mezipaměť distribuované paměti při spuštění aplikace ve vývojovém prostředí v `Startup.ConfigureServices`nástroji:
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddDistributedMemoryCache)]
 
 ### <a name="distributed-sql-server-cache"></a>Distribuovaná mezipaměť SQL Server
 
-Implementace distribuované mezipaměti SQL Server (<xref:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions.AddDistributedSqlServerCache*>) umožňuje distribuované mezipaměti používat jako záložní úložiště databázi SQL Server. Chcete-li vytvořit tabulku položek SQL Server v mezipaměti v instanci SQL Server, můžete použít nástroj pro `sql-cache`. Nástroj vytvoří tabulku se zadaným názvem a schématem.
+Distributed SQL Server cache Implementation<xref:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions.AddDistributedSqlServerCache*>() umožňuje distribuované mezipaměti používat jako záložní úložiště databázi SQL Server. Chcete-li vytvořit tabulku položek SQL Server v mezipaměti v instanci SQL Server, můžete použít `sql-cache` nástroj. Nástroj vytvoří tabulku se zadaným názvem a schématem.
 
-Vytvořte tabulku v SQL Server spuštěním příkazu `sql-cache create`. Zadejte instanci SQL Server (`Data Source`), databázi (`Initial Catalog`), schéma (například `dbo`) a název tabulky (například `TestCache`):
+Vytvořte tabulku v SQL Server spuštěním `sql-cache create` příkazu. Zadejte instanci SQL Server`Data Source`(), databázi (`Initial Catalog`), schéma (například `dbo`) a název tabulky (například `TestCache`):
 
 ```dotnetcli
 dotnet sql-cache create "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DistCache;Integrated Security=True;" dbo TestCache
@@ -259,25 +265,25 @@ Zpráva, která označuje, že nástroj byl úspěšný, je zaznamenána do prot
 Table and index were created successfully.
 ```
 
-Tabulka vytvořená nástrojem `sql-cache` má následující schéma:
+Tabulka vytvořená `sql-cache` nástrojem má následující schéma:
 
 ![Tabulka mezipaměti SqlServer](distributed/_static/SqlServerCacheTable.png)
 
 > [!NOTE]
-> Aplikace by měla manipulovat s hodnotami mezipaměti pomocí instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, nikoli <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>.
+> Aplikace by měla manipulovat s hodnotami mezipaměti pomocí instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, nikoli. <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>
 
-Ukázková aplikace implementuje <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache> v nevývojovém prostředí v `Startup.ConfigureServices`:
+Ukázková aplikace implementuje <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache> v prostředí bez vývoje `Startup.ConfigureServices`:
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddDistributedSqlServerCache)]
 
 > [!NOTE]
-> <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString*> (a volitelně <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName*> a <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName*>) se obvykle ukládají mimo správu zdrojového kódu (například uložená [správcem tajných klíčů](xref:security/app-secrets) nebo v souboru *appsettings. JSON*/*appSettings. { ENVIRONMENT}. JSON* soubory. Připojovací řetězec může obsahovat přihlašovací údaje, které by měly být zachovány ze systémů správy zdrojového kódu.
+> A <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString*> (a <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName*> volitelně i <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName*>) se obvykle ukládají mimo správu zdrojového kódu (například uložené správcem [tajných klíčů](xref:security/app-secrets) nebo v souboru *appSettings. JSON*/*appSettings. { ENVIRONMENT}. JSON* soubory. Připojovací řetězec může obsahovat přihlašovací údaje, které by měly být zachovány ze systémů správy zdrojového kódu.
 
 ### <a name="distributed-redis-cache"></a>Distribuované Redis Cache
 
 [Redis](https://redis.io/) je open source úložiště dat v paměti, které se často používá jako distribuovaná mezipaměť. Redis můžete použít místně a můžete nakonfigurovat [Azure Redis Cache](https://azure.microsoft.com/services/cache/) pro aplikace ASP.NET Core hostované pro Azure.
 
-Aplikace konfiguruje implementaci mezipaměti pomocí <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> instance (<xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*>) v nevývojovém prostředí v `Startup.ConfigureServices`:
+Aplikace konfiguruje implementaci mezipaměti pomocí <xref:Microsoft.Extensions.Caching.StackExchangeRedis.RedisCache> instance (<xref:Microsoft.Extensions.DependencyInjection.StackExchangeRedisCacheServiceCollectionExtensions.AddStackExchangeRedisCache*>) v nevývojovém prostředí v: `Startup.ConfigureServices`
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddStackExchangeRedisCache)]
 
@@ -296,7 +302,7 @@ Konfigurace NCache:
 
 1. Nainstalujte [NCache Open Source NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/).
 1. Nakonfigurujte cluster mezipaměti v [Client. ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html).
-1. Přidejte následující kód pro `Startup.ConfigureServices`:
+1. Přidejte následující kód do `Startup.ConfigureServices`:
 
    ```csharp
    services.AddNCacheDistributedCache(configuration =>    
@@ -309,28 +315,28 @@ Konfigurace NCache:
 
 ## <a name="use-the-distributed-cache"></a>Použít distribuovanou mezipaměť
 
-Chcete-li použít rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, požádejte o instanci <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> z libovolného konstruktoru v aplikaci. Instance je poskytována [vložením závislosti (di)](xref:fundamentals/dependency-injection).
+Chcete-li <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> použít rozhraní, vyžádejte si <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instanci z libovolného konstruktoru v aplikaci. Instance je poskytována [vložením závislosti (di)](xref:fundamentals/dependency-injection).
 
-Po spuštění ukázkové aplikace se <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> vloží do `Startup.Configure`. Aktuální čas je uložen v mezipaměti pomocí <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> (Další informace najdete v tématu [webový hostitel: rozhraní IApplicationLifetime](xref:fundamentals/host/web-host#iapplicationlifetime-interface)):
+Po spuštění ukázkové aplikace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> je vložena do. `Startup.Configure` Aktuální čas je uložen v mezipaměti <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> s použitím (Další informace najdete v tématu [webový hostitel: rozhraní IApplicationLifetime](xref:fundamentals/host/web-host#iapplicationlifetime-interface)):
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_Configure&highlight=10)]
 
-Ukázková aplikace vloží <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> do `IndexModel` pro použití stránkou indexu.
+Ukázková aplikace se vloží <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> do `IndexModel` pro použití stránkou indexu.
 
-Pokaždé, když je načtena stránka indexu, je v `OnGetAsync`zkontrolován čas uložený v mezipaměti. Pokud doba v mezipaměti nevypršela, zobrazí se čas. Pokud uplynula 20 sekund od poslední posledního přistupu k době ukládání do mezipaměti (při poslední načtení této stránky), stránka zobrazuje časový limit *v mezipaměti*.
+Pokaždé, když je načtena stránka indexu, je v `OnGetAsync`mezipaměti kontrolována doba uložená v mezipaměti. Pokud doba v mezipaměti nevypršela, zobrazí se čas. Pokud uplynula 20 sekund od poslední posledního přistupu k době ukládání do mezipaměti (při poslední načtení této stránky), stránka zobrazuje časový limit *v mezipaměti*.
 
-Okamžitě aktualizovat čas uložený v mezipaměti na aktuální čas výběrem tlačítka **obnovit čas v mezipaměti** . Tlačítko aktivuje metodu obslužné rutiny `OnPostResetCachedTime`.
+Okamžitě aktualizovat čas uložený v mezipaměti na aktuální čas výběrem tlačítka **obnovit čas v mezipaměti** . Tlačítko aktivuje metodu `OnPostResetCachedTime` obslužné rutiny.
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Pages/Index.cshtml.cs?name=snippet_IndexModel&highlight=7,14-20,25-29)]
 
 > [!NOTE]
-> Pro instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> (alespoň pro předdefinované implementace) nemusíte používat singleton ani vymezenou dobu života.
+> Pro <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instance není nutné používat singleton nebo vymezenou dobu života (alespoň pro předdefinované implementace).
 >
-> Můžete také vytvořit instanci <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, kdykoli budete možná potřebovat místo použití metody DI, ale vytvoření instance v kódu může ztížit testování a porušování [explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
+> Můžete také vytvořit <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instanci, kdykoli budete možná potřebovat místo použití di, ale vytvoření instance v kódu může ztížit testování a porušování [explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 
 ## <a name="recommendations"></a>Doporučení
 
-Při rozhodování, která implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> je pro vaši aplikaci nejvhodnější, vezměte v úvahu následující skutečnosti:
+Při rozhodování, která implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> nástroje je pro vaši aplikaci nejvhodnější, vezměte v úvahu následující skutečnosti:
 
 * Stávající infrastruktura
 * Požadavky na výkon
@@ -343,10 +349,10 @@ Obecně platí, že mezipaměť Redis poskytuje vyšší propustnost a nižší 
 
 Když se SQL Server používá jako úložiště zálohování distribuované mezipaměti, použití stejné databáze pro mezipaměť a běžné ukládání a načítání dat aplikace může negativně ovlivnit výkon obou. Pro úložiště záloh distribuované mezipaměti doporučujeme použít vyhrazenou instanci SQL Server.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Redis Cache v Azure](/azure/azure-cache-for-redis/)
-* [SQL Database v Azure](/azure/sql-database/)
+* [Databáze SQL v Azure](/azure/sql-database/)
 * [ASP.NET Core poskytovatel IDistributedCache pro NCache ve webových farmách](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache))
 * <xref:performance/caching/memory>
 * <xref:fundamentals/change-tokens>
@@ -370,26 +376,26 @@ Když jsou data v mezipaměti distribuována, data:
 * Zachová se restarty serveru a nasazení aplikací.
 * Nepoužívá místní paměť.
 
-Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>.
+Konfigurace distribuované mezipaměti je specifická pro implementaci. Tento článek popisuje, jak nakonfigurovat SQL Server a Redis distribuované mezipaměti. K dispozici jsou také implementace třetích stran, například [NCache](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache)). Bez ohledu na to, která implementace je vybraná, aplikace komunikuje s mezipamětí pomocí <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> rozhraní.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/performance/caching/distributed/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="prerequisites"></a>Předpoklady
+## <a name="prerequisites"></a>Požadavky
 
 Pokud chcete použít SQL Server distribuovanou mezipaměť, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Caching. SqlServer](https://www.nuget.org/packages/Microsoft.Extensions.Caching.SqlServer) .
 
-Pokud chcete použít distribuovanou mezipaměť Redis, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Caching. Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Redis) . Balíček Redis není zahrnutý v balíčku `Microsoft.AspNetCore.App`, takže musíte odkazovat na balíček Redis samostatně v souboru projektu.
+Pokud chcete použít distribuovanou mezipaměť Redis, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Caching. Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.Redis) . Balíček Redis není součástí `Microsoft.AspNetCore.App` balíčku, takže musíte odkazovat na balíček Redis samostatně v souboru projektu.
 
-Pokud chcete použít distribuovanou mezipaměť NCache, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a přidejte odkaz na balíček do balíčku [NCache. Microsoft. Extensions. Caching. opensource](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource) . Balíček NCache není zahrnutý v balíčku `Microsoft.AspNetCore.App`, takže musíte odkazovat na balíček NCache samostatně v souboru projektu.
+Pokud chcete použít distribuovanou mezipaměť NCache, odkazujte na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) a přidejte odkaz na balíček do balíčku [NCache. Microsoft. Extensions. Caching. opensource](https://www.nuget.org/packages/NCache.Microsoft.Extensions.Caching.OpenSource) . Balíček NCache není součástí `Microsoft.AspNetCore.App` balíčku, takže musíte odkazovat na balíček NCache samostatně v souboru projektu.
 
 ## <a name="idistributedcache-interface"></a>Rozhraní IDistributedCache
 
-Rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> poskytuje následující metody pro manipulaci s položkami v implementaci distribuované mezipaměti:
+<xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> Rozhraní poskytuje následující metody pro manipulaci s položkami v implementaci distribuované mezipaměti:
 
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Get*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.GetAsync*> &ndash; přijímá klíč řetězce a načítá položku uloženou v mezipaměti jako `byte[]` pole, pokud je v mezipaměti nalezeno.
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Set*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.SetAsync*> &ndash; přidá do mezipaměti položku (jako `byte[]` Array) pomocí řetězcového klíče.
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Refresh*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RefreshAsync*> &ndash; aktualizuje položku v mezipaměti na základě jejího klíče a resetuje časový limit klouzavého vypršení platnosti (pokud existuje).
-* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Remove*><xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RemoveAsync*> &ndash; odstraní položku mezipaměti na základě jejího řetězcového klíče.
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Get*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.GetAsync*> &ndash; Přijímá klíč řetězce a načte položku uloženou v mezipaměti jako `byte[]` pole, pokud je v mezipaměti nalezeno.
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Set*>Přidá do mezipaměti položku (jako `byte[]` pole) pomocí řetězcového klíče. <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.SetAsync*> &ndash;
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Refresh*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RefreshAsync*> &ndash; Aktualizuje položku v mezipaměti na základě jejího klíče a resetuje časový limit klouzavého vypršení platnosti (pokud existuje).
+* <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.Remove*>, <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache.RemoveAsync*> &ndash; Odebere položku mezipaměti na základě jejího řetězcového klíče.
 
 ## <a name="establish-distributed-caching-services"></a>Vytvoření služby distribuované mezipaměti
 
@@ -402,22 +408,22 @@ Zaregistrujte implementaci <xref:Microsoft.Extensions.Caching.Distributed.IDistr
 
 ### <a name="distributed-memory-cache"></a>Mezipaměť distribuované paměti
 
-Mezipaměť distribuované paměti (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) je implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, která ukládá položky do paměti. Mezipaměť distribuované paměti není skutečnou distribuovanou mezipamětí. Položky uložené v mezipaměti jsou uloženy instancí aplikace na serveru, na kterém je aplikace spuštěná.
+Mezipaměť distribuované paměti (<xref:Microsoft.Extensions.DependencyInjection.MemoryCacheServiceCollectionExtensions.AddDistributedMemoryCache*>) je implementací rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> , které ukládá položky v paměti. Mezipaměť distribuované paměti není skutečnou distribuovanou mezipamětí. Položky uložené v mezipaměti jsou uloženy instancí aplikace na serveru, na kterém je aplikace spuštěná.
 
 Mezipaměť distribuované paměti je užitečnou implementací:
 
 * Ve scénářích vývoje a testování.
 * Pokud se jeden server používá v produkčním prostředí a spotřeba paměti není problém. Implementace vydaných mezipamětí mezipaměti úložiště dat v mezipaměti. Umožňuje implementaci skutečného distribuovaného řešení pro ukládání do mezipaměti v budoucnu, pokud je potřeba několik uzlů nebo odolnost proti chybám.
 
-Ukázková aplikace využívá mezipaměť distribuované paměti při spuštění aplikace ve vývojovém prostředí v `Startup.ConfigureServices`:
+Ukázková aplikace využívá mezipaměť distribuované paměti při spuštění aplikace ve vývojovém prostředí v `Startup.ConfigureServices`nástroji:
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddDistributedMemoryCache)]
 
 ### <a name="distributed-sql-server-cache"></a>Distribuovaná mezipaměť SQL Server
 
-Implementace distribuované mezipaměti SQL Server (<xref:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions.AddDistributedSqlServerCache*>) umožňuje distribuované mezipaměti používat jako záložní úložiště databázi SQL Server. Chcete-li vytvořit tabulku položek SQL Server v mezipaměti v instanci SQL Server, můžete použít nástroj pro `sql-cache`. Nástroj vytvoří tabulku se zadaným názvem a schématem.
+Distributed SQL Server cache Implementation<xref:Microsoft.Extensions.DependencyInjection.SqlServerCachingServicesExtensions.AddDistributedSqlServerCache*>() umožňuje distribuované mezipaměti používat jako záložní úložiště databázi SQL Server. Chcete-li vytvořit tabulku položek SQL Server v mezipaměti v instanci SQL Server, můžete použít `sql-cache` nástroj. Nástroj vytvoří tabulku se zadaným názvem a schématem.
 
-Vytvořte tabulku v SQL Server spuštěním příkazu `sql-cache create`. Zadejte instanci SQL Server (`Data Source`), databázi (`Initial Catalog`), schéma (například `dbo`) a název tabulky (například `TestCache`):
+Vytvořte tabulku v SQL Server spuštěním `sql-cache create` příkazu. Zadejte instanci SQL Server`Data Source`(), databázi (`Initial Catalog`), schéma (například `dbo`) a název tabulky (například `TestCache`):
 
 ```dotnetcli
 dotnet sql-cache create "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=DistCache;Integrated Security=True;" dbo TestCache
@@ -429,25 +435,25 @@ Zpráva, která označuje, že nástroj byl úspěšný, je zaznamenána do prot
 Table and index were created successfully.
 ```
 
-Tabulka vytvořená nástrojem `sql-cache` má následující schéma:
+Tabulka vytvořená `sql-cache` nástrojem má následující schéma:
 
 ![Tabulka mezipaměti SqlServer](distributed/_static/SqlServerCacheTable.png)
 
 > [!NOTE]
-> Aplikace by měla manipulovat s hodnotami mezipaměti pomocí instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, nikoli <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>.
+> Aplikace by měla manipulovat s hodnotami mezipaměti pomocí instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, nikoli. <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache>
 
-Ukázková aplikace implementuje <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache> v nevývojovém prostředí v `Startup.ConfigureServices`:
+Ukázková aplikace implementuje <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCache> v prostředí bez vývoje `Startup.ConfigureServices`:
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_AddDistributedSqlServerCache)]
 
 > [!NOTE]
-> <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString*> (a volitelně <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName*> a <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName*>) se obvykle ukládají mimo správu zdrojového kódu (například uložená [správcem tajných klíčů](xref:security/app-secrets) nebo v souboru *appsettings. JSON*/*appSettings. { ENVIRONMENT}. JSON* soubory. Připojovací řetězec může obsahovat přihlašovací údaje, které by měly být zachovány ze systémů správy zdrojového kódu.
+> A <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.ConnectionString*> (a <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.SchemaName*> volitelně i <xref:Microsoft.Extensions.Caching.SqlServer.SqlServerCacheOptions.TableName*>) se obvykle ukládají mimo správu zdrojového kódu (například uložené správcem [tajných klíčů](xref:security/app-secrets) nebo v souboru *appSettings. JSON*/*appSettings. { ENVIRONMENT}. JSON* soubory. Připojovací řetězec může obsahovat přihlašovací údaje, které by měly být zachovány ze systémů správy zdrojového kódu.
 
 ### <a name="distributed-redis-cache"></a>Distribuované Redis Cache
 
 [Redis](https://redis.io/) je open source úložiště dat v paměti, které se často používá jako distribuovaná mezipaměť. Redis můžete použít místně a můžete nakonfigurovat [Azure Redis Cache](https://azure.microsoft.com/services/cache/) pro aplikace ASP.NET Core hostované pro Azure.
 
-Aplikace konfiguruje implementaci mezipaměti pomocí instance <xref:Microsoft.Extensions.Caching.Redis.RedisCache> (<xref:Microsoft.Extensions.DependencyInjection.RedisCacheServiceCollectionExtensions.AddDistributedRedisCache*>):
+Aplikace konfiguruje implementaci mezipaměti pomocí <xref:Microsoft.Extensions.Caching.Redis.RedisCache> instance (<xref:Microsoft.Extensions.DependencyInjection.RedisCacheServiceCollectionExtensions.AddDistributedRedisCache*>):
 
 ```csharp
 services.AddDistributedRedisCache(options =>
@@ -472,7 +478,7 @@ Konfigurace NCache:
 
 1. Nainstalujte [NCache Open Source NuGet](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/).
 1. Nakonfigurujte cluster mezipaměti v [Client. ncconf](https://www.alachisoft.com/resources/docs/ncache-oss/admin-guide/client-config.html).
-1. Přidejte následující kód pro `Startup.ConfigureServices`:
+1. Přidejte následující kód do `Startup.ConfigureServices`:
 
    ```csharp
    services.AddNCacheDistributedCache(configuration =>    
@@ -485,28 +491,28 @@ Konfigurace NCache:
 
 ## <a name="use-the-distributed-cache"></a>Použít distribuovanou mezipaměť
 
-Chcete-li použít rozhraní <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, požádejte o instanci <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> z libovolného konstruktoru v aplikaci. Instance je poskytována [vložením závislosti (di)](xref:fundamentals/dependency-injection).
+Chcete-li <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> použít rozhraní, vyžádejte si <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instanci z libovolného konstruktoru v aplikaci. Instance je poskytována [vložením závislosti (di)](xref:fundamentals/dependency-injection).
 
-Po spuštění ukázkové aplikace se <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> vloží do `Startup.Configure`. Aktuální čas je uložen v mezipaměti pomocí <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> (Další informace najdete v tématu [webový hostitel: rozhraní IApplicationLifetime](xref:fundamentals/host/web-host#iapplicationlifetime-interface)):
+Po spuštění ukázkové aplikace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> je vložena do. `Startup.Configure` Aktuální čas je uložen v mezipaměti <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime> s použitím (Další informace najdete v tématu [webový hostitel: rozhraní IApplicationLifetime](xref:fundamentals/host/web-host#iapplicationlifetime-interface)):
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Startup.cs?name=snippet_Configure&highlight=10)]
 
-Ukázková aplikace vloží <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> do `IndexModel` pro použití stránkou indexu.
+Ukázková aplikace se vloží <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> do `IndexModel` pro použití stránkou indexu.
 
-Pokaždé, když je načtena stránka indexu, je v `OnGetAsync`zkontrolován čas uložený v mezipaměti. Pokud doba v mezipaměti nevypršela, zobrazí se čas. Pokud uplynula 20 sekund od poslední posledního přistupu k době ukládání do mezipaměti (při poslední načtení této stránky), stránka zobrazuje časový limit *v mezipaměti*.
+Pokaždé, když je načtena stránka indexu, je v `OnGetAsync`mezipaměti kontrolována doba uložená v mezipaměti. Pokud doba v mezipaměti nevypršela, zobrazí se čas. Pokud uplynula 20 sekund od poslední posledního přistupu k době ukládání do mezipaměti (při poslední načtení této stránky), stránka zobrazuje časový limit *v mezipaměti*.
 
-Okamžitě aktualizovat čas uložený v mezipaměti na aktuální čas výběrem tlačítka **obnovit čas v mezipaměti** . Tlačítko aktivuje metodu obslužné rutiny `OnPostResetCachedTime`.
+Okamžitě aktualizovat čas uložený v mezipaměti na aktuální čas výběrem tlačítka **obnovit čas v mezipaměti** . Tlačítko aktivuje metodu `OnPostResetCachedTime` obslužné rutiny.
 
 [!code-csharp[](distributed/samples/2.x/DistCacheSample/Pages/Index.cshtml.cs?name=snippet_IndexModel&highlight=7,14-20,25-29)]
 
 > [!NOTE]
-> Pro instance <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> (alespoň pro předdefinované implementace) nemusíte používat singleton ani vymezenou dobu života.
+> Pro <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instance není nutné používat singleton nebo vymezenou dobu života (alespoň pro předdefinované implementace).
 >
-> Můžete také vytvořit instanci <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache>, kdykoli budete možná potřebovat místo použití metody DI, ale vytvoření instance v kódu může ztížit testování a porušování [explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
+> Můžete také vytvořit <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> instanci, kdykoli budete možná potřebovat místo použití di, ale vytvoření instance v kódu může ztížit testování a porušování [explicitních závislostí](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 
 ## <a name="recommendations"></a>Doporučení
 
-Při rozhodování, která implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> je pro vaši aplikaci nejvhodnější, vezměte v úvahu následující skutečnosti:
+Při rozhodování, která implementace <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> nástroje je pro vaši aplikaci nejvhodnější, vezměte v úvahu následující skutečnosti:
 
 * Stávající infrastruktura
 * Požadavky na výkon
@@ -519,10 +525,10 @@ Obecně platí, že mezipaměť Redis poskytuje vyšší propustnost a nižší 
 
 Když se SQL Server používá jako úložiště zálohování distribuované mezipaměti, použití stejné databáze pro mezipaměť a běžné ukládání a načítání dat aplikace může negativně ovlivnit výkon obou. Pro úložiště záloh distribuované mezipaměti doporučujeme použít vyhrazenou instanci SQL Server.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Redis Cache v Azure](/azure/azure-cache-for-redis/)
-* [SQL Database v Azure](/azure/sql-database/)
+* [Databáze SQL v Azure](/azure/sql-database/)
 * [ASP.NET Core poskytovatel IDistributedCache pro NCache ve webových farmách](http://www.alachisoft.com/ncache/aspnet-core-idistributedcache-ncache.html) ([NCache na GitHubu](https://github.com/Alachisoft/NCache))
 * <xref:performance/caching/memory>
 * <xref:fundamentals/change-tokens>

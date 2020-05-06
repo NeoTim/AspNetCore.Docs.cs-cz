@@ -1,5 +1,5 @@
 ---
-title: Integrace součástí ASP.NET Core Razor do Razor Pages a aplikací MVC
+title: Integrace součástí Razor ASP.NET Core do Razor stránek a aplikací MVC
 author: guardrex
 description: Přečtěte si o scénářích datových vazeb pro komponenty a Blazor prvky modelu DOM v aplikacích.
 monikerRange: '>= aspnetcore-3.1'
@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 04/25/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: blazor/integrate-components
-ms.openlocfilehash: 4e2103b7e8b65478808093d7a31e8cfe29b04984
-ms.sourcegitcommit: f9a5069577e8f7c53f8bcec9e13e117950f4f033
+ms.openlocfilehash: eb4378223c40594ac52f50b7b890785067515555
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/29/2020
-ms.locfileid: "82558914"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82771771"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>Integrace součástí ASP.NET Core Razor do Razor Pages a aplikací MVC
 
@@ -247,7 +250,7 @@ Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte [pomocník
 
 ### <a name="render-stateful-interactive-components"></a>Vykreslení stavových interaktivních komponent
 
-Stavové interaktivní komponenty lze přidat na stránku nebo zobrazení Razor.
+Stavové interaktivní komponenty lze přidat na Razor stránku nebo zobrazení.
 
 Při vykreslení stránky nebo zobrazení:
 
@@ -255,7 +258,7 @@ Při vykreslení stránky nebo zobrazení:
 * Počáteční stav součásti, který se používá pro předvykreslování, bude ztracen.
 * Po navázání SignalR připojení se vytvoří nový stav součásti.
 
-Následující stránka Razor vykresluje `Counter` komponentu:
+Následující Razor stránka vykreslí `Counter` součást:
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -273,7 +276,7 @@ Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/com
 
 ### <a name="render-noninteractive-components"></a>Vykreslit neinteraktivní součásti
 
-Na následující stránce Razor je `Counter` komponenta staticky vykreslena s počáteční hodnotou, která je zadána pomocí formuláře. Vzhledem k tomu, že je komponenta staticky vykreslena, tato součást není interaktivní:
+Na následující Razor stránce je `Counter` komponenta staticky vykreslena s počáteční hodnotou, která je zadána pomocí formuláře. Vzhledem k tomu, že je komponenta staticky vykreslena, tato součást není interaktivní:
 
 ```cshtml
 <h1>My Razor Page</h1>
@@ -305,6 +308,6 @@ Při použití vlastní složky k uchování součástí aplikace přidejte obor
 @using MyAppNamespace.Components
 ```
 
-Soubor *_ViewImports. cshtml* je umístěný ve složce *pages* aplikace Razor Pages nebo ve složce *zobrazení* aplikace MVC.
+Soubor *_ViewImports. cshtml* je umístěný ve složce *Pages* aplikace Razor Pages nebo ve složce *zobrazení* aplikace MVC.
 
 Další informace naleznete v tématu <xref:blazor/components#import-components>.

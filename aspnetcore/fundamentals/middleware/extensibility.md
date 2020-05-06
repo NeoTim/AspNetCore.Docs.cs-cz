@@ -1,53 +1,59 @@
 ---
-title: Aktivace middlewaru na bázi továrny v ASP.NET Core
+title: Aktivace middlewaru založená na továrně v ASP.NET Core
 author: rick-anderson
-description: Naučte se používat middleware silného typu s implementací aktivace z výroby v ASP.NET Core.
+description: Naučte se používat middleware silného typu s implementací aktivace na základě továrny v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 09/22/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/middleware/extensibility
-ms.openlocfilehash: abc6268584d12fe43d972c79a99316b94e8bee4b
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 108d7d343a08bff8b5665df7b149f7f952220459
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78663091"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774454"
 ---
-# <a name="factory-based-middleware-activation-in-aspnet-core"></a>Aktivace middlewaru na bázi továrny v ASP.NET Core
+# <a name="factory-based-middleware-activation-in-aspnet-core"></a>Aktivace middlewaru založená na továrně v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
 
-<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>/<xref:Microsoft.AspNetCore.Http.IMiddleware>je rozšiřitelnost bod pro [middleware](xref:fundamentals/middleware/index) aktivace.
+<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>/<xref:Microsoft.AspNetCore.Http.IMiddleware>je bod rozšiřitelnosti pro aktivaci [middlewaru](xref:fundamentals/middleware/index) .
 
-<xref:Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.UseMiddleware*>metody rozšíření zkontrolujte, zda middleware <xref:Microsoft.AspNetCore.Http.IMiddleware>registrovaný typ implementuje . Pokud ano, <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> instance registrovaná v kontejneru <xref:Microsoft.AspNetCore.Http.IMiddleware> se používá k vyřešení implementace namísto použití logiky aktivace middlewaru založené na konvencích. Middleware je registrován jako [oborová nebo přechodná služba](xref:fundamentals/dependency-injection#service-lifetimes) v kontejneru služeb aplikace.
+<xref:Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.UseMiddleware*>rozšiřující metody kontrolují, jestli implementuje <xref:Microsoft.AspNetCore.Http.IMiddleware>registrovaný typ middlewaru. V takovém případě <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> instance zaregistrovaná v kontejneru slouží k vyřešení <xref:Microsoft.AspNetCore.Http.IMiddleware> implementace namísto použití logiky aktivace middleware založeného na konvencích. Middleware je zaregistrován jako [služba v oboru nebo přechodné službě](xref:fundamentals/dependency-injection#service-lifetimes) v kontejneru služby aplikace.
 
 Výhody:
 
-* Aktivace na požadavek klienta (vkládání služeb s rozsahem)
-* Silné psaní middleware
+* Aktivace na žádost klienta (vkládání oboru služeb)
+* Silné zadání middlewaru
 
-<xref:Microsoft.AspNetCore.Http.IMiddleware>je aktivován na požadavek klienta (připojení), takže oborové služby mohou být vloženy do konstruktoru middleware.
+<xref:Microsoft.AspNetCore.Http.IMiddleware>je aktivováno na žádost klienta (připojení), takže oborové služby lze vložit do konstruktoru middlewaru.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="imiddleware"></a>IMiddleware
 
-<xref:Microsoft.AspNetCore.Http.IMiddleware>definuje middleware pro kanál požadavků aplikace. Metoda [InvokeAsync(HttpContext, RequestDelegate)](xref:Microsoft.AspNetCore.Http.IMiddleware.InvokeAsync*) zpracovává požadavky a <xref:System.Threading.Tasks.Task> vrací, která představuje spuštění middlewaru.
+<xref:Microsoft.AspNetCore.Http.IMiddleware>definuje middleware pro kanál žádostí aplikace. Metoda [InvokeAsync (HttpContext, RequestDelegate)](xref:Microsoft.AspNetCore.Http.IMiddleware.InvokeAsync*) zpracovává požadavky a vrací <xref:System.Threading.Tasks.Task> , která představuje spuštění middlewaru.
 
-Middleware aktivován konvencí:
+Middleware aktivované konvencí:
 
 [!code-csharp[](extensibility/samples/3.x/MiddlewareExtensibilitySample/Middleware/ConventionalMiddleware.cs?name=snippet1)]
 
-Middleware aktivován: <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>
+Middleware aktivované <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>:
 
 [!code-csharp[](extensibility/samples/3.x/MiddlewareExtensibilitySample/Middleware/FactoryActivatedMiddleware.cs?name=snippet1)]
 
-Rozšíření jsou vytvořeny pro middlewares:
+Pro middleware jsou vytvořena rozšíření:
 
 [!code-csharp[](extensibility/samples/3.x/MiddlewareExtensibilitySample/Middleware/MiddlewareExtensions.cs?name=snippet1)]
 
-Není možné předat objekty do továrně aktivovaného <xref:Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.UseMiddleware*>middlewaru s:
+Do middlewaru aktivovaného výrobou nelze předat objekty pomocí <xref:Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.UseMiddleware*>:
 
 ```csharp
 public static IApplicationBuilder UseFactoryActivatedMiddleware(
@@ -58,54 +64,54 @@ public static IApplicationBuilder UseFactoryActivatedMiddleware(
 }
 ```
 
-Middleware aktivovaný z výroby se přidá do `Startup.ConfigureServices`vestavěného kontejneru v:
+Middleware aktivovaný v továrně se přidají do integrovaného kontejneru v `Startup.ConfigureServices`:
 
 [!code-csharp[](extensibility/samples/3.x/MiddlewareExtensibilitySample/Startup.cs?name=snippet1&highlight=6)]
 
-Oba middlewares jsou registrovány v `Startup.Configure`kanálu zpracování požadavků v :
+V kanálu zpracování požadavků jsou zaregistrované middleware v `Startup.Configure`:
 
 [!code-csharp[](extensibility/samples/3.x/MiddlewareExtensibilitySample/Startup.cs?name=snippet2&highlight=12-13)]
 
 ## <a name="imiddlewarefactory"></a>IMiddlewareFactory
 
-<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>poskytuje metody pro vytvoření middleware. Middleware factory implementace je registrována v kontejneru jako oborové služby.
+<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>poskytuje metody pro vytvoření middlewaru. Implementace služby middleware middleware je registrována v kontejneru jako služba vymezená oborem.
 
-Výchozí <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> implementace <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>, je nalezena v balíčku [Microsoft.AspNetCore.Http.](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/)
+Výchozí <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> implementace, <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>, se nachází v balíčku [Microsoft. AspNetCore. http](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/) .
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>/<xref:Microsoft.AspNetCore.Http.IMiddleware>je rozšiřitelnost bod pro [middleware](xref:fundamentals/middleware/index) aktivace.
+<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>/<xref:Microsoft.AspNetCore.Http.IMiddleware>je bod rozšiřitelnosti pro aktivaci [middlewaru](xref:fundamentals/middleware/index) .
 
-<xref:Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.UseMiddleware*>metody rozšíření zkontrolujte, zda middleware <xref:Microsoft.AspNetCore.Http.IMiddleware>registrovaný typ implementuje . Pokud ano, <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> instance registrovaná v kontejneru <xref:Microsoft.AspNetCore.Http.IMiddleware> se používá k vyřešení implementace namísto použití logiky aktivace middlewaru založené na konvencích. Middleware je registrován jako [oborová nebo přechodná služba](xref:fundamentals/dependency-injection#service-lifetimes) v kontejneru služeb aplikace.
+<xref:Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.UseMiddleware*>rozšiřující metody kontrolují, jestli implementuje <xref:Microsoft.AspNetCore.Http.IMiddleware>registrovaný typ middlewaru. V takovém případě <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> instance zaregistrovaná v kontejneru slouží k vyřešení <xref:Microsoft.AspNetCore.Http.IMiddleware> implementace namísto použití logiky aktivace middleware založeného na konvencích. Middleware je zaregistrován jako [služba v oboru nebo přechodné službě](xref:fundamentals/dependency-injection#service-lifetimes) v kontejneru služby aplikace.
 
 Výhody:
 
-* Aktivace na požadavek klienta (vkládání služeb s rozsahem)
-* Silné psaní middleware
+* Aktivace na žádost klienta (vkládání oboru služeb)
+* Silné zadání middlewaru
 
-<xref:Microsoft.AspNetCore.Http.IMiddleware>je aktivován na požadavek klienta (připojení), takže oborové služby mohou být vloženy do konstruktoru middleware.
+<xref:Microsoft.AspNetCore.Http.IMiddleware>je aktivováno na žádost klienta (připojení), takže oborové služby lze vložit do konstruktoru middlewaru.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/middleware/extensibility/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="imiddleware"></a>IMiddleware
 
-<xref:Microsoft.AspNetCore.Http.IMiddleware>definuje middleware pro kanál požadavků aplikace. Metoda [InvokeAsync(HttpContext, RequestDelegate)](xref:Microsoft.AspNetCore.Http.IMiddleware.InvokeAsync*) zpracovává požadavky a <xref:System.Threading.Tasks.Task> vrací, která představuje spuštění middlewaru.
+<xref:Microsoft.AspNetCore.Http.IMiddleware>definuje middleware pro kanál žádostí aplikace. Metoda [InvokeAsync (HttpContext, RequestDelegate)](xref:Microsoft.AspNetCore.Http.IMiddleware.InvokeAsync*) zpracovává požadavky a vrací <xref:System.Threading.Tasks.Task> , která představuje spuštění middlewaru.
 
-Middleware aktivován konvencí:
+Middleware aktivované konvencí:
 
 [!code-csharp[](extensibility/samples/2.x/MiddlewareExtensibilitySample/Middleware/ConventionalMiddleware.cs?name=snippet1)]
 
-Middleware aktivován: <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>
+Middleware aktivované <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>:
 
 [!code-csharp[](extensibility/samples/2.x/MiddlewareExtensibilitySample/Middleware/FactoryActivatedMiddleware.cs?name=snippet1)]
 
-Rozšíření jsou vytvořeny pro middlewares:
+Pro middleware jsou vytvořena rozšíření:
 
 [!code-csharp[](extensibility/samples/2.x/MiddlewareExtensibilitySample/Middleware/MiddlewareExtensions.cs?name=snippet1)]
 
-Není možné předat objekty do továrně aktivovaného <xref:Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.UseMiddleware*>middlewaru s:
+Do middlewaru aktivovaného výrobou nelze předat objekty pomocí <xref:Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.UseMiddleware*>:
 
 ```csharp
 public static IApplicationBuilder UseFactoryActivatedMiddleware(
@@ -116,19 +122,19 @@ public static IApplicationBuilder UseFactoryActivatedMiddleware(
 }
 ```
 
-Middleware aktivovaný z výroby se přidá do `Startup.ConfigureServices`vestavěného kontejneru v:
+Middleware aktivovaný v továrně se přidají do integrovaného kontejneru v `Startup.ConfigureServices`:
 
 [!code-csharp[](extensibility/samples/2.x/MiddlewareExtensibilitySample/Startup.cs?name=snippet1&highlight=6)]
 
-Oba middlewares jsou registrovány v `Startup.Configure`kanálu zpracování požadavků v :
+V kanálu zpracování požadavků jsou zaregistrované middleware v `Startup.Configure`:
 
 [!code-csharp[](extensibility/samples/2.x/MiddlewareExtensibilitySample/Startup.cs?name=snippet2&highlight=13-14)]
 
 ## <a name="imiddlewarefactory"></a>IMiddlewareFactory
 
-<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>poskytuje metody pro vytvoření middleware. Middleware factory implementace je registrována v kontejneru jako oborové služby.
+<xref:Microsoft.AspNetCore.Http.IMiddlewareFactory>poskytuje metody pro vytvoření middlewaru. Implementace služby middleware middleware je registrována v kontejneru jako služba vymezená oborem.
 
-Výchozí <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> implementace <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>, je nalezena v balíčku [Microsoft.AspNetCore.Http.](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/)
+Výchozí <xref:Microsoft.AspNetCore.Http.IMiddlewareFactory> implementace, <xref:Microsoft.AspNetCore.Http.MiddlewareFactory>, se nachází v balíčku [Microsoft. AspNetCore. http](https://www.nuget.org/packages/Microsoft.AspNetCore.Http/) .
 
 ::: moniker-end
 

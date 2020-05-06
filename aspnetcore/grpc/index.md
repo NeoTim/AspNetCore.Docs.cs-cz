@@ -1,39 +1,45 @@
 ---
-title: Úvod do gRPC na .NET Core
+title: Úvod do gRPC v .NET Core
 author: juntaoluo
-description: Seznamte se se službami gRPC se serverem Kestrel a zásobníkem ASP.NET Core.
+description: Přečtěte si o službách gRPC Services pomocí serveru Kestrel a ASP.NET Core stacku.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: johluo
 ms.date: 09/20/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/index
-ms.openlocfilehash: d97eea1da28424680a3cfa38102637b1e20ff661
-ms.sourcegitcommit: 72792e349458190b4158fcbacb87caf3fc605268
+ms.openlocfilehash: 2d7d683051fd1eb97f3f57d75bd582109166a6cd
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78667312"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82768845"
 ---
-# <a name="introduction-to-grpc-on-net-core"></a>Úvod do gRPC na .NET Core
+# <a name="introduction-to-grpc-on-net-core"></a>Úvod do gRPC v .NET Core
 
-[John Luo](https://github.com/juntaoluo) a [James Newton-King](https://twitter.com/jamesnk)
+Od [Jan Luo](https://github.com/juntaoluo) a [James Newton – král](https://twitter.com/jamesnk)
 
-[gRPC](https://grpc.io/docs/guides/) je jazyk agnostik, vysoce výkonné vzdálené procedury volání (RPC) framework.
+[gRPC](https://grpc.io/docs/guides/) je jazyk nezávislá, vysoce výkonné rozhraní vzdáleného volání procedur (RPC).
 
 Hlavní výhody gRPC jsou:
-* Moderní, vysoce výkonný a lehký rám RPC.
-* Vývoj rozhraní API první smlouvy, pomocí vyrovnávacích pamětí protokolu ve výchozím nastavení, umožňující implementace agnostik jazyka.
-* Nástroje dostupné pro mnoho jazyků pro generování serverů a klientů silného typu.
-* Podporuje volání klienta, serveru a obousměrného streamování.
-* Snížené využití sítě díky binární serializaci Protobuf.
+* Moderní, vysoce výkonné a odlehčené rozhraní RPC.
+* Vývoj rozhraní API kontraktu, ve výchozím nastavení používá vyrovnávací paměti protokolů, což umožňuje implementaci nezávislá jazyka.
+* Nástroj, který je k dispozici pro mnoho jazyků pro generování serverů a klientů se silným typem.
+* Podporuje volání klientů, serverů a obousměrného streamování.
+* Omezené využití sítě pomocí binární serializace Protobuf
 
 Díky těmto výhodám je gRPC ideální pro:
-* Zjednodušené mikroslužby, kde je důležitá efektivita.
-* Polyglot systémy, kde více jazyků jsou potřebné pro vývoj.
-* Služby point-to-point v reálném čase, které potřebují zpracovávat požadavky nebo odpovědi streamování.
+* Odlehčené mikroslužby, ve kterých je efektivita nejdůležitější.
+* Polyglot systémy, ve kterých se pro vývoj vyžaduje více jazyků.
+* Služby v reálném čase Point-to-Point, které potřebují zpracovávat žádosti o streamování nebo odpovědi.
 
-## <a name="c-tooling-support-for-proto-files"></a>Podpora nástrojů jazyka C# pro soubory .proto
+## <a name="c-tooling-support-for-proto-files"></a>Podpora nástrojů C# pro soubory.
 
-gRPC používá přístup k vývoji rozhraní API založený na smlouvě. Služby a zprávy * \** jsou definovány v souborech .proto:
+gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem. Služby a zprávy jsou definovány v * \*souboru. proto* soubory:
 
 ```protobuf
 syntax = "proto3";
@@ -51,10 +57,10 @@ message HelloReply {
 }
 ```
 
-Typy .NET pro služby, klienty a * \** zprávy jsou automaticky generovány zahrnutím souborů .proto do projektu:
+Typy .NET pro služby, klienti a zprávy jsou automaticky vygenerováni * \*zahrnutím souborů do* projektu:
 
-* Přidejte odkaz na balíček do balíčku [Grpc.Tools.](https://www.nuget.org/packages/Grpc.Tools/)
-* Přidejte * \** soubory .proto do skupiny `<Protobuf>` položek.
+* Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .
+* Do skupiny `<Protobuf>` položek přidejte * \*soubory..* .
 
 ```xml
 <ItemGroup>
@@ -64,9 +70,9 @@ Typy .NET pro služby, klienty a * \** zprávy jsou automaticky generovány zahr
 
 Další informace o podpoře nástrojů gRPC naleznete v tématu <xref:grpc/basics>.
 
-## <a name="grpc-services-on-aspnet-core"></a>gRPC služby na ASP.NET Core
+## <a name="grpc-services-on-aspnet-core"></a>gRPC Services na ASP.NET Core
 
-služby gRPC mohou být hostovány na ASP.NET Core. Služby mají plnou integraci s oblíbenými funkcemi ASP.NET Core, jako je protokolování, vkládání závislostí (DI), ověřování a autorizace.
+služby gRPC lze hostovat na ASP.NET Core. Služby mají úplnou integraci s oblíbenými ASP.NET Core funkcemi, jako je protokolování, vkládání závislostí (DI), ověřování a autorizace.
 
 Šablona projektu služby gRPC poskytuje počáteční službu:
 
@@ -92,7 +98,7 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-`GreeterService`dědí `GreeterBase` z typu, který je `Greeter` generován ze služby v souboru * \*.proto.* Služba je klientům zpřístupněna v *Startup.cs*:
+`GreeterService`dědí z `GreeterBase` typu, který je vygenerován ze `Greeter` služby v souboru * \*..* . Služba je zpřístupněna klientům v *Startup.cs*:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -101,11 +107,11 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-Další informace o službách gRPC <xref:grpc/aspnetcore>na ASP.NET Core najdete v tématu .
+Další informace o službách gRPC Services v ASP.NET Core najdete v <xref:grpc/aspnetcore>tématu.
 
-## <a name="call-grpc-services-with-a-net-client"></a>Volání služeb gRPC s klientem .NET
+## <a name="call-grpc-services-with-a-net-client"></a>Volání služeb gRPC Services pomocí klienta .NET
 
-gRPC klienti jsou konkrétní typy klientů, které jsou [generovány ze * \*souborů .proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se překládají do služby gRPC v souboru * \*.proto.*
+gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze * \*souborů. proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v souboru * \*..* .
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -117,9 +123,9 @@ var response = await client.SayHelloAsync(
 Console.WriteLine(response.Message);
 ```
 
-Klient gRPC je vytvořen pomocí kanálu, který představuje dlouhodobé připojení ke službě gRPC. Kanál lze vytvořit `GrpcChannel.ForAddress`pomocí aplikace .
+Klient gRPC se vytvoří pomocí kanálu, který představuje dlouhodobé připojení ke službě gRPC. Kanál se dá vytvořit pomocí `GrpcChannel.ForAddress`.
 
-Další informace o vytváření klientů a volání <xref:grpc/client>různých metod služby naleznete v tématu .
+Další informace o vytváření klientů a volání různých metod služby najdete v tématu <xref:grpc/client>.
 
 [!INCLUDE[](~/includes/gRPCazure.md)]
 

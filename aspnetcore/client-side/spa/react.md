@@ -1,67 +1,73 @@
 ---
-title: Použití šablony projektu React s ASP.NET Jádrem
+title: Použijte šablonu projektu reakce s ASP.NET Core
 author: SteveSandersonMS
-description: Přečtěte si, jak začít s šablonou projektu ASP.NET základní jednostránkové aplikace (SPA) pro react a create-react-app.
+description: Naučte se, jak začít pracovat s ASP.NET Core šablonou projektu s jednou stránkou (SPA) pro reakci a vytváření reakce na aplikaci.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
 ms.date: 03/07/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: spa/react
-ms.openlocfilehash: 9703a62eb7f779974382fe0fb01702d9fcd37d64
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 1dd352f1a00d30df915fe1936d7dcb34af1b6634
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78664960"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82773673"
 ---
-# <a name="use-the-react-project-template-with-aspnet-core"></a>Použití šablony projektu React s ASP.NET Jádrem
+# <a name="use-the-react-project-template-with-aspnet-core"></a>Použijte šablonu projektu reakce s ASP.NET Core
 
-Aktualizovaná šablona projektu React poskytuje pohodlný výchozí bod pro ASP.NET aplikace Core pomocí konvencí React a [create-react-app](https://github.com/facebookincubator/create-react-app) (CRA) k implementaci bohatého uživatelského rozhraní na straně klienta.
+Aktualizovaná šablona projektu reakce poskytuje pohodlný výchozí bod pro ASP.NET Core aplikace pomocí konvencí reakce a [vytváření reakce aplikace](https://github.com/facebookincubator/create-react-app) (CRA) pro implementaci bohatě náročného uživatelského rozhraní (UI) na straně klienta.
 
-Šablona je ekvivalentní k vytvoření ASP.NET core projektu působit jako backend ROZHRANÍ API, a standardní CRA React projekt působit jako uživatelské rozhraní, ale s pohodlí hostování jak v jednom projektu aplikace, které mohou být vytvořeny a zveřejněny jako jedna jednotka.
+Šablona je ekvivalentní k vytváření ASP.NET Core projektu, který se má chovat jako back-end rozhraní API, a standardní projekt CRA reaguje na fungování jako uživatelské rozhraní, ale s pohodlíou hostování v jediném projektu aplikace, který je možné sestavit a publikovat jako jeden celek.
 
-Šablona projektu React není určena pro vykreslování na straně serveru (SSR). Pro SSR s Reagovat a Node.js, zvažte [Next.js](https://github.com/zeit/next.js/) nebo [Razzle](https://github.com/jaredpalmer/razzle).
+Šablona projektu reakce není určena pro vykreslování na straně serveru (SSR). Pro SSR, který reaguje a Node. js, zvažte [Další. js](https://github.com/zeit/next.js/) nebo [Razzle](https://github.com/jaredpalmer/razzle).
 
 ## <a name="create-a-new-app"></a>Vytvoření nové aplikace
 
-Pokud máte nainstalovanou ASP.NET Core 2.1, není nutné instalovat šablonu projektu React.
+Pokud máte nainstalovanou ASP.NET Core 2,1, není nutné instalovat šablonu projektu reakce.
 
-Vytvořte nový projekt z příkazového `dotnet new react` řádku pomocí příkazu v prázdném adresáři. Například následující příkazy vytvoří aplikaci v adresáři *moje nová aplikace* a přejdou do tohoto adresáře:
+Vytvoří nový projekt z příkazového řádku pomocí příkazu `dotnet new react` v prázdném adresáři. Například následující příkazy vytvoří aplikaci v adresáři *My-New-App* a přepne do tohoto adresáře:
 
 ```dotnetcli
 dotnet new react -o my-new-app
 cd my-new-app
 ```
 
-Spusťte aplikaci z Visual Studia nebo rozhraní .NET Core CLI:
+Spusťte aplikaci buď ze sady Visual Studio, nebo z .NET Core CLI:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Otevřete vygenerovaný soubor *.csproj* a spusťte aplikaci jako obvykle.
+Otevřete vygenerovaný soubor *. csproj* a z něj spusťte aplikaci jako normální.
 
-Proces sestavení obnoví npm závislosti na první spuštění, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
+Proces sestavení obnoví závislosti npm při prvním spuštění, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
 # <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
 
-Ujistěte se, že `ASPNETCORE_Environment` máte `Development`proměnnou prostředí volanou s hodnotou . Ve Windows (v výzvách, které `SET ASPNETCORE_Environment=Development`nejsou powershelly), spusťte . Na Linuxu nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
+Ujistěte se, že máte proměnnou prostředí `ASPNETCORE_Environment` s názvem s `Development`hodnotou. V systému Windows (v případě výzev mimo PowerShell) spusťte `SET ASPNETCORE_Environment=Development`příkaz. V systému Linux nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
 
-Spusťte [dotnet sestavení](/dotnet/core/tools/dotnet-build) ověřit vaše aplikace staví správně. Při prvním spuštění proces sestavení obnoví npm závislosti, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
+Spusťte [sestavení dotnet](/dotnet/core/tools/dotnet-build) pro správné ověření sestavení vaší aplikace. Při prvním spuštění proces sestavení obnoví závislosti NPM, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
-Spuštění [montovny dotnet](/dotnet/core/tools/dotnet-run) spusťte.
+Spuštěním příkazu [dotnet](/dotnet/core/tools/dotnet-run) spusťte aplikaci.
 
 ---
 
-Šablona projektu vytvoří aplikaci ASP.NET Core a aplikaci React. Aplikace ASP.NET Core je určena pro přístup k datům, autorizaci a další problémy na straně serveru. Aplikace React, která sídlí v podadresáři *ClientApp,* je určena pro všechny problémy s rozhraním.
+Šablona projektu vytvoří aplikaci ASP.NET Core a aplikaci, která reaguje. Aplikace ASP.NET Core je určena k použití pro přístup k datům, autorizaci a další aspekty na straně serveru. Aplikace reaguje, která je umístěná v podadresáři *clientapp* , je určena k použití pro všechny uživatelské rozhraní.
 
-## <a name="add-pages-images-styles-modules-etc"></a>Přidejte stránky, obrázky, styly, moduly atd.
+## <a name="add-pages-images-styles-modules-etc"></a>Přidat stránky, obrázky, styly, moduly atd.
 
-Adresář *ClientApp* je standardní aplikace CRA React. Další informace naleznete v oficiální [dokumentaci cra.](https://create-react-app.dev/docs/getting-started/)
+Adresář *clientapp* je standardní aplikace reagující na CRA. Další informace najdete v oficiální [dokumentaci k CRA](https://create-react-app.dev/docs/getting-started/) .
 
-Existují mírné rozdíly mezi aplikací React vytvořenou touto šablonou a aplikací vytvořenou samotnou CRA; možnosti aplikace se však nemění. Aplikace vytvořená šablonou obsahuje rozložení založené na [Bootstrapu](https://getbootstrap.com/)a základní příklad směrování.
+Existují mírné rozdíly mezi aplikací s reakci, kterou vytvořila Tato šablona, a ta, kterou vytvořila sama CRA; Možnosti aplikace se ale nezměnily. Aplikace vytvořená šablonou obsahuje rozložení založené na [bootstrap](https://getbootstrap.com/)a základní příklad směrování.
 
 ## <a name="install-npm-packages"></a>Instalace balíčků npm
 
-Chcete-li nainstalovat balíčky npm od jiných výrobců, použijte příkazový řádek v podadresáři *ClientApp.* Příklad:
+K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Příklad:
 
 ```console
 cd ClientApp
@@ -70,43 +76,43 @@ npm install --save <package_name>
 
 ## <a name="publish-and-deploy"></a>Publikování a nasazení
 
-Ve vývoji aplikace běží v režimu optimalizovaném pro vývojáře. Například balíčky JavaScriptu obsahují zdrojové mapy (takže při ladění můžete vidět původní zdrojový kód). Aplikace sleduje změny souborů JavaScript, HTML a CSS na disku a automaticky se znovu zkompiluje a znovu načte, když vidí, že se tyto soubory mění.
+Ve vývoji se aplikace spouští v režimu optimalizovaném pro usnadnění vývoje. Například sady prostředků JavaScriptu obsahují zdrojové mapy (takže při ladění uvidíte původní zdrojový kód). Aplikace sleduje změny souborů JavaScriptu, HTML a CSS na disku a automaticky překompiluje a znovu načte, když se tyto soubory uvidí.
 
-V produkčním prostředí můžete poskytovat verzi aplikace optimalizovanou pro výkon. Tato možnost je nakonfigurována tak, aby se stala automaticky. Při publikování, konfigurace sestavení vyzařuje minified, transpilované sestavení kódu na straně klienta. Na rozdíl od vývojového sestavení nevyžaduje produkční sestavení node.js, které mají být nainstalovány na serveru.
+V produkčním prostředí poskytuje verzi vaší aplikace optimalizované pro výkon. To se nakonfiguruje tak, aby se automaticky stalo. Při publikování generuje konfigurace sestavení minifikovaného, převedený Build kódu na straně klienta. Na rozdíl od sestavení pro vývoj není v produkčním sestavení nutné nainstalovat Node. js na server.
 
-Můžete použít standardní [ASP.NET core hosting a metody nasazení](xref:host-and-deploy/index).
+Můžete použít standardní [ASP.NET Core hostování a metody nasazení](xref:host-and-deploy/index).
 
-## <a name="run-the-cra-server-independently"></a>Spuštění serveru CRA nezávisle
+## <a name="run-the-cra-server-independently"></a>Spustit CRA Server nezávisle
 
-Projekt je nakonfigurován tak, aby spustil vlastní instanci vývojového serveru CRA na pozadí při spuštění aplikace ASP.NET Core v režimu vývoje. To je výhodné, protože to znamená, že nemusíte spouštět samostatný server ručně.
+Projekt je nakonfigurován tak, aby spouštěl svou vlastní instanci CRA vývojového serveru na pozadí, když se aplikace ASP.NET Core spustí v režimu vývoje. To je užitečné, protože to znamená, že nemusíte spouštět samostatný server ručně.
 
-Toto výchozí nastavení má nevýhodu. Pokaždé, když upravíte kód C# a aplikace ASP.NET Core musí být restartována, server CRA se restartuje. Pro spuštění zálohy je zapotřebí několik sekund. Pokud provádíte časté úpravy kódu C# a nechcete čekat na restartování serveru CRA, spusťte server CRA externě, nezávisle na procesu ASP.NET Core. Postupujte následovně:
+Tato výchozí instalace je nevýhodná. Pokaždé, když upravíte kód v C# a vaše aplikace ASP.NET Core se musí restartovat, server CRA se restartuje. Spuštění zálohování vyžaduje několik sekund. Pokud provádíte časté úpravy kódu v jazyce C# a nechcete čekat na restartování serveru CRA, spusťte server CRA externě, nezávisle na procesu ASP.NET Core. Postupujte následovně:
 
-1. Přidejte soubor *ENV* do podadresáře *ClientApp* s následujícím nastavením:
+1. Do podadresáře *clientapp* přidejte soubor *. env* s následujícím nastavením:
 
     ```
     BROWSER=none
     ```
 
-    Tím se zabrání otevření webového prohlížeče při spuštění serveru CRA externě.
+    Tím zabráníte otevření webového prohlížeče při externém spuštění serveru CRA.
 
-2. V příkazovém řádku přepněte do podadresáře *ClientApp* a spusťte vývojový server CRA:
+2. V příkazovém řádku přejděte do podadresáře *clientapp* a spusťte vývojový server CRA:
 
     ```console
     cd ClientApp
     npm start
     ```
 
-3. Upravte aplikaci ASP.NET Core tak, aby místo spuštění vlastní instance externího serveru CRA používala externí instanci serveru CRA. Ve třídě *Startup* nahraďte `spa.UseReactDevelopmentServer` vyvolání následujícím:
+3. Upravte aplikaci ASP.NET Core tak, aby používala externí instanci serveru CRA místo spuštění vlastní. Ve vaší *spouštěcí* třídě nahraďte `spa.UseReactDevelopmentServer` vyvolání následujícím způsobem:
 
     ```csharp
     spa.UseProxyToSpaDevelopmentServer("http://localhost:3000");
     ```
 
-Když spustíte aplikaci ASP.NET Core, nespustí server CRA. Místo toho se použije instance, kterou jste spustili ručně. To umožňuje rychlejší spuštění a restartování. Už nečeká, až se aplikace React pokaždé znovu vytvoří.
+Když spustíte aplikaci ASP.NET Core, nespustí se server CRA. Místo toho se použije instance, kterou jste spustili ručně. To umožňuje, aby se rychleji spouštěla a restartovala. Už nečeká na opětovné sestavení vaší aplikace v reakci.
 
 > [!IMPORTANT]
-> "Vykreslování na straně serveru" není podporovanou funkcí této šablony. Naším cílem s touto šablonou je splnit paritu s "create-react-app". Jako takové scénáře a funkce, které nejsou zahrnuty v projektu "vytvořit reagovat aplikace" (například SSR) nejsou podporovány a jsou ponechány jako cvičení pro uživatele.
+> "Vykreslování na straně serveru" není podporovanou funkcí této šablony. Naším cílem této šablony je vyhovět paritě pomocí příkazu "vytvořit reakci-aplikace". Například scénáře a funkce, které nejsou součástí projektu "vytvoření reakce na aplikaci" (například SSR), nejsou podporovány a jsou pro uživatele ponechány jako cvičení.
 
 ## <a name="additional-resources"></a>Další zdroje
 

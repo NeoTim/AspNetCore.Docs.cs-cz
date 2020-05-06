@@ -4,13 +4,19 @@ author: rick-anderson
 description: Přečtěte si, jak ASP.NET Core MVC používá middleware směrování k párování adres URL příchozích požadavků a jejich mapování na akce.
 ms.author: riande
 ms.date: 3/25/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: mvc/controllers/routing
-ms.openlocfilehash: 974a5e7653f2b71b124a96650733ff460e60637a
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
+ms.openlocfilehash: 4208ef8fb7a9b10621f214f79679ff8d7fd83996
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206109"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775021"
 ---
 # <a name="routing-to-controller-actions-in-aspnet-core"></a>Směrování na akce kontroleru v ASP.NET Core
 
@@ -195,7 +201,9 @@ Předchozí příklad:
 ### <a name="conventional-routing-order"></a>Konvenční pořadí směrování
 
 Konvenční směrování odpovídá pouze kombinaci akcí a kontrolérů, které jsou definovány aplikací. Cílem je zjednodušit případy, kdy se konvenční trasy překrývají.
-Přidání tras pomocí <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*>, <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapDefaultControllerRoute*>a <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> automatické přiřazení hodnoty objednávky ke svým koncovým bodům na základě pořadí, ve kterém jsou vyvolány. Shody z trasy, která se zobrazí dříve, mají vyšší prioritu. Konvenční směrování je závislé na pořadí. Obecně platí, že trasy s oblastmi by měly být umístěny dříve, protože jsou konkrétnější než trasy bez oblasti. [Vyhrazené konvenční trasy](#dcr) s zachycením všech parametrů tras `{*article}` jako můžou vytvořit trasu příliš [hladce](xref:fundamentals/routing#greedy), což znamená, že odpovídají adresám URL, na které mají odpovídat jiné trasy. Tyto hladové trasy umístěte později do směrovací tabulky, aby se zabránilo hladce porovnávání.
+Přidání tras pomocí <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*>, <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapDefaultControllerRoute*>a <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> automatické přiřazení hodnoty objednávky ke svým koncovým bodům na základě pořadí, ve kterém jsou vyvolány. Shody z trasy, která se zobrazí dříve, mají vyšší prioritu. Konvenční směrování je závislé na pořadí. Obecně platí, že trasy s oblastmi by měly být umístěny dříve, protože jsou konkrétnější než trasy bez oblasti. [Vyhrazené konvenční trasy](#dcr) se zachycením všech parametrů tras, `{*article}` jako je například, mohou vytvořit trasu příliš [hladce](xref:fundamentals/routing#greedy), což znamená, že odpovídají adresám URL, které mají být porovnány s jinými trasami. Tyto hladové trasy umístěte později do směrovací tabulky, aby se zabránilo hladce porovnávání.
+
+[!INCLUDE[](~/includes/catchall.md)]
 
 <a name="best"></a>
 
@@ -463,7 +471,7 @@ S předchozím kódem `/home` spustí `HomeController.Index` koncový bod. Pro z
 * Předchozí kód je příkladem nebo nekvalitní návrh směrování. Byla použita k ilustraci `Order` vlastnosti.
 * `Order` Vlastnost pouze vyřeší nejednoznačnost, tuto šablonu nelze spárovat. Je lepší odebrat `[Route("Home")]` šablonu.
 
-Informace o pořadí směrování pomocí Razor Pages najdete v tématu [Razor Pages konvence směrování a aplikací: pořadí směrování](xref:razor-pages/razor-pages-conventions#route-order) .
+Podívejte [ Razor se na stránky směrování a konvence aplikace: pořadí tras](xref:razor-pages/razor-pages-conventions#route-order) pro informace o Razor pořadí směrování se stránkami.
 
 V některých případech se k chybě HTTP 500 vrátí nejednoznačné trasy. Pomocí [protokolování](xref:fundamentals/logging/index) zjistíte, které koncové body `AmbiguousMatchException`způsobily.
 
@@ -744,13 +752,13 @@ Předchozí kód ukázal generování adresy URL předáním do kontroleru a ná
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/UrlGeneration2Controller.cs?name=snippet_1)]
 
-Následující soubor Razor vygeneruje odkaz HTML na `Destination_Route`:
+Následující Razor soubor GENERUJE odkaz HTML na `Destination_Route`:
 
 [!code-cshtml[](routing/samples/3.x/main/Views/Shared/MyLink.cshtml)]
 
 <a name="routing-gen-urls-html-ref-label"></a>
 
-### <a name="generate-urls-in-html-and-razor"></a>Generování adres URL ve formátu HTML a Razor
+### <a name="generate-urls-in-html-and-razor"></a>Generování adres URL ve formátu HTML aRazor
 
 <xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper>poskytuje <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper> metody [HTML. BeginForm](xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper.BeginForm*) a [HTML. ActionLink](xref:Microsoft.AspNetCore.Mvc.Rendering.IHtmlHelper.ActionLink*) ke generování `<form>` a `<a>` prvkům v tomto pořadí. Tyto metody používají metodu [URL. Action](xref:Microsoft.AspNetCore.Mvc.IUrlHelper.Action*) pro VYGENEROVÁNÍ adresy URL a přijímající podobné argumenty. `Url.RouteUrl` Doprovodníci pro `HtmlHelper` jsou `Html.BeginRouteForm` a `Html.RouteLink` mají podobné funkce.
 
@@ -1212,7 +1220,7 @@ Trasy atributů mohou konfigurovat objednávku pomocí `Order` vlastnosti všech
 > [!TIP]
 > Nepoužívejte v závislosti `Order`. Pokud vaše adresa URL vyžaduje explicitní směrování hodnot pořadí, je pravděpodobné, že budou i u klientů matoucí. V části Obecné směrování atributů výběr správné trasy s odpovídající adresou URL. Pokud výchozí pořadí použité pro generování adresy URL nefunguje, je použití názvu trasy jako přepsání obvykle jednodušší než použití `Order` vlastnosti.
 
-Směrování Razor Pages směrování a řadiče MVC sdílí implementaci. Informace o pořadí směrování v Razor Pages tématech jsou k dispozici v tématu [Razor Pages konvence směrování a aplikace: pořadí směrování](xref:razor-pages/razor-pages-conventions#route-order).
+RazorSměrování stránek a směrování kontroléru MVC sdílí implementaci. Informace o pořadí směrování v tématech Razor stránky jsou k dispozici na [ Razor stránkách směrování a konvence aplikace: pořadí směrování](xref:razor-pages/razor-pages-conventions#route-order).
 
 <a name="routing-token-replacement-templates-ref-label"></a>
 

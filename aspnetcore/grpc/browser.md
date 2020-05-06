@@ -1,123 +1,129 @@
 ---
 title: Použití gRPC v prohlížečových aplikacích
 author: jamesnk
-description: Přečtěte si, jak nakonfigurovat služby gRPC na ASP.NET Core tak, aby byly volatelné z aplikací prohlížeče pomocí gRPC-Web.
+description: Naučte se konfigurovat gRPC služby na ASP.NET Core, které se mají volat z aplikací pro prohlížeč pomocí gRPC-Web.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 04/15/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/browser
-ms.openlocfilehash: a20e604488b1fb919f18932599ba690bfa308f0c
-ms.sourcegitcommit: 6c8cff2d6753415c4f5d2ffda88159a7f6f7431a
+ms.openlocfilehash: a74f7acb54b4601a0c30ff1a39dc30231e2b5a78
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81440763"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774740"
 ---
 # <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
-Podle [James Newton-King](https://twitter.com/jamesnk)
+Od [James Newton – král](https://twitter.com/jamesnk)
 
 > [!IMPORTANT]
-> **gRPC-Web support in .NET je experimentální**
+> **gRPC – webová podpora v .NET je experimentální**
 >
-> gRPC-Web pro .NET je experimentální projekt, nikoli potvrzený produkt. Chceme:
+> gRPC-web pro .NET je experimentální projekt, nikoli potvrzený produkt. Chceme:
 >
-> * Otestujte, že náš přístup k implementaci gRPC-Web funguje.
-> * Získejte zpětnou vazbu o tom, zda je tento přístup užitečný pro vývojáře rozhraní .NET ve srovnání s tradičním způsobem nastavení gRPC-Web prostřednictvím proxy serveru.
+> * Otestujte, jak náš přístup k implementaci gRPC-web funguje.
+> * Získejte zpětnou vazbu, pokud je tento přístup užitečný pro vývojáře na platformě .NET v porovnání s tradičním způsobem nastavení gRPC-web prostřednictvím proxy serveru.
 >
-> Prosím, zanechte zpětnou vazbu na [https://github.com/grpc/grpc-dotnet](https://github.com/grpc/grpc-dotnet) zajistit, abychom vytvořit něco, co vývojáři rádi a jsou produktivní s.
+> Zajistěte prosím [https://github.com/grpc/grpc-dotnet](https://github.com/grpc/grpc-dotnet) svůj názor na, abyste se ujistili, že jsme vytvořili něco, co vývojáři rádi a máte produktivní.
 
-Není možné volat službu HTTP/2 gRPC z aplikace založené na prohlížeči. [gRPC-Web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) je protokol, který umožňuje prohlížeči JavaScript a Blazor aplikace volat gRPC služby. Tento článek vysvětluje, jak používat gRPC-Web v .NET Core.
+Nemůžete volat službu gRPC HTTP/2 z aplikace založené na prohlížeči. [gRPC-web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) je protokol, který umožňuje, aby JavaScript Blazor a aplikace v prohlížeči volaly služby gRPC. Tento článek vysvětluje, jak používat gRPC-web v .NET Core.
 
-## <a name="grpc-web-in-aspnet-core-vs-envoy"></a>gRPC-Web v ASP.NET Core vs. vyslanec
+## <a name="grpc-web-in-aspnet-core-vs-envoy"></a>gRPC – web ve ASP.NET Core vs. zástupné
 
-Existují dvě možnosti, jak přidat gRPC-Web do aplikace ASP.NET Core:
+Existují dvě možnosti, jak přidat gRPC-web do aplikace ASP.NET Core:
 
-* Podpora gRPC-Web vedle gRPC HTTP/2 v ASP.NET Core. Tato možnost používá middleware `Grpc.AspNetCore.Web` poskytované balíček.
-* Použijte podporu gRPC-Web [proxy vyslance](https://www.envoyproxy.io/) k překladu gRPC-Web na gRPC HTTP/2. Přeložené volání se pak přenese do aplikace ASP.NET Core.
+* Podpora gRPC-web společně s gRPC HTTP/2 v ASP.NET Core. Tato možnost používá middleware poskytované `Grpc.AspNetCore.Web` balíčkem.
+* Pomocí gRPC webu [zástupné proxy](https://www.envoyproxy.io/) můžete přeložit GRPC-web na gRPC http/2. Přeložené volání je pak předáno do aplikace ASP.NET Core.
 
-Každý přístup má klady a zápory. Pokud už používáte funkci Envoy jako proxy server v prostředí aplikace, může mít smysl ji použít také k poskytování podpory gRPC-Web. Pokud chcete jednoduché řešení pro gRPC-Web, který `Grpc.AspNetCore.Web` vyžaduje pouze ASP.NET Core, je dobrá volba.
+Existují odborníci a nevýhody pro každý přístup. Pokud už používáte zástupné jako proxy v prostředí vaší aplikace, může to mít smysl použít ho také k poskytování podpory gRPC-Web. Pokud chcete jednoduché řešení pro gRPC web, které vyžaduje jenom ASP.NET Core, `Grpc.AspNetCore.Web` je vhodná volba.
 
-## <a name="configure-grpc-web-in-aspnet-core"></a>Konfigurace gRPC-Web v ASP.NET jádru
+## <a name="configure-grpc-web-in-aspnet-core"></a>Konfigurace gRPC-web v ASP.NET Core
 
-gRPC služby hostované v ASP.NET Core lze nakonfigurovat tak, aby podporovaly gRPC-Web vedle HTTP/2 gRPC. gRPC-Web nevyžaduje žádné změny služeb. Jedinou úpravou je konfigurace spuštění.
+služby gRPC hostované v ASP.NET Core můžou být nakonfigurované tak, aby podporovaly gRPC-web vedle HTTP/2 gRPC. gRPC-web nevyžaduje žádné změny služeb. Jedinou úpravou je spuštění konfigurace.
 
-Povolení gRPC-Web se službou ASP.NET Core gRPC:
+Povolení gRPC-web pomocí služby ASP.NET Core gRPC:
 
-* Přidejte odkaz na balíček [Grpc.AspNetCore.Web.](https://www.nuget.org/packages/Grpc.AspNetCore.Web)
-* Nakonfigurujte aplikaci tak, `AddGrpcWeb` aby `UseGrpcWeb` používala gRPC-Web přidáním a *Startup.cs*:
+* Přidejte odkaz na balíček [Grpc. AspNetCore. Web](https://www.nuget.org/packages/Grpc.AspNetCore.Web) .
+* Nakonfigurujte aplikaci tak, aby používala gRPC-web `AddGrpcWeb` přidáním `UseGrpcWeb` a do *Startup.cs*:
 
 [!code-csharp[](~/grpc/browser/sample/Startup.cs?name=snippet_1&highlight=10,14)]
 
 Předcházející kód:
 
-* Přidá middleware gRPC-Web `UseGrpcWeb`, po směrování a před koncové body.
-* Určuje metodu `endpoints.MapGrpcService<GreeterService>()` podporuje gRPC-Web s `EnableGrpcWeb`. 
+* Přidá gRPC-web middleware, `UseGrpcWeb`po směrování a před koncovými body.
+* Určuje metodu `endpoints.MapGrpcService<GreeterService>()` , která podporuje GRPC-web `EnableGrpcWeb`s. 
 
-Případně nakonfigurujte všechny služby pro `services.AddGrpcWeb(o => o.GrpcWebEnabled = true);` podporu gRPC-Web přidáním configureservices.
+Případně můžete nakonfigurovat všechny služby tak, aby podporovaly gRPC- `services.AddGrpcWeb(o => o.GrpcWebEnabled = true);` web přidáním do ConfigureServices.
 
 [!code-csharp[](~/grpc/browser/sample/AllServicesSupportExample_Startup.cs?name=snippet_1&highlight=6,13)]
 
 > [!NOTE]
-> Existuje známý problém, který způsobuje selhání gRPC-Web při [hostování souborem Http.sys](xref:fundamentals/servers/httpsys) v rozhraní .NET Core 3.x.
+> K dispozici je známý problém, který způsobí selhání gRPC-web, pokud je [hostovaný souborem http. sys](xref:fundamentals/servers/httpsys) v rozhraní .NET Core 3. x.
 >
-> Řešení pro získání gRPC-Web pracuje na Http.sys je k dispozici [zde](https://github.com/grpc/grpc-dotnet/issues/853#issuecomment-610078202).
+> [K dispozici je](https://github.com/grpc/grpc-dotnet/issues/853#issuecomment-610078202)alternativní řešení pro získání gRPC webu na http. sys.
 
-### <a name="grpc-web-and-cors"></a>gRPC-Web a CORS
+### <a name="grpc-web-and-cors"></a>gRPC – web a CORS
 
-Zabezpečení prohlížeče zabraňuje webové stránce podávat žádosti do jiné domény, než je doména, která webovou stránku obsluhovala. Toto omezení se vztahuje na provádění volání gRPC-Web s aplikacemi prohlížeče. Například aplikace prohlížeče obsluhovaná `https://www.contoso.com` aplikací je blokována voláním služeb `https://services.contoso.com`gRPC-Web hostovaných na . Cross Origin Resource Sharing (CORS) lze použít k uvolnění tohoto omezení.
+Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla požadavky na jinou doménu než ta, která tuto webovou stránku obsluhoval. Toto omezení se vztahuje k vytváření gRPC webových volání s aplikacemi prohlížeče. Například aplikace prohlížeče obsluhovaná aplikací `https://www.contoso.com` je blokována při volání gRPCch webových služeb hostovaných na `https://services.contoso.com`. Pro zmírnění tohoto omezení lze použít sdílení prostředků mezi zdroji (CORS).
 
-Chcete-li aplikaci prohlížeče povolit volání gRPC-Web napříč počátkem, nastavte [cors v ASP.NET Core](xref:security/cors). Použijte integrovanou podporu CORS a zpřístupní záhlaví specifická pro gRPC pomocí <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>aplikace .
+Pokud chcete, aby aplikace v prohlížeči mohla dělat gRPC webová volání mezi zdroji, nastavte [CORS v ASP.NET Core](xref:security/cors). Využijte integrovanou podporu CORS a vystavte hlavičky specifické pro gRPC <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*>.
 
 [!code-csharp[](~/grpc/browser/sample/CORS_Startup.cs?name=snippet_1&highlight=5-11,19,24)]
 
 Předcházející kód:
 
-* Volání `AddCors` přidat služby CORS a konfiguruje zásady CORS, která zveřejňuje hlavičky specifické pro gRPC.
-* Volání `UseCors` přidat middleware CORS po směrování a před koncové body.
-* Určuje metodu, která `endpoints.MapGrpcService<GreeterService>()` `RequiresCors`podporuje CORS s .
+* Volání `AddCors` pro přidání služeb CORS a nakonfigurují zásady CORS, které zveřejňují gRPC konkrétní hlavičky.
+* Volání `UseCors` pro přidání middlewaru CORS po směrování a před koncovými body.
+* Určuje metodu `endpoints.MapGrpcService<GreeterService>()` , která podporuje CORS `RequiresCors`s.
 
-## <a name="call-grpc-web-from-the-browser"></a>Volání gRPC-Web z prohlížeče
+## <a name="call-grpc-web-from-the-browser"></a>Volání gRPC-web z prohlížeče
 
-Aplikace prohlížeče mohou používat gRPC-Web k volání služeb gRPC. Existují určité požadavky a omezení při volání služeb gRPC s gRPC-Web z prohlížeče:
+Aplikace prohlížeče můžou pomocí gRPC-web volat služby gRPC. Existují některé požadavky a omezení při volání služeb gRPC Services pomocí gRPC-web z prohlížeče:
 
-* Server musí být nakonfigurován tak, aby podporoval gRPC-Web.
-* Volání datových proudů klientů a obousměrné streamování nejsou podporovány. Streamování serveru je podporováno.
-* Volání služeb gRPC v jiné doméně vyžaduje [konfiguraci CORS](xref:security/cors) na serveru.
+* Server musí být nakonfigurovaný tak, aby podporoval gRPC-Web.
+* Volání streamování klientů a obousměrného streamování nejsou podporovaná. Streamování serveru je podporované.
+* Volání služeb gRPC Services v jiné doméně vyžaduje, aby na serveru byla nakonfigurovaná [CORS](xref:security/cors) .
 
-### <a name="javascript-grpc-web-client"></a>JavaScript gRPC-Webový klient
+### <a name="javascript-grpc-web-client"></a>JavaScript gRPC – webový klient
 
-K dispozici je JavaScript gRPC-Web klienta. Pokyny k používání gRPC-Web z JavaScriptu najdete v [tématu napsání klientského kódu JavaScriptu pomocí gRPC-Web](https://github.com/grpc/grpc-web/tree/master/net/grpc/gateway/examples/helloworld#write-client-code).
+K dispozici je gRPC JavaScript-Web Client. Pokyny, jak používat gRPC-web z JavaScriptu, najdete v tématu [Zápis kódu klienta JavaScript pomocí gRPC-web](https://github.com/grpc/grpc-web/tree/master/net/grpc/gateway/examples/helloworld#write-client-code).
 
-### <a name="configure-grpc-web-with-the-net-grpc-client"></a>Konfigurace gRPC-Web s klientem .NET gRPC
+### <a name="configure-grpc-web-with-the-net-grpc-client"></a>Konfigurace gRPC-web pomocí klienta .NET gRPC
 
-Klienta .NET gRPC lze nakonfigurovat tak, aby uskutečňovat volání gRPC-Web. To je užitečné pro aplikace [Blazor WebAssembly,](xref:blazor/index#blazor-webassembly) které jsou hostovány v prohlížeči a mají stejná http omezení kódu JavaScript. Volání gRPC-Web s klientem .NET je [stejné jako HTTP/2 gRPC](xref:grpc/client). Jedinou úpravou je způsob vytvoření kanálu.
+Klient .NET gRPC se dá nakonfigurovat tak, aby gRPC webová volání. To je užitečné pro [ Blazor aplikace WebAssembly](xref:blazor/index#blazor-webassembly) , které jsou hostovány v prohlížeči a mají stejná omezení http kódu jazyka JavaScript. Volání gRPC-web s klientem .NET je [stejné jako http/2 gRPC](xref:grpc/client). Jedinou úpravou je způsob vytvoření kanálu.
 
-Použití gRPC-Web:
+Použití gRPC-web:
 
-* Přidejte odkaz na balíček [Grpc.Net.Client.Web.](https://www.nuget.org/packages/Grpc.Net.Client.Web)
-* Ujistěte se, že odkaz na balíček [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) je 2.27.0 nebo vyšší.
-* Nakonfigurujte `GrpcWebHandler`kanál tak, aby používal :
+* Přidejte odkaz na balíček [Grpc .NET. Client. Web](https://www.nuget.org/packages/Grpc.Net.Client.Web) .
+* Zajistěte, aby byl odkaz na balíček [Grpc .NET. Client](https://www.nuget.org/packages/Grpc.Net.Client) 2.27.0 nebo vyšší.
+* Nakonfigurujte kanál tak, aby používal `GrpcWebHandler`:
 
 [!code-csharp[](~/grpc/browser/sample/Handler.cs?name=snippet_1)]
 
 Předcházející kód:
 
-* Konfiguruje kanál pro použití gRPC-Web.
+* Nakonfiguruje kanál tak, aby používal gRPC-Web.
 * Vytvoří klienta a provede volání pomocí kanálu.
 
 Při `GrpcWebHandler` vytvoření má následující možnosti konfigurace:
 
-* **InnerHandler**: <xref:System.Net.Http.HttpMessageHandler> Podklad, který dělá gRPC HTTP `HttpClientHandler`požadavek, například .
-* **Režim**: Typ výčtu, který určuje, zda `Content-Type` `application/grpc-web` je `application/grpc-web-text`požadavek gRPC HTTP nebo .
-    * `GrpcWebMode.GrpcWeb`konfiguruje obsah, který má být odeslán bez kódování. Výchozí hodnota.
-    * `GrpcWebMode.GrpcWebText`konfiguruje obsah tak, aby byl kódován base64. Vyžadováno pro volání datových proudů serveru v prohlížečích.
-* **HttpVersion**: `Version` HTTP protokol používaný k nastavení [httprequestmessage.version](xref:System.Net.Http.HttpRequestMessage.Version) na podkladovém gRPC HTTP požadavku. gRPC-Web nevyžaduje konkrétní verzi a nepřepisuje výchozí hodnotu, pokud není zadána.
+* **InnerHandler**: základní <xref:System.Net.Http.HttpMessageHandler> , který vytváří požadavek gRPC http, například `HttpClientHandler`.
+* **Mode**: typ výčtu, který určuje, zda je `Content-Type` `application/grpc-web` požadavek HTTP gRPC nebo `application/grpc-web-text`.
+    * `GrpcWebMode.GrpcWeb`Konfiguruje obsah, který se má odeslat bez kódování. Výchozí hodnota.
+    * `GrpcWebMode.GrpcWebText`Konfiguruje obsah tak, aby byl kódovaný v kódování Base64. Vyžaduje se pro volání streamování serveru v prohlížečích.
+* **HttpVersion**: protokol `Version` http použitý k nastavení [zprávy HttpRequestMessage. Version](xref:System.Net.Http.HttpRequestMessage.Version) na podkladové žádosti HTTP gRPC. gRPC-web nevyžaduje konkrétní verzi a nepřepisuje výchozí, pokud není zadaný.
 
 > [!IMPORTANT]
-> Generovaní klienti gRPC mají synchronizační a asynchronní metody pro volání unárních metod. Například `SayHello` je synchronizace a `SayHelloAsync` je asynchronní. Volání metody synchronizace v aplikaci Blazor WebAssembly způsobí, že aplikace přestane reagovat. Asynchronní metody musí být vždy použity v Blazor WebAssembly.
+> Vygenerované klienty gRPC mají synchronizační a asynchronní metody pro volání unárních metod. Například `SayHello` je synchronizován a `SayHelloAsync` je asynchronní. Volání metody synchronizace v Blazor aplikaci WebAssembly způsobí, že aplikace přestane reagovat. Asynchronní metody musí být vždy použity v Blazor sestavení WebAssembly.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* [gRPC pro webové klienty projekt GitHub](https://github.com/grpc/grpc-web)
+* [gRPC pro webového klienta GitHub Project](https://github.com/grpc/grpc-web)
 * <xref:security/cors>

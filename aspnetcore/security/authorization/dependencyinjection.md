@@ -4,13 +4,19 @@ author: rick-anderson
 description: Přečtěte si, jak vložit obslužné rutiny autorizačních požadavků do aplikace ASP.NET Core pomocí injektáže závislosti.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authorization/dependencyinjection
-ms.openlocfilehash: 71d563e11d308a95c08e6d012d3a071f4697d2de
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 16285f6f731455d6e45a04f82437793891a77668
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78666087"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775117"
 ---
 # <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a>Vkládání závislostí v obslužných rutinách požadavků v ASP.NET Core
 
@@ -41,13 +47,13 @@ public class LoggingAuthorizationHandler : AuthorizationHandler<MyRequirement>
    }
    ```
 
-Obslužná rutina by měla být zaregistrována s `services.AddSingleton()`:
+Zaregistrujte obslužnou rutinu `services.AddSingleton()`pomocí:
 
 ```csharp
 services.AddSingleton<IAuthorizationHandler, LoggingAuthorizationHandler>();
 ```
 
-Instance obslužné rutiny se vytvoří při spuštění aplikace a příkaz DI vloží registrovanou `ILoggerFactory` do konstruktoru.
+Instance obslužné rutiny se vytvoří při spuštění aplikace a příkaz DI zapíše do konstruktoru registraci `ILoggerFactory` .
 
 > [!NOTE]
 > Obslužné rutiny, které používají Entity Framework, by neměly být registrovány jako singleton.

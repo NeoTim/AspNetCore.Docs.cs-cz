@@ -4,13 +4,19 @@ author: rick-anderson
 description: Zjistěte, jak povolit generování kódu QR pro aplikace TOTP Authenticator, které fungují s ASP.NET Core dvojúrovňové ověřování.
 ms.author: riande
 ms.date: 08/14/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: a7fdc86b3fe94e714e5147c89a32fce13757d1c1
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 42ddddeaa329ac5ff5b2b40cbf9ebffa68f6d4cf
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78665310"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774428"
 ---
 # <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a>Povolit generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core
 
@@ -22,7 +28,7 @@ Kódy QR vyžadují ASP.NET Core 2,0 nebo novější.
 
 ::: moniker range=">= aspnetcore-2.0"
 
-ASP.NET Core lodí s podporou ověřovacích aplikací pro individuální ověřování. Dva faktoru ověřování (2FA), pomocí časovou synchronizací jednorázové heslo algoritmus (TOTP), jsou tyto aplikace v oboru doporučenému přístupu pro 2FA. 2FA pomocí TOTP je upřednostňována před SMS 2FA. Ověřovací aplikace poskytuje kód o 6 až 8 číslic, který musí uživatelé zadat po potvrzení uživatelského jména a hesla. Obvykle je aplikace ověřovatele nainstalovaná na inteligentním telefonu.
+ASP.NET Core lodí s podporou ověřovacích aplikací pro individuální ověřování. TOTP (2FA) ověřovací aplikace pro ověřování pomocí času založeného na čase () jsou doporučeným oborem přístupu pro 2FA. 2FA pomocí TOTP se upřednostňuje pro SMS 2FA. Ověřovací aplikace poskytuje kód o 6 až 8 číslic, který musí uživatelé zadat po potvrzení uživatelského jména a hesla. Obvykle je aplikace ověřovatele nainstalovaná na inteligentním telefonu.
 
 Šablony webové aplikace ASP.NET Core podporují ověřovací moduly, ale neposkytují podporu pro generování QRCode. QRCode generátory usnadňují nastavení 2FA. Tento dokument vás provede přidáním generování [kódu QR](https://wikipedia.org/wiki/QR_code) do konfigurační stránky 2FA.
 
@@ -30,22 +36,22 @@ K dvojúrovňovému ověřování nedochází pomocí externího poskytovatele o
 
 ## <a name="adding-qr-codes-to-the-2fa-configuration-page"></a>Přidávání kódů QR do konfigurační stránky 2FA
 
-Tyto pokyny používají *qrcode. js* z úložiště https://davidshimjs.github.io/qrcodejs/.
+Tyto pokyny používají *qrcode. js* z https://davidshimjs.github.io/qrcodejs/ úložiště.
 
-* Stáhněte [knihovnu JavaScript qrcode. js](https://davidshimjs.github.io/qrcodejs/) do složky `wwwroot\lib` ve vašem projektu.
+* Stáhněte [knihovnu JavaScript qrcode. js](https://davidshimjs.github.io/qrcodejs/) do `wwwroot\lib` složky v projektu.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-* Podle pokynů v části [Identita uživatelského rozhraní](xref:security/authentication/scaffold-identity) vygenerujte */areas/identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.
-* V */areas/identity/Pages/Account/Manage/EnableAuthenticator.cshtml*vyhledejte část `Scripts` na konci souboru:
+* Podle [pokynů v Identity části](xref:security/authentication/scaffold-identity) generátory generujte */areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.
+* V */areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*vyhledejte `Scripts` část na konci souboru:
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-* Na *stránce stránky/účet/spravovat/EnableAuthenticator. cshtml* (Razor Pages) nebo *zobrazení/Správa/EnableAuthenticator. cshtml* (MVC) vyhledejte část `Scripts` na konci souboru:
+* Na *stránce stránky/účet/spravovat/EnableAuthenticator. cshtml* (Razor stránky) nebo *zobrazení/Správa/EnableAuthenticator. cshtml* (MVC) vyhledejte `Scripts` část na konci souboru:
 
 ::: moniker-end
 
@@ -57,7 +63,7 @@ Tyto pokyny používají *qrcode. js* z úložiště https://davidshimjs.github.
 }
 ```
 
-* Aktualizujte část `Scripts`, abyste přidali odkaz na knihovnu `qrcodejs`, kterou jste přidali, a volání pro generování kódu QR. Měl by vypadat takto:
+* Aktualizujte `Scripts` oddíl a přidejte odkaz na `qrcodejs` knihovnu, kterou jste přidali, a volání vygenerujte kód QR. Měl by vypadat takto:
 
 ```cshtml
 @section Scripts {
@@ -85,13 +91,13 @@ Spusťte aplikaci a ujistěte se, že je možné kontrolovat kód QR a ověřit 
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu. Můžete ho změnit tak, že v */areas/identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*vyhledáte metodu `GenerateQrCodeUri(string email, string unformattedKey)`.
+Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu. Můžete ji změnit hledáním `GenerateQrCodeUri(string email, string unformattedKey)` metody v */areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu. Můžete ji změnit hledáním metody `GenerateQrCodeUri(string email, string unformattedKey)` v souboru *Pages/Account/Manage/EnableAuthenticator. cshtml. cs* (Razor Pages) nebo *Controller/ManageController. cs* (MVC).
+Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu. Můžete ji `GenerateQrCodeUri(string email, string unformattedKey)` změnit hledáním metody v souboru *Pages/Account/Manage/EnableAuthenticator. cshtml. cs* (Razor Pages) nebo *Controller/ManageController. cs* (MVC).
 
 ::: moniker-end
 
@@ -110,16 +116,16 @@ private string GenerateQrCodeUri(string email, string unformattedKey)
 }
 ```
 
-Druhý parametr v volání `string.Format` je název vašeho webu, který je pořízen z názvu řešení. Dá se změnit na libovolnou hodnotu, ale musí být vždycky zakódovaný URL.
+Druhý parametr ve volání je název vašeho `string.Format` webu, který je pořízen z názvu vašeho řešení. Dá se změnit na libovolnou hodnotu, ale musí být vždycky zakódovaný URL.
 
 ## <a name="using-a-different-qr-code-library"></a>Použití jiné knihovny kódu QR
 
-Knihovnu kódu QR můžete nahradit preferovanou knihovnou. Kód HTML obsahuje element `qrCode`, do kterého můžete umístit kód QR jakýmkoli mechanismem, který vaše knihovna poskytuje.
+Knihovnu kódu QR můžete nahradit preferovanou knihovnou. Kód jazyka HTML obsahuje `qrCode` element, do kterého můžete umístit kód QR jakýmkoli mechanismem, který vaše knihovna poskytuje.
 
 Správně formátovaná adresa URL pro kód QR je k dispozici v:
 
-* vlastnost `AuthenticatorUri` modelu
-* vlastnost `data-url` v elementu `qrCodeData`.
+* `AuthenticatorUri`vlastnost modelu
+* `data-url`vlastnost v `qrCodeData` elementu.
 
 ## <a name="totp-client-and-server-time-skew"></a>TOTP a časový posun serveru
 
