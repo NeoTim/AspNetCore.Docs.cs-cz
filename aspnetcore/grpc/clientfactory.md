@@ -1,33 +1,37 @@
 ---
-title: gRPC integrace továrny klienta v rozhraní .NET Core
+title: integrace klientské továrny gRPC v .NET Core
 author: jamesnk
-description: Naučte se vytvářet gRPC klienty pomocí klientské továrny.
+description: Naučte se vytvářet klienty gRPC pomocí klientské továrny.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 11/12/2019
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: grpc/clientfactory
-ms.openlocfilehash: 3042bb61367f8b9a9f3142217ad329270ab2cca5
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: 42b786b9a4d9b422ccf92d7a329979894a35b275
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78667165"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774714"
 ---
-# <a name="grpc-client-factory-integration-in-net-core"></a>gRPC integrace továrny klienta v rozhraní .NET Core
+# <a name="grpc-client-factory-integration-in-net-core"></a>integrace klientské továrny gRPC v .NET Core
 
-gRPC integrace `HttpClientFactory` s nabízí centralizovaný způsob, jak vytvořit gRPC klienty. Lze jej použít jako alternativu ke [konfiguraci samostatných instancí klienta gRPC](xref:grpc/client). Tovární integrace je k dispozici v balíčku [Grpc.Net.ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) NuGet.
+integrace gRPC s `HttpClientFactory` nabízí centralizovaný způsob vytváření klientů gRPC. Dá se použít jako alternativa ke [konfiguraci samostatných klientských gRPC instancí](xref:grpc/client). Integration Factory je k dispozici v balíčku NuGet [Grpc .NET. ClientFactory](https://www.nuget.org/packages/Grpc.Net.ClientFactory) .
 
 Továrna nabízí následující výhody:
 
-* Poskytuje centrální umístění pro konfiguraci logických instancí klientů gRPC.
-* Spravuje životnost podkladového`HttpClientMessageHandler`
-* Automatické šíření termínu a zrušení ve službě ASP.NET Core gRPC
+* Poskytuje centrální umístění pro konfiguraci logických instancí klienta gRPC.
+* Spravuje životnost základního`HttpClientMessageHandler`
+* Automatické šíření konečného termínu a zrušení ve službě ASP.NET Core gRPC
 
 ## <a name="register-grpc-clients"></a>Registrace klientů gRPC
 
-Chcete-li zaregistrovat klienta `AddGrpcClient` gRPC, lze `Startup.ConfigureServices`použít metodu obecného rozšíření v rámci aplikace , která specifikuje třídu klienta typu gRPC a adresu služby:
+Pokud chcete zaregistrovat klienta gRPC, můžete použít `AddGrpcClient` obecnou metodu rozšíření v rámci `Startup.ConfigureServices`, zadáním klientské třídy gRPC typu a adresy služby:
 
 ```csharp
 services.AddGrpcClient<Greeter.GreeterClient>(o =>
@@ -36,7 +40,7 @@ services.AddGrpcClient<Greeter.GreeterClient>(o =>
 });
 ```
 
-Typ klienta gRPC je registrován jako přechodný s vkládání závislostí (DI). Klient nyní může být vložen a spotřebován přímo v typech vytvořených DI. ASP.NET Core MVC SignalR řadiče, rozbočovače a gRPC služby jsou místa, kde gRPC klienti mohou být automaticky injektovány:
+Typ klienta gRPC je zaregistrován jako přechodný s vkládáním závislostí (DI). Klienta se teď dá vložit a spotřebovat přímo v typech vytvořených pomocí DI. ASP.NET Core řadiče MVC, SignalR centra a gRPC služby jsou místa, kde můžou být automaticky vloženi klienti gRPC:
 
 ```csharp
 public class AggregatorService : Aggregator.AggregatorBase
@@ -63,9 +67,9 @@ public class AggregatorService : Aggregator.AggregatorBase
 }
 ```
 
-## <a name="configure-httpclient"></a>Konfigurace klienta Http
+## <a name="configure-httpclient"></a>Konfigurace HttpClient
 
-`HttpClientFactory`vytvoří `HttpClient` používá gRPC klienta. Standardní `HttpClientFactory` metody lze použít k přidání middleware odchozí `HttpClientHandler` požadavek `HttpClient`nebo ke konfiguraci základní :
+`HttpClientFactory`vytvoří klienta `HttpClient` , který používá klient gRPC. Standardní `HttpClientFactory` metody lze použít pro přidání middlewaru pro odchozí žádosti nebo pro konfiguraci `HttpClientHandler` podkladu `HttpClient`:
 
 ```csharp
 services
@@ -81,13 +85,13 @@ services
     });
 ```
 
-Další informace naleznete v [tématu Vytváření požadavků HTTP pomocí aplikace IHttpClientFactory](xref:fundamentals/http-requests).
+Další informace najdete v tématu [Vytváření požadavků HTTP pomocí IHttpClientFactory](xref:fundamentals/http-requests).
 
-## <a name="configure-channel-and-interceptors"></a>Konfigurace kanálů a stíhačů
+## <a name="configure-channel-and-interceptors"></a>Konfigurace kanálů a zachycení
 
-metody specifické pro gRPC jsou k dispozici pro:
+k dispozici jsou metody specifické pro gRPC:
 
-* Nakonfigurujte základní kanál klienta gRPC.
+* Konfigurace základního kanálu klienta gRPC.
 * Přidejte `Interceptor` instance, které klient použije při volání gRPC.
 
 ```csharp
@@ -103,11 +107,11 @@ services
     });
 ```
 
-## <a name="deadline-and-cancellation-propagation"></a>Termín a šíření zrušení
+## <a name="deadline-and-cancellation-propagation"></a>Termín a zrušení šíření
 
-gRPC klienti vytvořená továrnou ve službě gRPC mohou být nakonfigurováni tak, `EnableCallContextPropagation()` aby automaticky propagovali konečný termín a token zrušení pro podřízená volání. Metoda `EnableCallContextPropagation()` rozšíření je k dispozici v balíčku [Grpc.AspNetCore.Server.ClientFactory](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) NuGet.
+gRPC klienti, které vytvořila továrna ve službě gRPC, se `EnableCallContextPropagation()` dají nakonfigurovat tak, aby automaticky rozšířily konečný termín a token zrušení do podřízených volání. Metoda `EnableCallContextPropagation()` rozšíření je k dispozici v balíčku NuGet [Grpc. AspNetCore. Server. ClientFactory](https://www.nuget.org/packages/Grpc.AspNetCore.Server.ClientFactory) .
 
-Šíření kontextu volání funguje tak, že si přečtete konečný termín a token zrušení z aktuálního kontextu požadavku gRPC a automaticky je rozšíříte na odchozí volání provedená klientem gRPC. Šíření kontextu volání je vynikající způsob, jak zajistit, aby složité, vnořené gRPC scénáře vždy šířit konečný termín a zrušení.
+Šíření kontextu volání funguje tak, že si přečtete konečný termín a token zrušení z aktuálního kontextu požadavku gRPC a automaticky je šíříte do odchozích volání prováděných klientem gRPC. Šíření kontextu volání je vynikající způsob, jak zajistit, aby komplexní a vnořené gRPC scénáře vždy rozšířily konečný termín a zrušení.
 
 ```csharp
 services
@@ -118,9 +122,9 @@ services
     .EnableCallContextPropagation();
 ```
 
-Další informace o termínech a zrušení vzdáleného volání procedur naleznete [v tématu RPC life cycle](https://www.grpc.io/docs/guides/concepts/#rpc-life-cycle).
+Další informace o termínech a zrušení vzdáleného volání procedur najdete v tématu [životní cyklus RPC](https://www.grpc.io/docs/guides/concepts/#rpc-life-cycle).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:grpc/client>
 * <xref:fundamentals/http-requests>

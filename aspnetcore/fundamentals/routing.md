@@ -6,13 +6,19 @@ monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 4/1/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: 79a46cac4122728e84fa6f5acb3defa182092bec
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
-ms.translationtype: MT
+ms.openlocfilehash: e2b1672066a5b3c0bb6bc44e316bda93ae0f21b7
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206122"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774900"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -348,7 +354,7 @@ Podrobnosti o tom, jak priorita funguje, je spojena s tím, jak jsou definovány
 * Segment s textovým literálem je považován za konkrétnější než segment parametru.
 * Segment parametru s omezením je považován za konkrétnější než bez.
 * Složitý segment je považován za specifický jako segment parametru s omezením.
-* Zachytit všechny parametry jsou nejméně specifické.
+* Catch – všechny parametry jsou nejméně specifické. Důležité informace o catch – všechny trasy najdete v referenčních informacích k [šabloně trasy](#rtr) v tématu **catch-All** .
 
 Odkaz na přesné hodnoty najdete na [zdrojovém kódu na GitHubu](https://github.com/dotnet/aspnetcore/blob/master/src/Http/Routing/src/Template/RoutePrecedence.cs#L189) .
 
@@ -415,6 +421,8 @@ Hvězdička `*` nebo dvojitá hvězdička `**`:
 * Označují se jako **catch-All** Parameters. Například `blog/{**slug}`:
   * Odpovídá jakémukoli identifikátoru URI, `/blog` který začíná a má za sebou libovolnou hodnotu.
   * Hodnota níže `/blog` je přiřazena k hodnotě trasy [popisu](https://developer.mozilla.org/docs/Glossary/Slug) .
+
+[!INCLUDE[](~/includes/catchall.md)]
 
 Catch – všechny parametry můžou odpovídat také prázdnému řetězci.
 

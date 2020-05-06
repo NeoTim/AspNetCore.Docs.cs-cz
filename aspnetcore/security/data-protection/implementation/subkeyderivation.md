@@ -4,13 +4,19 @@ author: rick-anderson
 description: Přečtěte si podrobnosti o implementaci ASP.NET Core odvození podklíče ochrany dat a ověřovaného šifrování.
 ms.author: riande
 ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/subkeyderivation
-ms.openlocfilehash: bbfde378755b09cd5b1217b8cf66249b9fa1d6ad
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: c4b4076d532e33b48b3438f842507a8cda2d71b6
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78660550"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776848"
 ---
 # <a name="subkey-derivation-and-authenticated-encryption-in-aspnet-core"></a>Odvození podklíče a ověřované šifrování v ASP.NET Core
 
@@ -19,21 +25,21 @@ ms.locfileid: "78660550"
 Většina klíčů ve službě Key Ring bude obsahovat určitou formu entropie a bude mít informace o algoritmech "CBC-Mode Encryption + HMAC Validation" nebo "GCM Encryption + Validation". V těchto případech odkazujeme na vloženou entropii jako na hlavní klíč (nebo KM) pro tento klíč a k odvození klíčů, které se budou používat pro skutečné kryptografické operace, provedeme funkci odvození klíče.
 
 > [!NOTE]
-> Klíče jsou abstraktní a vlastní implementace se nemusí chovat, jak je uvedeno níže. Pokud klíč poskytuje svou vlastní implementaci `IAuthenticatedEncryptor` místo toho, aby používal jeden z našich předdefinovaných továrn, mechanizmus popsaný v této části již neplatí.
+> Klíče jsou abstraktní a vlastní implementace se nemusí chovat, jak je uvedeno níže. Pokud klíč poskytuje svou vlastní implementaci `IAuthenticatedEncryptor` namísto použití jednoho z našich vestavěných továren, mechanizmus popsaný v této části se už nepoužívá.
 
 <a name="data-protection-implementation-subkey-derivation-aad"></a>
 
 ## <a name="additional-authenticated-data-and-subkey-derivation"></a>Další ověřená data a odvození podklíčů
 
-Rozhraní `IAuthenticatedEncryptor` slouží jako základní rozhraní pro všechny ověřované operace šifrování. Jeho `Encrypt` metoda přebírá dvě vyrovnávací paměti: prostý text a additionalAuthenticatedData (AAD). Tok obsahu ve formátu prostého textu nemění volání `IDataProtector.Protect`, ale v systému je vygenerováno AAD a skládá se ze tří součástí:
+`IAuthenticatedEncryptor` Rozhraní slouží jako základní rozhraní pro všechny ověřované operace šifrování. Jeho `Encrypt` metoda přijímá dvě vyrovnávací paměti: prosté a ADDITIONALAUTHENTICATEDDATA (AAD). Tok obsahu ve formátu prostého textu nemění volání `IDataProtector.Protect`, ale v systému je vygenerováno AAD a skládá se ze tří součástí:
 
 1. 32 hlavička Magic F0 C9 F0, která identifikuje tuto verzi systému ochrany dat.
 
 2. ID 128 klíče.
 
-3. Řetězec s proměnlivou délkou tvořený řetězcem účelu, který vytvořil `IDataProtector`, který provádí tuto operaci.
+3. Řetězec s proměnlivou délkou tvořený řetězcem účelu, který vytvořil `IDataProtector` tuto operaci.
 
-Vzhledem k tomu, že je AAD jedinečný pro řazenou kolekci členů všech tří součástí, můžeme ji použít k odvození nových klíčů od KM místo samotného použití KM ve všech našich kryptografických operacích. Pro každé volání `IAuthenticatedEncryptor.Encrypt`se provádí následující proces odvození klíče:
+Vzhledem k tomu, že je AAD jedinečný pro řazenou kolekci členů všech tří součástí, můžeme ji použít k odvození nových klíčů od KM místo samotného použití KM ve všech našich kryptografických operacích. Pro každé volání metody `IAuthenticatedEncryptor.Encrypt`dojde k následujícímu procesu odvození klíče:
 
 (K_E, K_H) = SP800_108_CTR_HMACSHA512 (K_M, AAD, contextHeader | | modifikátor písmen)
 
@@ -60,7 +66,7 @@ Jakmile se K_E generuje prostřednictvím výše uvedeného mechanismu, vygeneru
 *výstup: = modifikátor IV | | E_cbc (K_E, IV, data) | | HMAC (K_H, IV | | E_cbc (K_E, IV, data))*
 
 > [!NOTE]
-> Implementace `IDataProtector.Protect` před vrácením do volajícího předřadí [hlavičku Magic a ID klíče](xref:security/data-protection/implementation/authenticated-encryption-details) do výstupu. Vzhledem k tomu, že hlavičky Magic a ID klíče jsou implicitně součástí [AAD](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation-aad), a protože Modifikátor klíče je jako vstup podáván do KDF, znamená to, že Mac ověřuje každý jednotlivý bajt konečné vrácené datové části.
+> `IDataProtector.Protect` Implementace před návratem do volajícího předřadí [hlavičku Magic a ID klíče](xref:security/data-protection/implementation/authenticated-encryption-details) do výstupu. Vzhledem k tomu, že hlavičky Magic a ID klíče jsou implicitně součástí [AAD](xref:security/data-protection/implementation/subkeyderivation#data-protection-implementation-subkey-derivation-aad), a protože Modifikátor klíče je jako vstup podáván do KDF, znamená to, že Mac ověřuje každý jednotlivý bajt konečné vrácené datové části.
 
 ## <a name="galoiscounter-mode-encryption--validation"></a>Galois/režim čítače šifrování + ověřování
 

@@ -1,37 +1,43 @@
 ---
 title: Volání služeb gRPC pomocí klienta .NET
 author: jamesnk
-description: Přečtěte si, jak volat služby gRPC s klientem .NET gRPC.
+description: Naučte se volat služby gRPC Services pomocí klienta .NET gRPC.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 04/21/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/client
-ms.openlocfilehash: aefa52a5c4c66178c5978aebd4cd9b00559c7f54
-ms.sourcegitcommit: c9d1208e86160615b2d914cce74a839ae41297a8
+ms.openlocfilehash: c554ce9702a9f2b2efeabbfdf0d1319ca4161a1c
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/22/2020
-ms.locfileid: "81791553"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774727"
 ---
 # <a name="call-grpc-services-with-the-net-client"></a>Volání služeb gRPC pomocí klienta .NET
 
-Klientská knihovna .NET gRPC je k dispozici v balíčku [Grpc.Net.Client](https://www.nuget.org/packages/Grpc.Net.Client) NuGet. Tento dokument vysvětluje, jak:
+Klientská knihovna .NET gRPC je k dispozici v balíčku NuGet pro [gRPC .NET. Client](https://www.nuget.org/packages/Grpc.Net.Client) . Tento dokument vysvětluje, jak:
 
-* Nakonfigurujte klienta gRPC pro volání služeb gRPC.
-* Proveďte volání gRPC na unární, server streaming, streamování klientů a obousměrné metody streamování.
+* Nakonfigurujte klienta gRPC, který bude volat služby gRPC.
+* GRPC volání unárního, streamování serveru, streamování klientů a metod obousměrného streamování.
 
 ## <a name="configure-grpc-client"></a>Konfigurace klienta gRPC
 
-gRPC klienti jsou konkrétní typy klientů, které jsou [generovány ze * \*souborů .proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se překládají do služby gRPC v souboru * \*.proto.*
+gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze * \*souborů. proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v souboru * \*..* .
 
-Klient gRPC je vytvořen z kanálu. Začněte `GrpcChannel.ForAddress` pomocí k vytvoření kanálu a potom pomocí kanálu vytvořte klienta gRPC:
+Klient gRPC se vytvoří z kanálu. Začněte tím, `GrpcChannel.ForAddress` že použijete k vytvoření kanálu a pak pomocí kanálu vytvoříte klienta gRPC:
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
 var client = new Greet.GreeterClient(channel);
 ```
 
-Kanál představuje dlouhodobé připojení ke službě gRPC. Když je kanál vytvořen, je nakonfigurován s možnostmi souvisejícími s voláním služby. Například `HttpClient` použití volání, maximální velikost odesílání a přijímání zpráv a protokolování lze zadat `GrpcChannelOptions` a použít s . `GrpcChannel.ForAddress` Úplný seznam možností naleznete v tématu [možnosti konfigurace klienta](xref:grpc/configuration#configure-client-options).
+Kanál představuje dlouhodobé připojení ke službě gRPC. Při vytvoření kanálu se nakonfiguruje s možnostmi, které se týkají volání služby. Například, který `HttpClient` se používá k volání, maximální velikost zprávy Send a Receive a protokolování lze zadat v `GrpcChannelOptions` a použít s. `GrpcChannel.ForAddress` Úplný seznam možností najdete v tématu [Možnosti konfigurace klienta](xref:grpc/configuration#configure-client-options).
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -44,34 +50,34 @@ var counterClient = new Count.CounterClient(channel);
 
 Výkon a využití kanálu a klienta:
 
-* Vytvoření kanálu může být nákladná operace. Opětovné použití kanálu pro volání gRPC poskytuje výhody výkonu.
-* klienti gRPC jsou vytvářeny pomocí kanálů. gRPC klienti jsou lehké objekty a není nutné do mezipaměti nebo znovu použít.
-* Z kanálu lze vytvořit více klientů gRPC, včetně různých typů klientů.
-* Kanál a klienty vytvořené z kanálu lze bezpečně používat více vláken.
-* Klienti vytvoření z kanálu mohou uskutečňovat více souběžných volání.
+* Vytvoření kanálu může být náročná operace. Použití kanálu pro volání gRPC poskytuje výhody týkající se výkonu.
+* klienti gRPC se vytvářejí pomocí kanálů. gRPC klienti jsou prosté objekty a nemusíte je ukládat do mezipaměti ani je znovu používat.
+* Z kanálu, včetně různých typů klientů, lze vytvořit více klientů gRPC.
+* Kanál a klienti vytvořené z kanálu můžou být bezpečně využívány více vlákny.
+* Klienti vytvoření z kanálu můžou provádět víc souběžných volání.
 
-`GrpcChannel.ForAddress`není jedinou možností pro vytvoření gRPC klienta. Pokud voláte služby gRPC z aplikace ASP.NET Core, zvažte [integraci gRPC client factory](xref:grpc/clientfactory). gRPC integrace `HttpClientFactory` s nabízí centralizovanou alternativu k vytváření gRPC klientů.
-
-> [!NOTE]
-> Další konfigurace je vyžadována pro [volání nezabezpečené služby gRPC s klientem .NET](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client).
+`GrpcChannel.ForAddress`není jedinou možností pro vytvoření klienta gRPC. Pokud voláte služby gRPC Services z aplikace ASP.NET Core, zvažte [integraci klientské továrny gRPC](xref:grpc/clientfactory). integrace gRPC s `HttpClientFactory` nabízí centralizovanou alternativu k vytváření klientů gRPC.
 
 > [!NOTE]
-> Volání gRPC přes HTTP/2 s `Grpc.Net.Client` není aktuálně podporováno na Xamarin. Pracujeme na zlepšení podpory HTTP/2 v budoucí verzi Xamarinu. [Grpc.Core](https://www.nuget.org/packages/Grpc.Core) a [gRPC-Web](xref:grpc/browser) jsou životaschopné alternativy, které fungují dnes.
+> Pro [volání nezabezpečených služeb gRPC s klientem .NET](xref:grpc/troubleshoot#call-insecure-grpc-services-with-net-core-client)je vyžadována další konfigurace.
 
-## <a name="make-grpc-calls"></a>Volání gRPC
+> [!NOTE]
+> Volání gRPC přes HTTP/2 s `Grpc.Net.Client` se v Xamarin v tuto chvíli nepodporuje. Pracujeme na vylepšení podpory protokolu HTTP/2 v budoucí verzi Xamarin. [Grpc. Core](https://www.nuget.org/packages/Grpc.Core) a [Grpc-web](xref:grpc/browser) představují životaschopné alternativy, které dnes fungují.
 
-Volání gRPC je zahájeno voláním metody na straně klienta. Klient gRPC bude zpracovávat serializaci zpráv a adresování volání gRPC na správnou službu.
+## <a name="make-grpc-calls"></a>Provést volání gRPC
 
-gRPC má různé typy metod. Způsob, jakým se klient používá k volání gRPC, závisí na typu volané metody. Typy metod gRPC jsou:
+Volání gRPC je zahájeno voláním metody na klientovi. Klient gRPC zpracuje serializaci zprávy a adresování volání gRPC ke správné službě.
+
+gRPC má různé typy metod. Způsob, jakým je klient použit k provedení volání gRPC, závisí na typu volané metody. Typy metod gRPC jsou:
 
 * Unární
-* Serverové vysílání
+* Streamování serveru
 * Streamování klientů
 * Obousměrné streamování
 
 ### <a name="unary-call"></a>Unární volání
 
-Unární volání začíná klientem odesláním zprávy požadavku. Po dokončení služby je vrácena zpráva s odpovědí.
+Unární volání začíná klientem, který odesílá zprávu požadavku. Po dokončení služby se vrátí zpráva s odpovědí.
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -81,14 +87,14 @@ Console.WriteLine("Greeting: " + response.Message);
 // Greeting: Hello World
 ```
 
-Každá metoda unární služby v souboru * \*.proto* bude mít za následek dvě metody .NET na konkrétním typu klienta gRPC pro volání metody: asynchronní metoda a metoda blokování. Například `GreeterClient` existují dva způsoby `SayHello`volání :
+Každá unární metoda služby v souboru * \*.* proč má za následek dvě metody .NET pro konkrétní typ klienta gRPC pro volání metody: asynchronní metodu a metodu blokování. Například `GreeterClient` existují dva způsoby volání `SayHello`:
 
-* `GreeterClient.SayHelloAsync`- `Greeter.SayHello` volání služby asynchronně. Dá se čekat.
-* `GreeterClient.SayHello`- `Greeter.SayHello` volá službu a bloky až do dokončení. Nepoužívejte v asynchronním kódu.
+* `GreeterClient.SayHelloAsync`-volá `Greeter.SayHello` službu asynchronně. Může být očekáváno.
+* `GreeterClient.SayHello`-volá `Greeter.SayHello` službu a zablokuje se do dokončení. Nepoužívejte v asynchronním kódu.
 
-### <a name="server-streaming-call"></a>Volání datového proudu serveru
+### <a name="server-streaming-call"></a>Volání streamování serveru
 
-Volání datového proudu serveru začíná odesláním zprávy požadavku klientem. `ResponseStream.MoveNext()`čte zprávy vysílané ze služby. Volání datového proudu `ResponseStream.MoveNext()` serveru `false`je dokončeno, když vrátí .
+Volání streamování serveru začíná klientem, který odesílá zprávu požadavku. `ResponseStream.MoveNext()`přečte zprávy streamované ze služby. Volání streamování serveru je po `ResponseStream.MoveNext()` návratu `false`dokončeno.
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -101,7 +107,7 @@ while (await call.ResponseStream.MoveNext())
 }
 ```
 
-Při použití C# 8 `await foreach` nebo novější, syntaxe lze číst zprávy. Metoda `IAsyncStreamReader<T>.ReadAllAsync()` rozšíření přečte všechny zprávy z datového proudu odpovědí:
+Při použití C# 8 nebo novější lze `await foreach` syntaxi použít ke čtení zpráv. Metoda `IAsyncStreamReader<T>.ReadAllAsync()` rozšíření načte všechny zprávy z datového proudu odpovědí:
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -114,9 +120,9 @@ await foreach (var response in call.ResponseStream.ReadAllAsync())
 }
 ```
 
-### <a name="client-streaming-call"></a>Volání datového proudu klienta
+### <a name="client-streaming-call"></a>Volání streamování klientů
 
-Volání datového proudu klienta se spustí *bez* odeslání zprávy klientem. Klient se může rozhodnout `RequestStream.WriteAsync`odesílat zprávy pomocí aplikace . Po dokončení odesílání zpráv klient, `RequestStream.CompleteAsync` by měl být volán upozornit službu. Volání je dokončeno, když služba vrátí zprávu odpovědi.
+Volání streamování klienta se spustí *bez* odeslání zprávy klientem. Klient nástroje může odeslat zprávy pomocí `RequestStream.WriteAsync`příkazu. Když klient dokončí posílání zpráv, `RequestStream.CompleteAsync` měla by se zavolat, aby službu informovaly. Volání je dokončeno, když služba vrátí zprávu odpovědi.
 
 ```csharp
 var client = new Counter.CounterClient(channel);
@@ -135,7 +141,7 @@ Console.WriteLine($"Count: {response.Count}");
 
 ### <a name="bi-directional-streaming-call"></a>Obousměrné volání streamování
 
-Obousměrné volání streamování se spustí *bez* odeslání zprávy klientem. Klient se může rozhodnout `RequestStream.WriteAsync`odesílat zprávy pomocí aplikace . Zprávy vysílané ze `ResponseStream.MoveNext()` služby jsou přístupné pomocí služby nebo `ResponseStream.ReadAllAsync()`. Obousměrné volání streamování je dokončeno, `ResponseStream` když nemá žádné další zprávy.
+Obousměrné volání streamování se spustí *bez* odeslání zprávy klientem. Klient nástroje může odeslat zprávy pomocí `RequestStream.WriteAsync`příkazu. Zprávy streamované ze služby jsou přístupné pomocí `ResponseStream.MoveNext()` nástroje nebo `ResponseStream.ReadAllAsync()`. Obousměrné volání streamování je dokončeno, když `ResponseStream` nemá žádné další zprávy.
 
 ```csharp
 var client = new Echo.EchoClient(channel);
@@ -169,15 +175,15 @@ await call.RequestStream.CompleteAsync();
 await readTask;
 ```
 
-Během obousměrného volání datových proudů může klient a služba kdykoli vzájemně odesílat zprávy. Nejlepší logika klienta pro interakci s obousměrným voláním se liší v závislosti na logice služby.
+Během volání obousměrného streamování může klient a služba kdykoli odesílat zprávy. Nejlepší klientská logika pro interakci s obousměrným voláním se liší v závislosti na logice služby.
 
-## <a name="access-grpc-trailers"></a>Přístup k přívěsům gRPC
+## <a name="access-grpc-trailers"></a>Přístup k gRPC přívěsům
 
-gRPC volání může vrátit gRPC přívěsy. gRPC přívěsy se používají k poskytnutí metadat name/value o volání. Upoutávky poskytují podobné funkce hlavičky PROTOKOLU HTTP, ale jsou přijímány na konci volání.
+volání gRPC mohou vracet gRPC přípojná vozidla. gRPC přípojná vozidla slouží k poskytování metadat názvů a hodnot volání. Přípojná rozhraní poskytují podobné funkce hlaviček protokolu HTTP, ale jsou přijaty na konci volání.
 
-gRPC přívěsy jsou `GetTrailers()`přístupné pomocí , který vrací sbírku metadat. Přívěsy jsou vráceny po dokončení odpovědi, proto musíte před přístupem k přípojné straně vyčkat na všechny odpovědi.
+gRPC přípojná vozidla jsou `GetTrailers()`přístupná pomocí, která vrací kolekci metadat. Po dokončení odpovědi se vrátí přípojná část, proto musíte před přístupem k přípojným vozidlům čekat na všechny zprávy s odpovědí.
 
-Unary a klient streaming `ResponseAsync` hovory `GetTrailers()`musí čekat před voláním :
+Unární a volání streamování klientů musí `ResponseAsync` před voláním `GetTrailers()`čekat na:
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -191,7 +197,7 @@ var trailers = call.GetTrailers();
 var myValue = trailers.First(e => e.Key == "my-trailer-name");
 ```
 
-Volání serveru a obousměrného streamování musí před voláním `GetTrailers()`dokončit čekání na datový proud odpovědí :
+Volání serveru a obousměrného streamování musí dokončit čekání na datový proud odpovědi `GetTrailers()`před voláním:
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -207,7 +213,7 @@ var trailers = call.GetTrailers();
 var myValue = trailers.First(e => e.Key == "my-trailer-name");
 ```
 
-přívěsy gRPC jsou `RpcException`také přístupné z . Služba může vrátit přípojná vozidla spolu se stavem gRPC, který není v pořádku. V takovém případě jsou přívěsy načteny z výjimky vyvolané klientem gRPC:
+gRPC přívěsy jsou také přístupné `RpcException`z. Služba může vracet přípojná vozidla společně se stavem gRPC bez OK. V této situaci jsou přípojná rozhraní načítána z výjimky vyvolané klientem gRPC:
 
 ```csharp
 var client = new Greet.GreeterClient(channel);
@@ -231,7 +237,7 @@ catch (RpcException ex)
 }
 ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:grpc/clientfactory>
 * <xref:grpc/basics>

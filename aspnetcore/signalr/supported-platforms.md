@@ -1,20 +1,24 @@
 ---
-title: Podporované platformy ASP.NET Core SignalR
+title: ASP.NET Core SignalR podporované platformy
 author: bradygaster
-description: Přečtěte si o podporovaných platformách pro ASP.NET Core SignalR.
+description: Přečtěte si o podporovaných platformách SignalRpro ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: 054965921c87c1a9be27e5ddaa8a87b0fa1f4113
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 70a05dabb95aaf561aa78d5c8b24b430c51bd973
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78668138"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82772602"
 ---
 # <a name="aspnet-core-signalr-supported-platforms"></a>Podporované platformy pro přijímače ASP.NET Core
 
@@ -28,17 +32,17 @@ Návěstí pro ASP.NET Core podporuje jakoukoli serverovou platformu, která ASP
 
 | Prohlížeč                         | Verze         |
 | ------------------------------- | --------------- |
-| Microsoft Edge                  | Aktuální&dagger; |
-| Mozilla Firefox                 | Aktuální&dagger; |
-| Google Chrome; zahrnuje Android | Aktuální&dagger; |
-| Prohlížeče zahrnuje iOS            | Aktuální&dagger; |
+| Microsoft Edge                  | Aktivní&dagger; |
+| Mozilla Firefox                 | Aktivní&dagger; |
+| Google Chrome; zahrnuje Android | Aktivní&dagger; |
+| Prohlížeče zahrnuje iOS            | Aktivní&dagger; |
 | Microsoft Internet Explorer     | 11              |
 
-&dagger;*aktuální* odkazuje na nejnovější verzi prohlížeče.
+&dagger;*Aktuální* odkazuje na nejnovější verzi prohlížeče.
 
 ## <a name="net-client"></a>Klient .NET
 
-[Klient .NET](xref:signalr/dotnet-client) běží na libovolné platformě podporované nástrojem ASP.NET Core. [Vývojáři Xamarin můžou například použít SignalR](https://github.com/aspnet/Announcements/issues/305) pro sestavování aplikací pro Android pomocí aplikací Xamarin. Android 8.4.0.1 a novějších a iOS s použitím Xamarin. iOS 11.14.0.4 a novějších.
+[Klient .NET](xref:signalr/dotnet-client) běží na libovolné platformě podporované nástrojem ASP.NET Core. [Vývojáři Xamarin můžou například SignalR použít](https://github.com/aspnet/Announcements/issues/305) k sestavování aplikací pro Android pomocí Xamarin. Android 8.4.0.1 a novějších aplikací pro iOS pomocí Xamarin. iOS 11.14.0.4 a novějších.
 
 Pokud server používá službu IIS, přenos pomocí protokolu WebSockets vyžaduje službu IIS 8,0 nebo novější v systému Windows Server 2012 nebo novějším. Další přenosy jsou podporované na všech platformách.
 
@@ -50,6 +54,6 @@ Pokud server používá službu IIS, přenos pomocí protokolu WebSockets vyžad
 
 Následující klienti jsou k dispozici, ale jsou experimentální nebo neoficiální. Nejsou aktuálně podporované a nemusí být nikdy.
 
-* [C++Služba](https://github.com/aspnet/SignalR-Client-Cpp)
+* [Klient C++](https://github.com/aspnet/SignalR-Client-Cpp)
 
 * [Klient SWIFT](https://github.com/moozzyk/SignalR-Client-Swift)

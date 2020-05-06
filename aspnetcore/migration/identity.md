@@ -1,24 +1,30 @@
 ---
-title: Migrace ověřování a identity na ASP.NET Core
+title: Migrace ověřování a Identity ASP.NET Core
 author: ardalis
 description: Naučte se migrovat ověřování a identitu z projektu ASP.NET MVC do projektu ASP.NET Core MVC.
 ms.author: riande
 ms.date: 3/22/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: migration/identity
-ms.openlocfilehash: c5727c974e455144d04e66fe14ea591e160cb963
-ms.sourcegitcommit: 91dc1dd3d055b4c7d7298420927b3fd161067c64
+ms.openlocfilehash: 0474d0d4f430d587acac5fdd8f391220f825ccee
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80219191"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775528"
 ---
-# <a name="migrate-authentication-and-identity-to-aspnet-core"></a>Migrace ověřování a identity na ASP.NET Core
+# <a name="migrate-authentication-and-identity-to-aspnet-core"></a>Migrace ověřování a Identity ASP.NET Core
 
 [Steve Smith](https://ardalis.com/)
 
 V předchozím článku jsme [migrovali konfiguraci z projektu ASP.NET MVC na ASP.NET Core MVC](xref:migration/configuration). V tomto článku migrujeme funkce registrace, přihlašování a správy uživatelů.
 
-## <a name="configure-identity-and-membership"></a>Konfigurace identity a členství
+## <a name="configure-identity-and-membership"></a>Konfigurace Identity a členství
 
 V ASP.NET MVC jsou funkce ověřování a identity nakonfigurované pomocí ASP.NET Identity v *Startup.auth.cs* a *IdentityConfig.cs*, které jsou umístěné ve složce *app_start* . Ve ASP.NET Core MVC jsou tyto funkce nakonfigurované v *Startup.cs*.
 
@@ -28,7 +34,7 @@ Nainstalujte následující balíčky NuGet:
 * `Microsoft.AspNetCore.Authentication.Cookies`
 * `Microsoft.EntityFrameworkCore.SqlServer`
 
-V *Startup.cs*aktualizujte metodu `Startup.ConfigureServices` tak, aby používala Entity Framework a služby identit:
+V *Startup.cs*aktualizujte `Startup.ConfigureServices` metodu tak, aby používala Identity Entity Framework a služby:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -45,7 +51,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-V tomto okamžiku existují dva typy odkazované ve výše uvedeném kódu, které jsme ještě nemigrovali z projektu ASP.NET MVC: `ApplicationDbContext` a `ApplicationUser`. Vytvořte novou složku *modelů* v projektu ASP.NET Core a přidejte do ní dvě třídy odpovídající těmto typům. Verze ASP.NET MVC těchto tříd najdete v */Models/IdentityModels.cs*, ale v migrovaném projektu budeme používat jeden soubor na třídu, protože to je mnohem jasné.
+V tomto okamžiku existují dva typy, na které se odkazuje ve výše uvedeném kódu, který jsme ještě nemigrovali z projektu ASP.NET `ApplicationDbContext` MVC `ApplicationUser`: a. Vytvořte novou složku *modelů* v projektu ASP.NET Core a přidejte do ní dvě třídy odpovídající těmto typům. Verze ASP.NET MVC těchto tříd najdete v */Models/IdentityModels.cs*, ale v migrovaném projektu budeme používat jeden soubor na třídu, protože to je mnohem jasné.
 
 *ApplicationUser.cs*:
 
@@ -86,9 +92,9 @@ namespace NewMvcProject.Models
 }
 ```
 
-ASP.NET Core webový projekt MVC Starter neobsahuje mnoho přizpůsobení uživatelů nebo `ApplicationDbContext`. Při migraci reálné aplikace je také potřeba migrovat všechny vlastní vlastnosti a metody pro uživatele a `DbContext` třídy vaší aplikace, stejně jako všechny jiné třídy modelu, které vaše aplikace využívá. Například pokud má vaše `DbContext` `DbSet<Album>`, je nutné migrovat třídu `Album`.
+Webový projekt ASP.NET Core MVC Starter nezahrnuje mnoho přizpůsobení uživatelů nebo `ApplicationDbContext`. Při migraci reálné aplikace je také potřeba migrovat všechny vlastní vlastnosti a metody uživatele a `DbContext` třídy vaší aplikace a také všechny jiné třídy modelu, které vaše aplikace využívá. Například pokud máte `DbContext` `DbSet<Album>`, potřebujete migrovat `Album` třídu.
 
-Když jsou tyto soubory na místě, soubor *Startup.cs* se dá zkompilovat tak, že aktualizuje jeho příkazy `using`:
+Když jsou tyto soubory na místě, soubor *Startup.cs* se dá zkompilovat tak, že aktualizuje jeho `using` příkazy:
 
 ```csharp
 using Microsoft.AspNetCore.Builder;
@@ -99,13 +105,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 ```
 
-Naše aplikace je teď připravená podporovat ověřování a služby identit. Stačí tyto funkce zpřístupnit uživatelům.
+Naše aplikace je teď připravená na podporu ověřování Identity a služeb. Stačí tyto funkce zpřístupnit uživatelům.
 
 ## <a name="migrate-registration-and-login-logic"></a>Migrace logiky registrace a přihlášení
 
-Služba identit nakonfigurovaná pro přístup k aplikacím a datům nakonfigurovaným pomocí Entity Framework a SQL Server je připravená přidat podporu pro registraci a přihlášení do aplikace. Odhlaste se [dříve v procesu migrace](xref:migration/mvc#migrate-the-layout-file) a odkomentujme odkaz na *_LoginPartial* v *_Layout. cshtml*. Nyní je čas vrátit se k tomuto kódu, odkomentovat ho a přidat v nezbytných řadičích a zobrazeních pro podporu funkcí přihlášení.
+Se Identity službami nakonfigurovanými pro přístup k aplikacím a datům nakonfigurovaným pomocí Entity Framework a SQL Server jsme připraveni přidat podporu pro registraci a přihlášení do aplikace. Odhlaste se [dříve v procesu migrace](xref:migration/mvc#migrate-the-layout-file) a odkomentujme odkaz na *_LoginPartial* v *_Layout. cshtml*. Nyní je čas vrátit se k tomuto kódu, odkomentovat ho a přidat v nezbytných řadičích a zobrazeních pro podporu funkcí přihlášení.
 
-Odkomentuje `@Html.Partial` řádku v *_Layout. cshtml*:
+Odkomentujte `@Html.Partial` řádek v *_Layout. cshtml*:
 
 ```cshtml
       <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
@@ -115,7 +121,7 @@ Odkomentuje `@Html.Partial` řádku v *_Layout. cshtml*:
 </div>
 ```
 
-Nyní přidejte nové zobrazení Razor s názvem *_LoginPartial* do *zobrazení/sdílená* složka:
+Nyní přidejte nové Razor zobrazení s názvem *_LoginPartial* do *zobrazení/sdílená* složka:
 
 Aktualizujte *_LoginPartial. cshtml* pomocí následujícího kódu (nahraďte celý jeho obsah):
 
@@ -149,4 +155,4 @@ V tuto chvíli byste měli být schopni aktualizovat web v prohlížeči.
 
 ## <a name="summary"></a>Souhrn
 
-ASP.NET Core zavádí změny v ASP.NET Identitych funkcích. V tomto článku jste viděli, jak migrovat funkce pro správu ověřování a správy uživatelů ASP.NET Identity ASP.NET Core.
+ASP.NET Core přináší změny funkcí ASP.NET Identity . V tomto článku jste se seznámili s postupem migrace funkcí pro správu ověřování a správy uživatelů ASP.NET Identity na ASP.NET Core.

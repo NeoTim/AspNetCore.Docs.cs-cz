@@ -8,14 +8,17 @@ ms.custom: mvc
 ms.date: 04/27/2020
 no-loc:
 - Blazor
+- Identity
+- Let's Encrypt
+- Razor
 - SignalR
 uid: security/blazor/server/threat-mitigation
-ms.openlocfilehash: 9a5e313153e5c5c17fc723cc9768c49ffd828007
-ms.sourcegitcommit: 56861af66bb364a5d60c3c72d133d854b4cf292d
-ms.translationtype: MT
+ms.openlocfilehash: 2c87e6cef5a16b394b03dac1635f18d09593eb94
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.translationtype: HT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/28/2020
-ms.locfileid: "82206380"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82774181"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>Pokyny k zmírnění hrozeb pro ASP.NET Core Blazor Server
 
@@ -342,9 +345,9 @@ Kromě ochrany, kterou implementuje rozhraní, musí být aplikace kódována v�
 
 Aby mohla existovat ohrožení zabezpečení XSS, musí aplikace na vykreslené stránce zahrnovat vstup uživatele. BlazorServerové komponenty spouštějí krok v čase kompilace, ve kterém je kód v souboru *. Razor* transformované na procedurální Logic jazyka C#. V době běhu vytvoří logika jazyka C# *strom vykreslování* , který popisuje prvky, text a podřízené komponenty. To se aplikuje na DOM v prohlížeči pomocí sekvence instrukcí JavaScriptu (nebo je v případě předvykreslování serializovaná na HTML):
 
-* Uživatelský vstup vykreslený pomocí normálního syntaxe Razor (například `@someStringValue`) nevystavuje ohrožení zabezpečení XSS, protože syntaxe Razor je přidána do modelu DOM prostřednictvím příkazů, které mohou zapisovat pouze text. I v případě, že hodnota obsahuje kód HTML, hodnota se zobrazí jako statický text. Při předběžné vykreslování je výstupem kódovaný HTML, který také zobrazuje obsah jako statický text.
+* Uživatelský vstup vykreslený pomocí Razor normální syntaxe (například `@someStringValue`) NEVYstavuje zranitelnost XSS, protože Razor syntaxe je přidána do modelu DOM prostřednictvím příkazů, které mohou zapisovat pouze text. I v případě, že hodnota obsahuje kód HTML, hodnota se zobrazí jako statický text. Při předběžné vykreslování je výstupem kódovaný HTML, který také zobrazuje obsah jako statický text.
 * Značky skriptu nejsou povoleny a neměly by být zahrnuty do stromu vykreslování součásti aplikace. Je-li značka skriptu obsažena v kódu komponenty, je vygenerována chyba při kompilaci.
-* Autoři komponent mohou vytvářet komponenty v jazyce C# bez použití syntaxe Razor. Autor komponenty zodpovídá za použití správných rozhraní API při generování výstupu. Můžete například použít `builder.AddContent(0, someUserSuppliedString)` a *nikoli* `builder.AddMarkupContent(0, someUserSuppliedString)`, protože by to mohlo vytvořit chybu zabezpečení XSS.
+* Autoři komponent mohou vytvářet komponenty v jazyce C# bez Razorpoužití. Autor komponenty zodpovídá za použití správných rozhraní API při generování výstupu. Můžete například použít `builder.AddContent(0, someUserSuppliedString)` a *nikoli* `builder.AddMarkupContent(0, someUserSuppliedString)`, protože by to mohlo vytvořit chybu zabezpečení XSS.
 
 Jako součást ochrany proti útokům XSS zvažte implementaci zmírnění XSS, jako je například [zásada zabezpečení obsahu (CSP)](https://developer.mozilla.org/docs/Web/HTTP/CSP).
 

@@ -4,13 +4,19 @@ author: rick-anderson
 description: Přečtěte si podrobnosti o implementaci ASP.NET Core šifrování klíče ochrany dat v klidovém umístění.
 ms.author: riande
 ms.date: 07/16/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/data-protection/implementation/key-encryption-at-rest
-ms.openlocfilehash: 52c3137dbe467096364b42430c92aecc7c15e313
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: e68b8e09dbd876c6f0d37242ebaa415994b3b808
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78658387"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82776926"
 ---
 # <a name="key-encryption-at-rest-in-aspnet-core"></a>Šifrování klíče v klidovém ASP.NET Core
 
@@ -23,7 +29,7 @@ Systém ochrany dat [ve výchozím nastavení využívá mechanismus zjišťová
 
 ## <a name="azure-key-vault"></a>Azure Key Vault
 
-Chcete-li uložit klíče v [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), nakonfigurujte systém pomocí [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) ve třídě `Startup`:
+Pokud chcete ukládat klíče v [Azure Key Vault](https://azure.microsoft.com/services/key-vault/), nakonfigurujte systém pomocí [ProtectKeysWithAzureKeyVault](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault) ve `Startup` třídě:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -38,7 +44,7 @@ Další informace najdete v tématu [konfigurace ASP.NET Core ochrany dat: Prote
 
 ::: moniker-end
 
-## <a name="windows-dpapi"></a>Windows DPAPI
+## <a name="windows-dpapi"></a>Rozhraní Windows DPAPI
 
 **Platí jenom pro nasazení systému Windows.**
 
@@ -53,7 +59,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Pokud je zavolána `ProtectKeysWithDpapi` bez parametrů, lze trvale dekódovat trvalý klíčový prstenec pouze v aktuálním uživatelském účtu systému Windows. Volitelně můžete určit, že každý uživatelský účet v počítači (nikoli jenom aktuální uživatelský účet) může dekódovat klíčového prstence:
+Pokud `ProtectKeysWithDpapi` je volána bez parametrů, lze trvale dekódovat trvalý klíčový prstenec pouze v aktuálním uživatelském účtu systému Windows. Volitelně můžete určit, že každý uživatelský účet v počítači (nikoli jenom aktuální uživatelský účet) může dekódovat klíčového prstence:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -100,7 +106,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-K dispozici je také přetížení `ProtectKeysWithDpapiNG`bez parametrů. Tuto metodu použijte k zadání pravidla "SID = {CURRENT_ACCOUNT_SID}", kde *CURRENT_ACCOUNT_SID* je identifikátor SID aktuálního uživatelského účtu systému Windows:
+Existuje také přetížení bez parametrů `ProtectKeysWithDpapiNG`. Tuto metodu použijte k zadání pravidla "SID = {CURRENT_ACCOUNT_SID}", kde *CURRENT_ACCOUNT_SID* je identifikátor SID aktuálního uživatelského účtu systému Windows:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

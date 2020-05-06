@@ -1,88 +1,94 @@
 ---
 title: Správa verzí služeb gRPC
 author: jamesnk
-description: Přečtěte si, jak verzi gRPC služby.
+description: Naučte se, jak verze služeb gRPC Services.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
 ms.date: 01/09/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: grpc/versioning
-ms.openlocfilehash: 9bd76009ba28a1abef25a98686afea6753d4a8f4
-ms.sourcegitcommit: f7886fd2e219db9d7ce27b16c0dc5901e658d64e
+ms.openlocfilehash: dcf089f1e5f27639d048e91ee3aa42c7da6d8398
+ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/06/2020
-ms.locfileid: "78664113"
+ms.lasthandoff: 05/04/2020
+ms.locfileid: "82775359"
 ---
 # <a name="versioning-grpc-services"></a>Správa verzí služeb gRPC
 
-Podle [James Newton-King](https://twitter.com/jamesnk)
+Od [James Newton – král](https://twitter.com/jamesnk)
 
-Nové funkce přidané do aplikace mohou vyžadovat, aby se služby gRPC poskytované klientům měnilo, někdy neočekávanými a neočekávanými způsoby. Když se změní služby gRPC:
+Nové funkce přidané do aplikace můžou vyžadovat, aby se služby gRPC mohly změnit, někdy v neočekávaných a rozlomených způsobech. Když se změní služba gRPC Services:
 
-* Je třeba zvážit, jaký dopad mají změny na klienty.
-* Měla by být implementována strategie správy verzí pro podporu změn.
+* Je třeba věnovat pozornost vlivu změn na klienty.
+* Měla by se implementovat strategie správy verzí, která podporuje změny.
 
 ## <a name="backwards-compatibility"></a>Zpětná kompatibilita
 
-Protokol gRPC je určen pro podporu služeb, které se v průběhu času mění. Obecně platí, že dodatky ke službám a metodám gRPC jsou nenarušující. Nenarušující změny umožňují stávajícím klientům pokračovat v práci beze změn. Změna nebo odstranění služeb gRPC narušují změny. Pokud mají služby gRPC narušující změny, klienti používající tuto službu musí být aktualizováni a znovu nasazeni.
+Protokol gRPC je navržený tak, aby podporoval služby, které se v průběhu času mění. Obecně platí, že přidání do služeb a metod gRPC je nenáročné. Neprůlomové změny umožňují stávajícím klientům pokračovat v práci bez změn. Změna nebo odstranění služeb gRPC Services se mění. Pokud gRPC služby přerušují změny, musí se klienti, kteří tuto službu používají, aktualizovat a znovu nasadit.
 
-Provádění nenarušujících změn ve službě má řadu výhod:
+Provádění nerozhodujících změn služby má několik výhod:
 
-* Stávající klienti nadále běží.
-* Vyhne se práci spojené s upozorňováním klientů na narušující změny a jejich aktualizací.
-* Je třeba dokumentovat a udržovat pouze jednu verzi služby.
+* Stávající klienti pokračují v běhu.
+* Zabrání práci, která je součástí upozorňování klientů na zásadní změny, a jejich aktualizaci.
+* Musí být dokumentována a udržována pouze jedna verze služby.
 
-### <a name="non-breaking-changes"></a>Nenarušující změny
+### <a name="non-breaking-changes"></a>Neprůlomové změny
 
-Tyto změny jsou nenarušující na úrovni protokolu gRPC a na binární úrovni .NET.
+Tyto změny jsou nerozdělitelné na úrovni protokolu gRPC a binární úrovni .NET.
 
-* **Přidání nové služby**
+* **Přidává se nová služba.**
 * **Přidání nové metody do služby**
-* **Přidání pole do zprávy požadavku** - Pole přidaná ke zprávě požadavku jsou v případě, že nejsou nastavena, rekonstruována s výchozí [hodnotou](https://developers.google.com/protocol-buffers/docs/proto3#default) na serveru. Chcete-li být nerozdělitelné změny, musí služba uspět, pokud nové pole není nastaveno staršími klienty.
-* **Přidání pole do zprávy odpovědi** - Pole přidaná ke zprávě odpovědi jsou dekonstruována do kolekce [neznámých polí](https://developers.google.com/protocol-buffers/docs/proto3#unknowns) zprávy v klientovi.
-* **Přidání hodnoty do výčtu** - výčty jsou serializovány jako číselná hodnota. Nové hodnoty výčtu jsou deserializovány na straně klienta na hodnotu výčtu bez názvu výčtu. Chcete-li být nenarušující změny, starší klienti musí pracovat správně při příjmu nové hodnoty výčtu.
+* **Přidání pole do zprávy žádosti** – pole přidaná do zprávy požadavku jsou deserializována s [výchozí hodnotou](https://developers.google.com/protocol-buffers/docs/proto3#default) na serveru, pokud není nastavena. Aby byla nekoncová změna, služba musí být úspěšná, když je nové pole nenastavené staršími klienty.
+* **Přidání pole do zprávy odpovědi** – pole přidaná do zprávy odpovědi jsou deserializována do kolekce [neznámá pole](https://developers.google.com/protocol-buffers/docs/proto3#unknowns) zprávy na klientovi.
+* **Přidání hodnoty do** výčtového výčtového typu je serializováno jako číselná hodnota. Nové hodnoty výčtu jsou v klientovi deserializovatelné na hodnotu výčtu bez názvu výčtu. Aby byla nekoncová změna, starší klienti musí při příjmu nové hodnoty výčtu běžet správně.
 
-### <a name="binary-breaking-changes"></a>Binární změny rozdělení
+### <a name="binary-breaking-changes"></a>Binární přerušující změny
 
-Následující změny jsou nerozdělitelné na úrovni protokolu gRPC, ale klient musí být aktualizován, pokud upgraduje na nejnovější *.proto* smlouvy nebo sestavení klienta .NET. Binární kompatibilita je důležité, pokud máte v plánu publikovat knihovnu gRPC nuget.
+Následující změny nejsou rozstupné na úrovni protokolu gRPC, ale pokud se upgradují na nejnovější verzi, je potřeba, aby byl klient aktualizovaný *. proto* se jedná o kontrakt nebo klientské sestavení .NET. Binární kompatibilita je důležitá, pokud plánujete publikovat knihovnu gRPC do NuGet.
 
-* **Odebrání pole** - Hodnoty z odebrané pole jsou rekonstruovány do [neznámých polí](https://developers.google.com/protocol-buffers/docs/proto3#unknowns)zprávy . Toto není změna porušení protokolu gRPC, ale klient musí být aktualizován, pokud upgraduje na nejnovější smlouvu. Je důležité, aby odstraněné číslo pole nebylo v budoucnu omylem znovu použito. Chcete-li zajistit, aby k tomu nedošlo, zadejte odstraněná čísla polí a názvy ve zprávě pomocí [vyhrazeného](https://developers.google.com/protocol-buffers/docs/proto3#reserved) klíčového slova Protobuf.
-* **Přejmenování zprávy** – názvy zpráv se obvykle neposílají v síti, takže se nejedná o změnu protokolu gRPC. Klient bude muset být aktualizován, pokud upgraduje na nejnovější smlouvu. Jedna situace, kdy **jsou** v síti odesílány názvy zpráv, je s [libovolnými](https://developers.google.com/protocol-buffers/docs/proto3#any) poli, pokud je název zprávy použit k identifikaci typu zprávy.
-* **Změna csharp_namespace** `csharp_namespace` – Změna změní obor názvů generovaných typů .NET. Toto není změna porušení protokolu gRPC, ale klient musí být aktualizován, pokud upgraduje na nejnovější smlouvu.
+* **Odebrání hodnot pole** z odebraného pole je deserializovatelné na [neznámá pole](https://developers.google.com/protocol-buffers/docs/proto3#unknowns)zprávy. Nejedná se o změnu gRPC protokolu, ale pokud se upgraduje na nejnovější verzi, je potřeba aktualizovat klienta. Je důležité, aby odebrané číslo pole v budoucnu nechtěně znovu nepoužívalo. Chcete-li zajistit, aby k tomu nedocházelo, zadejte ve zprávě pomocí [rezervovaného](https://developers.google.com/protocol-buffers/docs/proto3#reserved) klíčového slova Protobuf Odstraněná čísla a názvy polí.
+* **Přejmenování** zpráv – názvy zpráv se obvykle neodesílají v síti, takže to není gRPCá Změna protokolu. Klient bude muset být aktualizován, pokud se upgraduje na nejnovější kontrakt. Jedna situace, kdy se **názvy zpráv** odesílají v síti, jsou v [jakémkoli](https://developers.google.com/protocol-buffers/docs/proto3#any) poli, když se k identifikaci typu zprávy použije název zprávy.
+* **Změna csharp_namespace** `csharp_namespace` změny změní obor názvů vygenerovaných typů .NET. Nejedná se o změnu gRPC protokolu, ale pokud se upgraduje na nejnovější verzi, je potřeba aktualizovat klienta.
 
-### <a name="protocol-breaking-changes"></a>Změny porušující protokol
+### <a name="protocol-breaking-changes"></a>Přerušující se změny protokolu
 
-Následující položky jsou změny protokolu a binární horečné změny:
+Následující položky jsou protokoly a binární změny:
 
-* **Přejmenování pole** - S obsahem Protobuf se názvy polí používají pouze v generovaném kódu. Číslo pole slouží k identifikaci polí v síti. Přejmenování pole není pro Protobufa změnou porušení protokolu. Pokud však server používá obsah JSON, je přejmenování pole narušující změnou.
-* **Změna datového typu pole** - Změna datového typu pole na [nekompatibilní typ](https://developers.google.com/protocol-buffers/docs/proto3#updating) způsobí chyby při rekonstrukci zprávy. I v případě, že nový datový typ je kompatibilní, je pravděpodobné, že klient musí být aktualizovány na podporu nového typu, pokud upgraduje na nejnovější smlouvy.
-* **Změna čísla pole** – U datových částí Protobuf se číslo pole používá k identifikaci polí v síti.
-* **Přejmenování balíčku, služby nebo metody** - gRPC používá název balíčku, název služby a název metody k vytvoření adresy URL. Klient získá *stav UNIMPLEMENTED* ze serveru.
-* **Odebrání služby nebo metody** - Klient získá *stav UNIMPLEMENTED* ze serveru při volání odebrané metody.
+* **Přejmenování pole** – pomocí Protobuf obsahu se názvy polí používají pouze ve vygenerovaném kódu. Číslo pole se používá k identifikaci polí v síti. Přejmenování pole není Protobuf Změna protokolu pro. Pokud ale server používá obsah JSON, přejmenovávání pole je zásadní změna.
+* **Změna datového typu pole** – Změna datového typu pole na [nekompatibilní typ](https://developers.google.com/protocol-buffers/docs/proto3#updating) způsobí chyby při deserializaci zprávy. I v případě, že je nový datový typ kompatibilní, je pravděpodobně nutné aktualizovat klienta, aby podporoval nový typ, pokud se upgraduje na nejnovější kontrakt.
+* **Změna čísla pole** – pomocí datových částí Protobuf se číslo pole používá k identifikaci polí v síti.
+* **Přejmenování balíčku, služby nebo metody** – gRPC používá název balíčku, název služby a název metody k sestavení adresy URL. Klient získá *Neimplementovaný* stav ze serveru.
+* **Odebrání služby nebo metody** – klient získá *Neimplementovaný* stav ze serveru při volání odebrané metody.
 
-### <a name="behavior-breaking-changes"></a>Změny narušující chování
+### <a name="behavior-breaking-changes"></a>Chování při ukončování změn
 
-Při provádění nenarušujících změn je také nutné zvážit, zda starší klienti mohou pokračovat v práci s novým chováním služby. Například přidání nového pole do zprávy požadavku:
+Při provádění nerozhodujících změn musíte taky zvážit, jestli můžou starší klienti pokračovat v práci s novým chováním služby. Například přidání nového pole do zprávy žádosti:
 
-* Není změna protokolu, která porušuje protokol.
-* Vrácení chybového stavu na serveru, pokud není nastaveno nové pole, způsobí, že je pro staré klienty narušující změnu.
+* Nejedná se o změnu v důsledku přerušení protokolu.
+* Vrátí stav chyby na serveru, pokud není nové pole nastavené, což pro staré klienty způsobuje zásadní změnu.
 
-Kompatibilita chování je určena kódem specifickým pro aplikaci.
+Kompatibilita chování je určena kódem specifickým pro danou aplikaci.
 
-## <a name="version-number-services"></a>Služby s číslem verze
+## <a name="version-number-services"></a>Číslo verze služeb
 
-Služby by měly usilovat o to, aby zůstaly zpětně kompatibilní se starými klienty. Změny aplikace mohou nakonec vyžadovat změny. Rozbití starých klientů a jejich vynucení k aktualizaci spolu s vaší službou není dobrým uživatelským prostředím. Způsob, jak zachovat zpětnou kompatibilitu při provádění narušujících změn, je publikovat více verzí služby.
+Služby by se měly snažit, aby zůstaly zpětně kompatibilní se starými klienty. Nakonec změny vaší aplikace mohou vyžadovat zásadní změny. Poškození starých klientů a jejich vynucování spolu s vaší službou není dobrým uživatelským prostředím. Způsob, jak udržet zpětnou kompatibilitu při provádění zásadních změn, je publikování více verzí služby.
 
-gRPC podporuje volitelný specifikátor [balíčku,](https://developers.google.com/protocol-buffers/docs/proto3#packages) který funguje podobně jako obor názvů .NET. Ve skutečnosti `package` bude použit jako obor názvů .NET pro generované `option csharp_namespace` typy .NET, pokud není nastaven v souboru *.proto.* Balíček lze zadat číslo verze pro vaši službu a její zprávy:
+gRPC podporuje volitelný specifikátor [balíčku](https://developers.google.com/protocol-buffers/docs/proto3#packages) , který funguje podobně jako obor názvů .NET. Ve skutečnosti `package` bude použit jako obor názvů .NET pro vygenerované typy .NET, pokud `option csharp_namespace` není nastaven v souboru *..* . Balíček lze použít k zadání čísla verze vaší služby a jejích zpráv:
 
 [!code-protobuf[](versioning/sample/greet.v1.proto?highlight=3)]
 
-Název balíčku je kombinován s názvem služby k identifikaci adresy služby. Adresa služby umožňuje hostovat více verzí služby vedle sebe:
+Název balíčku je v kombinaci s názvem služby k identifikaci adresy služby. Adresa služby umožňuje souběžně hostovat více verzí služby:
 
 * `greet.v1.Greeter`
 * `greet.v2.Greeter`
 
-Implementace služby s verzí jsou registrovány v *Startup.cs*:
+Implementace služby se správou verzí jsou zaregistrované v *Startup.cs*:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -95,14 +101,14 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-Zahrnutí čísla verze do názvu balíčku vám dává možnost publikovat verzi *služby v2* s nejnovějšími změnami a zároveň nadále podporovat starší klienty, kteří volají verzi *v1.* Jakmile klienti aktualizovali, aby používali službu *v2,* můžete odebrat starou verzi. Při plánování publikování více verzí služby:
+Zahrnutím čísla verze do názvu balíčku získáte možnost publikovat verzi *v2* vaší služby s nezměněnými změnami, a to i nadále podporovat starší klienty, kteří volají verzi *v1* . Jakmile se klienti aktualizují, aby používali službu *v2* , můžete si odebrat starou verzi. Při plánování publikování více verzí služby:
 
-* Vyhněte se porušení změn, pokud je to rozumné.
-* Neaktualizujte číslo verze, pokud neprovedete změny.
-* Aktualizujte číslo verze při provádění změn.
+* Nepoužívejte závažné změny, pokud je to rozumné.
+* Neaktualizujte číslo verze, pokud neprovádíte zásadní změny.
+* Aktualizujte číslo verze, když provedete průlomové změny.
 
-Publikování více verzí služby ji duplikuje. Chcete-li snížit duplicitu, zvažte přesunutí obchodní logiky z implementace služby do centralizovaného umístění, které může být znovu použito starými a novými implementacemi:
+Publikování více verzí služby je duplicitní. Pokud chcete omezit duplicity, zvažte přesunutí obchodní logiky ze implementací služby do centralizovaného umístění, které je možné použít starými a novými implementacemi:
 
 [!code-csharp[](versioning/sample/GreeterServiceV1.cs?highlight=10,19)]
 
-Služby a zprávy generované různými názvy balíčků se **liší typy rozhraní .NET**. Přesunutí obchodní logiky do centralizovaného umístění vyžaduje mapování zpráv na běžné typy.
+Služby a zprávy vygenerované s různými názvy balíčků jsou **různé typy rozhraní .NET**. Přesun obchodní logiky do centralizovaného umístění vyžaduje mapování zpráv na společné typy.
