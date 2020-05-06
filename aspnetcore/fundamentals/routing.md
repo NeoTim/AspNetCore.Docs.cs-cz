@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: e2b1672066a5b3c0bb6bc44e316bda93ae0f21b7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: HT
+ms.openlocfilehash: 2dd44a561debddac13250174a8e74dd912302d60
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
+ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774900"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850510"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -569,8 +569,8 @@ Regulární výrazy používané ve směrování často začínají `^` znakem a
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
@@ -581,6 +581,8 @@ Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulárn�
 Vlastní omezení směrování lze vytvořit implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. `IRouteConstraint` Rozhraní <xref:System.Web.Routing.IRouteConstraint.Match*>obsahuje, které vrací `true` , pokud je omezení splněno, a `false` jinak.
 
 Vlastní omezení tras je potřeba jenom zřídka. Před implementací vlastního omezení trasy zvažte alternativy, jako je třeba vazba modelu.
+
+Složka [omezení](https://github.com/dotnet/aspnetcore/tree/master/src/Http/Routing/src/Constraints) ASP.NET Core poskytuje vhodné příklady vytváření omezení. Například [GuidRouteConstraint](https://github.com/dotnet/aspnetcore/blob/master/src/Http/Routing/src/Constraints/GuidRouteConstraint.cs#L18).
 
 Chcete-li použít `IRouteConstraint`vlastní, musí být typ omezení trasy zaregistrován <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v rámci aplikace v kontejneru služby. `ConstraintMap` Je slovník, který mapuje klíče omezení tras na `IRouteConstraint` implementace, které ověřují tato omezení. Aplikace se `ConstraintMap` dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>`. Příklad:
 
@@ -1488,8 +1490,8 @@ Regulární výrazy používané ve směrování často začínají znakem stř�
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
@@ -1932,8 +1934,8 @@ Regulární výrazy používané v směrování často začínají znakem stří
 | `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
 | `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
 | `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 

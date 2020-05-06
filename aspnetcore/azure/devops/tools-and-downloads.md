@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: azure/devops/tools-and-downloads
-ms.openlocfilehash: 321d506760d057914136f77c15e85043fa9d9832
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 1917a329a5dcbe60542541cfcdc746799307e3d5
+ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766534"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82850406"
 ---
 # <a name="tools-and-downloads"></a>Nástroje a soubory ke stažení
 
@@ -27,7 +27,7 @@ Azure má několik rozhraní pro zřizování a správu prostředků, jako jsou 
 
 Jsou vyžadovány následující odběry:
 
-* Azure &mdash; Pokud účet nemáte, [Získejte bezplatnou zkušební verzi](https://azure.microsoft.com/free/).
+* Azure &mdash; Pokud účet nemáte, [Získejte bezplatnou zkušební verzi](https://azure.microsoft.com/free/dotnet/).
 * Azure DevOps Services &mdash; vaše předplatné Azure DevOps a organizace se vytvoří v kapitole 4.
 * GitHub &mdash; Pokud účet nemáte, [Zaregistrujte se zdarma](https://github.com/join).
 
