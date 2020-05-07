@@ -5,7 +5,7 @@ description: Přečtěte si o ASP.NET Core middlewaru a kanálu požadavků.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/06/2020
+ms.date: 5/6/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: f78358907d79ae71e8168cc381dce86b0a869e57
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 745eca9788d95c9a123e51a737b34dccdc65d8d4
+ms.sourcegitcommit: 30fcf69556b6b6ec54a3879e280d5f61f018b48f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776009"
+ms.lasthandoff: 05/07/2020
+ms.locfileid: "82876228"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -264,9 +264,10 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 | [Přepsání adresy URL](xref:fundamentals/url-rewriting) | Poskytuje podporu pro přepisování adres URL a přesměrování požadavků. | Před komponenty, které používají adresu URL. |
 | [WebSockets](xref:fundamentals/websockets) | Povolí protokol WebSockets. | Před komponenty, které jsou vyžadovány pro příjem požadavků protokolu WebSocket. |
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/middleware/write>
+* <xref:test/middleware>
 * <xref:migration/http-modules>
 * <xref:fundamentals/startup>
 * <xref:fundamentals/request-features>
@@ -467,9 +468,10 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 | [Přepsání adresy URL](xref:fundamentals/url-rewriting) | Poskytuje podporu pro přepisování adres URL a přesměrování požadavků. | Před komponenty, které používají adresu URL. |
 | [WebSockets](xref:fundamentals/websockets) | Povolí protokol WebSockets. | Před komponenty, které jsou vyžadovány pro příjem požadavků protokolu WebSocket. |
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/middleware/write>
+* <xref:test/middleware>
 * <xref:migration/http-modules>
 * <xref:fundamentals/startup>
 * <xref:fundamentals/request-features>

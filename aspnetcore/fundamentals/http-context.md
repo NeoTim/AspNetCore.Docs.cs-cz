@@ -5,7 +5,7 @@ description: Přečtěte si, jak získat přístup k HttpContext v ASP.NET Core.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/03/2019
+ms.date: 5/5/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/httpcontext
-ms.openlocfilehash: ac0982f144c98bf1540b16013497fabeb6683e63
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 716e74551b95455c99abbac58b712f013acfde56
+ms.sourcegitcommit: d4527df91f2c15bbe1cbf5a541adbea5747897aa
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773975"
+ms.lasthandoff: 05/06/2020
+ms.locfileid: "82852352"
 ---
 # <a name="access-httpcontext-in-aspnet-core"></a>Přístup HttpContext v ASP.NET Core
 
@@ -169,3 +169,8 @@ public class EmailController : Controller
         ...
     }
 }
+```
+
+## <a name="blazor-and-shared-state"></a>Blazora sdílený stav
+
+[!INCLUDE[](~/includes/blazor-security/blazor-shared-state.md)]
