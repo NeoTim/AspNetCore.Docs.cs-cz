@@ -1,10 +1,10 @@
 > [!WARNING]
-> Z bezpečnostních důvodů se musíte `GET` přihlásit k vazby dat požadavku na vlastnosti modelu stránky. Před mapováním na vlastnosti ověřte vstup uživatele. Přihlášení do `GET` vazby je užitečné při adresování scénářů, které spoléhají na řetězec dotazu nebo hodnoty postupu.
+> Z bezpečnostních důvodů musíte vyjádřit výslovný souhlas s vazbou `GET` na data požadavku na vlastnosti modelu stránky. Před mapováním na vlastnosti ověřte vstup uživatele. Přizpůsobování `GET` vazby je užitečné při adresování scénářů, které spoléhají na řetězce dotazů nebo hodnoty tras.
 >
-> Chcete-li vytvořit `GET` vazbu vlastnost [`[BindProperty]`](xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute) na `SupportsGet` požadavky, `true`nastavte vlastnost atributu na :
+> Chcete-li vytvořit vazby `GET` vlastnosti u požadavků, [`[BindProperty]`](xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute) nastavte `SupportsGet` vlastnost atributu na `true`:
 >
 > ```csharp
 > [BindProperty(SupportsGet = true)]
 > ```
 >
-> Další informace naleznete [v tématu ASP.NET Základní komunitní standup: Vazba na diskuzi GET (YouTube)](https://www.youtube.com/watch?v=p7iHB9V-KVU&feature=youtu.be&t=54m27s).
+> Další informace najdete v tématu [ASP.NET Core Community rychlou schůzku: Bind on GET diskuze (YouTube)](https://www.youtube.com/watch?v=p7iHB9V-KVU&feature=youtu.be&t=54m27s).

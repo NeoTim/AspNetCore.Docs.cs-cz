@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/handle-errors
-ms.openlocfilehash: 7eefc988da275c0efccd97958d04e76f04e7cad4
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7601e448a52be5e1064326929281e72ad28a0e65
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82772110"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967152"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>Zpracování chyb v aplikacích Blazor ASP.NET Core
 
@@ -191,7 +191,7 @@ Pokud uživatelský kód neprovede soutisk a zpracuje výjimku, rozhraní zaprot
 
 ### <a name="component-disposal"></a>Vyřazení součásti
 
-Součást může být odebrána z uživatelského rozhraní, například proto, že uživatel přešel na jinou stránku. Při odebrání součásti, která <xref:System.IDisposable?displayProperty=fullName> je implementována z uživatelského rozhraní, rozhraní zavolá <xref:System.IDisposable.Dispose*> metodu komponenty.
+Součást může být odebrána z uživatelského rozhraní, například proto, že uživatel přešel na jinou stránku. Při odebrání součásti, která <xref:System.IDisposable?displayProperty=fullName> je implementována z uživatelského rozhraní, rozhraní zavolá <xref:System.IDisposable.Dispose%2A> metodu komponenty.
 
 Pokud `Dispose` metoda komponenty vyvolá neošetřenou výjimku, je výjimka závažná pro okruh Blazor serveru. Pokud logika vyřazení může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 

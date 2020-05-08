@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: c84d6415728bf56836d98cfa66d1b9d46d2eadc8
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 705fa32ee72221b3c18653e9f3495b9cd61e9ad1
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82770898"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967425"
 ---
 # <a name="aspnet-core-blazor-templates"></a>Šablony Blazor ASP.NET Core
 
@@ -56,9 +56,9 @@ Následující soubory a složky tvoří Blazor aplikaci vygenerovanou ze Blazor
 
 * *Startup.cs* (Blazor Server) &ndash; obsahuje logiku spouštění aplikace. `Startup` Třída definuje dvě metody:
 
-  * `ConfigureServices`&ndash; Nakonfiguruje služby pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. V Blazor serverových aplikacích se služby přidávají voláním <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor*>a `WeatherForecastService` přidá se do kontejneru služby pro použití v ukázkové `FetchData` součásti.
+  * `ConfigureServices`&ndash; Nakonfiguruje služby pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. V Blazor serverových aplikacích se služby přidávají voláním <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor%2A>a `WeatherForecastService` přidá se do kontejneru služby pro použití v ukázkové `FetchData` součásti.
   * `Configure`&ndash; Nakonfiguruje kanál pro zpracování požadavků aplikace:
-    * <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub*>je volána k nastavení koncového bodu pro připojení v reálném čase pomocí prohlížeče. Připojení se vytvoří pomocí [SignalR](xref:signalr/introduction), což je rozhraní, které umožňuje přidávat do aplikací webové funkce v reálném čase.
+    * <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub%2A>je volána k nastavení koncového bodu pro připojení v reálném čase pomocí prohlížeče. Připojení se vytvoří pomocí [SignalR](xref:signalr/introduction), což je rozhraní, které umožňuje přidávat do aplikací webové funkce v reálném čase.
     * [MapFallbackToPage ("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*) se zavolá, aby se nastavila Kořenová stránka aplikace (*pages/_Host. cshtml*) a povolila se navigace.
 
 * *wwwroot/index.html* (Blazor WebAssembly) &ndash; Kořenová stránka aplikace implementované jako stránka HTML:

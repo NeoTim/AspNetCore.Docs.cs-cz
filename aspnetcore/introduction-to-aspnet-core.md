@@ -74,18 +74,18 @@ Pro Úvod k vývoji ASP.NET Corech aplikací doporučujeme následující poslou
 
 1. Postupujte podle kurzu pro typ aplikace, který chcete vyvíjet nebo udržovat.
 
-   |Typ aplikace  |Scénář  |Tutoriál  |
+   |Typ aplikace  |Scénář  |Kurz  |
    |----------|----------|----------|
    |Webová aplikace                   | Nový vývoj webového uživatelského rozhraní na straně serveru |[Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
    |Webová aplikace                   | Vývoj webového uživatelského rozhraní na straně klienta |[Začínáme s Blazor](xref:tutorials/first-blazor-app) |
-   |Webové rozhraní API                   | Služby HTTP RESTful |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
+   |Web API                   | Služby HTTP RESTful |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
    |Aplikace vzdáleného volání procedur | Služby pro první kontrakt využívající vyrovnávací paměti protokolu |[Začínáme se službou gRPC](xref:tutorials/grpc/grpc-start) |
    |Aplikace v reálném čase             | Obousměrná komunikace mezi servery a připojenými klienty |[Začínáme s funkcí SignalR](xref:tutorials/signalr) |
 
 1. Postupujte podle kurzu, který ukazuje, jak získat základní přístup k datům.
 
-   |Scénář  |Tutoriál  |
+   |Scénář  |Kurz  |
    |----------|----------|
    |Nový vývoj        |[Razor Pages pomocí Entity Framework Core](xref:data/ef-rp/intro) |
    |Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro) |
@@ -162,16 +162,16 @@ Jako úvod do vývoje aplikací ASP.NET Core doporučujeme následující poslou
 
 1. Postupujte podle kurzu pro typ aplikace, kterou chcete vyvíjet nebo udržovat.
 
-   |Typ aplikace  |Scénář  |Tutoriál  |
+   |Typ aplikace  |Scénář  |Kurz  |
    |----------|----------|----------|
    |Webová aplikace                   | Vývoj nové aplikace        |[Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
-   |Webové rozhraní API                   |                            |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
+   |Web API                   |                            |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
    |Aplikace v reálném čase             |                            |[Začínáme s funkcí SignalR](xref:tutorials/signalr) |
 
 1. Postupujte podle kurzu, který ukazuje, jak získat základní přístup k datům.
 
-   |Scénář  |Tutoriál  |
+   |Scénář  |Kurz  |
    |----------|----------|
    | Vývoj nové aplikace        |[RazorStránky s Entity Framework Core](xref:data/ef-rp/intro) |
    | Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro) |

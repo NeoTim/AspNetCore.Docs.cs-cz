@@ -506,7 +506,7 @@ Výchozí nastavení proxy serveru obvykle omezují pole hlaviček požadavku na
 > [!WARNING]
 > Nerozšiřovat výchozí hodnotu, `LimitRequestFieldSize` Pokud je to nutné. Zvýšení hodnoty zvyšuje riziko přetečení vyrovnávací paměti (přetečení) a útok DoS (Denial of Service) uživateli se zlými úmysly.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Předpoklady pro .NET Core v systému Linux](/dotnet/core/linux-prerequisites)
 * <xref:test/troubleshoot>

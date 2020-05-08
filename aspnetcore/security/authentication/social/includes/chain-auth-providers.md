@@ -1,6 +1,6 @@
-## <a name="multiple-authentication-providers"></a>Více poskytovatelů ověřování
+## <a name="multiple-authentication-providers"></a>Zprostředkovatelé více ověřování
 
-Když aplikace vyžaduje více poskytovatelů, řetěz metody rozšíření zprostředkovatele za [AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjection.authenticationservicecollectionextensions.addauthentication):
+Když aplikace vyžaduje víc poskytovatelů, nařetězení rozšiřujících metod poskytovatele za [AddAuthentication](/dotnet/api/microsoft.extensions.dependencyinjection.authenticationservicecollectionextensions.addauthentication):
 
 ```csharp
 services.AddAuthentication()

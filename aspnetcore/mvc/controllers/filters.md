@@ -282,7 +282,7 @@ Proto `AddHeader` filtr pro `SomeResource` akci nikdy neběží. Toto chování 
 
 [!code-csharp[](./filters/3.1sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1)]
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 Filtry lze přidat podle typu nebo podle instance. Pokud je přidána instance, bude tato instance použita pro každý požadavek. Pokud je přidán typ, je aktivován typ. Filtr aktivovaný typu znamená:
 
@@ -811,7 +811,7 @@ Proto `AddHeader` filtr pro `SomeResource` akci nikdy neběží. Toto chování 
 
 [!code-csharp[](./filters/sample/FiltersSample/Controllers/SampleController.cs?name=snippet_AddHeader&highlight=1,9)]
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 Filtry lze přidat podle typu nebo podle instance. Pokud je přidána instance, bude tato instance použita pro každý požadavek. Pokud je přidán typ, je aktivován typ. Filtr aktivovaný typu znamená:
 

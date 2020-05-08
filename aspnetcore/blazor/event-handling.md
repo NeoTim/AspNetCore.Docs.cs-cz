@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/event-handling
-ms.openlocfilehash: a9b0d0efd4afd4941bd4d93f33adecdf3288992f
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: aa338bbe61eec14bc1e1b3606e11e26bfb0e6a09
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767067"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967464"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>Zpracování událostí ASP.NET Core Blazor
 
@@ -108,7 +108,7 @@ Další informace najdete v následujících materiálech:
 Je často vhodné uzavřít další hodnoty, jako například při iteraci přes sadu prvků. Následující příklad vytvoří tři tlačítka, z nichž každé volá `UpdateHeading` předání argumentu události (`MouseEventArgs`) a jeho čísla tlačítka (`buttonNumber`), pokud je vybráno v uživatelském rozhraní:
 
 ```razor
-<h2>@_message</h2>
+<h2>@message</h2>
 
 @for (var i = 1; i < 4; i++)
 {
@@ -121,11 +121,11 @@ Je často vhodné uzavřít další hodnoty, jako například při iteraci přes
 }
 
 @code {
-    private string _message = "Select a button to learn its position.";
+    private string message = "Select a button to learn its position.";
 
     private void UpdateHeading(MouseEventArgs e, int buttonNumber)
     {
-        _message = $"You selected Button #{buttonNumber} at " +
+        message = $"You selected Button #{buttonNumber} at " +
             $"mouse position: {e.ClientX} X {e.ClientY}.";
     }
 }
@@ -157,28 +157,28 @@ Běžný scénář s vnořenými komponentami je přáním spustit metodu nadřa
     by the parent component.
 </ChildComponent>
 
-<p><b>@_messageText</b></p>
+<p><b>@messageText</b></p>
 
 @code {
-    private string _messageText;
+    private string messageText;
 
     private void ShowMessage(MouseEventArgs e)
     {
-        _messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
+        messageText = $"Blaze a new trail with Blazor! ({e.ScreenX}, {e.ScreenY})";
     }
 }
 ```
 
 Když je vybráno tlačítko v `ChildComponent`:
 
-* `ParentComponent`Je volána `ShowMessage` metoda. `_messageText`se aktualizuje a zobrazí v `ParentComponent`.
+* `ParentComponent`Je volána `ShowMessage` metoda. `messageText`se aktualizuje a zobrazí v `ParentComponent`.
 * V metodě zpětného volání (`ShowMessage`) není vyžadováno volání [StateHasChanged](xref:blazor/lifecycle#state-changes) . `StateHasChanged`je volána automaticky pro revykreslování `ParentComponent`, stejně jako podřízené události, které aktivují revykreslování komponenty v obslužných rutinách události, které jsou spouštěny v rámci podřízeného objektu.
 
 `EventCallback`a `EventCallback<T>` povolují asynchronní delegáty. `EventCallback<T>`je silného typu a vyžaduje konkrétní typ argumentu. `EventCallback`je slabě typované a umožňuje jakýkoli typ argumentu.
 
 ```razor
 <ChildComponent 
-    OnClickCallback="@(async () => { await Task.Yield(); _messageText = "Blaze It!"; })" />
+    OnClickCallback="@(async () => { await Task.Yield(); messageText = "Blaze It!"; })" />
 ```
 
 Vyvolat `EventCallback` nebo `EventCallback<T>` s `InvokeAsync` a očekávat: <xref:System.Threading.Tasks.Task>
@@ -198,16 +198,16 @@ Chcete- [`@on{EVENT}:preventDefault`](xref:mvc/views/razor#oneventpreventdefault
 Když je vybraný klíč na vstupním zařízení a fokus prvku je v textovém poli, prohlížeč normálně zobrazuje znak klíče v textovém poli. V následujícím příkladu je výchozím chováním znemožněno zadáním atributu `@onkeypress:preventDefault` direktiva. Čítač zvýší a **+** klíč není zachycen do hodnoty `<input>` prvku:
 
 ```razor
-<input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
+<input value="@count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
 
 @code {
-    private int _count = 0;
+    private int count = 0;
 
     private void KeyHandler(KeyboardEventArgs e)
     {
         if (e.Key == "+")
         {
-            _count++;
+            count++;
         }
     }
 }
@@ -215,10 +215,10 @@ Když je vybraný klíč na vstupním zařízení a fokus prvku je v textovém p
 
 Určení `@on{EVENT}:preventDefault` atributu bez hodnoty je ekvivalentní `@on{EVENT}:preventDefault="true"`.
 
-Hodnotou atributu může být také výraz. `_shouldPreventDefault` V následujícím příkladu `bool` je pole nastaveno na buď `true` nebo: `false`
+Hodnotou atributu může být také výraz. `shouldPreventDefault` V následujícím příkladu `bool` je pole nastaveno na buď `true` nebo: `false`
 
 ```razor
-<input @onkeypress:preventDefault="_shouldPreventDefault" />
+<input @onkeypress:preventDefault="shouldPreventDefault" />
 ```
 
 Obslužná rutina události není nutná, aby se zabránilo výchozí akci. Obslužná rutina události a zabraňuje použití výchozích akcí, lze použít nezávisle.
@@ -231,7 +231,7 @@ V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na udál
 
 ```razor
 <label>
-    <input @bind="_stopPropagation" type="checkbox" />
+    <input @bind="stopPropagation" type="checkbox" />
     Stop Propagation
 </label>
 
@@ -242,13 +242,13 @@ V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na udál
         Child div that doesn't stop propagation when selected.
     </div>
 
-    <div @onclick="OnSelectChildDiv" @onclick:stopPropagation="_stopPropagation">
+    <div @onclick="OnSelectChildDiv" @onclick:stopPropagation="stopPropagation">
         Child div that stops propagation when selected.
     </div>
 </div>
 
 @code {
-    private bool _stopPropagation = false;
+    private bool stopPropagation = false;
 
     private void OnSelectParentDiv() => 
         Console.WriteLine($"The parent div was selected. {DateTime.Now}");

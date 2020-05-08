@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/additional-scenarios
-ms.openlocfilehash: e69b598431027aa540227b87dedfd091057a1af4
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: e804c43ebea8f6a79443e24047a7be47587cbd8a
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768166"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967543"
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>Další scénáře zabezpečení ASP.NET Core Blazor pro WebAssembly
 
@@ -35,6 +35,11 @@ ms.locfileid: "82768166"
 V následujícím `AuthorizationMessageHandler` příkladu nakonfiguruje `HttpClient` v `Program.Main` (*program.cs*):
 
 ```csharp
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
 builder.Services.AddTransient(sp =>
 {
     return new HttpClient(sp.GetRequiredService<AuthorizationMessageHandler>()
@@ -47,9 +52,14 @@ builder.Services.AddTransient(sp =>
 });
 ```
 
-Pro usnadnění práce `BaseAddressAuthorizationMessageHandler` je součástí předem nakonfigurovaná základní adresa aplikace jako autorizovaná adresa URL. Šablony WebAssembly Blazor `HttpClient` s povoleným ověřováním teď pomocí `BaseAddressAuthorizationMessageHandler` [IHttpClientFactory](https://docs.microsoft.com/aspnet/core/fundamentals/http-requests) nastaví pomocí:
+Pro usnadnění práce `BaseAddressAuthorizationMessageHandler` je součástí předem nakonfigurovaná základní adresa aplikace jako autorizovaná adresa URL. Šablony WebAssembly Blazor <xref:System.Net.Http.IHttpClientFactory> <xref:System.Net.Http.HttpClient> s povoleným ověřováním teď používají v projektu rozhraní API serveru k nastavení pomocí `BaseAddressAuthorizationMessageHandler`:
 
 ```csharp
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
 builder.Services.AddHttpClient("BlazorWithIdentityApp1.ServerAPI", 
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
         .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
@@ -58,11 +68,16 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("BlazorWithIdentityApp1.ServerAPI"));
 ```
 
-Tam, kde je klient vytvořen `CreateClient` pomocí v předchozím příkladu, `HttpClient` se dodávají instance, které zahrnují přístupové tokeny při vytváření požadavků na serverový projekt.
+Tam, kde je klient vytvořen `CreateClient` pomocí v předchozím příkladu, <xref:System.Net.Http.HttpClient> se dodávají instance, které zahrnují přístupové tokeny při vytváření požadavků na serverový projekt.
 
-Nakonfigurovaná `HttpClient` se pak používá k provádění autorizovaných požadavků pomocí jednoduchého `try-catch` vzoru. Následující `FetchData` součást požaduje data předpovědi počasí:
+Nakonfigurovaná <xref:System.Net.Http.HttpClient> se pak používá k provádění autorizovaných požadavků pomocí jednoduchého `try-catch` vzoru. Následující `FetchData` součást požaduje data předpovědi počasí:
 
 ```csharp
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject HttpClient Http
+
+...
+
 protected override async Task OnInitializedAsync()
 {
     try
@@ -82,6 +97,13 @@ Případně můžete definovat typového klienta, který zpracovává všechny a
 *WeatherClient.cs*:
 
 ```csharp
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using static {APP ASSEMBLY}.Data;
+
 public class WeatherClient
 {
     private readonly HttpClient httpClient;
@@ -99,6 +121,8 @@ public class WeatherClient
         {
             forecasts = await httpClient.GetFromJsonAsync<WeatherForecast[]>(
                 "WeatherForecast");
+
+            ...
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -113,6 +137,11 @@ public class WeatherClient
 *Program.cs*:
 
 ```csharp
+using System.Net.Http;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+...
+
 builder.Services.AddHttpClient<WeatherClient>(
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();

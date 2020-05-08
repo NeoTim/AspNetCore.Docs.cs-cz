@@ -73,11 +73,11 @@ Sada příkazů (nebo [deklarací identity](/dotnet/api/system.security.claims.c
 
 ### <a name="user-logins"></a>Přihlášení uživatelů
 
-Informace o externím poskytovateli ověřování (například Facebooku nebo účet Microsoft), který se použije při přihlašování uživatele [Případě](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)
+Informace o externím poskytovateli ověřování (například Facebooku nebo účet Microsoft), který se použije při přihlašování uživatele [Příklad](/dotnet/api/microsoft.aspnet.identity.corecompat.identityuserlogin)
 
 ### <a name="roles"></a>Role
 
-Skupiny autorizace pro váš web. Zahrnuje ID role a název role (například admin nebo zaměstnanec). [Případě](/dotnet/api/microsoft.aspnet.identity.corecompat.identityrole)
+Skupiny autorizace pro váš web. Zahrnuje ID role a název role (například admin nebo zaměstnanec). [Příklad](/dotnet/api/microsoft.aspnet.identity.corecompat.identityrole)
 
 ## <a name="the-data-access-layer"></a>Vrstva přístupu k datům
 
@@ -93,23 +93,23 @@ Zapouzdřuje informace pro připojení k vašemu mechanismu trvalosti a provád�
 
 ### <a name="user-storage"></a>Uživatelské úložiště
 
-Ukládá a načítá informace o uživateli (například uživatelské jméno a hodnota hash hesla). [Případě](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
+Ukládá a načítá informace o uživateli (například uživatelské jméno a hodnota hash hesla). [Příklad](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
 ### <a name="role-storage"></a>Úložiště rolí
 
-Ukládá a načítá informace o rolích (například název role). [Případě](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.rolestore-1)
+Ukládá a načítá informace o rolích (například název role). [Příklad](/dotnet/api/microsoft.aspnetcore.identity.entityframeworkcore.rolestore-1)
 
 ### <a name="userclaims-storage"></a>Úložiště UserClaims
 
-Ukládá a načítá informace o deklaraci identity uživatele (například typ a hodnotu deklarace identity). [Případě](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
+Ukládá a načítá informace o deklaraci identity uživatele (například typ a hodnotu deklarace identity). [Příklad](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
 ### <a name="userlogins-storage"></a>Úložiště UserLogins
 
-Ukládá a načítá přihlašovací informace uživatele (například externího poskytovatele ověřování). [Případě](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
+Ukládá a načítá přihlašovací informace uživatele (například externího poskytovatele ověřování). [Příklad](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
 ### <a name="userrole-storage"></a>Úložiště položky UserRole
 
-Ukládá a načítá, které role jsou přiřazeny uživatelům. [Případě](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
+Ukládá a načítá, které role jsou přiřazeny uživatelům. [Příklad](/dotnet/api/microsoft.aspnet.identity.corecompat.userstore-1)
 
 **Tip:** Implementujte jenom třídy, které chcete ve své aplikaci použít.
 

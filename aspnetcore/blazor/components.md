@@ -1,5 +1,5 @@
 ---
-title: Vytvoření a použití komponent Razor ASP.NET Core
+title: Vytváření a používání ASP.NET Corech komponent Razor
 author: guardrex
 description: Naučte se vytvářet a používat Razor komponenty, včetně toho, jak navazovat data, zpracovávat události a spravovat životní cykly komponent.
 monikerRange: '>= aspnetcore-3.1'
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: f8b1ffef1b8375337f66c93d9b4652ad3c5dd616
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 9e36a3239e703e1279feafc65288a1f9ec82c277
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767744"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967178"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití komponent Razor ASP.NET Core
 
@@ -40,15 +40,15 @@ Uživatelské rozhraní pro komponentu je definováno pomocí jazyka HTML. Dynam
 
 Členy součásti lze použít jako součást logiky vykreslování komponenty pomocí výrazů jazyka C#, které začínají na `@`. Například pole C# se vykreslí pomocí předpony `@` na název pole. Následující příklad vyhodnocuje a vykresluje:
 
-* `_headingFontStyle`do hodnoty vlastnosti CSS pro `font-style`.
-* `_headingText`k obsahu `<h1>` elementu.
+* `headingFontStyle`do hodnoty vlastnosti CSS pro `font-style`.
+* `headingText`k obsahu `<h1>` elementu.
 
 ```razor
-<h1 style="font-style:@_headingFontStyle">@_headingText</h1>
+<h1 style="font-style:@headingFontStyle">@headingText</h1>
 
 @code {
-    private string _headingFontStyle = "italic";
-    private string _headingText = "Put on your new Blazor!";
+    private string headingFontStyle = "italic";
+    private string headingText = "Put on your new Blazor!";
 }
 ```
 
@@ -291,22 +291,22 @@ Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, a
 * Definujte pole stejného typu jako podřízená komponenta.
 
 ```razor
-<MyLoginDialog @ref="_loginDialog" ... />
+<MyLoginDialog @ref="loginDialog" ... />
 
 @code {
-    private MyLoginDialog _loginDialog;
+    private MyLoginDialog loginDialog;
 
     private void OnSomething()
     {
-        _loginDialog.Show();
+        loginDialog.Show();
     }
 }
 ```
 
-Při vykreslení komponenty je `_loginDialog` pole vyplněno instancí `MyLoginDialog` podřízené součásti. Pak můžete vyvolat metody .NET v instanci komponenty.
+Při vykreslení komponenty je `loginDialog` pole vyplněno instancí `MyLoginDialog` podřízené součásti. Pak můžete vyvolat metody .NET v instanci komponenty.
 
 > [!IMPORTANT]
-> `_loginDialog` Proměnná je naplněna pouze po vykreslení komponenty a její výstup obsahuje `MyLoginDialog` element. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [metody OnAfterRenderAsync nebo OnAfterRender](xref:blazor/lifecycle#after-component-render).
+> `loginDialog` Proměnná je naplněna pouze po vykreslení komponenty a její výstup obsahuje `MyLoginDialog` element. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [metody OnAfterRenderAsync nebo OnAfterRender](xref:blazor/lifecycle#after-component-render).
 
 Chcete-li odkazovat na součásti ve smyčce, viz [zachytit odkazy na více podobných podřízených komponent (dotnet/aspnetcore #13358)](https://github.com/dotnet/aspnetcore/issues/13358).
 
@@ -358,10 +358,10 @@ Zaregistrujte `NotifierService` jako singletion:
 @inject NotifierService Notifier
 @implements IDisposable
 
-<p>Last update: @_lastNotification.key = @_lastNotification.value</p>
+<p>Last update: @lastNotification.key = @lastNotification.value</p>
 
 @code {
-    private (string key, int value) _lastNotification;
+    private (string key, int value) lastNotification;
 
     protected override void OnInitialized()
     {
@@ -372,7 +372,7 @@ Zaregistrujte `NotifierService` jako singletion:
     {
         await InvokeAsync(() =>
         {
-            _lastNotification = (key, value);
+            lastNotification = (key, value);
             StateHasChanged();
         });
     }
@@ -519,14 +519,14 @@ Chcete-li zachovat stav v předchozím scénáři, použijte *soukromé pole* v 
 Následující `Expander` součást:
 
 * Akceptuje `Expanded` hodnotu parametru komponenty z nadřazené položky.
-* Přiřadí hodnotu parametru komponenty k *privátnímu poli* (`_expanded`) v [události s inicializací](xref:blazor/lifecycle#component-initialization-methods).
+* Přiřadí hodnotu parametru komponenty k *privátnímu poli* (`expanded`) v [události s inicializací](xref:blazor/lifecycle#component-initialization-methods).
 * Pomocí soukromého pole udržuje stav interního přepínání.
 
 ```razor
 <div @onclick="@Toggle">
-    Toggle (Expanded = @_expanded)
+    Toggle (Expanded = @expanded)
 
-    @if (_expanded)
+    @if (expanded)
     {
         @ChildContent
     }
@@ -539,16 +539,16 @@ Následující `Expander` součást:
     [Parameter]
     public RenderFragment ChildContent { get; set; }
 
-    private bool _expanded;
+    private bool expanded;
 
     protected override void OnInitialized()
     {
-        _expanded = Expanded;
+        expanded = Expanded;
     }
 
     private void Toggle()
     {
-        _expanded = !_expanded;
+        expanded = !expanded;
     }
 }
 ```
@@ -569,16 +569,16 @@ Následující příklad ukazuje výchozí `Counter` komponentu s `@code` blokem
 
 <h1>Counter</h1>
 
-<p>Current count: @_currentCount</p>
+<p>Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
-    private int _currentCount = 0;
+    private int currentCount = 0;
 
     void IncrementCount()
     {
-        _currentCount++;
+        currentCount++;
     }
 }
 ```
@@ -592,7 +592,7 @@ Následující příklad ukazuje výchozí `Counter` komponentu s `@code` blokem
 
 <h1>Counter</h1>
 
-<p>Current count: @_currentCount</p>
+<p>Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 ```
@@ -604,11 +604,11 @@ namespace BlazorApp.Pages
 {
     public partial class Counter
     {
-        private int _currentCount = 0;
+        private int currentCount = 0;
 
         void IncrementCount()
         {
-            _currentCount++;
+            currentCount++;
         }
     }
 }
@@ -741,10 +741,10 @@ Další informace naleznete v tématu <xref:mvc/views/razor>.
 Následující příklad ukazuje použití `MarkupString` typu pro přidání bloku statického obsahu HTML do vykresleného výstupu komponenty:
 
 ```html
-@((MarkupString)_myMarkup)
+@((MarkupString)myMarkup)
 
 @code {
-    private string _myMarkup = 
+    private string myMarkup = 
         "<p class='markup'>This is a <em>markup string</em>.</p>";
 }
 ```
@@ -782,7 +782,7 @@ Například ukázková aplikace určuje informace o motivu (`ThemeInfo`) v jedno
             <NavMenu />
         </div>
         <div class="col-sm-9">
-            <CascadingValue Value="_theme">
+            <CascadingValue Value="theme">
                 <div class="content px-4">
                     @Body
                 </div>
@@ -792,7 +792,7 @@ Například ukázková aplikace určuje informace o motivu (`ThemeInfo`) v jedno
 </div>
 
 @code {
-    private ThemeInfo _theme = new ThemeInfo { ButtonClass = "btn-success" };
+    private ThemeInfo theme = new ThemeInfo { ButtonClass = "btn-success" };
 }
 ```
 
@@ -809,7 +809,7 @@ V ukázkové aplikaci váže `CascadingValuesParametersTheme` komponenta `ThemeI
 
 <h1>Cascading Values & Parameters</h1>
 
-<p>Current count: @_currentCount</p>
+<p>Current count: @currentCount</p>
 
 <p>
     <button class="btn" @onclick="IncrementCount">
@@ -824,14 +824,14 @@ V ukázkové aplikaci váže `CascadingValuesParametersTheme` komponenta `ThemeI
 </p>
 
 @code {
-    private int _currentCount = 0;
+    private int currentCount = 0;
 
     [CascadingParameter]
     protected ThemeInfo ThemeInfo { get; set; }
 
     private void IncrementCount()
     {
-        _currentCount++;
+        currentCount++;
     }
 }
 ```
@@ -839,14 +839,14 @@ V ukázkové aplikaci váže `CascadingValuesParametersTheme` komponenta `ThemeI
 Pro kaskádování více hodnot stejného typu v rámci stejného podstromu zadejte jedinečný `Name` řetězec pro každou `CascadingValue` součást a odpovídající. `CascadingParameter` V následujícím příkladu jsou dvě `CascadingValue` komponenty kaskádovitě různé instance `MyCascadingType` podle názvu:
 
 ```razor
-<CascadingValue Value=@_parentCascadeParameter1 Name="CascadeParam1">
+<CascadingValue Value=@parentCascadeParameter1 Name="CascadeParam1">
     <CascadingValue Value=@ParentCascadeParameter2 Name="CascadeParam2">
         ...
     </CascadingValue>
 </CascadingValue>
 
 @code {
-    private MyCascadingType _parentCascadeParameter1;
+    private MyCascadingType parentCascadeParameter1;
 
     [Parameter]
     public MyCascadingType ParentCascadeParameter2 { get; set; }
@@ -926,13 +926,13 @@ Fragmenty vykreslování lze definovat pomocí Razor syntaxe šablony. RazorŠab
 Následující příklad ukazuje, jak zadat `RenderFragment` a `RenderFragment<T>` hodnoty a vykreslit šablony přímo v součásti. Fragmenty vykreslování mohou být také předány jako argumenty [součástem šablon](xref:blazor/templated-components).
 
 ```razor
-@_timeTemplate
+@timeTemplate
 
-@_petTemplate(new Pet { Name = "Rex" })
+@petTemplate(new Pet { Name = "Rex" })
 
 @code {
-    private RenderFragment _timeTemplate = @<p>The time is @DateTime.Now.</p>;
-    private RenderFragment<Pet> _petTemplate = (pet) => @<p>Pet: @pet.Name</p>;
+    private RenderFragment timeTemplate = @<p>The time is @DateTime.Now.</p>;
+    private RenderFragment<Pet> petTemplate = (pet) => @<p>Pet: @pet.Name</p>;
 
     private class Pet
     {
@@ -967,6 +967,6 @@ Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů
 
 Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg>` značku přímo umístíte do souboru komponenty (*. Razor*), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů ještě není podporováno. Například `<use>` značky nejsou aktuálně dodržovány a `@bind` nelze je použít s některými značkami SVG. Očekáváme, že tato omezení vyřešíme v budoucí verzi.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:security/blazor/server/threat-mitigation>&ndash; Obsahuje doprovodné materiály k Blazor vytváření serverových aplikací, které se musí soupeří s vyčerpáním prostředků.
