@@ -1,2 +1,2 @@
-* [<span data-ttu-id="4350c-101">Visual Studio pro Mac verze 8.4 nebo novější</span><span class="sxs-lookup"><span data-stu-id="4350c-101">Visual Studio for Mac version 8.4 or later</span></span>](https://visualstudio.microsoft.com/vs/mac/)
+* [<span data-ttu-id="debcf-101">Visual Studio pro Mac verze 8,4 nebo novější</span><span class="sxs-lookup"><span data-stu-id="debcf-101">Visual Studio for Mac version 8.4 or later</span></span>](https://visualstudio.microsoft.com/vs/mac/)
 * [!INCLUDE [.NET Core 3.1 SDK](~/includes/3.1-SDK.md)]
