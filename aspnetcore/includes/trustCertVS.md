@@ -1,11 +1,11 @@
-Visual Studio zobrazí následující dialogové okno:
+Visual Studio zobrazí následující dialog:
 
-![Tento projekt je nakonfigurován pro použití ssl. Chcete-li se vyhnout upozorněním ssl v prohlížeči, můžete důvěřovat certifikátu podepsanému svým držitelem, který aplikace IIS Express vygenerovala. Chcete důvěřovat certifikátu SSL služby IIS Express?](~/getting-started/_static/trustCert.png)
+![Tento projekt je nakonfigurován pro použití protokolu SSL. Aby nedocházelo k upozorněním SSL v prohlížeči, můžete se rozhodnout důvěřovat certifikátu podepsanému svým držitelem, který IIS Express vygeneroval. Chcete důvěřovat IIS Express certifikátu SSL?](~/getting-started/_static/trustCert.png)
 
-Pokud certifikátu SSL služby IIS Express důvěřujete, vyberte **možnost Ano.**
+Vyberte **Ano** , pokud důvěřujete IIS Express certifikát SSL.
 
-Zobrazí se následující dialog:
+Zobrazí se následující dialogové okno:
 
 ![Dialogové okno upozornění zabezpečení](~/getting-started/_static/cert.png)
 
-Pokud souhlasíte s tím, že certifikátu vývoje důvěřujete, vyberte **možnost Ano.**
+Pokud souhlasíte s tím, že certifikát pro vývoj důvěřujete, vyberte **Ano** .

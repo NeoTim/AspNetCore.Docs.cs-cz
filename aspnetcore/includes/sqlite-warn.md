@@ -2,18 +2,18 @@
 > 
 > **Omezení SQLite**
 >
-> Tento kurz používá funkci *migrace* jádra entity frameworku, kde je to možné. Migrace aktualizuje schéma databáze tak, aby odpovídalo změnám v datovém modelu. Migrace však provádí pouze druhy změn, které podporuje databázový stroj a možnosti změny schématu SQLite jsou omezené. Například přidání sloupce je podporováno, ale odebrání sloupce není podporováno. Pokud je vytvořena migrace k odebrání `ef migrations add` sloupce, příkaz `ef database update` proběhne úspěšně, ale příkaz se nezdaří. 
+> V tomto kurzu se používá funkce *migrace* Entity Framework Core, pokud je to možné. Migrace aktualizuje schéma databáze tak, aby odpovídalo změnám v datovém modelu. Nicméně migrace provádí pouze typy změn, které podporuje databázový stroj, a možnosti změny schématu SQLite jsou omezené. Například přidání sloupce je podporováno, ale odebrání sloupce se nepodporuje. Pokud je vytvořená migrace pro odebrání sloupce, příkaz se `ef migrations add` zdaří, ale `ef database update` příkaz selže. 
 >
-> Řešení pro omezení SQLite je ručně psát migrace kód provést znovu sestavit tabulku při něco v tabulce změní. Kód by šel `Up` v `Down` a metody pro migraci a by zahrnovala:
+> Alternativním řešením pro omezení SQLite je ruční psaní kódu migrace, který provede opakované sestavení tabulky, když se něco v tabulce změní. Kód by přešel do metod `Up` a `Down` pro migraci a měl by zahrnovat:
 >
-> * Vytvoření nové tabulky.
-> * Kopírování dat ze staré tabulky do nové tabulky.
-> * Upustil starý stůl.
-> * Přejmenování nové tabulky.
+> * Vytváří se nová tabulka.
+> * Kopírování dat z původní tabulky do nové tabulky.
+> * Vynechává se stará tabulka.
+> * Probíhá přejmenování nové tabulky.
 >
-> Zápis kódu specifického pro databázi tohoto typu je mimo rozsah tohoto kurzu. Místo toho tento kurz klesne a znovu vytvoří databázi vždy, když pokus o použití migrace by se nezdaří. Další informace najdete v následujících materiálech:
+> Zápis kódu specifického pro databázi tohoto typu je mimo rozsah tohoto kurzu. Místo toho tento kurz ponechá a znovu vytvoří databázi vždy, když pokus o použití migrace selže. Další informace najdete v následujících materiálech:
 >
-> * [Omezení zprostředkovatele základní databáze SQLite EF](/ef/core/providers/sqlite/limitations)
+> * [Omezení zprostředkovatele databáze EF Core SQLite](/ef/core/providers/sqlite/limitations)
 > * [Přizpůsobení kódu migrace](/ef/core/managing-schemas/migrations/#customize-migration-code)
-> * [Osávání dat](/ef/core/modeling/data-seeding)
-> * [SQLite ALTER TABLE, příkaz](https://sqlite.org/lang_altertable.html)
+> * [Předvyplnění dat](/ef/core/modeling/data-seeding)
+> * [Příkaz ALTER TABLE v SQLite](https://sqlite.org/lang_altertable.html)

@@ -5,7 +5,7 @@ description: Naučte se hostovat aplikace ASP.NET Core v systému Windows Server
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/17/2020
+ms.date: 05/07/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 72f433ffdc7d08e23fb68fc6ed9903a39959363b
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 157cfc4c42d5e057e9b2ebd04c93d80db55419c9
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775983"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967490"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostování ASP.NET Core ve Windows se službou IIS
 
@@ -59,6 +59,8 @@ Podporují se aplikace publikované pro nasazení 32 (x86) nebo 64-bit (x64). Na
 * Vyžaduje větší dostupný adresní prostor virtuální paměti pro 64 aplikaci.
 * Vyžaduje větší velikost zásobníku služby IIS.
 * Má 64 nativní závislosti.
+
+Aplikace publikované pro 32 (x86) musí mít pro své fondy aplikací IIS povolené 32 bitů. Další informace najdete v části [Vytvoření webu služby IIS](#create-the-iis-site) .
 
 K publikování 64 aplikace použijte 64 .NET Core SDK (x64). V hostitelském systému musí být nainstalován 64 modul runtime.
 
@@ -326,11 +328,13 @@ Při nasazování aplikací na servery s [nasazení webu](/iis/install/installin
 
    ![Pro verzi .NET CLR nenastavte žádný spravovaný kód.](index/_static/edit-apppool-ws2016.png)
 
-    ASP.NET Core běží v samostatném procesu a spravuje modul runtime. ASP.NET Core nespoléhá na načítání CLR desktopových aplikací (.NET CLR&mdash;), modul CLR (Common Language Runtime) pro .NET Core se spouští k hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** na **žádný spravovaný kód** není volitelné, ale doporučuje se.
+    ASP.NET Core běží v samostatném procesu a spravuje modul runtime. ASP.NET Core nespoléhá na načítání CLR desktopu (.NET CLR). Základní modul CLR (Common Language Runtime) pro .NET Core se spouští k hostování aplikace v pracovním procesu. Nastavení **verze .NET CLR** na **žádný spravovaný kód** není volitelné, ale doporučuje se.
 
-1. *ASP.NET Core 2,2 nebo novější*: 64 u samostatného [nasazeného nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) (x64), které používá [model hostování v rámci procesu](#in-process-hosting-model), zakažte fond aplikací pro procesy 32 (x86).
+1. *ASP.NET Core 2,2 nebo novější*:
 
-   V bočním panelu **Akce** Správce služby IIS > **fondy aplikací**vyberte možnost **nastavit výchozí hodnoty fondu aplikací** nebo **Upřesnit nastavení**. Vyhledejte **možnost povolit 32 – bitové aplikace** a nastavte hodnotu na `False`. Toto nastavení nemá vliv na aplikace nasazené pro [hostování mimo proces](xref:host-and-deploy/aspnet-core-module#out-of-process-hosting-model).
+   * V případě [nasazeného samostatného nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) s 32 (x86) publikovaného s 32 sadou SDK, která používá [model hostování v rámci procesu](#in-process-hosting-model), povolte fond aplikací pro 32-bit. Ve Správci služby IIS přejděte na postranní panel **připojení** na **fondy aplikací** . Vyberte fond aplikací aplikace. Na bočním panelu **Akce** vyberte **Upřesnit nastavení**. Nastavte **možnost povolit 32 aplikace** na `True`. 
+
+   * Pro 64 (x64) samostatné [nasazení](/dotnet/core/deploying/#self-contained-deployments-scd) , které používá [model hostování v rámci procesu](#in-process-hosting-model), zakažte fond aplikací pro procesy 32 (x86). Ve Správci služby IIS přejděte na postranní panel **připojení** na **fondy aplikací** . Vyberte fond aplikací aplikace. Na bočním panelu **Akce** vyberte **Upřesnit nastavení**. Nastavte **možnost povolit 32 aplikace** na `False`. 
 
 1. Potvrďte, že identita modelu procesu má správná oprávnění.
 
@@ -634,7 +638,7 @@ Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-m
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:index>
@@ -1230,7 +1234,7 @@ Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-m
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:index>
@@ -1748,7 +1752,7 @@ Pro ASP.NET Core aplikaci, která cílí na .NET Framework, požadavky na možno
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:test/troubleshoot>
 * <xref:index>

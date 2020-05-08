@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/data-binding
-ms.openlocfilehash: 73e73869d58e4a22e9dbee059f69fd15605ce2ce
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b4951c5eb712b15db3a7c1ccd57ae01c530a23ef
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767548"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967165"
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor datové vazby
 
@@ -66,21 +66,21 @@ Navázání vlastnosti nebo pole na jiné události také zahrnutím `@bind:even
 
 Na rozdíl `onchange`od, která je aktivována, když prvek ztratí `oninput` fokus, je aktivována při změně hodnoty textového pole.
 
-Použijte `@bind-{ATTRIBUTE}` s `@bind-{ATTRIBUTE}:event` syntaxí pro svázání atributů elementu jiné `value`než. V následujícím příkladu je styl odstavce aktualizován při změně `_paragraphStyle` hodnoty:
+Použijte `@bind-{ATTRIBUTE}` s `@bind-{ATTRIBUTE}:event` syntaxí pro svázání atributů elementu jiné `value`než. V následujícím příkladu je styl odstavce aktualizován při změně `paragraphStyle` hodnoty:
 
 ```razor
 @page "/binding-example"
 
 <p>
-    <input type="text" @bind="_paragraphStyle" />
+    <input type="text" @bind="paragraphStyle" />
 </p>
 
-<p @bind-style="_paragraphStyle" @bind-style:event="onchange">
+<p @bind-style="paragraphStyle" @bind-style:event="onchange">
     Blazorify the app!
 </p>
 
 @code {
-    private string _paragraphStyle = "color:red";
+    private string paragraphStyle = "color:red";
 }
 ```
 
@@ -250,7 +250,7 @@ Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
-       type="@(_showPassword ? "text" : "password")" 
+       type="@(showPassword ? "text" : "password")" 
        value="@Password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
@@ -258,7 +258,7 @@ Password:
 </button>
 
 @code {
-    private bool _showPassword;
+    private bool showPassword;
 
     [Parameter]
     public string Password { get; set; }
@@ -275,7 +275,7 @@ Password:
 
     private void ToggleShowPassword()
     {
-        _showPassword = !_showPassword;
+        showPassword = !showPassword;
     }
 }
 ```
@@ -287,16 +287,16 @@ Password:
 
 <h1>Parent Component</h1>
 
-<PasswordField @bind-Password="_password" />
+<PasswordField @bind-Password="password" />
 
 @code {
-    private string _password;
+    private string password;
 }
 ```
 
 Chcete-li provést kontrolu nebo chyby depeše v předchozím příkladu:
 
-* Vytvořte pole zálohování pro `Password` (`_password` v následujícím ukázkovém kódu).
+* Vytvořte pole zálohování pro `Password` (`password` v následujícím ukázkovém kódu).
 * Proveďte kontroly nebo chyby depeší v metodě `Password` setter.
 
 Následující příklad poskytuje okamžitou zpětnou vazbu uživateli, pokud se v hodnotě hesla používá mezera:
@@ -308,36 +308,36 @@ Password:
 
 <input @oninput="OnPasswordChanged" 
        required 
-       type="@(_showPassword ? "text" : "password")" 
+       type="@(showPassword ? "text" : "password")" 
        value="@Password" />
 
 <button class="btn btn-primary" @onclick="ToggleShowPassword">
     Show password
 </button>
 
-<span class="text-danger">@_validationMessage</span>
+<span class="text-danger">@validationMessage</span>
 
 @code {
-    private bool _showPassword;
-    private string _password;
-    private string _validationMessage;
+    private bool showPassword;
+    private string password;
+    private string validationMessage;
 
     [Parameter]
     public string Password
     {
-        get { return _password ?? string.Empty; }
+        get { return password ?? string.Empty; }
         set
         {
-            if (_password != value)
+            if (password != value)
             {
                 if (value.Contains(' '))
                 {
-                    _validationMessage = "Spaces not allowed!";
+                    validationMessage = "Spaces not allowed!";
                 }
                 else
                 {
-                    _password = value;
-                    _validationMessage = string.Empty;
+                    password = value;
+                    validationMessage = string.Empty;
                 }
             }
         }
@@ -355,7 +355,7 @@ Password:
 
     private void ToggleShowPassword()
     {
-        _showPassword = !_showPassword;
+        showPassword = !showPassword;
     }
 }
 ```

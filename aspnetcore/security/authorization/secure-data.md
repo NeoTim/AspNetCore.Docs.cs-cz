@@ -316,7 +316,7 @@ Snadný způsob, jak otestovat dokončenou aplikaci, je spustit tři různé pro
 
 | Uživatel                | Podsazený aplikací | Možnosti                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
+| test@example.com    | No                | Upravit nebo odstranit vlastní data.                |
 | manager@contoso.com | Ano               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
 | admin@contoso.com   | Ano               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
 
@@ -643,7 +643,7 @@ Snadný způsob, jak otestovat dokončenou aplikaci, je spustit tři různé pro
 
 | Uživatel                | Podsazený aplikací | Možnosti                                  |
 | ------------------- | :---------------: | ---------------------------------------- |
-| test@example.com    | Ne                | Upravit nebo odstranit vlastní data.                |
+| test@example.com    | No                | Upravit nebo odstranit vlastní data.                |
 | manager@contoso.com | Ano               | Schvalovat nebo odmítat a upravovat/odstraňovat vlastní data. |
 | admin@contoso.com   | Ano               | Schválí nebo odmítne a upraví nebo odstraní všechna data. |
 

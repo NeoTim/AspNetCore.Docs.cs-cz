@@ -5,7 +5,7 @@ description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Cor
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/04/2020
+ms.date: 05/07/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 9bc1e3aaadb7310f6ea338eea2726bdc592aa06a
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: e136a401beffe9cc7e29906b3631ab3f068b30fd
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776406"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967594"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -79,6 +79,12 @@ Informace o nasazení do Azure App Service najdete v tématu <xref:tutorials/pub
 *Samostatné nasazení* obsluhuje aplikaci Blazor WebAssembly jako sadu statických souborů, které jsou požadovány přímo klienty. Libovolný statický souborový server může obsluhovat aplikaci Blazor.
 
 Samostatné prostředky nasazení se publikují do složky */bin/Release/{Target Framework}/Publish/wwwroot* .
+
+### <a name="azure-app-service"></a>Azure App Service
+
+Blazor aplikace WebAssembly se dají nasadit do Azure App Services v systému Windows, který hostuje aplikaci ve [službě IIS](#iis).
+
+Nasazení samostatné aplikace WebAssembly Blazor do Azure App Service pro Linux není aktuálně podporováno. Image serveru pro Linux, která je hostitelem aplikace, není v tuto chvíli k dispozici. Pro povolení tohoto scénáře probíhá práce.
 
 ### <a name="iis"></a>IIS
 

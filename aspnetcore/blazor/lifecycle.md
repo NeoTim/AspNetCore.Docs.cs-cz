@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: 87c65776684f9cc91b868b8e88926e46b25592ff
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 571f14247efe08ac6abbd6d1e2720656f94c213c
+ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82771517"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82967451"
 ---
 # <a name="aspnet-core-blazor-lifecycle"></a>Životní Blazor cyklus ASP.NET Core
 
@@ -30,7 +30,7 @@ Blazor Rozhraní zahrnuje synchronní a asynchronní metody životního cyklu. P
 
 ### <a name="component-initialization-methods"></a>Inicializační metody komponenty
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync*>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized*> jsou vyvolány při inicializaci komponenty po přijetí počátečních parametrů ze své nadřazené komponenty. Použijte `OnInitializedAsync` , když komponenta provede asynchronní operaci a měla by se aktualizovat po dokončení operace.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> jsou vyvolány při inicializaci komponenty po přijetí počátečních parametrů ze své nadřazené komponenty. Použijte `OnInitializedAsync` , když komponenta provede asynchronní operaci a měla by se aktualizovat po dokončení operace.
 
 Pro synchronní operaci popište `OnInitialized`:
 
@@ -63,7 +63,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 ### <a name="before-parameters-are-set"></a>Před nastavením parametrů
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync*>nastaví parametry zadané nadřazeným prvkem komponenty ve stromu vykreslování:
+<xref:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync%2A>nastaví parametry zadané nadřazeným prvkem komponenty ve stromu vykreslování:
 
 ```csharp
 public override async Task SetParametersAsync(ParameterView parameters)
@@ -84,7 +84,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 ### <a name="after-parameters-are-set"></a>Po nastavení parametrů
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync*>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet*> jsou volány:
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSet%2A> jsou volány:
 
 * Při inicializaci komponenty a přijetí první sady parametrů ze své nadřazené komponenty.
 * Po opětovném vykreslení nadřazené komponenty a dodání:
@@ -112,7 +112,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 ### <a name="after-component-render"></a>Po vykreslení komponenty
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync*>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender*> jsou volány po dokončení vykreslování součásti. V tuto chvíli se naplní odkazy na element a komponentu. Tuto fázi použijte k provedení dalších kroků inicializace pomocí vykresleného obsahu, jako je například aktivace knihoven JavaScript třetích stran, které pracují s vykreslenými prvky modelu DOM.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> jsou volány po dokončení vykreslování součásti. V tuto chvíli se naplní odkazy na element a komponentu. Tuto fázi použijte k provedení dalších kroků inicializace pomocí vykresleného obsahu, jako je například aktivace knihoven JavaScript třetích stran, které pracují s vykreslenými prvky modelu DOM.
 
 `firstRender` Parametr pro `OnAfterRenderAsync` a `OnAfterRender`:
 
@@ -150,7 +150,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 ### <a name="suppress-ui-refreshing"></a>Potlačit aktualizaci uživatelského rozhraní
 
-Přepsáním <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender*> potlačíte aktualizaci uživatelského rozhraní. Pokud se implementace vrátí `true`, uživatelské rozhraní se obnoví:
+Přepsáním <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> potlačíte aktualizaci uživatelského rozhraní. Pokud se implementace vrátí `true`, uživatelské rozhraní se obnoví:
 
 ```csharp
 protected override bool ShouldRender()
@@ -167,7 +167,7 @@ I když `ShouldRender` je přepsat, komponenta je vždy zpočátku vykreslena.
 
 ## <a name="state-changes"></a>Změny stavu
 
-<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*>upozorní komponentu, že její stav se změnil. V případě potřeby volání `StateHasChanged` způsobí, že se komponenta znovu vykreslí.
+<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>upozorní komponentu, že její stav se změnil. V případě potřeby volání `StateHasChanged` způsobí, že se komponenta znovu vykreslí.
 
 ## <a name="handle-incomplete-async-actions-at-render"></a>Zpracovat nedokončené asynchronní akce při vykreslení
 
@@ -198,7 +198,7 @@ Pokud komponenta implementuje <xref:System.IDisposable>, je volána [Metoda Disp
 ```
 
 > [!NOTE]
-> Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged*> v `Dispose` není podporováno. `StateHasChanged`může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
+> Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> v `Dispose` není podporováno. `StateHasChanged`může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
 
 Zruší odběr obslužných rutin událostí z událostí .NET. Následující [ Blazor příklady formulářů](xref:blazor/forms-validation) ukazují, jak odpojovat obslužnou rutinu události v `Dispose` metodě:
 
@@ -234,7 +234,7 @@ Následující kód demonstruje aktualizaci `WeatherForecastService` v serverov�
 ```csharp
 public class WeatherForecastService
 {
-    private static readonly string[] _summaries = new[]
+    private static readonly string[] summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild",
         "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -265,7 +265,7 @@ public class WeatherForecastService
             {
                 Date = startDate.AddDays(index),
                 TemperatureC = rng.Next(-20, 55),
-                Summary = _summaries[rng.Next(_summaries.Length)]
+                Summary = summaries[rng.Next(summaries.Length)]
             }).ToArray();
         });
     }

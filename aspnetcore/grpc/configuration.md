@@ -34,7 +34,7 @@ služby gRPC Services se konfigurují `AddGrpc` v *Startup.cs*. Následující t
 | CompressionProviders | GZIP | Kolekce zprostředkovatelů komprese používaných ke komprimaci a dekompresi zpráv. Vlastní zprostředkovatelé komprese lze vytvořit a přidat do kolekce. Výchozí konfigurovaná zprostředkovatelé podporují kompresi **gzip** . |
 | <span style="word-break:normal;word-wrap:normal">ResponseCompressionAlgorithm</span> | `null` | Kompresní algoritmus používaný ke kompresi zpráv odeslaných ze serveru. Algoritmus se musí shodovat se zprostředkovatelem komprese `CompressionProviders`v. Aby algoritmus mohl zkomprimovat odpověď, musí klient označit, že podporuje algoritmus, a to tak, že ho pošle v hlavičce **grpc-Accept-Encoding** . |
 | ResponseCompressionLevel | `null` | Úroveň komprimace používaná ke kompresi zpráv odeslaných ze serveru. |
-| Zachycovače | Žádná | Kolekce zachycení, které jsou spouštěny s každým voláním gRPC. Zachycení se spouští v pořadí, v jakém jsou zaregistrovaná. Globálně nakonfigurované zachycení se spouští před zachyceními nakonfigurovanými pro jednu službu. Další informace o zachycených gRPC naleznete v tématu [GRPC zachycení vs. middleware](xref:grpc/migration#grpc-interceptors-vs-middleware). |
+| Zachycovače | Žádné | Kolekce zachycení, které jsou spouštěny s každým voláním gRPC. Zachycení se spouští v pořadí, v jakém jsou zaregistrovaná. Globálně nakonfigurované zachycení se spouští před zachyceními nakonfigurovanými pro jednu službu. Další informace o zachycených gRPC naleznete v tématu [GRPC zachycení vs. middleware](xref:grpc/migration#grpc-interceptors-vs-middleware). |
 
 Možnosti lze nakonfigurovat pro všechny služby tím, že poskytnete možnosti delegáta `AddGrpc` pro volání `Startup.ConfigureServices`v:
 
