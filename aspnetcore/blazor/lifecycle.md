@@ -5,7 +5,7 @@ description: Naučte se používat Razor metody životního cyklu komponent Blaz
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/16/2020
+ms.date: 05/07/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: 571f14247efe08ac6abbd6d1e2720656f94c213c
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
+ms.openlocfilehash: 81699158a161d0e9c9621235840979ebcd634a7e
+ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967451"
+ms.locfileid: "82976698"
 ---
 # <a name="aspnet-core-blazor-lifecycle"></a>Životní Blazor cyklus ASP.NET Core
 
@@ -277,3 +277,73 @@ Další informace o `RenderMode`naleznete v tématu <xref:blazor/hosting-model-c
 ## <a name="detect-when-the-app-is-prerendering"></a>Rozpoznat, kdy se aplikace předvykresluje
 
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
+
+## <a name="cancelable-background-work"></a>Zrušit práci na pozadí
+
+Komponenty často provádějí dlouhotrvající práci na pozadí, jako je například vytváření síťových volání (<xref:System.Net.Http.HttpClient>) a interakce s databázemi. Je žádoucí zastavit práci na pozadí, aby se v různých situacích šetřily systémové prostředky. Například asynchronní operace na pozadí se nezastaví automaticky, když uživatel přejde mimo komponentu.
+
+Mezi další důvody, proč mohou pracovní položky na pozadí vyžadovat zrušení patří:
+
+* Spuštění úlohy na pozadí bylo zahájeno s chybnými vstupními daty nebo parametry zpracování.
+* Aktuální sada spuštěných pracovních položek na pozadí musí být nahrazena novou sadou pracovních položek.
+* Priorita aktuálně spuštěných úloh musí být změněna.
+* Aby bylo možné aplikaci znovu nasadit na server, je nutné ji vypnout.
+* Prostředky serveru jsou omezené a vyžadují přeplánování pracovních položek backgound.
+
+Implementace vzorové práce na pozadí v součásti:
+
+* Použijte <xref:System.Threading.CancellationTokenSource> a <xref:System.Threading.CancellationToken>.
+* Při [vyřazení součásti](#component-disposal-with-idisposable) a v jakémkoli bodě zrušení je požadováno ručním zrušením tokenu, volání [CancellationTokenSource. Cancel](xref:System.Threading.CancellationTokenSource.Cancel%2A) k signalizaci, že by měla být zrušena činnost na pozadí.
+* Po návratu asynchronního volání volejte <xref:System.Threading.CancellationToken.ThrowIfCancellationRequested%2A> na token.
+
+V následujícím příkladu:
+
+* `await Task.Delay(5000, cts.Token);`představuje dlouhodobě běžící asynchronní práci na pozadí.
+* `BackgroundResourceMethod`představuje dlouhotrvající metodu na pozadí, která by neměla být spuštěna, `Resource` Pokud je uvolněna před voláním metody.
+
+```razor
+@implements IDisposable
+@using System.Threading
+
+<button @onclick="LongRunningWork">Trigger long running work</button>
+
+@code {
+    private Resource resource = new Resource();
+    private CancellationTokenSource cts = new CancellationTokenSource();
+
+    protected async Task LongRunningWork()
+    {
+        await Task.Delay(5000, cts.Token);
+
+        cts.Token.ThrowIfCancellationRequested();
+        resource.BackgroundResourceMethod();
+    }
+
+    public void Dispose()
+    {
+        cts.Cancel();
+        cts.Dispose();
+        resource.Dispose();
+    }
+
+    private class Resource : IDisposable
+    {
+        private bool disposed;
+
+        public void BackgroundResourceMethod()
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Resource));
+            }
+            
+            ...
+        }
+        
+        public void Dispose()
+        {
+            disposed = true;
+        }
+    }
+}
+```

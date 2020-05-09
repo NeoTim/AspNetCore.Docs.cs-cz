@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 0da9e124b884337c63dd91b06df60ef7ca89cf3e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b613ccd8df65e41b86793466a0ed5dc7bf7e8772
+ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774129"
+ms.lasthandoff: 05/08/2020
+ms.locfileid: "82976750"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -234,7 +234,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 >
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Otázky zabezpečení](#security-considerations)
+> * [Důležité informace o zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile>může metoda Action přijmout:
@@ -405,7 +405,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 >
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Otázky zabezpečení](#security-considerations)
+> * [Důležité informace o zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
@@ -963,7 +963,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 >
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Otázky zabezpečení](#security-considerations)
+> * [Důležité informace o zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile>může metoda Action přijmout:
@@ -1134,7 +1134,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 >
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
-> * [Otázky zabezpečení](#security-considerations)
+> * [Důležité informace o zabezpečení](#security-considerations)
 > * [Ověřování](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
@@ -1478,7 +1478,7 @@ Příklady v tomto tématu <xref:System.IO.MemoryStream> se spoléhají na uchov
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Vyprazdňování žádosti o připojení HTTP](xref:fundamentals/servers/kestrel#http-connection-request-draining)
+* [Vyprazdňování žádosti o připojení HTTP](xref:fundamentals/servers/kestrel#http11-request-draining)
 * [Neomezená nahrávání souboru](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)
 * [Zabezpečení Azure: rámec zabezpečení: ověření vstupu | Hrozeb](/azure/security/azure-security-threat-modeling-tool-input-validation)
 * [Vzory návrhu cloudu Azure: vzor osobního Key](/azure/architecture/patterns/valet-key)
