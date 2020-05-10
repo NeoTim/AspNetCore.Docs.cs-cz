@@ -5,7 +5,7 @@ description: Naučte se hostovat aplikace ASP.NET Core v systému Windows Server
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/07/2020
+ms.date: 5/7/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/iis/index
-ms.openlocfilehash: 157cfc4c42d5e057e9b2ebd04c93d80db55419c9
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
+ms.openlocfilehash: c3841babe213a9a3f303b8f9b83a947fd33ad647
+ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967490"
+ms.lasthandoff: 05/09/2020
+ms.locfileid: "83003131"
 ---
 # <a name="host-aspnet-core-on-windows-with-iis"></a>Hostování ASP.NET Core ve Windows se službou IIS
 
@@ -77,22 +77,26 @@ Při použití hostování v rámci procesu ASP.NET Core aplikace běží ve ste
   * Volání `Program.Main`.
 * Zpracovává životnost nativního požadavku služby IIS.
 
-Model hostování v rámci procesu není podporován pro aplikace ASP.NET Core, které cílí na .NET Framework.
-
 Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Core a aplikací hostovanou v procesu:
 
 ![ASP.NET Core modul ve scénáři hostování v rámci procesu](index/_static/ancm-inprocess.png)
 
-Požadavek přijde z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje nativní požadavek na IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul ASP.NET Core obdrží nativní požadavek a předá ho k serveru HTTP služby IIS (`IISHttpServer`). HTTP server IIS je vnitroprocesové implementace v rámci procesového serveru pro službu IIS, která převádí požadavek z nativního na spravovanou.
+1. Požadavek přijde z webu do ovladače HTTP. sys v režimu jádra.
+1. Ovladač směruje nativní požadavek na IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS).
+1. Modul ASP.NET Core obdrží nativní požadavek a předá ho k serveru HTTP služby IIS (`IISHttpServer`). HTTP server IIS je vnitroprocesové implementace v rámci procesového serveru pro službu IIS, která převádí požadavek z nativního na spravovanou.
 
-Poté, co server HTTP služby IIS požadavek zpracuje, je požadavek vložen do kanálu middleware ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Odpověď aplikace se předává zpět službě IIS prostřednictvím serveru IIS HTTP. Služba IIS odešle odpověď klientovi, který žádost inicioval.
+Poté, co server HTTP služby IIS zpracuje požadavek:
 
-Vnitroprocesové hostování v rámci procesu je výslovný souhlas pro existující aplikace, ale [dotnet nové](/dotnet/core/tools/dotnet-new) šablony jsou výchozí pro všechny scénáře hostování v rámci procesu pro všechny služby IIS a IIS Express.
+1. Požadavek se odešle do kanálu middleware ASP.NET Core.
+1. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace.
+1. Odpověď aplikace se předává zpět službě IIS prostřednictvím serveru IIS HTTP.
+1. Služba IIS odešle odpověď klientovi, který žádost inicioval.
 
-`CreateDefaultBuilder`<xref:Microsoft.AspNetCore.Hosting.Server.IServer> přidá instanci <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> voláním metody pro spuštění [CoreCLR](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*W3wp. exe* nebo *IISExpress. exe*). Testy výkonu označují, že hostování aplikace .NET Core v rámci procesu přináší výrazně vyšší propustnost žádostí v porovnání s hostováním aplikací mimo proces a požadavky na proxy serveru na [Kestrel](xref:fundamentals/servers/kestrel) Server.
+Hostování v procesu je výslovný souhlas pro existující aplikace. Webové šablony ASP.NET Core používají model hostování v rámci procesu.
 
-> [!NOTE]
-> Aplikace publikované jako spustitelný soubor s jedním souborem nejde načíst pomocí modelu hostování v rámci procesu.
+`CreateDefaultBuilder`<xref:Microsoft.AspNetCore.Hosting.Server.IServer> přidá instanci <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIIS*> voláním metody pro spuštění [CoreCLR](/dotnet/standard/glossary#coreclr) a hostování aplikace uvnitř pracovního procesu služby IIS (*W3wp. exe* nebo *IISExpress. exe*). Testy výkonu označují, že hostování aplikace .NET Core v rámci procesu přináší výrazně vyšší propustnost žádostí v porovnání s hostováním aplikace mimo proces a požadavky na proxy server do [Kestrel](xref:fundamentals/servers/kestrel).
+
+Aplikace publikované jako spustitelný soubor s jedním souborem nejde načíst pomocí modelu hostování v rámci procesu.
 
 ### <a name="out-of-process-hosting-model"></a>Model hostování mimo proces
 
@@ -102,11 +106,14 @@ Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Cor
 
 ![ASP.NET Core modul ve scénáři hostování mimo proces](index/_static/ancm-outofprocess.png)
 
-Požadavky přicházející z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
+1. Požadavky přicházející z webu do ovladače HTTP. sys v režimu jádra.
+1. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu. Nakonfigurovaný port je obvykle 80 (HTTP) nebo 443 (HTTPS).
+1. Modul předá požadavky do Kestrel na náhodném portu pro aplikaci. Náhodný port není 80 nebo 443.
 
-Modul Určuje port přes proměnnou prostředí při spuštění a <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> rozšíření nakonfiguruje server tak, aby naslouchal. `http://localhost:{PORT}` Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS, takže požadavky se předávají přes protokol HTTP i v případě, že je služba IIS prostřednictvím protokolu HTTPS přijímá.
+<!-- make this a bullet list -->
+Modul ASP.NET Core Určuje port prostřednictvím proměnné prostředí při spuštění. <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderIISExtensions.UseIISIntegration*> Rozšíření nakonfiguruje server tak, aby naslouchal `http://localhost:{PORT}`. Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS. Požadavky jsou předávány přes protokol HTTP i v případě, že jsou přijímány službou IIS prostřednictvím protokolu HTTPS.
 
-Po Kestrel žádosti z modulu se požadavek odešle do kanálu middlewaru ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Middleware přidaný integrací služby IIS: aktualizace schématu, vzdálené IP adresy a pathbase pro přesměrování požadavku do Kestrel. Odpověď aplikace se předává zpátky do služby IIS, která ji přenáší zpátky do klienta HTTP, který žádost inicioval.
+Jakmile Kestrel požadavek z modulu přijme, požadavek se přepošle do kanálu middleware ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Middleware přidaný integrací služby IIS: aktualizace schématu, vzdálené IP adresy a pathbase pro přesměrování požadavku do Kestrel. Odpověď aplikace se předává zpátky do služby IIS, která je předává zpátky klientovi HTTP, který žádost inicioval.
 
 Pokyny ke konfiguraci ASP.NET Core modulu najdete v <xref:host-and-deploy/aspnet-core-module>tématu.
 
@@ -165,7 +172,14 @@ services.Configure<IISOptions>(options =>
 
 ### <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
 
-[Služba IIS Integration middleware](#enable-the-iisintegration-components), která konfiguruje middleware předávaných hlaviček, a modul ASP.NET Core je nakonfigurován tak, aby přenesl schéma (http/https) a vzdálenou IP adresu, kam pochází požadavek. Pro aplikace hostované za dalšími proxy servery a nástroji pro vyrovnávání zatížení může být vyžadována další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
+[Middleware pro integraci služby IIS](#enable-the-iisintegration-components) a modul ASP.NET Core jsou nakonfigurované pro přeposílání:
+
+* Schéma (HTTP/HTTPS).
+* Vzdálená IP adresa, ze které pochází požadavek.
+
+Middleware pro [integraci služby IIS](#enable-the-iisintegration-components) konfiguruje middleware předávaných hlaviček.
+
+Pro aplikace hostované za dalšími proxy servery a nástroji pro vyrovnávání zatížení může být vyžadována další konfigurace. Další informace najdete v tématu [konfigurace ASP.NET Core pro práci se servery proxy a nástroji pro vyrovnávání zatížení](xref:host-and-deploy/proxy-load-balancer).
 
 ### <a name="webconfig-file"></a>soubor Web. config
 
@@ -201,7 +215,7 @@ Citlivé soubory existují na fyzické cestě aplikace, jako je například * \<
 
 ### <a name="transform-webconfig"></a>Transformace souboru web.config
 
-Pokud potřebujete transformovat *Web. config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig>.
+Pokud potřebujete transformovat *Web. config* při publikování, přečtěte <xref:host-and-deploy/iis/transform-webconfig>si téma. Může být nutné transformovat *Web. config* při publikování a nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí.
 
 ## <a name="iis-configuration"></a>Konfigurace služby IIS
 
@@ -638,7 +652,7 @@ Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-m
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:test/troubleshoot>
 * <xref:index>
@@ -682,7 +696,11 @@ K publikování 64 aplikace použijte 64 .NET Core SDK (x64). V hostitelském sy
 
 ### <a name="in-process-hosting-model"></a>Model hostování v procesu
 
-Při použití hostování v rámci procesu ASP.NET Core aplikace běží ve stejném procesu jako jeho pracovní proces služby IIS. Hostování v rámci procesů poskytují lepší výkon než hostování mimo procesy, protože požadavky nejsou proxy serverem přes adaptér zpětné smyčky, síťové rozhraní, které vrátí odchozí síťový provoz zpátky do stejného počítače. Služba IIS zpracovává správu procesů pomocí [aktivační služby procesů systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
+Při použití hostování v rámci procesu ASP.NET Core aplikace běží ve stejném procesu jako jeho pracovní proces služby IIS. Hostování v rámci procesů poskytují lepší výkon než hostování mimo procesy z těchto důvodů:
+
+* Žádosti nejsou proxy serverem přes adaptér zpětné smyčky. Adaptér zpětné smyčky je síťové rozhraní, které vrátí odchozí síťový provoz zpátky do stejného počítače.
+
+Služba IIS zpracovává správu procesů pomocí [aktivační služby procesů systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
 [Modul ASP.NET Core](xref:host-and-deploy/aspnet-core-module):
 
@@ -1234,7 +1252,7 @@ Chcete-li zabránit aplikacím hostovaným v [procesu](#out-of-process-hosting-m
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:test/troubleshoot>
 * <xref:index>
@@ -1752,7 +1770,7 @@ Pro ASP.NET Core aplikaci, která cílí na .NET Framework, požadavky na možno
 * <xref:test/troubleshoot-azure-iis>
 * <xref:host-and-deploy/azure-iis-errors-reference>
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:test/troubleshoot>
 * <xref:index>

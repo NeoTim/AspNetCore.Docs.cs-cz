@@ -1,5 +1,5 @@
 ---
-title: Vytváření a používání ASP.NET Corech komponent Razor
+title: Vytvoření a použití komponent Razor ASP.NET Core
 author: guardrex
 description: Naučte se vytvářet a používat Razor komponenty, včetně toho, jak navazovat data, zpracovávat události a spravovat životní cykly komponent.
 monikerRange: '>= aspnetcore-3.1'
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: 9e36a3239e703e1279feafc65288a1f9ec82c277
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
+ms.openlocfilehash: de8696488292dfc409c5ed83ea0b88a54a001696
+ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967178"
+ms.lasthandoff: 05/09/2020
+ms.locfileid: "83003062"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití komponent Razor ASP.NET Core
 
@@ -967,6 +967,6 @@ Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů
 
 Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg>` značku přímo umístíte do souboru komponenty (*. Razor*), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů ještě není podporováno. Například `<use>` značky nejsou aktuálně dodržovány a `@bind` nelze je použít s některými značkami SVG. Očekáváme, že tato omezení vyřešíme v budoucí verzi.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/blazor/server/threat-mitigation>&ndash; Obsahuje doprovodné materiály k Blazor vytváření serverových aplikací, které se musí soupeří s vyčerpáním prostředků.

@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: a0f7c070514de26ae007526a5587c13d26d1eb1b
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 56c8d799b98cc09b8cfff12744c6eeb46af4f8e6
+ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777173"
+ms.lasthandoff: 05/09/2020
+ms.locfileid: "83003167"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu ve ASP.NET Core MVC a Razor stránkách
 
@@ -55,7 +55,7 @@ Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti m
 
 Tady jsou některé z vestavěných ověřovacích atributů:
 
-* `[CreditCard]`: Ověří, zda má vlastnost formát kreditní karty.
+* `[CreditCard]`: Ověří, zda má vlastnost formát kreditní karty. Vyžaduje [Další metody ověření jQuery](https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js).
 * `[Compare]`: Ověří, že se dvě vlastnosti v modelu shodují.
 * `[EmailAddress]`: Ověří, zda má vlastnost formát e-mailu.
 * `[Phone]`: Ověří, zda má vlastnost formát telefonního čísla.
@@ -122,7 +122,7 @@ Jak bylo uvedeno dříve, typy neumožňující hodnotu null jsou považovány z
 
 Implementace vzdáleného ověřování:
 
-1. Vytvořte metodu Action pro volání JavaScriptu.  Metoda jQuery Validate [Remote](https://jqueryvalidation.org/remote-method/) očekává odpověď JSON:
+1. Vytvořte metodu Action pro volání JavaScriptu.  [Vzdálená](https://jqueryvalidation.org/remote-method/) metoda ověření jQuery očekává odpověď JSON:
 
    * `true`znamená, že jsou vstupní data platná.
    * `false`, `undefined`nebo `null` znamená, že vstup není platný. Zobrazí výchozí chybovou zprávu.
@@ -248,7 +248,7 @@ Ověřování na straně klienta zabrání zbytečnému přenosu na server, poku
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Views/Shared/_ValidationScriptsPartial.cshtml?name=snippet_Scripts)]
 
-Skript [jQuery](https://github.com/aspnet/jquery-validation-unobtrusive) nenáročného ověřování je vlastní knihovna front-end Microsoftu, která se vytváří na oblíbený modul plug-in [jQuery pro ověření](https://jqueryvalidation.org/) . Bez nenáročného ověřování by bylo nutné kód stejné ověřovací logiky nakódovat na dvou místech: jednou v atributech ověřování na straně serveru u vlastností modelu a pak znovu v skriptech na straně klienta. Místo toho [můžou pomocníky značek](xref:mvc/views/tag-helpers/intro) a [nápovědu HTML](xref:mvc/views/overview) používat atributy ověřování a metadata typu z vlastností modelu k vykreslování atributů HTML 5 `data-` pro prvky formuláře, které vyžadují ověření. jQuery nenáročné ověřování analyzuje `data-` atributy a předá logiku do příkazu jQuery Validate a efektivně kopíruje logiku ověřování na straně serveru do klienta. Chyby ověřování můžete zobrazit na klientovi pomocí značek pomocníka, jak je znázorněno zde:
+Skript [jQuery pro ověření](https://github.com/aspnet/jquery-validation-unobtrusive) je vlastní knihovna front-end Microsoftu, která se vytváří na oblíbený modul plug-in pro [ověření jQuery](https://jqueryvalidation.org/) . Bez nenáročného ověřování by bylo nutné kód stejné ověřovací logiky nakódovat na dvou místech: jednou v atributech ověřování na straně serveru u vlastností modelu a pak znovu v skriptech na straně klienta. Místo toho [můžou pomocníky značek](xref:mvc/views/tag-helpers/intro) a [nápovědu HTML](xref:mvc/views/overview) používat atributy ověřování a metadata typu z vlastností modelu k vykreslování atributů HTML 5 `data-` pro prvky formuláře, které vyžadují ověření. jQuery nenáročné ověřování analyzuje `data-` atributy a předá logiku k ověřování jQuery a efektivně "kopíruje" logiku ověřování na straně serveru klientovi. Chyby ověřování můžete zobrazit na klientovi pomocí značek pomocníka, jak je znázorněno zde:
 
 [!code-cshtml[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml?name=snippet_ReleaseDate&highlight=3-4)]
 
@@ -265,7 +265,7 @@ Předchozí pomocník značek vykresluje následující kód HTML:
 </div>
 ```
 
-Všimněte si, `data-` že atributy ve výstupu HTML odpovídají atributům ověřování pro `Movie.ReleaseDate` vlastnost. `data-val-required` Atribut obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném ** \<elementu span>** .
+Všimněte si, `data-` že atributy ve výstupu HTML odpovídají atributům ověřování pro `Movie.ReleaseDate` vlastnost. `data-val-required` Atribut obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě pro ověření jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném ** \<elementu span>** .
 
 Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]`atributy a podtřídy, jako je `[EmailAddress]` například umožňuje zadat chybovou zprávu.
 
@@ -275,7 +275,7 @@ Informace o nenáročnosti ověřování najdete v [tomto problému GitHubu](htt
 
 ### <a name="add-validation-to-dynamic-forms"></a>Přidání ověřování do dynamických formulářů
 
-jQuery – neúspěšné ověření projde logiku ověření a parametry, které se při prvním načtení stránky ověřují. Proto ověřování nefunguje automaticky na dynamicky generovaných formulářích. Chcete-li povolit ověřování, řekněte jQuery nenápadu ověřování, aby se dynamický formulář analyzoval ihned po jeho vytvoření. Například následující kód nastaví ověřování na straně klienta na formuláři přidaném prostřednictvím jazyka AJAX.
+jQuery – neúspěšné ověření projde logiku ověřování a parametry k ověření jQuery při prvním načtení stránky. Proto ověřování nefunguje automaticky na dynamicky generovaných formulářích. Chcete-li povolit ověřování, řekněte jQuery nenápadu ověřování, aby se dynamický formulář analyzoval ihned po jeho vytvoření. Například následující kód nastaví ověřování na straně klienta na formuláři přidaném prostřednictvím jazyka AJAX.
 
 ```javascript
 $.get({
@@ -294,7 +294,7 @@ $.get({
 })
 ```
 
-`$.validator.unobtrusive.parse()` Metoda přijímá selektor jQuery pro svůj jeden argument. Tato metoda oznamuje nenáročné ověřování, aby bylo `data-` možné analyzovat atributy formulářů v rámci tohoto selektoru. Hodnoty těchto atributů jsou poté předány modulu plug-in jQuery Validate.
+`$.validator.unobtrusive.parse()` Metoda přijímá selektor jQuery pro svůj jeden argument. Tato metoda oznamuje nenáročné ověřování, aby bylo `data-` možné analyzovat atributy formulářů v rámci tohoto selektoru. Hodnoty těchto atributů jsou poté předány modulu plug-in pro ověření jQuery.
 
 ### <a name="add-validation-to-dynamic-controls"></a>Přidání ověřování do dynamických ovládacích prvků
 
@@ -310,7 +310,7 @@ $.get({
     success: function(newInputHTML) {
         var form = document.getElementById("my-form");
         form.insertAdjacentHTML("beforeend", newInputHTML);
-        $(form).removeData("validator")    // Added by jQuery Validate
+        $(form).removeData("validator")    // Added by jQuery Validation
                .removeData("unobtrusiveValidation");   // Added by jQuery Unobtrusive Validation
         $.validator.unobtrusive.parse(form);
     }
@@ -323,7 +323,7 @@ Vlastní ověřování na straně klienta se provádí generováním `data-` atr
 
 [!code-javascript[](validation/samples/3.x/ValidationSample/wwwroot/js/classicMovieValidator.js)]
 
-Informace o tom, jak psát adaptéry, najdete v [dokumentaci ke službě jQuery Validate](https://jqueryvalidation.org/documentation/).
+Informace o tom, jak psát adaptéry, najdete v [dokumentaci k ověření jQuery](https://jqueryvalidation.org/documentation/).
 
 Použití adaptéru pro dané pole se spustí pomocí `data-` atributů, které:
 
@@ -384,7 +384,7 @@ Další možnosti zakázání ověřování na straně klienta:
 
 Předchozí přístup nebrání ověřování na straně klienta ASP.NET Core Identity Razor knihovny tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazba modelu](model-binding.md)
@@ -754,7 +754,7 @@ A na Razor stránkách:
 
 Další možností pro zakázání ověřování klienta je přidat komentář k odkazu do `_ValidationScriptsPartial` souboru *. cshtml* .
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Obor názvů System. ComponentModel. DataAnnotations](xref:System.ComponentModel.DataAnnotations)
 * [Vazba modelu](model-binding.md)
