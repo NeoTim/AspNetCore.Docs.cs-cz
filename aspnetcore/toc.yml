@@ -339,14 +339,16 @@
                   uid: security/blazor/webassembly/standalone-with-azure-active-directory
                 - name: Samostatná aplikace využívající Azure Active Directory B2C
                   uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-                - name: Hostovaná aplikace využívající server identit
-                  uid: security/blazor/webassembly/hosted-with-identity-server
                 - name: Hostovaná aplikace využívající Azure Active Directory
                   uid: security/blazor/webassembly/hosted-with-azure-active-directory
                 - name: Hostovaná aplikace využívající Azure Active Directory B2C
                   uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+                - name: Hostovaná aplikace využívající server identit
+                  uid: security/blazor/webassembly/hosted-with-identity-server
                 - name: Další scénáře
                   uid: security/blazor/webassembly/additional-scenarios
+                - name: Skupiny a role AAD
+                  uid: security/blazor/webassembly/aad-groups-roles
             - name: Blazor Server
               items:
                 - name: Přehled
@@ -1134,14 +1136,16 @@
               uid: security/blazor/webassembly/standalone-with-azure-active-directory
             - name: Samostatná aplikace využívající Azure Active Directory B2C
               uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-            - name: Hostovaná aplikace využívající server identit
-              uid: security/blazor/webassembly/hosted-with-identity-server
             - name: Hostovaná aplikace využívající Azure Active Directory
               uid: security/blazor/webassembly/hosted-with-azure-active-directory
             - name: Hostovaná aplikace využívající Azure Active Directory B2C
               uid: security/blazor/webassembly/hosted-with-azure-active-directory-b2c
+            - name: Hostovaná aplikace využívající server identit
+              uid: security/blazor/webassembly/hosted-with-identity-server
             - name: Další scénáře
               uid: security/blazor/webassembly/additional-scenarios
+            - name: Skupiny a role AAD
+              uid: security/blazor/webassembly/aad-groups-roles
         - name: Blazor Server
           items:
             - name: Přehled
