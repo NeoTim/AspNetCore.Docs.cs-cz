@@ -1,11 +1,11 @@
 ---
-title: Zabezpečení hostované aplikace Blazor ASP.NET Core WebAssembly se Identity serverem
+title: Zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly se Identity serverem
 author: guardrex
 description: Vytvoření nové Blazor hostované aplikace s ověřováním v sadě Visual Studio, které používá back-end [IdentityServer](https://identityserver.io/)
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/24/2020
+ms.date: 05/11/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,48 +13,48 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-identity-server
-ms.openlocfilehash: bf2298618e922df412e0742177afd390c4116388
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 2ab43ac5f4de398c57707de23a06a1650f6140cb
+ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768117"
+ms.lasthandoff: 05/12/2020
+ms.locfileid: "83153637"
 ---
-# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a><span data-ttu-id="bcd53-103">Zabezpečení hostované aplikace Blazor ASP.NET Core WebAssembly se Identity serverem</span><span class="sxs-lookup"><span data-stu-id="bcd53-103">Secure an ASP.NET Core Blazor WebAssembly hosted app with Identity Server</span></span>
+# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a><span data-ttu-id="ca914-103">Zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly se Identity serverem</span><span class="sxs-lookup"><span data-stu-id="ca914-103">Secure an ASP.NET Core Blazor WebAssembly hosted app with Identity Server</span></span>
 
-<span data-ttu-id="bcd53-104">Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="bcd53-104">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="ca914-104">Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="ca914-104">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
 [!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
 
-<span data-ttu-id="bcd53-105">Vytvoření nové Blazor hostované aplikace v aplikaci Visual Studio, která používá [IdentityServer](https://identityserver.io/) k ověřování uživatelů a volání rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="bcd53-105">To create a new Blazor hosted app in Visual Studio that uses [IdentityServer](https://identityserver.io/) to authenticate users and API calls:</span></span>
+<span data-ttu-id="ca914-105">Vytvoření nové Blazor hostované aplikace v aplikaci Visual Studio, která používá [IdentityServer](https://identityserver.io/) k ověřování uživatelů a volání rozhraní API:</span><span class="sxs-lookup"><span data-stu-id="ca914-105">To create a new Blazor hosted app in Visual Studio that uses [IdentityServer](https://identityserver.io/) to authenticate users and API calls:</span></span>
 
-1. <span data-ttu-id="bcd53-106">Pomocí sady Visual Studio vytvořte novou \*\* Blazor aplikaci WebAssembly\*\* .</span><span class="sxs-lookup"><span data-stu-id="bcd53-106">Use Visual Studio to create a new **Blazor WebAssembly** app.</span></span> <span data-ttu-id="bcd53-107">Další informace naleznete v tématu <xref:blazor/get-started>.</span><span class="sxs-lookup"><span data-stu-id="bcd53-107">For more information, see <xref:blazor/get-started>.</span></span>
-1. <span data-ttu-id="bcd53-108">V dialogovém okně **vytvořit novou Blazor aplikaci** vyberte v části **ověřování** možnost **změnit** .</span><span class="sxs-lookup"><span data-stu-id="bcd53-108">In the **Create a new Blazor app** dialog, select **Change** in the **Authentication** section.</span></span>
-1. <span data-ttu-id="bcd53-109">Vyberte **jednotlivé uživatelské účty** a potom klikněte na **OK**.</span><span class="sxs-lookup"><span data-stu-id="bcd53-109">Select **Individual User Accounts** followed by **OK**.</span></span>
-1. <span data-ttu-id="bcd53-110">Zaškrtněte políčko **ASP.NET Core hostované** v části **Upřesnit** .</span><span class="sxs-lookup"><span data-stu-id="bcd53-110">Select the **ASP.NET Core hosted** checkbox in the **Advanced** section.</span></span>
-1. <span data-ttu-id="bcd53-111">Vyberte tlačítko **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="bcd53-111">Select the **Create** button.</span></span>
+1. <span data-ttu-id="ca914-106">Pomocí sady Visual Studio vytvořte novou aplikaci \*\* Blazor WebAssembly\*\* .</span><span class="sxs-lookup"><span data-stu-id="ca914-106">Use Visual Studio to create a new **Blazor WebAssembly** app.</span></span> <span data-ttu-id="ca914-107">Další informace naleznete v tématu <xref:blazor/get-started>.</span><span class="sxs-lookup"><span data-stu-id="ca914-107">For more information, see <xref:blazor/get-started>.</span></span>
+1. <span data-ttu-id="ca914-108">V dialogovém okně **vytvořit novou Blazor aplikaci** vyberte v části **ověřování** možnost **změnit** .</span><span class="sxs-lookup"><span data-stu-id="ca914-108">In the **Create a new Blazor app** dialog, select **Change** in the **Authentication** section.</span></span>
+1. <span data-ttu-id="ca914-109">Vyberte **jednotlivé uživatelské účty** a potom klikněte na **OK**.</span><span class="sxs-lookup"><span data-stu-id="ca914-109">Select **Individual User Accounts** followed by **OK**.</span></span>
+1. <span data-ttu-id="ca914-110">Zaškrtněte políčko **ASP.NET Core hostované** v části **Upřesnit** .</span><span class="sxs-lookup"><span data-stu-id="ca914-110">Select the **ASP.NET Core hosted** checkbox in the **Advanced** section.</span></span>
+1. <span data-ttu-id="ca914-111">Vyberte tlačítko **Vytvořit**.</span><span class="sxs-lookup"><span data-stu-id="ca914-111">Select the **Create** button.</span></span>
 
-<span data-ttu-id="bcd53-112">Pokud chcete vytvořit aplikaci v příkazovém prostředí, spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="bcd53-112">To create the app in a command shell, execute the following command:</span></span>
+<span data-ttu-id="ca914-112">Pokud chcete vytvořit aplikaci v příkazovém prostředí, spusťte následující příkaz:</span><span class="sxs-lookup"><span data-stu-id="ca914-112">To create the app in a command shell, execute the following command:</span></span>
 
 ```dotnetcli
 dotnet new blazorwasm -au Individual -ho
 ```
 
-<span data-ttu-id="bcd53-113">Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample`).</span><span class="sxs-lookup"><span data-stu-id="bcd53-113">To specify the output location, which creates a project folder if it doesn't exist, include the output option in the command with a path (for example, `-o BlazorSample`).</span></span> <span data-ttu-id="bcd53-114">Název složky se také stal součástí názvu projektu.</span><span class="sxs-lookup"><span data-stu-id="bcd53-114">The folder name also becomes part of the project's name.</span></span>
+<span data-ttu-id="ca914-113">Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample` ).</span><span class="sxs-lookup"><span data-stu-id="ca914-113">To specify the output location, which creates a project folder if it doesn't exist, include the output option in the command with a path (for example, `-o BlazorSample`).</span></span> <span data-ttu-id="ca914-114">Název složky se také stal součástí názvu projektu.</span><span class="sxs-lookup"><span data-stu-id="ca914-114">The folder name also becomes part of the project's name.</span></span>
 
-## <a name="server-app-configuration"></a><span data-ttu-id="bcd53-115">Konfigurace aplikace serveru</span><span class="sxs-lookup"><span data-stu-id="bcd53-115">Server app configuration</span></span>
+## <a name="server-app-configuration"></a><span data-ttu-id="ca914-115">Konfigurace aplikace serveru</span><span class="sxs-lookup"><span data-stu-id="ca914-115">Server app configuration</span></span>
 
-<span data-ttu-id="bcd53-116">Následující části popisují přidání do projektu, pokud je zahrnutá Podpora ověřování.</span><span class="sxs-lookup"><span data-stu-id="bcd53-116">The following sections describe additions to the project when authentication support is included.</span></span>
+<span data-ttu-id="ca914-116">Následující části popisují přidání do projektu, pokud je zahrnutá Podpora ověřování.</span><span class="sxs-lookup"><span data-stu-id="ca914-116">The following sections describe additions to the project when authentication support is included.</span></span>
 
-### <a name="startup-class"></a><span data-ttu-id="bcd53-117">Spouštěcí třída</span><span class="sxs-lookup"><span data-stu-id="bcd53-117">Startup class</span></span>
+### <a name="startup-class"></a><span data-ttu-id="ca914-117">Spouštěcí třída</span><span class="sxs-lookup"><span data-stu-id="ca914-117">Startup class</span></span>
 
-<span data-ttu-id="bcd53-118">`Startup` Třída má následující doplňky:</span><span class="sxs-lookup"><span data-stu-id="bcd53-118">The `Startup` class has the following additions:</span></span>
+<span data-ttu-id="ca914-118">`Startup`Třída má následující doplňky:</span><span class="sxs-lookup"><span data-stu-id="ca914-118">The `Startup` class has the following additions:</span></span>
 
-* <span data-ttu-id="bcd53-119">V `Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="bcd53-119">In `Startup.ConfigureServices`:</span></span>
+* <span data-ttu-id="ca914-119">V `Startup.ConfigureServices`:</span><span class="sxs-lookup"><span data-stu-id="ca914-119">In `Startup.ConfigureServices`:</span></span>
 
-  * Identity<span data-ttu-id="bcd53-120">:</span><span class="sxs-lookup"><span data-stu-id="bcd53-120">:</span></span>
+  * Identity<span data-ttu-id="ca914-120">:</span><span class="sxs-lookup"><span data-stu-id="ca914-120">:</span></span>
 
     ```csharp
     services.AddDbContext<ApplicationDbContext>(options =>
@@ -66,69 +66,69 @@ dotnet new blazorwasm -au Individual -ho
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * <span data-ttu-id="bcd53-121">IdentityServer s další <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> pomocnou metodou, která nastaví některé výchozí konvence ASP.NET Core nad IdentityServer:</span><span class="sxs-lookup"><span data-stu-id="bcd53-121">IdentityServer with an additional <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> helper method that sets up some default ASP.NET Core conventions on top of IdentityServer:</span></span>
+  * <span data-ttu-id="ca914-121">IdentityServer s další <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> pomocnou metodou, která nastaví některé výchozí konvence ASP.NET Core nad IdentityServer:</span><span class="sxs-lookup"><span data-stu-id="ca914-121">IdentityServer with an additional <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> helper method that sets up some default ASP.NET Core conventions on top of IdentityServer:</span></span>
 
     ```csharp
     services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * <span data-ttu-id="bcd53-122">Ověřování s další <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> pomocnou metodou, která nakonfiguruje aplikaci pro ověření TOKENů JWT vyprodukovaných pomocí IdentityServer:</span><span class="sxs-lookup"><span data-stu-id="bcd53-122">Authentication with an additional <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> helper method that configures the app to validate JWT tokens produced by IdentityServer:</span></span>
+  * <span data-ttu-id="ca914-122">Ověřování s další <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> pomocnou metodou, která nakonfiguruje aplikaci pro ověření tokenů JWT vyprodukovaných pomocí IdentityServer:</span><span class="sxs-lookup"><span data-stu-id="ca914-122">Authentication with an additional <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> helper method that configures the app to validate JWT tokens produced by IdentityServer:</span></span>
 
     ```csharp
     services.AddAuthentication()
         .AddIdentityServerJwt();
     ```
 
-* <span data-ttu-id="bcd53-123">V `Startup.Configure`:</span><span class="sxs-lookup"><span data-stu-id="bcd53-123">In `Startup.Configure`:</span></span>
+* <span data-ttu-id="ca914-123">V `Startup.Configure`:</span><span class="sxs-lookup"><span data-stu-id="ca914-123">In `Startup.Configure`:</span></span>
 
-  * <span data-ttu-id="bcd53-124">Middleware ověřování, který zodpovídá za ověření přihlašovacích údajů požadavku a nastavení uživatele v kontextu požadavku:</span><span class="sxs-lookup"><span data-stu-id="bcd53-124">The authentication middleware that is responsible for validating the request credentials and setting the user on the request context:</span></span>
+  * <span data-ttu-id="ca914-124">Middleware ověřování, který zodpovídá za ověření přihlašovacích údajů požadavku a nastavení uživatele v kontextu požadavku:</span><span class="sxs-lookup"><span data-stu-id="ca914-124">The authentication middleware that is responsible for validating the request credentials and setting the user on the request context:</span></span>
 
     ```csharp
     app.UseAuthentication();
     ```
 
-  * <span data-ttu-id="bcd53-125">Middleware IdentityServer, který zveřejňuje koncové body Open ID Connect (OIDC):</span><span class="sxs-lookup"><span data-stu-id="bcd53-125">The IdentityServer middleware that exposes the Open ID Connect (OIDC) endpoints:</span></span>
+  * <span data-ttu-id="ca914-125">Middleware IdentityServer, který zveřejňuje koncové body Open ID Connect (OIDC):</span><span class="sxs-lookup"><span data-stu-id="ca914-125">The IdentityServer middleware that exposes the Open ID Connect (OIDC) endpoints:</span></span>
 
     ```csharp
     app.UseIdentityServer();
     ```
 
-  * <span data-ttu-id="bcd53-126">Middleware pro ověřování a autorizaci:</span><span class="sxs-lookup"><span data-stu-id="bcd53-126">Authentication and Authorization Middleware:</span></span>
+  * <span data-ttu-id="ca914-126">Middleware pro ověřování a autorizaci:</span><span class="sxs-lookup"><span data-stu-id="ca914-126">Authentication and Authorization Middleware:</span></span>
 
     ```csharp
     app.UseAuthentication();
     app.UseAuthorization();
     ```
 
-### <a name="addapiauthorization"></a><span data-ttu-id="bcd53-127">AddApiAuthorization</span><span class="sxs-lookup"><span data-stu-id="bcd53-127">AddApiAuthorization</span></span>
+### <a name="addapiauthorization"></a><span data-ttu-id="ca914-127">AddApiAuthorization</span><span class="sxs-lookup"><span data-stu-id="ca914-127">AddApiAuthorization</span></span>
 
-<span data-ttu-id="bcd53-128"><xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> Pomocná metoda konfiguruje [IdentityServer](https://identityserver.io/) pro scénáře ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="bcd53-128">The <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> helper method configures [IdentityServer](https://identityserver.io/) for ASP.NET Core scenarios.</span></span> <span data-ttu-id="bcd53-129">IdentityServer je výkonná a rozšiřitelná architektura pro zpracování otázek zabezpečení aplikací.</span><span class="sxs-lookup"><span data-stu-id="bcd53-129">IdentityServer is a powerful and extensible framework for handling app security concerns.</span></span> <span data-ttu-id="bcd53-130">IdentityServer zpřístupňuje zbytečné složitosti pro nejběžnější scénáře.</span><span class="sxs-lookup"><span data-stu-id="bcd53-130">IdentityServer exposes unnecessary complexity for the most common scenarios.</span></span> <span data-ttu-id="bcd53-131">V důsledku toho je k dispozici sada konvencí a možností konfigurace, které považujeme za dobrý výchozí bod.</span><span class="sxs-lookup"><span data-stu-id="bcd53-131">Consequently, a set of conventions and configuration options is provided that we consider a good starting point.</span></span> <span data-ttu-id="bcd53-132">Jakmile se vaše potřeby ověřování změní, je stále k dispozici kompletní výkon IdentityServer, aby bylo možné přizpůsobit ověřování podle požadavků aplikace.</span><span class="sxs-lookup"><span data-stu-id="bcd53-132">Once your authentication needs change, the full power of IdentityServer is still available to customize authentication to suit an app's requirements.</span></span>
+<span data-ttu-id="ca914-128"><xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A>Pomocná metoda konfiguruje [IdentityServer](https://identityserver.io/) pro scénáře ASP.NET Core.</span><span class="sxs-lookup"><span data-stu-id="ca914-128">The <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> helper method configures [IdentityServer](https://identityserver.io/) for ASP.NET Core scenarios.</span></span> <span data-ttu-id="ca914-129">IdentityServer je výkonná a rozšiřitelná architektura pro zpracování otázek zabezpečení aplikací.</span><span class="sxs-lookup"><span data-stu-id="ca914-129">IdentityServer is a powerful and extensible framework for handling app security concerns.</span></span> <span data-ttu-id="ca914-130">IdentityServer zpřístupňuje zbytečné složitosti pro nejběžnější scénáře.</span><span class="sxs-lookup"><span data-stu-id="ca914-130">IdentityServer exposes unnecessary complexity for the most common scenarios.</span></span> <span data-ttu-id="ca914-131">V důsledku toho je k dispozici sada konvencí a možností konfigurace, které považujeme za dobrý výchozí bod.</span><span class="sxs-lookup"><span data-stu-id="ca914-131">Consequently, a set of conventions and configuration options is provided that we consider a good starting point.</span></span> <span data-ttu-id="ca914-132">Jakmile se vaše potřeby ověřování změní, je stále k dispozici kompletní výkon IdentityServer, aby bylo možné přizpůsobit ověřování podle požadavků aplikace.</span><span class="sxs-lookup"><span data-stu-id="ca914-132">Once your authentication needs change, the full power of IdentityServer is still available to customize authentication to suit an app's requirements.</span></span>
 
-### <a name="addidentityserverjwt"></a><span data-ttu-id="bcd53-133">AddIdentityServerJwt</span><span class="sxs-lookup"><span data-stu-id="bcd53-133">AddIdentityServerJwt</span></span>
+### <a name="addidentityserverjwt"></a><span data-ttu-id="ca914-133">AddIdentityServerJwt</span><span class="sxs-lookup"><span data-stu-id="ca914-133">AddIdentityServerJwt</span></span>
 
-<span data-ttu-id="bcd53-134"><xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> Pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování.</span><span class="sxs-lookup"><span data-stu-id="bcd53-134">The <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> helper method configures a policy scheme for the app as the default authentication handler.</span></span> <span data-ttu-id="bcd53-135">Zásady jsou nakonfigurovány tak, Identity aby umožňovaly zpracování všech požadavků směrovaných na jakoukoli dílčí Identity cestu v `/Identity`prostoru URL.</span><span class="sxs-lookup"><span data-stu-id="bcd53-135">The policy is configured to allow Identity to handle all requests routed to any subpath in the Identity URL space `/Identity`.</span></span> <span data-ttu-id="bcd53-136"><xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> Zpracovává všechny ostatní požadavky.</span><span class="sxs-lookup"><span data-stu-id="bcd53-136">The <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> handles all other requests.</span></span> <span data-ttu-id="bcd53-137">Tato metoda navíc:</span><span class="sxs-lookup"><span data-stu-id="bcd53-137">Additionally, this method:</span></span>
+<span data-ttu-id="ca914-134"><xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A>Pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování.</span><span class="sxs-lookup"><span data-stu-id="ca914-134">The <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> helper method configures a policy scheme for the app as the default authentication handler.</span></span> <span data-ttu-id="ca914-135">Zásady jsou nakonfigurovány tak, aby umožňovaly Identity zpracování všech požadavků směrovaných na jakoukoli dílčí cestu v Identity prostoru URL `/Identity` .</span><span class="sxs-lookup"><span data-stu-id="ca914-135">The policy is configured to allow Identity to handle all requests routed to any subpath in the Identity URL space `/Identity`.</span></span> <span data-ttu-id="ca914-136"><xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler>Zpracovává všechny ostatní požadavky.</span><span class="sxs-lookup"><span data-stu-id="ca914-136">The <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> handles all other requests.</span></span> <span data-ttu-id="ca914-137">Tato metoda navíc:</span><span class="sxs-lookup"><span data-stu-id="ca914-137">Additionally, this method:</span></span>
 
-* <span data-ttu-id="bcd53-138">Zaregistruje prostředek `{APPLICATION NAME}API` rozhraní API s IdentityServer s výchozím oborem `{APPLICATION NAME}API`.</span><span class="sxs-lookup"><span data-stu-id="bcd53-138">Registers an `{APPLICATION NAME}API` API resource with IdentityServer with a default scope of `{APPLICATION NAME}API`.</span></span>
-* <span data-ttu-id="bcd53-139">Konfiguruje middleware tokenu JWT nosiče k ověření tokenů vydaných IdentityServer pro aplikaci.</span><span class="sxs-lookup"><span data-stu-id="bcd53-139">Configures the JWT Bearer Token Middleware to validate tokens issued by IdentityServer for the app.</span></span>
+* <span data-ttu-id="ca914-138">Zaregistruje `{APPLICATION NAME}API` prostředek rozhraní API s IdentityServer s výchozím oborem `{APPLICATION NAME}API` .</span><span class="sxs-lookup"><span data-stu-id="ca914-138">Registers an `{APPLICATION NAME}API` API resource with IdentityServer with a default scope of `{APPLICATION NAME}API`.</span></span>
+* <span data-ttu-id="ca914-139">Konfiguruje middleware tokenu JWT nosiče k ověření tokenů vydaných IdentityServer pro aplikaci.</span><span class="sxs-lookup"><span data-stu-id="ca914-139">Configures the JWT Bearer Token Middleware to validate tokens issued by IdentityServer for the app.</span></span>
 
-### <a name="weatherforecastcontroller"></a><span data-ttu-id="bcd53-140">WeatherForecastController</span><span class="sxs-lookup"><span data-stu-id="bcd53-140">WeatherForecastController</span></span>
+### <a name="weatherforecastcontroller"></a><span data-ttu-id="ca914-140">WeatherForecastController</span><span class="sxs-lookup"><span data-stu-id="ca914-140">WeatherForecastController</span></span>
 
-<span data-ttu-id="bcd53-141">V `WeatherForecastController` (*Controllers/WeatherForecastController. cs*) je [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) atribut použit pro třídu.</span><span class="sxs-lookup"><span data-stu-id="bcd53-141">In the `WeatherForecastController` (*Controllers/WeatherForecastController.cs*), the [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute is applied to the class.</span></span> <span data-ttu-id="bcd53-142">Atribut označuje, že uživatel musí být autorizovaný na základě výchozích zásad pro přístup k prostředku.</span><span class="sxs-lookup"><span data-stu-id="bcd53-142">The attribute indicates that the user must be authorized based on the default policy to access the resource.</span></span> <span data-ttu-id="bcd53-143">Výchozí zásada autorizace je nakonfigurovaná tak, aby používala výchozí schéma ověřování, které je nastavené <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> na dříve zmíněné schéma zásad.</span><span class="sxs-lookup"><span data-stu-id="bcd53-143">The default authorization policy is configured to use the default authentication scheme, which is set up by <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> to the policy scheme that was mentioned earlier.</span></span> <span data-ttu-id="bcd53-144">Pomocná metoda se <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> konfiguruje jako výchozí obslužná rutina pro požadavky na aplikaci.</span><span class="sxs-lookup"><span data-stu-id="bcd53-144">The helper method configures <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> as the default handler for requests to the app.</span></span>
+<span data-ttu-id="ca914-141">V `WeatherForecastController` (*Controllers/WeatherForecastController. cs*) [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) je atribut použit pro třídu.</span><span class="sxs-lookup"><span data-stu-id="ca914-141">In the `WeatherForecastController` (*Controllers/WeatherForecastController.cs*), the [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute is applied to the class.</span></span> <span data-ttu-id="ca914-142">Atribut označuje, že uživatel musí být autorizovaný na základě výchozích zásad pro přístup k prostředku.</span><span class="sxs-lookup"><span data-stu-id="ca914-142">The attribute indicates that the user must be authorized based on the default policy to access the resource.</span></span> <span data-ttu-id="ca914-143">Výchozí zásada autorizace je nakonfigurovaná tak, aby používala výchozí schéma ověřování, které je nastavené <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> na dříve zmíněné schéma zásad.</span><span class="sxs-lookup"><span data-stu-id="ca914-143">The default authorization policy is configured to use the default authentication scheme, which is set up by <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> to the policy scheme that was mentioned earlier.</span></span> <span data-ttu-id="ca914-144">Pomocná metoda se konfiguruje <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> jako výchozí obslužná rutina pro požadavky na aplikaci.</span><span class="sxs-lookup"><span data-stu-id="ca914-144">The helper method configures <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler> as the default handler for requests to the app.</span></span>
 
-### <a name="applicationdbcontext"></a><span data-ttu-id="bcd53-145">ApplicationDbContext</span><span class="sxs-lookup"><span data-stu-id="bcd53-145">ApplicationDbContext</span></span>
+### <a name="applicationdbcontext"></a><span data-ttu-id="ca914-145">ApplicationDbContext</span><span class="sxs-lookup"><span data-stu-id="ca914-145">ApplicationDbContext</span></span>
 
-<span data-ttu-id="bcd53-146">`ApplicationDbContext` V (*data/ApplicationDbContext. cs*) se <xref:Microsoft.EntityFrameworkCore.DbContext> stejný používá v Identity s výjimkou, kterou rozšiřuje <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> , aby zahrnovalo schéma pro IdentityServer.</span><span class="sxs-lookup"><span data-stu-id="bcd53-146">In the `ApplicationDbContext` (*Data/ApplicationDbContext.cs*), the same <xref:Microsoft.EntityFrameworkCore.DbContext> is used in Identity with the exception that it extends <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> to include the schema for IdentityServer.</span></span> <span data-ttu-id="bcd53-147"><xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>je odvozen z <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>.</span><span class="sxs-lookup"><span data-stu-id="bcd53-147"><xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> is derived from <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>.</span></span>
+<span data-ttu-id="ca914-146">V `ApplicationDbContext` (*data/ApplicationDbContext. cs*) se stejný <xref:Microsoft.EntityFrameworkCore.DbContext> používá v Identity s výjimkou, kterou rozšiřuje, <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> aby zahrnovalo schéma pro IdentityServer.</span><span class="sxs-lookup"><span data-stu-id="ca914-146">In the `ApplicationDbContext` (*Data/ApplicationDbContext.cs*), the same <xref:Microsoft.EntityFrameworkCore.DbContext> is used in Identity with the exception that it extends <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> to include the schema for IdentityServer.</span></span> <span data-ttu-id="ca914-147"><xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>je odvozen z <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> .</span><span class="sxs-lookup"><span data-stu-id="ca914-147"><xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> is derived from <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>.</span></span>
 
-<span data-ttu-id="bcd53-148">Chcete-li získat úplné řízení schématu databáze, zdědit jednu Identity <xref:Microsoft.EntityFrameworkCore.DbContext> z dostupných tříd a nakonfigurovat kontext pro zahrnutí Identity schématu voláním `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` v `OnModelCreating` metodě.</span><span class="sxs-lookup"><span data-stu-id="bcd53-148">To gain full control of the database schema, inherit from one of the available Identity <xref:Microsoft.EntityFrameworkCore.DbContext> classes and configure the context to include the Identity schema by calling `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` in the `OnModelCreating` method.</span></span>
+<span data-ttu-id="ca914-148">Chcete-li získat úplné řízení schématu databáze, zdědit jednu z dostupných Identity <xref:Microsoft.EntityFrameworkCore.DbContext> tříd a nakonfigurovat kontext pro zahrnutí Identity schématu voláním `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` v `OnModelCreating` metodě.</span><span class="sxs-lookup"><span data-stu-id="ca914-148">To gain full control of the database schema, inherit from one of the available Identity <xref:Microsoft.EntityFrameworkCore.DbContext> classes and configure the context to include the Identity schema by calling `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` in the `OnModelCreating` method.</span></span>
 
-### <a name="oidcconfigurationcontroller"></a><span data-ttu-id="bcd53-149">OidcConfigurationController</span><span class="sxs-lookup"><span data-stu-id="bcd53-149">OidcConfigurationController</span></span>
+### <a name="oidcconfigurationcontroller"></a><span data-ttu-id="ca914-149">OidcConfigurationController</span><span class="sxs-lookup"><span data-stu-id="ca914-149">OidcConfigurationController</span></span>
 
-<span data-ttu-id="bcd53-150">V `OidcConfigurationController` (*Controllers/OidcConfigurationController. cs*) se koncový bod klienta zřídí pro poskytování parametrů OIDC.</span><span class="sxs-lookup"><span data-stu-id="bcd53-150">In the `OidcConfigurationController` (*Controllers/OidcConfigurationController.cs*), the client endpoint is provisioned to serve OIDC parameters.</span></span>
+<span data-ttu-id="ca914-150">V `OidcConfigurationController` (*Controllers/OidcConfigurationController. cs*) se koncový bod klienta zřídí pro poskytování parametrů OIDC.</span><span class="sxs-lookup"><span data-stu-id="ca914-150">In the `OidcConfigurationController` (*Controllers/OidcConfigurationController.cs*), the client endpoint is provisioned to serve OIDC parameters.</span></span>
 
-### <a name="app-settings-files"></a><span data-ttu-id="bcd53-151">Soubory nastavení aplikace</span><span class="sxs-lookup"><span data-stu-id="bcd53-151">App settings files</span></span>
+### <a name="app-settings-files"></a><span data-ttu-id="ca914-151">Soubory nastavení aplikace</span><span class="sxs-lookup"><span data-stu-id="ca914-151">App settings files</span></span>
 
-<span data-ttu-id="bcd53-152">V souboru nastavení aplikace (*appSettings. JSON*) v kořenovém adresáři projektu obsahuje `IdentityServer` část seznam konfigurovaných klientů.</span><span class="sxs-lookup"><span data-stu-id="bcd53-152">In the app settings file (*appsettings.json*) at the project root, the `IdentityServer` section describes the list of configured clients.</span></span> <span data-ttu-id="bcd53-153">V následujícím příkladu je jeden klient.</span><span class="sxs-lookup"><span data-stu-id="bcd53-153">In the following example, there's a single client.</span></span> <span data-ttu-id="bcd53-154">Název klienta odpovídá názvu aplikace a je mapován podle konvence na parametr OAuth `ClientId` .</span><span class="sxs-lookup"><span data-stu-id="bcd53-154">The client name corresponds to the app name and is mapped by convention to the OAuth `ClientId` parameter.</span></span> <span data-ttu-id="bcd53-155">Profil indikuje typ aplikace, která se konfiguruje.</span><span class="sxs-lookup"><span data-stu-id="bcd53-155">The profile indicates the app type being configured.</span></span> <span data-ttu-id="bcd53-156">Profil se interně používá k tomu, aby bylo možné řídit konvence, které zjednodušují proces konfigurace serveru.</span><span class="sxs-lookup"><span data-stu-id="bcd53-156">The profile is used internally to drive conventions that simplify the configuration process for the server.</span></span> <!-- There are several profiles available, as explained in the [Application profiles](#application-profiles) section. -->
+<span data-ttu-id="ca914-152">V souboru nastavení aplikace (*appSettings. JSON*) v kořenovém adresáři projektu `IdentityServer` obsahuje část seznam konfigurovaných klientů.</span><span class="sxs-lookup"><span data-stu-id="ca914-152">In the app settings file (*appsettings.json*) at the project root, the `IdentityServer` section describes the list of configured clients.</span></span> <span data-ttu-id="ca914-153">V následujícím příkladu je jeden klient.</span><span class="sxs-lookup"><span data-stu-id="ca914-153">In the following example, there's a single client.</span></span> <span data-ttu-id="ca914-154">Název klienta odpovídá názvu aplikace a je mapován podle konvence na `ClientId` parametr OAuth.</span><span class="sxs-lookup"><span data-stu-id="ca914-154">The client name corresponds to the app name and is mapped by convention to the OAuth `ClientId` parameter.</span></span> <span data-ttu-id="ca914-155">Profil indikuje typ aplikace, která se konfiguruje.</span><span class="sxs-lookup"><span data-stu-id="ca914-155">The profile indicates the app type being configured.</span></span> <span data-ttu-id="ca914-156">Profil se interně používá k tomu, aby bylo možné řídit konvence, které zjednodušují proces konfigurace serveru.</span><span class="sxs-lookup"><span data-stu-id="ca914-156">The profile is used internally to drive conventions that simplify the configuration process for the server.</span></span> <!-- There are several profiles available, as explained in the [Application profiles](#application-profiles) section. -->
 
 ```json
 "IdentityServer": {
@@ -140,13 +140,13 @@ dotnet new blazorwasm -au Individual -ho
 }
 ```
 
-## <a name="client-app-configuration"></a><span data-ttu-id="bcd53-157">Konfigurace klientské aplikace</span><span class="sxs-lookup"><span data-stu-id="bcd53-157">Client app configuration</span></span>
+## <a name="client-app-configuration"></a><span data-ttu-id="ca914-157">Konfigurace klientské aplikace</span><span class="sxs-lookup"><span data-stu-id="ca914-157">Client app configuration</span></span>
 
-### <a name="authentication-package"></a><span data-ttu-id="bcd53-158">Ověřovací balíček</span><span class="sxs-lookup"><span data-stu-id="bcd53-158">Authentication package</span></span>
+### <a name="authentication-package"></a><span data-ttu-id="ca914-158">Ověřovací balíček</span><span class="sxs-lookup"><span data-stu-id="ca914-158">Authentication package</span></span>
 
-<span data-ttu-id="bcd53-159">Když je aplikace vytvořená tak, aby používala jednotlivé`Individual`uživatelské účty (), aplikace automaticky obdrží odkaz `Microsoft.AspNetCore.Components.WebAssembly.Authentication` na balíček v souboru projektu aplikace.</span><span class="sxs-lookup"><span data-stu-id="bcd53-159">When an app is created to use Individual User Accounts (`Individual`), the app automatically receives a package reference for the `Microsoft.AspNetCore.Components.WebAssembly.Authentication` package in the app's project file.</span></span> <span data-ttu-id="bcd53-160">Balíček poskytuje sadu primitivních elementů, které aplikaci pomůžou ověřit uživatele a získat tokeny pro volání chráněných rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="bcd53-160">The package provides a set of primitives that help the app authenticate users and obtain tokens to call protected APIs.</span></span>
+<span data-ttu-id="ca914-159">Když je aplikace vytvořená tak, aby používala jednotlivé uživatelské účty ( `Individual` ), aplikace automaticky obdrží odkaz na balíček `Microsoft.AspNetCore.Components.WebAssembly.Authentication` v souboru projektu aplikace.</span><span class="sxs-lookup"><span data-stu-id="ca914-159">When an app is created to use Individual User Accounts (`Individual`), the app automatically receives a package reference for the `Microsoft.AspNetCore.Components.WebAssembly.Authentication` package in the app's project file.</span></span> <span data-ttu-id="ca914-160">Balíček poskytuje sadu primitivních elementů, které aplikaci pomůžou ověřit uživatele a získat tokeny pro volání chráněných rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="ca914-160">The package provides a set of primitives that help the app authenticate users and obtain tokens to call protected APIs.</span></span>
 
-<span data-ttu-id="bcd53-161">Pokud se do aplikace přidává ověřování, přidejte balíček do souboru projektu aplikace ručně:</span><span class="sxs-lookup"><span data-stu-id="bcd53-161">If adding authentication to an app, manually add the package to the app's project file:</span></span>
+<span data-ttu-id="ca914-161">Pokud se do aplikace přidává ověřování, přidejte balíček do souboru projektu aplikace ručně:</span><span class="sxs-lookup"><span data-stu-id="ca914-161">If adding authentication to an app, manually add the package to the app's project file:</span></span>
 
 ```xml
 <PackageReference 
@@ -154,45 +154,45 @@ dotnet new blazorwasm -au Individual -ho
     Version="{VERSION}" />
 ```
 
-<span data-ttu-id="bcd53-162">Nahraďte `{VERSION}` odkazem na předchozí balíček verzí `Microsoft.AspNetCore.Blazor.Templates` balíčku, který je uvedený v <xref:blazor/get-started> článku.</span><span class="sxs-lookup"><span data-stu-id="bcd53-162">Replace `{VERSION}` in the preceding package reference with the version of the `Microsoft.AspNetCore.Blazor.Templates` package shown in the <xref:blazor/get-started> article.</span></span>
+<span data-ttu-id="ca914-162">Nahraďte `{VERSION}` odkazem na předchozí balíček verzí balíčku, který je `Microsoft.AspNetCore.Blazor.Templates` uvedený v <xref:blazor/get-started> článku.</span><span class="sxs-lookup"><span data-stu-id="ca914-162">Replace `{VERSION}` in the preceding package reference with the version of the `Microsoft.AspNetCore.Blazor.Templates` package shown in the <xref:blazor/get-started> article.</span></span>
 
-### <a name="api-authorization-support"></a><span data-ttu-id="bcd53-163">Podpora autorizace rozhraní API</span><span class="sxs-lookup"><span data-stu-id="bcd53-163">API authorization support</span></span>
+### <a name="api-authorization-support"></a><span data-ttu-id="ca914-163">Podpora autorizace rozhraní API</span><span class="sxs-lookup"><span data-stu-id="ca914-163">API authorization support</span></span>
 
-<span data-ttu-id="bcd53-164">Podpora ověřování uživatelů je zapojena do kontejneru služby prostřednictvím metody rozšíření poskytované v rámci `Microsoft.AspNetCore.Components.WebAssembly.Authentication` balíčku.</span><span class="sxs-lookup"><span data-stu-id="bcd53-164">The support for authenticating users is plugged into the service container by the extension method provided inside the `Microsoft.AspNetCore.Components.WebAssembly.Authentication` package.</span></span> <span data-ttu-id="bcd53-165">Tato metoda nastavuje všechny služby, které aplikace potřebuje k interakci s existujícím autorizačním systémem.</span><span class="sxs-lookup"><span data-stu-id="bcd53-165">This method sets up all the services needed for the app to interact with the existing authorization system.</span></span>
+<span data-ttu-id="ca914-164">Podpora ověřování uživatelů je zapojena do kontejneru služby prostřednictvím metody rozšíření poskytované v rámci `Microsoft.AspNetCore.Components.WebAssembly.Authentication` balíčku.</span><span class="sxs-lookup"><span data-stu-id="ca914-164">The support for authenticating users is plugged into the service container by the extension method provided inside the `Microsoft.AspNetCore.Components.WebAssembly.Authentication` package.</span></span> <span data-ttu-id="ca914-165">Tato metoda nastavuje všechny služby, které aplikace potřebuje k interakci s existujícím autorizačním systémem.</span><span class="sxs-lookup"><span data-stu-id="ca914-165">This method sets up all the services needed for the app to interact with the existing authorization system.</span></span>
 
 ```csharp
 builder.Services.AddApiAuthorization();
 ```
 
-<span data-ttu-id="bcd53-166">Ve výchozím nastavení načte konfiguraci aplikace podle konvence z `_configuration/{client-id}`.</span><span class="sxs-lookup"><span data-stu-id="bcd53-166">By default, it loads the configuration for the app by convention from `_configuration/{client-id}`.</span></span> <span data-ttu-id="bcd53-167">Podle konvence je ID klienta nastaveno na název sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="bcd53-167">By convention, the client ID is set to the app's assembly name.</span></span> <span data-ttu-id="bcd53-168">Tato adresa URL může být změněna tak, aby odkazovala na samostatný koncový bod voláním přetížení s možnostmi.</span><span class="sxs-lookup"><span data-stu-id="bcd53-168">This URL can be changed to point to a separate endpoint by calling the overload with options.</span></span>
+<span data-ttu-id="ca914-166">Ve výchozím nastavení načte konfiguraci aplikace podle konvence z `_configuration/{client-id}` .</span><span class="sxs-lookup"><span data-stu-id="ca914-166">By default, it loads the configuration for the app by convention from `_configuration/{client-id}`.</span></span> <span data-ttu-id="ca914-167">Podle konvence je ID klienta nastaveno na název sestavení aplikace.</span><span class="sxs-lookup"><span data-stu-id="ca914-167">By convention, the client ID is set to the app's assembly name.</span></span> <span data-ttu-id="ca914-168">Tato adresa URL může být změněna tak, aby odkazovala na samostatný koncový bod voláním přetížení s možnostmi.</span><span class="sxs-lookup"><span data-stu-id="ca914-168">This URL can be changed to point to a separate endpoint by calling the overload with options.</span></span>
 
-### <a name="imports-file"></a><span data-ttu-id="bcd53-169">Importovat soubor</span><span class="sxs-lookup"><span data-stu-id="bcd53-169">Imports file</span></span>
+### <a name="imports-file"></a><span data-ttu-id="ca914-169">Importovat soubor</span><span class="sxs-lookup"><span data-stu-id="ca914-169">Imports file</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/imports-file-hosted.md)]
 
-### <a name="index-page"></a><span data-ttu-id="bcd53-170">Indexová stránka</span><span class="sxs-lookup"><span data-stu-id="bcd53-170">Index page</span></span>
+### <a name="index-page"></a><span data-ttu-id="ca914-170">Indexová stránka</span><span class="sxs-lookup"><span data-stu-id="ca914-170">Index page</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/index-page-authentication.md)]
 
-### <a name="app-component"></a><span data-ttu-id="bcd53-171">Součást aplikace</span><span class="sxs-lookup"><span data-stu-id="bcd53-171">App component</span></span>
+### <a name="app-component"></a><span data-ttu-id="ca914-171">Součást aplikace</span><span class="sxs-lookup"><span data-stu-id="ca914-171">App component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/app-component.md)]
 
-### <a name="redirecttologin-component"></a><span data-ttu-id="bcd53-172">Komponenta RedirectToLogin</span><span class="sxs-lookup"><span data-stu-id="bcd53-172">RedirectToLogin component</span></span>
+### <a name="redirecttologin-component"></a><span data-ttu-id="ca914-172">Komponenta RedirectToLogin</span><span class="sxs-lookup"><span data-stu-id="ca914-172">RedirectToLogin component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/redirecttologin-component.md)]
 
-### <a name="logindisplay-component"></a><span data-ttu-id="bcd53-173">Komponenta LoginDisplay</span><span class="sxs-lookup"><span data-stu-id="bcd53-173">LoginDisplay component</span></span>
+### <a name="logindisplay-component"></a><span data-ttu-id="ca914-173">Komponenta LoginDisplay</span><span class="sxs-lookup"><span data-stu-id="ca914-173">LoginDisplay component</span></span>
 
-<span data-ttu-id="bcd53-174">Součást (*Shared/LoginDisplay. Razor*) je vykreslena ve `MainLayout` komponentě (*Shared/MainLayout. Razor*) a spravuje následující chování: `LoginDisplay`</span><span class="sxs-lookup"><span data-stu-id="bcd53-174">The `LoginDisplay` component (*Shared/LoginDisplay.razor*) is rendered in the `MainLayout` component (*Shared/MainLayout.razor*) and manages the following behaviors:</span></span>
+<span data-ttu-id="ca914-174">`LoginDisplay`Součást (*Shared/LoginDisplay. Razor*) je vykreslena ve `MainLayout` komponentě (*Shared/MainLayout. Razor*) a spravuje následující chování:</span><span class="sxs-lookup"><span data-stu-id="ca914-174">The `LoginDisplay` component (*Shared/LoginDisplay.razor*) is rendered in the `MainLayout` component (*Shared/MainLayout.razor*) and manages the following behaviors:</span></span>
 
-* <span data-ttu-id="bcd53-175">Pro ověřené uživatele:</span><span class="sxs-lookup"><span data-stu-id="bcd53-175">For authenticated users:</span></span>
-  * <span data-ttu-id="bcd53-176">Zobrazí aktuální uživatelské jméno.</span><span class="sxs-lookup"><span data-stu-id="bcd53-176">Displays the current user name.</span></span>
-  * <span data-ttu-id="bcd53-177">Nabízí odkaz na stránku profil uživatele v ASP.NET Core Identity.</span><span class="sxs-lookup"><span data-stu-id="bcd53-177">Offers a link to the user profile page in ASP.NET Core Identity.</span></span>
-  * <span data-ttu-id="bcd53-178">Nabízí tlačítko pro odhlášení od aplikace.</span><span class="sxs-lookup"><span data-stu-id="bcd53-178">Offers a button to log out of the app.</span></span>
-* <span data-ttu-id="bcd53-179">Pro anonymní uživatele:</span><span class="sxs-lookup"><span data-stu-id="bcd53-179">For anonymous users:</span></span>
-  * <span data-ttu-id="bcd53-180">Nabízí možnost registrace.</span><span class="sxs-lookup"><span data-stu-id="bcd53-180">Offers the option to register.</span></span>
-  * <span data-ttu-id="bcd53-181">Nabízí možnost přihlásit se.</span><span class="sxs-lookup"><span data-stu-id="bcd53-181">Offers the option to log in.</span></span>
+* <span data-ttu-id="ca914-175">Pro ověřené uživatele:</span><span class="sxs-lookup"><span data-stu-id="ca914-175">For authenticated users:</span></span>
+  * <span data-ttu-id="ca914-176">Zobrazí aktuální uživatelské jméno.</span><span class="sxs-lookup"><span data-stu-id="ca914-176">Displays the current user name.</span></span>
+  * <span data-ttu-id="ca914-177">Nabízí odkaz na stránku profil uživatele v ASP.NET Core Identity .</span><span class="sxs-lookup"><span data-stu-id="ca914-177">Offers a link to the user profile page in ASP.NET Core Identity.</span></span>
+  * <span data-ttu-id="ca914-178">Nabízí tlačítko pro odhlášení od aplikace.</span><span class="sxs-lookup"><span data-stu-id="ca914-178">Offers a button to log out of the app.</span></span>
+* <span data-ttu-id="ca914-179">Pro anonymní uživatele:</span><span class="sxs-lookup"><span data-stu-id="ca914-179">For anonymous users:</span></span>
+  * <span data-ttu-id="ca914-180">Nabízí možnost registrace.</span><span class="sxs-lookup"><span data-stu-id="ca914-180">Offers the option to register.</span></span>
+  * <span data-ttu-id="ca914-181">Nabízí možnost přihlásit se.</span><span class="sxs-lookup"><span data-stu-id="ca914-181">Offers the option to log in.</span></span>
 
 ```razor
 @using Microsoft.AspNetCore.Components.Authorization
@@ -222,22 +222,23 @@ builder.Services.AddApiAuthorization();
 }
 ```
 
-### <a name="authentication-component"></a><span data-ttu-id="bcd53-182">Součást ověřování</span><span class="sxs-lookup"><span data-stu-id="bcd53-182">Authentication component</span></span>
+### <a name="authentication-component"></a><span data-ttu-id="ca914-182">Součást ověřování</span><span class="sxs-lookup"><span data-stu-id="ca914-182">Authentication component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/authentication-component.md)]
 
-### <a name="fetchdata-component"></a><span data-ttu-id="bcd53-183">Komponenta FetchData</span><span class="sxs-lookup"><span data-stu-id="bcd53-183">FetchData component</span></span>
+### <a name="fetchdata-component"></a><span data-ttu-id="ca914-183">Komponenta FetchData</span><span class="sxs-lookup"><span data-stu-id="ca914-183">FetchData component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
-## <a name="run-the-app"></a><span data-ttu-id="bcd53-184">Spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="bcd53-184">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="ca914-184">Spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="ca914-184">Run the app</span></span>
 
-<span data-ttu-id="bcd53-185">Spusťte aplikaci z projektu serveru.</span><span class="sxs-lookup"><span data-stu-id="bcd53-185">Run the app from the Server project.</span></span> <span data-ttu-id="bcd53-186">Při použití sady Visual Studio vyberte projekt serveru v **Průzkumník řešení** a na panelu nástrojů vyberte tlačítko **Spustit** nebo spusťte aplikaci z nabídky **ladění** .</span><span class="sxs-lookup"><span data-stu-id="bcd53-186">When using Visual Studio, select the Server project in **Solution Explorer** and select the **Run** button in the toolbar or start the app from the **Debug** menu.</span></span>
+<span data-ttu-id="ca914-185">Spusťte aplikaci z projektu serveru.</span><span class="sxs-lookup"><span data-stu-id="ca914-185">Run the app from the Server project.</span></span> <span data-ttu-id="ca914-186">Při použití sady Visual Studio vyberte projekt serveru v **Průzkumník řešení** a na panelu nástrojů vyberte tlačítko **Spustit** nebo spusťte aplikaci z nabídky **ladění** .</span><span class="sxs-lookup"><span data-stu-id="ca914-186">When using Visual Studio, select the Server project in **Solution Explorer** and select the **Run** button in the toolbar or start the app from the **Debug** menu.</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a><span data-ttu-id="bcd53-187">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="bcd53-187">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="ca914-187">Další materiály a zdroje informací</span><span class="sxs-lookup"><span data-stu-id="ca914-187">Additional resources</span></span>
 
 * <xref:security/blazor/webassembly/additional-scenarios>
+* [<span data-ttu-id="ca914-188">Neověřené nebo neautorizované požadavky webového rozhraní API v aplikaci s zabezpečeným výchozím klientem</span><span class="sxs-lookup"><span data-stu-id="ca914-188">Unauthenticated or unauthorized web API requests in an app with a secure default client</span></span>](xref:security/blazor/webassembly/additional-scenarios#unauthenticated-or-unauthorized-web-api-requests-in-an-app-with-a-secure-default-client)
