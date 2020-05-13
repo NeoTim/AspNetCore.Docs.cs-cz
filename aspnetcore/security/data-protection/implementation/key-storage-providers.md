@@ -11,12 +11,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: a8d38f17b066a0aa9a38b1bdfea3491f733cf1bc
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: cdf10cd26f3eb9af386f782475eeabbda50f0df9
+ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776874"
+ms.lasthandoff: 05/12/2020
+ms.locfileid: "83153351"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>Zprostředkovatelé úložiště klíčů v ASP.NET Core
 
@@ -37,7 +37,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-`DirectoryInfo` Může odkazovat na adresář v místním počítači nebo může ukazovat na složku ve sdílené síťové složce. Pokud odkazujete na adresář v místním počítači (a scénář je, že pouze aplikace na místním počítači vyžadují přístup k používání tohoto úložiště), zvažte použití rozhraní [Windows DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) (ve Windows) k šifrování neaktivních klíčů. V opačném případě zvažte použití [certifikátu X. 509](xref:security/data-protection/implementation/key-encryption-at-rest) k šifrování neaktivních klíčů.
+`DirectoryInfo`Může odkazovat na adresář v místním počítači nebo může ukazovat na složku ve sdílené síťové složce. Pokud odkazujete na adresář v místním počítači (a scénář je, že pouze aplikace na místním počítači vyžadují přístup k používání tohoto úložiště), zvažte použití rozhraní [Windows DPAPI](xref:security/data-protection/implementation/key-encryption-at-rest) (ve Windows) k šifrování neaktivních klíčů. V opačném případě zvažte použití [certifikátu X. 509](xref:security/data-protection/implementation/key-encryption-at-rest) k šifrování neaktivních klíčů.
 
 ## <a name="azure-storage"></a>Azure Storage
 
@@ -143,17 +143,17 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="entity-framework-core"></a>Entity Framework Core
 
-Balíček [Microsoft. AspNetCore. DataProtection. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/) poskytuje mechanismus pro ukládání klíčů ochrany dat do databáze pomocí Entity Framework Core. Balíček `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore` NuGet se musí přidat do souboru projektu, není součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
+Balíček [Microsoft. AspNetCore. DataProtection. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.DataProtection.EntityFrameworkCore/) poskytuje mechanismus pro ukládání klíčů ochrany dat do databáze pomocí Entity Framework Core. `Microsoft.AspNetCore.DataProtection.EntityFrameworkCore`Balíček NuGet se musí přidat do souboru projektu, není součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
 S tímto balíčkem je možné klíče sdílet mezi několika instancemi webové aplikace.
 
-Chcete-li nakonfigurovat poskytovatele EF Core, zavolejte [metodu\<>PersistKeysToDbContext TContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext) :
+Chcete-li nakonfigurovat poskytovatele EF Core, zavolejte [metodu \<>PersistKeysToDbContext TContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext) :
 
 [!code-csharp[Main](key-storage-providers/sample/Startup.cs?name=snippet&highlight=13-20)]
 
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
-Obecný parametr, `TContext`, musí dědit z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) a implementovat [IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext):
+Obecný parametr, `TContext` , musí dědit z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) a implementovat [IDataProtectionKeyContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcore.idataprotectionkeycontext):
 
 [!code-csharp[Main](key-storage-providers/sample/MyKeysContext.cs)]
 
@@ -179,13 +179,13 @@ dotnet ef database update --context MyKeysContext
 
 ---
 
-`MyKeysContext`je `DbContext` definován v předchozí ukázce kódu. Pokud používáte `DbContext` s jiným názvem, nahraďte své `DbContext` jméno pro. `MyKeysContext`
+`MyKeysContext`je `DbContext` definován v předchozí ukázce kódu. Pokud používáte `DbContext` s jiným názvem, nahraďte své `DbContext` jméno pro `MyKeysContext` .
 
-`DataProtectionKeys` Třída nebo entita přijímá strukturu zobrazenou v následující tabulce.
+`DataProtectionKeys`Třída nebo entita přijímá strukturu zobrazenou v následující tabulce.
 
 | Vlastnost nebo pole | Typ CLR | Typ SQL              |
 | -------------- | -------- | --------------------- |
-| `Id`           | `int`    | `int`, PK, not null   |
+| `Id`           | `int`    | `int`, PK, `IDENTITY(1,1)` , not null   |
 | `FriendlyName` | `string` | `nvarchar(MAX)`, null |
 | `Xml`          | `string` | `nvarchar(MAX)`, null |
 

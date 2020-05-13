@@ -5,7 +5,7 @@ description: Naučte se volat webové rozhraní API z Blazor aplikace WebAssembl
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/07/2020
+ms.date: 05/11/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 7476e9dce3fa26948d2091235747f893d805d7be
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
+ms.openlocfilehash: 7ed2d51c0d41a50a2e139d739a0a06cd9f392a83
+ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967269"
+ms.lasthandoff: 05/12/2020
+ms.locfileid: "83153505"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>Volání webového rozhraní API z ASP.NET CoreBlazor
 
@@ -26,11 +26,11 @@ Od [Luke Latham](https://github.com/guardrex), [Daniel Skořepa](https://github.
 
 [!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
 
-Aplikace WebAssembly volají webová rozhraní API pomocí předem nakonfigurované `HttpClient` služby. [ Blazor ](xref:blazor/hosting-models#blazor-webassembly) Požadavky na sestavení, které mohou zahrnovat možnosti [rozhraní API](https://developer.mozilla.org/docs/Web/API/Fetch_API) pro načtení Blazor JavaScriptu, použití pomocníků <xref:System.Net.Http.HttpRequestMessage>JSON nebo s. `HttpClient` Služba v aplikacích Blazor pro WebAssembly se zaměřuje na poskytování požadavků zpět na server původu. Pokyny v tomto tématu se vztahují pouze na Blazor aplikace WebAssembly.
+Aplikace [ Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) volají webová rozhraní API pomocí předem nakonfigurované `HttpClient` služby. Požadavky na sestavení, které mohou zahrnovat možnosti [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu, použití Blazor pomocníků JSON nebo s <xref:System.Net.Http.HttpRequestMessage> . `HttpClient`Služba v Blazor aplikacích pro WebAssembly se zaměřuje na poskytování požadavků zpět na server původu. Pokyny v tomto tématu se vztahují pouze na Blazor aplikace WebAssembly.
 
-Serverové aplikace volají webová rozhraní API <xref:System.Net.Http.HttpClient> pomocí instancí, které se <xref:System.Net.Http.IHttpClientFactory>obvykle vytvářejí pomocí. [ Blazor ](xref:blazor/hosting-models#blazor-server) Pokyny v tomto tématu se nevztahují Blazor na serverové aplikace. Při vývoji Blazor serverových aplikací postupujte podle pokynů v <xref:fundamentals/http-requests>části.
+[ Blazor Serverové](xref:blazor/hosting-models#blazor-server) aplikace volají webová rozhraní API pomocí <xref:System.Net.Http.HttpClient> instancí, které se obvykle vytvářejí pomocí <xref:System.Net.Http.IHttpClientFactory> . Pokyny v tomto tématu se nevztahují na Blazor serverové aplikace. Při vývoji Blazor serverových aplikací postupujte podle pokynů v části <xref:fundamentals/http-requests> .
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample)) &ndash; vyberte aplikaci *BlazorWebAssemblySample* .
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample)) &ndash; Vyberte aplikaci *BlazorWebAssemblySample* .
 
 Podívejte se na následující komponenty v ukázkové aplikaci *BlazorWebAssemblySample* :
 
@@ -43,7 +43,7 @@ V souboru projektu se odkázat na balíček NuGet [System .NET. http. JSON](http
 
 ## <a name="add-the-httpclient-service"></a>Přidání služby HttpClient
 
-V `Program.Main`nástroji přidejte `HttpClient` službu, pokud ještě neexistuje:
+V nástroji `Program.Main` přidejte `HttpClient` službu, pokud ještě neexistuje:
 
 ```csharp
 builder.Services.AddTransient(sp => 
@@ -55,9 +55,9 @@ builder.Services.AddTransient(sp =>
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient a pomocníky JSON
 
-Blazor V aplikaci WebAssembly je [HttpClient](xref:fundamentals/http-requests) k dispozici jako předkonfigurovaná služba pro podání požadavků zpět na zdrojový server.
+V Blazor aplikaci WebAssembly je [HttpClient](xref:fundamentals/http-requests) k dispozici jako předkonfigurovaná služba pro podání požadavků zpět na zdrojový server.
 
-Blazor Serverová aplikace ve výchozím nastavení `HttpClient` nezahrnuje službu. `HttpClient` Poskytněte aplikaci s využitím [infrastruktury HttpClient Factory](xref:fundamentals/http-requests).
+BlazorServerová aplikace `HttpClient` ve výchozím nastavení nezahrnuje službu. Poskytněte `HttpClient` aplikaci s využitím [infrastruktury HttpClient Factory](xref:fundamentals/http-requests).
 
 `HttpClient`a pomocníkům JSON se taky používají k volání koncových bodů webového rozhraní API třetích stran. `HttpClient`je implementováno pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) prohlížeče a podléhá jeho omezením, včetně vynucení stejných zásad původu.
 
@@ -70,9 +70,9 @@ Základní adresa klienta je nastavena na adresu původního serveru. Vložení 
 
 V následujících příkladech zpracovává webové rozhraní API TODO operace vytvoření, čtení, aktualizace a odstranění (CRUD). Příklady jsou založeny na `TodoItem` třídě, která ukládá:
 
-* ID (`Id`, `long`) &ndash; jedinečné ID položky
-* Název (`Name`, `string`) &ndash; název položky.
-* Stav (`IsComplete`, `bool`) &ndash; označuje, zda je položka TODO dokončena.
+* ID ( `Id` , `long` ) &ndash; jedinečné ID položky
+* Název ( `Name` , `string` ) &ndash; název položky.
+* Stav ( `IsComplete` , `bool` ) &ndash; označuje, zda je položka TODO dokončena.
 
 ```csharp
 private class TodoItem
@@ -85,9 +85,9 @@ private class TodoItem
 
 Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhraní API v následujících příkladech) a zpracovávají odpověď:
 
-* `GetFromJsonAsync`&ndash; Pošle požadavek HTTP GET a analyzuje tělo odpovědi JSON pro vytvoření objektu.
+* `GetFromJsonAsync`&ndash;Pošle požadavek HTTP GET a analyzuje tělo odpovědi JSON pro vytvoření objektu.
 
-  V následujícím kódu `todoItems` se zobrazí součást. `GetTodoItems` Metoda je aktivována při vykreslování komponenty ([OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)). Kompletní příklad najdete v ukázkové aplikaci.
+  V následujícím kódu se `todoItems` zobrazí součást. `GetTodoItems`Metoda je aktivována při vykreslování komponenty ([OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)). Kompletní příklad najdete v ukázkové aplikaci.
 
   ```razor
   @using System.Net.Http
@@ -101,9 +101,9 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
   }
   ```
 
-* `PostAsJsonAsync`&ndash; Pošle požadavek HTTP POST, včetně obsahu kódovaného JSON, a analyzuje tělo odpovědi JSON pro vytvoření objektu.
+* `PostAsJsonAsync`&ndash;Pošle požadavek HTTP POST, včetně obsahu kódovaného JSON, a analyzuje tělo odpovědi JSON pro vytvoření objektu.
 
-  V následujícím kódu `newItemName` je poskytován vázaným prvkem komponenty. `AddItem` Metoda je aktivována výběrem `<button>` prvku. Kompletní příklad najdete v ukázkové aplikaci.
+  V následujícím kódu `newItemName` je poskytován vázaným prvkem komponenty. `AddItem`Metoda je aktivována výběrem `<button>` prvku. Kompletní příklad najdete v ukázkové aplikaci.
 
   ```razor
   @using System.Net.Http
@@ -123,15 +123,15 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
   }
   ```
   
-  Volání `PostAsJsonAsync` vrátí <xref:System.Net.Http.HttpResponseMessage>. K deserializaci obsahu JSON ze zprávy odpovědi použijte metodu `ReadFromJsonAsync<T>` rozšíření:
+  Volání `PostAsJsonAsync` vrátí <xref:System.Net.Http.HttpResponseMessage> . K deserializaci obsahu JSON ze zprávy odpovědi použijte `ReadFromJsonAsync<T>` metodu rozšíření:
   
   ```csharp
   var content = response.content.ReadFromJsonAsync<WeatherForecast>();
   ```
 
-* `PutAsJsonAsync`&ndash; ODEŠLE požadavek HTTP PUT, včetně obsahu kódovaného JSON.
+* `PutAsJsonAsync`&ndash;Odešle požadavek HTTP PUT, včetně obsahu kódovaného JSON.
 
-  V následujícím kódu jsou `editItem` hodnoty pro `Name` a `IsCompleted` poskytovány pomocí vázaných prvků součásti. Položka `Id` je nastavena, když je položka vybrána v jiné části uživatelského rozhraní a `EditItem` je volána. `SaveItem` Metoda je aktivována výběrem možnosti Uložit `<button>` element. Kompletní příklad najdete v ukázkové aplikaci.
+  V následujícím kódu `editItem` jsou hodnoty pro `Name` a `IsCompleted` poskytovány pomocí vázaných prvků součásti. Položka `Id` je nastavena, když je položka vybrána v jiné části uživatelského rozhraní a `EditItem` je volána. `SaveItem`Metoda je aktivována výběrem možnosti Uložit `<button>` element. Kompletní příklad najdete v ukázkové aplikaci.
 
   ```razor
   @using System.Net.Http
@@ -156,7 +156,7 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
   }
   ```
   
-  Volání `PutAsJsonAsync` vrátí <xref:System.Net.Http.HttpResponseMessage>. K deserializaci obsahu JSON ze zprávy odpovědi použijte metodu `ReadFromJsonAsync<T>` rozšíření:
+  Volání `PutAsJsonAsync` vrátí <xref:System.Net.Http.HttpResponseMessage> . K deserializaci obsahu JSON ze zprávy odpovědi použijte `ReadFromJsonAsync<T>` metodu rozšíření:
   
   ```csharp
   var content = response.content.ReadFromJsonAsync<WeatherForecast>();
@@ -164,7 +164,7 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
 
 <xref:System.Net.Http>zahrnuje další metody rozšíření pro posílání požadavků HTTP a příjem odpovědí HTTP. [HttpClient. DeleteAsync](xref:System.Net.Http.HttpClient.DeleteAsync*) se používá k odeslání požadavku HTTP Delete webovému rozhraní API.
 
-V následujícím kódu element Delete `<button>` volá `DeleteItem` metodu. Vázaný `<input>` element poskytuje `id` položku, která se má odstranit. Kompletní příklad najdete v ukázkové aplikaci.
+V následujícím kódu `<button>` element Delete volá `DeleteItem` metodu. Vázaný `<input>` element poskytuje položku, `id` která se má odstranit. Kompletní příklad najdete v ukázkové aplikaci.
 
 ```razor
 @using System.Net.Http
@@ -181,15 +181,111 @@ V následujícím kódu element Delete `<button>` volá `DeleteItem` metodu. Vá
 }
 ```
 
+## <a name="named-httpclient-with-ihttpclientfactory"></a>S názvem HttpClient s IHttpClientFactory
+
+<xref:System.Net.Http.IHttpClientFactory>podporují se služby a konfigurace s názvem <xref:System.Net.Http.HttpClient> .
+
+`Program.Main`(*Program.cs*):
+
+```csharp
+builder.Services.AddHttpClient("ServerAPI", client => 
+    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+```
+
+`FetchData`součást (*Pages/FetchData. Razor*):
+
+```razor
+@inject IHttpClientFactory ClientFactory
+
+...
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var client = ClientFactory.CreateClient("ServerAPI");
+
+        forecasts = await client.GetFromJsonAsync<WeatherForecast[]>(
+            "WeatherForecast");
+    }
+}
+```
+
+## <a name="typed-httpclient"></a>Typové HttpClient
+
+<xref:System.Net.Http.HttpClient> <xref:System.Net.Http.HttpClient> Pro návratová data z jednoho nebo více koncových bodů webového rozhraní API používá typ jednu nebo více instancí aplikace, výchozí nebo pojmenované.
+
+*WeatherForecastClient.cs*:
+
+```csharp
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Threading.Tasks;
+
+public class WeatherForecastClient
+{
+    private readonly HttpClient client;
+
+    public WeatherForecastClient(HttpClient client)
+    {
+        this.client = client;
+    }
+
+    public async Task<WeatherForecast[]> GetForecastAsync()
+    {
+        var forecasts = new WeatherForecast[0];
+    
+        try
+        {
+            forecasts = await client.GetFromJsonAsync<WeatherForecast[]>(
+                "WeatherForecast");
+        }
+        catch
+        {
+            ...
+        }
+    
+        return forecasts;
+    }
+}
+```
+
+`Program.Main`(*Program.cs*):
+
+```csharp
+builder.Services.AddHttpClient<WeatherForecastClient>(client => 
+    client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress));
+```
+
+Komponenty vkládají typ `HttpClient` pro volání webového rozhraní API.
+
+`FetchData`součást (*Pages/FetchData. Razor*):
+
+```razor
+@inject WeatherForecastClient Client
+
+...
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Client.GetForecastAsync();
+    }
+}
+```
+
 ## <a name="handle-errors"></a>Ošetření chyb
 
-Když při interakci s webovým rozhraním API dojde k chybám, mohou být zpracovány vývojářským kódem. Například `GetFromJsonAsync` očekává odpověď JSON z rozhraní API serveru s `Content-Type` `application/json`. Pokud odpověď není ve formátu JSON, ověření obsahu vyvolá <xref:System.NotSupportedException>.
+Když při interakci s webovým rozhraním API dojde k chybám, mohou být zpracovány vývojářským kódem. Například `GetFromJsonAsync` očekává odpověď JSON z rozhraní API serveru s `Content-Type` `application/json` . Pokud odpověď není ve formátu JSON, ověření obsahu vyvolá <xref:System.NotSupportedException> .
 
-V následujícím příkladu je koncový bod identifikátoru URI pro požadavek na data předpovědi počasí špatně napsaný. Identifikátor URI by měl být `WeatherForecast` , ale zobrazí se ve volání `WeatherForcast` jako (chybí "e").
+V následujícím příkladu je koncový bod identifikátoru URI pro požadavek na data předpovědi počasí špatně napsaný. Identifikátor URI by měl být, `WeatherForecast` ale zobrazí se ve volání jako `WeatherForcast` (chybí "e").
 
-`GetFromJsonAsync` Volání očekává vrácení formátu JSON, ale server vrátí kód HTML pro neošetřenou výjimku na serveru s `Content-Type` `text/html`. Neošetřená výjimka probíhá na serveru, protože nebyla nalezena cesta a middleware nemůže pro požadavek obsluhovat stránku nebo zobrazení.
+`GetFromJsonAsync`Volání očekává vrácení formátu JSON, ale server vrátí kód HTML pro neošetřenou výjimku na serveru s `Content-Type` `text/html` . Neošetřená výjimka probíhá na serveru, protože nebyla nalezena cesta a middleware nemůže pro požadavek obsluhovat stránku nebo zobrazení.
 
-V `OnInitializedAsync` klientovi je vyvolána, <xref:System.NotSupportedException> když je obsah odpovědi ověřen jako jiný než JSON. Výjimka je zachycena v `catch` bloku, kde vlastní logika by mohla protokolovat chybu nebo prezentovat uživateli popisnou chybovou zprávu:
+V `OnInitializedAsync` klientovi <xref:System.NotSupportedException> je vyvolána, když je obsah odpovědi ověřen jako jiný než JSON. Výjimka je zachycena v `catch` bloku, kde vlastní logika by mohla protokolovat chybu nebo prezentovat uživateli popisnou chybovou zprávu:
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -215,14 +311,13 @@ Další informace naleznete v tématu <xref:blazor/handle-errors>.
 
 Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla požadavky na jinou doménu než ta, která tuto webovou stránku obsluhuje. Toto omezení se nazývá *zásady stejného původu*. Zásady stejného původce brání škodlivému webu v čtení citlivých dat z jiné lokality. Aby bylo možné podávat požadavky z prohlížeče na koncový bod s jiným zdrojem, musí *koncový bod* umožňovat [sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/).
 
-[Ukázková aplikace WebAssembly (BlazorWebAssemblySample) ukazuje použití CORS v součásti webového rozhraní API volání (Pages/CallWebAPI. Razor). Blazor ](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) *Pages/CallWebAPI.razor*
+[ Blazor Ukázková aplikace WebAssembly (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje použití CORS v součásti webového rozhraní API volání (*Pages/CallWebAPI. Razor*).
 
-Pokud chcete jiným webům umožnit, aby vaše aplikace provedla požadavky na sdílení prostředků mezi zdroji (CORS <xref:security/cors>), přečtěte si téma.
+Pokud chcete jiným webům umožnit, aby vaše aplikace provedla požadavky na sdílení prostředků mezi zdroji (CORS), přečtěte si téma <xref:security/cors> .
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 
-* <xref:security/blazor/webassembly/index>
-* <xref:security/blazor/webassembly/additional-scenarios>
+* <xref:security/blazor/webassembly/additional-scenarios>&ndash;Zahrnuje pokrytí použití `HttpClient` pro zabezpečené požadavky webového rozhraní API.
 * <xref:fundamentals/http-requests>
 * <xref:security/enforcing-ssl>
 * [Konfigurace koncového bodu HTTPS Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration)

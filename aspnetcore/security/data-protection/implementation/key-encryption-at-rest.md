@@ -1,5 +1,5 @@
 ---
-title: Šifrování klíče v klidovém ASP.NET Core
+title: Šifrování klíčů v klidovém formátu v systému Windows a Azure pomocí ASP.NET Core
 author: rick-anderson
 description: Přečtěte si podrobnosti o implementaci ASP.NET Core šifrování klíče ochrany dat v klidovém umístění.
 ms.author: riande
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-encryption-at-rest
-ms.openlocfilehash: e68b8e09dbd876c6f0d37242ebaa415994b3b808
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: c927c926212aeb1263d15fd3fdc753c377b2e305
+ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776926"
+ms.lasthandoff: 05/12/2020
+ms.locfileid: "83153573"
 ---
-# <a name="key-encryption-at-rest-in-aspnet-core"></a>Šifrování klíče v klidovém ASP.NET Core
+# <a name="key-encryption-at-rest-in-windows-and-azure-using-aspnet-core"></a>Šifrování klíčů v klidovém formátu v systému Windows a Azure pomocí ASP.NET Core
 
 Systém ochrany dat [ve výchozím nastavení využívá mechanismus zjišťování](xref:security/data-protection/configuration/default-settings) , aby určil, jak by měly být šifrovací klíče zašifrované v klidovém stavu. Vývojář může přepsat mechanismus zjišťování a ručně zadat, jak by měly být klíče zašifrované v klidovém stavu.
 
@@ -106,7 +106,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Existuje také přetížení bez parametrů `ProtectKeysWithDpapiNG`. Tuto metodu použijte k zadání pravidla "SID = {CURRENT_ACCOUNT_SID}", kde *CURRENT_ACCOUNT_SID* je identifikátor SID aktuálního uživatelského účtu systému Windows:
+Existuje také přetížení bez parametrů `ProtectKeysWithDpapiNG` . Tuto metodu použijte k zadání pravidla "SID = {CURRENT_ACCOUNT_SID}", kde *CURRENT_ACCOUNT_SID* je identifikátor SID aktuálního uživatelského účtu systému Windows:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
