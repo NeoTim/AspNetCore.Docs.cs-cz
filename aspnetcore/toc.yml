@@ -27,6 +27,7 @@
     - name: Novinky ve verzi 1.1
       uid: aspnetcore-1.1
 - name: Kurzy
+  displayName: tutorial
   items:
     - name: Webové aplikace
       items:
@@ -154,20 +155,19 @@
               uid: data/ef-mvc/inheritance
             - name: Pokročilá témata
               uid: data/ef-mvc/advanced
-- name: Kurzy (Microsoft Learn)
-  displayName: tutorial
-  items:
-    - name: Webové aplikace
-      displayName: 'tutorial, razor, razor pages, ui'
-      href: /learn/modules/create-razor-pages-aspnet-core/
-    - name: Aplikace Web API
-      href: /learn/modules/build-web-api-net-core/
-    - name: "Přístup k\_datům"
-      displayName: 'tutorial, ef, entity framework'
-      href: /learn/modules/persist-data-ef-core/
-    - name: Zabezpečení webové aplikace
-      displayName: 'tutorial, identity'
-      href: /learn/modules/secure-aspnet-core-identity/
+    - name: Moduly Microsoft Learn
+      items:
+        - name: Webové aplikace >>
+          displayName: 'tutorial, razor, razor pages, ui'
+          href: /learn/modules/create-razor-pages-aspnet-core/
+        - name: Aplikace Web API >>
+          href: /learn/modules/build-web-api-net-core/
+        - name: Přístup k datům >>
+          displayName: 'tutorial, ef, entity framework'
+          href: /learn/modules/persist-data-ef-core/
+        - name: Zabezpečení webové aplikace >>
+          displayName: 'tutorial, identity'
+          href: /learn/modules/secure-aspnet-core-identity/
 - name: Základy
   items:
     - name: Přehled

@@ -4,7 +4,7 @@ author: rick-anderson
 description: Naučte se používat publikované image Docker .NET Core z registru Docker. Vyžádání imagí a sestavení vlastních imagí.
 ms.author: riande
 ms.custom: mvc
-ms.date: 01/15/2020
+ms.date: 05/12/2020
 no-loc:
 - Blazor
 - Identity
@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/docker/building-net-docker-images
-ms.openlocfilehash: bce04caf20dcf23ab7160066d55a279b29dca1ae
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7394cba07109fce5a8718998b4e2a3b5bf752b0b
+ms.sourcegitcommit: e87dfa08fec0be1008249b1be678e5f79dcc5acb
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774103"
+ms.lasthandoff: 05/13/2020
+ms.locfileid: "83382514"
 ---
 # <a name="docker-images-for-aspnet-core"></a>Image Docker pro ASP.NET Core
 
@@ -88,7 +88,7 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
   dotnet run
   ```
 
-* `http://localhost:5000` V prohlížeči otestujte aplikaci.
+* `http://localhost:5000`V prohlížeči otestujte aplikaci.
 
 * Stisknutím kombinace kláves CTRL + C na příkazovém řádku zastavte aplikaci.
 
@@ -105,24 +105,24 @@ Vzorový souboru Dockerfile využívá [funkci buildu pro více fází](https://
   docker run -it --rm -p 5000:80 --name aspnetcore_sample aspnetapp
   ```
 
-  Argumenty `build` příkazu:
+  `build`Argumenty příkazu:
   * Pojmenujte bitovou kopii aspnetapp.
   * Vyhledejte souboru Dockerfile v aktuální složce (tečka na konci).
 
   Argumenty příkazu Run:
-  * Přidělte pseudo-TTY a nechte ho otevřený i v případě, že není připojený. (Stejný efekt jako `--interactive --tty`.)
+  * Přidělte pseudo-TTY a nechte ho otevřený i v případě, že není připojený. (Stejný efekt jako `--interactive --tty` .)
   * Kontejner se po ukončení automaticky odebere.
   * Namapujte port 5000 na místním počítači na port 80 v kontejneru.
   * Pojmenujte aspnetcore_sample kontejneru.
   * Zadejte bitovou kopii aspnetapp.
 
-* `http://localhost:5000` V prohlížeči otestujte aplikaci.
+* `http://localhost:5000`V prohlížeči otestujte aplikaci.
 
 ## <a name="run-in-a-windows-container"></a>Spuštění v kontejneru Windows
 
 * V klientovi Docker přepněte do kontejnerů Windows.
 
-Přejděte do složky Docker File v `dotnet-docker/samples/aspnetapp`.
+Přejděte do složky Docker File v `dotnet-docker/samples/aspnetapp` .
 
 * Spuštěním následujících příkazů Sestavte a spusťte ukázku v Docker:
 
@@ -133,7 +133,7 @@ Přejděte do složky Docker File v `dotnet-docker/samples/aspnetapp`.
 
 * V případě kontejnerů Windows budete potřebovat IP adresu kontejneru (procházení `http://localhost:5000` nebude fungovat):
   * Otevřete další příkazový řádek.
-  * Spusťte `docker ps` , aby se zobrazily spuštěné kontejnery. Ověřte, že je kontejner aspnetcore_sample.
+  * Spusťte, `docker ps` aby se zobrazily spuštěné kontejnery. Ověřte, že je kontejner aspnetcore_sample.
   * Spusťte `docker exec aspnetcore_sample ipconfig` pro zobrazení IP adresy kontejneru. Výstup příkazu vypadá jako v tomto příkladu:
 
     ```console
@@ -193,7 +193,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 ### <a name="the-dockerfile"></a>Souboru Dockerfile
 
-Tady je *souboru Dockerfile* , který používá `docker build` příkaz, který jste spustili dříve.  Pro sestavování a nasazování používá `dotnet publish` stejný způsob jako v tomto oddílu.  
+Tady je *souboru Dockerfile* , `docker build` který používá příkaz, který jste spustili dříve.  `dotnet publish`Pro sestavování a nasazování používá stejný způsob jako v tomto oddílu.  
 
 ```dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
@@ -208,7 +208,6 @@ RUN dotnet restore
 COPY aspnetapp/. ./aspnetapp/
 WORKDIR /app/aspnetapp
 RUN dotnet publish -c Release -o out
-
 
 FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS runtime
 WORKDIR /app
@@ -229,7 +228,7 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 ### <a name="the-dockerfile"></a>Souboru Dockerfile
 
-Tady je *souboru Dockerfile* , který používá `docker build` příkaz, který jste spustili dříve.  Pro sestavování a nasazování používá `dotnet publish` stejný způsob jako v tomto oddílu.  
+Tady je *souboru Dockerfile* , `docker build` který používá příkaz, který jste spustili dříve.  `dotnet publish`Pro sestavování a nasazování používá stejný způsob jako v tomto oddílu.  
 
 ```dockerfile
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0 AS build
@@ -245,21 +244,15 @@ COPY aspnetapp/. ./aspnetapp/
 WORKDIR /app/aspnetapp
 RUN dotnet publish -c Release -o out
 
-
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
 WORKDIR /app
 COPY --from=build /app/aspnetapp/out ./
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 ```
 
-::: moniker-end
+Jak je uvedeno v předchozím souboru Dockerfile, `*.csproj` soubory se zkopírují a obnoví jako samostatné *vrstvy*. Když `docker build` příkaz vytvoří image, použije vestavěnou mezipaměť. Pokud se `*.csproj` soubory od `docker build` posledního spuštění příkazu nezměnily, `dotnet restore` příkaz se nemusí znovu spustit. Místo toho se znovu použije vestavěná mezipaměť pro odpovídající `dotnet restore` vrstvu. Další informace najdete v tématu [osvědčené postupy pro psaní fázemi](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#leverage-build-cache).
 
-```dockerfile
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.0 AS runtime
-WORKDIR /app
-COPY published/aspnetapp.dll ./
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
-```
+::: moniker-end
 
 ## <a name="additional-resources"></a>Další materiály a zdroje informací
 
