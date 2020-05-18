@@ -367,6 +367,8 @@
           uid: blazor/debug
         - name: Volání webového rozhraní API z WebAssembly
           uid: blazor/call-web-api
+        - name: Výkon WebAssembly
+          uid: performance/blazor/webassembly-best-practices
         - name: Webové aplikace PWA (Progressive Web Application)
           uid: blazor/progressive-web-app
         - name: Hostování a nasazení
@@ -557,7 +559,7 @@
     - name: Klienti
       displayName: signalr
       items:
-        - name: Funkce klienta SignalR
+        - name: Přehled
           uid: signalr/client-features
           displayName: signalr
         - name: Klient .NET
@@ -1180,6 +1182,8 @@
       uid: performance/diagnostic-tools
     - name: Zátěžové testování
       uid: test/loadtests
+    - name: Blazor WebAssembly
+      uid: performance/blazor/webassembly-best-practices
 - name: Globalizace a lokalizace
   items:
     - name: Přehled
