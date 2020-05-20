@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/diagnostics
-ms.openlocfilehash: 15f68ced99bdaea9ce53db801a4b2a3bfef2f8dd
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 33b2ee29830cd3012ff791c949c3a7c23a2e98c7
+ms.sourcegitcommit: 16b3abec1ed70f9a206f0cfa7cf6404eebaf693d
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774675"
+ms.lasthandoff: 05/17/2020
+ms.locfileid: "83444344"
 ---
 # <a name="logging-and-diagnostics-in-grpc-on-net"></a>Protokolování a diagnostika v gRPC v .NET
 
@@ -26,10 +26,10 @@ Od [James Newton – král](https://twitter.com/jamesnk)
 Tento článek poskytuje pokyny pro shromažďování diagnostických informací z aplikace gRPC, které vám pomůžou při řešení problémů. Probíraná témata zahrnují:
 
 * **Protokolování** strukturovaných protokolů zapsaných do [protokolování .NET Core](xref:fundamentals/logging/index). <xref:Microsoft.Extensions.Logging.ILogger>používá v aplikačních architekturách k zápisu protokolů a uživatelů pro vlastní protokolování v aplikaci.
-* **Trasování** – události související s operací napsanou pomocí `DiaganosticSource` a `Activity`. Trasování ze zdroje diagnostiky se běžně používají ke shromažďování telemetrie aplikací pomocí knihoven, jako jsou [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-core) a [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet).
-* **Metriky** – reprezentace míry dat v časových intervalech, například požadavků za sekundu. Metriky jsou vydávány `EventCounter` pomocí nástroje a mohou být pozorovány pomocí nástroje příkazového řádku [dotnet-Counters](https://docs.microsoft.com/dotnet/core/diagnostics/dotnet-counters) nebo s [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/eventcounters).
+* **Trasování** – události související s operací napsanou pomocí `DiaganosticSource` a `Activity` . Trasování ze zdroje diagnostiky se běžně používají ke shromažďování telemetrie aplikací pomocí knihoven, jako jsou [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-core) a [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet).
+* **Metriky** – reprezentace míry dat v časových intervalech, například požadavků za sekundu. Metriky jsou vydávány pomocí `EventCounter` nástroje a mohou být pozorovány pomocí nástroje příkazového řádku [dotnet-Counters](https://docs.microsoft.com/dotnet/core/diagnostics/dotnet-counters) nebo s [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/eventcounters).
 
-## <a name="logging"></a>protokolování
+## <a name="logging"></a>Protokolování
 
 gRPC Services a klient gRPC zapisují protokoly pomocí [protokolování .NET Core](xref:fundamentals/logging/index). Protokoly jsou vhodné ke spuštění, když potřebujete ladit neočekávané chování ve vašich aplikacích.
 
@@ -40,11 +40,11 @@ gRPC Services a klient gRPC zapisují protokoly pomocí [protokolování .NET Co
 
 Vzhledem k tomu, že jsou služby gRPC hostované na ASP.NET Core, používá systém protokolování ASP.NET Core. Ve výchozí konfiguraci gRPC protokoluje velmi málo informací, ale může se nakonfigurovat. Podrobnosti o konfiguraci ASP.NET Core protokolování najdete v dokumentaci k [protokolování ASP.NET Core](xref:fundamentals/logging/index#configuration) .
 
-gRPC přidá do `Grpc` kategorie protokoly. Pokud chcete povolit podrobné protokoly z gRPC, nakonfigurujte `Grpc` předpony na `Debug` úroveň v souboru *appSettings. JSON* přidáním následujících položek do `LogLevel` dílčí části v: `Logging`
+gRPC přidá do kategorie protokoly `Grpc` . Pokud chcete povolit podrobné protokoly z gRPC, nakonfigurujte `Grpc` předpony na `Debug` úroveň v souboru *appSettings. JSON* přidáním následujících položek do `LogLevel` dílčí části v `Logging` :
 
 [!code-json[](diagnostics/sample/logging-config.json?highlight=7)]
 
-Můžete ho také nakonfigurovat v *Startup.cs* pomocí `ConfigureLogging`:
+Můžete ho také nakonfigurovat v *Startup.cs* pomocí `ConfigureLogging` :
 
 [!code-csharp[](diagnostics/sample/logging-config-code.cs?highlight=5)]
 
@@ -52,9 +52,9 @@ Pokud nepoužíváte konfiguraci založenou na formátu JSON, nastavte v konfigu
 
 * `Logging:LogLevel:Grpc` = `Debug`
 
-Informace o tom, jak zadat hodnoty vnořených konfigurací, najdete v dokumentaci ke konfiguračnímu systému. Například při použití proměnných prostředí jsou místo `_` `:` (například `Logging__LogLevel__Grpc`) použity dva znaky (například).
+Informace o tom, jak zadat hodnoty vnořených konfigurací, najdete v dokumentaci ke konfiguračnímu systému. Například při použití proměnných prostředí `_` jsou místo `:` (například) použity dva znaky (například `Logging__LogLevel__Grpc` ).
 
-Tuto `Debug` úroveň doporučujeme používat při shromažďování podrobnějších diagnostických nástrojů pro vaši aplikaci. `Trace` Úroveň přináší vysoce nízkou diagnostiku a je zřídka nutná pro diagnostiku problémů ve vaší aplikaci.
+Tuto úroveň doporučujeme používat `Debug` při shromažďování podrobnějších diagnostických nástrojů pro vaši aplikaci. `Trace`Úroveň přináší vysoce nízkou diagnostiku a je zřídka nutná pro diagnostiku problémů ve vaší aplikaci.
 
 #### <a name="sample-logging-output"></a>Ukázka výstupu protokolování
 
@@ -83,7 +83,7 @@ Způsob přístupu ke protokolům na straně serveru závisí na prostředí, ve
 
 #### <a name="as-a-console-app"></a>Jako Konzolová aplikace
 
-Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console-provider) . protokoly gRPC se zobrazí v konzole nástroje.
+Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console) . protokoly gRPC se zobrazí v konzole nástroje.
 
 #### <a name="other-environments"></a>Další prostředí
 
@@ -138,40 +138,40 @@ gRPC Services a klient gRPC poskytují informace o voláních gRPC pomocí [Diag
 
 služby gRPC se hostují na ASP.NET Core, které hlásí události týkající se příchozích požadavků HTTP. do existující diagnostiky požadavků HTTP, kterou ASP.NET Core poskytuje, se přidají metadata specifická pro gRPC.
 
-* Název zdroje diagnostiky `Microsoft.AspNetCore`je.
-* Název aktivity je `Microsoft.AspNetCore.Hosting.HttpRequestIn`.
-  * Název metody gRPC vyvolané voláním gRPC se přidá jako značka s názvem `grpc.method`.
-  * Stavový kód volání gRPC, když se dokončí, se přidá jako značka s názvem `grpc.status_code`.
+* Název zdroje diagnostiky je `Microsoft.AspNetCore` .
+* Název aktivity je `Microsoft.AspNetCore.Hosting.HttpRequestIn` .
+  * Název metody gRPC vyvolané voláním gRPC se přidá jako značka s názvem `grpc.method` .
+  * Stavový kód volání gRPC, když se dokončí, se přidá jako značka s názvem `grpc.status_code` .
 
 ### <a name="grpc-client-tracing"></a>trasování klienta gRPC
 
-Klient .NET gRPC používá `HttpClient` k zajištění volání gRPC. I `HttpClient` když zapisuje diagnostické události, klient .NET gRPC poskytuje vlastní diagnostický zdroj, aktivitu a události, aby bylo možné shromáždit informace o volání gRPC.
+Klient .NET gRPC používá `HttpClient` k zajištění volání gRPC. I když `HttpClient` zapisuje diagnostické události, klient .NET gRPC poskytuje vlastní diagnostický zdroj, aktivitu a události, aby bylo možné shromáždit informace o volání gRPC.
 
-* Název zdroje diagnostiky `Grpc.Net.Client`je.
-* Název aktivity je `Grpc.Net.Client.GrpcOut`.
-  * Název metody gRPC vyvolané voláním gRPC se přidá jako značka s názvem `grpc.method`.
-  * Stavový kód volání gRPC, když se dokončí, se přidá jako značka s názvem `grpc.status_code`.
+* Název zdroje diagnostiky je `Grpc.Net.Client` .
+* Název aktivity je `Grpc.Net.Client.GrpcOut` .
+  * Název metody gRPC vyvolané voláním gRPC se přidá jako značka s názvem `grpc.method` .
+  * Stavový kód volání gRPC, když se dokončí, se přidá jako značka s názvem `grpc.status_code` .
 
 ### <a name="collecting-tracing"></a>Shromažďování trasování
 
-Nejjednodušší způsob, jak použít `DiagnosticSource` , je nakonfigurovat v aplikaci knihovnu telemetrie, jako je například [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-core) nebo [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet) . Knihovna zpracuje informace o gRPC volání souběžně jiné telemetrie aplikací.
+Nejjednodušší způsob, jak použít, `DiagnosticSource` je nakonfigurovat v aplikaci knihovnu telemetrie, jako je například [Application Insights](https://docs.microsoft.com/azure/azure-monitor/app/asp-net-core) nebo [OpenTelemetry](https://github.com/open-telemetry/opentelemetry-dotnet) . Knihovna zpracuje informace o gRPC volání souběžně jiné telemetrie aplikací.
 
 Trasování lze zobrazit ve spravované službě, jako je například Application Insights, nebo můžete zvolit spuštění vlastního systému distribuované vektorizace. OpenTelemetry podporuje export dat trasování do [Jaeger](https://www.jaegertracing.io/) a [Zipkin](https://zipkin.io/).
 
-`DiagnosticSource`může spotřebovávat události trasování v kódu pomocí `DiagnosticListener`. Informace o naslouchání diagnostickému zdroji pomocí kódu naleznete v [uživatelské příručce DiagnosticSource](https://github.com/dotnet/corefx/blob/d3942d4671919edb0cca6ddc1840190f524a809d/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md#consuming-data-with-diagnosticlistener).
+`DiagnosticSource`může spotřebovávat události trasování v kódu pomocí `DiagnosticListener` . Informace o naslouchání diagnostickému zdroji pomocí kódu naleznete v [uživatelské příručce DiagnosticSource](https://github.com/dotnet/corefx/blob/d3942d4671919edb0cca6ddc1840190f524a809d/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md#consuming-data-with-diagnosticlistener).
 
 > [!NOTE]
-> Knihovny telemetrie momentálně nezachycují gRPC `Grpc.Net.Client.GrpcOut` specifickou telemetrii. Práci pro zlepšení knihoven telemetrie, které zachytí toto trasování, pokračuje.
+> Knihovny telemetrie momentálně nezachycují gRPC specifickou `Grpc.Net.Client.GrpcOut` telemetrii. Práci pro zlepšení knihoven telemetrie, které zachytí toto trasování, pokračuje.
 
 ## <a name="metrics"></a>Metriky
 
-Metrika je reprezentace datových měr v časových intervalech, například požadavků za sekundu. Data metrik umožňují sledovat stav aplikace na vysoké úrovni. Metriky .NET gRPC jsou vydávány `EventCounter`pomocí.
+Metrika je reprezentace datových měr v časových intervalech, například požadavků za sekundu. Data metrik umožňují sledovat stav aplikace na vysoké úrovni. Metriky .NET gRPC jsou vydávány pomocí `EventCounter` .
 
 ### <a name="grpc-service-metrics"></a>metriky služby gRPC
 
 metriky serveru gRPC jsou hlášeny ve `Grpc.AspNetCore.Server` zdroji události.
 
-| Název                      | Popis                   |
+| Name                      | Popis                   |
 | --------------------------|-------------------------------|
 | `total-calls`             | Celkový počet volání                   |
 | `current-calls`           | Aktuální volání                 |
@@ -187,7 +187,7 @@ ASP.NET Core také poskytuje vlastní metriky pro `Microsoft.AspNetCore.Hosting`
 
 metriky klienta gRPC jsou hlášeny ve `Grpc.Net.Client` zdroji události.
 
-| Název                      | Popis                   |
+| Name                      | Popis                   |
 | --------------------------|-------------------------------|
 | `total-calls`             | Celkový počet volání                   |
 | `current-calls`           | Aktuální volání                 |

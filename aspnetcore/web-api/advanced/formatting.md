@@ -1,23 +1,11 @@
 ---
-title: Formátování dat odpovědi v ASP.NET Core Web API
-author: ardalis
-description: Naučte se, jak formátovat data odpovědí v ASP.NET Core webovém rozhraní API.
-ms.author: riande
-ms.custom: H1Hack27Feb2017
-ms.date: 04/17/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: web-api/advanced/formatting
-ms.openlocfilehash: 22787b20879c3739ee8a8d74c7a39e7cf8f4d5b0
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774233"
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -29,43 +17,43 @@ ASP.NET Core MVC podporuje formátování dat odpovědi. Data odpovědi lze form
 
 ## <a name="format-specific-action-results"></a>Výsledky akce specifické pro formát
 
-Některé typy výsledků akce jsou specifické pro konkrétní formát, například <xref:Microsoft.AspNetCore.Mvc.JsonResult> a. <xref:Microsoft.AspNetCore.Mvc.ContentResult> Akce mohou vracet výsledky, které jsou formátovány v určitém formátu bez ohledu na Předvolby klienta. Například vrácení `JsonResult` vrátí data ve formátu JSON. Vrácení `ContentResult` nebo řetězec vrací data řetězce ve formátu prostého textu.
+Některé typy výsledků akce jsou specifické pro konkrétní formát, například <xref:Microsoft.AspNetCore.Mvc.JsonResult> a <xref:Microsoft.AspNetCore.Mvc.ContentResult> . Akce mohou vracet výsledky, které jsou formátovány v určitém formátu bez ohledu na Předvolby klienta. Například vrácení `JsonResult` vrátí data ve formátu JSON. Vrácení `ContentResult` nebo řetězec vrací data řetězce ve formátu prostého textu.
 
-Akce není nutná k vrácení určitého konkrétního typu. ASP.NET Core podporuje návratovou hodnotu objektu.  Výsledky z akcí, které vracejí objekty, které <xref:Microsoft.AspNetCore.Mvc.IActionResult> nejsou typy, jsou serializovány <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> pomocí příslušné implementace. Další informace naleznete v tématu <xref:web-api/action-return-types>.
+Akce není nutná k vrácení určitého konkrétního typu. ASP.NET Core podporuje návratovou hodnotu objektu.  Výsledky z akcí, které vracejí objekty, které nejsou <xref:Microsoft.AspNetCore.Mvc.IActionResult> typy, jsou serializovány pomocí příslušné <xref:Microsoft.AspNetCore.Mvc.Formatters.IOutputFormatter> implementace. Další informace naleznete v tématu <xref:web-api/action-return-types>.
 
 Integrovaná pomocná metoda <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Ok*> vrací data ve formátu JSON:[!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_get)]
 
 Ukázka stažení vrátí seznam autorů. Pomocí nástrojů pro vývojáře v prohlížeči F12 nebo [příspěvku](https://www.getpostman.com/tools) s předchozím kódem:
 
 * Zobrazí se hlavička odpovědi obsahující **typ obsahu:** `application/json; charset=utf-8` .
-* Zobrazí se hlavičky žádosti. Například `Accept` záhlaví. `Accept` Hlavička je ignorována v předchozím kódu.
+* Zobrazí se hlavičky žádosti. Například `Accept` záhlaví. `Accept`Hlavička je ignorována v předchozím kódu.
 
 Chcete-li vrátit data ve formátu prostého textu, použijte aplikaci <xref:Microsoft.AspNetCore.Mvc.ContentResult.Content> a <xref:Microsoft.AspNetCore.Mvc.ContentResult.Content> pomocníka:
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_about)]
 
-V předchozím kódu je `Content-Type` `text/plain`vráceno. Vrácení řetězcového doručení `Content-Type` `text/plain`:
+V předchozím kódu `Content-Type` je vráceno `text/plain` . Vrácení řetězcového doručení `Content-Type` `text/plain` :
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_string)]
 
-Pro akce s více návratovými typy vrátí `IActionResult`. Například vrácení různých stavových kódů HTTP na základě výsledku provedených operací.
+Pro akce s více návratovými typy vrátí `IActionResult` . Například vrácení různých stavových kódů HTTP na základě výsledku provedených operací.
 
 ## <a name="content-negotiation"></a>Vyjednávání obsahu
 
 K domlouvání obsahu dojde, když klient zadá [hlavičku Accept](https://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html). Výchozí formát používaný ASP.NET Core je [JSON](https://json.org/). Vyjednávání obsahu je:
 
-* Implementuje <xref:Microsoft.AspNetCore.Mvc.ObjectResult>.
-* Integrováno do výsledků akce specifické pro kód stavu vrácených z pomocných metod. Pomocné metody výsledků akcí jsou založeny na `ObjectResult`.
+* Implementuje <xref:Microsoft.AspNetCore.Mvc.ObjectResult> .
+* Integrováno do výsledků akce specifické pro kód stavu vrácených z pomocných metod. Pomocné metody výsledků akcí jsou založeny na `ObjectResult` .
 
-Při vrácení typu modelu je `ObjectResult`návratový typ.
+Při vrácení typu modelu je návratový typ `ObjectResult` .
 
-Následující metoda akce používá pomocné metody `Ok` a `NotFound` :
+Následující metoda akce používá `Ok` `NotFound` pomocné metody a:
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_search)]
 
-Ve výchozím nastavení ASP.NET Core podporuje `application/json`, `text/json`a `text/plain` typy médií. Nástroje, jako je například [Fiddler](https://www.telerik.com/fiddler) nebo [Poster](https://www.getpostman.com/tools) , `Accept` mohou nastavit hlavičku požadavku na zadání návratového formátu. Pokud `Accept` hlavička obsahuje typ, který server podporuje, vrátí se tento typ. V další části se dozvíte, jak přidat další formátovací moduly.
+Ve výchozím nastavení ASP.NET Core podporuje `application/json` , `text/json` a `text/plain` typy médií. Nástroje, jako je například [Fiddler](https://www.telerik.com/fiddler) nebo [Poster](https://www.getpostman.com/tools) , mohou nastavit `Accept` hlavičku požadavku na zadání návratového formátu. Pokud `Accept` Hlavička obsahuje typ, který server podporuje, vrátí se tento typ. V další části se dozvíte, jak přidat další formátovací moduly.
 
-Akce kontroleru mohou vracet POCOs (objekty CLR ve starém formátu). Když se vrátí POCO, modul runtime automaticky vytvoří objekt `ObjectResult` , který zabalí objekt. Klient získá formátovaný serializovaný objekt. Pokud je `null`vrácen objekt, je vrácena `204 No Content` odpověď.
+Akce kontroleru mohou vracet POCOs (objekty CLR ve starém formátu). Když se vrátí POCO, modul runtime automaticky vytvoří `ObjectResult` objekt, který zabalí objekt. Klient získá formátovaný serializovaný objekt. Pokud je vrácen objekt `null` , `204 No Content` je vrácena odpověď.
 
 Vrací se typ objektu:
 
@@ -75,33 +63,33 @@ V předchozím kódu vrátí požadavek na platný alias autora `200 OK` odpově
 
 ### <a name="the-accept-header"></a>Hlavička Accept
 
-Po zobrazení `Accept` hlavičky v požadavku se *domlouvání* obsahu provede. Když požadavek obsahuje hlavičku Accept, ASP.NET Core:
+Po zobrazení hlavičky v požadavku se *domlouvání* obsahu provede `Accept` . Když požadavek obsahuje hlavičku Accept, ASP.NET Core:
 
 * Vytvoří výčet typů médií v hlavičce Accept v upřednostňovaném pořadí.
 * Pokusí se najít formátovací modul, který může vytvořit odpověď v jednom z určených formátů.
 
 Pokud se nenajde žádný formátovací modul, který může splnit požadavek klienta, ASP.NET Core:
 
-* Vrátí `406 Not Acceptable` , <xref:Microsoft.AspNetCore.Mvc.MvcOptions> Pokud byla nastavena, nebo-
+* Vrátí `406 Not Acceptable` <xref:Microsoft.AspNetCore.Mvc.MvcOptions> , pokud byla nastavena, nebo-
 * Pokusí se najít první formátovací modul, který může vytvořit odpověď.
 
-Pokud není pro požadovaný formát nakonfigurován žádný formátovací modul, je použit první formátovací modul, který může objekt formátovat. Pokud se `Accept` v požadavku nezobrazí žádná hlavička:
+Pokud není pro požadovaný formát nakonfigurován žádný formátovací modul, je použit první formátovací modul, který může objekt formátovat. Pokud `Accept` se v požadavku nezobrazí žádná hlavička:
 
 * První formátovací modul, který může zpracovat objekt, je použit k serializaci odpovědi.
 * Nedochází k žádnému vyjednávání. Server určí, který formát se má vrátit.
 
-Pokud hlavička Accept obsahuje `*/*`, záhlaví se ignoruje, pokud `RespectBrowserAcceptHeader` není nastavené na hodnotu <xref:Microsoft.AspNetCore.Mvc.MvcOptions>true.
+Pokud hlavička Accept obsahuje `*/*` , záhlaví se ignoruje, pokud `RespectBrowserAcceptHeader` není nastavené na hodnotu true <xref:Microsoft.AspNetCore.Mvc.MvcOptions> .
 
 ### <a name="browsers-and-content-negotiation"></a>Prohlížeče a vyjednávání obsahu
 
-Na rozdíl od typických klientů rozhraní API webové `Accept` prohlížeče poskytují hlavičky. Webový prohlížeč určí mnoho formátů, včetně zástupných znaků. Ve výchozím nastavení, když rozhraní detekuje, že požadavek přichází z prohlížeče:
+Na rozdíl od typických klientů rozhraní API webové prohlížeče poskytují `Accept` hlavičky. Webový prohlížeč určí mnoho formátů, včetně zástupných znaků. Ve výchozím nastavení, když rozhraní detekuje, že požadavek přichází z prohlížeče:
 
-* `Accept` Záhlaví je ignorováno.
+* `Accept`Záhlaví je ignorováno.
 * Pokud není nakonfigurováno jinak, vrátí se obsah ve formátu JSON.
 
 Díky tomu je v prohlížečích k dispozici jednotnější prostředí pro využívání rozhraní API.
 
-Pokud chcete aplikaci nakonfigurovat tak, aby přijímala hlavičky přijetí <xref:Microsoft.AspNetCore.Mvc.MvcOptions.RespectBrowserAcceptHeader> prohlížeče `true`, nastavte na:
+Pokud chcete aplikaci nakonfigurovat tak, aby přijímala hlavičky přijetí prohlížeče, nastavte <xref:Microsoft.AspNetCore.Mvc.MvcOptions.RespectBrowserAcceptHeader> na `true` :
 
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](./formatting/3.0sample/StartupRespectBrowserAcceptHeader.cs?name=snippet)]
@@ -118,17 +106,17 @@ Aplikace, které vyžadují podporu dalších formátů, můžou přidat přísl
 
 ### <a name="add-xml-format-support"></a>Přidat podporu formátu XML
 
-Formátovací moduly XML implementované pomocí <xref:System.Xml.Serialization.XmlSerializer> jsou konfigurovány voláním <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*>:
+Formátovací moduly XML implementované pomocí <xref:System.Xml.Serialization.XmlSerializer> jsou konfigurovány voláním <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*> :
 
 [!code-csharp[](./formatting/3.0sample/Startup.cs?name=snippet)]
 
-Předchozí kód serializace výsledků pomocí `XmlSerializer`.
+Předchozí kód serializace výsledků pomocí `XmlSerializer` .
 
 Při použití předchozího kódu vrátí metody kontroleru odpovídající formát na základě `Accept` hlavičky požadavku.
 
 ### <a name="configure-systemtextjson-based-formatters"></a>Konfigurace formátovacích modulů založených na System. text. JSON
 
-Funkce pro `System.Text.Json`formátovací moduly založené na službě se dají konfigurovat pomocí `Microsoft.AspNetCore.Mvc.JsonOptions.SerializerOptions`.
+Funkce pro formátovací moduly založené na službě se `System.Text.Json` dají konfigurovat pomocí `Microsoft.AspNetCore.Mvc.JsonOptions.SerializerOptions` .
 
 ```csharp
 services.AddControllers().AddJsonOptions(options =>
@@ -141,7 +129,7 @@ services.AddControllers().AddJsonOptions(options =>
 });
 ```
 
-Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult`. Příklad:
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Například:
 
 ```csharp
 public IActionResult Get()
@@ -155,19 +143,19 @@ public IActionResult Get()
 
 ### <a name="add-newtonsoftjson-based-json-format-support"></a>Přidání podpory formátu JSON založeného na Newtonsoft. JSON
 
-Před ASP.NET Core 3,0 byly použity výchozí formátovací moduly JSON implementované pomocí `Newtonsoft.Json` balíčku. V ASP.NET Core 3,0 nebo novějších jsou výchozí formátovací moduly JSON založené na `System.Text.Json`. Podpora formátování `Newtonsoft.Json` a funkcí založených na základech je k dispozici po instalaci balíčku NuGet [Microsoft. AspNetCore. Mvc. NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) a `Startup.ConfigureServices`jeho konfiguraci v.
+Před ASP.NET Core 3,0 byly použity výchozí formátovací moduly JSON implementované pomocí `Newtonsoft.Json` balíčku. V ASP.NET Core 3,0 nebo novějších jsou výchozí formátovací moduly JSON založené na `System.Text.Json` . Podpora `Newtonsoft.Json` formátování a funkcí založených na základech je k dispozici po instalaci [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) balíčku NuGet a jeho konfiguraci v nástroji `Startup.ConfigureServices` .
 
 [!code-csharp[](./formatting/3.0sample/StartupNewtonsoftJson.cs?name=snippet)]
 
-Některé funkce nemusí fungovat správně s `System.Text.Json`formátovacími moduly a vyžadují odkaz na `Newtonsoft.Json`formátování na základě. I nadále používat `Newtonsoft.Json`formátovací moduly založené na tom, pokud aplikace:
+Některé funkce nemusí fungovat správně s `System.Text.Json` formátovacími moduly a vyžadují odkaz na `Newtonsoft.Json` formátování na základě. I nadále používat formátovací moduly založené na tom, `Newtonsoft.Json` Pokud aplikace:
 
 * Používá `Newtonsoft.Json` atributy. Příkladem je `[JsonProperty]` nebo `[JsonIgnore]`.
 * Přizpůsobuje nastavení serializace.
-* Spoléhá na funkce, `Newtonsoft.Json` které poskytuje.
-* Nakonfiguruje `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings`. Před ASP.NET Core 3,0 `JsonResult.SerializerSettings` akceptuje instance `JsonSerializerSettings` , která je specifická pro. `Newtonsoft.Json`
+* Spoléhá na funkce, které `Newtonsoft.Json` poskytuje.
+* Nakonfiguruje `Microsoft.AspNetCore.Mvc.JsonResult.SerializerSettings` . Před ASP.NET Core 3,0 `JsonResult.SerializerSettings` akceptuje instance `JsonSerializerSettings` , která je specifická pro `Newtonsoft.Json` .
 * Generuje dokumentaci k [openapi](<xref:tutorials/web-api-help-pages-using-swagger>) .
 
-Funkce pro `Newtonsoft.Json`formátovací moduly založené na službě se dají nakonfigurovat pomocí `Microsoft.AspNetCore.Mvc.MvcNewtonsoftJsonOptions.SerializerSettings`:
+Funkce pro formátovací moduly založené na službě se `Newtonsoft.Json` dají nakonfigurovat pomocí `Microsoft.AspNetCore.Mvc.MvcNewtonsoftJsonOptions.SerializerSettings` :
 
 ```csharp
 services.AddControllers().AddNewtonsoftJson(options =>
@@ -180,7 +168,7 @@ services.AddControllers().AddNewtonsoftJson(options =>
 });
 ```
 
-Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult`. Příklad:
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Například:
 
 ```csharp
 public IActionResult Get()
@@ -200,11 +188,11 @@ public IActionResult Get()
 
 Formátování XML vyžaduje balíček NuGet [Microsoft. AspNetCore. Mvc. formátovací modul. XML](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) .
 
-Formátovací moduly XML implementované pomocí <xref:System.Xml.Serialization.XmlSerializer> jsou konfigurovány voláním <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*>:
+Formátovací moduly XML implementované pomocí <xref:System.Xml.Serialization.XmlSerializer> jsou konfigurovány voláním <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*> :
 
 [!code-csharp[](./formatting/sample/Startup.cs?name=snippet)]
 
-Předchozí kód serializace výsledků pomocí `XmlSerializer`.
+Předchozí kód serializace výsledků pomocí `XmlSerializer` .
 
 Při použití předchozího kódu by metody kontroleru měly vracet odpovídající formát na základě `Accept` hlavičky požadavku.
 
@@ -212,11 +200,11 @@ Při použití předchozího kódu by metody kontroleru měly vracet odpovídaj�
 
 ### <a name="specify-a-format"></a>Zadat formát
 
-Chcete-li omezit formáty odpovědi, použijte [`[Produces]`](xref:Microsoft.AspNetCore.Mvc.ProducesAttribute) filtr. Podobně jako [Filters](xref:mvc/controllers/filters)u většiny `[Produces]` filtrů lze použít akci, řadič nebo globální rozsah:
+Chcete-li omezit formáty odpovědi, použijte [`[Produces]`](xref:Microsoft.AspNetCore.Mvc.ProducesAttribute) Filtr. Podobně jako u většiny [filtrů](xref:mvc/controllers/filters) `[Produces]` lze použít akci, řadič nebo globální rozsah:
 
 [!code-csharp[](./formatting/3.0sample/Controllers/WeatherForecastController.cs?name=snippet)]
 
-Předchozí [`[Produces]`](xref:Microsoft.AspNetCore.Mvc.ProducesAttribute) filtr:
+Předchozí [`[Produces]`](xref:Microsoft.AspNetCore.Mvc.ProducesAttribute) Filtr:
 
 * Vynutí, aby všechny akce v rámci kontroleru vracely odpovědi ve formátu JSON.
 * Pokud jsou nakonfigurovány jiné formátovací moduly a klient určí jiný formát, bude vrácen kód JSON.
@@ -225,7 +213,7 @@ Další informace najdete v tématu [filtry](xref:mvc/controllers/filters).
 
 ### <a name="special-case-formatters"></a>Formátování speciálních případů
 
-Některé speciální případy jsou implementovány pomocí integrovaných formátovacích modulů. Ve výchozím nastavení `string` jsou návratové typy formátovány jako *textové/jednoduché* (*text/HTML* , pokud `Accept` jsou požadovány prostřednictvím hlavičky). Toto chování lze odstranit odebráním <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter>. Formátovací moduly jsou v `ConfigureServices` metodě odebrány. Akce, které mají vrácen návratový typ objektu modelu `204 No Content` při návratu `null`. Toto chování lze odstranit odebráním <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter>. Následující kód odstraní `StringOutputFormatter` a `HttpNoContentOutputFormatter`.
+Některé speciální případy jsou implementovány pomocí integrovaných formátovacích modulů. Ve výchozím nastavení `string` jsou návratové typy formátovány jako *textové/jednoduché* (*text/HTML* , pokud jsou požadovány prostřednictvím `Accept` hlavičky). Toto chování lze odstranit odebráním <xref:Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter> . Formátovací moduly jsou v metodě odebrány `ConfigureServices` . Akce, které mají vrácen návratový typ objektu modelu `204 No Content` při návratu `null` . Toto chování lze odstranit odebráním <xref:Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter> . Následující kód odstraní `StringOutputFormatter` a `HttpNoContentOutputFormatter` .
 
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](./formatting/3.0sample/StartupStringOutputFormatter.cs?name=snippet)]
@@ -234,12 +222,12 @@ Některé speciální případy jsou implementovány pomocí integrovaných form
 [!code-csharp[](./formatting/sample/StartupStringOutputFormatter.cs?name=snippet)]
 ::: moniker-end
 
-Bez rozhraní `StringOutputFormatter`, předdefinované formáty `string` formátování JSON vrátí typy. Pokud je vestavěný formátovací modul JSON odebraný a je k dispozici formátovací modul XML, vrátí typy formátování `string` formátovací kód XML. V opačném případě `string` návratové typy vrátí `406 Not Acceptable`.
+Bez rozhraní `StringOutputFormatter` , předdefinované formáty formátování JSON `string` vrátí typy. Pokud je vestavěný formátovací modul JSON odebraný a je k dispozici formátovací modul XML, vrátí typy formátování formátovací kód XML `string` . V opačném případě `string` návratové typy vrátí `406 Not Acceptable` .
 
-`HttpNoContentOutputFormatter`Bez objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Příklad:
+Bez `HttpNoContentOutputFormatter` objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Například:
 
-* Formátovací modul JSON vrátí odpověď s tělem `null`.
-* Formátovací modul XML vrátí prázdný element XML s nastaveným atributem `xsi:nil="true"` .
+* Formátovací modul JSON vrátí odpověď s tělem `null` .
+* Formátovací modul XML vrátí prázdný element XML s `xsi:nil="true"` nastaveným atributem.
 
 ## <a name="response-format-url-mappings"></a>Mapování adres URL formátu odpovědi
 
@@ -248,14 +236,218 @@ Klienti mohou požádat o konkrétní formát v rámci adresy URL, například:
 * V řetězci dotazu nebo v části cesty.
 * Pomocí přípony souboru specifické pro formát, jako je například. XML nebo. JSON.
 
-Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Příklad:
+Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Například:
 
 [!code-csharp[](./formatting/sample/Controllers/ProductsController.cs?name=snippet)]
 
-Předchozí trasa umožňuje zadat požadovaný formát jako volitelnou příponu souboru. [`[FormatFilter]`](xref:Microsoft.AspNetCore.Mvc.FormatFilterAttribute) Atribut kontroluje existenci hodnoty formátu v `RouteData` a při vytvoření odpovědi mapuje formát odpovědi na příslušný formátovací modul.
+Předchozí trasa umožňuje zadat požadovaný formát jako volitelnou příponu souboru. [`[FormatFilter]`](xref:Microsoft.AspNetCore.Mvc.FormatFilterAttribute)Atribut kontroluje existenci hodnoty formátu v `RouteData` a při vytvoření odpovědi mapuje formát odpovědi na příslušný formátovací modul.
 
 |           Trasa        |             Modul              |
-|------------------------|------------------------------------|
-|   `/api/products/5`    |    Výchozí výstupní formátovací modul    |
-| `/api/products/5.json` | Formátovací modul JSON (Pokud je nakonfigurovaný) |
-| `/api/products/5.xml`  | Formátovací modul XML (Pokud je nakonfigurovaný)  |
+|---
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------| Název---: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------| |   `/api/products/5`    |    Výchozí formátování výstupu | | `/api/products/5.json` | Formátovací modul JSON (Pokud je nakonfigurovaný) | | `/api/products/5.xml`  | Formátovací modul XML (Pokud je nakonfigurován) |

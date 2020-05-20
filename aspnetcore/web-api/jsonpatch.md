@@ -1,24 +1,13 @@
 ---
-title: JsonPatch v ASP.NET Core Web API
-author: rick-anderson
-description: Naučte se zpracovávat požadavky na opravy JSON ve ASP.NET Core webovém rozhraní API.
-ms.author: riande
-ms.custom: mvc
-ms.date: 04/02/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: web-api/jsonpatch
-ms.openlocfilehash: 3a78fa268cce8cff10fedf5814d61ce0e5faaf4b
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766664"
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
+
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>JsonPatch v ASP.NET Core Web API
 
 [Dykstra](https://github.com/tdykstra) a [Kirka Larkin](https://github.com/serpent5)
@@ -31,8 +20,8 @@ Tento článek vysvětluje, jak zpracovat žádosti o opravu JSON ve ASP.NET Cor
 
 Pokud chcete ve své aplikaci povolit podporu oprav JSON, proveďte následující kroky:
 
-1. Nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. NewtonsoftJson](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) .
-1. Aktualizujte `Startup.ConfigureServices` metodu projektu pro volání <xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*>. Příklad:
+1. Nainstalujte [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) balíček NuGet.
+1. Aktualizujte metodu projektu `Startup.ConfigureServices` pro volání <xref:Microsoft.Extensions.DependencyInjection.NewtonsoftJsonMvcBuilderExtensions.AddNewtonsoftJson*> . Například:
 
     ```csharp
     services
@@ -48,7 +37,7 @@ Pokud chcete ve své aplikaci povolit podporu oprav JSON, proveďte následujíc
 
 ## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>JSON patch, AddNewtonsoftJson a System. text. JSON
 
-`AddNewtonsoftJson``System.Text.Json`nahradí vstupní a výstupní formátovací moduly používané pro formátování **veškerého** obsahu JSON. Chcete-li přidat podporu pro opravu `Newtonsoft.Json`JSON pomocí příkazu, zatímco ostatní formátovací moduly zůstaly beze změny, `Startup.ConfigureServices` aktualizujte metodu projektu následujícím způsobem:
+`AddNewtonsoftJson`nahradí `System.Text.Json` vstupní a výstupní formátovací moduly používané pro formátování **veškerého** obsahu JSON. Chcete-li přidat podporu pro opravu JSON pomocí příkazu `Newtonsoft.Json` , zatímco ostatní formátovací moduly zůstaly beze změny, aktualizujte `Startup.ConfigureServices` metodu projektu následujícím způsobem:
 
 [!code-csharp[](jsonpatch/samples/3.0/WebApp1/Startup.cs?name=snippet)]
 
@@ -76,9 +65,9 @@ Následující dokumenty JSON například reprezentují prostředek, dokument op
 
 V předchozím kódu JSON:
 
-* `op` Vlastnost určuje typ operace.
-* `path` Vlastnost určuje prvek, který se má aktualizovat.
-* `value` Vlastnost poskytuje novou hodnotu.
+* `op`Vlastnost určuje typ operace.
+* `path`Vlastnost určuje prvek, který se má aktualizovat.
+* `value`Vlastnost poskytuje novou hodnotu.
 
 ### <a name="resource-after-patch"></a>Prostředek po opravě
 
@@ -110,20 +99,150 @@ Změny provedené při použití dokumentu opravy JSON na prostředek jsou atomi
 
 Vlastnost [path](https://tools.ietf.org/html/rfc6901) objektu operace má lomítka mezi úrovněmi. Například, `"/address/zipCode"`.
 
-Indexy založené na nule slouží k určení prvků pole. První prvek `addresses` pole by byl na `/addresses/0`. Na `add` konec pole použijte spojovník (`-`) místo čísla indexu:. `/addresses/-`
+Indexy založené na nule slouží k určení prvků pole. První prvek `addresses` pole by byl na `/addresses/0` . Na `add` konec pole použijte spojovník ( `-` ) místo čísla indexu: `/addresses/-` .
 
 ### <a name="operations"></a>Operace
 
 V následující tabulce jsou uvedeny podporované operace, jak je definováno ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
 
 |Operace  | Poznámky |
-|-----------|--------------------------------|
-| `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu.|
-| `remove`  | Odebere vlastnost nebo prvek pole. |
-| `replace` | Stejné jako `remove` následováno `add` ve stejném umístění. |
-| `move`    | Stejné jako `remove` u zdroje, po `add` kterém následuje k cíli, pomocí hodnoty ze zdroje. |
-| `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. |
-| `test`    | Vrátí stavový kód úspěšného zpracování `path` , pokud `value`je zadána hodnota at.|
+|---
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------|---
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------| | `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu. | | `remove`  | Odebere vlastnost nebo prvek pole. | | `replace` | Stejné jako `remove` následováno ve `add` stejném umístění. | | `move`    | Stejné jako `remove` u zdroje, po kterém následuje `add` k cíli, pomocí hodnoty ze zdroje. | | `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. | | `test`    | Vrátí stavový kód úspěšného zpracování, pokud je zadána hodnota at `path` `value` . |
 
 ## <a name="json-patch-in-aspnet-core"></a>Oprava JSON v ASP.NET Core
 
@@ -134,8 +253,8 @@ Implementace opravy JSON ASP.NET Core je k dispozici v balíčku NuGet [Microsof
 V řadiči rozhraní API metoda Action pro opravu JSON:
 
 * Je označen `HttpPatch` atributem.
-* Akceptuje `JsonPatchDocument<T>`, obvykle s `[FromBody]`.
-* Změny `ApplyTo` se projeví v dokumentu opravy.
+* Akceptuje `JsonPatchDocument<T>` , obvykle s `[FromBody]` .
+* `ApplyTo`Změny se projeví v dokumentu opravy.
 
 Tady je příklad:
 
@@ -149,7 +268,7 @@ Tento kód z ukázkové aplikace funguje s následujícím `Customer` modelem:
 
 Ukázková akce metody:
 
-* Vytvoří `Customer`.
+* Vytvoří `Customer` .
 * Aplikuje opravu.
 * Vrátí výsledek v těle odpovědi.
 
@@ -175,7 +294,7 @@ Následující příklad metody akce ukazuje, jak použít opravu na dynamický 
 
 ## <a name="the-add-operation"></a>Operace přidání
 
-* Odkazuje `path` -li na prvek pole: vloží nový prvek před první, který je `path`určen parametrem.
+* `path`Odkazuje-li na prvek pole: vloží nový prvek před první, který je určen parametrem `path` .
 * Pokud `path` odkazuje na vlastnost: nastaví hodnotu vlastnosti.
 * Pokud `path` odkazuje na neexistující umístění:
   * Pokud je prostředek k opravě dynamický objekt: Přidá vlastnost.
@@ -192,33 +311,33 @@ Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a př
   * Pokud je prostředek k opravě dynamický objekt: Odebere vlastnost.
   * Pokud je prostředek pro opravu statickým objektem:
     * Pokud je vlastnost Nullable: nastaví ji na null.
-    * Pokud vlastnost nemůže mít hodnotu null, nastaví ji na `default<T>`.
+    * Pokud vlastnost nemůže mít hodnotu null, nastaví ji na `default<T>` .
 
-Následující ukázkový dokument opravy se nastaví `CustomerName` na hodnotu null a `Orders[0]`odstraní:
+Následující ukázkový dokument opravy se nastaví `CustomerName` na hodnotu null a odstraní `Orders[0]` :
 
 [!code-json[](jsonpatch/samples/2.2/JSON/remove.json)]
 
 ## <a name="the-replace-operation"></a>Operace Replace
 
-Tato operace je funkčně stejná jako `remove` následováno. `add`
+Tato operace je funkčně stejná jako `remove` následováno `add` .
 
-Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a nahrazuje `Orders[0]`novým `Order` objektem:
+Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a nahrazuje `Orders[0]` novým `Order` objektem:
 
 [!code-json[](jsonpatch/samples/2.2/JSON/replace.json)]
 
 ## <a name="the-move-operation"></a>Operace přesunutí
 
-* Pokud `path` odkazuje na element `from` pole: zkopíruje element do umístění `path` elementu a potom spustí `remove` operaci na `from` elementu.
-* Pokud `path` `from` odkazuje na vlastnost: zkopíruje hodnotu vlastnosti na `path` vlastnost a potom spustí `remove` operaci pro `from` vlastnost.
+* Pokud `path` odkazuje na element pole: zkopíruje `from` element do umístění `path` elementu a potom spustí `remove` operaci na `from` elementu.
+* Pokud `path` odkazuje na vlastnost: zkopíruje hodnotu `from` vlastnosti na `path` vlastnost a potom spustí `remove` operaci pro `from` vlastnost.
 * Pokud `path` odkazuje na neexistující vlastnost:
   * Pokud je prostředek k opravě statický objekt: požadavek se nezdařil.
-  * Pokud je prostředek pro opravu dynamický objekt: `from` zkopíruje vlastnost do umístění označeného `path`a potom spustí `remove` operaci pro `from` vlastnost.
+  * Pokud je prostředek pro opravu dynamický objekt: zkopíruje `from` vlastnost do umístění označeného `path` a potom spustí `remove` operaci pro `from` vlastnost.
 
 Následující ukázkový dokument opravy:
 
-* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName`.
+* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName` .
 * Nastaví `Orders[0].OrderName` na hodnotu null.
-* Přesune `Orders[1]` se na `Orders[0]`dřív.
+* Přesune `Orders[1]` se na dřív `Orders[0]` .
 
 [!code-json[](jsonpatch/samples/2.2/JSON/move.json)]
 
@@ -228,18 +347,18 @@ Tato operace je funkčně stejná jako `move` operace bez posledního `remove` k
 
 Následující ukázkový dokument opravy:
 
-* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName`.
-* Vloží kopii `Orders[1]` před `Orders[0]`.
+* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName` .
+* Vloží kopii `Orders[1]` před `Orders[0]` .
 
 [!code-json[](jsonpatch/samples/2.2/JSON/copy.json)]
 
 ## <a name="the-test-operation"></a>Operace testu
 
-Pokud hodnota v umístění, která `path` je uvedena v, se liší od hodnoty uvedené `value`v, požadavek se nezdařil. V takovém případě celá žádost o opravu selže i v případě, že všechny ostatní operace v dokumentu opravy by jinak uspěly.
+Pokud hodnota v umístění, která je uvedena v `path` , se liší od hodnoty uvedené v `value` , požadavek se nezdařil. V takovém případě celá žádost o opravu selže i v případě, že všechny ostatní operace v dokumentu opravy by jinak uspěly.
 
 Tato `test` operace se běžně používá k tomu, aby se zabránilo aktualizaci v případě konfliktu souběžnosti.
 
-Následující ukázkový dokument opravy nemá žádný vliv, pokud `CustomerName` je původní hodnota "Jan", protože test se nezdařil:
+Následující ukázkový dokument opravy nemá žádný vliv, pokud je původní hodnota `CustomerName` "Jan", protože test se nezdařil:
 
 [!code-json[](jsonpatch/samples/2.2/JSON/test-fail.json)]
 
@@ -288,9 +407,9 @@ Následující dokumenty JSON například reprezentují prostředek, dokument op
 
 V předchozím kódu JSON:
 
-* `op` Vlastnost určuje typ operace.
-* `path` Vlastnost určuje prvek, který se má aktualizovat.
-* `value` Vlastnost poskytuje novou hodnotu.
+* `op`Vlastnost určuje typ operace.
+* `path`Vlastnost určuje prvek, který se má aktualizovat.
+* `value`Vlastnost poskytuje novou hodnotu.
 
 ### <a name="resource-after-patch"></a>Prostředek po opravě
 
@@ -322,20 +441,150 @@ Změny provedené při použití dokumentu opravy JSON na prostředek jsou atomi
 
 Vlastnost [path](https://tools.ietf.org/html/rfc6901) objektu operace má lomítka mezi úrovněmi. Například, `"/address/zipCode"`.
 
-Indexy založené na nule slouží k určení prvků pole. První prvek `addresses` pole by byl na `/addresses/0`. Na `add` konec pole, použijte spojovník (-) místo čísla indexu: `/addresses/-`.
+Indexy založené na nule slouží k určení prvků pole. První prvek `addresses` pole by byl na `/addresses/0` . Na `add` konec pole, použijte spojovník (-) místo čísla indexu: `/addresses/-` .
 
 ### <a name="operations"></a>Operace
 
 V následující tabulce jsou uvedeny podporované operace, jak je definováno ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
 
 |Operace  | Poznámky |
-|-----------|--------------------------------|
-| `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu.|
-| `remove`  | Odebere vlastnost nebo prvek pole. |
-| `replace` | Stejné jako `remove` následováno `add` ve stejném umístění. |
-| `move`    | Stejné jako `remove` u zdroje, po `add` kterém následuje k cíli, pomocí hodnoty ze zdroje. |
-| `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. |
-| `test`    | Vrátí stavový kód úspěšného zpracování `path` , pokud `value`je zadána hodnota at.|
+|---
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------|---
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------| | `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu. | | `remove`  | Odebere vlastnost nebo prvek pole. | | `replace` | Stejné jako `remove` následováno ve `add` stejném umístění. | | `move`    | Stejné jako `remove` u zdroje, po kterém následuje `add` k cíli, pomocí hodnoty ze zdroje. | | `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. | | `test`    | Vrátí stavový kód úspěšného zpracování, pokud je zadána hodnota at `path` `value` . |
 
 ## <a name="jsonpatch-in-aspnet-core"></a>JsonPatch v ASP.NET Core
 
@@ -346,8 +595,8 @@ Implementace opravy JSON ASP.NET Core je k dispozici v balíčku NuGet [Microsof
 V řadiči rozhraní API metoda Action pro opravu JSON:
 
 * Je označen `HttpPatch` atributem.
-* Akceptuje `JsonPatchDocument<T>`, obvykle s `[FromBody]`.
-* Změny `ApplyTo` se projeví v dokumentu opravy.
+* Akceptuje `JsonPatchDocument<T>` , obvykle s `[FromBody]` .
+* `ApplyTo`Změny se projeví v dokumentu opravy.
 
 Tady je příklad:
 
@@ -361,7 +610,7 @@ Tento kód z ukázkové aplikace funguje s následujícím `Customer` modelem.
 
 Ukázková akce metody:
 
-* Vytvoří `Customer`.
+* Vytvoří `Customer` .
 * Aplikuje opravu.
 * Vrátí výsledek v těle odpovědi.
 
@@ -387,7 +636,7 @@ Následující příklad metody akce ukazuje, jak použít opravu na dynamický 
 
 ## <a name="the-add-operation"></a>Operace přidání
 
-* Odkazuje `path` -li na prvek pole: vloží nový prvek před první, který je `path`určen parametrem.
+* `path`Odkazuje-li na prvek pole: vloží nový prvek před první, který je určen parametrem `path` .
 * Pokud `path` odkazuje na vlastnost: nastaví hodnotu vlastnosti.
 * Pokud `path` odkazuje na neexistující umístění:
   * Pokud je prostředek k opravě dynamický objekt: Přidá vlastnost.
@@ -404,33 +653,33 @@ Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a př
   * Pokud je prostředek k opravě dynamický objekt: Odebere vlastnost.
   * Pokud je prostředek pro opravu statickým objektem:
     * Pokud je vlastnost Nullable: nastaví ji na null.
-    * Pokud vlastnost nemůže mít hodnotu null, nastaví ji na `default<T>`.
+    * Pokud vlastnost nemůže mít hodnotu null, nastaví ji na `default<T>` .
 
-Následující ukázkový dokument opravy se nastaví `CustomerName` na hodnotu null a `Orders[0]`odstraní.
+Následující ukázkový dokument opravy se nastaví `CustomerName` na hodnotu null a odstraní `Orders[0]` .
 
 [!code-json[](jsonpatch/samples/2.2/JSON/remove.json)]
 
 ## <a name="the-replace-operation"></a>Operace Replace
 
-Tato operace je funkčně stejná jako `remove` následováno. `add`
+Tato operace je funkčně stejná jako `remove` následováno `add` .
 
-Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a nahrazuje `Orders[0]`novým `Order` objektem.
+Následující ukázkový dokument opravy nastavuje hodnotu `CustomerName` a nahrazuje `Orders[0]` novým `Order` objektem.
 
 [!code-json[](jsonpatch/samples/2.2/JSON/replace.json)]
 
 ## <a name="the-move-operation"></a>Operace přesunutí
 
-* Pokud `path` odkazuje na element `from` pole: zkopíruje element do umístění `path` elementu a potom spustí `remove` operaci na `from` elementu.
-* Pokud `path` `from` odkazuje na vlastnost: zkopíruje hodnotu vlastnosti na `path` vlastnost a potom spustí `remove` operaci pro `from` vlastnost.
+* Pokud `path` odkazuje na element pole: zkopíruje `from` element do umístění `path` elementu a potom spustí `remove` operaci na `from` elementu.
+* Pokud `path` odkazuje na vlastnost: zkopíruje hodnotu `from` vlastnosti na `path` vlastnost a potom spustí `remove` operaci pro `from` vlastnost.
 * Pokud `path` odkazuje na neexistující vlastnost:
   * Pokud je prostředek k opravě statický objekt: požadavek se nezdařil.
-  * Pokud je prostředek pro opravu dynamický objekt: `from` zkopíruje vlastnost do umístění označeného `path`a potom spustí `remove` operaci pro `from` vlastnost.
+  * Pokud je prostředek pro opravu dynamický objekt: zkopíruje `from` vlastnost do umístění označeného `path` a potom spustí `remove` operaci pro `from` vlastnost.
 
 Následující ukázkový dokument opravy:
 
-* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName`.
+* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName` .
 * Nastaví `Orders[0].OrderName` na hodnotu null.
-* Přesune `Orders[1]` se na `Orders[0]`dřív.
+* Přesune `Orders[1]` se na dřív `Orders[0]` .
 
 [!code-json[](jsonpatch/samples/2.2/JSON/move.json)]
 
@@ -440,18 +689,18 @@ Tato operace je funkčně stejná jako `move` operace bez posledního `remove` k
 
 Následující ukázkový dokument opravy:
 
-* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName`.
-* Vloží kopii `Orders[1]` před `Orders[0]`.
+* Zkopíruje hodnotu `Orders[0].OrderName` do `CustomerName` .
+* Vloží kopii `Orders[1]` před `Orders[0]` .
 
 [!code-json[](jsonpatch/samples/2.2/JSON/copy.json)]
 
 ## <a name="the-test-operation"></a>Operace testu
 
-Pokud hodnota v umístění, která `path` je uvedena v, se liší od hodnoty uvedené `value`v, požadavek se nezdařil. V takovém případě celá žádost o opravu selže i v případě, že všechny ostatní operace v dokumentu opravy by jinak uspěly.
+Pokud hodnota v umístění, která je uvedena v `path` , se liší od hodnoty uvedené v `value` , požadavek se nezdařil. V takovém případě celá žádost o opravu selže i v případě, že všechny ostatní operace v dokumentu opravy by jinak uspěly.
 
 Tato `test` operace se běžně používá k tomu, aby se zabránilo aktualizaci v případě konfliktu souběžnosti.
 
-Následující ukázkový dokument opravy nemá žádný vliv, pokud `CustomerName` je původní hodnota "Jan", protože test se nezdařil:
+Následující ukázkový dokument opravy nemá žádný vliv, pokud je původní hodnota `CustomerName` "Jan", protože test se nezdařil:
 
 [!code-json[](jsonpatch/samples/2.2/JSON/test-fail.json)]
 

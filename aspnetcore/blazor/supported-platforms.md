@@ -1,54 +1,361 @@
 ---
-title: ASP.NET Core Blazor podporované platformy
-author: guardrex
-description: Přečtěte si o podporovaných platformách Blazorpro ASP.NET Core.
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 12/18/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/supported-platforms
-ms.openlocfilehash: 1c78803e6468f924bf8c8e9403a34565b114006f
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82771113"
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
-# <a name="aspnet-core-blazor-supported-platforms"></a>Podporované platformy ASP.NET Core Blazor
+# <a name="aspnet-core-blazor-supported-platforms"></a>ASP.NET Core Blazor podporované platformy
 
 Od [Luke Latham](https://github.com/guardrex)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
 ## <a name="browser-requirements"></a>Požadavky na prohlížeč
 
-### <a name="blazor-webassembly"></a>Blazor WebAssembly
+### <a name="blazor-webassembly"></a>BlazorWebAssembly
 
 | Prohlížeč                          | Verze               |
-| -------------------------------- | :-------------------: |
-| Microsoft Edge                   | Current               |
-| Mozilla Firefox                  | Current               |
-| Google Chrome, včetně Androidu | Current               |
-| Safari, včetně iOS            | Current               |
-| Microsoft Internet Explorer      | Nepodporuje se&dagger; |
+| ---
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------------- | :---název: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' Přečtěte si o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------: | | Microsoft Edge | Aktuální | | Mozilla Firefox | Aktuální | | Google Chrome, včetně Androidu | Aktuální | | Safari, včetně iOS | Aktuální | | Microsoft Internet Explorer | Nepodporováno&dagger; |
 
 &dagger;Aplikace Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
 
-### <a name="blazor-server"></a>Blazor Server
+### <a name="blazor-server"></a>BlazorWebServer
 
 | Prohlížeč                          | Verze    |
-| -------------------------------- | :--------: |
-| Microsoft Edge                   | Current    |
-| Mozilla Firefox                  | Current    |
-| Google Chrome, včetně Androidu | Current    |
-| Safari, včetně iOS            | Current    |
-| Microsoft Internet Explorer      | odst&dagger; |
+| ---
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------------- | :---název: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' Přečtěte si o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor podporované platformy ' Autor: Popis: ' informace o podporovaných platformách pro ASP.NET Core Blazor . '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----: | | Microsoft Edge | Aktuální | | Mozilla Firefox | Aktuální | | Google Chrome, včetně Androidu | Aktuální | | Safari, včetně iOS | Aktuální | | Microsoft Internet Explorer | odst&dagger; |
 
 &dagger;Jsou vyžadovány další obslužné nabídky (například příslibů lze přidat prostřednictvím [Polyfill.IO](https://polyfill.io/v3/) sady).
 

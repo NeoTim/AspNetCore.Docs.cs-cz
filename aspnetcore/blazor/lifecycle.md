@@ -1,7 +1,7 @@
 ---
-title: Životní Blazor cyklus ASP.NET Core
+title: BlazorŽivotní cyklus ASP.NET Core
 author: guardrex
-description: Naučte se používat Razor metody životního cyklu komponent Blazor v aplikacích ASP.NET Core.
+description: Naučte se používat Razor metody životního cyklu komponent v Blazor aplikacích ASP.NET Core.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
@@ -13,18 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/lifecycle
-ms.openlocfilehash: 81699158a161d0e9c9621235840979ebcd634a7e
-ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
+ms.openlocfilehash: e4fcd86b6e6a84d9e34a83688f9fb80c6907e5f3
+ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82976698"
+ms.lasthandoff: 05/16/2020
+ms.locfileid: "83438912"
 ---
-# <a name="aspnet-core-blazor-lifecycle"></a>Životní Blazor cyklus ASP.NET Core
+# <a name="aspnet-core-blazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-Blazor Rozhraní zahrnuje synchronní a asynchronní metody životního cyklu. Přepište metody životního cyklu pro provádění dalších operací na součástech během inicializace a vykreslování komponenty.
+BlazorRozhraní zahrnuje synchronní a asynchronní metody životního cyklu. Přepište metody životního cyklu pro provádění dalších operací na součástech během inicializace a vykreslování komponenty.
 
 ## <a name="lifecycle-methods"></a>Metody životního cyklu
 
@@ -32,7 +32,7 @@ Blazor Rozhraní zahrnuje synchronní a asynchronní metody životního cyklu. P
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitialized%2A> jsou vyvolány při inicializaci komponenty po přijetí počátečních parametrů ze své nadřazené komponenty. Použijte `OnInitializedAsync` , když komponenta provede asynchronní operaci a měla by se aktualizovat po dokončení operace.
 
-Pro synchronní operaci popište `OnInitialized`:
+Pro synchronní operaci popište `OnInitialized` :
 
 ```csharp
 protected override void OnInitialized()
@@ -41,7 +41,7 @@ protected override void OnInitialized()
 }
 ```
 
-Chcete-li provést asynchronní operaci, `OnInitializedAsync` přepište a `await` použijte klíčové slovo pro operaci:
+Chcete-li provést asynchronní operaci, přepište `OnInitializedAsync` a použijte `await` klíčové slovo pro operaci:
 
 ```csharp
 protected override async Task OnInitializedAsync()
@@ -50,12 +50,12 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-BlazorServerové aplikace, které [proprerender](xref:blazor/hosting-model-configuration#render-mode) volání `OnInitializedAsync` jejich obsahu **_dvakrát_**:
+BlazorServerové aplikace, které [proprerender volání jejich obsahu](xref:blazor/hosting-model-configuration#render-mode) `OnInitializedAsync` **_dvakrát_**:
 
 * Jednou, když je komponenta zpočátku vykreslena jako součást stránky.
 * Podruhé, když prohlížeč vytvoří připojení zpátky k serveru.
 
-Chcete-li zabránit tomu `OnInitializedAsync` , aby se kód vývojáře v Nespuštěn dvakrát, přečtěte si část [stav opětovného připojení po předvykreslování](#stateful-reconnection-after-prerendering) .
+Chcete-li zabránit tomu, aby se kód vývojáře v `OnInitializedAsync` Nespuštěn dvakrát, přečtěte si část [stav opětovného připojení po předvykreslování](#stateful-reconnection-after-prerendering) .
 
 I když Blazor je serverová aplikace předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně. Další informace najdete v části [detekce při předvykreslování aplikace](#detect-when-the-app-is-prerendering) .
 
@@ -76,7 +76,7 @@ public override async Task SetParametersAsync(ParameterView parameters)
 
 <xref:Microsoft.AspNetCore.Components.ParameterView>obsahuje celou sadu hodnot parametrů pokaždé, když `SetParametersAsync` je volána.
 
-Výchozí implementace `SetParametersAsync` sady nastaví hodnotu každé vlastnosti s atributem `[Parameter]` nebo `[CascadingParameter]` , který má odpovídající hodnotu v. `ParameterView` Parametry, které nemají odpovídající hodnotu v `ParameterView` , jsou ponechány beze změny.
+Výchozí implementace `SetParametersAsync` sady nastaví hodnotu každé vlastnosti s `[Parameter]` `[CascadingParameter]` atributem nebo, který má odpovídající hodnotu v `ParameterView` . Parametry, které nemají odpovídající hodnotu v, `ParameterView` jsou ponechány beze změny.
 
 Pokud `base.SetParametersAync` není vyvolána, vlastní kód může interpretovat hodnotu příchozích parametrů jakýmkoli způsobem, který je vyžadován. Například neexistuje žádný požadavek na přiřazení příchozích parametrů k vlastnostem třídy.
 
@@ -99,7 +99,7 @@ protected override async Task OnParametersSetAsync()
 ```
 
 > [!NOTE]
-> Asynchronní práce při aplikování parametrů a hodnot vlastností musí probíhat `OnParametersSetAsync` během události životního cyklu.
+> Asynchronní práce při aplikování parametrů a hodnot vlastností musí probíhat během `OnParametersSetAsync` události životního cyklu.
 
 ```csharp
 protected override void OnParametersSet()
@@ -114,7 +114,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A>a <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> jsou volány po dokončení vykreslování součásti. V tuto chvíli se naplní odkazy na element a komponentu. Tuto fázi použijte k provedení dalších kroků inicializace pomocí vykresleného obsahu, jako je například aktivace knihoven JavaScript třetích stran, které pracují s vykreslenými prvky modelu DOM.
 
-`firstRender` Parametr pro `OnAfterRenderAsync` a `OnAfterRender`:
+`firstRender`Parametr pro `OnAfterRenderAsync` a `OnAfterRender` :
 
 * Je nastaven na `true` první, kdy je instance komponenty vykreslena.
 * Dá se použít k zajištění toho, aby se inicializace prováděla jenom jednou.
@@ -130,9 +130,9 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 ```
 
 > [!NOTE]
-> Asynchronní práce ihned po vykreslení musí nastat během události `OnAfterRenderAsync` životního cyklu.
+> Asynchronní práce ihned po vykreslení musí nastat během `OnAfterRenderAsync` události životního cyklu.
 >
-> I když vrátíte <xref:System.Threading.Tasks.Task> z `OnAfterRenderAsync`, rozhraní neplánuje další cyklus vykreslování pro komponentu po dokončení této úlohy. To se vyhnete nekonečné smyčce vykreslování. Liší se od ostatních metod životního cyklu, které naplánují další cyklus vykreslování po dokončení vrácené úlohy.
+> I když vrátíte <xref:System.Threading.Tasks.Task> z `OnAfterRenderAsync` , rozhraní neplánuje další cyklus vykreslování pro komponentu po dokončení této úlohy. To se vyhnete nekonečné smyčce vykreslování. Liší se od ostatních metod životního cyklu, které naplánují další cyklus vykreslování po dokončení vrácené úlohy.
 
 ```csharp
 protected override void OnAfterRender(bool firstRender)
@@ -150,7 +150,7 @@ Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vy�
 
 ### <a name="suppress-ui-refreshing"></a>Potlačit aktualizaci uživatelského rozhraní
 
-Přepsáním <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> potlačíte aktualizaci uživatelského rozhraní. Pokud se implementace vrátí `true`, uživatelské rozhraní se obnoví:
+Přepsáním <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> potlačíte aktualizaci uživatelského rozhraní. Pokud se implementace vrátí `true` , uživatelské rozhraní se obnoví:
 
 ```csharp
 protected override bool ShouldRender()
@@ -165,15 +165,17 @@ protected override bool ShouldRender()
 
 I když `ShouldRender` je přepsat, komponenta je vždy zpočátku vykreslena.
 
+Další informace naleznete v tématu <xref:performance/blazor/webassembly-best-practices#avoid-unnecessary-component-renders>.
+
 ## <a name="state-changes"></a>Změny stavu
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>upozorní komponentu, že její stav se změnil. V případě potřeby volání `StateHasChanged` způsobí, že se komponenta znovu vykreslí.
 
 ## <a name="handle-incomplete-async-actions-at-render"></a>Zpracovat nedokončené asynchronní akce při vykreslení
 
-Asynchronní akce provedené v událostech životního cyklu nemusí být před vykreslením komponenty dokončeny. Objekty mohou být `null` při provádění metody životního cyklu nebo neúplná data naplněna daty. Poskytněte logiku vykreslování pro potvrzení, že jsou objekty inicializovány. Vykreslí zástupné prvky uživatelského rozhraní (například zprávu o načítání), `null`zatímco objekty jsou.
+Asynchronní akce provedené v událostech životního cyklu nemusí být před vykreslením komponenty dokončeny. Objekty mohou být `null` při provádění metody životního cyklu nebo neúplná data naplněna daty. Poskytněte logiku vykreslování pro potvrzení, že jsou objekty inicializovány. Vykreslí zástupné prvky uživatelského rozhraní (například zprávu o načítání), zatímco objekty jsou `null` .
 
-V `FetchData` Blazor komponentě šablony `OnInitializedAsync` je přepsáno na asynchronně příjem dat předpovědi (`forecasts`). `null`V takovém případě `forecasts` se uživateli zobrazí zpráva o načítání. `Task` Po `OnInitializedAsync` úspěšném dokončení se komponenta znovu vykreslí s aktualizovaným stavem.
+V `FetchData` komponentě Blazor šablony `OnInitializedAsync` je přepsáno na asynchronně příjem dat předpovědi ( `forecasts` ). V takovém případě `forecasts` `null` se uživateli zobrazí zpráva o načítání. Po `Task` `OnInitializedAsync` úspěšném dokončení se komponenta znovu vykreslí s aktualizovaným stavem.
 
 *Pages/FetchData. Razor* v Blazor šabloně serveru:
 
@@ -181,7 +183,7 @@ V `FetchData` Blazor komponentě šablony `OnInitializedAsync` je přepsáno na 
 
 ## <a name="component-disposal-with-idisposable"></a>Vyřazení komponent pomocí IDisposable
 
-Pokud komponenta implementuje <xref:System.IDisposable>, je volána [Metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) při odebrání komponenty z uživatelského rozhraní. Následující komponenta používá `@implements IDisposable` a `Dispose` metodu:
+Pokud komponenta implementuje <xref:System.IDisposable> , je volána [Metoda Dispose](/dotnet/standard/garbage-collection/implementing-dispose) při odebrání komponenty z uživatelského rozhraní. Následující komponenta používá `@implements IDisposable` a `Dispose` metodu:
 
 ```razor
 @using System
@@ -200,7 +202,7 @@ Pokud komponenta implementuje <xref:System.IDisposable>, je volána [Metoda Disp
 > [!NOTE]
 > Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> v `Dispose` není podporováno. `StateHasChanged`může být vyvolána jako součást odtrhnout zobrazovací jednotky, takže v tomto okamžiku není podporována aktualizace uživatelského rozhraní.
 
-Zruší odběr obslužných rutin událostí z událostí .NET. Následující [ Blazor příklady formulářů](xref:blazor/forms-validation) ukazují, jak odpojovat obslužnou rutinu události v `Dispose` metodě:
+Zruší odběr obslužných rutin událostí z událostí .NET. Následující příklady [ Blazor formulářů](xref:blazor/forms-validation) ukazují, jak odpojovat obslužnou rutinu události v `Dispose` metodě:
 
 * Přístup k privátnímu poli a lambda
 
@@ -212,24 +214,24 @@ Zruší odběr obslužných rutin událostí z událostí .NET. Následující [
 
 ## <a name="handle-errors"></a>Ošetření chyb
 
-Informace o zpracování chyb během provádění metod životního cyklu naleznete <xref:blazor/handle-errors#lifecycle-methods>v tématu.
+Informace o zpracování chyb během provádění metod životního cyklu naleznete v tématu <xref:blazor/handle-errors#lifecycle-methods> .
 
 ## <a name="stateful-reconnection-after-prerendering"></a>Stav opětovného připojení po předvykreslování
 
-V Blazor serverové aplikaci, kde `RenderMode` je `ServerPrerendered`, se komponenta zpočátku generuje jako součást stránky staticky. Jakmile prohlížeč vytvoří připojení zpátky k serveru, komponenta se *znovu*vykreslí a komponenta je teď interaktivní. Pokud je k dispozici metoda inicializace životního cyklu "inicializujd [{Async}](#component-initialization-methods) " pro inicializaci komponenty, je metoda provedena *dvakrát*:
+V Blazor serverové aplikaci, kde `RenderMode` je `ServerPrerendered` , se komponenta zpočátku generuje jako součást stránky staticky. Jakmile prohlížeč vytvoří připojení zpátky k serveru, komponenta se *znovu*vykreslí a komponenta je teď interaktivní. Pokud je k dispozici metoda inicializace životního cyklu "inicializujd [{Async}](#component-initialization-methods) " pro inicializaci komponenty, je metoda provedena *dvakrát*:
 
 * Když se komponenta předem vykreslí.
 * Po navázání připojení k serveru.
 
 Výsledkem může být znatelné změny v datech zobrazených v uživatelském rozhraní, když je komponenta nakonec vykreslena.
 
-Abyste se vyhnuli scénáři dvojího vykreslování Blazor v serverové aplikaci:
+Abyste se vyhnuli scénáři dvojího vykreslování v Blazor serverové aplikaci:
 
 * Předejte identifikátor, který se dá použít k ukládání stavu do mezipaměti během předgenerování a načtení stavu po restartování aplikace.
 * Použijte identifikátor při předvykreslování k uložení stavu součásti.
 * Pro načtení stavu uloženého v mezipaměti použijte identifikátor po předvykreslování.
 
-Následující kód demonstruje aktualizaci `WeatherForecastService` v serverové aplikaci založené na Blazor šablonách, která vylučuje dvojité vykreslování:
+Následující kód demonstruje aktualizaci `WeatherForecastService` v serverové aplikaci založené na šablonách Blazor , která vylučuje dvojité vykreslování:
 
 ```csharp
 public class WeatherForecastService
@@ -272,7 +274,7 @@ public class WeatherForecastService
 }
 ```
 
-Další informace o `RenderMode`naleznete v tématu <xref:blazor/hosting-model-configuration#render-mode>.
+Další informace o naleznete v `RenderMode` tématu <xref:blazor/hosting-model-configuration#render-mode> .
 
 ## <a name="detect-when-the-app-is-prerendering"></a>Rozpoznat, kdy se aplikace předvykresluje
 
@@ -280,7 +282,7 @@ Další informace o `RenderMode`naleznete v tématu <xref:blazor/hosting-model-c
 
 ## <a name="cancelable-background-work"></a>Zrušit práci na pozadí
 
-Komponenty často provádějí dlouhotrvající práci na pozadí, jako je například vytváření síťových volání (<xref:System.Net.Http.HttpClient>) a interakce s databázemi. Je žádoucí zastavit práci na pozadí, aby se v různých situacích šetřily systémové prostředky. Například asynchronní operace na pozadí se nezastaví automaticky, když uživatel přejde mimo komponentu.
+Komponenty často provádějí dlouhotrvající práci na pozadí, jako je například vytváření síťových volání ( <xref:System.Net.Http.HttpClient> ) a interakce s databázemi. Je žádoucí zastavit práci na pozadí, aby se v různých situacích šetřily systémové prostředky. Například asynchronní operace na pozadí se nezastaví automaticky, když uživatel přejde mimo komponentu.
 
 Mezi další důvody, proč mohou pracovní položky na pozadí vyžadovat zrušení patří:
 
@@ -292,14 +294,14 @@ Mezi další důvody, proč mohou pracovní položky na pozadí vyžadovat zruš
 
 Implementace vzorové práce na pozadí v součásti:
 
-* Použijte <xref:System.Threading.CancellationTokenSource> a <xref:System.Threading.CancellationToken>.
+* Použijte <xref:System.Threading.CancellationTokenSource> a <xref:System.Threading.CancellationToken> .
 * Při [vyřazení součásti](#component-disposal-with-idisposable) a v jakémkoli bodě zrušení je požadováno ručním zrušením tokenu, volání [CancellationTokenSource. Cancel](xref:System.Threading.CancellationTokenSource.Cancel%2A) k signalizaci, že by měla být zrušena činnost na pozadí.
 * Po návratu asynchronního volání volejte <xref:System.Threading.CancellationToken.ThrowIfCancellationRequested%2A> na token.
 
 V následujícím příkladu:
 
 * `await Task.Delay(5000, cts.Token);`představuje dlouhodobě běžící asynchronní práci na pozadí.
-* `BackgroundResourceMethod`představuje dlouhotrvající metodu na pozadí, která by neměla být spuštěna, `Resource` Pokud je uvolněna před voláním metody.
+* `BackgroundResourceMethod`představuje dlouhotrvající metodu na pozadí, která by neměla být spuštěna, pokud `Resource` je uvolněna před voláním metody.
 
 ```razor
 @implements IDisposable

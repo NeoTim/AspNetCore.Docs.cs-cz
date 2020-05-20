@@ -1,44 +1,29 @@
 ---
-title: Směrování Blazor ASP.NET Core
-author: guardrex
-description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLink.
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 03/17/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/routing
-ms.openlocfilehash: 017fd4d3ab45b75355dabb400ff0e5cbf7009d82
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82771204"
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
-# <a name="aspnet-core-blazor-routing"></a>ASP.NET Core směrování Blazor
+# <a name="aspnet-core-blazor-routing"></a>BlazorSměrování ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-Naučte se směrovat požadavky a používat `NavLink` komponentu k vytváření navigačních odkazů v aplikacích Blazor.
+Naučte se směrovat požadavky a jak používat `NavLink` komponentu k vytváření navigačních odkazů v Blazor aplikacích.
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>Integrace směrování ASP.NET Core Endpoint
 
-Server Blazor je integrovaný do [Směrování koncového bodu ASP.NET Core](xref:fundamentals/routing). Aplikace ASP.NET Core je nakonfigurovaná tak, aby přijímala příchozí připojení pro `MapBlazorHub` interaktivní `Startup.Configure`komponenty v:
+BlazorServer je integrovaný do [Směrování koncového bodu ASP.NET Core](xref:fundamentals/routing). Aplikace ASP.NET Core je nakonfigurovaná tak, aby přijímala příchozí připojení pro interaktivní komponenty `MapBlazorHub` v `Startup.Configure` :
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-Nejtypickou konfigurací je směrování všech požadavků na stránku Razor, která funguje jako hostitel pro součást aplikace Blazor Server na straně serveru. Podle konvence je stránka *hostitele* obvykle pojmenována *_Host. cshtml*. Trasa zadaná v hostitelském souboru se nazývá *záložní trasa* , protože v porovnání s trasou funguje s nízkou prioritou. Záložní trasa se bere v úvahu v případě, že se jiné trasy neshodují. Díky tomu může aplikace používat jiné řadiče a stránky bez narušování aplikace Blazor Server.
+Nejtypickou konfigurací je směrování všech požadavků na Razor stránku, která funguje jako hostitel serverové součásti Blazor serverové aplikace. Podle konvence je stránka *hostitele* obvykle pojmenována *_Host. cshtml*. Trasa zadaná v hostitelském souboru se nazývá *záložní trasa* , protože v porovnání s trasou funguje s nízkou prioritou. Záložní trasa se bere v úvahu v případě, že se jiné trasy neshodují. To umožňuje aplikaci používat jiné řadiče a stránky bez narušování Blazor aplikace serveru.
 
 ## <a name="route-templates"></a>Šablony směrování
 
-Tato `Router` součást umožňuje směrování na jednotlivé komponenty se zadanou trasou. `Router` Komponenta se zobrazí v souboru *App. Razor* :
+Tato `Router` součást umožňuje směrování na jednotlivé komponenty se zadanou trasou. `Router`Komponenta se zobrazí v souboru *App. Razor* :
 
 ```razor
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -51,16 +36,16 @@ Tato `Router` součást umožňuje směrování na jednotlivé komponenty se zad
 </Router>
 ```
 
-Je-li soubor *. Razor* s `@page` direktivou kompilován, je k dispozici vygenerovaná <xref:Microsoft.AspNetCore.Components.RouteAttribute> třída, která určuje šablonu trasy.
+Je-li soubor *. Razor* s `@page` direktivou kompilován, je k dispozici vygenerovaná třída, která <xref:Microsoft.AspNetCore.Components.RouteAttribute> Určuje šablonu trasy.
 
 Za běhu `RouteView` komponenty:
 
 * Přijímá `RouteData` od `Router` spolu s požadovanými parametry.
 * Vykreslí určenou komponentu pomocí jejího rozložení (nebo volitelného výchozího rozložení) pomocí zadaných parametrů.
 
-Volitelně můžete zadat `DefaultLayout` parametr s třídou rozložení, který se má použít pro součásti, které neurčují rozložení. Výchozí šablony Blazor určují `MainLayout` komponentu. *MainLayout. Razor* se nachází ve *sdílené* složce projektu šablony. Další informace o rozložení najdete v tématu <xref:blazor/layouts>.
+Volitelně můžete zadat `DefaultLayout` parametr s třídou rozložení, který se má použít pro součásti, které neurčují rozložení. Výchozí Blazor šablony určují `MainLayout` komponentu. *MainLayout. Razor* se nachází ve *sdílené* složce projektu šablony. Další informace o rozložení najdete v tématu <xref:blazor/layouts> .
 
-Pro komponentu lze použít více šablon směrování. Následující komponenta reaguje na požadavky pro `/BlazorRoute` a: `/DifferentBlazorRoute`
+Pro komponentu lze použít více šablon směrování. Následující komponenta reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute` :
 
 ```razor
 @page "/BlazorRoute"
@@ -70,13 +55,13 @@ Pro komponentu lze použít více šablon směrování. Následující komponent
 ```
 
 > [!IMPORTANT]
-> Aby adresy URL byly správně přeloženy, musí aplikace obsahovat `<base>` značku v souboru *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Server Blazor) se základní cestou aplikace zadanou v `href` atributu (`<base href="/">`). Další informace naleznete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
+> Aby adresy URL byly správně přeloženy, musí aplikace obsahovat `<base>` značku v souboru *wwwroot/index.html* ( Blazor WebAssembly) nebo *Pages/_Host. cshtml* ( Blazor Server) se základní cestou aplikace zadanou v `href` atributu ( `<base href="/">` ). Další informace naleznete v tématu <xref:host-and-deploy/blazor/index#app-base-path>.
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>Poskytnutí vlastního obsahu, když se nenalezne obsah
 
-`Router` Komponenta umožňuje aplikaci zadat vlastní obsah, pokud se pro požadovanou trasu nenajde obsah.
+`Router`Komponenta umožňuje aplikaci zadat vlastní obsah, pokud se pro požadovanou trasu nenajde obsah.
 
-V souboru *App. Razor* nastavte vlastní obsah v parametru `NotFound` šablony `Router` součásti:
+V souboru *App. Razor* nastavte vlastní obsah v `NotFound` parametru šablony `Router` součásti:
 
 ```razor
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -90,11 +75,11 @@ V souboru *App. Razor* nastavte vlastní obsah v parametru `NotFound` šablony `
 </Router>
 ```
 
-Obsah `<NotFound>` značek může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti. Chcete-li použít výchozí rozložení `NotFound` obsahu, přečtěte si téma <xref:blazor/layouts>.
+Obsah `<NotFound>` značek může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti. Chcete-li použít výchozí rozložení `NotFound` obsahu, přečtěte si téma <xref:blazor/layouts> .
 
 ## <a name="route-to-components-from-multiple-assemblies"></a>Směrování na součásti z více sestavení
 
-Použijte `AdditionalAssemblies` parametr k určení dalších sestavení, `Router` která má součást při hledání směrovatelných komponent zvážit. Zadaná sestavení jsou kromě `AppAssembly`zadaného sestavení považována za. V následujícím příkladu `Component1` je směrovatelný komponenta definovaná v odkazované knihovně tříd. Následující `AdditionalAssemblies` příklad vede k podpoře směrování pro `Component1`:
+Použijte `AdditionalAssemblies` parametr k určení dalších sestavení, `Router` která má součást při hledání směrovatelných komponent zvážit. Zadaná sestavení jsou kromě zadaného sestavení považována za `AppAssembly` . V následujícím příkladu `Component1` je směrovatelný komponenta definovaná v odkazované knihovně tříd. Následující `AdditionalAssemblies` příklad vede k podpoře směrování pro `Component1` :
 
 ```razor
 <Router
@@ -125,7 +110,7 @@ Směrovač používá parametry směrování k naplnění odpovídajících para
 }
 ```
 
-Volitelné parametry nejsou podporovány. V `@page` předchozím příkladu jsou aplikovány dvě direktivy. První umožňuje navigaci na součást bez parametru. Druhá `@page` direktiva převezme `{text}` parametr Route a přiřadí hodnotu `Text` vlastnosti.
+Volitelné parametry nejsou podporovány. `@page`V předchozím příkladu jsou aplikovány dvě direktivy. První umožňuje navigaci na součást bez parametru. Druhá `@page` direktiva převezme `{text}` parametr Route a přiřadí hodnotu `Text` Vlastnosti.
 
 ## <a name="route-constraints"></a>Omezení trasy
 
@@ -133,61 +118,530 @@ Omezení trasy vynutilo typ shodný s typem pro segment směrování do součás
 
 V následujícím příkladu trasa k `Users` součásti odpovídá pouze v případě, že:
 
-* V `Id` adrese URL požadavku je přítomen segment směrování.
-* `Id` Segment je celé číslo (`int`).
+* `Id`V adrese URL požadavku je přítomen segment směrování.
+* `Id`Segment je celé číslo ( `int` ).
 
 [!code-razor[](routing/samples_snapshot/3.x/Constraint.razor?highlight=1)]
 
 K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení trasy, která se shodují s invariantní jazykovou verzí, se podívejte na upozornění pod tabulkou, kde najdete další informace.
 
 | Jedinečn | Příklad           | Příklady shody                                                                  | Invariantní<br>jazyková verze<br>shoda |
-| ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Ne                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano                              |
-| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Ano                              |
-| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Ano                              |
-| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Ano                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ne                               |
-| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Ano                              |
-| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Ano                              |
+| ---
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | ---Název: ' ASP.NET Core Blazor Směrování ' Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------- | ---Název: ' ASP.NET Core Blazor Směrování ' Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------------------------------------- | :---název: ' ASP.NET Core Blazor Směrování ' Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------------: | | `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Žádné | | `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano | | `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Ano | | `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Ano | | `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Ano | | `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Žádné | | `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Ano | | `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Ano |
 
 > [!WARNING]
-> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime`), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
+> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime` ), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
 
 ### <a name="routing-with-urls-that-contain-dots"></a>Směrování s adresami URL, které obsahují tečky
 
-V aplikacích Blazor Server jsou výchozí trasy v *_Host. cshtml* `/` (`@page "/"`). Adresa URL požadavku, která obsahuje tečku`.`(), není shodná s výchozí cestou, protože adresa URL se zobrazí pro vyžádání souboru. Aplikace Blazor vrací odpověď na *404, která nebyla nalezena* pro statický soubor, který neexistuje. Chcete-li použít trasy, které obsahují tečku, nakonfigurujte *_Host. cshtml* s následující šablonou směrování:
+V Blazor serverových aplikacích je výchozí trasa v *_Host. cshtml* `/` ( `@page "/"` ). Adresa URL požadavku, která obsahuje tečku ( `.` ), není shodná s výchozí cestou, protože adresa URL se zobrazí pro vyžádání souboru. BlazorAplikace vrátí odpověď na *404, která nebyla nalezena* pro statický soubor, který neexistuje. Chcete-li použít trasy, které obsahují tečku, nakonfigurujte *_Host. cshtml* s následující šablonou směrování:
 
 ```cshtml
 @page "/{**path}"
 ```
 
-`"/{**path}"` Šablona obsahuje:
+`"/{**path}"`Šablona obsahuje:
 
-* Dvojitá hvězdička *– veškerá* syntaxe (`**`) pro zachycení cesty mezi více hranicemi složek bez kódování lomítka (`/`).
+* Dvojitá hvězdička *– veškerá* syntaxe ( `**` ) pro zachycení cesty mezi více hranicemi složek bez kódování lomítka ( `/` ).
 * `path`název parametru trasy.
 
 > [!NOTE]
-> *Catch-All* Parameter Syntax (`*`/`**`) není v součástech Razor (*. Razor* **) podporována.**
+> *Catch-All* parametr Syntax ( `*` / `**` ) není **not** v Razor součástech (*. Razor*) podporován.
 
 Další informace naleznete v tématu <xref:fundamentals/routing>.
 
 ## <a name="navlink-component"></a>Komponenta NavLink
 
-Použít `NavLink` komponentu namísto prvků hypertextového odkazu HTML (`<a>`) při vytváření navigačních odkazů. `NavLink` Komponenta se chová jako `<a>` element s tím rozdílem, že přepíná `active` třídu CSS na základě toho, `href` zda odpovídá aktuální adrese URL. `active` Třída pomáhá uživateli pochopit, která stránka je aktivní stránkou mezi zobrazenými navigačními odkazy.
+Použít `NavLink` komponentu namísto prvků hypertextového odkazu HTML ( `<a>` ) při vytváření navigačních odkazů. `NavLink`Komponenta se chová jako `<a>` element s tím rozdílem, že přepíná `active` třídu CSS na základě toho, zda `href` odpovídá aktuální adrese URL. `active`Třída pomáhá uživateli pochopit, která stránka je aktivní stránkou mezi zobrazenými navigačními odkazy.
 
-Následující `NavMenu` komponenta vytvoří navigační panel [bootstrap](https://getbootstrap.com/docs/) , který ukazuje, jak používat `NavLink` komponenty:
+Následující `NavMenu` Komponenta vytvoří navigační panel [bootstrap](https://getbootstrap.com/docs/) , který ukazuje, jak používat `NavLink` komponenty:
 
 [!code-razor[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
-Existují dvě `NavLinkMatch` možnosti, které lze přiřadit k `Match` atributu `<NavLink>` elementu:
+Existují dvě `NavLinkMatch` Možnosti, které lze přiřadit k `Match` atributu `<NavLink>` elementu:
 
-* `NavLinkMatch.All`&ndash; Je aktivní, pokud odpovídá celé aktuální adrese `NavLink` URL.
-* `NavLinkMatch.Prefix`(*výchozí*) &ndash; Je aktivní, pokud odpovídá libovolné předponě aktuální adresy `NavLink` URL.
+* `NavLinkMatch.All`&ndash; `NavLink` Je aktivní, pokud odpovídá celé aktuální adrese URL.
+* `NavLinkMatch.Prefix`(*výchozí*) &ndash; `NavLink`Je aktivní, pokud odpovídá libovolné předponě aktuální adresy URL.
 
-V předchozím příkladu se Domovská stránka `NavLink` `href=""` shoduje s adresou URL domů a přijímá pouze `active` třídu CSS ve výchozí základní cestě URL aplikace (například `https://localhost:5001/`). Druhá `NavLink` Získá třídu, `active` když uživatel navštíví libovolnou adresu URL s `MyComponent` předponou (například `https://localhost:5001/MyComponent` a `https://localhost:5001/MyComponent/AnotherSegment`).
+V předchozím příkladu se Domovská stránka `NavLink` `href=""` shoduje s adresou URL domů a přijímá pouze `active` třídu CSS ve výchozí základní cestě URL aplikace (například `https://localhost:5001/` ). Druhá `NavLink` Získá třídu, `active` když uživatel navštíví libovolnou adresu URL s `MyComponent` předponou (například `https://localhost:5001/MyComponent` a `https://localhost:5001/MyComponent/AnotherSegment` ).
 
-Další `NavLink` atributy komponenty jsou předány do vykreslené značky ukotvení. V následujícím příkladu `NavLink` komponenta zahrnuje `target` atribut:
+Další `NavLink` atributy komponenty jsou předány do vykreslené značky ukotvení. V následujícím příkladu `NavLink` Komponenta zahrnuje `target` atribut:
 
 ```razor
 <NavLink href="my-page" target="_blank">My page</NavLink>
@@ -204,15 +658,40 @@ Vykresluje se následující kód HTML:
 Použijte <xref:Microsoft.AspNetCore.Components.NavigationManager> pro práci s identifikátory URI a navigací v kódu jazyka C#. `NavigationManager`poskytuje událost a metody uvedené v následující tabulce.
 
 | Člen | Popis |
-| ------ | ----------- |
-| Identifikátor URI | Získá aktuální absolutní identifikátor URI. |
-| Identifikátor | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. `BaseUri` Obvykle `href` odpovídá atributům `<base>` prvku dokumentu v *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server). |
-| NavigateTo | Přejde k zadanému identifikátoru URI. Pokud `forceLoad` je `true`:<ul><li>Směrování na straně klienta se nepoužívá.</li><li>Prohlížeč je nucen načíst novou stránku ze serveru, bez ohledu na to, zda je identifikátor URI obvykle zpracováván směrovačem na straně klienta.</li></ul> |
-| LocationChanged | Událost, která se aktivuje, když se změní navigační umístění |
-| ToAbsoluteUri | Převede relativní identifikátor URI na absolutní identifikátor URI. |
-| <span style="word-break:normal;word-wrap:normal">ToBaseRelativePath</span> | Vzhledem k základnímu identifikátoru URI (například identifikátor URI, který `GetBaseUri`dřív vrátil), převede absolutní identifikátor URI na URI relativně k základní PŘEDPONě identifikátoru URI. |
+| ---
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Pokud je vybráno tlačítko, následující komponenta přejde `Counter` na součást aplikace:
+--- | ---Název: ' ASP.NET Core Blazor Směrování ' Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | Identifikátor URI | Získá aktuální absolutní identifikátor URI. | | BaseUri | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle `BaseUri` odpovídá `href` atributům `<base>` prvku dokumentu v *wwwroot/index.html* ( Blazor WebAssembly) nebo *Pages/_Host. cshtml* ( Blazor Server). | | NavigateTo | Přejde k zadanému identifikátoru URI. Pokud `forceLoad` je `true` :<ul><li>Směrování na straně klienta se nepoužívá.</li><li>Prohlížeč je nucen načíst novou stránku ze serveru, bez ohledu na to, zda je identifikátor URI obvykle zpracováván směrovačem na straně klienta.</li></ul> | | LocationChanged | Událost, která se aktivuje, když se změní navigační umístění | | ToAbsoluteUri | Převede relativní identifikátor URI na absolutní identifikátor URI. | | <span style="word-break:normal;word-wrap:normal">ToBaseRelativePath</span> | Vzhledem k základnímu identifikátoru URI (například identifikátor URI, který dřív vrátil `GetBaseUri` ), převede absolutní identifikátor URI na URI relativně k základní předponě identifikátoru URI. |
+
+`Counter`Pokud je vybráno tlačítko, následující komponenta přejde na součást aplikace:
 
 ```razor
 @page "/navigate"
@@ -232,7 +711,7 @@ Pokud je vybráno tlačítko, následující komponenta přejde `Counter` na sou
 }
 ```
 
-Následující komponenta zpracovává událost změny umístění. `HandleLocationChanged` Metoda je nepřipojená, pokud `Dispose` je volána rozhraním. Odpojování metody umožňuje uvolňování paměti komponenty.
+Následující komponenta zpracovává událost změny umístění. `HandleLocationChanged`Metoda je nepřipojená, pokud `Dispose` je volána rozhraním. Odpojování metody umožňuje uvolňování paměti komponenty.
 
 ```razor
 @implements IDisposable
@@ -258,7 +737,7 @@ public void Dispose()
 
 <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs>poskytuje následující informace o události:
 
-* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.Location>&ndash; Adresa URL nového umístění
-* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>&ndash; Pokud `true`byla Blazor zachycena navigace z prohlížeče. Pokud `false` [NavigationManager. NavigateTo](xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A) způsobila, že dojde k navigaci.
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.Location>&ndash;Adresa URL nového umístění
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>&ndash;Pokud `true` Blazor byla zachycena navigace z prohlížeče. Pokud `false` [NavigationManager. NavigateTo](xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A) způsobila, že dojde k navigaci.
 
-Další informace o vyřazení součástí najdete v <xref:blazor/lifecycle#component-disposal-with-idisposable>tématu.
+Další informace o vyřazení součástí najdete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable> .

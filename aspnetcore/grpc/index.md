@@ -1,23 +1,11 @@
 ---
-title: Úvod do gRPC v .NET Core
-author: juntaoluo
-description: Přečtěte si o službách gRPC Services pomocí serveru Kestrel a ASP.NET Core stacku.
-monikerRange: '>= aspnetcore-3.0'
-ms.author: johluo
-ms.date: 09/20/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: grpc/index
-ms.openlocfilehash: 2d7d683051fd1eb97f3f57d75bd582109166a6cd
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768845"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>Úvod do gRPC v .NET Core
 
@@ -37,9 +25,11 @@ Díky těmto výhodám je gRPC ideální pro:
 * Polyglot systémy, ve kterých se pro vývoj vyžaduje více jazyků.
 * Služby v reálném čase Point-to-Point, které potřebují zpracovávat žádosti o streamování nebo odpovědi.
 
+[!INCLUDE[](~/includes/gRPCazure.md)]
+
 ## <a name="c-tooling-support-for-proto-files"></a>Podpora nástrojů C# pro soubory.
 
-gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem. Služby a zprávy jsou definovány v * \*souboru. proto* soubory:
+gRPC využívá přístup ke vývoji rozhraní API, který je prvním kontraktem. Služby a zprávy jsou definovány v souboru * \* . proto* soubory:
 
 ```protobuf
 syntax = "proto3";
@@ -57,10 +47,10 @@ message HelloReply {
 }
 ```
 
-Typy .NET pro služby, klienti a zprávy jsou automaticky vygenerováni * \*zahrnutím souborů do* projektu:
+Typy .NET pro služby, klienti a zprávy jsou automaticky vygenerováni * \* zahrnutím souborů do* projektu:
 
 * Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .
-* Do skupiny `<Protobuf>` položek přidejte * \*soubory..* .
+* Do skupiny položek přidejte soubory * \* ..* . `<Protobuf>`
 
 ```xml
 <ItemGroup>
@@ -68,7 +58,7 @@ Typy .NET pro služby, klienti a zprávy jsou automaticky vygenerováni * \*zahr
 </ItemGroup>
 ```
 
-Další informace o podpoře nástrojů gRPC naleznete v tématu <xref:grpc/basics>.
+Další informace o podpoře nástrojů gRPC naleznete v tématu <xref:grpc/basics> .
 
 ## <a name="grpc-services-on-aspnet-core"></a>gRPC Services na ASP.NET Core
 
@@ -98,7 +88,7 @@ public class GreeterService : Greeter.GreeterBase
 }
 ```
 
-`GreeterService`dědí z `GreeterBase` typu, který je vygenerován ze `Greeter` služby v souboru * \*..* . Služba je zpřístupněna klientům v *Startup.cs*:
+`GreeterService`dědí z `GreeterBase` typu, který je vygenerován ze `Greeter` služby v souboru * \* ..* . Služba je zpřístupněna klientům v *Startup.cs*:
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -107,11 +97,11 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-Další informace o službách gRPC Services v ASP.NET Core najdete v <xref:grpc/aspnetcore>tématu.
+Další informace o službách gRPC Services v ASP.NET Core najdete v tématu <xref:grpc/aspnetcore> .
 
 ## <a name="call-grpc-services-with-a-net-client"></a>Volání služeb gRPC Services pomocí klienta .NET
 
-gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze * \*souborů. proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v souboru * \*..* .
+gRPC klienti jsou konkrétní typy klientů, které jsou [vygenerovány ze souborů * \* . proto* ](xref:grpc/basics#generated-c-assets). Konkrétní klient gRPC má metody, které se převádějí do služby gRPC v souboru * \* ..* .
 
 ```csharp
 var channel = GrpcChannel.ForAddress("https://localhost:5001");
@@ -123,11 +113,9 @@ var response = await client.SayHelloAsync(
 Console.WriteLine(response.Message);
 ```
 
-Klient gRPC se vytvoří pomocí kanálu, který představuje dlouhodobé připojení ke službě gRPC. Kanál se dá vytvořit pomocí `GrpcChannel.ForAddress`.
+Klient gRPC se vytvoří pomocí kanálu, který představuje dlouhodobé připojení ke službě gRPC. Kanál se dá vytvořit pomocí `GrpcChannel.ForAddress` .
 
-Další informace o vytváření klientů a volání různých metod služby najdete v tématu <xref:grpc/client>.
-
-[!INCLUDE[](~/includes/gRPCazure.md)]
+Další informace o vytváření klientů a volání různých metod služby najdete v tématu <xref:grpc/client> .
 
 ## <a name="additional-resources"></a>Další zdroje
 
