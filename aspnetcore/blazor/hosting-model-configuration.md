@@ -1,44 +1,30 @@
 ---
-title: ASP.NET Core Blazor konfigurace modelu hostování
-author: guardrex
-description: Přečtěte Blazor si o konfiguraci modelu hostování, včetně postupu Razor při integraci Razor komponent do stránek a aplikací MVC.
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/04/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/hosting-model-configuration
-ms.openlocfilehash: 17ed43a12643f067da73658bec72400acbe1be43
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82772071"
+<span data-ttu-id="872cc-101">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-101">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-102">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-102">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-103">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-103">'Blazor'</span></span>
+- <span data-ttu-id="872cc-104">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-104">'Identity'</span></span>
+- <span data-ttu-id="872cc-105">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-105">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-106">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-106">'Razor'</span></span>
+- <span data-ttu-id="872cc-107">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-107">'SignalR' uid:</span></span> 
+
 ---
-# <a name="aspnet-core-blazor-hosting-model-configuration"></a><span data-ttu-id="6315f-103">Konfigurace modelu hostování ASP.NET Core Blazor</span><span class="sxs-lookup"><span data-stu-id="6315f-103">ASP.NET Core Blazor hosting model configuration</span></span>
+# <a name="aspnet-core-blazor-hosting-model-configuration"></a><span data-ttu-id="872cc-108">ASP.NET Core Blazor Konfigurace modelu hostování</span><span class="sxs-lookup"><span data-stu-id="872cc-108">ASP.NET Core Blazor hosting model configuration</span></span>
 
-<span data-ttu-id="6315f-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="6315f-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="872cc-109">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="872cc-109">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
+<span data-ttu-id="872cc-110">Tento článek popisuje konfiguraci modelu hostování.</span><span class="sxs-lookup"><span data-stu-id="872cc-110">This article covers hosting model configuration.</span></span>
 
-<span data-ttu-id="6315f-105">Tento článek popisuje konfiguraci modelu hostování.</span><span class="sxs-lookup"><span data-stu-id="6315f-105">This article covers hosting model configuration.</span></span>
+## <a name="blazor-webassembly"></a>Blazor<span data-ttu-id="872cc-111">WebAssembly</span><span class="sxs-lookup"><span data-stu-id="872cc-111"> WebAssembly</span></span>
 
-## <a name="blazor-webassembly"></a><span data-ttu-id="6315f-106">Blazor WebAssembly</span><span class="sxs-lookup"><span data-stu-id="6315f-106">Blazor WebAssembly</span></span>
+### <a name="environment"></a><span data-ttu-id="872cc-112">Prostředí</span><span class="sxs-lookup"><span data-stu-id="872cc-112">Environment</span></span>
 
-### <a name="environment"></a><span data-ttu-id="6315f-107">Prostředí</span><span class="sxs-lookup"><span data-stu-id="6315f-107">Environment</span></span>
+<span data-ttu-id="872cc-113">Při místním spuštění aplikace je prostředí standardně vyvíjené.</span><span class="sxs-lookup"><span data-stu-id="872cc-113">When running an app locally, the environment defaults to Development.</span></span> <span data-ttu-id="872cc-114">Při publikování aplikace je prostředí standardně v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="872cc-114">When the app is published, the environment defaults to Production.</span></span>
 
-<span data-ttu-id="6315f-108">Při místním spuštění aplikace je prostředí standardně vyvíjené.</span><span class="sxs-lookup"><span data-stu-id="6315f-108">When running an app locally, the environment defaults to Development.</span></span> <span data-ttu-id="6315f-109">Při publikování aplikace je prostředí standardně v produkčním prostředí.</span><span class="sxs-lookup"><span data-stu-id="6315f-109">When the app is published, the environment defaults to Production.</span></span>
+<span data-ttu-id="872cc-115">Hostovaná Blazor aplikace WebAssembly vybírá prostředí ze serveru prostřednictvím middlewaru, který toto prostředí komunikuje do prohlížeče přidáním `blazor-environment` hlavičky.</span><span class="sxs-lookup"><span data-stu-id="872cc-115">A hosted Blazor WebAssembly app picks up the environment from the server via a middleware that communicates the environment to the browser by adding the `blazor-environment` header.</span></span> <span data-ttu-id="872cc-116">Hodnota hlavičky je prostředí.</span><span class="sxs-lookup"><span data-stu-id="872cc-116">The value of the header is the environment.</span></span> <span data-ttu-id="872cc-117">Hostovaná Blazor aplikace a serverová aplikace sdílejí stejné prostředí.</span><span class="sxs-lookup"><span data-stu-id="872cc-117">The hosted Blazor app and the server app share the same environment.</span></span> <span data-ttu-id="872cc-118">Další informace, včetně postupu konfigurace prostředí, najdete v tématu <xref:fundamentals/environments> .</span><span class="sxs-lookup"><span data-stu-id="872cc-118">For more information, including how to configure the environment, see <xref:fundamentals/environments>.</span></span>
 
-<span data-ttu-id="6315f-110">Hostovaná aplikace WebAssembly Blazor vybírá prostředí ze serveru prostřednictvím middlewaru, který toto prostředí komunikuje do prohlížeče přidáním `blazor-environment` hlavičky.</span><span class="sxs-lookup"><span data-stu-id="6315f-110">A hosted Blazor WebAssembly app picks up the environment from the server via a middleware that communicates the environment to the browser by adding the `blazor-environment` header.</span></span> <span data-ttu-id="6315f-111">Hodnota hlavičky je prostředí.</span><span class="sxs-lookup"><span data-stu-id="6315f-111">The value of the header is the environment.</span></span> <span data-ttu-id="6315f-112">Hostovaná aplikace Blazor a serverová aplikace sdílejí stejné prostředí.</span><span class="sxs-lookup"><span data-stu-id="6315f-112">The hosted Blazor app and the server app share the same environment.</span></span> <span data-ttu-id="6315f-113">Další informace, včetně postupu konfigurace prostředí, najdete v tématu <xref:fundamentals/environments>.</span><span class="sxs-lookup"><span data-stu-id="6315f-113">For more information, including how to configure the environment, see <xref:fundamentals/environments>.</span></span>
+<span data-ttu-id="872cc-119">Pro samostatnou spuštěnou aplikaci, která je spuštěna místně, vývojový server přidá `blazor-environment` hlavičku pro určení vývojového prostředí.</span><span class="sxs-lookup"><span data-stu-id="872cc-119">For a standalone app running locally, the development server adds the `blazor-environment` header to specify the Development environment.</span></span> <span data-ttu-id="872cc-120">Chcete-li určit prostředí pro jiná hostující prostředí, přidejte `blazor-environment` hlavičku.</span><span class="sxs-lookup"><span data-stu-id="872cc-120">To specify the environment for other hosting environments, add the `blazor-environment` header.</span></span>
 
-<span data-ttu-id="6315f-114">Pro samostatnou spuštěnou aplikaci, která je spuštěna místně, `blazor-environment` vývojový server přidá hlavičku pro určení vývojového prostředí.</span><span class="sxs-lookup"><span data-stu-id="6315f-114">For a standalone app running locally, the development server adds the `blazor-environment` header to specify the Development environment.</span></span> <span data-ttu-id="6315f-115">Chcete-li určit prostředí pro jiná hostující prostředí, přidejte `blazor-environment` hlavičku.</span><span class="sxs-lookup"><span data-stu-id="6315f-115">To specify the environment for other hosting environments, add the `blazor-environment` header.</span></span>
-
-<span data-ttu-id="6315f-116">V následujícím příkladu pro službu IIS přidejte vlastní hlavičku do publikovaného souboru *Web. config* .</span><span class="sxs-lookup"><span data-stu-id="6315f-116">In the following example for IIS, add the custom header to the published *web.config* file.</span></span> <span data-ttu-id="6315f-117">Soubor *Web. config* je umístěný ve složce *bin/Release/{Target Framework}/Publish* :</span><span class="sxs-lookup"><span data-stu-id="6315f-117">The *web.config* file is located in the *bin/Release/{TARGET FRAMEWORK}/publish* folder:</span></span>
+<span data-ttu-id="872cc-121">V následujícím příkladu pro službu IIS přidejte vlastní hlavičku do publikovaného souboru *Web. config* .</span><span class="sxs-lookup"><span data-stu-id="872cc-121">In the following example for IIS, add the custom header to the published *web.config* file.</span></span> <span data-ttu-id="872cc-122">Soubor *Web. config* je umístěný ve složce *bin/Release/{Target Framework}/Publish* :</span><span class="sxs-lookup"><span data-stu-id="872cc-122">The *web.config* file is located in the *bin/Release/{TARGET FRAMEWORK}/publish* folder:</span></span>
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -57,9 +43,9 @@ ms.locfileid: "82772071"
 ```
 
 > [!NOTE]
-> <span data-ttu-id="6315f-118">Chcete-li použít vlastní soubor *Web. config* pro službu IIS, který není po publikování aplikace ve složce pro *publikování* přepsán, <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig>Přečtěte si téma.</span><span class="sxs-lookup"><span data-stu-id="6315f-118">To use a custom *web.config* file for IIS that isn't overwritten when the app is published to the *publish* folder, see <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig>.</span></span>
+> <span data-ttu-id="872cc-123">Chcete-li použít vlastní soubor *Web. config* pro službu IIS, který není po publikování aplikace ve složce pro *publikování* přepsán, přečtěte si téma <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig> .</span><span class="sxs-lookup"><span data-stu-id="872cc-123">To use a custom *web.config* file for IIS that isn't overwritten when the app is published to the *publish* folder, see <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig>.</span></span>
 
-<span data-ttu-id="6315f-119">Získání prostředí aplikace v součásti vložením `IWebAssemblyHostEnvironment` a čtením `Environment` vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="6315f-119">Obtain the app's environment in a component by injecting `IWebAssemblyHostEnvironment` and reading the `Environment` property:</span></span>
+<span data-ttu-id="872cc-124">Získání prostředí aplikace v součásti vložením `IWebAssemblyHostEnvironment` a čtením `Environment` vlastnosti:</span><span class="sxs-lookup"><span data-stu-id="872cc-124">Obtain the app's environment in a component by injecting `IWebAssemblyHostEnvironment` and reading the `Environment` property:</span></span>
 
 ```razor
 @page "/"
@@ -71,7 +57,7 @@ ms.locfileid: "82772071"
 <p>Environment: @HostEnvironment.Environment</p>
 ```
 
-<span data-ttu-id="6315f-120">Během spouštění `WebAssemblyHostBuilder` zpřístupňuje `IWebAssemblyHostEnvironment` `HostEnvironment` vlastnost prostřednictvím vlastnosti, která vývojářům umožňuje mít v kódu logiku konkrétního prostředí:</span><span class="sxs-lookup"><span data-stu-id="6315f-120">During startup, the `WebAssemblyHostBuilder` exposes the `IWebAssemblyHostEnvironment` through the `HostEnvironment` property, which enables developers to have environment-specific logic in their code:</span></span>
+<span data-ttu-id="872cc-125">Během spouštění `WebAssemblyHostBuilder` zpřístupňuje `IWebAssemblyHostEnvironment` `HostEnvironment` vlastnost prostřednictvím vlastnosti, která vývojářům umožňuje mít v kódu logiku konkrétního prostředí:</span><span class="sxs-lookup"><span data-stu-id="872cc-125">During startup, the `WebAssemblyHostBuilder` exposes the `IWebAssemblyHostEnvironment` through the `HostEnvironment` property, which enables developers to have environment-specific logic in their code:</span></span>
 
 ```csharp
 if (builder.HostEnvironment.Environment == "Custom")
@@ -80,12 +66,12 @@ if (builder.HostEnvironment.Environment == "Custom")
 };
 ```
 
-<span data-ttu-id="6315f-121">Následující rozšiřující metody umožňují kontrolu aktuálního prostředí pro názvy pro vývoj, produkci, přípravu a vlastní prostředí:</span><span class="sxs-lookup"><span data-stu-id="6315f-121">The following convenience extension methods permit checking the current environment for Development, Production, Staging, and custom environment names:</span></span>
+<span data-ttu-id="872cc-126">Následující rozšiřující metody umožňují kontrolu aktuálního prostředí pro názvy pro vývoj, produkci, přípravu a vlastní prostředí:</span><span class="sxs-lookup"><span data-stu-id="872cc-126">The following convenience extension methods permit checking the current environment for Development, Production, Staging, and custom environment names:</span></span>
 
 * `IsDevelopment()`
 * `IsProduction()`
 * `IsStaging()`
-* <span data-ttu-id="6315f-122">"Prostředí" ("{název prostředí}")</span><span class="sxs-lookup"><span data-stu-id="6315f-122">\`IsEnvironment("{ENVIRONMENT NAME}")</span></span>
+* <span data-ttu-id="872cc-127">"Prostředí" ("{název prostředí}")</span><span class="sxs-lookup"><span data-stu-id="872cc-127">\`IsEnvironment("{ENVIRONMENT NAME}")</span></span>
 
 ```csharp
 if (builder.HostEnvironment.IsStaging())
@@ -99,25 +85,25 @@ if (builder.HostEnvironment.IsEnvironment("Custom"))
 };
 ```
 
-<span data-ttu-id="6315f-123">`IWebAssemblyHostEnvironment.BaseAddress` Vlastnost lze použít při spuštění, když není `NavigationManager` služba k dispozici.</span><span class="sxs-lookup"><span data-stu-id="6315f-123">The `IWebAssemblyHostEnvironment.BaseAddress` property can be used during startup when the `NavigationManager` service isn't available.</span></span>
+<span data-ttu-id="872cc-128">`IWebAssemblyHostEnvironment.BaseAddress`Vlastnost lze použít při spuštění, když `NavigationManager` není služba k dispozici.</span><span class="sxs-lookup"><span data-stu-id="872cc-128">The `IWebAssemblyHostEnvironment.BaseAddress` property can be used during startup when the `NavigationManager` service isn't available.</span></span>
 
-### <a name="configuration"></a><span data-ttu-id="6315f-124">Konfigurace</span><span class="sxs-lookup"><span data-stu-id="6315f-124">Configuration</span></span>
+### <a name="configuration"></a><span data-ttu-id="872cc-129">Konfigurace</span><span class="sxs-lookup"><span data-stu-id="872cc-129">Configuration</span></span>
 
-<span data-ttu-id="6315f-125">Blazor WebAssembly načítá konfiguraci z:</span><span class="sxs-lookup"><span data-stu-id="6315f-125">Blazor WebAssembly loads configuration from:</span></span>
+Blazor<span data-ttu-id="872cc-130">Sestavení WebAssembly načítá konfiguraci z:</span><span class="sxs-lookup"><span data-stu-id="872cc-130"> WebAssembly loads configuration from:</span></span>
 
-* <span data-ttu-id="6315f-126">Soubory nastavení aplikace ve výchozím nastavení:</span><span class="sxs-lookup"><span data-stu-id="6315f-126">App settings files by default:</span></span>
-  * <span data-ttu-id="6315f-127">*wwwroot/appSettings. JSON*</span><span class="sxs-lookup"><span data-stu-id="6315f-127">*wwwroot/appsettings.json*</span></span>
-  * <span data-ttu-id="6315f-128">*wwwroot/appSettings. {ENVIRONMENT}. JSON*</span><span class="sxs-lookup"><span data-stu-id="6315f-128">*wwwroot/appsettings.{ENVIRONMENT}.json*</span></span>
-* <span data-ttu-id="6315f-129">Další [poskytovatelé konfigurace](xref:fundamentals/configuration/index) zaregistrované aplikací</span><span class="sxs-lookup"><span data-stu-id="6315f-129">Other [configuration providers](xref:fundamentals/configuration/index) registered by the app.</span></span> <span data-ttu-id="6315f-130">Ne všichni poskytovatelé jsou vhodné pro aplikace Blazor WebAssembly.</span><span class="sxs-lookup"><span data-stu-id="6315f-130">Not all providers are appropriate for Blazor WebAssembly apps.</span></span> <span data-ttu-id="6315f-131">Vyjasnění, které poskytovatele se podporují pro Blazor WebAssembly, je sledováno pomocí [vysvětlení poskytovatelé konfigurace pro BLAZOR WASM (dotnet/AspNetCore. Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).</span><span class="sxs-lookup"><span data-stu-id="6315f-131">Clarification on which providers are supported for Blazor WebAssembly is tracked by [Clarify configuration providers for Blazor WASM (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).</span></span>
+* <span data-ttu-id="872cc-131">Soubory nastavení aplikace ve výchozím nastavení:</span><span class="sxs-lookup"><span data-stu-id="872cc-131">App settings files by default:</span></span>
+  * <span data-ttu-id="872cc-132">*wwwroot/appSettings. JSON*</span><span class="sxs-lookup"><span data-stu-id="872cc-132">*wwwroot/appsettings.json*</span></span>
+  * <span data-ttu-id="872cc-133">*wwwroot/appSettings. {ENVIRONMENT}. JSON*</span><span class="sxs-lookup"><span data-stu-id="872cc-133">*wwwroot/appsettings.{ENVIRONMENT}.json*</span></span>
+* <span data-ttu-id="872cc-134">Další [poskytovatelé konfigurace](xref:fundamentals/configuration/index) zaregistrované aplikací</span><span class="sxs-lookup"><span data-stu-id="872cc-134">Other [configuration providers](xref:fundamentals/configuration/index) registered by the app.</span></span> <span data-ttu-id="872cc-135">Ne všichni poskytovatelé jsou vhodný pro Blazor aplikace pro WebAssembly.</span><span class="sxs-lookup"><span data-stu-id="872cc-135">Not all providers are appropriate for Blazor WebAssembly apps.</span></span> <span data-ttu-id="872cc-136">Objasnění, které poskytovatelé podporují pro Blazor WebAssembly, je sledováno pomocí [vysvětlení poskytovatelé konfigurace pro Blazor WASM (dotnet/AspNetCore. Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).</span><span class="sxs-lookup"><span data-stu-id="872cc-136">Clarification on which providers are supported for Blazor WebAssembly is tracked by [Clarify configuration providers for Blazor WASM (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="6315f-132">Konfigurace v aplikaci WebAssembly v Blazor je viditelná pro uživatele.</span><span class="sxs-lookup"><span data-stu-id="6315f-132">Configuration in a Blazor WebAssembly app is visible to users.</span></span> <span data-ttu-id="6315f-133">**Neukládejte tajné klíče aplikace ani přihlašovací údaje v konfiguraci.**</span><span class="sxs-lookup"><span data-stu-id="6315f-133">**Don't store app secrets or credentials in configuration.**</span></span>
+> <span data-ttu-id="872cc-137">Konfigurace v Blazor aplikaci WebAssembly je viditelná pro uživatele.</span><span class="sxs-lookup"><span data-stu-id="872cc-137">Configuration in a Blazor WebAssembly app is visible to users.</span></span> <span data-ttu-id="872cc-138">**Neukládejte tajné klíče aplikace ani přihlašovací údaje v konfiguraci.**</span><span class="sxs-lookup"><span data-stu-id="872cc-138">**Don't store app secrets or credentials in configuration.**</span></span>
 
-<span data-ttu-id="6315f-134">Další informace o poskytovatelích konfigurace najdete v <xref:fundamentals/configuration/index>tématu.</span><span class="sxs-lookup"><span data-stu-id="6315f-134">For more information on configuration providers, see <xref:fundamentals/configuration/index>.</span></span>
+<span data-ttu-id="872cc-139">Další informace o poskytovatelích konfigurace najdete v tématu <xref:fundamentals/configuration/index> .</span><span class="sxs-lookup"><span data-stu-id="872cc-139">For more information on configuration providers, see <xref:fundamentals/configuration/index>.</span></span>
 
-#### <a name="app-settings-configuration"></a><span data-ttu-id="6315f-135">Konfigurace nastavení aplikace</span><span class="sxs-lookup"><span data-stu-id="6315f-135">App settings configuration</span></span>
+#### <a name="app-settings-configuration"></a><span data-ttu-id="872cc-140">Konfigurace nastavení aplikace</span><span class="sxs-lookup"><span data-stu-id="872cc-140">App settings configuration</span></span>
 
-<span data-ttu-id="6315f-136">*wwwroot/appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="6315f-136">*wwwroot/appsettings.json*:</span></span>
+<span data-ttu-id="872cc-141">*wwwroot/appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="872cc-141">*wwwroot/appsettings.json*:</span></span>
 
 ```json
 {
@@ -125,7 +111,7 @@ if (builder.HostEnvironment.IsEnvironment("Custom"))
 }
 ```
 
-<span data-ttu-id="6315f-137">Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do komponenty pro přístup k datům konfigurace:</span><span class="sxs-lookup"><span data-stu-id="6315f-137">Inject an <xref:Microsoft.Extensions.Configuration.IConfiguration> instance into a component to access the configuration data:</span></span>
+<span data-ttu-id="872cc-142">Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do komponenty pro přístup k datům konfigurace:</span><span class="sxs-lookup"><span data-stu-id="872cc-142">Inject an <xref:Microsoft.Extensions.Configuration.IConfiguration> instance into a component to access the configuration data:</span></span>
 
 ```razor
 @page "/"
@@ -137,11 +123,11 @@ if (builder.HostEnvironment.IsEnvironment("Custom"))
 <p>Message: @Configuration["message"]</p>
 ```
 
-#### <a name="provider-configuration"></a><span data-ttu-id="6315f-138">Konfigurace zprostředkovatele</span><span class="sxs-lookup"><span data-stu-id="6315f-138">Provider configuration</span></span>
+#### <a name="provider-configuration"></a><span data-ttu-id="872cc-143">Konfigurace zprostředkovatele</span><span class="sxs-lookup"><span data-stu-id="872cc-143">Provider configuration</span></span>
 
-<span data-ttu-id="6315f-139">Následující příklad používá <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> k poskytnutí další konfigurace:</span><span class="sxs-lookup"><span data-stu-id="6315f-139">The following example uses a <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> to supply additional configuration:</span></span>
+<span data-ttu-id="872cc-144">Následující příklad používá <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> k poskytnutí další konfigurace:</span><span class="sxs-lookup"><span data-stu-id="872cc-144">The following example uses a <xref:Microsoft.Extensions.Configuration.Memory.MemoryConfigurationSource> to supply additional configuration:</span></span>
 
-<span data-ttu-id="6315f-140">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="6315f-140">`Program.Main`:</span></span>
+<span data-ttu-id="872cc-145">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="872cc-145">`Program.Main`:</span></span>
 
 ```csharp
 using Microsoft.Extensions.Configuration.Memory;
@@ -165,7 +151,7 @@ var memoryConfig = new MemoryConfigurationSource { InitialData = vehicleData };
 builder.Configuration.Add(memoryConfig);
 ```
 
-<span data-ttu-id="6315f-141">Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do komponenty pro přístup k datům konfigurace:</span><span class="sxs-lookup"><span data-stu-id="6315f-141">Inject an <xref:Microsoft.Extensions.Configuration.IConfiguration> instance into a component to access the configuration data:</span></span>
+<span data-ttu-id="872cc-146">Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do komponenty pro přístup k datům konfigurace:</span><span class="sxs-lookup"><span data-stu-id="872cc-146">Inject an <xref:Microsoft.Extensions.Configuration.IConfiguration> instance into a component to access the configuration data:</span></span>
 
 ```razor
 @page "/"
@@ -190,9 +176,9 @@ builder.Configuration.Add(memoryConfig);
 }
 ```
 
-<span data-ttu-id="6315f-142">Chcete-li číst další konfigurační soubory ze složky *wwwroot* do konfigurace, použijte `HttpClient` k získání obsahu souboru.</span><span class="sxs-lookup"><span data-stu-id="6315f-142">To read other configuration files from the *wwwroot* folder into configuration, use an `HttpClient` to obtain the file's content.</span></span> <span data-ttu-id="6315f-143">Při použití tohoto přístupu existující `HttpClient` registrace služby může použít místního klienta vytvořeného pro čtení souboru, jak ukazuje následující příklad:</span><span class="sxs-lookup"><span data-stu-id="6315f-143">When using this approach, the existing `HttpClient` service registration can use the local client created to read the file, as the following example shows:</span></span>
+<span data-ttu-id="872cc-147">Chcete-li číst další konfigurační soubory ze složky *wwwroot* do konfigurace, použijte `HttpClient` k získání obsahu souboru.</span><span class="sxs-lookup"><span data-stu-id="872cc-147">To read other configuration files from the *wwwroot* folder into configuration, use an `HttpClient` to obtain the file's content.</span></span> <span data-ttu-id="872cc-148">Při použití tohoto přístupu existující `HttpClient` Registrace služby může použít místního klienta vytvořeného pro čtení souboru, jak ukazuje následující příklad:</span><span class="sxs-lookup"><span data-stu-id="872cc-148">When using this approach, the existing `HttpClient` service registration can use the local client created to read the file, as the following example shows:</span></span>
 
-<span data-ttu-id="6315f-144">*wwwroot/automobily. JSON*:</span><span class="sxs-lookup"><span data-stu-id="6315f-144">*wwwroot/cars.json*:</span></span>
+<span data-ttu-id="872cc-149">*wwwroot/automobily. JSON*:</span><span class="sxs-lookup"><span data-stu-id="872cc-149">*wwwroot/cars.json*:</span></span>
 
 ```json
 {
@@ -200,7 +186,7 @@ builder.Configuration.Add(memoryConfig);
 }
 ```
 
-<span data-ttu-id="6315f-145">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="6315f-145">`Program.Main`:</span></span>
+<span data-ttu-id="872cc-150">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="872cc-150">`Program.Main`:</span></span>
 
 ```csharp
 using Microsoft.Extensions.Configuration;
@@ -220,9 +206,9 @@ using var stream = await response.Content.ReadAsStreamAsync();
 builder.Configuration.AddJsonStream(stream);
 ```
 
-#### <a name="authentication-configuration"></a><span data-ttu-id="6315f-146">Konfigurace ověřování</span><span class="sxs-lookup"><span data-stu-id="6315f-146">Authentication configuration</span></span>
+#### <a name="authentication-configuration"></a><span data-ttu-id="872cc-151">Konfigurace ověřování</span><span class="sxs-lookup"><span data-stu-id="872cc-151">Authentication configuration</span></span>
 
-<span data-ttu-id="6315f-147">*wwwroot/appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="6315f-147">*wwwroot/appsettings.json*:</span></span>
+<span data-ttu-id="872cc-152">*wwwroot/appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="872cc-152">*wwwroot/appsettings.json*:</span></span>
 
 ```json
 {
@@ -233,16 +219,16 @@ builder.Configuration.AddJsonStream(stream);
 }
 ```
 
-<span data-ttu-id="6315f-148">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="6315f-148">`Program.Main`:</span></span>
+<span data-ttu-id="872cc-153">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="872cc-153">`Program.Main`:</span></span>
 
 ```csharp
 builder.Services.AddOidcAuthentication(options =>
     builder.Configuration.Bind("AzureAD", options);
 ```
 
-#### <a name="logging-configuration"></a><span data-ttu-id="6315f-149">Konfigurace protokolování</span><span class="sxs-lookup"><span data-stu-id="6315f-149">Logging configuration</span></span>
+#### <a name="logging-configuration"></a><span data-ttu-id="872cc-154">Konfigurace protokolování</span><span class="sxs-lookup"><span data-stu-id="872cc-154">Logging configuration</span></span>
 
-<span data-ttu-id="6315f-150">*wwwroot/appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="6315f-150">*wwwroot/appsettings.json*:</span></span>
+<span data-ttu-id="872cc-155">*wwwroot/appSettings. JSON*:</span><span class="sxs-lookup"><span data-stu-id="872cc-155">*wwwroot/appsettings.json*:</span></span>
 
 ```json
 {
@@ -256,41 +242,41 @@ builder.Services.AddOidcAuthentication(options =>
 }
 ```
 
-<span data-ttu-id="6315f-151">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="6315f-151">`Program.Main`:</span></span>
+<span data-ttu-id="872cc-156">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="872cc-156">`Program.Main`:</span></span>
 
 ```csharp
 builder.Logging.AddConfiguration(
     builder.Configuration.GetSection("Logging"));
 ```
 
-#### <a name="host-builder-configuration"></a><span data-ttu-id="6315f-152">Konfigurace tvůrce hostitele</span><span class="sxs-lookup"><span data-stu-id="6315f-152">Host builder configuration</span></span>
+#### <a name="host-builder-configuration"></a><span data-ttu-id="872cc-157">Konfigurace tvůrce hostitele</span><span class="sxs-lookup"><span data-stu-id="872cc-157">Host builder configuration</span></span>
 
-<span data-ttu-id="6315f-153">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="6315f-153">`Program.Main`:</span></span>
+<span data-ttu-id="872cc-158">`Program.Main`:</span><span class="sxs-lookup"><span data-stu-id="872cc-158">`Program.Main`:</span></span>
 
 ```csharp
 var hostname = builder.Configuration["HostName"];
 ```
 
-#### <a name="cached-configuration"></a><span data-ttu-id="6315f-154">Konfigurace uložená v mezipaměti</span><span class="sxs-lookup"><span data-stu-id="6315f-154">Cached configuration</span></span>
+#### <a name="cached-configuration"></a><span data-ttu-id="872cc-159">Konfigurace uložená v mezipaměti</span><span class="sxs-lookup"><span data-stu-id="872cc-159">Cached configuration</span></span>
 
-<span data-ttu-id="6315f-155">Konfigurační soubory jsou ukládány do mezipaměti pro použití v režimu offline.</span><span class="sxs-lookup"><span data-stu-id="6315f-155">Configuration files are cached for offline use.</span></span> <span data-ttu-id="6315f-156">S [progresivními webovými aplikacemi (PWAs)](xref:blazor/progressive-web-app)můžete aktualizovat pouze konfigurační soubory při vytváření nového nasazení.</span><span class="sxs-lookup"><span data-stu-id="6315f-156">With [Progressive Web Applications (PWAs)](xref:blazor/progressive-web-app), you can only update configuration files when creating a new deployment.</span></span> <span data-ttu-id="6315f-157">Úprava konfiguračních souborů mezi nasazeními nemá žádný vliv z těchto důvodů:</span><span class="sxs-lookup"><span data-stu-id="6315f-157">Editing configuration files between deployments has no effect because:</span></span>
+<span data-ttu-id="872cc-160">Konfigurační soubory jsou ukládány do mezipaměti pro použití v režimu offline.</span><span class="sxs-lookup"><span data-stu-id="872cc-160">Configuration files are cached for offline use.</span></span> <span data-ttu-id="872cc-161">S [progresivními webovými aplikacemi (PWAs)](xref:blazor/progressive-web-app)můžete aktualizovat pouze konfigurační soubory při vytváření nového nasazení.</span><span class="sxs-lookup"><span data-stu-id="872cc-161">With [Progressive Web Applications (PWAs)](xref:blazor/progressive-web-app), you can only update configuration files when creating a new deployment.</span></span> <span data-ttu-id="872cc-162">Úprava konfiguračních souborů mezi nasazeními nemá žádný vliv z těchto důvodů:</span><span class="sxs-lookup"><span data-stu-id="872cc-162">Editing configuration files between deployments has no effect because:</span></span>
 
-* <span data-ttu-id="6315f-158">Uživatelé mají verze souborů uložených v mezipaměti, které jsou nadále používány.</span><span class="sxs-lookup"><span data-stu-id="6315f-158">Users have cached versions of the files that they continue to use.</span></span>
-* <span data-ttu-id="6315f-159">Soubory *Service-Worker. js* a *Service-Worker-assets. js* aplikace PWA je nutné znovu sestavit při kompilaci, který signalizuje aplikaci na další stránce uživatele online, na kterou se aplikace znovu nasadila.</span><span class="sxs-lookup"><span data-stu-id="6315f-159">The PWA's *service-worker.js* and *service-worker-assets.js* files must be rebuilt on compilation, which signal to the app on the user's next online visit that the app has been redeployed.</span></span>
+* <span data-ttu-id="872cc-163">Uživatelé mají verze souborů uložených v mezipaměti, které jsou nadále používány.</span><span class="sxs-lookup"><span data-stu-id="872cc-163">Users have cached versions of the files that they continue to use.</span></span>
+* <span data-ttu-id="872cc-164">Soubory *Service-Worker. js* a *Service-Worker-assets. js* aplikace PWA je nutné znovu sestavit při kompilaci, který signalizuje aplikaci na další stránce uživatele online, na kterou se aplikace znovu nasadila.</span><span class="sxs-lookup"><span data-stu-id="872cc-164">The PWA's *service-worker.js* and *service-worker-assets.js* files must be rebuilt on compilation, which signal to the app on the user's next online visit that the app has been redeployed.</span></span>
 
-<span data-ttu-id="6315f-160">Další informace o tom, jak služba PWAs zpracovává aktualizace na pozadí, <xref:blazor/progressive-web-app#background-updates>naleznete v tématu.</span><span class="sxs-lookup"><span data-stu-id="6315f-160">For more information on how background updates are handled by PWAs, see <xref:blazor/progressive-web-app#background-updates>.</span></span>
+<span data-ttu-id="872cc-165">Další informace o tom, jak služba PWAs zpracovává aktualizace na pozadí, naleznete v tématu <xref:blazor/progressive-web-app#background-updates> .</span><span class="sxs-lookup"><span data-stu-id="872cc-165">For more information on how background updates are handled by PWAs, see <xref:blazor/progressive-web-app#background-updates>.</span></span>
 
-### <a name="logging"></a><span data-ttu-id="6315f-161">protokolování</span><span class="sxs-lookup"><span data-stu-id="6315f-161">Logging</span></span>
+### <a name="logging"></a><span data-ttu-id="872cc-166">Protokolování</span><span class="sxs-lookup"><span data-stu-id="872cc-166">Logging</span></span>
 
-<span data-ttu-id="6315f-162">Informace o podpoře protokolování WebAssembly v Blazor naleznete v <xref:fundamentals/logging/index#create-logs-in-blazor>tématu.</span><span class="sxs-lookup"><span data-stu-id="6315f-162">For information on Blazor WebAssembly logging support, see <xref:fundamentals/logging/index#create-logs-in-blazor>.</span></span>
+<span data-ttu-id="872cc-167">Informace o Blazor podpoře protokolování WebAssembly naleznete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor> .</span><span class="sxs-lookup"><span data-stu-id="872cc-167">For information on Blazor WebAssembly logging support, see <xref:fundamentals/logging/index#create-logs-in-blazor>.</span></span>
 
-## <a name="blazor-server"></a><span data-ttu-id="6315f-163">Blazor Server</span><span class="sxs-lookup"><span data-stu-id="6315f-163">Blazor Server</span></span>
+## <a name="blazor-server"></a>Blazor<span data-ttu-id="872cc-168">WebServer</span><span class="sxs-lookup"><span data-stu-id="872cc-168"> Server</span></span>
 
-### <a name="reflect-the-connection-state-in-the-ui"></a><span data-ttu-id="6315f-164">Odrážet stav připojení v uživatelském rozhraní</span><span class="sxs-lookup"><span data-stu-id="6315f-164">Reflect the connection state in the UI</span></span>
+### <a name="reflect-the-connection-state-in-the-ui"></a><span data-ttu-id="872cc-169">Odrážet stav připojení v uživatelském rozhraní</span><span class="sxs-lookup"><span data-stu-id="872cc-169">Reflect the connection state in the UI</span></span>
 
-<span data-ttu-id="6315f-165">Když klient zjistí, že došlo ke ztrátě připojení, zobrazí se uživateli výchozí uživatelské rozhraní, zatímco se klient pokusí znovu připojit.</span><span class="sxs-lookup"><span data-stu-id="6315f-165">When the client detects that the connection has been lost, a default UI is displayed to the user while the client attempts to reconnect.</span></span> <span data-ttu-id="6315f-166">Pokud se opětovné připojení nepovede, uživateli se zobrazí možnost opakovat akci.</span><span class="sxs-lookup"><span data-stu-id="6315f-166">If reconnection fails, the user is provided the option to retry.</span></span>
+<span data-ttu-id="872cc-170">Když klient zjistí, že došlo ke ztrátě připojení, zobrazí se uživateli výchozí uživatelské rozhraní, zatímco se klient pokusí znovu připojit.</span><span class="sxs-lookup"><span data-stu-id="872cc-170">When the client detects that the connection has been lost, a default UI is displayed to the user while the client attempts to reconnect.</span></span> <span data-ttu-id="872cc-171">Pokud se opětovné připojení nepovede, uživateli se zobrazí možnost opakovat akci.</span><span class="sxs-lookup"><span data-stu-id="872cc-171">If reconnection fails, the user is provided the option to retry.</span></span>
 
-<span data-ttu-id="6315f-167">Chcete-li přizpůsobit uživatelské rozhraní, `id` definujte element `components-reconnect-modal` `<body>` na stránce *_Host. cshtml* Razor:</span><span class="sxs-lookup"><span data-stu-id="6315f-167">To customize the UI, define an element with an `id` of `components-reconnect-modal` in the `<body>` of the *_Host.cshtml* Razor page:</span></span>
+<span data-ttu-id="872cc-172">Chcete-li přizpůsobit uživatelské rozhraní, definujte element na `id` `components-reconnect-modal` `<body>` stránce *_Host. cshtml* Razor :</span><span class="sxs-lookup"><span data-stu-id="872cc-172">To customize the UI, define an element with an `id` of `components-reconnect-modal` in the `<body>` of the *_Host.cshtml* Razor page:</span></span>
 
 ```cshtml
 <div id="components-reconnect-modal">
@@ -298,18 +284,184 @@ var hostname = builder.Configuration["HostName"];
 </div>
 ```
 
-<span data-ttu-id="6315f-168">Následující tabulka popisuje třídy CSS použité pro `components-reconnect-modal` element.</span><span class="sxs-lookup"><span data-stu-id="6315f-168">The following table describes the CSS classes applied to the `components-reconnect-modal` element.</span></span>
+<span data-ttu-id="872cc-173">Následující tabulka popisuje třídy CSS použité pro `components-reconnect-modal` element.</span><span class="sxs-lookup"><span data-stu-id="872cc-173">The following table describes the CSS classes applied to the `components-reconnect-modal` element.</span></span>
 
-| <span data-ttu-id="6315f-169">CSS – třída</span><span class="sxs-lookup"><span data-stu-id="6315f-169">CSS class</span></span>                       | <span data-ttu-id="6315f-170">Označující&hellip;</span><span class="sxs-lookup"><span data-stu-id="6315f-170">Indicates&hellip;</span></span> |
-| ------------------------------- | ----------------- |
-| `components-reconnect-show`     | <span data-ttu-id="6315f-171">Ztracené připojení.</span><span class="sxs-lookup"><span data-stu-id="6315f-171">A lost connection.</span></span> <span data-ttu-id="6315f-172">Klient se pokouší znovu připojit.</span><span class="sxs-lookup"><span data-stu-id="6315f-172">The client is attempting to reconnect.</span></span> <span data-ttu-id="6315f-173">Zobrazit modální okno.</span><span class="sxs-lookup"><span data-stu-id="6315f-173">Show the modal.</span></span> |
-| `components-reconnect-hide`     | <span data-ttu-id="6315f-174">K serveru se znovu naváže aktivní připojení.</span><span class="sxs-lookup"><span data-stu-id="6315f-174">An active connection is re-established to the server.</span></span> <span data-ttu-id="6315f-175">Skryje modální okno.</span><span class="sxs-lookup"><span data-stu-id="6315f-175">Hide the modal.</span></span> |
-| `components-reconnect-failed`   | <span data-ttu-id="6315f-176">Opětovné připojení se nezdařilo, pravděpodobně kvůli selhání sítě.</span><span class="sxs-lookup"><span data-stu-id="6315f-176">Reconnection failed, probably due to a network failure.</span></span> <span data-ttu-id="6315f-177">Chcete-li se pokusit `window.Blazor.reconnect()`znovu připojit, zavolejte.</span><span class="sxs-lookup"><span data-stu-id="6315f-177">To attempt reconnection, call `window.Blazor.reconnect()`.</span></span> |
-| `components-reconnect-rejected` | <span data-ttu-id="6315f-178">Opětovné připojení bylo zamítnuto.</span><span class="sxs-lookup"><span data-stu-id="6315f-178">Reconnection rejected.</span></span> <span data-ttu-id="6315f-179">Server byl dosažen, ale odmítl připojení a stav uživatele na serveru je ztracen.</span><span class="sxs-lookup"><span data-stu-id="6315f-179">The server was reached but refused the connection, and the user's state on the server is lost.</span></span> <span data-ttu-id="6315f-180">K opětovnému načtení aplikace zavolejte `location.reload()`.</span><span class="sxs-lookup"><span data-stu-id="6315f-180">To reload the app, call `location.reload()`.</span></span> <span data-ttu-id="6315f-181">Tento stav připojení může mít za následek:</span><span class="sxs-lookup"><span data-stu-id="6315f-181">This connection state may result when:</span></span><ul><li><span data-ttu-id="6315f-182">Dojde k chybě okruhu na straně serveru.</span><span class="sxs-lookup"><span data-stu-id="6315f-182">A crash in the server-side circuit occurs.</span></span></li><li><span data-ttu-id="6315f-183">Klient je dostatečně odpojený, aby server vynechal stav uživatele.</span><span class="sxs-lookup"><span data-stu-id="6315f-183">The client is disconnected long enough for the server to drop the user's state.</span></span> <span data-ttu-id="6315f-184">Instance komponent, se kterými uživatel pracuje, jsou vyřazeny.</span><span class="sxs-lookup"><span data-stu-id="6315f-184">Instances of the components that the user is interacting with are disposed.</span></span></li><li><span data-ttu-id="6315f-185">Server se restartuje nebo se pracovní proces aplikace recykluje.</span><span class="sxs-lookup"><span data-stu-id="6315f-185">The server is restarted, or the app's worker process is recycled.</span></span></li></ul> |
+| <span data-ttu-id="872cc-174">CSS – třída</span><span class="sxs-lookup"><span data-stu-id="872cc-174">CSS class</span></span>                       | <span data-ttu-id="872cc-175">Označující&hellip;</span><span class="sxs-lookup"><span data-stu-id="872cc-175">Indicates&hellip;</span></span> |
+| ---
+<span data-ttu-id="872cc-176">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-176">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-177">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-177">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-178">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-178">'Blazor'</span></span>
+- <span data-ttu-id="872cc-179">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-179">'Identity'</span></span>
+- <span data-ttu-id="872cc-180">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-180">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-181">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-181">'Razor'</span></span>
+- <span data-ttu-id="872cc-182">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-182">'SignalR' uid:</span></span> 
 
-### <a name="render-mode"></a><span data-ttu-id="6315f-186">Režim vykreslování</span><span class="sxs-lookup"><span data-stu-id="6315f-186">Render mode</span></span>
+-
+<span data-ttu-id="872cc-183">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-183">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-184">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-184">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-185">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-185">'Blazor'</span></span>
+- <span data-ttu-id="872cc-186">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-186">'Identity'</span></span>
+- <span data-ttu-id="872cc-187">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-187">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-188">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-188">'Razor'</span></span>
+- <span data-ttu-id="872cc-189">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-189">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="6315f-187">Aplikace Blazor serveru se ve výchozím nastavení nastavují tak, aby se před vytvořením připojení klienta k serveru předvedlo uživatelské rozhraní na serveru.</span><span class="sxs-lookup"><span data-stu-id="6315f-187">Blazor Server apps are set up by default to prerender the UI on the server before the client connection to the server is established.</span></span> <span data-ttu-id="6315f-188">To je nastaveno na stránce *_Host. cshtml* Razor:</span><span class="sxs-lookup"><span data-stu-id="6315f-188">This is set up in the *_Host.cshtml* Razor page:</span></span>
+-
+<span data-ttu-id="872cc-190">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-190">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-191">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-191">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-192">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-192">'Blazor'</span></span>
+- <span data-ttu-id="872cc-193">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-193">'Identity'</span></span>
+- <span data-ttu-id="872cc-194">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-194">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-195">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-195">'Razor'</span></span>
+- <span data-ttu-id="872cc-196">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-196">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-197">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-197">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-198">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-198">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-199">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-199">'Blazor'</span></span>
+- <span data-ttu-id="872cc-200">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-200">'Identity'</span></span>
+- <span data-ttu-id="872cc-201">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-201">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-202">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-202">'Razor'</span></span>
+- <span data-ttu-id="872cc-203">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-203">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-204">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-204">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-205">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-205">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-206">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-206">'Blazor'</span></span>
+- <span data-ttu-id="872cc-207">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-207">'Identity'</span></span>
+- <span data-ttu-id="872cc-208">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-208">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-209">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-209">'Razor'</span></span>
+- <span data-ttu-id="872cc-210">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-210">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-211">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-211">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-212">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-212">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-213">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-213">'Blazor'</span></span>
+- <span data-ttu-id="872cc-214">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-214">'Identity'</span></span>
+- <span data-ttu-id="872cc-215">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-215">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-216">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-216">'Razor'</span></span>
+- <span data-ttu-id="872cc-217">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-217">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-218">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-218">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-219">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-219">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-220">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-220">'Blazor'</span></span>
+- <span data-ttu-id="872cc-221">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-221">'Identity'</span></span>
+- <span data-ttu-id="872cc-222">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-222">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-223">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-223">'Razor'</span></span>
+- <span data-ttu-id="872cc-224">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-224">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-225">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-225">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-226">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-226">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-227">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-227">'Blazor'</span></span>
+- <span data-ttu-id="872cc-228">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-228">'Identity'</span></span>
+- <span data-ttu-id="872cc-229">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-229">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-230">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-230">'Razor'</span></span>
+- <span data-ttu-id="872cc-231">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-231">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-232">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-232">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-233">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-233">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-234">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-234">'Blazor'</span></span>
+- <span data-ttu-id="872cc-235">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-235">'Identity'</span></span>
+- <span data-ttu-id="872cc-236">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-236">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-237">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-237">'Razor'</span></span>
+- <span data-ttu-id="872cc-238">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-238">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-239">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-239">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-240">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-240">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-241">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-241">'Blazor'</span></span>
+- <span data-ttu-id="872cc-242">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-242">'Identity'</span></span>
+- <span data-ttu-id="872cc-243">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-243">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-244">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-244">'Razor'</span></span>
+- <span data-ttu-id="872cc-245">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-245">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-246">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-246">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-247">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-247">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-248">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-248">'Blazor'</span></span>
+- <span data-ttu-id="872cc-249">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-249">'Identity'</span></span>
+- <span data-ttu-id="872cc-250">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-250">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-251">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-251">'Razor'</span></span>
+- <span data-ttu-id="872cc-252">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-252">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-253">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-253">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-254">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-254">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-255">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-255">'Blazor'</span></span>
+- <span data-ttu-id="872cc-256">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-256">'Identity'</span></span>
+- <span data-ttu-id="872cc-257">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-257">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-258">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-258">'Razor'</span></span>
+- <span data-ttu-id="872cc-259">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-259">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-260">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-260">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-261">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-261">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-262">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-262">'Blazor'</span></span>
+- <span data-ttu-id="872cc-263">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-263">'Identity'</span></span>
+- <span data-ttu-id="872cc-264">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-264">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-265">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-265">'Razor'</span></span>
+- <span data-ttu-id="872cc-266">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-266">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="872cc-267">---------------- | ---Název: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci modelu hostování, včetně postupu integrace Razor komponent do Razor stránek a aplikací MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-267">---------------- | --- title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-268">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-268">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-269">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-269">'Blazor'</span></span>
+- <span data-ttu-id="872cc-270">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-270">'Identity'</span></span>
+- <span data-ttu-id="872cc-271">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-271">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-272">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-272">'Razor'</span></span>
+- <span data-ttu-id="872cc-273">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-273">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-274">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-274">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-275">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-275">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-276">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-276">'Blazor'</span></span>
+- <span data-ttu-id="872cc-277">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-277">'Identity'</span></span>
+- <span data-ttu-id="872cc-278">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-278">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-279">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-279">'Razor'</span></span>
+- <span data-ttu-id="872cc-280">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-280">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-281">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-281">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-282">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-282">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-283">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-283">'Blazor'</span></span>
+- <span data-ttu-id="872cc-284">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-284">'Identity'</span></span>
+- <span data-ttu-id="872cc-285">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-285">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-286">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-286">'Razor'</span></span>
+- <span data-ttu-id="872cc-287">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-287">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-288">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-288">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-289">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-289">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-290">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-290">'Blazor'</span></span>
+- <span data-ttu-id="872cc-291">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-291">'Identity'</span></span>
+- <span data-ttu-id="872cc-292">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-292">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-293">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-293">'Razor'</span></span>
+- <span data-ttu-id="872cc-294">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-294">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-295">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-295">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-296">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-296">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-297">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-297">'Blazor'</span></span>
+- <span data-ttu-id="872cc-298">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-298">'Identity'</span></span>
+- <span data-ttu-id="872cc-299">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-299">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-300">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-300">'Razor'</span></span>
+- <span data-ttu-id="872cc-301">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-301">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-302">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-302">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-303">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-303">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-304">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-304">'Blazor'</span></span>
+- <span data-ttu-id="872cc-305">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-305">'Identity'</span></span>
+- <span data-ttu-id="872cc-306">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-306">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-307">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-307">'Razor'</span></span>
+- <span data-ttu-id="872cc-308">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-308">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="872cc-309">--------- | | `components-reconnect-show`     | Ztracené připojení.</span><span class="sxs-lookup"><span data-stu-id="872cc-309">--------- | | `components-reconnect-show`     | A lost connection.</span></span> <span data-ttu-id="872cc-310">Klient se pokouší znovu připojit.</span><span class="sxs-lookup"><span data-stu-id="872cc-310">The client is attempting to reconnect.</span></span> <span data-ttu-id="872cc-311">Zobrazit modální okno.</span><span class="sxs-lookup"><span data-stu-id="872cc-311">Show the modal.</span></span> <span data-ttu-id="872cc-312">| | `components-reconnect-hide`     | K serveru se znovu naváže aktivní připojení.</span><span class="sxs-lookup"><span data-stu-id="872cc-312">| | `components-reconnect-hide`     | An active connection is re-established to the server.</span></span> <span data-ttu-id="872cc-313">Skryje modální okno.</span><span class="sxs-lookup"><span data-stu-id="872cc-313">Hide the modal.</span></span> <span data-ttu-id="872cc-314">| | `components-reconnect-failed`   | Opětovné připojení se nezdařilo, pravděpodobně kvůli selhání sítě.</span><span class="sxs-lookup"><span data-stu-id="872cc-314">| | `components-reconnect-failed`   | Reconnection failed, probably due to a network failure.</span></span> <span data-ttu-id="872cc-315">Chcete-li se pokusit znovu připojit, zavolejte `window.Blazor.reconnect()` .</span><span class="sxs-lookup"><span data-stu-id="872cc-315">To attempt reconnection, call `window.Blazor.reconnect()`.</span></span> <span data-ttu-id="872cc-316">| | `components-reconnect-rejected` | Opětovné připojení bylo zamítnuto.</span><span class="sxs-lookup"><span data-stu-id="872cc-316">| | `components-reconnect-rejected` | Reconnection rejected.</span></span> <span data-ttu-id="872cc-317">Server byl dosažen, ale odmítl připojení a stav uživatele na serveru je ztracen.</span><span class="sxs-lookup"><span data-stu-id="872cc-317">The server was reached but refused the connection, and the user's state on the server is lost.</span></span> <span data-ttu-id="872cc-318">K opětovnému načtení aplikace zavolejte `location.reload()` .</span><span class="sxs-lookup"><span data-stu-id="872cc-318">To reload the app, call `location.reload()`.</span></span> <span data-ttu-id="872cc-319">Tento stav připojení může mít za následek:</span><span class="sxs-lookup"><span data-stu-id="872cc-319">This connection state may result when:</span></span><ul><li><span data-ttu-id="872cc-320">Dojde k chybě okruhu na straně serveru.</span><span class="sxs-lookup"><span data-stu-id="872cc-320">A crash in the server-side circuit occurs.</span></span></li><li><span data-ttu-id="872cc-321">Klient je dostatečně odpojený, aby server vynechal stav uživatele.</span><span class="sxs-lookup"><span data-stu-id="872cc-321">The client is disconnected long enough for the server to drop the user's state.</span></span> <span data-ttu-id="872cc-322">Instance komponent, se kterými uživatel pracuje, jsou vyřazeny.</span><span class="sxs-lookup"><span data-stu-id="872cc-322">Instances of the components that the user is interacting with are disposed.</span></span></li><li><span data-ttu-id="872cc-323">Server se restartuje nebo se pracovní proces aplikace recykluje.</span><span class="sxs-lookup"><span data-stu-id="872cc-323">The server is restarted, or the app's worker process is recycled.</span></span></li></ul> |
+
+### <a name="render-mode"></a><span data-ttu-id="872cc-324">Režim vykreslování</span><span class="sxs-lookup"><span data-stu-id="872cc-324">Render mode</span></span>
+
+Blazor<span data-ttu-id="872cc-325">Serverové aplikace se ve výchozím nastavení nastavují tak, aby se před vytvořením připojení klienta k serveru předvedlo uživatelské rozhraní na serveru.</span><span class="sxs-lookup"><span data-stu-id="872cc-325"> Server apps are set up by default to prerender the UI on the server before the client connection to the server is established.</span></span> <span data-ttu-id="872cc-326">To je nastaveno na stránce *_Host. cshtml* Razor :</span><span class="sxs-lookup"><span data-stu-id="872cc-326">This is set up in the *_Host.cshtml* Razor page:</span></span>
 
 ```cshtml
 <body>
@@ -321,27 +473,113 @@ var hostname = builder.Configuration["HostName"];
 </body>
 ```
 
-<span data-ttu-id="6315f-189">`RenderMode`nakonfiguruje, jestli součást:</span><span class="sxs-lookup"><span data-stu-id="6315f-189">`RenderMode` configures whether the component:</span></span>
+<span data-ttu-id="872cc-327">`RenderMode`nakonfiguruje, jestli součást:</span><span class="sxs-lookup"><span data-stu-id="872cc-327">`RenderMode` configures whether the component:</span></span>
 
-* <span data-ttu-id="6315f-190">Je předem vykreslen na stránku.</span><span class="sxs-lookup"><span data-stu-id="6315f-190">Is prerendered into the page.</span></span>
-* <span data-ttu-id="6315f-191">Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor z uživatelského agenta.</span><span class="sxs-lookup"><span data-stu-id="6315f-191">Is rendered as static HTML on the page or if it includes the necessary information to bootstrap a Blazor app from the user agent.</span></span>
+* <span data-ttu-id="872cc-328">Je předem vykreslen na stránku.</span><span class="sxs-lookup"><span data-stu-id="872cc-328">Is prerendered into the page.</span></span>
+* <span data-ttu-id="872cc-329">Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.</span><span class="sxs-lookup"><span data-stu-id="872cc-329">Is rendered as static HTML on the page or if it includes the necessary information to bootstrap a Blazor app from the user agent.</span></span>
 
-| `RenderMode`        | <span data-ttu-id="6315f-192">Popis</span><span class="sxs-lookup"><span data-stu-id="6315f-192">Description</span></span> |
-| ------------------- | ----------- |
-| `ServerPrerendered` | <span data-ttu-id="6315f-193">Vykreslí komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="6315f-193">Renders the component into static HTML and includes a marker for a Blazor Server app.</span></span> <span data-ttu-id="6315f-194">Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace.</span><span class="sxs-lookup"><span data-stu-id="6315f-194">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> |
-| `Server`            | <span data-ttu-id="6315f-195">Vykreslí značku pro Blazor serverovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="6315f-195">Renders a marker for a Blazor Server app.</span></span> <span data-ttu-id="6315f-196">Výstup komponenty není zahrnutý.</span><span class="sxs-lookup"><span data-stu-id="6315f-196">Output from the component isn't included.</span></span> <span data-ttu-id="6315f-197">Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace.</span><span class="sxs-lookup"><span data-stu-id="6315f-197">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> |
-| `Static`            | <span data-ttu-id="6315f-198">Vykreslí komponentu do statického HTML.</span><span class="sxs-lookup"><span data-stu-id="6315f-198">Renders the component into static HTML.</span></span> |
+| `RenderMode`        | <span data-ttu-id="872cc-330">Popis</span><span class="sxs-lookup"><span data-stu-id="872cc-330">Description</span></span> |
+| ---
+<span data-ttu-id="872cc-331">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-331">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-332">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-332">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-333">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-333">'Blazor'</span></span>
+- <span data-ttu-id="872cc-334">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-334">'Identity'</span></span>
+- <span data-ttu-id="872cc-335">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-335">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-336">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-336">'Razor'</span></span>
+- <span data-ttu-id="872cc-337">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-337">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="6315f-199">Vykreslování součástí serveru ze statické stránky HTML není podporováno.</span><span class="sxs-lookup"><span data-stu-id="6315f-199">Rendering server components from a static HTML page isn't supported.</span></span>
+-
+<span data-ttu-id="872cc-338">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-338">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-339">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-339">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-340">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-340">'Blazor'</span></span>
+- <span data-ttu-id="872cc-341">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-341">'Identity'</span></span>
+- <span data-ttu-id="872cc-342">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-342">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-343">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-343">'Razor'</span></span>
+- <span data-ttu-id="872cc-344">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-344">'SignalR' uid:</span></span> 
 
-### <a name="configure-the-signalr-client-for-blazor-server-apps"></a><span data-ttu-id="6315f-200">Konfigurace SignalR klienta pro Blazor serverové aplikace</span><span class="sxs-lookup"><span data-stu-id="6315f-200">Configure the SignalR client for Blazor Server apps</span></span>
+-
+<span data-ttu-id="872cc-345">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-345">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-346">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-346">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-347">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-347">'Blazor'</span></span>
+- <span data-ttu-id="872cc-348">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-348">'Identity'</span></span>
+- <span data-ttu-id="872cc-349">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-349">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-350">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-350">'Razor'</span></span>
+- <span data-ttu-id="872cc-351">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-351">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="6315f-201">V SignalR některých případech je potřeba nakonfigurovat klienta používaného Blazor serverovými aplikacemi.</span><span class="sxs-lookup"><span data-stu-id="6315f-201">Sometimes, you need to configure the SignalR client used by Blazor Server apps.</span></span> <span data-ttu-id="6315f-202">Například můžete chtít nakonfigurovat protokolování na SignalR straně klienta, aby bylo možné diagnostikovat problém s připojením.</span><span class="sxs-lookup"><span data-stu-id="6315f-202">For example, you might want to configure logging on the SignalR client to diagnose a connection issue.</span></span>
+-
+<span data-ttu-id="872cc-352">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-352">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-353">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-353">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-354">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-354">'Blazor'</span></span>
+- <span data-ttu-id="872cc-355">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-355">'Identity'</span></span>
+- <span data-ttu-id="872cc-356">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-356">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-357">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-357">'Razor'</span></span>
+- <span data-ttu-id="872cc-358">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-358">'SignalR' uid:</span></span> 
 
-<span data-ttu-id="6315f-203">Chcete-li SignalR nakonfigurovat klienta v souboru *pages/_Host. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="6315f-203">To configure the SignalR client in the *Pages/_Host.cshtml* file:</span></span>
+-
+<span data-ttu-id="872cc-359">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-359">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-360">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-360">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-361">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-361">'Blazor'</span></span>
+- <span data-ttu-id="872cc-362">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-362">'Identity'</span></span>
+- <span data-ttu-id="872cc-363">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-363">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-364">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-364">'Razor'</span></span>
+- <span data-ttu-id="872cc-365">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-365">'SignalR' uid:</span></span> 
 
-* <span data-ttu-id="6315f-204">Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.</span><span class="sxs-lookup"><span data-stu-id="6315f-204">Add an `autostart="false"` attribute to the `<script>` tag for the `blazor.server.js` script.</span></span>
-* <span data-ttu-id="6315f-205">Zavolejte `Blazor.start` a předejte do konfiguračního objektu, který určuje SignalR tvůrce.</span><span class="sxs-lookup"><span data-stu-id="6315f-205">Call `Blazor.start` and pass in a configuration object that specifies the SignalR builder.</span></span>
+-
+<span data-ttu-id="872cc-366">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-366">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-367">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-367">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-368">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-368">'Blazor'</span></span>
+- <span data-ttu-id="872cc-369">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-369">'Identity'</span></span>
+- <span data-ttu-id="872cc-370">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-370">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-371">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-371">'Razor'</span></span>
+- <span data-ttu-id="872cc-372">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-372">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-373">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-373">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-374">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-374">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-375">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-375">'Blazor'</span></span>
+- <span data-ttu-id="872cc-376">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-376">'Identity'</span></span>
+- <span data-ttu-id="872cc-377">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-377">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-378">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-378">'Razor'</span></span>
+- <span data-ttu-id="872cc-379">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-379">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="872cc-380">---------- | ---Název: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci modelu hostování, včetně postupu integrace Razor komponent do Razor stránek a aplikací MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-380">---------- | --- title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-381">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-381">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-382">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-382">'Blazor'</span></span>
+- <span data-ttu-id="872cc-383">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-383">'Identity'</span></span>
+- <span data-ttu-id="872cc-384">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-384">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-385">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-385">'Razor'</span></span>
+- <span data-ttu-id="872cc-386">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-386">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-387">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-387">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-388">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-388">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-389">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-389">'Blazor'</span></span>
+- <span data-ttu-id="872cc-390">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-390">'Identity'</span></span>
+- <span data-ttu-id="872cc-391">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-391">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-392">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-392">'Razor'</span></span>
+- <span data-ttu-id="872cc-393">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-393">'SignalR' uid:</span></span> 
+
+-
+<span data-ttu-id="872cc-394">title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: Popis: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '</span><span class="sxs-lookup"><span data-stu-id="872cc-394">title: 'ASP.NET Core Blazor hosting model configuration' author: description: 'Learn about Blazor hosting model configuration, including how to integrate Razor components into Razor Pages and MVC apps.'</span></span>
+<span data-ttu-id="872cc-395">monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="872cc-395">monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="872cc-396">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="872cc-396">'Blazor'</span></span>
+- <span data-ttu-id="872cc-397">'Identity'</span><span class="sxs-lookup"><span data-stu-id="872cc-397">'Identity'</span></span>
+- <span data-ttu-id="872cc-398">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="872cc-398">'Let's Encrypt'</span></span>
+- <span data-ttu-id="872cc-399">'Razor'</span><span class="sxs-lookup"><span data-stu-id="872cc-399">'Razor'</span></span>
+- <span data-ttu-id="872cc-400">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="872cc-400">'SignalR' uid:</span></span> 
+
+<span data-ttu-id="872cc-401">------ | | `ServerPrerendered` | Vykreslí komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="872cc-401">------ | | `ServerPrerendered` | Renders the component into static HTML and includes a marker for a Blazor Server app.</span></span> <span data-ttu-id="872cc-402">Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace.</span><span class="sxs-lookup"><span data-stu-id="872cc-402">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> <span data-ttu-id="872cc-403">| | `Server`            | Vykreslí značku pro Blazor serverovou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="872cc-403">| | `Server`            | Renders a marker for a Blazor Server app.</span></span> <span data-ttu-id="872cc-404">Výstup komponenty není zahrnutý.</span><span class="sxs-lookup"><span data-stu-id="872cc-404">Output from the component isn't included.</span></span> <span data-ttu-id="872cc-405">Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace.</span><span class="sxs-lookup"><span data-stu-id="872cc-405">When the user-agent starts, this marker is used to bootstrap a Blazor app.</span></span> <span data-ttu-id="872cc-406">| | `Static`            | Vykreslí komponentu do statického HTML.</span><span class="sxs-lookup"><span data-stu-id="872cc-406">| | `Static`            | Renders the component into static HTML.</span></span> |
+
+<span data-ttu-id="872cc-407">Vykreslování součástí serveru ze statické stránky HTML není podporováno.</span><span class="sxs-lookup"><span data-stu-id="872cc-407">Rendering server components from a static HTML page isn't supported.</span></span>
+
+### <a name="configure-the-signalr-client-for-blazor-server-apps"></a><span data-ttu-id="872cc-408">Konfigurace SignalR klienta pro Blazor serverové aplikace</span><span class="sxs-lookup"><span data-stu-id="872cc-408">Configure the SignalR client for Blazor Server apps</span></span>
+
+<span data-ttu-id="872cc-409">V některých případech je potřeba nakonfigurovat SignalR klienta používaného Blazor serverovými aplikacemi.</span><span class="sxs-lookup"><span data-stu-id="872cc-409">Sometimes, you need to configure the SignalR client used by Blazor Server apps.</span></span> <span data-ttu-id="872cc-410">Například můžete chtít nakonfigurovat protokolování na SignalR straně klienta, aby bylo možné diagnostikovat problém s připojením.</span><span class="sxs-lookup"><span data-stu-id="872cc-410">For example, you might want to configure logging on the SignalR client to diagnose a connection issue.</span></span>
+
+<span data-ttu-id="872cc-411">Chcete-li nakonfigurovat SignalR klienta v souboru *Pages/_Host. cshtml* :</span><span class="sxs-lookup"><span data-stu-id="872cc-411">To configure the SignalR client in the *Pages/_Host.cshtml* file:</span></span>
+
+* <span data-ttu-id="872cc-412">Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.</span><span class="sxs-lookup"><span data-stu-id="872cc-412">Add an `autostart="false"` attribute to the `<script>` tag for the `blazor.server.js` script.</span></span>
+* <span data-ttu-id="872cc-413">Zavolejte `Blazor.start` a předejte do konfiguračního objektu, který určuje SignalR Tvůrce.</span><span class="sxs-lookup"><span data-stu-id="872cc-413">Call `Blazor.start` and pass in a configuration object that specifies the SignalR builder.</span></span>
 
 ```html
 <script src="_framework/blazor.server.js" autostart="false"></script>
@@ -354,6 +592,6 @@ var hostname = builder.Configuration["HostName"];
 </script>
 ```
 
-### <a name="logging"></a><span data-ttu-id="6315f-206">protokolování</span><span class="sxs-lookup"><span data-stu-id="6315f-206">Logging</span></span>
+### <a name="logging"></a><span data-ttu-id="872cc-414">Protokolování</span><span class="sxs-lookup"><span data-stu-id="872cc-414">Logging</span></span>
 
-<span data-ttu-id="6315f-207">Informace o Blazor podpoře protokolování serveru najdete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor>.</span><span class="sxs-lookup"><span data-stu-id="6315f-207">For information on Blazor Server logging support, see <xref:fundamentals/logging/index#create-logs-in-blazor>.</span></span>
+<span data-ttu-id="872cc-415">Informace o Blazor podpoře protokolování serveru najdete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor> .</span><span class="sxs-lookup"><span data-stu-id="872cc-415">For information on Blazor Server logging support, see <xref:fundamentals/logging/index#create-logs-in-blazor>.</span></span>
