@@ -60,7 +60,7 @@ Postupujte podle pokynů v [rychlém startu: registrace aplikace s využitím pl
 1. V **Azure Active Directory**  >  **Registrace aplikací**vyberte možnost **Nová registrace**.
 1. Zadejte **název** aplikace (například ** Blazor AAD klienta**).
 1. Vyberte **podporované typy účtů**. Pro toto prostředí můžete vybrat **účty pouze v tomto organizačním adresáři** (jeden tenant).
-1. Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web**a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` . Výchozí port pro aplikaci běžící na Kestrel je 5001. Pro IIS Express se náhodně generovaný port dá najít ve vlastnostech serverové aplikace na panelu **ladění** .
+1. Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` . Výchozí port pro aplikaci běžící na Kestrel je 5001. Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace. Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve vlastnostech serverové aplikace na panelu **ladění** . Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování. V části [Vytvoření aplikace](#create-the-app) se zobrazí zpráva s upozorněním, že IIS Express uživatelé chtějí aktualizovat identifikátor URI přesměrování.
 1. Zakažte **oprávnění**  >  **udělit správcům oprávnění k OpenID a offline_access** .
 1. Vyberte **Zaregistrovat**.
 
@@ -96,6 +96,13 @@ Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud 
 > [!NOTE]
 > Předejte tomuto parametru identifikátor URI ID aplikace `app-id-uri` , ale Všimněte si, že se v klientské aplikaci může vyžadovat Změna konfigurace, která je popsaná v části [obory přístupového tokenu](#access-token-scopes) .
 
+> [!NOTE]
+> V Azure Portal **Authentication** *Client app's*  >  **Platform configurations**  >  **Web**  >  pro aplikace, které běží na serveru Kestrel s výchozími nastaveními, je 5001 nakonfigurován**identifikátor URI** webu klientské aplikace konfigurace platformy ověřování.
+>
+> Pokud *klientská aplikace* běží na náhodném IIS Express portu, port pro aplikaci najdete ve vlastnostech *serverové aplikace* na panelu **ladění** .
+>
+> Pokud port nebyl dříve nakonfigurovaný se známým portem *klientské aplikace* , vraťte se k registraci *klientské aplikace* v Azure Portal a aktualizujte identifikátor URI přesměrování pomocí správného portu.
+
 ## <a name="server-app-configuration"></a>Konfigurace aplikace serveru
 
 *Tato část se vztahuje k **serverové** aplikaci řešení.*
@@ -106,7 +113,7 @@ Podpora ověřování a autorizace volání ASP.NET Core webových rozhraní API
 
 ```xml
 <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" 
-  Version="3.2.0" />
+  Version="3.1.4" />
 ```
 
 ### <a name="authentication-service-support"></a>Podpora ověřovací služby

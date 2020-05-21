@@ -1,24 +1,11 @@
 ---
-title: Integrační testy v ASP.NET Core
-author: rick-anderson
-description: Přečtěte si, jak testy integrace zajišťují, aby komponenty aplikace správně fungovaly na úrovni infrastruktury, včetně databáze, systému souborů a sítě.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/11/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: test/integration-tests
-ms.openlocfilehash: 5a11fd574baccba32f3224e47c01685c81c6d686
-ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/15/2020
-ms.locfileid: "83424218"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -32,11 +19,11 @@ Toto téma předpokládá základní znalost testů jednotek. Pokud neznáte kon
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Ukázková aplikace je Razor Pages aplikace a předpokládá základní porozumění Razor Pages. Pokud neznáte Razor Pages, přečtěte si následující témata:
+Ukázková aplikace je Razor aplikace stránky a předpokládá základní znalost Razor stránek. Pokud neznáte Razor stránky, přečtěte si následující témata:
 
-* [Úvod do Razor Pages](xref:razor-pages/index)
-* [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start)
-* [Testy jednotek stránek Razor](xref:test/razor-pages-tests)
+* [Úvod ke Razor stránkám](xref:razor-pages/index)
+* [Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start)
+* [RazorTestování částí stránek](xref:test/razor-pages-tests)
 
 > [!NOTE]
 > Pro testování jednostránkové doporučujeme nástroj, jako je například [selen](https://www.seleniumhq.org/), který může automatizovat prohlížeč.
@@ -103,7 +90,7 @@ Dokumentace k testování [částí](/dotnet/articles/core/testing/unit-testing-
 > [!NOTE]
 > Při vytváření testovacího projektu pro aplikaci oddělte testy jednotek od testů integrace do různých projektů. To pomáhá zajistit, že komponenty pro testování infrastruktury nejsou omylem zahrnuty do testů jednotek. Oddělení testů jednotek a integračních testů také umožňuje kontrolu nad tím, která sada testů je spuštěna.
 
-Neexistuje prakticky žádný rozdíl mezi konfigurací pro testy aplikací Razor Pages a MVC. Jediný rozdíl je v tom, jak jsou testy pojmenovány. V Razor Pages aplikaci se testy koncových bodů stránky obvykle nazývají za třídou modelu stránky (například pro `IndexPageTests` testování integrace komponent pro stránku indexu). V aplikaci MVC jsou testy obvykle uspořádány podle tříd kontroleru a pojmenovány po kontrolách, které otestuje (například `HomeControllerTests` pro otestování integrace komponent pro domovský kontroler).
+Konfigurace pro testy Razor stránek aplikace a aplikace MVC se prakticky neliší. Jediný rozdíl je v tom, jak jsou testy pojmenovány. V Razor aplikaci Pages jsou testy koncových bodů stránky obvykle pojmenovány za třídou modelu stránky (například `IndexPageTests` k otestování integrace komponent pro stránku indexu). V aplikaci MVC jsou testy obvykle uspořádány podle tříd kontroleru a pojmenovány po kontrolách, které otestuje (například `HomeControllerTests` pro otestování integrace komponent pro domovský kontroler).
 
 ## <a name="test-app-prerequisites"></a>Požadavky na test aplikace
 
@@ -121,7 +108,7 @@ Tyto požadavky se dají zobrazit v [ukázkové aplikaci](https://github.com/dot
 Entity Framework Core se používá také v testech. Odkazy na aplikaci:
 
 * [Microsoft. AspNetCore. Diagnostics. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore)
-* [Microsoft. AspNetCore. identity. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.EntityFrameworkCore)
+* [Microsoft. AspNetCore. Identity . EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.AspNetCore.Identity.EntityFrameworkCore)
 * [Microsoft. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
 * [Microsoft. EntityFrameworkCore. inMemory](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)
 * [Microsoft. EntityFrameworkCore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools)
@@ -155,6 +142,8 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
    Vytvoření podsady databází v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) provádí `InitializeDbForTests` metoda. Tato metoda je popsána v části [Ukázka integračních testů: organizace testovacích aplikací](#test-app-organization) .
 
    Kontext databáze SUT je zaregistrován ve své `Startup.ConfigureServices` metodě. Zpětné volání testovací aplikace `builder.ConfigureServices` se provede *po* `Startup.ConfigureServices` spuštění kódu aplikace. Pořadí spouštění je zásadní změnou pro [obecného hostitele](xref:fundamentals/host/generic-host) s vydáním ASP.NET Core 3,0. Pro použití jiné databáze pro testy, než je databáze aplikace, musí být kontext databáze aplikace nahrazen v `builder.ConfigureServices` .
+
+   Pro SUTs, který stále používá [Web Host} (odkazy XREF: Základy/hostitel/Web-Host), `builder.ConfigureServices` je zpětné volání testovací aplikace spuštěno *před* `Startup.ConfigureServices` kódem SUT. Zpětné volání testovací aplikace `builder.ConfigureTestServices` je provedeno *po*.
 
    Ukázková aplikace vyhledá popisovač služby pro kontext databáze a použije popisovač k odebrání registrace služby. V dalším kroku továrna přidá novou `ApplicationDbContext` , která pro testy používá databázi v paměti.
 
@@ -213,11 +202,45 @@ Vzhledem k tomu, že jiný test ve `IndexPageTests` třídě provádí operaci, 
 Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) , který je k dispozici při vytváření `HttpClient` instancí.
 
 | Možnost | Popis | Výchozí |
-| ------ | ----------- | ------- |
-| [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true` |
-| [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
-| [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, jestli `HttpClient` by instance měly zpracovávat soubory cookie. | `true` |
-| [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | Získá nebo nastaví maximální počet odpovědí přesměrování, které `HttpClient` by měly instance následovat. | 7 |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---- | | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true`| | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost`| | [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, jestli `HttpClient` by instance měly zpracovávat soubory cookie. | `true`| | [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | Získá nebo nastaví maximální počet odpovědí přesměrování, které `HttpClient` by měly instance následovat. | 7 |
 
 Vytvořte `WebApplicationFactoryClientOptions` třídu a předejte ji metodě [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) (výchozí hodnoty jsou uvedeny v příkladu kódu):
 
@@ -289,7 +312,7 @@ Testy ve `AuthTests` třídě zkontrolují zabezpečený koncový bod:
 * Přesměruje neověřeného uživatele na přihlašovací stránku aplikace.
 * Vrátí obsah pro ověřeného uživatele.
 
-V SUT `/SecurePage` stránka používá konvenci [AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) k použití [AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter) na stránku. Další informace najdete v tématu [Razor Pages autorizačních konvencí](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page).
+V SUT `/SecurePage` stránka používá konvenci [AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) k použití [AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter) na stránku. Další informace najdete v tématu [ Razor autorizační konvence pro stránky](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page).
 
 [!code-csharp[](integration-tests/samples/3.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
 
@@ -358,9 +381,78 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
 | Aplikace | Adresář projektu | Popis |
-| --- | ----------------- | ----------- |
-| Aplikace zprávy (SUT) | *src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
-| Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
+| --- | ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | Aplikace zprávy (SUT) | *Src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. | | Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
 
 Testy lze spustit pomocí vestavěných funkcí testu integrovaného vývojového prostředí (IDE), jako je například [Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazový řádek, spusťte následující příkaz v příkazovém řádku v adresáři *Tests/RazorPagesProject. Tests* :
 
@@ -370,7 +462,7 @@ dotnet test
 
 ### <a name="message-app-sut-organization"></a>Organizace pro aplikace zprávy (SUT)
 
-SUT je Razor Pages systém zpráv s následujícími charakteristikami:
+SUT je Razor systém zpráv s následujícími charakteristikami:
 
 * Stránka indexu aplikace (*stránky/index. cshtml* a *pages/index. cshtml. cs*) poskytuje metody uživatelského rozhraní a modelu stránky pro řízení přidávání, odstraňování a analýzy zpráv (průměrná slova na zprávu).
 * Zpráva je popsána `Message` třídou (*data/Message. cs*) se dvěma vlastnostmi: `Id` (klíč) a `Text` (zpráva). `Text`Vlastnost je povinná a omezená na 200 znaků.
@@ -381,18 +473,93 @@ SUT je Razor Pages systém zpráv s následujícími charakteristikami:
 
 &#8224;tématu EF, [test s pamětí](/ef/core/miscellaneous/testing/in-memory), vysvětluje, jak používat databázi v paměti pro testy pomocí MSTest. Toto téma používá testovací rozhraní [xUnit](https://xunit.github.io/) . Koncepty testů a testovací implementace v různých testovacích architekturách jsou podobné, ale nejsou totožné.
 
-I když aplikace nepoužívá vzor úložiště a není efektivním příkladem [vzoru jednotky práce (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor Pages podporuje tyto vzory vývoje. Další informace najdete v tématu [navrhování vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovacího kontroleru testů](/aspnet/core/mvc/controllers/testing) (ukázka implementuje vzor úložiště).
+I když aplikace nepoužívá vzor úložiště a není efektivním příkladem [vzoru jednotky práce (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor stránky tyto vzory vývoje podporují. Další informace najdete v tématu [navrhování vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovacího kontroleru testů](/aspnet/core/mvc/controllers/testing) (ukázka implementuje vzor úložiště).
 
 ### <a name="test-app-organization"></a>Organizace testovací aplikace
 
 Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject. Tests* .
 
 | Testovací adresář aplikace | Popis |
-| ------------------ | ----------- |
-| *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
-| *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |
-| *IntegrationTests* | Obsahuje testy integrace pro stránku indexu pomocí vlastní `WebApplicationFactory` třídy. |
-| *Pomocné programy a pomůcky* | <ul><li>*Utilities.cs* obsahuje `InitializeDbForTests` metodu použitou k osazení databáze testovacími daty.</li><li>*HtmlHelpers.cs* poskytuje metodu, která vrátí AngleSharp `IHtmlDocument` pro použití testovacími metodami.</li><li>*HttpClientExtensions.cs* poskytují přetížení pro `SendAsync` odeslání požadavků do SUT.</li></ul> |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> | | *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. | | *IntegrationTests* | Obsahuje testy integrace pro stránku indexu pomocí vlastní `WebApplicationFactory` třídy. | | *Pomocné programy a pomůcky* | <ul><li>*Utilities.cs* obsahuje `InitializeDbForTests` metodu použitou k osazení databáze testovacími daty.</li><li>*HtmlHelpers.cs* poskytuje metodu, která vrátí AngleSharp `IHtmlDocument` pro použití testovacími metodami.</li><li>*HttpClientExtensions.cs* poskytují přetížení pro `SendAsync` odeslání požadavků do SUT.</li></ul> |
 
 Testovací rozhraní je [xUnit](https://xunit.github.io/). Integrační testy se provádějí pomocí [Microsoft. AspNetCore. TestHost](/dotnet/api/microsoft.aspnetcore.testhost), který zahrnuje [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver). Vzhledem k tomu, že se balíček [Microsoft. AspNetCore. Mvc. test](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing) používá ke konfiguraci testovacího hostitele a testovacího serveru, `TestHost` `TestServer` balíčky a nevyžadují přímé odkazy na balíčky v souboru projektu testovací aplikace nebo v konfiguraci vývojáře v testovací aplikaci.
 
@@ -406,6 +573,8 @@ Ukázková aplikace se dosazuje do databáze se třemi zprávami v *Utilities.cs
 
 Kontext databáze SUT je zaregistrován ve své `Startup.ConfigureServices` metodě. Zpětné volání testovací aplikace `builder.ConfigureServices` se provede *po* `Startup.ConfigureServices` spuštění kódu aplikace. Chcete-li pro testy použít jinou databázi, musí být kontext databáze aplikace nahrazen v `builder.ConfigureServices` . Další informace najdete v části [přizpůsobení WebApplicationFactory](#customize-webapplicationfactory) .
 
+Pro SUTs, který stále používá [Web Host} (odkazy XREF: Základy/hostitel/Web-Host), `builder.ConfigureServices` je zpětné volání testovací aplikace spuštěno *před* `Startup.ConfigureServices` kódem SUT. Zpětné volání testovací aplikace `builder.ConfigureTestServices` je provedeno *po*.
+
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
@@ -416,11 +585,11 @@ Toto téma předpokládá základní znalost testů jednotek. Pokud neznáte kon
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-Ukázková aplikace je Razor Pages aplikace a předpokládá základní porozumění Razor Pages. Pokud neznáte Razor Pages, přečtěte si následující témata:
+Ukázková aplikace je Razor aplikace stránky a předpokládá základní znalost Razor stránek. Pokud neznáte Razor stránky, přečtěte si následující témata:
 
-* [Úvod do Razor Pages](xref:razor-pages/index)
-* [Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start)
-* [Testy jednotek stránek Razor](xref:test/razor-pages-tests)
+* [Úvod ke Razor stránkám](xref:razor-pages/index)
+* [Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start)
+* [RazorTestování částí stránek](xref:test/razor-pages-tests)
 
 > [!NOTE]
 > Pro testování jednostránkové doporučujeme nástroj, jako je například [selen](https://www.seleniumhq.org/), který může automatizovat prohlížeč.
@@ -487,7 +656,7 @@ Dokumentace k testování [částí](/dotnet/articles/core/testing/unit-testing-
 > [!NOTE]
 > Při vytváření testovacího projektu pro aplikaci oddělte testy jednotek od testů integrace do různých projektů. To pomáhá zajistit, že komponenty pro testování infrastruktury nejsou omylem zahrnuty do testů jednotek. Oddělení testů jednotek a integračních testů také umožňuje kontrolu nad tím, která sada testů je spuštěna.
 
-Neexistuje prakticky žádný rozdíl mezi konfigurací pro testy aplikací Razor Pages a MVC. Jediný rozdíl je v tom, jak jsou testy pojmenovány. V Razor Pages aplikaci se testy koncových bodů stránky obvykle nazývají za třídou modelu stránky (například pro `IndexPageTests` testování integrace komponent pro stránku indexu). V aplikaci MVC jsou testy obvykle uspořádány podle tříd kontroleru a pojmenovány po kontrolách, které otestuje (například `HomeControllerTests` pro otestování integrace komponent pro domovský kontroler).
+Konfigurace pro testy Razor stránek aplikace a aplikace MVC se prakticky neliší. Jediný rozdíl je v tom, jak jsou testy pojmenovány. V Razor aplikaci Pages jsou testy koncových bodů stránky obvykle pojmenovány za třídou modelu stránky (například `IndexPageTests` k otestování integrace komponent pro stránku indexu). V aplikaci MVC jsou testy obvykle uspořádány podle tříd kontroleru a pojmenovány po kontrolách, které otestuje (například `HomeControllerTests` pro otestování integrace komponent pro domovský kontroler).
 
 ## <a name="test-app-prerequisites"></a>Požadavky na test aplikace
 
@@ -526,7 +695,7 @@ Ve výchozím nastavení se soubory cookie, které nejsou nezbytné, nezachovaj�
 
 Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích třídách děděním z `WebApplicationFactory` k vytvoření jednoho nebo více vlastních továren:
 
-1. Dědit z `WebApplicationFactory` a přepsat [ConfigureWebHost](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.configurewebhost). [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) umožňuje konfiguraci kolekce služeb s [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configureservices):
+1. Dědit z `WebApplicationFactory` a přepsat [ConfigureWebHost](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.configurewebhost). [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) umožňuje konfiguraci kolekce služeb pomocí [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configureservices), která se spustí před aplikací `Startup.ConfigureServices` . [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder) umožňuje přepsat a upravit registrované služby v kolekci služeb pomocí [ConfigureTestServices](/dotnet/api/microsoft.aspnetcore.testhost.webhostbuilderextensions.configuretestservices):
 
    [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/tests/RazorPagesProject.Tests/CustomWebApplicationFactory.cs?name=snippet1)]
 
@@ -574,11 +743,45 @@ Vzhledem k tomu, že jiný test ve `IndexPageTests` třídě provádí operaci, 
 Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) , který je k dispozici při vytváření `HttpClient` instancí.
 
 | Možnost | Popis | Výchozí |
-| ------ | ----------- | ------- |
-| [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true` |
-| [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
-| [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, jestli `HttpClient` by instance měly zpracovávat soubory cookie. | `true` |
-| [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | Získá nebo nastaví maximální počet odpovědí přesměrování, které `HttpClient` by měly instance následovat. | 7 |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---- | | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true`| | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost`| | [HandleCookies](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.handlecookies) | Získá nebo nastaví, jestli `HttpClient` by instance měly zpracovávat soubory cookie. | `true`| | [MaxAutomaticRedirections](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.maxautomaticredirections) | Získá nebo nastaví maximální počet odpovědí přesměrování, které `HttpClient` by měly instance následovat. | 7 |
 
 Vytvořte `WebApplicationFactoryClientOptions` třídu a předejte ji metodě [CreateClient](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1.createclient) (výchozí hodnoty jsou uvedeny v příkladu kódu):
 
@@ -650,7 +853,7 @@ Testy ve `AuthTests` třídě zkontrolují zabezpečený koncový bod:
 * Přesměruje neověřeného uživatele na přihlašovací stránku aplikace.
 * Vrátí obsah pro ověřeného uživatele.
 
-V SUT `/SecurePage` stránka používá konvenci [AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) k použití [AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter) na stránku. Další informace najdete v tématu [Razor Pages autorizačních konvencí](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page).
+V SUT `/SecurePage` stránka používá konvenci [AuthorizePage](/dotnet/api/microsoft.extensions.dependencyinjection.pageconventioncollectionextensions.authorizepage) k použití [AuthorizeFilter](/dotnet/api/microsoft.aspnetcore.mvc.authorization.authorizefilter) na stránku. Další informace najdete v tématu [ Razor autorizační konvence pro stránky](xref:security/authorization/razor-pages-authorization#require-authorization-to-access-a-page).
 
 [!code-csharp[](integration-tests/samples/2.x/IntegrationTestsSample/src/RazorPagesProject/Startup.cs?name=snippet1)]
 
@@ -747,9 +950,78 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
 | Aplikace | Adresář projektu | Popis |
-| --- | ----------------- | ----------- |
-| Aplikace zprávy (SUT) | *src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
-| Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
+| --- | ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | Aplikace zprávy (SUT) | *Src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. | | Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
 
 Testy lze spustit pomocí vestavěných funkcí testu integrovaného vývojového prostředí (IDE), jako je například [Visual Studio](https://visualstudio.microsoft.com). Pokud používáte [Visual Studio Code](https://code.visualstudio.com/) nebo příkazový řádek, spusťte následující příkaz v příkazovém řádku v adresáři *Tests/RazorPagesProject. Tests* :
 
@@ -759,7 +1031,7 @@ dotnet test
 
 ### <a name="message-app-sut-organization"></a>Organizace pro aplikace zprávy (SUT)
 
-SUT je Razor Pages systém zpráv s následujícími charakteristikami:
+SUT je Razor systém zpráv s následujícími charakteristikami:
 
 * Stránka indexu aplikace (*stránky/index. cshtml* a *pages/index. cshtml. cs*) poskytuje metody uživatelského rozhraní a modelu stránky pro řízení přidávání, odstraňování a analýzy zpráv (průměrná slova na zprávu).
 * Zpráva je popsána `Message` třídou (*data/Message. cs*) se dvěma vlastnostmi: `Id` (klíč) a `Text` (zpráva). `Text`Vlastnost je povinná a omezená na 200 znaků.
@@ -770,18 +1042,93 @@ SUT je Razor Pages systém zpráv s následujícími charakteristikami:
 
 &#8224;tématu EF, [test s pamětí](/ef/core/miscellaneous/testing/in-memory), vysvětluje, jak používat databázi v paměti pro testy pomocí MSTest. Toto téma používá testovací rozhraní [xUnit](https://xunit.github.io/) . Koncepty testů a testovací implementace v různých testovacích architekturách jsou podobné, ale nejsou totožné.
 
-I když aplikace nepoužívá vzor úložiště a není efektivním příkladem [vzoru jednotky práce (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor Pages podporuje tyto vzory vývoje. Další informace najdete v tématu [navrhování vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovacího kontroleru testů](/aspnet/core/mvc/controllers/testing) (ukázka implementuje vzor úložiště).
+I když aplikace nepoužívá vzor úložiště a není efektivním příkladem [vzoru jednotky práce (UoW)](https://martinfowler.com/eaaCatalog/unitOfWork.html), Razor stránky tyto vzory vývoje podporují. Další informace najdete v tématu [navrhování vrstvy trvalosti infrastruktury](/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design) a [testovacího kontroleru testů](/aspnet/core/mvc/controllers/testing) (ukázka implementuje vzor úložiště).
 
 ### <a name="test-app-organization"></a>Organizace testovací aplikace
 
 Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject. Tests* .
 
 | Testovací adresář aplikace | Popis |
-| ------------------ | ----------- |
-| *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
-| *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |
-| *IntegrationTests* | Obsahuje testy integrace pro stránku indexu pomocí vlastní `WebApplicationFactory` třídy. |
-| *Pomocné programy a pomůcky* | <ul><li>*Utilities.cs* obsahuje `InitializeDbForTests` metodu použitou k osazení databáze testovacími daty.</li><li>*HtmlHelpers.cs* poskytuje metodu, která vrátí AngleSharp `IHtmlDocument` pro použití testovacími metodami.</li><li>*HttpClientExtensions.cs* poskytují přetížení pro `SendAsync` odeslání požadavků do SUT.</li></ul> |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> | | *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. | | *IntegrationTests* | Obsahuje testy integrace pro stránku indexu pomocí vlastní `WebApplicationFactory` třídy. | | *Pomocné programy a pomůcky* | <ul><li>*Utilities.cs* obsahuje `InitializeDbForTests` metodu použitou k osazení databáze testovacími daty.</li><li>*HtmlHelpers.cs* poskytuje metodu, která vrátí AngleSharp `IHtmlDocument` pro použití testovacími metodami.</li><li>*HttpClientExtensions.cs* poskytují přetížení pro `SendAsync` odeslání požadavků do SUT.</li></ul> |
 
 Testovací rozhraní je [xUnit](https://xunit.github.io/). Integrační testy se provádějí pomocí [Microsoft. AspNetCore. TestHost](/dotnet/api/microsoft.aspnetcore.testhost), který zahrnuje [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver). Vzhledem k tomu, že se balíček [Microsoft. AspNetCore. Mvc. test](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing) používá ke konfiguraci testovacího hostitele a testovacího serveru, `TestHost` `TestServer` balíčky a nevyžadují přímé odkazy na balíčky v souboru projektu testovací aplikace nebo v konfiguraci vývojáře v testovací aplikaci.
 
