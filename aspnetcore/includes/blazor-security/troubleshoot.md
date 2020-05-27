@@ -30,5 +30,9 @@ Jedním z způsobů, jak zabránit kolizím souborů cookie a dat lokality při 
 Při testování a řešení potíží s hostovanou aplikací Blazor se ujistěte, že jste spustili aplikaci z projektu **serveru** . Například v aplikaci Visual Studio ověřte, že je serverový projekt zvýrazněný v **Průzkumník řešení** před spuštěním aplikace s některým z následujících přístupů:
 
 * Vyberte tlačítko **Spustit**.
-*  > Použijte **ladění****Spustit ladění** z nabídky.
+* Použijte **ladění**  >  **Spustit ladění** z nabídky.
 * Stiskněte klávesu <kbd>F5</kbd>.
+
+### <a name="inspect-the-content-of-a-json-web-token-jwt"></a>Kontrola obsahu JSON Web Token (JWT)
+
+K dekódování JSON Web Token (JWT) použijte nástroj Microsoft 's [JWT.MS](https://jwt.ms/) Tool. Hodnoty v uživatelském rozhraní nikdy nenechávají prohlížeč.

@@ -20,9 +20,9 @@ Tento článek se zabývá vyvoláním metod .NET z JavaScriptu. Informace o vol
 
 ## <a name="static-net-method-call"></a>Statické volání metody .NET
 
-Chcete-li vyvolat statickou metodu .NET z JavaScriptu, použijte `DotNet.invokeMethod` `DotNet.invokeMethodAsync` funkce nebo. Předejte identifikátor statické metody, kterou chcete volat, název sestavení obsahující funkce a všechny argumenty. Asynchronní verze je preferována pro podporu Blazor scénářů serveru. Metoda .NET musí být veřejná, statická a musí mít `[JSInvokable]` atribut. Volání otevřených obecných metod není aktuálně podporováno.
+Chcete-li vyvolat statickou metodu .NET z JavaScriptu, použijte `DotNet.invokeMethod` `DotNet.invokeMethodAsync` funkce nebo. Předejte identifikátor statické metody, kterou chcete volat, název sestavení obsahující funkce a všechny argumenty. Asynchronní verze je preferována pro podporu Blazor scénářů serveru. Metoda .NET musí být veřejná, statická a musí mít [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) atribut. Volání otevřených obecných metod není aktuálně podporováno.
 
-Ukázková aplikace obsahuje metodu C# pro návrat `int` pole. `JSInvokable`Atribut je použit pro metodu.
+Ukázková aplikace obsahuje metodu C# pro návrat `int` pole. [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute)Atribut je použit pro metodu.
 
 *Stránky/JsInterop. Razor*:
 
@@ -57,7 +57,7 @@ Array(4) [ 1, 2, 3, 4 ]
 
 Čtvrtá hodnota pole je vložena do pole ( `data.push(4);` ) vráceného `ReturnArrayAsync` .
 
-Ve výchozím nastavení je identifikátor metody název metody, ale můžete zadat jiný identifikátor pomocí `JSInvokableAttribute` konstruktoru:
+Ve výchozím nastavení je identifikátor metody název metody, ale můžete zadat jiný identifikátor pomocí [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) konstruktoru atributu:
 
 ```csharp
 @code {
@@ -86,8 +86,8 @@ returnArrayAsyncJs: function () {
 Můžete také volat metody instance rozhraní .NET z JavaScriptu. Vyvolání metody instance rozhraní .NET z JavaScriptu:
 
 * Předání instance rozhraní .NET odkazem na jazyk JavaScript:
-  * Proveďte statické volání `DotNetObjectReference.Create` .
-  * Zabalte instanci v `DotNetObjectReference` instanci a zavolejte `Create` na `DotNetObjectReference` instanci. Dispose `DotNetObjectReference` objektů (příklad se zobrazí později v této části).
+  * Proveďte statické volání <xref:Microsoft.JSInterop.DotNetObjectReference.Create%2A?displayProperty=nameWithType> .
+  * Zabalte instanci v <xref:Microsoft.JSInterop.DotNetObjectReference> instanci a zavolejte <xref:Microsoft.JSInterop.DotNetObjectReference.Create%2A> na <xref:Microsoft.JSInterop.DotNetObjectReference> instanci. Dispose <xref:Microsoft.JSInterop.DotNetObjectReference> objektů (příklad se zobrazí později v této části).
 * Vyvolat metody instance .NET v instanci pomocí `invokeMethod` `invokeMethodAsync` funkcí nebo. Instance rozhraní .NET může být také předána jako argument při vyvolání jiných metod rozhraní .NET z JavaScriptu.
 
 > [!NOTE]
@@ -133,9 +133,9 @@ Výstup konzoly v vývojářských nástrojích webu v prohlížeči:
 Hello, Blazor!
 ```
 
-Aby nedošlo k nevrácení paměti a povolovalo uvolňování paměti na komponentě, která vytváří `DotNetObjectReference` , proveďte jeden z následujících přístupů:
+Aby nedošlo k nevrácení paměti a povolovalo uvolňování paměti na komponentě, která vytváří <xref:Microsoft.JSInterop.DotNetObjectReference> , proveďte jeden z následujících přístupů:
 
-* Dispose objektu ve třídě, která vytvořila `DotNetObjectReference` instanci:
+* Dispose objektu ve třídě, která vytvořila <xref:Microsoft.JSInterop.DotNetObjectReference> instanci:
 
   ```csharp
   public class ExampleJsInterop : IDisposable
@@ -197,7 +197,7 @@ Aby nedošlo k nevrácení paměti a povolovalo uvolňování paměti na kompone
   }
   ```
 
-* Pokud komponenta nebo třída neodstraní, vyřadí `DotNetObjectReference` objekt na straně klienta voláním `.dispose()` :
+* Pokud komponenta nebo třída neodstraní, vyřadí <xref:Microsoft.JSInterop.DotNetObjectReference> objekt na straně klienta voláním `.dispose()` :
 
   ```javascript
   window.myFunction = (dotnetHelper) => {
@@ -211,7 +211,7 @@ Aby nedošlo k nevrácení paměti a povolovalo uvolňování paměti na kompone
 Postup při volání metod .NET komponenty:
 
 * Pomocí `invokeMethod` funkce or `invokeMethodAsync` vytvořte statické volání metody do komponenty.
-* Statická metoda součásti zabalí volání své metody instance jako vyvolanou `Action` .
+* Statická metoda součásti zabalí volání své metody instance jako vyvolanou <xref:System.Action> .
 
 V JavaScriptu na straně klienta:
 
@@ -257,11 +257,11 @@ function updateMessageCallerJS() {
 }
 ```
 
-V případě, že existuje několik komponent, z nichž každá má metody instance pro volání, použijte pomocnou třídu k vyvolání metod instancí `Action` jednotlivých komponent.
+V případě, že existuje několik komponent, z nichž každá má metody instance pro volání, použijte pomocnou třídu k vyvolání metod instancí <xref:System.Action> jednotlivých komponent.
 
 V následujícím příkladu:
 
-* `JSInterop`Komponenta obsahuje několik `ListItem` komponent.
+* `JSInteropExample`Komponenta obsahuje několik `ListItem` komponent.
 * Každá `ListItem` Komponenta se skládá ze zprávy a tlačítka.
 * Když `ListItem` je vybráno tlačítko komponenty, tato `ListItem` `UpdateMessage` metoda změní text položky seznamu a skryje tlačítko.
 
@@ -332,10 +332,10 @@ window.updateMessageCallerJS = (dotnetHelper) => {
 }
 ```
 
-*Stránky/JSInterop. Razor*:
+*Stránky/JSInteropExample. Razor*:
 
 ```razor
-@page "/JSInterop"
+@page "/JSInteropExample"
 
 <h1>List of components</h1>
 

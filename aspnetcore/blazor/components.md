@@ -110,7 +110,7 @@ Pokud komponenta obsahuje element HTML s velkým prvním písmenem, které neodp
 
 Směrování do Blazor se dosahuje tím, že poskytuje šablonu směrování pro každou dostupnou součást aplikace.
 
-Když Razor je zkompilován soubor s [`@page`][9] direktivou, vygenerovaná třída je dána <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadáním šablony trasy. V době běhu Směrovač vyhledává třídy komponent pomocí `RouteAttribute` a a vykreslí, že jakákoli součást má šablonu směrování, která odpovídá požadované adrese URL.
+Když Razor je zkompilován soubor s [`@page`][9] direktivou, vygenerovaná třída je dána <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> zadáním šablony trasy. V době běhu Směrovač vyhledává třídy komponent pomocí <xref:Microsoft.AspNetCore.Mvc.RouteAttribute> a a vykreslí, že jakákoli součást má šablonu směrování, která odpovídá požadované adrese URL.
 
 ```razor
 @page "/ParentComponent"
@@ -136,7 +136,7 @@ Volitelné parametry nejsou podporovány, takže [`@page`][9] v předchozím př
 
 ### <a name="component-parameters"></a>Parametry součásti
 
-Komponenty mohou mít *parametry komponenty*, které jsou definovány pomocí veřejných vlastností třídy komponenty s `[Parameter]` atributem. Použijte atributy k určení argumentů pro komponentu v kódu.
+Komponenty mohou mít *parametry komponenty*, které jsou definovány pomocí veřejných vlastností třídy Component s [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) atributem] (odkazy XREF: Microsoft. AspNetCore. Components. ParameterAttribute). Použijte atributy k určení argumentů pro komponentu v kódu.
 
 *Components/ChildComponent. Razor*:
 
@@ -155,14 +155,14 @@ V následujícím příkladu z ukázkové aplikace `ParentComponent` nastaví ho
 
 Komponenty mohou nastavit obsah jiné součásti. Součást přiřazení poskytuje obsah mezi značkami, které určují přijímací komponentu.
 
-V následujícím příkladu `ChildComponent` má `ChildContent` vlastnost, která představuje, který představuje `RenderFragment` segment uživatelského rozhraní pro vykreslení. Hodnota `ChildContent` je umístěna v označení komponenty, kde má být obsah vykreslen. Hodnota `ChildContent` je přijímána z nadřazené komponenty a vykreslena v panelu Bootstrap `panel-body` .
+V následujícím příkladu `ChildComponent` má `ChildContent` vlastnost, která představuje, který představuje <xref:Microsoft.AspNetCore.Components.RenderFragment> segment uživatelského rozhraní pro vykreslení. Hodnota `ChildContent` je umístěna v označení komponenty, kde má být obsah vykreslen. Hodnota `ChildContent` je přijímána z nadřazené komponenty a vykreslena v panelu Bootstrap `panel-body` .
 
 *Components/ChildComponent. Razor*:
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ChildComponent.razor?highlight=3,14-15)]
 
 > [!NOTE]
-> Vlastnost, která přijímá `RenderFragment` obsah, musí být pojmenována `ChildContent` podle konvence.
+> Vlastnost, která přijímá <xref:Microsoft.AspNetCore.Components.RenderFragment> obsah, musí být pojmenována `ChildContent` podle konvence.
 
 `ParentComponent`V ukázkové aplikaci může poskytovat obsah pro vykreslování `ChildComponent` umístěním obsahu uvnitř `<ChildComponent>` značek.
 
@@ -229,7 +229,7 @@ Vykreslené `<input>` elementy pomocí obou přístupů jsou identické:
        size="50">
 ```
 
-Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `[Parameter]` atributu s `CaptureUnmatchedValues` vlastností nastavenou na `true` :
+Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) atributu s <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> vlastností nastavenou na `true` :
 
 ```razor
 @code {
@@ -238,7 +238,7 @@ Chcete-li přijmout libovolné atributy, definujte parametr komponenty pomocí `
 }
 ```
 
-`CaptureUnmatchedValues`Vlastnost on `[Parameter]` umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s `CaptureUnmatchedValues` . Typ vlastnosti používaný pomocí `CaptureUnmatchedValues` musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
+<xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues>Vlastnost on [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) umožňuje, aby parametr odpovídal všem atributům, které se neshodují s žádným jiným parametrem. Komponenta může definovat pouze jeden parametr s <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> . Typ vlastnosti používaný pomocí <xref:Microsoft.AspNetCore.Components.ParameterAttribute.CaptureUnmatchedValues> musí být přiřazovatelné z `Dictionary<string, object>` řetězcových klíčů. `IEnumerable<KeyValuePair<string, object>>`nebo `IReadOnlyDictionary<string, object>` jsou také možnosti v tomto scénáři.
 
 Pozice [`@attributes`][3] relativní vzhledem k poloze atributů elementu je důležitá. Když [`@attributes`][3] jsou splatted na elementu, atributy jsou zpracovávány zprava doleva (poslední až první). Vezměte v úvahu následující příklad komponenty, která využívá `Child` komponentu:
 
@@ -320,11 +320,11 @@ Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachyc
 
 ## <a name="invoke-component-methods-externally-to-update-state"></a>Vyvolat metody komponenty externě na stav aktualizace
 
-Blazorpoužívá kontext synchronizace ( `SynchronizationContext` ) k vykonání jediného logického vlákna provádění. [Metody životního cyklu](xref:blazor/lifecycle) komponenty a všechna zpětná volání událostí, která jsou vyvolána, Blazor jsou spouštěna v kontextu synchronizace.
+Blazorpoužívá kontext synchronizace ( <xref:System.Threading.SynchronizationContext> ) k vykonání jediného logického vlákna provádění. [Metody životního cyklu](xref:blazor/lifecycle) komponenty a všechna zpětná volání událostí, která jsou vyvolána, Blazor jsou spouštěna v kontextu synchronizace.
 
 BlazorKontext synchronizace serveru se pokouší emulovat prostředí s jedním vláknem tak, aby přesně odpovídal modelu webového sestavení v prohlížeči, který je jediným vláknem. V jakémkoli daném časovém okamžiku se práce provádí v přesně jednom vlákně, což dává dojem o jednom logickém vlákně. Žádné dvě operace se neprovádějí současně.
 
-V případě, že komponenta musí být aktualizována na základě externí události, jako je například časovač nebo jiné oznámení, použijte `InvokeAsync` metodu, která bude zaslána do Blazor kontextu synchronizace. Představte si například *službu* pro upozorňování, která může oznámit všechny součásti, které jsou v aktualizovaném stavu:
+V případě, že komponenta musí být aktualizována na základě externí události, jako je například časovač nebo jiné oznámení, použijte `InvokeAsync` metodu, která odesílá Blazor kontext synchronizace. Představte si například *službu* pro upozorňování, která může oznámit všechny součásti, které jsou v aktualizovaném stavu:
 
 ```csharp
 public class NotifierService
@@ -438,7 +438,7 @@ V některých scénářích použití [`@key`][5] minimalizuje složitost reprod
 
 ### <a name="when-to-use-key"></a>Kdy použít \@ klíč
 
-Obvykle má smysl použít [`@key`][5] při každém vykreslení seznamu (například v `@foreach` bloku) a existuje vhodná hodnota pro definování [`@key`][5] .
+Obvykle má smysl použít [`@key`][5] při každém vykreslení seznamu (například v bloku [foreach](/dotnet/csharp/language-reference/keywords/foreach-in) ) a existuje vhodná hodnota pro definování [`@key`][5] .
 
 Můžete také použít [`@key`][5] k zabránění Blazor v zachování prvku nebo podstromu komponenty při změně objektu:
 
@@ -469,7 +469,7 @@ Zajistěte, aby hodnoty použité pro [`@key`][5] nekolidovat. Pokud jsou v rám
 
 Parametry jsou přepsány za následující podmínky:
 
-* Obsah podřízené komponenty je vykreslen pomocí `RenderFragment` .
+* Obsah podřízené komponenty je vykreslen pomocí <xref:Microsoft.AspNetCore.Components.RenderFragment> .
 * <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>je volána v nadřazené komponentě.
 
 Parametry jsou resetovány, protože nadřazená komponenta je znovu vygenerována <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> , když je volána, a podřízené součásti jsou zadány nové hodnoty parametrů.
@@ -503,7 +503,7 @@ Vezměte v úvahu následující `Expander` komponentu:
 }
 ```
 
-`Expander`Komponenta je přidána do nadřazené komponenty, která může zavolat `StateHasChanged` :
+`Expander`Komponenta je přidána do nadřazené komponenty, která může zavolat <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> :
 
 ```razor
 <Expander Expanded="true">
@@ -517,7 +517,7 @@ Vezměte v úvahu následující `Expander` komponentu:
 </button>
 ```
 
-Zpočátku se `Expander` komponenty chovají nezávisle při `Expanded` přepínání jejich vlastností. Podřízené komponenty udržují své stavy podle očekávání. Když `StateHasChanged` je volána v nadřazeném prvku, `Expanded` parametr první podřízené komponenty se obnoví zpět na původní hodnotu ( `true` ). Hodnota druhé `Expander` součásti `Expanded` není resetována, protože ve druhé komponentě není vykreslen žádný podřízený obsah.
+Zpočátku se `Expander` komponenty chovají nezávisle při `Expanded` přepínání jejich vlastností. Podřízené komponenty udržují své stavy podle očekávání. Když <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> je volána v nadřazeném prvku, `Expanded` parametr první podřízené komponenty se obnoví zpět na původní hodnotu ( `true` ). Hodnota druhé `Expander` součásti `Expanded` není resetována, protože ve druhé komponentě není vykreslen žádný podřízený obsah.
 
 Chcete-li zachovat stav v předchozím scénáři, použijte *soukromé pole* v `Expander` součásti k údržbě jeho přepnutého stavu.
 
@@ -632,7 +632,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 ## <a name="specify-a-base-class"></a>Zadat základní třídu
 
-[`@inherits`][6]Direktiva se dá použít k určení základní třídy pro komponentu. Následující příklad ukazuje, jak komponenta může dědit základní třídu, `BlazorRocksBase` k poskytnutí vlastností a metod komponenty. Základní třída by měla být odvozena od třídy `ComponentBase` .
+[`@inherits`][6]Direktiva se dá použít k určení základní třídy pro komponentu. Následující příklad ukazuje, jak komponenta může dědit základní třídu, `BlazorRocksBase` k poskytnutí vlastností a metod komponenty. Základní třída by měla být odvozena od třídy <xref:Microsoft.AspNetCore.Components.ComponentBase> .
 
 *Stránky/BlazorRocks. Razor*:
 
@@ -660,7 +660,7 @@ namespace BlazorSample
 
 ## <a name="specify-an-attribute"></a>Zadat atribut
 
-Atributy lze zadat v Razor součástech s [`@attribute`][7] direktivou. Následující příklad používá `[Authorize]` atribut pro třídu komponenty:
+Atributy lze zadat v Razor součástech s [`@attribute`][7] direktivou. Následující příklad používá [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) atribut pro třídu komponenty:
 
 ```razor
 @page "/"
@@ -700,9 +700,9 @@ This is the Index page.
 > [!NOTE]
 > `global::`Kvalifikace není podporovaná.
 >
-> Import komponent s příkazy s aliasem `using` (například `@using Foo = Bar` ) není podporován.
+> Import komponent s aliasy, které [používají](/dotnet/csharp/language-reference/keywords/using-statement) příkazy (například `@using Foo = Bar` ), není podporován.
 >
-> Částečně kvalifikované názvy nejsou podporovány. Například přidání `@using BlazorSample` a odkazování `NavMenu.razor` pomocí `<Shared.NavMenu></Shared.NavMenu>` není podporováno.
+> Částečně kvalifikované názvy nejsou podporovány. Například přidání `@using BlazorSample` a odkazování na `NavMenu` komponentu ( `NavMenu.razor` ) s `<Shared.NavMenu></Shared.NavMenu>` není podporováno.
 
 ## <a name="conditional-html-element-attributes"></a>Podmíněné atributy elementu HTML
 
@@ -771,7 +771,7 @@ public class ThemeInfo
 }
 ```
 
-Komponenta předchůdce může poskytnout kaskádovou hodnotu pomocí komponenty kaskádová hodnota. `CascadingValue`Komponenta zabalí podstrom hierarchie komponent a poskytne jednu hodnotu všem součástem v rámci daného podstromu.
+Komponenta předchůdce může poskytnout kaskádovou hodnotu pomocí komponenty kaskádová hodnota. <xref:Microsoft.AspNetCore.Components.CascadingValue%601>Komponenta zabalí podstrom hierarchie komponent a poskytne jednu hodnotu všem součástem v rámci daného podstromu.
 
 Například ukázková aplikace určuje informace o motivu ( `ThemeInfo` ) v jednom z rozložení aplikace jako kaskádový parametr pro všechny komponenty, které tvoří tělo `@Body` Vlastnosti. `ButtonClass`má přiřazenou hodnotu `btn-success` v součásti rozložení. Každá odvozená komponenta může tuto vlastnost spotřebovat prostřednictvím `ThemeInfo` kaskádového objektu.
 
@@ -801,7 +801,7 @@ Například ukázková aplikace určuje informace o motivu ( `ThemeInfo` ) v jed
 }
 ```
 
-Chcete-li použít kaskádové hodnoty, komponenty deklaruje kaskádové parametry pomocí `[CascadingParameter]` atributu. Kaskádové hodnoty jsou vázány na kaskádové parametry podle typu.
+Chcete-li použít kaskádové hodnoty, komponenty deklaruje kaskádové parametry pomocí [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) atributu. Kaskádové hodnoty jsou vázány na kaskádové parametry podle typu.
 
 V ukázkové aplikaci `CascadingValuesParametersTheme` váže komponenta `ThemeInfo` kaskádovou hodnotu k kaskádovým parametrům. Parametr slouží k nastavení třídy CSS pro jedno z tlačítek zobrazených komponentou.
 
@@ -841,7 +841,7 @@ V ukázkové aplikaci `CascadingValuesParametersTheme` váže komponenta `ThemeI
 }
 ```
 
-Pro kaskádování více hodnot stejného typu v rámci stejného podstromu zadejte jedinečný `Name` řetězec pro každou `CascadingValue` součást a odpovídající `CascadingParameter` . V následujícím příkladu jsou dvě `CascadingValue` komponenty kaskádovitě různé instance `MyCascadingType` podle názvu:
+Pro kaskádování více hodnot stejného typu v rámci stejného podstromu zadejte jedinečný <xref:Microsoft.AspNetCore.Components.CascadingValue%601.Name%2A> řetězec pro každou <xref:Microsoft.AspNetCore.Components.CascadingValue%601> komponentu a odpovídající [`[CascadingParameter]`](xref:Microsoft.AspNetCore.Components.CascadingParameterAttribute) atribut. V následujícím příkladu jsou dvě <xref:Microsoft.AspNetCore.Components.CascadingValue%601> komponenty kaskádovitě různé instance `MyCascadingType` podle názvu:
 
 ```razor
 <CascadingValue Value=@parentCascadeParameter1 Name="CascadeParam1">
@@ -928,7 +928,7 @@ Fragmenty vykreslování lze definovat pomocí Razor syntaxe šablony. RazorŠab
 @<{HTML tag}>...</{HTML tag}>
 ```
 
-Následující příklad ukazuje, jak zadat `RenderFragment` a `RenderFragment<T>` hodnoty a vykreslit šablony přímo v součásti. Fragmenty vykreslování mohou být také předány jako argumenty [součástem šablon](xref:blazor/templated-components).
+Následující příklad ukazuje, jak zadat <xref:Microsoft.AspNetCore.Components.RenderFragment> a <xref:Microsoft.AspNetCore.Components.RenderFragment%601> hodnoty a vykreslit šablony přímo v součásti. Fragmenty vykreslování mohou být také předány jako argumenty [součástem šablon](xref:blazor/templated-components).
 
 ```razor
 @timeTemplate
@@ -970,7 +970,7 @@ Podobně jsou obrázky SVG podporovány v pravidlech CSS souboru šablony stylů
 }
 ```
 
-Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg>` značku přímo umístíte do souboru komponenty (*. Razor*), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů ještě není podporováno. Například `<use>` značky nejsou aktuálně dodržovány a `@bind` nelze je použít s některými značkami SVG. Další informace naleznete v tématu [Podpora SVG in Blazor (dotnet/aspnetcore #18271)](https://github.com/dotnet/aspnetcore/issues/18271).
+Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg>` značku přímo umístíte do souboru komponenty (*. Razor*), podporuje se základní vykreslování obrázků, ale mnoho pokročilých scénářů ještě není podporováno. Například `<use>` značky nejsou aktuálně dodržovány a [`@bind`][10] nelze je použít s některými značkami SVG. Další informace naleznete v tématu [Podpora SVG in Blazor (dotnet/aspnetcore #18271)](https://github.com/dotnet/aspnetcore/issues/18271).
 
 ## <a name="additional-resources"></a>Další zdroje
 

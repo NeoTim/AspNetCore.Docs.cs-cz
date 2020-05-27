@@ -11,11 +11,11 @@ title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: 
 
 Od [Luke Latham](https://github.com/guardrex)
 
-Naučte se směrovat požadavky a jak používat `NavLink` komponentu k vytváření navigačních odkazů v Blazor aplikacích.
+Naučte se směrovat požadavky a jak používat <xref:Microsoft.AspNetCore.Components.Routing.NavLink> komponentu k vytváření navigačních odkazů v Blazor aplikacích.
 
 ## <a name="aspnet-core-endpoint-routing-integration"></a>Integrace směrování ASP.NET Core Endpoint
 
-BlazorServer je integrovaný do [Směrování koncového bodu ASP.NET Core](xref:fundamentals/routing). Aplikace ASP.NET Core je nakonfigurovaná tak, aby přijímala příchozí připojení pro interaktivní komponenty `MapBlazorHub` v `Startup.Configure` :
+BlazorServer je integrovaný do [Směrování koncového bodu ASP.NET Core](xref:fundamentals/routing). Aplikace ASP.NET Core je nakonfigurovaná tak, aby přijímala příchozí připojení pro interaktivní komponenty <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub%2A> v `Startup.Configure` :
 
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
@@ -23,7 +23,7 @@ Nejtypickou konfigurací je směrování všech požadavků na Razor stránku, k
 
 ## <a name="route-templates"></a>Šablony směrování
 
-Tato `Router` součást umožňuje směrování na jednotlivé komponenty se zadanou trasou. `Router`Komponenta se zobrazí v souboru *App. Razor* :
+Tato <xref:Microsoft.AspNetCore.Components.Routing.Router> součást umožňuje směrování na jednotlivé komponenty se zadanou trasou. <xref:Microsoft.AspNetCore.Components.Routing.Router>Komponenta se zobrazí v souboru *App. Razor* :
 
 ```razor
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -38,12 +38,12 @@ Tato `Router` součást umožňuje směrování na jednotlivé komponenty se zad
 
 Je-li soubor *. Razor* s `@page` direktivou kompilován, je k dispozici vygenerovaná třída, která <xref:Microsoft.AspNetCore.Components.RouteAttribute> Určuje šablonu trasy.
 
-Za běhu `RouteView` komponenty:
+Za běhu <xref:Microsoft.AspNetCore.Components.RouteView> komponenty:
 
-* Přijímá `RouteData` od `Router` spolu s požadovanými parametry.
+* Přijímá <xref:Microsoft.AspNetCore.Components.RouteData> od <xref:Microsoft.AspNetCore.Components.Routing.Router> spolu s požadovanými parametry.
 * Vykreslí určenou komponentu pomocí jejího rozložení (nebo volitelného výchozího rozložení) pomocí zadaných parametrů.
 
-Volitelně můžete zadat `DefaultLayout` parametr s třídou rozložení, který se má použít pro součásti, které neurčují rozložení. Výchozí Blazor šablony určují `MainLayout` komponentu. *MainLayout. Razor* se nachází ve *sdílené* složce projektu šablony. Další informace o rozložení najdete v tématu <xref:blazor/layouts> .
+Volitelně můžete zadat <xref:Microsoft.AspNetCore.Components.RouteView.DefaultLayout> parametr s třídou rozložení, který se má použít pro součásti, které neurčují rozložení. Výchozí Blazor šablony určují `MainLayout` komponentu. *MainLayout. Razor* se nachází ve *sdílené* složce projektu šablony. Další informace o rozložení najdete v tématu <xref:blazor/layouts> .
 
 Pro komponentu lze použít více šablon směrování. Následující komponenta reaguje na požadavky pro `/BlazorRoute` a `/DifferentBlazorRoute` :
 
@@ -59,9 +59,9 @@ Pro komponentu lze použít více šablon směrování. Následující komponent
 
 ## <a name="provide-custom-content-when-content-isnt-found"></a>Poskytnutí vlastního obsahu, když se nenalezne obsah
 
-`Router`Komponenta umožňuje aplikaci zadat vlastní obsah, pokud se pro požadovanou trasu nenajde obsah.
+<xref:Microsoft.AspNetCore.Components.Routing.Router>Komponenta umožňuje aplikaci zadat vlastní obsah, pokud se pro požadovanou trasu nenajde obsah.
 
-V souboru *App. Razor* nastavte vlastní obsah v `NotFound` parametru šablony `Router` součásti:
+V souboru *App. Razor* nastavte vlastní obsah v <xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound> parametru šablony <xref:Microsoft.AspNetCore.Components.Routing.Router> součásti:
 
 ```razor
 <Router AppAssembly="typeof(Startup).Assembly">
@@ -75,11 +75,11 @@ V souboru *App. Razor* nastavte vlastní obsah v `NotFound` parametru šablony `
 </Router>
 ```
 
-Obsah `<NotFound>` značek může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti. Chcete-li použít výchozí rozložení `NotFound` obsahu, přečtěte si téma <xref:blazor/layouts> .
+Obsah `<NotFound>` značek může zahrnovat libovolné položky, jako jsou například jiné interaktivní součásti. Chcete-li použít výchozí rozložení <xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound> obsahu, přečtěte si téma <xref:blazor/layouts> .
 
 ## <a name="route-to-components-from-multiple-assemblies"></a>Směrování na součásti z více sestavení
 
-Použijte `AdditionalAssemblies` parametr k určení dalších sestavení, `Router` která má součást při hledání směrovatelných komponent zvážit. Zadaná sestavení jsou kromě zadaného sestavení považována za `AppAssembly` . V následujícím příkladu `Component1` je směrovatelný komponenta definovaná v odkazované knihovně tříd. Následující `AdditionalAssemblies` příklad vede k podpoře směrování pro `Component1` :
+Použijte <xref:Microsoft.AspNetCore.Components.Routing.Router.AdditionalAssemblies> parametr k určení dalších sestavení, <xref:Microsoft.AspNetCore.Components.Routing.Router> která má součást při hledání směrovatelných komponent zvážit. Zadaná sestavení jsou kromě zadaného sestavení považována za `AppAssembly` . V následujícím příkladu `Component1` je směrovatelný komponenta definovaná v odkazované knihovně tříd. Následující <xref:Microsoft.AspNetCore.Components.Routing.Router.AdditionalAssemblies> příklad vede k podpoře směrování pro `Component1` :
 
 ```razor
 <Router
@@ -606,7 +606,7 @@ title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: 
 ---------------: | | `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Žádné | | `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano | | `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Ano | | `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Ano | | `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Ano | | `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Žádné | | `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Ano | | `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Ano |
 
 > [!WARNING]
-> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime` ), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
+> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo <xref:System.DateTime> ), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
 
 ### <a name="routing-with-urls-that-contain-dots"></a>Směrování s adresami URL, které obsahují tečky
 
@@ -628,20 +628,20 @@ Další informace naleznete v tématu <xref:fundamentals/routing>.
 
 ## <a name="navlink-component"></a>Komponenta NavLink
 
-Použít `NavLink` komponentu namísto prvků hypertextového odkazu HTML ( `<a>` ) při vytváření navigačních odkazů. `NavLink`Komponenta se chová jako `<a>` element s tím rozdílem, že přepíná `active` třídu CSS na základě toho, zda `href` odpovídá aktuální adrese URL. `active`Třída pomáhá uživateli pochopit, která stránka je aktivní stránkou mezi zobrazenými navigačními odkazy.
+Použít <xref:Microsoft.AspNetCore.Components.Routing.NavLink> komponentu namísto prvků hypertextového odkazu HTML ( `<a>` ) při vytváření navigačních odkazů. <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Komponenta se chová jako `<a>` element s tím rozdílem, že přepíná `active` třídu CSS na základě toho, zda `href` odpovídá aktuální adrese URL. `active`Třída pomáhá uživateli pochopit, která stránka je aktivní stránkou mezi zobrazenými navigačními odkazy.
 
-Následující `NavMenu` Komponenta vytvoří navigační panel [bootstrap](https://getbootstrap.com/docs/) , který ukazuje, jak používat `NavLink` komponenty:
+Následující `NavMenu` Komponenta vytvoří navigační panel [bootstrap](https://getbootstrap.com/docs/) , který ukazuje, jak používat <xref:Microsoft.AspNetCore.Components.Routing.NavLink> komponenty:
 
 [!code-razor[](routing/samples_snapshot/3.x/NavMenu.razor?highlight=4,9)]
 
-Existují dvě `NavLinkMatch` Možnosti, které lze přiřadit k `Match` atributu `<NavLink>` elementu:
+Existují dvě <xref:Microsoft.AspNetCore.Components.Routing.NavLinkMatch> Možnosti, které lze přiřadit k `Match` atributu `<NavLink>` elementu:
 
-* `NavLinkMatch.All`&ndash; `NavLink` Je aktivní, pokud odpovídá celé aktuální adrese URL.
-* `NavLinkMatch.Prefix`(*výchozí*) &ndash; `NavLink`Je aktivní, pokud odpovídá libovolné předponě aktuální adresy URL.
+* <xref:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.All?displayProperty=nameWithType>&ndash; <xref:Microsoft.AspNetCore.Components.Routing.NavLink> Je aktivní, pokud odpovídá celé aktuální adrese URL.
+* <xref:Microsoft.AspNetCore.Components.Routing.NavLinkMatch.Prefix?displayProperty=nameWithType>(*výchozí*) &ndash; <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Je aktivní, pokud odpovídá libovolné předponě aktuální adresy URL.
 
-V předchozím příkladu se Domovská stránka `NavLink` `href=""` shoduje s adresou URL domů a přijímá pouze `active` třídu CSS ve výchozí základní cestě URL aplikace (například `https://localhost:5001/` ). Druhá `NavLink` Získá třídu, `active` když uživatel navštíví libovolnou adresu URL s `MyComponent` předponou (například `https://localhost:5001/MyComponent` a `https://localhost:5001/MyComponent/AnotherSegment` ).
+V předchozím příkladu se Domovská stránka <xref:Microsoft.AspNetCore.Components.Routing.NavLink> `href=""` shoduje s adresou URL domů a přijímá pouze `active` třídu CSS ve výchozí základní cestě URL aplikace (například `https://localhost:5001/` ). Druhá <xref:Microsoft.AspNetCore.Components.Routing.NavLink> Získá třídu, `active` když uživatel navštíví libovolnou adresu URL s `MyComponent` předponou (například `https://localhost:5001/MyComponent` a `https://localhost:5001/MyComponent/AnotherSegment` ).
 
-Další `NavLink` atributy komponenty jsou předány do vykreslené značky ukotvení. V následujícím příkladu `NavLink` Komponenta zahrnuje `target` atribut:
+Další <xref:Microsoft.AspNetCore.Components.Routing.NavLink> atributy komponenty jsou předány do vykreslené značky ukotvení. V následujícím příkladu <xref:Microsoft.AspNetCore.Components.Routing.NavLink> Komponenta zahrnuje `target` atribut:
 
 ```razor
 <NavLink href="my-page" target="_blank">My page</NavLink>
@@ -655,9 +655,9 @@ Vykresluje se následující kód HTML:
 
 ## <a name="uri-and-navigation-state-helpers"></a>Identifikátory URI a pomocníka pro stav navigace
 
-Použijte <xref:Microsoft.AspNetCore.Components.NavigationManager> pro práci s identifikátory URI a navigací v kódu jazyka C#. `NavigationManager`poskytuje událost a metody uvedené v následující tabulce.
+Použijte <xref:Microsoft.AspNetCore.Components.NavigationManager> pro práci s identifikátory URI a navigací v kódu jazyka C#. <xref:Microsoft.AspNetCore.Components.NavigationManager>poskytuje událost a metody uvedené v následující tabulce.
 
-| Člen | Popis |
+| Člen | Description |
 | ---
 title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -689,7 +689,7 @@ title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: 
 - 'Razor'
 - SignalRUID: 
 
------- | | Identifikátor URI | Získá aktuální absolutní identifikátor URI. | | BaseUri | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle `BaseUri` odpovídá `href` atributům `<base>` prvku dokumentu v *wwwroot/index.html* ( Blazor WebAssembly) nebo *Pages/_Host. cshtml* ( Blazor Server). | | NavigateTo | Přejde k zadanému identifikátoru URI. Pokud `forceLoad` je `true` :<ul><li>Směrování na straně klienta se nepoužívá.</li><li>Prohlížeč je nucen načíst novou stránku ze serveru, bez ohledu na to, zda je identifikátor URI obvykle zpracováván směrovačem na straně klienta.</li></ul> | | LocationChanged | Událost, která se aktivuje, když se změní navigační umístění | | ToAbsoluteUri | Převede relativní identifikátor URI na absolutní identifikátor URI. | | <span style="word-break:normal;word-wrap:normal">ToBaseRelativePath</span> | Vzhledem k základnímu identifikátoru URI (například identifikátor URI, který dřív vrátil `GetBaseUri` ), převede absolutní identifikátor URI na URI relativně k základní předponě identifikátoru URI. |
+------ | | <xref:Microsoft.AspNetCore.Components.NavigationManager.Uri> | Získá aktuální absolutní identifikátor URI. | | <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> odpovídá `href` atributům `<base>` prvku dokumentu v *wwwroot/index.html* ( Blazor WebAssembly) nebo *Pages/_Host. cshtml* ( Blazor Server). | | <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A> | Přejde k zadanému identifikátoru URI. Pokud `forceLoad` je `true` :<ul><li>Směrování na straně klienta se nepoužívá.</li><li>Prohlížeč je nucen načíst novou stránku ze serveru, bez ohledu na to, zda je identifikátor URI obvykle zpracováván směrovačem na straně klienta.</li></ul> | | <xref:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged> | Událost, která se aktivuje, když se změní navigační umístění | | <xref:Microsoft.AspNetCore.Components.NavigationManager.ToAbsoluteUri%2A> | Převede relativní identifikátor URI na absolutní identifikátor URI. | | <span style="word-break:normal;word-wrap:normal"><xref:Microsoft.AspNetCore.Components.NavigationManager.ToBaseRelativePath%2A></span> | Vzhledem k základnímu identifikátoru URI (například identifikátor URI, který dřív vrátil <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> ), převede absolutní identifikátor URI na URI relativně k základní předponě identifikátoru URI. |
 
 `Counter`Pokud je vybráno tlačítko, následující komponenta přejde na součást aplikace:
 
@@ -711,7 +711,7 @@ title: ' ASP.NET Core Blazor Routing ' autora: Popis: monikerRange: MS. Author: 
 }
 ```
 
-Následující komponenta zpracovává událost změny umístění. `HandleLocationChanged`Metoda je nepřipojená, pokud `Dispose` je volána rozhraním. Odpojování metody umožňuje uvolňování paměti komponenty.
+Následující komponenta zpracovává událost změny umístění nastavením <xref:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged?displayProperty=nameWithType> . `HandleLocationChanged`Metoda je nepřipojená, pokud `Dispose` je volána rozhraním. Odpojování metody umožňuje uvolňování paměti komponenty.
 
 ```razor
 @implements IDisposable
@@ -738,6 +738,6 @@ public void Dispose()
 <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs>poskytuje následující informace o události:
 
 * <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.Location>&ndash;Adresa URL nového umístění
-* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>&ndash;Pokud `true` Blazor byla zachycena navigace z prohlížeče. Pokud `false` [NavigationManager. NavigateTo](xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A) způsobila, že dojde k navigaci.
+* <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>&ndash;Pokud `true` Blazor byla zachycena navigace z prohlížeče. `false` <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A?displayProperty=nameWithType> V důsledku toho došlo k navigaci.
 
 Další informace o vyřazení součástí najdete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable> .

@@ -23,7 +23,7 @@ DI je technika přístupu ke službám nakonfigurovaným v centrálním umístě
 
 Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 
-| Služba | Doba platnosti | Popis |
+| Služba | Doba platnosti | Description |
 | ---
 title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
 monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
@@ -76,7 +76,7 @@ monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Razor'
 - SignalRUID: 
 
------- | | <xref:System.Net.Http.HttpClient> | Přechodný | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance `HttpClient` v Blazor aplikaci WebAssembly používá prohlížeč pro zpracování provozu http na pozadí.<br><br>BlazorServerové aplikace `HttpClient` ve výchozím nastavení neobsahují nakonfigurovaný jako službu. Poskytněte `HttpClient` Blazor serverovou aplikaci.<br><br>Další informace naleznete v tématu <xref:blazor/call-web-api>. | | `IJSRuntime` | Singleton ( Blazor WebAssembly)<br>Obor ( Blazor Server) | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/call-javascript-from-dotnet>. | | `NavigationManager` | Singleton ( Blazor WebAssembly)<br>Obor ( Blazor Server) | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
+------ | | <xref:System.Net.Http.HttpClient> | Přechodný | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance <xref:System.Net.Http.HttpClient> v Blazor aplikaci WebAssembly používá prohlížeč pro zpracování provozu http na pozadí.<br><br>BlazorServerové aplikace <xref:System.Net.Http.HttpClient> ve výchozím nastavení neobsahují nakonfigurovaný jako službu. Poskytněte <xref:System.Net.Http.HttpClient> Blazor serverovou aplikaci.<br><br>Další informace naleznete v tématu <xref:blazor/call-web-api>. | | <xref:Microsoft.JSInterop.IJSRuntime> | Singleton ( Blazor WebAssembly)<br>Obor ( Blazor Server) | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/call-javascript-from-dotnet>. | | <xref:Microsoft.AspNetCore.Components.NavigationManager> | Singleton ( Blazor WebAssembly)<br>Obor ( Blazor Server) | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
 
 Vlastní zprostředkovatel služeb automaticky neposkytuje výchozí služby uvedené v tabulce. Pokud používáte vlastního poskytovatele služeb a potřebujete některou ze služeb zobrazených v tabulce, přidejte požadované služby k novému poskytovateli služeb.
 
@@ -154,7 +154,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-`ConfigureServices`Metoda je předána <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> , což je seznam objektů deskriptoru služby ( <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor> ). Služby se přidávají tím, že se do kolekce služeb poskytují popisovače služby. Následující příklad ukazuje koncept s `IDataAccess` rozhraním a jeho konkrétní implementací `DataAccess` :
+<xref:Microsoft.Extensions.Hosting.IHostBuilder.ConfigureServices%2A>Metoda je předána <xref:Microsoft.Extensions.DependencyInjection.IServiceCollection> , což je seznam objektů deskriptoru služby ( <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor> ). Služby se přidávají tím, že se do kolekce služeb poskytují popisovače služby. Následující příklad ukazuje koncept s `IDataAccess` rozhraním a jeho konkrétní implementací `DataAccess` :
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -167,7 +167,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Služby je možné konfigurovat s životností, která jsou uvedená v následující tabulce.
 
-| Doba platnosti | Popis |
+| Doba platnosti | Description |
 | ---
 title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
 monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
@@ -218,20 +218,20 @@ Systém DI je založený na systému DI v ASP.NET Core. Další informace nalezn
 
 ## <a name="request-a-service-in-a-component"></a>Vyžádání služby v součásti
 
-Po přidání služeb do kolekce služeb tyto služby vloží do součástí pomocí direktivy [ \@ vložení](xref:mvc/views/razor#inject) Razor . `@inject`má dva parametry:
+Po přidání služeb do kolekce služeb tyto služby vloží do součástí pomocí direktivy [ \@ vložení](xref:mvc/views/razor#inject) Razor . [`@inject`](xref:mvc/views/razor#inject)má dva parametry:
 
 * Zadejte &ndash; typ služby, kterou chcete vložit.
 * Vlastnost &ndash; název vlastnosti, která přijímá vloženou službu App Service. Vlastnost nevyžaduje ruční vytvoření. Kompilátor vytvoří vlastnost.
 
 Další informace naleznete v tématu <xref:mvc/views/dependency-injection>.
 
-`@inject`Pro vložení různých služeb použijte více příkazů.
+[`@inject`](xref:mvc/views/razor#inject)Pro vložení různých služeb použijte více příkazů.
 
-Následující příklad ukazuje, jak použít `@inject` . Implementace služby `Services.IDataAccess` je vložena do vlastnosti komponenty `DataRepository` . Všimněte si, jak kód používá `IDataAccess` abstrakci:
+Následující příklad ukazuje, jak použít [`@inject`](xref:mvc/views/razor#inject) . Implementace služby `Services.IDataAccess` je vložena do vlastnosti komponenty `DataRepository` . Všimněte si, jak kód používá `IDataAccess` abstrakci:
 
 [!code-razor[](dependency-injection/samples_snapshot/3.x/CustomerList.razor?highlight=2-3,20)]
 
-Interně vygenerovaná vlastnost ( `DataRepository` ) používá `InjectAttribute` atribut. Obvykle se tento atribut nepoužívá přímo. Pokud je vyžadována základní třída pro součásti a vložené vlastnosti jsou také požadovány pro základní třídu, přidejte ručně `InjectAttribute` :
+Interně vygenerovaná vlastnost ( `DataRepository` ) používá [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) atribut. Obvykle se tento atribut nepoužívá přímo. Pokud je vyžadována základní třída pro součásti a vložené vlastnosti jsou také požadovány pro základní třídu, přidejte ručně [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) atribut:
 
 ```csharp
 public class ComponentBase : IComponent
@@ -243,7 +243,7 @@ public class ComponentBase : IComponent
 }
 ```
 
-V součástech odvozených ze základní třídy `@inject` není direktiva vyžadována. `InjectAttribute`Základní třída je dostačující:
+V součástech odvozených ze základní třídy [`@inject`](xref:mvc/views/razor#inject) není direktiva vyžadována. <xref:Microsoft.AspNetCore.Components.InjectAttribute>Základní třída je dostačující:
 
 ```razor
 @page "/demo"
@@ -254,7 +254,7 @@ V součástech odvozených ze základní třídy `@inject` není direktiva vyža
 
 ## <a name="use-di-in-services"></a>Použití DI v službách
 
-Komplexní služby můžou vyžadovat další služby. V předchozím příkladu `DataAccess` může vyžadovat `HttpClient` výchozí službu. `@inject`(nebo `InjectAttribute` ) není k dispozici pro použití ve službách. Místo toho se musí použít *Injektáže konstruktoru* . Požadované služby jsou přidány přidáním parametrů do konstruktoru služby. Když DI vytvoří službu, rozpoznává služby, které vyžaduje v konstruktoru, a odpovídajícím způsobem je poskytne.
+Komplexní služby můžou vyžadovat další služby. V předchozím příkladu `DataAccess` může vyžadovat <xref:System.Net.Http.HttpClient> výchozí službu. [`@inject`](xref:mvc/views/razor#inject)(nebo [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) atribut) není k dispozici pro použití ve službách. Místo toho se musí použít *Injektáže konstruktoru* . Požadované služby jsou přidány přidáním parametrů do konstruktoru služby. Když DI vytvoří službu, rozpoznává služby, které vyžaduje v konstruktoru, a odpovídajícím způsobem je poskytne.
 
 ```csharp
 public class DataAccess : IDataAccess
@@ -278,16 +278,16 @@ Předpoklady pro vložení konstruktoru:
 
 V aplikacích ASP.NET Core jsou oborové služby obvykle vymezeny na aktuální požadavek. Po dokončení žádosti se v systému DI odstraní všechny obory nebo přechodné služby. V rámci Blazor serverových aplikací je rozsah požadavků po dobu trvání připojení klienta, což může vést k přechodným a oborovým službám, které jsou delší, než se očekávalo. V Blazor aplikacích pro WebAssembly se služby zaregistrované s vymezeným životním cyklem považují za singleton, takže v typických aplikacích ASP.NET Core za provozu déle než vymezené služby.
 
-Přístup, který omezuje dobu života služby v Blazor aplikacích, se používá pro daný `OwningComponentBase` typ. `OwningComponentBase`je abstraktní typ odvozený z `ComponentBase` , který vytvoří obor typu di odpovídající životnosti komponenty. Pomocí tohoto oboru je možné používat DI Services s vymezeným životním cyklem a mít je živý, dokud bude komponenta. Po zničení součásti budou všechny služby z oboru poskytovatele služeb komponent odstraněny také. To může být užitečné pro služby, které:
+Přístup, který omezuje dobu života služby v Blazor aplikacích, se používá pro daný <xref:Microsoft.AspNetCore.Components.OwningComponentBase> typ. <xref:Microsoft.AspNetCore.Components.OwningComponentBase>je abstraktní typ odvozený z <xref:Microsoft.AspNetCore.Components.ComponentBase> , který vytvoří obor typu di odpovídající životnosti komponenty. Pomocí tohoto oboru je možné používat DI Services s vymezeným životním cyklem a mít je živý, dokud bude komponenta. Po zničení součásti budou všechny služby z oboru poskytovatele služeb komponent odstraněny také. To může být užitečné pro služby, které:
 
 * By měl být znovu použit v rámci součásti, protože přechodná životnost je nevhodná.
 * By neměl být sdílen napříč komponentami, protože životnost singleton je nevhodná.
 
-`OwningComponentBase`K dispozici jsou dvě verze typu:
+<xref:Microsoft.AspNetCore.Components.OwningComponentBase>K dispozici jsou dvě verze typu:
 
-* `OwningComponentBase`je abstraktní podřízený objekt `ComponentBase` typu s chráněnou `ScopedServices` vlastností typu `IServiceProvider` . Tento zprostředkovatel lze použít k překladu služeb, které jsou vymezeny na dobu života součásti.
+* <xref:Microsoft.AspNetCore.Components.OwningComponentBase>je abstraktní podřízený objekt <xref:Microsoft.AspNetCore.Components.ComponentBase> typu s chráněnou <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> vlastností typu <xref:System.IServiceProvider> . Tento zprostředkovatel lze použít k překladu služeb, které jsou vymezeny na dobu života součásti.
 
-  DI Services vložené do komponenty pomocí `@inject` nebo `InjectAttribute` ( `[Inject]` ) nejsou vytvořeny v oboru součásti. Chcete-li použít rozsah komponenty, musí být služby přeloženy pomocí `ScopedServices.GetRequiredService` nebo `ScopedServices.GetService` . Všechny služby vyřešené pomocí `ScopedServices` poskytovatele mají své závislosti ze stejného oboru.
+  DI Services vložené do komponenty pomocí [`@inject`](xref:mvc/views/razor#inject) nebo [`[Inject]`](xref:Microsoft.AspNetCore.Components.InjectAttribute) atribut nejsou vytvořeny v oboru komponenty. Chcete-li použít rozsah komponenty, musí být služby přeloženy pomocí <xref:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService%2A> nebo <xref:System.IServiceProvider.GetService%2A> . Všechny služby vyřešené pomocí <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> poskytovatele mají své závislosti ze stejného oboru.
 
   ```razor
   @page "/preferences"
@@ -315,7 +315,7 @@ Přístup, který omezuje dobu života služby v Blazor aplikacích, se použív
   }
   ```
 
-* `OwningComponentBase<T>`je odvozen z `OwningComponentBase` a přidává vlastnost `Service` , která vrací instanci `T` z oboru typu di. Tento typ je pohodlný způsob přístupu k oboru služeb bez použití instance, `IServiceProvider` Pokud existuje jedna primární služba, kterou aplikace vyžaduje z kontejneru di pomocí oboru komponenty. `ScopedServices`Vlastnost je k dispozici, takže aplikace může v případě potřeby získat služby jiných typů.
+* <xref:Microsoft.AspNetCore.Components.OwningComponentBase%601>je odvozen z <xref:Microsoft.AspNetCore.Components.OwningComponentBase> a přidává <xref:Microsoft.AspNetCore.Components.OwningComponentBase%601.Service%2A> vlastnost, která vrací instanci `T` z oboru typu di. Tento typ je pohodlný způsob přístupu k oboru služeb bez použití instance, <xref:System.IServiceProvider> Pokud existuje jedna primární služba, kterou aplikace vyžaduje z kontejneru di pomocí oboru komponenty. <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices>Vlastnost je k dispozici, takže aplikace může v případě potřeby získat služby jiných typů.
 
   ```razor
   @page "/users"
@@ -334,16 +334,16 @@ Přístup, který omezuje dobu života služby v Blazor aplikacích, se použív
 
 ## <a name="use-of-entity-framework-dbcontext-from-di"></a>Použití Entity Framework DbContext z DI
 
-Jeden běžný typ služby k načtení z DI ve Web Apps je Entity Framework objektů (EF) `DbContext` . Při registraci služeb EF pomocí `IServiceCollection.AddDbContext` se `DbContext` ve výchozím nastavení přidá služba jako vymezená. Registrace jako vymezená služba může vést k problémům v Blazor aplikacích, protože způsobí, že se `DbContext` instance budou dlouhodobě a sdílet napříč aplikací. `DbContext`není bezpečná pro přístup z více vláken a nesmí se používat současně.
+Jeden běžný typ služby k načtení z DI ve Web Apps je Entity Framework objektů (EF) <xref:Microsoft.EntityFrameworkCore.DbContext> . Při registraci služeb EF pomocí <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> se <xref:Microsoft.EntityFrameworkCore.DbContext> ve výchozím nastavení přidá služba jako vymezená. Registrace jako vymezená služba může vést k problémům v Blazor aplikacích, protože způsobí, že se <xref:Microsoft.EntityFrameworkCore.DbContext> instance budou dlouhodobě a sdílet napříč aplikací. <xref:Microsoft.EntityFrameworkCore.DbContext>není bezpečná pro přístup z více vláken a nesmí se používat současně.
 
-V závislosti na aplikaci `OwningComponentBase` může být problém vyřešen pomocí omezení rozsahu a `DbContext` na jednu komponentu. *may* Pokud komponenta nepoužívá `DbContext` paralelně, odvozování komponenty z `OwningComponentBase` a načtení `DbContext` z `ScopedServices` je dostačující, protože zajišťuje:
+V závislosti na aplikaci <xref:Microsoft.AspNetCore.Components.OwningComponentBase> může být problém vyřešen pomocí omezení rozsahu a <xref:Microsoft.EntityFrameworkCore.DbContext> na jednu komponentu. *may* Pokud komponenta nepoužívá <xref:Microsoft.EntityFrameworkCore.DbContext> paralelně, odvozování komponenty z <xref:Microsoft.AspNetCore.Components.OwningComponentBase> a načtení <xref:Microsoft.EntityFrameworkCore.DbContext> z <xref:Microsoft.AspNetCore.Components.OwningComponentBase.ScopedServices> je dostačující, protože zajišťuje:
 
-* Samostatné součásti nesdílejí `DbContext` .
-* `DbContext`Žije pouze tak dlouho, dokud je komponenta v závislosti na ní.
+* Samostatné součásti nesdílejí <xref:Microsoft.EntityFrameworkCore.DbContext> .
+* <xref:Microsoft.EntityFrameworkCore.DbContext>Žije pouze tak dlouho, dokud je komponenta v závislosti na ní.
 
-Může-li jedna součást současně použít `DbContext` (například pokaždé, když uživatel vybere tlačítko), a to i v případě, že se `OwningComponentBase` nevyhnete problémům s souběžnými operacemi EF. V takovém případě použijte jiný `DbContext` pro každou operaci logického EF. Použijte některý z následujících přístupů:
+Může-li jedna součást současně použít <xref:Microsoft.EntityFrameworkCore.DbContext> (například pokaždé, když uživatel vybere tlačítko), a to i v případě, že se <xref:Microsoft.AspNetCore.Components.OwningComponentBase> nevyhnete problémům s souběžnými operacemi EF. V takovém případě použijte jiný <xref:Microsoft.EntityFrameworkCore.DbContext> pro každou operaci logického EF. Použijte některý z následujících přístupů:
 
-* Vytvořte `DbContext` přímo pomocí `DbContextOptions<TContext>` argumentu, který lze načíst z typu di a je bezpečný pro přístup z více vláken.
+* Vytvořte <xref:Microsoft.EntityFrameworkCore.DbContext> přímo pomocí <xref:Microsoft.EntityFrameworkCore.DbContextOptions%601> argumentu, který lze načíst z typu di a je bezpečný pro přístup z více vláken.
 
     ```razor
     @page "/example"
@@ -377,8 +377,8 @@ Může-li jedna součást současně použít `DbContext` (například pokaždé
     }
     ```
 
-* Zaregistrujte `DbContext` v kontejneru služby s přechodným trváním:
-  * Při registraci kontextu použijte `ServiceLifetime.Transient` . `AddDbContext`Metoda rozšíření používá dva nepovinné parametry typu `ServiceLifetime` . Chcete-li použít tento přístup, `contextLifetime` musí být pouze parametr `ServiceLifetime.Transient` . `optionsLifetime`může zachovat výchozí hodnotu `ServiceLifetime.Scoped` .
+* Zaregistrujte <xref:Microsoft.EntityFrameworkCore.DbContext> v kontejneru služby s přechodným trváním:
+  * Při registraci kontextu použijte <xref:Microsoft.OData.ServiceLifetime.Transient?displayProperty=nameWithType> . <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A>Metoda rozšíření používá dva nepovinné parametry typu <xref:Microsoft.Extensions.DependencyInjection.ServiceLifetime> . Chcete-li použít tento přístup, `contextLifetime` musí být pouze parametr <xref:Microsoft.OData.ServiceLifetime.Transient?displayProperty=nameWithType> . `optionsLifetime`může zachovat výchozí hodnotu <xref:Microsoft.OData.ServiceLifetime.Scoped?displayProperty=nameWithType> .
 
     ```csharp
     services.AddDbContext<AppDbContext>(options =>
@@ -386,7 +386,7 @@ Může-li jedna součást současně použít `DbContext` (například pokaždé
          ServiceLifetime.Transient);
     ```  
 
-  * Přechodný `DbContext` lze vložit jako normální (pomocí `@inject` ) do komponent, které nespustí paralelní provádění více operací EF. Ty, které mohou provádět více operací EF současně, mohou požadovat samostatné `DbContext` objekty pro každou paralelní operaci pomocí `IServiceProvider.GetRequiredService` .
+  * Přechodný <xref:Microsoft.EntityFrameworkCore.DbContext> lze vložit jako normální (pomocí [`@inject`](xref:mvc/views/razor#inject) ) do komponent, které nespustí paralelní provádění více operací EF. Ty, které mohou provádět více operací EF současně, mohou požadovat samostatné <xref:Microsoft.EntityFrameworkCore.DbContext> objekty pro každou paralelní operaci pomocí <xref:Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService%2A> .
 
     ```razor
     @page "/example"

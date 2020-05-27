@@ -69,11 +69,11 @@ Zahrnutí komponenty do jiné komponenty pomocí syntaxe jazyka HTML.
 
 ## <a name="component-parameters"></a>Parametry součásti
 
-Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pomocí veřejných vlastností třídy Component s `[Parameter]` atributem. Použijte atributy k určení argumentů pro komponentu v kódu.
+Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pomocí veřejných vlastností třídy Component s [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) atributem. Použijte atributy k určení argumentů pro komponentu v kódu.
 
 1. Aktualizujte `@code` kód C# komponenty následujícím způsobem:
 
-   * Přidejte veřejnou `IncrementAmount` vlastnost s `[Parameter]` atributem.
+   * Přidejte veřejnou `IncrementAmount` vlastnost s [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) atributem.
    * Změňte `IncrementCount` metodu na použití `IncrementAmount` vlastnosti při zvyšování hodnoty `currentCount` .
 
    *Stránky/čítač. Razor*:
@@ -97,7 +97,7 @@ Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pom
 
 `@page`Direktiva v horní části souboru *Counter. Razor* určuje, že `Counter` Komponenta je koncový bod směrování. `Counter`Komponenta zpracovává požadavky odeslané na `/counter` . Bez `@page` direktivy nezpracovávají součásti směrované požadavky, ale komponentu mohou i nadále používat jiné komponenty.
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 ### <a name="blazor-server-experience"></a>BlazorProstředí serveru
 
@@ -105,7 +105,7 @@ Pokud pracujete se Blazor serverovou aplikací, `WeatherForecastService` služba
 
 [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
-`@inject`Direktiva slouží k vložení instance `WeatherForecastService` služby do `FetchData` komponenty.
+[`@inject`](xref:mvc/views/razor#inject)Direktiva slouží k vložení instance `WeatherForecastService` služby do `FetchData` komponenty.
 
 *Stránky/FetchData. Razor*:
 
@@ -117,7 +117,7 @@ Pokud pracujete se Blazor serverovou aplikací, `WeatherForecastService` služba
 
 ### <a name="blazor-webassembly-experience"></a>BlazorProstředí WebAssembly
 
-Při práci s Blazor aplikací WebAssembly `HttpClient` je vloženo pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* .
+Při práci s Blazor aplikací WebAssembly <xref:System.Net.Http.HttpClient> je vloženo pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* .
 
 *Stránky/FetchData. Razor*:
 

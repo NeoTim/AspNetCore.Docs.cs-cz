@@ -1,26 +1,13 @@
 ---
-title: Komponenty Blazor ASP.NET Core šablonou
-author: guardrex
-description: Přečtěte si, jak mohou šablony součásti přijmout jednu nebo více šablon uživatelského rozhraní jako parametry, které lze poté použít jako součást logiky vykreslování komponenty.
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 03/18/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/templated-components
-ms.openlocfilehash: de603d3520c124b278312e5167a2f8bad14cf6e9
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82771064"
+title: ' ASP.NET Core Blazor součástí šablon ' Author: Description: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
-# <a name="aspnet-core-blazor-templated-components"></a>Komponenty Blazor ASP.NET Core šablonou
+# <a name="aspnet-core-blazor-templated-components"></a>BlazorKomponenty ASP.NET Core šablonou
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
@@ -31,13 +18,13 @@ Komponenty se šablonami jsou komponenty, které přijímají jednu nebo více �
 
 ## <a name="template-parameters"></a>Parametry šablony
 
-Komponenta se šablonou je definována zadáním jednoho nebo více parametrů součásti typu `RenderFragment` nebo. `RenderFragment<T>` Fragment vykreslování představuje segment uživatelského rozhraní, které se má vykreslit. `RenderFragment<T>`převezme parametr typu, který lze zadat při vyvolání fragmentu vykreslování.
+Komponenta se šablonou je definována zadáním jednoho nebo více parametrů součásti typu <xref:Microsoft.AspNetCore.Components.RenderFragment> nebo <xref:Microsoft.AspNetCore.Components.RenderFragment%601> . Fragment vykreslování představuje segment uživatelského rozhraní, které se má vykreslit. <xref:Microsoft.AspNetCore.Components.RenderFragment%601>převezme parametr typu, který lze zadat při vyvolání fragmentu vykreslování.
 
 `TableTemplate`část
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/TableTemplate.razor)]
 
-Při použití šablonované komponenty lze parametry šablony zadat pomocí podřízených prvků, které odpovídají názvům parametrů (`TableHeader` a `RowTemplate` v následujícím příkladu):
+Při použití šablonované komponenty lze parametry šablony zadat pomocí podřízených prvků, které odpovídají názvům parametrů ( `TableHeader` a `RowTemplate` v následujícím příkladu):
 
 ```razor
 <TableTemplate Items="pets">
@@ -57,7 +44,7 @@ Při použití šablonované komponenty lze parametry šablony zadat pomocí pod
 
 ## <a name="template-context-parameters"></a>Kontextové parametry šablony
 
-Argumenty součásti typu `RenderFragment<T>` předané jako elementy mají implicitní parametr s názvem `context` (například z předchozí ukázky kódu `@context.PetId`), ale můžete změnit název parametru pomocí `Context` atributu u podřízeného elementu. V následujícím příkladu `RowTemplate` `Context` atribut prvku Určuje `pet` parametr:
+Argumenty součásti typu <xref:Microsoft.AspNetCore.Components.RenderFragment%601> předané jako elementy mají implicitní parametr s názvem `context` (například z předchozí ukázky kódu `@context.PetId` ), ale můžete změnit název parametru pomocí `Context` atributu u podřízeného elementu. V následujícím příkladu `RowTemplate` `Context` atribut prvku Určuje `pet` parametr:
 
 ```razor
 <TableTemplate Items="pets">
@@ -89,7 +76,7 @@ Alternativně lze zadat `Context` atribut prvku komponenty. Zadaný `Context` at
 
 ## <a name="generic-typed-components"></a>Komponenty s obecným typem
 
-Komponenty se šablonami jsou často typu obecně typované. Například obecná `ListViewTemplate` komponenta může být použita k vykreslování `IEnumerable<T>` hodnot. Chcete-li definovat obecné komponenty, použijte [`@typeparam`](xref:mvc/views/razor#typeparam) direktivu k určení parametrů typu:
+Komponenty se šablonami jsou často typu obecně typované. Například obecná `ListViewTemplate` Komponenta může být použita k vykreslování `IEnumerable<T>` hodnot. Chcete-li definovat obecné komponenty, použijte [`@typeparam`](xref:mvc/views/razor#typeparam) direktivu k určení parametrů typu:
 
 [!code-razor[](common/samples/3.x/BlazorWebAssemblySample/Components/ListViewTemplate.razor)]
 
@@ -103,7 +90,7 @@ Pokud používáte komponenty s obecným typem, je parametr typu odvozený, poku
 </ListViewTemplate>
 ```
 
-V opačném případě musí být parametr typu explicitně zadán pomocí atributu, který odpovídá názvu parametru typu. V následujícím příkladu `TItem="Pet"` určuje typ:
+V opačném případě musí být parametr typu explicitně zadán pomocí atributu, který odpovídá názvu parametru typu. V následujícím příkladu `TItem="Pet"` Určuje typ:
 
 ```razor
 <ListViewTemplate Items="pets" TItem="Pet">

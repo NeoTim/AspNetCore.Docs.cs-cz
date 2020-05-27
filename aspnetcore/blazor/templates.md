@@ -54,7 +54,7 @@ Následující soubory a složky tvoří Blazor aplikaci vygenerovanou ze Blazor
     * Stáhne rozhraní .NET runtime, aplikaci a závislosti aplikace.
     * Inicializuje modul runtime pro spuštění aplikace.
 
-* *App. Razor:* &ndash; Kořenová komponenta aplikace, která nastaví směrování na straně klienta pomocí <xref:Microsoft.AspNetCore.Components.Routing.Router> komponenty. `Router`Komponenta zachycuje navigaci v prohlížeči a vykreslí stránku, která odpovídá požadované adrese.
+* *App. Razor:* &ndash; Kořenová komponenta aplikace, která nastaví směrování na straně klienta pomocí <xref:Microsoft.AspNetCore.Components.Routing.Router> komponenty. <xref:Microsoft.AspNetCore.Components.Routing.Router>Komponenta zachycuje navigaci v prohlížeči a vykreslí stránku, která odpovídá požadované adrese.
 
 * Složka *Pages* &ndash; obsahuje směrovatelný komponenty/stránky (*. Razor*), které tvoří Blazor aplikaci a kořenovou Razor stránku Blazor serverové aplikace. Trasa pro každou stránku je určena pomocí [`@page`](xref:mvc/views/razor#page) direktivy. Šablona obsahuje následující:
   * *_Host. cshtml* ( Blazor Server) &ndash; kořenovou stránku aplikace implementované jako Razor stránka:
@@ -68,7 +68,7 @@ Následující soubory a složky tvoří Blazor aplikaci vygenerovanou ze Blazor
 
 * *Sdílená* složka &ndash; obsahuje další součásti uživatelského rozhraní (*. Razor*) používané aplikací:
   * `MainLayout`(*MainLayout. Razor*) &ndash; součást rozložení aplikace
-  * `NavMenu`(*NavMenu. Razor*) &ndash; implementuje navigaci bočním panelem. Zahrnuje [komponentu NavLink](xref:blazor/routing#navlink-component) ( <xref:Microsoft.AspNetCore.Components.Routing.NavLink> ), která vykresluje navigační odkazy na jiné Razor součásti. `NavLink`Komponenta automaticky indikuje vybraný stav při načtení jeho komponenty, což pomáhá uživateli pochopit, která součást se aktuálně zobrazuje.
+  * `NavMenu`(*NavMenu. Razor*) &ndash; implementuje navigaci bočním panelem. Zahrnuje [komponentu NavLink](xref:blazor/routing#navlink-component) ( <xref:Microsoft.AspNetCore.Components.Routing.NavLink> ), která vykresluje navigační odkazy na jiné Razor součásti. <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Komponenta automaticky indikuje vybraný stav při načtení jeho komponenty, což pomáhá uživateli pochopit, která součást se aktuálně zobrazuje.
 
 * *_Imports. Razor* &ndash; Zahrnuje společné Razor direktivy, které se mají zahrnout do komponent aplikace (*. Razor*), jako jsou například [`@using`](xref:mvc/views/razor#using) direktivy pro obory názvů.
 

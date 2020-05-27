@@ -1,6 +1,6 @@
 Stránka vytvořená `Authentication` komponentou (*stránky/ověřování. Razor*) definuje trasy vyžadované pro zpracování různých fází ověřování.
 
-`RemoteAuthenticatorView` Součást:
+<xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView>Součást:
 
 * Poskytuje balíček [Microsoft. AspNetCore. Components. WebAssembly. Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) .
 * Spravuje provádění příslušných akcí v každé fázi ověřování.

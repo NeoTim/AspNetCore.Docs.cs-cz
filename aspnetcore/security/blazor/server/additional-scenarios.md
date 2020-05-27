@@ -1,24 +1,12 @@
 ---
-title: BlazorDalší scénáře zabezpečení ASP.NET Core serveru
-author: guardrex
-description: Přečtěte si, jak nakonfigurovat Blazor Server pro další scénáře zabezpečení.
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/19/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: security/blazor/server/additional-scenarios
-ms.openlocfilehash: 9d26cde4d8964a8285241bb0158d8e6f8d5f8dbc
-ms.sourcegitcommit: 16b3abec1ed70f9a206f0cfa7cf6404eebaf693d
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/17/2020
-ms.locfileid: "83444071"
+title: ' ASP.NET Core Blazor Server Další scénáře zabezpečení ' Autor: Popis: ' Zjistěte, jak nakonfigurovat Blazor Server pro další scénáře zabezpečení. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="aspnet-core-blazor-server-additional-security-scenarios"></a>BlazorDalší scénáře zabezpečení ASP.NET Core serveru
 
@@ -28,7 +16,7 @@ ms.locfileid: "83444071"
 
 Tokeny dostupné mimo Razor součásti v Blazor serverové aplikaci je možné předat komponentám s přístupem popsaným v této části. Vzorový kód, včetně kompletního `Startup.ConfigureServices` příkladu, najdete v tématu [předávání tokenů do Blazor aplikace na straně serveru](https://github.com/javiercn/blazor-server-aad-sample).
 
-Ověřte Blazor aplikaci serveru stejně, jako byste použili běžné Razor stránky nebo aplikace MVC. Zajistěte a uložte tokeny do souboru cookie pro ověřování. Například:
+Ověřte Blazor aplikaci serveru stejně, jako byste použili běžné Razor stránky nebo aplikace MVC. Zajistěte a uložte tokeny do souboru cookie pro ověřování. Příklad:
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -171,7 +159,7 @@ Případně může být nastavení provedeno v souboru nastavení aplikace (*app
 }
 ```
 
-Pokud se označení segmentu pro autoritu nehodí pro poskytovatele OIDC aplikace, jako je třeba u jiných poskytovatelů než AAD, nastavte `Authority` vlastnost přímo. Buď nastavte vlastnost v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> nebo v souboru nastavení aplikace s `Authority` klíčem.
+Pokud se označení segmentu pro autoritu nehodí pro poskytovatele OIDC aplikace, jako je třeba u jiných poskytovatelů než AAD, nastavte <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> vlastnost přímo. Buď nastavte vlastnost v <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions> nebo v souboru nastavení aplikace s <xref:Microsoft.AspNetCore.Builder.OpenIdConnectOptions.Authority> klíčem.
 
 ### <a name="code-changes"></a>Změny kódu
 

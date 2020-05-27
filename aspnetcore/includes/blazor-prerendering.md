@@ -24,7 +24,7 @@ Chcete-li spojit volání interoperability JavaScriptu až po navázání spojen
 }
 ```
 
-Pro předchozí příklad `setElementText` kódu poskytněte funkci JavaScriptu uvnitř `<head>` prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server). Funkce je volána s `IJSRuntime.InvokeVoidAsync` a nevrací hodnotu:
+Pro předchozí příklad kódu poskytněte `setElementText` funkci JavaScriptu uvnitř `<head>` prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server). Funkce je volána s <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> a nevrací hodnotu:
 
 ```html
 <script>
@@ -35,11 +35,11 @@ Pro předchozí příklad `setElementText` kódu poskytněte funkci JavaScriptu 
 > [!WARNING]
 > Předchozí příklad upravuje model DOM (Document Object Model) (DOM) přímo pro demonstrační účely. Přímá úprava modelu DOM pomocí JavaScriptu se ve většině scénářů nedoporučuje, protože JavaScript může kolidovat se sledováním změn v Blazor.
 
-Následující komponenta ukazuje, jak použít zprostředkovatele komunikace s JavaScriptem jako součást logiky inicializace komponenty způsobem, který je kompatibilní s předvykreslováním. Komponenta ukazuje, že je možné aktivovat aktualizaci vykreslování zevnitř `OnAfterRenderAsync`. Vývojář se musí v tomto scénáři vyhnout vytvoření nekonečné smyčky.
+Následující komponenta ukazuje, jak použít zprostředkovatele komunikace s JavaScriptem jako součást logiky inicializace komponenty způsobem, který je kompatibilní s předvykreslováním. Komponenta ukazuje, že je možné aktivovat aktualizaci vykreslování zevnitř <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> . Vývojář se musí v tomto scénáři vyhnout vytvoření nekonečné smyčky.
 
-Kde `JSRuntime.InvokeAsync` je volána, `ElementRef` je použita pouze v `OnAfterRenderAsync` a nikoli v předchozí metodě životního cyklu, protože není k dispozici žádný element jazyka JavaScript, dokud není komponenta vykreslena.
+Kde <xref:Microsoft.JSInterop.JSRuntime.InvokeAsync%2A?displayProperty=nameWithType> je volána, `ElementRef` je použita pouze v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync%2A> a nikoli v předchozí metodě životního cyklu, protože není k dispozici žádný element jazyka JavaScript, dokud není komponenta vykreslena.
 
-[StateHasChanged](xref:blazor/lifecycle#state-changes) se volá, aby se komponenta znovu vykreslila s novým stavem získaným z volání interoperability JavaScript. Kód nevytváří nekonečnou smyčku `StateHasChanged` , protože je volána `infoFromJs` pouze `null`v případě, že je.
+[StateHasChanged](xref:blazor/lifecycle#state-changes) se volá, aby se komponenta znovu vykreslila s novým stavem získaným z volání interoperability JavaScript. Kód nevytváří nekonečnou smyčku, protože `StateHasChanged` je volána pouze v případě `infoFromJs` , že je `null` .
 
 ```cshtml
 @page "/prerendered-interop"
@@ -72,7 +72,7 @@ Set value via JS interop call:
 }
 ```
 
-Pro předchozí příklad `setElementText` kódu poskytněte funkci JavaScriptu uvnitř `<head>` prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server). Funkce je volána s `IJSRuntime.InvokeAsync` a vrátí hodnotu:
+Pro předchozí příklad kódu poskytněte `setElementText` funkci JavaScriptu uvnitř `<head>` prvku *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server). Funkce je volána s <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> a vrátí hodnotu:
 
 ```html
 <script>

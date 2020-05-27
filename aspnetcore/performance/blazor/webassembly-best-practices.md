@@ -1,24 +1,12 @@
 ---
-title: Osvědčené postupy pro vyASP.NET Coreení Blazor výkonu WebAssembly
-author: pranavkm
-description: Tipy pro zvýšení výkonu v Blazor aplikacích ASP.NET Core WebAssembly a předcházení běžným problémům s výkonem.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/13/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: performance/blazor/webassembly-best-practices
-ms.openlocfilehash: 9e9b166cb9ce9870a8ff275b72bb12f04b84751b
-ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/16/2020
-ms.locfileid: "83439435"
+title: ' ASP.NET Core Blazor osvědčené postupy pro výkon WebAssembly ' Autor: Description: ' Tipy pro zvýšení výkonu v ASP.NET Core Blazor aplikace WebAssembly a předcházení běžným problémům s výkonem. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>Osvědčené postupy pro vyASP.NET Coreení Blazor výkonu WebAssembly
 
@@ -28,9 +16,9 @@ Tento článek poskytuje pokyny pro ASP.NET Core Blazor osvědčené postupy pro
 
 ## <a name="avoid-unnecessary-component-renders"></a>Vyhnout se zbytečnému vykreslování komponent
 
-Blazorrozdílový algoritmus zabraňuje převykreslování komponenty, když algoritmus vnímat, že se komponenta nezměnila. Potlačit [ComponentBase. ShouldRender](xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A) pro jemně odstupňovanou kontrolu nad vykreslováním komponent.
+Blazorrozdílový algoritmus zabraňuje převykreslování komponenty, když algoritmus vnímat, že se komponenta nezměnila. Přepište <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A?displayProperty=nameWithType> pro jemně odstupňovanou kontrolu nad vykreslováním komponent.
 
-Při vytváření součásti pouze uživatelského rozhraní, která se po počátečním vykreslení nemění, nakonfigurujte, `ShouldRender` aby vracela `false` :
+Při vytváření součásti pouze uživatelského rozhraní, která se po počátečním vykreslení nemění, nakonfigurujte, <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> aby vracela `false` :
 
 ```razor
 @code {
@@ -42,9 +30,9 @@ Většina aplikací nevyžaduje jemně odstupňovaný ovládací prvek, ale <xre
 
 V následujícím příkladu:
 
-* <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>je přepsána a nastavena na hodnotu `shouldRender` pole, které je zpočátku `false` při načtení součásti.
-* Když je vybráno tlačítko, `shouldRender` je nastaveno na `true` , což vynutí, aby se komponenta znovu vykreslila s aktualizovanou `currentCount` .
-* Ihned po <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> opětovném vygenerování nastaví hodnotu `shouldRender` zpět na, `false` aby se zabránilo dalšímu novému vygenerování, až do okamžiku, kdy bude tlačítko příště vybráno.
+* <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A>je přepsána a nastavena na hodnotu <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> pole, které je zpočátku `false` při načtení součásti.
+* Když je vybráno tlačítko, <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> je nastaveno na `true` , což vynutí, aby se komponenta znovu vykreslila s aktualizovanou `currentCount` .
+* Ihned po <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> opětovném vygenerování nastaví hodnotu <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> zpět na, `false` aby se zabránilo dalšímu novému vygenerování, až do okamžiku, kdy bude tlačítko příště vybráno.
 
 ```razor
 <p>Current count: @currentCount</p>

@@ -1,24 +1,12 @@
 ---
-title: ASP.NET Core Blazor datové vazby
-author: guardrex
-description: Přečtěte si o funkcích datových vazeb pro komponenty a prvky Blazor modelu DOM v aplikacích.
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 03/26/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/data-binding
-ms.openlocfilehash: b4951c5eb712b15db3a7c1ccd57ae01c530a23ef
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967165"
+title: ' ASP.NET Core Blazor datové vazby ' autora: Popis: ' informace o funkcích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor datové vazby
 
@@ -40,7 +28,7 @@ Pokud textové pole ztratí fokus, je hodnota vlastnosti aktualizována.
 
 Textové pole je aktualizováno v uživatelském rozhraní pouze v případě, že je komponenta vykreslena, nikoli v reakci na změnu hodnoty vlastnosti. Vzhledem k tomu, že se komponenty vykreslují po spuštění kódu obslužné rutiny události, se aktualizace vlastností *obvykle* projeví v uživatelském rozhraní hned po aktivaci obslužné rutiny události.
 
-Použití `@bind` s `CurrentValue` vlastností (`<input @bind="CurrentValue" />`) je v podstatě ekvivalentem následujícího:
+Použití [`@bind`](xref:mvc/views/razor#bind) s `CurrentValue` vlastností ( `<input @bind="CurrentValue" />` ) je v podstatě ekvivalentem následujícího:
 
 ```razor
 <input value="@CurrentValue"
@@ -52,7 +40,7 @@ Použití `@bind` s `CurrentValue` vlastností (`<input @bind="CurrentValue" />`
 }
 ```
 
-Při vykreslení `value` komponenty z `CurrentValue` vlastnosti input element přichází. Když uživatel zadá do textového pole a změní fokus prvku, `onchange` událost je aktivována a `CurrentValue` vlastnost je nastavena na změněnou hodnotu. Ve skutečnosti je generování kódu složitější, protože `@bind` zpracovává případy, kde jsou prováděny převody typů. V zásadě `@bind` přidruží aktuální hodnotu výrazu k `value` atributu a zpracovává změny pomocí registrované obslužné rutiny.
+Při vykreslení komponenty `value` z vlastnosti input element přichází `CurrentValue` . Když uživatel zadá do textového pole a změní fokus prvku, `onchange` událost je aktivována a `CurrentValue` vlastnost je nastavena na změněnou hodnotu. Ve skutečnosti je generování kódu složitější, protože [`@bind`](xref:mvc/views/razor#bind) zpracovává případy, kde jsou prováděny převody typů. V zásadě [`@bind`](xref:mvc/views/razor#bind) přidruží aktuální hodnotu výrazu k `value` atributu a zpracovává změny pomocí registrované obslužné rutiny.
 
 Navázání vlastnosti nebo pole na jiné události také zahrnutím `@bind:event` atributu s `event` parametrem. Následující příklad váže `CurrentValue` vlastnost na `oninput` událost:
 
@@ -64,9 +52,9 @@ Navázání vlastnosti nebo pole na jiné události také zahrnutím `@bind:even
 }
 ```
 
-Na rozdíl `onchange`od, která je aktivována, když prvek ztratí `oninput` fokus, je aktivována při změně hodnoty textového pole.
+Na rozdíl od `onchange` , která je aktivována, když prvek ztratí fokus, `oninput` je aktivována při změně hodnoty textového pole.
 
-Použijte `@bind-{ATTRIBUTE}` s `@bind-{ATTRIBUTE}:event` syntaxí pro svázání atributů elementu jiné `value`než. V následujícím příkladu je styl odstavce aktualizován při změně `paragraphStyle` hodnoty:
+Použijte `@bind-{ATTRIBUTE}` s `@bind-{ATTRIBUTE}:event` syntaxí pro svázání atributů elementu jiné než `value` . V následujícím příkladu je styl odstavce aktualizován při `paragraphStyle` změně hodnoty:
 
 ```razor
 @page "/binding-example"
@@ -84,7 +72,7 @@ Použijte `@bind-{ATTRIBUTE}` s `@bind-{ATTRIBUTE}:event` syntaxí pro svázán�
 }
 ```
 
-Vazba atributu rozlišuje velká a malá písmena. Například `@bind` je platný a `@Bind` je neplatný.
+Vazba atributu rozlišuje velká a malá písmena. Například [`@bind`](xref:mvc/views/razor#bind) je platný a [`@bind`](xref:mvc/views/razor#bind) je neplatný.
 
 ## <a name="unparsable-values"></a>Hodnoty, které nelze analyzovat
 
@@ -92,7 +80,7 @@ Když uživatel poskytne neanalyzovatelné hodnoty prvku DataBound, hodnota nean
 
 Představte si následující scénář:
 
-* `<input>` Element je svázán s `int` typem s počáteční hodnotou `123`:
+* `<input>`Element je svázán `int` s typem s počáteční hodnotou `123` :
 
   ```razor
   <input @bind="MyProperty" />
@@ -104,19 +92,19 @@ Představte si následující scénář:
   ```
 * Uživatel aktualizuje hodnotu prvku na `123.45` stránce a změní fokus prvku.
 
-V předchozím scénáři je hodnota elementu vrácena na `123`. Pokud je hodnota `123.45` zamítnuta ve prospěch původní hodnoty `123`, uživateli se rozumí, že jejich hodnota nebyla přijata.
+V předchozím scénáři je hodnota elementu vrácena na `123` . Pokud je hodnota `123.45` zamítnuta ve prospěch původní hodnoty `123` , uživateli se rozumí, že jejich hodnota nebyla přijata.
 
-Ve výchozím nastavení se vazba vztahuje na `onchange` událost elementu (`@bind="{PROPERTY OR FIELD}"`). Slouží `@bind="{PROPERTY OR FIELD}" @bind:event={EVENT}` ke spuštění vazby pro jinou událost. Pro `oninput` událost (`@bind:event="oninput"`) se reverze provádí po stisknutí klávesy, která zavádí neanalyzovatelné hodnoty. Při cílení `oninput` události s `int`typem vázaného na uživatele je znemožněno zadání `.` znaku. `.` Znak je okamžitě odstraněn, takže uživatel obdrží okamžitou zpětnou vazbu, že jsou povolena pouze celá čísla. K dispozici jsou situace, kdy vrácení hodnoty na `oninput` událost není ideální, například pokud by měl uživatel povoleno vymazat neanalyzovatelné `<input>` hodnoty. K alternativám patří:
+Ve výchozím nastavení se vazba vztahuje na událost elementu `onchange` ( `@bind="{PROPERTY OR FIELD}"` ). Slouží `@bind="{PROPERTY OR FIELD}" @bind:event={EVENT}` ke spuštění vazby pro jinou událost. Pro `oninput` událost ( `@bind:event="oninput"` ) se reverze provádí po stisknutí klávesy, která zavádí neanalyzovatelné hodnoty. Při cílení `oninput` události s `int` typem vázaného na uživatele je znemožněno zadání `.` znaku. `.`Znak je okamžitě odstraněn, takže uživatel obdrží okamžitou zpětnou vazbu, že jsou povolena pouze celá čísla. K dispozici jsou situace, kdy vrácení hodnoty na `oninput` událost není ideální, například pokud by měl uživatel povoleno vymazat neanalyzovatelné `<input>` hodnoty. K alternativám patří:
 
-* Nepoužívejte `oninput` událost. Použijte výchozí `onchange` událost (pouze zadat `@bind="{PROPERTY OR FIELD}"`), kde není platná hodnota vrácena, dokud prvek neztratí fokus.
-* Vytvořte vazby na typ s možnou hodnotou `int?` null `string`, například nebo, a poskytněte vlastní logiku pro zpracování neplatných položek.
-* Použijte [součást pro ověření formuláře](xref:blazor/forms-validation), jako je `InputNumber` například `InputDate`nebo. Komponenty ověřování formuláře mají integrovanou podporu pro správu neplatných vstupů. Součásti pro ověření formuláře:
-  * Povolí uživateli zadání neplatných vstupů a přijetí chyb ověřování na přidruženém `EditContext`.
+* Nepoužívejte `oninput` událost. Použijte výchozí `onchange` událost (pouze zadat `@bind="{PROPERTY OR FIELD}"` ), kde není platná hodnota vrácena, dokud prvek neztratí fokus.
+* Vytvořte vazby na typ s možnou hodnotou null, například `int?` nebo `string` , a poskytněte vlastní logiku pro zpracování neplatných položek.
+* Použijte [součást pro ověření formuláře](xref:blazor/forms-validation), jako je například <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> nebo <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> . Komponenty ověřování formuláře mají integrovanou podporu pro správu neplatných vstupů. Součásti pro ověření formuláře:
+  * Povolí uživateli zadání neplatných vstupů a přijetí chyb ověřování na přidruženém <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .
   * Zobrazí chyby ověřování v uživatelském rozhraní, aniž by došlo ke konfliktu s uživatelem, který zadává další data z formuláře.
 
 ## <a name="format-strings"></a>Řetězce formátu
 
-Datové vazby fungují s <xref:System.DateTime> řetězci formátu pomocí [`@bind:format`](xref:mvc/views/razor#bind). Jiné formátovací výrazy, jako je například Měna nebo formáty čísel, nejsou v tuto chvíli k dispozici.
+Datové vazby fungují s <xref:System.DateTime> řetězci formátu pomocí `@bind:format` . Jiné formátovací výrazy, jako je například Měna nebo formáty čísel, nejsou v tuto chvíli k dispozici.
 
 ```razor
 <input @bind="StartDate" @bind:format="yyyy-MM-dd" />
@@ -127,16 +115,16 @@ Datové vazby fungují s <xref:System.DateTime> řetězci formátu pomocí [`@bi
 }
 ```
 
-V předchozím kódu je výchozí typ `<input>` pole (`type`) elementu `text`. `@bind:format`je podporováno pro vázání následujících typů rozhraní .NET:
+V předchozím kódu je `<input>` výchozí typ pole ( `type` ) elementu `text` . `@bind:format`je podporováno pro vázání následujících typů rozhraní .NET:
 
 * <xref:System.DateTime?displayProperty=fullName>
 * <xref:System.DateTime?displayProperty=fullName>?
 * <xref:System.DateTimeOffset?displayProperty=fullName>
 * <xref:System.DateTimeOffset?displayProperty=fullName>?
 
-`@bind:format` Atribut určuje formát data, který se má použít pro `value` `<input>` element. Formát je také použit k analýze hodnoty při výskytu `onchange` události.
+`@bind:format`Atribut určuje formát data, který se má použít pro `value` `<input>` element. Formát je také použit k analýze hodnoty při `onchange` výskytu události.
 
-Zadání formátu pro typ `date` pole se nedoporučuje, protože Blazor má vestavěnou podporu pro formátování kalendářních dat. Navzdory doporučení použijte pouze formát `yyyy-MM-dd` data, aby vazba fungovala správně, pokud je zadán typ `date` pole:
+Zadání formátu pro `date` Typ pole se nedoporučuje, protože Blazor má vestavěnou podporu pro formátování kalendářních dat. Navzdory doporučení použijte pouze `yyyy-MM-dd` formát data, aby vazba fungovala správně, pokud je zadán `date` Typ pole:
 
 ```razor
 <input type="date" @bind="StartDate" @bind:format="yyyy-MM-dd">
@@ -144,9 +132,9 @@ Zadání formátu pro typ `date` pole se nedoporučuje, protože Blazor má vest
 
 ## <a name="parent-to-child-binding-with-component-parameters"></a>Vazba nadřazený-to-podřízený s parametry komponenty
 
-Vazba rozpoznává parametry komponenty, `@bind-{PROPERTY}` kde může vytvořit vazbu hodnoty vlastnosti z nadřazené komponenty dolů na podřízenou komponentu. Vazba z podřízeného na nadřazenou položku je popsaná v tématu [vazba typu podřízená k nadřazenému s zřetězenou](#child-to-parent-binding-with-chained-bind) vazbou.
+Vazba rozpoznává parametry komponenty, kde `@bind-{PROPERTY}` může vytvořit vazbu hodnoty vlastnosti z nadřazené komponenty dolů na podřízenou komponentu. Vazba z podřízeného na nadřazenou položku je popsaná v tématu [vazba typu podřízená k nadřazenému s zřetězenou](#child-to-parent-binding-with-chained-bind) vazbou.
 
-Následující podřízená komponenta (`ChildComponent`) má parametr `Year` komponenty a `YearChanged` zpětné volání:
+Následující podřízená komponenta ( `ChildComponent` ) má `Year` parametr komponenty a `YearChanged` zpětné volání:
 
 ```razor
 <h2>Child Component</h2>
@@ -162,12 +150,12 @@ Následující podřízená komponenta (`ChildComponent`) má parametr `Year` ko
 }
 ```
 
-`EventCallback<T>`je vysvětleno <xref:blazor/event-handling#eventcallback>v tématu.
+<xref:Microsoft.AspNetCore.Components.EventCallback%601>je vysvětleno v tématu <xref:blazor/event-handling#eventcallback> .
 
 Následující nadřazená komponenta používá:
 
 * `ChildComponent`a váže `ParentYear` parametr z nadřazené položky k `Year` parametru v podřízené komponentě.
-* `onclick` Událost se používá ke spuštění `ChangeTheYear` metody. Další informace naleznete v tématu <xref:blazor/event-handling>.
+* `onclick`Událost se používá ke spuštění `ChangeTheYear` metody. Další informace naleznete v tématu <xref:blazor/event-handling>.
 
 ```razor
 @page "/ParentComponent"
@@ -193,7 +181,7 @@ Následující nadřazená komponenta používá:
 }
 ```
 
-Načítání kódu `ParentComponent` generuje následující značky:
+Načítání `ParentComponent` kódu generuje následující značky:
 
 ```html
 <h1>Parent Component</h1>
@@ -205,7 +193,7 @@ Načítání kódu `ParentComponent` generuje následující značky:
 <p>Year: 1978</p>
 ```
 
-`ParentYear` Pokud je hodnota vlastnosti změněna výběrem tlačítka `ParentComponent`v, `Year` vlastnost `ChildComponent` je aktualizována. Nová hodnota `Year` se vykreslí v uživatelském rozhraní, když `ParentComponent` se znovu vykreslí:
+Pokud `ParentYear` je hodnota vlastnosti změněna výběrem tlačítka v `ParentComponent` , `Year` vlastnost `ChildComponent` je aktualizována. Nová hodnota `Year` se vykreslí v uživatelském rozhraní, když `ParentComponent` se znovu vykreslí:
 
 ```html
 <h1>Parent Component</h1>
@@ -217,7 +205,7 @@ Načítání kódu `ParentComponent` generuje následující značky:
 <p>Year: 1986</p>
 ```
 
-`Year` Parametr je svázán, protože má doprovodnou `YearChanged` událost, která odpovídá typu `Year` parametru.
+`Year`Parametr je svázán, protože má doprovodnou `YearChanged` událost, která odpovídá typu `Year` parametru.
 
 Podle konvence `<ChildComponent @bind-Year="ParentYear" />` má v podstatě ekvivalent zápisu:
 
@@ -235,11 +223,11 @@ Obecně platí, že vlastnost může být vázána na odpovídající obslužnou
 
 Běžným scénářem je zřetězení parametru vázaného na data na element stránky ve výstupu součásti. Tento scénář se nazývá *zřetězená vazba* , protože k více úrovním vazby dochází současně.
 
-Zřetězenou BIND nelze implementovat s `@bind` syntaxí v elementu stránky. Obslužná rutina události a hodnota se musí zadat samostatně. Nadřazená komponenta však může použít `@bind` syntaxi s parametrem komponenty.
+Zřetězenou BIND nelze implementovat s [`@bind`](xref:mvc/views/razor#bind) syntaxí v elementu stránky. Obslužná rutina události a hodnota se musí zadat samostatně. Nadřazená komponenta však může použít [`@bind`](xref:mvc/views/razor#bind) syntaxi s parametrem komponenty.
 
 Následující `PasswordField` součást (*PasswordField. Razor*):
 
-* Nastaví hodnotu `<input>` elementu na `Password` vlastnost.
+* Nastaví `<input>` hodnotu elementu na `Password` vlastnost.
 * Zpřístupňuje změny `Password` vlastnosti nadřazené komponentě pomocí [vnořenou eventCallback](xref:blazor/event-handling#eventcallback).
 * Používá `onclick` událost, která slouží ke spuštění `ToggleShowPassword` metody. Další informace naleznete v tématu <xref:blazor/event-handling>.
 
@@ -280,7 +268,7 @@ Password:
 }
 ```
 
-`PasswordField` Komponenta se používá v jiné součásti:
+`PasswordField`Komponenta se používá v jiné součásti:
 
 ```razor
 @page "/ParentComponent"
@@ -296,7 +284,7 @@ Password:
 
 Chcete-li provést kontrolu nebo chyby depeše v předchozím příkladu:
 
-* Vytvořte pole zálohování pro `Password` (`password` v následujícím ukázkovém kódu).
+* Vytvořte pole zálohování pro `Password` ( `password` v následujícím ukázkovém kódu).
 * Proveďte kontroly nebo chyby depeší v metodě `Password` setter.
 
 Následující příklad poskytuje okamžitou zpětnou vazbu uživateli, pokud se v hodnotě hesla používá mezera:
@@ -362,4 +350,4 @@ Password:
 
 ## <a name="radio-buttons"></a>Přepínače
 
-Informace o vazbě na přepínače ve formuláři naleznete v tématu <xref:blazor/forms-validation#work-with-radio-buttons>.
+Informace o vazbě na přepínače ve formuláři naleznete v tématu <xref:blazor/forms-validation#work-with-radio-buttons> .

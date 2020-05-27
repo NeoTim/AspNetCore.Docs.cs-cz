@@ -1,24 +1,12 @@
 ---
-title: ASP.NET Core Blazor rozložení
-author: guardrex
-description: Naučte se vytvářet opakovaně použitelné součásti rozložení pro Blazor aplikace.
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 02/12/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/layouts
-ms.openlocfilehash: 09cca9c4af23c35fdbc2ee92169913c960b0a68d
-ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/15/2020
-ms.locfileid: "83424323"
+title: ' ASP.NET Core Blazor Layouts ' Author: Description: ' Naučte se vytvářet opakovaně použitelné součásti rozložení pro Blazor aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor rozložení
 
@@ -30,10 +18,10 @@ Technicky, rozložení je pouze jiná komponenta. Rozložení je definováno v R
 
 Chcete-li změnit *komponentu* na *rozložení*, součást:
 
-* Dědí z `LayoutComponentBase` , který definuje `Body` vlastnost pro vykreslený obsah v rozložení.
+* Dědí z <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> , který definuje <xref:Microsoft.AspNetCore.Components.LayoutComponentBase.Body> vlastnost pro vykreslený obsah v rozložení.
 * Používá Razor syntaxi `@Body` k určení umístění v označení rozložení, kde je obsah vykreslen.
 
-Následující ukázka kódu ukazuje Razor šablonu komponenty rozložení *MainLayout. Razor*. Rozložení dědí `LayoutComponentBase` a nastavuje `@Body` mezi navigačním panelem a zápatím:
+Následující ukázka kódu ukazuje Razor šablonu komponenty rozložení *MainLayout. Razor*. Rozložení dědí <xref:Microsoft.AspNetCore.Components.LayoutComponentBase> a nastavuje `@Body` mezi navigačním panelem a zápatím:
 
 [!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
@@ -41,21 +29,21 @@ V aplikaci založené na jedné ze Blazor šablon aplikací `MainLayout` je sou�
 
 ## <a name="default-layout"></a>Výchozí rozložení
 
-Zadejte výchozí rozložení aplikace v `Router` komponentě v souboru App *. Razor* aplikace. Následující `Router` Komponenta, která je poskytována výchozími Blazor šablonami, nastaví výchozí rozložení na `MainLayout` součást:
+Zadejte výchozí rozložení aplikace v <xref:Microsoft.AspNetCore.Components.Routing.Router> komponentě v souboru App *. Razor* aplikace. Následující <xref:Microsoft.AspNetCore.Components.Routing.Router> Komponenta, která je poskytována výchozími Blazor šablonami, nastaví výchozí rozložení na `MainLayout` součást:
 
 [!code-razor[](layouts/sample_snapshot/3.x/App1.razor?highlight=3)]
 
-Chcete-li zadat výchozí rozložení `NotFound` obsahu, zadejte `LayoutView` pro `NotFound` obsah:
+Chcete-li zadat výchozí rozložení <xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound> obsahu, zadejte <xref:Microsoft.AspNetCore.Components.LayoutView> pro <xref:Microsoft.AspNetCore.Components.Routing.Router.NotFound> obsah:
 
 [!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
-Další informace o `Router` komponentě naleznete v tématu <xref:blazor/routing> .
+Další informace o <xref:Microsoft.AspNetCore.Components.Routing.Router> komponentě naleznete v tématu <xref:blazor/routing> .
 
 Určení rozložení jako výchozího rozložení ve směrovači je užitečný postup, protože je možné ho přepsat pro jednotlivé komponenty nebo pro jednotlivé složky. Upřednostňujete použití směrovače k nastavení výchozího rozložení aplikace, protože se jedná o nejobecnější postup.
 
 ## <a name="specify-a-layout-in-a-component"></a>Určení rozložení v součásti
 
-Použijte Razor direktivu `@layout` pro použití rozložení na komponentu. Kompilátor převede `@layout` na `LayoutAttribute` , který je použit pro třídu komponenty.
+Použijte Razor direktivu `@layout` pro použití rozložení na komponentu. Kompilátor převede `@layout` na <xref:Microsoft.AspNetCore.Components.LayoutAttribute> , který je použit pro třídu komponenty.
 
 Obsah následující `MasterList` komponenty je vložen do `MasterLayout` pozice v umístění `@Body` :
 

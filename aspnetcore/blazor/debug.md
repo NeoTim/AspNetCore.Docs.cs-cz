@@ -25,13 +25,8 @@ K dispozici jsou tyto scénáře:
 
 Teď *nemůžete*:
 
-* Zkontrolujte pole.
-* Najeďte myší na kontrolu členů.
-* Krok ladění do spravovaného kódu nebo z něj.
-* Má plnou podporu pro kontrolu hodnotových typů.
 * Přerušit při neošetřených výjimkách.
 * Při spuštění aplikace se zarážky volání.
-* Ladění aplikace pomocí pracovního procesu služby.
 
 V nadcházejících vydáních budeme dál zlepšovat možnosti ladění.
 
@@ -78,7 +73,7 @@ Ladění Blazor aplikace WebAssembly v aplikaci Visual Studio:
 
 Při ladění Blazor aplikace pro WebAssembly můžete také ladit kód serveru:
 
-1. Nastavte zarážku na stránce *FetchData. Razor* v `OnInitializedAsync` .
+1. Nastavte zarážku na stránce *FetchData. Razor* v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> .
 1. Nastavte zarážku v `WeatherForecastController` `Get` metodě Action.
 1. Přejděte na kartu **načíst data** , abyste narazili na první zarážku v `FetchData` součásti těsně předtím, než vydá požadavek HTTP na server:
 

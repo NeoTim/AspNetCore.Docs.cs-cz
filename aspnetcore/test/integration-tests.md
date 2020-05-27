@@ -143,7 +143,7 @@ Konfiguraci webového hostitele lze vytvořit nezávisle na testovacích tříd�
 
    Kontext databáze SUT je zaregistrován ve své `Startup.ConfigureServices` metodě. Zpětné volání testovací aplikace `builder.ConfigureServices` se provede *po* `Startup.ConfigureServices` spuštění kódu aplikace. Pořadí spouštění je zásadní změnou pro [obecného hostitele](xref:fundamentals/host/generic-host) s vydáním ASP.NET Core 3,0. Pro použití jiné databáze pro testy, než je databáze aplikace, musí být kontext databáze aplikace nahrazen v `builder.ConfigureServices` .
 
-   Pro SUTs, který stále používá [Web Host} (odkazy XREF: Základy/hostitel/Web-Host), `builder.ConfigureServices` je zpětné volání testovací aplikace spuštěno *před* `Startup.ConfigureServices` kódem SUT. Zpětné volání testovací aplikace `builder.ConfigureTestServices` je provedeno *po*.
+   Pro SUTs, který stále používá [webový hostitel](xref:fundamentals/host/web-host), `builder.ConfigureServices` je zpětné volání testovací aplikace spuštěno *před* `Startup.ConfigureServices` kódem SUT. Zpětné volání testovací aplikace `builder.ConfigureTestServices` je provedeno *po*.
 
    Ukázková aplikace vyhledá popisovač služby pro kontext databáze a použije popisovač k odebrání registrace služby. V dalším kroku továrna přidá novou `ApplicationDbContext` , která pro testy používá databázi v paměti.
 
@@ -201,7 +201,7 @@ Vzhledem k tomu, že jiný test ve `IndexPageTests` třídě provádí operaci, 
 
 Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) , který je k dispozici při vytváření `HttpClient` instancí.
 
-| Možnost | Popis | Výchozí |
+| Možnost | Description | Výchozí |
 | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -380,7 +380,7 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 
 [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Aplikace | Adresář projektu | Popis |
+| Aplikace | Adresář projektu | Description |
 | --- | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -479,7 +479,7 @@ I když aplikace nepoužívá vzor úložiště a není efektivním příkladem 
 
 Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject. Tests* .
 
-| Testovací adresář aplikace | Popis |
+| Testovací adresář aplikace | Description |
 | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -573,7 +573,7 @@ Ukázková aplikace se dosazuje do databáze se třemi zprávami v *Utilities.cs
 
 Kontext databáze SUT je zaregistrován ve své `Startup.ConfigureServices` metodě. Zpětné volání testovací aplikace `builder.ConfigureServices` se provede *po* `Startup.ConfigureServices` spuštění kódu aplikace. Chcete-li pro testy použít jinou databázi, musí být kontext databáze aplikace nahrazen v `builder.ConfigureServices` . Další informace najdete v části [přizpůsobení WebApplicationFactory](#customize-webapplicationfactory) .
 
-Pro SUTs, který stále používá [Web Host} (odkazy XREF: Základy/hostitel/Web-Host), `builder.ConfigureServices` je zpětné volání testovací aplikace spuštěno *před* `Startup.ConfigureServices` kódem SUT. Zpětné volání testovací aplikace `builder.ConfigureTestServices` je provedeno *po*.
+Pro SUTs, který stále používá [webový hostitel](xref:fundamentals/host/web-host), `builder.ConfigureServices` je zpětné volání testovací aplikace spuštěno *před* `Startup.ConfigureServices` kódem SUT. Zpětné volání testovací aplikace `builder.ConfigureTestServices` je provedeno *po*.
 
 ::: moniker-end
 
@@ -742,7 +742,7 @@ Vzhledem k tomu, že jiný test ve `IndexPageTests` třídě provádí operaci, 
 
 Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) , který je k dispozici při vytváření `HttpClient` instancí.
 
-| Možnost | Popis | Výchozí |
+| Možnost | Description | Výchozí |
 | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -949,7 +949,7 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 
 [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Aplikace | Adresář projektu | Popis |
+| Aplikace | Adresář projektu | Description |
 | --- | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -1048,7 +1048,7 @@ I když aplikace nepoužívá vzor úložiště a není efektivním příkladem 
 
 Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject. Tests* .
 
-| Testovací adresář aplikace | Popis |
+| Testovací adresář aplikace | Description |
 | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'

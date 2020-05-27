@@ -1,32 +1,20 @@
 ---
-title: ASP.NET Core Blazor pokročilé scénáře
-author: guardrex
-description: Přečtěte si o rozšířených scénářích v Blazor, včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace.
-monikerRange: '>= aspnetcore-3.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 02/18/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: blazor/advanced-scenarios
-ms.openlocfilehash: b47e7b1d7ff148bb5a8d299d3d2089999f017863
-ms.sourcegitcommit: 84b46594f57608f6ac4f0570172c7051df507520
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82967334"
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
-# <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core pokročilé scénáře pro Blazor
+# <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor pokročilé scénáře
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-## <a name="blazor-server-circuit-handler"></a>Obslužná rutina okruhu serveru Blazor
+## <a name="blazor-server-circuit-handler"></a>BlazorObslužná rutina okruhu serveru
 
-Blazor Server umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje připojení Open Signal:
+BlazorServer umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
 
 ```csharp
 using System.Collections.Generic;
@@ -68,18 +56,18 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro okruh serveru Blazor. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více příkazech [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro Blazor okruh serveru. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více příkazech [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
 
-Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí stav okruhu, rozhraní uvolní obor DI okruhu. Při likvidaci oboru se uvolní jakékoli DI služby, které implementují <xref:System.IDisposable?displayProperty=fullName>okruhy s rozsahem. Pokud jakákoli služba DI vyvolá neošetřenou výjimku při vyřazení, rozhraní zaprotokoluje výjimku.
+Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí stav okruhu, rozhraní uvolní obor DI okruhu. Při likvidaci oboru se uvolní jakékoli DI služby, které implementují okruhy s rozsahem <xref:System.IDisposable?displayProperty=fullName> . Pokud jakákoli služba DI vyvolá neošetřenou výjimku při vyřazení, rozhraní zaprotokoluje výjimku.
 
 ## <a name="manual-rendertreebuilder-logic"></a>Ruční logika RenderTreeBuilder
 
-`Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder`poskytuje metody pro práci s komponentami a prvky, včetně sestavování komponent ručně v kódu jazyka C#.
+<xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder>poskytuje metody pro práci s komponentami a prvky, včetně sestavování komponent ručně v kódu jazyka C#.
 
 > [!NOTE]
-> Použití aplikace `RenderTreeBuilder` k vytvoření komponent je pokročilý scénář. Poškozená komponenta (například značka neuzavřeného označení) může mít za následek nedefinované chování.
+> Použití aplikace <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> k vytvoření komponent je pokročilý scénář. Poškozená komponenta (například značka neuzavřeného označení) může mít za následek nedefinované chování.
 
-Vezměte v úvahu `PetDetails` následující součást, kterou je možné ručně vytvořit do jiné komponenty:
+Vezměte v úvahu následující `PetDetails` součást, kterou je možné ručně vytvořit do jiné komponenty:
 
 ```razor
 <h2>Pet Details Component</h2>
@@ -93,7 +81,7 @@ Vezměte v úvahu `PetDetails` následující součást, kterou je možné ručn
 }
 ```
 
-V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `PetDetails` komponenty. Při volání `RenderTreeBuilder` metod pro vytvoření komponent (`OpenComponent` a `AddAttribute`) jsou pořadová čísla čísla řádků zdrojového kódu. Algoritmus rozdílu Blazor spoléhá na pořadová čísla, která odpovídají jedinečným řádkům kódu, a neliší vyvolání volání. Při vytváření komponenty s `RenderTreeBuilder` metodami nekódujte pevně argumenty pro pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadového čísla může vést k špatnému výkonu.** Další informace naleznete v části [pořadové číslo se vztahuje na čísla řádků kódu a nikoli na oddíl pořadí provádění](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) .
+V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `PetDetails` komponenty. Při volání <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> metod pro vytvoření komponent ( `OpenComponent` a `AddAttribute` ) jsou pořadová čísla čísla řádků zdrojového kódu. BlazorRozdílový algoritmus spoléhá na pořadová čísla, která odpovídají jedinečným řádkům kódu, nikoli rozdíl volání volání. Při vytváření komponenty s <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> metodami nekódujte pevně argumenty pro pořadová čísla. **Použití výpočtu nebo čítače k vygenerování pořadového čísla může vést k špatnému výkonu.** Další informace naleznete v části [pořadové číslo se vztahuje na čísla řádků kódu a nikoli na oddíl pořadí provádění](#sequence-numbers-relate-to-code-line-numbers-and-not-execution-order) .
 
 `BuiltContent`část
 
@@ -129,15 +117,15 @@ V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `
 ```
 
 > [!WARNING]
-> Typy v `Microsoft.AspNetCore.Components.RenderTree` nástroji umožňují zpracování *výsledků* operací vykreslování. Jedná se o interní podrobnosti implementace Blazor Framework. Tyto typy by měly být považovány za *nestabilní* a mohou se změnit v budoucích verzích.
+> Typy v nástroji <xref:Microsoft.AspNetCore.Components.RenderTree> umožňují zpracování *výsledků* operací vykreslování. Jedná se o interní podrobnosti Blazor implementace rozhraní. Tyto typy by měly být považovány za *nestabilní* a mohou se změnit v budoucích verzích.
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>Pořadová čísla se vztahují na čísla řádků kódu a nikoli na pořadí provádění.
 
-Soubory komponent Razor (*. Razor*) jsou vždy kompilovány. Kompilace je potenciální výhodou pro interpretaci kódu, protože krok kompilace lze použít k vložení informací, které zvyšují výkon aplikace za běhu.
+Razorsoubory komponent (*. Razor*) jsou vždy kompilovány. Kompilace je potenciální výhodou pro interpretaci kódu, protože krok kompilace lze použít k vložení informací, které zvyšují výkon aplikace za běhu.
 
 Hlavní příklad těchto vylepšení zahrnuje *pořadová čísla*. Pořadová čísla označují modul runtime, ze kterého výstupy pocházejí, ze kterých se liší a seřazené řádky kódu. Modul runtime používá tyto informace k vygenerování efektivních rozdílů stromu v lineárním čase, což je mnohem rychlejší než obvykle pro obecný rozdílový algoritmus stromu.
 
-Vezměte v úvahu následující soubor součásti Razor (*. Razor*):
+Vezměte v úvahu následující Razor soubor součásti (*. Razor*):
 
 ```razor
 @if (someFlag)
@@ -159,20 +147,78 @@ if (someFlag)
 builder.AddContent(1, "Second");
 ```
 
-V případě, že se kód spustí poprvé, v `someFlag` případě `true`, že je, tvůrce obdrží:
+V případě, že se kód spustí poprvé, `someFlag` v případě `true` , že je, tvůrce obdrží:
 
 | Sequence | Typ      | Data   |
-| :------: | --------- | :----: |
-| 0        | Textový uzel | První  |
-| 1        | Textový uzel | 1 sekunda |
+| :---
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Představte si, že `someFlag` se `false`zobrazí a značka se znovu vykreslí. Tentokrát Tvůrce získá:
+---: | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | :----: | | 0 | Textový uzel | První | | 1 | Textový uzel | Druhý |
+
+Představte si, že se `someFlag` `false` zobrazí a značka se znovu vykreslí. Tentokrát Tvůrce získá:
 
 | Sequence | Typ       | Data   |
-| :------: | ---------- | :----: |
-| 1        | Textový uzel  | 1 sekunda |
+| :---
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci `0` byla odebrána, takže generuje následující skript triviálního *úprav*:
+---: | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | :----: | | 1 | Textový uzel | Druhý |
+
+Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci `0` byla odebrána, takže generuje následující *skript*triviálního úprav:
 
 * Odeberte první textový uzel.
 
@@ -194,19 +240,76 @@ builder.AddContent(seq++, "Second");
 Teď je první výstup:
 
 | Sequence | Typ      | Data   |
-| :------: | --------- | :----: |
-| 0        | Textový uzel | První  |
-| 1        | Textový uzel | 1 sekunda |
+| :---
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---: | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | :----: | | 0 | Textový uzel | První | | 1 | Textový uzel | Druhý |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag`je `false` ve druhém vykreslování a výstup je:
 
 | Sequence | Typ      | Data   |
-| :------: | --------- | ------ |
-| 0        | Textový uzel | 1 sekunda |
+| :---
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---: | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--- | | 0 | Textový uzel | Druhý |
 
 Tentokrát rozdílový algoritmus uvidí, že došlo ke *dvěma* změnám, a algoritmus generuje následující skript pro úpravy:
 
-* Změňte hodnotu prvního textového uzlu na `Second`.
+* Změňte hodnotu prvního textového uzlu na `Second` .
 * Odeberte druhý textový uzel.
 
 Generování pořadových čísel ztratilo všechny užitečné informace o tom, kde `if/else` byly větve a cykly přítomny v původním kódu. To vede ke rozdílu **dvakrát, jak dlouho** chcete.
@@ -217,20 +320,20 @@ Toto je triviální příklad. Ve složitějších případech se složitými a 
 
 * Pokud jsou automaticky generována pořadová čísla, je výkon aplikace zhoršen.
 * Rozhraní nemůže automaticky vytvořit vlastní pořadová čísla za běhu, protože potřebné informace neexistují, pokud není zachycena v době kompilace.
-* Nepište dlouhé bloky ručně implementované `RenderTreeBuilder` logiky. Preferovat soubory *. Razor* a umožněte kompilátoru, aby se zabývat pořadovým číslem. Pokud se nemůžete vyhnout manuální `RenderTreeBuilder` logice, rozdělte dlouhé bloky kódu do menších částí zabalených v `OpenRegion` / `CloseRegion` voláních. Každá oblast má vlastní oddělený prostor pořadových čísel, takže v každé oblasti můžete restartovat z nuly (nebo jakéhokoli jiného libovolného čísla).
+* Nepište dlouhé bloky ručně implementované <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logiky. Preferovat soubory *. Razor* a umožněte kompilátoru, aby se zabývat pořadovým číslem. Pokud se nemůžete vyhnout manuální <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logice, rozdělte dlouhé bloky kódu do menších částí zabalených v <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A> / <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> voláních. Každá oblast má vlastní oddělený prostor pořadových čísel, takže v každé oblasti můžete restartovat z nuly (nebo jakéhokoli jiného libovolného čísla).
 * Pokud jsou pořadová čísla pevně zakódované, rozdílový algoritmus vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou nepodstatné. Jednou z oprávněných možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit podle hodnoty nebo stovky (případně z upřednostňovaného intervalu). 
 * Blazorpoužívá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdílování je mnohem rychlejší při použití pořadových čísel a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře, který vytváří soubory *. Razor* .
 
-## <a name="perform-large-data-transfers-in-blazor-server-apps"></a>Provádění rozsáhlých přenosů Blazor dat v serverových aplikacích
+## <a name="perform-large-data-transfers-in-blazor-server-apps"></a>Provádění rozsáhlých přenosů dat v Blazor serverových aplikacích
 
-V některých scénářích je nutné přenášet velké objemy dat mezi jazykem BlazorJavaScript a. K přenosu velkých objemů dat se obvykle dochází v těchto případech:
+V některých scénářích je nutné přenášet velké objemy dat mezi jazykem JavaScript a Blazor . K přenosu velkých objemů dat se obvykle dochází v těchto případech:
 
 * Rozhraní API pro systém souborů v prohlížeči slouží k nahrání nebo stažení souboru.
 * Je vyžadována interoperabilita s knihovnou třetích stran.
 
 Na Blazor serveru platí omezení, aby nedocházelo k předávání jednoduchých zpráv, které by mohly způsobit problémy s výkonem.
 
-Při vývoji kódu, který přenáší data mezi JavaScriptem a Blazornásledujícími možnostmi, vezměte v úvahu následující pokyny:
+Při vývoji kódu, který přenáší data mezi JavaScriptem a následujícími možnostmi, vezměte v úvahu následující pokyny Blazor :
 
 * Rozdělí data na menší části a datové segmenty se postupně odesílají, dokud server neobdrží všechna data.
 * Nepřiřazujte velké objekty v kódu JavaScript a C#.
@@ -335,16 +438,16 @@ public class FileUploader : IDisposable
 
 V předchozím příkladu:
 
-* `maxBase64SegmentSize` Je nastaven na `8192`, který je vypočten z `maxBase64SegmentSize = segmentSize * 4 / 3`.
-* Rozhraní API pro správu paměti nižší úrovně v rozhraní .NET Core se používají k ukládání segmentů paměti na `uploadedSegments`serveru v.
-* `ReceiveFile` Metoda se používá ke zpracování odesílání prostřednictvím zprostředkovatele komunikace JS:
-  * Velikost souboru je určena v bajtech přes interoperabilitu JS `jsRuntime.InvokeAsync<FileInfo>('getFileSize', selector)`s.
-  * Počet segmentů, které se mají přijmout, se vypočítávají a ukládají v `numberOfSegments`.
-  * Segmenty jsou požadovány ve `for` smyčce přes interoperabilitu js `jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)`s. Všechny segmenty, ale poslední, musí mít 8 192 bajtů před dekódováním. Klient je nucen posílat data účinným způsobem.
-  * Pro každý přijatý segment jsou kontroly provedeny před dekódováním pomocí <xref:System.Convert.TryFromBase64String%2A>.
-  * Po dokončení nahrávání se datový proud s daty vrátí jako <xref:System.IO.Stream> nový`SegmentedStream`().
+* `maxBase64SegmentSize`Je nastaven na `8192` , který je vypočten z `maxBase64SegmentSize = segmentSize * 4 / 3` .
+* Rozhraní API pro správu paměti nižší úrovně v rozhraní .NET Core se používají k ukládání segmentů paměti na serveru v `uploadedSegments` .
+* `ReceiveFile`Metoda se používá ke zpracování odesílání prostřednictvím zprostředkovatele komunikace JS:
+  * Velikost souboru je určena v bajtech přes interoperabilitu JS s `jsRuntime.InvokeAsync<FileInfo>('getFileSize', selector)` .
+  * Počet segmentů, které se mají přijmout, se vypočítávají a ukládají v `numberOfSegments` .
+  * Segmenty jsou požadovány ve `for` smyčce přes interoperabilitu js s `jsRuntime.InvokeAsync<string>('receiveSegment', i, selector)` . Všechny segmenty, ale poslední, musí mít 8 192 bajtů před dekódováním. Klient je nucen posílat data účinným způsobem.
+  * Pro každý přijatý segment jsou kontroly provedeny před dekódováním pomocí <xref:System.Convert.TryFromBase64String%2A> .
+  * Po dokončení nahrávání se datový proud s daty vrátí jako nový <xref:System.IO.Stream> ( `SegmentedStream` ).
 
-Třída segmentace Stream zpřístupňuje seznam segmentů jako jen pro čtení, které nemůžete prohledávat <xref:System.IO.Stream>:
+Třída segmentace Stream zpřístupňuje seznam segmentů jako jen pro čtení, které nemůžete prohledávat <xref:System.IO.Stream> :
 
 ```csharp
 using System;
