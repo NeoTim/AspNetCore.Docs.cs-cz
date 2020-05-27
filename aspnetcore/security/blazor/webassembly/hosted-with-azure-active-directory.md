@@ -1,145 +1,145 @@
 ---
-<span data-ttu-id="6a1b3-101">title: ' zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly pomocí Azure Active Directory ' Author: Description: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-101">title: 'Secure an ASP.NET Core Blazor WebAssembly hosted app with Azure Active Directory' author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
-- <span data-ttu-id="6a1b3-102">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="6a1b3-102">'Blazor'</span></span>
-- <span data-ttu-id="6a1b3-103">'Identity'</span><span class="sxs-lookup"><span data-stu-id="6a1b3-103">'Identity'</span></span>
-- <span data-ttu-id="6a1b3-104">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="6a1b3-104">'Let's Encrypt'</span></span>
-- <span data-ttu-id="6a1b3-105">'Razor'</span><span class="sxs-lookup"><span data-stu-id="6a1b3-105">'Razor'</span></span>
-- <span data-ttu-id="6a1b3-106">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-106">'SignalR' uid:</span></span> 
+<span data-ttu-id="9f051-101">title: ' zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly pomocí Azure Active Directory ' Author: Description: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:</span><span class="sxs-lookup"><span data-stu-id="9f051-101">title: 'Secure an ASP.NET Core Blazor WebAssembly hosted app with Azure Active Directory' author: description: monikerRange: ms.author: ms.custom: ms.date: no-loc:</span></span>
+- <span data-ttu-id="9f051-102">'Blazor'</span><span class="sxs-lookup"><span data-stu-id="9f051-102">'Blazor'</span></span>
+- <span data-ttu-id="9f051-103">'Identity'</span><span class="sxs-lookup"><span data-stu-id="9f051-103">'Identity'</span></span>
+- <span data-ttu-id="9f051-104">'Let's Encrypt'</span><span class="sxs-lookup"><span data-stu-id="9f051-104">'Let's Encrypt'</span></span>
+- <span data-ttu-id="9f051-105">'Razor'</span><span class="sxs-lookup"><span data-stu-id="9f051-105">'Razor'</span></span>
+- <span data-ttu-id="9f051-106">SignalRUID:</span><span class="sxs-lookup"><span data-stu-id="9f051-106">'SignalR' uid:</span></span> 
 
 ---
-# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory"></a><span data-ttu-id="6a1b3-107">Zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly pomocí Azure Active Directory</span><span class="sxs-lookup"><span data-stu-id="6a1b3-107">Secure an ASP.NET Core Blazor WebAssembly hosted app with Azure Active Directory</span></span>
+# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory"></a><span data-ttu-id="9f051-107">Zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly pomocí Azure Active Directory</span><span class="sxs-lookup"><span data-stu-id="9f051-107">Secure an ASP.NET Core Blazor WebAssembly hosted app with Azure Active Directory</span></span>
 
-<span data-ttu-id="6a1b3-108">Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="6a1b3-108">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="9f051-108">Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="9f051-108">By [Javier Calvarro Nelson](https://github.com/javiercn) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="6a1b3-109">Tento článek popisuje, jak vytvořit [ Blazor hostovanou aplikaci WebAssembly](xref:blazor/hosting-models#blazor-webassembly) , která pro ověřování používá [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-109">This article describes how to create a [Blazor WebAssembly hosted app](xref:blazor/hosting-models#blazor-webassembly) that uses [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) for authentication.</span></span>
+<span data-ttu-id="9f051-109">Tento článek popisuje, jak vytvořit [ Blazor hostovanou aplikaci WebAssembly](xref:blazor/hosting-models#blazor-webassembly) , která pro ověřování používá [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) .</span><span class="sxs-lookup"><span data-stu-id="9f051-109">This article describes how to create a [Blazor WebAssembly hosted app](xref:blazor/hosting-models#blazor-webassembly) that uses [Azure Active Directory (AAD)](https://azure.microsoft.com/services/active-directory/) for authentication.</span></span>
 
-## <a name="register-apps-in-aad-and-create-solution"></a><span data-ttu-id="6a1b3-110">Registrace aplikací v AAD a vytvoření řešení</span><span class="sxs-lookup"><span data-stu-id="6a1b3-110">Register apps in AAD and create solution</span></span>
+## <a name="register-apps-in-aad-and-create-solution"></a><span data-ttu-id="9f051-110">Registrace aplikací v AAD a vytvoření řešení</span><span class="sxs-lookup"><span data-stu-id="9f051-110">Register apps in AAD and create solution</span></span>
 
-### <a name="create-a-tenant"></a><span data-ttu-id="6a1b3-111">Vytvoření tenanta</span><span class="sxs-lookup"><span data-stu-id="6a1b3-111">Create a tenant</span></span>
+### <a name="create-a-tenant"></a><span data-ttu-id="9f051-111">Vytvoření tenanta</span><span class="sxs-lookup"><span data-stu-id="9f051-111">Create a tenant</span></span>
 
-<span data-ttu-id="6a1b3-112">Postupujte podle pokynů v [rychlém startu: nastavení tenanta](/azure/active-directory/develop/quickstart-create-new-tenant) pro vytvoření TENANTA v AAD.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-112">Follow the guidance in [Quickstart: Set up a tenant](/azure/active-directory/develop/quickstart-create-new-tenant) to create a tenant in AAD.</span></span>
+<span data-ttu-id="9f051-112">Postupujte podle pokynů v [rychlém startu: nastavení tenanta](/azure/active-directory/develop/quickstart-create-new-tenant) pro vytvoření TENANTA v AAD.</span><span class="sxs-lookup"><span data-stu-id="9f051-112">Follow the guidance in [Quickstart: Set up a tenant](/azure/active-directory/develop/quickstart-create-new-tenant) to create a tenant in AAD.</span></span>
 
-### <a name="register-a-server-api-app"></a><span data-ttu-id="6a1b3-113">Registrace aplikace API serveru</span><span class="sxs-lookup"><span data-stu-id="6a1b3-113">Register a server API app</span></span>
+### <a name="register-a-server-api-app"></a><span data-ttu-id="9f051-113">Registrace aplikace API serveru</span><span class="sxs-lookup"><span data-stu-id="9f051-113">Register a server API app</span></span>
 
-<span data-ttu-id="6a1b3-114">Postupujte podle pokynů v [rychlém startu: registrace aplikace s využitím platformy Microsoft Identity Platform](/azure/active-directory/develop/quickstart-register-app) a dalších témat Azure AAD k registraci aplikace AAD pro *aplikaci API serveru*:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-114">Follow the guidance in [Quickstart: Register an application with the Microsoft identity platform](/azure/active-directory/develop/quickstart-register-app) and subsequent Azure AAD topics to register an AAD app for the *Server API app*:</span></span>
+<span data-ttu-id="9f051-114">Postupujte podle pokynů v [rychlém startu: registrace aplikace s využitím platformy Microsoft Identity Platform](/azure/active-directory/develop/quickstart-register-app) a dalších témat Azure AAD k registraci aplikace AAD pro *aplikaci API serveru*:</span><span class="sxs-lookup"><span data-stu-id="9f051-114">Follow the guidance in [Quickstart: Register an application with the Microsoft identity platform](/azure/active-directory/develop/quickstart-register-app) and subsequent Azure AAD topics to register an AAD app for the *Server API app*:</span></span>
 
-1. <span data-ttu-id="6a1b3-115">V **Azure Active Directory**  >  **Registrace aplikací**vyberte možnost **Nová registrace**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-115">In **Azure Active Directory** > **App registrations**, select **New registration**.</span></span>
-1. <span data-ttu-id="6a1b3-116">Zadejte **název** aplikace (například \*\* Blazor AAD serveru\*\*).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-116">Provide a **Name** for the app (for example, **Blazor Server AAD**).</span></span>
-1. <span data-ttu-id="6a1b3-117">Vyberte **podporované typy účtů**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-117">Choose a **Supported account types**.</span></span> <span data-ttu-id="6a1b3-118">Pro toto prostředí můžete vybrat **účty pouze v tomto organizačním adresáři** (jeden tenant).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-118">You may select **Accounts in this organizational directory only** (single tenant) for this experience.</span></span>
-1. <span data-ttu-id="6a1b3-119">*Aplikace API serveru* v tomto scénáři nevyžaduje **identifikátor URI přesměrování** , proto nechejte rozevírací seznam nastavený na **Web** a nezadávejte identifikátor URI přesměrování.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-119">The *Server API app* doesn't require a **Redirect URI** in this scenario, so leave the drop down set to **Web** and don't enter a redirect URI.</span></span>
-1. <span data-ttu-id="6a1b3-120">Zakažte **oprávnění**  >  **udělit správcům oprávnění k OpenID a offline_access** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-120">Disable the **Permissions** > **Grant admin concent to openid and offline_access permissions** check box.</span></span>
-1. <span data-ttu-id="6a1b3-121">Vyberte **Zaregistrovat**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-121">Select **Register**.</span></span>
+1. <span data-ttu-id="9f051-115">V **Azure Active Directory**  >  **Registrace aplikací**vyberte možnost **Nová registrace**.</span><span class="sxs-lookup"><span data-stu-id="9f051-115">In **Azure Active Directory** > **App registrations**, select **New registration**.</span></span>
+1. <span data-ttu-id="9f051-116">Zadejte **název** aplikace (například \*\* Blazor AAD serveru\*\*).</span><span class="sxs-lookup"><span data-stu-id="9f051-116">Provide a **Name** for the app (for example, **Blazor Server AAD**).</span></span>
+1. <span data-ttu-id="9f051-117">Vyberte **podporované typy účtů**.</span><span class="sxs-lookup"><span data-stu-id="9f051-117">Choose a **Supported account types**.</span></span> <span data-ttu-id="9f051-118">Pro toto prostředí můžete vybrat **účty pouze v tomto organizačním adresáři** (jeden tenant).</span><span class="sxs-lookup"><span data-stu-id="9f051-118">You may select **Accounts in this organizational directory only** (single tenant) for this experience.</span></span>
+1. <span data-ttu-id="9f051-119">*Aplikace API serveru* v tomto scénáři nevyžaduje **identifikátor URI přesměrování** , proto nechejte rozevírací seznam nastavený na **Web** a nezadávejte identifikátor URI přesměrování.</span><span class="sxs-lookup"><span data-stu-id="9f051-119">The *Server API app* doesn't require a **Redirect URI** in this scenario, so leave the drop down set to **Web** and don't enter a redirect URI.</span></span>
+1. <span data-ttu-id="9f051-120">Zakažte **oprávnění**  >  **udělit správcům oprávnění k OpenID a offline_access** .</span><span class="sxs-lookup"><span data-stu-id="9f051-120">Disable the **Permissions** > **Grant admin concent to openid and offline_access permissions** check box.</span></span>
+1. <span data-ttu-id="9f051-121">Vyberte **Zaregistrovat**.</span><span class="sxs-lookup"><span data-stu-id="9f051-121">Select **Register**.</span></span>
 
-<span data-ttu-id="6a1b3-122">Zaznamenejte následující informace:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-122">Record the following information:</span></span>
+<span data-ttu-id="9f051-122">Zaznamenejte následující informace:</span><span class="sxs-lookup"><span data-stu-id="9f051-122">Record the following information:</span></span>
 
-* <span data-ttu-id="6a1b3-123">*Aplikace API serveru* ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111` )</span><span class="sxs-lookup"><span data-stu-id="6a1b3-123">*Server API app* Application ID (Client ID) (for example, `11111111-1111-1111-1111-111111111111`)</span></span>
-* <span data-ttu-id="6a1b3-124">ID adresáře (ID klienta) (například `222222222-2222-2222-2222-222222222222` )</span><span class="sxs-lookup"><span data-stu-id="6a1b3-124">Directory ID (Tenant ID) (for example, `222222222-2222-2222-2222-222222222222`)</span></span>
-* <span data-ttu-id="6a1b3-125">Doména tenanta AAD (například `contoso.onmicrosoft.com` ) &ndash; doména je k dispozici jako **doména vydavatele** v okně **značky** Azure Portal pro registrovanou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-125">AAD Tenant domain (for example, `contoso.onmicrosoft.com`) &ndash; The domain is available as the **Publisher domain** in the **Branding** blade of the Azure portal for the registered app.</span></span>
+* <span data-ttu-id="9f051-123">*Aplikace API serveru* ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111` )</span><span class="sxs-lookup"><span data-stu-id="9f051-123">*Server API app* Application ID (Client ID) (for example, `11111111-1111-1111-1111-111111111111`)</span></span>
+* <span data-ttu-id="9f051-124">ID adresáře (ID klienta) (například `222222222-2222-2222-2222-222222222222` )</span><span class="sxs-lookup"><span data-stu-id="9f051-124">Directory ID (Tenant ID) (for example, `222222222-2222-2222-2222-222222222222`)</span></span>
+* <span data-ttu-id="9f051-125">Doména tenanta AAD (například `contoso.onmicrosoft.com` ) &ndash; doména je k dispozici jako **doména vydavatele** v okně **značky** Azure Portal pro registrovanou aplikaci.</span><span class="sxs-lookup"><span data-stu-id="9f051-125">AAD Tenant domain (for example, `contoso.onmicrosoft.com`) &ndash; The domain is available as the **Publisher domain** in the **Branding** blade of the Azure portal for the registered app.</span></span>
 
-<span data-ttu-id="6a1b3-126">V okně **oprávnění rozhraní API**odeberte **Microsoft Graph**  >  **uživatel. číst** , protože aplikace nevyžaduje přihlášení ani přístup k profilu uživatele.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-126">In **API permissions**, remove the **Microsoft Graph** > **User.Read** permission, as the app doesn't require sign in or user profile access.</span></span>
+<span data-ttu-id="9f051-126">V okně **oprávnění rozhraní API**odeberte **Microsoft Graph**  >  **uživatel. číst** , protože aplikace nevyžaduje přihlášení ani přístup k profilu uživatele.</span><span class="sxs-lookup"><span data-stu-id="9f051-126">In **API permissions**, remove the **Microsoft Graph** > **User.Read** permission, as the app doesn't require sign in or user profile access.</span></span>
 
-<span data-ttu-id="6a1b3-127">Ve **vystavení rozhraní API**:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-127">In **Expose an API**:</span></span>
+<span data-ttu-id="9f051-127">Ve **vystavení rozhraní API**:</span><span class="sxs-lookup"><span data-stu-id="9f051-127">In **Expose an API**:</span></span>
 
-1. <span data-ttu-id="6a1b3-128">Vyberte **Přidat obor**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-128">Select **Add a scope**.</span></span>
-1. <span data-ttu-id="6a1b3-129">Vyberte **Uložit a pokračovat**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-129">Select **Save and continue**.</span></span>
-1. <span data-ttu-id="6a1b3-130">Zadejte **název oboru** (například `API.Access` ).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-130">Provide a **Scope name** (for example, `API.Access`).</span></span>
-1. <span data-ttu-id="6a1b3-131">Zadejte **Zobrazovaný název souhlasu správce** (například `Access API` ).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-131">Provide an **Admin consent display name** (for example, `Access API`).</span></span>
-1. <span data-ttu-id="6a1b3-132">Zadejte **Popis souhlasu správce** (například `Allows the app to access server app API endpoints.` ).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-132">Provide an **Admin consent description** (for example, `Allows the app to access server app API endpoints.`).</span></span>
-1. <span data-ttu-id="6a1b3-133">Potvrďte, že je **stav** nastavený na **povoleno**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-133">Confirm that the **State** is set to **Enabled**.</span></span>
-1. <span data-ttu-id="6a1b3-134">Vyberte **Přidat obor**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-134">Select **Add scope**.</span></span>
+1. <span data-ttu-id="9f051-128">Vyberte **Přidat obor**.</span><span class="sxs-lookup"><span data-stu-id="9f051-128">Select **Add a scope**.</span></span>
+1. <span data-ttu-id="9f051-129">Vyberte **Uložit a pokračovat**.</span><span class="sxs-lookup"><span data-stu-id="9f051-129">Select **Save and continue**.</span></span>
+1. <span data-ttu-id="9f051-130">Zadejte **název oboru** (například `API.Access` ).</span><span class="sxs-lookup"><span data-stu-id="9f051-130">Provide a **Scope name** (for example, `API.Access`).</span></span>
+1. <span data-ttu-id="9f051-131">Zadejte **Zobrazovaný název souhlasu správce** (například `Access API` ).</span><span class="sxs-lookup"><span data-stu-id="9f051-131">Provide an **Admin consent display name** (for example, `Access API`).</span></span>
+1. <span data-ttu-id="9f051-132">Zadejte **Popis souhlasu správce** (například `Allows the app to access server app API endpoints.` ).</span><span class="sxs-lookup"><span data-stu-id="9f051-132">Provide an **Admin consent description** (for example, `Allows the app to access server app API endpoints.`).</span></span>
+1. <span data-ttu-id="9f051-133">Potvrďte, že je **stav** nastavený na **povoleno**.</span><span class="sxs-lookup"><span data-stu-id="9f051-133">Confirm that the **State** is set to **Enabled**.</span></span>
+1. <span data-ttu-id="9f051-134">Vyberte **Přidat obor**.</span><span class="sxs-lookup"><span data-stu-id="9f051-134">Select **Add scope**.</span></span>
 
-<span data-ttu-id="6a1b3-135">Zaznamenejte následující informace:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-135">Record the following information:</span></span>
+<span data-ttu-id="9f051-135">Zaznamenejte následující informace:</span><span class="sxs-lookup"><span data-stu-id="9f051-135">Record the following information:</span></span>
 
-* <span data-ttu-id="6a1b3-136">Identifikátor URI ID aplikace (například, `https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111` , `api://11111111-1111-1111-1111-111111111111` nebo vlastní hodnota, kterou jste zadali)</span><span class="sxs-lookup"><span data-stu-id="6a1b3-136">App ID URI (for example, `https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111`, `api://11111111-1111-1111-1111-111111111111`, or the custom value that you provided)</span></span>
-* <span data-ttu-id="6a1b3-137">Výchozí obor (například `API.Access` )</span><span class="sxs-lookup"><span data-stu-id="6a1b3-137">Default scope (for example, `API.Access`)</span></span>
+* <span data-ttu-id="9f051-136">Identifikátor URI ID aplikace (například, `https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111` , `api://11111111-1111-1111-1111-111111111111` nebo vlastní hodnota, kterou jste zadali)</span><span class="sxs-lookup"><span data-stu-id="9f051-136">App ID URI (for example, `https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111`, `api://11111111-1111-1111-1111-111111111111`, or the custom value that you provided)</span></span>
+* <span data-ttu-id="9f051-137">Výchozí obor (například `API.Access` )</span><span class="sxs-lookup"><span data-stu-id="9f051-137">Default scope (for example, `API.Access`)</span></span>
 
-### <a name="register-a-client-app"></a><span data-ttu-id="6a1b3-138">Registrace klientské aplikace</span><span class="sxs-lookup"><span data-stu-id="6a1b3-138">Register a client app</span></span>
+### <a name="register-a-client-app"></a><span data-ttu-id="9f051-138">Registrace klientské aplikace</span><span class="sxs-lookup"><span data-stu-id="9f051-138">Register a client app</span></span>
 
-<span data-ttu-id="6a1b3-139">Postupujte podle pokynů v [rychlém startu: registrace aplikace s využitím platformy Microsoft Identity Platform](/azure/active-directory/develop/quickstart-register-app) a dalších témat Azure AAD k registraci aplikace AAD pro *klientskou aplikaci*:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-139">Follow the guidance in [Quickstart: Register an application with the Microsoft identity platform](/azure/active-directory/develop/quickstart-register-app) and subsequent Azure AAD topics to register a AAD app for the *Client app*:</span></span>
+<span data-ttu-id="9f051-139">Postupujte podle pokynů v [rychlém startu: registrace aplikace s využitím platformy Microsoft Identity Platform](/azure/active-directory/develop/quickstart-register-app) a dalších témat Azure AAD k registraci aplikace AAD pro *klientskou aplikaci*:</span><span class="sxs-lookup"><span data-stu-id="9f051-139">Follow the guidance in [Quickstart: Register an application with the Microsoft identity platform](/azure/active-directory/develop/quickstart-register-app) and subsequent Azure AAD topics to register a AAD app for the *Client app*:</span></span>
 
-1. <span data-ttu-id="6a1b3-140">V **Azure Active Directory**  >  **Registrace aplikací**vyberte možnost **Nová registrace**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-140">In **Azure Active Directory** > **App registrations**, select **New registration**.</span></span>
-1. <span data-ttu-id="6a1b3-141">Zadejte **název** aplikace (například \*\* Blazor AAD klienta\*\*).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-141">Provide a **Name** for the app (for example, **Blazor Client AAD**).</span></span>
-1. <span data-ttu-id="6a1b3-142">Vyberte **podporované typy účtů**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-142">Choose a **Supported account types**.</span></span> <span data-ttu-id="6a1b3-143">Pro toto prostředí můžete vybrat **účty pouze v tomto organizačním adresáři** (jeden tenant).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-143">You may select **Accounts in this organizational directory only** (single tenant) for this experience.</span></span>
-1. <span data-ttu-id="6a1b3-144">Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-144">Leave the **Redirect URI** drop down set to **Web** and provide the following redirect URI: `https://localhost:{PORT}/authentication/login-callback`.</span></span> <span data-ttu-id="6a1b3-145">Výchozí port pro aplikaci běžící na Kestrel je 5001.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-145">The default port for an app running on Kestrel is 5001.</span></span> <span data-ttu-id="6a1b3-146">Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-146">If the app is run on a different Kestrel port, use the app's port.</span></span> <span data-ttu-id="6a1b3-147">Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve vlastnostech serverové aplikace na panelu **ladění** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-147">For IIS Express, the randomly generated port for the app can be found in the Server app's properties in the **Debug** panel.</span></span> <span data-ttu-id="6a1b3-148">Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-148">Since the app doesn't exist at this point and the IIS Express port isn't known, return to this step after the app is created and update the redirect URI.</span></span> <span data-ttu-id="6a1b3-149">V části [Vytvoření aplikace](#create-the-app) se zobrazí zpráva s upozorněním, že IIS Express uživatelé chtějí aktualizovat identifikátor URI přesměrování.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-149">A remark appears in the [Create the app](#create-the-app) section to remind IIS Express users to update the redirect URI.</span></span>
-1. <span data-ttu-id="6a1b3-150">Zakažte **oprávnění**  >  **udělit správcům oprávnění k OpenID a offline_access** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-150">Disable the **Permissions** > **Grant admin concent to openid and offline_access permissions** check box.</span></span>
-1. <span data-ttu-id="6a1b3-151">Vyberte **Zaregistrovat**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-151">Select **Register**.</span></span>
+1. <span data-ttu-id="9f051-140">V **Azure Active Directory**  >  **Registrace aplikací**vyberte možnost **Nová registrace**.</span><span class="sxs-lookup"><span data-stu-id="9f051-140">In **Azure Active Directory** > **App registrations**, select **New registration**.</span></span>
+1. <span data-ttu-id="9f051-141">Zadejte **název** aplikace (například \*\* Blazor AAD klienta\*\*).</span><span class="sxs-lookup"><span data-stu-id="9f051-141">Provide a **Name** for the app (for example, **Blazor Client AAD**).</span></span>
+1. <span data-ttu-id="9f051-142">Vyberte **podporované typy účtů**.</span><span class="sxs-lookup"><span data-stu-id="9f051-142">Choose a **Supported account types**.</span></span> <span data-ttu-id="9f051-143">Pro toto prostředí můžete vybrat **účty pouze v tomto organizačním adresáři** (jeden tenant).</span><span class="sxs-lookup"><span data-stu-id="9f051-143">You may select **Accounts in this organizational directory only** (single tenant) for this experience.</span></span>
+1. <span data-ttu-id="9f051-144">Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` .</span><span class="sxs-lookup"><span data-stu-id="9f051-144">Leave the **Redirect URI** drop down set to **Web** and provide the following redirect URI: `https://localhost:{PORT}/authentication/login-callback`.</span></span> <span data-ttu-id="9f051-145">Výchozí port pro aplikaci běžící na Kestrel je 5001.</span><span class="sxs-lookup"><span data-stu-id="9f051-145">The default port for an app running on Kestrel is 5001.</span></span> <span data-ttu-id="9f051-146">Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace.</span><span class="sxs-lookup"><span data-stu-id="9f051-146">If the app is run on a different Kestrel port, use the app's port.</span></span> <span data-ttu-id="9f051-147">Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve vlastnostech serverové aplikace na panelu **ladění** .</span><span class="sxs-lookup"><span data-stu-id="9f051-147">For IIS Express, the randomly generated port for the app can be found in the Server app's properties in the **Debug** panel.</span></span> <span data-ttu-id="9f051-148">Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování.</span><span class="sxs-lookup"><span data-stu-id="9f051-148">Since the app doesn't exist at this point and the IIS Express port isn't known, return to this step after the app is created and update the redirect URI.</span></span> <span data-ttu-id="9f051-149">V části [Vytvoření aplikace](#create-the-app) se zobrazí zpráva s upozorněním, že IIS Express uživatelé chtějí aktualizovat identifikátor URI přesměrování.</span><span class="sxs-lookup"><span data-stu-id="9f051-149">A remark appears in the [Create the app](#create-the-app) section to remind IIS Express users to update the redirect URI.</span></span>
+1. <span data-ttu-id="9f051-150">Zakažte **oprávnění**  >  **udělit správcům oprávnění k OpenID a offline_access** .</span><span class="sxs-lookup"><span data-stu-id="9f051-150">Disable the **Permissions** > **Grant admin concent to openid and offline_access permissions** check box.</span></span>
+1. <span data-ttu-id="9f051-151">Vyberte **Zaregistrovat**.</span><span class="sxs-lookup"><span data-stu-id="9f051-151">Select **Register**.</span></span>
 
-<span data-ttu-id="6a1b3-152">Zaznamenejte ID aplikace *klienta aplikace* (ID klienta) (například `33333333-3333-3333-3333-333333333333` ).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-152">Record the *Client app* Application ID (Client ID) (for example, `33333333-3333-3333-3333-333333333333`).</span></span>
+<span data-ttu-id="9f051-152">Zaznamenejte ID aplikace *klienta aplikace* (ID klienta) (například `33333333-3333-3333-3333-333333333333` ).</span><span class="sxs-lookup"><span data-stu-id="9f051-152">Record the *Client app* Application ID (Client ID) (for example, `33333333-3333-3333-3333-333333333333`).</span></span>
 
-<span data-ttu-id="6a1b3-153">Na webu konfigurace **ověřovacích**  >  **platforem**  >  **Web**:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-153">In **Authentication** > **Platform configurations** > **Web**:</span></span>
+<span data-ttu-id="9f051-153">Na webu konfigurace **ověřovacích**  >  **platforem**  >  **Web**:</span><span class="sxs-lookup"><span data-stu-id="9f051-153">In **Authentication** > **Platform configurations** > **Web**:</span></span>
 
-1. <span data-ttu-id="6a1b3-154">Ověřte, zda je **identifikátor URI přesměrování** k `https://localhost:{PORT}/authentication/login-callback` dispozici.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-154">Confirm the **Redirect URI** of `https://localhost:{PORT}/authentication/login-callback` is present.</span></span>
-1. <span data-ttu-id="6a1b3-155">V případě **implicitního udělení**zaškrtněte políčka pro **přístupové tokeny** a **tokeny ID**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-155">For **Implicit grant**, select the check boxes for **Access tokens** and **ID tokens**.</span></span>
-1. <span data-ttu-id="6a1b3-156">Zbývající výchozí hodnoty pro aplikaci jsou pro toto prostředí přijatelné.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-156">The remaining defaults for the app are acceptable for this experience.</span></span>
-1. <span data-ttu-id="6a1b3-157">Vyberte tlačítko **Uložit**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-157">Select the **Save** button.</span></span>
+1. <span data-ttu-id="9f051-154">Ověřte, zda je **identifikátor URI přesměrování** k `https://localhost:{PORT}/authentication/login-callback` dispozici.</span><span class="sxs-lookup"><span data-stu-id="9f051-154">Confirm the **Redirect URI** of `https://localhost:{PORT}/authentication/login-callback` is present.</span></span>
+1. <span data-ttu-id="9f051-155">V případě **implicitního udělení**zaškrtněte políčka pro **přístupové tokeny** a **tokeny ID**.</span><span class="sxs-lookup"><span data-stu-id="9f051-155">For **Implicit grant**, select the check boxes for **Access tokens** and **ID tokens**.</span></span>
+1. <span data-ttu-id="9f051-156">Zbývající výchozí hodnoty pro aplikaci jsou pro toto prostředí přijatelné.</span><span class="sxs-lookup"><span data-stu-id="9f051-156">The remaining defaults for the app are acceptable for this experience.</span></span>
+1. <span data-ttu-id="9f051-157">Vyberte tlačítko **Uložit**.</span><span class="sxs-lookup"><span data-stu-id="9f051-157">Select the **Save** button.</span></span>
 
-<span data-ttu-id="6a1b3-158">V **oprávněních rozhraní API**:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-158">In **API permissions**:</span></span>
+<span data-ttu-id="9f051-158">V **oprávněních rozhraní API**:</span><span class="sxs-lookup"><span data-stu-id="9f051-158">In **API permissions**:</span></span>
 
-1. <span data-ttu-id="6a1b3-159">Potvrďte, že aplikace má **Microsoft Graph**  >  oprávnění**uživatel. číst** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-159">Confirm that the app has **Microsoft Graph** > **User.Read** permission.</span></span>
-1. <span data-ttu-id="6a1b3-160">Vyberte **Přidat oprávnění** a potom **Moje rozhraní API**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-160">Select **Add a permission** followed by **My APIs**.</span></span>
-1. <span data-ttu-id="6a1b3-161">Vyberte *aplikaci API serveru* ze sloupce **název** (například \*\* Blazor AAD serveru\*\*).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-161">Select the *Server API app* from the **Name** column (for example, **Blazor Server AAD**).</span></span>
-1. <span data-ttu-id="6a1b3-162">Otevřete seznam **rozhraní API** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-162">Open the **API** list.</span></span>
-1. <span data-ttu-id="6a1b3-163">Povolte přístup k rozhraní API (například `API.Access` ).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-163">Enable access to the API (for example, `API.Access`).</span></span>
-1. <span data-ttu-id="6a1b3-164">Vyberte **Přidat oprávnění**.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-164">Select **Add permissions**.</span></span>
-1. <span data-ttu-id="6a1b3-165">Vyberte tlačítko **pro udělení obsahu správce pro {TENANT}** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-165">Select the **Grant admin content for {TENANT NAME}** button.</span></span> <span data-ttu-id="6a1b3-166">Výběrem **Ano** potvrďte.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-166">Select **Yes** to confirm.</span></span>
+1. <span data-ttu-id="9f051-159">Potvrďte, že aplikace má **Microsoft Graph**  >  oprávnění**uživatel. číst** .</span><span class="sxs-lookup"><span data-stu-id="9f051-159">Confirm that the app has **Microsoft Graph** > **User.Read** permission.</span></span>
+1. <span data-ttu-id="9f051-160">Vyberte **Přidat oprávnění** a potom **Moje rozhraní API**.</span><span class="sxs-lookup"><span data-stu-id="9f051-160">Select **Add a permission** followed by **My APIs**.</span></span>
+1. <span data-ttu-id="9f051-161">Vyberte *aplikaci API serveru* ze sloupce **název** (například \*\* Blazor AAD serveru\*\*).</span><span class="sxs-lookup"><span data-stu-id="9f051-161">Select the *Server API app* from the **Name** column (for example, **Blazor Server AAD**).</span></span>
+1. <span data-ttu-id="9f051-162">Otevřete seznam **rozhraní API** .</span><span class="sxs-lookup"><span data-stu-id="9f051-162">Open the **API** list.</span></span>
+1. <span data-ttu-id="9f051-163">Povolte přístup k rozhraní API (například `API.Access` ).</span><span class="sxs-lookup"><span data-stu-id="9f051-163">Enable access to the API (for example, `API.Access`).</span></span>
+1. <span data-ttu-id="9f051-164">Vyberte **Přidat oprávnění**.</span><span class="sxs-lookup"><span data-stu-id="9f051-164">Select **Add permissions**.</span></span>
+1. <span data-ttu-id="9f051-165">Vyberte tlačítko **pro udělení obsahu správce pro {TENANT}** .</span><span class="sxs-lookup"><span data-stu-id="9f051-165">Select the **Grant admin content for {TENANT NAME}** button.</span></span> <span data-ttu-id="9f051-166">Výběrem **Ano** potvrďte.</span><span class="sxs-lookup"><span data-stu-id="9f051-166">Select **Yes** to confirm.</span></span>
 
-### <a name="create-the-app"></a><span data-ttu-id="6a1b3-167">Vytvoření aplikace</span><span class="sxs-lookup"><span data-stu-id="6a1b3-167">Create the app</span></span>
+### <a name="create-the-app"></a><span data-ttu-id="9f051-167">Vytvoření aplikace</span><span class="sxs-lookup"><span data-stu-id="9f051-167">Create the app</span></span>
 
-<span data-ttu-id="6a1b3-168">Zástupné symboly v následujícím příkazu nahraďte dříve zaznamenanými informacemi a spusťte příkaz v příkazovém prostředí:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-168">Replace the placeholders in the following command with the information recorded earlier and execute the command in a command shell:</span></span>
+<span data-ttu-id="9f051-168">Zástupné symboly v následujícím příkazu nahraďte dříve zaznamenanými informacemi a spusťte příkaz v příkazovém prostředí:</span><span class="sxs-lookup"><span data-stu-id="9f051-168">Replace the placeholders in the following command with the information recorded earlier and execute the command in a command shell:</span></span>
 
 ```dotnetcli
 dotnet new blazorwasm -au SingleOrg --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{TENANT DOMAIN}" -ho --tenant-id "{TENANT ID}"
 ```
 
-<span data-ttu-id="6a1b3-169">Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample` ).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-169">To specify the output location, which creates a project folder if it doesn't exist, include the output option in the command with a path (for example, `-o BlazorSample`).</span></span> <span data-ttu-id="6a1b3-170">Název složky se také stal součástí názvu projektu.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-170">The folder name also becomes part of the project's name.</span></span>
+<span data-ttu-id="9f051-169">Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample` ).</span><span class="sxs-lookup"><span data-stu-id="9f051-169">To specify the output location, which creates a project folder if it doesn't exist, include the output option in the command with a path (for example, `-o BlazorSample`).</span></span> <span data-ttu-id="9f051-170">Název složky se také stal součástí názvu projektu.</span><span class="sxs-lookup"><span data-stu-id="9f051-170">The folder name also becomes part of the project's name.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="6a1b3-171">Předejte tomuto parametru identifikátor URI ID aplikace `app-id-uri` , ale Všimněte si, že se v klientské aplikaci může vyžadovat Změna konfigurace, která je popsaná v části [obory přístupového tokenu](#access-token-scopes) .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-171">Pass the App ID URI to the `app-id-uri` option, but note a configuration change might be required in the client app, which is described in the [Access token scopes](#access-token-scopes) section.</span></span>
+> <span data-ttu-id="9f051-171">Předejte tomuto parametru identifikátor URI ID aplikace `app-id-uri` , ale Všimněte si, že se v klientské aplikaci může vyžadovat Změna konfigurace, která je popsaná v části [obory přístupového tokenu](#access-token-scopes) .</span><span class="sxs-lookup"><span data-stu-id="9f051-171">Pass the App ID URI to the `app-id-uri` option, but note a configuration change might be required in the client app, which is described in the [Access token scopes](#access-token-scopes) section.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="6a1b3-172">V Azure Portal **Authentication** *Client app's*  >  **Platform configurations**  >  **Web**  >  pro aplikace, které běží na serveru Kestrel s výchozími nastaveními, je 5001 nakonfigurován**identifikátor URI** webu klientské aplikace konfigurace platformy ověřování.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-172">In the Azure portal, the *Client app's* **Authentication** > **Platform configurations** > **Web** > **Redirect URI** is configured for port 5001 for apps that run on the Kestrel server with default settings.</span></span>
+> <span data-ttu-id="9f051-172">V Azure Portal **Authentication** *Client app's*  >  **Platform configurations**  >  **Web**  >  pro aplikace, které běží na serveru Kestrel s výchozími nastaveními, je 5001 nakonfigurován**identifikátor URI** webu klientské aplikace konfigurace platformy ověřování.</span><span class="sxs-lookup"><span data-stu-id="9f051-172">In the Azure portal, the *Client app's* **Authentication** > **Platform configurations** > **Web** > **Redirect URI** is configured for port 5001 for apps that run on the Kestrel server with default settings.</span></span>
 >
-> <span data-ttu-id="6a1b3-173">Pokud *klientská aplikace* běží na náhodném IIS Express portu, port pro aplikaci najdete ve vlastnostech *serverové aplikace* na panelu **ladění** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-173">If the *Client app* is run on a random IIS Express port, the port for the app can be found in the *Server app's* properties in the **Debug** panel.</span></span>
+> <span data-ttu-id="9f051-173">Pokud *klientská aplikace* běží na náhodném IIS Express portu, port pro aplikaci najdete ve vlastnostech *serverové aplikace* na panelu **ladění** .</span><span class="sxs-lookup"><span data-stu-id="9f051-173">If the *Client app* is run on a random IIS Express port, the port for the app can be found in the *Server app's* properties in the **Debug** panel.</span></span>
 >
-> <span data-ttu-id="6a1b3-174">Pokud port nebyl dříve nakonfigurovaný se známým portem *klientské aplikace* , vraťte se k registraci *klientské aplikace* v Azure Portal a aktualizujte identifikátor URI přesměrování pomocí správného portu.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-174">If the port wasn't configured earlier with the *Client app's* known port, return to the *Client app's* registration in the Azure portal and update the redirect URI with the correct port.</span></span>
+> <span data-ttu-id="9f051-174">Pokud port nebyl dříve nakonfigurovaný se známým portem *klientské aplikace* , vraťte se k registraci *klientské aplikace* v Azure Portal a aktualizujte identifikátor URI přesměrování pomocí správného portu.</span><span class="sxs-lookup"><span data-stu-id="9f051-174">If the port wasn't configured earlier with the *Client app's* known port, return to the *Client app's* registration in the Azure portal and update the redirect URI with the correct port.</span></span>
 
-## <a name="server-app-configuration"></a><span data-ttu-id="6a1b3-175">Konfigurace aplikace serveru</span><span class="sxs-lookup"><span data-stu-id="6a1b3-175">Server app configuration</span></span>
+## <a name="server-app-configuration"></a><span data-ttu-id="9f051-175">Konfigurace aplikace serveru</span><span class="sxs-lookup"><span data-stu-id="9f051-175">Server app configuration</span></span>
 
-<span data-ttu-id="6a1b3-176">*Tato část se vztahuje k **serverové** aplikaci řešení.*</span><span class="sxs-lookup"><span data-stu-id="6a1b3-176">*This section pertains to the solution's **Server** app.*</span></span>
+<span data-ttu-id="9f051-176">*Tato část se vztahuje k **serverové** aplikaci řešení.*</span><span class="sxs-lookup"><span data-stu-id="9f051-176">*This section pertains to the solution's **Server** app.*</span></span>
 
-### <a name="authentication-package"></a><span data-ttu-id="6a1b3-177">Ověřovací balíček</span><span class="sxs-lookup"><span data-stu-id="6a1b3-177">Authentication package</span></span>
+### <a name="authentication-package"></a><span data-ttu-id="9f051-177">Ověřovací balíček</span><span class="sxs-lookup"><span data-stu-id="9f051-177">Authentication package</span></span>
 
-<span data-ttu-id="6a1b3-178">Podpora ověřování a autorizace volání ASP.NET Core webových rozhraní API je poskytována `Microsoft.AspNetCore.Authentication.AzureAD.UI` :</span><span class="sxs-lookup"><span data-stu-id="6a1b3-178">The support for authenticating and authorizing calls to ASP.NET Core Web APIs is provided by the `Microsoft.AspNetCore.Authentication.AzureAD.UI`:</span></span>
+<span data-ttu-id="9f051-178">Podpora ověřování a autorizace volání ASP.NET Core webových rozhraní API je poskytována balíčkem [Microsoft. AspNetCore. Authentication. AzureAD. UI](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.AzureAD.UI/) :</span><span class="sxs-lookup"><span data-stu-id="9f051-178">The support for authenticating and authorizing calls to ASP.NET Core Web APIs is provided by the [Microsoft.AspNetCore.Authentication.AzureAD.UI](https://www.nuget.org/packages/Microsoft.AspNetCore.Authentication.AzureAD.UI/) package:</span></span>
 
 ```xml
 <PackageReference Include="Microsoft.AspNetCore.Authentication.AzureAD.UI" 
   Version="3.1.4" />
 ```
 
-### <a name="authentication-service-support"></a><span data-ttu-id="6a1b3-179">Podpora ověřovací služby</span><span class="sxs-lookup"><span data-stu-id="6a1b3-179">Authentication service support</span></span>
+### <a name="authentication-service-support"></a><span data-ttu-id="9f051-179">Podpora ověřovací služby</span><span class="sxs-lookup"><span data-stu-id="9f051-179">Authentication service support</span></span>
 
-<span data-ttu-id="6a1b3-180">`AddAuthentication`Metoda nastaví služby ověřování v rámci aplikace a nakonfiguruje obslužnou rutinu JWT nosiče jako výchozí metodu ověřování.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-180">The `AddAuthentication` method sets up authentication services within the app and configures the JWT Bearer handler as the default authentication method.</span></span> <span data-ttu-id="6a1b3-181">`AddAzureADBearer`Metoda nastavuje konkrétní parametry v obslužné rutině JWT nosiče vyžadované k ověření tokenů vygenerovaných Azure Active Directory:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-181">The `AddAzureADBearer` method sets up the specific parameters in the JWT Bearer handler required to validate tokens emitted by the Azure Active Directory:</span></span>
+<span data-ttu-id="9f051-180">`AddAuthentication`Metoda nastaví služby ověřování v rámci aplikace a nakonfiguruje obslužnou rutinu JWT nosiče jako výchozí metodu ověřování.</span><span class="sxs-lookup"><span data-stu-id="9f051-180">The `AddAuthentication` method sets up authentication services within the app and configures the JWT Bearer handler as the default authentication method.</span></span> <span data-ttu-id="9f051-181"><xref:Microsoft.AspNetCore.Authentication.AzureADAuthenticationBuilderExtensions.AddAzureADBearer%2A>Metoda nastavuje konkrétní parametry v obslužné rutině JWT nosiče vyžadované k ověření tokenů vygenerovaných Azure Active Directory:</span><span class="sxs-lookup"><span data-stu-id="9f051-181">The <xref:Microsoft.AspNetCore.Authentication.AzureADAuthenticationBuilderExtensions.AddAzureADBearer%2A> method sets up the specific parameters in the JWT Bearer handler required to validate tokens emitted by the Azure Active Directory:</span></span>
 
 ```csharp
 services.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
     .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
 ```
 
-<span data-ttu-id="6a1b3-182">`UseAuthentication`a `UseAuthorization` Ujistěte se, že:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-182">`UseAuthentication` and `UseAuthorization` ensure that:</span></span>
+<span data-ttu-id="9f051-182"><xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication%2A>a <xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization%2A> Ujistěte se, že:</span><span class="sxs-lookup"><span data-stu-id="9f051-182"><xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication%2A> and <xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization%2A> ensure that:</span></span>
 
-* <span data-ttu-id="6a1b3-183">Aplikace se pokusí analyzovat a ověřit tokeny příchozích požadavků.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-183">The app attempts to parse and validate tokens on incoming requests.</span></span>
-* <span data-ttu-id="6a1b3-184">Všechny žádosti o přístup k chráněnému prostředku bez správných přihlašovacích údajů selžou.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-184">Any request attempting to access a protected resource without proper credentials fails.</span></span>
+* <span data-ttu-id="9f051-183">Aplikace se pokusí analyzovat a ověřit tokeny příchozích požadavků.</span><span class="sxs-lookup"><span data-stu-id="9f051-183">The app attempts to parse and validate tokens on incoming requests.</span></span>
+* <span data-ttu-id="9f051-184">Všechny žádosti o přístup k chráněnému prostředku bez správných přihlašovacích údajů selžou.</span><span class="sxs-lookup"><span data-stu-id="9f051-184">Any request attempting to access a protected resource without proper credentials fails.</span></span>
 
 ```csharp
 app.UseAuthentication();
 app.UseAuthorization();
 ```
 
-### <a name="useridentityname"></a><span data-ttu-id="6a1b3-185">Uživatel. Identity . Jméno</span><span class="sxs-lookup"><span data-stu-id="6a1b3-185">User.Identity.Name</span></span>
+### <a name="useridentityname"></a><span data-ttu-id="9f051-185">Uživatel. Identity . Jméno</span><span class="sxs-lookup"><span data-stu-id="9f051-185">User.Identity.Name</span></span>
 
-<span data-ttu-id="6a1b3-186">Ve výchozím nastavení rozhraní API serverové aplikace naplní `User.Identity.Name` hodnotu z `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` typu deklarace (například `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com` ).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-186">By default, the Server app API populates `User.Identity.Name` with the value from the `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` claim type (for example, `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com`).</span></span>
+<span data-ttu-id="9f051-186">Ve výchozím nastavení rozhraní API serverové aplikace naplní `User.Identity.Name` hodnotu z `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` typu deklarace (například `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com` ).</span><span class="sxs-lookup"><span data-stu-id="9f051-186">By default, the Server app API populates `User.Identity.Name` with the value from the `http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name` claim type (for example, `2d64b3da-d9d5-42c6-9352-53d8df33d770@contoso.onmicrosoft.com`).</span></span>
 
-<span data-ttu-id="6a1b3-187">Pokud chcete aplikaci nakonfigurovat tak, aby přijímala hodnotu z `name` typu deklarace, nakonfigurujte [TokenValidationParameters. NameClaimType](xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType) <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> v `Startup.ConfigureServices` :</span><span class="sxs-lookup"><span data-stu-id="6a1b3-187">To configure the app to receive the value from the `name` claim type, configure the [TokenValidationParameters.NameClaimType](xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType) of the <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> in `Startup.ConfigureServices`:</span></span>
+<span data-ttu-id="9f051-187">Pokud chcete aplikaci nakonfigurovat tak, aby přijímala hodnotu z `name` typu deklarace, nakonfigurujte [TokenValidationParameters. NameClaimType](xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType) <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> v `Startup.ConfigureServices` :</span><span class="sxs-lookup"><span data-stu-id="9f051-187">To configure the app to receive the value from the `name` claim type, configure the [TokenValidationParameters.NameClaimType](xref:Microsoft.IdentityModel.Tokens.TokenValidationParameters.NameClaimType) of the <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions> in `Startup.ConfigureServices`:</span></span>
 
 ```csharp
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -153,9 +153,9 @@ services.Configure<JwtBearerOptions>(
     });
 ```
 
-### <a name="app-settings"></a><span data-ttu-id="6a1b3-188">Nastavení aplikace</span><span class="sxs-lookup"><span data-stu-id="6a1b3-188">App settings</span></span>
+### <a name="app-settings"></a><span data-ttu-id="9f051-188">Nastavení aplikace</span><span class="sxs-lookup"><span data-stu-id="9f051-188">App settings</span></span>
 
-<span data-ttu-id="6a1b3-189">Soubor *appSettings. JSON* obsahuje možnosti konfigurace obslužné rutiny nosiče JWT používané k ověření přístupových tokenů:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-189">The *appsettings.json* file contains the options to configure the JWT bearer handler used to validate access tokens:</span></span>
+<span data-ttu-id="9f051-189">Soubor *appSettings. JSON* obsahuje možnosti konfigurace obslužné rutiny nosiče JWT používané k ověření přístupových tokenů:</span><span class="sxs-lookup"><span data-stu-id="9f051-189">The *appsettings.json* file contains the options to configure the JWT bearer handler used to validate access tokens:</span></span>
 
 ```json
 {
@@ -168,7 +168,7 @@ services.Configure<JwtBearerOptions>(
 }
 ```
 
-<span data-ttu-id="6a1b3-190">Příklad:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-190">Example:</span></span>
+<span data-ttu-id="9f051-190">Příklad:</span><span class="sxs-lookup"><span data-stu-id="9f051-190">Example:</span></span>
 
 ```json
 {
@@ -181,12 +181,12 @@ services.Configure<JwtBearerOptions>(
 }
 ```
 
-### <a name="weatherforecast-controller"></a><span data-ttu-id="6a1b3-191">Kontroler WeatherForecast</span><span class="sxs-lookup"><span data-stu-id="6a1b3-191">WeatherForecast controller</span></span>
+### <a name="weatherforecast-controller"></a><span data-ttu-id="9f051-191">Kontroler WeatherForecast</span><span class="sxs-lookup"><span data-stu-id="9f051-191">WeatherForecast controller</span></span>
 
-<span data-ttu-id="6a1b3-192">Řadič WeatherForecast (*Controllers/WeatherForecastController. cs*) zpřístupňuje chráněné rozhraní API s `[Authorize]` atributem použitým pro kontroler.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-192">The WeatherForecast controller (*Controllers/WeatherForecastController.cs*) exposes a protected API with the `[Authorize]` attribute applied to the controller.</span></span> <span data-ttu-id="6a1b3-193">Je **důležité** si uvědomit, že:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-193">It's **important** to understand that:</span></span>
+<span data-ttu-id="9f051-192">Řadič WeatherForecast (*Controllers/WeatherForecastController. cs*) zpřístupňuje chráněné rozhraní API s [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) atributem použitým pro kontroler.</span><span class="sxs-lookup"><span data-stu-id="9f051-192">The WeatherForecast controller (*Controllers/WeatherForecastController.cs*) exposes a protected API with the [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute applied to the controller.</span></span> <span data-ttu-id="9f051-193">Je **důležité** si uvědomit, že:</span><span class="sxs-lookup"><span data-stu-id="9f051-193">It's **important** to understand that:</span></span>
 
-* <span data-ttu-id="6a1b3-194">`[Authorize]`Atribut v tomto řadiči rozhraní API je jediná věc, která chrání toto rozhraní API před neoprávněným přístupem.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-194">The `[Authorize]` attribute in this API controller is the only thing that protect this API from unauthorized access.</span></span>
-* <span data-ttu-id="6a1b3-195">`[Authorize]`Atribut použitý v Blazor aplikaci WebAssembly slouží pouze jako pomocný parametr aplikace, který by měl být uživatelem autorizován, aby mohla aplikace správně fungovat.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-195">The `[Authorize]` attribute used in the Blazor WebAssembly app only serves as a hint to the app that the user should be authorized for the app to work correctly.</span></span>
+* <span data-ttu-id="9f051-194">[`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)Atribut v tomto řadiči rozhraní API je jediná věc, která chrání toto rozhraní API před neoprávněným přístupem.</span><span class="sxs-lookup"><span data-stu-id="9f051-194">The [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute in this API controller is the only thing that protect this API from unauthorized access.</span></span>
+* <span data-ttu-id="9f051-195">[`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)Atribut použitý v Blazor aplikaci WebAssembly slouží pouze jako pomocný parametr aplikace, který by měl být uživatelem autorizován, aby mohla aplikace správně fungovat.</span><span class="sxs-lookup"><span data-stu-id="9f051-195">The [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) attribute used in the Blazor WebAssembly app only serves as a hint to the app that the user should be authorized for the app to work correctly.</span></span>
 
 ```csharp
 [Authorize]
@@ -202,28 +202,28 @@ public class WeatherForecastController : ControllerBase
 }
 ```
 
-## <a name="client-app-configuration"></a><span data-ttu-id="6a1b3-196">Konfigurace klientské aplikace</span><span class="sxs-lookup"><span data-stu-id="6a1b3-196">Client app configuration</span></span>
+## <a name="client-app-configuration"></a><span data-ttu-id="9f051-196">Konfigurace klientské aplikace</span><span class="sxs-lookup"><span data-stu-id="9f051-196">Client app configuration</span></span>
 
-<span data-ttu-id="6a1b3-197">*Tato část se vztahuje k **klientské** aplikaci řešení.*</span><span class="sxs-lookup"><span data-stu-id="6a1b3-197">*This section pertains to the solution's **Client** app.*</span></span>
+<span data-ttu-id="9f051-197">*Tato část se vztahuje k **klientské** aplikaci řešení.*</span><span class="sxs-lookup"><span data-stu-id="9f051-197">*This section pertains to the solution's **Client** app.*</span></span>
 
-### <a name="authentication-package"></a><span data-ttu-id="6a1b3-198">Ověřovací balíček</span><span class="sxs-lookup"><span data-stu-id="6a1b3-198">Authentication package</span></span>
+### <a name="authentication-package"></a><span data-ttu-id="9f051-198">Ověřovací balíček</span><span class="sxs-lookup"><span data-stu-id="9f051-198">Authentication package</span></span>
 
-<span data-ttu-id="6a1b3-199">Když je aplikace vytvořená tak, aby používala pracovní nebo školní účty ( `SingleOrg` ), aplikace automaticky obdrží odkaz na balíček pro [knihovnu Microsoft Authentication Library](/azure/active-directory/develop/msal-overview) ( `Microsoft.Authentication.WebAssembly.Msal` ).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-199">When an app is created to use Work or School Accounts (`SingleOrg`), the app automatically receives a package reference for the [Microsoft Authentication Library](/azure/active-directory/develop/msal-overview) (`Microsoft.Authentication.WebAssembly.Msal`).</span></span> <span data-ttu-id="6a1b3-200">Balíček poskytuje sadu primitivních elementů, které aplikaci pomůžou ověřit uživatele a získat tokeny pro volání chráněných rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-200">The package provides a set of primitives that help the app authenticate users and obtain tokens to call protected APIs.</span></span>
+<span data-ttu-id="9f051-199">Když je aplikace vytvořená tak, aby používala pracovní nebo školní účty ( `SingleOrg` ), aplikace automaticky obdrží odkaz na balíček pro [knihovnu Microsoft Authentication Library](/azure/active-directory/develop/msal-overview) ([Microsoft. Authentication. WebAssembly. Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)).</span><span class="sxs-lookup"><span data-stu-id="9f051-199">When an app is created to use Work or School Accounts (`SingleOrg`), the app automatically receives a package reference for the [Microsoft Authentication Library](/azure/active-directory/develop/msal-overview) ([Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/)).</span></span> <span data-ttu-id="9f051-200">Balíček poskytuje sadu primitivních elementů, které aplikaci pomůžou ověřit uživatele a získat tokeny pro volání chráněných rozhraní API.</span><span class="sxs-lookup"><span data-stu-id="9f051-200">The package provides a set of primitives that help the app authenticate users and obtain tokens to call protected APIs.</span></span>
 
-<span data-ttu-id="6a1b3-201">Pokud se do aplikace přidává ověřování, přidejte balíček do souboru projektu aplikace ručně:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-201">If adding authentication to an app, manually add the package to the app's project file:</span></span>
+<span data-ttu-id="9f051-201">Pokud se do aplikace přidává ověřování, přidejte balíček do souboru projektu aplikace ručně:</span><span class="sxs-lookup"><span data-stu-id="9f051-201">If adding authentication to an app, manually add the package to the app's project file:</span></span>
 
 ```xml
 <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" 
   Version="3.2.0" />
 ```
 
-<span data-ttu-id="6a1b3-202">`Microsoft.Authentication.WebAssembly.Msal`Balíček `Microsoft.AspNetCore.Components.WebAssembly.Authentication` do této aplikace přidá balíček.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-202">The `Microsoft.Authentication.WebAssembly.Msal` package transitively adds the `Microsoft.AspNetCore.Components.WebAssembly.Authentication` package to the app.</span></span>
+<span data-ttu-id="9f051-202">Balíček [Microsoft. Authentication. WebAssembly. Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/) po přechodu do aplikace přidá balíček [Microsoft. AspNetCore. Components. WebAssembly. Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) .</span><span class="sxs-lookup"><span data-stu-id="9f051-202">The [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/) package transitively adds the [Microsoft.AspNetCore.Components.WebAssembly.Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) package to the app.</span></span>
 
-### <a name="authentication-service-support"></a><span data-ttu-id="6a1b3-203">Podpora ověřovací služby</span><span class="sxs-lookup"><span data-stu-id="6a1b3-203">Authentication service support</span></span>
+### <a name="authentication-service-support"></a><span data-ttu-id="9f051-203">Podpora ověřovací služby</span><span class="sxs-lookup"><span data-stu-id="9f051-203">Authentication service support</span></span>
 
-<span data-ttu-id="6a1b3-204">Přidávají `HttpClient` se podpory pro instance, které zahrnují přístupové tokeny při vytváření žádostí na serverový projekt.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-204">Support for `HttpClient` instances is added that include access tokens when making requests to the server project.</span></span>
+<span data-ttu-id="9f051-204">Přidávají <xref:System.Net.Http.HttpClient> se podpory pro instance, které zahrnují přístupové tokeny při vytváření žádostí na serverový projekt.</span><span class="sxs-lookup"><span data-stu-id="9f051-204">Support for <xref:System.Net.Http.HttpClient> instances is added that include access tokens when making requests to the server project.</span></span>
 
-<span data-ttu-id="6a1b3-205">*Program.cs*:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-205">*Program.cs*:</span></span>
+<span data-ttu-id="9f051-205">*Program.cs*:</span><span class="sxs-lookup"><span data-stu-id="9f051-205">*Program.cs*:</span></span>
 
 ```csharp
 builder.Services.AddHttpClient("{APP ASSEMBLY}.ServerAPI", client => 
@@ -234,9 +234,9 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
     .CreateClient("{APP ASSEMBLY}.ServerAPI"));
 ```
 
-<span data-ttu-id="6a1b3-206">Podpora ověřování uživatelů je registrovaná v kontejneru služby s `AddMsalAuthentication` metodou rozšíření poskytovanou `Microsoft.Authentication.WebAssembly.Msal` balíčkem.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-206">Support for authenticating users is registered in the service container with the `AddMsalAuthentication` extension method provided by the `Microsoft.Authentication.WebAssembly.Msal` package.</span></span> <span data-ttu-id="6a1b3-207">Tato metoda nastavuje služby, které aplikace potřebuje k interakci se Identity zprostředkovatelem (IP).</span><span class="sxs-lookup"><span data-stu-id="6a1b3-207">This method sets up the services required for the app to interact with the Identity Provider (IP).</span></span>
+<span data-ttu-id="9f051-206">Podpora ověřování uživatelů je zaregistrovaná v kontejneru služby s <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> metodou rozšíření poskytovanou balíčkem [Microsoft. Authentication. WebAssembly. Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/) .</span><span class="sxs-lookup"><span data-stu-id="9f051-206">Support for authenticating users is registered in the service container with the <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> extension method provided by the [Microsoft.Authentication.WebAssembly.Msal](https://www.nuget.org/packages/Microsoft.Authentication.WebAssembly.Msal/) package.</span></span> <span data-ttu-id="9f051-207">Tato metoda nastavuje služby, které aplikace potřebuje k interakci se Identity zprostředkovatelem (IP).</span><span class="sxs-lookup"><span data-stu-id="9f051-207">This method sets up the services required for the app to interact with the Identity Provider (IP).</span></span>
 
-<span data-ttu-id="6a1b3-208">*Program.cs*:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-208">*Program.cs*:</span></span>
+<span data-ttu-id="9f051-208">*Program.cs*:</span><span class="sxs-lookup"><span data-stu-id="9f051-208">*Program.cs*:</span></span>
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -246,9 +246,9 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-<span data-ttu-id="6a1b3-209">`AddMsalAuthentication`Metoda přijímá zpětné volání ke konfiguraci parametrů požadovaných k ověření aplikace.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-209">The `AddMsalAuthentication` method accepts a callback to configure the parameters required to authenticate an app.</span></span> <span data-ttu-id="6a1b3-210">Hodnoty požadované pro konfiguraci aplikace lze získat z konfigurace AAD webu Azure Portal při registraci aplikace.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-210">The values required for configuring the app can be obtained from the Azure Portal AAD configuration when you register the app.</span></span>
+<span data-ttu-id="9f051-209"><xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>Metoda přijímá zpětné volání ke konfiguraci parametrů požadovaných k ověření aplikace.</span><span class="sxs-lookup"><span data-stu-id="9f051-209">The <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A> method accepts a callback to configure the parameters required to authenticate an app.</span></span> <span data-ttu-id="9f051-210">Hodnoty požadované pro konfiguraci aplikace lze získat z konfigurace AAD webu Azure Portal při registraci aplikace.</span><span class="sxs-lookup"><span data-stu-id="9f051-210">The values required for configuring the app can be obtained from the Azure Portal AAD configuration when you register the app.</span></span>
 
-<span data-ttu-id="6a1b3-211">Konfigurace je dodána souborem *wwwroot/appSettings. JSON* :</span><span class="sxs-lookup"><span data-stu-id="6a1b3-211">Configuration is supplied by the *wwwroot/appsettings.json* file:</span></span>
+<span data-ttu-id="9f051-211">Konfigurace je dodána souborem *wwwroot/appSettings. JSON* :</span><span class="sxs-lookup"><span data-stu-id="9f051-211">Configuration is supplied by the *wwwroot/appsettings.json* file:</span></span>
 
 ```json
 {
@@ -260,7 +260,7 @@ builder.Services.AddMsalAuthentication(options =>
 }
 ```
 
-<span data-ttu-id="6a1b3-212">Příklad:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-212">Example:</span></span>
+<span data-ttu-id="9f051-212">Příklad:</span><span class="sxs-lookup"><span data-stu-id="9f051-212">Example:</span></span>
 
 ```json
 {
@@ -272,14 +272,14 @@ builder.Services.AddMsalAuthentication(options =>
 }
 ```
 
-### <a name="access-token-scopes"></a><span data-ttu-id="6a1b3-213">Obory přístupového tokenu</span><span class="sxs-lookup"><span data-stu-id="6a1b3-213">Access token scopes</span></span>
+### <a name="access-token-scopes"></a><span data-ttu-id="9f051-213">Obory přístupového tokenu</span><span class="sxs-lookup"><span data-stu-id="9f051-213">Access token scopes</span></span>
 
-<span data-ttu-id="6a1b3-214">Výchozí obory přístupového tokenu představují seznam oborů přístupového tokenu, které jsou:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-214">The default access token scopes represent the list of access token scopes that are:</span></span>
+<span data-ttu-id="9f051-214">Výchozí obory přístupového tokenu představují seznam oborů přístupového tokenu, které jsou:</span><span class="sxs-lookup"><span data-stu-id="9f051-214">The default access token scopes represent the list of access token scopes that are:</span></span>
 
-* <span data-ttu-id="6a1b3-215">Ve výchozím nastavení zahrnuty v žádosti o přihlášení.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-215">Included by default in the sign in request.</span></span>
-* <span data-ttu-id="6a1b3-216">Slouží ke zřízení přístupového tokenu hned po ověření.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-216">Used to provision an access token immediately after authentication.</span></span>
+* <span data-ttu-id="9f051-215">Ve výchozím nastavení zahrnuty v žádosti o přihlášení.</span><span class="sxs-lookup"><span data-stu-id="9f051-215">Included by default in the sign in request.</span></span>
+* <span data-ttu-id="9f051-216">Slouží ke zřízení přístupového tokenu hned po ověření.</span><span class="sxs-lookup"><span data-stu-id="9f051-216">Used to provision an access token immediately after authentication.</span></span>
 
-<span data-ttu-id="6a1b3-217">Všechny obory musí patřit do stejné aplikace na pravidla Azure Active Directory.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-217">All scopes must belong to the same app per Azure Active Directory rules.</span></span> <span data-ttu-id="6a1b3-218">Další obory je možné přidat pro další aplikace API podle potřeby:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-218">Additional scopes can be added for additional API apps as needed:</span></span>
+<span data-ttu-id="9f051-217">Všechny obory musí patřit do stejné aplikace na pravidla Azure Active Directory.</span><span class="sxs-lookup"><span data-stu-id="9f051-217">All scopes must belong to the same app per Azure Active Directory rules.</span></span> <span data-ttu-id="9f051-218">Další obory je možné přidat pro další aplikace API podle potřeby:</span><span class="sxs-lookup"><span data-stu-id="9f051-218">Additional scopes can be added for additional API apps as needed:</span></span>
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -291,46 +291,46 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/azure-scope.md)]
 
-<span data-ttu-id="6a1b3-219">Další informace najdete v následujících částech článku o *dalších scénářích* :</span><span class="sxs-lookup"><span data-stu-id="6a1b3-219">For more information, see the following sections of the *Additional scenarios* article:</span></span>
+<span data-ttu-id="9f051-219">Další informace najdete v následujících částech článku o *dalších scénářích* :</span><span class="sxs-lookup"><span data-stu-id="9f051-219">For more information, see the following sections of the *Additional scenarios* article:</span></span>
 
-* [<span data-ttu-id="6a1b3-220">Vyžádání dalších přístupových tokenů</span><span class="sxs-lookup"><span data-stu-id="6a1b3-220">Request additional access tokens</span></span>](xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens)
-* [<span data-ttu-id="6a1b3-221">Připojit tokeny k odchozím žádostem</span><span class="sxs-lookup"><span data-stu-id="6a1b3-221">Attach tokens to outgoing requests</span></span>](xref:security/blazor/webassembly/additional-scenarios#attach-tokens-to-outgoing-requests)
+* [<span data-ttu-id="9f051-220">Vyžádání dalších přístupových tokenů</span><span class="sxs-lookup"><span data-stu-id="9f051-220">Request additional access tokens</span></span>](xref:security/blazor/webassembly/additional-scenarios#request-additional-access-tokens)
+* [<span data-ttu-id="9f051-221">Připojit tokeny k odchozím žádostem</span><span class="sxs-lookup"><span data-stu-id="9f051-221">Attach tokens to outgoing requests</span></span>](xref:security/blazor/webassembly/additional-scenarios#attach-tokens-to-outgoing-requests)
 
 
-### <a name="imports-file"></a><span data-ttu-id="6a1b3-222">Importovat soubor</span><span class="sxs-lookup"><span data-stu-id="6a1b3-222">Imports file</span></span>
+### <a name="imports-file"></a><span data-ttu-id="9f051-222">Importovat soubor</span><span class="sxs-lookup"><span data-stu-id="9f051-222">Imports file</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/imports-file-hosted.md)]
 
-### <a name="index-page"></a><span data-ttu-id="6a1b3-223">Indexová stránka</span><span class="sxs-lookup"><span data-stu-id="6a1b3-223">Index page</span></span>
+### <a name="index-page"></a><span data-ttu-id="9f051-223">Indexová stránka</span><span class="sxs-lookup"><span data-stu-id="9f051-223">Index page</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/index-page-msal.md)]
 
-### <a name="app-component"></a><span data-ttu-id="6a1b3-224">Součást aplikace</span><span class="sxs-lookup"><span data-stu-id="6a1b3-224">App component</span></span>
+### <a name="app-component"></a><span data-ttu-id="9f051-224">Součást aplikace</span><span class="sxs-lookup"><span data-stu-id="9f051-224">App component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/app-component.md)]
 
-### <a name="redirecttologin-component"></a><span data-ttu-id="6a1b3-225">Komponenta RedirectToLogin</span><span class="sxs-lookup"><span data-stu-id="6a1b3-225">RedirectToLogin component</span></span>
+### <a name="redirecttologin-component"></a><span data-ttu-id="9f051-225">Komponenta RedirectToLogin</span><span class="sxs-lookup"><span data-stu-id="9f051-225">RedirectToLogin component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/redirecttologin-component.md)]
 
-### <a name="logindisplay-component"></a><span data-ttu-id="6a1b3-226">Komponenta LoginDisplay</span><span class="sxs-lookup"><span data-stu-id="6a1b3-226">LoginDisplay component</span></span>
+### <a name="logindisplay-component"></a><span data-ttu-id="9f051-226">Komponenta LoginDisplay</span><span class="sxs-lookup"><span data-stu-id="9f051-226">LoginDisplay component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/logindisplay-component.md)]
 
-### <a name="authentication-component"></a><span data-ttu-id="6a1b3-227">Součást ověřování</span><span class="sxs-lookup"><span data-stu-id="6a1b3-227">Authentication component</span></span>
+### <a name="authentication-component"></a><span data-ttu-id="9f051-227">Součást ověřování</span><span class="sxs-lookup"><span data-stu-id="9f051-227">Authentication component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/authentication-component.md)]
 
-### <a name="fetchdata-component"></a><span data-ttu-id="6a1b3-228">Komponenta FetchData</span><span class="sxs-lookup"><span data-stu-id="6a1b3-228">FetchData component</span></span>
+### <a name="fetchdata-component"></a><span data-ttu-id="9f051-228">Komponenta FetchData</span><span class="sxs-lookup"><span data-stu-id="9f051-228">FetchData component</span></span>
 
 [!INCLUDE[](~/includes/blazor-security/fetchdata-component.md)]
 
-## <a name="run-the-app"></a><span data-ttu-id="6a1b3-229">Spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="6a1b3-229">Run the app</span></span>
+## <a name="run-the-app"></a><span data-ttu-id="9f051-229">Spuštění aplikace</span><span class="sxs-lookup"><span data-stu-id="9f051-229">Run the app</span></span>
 
-<span data-ttu-id="6a1b3-230">Spusťte aplikaci z projektu serveru.</span><span class="sxs-lookup"><span data-stu-id="6a1b3-230">Run the app from the Server project.</span></span> <span data-ttu-id="6a1b3-231">Při použití sady Visual Studio buď:</span><span class="sxs-lookup"><span data-stu-id="6a1b3-231">When using Visual Studio, either:</span></span>
+<span data-ttu-id="9f051-230">Spusťte aplikaci z projektu serveru.</span><span class="sxs-lookup"><span data-stu-id="9f051-230">Run the app from the Server project.</span></span> <span data-ttu-id="9f051-231">Při použití sady Visual Studio buď:</span><span class="sxs-lookup"><span data-stu-id="9f051-231">When using Visual Studio, either:</span></span>
 
-* <span data-ttu-id="6a1b3-232">Nastavte rozevírací seznam **projekty po spuštění** na panelu nástrojů na *aplikaci API serveru* a vyberte tlačítko **Spustit** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-232">Set the **Startup Projects** drop down list in the toolbar to the *Server API app* and select the **Run** button.</span></span>
-* <span data-ttu-id="6a1b3-233">Vyberte projekt serveru v **Průzkumník řešení** a na panelu nástrojů vyberte tlačítko **Spustit** nebo spusťte aplikaci z nabídky **ladění** .</span><span class="sxs-lookup"><span data-stu-id="6a1b3-233">Select the Server project in **Solution Explorer** and select the **Run** button in the toolbar or start the app from the **Debug** menu.</span></span>
+* <span data-ttu-id="9f051-232">Nastavte rozevírací seznam **projekty po spuštění** na panelu nástrojů na *aplikaci API serveru* a vyberte tlačítko **Spustit** .</span><span class="sxs-lookup"><span data-stu-id="9f051-232">Set the **Startup Projects** drop down list in the toolbar to the *Server API app* and select the **Run** button.</span></span>
+* <span data-ttu-id="9f051-233">Vyberte projekt serveru v **Průzkumník řešení** a na panelu nástrojů vyberte tlačítko **Spustit** nebo spusťte aplikaci z nabídky **ladění** .</span><span class="sxs-lookup"><span data-stu-id="9f051-233">Select the Server project in **Solution Explorer** and select the **Run** button in the toolbar or start the app from the **Debug** menu.</span></span>
 
 <!-- HOLD
 [!INCLUDE[](~/includes/blazor-security/usermanager-signinmanager.md)]
@@ -338,10 +338,10 @@ builder.Services.AddMsalAuthentication(options =>
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a><span data-ttu-id="6a1b3-234">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="6a1b3-234">Additional resources</span></span>
+## <a name="additional-resources"></a><span data-ttu-id="9f051-234">Další zdroje</span><span class="sxs-lookup"><span data-stu-id="9f051-234">Additional resources</span></span>
 
 * <xref:security/blazor/webassembly/additional-scenarios>
-* [<span data-ttu-id="6a1b3-235">Neověřené nebo neautorizované požadavky webového rozhraní API v aplikaci s zabezpečeným výchozím klientem</span><span class="sxs-lookup"><span data-stu-id="6a1b3-235">Unauthenticated or unauthorized web API requests in an app with a secure default client</span></span>](xref:security/blazor/webassembly/additional-scenarios#unauthenticated-or-unauthorized-web-api-requests-in-an-app-with-a-secure-default-client)
+* [<span data-ttu-id="9f051-235">Neověřené nebo neautorizované požadavky webového rozhraní API v aplikaci s zabezpečeným výchozím klientem</span><span class="sxs-lookup"><span data-stu-id="9f051-235">Unauthenticated or unauthorized web API requests in an app with a secure default client</span></span>](xref:security/blazor/webassembly/additional-scenarios#unauthenticated-or-unauthorized-web-api-requests-in-an-app-with-a-secure-default-client)
 * <xref:security/blazor/webassembly/aad-groups-roles>
 * <xref:security/authentication/azure-active-directory/index>
-* [<span data-ttu-id="6a1b3-236">Dokumentace k platformě Microsoft Identity Platform</span><span class="sxs-lookup"><span data-stu-id="6a1b3-236">Microsoft identity platform documentation</span></span>](/azure/active-directory/develop/)
+* [<span data-ttu-id="9f051-236">Dokumentace k platformě Microsoft Identity Platform</span><span class="sxs-lookup"><span data-stu-id="9f051-236">Microsoft identity platform documentation</span></span>](/azure/active-directory/develop/)
