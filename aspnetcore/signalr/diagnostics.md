@@ -1,44 +1,32 @@
 ---
-title: Protokolování a diagnostika v ASP.NET CoreSignalR
-author: anurse
-description: Naučte se shromažďovat diagnostiku z vaší SignalR aplikace ASP.NET Core.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: anurse
-ms.custom: signalr
-ms.date: 11/12/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: signalr/diagnostics
-ms.openlocfilehash: 0dda4fb55b1e2275d9cdb2af0b55824b12121dee
-ms.sourcegitcommit: 16b3abec1ed70f9a206f0cfa7cf6404eebaf693d
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/17/2020
-ms.locfileid: "83444214"
+title: protokolování a diagnostika ve ASP.NET Core SignalR Autor: Description: ' Naučte se shromažďovat diagnostiku z vaší ASP.NET Core SignalR aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
-# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a diagnostika v nástroji ASP.NET Core Signal
+# <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a diagnostika v ASP.NET CoreSignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
-Tento článek poskytuje pokyny pro shromažďování diagnostických informací z aplikace ASP.NET Core Signal, které vám pomůžou při řešení problémů.
+Tento článek poskytuje pokyny pro shromažďování diagnostických informací z vaší SignalR aplikace ASP.NET Core, které vám pomůžou při řešení problémů.
 
 ## <a name="server-side-logging"></a>Protokolování na straně serveru
 
 > [!WARNING]
 > Protokoly na straně serveru můžou obsahovat citlivé informace z vaší aplikace. **Nikdy** nezveřejňujte nezpracované protokoly z produkčních aplikací do veřejných fór, jako je GitHub.
 
-Vzhledem k tomu, že je signál, který je součástí ASP.NET Core, používá systém protokolování ASP.NET Core. Ve výchozí konfiguraci Signaler zaznamená velmi málo informací, ale může se nakonfigurovat. Podrobnosti o konfiguraci ASP.NET Core protokolování najdete v dokumentaci k [protokolování ASP.NET Core](xref:fundamentals/logging/index#configuration) .
+Vzhledem k SignalR tomu, že je součást ASP.NET Core, používá systém protokolování ASP.NET Core. Ve výchozí konfiguraci SignalR protokoluje velmi málo informací, ale je možné ho nakonfigurovat. Podrobnosti o konfiguraci ASP.NET Core protokolování najdete v dokumentaci k [protokolování ASP.NET Core](xref:fundamentals/logging/index#configuration) .
 
-Návěstí používá dvě kategorie protokolovacího nástroje:
+SignalRpoužívá dvě kategorie protokolovacího nástroje:
 
-* `Microsoft.AspNetCore.SignalR`&ndash;pro protokoly související s protokoly centra, aktivací Center, vyvoláním metod a dalšími aktivitami souvisejícími s centrem.
-* `Microsoft.AspNetCore.Http.Connections`&ndash;pro protokoly týkající se přenosů, jako jsou například WebSockets, dlouhé cyklické dotazování a události odeslané serverem a infrastruktura signalizace nízké úrovně.
+* `Microsoft.AspNetCore.SignalR`: Protokoly týkající se protokolů centrálního centra, aktivace rozbočovačů, volání metod a dalších aktivit souvisejících s centrem.
+* `Microsoft.AspNetCore.Http.Connections`: Pro protokoly týkající se přenosů, jako jsou WebSockets, dlouhé cyklické dotazování, události odeslané serverem a infrastruktura nízké úrovně SignalR .
 
-Pokud chcete povolit podrobné protokoly ze služby Signal, nakonfigurujte obě předchozí předpony na `Debug` úroveň v souboru *appSettings. JSON* přidáním následujících položek do `LogLevel` dílčí části v `Logging` :
+Pokud chcete povolit podrobné protokoly SignalR , nakonfigurujte obě předchozí předpony na `Debug` úroveň v souboru *appSettings. JSON* přidáním následujících položek do `LogLevel` dílčí části v `Logging` :
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
@@ -61,7 +49,7 @@ Způsob přístupu ke protokolům na straně serveru závisí na prostředí, ve
 
 ### <a name="as-a-console-app-outside-iis"></a>Jako Konzolová aplikace mimo IIS
 
-Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console) . Protokoly signálu se zobrazí v konzole nástroje.
+Pokud používáte konzolovou aplikaci, měl by být ve výchozím nastavení povolený [protokolovací nástroj konzoly](xref:fundamentals/logging/index#console) . SignalRprotokoly se zobrazí v konzole nástroje.
 
 ### <a name="within-iis-express-from-visual-studio"></a>V rámci IIS Express ze sady Visual Studio
 
@@ -88,19 +76,39 @@ Chcete-li protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v `con
 
 V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta jazyka JavaScript. Nastavením úrovně protokolu na jednu z těchto hodnot povolíte protokolování na této úrovni a všechny úrovně nad ním v tabulce.
 
-| Úroveň | Popis |
-| ----- | ----------- |
-| `None` | Nejsou protokolovány žádné zprávy. |
-| `Critical` | Zprávy indikující selhání v celé aplikaci. |
-| `Error` | Zprávy indikující selhání aktuální operace. |
-| `Warning` | Zprávy, které indikují méně závažnou chybu. |
-| `Information` | Informační zprávy. |
-| `Debug` | Diagnostické zprávy užitečné pro ladění. |
-| `Trace` | Velmi podrobné diagnostické zprávy navržené pro diagnostiku konkrétních problémů. |
+| Úroveň | Description |
+| ----- | ---
+title: protokolování a diagnostika ve ASP.NET Core SignalR Autor: Description: ' Naučte se shromažďovat diagnostiku z vaší ASP.NET Core SignalR aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: protokolování a diagnostika ve ASP.NET Core SignalR Autor: Description: ' Naučte se shromažďovat diagnostiku z vaší ASP.NET Core SignalR aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+title: protokolování a diagnostika ve ASP.NET Core SignalR Autor: Description: ' Naučte se shromažďovat diagnostiku z vaší ASP.NET Core SignalR aplikace. '
+monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | `None` | Nejsou protokolovány žádné zprávy. | | `Critical` | Zprávy indikující selhání v celé aplikaci. | | `Error` | Zprávy indikující selhání aktuální operace. | | `Warning` | Zprávy, které indikují méně závažnou chybu. | | `Information` | Informační zprávy. | | `Debug` | Diagnostické zprávy užitečné pro ladění. | | `Trace` | Velmi podrobné diagnostické zprávy navržené pro diagnostiku konkrétních problémů. |
 
 Po nakonfigurování podrobností se protokoly zapíší do konzoly prohlížeče (nebo standardního výstupu v aplikaci NodeJS).
 
-Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující `ILogger` rozhraní. Jedinou metodou, kterou je třeba implementovat, je `log` , která přebírá úroveň události a zprávu spojenou s událostí. Například:
+Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující `ILogger` rozhraní. Jedinou metodou, kterou je třeba implementovat, je `log` , která přebírá úroveň události a zprávu spojenou s událostí. Příklad:
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 

@@ -55,7 +55,7 @@ Integrovaná <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationS
 
 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>je základní službou, kterou <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> Komponenta a komponenta používá <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> k získání stavu ověřování.
 
-Obvykle přímo nepoužíváte <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> . Použijte [komponentu AuthorizeView](#authorizeview-component) nebo [úlohu \< AuthenticationState>](#expose-the-authentication-state-as-a-cascading-parameter) přístupy popsané dále v tomto článku. Hlavní nevýhodou použití <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> přímo je, že součást není automaticky oznámena v případě, že dojde ke změně podkladových dat stavu ověřování.
+Obvykle přímo nepoužíváte <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> . Použijte [komponentu AuthorizeView](#authorizeview-component) nebo přístupy [k \<AuthenticationState> úkolům](#expose-the-authentication-state-as-a-cascading-parameter) , které jsou popsány dále v tomto článku. Hlavní nevýhodou použití <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> přímo je, že součást není automaticky oznámena v případě, že dojde ke změně podkladových dat stavu ověřování.
 
 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>Služba může poskytnout data aktuálního uživatele <xref:System.Security.Claims.ClaimsPrincipal> , jak je znázorněno v následujícím příkladu:
 
@@ -76,7 +76,7 @@ Obvykle přímo nepoužíváte <xref:Microsoft.AspNetCore.Components.Authorizati
     <ul>
         @foreach (var claim in _claims)
         {
-            <li>@claim.Type &ndash; @claim.Value</li>
+            <li>@claim.Type: @claim.Value</li>
         }
     </ul>
 }
@@ -467,7 +467,7 @@ Další informace najdete v článcích v části <xref:security/blazor/webassem
 
 Běžné chyby:
 
-* **Autorizace vyžaduje kaskádový parametr typu Task \< AuthenticationState>. Zvažte použití CascadingAuthenticationState k zadání.**
+* **Autorizace vyžaduje kaskádový parametr typu Task \<AuthenticationState> . Zvažte použití CascadingAuthenticationState k zadání.**
 
 * **`null`hodnota je přijata pro`authenticationStateTask`**
 

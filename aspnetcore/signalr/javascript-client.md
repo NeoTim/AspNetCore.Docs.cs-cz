@@ -46,7 +46,7 @@ NPM nainstaluje obsah balíčku do složky *node_modules \\ @aspnet\signalr\dist
 
 ::: moniker-end
 
-Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Například:
+Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -54,7 +54,7 @@ Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Například:
 
 ### <a name="use-a-content-delivery-network-cdn"></a>Použít Content Delivery Network (CDN)
 
-Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Například:
+Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Příklad:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>
@@ -141,10 +141,10 @@ SignalRUrčuje, která metoda klienta má být volána, a to tak, že odpovídá
 
 Nastavte trasování protokolu na straně klienta předáním protokolovacího nástroje a typu události, které se mají protokolovat při navázání spojení. Zprávy jsou protokolovány se zadanou úrovní protokolu a vyšší. K dispozici jsou následující úrovně protokolu:
 
-* `signalR.LogLevel.Error`&ndash;Chybové zprávy. Protokoluje `Error` pouze zprávy.
-* `signalR.LogLevel.Warning`&ndash;Zprávy upozorňující na potenciální chyby. Protokoly `Warning` a `Error` zprávy.
-* `signalR.LogLevel.Information`&ndash;Stavové zprávy bez chyb. Protokoly `Information` , `Warning` a `Error` zprávy.
-* `signalR.LogLevel.Trace`&ndash;Sleduje zprávy. Zaznamená vše, včetně dat přepravovaných mezi centrem a klientem.
+* `signalR.LogLevel.Error`: Chybové zprávy. Protokoluje `Error` pouze zprávy.
+* `signalR.LogLevel.Warning`: Varovné zprávy o potenciálních chybách. Protokoly `Warning` a `Error` zprávy.
+* `signalR.LogLevel.Information`: Stavové zprávy bez chyb. Protokoly `Information` , `Warning` a `Error` zprávy.
+* `signalR.LogLevel.Trace`: Trace Messages. Zaznamená vše, včetně dat přepravovaných mezi centrem a klientem.
 
 K nakonfigurování úrovně protokolu použijte metodu [configureLogging](/javascript/api/%40aspnet/signalr/hubconnectionbuilder#configurelogging) pro [HubConnectionBuilder](/javascript/api/%40aspnet/signalr/hubconnectionbuilder) . Zprávy jsou protokolovány do konzoly prohlížeče.
 

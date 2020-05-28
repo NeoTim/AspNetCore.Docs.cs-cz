@@ -1,24 +1,11 @@
 ---
-title: Middleware pro přepis adres URL v ASP.NET Core
-author: rick-anderson
-description: Přečtěte si informace o přepsání adresy URL a přesměrování pomocí middlewaru pro přepis adres URL v aplikacích ASP.NET Core.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 08/16/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/url-rewriting
-ms.openlocfilehash: 9e12831f57af02cd427d2a66d9d4c4d654905106
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774857"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware pro přepis adres URL v ASP.NET Core
 
@@ -49,7 +36,7 @@ Rozdíl mezi přesměrováním *URL* a *přepsáním adresy URL* je malý, ale m
 
 *Přesměrování adresy URL* zahrnuje i operaci na straně klienta, kde klient má pokyn k přístupu k prostředku na jiné adrese, než jakou požadoval klient původně. To vyžaduje zpáteční cestu k serveru. Adresa URL pro přesměrování vracená klientovi se zobrazí v adresním řádku prohlížeče, když klient vytvoří nový požadavek na prostředek.
 
-Pokud `/resource` je *přesměrován* na `/different-resource`, server odpoví, že by měl klient získat prostředek na `/different-resource` stavovém kódu, což značí, že přesměrování je buď dočasné, nebo trvalé.
+Pokud `/resource` je *přesměrován* na `/different-resource` , server odpoví, že by měl klient získat prostředek na `/different-resource` stavovém kódu, což značí, že přesměrování je buď dočasné, nebo trvalé.
 
 ![Koncový bod služby WebAPI se dočasně změnil z verze 1 (V1) na verzi 2 (v2) na serveru. Klient odešle požadavek na službu ve verzi 1 cesty/v1/API. Server pošle odpověď 302 (nalezeno) nové dočasné cestě ke službě ve verzi 2/v2/API. Klient vytvoří druhý požadavek na službu na adrese URL pro přesměrování. Server odpoví stavovým kódem 200 (OK).](url-rewriting/_static/url_redirect.png)
 
@@ -63,7 +50,7 @@ Další informace o stavových kódech najdete v [dokumentu RFC 2616: definice s
 
 *Přepsání adresy URL* je operace na straně serveru, která poskytuje prostředek z jiné adresy prostředku, než jakou požaduje klient. Přepsání adresy URL nevyžaduje zpáteční cestu k serveru. Přepsaná adresa URL se nevrátí klientovi a nezobrazí se v adresním řádku prohlížeče.
 
-Pokud `/resource` je *přepsáno* na `/different-resource`, server *interně* načte a vrátí prostředek na `/different-resource`.
+Pokud `/resource` je *přepsáno* na `/different-resource` , server *interně* načte a vrátí prostředek na `/different-resource` .
 
 I když klient může být schopný načíst prostředek na adrese URL přepsané adresy, klient nebude informovat o tom, že prostředek existuje na přepsané adrese URL, když odešle svůj požadavek a obdrží odpověď.
 
@@ -87,7 +74,7 @@ Hlavními důvody pro použití technologie přepisování adres URL založené 
 
 * Middleware nepodporuje všechny funkce těchto modulů.
 
-  Některé funkce v modulech serveru nefungují s ASP.NET Core projekty, jako jsou `IsFile` omezení a `IsDirectory` modulu IIS Rewrite. V těchto scénářích místo toho použijte middleware.
+  Některé funkce v modulech serveru nefungují s ASP.NET Core projekty, jako jsou `IsFile` `IsDirectory` omezení a modulu IIS Rewrite. V těchto scénářích místo toho použijte middleware.
 * Výkon middleware se pravděpodobně neshoduje s modulem.
 
   Srovnávací testy jsou jediným způsobem, jak zjistit, který přístup snižuje výkon, který je v nejvyšší nebo v případě, že je snížený výkon.
@@ -98,17 +85,17 @@ Middleware pro přepis adres URL poskytuje balíček [Microsoft. AspNetCore. Rew
 
 ## <a name="extension-and-options"></a>Rozšíření a možnosti
 
-Vytvořte pravidla přepsání a přesměrování adresy URL vytvořením instance třídy [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) s metodami rozšíření pro každé pravidlo přepsání. Řetězení více pravidel v pořadí, ve kterém se mají zpracovat. Rozhraní `RewriteOptions` se předává do middleware PŘEPISOVÁNÍ adresy URL při jeho přidání do kanálu požadavků pomocí <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*>:
+Vytvořte pravidla přepsání a přesměrování adresy URL vytvořením instance třídy [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) s metodami rozšíření pro každé pravidlo přepsání. Řetězení více pravidel v pořadí, ve kterém se mají zpracovat. Rozhraní se `RewriteOptions` předává do middleware přepisování adresy URL při jeho přidání do kanálu požadavků pomocí <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> :
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
 ### <a name="redirect-non-www-to-www"></a>Přesměrovat neexistující na webovou
 
-Tři možnosti umožňují, aby aplikace přesměrovala`www` požadavky bez `www`požadavků na:
+Tři možnosti umožňují, aby aplikace přesměrovala `www` požadavky bez požadavků na `www` :
 
-* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWwwPermanent*>&ndash; Pokud je žádost jiná než, `www` trvale přesměrujte požadavek na subdoménu`www`. Přesměruje stavový kód [Status308PermanentRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status308PermanentRedirect) .
+* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWwwPermanent*>: Trvale přesměrujte požadavek na `www` subdoménu, pokud je požadavek jiný než `www` . Přesměruje stavový kód [Status308PermanentRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status308PermanentRedirect) .
 
-* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWww*>&ndash; Přesměruje požadavek do `www` subdomény, pokud je příchozí požadavek jiný než`www`. Přesměruje stavový kód [Status307TemporaryRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect) . Přetížení umožňuje poskytnout stavový kód pro odpověď. Použijte pole <xref:Microsoft.AspNetCore.Http.StatusCodes> třídy pro přiřazení stavového kódu.
+* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWww*>: Přesměrujte požadavek na `www` subdoménu, pokud je příchozí požadavek jiný než `www` . Přesměruje stavový kód [Status307TemporaryRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect) . Přetížení umožňuje poskytnout stavový kód pro odpověď. Použijte pole <xref:Microsoft.AspNetCore.Http.StatusCodes> třídy pro přiřazení stavového kódu.
 
 ### <a name="url-redirect"></a>Přesměrování adresy URL
 
@@ -116,7 +103,7 @@ Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirect
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=9)]
 
-V prohlížeči s povolenými vývojářskými nástroji vytvořte žádost o ukázkovou aplikaci s cestou `/redirect-rule/1234/5678`. Regulární výraz odpovídá cestě požadavku na `redirect-rule/(.*)`a cesta je nahrazena řetězcem. `/redirected/1234/5678` Adresa URL pro přesměrování se pošle zpátky do klienta s kódem stavu 302, který se *našel* . Prohlížeč vytvoří novou žádost na adrese URL pro přesměrování, která se zobrazí v adresním řádku prohlížeče. Vzhledem k tomu, že se žádná pravidla v ukázkové aplikaci neshodují s adresou URL pro přesměrování:
+V prohlížeči s povolenými vývojářskými nástroji vytvořte žádost o ukázkovou aplikaci s cestou `/redirect-rule/1234/5678` . Regulární výraz odpovídá cestě požadavku na `redirect-rule/(.*)` a cesta je nahrazena řetězcem `/redirected/1234/5678` . Adresa URL pro přesměrování se pošle zpátky do klienta s kódem stavu 302, který se *našel* . Prohlížeč vytvoří novou žádost na adrese URL pro přesměrování, která se zobrazí v adresním řádku prohlížeče. Vzhledem k tomu, že se žádná pravidla v ukázkové aplikaci neshodují s adresou URL pro přesměrování:
 
 * Druhá žádost obdrží odpověď *200-OK* od aplikace.
 * Tělo odpovědi zobrazuje adresu URL pro přesměrování.
@@ -130,15 +117,15 @@ Původní požadavek:`/redirect-rule/1234/5678`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect.png)
 
-Část výrazu obsažená v závorkách se nazývá *Skupina zachycení*. Tečka (`.`) výrazu znamená, že *odpovídá libovolnému znaku*. Hvězdička (`*`) značí, *že se předchozí znak rovná nule nebo vícekrát*. Proto jsou poslední dva segmenty cesty adresy URL `1234/5678`zachyceny skupinou `(.*)`zachycení. Jakákoli hodnota, kterou zadáte v adrese URL `redirect-rule/` požadavku, potom, co je tato jediná skupina zachycení zachycena.
+Část výrazu obsažená v závorkách se nazývá *Skupina zachycení*. Tečka ( `.` ) výrazu znamená, že *odpovídá libovolnému znaku*. Hvězdička ( `*` ) značí, *že se předchozí znak rovná nule nebo vícekrát*. Proto jsou poslední dva segmenty cesty adresy URL `1234/5678` zachyceny skupinou zachycení `(.*)` . Jakákoli hodnota, kterou zadáte v adrese URL požadavku, potom, co `redirect-rule/` je tato jediná skupina zachycení zachycena.
 
-V řetězci pro nahrazení jsou zachycené skupiny vloženy do řetězce s znakem dolaru (`$`) následovaným pořadovým číslem záznamu. První hodnota skupiny zachycení je získána s `$1`, druhým s `$2`a pokračuje v pořadí pro skupiny zachycení ve vašem regulárním výrazu. Regulární výraz pravidla přesměrování v ukázkové aplikaci obsahuje jenom jednu zachycenou skupinu, takže v náhradním řetězci je jenom jedna vložená skupina, která je `$1`. Po použití pravidla se adresa URL bude `/redirected/1234/5678`nacházet.
+V řetězci pro nahrazení jsou zachycené skupiny vloženy do řetězce s znakem dolaru ( `$` ) následovaným pořadovým číslem záznamu. První hodnota skupiny zachycení je získána s `$1` , druhým s `$2` a pokračuje v pořadí pro skupiny zachycení ve vašem regulárním výrazu. Regulární výraz pravidla přesměrování v ukázkové aplikaci obsahuje jenom jednu zachycenou skupinu, takže v náhradním řetězci je jenom jedna vložená skupina, která je `$1` . Po použití pravidla se adresa URL bude nacházet `/redirected/1234/5678` .
 
 ### <a name="url-redirect-to-a-secure-endpoint"></a>Přesměrování adresy URL na zabezpečený koncový bod
 
 Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttps*> k přesměrování požadavků HTTP na stejného hostitele a cestu pomocí protokolu HTTPS. Pokud kód stavu není zadaný, použije se ve výchozím nastavení middleware *302 – Nalezeno*. Pokud port není dodán:
 
-* Ve výchozím nastavení se `null`používá middleware.
+* Ve výchozím nastavení se používá middleware `null` .
 * Schéma se změní na `https` (protokol HTTPS) a klient přistupuje k prostředku na portu 443.
 
 Následující příklad ukazuje, jak nastavit stavový kód na *301 – trvale přesunuto* a změnit port na 5001.
@@ -168,19 +155,19 @@ public void Configure(IApplicationBuilder app)
 > [!NOTE]
 > Při přesměrování na zabezpečený koncový bod bez požadavku na další pravidla přesměrování doporučujeme použít middleware pro přesměrování protokolu HTTPS. Další informace najdete v tématu věnovaném [vykonání protokolu HTTPS](xref:security/enforcing-ssl#require-https) .
 
-Ukázková aplikace dokáže demonstrovat, jak používat `AddRedirectToHttps` nebo. `AddRedirectToHttpsPermanent` Přidejte metodu rozšíření do `RewriteOptions`. Vytvořte nezabezpečenou žádost o aplikaci na libovolné adrese URL. Zrušte upozornění zabezpečení prohlížeče, že certifikát podepsaný svým držitelem je nedůvěryhodný, nebo vytvořte výjimku pro důvěřování certifikátu.
+Ukázková aplikace dokáže demonstrovat, jak používat `AddRedirectToHttps` nebo `AddRedirectToHttpsPermanent` . Přidejte metodu rozšíření do `RewriteOptions` . Vytvořte nezabezpečenou žádost o aplikaci na libovolné adrese URL. Zrušte upozornění zabezpečení prohlížeče, že certifikát podepsaný svým držitelem je nedůvěryhodný, nebo vytvořte výjimku pro důvěřování certifikátu.
 
-Původní požadavek s `AddRedirectToHttps(301, 5001)`použitím:`http://localhost:5000/secure`
+Původní požadavek s použitím `AddRedirectToHttps(301, 5001)` :`http://localhost:5000/secure`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https.png)
 
-Původní požadavek s `AddRedirectToHttpsPermanent`použitím:`http://localhost:5000/secure`
+Původní požadavek s použitím `AddRedirectToHttpsPermanent` :`http://localhost:5000/secure`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https_permanent.png)
 
 ### <a name="url-rewrite"></a>Přepsání adresy URL
 
-Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*> k vytvoření pravidla pro přepis adres URL. První parametr obsahuje regulární výraz pro porovnání na cestě příchozích adres URL. Druhým parametrem je náhradní řetězec. Třetí parametr, `skipRemainingRules: {true|false}`označuje middleware bez ohledu na to, zda má přeskočit další pravidla přepsání, pokud je použito aktuální pravidlo.
+Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*> k vytvoření pravidla pro přepis adres URL. První parametr obsahuje regulární výraz pro porovnání na cestě příchozích adres URL. Druhým parametrem je náhradní řetězec. Třetí parametr, `skipRemainingRules: {true|false}` označuje middleware bez ohledu na to, zda má přeskočit další pravidla přepsání, pokud je použito aktuální pravidlo.
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=10-11)]
 
@@ -188,43 +175,269 @@ Původní požadavek:`/rewrite-rule/1234/5678`
 
 ![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_rewrite.png)
 
-Kosočtverce (`^`) na začátku výrazu znamená, že shoda začíná na začátku cesty URL.
+Kosočtverce ( `^` ) na začátku výrazu znamená, že shoda začíná na začátku cesty URL.
 
-V předchozím příkladu s pravidlem `redirect-rule/(.*)`přesměrování není na začátku regulárního výrazu k dispozici žádná kosočtverce (`^`). Proto jakékoli znaky mohou předcházet `redirect-rule/` v cestě k úspěšné shodě.
+V předchozím příkladu s pravidlem přesměrování `redirect-rule/(.*)` není `^` na začátku regulárního výrazu k dispozici žádná kosočtverce (). Proto jakékoli znaky mohou předcházet `redirect-rule/` v cestě k úspěšné shodě.
 
 | Cesta                               | Shoda |
-| ---------------------------------- | :---: |
-| `/redirect-rule/1234/5678`         | Ano   |
-| `/my-cool-redirect-rule/1234/5678` | Ano   |
-| `/anotherredirect-rule/1234/5678`  | Ano   |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Pravidlo `^rewrite-rule/(\d+)/(\d+)`přepsaného zápisu odpovídá pouze cestám, pokud začínají na `rewrite-rule/`. V následující tabulce si všimněte rozdílu v porovnání.
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------- | :---: | | `/redirect-rule/1234/5678`         | Ano | | `/my-cool-redirect-rule/1234/5678` | Ano | | `/anotherredirect-rule/1234/5678`  | Ano |
+
+Pravidlo přepsaného zápisu `^rewrite-rule/(\d+)/(\d+)` odpovídá pouze cestám, pokud začínají na `rewrite-rule/` . V následující tabulce si všimněte rozdílu v porovnání.
 
 | Cesta                              | Shoda |
-| --------------------------------- | :---: |
-| `/rewrite-rule/1234/5678`         | Ano   |
-| `/my-cool-rewrite-rule/1234/5678` | Ne    |
-| `/anotherrewrite-rule/1234/5678`  | Ne    |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)`. `\d` Značí *shodu s číslicí (číslem)*. Znaménko plus (`+`) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2`. Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678`. Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------- | :---: | | `/rewrite-rule/1234/5678`         | Ano | | `/my-cool-rewrite-rule/1234/5678` | Žádné | | `/anotherrewrite-rule/1234/5678`  | Žádné |
+
+Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)` . `\d`Značí *shodu s číslicí (číslem)*. Znaménko plus ( `+` ) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2` . Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678` . Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 
 K získání prostředku neexistuje žádná Přenosová cesta k serveru. Pokud prostředek existuje, načte se a vrátí do klienta s kódem stavu *200-OK* . Vzhledem k tomu, že klient není přesměrován, adresa URL v adresním řádku prohlížeče se nezmění. Klienti nerozpoznají, že na serveru došlo k operaci přepsání adresy URL.
 
 > [!NOTE]
-> `skipRemainingRules: true` Kdykoli je to možné, protože vyhovující pravidla jsou výpočetně náročná a zvyšují dobu odezvy aplikace. Pro nejrychlejší aplikační odpověď:
+> `skipRemainingRules: true`Kdykoli je to možné, protože vyhovující pravidla jsou výpočetně náročná a zvyšují dobu odezvy aplikace. Pro nejrychlejší aplikační odpověď:
 >
 > * Seřazení pravidel přepisu z nejčastěji spárovaného pravidla na nejméně často spárované pravidlo.
 > * Pokud dojde ke shodě a není vyžadováno žádné další zpracování pravidla, přeskočte zpracování zbývajících pravidel.
 
 ### <a name="apache-mod_rewrite"></a>Mod_rewrite Apache
 
-Použijte pravidla mod_rewrite Apache s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*>. Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Další informace a příklady pravidel mod_rewrite najdete v tématu [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
+Použijte pravidla mod_rewrite Apache s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Další informace a příklady pravidel mod_rewrite najdete v tématu [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
 
-<xref:System.IO.StreamReader> Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite. txt* :
+<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite. txt* :
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
 
-Ukázková aplikace přesměrovává požadavky od `/apache-mod-rules-redirect/(.\*)` do. `/redirected?id=$1` Stavový kód odpovědi je *302 – Nalezeno*.
+Ukázková aplikace přesměrovává požadavky od `/apache-mod-rules-redirect/(.\*)` do `/redirected?id=$1` . Stavový kód odpovědi je *302 – Nalezeno*.
 
 [!code[](url-rewriting/samples/3.x/SampleApp/ApacheModRewrite.txt)]
 
@@ -266,13 +479,13 @@ Middleware podporuje následující proměnné serveru Apache mod_rewrite:
 
 ### <a name="iis-url-rewrite-module-rules"></a>Pravidla pro přepsání adresy URL služby IIS
 
-Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*>použijte. Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití souboru *Web. config* aplikace při spuštění v systému Windows Server IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *Web. config* aplikace, aby nedocházelo ke konfliktům s modulem pro přepis služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
+Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, použijte <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití souboru *Web. config* aplikace při spuštění v systému Windows Server IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *Web. config* aplikace, aby nedocházelo ke konfliktům s modulem pro přepis služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
 
-<xref:System.IO.StreamReader> Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite. XML* :
+<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite. XML* :
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
 
-Ukázková aplikace přepíše požadavky od `/iis-rules-rewrite/(.*)` do. `/rewritten?id=$1` Odpověď se pošle klientovi s kódem stavu *200-OK* .
+Ukázková aplikace přepíše požadavky od `/iis-rules-rewrite/(.*)` do `/rewritten?id=$1` . Odpověď se pošle klientovi s kódem stavu *200-OK* .
 
 [!code-xml[](url-rewriting/samples/3.x/SampleApp/IISUrlRewrite.xml)]
 
@@ -313,7 +526,7 @@ Middleware podporuje následující proměnné serveru pro přepis adres URL slu
 * REQUEST_URI
 
 > [!NOTE]
-> Můžete také získat <xref:Microsoft.Extensions.FileProviders.IFileProvider> prostřednictvím <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>. Tento přístup může poskytovat větší flexibilitu pro umístění souborů pravidel přepisu. Ujistěte se, že jsou v cestě, kterou zadáte, nasazené soubory pravidel přepisu na server.
+> Můžete také získat <xref:Microsoft.Extensions.FileProviders.IFileProvider> prostřednictvím <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> . Tento přístup může poskytovat větší flexibilitu pro umístění souborů pravidel přepisu. Ujistěte se, že jsou v cestě, kterou zadáte, nasazené soubory pravidel přepisu na server.
 >
 > ```csharp
 > PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
@@ -321,17 +534,381 @@ Middleware podporuje následující proměnné serveru pro přepis adres URL slu
 
 ### <a name="method-based-rule"></a>Pravidlo založené na metodách
 
-Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext>, který zpřístupňuje metodu <xref:Microsoft.AspNetCore.Http.HttpContext> pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> , který zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> metodu pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
 
 | `RewriteContext.Result`              | Akce                                                           |
-| ------------------------------------ | ---------------------------------------------------------------- |
-| `RuleResult.ContinueRules`výchozí | Pokračovat v používání pravidel.                                         |
-| `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       |
-| `RuleResult.SkipRemainingRules`      | Zastavení použití pravidel a odeslání kontextu do dalšího middlewaru. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------------------------------- | | `RuleResult.ContinueRules`(výchozí) | Pokračovat v používání pravidel.                                         | | `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       | | `RuleResult.SkipRemainingRules`      | Zastavení použití pravidel a odeslání kontextu do dalšího middlewaru. |
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=14)]
 
-Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml`, je požadavek přesměrován na. `/xmlfiles/file.xml` Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/File.XML*, soubor middleware statických souborů zachová soubor klientovi ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
+Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml` , je požadavek přesměrován na `/xmlfiles/file.xml` . Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/File.XML*, soubor middleware statických souborů zachová soubor klientovi ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
 
 *RewriteRules.cs*:
 
@@ -351,7 +928,7 @@ Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k po
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontrolovány, aby splňovaly několik podmínek. `extension` Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif*. Pokud `newPath` není platná, <xref:System.ArgumentException> je vyvolána výjimka. Pokud je pro *image. png*vytvořen požadavek, je požadavek přesměrován na `/png-images/image.png`. Pokud je pro *image. jpg*vytvořen požadavek, je požadavek přesměrován na `/jpg-images/image.jpg`. Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
+Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontrolovány, aby splňovaly několik podmínek. `extension`Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif*. Pokud `newPath` není platná, <xref:System.ArgumentException> je vyvolána výjimka. Pokud je pro *image. png*vytvořen požadavek, je požadavek přesměrován na `/png-images/image.png` . Pokud je pro *image. jpg*vytvořen požadavek, je požadavek přesměrován na `/jpg-images/image.jpg` . Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
@@ -366,13 +943,246 @@ Původní požadavek:`/image.jpg`
 ## <a name="regex-examples"></a>Příklady Regex
 
 | Cíl | & řetězce regulárního výrazu<br>Příklad shody | & řetězce nahrazení<br>Příklad výstupu |
-| ---- | ------------------------------- | -------------------------------------- |
-| Přepište cestu do řetězce dotazu. | `^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123` |
-| Koncové lomítko pruhu | `(.*)/$`<br>`/path/` | `$1`<br>`/path` |
-| Vymáhat koncové lomítko | `(.*[^/])$`<br>`/path` | `$1/`<br>`/path/` |
-| Vyhnout se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$` nebo `^(?!.*\.axd$)(.*)$`<br>Ano:`/resource.htm`<br>Ne:`/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
-| Změna uspořádání segmentů adresy URL | `path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1` |
-| Nahradit segment adresy URL | `^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
+| ---- | ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------- | | Přepište cestu do řetězce dotazu |`^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123`| | Koncové lomítko pruhu |`(.*)/$`<br>`/path/` | `$1`<br>`/path`| | Vynutilo koncové lomítko |`(.*[^/])$`<br>`/path` | `$1/`<br>`/path/`| | Vyhněte se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$`nebo`^(?!.*\.axd$)(.*)$`<br>Ano:`/resource.htm`<br>Ne:`/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd`| | Změna uspořádání segmentů adresy URL |`path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1`| | Nahradit segment adresy URL |`^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
 
 ::: moniker-end
 
@@ -401,7 +1211,7 @@ Rozdíl mezi přesměrováním *URL* a *přepsáním adresy URL* je malý, ale m
 
 *Přesměrování adresy URL* zahrnuje i operaci na straně klienta, kde klient má pokyn k přístupu k prostředku na jiné adrese, než jakou požadoval klient původně. To vyžaduje zpáteční cestu k serveru. Adresa URL pro přesměrování vracená klientovi se zobrazí v adresním řádku prohlížeče, když klient vytvoří nový požadavek na prostředek.
 
-Pokud `/resource` je *přesměrován* na `/different-resource`, server odpoví, že by měl klient získat prostředek na `/different-resource` stavovém kódu, což značí, že přesměrování je buď dočasné, nebo trvalé.
+Pokud `/resource` je *přesměrován* na `/different-resource` , server odpoví, že by měl klient získat prostředek na `/different-resource` stavovém kódu, což značí, že přesměrování je buď dočasné, nebo trvalé.
 
 ![Koncový bod služby WebAPI se dočasně změnil z verze 1 (V1) na verzi 2 (v2) na serveru. Klient odešle požadavek na službu ve verzi 1 cesty/v1/API. Server pošle odpověď 302 (nalezeno) nové dočasné cestě ke službě ve verzi 2/v2/API. Klient vytvoří druhý požadavek na službu na adrese URL pro přesměrování. Server odpoví stavovým kódem 200 (OK).](url-rewriting/_static/url_redirect.png)
 
@@ -415,7 +1225,7 @@ Další informace o stavových kódech najdete v [dokumentu RFC 2616: definice s
 
 *Přepsání adresy URL* je operace na straně serveru, která poskytuje prostředek z jiné adresy prostředku, než jakou požaduje klient. Přepsání adresy URL nevyžaduje zpáteční cestu k serveru. Přepsaná adresa URL se nevrátí klientovi a nezobrazí se v adresním řádku prohlížeče.
 
-Pokud `/resource` je *přepsáno* na `/different-resource`, server *interně* načte a vrátí prostředek na `/different-resource`.
+Pokud `/resource` je *přepsáno* na `/different-resource` , server *interně* načte a vrátí prostředek na `/different-resource` .
 
 I když klient může být schopný načíst prostředek na adrese URL přepsané adresy, klient nebude informovat o tom, že prostředek existuje na přepsané adrese URL, když odešle svůj požadavek a obdrží odpověď.
 
@@ -439,7 +1249,7 @@ Hlavními důvody pro použití technologie přepisování adres URL založené 
 
 * Middleware nepodporuje všechny funkce těchto modulů.
 
-  Některé funkce v modulech serveru nefungují s ASP.NET Core projekty, jako jsou `IsFile` omezení a `IsDirectory` modulu IIS Rewrite. V těchto scénářích místo toho použijte middleware.
+  Některé funkce v modulech serveru nefungují s ASP.NET Core projekty, jako jsou `IsFile` `IsDirectory` omezení a modulu IIS Rewrite. V těchto scénářích místo toho použijte middleware.
 * Výkon middleware se pravděpodobně neshoduje s modulem.
 
   Srovnávací testy jsou jediným způsobem, jak zjistit, který přístup snižuje výkon, který je v nejvyšší nebo v případě, že je snížený výkon.
@@ -448,21 +1258,21 @@ Hlavními důvody pro použití technologie přepisování adres URL založené 
 
 Chcete-li do projektu zahrnout middleware, přidejte odkaz na balíček do souboru [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) v souboru projektu, který obsahuje balíček [Microsoft. AspNetCore. Rewrite](https://www.nuget.org/packages/Microsoft.AspNetCore.Rewrite) .
 
-Pokud nepoužíváte `Microsoft.AspNetCore.App` Metapackage, přidejte do `Microsoft.AspNetCore.Rewrite` balíčku odkaz na projekt.
+Pokud nepoužíváte `Microsoft.AspNetCore.App` Metapackage, přidejte do balíčku odkaz na projekt `Microsoft.AspNetCore.Rewrite` .
 
 ## <a name="extension-and-options"></a>Rozšíření a možnosti
 
-Vytvořte pravidla přepsání a přesměrování adresy URL vytvořením instance třídy [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) s metodami rozšíření pro každé pravidlo přepsání. Řetězení více pravidel v pořadí, ve kterém se mají zpracovat. Rozhraní `RewriteOptions` se předává do middleware PŘEPISOVÁNÍ adresy URL při jeho přidání do kanálu požadavků pomocí <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*>:
+Vytvořte pravidla přepsání a přesměrování adresy URL vytvořením instance třídy [RewriteOptions](xref:Microsoft.AspNetCore.Rewrite.RewriteOptions) s metodami rozšíření pro každé pravidlo přepsání. Řetězení více pravidel v pořadí, ve kterém se mají zpracovat. Rozhraní se `RewriteOptions` předává do middleware přepisování adresy URL při jeho přidání do kanálu požadavků pomocí <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> :
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
 ### <a name="redirect-non-www-to-www"></a>Přesměrovat neexistující na webovou
 
-Tři možnosti umožňují, aby aplikace přesměrovala`www` požadavky bez `www`požadavků na:
+Tři možnosti umožňují, aby aplikace přesměrovala `www` požadavky bez požadavků na `www` :
 
-* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWwwPermanent*>&ndash; Pokud je žádost jiná než, `www` trvale přesměrujte požadavek na subdoménu`www`. Přesměruje stavový kód [Status308PermanentRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status308PermanentRedirect) .
+* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWwwPermanent*>: Trvale přesměrujte požadavek na `www` subdoménu, pokud je požadavek jiný než `www` . Přesměruje stavový kód [Status308PermanentRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status308PermanentRedirect) .
 
-* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWww*>&ndash; Přesměruje požadavek do `www` subdomény, pokud je příchozí požadavek jiný než`www`. Přesměruje stavový kód [Status307TemporaryRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect) . Přetížení umožňuje poskytnout stavový kód pro odpověď. Použijte pole <xref:Microsoft.AspNetCore.Http.StatusCodes> třídy pro přiřazení stavového kódu.
+* <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToWww*>: Přesměrujte požadavek na `www` subdoménu, pokud je příchozí požadavek jiný než `www` . Přesměruje stavový kód [Status307TemporaryRedirect](xref:Microsoft.AspNetCore.Http.StatusCodes.Status307TemporaryRedirect) . Přetížení umožňuje poskytnout stavový kód pro odpověď. Použijte pole <xref:Microsoft.AspNetCore.Http.StatusCodes> třídy pro přiřazení stavového kódu.
 
 ### <a name="url-redirect"></a>Přesměrování adresy URL
 
@@ -470,7 +1280,7 @@ Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirect
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=9)]
 
-V prohlížeči s povolenými vývojářskými nástroji vytvořte žádost o ukázkovou aplikaci s cestou `/redirect-rule/1234/5678`. Regulární výraz odpovídá cestě požadavku na `redirect-rule/(.*)`a cesta je nahrazena řetězcem. `/redirected/1234/5678` Adresa URL pro přesměrování se pošle zpátky do klienta s kódem stavu 302, který se *našel* . Prohlížeč vytvoří novou žádost na adrese URL pro přesměrování, která se zobrazí v adresním řádku prohlížeče. Vzhledem k tomu, že se žádná pravidla v ukázkové aplikaci neshodují s adresou URL pro přesměrování:
+V prohlížeči s povolenými vývojářskými nástroji vytvořte žádost o ukázkovou aplikaci s cestou `/redirect-rule/1234/5678` . Regulární výraz odpovídá cestě požadavku na `redirect-rule/(.*)` a cesta je nahrazena řetězcem `/redirected/1234/5678` . Adresa URL pro přesměrování se pošle zpátky do klienta s kódem stavu 302, který se *našel* . Prohlížeč vytvoří novou žádost na adrese URL pro přesměrování, která se zobrazí v adresním řádku prohlížeče. Vzhledem k tomu, že se žádná pravidla v ukázkové aplikaci neshodují s adresou URL pro přesměrování:
 
 * Druhá žádost obdrží odpověď *200-OK* od aplikace.
 * Tělo odpovědi zobrazuje adresu URL pro přesměrování.
@@ -484,15 +1294,15 @@ Původní požadavek:`/redirect-rule/1234/5678`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect.png)
 
-Část výrazu obsažená v závorkách se nazývá *Skupina zachycení*. Tečka (`.`) výrazu znamená, že *odpovídá libovolnému znaku*. Hvězdička (`*`) značí, *že se předchozí znak rovná nule nebo vícekrát*. Proto jsou poslední dva segmenty cesty adresy URL `1234/5678`zachyceny skupinou `(.*)`zachycení. Jakákoli hodnota, kterou zadáte v adrese URL `redirect-rule/` požadavku, potom, co je tato jediná skupina zachycení zachycena.
+Část výrazu obsažená v závorkách se nazývá *Skupina zachycení*. Tečka ( `.` ) výrazu znamená, že *odpovídá libovolnému znaku*. Hvězdička ( `*` ) značí, *že se předchozí znak rovná nule nebo vícekrát*. Proto jsou poslední dva segmenty cesty adresy URL `1234/5678` zachyceny skupinou zachycení `(.*)` . Jakákoli hodnota, kterou zadáte v adrese URL požadavku, potom, co `redirect-rule/` je tato jediná skupina zachycení zachycena.
 
-V řetězci pro nahrazení jsou zachycené skupiny vloženy do řetězce s znakem dolaru (`$`) následovaným pořadovým číslem záznamu. První hodnota skupiny zachycení je získána s `$1`, druhým s `$2`a pokračuje v pořadí pro skupiny zachycení ve vašem regulárním výrazu. Regulární výraz pravidla přesměrování v ukázkové aplikaci obsahuje jenom jednu zachycenou skupinu, takže v náhradním řetězci je jenom jedna vložená skupina, která je `$1`. Po použití pravidla se adresa URL bude `/redirected/1234/5678`nacházet.
+V řetězci pro nahrazení jsou zachycené skupiny vloženy do řetězce s znakem dolaru ( `$` ) následovaným pořadovým číslem záznamu. První hodnota skupiny zachycení je získána s `$1` , druhým s `$2` a pokračuje v pořadí pro skupiny zachycení ve vašem regulárním výrazu. Regulární výraz pravidla přesměrování v ukázkové aplikaci obsahuje jenom jednu zachycenou skupinu, takže v náhradním řetězci je jenom jedna vložená skupina, která je `$1` . Po použití pravidla se adresa URL bude nacházet `/redirected/1234/5678` .
 
 ### <a name="url-redirect-to-a-secure-endpoint"></a>Přesměrování adresy URL na zabezpečený koncový bod
 
 Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRedirectToHttps*> k přesměrování požadavků HTTP na stejného hostitele a cestu pomocí protokolu HTTPS. Pokud kód stavu není zadaný, použije se ve výchozím nastavení middleware *302 – Nalezeno*. Pokud port není dodán:
 
-* Ve výchozím nastavení se `null`používá middleware.
+* Ve výchozím nastavení se používá middleware `null` .
 * Schéma se změní na `https` (protokol HTTPS) a klient přistupuje k prostředku na portu 443.
 
 Následující příklad ukazuje, jak nastavit stavový kód na *301 – trvale přesunuto* a změnit port na 5001.
@@ -522,19 +1332,19 @@ public void Configure(IApplicationBuilder app)
 > [!NOTE]
 > Při přesměrování na zabezpečený koncový bod bez požadavku na další pravidla přesměrování doporučujeme použít middleware pro přesměrování protokolu HTTPS. Další informace najdete v tématu věnovaném [vykonání protokolu HTTPS](xref:security/enforcing-ssl#require-https) .
 
-Ukázková aplikace dokáže demonstrovat, jak používat `AddRedirectToHttps` nebo. `AddRedirectToHttpsPermanent` Přidejte metodu rozšíření do `RewriteOptions`. Vytvořte nezabezpečenou žádost o aplikaci na libovolné adrese URL. Zrušte upozornění zabezpečení prohlížeče, že certifikát podepsaný svým držitelem je nedůvěryhodný, nebo vytvořte výjimku pro důvěřování certifikátu.
+Ukázková aplikace dokáže demonstrovat, jak používat `AddRedirectToHttps` nebo `AddRedirectToHttpsPermanent` . Přidejte metodu rozšíření do `RewriteOptions` . Vytvořte nezabezpečenou žádost o aplikaci na libovolné adrese URL. Zrušte upozornění zabezpečení prohlížeče, že certifikát podepsaný svým držitelem je nedůvěryhodný, nebo vytvořte výjimku pro důvěřování certifikátu.
 
-Původní požadavek s `AddRedirectToHttps(301, 5001)`použitím:`http://localhost:5000/secure`
+Původní požadavek s použitím `AddRedirectToHttps(301, 5001)` :`http://localhost:5000/secure`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https.png)
 
-Původní požadavek s `AddRedirectToHttpsPermanent`použitím:`http://localhost:5000/secure`
+Původní požadavek s použitím `AddRedirectToHttpsPermanent` :`http://localhost:5000/secure`
 
 ![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí](url-rewriting/_static/add_redirect_to_https_permanent.png)
 
 ### <a name="url-rewrite"></a>Přepsání adresy URL
 
-Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*> k vytvoření pravidla pro přepis adres URL. První parametr obsahuje regulární výraz pro porovnání na cestě příchozích adres URL. Druhým parametrem je náhradní řetězec. Třetí parametr, `skipRemainingRules: {true|false}`označuje middleware bez ohledu na to, zda má přeskočit další pravidla přepsání, pokud je použito aktuální pravidlo.
+Slouží <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.AddRewrite*> k vytvoření pravidla pro přepis adres URL. První parametr obsahuje regulární výraz pro porovnání na cestě příchozích adres URL. Druhým parametrem je náhradní řetězec. Třetí parametr, `skipRemainingRules: {true|false}` označuje middleware bez ohledu na to, zda má přeskočit další pravidla přepsání, pokud je použito aktuální pravidlo.
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=10-11)]
 
@@ -542,43 +1352,269 @@ Původní požadavek:`/rewrite-rule/1234/5678`
 
 ![Okno prohlížeče se Vývojářské nástroje sledování žádosti a odpovědi](url-rewriting/_static/add_rewrite.png)
 
-Kosočtverce (`^`) na začátku výrazu znamená, že shoda začíná na začátku cesty URL.
+Kosočtverce ( `^` ) na začátku výrazu znamená, že shoda začíná na začátku cesty URL.
 
-V předchozím příkladu s pravidlem `redirect-rule/(.*)`přesměrování není na začátku regulárního výrazu k dispozici žádná kosočtverce (`^`). Proto jakékoli znaky mohou předcházet `redirect-rule/` v cestě k úspěšné shodě.
+V předchozím příkladu s pravidlem přesměrování `redirect-rule/(.*)` není `^` na začátku regulárního výrazu k dispozici žádná kosočtverce (). Proto jakékoli znaky mohou předcházet `redirect-rule/` v cestě k úspěšné shodě.
 
 | Cesta                               | Shoda |
-| ---------------------------------- | :---: |
-| `/redirect-rule/1234/5678`         | Ano   |
-| `/my-cool-redirect-rule/1234/5678` | Ano   |
-| `/anotherredirect-rule/1234/5678`  | Ano   |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Pravidlo `^rewrite-rule/(\d+)/(\d+)`přepsaného zápisu odpovídá pouze cestám, pokud začínají na `rewrite-rule/`. V následující tabulce si všimněte rozdílu v porovnání.
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------- | :---: | | `/redirect-rule/1234/5678`         | Ano | | `/my-cool-redirect-rule/1234/5678` | Ano | | `/anotherredirect-rule/1234/5678`  | Ano |
+
+Pravidlo přepsaného zápisu `^rewrite-rule/(\d+)/(\d+)` odpovídá pouze cestám, pokud začínají na `rewrite-rule/` . V následující tabulce si všimněte rozdílu v porovnání.
 
 | Cesta                              | Shoda |
-| --------------------------------- | :---: |
-| `/rewrite-rule/1234/5678`         | Ano   |
-| `/my-cool-rewrite-rule/1234/5678` | Ne    |
-| `/anotherrewrite-rule/1234/5678`  | Ne    |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)`. `\d` Značí *shodu s číslicí (číslem)*. Znaménko plus (`+`) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2`. Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678`. Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------- | :---: | | `/rewrite-rule/1234/5678`         | Ano | | `/my-cool-rewrite-rule/1234/5678` | Žádné | | `/anotherrewrite-rule/1234/5678`  | Žádné |
+
+Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)` . `\d`Značí *shodu s číslicí (číslem)*. Znaménko plus ( `+` ) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2` . Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678` . Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 
 K získání prostředku neexistuje žádná Přenosová cesta k serveru. Pokud prostředek existuje, načte se a vrátí do klienta s kódem stavu *200-OK* . Vzhledem k tomu, že klient není přesměrován, adresa URL v adresním řádku prohlížeče se nezmění. Klienti nerozpoznají, že na serveru došlo k operaci přepsání adresy URL.
 
 > [!NOTE]
-> `skipRemainingRules: true` Kdykoli je to možné, protože vyhovující pravidla jsou výpočetně náročná a zvyšují dobu odezvy aplikace. Pro nejrychlejší aplikační odpověď:
+> `skipRemainingRules: true`Kdykoli je to možné, protože vyhovující pravidla jsou výpočetně náročná a zvyšují dobu odezvy aplikace. Pro nejrychlejší aplikační odpověď:
 >
 > * Seřazení pravidel přepisu z nejčastěji spárovaného pravidla na nejméně často spárované pravidlo.
 > * Pokud dojde ke shodě a není vyžadováno žádné další zpracování pravidla, přeskočte zpracování zbývajících pravidel.
 
 ### <a name="apache-mod_rewrite"></a>Mod_rewrite Apache
 
-Použijte pravidla mod_rewrite Apache s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*>. Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Další informace a příklady pravidel mod_rewrite najdete v tématu [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
+Použijte pravidla mod_rewrite Apache s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Další informace a příklady pravidel mod_rewrite najdete v tématu [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
 
-<xref:System.IO.StreamReader> Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite. txt* :
+<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite. txt* :
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
 
-Ukázková aplikace přesměrovává požadavky od `/apache-mod-rules-redirect/(.\*)` do. `/redirected?id=$1` Stavový kód odpovědi je *302 – Nalezeno*.
+Ukázková aplikace přesměrovává požadavky od `/apache-mod-rules-redirect/(.\*)` do `/redirected?id=$1` . Stavový kód odpovědi je *302 – Nalezeno*.
 
 [!code[](url-rewriting/samples/2.x/SampleApp/ApacheModRewrite.txt)]
 
@@ -620,13 +1656,13 @@ Middleware podporuje následující proměnné serveru Apache mod_rewrite:
 
 ### <a name="iis-url-rewrite-module-rules"></a>Pravidla pro přepsání adresy URL služby IIS
 
-Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*>použijte. Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití souboru *Web. config* aplikace při spuštění v systému Windows Server IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *Web. config* aplikace, aby nedocházelo ke konfliktům s modulem pro přepis služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
+Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, použijte <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití souboru *Web. config* aplikace při spuštění v systému Windows Server IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *Web. config* aplikace, aby nedocházelo ke konfliktům s modulem pro přepis služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
 
-<xref:System.IO.StreamReader> Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite. XML* :
+<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite. XML* :
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
 
-Ukázková aplikace přepíše požadavky od `/iis-rules-rewrite/(.*)` do. `/rewritten?id=$1` Odpověď se pošle klientovi s kódem stavu *200-OK* .
+Ukázková aplikace přepíše požadavky od `/iis-rules-rewrite/(.*)` do `/rewritten?id=$1` . Odpověď se pošle klientovi s kódem stavu *200-OK* .
 
 [!code-xml[](url-rewriting/samples/2.x/SampleApp/IISUrlRewrite.xml)]
 
@@ -667,7 +1703,7 @@ Middleware podporuje následující proměnné serveru pro přepis adres URL slu
 * REQUEST_URI
 
 > [!NOTE]
-> Můžete také získat <xref:Microsoft.Extensions.FileProviders.IFileProvider> prostřednictvím <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>. Tento přístup může poskytovat větší flexibilitu pro umístění souborů pravidel přepisu. Ujistěte se, že jsou v cestě, kterou zadáte, nasazené soubory pravidel přepisu na server.
+> Můžete také získat <xref:Microsoft.Extensions.FileProviders.IFileProvider> prostřednictvím <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> . Tento přístup může poskytovat větší flexibilitu pro umístění souborů pravidel přepisu. Ujistěte se, že jsou v cestě, kterou zadáte, nasazené soubory pravidel přepisu na server.
 >
 > ```csharp
 > PhysicalFileProvider fileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory());
@@ -675,17 +1711,381 @@ Middleware podporuje následující proměnné serveru pro přepis adres URL slu
 
 ### <a name="method-based-rule"></a>Pravidlo založené na metodách
 
-Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext>, který zpřístupňuje metodu <xref:Microsoft.AspNetCore.Http.HttpContext> pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
+Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> , který zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> metodu pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
 
 | `RewriteContext.Result`              | Akce                                                           |
-| ------------------------------------ | ---------------------------------------------------------------- |
-| `RuleResult.ContinueRules`výchozí | Pokračovat v používání pravidel.                                         |
-| `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       |
-| `RuleResult.SkipRemainingRules`      | Zastavení použití pravidel a odeslání kontextu do dalšího middlewaru. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------------------------------- | | `RuleResult.ContinueRules`(výchozí) | Pokračovat v používání pravidel.                                         | | `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       | | `RuleResult.SkipRemainingRules`      | Zastavení použití pravidel a odeslání kontextu do dalšího middlewaru. |
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=14)]
 
-Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml`, je požadavek přesměrován na. `/xmlfiles/file.xml` Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/File.XML*, soubor middleware statických souborů zachová soubor klientovi ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
+Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml` , je požadavek přesměrován na `/xmlfiles/file.xml` . Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/File.XML*, soubor middleware statických souborů zachová soubor klientovi ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
 
 *RewriteRules.cs*:
 
@@ -705,7 +2105,7 @@ Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k po
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontrolovány, aby splňovaly několik podmínek. `extension` Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif*. Pokud `newPath` není platná, <xref:System.ArgumentException> je vyvolána výjimka. Pokud je pro *image. png*vytvořen požadavek, je požadavek přesměrován na `/png-images/image.png`. Pokud je pro *image. jpg*vytvořen požadavek, je požadavek přesměrován na `/jpg-images/image.jpg`. Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
+Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontrolovány, aby splňovaly několik podmínek. `extension`Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif*. Pokud `newPath` není platná, <xref:System.ArgumentException> je vyvolána výjimka. Pokud je pro *image. png*vytvořen požadavek, je požadavek přesměrován na `/png-images/image.png` . Pokud je pro *image. jpg*vytvořen požadavek, je požadavek přesměrován na `/jpg-images/image.jpg` . Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
@@ -720,17 +2120,250 @@ Původní požadavek:`/image.jpg`
 ## <a name="regex-examples"></a>Příklady Regex
 
 | Cíl | & řetězce regulárního výrazu<br>Příklad shody | & řetězce nahrazení<br>Příklad výstupu |
-| ---- | ------------------------------- | -------------------------------------- |
-| Přepište cestu do řetězce dotazu. | `^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123` |
-| Koncové lomítko pruhu | `(.*)/$`<br>`/path/` | `$1`<br>`/path` |
-| Vymáhat koncové lomítko | `(.*[^/])$`<br>`/path` | `$1/`<br>`/path/` |
-| Vyhnout se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$` nebo `^(?!.*\.axd$)(.*)$`<br>Ano:`/resource.htm`<br>Ne:`/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd` |
-| Změna uspořádání segmentů adresy URL | `path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1` |
-| Nahradit segment adresy URL | `^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
+| ---- | ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------- | | Přepište cestu do řetězce dotazu |`^path/(.*)/(.*)`<br>`/path/abc/123` | `path?var1=$1&var2=$2`<br>`/path?var1=abc&var2=123`| | Koncové lomítko pruhu |`(.*)/$`<br>`/path/` | `$1`<br>`/path`| | Vynutilo koncové lomítko |`(.*[^/])$`<br>`/path` | `$1/`<br>`/path/`| | Vyhněte se přepisu konkrétních požadavků | `^(.*)(?<!\.axd)$`nebo`^(?!.*\.axd$)(.*)$`<br>Ano:`/resource.htm`<br>Ne:`/resource.axd` | `rewritten/$1`<br>`/rewritten/resource.htm`<br>`/resource.axd`| | Změna uspořádání segmentů adresy URL |`path/(.*)/(.*)/(.*)`<br>`path/1/2/3` | `path/$3/$2/$1`<br>`path/3/2/1`| | Nahradit segment adresy URL |`^(.*)/segment2/(.*)`<br>`/segment1/segment2/segment3` | `$1/replaced/$2`<br>`/segment1/replaced/segment3` |
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/index>

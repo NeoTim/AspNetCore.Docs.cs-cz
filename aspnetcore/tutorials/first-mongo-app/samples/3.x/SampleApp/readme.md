@@ -8,18 +8,18 @@ products:
 - aspnet-core
 - vs
 urlFragment: aspnetcore-webapi-mongodb
-ms.openlocfilehash: 6f6022bee678af92066f45032b43b6b87e5f901e
-ms.sourcegitcommit: 7a42bc1e594de36c854fd4363c11821548a9efa7
+ms.openlocfilehash: 95a2a6fcda0a4f7148183981f7dbacd06388329d
+ms.sourcegitcommit: 58722eb309767e462bdbf3082bd38737a4ef168f
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/19/2020
-ms.locfileid: "83608665"
+ms.lasthandoff: 05/27/2020
+ms.locfileid: "84106517"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core a MongoDB
 
 V tomto kurzu se vytvoří webové rozhraní API, které provádí operace vytvoření, čtení, aktualizace a odstranění (CRUD) v databázi [MongoDB](https://www.mongodb.com/what-is-mongodb) NoSQL.
 
-V tomto kurzu:
+V tomto kurzu se naučíte:
 
 * Konfigurace MongoDB
 * Vytvoření databáze MongoDB
@@ -35,7 +35,7 @@ V tomto kurzu:
 
 ## <a name="configure-mongodb"></a>Konfigurace MongoDB
 
-Pokud používáte Windows, MongoDB se nainstaluje ve výchozím nastavení v *C: \\ Program Files \\ MongoDB* . Přidejte *C: \\ Program Files \\ MongoDB \\ Server \\ \< version_number>\\ bin* do `Path` proměnné prostředí. Tato změna umožňuje přístup k MongoDB odkudkoli na svém vývojovém počítači.
+Pokud používáte Windows, MongoDB se nainstaluje ve výchozím nastavení v *C: \\ Program Files \\ MongoDB* . Přidejte *C: \\ Program Files \\ MongoDB \\ Server \\ \<version_number> \\ bin* do `Path` proměnné prostředí. Tato změna umožňuje přístup k MongoDB odkudkoli na svém vývojovém počítači.
 
 Pomocí prostředí Mongo v následujících krocích můžete vytvořit databázi, vytvořit kolekce a uložit dokumenty. Další informace o příkazech prostředí Mongo najdete v tématu [práce s prostředím Mongo](https://docs.mongodb.com/manual/mongo/#working-with-the-mongo-shell).
 
@@ -313,7 +313,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
 `BookService`Třída používá následující `MongoDB.Driver` členy k provádění operací CRUD proti databázi:
 
-* [MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm) &ndash; Přečte instanci serveru pro provádění databázových operací. K konstruktoru této třídy je poskytnutý připojovací řetězec MongoDB:
+* [MongoClient](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoClient.htm): přečte instanci serveru pro provádění databázových operací. K konstruktoru této třídy je poskytnutý připojovací řetězec MongoDB:
 
     ```csharp
     public BookService(IBookstoreDatabaseSettings settings)
@@ -325,16 +325,16 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
     }
     ```
 
-* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm) &ndash; Představuje databázi Mongo pro provádění operací. V tomto kurzu se používá obecná metoda [GetCollection \< TDocument> (Collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) na rozhraní pro získání přístupu k datům v určité kolekci. Provede operace CRUD proti kolekci po volání této metody. Ve `GetCollection<TDocument>(collection)` volání metody:
+* [IMongoDatabase](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_IMongoDatabase.htm): představuje databázi Mongo pro provádění operací. V tomto kurzu se používá obecná metoda [GetCollection \<TDocument> (Collection)](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoDatabase_GetCollection__1.htm) na rozhraní pro získání přístupu k datům v určité kolekci. Provede operace CRUD proti kolekci po volání této metody. Ve `GetCollection<TDocument>(collection)` volání metody:
   * `collection`představuje název kolekce.
   * `TDocument`představuje typ objektu CLR uložený v kolekci.
 
 `GetCollection<TDocument>(collection)`Vrátí objekt [MongoCollection](https://api.mongodb.com/csharp/current/html/T_MongoDB_Driver_MongoCollection.htm) představující kolekci. V tomto kurzu jsou v kolekci vyvolány následující metody:
 
-* [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm) &ndash; Odstraní jeden dokument, který odpovídá zadaným kritériím hledání.
-* [Najít \< TDocument>](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm) &ndash; vrátí všechny dokumenty v kolekci, které odpovídají zadaným kritériím hledání.
-* [InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm) &ndash; Vloží zadaný objekt jako nový dokument v kolekci.
-* [ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm) &ndash; Nahradí jediný dokument, který odpovídá zadaným kritériím hledání, zadaným objektem.
+* [DeleteOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_DeleteOne.htm): Odstraní jeden dokument, který odpovídá zadaným kritériím hledání.
+* [Find \<TDocument> ](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollectionExtensions_Find__1_1.htm): vrátí všechny dokumenty v kolekci, které odpovídají zadaným kritériím hledání.
+* [InsertOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_InsertOne.htm): Vloží zadaný objekt jako nový dokument v kolekci.
+* [ReplaceOne](https://api.mongodb.com/csharp/current/html/M_MongoDB_Driver_IMongoCollection_1_ReplaceOne.htm): nahradí jediný dokument, který odpovídá zadaným kritériím hledání, dodanému objektu.
 
 ## <a name="add-a-controller"></a>Přidání kontroleru
 

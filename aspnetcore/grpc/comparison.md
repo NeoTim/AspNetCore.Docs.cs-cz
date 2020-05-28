@@ -1,23 +1,11 @@
 ---
-title: Porovnání služeb gRPC pomocí rozhraní HTTP API
-author: jamesnk
-description: Přečtěte si, jak gRPC porovnává s rozhraními API HTTP a co doporučuje scénáře.
-monikerRange: '>= aspnetcore-3.0'
-ms.author: jamesnk
-ms.date: 12/05/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: grpc/comparison
-ms.openlocfilehash: ab103adc20c5332f71d5f6e3348d0b14c69fce34
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774701"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="compare-grpc-services-with-http-apis"></a>Porovnání služeb gRPC pomocí rozhraní HTTP API
 
@@ -30,15 +18,333 @@ Tento článek vysvětluje, jak [gRPC služby](https://grpc.io/docs/guides/) por
 Následující tabulka nabízí vysoké srovnání funkcí mezi gRPC a rozhraními API protokolu HTTP s JSON.
 
 | Funkce          | gRPC                                               | HTTP API s JSON           |
-| ---------------- | -------------------------------------------------- | ----------------------------- |
-| Kontrakt         | Požadováno (*.*)                                | Volitelné (OpenAPI)            |
-| Protocol (Protokol)         | HTTP/2                                             | HTTP                          |
-| Délka          | [Protobuf (malý, binární)](#performance)           | JSON (velký, lidský čitelný)  |
-| Prescriptiveness | [Striktní specifikace](#strict-specification)      | Spojování. Všechny požadavky HTTP jsou platné.     |
-| Streamování        | [Klient, server, obousměrné](#streaming)       | Klient, Server                |
-| Podpora prohlížečů  | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano                           |
-| Zabezpečení         | Přenos (TLS)                                    | Přenos (TLS)               |
-| Generování kódu klienta | [Ano](#code-generation)                      | OpenAPI + nástroje třetích stran |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------------- | | Kontrakt | Požadováno (*. proto*) | Volitelné (OpenAPI) | | Protokol | HTTP/2 | HTTP | | Datová část | [Protobuf (malý, binární)](#performance) | JSON (Velká, lidská čitelná) | | Prescriptiveness | [Striktní specifikace](#strict-specification) | Spojování. Všechny požadavky HTTP jsou platné.     | | Streamování | [Klient, server, obousměrný směr](#streaming) | Klient, Server | | Podpora prohlížeče | [Ne (vyžaduje grpc-Web)](#limited-browser-support) | Ano | | Zabezpečení | Transport (TLS) | Transport (TLS) | | Generování kódu klienta | [Ano](#code-generation) | OpenAPI + nástroje třetích stran |
 
 ## <a name="grpc-strengths"></a>gRPC síly
 
@@ -86,10 +392,10 @@ Rozšiřování konečného termínu a zrušení prostřednictvím podřízenýc
 
 gRPC je vhodný pro následující scénáře:
 
-* **Mikroslužby** &ndash; gRPC jsou určené pro zajištění nízké latence a komunikace s vysokou propustností. gRPC je ideální pro odlehčené mikroslužby, kde je efektivita nejdůležitější.
-* &ndash; **Komunikace Point-to-Point gRPC v reálném čase** má skvělou podporu pro obousměrné streamování. služby gRPC mohou nabízet zprávy v reálném čase bez cyklického dotazování.
-* **Polyglot prostředí** &ndash; gRPC nástroje podporují všechny oblíbené vývojové jazyky, což gRPC je dobrou volbou pro prostředí s více jazyky.
-* **Omezená prostředí** &ndash; sítě gRPC zprávy jsou serializovány pomocí Protobuf, což je odlehčený formát zprávy. Zpráva gRPC je vždy menší než ekvivalentní zpráva JSON.
+* **Mikroslužby**: gRPC je navržená pro zajištění nízké latence a komunikace s vysokou propustností. gRPC je ideální pro odlehčené mikroslužby, kde je efektivita nejdůležitější.
+* **Komunikace Point-to-Point v reálném čase**: gRPC má skvělou podporu pro obousměrné streamování. služby gRPC mohou nabízet zprávy v reálném čase bez cyklického dotazování.
+* **Prostředí Polyglot**: nástroje gRPC podporují všechny oblíbené vývojové jazyky, což gRPC vhodnou volbou pro prostředí s více jazyky.
+* **Omezená prostředí sítě**: zprávy gRPC jsou serializovány pomocí Protobuf, což je odlehčený formát zprávy. Zpráva gRPC je vždy menší než ekvivalentní zpráva JSON.
 
 ## <a name="grpc-weaknesses"></a>gRPC slabé stránky
 
@@ -102,7 +408,7 @@ V dnešní době není možné přímo volat službu gRPC z prohlížeče. gRPC 
 GRPC-web nepodporuje všechny funkce gRPC. Klient a obousměrné streamování se nepodporuje a je omezená podpora pro streamování serveru.
 
 > [!TIP]
-> .NET Core má experimentální podporu pro gRPC-Web. Další <xref:grpc/browser> informace najdete na webu.
+> .NET Core má experimentální podporu pro gRPC-Web. Další informace najdete na webu <xref:grpc/browser> .
 
 ### <a name="not-human-readable"></a>Nečitelný člověk
 
@@ -116,11 +422,11 @@ Funkce jako [reflexe serveru](https://github.com/grpc/grpc/blob/master/doc/serve
 
 Další architektury se doporučují přes gRPC v následujících scénářích:
 
-* GRPC &ndash; **rozhraní API přístupných pro prohlížeč** není v prohlížeči plně podporované. gRPC-web může nabízet podporu prohlížeče, ale má omezení a zavádí proxy serveru.
-* **Všesměrové vysílání gRPC komunikace** &ndash; v reálném čase podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy z registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [SignalR](xref:signalr/introduction)je užitečnou architekturou pro tento scénář. SignalRmá koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
-* **Komunikace** &ndash; mezi procesy: proces musí hostovat server HTTP/2, aby přijímal příchozí volání gRPC. Pro systém Windows je mezi procesy komunikačních [kanálů](/dotnet/standard/io/pipe-operations) rychlá a odlehčená metoda komunikace.
+* **Rozhraní API pro přístup přes prohlížeč**: v prohlížeči se nepodporuje plně gRPC. gRPC-web může nabízet podporu prohlížeče, ale má omezení a zavádí proxy serveru.
+* **Komunikace v reálném čase**: gRPC podporuje komunikaci v reálném čase prostřednictvím streamování, ale koncept vysílání zprávy do registrovaných připojení neexistuje. Například ve scénáři chatovací místnosti, kde mají být nové zprávy chatu odesílány všem klientům v chatovací místnosti, každé volání gRPC je požadováno k samostatnému streamování nových zpráv o konverzaci do klienta. [SignalR](xref:signalr/introduction)je užitečnou architekturou pro tento scénář. SignalRmá koncept trvalých připojení a integrovanou podporu pro vysílání zpráv.
+* **Komunikace mezi procesy**: proces musí HOSTOVAT Server HTTP/2, aby přijímal příchozí volání gRPC. Pro systém Windows je mezi procesy komunikačních [kanálů](/dotnet/standard/io/pipe-operations) rychlá a odlehčená metoda komunikace.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/index>

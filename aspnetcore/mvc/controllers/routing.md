@@ -92,7 +92,7 @@ endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}"
 > Směrování je nakonfigurované pomocí <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*> <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> middlewaru a. Použití řadičů:
 >
 > * Zavolejte <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> uvnitř `UseEndpoints` pro mapování řadičů [směrovaných na atributy](#ar) .
-> * <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> Pro mapování konvence, která je [směrována](#cr) na řadiče, zavolejte nebo.
+> * Zavolejte <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> nebo <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapAreaControllerRoute*> , pokud chcete namapovat obě [konvence směrované](#cr) na řadiče a ovladače [směrovaného atributu](#ar) .
 
 <a name="routing-conventional-ref-label"></a>
 <a name="crd"></a>
@@ -257,7 +257,7 @@ Rozhraní REST API by měly používat směrování atributů k modelování fun
 
 Směrování atributů používá sadu atributů k mapování akcí přímo na šablony směrování. Následující `StartUp.Configure` kód je typický pro REST API a používá se v další ukázce:
 
-[!code-csharp[](routing/samples/3.x/main/StartupApi.cs?name=snippet)]
+[!code-csharp[](routing/samples/3.x/main/StartupAPI.cs?name=snippet)]
 
 V předchozím kódu <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*> je volána uvnitř `UseEndpoints` pro mapování řadičů směrovaných na atribut.
 
@@ -272,10 +272,7 @@ V následujícím příkladu:
 
 V tomto příkladu se zvýrazní klíčový rozdíl mezi směrováním atributů a [konvenčním směrováním](#cr). Směrování atributů vyžaduje více vstupu pro určení trasy. Konvenční výchozí trasa zpracovává trasy více stručně. Směrování atributů ale umožňuje a vyžaduje přesnou kontrolu nad tím, které šablony směrování se vztahují na každou [akci](#action).
 
-V následujícím kódu:
-
-* Název kontroleru a názvy akcí nehrají **žádnou** roli, ve které se akce shodují.
-* Odpovídá stejným adresám URL jako v předchozím příkladu:
+Při směrování atributů nehraje název kontroleru a akce žádnou část, ve které se akce shoduje, pokud se nepoužije [náhrada tokenu](#routing-token-replacement-templates-ref-label) . V následujícím příkladu se shodují stejné adresy URL jako v předchozím příkladu:
 
 [!code-csharp[](routing/samples/3.x/main/Controllers/MyDemoController.cs?name=snippet)]
 
@@ -655,8 +652,6 @@ Trasy atributů podporují stejnou vloženou syntaxi jako konvenční trasy, aby
 [!code-csharp[](routing/samples/3.x/main/Controllers/ProductsController.cs?name=snippet8&highlight=3)]
 
 V předchozím kódu `[HttpPost("product/{id:int}")]` platí omezení trasy. Tato `ProductsController.ShowProduct` akce odpovídá pouze cestou URL jako `/product/3` . Část šablony trasy `{id:int}` omezuje segment na pouze celá čísla.
-
-[!code-csharp[](routing/samples/3.x/main/Controllers/HomeController.cs?name=snippet24)]
 
 Podrobný popis syntaxe šablony směrování naleznete v tématu Referenční dokumentace k [šabloně směrování](xref:fundamentals/routing#route-template-reference) .
 

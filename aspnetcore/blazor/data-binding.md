@@ -72,7 +72,10 @@ Použijte `@bind-{ATTRIBUTE}` s `@bind-{ATTRIBUTE}:event` syntaxí pro svázán�
 }
 ```
 
-Vazba atributu rozlišuje velká a malá písmena. Například [`@bind`](xref:mvc/views/razor#bind) je platný a [`@bind`](xref:mvc/views/razor#bind) je neplatný.
+Vazba atributů rozlišuje velká a malá písmena:
+
+* `@bind`je platný.
+* `@Bind`a `@BIND` jsou neplatné.
 
 ## <a name="unparsable-values"></a>Hodnoty, které nelze analyzovat
 

@@ -95,7 +95,7 @@ BlazorAplikace se skládá z opakovaně použitelných prvků uživatelského ro
 * Byl převeden na text HTML (během předvykreslování &dagger; ).
 * Slouží k efektivní aktualizaci značek během pravidelného vykreslování.
 
-&dagger;*Předvykreslování* &ndash; Požadovaná Razor součást je kompilována na serveru do statického kódu HTML a odeslána klientovi, kde je vykreslena uživateli. Po navázání spojení mezi klientem a serverem se statické předem vykreslené prvky součásti nahrazují pomocí interaktivních prvků. Předvykreslování umožňuje aplikaci lépe reagovat na uživatele.
+&dagger;*Předvykreslování*: požadovaná Razor součást je kompilována na serveru do statického kódu HTML a odeslána klientovi, kde je vykreslena uživateli. Po navázání spojení mezi klientem a serverem se statické předem vykreslené prvky součásti nahrazují pomocí interaktivních prvků. Předvykreslování umožňuje aplikaci lépe reagovat na uživatele.
 
 Aktualizace uživatelského rozhraní v nástroji Blazor je aktivována:
 

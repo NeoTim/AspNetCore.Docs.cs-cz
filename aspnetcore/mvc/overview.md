@@ -1,22 +1,11 @@
 ---
-title: Přehled ASP.NET Core MVC
-author: ardalis
-description: Přečtěte si, jak ASP.NET Core MVC je bohatá architektura pro vytváření webových aplikací a rozhraní API pomocí vzorového vzoru pro zobrazení modelu.
-ms.author: riande
-ms.date: 02/12/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: mvc/overview
-ms.openlocfilehash: c6c7fd1d0cb7a462b3a13d5e31a50c704a00c0ef
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775463"
+Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -68,7 +57,7 @@ ASP.NET Core MVC zahrnuje následující:
 * [Směrování](#routing)
 * [Vazby modelu](#model-binding)
 * [Ověření modelu](#model-validation)
-* [Injektáž závislostí](../fundamentals/dependency-injection.md)
+* [Injektáž závislosti](../fundamentals/dependency-injection.md)
 * [Filtry](#filters)
 * [Oblasti](#areas)
 * [Webová rozhraní API](#web-apis)
@@ -147,7 +136,7 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 Rozhraní zpracovává ověřování dat žádostí na straně klienta i serveru. Logika ověřování zadaná u typů modelů je přidána do vykreslených zobrazení jako nenáročná anotace a je vyhodnocena v prohlížeči s [ověřováním jQuery](https://jqueryvalidation.org/).
 
-### <a name="dependency-injection"></a>Injektáž závislostí
+### <a name="dependency-injection"></a>Injektáž závislosti
 
 ASP.NET Core obsahuje integrovanou podporu pro [vkládání závislostí (di)](../fundamentals/dependency-injection.md). V ASP.NET Core MVC můžou [řadiče](controllers/dependency-injection.md) požadovat služby potřebné prostřednictvím svých konstruktorů, takže by mohli postupovat podle [principu explicitní závislosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 
@@ -169,7 +158,7 @@ Aplikace může také používat [vkládání závislostí v souborech zobrazen�
 
 ### <a name="filters"></a>Filtry
 
-[Filtry](controllers/filters.md) , které vývojářům pomůžou zapouzdřit věci mimo průřez, jako je zpracování výjimek nebo autorizace. Filtry umožňují spuštění vlastní logiky před a po zpracování pro metody akcí a lze je nakonfigurovat tak, aby běžely v určitých bodech v rámci kanálu spuštění pro daný požadavek. Filtry lze použít u řadičů nebo akcí jako atributů (nebo je lze spustit globálně). V rámci rozhraní je zahrnuto několik filtrů (například `Authorize`). `[Authorize]`je atribut, který se používá k vytváření ověřovacích filtrů MVC.
+[Filtry](controllers/filters.md) , které vývojářům pomůžou zapouzdřit věci mimo průřez, jako je zpracování výjimek nebo autorizace. Filtry umožňují spuštění vlastní logiky před a po zpracování pro metody akcí a lze je nakonfigurovat tak, aby běžely v určitých bodech v rámci kanálu spuštění pro daný požadavek. Filtry lze použít u řadičů nebo akcí jako atributů (nebo je lze spustit globálně). `Authorize`V rámci rozhraní je zahrnuto několik filtrů (například). `[Authorize]`je atribut, který se používá k vytváření ověřovacích filtrů MVC.
 
 ```csharp
 [Authorize]
@@ -210,7 +199,7 @@ Pomocí modulu Razor zobrazení můžete definovat [rozložení](views/layout.md
 
 Razorzobrazení v MVC můžou být na základě vašeho modelu silného typu. Řadiče můžou předat model silného typu k zobrazením, která umožňují, aby vaše zobrazení měla kontrolu typů a podporu technologie IntelliSense.
 
-Například následující zobrazení vykresluje model typu `IEnumerable<Product>`:
+Například následující zobrazení vykresluje model typu `IEnumerable<Product>` :
 
 ```cshtml
 @model IEnumerable<Product>
@@ -224,9 +213,9 @@ Například následující zobrazení vykresluje model typu `IEnumerable<Product
 
 ### <a name="tag-helpers"></a>Pomocné rutiny značek
 
-[Pomocník značek](views/tag-helpers/intro.md) povolit kód na straně serveru pro účast v vytváření a vykreslování prvků HTML v Razor souborech. Můžete použít pomocníka značek k definování vlastních značek (například `<environment>`) nebo k úpravě chování existujících značek (například `<label>`). Přihlaste se k určitým prvkům na základě názvu elementu a jeho atributů pomocí rutiny tag. Poskytují výhody vykreslování na straně serveru a zároveň zachovává prostředí pro úpravy HTML.
+[Pomocník značek](views/tag-helpers/intro.md) povolit kód na straně serveru pro účast v vytváření a vykreslování prvků HTML v Razor souborech. Můžete použít pomocníka značek k definování vlastních značek (například `<environment>` ) nebo k úpravě chování existujících značek (například `<label>` ). Přihlaste se k určitým prvkům na základě názvu elementu a jeho atributů pomocí rutiny tag. Poskytují výhody vykreslování na straně serveru a zároveň zachovává prostředí pro úpravy HTML.
 
-K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako je vytváření formulářů, odkazů, načítání assetů a ještě více dostupných ve veřejných úložištích GitHub a jako balíčky NuGet. Pomocníky značek jsou vytvořeny v jazyce C# a jsou cíleny na prvky HTML na základě názvu elementu, názvu atributu nebo nadřazené značky. Například integrovaný LinkTagHelper lze použít k vytvoření odkazu na `Login` akci pro: `AccountsController`
+K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako je vytváření formulářů, odkazů, načítání assetů a ještě více dostupných ve veřejných úložištích GitHub a jako balíčky NuGet. Pomocníky značek jsou vytvořeny v jazyce C# a jsou cíleny na prvky HTML na základě názvu elementu, názvu atributu nebo nadřazené značky. Například integrovaný LinkTagHelper lze použít k vytvoření odkazu na `Login` akci pro `AccountsController` :
 
 ```cshtml
 <p>
@@ -235,7 +224,7 @@ K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako
 </p>
 ```
 
-`EnvironmentTagHelper` Dá se použít k zahrnutí různých skriptů do vašich zobrazení (například RAW nebo minifikovaného) na základě běhového prostředí, jako je vývoj, příprava nebo produkce:
+`EnvironmentTagHelper`Dá se použít k zahrnutí různých skriptů do vašich zobrazení (například RAW nebo minifikovaného) na základě běhového prostředí, jako je vývoj, příprava nebo produkce:
 
 ```cshtml
 <environment names="Development">
@@ -249,7 +238,7 @@ K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako
 </environment>
 ```
 
-Značky pomocníků poskytují prostředí pro vývoj ve formátu HTML a bohatou technologii IntelliSense pro vytváření kódu HTML Razor a značek. Většina vestavěných pomocníků značek cílí na existující prvky HTML a poskytují atributy na straně serveru pro element.
+Značky pomocníků poskytují prostředí pro vývoj ve formátu HTML a bohatou technologii IntelliSense pro vytváření kódu HTML a Razor značek. Většina vestavěných pomocníků značek cílí na existující prvky HTML a poskytují atributy na straně serveru pro element.
 
 ### <a name="view-components"></a>Zobrazit součásti
 
@@ -257,11 +246,11 @@ Značky pomocníků poskytují prostředí pro vývoj ve formátu HTML a bohatou
 
 ## <a name="compatibility-version"></a>Kompatibilita – verze
 
-<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
+<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*>Metoda umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
 
 Další informace naleznete v tématu <xref:mvc/compatibility-version>.
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [MyTested. AspNetCore. Mvc-Fluent testuje knihovnu pro ASP.NET Core knihovnu pro](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc) &ndash; testování částí se silnými typy MVC a poskytuje rozhraní Fluent pro testování MVC a webových aplikací API. (*Společnost Microsoft nespravuje ani nepodporuje.*)
+* [MyTested. AspNetCore. Mvc – knihovna testování Fluent pro ASP.NET Core MVC](https://github.com/ivaylokenov/MyTested.AspNetCore.Mvc): knihovna testování jednotek se silnými typy a poskytuje rozhraní Fluent pro testování MVC a webových aplikací API. (*Společnost Microsoft nespravuje ani nepodporuje.*)
 * <xref:blazor/integrate-components>

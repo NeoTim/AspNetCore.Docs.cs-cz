@@ -56,9 +56,9 @@ Základní adresa klienta je nastavena na adresu původního serveru. Vložení 
 
 V následujících příkladech zpracovává webové rozhraní API TODO operace vytvoření, čtení, aktualizace a odstranění (CRUD). Příklady jsou založeny na `TodoItem` třídě, která ukládá:
 
-* ID ( `Id` , `long` ) &ndash; jedinečné ID položky
-* Název ( `Name` , `string` ) &ndash; název položky.
-* Stav ( `IsComplete` , `bool` ) &ndash; označuje, zda je položka TODO dokončena.
+* ID ( `Id` , `long` ): jedinečné ID položky.
+* Název ( `Name` , `string` ): název položky.
+* Status ( `IsComplete` , `bool` ): indikace, zda je položka TODO dokončena.
 
 ```csharp
 private class TodoItem
@@ -71,7 +71,7 @@ private class TodoItem
 
 Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhraní API v následujících příkladech) a zpracovávají odpověď:
 
-* <xref:System.Net.Http.Json.HttpClientJsonExtensions.GetFromJsonAsync%2A>&ndash;Pošle požadavek HTTP GET a analyzuje tělo odpovědi JSON pro vytvoření objektu.
+* <xref:System.Net.Http.Json.HttpClientJsonExtensions.GetFromJsonAsync%2A>: Odešle požadavek HTTP GET a analyzuje tělo odpovědi JSON pro vytvoření objektu.
 
   V následujícím kódu se `todoItems` zobrazí součást. `GetTodoItems`Metoda je aktivována při vykreslování komponenty ([OnInitializedAsync](xref:blazor/lifecycle#component-initialization-methods)). Kompletní příklad najdete v ukázkové aplikaci.
 
@@ -87,7 +87,7 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
   }
   ```
 
-* <xref:System.Net.Http.Json.HttpClientJsonExtensions.PostAsJsonAsync%2A>&ndash;Pošle požadavek HTTP POST, včetně obsahu kódovaného JSON, a analyzuje tělo odpovědi JSON pro vytvoření objektu.
+* <xref:System.Net.Http.Json.HttpClientJsonExtensions.PostAsJsonAsync%2A>: Odesílá požadavek HTTP POST, včetně obsahu kódovaného JSON, a analyzuje tělo odpovědi JSON pro vytvoření objektu.
 
   V následujícím kódu `newItemName` je poskytován vázaným prvkem komponenty. `AddItem`Metoda je aktivována výběrem `<button>` prvku. Kompletní příklad najdete v ukázkové aplikaci.
 
@@ -115,7 +115,7 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
   var content = response.Content.ReadFromJsonAsync<WeatherForecast>();
   ```
 
-* <xref:System.Net.Http.Json.HttpClientJsonExtensions.PutAsJsonAsync%2A>&ndash;Odešle požadavek HTTP PUT, včetně obsahu kódovaného JSON.
+* <xref:System.Net.Http.Json.HttpClientJsonExtensions.PutAsJsonAsync%2A>: Odešle požadavek HTTP PUT, včetně obsahu kódovaného JSON.
 
   V následujícím kódu `editItem` jsou hodnoty pro `Name` a `IsCompleted` poskytovány pomocí vázaných prvků součásti. Položka `Id` je nastavena, když je položka vybrána v jiné části uživatelského rozhraní a `EditItem` je volána. `SaveItem`Metoda je aktivována výběrem možnosti Uložit `<button>` element. Kompletní příklad najdete v ukázkové aplikaci.
 
@@ -301,7 +301,7 @@ Pokud chcete jiným webům umožnit, aby vaše aplikace provedla požadavky na s
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* <xref:security/blazor/webassembly/additional-scenarios>&ndash;Zahrnuje pokrytí použití <xref:System.Net.Http.HttpClient> pro zabezpečené požadavky webového rozhraní API.
+* <xref:security/blazor/webassembly/additional-scenarios>: Obsahuje pokrytí použití <xref:System.Net.Http.HttpClient> pro zabezpečené požadavky webového rozhraní API.
 * <xref:fundamentals/http-requests>
 * <xref:security/enforcing-ssl>
 * [Konfigurace koncového bodu HTTPS Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration)

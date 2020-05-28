@@ -267,7 +267,7 @@ monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 Další informace najdete v následujících materiálech:
 
 * [Třídy EventArgs ve zdroji odkazů ASP.NET Core (větev dotnet/aspnetcore Release/3.1)](https://github.com/dotnet/aspnetcore/tree/release/3.1/src/Components/Web/src/Web).
-* [Webové dokumenty MDN: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers) &ndash; Obsahuje informace o tom, které prvky HTML podporují jednotlivé události modelu DOM.
+* [Webové dokumenty MDN: GlobalEventHandlers](https://developer.mozilla.org/docs/Web/API/GlobalEventHandlers): obsahuje informace o tom, které prvky HTML podporují jednotlivé události modelu DOM.
 
 ## <a name="lambda-expressions"></a>Výrazy lambda
 

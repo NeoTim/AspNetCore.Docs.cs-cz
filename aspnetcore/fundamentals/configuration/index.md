@@ -1495,7 +1495,7 @@ Při zabezpečování citlivých konfiguračních dat proveďte následující p
 Další informace najdete v následujících tématech:
 
 * <xref:fundamentals/environments>
-* <xref:security/app-secrets>&ndash;Obsahuje rady týkající se používání proměnných prostředí k ukládání citlivých dat. Správce tajného kódu používá zprostředkovatele konfigurace souborů k ukládání tajných klíčů uživatele do souboru JSON v místním systému. Poskytovatel konfigurace souboru je popsán dále v tomto tématu.
+* <xref:security/app-secrets>: Obsahuje rady týkající se použití proměnných prostředí k ukládání citlivých dat. Správce tajného kódu používá zprostředkovatele konfigurace souborů k ukládání tajných klíčů uživatele do souboru JSON v místním systému. Poskytovatel konfigurace souboru je popsán dále v tomto tématu.
 
 [Azure Key Vault](https://azure.microsoft.com/services/key-vault/) bezpečně ukládá tajné klíče aplikace pro ASP.NET Core aplikace. Další informace naleznete v tématu <xref:security/key-vault-configuration>.
 
@@ -1825,7 +1825,7 @@ Pro aplikace založené na šablonách ASP.NET Core `AddCommandLine` již byly v
 })
 ```
 
-**Případě**
+**Příklad**
 
 Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> .
 
@@ -2341,7 +2341,7 @@ Chcete-li poskytnout konfiguraci aplikace z dalších proměnných prostředí, 
 
 Zavolejte `AddEnvironmentVariables` jako poslední, pokud chcete, aby proměnné prostředí s danou předponou přepsaly hodnoty od jiných zprostředkovatelů.
 
-**Případě**
+**Příklad**
 
 Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání `AddEnvironmentVariables` .
 
@@ -2944,12 +2944,12 @@ Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 
 ---------------------------------------- | | `CUSTOMCONNSTR_{KEY} `   | `ConnectionStrings:{KEY}`   | Položka konfigurace není vytvořená.                                                | | `MYSQLCONNSTR_{KEY}`     | `ConnectionStrings:{KEY}`   | Klíč: `ConnectionStrings:{KEY}_ProviderName` :<br>Hodnota: `MySql.Data.MySqlClient` | | `SQLAZURECONNSTR_{KEY}`   |  `ConnectionStrings:{KEY}`   | Klíč: `ConnectionStrings:{KEY}_ProviderName` :<br>Hodnota: `System.Data.SqlClient` | | `SQLCONNSTR_{KEY}`        |  `ConnectionStrings:{KEY}`   | Klíč: `ConnectionStrings:{KEY}_ProviderName` :<br>Osa`System.Data.SqlClient`  |
 
-**Případě**
+**Příklad**
 
 Na serveru se vytvoří proměnná prostředí vlastního připojovacího řetězce:
 
-* Název &ndash;`CUSTOMCONNSTR_ReleaseDB`
-* Hodnota &ndash;`Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`
+* Jméno:`CUSTOMCONNSTR_ReleaseDB`
+* Hodnota: `Data Source=ReleaseSQLServer;Initial Catalog=MyReleaseDB;Integrated Security=True`
 
 Pokud `IConfiguration` je vloženo a přiřazeno k poli s názvem `_config` , přečtěte si hodnotu:
 
@@ -3028,8 +3028,8 @@ Přetížení umožňují zadat:
 
 `AddJsonFile`se automaticky volá dvakrát při inicializaci nového hostitele v nástroji `CreateDefaultBuilder` . Metoda je volána pro načtení konfigurace z:
 
-* *appSettings. JSON* &ndash; Tento soubor je nejdřív načtený. Verze prostředí souboru může přepsat hodnoty poskytnuté souborem *appSettings. JSON* .
-* *appSettings. {Environment}. JSON* &ndash; verze souboru je načtená na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).
+* *appSettings. JSON*: Tento soubor je nejdřív načtený. Verze prostředí souboru může přepsat hodnoty poskytnuté souborem *appSettings. JSON* .
+* *appSettings. {Environment}. JSON*: verze prostředí souboru se načte na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).
 
 Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
 
@@ -3051,7 +3051,7 @@ Zavolejte `ConfigureAppConfiguration` při sestavování hostitele, aby se urči
 })
 ```
 
-**Případě**
+**Příklad**
 
 Ukázková aplikace využívá ke sestavení hostitele výhodu technologie statického usnadnění `CreateDefaultBuilder` , která zahrnuje dvě volání `AddJsonFile` :
 

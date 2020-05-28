@@ -1,24 +1,11 @@
 ---
-title: ASP.NET Core hostitele ve službě systému Windows
-author: rick-anderson
-description: Naučte se hostovat aplikaci ASP.NET Core ve službě systému Windows.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 02/07/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: host-and-deploy/windows-service
-ms.openlocfilehash: 4ad9086c60e58f89bdde4962d7487036df251cc1
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776341"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>ASP.NET Core hostitele ve službě systému Windows
 
@@ -48,12 +35,12 @@ Aplikace vyžaduje odkaz na balíček pro [Microsoft. Extensions. Hosting. Windo
 
 `IHostBuilder.UseWindowsService`je volána při sestavování hostitele. Pokud je aplikace spuštěná jako služba systému Windows, metoda:
 
-* Nastaví dobu života hostitele na `WindowsServiceLifetime`.
+* Nastaví dobu života hostitele na `WindowsServiceLifetime` .
 * Nastaví [kořen obsahu](xref:fundamentals/index#content-root) na [AppContext. BaseDirectory](xref:System.AppContext.BaseDirectory). Další informace najdete v oddílu [aktuální adresář a kořenový adresář obsahu](#current-directory-and-content-root) .
 * Povolí protokolování do protokolu událostí:
   * Název aplikace se používá jako výchozí název zdroje.
   * Výchozí úroveň protokolování je *Upozornění* nebo vyšší pro aplikaci na základě šablony ASP.NET Core, která volá `CreateDefaultBuilder` k sestavení hostitele.
-  * Přepište výchozí úroveň protokolu pomocí `Logging:EventLog:LogLevel:Default` klíče v souboru *appSettings. JSON*/*appSettings. { Environment}. JSON* nebo jiný poskytovatel konfigurace.
+  * Přepište výchozí úroveň protokolu pomocí `Logging:EventLog:LogLevel:Default` klíče v souboru *appSettings. JSON* / *appSettings. { Environment}. JSON* nebo jiný poskytovatel konfigurace.
   * Pouze správci mohou vytvářet nové zdroje událostí. Když zdroj události nejde vytvořit pomocí názvu aplikace, zaprotokoluje se upozornění na zdroj *aplikace* a protokoly událostí jsou zakázané.
 
 V `CreateHostBuilder` *program.cs*:
@@ -66,10 +53,10 @@ Host.CreateDefaultBuilder(args)
 
 Toto téma doprovází následující ukázkové aplikace:
 
-* Služba pracovní proces na &ndash; pozadí ukázka newebové aplikace v závislosti na [šabloně pracovní služby](#worker-service-template) , která používá [hostované služby](xref:fundamentals/host/hosted-services) pro úlohy na pozadí.
-* Webová App Service &ndash; ukázka webové Razor aplikace stránky, která se spouští jako služba systému Windows s [hostovanými službami](xref:fundamentals/host/hosted-services) pro úlohy na pozadí.
+* Ukázka služby na pozadí Worker: Ukázka newebové aplikace založená na [šabloně pracovní služby pracovního procesu](#worker-service-template) , která používá [hostované služby](xref:fundamentals/host/hosted-services) pro úlohy na pozadí.
+* Ukázka Web App Service: Razor Webová aplikace stránky, která se spouští jako služba systému Windows s [hostovanými službami](xref:fundamentals/host/hosted-services) pro úlohy na pozadí.
 
-Pokyny pro MVC najdete v článcích v <xref:mvc/overview> tématu a <xref:migration/22-to-30>.
+Pokyny pro MVC najdete v článcích v tématu <xref:mvc/overview> a <xref:migration/22-to-30> .
 
 ## <a name="deployment-type"></a>Typ nasazení
 
@@ -93,7 +80,7 @@ Pokud služba spouští pouze úlohy na pozadí (například [hostované služby
 
 Nasazení závislé na rozhraní (FDD) spoléhá na přítomnost sdílené verze .NET Core v rámci systému v cílovém systému. Pokud je FDD scénář přijatý podle pokynů v tomto článku, sada SDK vytvoří spustitelný soubor (*. exe*), který se nazývá *spustitelný soubor závislý na rozhraní*.
 
-Pokud používáte [webovou sadu SDK](#sdk), soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci služby systému Windows zapotřebí. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true`.
+Pokud používáte [webovou sadu SDK](#sdk), soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci služby systému Windows zapotřebí. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
 
 ```xml
 <PropertyGroup>
@@ -115,7 +102,7 @@ Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) je 
 Publikování pro několik identifikátorů RID:
 
 * Zadejte identifikátorů RID do seznamu středníkem oddělených.
-* Použijte název [ \<vlastnosti RuntimeIdentifiers>](/dotnet/core/tools/csproj#runtimeidentifiers) (plural).
+* Použijte název vlastnosti [\<RuntimeIdentifiers>](/dotnet/core/tools/csproj#runtimeidentifiers) (plural).
 
 Další informace najdete v tématu [katalog identifikátorů RID .NET Core](/dotnet/core/rid-catalog).
 
@@ -137,7 +124,7 @@ powershell -Command "New-LocalUser -Name {SERVICE NAME}"
 
 Po zobrazení výzvy zadejte [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements) .
 
-Pokud není `-AccountExpires` parametr zadán rutině [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) s vypršenou platností <xref:System.DateTime>, platnost účtu nekončí.
+Pokud `-AccountExpires` není parametr zadán rutině [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) s vypršenou platností <xref:System.DateTime> , platnost účtu nekončí.
 
 Další informace najdete v tématu [uživatelské účty](/windows/desktop/services/service-user-accounts) [Microsoft. PowerShell. LocalAccounts](/powershell/module/microsoft.powershell.localaccounts/) a Service.
 
@@ -152,7 +139,7 @@ Chcete-li vytvořit oprávnění *Přihlásit se jako služba* pro uživatelský
 1. Otevřete zásadu **Přihlásit se jako služba** .
 1. Vyberte **Přidat uživatele nebo skupinu**.
 1. Zadejte název objektu (uživatelský účet) pomocí některého z následujících přístupů:
-   1. Do pole název objektu zadejte`{DOMAIN OR COMPUTER NAME\USER}`uživatelský účet () a výběrem **OK** přidejte uživatele do zásad.
+   1. Do pole název objektu zadejte uživatelský účet ( `{DOMAIN OR COMPUTER NAME\USER}` ) a výběrem **OK** přidejte uživatele do zásad.
    1. Vyberte **Upřesnit**. Vyberte **Najít hned**. V seznamu vyberte uživatelský účet. Vyberte **OK**. Znovu vyberte **OK** a přidejte uživatele k zásadám.
 1. Potvrďte změny kliknutím na **tlačítko OK** nebo **použít** .
 
@@ -172,12 +159,12 @@ $acl | Set-Acl "{EXE PATH}"
 New-Service -Name {SERVICE NAME} -BinaryPathName {EXE FILE PATH} -Credential {DOMAIN OR COMPUTER NAME\USER} -Description "{DESCRIPTION}" -DisplayName "{DISPLAY NAME}" -StartupType Automatic
 ```
 
-* `{EXE PATH}`&ndash; Cesta ke složce aplikace na hostiteli (například `d:\myservice`). Do cesty nezahrnujte spustitelný soubor aplikace. Koncové lomítko není vyžadováno.
-* `{DOMAIN OR COMPUTER NAME\USER}`&ndash; Uživatelský účet služby (například `Contoso\ServiceUser`).
-* `{SERVICE NAME}`&ndash; Název služby (například `MyService`).
-* `{EXE FILE PATH}`&ndash; Cesta ke spustitelnému souboru aplikace (například `d:\myservice\myservice.exe`). Zahrňte název spustitelného souboru s příponou.
-* `{DESCRIPTION}`&ndash; Popis služby (například `My sample service`).
-* `{DISPLAY NAME}`&ndash; Zobrazovaný název služby (například `My Service`).
+* `{EXE PATH}`: Cesta ke složce aplikace na hostiteli (například `d:\myservice` ). Do cesty nezahrnujte spustitelný soubor aplikace. Koncové lomítko není vyžadováno.
+* `{DOMAIN OR COMPUTER NAME\USER}`: Uživatelský účet služby (například `Contoso\ServiceUser` ).
+* `{SERVICE NAME}`: Název služby (například `MyService` ).
+* `{EXE FILE PATH}`: Cesta ke spustitelnému souboru aplikace (například `d:\myservice\myservice.exe` ). Zahrňte název spustitelného souboru s příponou.
+* `{DESCRIPTION}`: Popis služby (například `My sample service` ).
+* `{DISPLAY NAME}`: Zobrazovaný název služby (například `My Service` ).
 
 ### <a name="start-a-service"></a>Spuštění služby
 
@@ -226,7 +213,7 @@ Služby, které komunikují s požadavky z Internetu nebo podnikové sítě a js
 
 ## <a name="configure-endpoints"></a>Konfigurace koncových bodů
 
-Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000`. Nakonfigurujte adresu URL a port nastavením proměnné `ASPNETCORE_URLS` prostředí.
+Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000` . Nakonfigurujte adresu URL a port nastavením `ASPNETCORE_URLS` proměnné prostředí.
 
 Další přístupy k adresám URL a konfiguraci portů najdete v příslušném článku na serveru:
 
@@ -240,29 +227,29 @@ Předchozí doprovodné materiály zahrnují podporu koncových bodů HTTPS. Nap
 
 ## <a name="current-directory-and-content-root"></a>Aktuální adresář a kořen obsahu
 
-Aktuální pracovní adresář vrácený voláním <xref:System.IO.Directory.GetCurrentDirectory*> pro službu systému Windows je složka *C:\\Windows\\system32* . Složka *system32* není vhodným umístěním pro ukládání souborů služby (například souborů nastavení). Pomocí jednoho z následujících přístupů můžete spravovat a přistupovat k souborům assetů a nastavení služby.
+Aktuální pracovní adresář vrácený voláním <xref:System.IO.Directory.GetCurrentDirectory*> pro službu systému Windows je složka *C: \\ Windows \\ system32* . Složka *system32* není vhodným umístěním pro ukládání souborů služby (například souborů nastavení). Pomocí jednoho z následujících přístupů můžete spravovat a přistupovat k souborům assetů a nastavení služby.
 
 ### <a name="use-contentrootpath-or-contentrootfileprovider"></a>Použití ContentRootPath nebo ContentRootFileProvider
 
-K vyhledání prostředků aplikace použijte <xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootFileProvider> [IHostEnvironment. ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath) nebo.
+K vyhledání prostředků aplikace použijte [IHostEnvironment. ContentRootPath](xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath) nebo <xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootFileProvider> .
 
-Když aplikace běží jako služba, <xref:Microsoft.Extensions.Hosting.WindowsServiceLifetimeHostBuilderExtensions.UseWindowsService*> nastaví <xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath> na [AppContext. BaseDirectory](xref:System.AppContext.BaseDirectory).
+Když aplikace běží jako služba, nastaví na <xref:Microsoft.Extensions.Hosting.WindowsServiceLifetimeHostBuilderExtensions.UseWindowsService*> <xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath> [AppContext. BaseDirectory](xref:System.AppContext.BaseDirectory).
 
 Soubory výchozích nastavení aplikace, *appSettings. JSON* a *appSettings. { Environment}. JSON*jsou načteny z kořenu obsahu aplikace voláním [CreateDefaultBuilder během vytváření hostitele](xref:fundamentals/host/generic-host#set-up-a-host).
 
-Pro jiné soubory nastavení načtené vývojářským kódem <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*>v nástroji není nutné volat <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>. V následujícím příkladu soubor *custom_settings. JSON* existuje v kořenu obsahu aplikace a je načtený bez explicitního nastavení základní cesty:
+Pro jiné soubory nastavení načtené vývojářským kódem v nástroji <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> není nutné volat <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> . V následujícím příkladu soubor *custom_settings. JSON* existuje v kořenu obsahu aplikace a je načtený bez explicitního nastavení základní cesty:
 
 [!code-csharp[](windows-service/samples_snapshot/CustomSettingsExample.cs?highlight=13)]
 
-Nepokoušejte se použít <xref:System.IO.Directory.GetCurrentDirectory*> k získání cesty prostředku, protože aplikace služby systému Windows vrátí složku *C:\\Windows\\system32* jako svůj aktuální adresář.
+Nepokoušejte se použít <xref:System.IO.Directory.GetCurrentDirectory*> k získání cesty prostředku, protože aplikace služby systému Windows vrátí složku *C: \\ Windows \\ system32* jako svůj aktuální adresář.
 
 ### <a name="store-a-services-files-in-a-suitable-location-on-disk"></a>Uložení souborů služby do vhodného umístění na disku
 
-<xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> Při použití <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> do složky obsahující soubory zadejte absolutní cestu.
+<xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>Při použití <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> do složky obsahující soubory zadejte absolutní cestu.
 
 ## <a name="troubleshoot"></a>Řešení potíží
 
-Řešení potíží s aplikací služby systému Windows najdete <xref:test/troubleshoot>v tématu.
+Řešení potíží s aplikací služby systému Windows najdete v tématu <xref:test/troubleshoot> .
 
 ### <a name="common-errors"></a>Běžné chyby
 
@@ -271,9 +258,9 @@ Nepokoušejte se použít <xref:System.IO.Directory.GetCurrentDirectory*> k zís
   * *bin/verze/{Target Framework}/Publish* (FDD)
   * *bin/verze/{Target Framework} identifikátor/{runtime}/Publish* (SCD)
 * Služba není ve stavu SPUŠTĚNo.
-* Cesty k prostředkům, které aplikace používá (například certifikáty), jsou nesprávné. Základní cesta služby systému Windows je *c:\\Windows\\system32*.
+* Cesty k prostředkům, které aplikace používá (například certifikáty), jsou nesprávné. Základní cesta služby systému Windows je *c: \\ Windows \\ system32*.
 * Uživatel nemá oprávnění *Přihlásit se jako služba* .
-* Při provádění příkazu `New-Service` PowerShellu vypršela platnost hesla uživatele nebo se předala nesprávně.
+* Při provádění příkazu PowerShellu vypršela platnost hesla uživatele nebo se předala nesprávně `New-Service` .
 * Aplikace vyžaduje ASP.NET Core ověřování, ale není nakonfigurovaná pro zabezpečená připojení (HTTPS).
 * Port adresy URL požadavku není správný nebo v aplikaci není správně nakonfigurovaný.
 
@@ -297,7 +284,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Odstraňte složky *bin* a *obj* .
 1. Pomocí příkazu [dotnet All--Clear](/dotnet/core/tools/dotnet-nuget-locals) z příkazového prostředí vymažte mezipaměť balíčku.
 
-   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear`. *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
+   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear` . *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
 
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
@@ -310,7 +297,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
-1. Vytvořte složku uchovávající soubory s výpisem stavu `c:\dumps`systému.
+1. Vytvořte složku uchovávající soubory s výpisem stavu systému `c:\dumps` .
 1. Spusťte [skript PowerShellu EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/samples/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
 
    ```powershell
@@ -360,14 +347,14 @@ Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému W
 
 Aplikace vyžaduje odkazy na balíčky [Microsoft. AspNetCore. Hosting. WindowsServices](https://www.nuget.org/packages/Microsoft.AspNetCore.Hosting.WindowsServices) a [Microsoft. Extensions. Logging. EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog).
 
-Pokud chcete testovat a ladit spouštění mimo službu, přidejte kód, který určí, jestli je aplikace spuštěná jako služba nebo Konzolová aplikace. Zkontrolujte, zda je ladicí program připojen nebo `--console` zda je k dispozici přepínač. Pokud je jedna podmínka pravdivá (aplikace není spuštěna jako služba), zavolejte <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*>. Pokud jsou podmínky nepravdivé (aplikace je spuštěná jako služba):
+Pokud chcete testovat a ladit spouštění mimo službu, přidejte kód, který určí, jestli je aplikace spuštěná jako služba nebo Konzolová aplikace. Zkontrolujte, zda je ladicí program připojen nebo zda `--console` je k dispozici přepínač. Pokud je jedna podmínka pravdivá (aplikace není spuštěna jako služba), zavolejte <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*> . Pokud jsou podmínky nepravdivé (aplikace je spuštěná jako služba):
 
-* Zavolejte <xref:System.IO.Directory.SetCurrentDirectory*> a použijte cestu k umístění publikované aplikace. Nevolejte <xref:System.IO.Directory.GetCurrentDirectory*> pro získání cesty, protože aplikace služby systému Windows vrátí složku *C:\\Windows\\system32* , když <xref:System.IO.Directory.GetCurrentDirectory*> je volána. Další informace najdete v oddílu [aktuální adresář a kořenový adresář obsahu](#current-directory-and-content-root) . Tento krok se provádí před konfigurací aplikace v `CreateWebHostBuilder`nástroji.
+* Zavolejte <xref:System.IO.Directory.SetCurrentDirectory*> a použijte cestu k umístění publikované aplikace. Nevolejte <xref:System.IO.Directory.GetCurrentDirectory*> pro získání cesty, protože aplikace služby systému Windows vrátí složku *C: \\ Windows \\ system32* , když <xref:System.IO.Directory.GetCurrentDirectory*> je volána. Další informace najdete v oddílu [aktuální adresář a kořenový adresář obsahu](#current-directory-and-content-root) . Tento krok se provádí před konfigurací aplikace v nástroji `CreateWebHostBuilder` .
 * Zavolejte <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> ke spuštění aplikace jako služby.
 
-Vzhledem k tomu, že [zprostředkovatel konfigurace příkazového řádku](xref:fundamentals/configuration/index#command-line-configuration-provider) vyžaduje páry název-hodnota pro argumenty příkazového `--console` řádku, přepínač je odebrán z argumentů <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> před přijetím argumentů.
+Vzhledem k tomu, že [zprostředkovatel konfigurace příkazového řádku](xref:fundamentals/configuration/index#command-line-configuration-provider) vyžaduje páry název-hodnota pro argumenty příkazového řádku, `--console` přepínač je odebrán z argumentů před <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> přijetím argumentů.
 
-Chcete-li zapisovat do protokolu událostí systému Windows, přidejte zprostředkovatele EventLog <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*>do. Nastavte úroveň protokolování pomocí `Logging:LogLevel:Default` klíče v *appSettings. Soubor produkčního. JSON* .
+Chcete-li zapisovat do protokolu událostí systému Windows, přidejte zprostředkovatele EventLog do <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*> . Nastavte úroveň protokolování pomocí `Logging:LogLevel:Default` klíče v *appSettings. Soubor produkčního. JSON* .
 
 V následujícím příkladu z ukázkové aplikace `RunAsCustomService` je volána místo <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> pro zpracování událostí životního cyklu v aplikaci. Další informace naleznete v části [popisovač spouštění a zastavování událostí](#handle-starting-and-stopping-events) .
 
@@ -395,9 +382,9 @@ Pokud služba spouští pouze úlohy na pozadí (například [hostované služby
 
 Nasazení závislé na rozhraní (FDD) spoléhá na přítomnost sdílené verze .NET Core v rámci systému v cílovém systému. Pokud je FDD scénář přijatý podle pokynů v tomto článku, sada SDK vytvoří spustitelný soubor (*. exe*), který se nazývá *spustitelný soubor závislý na rozhraní*.
 
-Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) obsahuje cílovou architekturu. V následujícím příkladu je identifikátor RID nastaven na `win7-x64`. `<SelfContained>` Vlastnost je nastavena na `false`hodnotu. Tyto vlastnosti instruují sadu SDK, aby vygenerovala spustitelný soubor (*. exe*) pro Windows a aplikaci, která závisí na sdílené platformě .NET Core.
+Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) ( [\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier) ) obsahuje cílovou architekturu. V následujícím příkladu je identifikátor RID nastaven na `win7-x64` . `<SelfContained>`Vlastnost je nastavena na hodnotu `false` . Tyto vlastnosti instruují sadu SDK, aby vygenerovala spustitelný soubor (*. exe*) pro Windows a aplikaci, která závisí na sdílené platformě .NET Core.
 
-Soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true`.
+Soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
 
 ```xml
 <PropertyGroup>
@@ -421,11 +408,11 @@ Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) je 
 Publikování pro několik identifikátorů RID:
 
 * Zadejte identifikátorů RID do seznamu středníkem oddělených.
-* Použijte název [ \<vlastnosti RuntimeIdentifiers>](/dotnet/core/tools/csproj#runtimeidentifiers) (plural).
+* Použijte název vlastnosti [\<RuntimeIdentifiers>](/dotnet/core/tools/csproj#runtimeidentifiers) (plural).
 
 Další informace najdete v tématu [katalog identifikátorů RID .NET Core](/dotnet/core/rid-catalog).
 
-`<SelfContained>` Vlastnost je nastavena na `true`hodnotu:
+`<SelfContained>`Vlastnost je nastavena na hodnotu `true` :
 
 ```xml
 <SelfContained>true</SelfContained>
@@ -449,7 +436,7 @@ powershell -Command "New-LocalUser -Name {SERVICE NAME}"
 
 Po zobrazení výzvy zadejte [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements) .
 
-Pokud není `-AccountExpires` parametr zadán rutině [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) s vypršenou platností <xref:System.DateTime>, platnost účtu nekončí.
+Pokud `-AccountExpires` není parametr zadán rutině [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) s vypršenou platností <xref:System.DateTime> , platnost účtu nekončí.
 
 Další informace najdete v tématu [uživatelské účty](/windows/desktop/services/service-user-accounts) [Microsoft. PowerShell. LocalAccounts](/powershell/module/microsoft.powershell.localaccounts/) a Service.
 
@@ -464,7 +451,7 @@ Chcete-li vytvořit oprávnění *Přihlásit se jako služba* pro uživatelský
 1. Otevřete zásadu **Přihlásit se jako služba** .
 1. Vyberte **Přidat uživatele nebo skupinu**.
 1. Zadejte název objektu (uživatelský účet) pomocí některého z následujících přístupů:
-   1. Do pole název objektu zadejte`{DOMAIN OR COMPUTER NAME\USER}`uživatelský účet () a výběrem **OK** přidejte uživatele do zásad.
+   1. Do pole název objektu zadejte uživatelský účet ( `{DOMAIN OR COMPUTER NAME\USER}` ) a výběrem **OK** přidejte uživatele do zásad.
    1. Vyberte **Upřesnit**. Vyberte **Najít hned**. V seznamu vyberte uživatelský účet. Vyberte **OK**. Znovu vyberte **OK** a přidejte uživatele k zásadám.
 1. Potvrďte změny kliknutím na **tlačítko OK** nebo **použít** .
 
@@ -484,12 +471,12 @@ $acl | Set-Acl "{EXE PATH}"
 New-Service -Name {SERVICE NAME} -BinaryPathName {EXE FILE PATH} -Credential {DOMAIN OR COMPUTER NAME\USER} -Description "{DESCRIPTION}" -DisplayName "{DISPLAY NAME}" -StartupType Automatic
 ```
 
-* `{EXE PATH}`&ndash; Cesta ke složce aplikace na hostiteli (například `d:\myservice`). Do cesty nezahrnujte spustitelný soubor aplikace. Koncové lomítko není vyžadováno.
-* `{DOMAIN OR COMPUTER NAME\USER}`&ndash; Uživatelský účet služby (například `Contoso\ServiceUser`).
-* `{SERVICE NAME}`&ndash; Název služby (například `MyService`).
-* `{EXE FILE PATH}`&ndash; Cesta ke spustitelnému souboru aplikace (například `d:\myservice\myservice.exe`). Zahrňte název spustitelného souboru s příponou.
-* `{DESCRIPTION}`&ndash; Popis služby (například `My sample service`).
-* `{DISPLAY NAME}`&ndash; Zobrazovaný název služby (například `My Service`).
+* `{EXE PATH}`: Cesta ke složce aplikace na hostiteli (například `d:\myservice` ). Do cesty nezahrnujte spustitelný soubor aplikace. Koncové lomítko není vyžadováno.
+* `{DOMAIN OR COMPUTER NAME\USER}`: Uživatelský účet služby (například `Contoso\ServiceUser` ).
+* `{SERVICE NAME}`: Název služby (například `MyService` ).
+* `{EXE FILE PATH}`: Cesta ke spustitelnému souboru aplikace (například `d:\myservice\myservice.exe` ). Zahrňte název spustitelného souboru s příponou.
+* `{DESCRIPTION}`: Popis služby (například `My sample service` ).
+* `{DISPLAY NAME}`: Zobrazovaný název služby (například `My Service` ).
 
 ### <a name="start-a-service"></a>Spuštění služby
 
@@ -534,23 +521,23 @@ Remove-Service -Name {SERVICE NAME}
 
 ## <a name="handle-starting-and-stopping-events"></a>Zpracování událostí spouštění a zastavování
 
-Pro zpracování <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStarting*>událostí <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStarted*>, a <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStopping*> :
+Pro zpracování <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStarting*> <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStarted*> událostí, a <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStopping*> :
 
-1. Vytvořte třídu, která je odvozena <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService> z s `OnStarting`metodami `OnStarted`, `OnStopping` a:
+1. Vytvořte třídu, která je odvozena z <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService> s `OnStarting` `OnStarted` `OnStopping` metodami, a:
 
    [!code-csharp[](windows-service/samples/2.x/AspNetCoreService/CustomWebHostService.cs?name=snippet_CustomWebHostService)]
 
-2. Vytvořte metodu rozšíření pro <xref:Microsoft.AspNetCore.Hosting.IWebHost> , která předá `CustomWebHostService` <xref:System.ServiceProcess.ServiceBase.Run*>:
+2. Vytvořte metodu rozšíření pro <xref:Microsoft.AspNetCore.Hosting.IWebHost> , která předá `CustomWebHostService` <xref:System.ServiceProcess.ServiceBase.Run*> :
 
    [!code-csharp[](windows-service/samples/2.x/AspNetCoreService/WebHostServiceExtensions.cs?name=ExtensionsClass)]
 
-3. V `Program.Main`volejte metodu `RunAsCustomService` rozšíření místo <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*>:
+3. V `Program.Main` volejte `RunAsCustomService` metodu rozšíření místo <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> :
 
    ```csharp
    host.RunAsCustomService();
    ```
 
-   Chcete-li zobrazit umístění <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> v `Program.Main`nástroji, podívejte se na ukázku kódu zobrazenou v části [typ nasazení](#deployment-type) .
+   Chcete-li zobrazit umístění <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> v nástroji `Program.Main` , podívejte se na ukázku kódu zobrazenou v části [typ nasazení](#deployment-type) .
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
 
@@ -558,7 +545,7 @@ Služby, které komunikují s požadavky z Internetu nebo podnikové sítě a js
 
 ## <a name="configure-endpoints"></a>Konfigurace koncových bodů
 
-Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000`. Nakonfigurujte adresu URL a port nastavením proměnné `ASPNETCORE_URLS` prostředí.
+Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000` . Nakonfigurujte adresu URL a port nastavením `ASPNETCORE_URLS` proměnné prostředí.
 
 Další přístupy k adresám URL a konfiguraci portů najdete v příslušném článku na serveru:
 
@@ -572,13 +559,13 @@ Předchozí doprovodné materiály zahrnují podporu koncových bodů HTTPS. Nap
 
 ## <a name="current-directory-and-content-root"></a>Aktuální adresář a kořen obsahu
 
-Aktuální pracovní adresář vrácený voláním <xref:System.IO.Directory.GetCurrentDirectory*> pro službu systému Windows je složka *C:\\Windows\\system32* . Složka *system32* není vhodným umístěním pro ukládání souborů služby (například souborů nastavení). Pomocí jednoho z následujících přístupů můžete spravovat a přistupovat k souborům assetů a nastavení služby.
+Aktuální pracovní adresář vrácený voláním <xref:System.IO.Directory.GetCurrentDirectory*> pro službu systému Windows je složka *C: \\ Windows \\ system32* . Složka *system32* není vhodným umístěním pro ukládání souborů služby (například souborů nastavení). Pomocí jednoho z následujících přístupů můžete spravovat a přistupovat k souborům assetů a nastavení služby.
 
 ### <a name="set-the-content-root-path-to-the-apps-folder"></a>Nastavení kořenové cesty obsahu ke složce aplikace
 
-<xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ContentRootPath*> Je stejná Cesta zadaná `binPath` argumentu při vytvoření služby. Namísto volání `GetCurrentDirectory` k vytváření cest k souborům nastavení volejte <xref:System.IO.Directory.SetCurrentDirectory*> s cestou k [kořenu obsahu](xref:fundamentals/index#content-root)aplikace.
+<xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ContentRootPath*>Je stejná Cesta zadaná `binPath` argumentu při vytvoření služby. Namísto volání `GetCurrentDirectory` k vytváření cest k souborům nastavení volejte <xref:System.IO.Directory.SetCurrentDirectory*> s cestou k [kořenu obsahu](xref:fundamentals/index#content-root)aplikace.
 
-V `Program.Main`nástroji Určete cestu ke složce spustitelného souboru služby a použijte cestu k vytvoření kořene obsahu aplikace:
+V nástroji `Program.Main` Určete cestu ke složce spustitelného souboru služby a použijte cestu k vytvoření kořene obsahu aplikace:
 
 ```csharp
 var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
@@ -592,11 +579,11 @@ CreateWebHostBuilder(args)
 
 ### <a name="store-a-services-files-in-a-suitable-location-on-disk"></a>Uložení souborů služby do vhodného umístění na disku
 
-<xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> Při použití <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> do složky obsahující soubory zadejte absolutní cestu.
+<xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>Při použití <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> do složky obsahující soubory zadejte absolutní cestu.
 
 ## <a name="troubleshoot"></a>Řešení potíží
 
-Řešení potíží s aplikací služby systému Windows najdete <xref:test/troubleshoot>v tématu.
+Řešení potíží s aplikací služby systému Windows najdete v tématu <xref:test/troubleshoot> .
 
 ### <a name="common-errors"></a>Běžné chyby
 
@@ -605,9 +592,9 @@ CreateWebHostBuilder(args)
   * *bin/verze/{Target Framework}/Publish* (FDD)
   * *bin/verze/{Target Framework} identifikátor/{runtime}/Publish* (SCD)
 * Služba není ve stavu SPUŠTĚNo.
-* Cesty k prostředkům, které aplikace používá (například certifikáty), jsou nesprávné. Základní cesta služby systému Windows je *c:\\Windows\\system32*.
+* Cesty k prostředkům, které aplikace používá (například certifikáty), jsou nesprávné. Základní cesta služby systému Windows je *c: \\ Windows \\ system32*.
 * Uživatel nemá oprávnění *Přihlásit se jako služba* .
-* Při provádění příkazu `New-Service` PowerShellu vypršela platnost hesla uživatele nebo se předala nesprávně.
+* Při provádění příkazu PowerShellu vypršela platnost hesla uživatele nebo se předala nesprávně `New-Service` .
 * Aplikace vyžaduje ASP.NET Core ověřování, ale není nakonfigurovaná pro zabezpečená připojení (HTTPS).
 * Port adresy URL požadavku není správný nebo v aplikaci není správně nakonfigurovaný.
 
@@ -631,7 +618,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Odstraňte složky *bin* a *obj* .
 1. Pomocí příkazu [dotnet All--Clear](/dotnet/core/tools/dotnet-nuget-locals) z příkazového prostředí vymažte mezipaměť balíčku.
 
-   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear`. *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
+   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear` . *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
 
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
@@ -644,7 +631,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
-1. Vytvořte složku uchovávající soubory s výpisem stavu `c:\dumps`systému.
+1. Vytvořte složku uchovávající soubory s výpisem stavu systému `c:\dumps` .
 1. Spusťte [skript PowerShellu EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
 
    ```console
@@ -694,14 +681,14 @@ Aplikace ASP.NET Core může být hostována ve Windows jako [služba systému W
 
 Aplikace vyžaduje odkazy na balíčky [Microsoft. AspNetCore. Hosting. WindowsServices](https://www.nuget.org/packages/Microsoft.AspNetCore.Hosting.WindowsServices) a [Microsoft. Extensions. Logging. EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog).
 
-Pokud chcete testovat a ladit spouštění mimo službu, přidejte kód, který určí, jestli je aplikace spuštěná jako služba nebo Konzolová aplikace. Zkontrolujte, zda je ladicí program připojen nebo `--console` zda je k dispozici přepínač. Pokud je jedna podmínka pravdivá (aplikace není spuštěna jako služba), zavolejte <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*>. Pokud jsou podmínky nepravdivé (aplikace je spuštěná jako služba):
+Pokud chcete testovat a ladit spouštění mimo službu, přidejte kód, který určí, jestli je aplikace spuštěná jako služba nebo Konzolová aplikace. Zkontrolujte, zda je ladicí program připojen nebo zda `--console` je k dispozici přepínač. Pokud je jedna podmínka pravdivá (aplikace není spuštěna jako služba), zavolejte <xref:Microsoft.AspNetCore.Hosting.WebHostExtensions.Run*> . Pokud jsou podmínky nepravdivé (aplikace je spuštěná jako služba):
 
-* Zavolejte <xref:System.IO.Directory.SetCurrentDirectory*> a použijte cestu k umístění publikované aplikace. Nevolejte <xref:System.IO.Directory.GetCurrentDirectory*> pro získání cesty, protože aplikace služby systému Windows vrátí složku *C:\\Windows\\system32* , když <xref:System.IO.Directory.GetCurrentDirectory*> je volána. Další informace najdete v oddílu [aktuální adresář a kořenový adresář obsahu](#current-directory-and-content-root) . Tento krok se provádí před konfigurací aplikace v `CreateWebHostBuilder`nástroji.
+* Zavolejte <xref:System.IO.Directory.SetCurrentDirectory*> a použijte cestu k umístění publikované aplikace. Nevolejte <xref:System.IO.Directory.GetCurrentDirectory*> pro získání cesty, protože aplikace služby systému Windows vrátí složku *C: \\ Windows \\ system32* , když <xref:System.IO.Directory.GetCurrentDirectory*> je volána. Další informace najdete v oddílu [aktuální adresář a kořenový adresář obsahu](#current-directory-and-content-root) . Tento krok se provádí před konfigurací aplikace v nástroji `CreateWebHostBuilder` .
 * Zavolejte <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> ke spuštění aplikace jako služby.
 
-Vzhledem k tomu, že [zprostředkovatel konfigurace příkazového řádku](xref:fundamentals/configuration/index#command-line-configuration-provider) vyžaduje páry název-hodnota pro argumenty příkazového `--console` řádku, přepínač je odebrán z argumentů <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> před přijetím argumentů.
+Vzhledem k tomu, že [zprostředkovatel konfigurace příkazového řádku](xref:fundamentals/configuration/index#command-line-configuration-provider) vyžaduje páry název-hodnota pro argumenty příkazového řádku, `--console` přepínač je odebrán z argumentů před <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> přijetím argumentů.
 
-Chcete-li zapisovat do protokolu událostí systému Windows, přidejte zprostředkovatele EventLog <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*>do. Nastavte úroveň protokolování pomocí `Logging:LogLevel:Default` klíče v *appSettings. Soubor produkčního. JSON* .
+Chcete-li zapisovat do protokolu událostí systému Windows, přidejte zprostředkovatele EventLog do <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*> . Nastavte úroveň protokolování pomocí `Logging:LogLevel:Default` klíče v *appSettings. Soubor produkčního. JSON* .
 
 V následujícím příkladu z ukázkové aplikace `RunAsCustomService` je volána místo <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> pro zpracování událostí životního cyklu v aplikaci. Další informace naleznete v části [popisovač spouštění a zastavování událostí](#handle-starting-and-stopping-events) .
 
@@ -729,11 +716,11 @@ Pokud služba spouští pouze úlohy na pozadí (například [hostované služby
 
 Nasazení závislé na rozhraní (FDD) spoléhá na přítomnost sdílené verze .NET Core v rámci systému v cílovém systému. Pokud je FDD scénář přijatý podle pokynů v tomto článku, sada SDK vytvoří spustitelný soubor (*. exe*), který se nazývá *spustitelný soubor závislý na rozhraní*.
 
-Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) ([\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier)) obsahuje cílovou architekturu. V následujícím příkladu je identifikátor RID nastaven na `win7-x64`. `<SelfContained>` Vlastnost je nastavena na `false`hodnotu. Tyto vlastnosti instruují sadu SDK, aby vygenerovala spustitelný soubor (*. exe*) pro Windows a aplikaci, která závisí na sdílené platformě .NET Core.
+Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) ( [\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier) ) obsahuje cílovou architekturu. V následujícím příkladu je identifikátor RID nastaven na `win7-x64` . `<SelfContained>`Vlastnost je nastavena na hodnotu `false` . Tyto vlastnosti instruují sadu SDK, aby vygenerovala spustitelný soubor (*. exe*) pro Windows a aplikaci, která závisí na sdílené platformě .NET Core.
 
-`<UseAppHost>` Vlastnost je nastavena na `true`hodnotu. Tato vlastnost poskytuje službě aktivační cestu (spustitelný soubor *. exe*) pro FDD.
+`<UseAppHost>`Vlastnost je nastavena na hodnotu `true` . Tato vlastnost poskytuje službě aktivační cestu (spustitelný soubor *. exe*) pro FDD.
 
-Soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true`.
+Soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
 
 ```xml
 <PropertyGroup>
@@ -758,11 +745,11 @@ Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) je 
 Publikování pro několik identifikátorů RID:
 
 * Zadejte identifikátorů RID do seznamu středníkem oddělených.
-* Použijte název [ \<vlastnosti RuntimeIdentifiers>](/dotnet/core/tools/csproj#runtimeidentifiers) (plural).
+* Použijte název vlastnosti [\<RuntimeIdentifiers>](/dotnet/core/tools/csproj#runtimeidentifiers) (plural).
 
 Další informace najdete v tématu [katalog identifikátorů RID .NET Core](/dotnet/core/rid-catalog).
 
-`<SelfContained>` Vlastnost je nastavena na `true`hodnotu:
+`<SelfContained>`Vlastnost je nastavena na hodnotu `true` :
 
 ```xml
 <SelfContained>true</SelfContained>
@@ -786,7 +773,7 @@ powershell -Command "New-LocalUser -Name {SERVICE NAME}"
 
 Po zobrazení výzvy zadejte [silné heslo](/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements) .
 
-Pokud není `-AccountExpires` parametr zadán rutině [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) s vypršenou platností <xref:System.DateTime>, platnost účtu nekončí.
+Pokud `-AccountExpires` není parametr zadán rutině [New-LocalUser](/powershell/module/microsoft.powershell.localaccounts/new-localuser) s vypršenou platností <xref:System.DateTime> , platnost účtu nekončí.
 
 Další informace najdete v tématu [uživatelské účty](/windows/desktop/services/service-user-accounts) [Microsoft. PowerShell. LocalAccounts](/powershell/module/microsoft.powershell.localaccounts/) a Service.
 
@@ -801,7 +788,7 @@ Chcete-li vytvořit oprávnění *Přihlásit se jako služba* pro uživatelský
 1. Otevřete zásadu **Přihlásit se jako služba** .
 1. Vyberte **Přidat uživatele nebo skupinu**.
 1. Zadejte název objektu (uživatelský účet) pomocí některého z následujících přístupů:
-   1. Do pole název objektu zadejte`{DOMAIN OR COMPUTER NAME\USER}`uživatelský účet () a výběrem **OK** přidejte uživatele do zásad.
+   1. Do pole název objektu zadejte uživatelský účet ( `{DOMAIN OR COMPUTER NAME\USER}` ) a výběrem **OK** přidejte uživatele do zásad.
    1. Vyberte **Upřesnit**. Vyberte **Najít hned**. V seznamu vyberte uživatelský účet. Vyberte **OK**. Znovu vyberte **OK** a přidejte uživatele k zásadám.
 1. Potvrďte změny kliknutím na **tlačítko OK** nebo **použít** .
 
@@ -821,12 +808,12 @@ $acl | Set-Acl "{EXE PATH}"
 New-Service -Name {SERVICE NAME} -BinaryPathName {EXE FILE PATH} -Credential {DOMAIN OR COMPUTER NAME\USER} -Description "{DESCRIPTION}" -DisplayName "{DISPLAY NAME}" -StartupType Automatic
 ```
 
-* `{EXE PATH}`&ndash; Cesta ke složce aplikace na hostiteli (například `d:\myservice`). Do cesty nezahrnujte spustitelný soubor aplikace. Koncové lomítko není vyžadováno.
-* `{DOMAIN OR COMPUTER NAME\USER}`&ndash; Uživatelský účet služby (například `Contoso\ServiceUser`).
-* `{SERVICE NAME}`&ndash; Název služby (například `MyService`).
-* `{EXE FILE PATH}`&ndash; Cesta ke spustitelnému souboru aplikace (například `d:\myservice\myservice.exe`). Zahrňte název spustitelného souboru s příponou.
-* `{DESCRIPTION}`&ndash; Popis služby (například `My sample service`).
-* `{DISPLAY NAME}`&ndash; Zobrazovaný název služby (například `My Service`).
+* `{EXE PATH}`: Cesta ke složce aplikace na hostiteli (například `d:\myservice` ). Do cesty nezahrnujte spustitelný soubor aplikace. Koncové lomítko není vyžadováno.
+* `{DOMAIN OR COMPUTER NAME\USER}`: Uživatelský účet služby (například `Contoso\ServiceUser` ).
+* `{SERVICE NAME}`: Název služby (například `MyService` ).
+* `{EXE FILE PATH}`: Cesta ke spustitelnému souboru aplikace (například `d:\myservice\myservice.exe` ). Zahrňte název spustitelného souboru s příponou.
+* `{DESCRIPTION}`: Popis služby (například `My sample service` ).
+* `{DISPLAY NAME}`: Zobrazovaný název služby (například `My Service` ).
 
 ### <a name="start-a-service"></a>Spuštění služby
 
@@ -871,23 +858,23 @@ Remove-Service -Name {SERVICE NAME}
 
 ## <a name="handle-starting-and-stopping-events"></a>Zpracování událostí spouštění a zastavování
 
-Pro zpracování <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStarting*>událostí <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStarted*>, a <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStopping*> :
+Pro zpracování <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStarting*> <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStarted*> událostí, a <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService.OnStopping*> :
 
-1. Vytvořte třídu, která je odvozena <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService> z s `OnStarting`metodami `OnStarted`, `OnStopping` a:
+1. Vytvořte třídu, která je odvozena z <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostService> s `OnStarting` `OnStarted` `OnStopping` metodami, a:
 
    [!code-csharp[](windows-service/samples/2.x/AspNetCoreService/CustomWebHostService.cs?name=snippet_CustomWebHostService)]
 
-2. Vytvořte metodu rozšíření pro <xref:Microsoft.AspNetCore.Hosting.IWebHost> , která předá `CustomWebHostService` <xref:System.ServiceProcess.ServiceBase.Run*>:
+2. Vytvořte metodu rozšíření pro <xref:Microsoft.AspNetCore.Hosting.IWebHost> , která předá `CustomWebHostService` <xref:System.ServiceProcess.ServiceBase.Run*> :
 
    [!code-csharp[](windows-service/samples/2.x/AspNetCoreService/WebHostServiceExtensions.cs?name=ExtensionsClass)]
 
-3. V `Program.Main`volejte metodu `RunAsCustomService` rozšíření místo <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*>:
+3. V `Program.Main` volejte `RunAsCustomService` metodu rozšíření místo <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> :
 
    ```csharp
    host.RunAsCustomService();
    ```
 
-   Chcete-li zobrazit umístění <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> v `Program.Main`nástroji, podívejte se na ukázku kódu zobrazenou v části [typ nasazení](#deployment-type) .
+   Chcete-li zobrazit umístění <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> v nástroji `Program.Main` , podívejte se na ukázku kódu zobrazenou v části [typ nasazení](#deployment-type) .
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
 
@@ -895,7 +882,7 @@ Služby, které komunikují s požadavky z Internetu nebo podnikové sítě a js
 
 ## <a name="configure-endpoints"></a>Konfigurace koncových bodů
 
-Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000`. Nakonfigurujte adresu URL a port nastavením proměnné `ASPNETCORE_URLS` prostředí.
+Ve výchozím nastavení ASP.NET Core váže `http://localhost:5000` . Nakonfigurujte adresu URL a port nastavením `ASPNETCORE_URLS` proměnné prostředí.
 
 Další přístupy k adresám URL a konfiguraci portů najdete v příslušném článku na serveru:
 
@@ -909,13 +896,13 @@ Předchozí doprovodné materiály zahrnují podporu koncových bodů HTTPS. Nap
 
 ## <a name="current-directory-and-content-root"></a>Aktuální adresář a kořen obsahu
 
-Aktuální pracovní adresář vrácený voláním <xref:System.IO.Directory.GetCurrentDirectory*> pro službu systému Windows je složka *C:\\Windows\\system32* . Složka *system32* není vhodným umístěním pro ukládání souborů služby (například souborů nastavení). Pomocí jednoho z následujících přístupů můžete spravovat a přistupovat k souborům assetů a nastavení služby.
+Aktuální pracovní adresář vrácený voláním <xref:System.IO.Directory.GetCurrentDirectory*> pro službu systému Windows je složka *C: \\ Windows \\ system32* . Složka *system32* není vhodným umístěním pro ukládání souborů služby (například souborů nastavení). Pomocí jednoho z následujících přístupů můžete spravovat a přistupovat k souborům assetů a nastavení služby.
 
 ### <a name="set-the-content-root-path-to-the-apps-folder"></a>Nastavení kořenové cesty obsahu ke složce aplikace
 
-<xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ContentRootPath*> Je stejná Cesta zadaná `binPath` argumentu při vytvoření služby. Namísto volání `GetCurrentDirectory` k vytváření cest k souborům nastavení volejte <xref:System.IO.Directory.SetCurrentDirectory*> s cestou k [kořenu obsahu](xref:fundamentals/index#content-root)aplikace.
+<xref:Microsoft.Extensions.Hosting.IHostingEnvironment.ContentRootPath*>Je stejná Cesta zadaná `binPath` argumentu při vytvoření služby. Namísto volání `GetCurrentDirectory` k vytváření cest k souborům nastavení volejte <xref:System.IO.Directory.SetCurrentDirectory*> s cestou k [kořenu obsahu](xref:fundamentals/index#content-root)aplikace.
 
-V `Program.Main`nástroji Určete cestu ke složce spustitelného souboru služby a použijte cestu k vytvoření kořene obsahu aplikace:
+V nástroji `Program.Main` Určete cestu ke složce spustitelného souboru služby a použijte cestu k vytvoření kořene obsahu aplikace:
 
 ```csharp
 var pathToExe = Process.GetCurrentProcess().MainModule.FileName;
@@ -929,11 +916,11 @@ CreateWebHostBuilder(args)
 
 ### <a name="store-a-services-files-in-a-suitable-location-on-disk"></a>Uložení souborů služby do vhodného umístění na disku
 
-<xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> Při použití <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> do složky obsahující soubory zadejte absolutní cestu.
+<xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*>Při použití <xref:Microsoft.Extensions.Configuration.IConfigurationBuilder> do složky obsahující soubory zadejte absolutní cestu.
 
 ## <a name="troubleshoot"></a>Řešení potíží
 
-Řešení potíží s aplikací služby systému Windows najdete <xref:test/troubleshoot>v tématu.
+Řešení potíží s aplikací služby systému Windows najdete v tématu <xref:test/troubleshoot> .
 
 ### <a name="common-errors"></a>Běžné chyby
 
@@ -942,9 +929,9 @@ CreateWebHostBuilder(args)
   * *bin/verze/{Target Framework}/Publish* (FDD)
   * *bin/verze/{Target Framework} identifikátor/{runtime}/Publish* (SCD)
 * Služba není ve stavu SPUŠTĚNo.
-* Cesty k prostředkům, které aplikace používá (například certifikáty), jsou nesprávné. Základní cesta služby systému Windows je *c:\\Windows\\system32*.
+* Cesty k prostředkům, které aplikace používá (například certifikáty), jsou nesprávné. Základní cesta služby systému Windows je *c: \\ Windows \\ system32*.
 * Uživatel nemá oprávnění *Přihlásit se jako služba* .
-* Při provádění příkazu `New-Service` PowerShellu vypršela platnost hesla uživatele nebo se předala nesprávně.
+* Při provádění příkazu PowerShellu vypršela platnost hesla uživatele nebo se předala nesprávně `New-Service` .
 * Aplikace vyžaduje ASP.NET Core ověřování, ale není nakonfigurovaná pro zabezpečená připojení (HTTPS).
 * Port adresy URL požadavku není správný nebo v aplikaci není správně nakonfigurovaný.
 
@@ -968,7 +955,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Odstraňte složky *bin* a *obj* .
 1. Pomocí příkazu [dotnet All--Clear](/dotnet/core/tools/dotnet-nuget-locals) z příkazového prostředí vymažte mezipaměť balíčku.
 
-   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear`. *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
+   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear` . *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
 
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
@@ -981,7 +968,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 
 Získat a analyzovat výpis z [zasílání zpráv o chybách systému Windows (WER)](/windows/desktop/wer/windows-error-reporting):
 
-1. Vytvořte složku uchovávající soubory s výpisem stavu `c:\dumps`systému.
+1. Vytvořte složku uchovávající soubory s výpisem stavu systému `c:\dumps` .
 1. Spusťte [skript PowerShellu EnableDumps](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/host-and-deploy/windows-service/scripts/EnableDumps.ps1) s názvem spustitelného souboru aplikace:
 
    ```console

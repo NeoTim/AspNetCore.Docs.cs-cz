@@ -220,8 +220,8 @@ Systém DI je založený na systému DI v ASP.NET Core. Další informace nalezn
 
 Po přidání služeb do kolekce služeb tyto služby vloží do součástí pomocí direktivy [ \@ vložení](xref:mvc/views/razor#inject) Razor . [`@inject`](xref:mvc/views/razor#inject)má dva parametry:
 
-* Zadejte &ndash; typ služby, kterou chcete vložit.
-* Vlastnost &ndash; název vlastnosti, která přijímá vloženou službu App Service. Vlastnost nevyžaduje ruční vytvoření. Kompilátor vytvoří vlastnost.
+* Typ: typ služby, která se má vložit.
+* Vlastnost: název vlastnosti přijímající vloženou službu App Service. Vlastnost nevyžaduje ruční vytvoření. Kompilátor vytvoří vlastnost.
 
 Další informace naleznete v tématu <xref:mvc/views/dependency-injection>.
 

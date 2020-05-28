@@ -70,8 +70,8 @@ Chcete-li použít <xref:Microsoft.JSInterop.IJSRuntime> abstrakci, přijímají
 
 V ukázkové aplikaci na straně klienta, která doprovází toto téma, jsou k dispozici dvě funkce JavaScriptu pro aplikaci, která komunikuje s modelem DOM pro příjem vstupu uživatele a zobrazení uvítací zprávy:
 
-* `showPrompt`&ndash;Vytvoří výzvu k přijetí vstupu uživatele (jméno uživatele) a vrátí název volajícímu.
-* `displayWelcome`&ndash;Přiřadí uvítací zprávu od volajícího k objektu modelu DOM s `id` `welcome` příponou.
+* `showPrompt`: Vytvoří výzvu pro přijetí vstupu uživatele (jméno uživatele) a vrátí název volajícímu.
+* `displayWelcome`: Přiřadí úvodní zprávu od volajícího k objektu modelu DOM s `id` `welcome` příponou.
 
 *wwwroot/exampleJsInterop. js*:
 

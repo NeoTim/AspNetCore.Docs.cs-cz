@@ -34,7 +34,7 @@ Zaznamenejte následující informace:
 
 * *Aplikace API serveru* ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111` )
 * ID adresáře (ID klienta) (například `222222222-2222-2222-2222-222222222222` )
-* Doména tenanta AAD (například `contoso.onmicrosoft.com` ) &ndash; doména je k dispozici jako **doména vydavatele** v okně **značky** Azure Portal pro registrovanou aplikaci.
+* Doména tenanta AAD (například `contoso.onmicrosoft.com` ): doména je k dispozici jako **doména vydavatele** v okně **značky** Azure Portal pro registrovanou aplikaci.
 
 V okně **oprávnění rozhraní API**odeberte **Microsoft Graph**  >  **uživatel. číst** , protože aplikace nevyžaduje přihlášení ani přístup k profilu uživatele.
 

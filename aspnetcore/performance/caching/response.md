@@ -1,23 +1,11 @@
 ---
-title: Ukládání odpovědí do mezipaměti v ASP.NET Core
-author: rick-anderson
-description: Naučte se, jak používat ukládání odpovědí do mezipaměti pro menší požadavky na šířku pásma a zvýšit výkon aplikací ASP.NET Core.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.date: 11/04/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: performance/caching/response
-ms.openlocfilehash: 3e4bb9980c94f36319cf9b17e65a35ba0f77824e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776074"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="response-caching-in-aspnet-core"></a>Ukládání odpovědí do mezipaměti v ASP.NET Core
 
@@ -35,30 +23,491 @@ Pro ukládání do mezipaměti na straně serveru, které následuje za specifik
 
 [Specifikace ukládání do mezipaměti HTTP 1,1](https://tools.ietf.org/html/rfc7234) popisuje, jak se mají chovat internetové mezipaměti. Primární hlavičkou HTTP použitou pro ukládání do mezipaměti je [řízení mezipaměti](https://tools.ietf.org/html/rfc7234#section-5.2), které se používá k určení *direktiv*mezipaměti. Direktivy řídí chování ukládání do mezipaměti jako požadavky od klientů po servery a jako reakce způsobují od serverů zpátky klientům. Žádosti a odpovědi se pohybují přes proxy servery a proxy servery musí splňovat i specifikace mezipaměti HTTP 1,1.
 
-V `Cache-Control` následující tabulce jsou uvedeny společné direktivy.
+`Cache-Control`V následující tabulce jsou uvedeny společné direktivy.
 
 | Směrnici                                                       | Akce |
-| --------------------------------------------------------------- | ------ |
-| [public](https://tools.ietf.org/html/rfc7234#section-5.2.2.5)   | Mezipaměť může ukládat odpověď. |
-| [private](https://tools.ietf.org/html/rfc7234#section-5.2.2.6)  | Odpověď nesmí být uložena sdílenou mezipamětí. Soukromá mezipaměť může uložit a znovu použít odpověď. |
-| [Maximální stáří](https://tools.ietf.org/html/rfc7234#section-5.2.1.1)  | Klient nepřijme odpověď, jejíž stáří je větší než zadaný počet sekund. Příklady: `max-age=60` (60 sekund), `max-age=2592000` (1 měsíc) |
-| [No – mezipaměť](https://tools.ietf.org/html/rfc7234#section-5.2.1.4) | **V případě požadavků**: mezipaměť nesmí k uspokojení požadavku použít uloženou odpověď. Zdrojový server znovu vygeneruje odpověď pro klienta a middleware aktualizuje uloženou odpověď v mezipaměti.<br><br>**Na odpovědích**: odpověď nesmí být použita pro následné žádosti bez ověření na zdrojovém serveru. |
-| [bez uložení](https://tools.ietf.org/html/rfc7234#section-5.2.1.5) | **V žádostech**: mezipaměť nesmí ukládat požadavek.<br><br>**V odpovědích**: mezipaměť nesmí ukládat žádnou část odpovědi. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------------------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--- | | [veřejné](https://tools.ietf.org/html/rfc7234#section-5.2.2.5) | Mezipaměť může ukládat odpověď. | | [privátní](https://tools.ietf.org/html/rfc7234#section-5.2.2.6) | Odpověď nesmí být uložena sdílenou mezipamětí. Soukromá mezipaměť může uložit a znovu použít odpověď. | | [maximální stáří](https://tools.ietf.org/html/rfc7234#section-5.2.1.1) | Klient nepřijme odpověď, jejíž stáří je větší než zadaný počet sekund. Příklady: `max-age=60` (60 sekund), `max-age=2592000` (1 měsíc) | | [No – mezipaměť](https://tools.ietf.org/html/rfc7234#section-5.2.1.4)  |  **V případě požadavků**: mezipaměť nesmí k uspokojení požadavku použít uloženou odpověď. Zdrojový server znovu vygeneruje odpověď pro klienta a middleware aktualizuje uloženou odpověď v mezipaměti.<br><br>**Na odpovědích**: odpověď nesmí být použita pro následné žádosti bez ověření na zdrojovém serveru. | | [bez uložení](https://tools.ietf.org/html/rfc7234#section-5.2.1.5)  |  **V žádostech**: mezipaměť nesmí ukládat požadavek.<br><br>**V odpovědích**: mezipaměť nesmí ukládat žádnou část odpovědi. |
 
 Další hlavičky mezipaměti, které hrají roli v mezipaměti, jsou uvedeny v následující tabulce.
 
-| Hlavička                                                     | Funkce |
-| ---------------------------------------------------------- | -------- |
-| [Věk](https://tools.ietf.org/html/rfc7234#section-5.1)     | Odhad doby v sekundách, po jejímž uplynutí byla odpověď generována nebo úspěšně ověřena na zdrojovém serveru. |
-| [Expires](https://tools.ietf.org/html/rfc7234#section-5.3) | Čas, po jehož uplynutí je odpověď považována za zastaralou. |
-| [Pragma](https://tools.ietf.org/html/rfc7234#section-5.4)  | Existuje pro zpětnou kompatibilitu s mezipamětí HTTP/1.0 pro `no-cache` chování nastavení. Pokud je `Cache-Control` hlavička k dispozici, `Pragma` záhlaví je ignorováno. |
-| [Toho](https://tools.ietf.org/html/rfc7231#section-7.1.4)  | Určuje, že odpověď uložená v mezipaměti nesmí být odeslána, pokud se `Vary` všechna pole hlaviček shodují v původní žádosti odpovědi v mezipaměti i v nové žádosti. |
+| Záhlaví                                                     | Funkce |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---- | | [Stáří](https://tools.ietf.org/html/rfc7234#section-5.1) | Odhad doby v sekundách, po jejímž uplynutí byla odpověď generována nebo úspěšně ověřena na zdrojovém serveru. | | [Konec platnosti](https://tools.ietf.org/html/rfc7234#section-5.3) | Čas, po jehož uplynutí je odpověď považována za zastaralou. | | [Pragma](https://tools.ietf.org/html/rfc7234#section-5.4) | Existuje pro zpětnou kompatibilitu s mezipamětí HTTP/1.0 pro `no-cache` chování nastavení. Pokud `Cache-Control` je hlavička k dispozici, `Pragma` záhlaví je ignorováno. | | [Různé](https://tools.ietf.org/html/rfc7231#section-7.1.4) | Určuje, že odpověď uložená v mezipaměti nesmí být odeslána, pokud se všechna `Vary` pole hlaviček shodují v původní žádosti odpovědi v mezipaměti i v nové žádosti. |
 
 ## <a name="http-based-caching-respects-request-cache-control-directives"></a>Požadavky na ukládání do mezipaměti založené na protokolu HTTP respektují direktivy řízení mezipaměti
 
-[Specifikace mezipaměti HTTP 1,1 pro hlavičku Cache-Control](https://tools.ietf.org/html/rfc7234#section-5.2) vyžaduje mezipaměť, aby bylo možné akceptovat platnou `Cache-Control` hlavičku odeslanou klientem. Klient může vytvořit požadavky s hodnotou `no-cache` hlavičky a vynutit, aby server vygeneroval novou odpověď pro každý požadavek.
+[Specifikace mezipaměti HTTP 1,1 pro hlavičku Cache-Control](https://tools.ietf.org/html/rfc7234#section-5.2) vyžaduje mezipaměť, aby bylo možné akceptovat platnou `Cache-Control` hlavičku odeslanou klientem. Klient může vytvořit požadavky s `no-cache` hodnotou hlavičky a vynutit, aby server vygeneroval novou odpověď pro každý požadavek.
 
-Použití hlaviček požadavků klienta `Cache-Control` je vhodné, pokud považujete cíl ukládání http do mezipaměti. V rámci oficiální specifikace je ukládání do mezipaměti určeno ke snížení latence a zatížení sítě při požadavcích na požadavky v síti klientů, proxy serverů a serverů. To není nutně způsob, jak řídit zatížení na zdrojovém serveru.
+Použití `Cache-Control` hlaviček požadavků klienta je vhodné, pokud považujete cíl ukládání http do mezipaměti. V rámci oficiální specifikace je ukládání do mezipaměti určeno ke snížení latence a zatížení sítě při požadavcích na požadavky v síti klientů, proxy serverů a serverů. To není nutně způsob, jak řídit zatížení na zdrojovém serveru.
 
 Při použití [middleware pro ukládání odpovědí](xref:performance/caching/middleware) do mezipaměti není k dispozici žádné vývojářské řízení, protože middleware dodržuje oficiální specifikaci ukládání do mezipaměti. [Plánovaná vylepšení middlewaru](https://github.com/dotnet/AspNetCore/issues/2612) jsou příležitostí ke konfiguraci middlewaru pro ignorování `Cache-Control` hlavičky žádosti při rozhodování o obsluze odpovědi v mezipaměti. Plánovaná vylepšení poskytují možnost lepšího řízení zatížení serveru.
 
@@ -78,44 +527,232 @@ Další informace naleznete v tématu <xref:performance/caching/distributed>.
 
 ### <a name="cache-tag-helper"></a>Uložení pomocné rutiny značky do mezipaměti
 
-Ukládání obsahu do mezipaměti v zobrazení MVC nebo na stránce Razor pomocí pomocníka značky mezipaměti. Pomocník značek Cache používá ukládání dat do mezipaměti v paměti.
+Ukládání obsahu do mezipaměti pro zobrazení nebo Razor stránku MVC pomocí pomocníka značky mezipaměti Pomocník značek Cache používá ukládání dat do mezipaměti v paměti.
 
 Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>.
 
 ### <a name="distributed-cache-tag-helper"></a>Pomocná rutina značek v distribuované mezipaměti
 
-Ukládání obsahu do mezipaměti v zobrazení MVC nebo na stránce Razor v rámci distribuovaného cloudu nebo webové farmy pomocí pomocníka značek distribuované mezipaměti. Pomocný pomocník značek distribuované mezipaměti používá k ukládání dat SQL Server, [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)nebo [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) .
+Ukládání obsahu do mezipaměti pro zobrazení nebo Razor stránku MVC v distribuovaném cloudu nebo ve scénářích webové farmy pomocí pomocníka značek distribuované mezipaměti. Pomocný pomocník značek distribuované mezipaměti používá k ukládání dat SQL Server, [Redis](https://www.nuget.org/packages/Microsoft.Extensions.Caching.StackExchangeRedis)nebo [NCache](https://www.nuget.org/packages/Alachisoft.NCache.OpenSource.SDK/) .
 
 Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>.
 
 ## <a name="responsecache-attribute"></a>ResponseCache – atribut
 
-<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> Určuje parametry potřebné pro nastavení příslušných hlaviček v ukládání odpovědí do mezipaměti.
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>Určuje parametry potřebné pro nastavení příslušných hlaviček v ukládání odpovědí do mezipaměti.
 
 > [!WARNING]
 > Zakáže ukládání do mezipaměti pro obsah, který obsahuje informace pro ověřené klienty. Ukládání do mezipaměti by mělo být povolené jenom pro obsah, který se nemění v závislosti na identitě uživatele nebo na tom, jestli je uživatel přihlášený.
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys>mění uloženou odpověď podle hodnot daného seznamu klíčů dotazů. Pokud `*` je k dispozici jedna hodnota, middleware se liší odezvy všemi parametry řetězce dotazu na žádosti.
 
-Aby bylo možné nastavit <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> vlastnost, musí být povoleno [middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) . V opačném případě je vyvolána výjimka modulu runtime. Pro <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> vlastnost není k dispozici odpovídající hlavička protokolu HTTP. Vlastnost je funkce HTTP, kterou zpracovává middleware pro ukládání odpovědí do mezipaměti. Aby middleware poskytovala odpověď uloženou v mezipaměti, řetězec dotazu a hodnota řetězce dotazu musí odpovídat předchozí žádosti. Zvažte například posloupnost požadavků a výsledků, které jsou uvedeny v následující tabulce.
+Aby bylo možné nastavit vlastnost, musí být povoleno [middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> . V opačném případě je vyvolána výjimka modulu runtime. Pro vlastnost není k dispozici odpovídající hlavička protokolu HTTP <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> . Vlastnost je funkce HTTP, kterou zpracovává middleware pro ukládání odpovědí do mezipaměti. Aby middleware poskytovala odpověď uloženou v mezipaměti, řetězec dotazu a hodnota řetězce dotazu musí odpovídat předchozí žádosti. Zvažte například posloupnost požadavků a výsledků, které jsou uvedeny v následující tabulce.
 
 | Žádost                          | Výsledek                    |
-| -------------------------------- | ------------------------- |
-| `http://example.com?key1=value1` | Vráceno ze serveru. |
-| `http://example.com?key1=value1` | Vráceno z middlewaru. |
-| `http://example.com?key1=value2` | Vráceno ze serveru. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------- | | `http://example.com?key1=value1` | Vráceno ze serveru. | | `http://example.com?key1=value1` | Vráceno z middlewaru. | | `http://example.com?key1=value2` | Vráceno ze serveru. |
 
 První požadavek vrací Server a ukládá do mezipaměti v middlewaru. Druhý požadavek vrací middleware, protože řetězec dotazu odpovídá předchozímu požadavku. Třetí žádost není v mezipaměti middlewaru, protože hodnota řetězce dotazu neodpovídá předchozí žádosti.
 
-<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> Slouží ke konfiguraci a vytvoření (prostřednictvím <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory>) a `Microsoft.AspNetCore.Mvc.Internal.ResponseCacheFilter`. `ResponseCacheFilter` Provede práci s aktualizací odpovídajících hlaviček protokolu HTTP a funkcí odpovědi. Filtr:
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>Slouží ke konfiguraci a vytvoření (prostřednictvím) a <xref:Microsoft.AspNetCore.Mvc.Filters.IFilterFactory> `Microsoft.AspNetCore.Mvc.Internal.ResponseCacheFilter` . `ResponseCacheFilter`Provede práci s aktualizací odpovídajících hlaviček protokolu HTTP a funkcí odpovědi. Filtr:
 
-* Odebere všechna existující záhlaví pro `Vary`, `Cache-Control`a `Pragma`.
-* Zapíše odpovídající hlavičky na základě vlastností nastavených v <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>.
-* Aktualizuje funkci ukládání do mezipaměti odpovědí HTTP <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> , pokud je nastavená.
+* Odebere všechna existující záhlaví pro `Vary` , `Cache-Control` a `Pragma` .
+* Zapíše odpovídající hlavičky na základě vlastností nastavených v <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> .
+* Aktualizuje funkci ukládání do mezipaměti odpovědí HTTP, pokud <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByQueryKeys> je nastavená.
 
 ### <a name="vary"></a>Toho
 
-Tato hlavička je zapsána pouze <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> v případě, že je nastavena vlastnost. Vlastnost nastavená na hodnotu `Vary` vlastnosti. Následující příklad používá <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> vlastnost:
+Tato hlavička je zapsána pouze v případě, že <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> je nastavena vlastnost. Vlastnost nastavená na `Vary` hodnotu vlastnosti. Následující příklad používá <xref:Microsoft.AspNetCore.Mvc.CacheProfile.VaryByHeader> vlastnost:
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Pages/Cache1.cshtml.cs?name=snippet)]
 
@@ -128,12 +765,12 @@ Vary: User-Agent
 
 ### <a name="nostore-and-locationnone"></a>Úložiště a umístění. žádné
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore>přepíše většinu ostatních vlastností. Je-li tato vlastnost nastavena `true`na hodnotu `Cache-Control` , záhlaví je nastaveno `no-store`na. Pokud <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> je nastaveno na `None`:
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore>přepíše většinu ostatních vlastností. Je-li tato vlastnost nastavena na hodnotu `true` , `Cache-Control` záhlaví je nastaveno na `no-store` . Pokud <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> je nastaveno na `None` :
 
-* `Cache-Control`je nastaven na `no-store,no-cache`.
-* `Pragma`je nastaven na `no-cache`.
+* `Cache-Control`je nastaven na `no-store,no-cache` .
+* `Pragma`je nastaven na `no-cache` .
 
-Pokud <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> je `false` a <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> je `None`, `Cache-Control`, a `Pragma` jsou nastaveny na `no-cache`.
+Pokud <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore> je `false` a <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> je `None` , `Cache-Control` , a `Pragma` jsou nastaveny na `no-cache` .
 
 <xref:Microsoft.AspNetCore.Mvc.CacheProfile.NoStore>je obvykle nastaveno na `true` pro chybové stránky. Stránka Cache2 v ukázkové aplikaci vytváří hlavičky odpovědí, které klientovi neukládají odpověď.
 
@@ -148,13 +785,13 @@ Pragma: no-cache
 
 ### <a name="location-and-duration"></a>Umístění a doba trvání
 
-Aby bylo možné povolit <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> ukládání do mezipaměti, musí být nastaveno na <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> kladnou hodnotu `Any` a musí být buď ( `Client`výchozí), nebo. Rozhraní nastaví `Cache-Control` hlavičku na hodnotu umístění následovanou `max-age` odpovědí.
+Aby bylo možné povolit ukládání do mezipaměti, <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Duration> musí být nastaveno na kladnou hodnotu a <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> musí být buď `Any` (výchozí), nebo `Client` . Rozhraní nastaví `Cache-Control` hlavičku na hodnotu umístění následovanou `max-age` odpovědí.
 
-<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location>`Any` možnosti `Client` a `Cache-Control` překládat do hodnot záhlaví `public` a `private`v uvedeném pořadí. Jak je uvedeno v části [úložiště a umístění. None](#nostore-and-locationnone) , nastavení pro <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> `None` `Cache-Control` nastavení `Pragma` hlaviček na `no-cache`.
+<xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location>možnosti `Any` a `Client` překládat do `Cache-Control` hodnot záhlaví a v `public` `private` uvedeném pořadí. Jak je uvedeno v části [úložiště a umístění. None](#nostore-and-locationnone) , nastavení <xref:Microsoft.AspNetCore.Mvc.CacheProfile.Location> pro nastavení `None` `Cache-Control` `Pragma` hlaviček na `no-cache` .
 
-`Location.Any`(`Cache-Control` nastaveno na `public`) znamená, že *klient nebo jakýkoli zprostředkující proxy server* může hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
+`Location.Any`( `Cache-Control` nastaveno na `public` ) znamená, že *klient nebo jakýkoli zprostředkující proxy server* může hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
 
-`Location.Client`(`Cache-Control` nastaveno na `private`) znamená, že hodnotu může ukládat *pouze klient* . Žádná mezimezipaměť by neměla hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
+`Location.Client`( `Cache-Control` nastaveno na `private` ) znamená, že hodnotu může ukládat *pouze klient* . Žádná mezimezipaměť by neměla hodnotu ukládat do mezipaměti, včetně [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware).
 
 Řídicí hlavičky mezipaměti pouze poskytují pokyny klientům a zprostředkujícím proxy serverům, kdy a jak ukládat odpovědi do mezipaměti. Není nijak zaručeno, že klienti a proxy budou respektovat [specifikace mezipaměti HTTP 1,1](https://tools.ietf.org/html/rfc7234). [Middleware pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) bude vždycky postupovat podle pravidel pro ukládání do mezipaměti, která jsou stanovená specifikací
 
@@ -170,9 +807,9 @@ Cache-Control: public,max-age=10
 
 ### <a name="cache-profiles"></a>Profily mezipaměti
 
-Místo duplikace nastavení mezipaměti odpovědí u mnoha atributů akce kontroleru lze profily mezipaměti nakonfigurovat jako možnosti při nastavování MVC neboRazor stránek v. `Startup.ConfigureServices` Hodnoty nalezené v profilu odkazované mezipaměti se používají jako výchozí hodnoty <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> a jsou potlačeny všemi vlastnostmi zadanými v atributu.
+Místo duplikace nastavení mezipaměti odpovědí u mnoha atributů akce kontroleru lze profily mezipaměti nakonfigurovat jako možnosti při nastavování MVC nebo Razor stránek v `Startup.ConfigureServices` . Hodnoty nalezené v profilu odkazované mezipaměti se používají jako výchozí hodnoty <xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> a jsou potlačeny všemi vlastnostmi zadanými v atributu.
 
-Nastavte profil mezipaměti. Následující příklad ukazuje 30 sekundový profil mezipaměti v ukázkové aplikaci `Startup.ConfigureServices`:
+Nastavte profil mezipaměti. Následující příklad ukazuje 30 sekundový profil mezipaměti v ukázkové aplikaci `Startup.ConfigureServices` :
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Startup.cs?name=snippet1)]
 
@@ -180,13 +817,13 @@ Model stránky Cache4 ukázkové aplikace odkazuje na `Default30` profil mezipam
 
 [!code-csharp[](response/samples/2.x/ResponseCacheSample/Pages/Cache4.cshtml.cs?name=snippet)]
 
-<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute> Lze použít pro:
+<xref:Microsoft.AspNetCore.Mvc.ResponseCacheAttribute>Lze použít pro:
 
-* RazorAtributy obslužných rutin stránky &ndash; (třídy) nelze použít na metody obslužné rutiny.
+* RazorObslužné rutiny stránky (třídy): atributy nelze použít na metody obslužné rutiny.
 * Řadiče MVC (třídy).
-* Atributy na úrovni metody MVC &ndash; (metody) mají přednost před nastaveními zadanými v atributech na úrovni třídy.
+* Akce MVC (metody): atributy na úrovni metody přepíšou nastavení zadaná v atributech na úrovni třídy.
 
-Výsledná hlavička použitá pro odpověď stránky Cache4 profil `Default30` mezipaměti:
+Výsledná hlavička použitá pro odpověď stránky Cache4 `Default30` profil mezipaměti:
 
 ```
 Cache-Control: public,max-age=30

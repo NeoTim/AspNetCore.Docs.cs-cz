@@ -1,24 +1,11 @@
 ---
-title: Implementace webového serveru Kestrel v ASP.NET Core
-author: rick-anderson
-description: Přečtěte si o Kestrel, webovém serveru pro různé platformy pro ASP.NET Core.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/04/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/servers/kestrel
-ms.openlocfilehash: cd05aabb7b8ce5c7d30af881228ef2dab34f2592
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776445"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru Kestrel v ASP.NET Core
 
@@ -33,7 +20,7 @@ Kestrel podporuje následující scénáře:
 * HTTPS
 * Neprůhledný upgrade používaný k povolení [WebSockets](https://github.com/aspnet/websockets)
 * Technologie UNIX Sockets s vysokým výkonem za Nginx
-* HTTP/2 (kromě macOS&dagger;)
+* HTTP/2 (kromě macOS &dagger; )
 
 &dagger;HTTP/2 se v budoucí verzi podporuje v macOS.
 
@@ -55,7 +42,7 @@ Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Co
 &dagger;HTTP/2 se v budoucí verzi podporuje v macOS.
 &Dagger;Kestrel má omezená podpora HTTP/2 na Windows Serveru 2012 R2 a Windows 8.1. Podpora je omezená, protože seznam podporovaných šifrovacích sad TLS, které jsou k dispozici v těchto operačních systémech, je omezený. Pro zabezpečení připojení TLS může být vyžadován certifikát vygenerovaný pomocí algoritmu ECDSA (s připojením typu eliptická křivka).
 
-Pokud je vytvořeno připojení HTTP/2, `HTTP/2`sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
+Pokud je vytvořeno připojení HTTP/2, sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) `HTTP/2` .
 
 HTTP/2 je ve výchozím nastavení zakázané. Další informace o konfiguraci najdete v částech [Možnosti Kestrel](#kestrel-options) a [ListenOptions. Protocols](#listenoptionsprotocols) .
 
@@ -89,13 +76,13 @@ Reverzní proxy:
 
 ## <a name="kestrel-in-aspnet-core-apps"></a>Kestrel v aplikacích ASP.NET Core
 
-ASP.NET Core šablony projektu ve výchozím nastavení používají Kestrel. V *program.cs* <xref:Microsoft.Extensions.Hosting.GenericHostBuilderExtensions.ConfigureWebHostDefaults*> metoda volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*>:
+ASP.NET Core šablony projektu ve výchozím nastavení používají Kestrel. V *program.cs* <xref:Microsoft.Extensions.Hosting.GenericHostBuilderExtensions.ConfigureWebHostDefaults*> metoda volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> :
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_DefaultBuilder&highlight=8)]
 
-Další informace o vytváření hostitele najdete v oddílech nastavení *hostitele* a *výchozí tvůrce nastavení* v tématu <xref:fundamentals/host/generic-host#set-up-a-host>.
+Další informace o vytváření hostitele najdete v oddílech nastavení *hostitele* a *výchozí tvůrce nastavení* v tématu <xref:fundamentals/host/generic-host#set-up-a-host> .
 
-Chcete-li po volání `ConfigureWebHostDefaults`poskytnout další konfiguraci `ConfigureKestrel`, použijte:
+Chcete-li po volání poskytnout další konfiguraci `ConfigureWebHostDefaults` , použijte `ConfigureKestrel` :
 
 ```csharp
 public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -114,9 +101,9 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
 
 Webový server Kestrel má možnosti konfigurace omezení, které jsou zvláště užitečné v internetových nasazeních.
 
-Nastavte omezení pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits> vlastnost <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> třídy. `Limits` Vlastnost obsahuje instanci <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits> třídy.
+Nastavte omezení pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits> vlastnost <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> třídy. `Limits`Vlastnost obsahuje instanci <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits> třídy.
 
-V následujících příkladech se <xref:Microsoft.AspNetCore.Server.Kestrel.Core> používá obor názvů:
+V následujících příkladech se používá <xref:Microsoft.AspNetCore.Server.Kestrel.Core> obor názvů:
 
 ```csharp
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -141,10 +128,10 @@ V příkladech, které jsou uvedeny dále v tomto článku, jsou možnosti Kestr
 
 Použijte **jeden** z následujících přístupů:
 
-* Nakonfigurovat Kestrel v `Startup.ConfigureServices`:
+* Nakonfigurovat Kestrel v `Startup.ConfigureServices` :
 
-  1. Vloží instanci `IConfiguration` do `Startup` třídy. Následující příklad předpokládá, že vložená konfigurace je přiřazena `Configuration` vlastnosti.
-  2. V `Startup.ConfigureServices`aplikaci načtěte `Kestrel` část konfigurace do konfigurace Kestrel:
+  1. Vloží instanci `IConfiguration` do `Startup` třídy. Následující příklad předpokládá, že vložená konfigurace je přiřazena `Configuration` Vlastnosti.
+  2. V aplikaci `Startup.ConfigureServices` načtěte `Kestrel` část konfigurace do konfigurace Kestrel:
 
      ```csharp
      using Microsoft.Extensions.Configuration
@@ -210,7 +197,7 @@ Maximální počet souběžných otevřených připojení TCP lze pro celou apli
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_Limits&highlight=3)]
 
-Existuje zvláštní omezení pro připojení, která byla upgradována z protokolu HTTP nebo HTTPS na jiný protokol (například na žádost WebSockets). Po upgradu připojení se nepočítá na `MaxConcurrentConnections` základě limitu.
+Existuje zvláštní omezení pro připojení, která byla upgradována z protokolu HTTP nebo HTTPS na jiný protokol (například na žádost WebSockets). Po upgradu připojení se nepočítá na základě `MaxConcurrentConnections` limitu.
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_Limits&highlight=4)]
 
@@ -237,7 +224,7 @@ Přepsat nastavení u konkrétního požadavku v middleware:
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Startup.cs?name=snippet_Limits&highlight=3-4)]
 
-Výjimka je vyvolána, pokud aplikace po zahájení aplikace nakonfiguruje limit na žádost. Existuje `IsReadOnly` vlastnost, která určuje, zda je `MaxRequestBodySize` vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
+Výjimka je vyvolána, pokud aplikace po zahájení aplikace nakonfiguruje limit na žádost. Existuje `IsReadOnly` vlastnost, která určuje, zda `MaxRequestBodySize` je vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
 
 Když je aplikace spouštěna [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model) za [ASP.NET Core modul](xref:host-and-deploy/aspnet-core-module), je omezení velikosti textu požadavku Kestrel zakázané, protože služba IIS tento limit již nastavuje.
 
@@ -250,7 +237,7 @@ Kestrel kontroluje každou sekundu, pokud data přicházejí za zadanou rychlost
 
 Výchozí minimální sazba je 240 bajtů za sekundu s obdobím 5 sekund odkladu.
 
-Pro odpověď platí také minimální sazba. Kód pro nastavení limitu požadavku a limit odezvy je stejný, s výjimkou, že `RequestBody` existují `Response` nebo v názvech vlastností a rozhraní.
+Pro odpověď platí také minimální sazba. Kód pro nastavení limitu požadavku a limit odezvy je stejný, s výjimkou, `RequestBody` že existují nebo `Response` v názvech vlastností a rozhraní.
 
 Tady je příklad, který ukazuje, jak nakonfigurovat minimální datové tarify v *program.cs*:
 
@@ -260,9 +247,9 @@ Přepsat minimální limity přenosové rychlosti na žádost v middlewaru:
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Startup.cs?name=snippet_Limits&highlight=6-21)]
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinResponseDataRateFeature> Odkazovaná v předchozí ukázce není `HttpContext.Features` k dispozici pro požadavky HTTP/2, protože Změna omezení přenosové rychlosti u jednotlivých požadavků je obecně Nepodporovaná pro HTTP/2 kvůli podpoře protokolu pro multiplexování požadavků. `HttpContext.Features` Pro požadavky HTTP <xref:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinRequestBodyDataRateFeature> /2 se ale stále používá, protože omezení četnosti čtení může být pořád *zcela zakázané* na základě jednotlivých požadavků nastavením `IHttpMinRequestBodyDataRateFeature.MinDataRate` na `null` i pro požadavek HTTP/2. Když se pokusíte `IHttpMinRequestBodyDataRateFeature.MinDataRate` o jeho navýšení nebo pokus o jeho nastavení na `null` jinou hodnotu než, `NotSupportedException` vygeneruje se mu požadavek HTTP/2.
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinResponseDataRateFeature>Odkazovaná v předchozí ukázce není k dispozici `HttpContext.Features` pro požadavky HTTP/2, protože Změna omezení přenosové rychlosti u jednotlivých požadavků je obecně Nepodporovaná pro HTTP/2 kvůli podpoře protokolu pro multiplexování požadavků. <xref:Microsoft.AspNetCore.Server.Kestrel.Core.Features.IHttpMinRequestBodyDataRateFeature> `HttpContext.Features` Pro požadavky HTTP/2 se ale stále používá, protože omezení četnosti čtení může být pořád *zcela zakázané* na základě jednotlivých požadavků nastavením `IHttpMinRequestBodyDataRateFeature.MinDataRate` na `null` i pro požadavek HTTP/2. Když se pokusíte o jeho navýšení `IHttpMinRequestBodyDataRateFeature.MinDataRate` nebo pokus o jeho nastavení na jinou hodnotu než, `null` vygeneruje se `NotSupportedException` mu požadavek HTTP/2.
 
-Omezení přenosové rychlosti pro všechny servery `KestrelServerOptions.Limits` jsou nakonfigurovaná přes protokol HTTP/1. x i pro připojení HTTP/2.
+Omezení přenosové rychlosti pro všechny servery jsou nakonfigurovaná přes `KestrelServerOptions.Limits` protokol HTTP/1. x i pro připojení HTTP/2.
 
 ### <a name="request-headers-timeout"></a>Časový limit hlaviček žádostí
 
@@ -326,7 +313,7 @@ Výchozí hodnota je 8 192.
 
 ### <a name="initial-connection-window-size"></a>Velikost okna počátečního připojení
 
-`Http2.InitialConnectionWindowSize`Určuje maximální velikost textu požadavku v bajtech, které jsou v jednom okamžiku agregovány v rámci všech požadavků (datových proudů) na připojení. Žádosti jsou také omezené pomocí `Http2.InitialStreamWindowSize`. Hodnota musí být větší než nebo rovna 65 535 a menší než 2 ^ 31 (2 147 483 648).
+`Http2.InitialConnectionWindowSize`Určuje maximální velikost textu požadavku v bajtech, které jsou v jednom okamžiku agregovány v rámci všech požadavků (datových proudů) na připojení. Žádosti jsou také omezené pomocí `Http2.InitialStreamWindowSize` . Hodnota musí být větší než nebo rovna 65 535 a menší než 2 ^ 31 (2 147 483 648).
 
 ```csharp
 webBuilder.ConfigureKestrel(serverOptions =>
@@ -339,7 +326,7 @@ Výchozí hodnota je 128 KB (131 072).
 
 ### <a name="initial-stream-window-size"></a>Počáteční velikost okna datového proudu
 
-`Http2.InitialStreamWindowSize`Určuje maximální velikost textu požadavku v bajtech na jednu žádost (Stream) na jednom místě. Žádosti jsou také omezené pomocí `Http2.InitialConnectionWindowSize`. Hodnota musí být větší než nebo rovna 65 535 a menší než 2 ^ 31 (2 147 483 648).
+`Http2.InitialStreamWindowSize`Určuje maximální velikost textu požadavku v bajtech na jednu žádost (Stream) na jednom místě. Žádosti jsou také omezené pomocí `Http2.InitialConnectionWindowSize` . Hodnota musí být větší než nebo rovna 65 535 a menší než 2 ^ 31 (2 147 483 648).
 
 ```csharp
 webBuilder.ConfigureKestrel(serverOptions =>
@@ -355,7 +342,7 @@ Výchozí hodnota je 96 KB (98 304).
 <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO>Určuje, jestli je pro požadavek a odpověď povolený synchronní vstup/výstup. Výchozí hodnota je `false`.
 
 > [!WARNING]
-> Velký počet blokujících synchronních vstupně-výstupních operací může vést ke vyčerpání fondu vláken, což aplikaci nereaguje. Povolit `AllowSynchronousIO` pouze při použití knihovny, která nepodporuje asynchronní vstupně-výstupní operace.
+> Velký počet blokujících synchronních vstupně-výstupních operací může vést ke vyčerpání fondu vláken, což aplikaci nereaguje. Povolit pouze `AllowSynchronousIO` při použití knihovny, která nepodporuje asynchronní vstupně-výstupní operace.
 
 Následující příklad povoluje synchronní vstupně-výstupní operace:
 
@@ -381,7 +368,7 @@ Zadejte adresy URL pomocí:
 * `urls`konfigurační klíč hostitele.
 * `UseUrls`Metoda rozšíření
 
-Hodnota zadaná pomocí těchto přístupů může být jeden nebo více koncových bodů HTTP a HTTPS (HTTPS, pokud je k dispozici výchozí certifikát). Nakonfigurujte hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000;http://localhost:8001"`).
+Hodnota zadaná pomocí těchto přístupů může být jeden nebo více koncových bodů HTTP a HTTPS (HTTPS, pokud je k dispozici výchozí certifikát). Nakonfigurujte hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000;http://localhost:8001"` ).
 
 Další informace o těchto přístupůch najdete v tématu [adresy URL serveru](xref:fundamentals/host/web-host#server-urls) a [potlačení konfigurace](xref:fundamentals/host/web-host#override-configuration).
 
@@ -394,15 +381,15 @@ Některé prohlížeče vyžadují udělení explicitního oprávnění pro dův
 
 Šablony projektů konfigurují aplikace tak, aby běžely ve výchozím nastavení HTTPS a zahrnovaly [přesměrování https a podporu HSTS](xref:security/enforcing-ssl).
 
-Volání <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> nebo <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> metody <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> pro konfiguraci předpon adres URL a portů pro Kestrel.
+Volání <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> nebo <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> metody pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> konfiguraci předpon adres URL a portů pro Kestrel.
 
-`UseUrls`, argument `--urls` příkazového řádku, `urls` konfigurační klíč hostitele a proměnná `ASPNETCORE_URLS` prostředí fungují také, ale mají omezení zaznamenaná později v této části (pro konfiguraci koncového bodu https musí být k dispozici výchozí certifikát).
+`UseUrls`, `--urls` argument příkazového řádku, `urls` konfigurační klíč hostitele a `ASPNETCORE_URLS` Proměnná prostředí fungují také, ale mají omezení zaznamenaná později v této části (pro konfiguraci koncového bodu https musí být k dispozici výchozí certifikát).
 
 `KestrelServerOptions`rozšířeného
 
-### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults (akce\<ListenOptions>)
+### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults (akce \<ListenOptions> )
 
-Určuje konfiguraci `Action` , která se spustí pro každý zadaný koncový bod. Volání `ConfigureEndpointDefaults` několikrát nahrazuje předchozí `Action` `Action` zadanou parametr s.
+Určuje konfiguraci `Action` , která se spustí pro každý zadaný koncový bod. Volání několikrát `ConfigureEndpointDefaults` nahrazuje předchozí `Action` `Action` zadanou parametr s.
 
 ```csharp
 webBuilder.ConfigureKestrel(serverOptions =>
@@ -417,9 +404,9 @@ webBuilder.ConfigureKestrel(serverOptions =>
 > [!NOTE]
 > Koncové body vytvořené voláním <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> **před** voláním <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureEndpointDefaults*> nebudou použity výchozí hodnoty.
 
-### <a name="configurehttpsdefaultsactionhttpsconnectionadapteroptions"></a>ConfigureHttpsDefaults (akce\<HttpsConnectionAdapterOptions>)
+### <a name="configurehttpsdefaultsactionhttpsconnectionadapteroptions"></a>ConfigureHttpsDefaults (akce \<HttpsConnectionAdapterOptions> )
 
-Určuje konfiguraci `Action` , která se má spustit pro každý koncový bod HTTPS. Volání `ConfigureHttpsDefaults` několikrát nahrazuje předchozí `Action` `Action` zadanou parametr s.
+Určuje konfiguraci `Action` , která se má spustit pro každý koncový bod HTTPS. Volání několikrát `ConfigureHttpsDefaults` nahrazuje předchozí `Action` `Action` zadanou parametr s.
 
 ```csharp
 webBuilder.ConfigureKestrel(serverOptions =>
@@ -445,7 +432,7 @@ Nakonfigurujte Kestrel tak, aby používal protokol HTTPS.
 
 `ListenOptions.UseHttps`SND
 
-* `UseHttps`&ndash; Nakonfigurujte Kestrel tak, aby používal HTTPS s výchozím certifikátem. Vyvolá výjimku, pokud není nakonfigurován žádný výchozí certifikát.
+* `UseHttps`: Nakonfigurujte Kestrel tak, aby používal HTTPS s výchozím certifikátem. Vyvolá výjimku, pokud není nakonfigurován žádný výchozí certifikát.
 * `UseHttps(string fileName)`
 * `UseHttps(string fileName, string password)`
 * `UseHttps(string fileName, string password, Action<HttpsConnectionAdapterOptions> configureOptions)`
@@ -461,7 +448,7 @@ Nakonfigurujte Kestrel tak, aby používal protokol HTTPS.
 
 * `filename`je cesta a název souboru certifikátu vzhledem k adresáři, který obsahuje soubory obsahu aplikace.
 * `password`je vyžadováno heslo pro přístup k datům certifikátu X. 509.
-* `configureOptions`je `Action` ke konfiguraci `HttpsConnectionAdapterOptions`. Vrátí `ListenOptions`.
+* `configureOptions`je `Action` ke konfiguraci `HttpsConnectionAdapterOptions` . Vrátí `ListenOptions` .
 * `storeName`je úložiště certifikátů, ze kterého se má certifikát načíst.
 * `subject`je název subjektu certifikátu.
 * `allowInvalid`Určuje, zda by měly být zváženy neplatné certifikáty, například certifikáty podepsané svým držitelem.
@@ -535,7 +522,7 @@ V následujícím příkladu *appSettings. JSON* :
 }
 ```
 
-Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu je zadání certifikátu pomocí polí úložiště certifikátů. Například **Certificates** > **výchozí** certifikát může být zadán jako:
+Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu je zadání certifikátu pomocí polí úložiště certifikátů. Například **Certificates**  >  **výchozí** certifikát může být zadán jako:
 
 ```json
 "Default": {
@@ -549,12 +536,12 @@ Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu 
 Poznámky ke schématu:
 
 * V názvech koncových bodů se nerozlišují malá a velká písmena. Například `HTTPS` a `Https` jsou platné.
-* U `Url` každého koncového bodu je vyžadován parametr. Formát pro tento parametr je stejný jako konfigurační parametr nejvyšší úrovně `Urls` s tím rozdílem, že je omezen na jedinou hodnotu.
-* Tyto koncové body nahrazují hodnoty definované v konfiguraci nejvyšší úrovně `Urls` místo jejich přidání do těchto koncových bodů. Koncové body definované v kódu `Listen` prostřednictvím jsou kumulativní pomocí koncových bodů definovaných v konfiguračním oddílu.
-* `Certificate` Oddíl je nepovinný. Pokud není `Certificate` oddíl zadaný, použijí se výchozí hodnoty definované v dřívějších scénářích. Pokud nejsou k dispozici žádné výchozí hodnoty, Server vyvolá výjimku a nemůže se spustit.
-* `Certificate` Oddíl podporuje jak heslo **cesty**&ndash;**Password** , tak certifikáty**úložiště** **subjektu**&ndash;.
+* `Url`U každého koncového bodu je vyžadován parametr. Formát pro tento parametr je stejný jako `Urls` konfigurační parametr nejvyšší úrovně s tím rozdílem, že je omezen na jedinou hodnotu.
+* Tyto koncové body nahrazují hodnoty definované v konfiguraci nejvyšší úrovně `Urls` místo jejich přidání do těchto koncových bodů. Koncové body definované v kódu prostřednictvím `Listen` jsou kumulativní pomocí koncových bodů definovaných v konfiguračním oddílu.
+* `Certificate`Oddíl je nepovinný. Pokud `Certificate` není oddíl zadaný, použijí se výchozí hodnoty definované v dřívějších scénářích. Pokud nejsou k dispozici žádné výchozí hodnoty, Server vyvolá výjimku a nemůže se spustit.
+* `Certificate`Oddíl podporuje jak heslo **cesty** &ndash; **Password** , tak **Subject** &ndash; certifikáty**úložiště** subjektu.
 * V takovém případě může být definován libovolný počet koncových bodů, pokud to nezpůsobí konflikty portů.
-* `options.Configure(context.Configuration.GetSection("{SECTION}"))`Vrátí `.Endpoint(string name, listenOptions => { })` metodu `KestrelConfigurationLoader` s metodou, kterou lze použít k doplnění nastavení nakonfigurovaného koncového bodu:
+* `options.Configure(context.Configuration.GetSection("{SECTION}"))`Vrátí `KestrelConfigurationLoader` `.Endpoint(string name, listenOptions => { })` metodu s metodou, kterou lze použít k doplnění nastavení nakonfigurovaného koncového bodu:
 
 ```csharp
 webBuilder.UseKestrel((context, serverOptions) =>
@@ -567,7 +554,7 @@ webBuilder.UseKestrel((context, serverOptions) =>
 });
 ```
 
-`KestrelServerOptions.ConfigurationLoader`k pokračování v iteraci u stávajícího zavaděče se dá získat přímý odkaz, jako je třeba <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>ten, který poskytuje.
+`KestrelServerOptions.ConfigurationLoader`k pokračování v iteraci u stávajícího zavaděče se dá získat přímý odkaz, jako je třeba ten, který poskytuje <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> .
 
 * Konfigurační oddíl pro každý koncový bod je k dispozici na možnostech v `Endpoint` metodě, aby bylo možné číst vlastní nastavení.
 * Více konfigurací může být načteno voláním `options.Configure(context.Configuration.GetSection("{SECTION}"))` znovu s jiným oddílem. Je použita pouze poslední konfigurace, pokud `Load` není explicitně volána při předchozích instancích. Metapackage nevolá `Load` , aby se jeho výchozí konfigurační oddíl mohl nahradit.
@@ -575,7 +562,7 @@ webBuilder.UseKestrel((context, serverOptions) =>
 
 *Změna výchozích hodnot v kódu*
 
-`ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` dá se použít ke změně výchozího nastavení pro `ListenOptions` a `HttpsConnectionAdapterOptions`, včetně přepsání výchozího certifikátu zadaného v předchozím scénáři. `ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` měla by být volána před konfigurací koncových bodů.
+`ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` dá se použít ke změně výchozího nastavení pro `ListenOptions` a `HttpsConnectionAdapterOptions` , včetně přepsání výchozího certifikátu zadaného v předchozím scénáři. `ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` měla by být volána před konfigurací koncových bodů.
 
 ```csharp
 webBuilder.ConfigureKestrel(serverOptions =>
@@ -600,7 +587,7 @@ Kestrel podporuje SNI prostřednictvím `ServerCertificateSelector` zpětného v
 
 Podpora SNI vyžaduje:
 
-* Běží v cílovém rozhraní `netcoreapp2.1` nebo novějším. V `net461` systému nebo novějším je zpětné volání vyvoláno `name` , `null`ale je vždy. `name` Je také `null` v případě, že klient v TLS handshake neposkytne parametr názvu hostitele.
+* Běží v cílovém rozhraní `netcoreapp2.1` nebo novějším. V systému `net461` nebo novějším je zpětné volání vyvoláno, ale `name` je vždy `null` . `name`Je také v `null` případě, že klient v TLS handshake neposkytne parametr názvu hostitele.
 * Všechny weby běží na stejné instanci Kestrel. Kestrel nepodporuje sdílení IP adresy a portu napříč několika instancemi bez reverzního proxy serveru.
 
 ```csharp
@@ -641,7 +628,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 ### <a name="connection-logging"></a>Protokolování připojení
 
-Volá <xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> se, aby se vygenerovaly protokoly na úrovni ladění pro komunikaci na úrovni bajtového připojení. Protokolování připojení je užitečné při řešení problémů v komunikaci nízké úrovně, například během šifrování TLS a za proxy servery. Pokud `UseConnectionLogging` je umístěn před `UseHttps`, zaprotokoluje se zašifrovaný provoz. Pokud `UseConnectionLogging` je umístěn po `UseHttps`, zaprotokoluje se dešifrovaný provoz.
+Volá <xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> se, aby se vygenerovaly protokoly na úrovni ladění pro komunikaci na úrovni bajtového připojení. Protokolování připojení je užitečné při řešení problémů v komunikaci nízké úrovně, například během šifrování TLS a za proxy servery. Pokud `UseConnectionLogging` je umístěn před `UseHttps` , zaprotokoluje se zašifrovaný provoz. Pokud `UseConnectionLogging` je umístěn po `UseHttps` , zaprotokoluje se dešifrovaný provoz.
 
 ```csharp
 webBuilder.ConfigureKestrel(serverOptions =>
@@ -655,26 +642,26 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 ### <a name="bind-to-a-tcp-socket"></a>Vytvoření vazby na soket TCP
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> Metoda se váže k soketu TCP a pomocí lambda možností povolíte konfiguraci certifikátu X. 509:
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*>Metoda se váže k soketu TCP a pomocí lambda možností povolíte konfiguraci certifikátu X. 509:
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_TCPSocket&highlight=12-18)]
 
-Příklad nakonfiguruje HTTPS pro koncový bod pomocí <xref:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions>. Ke konfiguraci dalších nastavení Kestrel pro konkrétní koncové body použijte stejné rozhraní API.
+Příklad nakonfiguruje HTTPS pro koncový bod pomocí <xref:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions> . Ke konfiguraci dalších nastavení Kestrel pro konkrétní koncové body použijte stejné rozhraní API.
 
 [!INCLUDE [How to make an X.509 cert](~/includes/make-x509-cert.md)]
 
 ### <a name="bind-to-a-unix-socket"></a>Vytvoření vazby na soket UNIX
 
-Naslouchat na soketu se <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> systémem UNIX, aby se zlepšil výkon pomocí Nginx, jak je znázorněno v tomto příkladu:
+Naslouchat na soketu se systémem UNIX <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> , aby se zlepšil výkon pomocí Nginx, jak je znázorněno v tomto příkladu:
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Program.cs?name=snippet_UnixSocket)]
 
-* V `server`  >  `location`  >  `proxy_pass` konfiguračním souboru Nginx nastavte položku na `http://unix:/tmp/{KESTREL SOCKET}:/;`. `{KESTREL SOCKET}`je název soketu poskytnutý <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> (například `kestrel-test.sock` v předchozím příkladu).
-* Zajistěte, aby byl soket zapisovatelný pomocí Nginx (například `chmod go+w /tmp/kestrel-test.sock`).
+* V konfiguračním souboru Nginx nastavte `server`  >  `location`  >  `proxy_pass` položku na `http://unix:/tmp/{KESTREL SOCKET}:/;` . `{KESTREL SOCKET}`je název soketu poskytnutý <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> (například `kestrel-test.sock` v předchozím příkladu).
+* Zajistěte, aby byl soket zapisovatelný pomocí Nginx (například `chmod go+w /tmp/kestrel-test.sock` ).
 
 ### <a name="port-0"></a>Port 0
 
-Po zadání čísla `0` portu se Kestrel dynamicky váže k dostupnému portu. Následující příklad ukazuje, jak určit, který port Kestrel je skutečně vázaný za běhu:
+Po zadání čísla portu se `0` Kestrel dynamicky váže k dostupnému portu. Následující příklad ukazuje, jak určit, který port Kestrel je skutečně vázaný za běhu:
 
 [!code-csharp[](kestrel/samples/3.x/KestrelSample/Startup.cs?name=snippet_Configure&highlight=3-4,15-21)]
 
@@ -695,24 +682,204 @@ Konfigurace koncových bodů pomocí následujících přístupů:
 
 Tyto metody jsou užitečné, pokud chcete, aby kód pracoval na jiných serverech než Kestrel. Mějte ale na paměti následující omezení:
 
-* Protokol HTTPS nelze s těmito přístupy použít, pokud není k dispozici výchozí certifikát v konfiguraci koncového bodu HTTPS (například `KestrelServerOptions` pomocí konfigurace nebo konfiguračního souboru, jak je uvedeno výše v tomto tématu).
-* Při současném `Listen` použití `UseUrls` obou přístupů a `Listen` koncových bodů se `UseUrls` koncové body přepisují.
+* Protokol HTTPS nelze s těmito přístupy použít, pokud není k dispozici výchozí certifikát v konfiguraci koncového bodu HTTPS (například pomocí `KestrelServerOptions` Konfigurace nebo konfiguračního souboru, jak je uvedeno výše v tomto tématu).
+* Při `Listen` `UseUrls` současném použití obou přístupů a `Listen` koncových bodů se koncové body přepisují `UseUrls` .
 
 ### <a name="iis-endpoint-configuration"></a>Konfigurace koncového bodu služby IIS
 
-Při použití služby IIS jsou vazby adresy URL pro přepsání vazby služby IIS nastaveny buď `Listen` nebo `UseUrls`. Další informace najdete v tématu [ASP.NET Core modulu](xref:host-and-deploy/aspnet-core-module) .
+Při použití služby IIS jsou vazby adresy URL pro přepsání vazby služby IIS nastaveny buď `Listen` nebo `UseUrls` . Další informace najdete v tématu [ASP.NET Core modulu](xref:host-and-deploy/aspnet-core-module) .
 
 ### <a name="listenoptionsprotocols"></a>ListenOptions. Protocols
 
-`Protocols` Vlastnost určuje protokoly HTTP (`HttpProtocols`) povolené pro koncový bod připojení nebo pro server. Přiřaďte hodnotu `Protocols` vlastnosti z `HttpProtocols` výčtu.
+`Protocols`Vlastnost určuje protokoly HTTP ( `HttpProtocols` ) povolené pro koncový bod připojení nebo pro server. Přiřaďte hodnotu `Protocols` vlastnosti z `HttpProtocols` výčtu.
 
 | `HttpProtocols`hodnota výčtu | Povolený protokol připojení |
-| -------------------------- | ----------------------------- |
-| `Http1`                    | Pouze HTTP/1.1. Dá se použít s TLS nebo bez něj. |
-| `Http2`                    | Pouze HTTP/2. Dá se použít bez TLS jenom v případě, že klient podporuje [předchozí režim znalostní báze](https://tools.ietf.org/html/rfc7540#section-3.4). |
-| `Http1AndHttp2`            | HTTP/1.1 a HTTP/2. HTTP/2 vyžaduje, aby klient v rámci metody handshake protokolu TLS [(ALPN)](https://tools.ietf.org/html/rfc7301#section-3) vybral http/2. v opačném případě se připojení nastaví jako výchozí HTTP/1.1. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Výchozí `ListenOptions.Protocols` hodnota pro libovolný koncový bod je `HttpProtocols.Http1AndHttp2`.
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------------- | | `Http1`                    | Pouze HTTP/1.1. Dá se použít s TLS nebo bez něj. | | `Http2`                    | Pouze HTTP/2. Dá se použít bez TLS jenom v případě, že klient podporuje [předchozí režim znalostní báze](https://tools.ietf.org/html/rfc7540#section-3.4). | | `Http1AndHttp2`            | HTTP/1.1 a HTTP/2. HTTP/2 vyžaduje, aby klient v rámci metody handshake protokolu TLS [(ALPN)](https://tools.ietf.org/html/rfc7301#section-3) vybral http/2. v opačném případě se připojení nastaví jako výchozí HTTP/1.1. |
+
+Výchozí `ListenOptions.Protocols` hodnota pro libovolný koncový bod je `HttpProtocols.Http1AndHttp2` .
 
 Omezení TLS pro HTTP/2:
 
@@ -720,11 +887,11 @@ Omezení TLS pro HTTP/2:
 * Opětovné vyjednávání je zakázané.
 * Komprese vypnuta
 * Minimální velikosti dočasného výměny klíčů:
-  * Eliptická křivka Diffie-Hellman (ECDH &lbrack;) [RFC4492](https://www.ietf.org/rfc/rfc4492.txt) &rbrack; &ndash; 224 bity minima
-  * Omezené pole Diffie-Hellman &lbrack; `TLS12` &rbrack; &ndash; (DHE) 2048 bity minima
+  * Eliptická křivka Diffie-Hellman (ECDH) &lbrack; [RFC4492](https://www.ietf.org/rfc/rfc4492.txt) &rbrack; : 224 bity minima
+  * Omezené pole Diffie-Hellman (DHE) &lbrack; `TLS12` &rbrack; : minimální počet bitů 2048
 * Šifrovací sada není zakázaná.
 
-`TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`&lbrack; &lbrack; `FIPS186` &rbrack; ve výchozím nastavení je podporována eliptická křivka P-256. `TLS-ECDHE` &rbrack;
+`TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`&lbrack;`TLS-ECDHE`&rbrack; &lbrack; `FIPS186` &rbrack; ve výchozím nastavení je podporována eliptická křivka P-256.
 
 Následující příklad povoluje připojení HTTP/1.1 a HTTP/2 na portu 8000. Připojení TLS zabezpečuje pomocí zadaného certifikátu:
 
@@ -817,7 +984,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 });
 ```
 
-V systému Linux <xref:System.Net.Security.CipherSuitesPolicy> se dá použít k filtrování ověřování TLS metodou handshake na základě jednotlivých připojení:
+V systému Linux se <xref:System.Net.Security.CipherSuitesPolicy> dá použít k filtrování ověřování TLS metodou handshake na základě jednotlivých připojení:
 
 ```csharp
 // using System.Net.Security;
@@ -879,7 +1046,7 @@ Protokoly zadané v hodnotách přepisu kódu nastavených podle konfigurace
 
 ## <a name="transport-configuration"></a>Konfigurace přenosu
 
-Pro projekty, které vyžadují použití Libuv (<xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*>):
+Pro projekty, které vyžadují použití Libuv ( <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> ):
 
 * Přidejte do souboru projektu aplikace závislost pro balíček [Microsoft. AspNetCore. Server. Kestrel. Transport. Libuv](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.Kestrel.Transport.Libuv/) :
 
@@ -888,7 +1055,7 @@ Pro projekty, které vyžadují použití Libuv (<xref:Microsoft.AspNetCore.Host
                      Version="{VERSION}" />
    ```
 
-* Zavolat <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> na `IWebHostBuilder`:
+* Zavolat <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> na `IWebHostBuilder` :
 
    ```csharp
    public class Program
@@ -910,9 +1077,9 @@ Pro projekty, které vyžadují použití Libuv (<xref:Microsoft.AspNetCore.Host
 
 ### <a name="url-prefixes"></a>Předpony adresy URL
 
-Při použití `UseUrls`, `--urls` argumentu příkazového řádku `urls` , konfiguračního klíče hostitele nebo `ASPNETCORE_URLS` proměnné prostředí můžou být předpony adresy URL v některém z následujících formátů.
+Při použití `UseUrls` , `--urls` argumentu příkazového řádku, `urls` konfiguračního klíče hostitele nebo `ASPNETCORE_URLS` proměnné prostředí můžou být předpony adresy URL v některém z následujících formátů.
 
-Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje protokol HTTPS při konfiguraci vazeb URL pomocí `UseUrls`.
+Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje protokol HTTPS při konfiguraci vazeb URL pomocí `UseUrls` .
 
 * Adresa IPv4 s číslem portu
 
@@ -928,7 +1095,7 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://[0:0:0:0:0:ffff:4137:270a]:80/
   ```
 
-  `[::]`je ekvivalentem protokolu IPv4 `0.0.0.0`pro protokol IPv6.
+  `[::]`je ekvivalentem protokolu IPv4 pro protokol IPv6 `0.0.0.0` .
 
 * Název hostitele s číslem portu
 
@@ -937,12 +1104,12 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://*:80/
   ```
 
-  Názvy `*`hostitelů, a `+`nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa `localhost` nebo se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
+  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
 
   > [!WARNING]
   > Hostování v konfiguraci reverzního proxy serveru vyžaduje [filtrování hostitele](#host-filtering).
 
-* Název `localhost` hostitele s číslem portu nebo IP adresou zpětné smyčky s číslem portu
+* `localhost`Název hostitele s číslem portu nebo IP adresou zpětné smyčky s číslem portu
 
   ```
   http://localhost:5000/
@@ -954,13 +1121,13 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
 
 ## <a name="host-filtering"></a>Filtrování hostitele
 
-I když Kestrel podporuje konfiguraci na základě prefixů `http://example.com:5000`, jako je, Kestrel převážně ignoruje název hostitele. Hostitel `localhost` je zvláštní případ, který se používá pro vazbu na adresy zpětné smyčky. Každý hostitel, který je jiný než explicitní IP adresa, se váže na všechny veřejné IP adresy. `Host`hlavičky nejsou ověřené.
+I když Kestrel podporuje konfiguraci na základě prefixů `http://example.com:5000` , jako je, Kestrel převážně ignoruje název hostitele. Hostitel `localhost` je zvláštní případ, který se používá pro vazbu na adresy zpětné smyčky. Každý hostitel, který je jiný než explicitní IP adresa, se váže na všechny veřejné IP adresy. `Host`hlavičky nejsou ověřené.
 
-Jako alternativní řešení použijte middleware pro filtrování hostitele. Middleware pro filtrování hostitele poskytuje balíček [Microsoft. AspNetCore. HostFiltering](https://www.nuget.org/packages/Microsoft.AspNetCore.HostFiltering) , který je implicitně k dispozici pro ASP.NET Core aplikace. Middleware je přidána pomocí <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>, který volá <xref:Microsoft.AspNetCore.Builder.HostFilteringServicesExtensions.AddHostFiltering*>:
+Jako alternativní řešení použijte middleware pro filtrování hostitele. Middleware pro filtrování hostitele poskytuje balíček [Microsoft. AspNetCore. HostFiltering](https://www.nuget.org/packages/Microsoft.AspNetCore.HostFiltering) , který je implicitně k dispozici pro ASP.NET Core aplikace. Middleware je přidána pomocí <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> , který volá <xref:Microsoft.AspNetCore.Builder.HostFilteringServicesExtensions.AddHostFiltering*> :
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, `AllowedHosts` Definujte klíč v souboru *appSettings. JSON*/*appSettings.\< Environment>. JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
+Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. JSON* / *appSettings. \<EnvironmentName> JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
 *appSettings. JSON*:
 
@@ -971,9 +1138,9 @@ Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Ch
 ```
 
 > [!NOTE]
-> [Middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) má <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> také možnost. Middleware předávaných hlaviček a middleware pro filtrování hostitele mají podobné funkce pro různé scénáře. Nastavení `AllowedHosts` pomocí předávaných middlewarových hlaviček je vhodné `Host` v případě, že hlavička není zachována při předávání požadavků pomocí reverzního proxy server nebo nástroje pro vyrovnávání zatížení. Nastavení `AllowedHosts` pomocí middlewaru pro filtrování hostitele je vhodné, když se Kestrel používá jako veřejný hraniční Server nebo když se `Host` hlavička přímo přepošle.
+> [Middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) má také <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> možnost. Middleware předávaných hlaviček a middleware pro filtrování hostitele mají podobné funkce pro různé scénáře. Nastavení `AllowedHosts` pomocí předávaných middlewarových hlaviček je vhodné v případě, že `Host` Hlavička není zachována při předávání požadavků pomocí reverzního proxy server nebo nástroje pro vyrovnávání zatížení. Nastavení `AllowedHosts` pomocí middlewaru pro filtrování hostitele je vhodné, když se Kestrel používá jako veřejný hraniční Server nebo když se `Host` Hlavička přímo přepošle.
 >
-> Další informace o middlewaru předávaných hlaviček najdete <xref:host-and-deploy/proxy-load-balancer>v tématu.
+> Další informace o middlewaru předávaných hlaviček najdete v tématu <xref:host-and-deploy/proxy-load-balancer> .
 
 ::: moniker-end
 
@@ -986,7 +1153,7 @@ Kestrel podporuje následující scénáře:
 * HTTPS
 * Neprůhledný upgrade používaný k povolení [WebSockets](https://github.com/aspnet/websockets)
 * Technologie UNIX Sockets s vysokým výkonem za Nginx
-* HTTP/2 (kromě macOS&dagger;)
+* HTTP/2 (kromě macOS &dagger; )
 
 &dagger;HTTP/2 se v budoucí verzi podporuje v macOS.
 
@@ -1008,7 +1175,7 @@ Kestrel se podporuje na všech platformách a verzích, které podporuje .NET Co
 &dagger;HTTP/2 se v budoucí verzi podporuje v macOS.
 &Dagger;Kestrel má omezená podpora HTTP/2 na Windows Serveru 2012 R2 a Windows 8.1. Podpora je omezená, protože seznam podporovaných šifrovacích sad TLS, které jsou k dispozici v těchto operačních systémech, je omezený. Pro zabezpečení připojení TLS může být vyžadován certifikát vygenerovaný pomocí algoritmu ECDSA (s připojením typu eliptická křivka).
 
-Pokud je vytvořeno připojení HTTP/2, `HTTP/2`sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) .
+Pokud je vytvořeno připojení HTTP/2, sestavy [HttpRequest. Protocol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) `HTTP/2` .
 
 HTTP/2 je ve výchozím nastavení zakázané. Další informace o konfiguraci najdete v částech [Možnosti Kestrel](#kestrel-options) a [ListenOptions. Protocols](#listenoptionsprotocols) .
 
@@ -1044,13 +1211,13 @@ Reverzní proxy:
 
 Balíček [Microsoft. AspNetCore. Server. Kestrel](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.Kestrel/) je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
-ASP.NET Core šablony projektu ve výchozím nastavení používají Kestrel. V *program.cs*kód šablony volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>, který volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> na pozadí.
+ASP.NET Core šablony projektu ve výchozím nastavení používají Kestrel. V *program.cs*kód šablony volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> , který volá na pozadí <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> .
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_DefaultBuilder&highlight=7)]
 
-Další informace o `CreateDefaultBuilder` a sestavení hostitele naleznete v části *Nastavení hostitele* v tématu <xref:fundamentals/host/web-host#set-up-a-host>.
+Další informace o `CreateDefaultBuilder` a sestavení hostitele naleznete v části *Nastavení hostitele* v tématu <xref:fundamentals/host/web-host#set-up-a-host> .
 
-Chcete-li po volání `CreateDefaultBuilder`poskytnout další konfiguraci `ConfigureKestrel`, použijte:
+Chcete-li po volání poskytnout další konfiguraci `CreateDefaultBuilder` , použijte `ConfigureKestrel` :
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1062,7 +1229,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-Pokud aplikace nevolá `CreateDefaultBuilder` pro nastavení hostitele, zavolejte <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> **před** voláním `ConfigureKestrel`:
+Pokud aplikace nevolá `CreateDefaultBuilder` pro nastavení hostitele, zavolejte <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> **před** voláním `ConfigureKestrel` :
 
 ```csharp
 public static void Main(string[] args)
@@ -1086,9 +1253,9 @@ public static void Main(string[] args)
 
 Webový server Kestrel má možnosti konfigurace omezení, které jsou zvláště užitečné v internetových nasazeních.
 
-Nastavte omezení pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits> vlastnost <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> třídy. `Limits` Vlastnost obsahuje instanci <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits> třídy.
+Nastavte omezení pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits> vlastnost <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> třídy. `Limits`Vlastnost obsahuje instanci <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits> třídy.
 
-V následujících příkladech se <xref:Microsoft.AspNetCore.Server.Kestrel.Core> používá obor názvů:
+V následujících příkladech se používá <xref:Microsoft.AspNetCore.Server.Kestrel.Core> obor názvů:
 
 ```csharp
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -1109,10 +1276,10 @@ Možnosti Kestrel, které jsou konfigurovány v kódu jazyka C# v následující
 
 Použijte **jeden** z následujících přístupů:
 
-* Nakonfigurovat Kestrel v `Startup.ConfigureServices`:
+* Nakonfigurovat Kestrel v `Startup.ConfigureServices` :
 
-  1. Vloží instanci `IConfiguration` do `Startup` třídy. Následující příklad předpokládá, že vložená konfigurace je přiřazena `Configuration` vlastnosti.
-  2. V `Startup.ConfigureServices`aplikaci načtěte `Kestrel` část konfigurace do konfigurace Kestrel:
+  1. Vloží instanci `IConfiguration` do `Startup` třídy. Následující příklad předpokládá, že vložená konfigurace je přiřazena `Configuration` Vlastnosti.
+  2. V aplikaci `Startup.ConfigureServices` načtěte `Kestrel` část konfigurace do konfigurace Kestrel:
 
      ```csharp
      using Microsoft.Extensions.Configuration
@@ -1175,7 +1342,7 @@ Maximální počet souběžných otevřených připojení TCP lze pro celou apli
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_Limits&highlight=3)]
 
-Existuje zvláštní omezení pro připojení, která byla upgradována z protokolu HTTP nebo HTTPS na jiný protokol (například na žádost WebSockets). Po upgradu připojení se nepočítá na `MaxConcurrentConnections` základě limitu.
+Existuje zvláštní omezení pro připojení, která byla upgradována z protokolu HTTP nebo HTTPS na jiný protokol (například na žádost WebSockets). Po upgradu připojení se nepočítá na základě `MaxConcurrentConnections` limitu.
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_Limits&highlight=4)]
 
@@ -1202,7 +1369,7 @@ Přepsat nastavení u konkrétního požadavku v middleware:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Startup.cs?name=snippet_Limits&highlight=3-4)]
 
-Výjimka je vyvolána, pokud aplikace po zahájení aplikace nakonfiguruje limit na žádost. Existuje `IsReadOnly` vlastnost, která určuje, zda je `MaxRequestBodySize` vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
+Výjimka je vyvolána, pokud aplikace po zahájení aplikace nakonfiguruje limit na žádost. Existuje `IsReadOnly` vlastnost, která určuje, zda `MaxRequestBodySize` je vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
 
 Když je aplikace spouštěna [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model) za [ASP.NET Core modul](xref:host-and-deploy/aspnet-core-module), je omezení velikosti textu požadavku Kestrel zakázané, protože služba IIS tento limit již nastavuje.
 
@@ -1215,7 +1382,7 @@ Kestrel kontroluje každou sekundu, pokud data přicházejí za zadanou rychlost
 
 Výchozí minimální sazba je 240 bajtů za sekundu s obdobím 5 sekund odkladu.
 
-Pro odpověď platí také minimální sazba. Kód pro nastavení limitu požadavku a limit odezvy je stejný, s výjimkou, že `RequestBody` existují `Response` nebo v názvech vlastností a rozhraní.
+Pro odpověď platí také minimální sazba. Kód pro nastavení limitu požadavku a limit odezvy je stejný, s výjimkou, `RequestBody` že existují nebo `Response` v názvech vlastností a rozhraní.
 
 Tady je příklad, který ukazuje, jak nakonfigurovat minimální datové tarify v *program.cs*:
 
@@ -1225,7 +1392,7 @@ Přepsat minimální limity přenosové rychlosti na žádost v middlewaru:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Startup.cs?name=snippet_Limits&highlight=6-21)]
 
-Pro požadavky HTTP/2 se v předchozí ukázce neodkazuje žádná míra funkce, `HttpContext.Features` protože Změna omezení přenosové rychlosti na základě jednotlivých požadavků není podporovaná pro HTTP/2 kvůli podpoře protokolu pro multiplexování požadavků. Omezení přenosové rychlosti pro všechny servery `KestrelServerOptions.Limits` jsou nakonfigurovaná přes protokol HTTP/1. x i pro připojení HTTP/2.
+Pro požadavky HTTP/2 se v předchozí ukázce neodkazuje žádná míra funkce, `HttpContext.Features` protože Změna omezení přenosové rychlosti na základě jednotlivých požadavků není podporovaná pro HTTP/2 kvůli podpoře protokolu pro multiplexování požadavků. Omezení přenosové rychlosti pro všechny servery jsou nakonfigurovaná přes `KestrelServerOptions.Limits` protokol HTTP/1. x i pro připojení HTTP/2.
 
 ### <a name="request-headers-timeout"></a>Časový limit hlaviček žádostí
 
@@ -1301,7 +1468,7 @@ Výchozí hodnota je 8 192.
 
 ### <a name="initial-connection-window-size"></a>Velikost okna počátečního připojení
 
-`Http2.InitialConnectionWindowSize`Určuje maximální velikost textu požadavku v bajtech, které jsou v jednom okamžiku agregovány v rámci všech požadavků (datových proudů) na připojení. Žádosti jsou také omezené pomocí `Http2.InitialStreamWindowSize`. Hodnota musí být větší než nebo rovna 65 535 a menší než 2 ^ 31 (2 147 483 648).
+`Http2.InitialConnectionWindowSize`Určuje maximální velikost textu požadavku v bajtech, které jsou v jednom okamžiku agregovány v rámci všech požadavků (datových proudů) na připojení. Žádosti jsou také omezené pomocí `Http2.InitialStreamWindowSize` . Hodnota musí být větší než nebo rovna 65 535 a menší než 2 ^ 31 (2 147 483 648).
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1317,7 +1484,7 @@ Výchozí hodnota je 128 KB (131 072).
 
 ### <a name="initial-stream-window-size"></a>Počáteční velikost okna datového proudu
 
-`Http2.InitialStreamWindowSize`Určuje maximální velikost textu požadavku v bajtech na jednu žádost (Stream) na jednom místě. Žádosti jsou také omezené pomocí `Http2.InitialStreamWindowSize`. Hodnota musí být větší než nebo rovna 65 535 a menší než 2 ^ 31 (2 147 483 648).
+`Http2.InitialStreamWindowSize`Určuje maximální velikost textu požadavku v bajtech na jednu žádost (Stream) na jednom místě. Žádosti jsou také omezené pomocí `Http2.InitialStreamWindowSize` . Hodnota musí být větší než nebo rovna 65 535 a menší než 2 ^ 31 (2 147 483 648).
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1333,10 +1500,10 @@ Výchozí hodnota je 96 KB (98 304).
 
 ### <a name="synchronous-io"></a>Synchronní vstupně-výstupní operace
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO>Určuje, jestli je pro požadavek a odpověď povolený synchronní vstup/výstup. Výchozí hodnota je `true`.
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO>Určuje, jestli je pro požadavek a odpověď povolený synchronní vstup/výstup. Výchozí hodnota je `true` .
 
 > [!WARNING]
-> Velký počet blokujících synchronních vstupně-výstupních operací může vést ke vyčerpání fondu vláken, což aplikaci nereaguje. Povolit `AllowSynchronousIO` pouze při použití knihovny, která nepodporuje asynchronní vstupně-výstupní operace.
+> Velký počet blokujících synchronních vstupně-výstupních operací může vést ke vyčerpání fondu vláken, což aplikaci nereaguje. Povolit pouze `AllowSynchronousIO` při použití knihovny, která nepodporuje asynchronní vstupně-výstupní operace.
 
 Následující příklad povoluje synchronní vstupně-výstupní operace:
 
@@ -1362,7 +1529,7 @@ Zadejte adresy URL pomocí:
 * `urls`konfigurační klíč hostitele.
 * `UseUrls`Metoda rozšíření
 
-Hodnota zadaná pomocí těchto přístupů může být jeden nebo více koncových bodů HTTP a HTTPS (HTTPS, pokud je k dispozici výchozí certifikát). Nakonfigurujte hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000;http://localhost:8001"`).
+Hodnota zadaná pomocí těchto přístupů může být jeden nebo více koncových bodů HTTP a HTTPS (HTTPS, pokud je k dispozici výchozí certifikát). Nakonfigurujte hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000;http://localhost:8001"` ).
 
 Další informace o těchto přístupůch najdete v tématu [adresy URL serveru](xref:fundamentals/host/web-host#server-urls) a [potlačení konfigurace](xref:fundamentals/host/web-host#override-configuration).
 
@@ -1375,15 +1542,15 @@ Některé prohlížeče vyžadují udělení explicitního oprávnění pro dův
 
 Šablony projektů konfigurují aplikace tak, aby běžely ve výchozím nastavení HTTPS a zahrnovaly [přesměrování https a podporu HSTS](xref:security/enforcing-ssl).
 
-Volání <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> nebo <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> metody <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> pro konfiguraci předpon adres URL a portů pro Kestrel.
+Volání <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> nebo <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> metody pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> konfiguraci předpon adres URL a portů pro Kestrel.
 
-`UseUrls`, argument `--urls` příkazového řádku, `urls` konfigurační klíč hostitele a proměnná `ASPNETCORE_URLS` prostředí fungují také, ale mají omezení zaznamenaná později v této části (pro konfiguraci koncového bodu https musí být k dispozici výchozí certifikát).
+`UseUrls`, `--urls` argument příkazového řádku, `urls` konfigurační klíč hostitele a `ASPNETCORE_URLS` Proměnná prostředí fungují také, ale mají omezení zaznamenaná později v této části (pro konfiguraci koncového bodu https musí být k dispozici výchozí certifikát).
 
 `KestrelServerOptions`rozšířeného
 
-### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults (akce\<ListenOptions>)
+### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults (akce \<ListenOptions> )
 
-Určuje konfiguraci `Action` , která se spustí pro každý zadaný koncový bod. Volání `ConfigureEndpointDefaults` několikrát nahrazuje předchozí `Action` `Action` zadanou parametr s.
+Určuje konfiguraci `Action` , která se spustí pro každý zadaný koncový bod. Volání několikrát `ConfigureEndpointDefaults` nahrazuje předchozí `Action` `Action` zadanou parametr s.
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1401,9 +1568,9 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 > [!NOTE]
 > Koncové body vytvořené voláním <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> **před** voláním <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureEndpointDefaults*> nebudou použity výchozí hodnoty.
 
-### <a name="configurehttpsdefaultsactionhttpsconnectionadapteroptions"></a>ConfigureHttpsDefaults (akce\<HttpsConnectionAdapterOptions>)
+### <a name="configurehttpsdefaultsactionhttpsconnectionadapteroptions"></a>ConfigureHttpsDefaults (akce \<HttpsConnectionAdapterOptions> )
 
-Určuje konfiguraci `Action` , která se má spustit pro každý koncový bod HTTPS. Volání `ConfigureHttpsDefaults` několikrát nahrazuje předchozí `Action` `Action` zadanou parametr s.
+Určuje konfiguraci `Action` , která se má spustit pro každý koncový bod HTTPS. Volání několikrát `ConfigureHttpsDefaults` nahrazuje předchozí `Action` `Action` zadanou parametr s.
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1433,7 +1600,7 @@ Nakonfigurujte Kestrel tak, aby používal protokol HTTPS.
 
 `ListenOptions.UseHttps`SND
 
-* `UseHttps`&ndash; Nakonfigurujte Kestrel tak, aby používal HTTPS s výchozím certifikátem. Vyvolá výjimku, pokud není nakonfigurován žádný výchozí certifikát.
+* `UseHttps`: Nakonfigurujte Kestrel tak, aby používal HTTPS s výchozím certifikátem. Vyvolá výjimku, pokud není nakonfigurován žádný výchozí certifikát.
 * `UseHttps(string fileName)`
 * `UseHttps(string fileName, string password)`
 * `UseHttps(string fileName, string password, Action<HttpsConnectionAdapterOptions> configureOptions)`
@@ -1449,7 +1616,7 @@ Nakonfigurujte Kestrel tak, aby používal protokol HTTPS.
 
 * `filename`je cesta a název souboru certifikátu vzhledem k adresáři, který obsahuje soubory obsahu aplikace.
 * `password`je vyžadováno heslo pro přístup k datům certifikátu X. 509.
-* `configureOptions`je `Action` ke konfiguraci `HttpsConnectionAdapterOptions`. Vrátí `ListenOptions`.
+* `configureOptions`je `Action` ke konfiguraci `HttpsConnectionAdapterOptions` . Vrátí `ListenOptions` .
 * `storeName`je úložiště certifikátů, ze kterého se má certifikát načíst.
 * `subject`je název subjektu certifikátu.
 * `allowInvalid`Určuje, zda by měly být zváženy neplatné certifikáty, například certifikáty podepsané svým držitelem.
@@ -1527,7 +1694,7 @@ V následujícím příkladu *appSettings. JSON* :
 }
 ```
 
-Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu je zadání certifikátu pomocí polí úložiště certifikátů. Například **Certificates** > **výchozí** certifikát může být zadán jako:
+Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu je zadání certifikátu pomocí polí úložiště certifikátů. Například **Certificates**  >  **výchozí** certifikát může být zadán jako:
 
 ```json
 "Default": {
@@ -1541,12 +1708,12 @@ Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu 
 Poznámky ke schématu:
 
 * V názvech koncových bodů se nerozlišují malá a velká písmena. Například `HTTPS` a `Https` jsou platné.
-* U `Url` každého koncového bodu je vyžadován parametr. Formát pro tento parametr je stejný jako konfigurační parametr nejvyšší úrovně `Urls` s tím rozdílem, že je omezen na jedinou hodnotu.
-* Tyto koncové body nahrazují hodnoty definované v konfiguraci nejvyšší úrovně `Urls` místo jejich přidání do těchto koncových bodů. Koncové body definované v kódu `Listen` prostřednictvím jsou kumulativní pomocí koncových bodů definovaných v konfiguračním oddílu.
-* `Certificate` Oddíl je nepovinný. Pokud není `Certificate` oddíl zadaný, použijí se výchozí hodnoty definované v dřívějších scénářích. Pokud nejsou k dispozici žádné výchozí hodnoty, Server vyvolá výjimku a nemůže se spustit.
-* `Certificate` Oddíl podporuje jak heslo **cesty**&ndash;**Password** , tak certifikáty**úložiště** **subjektu**&ndash;.
+* `Url`U každého koncového bodu je vyžadován parametr. Formát pro tento parametr je stejný jako `Urls` konfigurační parametr nejvyšší úrovně s tím rozdílem, že je omezen na jedinou hodnotu.
+* Tyto koncové body nahrazují hodnoty definované v konfiguraci nejvyšší úrovně `Urls` místo jejich přidání do těchto koncových bodů. Koncové body definované v kódu prostřednictvím `Listen` jsou kumulativní pomocí koncových bodů definovaných v konfiguračním oddílu.
+* `Certificate`Oddíl je nepovinný. Pokud `Certificate` není oddíl zadaný, použijí se výchozí hodnoty definované v dřívějších scénářích. Pokud nejsou k dispozici žádné výchozí hodnoty, Server vyvolá výjimku a nemůže se spustit.
+* `Certificate`Oddíl podporuje jak heslo **cesty** &ndash; **Password** , tak **Subject** &ndash; certifikáty**úložiště** subjektu.
 * V takovém případě může být definován libovolný počet koncových bodů, pokud to nezpůsobí konflikty portů.
-* `options.Configure(context.Configuration.GetSection("{SECTION}"))`Vrátí `.Endpoint(string name, listenOptions => { })` metodu `KestrelConfigurationLoader` s metodou, kterou lze použít k doplnění nastavení nakonfigurovaného koncového bodu:
+* `options.Configure(context.Configuration.GetSection("{SECTION}"))`Vrátí `KestrelConfigurationLoader` `.Endpoint(string name, listenOptions => { })` metodu s metodou, kterou lze použít k doplnění nastavení nakonfigurovaného koncového bodu:
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1562,7 +1729,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-`KestrelServerOptions.ConfigurationLoader`k pokračování v iteraci u stávajícího zavaděče se dá získat přímý odkaz, jako je třeba <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>ten, který poskytuje.
+`KestrelServerOptions.ConfigurationLoader`k pokračování v iteraci u stávajícího zavaděče se dá získat přímý odkaz, jako je třeba ten, který poskytuje <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> .
 
 * Konfigurační oddíl pro každý koncový bod je k dispozici na možnostech v `Endpoint` metodě, aby bylo možné číst vlastní nastavení.
 * Více konfigurací může být načteno voláním `options.Configure(context.Configuration.GetSection("{SECTION}"))` znovu s jiným oddílem. Je použita pouze poslední konfigurace, pokud `Load` není explicitně volána při předchozích instancích. Metapackage nevolá `Load` , aby se jeho výchozí konfigurační oddíl mohl nahradit.
@@ -1570,7 +1737,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 *Změna výchozích hodnot v kódu*
 
-`ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` dá se použít ke změně výchozího nastavení pro `ListenOptions` a `HttpsConnectionAdapterOptions`, včetně přepsání výchozího certifikátu zadaného v předchozím scénáři. `ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` měla by být volána před konfigurací koncových bodů.
+`ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` dá se použít ke změně výchozího nastavení pro `ListenOptions` a `HttpsConnectionAdapterOptions` , včetně přepsání výchozího certifikátu zadaného v předchozím scénáři. `ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` měla by být volána před konfigurací koncových bodů.
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1598,7 +1765,7 @@ Kestrel podporuje SNI prostřednictvím `ServerCertificateSelector` zpětného v
 
 Podpora SNI vyžaduje:
 
-* Běží v cílovém rozhraní `netcoreapp2.1` nebo novějším. V `net461` systému nebo novějším je zpětné volání vyvoláno `name` , `null`ale je vždy. `name` Je také `null` v případě, že klient v TLS handshake neposkytne parametr názvu hostitele.
+* Běží v cílovém rozhraní `netcoreapp2.1` nebo novějším. V systému `net461` nebo novějším je zpětné volání vyvoláno, ale `name` je vždy `null` . `name`Je také v `null` případě, že klient v TLS handshake neposkytne parametr názvu hostitele.
 * Všechny weby běží na stejné instanci Kestrel. Kestrel nepodporuje sdílení IP adresy a portu napříč několika instancemi bez reverzního proxy serveru.
 
 ```csharp
@@ -1642,7 +1809,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 ### <a name="connection-logging"></a>Protokolování připojení
 
-Volá <xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> se, aby se vygenerovaly protokoly na úrovni ladění pro komunikaci na úrovni bajtového připojení. Protokolování připojení je užitečné při řešení problémů v komunikaci nízké úrovně, například během šifrování TLS a za proxy servery. Pokud `UseConnectionLogging` je umístěn před `UseHttps`, zaprotokoluje se zašifrovaný provoz. Pokud `UseConnectionLogging` je umístěn po `UseHttps`, zaprotokoluje se dešifrovaný provoz.
+Volá <xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> se, aby se vygenerovaly protokoly na úrovni ladění pro komunikaci na úrovni bajtového připojení. Protokolování připojení je užitečné při řešení problémů v komunikaci nízké úrovně, například během šifrování TLS a za proxy servery. Pokud `UseConnectionLogging` je umístěn před `UseHttps` , zaprotokoluje se zašifrovaný provoz. Pokud `UseConnectionLogging` je umístěn po `UseHttps` , zaprotokoluje se dešifrovaný provoz.
 
 ```csharp
 webBuilder.ConfigureKestrel(serverOptions =>
@@ -1656,26 +1823,26 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 ### <a name="bind-to-a-tcp-socket"></a>Vytvoření vazby na soket TCP
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> Metoda se váže k soketu TCP a pomocí lambda možností povolíte konfiguraci certifikátu X. 509:
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*>Metoda se váže k soketu TCP a pomocí lambda možností povolíte konfiguraci certifikátu X. 509:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_TCPSocket&highlight=9-16)]
 
-Příklad nakonfiguruje HTTPS pro koncový bod pomocí <xref:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions>. Ke konfiguraci dalších nastavení Kestrel pro konkrétní koncové body použijte stejné rozhraní API.
+Příklad nakonfiguruje HTTPS pro koncový bod pomocí <xref:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions> . Ke konfiguraci dalších nastavení Kestrel pro konkrétní koncové body použijte stejné rozhraní API.
 
 [!INCLUDE [How to make an X.509 cert](~/includes/make-x509-cert.md)]
 
 ### <a name="bind-to-a-unix-socket"></a>Vytvoření vazby na soket UNIX
 
-Naslouchat na soketu se <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> systémem UNIX, aby se zlepšil výkon pomocí Nginx, jak je znázorněno v tomto příkladu:
+Naslouchat na soketu se systémem UNIX <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> , aby se zlepšil výkon pomocí Nginx, jak je znázorněno v tomto příkladu:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Program.cs?name=snippet_UnixSocket)]
 
-* V `server`  >  `location`  >  `proxy_pass` souboru Nginx confiuguration nastavte položku na `http://unix:/tmp/{KESTREL SOCKET}:/;`. `{KESTREL SOCKET}`je název soketu poskytnutý <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> (například `kestrel-test.sock` v předchozím příkladu).
-* Zajistěte, aby byl soket zapisovatelný pomocí Nginx (například `chmod go+w /tmp/kestrel-test.sock`). 
+* V souboru Nginx confiuguration nastavte `server`  >  `location`  >  `proxy_pass` položku na `http://unix:/tmp/{KESTREL SOCKET}:/;` . `{KESTREL SOCKET}`je název soketu poskytnutý <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> (například `kestrel-test.sock` v předchozím příkladu).
+* Zajistěte, aby byl soket zapisovatelný pomocí Nginx (například `chmod go+w /tmp/kestrel-test.sock` ). 
 
 ### <a name="port-0"></a>Port 0
 
-Po zadání čísla `0` portu se Kestrel dynamicky váže k dostupnému portu. Následující příklad ukazuje, jak určit, který port Kestrel je skutečně vázaný za běhu:
+Po zadání čísla portu se `0` Kestrel dynamicky váže k dostupnému portu. Následující příklad ukazuje, jak určit, který port Kestrel je skutečně vázaný za běhu:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Startup.cs?name=snippet_Configure&highlight=3-4,15-21)]
 
@@ -1696,22 +1863,202 @@ Konfigurace koncových bodů pomocí následujících přístupů:
 
 Tyto metody jsou užitečné, pokud chcete, aby kód pracoval na jiných serverech než Kestrel. Mějte ale na paměti následující omezení:
 
-* Protokol HTTPS nelze s těmito přístupy použít, pokud není k dispozici výchozí certifikát v konfiguraci koncového bodu HTTPS (například `KestrelServerOptions` pomocí konfigurace nebo konfiguračního souboru, jak je uvedeno výše v tomto tématu).
-* Při současném `Listen` použití `UseUrls` obou přístupů a `Listen` koncových bodů se `UseUrls` koncové body přepisují.
+* Protokol HTTPS nelze s těmito přístupy použít, pokud není k dispozici výchozí certifikát v konfiguraci koncového bodu HTTPS (například pomocí `KestrelServerOptions` Konfigurace nebo konfiguračního souboru, jak je uvedeno výše v tomto tématu).
+* Při `Listen` `UseUrls` současném použití obou přístupů a `Listen` koncových bodů se koncové body přepisují `UseUrls` .
 
 ### <a name="iis-endpoint-configuration"></a>Konfigurace koncového bodu služby IIS
 
-Při použití služby IIS jsou vazby adresy URL pro přepsání vazby služby IIS nastaveny buď `Listen` nebo `UseUrls`. Další informace najdete v tématu [ASP.NET Core modulu](xref:host-and-deploy/aspnet-core-module) .
+Při použití služby IIS jsou vazby adresy URL pro přepsání vazby služby IIS nastaveny buď `Listen` nebo `UseUrls` . Další informace najdete v tématu [ASP.NET Core modulu](xref:host-and-deploy/aspnet-core-module) .
 
 ### <a name="listenoptionsprotocols"></a>ListenOptions. Protocols
 
-`Protocols` Vlastnost určuje protokoly HTTP (`HttpProtocols`) povolené pro koncový bod připojení nebo pro server. Přiřaďte hodnotu `Protocols` vlastnosti z `HttpProtocols` výčtu.
+`Protocols`Vlastnost určuje protokoly HTTP ( `HttpProtocols` ) povolené pro koncový bod připojení nebo pro server. Přiřaďte hodnotu `Protocols` vlastnosti z `HttpProtocols` výčtu.
 
 | `HttpProtocols`hodnota výčtu | Povolený protokol připojení |
-| -------------------------- | ----------------------------- |
-| `Http1`                    | Pouze HTTP/1.1. Dá se použít s TLS nebo bez něj. |
-| `Http2`                    | Pouze HTTP/2. Dá se použít bez TLS jenom v případě, že klient podporuje [předchozí režim znalostní báze](https://tools.ietf.org/html/rfc7540#section-3.4). |
-| `Http1AndHttp2`            | HTTP/1.1 a HTTP/2. HTTP/2 vyžaduje připojení TLS a [ALPN (Application-Layer Protocol Negotiation)](https://tools.ietf.org/html/rfc7301#section-3) ; v opačném případě se připojení nastaví jako výchozí HTTP/1.1. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------------- | | `Http1`                    | Pouze HTTP/1.1. Dá se použít s TLS nebo bez něj. | | `Http2`                    | Pouze HTTP/2. Dá se použít bez TLS jenom v případě, že klient podporuje [předchozí režim znalostní báze](https://tools.ietf.org/html/rfc7540#section-3.4). | | `Http1AndHttp2`            | HTTP/1.1 a HTTP/2. HTTP/2 vyžaduje připojení TLS a [ALPN (Application-Layer Protocol Negotiation)](https://tools.ietf.org/html/rfc7301#section-3) ; v opačném případě se připojení nastaví jako výchozí HTTP/1.1. |
 
 Výchozí protokol HTTP/1.1.
 
@@ -1721,11 +2068,11 @@ Omezení TLS pro HTTP/2:
 * Opětovné vyjednávání je zakázané.
 * Komprese vypnuta
 * Minimální velikosti dočasného výměny klíčů:
-  * Eliptická křivka Diffie-Hellman (ECDH &lbrack;) [RFC4492](https://www.ietf.org/rfc/rfc4492.txt) &rbrack; &ndash; 224 bity minima
-  * Omezené pole Diffie-Hellman &lbrack; `TLS12` &rbrack; &ndash; (DHE) 2048 bity minima
+  * Eliptická křivka Diffie-Hellman (ECDH) &lbrack; [RFC4492](https://www.ietf.org/rfc/rfc4492.txt) &rbrack; : 224 bity minima
+  * Omezené pole Diffie-Hellman (DHE) &lbrack; `TLS12` &rbrack; : minimální počet bitů 2048
 * Šifrovací sada není zakázaná.
 
-`TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`&lbrack; &lbrack; `FIPS186` &rbrack; ve výchozím nastavení je podporována eliptická křivka P-256. `TLS-ECDHE` &rbrack;
+`TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`&lbrack;`TLS-ECDHE`&rbrack; &lbrack; `FIPS186` &rbrack; ve výchozím nastavení je podporována eliptická křivka P-256.
 
 Následující příklad povoluje připojení HTTP/1.1 a HTTP/2 na portu 8000. Připojení TLS zabezpečuje pomocí zadaného certifikátu:
 
@@ -1828,7 +2175,7 @@ Protokoly zadané v hodnotách přepisu kódu nastavených podle konfigurace
 
 ## <a name="transport-configuration"></a>Konfigurace přenosu
 
-S vydáním ASP.NET Core 2,1 není výchozí přenos Kestrel založen na Libuv, ale na základě spravovaných soketů. Jedná se o zásadní změnu pro aplikace ASP.NET Core 2,0 upgradované na 2,1, <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> které volá a závisí na jednom z následujících balíčků:
+S vydáním ASP.NET Core 2,1 není výchozí přenos Kestrel založen na Libuv, ale na základě spravovaných soketů. Jedná se o zásadní změnu pro aplikace ASP.NET Core 2,0 upgradované na 2,1, které volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> a závisí na jednom z následujících balíčků:
 
 * [Microsoft. AspNetCore. Server. Kestrel](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.Kestrel/) (přímý odkaz na balíček)
 * [Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
@@ -1842,7 +2189,7 @@ Pro projekty, které vyžadují použití Libuv:
                     Version="{VERSION}" />
   ```
 
-* Volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*>:
+* Volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> :
 
   ```csharp
   public class Program
@@ -1861,9 +2208,9 @@ Pro projekty, které vyžadují použití Libuv:
 
 ### <a name="url-prefixes"></a>Předpony adresy URL
 
-Při použití `UseUrls`, `--urls` argumentu příkazového řádku `urls` , konfiguračního klíče hostitele nebo `ASPNETCORE_URLS` proměnné prostředí můžou být předpony adresy URL v některém z následujících formátů.
+Při použití `UseUrls` , `--urls` argumentu příkazového řádku, `urls` konfiguračního klíče hostitele nebo `ASPNETCORE_URLS` proměnné prostředí můžou být předpony adresy URL v některém z následujících formátů.
 
-Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje protokol HTTPS při konfiguraci vazeb URL pomocí `UseUrls`.
+Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje protokol HTTPS při konfiguraci vazeb URL pomocí `UseUrls` .
 
 * Adresa IPv4 s číslem portu
 
@@ -1879,7 +2226,7 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://[0:0:0:0:0:ffff:4137:270a]:80/
   ```
 
-  `[::]`je ekvivalentem protokolu IPv4 `0.0.0.0`pro protokol IPv6.
+  `[::]`je ekvivalentem protokolu IPv4 pro protokol IPv6 `0.0.0.0` .
 
 * Název hostitele s číslem portu
 
@@ -1888,12 +2235,12 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://*:80/
   ```
 
-  Názvy `*`hostitelů, a `+`nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa `localhost` nebo se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
+  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
 
   > [!WARNING]
   > Hostování v konfiguraci reverzního proxy serveru vyžaduje [filtrování hostitele](#host-filtering).
 
-* Název `localhost` hostitele s číslem portu nebo IP adresou zpětné smyčky s číslem portu
+* `localhost`Název hostitele s číslem portu nebo IP adresou zpětné smyčky s číslem portu
 
   ```
   http://localhost:5000/
@@ -1905,13 +2252,13 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
 
 ## <a name="host-filtering"></a>Filtrování hostitele
 
-I když Kestrel podporuje konfiguraci na základě prefixů `http://example.com:5000`, jako je, Kestrel převážně ignoruje název hostitele. Hostitel `localhost` je zvláštní případ, který se používá pro vazbu na adresy zpětné smyčky. Každý hostitel, který je jiný než explicitní IP adresa, se váže na všechny veřejné IP adresy. `Host`hlavičky nejsou ověřené.
+I když Kestrel podporuje konfiguraci na základě prefixů `http://example.com:5000` , jako je, Kestrel převážně ignoruje název hostitele. Hostitel `localhost` je zvláštní případ, který se používá pro vazbu na adresy zpětné smyčky. Každý hostitel, který je jiný než explicitní IP adresa, se váže na všechny veřejné IP adresy. `Host`hlavičky nejsou ověřené.
 
-Jako alternativní řešení použijte middleware pro filtrování hostitele. Middleware pro filtrování hostitele poskytuje balíček [Microsoft. AspNetCore. HostFiltering](https://www.nuget.org/packages/Microsoft.AspNetCore.HostFiltering) , který je součástí [Microsoft. AspNetCore. App metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo 2,2). Middleware je přidána pomocí <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>, který volá <xref:Microsoft.AspNetCore.Builder.HostFilteringServicesExtensions.AddHostFiltering*>:
+Jako alternativní řešení použijte middleware pro filtrování hostitele. Middleware pro filtrování hostitele poskytuje balíček [Microsoft. AspNetCore. HostFiltering](https://www.nuget.org/packages/Microsoft.AspNetCore.HostFiltering) , který je součástí [Microsoft. AspNetCore. App metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo 2,2). Middleware je přidána pomocí <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> , který volá <xref:Microsoft.AspNetCore.Builder.HostFilteringServicesExtensions.AddHostFiltering*> :
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, `AllowedHosts` Definujte klíč v souboru *appSettings. JSON*/*appSettings.\< Environment>. JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
+Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. JSON* / *appSettings. \<EnvironmentName> JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
 *appSettings. JSON*:
 
@@ -1922,9 +2269,9 @@ Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Ch
 ```
 
 > [!NOTE]
-> [Middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) má <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> také možnost. Middleware předávaných hlaviček a middleware pro filtrování hostitele mají podobné funkce pro různé scénáře. Nastavení `AllowedHosts` pomocí předávaných middlewarových hlaviček je vhodné `Host` v případě, že hlavička není zachována při předávání požadavků pomocí reverzního proxy server nebo nástroje pro vyrovnávání zatížení. Nastavení `AllowedHosts` pomocí middlewaru pro filtrování hostitele je vhodné, když se Kestrel používá jako veřejný hraniční Server nebo když se `Host` hlavička přímo přepošle.
+> [Middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) má také <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> možnost. Middleware předávaných hlaviček a middleware pro filtrování hostitele mají podobné funkce pro různé scénáře. Nastavení `AllowedHosts` pomocí předávaných middlewarových hlaviček je vhodné v případě, že `Host` Hlavička není zachována při předávání požadavků pomocí reverzního proxy server nebo nástroje pro vyrovnávání zatížení. Nastavení `AllowedHosts` pomocí middlewaru pro filtrování hostitele je vhodné, když se Kestrel používá jako veřejný hraniční Server nebo když se `Host` Hlavička přímo přepošle.
 >
-> Další informace o middlewaru předávaných hlaviček najdete <xref:host-and-deploy/proxy-load-balancer>v tématu.
+> Další informace o middlewaru předávaných hlaviček najdete v tématu <xref:host-and-deploy/proxy-load-balancer> .
 
 ::: moniker-end
 
@@ -1974,9 +2321,9 @@ Reverzní proxy:
 
 Balíček [Microsoft. AspNetCore. Server. Kestrel](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.Kestrel/) je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
-ASP.NET Core šablony projektu ve výchozím nastavení používají Kestrel. V *program.cs*kód šablony volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>, který volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> na pozadí.
+ASP.NET Core šablony projektu ve výchozím nastavení používají Kestrel. V *program.cs*kód šablony volá <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> , který volá na pozadí <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> .
 
-Chcete-li po volání `CreateDefaultBuilder`poskytnout další konfiguraci <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*>, zavolejte:
+Chcete-li po volání poskytnout další konfiguraci `CreateDefaultBuilder` , zavolejte <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderKestrelExtensions.UseKestrel*> :
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -1988,15 +2335,15 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-Další informace o `CreateDefaultBuilder` a sestavení hostitele naleznete v části *Nastavení hostitele* v tématu <xref:fundamentals/host/web-host#set-up-a-host>.
+Další informace o `CreateDefaultBuilder` a sestavení hostitele naleznete v části *Nastavení hostitele* v tématu <xref:fundamentals/host/web-host#set-up-a-host> .
 
 ## <a name="kestrel-options"></a>Kestrel možnosti
 
 Webový server Kestrel má možnosti konfigurace omezení, které jsou zvláště užitečné v internetových nasazeních.
 
-Nastavte omezení pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits> vlastnost <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> třídy. `Limits` Vlastnost obsahuje instanci <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits> třídy.
+Nastavte omezení pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Limits> vlastnost <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> třídy. `Limits`Vlastnost obsahuje instanci <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerLimits> třídy.
 
-V následujících příkladech se <xref:Microsoft.AspNetCore.Server.Kestrel.Core> používá obor názvů:
+V následujících příkladech se používá <xref:Microsoft.AspNetCore.Server.Kestrel.Core> obor názvů:
 
 ```csharp
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -2017,10 +2364,10 @@ Možnosti Kestrel, které jsou konfigurovány v kódu jazyka C# v následující
 
 Použijte **jeden** z následujících přístupů:
 
-* Nakonfigurovat Kestrel v `Startup.ConfigureServices`:
+* Nakonfigurovat Kestrel v `Startup.ConfigureServices` :
 
-  1. Vloží instanci `IConfiguration` do `Startup` třídy. Následující příklad předpokládá, že vložená konfigurace je přiřazena `Configuration` vlastnosti.
-  2. V `Startup.ConfigureServices`aplikaci načtěte `Kestrel` část konfigurace do konfigurace Kestrel:
+  1. Vloží instanci `IConfiguration` do `Startup` třídy. Následující příklad předpokládá, že vložená konfigurace je přiřazena `Configuration` Vlastnosti.
+  2. V aplikaci `Startup.ConfigureServices` načtěte `Kestrel` část konfigurace do konfigurace Kestrel:
 
      ```csharp
      using Microsoft.Extensions.Configuration
@@ -2099,7 +2446,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-Existuje zvláštní omezení pro připojení, která byla upgradována z protokolu HTTP nebo HTTPS na jiný protokol (například na žádost WebSockets). Po upgradu připojení se nepočítá na `MaxConcurrentConnections` základě limitu.
+Existuje zvláštní omezení pro připojení, která byla upgradována z protokolu HTTP nebo HTTPS na jiný protokol (například na žádost WebSockets). Po upgradu připojení se nepočítá na základě `MaxConcurrentConnections` limitu.
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -2142,7 +2489,7 @@ Přepsat nastavení u konkrétního požadavku v middleware:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Startup.cs?name=snippet_Limits&highlight=3-4)]
 
-Výjimka je vyvolána, pokud aplikace po zahájení aplikace nakonfiguruje limit na žádost. Existuje `IsReadOnly` vlastnost, která určuje, zda je `MaxRequestBodySize` vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
+Výjimka je vyvolána, pokud aplikace po zahájení aplikace nakonfiguruje limit na žádost. Existuje `IsReadOnly` vlastnost, která určuje, zda `MaxRequestBodySize` je vlastnost ve stavu jen pro čtení, což znamená, že je příliš pozdě pro konfiguraci limitu.
 
 Když je aplikace spouštěna [mimo proces](xref:host-and-deploy/iis/index#out-of-process-hosting-model) za [ASP.NET Core modul](xref:host-and-deploy/aspnet-core-module), je omezení velikosti textu požadavku Kestrel zakázané, protože služba IIS tento limit již nastavuje.
 
@@ -2155,7 +2502,7 @@ Kestrel kontroluje každou sekundu, pokud data přicházejí za zadanou rychlost
 
 Výchozí minimální sazba je 240 bajtů za sekundu s obdobím 5 sekund odkladu.
 
-Pro odpověď platí také minimální sazba. Kód pro nastavení limitu požadavku a limit odezvy je stejný, s výjimkou, že `RequestBody` existují `Response` nebo v názvech vlastností a rozhraní.
+Pro odpověď platí také minimální sazba. Kód pro nastavení limitu požadavku a limit odezvy je stejný, s výjimkou, `RequestBody` že existují nebo `Response` v názvech vlastností a rozhraní.
 
 Tady je příklad, který ukazuje, jak nakonfigurovat minimální datové tarify v *program.cs*:
 
@@ -2190,10 +2537,10 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 ### <a name="synchronous-io"></a>Synchronní vstupně-výstupní operace
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO>Určuje, jestli je pro požadavek a odpověď povolený synchronní vstup/výstup. Výchozí hodnota je `true`.
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.AllowSynchronousIO>Určuje, jestli je pro požadavek a odpověď povolený synchronní vstup/výstup. Výchozí hodnota je `true` .
 
 > [!WARNING]
-> Velký počet blokujících synchronních vstupně-výstupních operací může vést ke vyčerpání fondu vláken, což aplikaci nereaguje. Povolit `AllowSynchronousIO` pouze při použití knihovny, která nepodporuje asynchronní vstupně-výstupní operace.
+> Velký počet blokujících synchronních vstupně-výstupních operací může vést ke vyčerpání fondu vláken, což aplikaci nereaguje. Povolit pouze `AllowSynchronousIO` při použití knihovny, která nepodporuje asynchronní vstupně-výstupní operace.
 
 Následující příklad zakáže synchronní vstupně-výstupní operace:
 
@@ -2227,7 +2574,7 @@ Zadejte adresy URL pomocí:
 * `urls`konfigurační klíč hostitele.
 * `UseUrls`Metoda rozšíření
 
-Hodnota zadaná pomocí těchto přístupů může být jeden nebo více koncových bodů HTTP a HTTPS (HTTPS, pokud je k dispozici výchozí certifikát). Nakonfigurujte hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000;http://localhost:8001"`).
+Hodnota zadaná pomocí těchto přístupů může být jeden nebo více koncových bodů HTTP a HTTPS (HTTPS, pokud je k dispozici výchozí certifikát). Nakonfigurujte hodnotu jako seznam oddělený středníkem (například `"Urls": "http://localhost:8000;http://localhost:8001"` ).
 
 Další informace o těchto přístupůch najdete v tématu [adresy URL serveru](xref:fundamentals/host/web-host#server-urls) a [potlačení konfigurace](xref:fundamentals/host/web-host#override-configuration).
 
@@ -2240,15 +2587,15 @@ Některé prohlížeče vyžadují udělení explicitního oprávnění pro dův
 
 Šablony projektů konfigurují aplikace tak, aby běžely ve výchozím nastavení HTTPS a zahrnovaly [přesměrování https a podporu HSTS](xref:security/enforcing-ssl).
 
-Volání <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> nebo <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> metody <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> pro konfiguraci předpon adres URL a portů pro Kestrel.
+Volání <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> nebo <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> metody pro <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions> konfiguraci předpon adres URL a portů pro Kestrel.
 
-`UseUrls`, argument `--urls` příkazového řádku, `urls` konfigurační klíč hostitele a proměnná `ASPNETCORE_URLS` prostředí fungují také, ale mají omezení zaznamenaná později v této části (pro konfiguraci koncového bodu https musí být k dispozici výchozí certifikát).
+`UseUrls`, `--urls` argument příkazového řádku, `urls` konfigurační klíč hostitele a `ASPNETCORE_URLS` Proměnná prostředí fungují také, ale mají omezení zaznamenaná později v této části (pro konfiguraci koncového bodu https musí být k dispozici výchozí certifikát).
 
 `KestrelServerOptions`rozšířeného
 
-### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults (akce\<ListenOptions>)
+### <a name="configureendpointdefaultsactionlistenoptions"></a>ConfigureEndpointDefaults (akce \<ListenOptions> )
 
-Určuje konfiguraci `Action` , která se spustí pro každý zadaný koncový bod. Volání `ConfigureEndpointDefaults` několikrát nahrazuje předchozí `Action` `Action` zadanou parametr s.
+Určuje konfiguraci `Action` , která se spustí pro každý zadaný koncový bod. Volání několikrát `ConfigureEndpointDefaults` nahrazuje předchozí `Action` `Action` zadanou parametr s.
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -2266,9 +2613,9 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 > [!NOTE]
 > Koncové body vytvořené voláním <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> **před** voláním <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ConfigureEndpointDefaults*> nebudou použity výchozí hodnoty.
 
-### <a name="configurehttpsdefaultsactionhttpsconnectionadapteroptions"></a>ConfigureHttpsDefaults (akce\<HttpsConnectionAdapterOptions>)
+### <a name="configurehttpsdefaultsactionhttpsconnectionadapteroptions"></a>ConfigureHttpsDefaults (akce \<HttpsConnectionAdapterOptions> )
 
-Určuje konfiguraci `Action` , která se má spustit pro každý koncový bod HTTPS. Volání `ConfigureHttpsDefaults` několikrát nahrazuje předchozí `Action` `Action` zadanou parametr s.
+Určuje konfiguraci `Action` , která se má spustit pro každý koncový bod HTTPS. Volání několikrát `ConfigureHttpsDefaults` nahrazuje předchozí `Action` `Action` zadanou parametr s.
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -2297,7 +2644,7 @@ Nakonfigurujte Kestrel tak, aby používal protokol HTTPS.
 
 `ListenOptions.UseHttps`SND
 
-* `UseHttps`&ndash; Nakonfigurujte Kestrel tak, aby používal HTTPS s výchozím certifikátem. Vyvolá výjimku, pokud není nakonfigurován žádný výchozí certifikát.
+* `UseHttps`: Nakonfigurujte Kestrel tak, aby používal HTTPS s výchozím certifikátem. Vyvolá výjimku, pokud není nakonfigurován žádný výchozí certifikát.
 * `UseHttps(string fileName)`
 * `UseHttps(string fileName, string password)`
 * `UseHttps(string fileName, string password, Action<HttpsConnectionAdapterOptions> configureOptions)`
@@ -2313,7 +2660,7 @@ Nakonfigurujte Kestrel tak, aby používal protokol HTTPS.
 
 * `filename`je cesta a název souboru certifikátu vzhledem k adresáři, který obsahuje soubory obsahu aplikace.
 * `password`je vyžadováno heslo pro přístup k datům certifikátu X. 509.
-* `configureOptions`je `Action` ke konfiguraci `HttpsConnectionAdapterOptions`. Vrátí `ListenOptions`.
+* `configureOptions`je `Action` ke konfiguraci `HttpsConnectionAdapterOptions` . Vrátí `ListenOptions` .
 * `storeName`je úložiště certifikátů, ze kterého se má certifikát načíst.
 * `subject`je název subjektu certifikátu.
 * `allowInvalid`Určuje, zda by měly být zváženy neplatné certifikáty, například certifikáty podepsané svým držitelem.
@@ -2391,7 +2738,7 @@ V následujícím příkladu *appSettings. JSON* :
 }
 ```
 
-Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu je zadání certifikátu pomocí polí úložiště certifikátů. Například **Certificates** > **výchozí** certifikát může být zadán jako:
+Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu je zadání certifikátu pomocí polí úložiště certifikátů. Například **Certificates**  >  **výchozí** certifikát může být zadán jako:
 
 ```json
 "Default": {
@@ -2405,12 +2752,12 @@ Alternativou k použití **cesty** a **hesla** pro libovolný uzel certifikátu 
 Poznámky ke schématu:
 
 * V názvech koncových bodů se nerozlišují malá a velká písmena. Například `HTTPS` a `Https` jsou platné.
-* U `Url` každého koncového bodu je vyžadován parametr. Formát pro tento parametr je stejný jako konfigurační parametr nejvyšší úrovně `Urls` s tím rozdílem, že je omezen na jedinou hodnotu.
-* Tyto koncové body nahrazují hodnoty definované v konfiguraci nejvyšší úrovně `Urls` místo jejich přidání do těchto koncových bodů. Koncové body definované v kódu `Listen` prostřednictvím jsou kumulativní pomocí koncových bodů definovaných v konfiguračním oddílu.
-* `Certificate` Oddíl je nepovinný. Pokud není `Certificate` oddíl zadaný, použijí se výchozí hodnoty definované v dřívějších scénářích. Pokud nejsou k dispozici žádné výchozí hodnoty, Server vyvolá výjimku a nemůže se spustit.
-* `Certificate` Oddíl podporuje jak heslo **cesty**&ndash;**Password** , tak certifikáty**úložiště** **subjektu**&ndash;.
+* `Url`U každého koncového bodu je vyžadován parametr. Formát pro tento parametr je stejný jako `Urls` konfigurační parametr nejvyšší úrovně s tím rozdílem, že je omezen na jedinou hodnotu.
+* Tyto koncové body nahrazují hodnoty definované v konfiguraci nejvyšší úrovně `Urls` místo jejich přidání do těchto koncových bodů. Koncové body definované v kódu prostřednictvím `Listen` jsou kumulativní pomocí koncových bodů definovaných v konfiguračním oddílu.
+* `Certificate`Oddíl je nepovinný. Pokud `Certificate` není oddíl zadaný, použijí se výchozí hodnoty definované v dřívějších scénářích. Pokud nejsou k dispozici žádné výchozí hodnoty, Server vyvolá výjimku a nemůže se spustit.
+* `Certificate`Oddíl podporuje jak heslo **cesty** &ndash; **Password** , tak **Subject** &ndash; certifikáty**úložiště** subjektu.
 * V takovém případě může být definován libovolný počet koncových bodů, pokud to nezpůsobí konflikty portů.
-* `options.Configure(context.Configuration.GetSection("{SECTION}"))`Vrátí `.Endpoint(string name, listenOptions => { })` metodu `KestrelConfigurationLoader` s metodou, kterou lze použít k doplnění nastavení nakonfigurovaného koncového bodu:
+* `options.Configure(context.Configuration.GetSection("{SECTION}"))`Vrátí `KestrelConfigurationLoader` `.Endpoint(string name, listenOptions => { })` metodu s metodou, kterou lze použít k doplnění nastavení nakonfigurovaného koncového bodu:
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -2426,7 +2773,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-`KestrelServerOptions.ConfigurationLoader`k pokračování v iteraci u stávajícího zavaděče se dá získat přímý odkaz, jako je třeba <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>ten, který poskytuje.
+`KestrelServerOptions.ConfigurationLoader`k pokračování v iteraci u stávajícího zavaděče se dá získat přímý odkaz, jako je třeba ten, který poskytuje <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> .
 
 * Konfigurační oddíl pro každý koncový bod je k dispozici na možnostech v `Endpoint` metodě, aby bylo možné číst vlastní nastavení.
 * Více konfigurací může být načteno voláním `options.Configure(context.Configuration.GetSection("{SECTION}"))` znovu s jiným oddílem. Je použita pouze poslední konfigurace, pokud `Load` není explicitně volána při předchozích instancích. Metapackage nevolá `Load` , aby se jeho výchozí konfigurační oddíl mohl nahradit.
@@ -2434,7 +2781,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 *Změna výchozích hodnot v kódu*
 
-`ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` dá se použít ke změně výchozího nastavení pro `ListenOptions` a `HttpsConnectionAdapterOptions`, včetně přepsání výchozího certifikátu zadaného v předchozím scénáři. `ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` měla by být volána před konfigurací koncových bodů.
+`ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` dá se použít ke změně výchozího nastavení pro `ListenOptions` a `HttpsConnectionAdapterOptions` , včetně přepsání výchozího certifikátu zadaného v předchozím scénáři. `ConfigureEndpointDefaults`a `ConfigureHttpsDefaults` měla by být volána před konfigurací koncových bodů.
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -2462,7 +2809,7 @@ Kestrel podporuje SNI prostřednictvím `ServerCertificateSelector` zpětného v
 
 Podpora SNI vyžaduje:
 
-* Běží v cílovém rozhraní `netcoreapp2.1` nebo novějším. V `net461` systému nebo novějším je zpětné volání vyvoláno `name` , `null`ale je vždy. `name` Je také `null` v případě, že klient v TLS handshake neposkytne parametr názvu hostitele.
+* Běží v cílovém rozhraní `netcoreapp2.1` nebo novějším. V systému `net461` nebo novějším je zpětné volání vyvoláno, ale `name` je vždy `null` . `name`Je také v `null` případě, že klient v TLS handshake neposkytne parametr názvu hostitele.
 * Všechny weby běží na stejné instanci Kestrel. Kestrel nepodporuje sdílení IP adresy a portu napříč několika instancemi bez reverzního proxy serveru.
 
 ```csharp
@@ -2507,7 +2854,7 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 
 ### <a name="connection-logging"></a>Protokolování připojení
 
-Volá <xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> se, aby se vygenerovaly protokoly na úrovni ladění pro komunikaci na úrovni bajtového připojení. Protokolování připojení je užitečné při řešení problémů v komunikaci nízké úrovně, například během šifrování TLS a za proxy servery. Pokud `UseConnectionLogging` je umístěn před `UseHttps`, zaprotokoluje se zašifrovaný provoz. Pokud `UseConnectionLogging` je umístěn po `UseHttps`, zaprotokoluje se dešifrovaný provoz.
+Volá <xref:Microsoft.AspNetCore.Hosting.ListenOptionsConnectionLoggingExtensions.UseConnectionLogging*> se, aby se vygenerovaly protokoly na úrovni ladění pro komunikaci na úrovni bajtového připojení. Protokolování připojení je užitečné při řešení problémů v komunikaci nízké úrovně, například během šifrování TLS a za proxy servery. Pokud `UseConnectionLogging` je umístěn před `UseHttps` , zaprotokoluje se zašifrovaný provoz. Pokud `UseConnectionLogging` je umístěn po `UseHttps` , zaprotokoluje se dešifrovaný provoz.
 
 ```csharp
 webBuilder.ConfigureKestrel(serverOptions =>
@@ -2521,7 +2868,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 ### <a name="bind-to-a-tcp-socket"></a>Vytvoření vazby na soket TCP
 
-<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*> Metoda se váže k soketu TCP a pomocí lambda možností povolíte konfiguraci certifikátu X. 509:
+<xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.Listen*>Metoda se váže k soketu TCP a pomocí lambda možností povolíte konfiguraci certifikátu X. 509:
 
 ```csharp
 public static void Main(string[] args)
@@ -2561,13 +2908,13 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-Příklad nakonfiguruje HTTPS pro koncový bod pomocí <xref:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions>. Ke konfiguraci dalších nastavení Kestrel pro konkrétní koncové body použijte stejné rozhraní API.
+Příklad nakonfiguruje HTTPS pro koncový bod pomocí <xref:Microsoft.AspNetCore.Server.Kestrel.Core.ListenOptions> . Ke konfiguraci dalších nastavení Kestrel pro konkrétní koncové body použijte stejné rozhraní API.
 
 [!INCLUDE [How to make an X.509 cert](~/includes/make-x509-cert.md)]
 
 ### <a name="bind-to-a-unix-socket"></a>Vytvoření vazby na soket UNIX
 
-Naslouchat na soketu se <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> systémem UNIX, aby se zlepšil výkon pomocí Nginx, jak je znázorněno v tomto příkladu:
+Naslouchat na soketu se systémem UNIX <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> , aby se zlepšil výkon pomocí Nginx, jak je znázorněno v tomto příkladu:
 
 ```csharp
 public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -2583,12 +2930,12 @@ public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         });
 ```
 
-* V `server`  >  `location`  >  `proxy_pass` souboru Nginx confiuguration nastavte položku na `http://unix:/tmp/{KESTREL SOCKET}:/;`. `{KESTREL SOCKET}`je název soketu poskytnutý <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> (například `kestrel-test.sock` v předchozím příkladu).
-* Zajistěte, aby byl soket zapisovatelný pomocí Nginx (například `chmod go+w /tmp/kestrel-test.sock`). 
+* V souboru Nginx confiuguration nastavte `server`  >  `location`  >  `proxy_pass` položku na `http://unix:/tmp/{KESTREL SOCKET}:/;` . `{KESTREL SOCKET}`je název soketu poskytnutý <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenUnixSocket*> (například `kestrel-test.sock` v předchozím příkladu).
+* Zajistěte, aby byl soket zapisovatelný pomocí Nginx (například `chmod go+w /tmp/kestrel-test.sock` ). 
 
 ### <a name="port-0"></a>Port 0
 
-Po zadání čísla `0` portu se Kestrel dynamicky váže k dostupnému portu. Následující příklad ukazuje, jak určit, který port Kestrel je skutečně vázaný za běhu:
+Po zadání čísla portu se `0` Kestrel dynamicky váže k dostupnému portu. Následující příklad ukazuje, jak určit, který port Kestrel je skutečně vázaný za běhu:
 
 [!code-csharp[](kestrel/samples/2.x/KestrelSample/Startup.cs?name=snippet_Configure&highlight=3-4,15-21)]
 
@@ -2609,16 +2956,16 @@ Konfigurace koncových bodů pomocí následujících přístupů:
 
 Tyto metody jsou užitečné, pokud chcete, aby kód pracoval na jiných serverech než Kestrel. Mějte ale na paměti následující omezení:
 
-* Protokol HTTPS nelze s těmito přístupy použít, pokud není k dispozici výchozí certifikát v konfiguraci koncového bodu HTTPS (například `KestrelServerOptions` pomocí konfigurace nebo konfiguračního souboru, jak je uvedeno výše v tomto tématu).
-* Při současném `Listen` použití `UseUrls` obou přístupů a `Listen` koncových bodů se `UseUrls` koncové body přepisují.
+* Protokol HTTPS nelze s těmito přístupy použít, pokud není k dispozici výchozí certifikát v konfiguraci koncového bodu HTTPS (například pomocí `KestrelServerOptions` Konfigurace nebo konfiguračního souboru, jak je uvedeno výše v tomto tématu).
+* Při `Listen` `UseUrls` současném použití obou přístupů a `Listen` koncových bodů se koncové body přepisují `UseUrls` .
 
 ### <a name="iis-endpoint-configuration"></a>Konfigurace koncového bodu služby IIS
 
-Při použití služby IIS jsou vazby adresy URL pro přepsání vazby služby IIS nastaveny buď `Listen` nebo `UseUrls`. Další informace najdete v tématu [ASP.NET Core modulu](xref:host-and-deploy/aspnet-core-module) .
+Při použití služby IIS jsou vazby adresy URL pro přepsání vazby služby IIS nastaveny buď `Listen` nebo `UseUrls` . Další informace najdete v tématu [ASP.NET Core modulu](xref:host-and-deploy/aspnet-core-module) .
 
 ## <a name="transport-configuration"></a>Konfigurace přenosu
 
-S vydáním ASP.NET Core 2,1 není výchozí přenos Kestrel založen na Libuv, ale na základě spravovaných soketů. Jedná se o zásadní změnu pro aplikace ASP.NET Core 2,0 upgradované na 2,1, <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> které volá a závisí na jednom z následujících balíčků:
+S vydáním ASP.NET Core 2,1 není výchozí přenos Kestrel založen na Libuv, ale na základě spravovaných soketů. Jedná se o zásadní změnu pro aplikace ASP.NET Core 2,0 upgradované na 2,1, které volá <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> a závisí na jednom z následujících balíčků:
 
 * [Microsoft. AspNetCore. Server. Kestrel](https://www.nuget.org/packages/Microsoft.AspNetCore.Server.Kestrel/) (přímý odkaz na balíček)
 * [Microsoft. AspNetCore. app](https://www.nuget.org/packages/Microsoft.AspNetCore.App/)
@@ -2632,7 +2979,7 @@ Pro projekty, které vyžadují použití Libuv:
                     Version="{VERSION}" />
   ```
 
-* Volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*>:
+* Volání <xref:Microsoft.AspNetCore.Hosting.WebHostBuilderLibuvExtensions.UseLibuv*> :
 
   ```csharp
   public class Program
@@ -2651,9 +2998,9 @@ Pro projekty, které vyžadují použití Libuv:
 
 ### <a name="url-prefixes"></a>Předpony adresy URL
 
-Při použití `UseUrls`, `--urls` argumentu příkazového řádku `urls` , konfiguračního klíče hostitele nebo `ASPNETCORE_URLS` proměnné prostředí můžou být předpony adresy URL v některém z následujících formátů.
+Při použití `UseUrls` , `--urls` argumentu příkazového řádku, `urls` konfiguračního klíče hostitele nebo `ASPNETCORE_URLS` proměnné prostředí můžou být předpony adresy URL v některém z následujících formátů.
 
-Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje protokol HTTPS při konfiguraci vazeb URL pomocí `UseUrls`.
+Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje protokol HTTPS při konfiguraci vazeb URL pomocí `UseUrls` .
 
 * Adresa IPv4 s číslem portu
 
@@ -2669,7 +3016,7 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://[0:0:0:0:0:ffff:4137:270a]:80/
   ```
 
-  `[::]`je ekvivalentem protokolu IPv4 `0.0.0.0`pro protokol IPv6.
+  `[::]`je ekvivalentem protokolu IPv4 pro protokol IPv6 `0.0.0.0` .
 
 * Název hostitele s číslem portu
 
@@ -2678,12 +3025,12 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://*:80/
   ```
 
-  Názvy `*`hostitelů, a `+`nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa `localhost` nebo se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
+  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
 
   > [!WARNING]
   > Hostování v konfiguraci reverzního proxy serveru vyžaduje [filtrování hostitele](#host-filtering).
 
-* Název `localhost` hostitele s číslem portu nebo IP adresou zpětné smyčky s číslem portu
+* `localhost`Název hostitele s číslem portu nebo IP adresou zpětné smyčky s číslem portu
 
   ```
   http://localhost:5000/
@@ -2695,13 +3042,13 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
 
 ## <a name="host-filtering"></a>Filtrování hostitele
 
-I když Kestrel podporuje konfiguraci na základě prefixů `http://example.com:5000`, jako je, Kestrel převážně ignoruje název hostitele. Hostitel `localhost` je zvláštní případ, který se používá pro vazbu na adresy zpětné smyčky. Každý hostitel, který je jiný než explicitní IP adresa, se váže na všechny veřejné IP adresy. `Host`hlavičky nejsou ověřené.
+I když Kestrel podporuje konfiguraci na základě prefixů `http://example.com:5000` , jako je, Kestrel převážně ignoruje název hostitele. Hostitel `localhost` je zvláštní případ, který se používá pro vazbu na adresy zpětné smyčky. Každý hostitel, který je jiný než explicitní IP adresa, se váže na všechny veřejné IP adresy. `Host`hlavičky nejsou ověřené.
 
-Jako alternativní řešení použijte middleware pro filtrování hostitele. Middleware pro filtrování hostitele poskytuje balíček [Microsoft. AspNetCore. HostFiltering](https://www.nuget.org/packages/Microsoft.AspNetCore.HostFiltering) , který je součástí [Microsoft. AspNetCore. App metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo 2,2). Middleware je přidána pomocí <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>, který volá <xref:Microsoft.AspNetCore.Builder.HostFilteringServicesExtensions.AddHostFiltering*>:
+Jako alternativní řešení použijte middleware pro filtrování hostitele. Middleware pro filtrování hostitele poskytuje balíček [Microsoft. AspNetCore. HostFiltering](https://www.nuget.org/packages/Microsoft.AspNetCore.HostFiltering) , který je součástí [Microsoft. AspNetCore. App metapackage](xref:fundamentals/metapackage-app) (ASP.NET Core 2,1 nebo 2,2). Middleware je přidána pomocí <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> , který volá <xref:Microsoft.AspNetCore.Builder.HostFilteringServicesExtensions.AddHostFiltering*> :
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, `AllowedHosts` Definujte klíč v souboru *appSettings. JSON*/*appSettings.\< Environment>. JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
+Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. JSON* / *appSettings. \<EnvironmentName> JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
 *appSettings. JSON*:
 
@@ -2712,15 +3059,15 @@ Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Ch
 ```
 
 > [!NOTE]
-> [Middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) má <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> také možnost. Middleware předávaných hlaviček a middleware pro filtrování hostitele mají podobné funkce pro různé scénáře. Nastavení `AllowedHosts` pomocí předávaných middlewarových hlaviček je vhodné `Host` v případě, že hlavička není zachována při předávání požadavků pomocí reverzního proxy server nebo nástroje pro vyrovnávání zatížení. Nastavení `AllowedHosts` pomocí middlewaru pro filtrování hostitele je vhodné, když se Kestrel používá jako veřejný hraniční Server nebo když se `Host` hlavička přímo přepošle.
+> [Middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) má také <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.AllowedHosts> možnost. Middleware předávaných hlaviček a middleware pro filtrování hostitele mají podobné funkce pro různé scénáře. Nastavení `AllowedHosts` pomocí předávaných middlewarových hlaviček je vhodné v případě, že `Host` Hlavička není zachována při předávání požadavků pomocí reverzního proxy server nebo nástroje pro vyrovnávání zatížení. Nastavení `AllowedHosts` pomocí middlewaru pro filtrování hostitele je vhodné, když se Kestrel používá jako veřejný hraniční Server nebo když se `Host` Hlavička přímo přepošle.
 >
-> Další informace o middlewaru předávaných hlaviček najdete <xref:host-and-deploy/proxy-load-balancer>v tématu.
+> Další informace o middlewaru předávaných hlaviček najdete v tématu <xref:host-and-deploy/proxy-load-balancer> .
 
 ::: moniker-end
 
 ## <a name="http11-request-draining"></a>Vyprazdňování požadavku HTTP/1.1
 
-Otevírání připojení HTTP je časově náročné. V případě protokolu HTTPS je také náročný na prostředky. Proto se Kestrel pokusí znovu použít připojení na protokol HTTP/1.1. Aby bylo možné připojení znovu použít, musí být text žádosti plně spotřebovaný. Aplikace nespotřebovává text žádosti vždycky, například `POST` žádosti, kde server vrací přesměrování nebo odpověď 404. `POST`V případě případu přesměrování:
+Otevírání připojení HTTP je časově náročné. V případě protokolu HTTPS je také náročný na prostředky. Proto se Kestrel pokusí znovu použít připojení na protokol HTTP/1.1. Aby bylo možné připojení znovu použít, musí být text žádosti plně spotřebovaný. Aplikace nespotřebovává text žádosti vždycky, například `POST` žádosti, kde server vrací přesměrování nebo odpověď 404. V `POST` případě případu přesměrování:
 
 * Klient již mohl odeslat část `POST` dat.
 * Server zapisuje odpověď 301.
@@ -2730,16 +3077,16 @@ Otevírání připojení HTTP je časově náročné. V případě protokolu HTT
 Proces vyprazdňování vytváří tradoff mezi povolením opětovného použití připojení a časem potřebným k vyprázdnění zbývajících dat:
 
 * Vyprázdnění má časový limit pět sekund, což není konfigurovatelné.
-* Pokud nebyla všechna data zadaná v `Content-Length` hlavičce nebo `Transfer-Encoding` přečtena před časovým limitem, připojení je zavřeno.
+* Pokud nebyla všechna data zadaná v `Content-Length` `Transfer-Encoding` hlavičce nebo přečtena před časovým limitem, připojení je zavřeno.
 
 Někdy je možné, že budete chtít žádost ukončit hned nebo po zápisu odpovědi. Například klienti mohou mít omezující data, takže omezení nahraných dat může být prioritou. V takových případech pro ukončení žádosti zavolejte [HttpContext. Abort](xref:Microsoft.AspNetCore.Http.HttpContext.Abort%2A) z kontroleru, Razor stránky nebo middlewaru.
 
-Existují upozornění pro volání `Abort`:
+Existují upozornění pro volání `Abort` :
 
 * Vytváření nových připojení může být pomalé a nákladné.
 * Není zaručeno, že klient před zavřením připojení přečetl odpověď.
 * Volání `Abort` by mělo být vzácné a vyhrazené pro závažné chybové případy, ne běžné chyby.
-  * Volá `Abort` se jenom v případě, že je potřeba vyřešit konkrétní problém. Například volejte `Abort` , pokud se zlomyslní klienti pokoušejí `POST` data nebo když dojde k chybě v kódu klienta, která způsobuje velké nebo velké požadavky.
+  * Volá se jenom v případě, že je `Abort` potřeba vyřešit konkrétní problém. Například volejte, `Abort` Pokud se zlomyslní klienti pokoušejí `POST` data nebo když dojde k chybě v kódu klienta, která způsobuje velké nebo velké požadavky.
   * Nevolejte `Abort` pro běžné chybové situace, například HTTP 404 (Nenalezeno).
 
 Volání [HttpResponse. CompleteAsync](xref:Microsoft.AspNetCore.Http.HttpResponse.CompleteAsync%2A) před voláním `Abort` zajistí, že server dokončil zápis odpovědi. Nicméně chování klienta není předvídatelné a nemusí před přerušením připojení číst odpověď.

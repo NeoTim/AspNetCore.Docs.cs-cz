@@ -11,16 +11,6 @@ Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
 
 Od [James Newton – král](https://twitter.com/jamesnk)
 
-> [!IMPORTANT]
-> **gRPC – webová podpora v .NET je experimentální**
->
-> gRPC-web pro .NET je experimentální projekt, nikoli potvrzený produkt. Chceme:
->
-> * Otestujte, jak náš přístup k implementaci gRPC-web funguje.
-> * Získejte zpětnou vazbu, pokud je tento přístup užitečný pro vývojáře na platformě .NET v porovnání s tradičním způsobem nastavení gRPC-web prostřednictvím proxy serveru.
->
-> Zajistěte prosím svůj názor na [https://github.com/grpc/grpc-dotnet](https://github.com/grpc/grpc-dotnet) , abyste se ujistili, že jsme vytvořili něco, co vývojáři rádi a máte produktivní.
-
 Nemůžete volat službu gRPC HTTP/2 z aplikace založené na prohlížeči. [gRPC-web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) je protokol, který umožňuje, aby JavaScript a aplikace v prohlížeči Blazor volaly služby gRPC. Tento článek vysvětluje, jak používat gRPC-web v .NET Core.
 
 ## <a name="grpc-web-in-aspnet-core-vs-envoy"></a>gRPC – web ve ASP.NET Core vs. zástupné

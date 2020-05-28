@@ -1,24 +1,11 @@
 ---
-title: Hostitelská ASP.NET Core ve webové farmě
-author: rick-anderson
-description: Naučte se hostovat více instancí ASP.NET Core aplikace se sdílenými prostředky v prostředí webové farmy.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 01/13/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: host-and-deploy/web-farm
-ms.openlocfilehash: 3474b6b1d85774a15a912efcb37ec8f206695eaf
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776354"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="host-aspnet-core-in-a-web-farm"></a>Hostitelská ASP.NET Core ve webové farmě
 
@@ -26,10 +13,10 @@ Autor – [Chris Rossův](https://github.com/Tratcher)
 
 *Webová farma* je skupina dvou nebo více webových serverů (nebo *uzlů*), které hostují více instancí aplikace. Když se požadavky od uživatelů dorazí na webovou farmu, *Nástroj pro vyrovnávání zatížení* distribuuje požadavky do uzlů webové farmy. Vylepšení webových farem:
 
-* **Spolehlivost/dostupnost** &ndash; : Pokud selže jeden nebo více uzlů, může nástroj pro vyrovnávání zatížení směrovat požadavky do jiných funkčních uzlů, aby bylo možné pokračovat ve zpracování požadavků.
-* **Kapacita/výkon** &ndash; více uzlů může zpracovávat více požadavků než jediného serveru. Nástroj pro vyrovnávání zatížení vyrovnává zatížení úlohou tím, že distribuuje požadavky na uzly.
-* **Škálovatelnost** &ndash; , pokud je potřeba víc nebo méně kapacity, počet aktivních uzlů se dá zvýšit nebo snížit tak, aby odpovídaly zatížení. Technologie webové farmy, například [Azure App Service](https://azure.microsoft.com/services/app-service/), mohou automaticky přidávat nebo odebírat uzly na žádost správce systému nebo automaticky bez zásahu člověka.
-* &ndash; Uzly **udržovatelnosti** webové farmy se můžou spoléhat na sadu sdílených služeb, které mají za následek snazší správu systému. Uzly webové farmy můžou například spoléhat na jeden databázový server a na běžné síťové umístění pro statické prostředky, jako jsou obrázky a soubory ke stažení.
+* **Spolehlivost/dostupnost**: Pokud selže jeden nebo více uzlů, může nástroj pro vyrovnávání zatížení směrovat požadavky do jiných funkčních uzlů, aby bylo možné pokračovat ve zpracování požadavků.
+* **Kapacita/výkon**: více uzlů může zpracovávat více požadavků než jednoho serveru. Nástroj pro vyrovnávání zatížení vyrovnává zatížení úlohou tím, že distribuuje požadavky na uzly.
+* **Škálovatelnost**: Pokud je potřeba víc nebo méně kapacity, můžete počet aktivních uzlů zvýšit nebo snížit tak, aby odpovídaly zatížení. Technologie webové farmy, například [Azure App Service](https://azure.microsoft.com/services/app-service/), mohou automaticky přidávat nebo odebírat uzly na žádost správce systému nebo automaticky bez zásahu člověka.
+* **Udržovatelnost**: uzly webové farmy můžou spoléhat na sadu sdílených služeb, což má za následek snazší správu systému. Uzly webové farmy můžou například spoléhat na jeden databázový server a na běžné síťové umístění pro statické prostředky, jako jsou obrázky a soubory ke stažení.
 
 Toto téma popisuje konfiguraci a závislosti pro aplikace ASP.NET Core hostované ve webové farmě, která je závislá na sdílených prostředcích.
 
@@ -54,7 +41,7 @@ Ochrana dat a ukládání do mezipaměti vyžaduje konfiguraci pro aplikace nasa
 
 ### <a name="data-protection"></a>Ochrana dat
 
-[ASP.NET Core systém ochrany dat](xref:security/data-protection/introduction) používá aplikace k ochraně dat. Ochrana dat se spoléhá na sadu kryptografických klíčů uložených v rámci *klíčového prstence*. Po inicializaci systému ochrany dat se použije [výchozí nastavení](xref:security/data-protection/configuration/default-settings) , které ukládá klíčová kroužková data místně. V rámci výchozí konfigurace je jedinečný klíč Ring uložený na každém uzlu webové farmy. V důsledku toho každý uzel webové farmy nemůže dešifrovat data zašifrovaná aplikací v jakémkoli jiném uzlu. Výchozí konfigurace není obecně vhodná pro hostování aplikací ve webové farmě. Alternativou k implementaci sdíleného klíčového prstence je vždycky směrovat požadavky uživatelů na stejný uzel. Další informace o konfiguraci systému ochrany dat pro nasazení webové farmy najdete v tématu <xref:security/data-protection/configuration/overview>.
+[ASP.NET Core systém ochrany dat](xref:security/data-protection/introduction) používá aplikace k ochraně dat. Ochrana dat se spoléhá na sadu kryptografických klíčů uložených v rámci *klíčového prstence*. Po inicializaci systému ochrany dat se použije [výchozí nastavení](xref:security/data-protection/configuration/default-settings) , které ukládá klíčová kroužková data místně. V rámci výchozí konfigurace je jedinečný klíč Ring uložený na každém uzlu webové farmy. V důsledku toho každý uzel webové farmy nemůže dešifrovat data zašifrovaná aplikací v jakémkoli jiném uzlu. Výchozí konfigurace není obecně vhodná pro hostování aplikací ve webové farmě. Alternativou k implementaci sdíleného klíčového prstence je vždycky směrovat požadavky uživatelů na stejný uzel. Další informace o konfiguraci systému ochrany dat pro nasazení webové farmy najdete v tématu <xref:security/data-protection/configuration/overview> .
 
 ### <a name="caching"></a>Ukládání do mezipaměti
 
@@ -65,12 +52,78 @@ V prostředí webové farmy musí mechanismus ukládání do mezipaměti sdílet
 Následující scénáře nevyžadují další konfiguraci, ale závisejí na technologiích, které vyžadují konfiguraci webových farem.
 
 | Scénář | Závisí na&hellip; |
-| -------- | ------------------- |
-| Authentication | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématech <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. |
-| Identity | Ověřování a konfigurace databáze.<br><br>Další informace naleznete v tématu <xref:security/authentication/identity>. |
-| Relace | Ochrana dat (šifrované soubory cookie) ( <xref:security/data-protection/configuration/overview>viz) a ukládání do <xref:performance/caching/distributed>mezipaměti (viz).<br><br>Další informace najdete v tématu [Správa stavu a relace: stav relace](xref:fundamentals/app-state#session-state). |
-| TempData | Ochrana dat (šifrované soubory cookie) ( <xref:security/data-protection/configuration/overview>viz) nebo relace (viz [Správa relace a stav: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [Správa stavu a relace: TempData](xref:fundamentals/app-state#tempdata). |
-| Ochrana proti padělání | Ochrana dat (viz <xref:security/data-protection/configuration/overview>).<br><br>Další informace naleznete v tématu <xref:security/anti-request-forgery>. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------- | | Ověřování | Ochrana dat (viz <xref:security/data-protection/configuration/overview> ).<br><br>Další informace naleznete v tématech <xref:security/authentication/cookie> a <xref:security/cookie-sharing>. | | Identity | Ověřování a konfigurace databáze.<br><br>Další informace naleznete v tématu <xref:security/authentication/identity>. | | Relace | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview> ) a ukládání do mezipaměti (viz <xref:performance/caching/distributed> ).<br><br>Další informace najdete v tématu [Správa stavu a relace: stav relace](xref:fundamentals/app-state#session-state). | | TempData | Ochrana dat (šifrované soubory cookie) (viz <xref:security/data-protection/configuration/overview> ) nebo relace (viz [Správa relace a stav: stav relace](xref:fundamentals/app-state#session-state)).<br><br>Další informace najdete v tématu [Správa stavu a relace: TempData](xref:fundamentals/app-state#tempdata). | | Ochrana proti padělání | Ochrana dat (viz <xref:security/data-protection/configuration/overview> ).<br><br>Další informace naleznete v tématu <xref:security/anti-request-forgery>. |
 
 ## <a name="troubleshoot"></a>Řešení potíží
 
@@ -82,21 +135,21 @@ Vezměte v úvahu uživatele, který se přihlásí do aplikace pomocí ověřov
 
 Pokud dojde k **občasnému**výskytu některého z následujících příznaků, je obvykle zaznamenána nesprávná ochrana dat nebo konfigurace ukládání do mezipaměti pro prostředí webové farmy:
 
-* Ověřování přerušuje &ndash; ověřovací soubor cookie je nesprávně nakonfigurovaný nebo ho nejde dešifrovat. OAuth (Facebook, Microsoft, Twitter) nebo OpenIdConnect přihlášení selžou s chybou korelace se nezdařila.
-* Přerušení &ndash; Identity autorizace se ztratí.
+* Přerušení ověřování: ověřovací soubor cookie je nesprávně nakonfigurovaný nebo ho nejde dešifrovat. OAuth (Facebook, Microsoft, Twitter) nebo OpenIdConnect přihlášení selžou s chybou korelace se nezdařila.
+* Přerušení autorizace: dojde Identity ke ztrátě.
 * Stav relace ztratí data.
 * Položky uložené v mezipaměti zmizí.
 * TempData se nezdařila.
-* Příspěvky selžou &ndash; , že se nedaří kontrolu proti padělání.
+* Příspěvky selžou: kontrolu proti padělání se nezdaří.
 
-Další informace o konfiguraci ochrany dat pro nasazení webové farmy najdete v tématu <xref:security/data-protection/configuration/overview>. Další informace o konfiguraci ukládání do mezipaměti pro nasazení webové farmy najdete v <xref:performance/caching/distributed>tématu.
+Další informace o konfiguraci ochrany dat pro nasazení webové farmy najdete v tématu <xref:security/data-protection/configuration/overview> . Další informace o konfiguraci ukládání do mezipaměti pro nasazení webové farmy najdete v tématu <xref:performance/caching/distributed> .
 
 ## <a name="obtain-data-from-apps"></a>Získání dat z aplikací
 
-Pokud webové serverové farmy můžou reagovat na požadavky, získávat žádosti, připojení a další data z aplikací pomocí vloženého middlewaru terminálu. Další informace a ukázka kódu naleznete v tématu <xref:test/troubleshoot#obtain-data-from-an-app>.
+Pokud webové serverové farmy můžou reagovat na požadavky, získávat žádosti, připojení a další data z aplikací pomocí vloženého middlewaru terminálu. Další informace a ukázka kódu naleznete v tématu <xref:test/troubleshoot#obtain-data-from-an-app> .
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Rozšíření vlastních skriptů pro Windows](/azure/virtual-machines/extensions/custom-script-windows) &ndash; stahuje a spouští skripty na virtuálních počítačích Azure, což je užitečné pro konfiguraci po nasazení a instalaci softwaru.
+* [Rozšíření vlastních skriptů pro Windows](/azure/virtual-machines/extensions/custom-script-windows): stáhne a spustí skripty na virtuálních počítačích Azure, které jsou užitečné pro konfiguraci po nasazení a instalaci softwaru.
 * <xref:host-and-deploy/proxy-load-balancer>
  

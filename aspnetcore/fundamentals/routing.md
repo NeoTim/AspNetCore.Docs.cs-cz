@@ -1,24 +1,11 @@
 ---
-title: Směrování v ASP.NET Core
-author: rick-anderson
-description: Zjistěte, jak ASP.NET Core směrování zodpovídá za odpovídající požadavky HTTP a odesílání do spustitelných koncových bodů.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 4/1/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/routing
-ms.openlocfilehash: 2dd44a561debddac13250174a8e74dd912302d60
-ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "82850510"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -31,7 +18,7 @@ Směrování zodpovídá za požadavky na příchozí HTTP a odesílání těcht
 Aplikace můžou konfigurovat směrování pomocí:
 
 - Kontrolery
-- Razor Pages
+- RazorStránky
 - SignalR
 - Služby gRPC
 - [Middleware](xref:fundamentals/middleware/index) s povoleným koncovým bodem, například [kontroly stavu](xref:host-and-deploy/health-checks).
@@ -39,10 +26,10 @@ Aplikace můžou konfigurovat směrování pomocí:
 
 Tento dokument popisuje podrobnosti nízké úrovně směrování ASP.NET Core. Informace o konfiguraci směrování:
 
-* Řadiče najdete v tématu <xref:mvc/controllers/routing>.
-* Razor Pages konvence naleznete v <xref:razor-pages/razor-pages-conventions>tématu.
+* Řadiče najdete v tématu <xref:mvc/controllers/routing> .
+* RazorKonvence pro stránky najdete v tématu <xref:razor-pages/razor-pages-conventions> .
 
-Systém směrování koncových bodů popsaný v tomto dokumentu se týká ASP.NET Core 3,0 a novějších. Informace o předchozím systému směrování na základě <xref:Microsoft.AspNetCore.Routing.IRouter>nástroje vyberte verzi ASP.NET Core 2,1 s jedním z následujících přístupů:
+Systém směrování koncových bodů popsaný v tomto dokumentu se týká ASP.NET Core 3,0 a novějších. Informace o předchozím systému směrování na základě <xref:Microsoft.AspNetCore.Routing.IRouter> Nástroje vyberte verzi ASP.NET Core 2,1 s jedním z následujících přístupů:
 
 * Selektor verzí pro předchozí verzi.
 * Vyberte [směrování ASP.NET Core 2,1](https://docs.microsoft.com/aspnet/core/fundamentals/routing?view=aspnetcore-2.1).
@@ -53,39 +40,39 @@ Ukázky stahování pro tento dokument jsou povoleny konkrétní `Startup` tří
 
 ## <a name="routing-basics"></a>Základy směrování
 
-Všechny šablony ASP.NET Core zahrnují směrování ve vygenerovaném kódu. Směrování je zaregistrované v kanálu [middleware](xref:fundamentals/middleware/index) v `Startup.Configure`.
+Všechny šablony ASP.NET Core zahrnují směrování ve vygenerovaném kódu. Směrování je zaregistrované v kanálu [middleware](xref:fundamentals/middleware/index) v `Startup.Configure` .
 
 Následující kód ukazuje základní příklad směrování:
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Startup.cs?name=snippet&highlight=8,10)]
 
-Směrování používá dvojici middlewaru, <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*> zaregistrovaných <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*>pomocí a:
+Směrování používá dvojici middlewaru, zaregistrovaných pomocí <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*> a <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> :
 
 * `UseRouting`Přidá směrování do kanálu middlewaru. Tento middleware prohlíží sadu koncových bodů definovaných v aplikaci a vybere [nejlepší shodu](#urlm) na základě požadavku.
 * `UseEndpoints`Přidá spuštění koncového bodu do kanálu middlewaru. Spustí delegáta spojený s vybraným koncovým bodem.
 
 Předchozí příklad obsahuje jednu *trasu ke* koncovému bodu kódu pomocí metody [MapGet](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*) :
 
-* Při odeslání požadavku `GET` http na kořenovou adresu URL `/`:
+* Při `GET` odeslání požadavku HTTP na kořenovou adresu URL `/` :
   * Spustí se delegát žádosti.
-  * `Hello World!`se zapisuje do odpovědi HTTP. Ve výchozím nastavení je `/` `https://localhost:5001/`kořenová adresa URL.
-* Pokud metoda Request není `GET` nebo kořenová adresa URL není `/`, neodpovídají žádné trasy a je vrácen protokol HTTP 404.
+  * `Hello World!`se zapisuje do odpovědi HTTP. Ve výchozím nastavení je kořenová adresa URL `/` `https://localhost:5001/` .
+* Pokud metoda Request není `GET` nebo kořenová adresa URL není `/` , neodpovídají žádné trasy a je vrácen protokol HTTP 404.
 
 ### <a name="endpoint"></a>Koncový bod
 
 <a name="endpoint"></a>
 
-`MapGet` Metoda se používá k definování **koncového bodu**. Koncový bod je něco, co může být:
+`MapGet`Metoda se používá k definování **koncového bodu**. Koncový bod je něco, co může být:
 
 * Vybráno tak, že odpovídá adrese URL a metodě HTTP.
 * Provedeno spuštěním delegáta.
 
-Koncové body, které se dají spárovat a spustí aplikace, se konfigurují `UseEndpoints`v. Například <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*> <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*>,, a [podobné metody](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions) spojují delegáty žádostí do směrovacího systému.
+Koncové body, které se dají spárovat a spustí aplikace, se konfigurují v `UseEndpoints` . Například,, <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*> <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*> a [podobné metody](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions) spojují delegáty žádostí do směrovacího systému.
 Další metody lze použít k připojení funkcí ASP.NET Core Framework k systému směrování:
-- [MapRazorPages pro Razor Pages](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*)
+- [MapRazorPages pro Razor stránky](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*)
 - [MapControllers pro řadiče](xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*)
-- [MapHub\<THub> pro signál](xref:Microsoft.AspNetCore.SignalR.HubRouteBuilder.MapHub*) 
-- [MapGrpcService\<TService> pro gRPC](xref:grpc/aspnetcore)
+- [MapHub \<THub> proSignalR](xref:Microsoft.AspNetCore.SignalR.HubRouteBuilder.MapHub*) 
+- [MapGrpcService \<TService> pro gRPC](xref:grpc/aspnetcore)
 
 Následující příklad ukazuje směrování s propracovanější šablonou směrování:
 
@@ -96,7 +83,7 @@ Následující příklad ukazuje směrování s propracovanější šablonou sm�
 * Adresa URL jako`/hello/Ryan`
 * Libovolná cesta URL začínající `/hello/` posloupností abecedních znaků.  `:alpha`použije omezení trasy, které odpovídá pouze abecedním znakům. [Omezení trasy](#route-constraint-reference) jsou vysvětleny dále v tomto dokumentu.
 
-Druhý segment cesty URL `{name:alpha}`:
+Druhý segment cesty URL `{name:alpha}` :
 
 * Je svázán s `name` parametrem.
 * Je zachycen a uložen v [HttpRequest. RouteValues](xref:Microsoft.AspNetCore.Http.HttpRequest.RouteValues*).
@@ -114,18 +101,18 @@ Předchozí příklad ukazuje, jak:
 * Middleware autorizace se dá použít spolu s směrováním.
 * Koncové body lze použít ke konfiguraci chování autorizace.
 
-<xref:Microsoft.AspNetCore.Builder.HealthCheckEndpointRouteBuilderExtensions.MapHealthChecks*> Volání přidá koncový bod kontroly stavu. <xref:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization*> Řetězení k tomuto volání připojí zásadu autorizace ke koncovému bodu.
+<xref:Microsoft.AspNetCore.Builder.HealthCheckEndpointRouteBuilderExtensions.MapHealthChecks*>Volání přidá koncový bod kontroly stavu. Řetězení <xref:Microsoft.AspNetCore.Builder.AuthorizationEndpointConventionBuilderExtensions.RequireAuthorization*> k tomuto volání připojí zásadu autorizace ke koncovému bodu.
 
-Volání <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> a <xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization*> přidává middleware pro ověřování a autorizaci. Tyto middleware jsou umístěné <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*> mezi `UseEndpoints` a tak, aby mohly:
+Volání <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> a <xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization*> přidává middleware pro ověřování a autorizaci. Tyto middleware jsou umístěné mezi <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseRouting*> a `UseEndpoints` tak, aby mohly:
 
-* Podívejte se, podle `UseRouting`kterého koncového bodu byl vybrán.
-* Před <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> odesláním do koncového bodu použijte zásady autorizace.
+* Podívejte se, podle kterého koncového bodu byl vybrán `UseRouting` .
+* Před odesláním <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> do koncového bodu použijte zásady autorizace.
 
 <a name="metadata"></a>
 
 ### <a name="endpoint-metadata"></a>Metadata koncového bodu
 
-V předchozím příkladu jsou k dispozici dva koncové body, ale pouze koncový bod kontroly stavu má připojené zásady autorizace. Pokud požadavek odpovídá koncovému bodu `/healthz`kontroly stavu, provede se ověření autorizace. To ukazuje, že koncovým bodům můžou být připojená další data. Tato další data se nazývají **metadata**koncového bodu:
+V předchozím příkladu jsou k dispozici dva koncové body, ale pouze koncový bod kontroly stavu má připojené zásady autorizace. Pokud požadavek odpovídá koncovému bodu kontroly stavu, `/healthz` provede se ověření autorizace. To ukazuje, že koncovým bodům můžou být připojená další data. Tato další data se nazývají **metadata**koncového bodu:
 
 * Metadata mohou být zpracována middlewarem s podporou směrování.
 * Metadata můžou být libovolného typu .NET.
@@ -140,7 +127,7 @@ Systém směrování sestaví nad kanálem middlewaru přidáním výkonného ko
 
 ASP.NET Core koncový bod:
 
-* Spustitelný soubor: má <xref:Microsoft.AspNetCore.Http.Endpoint.RequestDelegate>.
+* Spustitelný soubor: má <xref:Microsoft.AspNetCore.Http.Endpoint.RequestDelegate> .
 * Rozšiřitelný: má kolekci [metadat](xref:Microsoft.AspNetCore.Http.Endpoint.Metadata*) .
 * Možnost volby: volitelně má [informace o směrování](xref:Microsoft.AspNetCore.Routing.RouteEndpoint.RoutePattern*).
 * Vyčíslitelné: kolekce koncových bodů může být uvedena načtením <xref:Microsoft.AspNetCore.Routing.EndpointDataSource> z [di](xref:fundamentals/dependency-injection).
@@ -149,17 +136,17 @@ Následující kód ukazuje, jak načíst a zkontrolovat koncový bod, který od
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/EndpointInspectorStartup.cs?name=snippet)]
 
-Koncový bod, je-li vybrán, lze načíst z `HttpContext`. Lze zkontrolovat jeho vlastnosti. Objekty koncového bodu jsou neměnné a po vytvoření je nelze změnit. Nejběžnějším typem koncového bodu je <xref:Microsoft.AspNetCore.Routing.RouteEndpoint>. `RouteEndpoint`obsahuje informace, které umožňují, aby bylo možné je vybrat v systému směrování.
+Koncový bod, je-li vybrán, lze načíst z `HttpContext` . Lze zkontrolovat jeho vlastnosti. Objekty koncového bodu jsou neměnné a po vytvoření je nelze změnit. Nejběžnějším typem koncového bodu je <xref:Microsoft.AspNetCore.Routing.RouteEndpoint> . `RouteEndpoint`obsahuje informace, které umožňují, aby bylo možné je vybrat v systému směrování.
 
 V předchozím kódu [aplikace. Použijte](xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*) konfiguraci vloženého [middlewaru](xref:fundamentals/middleware/index).
 
 <a name="mt"></a>
 
-Následující kód ukazuje, že v závislosti na tom, `app.Use` kde je volána v kanálu, nemusí být koncový bod:
+Následující kód ukazuje, že v závislosti na tom, kde `app.Use` je volána v kanálu, nemusí být koncový bod:
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/MiddlewareFlowStartup.cs?name=snippet)]
 
-V předchozím příkladu jsou `Console.WriteLine` přidány příkazy, které zobrazují, zda byl vybrán koncový bod. Pro přehlednost ukázka přiřadí zobrazovaný název k poskytnutému `/` koncovému bodu.
+V předchozím příkladu `Console.WriteLine` jsou přidány příkazy, které zobrazují, zda byl vybrán koncový bod. Pro přehlednost ukázka přiřadí zobrazovaný název k poskytnutému `/` koncovému bodu.
 
 Spuštění tohoto kódu s adresou URL pro `/` zobrazení:
 
@@ -180,13 +167,13 @@ Spuštění tohoto kódu se všemi ostatními adresami URL zobrazuje:
 Tento výstup ukazuje, že:
 
 * Koncový bod je před `UseRouting` voláním vždy null.
-* Pokud je nalezena shoda, koncový bod nemá hodnotu null mezi `UseRouting` a. <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*>
-* `UseEndpoints` Middleware je **terminálem** , když je nalezena shoda. [Middleware terminálu terminálu](#tm) je definována dále v tomto dokumentu.
+* Pokud je nalezena shoda, koncový bod nemá hodnotu null mezi `UseRouting` a <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> .
+* `UseEndpoints`Middleware je **terminálem** , když je nalezena shoda. [Middleware terminálu terminálu](#tm) je definována dále v tomto dokumentu.
 * Middleware po `UseEndpoints` spuštění pouze v případě, že se nenajde žádná shoda.
 
-`UseRouting` Middleware používá metodu [SetEndpoint](xref:Microsoft.AspNetCore.Http.EndpointHttpContextExtensions.SetEndpoint*) pro připojení koncového bodu k aktuálnímu kontextu. Je možné nahradit `UseRouting` middleware vlastní logikou a stále využívat výhody použití koncových bodů. Koncové body jsou primitivní základní, jako middleware, a nejsou spojeny s implementací směrování. Většina aplikací se nemusí nahradit `UseRouting` vlastní logikou.
+`UseRouting`Middleware používá metodu [SetEndpoint](xref:Microsoft.AspNetCore.Http.EndpointHttpContextExtensions.SetEndpoint*) pro připojení koncového bodu k aktuálnímu kontextu. Je možné nahradit `UseRouting` middleware vlastní logikou a stále využívat výhody použití koncových bodů. Koncové body jsou primitivní základní, jako middleware, a nejsou spojeny s implementací směrování. Většina aplikací se nemusí nahradit `UseRouting` vlastní logikou.
 
-`UseEndpoints` Middleware je navržená tak, aby se mohla používat `UseRouting` společně s middlewarem. Základní logika pro spuštění koncového bodu není složitá. Použijte <xref:Microsoft.AspNetCore.Http.EndpointHttpContextExtensions.GetEndpoint*> k načtení koncového bodu a poté jeho <xref:Microsoft.AspNetCore.Http.Endpoint.RequestDelegate> vlastnost vyvolejte.
+`UseEndpoints`Middleware je navržená tak, aby se mohla používat společně s `UseRouting` middlewarem. Základní logika pro spuštění koncového bodu není složitá. Použijte <xref:Microsoft.AspNetCore.Http.EndpointHttpContextExtensions.GetEndpoint*> k načtení koncového bodu a poté jeho vlastnost vyvolejte <xref:Microsoft.AspNetCore.Http.Endpoint.RequestDelegate> .
 
 Následující kód ukazuje, jak middleware může ovlivnit směrování nebo reagovat na něj:
 
@@ -194,12 +181,12 @@ Následující kód ukazuje, jak middleware může ovlivnit směrování nebo re
 
 Předchozí příklad ukazuje dva důležité koncepty:
 
-* Middleware může běžet `UseRouting` před změnou dat, na kterých funguje směrování.
-    * Middleware, které se zobrazují před směrováním, mění určitou vlastnost žádosti, <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*>jako <xref:Microsoft.AspNetCore.Builder.HttpMethodOverrideExtensions.UseHttpMethodOverride*>je například <xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*>, nebo.
-* Middleware může běžet `UseRouting` mezi <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> a ke zpracování výsledků směrování před provedením koncového bodu.
-    * Middleware spouštěné `UseRouting` mezi `UseEndpoints`a:
+* Middleware může běžet před `UseRouting` změnou dat, na kterých funguje směrování.
+    * Middleware, které se zobrazují před směrováním, mění určitou vlastnost žádosti, jako <xref:Microsoft.AspNetCore.Builder.RewriteBuilderExtensions.UseRewriter*> je například, <xref:Microsoft.AspNetCore.Builder.HttpMethodOverrideExtensions.UseHttpMethodOverride*> nebo <xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*> .
+* Middleware může běžet mezi `UseRouting` a <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> ke zpracování výsledků směrování před provedením koncového bodu.
+    * Middleware spouštěné mezi `UseRouting` a `UseEndpoints` :
       * Obvykle kontroluje metadata pro pochopení koncových bodů.
-      * Často provádí rozhodnutí o zabezpečení, jak to `UseAuthorization` dělá `UseCors`a.
+      * Často provádí rozhodnutí o zabezpečení, jak to dělá `UseAuthorization` a `UseCors` .
     * Kombinace middlewaru a metadat umožňuje konfigurovat zásady na koncový bod.
 
 Předchozí kód ukazuje příklad vlastního middlewaru, který podporuje zásady pro jednotlivé koncové body. Middleware zapisuje *protokol auditu* přístupu k citlivým datům do konzoly. Middleware je možné nakonfigurovat pro *audit* koncového bodu s `AuditPolicyAttribute` metadaty. Tato ukázka předvádí vzor *výslovných* přihlášení, kde jsou auditovány pouze koncové body označené jako citlivé. Tuto logiku je možné definovat obráceně a auditovat vše, co není označeno jako bezpečné, například. Systém metadat koncového bodu je flexibilní. Tato logika by mohla být navržena jakýmkoli způsobem, který odpovídá případu použití.
@@ -209,7 +196,7 @@ Předchozí vzorový kód je určen k předvedení základních konceptů koncov
 * Přihlaste se k souboru nebo databázi.
 * Uveďte podrobnosti, jako je uživatel, IP adresa, název citlivého koncového bodu a další.
 
-Metadata `AuditPolicyAttribute` zásad auditu se definují jako `Attribute` pro snazší použití s platformami založenými na třídách, jako jsou řadiče a signály. Při použití *směrování na kód*:
+Metadata zásad auditu `AuditPolicyAttribute` jsou definována jako `Attribute` pro snazší použití s architekturami založenými na třídách, jako jsou například řadiče a SignalR . Při použití *směrování na kód*:
 
 * K rozhraní API tvůrce se připojují metadata.
 * Rozhraní založená na třídě zahrnují všechny atributy odpovídající metody a třídy při vytváření koncových bodů.
@@ -224,7 +211,7 @@ Následující ukázka kódu kontrastuje pomocí middlewaru s použitím směrov
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/TerminalMiddlewareStartup.cs?name=snippet)]
 
-Styl middleware zobrazený v `Approach 1:` nástroji je **middleware terminálu**. Nazývá middleware terminálu, protože se jedná o shodnou operaci:
+Styl middleware zobrazený v nástroji `Approach 1:` je **middleware terminálu**. Nazývá middleware terminálu, protože se jedná o shodnou operaci:
 
 * Operace porovnání v předchozím příkladu je určena `Path == "/"` pro middleware a `Path == "/Movie"` pro směrování.
 * Po úspěšné shodě se spustí některé funkce a vrátí místo vyvolání `next` middlewaru.
@@ -233,14 +220,14 @@ Nazývá middleware terminálu, protože ukončí hledání, spustí některé f
 
 Porovnání middlewaru a směrování terminálu:
 * Oba přístupy umožňují ukončení kanálu zpracování:
-    * Middleware ukončí kanál vrácením místo vyvolání `next`.
+    * Middleware ukončí kanál vrácením místo vyvolání `next` .
     * Koncové body jsou vždycky Terminálové.
 * Middleware terminálu umožňuje umístění middlewaru na libovolné místo v kanálu:
-    * Koncové body jsou spouštěny v <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*>pozici.
+    * Koncové body jsou spouštěny v pozici <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> .
 * Middleware terminálu umožňuje libovolnému kódu určit, kdy se middleware shoduje:
     * Kód pro přizpůsobení vlastní trasy může být podrobný a obtížně zapisovat.
     * Směrování poskytuje jednoduchá řešení pro běžné aplikace. Většina aplikací nevyžaduje kód pro přizpůsobení vlastní trasy.
-* Rozhraní koncových bodů s middlewarem, jako je `UseAuthorization` a `UseCors`.
+* Rozhraní koncových bodů s middlewarem, jako je `UseAuthorization` a `UseCors` .
     * Použití middleware terminálu pro `UseAuthorization` nebo `UseCors` vyžaduje ruční propojení s autorizačním systémem.
 
 [Koncový bod](#endpoint) definuje:
@@ -255,11 +242,11 @@ Middleware terminálu může být účinný nástroj, ale může vyžadovat:
 
 Před zápisem middleware terminálu zvažte integraci se směrováním.
 
-Existující middleware terminálu, který se [Map](xref:fundamentals/middleware/index#branch-the-middleware-pipeline) integruje <xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*> s mapou, nebo se obvykle může přepínat na koncový bod podporující směrování. [MapHealthChecks](https://github.com/aspnet/AspNetCore/blob/master/src/Middleware/HealthChecks/src/Builder/HealthCheckEndpointRouteBuilderExtensions.cs#L16) ukazuje vzor pro router:
-* Zápis metody rozšíření na <xref:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder>.
-* Vytvořte vnořený kanál middlewaru <xref:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder.CreateApplicationBuilder*>pomocí.
-* Připojte middleware k novému kanálu. V tomto případě <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*>.
-* <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.Build*>kanál middlewaru do <xref:Microsoft.AspNetCore.Http.RequestDelegate>.
+Existující middleware terminálu, který se integruje s [mapou](xref:fundamentals/middleware/index#branch-the-middleware-pipeline) , nebo <xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*> se obvykle může přepínat na koncový bod podporující směrování. [MapHealthChecks](https://github.com/aspnet/AspNetCore/blob/master/src/Middleware/HealthChecks/src/Builder/HealthCheckEndpointRouteBuilderExtensions.cs#L16) ukazuje vzor pro router:
+* Zápis metody rozšíření na <xref:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder> .
+* Vytvořte vnořený kanál middlewaru pomocí <xref:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder.CreateApplicationBuilder*> .
+* Připojte middleware k novému kanálu. V tomto případě <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> .
+* <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.Build*>kanál middlewaru do <xref:Microsoft.AspNetCore.Http.RequestDelegate> .
 * Zavolejte `Map` a poskytněte nový kanál middlewaru.
 * Vrátí objekt tvůrce poskytnutý `Map` z metody rozšíření.
 
@@ -279,7 +266,7 @@ Systém metadat byl vytvořen v reakci na problémy zjištěné rozšířením a
 * Je založena na datech v cestě a hlavičkách URL.
 * Dá se rozšířit tak, aby v žádosti mohla být považovat všechna data.
 
-Když middleware směrování spustí, nastaví v rámci `Endpoint` <xref:Microsoft.AspNetCore.Http.HttpContext> aktuální žádosti hodnoty a směrování na [funkci Request](xref:fundamentals/request-features) .
+Když middleware směrování spustí, nastaví v `Endpoint` rámci aktuální žádosti hodnoty a směrování na [funkci Request](xref:fundamentals/request-features) <xref:Microsoft.AspNetCore.Http.HttpContext> .
 
 * Volání [HttpContext. GetEndPoint](<xref:Microsoft.AspNetCore.Http.EndpointHttpContextExtensions.GetEndpoint*>) získá koncový bod.
 * `HttpRequest.RouteValues`Získá kolekci hodnot tras.
@@ -291,11 +278,11 @@ Systém směrování v rámci směrování koncových bodů zodpovídá za všec
 * Jakékoli rozhodnutí, které může ovlivnit odesílání nebo použití zásad zabezpečení, se provádí v rámci systému směrování.
 
 > [!WARNING]
-> Pro zpětnou kompatibilitu, když se spustí řadič nebo Razor Pages delegát koncového bodu, se vlastnosti [RouteContext. parametr RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) nastaví na vhodné hodnoty na základě dosud provedeného zpracování požadavků.
+> Pro zpětnou kompatibilitu, když Razor je spuštěný delegát koncového bodu kontroleru nebo stránek, jsou vlastnosti [RouteContext. parametr RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) nastaveny na odpovídající hodnoty na základě dosud provedeného zpracování požadavků.
 >
-> `RouteContext` Typ bude v budoucí verzi označen jako zastaralý:
+> `RouteContext`Typ bude v budoucí verzi označen jako zastaralý:
 >
-> * `RouteData.Values` Migrujte `HttpRequest.RouteValues`na.
+> * Migrujte `RouteData.Values` na `HttpRequest.RouteValues` .
 > * Migrujte `RouteData.DataTokens` pro načtení [IDataTokensMetadata](xref:Microsoft.AspNetCore.Routing.IDataTokensMetadata) z metadat koncového bodu.
 
 Shoda adresy URL funguje v konfigurovatelné sadě fází. V každé fázi je výstupem sada shod. Množinu shody lze v další fázi zúžit. Implementace směrování nezaručuje pořadí zpracování pro porovnání koncových bodů. **Všechny** možné shody jsou zpracovávány současně. V následujícím pořadí se shodují tyto fáze adresy URL. ASP.NET Core:
@@ -310,19 +297,19 @@ Seznam koncových bodů se stanovuje podle priorit:
 * [RouteEndpoint. Order](xref:Microsoft.AspNetCore.Routing.RouteEndpoint.Order*)
 * [Priorita šablony trasy](#rtp)
 
-Všechny vyhovující koncové body jsou zpracovávány v každé fázi <xref:Microsoft.AspNetCore.Routing.Matching.EndpointSelector> až do chvíle, kdy je dosaženo. `EndpointSelector` Je finální fází. Zvolí koncový bod nejvyšší priority z odpovídajících shod jako nejlepší shody. Pokud existují jiné shody se stejnou prioritou, jako je nejlepší shoda, je vyvolána výjimka nejednoznačná shoda.
+Všechny vyhovující koncové body jsou zpracovávány v každé fázi až do chvíle, kdy <xref:Microsoft.AspNetCore.Routing.Matching.EndpointSelector> je dosaženo. `EndpointSelector`Je finální fází. Zvolí koncový bod nejvyšší priority z odpovídajících shod jako nejlepší shody. Pokud existují jiné shody se stejnou prioritou, jako je nejlepší shoda, je vyvolána výjimka nejednoznačná shoda.
 
-Priorita trasy je vypočítána na základě **konkrétnější** šablony trasy, která má vyšší prioritu. Zvažte například šablony `/hello` a `/{message}`:
+Priorita trasy je vypočítána na základě **konkrétnější** šablony trasy, která má vyšší prioritu. Zvažte například šablony `/hello` a `/{message}` :
 
-* Obě adresy odpovídají cestě `/hello`URL.
+* Obě adresy odpovídají cestě URL `/hello` .
 * `/hello`je konkrétnější a proto má vyšší prioritu.
 
 Obecně platí, že priorita trasy má dobrou úlohu při výběru nejlepší shody pro typy schémat adres URL používaných v praxi. Použijte <xref:Microsoft.AspNetCore.Routing.RouteEndpoint.Order> pouze v případě potřeby, aby nedocházelo k nejednoznačnosti.
 
-V důsledku druhů rozšiřitelnosti poskytovaných směrováním není možné, aby systém směrování vypočítal předem nejednoznačné trasy. Vezměte v úvahu příklad, jako jsou například `/{message:alpha}` šablony `/{message:int}`směrování a:
+V důsledku druhů rozšiřitelnosti poskytovaných směrováním není možné, aby systém směrování vypočítal předem nejednoznačné trasy. Vezměte v úvahu příklad, jako jsou například šablony směrování `/{message:alpha}` a `/{message:int}` :
 
-* `alpha` Omezení odpovídá pouze abecedním znakům.
-* `int` Omezení odpovídá pouze číslům.
+* `alpha`Omezení odpovídá pouze abecedním znakům.
+* `int`Omezení odpovídá pouze číslům.
 * Tyto šablony mají stejnou prioritu trasy, ale žádná jediná adresa URL se shodují.
 * Pokud systém směrování ohlásil při spuštění chybu nejednoznačnosti, zablokuje tento platný případ použití.
 
@@ -346,7 +333,7 @@ V důsledku druhů rozšiřitelnosti poskytovaných směrováním není možné,
 * Vyhněte se nutnosti upravovat pořadí koncových bodů v běžných případech.
 * Pokusy o shodu se společnými očekáváními chování směrování.
 
-Zvažte například šablony `/Products/List` a `/Products/{id}`. Je vhodné předpokládat, že se jedná `/Products/List` o lepší shodu, `/Products/{id}` než pro cestu `/Products/List`URL. Funguje, protože literální segment `/List` je považován za lepší prioritu než segment `/{id}`parametru.
+Zvažte například šablony `/Products/List` a `/Products/{id}` . Je vhodné předpokládat, že `/Products/List` se jedná o lepší shodu, než `/Products/{id}` pro cestu URL `/Products/List` . Funguje, protože literální segment `/List` je považován za lepší prioritu než segment parametru `/{id}` .
 
 Podrobnosti o tom, jak priorita funguje, je spojena s tím, jak jsou definovány šablony směrování:
 
@@ -367,39 +354,108 @@ Generování adresy URL:
 * Je proces, podle kterého směrování může vytvořit cestu adresy URL na základě sady hodnot tras.
 * Umožňuje logické oddělení mezi koncovými body a adresami URL, které k nim mají přístup.
 
-Směrování koncového bodu <xref:Microsoft.AspNetCore.Routing.LinkGenerator> zahrnuje rozhraní API. `LinkGenerator`je služba typu Singleton dostupná z [di](xref:fundamentals/dependency-injection). `LinkGenerator` Rozhraní API lze použít mimo kontext vykonávajícího požadavku. [MVC. IUrlHelper](xref:Microsoft.AspNetCore.Mvc.IUrlHelper) a scénáře, které spoléhají <xref:Microsoft.AspNetCore.Mvc.IUrlHelper>na, jako jsou například [pomocníky značek](xref:mvc/views/tag-helpers/intro), HTML helps a [výsledky akcí](xref:mvc/controllers/actions), používají `LinkGenerator` rozhraní API interně k poskytování možností vytváření odkazů.
+Směrování koncového bodu zahrnuje <xref:Microsoft.AspNetCore.Routing.LinkGenerator> rozhraní API. `LinkGenerator`je služba typu Singleton dostupná z [di](xref:fundamentals/dependency-injection). `LinkGenerator`Rozhraní API lze použít mimo kontext vykonávajícího požadavku. [MVC. IUrlHelper](xref:Microsoft.AspNetCore.Mvc.IUrlHelper) a scénáře, které spoléhají na, jako jsou například <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> [pomocníky značek](xref:mvc/views/tag-helpers/intro), HTML helps a [výsledky akcí](xref:mvc/controllers/actions), používají `LinkGenerator` rozhraní API interně k poskytování možností vytváření odkazů.
 
-Generátor propojení se zálohuje konceptem **adres** a **schémat adres**. Schéma adres je způsob, jak určit koncové body, které by měly být považovány za vytváření odkazů. Například název trasy a hodnoty tras vycházejí z řadičů o mnoho uživatelů a Razor Pages jsou implementovány jako schéma adres.
+Generátor propojení se zálohuje konceptem **adres** a **schémat adres**. Schéma adres je způsob, jak určit koncové body, které by měly být považovány za vytváření odkazů. Například název trasy a hodnoty tras jsou obeznámeny s tím, že se řadiče a Razor stránky implementují jako schéma adres.
 
-Generátor propojení se může připojit k řadičům a Razor Pages prostřednictvím následujících rozšiřujících metod:
+Generátor propojení se může připojit k řadičům a Razor stránkám prostřednictvím následujících rozšiřujících metod:
 
 * <xref:Microsoft.AspNetCore.Routing.ControllerLinkGeneratorExtensions.GetPathByAction*>
 * <xref:Microsoft.AspNetCore.Routing.ControllerLinkGeneratorExtensions.GetUriByAction*>
 * <xref:Microsoft.AspNetCore.Routing.PageLinkGeneratorExtensions.GetPathByPage*>
 * <xref:Microsoft.AspNetCore.Routing.PageLinkGeneratorExtensions.GetUriByPage*>
 
-Přetížení těchto metod přijímají argumenty, které obsahují `HttpContext`. Tyto metody jsou funkčně ekvivalentní k [adrese URL. Action](xref:System.Web.Mvc.UrlHelper.Action*) a [URL. Page](xref:Microsoft.AspNetCore.Mvc.UrlHelperExtensions.Page*), ale nabízejí další flexibilitu a možnosti.
+Přetížení těchto metod přijímají argumenty, které obsahují `HttpContext` . Tyto metody jsou funkčně ekvivalentní k [adrese URL. Action](xref:System.Web.Mvc.UrlHelper.Action*) a [URL. Page](xref:Microsoft.AspNetCore.Mvc.UrlHelperExtensions.Page*), ale nabízejí další flexibilitu a možnosti.
 
-`GetPath*` Metody jsou nejvíce podobné `Url.Action` a `Url.Page`, v tom, že generují identifikátor URI obsahující absolutní cestu. `GetUri*` Metody vždy generují absolutní identifikátor URI obsahující schéma a hostitele. Metody, které přijímají `HttpContext` identifikátor URI v kontextu zpracovávaného požadavku. Použijí [se hodnoty tras,](#ambient) základní cesta, schéma a hostitel z zpracovávaného požadavku, pokud nejsou přepsány.
+`GetPath*`Metody jsou nejvíce podobné `Url.Action` a `Url.Page` , v tom, že generují identifikátor URI obsahující absolutní cestu. `GetUri*`Metody vždy generují absolutní identifikátor URI obsahující schéma a hostitele. Metody, které přijímají `HttpContext` identifikátor URI v kontextu zpracovávaného požadavku. Použijí [se hodnoty tras,](#ambient) základní cesta, schéma a hostitel z zpracovávaného požadavku, pokud nejsou přepsány.
 
 <xref:Microsoft.AspNetCore.Routing.LinkGenerator>je volána s adresou. K vygenerování identifikátoru URI dochází ve dvou krocích:
 
 1. Adresa je svázána se seznamem koncových bodů, které odpovídají dané adrese.
 1. Každý koncový bod <xref:Microsoft.AspNetCore.Routing.RouteEndpoint.RoutePattern> je vyhodnocen, dokud se nenajde vzor směrování, který odpovídá zadaným hodnotám. Výsledný výstup je v kombinaci s ostatními částmi identifikátoru URI dodanými generátorem odkazů a vrácenými.
 
-Metody poskytované funkcí <xref:Microsoft.AspNetCore.Routing.LinkGenerator> support standard pro vytváření odkazů pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkazů je prostřednictvím metod rozšíření, které provádějí operace pro konkrétní typ adresy:
+Metody poskytované <xref:Microsoft.AspNetCore.Routing.LinkGenerator> funkcí support standard pro vytváření odkazů pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkazů je prostřednictvím metod rozšíření, které provádějí operace pro konkrétní typ adresy:
 
-| Metoda rozšíření | Popis |
-| ---------------- | ----------- |
-| <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | Vygeneruje identifikátor URI s absolutní cestou na základě zadaných hodnot. |
-| <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | Vygeneruje absolutní identifikátor URI na základě zadaných hodnot.             |
+| Metoda rozšíření | Description |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | Vygeneruje identifikátor URI s absolutní cestou na základě zadaných hodnot. | | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | Vygeneruje absolutní identifikátor URI na základě zadaných hodnot.             |
 
 > [!WARNING]
 > Věnujte pozornost následujícím důsledkům volání <xref:Microsoft.AspNetCore.Routing.LinkGenerator> metod:
 >
 > * Používejte `GetUri*` rozšiřující metody s opatrností v konfiguraci aplikace, která neověřuje `Host` hlavičku příchozích požadavků. Pokud `Host` záhlaví příchozích požadavků není ověřeno, může být nedůvěryhodný vstup žádosti odeslán zpět klientovi v identifikátorech URI v zobrazení nebo na stránce. Doporučujeme, aby všechny produkční aplikace nakonfigurovali server, aby ověřili `Host` hlavičku se známými platnými hodnotami.
 >
-> * Používejte <xref:Microsoft.AspNetCore.Routing.LinkGenerator> s opatrností v middleware v `Map` kombinaci `MapWhen`s nebo. `Map*`změní základní cestu spouštěné žádosti, která má vliv na výstup vytváření odkazů. Všechna <xref:Microsoft.AspNetCore.Routing.LinkGenerator> rozhraní API umožňují zadat základní cestu. Zadejte prázdnou základní cestu pro vrácení `Map*` vlivu na generování odkazů.
+> * Používejte <xref:Microsoft.AspNetCore.Routing.LinkGenerator> s opatrností v middleware v kombinaci s `Map` nebo `MapWhen` . `Map*`změní základní cestu spouštěné žádosti, která má vliv na výstup vytváření odkazů. Všechna <xref:Microsoft.AspNetCore.Routing.LinkGenerator> rozhraní API umožňují zadat základní cestu. Zadejte prázdnou základní cestu pro vrácení `Map*` vlivu na generování odkazů.
 
 ### <a name="middleware-example"></a>Příklad middlewaru
 
@@ -411,50 +467,537 @@ V následujícím příkladu middleware používá <xref:Microsoft.AspNetCore.Ro
 
 ## <a name="route-template-reference"></a>Odkaz na šablonu směrování
 
-Tokeny `{}` v rámci definice parametrů trasy, které jsou vázány, pokud je trasa shodná. V segmentu směrování lze definovat více než jeden parametr trasy, ale parametry směrování musí být odděleny hodnotou literálu. Například `{controller=Home}{action=Index}` není platná trasa, protože hodnota literálu není mezi `{controller}` a. `{action}`  Parametry směrování musí mít název a můžou mít zadané další atributy.
+Tokeny v rámci `{}` definice parametrů trasy, které jsou vázány, pokud je trasa shodná. V segmentu směrování lze definovat více než jeden parametr trasy, ale parametry směrování musí být odděleny hodnotou literálu. Například `{controller=Home}{action=Index}` není platná trasa, protože hodnota literálu není mezi `{controller}` a `{action}` .  Parametry směrování musí mít název a můžou mít zadané další atributy.
 
-Textový literál jiný než parametry směrování (například `{id}`) a oddělovač `/` cesty musí odpovídat textu v adrese URL. Porovnávání textu rozlišuje malá a velká písmena, a to na základě dekódovat reprezentace cesty adresy URL. Chcete-li porovnat oddělovač parametrů trasy literálu `{` nebo `}`, vydejte oddělovač opakováním znaku. Například `{{` nebo `}}`.
+Textový literál jiný než parametry směrování (například `{id}` ) a oddělovač cesty `/` musí odpovídat textu v adrese URL. Porovnávání textu rozlišuje malá a velká písmena, a to na základě dekódovat reprezentace cesty adresy URL. Chcete-li porovnat oddělovač parametrů trasy literálu `{` nebo `}` , vydejte oddělovač opakováním znaku. Například `{{` nebo `}}` .
 
-Hvězdička `*` nebo dvojitá hvězdička `**`:
+Hvězdička `*` nebo dvojitá hvězdička `**` :
 
 * Dá se použít jako předpona parametru Route, aby se navázala na zbytek identifikátoru URI.
-* Označují se jako **catch-All** Parameters. Například `blog/{**slug}`:
-  * Odpovídá jakémukoli identifikátoru URI, `/blog` který začíná a má za sebou libovolnou hodnotu.
+* Označují se jako **catch-All** Parameters. Například `blog/{**slug}` :
+  * Odpovídá jakémukoli identifikátoru URI, který začíná `/blog` a má za sebou libovolnou hodnotu.
   * Hodnota níže `/blog` je přiřazena k hodnotě trasy [popisu](https://developer.mozilla.org/docs/Glossary/Slug) .
 
 [!INCLUDE[](~/includes/catchall.md)]
 
 Catch – všechny parametry můžou odpovídat také prázdnému řetězci.
 
-Parametr catch-All řídí příslušné znaky, pokud je použita cesta pro vygenerování adresy URL, včetně znaků oddělovače `/` cesty. Například trasa `foo/{*path}` s hodnotami `{ path = "my/path" }` trasy vygeneruje. `foo/my%2Fpath` Všimněte si řídicího znaku lomítka. Do oddělovacích znaků cesty pro přenos cest použijte předponu parametru `**` Route. Trasa `foo/{**path}` s `{ path = "my/path" }` vygeneruje `foo/my/path`.
+Parametr catch-All řídí příslušné znaky, pokud je použita cesta pro vygenerování adresy URL, včetně znaků oddělovače cesty `/` . Například trasa `foo/{*path}` s hodnotami trasy `{ path = "my/path" }` vygeneruje `foo/my%2Fpath` . Všimněte si řídicího znaku lomítka. Do oddělovacích znaků cesty pro přenos cest použijte `**` předponu parametru Route. Trasa `foo/{**path}` s `{ path = "my/path" }` vygeneruje `foo/my/path` .
 
-Vzory adres URL, které se pokoušejí zachytit název souboru s volitelnou příponou souboru, mají další požadavky. Představte si třeba šablonu `files/{filename}.{ext?}`. Pokud hodnoty pro obojí `filename` i `ext` existují, naplní se obě hodnoty. Je-li v adrese `filename` URL pouze hodnota, která odpovídá, bude trasa odpovídat, protože `.` koncový objekt je nepovinný. Tuto trasu odpovídají následujícím adresám URL:
+Vzory adres URL, které se pokoušejí zachytit název souboru s volitelnou příponou souboru, mají další požadavky. Představte si třeba šablonu `files/{filename}.{ext?}` . Pokud hodnoty pro obojí `filename` i `ext` existují, naplní se obě hodnoty. Je-li `filename` v adrese URL pouze hodnota, která odpovídá, bude trasa odpovídat, protože koncový objekt `.` je nepovinný. Tuto trasu odpovídají následujícím adresám URL:
 
 * `/files/myFile.txt`
 * `/files/myFile`
 
-Parametry směrování můžou mít **výchozí hodnoty** určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se (`=`). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller`. Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku (`?`) na konec názvu parametru. Například, `id?`. Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování:
+Parametry směrování můžou mít **výchozí hodnoty** určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se ( `=` ). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller` . Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku ( `?` ) na konec názvu parametru. Například, `id?`. Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování:
 
 * Parametr trasy s výchozí hodnotou vždy vytvoří hodnotu.
 * Volitelný parametr má hodnotu pouze v případě, že je hodnota poskytnuta adresou URL požadavku.
 
-Parametry směrování můžou mít omezení, která se musí shodovat s hodnotou trasy svázanou z adresy URL. Přidání `:` a omezení názvu za názvem parametru trasy určuje vložené omezení pro parametr trasy. Pokud omezení vyžaduje argumenty, jsou `(...)` po názvu omezení uzavřeny v závorkách. Pomocí připojení jiného `:` a názvu omezení lze zadat více *vložených omezení* .
+Parametry směrování můžou mít omezení, která se musí shodovat s hodnotou trasy svázanou z adresy URL. Přidání `:` a omezení názvu za názvem parametru trasy určuje vložené omezení pro parametr trasy. Pokud omezení vyžaduje argumenty, jsou po názvu omezení uzavřeny v závorkách `(...)` . Pomocí připojení jiného a názvu omezení lze zadat více *vložených omezení* `:` .
 
-Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> službě za účelem vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> pro použití při zpracování adresy URL. Například šablona `blog/{article:minlength(10)}` trasy Určuje `minlength` omezení s argumentem. `10` Další informace o omezeních tras a seznam omezení poskytovaných rozhraním najdete v části [referenční informace k omezením trasy](#route-constraint-reference) .
+Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> službě za účelem vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> pro použití při zpracování adresy URL. Například šablona trasy `blog/{article:minlength(10)}` Určuje `minlength` omezení s argumentem `10` . Další informace o omezeních tras a seznam omezení poskytovaných rozhraním najdete v části [referenční informace k omezením trasy](#route-constraint-reference) .
 
-Parametry směrování můžou mít také transformátory parametrů. Transformátory parametrů transformují hodnotu parametru při generování odkazů a porovnání akcí a stránek s adresami URL. Podobně jako omezení můžou být transformátory parametrů přidány do parametru trasy, `:` a to tak, že po názvu parametru trasy přidáte název a Transformer. Například šablona `blog/{article:slugify}` trasy Určuje `slugify` transformátor. Další informace o transformačních parametrech naleznete v části [Referenční příručka pro parametry](#parameter-transformer-reference) transformátoru.
+Parametry směrování můžou mít také transformátory parametrů. Transformátory parametrů transformují hodnotu parametru při generování odkazů a porovnání akcí a stránek s adresami URL. Podobně jako omezení můžou být transformátory parametrů přidány do parametru trasy, a to tak, že `:` po názvu parametru trasy přidáte název a Transformer. Například šablona trasy `blog/{article:slugify}` Určuje `slugify` transformátor. Další informace o transformačních parametrech naleznete v části [Referenční příručka pro parametry](#parameter-transformer-reference) transformátoru.
 
 Následující tabulka ukazuje příklady šablon směrování a jejich chování:
 
 | Šablona směrování                           | Příklad odpovídajícího identifikátoru URI    | Identifikátor URI žádosti&hellip;                                                    |
-| ---------------------------------------- | ----------------------- | -------------------------------------------------------------------------- |
-| `hello`                                  | `/hello`                | Odpovídá pouze jedné cestě `/hello`.                                     |
-| `{Page=Home}`                            | `/`                     | Odpovídá a nastavuje `Page` na `Home`.                                         |
-| `{Page=Home}`                            | `/Contact`              | Odpovídá a nastavuje `Page` na `Contact`.                                      |
-| `{controller}/{action}/{id?}`            | `/Products/List`        | Provede mapování na `Products` kontroler `List` a akci.                       |
-| `{controller}/{action}/{id?}`            | `/Products/Details/123` | Provede mapování na `Products` kontroler `Details` a akci`id` s nastavením na 123. |
-| `{controller=Home}/{action=Index}/{id?}` | `/`                     | Provede mapování na `Home` kontroler `Index` a metodu. `id` se ignoruje.        |
-| `{controller=Home}/{action=Index}/{id?}` | `/Products`         | Provede mapování na `Products` kontroler `Index` a metodu. `id` se ignoruje.        |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------------------------- | | `hello`                                  | `/hello`                | Odpovídá pouze jedné cestě `/hello` .                                     | | `{Page=Home}`                            | `/`                     | Odpovídá a nastavuje `Page` na `Home` .                                         | | `{Page=Home}`                            | `/Contact`              | Odpovídá a nastavuje `Page` na `Contact` .                                      | | `{controller}/{action}/{id?}`            | `/Products/List`        | Provede mapování na `Products` kontroler a `List` akci.                       | | `{controller}/{action}/{id?}`            | `/Products/Details/123` | Provede mapování na `Products` kontroler a `Details` akci s `id` nastavením na 123. | | `{controller=Home}/{action=Index}/{id?}` | `/`                     | Provede mapování na `Home` kontroler a `Index` metodu. `id` se ignoruje.        | | `{controller=Home}/{action=Index}/{id?}` | `/Products`         | Provede mapování na `Products` kontroler a `Index` metodu. `id` se ignoruje.        |
 
 Použití šablony je obecně nejjednodušší přístup ke směrování. Omezení a výchozí hodnoty je možné zadat i mimo šablonu směrování.
 
@@ -465,20 +1008,20 @@ Složité segmenty fungují určitým způsobem, který je nutné chápat pro je
 
 [!INCLUDE[](~/includes/regex.md)]
 
-Toto je souhrn kroků, které směrování provádí se šablonou `/a{b}c{d}` a cestou `/abcd`k adrese URL. `|` Slouží k vizualizaci, jak algoritmus funguje:
+Toto je souhrn kroků, které směrování provádí se šablonou `/a{b}c{d}` a cestou k adrese URL `/abcd` . `|`Slouží k vizualizaci, jak algoritmus funguje:
 
-* První literál, zprava doleva, je `c`. Proto `/abcd` je prohledáván zprava a hledá `/ab|c|d`.
-* Vše napravo (`d`) je nyní spárováno s parametrem `{d}`Route.
-* Další literál zprava doleva, je `a`. Proto `/ab|c|d` se prohledá, kde jsme skončili, `a` a pak `/|a|b|c|d`se najde.
-* Hodnota vpravo (`b`) je nyní shodná s parametrem `{b}`směrování.
+* První literál, zprava doleva, je `c` . Proto `/abcd` je prohledáván zprava a hledá `/ab|c|d` .
+* Vše napravo ( `d` ) je nyní spárováno s parametrem Route `{d}` .
+* Další literál zprava doleva, je `a` . Proto `/ab|c|d` se prohledá, kde jsme skončili, a pak `a` se najde `/|a|b|c|d` .
+* Hodnota vpravo ( `b` ) je nyní shodná s parametrem směrování `{b}` .
 * Není k dispozici žádný zbývající text a žádná šablona směrování, takže se jedná o shodu.
 
-Tady je příklad negativního případu pomocí stejné šablony `/a{b}c{d}` a cesty `/aabcd`URL. `|` Slouží k vizualizaci, jak algoritmus funguje. Tento případ se neshoduje s tím, který je vysvětlen stejným algoritmem:
-* První literál, zprava doleva, je `c`. Proto `/aabcd` je prohledáván zprava a hledá `/aab|c|d`.
-* Vše napravo (`d`) je nyní spárováno s parametrem `{d}`Route.
-* Další literál zprava doleva, je `a`. Proto `/aab|c|d` se prohledá, kde jsme skončili, `a` a pak `/a|a|b|c|d`se najde.
-* Hodnota vpravo (`b`) je nyní shodná s parametrem `{b}`směrování.
-* V tomto okamžiku se nachází zbývající text `a`, ale algoritmus vyvolal šablonu směrování, která se má analyzovat, takže se nejedná o shodu.
+Tady je příklad negativního případu pomocí stejné šablony `/a{b}c{d}` a cesty URL `/aabcd` . `|`Slouží k vizualizaci, jak algoritmus funguje. Tento případ se neshoduje s tím, který je vysvětlen stejným algoritmem:
+* První literál, zprava doleva, je `c` . Proto `/aabcd` je prohledáván zprava a hledá `/aab|c|d` .
+* Vše napravo ( `d` ) je nyní spárováno s parametrem Route `{d}` .
+* Další literál zprava doleva, je `a` . Proto `/aab|c|d` se prohledá, kde jsme skončili, a pak `a` se najde `/a|a|b|c|d` .
+* Hodnota vpravo ( `b` ) je nyní shodná s parametrem směrování `{b}` .
+* V tomto okamžiku se nachází zbývající text `a` , ale algoritmus vyvolal šablonu směrování, která se má analyzovat, takže se nejedná o shodu.
 
 Vzhledem k tomu, že shodný algoritmus není [hladec](#greedy):
 
@@ -501,25 +1044,77 @@ Omezení trasy se spustí, když došlo ke shodě s příchozí adresou URL a ce
 Následující tabulka ukazuje příklad omezení trasy a jejich očekávané chování:
 
 | omezení | Příklad | Příklady shody | Poznámky |
-| ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`, `-123456789` | Odpovídá jakémukoli celému číslu |
-| `bool` | `{active:bool}` | `true`, `FALSE` | Odpovídá `true` nebo `false`. Bez rozlišení velkých a malých písmen |
-| `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm` | Odpovídá platné `DateTime` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění. |
-| `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | Odpovídá platné `decimal` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | Odpovídá platné `double` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | Odpovídá platné `float` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638` | Odpovídá platné `Guid` hodnotě |
-| `long` | `{ticks:long}` | `123456789`, `-123456789` | Odpovídá platné `long` hodnotě |
-| `minlength(value)` | `{username:minlength(4)}` | `Rick` | Řetězec musí mít minimálně 4 znaky. |
-| `maxlength(value)` | `{filename:maxlength(8)}` | `MyFile` | Řetězec nesmí být delší než 8 znaků. |
-| `length(length)` | `{filename:length(12)}` | `somefile.txt` | Řetězec musí být přesně 12 znaků dlouhý. |
-| `length(min,max)` | `{filename:length(8,16)}` | `somefile.txt` | Řetězec musí mít aspoň 8 znaků a nesmí být delší než 16 znaků. |
-| `min(value)` | `{age:min(18)}` | `19` | Celočíselná hodnota musí být minimálně 18. |
-| `max(value)` | `{age:max(120)}` | `91` | Hodnota typu Integer nesmí být větší než 120. |
-| `range(min,max)` | `{age:range(18,120)}` | `91` | Celočíselná hodnota musí být minimálně 18, ale ne víc než 120. |
-| `alpha` | `{name:alpha}` | `Rick` | Řetězec musí obsahovat jeden nebo více abecedních znaků `a` - `z` a nerozlišuje velká a malá písmena. |
-| `regex(expression)` | `{ssn:regex(^\\d{{3}}-\\d{{2}}-\\d{{4}}$)}` | `123-45-6789` | Řetězec musí odpovídat regulárnímu výrazu. Přečtěte si tipy k definování regulárního výrazu. |
-| `required` | `{name:required}` | `Rick` | Slouží k vykonání, že při generování adresy URL je přítomna hodnota bez parametru. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------- | ----- | | `int` | `{id:int}` | `123456789`, `-123456789` | Odpovídá libovolnému celému číslu | | `bool` | `{active:bool}` | `true`, `FALSE` | Odpovídá `true` nebo `false` . Bez rozlišení velkých a malých písmen | | `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm` | Odpovídá platné `DateTime` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění. | | `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | Odpovídá platné `decimal` hodnotě v neutrální jazykové verzi. Zobrazit předchozí upozornění | | `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | Odpovídá platné `double` hodnotě v neutrální jazykové verzi. Zobrazit předchozí upozornění | | `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | Odpovídá platné `float` hodnotě v neutrální jazykové verzi. Zobrazit předchozí upozornění | | `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638` | Odpovídá platnému `Guid` hodnotě | | `long`  |  `{ticks:long}`  |  `123456789` , `-123456789` | Odpovídá platnému `long` hodnotě | | `minlength(value)`  |  `{username:minlength(4)}`  |  `Rick` | Řetězec musí mít minimálně 4 znaky | | `maxlength(value)` | `{filename:maxlength(8)}` | `MyFile` | Řetězec nesmí být delší než 8 znaků | | `length(length)` | `{filename:length(12)}` | `somefile.txt` | Řetězec musí být přesně 12 znaků dlouhý | | `length(min,max)` | `{filename:length(8,16)}` | `somefile.txt` | Řetězec musí mít aspoň 8 znaků a nesmí být delší než 16 znaků | | `min(value)` | `{age:min(18)}` | `19` | Celočíselná hodnota musí být minimálně 18 | `max(value)` | `{age:max(120)}` | `91` | Hodnota typu Integer nesmí být větší než 120 | | `range(min,max)` | `{age:range(18,120)}` | `91` | Celočíselná hodnota musí být minimálně 18, ale ne víc než 120 | | `alpha` | `{name:alpha}` | `Rick` | Řetězec musí obsahovat jeden nebo více abecedních znaků `a` - `z` a nerozlišuje velká a malá písmena. | | `regex(expression)` | `{ssn:regex(^\\d{{3}}-\\d{{2}}-\\d{{4}}$)}` | `123-45-6789` | Řetězec musí odpovídat regulárnímu výrazu. Přečtěte si tipy k definování regulárního výrazu. | | `required` | `{name:required}` | `Rick` | Slouží k vykonání, že při generování adresy URL je přítomna hodnota bez parametru. |
 
 [!INCLUDE[](~/includes/regex.md)]
 
@@ -531,13 +1126,13 @@ public User GetUserById(int id) { }
 ```
 
 > [!WARNING]
-> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR vždy používají invariantní jazykovou verzi. Například převod na typ `int` CLR nebo. `DateTime` Tato omezení předpokládají, že adresa URL není lokalizovatelné. Omezení tras poskytovaných rozhraním nemění hodnoty uložené v hodnotách tras. Všechny hodnoty tras přeložené z adresy URL se ukládají jako řetězce. Například `float` omezení se pokusí převést hodnotu trasy na typ float, ale převedená hodnota se používá pouze k ověření, že je možné ji převést na typ float.
+> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR vždy používají invariantní jazykovou verzi. Například převod na typ CLR `int` nebo `DateTime` . Tato omezení předpokládají, že adresa URL není lokalizovatelné. Omezení tras poskytovaných rozhraním nemění hodnoty uložené v hodnotách tras. Všechny hodnoty tras přeložené z adresy URL se ukládají jako řetězce. Například `float` omezení se pokusí převést hodnotu trasy na typ float, ale převedená hodnota se používá pouze k ověření, že je možné ji převést na typ float.
 
 ### <a name="regular-expressions-in-constraints"></a>Regulární výrazy v omezeních
 
 [!INCLUDE[](~/includes/regex.md)]
 
-Regulární výrazy lze zadat jako vložená omezení pomocí omezení `regex(...)` trasy. Metody v <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> rodině také přijímají literál objektu omezení. V případě použití tohoto formuláře jsou řetězcové hodnoty interpretovány jako regulární výrazy.
+Regulární výrazy lze zadat jako vložená omezení pomocí `regex(...)` omezení trasy. Metody v <xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllerRoute*> rodině také přijímají literál objektu omezení. V případě použití tohoto formuláře jsou řetězcové hodnoty interpretovány jako regulární výrazy.
 
 Následující kód používá vložené omezení regulárního výrazu:
 
@@ -547,44 +1142,314 @@ Následující kód používá literál objektu pro určení omezení regulárn�
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/StartupRegex2.cs?name=snippet)]
 
-Rozhraní ASP.NET Core se přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. Popis <xref:System.Text.RegularExpressions.RegexOptions> těchto členů naleznete v tématu.
+Rozhraní ASP.NET Core se přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. <xref:System.Text.RegularExpressions.RegexOptions>Popis těchto členů naleznete v tématu.
 
-Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a jazyk C#. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární `^\d{3}-\d{2}-\d{4}$` výraz v rámci vloženého omezení, použijte jednu z následujících možností:
+Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a jazyk C#. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární výraz `^\d{3}-\d{2}-\d{4}$` v rámci vloženého omezení, použijte jednu z následujících možností:
 
 * Nahraďte `\` znaky zadané v řetězci jako `\\` znaky ve zdrojovém souboru C#, aby bylo možné řídicí `\` znak řetězce Escape řídicího znaku.
 * [Doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string).
 
-`{`Chcete-li řídicí znaky oddělovače parametrů směrování `}`, `[` `]`,,, Zdvojnásobte znaky ve výrazu, `{{` `}}`například,, `[[`,. `]]` V následující tabulce je uveden regulární výraz a jeho řídicí verze:
+Chcete-li řídicí znaky oddělovače parametrů směrování,,,, `{` `}` `[` `]` Zdvojnásobte znaky ve výrazu, například,, `{{` `}}` `[[` , `]]` . V následující tabulce je uveden regulární výraz a jeho řídicí verze:
 
 | Regulární výraz    | Regulární výraz s řídicím znakem     |
-| --------------------- | ------------------------------ |
-| `^\d{3}-\d{2}-\d{4}$` | `^\\d{{3}}-\\d{{2}}-\\d{{4}}$` |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------------- | | `^\d{3}-\d{2}-\d{4}$` | `^\\d{{3}}-\\d{{2}}-\\d{{4}}$` |
 | `^[a-z]{2}$`          | `^[[a-z]]{{2}}$`               |
 
-Regulární výrazy používané ve směrování často začínají `^` znakem a odpovídají počáteční pozici řetězce. Výrazy často končí `$` znakem a odpovídají konci řetězce. Znaky `^` a `$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez znaků `^` a `$` regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. V následující tabulce jsou uvedeny příklady a vysvětlení, proč se shodují nebo neshodují:
+Regulární výrazy používané ve směrování často začínají `^` znakem a odpovídají počáteční pozici řetězce. Výrazy často končí `$` znakem a odpovídají konci řetězce. `^`Znaky a `$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez `^` znaků a `$` regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. V následující tabulce jsou uvedeny příklady a vysvětlení, proč se shodují nebo neshodují:
 
-| Expression   | Řetězec    | Shoda | Poznámka               |
-| ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| Výraz   | Řetězec    | Shoda | Komentář               |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | :---: |  ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------- | | `[a-z]{2}`   | Dobrý den | Ano | Shoda podřetězců | | `[a-z]{2}`   | 123abc456 | Ano | Shoda podřetězců | | `[a-z]{2}`   | MZ | Ano | Odpovídá výrazu | | `[a-z]{2}`   | MZ | Ano | Nerozlišuje velká a malá písmena | | `^[a-z]{2}$` | Dobrý den | Žádné | Viz `^` a `$` nad | | `^[a-z]{2}$` | 123abc456 | Žádné | Zobrazit `^` a `$` nad |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
-Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulární výraz. `{action:regex(^(list|get|create)$)}` Například odpovídá pouze hodnotě `action` trasy `list`, `get`nebo. `create` Pokud je předána do slovníku omezení, je `^(list|get|create)$` řetězec ekvivalentní. Omezení, která se předávají ve slovníku omezení, který se neshoduje s jedním ze známých omezení, jsou také považována za regulární výrazy. Omezení, která jsou předána v rámci šablony, která neodpovídá jednomu ze známých omezení, nejsou považována za regulární výrazy.
+Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulární výraz. Například `{action:regex(^(list|get|create)$)}` odpovídá pouze `action` hodnotě trasy `list` , `get` nebo `create` . Pokud je předána do slovníku omezení, `^(list|get|create)$` je řetězec ekvivalentní. Omezení, která se předávají ve slovníku omezení, který se neshoduje s jedním ze známých omezení, jsou také považována za regulární výrazy. Omezení, která jsou předána v rámci šablony, která neodpovídá jednomu ze známých omezení, nejsou považována za regulární výrazy.
 
 ### <a name="custom-route-constraints"></a>Vlastní omezení trasy
 
-Vlastní omezení směrování lze vytvořit implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. `IRouteConstraint` Rozhraní <xref:System.Web.Routing.IRouteConstraint.Match*>obsahuje, které vrací `true` , pokud je omezení splněno, a `false` jinak.
+Vlastní omezení směrování lze vytvořit implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. `IRouteConstraint`Rozhraní obsahuje <xref:System.Web.Routing.IRouteConstraint.Match*> , které vrací, `true` Pokud je omezení splněno, a `false` jinak.
 
 Vlastní omezení tras je potřeba jenom zřídka. Před implementací vlastního omezení trasy zvažte alternativy, jako je třeba vazba modelu.
 
 Složka [omezení](https://github.com/dotnet/aspnetcore/tree/master/src/Http/Routing/src/Constraints) ASP.NET Core poskytuje vhodné příklady vytváření omezení. Například [GuidRouteConstraint](https://github.com/dotnet/aspnetcore/blob/master/src/Http/Routing/src/Constraints/GuidRouteConstraint.cs#L18).
 
-Chcete-li použít `IRouteConstraint`vlastní, musí být typ omezení trasy zaregistrován <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v rámci aplikace v kontejneru služby. `ConstraintMap` Je slovník, který mapuje klíče omezení tras na `IRouteConstraint` implementace, které ověřují tato omezení. Aplikace se `ConstraintMap` dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>`. Příklad:
+Chcete-li použít vlastní `IRouteConstraint` , musí být typ omezení trasy zaregistrován v rámci aplikace <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v kontejneru služby. `ConstraintMap`Je slovník, který mapuje klíče omezení tras na `IRouteConstraint` implementace, které ověřují tato omezení. Aplikace se `ConstraintMap` dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/StartupConstraint.cs?name=snippet)]
 
@@ -605,36 +1470,36 @@ Předcházející kód:
 * Zabrání `0` v `{id}` segmentu trasy.
 * Je zobrazený jako základní příklad implementace vlastního omezení. Neměl by se používat v produkční aplikaci.
 
-Následující kód je lepší přístup, aby nedošlo `id` k tomu, `0` aby bylo možné zabránit zpracování obsahující a.
+Následující kód je lepší přístup, aby nedošlo k tomu, aby bylo možné zabránit `id` zpracování obsahující a `0` .
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/TestController.cs?name=snippet2)]
 
-Předchozí kód má oproti `MyCustomConstraint` přístupu následující výhody:
+Předchozí kód má oproti přístupu následující výhody `MyCustomConstraint` :
 
 * Nevyžaduje vlastní omezení.
-* V případě, že parametr Route obsahuje `0`, vrátí výstižnější chybu.
+* V případě, že parametr Route obsahuje, vrátí výstižnější chybu `0` .
 
 ## <a name="parameter-transformer-reference"></a>Odkaz na transformátor – parametr
 
 Transformátory parametrů:
 
-* Provést při generování propojení pomocí <xref:Microsoft.AspNetCore.Routing.LinkGenerator>.
-* Implementujte <xref:Microsoft.AspNetCore.Routing.IOutboundParameterTransformer?displayProperty=fullName>.
-* Jsou konfigurovány <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>pomocí.
+* Provést při generování propojení pomocí <xref:Microsoft.AspNetCore.Routing.LinkGenerator> .
+* Implementujte <xref:Microsoft.AspNetCore.Routing.IOutboundParameterTransformer?displayProperty=fullName> .
+* Jsou konfigurovány pomocí <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> .
 * Převeďte hodnotu trasy parametru a Transformujte ji na novou řetězcovou hodnotu.
 * Výsledkem použití transformované hodnoty ve vygenerovaném odkazu.
 
-Například vlastní `slugify` parametr Transformer ve vzoru `blog\{article:slugify}` směrování s `Url.Action(new { article = "MyTestArticle" })` vygenerováním. `blog\my-test-article`
+Například vlastní `slugify` parametr Transformer ve vzoru směrování `blog\{article:slugify}` s `Url.Action(new { article = "MyTestArticle" })` vygenerováním `blog\my-test-article` .
 
-Vezměte v úvahu `IOutboundParameterTransformer` následující implementaci:
+Vezměte v úvahu následující `IOutboundParameterTransformer` implementaci:
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/StartupConstraint2.cs?name=snippet2)]
 
-Pokud chcete použít transformující parametr ve schématu směrování, nakonfigurujte ho pomocí <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v: `Startup.ConfigureServices`
+Pokud chcete použít transformující parametr ve schématu směrování, nakonfigurujte ho pomocí <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v `Startup.ConfigureServices` :
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/StartupConstraint2.cs?name=snippet)]
 
-Rozhraní ASP.NET Core Framework používá transformaci parametrů k transformaci identifikátoru URI, kde koncový bod řeší. Například transformační parametry transformují hodnoty trasy používané k `area`porovnávání, `controller`, `action`a. `page`
+Rozhraní ASP.NET Core Framework používá transformaci parametrů k transformaci identifikátoru URI, kde koncový bod řeší. Například transformační parametry transformují hodnoty trasy používané k porovnávání `area` , `controller` , `action` a `page` .
 
 ```csharp
 routes.MapControllerRoute(
@@ -642,20 +1507,20 @@ routes.MapControllerRoute(
     template: "{controller:slugify=Home}/{action:slugify=Index}/{id?}");
 ```
 
-S předchozí šablonou směrování je akce `SubscriptionManagementController.GetAll` SHODNÁ s identifikátorem URI. `/subscription-management/get-all` Transformující parametr nemění hodnoty trasy použité k vygenerování odkazu. Například `Url.Action("GetAll", "SubscriptionManagement")` výstupy `/subscription-management/get-all`.
+S předchozí šablonou směrování `SubscriptionManagementController.GetAll` je akce shodná s identifikátorem URI `/subscription-management/get-all` . Transformující parametr nemění hodnoty trasy použité k vygenerování odkazu. Například `Url.Action("GetAll", "SubscriptionManagement")` výstupy `/subscription-management/get-all` .
 
 ASP.NET Core poskytuje konvence rozhraní API pro použití transformátorů parametrů s generovanými trasami:
 
-* Konvence <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.RouteTokenTransformerConvention?displayProperty=fullName> MVC aplikuje na všechny trasy atributů v aplikaci zadaný parametr Transformer. Parametr Transformer transformuje tokeny, když jsou nahrazeny. Další informace najdete v tématu [Použití transformátoru parametrů k přizpůsobení náhrady tokenu](xref:mvc/controllers/routing#use-a-parameter-transformer-to-customize-token-replacement).
-* Razor Pages používá konvenci <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteTransformerConvention> rozhraní API. Tato konvence u všech automaticky zjištěných Razor Pages aplikuje zadaný transformátor parametrů. Parametr Transformer přetransformuje segmenty složky a názvu souboru na trasy Razor Pages. Další informace najdete v tématu [Použití transformátoru parametrů k přizpůsobení cest stránky](xref:razor-pages/razor-pages-conventions#use-a-parameter-transformer-to-customize-page-routes).
+* <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.RouteTokenTransformerConvention?displayProperty=fullName>Konvence MVC aplikuje na všechny trasy atributů v aplikaci zadaný parametr Transformer. Parametr Transformer transformuje tokeny, když jsou nahrazeny. Další informace najdete v tématu [Použití transformátoru parametrů k přizpůsobení náhrady tokenu](xref:mvc/controllers/routing#use-a-parameter-transformer-to-customize-token-replacement).
+* RazorStránky používají <xref:Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteTransformerConvention> konvenci rozhraní API. Tato konvence aplikuje pro všechny automaticky zjištěné stránky zadaného transformačního parametru Razor . Parametr Transformer transformuje segmenty složek na stránkách a název souboru Razor . Další informace najdete v tématu [Použití transformátoru parametrů k přizpůsobení cest stránky](xref:razor-pages/razor-pages-conventions#use-a-parameter-transformer-to-customize-page-routes).
 
 <a name="ugr"></a>
 
 ## <a name="url-generation-reference"></a>Odkaz na generování adresy URL
 
-Tato část obsahuje odkaz na algoritmus implementovaný při generování adresy URL. V praxi používá většina složitých příkladů generování adresy URL řadiče nebo Razor Pages. Další informace najdete v tématu věnovaném [Směrování v řadičích](xref:mvc/controllers/routing) .
+Tato část obsahuje odkaz na algoritmus implementovaný při generování adresy URL. V praxi používá většina složitých příkladů generování adresy URL řadiče nebo Razor stránky. Další informace najdete v tématu věnovaném [Směrování v řadičích](xref:mvc/controllers/routing) .
 
-Proces generování adresy URL začíná voláním [LinkGenerator. GetPathByAddress](xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*) nebo podobné metody. Metoda je k dispozici s adresou, sadou hodnot směrování a volitelně informace o aktuálním požadavku z `HttpContext`.
+Proces generování adresy URL začíná voláním [LinkGenerator. GetPathByAddress](xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*) nebo podobné metody. Metoda je k dispozici s adresou, sadou hodnot směrování a volitelně informace o aktuálním požadavku z `HttpContext` .
 
 Prvním krokem je použití adresy k vyřešení sady kandidátních koncových bodů pomocí objektu [`IEndpointAddressScheme<TAddress>`](xref:Microsoft.AspNetCore.Routing.IEndpointAddressScheme`1) , který odpovídá typu adresy.
 
@@ -663,26 +1528,26 @@ Po nalezení sady kandidátů podle schématu adres jsou koncové body seřazen�
 
 ### <a name="troubleshooting-url-generation-with-logging"></a>Řešení potíží s generováním adresy URL pomocí protokolování
 
-Prvním krokem při řešení potíží s generováním adresy URL je nastavení úrovně `Microsoft.AspNetCore.Routing` protokolování `TRACE`na. `LinkGenerator`protokoluje mnoho podrobností o jeho zpracování, které může být užitečné při řešení problémů.
+Prvním krokem při řešení potíží s generováním adresy URL je nastavení úrovně protokolování `Microsoft.AspNetCore.Routing` na `TRACE` . `LinkGenerator`protokoluje mnoho podrobností o jeho zpracování, které může být užitečné při řešení problémů.
 
 Podrobnosti o generování adresy URL najdete v tématu [odkazy na generování adresy URL](#ugr) .
 
-### <a name="addresses"></a>Adresy
+### <a name="addresses"></a>Addresses (Adresy)
 
 Adresy představují koncept v adrese URL, který se používá pro svázání volání do generátoru odkazů do sady koncových bodů kandidáta.
 
 Adresy představují rozšiřitelný koncept, který se ve výchozím nastavení dodává se dvěma implementacemi:
 
-* Použití *názvu koncového bodu* (`string`) jako adresy:
+* Použití *názvu koncového bodu* ( `string` ) jako adresy:
     * Poskytuje podobné funkce jako název trasy MVC.
-    * Používá typ <xref:Microsoft.AspNetCore.Routing.IEndpointNameMetadata> metadat.
+    * Používá <xref:Microsoft.AspNetCore.Routing.IEndpointNameMetadata> typ metadat.
     * Vyřeší poskytnutý řetězec proti metadatům všech registrovaných koncových bodů.
     * Vyvolá výjimku při spuštění, pokud více koncových bodů používá stejný název.
-    * Doporučuje se pro účely obecného použití mimo řadiče a Razor Pages.
-* Jako adresu použijte *hodnoty trasy* (<xref:Microsoft.AspNetCore.Routing.RouteValuesAddress>):
-    * Poskytuje podobnou funkci pro řadiče a Razor Pages starší verze generování adresy URL.
+    * Doporučuje se pro účely obecného použití mimo řadiče a Razor stránky.
+* Jako adresu použijte *hodnoty trasy* ( <xref:Microsoft.AspNetCore.Routing.RouteValuesAddress> ):
+    * Poskytuje podobnou funkci pro řadiče a Razor stránky starší verze generování adresy URL.
     * Velmi složité pro rozšiřování a ladění.
-    * Poskytuje implementaci `IUrlHelper`, kterou používá, pomocníkům značek, HTML pomocníkům, výsledky akcí atd.
+    * Poskytuje implementaci, kterou používá `IUrlHelper` , pomocníkům značek, HTML pomocníkům, výsledky akcí atd.
 
 Role schématu adres je učinit přidružení mezi adresou a shodnými koncovými body podle libovolného kritéria:
 
@@ -693,9 +1558,9 @@ Role schématu adres je učinit přidružení mezi adresou a shodnými koncovým
 
 ### <a name="ambient-values-and-explicit-values"></a>Okolní hodnoty a explicitní hodnoty
 
-V rámci aktuální žádosti směrování přistupuje k hodnotám tras aktuálního požadavku `HttpContext.Request.RouteValues`. Hodnoty přidružené k aktuální žádosti jsou označovány jako **okolní hodnoty**. Pro účely srozumitelnosti dokumentace odkazuje na hodnoty tras předané do metod jako **explicitních hodnot**.
+V rámci aktuální žádosti směrování přistupuje k hodnotám tras aktuálního požadavku `HttpContext.Request.RouteValues` . Hodnoty přidružené k aktuální žádosti jsou označovány jako **okolní hodnoty**. Pro účely srozumitelnosti dokumentace odkazuje na hodnoty tras předané do metod jako **explicitních hodnot**.
 
-Následující příklad ukazuje okolní hodnoty a explicitní hodnoty. Poskytuje okolí hodnoty z aktuální žádosti a explicitních hodnot: `{ id = 17, }`:
+Následující příklad ukazuje okolní hodnoty a explicitní hodnoty. Poskytuje okolí hodnoty z aktuální žádosti a explicitních hodnot: `{ id = 17, }` :
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/WidgetController.cs?name=snippet)]
 
@@ -704,36 +1569,36 @@ Předcházející kód:
 * Vrátí`/Widget/Index/17`
 * Získá <xref:Microsoft.AspNetCore.Routing.LinkGenerator> přes [di](xref:fundamentals/dependency-injection).
 
-Následující kód neposkytuje žádné okolní hodnoty a explicitní hodnoty: `{ controller = "Home", action = "Subscribe", id = 17, }`:
+Následující kód neposkytuje žádné okolní hodnoty a explicitní hodnoty: `{ controller = "Home", action = "Subscribe", id = 17, }` :
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/WidgetController.cs?name=snippet2)]
 
 Předchozí metoda vrátí`/Home/Subscribe/17`
 
-Následující kód `WidgetController` vrátí `/Widget/Subscribe/17`:
+Následující kód `WidgetController` vrátí `/Widget/Subscribe/17` :
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/WidgetController.cs?name=snippet3)]
 
-Následující kód poskytuje kontroler z okolních hodnot v aktuální žádosti a explicitní hodnoty: `{ action = "Edit", id = 17, }`:
+Následující kód poskytuje kontroler z okolních hodnot v aktuální žádosti a explicitní hodnoty: `{ action = "Edit", id = 17, }` :
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/GadgetController.cs?name=snippet)]
 
 V předchozím kódu:
 
 * `/Gadget/Edit/17`je vrácen.
-* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Url>Získá <xref:Microsoft.AspNetCore.Mvc.IUrlHelper>.
+* <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Url>Získá <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> .
 * <xref:Microsoft.AspNetCore.Mvc.UrlHelperExtensions.Action*>   
 vygeneruje adresu URL s absolutní cestou pro metodu Action. Adresa URL obsahuje zadaný `action` název a `route` hodnoty.
 
-Následující kód poskytuje okolí hodnot z aktuální žádosti a explicitních hodnot: `{ page = "./Edit, id = 17, }`:
+Následující kód poskytuje okolí hodnot z aktuální žádosti a explicitních hodnot: `{ page = "./Edit, id = 17, }` :
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Pages/Index.cshtml.cs?name=snippet)]
 
-Předchozí kód je nastaven `url` na `/Edit/17` , pokud stránka upravit Razor obsahuje následující direktivu stránky:
+Předchozí kód je nastaven `url` na, `/Edit/17` Pokud stránka pro úpravy Razor obsahuje následující direktivu stránky:
 
  `@page "{id:int}"`
 
-Pokud stránka pro úpravy neobsahuje šablonu `"{id:int}"` směrování, `url` je. `/Edit?id=17`
+Pokud stránka pro úpravy neobsahuje `"{id:int}"` šablonu směrování, `url` je `/Edit?id=17` .
 
 Chování MVC <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> přináší kromě pravidel popsaných tady také vrstvu složitosti:
 
@@ -742,9 +1607,9 @@ Chování MVC <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> přináší kromě prav
 * [IUrlHelper. Page](xref:Microsoft.AspNetCore.Mvc.UrlHelperExtensions.Page*) vždycky zkopíruje aktuální `page` hodnotu trasy jako explicitní hodnotu, pokud není přepsána. <!--by the user-->
 * `IUrlHelper.Page`vždy přepíše hodnotu aktuální `handler` trasy `null` jako explicitní hodnoty, pokud není přepsána.
 
-Uživatelé jsou často překvapeni podrobnostmi o okolních hodnotách, protože MVC nevypadá podle svých vlastních pravidel. V případě historických a kompatibilních důvodů jsou některé hodnoty trasy `action`, `controller`například `page`,, `handler` a mají své vlastní speciální chování.
+Uživatelé jsou často překvapeni podrobnostmi o okolních hodnotách, protože MVC nevypadá podle svých vlastních pravidel. V případě historických a kompatibilních důvodů jsou některé hodnoty trasy, například,, `action` `controller` `page` a `handler` mají své vlastní speciální chování.
 
-Ekvivalentní funkce `LinkGenerator.GetPathByAction` , které poskytuje a `LinkGenerator.GetPathByPage` duplikují tyto anomálie `IUrlHelper` kvůli kompatibilitě.
+Ekvivalentní funkce, které poskytuje `LinkGenerator.GetPathByAction` a `LinkGenerator.GetPathByPage` duplikují tyto anomálie `IUrlHelper` kvůli kompatibilitě.
 
 ### <a name="url-generation-process"></a>Proces generování adresy URL
 
@@ -764,22 +1629,22 @@ Nejlepším způsobem, jak se zamyslet na roli okolních hodnot, je, že se v n�
 
 Volání `LinkGenerator` nebo `IUrlHelper` tyto návraty `null` jsou obvykle způsobena neporozuměním neplatností hodnoty trasy. Pokud chcete zjistit, jestli se problém vyřeší, vyřešte neplatnost hodnoty trasy explicitním zadáním více hodnot tras.
 
-Neplatnost hodnoty směrování funguje na předpokladu, že schéma adresy URL aplikace je hierarchické, s hierarchií vytvořenou zleva doprava. Vezměte v úvahu šablonu `{controller}/{action}/{id?}` postupu základního kontroleru, abyste získali intuitivní představu o tom, jak to funguje v praxi. **Změna** hodnoty **zruší platnost** všech hodnot tras, které se zobrazí vpravo. To odráží předpoklad hierarchie. Pokud má aplikace okolní hodnotu pro `id`a operace určuje jinou hodnotu pro: `controller`
+Neplatnost hodnoty směrování funguje na předpokladu, že schéma adresy URL aplikace je hierarchické, s hierarchií vytvořenou zleva doprava. Vezměte v úvahu šablonu postupu základního kontroleru `{controller}/{action}/{id?}` , abyste získali intuitivní představu o tom, jak to funguje v praxi. **Změna** hodnoty **zruší platnost** všech hodnot tras, které se zobrazí vpravo. To odráží předpoklad hierarchie. Pokud má aplikace okolní hodnotu pro `id` a operace určuje jinou hodnotu pro `controller` :
 
-* `id`se znovu nepoužije, `{controller}` protože je nalevo od `{id?}`.
+* `id`se znovu nepoužije, protože `{controller}` je nalevo od `{id?}` .
 
 Některé příklady demonstrují tento princip:
 
-* Pokud explicitní hodnoty obsahují hodnotu pro `id`, hodnota okolí pro `id` je ignorována. Okolní hodnoty pro `controller` a `action` lze použít.
-* Pokud explicitní hodnoty obsahují hodnotu pro `action`, všechny okolí hodnoty pro `action` je ignorováno. Okolní hodnoty pro `controller` lze použít. Pokud je explicitní hodnota pro `action` odlišná od okolní hodnoty pro `action`, hodnota se `id` nepoužije.  Pokud je explicitní hodnota pro `action` shodná s hodnotou okolí pro `action`, lze použít `id` hodnotu.
-* Pokud explicitní hodnoty obsahují hodnotu pro `controller`, všechny okolí hodnoty pro `controller` je ignorováno. Pokud je explicitní hodnota pro `controller` odlišná od hodnoty okolí pro `controller`, hodnoty `action` a `id` nebudou použity. Pokud je explicitní hodnota pro `controller` shodná s hodnotou okolí pro `controller`, lze použít hodnoty `action` a. `id`
+* Pokud explicitní hodnoty obsahují hodnotu pro `id` , hodnota okolí pro `id` je ignorována. Okolní hodnoty pro `controller` a `action` lze použít.
+* Pokud explicitní hodnoty obsahují hodnotu pro `action` , všechny okolí hodnoty pro `action` je ignorováno. Okolní hodnoty pro `controller` lze použít. Pokud je explicitní hodnota pro `action` odlišná od okolní hodnoty pro `action` , hodnota se `id` nepoužije.  Pokud je explicitní hodnota pro `action` shodná s hodnotou okolí pro `action` , `id` lze použít hodnotu.
+* Pokud explicitní hodnoty obsahují hodnotu pro `controller` , všechny okolí hodnoty pro `controller` je ignorováno. Pokud je explicitní hodnota pro `controller` odlišná od hodnoty okolí pro `controller` , `action` `id` hodnoty a nebudou použity. Pokud je explicitní hodnota pro `controller` shodná s hodnotou okolí pro `controller` , `action` `id` lze použít hodnoty a.
 
-Tento proces je dále komplikovaný existence tras atributů a vyhrazených konvenčních tras. Řadiče konvenčních cest, `{controller}/{action}/{id?}` jako je například určení hierarchie pomocí parametrů směrování. Pro [vyhrazené konvenční trasy](xref:mvc/controllers/routing#dcr) a [Směrování atributů](xref:mvc/controllers/routing#ar) na řadiče a Razor Pages:
+Tento proces je dále komplikovaný existence tras atributů a vyhrazených konvenčních tras. Řadiče konvenčních cest, jako je například `{controller}/{action}/{id?}` určení hierarchie pomocí parametrů směrování. Pro [vyhrazené konvenční trasy](xref:mvc/controllers/routing#dcr) a [Směrování atributů](xref:mvc/controllers/routing#ar) na řadiče a Razor stránky:
 
 * Existuje hierarchie hodnot směrování.
 * Nezobrazují se v šabloně.
 
-V těchto případech generování adresy URL definuje koncept **požadovaných hodnot** . Koncové body vytvořené řadiči a Razor Pages mají zadané požadované hodnoty, které umožňují fungování neplatnosti hodnoty směrování.
+V těchto případech generování adresy URL definuje koncept **požadovaných hodnot** . U koncových bodů vytvořených řadiči a Razor stránkami jsou zadané požadované hodnoty, které umožňují fungování neplatnosti hodnoty směrování.
 
 Podrobnosti o algoritmu neplatnosti hodnoty směrování:
 
@@ -802,14 +1667,339 @@ V dalším kroku lze **přijmout hodnoty** , které slouží k rozbalení šablo
   * Pokud libovolný parametr trasy napravo od chybějícího volitelného parametru má hodnotu, operace se nezdařila.
   * <!-- review default-valued parameters optional parameters --> Sousedící parametry výchozí hodnoty a volitelné parametry jsou sbaleny tam, kde je to možné.
 
-Hodnoty zadané explicitně, které neodpovídají segmentu trasy, se přidají do řetězce dotazu. V následující tabulce je uveden výsledek při použití šablony `{controller}/{action}/{id?}`směrování.
+Hodnoty zadané explicitně, které neodpovídají segmentu trasy, se přidají do řetězce dotazu. V následující tabulce je uveden výsledek při použití šablony směrování `{controller}/{action}/{id?}` .
 
 | Okolní hodnoty                     | Explicitní hodnoty                        | Výsledek                  |
-| ---------------------------------- | -------------------------------------- | ----------------------- |
-| Controller = "domů"                | Action = "o"                       | `/Home/About`           |
-| Controller = "domů"                | Controller = "objednávka"; Action = "o" | `/Order/About`          |
-| Controller = "Home"; Color = "Red" | Action = "o"                       | `/Home/About`           |
-| Controller = "domů"                | Action = "o", Color = "Red"        | `/Home/About?color=Red` |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------ | | Controller = "domů" | Action = "o" | `/Home/About`|
+| Controller = "domů" | Controller = "objednávka"; Action = "o" | `/Order/About`|
+| Controller = "Home"; Color = "Red" | Action = "o" | `/Home/About`|
+| Controller = "domů" | Action = "o", Color = "Red" | `/Home/About?color=Red`                                |
 
 ### <a name="problems-with-route-value-invalidation"></a>Problémy s neplatností hodnoty trasy
 
@@ -819,10 +2009,10 @@ Následující kód ukazuje příklad schématu generování adresy URL, které 
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/StartupUnsupported.cs?name=snippet)]
 
-V předchozím kódu je parametr `culture` Route použit k lokalizaci. Je potřeba, aby `culture` parametr byl vždycky přijatý jako ambientní hodnota. `culture` Parametr ale není přijatý jako ambientní hodnota z důvodu způsobu, jakým požadované hodnoty fungují:
+V předchozím kódu `culture` je parametr Route použit k lokalizaci. Je potřeba, aby parametr byl `culture` vždycky přijatý jako ambientní hodnota. `culture`Parametr ale není přijatý jako ambientní hodnota z důvodu způsobu, jakým požadované hodnoty fungují:
 
-* V šabloně `"default"` trasy je `culture` parametr trasy nalevo `controller`od, takže změny se `controller` nebudou odhodnocovat. `culture`
-* V šabloně `"blog"` trasy je parametr `culture` Route považován za napravo od `controller`, což se zobrazuje v požadovaných hodnotách.
+* V `"default"` šabloně trasy `culture` je parametr trasy nalevo od `controller` , takže změny se `controller` nebudou odhodnocovat `culture` .
+* V `"blog"` šabloně trasy `culture` je parametr Route považován za napravo od `controller` , což se zobrazuje v požadovaných hodnotách.
 
 ## <a name="configuring-endpoint-metadata"></a>Konfigurace metadat koncového bodu
 
@@ -840,14 +2030,14 @@ Následující odkazy obsahují informace o konfiguraci metadat koncového bodu:
 
 ## <a name="host-matching-in-routes-with-requirehost"></a>Přiřazení hostitelů v cestách pomocí RequireHost
 
-<xref:Microsoft.AspNetCore.Builder.RoutingEndpointConventionBuilderExtensions.RequireHost*>použije omezení na trasu, která vyžaduje zadaného hostitele. Parametr `RequireHost` nebo [[Host]](xref:Microsoft.AspNetCore.Routing.HostAttribute) může být:
+<xref:Microsoft.AspNetCore.Builder.RoutingEndpointConventionBuilderExtensions.RequireHost*>použije omezení na trasu, která vyžaduje zadaného hostitele. `RequireHost`Parametr nebo [[Host]](xref:Microsoft.AspNetCore.Routing.HostAttribute) může být:
 
-* Hostitel: `www.domain.com`, odpovídá `www.domain.com` jakémukoli portu.
-* Hostitel se zástupnými znaky `www.domain.com`: `subdomain.domain.com` `www.subdomain.domain.com` `*.domain.com`, odpovídá, nebo na jakémkoli portu.
-* Port: `*:5000`, odpovídá portu 5000 všem hostitelům.
-* Hostitel a port: `www.domain.com:5000` nebo `*.domain.com:5000`se shoduje s hostitelem a portem.
+* Hostitel: `www.domain.com` , odpovídá `www.domain.com` jakémukoli portu.
+* Hostitel se zástupnými znaky: `*.domain.com` , odpovídá `www.domain.com` , `subdomain.domain.com` nebo `www.subdomain.domain.com` na jakémkoli portu.
+* Port: `*:5000` , odpovídá portu 5000 všem hostitelům.
+* Hostitel a port: `www.domain.com:5000` nebo `*.domain.com:5000` se shoduje s hostitelem a portem.
 
-Více parametrů lze zadat pomocí `RequireHost` nebo. `[Host]` Omezení odpovídá počtu hostitelů platných pro libovolný parametr. Například `[Host("domain.com", "*.domain.com")]` odpovídá `domain.com` `www.domain.com`, a `subdomain.domain.com`.
+Více parametrů lze zadat pomocí `RequireHost` nebo `[Host]` . Omezení odpovídá počtu hostitelů platných pro libovolný parametr. Například odpovídá, `[Host("domain.com", "*.domain.com")]` `domain.com` `www.domain.com` a `subdomain.domain.com` .
 
 Následující kód používá `RequireHost` pro vyžadování zadaného hostitele v trase:
 
@@ -857,7 +2047,7 @@ Následující kód používá `[Host]` atribut na řadiči pro vyžadování n�
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/ProductController.cs?name=snippet)]
 
-Když je `[Host]` atribut použit pro metodu Controller a Action:
+Když `[Host]` je atribut použit pro metodu Controller a Action:
 
 * Atribut akce je použit.
 * Atribut kontroleru se ignoruje.
@@ -866,7 +2056,7 @@ Když je `[Host]` atribut použit pro metodu Controller a Action:
 
 Většina směrování se v ASP.NET Core 3,0 aktualizovala, aby se zvýšil výkon.
 
-Pokud dojde k problémům s výkonem aplikace, směrování je často podezřelé jako problém. Podezření na směrování je, že architektury, jako jsou řadiče, a Razor Pages hlásí množství času stráveného v rámci rozhraní ve zprávách protokolování. V případě významného rozdílu mezi časem hlášeným řadiči a celkovou dobou trvání žádosti:
+Pokud dojde k problémům s výkonem aplikace, směrování je často podezřelé jako problém. Podezření na směrování je, že architektury, jako jsou řadiče a Razor stránky, nahlásí množství času stráveného v rámci rozhraní ve zprávách protokolování. V případě významného rozdílu mezi časem hlášeným řadiči a celkovou dobou trvání žádosti:
 
 * Vývojáři odstraňují svůj kód aplikace jako zdroj problému.
 * Je běžné předpokládat, že směrování je příčinou.
@@ -882,7 +2072,7 @@ Následující příklad kódu ukazuje základní techniku pro zúžení zdroje 
 * Proložení každého middlewaru pomocí kopie middlewaru časování zobrazeného v předchozím kódu.
 * Přidejte jedinečný identifikátor, který bude korelovat data časování s kódem.
 
-Jedná se o základní způsob zúžení zpoždění, pokud je důležité, například více než `10ms`.  Odečte se `Time 2` od `Time 1` sestav čas strávený uvnitř `UseRouting` middlewaru.
+Jedná se o základní způsob zúžení zpoždění, pokud je důležité, například více než `10ms` .  Odečte `Time 2` se od `Time 1` sestav čas strávený uvnitř `UseRouting` middlewaru.
 
 Následující kód používá kompaktnější přístup k předchozímu kódu časování:
 
@@ -896,12 +2086,12 @@ Následující seznam obsahuje přehled funkcí směrování, které jsou v poro
 
 * Regulární výrazy: je možné napsat regulární výrazy, které jsou složité, nebo mají dlouhou dobu běhu s malým množstvím vstupu.
 
-* Komplexní segmenty`{x}-{y}-{z}`(): 
+* Komplexní segmenty ( `{x}-{y}-{z}` ): 
   * Jsou podstatně dražší než analýza běžného segmentu cesty URL.
   * Výsledkem je přidělení mnoha dalších podřetězců.
   * V aktualizaci výkonu směrování ASP.NET Core 3,0 nebyla aktualizována logika komplexního segmentu.
 
-* Synchronní přístup k datům: mnoho složitých aplikací má přístup k databázi jako součást jejich směrování. ASP.NET Core 2,2 a starší směrování nemusí poskytovat správné body rozšiřitelnosti pro podporu směrování přístupu k databázi. Například <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, a <xref:Microsoft.AspNetCore.Mvc.ActionConstraints.IActionConstraint> jsou synchronní. Body rozšiřitelnosti, <xref:Microsoft.AspNetCore.Routing.MatcherPolicy> jako <xref:Microsoft.AspNetCore.Routing.EndpointSelectorContext> jsou a, jsou asynchronní.
+* Synchronní přístup k datům: mnoho složitých aplikací má přístup k databázi jako součást jejich směrování. ASP.NET Core 2,2 a starší směrování nemusí poskytovat správné body rozšiřitelnosti pro podporu směrování přístupu k databázi. Například <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , a <xref:Microsoft.AspNetCore.Mvc.ActionConstraints.IActionConstraint> jsou synchronní. Body rozšiřitelnosti, <xref:Microsoft.AspNetCore.Routing.MatcherPolicy> jako <xref:Microsoft.AspNetCore.Routing.EndpointSelectorContext> jsou a, jsou asynchronní.
 
 ## <a name="guidance-for-library-authors"></a>Doprovodné materiály pro autory knihovny
 
@@ -909,9 +2099,9 @@ Tato část obsahuje pokyny pro autory knihoven, kteří sestavují na směrová
 
 ### <a name="define-endpoints"></a>Definování koncových bodů
 
-Chcete-li vytvořit rozhraní, které používá směrování pro odpovídající adresu URL, začněte definováním uživatelského prostředí, které sestaví na začátku <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*>.
+Chcete-li vytvořit rozhraní, které používá směrování pro odpovídající adresu URL, začněte definováním uživatelského prostředí, které sestaví na začátku <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> .
 
-**Sestavte** nahoru <xref:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder>. To umožňuje uživatelům vytvářet vaše rozhraní s jinými ASP.NET Core funkcemi bez nejasností. Každá šablona ASP.NET Core zahrnuje směrování. Předpokládat, že směrování je k dispozici a je pro uživatele známé.
+**Sestavte** nahoru <xref:Microsoft.AspNetCore.Routing.IEndpointRouteBuilder> . To umožňuje uživatelům vytvářet vaše rozhraní s jinými ASP.NET Core funkcemi bez nejasností. Každá šablona ASP.NET Core zahrnuje směrování. Předpokládat, že směrování je k dispozici a je pro uživatele známé.
 
 ```csharp
 app.UseEndpoints(endpoints =>
@@ -923,7 +2113,7 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-**Vraťte z** volání do `MapMyFramework(...)` tohoto implementace <xref:Microsoft.AspNetCore.Builder.IEndpointConventionBuilder>zapečetěný konkrétní typ. Většina metod `Map...` rozhraní se řídí tímto modelem. `IEndpointConventionBuilder` Rozhraní:
+**Vraťte z** volání do tohoto implementace zapečetěný konkrétní typ `MapMyFramework(...)` <xref:Microsoft.AspNetCore.Builder.IEndpointConventionBuilder> . Většina metod rozhraní se `Map...` řídí tímto modelem. `IEndpointConventionBuilder`Rozhraní:
 
 * Umožňuje vytváření metadat.
 * Cílí na celou řadu rozšiřujících metod.
@@ -941,11 +2131,11 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-**Zvažte** vytvoření vlastního <xref:Microsoft.AspNetCore.Routing.EndpointDataSource>. `EndpointDataSource`je primitiva nízké úrovně pro deklarování a aktualizaci kolekce koncových bodů. `EndpointDataSource`je výkonné rozhraní API používané řadiči a Razor Pages.
+**Zvažte** vytvoření vlastního <xref:Microsoft.AspNetCore.Routing.EndpointDataSource> . `EndpointDataSource`je primitiva nízké úrovně pro deklarování a aktualizaci kolekce koncových bodů. `EndpointDataSource`je výkonné rozhraní API používané řadiči a Razor stránkami.
 
 Testy směrování mají [základní příklad](https://github.com/aspnet/AspNetCore/blob/master/src/Http/Routing/test/testassets/RoutingSandbox/Framework/FrameworkEndpointDataSource.cs#L17) zdroje dat bez aktualizace.
 
-**Nepokoušejte se** zaregistrovat `EndpointDataSource` ve výchozím nastavení. Vyžaduje, aby uživatelé zaregistrovali vaše <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*>rozhraní v. Filozofie směrování znamená, že ve výchozím nastavení není nic zahrnuto a je `UseEndpoints` to místo pro registraci koncových bodů.
+**Nepokoušejte se** zaregistrovat `EndpointDataSource` ve výchozím nastavení. Vyžaduje, aby uživatelé zaregistrovali vaše rozhraní v <xref:Microsoft.AspNetCore.Builder.EndpointRoutingApplicationBuilderExtensions.UseEndpoints*> . Filozofie směrování znamená, že ve výchozím nastavení není nic zahrnuto a `UseEndpoints` je to místo pro registraci koncových bodů.
 
 ### <a name="creating-routing-integrated-middleware"></a>Vytváření middleware integrovaného s směrováním
 
@@ -955,7 +2145,7 @@ Testy směrování mají [základní příklad](https://github.com/aspnet/AspNet
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/ICoolMetadata.cs?name=snippet2)]
 
-Architektury, jako jsou řadiče a Razor Pages podporují použití atributů metadat na typy a metody. Pokud deklarujete typy metadat:
+Architektury, jako jsou řadiče a Razor stránky, podporují použití atributů metadat na typy a metody. Pokud deklarujete typy metadat:
 
 * Zpřístupněte je jako [atributy](/dotnet/csharp/programming-guide/concepts/attributes/).
 * Většina uživatelů je obeznámena s použitím atributů.
@@ -1005,14 +2195,14 @@ Tímto způsobem je middleware autorizace užitečný mimo kontext směrování.
 
 Směrování zodpovídá za mapování identifikátorů URI požadavků na koncové body a odesílání příchozích požadavků do těchto koncových bodů. Trasy jsou v aplikaci definované a nakonfigurované při spuštění aplikace. Trasa může volitelně extrahovat hodnoty z adresy URL obsažené v žádosti a tyto hodnoty pak lze použít pro zpracování požadavků. Směrování pomocí informací o trasách z aplikace taky umožňuje generovat adresy URL, které se mapují na koncové body.
 
-Pokud chcete použít nejnovější scénáře směrování v ASP.NET Core 2,2, zadejte [verzi kompatibility](xref:mvc/compatibility-version) pro registraci služby MVC v `Startup.ConfigureServices`těchto umístěních:
+Pokud chcete použít nejnovější scénáře směrování v ASP.NET Core 2,2, zadejte [verzi kompatibility](xref:mvc/compatibility-version) pro registraci služby MVC v těchto umístěních `Startup.ConfigureServices` :
 
 ```csharp
 services.AddMvc()
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-<xref:Microsoft.AspNetCore.Mvc.MvcOptions.EnableEndpointRouting> Možnost určuje, jestli má směrování interně používat logiku založenou na koncovém bodu nebo <xref:Microsoft.AspNetCore.Routing.IRouter>logiku na základě ASP.NET Core 2,1 nebo starší verze. Pokud je verze kompatibility nastavená na 2,2 nebo novější, výchozí hodnota je `true`. Nastavte hodnotu `false` na použít předchozí logiku směrování:
+<xref:Microsoft.AspNetCore.Mvc.MvcOptions.EnableEndpointRouting>Možnost určuje, jestli má směrování interně používat logiku založenou na koncovém bodu nebo <xref:Microsoft.AspNetCore.Routing.IRouter> logiku na základě ASP.NET Core 2,1 nebo starší verze. Pokud je verze kompatibility nastavená na 2,2 nebo novější, výchozí hodnota je `true` . Nastavte hodnotu na `false` použít předchozí logiku směrování:
 
 ```csharp
 // Use the routing logic of ASP.NET Core 2.1 or earlier:
@@ -1020,16 +2210,16 @@ services.AddMvc(options => options.EnableEndpointRouting = false)
     .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 ```
 
-Další informace o <xref:Microsoft.AspNetCore.Routing.IRouter>směrování na základě služby najdete v [tomto tématu ve verzi ASP.NET Core 2,1](/aspnet/core/fundamentals/routing?view=aspnetcore-2.1).
+Další informace o <xref:Microsoft.AspNetCore.Routing.IRouter> směrování na základě služby najdete v [tomto tématu ve verzi ASP.NET Core 2,1](/aspnet/core/fundamentals/routing?view=aspnetcore-2.1).
 
 > [!IMPORTANT]
-> Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvencích směrování v Razor Pages najdete v <xref:razor-pages/razor-pages-conventions>tématu.
+> Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing> . Informace o konvencích směrování na Razor stránkách naleznete v tématu <xref:razor-pages/razor-pages-conventions> .
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základy směrování
 
-Většina aplikací by měla zvolit základní a popisné schéma směrování, aby byly adresy URL čitelné a smysluplné. Výchozí konvenční trasa `{controller=Home}/{action=Index}/{id?}`:
+Většina aplikací by měla zvolit základní a popisné schéma směrování, aby byly adresy URL čitelné a smysluplné. Výchozí konvenční trasa `{controller=Home}/{action=Index}/{id?}` :
 
 * Podporuje základní a popisné schéma směrování.
 * Je užitečným výchozím bodem pro aplikace založené na uživatelském rozhraní.
@@ -1038,11 +2228,11 @@ Vývojáři obvykle přidávají další trasy stručný do oblastí s vysokým 
 
 Webové rozhraní API by mělo používat směrování atributů k modelování funkcí aplikace jako sady prostředků, ve kterých jsou operace reprezentované příkazy HTTP. To znamená, že celá řada operací, například GET a POST, na stejném logickém prostředku používá stejnou adresu URL. Směrování atributů poskytuje úroveň řízení, která je nutná k pečlivému návrhu rozložení veřejného koncového bodu rozhraní API.
 
-Aplikace Razor Pages používají výchozí konvenční směrování pro obsluhu pojmenovaných prostředků ve složce *Pages* v aplikaci. K dispozici jsou další konvence, které vám umožní přizpůsobit Razor Pages chování směrování. Další informace naleznete v tématech <xref:razor-pages/index> a <xref:razor-pages/razor-pages-conventions>.
+RazorStránky aplikace používají výchozí konvenční směrování pro obsluhu pojmenovaných prostředků ve složce *Pages* v aplikaci. K dispozici jsou další konvence, které umožňují přizpůsobit Razor chování směrování stránek. Další informace naleznete v tématech <xref:razor-pages/index> a <xref:razor-pages/razor-pages-conventions>.
 
 Podpora generování adresy URL umožňuje, aby se aplikace vyvinula bez adres URL s pevným kódováním, aby bylo možné propojit aplikaci dohromady. Tato podpora umožňuje začít se základní konfigurací směrování a upravovat trasy po určení rozložení prostředků aplikace.
 
-Směrování používá pro reprezentaci logických koncových bodů v aplikaci *koncové body* (`Endpoint`).
+Směrování používá *endpoints* `Endpoint` pro reprezentaci logických koncových bodů v aplikaci koncové body ().
 
 Koncový bod definuje delegáta pro zpracování požadavků a kolekci libovolných metadat. Metadata se používají k implementaci průřezů na základě zásad a konfigurace připojených ke každému koncovému bodu.
 
@@ -1051,20 +2241,20 @@ Systém směrování má následující vlastnosti:
 * Syntaxe šablony směrování se používá k definování tras s tokeny parametrů trasy.
 * Konfigurace koncového bodu stylů a stylu atributu je povolena.
 * <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>slouží k určení, zda parametr adresy URL obsahuje platnou hodnotu pro dané omezení koncového bodu.
-* Modely aplikací, jako je MVC/Razor Pages, registrují všechny své koncové body, které mají předvídatelné implementaci scénářů směrování.
+* Modely aplikací, jako je MVC/ Razor stránky, registrují všechny své koncové body, které mají předvídatelné implementaci scénářů směrování.
 * Implementace směrování provádí rozhodování o směrování všude, kde je to požadováno v kanálu middlewaru.
 * Middleware, který se zobrazí po vytvoření middlewaru směrování, může zkontrolovat výsledek rozhodnutí koncového bodu middleware směrování pro daný identifikátor URI žádosti.
 * Je možné vytvořit výčet všech koncových bodů v aplikaci kdekoli v kanálu middlewaru.
 * Aplikace může používat směrování k vygenerování adres URL (například pro přesměrování nebo propojení) na základě informací o koncových bodech, takže se vyhnete pevně zakódovaným adresám URL, které pomáhají zachovat.
 * Generování adresy URL vychází z adres, které podporují libovolné rozšíření:
 
-  * Rozhraní API generátoru odkazů<xref:Microsoft.AspNetCore.Routing.LinkGenerator>() je možné vyřešit kdekoli pomocí [vkládání závislostí (di)](xref:fundamentals/dependency-injection) pro generování adres URL.
-  * Kde rozhraní API generátoru odkazů není k dispozici <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> prostřednictvím di, nabízí metody pro sestavování adres URL.
+  * Rozhraní API generátoru odkazů ( <xref:Microsoft.AspNetCore.Routing.LinkGenerator> ) je možné vyřešit kdekoli pomocí [vkládání závislostí (di)](xref:fundamentals/dependency-injection) pro generování adres URL.
+  * Kde rozhraní API generátoru odkazů není k dispozici prostřednictvím DI, <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> nabízí metody pro sestavování adres URL.
 
 > [!NOTE]
-> S vydáním směrování koncových bodů v ASP.NET Core 2,2 je propojení koncových bodů omezené na akce a stránky MVC/Razor Pages. Pro budoucí verze jsou plánovány rozšíření funkcí pro propojení koncových bodů.
+> S vydáním směrování koncových bodů v ASP.NET Core 2,2 je propojení koncových bodů omezené na Razor akce a stránky MVC/stránky. Pro budoucí verze jsou plánovány rozšíření funkcí pro propojení koncových bodů.
 
-Směrování je k kanálu [middleware](xref:fundamentals/middleware/index) připojeno <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> třídou. [ASP.NET Core MVC](xref:mvc/overview) v rámci své konfigurace přidává směrování do kanálu middlewaru a zpracovává směrování v MVC a Razor Pages aplikacích. Informace o tom, jak používat směrování jako samostatnou součást, najdete v části [použití middlewaru pro směrování](#use-routing-middleware) .
+Směrování je k kanálu [middleware](xref:fundamentals/middleware/index) připojeno <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> třídou. [ASP.NET Core MVC](xref:mvc/overview) v rámci své konfigurace přidává směrování do kanálu middlewaru a zpracovává směrování v MVC a Razor stránkách aplikace. Informace o tom, jak používat směrování jako samostatnou součást, najdete v části [použití middlewaru pro směrování](#use-routing-middleware) .
 
 ### <a name="url-matching"></a>Shoda adresy URL
 
@@ -1078,7 +2268,7 @@ Po spuštění delegáta koncového bodu jsou vlastnosti [RouteContext. parametr
 
 [Parametr RouteData. DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) je kontejner objektů a dat pro další data související s odpovídající trasou. <xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*>jsou k dispozici pro podporu přidružování dat o stavu k jednotlivým cestám, aby aplikace mohla učinit rozhodnutí na základě toho, na které trase odpovídá. Tyto hodnoty jsou definované vývojářem a **neovlivňují chování** směrování jakýmkoli způsobem. Kromě toho hodnoty dočasně ukládané v [parametr RouteData. Datatokeny](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) můžou být libovolného typu, na rozdíl od [parametr RouteData. Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values), které musí být převoditelné na a z řetězců.
 
-[Parametr RouteData. routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers) je seznam tras, které byly součástí úspěšného porovnání požadavku. Trasy mohou být vnořeny do sebe navzájem. <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> Vlastnost odráží cestu v logickém stromu tras, jejichž výsledkem byla shoda. Obecně platí, že první položka <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> v nástroji je kolekce tras a měla by se používat pro generování adresy URL. Poslední položka v <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je obslužná rutina trasy, která se shoduje.
+[Parametr RouteData. routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers) je seznam tras, které byly součástí úspěšného porovnání požadavku. Trasy mohou být vnořeny do sebe navzájem. <xref:Microsoft.AspNetCore.Routing.RouteData.Routers>Vlastnost odráží cestu v logickém stromu tras, jejichž výsledkem byla shoda. Obecně platí, že první položka v nástroji <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je kolekce tras a měla by se používat pro generování adresy URL. Poslední položka v <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je obslužná rutina trasy, která se shoduje.
 
 <a name="lg"></a>
 
@@ -1086,47 +2276,348 @@ Po spuštění delegáta koncového bodu jsou vlastnosti [RouteContext. parametr
 
 Generování adresy URL je proces, podle kterého směrování může vytvořit cestu adresy URL na základě sady hodnot tras. To umožňuje logické oddělení mezi vašimi koncovými body a adresami URL, které k nim mají přístup.
 
-Směrování koncového bodu zahrnuje rozhraní API generátoru odkazů (<xref:Microsoft.AspNetCore.Routing.LinkGenerator>). <xref:Microsoft.AspNetCore.Routing.LinkGenerator>je služba typu Singleton, kterou lze načíst z [di](xref:fundamentals/dependency-injection). Rozhraní API lze použít mimo kontext vykonávajícího požadavku. MVC <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> a scénáře, které spoléhají na <xref:Microsoft.AspNetCore.Mvc.IUrlHelper>, jako jsou například [pomocníky značek](xref:mvc/views/tag-helpers/intro), HTML helps a [výsledky akcí](xref:mvc/controllers/actions), používají generátor propojení k poskytování možností vytváření odkazů.
+Směrování koncového bodu zahrnuje rozhraní API generátoru odkazů ( <xref:Microsoft.AspNetCore.Routing.LinkGenerator> ). <xref:Microsoft.AspNetCore.Routing.LinkGenerator>je služba typu Singleton, kterou lze načíst z [di](xref:fundamentals/dependency-injection). Rozhraní API lze použít mimo kontext vykonávajícího požadavku. MVC <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> a scénáře, které spoléhají na, jako jsou například <xref:Microsoft.AspNetCore.Mvc.IUrlHelper> [pomocníky značek](xref:mvc/views/tag-helpers/intro), HTML helps a [výsledky akcí](xref:mvc/controllers/actions), používají generátor propojení k poskytování možností vytváření odkazů.
 
-Generátor propojení se zálohuje konceptem *adres* a *schémat adres*. Schéma adres je způsob, jak určit koncové body, které by měly být považovány za vytváření odkazů. Například název trasy a hodnoty tras vycházejí z MVC/Razor Pages jsou implementovány jako schéma adres.
+Generátor propojení se zálohuje konceptem *adres* a *schémat adres*. Schéma adres je způsob, jak určit koncové body, které by měly být považovány za vytváření odkazů. Například název trasy a hodnoty tras jsou obeznámené s tím, že se z MVC nebo Razor stránek implementuje mnoho uživatelů jako schéma adres.
 
-Generátor propojení může propojit s akcemi MVC/Razor Pages a stránkami prostřednictvím následujících rozšiřujících metod:
+Generátor propojení může propojit s Razor akcemi a stránkami MVC/stránky prostřednictvím následujících rozšiřujících metod:
 
 * <xref:Microsoft.AspNetCore.Routing.ControllerLinkGeneratorExtensions.GetPathByAction*>
 * <xref:Microsoft.AspNetCore.Routing.ControllerLinkGeneratorExtensions.GetUriByAction*>
 * <xref:Microsoft.AspNetCore.Routing.PageLinkGeneratorExtensions.GetPathByPage*>
 * <xref:Microsoft.AspNetCore.Routing.PageLinkGeneratorExtensions.GetUriByPage*>
 
-Přetížení těchto metod akceptuje argumenty, které zahrnují `HttpContext`. Tyto metody jsou funkčně ekvivalentní `Url.Action` a `Url.Page` ale nabízejí další flexibilitu a možnosti.
+Přetížení těchto metod akceptuje argumenty, které zahrnují `HttpContext` . Tyto metody jsou funkčně ekvivalentní `Url.Action` a `Url.Page` ale nabízejí další flexibilitu a možnosti.
 
-`GetPath*` Metody jsou nejčastěji podobné `Url.Action` a `Url.Page` v tom, že generují identifikátor URI obsahující absolutní cestu. `GetUri*` Metody vždy generují absolutní identifikátor URI obsahující schéma a hostitele. Metody, které přijímají `HttpContext` identifikátor URI v kontextu zpracovávaného požadavku. Použijí se hodnoty tras, základní cesta, schéma a hostitel z zpracovávaného požadavku, pokud nejsou přepsány.
+`GetPath*`Metody jsou nejčastěji podobné `Url.Action` a `Url.Page` v tom, že generují identifikátor URI obsahující absolutní cestu. `GetUri*`Metody vždy generují absolutní identifikátor URI obsahující schéma a hostitele. Metody, které přijímají `HttpContext` identifikátor URI v kontextu zpracovávaného požadavku. Použijí se hodnoty tras, základní cesta, schéma a hostitel z zpracovávaného požadavku, pokud nejsou přepsány.
 
 <xref:Microsoft.AspNetCore.Routing.LinkGenerator>je volána s adresou. K vygenerování identifikátoru URI dochází ve dvou krocích:
 
 1. Adresa je svázána se seznamem koncových bodů, které odpovídají dané adrese.
 1. Každý koncový bod `RoutePattern` je vyhodnocen, dokud se nenajde vzor směrování, který odpovídá zadaným hodnotám. Výsledný výstup je v kombinaci s ostatními částmi identifikátoru URI dodanými generátorem odkazů a vrácenými.
 
-Metody poskytované funkcí <xref:Microsoft.AspNetCore.Routing.LinkGenerator> support standard pro vytváření odkazů pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkazů je prostřednictvím metod rozšíření, které provádějí operace pro konkrétní typ adresy.
+Metody poskytované <xref:Microsoft.AspNetCore.Routing.LinkGenerator> funkcí support standard pro vytváření odkazů pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkazů je prostřednictvím metod rozšíření, které provádějí operace pro konkrétní typ adresy.
 
-| Metoda rozšíření   | Popis                                                         |
-| ------------------ | ------------------------------------------------------------------- |
-| <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | Vygeneruje identifikátor URI s absolutní cestou na základě zadaných hodnot. |
-| <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | Vygeneruje absolutní identifikátor URI na základě zadaných hodnot.             |
+| Metoda rozšíření   | Description                                                         |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------------------------------- | | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | Vygeneruje identifikátor URI s absolutní cestou na základě zadaných hodnot. | | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | Vygeneruje absolutní identifikátor URI na základě zadaných hodnot.             |
 
 > [!WARNING]
 > Věnujte pozornost následujícím důsledkům volání <xref:Microsoft.AspNetCore.Routing.LinkGenerator> metod:
 >
 > * Používejte `GetUri*` rozšiřující metody s opatrností v konfiguraci aplikace, která neověřuje `Host` hlavičku příchozích požadavků. Pokud `Host` záhlaví příchozích požadavků není ověřeno, lze nedůvěryhodný vstup žádosti poslat zpátky klientovi v identifikátorech URI na stránce zobrazení nebo stránky. Doporučujeme, aby všechny produkční aplikace nakonfigurovali server, aby ověřili `Host` hlavičku se známými platnými hodnotami.
 >
-> * Používejte <xref:Microsoft.AspNetCore.Routing.LinkGenerator> s opatrností v middleware v `Map` kombinaci `MapWhen`s nebo. `Map*`změní základní cestu spouštěné žádosti, která má vliv na výstup vytváření odkazů. Všechna <xref:Microsoft.AspNetCore.Routing.LinkGenerator> rozhraní API umožňují zadat základní cestu. Vždy zadat prázdnou základní cestu, která `Map*`bude mít vliv na generování odkazů.
+> * Používejte <xref:Microsoft.AspNetCore.Routing.LinkGenerator> s opatrností v middleware v kombinaci s `Map` nebo `MapWhen` . `Map*`změní základní cestu spouštěné žádosti, která má vliv na výstup vytváření odkazů. Všechna <xref:Microsoft.AspNetCore.Routing.LinkGenerator> rozhraní API umožňují zadat základní cestu. Vždy zadat prázdnou základní cestu, která bude `Map*` mít vliv na generování odkazů.
 
 ## <a name="differences-from-earlier-versions-of-routing"></a>Rozdíly oproti starším verzím směrování
 
 Mezi směrováním koncových bodů existuje několik rozdílů v ASP.NET Core 2,2 nebo novějším a starších verzích směrování v ASP.NET Core:
 
-* Systém směrování koncových bodů nepodporuje <xref:Microsoft.AspNetCore.Routing.IRouter>rozšíření na základě podpory, včetně dědění <xref:Microsoft.AspNetCore.Routing.Route>z.
+* Systém směrování koncových bodů nepodporuje <xref:Microsoft.AspNetCore.Routing.IRouter> rozšíření na základě podpory, včetně dědění z <xref:Microsoft.AspNetCore.Routing.Route> .
 
-* Směrování koncového bodu nepodporuje [WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim). K pokračování v používání překrytí kompatibility použijte [verzi](xref:mvc/compatibility-version) `.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)`2,1 Compatibility.
+* Směrování koncového bodu nepodporuje [WebApiCompatShim](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.WebApiCompatShim). [compatibility version](xref:mvc/compatibility-version) `.SetCompatibilityVersion(CompatibilityVersion.Version_2_1)` K pokračování v používání překrytí kompatibility použijte verzi 2,1 Compatibility.
 
 * Směrování koncového bodu má pro velká a malá písmena vygenerovaných identifikátorů URI při použití konvenčních tras jiné chování.
 
@@ -1145,11 +2636,11 @@ Mezi směrováním koncových bodů existuje několik rozdílů v ASP.NET Core 2
   var link = Url.Action("ReadPost", "blog", new { id = 17, });
   ```
 
-  Pomocí <xref:Microsoft.AspNetCore.Routing.IRouter>směrování založeného na tomto kódu generuje identifikátor URI `/blog/ReadPost/17`, který respektuje velikost zadané hodnoty trasy. Směrování koncových bodů v ASP.NET Core 2,2 nebo `/Blog/ReadPost/17` novějším má za následek to, že je "blog" na velká písmena. Směrování koncového bodu `IOutboundParameterTransformer` poskytuje rozhraní, které se dá použít k globálnímu přizpůsobení tohoto chování, nebo k aplikování různých konvencí pro mapování adres URL.
+  Pomocí <xref:Microsoft.AspNetCore.Routing.IRouter> Směrování založeného na tomto kódu generuje identifikátor URI `/blog/ReadPost/17` , který respektuje velikost zadané hodnoty trasy. Směrování koncových bodů v ASP.NET Core 2,2 nebo novějším má za následek to `/Blog/ReadPost/17` , že je "blog" na velká písmena. Směrování koncového bodu poskytuje `IOutboundParameterTransformer` rozhraní, které se dá použít k globálnímu přizpůsobení tohoto chování, nebo k aplikování různých konvencí pro mapování adres URL.
 
   Další informace najdete v části [referenční informace pro parametry transformátoru](#parameter-transformer-reference) .
 
-* Generace odkazů, kterou používá MVC/Razor Pages, se při pokusu o připojení ke kontroléru nebo akci nebo stránce, která neexistuje, chová jinak.
+* Generace odkazů, kterou používá MVC/ Razor stránky s konvenčními trasami, se při pokusu o připojení ke kontroléru nebo akci nebo stránce, která neexistuje, chová jinak.
 
   Vezměte v úvahu následující výchozí šablonu trasy:
 
@@ -1166,7 +2657,7 @@ Mezi směrováním koncových bodů existuje několik rozdílů v ASP.NET Core 2
   var link = Url.Action("ReadPost", "Blog", new { id = 17, });
   ```
 
-  V `IRouter`rámci směrování založeného na službě je výsledek `/Blog/ReadPost/17`vždy, i když `BlogController` neexistuje nebo nemá metodu `ReadPost` Action. Podle očekávání, směrování koncového bodu v ASP.NET Core 2,2 nebo `/Blog/ReadPost/17` vyšší vytvoří, pokud metoda Action existuje. *Směrování koncových bodů ale vytvoří prázdný řetězec, pokud akce neexistuje.* V koncepčním případě směrování koncového bodu nepředpokládá, že koncový bod existuje, pokud akce neexistuje.
+  V rámci `IRouter` Směrování založeného na službě je výsledek vždy `/Blog/ReadPost/17` , i když `BlogController` neexistuje nebo nemá `ReadPost` metodu Action. Podle očekávání, směrování koncového bodu v ASP.NET Core 2,2 nebo vyšší vytvoří, `/Blog/ReadPost/17` Pokud metoda Action existuje. *Směrování koncových bodů ale vytvoří prázdný řetězec, pokud akce neexistuje.* V koncepčním případě směrování koncového bodu nepředpokládá, že koncový bod existuje, pokud akce neexistuje.
 
 * Při použití s směrováním koncových bodů se *algoritmus neplatných v okolí* generování propojení chová jinak.
 
@@ -1187,20 +2678,329 @@ Mezi směrováním koncových bodů existuje několik rozdílů v ASP.NET Core 2
   @page "{id?}"
   ```
 
-  Pokud je `/Store/Product/18` identifikátor URI v ASP.NET Core 2,1 nebo starším, odkaz vygenerovaný na stránce úložiště/informace `@Url.Page("/Login")` je. `/Login/18` `id` Hodnota 18 se znovu použije, i když je cíl propojení jinou součástí aplikace. Hodnota `id` trasy v kontextu `/Login` stránky je pravděpodobně hodnota ID uživatele, nikoli hodnota ID produktu úložiště.
+  Pokud je identifikátor URI `/Store/Product/18` v ASP.NET Core 2,1 nebo starším, odkaz vygenerovaný na stránce úložiště/informace `@Url.Page("/Login")` je `/Login/18` . `id`Hodnota 18 se znovu použije, i když je cíl propojení jinou součástí aplikace. `id`Hodnota trasy v kontextu `/Login` stránky je pravděpodobně hodnota ID uživatele, nikoli hodnota ID produktu úložiště.
 
-  V rámci směrování koncového bodu s ASP.NET Core 2,2 nebo novějším `/Login`je výsledkem. Okolní hodnoty se znovu nepoužijí, pokud je cíl propojení jinou akcí nebo stránkou.
+  V rámci směrování koncového bodu s ASP.NET Core 2,2 nebo novějším je výsledkem `/Login` . Okolní hodnoty se znovu nepoužijí, pokud je cíl propojení jinou akcí nebo stránkou.
 
-* Syntaxe parametru trasy s kulatým Trip: lomítka nejsou zakódována při použití syntaxe parametrů Double`**`-hvězdička () catch-ALL.
+* Syntaxe parametru trasy s kulatým Trip: lomítka nejsou zakódována při použití syntaxe parametrů Double-hvězdička ( `**` ) catch-ALL.
 
-  Během generování propojení systém směrování zakóduje hodnotu zachycenou parametrem zachycení dvojité hvězdičky (`**`) (například `{**myparametername}`) s výjimkou lomítka. Směrování s dvojitou hvězdičkou (catch-All `IRouter`) je podporováno v rámci směrování založeného na ASP.NET Core 2,2 nebo novějším.
+  Během generování propojení systém směrování zakóduje hodnotu zachycenou parametrem zachycení dvojité hvězdičky ( `**` ) (například `{**myparametername}` ) s výjimkou lomítka. Směrování s dvojitou hvězdičkou (catch-All) je podporováno `IRouter` v rámci směrování založeného na ASP.NET Core 2,2 nebo novějším.
 
-  V předchozích verzích ASP.NET Core () se podporuje jednoduchá hvězdička All – všechny`{*myparametername}`syntaxe parametrů () a lomítka jsou kódovaná.
+  V předchozích verzích ASP.NET Core () se podporuje jednoduchá hvězdička All – všechny syntaxe parametrů ( `{*myparametername}` ) a lomítka jsou kódovaná.
 
   | Trasa              | Odkaz vygeneroval s<br>`Url.Action(new { category = "admin/products" })`&hellip; |
-  | ------------------ | --------------------------------------------------------------------- |
-  | `/search/{*page}`  | `/search/admin%2Fproducts`(předávané lomítko je zakódováno)             |
-  | `/search/{**page}` | `/search/admin/products`                                              |
+  | ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------------------------- |   | `/search/{*page}`| `/search/admin%2Fproducts`(lomítko je zakódováno) |   | `/search/{**page}` |  `/search/admin/products`                                              |
 
 ### <a name="middleware-example"></a>Příklad middlewaru
 
@@ -1231,9 +3031,9 @@ public class ProductsLinkMiddleware
 
 ### <a name="create-routes"></a>Vytvoření tras
 
-Většina aplikací vytváří trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo jedné z podobných metod rozšíření definovaných v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder>. Kterákoli z <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> rozšiřujících metod vytvoří instanci <xref:Microsoft.AspNetCore.Routing.Route> a přidá ji do kolekce tras.
+Většina aplikací vytváří trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo jedné z podobných metod rozšíření definovaných v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> . Kterákoli z <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> rozšiřujících metod vytvoří instanci <xref:Microsoft.AspNetCore.Routing.Route> a přidá ji do kolekce tras.
 
-<xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*>nepřijímá parametr obslužné rutiny trasy. <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*>přidá pouze trasy, které jsou zpracovávány <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>. Další informace o směrování v MVC najdete v tématu <xref:mvc/controllers/routing>.
+<xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*>nepřijímá parametr obslužné rutiny trasy. <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*>přidá pouze trasy, které jsou zpracovávány <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*> . Další informace o směrování v MVC najdete v tématu <xref:mvc/controllers/routing> .
 
 Následující příklad kódu je příkladem <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> volání využívaného typickou ASP.NET Core definice trasy MVC:
 
@@ -1243,15 +3043,15 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-Tato šablona odpovídá cestě URL a extrahuje hodnoty tras. Například cesta `/Products/Details/17` generuje následující hodnoty trasy: `{ controller = Products, action = Details, id = 17 }`.
+Tato šablona odpovídá cestě URL a extrahuje hodnoty tras. Například cesta `/Products/Details/17` generuje následující hodnoty trasy: `{ controller = Products, action = Details, id = 17 }` .
 
-Hodnoty tras se určují rozdělením cesty URL na segmenty a porovnáním jednotlivých segmentů s názvem *parametru trasy* v šabloně směrování. Parametry směrování jsou pojmenovány. Parametry definované ohraničujícím název parametru ve složených závorkách `{ ... }`.
+Hodnoty tras se určují rozdělením cesty URL na segmenty a porovnáním jednotlivých segmentů s názvem *parametru trasy* v šabloně směrování. Parametry směrování jsou pojmenovány. Parametry definované ohraničujícím název parametru ve složených závorkách `{ ... }` .
 
-Předchozí šablona může také odpovídat cestě `/` URL a vydávat hodnoty. `{ controller = Home, action = Index }` K tomu dochází, `{controller}` protože `{action}` parametry směrování a mají výchozí hodnoty a `id` parametr trasy je nepovinný. Znak rovná se (`=`) následovaný hodnotou po názvu parametru trasy, který definuje výchozí hodnotu parametru. Otazník (`?`) po názvu parametru trasy definuje volitelný parametr.
+Předchozí šablona může také odpovídat cestě URL `/` a vydávat hodnoty `{ controller = Home, action = Index }` . K tomu dochází, `{controller}` protože `{action}` parametry směrování a mají výchozí hodnoty a `id` parametr trasy je nepovinný. Znak rovná se ( `=` ) následovaný hodnotou po názvu parametru trasy, který definuje výchozí hodnotu parametru. Otazník ( `?` ) po názvu parametru trasy definuje volitelný parametr.
 
 Parametry směrování s výchozí hodnotou *vždy* vytvoří hodnotu trasy, když odpovídá trasa. Pokud neexistuje žádný odpovídající segment cesty k adrese URL, volitelné parametry nevytvoří hodnotu trasy. Podrobný popis scénářů a syntaxe šablon směrování najdete v části referenční dokumentace k [šabloně směrování](#route-template-reference) .
 
-V následujícím příkladu definuje definice `{id:int}` parametru trasy [omezení trasy](#route-constraint-reference) pro parametr `id` trasy:
+V následujícím příkladu definuje definice parametru trasy `{id:int}` [omezení trasy](#route-constraint-reference) pro `id` parametr trasy:
 
 ```csharp
 routes.MapRoute(
@@ -1259,11 +3059,11 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id:int}");
 ```
 
-Tato šablona odpovídá cestě URL, například `/Products/Details/17` ne `/Products/Details/Apples`. Omezení tras implementují <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> a kontrolují hodnoty směrování a ověřují je. V tomto příkladu musí být hodnota `id` trasy převoditelná na celé číslo. Vysvětlení omezení trasy poskytovaných rozhraním naleznete v tématu [Route-Constraint-reference](#route-constraint-reference) .
+Tato šablona odpovídá cestě URL, například `/Products/Details/17` ne `/Products/Details/Apples` . Omezení tras implementují <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> a kontrolují hodnoty směrování a ověřují je. V tomto příkladu musí být hodnota trasy `id` převoditelná na celé číslo. Vysvětlení omezení trasy poskytovaných rozhraním naleznete v tématu [Route-Constraint-reference](#route-constraint-reference) .
 
-Další přetížení <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> přijímají hodnoty pro `constraints`, `dataTokens`a. `defaults` Typické použití těchto parametrů je předání anonymního typu objektu, kde názvy vlastností anonymního typu odpovídají názvům parametrů tras.
+Další přetížení <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> přijímají hodnoty pro `constraints` , `dataTokens` a `defaults` . Typické použití těchto parametrů je předání anonymního typu objektu, kde názvy vlastností anonymního typu odpovídají názvům parametrů tras.
 
-Následující <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> příklady vytvoří ekvivalentní trasy:
+Následující <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> Příklady vytvoří ekvivalentní trasy:
 
 ```csharp
 routes.MapRoute(
@@ -1288,7 +3088,7 @@ routes.MapRoute(
     defaults: new { controller = "Blog", action = "ReadArticle" });
 ```
 
-Předchozí šablona odpovídá cestě URL jako `/Blog/All-About-Routing/Introduction` a extrahuje hodnoty. `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }` Výchozí hodnoty tras pro `controller` a `action` jsou vytvářeny trasou, i když v šabloně nejsou odpovídající parametry směrování. V šabloně směrování lze zadat výchozí hodnoty. Parametr `article` trasy je definován jako *catch-All* pomocí vzhledu dvojité hvězdičky (`**`) před názvem parametru trasy. Catch – všechny parametry tras zaznamenávají zbytek cesty URL a můžou taky odpovídat prázdnému řetězci.
+Předchozí šablona odpovídá cestě URL jako `/Blog/All-About-Routing/Introduction` a extrahuje hodnoty `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }` . Výchozí hodnoty tras pro `controller` a `action` jsou vytvářeny trasou, i když v šabloně nejsou odpovídající parametry směrování. V šabloně směrování lze zadat výchozí hodnoty. `article`Parametr trasy je definován jako *catch-All* pomocí vzhledu dvojité hvězdičky ( `**` ) před názvem parametru trasy. Catch – všechny parametry tras zaznamenávají zbytek cesty URL a můžou taky odpovídat prázdnému řetězci.
 
 Následující příklad přidá omezení trasy a datové tokeny:
 
@@ -1301,13 +3101,13 @@ routes.MapRoute(
     dataTokens: new { locale = "en-US" });
 ```
 
-Předchozí šablona odpovídá cestě URL jako `/en-US/Products/5` a extrahuje hodnoty `{ controller = Products, action = Details, id = 5 }` a datové tokeny. `{ locale = en-US }`
+Předchozí šablona odpovídá cestě URL jako `/en-US/Products/5` a extrahuje hodnoty `{ controller = Products, action = Details, id = 5 }` a datové tokeny `{ locale = en-US }` .
 
 ![Tokeny systému Windows pro národní prostředí](routing/_static/tokens.png)
 
 ### <a name="route-class-url-generation"></a>Generování adresy URL třídy směrování
 
-<xref:Microsoft.AspNetCore.Routing.Route> Třída může také provádět generování adresy URL kombinováním sady hodnot směrování se šablonou směrování. Toto je logicky obrácený proces, který odpovídá cestě URL.
+<xref:Microsoft.AspNetCore.Routing.Route>Třída může také provádět generování adresy URL kombinováním sady hodnot směrování se šablonou směrování. Toto je logicky obrácený proces, který odpovídá cestě URL.
 
 > [!TIP]
 > Chcete-li lépe pochopit generování adresy URL, Představte si, jakou adresu URL chcete vygenerovat, a pak se zamyslete nad tím, jak šablona trasy odpovídá této adrese Jaké hodnoty by se vytvořily? Toto je hrubý ekvivalent způsobu, jakým generování adresy URL ve <xref:Microsoft.AspNetCore.Routing.Route> třídě funguje.
@@ -1320,14 +3120,14 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-S hodnotami `{ controller = Products, action = List }`trasy je vygenerována `/Products/List` adresa URL. Hodnoty tras se nahradí odpovídajícími parametry tras, aby bylo možné vytvořit cestu k adrese URL. Vzhledem `id` k tomu, že se jedná o volitelný parametr trasy, adresa URL se úspěšně `id`vygenerovala bez hodnoty pro.
+S hodnotami trasy `{ controller = Products, action = List }` `/Products/List` je vygenerována adresa URL. Hodnoty tras se nahradí odpovídajícími parametry tras, aby bylo možné vytvořit cestu k adrese URL. Vzhledem k tomu `id` , že se jedná o volitelný parametr trasy, adresa URL se úspěšně vygenerovala bez hodnoty pro `id` .
 
-S hodnotami `{ controller = Home, action = Index }`trasy je vygenerována `/` adresa URL. Zadané hodnoty trasy odpovídají výchozím hodnotám a jsou bezpečně vynechány segmenty odpovídající výchozím hodnotám.
+S hodnotami trasy `{ controller = Home, action = Index }` `/` je vygenerována adresa URL. Zadané hodnoty trasy odpovídají výchozím hodnotám a jsou bezpečně vynechány segmenty odpovídající výchozím hodnotám.
 
-Obě adresy URL vygenerovaly zpáteční cestu pomocí následující definice trasy`/Home/Index` ( `/`a) vytvoří stejné hodnoty trasy, které se použily k vygenerování adresy URL.
+Obě adresy URL vygenerovaly zpáteční cestu pomocí následující definice trasy ( `/Home/Index` a `/` ) vytvoří stejné hodnoty trasy, které se použily k VYGENEROVÁNÍ adresy URL.
 
 > [!NOTE]
-> Aplikace, která používá ASP.NET Core MVC, <xref:Microsoft.AspNetCore.Mvc.Routing.UrlHelper> by měla používat k vygenerování adres URL namísto volání přímo do směrování.
+> Aplikace, která používá ASP.NET Core MVC, by měla používat <xref:Microsoft.AspNetCore.Mvc.Routing.UrlHelper> k vygenerování adres URL namísto volání přímo do směrování.
 
 Další informace o generování adresy URL najdete v části [Reference pro generování adresy URL](#url-generation-reference) .
 
@@ -1335,14 +3135,14 @@ Další informace o generování adresy URL najdete v části [Reference pro gen
 
 Odkaz na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) v souboru projektu aplikace.
 
-Přidat směrování do kontejneru služby v `Startup.ConfigureServices`:
+Přidat směrování do kontejneru služby v `Startup.ConfigureServices` :
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_ConfigureServices&highlight=3)]
 
-V `Startup.Configure` metodě musí být nakonfigurovány trasy. Ukázková aplikace používá následující rozhraní API:
+V metodě musí být nakonfigurovány trasy `Startup.Configure` . Ukázková aplikace používá následující rozhraní API:
 
 * <xref:Microsoft.AspNetCore.Routing.RouteBuilder>
-* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>&ndash; Odpovídá pouze požadavkům HTTP GET.
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>: Odpovídá pouze požadavkům HTTP GET.
 * <xref:Microsoft.AspNetCore.Builder.RoutingBuilderExtensions.UseRouter*>
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_RouteHandler)]
@@ -1350,16 +3150,256 @@ V `Startup.Configure` metodě musí být nakonfigurovány trasy. Ukázková apli
 V následující tabulce jsou uvedeny odpovědi s danými identifikátory URI.
 
 | Identifikátor URI                    | Odpověď                                          |
-| ---------------------- | ------------------------------------------------- |
-| `/package/create/3`    | Dobrý den! Hodnoty směrování: [operace, vytvořit], [ID, 3] |
-| `/package/track/-3`    | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] |
-| `/package/track/-3/`   | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] |
-| `/package/track/`      | Požadavek spadá do, bez shody.              |
-| `GET /hello/Joe`       | Dobrý den, Jana!                                          |
-| `POST /hello/Joe`      | Požadavek spadá do, odpovídá pouze HTTP GET. |
-| `GET /hello/Joe/Smith` | Požadavek spadá do, bez shody.              |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Rozhraní poskytuje sadu metod rozšíření pro vytváření tras (<xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions>):
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------------- | | `/package/create/3`    | Dobrý den! Hodnoty směrování: [operace, vytvořit], [ID, 3] | | `/package/track/-3`    | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] | | `/package/track/-3/`   | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] | | `/package/track/`      | Požadavek spadá do, bez shody.              | | `GET /hello/Joe`       | Dobrý den, Jana!                                          | | `POST /hello/Joe`      | Požadavek spadá do, odpovídá pouze HTTP GET. | | `GET /hello/Joe/Smith` | Požadavek spadá do, bez shody.              |
+
+Rozhraní poskytuje sadu metod rozšíření pro vytváření tras ( <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions> ):
 
 * <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapDelete*>
 * <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>
@@ -1374,46 +3414,534 @@ Rozhraní poskytuje sadu metod rozšíření pro vytváření tras (<xref:Micros
 * <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapRoute*>
 * <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapVerb*>
 
-`Map[Verb]` Metody používají omezení k omezení trasy na příkaz HTTP v názvu metody. Například viz <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*> a <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapVerb*>.
+`Map[Verb]`Metody používají omezení k omezení trasy na příkaz HTTP v názvu metody. Například viz <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*> a <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapVerb*> .
 
 ## <a name="route-template-reference"></a>Odkaz na šablonu směrování
 
-Tokeny ve složených závorkách (`{ ... }`) definují *parametry trasy* , které jsou svázané, pokud je trasa shodná. V segmentu směrování můžete definovat více než jeden parametr trasy, ale musí být oddělený literálovou hodnotou. Například `{controller=Home}{action=Index}` není platná trasa, protože hodnota literálu není mezi `{controller}` a. `{action}` Tyto parametry tras musí mít název a můžou mít zadané další atributy.
+Tokeny ve složených závorkách ( `{ ... }` ) definují *parametry trasy* , které jsou svázané, pokud je trasa shodná. V segmentu směrování můžete definovat více než jeden parametr trasy, ale musí být oddělený literálovou hodnotou. Například `{controller=Home}{action=Index}` není platná trasa, protože hodnota literálu není mezi `{controller}` a `{action}` . Tyto parametry tras musí mít název a můžou mít zadané další atributy.
 
-Textový literál jiný než parametry směrování (například `{id}`) a oddělovač `/` cesty musí odpovídat textu v adrese URL. U porovnávání textu se nerozlišují malá a velká písmena a na základě dekódovat reprezentace cesty URL. Chcete-li spárovat oddělovač parametrů trasy`{` (nebo `}`) literálu, zařídíte oddělovač opakováním znaku (`{{` nebo `}}`).
+Textový literál jiný než parametry směrování (například `{id}` ) a oddělovač cesty `/` musí odpovídat textu v adrese URL. U porovnávání textu se nerozlišují malá a velká písmena a na základě dekódovat reprezentace cesty URL. Chcete-li spárovat oddělovač parametrů trasy ( `{` nebo) literálu `}` , zařídíte oddělovač opakováním znaku ( `{{` nebo `}}` ).
 
-Vzory adres URL, které se pokoušejí zachytit název souboru s volitelnou příponou souboru, mají další požadavky. Představte si třeba šablonu `files/{filename}.{ext?}`. Pokud hodnoty pro obojí `filename` i `ext` existují, naplní se obě hodnoty. Je-li v adrese `filename` URL pouze hodnota, která je v adrese URL, odpovídá trasa, protože`.`koncová tečka () je volitelná. Tuto trasu odpovídají následujícím adresám URL:
+Vzory adres URL, které se pokoušejí zachytit název souboru s volitelnou příponou souboru, mají další požadavky. Představte si třeba šablonu `files/{filename}.{ext?}` . Pokud hodnoty pro obojí `filename` i `ext` existují, naplní se obě hodnoty. Je-li `filename` v adrese URL pouze hodnota, která je v adrese URL, odpovídá trasa, protože koncová tečka ( `.` ) je volitelná. Tuto trasu odpovídají následujícím adresám URL:
 
 * `/files/myFile.txt`
 * `/files/myFile`
 
-K vytvoření vazby na zbytek identifikátoru URI můžete použít hvězdičku (`*`) nebo dvojitou hvězdičku (`**`) jako předponu parametru trasy. Tyto parametry se nazývají *catch-All* . Například `blog/{**slug}` odpovídá jakémukoli identifikátoru URI, který začíná `/blog` a má libovolnou hodnotu, která je za ní přiřazena hodnota `slug` trasy. Catch – všechny parametry můžou odpovídat také prázdnému řetězci.
+K `*` vytvoření vazby na zbytek identifikátoru URI můžete použít hvězdičku () nebo dvojitou hvězdičku ( `**` ) jako předponu parametru trasy. Tyto parametry se nazývají *catch-All* . Například `blog/{**slug}` odpovídá jakémukoli identifikátoru URI, který začíná `/blog` a má libovolnou hodnotu, která je za ní přiřazena `slug` hodnota trasy. Catch – všechny parametry můžou odpovídat také prázdnému řetězci.
 
-Parametr catch-All řídí příslušné znaky, pokud je použita cesta pro vygenerování adresy URL, včetně znaků oddělovače (`/`). Například trasa `foo/{*path}` s hodnotami `{ path = "my/path" }` trasy vygeneruje. `foo/my%2Fpath` Všimněte si řídicího znaku lomítka. Do oddělovacích znaků cesty pro přenos cest použijte předponu parametru `**` Route. Trasa `foo/{**path}` s `{ path = "my/path" }` vygeneruje `foo/my/path`.
+Parametr catch-All řídí příslušné znaky, pokud je použita cesta pro vygenerování adresy URL, včetně znaků oddělovače ( `/` ). Například trasa `foo/{*path}` s hodnotami trasy `{ path = "my/path" }` vygeneruje `foo/my%2Fpath` . Všimněte si řídicího znaku lomítka. Do oddělovacích znaků cesty pro přenos cest použijte `**` předponu parametru Route. Trasa `foo/{**path}` s `{ path = "my/path" }` vygeneruje `foo/my/path` .
 
-Parametry směrování můžou mít *výchozí hodnoty* určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se (`=`). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller`. Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku (`?`) na konec názvu parametru, jako v. `id?` Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování je, že parametr trasy s výchozí hodnotou vždy vytvoří hodnotu&mdash;, která má volitelný parametr hodnotu, pouze pokud je hodnota poskytnuta adresou URL požadavku.
+Parametry směrování můžou mít *výchozí hodnoty* určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se ( `=` ). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller` . Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku ( `?` ) na konec názvu parametru, jako v `id?` . Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování je, že parametr trasy s výchozí hodnotou vždy vytvoří hodnotu, která &mdash; má volitelný parametr hodnotu, pouze pokud je hodnota poskytnuta adresou URL požadavku.
 
-Parametry směrování můžou mít omezení, která se musí shodovat s hodnotou trasy svázanou z adresy URL. Přidání dvojtečky (`:`) a názvu omezení za názvem parametru trasy Určuje *vložené omezení* pro parametr trasy. Pokud omezení vyžaduje argumenty, jsou uzavřeny v závorkách (`(...)`) za názvem omezení. Přidáním dalších dvojtečk (`:`) a názvu omezení lze zadat více vložených omezení.
+Parametry směrování můžou mít omezení, která se musí shodovat s hodnotou trasy svázanou z adresy URL. Přidání dvojtečky ( `:` ) a názvu omezení za názvem parametru trasy Určuje *vložené omezení* pro parametr trasy. Pokud omezení vyžaduje argumenty, jsou uzavřeny v závorkách ( `(...)` ) za názvem omezení. Přidáním dalších dvojtečk ( `:` ) a názvu omezení lze zadat více vložených omezení.
 
-Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> službě za účelem vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> pro použití při zpracování adresy URL. Například šablona `blog/{article:minlength(10)}` trasy Určuje `minlength` omezení s argumentem. `10` Další informace o omezeních tras a seznam omezení poskytovaných rozhraním najdete v části [referenční informace k omezením trasy](#route-constraint-reference) .
+Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> službě za účelem vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> pro použití při zpracování adresy URL. Například šablona trasy `blog/{article:minlength(10)}` Určuje `minlength` omezení s argumentem `10` . Další informace o omezeních tras a seznam omezení poskytovaných rozhraním najdete v části [referenční informace k omezením trasy](#route-constraint-reference) .
 
-Parametry směrování můžou mít také transformaci parametrů, které transformují hodnotu parametru při generování odkazů a porovnání akcí a stránek s adresami URL. Podobně jako omezení můžou být transformátory parametrů přidány do parametru trasy, a to přidáním dvojtečky`:`() a názvu transformátoru za názvem parametru trasy. Například šablona `blog/{article:slugify}` trasy Určuje `slugify` transformátor. Další informace o transformačních parametrech naleznete v části [Referenční příručka pro parametry](#parameter-transformer-reference) transformátoru.
+Parametry směrování můžou mít také transformaci parametrů, které transformují hodnotu parametru při generování odkazů a porovnání akcí a stránek s adresami URL. Podobně jako omezení můžou být transformátory parametrů přidány do parametru trasy, a to přidáním dvojtečky ( `:` ) a názvu transformátoru za názvem parametru trasy. Například šablona trasy `blog/{article:slugify}` Určuje `slugify` transformátor. Další informace o transformačních parametrech naleznete v části [Referenční příručka pro parametry](#parameter-transformer-reference) transformátoru.
 
 Následující tabulka ukazuje příklady šablon směrování a jejich chování.
 
 | Šablona směrování                           | Příklad odpovídajícího identifikátoru URI    | Identifikátor URI žádosti&hellip;                                                    |
-| ---------------------------------------- | ----------------------- | -------------------------------------------------------------------------- |
-| `hello`                                  | `/hello`                | Odpovídá pouze jedné cestě `/hello`.                                     |
-| `{Page=Home}`                            | `/`                     | Odpovídá a nastavuje `Page` na `Home`.                                         |
-| `{Page=Home}`                            | `/Contact`              | Odpovídá a nastavuje `Page` na `Contact`.                                      |
-| `{controller}/{action}/{id?}`            | `/Products/List`        | Provede mapování na `Products` kontroler `List` a akci.                       |
-| `{controller}/{action}/{id?}`            | `/Products/Details/123` | Provede mapování na `Products` kontroler `Details` a akci`id` (nastaveno na 123). |
-| `{controller=Home}/{action=Index}/{id?}` | `/`                     | Provede mapování na `Home` kontroler `Index` a metodu`id` (je ignorováno).        |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------------------------- | | `hello`                                  | `/hello`                | Odpovídá pouze jedné cestě `/hello` .                                     | | `{Page=Home}`                            | `/`                     | Odpovídá a nastavuje `Page` na `Home` .                                         | | `{Page=Home}`                            | `/Contact`              | Odpovídá a nastavuje `Page` na `Contact` .                                      | | `{controller}/{action}/{id?}`            | `/Products/List`        | Provede mapování na `Products` kontroler a `List` akci.                       | | `{controller}/{action}/{id?}`            | `/Products/Details/123` | Provede mapování na `Products` kontroler a `Details` akci ( `id` nastaveno na 123). | | `{controller=Home}/{action=Index}/{id?}` | `/`                     | Provede mapování na `Home` kontroler a `Index` metodu ( `id` je ignorováno).        |
 
 Použití šablony je obecně nejjednodušší přístup ke směrování. Omezení a výchozí hodnoty je možné zadat i mimo šablonu směrování.
 
 > [!TIP]
-> Povolte [protokolování](xref:fundamentals/logging/index) , abyste viděli <xref:Microsoft.AspNetCore.Routing.Route>, jak integrované implementace směrování, například, odpovídají požadavkům.
+> Povolte [protokolování](xref:fundamentals/logging/index) , abyste viděli, jak integrované implementace směrování, například <xref:Microsoft.AspNetCore.Routing.Route> , odpovídají požadavkům.
 
 ## <a name="reserved-routing-names"></a>Názvy rezervovaných směrování
 
@@ -1435,25 +3963,93 @@ Omezení trasy se spustí, když došlo ke shodě s příchozí adresou URL a ce
 Následující tabulka ukazuje příklad omezení trasy a jejich očekávané chování.
 
 | omezení | Příklad | Příklady shody | Poznámky |
-| ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`, `-123456789` | Odpovídá libovolnému celému číslu. |
-| `bool` | `{active:bool}` | `true`, `FALSE` | Odpovídá `true` nebo "false". Nerozlišuje malá a velká písmena. |
-| `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm` | Odpovídá platné `DateTime` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | Odpovídá platné `decimal` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | Odpovídá platné `double` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | Odpovídá platné `float` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Odpovídá platné `Guid` hodnotě. |
-| `long` | `{ticks:long}` | `123456789`, `-123456789` | Odpovídá platné `long` hodnotě. |
-| `minlength(value)` | `{username:minlength(4)}` | `Rick` | Řetězec musí mít minimálně 4 znaky. |
-| `maxlength(value)` | `{filename:maxlength(8)}` | `MyFile` | Řetězec má maximálně 8 znaků. |
-| `length(length)` | `{filename:length(12)}` | `somefile.txt` | Řetězec musí být přesně 12 znaků dlouhý. |
-| `length(min,max)` | `{filename:length(8,16)}` | `somefile.txt` | Řetězec musí obsahovat alespoň 8 znaků a nesmí být delší než 16 znaků. |
-| `min(value)` | `{age:min(18)}` | `19` | Celočíselná hodnota musí být minimálně 18. |
-| `max(value)` | `{age:max(120)}` | `91` | Celočíselná hodnota je maximálně 120. |
-| `range(min,max)` | `{age:range(18,120)}` | `91` | Celočíselná hodnota musí být minimálně 18 a maximálně 120. |
-| `alpha` | `{name:alpha}` | `Rick` | Řetězec musí obsahovat jeden nebo více abecedních znaků `a` - `z`.  Nerozlišuje malá a velká písmena. |
-| `regex(expression)` | `{ssn:regex(^\\d{{3}}-\\d{{2}}-\\d{{4}}$)}` | `123-45-6789` | Řetězec musí odpovídat regulárnímu výrazu. Přečtěte si tipy k definování regulárního výrazu. |
-| `required` | `{name:required}` | `Rick` | Slouží k vykonání, že při generování adresy URL je přítomna hodnota bez parametru. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------- | ----- | | `int` | `{id:int}` | `123456789`, `-123456789` | Odpovídá libovolnému celému číslu. | | `bool` | `{active:bool}` | `true`, `FALSE` | Matchs `true` nebo `false. Case-insensitive. |
+| ` DateTime ` | ` {dob: DateTime} ` | ` 2016-12-31 `, ` 2016-12-31 7:32pm ` | Matches a valid ` DateTime ` value in the invariant culture. See  preceding warning.|
+| ` Decimal ` | ` {Price: Decimal} ` | ` 49,99 `, ` -1 000,01 ` | Matches a valid ` Decimal ` value in the invariant culture. See  preceding warning.|
+| ` Double ` | ` {váhy: Double} ` | ` 1,234 `, ` -1, 001.01 E8 ` | Matches a valid ` Double ` value in the invariant culture. See  preceding warning.|
+| ` float ` | ` {Weight: float} ` | ` 1,234 `, ` -1, 001.01 E8 ` | Matches a valid ` float ` value in the invariant culture. See  preceding warning.|
+| ` GUID ` | ` {ID: GUID} ` | ` CD2C1638-1638-72D5-1638-DEADBEEF1638 `, ` {CD2C1638-1638-72D5-1638-DEADBEEF1638} ` | Matches a valid ` GUID ` value. |
+| ` Long ` | ` {taktes: Long} ` | ` 123456789 `, ` -123456789 ` | Matches a valid ` Long ` value. |
+| ` minLength (hodnota) ` | ` {username: minLength (4)} ` | ` Rick ` | String must be at least 4 characters. |
+| ` MaxLength (hodnota) ` | ` {filename: MaxLength (8)} ` | ` Délka MyFile ` | String has maximum of 8 characters. |
+| ` (délka) ` | ` {filename: Length (12)} ` | ` nejakysoubor. délka txt ` | String must be exactly 12 characters long. |
+| ` (min, max) ` | ` {filename: Length (8, 16)} ` | ` nejakysoubor. txt ` | String must be at least 8 and has maximum of 16 characters. |
+| ` min (hodnota) ` | ` {Age: min (18)} ` | ` 19 ` | Integer value must be at least 18. |
+| ` Max (hodnota) ` | ` {věk: max (120)} ` | ` 91 ` | Integer value maximum of 120. |
+| ` Range (min, max) ` | ` {věk: Range (18120)} ` | ` 91 ` | Integer value must be at least 18 and maximum of 120. |
+| ` alfa ` | ` {Name: Alpha} ` | ` Rick ` | String must consist of one or more alphabetical characters ` a `-` z `.  Case-insensitive. |
+| ` regulárního výrazu z (výraz) ` | ` {SSN: Regex (^ \\ d { {3} }- \\ d { {2} }- \\ d { {4} } $)} ` | ` 123-45-6789 ` | String must match the regular expression. See tips about defining a regular expression. |
+| ` požadováno ` | ` {Name: Required} ` | ` Rick | Slouží k vykonání, že při generování adresy URL je přítomna hodnota bez parametru. |
 
 V jednom parametru lze použít více omezení s oddělovači. Například následující omezení omezuje parametr na celočíselnou hodnotu 1 nebo vyšší:
 
@@ -1463,45 +4059,315 @@ public User GetUserById(int id) { }
 ```
 
 > [!WARNING]
-> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime`), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat. Omezení tras poskytovaných rozhraním nemění hodnoty uložené v hodnotách tras. Všechny hodnoty tras přeložené z adresy URL se ukládají jako řetězce. Například `float` omezení se pokusí převést hodnotu trasy na typ float, ale převedená hodnota se používá pouze k ověření, že je možné ji převést na typ float.
+> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime` ), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat. Omezení tras poskytovaných rozhraním nemění hodnoty uložené v hodnotách tras. Všechny hodnoty tras přeložené z adresy URL se ukládají jako řetězce. Například `float` omezení se pokusí převést hodnotu trasy na typ float, ale převedená hodnota se používá pouze k ověření, že je možné ji převést na typ float.
 
 ## <a name="regular-expressions"></a>Regulární výrazy
 
-Rozhraní ASP.NET Core se přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. Popis <xref:System.Text.RegularExpressions.RegexOptions> těchto členů naleznete v tématu.
+Rozhraní ASP.NET Core se přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. <xref:System.Text.RegularExpressions.RegexOptions>Popis těchto členů naleznete v tématu.
 
 Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a jazyk C#. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Použití regulárního výrazu `^\d{3}-\d{2}-\d{4}$` v směrování:
 
-* Výraz musí mít jedno zpětné lomítko `\` , které je zadáno v řetězci jako Dvojitá zpětná lomítka `\\` ve zdrojovém kódu.
-* Regulární výraz musí `\\` být pro řídicí znaky `\` řetězce Escape.
+* Výraz musí mít jedno zpětné lomítko, které je `\` zadáno v řetězci jako Dvojitá zpětná lomítka `\\` ve zdrojovém kódu.
+* Regulární výraz musí `\\` být pro řídicí `\` znaky řetězce Escape.
 * Regulární výraz nepožaduje `\\` při použití [doslovnéch řetězcových literálů](/dotnet/csharp/language-reference/keywords/string).
 
-Chcete-li `{`řídicí znaky oddělovače parametrů směrování `}`, `[` `]`,,, Zdvojnásobte znaky ve výrazu `{{`, `}` `[[`,, `]]`. V následující tabulce je uveden regulární výraz a verze s řídicím znakem:
+Chcete-li řídicí znaky oddělovače parametrů směrování,,,, `{` `}` `[` `]` Zdvojnásobte znaky ve výrazu `{{` , `}` `[[` `]]` ,,. V následující tabulce je uveden regulární výraz a verze s řídicím znakem:
 
 | Regulární výraz    | Regulární výraz s řídicím znakem     |
-| --------------------- | ------------------------------ |
-| `^\d{3}-\d{2}-\d{4}$` | `^\\d{{3}}-\\d{{2}}-\\d{{4}}$` |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------------- | | `^\d{3}-\d{2}-\d{4}$` | `^\\d{{3}}-\\d{{2}}-\\d{{4}}$` |
 | `^[a-z]{2}$`          | `^[[a-z]]{{2}}$`               |
 
-Regulární výrazy používané ve směrování často začínají znakem stříšky `^` a odpovídají počáteční pozici řetězce. Výrazy často končí `$` znakem dolaru a odpovídají konci řetězce. Znaky `^` a `$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez znaků `^` a `$` regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. Následující tabulka obsahuje příklady a vysvětlení, proč se shodují nebo neshodují.
+Regulární výrazy používané ve směrování často začínají `^` znakem stříšky a odpovídají počáteční pozici řetězce. Výrazy často končí `$` znakem dolaru a odpovídají konci řetězce. `^`Znaky a `$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez `^` znaků a `$` regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. Následující tabulka obsahuje příklady a vysvětlení, proč se shodují nebo neshodují.
 
-| Expression   | Řetězec    | Shoda | Poznámka               |
-| ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| Výraz   | Řetězec    | Shoda | Komentář               |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | :---: |  ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------- | | `[a-z]{2}`   | Dobrý den | Ano | Shoda podřetězců | | `[a-z]{2}`   | 123abc456 | Ano | Shoda podřetězců | | `[a-z]{2}`   | MZ | Ano | Odpovídá výrazu | | `[a-z]{2}`   | MZ | Ano | Nerozlišuje velká a malá písmena | | `^[a-z]{2}$` | Dobrý den | Žádné | Viz `^` a `$` nad | | `^[a-z]{2}$` | 123abc456 | Žádné | Zobrazit `^` a `$` nad |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
-Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulární výraz. `{action:regex(^(list|get|create)$)}` Například odpovídá pouze hodnotě `action` trasy `list`, `get`nebo. `create` Pokud je předána do slovníku omezení, je `^(list|get|create)$` řetězec ekvivalentní. Omezení, která jsou předána do slovníku omezení (nejsou vložena v rámci šablony), která neodpovídají jednomu ze známých omezení, jsou také považována za regulární výrazy.
+Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulární výraz. Například `{action:regex(^(list|get|create)$)}` odpovídá pouze `action` hodnotě trasy `list` , `get` nebo `create` . Pokud je předána do slovníku omezení, `^(list|get|create)$` je řetězec ekvivalentní. Omezení, která jsou předána do slovníku omezení (nejsou vložena v rámci šablony), která neodpovídají jednomu ze známých omezení, jsou také považována za regulární výrazy.
 
 ## <a name="custom-route-constraints"></a>Vlastní omezení trasy
 
-Kromě předdefinovaných omezení trasy lze vytvořit vlastní omezení trasy implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> Rozhraní obsahuje jedinou metodu, `Match`která vrací `true` , pokud je omezení splněno, a `false` jinak.
+Kromě předdefinovaných omezení trasy lze vytvořit vlastní omezení trasy implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>Rozhraní obsahuje jedinou metodu, `Match` která vrací, `true` Pokud je omezení splněno, a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>`. Příklad:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -1521,15 +4387,15 @@ public ActionResult<string> Get(string id)
 
 Transformátory parametrů:
 
-* Provede se při generování odkazu pro <xref:Microsoft.AspNetCore.Routing.Route>.
-* Implementujte `Microsoft.AspNetCore.Routing.IOutboundParameterTransformer`.
-* Jsou konfigurovány <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>pomocí.
+* Provede se při generování odkazu pro <xref:Microsoft.AspNetCore.Routing.Route> .
+* Implementujte `Microsoft.AspNetCore.Routing.IOutboundParameterTransformer` .
+* Jsou konfigurovány pomocí <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> .
 * Převeďte hodnotu trasy parametru a Transformujte ji na novou řetězcovou hodnotu.
 * Výsledkem použití transformované hodnoty ve vygenerovaném odkazu.
 
-Například vlastní `slugify` parametr Transformer ve vzoru `blog\{article:slugify}` směrování s `Url.Action(new { article = "MyTestArticle" })` vygenerováním. `blog\my-test-article`
+Například vlastní `slugify` parametr Transformer ve vzoru směrování `blog\{article:slugify}` s `Url.Action(new { article = "MyTestArticle" })` vygenerováním `blog\my-test-article` .
 
-Chcete-li použít transformující parametr ve schématu směrování, nakonfigurujte jej nejprve pomocí <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> `Startup.ConfigureServices`:
+Chcete-li použít transformující parametr ve schématu směrování, nakonfigurujte jej nejprve pomocí <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> `Startup.ConfigureServices` :
 
 ```csharp
 services.AddRouting(options =>
@@ -1540,7 +4406,7 @@ services.AddRouting(options =>
 });
 ```
 
-Transformátory parametrů používá rozhraní k transformaci identifikátoru URI, kde se Endpoint vyřeší. ASP.NET Core MVC například používá transformaci parametrů k transformaci hodnoty trasy používané k `area`porovnávání, `controller`, `action`a. `page`
+Transformátory parametrů používá rozhraní k transformaci identifikátoru URI, kde se Endpoint vyřeší. ASP.NET Core MVC například používá transformaci parametrů k transformaci hodnoty trasy používané k porovnávání `area` , `controller` , `action` a `page` .
 
 ```csharp
 routes.MapRoute(
@@ -1548,33 +4414,358 @@ routes.MapRoute(
     template: "{controller:slugify=Home}/{action:slugify=Index}/{id?}");
 ```
 
-S předchozí trasou se akce `SubscriptionManagementController.GetAll` shodují s identifikátorem URI. `/subscription-management/get-all` Transformující parametr nemění hodnoty trasy použité k vygenerování odkazu. Například `Url.Action("GetAll", "SubscriptionManagement")` výstupy `/subscription-management/get-all`.
+S předchozí trasou se akce `SubscriptionManagementController.GetAll` shodují s identifikátorem URI `/subscription-management/get-all` . Transformující parametr nemění hodnoty trasy použité k vygenerování odkazu. Například `Url.Action("GetAll", "SubscriptionManagement")` výstupy `/subscription-management/get-all` .
 
 ASP.NET Core poskytuje konvence rozhraní API pro použití parametrů Transformers s vygenerovanými trasami:
 
-* ASP.NET Core MVC má konvenci `Microsoft.AspNetCore.Mvc.ApplicationModels.RouteTokenTransformerConvention` rozhraní API. Tato konvence aplikuje na všechny trasy atributů v aplikaci zadaného parametru Transformer. Parametr Transformer transformuje tokeny, když jsou nahrazeny. Další informace najdete v tématu [Použití transformátoru parametrů k přizpůsobení náhrady tokenu](/aspnet/core/mvc/controllers/routing#use-a-parameter-transformer-to-customize-token-replacement).
-* Razor Pages má konvence `Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteTransformerConvention` rozhraní API. Tato konvence u všech automaticky zjištěných Razor Pages aplikuje zadaný transformátor parametrů. Parametr Transformer přetransformuje segmenty složky a názvu souboru na trasy Razor Pages. Další informace najdete v tématu [Použití transformátoru parametrů k přizpůsobení cest stránky](/aspnet/core/razor-pages/razor-pages-conventions#use-a-parameter-transformer-to-customize-page-routes).
+* ASP.NET Core MVC má `Microsoft.AspNetCore.Mvc.ApplicationModels.RouteTokenTransformerConvention` konvenci rozhraní API. Tato konvence aplikuje na všechny trasy atributů v aplikaci zadaného parametru Transformer. Parametr Transformer transformuje tokeny, když jsou nahrazeny. Další informace najdete v tématu [Použití transformátoru parametrů k přizpůsobení náhrady tokenu](/aspnet/core/mvc/controllers/routing#use-a-parameter-transformer-to-customize-token-replacement).
+* RazorStránky mají `Microsoft.AspNetCore.Mvc.ApplicationModels.PageRouteTransformerConvention` konvence rozhraní API. Tato konvence aplikuje pro všechny automaticky zjištěné stránky zadaného transformačního parametru Razor . Parametr Transformer transformuje segmenty složek na stránkách a název souboru Razor . Další informace najdete v tématu [Použití transformátoru parametrů k přizpůsobení cest stránky](/aspnet/core/razor-pages/razor-pages-conventions#use-a-parameter-transformer-to-customize-page-routes).
 
 ## <a name="url-generation-reference"></a>Odkaz na generování adresy URL
 
-Následující příklad ukazuje, jak vygenerovat odkaz na trasu s ohledem na slovník hodnot směrování a <xref:Microsoft.AspNetCore.Routing.RouteCollection>.
+Následující příklad ukazuje, jak vygenerovat odkaz na trasu s ohledem na slovník hodnot směrování a <xref:Microsoft.AspNetCore.Routing.RouteCollection> .
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
 
-<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> Vygenerovalo se na konci předchozí ukázky `/package/create/123`. Slovník poskytuje hodnoty `operation` a `id` trasu pro šablonu sledování trasy balíčku. `package/{operation}/{id}` Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
+<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath>Vygenerovalo se na konci předchozí ukázky `/package/create/123` . Slovník poskytuje `operation` `id` hodnoty a trasu pro šablonu sledování trasy balíčku `package/{operation}/{id}` . Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
 
-Druhý parametr <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> konstruktoru je kolekce *okolních hodnot*. Okolní hodnoty jsou vhodné k použití, protože omezují počet hodnot, které vývojář musí určit v rámci kontextu požadavku. Aktuální hodnoty trasy aktuálního požadavku jsou považovány za okolní hodnoty pro generování odkazů. V `About` akci aplikace ASP.NET Core MVC není nutné zadávat hodnotu `HomeController`trasy kontroléru, která bude propojena s `Index` akcí&mdash;, která `Home` je použita okolní hodnotou.
+Druhý parametr <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> konstruktoru je kolekce *okolních hodnot*. Okolní hodnoty jsou vhodné k použití, protože omezují počet hodnot, které vývojář musí určit v rámci kontextu požadavku. Aktuální hodnoty trasy aktuálního požadavku jsou považovány za okolní hodnoty pro generování odkazů. V akci aplikace ASP.NET Core MVC `About` `HomeController` není nutné zadávat hodnotu trasy kontroléru, která bude propojena s akcí, která `Index` &mdash; `Home` je použita okolní hodnotou.
 
 Okolní hodnoty, které se neshodují s parametrem, se ignorují. Okolní hodnoty jsou také ignorovány, pokud explicitně poskytnutá hodnota Přepisuje hodnotu okolí. K shodě dojde zleva doprava v adrese URL.
 
-Hodnoty jsou výslovně poskytnuty, ale neodpovídají segmentu trasy, jsou přidány do řetězce dotazu. V následující tabulce je uveden výsledek při použití šablony `{controller}/{action}/{id?}`směrování.
+Hodnoty jsou výslovně poskytnuty, ale neodpovídají segmentu trasy, jsou přidány do řetězce dotazu. V následující tabulce je uveden výsledek při použití šablony směrování `{controller}/{action}/{id?}` .
 
 | Okolní hodnoty                     | Explicitní hodnoty                        | Výsledek                  |
-| ---------------------------------- | -------------------------------------- | ----------------------- |
-| Controller = "domů"                | Action = "o"                       | `/Home/About`           |
-| Controller = "domů"                | Controller = "objednávka"; Action = "o" | `/Order/About`          |
-| Controller = "Home"; Color = "Red" | Action = "o"                       | `/Home/About`           |
-| Controller = "domů"                | Action = "o", Color = "Red"        | `/Home/About?color=Red` |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------ | | Controller = "domů" | Action = "o" | `/Home/About`|
+| Controller = "domů" | Controller = "objednávka"; Action = "o" | `/Order/About`|
+| Controller = "Home"; Color = "Red" | Action = "o" | `/Home/About`|
+| Controller = "domů" | Action = "o", Color = "Red" | `/Home/About?color=Red`                                |
 
 Pokud má trasa výchozí hodnotu, která neodpovídá parametru a tato hodnota je explicitně poskytnutá, musí se shodovat s výchozí hodnotou:
 
@@ -1583,11 +4774,11 @@ routes.MapRoute("blog_route", "blog/{*slug}",
     defaults: new { controller = "Blog", action = "ReadPost" });
 ```
 
-Generace odkazů generuje odkaz pro tuto trasu v případě, že jsou k `controller` dispozici hodnoty pro a `action` , které odpovídají.
+Generace odkazů generuje odkaz pro tuto trasu v případě, že jsou k `controller` dispozici hodnoty pro a, které odpovídají `action` .
 
 ## <a name="complex-segments"></a>Komplexní segmenty
 
-Komplexní segmenty (například `[Route("/x{token}y")]`) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Podrobné vysvětlení, jak se shodují komplexní segmenty, najdete v [tomto kódu](https://github.com/dotnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) . [Ukázka kódu](https://github.com/dotnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) není používána ASP.NET Core, ale poskytuje dobré vysvětlení složitých segmentů.
+Komplexní segmenty (například `[Route("/x{token}y")]` ) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Podrobné vysvětlení, jak se shodují komplexní segmenty, najdete v [tomto kódu](https://github.com/dotnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) . [Ukázka kódu](https://github.com/dotnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) není používána ASP.NET Core, ale poskytuje dobré vysvětlení složitých segmentů.
 <!-- While that code is no longer used by ASP.NET Core for complex segment matching, it provides a good match to the current algorithm. The [current code](https://github.com/dotnet/AspNetCore/blob/91514c9af7e0f4c44029b51f05a01c6fe4c96e4c/src/Http/Routing/src/Matching/DfaMatcherBuilder.cs#L227-L244) is too abstracted from matching to be useful for understanding complex segment matching.
 -->
 
@@ -1597,7 +4788,7 @@ Komplexní segmenty (například `[Route("/x{token}y")]`) jsou zpracovávány po
 
 Směrování zodpovídá za mapování identifikátorů URI požadavků na obslužné rutiny směrování a odesílání příchozích požadavků. Trasy jsou v aplikaci definované a nakonfigurované při spuštění aplikace. Trasa může volitelně extrahovat hodnoty z adresy URL obsažené v žádosti a tyto hodnoty pak lze použít pro zpracování požadavků. Směrování pomocí nakonfigurovaných tras z aplikace dokáže vygenerovat adresy URL, které se mapují na obslužné rutiny tras.
 
-Pokud chcete použít nejnovější scénáře směrování v ASP.NET Core 2,1, zadejte [verzi kompatibility](xref:mvc/compatibility-version) pro registraci služby MVC v `Startup.ConfigureServices`těchto umístěních:
+Pokud chcete použít nejnovější scénáře směrování v ASP.NET Core 2,1, zadejte [verzi kompatibility](xref:mvc/compatibility-version) pro registraci služby MVC v těchto umístěních `Startup.ConfigureServices` :
 
 ```csharp
 services.AddMvc()
@@ -1605,13 +4796,13 @@ services.AddMvc()
 ```
 
 > [!IMPORTANT]
-> Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing>. Informace o konvencích směrování v Razor Pages najdete v <xref:razor-pages/razor-pages-conventions>tématu.
+> Tento dokument popisuje směrování ASP.NET Core nízké úrovně. Informace o ASP.NET Core směrování MVC najdete v tématu <xref:mvc/controllers/routing> . Informace o konvencích směrování na Razor stránkách naleznete v tématu <xref:razor-pages/razor-pages-conventions> .
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="routing-basics"></a>Základy směrování
 
-Většina aplikací by měla zvolit základní a popisné schéma směrování, aby byly adresy URL čitelné a smysluplné. Výchozí konvenční trasa `{controller=Home}/{action=Index}/{id?}`:
+Většina aplikací by měla zvolit základní a popisné schéma směrování, aby byly adresy URL čitelné a smysluplné. Výchozí konvenční trasa `{controller=Home}/{action=Index}/{id?}` :
 
 * Podporuje základní a popisné schéma směrování.
 * Je užitečným výchozím bodem pro aplikace založené na uživatelském rozhraní.
@@ -1620,7 +4811,7 @@ Vývojáři obvykle přidávají další stručný trasy do oblastí s vysokým 
 
 Webové rozhraní API by mělo používat směrování atributů k modelování funkcí aplikace jako sady prostředků, ve kterých jsou operace reprezentované příkazy HTTP. To znamená, že mnoho operací (například GET, POST) na stejném logickém prostředku bude používat stejnou adresu URL. Směrování atributů poskytuje úroveň řízení, která je nutná k pečlivému návrhu rozložení veřejného koncového bodu rozhraní API.
 
-Aplikace Razor Pages používají výchozí konvenční směrování pro obsluhu pojmenovaných prostředků ve složce *Pages* v aplikaci. K dispozici jsou další konvence, které vám umožní přizpůsobit Razor Pages chování směrování. Další informace naleznete v tématech <xref:razor-pages/index> a <xref:razor-pages/razor-pages-conventions>.
+RazorStránky aplikace používají výchozí konvenční směrování pro obsluhu pojmenovaných prostředků ve složce *Pages* v aplikaci. K dispozici jsou další konvence, které umožňují přizpůsobit Razor chování směrování stránek. Další informace naleznete v tématech <xref:razor-pages/index> a <xref:razor-pages/razor-pages-conventions>.
 
 Podpora generování adresy URL umožňuje, aby se aplikace vyvinula bez adres URL s pevným kódováním, aby bylo možné propojit aplikaci dohromady. Tato podpora umožňuje začít se základní konfigurací směrování a upravovat trasy po určení rozložení prostředků aplikace.
 
@@ -1636,27 +4827,27 @@ Systém směrování má následující vlastnosti:
 * Syntaxe šablony směrování se používá k definování tras s tokeny parametrů trasy.
 * Konfigurace koncového bodu stylů a stylu atributu je povolena.
 * <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>slouží k určení, zda parametr adresy URL obsahuje platnou hodnotu pro dané omezení koncového bodu.
-* Modely aplikací, jako je MVC/Razor Pages, registrují všechny své trasy, které mají předvídatelné implementaci scénářů směrování.
+* Modely aplikací, jako je MVC/ Razor stránky, registrují všechny své trasy, které mají předvídatelné implementaci scénářů směrování.
 * Odpověď může používat směrování k vygenerování adres URL (například pro přesměrování nebo propojení) na základě informací o trasách, takže se vyhnete pevně zakódovaným adresám URL, které pomáhají zachovat.
 * Generování adresy URL vychází z tras, které podporují libovolné rozšíření. <xref:Microsoft.AspNetCore.Mvc.IUrlHelper>nabízí metody pro sestavování adres URL.
 <!-- fix [middleware](xref:fundamentals/middleware/index) -->
-Směrování je k kanálu [middleware](xref:fundamentals/middleware/index) připojeno <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> třídou. [ASP.NET Core MVC](xref:mvc/overview) v rámci své konfigurace přidává směrování do kanálu middlewaru a zpracovává směrování v MVC a Razor Pages aplikacích. Informace o tom, jak používat směrování jako samostatnou součást, najdete v části [použití middlewaru pro směrování](#use-routing-middleware) .
+Směrování je k kanálu [middleware](xref:fundamentals/middleware/index) připojeno <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> třídou. [ASP.NET Core MVC](xref:mvc/overview) v rámci své konfigurace přidává směrování do kanálu middlewaru a zpracovává směrování v MVC a Razor stránkách aplikace. Informace o tom, jak používat směrování jako samostatnou součást, najdete v části [použití middlewaru pro směrování](#use-routing-middleware) .
 
 ### <a name="url-matching"></a>Shoda adresy URL
 
 Shoda adresy URL je proces, podle kterého směrování odesílá příchozí požadavek *obslužné rutině*. Tento proces je založený na datech v cestě URL, ale dá se rozšířit, aby v žádosti mohla být považovat všechna data. Schopnost odesílat žádosti na samostatné obslužné rutiny je klíč pro škálování velikosti a složitosti aplikace.
 
-Příchozí požadavky vstupují do <xref:Microsoft.AspNetCore.Builder.RouterMiddleware>, který volá <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> metodu v každé trase v sekvenci. Instance zvolí, zda má být *žádost zpracována* nastavením [RouteContext. Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler*) na jinou hodnotu než null <xref:Microsoft.AspNetCore.Http.RequestDelegate> <xref:Microsoft.AspNetCore.Routing.IRouter> Pokud trasa nastaví obslužnou rutinu pro požadavek, zpracování směrování se zastaví a obslužná rutina se vyvolá pro zpracování žádosti. Pokud se pro zpracování požadavku nenajde žádná obslužná rutina tras, middleware si požadavek doplní k dalšímu middlewaru v kanálu žádosti.
+Příchozí požadavky vstupují do <xref:Microsoft.AspNetCore.Builder.RouterMiddleware> , který volá <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> metodu v každé trase v sekvenci. <xref:Microsoft.AspNetCore.Routing.IRouter>Instance zvolí, zda má být žádost *zpracována* nastavením [RouteContext. Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler*) na jinou hodnotu než null <xref:Microsoft.AspNetCore.Http.RequestDelegate> . Pokud trasa nastaví obslužnou rutinu pro požadavek, zpracování směrování se zastaví a obslužná rutina se vyvolá pro zpracování žádosti. Pokud se pro zpracování požadavku nenajde žádná obslužná rutina tras, middleware si požadavek doplní k dalšímu middlewaru v kanálu žádosti.
 
 Primární vstup na <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> je [vlastnost RouteContext. HttpContext](xref:Microsoft.AspNetCore.Routing.RouteContext.HttpContext*) přidružená k aktuální žádosti. [RouteContext. Handler](xref:Microsoft.AspNetCore.Routing.RouteContext.Handler) a [RouteContext. parametr RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData*) jsou nastaveny výstupy po porovnání trasy.
 
-Shoda, která volá <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> , také nastaví vlastnosti [RouteContext. parametr RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) na příslušné hodnoty na základě dosud provedeného zpracování požadavků.
+Shoda, která volá, <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> také nastaví vlastnosti [RouteContext. parametr RouteData](xref:Microsoft.AspNetCore.Routing.RouteContext.RouteData) na příslušné hodnoty na základě dosud provedeného zpracování požadavků.
 
 [Parametr RouteData. Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values*) je slovník *hodnot tras* vytvořených z trasy. Tyto hodnoty se obvykle určují pomocí tokenizací adresy URL a dají se použít k přijetí vstupu uživatele nebo k dalšímu odesílání rozhodnutí v rámci aplikace.
 
 [Parametr RouteData. DataTokens](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) je kontejner objektů a dat pro další data související s odpovídající trasou. <xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*>jsou k dispozici pro podporu přidružování dat o stavu k jednotlivým cestám, aby aplikace mohla učinit rozhodnutí na základě toho, na které trase odpovídá. Tyto hodnoty jsou definované vývojářem a **neovlivňují chování** směrování jakýmkoli způsobem. Kromě toho hodnoty dočasně ukládané v [parametr RouteData. Datatokeny](xref:Microsoft.AspNetCore.Routing.RouteData.DataTokens*) můžou být libovolného typu, na rozdíl od [parametr RouteData. Values](xref:Microsoft.AspNetCore.Routing.RouteData.Values), které musí být převoditelné na a z řetězců.
 
-[Parametr RouteData. routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers) je seznam tras, které byly součástí úspěšného porovnání požadavku. Trasy mohou být vnořeny do sebe navzájem. <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> Vlastnost odráží cestu v logickém stromu tras, jejichž výsledkem byla shoda. Obecně platí, že první položka <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> v nástroji je kolekce tras a měla by se používat pro generování adresy URL. Poslední položka v <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je obslužná rutina trasy, která se shoduje.
+[Parametr RouteData. routers](xref:Microsoft.AspNetCore.Routing.RouteData.Routers) je seznam tras, které byly součástí úspěšného porovnání požadavku. Trasy mohou být vnořeny do sebe navzájem. <xref:Microsoft.AspNetCore.Routing.RouteData.Routers>Vlastnost odráží cestu v logickém stromu tras, jejichž výsledkem byla shoda. Obecně platí, že první položka v nástroji <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je kolekce tras a měla by se používat pro generování adresy URL. Poslední položka v <xref:Microsoft.AspNetCore.Routing.RouteData.Routers> je obslužná rutina trasy, která se shoduje.
 
 <a name="lg"></a>
 
@@ -1664,7 +4855,7 @@ Shoda, která volá <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> , ta
 
 Generování adresy URL je proces, podle kterého směrování může vytvořit cestu adresy URL na základě sady hodnot tras. To umožňuje logické oddělení mezi obslužnými rutinami tras a adresami URL, které k nim mají přístup.
 
-Generování adresy URL následuje po podobném iterativním procesu, ale začíná kódem uživatele nebo rozhraní, který <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> volá metodu kolekce tras. Každá *trasa* má svou <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> metodu volanou v sekvenci, dokud se <xref:Microsoft.AspNetCore.Routing.VirtualPathData> nevrátí hodnota, která není null.
+Generování adresy URL následuje po podobném iterativním procesu, ale začíná kódem uživatele nebo rozhraní, který volá <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> metodu kolekce tras. Každá *trasa* má svou <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> metodu volanou v sekvenci, dokud <xref:Microsoft.AspNetCore.Routing.VirtualPathData> se nevrátí hodnota, která není null.
 
 Primární vstupy <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> jsou:
 
@@ -1672,12 +4863,12 @@ Primární vstupy <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> js
 * [VirtualPathContext. Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values)
 * [VirtualPathContext.AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues)
 
-Trasy primárně využívají hodnoty tras poskytované nástrojem <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values> a <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues> k rozhodnutí, zda je možné vygenerovat adresu URL a jaké hodnoty mají být zahrnuty. <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues> Je sada hodnot tras, které byly vytvořeny z porovnání s aktuálním požadavkem. Naproti tomu <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values> jsou hodnoty trasy, které určují, jak se má vygenerovat požadovaná adresa URL pro aktuální operaci. <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.HttpContext> Je k dispozici v případě, že trasa má získat služby nebo další data přidružená k aktuálnímu kontextu.
+Trasy primárně využívají hodnoty tras poskytované nástrojem <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values> a <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues> k rozhodnutí, zda je možné vygenerovat adresu URL a jaké hodnoty mají být zahrnuty. Je <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues> sada hodnot tras, které byly vytvořeny z porovnání s aktuálním požadavkem. Naproti tomu <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values> jsou hodnoty trasy, které určují, jak se má vygenerovat požadovaná adresa URL pro aktuální operaci. <xref:Microsoft.AspNetCore.Routing.VirtualPathContext.HttpContext>Je k dispozici v případě, že trasa má získat služby nebo další data přidružená k aktuálnímu kontextu.
 
 > [!TIP]
 > [VirtualPathContext. Values](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.Values*) se považuje za sadu přepsání pro [VirtualPathContext. AmbientValues](xref:Microsoft.AspNetCore.Routing.VirtualPathContext.AmbientValues*). Generování adresy URL se pokusí znovu použít hodnoty směrování z aktuální žádosti, aby se vygenerovaly adresy URL pro odkazy pomocí stejné trasy nebo hodnoty tras.
 
-Výstupem <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> je <xref:Microsoft.AspNetCore.Routing.VirtualPathData>. <xref:Microsoft.AspNetCore.Routing.VirtualPathData>je paralelní z <xref:Microsoft.AspNetCore.Routing.RouteData>. <xref:Microsoft.AspNetCore.Routing.VirtualPathData><xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> obsahuje adresu URL výstupu a některé další vlastnosti, které by měly být nastavené trasou.
+Výstupem <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> je <xref:Microsoft.AspNetCore.Routing.VirtualPathData> . <xref:Microsoft.AspNetCore.Routing.VirtualPathData>je paralelní z <xref:Microsoft.AspNetCore.Routing.RouteData> . <xref:Microsoft.AspNetCore.Routing.VirtualPathData>obsahuje <xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> adresu URL výstupu a některé další vlastnosti, které by měly být nastavené trasou.
 
 Vlastnost [VirtualPathData. VirtualPath](xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath*) obsahuje *virtuální cestu* vytvořenou trasou. V závislosti na vašich potřebách možná budete muset zpracovat cestu dále. Pokud chcete vygenerovanou adresu URL vykreslit ve formátu HTML, předřaďte základní cestu aplikace.
 
@@ -1687,11 +4878,11 @@ Vlastnosti [VirtualPathData. DataTokens](xref:Microsoft.AspNetCore.Routing.Virtu
 
 ### <a name="create-routes"></a>Vytvoření tras
 
-Směrování poskytuje <xref:Microsoft.AspNetCore.Routing.Route> třídu jako standardní implementaci <xref:Microsoft.AspNetCore.Routing.IRouter>. <xref:Microsoft.AspNetCore.Routing.Route>používá syntaxi *šablony směrování* k definování vzorů, které se budou shodovat s cestou <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> URL, když je volána. <xref:Microsoft.AspNetCore.Routing.Route>používá stejnou šablonu trasy k vygenerování adresy URL, <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> když se zavolá.
+Směrování poskytuje <xref:Microsoft.AspNetCore.Routing.Route> třídu jako standardní implementaci <xref:Microsoft.AspNetCore.Routing.IRouter> . <xref:Microsoft.AspNetCore.Routing.Route>používá syntaxi *šablony směrování* k definování vzorů, které se budou shodovat s cestou URL, když <xref:Microsoft.AspNetCore.Routing.IRouter.RouteAsync*> je volána. <xref:Microsoft.AspNetCore.Routing.Route>používá stejnou šablonu trasy k vygenerování adresy URL, když <xref:Microsoft.AspNetCore.Routing.IRouter.GetVirtualPath*> se zavolá.
 
-Většina aplikací vytváří trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo jedné z podobných metod rozšíření definovaných v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder>. Kterákoli z <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> rozšiřujících metod vytvoří instanci <xref:Microsoft.AspNetCore.Routing.Route> a přidá ji do kolekce tras.
+Většina aplikací vytváří trasy voláním <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> nebo jedné z podobných metod rozšíření definovaných v <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> . Kterákoli z <xref:Microsoft.AspNetCore.Routing.IRouteBuilder> rozšiřujících metod vytvoří instanci <xref:Microsoft.AspNetCore.Routing.Route> a přidá ji do kolekce tras.
 
-<xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*>nepřijímá parametr obslužné rutiny trasy. <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*>přidá pouze trasy, které jsou zpracovávány <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>. Výchozí obslužná rutina je `IRouter`a obslužná rutina nemusí požadavek zpracovat. Například ASP.NET Core MVC je obvykle nakonfigurován jako výchozí obslužná rutina, která zpracovává pouze požadavky, které odpovídají dostupnému kontroleru a akci. Další informace o směrování v MVC najdete v tématu <xref:mvc/controllers/routing>.
+<xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*>nepřijímá parametr obslužné rutiny trasy. <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*>přidá pouze trasy, které jsou zpracovávány <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*> . Výchozí obslužná rutina je `IRouter` a obslužná rutina nemusí požadavek zpracovat. Například ASP.NET Core MVC je obvykle nakonfigurován jako výchozí obslužná rutina, která zpracovává pouze požadavky, které odpovídají dostupnému kontroleru a akci. Další informace o směrování v MVC najdete v tématu <xref:mvc/controllers/routing> .
 
 Následující příklad kódu je příkladem <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> volání využívaného typickou ASP.NET Core definice trasy MVC:
 
@@ -1701,15 +4892,15 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-Tato šablona odpovídá cestě URL a extrahuje hodnoty tras. Například cesta `/Products/Details/17` generuje následující hodnoty trasy: `{ controller = Products, action = Details, id = 17 }`.
+Tato šablona odpovídá cestě URL a extrahuje hodnoty tras. Například cesta `/Products/Details/17` generuje následující hodnoty trasy: `{ controller = Products, action = Details, id = 17 }` .
 
-Hodnoty tras se určují rozdělením cesty URL na segmenty a porovnáním jednotlivých segmentů s názvem *parametru trasy* v šabloně směrování. Parametry směrování jsou pojmenovány. Parametry definované ohraničujícím název parametru ve složených závorkách `{ ... }`.
+Hodnoty tras se určují rozdělením cesty URL na segmenty a porovnáním jednotlivých segmentů s názvem *parametru trasy* v šabloně směrování. Parametry směrování jsou pojmenovány. Parametry definované ohraničujícím název parametru ve složených závorkách `{ ... }` .
 
-Předchozí šablona může také odpovídat cestě `/` URL a vydávat hodnoty. `{ controller = Home, action = Index }` K tomu dochází, `{controller}` protože `{action}` parametry směrování a mají výchozí hodnoty a `id` parametr trasy je nepovinný. Znak rovná se (`=`) následovaný hodnotou po názvu parametru trasy, který definuje výchozí hodnotu parametru. Otazník (`?`) po názvu parametru trasy definuje volitelný parametr.
+Předchozí šablona může také odpovídat cestě URL `/` a vydávat hodnoty `{ controller = Home, action = Index }` . K tomu dochází, `{controller}` protože `{action}` parametry směrování a mají výchozí hodnoty a `id` parametr trasy je nepovinný. Znak rovná se ( `=` ) následovaný hodnotou po názvu parametru trasy, který definuje výchozí hodnotu parametru. Otazník ( `?` ) po názvu parametru trasy definuje volitelný parametr.
 
 Parametry směrování s výchozí hodnotou *vždy* vytvoří hodnotu trasy, když odpovídá trasa. Pokud neexistuje žádný odpovídající segment cesty k adrese URL, volitelné parametry nevytvoří hodnotu trasy. Podrobný popis scénářů a syntaxe šablon směrování najdete v části referenční dokumentace k [šabloně směrování](#route-template-reference) .
 
-V následujícím příkladu definuje definice `{id:int}` parametru trasy [omezení trasy](#route-constraint-reference) pro parametr `id` trasy:
+V následujícím příkladu definuje definice parametru trasy `{id:int}` [omezení trasy](#route-constraint-reference) pro `id` parametr trasy:
 
 ```csharp
 routes.MapRoute(
@@ -1717,11 +4908,11 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id:int}");
 ```
 
-Tato šablona odpovídá cestě URL, například `/Products/Details/17` ne `/Products/Details/Apples`. Omezení tras implementují <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> a kontrolují hodnoty směrování a ověřují je. V tomto příkladu musí být hodnota `id` trasy převoditelná na celé číslo. Vysvětlení omezení trasy poskytovaných rozhraním naleznete v tématu [Route-Constraint-reference](#route-constraint-reference) .
+Tato šablona odpovídá cestě URL, například `/Products/Details/17` ne `/Products/Details/Apples` . Omezení tras implementují <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> a kontrolují hodnoty směrování a ověřují je. V tomto příkladu musí být hodnota trasy `id` převoditelná na celé číslo. Vysvětlení omezení trasy poskytovaných rozhraním naleznete v tématu [Route-Constraint-reference](#route-constraint-reference) .
 
-Další přetížení <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> přijímají hodnoty pro `constraints`, `dataTokens`a. `defaults` Typické použití těchto parametrů je předání anonymního typu objektu, kde názvy vlastností anonymního typu odpovídají názvům parametrů tras.
+Další přetížení <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> přijímají hodnoty pro `constraints` , `dataTokens` a `defaults` . Typické použití těchto parametrů je předání anonymního typu objektu, kde názvy vlastností anonymního typu odpovídají názvům parametrů tras.
 
-Následující <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> příklady vytvoří ekvivalentní trasy:
+Následující <xref:Microsoft.AspNetCore.Builder.MapRouteRouteBuilderExtensions.MapRoute*> Příklady vytvoří ekvivalentní trasy:
 
 ```csharp
 routes.MapRoute(
@@ -1746,7 +4937,7 @@ routes.MapRoute(
     defaults: new { controller = "Blog", action = "ReadArticle" });
 ```
 
-Předchozí šablona odpovídá cestě URL jako `/Blog/All-About-Routing/Introduction` a extrahuje hodnoty. `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }` Výchozí hodnoty tras pro `controller` a `action` jsou vytvářeny trasou, i když v šabloně nejsou odpovídající parametry směrování. V šabloně směrování lze zadat výchozí hodnoty. Parametr `article` Route je definován jako *catch-All* pomocí vzhledu hvězdičky (`*`) před názvem parametru trasy. Catch – všechny parametry tras zaznamenávají zbytek cesty URL a můžou taky odpovídat prázdnému řetězci.
+Předchozí šablona odpovídá cestě URL jako `/Blog/All-About-Routing/Introduction` a extrahuje hodnoty `{ controller = Blog, action = ReadArticle, article = All-About-Routing/Introduction }` . Výchozí hodnoty tras pro `controller` a `action` jsou vytvářeny trasou, i když v šabloně nejsou odpovídající parametry směrování. V šabloně směrování lze zadat výchozí hodnoty. `article`Parametr Route je definován jako *catch-All* pomocí vzhledu hvězdičky ( `*` ) před názvem parametru trasy. Catch – všechny parametry tras zaznamenávají zbytek cesty URL a můžou taky odpovídat prázdnému řetězci.
 
 Následující příklad přidá omezení trasy a datové tokeny:
 
@@ -1759,13 +4950,13 @@ routes.MapRoute(
     dataTokens: new { locale = "en-US" });
 ```
 
-Předchozí šablona odpovídá cestě URL jako `/en-US/Products/5` a extrahuje hodnoty `{ controller = Products, action = Details, id = 5 }` a datové tokeny. `{ locale = en-US }`
+Předchozí šablona odpovídá cestě URL jako `/en-US/Products/5` a extrahuje hodnoty `{ controller = Products, action = Details, id = 5 }` a datové tokeny `{ locale = en-US }` .
 
 ![Tokeny systému Windows pro národní prostředí](routing/_static/tokens.png)
 
 ### <a name="route-class-url-generation"></a>Generování adresy URL třídy směrování
 
-<xref:Microsoft.AspNetCore.Routing.Route> Třída může také provádět generování adresy URL kombinováním sady hodnot směrování se šablonou směrování. Toto je logicky obrácený proces, který odpovídá cestě URL.
+<xref:Microsoft.AspNetCore.Routing.Route>Třída může také provádět generování adresy URL kombinováním sady hodnot směrování se šablonou směrování. Toto je logicky obrácený proces, který odpovídá cestě URL.
 
 > [!TIP]
 > Chcete-li lépe pochopit generování adresy URL, Představte si, jakou adresu URL chcete vygenerovat, a pak se zamyslete nad tím, jak šablona trasy odpovídá této adrese Jaké hodnoty by se vytvořily? Toto je hrubý ekvivalent způsobu, jakým generování adresy URL ve <xref:Microsoft.AspNetCore.Routing.Route> třídě funguje.
@@ -1778,14 +4969,14 @@ routes.MapRoute(
     template: "{controller=Home}/{action=Index}/{id?}");
 ```
 
-S hodnotami `{ controller = Products, action = List }`trasy je vygenerována `/Products/List` adresa URL. Hodnoty tras se nahradí odpovídajícími parametry tras, aby bylo možné vytvořit cestu k adrese URL. Vzhledem `id` k tomu, že se jedná o volitelný parametr trasy, adresa URL se úspěšně `id`vygenerovala bez hodnoty pro.
+S hodnotami trasy `{ controller = Products, action = List }` `/Products/List` je vygenerována adresa URL. Hodnoty tras se nahradí odpovídajícími parametry tras, aby bylo možné vytvořit cestu k adrese URL. Vzhledem k tomu `id` , že se jedná o volitelný parametr trasy, adresa URL se úspěšně vygenerovala bez hodnoty pro `id` .
 
-S hodnotami `{ controller = Home, action = Index }`trasy je vygenerována `/` adresa URL. Zadané hodnoty trasy odpovídají výchozím hodnotám a jsou bezpečně vynechány segmenty odpovídající výchozím hodnotám.
+S hodnotami trasy `{ controller = Home, action = Index }` `/` je vygenerována adresa URL. Zadané hodnoty trasy odpovídají výchozím hodnotám a jsou bezpečně vynechány segmenty odpovídající výchozím hodnotám.
 
-Obě adresy URL vygenerovaly zpáteční cestu pomocí následující definice trasy`/Home/Index` ( `/`a) vytvoří stejné hodnoty trasy, které se použily k vygenerování adresy URL.
+Obě adresy URL vygenerovaly zpáteční cestu pomocí následující definice trasy ( `/Home/Index` a `/` ) vytvoří stejné hodnoty trasy, které se použily k VYGENEROVÁNÍ adresy URL.
 
 > [!NOTE]
-> Aplikace, která používá ASP.NET Core MVC, <xref:Microsoft.AspNetCore.Mvc.Routing.UrlHelper> by měla používat k vygenerování adres URL namísto volání přímo do směrování.
+> Aplikace, která používá ASP.NET Core MVC, by měla používat <xref:Microsoft.AspNetCore.Mvc.Routing.UrlHelper> k vygenerování adres URL namísto volání přímo do směrování.
 
 Další informace o generování adresy URL najdete v části [Reference pro generování adresy URL](#url-generation-reference) .
 
@@ -1793,14 +4984,14 @@ Další informace o generování adresy URL najdete v části [Reference pro gen
 
 Odkaz na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) v souboru projektu aplikace.
 
-Přidat směrování do kontejneru služby v `Startup.ConfigureServices`:
+Přidat směrování do kontejneru služby v `Startup.ConfigureServices` :
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_ConfigureServices&highlight=3)]
 
-V `Startup.Configure` metodě musí být nakonfigurovány trasy. Ukázková aplikace používá následující rozhraní API:
+V metodě musí být nakonfigurovány trasy `Startup.Configure` . Ukázková aplikace používá následující rozhraní API:
 
 * <xref:Microsoft.AspNetCore.Routing.RouteBuilder>
-* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>&ndash; Odpovídá pouze požadavkům HTTP GET.
+* <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>: Odpovídá pouze požadavkům HTTP GET.
 * <xref:Microsoft.AspNetCore.Builder.RoutingBuilderExtensions.UseRouter*>
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_RouteHandler)]
@@ -1808,18 +4999,258 @@ V `Startup.Configure` metodě musí být nakonfigurovány trasy. Ukázková apli
 V následující tabulce jsou uvedeny odpovědi s danými identifikátory URI.
 
 | Identifikátor URI                    | Odpověď                                          |
-| ---------------------- | ------------------------------------------------- |
-| `/package/create/3`    | Dobrý den! Hodnoty směrování: [operace, vytvořit], [ID, 3] |
-| `/package/track/-3`    | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] |
-| `/package/track/-3/`   | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] |
-| `/package/track/`      | Požadavek spadá do, bez shody.              |
-| `GET /hello/Joe`       | Dobrý den, Jana!                                          |
-| `POST /hello/Joe`      | Požadavek spadá do, odpovídá pouze HTTP GET. |
-| `GET /hello/Joe/Smith` | Požadavek spadá do, bez shody.              |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Pokud konfigurujete jednu trasu, zavolejte <xref:Microsoft.AspNetCore.Builder.RoutingBuilderExtensions.UseRouter*> předávání do `IRouter` instance. Nebudete muset používat <xref:Microsoft.AspNetCore.Routing.RouteBuilder>.
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
 
-Rozhraní poskytuje sadu metod rozšíření pro vytváření tras (<xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions>):
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------------- | | `/package/create/3`    | Dobrý den! Hodnoty směrování: [operace, vytvořit], [ID, 3] | | `/package/track/-3`    | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] | | `/package/track/-3/`   | Dobrý den! Hodnoty směrování: [operace, stopa], [ID,-3] | | `/package/track/`      | Požadavek spadá do, bez shody.              | | `GET /hello/Joe`       | Dobrý den, Jana!                                          | | `POST /hello/Joe`      | Požadavek spadá do, odpovídá pouze HTTP GET. | | `GET /hello/Joe/Smith` | Požadavek spadá do, bez shody.              |
+
+Pokud konfigurujete jednu trasu, zavolejte <xref:Microsoft.AspNetCore.Builder.RoutingBuilderExtensions.UseRouter*> předávání do `IRouter` instance. Nebudete muset používat <xref:Microsoft.AspNetCore.Routing.RouteBuilder> .
+
+Rozhraní poskytuje sadu metod rozšíření pro vytváření tras ( <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions> ):
 
 * <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapDelete*>
 * <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>
@@ -1834,46 +5265,534 @@ Rozhraní poskytuje sadu metod rozšíření pro vytváření tras (<xref:Micros
 * <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapRoute*>
 * <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapVerb*>
 
-Některé z uvedených metod, například <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*>, vyžadují. <xref:Microsoft.AspNetCore.Http.RequestDelegate> <xref:Microsoft.AspNetCore.Http.RequestDelegate> Je použit jako *obslužná rutina trasy* při porovnání trasy. Jiné metody v této rodině umožňují konfigurovat kanál middlewaru pro použití jako obslužná rutina trasy. Pokud `Map*` metoda nepřijímá obslužnou rutinu, například <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapRoute*>, používá. <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*>
+Některé z uvedených metod, například <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*> , vyžadují <xref:Microsoft.AspNetCore.Http.RequestDelegate> . <xref:Microsoft.AspNetCore.Http.RequestDelegate>Je použit jako *obslužná rutina trasy* při porovnání trasy. Jiné metody v této rodině umožňují konfigurovat kanál middlewaru pro použití jako obslužná rutina trasy. Pokud `Map*` Metoda nepřijímá obslužnou rutinu, například <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapRoute*> , používá <xref:Microsoft.AspNetCore.Routing.RouteBuilder.DefaultHandler*> .
 
-`Map[Verb]` Metody používají omezení k omezení trasy na příkaz HTTP v názvu metody. Například viz <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*> a <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapVerb*>.
+`Map[Verb]`Metody používají omezení k omezení trasy na příkaz HTTP v názvu metody. Například viz <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapGet*> a <xref:Microsoft.AspNetCore.Routing.RequestDelegateRouteBuilderExtensions.MapVerb*> .
 
 ## <a name="route-template-reference"></a>Odkaz na šablonu směrování
 
-Tokeny ve složených závorkách (`{ ... }`) definují *parametry trasy* , které jsou svázané, pokud je trasa shodná. V segmentu směrování můžete definovat více než jeden parametr trasy, ale musí být oddělený literálovou hodnotou. Například `{controller=Home}{action=Index}` není platná trasa, protože hodnota literálu není mezi `{controller}` a. `{action}` Tyto parametry tras musí mít název a můžou mít zadané další atributy.
+Tokeny ve složených závorkách ( `{ ... }` ) definují *parametry trasy* , které jsou svázané, pokud je trasa shodná. V segmentu směrování můžete definovat více než jeden parametr trasy, ale musí být oddělený literálovou hodnotou. Například `{controller=Home}{action=Index}` není platná trasa, protože hodnota literálu není mezi `{controller}` a `{action}` . Tyto parametry tras musí mít název a můžou mít zadané další atributy.
 
-Textový literál jiný než parametry směrování (například `{id}`) a oddělovač `/` cesty musí odpovídat textu v adrese URL. U porovnávání textu se nerozlišují malá a velká písmena a na základě dekódovat reprezentace cesty URL. Chcete-li spárovat oddělovač parametrů trasy`{` (nebo `}`) literálu, zařídíte oddělovač opakováním znaku (`{{` nebo `}}`).
+Textový literál jiný než parametry směrování (například `{id}` ) a oddělovač cesty `/` musí odpovídat textu v adrese URL. U porovnávání textu se nerozlišují malá a velká písmena a na základě dekódovat reprezentace cesty URL. Chcete-li spárovat oddělovač parametrů trasy ( `{` nebo) literálu `}` , zařídíte oddělovač opakováním znaku ( `{{` nebo `}}` ).
 
-Vzory adres URL, které se pokoušejí zachytit název souboru s volitelnou příponou souboru, mají další požadavky. Představte si třeba šablonu `files/{filename}.{ext?}`. Pokud hodnoty pro obojí `filename` i `ext` existují, naplní se obě hodnoty. Je-li v adrese `filename` URL pouze hodnota, která je v adrese URL, odpovídá trasa, protože`.`koncová tečka () je volitelná. Tuto trasu odpovídají následujícím adresám URL:
+Vzory adres URL, které se pokoušejí zachytit název souboru s volitelnou příponou souboru, mají další požadavky. Představte si třeba šablonu `files/{filename}.{ext?}` . Pokud hodnoty pro obojí `filename` i `ext` existují, naplní se obě hodnoty. Je-li `filename` v adrese URL pouze hodnota, která je v adrese URL, odpovídá trasa, protože koncová tečka ( `.` ) je volitelná. Tuto trasu odpovídají následujícím adresám URL:
 
 * `/files/myFile.txt`
 * `/files/myFile`
 
-K vytvoření vazby na zbytek identifikátoru URI můžete použít hvězdičku (`*`) jako předponu parametru trasy. Tento parametr se nazývá *catch-All* . Například `blog/{*slug}` odpovídá jakémukoli identifikátoru URI, který začíná `/blog` a má libovolnou hodnotu, která je za ní přiřazena hodnota `slug` trasy. Catch – všechny parametry můžou odpovídat také prázdnému řetězci.
+K `*` vytvoření vazby na zbytek identifikátoru URI můžete použít hvězdičku () jako předponu parametru trasy. Tento parametr se nazývá *catch-All* . Například `blog/{*slug}` odpovídá jakémukoli identifikátoru URI, který začíná `/blog` a má libovolnou hodnotu, která je za ní přiřazena `slug` hodnota trasy. Catch – všechny parametry můžou odpovídat také prázdnému řetězci.
 
-Parametr catch-All řídí příslušné znaky, pokud je použita cesta pro vygenerování adresy URL, včetně znaků oddělovače (`/`). Například trasa `foo/{*path}` s hodnotami `{ path = "my/path" }` trasy vygeneruje. `foo/my%2Fpath` Všimněte si řídicího znaku lomítka.
+Parametr catch-All řídí příslušné znaky, pokud je použita cesta pro vygenerování adresy URL, včetně znaků oddělovače ( `/` ). Například trasa `foo/{*path}` s hodnotami trasy `{ path = "my/path" }` vygeneruje `foo/my%2Fpath` . Všimněte si řídicího znaku lomítka.
 
-Parametry směrování můžou mít *výchozí hodnoty* určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se (`=`). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller`. Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku (`?`) na konec názvu parametru, jako v. `id?` Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování je, že parametr trasy s výchozí hodnotou vždy vytvoří hodnotu&mdash;, která má volitelný parametr hodnotu, pouze pokud je hodnota poskytnuta adresou URL požadavku.
+Parametry směrování můžou mít *výchozí hodnoty* určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se ( `=` ). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller` . Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku ( `?` ) na konec názvu parametru, jako v `id?` . Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování je, že parametr trasy s výchozí hodnotou vždy vytvoří hodnotu, která &mdash; má volitelný parametr hodnotu, pouze pokud je hodnota poskytnuta adresou URL požadavku.
 
-Parametry směrování můžou mít omezení, která se musí shodovat s hodnotou trasy svázanou z adresy URL. Přidání dvojtečky (`:`) a názvu omezení za názvem parametru trasy Určuje *vložené omezení* pro parametr trasy. Pokud omezení vyžaduje argumenty, jsou uzavřeny v závorkách (`(...)`) za názvem omezení. Přidáním dalších dvojtečk (`:`) a názvu omezení lze zadat více vložených omezení.
+Parametry směrování můžou mít omezení, která se musí shodovat s hodnotou trasy svázanou z adresy URL. Přidání dvojtečky ( `:` ) a názvu omezení za názvem parametru trasy Určuje *vložené omezení* pro parametr trasy. Pokud omezení vyžaduje argumenty, jsou uzavřeny v závorkách ( `(...)` ) za názvem omezení. Přidáním dalších dvojtečk ( `:` ) a názvu omezení lze zadat více vložených omezení.
 
-Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> službě za účelem vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> pro použití při zpracování adresy URL. Například šablona `blog/{article:minlength(10)}` trasy Určuje `minlength` omezení s argumentem. `10` Další informace o omezeních tras a seznam omezení poskytovaných rozhraním najdete v části [referenční informace k omezením trasy](#route-constraint-reference) .
+Název omezení a argumenty jsou předány <xref:Microsoft.AspNetCore.Routing.IInlineConstraintResolver> službě za účelem vytvoření instance <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> pro použití při zpracování adresy URL. Například šablona trasy `blog/{article:minlength(10)}` Určuje `minlength` omezení s argumentem `10` . Další informace o omezeních tras a seznam omezení poskytovaných rozhraním najdete v části [referenční informace k omezením trasy](#route-constraint-reference) .
 
 Následující tabulka ukazuje příklady šablon směrování a jejich chování.
 
 | Šablona směrování                           | Příklad odpovídajícího identifikátoru URI    | Identifikátor URI žádosti&hellip;                                                    |
-| ---------------------------------------- | ----------------------- | -------------------------------------------------------------------------- |
-| `hello`                                  | `/hello`                | Odpovídá pouze jedné cestě `/hello`.                                     |
-| `{Page=Home}`                            | `/`                     | Odpovídá a nastavuje `Page` na `Home`.                                         |
-| `{Page=Home}`                            | `/Contact`              | Odpovídá a nastavuje `Page` na `Contact`.                                      |
-| `{controller}/{action}/{id?}`            | `/Products/List`        | Provede mapování na `Products` kontroler `List` a akci.                       |
-| `{controller}/{action}/{id?}`            | `/Products/Details/123` | Provede mapování na `Products` kontroler `Details` a akci`id` (nastaveno na 123). |
-| `{controller=Home}/{action=Index}/{id?}` | `/`                     | Provede mapování na `Home` kontroler `Index` a metodu`id` (je ignorováno).        |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------------------------- | | `hello`                                  | `/hello`                | Odpovídá pouze jedné cestě `/hello` .                                     | | `{Page=Home}`                            | `/`                     | Odpovídá a nastavuje `Page` na `Home` .                                         | | `{Page=Home}`                            | `/Contact`              | Odpovídá a nastavuje `Page` na `Contact` .                                      | | `{controller}/{action}/{id?}`            | `/Products/List`        | Provede mapování na `Products` kontroler a `List` akci.                       | | `{controller}/{action}/{id?}`            | `/Products/Details/123` | Provede mapování na `Products` kontroler a `Details` akci ( `id` nastaveno na 123). | | `{controller=Home}/{action=Index}/{id?}` | `/`                     | Provede mapování na `Home` kontroler a `Index` metodu ( `id` je ignorováno).        |
 
 Použití šablony je obecně nejjednodušší přístup ke směrování. Omezení a výchozí hodnoty je možné zadat i mimo šablonu směrování.
 
 > [!TIP]
-> Povolte [protokolování](xref:fundamentals/logging/index) , abyste viděli <xref:Microsoft.AspNetCore.Routing.Route>, jak integrované implementace směrování, například, odpovídají požadavkům.
+> Povolte [protokolování](xref:fundamentals/logging/index) , abyste viděli, jak integrované implementace směrování, například <xref:Microsoft.AspNetCore.Routing.Route> , odpovídají požadavkům.
 
 ## <a name="route-constraint-reference"></a>Odkaz na omezení trasy
 
@@ -1885,25 +5804,77 @@ Omezení trasy se spustí, když došlo ke shodě s příchozí adresou URL a ce
 Následující tabulka ukazuje příklad omezení trasy a jejich očekávané chování.
 
 | omezení | Příklad | Příklady shody | Poznámky |
-| ---------- | ------- | --------------- | ----- |
-| `int` | `{id:int}` | `123456789`, `-123456789` | Odpovídá jakémukoli celému číslu |
-| `bool` | `{active:bool}` | `true`, `FALSE` | Odpovídá `true` nebo `false` (nerozlišuje velká a malá písmena) |
-| `datetime` | `{dob:datetime}` | `2016-12-31`, `2016-12-31 7:32pm` | Odpovídá platné `DateTime` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | Odpovídá platné `decimal` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | Odpovídá platné `double` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | Odpovídá platné `float` hodnotě v neutrální jazykové verzi. Viz předchozí upozornění.|
-| `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Odpovídá platné `Guid` hodnotě |
-| `long` | `{ticks:long}` | `123456789`, `-123456789` | Odpovídá platné `long` hodnotě |
-| `minlength(value)` | `{username:minlength(4)}` | `Rick` | Řetězec musí mít minimálně 4 znaky. |
-| `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | Řetězec nesmí být delší než 8 znaků. |
-| `length(length)` | `{filename:length(12)}` | `somefile.txt` | Řetězec musí být přesně 12 znaků dlouhý. |
-| `length(min,max)` | `{filename:length(8,16)}` | `somefile.txt` | Řetězec musí mít aspoň 8 znaků a nesmí být delší než 16 znaků. |
-| `min(value)` | `{age:min(18)}` | `19` | Celočíselná hodnota musí být minimálně 18. |
-| `max(value)` | `{age:max(120)}` | `91` | Hodnota typu Integer nesmí být větší než 120. |
-| `range(min,max)` | `{age:range(18,120)}` | `91` | Celočíselná hodnota musí být minimálně 18, ale ne víc než 120. |
-| `alpha` | `{name:alpha}` | `Rick` | Řetězec musí obsahovat jeden nebo více abecedních znaků (`a`-`z`bez rozlišování velkých a malých písmen). |
-| `regex(expression)` | `{ssn:regex(^\\d{{3}}-\\d{{2}}-\\d{{4}}$)}` | `123-45-6789` | Řetězec musí odpovídat regulárnímu výrazu (viz Tipy k definování regulárního výrazu). |
-| `required` | `{name:required}` | `Rick` | Slouží k vykonání, že při generování adresy URL je přítomna hodnota bez parametru. |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-------- | ----- | | `int` | `{id:int}` | `123456789`, `-123456789` | Odpovídá libovolnému celému číslu | | `bool` | `{active:bool}` | `true`, `FALSE` | Odpovídá `true` nebo `false` (nerozlišuje velká a malá písmena) | | `datetime`  |  `{dob:datetime}`  |  `2016-12-31` , `2016-12-31 7:32pm` | Odpovídá platné `DateTime` hodnotě v neutrální jazykové verzi. Zobrazit předchozí upozornění | | `decimal` | `{price:decimal}` | `49.99`, `-1,000.01` | Odpovídá platné `decimal` hodnotě v neutrální jazykové verzi. Zobrazit předchozí upozornění | | `double` | `{weight:double}` | `1.234`, `-1,001.01e8` | Odpovídá platné `double` hodnotě v neutrální jazykové verzi. Zobrazit předchozí upozornění | | `float` | `{weight:float}` | `1.234`, `-1,001.01e8` | Odpovídá platné `float` hodnotě v neutrální jazykové verzi. Zobrazit předchozí upozornění | | `guid` | `{id:guid}` | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Odpovídá platnému `Guid` hodnotě | | `long`  |  `{ticks:long}`  |  `123456789` , `-123456789` | Odpovídá platnému `long` hodnotě | | `minlength(value)`  |  `{username:minlength(4)}`  |  `Rick` | Řetězec musí mít minimálně 4 znaky | | `maxlength(value)` | `{filename:maxlength(8)}` | `Richard` | Řetězec nesmí být delší než 8 znaků | | `length(length)` | `{filename:length(12)}` | `somefile.txt` | Řetězec musí být přesně 12 znaků dlouhý | | `length(min,max)` | `{filename:length(8,16)}` | `somefile.txt` | Řetězec musí mít aspoň 8 znaků a nesmí být delší než 16 znaků | | `min(value)` | `{age:min(18)}` | `19` | Celočíselná hodnota musí být minimálně 18 | `max(value)` | `{age:max(120)}` | `91` | Hodnota typu Integer nesmí být větší než 120 | | `range(min,max)` | `{age:range(18,120)}` | `91` | Celočíselná hodnota musí být minimálně 18, ale ne víc než 120 | | `alpha` | `{name:alpha}` | `Rick` | Řetězec musí obsahovat jeden nebo více abecedních znaků ( `a` - `z` bez rozlišení velkých a malých písmen) | | `regex(expression)`  |  `{ssn:regex(^\\d{{3}}-\\d{{2}}-\\d{{4}}$)}`  |  `123-45-6789` | Řetězec musí odpovídat regulárnímu výrazu (viz Tipy k definování regulárního výrazu) | | `required` | `{name:required}` | `Rick` | Slouží k vykonání, že při generování adresy URL je přítomna hodnota bez parametru. |
 
 V jednom parametru lze použít více omezení s oddělovači. Například následující omezení omezuje parametr na celočíselnou hodnotu 1 nebo vyšší:
 
@@ -1913,39 +5884,309 @@ public User GetUserById(int id) { }
 ```
 
 > [!WARNING]
-> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime`), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat. Omezení tras poskytovaných rozhraním nemění hodnoty uložené v hodnotách tras. Všechny hodnoty tras přeložené z adresy URL se ukládají jako řetězce. Například `float` omezení se pokusí převést hodnotu trasy na typ float, ale převedená hodnota se používá pouze k ověření, že je možné ji převést na typ float.
+> Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo `DateTime` ), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat. Omezení tras poskytovaných rozhraním nemění hodnoty uložené v hodnotách tras. Všechny hodnoty tras přeložené z adresy URL se ukládají jako řetězce. Například `float` omezení se pokusí převést hodnotu trasy na typ float, ale převedená hodnota se používá pouze k ověření, že je možné ji převést na typ float.
 
 ## <a name="regular-expressions"></a>Regulární výrazy
 
-Rozhraní ASP.NET Core se přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. Popis <xref:System.Text.RegularExpressions.RegexOptions> těchto členů naleznete v tématu.
+Rozhraní ASP.NET Core se přidá `RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.CultureInvariant` do konstruktoru regulárního výrazu. <xref:System.Text.RegularExpressions.RegexOptions>Popis těchto členů naleznete v tématu.
 
-Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a jazyk C#. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární `^\d{3}-\d{2}-\d{4}$` výraz ve směrování, musí mít `\` výraz (jedno zpětné lomítko), které je zadáno v řetězci `\\` jako (dvojité zpětné lomítko) ve zdrojovém souboru C#, aby bylo možné `\` řídicí znak řetězce Escape řídicího znaku (Pokud se nepoužívají [doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string)). Chcete-li řídicí znaky oddělovače parametrů směrování`{`( `}`, `[`, `]`,), poklikejte na znaky ve výrazu (`{{`, `}`, `[[`, `]]`). V následující tabulce je uveden regulární výraz a verze s řídicím znakem.
+Regulární výrazy používají oddělovače a tokeny podobné těm, které používá směrování a jazyk C#. Tokeny regulárního výrazu musí být uvozeny řídicími znaky. Chcete-li použít regulární výraz `^\d{3}-\d{2}-\d{4}$` ve směrování, musí mít výraz `\` (jedno zpětné lomítko), které je zadáno v řetězci jako `\\` (dvojité zpětné lomítko) ve zdrojovém souboru C#, aby bylo možné řídicí znak řetězce Escape řídicího `\` znaku (Pokud se nepoužívají [doslovné řetězce literálů](/dotnet/csharp/language-reference/keywords/string)). Chcete-li řídicí znaky oddělovače parametrů směrování ( `{` , `}` ,, `[` `]` ), poklikejte na znaky ve výrazu ( `{{` , `}` , `[[` , `]]` ). V následující tabulce je uveden regulární výraz a verze s řídicím znakem.
 
 | Regulární výraz    | Regulární výraz s řídicím znakem     |
-| --------------------- | ------------------------------ |
-| `^\d{3}-\d{2}-\d{4}$` | `^\\d{{3}}-\\d{{2}}-\\d{{4}}$` |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--------------- | | `^\d{3}-\d{2}-\d{4}$` | `^\\d{{3}}-\\d{{2}}-\\d{{4}}$` |
 | `^[a-z]{2}$`          | `^[[a-z]]{{2}}$`               |
 
-Regulární výrazy používané v směrování často začínají znakem stříšky`^`() a odpovídají počáteční pozici řetězce. Výrazy se často končí znakem dolaru (`$`) a koncem řetězce. Znaky `^` a `$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez znaků `^` a `$` regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. Následující tabulka obsahuje příklady a vysvětlení, proč se shodují nebo neshodují.
+Regulární výrazy používané v směrování často začínají znakem stříšky ( `^` ) a odpovídají počáteční pozici řetězce. Výrazy se často končí `$` znakem dolaru () a koncem řetězce. `^`Znaky a `$` zajišťují, že regulární výraz odpovídá celé hodnotě parametru Route. Bez `^` znaků a `$` regulární výraz odpovídá jakémukoli podřetězci v rámci řetězce, což je často nežádoucí. Následující tabulka obsahuje příklady a vysvětlení, proč se shodují nebo neshodují.
 
-| Expression   | Řetězec    | Shoda | Poznámka               |
-| ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| Výraz   | Řetězec    | Shoda | Komentář               |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----- | :---: |  ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+---------- | | `[a-z]{2}`   | Dobrý den | Ano | Shoda podřetězců | | `[a-z]{2}`   | 123abc456 | Ano | Shoda podřetězců | | `[a-z]{2}`   | MZ | Ano | Odpovídá výrazu | | `[a-z]{2}`   | MZ | Ano | Nerozlišuje velká a malá písmena | | `^[a-z]{2}$` | Dobrý den | Žádné | Viz `^` a `$` nad | | `^[a-z]{2}$` | 123abc456 | Žádné | Zobrazit `^` a `$` nad |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
-Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulární výraz. `{action:regex(^(list|get|create)$)}` Například odpovídá pouze hodnotě `action` trasy `list`, `get`nebo. `create` Pokud je předána do slovníku omezení, je `^(list|get|create)$` řetězec ekvivalentní. Omezení, která jsou předána do slovníku omezení (nejsou vložena v rámci šablony), která neodpovídají jednomu ze známých omezení, jsou také považována za regulární výrazy.
+Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulární výraz. Například `{action:regex(^(list|get|create)$)}` odpovídá pouze `action` hodnotě trasy `list` , `get` nebo `create` . Pokud je předána do slovníku omezení, `^(list|get|create)$` je řetězec ekvivalentní. Omezení, která jsou předána do slovníku omezení (nejsou vložena v rámci šablony), která neodpovídají jednomu ze známých omezení, jsou také považována za regulární výrazy.
 
 ## <a name="custom-route-constraints"></a>Vlastní omezení trasy
 
-Kromě předdefinovaných omezení trasy lze vytvořit vlastní omezení trasy implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> Rozhraní obsahuje jedinou metodu, `Match`která vrací `true` , pokud je omezení splněno, a `false` jinak.
+Kromě předdefinovaných omezení trasy lze vytvořit vlastní omezení trasy implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>Rozhraní obsahuje jedinou metodu, `Match` která vrací, `true` Pokud je omezení splněno, a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>, musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>`. Příklad:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -1963,24 +6204,349 @@ public ActionResult<string> Get(string id)
 
 ## <a name="url-generation-reference"></a>Odkaz na generování adresy URL
 
-Následující příklad ukazuje, jak vygenerovat odkaz na trasu s ohledem na slovník hodnot směrování a <xref:Microsoft.AspNetCore.Routing.RouteCollection>.
+Následující příklad ukazuje, jak vygenerovat odkaz na trasu s ohledem na slovník hodnot směrování a <xref:Microsoft.AspNetCore.Routing.RouteCollection> .
 
 [!code-csharp[](routing/samples/2.x/RoutingSample/Startup.cs?name=snippet_Dictionary)]
 
-<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath> Vygenerovalo se na konci předchozí ukázky `/package/create/123`. Slovník poskytuje hodnoty `operation` a `id` trasu pro šablonu sledování trasy balíčku. `package/{operation}/{id}` Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
+<xref:Microsoft.AspNetCore.Routing.VirtualPathData.VirtualPath>Vygenerovalo se na konci předchozí ukázky `/package/create/123` . Slovník poskytuje `operation` `id` hodnoty a trasu pro šablonu sledování trasy balíčku `package/{operation}/{id}` . Podrobnosti najdete v ukázkovém kódu v části [použití middleware pro směrování](#use-routing-middleware) nebo v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/routing/samples).
 
-Druhý parametr <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> konstruktoru je kolekce *okolních hodnot*. Okolní hodnoty jsou vhodné k použití, protože omezují počet hodnot, které vývojář musí určit v rámci kontextu požadavku. Aktuální hodnoty trasy aktuálního požadavku jsou považovány za okolní hodnoty pro generování odkazů. V `About` akci aplikace ASP.NET Core MVC není nutné zadávat hodnotu `HomeController`trasy kontroléru, která bude propojena s `Index` akcí&mdash;, která `Home` je použita okolní hodnotou.
+Druhý parametr <xref:Microsoft.AspNetCore.Routing.VirtualPathContext> konstruktoru je kolekce *okolních hodnot*. Okolní hodnoty jsou vhodné k použití, protože omezují počet hodnot, které vývojář musí určit v rámci kontextu požadavku. Aktuální hodnoty trasy aktuálního požadavku jsou považovány za okolní hodnoty pro generování odkazů. V akci aplikace ASP.NET Core MVC `About` `HomeController` není nutné zadávat hodnotu trasy kontroléru, která bude propojena s akcí, která `Index` &mdash; `Home` je použita okolní hodnotou.
 
 Okolní hodnoty, které se neshodují s parametrem, se ignorují. Okolní hodnoty jsou také ignorovány, pokud explicitně poskytnutá hodnota Přepisuje hodnotu okolí. K shodě dojde zleva doprava v adrese URL.
 
-Hodnoty jsou výslovně poskytnuty, ale neodpovídají segmentu trasy, jsou přidány do řetězce dotazu. V následující tabulce je uveden výsledek při použití šablony `{controller}/{action}/{id?}`směrování.
+Hodnoty jsou výslovně poskytnuty, ale neodpovídají segmentu trasy, jsou přidány do řetězce dotazu. V následující tabulce je uveden výsledek při použití šablony směrování `{controller}/{action}/{id?}` .
 
 | Okolní hodnoty                     | Explicitní hodnoty                        | Výsledek                  |
-| ---------------------------------- | -------------------------------------- | ----------------------- |
-| Controller = "domů"                | Action = "o"                       | `/Home/About`           |
-| Controller = "domů"                | Controller = "objednávka"; Action = "o" | `/Order/About`          |
-| Controller = "Home"; Color = "Red" | Action = "o"                       | `/Home/About`           |
-| Controller = "domů"                | Action = "o", Color = "Red"        | `/Home/About?color=Red` |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+----------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------ | | Controller = "domů" | Action = "o" | `/Home/About`|
+| Controller = "domů" | Controller = "objednávka"; Action = "o" | `/Order/About`|
+| Controller = "Home"; Color = "Red" | Action = "o" | `/Home/About`|
+| Controller = "domů" | Action = "o", Color = "Red" | `/Home/About?color=Red`                                |
 
 Pokud má trasa výchozí hodnotu, která neodpovídá parametru a tato hodnota je explicitně poskytnutá, musí se shodovat s výchozí hodnotou:
 
@@ -1989,10 +6555,10 @@ routes.MapRoute("blog_route", "blog/{*slug}",
     defaults: new { controller = "Blog", action = "ReadPost" });
 ```
 
-Generace odkazů generuje odkaz pro tuto trasu v případě, že jsou k `controller` dispozici hodnoty pro a `action` , které odpovídají.
+Generace odkazů generuje odkaz pro tuto trasu v případě, že jsou k `controller` dispozici hodnoty pro a, které odpovídají `action` .
 
 ## <a name="complex-segments"></a>Komplexní segmenty
 
-Komplexní segmenty (například `[Route("/x{token}y")]`) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Podrobné vysvětlení, jak se shodují komplexní segmenty, najdete v [tomto kódu](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) . [Ukázka kódu](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) není používána ASP.NET Core, ale poskytuje dobré vysvětlení složitých segmentů.
+Komplexní segmenty (například `[Route("/x{token}y")]` ) jsou zpracovávány porovnáním koncových literálů zprava doleva nehladým způsobem. Podrobné vysvětlení, jak se shodují komplexní segmenty, najdete v [tomto kódu](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) . [Ukázka kódu](https://github.com/aspnet/AspNetCore/blob/release/2.2/src/Http/Routing/src/Patterns/RoutePatternMatcher.cs#L293) není používána ASP.NET Core, ale poskytuje dobré vysvětlení složitých segmentů.
 
 ::: moniker-end

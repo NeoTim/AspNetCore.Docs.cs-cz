@@ -1,23 +1,11 @@
 ---
-title: Řešení potíží a ladění ASP.NET Corech projektů
-author: Rick-Anderson
-description: Pochopení a řešení potíží s chybami a problémy s ASP.NET Core projekty.
-ms.author: riande
-ms.custom: mvc
-ms.date: 07/10/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: test/troubleshoot
-ms.openlocfilehash: 74b494f6d16637a54ab7f1b5c0cf9fbb86248fe7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776614"
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="troubleshoot-and-debug-aspnet-core-projects"></a>Řešení potíží a ladění ASP.NET Corech projektů
 
@@ -36,7 +24,7 @@ Následující odkazy obsahují pokyny k odstraňování potíží:
 
 V dialogovém okně **Nový projekt** pro ASP.NET Core se může zobrazit následující upozornění:
 
-> Jsou nainstalovány 32 a 64 bitové verze .NET Core SDK. Jsou zobrazeny pouze šablony z 64 verzí nainstalovaných v umístění C:\\Program Files\\dotnet\\SDK\\.
+> Jsou nainstalovány 32 a 64 bitové verze .NET Core SDK. Jsou zobrazeny pouze šablony z 64 verzí nainstalovaných v umístění C: \\ Program Files \\ dotnet \\ SDK \\ .
 
 Toto upozornění se zobrazí, 32 Pokud jsou nainstalovány 32bitové verze [.NET Core SDK](https://dotnet.microsoft.com/download/dotnet-core) (x86) i 64-bit (x64). Mezi běžné příčiny můžou být nainstalované obě verze:
 
@@ -44,54 +32,54 @@ Toto upozornění se zobrazí, 32 Pokud jsou nainstalovány 32bitové verze [.NE
 * 32 bitová .NET Core SDK byla nainstalována jinou aplikací.
 * Byla stažena a nainstalována nesprávná verze.
 
-Pokud chcete zabránit tomuto upozornění, odinstalujte 32 .NET Core SDK bitů. Odinstalujte ji pomocí **ovládacího panelu** > **programy a funkce** > **Odinstalovat nebo změnit program**. Pokud rozumíte tomu, proč k upozornění dojde a jeho důsledky, můžete upozornění ignorovat.
+Pokud chcete zabránit tomuto upozornění, odinstalujte 32 .NET Core SDK bitů. Odinstalujte ji pomocí **ovládacího panelu**  >  **programy a funkce**  >  **Odinstalovat nebo změnit program**. Pokud rozumíte tomu, proč k upozornění dojde a jeho důsledky, můžete upozornění ignorovat.
 
 ### <a name="the-net-core-sdk-is-installed-in-multiple-locations"></a>.NET Core SDK je nainstalováno v několika umístěních.
 
 V dialogovém okně **Nový projekt** pro ASP.NET Core se může zobrazit následující upozornění:
 
-> .NET Core SDK je nainstalován v několika umístěních. Zobrazí se pouze šablony sady SDK nainstalované v umístění C\\: program\\Files\\dotnet\\SDK.
+> .NET Core SDK je nainstalován v několika umístěních. Zobrazí se pouze šablony sady SDK nainstalované v umístění C: \\ Program Files \\ dotnet \\ SDK \\ .
 
-Tato zpráva se zobrazí, pokud máte alespoň jednu instalaci .NET Core SDK v adresáři mimo jazyk *C:\\program\\Files dotnet\\SDK\\*. K tomu obvykle dochází, když .NET Core SDK nasazené na počítači pomocí kopírování a vkládání místo instalačního programu MSI.
+Tato zpráva se zobrazí, pokud máte alespoň jednu instalaci .NET Core SDK v adresáři mimo jazyk *C: \\ Program Files \\ dotnet \\ SDK \\ *. K tomu obvykle dochází, když .NET Core SDK nasazené na počítači pomocí kopírování a vkládání místo instalačního programu MSI.
 
-Pokud chcete zabránit tomuto upozornění, odinstalujte všechny 32 sady .NET Core SDK a moduly runtime. Odinstalujte ji pomocí **ovládacího panelu** > **programy a funkce** > **Odinstalovat nebo změnit program**. Pokud rozumíte tomu, proč k upozornění dojde a jeho důsledky, můžete upozornění ignorovat.
+Pokud chcete zabránit tomuto upozornění, odinstalujte všechny 32 sady .NET Core SDK a moduly runtime. Odinstalujte ji pomocí **ovládacího panelu**  >  **programy a funkce**  >  **Odinstalovat nebo změnit program**. Pokud rozumíte tomu, proč k upozornění dojde a jeho důsledky, můžete upozornění ignorovat.
 
 ### <a name="no-net-core-sdks-were-detected"></a>Nezjistily se žádné sady .NET Core SDK.
 
 * V dialogovém okně **Nový projekt** sady Visual Studio pro ASP.NET Core se může zobrazit následující upozornění:
 
-  > Nezjistily se žádné sady .NET Core SDK, ujistěte se, že jsou `PATH`zahrnuté v proměnné prostředí.
+  > Nezjistily se žádné sady .NET Core SDK, ujistěte se, že jsou zahrnuté v proměnné prostředí `PATH` .
 
 * Při provádění `dotnet` příkazu se zobrazí upozornění jako:
 
   > Nebylo možné najít žádné nainstalované sady dotnet SDK.
 
-Tato upozornění se zobrazí, pokud proměnná `PATH` prostředí neodkazuje na žádné sady SDK .NET Core v počítači. Řešení tohoto problému:
+Tato upozornění se zobrazí, pokud proměnná prostředí `PATH` neodkazuje na žádné sady SDK .NET Core v počítači. Řešení tohoto problému:
 
 * Nainstalujte .NET Core SDK. Získejte nejnovější instalační program ze [souborů ke stažení pro rozhraní .NET](https://dotnet.microsoft.com/download).
-* Ověřte, zda `PATH` proměnná prostředí odkazuje na umístění, kde je nainstalována sada SDK (`C:\Program Files\dotnet\` pro 64 bitů/x64 nebo `C:\Program Files (x86)\dotnet\` pro 32bitovou verzi/x86). Instalační program sady SDK obvykle nastaví `PATH`. Vždy nainstalujte stejné sady bitová verze SDK a moduly runtime na stejném počítači.
+* Ověřte, zda `PATH` Proměnná prostředí odkazuje na umístění, kde je nainstalována sada SDK ( `C:\Program Files\dotnet\` pro 64 bitů/x64 nebo `C:\Program Files (x86)\dotnet\` pro 32bitovou verzi/x86). Instalační program sady SDK obvykle nastaví `PATH` . Vždy nainstalujte stejné sady bitová verze SDK a moduly runtime na stejném počítači.
 
 ### <a name="missing-sdk-after-installing-the-net-core-hosting-bundle"></a>Chybějící sada SDK po instalaci hostující sady .NET Core
 
-Instalace [hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle) upravuje `PATH` při instalaci modulu runtime .NET Core, který odkazuje na 32 (x86) verzi .NET Core (`C:\Program Files (x86)\dotnet\`). To může mít za následek chybějící sady SDK, když se použije příkaz .NET Core `dotnet` (x86) 32 ([nejsou zjištěny žádné sady .NET Core SDK](#no-net-core-sdks-were-detected)). Chcete-li tento problém vyřešit `C:\Program Files\dotnet\` , přejděte na pozici `C:\Program Files (x86)\dotnet\` před dnem `PATH`.
+Instalace [hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle) upravuje `PATH` při instalaci modulu runtime .NET Core, který odkazuje na 32 (x86) verzi .NET Core ( `C:\Program Files (x86)\dotnet\` ). To může mít za následek chybějící sady SDK, když se použije příkaz .NET Core (x86) 32 `dotnet` ([nejsou zjištěny žádné sady .NET Core SDK](#no-net-core-sdks-were-detected)). Chcete-li tento problém vyřešit, přejděte na `C:\Program Files\dotnet\` pozici před `C:\Program Files (x86)\dotnet\` dnem `PATH` .
 
 ## <a name="obtain-data-from-an-app"></a>Získání dat z aplikace
 
 Pokud aplikace dokáže reagovat na požadavky, můžete z aplikace získat následující data pomocí middlewaru:
 
-* Metoda &ndash; žádosti, schéma, hostitel, pathbase, cesta, řetězec dotazu, záhlaví
-* Vzdálená &ndash; IP adresa připojení, vzdálený port, místní IP adresa, místní port, klientský certifikát
-* Identity&ndash; Název, zobrazovaný název
+* Request: metoda, schéma, hostitel, pathbase, cesta, řetězec dotazu, záhlaví
+* Připojení: Vzdálená IP adresa, vzdálený port, místní IP adresa, místní port, klientský certifikát
+* Identity: Name, display name
 * Nastavení konfigurace
 * Proměnné prostředí
 
-Vložte následující kód [middleware](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder) na začátek kanálu zpracování požadavků `Startup.Configure` metody. Prostředí je zkontrolováno před spuštěním middlewaru, aby bylo zajištěno, že kód je spuštěn pouze ve vývojovém prostředí.
+Vložte následující kód [middleware](xref:fundamentals/middleware/index#create-a-middleware-pipeline-with-iapplicationbuilder) na začátek `Startup.Configure` kanálu zpracování požadavků metody. Prostředí je zkontrolováno před spuštěním middlewaru, aby bylo zajištěno, že kód je spuštěn pouze ve vývojovém prostředí.
 
 K získání prostředí použijte některý z následujících přístupů:
 
 * Vloží `IHostingEnvironment` do `Startup.Configure` metody a zkontroluje prostředí pomocí místní proměnné. Následující vzorový kód demonstruje tento přístup.
 
-* Přiřaďte prostředí k vlastnosti ve `Startup` třídě. Ověřte prostředí pomocí vlastnosti (například `if (Environment.IsDevelopment())`).
+* Přiřaďte prostředí k vlastnosti ve `Startup` třídě. Ověřte prostředí pomocí vlastnosti (například `if (Environment.IsDevelopment())` ).
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env, 

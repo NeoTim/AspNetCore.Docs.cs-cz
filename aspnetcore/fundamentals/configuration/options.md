@@ -15,8 +15,8 @@ Od [Kirka Larkin](https://twitter.com/serpent5) a [Rick Anderson](https://twitte
 
 Vzor možností používá třídy k poskytnutí přístupu silného typu ke skupinám souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
 
-* [Princip oddělení (ISP) nebo scénářů zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; (třídy) závislých na nastavení konfigurace závisí jenom na nastavení konfigurace, která používají.
-* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) &ndash; Nastavení pro různé části aplikace nejsou závislá ani vzájemně nezávislá.
+* [Princip odděleníní rozhraní (ISP) nebo zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation): scénáře (třídy) závislé na nastavení konfigurace závisejí pouze na nastavení konfigurace, která používají.
+* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns): nastavení různých částí aplikace nejsou závislá ani vzájemně závislá na sobě.
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
@@ -131,7 +131,7 @@ Všechny možnosti jsou pojmenované instance. <xref:Microsoft.Extensions.Option
 
 Služby jsou dostupné ze injektáže závislosti při konfiguraci možností dvěma způsoby:
 
-* Předejte delegáta konfigurace [na](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) [OptionsBuilder \< TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1). `OptionsBuilder<TOptions>`poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použití až pěti služeb ke konfiguraci možností:
+* Předejte delegáta konfigurace [na](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) [OptionsBuilder \<TOptions> ](xref:Microsoft.Extensions.Options.OptionsBuilder`1). `OptionsBuilder<TOptions>`poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použití až pěti služeb ke konfiguraci možností:
 
   ```csharp
   services.AddOptions<MyOptions>("optionalName")
@@ -158,7 +158,7 @@ Následující třída se váže ke `"MyConfig"` konfiguračnímu oddílu a pou�
 
 [!code-csharp[](options/samples/3.x/OptionsValidationSample/Configuration/MyConfigOptions.cs?name=snippet)]
 
-Následující kód volá <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions%2A> k získání [OptionsBuilder \< TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1) , který se váže ke `MyConfigOptions` třídě a umožňuje `DataAnnotations` ověření:
+Následující kód volá <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions%2A> k získání [ \<TOptions> OptionsBuilder](xref:Microsoft.Extensions.Options.OptionsBuilder`1) , který se váže ke `MyConfigOptions` třídě a umožňuje `DataAnnotations` ověření:
 
 [!code-csharp[](options/samples/3.x/OptionsValidationSample/Startup.cs?name=snippet)]
 
@@ -261,8 +261,8 @@ Na balíček [Microsoft. Extensions. Options. ConfigurationExtensions](https://w
 
 Vzor možností používá třídy, které reprezentují skupiny souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
 
-* [Princip oddělení (ISP) nebo scénářů zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; (třídy) závislých na nastavení konfigurace závisí jenom na nastavení konfigurace, která používají.
-* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) &ndash; Nastavení pro různé části aplikace nejsou závislá ani vzájemně nezávislá.
+* [Princip odděleníní rozhraní (ISP) nebo zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation): scénáře (třídy) závislé na nastavení konfigurace závisejí pouze na nastavení konfigurace, která používají.
+* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns): nastavení různých částí aplikace nejsou závislá ani vzájemně závislá na sobě.
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
@@ -461,7 +461,7 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 Pojmenovaná podpora s názvem <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> je znázorněna jako příklad 6 v ukázkové aplikaci.
 
-Podpora pojmenovaných možností umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions \< TOptions >. Nakonfigurujte](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metodu rozšíření. U pojmenovaných možností se rozlišují velká a malá písmena.
+Podpora pojmenovaných možností umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions \<TOptions> . Nakonfigurujte](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metodu rozšíření. U pojmenovaných možností se rozlišují velká a malá písmena.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -522,7 +522,7 @@ services.AddOptions<MyOptions>("optionalName")
 
 K dalším službám můžete přistupovat pomocí injektáže závislosti při konfiguraci možností dvěma způsoby:
 
-* Předejte delegáta konfigurace [na](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) [OptionsBuilder \< TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder \< TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují používat až pět služeb ke konfiguraci možností:
+* Předejte delegáta konfigurace [na](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) [OptionsBuilder \<TOptions> ](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder \<TOptions> ](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
 
   ```csharp
   services.AddOptions<MyOptions>("optionalName")
@@ -683,8 +683,8 @@ Nepoužívejte <xref:Microsoft.Extensions.Options.IOptions%601> nebo <xref:Micro
 
 Vzor možností používá třídy, které reprezentují skupiny souvisejících nastavení. Když jsou [nastavení konfigurace](xref:fundamentals/configuration/index) izolována scénářem do samostatných tříd, aplikace dodržuje dva důležité principy technického řízení:
 
-* [Princip oddělení (ISP) nebo scénářů zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation) &ndash; (třídy) závislých na nastavení konfigurace závisí jenom na nastavení konfigurace, která používají.
-* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns) &ndash; Nastavení pro různé části aplikace nejsou závislá ani vzájemně nezávislá.
+* [Princip odděleníní rozhraní (ISP) nebo zapouzdření](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#encapsulation): scénáře (třídy) závislé na nastavení konfigurace závisejí pouze na nastavení konfigurace, která používají.
+* [Oddělení obav](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#separation-of-concerns): nastavení různých částí aplikace nejsou závislá ani vzájemně závislá na sobě.
 
 Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Další informace najdete v části [ověřování možností](#options-validation) .
 
@@ -875,7 +875,7 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 Pojmenovaná podpora s názvem <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> je znázorněna jako příklad 6 v ukázkové aplikaci.
 
-Podpora pojmenovaných možností umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions \< TOptions >. Nakonfigurujte](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metodu rozšíření. U pojmenovaných možností se rozlišují velká a malá písmena.
+Podpora pojmenovaných možností umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions \<TOptions> . Nakonfigurujte](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metodu rozšíření. U pojmenovaných možností se rozlišují velká a malá písmena.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -936,7 +936,7 @@ services.AddOptions<MyOptions>("optionalName")
 
 K dalším službám můžete přistupovat pomocí injektáže závislosti při konfiguraci možností dvěma způsoby:
 
-* Předejte delegáta konfigurace [na](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) [OptionsBuilder \< TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder \< TOptions>](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují používat až pět služeb ke konfiguraci možností:
+* Předejte delegáta konfigurace [na](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) [OptionsBuilder \<TOptions> ](xref:Microsoft.Extensions.Options.OptionsBuilder`1). [OptionsBuilder \<TOptions> ](xref:Microsoft.Extensions.Options.OptionsBuilder`1) poskytuje přetížení [Konfigurace](xref:Microsoft.Extensions.Options.OptionsBuilder`1.Configure*) , která umožňují použít až pět služeb ke konfiguraci možností:
 
   ```csharp
   services.AddOptions<MyOptions>("optionalName")

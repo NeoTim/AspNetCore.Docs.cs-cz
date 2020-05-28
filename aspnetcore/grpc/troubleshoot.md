@@ -1,24 +1,11 @@
 ---
-title: Řešení potíží s gRPC pro .NET Core
-author: jamesnk
-description: Řešení chyb při použití gRPC v .NET Core
-monikerRange: '>= aspnetcore-3.0'
-ms.author: jamesnk
-ms.custom: mvc
-ms.date: 10/16/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: grpc/troubleshoot
-ms.openlocfilehash: 6f496b71c86762b35bdb3de33405a5aea6d8f8a5
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775372"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="troubleshoot-grpc-on-net-core"></a>Řešení potíží s gRPC pro .NET Core
 
@@ -41,7 +28,7 @@ info: Microsoft.Hosting.Lifetime[0]
       Hosting environment: Development
 ```
 
-Klient .NET Core musí v adrese `https` serveru použít k volání zabezpečeného připojení:
+Klient .NET Core musí `https` v adrese serveru použít k volání zabezpečeného připojení:
 
 ```csharp
 static async Task Main(string[] args)
@@ -52,7 +39,7 @@ static async Task Main(string[] args)
 }
 ```
 
-Všechny implementace klientů gRPC podporují protokol TLS. klienti gRPC z jiných jazyků obvykle vyžadují kanál konfigurovaný pomocí `SslCredentials`. `SslCredentials`Určuje certifikát, který bude klient používat, a musí se používat místo nezabezpečených přihlašovacích údajů. Příklady konfigurace různých implementací klientů gRPC k použití protokolu TLS najdete v tématu [ověřování gRPC](https://www.grpc.io/docs/guides/auth/).
+Všechny implementace klientů gRPC podporují protokol TLS. klienti gRPC z jiných jazyků obvykle vyžadují kanál konfigurovaný pomocí `SslCredentials` . `SslCredentials`Určuje certifikát, který bude klient používat, a musí se používat místo nezabezpečených přihlašovacích údajů. Příklady konfigurace různých implementací klientů gRPC k použití protokolu TLS najdete v tématu [ověřování gRPC](https://www.grpc.io/docs/guides/auth/).
 
 ## <a name="call-a-grpc-service-with-an-untrustedinvalid-certificate"></a>Volání služby gRPC s nedůvěryhodným/neplatným certifikátem
 
@@ -66,14 +53,13 @@ Tato chyba se může zobrazit, pokud testujete aplikaci místně a ASP.NET Core 
 Pokud voláte službu gRPC na jiném počítači a nemůžete důvěřovat certifikátu, může být klient gRPC nakonfigurovaný tak, aby ignoroval neplatný certifikát. Následující kód používá [HttpClientHandler. ServerCertificateCustomValidationCallback](/dotnet/api/system.net.http.httpclienthandler.servercertificatecustomvalidationcallback) k povolení volání bez důvěryhodného certifikátu:
 
 ```csharp
-var httpClientHandler = new HttpClientHandler();
+var httpHandler = new HttpClientHandler();
 // Return `true` to allow certificates that are untrusted/invalid
-httpClientHandler.ServerCertificateCustomValidationCallback = 
+httpHandler.ServerCertificateCustomValidationCallback = 
     HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-var httpClient = new HttpClient(httpClientHandler);
 
 var channel = GrpcChannel.ForAddress("https://localhost:5001",
-    new GrpcChannelOptions { HttpClient = httpClient });
+    new GrpcChannelOptions { HttpHandler = httpHandler });
 var client = new Greet.GreeterClient(channel);
 ```
 
@@ -82,7 +68,7 @@ var client = new Greet.GreeterClient(channel);
 
 ## <a name="call-insecure-grpc-services-with-net-core-client"></a>Volání nezabezpečených služeb gRPC pomocí klienta .NET Core
 
-Pro volání nezabezpečených služeb gRPC s klientem .NET Core je vyžadována další konfigurace. Klient gRPC musí na adrese serveru `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport` nastavit přepínač `true` a použít `http` ho:
+Pro volání nezabezpečených služeb gRPC s klientem .NET Core je vyžadována další konfigurace. Klient gRPC musí na `System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport` adrese serveru nastavit přepínač `true` a použít ho `http` :
 
 ```csharp
 // This switch must be set before creating the GrpcChannel/HttpClient.
@@ -98,7 +84,7 @@ var client = new Greet.GreeterClient(channel);
 
 Kestrel nepodporuje HTTP/2 s TLS v macOS a ve starších verzích Windows, jako je Windows 7. ASP.NET Core šablona a ukázky gRPC standardně používají protokol TLS. Při pokusu o spuštění serveru gRPC se zobrazí následující chybová zpráva:
 
-> Nedá se vytvořit vazba https://localhost:5001 na rozhraní IPv4 zpětné smyčky: v MacOS se nepodporuje HTTP/2 přes TLS, protože chybí podpora ALPN.
+> Nedá se vytvořit vazba na https://localhost:5001 rozhraní IPv4 zpětné smyčky: v MacOS se nepodporuje HTTP/2 přes TLS, protože chybí podpora ALPN.
 
 Pokud chcete tento problém obejít, nakonfigurujte Kestrel a klienta gRPC na použití HTTP/2 *bez* TLS. To byste měli udělat jenom během vývoje. Nepoužíváte-li protokol TLS, budou zasílány zprávy gRPC bez šifrování.
 
@@ -119,7 +105,7 @@ public static IHostBuilder CreateHostBuilder(string[] args) =>
         });
 ```
 
-Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven `HttpProtocols.Http2`na. `HttpProtocols.Http1AndHttp2`nelze použít, protože pro vyjednání HTTP/2 je vyžadován protokol TLS. Bez TLS budou všechna připojení ke koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC neúspěšná.
+Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven na `HttpProtocols.Http2` . `HttpProtocols.Http1AndHttp2`nelze použít, protože pro vyjednání HTTP/2 je vyžadován protokol TLS. Bez TLS budou všechna připojení ke koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC neúspěšná.
 
 Klient gRPC musí být taky nakonfigurovaný tak, aby nepoužíval protokol TLS. Další informace najdete v tématu [Calling The gRPC Services with a .NET Core Client](#call-insecure-grpc-services-with-net-core-client).
 
@@ -130,12 +116,12 @@ Klient gRPC musí být taky nakonfigurovaný tak, aby nepoužíval protokol TLS.
 
 generování kódu gRPC konkrétní klienti a základní třídy služby vyžaduje soubory protobuf a nástroje, na které se odkazuje z projektu. Musíte zahrnout:
 
-* *. proto* soubory, které chcete použít ve skupině `<Protobuf>` položek. [Importováno *. proto* ](https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions) musí být na soubory odkazováno v projektu.
+* *. proto* soubory, které chcete použít ve `<Protobuf>` skupině položek. [Importováno *. proto* ](https://developers.google.com/protocol-buffers/docs/proto3#importing-definitions) musí být na soubory odkazováno v projektu.
 * Odkaz na balíček nástrojů pro gRPC nástrojů pro [gRPC. Tools](https://www.nuget.org/packages/Grpc.Tools/).
 
-Další informace o generování gRPCch prostředků jazyka C# naleznete <xref:grpc/basics>v tématu.
+Další informace o generování gRPCch prostředků jazyka C# naleznete v tématu <xref:grpc/basics> .
 
-Ve výchozím nastavení `<Protobuf>` odkaz vygeneruje konkrétního klienta a základní třídu služby. `GrpcServices` Atribut referenčního prvku lze použít k omezení generování prostředků jazyka C#. Platné `GrpcServices` možnosti jsou:
+Ve výchozím nastavení `<Protobuf>` odkaz vygeneruje konkrétního klienta a základní třídu služby. Atribut referenčního prvku `GrpcServices` lze použít k omezení generování prostředků jazyka C#. Platné `GrpcServices` Možnosti jsou:
 
 * `Both`(výchozí, není-li k dispozici)
 * `Server`
@@ -167,9 +153,9 @@ Projekty WPF mají [známý problém](https://github.com/dotnet/wpf/issues/810) 
 Tento problém můžete vyřešit pomocí těchto potíží:
 
 1. Vytvořte nový projekt knihovny tříd .NET Core.
-2. V novém projektu přidejte odkazy pro povolení [generování kódu jazyka C# z * \*. proto* soubory](xref:grpc/basics#generated-c-assets):
+2. V novém projektu přidejte odkazy pro povolení [generování kódu jazyka C# z * \* . proto* soubory](xref:grpc/basics#generated-c-assets):
     * Přidejte odkaz na balíček do balíčku [Grpc. Tools](https://www.nuget.org/packages/Grpc.Tools/) .
-    * Do skupiny `<Protobuf>` položek přidejte * \*soubory..* .
+    * Do skupiny položek přidejte soubory * \* ..* . `<Protobuf>`
 3. V aplikaci WPF přidejte odkaz na nový projekt.
 
 Aplikace WPF může použít gRPC generované typy z nového projektu knihovny tříd.

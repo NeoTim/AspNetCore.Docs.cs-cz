@@ -1,23 +1,11 @@
 ---
-title: Zjišťovat změny pomocí tokenů změn v ASP.NET Core
-author: rick-anderson
-description: Naučte se používat změny tokenů ke sledování změn.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.date: 10/07/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/change-tokens
-ms.openlocfilehash: 40868c57507989e1d3040df2cbe2feb4871d4394
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774792"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="detect-changes-with-change-tokens-in-aspnet-core"></a>Zjišťovat změny pomocí tokenů změn v ASP.NET Core
 
@@ -29,33 +17,33 @@ ms.locfileid: "82774792"
 
 ## <a name="ichangetoken-interface"></a>Rozhraní IChangeToken
 
-<xref:Microsoft.Extensions.Primitives.IChangeToken>šíří oznámení, že došlo ke změně. `IChangeToken`nachází se <xref:Microsoft.Extensions.Primitives?displayProperty=fullName> v oboru názvů. Balíček NuGet [Microsoft. Extensions. primitivs](https://www.nuget.org/packages/Microsoft.Extensions.Primitives/) se implicitně poskytuje pro aplikace ASP.NET Core.
+<xref:Microsoft.Extensions.Primitives.IChangeToken>šíří oznámení, že došlo ke změně. `IChangeToken`nachází se v <xref:Microsoft.Extensions.Primitives?displayProperty=fullName> oboru názvů. Balíček NuGet [Microsoft. Extensions. primitivs](https://www.nuget.org/packages/Microsoft.Extensions.Primitives/) se implicitně poskytuje pro aplikace ASP.NET Core.
 
 `IChangeToken`má dvě vlastnosti:
 
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.ActiveChangeCallbacks>označuje, zda token proaktivně vyvolává zpětná volání. Pokud `ActiveChangedCallbacks` je nastaveno na `false`, zpětné volání se nikdy nevolá a aplikace se musí dotazovat `HasChanged` na změny. Je také možné, že token nikdy nebude zrušen, pokud nedojde k žádným změnám nebo pokud se podkladová naslouchací proces změny odstraní nebo zakáže.
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.ActiveChangeCallbacks>označuje, zda token proaktivně vyvolává zpětná volání. Pokud `ActiveChangedCallbacks` je nastaveno na `false` , zpětné volání se nikdy nevolá a aplikace se musí dotazovat `HasChanged` na změny. Je také možné, že token nikdy nebude zrušen, pokud nedojde k žádným změnám nebo pokud se podkladová naslouchací proces změny odstraní nebo zakáže.
 * <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged>přijímá hodnotu, která indikuje, jestli došlo ke změně.
 
-Rozhraní zahrnuje metodu [RegisterChangeCallback (objekt akce\<>, objekt)](xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*) , která zaregistruje zpětné volání, které je vyvoláno při změně tokenu. `IChangeToken` `HasChanged`musí být nastavena před vyvoláním zpětného volání.
+`IChangeToken`Rozhraní zahrnuje metodu [RegisterChangeCallback (Action \<Object> , Object)](xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*) , která zaregistruje zpětné volání, které je vyvoláno při změně tokenu. `HasChanged`musí být nastavena před vyvoláním zpětného volání.
 
 ## <a name="changetoken-class"></a>ChangeToken – třída
 
-<xref:Microsoft.Extensions.Primitives.ChangeToken>je statická třída, která se používá k šíření oznámení, ke kterým došlo ke změně. `ChangeToken`nachází se <xref:Microsoft.Extensions.Primitives?displayProperty=fullName> v oboru názvů. Balíček NuGet [Microsoft. Extensions. primitivs](https://www.nuget.org/packages/Microsoft.Extensions.Primitives/) se implicitně poskytuje pro aplikace ASP.NET Core.
+<xref:Microsoft.Extensions.Primitives.ChangeToken>je statická třída, která se používá k šíření oznámení, ke kterým došlo ke změně. `ChangeToken`nachází se v <xref:Microsoft.Extensions.Primitives?displayProperty=fullName> oboru názvů. Balíček NuGet [Microsoft. Extensions. primitivs](https://www.nuget.org/packages/Microsoft.Extensions.Primitives/) se implicitně poskytuje pro aplikace ASP.NET Core.
 
-Metoda [ChangeToken. (Func\<IChangeToken>, Action)](xref:Microsoft.Extensions.Primitives.ChangeToken.OnChange*) zaregistruje `Action` , aby se volala při každé změně tokenu:
+Metoda [ChangeToken. při změně (Func \<IChangeToken> , Action)](xref:Microsoft.Extensions.Primitives.ChangeToken.OnChange*) zaregistruje, `Action` aby se volala při každé změně tokenu:
 
 * `Func<IChangeToken>`vytvoří token.
 * `Action`se volá, když se změní token.
 
-Přetížení [ChangeToken\<. TState>\<(Func IChangeToken>, Action\<TState>, TState)](xref:Microsoft.Extensions.Primitives.ChangeToken.OnChange*) převezme další `TState` parametr, který se předává do příjemce `Action`tokenu.
+Přetížení [ChangeToken.-Change \<TState> (Func \<IChangeToken> , Action \<TState> , TState)](xref:Microsoft.Extensions.Primitives.ChangeToken.OnChange*) přebírá další `TState` parametr, který se předává do příjemce tokenu `Action` .
 
-`OnChange`Vrátí <xref:System.IDisposable>. Volání <xref:System.IDisposable.Dispose*> zastaví token z naslouchání pro další změny a uvolní prostředky tokenu.
+`OnChange`Vrátí <xref:System.IDisposable> . Volání <xref:System.IDisposable.Dispose*> zastaví token z naslouchání pro další změny a uvolní prostředky tokenu.
 
 ## <a name="example-uses-of-change-tokens-in-aspnet-core"></a>Příklad použití tokenů změny v ASP.NET Core
 
 Změna tokenů se používá ve výrazně ASP.NET Core ke sledování změn objektů:
 
-* Pro sledování změn souborů vytvoří <xref:Microsoft.Extensions.FileProviders.IFileProvider> <xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*> metoda `IChangeToken` pro zadané soubory nebo složky, které chcete sledovat.
+* Pro sledování změn souborů <xref:Microsoft.Extensions.FileProviders.IFileProvider> <xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*> vytvoří metoda `IChangeToken` pro zadané soubory nebo složky, které chcete sledovat.
 * `IChangeToken`tokeny lze přidat do záznamů mezipaměti a aktivovat tak vyřazení mezipaměti při změně.
 * Pro `TOptions` změny, výchozí <xref:Microsoft.Extensions.Options.OptionsMonitor`1> implementace pro <xref:Microsoft.Extensions.Options.IOptionsMonitor`1> má přetížení, které přijímá jednu nebo více <xref:Microsoft.Extensions.Options.IOptionsChangeTokenSource`1> instancí. Každá instance vrátí `IChangeToken` k registraci zpětného volání upozornění na změnu pro změny možností sledování.
 
@@ -63,7 +51,7 @@ Změna tokenů se používá ve výrazně ASP.NET Core ke sledování změn obje
 
 Ve výchozím nastavení používají šablony ASP.NET Core [konfigurační soubory JSON](xref:fundamentals/configuration/index#json-configuration-provider) (*appSettings. JSON*, *appSettings. Vývojové. JSON*a *appSettings. Produkční. JSON*) pro načtení nastavení konfigurace aplikace.
 
-Tyto soubory jsou konfigurovány pomocí metody rozšíření [AddJsonFile (IConfigurationBuilder, String, Boolean, Boolean)](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> , která přijímá `reloadOnChange` parametr. `reloadOnChange`Určuje, zda má být při změnách souborů znovu načtena konfigurace. Toto nastavení se zobrazí v <xref:Microsoft.Extensions.Hosting.Host> metodě <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*>usnadnění:
+Tyto soubory jsou konfigurovány pomocí metody rozšíření [AddJsonFile (IConfigurationBuilder, String, Boolean, Boolean)](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> , která přijímá `reloadOnChange` parametr. `reloadOnChange`Určuje, zda má být při změnách souborů znovu načtena konfigurace. Toto nastavení se zobrazí v <xref:Microsoft.Extensions.Hosting.Host> metodě usnadnění <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> :
 
 ```csharp
 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -71,11 +59,11 @@ config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
           reloadOnChange: true);
 ```
 
-Konfigurace na základě souborů je reprezentována pomocí <xref:Microsoft.Extensions.Configuration.FileConfigurationSource>. `FileConfigurationSource`Nástroj <xref:Microsoft.Extensions.FileProviders.IFileProvider> používá k monitorování souborů.
+Konfigurace na základě souborů je reprezentována pomocí <xref:Microsoft.Extensions.Configuration.FileConfigurationSource> . `FileConfigurationSource`<xref:Microsoft.Extensions.FileProviders.IFileProvider>Nástroj používá k monitorování souborů.
 
-Ve výchozím nastavení `IFileMonitor` je k dispozici pomocí <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>, který nástroj <xref:System.IO.FileSystemWatcher> používá ke sledování změn konfiguračního souboru.
+Ve výchozím nastavení `IFileMonitor` je k dispozici pomocí <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> , který <xref:System.IO.FileSystemWatcher> Nástroj používá ke sledování změn konfiguračního souboru.
 
-Ukázková aplikace ukazuje dvě implementace pro sledování změn konfigurace. Pokud se některý ze souborů *appSettings* změní, obě implementace monitorování souborů spustí vlastní kód&mdash;. Ukázková aplikace zapíše zprávu do konzoly.
+Ukázková aplikace ukazuje dvě implementace pro sledování změn konfigurace. Pokud se některý ze souborů *appSettings* změní, obě implementace monitorování souborů spustí vlastní kód &mdash; . Ukázková aplikace zapíše zprávu do konzoly.
 
 Konfigurační soubor `FileSystemWatcher` může aktivovat více zpětných volání tokenu pro jednu změnu konfiguračního souboru. Chcete-li zajistit, aby se vlastní kód spouštěl pouze jednou při spuštění více zpětných volání tokenu, implementace ukázky kontroluje hodnoty hash souborů. Ukázka používá algoritmus hash souborů SHA1. Opakování je implementováno pomocí exponenciálního zálohování. Opakování je k dispozici, protože může dojít k uzamčení souboru, které dočasně znemožňuje výpočet nového algoritmu hash v souboru.
 
@@ -85,7 +73,7 @@ Konfigurační soubor `FileSystemWatcher` může aktivovat více zpětných vol�
 
 ### <a name="simple-startup-change-token"></a>Jednoduchý token změny spuštění
 
-Zaregistrujte zpětné `Action` volání příjemce tokenu pro oznámení změn do tokenu opětovného načtení konfigurace.
+Zaregistrujte zpětné volání příjemce tokenu `Action` pro oznámení změn do tokenu opětovného načtení konfigurace.
 
 V `Startup.Configure`:
 
@@ -95,7 +83,7 @@ V `Startup.Configure`:
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Startup.cs?name=snippet3)]
 
-`state` Zpětné volání se používá k předání do `IWebHostEnvironment`, což je užitečné při určení správného konfiguračního souboru *appSettings* , který se má monitorovat (například *appSettings. Vývoj. JSON* při ve vývojovém prostředí. Hodnoty hash souborů se používají k zabránění spuštění `WriteConsole` příkazu vícekrát v důsledku zpětného volání s více tokeny, když je konfigurační soubor změněn pouze jednou.
+`state`Zpětné volání se používá k předání do `IWebHostEnvironment` , což je užitečné při určení správného konfiguračního souboru *appSettings* , který se má monitorovat (například *appSettings. Vývoj. JSON* při ve vývojovém prostředí. Hodnoty hash souborů se používají k zabránění `WriteConsole` spuštění příkazu vícekrát v důsledku zpětného volání s více tokeny, když je konfigurační soubor změněn pouze jednou.
 
 Tento systém běží, dokud je aplikace spuštěná a uživatel ho nemůže zakázat.
 
@@ -113,33 +101,33 @@ Ukázka vytvoří `IConfigurationMonitor` rozhraní.
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Extensions/ConfigurationMonitor.cs?name=snippet1)]
 
-Konstruktor implementované třídy, `ConfigurationMonitor`, zaregistruje zpětné volání pro oznámení o změně:
+Konstruktor implementované třídy, `ConfigurationMonitor` , zaregistruje zpětné volání pro oznámení o změně:
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Extensions/ConfigurationMonitor.cs?name=snippet2)]
 
-`config.GetReloadToken()`dodává token. `InvokeChanged`je metoda zpětného volání. `state` V této instanci je odkaz na `IConfigurationMonitor` instanci, která se používá pro přístup ke stavu monitorování. Používají se dvě vlastnosti:
+`config.GetReloadToken()`dodává token. `InvokeChanged`je metoda zpětného volání. `state`V této instanci je odkaz na `IConfigurationMonitor` instanci, která se používá pro přístup ke stavu monitorování. Používají se dvě vlastnosti:
 
-* `MonitoringEnabled`&ndash; Určuje, zda zpětné volání má spustit vlastní kód.
-* `CurrentState`&ndash; Popisuje aktuální stav monitorování pro použití v uživatelském rozhraní.
+* `MonitoringEnabled`: Určuje, zda zpětné volání má spustit vlastní kód.
+* `CurrentState`: Popisuje aktuální stav monitorování pro použití v uživatelském rozhraní.
 
-`InvokeChanged` Metoda je podobná dřívějšímu přístupu, s tím rozdílem, že:
+`InvokeChanged`Metoda je podobná dřívějšímu přístupu, s tím rozdílem, že:
 
-* Nespustí svůj kód, `MonitoringEnabled` Pokud `true`není.
-* Vypíše aktuální `state` `WriteConsole` výstup do výstupu.
+* Nespustí svůj kód `MonitoringEnabled` , pokud není `true` .
+* Vypíše aktuální `state` výstup do `WriteConsole` výstupu.
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Extensions/ConfigurationMonitor.cs?name=snippet3)]
 
-Instance `ConfigurationMonitor` je registrovaná jako služba v `Startup.ConfigureServices`:
+Instance `ConfigurationMonitor` je registrovaná jako služba v `Startup.ConfigureServices` :
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Startup.cs?name=snippet1)]
 
-Stránka index nabízí uživatelský ovládací prvek pro monitorování konfigurace. Instance `IConfigurationMonitor` je vložena do `IndexModel`.
+Stránka index nabízí uživatelský ovládací prvek pro monitorování konfigurace. Instance `IConfigurationMonitor` je vložena do `IndexModel` .
 
 *Pages/index. cshtml. cs*:
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Pages/Index.cshtml.cs?name=snippet1)]
 
-Nástroj Configuration monitor (`_monitor`) se používá k povolení nebo zakázání monitorování a nastavení aktuálního stavu pro zpětnou vazbu uživatelského rozhraní:
+Nástroj Configuration monitor ( `_monitor` ) se používá k povolení nebo zakázání monitorování a nastavení aktuálního stavu pro zpětnou vazbu uživatelského rozhraní:
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Pages/Index.cshtml.cs?name=snippet2)]
 
@@ -153,7 +141,7 @@ Tlačítka v uživatelském rozhraní povolují a zakazují monitorování.
 
 ## <a name="monitor-cached-file-changes"></a>Monitorovat změny souborů v mezipaměti
 
-Obsah souboru může být uložen v paměti pomocí <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>. Mezipaměť v paměti je popsána v tématu [mezipaměť v paměti](xref:performance/caching/memory) . Bez provedení dalších kroků, jako je třeba implementace popsaná níže, se z mezipaměti vrátí *zastaralé* (zastaralé) údaje, pokud se změní zdrojová data.
+Obsah souboru může být uložen v paměti pomocí <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache> . Mezipaměť v paměti je popsána v tématu [mezipaměť v paměti](xref:performance/caching/memory) . Bez provedení dalších kroků, jako je třeba implementace popsaná níže, se z mezipaměti vrátí *zastaralé* (zastaralé) údaje, pokud se změní zdrojová data.
 
 Například neberoucí se v úvahu stav zdrojového souboru v mezipaměti při obnovení [klouzavého období vypršení platnosti](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.SlidingExpiration) vede k zastaralým datům souborů v mezipaměti. Každý požadavek na data obnoví klouzavé období vypršení platnosti, ale soubor se nikdy znovu nenačte do mezipaměti. Všechny funkce aplikace, které používají obsah uložený v mezipaměti, podléhají možnému přijetí zastaralého obsahu.
 
@@ -168,19 +156,19 @@ Ukázka používá `GetFileContent` :
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Utilities/Utilities.cs?name=snippet2)]
 
-Vytvoří `FileService` se pro zpracování vyhledávání souborů uložených v mezipaměti. Volání `GetFileContent` metody služby se pokusí získat obsah souboru z mezipaměti v paměti a vrátit je volajícímu (*Services/Souborová služba. cs*).
+Vytvoří se `FileService` pro zpracování vyhledávání souborů uložených v mezipaměti. `GetFileContent`Volání metody služby se pokusí získat obsah souboru z mezipaměti v paměti a vrátit je volajícímu (*Services/Souborová služba. cs*).
 
 Pokud obsah uložený v mezipaměti nebyl nalezen pomocí klíče mezipaměti, jsou provedeny následující akce:
 
-1. Obsah souboru se získá pomocí `GetFileContent`.
+1. Obsah souboru se získá pomocí `GetFileContent` .
 1. Z poskytovatele souboru se získá token pro změnu pomocí [IFileProviders. Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*). Zpětné volání tokenu se aktivuje při úpravě souboru.
 1. Obsah souboru je uložen v mezipaměti s [klouzavé periodou vypršení platnosti](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.SlidingExpiration) . Token změny je připojen pomocí [MemoryCacheEntryExtensions. AddExpirationToken](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryExtensions.AddExpirationToken*) k vyřazení položky mezipaměti, pokud se soubor změní v mezipaměti.
 
-V následujícím příkladu jsou soubory uloženy v [kořenu obsahu](xref:fundamentals/index#content-root)aplikace. `IWebHostEnvironment.ContentRootFileProvider`slouží k získání <xref:Microsoft.Extensions.FileProviders.IFileProvider> ukazatele myši v aplikaci `IWebHostEnvironment.ContentRootPath`. `filePath` Je získaný pomocí [IFileInfo. PhysicalPath](xref:Microsoft.Extensions.FileProviders.IFileInfo.PhysicalPath).
+V následujícím příkladu jsou soubory uloženy v [kořenu obsahu](xref:fundamentals/index#content-root)aplikace. `IWebHostEnvironment.ContentRootFileProvider`slouží k získání <xref:Microsoft.Extensions.FileProviders.IFileProvider> ukazatele myši v aplikaci `IWebHostEnvironment.ContentRootPath` . `filePath`Je získaný pomocí [IFileInfo. PhysicalPath](xref:Microsoft.Extensions.FileProviders.IFileInfo.PhysicalPath).
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Services/FileService.cs?name=snippet1)]
 
-`FileService` Je zaregistrován v kontejneru služby spolu se službou mezipaměti paměti.
+`FileService`Je zaregistrován v kontejneru služby spolu se službou mezipaměti paměti.
 
 V `Startup.ConfigureServices`:
 
@@ -188,13 +176,13 @@ V `Startup.ConfigureServices`:
 
 Model stránky načte obsah souboru pomocí služby.
 
-V `OnGet` metodě stránky indexu (*pages/index. cshtml. cs*):
+V metodě stránky indexu `OnGet` (*pages/index. cshtml. cs*):
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Pages/Index.cshtml.cs?name=snippet3)]
 
 ## <a name="compositechangetoken-class"></a>CompositeChangeToken – třída
 
-Pro reprezentaci jedné nebo `IChangeToken` více instancí v jednom objektu použijte <xref:Microsoft.Extensions.Primitives.CompositeChangeToken> třídu.
+Pro reprezentaci jedné nebo více `IChangeToken` instancí v jednom objektu použijte <xref:Microsoft.Extensions.Primitives.CompositeChangeToken> třídu.
 
 ```csharp
 var firstCancellationTokenSource = new CancellationTokenSource();
@@ -215,7 +203,7 @@ var compositeChangeToken =
         });
 ```
 
-`HasChanged`v sestavách `true` složeného tokenu, `HasChanged` Pokud `true`je nějaký reprezentovaný token. `ActiveChangeCallbacks`v sestavách `true` složeného tokenu, `ActiveChangeCallbacks` Pokud `true`je nějaký reprezentovaný token. Pokud dojde k několika souběžným událostem změny, je zpětné volání kompozitní změny vyvoláno jednou.
+`HasChanged`v sestavách složeného tokenu, `true` Pokud je nějaký reprezentovaný token `HasChanged` `true` . `ActiveChangeCallbacks`v sestavách složeného tokenu, `true` Pokud je nějaký reprezentovaný token `ActiveChangeCallbacks` `true` . Pokud dojde k několika souběžným událostem změny, je zpětné volání kompozitní změny vyvoláno jednou.
 
 ::: moniker-end
 
@@ -227,33 +215,33 @@ var compositeChangeToken =
 
 ## <a name="ichangetoken-interface"></a>Rozhraní IChangeToken
 
-<xref:Microsoft.Extensions.Primitives.IChangeToken>šíří oznámení, že došlo ke změně. `IChangeToken`nachází se <xref:Microsoft.Extensions.Primitives?displayProperty=fullName> v oboru názvů. Pro aplikace, které nepoužívají [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), vytvořte odkaz na balíček pro balíček NuGet [Microsoft. Extensions. primitivs](https://www.nuget.org/packages/Microsoft.Extensions.Primitives/) .
+<xref:Microsoft.Extensions.Primitives.IChangeToken>šíří oznámení, že došlo ke změně. `IChangeToken`nachází se v <xref:Microsoft.Extensions.Primitives?displayProperty=fullName> oboru názvů. Pro aplikace, které nepoužívají [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), vytvořte odkaz na balíček pro balíček NuGet [Microsoft. Extensions. primitivs](https://www.nuget.org/packages/Microsoft.Extensions.Primitives/) .
 
 `IChangeToken`má dvě vlastnosti:
 
-* <xref:Microsoft.Extensions.Primitives.IChangeToken.ActiveChangeCallbacks>označuje, zda token proaktivně vyvolává zpětná volání. Pokud `ActiveChangedCallbacks` je nastaveno na `false`, zpětné volání se nikdy nevolá a aplikace se musí dotazovat `HasChanged` na změny. Je také možné, že token nikdy nebude zrušen, pokud nedojde k žádným změnám nebo pokud se podkladová naslouchací proces změny odstraní nebo zakáže.
+* <xref:Microsoft.Extensions.Primitives.IChangeToken.ActiveChangeCallbacks>označuje, zda token proaktivně vyvolává zpětná volání. Pokud `ActiveChangedCallbacks` je nastaveno na `false` , zpětné volání se nikdy nevolá a aplikace se musí dotazovat `HasChanged` na změny. Je také možné, že token nikdy nebude zrušen, pokud nedojde k žádným změnám nebo pokud se podkladová naslouchací proces změny odstraní nebo zakáže.
 * <xref:Microsoft.Extensions.Primitives.IChangeToken.HasChanged>přijímá hodnotu, která indikuje, jestli došlo ke změně.
 
-Rozhraní zahrnuje metodu [RegisterChangeCallback (objekt akce\<>, objekt)](xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*) , která zaregistruje zpětné volání, které je vyvoláno při změně tokenu. `IChangeToken` `HasChanged`musí být nastavena před vyvoláním zpětného volání.
+`IChangeToken`Rozhraní zahrnuje metodu [RegisterChangeCallback (Action \<Object> , Object)](xref:Microsoft.Extensions.Primitives.IChangeToken.RegisterChangeCallback*) , která zaregistruje zpětné volání, které je vyvoláno při změně tokenu. `HasChanged`musí být nastavena před vyvoláním zpětného volání.
 
 ## <a name="changetoken-class"></a>ChangeToken – třída
 
-<xref:Microsoft.Extensions.Primitives.ChangeToken>je statická třída, která se používá k šíření oznámení, ke kterým došlo ke změně. `ChangeToken`nachází se <xref:Microsoft.Extensions.Primitives?displayProperty=fullName> v oboru názvů. Pro aplikace, které nepoužívají [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), vytvořte odkaz na balíček pro balíček NuGet [Microsoft. Extensions. primitivs](https://www.nuget.org/packages/Microsoft.Extensions.Primitives/) .
+<xref:Microsoft.Extensions.Primitives.ChangeToken>je statická třída, která se používá k šíření oznámení, ke kterým došlo ke změně. `ChangeToken`nachází se v <xref:Microsoft.Extensions.Primitives?displayProperty=fullName> oboru názvů. Pro aplikace, které nepoužívají [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), vytvořte odkaz na balíček pro balíček NuGet [Microsoft. Extensions. primitivs](https://www.nuget.org/packages/Microsoft.Extensions.Primitives/) .
 
-Metoda [ChangeToken. (Func\<IChangeToken>, Action)](xref:Microsoft.Extensions.Primitives.ChangeToken.OnChange*) zaregistruje `Action` , aby se volala při každé změně tokenu:
+Metoda [ChangeToken. při změně (Func \<IChangeToken> , Action)](xref:Microsoft.Extensions.Primitives.ChangeToken.OnChange*) zaregistruje, `Action` aby se volala při každé změně tokenu:
 
 * `Func<IChangeToken>`vytvoří token.
 * `Action`se volá, když se změní token.
 
-Přetížení [ChangeToken\<. TState>\<(Func IChangeToken>, Action\<TState>, TState)](xref:Microsoft.Extensions.Primitives.ChangeToken.OnChange*) převezme další `TState` parametr, který se předává do příjemce `Action`tokenu.
+Přetížení [ChangeToken.-Change \<TState> (Func \<IChangeToken> , Action \<TState> , TState)](xref:Microsoft.Extensions.Primitives.ChangeToken.OnChange*) přebírá další `TState` parametr, který se předává do příjemce tokenu `Action` .
 
-`OnChange`Vrátí <xref:System.IDisposable>. Volání <xref:System.IDisposable.Dispose*> zastaví token z naslouchání pro další změny a uvolní prostředky tokenu.
+`OnChange`Vrátí <xref:System.IDisposable> . Volání <xref:System.IDisposable.Dispose*> zastaví token z naslouchání pro další změny a uvolní prostředky tokenu.
 
 ## <a name="example-uses-of-change-tokens-in-aspnet-core"></a>Příklad použití tokenů změny v ASP.NET Core
 
 Změna tokenů se používá ve výrazně ASP.NET Core ke sledování změn objektů:
 
-* Pro sledování změn souborů vytvoří <xref:Microsoft.Extensions.FileProviders.IFileProvider> <xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*> metoda `IChangeToken` pro zadané soubory nebo složky, které chcete sledovat.
+* Pro sledování změn souborů <xref:Microsoft.Extensions.FileProviders.IFileProvider> <xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*> vytvoří metoda `IChangeToken` pro zadané soubory nebo složky, které chcete sledovat.
 * `IChangeToken`tokeny lze přidat do záznamů mezipaměti a aktivovat tak vyřazení mezipaměti při změně.
 * Pro `TOptions` změny, výchozí <xref:Microsoft.Extensions.Options.OptionsMonitor`1> implementace pro <xref:Microsoft.Extensions.Options.IOptionsMonitor`1> má přetížení, které přijímá jednu nebo více <xref:Microsoft.Extensions.Options.IOptionsChangeTokenSource`1> instancí. Každá instance vrátí `IChangeToken` k registraci zpětného volání upozornění na změnu pro změny možností sledování.
 
@@ -261,7 +249,7 @@ Změna tokenů se používá ve výrazně ASP.NET Core ke sledování změn obje
 
 Ve výchozím nastavení používají šablony ASP.NET Core [konfigurační soubory JSON](xref:fundamentals/configuration/index#json-configuration-provider) (*appSettings. JSON*, *appSettings. Vývojové. JSON*a *appSettings. Produkční. JSON*) pro načtení nastavení konfigurace aplikace.
 
-Tyto soubory jsou konfigurovány pomocí metody rozšíření [AddJsonFile (IConfigurationBuilder, String, Boolean, Boolean)](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> , která přijímá `reloadOnChange` parametr. `reloadOnChange`Určuje, zda má být při změnách souborů znovu načtena konfigurace. Toto nastavení se zobrazí v <xref:Microsoft.AspNetCore.WebHost> metodě <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>usnadnění:
+Tyto soubory jsou konfigurovány pomocí metody rozšíření [AddJsonFile (IConfigurationBuilder, String, Boolean, Boolean)](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> , která přijímá `reloadOnChange` parametr. `reloadOnChange`Určuje, zda má být při změnách souborů znovu načtena konfigurace. Toto nastavení se zobrazí v <xref:Microsoft.AspNetCore.WebHost> metodě usnadnění <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> :
 
 ```csharp
 config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -269,11 +257,11 @@ config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
           reloadOnChange: true);
 ```
 
-Konfigurace na základě souborů je reprezentována pomocí <xref:Microsoft.Extensions.Configuration.FileConfigurationSource>. `FileConfigurationSource`Nástroj <xref:Microsoft.Extensions.FileProviders.IFileProvider> používá k monitorování souborů.
+Konfigurace na základě souborů je reprezentována pomocí <xref:Microsoft.Extensions.Configuration.FileConfigurationSource> . `FileConfigurationSource`<xref:Microsoft.Extensions.FileProviders.IFileProvider>Nástroj používá k monitorování souborů.
 
-Ve výchozím nastavení `IFileMonitor` je k dispozici pomocí <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider>, který nástroj <xref:System.IO.FileSystemWatcher> používá ke sledování změn konfiguračního souboru.
+Ve výchozím nastavení `IFileMonitor` je k dispozici pomocí <xref:Microsoft.Extensions.FileProviders.PhysicalFileProvider> , který <xref:System.IO.FileSystemWatcher> Nástroj používá ke sledování změn konfiguračního souboru.
 
-Ukázková aplikace ukazuje dvě implementace pro sledování změn konfigurace. Pokud se některý ze souborů *appSettings* změní, obě implementace monitorování souborů spustí vlastní kód&mdash;. Ukázková aplikace zapíše zprávu do konzoly.
+Ukázková aplikace ukazuje dvě implementace pro sledování změn konfigurace. Pokud se některý ze souborů *appSettings* změní, obě implementace monitorování souborů spustí vlastní kód &mdash; . Ukázková aplikace zapíše zprávu do konzoly.
 
 Konfigurační soubor `FileSystemWatcher` může aktivovat více zpětných volání tokenu pro jednu změnu konfiguračního souboru. Chcete-li zajistit, aby se vlastní kód spouštěl pouze jednou při spuštění více zpětných volání tokenu, implementace ukázky kontroluje hodnoty hash souborů. Ukázka používá algoritmus hash souborů SHA1. Opakování je implementováno pomocí exponenciálního zálohování. Opakování je k dispozici, protože může dojít k uzamčení souboru, které dočasně znemožňuje výpočet nového algoritmu hash v souboru.
 
@@ -283,7 +271,7 @@ Konfigurační soubor `FileSystemWatcher` může aktivovat více zpětných vol�
 
 ### <a name="simple-startup-change-token"></a>Jednoduchý token změny spuštění
 
-Zaregistrujte zpětné `Action` volání příjemce tokenu pro oznámení změn do tokenu opětovného načtení konfigurace.
+Zaregistrujte zpětné volání příjemce tokenu `Action` pro oznámení změn do tokenu opětovného načtení konfigurace.
 
 V `Startup.Configure`:
 
@@ -293,7 +281,7 @@ V `Startup.Configure`:
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Startup.cs?name=snippet3)]
 
-`state` Zpětné volání se používá k předání do `IHostingEnvironment`, což je užitečné při určení správného konfiguračního souboru *appSettings* , který se má monitorovat (například *appSettings. Vývoj. JSON* při ve vývojovém prostředí. Hodnoty hash souborů se používají k zabránění spuštění `WriteConsole` příkazu vícekrát v důsledku zpětného volání s více tokeny, když je konfigurační soubor změněn pouze jednou.
+`state`Zpětné volání se používá k předání do `IHostingEnvironment` , což je užitečné při určení správného konfiguračního souboru *appSettings* , který se má monitorovat (například *appSettings. Vývoj. JSON* při ve vývojovém prostředí. Hodnoty hash souborů se používají k zabránění `WriteConsole` spuštění příkazu vícekrát v důsledku zpětného volání s více tokeny, když je konfigurační soubor změněn pouze jednou.
 
 Tento systém běží, dokud je aplikace spuštěná a uživatel ho nemůže zakázat.
 
@@ -311,33 +299,33 @@ Ukázka vytvoří `IConfigurationMonitor` rozhraní.
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Extensions/ConfigurationMonitor.cs?name=snippet1)]
 
-Konstruktor implementované třídy, `ConfigurationMonitor`, zaregistruje zpětné volání pro oznámení o změně:
+Konstruktor implementované třídy, `ConfigurationMonitor` , zaregistruje zpětné volání pro oznámení o změně:
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Extensions/ConfigurationMonitor.cs?name=snippet2)]
 
-`config.GetReloadToken()`dodává token. `InvokeChanged`je metoda zpětného volání. `state` V této instanci je odkaz na `IConfigurationMonitor` instanci, která se používá pro přístup ke stavu monitorování. Používají se dvě vlastnosti:
+`config.GetReloadToken()`dodává token. `InvokeChanged`je metoda zpětného volání. `state`V této instanci je odkaz na `IConfigurationMonitor` instanci, která se používá pro přístup ke stavu monitorování. Používají se dvě vlastnosti:
 
-* `MonitoringEnabled`&ndash; Určuje, zda zpětné volání má spustit vlastní kód.
-* `CurrentState`&ndash; Popisuje aktuální stav monitorování pro použití v uživatelském rozhraní.
+* `MonitoringEnabled`: Určuje, zda zpětné volání má spustit vlastní kód.
+* `CurrentState`: Popisuje aktuální stav monitorování pro použití v uživatelském rozhraní.
 
-`InvokeChanged` Metoda je podobná dřívějšímu přístupu, s tím rozdílem, že:
+`InvokeChanged`Metoda je podobná dřívějšímu přístupu, s tím rozdílem, že:
 
-* Nespustí svůj kód, `MonitoringEnabled` Pokud `true`není.
-* Vypíše aktuální `state` `WriteConsole` výstup do výstupu.
+* Nespustí svůj kód `MonitoringEnabled` , pokud není `true` .
+* Vypíše aktuální `state` výstup do `WriteConsole` výstupu.
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Extensions/ConfigurationMonitor.cs?name=snippet3)]
 
-Instance `ConfigurationMonitor` je registrovaná jako služba v `Startup.ConfigureServices`:
+Instance `ConfigurationMonitor` je registrovaná jako služba v `Startup.ConfigureServices` :
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Startup.cs?name=snippet1)]
 
-Stránka index nabízí uživatelský ovládací prvek pro monitorování konfigurace. Instance `IConfigurationMonitor` je vložena do `IndexModel`.
+Stránka index nabízí uživatelský ovládací prvek pro monitorování konfigurace. Instance `IConfigurationMonitor` je vložena do `IndexModel` .
 
 *Pages/index. cshtml. cs*:
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Pages/Index.cshtml.cs?name=snippet1)]
 
-Nástroj Configuration monitor (`_monitor`) se používá k povolení nebo zakázání monitorování a nastavení aktuálního stavu pro zpětnou vazbu uživatelského rozhraní:
+Nástroj Configuration monitor ( `_monitor` ) se používá k povolení nebo zakázání monitorování a nastavení aktuálního stavu pro zpětnou vazbu uživatelského rozhraní:
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Pages/Index.cshtml.cs?name=snippet2)]
 
@@ -351,7 +339,7 @@ Tlačítka v uživatelském rozhraní povolují a zakazují monitorování.
 
 ## <a name="monitor-cached-file-changes"></a>Monitorovat změny souborů v mezipaměti
 
-Obsah souboru může být uložen v paměti pomocí <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache>. Mezipaměť v paměti je popsána v tématu [mezipaměť v paměti](xref:performance/caching/memory) . Bez provedení dalších kroků, jako je třeba implementace popsaná níže, se z mezipaměti vrátí *zastaralé* (zastaralé) údaje, pokud se změní zdrojová data.
+Obsah souboru může být uložen v paměti pomocí <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache> . Mezipaměť v paměti je popsána v tématu [mezipaměť v paměti](xref:performance/caching/memory) . Bez provedení dalších kroků, jako je třeba implementace popsaná níže, se z mezipaměti vrátí *zastaralé* (zastaralé) údaje, pokud se změní zdrojová data.
 
 Například neberoucí se v úvahu stav zdrojového souboru v mezipaměti při obnovení [klouzavého období vypršení platnosti](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.SlidingExpiration) vede k zastaralým datům souborů v mezipaměti. Každý požadavek na data obnoví klouzavé období vypršení platnosti, ale soubor se nikdy znovu nenačte do mezipaměti. Všechny funkce aplikace, které používají obsah uložený v mezipaměti, podléhají možnému přijetí zastaralého obsahu.
 
@@ -366,19 +354,19 @@ Ukázka používá `GetFileContent` :
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Utilities/Utilities.cs?name=snippet2)]
 
-Vytvoří `FileService` se pro zpracování vyhledávání souborů uložených v mezipaměti. Volání `GetFileContent` metody služby se pokusí získat obsah souboru z mezipaměti v paměti a vrátit je volajícímu (*Services/Souborová služba. cs*).
+Vytvoří se `FileService` pro zpracování vyhledávání souborů uložených v mezipaměti. `GetFileContent`Volání metody služby se pokusí získat obsah souboru z mezipaměti v paměti a vrátit je volajícímu (*Services/Souborová služba. cs*).
 
 Pokud obsah uložený v mezipaměti nebyl nalezen pomocí klíče mezipaměti, jsou provedeny následující akce:
 
-1. Obsah souboru se získá pomocí `GetFileContent`.
+1. Obsah souboru se získá pomocí `GetFileContent` .
 1. Z poskytovatele souboru se získá token pro změnu pomocí [IFileProviders. Watch](xref:Microsoft.Extensions.FileProviders.IFileProvider.Watch*). Zpětné volání tokenu se aktivuje při úpravě souboru.
 1. Obsah souboru je uložen v mezipaměti s [klouzavé periodou vypršení platnosti](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryOptions.SlidingExpiration) . Token změny je připojen pomocí [MemoryCacheEntryExtensions. AddExpirationToken](xref:Microsoft.Extensions.Caching.Memory.MemoryCacheEntryExtensions.AddExpirationToken*) k vyřazení položky mezipaměti, pokud se soubor změní v mezipaměti.
 
-V následujícím příkladu jsou soubory uloženy v [kořenu obsahu](xref:fundamentals/index#content-root)aplikace. [IHostingEnvironment. ContentRootFileProvider](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootFileProvider) se používá k získání <xref:Microsoft.Extensions.FileProviders.IFileProvider> ukazatele myši v aplikaci. <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootPath> `filePath` Je získaný pomocí [IFileInfo. PhysicalPath](xref:Microsoft.Extensions.FileProviders.IFileInfo.PhysicalPath).
+V následujícím příkladu jsou soubory uloženy v [kořenu obsahu](xref:fundamentals/index#content-root)aplikace. [IHostingEnvironment. ContentRootFileProvider](xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootFileProvider) se používá k získání <xref:Microsoft.Extensions.FileProviders.IFileProvider> ukazatele myši v aplikaci <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment.ContentRootPath> . `filePath`Je získaný pomocí [IFileInfo. PhysicalPath](xref:Microsoft.Extensions.FileProviders.IFileInfo.PhysicalPath).
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Services/FileService.cs?name=snippet1)]
 
-`FileService` Je zaregistrován v kontejneru služby spolu se službou mezipaměti paměti.
+`FileService`Je zaregistrován v kontejneru služby spolu se službou mezipaměti paměti.
 
 V `Startup.ConfigureServices`:
 
@@ -386,13 +374,13 @@ V `Startup.ConfigureServices`:
 
 Model stránky načte obsah souboru pomocí služby.
 
-V `OnGet` metodě stránky indexu (*pages/index. cshtml. cs*):
+V metodě stránky indexu `OnGet` (*pages/index. cshtml. cs*):
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Pages/Index.cshtml.cs?name=snippet3)]
 
 ## <a name="compositechangetoken-class"></a>CompositeChangeToken – třída
 
-Pro reprezentaci jedné nebo `IChangeToken` více instancí v jednom objektu použijte <xref:Microsoft.Extensions.Primitives.CompositeChangeToken> třídu.
+Pro reprezentaci jedné nebo více `IChangeToken` instancí v jednom objektu použijte <xref:Microsoft.Extensions.Primitives.CompositeChangeToken> třídu.
 
 ```csharp
 var firstCancellationTokenSource = new CancellationTokenSource();
@@ -413,7 +401,7 @@ var compositeChangeToken =
         });
 ```
 
-`HasChanged`v sestavách `true` složeného tokenu, `HasChanged` Pokud `true`je nějaký reprezentovaný token. `ActiveChangeCallbacks`v sestavách `true` složeného tokenu, `ActiveChangeCallbacks` Pokud `true`je nějaký reprezentovaný token. Pokud dojde k několika souběžným událostem změny, je zpětné volání kompozitní změny vyvoláno jednou.
+`HasChanged`v sestavách složeného tokenu, `true` Pokud je nějaký reprezentovaný token `HasChanged` `true` . `ActiveChangeCallbacks`v sestavách složeného tokenu, `true` Pokud je nějaký reprezentovaný token `ActiveChangeCallbacks` `true` . Pokud dojde k několika souběžným událostem změny, je zpětné volání kompozitní změny vyvoláno jednou.
 
 ::: moniker-end
 

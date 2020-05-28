@@ -1,24 +1,13 @@
 ---
-title: Ověřování a autorizace v gRPC pro ASP.NET Core
-author: jamesnk
-description: Naučte se používat ověřování a autorizaci v gRPC pro ASP.NET Core.
-monikerRange: '>= aspnetcore-3.0'
-ms.author: jamesnk
-ms.date: 12/05/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: grpc/authn-and-authz
-ms.openlocfilehash: eecdebe5ea7555df0914adfbff728331e3592093
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776165"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
+
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>Ověřování a autorizace v gRPC pro ASP.NET Core
 
 Od [James Newton – král](https://twitter.com/jamesnk)
@@ -47,11 +36,11 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> Pořadí, ve kterém zaregistrujete ASP.NET Core middlewaru ověřování. Vždy volejte `UseAuthentication` a `UseAuthorization` před `UseRouting` a před `UseEndpoints`.
+> Pořadí, ve kterém zaregistrujete ASP.NET Core middlewaru ověřování. Vždy volejte `UseAuthentication` a `UseAuthorization` `UseRouting` před a před `UseEndpoints` .
 
-Mechanismus ověřování, který vaše aplikace používá během volání, je nutné nakonfigurovat. Konfigurace ověřování je přidaná `Startup.ConfigureServices` v a bude se lišit v závislosti na mechanismu ověřování, který vaše aplikace používá. Příklady zabezpečení aplikací ASP.NET Core najdete v tématu [ukázky ověřování](xref:security/authentication/samples).
+Mechanismus ověřování, který vaše aplikace používá během volání, je nutné nakonfigurovat. Konfigurace ověřování je přidaná v `Startup.ConfigureServices` a bude se lišit v závislosti na mechanismu ověřování, který vaše aplikace používá. Příklady zabezpečení aplikací ASP.NET Core najdete v tématu [ukázky ověřování](xref:security/authentication/samples).
 
-Po nastavení ověřování se k uživateli dá v metodách služby gRPC přístup pomocí `ServerCallContext`.
+Po nastavení ověřování se k uživateli dá v metodách služby gRPC přístup pomocí `ServerCallContext` .
 
 ```csharp
 public override Task<BuyTicketsResponse> BuyTickets(
@@ -114,7 +103,7 @@ private static GrpcChannel CreateAuthenticatedChannel(string address)
 
 ### <a name="client-certificate-authentication"></a>Ověřování certifikátu klienta
 
-Klient může případně poskytnout klientský certifikát pro ověřování. [Ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Když požadavek vstoupí do ASP.NET Core, [balíček pro ověřování certifikátu klienta](xref:security/authentication/certauth) vám umožní tento certifikát přeložit na `ClaimsPrincipal`.
+Klient může případně poskytnout klientský certifikát pro ověřování. [Ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Když požadavek vstoupí do ASP.NET Core, [balíček pro ověřování certifikátu klienta](xref:security/authentication/certauth) vám umožní tento certifikát přeložit na `ClaimsPrincipal` .
 
 > [!NOTE]
 > Hostitel musí být nakonfigurovaný tak, aby přijímal klientské certifikáty. Informace o přijímání klientských certifikátů v Kestrel, IIS a Azure najdete v tématu [Konfigurace hostitele pro vyžadování certifikátů](xref:security/authentication/certauth#configure-your-host-to-require-certificates) .
@@ -133,7 +122,7 @@ public Ticketer.TicketerClient CreateClientWithCert(
     // Create the gRPC channel
     var channel = GrpcChannel.ForAddress(baseAddress, new GrpcChannelOptions
     {
-        HttpClient = new HttpClient(handler)
+        HttpHandler = handler
     });
 
     return new Ticketer.TicketerClient(channel);
@@ -156,7 +145,7 @@ Další informace o konfiguraci ověřování na serveru najdete v tématu [ASP.
 
 Konfigurace klienta gRPC na používání ověřování bude záviset na mechanismu ověřování, který používáte. Příklady předchozího nosiče a klientského certifikátu ukazují několik způsobů, jak může být klient gRPC nakonfigurovaný tak, aby odesílal metadata ověřování pomocí volání gRPC:
 
-* GRPC klienti silného typu `HttpClient` používají interně. Ověřování lze nakonfigurovat na [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler)nebo přidáním vlastních instancí [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) do `HttpClient`.
+* GRPC klienti silného typu používají `HttpClient` interně. Ověřování lze nakonfigurovat na [HttpClientHandler](/dotnet/api/system.net.http.httpclienthandler)nebo přidáním vlastních instancí [HttpMessageHandler](/dotnet/api/system.net.http.httpmessagehandler) do `HttpClient` .
 * Každé volání gRPC má nepovinný `CallOptions` argument. Vlastní záhlaví lze odeslat pomocí kolekce záhlaví možnosti.
 
 > [!NOTE]
@@ -164,7 +153,7 @@ Konfigurace klienta gRPC na používání ověřování bude záviset na mechani
 
 ## <a name="authorize-users-to-access-services-and-service-methods"></a>Autorizace uživatelů přístup k službám a metodám služeb
 
-Ve výchozím nastavení mohou být všechny metody ve službě volány neověřenými uživateli. Chcete-li vyžadovat ověření, [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) použijte atribut pro službu:
+Ve výchozím nastavení mohou být všechny metody ve službě volány neověřenými uživateli. Chcete-li vyžadovat ověření, použijte [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) atribut pro službu:
 
 ```csharp
 [Authorize]
@@ -173,7 +162,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-Pomocí argumentů konstruktoru a vlastností `[Authorize]` atributu můžete omezit přístup jenom na uživatele, kteří odpovídají na konkrétní [zásady autorizace](xref:security/authorization/policies). Pokud máte například vlastní zásadu autorizace `MyAuthorizationPolicy`, ujistěte se, že ke službě budou mít přístup jenom uživatelé, kteří mají k této zásadě přístup pomocí následujícího kódu:
+Pomocí argumentů konstruktoru a vlastností `[Authorize]` atributu můžete omezit přístup jenom na uživatele, kteří odpovídají na konkrétní [zásady autorizace](xref:security/authorization/policies). Pokud máte například vlastní zásadu autorizace `MyAuthorizationPolicy` , ujistěte se, že ke službě budou mít přístup jenom uživatelé, kteří mají k této zásadě přístup pomocí následujícího kódu:
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
@@ -182,7 +171,7 @@ public class TicketerService : Ticketer.TicketerBase
 }
 ```
 
-Jednotlivé metody služby mohou mít také `[Authorize]` použit atribut. Pokud aktuální uživatel neodpovídá zásadám použitým **pro metodu i třídu** , je volajícímu vrácena chyba:
+Jednotlivé metody služby mohou mít `[Authorize]` také použit atribut. Pokud aktuální uživatel neodpovídá zásadám použitým **pro metodu i třídu** , je volajícímu vrácena chyba:
 
 ```csharp
 [Authorize]

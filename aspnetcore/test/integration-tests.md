@@ -119,7 +119,7 @@ Pokud není [prostředí](xref:fundamentals/environments) SUT nastaveno, prostř
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>Základní testy s výchozím WebApplicationFactory
 
-[WebApplicationFactory \< TEntryPoint>](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint`je třída vstupního bodu třídy SUT, obvykle `Startup` Třída.
+[WebApplicationFactory \<TEntryPoint> ](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint`je třída vstupního bodu třídy SUT, obvykle `Startup` Třída.
 
 Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)( *Class* ) k označení třídy obsahuje testy a poskytování instancí sdíleného objektu napříč testy ve třídě.
 
@@ -178,7 +178,7 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
 
 `SendAsync`Pomocné metody rozšíření (*helpers/HttpClientExtensions. cs*) a `GetDocumentAsync` pomocná metoda (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti falšování pomocí následujících metod:
 
-* `GetDocumentAsync`&ndash;Přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument` . `GetDocumentAsync`používá objekt pro vytváření, který připraví *virtuální odpověď* na základě originálu `HttpResponseMessage` . Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
+* `GetDocumentAsync`: Přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument` . `GetDocumentAsync`používá objekt pro vytváření, který připraví *virtuální odpověď* na základě originálu `HttpResponseMessage` . Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
 * `SendAsync`metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML ( `IHtmlFormElement` ) a následující:
   * Tlačítko Odeslat formuláře ( `IHtmlElement` )
   * Kolekce hodnot formulářů ( `IEnumerable<KeyValuePair<string, string>>` )
@@ -679,7 +679,7 @@ Pokud není [prostředí](xref:fundamentals/environments) SUT nastaveno, prostř
 
 ## <a name="basic-tests-with-the-default-webapplicationfactory"></a>Základní testy s výchozím WebApplicationFactory
 
-[WebApplicationFactory \< TEntryPoint>](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint`je třída vstupního bodu třídy SUT, obvykle `Startup` Třída.
+[WebApplicationFactory \<TEntryPoint> ](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) slouží k vytvoření [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver) pro integrační testy. `TEntryPoint`je třída vstupního bodu třídy SUT, obvykle `Startup` Třída.
 
 Třídy testu implementují rozhraní[IClassFixture](https://xunit.github.io/docs/shared-context#class-fixture)( *Class* ) k označení třídy obsahuje testy a poskytování instancí sdíleného objektu napříč testy ve třídě.
 
@@ -719,7 +719,7 @@ Jakýkoli požadavek POST na SUT musí splňovat kontrolu proti padělání, kte
 
 `SendAsync`Pomocné metody rozšíření (*helpers/HttpClientExtensions. cs*) a `GetDocumentAsync` pomocná metoda (*helps/HtmlHelpers. cs*) v [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples/) používají analyzátor [AngleSharp](https://anglesharp.github.io/) pro zpracování kontroly proti falšování pomocí následujících metod:
 
-* `GetDocumentAsync`&ndash;Přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument` . `GetDocumentAsync`používá objekt pro vytváření, který připraví *virtuální odpověď* na základě originálu `HttpResponseMessage` . Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
+* `GetDocumentAsync`: Přijme [HttpResponseMessage](/dotnet/api/system.net.http.httpresponsemessage) a vrátí `IHtmlDocument` . `GetDocumentAsync`používá objekt pro vytváření, který připraví *virtuální odpověď* na základě originálu `HttpResponseMessage` . Další informace najdete v [dokumentaci k AngleSharp](https://github.com/AngleSharp/AngleSharp#documentation).
 * `SendAsync`metody rozšíření pro `HttpClient` vytvoření [zprávy HttpRequestMessage](/dotnet/api/system.net.http.httprequestmessage) a volání [SendAsync (zprávy HttpRequestMessage)](/dotnet/api/system.net.http.httpclient.sendasync#System_Net_Http_HttpClient_SendAsync_System_Net_Http_HttpRequestMessage_) pro odeslání požadavků do SUT. Přetížení pro `SendAsync` přijměte formulář HTML ( `IHtmlFormElement` ) a následující:
   * Tlačítko Odeslat formuláře ( `IHtmlElement` )
   * Kolekce hodnot formulářů ( `IEnumerable<KeyValuePair<string, string>>` )

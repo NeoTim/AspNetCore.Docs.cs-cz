@@ -69,8 +69,8 @@ Razorkomponenty v Blazor aplikacích výrazně používají Razor syntaxi. Pokud
 
 Při přístupu k obsahu v Razor syntaxi věnujte zvláštní pozornost následujícím oddílům:
 
-* [Direktivy](xref:mvc/views/razor#directives) &ndash; `@`-pevná vyhrazená klíčová slova, která obvykle mění způsob, jakým jsou analyzovány značky komponenty nebo funkce.
-* [Atributy direktiv](xref:mvc/views/razor#directive-attributes) &ndash; `@`-pevná vyhrazená klíčová slova, která obvykle mění způsob, jakým jsou analyzovány prvky součásti nebo funkce.
+* [Direktivy](xref:mvc/views/razor#directives): `@` -předem stanovená vyhrazená klíčová slova, která obvykle mění způsob, jakým se kód komponenty analyzuje nebo funkce.
+* [Atributy direktiv](xref:mvc/views/razor#directive-attributes): `@` -předem stanovená vyhrazená klíčová slova, která obvykle mění způsob, jakým jsou analyzovány prvky součásti nebo funkce.
 
 ## <a name="static-assets"></a>Statické prostředky
 
@@ -136,7 +136,7 @@ Volitelné parametry nejsou podporovány, takže [`@page`][9] v předchozím př
 
 ### <a name="component-parameters"></a>Parametry součásti
 
-Komponenty mohou mít *parametry komponenty*, které jsou definovány pomocí veřejných vlastností třídy Component s [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) atributem] (odkazy XREF: Microsoft. AspNetCore. Components. ParameterAttribute). Použijte atributy k určení argumentů pro komponentu v kódu.
+Komponenty mohou mít *parametry komponenty*, které jsou definovány pomocí veřejných vlastností třídy komponenty s [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) atributem. Použijte atributy k určení argumentů pro komponentu v kódu.
 
 *Components/ChildComponent. Razor*:
 
@@ -974,7 +974,7 @@ Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* <xref:security/blazor/server/threat-mitigation>&ndash;Obsahuje doprovodné materiály k vytváření Blazor Serverové aplikace, které se musí soupeří s vyčerpáním prostředků
+* <xref:security/blazor/server/threat-mitigation>: Obsahuje doprovodné materiály k vytváření Blazor serverových aplikací, které se musí soupeří s vyčerpáním prostředků.
 
 <!--Reference links in article-->
 [1]: <xref:mvc/views/razor#code>

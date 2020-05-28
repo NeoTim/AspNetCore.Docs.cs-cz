@@ -1,24 +1,11 @@
 ---
-title: Publikační profily sady Visual Studio (. pubxml) pro nasazení aplikace ASP.NET Core
-author: rick-anderson
-description: Naučte se vytvářet profily publikování v aplikaci Visual Studio a používat je ke správě ASP.NET Core nasazení aplikací do různých cílů.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 05/14/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: 42d790ad4942ea238fb3bbe56cb92ae4a26ddc2d
-ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/16/2020
-ms.locfileid: "83439003"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>Publikační profily sady Visual Studio (. pubxml) pro nasazení aplikace ASP.NET Core
 
@@ -26,7 +13,7 @@ Od [Sayed Ibrahim Hashimi](https://github.com/sayedihashimi) a [Rick Anderson](h
 
 Tento dokument se zaměřuje na použití sady Visual Studio 2019 nebo novější k vytváření a používání profilů publikování. Profily publikování vytvořené pomocí sady Visual Studio lze použít s nástroji MSBuild a sadou Visual Studio. Pokyny k publikování do Azure najdete v tématu <xref:tutorials/publish-to-azure-webapp-using-vs> .
 
-`dotnet new mvc`Příkaz vytvoří soubor projektu obsahující následující [ \<> element projektu](/visualstudio/msbuild/project-element-msbuild)na kořenové úrovni:
+`dotnet new mvc`Příkaz vytvoří soubor projektu obsahující následující [ \<Project> element](/visualstudio/msbuild/project-element-msbuild)na kořenové úrovni:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk.Web">
@@ -36,7 +23,7 @@ Tento dokument se zaměřuje na použití sady Visual Studio 2019 nebo novějš�
 
 Předchozí `<Project>` `Sdk` atribut elementu importuje [vlastnosti](/visualstudio/msbuild/msbuild-properties) a [cíle](/visualstudio/msbuild/msbuild-targets) nástroje MSBuild z *$ (MSBuildSDKsPath) \Microsoft.NET.SDK.Web\Sdk\Sdk.props* a *$ (MSBuildSDKsPath) \Microsoft.NET.SDK.Web\Sdk\Sdk.targets*, v uvedeném pořadí. Výchozím umístěním pro `$(MSBuildSDKsPath)` (se sadou Visual Studio 2019 Enterprise) je složka *% ProgramFiles (x86)% \ Microsoft Visual Studio\2019\Enterprise\MSBuild\Sdks* .
 
-`Microsoft.NET.Sdk.Web`([Web SDK](xref:razor-pages/web-sdk)) závisí na jiných sadách SDK, včetně `Microsoft.NET.Sdk` ([.NET Core SDK](/dotnet/core/project-sdk/msbuild-props)) a `Microsoft.NET.Sdk.Razor` ([Razor SDK](xref:razor-pages/sdk)). Naimportují se vlastnosti a cíle nástroje MSBuild přidružené ke každé závislé sadě SDK. Cíle publikování importují odpovídající sadu cílů na základě používané metody publikování.
+`Microsoft.NET.Sdk.Web`([Web SDK](xref:razor-pages/web-sdk)) závisí na jiných sadách SDK, včetně `Microsoft.NET.Sdk` ([.NET Core SDK](/dotnet/core/project-sdk/msbuild-props)) a `Microsoft.NET.Sdk.Razor` ([ Razor SDK](xref:razor-pages/sdk)). Naimportují se vlastnosti a cíle nástroje MSBuild přidružené ke každé závislé sadě SDK. Cíle publikování importují odpovídající sadu cílů na základě používané metody publikování.
 
 Když nástroj MSBuild nebo Visual Studio načte projekt, dojde k následujícím akcím na nejvyšší úrovni:
 
@@ -52,13 +39,13 @@ Po načtení projektu jsou vypočítány [položky projektu MSBuild](/visualstud
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Sada [Web SDK](xref:razor-pages/web-sdk) importuje [sadu Razor SDK](xref:razor-pages/sdk). V důsledku toho jsou soubory, které odpovídají vzorům, `**\*.cshtml` `**\*.razor` zahrnuty také v `Content` seznamu položek.
+Sada [Web SDK](xref:razor-pages/web-sdk) importuje [ Razor sadu SDK](xref:razor-pages/sdk). V důsledku toho jsou soubory, které odpovídají vzorům, `**\*.cshtml` `**\*.razor` zahrnuty také v `Content` seznamu položek.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-Sada [Web SDK](xref:razor-pages/web-sdk) importuje [sadu Razor SDK](xref:razor-pages/sdk). V důsledku toho jsou soubory, které odpovídají `**\*.cshtml` vzoru, zahrnuty také v `Content` seznamu položek.
+Sada [Web SDK](xref:razor-pages/web-sdk) importuje [ Razor sadu SDK](xref:razor-pages/sdk). V důsledku toho jsou soubory, které odpovídají `**\*.cshtml` vzoru, zahrnuty také v `Content` seznamu položek.
 
 ::: moniker-end
 
@@ -76,7 +63,7 @@ Pokud projekt ASP.NET Core odkazuje `Microsoft.NET.Sdk.Web` v souboru projektu, 
 
 ## <a name="basic-command-line-publishing"></a>Základní publikování z příkazového řádku
 
-Publikování z příkazového řádku funguje na všech platformách podporovaných .NET Core a nevyžaduje sadu Visual Studio. V následujících příkladech se příkaz [dotnet publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI spouští z adresáře projektu (který obsahuje soubor *. csproj* ). Pokud složka projektu není aktuálním pracovním adresářem, explicitně předejte cestu k souboru projektu. Například:
+Publikování z příkazového řádku funguje na všech platformách podporovaných .NET Core a nevyžaduje sadu Visual Studio. V následujících příkladech se příkaz [dotnet publish](/dotnet/core/tools/dotnet-publish) .NET Core CLI spouští z adresáře projektu (který obsahuje soubor *. csproj* ). Pokud složka projektu není aktuálním pracovním adresářem, explicitně předejte cestu k souboru projektu. Příklad:
 
 ```dotnetcli
 dotnet publish C:\Webs\Web1
@@ -309,10 +296,10 @@ msbuild {PATH}
     /p:Password={PASSWORD}
 ```
 
-* {PATH} &ndash; Cesta k souboru projektu aplikace
-* {PROFILe} &ndash; Název publikačního profilu.
-* {USERNAME} &ndash; Uživatelské jméno MSDeploy UŽIVATEL {USERNAME} se dá najít v profilu publikování.
-* {PASSWORD} &ndash; Heslo MSDeploy Získá {PASSWORD} z *{Profile}. Soubor PublishSettings* Stáhněte si *. Soubor PublishSettings* z některého z těchto:
+* {PATH}: cesta k souboru projektu aplikace.
+* {PROFILe}: název publikačního profilu.
+* {USERNAME}: uživatelské jméno MSDeploy UŽIVATEL {USERNAME} se dá najít v profilu publikování.
+* {PASSWORD}: heslo MSDeploy Získá {PASSWORD} z *{Profile}. Soubor PublishSettings* Stáhněte si *. Soubor PublishSettings* z některého z těchto:
   * **Průzkumník řešení**: vyberte **Zobrazit**  >  **Průzkumníka cloudu**. Spojte se s vaším předplatným Azure. Otevřete **App Services**. Klikněte pravým tlačítkem na aplikaci. Vyberte **Stáhnout profil publikování**.
   * Azure Portal: na panelu **přehledu** webové aplikace vyberte **získat profil publikování** .
 
@@ -471,7 +458,7 @@ Zvýrazněný kód ukazuje následující příklad:
 
 [!code-xml[](visual-studio-publish-profiles/samples/Web1.pubxml?highlight=18-23)]
 
-Předchozí příklad používá `ResolvedFileToPublish` položku, jejíž výchozí chování je vždy kopírovat soubory, které jsou zadány v `Include` atributu do publikované lokality. Přepište výchozí chování zahrnutím `<CopyToPublishDirectory>` podřízeného prvku s vnitřním textem buď `Never` nebo `PreserveNewest` . Například:
+Předchozí příklad používá `ResolvedFileToPublish` položku, jejíž výchozí chování je vždy kopírovat soubory, které jsou zadány v `Include` atributu do publikované lokality. Přepište výchozí chování zahrnutím `<CopyToPublishDirectory>` podřízeného prvku s vnitřním textem buď `Never` nebo `PreserveNewest` . Příklad:
 
 ```xml
 <ResolvedFileToPublish Include="..\ReadMe2.md">
@@ -507,12 +494,177 @@ Přidejte `<AllowUntrustedCertificate>` vlastnost s hodnotou `True` do profilu p
 
 ## <a name="the-kudu-service"></a>Služba Kudu
 
-Pokud chcete zobrazit soubory ve Azure App Service nasazení webové aplikace, použijte [službu Kudu](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service). Přidejte `scm` token do názvu webové aplikace. Například:
+Pokud chcete zobrazit soubory ve Azure App Service nasazení webové aplikace, použijte [službu Kudu](https://github.com/projectkudu/kudu/wiki/Accessing-the-kudu-service). Přidejte `scm` token do názvu webové aplikace. Příklad:
 
 | URL                                    | Výsledek       |
-| -------------------------------------- | ------------ |
-| `http://mysite.azurewebsites.net/`     | Webová aplikace      |
-| `http://mysite.scm.azurewebsites.net/` | Služba Kudu |
+| ---
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------------------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | `http://mysite.azurewebsites.net/`     | Webová aplikace | | `http://mysite.scm.azurewebsites.net/` | Služba Kudu |
 
 Vyberte položku nabídky [konzoly ladění](https://github.com/projectkudu/kudu/wiki/Kudu-console) pro zobrazení, úpravy, odstranění nebo přidání souborů.
 

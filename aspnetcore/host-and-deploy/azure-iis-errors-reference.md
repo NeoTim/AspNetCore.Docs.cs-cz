@@ -1,24 +1,11 @@
 ---
-title: Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
-author: rick-anderson
-description: Získejte Rady pro řešení běžných chyb při hostování ASP.NET Corech aplikací ve službě Azure Apps a službě IIS.
-monikerRange: '>= aspnetcore-2.1'
-ms.author: riande
-ms.custom: mvc
-ms.date: 02/07/2020
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 7b3454fbd891ca26d44125810a10eb3b3c2c3933
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775203"
+Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
 
@@ -26,19 +13,19 @@ ms.locfileid: "82775203"
 
 Toto téma popisuje běžné chyby a poskytuje rady pro řešení problémů při hostování ASP.NET Core aplikací ve službě Azure Apps a službě IIS.
 
-Obecné pokyny k odstraňování potíží najdete <xref:test/troubleshoot-azure-iis>v tématu.
+Obecné pokyny k odstraňování potíží najdete v tématu <xref:test/troubleshoot-azure-iis> .
 
 Shromážděte následující údaje:
 
 * Chování prohlížeče (Stavový kód a chybová zpráva)
 * Položky protokolu událostí aplikace
-  * Azure App Service &ndash; najdete <xref:test/troubleshoot-azure-iis>v tématu.
+  * Azure App Service: viz <xref:test/troubleshoot-azure-iis> .
   * IIS
     1. V nabídce **systému Windows** vyberte **Start** , zadejte příkaz *Prohlížeč událostí*a stiskněte klávesu **ENTER**.
-    1. Po otevření **Prohlížeč událostí** > **rozbalte na** postranním panelu položku **protokoly systému Windows** .
+    1. Po otevření **Prohlížeč událostí** rozbalte na postranním panelu položku **protokoly systému Windows** > **Application** .
 * Položky protokolů stdout a ladění modulu ASP.NET Core
-  * Azure App Service &ndash; najdete <xref:test/troubleshoot-azure-iis>v tématu.
-  * Služba &ndash; IIS podle pokynů v částech [Vytvoření protokolu a přesměrování](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection) a [rozšířené diagnostické protokoly](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) v tématu ASP.NET Core modulu.
+  * Azure App Service: viz <xref:test/troubleshoot-azure-iis> .
+  * IIS: postupujte podle pokynů v částech [Vytvoření protokolu a přesměrování](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection) a [Rozšířené diagnostické protokoly](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) v tématu ASP.NET Core modulu.
 
 Porovnejte informace o chybě s následujícími běžnými chybami. Pokud se najde shoda, postupujte podle pokynů pro řešení potíží.
 
@@ -60,11 +47,11 @@ Soubory jiného typu než operační systém v adresáři **C:\Windows\SysWOW64\
 
 * **Prohlížeč:** Chyba protokolu HTTP 500,0 – selhání načtení obslužné rutiny ANCM v procesu
 
-* **Protokol aplikace:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: nebylo možné najít žádnou kompatibilní verzi rozhraní .NET Framework. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview-\*' nebylo nalezeno. Nepodařilo se spustit aplikaci '/LM/W3SVC/1416782824/ROOT ', ErrorCode ' 0x8000FFFF '.
+* **Protokol aplikace:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: nebylo možné najít žádnou kompatibilní verzi rozhraní .NET Framework. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview- \* ' nebylo nalezeno. Nepodařilo se spustit aplikaci '/LM/W3SVC/1416782824/ROOT ', ErrorCode ' 0x8000FFFF '.
 
-* **Protokol stdout modulu ASP.NET Core:** Nebylo možné najít žádnou kompatibilní verzi rozhraní. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview-\*' nebylo nalezeno.
+* **Protokol stdout modulu ASP.NET Core:** Nebylo možné najít žádnou kompatibilní verzi rozhraní. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview- \* ' nebylo nalezeno.
 
-* **Protokol ladění ASP.NET Coreho modulu:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. To pravděpodobně znamená, že aplikace je nesprávně nakonfigurovaná. Zkontrolujte prosím verze Microsoft. NetCore. app a Microsoft. AspNetCore. app, na které cílí aplikace a které jsou nainstalované v počítači. Vrácená hodnota HRESULT se vrátila: 0x8000FFFF. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Nebylo možné najít žádnou kompatibilní verzi rozhraní. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview-\*' nebylo nalezeno.
+* **Protokol ladění ASP.NET Coreho modulu:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. To pravděpodobně znamená, že aplikace je nesprávně nakonfigurovaná. Zkontrolujte prosím verze Microsoft. NetCore. app a Microsoft. AspNetCore. app, na které cílí aplikace a které jsou nainstalované v počítači. Vrácená hodnota HRESULT se vrátila: 0x8000FFFF. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Nebylo možné najít žádnou kompatibilní verzi rozhraní. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview- \* ' nebylo nalezeno.
 
 Řešení potíží:
 
@@ -97,13 +84,13 @@ Tento scénář je při publikování samostatně obsažené aplikace zachycen s
 
 Řešení potíží:
 
-Pro nasazení závislé na architektuře x86 (`<PlatformTarget>x86</PlatformTarget>`) Povolte fond aplikací IIS pro 32 aplikace. Ve Správci služby IIS otevřete **Rozšířené nastavení** fondu aplikací a nastavte **možnost Povolit 32-bitové aplikace** na **hodnotu true**.
+Pro nasazení závislé na architektuře x86 ( `<PlatformTarget>x86</PlatformTarget>` ) Povolte fond aplikací IIS pro 32 aplikace. Ve Správci služby IIS otevřete **Rozšířené nastavení** fondu aplikací a nastavte **možnost Povolit 32-bitové aplikace** na **hodnotu true**.
 
 ## <a name="platform-conflicts-with-rid"></a>Konflikty platformy s identifikátorem RID
 
 * **Prohlížeč:** Chyba protokolu HTTP 502,5 – chyba procesu
 
-* **Protokol aplikace:** Nepovedlo se spustit proces pro aplikaci MACHINE/WEBROOT/APPHOST/{ASSEMBLY} s\{fyzickým\' kořenem c: path} pomocí příkazového řádku\{c: cesta} {Assembly}. {exe | dll} "', ErrorCode = ' 0x80004005: FF.
+* **Protokol aplikace:** Nepodařilo se spustit proces pro aplikaci MACHINE/WEBROOT/APPHOST/{ASSEMBLY} s fyzickým kořenovým adresářem C: \{ cesta} \' pomocí příkazu CommandLine ' "C: \{ cesta} {Assembly}. { exe | dll} "', ErrorCode = ' 0x80004005: FF.
 
 * **Protokol stdout modulu ASP.NET Core:** Neošetřená výjimka: System. BadImageFormatException: nelze načíst soubor nebo sestavení {ASSEMBLY}. dll. Byl proveden pokus o načtení programu v nesprávném formátu.
 
@@ -111,7 +98,7 @@ Pro nasazení závislé na architektuře x86 (`<PlatformTarget>x86</PlatformTarg
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
-* Pokud k této výjimce dojde pro nasazení aplikací Azure při upgradu aplikace a nasazení novějších sestavení, odstraňte ručně všechny soubory z předchozího nasazení. Při zaznamenání nekompatibilních sestavení `System.BadImageFormatException` může dojít k výjimce při nasazení inovované aplikace.
+* Pokud k této výjimce dojde pro nasazení aplikací Azure při upgradu aplikace a nasazení novějších sestavení, odstraňte ručně všechny soubory z předchozího nasazení. Při zaznamenání nekompatibilních sestavení může dojít k `System.BadImageFormatException` výjimce při nasazení inovované aplikace.
 
 ## <a name="uri-endpoint-wrong-or-stopped-website"></a>Koncový bod identifikátoru URI je chybný nebo zastavený Web.
 
@@ -171,9 +158,9 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
   Další informace najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
-* Ujistěte se, že je **model** > **Identity** procesu **fondu** > aplikací nastavený na **ApplicationPoolIdentity** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
+* Ujistěte se, že **Application Pool** > je **model procesu** fondu aplikací > **Identity** nastavený na **ApplicationPoolIdentity** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
 
-* Pokud jste odinstalovali sadu hostující sadu ASP.NET Core a nainstalovali jste starší verzi hostujícího balíčku, soubor *ApplicationHost. config* neobsahuje oddíl pro modul ASP.NET Core. Otevřete soubor *ApplicationHost. config* v umístění *% windir%/system32/Inetsrv/config* a `<configuration><configSections><sectionGroup name="system.webServer">` vyhledejte skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
+* Pokud jste odinstalovali sadu hostující sadu ASP.NET Core a nainstalovali jste starší verzi hostujícího balíčku, soubor *ApplicationHost. config* neobsahuje oddíl pro modul ASP.NET Core. Otevřete soubor *ApplicationHost. config* v umístění *% windir%/system32/Inetsrv/config* a vyhledejte `<configuration><configSections><sectionGroup name="system.webServer">` skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
 
   ```xml
   <section name="aspNetCore" overrideModeDefault="Allow" />
@@ -185,7 +172,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * **Prohlížeč:** Chyba protokolu HTTP 500,0 – selhání načtení obslužné rutiny ANCM v procesu
 
-* **Protokol aplikace:** Nepovedlo se spustit proces pomocí příkazového řádku {...} aplikace MACHINE/\{Webroot/\' apphost/{Assembly} s fyzickým kořenem C: Path}. ', ErrorCode = ' 0x80070002:0. Aplikaci {PATH} se nepodařilo spustit. Spustitelný soubor se nenašel v cestě {PATH}. Nepodařilo se spustit aplikaci '/LM/W3SVC/2/ROOT ', ErrorCode ' 0x8007023e '.
+* **Protokol aplikace:** \{ \' Nepovedlo se spustit proces pomocí příkazového řádku {...} aplikace Machine/Webroot/apphost/{Assembly} s fyzickým kořenem C: Path}. ', ErrorCode = ' 0x80070002:0. Aplikaci {PATH} se nepodařilo spustit. Spustitelný soubor se nenašel v cestě {PATH}. Nepodařilo se spustit aplikaci '/LM/W3SVC/2/ROOT ', ErrorCode ' 0x8007023e '.
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu není vytvořen.
 
@@ -197,7 +184,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * Zkontrolujte atribut *processPath* v `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je `dotnet` pro nasazení závislé na rozhraní (FDD) nebo `.\{ASSEMBLY}.exe` pro samostatné [nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
 
-* V případě FDD nemusí být příkaz *dotnet. exe* přístupný prostřednictvím nastavení cesty. Ověřte, že v nastavení systémové cesty existuje *C:\Program Files\dotnet\\ * .
+* V případě FDD nemusí být příkaz *dotnet. exe* přístupný prostřednictvím nastavení cesty. Ověřte, že v nastavení systémové cesty existuje *C:\Program Files\dotnet \\ * .
 
 * Pro FDD nemusí být příkaz *dotnet. exe* dostupný pro identitu uživatele fondu aplikací. Potvrďte, že identita uživatele fondu aplikací má přístup k adresáři *C:\Program Files\dotnet* . Ověřte, že v adresáři *C:\Program Files\dotnet* a App Directory nejsou nakonfigurovaná žádná pravidla odepření pro identitu uživatele fondu aplikací.
 
@@ -211,21 +198,21 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
   Pokud je nutný konkrétní modul runtime, Stáhněte si modul runtime z [archivu stahování v rozhraní .NET](https://dotnet.microsoft.com/download/archives) a nainstalujte ho do systému. Dokončete instalaci restartováním systému nebo restartováním služby IIS spuštěním příkazu **net stop** , který následuje po příkazu **net start w3svc** z příkazového řádku.
 
-## <a name="incorrect-arguments-of-aspnetcore-element"></a>Nesprávné argumenty prvku \<aspNetCore>
+## <a name="incorrect-arguments-of-aspnetcore-element"></a>Nesprávné argumenty \<aspNetCore> elementu
 
 * **Prohlížeč:** Chyba protokolu HTTP 500,0 – selhání načtení obslužné rutiny ANCM v procesu
 
-* **Protokol aplikace:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. To pravděpodobně znamená, že aplikace je nesprávně nakonfigurovaná. Zkontrolujte prosím verze Microsoft. NetCore. app a Microsoft. AspNetCore. app, na které cílí aplikace a které jsou nainstalované v počítači. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: měli jste v úmyslu spouštět příkazy sady dotnet SDK? Nainstalujte prosím sadu dotnet SDK z https://go.microsoft.com/fwlink/?LinkID=798306&clcid=0x409 : Nepodařilo se spustit aplikaci '/LM/W3SVC/3/root ', ErrorCode ' 0x8000FFFF '.
+* **Protokol aplikace:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. To pravděpodobně znamená, že aplikace je nesprávně nakonfigurovaná. Zkontrolujte prosím verze Microsoft. NetCore. app a Microsoft. AspNetCore. app, na které cílí aplikace a které jsou nainstalované v počítači. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: měli jste v úmyslu spouštět příkazy sady dotnet SDK? Nainstalujte prosím sadu dotnet SDK z: https://go.microsoft.com/fwlink/?LinkID=798306&clcid=0x409 nepodařilo se spustit aplikaci '/LM/W3SVC/3/root ', ErrorCode ' 0x8000FFFF '.
 
 * **Protokol stdout modulu ASP.NET Core:** Měli jste v úmyslu spustit příkazy sady dotnet SDK? Nainstalujte prosím sadu dotnet SDK z:https://go.microsoft.com/fwlink/?LinkID=798306&clcid=0x409
 
-* **Protokol ladění ASP.NET Coreho modulu:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. To pravděpodobně znamená, že aplikace je nesprávně nakonfigurovaná. Zkontrolujte prosím verze Microsoft. NetCore. app a Microsoft. AspNetCore. app, na které cílí aplikace a které jsou nainstalované v počítači. Neúspěšná vrácená hodnota HRESULT: 0x8000FFFF nemůže najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: měli jste v úmyslu spouštět příkazy sady dotnet SDK? Nainstalujte prosím sadu dotnet SDK z https://go.microsoft.com/fwlink/?LinkID=798306&clcid=0x409 : vráceno neúspěšné HRESULT: 0x8000FFFF
+* **Protokol ladění ASP.NET Coreho modulu:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. To pravděpodobně znamená, že aplikace je nesprávně nakonfigurovaná. Zkontrolujte prosím verze Microsoft. NetCore. app a Microsoft. AspNetCore. app, na které cílí aplikace a které jsou nainstalované v počítači. Neúspěšná vrácená hodnota HRESULT: 0x8000FFFF nemůže najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: měli jste v úmyslu spouštět příkazy sady dotnet SDK? Nainstalujte prosím sadu dotnet SDK z: https://go.microsoft.com/fwlink/?LinkID=798306&clcid=0x409 vráceno neúspěšné HRESULT: 0x8000FFFF
 
 Řešení potíží:
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
-* Zkontrolujte atribut *arguments* u `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je buď (a `.\{ASSEMBLY}.dll` ) pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec`arguments=""`() nebo seznam argumentů aplikace (`arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"`) pro samostatně uzavřené nasazení (SCD).
+* Zkontrolujte atribut *arguments* u `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je buď (a) `.\{ASSEMBLY}.dll` pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec ( `arguments=""` ) nebo seznam argumentů aplikace ( `arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"` ) pro samostatné nasazení (SCD).
 
 ## <a name="missing-net-core-shared-framework"></a>Chybějící sdílené rozhraní .NET Core
 
@@ -257,7 +244,7 @@ Pro nasazení závislé na rozhraní (FDD) Zkontrolujte, že je v systému nains
 
 Ověřte, že fond aplikací není v *zastaveném* stavu.
 
-## <a name="sub-application-includes-a-handlers-section"></a>Dílčí aplikace obsahuje> oddíl \<obslužných rutin.
+## <a name="sub-application-includes-a-handlers-section"></a>Dílčí aplikace obsahuje oddíl. \<handlers>
 
 * **Prohlížeč:** Chyba protokolu HTTP 500,19 – interní chyba serveru
 
@@ -271,7 +258,7 @@ Ověřte, že fond aplikací není v *zastaveném* stavu.
 
 Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje `<handlers>` oddíl nebo že dílčí aplikace nedědí obslužné rutiny nadřazené aplikace.
 
-Oddíl v souboru *Web. config* nadřazené aplikace je umístěn uvnitř `<location>` elementu. `<system.webServer>` <xref:System.Configuration.SectionInformation.InheritInChildApplications*> Vlastnost je nastavená `false` tak, aby označovala, že nastavení zadaná v rámci [ \<umístění>](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) elementu nejsou děděna aplikacemi, které se nacházejí v podadresáři nadřazené aplikace. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
+Oddíl v souboru `<system.webServer>` *Web. config* nadřazené aplikace je umístěn uvnitř `<location>` elementu. <xref:System.Configuration.SectionInformation.InheritInChildApplications*>Vlastnost je nastavena na hodnotu `false` , která označuje, že nastavení zadaná v rámci [\<location>](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) elementu nejsou děděna aplikacemi, které se nacházejí v podadresáři nadřazené aplikace. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
 ## <a name="stdout-log-path-incorrect"></a>nesprávná cesta protokolu STDOUT
 
@@ -285,7 +272,7 @@ Oddíl v souboru *Web. config* nadřazené aplikace je umístěn uvnitř `<locat
 
 Řešení potíží:
 
-* `stdoutLogFile` Cesta zadaná v `<aspNetCore>` elementu *Web. config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
+* `stdoutLogFile`Cesta zadaná v `<aspNetCore>` elementu *Web. config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
 
 * Uživatel fondu aplikací nemá přístup pro zápis do cesty protokolu STDOUT.
 
@@ -314,19 +301,19 @@ Další informace najdete v následujících tématech:
 
 Toto téma popisuje běžné chyby a poskytuje rady pro řešení problémů při hostování ASP.NET Core aplikací ve službě Azure Apps a službě IIS.
 
-Obecné pokyny k odstraňování potíží najdete <xref:test/troubleshoot-azure-iis>v tématu.
+Obecné pokyny k odstraňování potíží najdete v tématu <xref:test/troubleshoot-azure-iis> .
 
 Shromážděte následující údaje:
 
 * Chování prohlížeče (Stavový kód a chybová zpráva)
 * Položky protokolu událostí aplikace
-  * Azure App Service &ndash; najdete <xref:test/troubleshoot-azure-iis>v tématu.
+  * Azure App Service: viz <xref:test/troubleshoot-azure-iis> .
   * IIS
     1. V nabídce **systému Windows** vyberte **Start** , zadejte příkaz *Prohlížeč událostí*a stiskněte klávesu **ENTER**.
-    1. Po otevření **Prohlížeč událostí** > **rozbalte na** postranním panelu položku **protokoly systému Windows** .
+    1. Po otevření **Prohlížeč událostí** rozbalte na postranním panelu položku **protokoly systému Windows** > **Application** .
 * Položky protokolů stdout a ladění modulu ASP.NET Core
-  * Azure App Service &ndash; najdete <xref:test/troubleshoot-azure-iis>v tématu.
-  * Služba &ndash; IIS podle pokynů v částech [Vytvoření protokolu a přesměrování](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection) a [rozšířené diagnostické protokoly](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) v tématu ASP.NET Core modulu.
+  * Azure App Service: viz <xref:test/troubleshoot-azure-iis> .
+  * IIS: postupujte podle pokynů v částech [Vytvoření protokolu a přesměrování](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection) a [Rozšířené diagnostické protokoly](xref:host-and-deploy/aspnet-core-module#enhanced-diagnostic-logs) v tématu ASP.NET Core modulu.
 
 Porovnejte informace o chybě s následujícími běžnými chybami. Pokud se najde shoda, postupujte podle pokynů pro řešení potíží.
 
@@ -348,9 +335,9 @@ Soubory jiného typu než operační systém v adresáři **C:\Windows\SysWOW64\
 
 * **Prohlížeč:** Chyba protokolu HTTP 500,0 – selhání načtení obslužné rutiny ANCM v procesu
 
-* **Protokol aplikace:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: nebylo možné najít žádnou kompatibilní verzi rozhraní .NET Framework. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview-\*' nebylo nalezeno. Nepodařilo se spustit aplikaci '/LM/W3SVC/1416782824/ROOT ', ErrorCode ' 0x8000FFFF '.
+* **Protokol aplikace:** Vyvolání hostfxr k nalezení obslužné rutiny žádosti o zpracování se nezdařilo bez nalezení nativních závislostí. Nepovedlo se najít obslužnou rutinu žádosti o zpracování. Zachycený výstup z vyvolání hostfxr: nebylo možné najít žádnou kompatibilní verzi rozhraní .NET Framework. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview- \* ' nebylo nalezeno. Nepodařilo se spustit aplikaci '/LM/W3SVC/1416782824/ROOT ', ErrorCode ' 0x8000FFFF '.
 
-* **Protokol stdout modulu ASP.NET Core:** Nebylo možné najít žádnou kompatibilní verzi rozhraní. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview-\*' nebylo nalezeno.
+* **Protokol stdout modulu ASP.NET Core:** Nebylo možné najít žádnou kompatibilní verzi rozhraní. Zadané rozhraní Microsoft. AspNetCore. app ', verze {VERSION}-Preview- \* ' nebylo nalezeno.
 
 Řešení potíží:
 
@@ -381,13 +368,13 @@ Tento scénář je při publikování samostatně obsažené aplikace zachycen s
 
 Řešení potíží:
 
-Pro nasazení závislé na architektuře x86 (`<PlatformTarget>x86</PlatformTarget>`) Povolte fond aplikací IIS pro 32 aplikace. Ve Správci služby IIS otevřete **Rozšířené nastavení** fondu aplikací a nastavte **možnost Povolit 32-bitové aplikace** na **hodnotu true**.
+Pro nasazení závislé na architektuře x86 ( `<PlatformTarget>x86</PlatformTarget>` ) Povolte fond aplikací IIS pro 32 aplikace. Ve Správci služby IIS otevřete **Rozšířené nastavení** fondu aplikací a nastavte **možnost Povolit 32-bitové aplikace** na **hodnotu true**.
 
 ## <a name="platform-conflicts-with-rid"></a>Konflikty platformy s identifikátorem RID
 
 * **Prohlížeč:** Chyba protokolu HTTP 502,5 – chyba procesu
 
-* **Protokol aplikace:** Nepovedlo se spustit proces pro aplikaci MACHINE/WEBROOT/APPHOST/{ASSEMBLY} s\{fyzickým\' kořenem c: path} pomocí příkazového řádku\{c: cesta} {Assembly}. {exe | dll} "', ErrorCode = ' 0x80004005: FF.
+* **Protokol aplikace:** Nepodařilo se spustit proces pro aplikaci MACHINE/WEBROOT/APPHOST/{ASSEMBLY} s fyzickým kořenovým adresářem C: \{ cesta} \' pomocí příkazu CommandLine ' "C: \{ cesta} {Assembly}. { exe | dll} "', ErrorCode = ' 0x80004005: FF.
 
 * **Protokol stdout modulu ASP.NET Core:** Neošetřená výjimka: System. BadImageFormatException: nelze načíst soubor nebo sestavení {ASSEMBLY}. dll. Byl proveden pokus o načtení programu v nesprávném formátu.
 
@@ -395,7 +382,7 @@ Pro nasazení závislé na architektuře x86 (`<PlatformTarget>x86</PlatformTarg
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
-* Pokud k této výjimce dojde pro nasazení aplikací Azure při upgradu aplikace a nasazení novějších sestavení, odstraňte ručně všechny soubory z předchozího nasazení. Při zaznamenání nekompatibilních sestavení `System.BadImageFormatException` může dojít k výjimce při nasazení inovované aplikace.
+* Pokud k této výjimce dojde pro nasazení aplikací Azure při upgradu aplikace a nasazení novějších sestavení, odstraňte ručně všechny soubory z předchozího nasazení. Při zaznamenání nekompatibilních sestavení může dojít k `System.BadImageFormatException` výjimce při nasazení inovované aplikace.
 
 ## <a name="uri-endpoint-wrong-or-stopped-website"></a>Koncový bod identifikátoru URI je chybný nebo zastavený Web.
 
@@ -449,9 +436,9 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
   Další informace najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
-* Ujistěte se, že je **model** > **Identity** procesu **fondu** > aplikací nastavený na **ApplicationPoolIdentity** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
+* Ujistěte se, že **Application Pool** > je **model procesu** fondu aplikací > **Identity** nastavený na **ApplicationPoolIdentity** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
 
-* Pokud jste odinstalovali sadu hostující sadu ASP.NET Core a nainstalovali jste starší verzi hostujícího balíčku, soubor *ApplicationHost. config* neobsahuje oddíl pro modul ASP.NET Core. Otevřete soubor *ApplicationHost. config* v umístění *% windir%/system32/Inetsrv/config* a `<configuration><configSections><sectionGroup name="system.webServer">` vyhledejte skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
+* Pokud jste odinstalovali sadu hostující sadu ASP.NET Core a nainstalovali jste starší verzi hostujícího balíčku, soubor *ApplicationHost. config* neobsahuje oddíl pro modul ASP.NET Core. Otevřete soubor *ApplicationHost. config* v umístění *% windir%/system32/Inetsrv/config* a vyhledejte `<configuration><configSections><sectionGroup name="system.webServer">` skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
 
   ```xml
   <section name="aspNetCore" overrideModeDefault="Allow" />
@@ -463,7 +450,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * **Prohlížeč:** Chyba protokolu HTTP 502,5 – chyba procesu
 
-* **Protokol aplikace:** Nepovedlo se spustit proces pomocí příkazového řádku {...} aplikace MACHINE/\{Webroot/\' apphost/{Assembly} s fyzickým kořenem C: Path}. ', ErrorCode = ' 0x80070002:0.
+* **Protokol aplikace:** \{ \' Nepovedlo se spustit proces pomocí příkazového řádku {...} aplikace Machine/Webroot/apphost/{Assembly} s fyzickým kořenem C: Path}. ', ErrorCode = ' 0x80070002:0.
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu je vytvořen, ale je prázdný.
 
@@ -473,7 +460,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * Zkontrolujte atribut *processPath* v `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je `dotnet` pro nasazení závislé na rozhraní (FDD) nebo `.\{ASSEMBLY}.exe` pro samostatné [nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
 
-* V případě FDD nemusí být příkaz *dotnet. exe* přístupný prostřednictvím nastavení cesty. Ověřte, že v nastavení systémové cesty existuje *C:\Program Files\dotnet\\ * .
+* V případě FDD nemusí být příkaz *dotnet. exe* přístupný prostřednictvím nastavení cesty. Ověřte, že v nastavení systémové cesty existuje *C:\Program Files\dotnet \\ * .
 
 * Pro FDD nemusí být příkaz *dotnet. exe* dostupný pro identitu uživatele fondu aplikací. Potvrďte, že identita uživatele fondu aplikací má přístup k adresáři *C:\Program Files\dotnet* . Ověřte, že v adresáři *C:\Program Files\dotnet* a App Directory nejsou nakonfigurovaná žádná pravidla odepření pro identitu uživatele fondu aplikací.
 
@@ -487,19 +474,19 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
   Pokud je nutný konkrétní modul runtime, Stáhněte si modul runtime z [archivu stahování v rozhraní .NET](https://dotnet.microsoft.com/download/archives) a nainstalujte ho do systému. Dokončete instalaci restartováním systému nebo restartováním služby IIS spuštěním příkazu **net stop** , který následuje po příkazu **net start w3svc** z příkazového řádku.
 
-## <a name="incorrect-arguments-of-aspnetcore-element"></a>Nesprávné argumenty prvku \<aspNetCore>
+## <a name="incorrect-arguments-of-aspnetcore-element"></a>Nesprávné argumenty \<aspNetCore> elementu
 
 * **Prohlížeč:** Chyba protokolu HTTP 502,5 – chyba procesu
 
-* **Protokol aplikace:** Nepodařilo se spustit proces pomocí příkazového řádku dotnet aplikace MACHINE/WEBROOT/APPHOST/{ASSEMBLY\{} s\' fyzickým kořenovým adresářem C: Path}. \{Sestavení}. dll, ErrorCode = ' 0x80004005:80008081.
+* **Protokol aplikace:** Nepodařilo se spustit proces pomocí příkazového řádku dotnet aplikace MACHINE/WEBROOT/APPHOST/{ASSEMBLY} s fyzickým kořenovým adresářem C: \{ Path} \' . \{ SESTAVENÍ}. dll, ErrorCode = ' 0x80004005:80008081.
 
-* **Protokol stdout modulu ASP.NET Core:** Aplikace, která má být spuštěna, neexistuje: '\{Assembly Assembly}. dll '
+* **Protokol stdout modulu ASP.NET Core:** Aplikace, která má být spuštěna, neexistuje: ' \{ Assembly Assembly}. dll '
 
 Řešení potíží:
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
-* Zkontrolujte atribut *arguments* u `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je buď (a `.\{ASSEMBLY}.dll` ) pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec`arguments=""`() nebo seznam argumentů aplikace (`arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"`) pro samostatně uzavřené nasazení (SCD).
+* Zkontrolujte atribut *arguments* u `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je buď (a) `.\{ASSEMBLY}.dll` pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec ( `arguments=""` ) nebo seznam argumentů aplikace ( `arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"` ) pro samostatné nasazení (SCD).
 
 Řešení potíží:
 
@@ -517,7 +504,7 @@ Pro nasazení závislé na rozhraní (FDD) Zkontrolujte, že je v systému nains
 
 Ověřte, že fond aplikací není v *zastaveném* stavu.
 
-## <a name="sub-application-includes-a-handlers-section"></a>Dílčí aplikace obsahuje> oddíl \<obslužných rutin.
+## <a name="sub-application-includes-a-handlers-section"></a>Dílčí aplikace obsahuje oddíl. \<handlers>
 
 * **Prohlížeč:** Chyba protokolu HTTP 500,19 – interní chyba serveru
 
@@ -533,13 +520,13 @@ Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje `<handlers>` od
 
 * **Prohlížeč:** Aplikace reaguje normálně.
 
-* **Protokol aplikace:** Upozornění: nepovedlo se \\vytvořit stdoutLogFile? \{Cesta} \ path_doesnt_exist \ STDOUT_ {ID procesu} _ {timestamp}. log, ErrorCode =-2147024893.
+* **Protokol aplikace:** Upozornění: nepovedlo se vytvořit stdoutLogFile \\ ? \{ CESTA} \ path_doesnt_exist \ stdout_ {ID procesu} _ {TIMESTAMP}. log, ErrorCode =-2147024893.
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu není vytvořen.
 
 Řešení potíží:
 
-* `stdoutLogFile` Cesta zadaná v `<aspNetCore>` elementu *Web. config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
+* `stdoutLogFile`Cesta zadaná v `<aspNetCore>` elementu *Web. config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
 
 * Uživatel fondu aplikací nemá přístup pro zápis do cesty protokolu STDOUT.
 
@@ -547,7 +534,7 @@ Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje `<handlers>` od
 
 * **Prohlížeč:** Chyba protokolu HTTP 502,5 – chyba procesu
 
-* **Protokol aplikace:** Aplikace MACHINE/WEBROOT/APPHOST/{ASSEMBLY} s fyzickým kořenovým adresářem C\{: Path\' } se vytvořila pomocí příkazového řádku\{c:\{Path} Assembly. {exe | dll} "", ale buď došlo k chybě, nebo nereagovala nebo nenaslouchala na daném portu "{PORT}", ErrorCode = "{kód chyby}"
+* **Protokol aplikace:** Aplikace ' MACHINE/WEBROOT/APPHOST/{ASSEMBLY} ' se vytvořeným fyzickým kořenovým ' C: \{ path} a \' procesem CommandLine ' "c: \{ Path} \{ Assembly}. { exe | dll} "", ale buď došlo k chybě, nebo nereagoval nebo neposlouchal na daném portu "{PORT}", ErrorCode = "{kód chyby}"
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu je vytvořen, ale je prázdný.
 

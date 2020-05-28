@@ -46,8 +46,8 @@ Chcete-li zachovat stav nad rámec jednoho okruhu, *neukládejte pouze data v pa
 
 Trvalost dat se obvykle vyžaduje jenom pro stav vysoké hodnoty, který uživatelé vynaložené úsilím vytvořit. V následujících příkladech trvalého stavu ušetříte čas nebo pomůcky při komerčních činnostech:
 
-* U více kroků WebForm je &ndash; časově náročné, aby uživatel znovu zadal data pro několik dokončených kroků procesu s více kroky, pokud dojde ke ztrátě jejich stavu. Uživatel ztratí stav v tomto scénáři, pokud přechází z formuláře s více kroky a později se vrátí do formuláře.
-* Nákupní košík &ndash; : všechny obchodní důležité komponenty aplikace, které představují potenciální tržby, se dají udržovat. Uživatel, který ztratí svůj stav, a tedy i jeho nákupní košík, může koupit méně produktů nebo služeb při návratu do webu později.
+* Více kroků WebForm: pro uživatele je časově náročné, aby znovu zadal data pro několik dokončených kroků procesu s více kroky, pokud dojde ke ztrátě jejich stavu. Uživatel ztratí stav v tomto scénáři, pokud přechází z formuláře s více kroky a později se vrátí do formuláře.
+* Nákupní košík: může být zachována veškerá komerční součást aplikace, která představuje potenciální tržby. Uživatel, který ztratí svůj stav, a tedy i jeho nákupní košík, může koupit méně produktů nebo služeb při návratu do webu později.
 
 Obvykle není nutné zachovávat snadno-znovu vytvořený stav, jako je například uživatelské jméno zadané do přihlašovacího dialogu, který nebyl odeslán.
 

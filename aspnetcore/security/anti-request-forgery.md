@@ -1,23 +1,11 @@
 ---
-title: Zabránit útokům na neCSRFelné žádosti mezi lokalitami (XSRF/) v ASP.NET Core
-author: steve-smith
-description: Zjistěte, jak zabránit útokům na webové aplikace, kde škodlivý web může ovlivnit interakci mezi prohlížečem klienta a aplikací.
-ms.author: riande
-ms.custom: mvc
-ms.date: 12/05/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: security/anti-request-forgery
-ms.openlocfilehash: 4e7e7a89daaee533f648efdb2c621399225f57be
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774001"
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>Zabránit útokům na neCSRFelné žádosti mezi lokalitami (XSRF/) v ASP.NET Core
 
@@ -28,9 +16,9 @@ Padělání požadavků napříč weby (označované také jako XSRF nebo CSRF) 
 Příklad útoku CSRF:
 
 1. Uživatel se přihlásí `www.good-banking-site.com` pomocí ověřování pomocí formulářů. Server ověří uživatele a vydá odpověď, která obsahuje soubor cookie ověřování. Lokalita je zranitelná vůči útokům, protože důvěřuje všem žádostem, které obdrží, pomocí platného ověřovacího souboru cookie.
-1. Uživatel navštíví škodlivý web `www.bad-crook-site.com`.
+1. Uživatel navštíví škodlivý web `www.bad-crook-site.com` .
 
-   Škodlivý web, `www.bad-crook-site.com`obsahuje formulář HTML podobný následujícímu:
+   Škodlivý web, `www.bad-crook-site.com` obsahuje formulář HTML podobný následujícímu:
 
    ```html
    <h1>Congratulations! You're a Winner!</h1>
@@ -43,7 +31,7 @@ Příklad útoku CSRF:
 
    Všimněte si, že `action` příspěvky formuláře na ohrožený web, nikoli na škodlivý web. Toto je součást CSRF (pro různé lokality).
 
-1. Uživatel vybere tlačítko Odeslat. Prohlížeč vytvoří požadavek a automaticky přidá ověřovací soubor cookie pro požadovanou doménu `www.good-banking-site.com`.
+1. Uživatel vybere tlačítko Odeslat. Prohlížeč vytvoří požadavek a automaticky přidá ověřovací soubor cookie pro požadovanou doménu `www.good-banking-site.com` .
 1. Požadavek se spouští na `www.good-banking-site.com` serveru s kontextem ověřování uživatele a může provádět všechny akce, které má ověřený uživatel povoleno provádět.
 
 Kromě scénáře, kdy uživatel vybere tlačítko pro odeslání formuláře, může škodlivý web:
@@ -64,7 +52,7 @@ Některé útoky cílí na koncové body, které reagují na požadavky GET. v t
 * Uložené soubory cookie obsahují soubory cookie relace pro ověřené uživatele.
 * Prohlížeče odesílají všechny soubory cookie přidružené k doméně webové aplikaci každý požadavek bez ohledu na to, jak se žádost o aplikaci vygenerovala v prohlížeči.
 
-Nicméně útoky CSRF nejsou omezené na zneužití souborů cookie. Například základní ověřování a ověřování algoritmem Digest je také zranitelné. Když se uživatel přihlásí pomocí základního ověřování nebo ověřování algoritmem Digest, prohlížeč automaticky pošle přihlašovací údaje&dagger; , dokud relace neskončí.
+Nicméně útoky CSRF nejsou omezené na zneužití souborů cookie. Například základní ověřování a ověřování algoritmem Digest je také zranitelné. Když se uživatel přihlásí pomocí základního ověřování nebo ověřování algoritmem Digest, prohlížeč automaticky pošle přihlašovací údaje, dokud relace &dagger; neskončí.
 
 &dagger;V tomto kontextu *relace* odkazuje na relaci na straně klienta, během které je uživatel ověřený. Nesouvisí s relacemi na straně serveru nebo [middlewarem ASP.NET Core relace](xref:fundamentals/app-state).
 
@@ -91,7 +79,7 @@ Když je uživatel ověřený, vydává token (nikoli token pro antipadělání)
 
 Sdílená hostující prostředí jsou zranitelná proti zneužití relace, přihlašování CSRF a dalším útokům.
 
-I `example1.contoso.net` když `example2.contoso.net` jsou a jsou různí hostitelé, existuje implicitní vztah důvěryhodnosti mezi hostiteli `*.contoso.net` v doméně. Tento implicitní vztah důvěryhodnosti umožňuje potenciálním nedůvěryhodným hostitelům ovlivňovat soubory cookie ostatních souborů (zásady stejného původu, které řídí požadavky AJAX, nemusí nutně platit pro soubory cookie HTTP).
+I `example1.contoso.net` Když `example2.contoso.net` jsou a jsou různí hostitelé, existuje implicitní vztah důvěryhodnosti mezi hostiteli v `*.contoso.net` doméně. Tento implicitní vztah důvěryhodnosti umožňuje potenciálním nedůvěryhodným hostitelům ovlivňovat soubory cookie ostatních souborů (zásady stejného původu, které řídí požadavky AJAX, nemusí nutně platit pro soubory cookie HTTP).
 
 Útoky, které využívají důvěryhodné soubory cookie mezi aplikacemi hostovanými ve stejné doméně, je možné zabránit nesdílením domén. Pokud je každá aplikace hostována v její vlastní doméně, nebudete mít k zneužití žádný implicitní vztah důvěryhodnosti souborů cookie.
 
@@ -102,7 +90,7 @@ I `example1.contoso.net` když `example2.contoso.net` jsou a jsou různí hostit
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V případě, že je v `Startup.ConfigureServices`nástroji volána jedna z následujících rozhraní API, je middleware pro vkládání proti padělání přidána do kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) :
+V případě, že je v nástroji volána jedna z následujících rozhraní API, je middleware pro vkládání proti padělání přidána do kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) `Startup.ConfigureServices` :
 
 * <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddMvc*>
 * <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*>
@@ -117,7 +105,7 @@ K kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injecti
 
 ::: moniker-end
 
-V ASP.NET Core 2,0 nebo novějším [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) vloží tokeny proti padělání do prvků formuláře HTML. Následující kód v souboru Razor automaticky generuje tokeny proti padělání:
+V ASP.NET Core 2,0 nebo novějším [FormTagHelper](xref:mvc/views/working-with-forms#the-form-tag-helper) vloží tokeny proti padělání do prvků formuláře HTML. Následující kód v Razor souboru automaticky generuje tokeny proti padělání:
 
 ```cshtml
 <form method="post">
@@ -129,12 +117,12 @@ Podobně [IHtmlHelper. BeginForm](/dotnet/api/microsoft.aspnetcore.mvc.rendering
 
 Automatické generování tokenů antipadělání pro prvky formuláře HTML se stane, když `<form>` značka obsahuje `method="post"` atribut a jedna z následujících možností je pravdivá:
 
-* Atribut Action je prázdný (`action=""`).
-* Atribut action není dodaný (`<form method="post">`).
+* Atribut Action je prázdný ( `action=""` ).
+* Atribut action není dodaný ( `<form method="post">` ).
 
 Automatické generování tokenů antipadělání pro prvky formuláře HTML lze zakázat:
 
-* Explicitně zakažte tokeny proti padělání `asp-antiforgery` s atributem:
+* Explicitně zakažte tokeny proti padělání s `asp-antiforgery` atributem:
 
   ```cshtml
   <form method="post" asp-antiforgery="false">
@@ -150,14 +138,14 @@ Automatické generování tokenů antipadělání pro prvky formuláře HTML lze
   </!form>
   ```
 
-* Odeberte `FormTagHelper` ze zobrazení. V `FormTagHelper` zobrazení lze odebrat přidáním následující direktivy do zobrazení Razor:
+* Odeberte `FormTagHelper` ze zobrazení. V `FormTagHelper` zobrazení lze odebrat přidáním následující direktivy do Razor zobrazení:
 
   ```cshtml
   @removeTagHelper Microsoft.AspNetCore.Mvc.TagHelpers.FormTagHelper, Microsoft.AspNetCore.Mvc.TagHelpers
   ```
 
 > [!NOTE]
-> [Razor Pages](xref:razor-pages/index) jsou automaticky chráněny z XSRF/CSRF. Další informace naleznete v tématu [XSRF/CSRF a Razor Pages](xref:razor-pages/index#xsrf).
+> [ Razor Stránky](xref:razor-pages/index) jsou automaticky chráněny z XSRF/CSRF. Další informace naleznete v tématu [XSRF/CSRF a Razor Pages](xref:razor-pages/index#xsrf).
 
 Nejběžnějším přístupem k obraně před útoky CSRF je použití *vzoru tokenu synchronizátoru* (STP). STP se používá v případě, že uživatel požádá o stránku s daty formuláře:
 
@@ -165,7 +153,7 @@ Nejběžnějším přístupem k obraně před útoky CSRF je použití *vzoru to
 1. Klient pošle zpátky token na server kvůli ověření.
 1. Pokud server obdrží token, který se neshoduje s identitou ověřeného uživatele, požadavek se odmítne.
 
-Token je jedinečný a nepředvídatelný. Token lze také použít k zajištění správného sekvence řady požadavků (například zajištění pořadí požadavků: &ndash; stránka 2 2 &ndash; stránka 3). Všechny formuláře v ASP.NET Core MVC a šablony Razor Pages generují tokeny proti padělání. Následující pár příkladů zobrazení generuje tokeny proti padělání:
+Token je jedinečný a nepředvídatelný. Token lze také použít k zajištění správného pořadí posloupnosti požadavků (například zajištění pořadí požadavků: Stránka 1 > stránce 2 > stránce 3). Všechny formuláře v ASP.NET Core šablony MVC a Razor stránky generují tokeny proti padělání. Následující pár příkladů zobrazení generuje tokeny proti padělání:
 
 ```cshtml
 <form asp-controller="Manage" asp-action="ChangePassword" method="post">
@@ -178,7 +166,7 @@ Token je jedinečný a nepředvídatelný. Token lze také použít k zajištěn
 }
 ```
 
-Explicitně přidejte token proti padělání do `<form>` elementu bez použití pomocných rutin značek s POMOCNÍKEM [`@Html.AntiForgeryToken`](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken)jazyka HTML:
+Explicitně přidejte token proti padělání do `<form>` elementu bez použití pomocných rutin značek s pomocníkem jazyka HTML [`@Html.AntiForgeryToken`](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.htmlhelper.antiforgerytoken) :
 
 ```cshtml
 <form action="/" method="post">
@@ -200,7 +188,7 @@ ASP.NET Core obsahuje tři [filtry](xref:mvc/controllers/filters) pro práci s t
 
 ## <a name="antiforgery-options"></a>Možnosti padělání
 
-Přizpůsobení [možností proti padělání](/dotnet/api/Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions) v `Startup.ConfigureServices`nástroji:
+Přizpůsobení [možností proti padělání](/dotnet/api/Microsoft.AspNetCore.Antiforgery.AntiforgeryOptions) v nástroji `Startup.ConfigureServices` :
 
 ::: moniker range=">= aspnetcore-2.0"
 
@@ -214,14 +202,41 @@ services.AddAntiforgery(options =>
 });
 ```
 
-&dagger;`Cookie` Vlastnosti antipadělání nastavte pomocí vlastností třídy [CookieBuilder](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder) .
+&dagger;Vlastnosti antipadělání nastavte `Cookie` pomocí vlastností třídy [CookieBuilder](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder) .
 
-| Možnost | Popis |
-| ------ | ----------- |
-| [Soubor](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | Určuje nastavení používané k vytvoření souborů cookie antipadělání. |
-| [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | Název skrytého pole formuláře používaného systémem pro použití proti padělání pro vykreslování tokenů v zobrazeních. |
-| [Záhlaví](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | Název záhlaví používaného systémem pro použití proti padělání Pokud `null`systém považuje jenom formulářová data. |
-| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | Určuje, zda se má potlačit `X-Frame-Options` generování hlavičky. Ve výchozím nastavení se záhlaví generuje s hodnotou "SAMEORIGIN". Výchozí hodnota `false`je. |
+| Možnost | Description |
+| ---
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--- | ---Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | [Soubor cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | Určuje nastavení používané k vytvoření souborů cookie antipadělání. | | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | Název skrytého pole formuláře používaného systémem pro použití proti padělání pro vykreslování tokenů v zobrazeních. | | [Záhlaví](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | Název záhlaví používaného systémem pro použití proti padělání Pokud `null` systém považuje jenom formulářová data. | | [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | Určuje, zda se má potlačit generování `X-Frame-Options` hlavičky. Ve výchozím nastavení se záhlaví generuje s hodnotou "SAMEORIGIN". Výchozí hodnota je `false` . |
 
 ::: moniker-end
 
@@ -240,16 +255,39 @@ services.AddAntiforgery(options =>
 });
 ```
 
-| Možnost | Popis |
-| ------ | ----------- |
-| [Soubor](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | Určuje nastavení používané k vytvoření souborů cookie antipadělání. |
-| [CookieDomain](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | Doména souboru cookie. Výchozí hodnota `null`je. Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučenou alternativou je soubor cookie. domain. |
-| [Vlastnost CookieName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | Název souboru cookie. Pokud není nastaven, systém vygeneruje jedinečný název začínající na [DefaultCookiePrefix](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) (". AspNetCore. antipadělání. "). Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie.Name. |
-| [CookiePath](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cesta nastavená na souboru cookie. Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je soubor cookie. Path. |
-| [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | Název skrytého pole formuláře používaného systémem pro použití proti padělání pro vykreslování tokenů v zobrazeních. |
-| [Záhlaví](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | Název záhlaví používaného systémem pro použití proti padělání Pokud `null`systém považuje jenom formulářová data. |
-| [Vlastnost requireSSL](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | Určuje, zda je protokol HTTPS vyžadován systémem pro vypozměňování. V `true`případě selhání neproběhne požadavek bez protokolu HTTPS. Výchozí hodnota `false`je. Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučenou možností je nastavit soubor cookie. SecurePolicy. |
-| [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | Určuje, zda se má potlačit `X-Frame-Options` generování hlavičky. Ve výchozím nastavení se záhlaví generuje s hodnotou "SAMEORIGIN". Výchozí hodnota `false`je. |
+| Možnost | Description |
+| ---
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+--- | ---Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+-
+Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: 
+
+------ | | [Soubor cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | Určuje nastavení používané k vytvoření souborů cookie antipadělání. | | [CookieDomain](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | Doména souboru cookie. Výchozí hodnota je `null` . Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučenou alternativou je soubor cookie. domain. | | [Soubor cookie](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiename) | Název souboru cookie. Pokud není nastaven, systém vygeneruje jedinečný název začínající na [DefaultCookiePrefix](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.defaultcookieprefix) (". AspNetCore. antipadělání. "). Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je Cookie.Name. | | [CookiePath](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiepath) | Cesta nastavená na souboru cookie. Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučená alternativa je soubor cookie. Path. | | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | Název skrytého pole formuláře používaného systémem pro použití proti padělání pro vykreslování tokenů v zobrazeních. | | [Záhlaví](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.headername) | Název záhlaví používaného systémem pro použití proti padělání Pokud `null` systém považuje jenom formulářová data. | | [Vlastnost requireSSL](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.requiressl) | Určuje, zda je protokol HTTPS vyžadován systémem pro vypozměňování. `true`V případě selhání neproběhne požadavek bez protokolu HTTPS. Výchozí hodnota je `false` . Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučenou možností je nastavit soubor cookie. SecurePolicy. | | [SuppressXFrameOptionsHeader](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.suppressxframeoptionsheader) | Určuje, zda se má potlačit generování `X-Frame-Options` hlavičky. Ve výchozím nastavení se záhlaví generuje s hodnotou "SAMEORIGIN". Výchozí hodnota je `false` . |
 
 ::: moniker-end
 
@@ -311,7 +349,7 @@ public async Task<IActionResult> RemoveLogin(RemoveLoginViewModel account)
 }
 ```
 
-`ValidateAntiForgeryToken` Atribut vyžaduje token pro požadavky na metody akce, které označuje, včetně požadavků HTTP GET. Pokud je `ValidateAntiForgeryToken` atribut použit v rámci řadičů aplikace, lze jej přepsat `IgnoreAntiforgeryToken` atributem.
+`ValidateAntiForgeryToken`Atribut vyžaduje token pro požadavky na metody akce, které označuje, včetně požadavků HTTP GET. Pokud `ValidateAntiForgeryToken` je atribut použit v rámci řadičů aplikace, lze jej přepsat `IgnoreAntiforgeryToken` atributem.
 
 > [!NOTE]
 > ASP.NET Core nepodporuje přidávání tokenů antipadělání pro automatické získávání požadavků.
@@ -325,7 +363,7 @@ Aplikace ASP.NET Core negenerují tokeny antipadělání pro bezpečné metody p
 * NASTAVENÍ
 * TRACE
 
-Pro jiné scénáře než `AutoValidateAntiforgeryToken` rozhraní API doporučujeme používat široké možnosti. Tím je zajištěno, že akce příspěvků jsou ve výchozím nastavení chráněny. Alternativou je ignorovat tokeny proti padělání ve výchozím nastavení, `ValidateAntiForgeryToken` Pokud se nepoužije na jednotlivé metody akcí. V tomto scénáři je pravděpodobnější, že metoda POST akce bude ponechána bez ochrany omylem, takže aplikace bude zranitelná vůči útokům CSRF. Všechny příspěvky by měly odeslat token proti padělání.
+`AutoValidateAntiforgeryToken`Pro jiné scénáře než rozhraní API doporučujeme používat široké možnosti. Tím je zajištěno, že akce příspěvků jsou ve výchozím nastavení chráněny. Alternativou je ignorovat tokeny proti padělání ve výchozím nastavení, pokud `ValidateAntiForgeryToken` se nepoužije na jednotlivé metody akcí. V tomto scénáři je pravděpodobnější, že metoda POST akce bude ponechána bez ochrany omylem, takže aplikace bude zranitelná vůči útokům CSRF. Všechny příspěvky by měly odeslat token proti padělání.
 
 Rozhraní API nemají automatický mechanismus pro odeslání části tokenu bez souborů cookie. Implementace pravděpodobně závisí na implementaci klientského kódu. Níže jsou uvedeny některé příklady:
 
@@ -357,7 +395,7 @@ services.AddControllersWithViews(options =>
 
 ### <a name="override-global-or-controller-antiforgery-attributes"></a>Přepsat globální atributy nebo atributy antipadělání řadiče
 
-Filtr [IgnoreAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.ignoreantiforgerytokenattribute) se používá k odstranění potřeby tokenu antipadělání pro danou akci (nebo kontroler). Při použití tohoto filtru se `ValidateAntiForgeryToken` přepíší `AutoValidateAntiforgeryToken` a filtry zadané na vyšší úrovni (globálně nebo na řadiči).
+Filtr [IgnoreAntiforgeryToken](/dotnet/api/microsoft.aspnetcore.mvc.ignoreantiforgerytokenattribute) se používá k odstranění potřeby tokenu antipadělání pro danou akci (nebo kontroler). Při použití tohoto filtru se přepíší `ValidateAntiForgeryToken` a `AutoValidateAntiforgeryToken` filtry zadané na vyšší úrovni (globálně nebo na řadiči).
 
 ```csharp
 [Authorize]
@@ -375,7 +413,7 @@ public class ManageController : Controller
 
 ## <a name="refresh-tokens-after-authentication"></a>Aktualizovat tokeny po ověření
 
-Tokeny by se měly aktualizovat po ověření uživatele tak, že se uživatel přesměruje na stránku Razor zobrazení nebo stránky.
+Tokeny by se měly aktualizovat po ověření uživatele tak, že se uživatel přesměruje na stránku zobrazení nebo Razor stránky.
 
 ## <a name="javascript-ajax-and-spas"></a>JavaScript, AJAX a jednostránkové
 
@@ -400,7 +438,7 @@ context.Response.Cookies.Append("CSRF-TOKEN", tokens.RequestToken,
     new Microsoft.AspNetCore.Http.CookieOptions { HttpOnly = false });
 ```
 
-Za předpokladu, že skript požaduje odeslání tokenu v záhlaví `X-CSRF-TOKEN`s názvem, nakonfigurujte službu proti padělání tak, aby `X-CSRF-TOKEN` hledala hlavičku:
+Za předpokladu, že skript požaduje odeslání tokenu v záhlaví s názvem `X-CSRF-TOKEN` , nakonfigurujte službu proti padělání tak, aby hledala `X-CSRF-TOKEN` hlavičku:
 
 ```csharp
 services.AddAntiforgery(options => options.HeaderName = "X-CSRF-TOKEN");
@@ -445,12 +483,12 @@ xhttp.send(JSON.stringify({ "newPassword": "ReallySecurePassword999$$$" }));
 
 ### <a name="angularjs"></a>AngularJS
 
-AngularJS používá konvenci pro řešení CSRF. Pokud server odešle soubor cookie s názvem `XSRF-TOKEN`, služba AngularJS `$http` přidá hodnotu cookie do hlavičky při odeslání požadavku na server. Tento proces je automatický. Záhlaví není v klientovi nutné nastavit explicitně. Název hlavičky je `X-XSRF-TOKEN`. Server by měl detekovat tuto hlavičku a ověřit její obsah.
+AngularJS používá konvenci pro řešení CSRF. Pokud server odešle soubor cookie s názvem `XSRF-TOKEN` , `$http` Služba AngularJS přidá hodnotu cookie do hlavičky při odeslání požadavku na server. Tento proces je automatický. Záhlaví není v klientovi nutné nastavit explicitně. Název hlavičky je `X-XSRF-TOKEN` . Server by měl detekovat tuto hlavičku a ověřit její obsah.
 
 ASP.NET Core rozhraní API pro práci s touto konvencí ve vašem spuštění aplikace:
 
-* Nakonfigurujte svou aplikaci tak, aby poskytovala token ve volání `XSRF-TOKEN`cookie.
-* Nakonfigurujte službu proti padělání, aby hledala hlavičku s názvem `X-XSRF-TOKEN`.
+* Nakonfigurujte svou aplikaci tak, aby poskytovala token ve volání cookie `XSRF-TOKEN` .
+* Nakonfigurujte službu proti padělání, aby hledala hlavičku s názvem `X-XSRF-TOKEN` .
 
 ```csharp
 public void Configure(IApplicationBuilder app, IAntiforgery antiforgery)
@@ -485,7 +523,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="extend-antiforgery"></a>Rozšiřování antipadělání
 
-Typ [IAntiForgeryAdditionalDataProvider](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider) umožňuje vývojářům roztáhnout chování systému anti-CSRF s kulatými Trip dalšími daty v každém tokenu. Metoda [GetAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.getadditionaldata) je volána při každém vygenerování tokenu pole a návratová hodnota je vložena do vygenerovaného tokenu. Implementátor by mohl vrátit časové razítko, hodnotu NONCE nebo jakoukoli jinou hodnotu a pak zavolat [ValidateAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.validateadditionaldata) , aby ověřil tato data při ověření tokenu. Uživatelské jméno klienta je již vloženo do vygenerovaných tokenů, takže není nutné tyto informace zahrnout. Pokud token zahrnuje doplňková data, ale `IAntiForgeryAdditionalDataProvider` není nakonfigurovaná, doplňují se data neověřují.
+Typ [IAntiForgeryAdditionalDataProvider](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider) umožňuje vývojářům roztáhnout chování systému anti-CSRF s kulatými Trip dalšími daty v každém tokenu. Metoda [GetAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.getadditionaldata) je volána při každém vygenerování tokenu pole a návratová hodnota je vložena do vygenerovaného tokenu. Implementátor by mohl vrátit časové razítko, hodnotu NONCE nebo jakoukoli jinou hodnotu a pak zavolat [ValidateAdditionalData](/dotnet/api/microsoft.aspnetcore.antiforgery.iantiforgeryadditionaldataprovider.validateadditionaldata) , aby ověřil tato data při ověření tokenu. Uživatelské jméno klienta je již vloženo do vygenerovaných tokenů, takže není nutné tyto informace zahrnout. Pokud token zahrnuje doplňková data, ale není `IAntiForgeryAdditionalDataProvider` nakonfigurovaná, doplňují se data neověřují.
 
 ## <a name="additional-resources"></a>Další zdroje
 

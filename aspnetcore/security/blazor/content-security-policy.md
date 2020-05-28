@@ -28,14 +28,14 @@ CSP se podporuje ve většině moderních desktopových a mobilních prohlíže�
 
 Minimálně zadejte následující direktivy a zdroje pro Blazor aplikace. Podle potřeby přidejte další direktivy a zdroje. V části [použití zásad](#apply-the-policy) v tomto článku se používají následující direktivy, kde jsou k dispozici příklady zásad zabezpečení pro Blazor WebAssembly a Blazor Server:
 
-* [základní – identifikátor URI](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri) &ndash; Omezí adresy URL pro `<base>` značku stránky. Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
-* [Blokovat vše – smíšený obsah](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content) &ndash; Zabraňuje načtení smíšeného obsahu HTTP a HTTPS.
-* [výchozí – src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/default-src) &ndash; Označuje zálohu pro direktivy zdroje, které nejsou explicitně určeny zásadou. Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
-* [img – src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/img-src) &ndash; Označuje platné zdroje pro obrázky.
+* [Base-URI](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri): omezí adresy URL pro `<base>` značku stránky. Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
+* [blokování všech smíšených obsahu](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content): zabraňuje načtení smíšeného obsahu HTTP a HTTPS.
+* [Výchozí hodnota-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/default-src): označuje zálohu pro zdrojové direktivy, které nejsou explicitně určeny zásadou. Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
+* [img-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/img-src): označuje platné zdroje pro obrázky.
   * Určuje `data:` , že se mají povolit načítání imagí z `data:` adres URL.
   * Určuje `https:` , že se mají povolit načítání imagí z koncových bodů https.
-* [objekt – src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/object-src) &ndash; Označuje platné zdroje pro `<object>` značky, `<embed>` a `<applet>` . Určete `none` , aby se zabránilo všem zdrojům adresy URL.
-* [skript – src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src) &ndash; Označuje platné zdroje pro skripty.
+* [objekt-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/object-src): označuje platné zdroje pro `<object>` značky, `<embed>` a `<applet>` . Určete `none` , aby se zabránilo všem zdrojům adresy URL.
+* [skript-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src): označuje platné zdroje pro skripty.
   * Zadejte `https://stackpath.bootstrapcdn.com/` zdroj hostitele pro skripty Bootstrap.
   * Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
   * V Blazor aplikaci WebAssembly:
@@ -45,11 +45,11 @@ Minimálně zadejte následující direktivy a zdroje pro Blazor aplikace. Podle
       * `sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=`
     * Určete `unsafe-eval` , že se mají použít `eval()` metody a pro vytvoření kódu z řetězců.
   * V Blazor serverové aplikaci zadejte `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` hodnotu hash vloženého skriptu, který provádí záložní detekci pro šablony stylů.
-* [style – src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src) &ndash; Označuje platné zdroje pro šablony stylů.
+* [style-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src): označuje platné zdroje pro šablony stylů.
   * Zadejte `https://stackpath.bootstrapcdn.com/` zdroj hostitele pro Bootstrap šablon stylů.
   * Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
   * Určete `unsafe-inline` , aby bylo možné použít vložené styly. Vložená deklarace se vyžaduje pro uživatelské rozhraní v Blazor serverových aplikacích pro opětovné připojení klienta a serveru po počátečním požadavku. V budoucí verzi je možné odebrat vložené styly, aby `unsafe-inline` se už nevyžadovaly.
-* [upgrade – nezabezpečené – požadavky](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests) &ndash; Označuje, že adresy URL obsahu ze zdrojů nezabezpečených (HTTP) by měly být zabezpečeny prostřednictvím protokolu HTTPS.
+* [upgrade – nezabezpečené – požadavky](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests): označuje, že adresy URL obsahu z nezabezpečených (http) zdrojů by měly být zabezpečeny prostřednictvím protokolu HTTPS.
 
 Předchozí direktivy jsou podporovány všemi prohlížeči kromě aplikace Microsoft Internet Explorer.
 

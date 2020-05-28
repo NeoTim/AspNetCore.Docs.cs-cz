@@ -32,8 +32,8 @@ Konfiguraci komprese *souboru Web. config* služby IIS najdete v části [IIS: B
 
 Žádosti o směrování pro součásti stránky v Blazor aplikaci WebAssembly nejsou tak jednoduché jako požadavky směrování na serveru, v němž je Blazor umístěná aplikace. Zvažte Blazor aplikaci WebAssembly se dvěma součástmi:
 
-* *Main. Razor* se &ndash; načte do kořenového adresáře aplikace a obsahuje odkaz na `About` komponentu ( `href="About"` ).
-* *O* &ndash; `About` komponentě. Razor.
+* *Main. Razor*: načte do kořenového adresáře aplikace a obsahuje odkaz na `About` komponentu ( `href="About"` ).
+* *O nástroji. Razor*: `About` Komponenta
 
 Pokud je výchozí dokument aplikace požadován pomocí panelu Adresa prohlížeče (například `https://www.contoso.com/` ):
 
@@ -83,11 +83,11 @@ Publikované assety se vytvoří ve složce */bin/Release/{Target Framework}/Pub
 Při Blazor publikování projektu se vytvoří soubor *Web. config* s následující konfigurací služby IIS:
 
 * Typy MIME jsou nastaveny pro následující přípony souborů:
-  * *. dll* &ndash;`application/octet-stream`
-  * *. JSON* &ndash;`application/json`
-  * *. wasm* &ndash;`application/wasm`
-  * *. woff* &ndash;`application/font-woff`
-  * *. woff2* &ndash;`application/font-woff`
+  * *. dll*:`application/octet-stream`
+  * *. JSON*:`application/json`
+  * *. wasm*:`application/wasm`
+  * *. woff*:`application/font-woff`
+  * *. woff2*:`application/font-woff`
 * Pro následující typy MIME je povolena komprese protokolu HTTP:
   * `application/octet-stream`
   * `application/wasm`
@@ -339,7 +339,7 @@ BlazorAplikaci WebAssembly lze inicializovat pomocí `loadBootResource` funkce p
 
 `loadBootResource`parametry jsou uvedeny v následující tabulce.
 
-| Parametr    | Popis |
+| Parametr    | Description |
 | ---
 title: ' hostování a nasazení ASP.NET Core Blazor WebAssembly ' Autor: Description: ' Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Core, sítě pro doručování obsahu (CDN), souborové servery a stránky GitHubu.
 monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:

@@ -18,8 +18,8 @@ Jedním z způsobů, jak zabránit kolizím souborů cookie a dat lokality při 
   * Vyberte tlačítko **Přidat** .
   * Zadejte cestu k prohlížeči do pole **program** .
   * V poli **argumenty** zadejte parametr příkazového řádku, který prohlížeč používá pro otevření v anonymním nebo privátním režimu a adresu URL aplikace. Příklad:
-    * Google Chrome &ndash;`--incognito --new-window https://localhost:5001`
-    * Mozilla Firefox &ndash;`-private -url https://localhost:5001`
+    * Google Chrome:`--incognito --new-window https://localhost:5001`
+    * Mozilla Firefox:`-private -url https://localhost:5001`
   * Do pole **popisný název** zadejte název. Například, `Firefox Auth Testing`.
   * Vyberte tlačítko **OK**.
   * Chcete-li se vyhnout nutnosti vybrat profil prohlížeče pro každou iteraci testování s aplikací, nastavte profil jako výchozí pomocí tlačítka **nastavit jako výchozí** .
