@@ -621,3 +621,15 @@ Vedlejším účinkem předcházejícího přístupu je, že <xref:Microsoft.Asp
     }
 }
 ```
+
+## <a name="troubleshoot"></a>Řešení potíží
+
+> InvalidOperationException: EditForm vyžaduje parametr modelu nebo parametr EditContext, ale ne obojí.
+
+Potvrďte, že <xref:Microsoft.AspNetCore.Components.Forms.EditForm> má <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> nebo <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .
+
+Při přiřazování <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> do formuláře potvrďte, že je vytvořen typ modelu, jak ukazuje následující příklad:
+
+```csharp
+private ExampleModel exampleModel = new ExampleModel();
+```
