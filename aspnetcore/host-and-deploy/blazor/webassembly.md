@@ -149,7 +149,7 @@ Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [
 
 Službu IIS lze konfigurovat pomocí *souboru Web. config* pro poskytování komprimovaných prostředků Brotli nebo gzip Blazor . Příklad konfigurace naleznete v tématu [Web. config](webassembly/_samples/web.config?raw=true).
 
-#### <a name="troubleshooting"></a>Řešení potíží
+#### <a name="troubleshooting"></a>Poradce při potížích
 
 Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, soubor *Web. config* nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web ze Blazor statických souborů obsluhy.
 
@@ -163,6 +163,16 @@ Když je u služby BLOB Service povolené hostování statických webů v účtu
 
 * Nastavte **název dokumentu indexu** na `index.html` .
 * Nastavte **cestu k chybovému dokumentu** na `index.html` . Razorsoučásti a jiné koncové body, které nejsou v souboru, se neukládají na fyzických cestách ve statickém obsahu uloženém službou BLOB Service. Když se přijme žádost o jeden z těchto prostředků, kterou Blazor by měl směrovač zpracovat, chyba *404 – nenalezená* služba BLOB Service směruje požadavek na **cestu k chybovému dokumentu**. Vrátí se objekt BLOB *index. html* a Blazor směrovač načte a zpracuje cestu.
+
+Pokud nejsou za běhu načteny soubory z důvodu nevhodných typů MIME v `Content-Type` hlavičkách souborů, proveďte jednu z následujících akcí:
+
+* Nakonfigurujte nástroje tak, aby při nasazení souborů nastavily správné typy MIME ( `Content-Type` hlavičky).
+* Změňte typy MIME ( `Content-Type` hlavičky) souborů po nasazení aplikace.
+
+  V Průzkumník služby Storage (Azure Portal) pro každý soubor:
+  
+  1. Klikněte na soubor pravým tlačítkem a vyberte **vlastnosti**.
+  1. Nastavte **ContentType** a klikněte na tlačítko **Uložit** .
 
 Další informace najdete v tématu [statické hostování webů v Azure Storage](/azure/storage/blobs/storage-blob-static-website).
 
@@ -339,7 +349,7 @@ BlazorAplikaci WebAssembly lze inicializovat pomocí `loadBootResource` funkce p
 
 `loadBootResource`parametry jsou uvedeny v následující tabulce.
 
-| Parametr    | Description |
+| Parametr    | Popis |
 | ---
 title: ' hostování a nasazení ASP.NET Core Blazor WebAssembly ' Autor: Description: ' Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Core, sítě pro doručování obsahu (CDN), souborové servery a stránky GitHubu.
 monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:

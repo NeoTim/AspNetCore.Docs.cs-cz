@@ -451,8 +451,8 @@ Během operace ověřování existují případy, kdy chcete uložit stav aplika
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
 <RemoteAuthenticatorViewCore Action="@Action" 
-    AuthenticationState="AuthenticationState" OnLoginSucceded="RestoreState" 
-    OnLogoutSucceded="RestoreState" />
+    AuthenticationState="AuthenticationState" OnLogInSucceeded="RestoreState" 
+    OnLogOutSucceeded="RestoreState" />
 
 @code {
     [Parameter]
