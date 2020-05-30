@@ -2,4 +2,4 @@
 * [C# pro Visual Studio Code (nejnovější verze)](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp)
 * [!INCLUDE [.NET Core 3.1 SDK](~/includes/3.1-SDK.md)]
 
-Pokyny pro Visual Studio Code používají .NET Core CLI pro ASP.NET Core vývojové funkce, jako je vytváření projektu. Můžete postupovat podle těchto pokynů na libovolné platformě (macOS, Linux nebo Windows) a pomocí editoru kódu. Pokud použijete jinou než Visual Studio Code, může se vyžadovat menší změna.
+Pokyny pro Visual Studio Code používají .NET Core CLI pro ASP.NET Core vývojové funkce, jako je vytváření projektu. Můžete postupovat podle těchto pokynů na libovolné platformě (macOS, Linux nebo Windows) a pomocí editoru kódu. Pokud použijete jinou než Visual Studio Code, může se vyžadovat menší změna. Další informace o instalaci Visual Studio Code na macOS najdete v článku [Visual Studio Code na MacOS](https://code.visualstudio.com/docs/setup/mac).

@@ -1,11 +1,11 @@
 ---
-title: ' volání webového rozhraní API z ASP.NET Coreho Blazor WebAssembly ' Author: Description: ' Naučte se volat webové rozhraní API z Blazor aplikace WebAssembly pomocí pomocníků JSON, včetně vytváření žádostí o sdílení prostředků mezi zdroji (CORS). '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: ' volání webového rozhraní API z ASP.NET Core Blazor WebAssembly ' Autor: guardrex Description: ' Naučte se volat webové rozhraní API z Blazor aplikace WebAssembly pomocí pomocníků JSON, včetně vytváření žádostí o sdílení prostředků mezi zdroji (CORS). '
+monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/28/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: blazor/Call-Web-API
 
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>Volání webového rozhraní API z ASP.NET CoreBlazor
@@ -168,6 +168,8 @@ V následujícím kódu `<button>` element Delete volá `DeleteItem` metodu. Vá
 ## <a name="named-httpclient-with-ihttpclientfactory"></a>S názvem HttpClient s IHttpClientFactory
 
 <xref:System.Net.Http.IHttpClientFactory>podporují se služby a konfigurace s názvem <xref:System.Net.Http.HttpClient> .
+
+V souboru projektu se odkázat na balíček NuGet [Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) .
 
 `Program.Main`(*Program.cs*):
 

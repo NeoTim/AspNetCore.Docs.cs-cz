@@ -1,18 +1,18 @@
 ---
-title: ' Debug ASP.NET Core Blazor WebAssembly ' Author: Description: ' Naučte se ladit Blazor aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: ' ladění ASP.NET Core Blazor WebAssembly ' Autor: guardrex Description: ' Naučte se ladit Blazor aplikace. '
+monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/29/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: blazor/Debug
 
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>Ladění ASP.NET Core Blazor WebAssembly
 
 [Daniel Skořepa](https://github.com/danroth27)
 
-BlazorAplikace WebAssembly se dají ladit pomocí nástrojů pro vývoj v prohlížeči v prohlížečích založených na chromu (Edge/Chrome).  Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
+BlazorAplikace WebAssembly se dají ladit pomocí nástrojů pro vývoj v prohlížeči v prohlížečích založených na chromu (Edge/Chrome). Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
 
 K dispozici jsou tyto scénáře:
 
@@ -53,6 +53,8 @@ Po aktualizaci by soubor *launchSettings. JSON* měl vypadat podobně jako v ná
 
 * Umožňuje rozhraní IDE zjistit, že aplikace je Blazor aplikace WebAssembly.
 * Dá pokyn k tomu, aby se infrastruktura ladění skriptů připojovala k prohlížeči prostřednictvím Blazor ladicího proxy serveru.
+
+Zástupný text pro protokol WebSockets ( `wsProtocol` ), hostitele ( `url.hostname` ), port ( `url.port` ) a identifikátor URI pro inspektor v spuštěném prohlížeči ( `browserInspectUri` ) jsou poskytovány rozhraním.
 
 ## <a name="visual-studio"></a>Visual Studio
 
@@ -135,6 +137,7 @@ Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zko
 
 ## <a name="troubleshoot"></a>Řešení potíží
 
-Pokud pracujete s chybami, může vám následující Tip:
+Pokud dochází k chybám, může vám pomáhat následující tipy:
 
-Na kartě **ladicí program** otevřete nástroje pro vývojáře v prohlížeči. V konzole nástroje spusťte příkaz `localStorage.clear()` k odebrání všech zarážek.
+* Na kartě **ladicí program** otevřete nástroje pro vývojáře v prohlížeči. V konzole nástroje spusťte příkaz `localStorage.clear()` k odebrání všech zarážek.
+* Potvrďte, že jste nainstalovali a důvěřujete ASP.NET Core certifikát pro vývoj HTTPS. Další informace naleznete v tématu <xref:security/enforcing-ssl#troubleshoot-certificate-problems>.
