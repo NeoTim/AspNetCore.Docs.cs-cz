@@ -27,7 +27,7 @@ Podporují se tyto strategie nasazení:
 Když Blazor je publikována aplikace WebAssembly, výstup je zkomprimován, aby se snížila velikost aplikace a odstranila se nutnost komprese za běhu. Používají se následující kompresní algoritmy:
 
 * [Brotli](https://tools.ietf.org/html/rfc7932) (nejvyšší úroveň)
-* [Gzip](https://tools.ietf.org/html/rfc1952))
+* [GZIP](https://tools.ietf.org/html/rfc1952)
 
 Chcete-li vypnout kompresi, přidejte `BlazorEnableCompression` do souboru projektu aplikace vlastnost MSBuild a nastavte hodnotu na `false` :
 
@@ -160,7 +160,7 @@ Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [
 
 Službu IIS lze konfigurovat pomocí *souboru Web. config* pro poskytování komprimovaných prostředků Brotli nebo gzip Blazor . Příklad konfigurace naleznete v tématu [Web. config](webassembly/_samples/web.config?raw=true).
 
-#### <a name="troubleshooting"></a>Poradce při potížích
+#### <a name="troubleshooting"></a>Řešení potíží
 
 Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, soubor *Web. config* nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web ze Blazor statických souborů obsluhy.
 

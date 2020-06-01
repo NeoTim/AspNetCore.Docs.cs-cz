@@ -1,6 +1,6 @@
 ---
 title: ' ladění ASP.NET Core Blazor WebAssembly ' Autor: guardrex Description: ' Naučte se ladit Blazor aplikace. '
-monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/29/2020 No-Loc:
+monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/31/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
@@ -93,31 +93,114 @@ Při ladění Blazor aplikace pro WebAssembly můžete také ladit kód serveru:
 
 Ladění Blazor aplikace WebAssembly v Visual Studio Code:
  
-1. Nainstalujte [rozšíření C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) a rozšíření [ladicí program JavaScriptu (v noci)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly) s `debug.javascript.usePreview` nastavením na `true` .
+Nainstalujte [rozšíření C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) a rozšíření [ladicí program JavaScriptu (v noci)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly) s `debug.javascript.usePreview` nastavením na `true` .
 
-   ![Rozšíření](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-extensions.png)
+![Rozšíření](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-extensions.png)
 
-   ![JS Preview ladicího programu](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-js-use-preview.png)
+![JS Preview ladicího programu](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-js-use-preview.png)
 
-1. Otevře existující Blazor aplikaci WebAssembly s povoleným laděním.
+### <a name="debug-standalone-blazor-webassembly"></a>Ladit samostatné Blazor WebAssembly
 
-   * Pokud obdržíte následující oznámení, že pro povolení ladění je potřeba další nastavení, zkontrolujte, že máte nainstalované správné rozšíření a že je povolené ladění JavaScriptu ve verzi Preview, a pak znovu načtěte okno:
+1. Otevřete samostatnou Blazor aplikaci WebAssembly v vs Code.
 
-     ![Vyžaduje se další instalace.](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
+   Pokud se zobrazí následující oznámení, že pro povolení ladění je potřeba další nastavení:
+   
+   * Potvrďte, že máte nainstalované správné rozšíření.
+   * Potvrďte, že je povolené ladění v jazyce JavaScript verze Preview.
+   * Znovu načtěte okno.
 
-   * Oznámení nabízí přidání požadovaných prostředků do aplikace pro sestavování a ladění. Vyberte **Ano**:
+   ![Vyžaduje se další instalace.](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-additional-setup.png)
 
-     ![Přidat požadované prostředky](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-required-assets.png)
+1. Spusťte ladění pomocí klávesových zkratek <kbd>F5</kbd> nebo položky nabídky.
 
-1. Spuštění aplikace v ladicím programu je proces se dvěma kroky:
+1. Po zobrazení výzvy vyberte možnost ** Blazor ladění WebAssembly** a spusťte ladění.
 
-   1 \. **Nejdřív**spusťte aplikaci pomocí konfigurace spuštění **.NET Core Launch ( Blazor Standalone)** .
+   ![Seznam dostupných možností ladění](index/_static/blazor-vscode-debugtypes.png)
 
-   2 \. **Po spuštění aplikace**spusťte prohlížeč pomocí **ladicího Blazor webového sestavení .NET Core v** konfiguraci spuštění Chrome (vyžaduje Chrome). Pokud chcete místo Chromu použít Edge, změňte `type` konfiguraci spuštění v *. VSCode/Launch. JSON* z `pwa-chrome` na `pwa-msedge` .
+1. Spustí se samostatná aplikace a otevře se prohlížeč ladění.
 
 1. Nastavte zarážku v `IncrementCount` metodě v `Counter` součásti a potom vyberte tlačítko, kterým se má zarážka opakovat:
 
    ![Čítač ladění v VS Code](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
+
+### <a name="debug-hosted-blazor-webassembly"></a>Ladit hostované Blazor WebAssembly
+
+1. Otevřete hostovanou Blazor aplikaci WebAssembly v vs Code.
+
+1. Pokud pro projekt neexistuje konfigurační sada pro spuštění, zobrazí se následující oznámení. Vyberte **Ano**.
+
+   ![Přidat požadované prostředky](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-required-assets.png)
+
+1. V okně Výběr vyberte *serverový* projekt v hostovaném řešení.
+
+Soubor *Launch. JSON* se vygeneruje s konfigurací spuštění pro spuštění ladicího programu.
+
+### <a name="attach-to-an-existing-debugging-session"></a>Připojit k existující relaci ladění
+
+Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte soubor *Launch. JSON* s následující konfigurací:
+
+```json
+{
+  "type": "blazorwasm",
+  "request": "attach",
+  "name": "Attach to Existing Blazor WebAssembly Application"
+}
+```
+
+> [!NOTE]
+> Připojení k relaci ladění se podporuje jenom pro samostatné aplikace. Chcete-li použít ladění v plném zásobníku, musíte aplikaci spustit z VS Code.
+
+### <a name="launch-configuration-options"></a>Spustit možnosti konfigurace
+
+Pro typ ladění jsou podporovány následující možnosti konfigurace spuštění `blazorwasm` .
+
+| Možnost    | Popis |
+| --------- | ----------- |
+| `request` | Použijte `launch` ke spuštění a připojení relace ladění k Blazor aplikaci WebAssembly nebo `attach` k připojení relace ladění k již spuštěné aplikaci. |
+| `url`     | Adresa URL, která se má otevřít v prohlížeči při ladění. Výchozí hodnota je `https://localhost:5001` . |
+| `browser` | Prohlížeč, který se má spustit pro relaci ladění. Nastavte na `edge` nebo `chrome`. Výchozí hodnota je `chrome` . |
+| `trace`   | Slouží ke generování protokolů z ladicího programu JS. Nastavte na `true` Generovat protokoly. |
+| `hosted`  | Musí být nastaven na hodnotu `true` při spuštění a ladění hostované Blazor aplikace WebAssembly. |
+| `webRoot` | Určuje absolutní cestu webového serveru. By měla být nastavena, pokud je aplikace obsluhována z dílčího směrování. |
+| `timeout` | Počet milisekund, po které se má čekat na připojení relace ladění Výchozí hodnota je 30 000 milisekund (30 sekund). |
+| `program` | Odkaz na spustitelný soubor pro spuštění serveru hostované aplikace. Musí být nastaven `hosted` , pokud je `true` . |
+| `cwd`     | Pracovní adresář, ve kterém se má spustit aplikace Musí být nastaven `hosted` , pokud je `true` . |
+| `env`     | Proměnné prostředí, které se mají poskytnout spuštěnému procesu. Platí pouze v případě `hosted` , že je nastavena na `true` . |
+
+### <a name="example-launch-configurations"></a>Příklad konfigurací spuštění
+
+#### <a name="launch-and-debug-a-standalone-blazor-webassembly-app"></a>Spuštění a ladění samostatné Blazor aplikace WebAssembly
+
+```json
+{
+  "type": "blazorwasm",
+  "request": "launch",
+  "name": "Launch and Debug"
+}
+```
+
+#### <a name="attach-to-a-running-app-at-a-specified-url"></a>Připojit se k běžící aplikaci v zadané adrese URL
+
+```json
+{
+  "type": "blazorwasm",
+  "request": "attach",
+  "name": "Attach and Debug",
+  "url": "http://localhost:5000"
+}
+```
+
+#### <a name="launch-and-debug-a-hosted-blazor-webassembly-app"></a>Spuštění a ladění hostované Blazor aplikace WebAssembly
+
+```json
+{
+  "type": "blazorwasm",
+  "request": "launch",
+  "name": "Launch and Debug Hosted App",
+  "program": "${workspaceFolder}/Server/bin/Debug/netcoreapp3.1/MyHostedApp.Server.dll",
+  "cwd": "${workspaceFolder}"
+}
+```
 
 ## <a name="debug-in-the-browser"></a>Ladit v prohlížeči
 
