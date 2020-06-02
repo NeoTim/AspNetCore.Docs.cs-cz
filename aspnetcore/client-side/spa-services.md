@@ -75,7 +75,7 @@ Pokud chcete pracovat s SpaServices, nainstalujte následující:
     node -v && npm -v
     ```
 
-  * Pokud nasazujete na web Azure, není k dispozici&mdash;žádná akce Node. js, která je k dispozici v prostředích serveru.
+  * Pokud nasazujete na web Azure, není &mdash; k dispozici žádná akce Node. js, která je k dispozici v prostředích serveru.
 
 * [!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
 
@@ -109,17 +109,17 @@ Tyto pomocníky se značkami abstrakce složitými rozhraními komunikaci přím
 
 ### <a name="asp-prerender-module-tag-helper"></a>ASP-PreRender-pomocník značek modulu
 
-Pomocník `asp-prerender-module` značek použitý v předchozím příkladu kódu spouští *clientapp/DIST/Main-Server. js* na serveru prostřednictvím Node. js. V zájmu srozumitelnosti je soubor *Main-Server. js* artefaktem úlohy TypeScript-to-JavaScript transpilation v procesu sestavení pro [sadu Webpack](https://webpack.github.io/) . Webpack definuje alias vstupního bodu pro `main-server`; a přechod grafu závislostí pro tento alias začíná v souboru *clientapp/boot-server. TS* :
+`asp-prerender-module`Pomocník značek použitý v předchozím příkladu kódu spouští *clientapp/DIST/Main-Server. js* na serveru prostřednictvím Node. js. V zájmu srozumitelnosti je soubor *Main-Server. js* artefaktem úlohy TypeScript-to-JavaScript transpilation v procesu sestavení pro [sadu Webpack](https://webpack.github.io/) . Webpack definuje alias vstupního bodu `main-server` pro. a přechod grafu závislostí pro tento alias začíná v souboru *clientapp/boot-server. TS* :
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=53)]
 
-V následujících úhlových příkladech používá soubor *clientapp/boot-server. TS* `createServerRenderer` funkci a `RenderResult` typ balíčku `aspnet-prerendering` npm ke konfiguraci vykreslování serveru prostřednictvím Node. js. Označení HTML určené pro vykreslování na straně serveru je předáno volání funkce přeložit, které je zabaleno do silně typovaného objektu JavaScriptu `Promise` . Hodnota `Promise` významnosti objektu je, že asynchronně poskytuje kód HTML na stránce pro vložení do elementu zástupného prvku modelu DOM.
+V následujících úhlových příkladech používá soubor *clientapp/boot-server. TS* `createServerRenderer` funkci a `RenderResult` typ `aspnet-prerendering` balíčku npm ke konfiguraci vykreslování serveru prostřednictvím Node. js. Označení HTML určené pro vykreslování na straně serveru je předáno volání funkce přeložit, které je zabaleno do silně typovaného `Promise` objektu JavaScriptu. `Promise`Hodnota významnosti objektu je, že asynchronně poskytuje kód HTML na stránce pro vložení do elementu zástupného prvku modelu DOM.
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-34,79-)]
 
 ### <a name="asp-prerender-data-tag-helper"></a>ASP-PreRender-Pomocník s datovou značkou
 
-Při spojení s pomocníkem `asp-prerender-module` `asp-prerender-data` značek lze pomocí pomocníka značek předat kontextové informace ze zobrazení Razor do JavaScriptu na straně serveru. Například následující kód předává uživatelská data do `main-server` modulu:
+Při spojení s `asp-prerender-module` pomocníkem značek `asp-prerender-data` lze pomocí pomocníka značek předat kontextové informace ze zobrazení Razor do JavaScriptu na straně serveru. Například následující kód předává uživatelská data do `main-server` modulu:
 
 [!code-cshtml[](../client-side/spa-services/sample/SpaServicesSampleApp/Views/Home/Index.cshtml?range=9-12)]
 
@@ -129,11 +129,11 @@ Přijatý `UserName` argument je serializován pomocí integrovaného serializá
 
 Názvy vlastností předané v Pomocníkech značek jsou reprezentovány **PascalCase** Notation. Na rozdíl od jazyka JavaScript, kde jsou stejné názvy vlastností, které jsou reprezentovány s **CamelCase**. Výchozí konfigurace serializace JSON zodpovídá za tento rozdíl.
 
-Pro rozšíření na předchozí příklad kódu mohou být data předána ze serveru do zobrazení tím, že se `globals` dobalí vlastnost poskytnutá `resolve` funkci:
+Pro rozšíření na předchozí příklad kódu mohou být data předána ze serveru do zobrazení tím, že se dobalí `globals` vlastnost poskytnutá `resolve` funkci:
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-21,57-77,79-)]
 
-`postList` Pole definované uvnitř `globals` objektu je připojeno k globálnímu `window` objektu prohlížeče. Tato proměnná výtahem do globálního rozsahu eliminuje duplicity, zejména v případě, že se týká načítání stejných dat na serveru a znovu v klientovi.
+`postList`Pole definované uvnitř `globals` objektu je připojeno k globálnímu `window` objektu prohlížeče. Tato proměnná výtahem do globálního rozsahu eliminuje duplicity, zejména v případě, že se týká načítání stejných dat na serveru a znovu v klientovi.
 
 ![globální proměnná postList připojená k objektu window](spa-services/_static/global_variable.png)
 
@@ -155,13 +155,13 @@ npm i -D aspnet-webpack
 
 ### <a name="webpack-dev-middleware-configuration"></a>Konfigurace pro vývoj middlewaru pro Webpack
 
-Middleware pro vývoj v sadě Webpack je zaregistrovaný do kanálu požadavků HTTP prostřednictvím následujícího *Startup.cs* kódu v `Configure` metodě souboru Startup.cs:
+Middleware pro vývoj v sadě Webpack je zaregistrovaný do kanálu požadavků HTTP prostřednictvím následujícího kódu v metodě souboru *Startup.cs* `Configure` :
 
 [!code-csharp[](../client-side/spa-services/sample/SpaServicesSampleApp/Startup.cs?name=snippet_WebpackMiddlewareRegistration&highlight=4)]
 
-Před `UseWebpackDevMiddleware` [registrací statického souboru hostujícího](xref:fundamentals/static-files) prostřednictvím metody `UseStaticFiles` rozšíření je nutné volat metodu rozšíření. Z bezpečnostních důvodů Zaregistrujte middleware pouze v případě, že aplikace běží v režimu vývoje.
+`UseWebpackDevMiddleware`Před [registrací statického souboru hostujícího](xref:fundamentals/static-files) prostřednictvím metody rozšíření je nutné volat metodu rozšíření `UseStaticFiles` . Z bezpečnostních důvodů Zaregistrujte middleware pouze v případě, že aplikace běží v režimu vývoje.
 
-Vlastnost souboru *Webpack. config. js* oznamuje middlewari, že má sledovat změny `dist` ve složce: `output.publicPath`
+Vlastnost souboru *Webpack. config. js* `output.publicPath` oznamuje middlewari, že má sledovat změny ve `dist` složce:
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=6,13-16)]
 
@@ -187,7 +187,7 @@ app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
 });
 ```
 
-Stejně jako u rozhraní [Webpack dev middleware](#webpack-dev-middleware)musí `UseWebpackDevMiddleware` být metoda rozšíření volána před metodou `UseStaticFiles` rozšíření. Z bezpečnostních důvodů Zaregistrujte middleware pouze v případě, že aplikace běží v režimu vývoje.
+Stejně jako u rozhraní [Webpack dev middleware](#webpack-dev-middleware) `UseWebpackDevMiddleware` musí být metoda rozšíření volána před `UseStaticFiles` metodou rozšíření. Z bezpečnostních důvodů Zaregistrujte middleware pouze v případě, že aplikace běží v režimu vývoje.
 
 Soubor *Webpack. config. js* musí definovat `plugins` pole, i když je ponecháno prázdné:
 
@@ -201,7 +201,7 @@ Po načtení aplikace v prohlížeči se na kartě konzola nástroje pro vývoj�
 
 Ve většině ASP.NET Core jednostránkové na straně klienta je často žádoucí směrování na straně klienta kromě směrování na straně serveru. Systémy směrování SPA a MVC můžou pracovat nezávisle bez rušivých zásahů. Existuje ale jeden hraniční případ s výzvami k identifikaci 404 odpovědí HTTP.
 
-Vezměte v úvahu scénář, ve kterém `/some/page` se používá trasa s příponou. Předpokládat, že požadavek neodpovídá vzorové trase na straně serveru, ale jeho vzor odpovídá trase na straně klienta. Nyní zvažte příchozí požadavek na `/images/user-512.png`, který obecně očekává, že na serveru najde soubor s obrázkem. Pokud tato požadovaná cesta prostředku neodpovídá žádné cestě na straně serveru ani ke statickému souboru, je pravděpodobné, že aplikace na straně klienta nebude&mdash;obvykle zpracovávat stavový kód protokolu HTTP 404.
+Vezměte v úvahu scénář, ve kterém se používá trasa s příponou `/some/page` . Předpokládat, že požadavek neodpovídá vzorové trase na straně serveru, ale jeho vzor odpovídá trase na straně klienta. Nyní zvažte příchozí požadavek na `/images/user-512.png` , který obecně očekává, že na serveru najde soubor s obrázkem. Pokud tato požadovaná cesta prostředku neodpovídá žádné cestě na straně serveru ani ke statickému souboru, je pravděpodobné, že aplikace na straně klienta nebude obvykle zpracovávat &mdash; stavový kód protokolu HTTP 404.
 
 ### <a name="routing-helpers-prerequisites"></a>Požadavky na helpdesky směrování
 
@@ -254,7 +254,7 @@ Existují dva režimy konfigurace primárního modulu runtime:
   * Vyloučí zdrojové mapy.
   * Optimalizuje kód na straně klienta prostřednictvím sdružování a minifikace.
 
-ASP.NET Core používá k uložení režimu konfigurace `ASPNETCORE_ENVIRONMENT` proměnnou prostředí s názvem. Další informace najdete v tématu [nastavení prostředí](xref:fundamentals/environments#set-the-environment).
+ASP.NET Core používá `ASPNETCORE_ENVIRONMENT` k uložení režimu konfigurace proměnnou prostředí s názvem. Další informace najdete v tématu [nastavení prostředí](xref:fundamentals/environments#set-the-environment).
 
 ### <a name="run-with-net-core-cli"></a>Spustit s .NET Core CLI
 
@@ -274,7 +274,7 @@ Aplikace se spouští na místním hostiteli podle [režimu konfigurace modulu r
 
 ### <a name="run-with-visual-studio-2017"></a>Spustit se sadou Visual Studio 2017
 
-Otevřete soubor *. csproj* generovaný příkazem [dotnet New](/dotnet/core/tools/dotnet-new) . Požadované balíčky NuGet a npm se obnoví automaticky po otevření projektu. Tento proces obnovení může trvat až několik minut a aplikace je připravená ke spuštění po dokončení. Klikněte na zelené tlačítko spustit nebo stiskněte `Ctrl + F5`klávesu a otevře se prohlížeč na úvodní stránce aplikace. Aplikace běží na místním hostiteli podle [režimu konfigurace modulu runtime](#set-the-runtime-configuration-mode).
+Otevřete soubor *. csproj* generovaný příkazem [dotnet New](/dotnet/core/tools/dotnet-new) . Požadované balíčky NuGet a npm se obnoví automaticky po otevření projektu. Tento proces obnovení může trvat až několik minut a aplikace je připravená ke spuštění po dokončení. Klikněte na zelené tlačítko spustit nebo stiskněte klávesu `Ctrl + F5` a otevře se prohlížeč na úvodní stránce aplikace. Aplikace běží na místním hostiteli podle [režimu konfigurace modulu runtime](#set-the-runtime-configuration-mode).
 
 ## <a name="test-the-app"></a>Otestování aplikace
 
@@ -298,7 +298,7 @@ Skript spustí Karma Test Runner, který přečte nastavení definované v soubo
 
 Další informace o publikování do Azure najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/12474) .
 
-Kombinování generovaných prostředků na straně klienta a publikovaných artefaktů ASP.NET Core do balíčku připraveného k nasazení může být náročných. Naštěstí SpaServices orchestruje, že celý proces publikace s vlastním cílem MSBuild s názvem `RunWebpack`:
+Kombinování generovaných prostředků na straně klienta a publikovaných artefaktů ASP.NET Core do balíčku připraveného k nasazení může být náročných. Naštěstí SpaServices orchestruje, že celý proces publikace s vlastním cílem MSBuild s názvem `RunWebpack` :
 
 [!code-xml[](../client-side/spa-services/sample/SpaServicesSampleApp/SpaServicesSampleApp.csproj?range=31-45)]
 

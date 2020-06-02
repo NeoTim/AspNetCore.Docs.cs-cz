@@ -1,20 +1,88 @@
 ---
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: guardrex Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
+monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 06/01/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- ' SignalR ' UID: Security/blazor/WebAssembly/další scénáře
 
 ---
 # <a name="aspnet-core-blazor-webassembly-additional-security-scenarios"></a>ASP.NET Core Blazor Další scénáře zabezpečení pro WebAssembly
 
-[Javier Calvarro Nelson](https://github.com/javiercn)
+Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
 ## <a name="attach-tokens-to-outgoing-requests"></a>Připojit tokeny k odchozím žádostem
 
 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler>Službu lze použít s nástrojem <xref:System.Net.Http.HttpClient> k připojení přístupových tokenů k odchozím žádostem. Tokeny se získávají pomocí existující <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider> služby. Pokud token nelze získat, <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException> je vyvolána výjimka. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException>má <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException.Redirect%2A> metodu, která se dá použít k navigaci uživatele na poskytovatele identity za účelem získání nového tokenu. <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler>Pomocí metody lze konfigurovat pomocí autorizovaných adres URL, oborů a návratové adresy URL <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler%2A> .
+
+Ke konfiguraci obslužné rutiny zpráv pro odchozí požadavky použijte některý z následujících přístupů:
+
+* [Vlastní třída AuthorizationMessageHandler](#custom-authorizationmessagehandler-class) (*doporučeno*)
+* [Konfigurace AuthorizationMessageHandler](#configure-authorizationmessagehandler)
+
+### <a name="custom-authorizationmessagehandler-class"></a>Vlastní třída AuthorizationMessageHandler
+
+V následujícím příkladu vlastní třída rozšiřuje <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> , která může být použita ke konfiguraci <xref:System.Net.Http.HttpClient> :
+
+```csharp
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+
+public class CustomAuthorizationMessageHandler : AuthorizationMessageHandler
+{
+    public CustomAuthorizationMessageHandler(IAccessTokenProvider provider, 
+        NavigationManager navigationManager)
+        : base(provider, navigationManager)
+    {
+        ConfigureHandler(
+            authorizedUrls: new[] { "https://www.example.com/base" },
+            scopes: new[] { "example.read", "example.write" });
+    }
+}
+```
+
+V `Program.Main` (*program.cs*) <xref:System.Net.Http.HttpClient> je nakonfigurován s vlastní obslužnou rutinou ověřovací zprávy:
+
+```csharp
+builder.Services.AddTransient<CustomAuthorizationMessageHandler>();
+
+builder.Services.AddHttpClient("ServerAPI",
+    client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
+        .AddHttpMessageHandler<CustomAuthorizationMessageHandler>();
+```
+
+Konfigurace <xref:System.Net.Http.HttpClient> se používá k provádění autorizovaných požadavků pomocí vzoru [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) . V případě, že je klient vytvořen pomocí nástroje <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A> (balíček[Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) ), <xref:System.Net.Http.HttpClient> jsou zadány instance, které zahrnují přístupové tokeny při vytváření požadavků na rozhraní API serveru:
+
+```razor
+@inject IHttpClientFactory ClientFactory
+
+...
+
+@code {
+    private ExampleType[] examples;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var client = ClientFactory.CreateClient("ServerAPI");
+
+            examples = 
+                await client.GetFromJsonAsync<ExampleType[]>("{API METHOD}");
+
+            ...
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+        
+    }
+}
+```
+
+### <a name="configure-authorizationmessagehandler"></a>Konfigurace AuthorizationMessageHandler
 
 V následujícím příkladu <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler> nakonfiguruje <xref:System.Net.Http.HttpClient> v `Program.Main` (*program.cs*):
 
@@ -28,7 +96,7 @@ builder.Services.AddTransient(sp =>
 {
     return new HttpClient(sp.GetRequiredService<AuthorizationMessageHandler>()
         .ConfigureHandler(
-            new [] { "https://www.example.com/base" },
+            authorizedUrls: new [] { "https://www.example.com/base" },
             scopes: new[] { "example.read", "example.write" }))
         {
             BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
@@ -36,7 +104,7 @@ builder.Services.AddTransient(sp =>
 });
 ```
 
-Pro usnadnění práce <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> je součástí předem nakonfigurovaná základní adresa aplikace jako autorizovaná adresa URL. Šablony WebAssembly s povoleným ověřováním Blazor teď používají <xref:System.Net.Http.IHttpClientFactory> v projektu rozhraní API serveru k nastavení <xref:System.Net.Http.HttpClient> pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> :
+Pro usnadnění práce <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> je součástí předem nakonfigurovaná základní adresa aplikace jako autorizovaná adresa URL. Šablony WebAssembly s povoleným ověřováním Blazor teď používají <xref:System.Net.Http.IHttpClientFactory> (balíček[Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) ) v projektu rozhraní API serveru pro nastavení <xref:System.Net.Http.HttpClient> pomocí <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler> :
 
 ```csharp
 using System.Net.Http;
@@ -44,21 +112,19 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 
 ...
 
-builder.Services.AddHttpClient("BlazorWithIdentity.ServerAPI", 
+builder.Services.AddHttpClient("ServerAPI", 
     client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
         .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
 builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>()
-    .CreateClient("BlazorWithIdentity.ServerAPI"));
+    .CreateClient("ServerAPI"));
 ```
 
 Tam, kde je klient vytvořen pomocí <xref:System.Net.Http.IHttpClientFactory.CreateClient%2A> v předchozím příkladu, se <xref:System.Net.Http.HttpClient> dodávají instance, které zahrnují přístupové tokeny při vytváření požadavků na serverový projekt.
 
-Nakonfigurovaná <xref:System.Net.Http.HttpClient> se pak používá k provádění autorizovaných požadavků pomocí jednoduchého vzoru [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) .
+Konfigurace <xref:System.Net.Http.HttpClient> se používá k provádění autorizovaných požadavků pomocí vzoru [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) :
 
-`FetchData`součást (*Pages/FetchData. Razor*):
-
-```csharp
+```razor
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject HttpClient Client
 
@@ -66,10 +132,14 @@ Nakonfigurovaná <xref:System.Net.Http.HttpClient> se pak používá k provádě
 
 protected override async Task OnInitializedAsync()
 {
+    private ExampleType[] examples;
+
     try
     {
-        forecasts = 
-            await Client.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        examples = 
+            await Client.GetFromJsonAsync<ExampleType[]>("{API METHOD}");
+
+        ...
     }
     catch (AccessTokenNotAvailableException exception)
     {
@@ -171,7 +241,7 @@ builder.Services.AddHttpClient("ServerAPI.NoAuthenticationClient",
 
 Předchozí registrace je kromě existující zabezpečené výchozí <xref:System.Net.Http.HttpClient> registrace.
 
-Komponenta vytvoří <xref:System.Net.Http.HttpClient> z <xref:System.Net.Http.IHttpClientFactory> k provedení neověřených nebo neautorizovaných požadavků:
+Komponenta vytvoří <xref:System.Net.Http.HttpClient> z <xref:System.Net.Http.IHttpClientFactory> balíčku ([Microsoft. Extensions. http](https://www.nuget.org/packages/Microsoft.Extensions.Http/) ), aby provedl neověřené nebo neautorizované požadavky:
 
 ```razor
 @inject IHttpClientFactory ClientFactory
@@ -491,141 +561,16 @@ Během operace ověřování existují případy, kdy chcete uložit stav aplika
 Ve výchozím nastavení používá knihovna [Microsoft. AspNetCore. Components. WebAssembly. Authentication](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) Library trasy, které jsou uvedeny v následující tabulce, pro reprezentaci různých stavů ověřování.
 
 | Trasa                            | Účel |
-| ---
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----------------- | ---Název: ' ASP.NET Core Blazor Další scénáře zabezpečení pro WebAssembly ' Autor: Description: ' Naučte se nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----- | | `authentication/login`           | Spustí operaci přihlášení. | | `authentication/login-callback`  | Zpracovává výsledek jakékoli operace přihlášení. | | `authentication/login-failed`    | Zobrazí chybové zprávy, když se z nějakého důvodu nepovede operace přihlášení. | | `authentication/logout`          | Spustí operaci odhlášení. | | `authentication/logout-callback` | Zpracovává výsledek operace odhlášení. | | `authentication/logout-failed`   | Zobrazí chybové zprávy, když se z nějakého důvodu nepovede operace odhlášení. | | `authentication/logged-out`      | Indikuje, že se uživatel úspěšně odhlásit. | | `authentication/profile`         | Aktivuje operaci pro úpravu profilu uživatele. | | `authentication/register`        | Aktivuje operaci pro registraci nového uživatele. |
+| -------------------------------- | ------- |
+| `authentication/login`           | Spustí operaci přihlášení. |
+| `authentication/login-callback`  | Zpracovává výsledek jakékoli operace přihlášení. |
+| `authentication/login-failed`    | Zobrazí chybové zprávy, když se z nějakého důvodu nepovede operace přihlášení. |
+| `authentication/logout`          | Spustí operaci odhlášení. |
+| `authentication/logout-callback` | Zpracovává výsledek operace odhlášení. |
+| `authentication/logout-failed`   | Zobrazí chybové zprávy, když se z nějakého důvodu nepovede operace odhlášení. |
+| `authentication/logged-out`      | Indikuje, že se uživatel úspěšně odhlásit. |
+| `authentication/profile`         | Aktivuje operaci pro úpravu profilu uživatele. |
+| `authentication/register`        | Aktivuje operaci pro registraci nového uživatele. |
 
 Trasy zobrazené v předchozí tabulce lze konfigurovat prostřednictvím <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions%601.AuthenticationPaths%2A?displayProperty=nameWithType> . Při nastavování možností pro poskytování vlastních tras potvrďte, že aplikace má trasu, která zpracovává jednotlivé cesty.
 
@@ -696,213 +641,16 @@ Pokud se rozhodnete tak učinit, můžete uživatelské rozhraní přerušit na 
 <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView>Má jeden fragment, který se dá použít pro jednu trasu ověřování, jak je znázorněno v následující tabulce.
 
 | Trasa                            | Fragment                |
-| ---
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----------------- | ---Název: ' ASP.NET Core Blazor Další scénáře zabezpečení pro WebAssembly ' Autor: Description: ' Naučte se nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor dalších scénářů zabezpečení pro WebAssembly ' Autor: Description: ' Zjistěte, jak nakonfigurovat Blazor WebAssembly pro další scénáře zabezpečení. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------------- | | `authentication/login`           | `<LoggingIn>`           | | `authentication/login-callback`  | `<CompletingLoggingIn>` | | `authentication/login-failed`    | `<LogInFailed>`         | | `authentication/logout`          | `<LogOut>`              | | `authentication/logout-callback` | `<CompletingLogOut>`    | | `authentication/logout-failed`   | `<LogOutFailed>`        | | `authentication/logged-out`      | `<LogOutSucceeded>`     | | `authentication/profile`         | `<UserProfile>`         | | `authentication/register`        | `<Registering>`         |
+| -------------------------------- | ----------------------- |
+| `authentication/login`           | `<LoggingIn>`           |
+| `authentication/login-callback`  | `<CompletingLoggingIn>` |
+| `authentication/login-failed`    | `<LogInFailed>`         |
+| `authentication/logout`          | `<LogOut>`              |
+| `authentication/logout-callback` | `<CompletingLogOut>`    |
+| `authentication/logout-failed`   | `<LogOutFailed>`        |
+| `authentication/logged-out`      | `<LogOutSucceeded>`     |
+| `authentication/profile`         | `<UserProfile>`         |
+| `authentication/register`        | `<Registering>`         |
 
 ## <a name="customize-the-user"></a>Přizpůsobení uživatele
 

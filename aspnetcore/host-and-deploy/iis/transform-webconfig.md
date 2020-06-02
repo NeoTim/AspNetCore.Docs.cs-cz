@@ -33,7 +33,7 @@ Transformace do souboru *Web. config* lze použít automaticky při publikován�
 
 Tyto transformace se vyskytují pro některé z následujících scénářů generování *webu. config* :
 
-* Vygenerováno automaticky `Microsoft.NET.Sdk.Web` sadou SDK.
+* Vygenerováno automaticky sadou `Microsoft.NET.Sdk.Web` SDK.
 * Poskytl vývojář v [kořenu obsahu](xref:fundamentals/index#content-root) aplikace.
 
 ## <a name="build-configuration"></a>Konfigurace sestavení
@@ -68,7 +68,7 @@ Transformace se použije, když je konfigurace nastavená na *release*:
 dotnet publish --configuration Release
 ```
 
-Vlastnost MSBuild pro konfiguraci je `$(Configuration)`.
+Vlastnost MSBuild pro konfiguraci je `$(Configuration)` .
 
 ## <a name="profile"></a>Profil
 
@@ -102,7 +102,7 @@ Transformace se použije, když je profil *FolderProfile*:
 dotnet publish --configuration Release /p:PublishProfile=FolderProfile
 ```
 
-Vlastnost MSBuild pro název profilu je `$(PublishProfile)`.
+Vlastnost MSBuild pro název profilu je `$(PublishProfile)` .
 
 Pokud není předán žádný profil, výchozí název profilu je **systém souborů** a *Web. FileSystem. config* se použije, pokud se soubor nachází v kořenovém adresáři obsahu aplikace.
 
@@ -138,11 +138,11 @@ Transformace se použije, když je prostředí v *produkčním*prostředí:
 dotnet publish --configuration Release /p:EnvironmentName=Production
 ```
 
-Vlastnost MSBuild pro prostředí je `$(EnvironmentName)`.
+Vlastnost MSBuild pro prostředí je `$(EnvironmentName)` .
 
-Pokud publikujete ze sady Visual Studio a použijete profil publikování <xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment>, přečtěte si téma.
+Pokud publikujete ze sady Visual Studio a použijete profil publikování, přečtěte si téma <xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment> .
 
-Proměnná `ASPNETCORE_ENVIRONMENT` prostředí je automaticky přidána do souboru *Web. config* , pokud je zadán název prostředí.
+`ASPNETCORE_ENVIRONMENT`Proměnná prostředí je automaticky přidána do souboru *Web. config* , pokud je zadán název prostředí.
 
 ## <a name="custom"></a>Vlastní
 
@@ -170,17 +170,17 @@ V následujícím příkladu je proměnná prostředí vlastní transformace nas
 </configuration>
 ```
 
-Transformace je použita, pokud je `CustomTransformFileName` vlastnost předána příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
+Transformace je použita, pokud `CustomTransformFileName` je vlastnost předána příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
 
 ```dotnetcli
 dotnet publish --configuration Release /p:CustomTransformFileName=custom.transform
 ```
 
-Vlastnost MSBuild pro název profilu je `$(CustomTransformFileName)`.
+Vlastnost MSBuild pro název profilu je `$(CustomTransformFileName)` .
 
 ## <a name="prevent-webconfig-transformation"></a>Zabránit transformaci Web. config
 
-Chcete-li zabránit transformaci souboru *Web. config* , nastavte vlastnost `$(IsWebConfigTransformDisabled)`MSBuild:
+Chcete-li zabránit transformaci souboru *Web. config* , nastavte vlastnost MSBuild `$(IsWebConfigTransformDisabled)` :
 
 ```dotnetcli
 dotnet publish /p:IsWebConfigTransformDisabled=true

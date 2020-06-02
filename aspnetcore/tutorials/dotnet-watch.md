@@ -47,17 +47,17 @@ Now listening on: http://localhost:5000
 Application started. Press Ctrl+C to shut down.
 ```
 
-Ve webovém prohlížeči přejděte na adresu `http://localhost:<port number>/api/math/sum?a=4&b=5`. Měl by se zobrazit výsledek `9`.
+Ve webovém prohlížeči přejděte na adresu `http://localhost:<port number>/api/math/sum?a=4&b=5`. Měl by se zobrazit výsledek `9` .
 
-Přejděte na rozhraní API produktu (`http://localhost:<port number>/api/math/product?a=4&b=5`). Vrátí `9`, ne `20` jako byste očekávali. Tento problém je opravený později v tomto kurzu.
+Přejděte na rozhraní API produktu ( `http://localhost:<port number>/api/math/product?a=4&b=5` ). Vrátí `9` , ne `20` jako byste očekávali. Tento problém je opravený později v tomto kurzu.
 
 ::: moniker range="<= aspnetcore-2.0"
 
 ## <a name="add-dotnet-watch-to-a-project"></a>Přidat `dotnet watch` do projektu
 
-Nástroj `dotnet watch` sledovacího procesu souborů je součástí 2.1.300 verze .NET Core SDK. Při použití starší verze .NET Core SDK jsou vyžadovány následující kroky.
+`dotnet watch`Nástroj sledovacího procesu souborů je součástí 2.1.300 verze .NET Core SDK. Při použití starší verze .NET Core SDK jsou vyžadovány následující kroky.
 
-1. Přidejte odkaz `Microsoft.DotNet.Watcher.Tools` na balíček do souboru *. csproj* :
+1. Přidejte `Microsoft.DotNet.Watcher.Tools` odkaz na balíček do souboru *. csproj* :
 
     ```xml
     <ItemGroup>
@@ -75,7 +75,7 @@ Nástroj `dotnet watch` sledovacího procesu souborů je součástí 2.1.300 ver
 
 ## <a name="run-net-core-cli-commands-using-dotnet-watch"></a>Spouštění příkazů .NET Core CLI pomocí`dotnet watch`
 
-Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit pomocí `dotnet watch`příkazu. Příklad:
+Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit pomocí příkazu `dotnet watch` . Například:
 
 | Příkaz | Příkaz se sledováním |
 | ---- | ----- |
@@ -84,14 +84,14 @@ Libovolný [.NET Core CLI příkaz](/dotnet/core/tools#cli-commands) lze spustit
 | dotnet Run-f netcoreapp 2.0----arg1 | dotnet Watch Run-f netcoreapp 2.0----arg1 |
 | dotnet test | test výrazu dotnet |
 
-Spusťte `dotnet watch run` ve složce *WebApp* . Výstup konzoly indikuje `watch` , že byl spuštěn.
+Spusťte `dotnet watch run` ve složce *WebApp* . Výstup konzoly indikuje, že `watch` byl spuštěn.
 
 > [!NOTE]
 > Můžete použít `dotnet watch --project <PROJECT>` k určení projektu, který se má sledovat. Například spuštění `dotnet watch --project WebApp run` z kořenového adresáře ukázkové aplikace bude také spuštěno a sledovat projekt *WebApp* .
 
 ## <a name="make-changes-with-dotnet-watch"></a>Provést změny pomocí`dotnet watch`
 
-Ujistěte se `dotnet watch` , že je spuštěný.
+Ujistěte `dotnet watch` se, že je spuštěný.
 
 Opravte chybu v `Product` metodě *MathController.cs* tak, aby vrátila produkt, a ne součet:
 
@@ -141,7 +141,7 @@ Další položky lze přidat do seznamu sledování úpravou souboru *. csproj* 
 
 ## <a name="opt-out-of-files-to-be-watched"></a>Výslovný souhlas se soubory, které se mají sledovat
 
-`dotnet-watch`dá se nakonfigurovat tak, aby ignoroval výchozí nastavení. Chcete-li ignorovat konkrétní soubory, `Watch="false"` přidejte atribut do definice položky v souboru *. csproj* :
+`dotnet-watch`dá se nakonfigurovat tak, aby ignoroval výchozí nastavení. Chcete-li ignorovat konkrétní soubory, přidejte `Watch="false"` atribut do definice položky v souboru *. csproj* :
 
 ```xml
 <ItemGroup>

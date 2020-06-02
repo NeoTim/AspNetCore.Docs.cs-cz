@@ -1,10 +1,11 @@
 ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: úlohy na pozadí s hostovanými službami v ASP.NET Core autor: Rick-Anderson Popis: Naučte se implementovat úlohy na pozadí s hostovanými službami v ASP.NET Core.
+monikerRange: ' >= aspnetcore-2,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 02/10/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: Základy/hostování/hostované služby
 
 ---
 # <a name="background-tasks-with-hosted-services-in-aspnet-core"></a>Úlohy na pozadí s hostovanými službami v ASP.NET Core
@@ -134,7 +135,7 @@ Služby jsou zaregistrované v `IHostBuilder.ConfigureServices` (*program.cs*). 
 
 ## <a name="queued-background-tasks"></a>Úlohy na pozadí zařazené do fronty
 
-Fronta úloh na pozadí je založena na rozhraní .NET 4. x <xref:System.Web.Hosting.HostingEnvironment.QueueBackgroundWorkItem*> ([nezávazně naplánováno jako integrované pro ASP.NET Core](https://github.com/aspnet/Hosting/issues/1280)):
+Fronta úloh na pozadí je založena na rozhraní .NET 4. x <xref:System.Web.Hosting.HostingEnvironment.QueueBackgroundWorkItem*> :
 
 [!code-csharp[](hosted-services/samples/3.x/BackgroundTasksSample/Services/BackgroundTaskQueue.cs?name=snippet1)]
 

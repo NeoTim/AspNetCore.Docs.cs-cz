@@ -24,13 +24,13 @@ ms.locfileid: "82776204"
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-`MvcMovieContext` Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v souboru *Startup.cs* :
+`MvcMovieContext`Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v souboru *Startup.cs* :
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
 
 [!code-json[](start-mvc/sample/MvcMovie/appsettings.json?highlight=2&range=8-10)]
 
@@ -38,7 +38,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_UseSqlite&highlight=5-6)]
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
 
 [!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/appsettingsSQLite.json?highlight=2&range=8-10)]
 
@@ -56,15 +56,15 @@ LocalDB je zjednodušená verze databázového stroje SQL Server Express, který
 
   ![Nabídka Zobrazit](working-with-sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem `Movie` na tabulku **> návrháře zobrazení.**
+* Klikněte pravým tlačítkem na `Movie` tabulku **> návrháře zobrazení.**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/design.png)
 
   ![Tabulka videí otevřená v Návrháři](working-with-sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primární klíč.
+Poznamenejte si ikonu klíče vedle `ID` . Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primární klíč.
 
-* Klikněte pravým tlačítkem `Movie` na tabulku **> zobrazit data.**
+* Klikněte pravým tlačítkem na `Movie` tabulku **> zobrazit data.**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/ssox2.png)
 
@@ -128,21 +128,21 @@ Aplikace zobrazuje dosazený data.
 ![Filmová aplikace MVC otevřená v Microsoft Edge ukazující data videa](working-with-sql/_static/m55.png)
 
 > [!div class="step-by-step"]
-> [Předchozí](adding-model.md)
-> [Další](controller-methods-views.md)
+> [Předchozí](adding-model.md) 
+>  [Další](controller-methods-views.md)
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
-`MvcMovieContext` Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v souboru *Startup.cs* :
+`MvcMovieContext`Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v souboru *Startup.cs* :
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=13-99)]
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
 
 [!code-json[](start-mvc/sample/MvcMovie/appsettings.json?highlight=2&range=8-10)]
 
@@ -150,7 +150,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
 
 [!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/appsettingsSQLite.json?highlight=2&range=8-10)]
 
@@ -168,15 +168,15 @@ LocalDB je zjednodušená verze databázového stroje SQL Server Express, který
 
   ![Nabídka Zobrazit](working-with-sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem `Movie` na tabulku **> návrháře zobrazení.**
+* Klikněte pravým tlačítkem na `Movie` tabulku **> návrháře zobrazení.**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/design.png)
 
   ![Tabulka videí otevřená v Návrháři](working-with-sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primární klíč.
+Poznamenejte si ikonu klíče vedle `ID` . Ve výchozím nastavení objekt EF vytvoří vlastnost s názvem `ID` primární klíč.
 
-* Klikněte pravým tlačítkem `Movie` na tabulku **> zobrazit data.**
+* Klikněte pravým tlačítkem na `Movie` tabulku **> zobrazit data.**
 
   ![Kontextová nabídka otevřená v tabulce videí](working-with-sql/_static/ssox2.png)
 
@@ -240,7 +240,7 @@ Aplikace zobrazuje dosazený data.
 ![Filmová aplikace MVC otevřená v Microsoft Edge ukazující data videa](working-with-sql/_static/m55_mac.png)
 
 > [!div class="step-by-step"]
-> [Předchozí](adding-model.md)
-> [Další](controller-methods-views.md)
+> [Předchozí](adding-model.md) 
+>  [Další](controller-methods-views.md)
 
 ::: moniker-end

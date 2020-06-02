@@ -57,7 +57,7 @@ V tomto ukázkovém kódu `IDbContextFactory` implementace projde pevně zakódo
 
 ## <a name="set-up-dependency-injection-in-the-aspnet-core-project"></a>Nastavení injektáže závislosti v projektu ASP.NET Core
 
-V souboru *Startup.cs* základního projektu nastavte kontext EF6 pro vkládání závislostí (di) v `ConfigureServices`. Objekty kontextu EF by měly být v oboru pro dobu života žádosti.
+V souboru *Startup.cs* základního projektu nastavte kontext EF6 pro vkládání závislostí (di) v `ConfigureServices` . Objekty kontextu EF by měly být v oboru pro dobu života žádosti.
 
 [!code-csharp[](entity-framework-6/sample/MVCCore/Startup.cs?name=snippet_ConfigureServices&highlight=5)]
 
@@ -73,16 +73,16 @@ Tuto ukázku můžete vytvořit úplně od začátku pomocí následujících kr
 
 * Vytvořte řešení.
 
-* **Přidat** > **novou** > **Web** > **webovou aplikaci** Project Web ASP.NET Core
+* **Přidat**  >  **Nový projekt**  >  **Webové**  >  **ASP.NET Core webové aplikace**
   * V dialogovém okně Výběr šablony projektu vyberte v rozevíracím seznamu položku rozhraní API a .NET Framework.
 
-* **Přidat** > **novou**knihovnu tříd pro > **Windows Project Desktop** > **(.NET Framework)**
+* **Přidat**  >  **Nový projekt**  >  **Plocha Windows**  >  **Knihovna tříd (.NET Framework)**
 
-* V **konzole správce balíčků** (PMC) pro oba projekty spusťte příkaz `Install-Package Entityframework`.
+* V **konzole správce balíčků** (PMC) pro oba projekty spusťte příkaz `Install-Package Entityframework` .
 
-* V projektu knihovny tříd vytvořte třídy datového modelu a třídu kontextu a implementaci `IDbContextFactory`.
+* V projektu knihovny tříd vytvořte třídy datového modelu a třídu kontextu a implementaci `IDbContextFactory` .
 
-* V PMC pro projekt knihovny tříd spusťte příkazy `Enable-Migrations` a. `Add-Migration Initial` Pokud jste nastavili ASP.NET Core projekt jako spouštěný projekt, přidejte `-StartupProjectName EF6` k těmto příkazům.
+* V PMC pro projekt knihovny tříd spusťte příkazy `Enable-Migrations` a `Add-Migration Initial` . Pokud jste nastavili ASP.NET Core projekt jako spouštěný projekt, přidejte `-StartupProjectName EF6` k těmto příkazům.
 
 * V projektu Core přidejte odkaz na projekt do projektu knihovny tříd.
 

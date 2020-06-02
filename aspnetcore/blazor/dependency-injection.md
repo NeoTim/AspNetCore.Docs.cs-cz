@@ -1,11 +1,11 @@
 ---
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: "ASP.NET Core Blazor Injektáže závislosti" autor: guardrex Description: ' Podívejte se Blazor , jak aplikace můžou vkládat služby do součástí. '
+monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/19/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: blazor/vkládání závislostí
 
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>BlazorVkládání závislostí ASP.NET Core
@@ -23,60 +23,11 @@ DI je technika přístupu ke službám nakonfigurovaným v centrálním umístě
 
 Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 
-| Služba | Doba platnosti | Description |
-| ---
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----- | ---Název: "ASP.NET Core Blazor Injektáže" autor: Description: ' Podívejte se Blazor , jak aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----- | ---Název: "ASP.NET Core Blazor Injektáže" autor: Description: ' Podívejte se Blazor , jak aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | | <xref:System.Net.Http.HttpClient> | Přechodný | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance <xref:System.Net.Http.HttpClient> v Blazor aplikaci WebAssembly používá prohlížeč pro zpracování provozu http na pozadí.<br><br>BlazorServerové aplikace <xref:System.Net.Http.HttpClient> ve výchozím nastavení neobsahují nakonfigurovaný jako službu. Poskytněte <xref:System.Net.Http.HttpClient> Blazor serverovou aplikaci.<br><br>Další informace naleznete v tématu <xref:blazor/call-web-api>. | | <xref:Microsoft.JSInterop.IJSRuntime> | Singleton ( Blazor WebAssembly)<br>Obor ( Blazor Server) | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/call-javascript-from-dotnet>. | | <xref:Microsoft.AspNetCore.Components.NavigationManager> | Singleton ( Blazor WebAssembly)<br>Obor ( Blazor Server) | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
+| Služba | Doba platnosti | Popis |
+| ------- | -------- | ----------- |
+| <xref:System.Net.Http.HttpClient> | Dočasný | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance <xref:System.Net.Http.HttpClient> v Blazor aplikaci WebAssembly používá prohlížeč pro zpracování provozu http na pozadí.<br><br>BlazorServerové aplikace <xref:System.Net.Http.HttpClient> ve výchozím nastavení neobsahují nakonfigurovaný jako službu. Poskytněte <xref:System.Net.Http.HttpClient> Blazor serverovou aplikaci.<br><br>Další informace naleznete v tématu <xref:blazor/call-web-api>. |
+| <xref:Microsoft.JSInterop.IJSRuntime> | Singleton ( Blazor WebAssembly)<br>S vymezeným oborem ( Blazor Server) | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/call-javascript-from-dotnet>. |
+| <xref:Microsoft.AspNetCore.Components.NavigationManager> | Singleton ( Blazor WebAssembly)<br>S vymezeným oborem ( Blazor Server) | Obsahuje nápovědu pro práci s identifikátory URI a stavem navigace. Další informace najdete v tématu věnovaném [identifikátorům URI a nápovědě k informacím o stavu navigace](xref:blazor/routing#uri-and-navigation-state-helpers). |
 
 Vlastní zprostředkovatel služeb automaticky neposkytuje výchozí služby uvedené v tabulce. Pokud používáte vlastního poskytovatele služeb a potřebujete některou ze služeb zobrazených v tabulce, přidejte požadované služby k novému poskytovateli služeb.
 
@@ -167,52 +118,11 @@ public void ConfigureServices(IServiceCollection services)
 
 Služby je možné konfigurovat s životností, která jsou uvedená v následující tabulce.
 
-| Doba platnosti | Description |
-| ---
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----- | ---Název: "ASP.NET Core Blazor Injektáže" autor: Description: ' Podívejte se Blazor , jak aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Injektáže závislosti ' Autor: Description: ' jak Blazor aplikace můžou vkládat služby do součástí. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | Blazor Aplikace pro WebAssembly aktuálně nemají koncept typu DI obory. `Scoped`– registrované služby se chovají jako `Singleton` služby. BlazorModel hostování serveru však podporuje `Scoped` dobu života. V rámci Blazor serverových aplikací je vymezená registrace služby vymezená na *připojení*. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. | | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI vytvoří *jednu instanci* služby. Všechny součásti, které vyžadují `Singleton` službu, obdrží instanci stejné služby. | | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | Pokaždé, když komponenta získá instanci `Transient` služby z kontejneru služby, obdrží *novou instanci* služby. |
+| Doba platnosti | Popis |
+| -------- | ----------- |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | BlazorAplikace pro WebAssembly aktuálně nemají koncept typu DI obory. `Scoped`– registrované služby se chovají jako `Singleton` služby. BlazorModel hostování serveru však podporuje `Scoped` dobu života. V rámci Blazor serverových aplikací je vymezená registrace služby vymezená na *připojení*. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI vytvoří *jednu instanci* služby. Všechny součásti, které vyžadují `Singleton` službu, obdrží instanci stejné služby. |
+| <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Transient%2A> | Pokaždé, když komponenta získá instanci `Transient` služby z kontejneru služby, obdrží *novou instanci* služby. |
 
 Systém DI je založený na systému DI v ASP.NET Core. Další informace naleznete v tématu <xref:fundamentals/dependency-injection>.
 
@@ -424,4 +334,5 @@ Může-li jedna součást současně použít <xref:Microsoft.EntityFrameworkCor
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/dependency-injection>
+* [Doprovodné materiály k rozhraní IDisposable pro přechodné a sdílené instance](xref:fundamentals/dependency-injection#idisposable-guidance-for-transient-and-shared-instances)
 * <xref:mvc/views/dependency-injection>

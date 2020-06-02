@@ -1,11 +1,11 @@
 ---
-title: ' ASP.NET Core Blazor ověřování a autorizace ' Autor: Popis: ' informace o Blazor scénářích ověřování a autorizace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: ' ASP.NET Core Blazor Authentication and Authorization ' Autor: guardrex Description: ' Další informace o Blazor scénářích ověřování a autorizace. '
+monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/19/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: Security/blazor/index
 
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor ověřování a autorizace
@@ -454,14 +454,6 @@ Pokud je aplikace nutná k kontrole autorizačních pravidel v rámci procedurá
 > ```
 >
 > Tyto obory názvů je možné poskytnout globálně tak, že je přidáte do souboru *_Imports. Razor* aplikace.
-
-## <a name="authorization-in-blazor-webassembly-apps"></a>Autorizace v Blazor aplikacích pro WebAssembly
-
-V Blazor aplikacích pro WebAssembly lze kontroly autorizace obejít, protože všechny kódy na straně klienta mohou být změněny uživateli. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
-
-**Na serveru vždy provádějte kontroly autorizace v libovolném koncovém bodu rozhraní API, ke kterému přistupovala aplikace na straně klienta.**
-
-Další informace najdete v článcích v části <xref:security/blazor/webassembly/index> .
 
 ## <a name="troubleshoot-errors"></a>Řešení chyb
 

@@ -1,15 +1,16 @@
 ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: vkládání závislostí v ASP.NET Core autor: Rick-Anderson Popis: Přečtěte si, jak ASP.NET Core implementuje vkládání závislostí a jak ho používat.
+monikerRange: ' >= aspnetcore-2,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/14/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: Základy/vkládání závislostí
 
 ---
 # <a name="dependency-injection-in-aspnet-core"></a>Injektáž závislostí v ASP.NET Core
 
-[Steve Smith](https://ardalis.com/) a [Scott Addie](https://scottaddie.com)
+[Steve Smith](https://ardalis.com/), [Scott Addie](https://scottaddie.com)a [Brandon Dahler](https://github.com/brandondahler)
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -138,54 +139,21 @@ Další informace naleznete v tématu <xref:fundamentals/startup>.
 `Startup.ConfigureServices`Metoda zodpovídá za definování služeb, které aplikace používá, včetně funkcí platformy, jako je například Entity Framework Core a ASP.NET Core MVC. Zpočátku `IServiceCollection` `ConfigureServices` služba má služby definované rozhraním v závislosti na [tom, jak byl hostitel nakonfigurovaný](xref:fundamentals/index#host). Pro aplikaci, která je založená na šabloně ASP.NET Core, není běžné, že mají stovky služeb zaregistrovaných v rámci rozhraní. V následující tabulce je uvedena malá ukázka služeb registrovaných v rozhraní.
 
 | Typ služby | Doba platnosti |
-| ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----- | | <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Přechodný | | `IHostApplicationLifetime` | Singleton | | `IWebHostEnvironment` | Singleton | | <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | Singleton | | <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | Přechodný | | <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | Singleton | | <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | Přechodný | | <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | Singleton | | <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | Singleton | | <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | Singleton | | <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | Přechodný | | <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | Singleton | | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | Singleton | | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | Singleton |
+| ------------ | -------- |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Dočasný |
+| `IHostApplicationLifetime` | Singleton |
+| `IWebHostEnvironment` | Singleton |
+| <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | Dočasný |
+| <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | Dočasný |
+| <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | Dočasný |
+| <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | Singleton |
+| <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | Singleton |
+| <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | Singleton |
 
 ## <a name="register-additional-services-with-extension-methods"></a>Registrace dalších služeb pomocí rozšiřujících metod
 
@@ -236,196 +204,12 @@ Služba singleton životnosti ( <xref:Microsoft.Extensions.DependencyInjection.S
 Metody rozšíření registrace služby nabízejí přetížení, která jsou užitečná pro konkrétní scénáře.
 
 | Metoda | Automaticky<br>odkazy objektů<br>odvod | Několik<br>implementace | Pass – argumenty |
-| ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | :---název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----------------: | :---název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--------------: | :---název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-----: | | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<IMyDep, MyDep>();`| Ano | Ano | Žádné | |`Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));`| Ano | Ano | Ano | |`Add{LIFETIME}<{IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<MyDep>();`| Ano | Žádné | Žádné | |`AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep("A string!"));`| Žádné | Ano | Ano | |`AddSingleton(new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep("A string!"));`| Žádné | Žádné | Ano |
+| ------ | :-----------------------------: | :-------------------------: | :-------: |
+| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<IMyDep, MyDep>();` | Ano | Ano | No |
+| `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | Ano | Ano | Ano |
+| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<MyDep>();` | Ano | Ne | Ne |
+| `AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep("A string!"));` | No | Ano | Ano |
+| `AddSingleton(new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep("A string!"));` | Ne | No | Ano |
 
 Další informace o vyřazení typů najdete v části věnované [vyřazení služeb](#disposal-of-services) . Běžným scénářem pro více implementací je vytvoření [typů pro testování](xref:test/integration-tests#inject-mock-services).
 
@@ -666,7 +450,40 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Diskuzi o možnostech vyřazení služeb najdete [v článku čtyři způsoby odstranění IDisposable v ASP.NET Core](https://andrewlock.net/four-ways-to-dispose-idisposables-in-asp-net-core/).
+### <a name="idisposable-guidance-for-transient-and-shared-instances"></a>Doprovodné materiály k rozhraní IDisposable pro přechodné a sdílené instance
+
+#### <a name="transient-limited-lifetime"></a>Přechodná, omezená doba života
+
+**Scénář**
+
+Aplikace vyžaduje <xref:System.IDisposable> instanci s přechodným životností pro některý z následujících scénářů:
+
+* Instance je vyřešena v kořenovém oboru.
+* Instance by měla být uvolněna před ukončením oboru.
+
+**Řešení**
+
+Pomocí modelu továrny vytvořte instanci mimo nadřazený obor. V takové situaci by aplikace měla obvykle `Create` metodu, která volá přímo konstruktor finálního typu. Pokud má konečný typ jiné závislosti, továrna může:
+
+* Přijmout <xref:System.IServiceProvider> ve svém konstruktoru.
+* Slouží <xref:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance%2A?displayProperty=nameWithType> k vytvoření instance instance mimo kontejner, při použití kontejneru pro jeho závislosti.
+
+#### <a name="shared-instance-limited-lifetime"></a>Sdílená instance, omezená doba života
+
+**Scénář**
+
+Aplikace vyžaduje sdílenou <xref:System.IDisposable> instanci napříč více službami, ale <xref:System.IDisposable> měla by mít omezené trvání.
+
+**Řešení**
+
+Zaregistrujte instanci s vymezenou životností. Použijte <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory.CreateScope%2A?displayProperty=nameWithType> k zahájení a vytvoření nového <xref:Microsoft.Extensions.DependencyInjection.IServiceScope> . <xref:System.IServiceProvider>Požadované služby získáte pomocí tohoto oboru. Vyřadit rozsah, pokud by životnost měla končit.
+
+#### <a name="general-guidelines"></a>Obecné pokyny
+
+* Neregistrujte <xref:System.IDisposable> instance s přechodným oborem. Místo toho použijte výrobní model.
+* V kořenovém oboru neřešte přechodné nebo vymezené <xref:System.IDisposable> instance. Jedinou obecnou výjimkou je, když aplikace vytvoří nebo znovu vytvoří a odstraní <xref:System.IServiceProvider> , což není ideální vzor.
+* Příjem <xref:System.IDisposable> závislosti přes di nevyžaduje, aby se příjemce sám implementoval <xref:System.IDisposable> . Příjemce <xref:System.IDisposable> závislosti by neměl volat <xref:System.IDisposable.Dispose%2A> tuto závislost.
+* Obory by měly sloužit k řízení životnosti služeb. Obory nejsou hierarchické a mezi obory není žádné zvláštní připojení.
 
 ## <a name="default-service-container-replacement"></a>Výchozí nahrazení kontejneru služby
 
@@ -746,7 +563,7 @@ Výrobní metoda samostatné služby, jako je například druhý argument pro [A
 
 * Vyhněte se statickému přístupu k `HttpContext` (například [IHttpContextAccessor. HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext)).
 
-Podobně jako u všech sad doporučení se může stát, že se vyžaduje ignorování doporučení. Výjimky jsou zřídka &mdash; většinou zvláštní případy v rámci samotného rozhraní.
+Podobně jako u všech sad doporučení se může stát, že se vyžaduje ignorování doporučení. Výjimky jsou zřídka, většinou zvláštní případy v rámci samotného rozhraní.
 
 DI je *alternativou* ke vzorům statických nebo globálních přístupů k objektům. Je možné, že nebudete moci využít výhody DI, pokud je kombinujete se statickým přístupem k objektům.
 
@@ -764,6 +581,7 @@ V ukázkových aplikacích v tématu najdete https://github.com/OrchardCMS/Orcha
 * <xref:blazor/dependency-injection>
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/extensibility>
+* [Čtyři způsoby, jak vyřadit IDisposable v ASP.NET Core](https://andrewlock.net/four-ways-to-dispose-idisposables-in-asp-net-core/)
 * [Zápis čistého kódu v ASP.NET Core pomocí injektáže závislosti (MSDN)](https://msdn.microsoft.com/magazine/mt703433.aspx)
 * [Explicitní závislosti – princip](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)
 * [Inverze řídicích kontejnerů a vzor injektáže závislosti (Martin Fowlera)](https://www.martinfowler.com/articles/injection.html)
@@ -898,54 +716,21 @@ Další informace naleznete v tématu <xref:fundamentals/startup>.
 `Startup.ConfigureServices`Metoda zodpovídá za definování služeb, které aplikace používá, včetně funkcí platformy, jako je například Entity Framework Core a ASP.NET Core MVC. Zpočátku `IServiceCollection` `ConfigureServices` služba má služby definované rozhraním v závislosti na [tom, jak byl hostitel nakonfigurovaný](xref:fundamentals/index#host). Pro aplikaci, která je založená na šabloně ASP.NET Core, není běžné, že mají stovky služeb zaregistrovaných v rámci rozhraní. V následující tabulce je uvedena malá ukázka služeb registrovaných v rozhraní.
 
 | Typ služby | Doba platnosti |
-| ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----- | | <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Přechodný | | <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime?displayProperty=fullName> | Singleton | | <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment?displayProperty=fullName> | Singleton | | <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | Singleton | | <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | Přechodný | | <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | Singleton | | <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | Přechodný | | <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | Singleton | | <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | Singleton | | <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | Singleton | | <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | Přechodný | | <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | Singleton | | <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | Singleton | | <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | Singleton |
+| ------------ | -------- |
+| <xref:Microsoft.AspNetCore.Hosting.Builder.IApplicationBuilderFactory?displayProperty=fullName> | Dočasný |
+| <xref:Microsoft.AspNetCore.Hosting.IApplicationLifetime?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.AspNetCore.Hosting.IStartup?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.AspNetCore.Hosting.IStartupFilter?displayProperty=fullName> | Dočasný |
+| <xref:Microsoft.AspNetCore.Hosting.Server.IServer?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.AspNetCore.Http.IHttpContextFactory?displayProperty=fullName> | Dočasný |
+| <xref:Microsoft.Extensions.Logging.ILogger`1?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.Logging.ILoggerFactory?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.ObjectPool.ObjectPoolProvider?displayProperty=fullName> | Singleton |
+| <xref:Microsoft.Extensions.Options.IConfigureOptions`1?displayProperty=fullName> | Dočasný |
+| <xref:Microsoft.Extensions.Options.IOptions`1?displayProperty=fullName> | Singleton |
+| <xref:System.Diagnostics.DiagnosticSource?displayProperty=fullName> | Singleton |
+| <xref:System.Diagnostics.DiagnosticListener?displayProperty=fullName> | Singleton |
 
 ## <a name="register-additional-services-with-extension-methods"></a>Registrace dalších služeb pomocí rozšiřujících metod
 
@@ -996,196 +781,12 @@ Služba singleton životnosti ( <xref:Microsoft.Extensions.DependencyInjection.S
 Metody rozšíření registrace služby nabízejí přetížení, která jsou užitečná pro konkrétní scénáře.
 
 | Metoda | Automaticky<br>odkazy objektů<br>odvod | Několik<br>implementace | Pass – argumenty |
-| ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | :---název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----------------: | :---název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--------------: | :---název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-----: | | `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<IMyDep, MyDep>();`| Ano | Ano | Žádné | |`Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));`| Ano | Ano | Ano | |`Add{LIFETIME}<{IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<MyDep>();`| Ano | Žádné | Žádné | |`AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep("A string!"));`| Žádné | Ano | Ano | |`AddSingleton(new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep("A string!"));`| Žádné | Žádné | Ano |
+| ------ | :-----------------------------: | :-------------------------: | :-------: |
+| `Add{LIFETIME}<{SERVICE}, {IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<IMyDep, MyDep>();` | Ano | Ano | No |
+| `Add{LIFETIME}<{SERVICE}>(sp => new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(sp => new MyDep());`<br>`services.AddSingleton<IMyDep>(sp => new MyDep("A string!"));` | Ano | Ano | Ano |
+| `Add{LIFETIME}<{IMPLEMENTATION}>()`<br>Příklad:<br>`services.AddSingleton<MyDep>();` | Ano | Ne | Ne |
+| `AddSingleton<{SERVICE}>(new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton<IMyDep>(new MyDep());`<br>`services.AddSingleton<IMyDep>(new MyDep("A string!"));` | No | Ano | Ano |
+| `AddSingleton(new {IMPLEMENTATION})`<br>Příklady:<br>`services.AddSingleton(new MyDep());`<br>`services.AddSingleton(new MyDep("A string!"));` | Ne | No | Ano |
 
 Další informace o vyřazení typů najdete v části věnované [vyřazení služeb](#disposal-of-services) . Běžným scénářem pro více implementací je vytvoření [typů pro testování](xref:test/integration-tests#inject-mock-services).
 
@@ -1424,6 +1025,41 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
+### <a name="idisposable-guidance-for-transient-and-shared-instances"></a>Doprovodné materiály k rozhraní IDisposable pro přechodné a sdílené instance
+
+#### <a name="transient-limited-lifetime"></a>Přechodná, omezená doba života
+
+**Scénář**
+
+Aplikace vyžaduje <xref:System.IDisposable> instanci s přechodným životností pro některý z následujících scénářů:
+
+* Instance je vyřešena v kořenovém oboru.
+* Instance by měla být uvolněna před ukončením oboru.
+
+**Řešení**
+
+Pomocí modelu továrny vytvořte instanci mimo nadřazený obor. V takové situaci by aplikace měla obvykle `Create` metodu, která volá přímo konstruktor finálního typu. Pokud má konečný typ jiné závislosti, továrna může:
+
+* Přijmout <xref:System.IServiceProvider> ve svém konstruktoru.
+* Slouží <xref:Microsoft.Extensions.DependencyInjection.ActivatorUtilities.CreateInstance%2A?displayProperty=nameWithType> k vytvoření instance instance mimo kontejner, při použití kontejneru pro jeho závislosti.
+
+#### <a name="shared-instance-limited-lifetime"></a>Sdílená instance, omezená doba života
+
+**Scénář**
+
+Aplikace vyžaduje sdílenou <xref:System.IDisposable> instanci napříč více službami, ale <xref:System.IDisposable> měla by mít omezené trvání.
+
+**Řešení**
+
+Zaregistrujte instanci s vymezenou životností. Použijte <xref:Microsoft.Extensions.DependencyInjection.IServiceScopeFactory.CreateScope%2A?displayProperty=nameWithType> k zahájení a vytvoření nového <xref:Microsoft.Extensions.DependencyInjection.IServiceScope> . <xref:System.IServiceProvider>Požadované služby získáte pomocí tohoto oboru. Vyřadit rozsah, pokud by životnost měla končit.
+
+#### <a name="general-guidelines"></a>Obecné pokyny
+
+* Neregistrujte <xref:System.IDisposable> instance s přechodným oborem. Místo toho použijte výrobní model.
+* V kořenovém oboru neřešte přechodné nebo vymezené <xref:System.IDisposable> instance. Jedinou obecnou výjimkou je, když aplikace vytvoří nebo znovu vytvoří a odstraní <xref:System.IServiceProvider> , což není ideální vzor.
+* Příjem <xref:System.IDisposable> závislosti přes di nevyžaduje, aby se příjemce sám implementoval <xref:System.IDisposable> . Příjemce <xref:System.IDisposable> závislosti by neměl volat <xref:System.IDisposable.Dispose%2A> tuto závislost.
+* Obory by měly sloužit k řízení životnosti služeb. Obory nejsou hierarchické a mezi obory není žádné zvláštní připojení.
+
 ## <a name="default-service-container-replacement"></a>Výchozí nahrazení kontejneru služby
 
 Integrovaný kontejner služeb je navržený tak, aby sloužil potřebám architektury a většině spotřebitelských aplikací. Pokud nepotřebujete určitou funkci, kterou integrovaný kontejner nepodporuje, doporučujeme použít vestavěný kontejner, například:
@@ -1504,7 +1140,7 @@ Výrobní metoda samostatné služby, jako je například druhý argument pro [A
 
 * Vyhněte se statickému přístupu k `HttpContext` (například [IHttpContextAccessor. HttpContext](xref:Microsoft.AspNetCore.Http.IHttpContextAccessor.HttpContext)).
 
-Podobně jako u všech sad doporučení se může stát, že se vyžaduje ignorování doporučení. Výjimky jsou zřídka &mdash; většinou zvláštní případy v rámci samotného rozhraní.
+Podobně jako u všech sad doporučení se může stát, že se vyžaduje ignorování doporučení. Výjimky jsou zřídka, většinou zvláštní případy v rámci samotného rozhraní.
 
 DI je *alternativou* ke vzorům statických nebo globálních přístupů k objektům. Je možné, že nebudete moci využít výhody DI, pokud je kombinujete se statickým přístupem k objektům.
 
@@ -1516,6 +1152,7 @@ DI je *alternativou* ke vzorům statických nebo globálních přístupů k obje
 * <xref:blazor/dependency-injection>
 * <xref:fundamentals/startup>
 * <xref:fundamentals/middleware/extensibility>
+* [Čtyři způsoby, jak vyřadit IDisposable v ASP.NET Core](https://andrewlock.net/four-ways-to-dispose-idisposables-in-asp-net-core/)
 * [Zápis čistého kódu v ASP.NET Core pomocí injektáže závislosti (MSDN)](https://msdn.microsoft.com/magazine/mt703433.aspx)
 * [Explicitní závislosti – princip](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies)
 * [Inverze řídicích kontejnerů a vzor injektáže závislosti (Martin Fowlera)](https://www.martinfowler.com/articles/injection.html)

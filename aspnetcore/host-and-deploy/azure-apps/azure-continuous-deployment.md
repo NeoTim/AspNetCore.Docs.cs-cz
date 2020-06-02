@@ -44,9 +44,9 @@ V tomto kurzu se předpokládá, že je nainstalovaný následující software:
 
 1. Spusťte Visual Studio.
 
-1. V nabídce **soubor** vyberte možnost **Nový** > **projekt**.
+1. V nabídce **soubor** vyberte možnost **Nový**  >  **projekt**.
 
-1. Vyberte šablonu projektu **ASP.NET Core webové aplikace** . Zobrazí se v části **nainstalované** > **šablony** > **Visual C#** > **.NET Core**. Pojmenujte `SampleWebAppDemo`projekt. Vyberte možnost **vytvořit novou Git úložiště** a klikněte na **OK**.
+1. Vyberte šablonu projektu **ASP.NET Core webové aplikace** . Zobrazí se v části **nainstalované**  >  **šablony**  >  **Visual C#**  >  **.NET Core**. Pojmenujte projekt `SampleWebAppDemo` . Vyberte možnost **vytvořit novou Git úložiště** a klikněte na **OK**.
 
    ![Dialogové okno Nový projekt](azure-continuous-deployment/_static/01-new-project.png)
 
@@ -59,7 +59,7 @@ V tomto kurzu se předpokládá, že je nainstalovaný následující software:
 
 ### <a name="running-the-web-app-locally"></a>Místní spuštění webové aplikace
 
-1. Jakmile Visual Studio dokončí vytváření aplikace **, spusťte aplikaci výběrem** > ladění**Spustit ladění**. Jako alternativu stiskněte klávesu **F5**.
+1. Jakmile Visual Studio dokončí vytváření aplikace **, spusťte aplikaci výběrem ladění**  >  **Spustit ladění**. Jako alternativu stiskněte klávesu **F5**.
 
    Inicializace sady Visual Studio a nové aplikace může chvíli trvat. Po dokončení se v prohlížeči zobrazí spuštěná aplikace.
 
@@ -75,7 +75,7 @@ Pomocí následujících kroků vytvoříte webovou aplikaci na webu Azure Porta
 
 1. Vyberte **Nový** v levém horním rohu rozhraní portálu.
 
-1. Vyberte **web a mobilní zařízení** > **webové aplikace**.
+1. Vyberte **web a mobilní zařízení**  >  **webové aplikace**.
 
    ![Microsoft Azure Portal: nové tlačítko: Web a mobilní zařízení na webu Marketplace: tlačítko webové aplikace v oblasti vybrané aplikace](azure-continuous-deployment/_static/05-azure-newwebapp.png)
 
@@ -102,7 +102,7 @@ Git je distribuovaný systém správy verzí, který se dá použít k nasazení
 
 1. Vyberte webovou aplikaci vytvořenou v předchozí části tohoto kurzu.
 
-1. V okně **nasazení** vyberte **Možnosti** > nasazení**zvolit zdrojové** > **místní úložiště Git**.
+1. V okně **nasazení** vyberte **Možnosti nasazení**  >  **zvolit zdrojové**  >  **místní úložiště Git**.
 
    ![Okno nastavení: okno zdroje nasazení: zvolit zdrojový okno](azure-continuous-deployment/_static/deployment-options.png)
 
@@ -110,11 +110,11 @@ Git je distribuovaný systém správy verzí, který se dá použít k nasazení
 
 1. Pokud se přihlašovací údaje nasazení pro publikování webové aplikace nebo jiné aplikace App Service ještě neudělaly, nastavte je teď:
 
-   * Vyberte **Nastavení** > **přihlašovací údaje pro nasazení**. Zobrazí se okno **nastavit přihlašovací údaje nasazení** .
+   * Vyberte **Nastavení**  >  **přihlašovací údaje pro nasazení**. Zobrazí se okno **nastavit přihlašovací údaje nasazení** .
    * Vytvořte uživatelské jméno a heslo. Uložte heslo pro pozdější použití při nastavování Gitu.
    * Vyberte **Uložit**.
 
-1. V okně **Webová aplikace** vyberte **Nastavení** > **vlastnosti**. Adresa URL vzdáleného úložiště Git, na který se má nasadit, se zobrazí v části **Adresa URL Gitu**.
+1. V okně **Webová aplikace** vyberte **Nastavení**  >  **vlastnosti**. Adresa URL vzdáleného úložiště Git, na který se má nasadit, se zobrazí v části **Adresa URL Gitu**.
 
 1. Zkopírujte hodnotu **adresy URL Gitu** pro pozdější použití v tomto kurzu.
 
@@ -132,7 +132,7 @@ V této části vytvoříte místní úložiště Git pomocí sady Visual Studio
 
    ![Karta Team Explorer připojit](azure-continuous-deployment/_static/10-team-explorer.png)
 
-1. V **Team Explorer**vyberte **Domů** (ikona domů **) >** > nastavení**úložiště**.
+1. V **Team Explorer**vyberte **Domů** (ikona domů **) > nastavení**  >  **úložiště**.
 
 1. V části **Vzdálená úložiště** vyberte v **Nastavení úložiště****Přidat**. Zobrazí se dialogové okno **Přidat vzdálené úložiště**.
 
@@ -147,9 +147,9 @@ V této části vytvoříte místní úložiště Git pomocí sady Visual Studio
    >
    > `git remote add Azure-SampleApp https://me@sampleapp.scm.azurewebsites.net:443/SampleApp.git`
 
-1. Vyberte **Domů** (ikona domů) > **Nastavení** > **globální nastavení**. Zkontrolujte, jestli je zadané jméno a e-mailová adresa. V případě potřeby vyberte **aktualizovat** .
+1. Vyberte **Domů** (ikona domů) > **Nastavení**  >  **globální nastavení**. Zkontrolujte, jestli je zadané jméno a e-mailová adresa. V případě potřeby vyberte **aktualizovat** .
 
-1. Vyberte možnost **domovské** > **změny** a vraťte se do zobrazení **změny** .
+1. Vyberte možnost **domovské**  >  **změny** a vraťte se do zobrazení **změny** .
 
 1. Zadejte potvrzovací zprávu, například **počáteční #1 nabízených oznámení** , a vyberte **Potvrdit**. Tato akce vytvoří místní *potvrzení* .
 
@@ -162,7 +162,7 @@ V této části vytvoříte místní úložiště Git pomocí sady Visual Studio
    >
    > `git commit -am "Initial Push #1"`
 
-1. Vyberte > **Akce**pro **domovskou** > **synchronizaci** > **otevřít příkazový řádek**. Příkazový řádek se otevře v adresáři projektu.
+1. Vyberte akce pro **domovskou**  >  **synchronizaci**  >  **Actions**  >  **otevřít příkazový řádek**. Příkazový řádek se otevře v adresáři projektu.
 
 1. V příkazovém okně zadejte následující příkaz:
 
@@ -188,7 +188,7 @@ V této části vytvoříte místní úložiště Git pomocí sady Visual Studio
 
 Ověřte, jestli je webová aplikace přenesená z místního prostředí do Azure úspěšná.
 
-Na webu [Azure Portal](https://portal.azure.com)vyberte webovou aplikaci. Vyberte **Deployment** > **Možnosti nasazení**nasazení.
+Na webu [Azure Portal](https://portal.azure.com)vyberte webovou aplikaci. Vyberte **Deployment**  >  **Možnosti nasazení**nasazení.
 
 ![Azure Portal: okno nastavení: okno nasazení znázorňující úspěšné nasazení](azure-continuous-deployment/_static/13-verify-deployment.png)
 
@@ -217,11 +217,11 @@ Po provedení změn v místním kódu znovu publikujte:
 
 1. V **Průzkumník řešení**klikněte pravým tlačítkem na **řešení "SampleWebAppDemo"** a vyberte **Potvrdit**. Zobrazí se **Team Explorer**.
 
-1. Zadejte potvrzovací zprávu, například `Update #2`.
+1. Zadejte potvrzovací zprávu, například `Update #2` .
 
 1. Kliknutím na tlačítko **Potvrdit** potvrďte změny projektu.
 
-1. Vyberte akce pro **domovskou** > **synchronizaci** > **Akce** > **push**.
+1. Vyberte akce pro **domovskou**  >  **synchronizaci**  >  **Akce**  >  **push**.
 
 > [!NOTE]
 > Alternativně můžete vložit změny z **příkazového okna** otevřením **okna příkazového**řádku, přepnutím do adresáře projektu a zadáním příkazu git. Příklad:

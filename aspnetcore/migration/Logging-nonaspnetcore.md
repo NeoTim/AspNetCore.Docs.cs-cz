@@ -1,31 +1,21 @@
 ---
-title: Migrace z Microsoft. Extensions. Logging 2,1 na 2,2 nebo 3,0
-author: pakrym
-description: Naučte se migrovat non-ASP.NET základní aplikaci, která používá Microsoft. Extensions. Logging od 2,1 do 2,2 nebo 3,0.
-ms.author: pakrym
-ms.custom: mvc
-ms.date: 01/04/2019
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: migration/logging-nonaspnetcore
-ms.openlocfilehash: 3a84d53cb925a518f6c3e244dd342a3228a1fe17
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777056"
+title: migrace z Microsoft. Extensions. Logging 2,1 na 2,2 nebo 3,0 autor: pakrym Description: Naučte se migrovat aplikaci non-ASP.NET Core, která používá Microsoft. Extensions. protokolování z 2,1 do 2,2 nebo 3,0.
+MS. Author: pakrym MS. Custom: MVC MS. Date: 01/04/2019 No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: migrace/protokolování – nonaspnetcore
+
 ---
+
 # <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a>Migrace z Microsoft. Extensions. Logging 2,1 na 2,2 nebo 3,0
 
 V tomto článku najdete popis běžných kroků migrace aplikace non-ASP.NET Core, která používá `Microsoft.Extensions.Logging` od 2,1 do 2,2 nebo 3,0.
 
 ## <a name="21-to-22"></a>Z verze 2.1 do verze 2.2
 
-Ručně vytvořte `ServiceCollection` a zavolejte `AddLogging`.
+Ručně vytvořte `ServiceCollection` a zavolejte `AddLogging` .
 
 Příklad 2,1:
 
@@ -53,7 +43,7 @@ using (var loggerFactory = serviceProvider.GetService<ILoggerFactory>())
 
 ## <a name="21-to-30"></a>2,1 až 3,0
 
-V 3,0 použijte `LoggingFactory.Create`.
+V 3,0 použijte `LoggingFactory.Create` .
 
 Příklad 2,1:
 
@@ -77,4 +67,5 @@ using (var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole())
 
 ## <a name="additional-resources"></a>Další zdroje
 
-<xref:fundamentals/logging/index>
+* [Balíček NuGet Microsoft. Extensions. Logging. Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/).
+* <xref:fundamentals/logging/index>

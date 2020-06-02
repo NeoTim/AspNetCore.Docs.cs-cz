@@ -57,7 +57,7 @@ Příkaz ⌘ + B
 
 ------
 
-Vzhledem k tomu, že jste do `Movie` třídy přidali nové pole, je nutné aktualizovat seznam vazeb, aby byla tato nová vlastnost zahrnutá. V *MoviesController.cs*aktualizujte `[Bind]` atribut pro metody `Create` a `Edit` akce tak, aby zahrnovaly `Rating` vlastnost:
+Vzhledem k tomu, že jste do třídy přidali nové pole `Movie` , je nutné aktualizovat seznam vazeb, aby byla tato nová vlastnost zahrnutá. V *MoviesController.cs*aktualizujte `[Bind]` atribut pro `Create` `Edit` metody a akce tak, aby zahrnovaly `Rating` vlastnost:
 
 ```csharp
 [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")]
@@ -85,15 +85,15 @@ Můžete zkopírovat a vložit předchozí "skupinu formulářů" a nechat intel
 
 Aktualizujte zbývající šablony.
 
-Aktualizujte `SeedData` třídu tak, aby poskytovala hodnotu pro nový sloupec. Tato změna se zobrazuje níže, ale tuto změnu budete chtít udělat pro každou z nich `new Movie`.
+Aktualizujte `SeedData` třídu tak, aby poskytovala hodnotu pro nový sloupec. Tato změna se zobrazuje níže, ale tuto změnu budete chtít udělat pro každou z nich `new Movie` .
 
 [!code-csharp[](start-mvc/sample/MvcMovie/Models/SeedDataRating.cs?name=snippet1&highlight=6)]
 
-Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud je spuštěno nyní, je vyvolána `SqlException` následující:
+Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud je spuštěno nyní, `SqlException` je vyvolána následující:
 
 `SqlException: Invalid column name 'Rating'.`
 
-K této chybě dochází, protože aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů existující databáze. (V tabulce databáze `Rating` není žádný sloupec.)
+K této chybě dochází, protože aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů existující databáze. ( `Rating` V tabulce databáze není žádný sloupec.)
 
 K řešení této chyby je potřeba několik přístupů:
 
@@ -118,7 +118,7 @@ Add-Migration Rating
 Update-Database
 ```
 
-`Add-Migration` Příkaz instruuje rámec migrace, aby kontroloval aktuální `Movie` model s aktuálním `Movie` databázovým schématem a vytvořil potřebný kód pro migraci databáze do nového modelu.
+`Add-Migration`Příkaz instruuje rámec migrace, aby kontroloval aktuální `Movie` model s aktuálním `Movie` databázovým schématem a vytvořil potřebný kód pro migraci databáze do nového modelu.
 
 Název "hodnocení" je libovolný a slouží k pojmenování souboru migrace. Je užitečné použít pro migrační soubor smysluplný název.
 
@@ -139,9 +139,9 @@ dotnet ef database update
 
 Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Aktualizujte aplikaci:
 
-* Přidejte `Rating` pole do šablon zobrazení `Edit`, `Details`a `Delete` .
-* Aktualizujte vazbu v metodě Upravit akci pro `MoviesController`.
+* Přidejte `Rating` pole do `Edit` `Details` `Delete` šablon zobrazení, a.
+* Aktualizujte vazbu v metodě Upravit akci pro `MoviesController` .
 
 > [!div class="step-by-step"]
-> [Předchozí](search.md)
-> [Další](validation.md)
+> [Předchozí](search.md) 
+>  [Další](validation.md)

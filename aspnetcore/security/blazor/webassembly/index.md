@@ -1,11 +1,11 @@
 ---
-title: ' zabezpečení ASP.NET Core Blazor WebAssembly ' Autor: Description: ' Naučte se zabezpečit Blazor aplikace WebAssemlby jako aplikace s jedním stránkou (jednostránkové). '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: ' zabezpečení ASP.NET Core Blazor WebAssembly ' Autor: guardrex Description: ' Naučte se zabezpečit Blazor WebAssemlby aplikace jako aplikace s jedním stránkou (jednostránkové). '
+monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 06/01/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- ' SignalR ' UID: Security/blazor/WebAssembly/index
 
 ---
 # <a name="secure-aspnet-core-blazor-webassembly"></a>Zabezpečené ASP.NET Core Blazor WebAssembly
@@ -41,7 +41,19 @@ Knihovna [Microsoft. AspNetCore. Components. WebAssembly. Authentication](https:
 * Když Blazor aplikace WebAssembly načte koncový bod zpětného volání přihlašovacího jména ( `/authentication/login-callback` ), je zpracována ověřovací odpověď.
   * Pokud se proces ověřování úspěšně dokončí, uživatel se ověří a případně se pošle zpátky na původní chráněnou adresu URL, kterou si uživatel vyžádal.
   * Pokud se proces ověřování z nějakého důvodu nepovede, uživatel se pošle na stránku neúspěšného přihlášení ( `/authentication/login-failed` ) a zobrazí se chyba.
-  
+
+## <a name="authorization"></a>Autorizace
+
+V Blazor aplikacích pro WebAssembly lze kontroly autorizace obejít, protože všechny kódy na straně klienta mohou být změněny uživateli. Totéž platí pro všechny technologie aplikací na straně klienta, včetně rozhraní JavaScript SPA nebo nativních aplikací pro libovolný operační systém.
+
+**Na serveru vždy provádějte kontroly autorizace v libovolném koncovém bodu rozhraní API, ke kterému přistupovala aplikace na straně klienta.**
+
+## <a name="refresh-tokens"></a>Aktualizovat tokeny
+
+Aktualizace tokenů nemůže být zabezpečená na straně klienta v Blazor aplikacích WebAssembly. Proto se tokeny aktualizace neodesílají do aplikace pro přímé použití.
+
+Aktualizace tokenů může být zachována a používána aplikací na straně serveru v hostovaném Blazor řešení WebAssembly pro přístup k rozhraním API třetích stran. Další informace naleznete v tématu <xref:security/blazor/webassembly/additional-scenarios#authenticate-users-with-a-third-party-provider-and-call-protected-apis-on-the-host-server-and-the-third-party>.
+
 ## <a name="implementation-guidance"></a>Pokyny k implementaci
 
 Články v tomto *přehledu* obsahují informace o ověřování uživatelů v Blazor aplikacích pro WebAssembly pro konkrétní poskytovatele.

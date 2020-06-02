@@ -1,10 +1,11 @@
 ---
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
+title: globalizace a lokalizace v ASP.NET Core autor: Rick-Anderson Description: Naučte se, jak ASP.NET Core poskytuje služby a middleware pro lokalizaci obsahu do různých jazyků a kultur.
+MS. Author: Riande MS. Date: 11/30/2019 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: základy a lokalizace
 
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
@@ -29,7 +30,7 @@ Lokalizace aplikace zahrnuje následující:
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
-<xref:Microsoft.Extensions.Localization.IStringLocalizer>` and <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> were architected to improve productivity when developing localized apps. `IStringLocalizer ` uses the [ResourceManager](/dotnet/api/system.resources.resourcemanager) and [ResourceReader](/dotnet/api/system.resources.resourcereader) to provide culture-specific resources at run time. The interface has an indexer and an ` IEnumerable ` for returning localized strings. ` IStringLocalizer ' nevyžaduje uložení výchozích řetězců jazyka do souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
+<xref:Microsoft.Extensions.Localization.IStringLocalizer>a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer`používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer`nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
 
 [!code-csharp[](localization/sample/Localization/Controllers/AboutController.cs)]
 
@@ -70,15 +71,8 @@ Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků n
 Soubor prostředků francouzštiny může obsahovat následující:
 
 | Klíč | Hodnota |
-| ----- | ---
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
+| ----- | ------ |
+| `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
 Vykreslené zobrazení obsahuje značku HTML ze souboru prostředků.
 
@@ -151,70 +145,10 @@ Prostředky jsou pojmenovány pro úplný název typu své třídy minus název 
 V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "prostředky", takže relativní cesta projektu pro francouzský soubor prostředků domovského řadiče je *Resources/Controllers. HomeController. fr. resx*. Případně můžete použít složky k uspořádání souborů prostředků. V případě domovského kontroleru by tato cesta byla *Resources/Controllers/HomeController. fr. resx*. Pokud tuto možnost nepoužijete `ResourcesPath` , soubor *. resx* by přešel do základního adresáře projektu. Soubor prostředků pro `HomeController` by měl mít název *Controllers. HomeController. fr. resx*. Volba použití konvence pojmenování teček nebo Path závisí na tom, jak chcete uspořádat soubory prostředků.
 
 | Název prostředku | Pojmenování teček nebo Path |
-| ---
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------   | ---Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------- | | Prostředky/řadiče. HomeController. fr. resx | Tečka | | Prostředky/řadiče/HomeController. fr. resx | Cesta | |    |     |
+| ------------   | ------------- |
+| Prostředky/řadiče. HomeController. fr. resx | Tečka  |
+| Prostředky/řadiče/HomeController. fr. resx  | Cesta |
+|    |     |
 
 Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
@@ -444,7 +378,7 @@ Lokalizace aplikace zahrnuje následující:
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
-<xref:Microsoft.Extensions.Localization.IStringLocalizer>` and <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> were architected to improve productivity when developing localized apps. `IStringLocalizer ` uses the [ResourceManager](/dotnet/api/system.resources.resourcemanager) and [ResourceReader](/dotnet/api/system.resources.resourcereader) to provide culture-specific resources at run time. The interface has an indexer and an ` IEnumerable ` for returning localized strings. ` IStringLocalizer ' nevyžaduje uložení výchozích řetězců jazyka do souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
+<xref:Microsoft.Extensions.Localization.IStringLocalizer>a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer`používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer`nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
 
 [!code-csharp[](localization/sample/Localization/Controllers/AboutController.cs)]
 
@@ -485,15 +419,8 @@ Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků n
 Soubor prostředků francouzštiny může obsahovat následující:
 
 | Klíč | Hodnota |
-| ----- | ---
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
+| ----- | ------ |
+| `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
 Vykreslené zobrazení obsahuje značku HTML ze souboru prostředků.
 
@@ -566,70 +493,10 @@ Prostředky jsou pojmenovány pro úplný název typu své třídy minus název 
 V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "prostředky", takže relativní cesta projektu pro francouzský soubor prostředků domovského řadiče je *Resources/Controllers. HomeController. fr. resx*. Případně můžete použít složky k uspořádání souborů prostředků. V případě domovského kontroleru by tato cesta byla *Resources/Controllers/HomeController. fr. resx*. Pokud tuto možnost nepoužijete `ResourcesPath` , soubor *. resx* by přešel do základního adresáře projektu. Soubor prostředků pro `HomeController` by měl mít název *Controllers. HomeController. fr. resx*. Volba použití konvence pojmenování teček nebo Path závisí na tom, jak chcete uspořádat soubory prostředků.
 
 | Název prostředku | Pojmenování teček nebo Path |
-| ---
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------   | ---Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------- | | Prostředky/řadiče. HomeController. fr. resx | Tečka | | Prostředky/řadiče/HomeController. fr. resx | Cesta | |    |     |
+| ------------   | ------------- |
+| Prostředky/řadiče. HomeController. fr. resx | Tečka  |
+| Prostředky/řadiče/HomeController. fr. resx  | Cesta |
+|    |     |
 
 Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
@@ -858,7 +725,7 @@ Lokalizace aplikace zahrnuje následující:
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
-<xref:Microsoft.Extensions.Localization.IStringLocalizer>` and <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> were architected to improve productivity when developing localized apps. `IStringLocalizer ` uses the [ResourceManager](/dotnet/api/system.resources.resourcemanager) and [ResourceReader](/dotnet/api/system.resources.resourcereader) to provide culture-specific resources at run time. The interface has an indexer and an ` IEnumerable ` for returning localized strings. ` IStringLocalizer ' nevyžaduje uložení výchozích řetězců jazyka do souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
+<xref:Microsoft.Extensions.Localization.IStringLocalizer>a <xref:Microsoft.Extensions.Localization.IStringLocalizer%601> bylo navrženo pro zlepšení produktivity při vývoji lokalizovaných aplikací. `IStringLocalizer`používá <xref:System.Resources.ResourceManager> a <xref:System.Resources.ResourceReader> k poskytnutí prostředků specifických pro jazykovou verzi v době běhu. Rozhraní má indexer a `IEnumerable` pro vracení lokalizovaných řetězců. `IStringLocalizer`nevyžaduje uložení výchozích řetězců jazyka v souboru prostředků. Můžete vyvíjet aplikaci zaměřenou na lokalizaci a nemusíte vytvářet soubory prostředků na začátku ve vývoji. Následující kód ukazuje, jak zabalit řetězec "About title" pro lokalizaci.
 
 [!code-csharp[](localization/sample/Localization/Controllers/AboutController.cs)]
 
@@ -899,15 +766,8 @@ Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků n
 Soubor prostředků francouzštiny může obsahovat následující:
 
 | Klíč | Hodnota |
-| ----- | ---
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
+| ----- | ------ |
+| `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
 Vykreslené zobrazení obsahuje značku HTML ze souboru prostředků.
 
@@ -980,70 +840,10 @@ Prostředky jsou pojmenovány pro úplný název typu své třídy minus název 
 V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "prostředky", takže relativní cesta projektu pro francouzský soubor prostředků domovského řadiče je *Resources/Controllers. HomeController. fr. resx*. Případně můžete použít složky k uspořádání souborů prostředků. V případě domovského kontroleru by tato cesta byla *Resources/Controllers/HomeController. fr. resx*. Pokud tuto možnost nepoužijete `ResourcesPath` , soubor *. resx* by přešel do základního adresáře projektu. Soubor prostředků pro `HomeController` by měl mít název *Controllers. HomeController. fr. resx*. Volba použití konvence pojmenování teček nebo Path závisí na tom, jak chcete uspořádat soubory prostředků.
 
 | Název prostředku | Pojmenování teček nebo Path |
-| ---
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------   | ---Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------- | | Prostředky/řadiče. HomeController. fr. resx | Tečka | | Prostředky/řadiče/HomeController. fr. resx | Cesta | |    |     |
+| ------------   | ------------- |
+| Prostředky/řadiče. HomeController. fr. resx | Tečka  |
+| Prostředky/řadiče/HomeController. fr. resx  | Cesta |
+|    |     |
 
 Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 

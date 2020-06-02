@@ -59,11 +59,11 @@ ASP.NET Core definuje počet rozhraní funkcí HTTP, ve `Microsoft.AspNetCore.Ht
 
 ## <a name="feature-collections"></a>Kolekce funkcí
 
-`Features` Vlastnost `HttpContext` poskytuje rozhraní pro získání a nastavení dostupných funkcí protokolu HTTP pro aktuální požadavek. Vzhledem k tomu, že je kolekce funkcí proměnlivá i v rámci požadavku, je možné použít middleware pro úpravu kolekce a přidání podpory pro další funkce.
+`Features`Vlastnost `HttpContext` poskytuje rozhraní pro získání a nastavení dostupných funkcí protokolu HTTP pro aktuální požadavek. Vzhledem k tomu, že je kolekce funkcí proměnlivá i v rámci požadavku, je možné použít middleware pro úpravu kolekce a přidání podpory pro další funkce.
 
 ## <a name="middleware-and-request-features"></a>Middleware a žádosti o funkce
 
-I když jsou servery zodpovědné za vytvoření kolekce funkcí, může middleware přidat do této kolekce a využívat funkce z kolekce. Například `StaticFileMiddleware` přistupuje k této `IHttpSendFileFeature` funkci. Pokud tato funkce existuje, používá se k odeslání požadovaného statického souboru z jeho fyzické cesty. V opačném případě se k odeslání souboru použije pomalejší alternativní metoda. Pokud je k dispozici, `IHttpSendFileFeature` umožňuje operačnímu systému otevřít soubor a provést přímou kopii režimu jádra na síťové kartě.
+I když jsou servery zodpovědné za vytvoření kolekce funkcí, může middleware přidat do této kolekce a využívat funkce z kolekce. Například přistupuje k této `StaticFileMiddleware` `IHttpSendFileFeature` funkci. Pokud tato funkce existuje, používá se k odeslání požadovaného statického souboru z jeho fyzické cesty. V opačném případě se k odeslání souboru použije pomalejší alternativní metoda. Pokud je k dispozici, `IHttpSendFileFeature` umožňuje operačnímu systému otevřít soubor a provést přímou kopii režimu jádra na síťové kartě.
 
 Middleware může navíc přidat do kolekce funkcí zřízené serverem. Existující funkce můžou být i nahrazovány middlewarem a umožňují middlewaru rozšířit funkčnost serveru. Funkce přidané do kolekce jsou hned k dispozici pro další middleware nebo podkladové aplikace přímo v kanálu požadavků.
 

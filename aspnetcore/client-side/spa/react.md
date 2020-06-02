@@ -47,9 +47,9 @@ Otevřete vygenerovaný soubor *. csproj* a z něj spusťte aplikaci jako normá
 
 Proces sestavení obnoví závislosti npm při prvním spuštění, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-Ujistěte se, že máte proměnnou prostředí `ASPNETCORE_Environment` s názvem s `Development`hodnotou. V systému Windows (v případě výzev mimo PowerShell) spusťte `SET ASPNETCORE_Environment=Development`příkaz. V systému Linux nebo macOS spusťte `export ASPNETCORE_Environment=Development`.
+Ujistěte se, že máte proměnnou prostředí `ASPNETCORE_Environment` s názvem s hodnotou `Development` . V systému Windows (v případě výzev mimo PowerShell) spusťte příkaz `SET ASPNETCORE_Environment=Development` . V systému Linux nebo macOS spusťte `export ASPNETCORE_Environment=Development` .
 
 Spusťte [sestavení dotnet](/dotnet/core/tools/dotnet-build) pro správné ověření sestavení vaší aplikace. Při prvním spuštění proces sestavení obnoví závislosti NPM, což může trvat několik minut. Následná sestavení jsou mnohem rychlejší.
 
@@ -67,7 +67,7 @@ Existují mírné rozdíly mezi aplikací s reakci, kterou vytvořila Tato šabl
 
 ## <a name="install-npm-packages"></a>Instalace balíčků npm
 
-K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Příklad:
+K instalaci balíčků npm třetích stran použijte příkazový řádek v podadresáři *clientapp* . Například:
 
 ```console
 cd ClientApp

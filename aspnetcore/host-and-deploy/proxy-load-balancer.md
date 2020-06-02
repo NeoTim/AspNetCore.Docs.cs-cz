@@ -24,7 +24,7 @@ Tyto informace můžou být důležité ve zpracování žádostí, například 
 
 Podle konvence proxy předávají informace v hlavičkách protokolu HTTP.
 
-| Záhlaví | Description |
+| Záhlaví | Popis |
 | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -144,7 +144,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-| Možnost | Description |
+| Možnost | Popis |
 | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -449,7 +449,7 @@ Tyto informace můžou být důležité ve zpracování žádostí, například 
 
 Podle konvence proxy předávají informace v hlavičkách protokolu HTTP.
 
-| Záhlaví | Description |
+| Záhlaví | Popis |
 | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'
@@ -569,7 +569,7 @@ services.Configure<ForwardedHeadersOptions>(options =>
 });
 ```
 
-| Možnost | Description |
+| Možnost | Popis |
 | ---
 Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
 - 'Blazor'

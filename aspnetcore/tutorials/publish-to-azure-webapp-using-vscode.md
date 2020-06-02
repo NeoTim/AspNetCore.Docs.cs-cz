@@ -25,7 +25,7 @@ Od [Ricardo Serradas](https://twitter.com/ricardoserradas)
 
 [!INCLUDE [Azure App Service Preview Notice](../includes/azure-apps-preview-notice.md)]
 
-Problémy s nasazením App Service najdete v tématu <xref:test/troubleshoot-azure-iis>.
+Problémy s nasazením App Service najdete v tématu <xref:test/troubleshoot-azure-iis> .
 
 ## <a name="intro"></a>Úvodní
 
@@ -87,7 +87,7 @@ Po otevření složky projektu se zobrazí zpráva oznamující, že chybí pož
 
 ![Rozhraní Visual Studio Code s načteným projektem](publish-to-azure-webapp-using-vscode/_static/folder-structure-restore-netcore.jpg)
 
-`.vscode` Složka se vytvoří pod strukturou projektu. Bude obsahovat následující soubory:
+`.vscode`Složka se vytvoří pod strukturou projektu. Bude obsahovat následující soubory:
 
 ```cmd
 launch.json
@@ -106,14 +106,14 @@ Vaše webová aplikace začne běžet na nové kartě výchozího prohlížeče.
 
 ![Upozornění na ochranu osobních údajů při místním ladění aplikace](publish-to-azure-webapp-using-vscode/_static/run-webapp-https-warning.jpg)
 
-Pokud chcete relaci ladění zachovat, klikněte `Advanced` na a `Continue to localhost (unsafe)`pak.
+Pokud chcete relaci ladění zachovat, klikněte na `Advanced` a pak `Continue to localhost (unsafe)` .
 
 ## <a name="generate-the-deployment-package-locally"></a>Místní generování balíčku pro nasazení
 
 - Otevřít Visual Studio Code terminálu
-- Pomocí následujícího příkazu vygenerujte `Release` balíček do dílčí složky s názvem: `publish`
+- Pomocí následujícího příkazu vygenerujte `Release` balíček do dílčí složky s názvem `publish` :
   - `dotnet publish -c Release -o ./publish`
-- V rámci `publish` struktury projektu se vytvoří nová složka.
+- `publish`V rámci struktury projektu se vytvoří nová složka.
 
 ![Publikovat strukturu složek](publish-to-azure-webapp-using-vscode/_static/publish-folder.jpg)
 
@@ -123,27 +123,27 @@ Využívá se rozšíření Azure App Service pro Visual Studio Code. k publikov
 
 ### <a name="if-youre-creating-a-new-web-app"></a>Pokud vytváříte novou webovou aplikaci
 
-- Klikněte pravým `publish` tlačítkem na složku a vyberte`Deploy to Web App...`
+- Klikněte pravým tlačítkem na `publish` složku a vyberte`Deploy to Web App...`
 - Vyberte předplatné, ve kterém chcete vytvořit webovou aplikaci.
 - Vyberte `Create New Web App`
 - Zadejte název webové aplikace.
 
-Rozšíření vytvoří novou webovou aplikaci a automaticky se do ní zahájí nasazení balíčku. Po dokončení nasazení kliknutím `Browse Website` ověřte nasazení.
+Rozšíření vytvoří novou webovou aplikaci a automaticky se do ní zahájí nasazení balíčku. Po dokončení nasazení kliknutím `Browse Website` Ověřte nasazení.
 
 ![Zpráva o úspěšném nasazení](publish-to-azure-webapp-using-vscode/_static/deployment-succeeded-message.jpg)
 
-Po kliknutí `Browse Website`na něj přejdete pomocí výchozího prohlížeče:
+Po kliknutí na `Browse Website` něj přejdete pomocí výchozího prohlížeče:
 
 ![Nová webová aplikace se úspěšně nasadila.](publish-to-azure-webapp-using-vscode/_static/new-webapp-deployed.jpg)
 
 ### <a name="if-youre-deploying-to-an-existing-web-app"></a>Pokud provádíte nasazení do existující webové aplikace
 
-- Klikněte pravým `publish` tlačítkem na složku a vyberte`Deploy to Web App...`
+- Klikněte pravým tlačítkem na `publish` složku a vyberte`Deploy to Web App...`
 - Výběr předplatného, které se nachází v existující webové aplikaci
 - Vyberte webovou aplikaci ze seznamu.
 - Visual Studio Code se vás zeptá, jestli chcete přepsat existující obsah. Kliknutím `Deploy` potvrďte
 
-Rozšíření nasadí aktualizovaný obsah do webové aplikace. Až to bude hotové, `Browse Website` kliknutím ověřte nasazení.
+Rozšíření nasadí aktualizovaný obsah do webové aplikace. Až to bude hotové, kliknutím `Browse Website` Ověřte nasazení.
 
 ![Existující webová aplikace byla úspěšně nasazena.](publish-to-azure-webapp-using-vscode/_static/existing-webapp-deployed.jpg)
 

@@ -37,7 +37,7 @@ Swagger je specifikace nezávislá jazyka pro popis rozhraní [REST](https://en.
 
 ## <a name="swagger-specification-swaggerjson"></a>Specifikace Swagger (Swagger. JSON)
 
-Jádrem toku Swagger je specifikace&mdash;Swagger ve výchozím nastavení, dokument s názvem *Swagger. JSON*. Vygeneruje se řetěz nástrojů Swagger (nebo implementace jiného výrobce) na základě vaší služby. Popisuje možnosti vašeho rozhraní API a přístup k němu pomocí protokolu HTTP. Řídí uživatelské rozhraní Swagger a používá ho řetěz nástrojů k povolení zjišťování a generování kódu klienta. Tady je příklad specifikace Swagger, snížený pro zkrácení:
+Jádrem toku Swagger je specifikace Swagger &mdash; ve výchozím nastavení, dokument s názvem *Swagger. JSON*. Vygeneruje se řetěz nástrojů Swagger (nebo implementace jiného výrobce) na základě vaší služby. Popisuje možnosti vašeho rozhraní API a přístup k němu pomocí protokolu HTTP. Řídí uživatelské rozhraní Swagger a používá ho řetěz nástrojů k povolení zjišťování a generování kódu klienta. Tady je příklad specifikace Swagger, snížený pro zkrácení:
 
 ```json
 {

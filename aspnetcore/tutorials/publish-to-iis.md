@@ -67,7 +67,7 @@ Stáhněte instalační program pomocí následujícího odkazu:
 
 ## <a name="create-an-aspnet-core-razor-pages-app"></a>Vytvoření aplikace ASP.NET Core Razor Pages
 
-Pokud chcete <xref:getting-started> vytvořit aplikaci Razor Pages, postupujte podle kurzu.
+Pokud <xref:getting-started> chcete vytvořit aplikaci Razor Pages, postupujte podle kurzu.
 
 ## <a name="publish-and-deploy-the-app"></a>Publikování a nasazení aplikace
 
@@ -84,7 +84,7 @@ Pokud chcete <xref:getting-started> vytvořit aplikaci Razor Pages, postupujte p
    * Pokud jste vytvořili složku pro web IIS, která je k dispozici ve vývojovém počítači jako sdílená síťová složka, zadejte cestu ke sdílené složce. Aktuální uživatel musí mít oprávnění k zápisu pro publikování do sdílené složky.
    * Pokud se nemůžete přímo nasadit do složky webu IIS na serveru služby IIS, proveďte publikování do složky na neodstranitelné médium a fyzicky přesuňte publikovanou aplikaci do složky webu IIS na serveru, což je **fyzická cesta** k webu ve Správci služby IIS. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 1. V příkazovém prostředí publikujte aplikaci v konfiguraci vydaných verzí pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) :
 
@@ -96,7 +96,7 @@ Pokud chcete <xref:getting-started> vytvořit aplikaci Razor Pages, postupujte p
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-1. Klikněte pravým tlačítkem na projekt v **řešení** a vyberte **publikovat** > **publikovat do složky**.
+1. Klikněte pravým tlačítkem na projekt v **řešení** a vyberte **publikovat**  >  **publikovat do složky**.
 1. Nastavte cestu ke **složce** .
    * Pokud jste vytvořili složku pro web IIS, která je k dispozici ve vývojovém počítači jako sdílená síťová složka, zadejte cestu ke sdílené složce. Aktuální uživatel musí mít oprávnění k zápisu pro publikování do sdílené složky.
    * Pokud se nemůžete přímo nasadit do složky webu IIS na serveru služby IIS, proveďte publikování do složky na neodstranitelné médium a fyzicky přesuňte publikovanou aplikaci do složky webu IIS na serveru, což je **fyzická cesta** k webu ve Správci služby IIS. Přesuňte obsah složky *bin/Release/{Target Framework}/Publish* do složky webu IIS na serveru, který je **fyzickou cestou** lokality ve Správci služby IIS.
