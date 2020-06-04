@@ -1,10 +1,11 @@
 ---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: formátovat data odpovědi v ASP.NET Core Web API Author: ardalis Popis: Naučte se formátovat data odpovědí v ASP.NET Core webovém rozhraní API.
+MS. Author: Riande MS. Custom: H1Hack27Feb2017 MS. Date: 04/17/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: Web-API/Rozšířené/formátování
 
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
@@ -129,14 +130,14 @@ services.AddControllers().AddJsonOptions(options =>
 });
 ```
 
-Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Například:
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Příklad:
 
 ```csharp
 public IActionResult Get()
 {
     return Json(model, new JsonSerializerOptions
     {
-        options.WriteIndented = true,
+        WriteIndented = true,
     });
 }
 ```
@@ -168,14 +169,14 @@ services.AddControllers().AddNewtonsoftJson(options =>
 });
 ```
 
-Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Například:
+Možnosti výstupní serializace na základě jednotlivých akcí lze konfigurovat pomocí `JsonResult` . Příklad:
 
 ```csharp
 public IActionResult Get()
 {
     return Json(model, new JsonSerializerSettings
     {
-        options.Formatting = Formatting.Indented,
+        Formatting = Formatting.Indented,
     });
 }
 ```
@@ -224,7 +225,7 @@ Některé speciální případy jsou implementovány pomocí integrovaných form
 
 Bez rozhraní `StringOutputFormatter` , předdefinované formáty formátování JSON `string` vrátí typy. Pokud je vestavěný formátovací modul JSON odebraný a je k dispozici formátovací modul XML, vrátí typy formátování formátovací kód XML `string` . V opačném případě `string` návratové typy vrátí `406 Not Acceptable` .
 
-Bez `HttpNoContentOutputFormatter` objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Například:
+Bez `HttpNoContentOutputFormatter` objektů jsou objekty null formátovány pomocí nakonfigurovaného formátovacího modulu. Příklad:
 
 * Formátovací modul JSON vrátí odpověď s tělem `null` .
 * Formátovací modul XML vrátí prázdný element XML s `xsi:nil="true"` nastaveným atributem.
@@ -236,218 +237,14 @@ Klienti mohou požádat o konkrétní formát v rámci adresy URL, například:
 * V řetězci dotazu nebo v části cesty.
 * Pomocí přípony souboru specifické pro formát, jako je například. XML nebo. JSON.
 
-Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Například:
+Mapování z cesty požadavku musí být zadáno v trase, kterou používá rozhraní API. Příklad:
 
 [!code-csharp[](./formatting/sample/Controllers/ProductsController.cs?name=snippet)]
 
 Předchozí trasa umožňuje zadat požadovaný formát jako volitelnou příponu souboru. [`[FormatFilter]`](xref:Microsoft.AspNetCore.Mvc.FormatFilterAttribute)Atribut kontroluje existenci hodnoty formátu v `RouteData` a při vytvoření odpovědi mapuje formát odpovědi na příslušný formátovací modul.
 
 |           Trasa        |             Modul              |
-|---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------------| Název---: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------------------| |   `/api/products/5`    |    Výchozí formátování výstupu | | `/api/products/5.json` | Formátovací modul JSON (Pokud je nakonfigurovaný) | | `/api/products/5.xml`  | Formátovací modul XML (Pokud je nakonfigurován) |
+|------------------------|------------------------------------|
+|   `/api/products/5`    |    Výchozí výstupní formátovací modul    |
+| `/api/products/5.json` | Formátovací modul JSON (Pokud je nakonfigurovaný) |
+| `/api/products/5.xml`  | Formátovací modul XML (Pokud je nakonfigurovaný)  |

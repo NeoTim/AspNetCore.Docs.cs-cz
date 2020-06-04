@@ -1,11 +1,11 @@
 ---
-title: ' Vytvoření první Blazor aplikace ' Autor: Popis: ' vytvoření Blazor aplikace krok za krokem. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: ' Vytvoření první Blazor aplikace ' Autor: guardrex Description: ' vytvoření Blazor aplikace krok za krokem. '
+monikerRange: ' >= aspnetcore-3,0 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/19/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: kurzy/First-blazor-App
 
 ---
 # <a name="build-your-first-blazor-app"></a>Sestavení první Blazor aplikace
@@ -97,7 +97,7 @@ Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pom
 
 `@page`Direktiva v horní části souboru *Counter. Razor* určuje, že `Counter` Komponenta je koncový bod směrování. `Counter`Komponenta zpracovává požadavky odeslané na `/counter` . Bez `@page` direktivy nezpracovávají součásti směrované požadavky, ale komponentu mohou i nadále používat jiné komponenty.
 
-## <a name="dependency-injection"></a>Injektáž závislosti
+## <a name="dependency-injection"></a>Injektáž závislostí
 
 ### <a name="blazor-server-experience"></a>BlazorProstředí serveru
 
@@ -131,7 +131,7 @@ Při práci s Blazor aplikací WebAssembly <xref:System.Net.Http.HttpClient> je 
 
 Přidejte do aplikace novou komponentu, která implementuje jednoduchý seznam úkolů.
 
-1. Přidejte `Todo` Razor do aplikace novou komponentu ve složce *Pages* . V aplikaci Visual Studio klikněte pravým tlačítkem myši na složku **stránky** a vyberte možnost **Přidat**  >  **novou položku**  >  ** Razor Komponenta**. Pojmenujte soubor komponenty *todo. Razor*. V jiných vývojových prostředích přidejte prázdný soubor do složky **Pages** s názvem *todo. Razor*.
+1. Přidejte `Todo` Razor do aplikace novou komponentu ve složce *Pages* . Pokud používáte aplikaci Visual Studio, klikněte pravým tlačítkem myši na složku **stránky** a vyberte možnost **Přidat**  >  **novou položku**  >  ** Razor Komponenta**. Pojmenujte soubor komponenty *todo. Razor*. V jiných vývojových prostředích přidejte prázdný soubor do složky **Pages** s názvem *todo. Razor*.
 
 1. Zadejte počáteční označení pro komponentu:
 

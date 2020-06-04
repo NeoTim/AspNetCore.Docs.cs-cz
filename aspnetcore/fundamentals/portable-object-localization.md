@@ -1,22 +1,12 @@
 ---
-title: Konfigurace lokalizace přenosných objektů v ASP.NET Core
-author: sebastienros
-description: Tento článek představuje přenosné objektové soubory a popisuje postup jejich použití v aplikaci ASP.NET Core se sadou virtuálních počítačů Core.
-ms.author: scaddie
-ms.date: 09/26/2017
-no-loc:
-- Blazor
-- Identity
-- Let's Encrypt
-- Razor
-- SignalR
-uid: fundamentals/portable-object-localization
-ms.openlocfilehash: 1e544b0f504c2776c678c51bff598cf011b52610
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
-ms.translationtype: MT
-ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776048"
+title: Nakonfigurujte lokalizaci přenosných objektů v ASP.NET Core autor: sebastienros Popis: Tento článek představuje přenositelné soubory objektů a popisuje postup jejich použití v aplikaci ASP.NET Core se sadou virtuálních počítačů Core.
+MS. Author: scaddie MS. Date: 09/26/2017 No-Loc:
+- 'Blazor'
+- 'Identity'
+- 'Let's Encrypt'
+- 'Razor'
+- SignalRUID: Základy/přenosné objekty-lokalizace
+
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>Konfigurace lokalizace přenosných objektů v ASP.NET Core
 
@@ -73,41 +63,41 @@ Tento příklad je založen na ASP.NET Core aplikaci MVC vygenerovanou šablonou
 
 ### <a name="referencing-the-package"></a>Odkazování na balíček
 
-Přidejte odkaz na balíček `OrchardCore.Localization.Core` NuGet. Je k dispozici na [MyGet](https://www.myget.org/) v následujícím zdroji balíčku:https://www.myget.org/F/orchardcore-preview/api/v3/index.json
+Přidejte odkaz na `OrchardCore.Localization.Core` balíček NuGet. Je k dispozici na [MyGet](https://www.myget.org/) v následujícím zdroji balíčku:https://www.myget.org/F/orchardcore-preview/api/v3/index.json
 
 Soubor *. csproj* nyní obsahuje řádek podobný následujícímu (číslo verze se může lišit):
 
-[!code-xml[](localization/sample/POLocalization/POLocalization.csproj?range=9)]
+[!code-xml[](localization/sample/2.x/POLocalization/POLocalization.csproj?range=9)]
 
 ### <a name="registering-the-service"></a>Registrace služby
 
 Přidejte požadované služby k `ConfigureServices` metodě *Startup.cs*:
 
-[!code-csharp[](localization/sample/POLocalization/Startup.cs?name=snippet_ConfigureServices&highlight=4-21)]
+[!code-csharp[](localization/sample/2.x/POLocalization/Startup.cs?name=snippet_ConfigureServices&highlight=4-21)]
 
 Přidejte požadovaný middleware do `Configure` metody *Startup.cs*:
 
-[!code-csharp[](localization/sample/POLocalization/Startup.cs?name=snippet_Configure&highlight=15)]
+[!code-csharp[](localization/sample/2.x/POLocalization/Startup.cs?name=snippet_Configure&highlight=15)]
 
 Přidejte následující kód pro Razor zobrazení volby. V tomto příkladu se používá *About. cshtml* .
 
-[!code-cshtml[](localization/sample/POLocalization/Views/Home/About.cshtml)]
+[!code-cshtml[](localization/sample/2.x/POLocalization/Views/Home/About.cshtml)]
 
-`IViewLocalizer` Instance je vložená a používá se k překladu textu "Hello World!".
+`IViewLocalizer`Instance je vložená a používá se k překladu textu "Hello World!".
 
 ### <a name="creating-a-po-file"></a>Vytváření souboru.
 
-V kořenové složce vaší aplikace vytvořte soubor s názvem * \<Culture Code>. No* . V tomto příkladu je název souboru *fr. po* , protože se používá francouzský jazyk:
+Vytvořte soubor s názvem * \<culture code> . po* v kořenové složce vaší aplikace. V tomto příkladu je název souboru *fr. po* , protože se používá francouzský jazyk:
 
-[!code-text[](localization/sample/POLocalization/fr.po)]
+[!code-text[](localization/sample/2.x/POLocalization/fr.po)]
 
-Tento soubor uloží jak řetězec, který se má přeložit, a řetězec přeložený ze francouzštiny. V případě potřeby se překlady vrátí do své nadřazené jazykové verze. V tomto příkladu se použije soubor *fr. No* , pokud je `fr-FR` požadovaná jazyková verze nebo. `fr-CA`
+Tento soubor uloží jak řetězec, který se má přeložit, a řetězec přeložený ze francouzštiny. V případě potřeby se překlady vrátí do své nadřazené jazykové verze. V tomto příkladu se použije soubor *fr. No* , pokud je požadovaná jazyková verze `fr-FR` nebo `fr-CA` .
 
 ### <a name="testing-the-application"></a>Testování aplikace
 
-Spusťte aplikaci a přejděte na adresu URL `/Home/About`. Text **Hello World!** se zobrazí.
+Spusťte aplikaci a přejděte na adresu URL `/Home/About` . Text **Hello World!** se zobrazí.
 
-Přejděte na adresu URL `/Home/About?culture=fr-FR`. Text **Bonjour Le Monde!** se zobrazí.
+Přejděte na adresu URL `/Home/About?culture=fr-FR` . Text **Bonjour Le Monde!** se zobrazí.
 
 ## <a name="pluralization"></a>Pluralizace
 
@@ -136,9 +126,9 @@ Ne všechny jazyky sdílejí stejná pravidla. To je znázorněno v českém jaz
 
 Vytvořte `cs.po` soubor následujícím způsobem a poznamenejte si, jak pluralita potřebuje tři různé překlady:
 
-[!code-text[](localization/sample/POLocalization/cs.po)]
+[!code-text[](localization/sample/2.x/POLocalization/cs.po)]
 
-Chcete-li přijmout Česká lokalizace `"cs"` , přidejte do seznamu podporovaných kultur v `ConfigureServices` metodě:
+Chcete-li přijmout Česká lokalizace, přidejte `"cs"` do seznamu podporovaných kultur v `ConfigureServices` metodě:
 
 ```csharp
 var supportedCultures = new List<CultureInfo>
@@ -193,11 +183,11 @@ Všimněte si, že pro českou kulturu se tři překlady liší. Francouzské a 
 
 ### <a name="contextualizing-strings"></a>Contextualizing řetězce
 
-Aplikace často obsahují řetězce, které mají být přeloženy na několika místech. Stejný řetězec může mít jiný překlad v určitých umístěních v rámci aplikace (Razor zobrazení nebo soubory tříd). Soubor. No podporuje pojem kontext souboru, který lze použít ke kategorizaci reprezentovaného řetězce. Pomocí kontextu souboru lze řetězec přeložit odlišně v závislosti na kontextu souboru (nebo nedostatku kontextu souboru).
+Aplikace často obsahují řetězce, které mají být přeloženy na několika místech. Stejný řetězec může mít jiný překlad v určitých umístěních v rámci aplikace ( Razor zobrazení nebo soubory tříd). Soubor. No podporuje pojem kontext souboru, který lze použít ke kategorizaci reprezentovaného řetězce. Pomocí kontextu souboru lze řetězec přeložit odlišně v závislosti na kontextu souboru (nebo nedostatku kontextu souboru).
 
 Lokalizační služby nákupních objednávek používají název celé třídy nebo zobrazení, které se používá při překladu řetězce. Toho je možné dosáhnout nastavením hodnoty `msgctxt` položky.
 
-Zvažte menší doplněk k předchozímu příkladu *fr. po* . Zobrazení, které se nachází na *stránce zobrazení/domů/o. cshtml* , lze definovat jako kontext souboru nastavením hodnoty `msgctxt` rezervované položky: Razor
+Zvažte menší doplněk k předchozímu příkladu *fr. po* . RazorZobrazení, které se nachází na *stránce zobrazení/domů/o. cshtml* , lze definovat jako kontext souboru nastavením `msgctxt` hodnoty rezervované položky:
 
 ```text
 msgctxt "Views.Home.About"
@@ -205,15 +195,15 @@ msgid "Hello world!"
 msgstr "Bonjour le monde!"
 ```
 
-Když se `msgctxt` nastaví jako takové, překlad textu se objeví při přechodu na `/Home/About?culture=fr-FR`. K překladu nedojde při přechodu na `/Home/Contact?culture=fr-FR`.
+Když se `msgctxt` nastaví jako takové, překlad textu se objeví při přechodu na `/Home/About?culture=fr-FR` . K překladu nedojde při přechodu na `/Home/Contact?culture=fr-FR` .
 
 Pokud se zadaným kontextem souboru nevyhovuje žádná konkrétní položka, záložní mechanizmus sady sadů vyhledá příslušný soubor. No bez kontextu. Za předpokladu, že není definován žádný konkrétní kontext souboru pro *views/Home/Contact. cshtml*, přejděte k `/Home/Contact?culture=fr-FR` načtení souboru objednávky, například:
 
-[!code-text[](localization/sample/POLocalization/fr.po)]
+[!code-text[](localization/sample/2.x/POLocalization/fr.po)]
 
 ### <a name="changing-the-location-of-po-files"></a>Změna umístění souborů PO.
 
-Výchozí umístění souborů PO lze změnit v `ConfigureServices`:
+Výchozí umístění souborů PO lze změnit v `ConfigureServices` :
 
 ```csharp
 services.AddPortableObjectLocalization(options => options.ResourcesPath = "Localization");
@@ -227,6 +217,6 @@ Pokud je pro vyhledání souborů na místě potřeba složitější logika, `Or
 
 ### <a name="using-a-different-default-pluralized-language"></a>Použití jiného výchozího množném jazyku
 
-Balíček obsahuje metodu `Plural` rozšíření, která je specifická pro dva množné formy. Pro jazyky, které vyžadují více formulářů plural, vytvořte metodu rozšíření. V případě metody rozšíření nemusíte pro výchozí jazyk &mdash; zadat žádný soubor lokalizace, protože původní řetězce jsou již k dispozici přímo v kódu.
+Balíček obsahuje `Plural` metodu rozšíření, která je specifická pro dva množné formy. Pro jazyky, které vyžadují více formulářů plural, vytvořte metodu rozšíření. V případě metody rozšíření nemusíte pro výchozí jazyk zadat žádný soubor lokalizace, protože &mdash; původní řetězce jsou již k dispozici přímo v kódu.
 
 Můžete použít obecnější `Plural(int count, string[] pluralForms, params object[] arguments)` přetížení, které přijímá pole řetězců překladu.
