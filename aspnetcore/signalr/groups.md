@@ -1,11 +1,11 @@
 ---
-title: ' Správa uživatelů a skupin v SignalR ' Autor: Popis: ' přehled ASP.NET Core SignalR správy uživatelů a skupin. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
+title: ' Správa uživatelů a skupin v SignalR ' Autor: bradygaster Description: ' přehled ASP.NET Core SignalR správy uživatelů a skupin. '
+monikerRange: ' >= aspnetcore-2,1 ' MS. Author: bradyg MS. Custom: MVC MS. Date: 05/17/2020 No-Loc:
 - 'Blazor'
 - 'Identity'
 - 'Let's Encrypt'
 - 'Razor'
-- SignalRUID: 
+- SignalRUID: signaler/skupiny
 
 ---
 
