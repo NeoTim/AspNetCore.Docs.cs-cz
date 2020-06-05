@@ -1168,7 +1168,7 @@
       uid: performance/performance-best-practices
     - name: Paměť a uvolňování paměti
       uid: performance/memory
-    - name: Ukládání odpovědí do mezipaměti
+    - name: Ukládání do mezipaměti
       items:
         - name: Přehled
           uid: performance/caching/response
