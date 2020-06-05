@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: 50096ae6a77d5f8b07e6be795d9401fcbfd421e3
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: cd4cc6778de7d2156243dc91fba64b2bdb79cf08
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776705"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452119"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme s NSwag a ASP.NET Core
 
@@ -40,7 +40,7 @@ NSwag nabízí následující možnosti:
 * Schopnost využít uživatelské rozhraní Swagger a generátor Swagger.
 * Flexibilní možnosti generování kódu.
 
-Pomocí NSwag nepotřebujete existující rozhraní API&mdash;, můžete použít rozhraní API třetích stran, která zahrnují Swagger a generují implementaci klienta. NSwag vám umožňuje urychlit vývojový cyklus a snadno se přizpůsobit změnám rozhraní API.
+Pomocí NSwag nepotřebujete existující rozhraní API, &mdash; můžete použít rozhraní API třetích stran, která zahrnují Swagger a generují implementaci klienta. NSwag vám umožňuje urychlit vývojový cyklus a snadno se přizpůsobit změnám rozhraní API.
 
 ## <a name="register-the-nswag-middleware"></a>Registrace middlewaru NSwag
 
@@ -56,7 +56,7 @@ K instalaci balíčku NuGet NSwag použijte jeden z následujících přístupů
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * V okně **konzoly Správce balíčků** :
-  * Přejít k **zobrazení** > **jiné** > **konzoly Správce balíčků** Windows
+  * Přejít k **zobrazení**  >  **jiné**  >  **konzoly Správce balíčků** Windows
   * Přejděte do adresáře, ve kterém existuje soubor *TodoApi. csproj.*
   * Spusťte následující příkaz:
 
@@ -65,19 +65,19 @@ K instalaci balíčku NuGet NSwag použijte jeden z následujících přístupů
     ```
 
 * V dialogovém okně **Spravovat balíčky NuGet** :
-  * Klikněte pravým tlačítkem na projekt v **Průzkumník řešení** > **Spravovat balíčky NuGet** .
+  * Klikněte pravým tlačítkem na projekt v **Průzkumník řešení**  >  **Spravovat balíčky NuGet** .
   * Nastavte **zdroj balíčku** na "NuGet.org".
   * Do vyhledávacího pole zadejte "NSwag. AspNetCore".
   * Na kartě **Procházet** vyberte balíček NSwag. AspNetCore a klikněte na **nainstalovat** .
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-* Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení** > **Přidat balíčky...**
+* Klikněte pravým tlačítkem na složku *balíčky* v **oblast řešení**  >  **Přidat balíčky...**
 * Nastavte rozevírací seznam pro **zdroj** okna **Přidat balíčky** na "NuGet.org".
 * Do vyhledávacího pole zadejte "NSwag. AspNetCore".
 * V podokně výsledků vyberte balíček NSwag. AspNetCore a klikněte na **Přidat balíček** .
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 Spusťte následující příkaz:
 
@@ -107,16 +107,16 @@ Pomocí následujících kroků přidejte a nakonfigurujte Swagger v aplikaci AS
 
 Můžete využít možnosti generování kódu NSwag výběrem jedné z následujících možností:
 
-* [NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio) &ndash; desktopovou aplikaci pro Windows pro generování kódu klienta rozhraní API v jazyce C# nebo TypeScript.
+* [NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio): desktopová aplikace pro Windows pro generování kódu klienta rozhraní API v jazyce C# nebo TypeScript.
 * Balíčky NuGet [NSwag. strategii. CSharp](https://www.nuget.org/packages/NSwag.CodeGeneration.CSharp/) nebo [NSwag. strategii. TypeScript](https://www.nuget.org/packages/NSwag.CodeGeneration.TypeScript/) pro generování kódu v rámci projektu.
 * NSwag z [příkazového řádku](https://github.com/RicoSuter/NSwag/wiki/CommandLine).
 * Balíček NuGet [NSwag. MSBuild](https://github.com/RicoSuter/NSwag/wiki/NSwag.MSBuild)
-* Připojená služba &ndash; sady Visual Studio [Unchase openapi (Swagger)](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice) pro vygenerování kódu klienta rozhraní API v jazyce C# nebo TypeScript. Generuje také řadiče jazyka C# pro služby OpenAPI Services pomocí NSwag.
+* [Připojená služba Unchase openapi (Swagger)](https://marketplace.visualstudio.com/items?itemName=Unchase.unchaseopenapiconnectedservice): připojená služba sady Visual Studio pro generování kódu klienta rozhraní API v jazyce C# nebo TypeScript. Generuje také řadiče jazyka C# pro služby OpenAPI Services pomocí NSwag.
 
 ### <a name="generate-code-with-nswagstudio"></a>Generování kódu pomocí NSwagStudio
 
 * Nainstalujte NSwagStudio podle pokynů v [úložišti GitHub NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio). Na stránce verze NSwag si můžete stáhnout verzi příkazu xcopy, kterou lze spustit bez oprávnění k instalaci a správcům.
-* Spusťte NSwagStudio a v textovém poli **Adresa URL specifikace Swagger** zadejte adresu URL souboru *Swagger. JSON* . Například *http://localhost:44354/swagger/v1/swagger.json*.
+* Spusťte NSwagStudio a v textovém poli **Adresa URL specifikace Swagger** zadejte adresu URL souboru *Swagger. JSON* . Například *http://localhost:44354/swagger/v1/swagger.json* .
 * Kliknutím na tlačítko **vytvořit místní kopii** vygenerujete reprezentaci JSON vaší specifikace Swagger.
 
   ![Vytvořit místní kopii specifikace Swagger](web-api-help-pages-using-swagger/_static/CreateLocalCopy-NSwagStudio.PNG)
@@ -221,7 +221,7 @@ Chcete-li povolit komentáře XML, proveďte následující kroky:
 
 ::: moniker range=">= aspnetcore-2.0"
 
-* V *oblast řešení*stiskněte **ovládací prvek** a klikněte na název projektu. Přejděte do **nástroje** > **Upravit soubor**.
+* V *oblast řešení*stiskněte **ovládací prvek** a klikněte na název projektu. Přejděte do **nástroje**  >  **Upravit soubor**.
 * Ručně přidejte zvýrazněné řádky do souboru *. csproj* :
 
 [!code-xml[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/TodoApi.csproj?name=snippet_DocumentationFileElement&highlight=1-2,4)]
@@ -235,7 +235,7 @@ Chcete-li povolit komentáře XML, proveďte následující kroky:
 
 ::: moniker-end
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 Ručně přidejte zvýrazněné řádky do souboru *. csproj* :
 
@@ -263,7 +263,7 @@ Uvažujte následující příklad:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
-Předchozí akce vrátí `IActionResult`, ale v akci, která vrací hodnotu [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*) nebo [důvodu chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*). Pomocí datových poznámek můžete klientům sdělit, které stavové kódy HTTP má tato akce vrátit. Označte akci následujícími atributy:
+Předchozí akce vrátí `IActionResult` , ale v akci, která vrací hodnotu [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*) nebo [důvodu chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*). Pomocí datových poznámek můžete klientům sdělit, které stavové kódy HTTP má tato akce vrátit. Označte akci následujícími atributy:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.0/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
@@ -271,17 +271,17 @@ Předchozí akce vrátí `IActionResult`, ale v akci, která vrací hodnotu [Cre
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Vzhledem k tomu, že NSwag používá [reflexi](/dotnet/csharp/programming-guide/concepts/reflection)a doporučený návratový typ pro akce webového rozhraní API je [\<ActionResult T>](xref:Microsoft.AspNetCore.Mvc.ActionResult%601), může odvodit `T`jenom návratový typ definovaný pomocí. Nemůžete automaticky odvodit jiné možné návratové typy.
+Vzhledem k tomu, že NSwag používá [reflexi](/dotnet/csharp/programming-guide/concepts/reflection)a doporučený návratový typ pro akce webového rozhraní API je [ \<T> ActionResult](xref:Microsoft.AspNetCore.Mvc.ActionResult%601), může odvodit jenom návratový typ definovaný pomocí `T` . Nemůžete automaticky odvodit jiné možné návratové typy.
 
 Uvažujte následující příklad:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateAction)]
 
-Předchozí akce vrátí `ActionResult<T>`. V rámci akce vrátí [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*). Vzhledem k tomu, že [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) kontroler má atribut, může být také [důvodu chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*) odpověď. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses). Pomocí datových poznámek můžete klientům sdělit, které stavové kódy HTTP má tato akce vrátit. Označte akci následujícími atributy:
+Předchozí akce vrátí `ActionResult<T>` . V rámci akce vrátí [CreatedAtRoute](xref:System.Web.Http.ApiController.CreatedAtRoute*). Vzhledem k tomu, že kontroler má [`[ApiController]`](xref:Microsoft.AspNetCore.Mvc.ApiControllerAttribute) atribut, může být také [důvodu chybného požadavku](xref:System.Web.Http.ApiController.BadRequest*) odpověď. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses). Pomocí datových poznámek můžete klientům sdělit, které stavové kódy HTTP má tato akce vrátit. Označte akci následujícími atributy:
 
 [!code-csharp[](../tutorials/web-api-help-pages-using-swagger/samples/2.1/TodoApi.NSwag/Controllers/TodoController.cs?name=snippet_CreateActionAttributes)]
 
-V ASP.NET Core 2,2 nebo novějších můžete místo explicitně upravení jednotlivé akce pomocí `[ProducesResponseType]`použít konvence. Další informace naleznete v tématu <xref:web-api/advanced/conventions>.
+V ASP.NET Core 2,2 nebo novějších můžete místo explicitně upravení jednotlivé akce pomocí použít konvence `[ProducesResponseType]` . Další informace naleznete v tématu <xref:web-api/advanced/conventions>.
 
 ::: moniker-end
 

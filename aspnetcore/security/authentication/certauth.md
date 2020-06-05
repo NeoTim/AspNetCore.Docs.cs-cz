@@ -1,17 +1,29 @@
 ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Konfigurace ověřování certifikátů v ASP.NET Core
+author: blowdart
+description: Přečtěte si, jak nakonfigurovat ověřování certifikátů v ASP.NET Core pro IIS a HTTP. sys.
+monikerRange: '>= aspnetcore-3.0'
+ms.author: bdorrans
+ms.date: 01/02/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/authentication/certauth
+ms.openlocfilehash: 4511e253ea9487c5739162b9b0180e39eb3a1b9c
+ms.sourcegitcommit: 67eadd7bf28eae0b8786d85e90a7df811ffe5904
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84454607"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
 `Microsoft.AspNetCore.Authentication.Certificate`obsahuje implementaci podobnou [ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) pro ASP.NET Core. Ověřování certifikátu se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Přesněji platí, že se jedná o obslužnou rutinu ověřování, která certifikát ověřuje, a pak poskytuje událost, kde můžete tento certifikát vyřešit na `ClaimsPrincipal` . 
 
-[Nakonfigurujte hostitele](#configure-your-host-to-require-certificates) pro ověřování certifikátů, jako IIS, Kestrel, Azure Web Apps nebo cokoli jiného, co používáte.
+[Nakonfigurujte server](#configure-your-server-to-require-certificates) pro ověřování pomocí certifikátu, jako IIS, Kestrel, Azure Web Apps nebo cokoli jiného, co používáte.
 
 ## <a name="proxy-and-load-balancer-scenarios"></a>Scénáře proxy a nástroje pro vyrovnávání zatížení
 
@@ -24,7 +36,7 @@ Alternativou k ověřování certifikátů v prostředích, kde se používají 
 
 ## <a name="get-started"></a>Začínáme
 
-Získejte certifikát HTTPS, použijte ho a [Nakonfigurujte hostitele](#configure-your-host-to-require-certificates) tak, aby vyžadoval certifikáty.
+Získejte certifikát HTTPS, použijte ho a [nakonfigurujte server](#configure-your-server-to-require-certificates) tak, aby vyžadoval certifikáty.
 
 Do webové aplikace přidejte odkaz na `Microsoft.AspNetCore.Authentication.Certificate` balíček. Potom v `Startup.ConfigureServices` metodě zavolejte `services.AddAuthentication(CertificateAuthenticationDefaults.AuthenticationScheme).AddCertificate(...);` s vašimi možnostmi a poskytněte delegátovi, `OnCertificateValidated` aby provedl dodatečné ověřování klientského certifikátu odeslaného pomocí požadavků. Zapněte tyto informace do `ClaimsPrincipal` a nastavte ji na `context.Principal` vlastnost.
 
@@ -183,7 +195,7 @@ services.AddAuthentication(
 
 V koncepčním případě je ověření certifikátu v takovém případě oprávnění. Přidání kontroly, například vystavitele nebo kryptografického otisku v zásadách autorizace, nikoli uvnitř `OnCertificateValidated` , je naprosto přijatelné.
 
-## <a name="configure-your-host-to-require-certificates"></a>Konfigurace hostitele pro vyžadování certifikátů
+## <a name="configure-your-server-to-require-certificates"></a>Konfigurace serveru tak, aby vyžadoval certifikáty
 
 ### <a name="kestrel"></a>Kestrel
 

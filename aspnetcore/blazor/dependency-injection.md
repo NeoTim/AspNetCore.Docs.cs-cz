@@ -1,12 +1,24 @@
 ---
-title: "ASP.NET Core Blazor Injektáže závislosti" autor: guardrex Description: ' Podívejte se Blazor , jak aplikace můžou vkládat služby do součástí. '
-monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/19/2020 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: blazor/vkládání závislostí
-
+title: BlazorVkládání závislostí ASP.NET Core
+author: guardrex
+description: Podívejte se Blazor , jak můžou aplikace vkládat služby do součástí.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/dependency-injection
+ms.openlocfilehash: d5b0747fb0505499197d1751511600bd91fed41d
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84271780"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>BlazorVkládání závislostí ASP.NET Core
 
@@ -23,7 +35,7 @@ DI je technika přístupu ke službám nakonfigurovaným v centrálním umístě
 
 Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 
-| Služba | Doba platnosti | Popis |
+| Služba | Doba platnosti | Description |
 | ------- | -------- | ----------- |
 | <xref:System.Net.Http.HttpClient> | Dočasný | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance <xref:System.Net.Http.HttpClient> v Blazor aplikaci WebAssembly používá prohlížeč pro zpracování provozu http na pozadí.<br><br>BlazorServerové aplikace <xref:System.Net.Http.HttpClient> ve výchozím nastavení neobsahují nakonfigurovaný jako službu. Poskytněte <xref:System.Net.Http.HttpClient> Blazor serverovou aplikaci.<br><br>Další informace naleznete v tématu <xref:blazor/call-web-api>. |
 | <xref:Microsoft.JSInterop.IJSRuntime> | Singleton ( Blazor WebAssembly)<br>S vymezeným oborem ( Blazor Server) | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/call-javascript-from-dotnet>. |
@@ -118,7 +130,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Služby je možné konfigurovat s životností, která jsou uvedená v následující tabulce.
 
-| Doba platnosti | Popis |
+| Doba platnosti | Description |
 | -------- | ----------- |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | BlazorAplikace pro WebAssembly aktuálně nemají koncept typu DI obory. `Scoped`– registrované služby se chovají jako `Singleton` služby. BlazorModel hostování serveru však podporuje `Scoped` dobu života. V rámci Blazor serverových aplikací je vymezená registrace služby vymezená na *připojení*. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI vytvoří *jednu instanci* služby. Všechny součásti, které vyžadují `Singleton` službu, obdrží instanci stejné služby. |

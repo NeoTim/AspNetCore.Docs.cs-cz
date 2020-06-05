@@ -5,7 +5,7 @@ description: Naučte se používat globální nástroj HTTP REPL .NET Core k pro
 monikerRange: '>= aspnetcore-2.1'
 ms.author: scaddie
 ms.custom: mvc
-ms.date: 12/11/2019
+ms.date: 05/20/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: 4d0200cd412cce6eda473a64d132d74d8641db34
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 4c42ad56bbdb7b66824b290cd118903cbe4311e8
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777095"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452210"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -37,7 +37,7 @@ Podporovány jsou následující [Příkazy protokolu HTTP](https://github.com/m
 * [ZÁHLAVÍ](#test-http-head-requests)
 * [NASTAVENÍ](#test-http-options-requests)
 * [POUŽITA](#test-http-patch-requests)
-* [POST](#test-http-post-requests)
+* [SPUŠTĚNÍ](#test-http-post-requests)
 * [PŘEVÉST](#test-http-put-requests)
 
 Pokud chcete postup sledovat, [Zobrazte si ukázkové ASP.NET Core webové rozhraní API nebo si ho stáhněte](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/web-api/http-repl/samples) ([jak si ho stáhnout](xref:index#how-to-download-a-sample)).
@@ -160,7 +160,7 @@ Příklad:
 
 ## <a name="manually-point-to-the-swagger-document-for-the-web-api"></a>Ruční odkazování na dokument Swagger pro webové rozhraní API
 
-Výše uvedený příkaz Connect se pokusí najít dokument Swagger automaticky. Pokud z nějakého důvodu to není možné, můžete zadat identifikátor URI dokumentu Swagger pro webové rozhraní API pomocí `--swagger` možnosti:
+Výše uvedený příkaz Connect se pokusí najít dokument Swagger automaticky. Pokud z nějakého důvodu to není možné, můžete zadat identifikátor URI dokumentu Swagger pro webové rozhraní API pomocí `--swagger` Možnosti:
 
 ```console
 connect <ROOT URI> --swagger <SWAGGER URI>
@@ -176,7 +176,7 @@ Příklad:
 
 ### <a name="view-available-endpoints"></a>Zobrazit dostupné koncové body
 
-Pokud chcete zobrazit seznam různých koncových bodů (řadičů) na aktuální cestě adresy webového rozhraní API, spusťte `ls` příkaz `dir` nebo:
+Pokud chcete zobrazit seznam různých koncových bodů (řadičů) na aktuální cestě adresy webového rozhraní API, spusťte `ls` `dir` příkaz nebo:
 
 ```console
 https://localhot:5001/~ ls
@@ -192,9 +192,9 @@ People   [get|post]
 https://localhost:5001/~
 ```
 
-Předchozí výstup ukazuje, že jsou k dispozici dva řadiče `Fruits` : `People`a. Oba řadiče podporují operace HTTP GET a POST bez parametrů.
+Předchozí výstup ukazuje, že jsou k dispozici dva řadiče: `Fruits` a `People` . Oba řadiče podporují operace HTTP GET a POST bez parametrů.
 
-Přechod na konkrétní kontroler odhalí více podrobností. Například výstup následujícího příkazu ukazuje, že `Fruits` kontroler také podporuje operace HTTP GET, PUT a DELETE. Každá z těchto operací očekává v `id` trase parametr:
+Přechod na konkrétní kontroler odhalí více podrobností. Například výstup následujícího příkazu ukazuje, že `Fruits` kontroler také podporuje operace HTTP GET, PUT a DELETE. Každá z těchto operací očekává `id` v trase parametr:
 
 ```console
 https://localhost:5001/fruits~ ls
@@ -241,7 +241,7 @@ Výchozí [barvy](#set-color-preferences) REPL http je možné přizpůsobit. Kr
 
 # <a name="windows"></a>[Windows](#tab/windows)
 
-*% USERPROFILE%\\. httpreplprefs*
+*% USERPROFILE% \\ . httpreplprefs*
 
 ---
 
@@ -270,7 +270,7 @@ colors.status=BoldYellow
 
 ### <a name="set-color-preferences"></a>Nastavit předvolby barev
 
-Vybarvení odpovědi je aktuálně podporováno pouze pro JSON. Chcete-li přizpůsobit výchozí barevné vybarvení nástroje HTTP REPL, vyhledejte klíč odpovídající barvě, který má být změněn. Pokyny k vyhledání klíčů najdete v části [zobrazení nastavení](#view-the-settings) . Například hodnotu `colors.json` klíče můžete změnit z `Green` na `White` následujícím způsobem:
+Vybarvení odpovědi je aktuálně podporováno pouze pro JSON. Chcete-li přizpůsobit výchozí barevné vybarvení nástroje HTTP REPL, vyhledejte klíč odpovídající barvě, který má být změněn. Pokyny k vyhledání klíčů najdete v části [zobrazení nastavení](#view-the-settings) . Například `colors.json` hodnotu klíče můžete změnit z na následujícím `Green` `White` způsobem:
 
 ```console
 https://localhost:5001/people~ pref set colors.json White
@@ -280,10 +280,10 @@ Mohou být použity pouze [povolené barvy](https://github.com/dotnet/HttpRepl/b
 
 Pokud nejsou nastavené určité klíče barev, považují se za obecnější klíče. K předvedení tohoto nouzového chování Vezměte v úvahu následující příklad:
 
-* Pokud `colors.json.name` nemá hodnotu, `colors.json.string` je použita hodnota.
-* Pokud `colors.json.string` nemá hodnotu, `colors.json.literal` je použita hodnota.
-* Pokud `colors.json.literal` nemá hodnotu, `colors.json` je použita hodnota. 
-* Pokud `colors.json` hodnota nemá hodnotu, použije se výchozí barva textu (`AllowedColors.None`) příkazového prostředí.
+* Pokud nemá `colors.json.name` hodnotu, `colors.json.string` je použita hodnota.
+* Pokud nemá `colors.json.string` hodnotu, `colors.json.literal` je použita hodnota.
+* Pokud nemá `colors.json.literal` hodnotu, `colors.json` je použita hodnota. 
+* Pokud `colors.json` hodnota nemá hodnotu, použije se výchozí barva textu () příkazového prostředí `AllowedColors.None` .
 
 ### <a name="set-indentation-size"></a>Nastavit velikost odsazení
 
@@ -369,14 +369,14 @@ pref set editor.command.default.arguments "--disable-extensions --new-window"
 
 ### <a name="set-the-swagger-search-paths"></a>Nastavení vyhledávacích cest Swagger
 
-Ve výchozím nastavení má REPL HTTP sadu relativních cest, které používá k nalezení dokumentu Swagger při provádění `connect` příkazu bez `--swagger` možnosti. Tyto relativní cesty jsou kombinovány s kořenovou a základní cestou specifikovanou `connect` v příkazu. Výchozí relativní cesty jsou:
+Ve výchozím nastavení má REPL HTTP sadu relativních cest, které používá k nalezení dokumentu Swagger při provádění `connect` příkazu bez `--swagger` Možnosti. Tyto relativní cesty jsou kombinovány s kořenovou a základní cestou specifikovanou v `connect` příkazu. Výchozí relativní cesty jsou:
 
 - *Swagger. JSON*
 - *Swagger/v1/Swagger. JSON*
 - */swagger.json*
 - */swagger/v1/swagger.json*
 
-Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte `swagger.searchPaths` předvolby. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Příklad:
+Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte `swagger.searchPaths` Předvolby. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Příklad:
 
 ```console
 pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
@@ -390,7 +390,7 @@ pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
 get <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -398,7 +398,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 ### <a name="options"></a>Možnosti
 
-Pro `get` příkaz jsou k dispozici následující možnosti:
+Pro příkaz jsou k dispozici následující možnosti `get` :
 
 [!INCLUDE [standard CLI options](~/includes/http-repl/standard-options.md)]
 
@@ -474,7 +474,7 @@ Vystavení požadavku HTTP GET:
 post <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -496,7 +496,7 @@ Vystavení požadavku HTTP POST:
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
 
-    V předchozím příkazu je hlavička požadavku `Content-Type` http nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
+    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
 
     ```json
     {
@@ -544,7 +544,7 @@ Vystavení požadavku HTTP POST:
 put <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -560,7 +560,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Vydání požadavku HTTP PUT:
 
-1. *Volitelné*: pro zobrazení `get` dat před úpravou spusťte příkaz:
+1. *Volitelné*: `get` pro zobrazení dat před úpravou spusťte příkaz:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -592,7 +592,7 @@ Vydání požadavku HTTP PUT:
     https://localhost:5001/fruits~ put 2 -h Content-Type=application/json
     ```
 
-    V předchozím příkazu je hlavička požadavku `Content-Type` http nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
+    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
 
     ```json
     {
@@ -659,7 +659,7 @@ Vydání požadavku HTTP PUT:
 delete <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -673,7 +673,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Postup při vystavení žádosti o odstranění protokolu HTTP:
 
-1. *Volitelné*: pro zobrazení `get` dat před úpravou spusťte příkaz:
+1. *Volitelné*: `get` pro zobrazení dat před úpravou spusťte příkaz:
 
     ```console
     https://localhost:5001/fruits~ get
@@ -746,7 +746,7 @@ Postup při vystavení žádosti o odstranění protokolu HTTP:
 patch <PARAMETER> [-c|--content] [-f|--file] [-h|--header] [--no-body] [-F|--no-formatting] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -766,7 +766,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 head <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -784,7 +784,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 options <PARAMETER> [-F|--no-formatting] [-h|--header] [--response] [--response:body] [--response:headers] [-s|--streaming]
 ```
 
-### <a name="arguments"></a>Argumenty
+### <a name="arguments"></a>Arguments
 
 `PARAMETER`
 
@@ -820,7 +820,23 @@ Pokud chcete nastavit hlavičku požadavku HTTP, použijte jeden z následujíc�
 
 ## <a name="test-secured-endpoints"></a>Test zabezpečených koncových bodů
 
-HTTP REPL podporuje testování zabezpečených koncových bodů pomocí hlaviček požadavku HTTP. Příklady podporovaných schémat ověřování a autorizace zahrnují základní ověřování, tokeny nosiče JWT a ověřování hodnotou hash. Například můžete odeslat nosný token do koncového bodu pomocí následujícího příkazu:
+HTTP REPL podporuje testování zabezpečených koncových bodů dvěma způsoby: prostřednictvím výchozích přihlašovacích údajů přihlášeného uživatele nebo pomocí hlaviček požadavků HTTP. 
+
+### <a name="default-credentials"></a>Výchozí pověření
+
+Vezměte v úvahu scénář, ve kterém je webové rozhraní API, které testujete, hostované ve službě IIS a zabezpečené s ověřováním systému Windows. Chcete, aby přihlašovací údaje uživatele, který spustil nástroj, pokračovaly v testování koncových bodů HTTP. Předání výchozích přihlašovacích údajů přihlášeného uživatele:
+
+1. Nastavte `httpClient.useDefaultCredentials` Předvolby na `true` :
+
+    ```console
+    pref set httpClient.useDefaultCredentials true
+    ```
+
+1. Před odesláním dalšího požadavku webovému rozhraní API ukončete nástroj a restartujte ho.
+
+### <a name="http-request-headers"></a>Hlavičky požadavku HTTP
+
+Příklady podporovaných schémat ověřování a autorizace zahrnují základní ověřování, tokeny nosiče JWT a ověřování hodnotou hash. Například můžete odeslat nosný token do koncového bodu pomocí následujícího příkazu:
 
 ```console
 set header Authorization "bearer <TOKEN VALUE>"
@@ -830,25 +846,25 @@ Pokud chcete získat přístup ke koncovému bodu hostovanému v Azure nebo pou�
 
 1. Přihlaste se k Azure:
 
-    ```azcli
+    ```azurecli
     az login
     ```
 
 1. Pomocí následujícího příkazu Získejte ID vašeho předplatného:
 
-    ```azcli
+    ```azurecli
     az account show --query id
     ```
 
 1. Zkopírujte ID předplatného a spusťte následující příkaz:
 
-    ```azcli
+    ```azurecli
     az account set --subscription "<SUBSCRIPTION ID>"
     ```
 
 1. Získejte token nosiče pomocí následujícího příkazu:
 
-    ```azcli
+    ```azurecli
     az account get-access-token --query accessToken
     ```
 
@@ -858,7 +874,7 @@ Pokud chcete získat přístup ke koncovému bodu hostovanému v Azure nebo pou�
     httprepl https://management.azure.com
     ```
 
-1. Nastavte hlavičku `Authorization` požadavku http:
+1. Nastavte `Authorization` hlavičku požadavku http:
 
     ```console
     https://management.azure.com/> set header Authorization "bearer <ACCESS TOKEN>"
@@ -906,7 +922,7 @@ Ve výchozím nastavení se zobrazí potlačení požadavku HTTP na odeslání. 
 
 ### <a name="enable-request-display"></a>Povolit zobrazení žádosti
 
-Spuštěním `echo on` příkazu ZOBRAZTE požadavek HTTP, který odesíláte. Příklad:
+Spuštěním příkazu Zobrazte požadavek HTTP, který odesíláte `echo on` . Příklad:
 
 ```console
 https://localhost:5001/people~ echo on
@@ -1015,7 +1031,7 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
 
 ## <a name="clear-the-output"></a>Vymazat výstup
 
-Pokud chcete odebrat veškerý výstup napsaný do příkazového prostředí nástrojem HTTP REPL, spusťte příkaz `clear` nebo `cls` . K ilustraci si představte, že příkazové prostředí obsahuje následující výstup:
+Pokud chcete odebrat veškerý výstup napsaný do příkazového prostředí nástrojem HTTP REPL, spusťte `clear` příkaz nebo `cls` . K ilustraci si představte, že příkazové prostředí obsahuje následující výstup:
 
 ```console
 httprepl https://localhost:5001

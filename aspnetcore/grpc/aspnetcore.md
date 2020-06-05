@@ -12,16 +12,18 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/aspnetcore
-ms.openlocfilehash: c14ae1fb3c2e046ae577c63824eebb4411a6e804
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: fa38ec9f9cf882b1a62f74879b7d49706ee150ce
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776217"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452379"
 ---
 # <a name="grpc-services-with-aspnet-core"></a>Služby gRPC s ASP.NET Core
 
 Tento dokument ukazuje, jak začít s gRPC službami pomocí ASP.NET Core.
+
+[!INCLUDE[](~/includes/gRPCazure.md)]
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -62,7 +64,7 @@ gRPC vyžaduje balíček [gRPC. AspNetCore](https://www.nuget.org/packages/Grpc.
 V *Startup.cs*:
 
 * gRPC je povoleno s `AddGrpc` metodou.
-* Každá služba gRPC je prostřednictvím `MapGrpcService` metody přidána do kanálu směrování.
+* Každá služba gRPC je prostřednictvím metody přidána do kanálu směrování `MapGrpcService` .
 
 [!code-csharp[](~/tutorials/grpc/grpc-start/sample/GrpcGreeter/Startup.cs?name=snippet&highlight=7,24)]
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
@@ -78,13 +80,13 @@ Koncové body Kestrel gRPC:
 
 #### <a name="http2"></a>HTTP/2
 
-gRPC vyžaduje HTTP/2. gRPC pro ASP.NET Core ověří [HttpRequest. protokol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) je `HTTP/2`.
+gRPC vyžaduje HTTP/2. gRPC pro ASP.NET Core ověří [HttpRequest. protokol](xref:Microsoft.AspNetCore.Http.HttpRequest.Protocol*) je `HTTP/2` .
 
 Kestrel [podporuje HTTP/2](xref:fundamentals/servers/kestrel#http2-support) na většině moderních operačních systémů. Ve výchozím nastavení jsou Kestrel koncové body konfigurovány pro podporu připojení HTTP/1.1 a HTTP/2.
 
 #### <a name="tls"></a>TLS
 
-Koncové body Kestrel použité pro gRPC by měly být zabezpečené pomocí protokolu TLS. Ve vývojovém prostředí je koncový bod zabezpečený pomocí protokolu TLS `https://localhost:5001` automaticky vytvořen v době, kdy je k dispozici ASP.NET Core vývojový certifikát. Není nutná žádná konfigurace. `https` Předpona ověří koncový bod Kestrel pomocí protokolu TLS.
+Koncové body Kestrel použité pro gRPC by měly být zabezpečené pomocí protokolu TLS. Ve vývojovém prostředí je koncový bod zabezpečený pomocí protokolu TLS automaticky vytvořen v době `https://localhost:5001` , kdy je k dispozici ASP.NET Core vývojový certifikát. Není nutná žádná konfigurace. `https`Předpona ověří koncový bod Kestrel pomocí protokolu TLS.
 
 V produkčním prostředí musí být protokol TLS explicitně nakonfigurovaný. V následujícím příkladu *appSettings. JSON* je k dispozici koncový bod HTTP/2 zabezpečený protokolem TLS:
 
@@ -98,7 +100,7 @@ Alternativně lze v *program.cs*nakonfigurovat koncové body Kestrel:
 
 Protokol TLS se používá pro více než zabezpečení komunikace. Metoda handshake [protokolu TLS (ALPN)](https://tools.ietf.org/html/rfc7301#section-3) se používá k vyjednání protokolu připojení mezi klientem a serverem, když koncový bod podporuje více protokolů. Toto vyjednávání určuje, zda připojení používá protokol HTTP/1.1 nebo HTTP/2.
 
-Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven `HttpProtocols.Http2`na. Koncový bod s více protokoly (například `HttpProtocols.Http1AndHttp2`) nelze použít bez TLS, protože neexistuje žádné vyjednávání. Všechna připojení k nezabezpečenému koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC selžou.
+Pokud je koncový bod HTTP/2 nakonfigurovaný bez TLS, musí být [ListenOptions. Protocols](xref:fundamentals/servers/kestrel#listenoptionsprotocols) koncového bodu nastaven na `HttpProtocols.Http2` . Koncový bod s více protokoly (například `HttpProtocols.Http1AndHttp2` ) nelze použít bez TLS, protože neexistuje žádné vyjednávání. Všechna připojení k nezabezpečenému koncovému bodu ve výchozím nastavení HTTP/1.1 a volání gRPC selžou.
 
 Další informace o povolení HTTP/2 a TLS s Kestrel najdete v tématu [Konfigurace koncového bodu Kestrel](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
@@ -126,13 +128,12 @@ Rozhraní gRPC API poskytuje přístup k některým datům zprávy HTTP/2, jako 
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService.cs?highlight=3-4&name=snippet)]
 
-`ServerCallContext`neposkytuje úplný přístup ke `HttpContext` všem rozhraním API ASP.NET. Metoda `GetHttpContext` rozšíření poskytuje úplný přístup k `HttpContext` reprezentující základní zprávu HTTP/2 v rozhraních API ASP.NET:
+`ServerCallContext`neposkytuje úplný přístup ke `HttpContext` všem rozhraním api ASP.NET. `GetHttpContext`Metoda rozšíření poskytuje úplný přístup k `HttpContext` reprezentující základní zprávu HTTP/2 v rozhraních API ASP.NET:
 
 [!code-csharp[](~/grpc/aspnetcore/sample/GrcpService/GreeterService2.cs?highlight=6-7&name=snippet)]
 
-[!INCLUDE[](~/includes/gRPCazure.md)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:tutorials/grpc/grpc-start>
 * <xref:grpc/index>

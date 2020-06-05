@@ -1,7 +1,7 @@
 ---
-title: 'Kurz: Začínáme se Razor stránkami v ASP.NET Core'
+title: "\"Kurz: Začínáme se Razor stránkami v ASP.NET Core\""
 author: rick-anderson
-description: V této sérii kurzů se dozvíte Razor , jak používat stránky v ASP.NET Core. Naučte se, jak vytvořit model, vygenerovat Razor kód pro stránky, používat Entity Framework Core a SQL Server pro přístup k datům, přidat funkce hledání, přidat ověření vstupu a použít migrace k aktualizaci modelu.
+description: V této sérii kurzů se dozvíte, jak používat Razor stránky v ASP.NET Core. Naučte se, jak vytvořit model, vygenerovat kód pro Razor stránky, používat Entity Framework Core a SQL Server pro přístup k datům, přidat funkce hledání, přidat ověření vstupu a použít migrace k aktualizaci modelu.
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
@@ -11,19 +11,19 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 8ed12b1778673962fe0b174e005bd6d8a7f54168
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 3b8ccf639bb91234f81c67750fffa170e52d636f
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774870"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452335"
 ---
-# <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme s Razor Pages v ASP.NET Core
+# <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se Razor stránkami v ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
-Toto je první kurz série, který se učí základy vytváření ASP.NET Core webové aplikace Razor Pages.
+Toto je první kurz série, který se učí základy vytvoření Razor webové aplikace ASP.NET Core Pages.
 
 [!INCLUDE[](~/includes/advancedRP.md)]
 
@@ -34,11 +34,11 @@ Na konci série budete mít aplikaci, která spravuje databázi filmů.
 V tomto kurzu jste:
 
 > [!div class="checklist"]
-> * Vytvořte Razor Pages webovou aplikaci.
+> * Vytvoření Razor webové aplikace Pages
 > * Spusťte aplikaci.
 > * Prověřte soubory projektu.
 
-Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou vytvoříte v pozdějších kurzech.
+Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kterou vytvoříte v pozdějších kurzech.
 
 ![Stránka domů nebo index](razor-pages-start/_static/home2.2.png)
 
@@ -58,7 +58,7 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 ---
 
-## <a name="create-a-razor-pages-web-app"></a>Vytvoření webové aplikace Stránky Razor
+## <a name="create-a-razor-pages-web-app"></a>Vytvoření Razor webové aplikace Pages
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -80,7 +80,7 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 * Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
-* Přejděte do adresáře (`cd`), který bude obsahovat projekt.
+* Přejděte do adresáře ( `cd` ), který bude obsahovat projekt.
 
 * Spusťte následující příkazy:
 
@@ -89,8 +89,8 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
   code -r RazorPagesMovie
   ```
 
-  * `dotnet new` Příkaz vytvoří nový projekt Razor Pages ve složce *RazorPagesMovie* .
-  * `code` Příkaz otevře složku *RazorPagesMovie* v aktuální instanci Visual Studio Code.
+  * `dotnet new`Příkaz vytvoří nový Razor projekt stránky ve složce *RazorPagesMovie* .
+  * `code`Příkaz otevře složku *RazorPagesMovie* v aktuální instanci Visual Studio Code.
 
 * Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' RazorPagesMovie '. Přidat je?** Vyberte **Ano**.
 
@@ -100,19 +100,24 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 * Vyberte **soubor** > **nové řešení**.
 
-![macOS nové řešení](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
+  ![macOS nové řešení](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-* Jako **Další**vyberte **webovou aplikaci** > **.NET Core** > **App** > .
+* V Visual Studio pro Mac starší než verze 8,6 vyberte možnost Webová aplikace **.NET Core**  >  **App**  >  **Web aplikace**  >  **Next**. V části verze 8,6 nebo novější vyberte webová aplikace **Webová aplikace a**  >  **aplikace**konzoly webové  >  **aplikace**  >  **Next**.
 
-  ![dialog pro nový projekt v macOS](razor-pages-start/_static/webapp.png)
+  ![Výběr šablony webové aplikace v macOS](razor-pages-start/_static/web_app_template_vsmac.png)
 
-* V dialogovém okně **Konfigurace nové webové aplikace** nastavte **cílovou architekturu** na **.NET Core 3,1**.
+* Potvrďte následující konfigurace:
+
+  * **Cílová architektura** je nastavená na **.NET Core 3,1**.
+  * **Ověřování** nastaveno na **bez ověřování**.
+   
+  Vyberte **Další**.
 
   ![macOS .NET Core 3,1 – výběr](razor-pages-start/_static/targetframework3.png)
 
 * Pojmenujte projekt **RazorPagesMovie**a pak vyberte **vytvořit**.
 
-  ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
+  ![macOS název projektu](razor-pages-start/_static/RazorPagesMovie.png)
 
 <!-- End of VS tabs -->
 
@@ -128,9 +133,9 @@ Tady je přehled hlavních složek projektu a souborů, se kterými budete praco
 
 ### <a name="pages-folder"></a>Složka stránky
 
-Obsahuje stránky Razor a podpůrné soubory. Každá stránka Razor Page je dvojicí souborů:
+Obsahuje Razor stránky a podpůrné soubory. Každá Razor stránka je pár souborů:
 
-* Soubor *. cshtml* , který obsahuje značky HTML s kódem jazyka C# pomocí syntaxe Razor.
+* Soubor *. cshtml* , který obsahuje značky HTML s kódem jazyka C# pomocí Razor syntaxe.
 * Soubor *. cshtml.cs* , který obsahuje kód jazyka C#, který zpracovává události stránky.
 
 Podpůrné soubory mají názvy začínající podtržítkem. Například soubor *_Layout. cshtml* nakonfiguruje prvky uživatelského rozhraní společné pro všechny stránky. Tento soubor nastaví navigační nabídku v horní části stránky a oznámení o autorských právech v dolní části stránky. Další informace naleznete v tématu <xref:mvc/views/layout>.
@@ -164,7 +169,7 @@ Přejděte k dalšímu kurzu v řadě:
 
 ::: moniker range="< aspnetcore-3.0"
 
-Toto je první kurz řady. [Série](xref:tutorials/razor-pages/index) se učí základy vytváření ASP.NET Core webové aplikace Razor Pages.
+Toto je první kurz řady. [Série](xref:tutorials/razor-pages/index) se učí základy vytvoření Razor webové aplikace ASP.NET Core Pages.
 
 [!INCLUDE[](~/includes/advancedRP.md)]
 
@@ -175,11 +180,11 @@ Na konci série budete mít aplikaci, která spravuje databázi filmů.
 V tomto kurzu jste:
 
 > [!div class="checklist"]
-> * Vytvořte Razor Pages webovou aplikaci.
+> * Vytvoření Razor webové aplikace Pages
 > * Spusťte aplikaci.
 > * Prověřte soubory projektu.
 
-Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou vytvoříte v pozdějších kurzech.
+Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kterou vytvoříte v pozdějších kurzech.
 
 ![Stránka domů nebo index](razor-pages-start/_static/home2.2.png)
 
@@ -199,7 +204,7 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 ---
 
-## <a name="create-a-razor-pages-web-app"></a>Vytvoření webové aplikace Stránky Razor
+## <a name="create-a-razor-pages-web-app"></a>Vytvoření Razor webové aplikace Pages
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -225,7 +230,7 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 * Otevřete [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
-* Přejděte do adresáře (`cd`), který bude obsahovat projekt.
+* Přejděte do adresáře ( `cd` ), který bude obsahovat projekt.
 
 * Spusťte následující příkazy:
 
@@ -234,8 +239,8 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
   code -r RazorPagesMovie
   ```
 
-  * `dotnet new` Příkaz vytvoří nový projekt Razor Pages ve složce *RazorPagesMovie* .
-  * `code` Příkaz otevře složku *RazorPagesMovie* v aktuální instanci Visual Studio Code.
+  * `dotnet new`Příkaz vytvoří nový Razor projekt stránky ve složce *RazorPagesMovie* .
+  * `code`Příkaz otevře složku *RazorPagesMovie* v aktuální instanci Visual Studio Code.
 
 * Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' RazorPagesMovie '. Přidat je?** Vyberte **Ano**.
 
@@ -247,9 +252,7 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 ![macOS nové řešení](../first-mvc-app/start-mvc/_static/new_project_vsmac.png)
 
-* Jako **Další**vyberte **webovou aplikaci** > **.NET Core** > **App** > .
-
-  ![dialog pro nový projekt v macOS](razor-pages-start/_static/webapp.png)
+* V Visual Studio pro Mac starší než verze 8,6 vyberte možnost Webová aplikace **.NET Core**  >  **App**  >  **Web aplikace**  >  **Next**. V části verze 8,6 nebo novější vyberte webová aplikace **Webová aplikace a**  >  **aplikace**konzoly webové  >  **aplikace**  >  **Next**.
 
 * V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** nastavte **cílové** rozhraní **.NET Core 3,1**.
 
@@ -271,7 +274,7 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
   [!INCLUDE[](~/includes/trustCertVS.md)]
 
-  Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Panel Adresa se zobrazí `localhost:port#` a ne něco jako `example.com`. Důvodem `localhost` je, že je standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port.
+  Visual Studio spustí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) a spustí aplikaci. Panel Adresa se zobrazí `localhost:port#` a ne něco jako `example.com` . Důvodem je, že `localhost` je standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port.
 
 * Na domovské stránce aplikace vyberte **přijmout** pro vyjádření souhlasu se sledováním.
 
@@ -289,7 +292,7 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 * Stisknutím **kombinace kláves CTRL + F5** spustíte bez ladicího programu.
 
-  Visual Studio Code spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `http://localhost:5001`. Panel Adresa se zobrazí `localhost:port#` a ne něco jako `example.com`. To je proto `localhost` , že se jedná o standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače.
+  Visual Studio Code spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `http://localhost:5001` . Panel Adresa se zobrazí `localhost:port#` a ne něco jako `example.com` . To je proto, že `localhost` se jedná o standardní název hostitele pro místní počítač. Localhost obsluhuje pouze webové požadavky z místního počítače.
 
 * Na domovské stránce aplikace vyberte **přijmout** pro vyjádření souhlasu se sledováním.
 
@@ -307,7 +310,7 @@ Na konci tohoto kurzu budete mít funkční Razor Pages webovou aplikaci, kterou
 
 * Stisknutím klávesy **cmd a opt-F5** spusťte bez ladicího programu.
 
-  Visual Studio spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `http://localhost:5001`.
+  Visual Studio spustí [Kestrel](xref:fundamentals/servers/kestrel), spustí prohlížeč a přejde na `http://localhost:5001` .
 
 * Na domovské stránce aplikace vyberte **přijmout** pro vyjádření souhlasu se sledováním.
 
@@ -331,7 +334,7 @@ Tady je přehled hlavních složek projektu a souborů, se kterými budete praco
 
 Obsahuje Razor stránky a podpůrné soubory. Každá Razor stránka je pár souborů:
 
-* Soubor *. cshtml* , který obsahuje značky HTML s kódem jazyka C# Razor pomocí syntaxe.
+* Soubor *. cshtml* , který obsahuje značky HTML s kódem jazyka C# pomocí Razor syntaxe.
 * Soubor *. cshtml.cs* , který obsahuje kód jazyka C#, který zpracovává události stránky.
 
 Podpůrné soubory mají názvy začínající podtržítkem. Například soubor *_Layout. cshtml* nakonfiguruje prvky uživatelského rozhraní společné pro všechny stránky. Tento soubor nastaví navigační nabídku v horní části stránky a oznámení o autorských právech v dolní části stránky. Další informace naleznete v tématu <xref:mvc/views/layout>.

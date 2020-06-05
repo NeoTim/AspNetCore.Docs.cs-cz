@@ -13,18 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/index
-ms.openlocfilehash: 74affbb7d18d80e2e55714df100d820aed2ce427
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 9d57fcd5883a869c5421b88321d4a279f3f938c9
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776178"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84452145"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementace webového serveru v ASP.NET Core
 
 Tím, že [Dykstra](https://github.com/tdykstra), [Steve Smith](https://ardalis.com/), [Stephen zastavení](https://twitter.com/halter73)a [Chris Rossův](https://github.com/Tratcher)
 
-Aplikace ASP.NET Core běží s implementací vnitroprocesového serveru HTTP. Implementace serveru naslouchá požadavkům HTTP a rozloží je do aplikace jako sadu [funkcí požadavků](xref:fundamentals/request-features) složených do <xref:Microsoft.AspNetCore.Http.HttpContext>.
+Aplikace ASP.NET Core běží s implementací vnitroprocesového serveru HTTP. Implementace serveru naslouchá požadavkům HTTP a rozloží je do aplikace jako sadu [funkcí požadavků](xref:fundamentals/request-features) složených do <xref:Microsoft.AspNetCore.Http.HttpContext> .
 
 ## <a name="kestrel"></a>Kestrel
 
@@ -40,9 +40,9 @@ Použijte Kestrel:
 
   ![Kestrel nepřímo komunikuje s internetem prostřednictvím reverzní proxy server, jako je IIS, Nginx nebo Apache.](kestrel/_static/kestrel-to-internet.png)
 
-Je podporována buď&mdash;konfigurace hostování s zpětným proxy serverm&mdash;, nebo bez něj.
+Je podporována buď konfigurace hostování &mdash; s zpětným proxy serverm, nebo bez něj &mdash; .
 
-Pokyny ke konfiguraci Kestrel a informace o tom, kdy použít Kestrel v konfiguraci reverzního proxy serveru <xref:fundamentals/servers/kestrel>, najdete v tématu.
+Pokyny ke konfiguraci Kestrel a informace o tom, kdy použít Kestrel v konfiguraci reverzního proxy serveru, najdete v tématu <xref:fundamentals/servers/kestrel> .
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -103,7 +103,7 @@ Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Cor
 
 Požadavky přicházející z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
 
-Modul Určuje port prostřednictvím proměnné prostředí při spuštění a [Služba IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) nakonfiguruje server, na kterém má naslouchat `http://localhost:{port}`. Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS, takže požadavky se předávají přes protokol HTTP i v případě, že je služba IIS prostřednictvím protokolu HTTPS přijímá.
+Modul Určuje port prostřednictvím proměnné prostředí při spuštění a [Služba IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) nakonfiguruje server, na kterém má naslouchat `http://localhost:{port}` . Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS, takže požadavky se předávají přes protokol HTTP i v případě, že je služba IIS prostřednictvím protokolu HTTPS přijímá.
 
 Po Kestrel žádosti z modulu se požadavek odešle do kanálu middlewaru ASP.NET Core. Kanál middlewaru zpracovává požadavek a předá ho jako `HttpContext` instanci do logiky aplikace. Middleware přidaný integrací služby IIS: aktualizace schématu, vzdálené IP adresy a pathbase pro přesměrování požadavku do Kestrel. Odpověď aplikace se předává zpátky do služby IIS, která ji přenáší zpátky do klienta HTTP, který žádost inicioval.
 
@@ -126,11 +126,11 @@ ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel
 
 ### <a name="nginx-with-kestrel"></a>Nginx s Kestrel
 
-Informace o tom, jak používat Nginx v systému Linux jako reverzní proxy server pro Kestrel, naleznete <xref:host-and-deploy/linux-nginx>v tématu.
+Informace o tom, jak používat Nginx v systému Linux jako reverzní proxy server pro Kestrel, naleznete v tématu <xref:host-and-deploy/linux-nginx> .
 
 ### <a name="apache-with-kestrel"></a>Apache s Kestrel
 
-Informace o tom, jak používat Apache v systému Linux jako reverzní proxy server pro Kestrel, najdete <xref:host-and-deploy/linux-apache>v tématu.
+Informace o tom, jak používat Apache v systému Linux jako reverzní proxy server pro Kestrel, najdete v tématu <xref:host-and-deploy/linux-apache> .
 
 ## <a name="httpsys"></a>HTTP.sys
 
@@ -142,27 +142,27 @@ HTTP. sys se dá použít taky pro aplikace, které se zveřejňují jenom pro i
 
 ![HTTP. sys komunikuje přímo s interní sítí.](httpsys/_static/httpsys-to-internal.png)
 
-Pokyny k konfiguraci HTTP. sys najdete v <xref:fundamentals/servers/httpsys>tématu.
+Pokyny k konfiguraci HTTP. sys najdete v tématu <xref:fundamentals/servers/httpsys> .
 
 ## <a name="aspnet-core-server-infrastructure"></a>Serverová infrastruktura ASP.NET Core
 
-K dispozici v `Startup.Configure` metodě se zveřejňuje <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ServerFeatures> vlastnost typu <xref:Microsoft.AspNetCore.Http.Features.IFeatureCollection> <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder> Kestrel a HTTP. sys zveřejňují jenom jednu funkci <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature>, ale různé implementace serveru můžou vystavovat další funkce.
+<xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>K dispozici v `Startup.Configure` metodě se zveřejňuje <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ServerFeatures> vlastnost typu <xref:Microsoft.AspNetCore.Http.Features.IFeatureCollection> . Kestrel a HTTP. sys zveřejňují jenom jednu funkci, <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> ale různé implementace serveru můžou vystavovat další funkce.
 
 `IServerAddressesFeature`dá se použít k zjištění, který port má implementace serveru vázána za běhu.
 
 ## <a name="custom-servers"></a>Vlastní servery
 
-Pokud vestavěné servery nesplňují požadavky aplikace, je možné vytvořit vlastní implementaci serveru. [Průvodce rozhraním Open Web Interface for .NET (Owin)](xref:fundamentals/owin) ukazuje, jak psát implementaci založenou <xref:Microsoft.AspNetCore.Hosting.Server.IServer> na [Nowin](https://github.com/Bobris/Nowin). Jenom rozhraní funkcí, které aplikace používá, vyžadují implementaci, ale minimálně <xref:Microsoft.AspNetCore.Http.Features.IHttpRequestFeature> a <xref:Microsoft.AspNetCore.Http.Features.IHttpResponseFeature> musí být podporovaná.
+Pokud vestavěné servery nesplňují požadavky aplikace, je možné vytvořit vlastní implementaci serveru. [Průvodce rozhraním Open Web Interface for .NET (Owin)](xref:fundamentals/owin) ukazuje, jak psát implementaci založenou na [Nowin](https://github.com/Bobris/Nowin) <xref:Microsoft.AspNetCore.Hosting.Server.IServer> . Jenom rozhraní funkcí, které aplikace používá, vyžadují implementaci, ale minimálně <xref:Microsoft.AspNetCore.Http.Features.IHttpRequestFeature> a <xref:Microsoft.AspNetCore.Http.Features.IHttpResponseFeature> musí být podporovaná.
 
 ## <a name="server-startup"></a>Spuštění serveru
 
 Server se spustí, když integrované vývojové prostředí (IDE) nebo editor spustí aplikaci:
 
-* Spouštěcí profily sady [Visual Studio](https://visualstudio.microsoft.com) &ndash; lze použít ke spuštění aplikace a serveru pomocí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)/[ASP.NET Core modulu](xref:host-and-deploy/aspnet-core-module) nebo konzoly.
-* [Visual Studio Code](https://code.visualstudio.com/) &ndash; aplikaci a Server spouští [omnisharp](https://github.com/OmniSharp/omnisharp-vscode), který aktivuje ladicí program CoreCLR.
-* [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/) &ndash; aplikace a Server jsou spouštěny pomocí [ladicího programu mono v tichém režimu](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/).
+* [Visual Studio](https://visualstudio.microsoft.com): spouštěcí profily lze použít ke spuštění aplikace a serveru pomocí [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview) / [ASP.NET Core modulu](xref:host-and-deploy/aspnet-core-module) nebo konzoly.
+* [Visual Studio Code](https://code.visualstudio.com/): aplikace a Server jsou spuštěné nástrojem [omnisharp](https://github.com/OmniSharp/omnisharp-vscode), který aktivuje ladicí program CoreCLR.
+* [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/): aplikace a Server jsou spouštěny pomocí [ladicího programu mono měkkého režimu](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/).
 
-Při spuštění aplikace z příkazového řádku ve složce projektu spustí [dotnet spuštění](/dotnet/core/tools/dotnet-run) aplikace a serveru (jenom Kestrel a http. sys). Konfigurace je určena `-c|--configuration` možností, která je nastavena na hodnotu `Debug` (výchozí) nebo. `Release`
+Při spuštění aplikace z příkazového řádku ve složce projektu spustí [dotnet spuštění](/dotnet/core/tools/dotnet-run) aplikace a serveru (jenom Kestrel a http. sys). Konfigurace je určena `-c|--configuration` možností, která je nastavena na hodnotu `Debug` (výchozí) nebo `Release` .
 
 Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s `dotnet run` nebo s ladicím programem, který je integrovaný do nástrojů, jako je například Visual Studio. Pokud jsou v souboru *launchSettings. JSON* přítomné spouštěcí profily, použijte `--launch-profile {PROFILE NAME}` možnost s `dotnet run` příkazem nebo vyberte profil v aplikaci Visual Studio. Další informace najdete v tématu věnovaném vytváření balíčků [dotnet](/dotnet/core/tools/dotnet-run) a [balíčku pro distribuci .NET Core](/dotnet/core/build/distribution-packaging).
 
@@ -207,7 +207,7 @@ Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s
 
 Připojení HTTP/2 musí používat [vyjednávání protokolu aplikační vrstvy (ALPN)](https://tools.ietf.org/html/rfc7301#section-3) a TLS 1,2 nebo novější. Další informace najdete v tématech, která se týkají scénářů nasazení serveru.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/servers/kestrel>
 * <xref:host-and-deploy/aspnet-core-module>
