@@ -5,7 +5,7 @@ description: Vytvořte aplikaci Chat, která používá ASP.NET Core SignalR s B
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 04/30/2020
+ms.date: 05/19/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,27 +13,25 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 1579b92dbc9db08bfdc5572e5d4245bd18d50590
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: d3ce11606b4193d5c2938b5996d8dcd1cb99a731
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773785"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84451885"
 ---
-# <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET Coreového signálu s Blazor WebAssembly
+# <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET Core SignalR s Blazor WebAssembly
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí nástroje Signaler s Blazor WebAssembly. Získáte informace o těchto tématech:
+V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí rozhraní SignalR Blazor WebAssembly. Získáte informace o těchto tématech:
 
 > [!div class="checklist"]
-> * Vytvoření projektu hostované aplikace Blazor WebAssembly
-> * Přidat klientskou knihovnu signálů
-> * Přidat centrum signálů
-> * Přidat služby signalizace a koncový bod pro centrum signalizace
-> * Přidat kód komponenty Razor pro chat
+> * Vytvoření Blazor projektu hostované aplikace WebAssembly
+> * Přidat SignalR klientskou knihovnu
+> * Přidání SignalR centra
+> * Přidání SignalR služeb a koncového bodu pro SignalR centrum
+> * Přidat Razor kód komponenty pro chat
 
 Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 
@@ -43,7 +41,8 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-[!INCLUDE[](~/includes/net-core-prereqs-vs-3.1.md)]
+* [Visual Studio 2019 16,6 nebo novější](https://visualstudio.microsoft.com/downloads/?utm_medium=microsoft&utm_source=docs.microsoft.com&utm_campaign=inline+link&utm_content=download+vs2019) s úlohou **vývoje ASP.NET a webu**
+* [!INCLUDE [.NET Core 3.1 SDK](~/includes/3.1-SDK.md)]
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -51,40 +50,38 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-[!INCLUDE[](~/includes/net-core-prereqs-mac-3.1.md)]
+* [Visual Studio pro Mac verze 8,6 nebo novější](https://visualstudio.microsoft.com/vs/mac/)
+* [!INCLUDE [.NET Core 3.1 SDK](~/includes/3.1-SDK.md)]
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 [!INCLUDE[](~/includes/3.1-SDK.md)]
 
 ---
 
-## <a name="create-a-hosted-blazor-webassembly-app-project"></a>Vytvoření hostovaného projektu aplikace Blazor WebAssembly
-
-Pokud nepoužíváte Visual Studio verze 16,6 Preview 2 nebo novější, nainstalujte šablonu [Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) . Balíček [Microsoft. AspNetCore. Components. WebAssembly. Templates](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Templates/) obsahuje verzi Preview, zatímco Blazor WebAssembly je ve verzi Preview. V příkazovém prostředí spusťte následující příkaz:
-
-```dotnetcli
-dotnet new -i Microsoft.AspNetCore.Components.WebAssembly.Templates::3.2.0-rc1.20223.4
-```
+## <a name="create-a-hosted-blazor-webassembly-app-project"></a>Vytvoření hostovaného Blazor projektu aplikace WebAssembly
 
 Postupujte podle pokynů pro výběr nástrojů:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
+> [!NOTE]
+> Vyžaduje se Visual Studio 16,6 nebo novější a .NET Core SDK 3.1.300 nebo novější.
+
 1. Vytvoření nového projektu
 
-1. Vyberte **aplikace Blazor** a vyberte **Další**.
+1. Vyberte ** Blazor aplikace** a vyberte **Další**.
 
 1. Do pole **název projektu** zadejte "BlazorSignalRApp". Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
-1. Vyberte šablonu **aplikace WebAssembly pro Blazor** .
+1. Vyberte šablonu ** Blazor aplikace pro WebAssembly** .
 
 1. V části **Upřesnit**zaškrtněte políčko **ASP.NET Core hostované** .
 
 1. Vyberte **Vytvořit**.
 
 > [!NOTE]
-> Pokud jste provedli upgrade nebo instalaci nové verze sady Visual Studio a šablona WebAssembly Blazor se nezobrazí v uživatelském rozhraní VS, přeinstalujte ji pomocí `dotnet new` příkazu uvedeného výše.
+> Pokud jste provedli upgrade nebo instalaci nové verze sady Visual Studio a Blazor Šablona sestavení (GAC) se nezobrazí v uživatelském rozhraní vs, přeinstalujte ji pomocí `dotnet new` příkazu uvedeného výše.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -100,15 +97,30 @@ Postupujte podle pokynů pro výběr nástrojů:
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-1. V příkazovém prostředí spusťte následující příkaz:
+1. Nainstalujte nejnovější verzi [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/) a proveďte následující kroky:
 
-   ```dotnetcli
-   dotnet new blazorwasm --hosted --output BlazorSignalRApp
-   ```
+1. Vyberte **soubor**  >  **nové řešení** nebo vytvořte **Nový** projekt z **okna Start**.
 
-1. V Visual Studio pro Mac otevřete projekt tak, že přejdete do složky projektu a otevřete soubor řešení projektu (*. sln*).
+1. Na bočním panelu vyberte **Webová a konzolová**  >  **aplikace**.
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+1. Vyberte šablonu ** Blazor aplikace pro WebAssembly** . Vyberte **Další**.
+
+   Potvrďte následující konfigurace:
+
+   * **Cílová architektura** je nastavená na **.NET Core 3,1**.
+   * **Ověřování** nastaveno na **bez ověřování**.
+
+   Zaškrtněte políčko **ASP.NET Core hostované** .
+
+   Vyberte **Další**.
+
+1. Do pole **název projektu** název aplikace `BlazorSignalRApp` . Vyberte **Vytvořit**.
+
+   Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřujete certifikátu a pokračujte. Certifikát uživatele a řetězce klíčů je nutný k důvěřování certifikátu.
+
+1. Otevřete projekt tak, že přejdete do složky projektu a otevřete soubor řešení projektu (*. sln*).
+
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 V příkazovém prostředí spusťte následující příkaz:
 
@@ -118,7 +130,7 @@ dotnet new blazorwasm --hosted --output BlazorSignalRApp
 
 ---
 
-## <a name="add-the-signalr-client-library"></a>Přidat klientskou knihovnu signálů
+## <a name="add-the-signalr-client-library"></a>Přidat SignalR klientskou knihovnu
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio/)
 
@@ -126,9 +138,9 @@ dotnet new blazorwasm --hosted --output BlazorSignalRApp
 
 1. V dialogovém okně **Spravovat balíčky NuGet** ověřte, že je **zdroj balíčku** nastavený na *NuGet.org*.
 
-1. Když je vybrána možnost **Procházet** , do vyhledávacího pole zadejte "Microsoft. AspNetCore. signaler. Client".
+1. Vyberte možnost **Procházet** a zadejte "Microsoft. AspNetCore. SignalR . Client do vyhledávacího pole.
 
-1. Ve výsledcích hledání vyberte `Microsoft.AspNetCore.SignalR.Client` balíček a vyberte **nainstalovat**.
+1. Ve výsledcích hledání vyberte [Microsoft. AspNetCore. SignalR . Balíček klienta](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) a vyberte **nainstalovat**.
 
 1. Pokud se zobrazí dialogové okno **Náhled změn** , vyberte **OK**.
 
@@ -136,7 +148,7 @@ dotnet new blazorwasm --hosted --output BlazorSignalRApp
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code/)
 
-V **integrovaném terminálu** (**zobrazení** > **terminálu** z panelu nástrojů) spusťte následující příkazy:
+V **integrovaném terminálu** (**zobrazení**  >  **terminálu** z panelu nástrojů) spusťte následující příkazy:
 
 ```dotnetcli
 dotnet add Client package Microsoft.AspNetCore.SignalR.Client
@@ -148,13 +160,13 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 1. V dialogovém okně **Spravovat balíčky NuGet** potvrďte, že je rozevírací seznam zdroj nastavený na *NuGet.org*.
 
-1. Když je vybrána možnost **Procházet** , do vyhledávacího pole zadejte "Microsoft. AspNetCore. signaler. Client".
+1. Vyberte možnost **Procházet** a zadejte "Microsoft. AspNetCore. SignalR . Client do vyhledávacího pole.
 
-1. Ve výsledcích hledání zaškrtněte políčko vedle `Microsoft.AspNetCore.SignalR.Client` balíčku a vyberte **Přidat balíček**.
+1. Ve výsledcích hledání zaškrtněte políčko u: [Microsoft. AspNetCore. SignalR Balíček klienta](https://www.nuget.org/packages/Microsoft.AspNetCore.SignalR.Client/) a vyberte **Přidat balíček**.
 
 1. Pokud se zobrazí dialogové okno pro **přijetí licence** , vyberte **přijmout** , pokud souhlasíte s licenčními podmínkami.
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 V příkazovém prostředí spusťte následující příkazy:
 
@@ -165,31 +177,34 @@ dotnet add Client package Microsoft.AspNetCore.SignalR.Client
 
 ---
 
-## <a name="add-a-signalr-hub"></a>Přidat centrum signálů
+## <a name="add-a-signalr-hub"></a>Přidání SignalR centra
 
 V projektu **BlazorSignalRApp. Server** vytvořte složku *Centers* (plural) a přidejte následující `ChatHub` třídu (*Centers/ChatHub. cs*):
 
 [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Hubs/ChatHub.cs)]
 
-## <a name="add-services-and-an-endpoint-for-the-signalr-hub"></a>Přidání služeb a koncového bodu pro centrum signalizace
+## <a name="add-services-and-an-endpoint-for-the-signalr-hub"></a>Přidání služeb a koncového bodu pro SignalR centrum
 
 1. V projektu **BlazorSignalRApp. Server** otevřete soubor *Startup.cs* .
 
-1. Přidejte do horní části souboru `ChatHub` obor názvů pro třídu:
+1. Přidejte do `ChatHub` horní části souboru obor názvů pro třídu:
 
    ```csharp
    using BlazorSignalRApp.Server.Hubs;
    ```
 
-1. Přidejte služby middlewaru a služby pro kompresi odpovědí `Startup.ConfigureServices`do:
+1. Přidejte SignalR služby middlewaru pro komprimaci a odezvu do `Startup.ConfigureServices` :
 
    [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_ConfigureServices&highlight=3,5-9)]
 
-1. Do `Startup.Configure` mezi koncovými body řadičů a záložním serverem na straně klienta přidejte koncový bod pro centrum:
+1. V `Startup.Configure`:
 
-   [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_UseEndpoints&highlight=4)]
+   * V horní části Konfigurace kanálu zpracování použijte middleware pro kompresi odpovědí.
+   * Mezi koncovými body řadičů a Fallback na straně klienta přidejte koncový bod pro centrum.
 
-## <a name="add-razor-component-code-for-chat"></a>Přidat kód komponenty Razor pro chat
+   [!code-csharp[](signalr-blazor-webassembly/samples/3.x/BlazorSignalRApp/Server/Startup.cs?name=snippet_Configure&highlight=3,25)]
+
+## <a name="add-razor-component-code-for-chat"></a>Přidat Razor kód komponenty pro chat
 
 1. V projektu **BlazorSignalRApp. Client** otevřete soubor *pages/index. Razor* .
 
@@ -203,47 +218,47 @@ V projektu **BlazorSignalRApp. Server** vytvořte složku *Centers* (plural) a p
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. V **Průzkumník řešení**vyberte projekt **BlazorSignalRApp. Server** . Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd>+<kbd>F5</kbd> pro spuštění aplikace bez ladění.
+1. V **Průzkumník řešení**vyberte projekt **BlazorSignalRApp. Server** . Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd> + <kbd>F5</kbd> pro spuštění aplikace bez ladění.
 
 1. Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a klikněte na tlačítko **Odeslat** . Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![Ukázková aplikace pro WebAssembly Blazor, která je otevřená ve dvou oknech prohlížeče, zobrazuje vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![SignalRBlazorUkázková aplikace WebAssembly je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   Quotes: *Star Trek VI:* &copy;nezjištěná země 1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country) – nezjištěná
+   Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-1. Když VS Code nabídky vytvoří profil spuštění pro serverovou aplikaci (*. VSCode/Launch. JSON*), zobrazí se `program` položka podobně jako v následujícím příkladu, aby odkazovala na sestavení aplikace (`{APPLICATION NAME}.Server.dll`):
+1. Když VS Code nabídky vytvoří profil spuštění pro serverovou aplikaci (*. VSCode/Launch. JSON*), `program` zobrazí se položka podobně jako v následujícím příkladu, aby odkazovala na sestavení aplikace ( `{APPLICATION NAME}.Server.dll` ):
 
    ```json
    "program": "${workspaceFolder}/Server/bin/Debug/netcoreapp3.1/{APPLICATION NAME}.Server.dll"
    ```
 
-1. Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd>+<kbd>F5</kbd> pro spuštění aplikace bez ladění.
+1. Stiskněte klávesu <kbd>F5</kbd> ke spuštění aplikace s laděním nebo <kbd>stisknutím klávesy CTRL</kbd> + <kbd>F5</kbd> pro spuštění aplikace bez ladění.
 
 1. Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a klikněte na tlačítko **Odeslat** . Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![Ukázková aplikace pro WebAssembly Blazor, která je otevřená ve dvou oknech prohlížeče, zobrazuje vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![SignalRBlazorUkázková aplikace WebAssembly je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   Quotes: *Star Trek VI:* &copy;nezjištěná země 1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country) – nezjištěná
+   Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-1. Na bočním panelu **řešení** vyberte projekt **BlazorSignalRApp. Server** . Stiskněte <kbd>⌘</kbd>+<kbd>↩</kbd>* * ke spuštění aplikace s laděním nebo <kbd>⌥</kbd>+<kbd>⌘</kbd>+<kbd>↩</kbd> ke spuštění aplikace bez ladění.
+1. Na bočním panelu **řešení** vyberte projekt **BlazorSignalRApp. Server** . Stiskněte <kbd>⌘</kbd> + <kbd>↩</kbd> ke spuštění aplikace s laděním nebo <kbd>⌥</kbd> + <kbd>⌘</kbd> + <kbd>↩</kbd> ke spuštění aplikace bez ladění.
 
 1. Zkopírujte adresu URL z panelu Adresa, otevřete jinou instanci nebo kartu prohlížeče a vložte adresu URL do panelu Adresa.
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a klikněte na tlačítko **Odeslat** . Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![Ukázková aplikace pro WebAssembly Blazor, která je otevřená ve dvou oknech prohlížeče, zobrazuje vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![SignalRBlazorUkázková aplikace WebAssembly je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   Quotes: *Star Trek VI:* &copy;nezjištěná země 1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country) – nezjištěná
+   Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 1. V příkazovém prostředí spusťte následující příkazy:
 
@@ -256,9 +271,9 @@ V projektu **BlazorSignalRApp. Server** vytvořte složku *Centers* (plural) a p
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a klikněte na tlačítko **Odeslat** . Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![Ukázková aplikace pro WebAssembly Blazor, která je otevřená ve dvou oknech prohlížeče, zobrazuje vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![SignalRBlazorUkázková aplikace WebAssembly je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
-   Quotes: *Star Trek VI:* &copy;nezjištěná země 1991 [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country) – nezjištěná
+   Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
 ---
 
@@ -267,7 +282,7 @@ V projektu **BlazorSignalRApp. Server** vytvořte složku *Centers* (plural) a p
 V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
-> * Blazor Vytvoření projektu hostované aplikace WebAssembly
+> * Vytvoření Blazor projektu hostované aplikace WebAssembly
 > * Přidat SignalR klientskou knihovnu
 > * Přidání SignalR centra
 > * Přidání SignalR služeb a koncového bodu pro SignalR centrum

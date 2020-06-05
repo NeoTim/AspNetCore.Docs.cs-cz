@@ -1,11 +1,11 @@
 ---
 title: ASP.NET Core Blazor WebAssembly s Azure Active Directorymi skupinami a rolemi
 author: guardrex
-description: Naučte se, Blazor jak nakonfigurovat WebAssembly pro použití Azure Active Directorych skupin a rolí.
+description: Naučte se, jak nakonfigurovat Blazor WebAssembly pro použití Azure Active Directorych skupin a rolí.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/08/2020
+ms.date: 05/19/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,22 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/aad-groups-roles
-ms.openlocfilehash: afdb5ddc4d4ed08d0f1ecaf7158af283dda6b302
-ms.sourcegitcommit: 363e3a2a035f4082cb92e7b75ed150ba304258b3
+ms.openlocfilehash: 3ed06cca7e20da381b870e642a6c616b2578cd0a
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/08/2020
-ms.locfileid: "82976895"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84451872"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Skupiny Azure AD, role pro správu a uživatelsky definované role
 
 Od [Luke Latham](https://github.com/guardrex) a [Javier Calvarro Nelson](https://github.com/javiercn)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-[!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
-
-Azure Active Directory (AAD) poskytuje několik autorizačních přístupů, které je možné kombinovat s identitou ASP.NET Core:
+Azure Active Directory (AAD) poskytuje několik autorizačních přístupů, které lze kombinovat s ASP.NET Core Identity :
 
 * Uživatelem definované skupiny
   * Zabezpečení
@@ -38,7 +34,7 @@ Azure Active Directory (AAD) poskytuje několik autorizačních přístupů, kte
   * Předdefinované role pro správu
   * Uživatelsky definované role
 
-Pokyny v tomto článku se týkají scénářů nasazení AAD Blazor WebAssembly popsaných v následujících tématech:
+Pokyny v tomto článku se týkají Blazor scénářů nasazení AAD WebAssembly popsaných v následujících tématech:
 
 * [Samostatná aplikace využívající účty Microsoft](xref:security/blazor/webassembly/standalone-with-microsoft-accounts)
 * [Samostatná aplikace využívající Azure Active Directory](xref:security/blazor/webassembly/standalone-with-azure-active-directory)
@@ -46,16 +42,16 @@ Pokyny v tomto článku se týkají scénářů nasazení AAD Blazor WebAssembly
 
 ### <a name="user-defined-groups-and-built-in-administrative-roles"></a>Uživatelsky definované skupiny a předdefinované role pro správu
 
-Postup konfigurace aplikace v Azure Portal k poskytnutí deklarace identity `groups` členství najdete v následujících článcích Azure. Přiřaďte uživatele k uživatelem definovaným skupinám AAD a integrovaným rolím pro správu.
+Postup konfigurace aplikace v Azure Portal k poskytnutí `groups` deklarace identity členství najdete v následujících článcích Azure. Přiřaďte uživatele k uživatelem definovaným skupinám AAD a integrovaným rolím pro správu.
 
 * [Role používající skupiny zabezpečení Azure AD](/azure/architecture/multitenant-identity/app-roles#roles-using-azure-ad-security-groups)
 * [groupMembershipClaims – atribut](/azure/active-directory/develop/reference-app-manifest#groupmembershipclaims-attribute)
 
 V následujících příkladech se předpokládá, že je uživatel přiřazený k předdefinované roli *správce fakturace* AAD.
 
-Jediná `groups` deklarace odesílaná AAD prezentuje skupiny uživatelů a role jako ID objektů (GUID) v poli JSON. Aplikace musí převést pole JSON skupin a rolí na jednotlivé `group` deklarace identity, pro které může aplikace sestavovat [zásady](xref:security/authorization/policies) .
+Jediná `groups` deklarace ODESÍLANÁ AAD prezentuje skupiny uživatelů a role jako ID objektů (GUID) v poli JSON. Aplikace musí převést pole JSON skupin a rolí na jednotlivé `group` deklarace identity, pro které může aplikace sestavovat [zásady](xref:security/authorization/policies) .
 
-Rozšíříte `RemoteUserAccount` tak, aby zahrnovalo vlastnosti pole pro skupiny a role.
+Rozšíříte <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> tak, aby zahrnovalo vlastnosti pole pro skupiny a role.
 
 *CustomUserAccount.cs*:
 
@@ -73,7 +69,7 @@ public class CustomUserAccount : RemoteUserAccount
 }
 ```
 
-Vytvořte vlastní objekt pro vytváření uživatelů v samostatné aplikaci nebo klientské aplikaci hostovaného řešení. Následující objekt pro vytváření je také nakonfigurovaný pro `roles` zpracování polí deklarací identity, která jsou popsaná v části [uživatelsky definované role](#user-defined-roles) :
+Vytvořte vlastní objekt pro vytváření uživatelů v samostatné aplikaci nebo klientské aplikaci hostovaného řešení. Následující objekt pro vytváření je také nakonfigurovaný pro zpracování `roles` polí deklarací identity, která jsou popsaná v části [uživatelsky definované role](#user-defined-roles) :
 
 ```csharp
 using System.Security.Claims;
@@ -135,7 +131,7 @@ builder.Services.AddMsalAuthentication<RemoteAuthenticationState,
     CustomUserFactory>();
 ```
 
-Vytvořte [zásadu](xref:security/authorization/policies) pro každou skupinu nebo roli v `Program.Main`. Následující příklad vytvoří zásadu pro předdefinovanou *fakturační roli správce* služby AAD:
+Vytvořte [zásadu](xref:security/authorization/policies) pro každou skupinu nebo roli v `Program.Main` . Následující příklad vytvoří zásadu pro předdefinovanou *fakturační roli správce* služby AAD:
 
 ```csharp
 builder.Services.AddAuthorizationCore(options =>
@@ -168,7 +164,7 @@ V následujících příkladech používá aplikace k autorizaci uživatele pře
 </AuthorizeView>
 ```
 
-Přístup k celé komponentě může být založen na zásadách pomocí direktivy [ `[Authorize]` direktivy atributu](xref:security/blazor/index#authorize-attribute) :
+Přístup k celé komponentě může být založen na zásadách pomocí `[Authorize]` direktivy atributu []] (odkazy XREF: Security/blazor/index # autorizovat-Attribute) ( <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ):
 
 ```razor
 @page "/"
@@ -220,7 +216,7 @@ Kontrolu zásad lze také [provést v kódu s procedurální logikou](xref:secur
 
 Aplikace zaregistrovaná v AAD se taky dá nakonfigurovat tak, aby používala uživatelsky definované role.
 
-Pokud chcete aplikaci v Azure Portal nakonfigurovat tak, aby poskytovala deklaraci identity `roles` členství, přečtěte si téma [Postup: Přidání rolí aplikace do aplikace a jejich přijetí v tokenu](/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps) v dokumentaci k Azure.
+Pokud chcete aplikaci v Azure Portal nakonfigurovat tak, aby poskytovala `roles` deklaraci identity členství, přečtěte si téma [Postup: Přidání rolí aplikace do aplikace a jejich přijetí v tokenu](/azure/active-directory/develop/howto-add-app-roles-in-azure-ad-apps) v dokumentaci k Azure.
 
 Následující příklad předpokládá, že je aplikace nakonfigurovaná se dvěma rolemi:
 
@@ -232,11 +228,11 @@ Následující příklad předpokládá, že je aplikace nakonfigurovaná se dv�
 >
 > V Azure Portal je přiřazeno více rolí tím, že **_znovu přidáte uživatele_** pro každé přiřazení další role.
 
-Jediná `roles` deklarace, kterou odesílá AAD, prezentuje uživatelsky definované role jako `appRoles` `value`s v poli JSON. Aplikace musí převést pole rolí JSON na jednotlivé `role` deklarace identity.
+Jediná deklarace, kterou `roles` odesílá AAD, prezentuje uživatelsky definované role jako `appRoles` `value` s v poli JSON. Aplikace musí převést pole rolí JSON na jednotlivé `role` deklarace identity.
 
-V části [uživatelsky definované skupiny a předdefinované role pro správu AAD](#user-defined-groups-and-built-in-administrative-roles) je nastavené tak, aby se jednalo o `roles` deklaraci identity s hodnotou pole JSON. `CustomUserFactory` Přidejte a zaregistrujte se `CustomUserFactory` do samostatné aplikace nebo klientské aplikace hostovaného řešení, jak je znázorněno v části [uživatelsky definované skupiny a předdefinované role pro správu AAD](#user-defined-groups-and-built-in-administrative-roles) . Není nutné zadávat kód pro odebrání původní `roles` deklarace identity, protože je automaticky odebrána rozhraním Framework.
+V `CustomUserFactory` části [uživatelsky definované skupiny a předdefinované role pro správu AAD](#user-defined-groups-and-built-in-administrative-roles) je nastavené tak, aby se jednalo o `roles` deklaraci identity s hodnotou pole JSON. Přidejte a zaregistrujte se `CustomUserFactory` do samostatné aplikace nebo klientské aplikace hostovaného řešení, jak je znázorněno v části [uživatelsky definované skupiny a předdefinované role pro správu AAD](#user-defined-groups-and-built-in-administrative-roles) . Není nutné zadávat kód pro odebrání původní `roles` deklarace identity, protože je automaticky odebrána rozhraním Framework.
 
-V `Program.Main` samostatné aplikaci nebo klientské aplikaci hostovaného řešení zadejte deklaraci identity s názvem`role`jako deklaraci identity role:
+V `Program.Main` samostatné aplikaci nebo klientské aplikaci hostovaného řešení zadejte deklaraci identity s názvem `role` jako deklaraci identity role:
 
 ```csharp
 builder.Services.AddMsalAuthentication(options =>
@@ -247,11 +243,11 @@ builder.Services.AddMsalAuthentication(options =>
 });
 ```
 
-Přístupy k autorizaci komponent jsou v tuto chvíli funkční. Kterýkoli z autorizačních mechanismů v součástech může `admin` použít roli k autorizaci uživatele:
+Přístupy k autorizaci komponent jsou v tuto chvíli funkční. Kterýkoli z autorizačních mechanismů v součástech může použít `admin` roli k autorizaci uživatele:
 
-* [AuthorizeView – komponenta](xref:security/blazor/index#authorizeview-component) (příklad `<AuthorizeView Roles="admin">`:)
-* Attribute – direktiva ( `@attribute [Authorize(Roles = "admin")]`příklad:) [ `[Authorize]` ](xref:security/blazor/index#authorize-attribute)
-* [Procedurální logika](xref:security/blazor/index#procedural-logic) (příklad: `if (user.IsInRole("admin")) { ... }`)
+* [AuthorizeView – komponenta](xref:security/blazor/index#authorizeview-component) (příklad: `<AuthorizeView Roles="admin">` )
+* [ `[Authorize]` ] Attribute – direktiva] (odkazy XREF: Security/blazor/index # autorizovat-Attribute) ( <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ) (Příklad: `@attribute [Authorize(Roles = "admin")]` )
+* [Procedurální logika](xref:security/blazor/index#procedural-logic) (příklad: `if (user.IsInRole("admin")) { ... }` )
 
   Podporuje se vícenásobné testy rolí:
 
@@ -288,7 +284,7 @@ Správce Desktop Analytics | c62c4ac5-e4c6-4096-8a2f-1ee3cbaaae15
 Čtečky adresářů | e1fc84a6-7762-4b9b-8e29-518b4adbc23b
 Správce Dynamics 365 | f20a9cfa-9fdf-49a8-a977-1afe446a1d6e
 Správce Exchange | b2ec2cc0-d5c9-4864-ad9b-38dd9dba2652
-Správce Identity externího poskytovatele | febfaeb4-e478-407a-b4b3-f4d9716618a2
+IdentitySprávce externího poskytovatele | febfaeb4-e478-407a-b4b3-f4d9716618a2
 Globální správce | a45ba61b-44db-462c-924b-3b2719152588
 Globální čtenář | f6903b21-6aba-4124-b44c-76671796b9d5
 Správce skupin | 158b3e5a-d89d-460b-92b5-3b34985f0197
@@ -318,7 +314,7 @@ Správce komunikace týmů | 2393e455-6e13-4743-9f52-63fcec2b6a9c
 Týmy Communications support inženýr | 802dd94e-d717-46f6-af98-b9167071e9fc
 Týmy – specialisté komunikace | ef547281-cf46-4cc6-bcaa-f5eac3f030c9
 Správce služby Teams | 8846a0be-197b-443a-b13c-11192691fa24
-Správce uživatele | 1f6eed58-7dd3-460b-a298-666f975427a1
+Správce uživatelů | 1f6eed58-7dd3-460b-a298-666f975427a1
 
 ## <a name="additional-resources"></a>Další zdroje
 

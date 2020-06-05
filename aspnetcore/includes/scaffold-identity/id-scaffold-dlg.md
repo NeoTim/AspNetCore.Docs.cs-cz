@@ -2,22 +2,25 @@ Spusťte generování uživatelského rozhraní identity:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Z **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt > **Přidat** > **novou vygenerované položky**.
-* V levém podokně dialogového okna **Přidat generování uživatelského rozhraní** vyberte **Identita** > **Přidat**.
+* Z **Průzkumník řešení**klikněte pravým tlačítkem myši na projekt > **Přidat**  >  **novou vygenerované položky**.
+* V levém podokně dialogového okna **Přidat novou vygenerované položky** vyberte **Identita**  >  **Přidat**.
 * V dialogovém okně **Přidat identitu** vyberte požadované možnosti.
-  * Vyberte existující stránku rozložení, nebo bude soubor rozložení přepsán nesprávným označením. Například `~/Pages/Shared/_Layout.cshtml` pro Razor Pages `~/Views/Shared/_Layout.cshtml` pro projekty MVC
-  * Výběrem tlačítka **+** vytvořte novou **třídu datového kontextu**.
+  * Vyberte existující stránku rozložení, nebo bude soubor rozložení přepsán pomocí nesprávného kódu:
+    * `~/Pages/Shared/_Layout.cshtml`pro Razor Pages
+    * `~/Views/Shared/_Layout.cshtml`pro projekty MVC
+    * Aplikace Blazor serveru vytvořené pomocí šablony serveru Blazor ( `blazorserver` ) nejsou ve výchozím nastavení nakonfigurované pro Razor Pages nebo MVC. Ponechte položku stránky rozložení prázdnou.
+  * Vyberte **+** tlačítko pro vytvoření nové **třídy datového kontextu**. Přijměte výchozí hodnotu nebo zadejte třídu (například `MyApplication.Data.ApplicationDbContext` ).
 * Vyberte **Přidat**.
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-Pokud jste nenainstalovali dříve generátor ASP.NET Core, nainstalujte ho:
+Pokud jste předtím ASP.NET Core lešení nenainstalovali, nainstalujte ho hned takto:
 
 ```dotnetcli
 dotnet tool install -g dotnet-aspnet-codegenerator
 ```
 
-Přidejte do souboru projektu (\*. csproj) požadované odkazy na balíček NuGet. Spusťte následující příkaz v adresáři projektu:
+Přidejte požadované odkazy na balíček NuGet do souboru projektu (*. csproj*). V adresáři projektu spusťte následující příkazy:
 
 ```dotnetcli
 dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
@@ -28,7 +31,7 @@ dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 dotnet add package Microsoft.EntityFrameworkCore.Tools
 ```
 
-Spusťte následující příkaz k výpisu možností generátor Identity:
+Spuštěním následujícího příkazu zobrazíte seznam možností generování identit:
 
 ```dotnetcli
 dotnet aspnet-codegenerator identity -h

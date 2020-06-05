@@ -1,12 +1,22 @@
 ---
-title: Nakonfigurujte lokalizaci přenosných objektů v ASP.NET Core autor: sebastienros Popis: Tento článek představuje přenositelné soubory objektů a popisuje postup jejich použití v aplikaci ASP.NET Core se sadou virtuálních počítačů Core.
-MS. Author: scaddie MS. Date: 09/26/2017 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: Základy/přenosné objekty-lokalizace
-
+title: Konfigurace lokalizace přenosných objektů v ASP.NET Core
+author: sebastienros
+description: Tento článek představuje přenosné objektové soubory a popisuje postup jejich použití v aplikaci ASP.NET Core se sadou virtuálních počítačů Core.
+ms.author: scaddie
+ms.date: 09/26/2017
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: fundamentals/portable-object-localization
+ms.openlocfilehash: 57498cc2a773e5147b6eda653cc89d303f238b78
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84355081"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>Konfigurace lokalizace přenosných objektů v ASP.NET Core
 

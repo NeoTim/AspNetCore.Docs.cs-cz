@@ -1,12 +1,24 @@
 ---
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: ASP.NET Core Blazor formuláře a ověřování
+author: guardrex
+description: Naučte se používat scénáře ověřování formulářů a polí v Blazor .
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/27/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/forms-validation
+ms.openlocfilehash: 557ccf45fb88a743158d18046789ed6776efb28c
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84145353"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor formuláře a ověřování
 
@@ -62,114 +74,13 @@ V předchozím příkladu:
 K dispozici je sada předdefinovaných vstupních komponent pro příjem a ověření vstupu uživatele. Vstupy jsou ověřovány při jejich změně a při odeslání formuláře. Dostupné vstupní komponenty jsou uvedené v následující tabulce.
 
 | Vstupní komponenta | Vykresleno jako&hellip; |
-| ---
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--------- | ---Název: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor Forms a Validation ' Autor: Description: ' Naučte se používat scénáře ověřování formulářů a polí v Blazor . '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----------- | | <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` | | <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` | | <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601> | `<select>` | | <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> | `<input type="number">` | | <xref:Microsoft.AspNetCore.Components.Forms.InputCheckbox> | `<input type="checkbox">` | | <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> | `<input type="date">` |
+| --------------- | ------------------- |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputSelect%601> | `<select>` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> | `<input type="number">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputCheckbox> | `<input type="checkbox">` |
+| <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> | `<input type="date">` |
 
 Všechny vstupní komponenty, včetně <xref:Microsoft.AspNetCore.Components.Forms.EditForm> , podporují libovolné atributy. Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do vykresleného prvku HTML.
 

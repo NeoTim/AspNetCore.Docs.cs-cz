@@ -1,12 +1,24 @@
 ---
-title: ' ASP.NET Core Blazor Globalization a Localization ' Autor: Description: ' Zjistěte, jak zpřístupnit Razor součásti uživatelům v různých jazykových verzích a jazycích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: ASP.NET Core Blazor globalizace a lokalizace
+author: guardrex
+description: Naučte se, jak zpřístupnit Razor součásti uživatelům v různých jazykových verzích a jazycích.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 06/04/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/globalization-localization
+ms.openlocfilehash: 94faaa57cc6dd3df9e4a7c3c090fe01527399658
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84419733"
 ---
 # <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor globalizace a lokalizace
 
@@ -74,34 +86,39 @@ Další informace a příklady naleznete v tématu <xref:fundamentals/localizati
 
 #### <a name="cookies"></a>Soubory cookie
 
-Soubor cookie lokalizační kultury může zachovat jazykovou verzi uživatele. Soubor cookie je vytvořen `OnGet` metodou stránky hostitele aplikace (*stránky/Host. cshtml. cs*). Middleware lokalizace přečte soubor cookie při následných požadavcích na nastavení jazykové verze uživatele. 
+Soubor cookie lokalizační kultury může zachovat jazykovou verzi uživatele. Middleware lokalizace přečte soubor cookie při následných požadavcích na nastavení jazykové verze uživatele. 
 
 Použití souboru cookie zajistí, že připojení protokolu WebSocket dokáže správně rozšířit jazykovou verzi. Pokud jsou schémata lokalizací založena na cestě URL nebo řetězci dotazu, nemusí být schopná pracovat s objekty WebSockets, takže nepůjde zachovat jazykovou verzi. Proto je doporučený přístup použití souboru cookie lokalizační kultury.
 
 Pokud je jazyková verze uložena v souboru cookie lokalizace, je možné použít jakoukoli techniku k přiřazení jazykové verze. Pokud už aplikace má zavedené lokalizační schéma pro ASP.NET Core na straně serveru, pokračujte v používání stávající infrastruktury lokalizace a nastavte soubor cookie lokalizační kultury v rámci schématu aplikace.
 
-Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v souboru cookie, který lze přečíst pomocí middleware Localization. Vytvořte soubor *Pages/_Host. cshtml. cs* s následujícím obsahem v Blazor serverové aplikaci:
+Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v souboru cookie, který lze přečíst pomocí middleware Localization. Vytvořte Razor výraz v souboru *Pages/_Host. cshtml* hned v otevírací `<body>` značce:
 
-```csharp
-public class HostModel : PageModel
-{
-    public void OnGet()
-    {
-        HttpContext.Response.Cookies.Append(
+```cshtml
+@using System.Globalization
+@using Microsoft.AspNetCore.Localization
+
+...
+
+<body>
+    @{
+        this.HttpContext.Response.Cookies.Append(
             CookieRequestCultureProvider.DefaultCookieName,
             CookieRequestCultureProvider.MakeCookieValue(
                 new RequestCulture(
                     CultureInfo.CurrentCulture,
                     CultureInfo.CurrentUICulture)));
     }
-}
+
+    ...
+</body>
 ```
 
 Lokalizace je zpracována aplikací v následující posloupnosti událostí:
 
 1. Prohlížeč pošle do aplikace počáteční požadavek HTTP.
 1. Jazyková verze je přiřazena pomocí middleware Localization.
-1. `OnGet`Metoda v *_Host. cshtml. cs* uchovává v souboru cookie jazykovou verzi jako součást odpovědi.
+1. RazorVýraz na `_Host` stránce (*_Host. cshtml*) ukládá jazykovou verzi v souboru cookie jako součást odpovědi.
 1. Prohlížeč otevře připojení pomocí protokolu WebSocket a vytvoří interaktivní Blazor relaci serveru.
 1. Middleware lokalizace přečte soubor cookie a přiřadí jazykovou verzi.
 1. BlazorRelace serveru začíná správnou jazykovou verzí.
@@ -135,6 +152,25 @@ public class CultureController : Controller
 
 > [!WARNING]
 > Pomocí <xref:Microsoft.AspNetCore.Mvc.ControllerBase.LocalRedirect%2A> výsledku akce zabráníte otevírání útoků přes přesměrování. Další informace naleznete v tématu <xref:security/preventing-open-redirects>.
+
+Pokud aplikace není nakonfigurovaná na zpracování akcí kontroleru:
+
+* Přidat služby MVC do kolekce služeb v `Startup.ConfigureServices` :
+
+  ```csharp
+  services.AddControllers();
+  ```
+
+* Přidat směrování koncových bodů řadiče v `Startup.Configure` :
+
+  ```csharp
+  app.UseEndpoints(endpoints =>
+  {
+      endpoints.MapControllers();
+      endpoints.MapBlazorHub();
+      endpoints.MapFallbackToPage("/_Host");
+  });
+  ```
 
 Následující komponenta ukazuje příklad, jak provést počáteční přesměrování, když uživatel vybere jazykovou verzi:
 

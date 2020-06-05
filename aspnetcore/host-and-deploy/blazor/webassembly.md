@@ -1,12 +1,24 @@
 ---
-title: ' hostování a nasazení ASP.NET Core Blazor WebAssembly ' Autor: guardrex Description: ' Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Core, sítě pro doručování obsahu (CDN), souborové servery a stránky GitHubu.
-monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/28/2020 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: Host-and-Deploy/blazor/WebAssembly
-
+title: Hostování a nasazení ASP.NET Core Blazor WebAssembly
+author: guardrex
+description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Core, stránek Content Delivery Networks (CDN), souborových serverů a GitHubu.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/28/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: host-and-deploy/blazor/webassembly
+ms.openlocfilehash: 09f74edaa3d1cb0d51e0ce8d0209383885b81f5f
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84239384"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 

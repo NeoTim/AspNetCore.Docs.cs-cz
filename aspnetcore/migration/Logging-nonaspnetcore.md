@@ -1,14 +1,24 @@
 ---
-title: migrace z Microsoft. Extensions. Logging 2,1 na 2,2 nebo 3,0 autor: pakrym Description: Naučte se migrovat aplikaci non-ASP.NET Core, která používá Microsoft. Extensions. protokolování z 2,1 do 2,2 nebo 3,0.
-MS. Author: pakrym MS. Custom: MVC MS. Date: 01/04/2019 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: migrace/protokolování – nonaspnetcore
-
+title: Migrace z Microsoft. Extensions. Logging 2,1 na 2,2 nebo 3,0
+author: pakrym
+description: Naučte se migrovat non-ASP.NET základní aplikaci, která používá Microsoft. Extensions. Logging od 2,1 do 2,2 nebo 3,0.
+ms.author: pakrym
+ms.custom: mvc
+ms.date: 01/04/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: migration/logging-nonaspnetcore
+ms.openlocfilehash: 2fd738ed0e0a06d0793e3c624d40a13725b53cd8
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84274229"
 ---
-
 # <a name="migrate-from-microsoftextensionslogging-21-to-22-or-30"></a>Migrace z Microsoft. Extensions. Logging 2,1 na 2,2 nebo 3,0
 
 V tomto článku najdete popis běžných kroků migrace aplikace non-ASP.NET Core, která používá `Microsoft.Extensions.Logging` od 2,1 do 2,2 nebo 3,0.

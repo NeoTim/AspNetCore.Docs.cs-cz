@@ -1,12 +1,24 @@
 ---
-title: ' ASP.NET Core Blazor Konfigurace modelu hostování ' Autor: guardrex Description: ' informace o Blazor konfiguraci hostujícího modelu, včetně toho, jak integrovat Razor součásti na Razor stránky a aplikace MVC. '
-monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/28/2020 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: blazor/hosting-model-Configuration
-
+title: ASP.NET Core Blazor Konfigurace modelu hostování
+author: guardrex
+description: Přečtěte si o Blazor konfiguraci modelu hostování, včetně postupu při integraci Razor komponent do Razor stránek a aplikací MVC.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/28/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/hosting-model-configuration
+ms.openlocfilehash: e3b8b91a570210e77f307c49f7be21eeab714daa
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84355107"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
 
@@ -276,7 +288,7 @@ Konfigurační soubory jsou ukládány do mezipaměti pro použití v režimu of
 
 Další informace o tom, jak služba PWAs zpracovává aktualizace na pozadí, naleznete v tématu <xref:blazor/progressive-web-app#background-updates> .
 
-### <a name="logging"></a>Protokolování
+### <a name="logging"></a>protokolování
 
 Informace o Blazor podpoře protokolování WebAssembly naleznete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor> .
 
@@ -350,6 +362,6 @@ Chcete-li nakonfigurovat SignalR klienta v souboru *Pages/_Host. cshtml* :
 </script>
 ```
 
-### <a name="logging"></a>Protokolování
+### <a name="logging"></a>protokolování
 
 Informace o Blazor podpoře protokolování serveru najdete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor> .

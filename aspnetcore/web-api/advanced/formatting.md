@@ -1,12 +1,23 @@
 ---
-title: formátovat data odpovědi v ASP.NET Core Web API Author: ardalis Popis: Naučte se formátovat data odpovědí v ASP.NET Core webovém rozhraní API.
-MS. Author: Riande MS. Custom: H1Hack27Feb2017 MS. Date: 04/17/2020 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: Web-API/Rozšířené/formátování
-
+title: Formátování dat odpovědi v ASP.NET Core Web API
+author: ardalis
+description: Naučte se, jak formátovat data odpovědí v ASP.NET Core webovém rozhraní API.
+ms.author: riande
+ms.custom: H1Hack27Feb2017
+ms.date: 04/17/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: web-api/advanced/formatting
+ms.openlocfilehash: 865b2e58b38c16a54815ce0923a78ac98f2247f1
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84355367"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 

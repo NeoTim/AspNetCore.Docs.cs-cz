@@ -1,12 +1,24 @@
 ---
-title: ' ladění ASP.NET Core Blazor WebAssembly ' Autor: guardrex Description: ' Naučte se ladit Blazor aplikace. '
-monikerRange: ' >= aspnetcore-3,1 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/31/2020 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: blazor/Debug
-
+title: Ladění ASP.NET Core Blazor WebAssembly
+author: guardrex
+description: Naučte se ladit Blazor aplikace.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/31/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/debug
+ms.openlocfilehash: 193dc656c2ee0154f0ae534bc00f8dc29bab3258
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84239211"
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>Ladění ASP.NET Core Blazor WebAssembly
 
@@ -154,7 +166,7 @@ Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte soubor *Laun
 
 Pro typ ladění jsou podporovány následující možnosti konfigurace spuštění `blazorwasm` .
 
-| Možnost    | Popis |
+| Možnost    | Description |
 | --------- | ----------- |
 | `request` | Použijte `launch` ke spuštění a připojení relace ladění k Blazor aplikaci WebAssembly nebo `attach` k připojení relace ladění k již spuštěné aplikaci. |
 | `url`     | Adresa URL, která se má otevřít v prohlížeči při ladění. Výchozí hodnota je `https://localhost:5001` . |

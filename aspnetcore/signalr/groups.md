@@ -1,14 +1,25 @@
 ---
-title: ' Správa uživatelů a skupin v SignalR ' Autor: bradygaster Description: ' přehled ASP.NET Core SignalR správy uživatelů a skupin. '
-monikerRange: ' >= aspnetcore-2,1 ' MS. Author: bradyg MS. Custom: MVC MS. Date: 05/17/2020 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: signaler/skupiny
-
+title: Správa uživatelů a skupin v nástrojiSignalR
+author: bradygaster
+description: Přehled ASP.NET Core SignalR správy uživatelů a skupin.
+monikerRange: '>= aspnetcore-2.1'
+ms.author: bradyg
+ms.custom: mvc
+ms.date: 05/17/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: signalr/groups
+ms.openlocfilehash: dfa989654069bc85f0a936751dbabe384c63e917
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "83549995"
 ---
-
 # <a name="manage-users-and-groups-in-signalr"></a>Správa uživatelů a skupin v nástrojiSignalR
 
 Od [Brennan Conroy](https://github.com/BrennanConroy)

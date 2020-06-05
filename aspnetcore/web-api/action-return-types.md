@@ -1,12 +1,23 @@
 ---
-title: návratové akce kontroleru v ASP.NET Core webové rozhraní API autor: scottaddie Popis: Naučte se používat různé návratové metody metod kontroleru v ASP.NET Core webovém rozhraní API.
-MS. Author: scaddie MS. Custom: MVC MS. Date: 02/03/2020 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: Web-API/Action-Return-Types
-
+title: Návratové typy akcí kontroleru v ASP.NET Core webovém rozhraní API
+author: scottaddie
+description: Přečtěte si o použití různých návratových typů metody kontroleru v ASP.NET Core webovém rozhraní API.
+ms.author: scaddie
+ms.custom: mvc
+ms.date: 02/03/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: web-api/action-return-types
+ms.openlocfilehash: 57bc91feb9c4242dbea120ee00db1cba46784c61
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84253783"
 ---
 # <a name="controller-action-return-types-in-aspnet-core-web-api"></a>Návratové typy akcí kontroleru v ASP.NET Core webovém rozhraní API
 

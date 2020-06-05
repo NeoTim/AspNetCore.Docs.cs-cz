@@ -1,12 +1,24 @@
 ---
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: BlazorZpracování událostí ASP.NET Core
+author: guardrex
+description: Přečtěte si o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných voláních událostí a správě výchozích událostí prohlížeče.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 06/04/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/event-handling
+ms.openlocfilehash: 2d806413eb66d4c1301df4a0db950e8b919c09a4
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84419746"
 ---
 # <a name="aspnet-core-blazor-event-handling"></a>BlazorZpracování událostí ASP.NET Core
 
@@ -66,203 +78,19 @@ U některých událostí jsou povoleny typy argumentů události. Zadání typu 
 Podporované <xref:System.EventArgs> jsou uvedené v následující tabulce.
 
 | Událost            | Třída                | Události a poznámky modelu DOM |
-| ---
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--------- | ---Název: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----------- | ---Název: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor zpracování událostí ' Autor: Popis: ' informace o Blazor funkcích zpracování událostí, včetně typů argumentů události, zpětných volání událostí a Správa výchozích událostí prohlížeče. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----------- | | Schránka | <xref:Microsoft.AspNetCore.Components.Web.ClipboardEventArgs> | `oncut`, `oncopy`, `onpaste` | | Přetáhněte | <xref:Microsoft.AspNetCore.Components.Web.DragEventArgs> | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`,`ondragend`<br><br><xref:Microsoft.AspNetCore.Components.Web.DataTransfer>a <xref:Microsoft.AspNetCore.Components.Web.DataTransferItem> uchovávají přetažená data položky. | | Chyba | <xref:Microsoft.AspNetCore.Components.Web.ErrorEventArgs> | `onerror` | | Událost | <xref:System.EventArgs>  |  *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Vstup*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit><br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting`<br><br><xref:Microsoft.AspNetCore.Components.Web.EventHandlers>obsahuje atributy pro konfiguraci mapování mezi názvy událostí a typy argumentů události. | | Zaměření | <xref:Microsoft.AspNetCore.Components.Web.FocusEventArgs> | `onfocus`, `onblur`, `onfocusin`,`onfocusout`<br><br>Nezahrnuje podporu pro `relatedTarget` . | | Vstup | <xref:Microsoft.AspNetCore.Components.ChangeEventArgs> | `onchange`, `oninput` | | Klávesnice | <xref:Microsoft.AspNetCore.Components.Web.KeyboardEventArgs> | `onkeydown`, `onkeypress`, `onkeyup` | | Myš | <xref:Microsoft.AspNetCore.Components.Web.MouseEventArgs> | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` | | Ukazatel myši | <xref:Microsoft.AspNetCore.Components.Web.PointerEventArgs> | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` | | Kolečko myši | <xref:Microsoft.AspNetCore.Components.Web.WheelEventArgs> | `onwheel`, `onmousewheel` | | Průběh | <xref:Microsoft.AspNetCore.Components.Web.ProgressEventArgs> | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` | | Dotykové ovládání | <xref:Microsoft.AspNetCore.Components.Web.TouchEventArgs> | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`,`ontouchcancel`<br><br><xref:Microsoft.AspNetCore.Components.Web.TouchPoint>představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
+| ---------------- | -------------------- | -------------------- |
+| Schránka        | <xref:Microsoft.AspNetCore.Components.Web.ClipboardEventArgs> | `oncut`, `oncopy`, `onpaste` |
+| Myší             | <xref:Microsoft.AspNetCore.Components.Web.DragEventArgs> | `ondrag`, `ondragstart`, `ondragenter`, `ondragleave`, `ondragover`, `ondrop`, `ondragend`<br><br><xref:Microsoft.AspNetCore.Components.Web.DataTransfer>a <xref:Microsoft.AspNetCore.Components.Web.DataTransferItem> uchovávají přetažená data položky. |
+| Chyba            | <xref:Microsoft.AspNetCore.Components.Web.ErrorEventArgs> | `onerror` |
+| Událost            | <xref:System.EventArgs> | *Obecné*<br>`onactivate`, `onbeforeactivate`, `onbeforedeactivate`, `ondeactivate`, `onended`, `onfullscreenchange`, `onfullscreenerror`, `onloadeddata`, `onloadedmetadata`, `onpointerlockchange`, `onpointerlockerror`, `onreadystatechange`, `onscroll`<br><br>*Schránka*<br>`onbeforecut`, `onbeforecopy`, `onbeforepaste`<br><br>*Vstup*<br>`oninvalid`, `onreset`, `onselect`, `onselectionchange`, `onselectstart`, <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit><br><br>*Média*<br>`oncanplay`, `oncanplaythrough`, `oncuechange`, `ondurationchange`, `onemptied`, `onpause`, `onplay`, `onplaying`, `onratechange`, `onseeked`, `onseeking`, `onstalled`, `onstop`, `onsuspend`, `ontimeupdate`, `onvolumechange`, `onwaiting`<br><br><xref:Microsoft.AspNetCore.Components.Web.EventHandlers>obsahuje atributy pro konfiguraci mapování mezi názvy událostí a typy argumentů události. |
+| Vybrána            | <xref:Microsoft.AspNetCore.Components.Web.FocusEventArgs> | `onfocus`, `onblur`, `onfocusin`, `onfocusout`<br><br>Nezahrnuje podporu pro `relatedTarget` . |
+| Vstup            | <xref:Microsoft.AspNetCore.Components.ChangeEventArgs> | `onchange`, `oninput` |
+| Klávesnice         | <xref:Microsoft.AspNetCore.Components.Web.KeyboardEventArgs> | `onkeydown`, `onkeypress`, `onkeyup` |
+| Myš            | <xref:Microsoft.AspNetCore.Components.Web.MouseEventArgs> | `onclick`, `oncontextmenu`, `ondblclick`, `onmousedown`, `onmouseup`, `onmouseover`, `onmousemove`, `onmouseout` |
+| Ukazatel myši    | <xref:Microsoft.AspNetCore.Components.Web.PointerEventArgs> | `onpointerdown`, `onpointerup`, `onpointercancel`, `onpointermove`, `onpointerover`, `onpointerout`, `onpointerenter`, `onpointerleave`, `ongotpointercapture`, `onlostpointercapture` |
+| Kolečko myši      | <xref:Microsoft.AspNetCore.Components.Web.WheelEventArgs> | `onwheel`, `onmousewheel` |
+| Průběh         | <xref:Microsoft.AspNetCore.Components.Web.ProgressEventArgs> | `onabort`, `onload`, `onloadend`, `onloadstart`, `onprogress`, `ontimeout` |
+| Dotykové ovládání            | <xref:Microsoft.AspNetCore.Components.Web.TouchEventArgs> | `ontouchstart`, `ontouchend`, `ontouchmove`, `ontouchenter`, `ontouchleave`, `ontouchcancel`<br><br><xref:Microsoft.AspNetCore.Components.Web.TouchPoint>představuje jeden kontaktní bod na zařízení citlivém na dotykové ovládání. |
 
 Další informace najdete v následujících materiálech:
 
@@ -304,7 +132,7 @@ Je často vhodné uzavřít další hodnoty, jako například při iteraci přes
 ```
 
 > [!NOTE]
-> Nepoužívejte **proměnnou** smyčky ( `i` ) ve `for` smyčce přímo ve výrazu lambda. V opačném případě se stejná proměnná používá ve všech výrazech lambda, což způsobuje `i` , že hodnota je stejná ve všech výrazech lambda. Vždycky zachytit svou hodnotu v místní proměnné ( `buttonNumber` v předchozím příkladu) a pak ji použít.
+> Nepoužívejte **proměnnou** smyčky přímo ve výrazu lambda, například `i` v předchozím `for` příkladu smyčky nebo v referenční proměnné ve `foreach` smyčce. V opačném případě se stejná proměnná používá ve všech výrazech lambda, což má za následek použití stejné hodnoty ve všech výrazech lambda. Vždy Zachyťte hodnotu proměnné v místní proměnné a pak ji použijte. V předchozím příkladu `i` je přiřazena proměnná smyčky `buttonNumber` .
 
 ## <a name="eventcallback"></a>Vnořenou eventCallback
 

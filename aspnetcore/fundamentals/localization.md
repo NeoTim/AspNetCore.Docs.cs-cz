@@ -1,12 +1,22 @@
 ---
-title: globalizace a lokalizace v ASP.NET Core autor: Rick-Anderson Description: Naučte se, jak ASP.NET Core poskytuje služby a middleware pro lokalizaci obsahu do různých jazyků a kultur.
-MS. Author: Riande MS. Date: 11/30/2019 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: základy a lokalizace
-
+title: Globalizace a lokalizace v ASP.NET Core
+author: rick-anderson
+description: Přečtěte si, jak ASP.NET Core poskytuje služby a middleware pro lokalizaci obsahu do různých jazyků a kultur.
+ms.author: riande
+ms.date: 11/30/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: fundamentals/localization
+ms.openlocfilehash: e3b73a7a559d2f4a0803dc26dd42257c60fab884
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84356957"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -26,7 +36,7 @@ Lokalizace aplikace zahrnuje následující:
 1. Poskytněte lokalizované prostředky pro jazyky a kultury, které podporujete.
 1. Implementujte strategii pro výběr jazyka nebo kultury pro každý požadavek.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/3.x/Localization) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 
@@ -721,7 +731,7 @@ Lokalizace aplikace zahrnuje následující:
 1. Poskytněte lokalizované prostředky pro jazyky a kultury, které podporujete.
 1. Implementujte strategii pro výběr jazyka nebo kultury pro každý požadavek.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/Localization) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/2.x/) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="make-the-apps-content-localizable"></a>Nastavit lokalizaci obsahu aplikace
 

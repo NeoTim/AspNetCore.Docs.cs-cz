@@ -1,12 +1,22 @@
 ---
-title: jednoduché ověřování v ASP.NET Core autor: Rick-Anderson Popis: Naučte se používat atribut autorizovat k omezení přístupu k řadičům ASP.NET Core a akcím.
-MS. Author: Riande MS. Date: 10/14/2016 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: Security/Authorization/Simple
-
+title: Jednoduché ověřování v ASP.NET Core
+author: rick-anderson
+description: Naučte se používat atribut autorizovat k omezení přístupu k ASP.NET Core řadičům a akcím.
+ms.author: riande
+ms.date: 10/14/2016
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/authorization/simple
+ms.openlocfilehash: 4ec31354d7fe11af75fd3a0045b4045f83721cb5
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84272122"
 ---
 # <a name="simple-authorization-in-aspnet-core"></a>Jednoduché ověřování v ASP.NET Core
 
@@ -48,7 +58,7 @@ public class AccountController : Controller
 
 K této funkci mají přístup jenom ověření uživatelé `Logout` .
 
-Atribut můžete použít také `AllowAnonymous` k povolení přístupu neověřeným uživatelům k jednotlivým akcím. Například:
+Atribut můžete použít také `AllowAnonymous` k povolení přístupu neověřeným uživatelům k jednotlivým akcím. Příklad:
 
 ```csharp
 [Authorize]

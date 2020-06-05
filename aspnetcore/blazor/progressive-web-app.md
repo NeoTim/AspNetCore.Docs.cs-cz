@@ -1,11 +1,11 @@
 ---
-title: Sestavování progresivních webových Blazor aplikací pomocí ASP.NET Coreho webového sestavení
+title: Sestavování progresivních webových aplikací pomocí ASP.NET Coreho webového Blazor sestavení
 author: guardrex
-description: Naučte se vytvářet Blazorprogresivní webové aplikace (PWA), které používají moderní funkce prohlížeče, aby se chovala jako desktopová aplikace.
+description: Naučte se vytvářet Blazor progresivní webové aplikace (PWA), které používají moderní funkce prohlížeče, aby se chovala jako desktopová aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 03/23/2020
+ms.date: 05/19/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,22 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: cf31c91ddc073498d882b111b597c546e788cc98
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 274516014c027972166402abc70d22fa801898de
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82771556"
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84451846"
 ---
-# <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Core Blazor WebAssembly
+# <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Coreho webového Blazor sestavení
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
-[!INCLUDE[](~/includes/blazorwasm-preview-notice.md)]
-
-[!INCLUDE[](~/includes/blazorwasm-3.2-template-article-notice.md)]
-
-Progresivní webová aplikace (PWA) je jediná stránková aplikace (SPA), která používá moderní rozhraní API a možnosti prohlížeče, aby se choval jako desktopová aplikace. Blazor WebAssembly je platforma webových aplikací založená na standardech na straně klienta, takže může používat libovolné rozhraní API prohlížeče, včetně rozhraní API PWA potřebných pro následující funkce:
+Progresivní webová aplikace (PWA) je jediná stránková aplikace (SPA), která používá moderní rozhraní API a možnosti prohlížeče, aby se choval jako desktopová aplikace. BlazorWebAssembly je webová platforma webové aplikace založená na standardech, takže může používat libovolné rozhraní API prohlížeče, včetně rozhraní API PWA potřebných pro následující funkce:
 
 * Pracujete offline a okamžitě se načítají nezávisle na rychlosti sítě.
 * Spuštění ve vlastním okně aplikace, ne pouze v okně prohlížeče.
@@ -45,7 +41,7 @@ K popisu takových aplikací se používá slovo *progresivní* :
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Při vytváření nové **aplikace WebAssembly v Blazor** v dialogovém okně **vytvořit nový projekt** vyberte zaškrtávací políčko **průběh webová aplikace** :
+Při vytváření nové ** Blazor aplikace WebAssembly** v dialogovém okně **vytvořit nový projekt** zaškrtněte políčko **progresivní webová aplikace** :
 
 ![Zaškrtávací políčko progresivní webová aplikace je zaškrtnuto v dialogovém okně Nový projekt aplikace Visual Studio.](progressive-web-app/_static/image1.png)
 
@@ -89,7 +85,7 @@ Ve výchozím nastavení mají aplikace vytvořené pomocí možnosti šablony P
 > Vývojová podpora by vedla ke konfliktu s obvyklým vývojovým cyklem provádění změn a jejich testování. Podpora offline je proto povolená jenom pro *publikované* aplikace. 
 
 > [!WARNING]
-> Pokud máte v úmyslu distribuovat offline s povolenou aplikaci PWA, je k dispozici [několik důležitých upozornění a aspektů](#caveats-for-offline-pwas). Tyto scénáře jsou podstatou pro offline PWAs a nespecifická pro Blazor. Nezapomeňte si tyto upozornění přečíst a pochopit před tím, než začnete vytvářet předpoklady pro fungování offline aplikace.
+> Pokud máte v úmyslu distribuovat offline s povolenou aplikaci PWA, je k dispozici [několik důležitých upozornění a aspektů](#caveats-for-offline-pwas). Tyto scénáře jsou podstatou pro offline PWAs a nespecifická pro Blazor . Nezapomeňte si tyto upozornění přečíst a pochopit před tím, než začnete vytvářet předpoklady pro fungování offline aplikace.
 
 Pokud chcete zjistit, jak funguje podpora offline:
 
@@ -110,7 +106,7 @@ Pokud chcete zjistit, jak funguje podpora offline:
 
    ![Karta sítě Google Chrome Developer Tools s rozevíracím seznamem režimu prohlížeče se změní z online na offline.](progressive-web-app/_static/image6.png)
 
-Podpora offline pomocí pracovního procesu služby je webový standard, který není specifický pro Blazor. Další informace o pracovních procesech služby najdete v tématu [MDN web Docs: Service Worker API](https://developer.mozilla.org/docs/Web/API/Service_Worker_API). Další informace o běžných způsobech použití pro pracovníky služeb najdete v tématu [Google Web: životní cyklus pracovního procesu služby](https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle).
+Podpora offline pomocí pracovního procesu služby je webový standard, který není specifický pro Blazor . Další informace o pracovních procesech služby najdete v tématu [MDN web Docs: Service Worker API](https://developer.mozilla.org/docs/Web/API/Service_Worker_API). Další informace o běžných způsobech použití pro pracovníky služeb najdete v tématu [Google Web: životní cyklus pracovního procesu služby](https://developers.google.com/web/fundamentals/primers/service-workers/lifecycle).
 
 BlazorŠablona PWA vytvoří dva pracovní pracovní soubory služby:
 
@@ -128,20 +124,20 @@ Vestavěný pracovní proces služby *Service-Worker. Publish. js* řeší poža
 
 Strategie pro první mezipaměť je užitečná z těchto důvodů:
 
-* **Zajišťuje spolehlivost.** &ndash;Přístup k síti není logický stav. Uživatel není jednoduše online nebo offline:
+* **Zajišťuje spolehlivost.** Přístup k síti není logický stav. Uživatel není jednoduše online nebo offline:
 
   * Zařízení uživatele může předpokládat, že je online, ale síť může být tak pomalá, aby nedošlo k nepraktickému čekání.
   * Síť může u některých adres URL vracet neplatné výsledky, například když je k dispozici nějaký portál WIFI, který aktuálně blokuje nebo přesměrovává určité požadavky.
   
   Důvodem je, že `navigator.onLine` rozhraní API prohlížeče není spolehlivé a nemělo by být závislé na.
 
-* **Zajišťuje správnost.** &ndash;Při sestavování mezipaměti offline prostředků používá pracovník služby k zajištění toho, aby získal úplný a vysoce konzistentní snímek prostředků v jednom čase. Tato mezipaměť se pak použije jako atomická jednotka. Neexistuje žádný bod, který požaduje síť pro novější prostředky, protože jediné požadované verze jsou ty, které jsou už uložené v mezipaměti. Cokoli jiného nekonzistence rizik a nekompatibilita (například pokus o použití verzí sestavení .NET, která nebyla zkompilována dohromady).
+* **Zajišťuje správnost.** Při sestavování mezipaměti offline prostředků používá pracovník služby k zajištění toho, aby získal úplný a vysoce konzistentní snímek prostředků v jednom čase. Tato mezipaměť se pak použije jako atomická jednotka. Neexistuje žádný bod, který požaduje síť pro novější prostředky, protože jediné požadované verze jsou ty, které jsou už uložené v mezipaměti. Cokoli jiného nekonzistence rizik a nekompatibilita (například pokus o použití verzí sestavení .NET, která nebyla zkompilována dohromady).
 
 ### <a name="background-updates"></a>Aktualizace na pozadí
 
 V rámci duševního modelu si můžete představit, jak se v režimu offline, tak jak se chová jako mobilní aplikace, které se dají nainstalovat. Aplikace se okamžitě spustí bez ohledu na připojení k síti, ale nainstalovaná logika aplikace pochází z snímku v čase, který nemusí být nejnovější verze.
 
-Šablona Blazor PWA vytváří aplikace, které se automaticky pokusí o aktualizaci na pozadí, kdykoli uživatel navštíví a má fungující síťové připojení. Způsob funguje takto:
+BlazorŠablona PWA vytváří aplikace, které se automaticky pokusí o aktualizaci na pozadí, kdykoli uživatel navštíví a má fungující síťové připojení. Způsob funguje takto:
 
 * Během kompilace projekt generuje *manifest assetů pracovního procesu služby*. Ve výchozím nastavení se nazývá *Service-Worker-assets. js*. Manifest obsahuje seznam všech statických prostředků, které aplikace vyžaduje, aby fungovala offline, například sestavení .NET, soubory JavaScriptu a CSS, včetně jejich hodnot hash obsahu. Seznam prostředků je načten pracovním procesem služby, aby věděl, které prostředky se mají ukládat do mezipaměti.
 * Pokaždé, když uživatel navštíví aplikaci, prohlížeč znovu vyžádá *Service-Worker. js* a *Service-Worker-assets. js* na pozadí. Soubory jsou porovnány bajtů-pro bajt s existujícím pracovním procesem nainstalovaného služby. Pokud server vrátí změněný obsah některého z těchto souborů, pokusí se pracovní proces služby nainstalovat novou verzi.
@@ -149,24 +145,24 @@ V rámci duševního modelu si můžete představit, jak se v režimu offline, t
 * Proces se úspěšně dokončí, když se všechny prostředky načtou bez chyb a všechny hodnoty hash obsahu se shodují. V případě úspěchu nový pracovní proces služby vstoupí do stavu *čekání na aktivaci* . Jakmile uživatel aplikaci zavře (žádné zbývající karty aplikace nebo Windows), bude nový pracovní proces služby *aktivní* a použije se pro následné návštěvy aplikace. Původní pracovní proces služby a jeho mezipaměť se odstraní.
 * Pokud se proces neúspěšně nedokončí, nová instance pracovního procesu služby se zahodí. V případě, že snad klient má lepší síťové připojení, které může dokončit požadavky, se proces aktualizace znovu pokusí o další návštěvu uživatele.
 
-Tento proces si upravíte úpravou logiky pracovního procesu služby. Žádná z předchozích chování není specifická pro Blazor , ale je pouze výchozím prostředím poskytovaným možností šablony PWA. Další informace najdete v tématu [MDN web Docs: API Service Worker API](https://developer.mozilla.org/docs/Web/API/Service_Worker_API).
+Tento proces si upravíte úpravou logiky pracovního procesu služby. Žádná z předchozích chování není specifická pro, Blazor ale je pouze výchozím prostředím poskytovaným možností šablony PWA. Další informace najdete v tématu [MDN web Docs: API Service Worker API](https://developer.mozilla.org/docs/Web/API/Service_Worker_API).
 
 ### <a name="how-requests-are-resolved"></a>Jak se řeší požadavky
 
-Jak je popsáno v části [strategie načítající mezipaměť](#cache-first-fetch-strategy) , výchozí pracovní proces služby používá strategii *cache-First* , což znamená, že se při dostupnosti pokusí o poskytování obsahu v mezipaměti. Pokud není obsah uložený v mezipaměti pro určitou adresu URL, například při vyžádání dat z back-endu API, pracovní proces služby se vrátí na běžný síťový požadavek. Pokud je server dostupný, požadavek na síť je úspěšný. Tato logika je implementována `onFetch` uvnitř funkce v *Service-Worker. Publish. js*.
+Jak je popsáno v části [strategie načítající mezipaměť](#cache-first-fetch-strategy) , výchozí pracovní proces služby používá strategii *cache-First* , což znamená, že se při dostupnosti pokusí o poskytování obsahu v mezipaměti. Pokud není obsah uložený v mezipaměti pro určitou adresu URL, například při vyžádání dat z back-endu API, pracovní proces služby se vrátí na běžný síťový požadavek. Pokud je server dostupný, požadavek na síť je úspěšný. Tato logika je implementována uvnitř `onFetch` funkce v *Service-Worker. Publish. js*.
 
-Pokud Razor komponenty aplikace spoléhají na požadavky na data z back-endové rozhraní API a chcete poskytnout uživatelsky přívětivé uživatelské prostředí pro neúspěšné požadavky z důvodu nedostupnosti sítě, implementujte logiku v rámci komponent aplikace. Můžete například použít `try/catch` kolem `HttpClient` požadavků.
+Pokud Razor komponenty aplikace spoléhají na požadavky na data z back-endové rozhraní API a chcete poskytnout uživatelsky přívětivé uživatelské prostředí pro neúspěšné požadavky z důvodu nedostupnosti sítě, implementujte logiku v rámci komponent aplikace. Můžete například použít `try/catch` kolem <xref:System.Net.Http.HttpClient> požadavků.
 
 ### <a name="support-server-rendered-pages"></a>Server podpory – vykreslené stránky
 
-Zvažte, co se stane, když uživatel poprvé přejde na adresu URL, `/counter` například nebo na jiný přímý odkaz v aplikaci. V těchto případech nechcete vracet obsah uložený v mezipaměti jako `/counter`, ale místo toho musí prohlížeč načíst obsah uložený v mezipaměti `/index.html` , aby se spouštěla vaše Blazor aplikace WebAssembly. Tyto počáteční požadavky se označují jako požadavky na *navigaci* , a to na rozdíl od:
+Zvažte, co se stane, když uživatel poprvé přejde na adresu URL, například `/counter` nebo na jiný přímý odkaz v aplikaci. V těchto případech nechcete vracet obsah uložený v mezipaměti jako `/counter` , ale místo toho musí prohlížeč načíst obsah uložený v mezipaměti, `/index.html` aby se spouštěla vaše Blazor aplikace WebAssembly. Tyto počáteční požadavky se označují jako požadavky na *navigaci* , a to na rozdíl od:
 
 * požadavky na *podzdroje* pro obrázky, šablony stylů nebo jiné soubory.
 * *načte/XHR* požadavky na data rozhraní API.
 
-Výchozí pracovní proces služby obsahuje zvláštní případovou logiku pro požadavky na navigaci. Pracovník služby tyto požadavky vyřeší tak, že vrátí obsah uložený `/index.html`v mezipaměti pro, bez ohledu na požadovanou adresu URL. Tato logika je implementována ve `onFetch` funkci v rámci *Service-Worker. Publish. js*.
+Výchozí pracovní proces služby obsahuje zvláštní případovou logiku pro požadavky na navigaci. Pracovník služby tyto požadavky vyřeší tak, že vrátí obsah uložený v mezipaměti pro `/index.html` , bez ohledu na požadovanou adresu URL. Tato logika je implementována ve `onFetch` funkci v rámci *Service-Worker. Publish. js*.
 
-Pokud má vaše aplikace určité adresy URL, které musí vracet Server HTML vykreslený serverem, `/index.html` a neobsluhuje z mezipaměti, pak je potřeba upravit logiku pracovního procesu služby. Pokud všechny adresy URL `/Identity/` obsahující musí být zpracovávány jako běžné požadavky pouze online na server, pak změňte logiku *Service-Worker. Publish. js* `onFetch` . Vyhledejte následující kód:
+Pokud má vaše aplikace určité adresy URL, které musí vracet Server HTML vykreslený serverem, a neobsluhuje `/index.html` z mezipaměti, pak je potřeba upravit logiku pracovního procesu služby. Pokud všechny adresy URL obsahující `/Identity/` musí být zpracovávány jako běžné požadavky pouze online na server, pak změňte logiku *Service-Worker. Publish. js* `onFetch` . Vyhledejte následující kód:
 
 ```javascript
 const shouldServeIndexHtml = event.request.mode === 'navigate';
@@ -179,26 +175,26 @@ const shouldServeIndexHtml = event.request.mode === 'navigate'
     && !event.request.url.includes('/Identity/');
 ```
 
-Pokud to neuděláte, nezávisle na připojení k síti zachytí pracovník služby požadavky na takové adresy URL a vyřeší je pomocí `/index.html`.
+Pokud to neuděláte, nezávisle na připojení k síti zachytí pracovník služby požadavky na takové adresy URL a vyřeší je pomocí `/index.html` .
 
 ### <a name="control-asset-caching"></a>Ukládání prostředků do mezipaměti ovládacích prvků
 
-Pokud projekt definuje vlastnost `ServiceWorkerAssetsManifest` MSBuild, BlazorNástroj pro vytváření vytvoří manifest assetů pracovního procesu služby se zadaným názvem. Výchozí šablona PWA vytvoří soubor projektu obsahující následující vlastnost:
+Pokud projekt definuje `ServiceWorkerAssetsManifest` vlastnost MSBuild, Blazor Nástroj pro vytváření vytvoří manifest assetů pracovního procesu služby se zadaným názvem. Výchozí šablona PWA vytvoří soubor projektu obsahující následující vlastnost:
 
 ```xml
 <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 ```
 
-Soubor je umístěn do výstupního adresáře *wwwroot* , takže prohlížeč může tento soubor načíst tak, že si `/service-worker-assets.js`vyžádá. Chcete-li zobrazit obsah tohoto souboru, otevřete */bin/Debug/{Target Framework}/wwwroot/Service-Worker-assets.js* v textovém editoru. Neupravujte ale soubor, protože se znovu vygeneroval u každého sestavení.
+Soubor je umístěn do výstupního adresáře *wwwroot* , takže prohlížeč může tento soubor načíst tak, že si vyžádá `/service-worker-assets.js` . Chcete-li zobrazit obsah tohoto souboru, otevřete */bin/Debug/{Target Framework}/wwwroot/Service-Worker-assets.js* v textovém editoru. Neupravujte ale soubor, protože se znovu vygeneroval u každého sestavení.
 
 Ve výchozím nastavení tento manifest uvádí:
 
-* Všechny Blazorprostředky spravované jako sestavení .NET a běhové soubory .NET WebAssembly vyžadované pro funkci offline.
+* Všechny Blazor prostředky spravované jako sestavení .NET a běhové soubory .NET WebAssembly vyžadované pro funkci offline.
 * Všechny prostředky pro publikování do adresáře *wwwroot* aplikace, jako jsou obrázky, šablony stylů a soubory JavaScriptu, včetně statických webových prostředků poskytovaných externími projekty a balíčky NuGet.
 
-Úpravou logiky v `onInstall` nástroji v nástroji *Service-Worker. Publisher. js*můžete řídit, které z těchto prostředků jsou načteny a ukládány do mezipaměti pracovním procesem služby. Ve výchozím nastavení pracovní proces služby načte a ukládá do mezipaměti soubory, které odpovídají typickým příponám názvů souborů, jako je například *. html*, *. CSS*, *. js*a *. wasm*, Blazor plus typy souborů specifické pro WebAssembly (*. dll*, *. pdb*).
+Úpravou logiky v nástroji `onInstall` v nástroji *Service-Worker. Publisher. js*můžete řídit, které z těchto prostředků jsou načteny a ukládány do mezipaměti pracovním procesem služby. Ve výchozím nastavení pracovní proces služby načte a ukládá do mezipaměti soubory, které odpovídají typickým příponám názvů souborů, jako je například *. html*, *. CSS*, *. js*a *. wasm*, plus typy souborů specifické pro Blazor WebAssembly (*. dll*, *. pdb*).
 
-Chcete-li zahrnout další prostředky, které nejsou k dispozici v adresáři *wwwroot* aplikace, `ItemGroup` Definujte další položky MSBuild, jak je znázorněno v následujícím příkladu:
+Chcete-li zahrnout další prostředky, které nejsou k dispozici v adresáři *wwwroot* aplikace, definujte další `ItemGroup` položky MSBuild, jak je znázorněno v následujícím příkladu:
 
 ```xml
 <ItemGroup>
@@ -207,10 +203,10 @@ Chcete-li zahrnout další prostředky, které nejsou k dispozici v adresáři *
 </ItemGroup>
 ```
 
-`AssetUrl` Metadata určují základní relativní adresu URL, kterou by měl prohlížeč použít při načítání prostředku do mezipaměti. To může být nezávislé na původním názvu zdrojového souboru na disku.
+`AssetUrl`Metadata určují základní relativní adresu URL, kterou by měl prohlížeč použít při načítání prostředku do mezipaměti. To může být nezávislé na původním názvu zdrojového souboru na disku.
 
 > [!IMPORTANT]
-> `ServiceWorkerAssetsManifestItem` Přidání souboru nezpůsobí, že se soubor zveřejní v adresáři *wwwroot* aplikace. Výstup publikování musí být řízen samostatně. `ServiceWorkerAssetsManifestItem` V manifestu Asset Service Worker se zobrazí další položka.
+> Přidání `ServiceWorkerAssetsManifestItem` souboru nezpůsobí, že se soubor zveřejní v adresáři *wwwroot* aplikace. Výstup publikování musí být řízen samostatně. V `ServiceWorkerAssetsManifestItem` manifestu Asset Service Worker se zobrazí další položka.
 
 ## <a name="push-notifications"></a>Nabízená oznámení
 
@@ -234,7 +230,7 @@ Kromě toho musí PWAs s podporou offline řešit řadu dalších komplikací. V
 
 ### <a name="offline-support-only-when-published"></a>Podpora offline pouze v případě publikování
 
-Během vývoje obvykle chcete zobrazit každou změnu, která se odrazí v prohlížeči, aniž byste museli procházet proces aktualizace na pozadí. Proto Šablona BlazorPWA povolí podporu offline pouze v případě, že je publikovaná.
+Během vývoje obvykle chcete zobrazit každou změnu, která se odrazí v prohlížeči, aniž byste museli procházet proces aktualizace na pozadí. Proto Blazor Šablona PWA povolí podporu offline pouze v případě, že je publikovaná.
 
 Při sestavování aplikace podporující offline není dostatečné testování aplikace ve vývojovém prostředí. Aby bylo možné pochopit, jak reaguje na různé síťové podmínky, musíte aplikaci otestovat v jejím publikovaném stavu.
 
@@ -242,7 +238,7 @@ Při sestavování aplikace podporující offline není dostatečné testování
 
 Aktualizace se nedokončí, dokud uživatel nepřejde z aplikace na všech kartách. Jak je vysvětleno v části [aktualizace na pozadí](#background-updates) , po nasazení aktualizace do aplikace Prohlížeč načte aktualizované pracovní soubory služby pro zahájení procesu aktualizace.
 
-Co překvapením mnoho vývojářů, i když se tato aktualizace dokončí, **neprojeví** se, dokud uživatel nepřejde na všechny karty. **Není dostačující aktualizovat** kartu, která aplikaci zobrazuje, i v případě, že se jedná o jedinou kartu, na které se aplikace zobrazuje. Dokud nebude vaše aplikace zcela uzavřená, nový pracovní proces služby zůstane ve stavu *čekání na aktivaci* . **Tato funkce není specifická pro Blazor, ale je spíše standardní chování webové platformy.**
+Co překvapením mnoho vývojářů, i když se tato aktualizace dokončí, **neprojeví** se, dokud uživatel nepřejde na všechny karty. **Není dostačující aktualizovat** kartu, která aplikaci zobrazuje, i v případě, že se jedná o jedinou kartu, na které se aplikace zobrazuje. Dokud nebude vaše aplikace zcela uzavřená, nový pracovní proces služby zůstane ve stavu *čekání na aktivaci* . **Tato funkce není specifická pro Blazor , ale je spíše standardní chování webové platformy.**
 
 To běžně vydává problémy vývojářům, kteří se pokoušejí testovat aktualizace pro pracovní pracovníky služby nebo offline prostředky v mezipaměti. Pokud se do vývojářských nástrojů v prohlížeči pokusíte vrátit se změnami, může se zobrazit něco jako v následujících případech:
 
@@ -264,7 +260,7 @@ Pokud je to možné, nesaďte nenasazené změny rozhraní API back-endu. Pokud 
 
 ### <a name="interference-with-server-rendered-pages"></a>Rušení se stránkami vykreslenými serverem
 
-Jak je popsáno v části [vygenerované stránky serveru podpory](#support-server-rendered-pages) , pokud chcete obejít chování pracovního procesu služby při vracení `/index.html` obsahu pro všechny požadavky na navigaci, upravte logiku pracovního procesu služby.
+Jak je popsáno v části [vygenerované stránky serveru podpory](#support-server-rendered-pages) , pokud chcete obejít chování pracovního procesu služby `/index.html` při vracení obsahu pro všechny požadavky na navigaci, upravte logiku pracovního procesu služby.
 
 ### <a name="all-service-worker-asset-manifest-contents-are-cached-by-default"></a>Ve výchozím nastavení se veškerý obsah manifestu Asset Service Worker ukládá do mezipaměti.
 
@@ -272,7 +268,7 @@ Jak je popsáno v části [ukládání prostředků do mezipaměti](#control-ass
 
 Vzhledem k tomu, že tento seznam ve výchozím nastavení zahrnuje vše generované do *wwwroot*, včetně obsahu dodávaného externími balíčky a projekty, je nutné, abyste měli pozor, abyste do něj neumístili příliš mnoho obsahu. Pokud adresář *wwwroot* obsahuje miliony imagí, pracovní podproces služby se pokusí je načíst a Uložit do mezipaměti, což spotřebovává nadměrné šířky pásma a pravděpodobně se neúspěšně dokončuje.
 
-Implementujte libovolnou logiku pro řízení, která podmnožina obsahu manifestu by měla být načtena a ukládána `onInstall` do mezipaměti úpravou funkce v *Service-Worker. Publish. js*.
+Implementujte libovolnou logiku pro řízení, která podmnožina obsahu manifestu by měla být načtena a ukládána do mezipaměti úpravou `onInstall` funkce v *Service-Worker. Publish. js*.
 
 ### <a name="interaction-with-authentication"></a>Interakce s ověřováním
 

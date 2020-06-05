@@ -1,12 +1,24 @@
 ---
-title: ' Vytvoření první Blazor aplikace ' Autor: guardrex Description: ' vytvoření Blazor aplikace krok za krokem. '
-monikerRange: ' >= aspnetcore-3,0 ' MS. Author: Riande MS. Custom: MVC MS. Date: 05/19/2020 No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: kurzy/First-blazor-App
-
+title: Sestavení první Blazor aplikace
+author: guardrex
+description: Sestavte Blazor aplikaci krok za krokem.
+monikerRange: '>= aspnetcore-3.0'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: tutorials/first-blazor-app
+ms.openlocfilehash: 8cf356b5c9876a4114942af27a22df6bd324d0e2
+ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/05/2020
+ms.locfileid: "84355211"
 ---
 # <a name="build-your-first-blazor-app"></a>Sestavení první Blazor aplikace
 
