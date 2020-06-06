@@ -16,8 +16,12 @@ Jedním z způsobů, jak zabránit kolizím souborů cookie a dat lokality při 
 * Použití vlastního příkazu k otevření prohlížeče v anonymním nebo privátním režimu v aplikaci Visual Studio:
   * Otevřete dialogové okno **Procházet s pomocí** tlačítka **Spustit** v aplikaci Visual Studio.
   * Vyberte tlačítko **Přidat** .
-  * Zadejte cestu k prohlížeči do pole **program** .
-  * V poli **argumenty** zadejte parametr příkazového řádku, který prohlížeč používá pro otevření v anonymním nebo privátním režimu a adresu URL aplikace. Příklad:
+  * Zadejte cestu k prohlížeči do pole **program** . Následující cesty ke spustitelným složkám jsou typická umístění instalace pro Windows 10. Pokud je váš prohlížeč nainstalovaný v jiném umístění nebo nepoužíváte Windows 10, zadejte cestu ke spustitelnému souboru prohlížeče.
+    * Microsoft Edge:`C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe`
+    * Google Chrome:`C:\Program Files (x86)\Google\Chrome\Application\chrome.exe`
+    * Mozilla Firefox:`C:\Program Files\Mozilla Firefox\firefox.exe`
+  * Do pole **argumenty** zadejte parametr příkazového řádku, který prohlížeč používá pro otevření v anonymním nebo privátním režimu. Některé prohlížeče vyžadují adresu URL aplikace.
+    * Microsoft Edge:`-inprivate`
     * Google Chrome:`--incognito --new-window https://localhost:5001`
     * Mozilla Firefox:`-private -url https://localhost:5001`
   * Do pole **popisný název** zadejte název. Například, `Firefox Auth Testing`.
