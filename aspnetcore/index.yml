@@ -1,21 +1,21 @@
 ### YamlMime:Hub
-title: Dokumentace k ASP.NET Core
+title: Dokumentace k ASP.NET
 summary: Naučte se pomocí ASP.NET Core vytvářet rychlé a bezpečné webové aplikace a služby pro cloud a různé platformy. Projděte si kurzy, ukázky kódu, základy, referenční materiály k rozhraní API a mnoho dalšího.
 brand: aspnet
 metadata:
-  title: Dokumentace k ASP.NET Core
+  title: Dokumentace k ASP.NET
   description: Naučte se pomocí ASP.NET Core vytvářet rychlé a bezpečné webové aplikace a služby pro cloud a různé platformy. Projděte si kurzy, ukázky kódu, základy, referenční materiály k rozhraní API a mnoho dalšího.
   ms.product: aspnet
   ms.topic: hub-page
   author: WadePickett
   ms.author: wpickett
-  ms.date: 06/03/2020
-  ms.openlocfilehash: fb4b31258683c5928708e7a2a479f353972c010b
-  ms.sourcegitcommit: 829dca1d5a7dcccbfe90644101c6be1d1c94ac62
+  ms.date: 06/05/2020
+  ms.openlocfilehash: 25b5387c8956ea7931751525ea954f6f702c0cde
+  ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
   ms.translationtype: HT
   ms.contentlocale: cs-CZ
-  ms.lasthandoff: 06/04/2020
-  ms.locfileid: "84355405"
+  ms.lasthandoff: 06/08/2020
+  ms.locfileid: "84507279"
 highlightedContent:
   items:
   - title: Vytvoření aplikace ASP.NET Core pro libovolnou platformu do 5 minut
@@ -44,7 +44,7 @@ highlightedContent:
     url: https://docs.microsoft.com/aspnet/overview
 conceptualContent:
   title: Vývoj aplikací pro ASP.NET Core
-  summary: Vyberte si interaktivní webové aplikace, webová rozhraní API, aplikace postavené na MVC, aplikace v reálném čase a mnoho dalšího. Dokumentace k ASP.NET 4.x viz [ASP.NET](https://docs.microsoft.com/aspnet/overview).
+  summary: Vyberte si interaktivní webové aplikace, webová rozhraní API, aplikace postavené na MVC, aplikace v reálném čase a mnoho dalšího.
   items:
   - title: Interaktivní klientské aplikace Blazor
     summary: Vyvíjejte s opakovaně použitelnými komponentami uživatelského rozhraní, které pomocí WebAssembly zajistí téměř nativní výkon.
