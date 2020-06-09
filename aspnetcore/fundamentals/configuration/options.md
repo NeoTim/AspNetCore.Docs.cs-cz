@@ -1,12 +1,25 @@
 ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- 
+title: Vzor možností v ASP.NET Core
+author: rick-anderson
+description: Zjistěte, jak pomocí vzoru možností znázornit skupiny souvisejících nastavení v aplikacích ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/20/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: fundamentals/configuration/options
+ms.openlocfilehash: 9a9febba060cca591f2cbcdc03cb4c35edcfdda7
+ms.sourcegitcommit: 74d80a36103fdbd54baba0118535a4647f511913
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/08/2020
+ms.locfileid: "84529660"
+---
 # <a name="options-pattern-in-aspnet-core"></a>Vzor možností v ASP.NET Core
 
 ::: moniker range=">= aspnetcore-3.0"
@@ -158,9 +171,14 @@ Následující třída se váže ke `"MyConfig"` konfiguračnímu oddílu a pou�
 
 [!code-csharp[](options/samples/3.x/OptionsValidationSample/Configuration/MyConfigOptions.cs?name=snippet)]
 
-Následující kód volá <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions%2A> k získání [ \<TOptions> OptionsBuilder](xref:Microsoft.Extensions.Options.OptionsBuilder`1) , který se váže ke `MyConfigOptions` třídě a umožňuje `DataAnnotations` ověření:
+Následující kód:
+
+* Volá <xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.AddOptions%2A> , aby se získal objekt [OptionsBuilder \<TOptions> ](xref:Microsoft.Extensions.Options.OptionsBuilder`1) , který se váže ke `MyConfigOptions` třídě.
+* Volání <xref:Microsoft.Extensions.DependencyInjection.OptionsBuilderDataAnnotationsExtensions.ValidateDataAnnotations%2A> pro povolení ověřování pomocí `DataAnnotations` .
 
 [!code-csharp[](options/samples/3.x/OptionsValidationSample/Startup.cs?name=snippet)]
+
+`ValidateDataAnnotations`Metoda rozšíření je definována v balíčku NuGet [Microsoft. Extensions. Options. DataAnnotations](https://www.nuget.org/packages/Microsoft.Extensions.Options.DataAnnotations) . U webových aplikací, které používají `Microsoft.NET.Sdk.Web` sadu SDK, se na tento balíček odkazuje implicitně ze sdíleného rozhraní.
 
 Následující kód zobrazí konfigurační hodnoty nebo chyby ověřování:
 

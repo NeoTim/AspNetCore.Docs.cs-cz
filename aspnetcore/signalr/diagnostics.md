@@ -1,12 +1,24 @@
 ---
-title: protokolování a diagnostika ve ASP.NET Core SignalR Autor: Description: ' Naučte se shromažďovat diagnostiku z vaší ASP.NET Core SignalR aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Protokolování a diagnostika v ASP.NET CoreSignalR
+author: anurse
+description: Naučte se shromažďovat diagnostiku z vaší SignalR aplikace ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
+ms.author: anurse
+ms.custom: signalr
+ms.date: 06/08/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: signalr/diagnostics
+ms.openlocfilehash: 22e1d24bc9fed5fd8588c852e07f5ca935946596
+ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/08/2020
+ms.locfileid: "84507313"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a diagnostika v ASP.NET CoreSignalR
 
@@ -77,34 +89,14 @@ Chcete-li protokolování zcela zakázat, zadejte `signalR.LogLevel.None` v `con
 V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta jazyka JavaScript. Nastavením úrovně protokolu na jednu z těchto hodnot povolíte protokolování na této úrovni a všechny úrovně nad ním v tabulce.
 
 | Úroveň | Description |
-| ----- | ---
-title: protokolování a diagnostika ve ASP.NET Core SignalR Autor: Description: ' Naučte se shromažďovat diagnostiku z vaší ASP.NET Core SignalR aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: protokolování a diagnostika ve ASP.NET Core SignalR Autor: Description: ' Naučte se shromažďovat diagnostiku z vaší ASP.NET Core SignalR aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: protokolování a diagnostika ve ASP.NET Core SignalR Autor: Description: ' Naučte se shromažďovat diagnostiku z vaší ASP.NET Core SignalR aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | | `None` | Nejsou protokolovány žádné zprávy. | | `Critical` | Zprávy indikující selhání v celé aplikaci. | | `Error` | Zprávy indikující selhání aktuální operace. | | `Warning` | Zprávy, které indikují méně závažnou chybu. | | `Information` | Informační zprávy. | | `Debug` | Diagnostické zprávy užitečné pro ladění. | | `Trace` | Velmi podrobné diagnostické zprávy navržené pro diagnostiku konkrétních problémů. |
+| ----- | ----------- |
+| `None` | Nejsou protokolovány žádné zprávy. |
+| `Critical` | Zprávy indikující selhání v celé aplikaci. |
+| `Error` | Zprávy indikující selhání aktuální operace. |
+| `Warning` | Zprávy, které indikují méně závažnou chybu. |
+| `Information` | Informační zprávy. |
+| `Debug` | Diagnostické zprávy užitečné pro ladění. |
+| `Trace` | Velmi podrobné diagnostické zprávy navržené pro diagnostiku konkrétních problémů. |
 
 Po nakonfigurování podrobností se protokoly zapíší do konzoly prohlížeče (nebo standardního výstupu v aplikaci NodeJS).
 
@@ -217,6 +209,39 @@ Diagnostické soubory můžete k problémům s GitHubem připojit tak, že je p�
 > Do problému GitHubu prosím nevložíme obsah souborů protokolu ani trasování sítě. Tyto protokoly a trasování můžou být poměrně velké a GitHub je obvykle ořízne.
 
 ![Přetahování souborů protokolů na problém GitHubu](diagnostics/attaching-diagnostics-files.png)
+
+## <a name="metrics"></a>Metriky
+
+Metrika je reprezentace datových měr v časových intervalech. Například požadavky za sekundu. Data metrik umožňují sledovat stav aplikace na vysoké úrovni. Metriky .NET gRPC jsou vydávány pomocí <xref:System.Diagnostics.Tracing.EventCounter> .
+
+### <a name="signalr-server-metrics"></a>SignalRmetriky serveru
+
+SignalRmetriky serveru jsou hlášeny ve <xref:Microsoft.AspNetCore.Http.Connections> zdroji událostí.
+
+| Name                    | Description                 |
+|-------------------------|-----------------------------|
+| `connections-started`   | Celkový počet spuštěných připojení   |
+| `connections-stopped`   | Celkový počet zastavených připojení   |
+| `connections-timed-out` | Celkový počet připojení vypršel. |
+| `current-connections`   | Aktuální připojení         |
+| `connections-duration`  | Průměrná doba trvání připojení |
+
+### <a name="observe-metrics"></a>Sledovat metriky
+
+[dotnet – čítače](/dotnet/core/diagnostics/dotnet-counters) jsou nástrojem pro monitorování výkonu, který slouží ke sledování stavu ad-hoc a prvotnímu šetření výkonu na nejvyšší úrovni. Monitorujte aplikaci .NET s `Microsoft.AspNetCore.Http.Connections` názvem poskytovatele. Příklad:
+
+```console
+> dotnet-counters monitor --process-id 37016 Microsoft.AspNetCore.Http.Connections
+
+Press p to pause, r to resume, q to quit.
+    Status: Running
+[Microsoft.AspNetCore.Http.Connections]
+    Average Connection Duration (ms)       16,040.56
+    Current Connections                         1
+    Total Connections Started                   8
+    Total Connections Stopped                   7
+    Total Connections Timed Out                 0
+```
 
 ## <a name="additional-resources"></a>Další zdroje
 

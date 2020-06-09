@@ -5,7 +5,7 @@ description: Naučte se hostovat a nasazovat Blazor aplikaci pomocí ASP.NET Cor
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2020
+ms.date: 06/07/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/blazor/webassembly
-ms.openlocfilehash: 09f74edaa3d1cb0d51e0ce8d0209383885b81f5f
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 005ec9af9a93bfc4be06d06588fd61a6367b1e47
+ms.sourcegitcommit: 74d80a36103fdbd54baba0118535a4647f511913
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84239384"
+ms.lasthandoff: 06/08/2020
+ms.locfileid: "84529542"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -34,13 +34,47 @@ Podporují se tyto strategie nasazení:
 * BlazorAplikaci obsluhuje aplikace ASP.NET Core. Tato strategie je popsaná v části [hostované nasazení s ASP.NET Core](#hosted-deployment-with-aspnet-core) .
 * BlazorAplikace se umístí na statický hostující webový server nebo službu, kde rozhraní .NET se k obsluze aplikace nepoužívá Blazor . Tato strategie je popsaná v části [samostatné nasazení](#standalone-deployment) , která obsahuje informace o hostování Blazor aplikace WebAssembly jako dílčí aplikace služby IIS.
 
-## <a name="precompression"></a>Předkomprese
+## <a name="compression"></a>Komprese
 
-Když Blazor je publikována aplikace WebAssembly, výstup je zkomprimován, aby se snížila velikost aplikace a odstranila se nutnost komprese za běhu. Používají se následující kompresní algoritmy:
+Když Blazor je publikována aplikace WebAssembly, výstup je během publikování staticky komprimován, aby se snížila velikost aplikace a odstranila se režie pro kompresi za běhu. Používají se následující kompresní algoritmy:
 
 * [Brotli](https://tools.ietf.org/html/rfc7932) (nejvyšší úroveň)
 * [GZIP](https://tools.ietf.org/html/rfc1952)
 
+Blazorspoléhá na hostitele, který obsluhuje příslušné komprimované soubory. Při použití hostovaného projektu ASP.NET Core je hostitelský projekt schopný provádět vyjednávání obsahu a obsluhovat staticky komprimované soubory. Při hostování Blazor samostatné aplikace WebAssembly může být nutné provést další práci, aby bylo zajištěno, že budou obsluhovány staticky komprimované soubory:
+
+* Konfiguraci komprese *souboru Web. config* služby IIS najdete v části [IIS: Brotli a komprese GZip](#brotli-and-gzip-compression) . 
+* Při hostování řešení statického hostování, které nepodporují vyjednávání se staticky komprimovaným souborem, jako jsou stránky GitHubu, zvažte konfiguraci aplikace pro načtení a dekódování Brotli komprimovaných souborů:
+
+  * Odkažte na dekodér Brotli z [úložiště GitHub Google/Brotli](https://github.com/google/brotli/) v aplikaci.
+  * Aktualizujte aplikaci tak, aby používala dekodér. Změňte kód uvnitř uzavírací `<body>` značky v *wwwroot/index.html* na následující:
+  
+    ```html
+    <script src="brotli.decode.min.js"></script>
+    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>
+    Blazor.start({
+      loadBootResource: function (type, name, defaultUri, integrity) {
+        if (type !== 'dotnetjs' && location.hostname !== 'localhost') {
+          return (async function () {
+            const response = await fetch(defaultUri + '.br', { cache: 'no-cache' });
+            if (!response.ok) {
+              throw new Error(response.statusText);
+            }
+            const originalResponseBuffer = await response.arrayBuffer();
+            const originalResponseArray = new Int8Array(originalResponseBuffer);
+            const decompressedResponseArray = BrotliDecode(originalResponseArray);
+            const contentType = type === 
+          'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+            return new Response(decompressedResponseArray, 
+          { headers: { 'content-type': contentType } });
+          })();
+        }
+      }
+    });
+  </script>
+  ```
+   
 Chcete-li vypnout kompresi, přidejte `BlazorEnableCompression` do souboru projektu aplikace vlastnost MSBuild a nastavte hodnotu na `false` :
 
 ```xml
@@ -48,8 +82,6 @@ Chcete-li vypnout kompresi, přidejte `BlazorEnableCompression` do souboru proje
   <BlazorEnableCompression>false</BlazorEnableCompression>
 </PropertyGroup>
 ```
-
-Konfiguraci komprese *souboru Web. config* služby IIS najdete v části [IIS: Brotli a komprese GZip](#brotli-and-gzip-compression) .
 
 ## <a name="rewrite-urls-for-correct-routing"></a>Přepište adresy URL pro správné směrování.
 

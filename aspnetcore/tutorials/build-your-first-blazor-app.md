@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 8cf356b5c9876a4114942af27a22df6bd324d0e2
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: ce3f20f7ee4ccfa73afc5f80a4429d9f4fe05591
+ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84355211"
+ms.lasthandoff: 06/08/2020
+ms.locfileid: "84507254"
 ---
 # <a name="build-your-first-blazor-app"></a>Sestavení první Blazor aplikace
 
@@ -32,7 +32,7 @@ V tomto kurzu se dozvíte, jak vytvořit a upravit Blazor aplikaci. Získáte in
 > * Použití zpracování událostí a datové vazby v součástech
 > * Použití vkládání závislostí (DI) a směrování v Blazor aplikaci
 
-Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
+Na konci tohoto kurzu budete mít funkční aplikaci seznamu úkolů.
 
 ## <a name="build-components"></a>Komponenty sestavení
 
@@ -109,7 +109,7 @@ Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pom
 
 `@page`Direktiva v horní části souboru *Counter. Razor* určuje, že `Counter` Komponenta je koncový bod směrování. `Counter`Komponenta zpracovává požadavky odeslané na `/counter` . Bez `@page` direktivy nezpracovávají součásti směrované požadavky, ale komponentu mohou i nadále používat jiné komponenty.
 
-## <a name="dependency-injection"></a>Injektáž závislostí
+## <a name="dependency-injection"></a>Injektáž závislosti
 
 ### <a name="blazor-server-experience"></a>BlazorProstředí serveru
 

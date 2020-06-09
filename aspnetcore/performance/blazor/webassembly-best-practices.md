@@ -1,12 +1,24 @@
 ---
-title: ' ASP.NET Core Blazor osvědčené postupy pro výkon WebAssembly ' Autor: Description: ' Tipy pro zvýšení výkonu v ASP.NET Core Blazor aplikace WebAssembly a předcházení běžným problémům s výkonem. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Osvědčené postupy pro vyASP.NET Coreení Blazor výkonu WebAssembly
+author: pranavkm
+description: Tipy pro zvýšení výkonu v Blazor aplikacích ASP.NET Core WebAssembly a předcházení běžným problémům s výkonem.
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 06/08/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: performance/blazor/webassembly-best-practices
+ms.openlocfilehash: 950d87a6f09e998e47e96c93c5d68bb3f19ddafb
+ms.sourcegitcommit: 74d80a36103fdbd54baba0118535a4647f511913
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/08/2020
+ms.locfileid: "84529629"
 ---
 # <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>Osvědčené postupy pro vyASP.NET Coreení Blazor výkonu WebAssembly
 
@@ -131,6 +143,12 @@ BlazorWebAssembly nabízí dvě další verze nástroje <xref:Microsoft.JSIntero
 ```dotnetcli
 dotnet publish -c Release
 ```
+
+### <a name="compression"></a>Komprese
+
+Když Blazor je publikována aplikace WebAssembly, výstup je během publikování staticky komprimován, aby se snížila velikost aplikace a odstranila se režie pro kompresi za běhu. Blazorspoléhá na server, aby provedl negotation obsahu a sloužil staticky komprimovaným souborům.
+
+Po nasazení aplikace ověřte, jestli aplikace obsluhuje komprimované soubory. Zkontrolujte kartu síť v Vývojářské nástroje prohlížeče a ověřte, zda jsou soubory obsluhovány `Content-Encoding: br` nebo `Content-Encoding: gz` . Pokud hostitel neobsluhuje komprimované soubory, postupujte podle pokynů v tématu <xref:host-and-deploy/blazor/webassembly#compression> .
 
 ### <a name="disable-unused-features"></a>Zakázat nepoužívané funkce
 

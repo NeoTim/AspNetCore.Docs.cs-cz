@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 67fc972676549a02265035c129c513f11d303d51
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 5b6ae8173ca3d968e220faa4a060e1b42b14f8bb
+ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774044"
+ms.lasthandoff: 06/08/2020
+ms.locfileid: "84507241"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>Co je nového v ASP.NET Core 3,1
 
@@ -29,7 +29,7 @@ Razorkomponenty se nyní generují jako částečné třídy. Kód pro Razor kom
 
 ## <a name="blazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>BlazorPomocná komponenta značek komponenty a předání parametrů komponentám nejvyšší úrovně
 
-V Blazor with ASP.NET Core 3,0 byly komponenty vykresleny do stránek a zobrazení pomocí pomocníka jazyka HTML`Html.RenderComponentAsync`(). V ASP.NET Core 3,1 vykreslete komponentu ze stránky nebo zobrazení pomocí nového pomocníka značky komponenty:
+V Blazor with ASP.NET Core 3,0 byly komponenty vykresleny do stránek a zobrazení pomocí pomocníka jazyka HTML ( `Html.RenderComponentAsync` ). V ASP.NET Core 3,1 vykreslete komponentu ze stránky nebo zobrazení pomocí nového pomocníka značky komponenty:
 
 ```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
@@ -37,9 +37,9 @@ V Blazor with ASP.NET Core 3,0 byly komponenty vykresleny do stránek a zobrazen
 
 Pomocník HTML zůstane v ASP.NET Core 3,1 podporován, ale doporučuje se pomocník značek komponent.
 
-BlazorServerové aplikace teď můžou předat parametry na nejvyšší úrovni během počátečního vykreslování. Dříve jste mohli předat parametry do komponenty nejvyšší úrovně pomocí [RenderMode. static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static). V této verzi jsou podporovány obě [RenderMode. Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) i [RenderModel. ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) . Všechny zadané hodnoty parametrů jsou serializovány jako JSON a zahrnuty do počáteční odezvy.
+BlazorServerové aplikace teď můžou předat parametry na nejvyšší úrovni během počátečního vykreslování. Dříve jste mohli předat parametry do komponenty nejvyšší úrovně pomocí [RenderMode. static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static). V této verzi jsou podporovány obě [RenderMode. Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) i [RenderMode. ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) . Všechny zadané hodnoty parametrů jsou serializovány jako JSON a zahrnuty do počáteční odezvy.
 
-Například fáze PreRender `Counter` komponentu s přírůstnou velikostí (`IncrementAmount`):
+Například fáze PreRender `Counter` komponentu s přírůstnou velikostí ( `IncrementAmount` ):
 
 ```cshtml
 <component type="typeof(Counter)" render-mode="ServerPrerendered" 
@@ -60,7 +60,7 @@ Chování souborů cookie SameSite bylo změněno tak, aby odráželo nadcházej
 
 ## <a name="prevent-default-actions-for-events-in-blazor-apps"></a>Zakázat výchozí akce pro události v Blazor aplikacích
 
-Chcete- `@on{EVENT}:preventDefault` li zabránit výchozí akci pro událost, použijte atribut direktiva. V následujícím příkladu je znemožněna výchozí akce zobrazení znaku klíče v textovém poli:
+`@on{EVENT}:preventDefault`Chcete-li zabránit výchozí akci pro událost, použijte atribut direktiva. V následujícím příkladu je znemožněna výchozí akce zobrazení znaku klíče v textovém poli:
 
 ```razor
 <input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
@@ -70,7 +70,7 @@ Další informace najdete v tématu [prevence výchozích akcí](xref:blazor/eve
 
 ## <a name="stop-event-propagation-in-blazor-apps"></a>Zastavit šíření událostí v Blazor aplikacích
 
-Pro zastavení `@on{EVENT}:stopPropagation` šíření události použijte atribut direktiva. V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na události z podřízeného `<div>` objektu z rozšiřování do nadřazené položky: `<div>`
+`@on{EVENT}:stopPropagation`Pro zastavení šíření události použijte atribut direktiva. V následujícím příkladu zaškrtnutí políčka zabrání kliknutí na události z podřízeného `<div>` objektu z rozšiřování do nadřazené položky `<div>` :
 
 ```razor
 <input @bind="_stopPropagation" type="checkbox" />
