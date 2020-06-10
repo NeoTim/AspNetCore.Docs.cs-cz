@@ -1,7 +1,7 @@
 ---
-title: Metody a zobrazení kontroleru v ASP.NET Core
+title: Část 6, metody kontroleru a zobrazení v ASP.NET Core
 author: rick-anderson
-description: Naučte se pracovat s metodami kontroleru, zobrazeními a dataanotacemi v ASP.NET Core.
+description: Část 6 – přidání modelu do aplikace ASP.NET Core MVC
 ms.author: riande
 ms.date: 12/13/2018
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/controller-methods-views
-ms.openlocfilehash: 444c870fcf9e866f0c382e32af174442d11d3af5
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 50b527cee19f19316fd9034759c05817010fefbb
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777576"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84653016"
 ---
-# <a name="controller-methods-and-views-in-aspnet-core"></a>Metody a zobrazení kontroleru v ASP.NET Core
+# <a name="part-6-controller-methods-and-views-in-aspnet-core"></a>Část 6, metody kontroleru a zobrazení v ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -32,17 +32,17 @@ Otevřete soubor *Models/video. cs* a přidejte zvýrazněné řádky zobrazené
 
 V dalším kurzu se zaměříme na tato [Dataanotace](/aspnet/mvc/overview/older-versions/mvc-music-store/mvc-music-store-part-6) . Atribut [Display](/dotnet/api/microsoft.aspnetcore.mvc.modelbinding.metadata.displaymetadata) určuje, co se má zobrazit pro název pole (v tomto případě "Datum vydání" místo "ReleaseDate"). Atribut [DataType](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.internal.datatypeattributeadapter) určuje typ dat (datum), takže se nezobrazí informace o čase uložené v poli.
 
-`[Column(TypeName = "decimal(18, 2)")]` Datová anotace je vyžadována, aby Entity Framework Core mohl správně `Price` mapovat na měnu v databázi. Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).
+`[Column(TypeName = "decimal(18, 2)")]`Datová anotace je vyžadována, aby Entity Framework Core mohl správně mapovat `Price` na měnu v databázi. Další informace najdete v tématu [datové typy](/ef/core/modeling/relational/data-types).
 
 Přejděte k `Movies` řadiči a podržením ukazatele myši na odkaz pro **Úpravy** Zobrazte cílovou adresu URL.
 
-![Zobrazí se okno prohlížeče s myší přes odkaz upravit a adresa URL https://localhost:5001/Movies/Edit/5 odkazu.](~/tutorials/first-mvc-app/controller-methods-views/_static/edit7.png)
+![Zobrazí se okno prohlížeče s myší přes odkaz upravit a adresa URL odkazu. https://localhost:5001/Movies/Edit/5](~/tutorials/first-mvc-app/controller-methods-views/_static/edit7.png)
 
 Odkazy **Upravit**, **Podrobnosti**a **Odstranit** jsou vygenerovány pomocníkem základní značky kotvící tag MVC v souboru *views/Movies/index. cshtml* .
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexOriginal.cshtml?highlight=1-3&range=46-50)]
 
-[Pomáhat pomocníkům](xref:mvc/views/tag-helpers/intro) při vytváření kódu a vykreslování prvků HTML v Razor souborech, které umožňují kód na straně serveru Ve výše uvedeném kódu `AnchorTagHelper` dynamicky generuje hodnotu atributu HTML `href` z metody akce kontroleru a ID trasy. Pomocí **zobrazení zdroje** z oblíbeného prohlížeče nebo pomocí vývojářských nástrojů prověřte vygenerovaný kód. Část vygenerovaného kódu HTML je zobrazena níže:
+[Pomáhat pomocníkům](xref:mvc/views/tag-helpers/intro) při vytváření kódu a vykreslování prvků HTML v souborech, které umožňují kód na straně serveru Razor Ve výše uvedeném kódu `AnchorTagHelper` dynamicky generuje `href` hodnotu atributu HTML z metody akce kontroleru a ID trasy. Pomocí **zobrazení zdroje** z oblíbeného prohlížeče nebo pomocí vývojářských nástrojů prověřte vygenerovaný kód. Část vygenerovaného kódu HTML je zobrazena níže:
 
 ```html
  <td>
@@ -56,7 +56,7 @@ Odvolání formátu pro sadu [Směrování](xref:mvc/controllers/routing) v soub
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_1&highlight=5)]
 
-ASP.NET Core se překládá `https://localhost:5001/Movies/Edit/4` na požadavek metody `Edit` Action `Movies` kontroleru s parametrem `Id` 4. (Metody kontroleru se označují také jako metody akcí.)
+ASP.NET Core se překládá na `https://localhost:5001/Movies/Edit/4` požadavek `Edit` metody Action `Movies` kontroleru s parametrem `Id` 4. (Metody kontroleru se označují také jako metody akcí.)
 
 [Pomocník značek](xref:mvc/views/tag-helpers/intro) je jednou z nejoblíbenějších nových funkcí v ASP.NET Core. Další informace najdete v tématu [Další zdroje](#additional-resources)informací.
 
@@ -84,9 +84,9 @@ Následující kód ukazuje `HTTP POST Edit` metodu, která zpracovává zaúčt
 
 ::: moniker-end
 
-`[Bind]` Atribut je jedním ze způsobů, jak chránit před [vyúčtováním](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost). Do `[Bind]` atributu, který chcete změnit, byste měli zahrnout pouze vlastnosti. Další informace najdete v tématu [Chraňte svůj kontroler před vyúčtováním](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application). [ViewModels](https://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/) poskytují alternativní přístup, který znemožňuje převzetí služeb při selhání.
+`[Bind]`Atribut je jedním ze způsobů, jak chránit před [vyúčtováním](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application#overpost). Do `[Bind]` atributu, který chcete změnit, byste měli zahrnout pouze vlastnosti. Další informace najdete v tématu [Chraňte svůj kontroler před vyúčtováním](/aspnet/mvc/overview/getting-started/getting-started-with-ef-using-mvc/implementing-basic-crud-functionality-with-the-entity-framework-in-asp-net-mvc-application). [ViewModels](https://rachelappel.com/use-viewmodels-to-manage-data-amp-organize-code-in-asp-net-mvc-applications/) poskytují alternativní přístup, který znemožňuje převzetí služeb při selhání.
 
-Všimněte si, `Edit` že druhá metoda Action předchází `[HttpPost]` atribut.
+Všimněte si, že druhá `Edit` Metoda Action předchází `[HttpPost]` atribut.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -100,15 +100,15 @@ Všimněte si, `Edit` že druhá metoda Action předchází `[HttpPost]` atribut
 
 ::: moniker-end
 
-`HttpPost` Atribut určuje, že tuto `Edit` metodu lze vyvolat *pouze* pro `POST` požadavky. Můžete použít `[HttpGet]` atribut na první metodu Edit, ale to není nutné, protože `[HttpGet]` je výchozí hodnota.
+`HttpPost`Atribut určuje, že tuto `Edit` metodu lze vyvolat *pouze* pro `POST` požadavky. Můžete použít `[HttpGet]` atribut na první metodu Edit, ale to není nutné, protože `[HttpGet]` je výchozí hodnota.
 
-`ValidateAntiForgeryToken` Atribut slouží k [zabránění padělání požadavku](xref:security/anti-request-forgery) a je spárován s tokenem odolného proti padělání vygenerovaným v souboru zobrazení pro úpravy (views */Movies/Edit. cshtml*). Soubor pro úpravu zobrazení vygeneruje token proti padělání pomocí [pomocníka značky formuláře](xref:mvc/views/working-with-forms).
+`ValidateAntiForgeryToken`Atribut slouží k [zabránění padělání požadavku](xref:security/anti-request-forgery) a je spárován s tokenem odolného proti padělání vygenerovaným v souboru zobrazení pro úpravy (views */Movies/Edit. cshtml*). Soubor pro úpravu zobrazení vygeneruje token proti padělání pomocí [pomocníka značky formuláře](xref:mvc/views/working-with-forms).
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/Edit.cshtml?range=9)]
 
-[Pomocník značek formuláře](xref:mvc/views/working-with-forms) generuje skrytý token proti padělání, který se musí shodovat s `[ValidateAntiForgeryToken]` generovaným tokenem odolného proti padělání `Edit` v metodě kontroleru filmů. Další informace najdete v tématu [padělání proti vyžádání](xref:security/anti-request-forgery).
+[Pomocník značek formuláře](xref:mvc/views/working-with-forms) generuje skrytý token proti padělání, který se musí shodovat s `[ValidateAntiForgeryToken]` generovaným tokenem odolného proti padělání v `Edit` metodě kontroleru filmů. Další informace najdete v tématu [padělání proti vyžádání](xref:security/anti-request-forgery).
 
-`HttpGet Edit` Metoda vezme parametr videa `ID` , vyhledá film pomocí metody Entity Framework `FindAsync` a vrátí vybraný film do zobrazení pro úpravy. Pokud se video nenajde, `NotFound` vrátí se (HTTP 404).
+`HttpGet Edit`Metoda vezme `ID` parametr videa, vyhledá film pomocí metody Entity Framework `FindAsync` a vrátí vybraný film do zobrazení pro úpravy. Pokud se video nenajde, `NotFound` vrátí se (HTTP 404).
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie21/Controllers/MC1.cs?name=snippet_edit1)]
 
@@ -116,19 +116,19 @@ Když systém generování uživatelského rozhraní vytvořil zobrazení pro ú
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/EditOriginal.cshtml)]
 
-Všimněte si, jak šablona zobrazení obsahuje `@model MvcMovie.Models.Movie` příkaz v horní části souboru. `@model MvcMovie.Models.Movie`Určuje, že zobrazení očekává, že model pro šablonu zobrazení bude typu `Movie`.
+Všimněte si, jak šablona zobrazení obsahuje `@model MvcMovie.Models.Movie` příkaz v horní části souboru. `@model MvcMovie.Models.Movie`Určuje, že zobrazení očekává, že model pro šablonu zobrazení bude typu `Movie` .
 
-Generovaný kód používá několik pomocných metod značek pro zjednodušení značek HTML. [Pomocný pomocník značek-Label](xref:mvc/views/working-with-forms) zobrazí název pole ("title", "ReleaseDate", "Žánr" nebo "Price"). [Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) VYKRESLUJE `<input>` prvek HTML. [Pomocník pro ověřování značek](xref:mvc/views/working-with-forms) zobrazí všechny ověřovací zprávy přidružené k této vlastnosti.
+Generovaný kód používá několik pomocných metod značek pro zjednodušení značek HTML. [Pomocník značek Label](xref:mvc/views/working-with-forms) zobrazí název pole ("title", "ReleaseDate", "Žánr" nebo "Price"). [Pomocná rutina vstupní značky](xref:mvc/views/working-with-forms) VYKRESLUJE `<input>` prvek HTML. [Pomocník pro ověřování značek](xref:mvc/views/working-with-forms) zobrazí všechny ověřovací zprávy přidružené k této vlastnosti.
 
 Spusťte aplikaci a přejděte na `/Movies` adresu URL. Klikněte na odkaz **Upravit** . V prohlížeči zobrazte zdroj stránky. Vygenerovaný kód HTML pro `<form>` element je uveden níže.
 
 [!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Shared/edit_view_source.html?highlight=1,6,10,17,24,28)]
 
-`<input>` Prvky jsou v `HTML <form>` elementu, jehož `action` atribut je nastaven na hodnotu post na `/Movies/Edit/id` adresu URL. Data formuláře budou při kliknutí na `Save` tlačítko publikována na serveru. Poslední řádek před uzavíracím `</form>` prvkem zobrazuje skrytý token [XSRF](xref:security/anti-request-forgery) generovaný [pomocníkem značek formuláře](xref:mvc/views/working-with-forms).
+`<input>`Prvky jsou v elementu, `HTML <form>` jehož `action` atribut je nastaven na hodnotu post na `/Movies/Edit/id` adresu URL. Data formuláře budou při kliknutí na tlačítko publikována na serveru `Save` . Poslední řádek před uzavíracím `</form>` prvkem zobrazuje skrytý token [XSRF](xref:security/anti-request-forgery) generovaný [pomocníkem značek formuláře](xref:mvc/views/working-with-forms).
 
 ## <a name="processing-the-post-request"></a>Zpracovává se žádost POST.
 
-Následující výpis zobrazuje `[HttpPost]` verzi metody `Edit` Action.
+Následující výpis zobrazuje `[HttpPost]` verzi `Edit` metody Action.
 
 ::: moniker range=">= aspnetcore-2.1"
 
@@ -142,15 +142,15 @@ Následující výpis zobrazuje `[HttpPost]` verzi metody `Edit` Action.
 
 ::: moniker-end
 
-`[ValidateAntiForgeryToken]` Atribut ověří skrytý token [XSRF](xref:security/anti-request-forgery) generovaný generátorem tokenů ochrany proti padělání v [pomocné rutině značky Form](xref:mvc/views/working-with-forms) .
+`[ValidateAntiForgeryToken]`Atribut ověří skrytý token [XSRF](xref:security/anti-request-forgery) generovaný generátorem tokenů ochrany proti padělání v [pomocné rutině značky Form](xref:mvc/views/working-with-forms) .
 
-Systém [vázání modelů](xref:mvc/models/model-binding) přebírá hodnoty v zaúčtovaném formuláři a vytvoří `Movie` objekt, který je předán jako `movie` parametr. `ModelState.IsValid` Metoda ověřuje, že data odeslaná ve formuláři lze použít k úpravě (úpravě nebo aktualizaci) `Movie` objektu. Pokud jsou data platná, uloží se. Aktualizované (upravené) filmové údaje jsou uloženy do databáze voláním `SaveChangesAsync` metody kontextu databáze. Po uložení dat kód přesměruje uživatele na metodu `Index` Action `MoviesController` třídy, která zobrazí kolekci filmů, včetně změn, které byly právě provedeny.
+Systém [vázání modelů](xref:mvc/models/model-binding) přebírá hodnoty v zaúčtovaném formuláři a vytvoří `Movie` objekt, který je předán jako `movie` parametr. `ModelState.IsValid`Metoda ověřuje, že data odeslaná ve formuláři lze použít k úpravě (úpravě nebo aktualizaci) `Movie` objektu. Pokud jsou data platná, uloží se. Aktualizované (upravené) filmové údaje jsou uloženy do databáze voláním `SaveChangesAsync` metody kontextu databáze. Po uložení dat kód přesměruje uživatele na `Index` metodu Action `MoviesController` třídy, která zobrazí kolekci filmů, včetně změn, které byly právě provedeny.
 
 Předtím, než se formulář pošle na server, ověřování na straně klienta zkontroluje všechna pravidla ověřování v polích. Pokud dojde k chybám ověření, zobrazí se chybová zpráva a formulář se nepublikuje. Pokud je JavaScript zakázaný, nebudete mít ověřování na straně klienta, ale server detekuje odeslané hodnoty, které nejsou platné, a hodnoty formuláře se zobrazí znovu s chybovými zprávami. Později v tomto kurzu prověříme [ověřování modelu](xref:mvc/models/validation) podrobněji. [Pomocný modul pro ověření značky](xref:mvc/views/working-with-forms) v šabloně zobrazení */filmy/upravit. cshtml* se postará o zobrazení příslušných chybových zpráv.
 
 ![Upravit zobrazení: výjimka pro nesprávnou hodnotu ceny ABC, že cena pole musí být číslo. Výjimka pro nesprávnou hodnotu data vydání typu xyz stav zadejte platné datum.](~/tutorials/first-mvc-app/controller-methods-views/_static/val.png)
 
-Všechny `HttpGet` metody v kontroleru filmů následují podobně jako vzor. Získají filmový objekt (nebo seznam objektů v případě `Index`) a předá do zobrazení objekt (model). `Create` Metoda předá do `Create` zobrazení prázdný objekt filmu. Všechny metody, které vytvářejí, upravují, odstraňují nebo jinak upravují data, jsou `[HttpPost]` v přetížení metody. Úprava dat v `HTTP GET` metodě je bezpečnostní riziko. Úpravy dat v `HTTP GET` metodě také porušují osvědčené postupy http a model [REST](http://rest.elkstein.org/) architektury, který určuje, že požadavky GET by neměly měnit stav aplikace. Jinými slovy, provádění operace GET by mělo být bezpečná operace, která nemá žádné vedlejší účinky a neupravuje vaše trvalá data.
+Všechny `HttpGet` metody v kontroleru filmů následují podobně jako vzor. Získají filmový objekt (nebo seznam objektů v případě `Index` ) a předá do zobrazení objekt (model). `Create`Metoda předá do zobrazení prázdný objekt filmu `Create` . Všechny metody, které vytvářejí, upravují, odstraňují nebo jinak upravují data, jsou v `[HttpPost]` přetížení metody. Úprava dat v `HTTP GET` metodě je bezpečnostní riziko. Úpravy dat v `HTTP GET` metodě také porušují osvědčené postupy http a model [REST](http://rest.elkstein.org/) architektury, který určuje, že požadavky GET by neměly měnit stav aplikace. Jinými slovy, provádění operace GET by mělo být bezpečná operace, která nemá žádné vedlejší účinky a neupravuje vaše trvalá data.
 
 ## <a name="additional-resources"></a>Další zdroje
 
@@ -167,5 +167,5 @@ Všechny `HttpGet` metody v kontroleru filmů následují podobně jako vzor. Z�
 * [Pomocná značka ověřovací značky](xref:mvc/views/working-with-forms)
 
 > [!div class="step-by-step"]
-> [Předchozí](working-with-sql.md)
-> [Další](search.md)  
+> [Předchozí](working-with-sql.md) 
+>  [Další](search.md)  

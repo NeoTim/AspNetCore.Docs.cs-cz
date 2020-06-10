@@ -1,7 +1,7 @@
 ---
-title: Projděte si metody Details a DELETE aplikace ASP.NET Core.
+title: Část 10, Projděte si metody Details a DELETE aplikace ASP.NET Core.
 author: rick-anderson
-description: Přečtěte si informace o metodě kontroleru podrobností a zobrazení v základní aplikaci ASP.NET Core MVC.
+description: Část 10 kurzů kurzu na ASP.NET Core MVC.
 ms.author: riande
 ms.date: 12/13/2018
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/details
-ms.openlocfilehash: cff8bc0d3506210879974f711a4e665c8549051d
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 722112b6fba611e980931ffd3bc4ddf43bc08468
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777551"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84653001"
 ---
-# <a name="examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>Projděte si metody Details a DELETE aplikace ASP.NET Core.
+# <a name="part-10-examine-the-details-and-delete-methods-of-an-aspnet-core-app"></a>Část 10, Projděte si metody Details a DELETE aplikace ASP.NET Core.
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 

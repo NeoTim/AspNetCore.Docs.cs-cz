@@ -11,12 +11,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/simple
-ms.openlocfilehash: 4ec31354d7fe11af75fd3a0045b4045f83721cb5
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: b5f97038145ed479c315af50a35d6c64d85425a7
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84272122"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652949"
 ---
 # <a name="simple-authorization-in-aspnet-core"></a>Jednoduché ověřování v ASP.NET Core
 
@@ -58,7 +58,7 @@ public class AccountController : Controller
 
 K této funkci mají přístup jenom ověření uživatelé `Logout` .
 
-Atribut můžete použít také `AllowAnonymous` k povolení přístupu neověřeným uživatelům k jednotlivým akcím. Příklad:
+Atribut můžete použít také `AllowAnonymous` k povolení přístupu neověřeným uživatelům k jednotlivým akcím. Například:
 
 ```csharp
 [Authorize]
@@ -79,3 +79,24 @@ To umožní pouze ověřeným uživatelům v `AccountController` , s výjimkou `
 
 > [!WARNING]
 > `[AllowAnonymous]`obchází všechny příkazy autorizace. Pokud zkombinujete `[AllowAnonymous]` a jakýkoliv `[Authorize]` atribut, `[Authorize]` atributy se ignorují. Například pokud použijete `[AllowAnonymous]` na úrovni řadiče, všechny `[Authorize]` atributy na stejném kontroleru (nebo na jakékoli akci v ní) se ignorují.
+
+<a name="aarp"></a>
+
+## <a name="authorize-attribute-and-razor-pages"></a>Autorizovat atributy a Razor stránky
+
+Nelze <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> použít ***not*** na Razor obslužné rutiny stránky. Například `[Authorize]` nelze použít pro `OnGet` , `OnPost` nebo žádné jiné obslužné rutiny stránky.
+
+K použití autorizace na obslužné rutiny stránky lze použít následující dva způsoby Razor :
+
+* Pro obslužné rutiny stránek, které vyžadují jinou autorizaci, použijte samostatné stránky. Sdílený obsah byl přesunut do jednoho nebo více [částečných zobrazení](xref:mvc/views/partial). Pokud je to možné, jedná se o doporučený postup.
+* Pro obsah, který musí sdílet společnou stránku, napište filtr, který provádí autorizaci jako součást [IAsyncPageFilter. OnPageHandlerSelectionAsync](xref:Microsoft.AspNetCore.Mvc.Filters.IAsyncPageFilter.OnPageHandlerSelectionAsync%2A). Projekt GitHub [PageHandlerAuth](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/simple/samples/3.1/PageHandlerAuth) demonstruje tento přístup:
+  * [AuthorizePageHandlerFilter](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/simple/samples/3.1/PageHandlerAuth/AuthorizePageHandlerFilter.cs) implementuje ověřovací filtr:[!code-csharp[](~/security/authorization/simple/samples/3.1/PageHandlerAuth/Pages/Index.cshtml.cs?name=snippet)]
+
+  * Atribut [[AuthorizePageHandler]](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/authorization/simple/samples/3.1/PageHandlerAuth/Pages/Index.cshtml.cs#L16) je použit pro `OnGet` obslužnou rutinu stránky:[!code-csharp[](~/security/authorization/simple/samples/3.1/PageHandlerAuth/AuthorizeIndexPageHandlerFilter.cs?name=snippet)]
+
+> [!WARNING]
+> Vzorový přístup [PageHandlerAuth](https://github.com/pranavkm/PageHandlerAuth) ***není***:
+> * Můžete vytvářet pomocí autorizačních atributů, které se aplikují na stránku, model stránky nebo globálně. Sestavování autorizačních atributů má za následek ověřování a autorizaci, která se spouští několikrát, když máte `AuthorizeAttribute` `AuthorizeFilter` na stránce použit i jeden další výskyt.
+> * Pracujte ve spojení se zbytkem ASP.NET Core ověřování a autorizačním systémem. Je nutné ověřit, že tento přístup bude správně fungovat pro vaši aplikaci.
+
+Neexistují žádné plány pro podporu pro `AuthorizeAttribute` Razor obslužné rutiny stránky. 

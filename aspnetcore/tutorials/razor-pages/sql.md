@@ -1,7 +1,7 @@
 ---
-title: Práce s databází a ASP.NET Core
+title: 4. část s databází a ASP.NET Core
 author: rick-anderson
-description: Vysvětluje práci s databází a ASP.NET Core.
+description: Část 4 série kurzů na Razor stránkách.
 ms.author: riande
 ms.date: 7/22/2019
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/sql
-ms.openlocfilehash: 159588ec750f0ede534522aa9397fc2aefb58cd6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 21ae2ed4e91a0b3e52b1cdad1f4f4686c50614ba
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775606"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652984"
 ---
-# <a name="work-with-a-database-and-aspnet-core"></a>Práce s databází a ASP.NET Core
+# <a name="part-4-with-a-database-and-aspnet-core"></a>4. část s databází a ASP.NET Core
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Jan Audette](https://twitter.com/joeaudette)
 
@@ -26,7 +26,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Jan Audette](https://twit
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-`RazorPagesMovieContext` Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v *Startup.cs*:
+`RazorPagesMovieContext`Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v *Startup.cs*:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -38,11 +38,11 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Jan Audette](https://twit
 
 ---
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj získá připojovací řetězec ze souboru *appSettings. JSON* .
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj získá připojovací řetězec ze souboru *appSettings. JSON* .
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Hodnota názvu pro databázi (`Database={Database name}`) bude pro vygenerovaný kód odlišná. Hodnota name je libovolná.
+Hodnota názvu pro databázi ( `Database={Database name}` ) bude pro vygenerovaný kód odlišná. Hodnota name je libovolná.
 
 [!code-json[](razor-pages-start/sample/RazorPagesMovie30/appsettings.json?highlight=10-12)]
 
@@ -58,22 +58,22 @@ Při nasazení aplikace do testovacího nebo provozního serveru lze použít pr
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří `*.mdf` databáze LocalDB soubory v `C:\Users\<user>\` adresáři.
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB `*.mdf` soubory v `C:\Users\<user>\` adresáři.
 
 <a name="ssox"></a>
 * V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
 
   ![Nabídka Zobrazit](sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem `Movie` na tabulku a vyberte **Zobrazit návrháře**:
+* Klikněte pravým tlačítkem na `Movie` tabulku a vyberte **Zobrazit návrháře**:
 
   ![Kontextové nabídky otevřené v tabulce videí](sql/_static/design.png)
 
   ![Tabulky filmů otevřené v Návrháři](sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF vytvoří vlastnost s názvem `ID` pro primární klíč.
+Poznamenejte si ikonu klíče vedle `ID` . Ve výchozím nastavení EF vytvoří vlastnost s názvem `ID` pro primární klíč.
 
-* Klikněte pravým tlačítkem `Movie` na tabulku a vyberte **Zobrazit data**:
+* Klikněte pravým tlačítkem na `Movie` tabulku a vyberte **Zobrazit data**:
 
   ![Tabulka videa otevřená zobrazující data tabulky](sql/_static/vd22.png)
 
@@ -113,7 +113,7 @@ Následující kód ukazuje aktualizovaný soubor *program.cs* .
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie30/Program.cs)]
 
-K následující výjimce dojde `Update-Database` v případě, že nebyla spuštěna:
+K následující výjimce dojde v případě, že nebyla `Update-Database` spuštěna:
 
 > `SqlException: Cannot open database "RazorPagesMovieContext-" requested by the login. The login failed.`
 > `Login failed for user 'user name'.`
@@ -147,8 +147,8 @@ V dalším kurzu dojde k vylepšení prezentace dat.
 ## <a name="additional-resources"></a>Další zdroje
 
 > [!div class="step-by-step"]
-> [Předchozí: vygenerované Razor Pages](xref:tutorials/razor-pages/page)
-> [v následující části: aktualizace stránek](xref:tutorials/razor-pages/da1)
+> [Předchozí: vygenerované uživatelské rozhraní Razor Stránky](xref:tutorials/razor-pages/page) 
+>  [Další: aktualizace stránek](xref:tutorials/razor-pages/da1)
 
 ::: moniker-end
 
@@ -156,7 +156,7 @@ V dalším kurzu dojde k vylepšení prezentace dat.
 
 [!INCLUDE[](~/includes/rp/download.md)]
 
-`RazorPagesMovieContext` Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v *Startup.cs*:
+`RazorPagesMovieContext`Objekt zpracovává úlohu připojení k databázi a mapování `Movie` objektů na záznamy databáze. Kontext databáze je zaregistrován s kontejnerem [Injektáže závislosti](xref:fundamentals/dependency-injection) v `ConfigureServices` metodě v *Startup.cs*:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -168,16 +168,16 @@ V dalším kurzu dojde k vylepšení prezentace dat.
 
 ---
 
-Další informace o metodách používaných v `ConfigureServices`nástroji naleznete v tématu:
+Další informace o metodách používaných v nástroji `ConfigureServices` naleznete v tématu:
 
-* [Podpora GDPR (EU obecné nařízení o ochraně osobních údajů) v ASP.NET Core](xref:security/gdpr) pro `CookiePolicyOptions`.
+* [Podpora GDPR (EU obecné nařízení o ochraně osobních údajů) v ASP.NET Core](xref:security/gdpr) pro `CookiePolicyOptions` .
 * [SetCompatibilityVersion](xref:mvc/compatibility-version)
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString`. Pro místní vývoj získá připojovací řetězec ze souboru *appSettings. JSON* .
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj získá připojovací řetězec ze souboru *appSettings. JSON* .
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Hodnota názvu pro databázi (`Database={Database name}`) bude pro vygenerovaný kód odlišná. Hodnota name je libovolná.
+Hodnota názvu pro databázi ( `Database={Database name}` ) bude pro vygenerovaný kód odlišná. Hodnota name je libovolná.
 
 [!code-json[](razor-pages-start/sample/RazorPagesMovie22/appsettings.json)]
 
@@ -197,22 +197,22 @@ Při nasazení aplikace do testovacího nebo provozního serveru lze použít pr
 
 ## <a name="sql-server-express-localdb"></a>SQL Server Express LocalDB
 
-LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří `*.mdf` databáze LocalDB soubory v `C:/Users/<user/>` adresáři.
+LocalDB je zjednodušená verze databázového stroje SQL Server Express, který je zaměřený na vývoj programu. LocalDB se spustí na vyžádání a spustí se v uživatelském režimu, takže neexistuje složitá konfigurace. Ve výchozím nastavení vytvoří databáze LocalDB `*.mdf` soubory v `C:/Users/<user/>` adresáři.
 
 <a name="ssox"></a>
 * V nabídce **Zobrazit** otevřete **Průzkumník objektů systému SQL Server** (SSOX).
 
   ![Nabídka Zobrazit](sql/_static/ssox.png)
 
-* Klikněte pravým tlačítkem `Movie` na tabulku a vyberte **Zobrazit návrháře**:
+* Klikněte pravým tlačítkem na `Movie` tabulku a vyberte **Zobrazit návrháře**:
 
   ![Kontextová nabídka otevřená v tabulce videí](sql/_static/design.png)
 
   ![Tabulka videí otevřená v Návrháři](sql/_static/dv.png)
 
-Poznamenejte si ikonu klíče vedle `ID`. Ve výchozím nastavení EF vytvoří vlastnost s názvem `ID` pro primární klíč.
+Poznamenejte si ikonu klíče vedle `ID` . Ve výchozím nastavení EF vytvoří vlastnost s názvem `ID` pro primární klíč.
 
-* Klikněte pravým tlačítkem `Movie` na tabulku a vyberte **Zobrazit data**:
+* Klikněte pravým tlačítkem na `Movie` tabulku a vyberte **Zobrazit data**:
 
   ![Tabulka videa otevřená zobrazující data tabulky](sql/_static/vd22.png)
 
@@ -257,7 +257,7 @@ Následující kód ukazuje aktualizovaný soubor *program.cs* .
 
 [!code-csharp[](razor-pages-start/sample/RazorPagesMovie22/Program.cs)]
 
-Produkční aplikace by nevolala `Database.Migrate`. Přidá se k předchozímu kódu, aby se zabránilo následující výjimce, pokud `Update-Database` nebyla spuštěna:
+Produkční aplikace by nevolala `Database.Migrate` . Přidá se k předchozímu kódu, aby se zabránilo následující výjimce, pokud nebyla `Update-Database` spuštěna:
 
 SqlException: Nelze otevřít databázi "RazorPagesMovieContext-21" požadovanou pro přihlášení. Přihlášení se nezdařilo.
 Přihlášení uživatele "uživatelské jméno" se nezdařilo.
@@ -303,7 +303,7 @@ V dalším kurzu se vyčistí prezentace dat.
 * [Verze YouTube tohoto kurzu](https://youtu.be/A_5ff11sDHY)
 
 > [!div class="step-by-step"]
-> [Předchozí: vygenerované Razor stránky](xref:tutorials/razor-pages/page)
-> v[následujícím seznamu: aktualizace stránek](xref:tutorials/razor-pages/da1)
+> [Předchozí: vygenerované uživatelské rozhraní Razor Stránky](xref:tutorials/razor-pages/page) 
+>  [Další: aktualizace stránek](xref:tutorials/razor-pages/da1)
 
 ::: moniker-end

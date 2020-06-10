@@ -1,7 +1,7 @@
 ---
-title: Práce s SQL v aplikaci ASP.NET Core MVC
+title: 5. část práce s databází v aplikaci ASP.NET Core MVC
 author: rick-anderson
-description: Přečtěte si o použití SQL Server LocalDB nebo SQLite v aplikaci ASP.NET Core MVC.
+description: Část 5 – přidání modelu do aplikace ASP.NET Core MVC
 ms.author: riande
 ms.date: 8/16/2019
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/working-with-sql
-ms.openlocfilehash: 54b10f10fb048819fced223f77f06a32102512d0
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7fdd147f4de00a593a77977d2b53e5369667fe78
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776204"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652519"
 ---
-# <a name="work-with-sql-in-aspnet-core"></a>Práce s SQL v ASP.NET Core
+# <a name="part-5-work-with-a-database-in-an-aspnet-core-mvc-app"></a>5. část práce s databází v aplikaci ASP.NET Core MVC
 
 ::: moniker range=">= aspnetcore-3.0"
 

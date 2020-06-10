@@ -1,7 +1,7 @@
 ---
-title: Přidání ověřování na stránku ASP.NET Core Razor
+title: Část 8 – přidání ověřování na stránku ASP.NET Core Razor
 author: rick-anderson
-description: Zjistěte, jak přidat ověřování na Razor stránku v ASP.NET Core.
+description: Část 8 série kurzů na Razor stránkách.
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
@@ -12,14 +12,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: 7aeb77e836ce0546766d88f2c52f37aaf75c12c4
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: f72edda54d4201915e2494b75b4d49ec6c9c6d75
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452041"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652833"
 ---
-# <a name="add-validation-to-an-aspnet-core-razor-page"></a>Přidání ověřování na stránku ASP.NET Core Razor
+# <a name="part-8-add-validation-to-an-aspnet-core-razor-page"></a>Část 8 – přidání ověřování na stránku ASP.NET Core Razor
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 

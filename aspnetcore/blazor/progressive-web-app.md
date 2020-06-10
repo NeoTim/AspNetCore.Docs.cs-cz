@@ -5,7 +5,7 @@ description: Naučte se vytvářet Blazor progresivní webové aplikace (PWA), k
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 06/09/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: 274516014c027972166402abc70d22fa801898de
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: ef73cbb928fb442c73acce6f5facac33236abd67
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451846"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652412"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Coreho webového Blazor sestavení
 
@@ -272,8 +272,23 @@ Implementujte libovolnou logiku pro řízení, která podmnožina obsahu manifes
 
 ### <a name="interaction-with-authentication"></a>Interakce s ověřováním
 
-V kombinaci s možnostmi ověřování je možné použít šablonu PWA. Aplikace PWA podporující offline může také podporovat ověřování, když má uživatel připojení k síti.
+Šablonu aplikace PWA lze použít ve spojení s ověřováním. Aplikace PWA v režimu offline může podporovat ověřování i v případě, že uživatel má počáteční připojení k síti.
 
-Pokud uživatel nemá připojení k síti, nemůže ověřit ani získat přístupové tokeny. Ve výchozím nastavení se při pokusu o návštěvě přihlašovací stránky bez přístupu k síti zobrazí zpráva "Chyba sítě".
+Pokud uživatel nemá připojení k síti, nemůže ověřit ani získat přístupové tokeny. Ve výchozím nastavení se při pokusu o návštěvě přihlašovací stránky bez přístupu k síti zobrazí zpráva "Chyba sítě". Je třeba navrhnout tok uživatelského rozhraní, který uživateli umožňuje provádět užitečné úkoly v režimu offline bez pokusu o ověření uživatele nebo získání přístupových tokenů. Alternativně můžete aplikaci navrhnout tak, aby se řádně nezdařila, když síť není dostupná. Pokud aplikaci nemůžete navrženou pro zpracování těchto scénářů, možná nebudete chtít povolit podporu offline.
 
-Je nutné navrhnout tok uživatelského rozhraní, který uživateli umožňuje provádět užitečné akce, pokud se nepokusí ověřit nebo získat přístupové tokeny. Alternativně můžete aplikaci navrhnout tak, aby nebyla úspěšná, pokud síť není k dispozici. Pokud to není u vaší aplikace možné, možná nebudete chtít povolit podporu offline.
+Když je aplikace, která je navržená pro online nebo offline použití, znovu online:
+
+* Aplikace může vyžadovat zřízení nového přístupového tokenu.
+* Aplikace musí zjistit, jestli je jiný uživatel přihlášený ke službě, aby mohl uplatnit operace na účet uživatele, který byl proveden v režimu offline.
+
+Vytvoření offline aplikace PWA, která komunikuje s ověřováním:
+
+* Nahraďte <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory%601> objekt factory, který ukládá posledního přihlášeného uživatele, a použije uloženého uživatele, když je aplikace offline.
+* Zařaďte operace do fronty, pokud je aplikace offline, a použijte je v případě, že se aplikace vrátí online.
+* Při odhlášení vymazat uloženého uživatele.
+
+Ukázková aplikace [CarChecker](https://github.com/SteveSandersonMS/CarChecker) předvádí předchozí přístupy. Podívejte se na následující části aplikace:
+
+* `OfflineAccountClaimsPrincipalFactory`(*Klient/data/OfflineAccountClaimsPrincipalFactory. cs*)
+* `LocalVehiclesStore`(*Klient/data/LocalVehiclesStore. cs*)
+* `LoginStatus`součást (*klient/Shared/ovládací stavu přihlášení. Razor*)

@@ -1,39 +1,39 @@
 <a name="dc"></a>
 
-### <a name="add-a-database-context-class"></a>Přidání třídy kontextu databáze
+### <a name="add-nuget-packages-and-ef-tools"></a>Přidat balíčky NuGet a nástroje EF
 
-V projektu RazorPagesMovie vytvořte novou složku s názvem *Data*. Přidejte `RazorPagesMovieContext` do složky *Data* následující třídu:
+[!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
+
+### <a name="add-a-database-context-class"></a>Přidat třídu kontextu databáze
+
+V projektu RazorPagesMovie vytvořte novou složku s názvem *data*. `RazorPagesMovieContext`Do složky *data* přidejte následující třídu:
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Data/RazorPagesMovieContext.cs)]
 
-Předchozí kód vytvoří `DbSet` vlastnost pro sadu entit. V terminologii entity Framework sada entit obvykle odpovídá databázové tabulce a entita odpovídá řádku v tabulce. Kód se nezkompiluje, dokud nebudou přidány závislosti v pozdějším kroku.
+Předchozí kód vytvoří `DbSet` vlastnost pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá tabulce databáze a entita odpovídá řádku v tabulce. Kód se nebude kompilovat, dokud nebudou přidány závislosti v pozdějším kroku.
 
 <a name="cs"></a>
 
-### <a name="add-a-database-connection-string"></a>Přidání připojovacího řetězce databáze
+### <a name="add-a-database-connection-string"></a>Přidat připojovací řetězec databáze
 
-Přidejte připojovací řetězec do souboru *appsettings.json,* jak je znázorněno v následujícím zvýrazněném kódu:
+Do souboru *appSettings. JSON* přidejte připojovací řetězec, jak ukazuje následující zvýrazněný kód:
 
 ::: moniker range=">= aspnetcore-3.0"
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/appsettings_SQLite.json?highlight=10-12)]
 
-### <a name="add-nuget-packages-and-ef-tools"></a>Přidání balíčků NuGet a nástrojů EF
-
-[!INCLUDE[](~/includes/add-EF-NuGet-SQLite-CLI.md)]
-
 <a name="reg"></a>
 
 ### <a name="register-the-database-context"></a>Registrace kontextu databáze
 
-V horní `using` části *Startup.cs*přidejte následující příkazy :
+Do horní části `using` *Startup.cs*přidejte následující příkazy:
 
 ```csharp
 using RazorPagesMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
-Zaregistrujte kontext databáze s kontejnerem `Startup.ConfigureServices`vkládání závislostí v [aplikaci](xref:fundamentals/dependency-injection) .
+Zaregistrujte kontext databáze pomocí kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) v `Startup.ConfigureServices` .
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
@@ -43,9 +43,9 @@ Zaregistrujte kontext databáze s kontejnerem `Startup.ConfigureServices`vklád�
 
 [!code-json[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie/appsettings_SQLite.json?highlight=8-9)]
 
-### <a name="add-required-nuget-packages"></a>Přidání požadovaných balíčků NuGet
+### <a name="add-required-nuget-packages"></a>Přidat požadované balíčky NuGet
 
-Spusťte následující příkaz .NET Core CLI a přidejte do projektu příkazy SQLite a CodeGeneration.Design:
+Spusťte následující .NET Core CLI příkaz pro přidání SQLite a strategii. design do projektu:
 
 ```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.SQLite
@@ -53,23 +53,23 @@ dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
 dotnet add package Microsoft.EntityFrameworkCore.Design
 ```
 
-Balíček `Microsoft.VisualStudio.Web.CodeGeneration.Design` je nutný pro lešení.
+`Microsoft.VisualStudio.Web.CodeGeneration.Design`Balíček je vyžadován pro generování uživatelského rozhraní.
 
 <a name="reg"></a>
 
 ### <a name="register-the-database-context"></a>Registrace kontextu databáze
 
-V horní `using` části *Startup.cs*přidejte následující příkazy :
+Do horní části `using` *Startup.cs*přidejte následující příkazy:
 
 ```csharp
 using RazorPagesMovie.Models;
 using Microsoft.EntityFrameworkCore;
 ```
 
-Zaregistrujte kontext databáze s kontejnerem `Startup.ConfigureServices`vkládání závislostí v [aplikaci](xref:fundamentals/dependency-injection) .
+Zaregistrujte kontext databáze pomocí kontejneru pro [vkládání závislostí](xref:fundamentals/dependency-injection) v `Startup.ConfigureServices` .
 
 [!code-csharp[](~/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
-Sestavení projektu jako kontrola chyb.
+Sestavte projekt jako kontrolu chyb.
 
 ::: moniker-end

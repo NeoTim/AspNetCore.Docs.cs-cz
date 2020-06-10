@@ -1,7 +1,7 @@
 ---
-title: Přidání zobrazení do ASP.NET Core aplikace MVC
+title: Část 3 – přidání zobrazení do ASP.NET Core aplikace MVC
 author: rick-anderson
-description: Přidání zobrazení do jednoduché ASP.NET Core aplikace MVC
+description: Část 3 kurzu řady ASP.NET Core MVC.
 ms.author: riande
 ms.date: 8/04/2019
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 233d6cc060481c7b2efc9a1babc12f60f457a075
-ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
+ms.openlocfilehash: 3976ecba1a6bbf30c3147bf1cef78c5ced5bec62
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/08/2020
-ms.locfileid: "84507332"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652822"
 ---
-# <a name="add-a-view-to-an-aspnet-core-mvc-app"></a>Přidání zobrazení do ASP.NET Core aplikace MVC
+# <a name="part-3-add-a-view-to-an-aspnet-core-mvc-app"></a>Část 3 – přidání zobrazení do ASP.NET Core aplikace MVC
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 

@@ -1,7 +1,7 @@
 ---
-title: Přidání modelu do ASP.NET Core aplikace MVC
+title: 4. část Přidání modelu do aplikace ASP.NET Core MVC
 author: rick-anderson
-description: Přidejte model do jednoduché aplikace ASP.NET Core.
+description: Část 4 série kurzů na ASP.NET Core MVC
 ms.author: riande
 ms.date: 01/13/2020
 no-loc:
@@ -11,14 +11,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 1347659ee25e2b85b0a479f6bbcc5eb1a956fab2
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 29f70d6bd1d5c1223ef35b4e24e5b9c0a8465d1d
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776757"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652381"
 ---
-# <a name="add-a-model-to-an-aspnet-core-mvc-app"></a>Přidání modelu do ASP.NET Core aplikace MVC
+# <a name="part-4-add-a-model-to-an-aspnet-core-mvc-app"></a>4. část Přidání modelu do aplikace ASP.NET Core MVC
 
 [Rick Anderson](https://twitter.com/RickAndMSFT) a [Dykstra](https://github.com/tdykstra)
 
@@ -36,7 +36,7 @@ V tomto kurzu napíšete nejprve třídy modelu a EF Core vytvoříte databázi.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Klikněte pravým tlačítkem na složku *modely* > **Přidat** > **třídu**. Název souboru *Movie.cs*.
+Klikněte pravým tlačítkem na složku *modely* > **Přidat**  >  **třídu**. Název souboru *Movie.cs*.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -44,7 +44,7 @@ Do složky *modely* přidejte soubor s názvem *Movie.cs* .
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Klikněte pravým tlačítkem na složku *modely* > **přidejte** > **novou třídu** > **prázdná**třída. Název souboru *Movie.cs*.
+Klikněte pravým tlačítkem na složku *modely* > **přidejte**  >  **novou třídu**  >  **prázdná**třída. Název souboru *Movie.cs*.
 
 ---
 
@@ -52,9 +52,9 @@ Aktualizujte soubor *Movie.cs* pomocí následujícího kódu:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Models/Movie.cs)]
 
-`Movie` Třída obsahuje `Id` pole, které je vyžadováno databází pro primární klíč.
+`Movie`Třída obsahuje `Id` pole, které je vyžadováno databází pro primární klíč.
 
-<xref:System.ComponentModel.DataAnnotations.DataType> Atribut v `ReleaseDate` určuje typ dat (`Date`). S tímto atributem:
+<xref:System.ComponentModel.DataAnnotations.DataType>Atribut v `ReleaseDate` Určuje typ dat ( `Date` ). S tímto atributem:
 
 * Uživatel není požádán o zadání informací o čase do pole datum.
 * Zobrazí se pouze datum, nejedná se o informace o čase.
@@ -65,7 +65,7 @@ V pozdějším kurzu jsou uvedena tato [Anotace](/dotnet/api/system.componentmod
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V nabídce **nástroje** vyberte > **Správce balíčků NuGet** **Konzola správce balíčků** (PMC).
+V nabídce **nástroje** vyberte **Správce balíčků NuGet** > **Konzola správce balíčků** (PMC).
 
 ![PMC – nabídka](~/tutorials/first-mvc-app/adding-model/_static/pmc.png)
 
@@ -89,7 +89,7 @@ Do **vyhledávacího pole v** pravém horním rohu zadejte `Microsoft.EntityFram
 
 ![Přidat Entity Framework Core balíček NuGet](~/tutorials/first-mvc-app-mac/adding-model/_static/add-nuget-packages.png)
 
-Zobrazí se dialogové okno **Vybrat projekty** s vybraným `MvcMovie` projektem. Stiskněte tlačítko **OK** .
+Zobrazí se dialogové okno **Vybrat projekty** s `MvcMovie` vybraným projektem. Stiskněte tlačítko **OK** .
 
 Zobrazí se dialogové okno pro **přijetí licence** . Zkontrolujte licence podle potřeby a potom klikněte na tlačítko **přijmout** .
 
@@ -113,13 +113,13 @@ Přidejte soubor *data/MvcMovieContext. cs* s následujícím kódem:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/zDocOnly/MvcMovieContext.cs?name=snippet)]
 
-Předchozí kód vytvoří vlastnost [\<negenerickými Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá databázové tabulce. Entita odpovídá řádku v tabulce.
+Předchozí kód vytvoří vlastnost [negenerickými \<Movie> ](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá databázové tabulce. Entita odpovídá řádku v tabulce.
 
 <a name="reg"></a>
 
 ## <a name="register-the-database-context"></a>Registrace kontextu databáze
 
-ASP.NET Core je sestaven s [vkládáním závislostí (di)](xref:fundamentals/dependency-injection). Služby (například kontext EF Core DB) musí být při spuštění aplikace zaregistrované v DI. Komponenty, které vyžadují tyto služby (například Razor Pages), poskytují tyto služby prostřednictvím parametrů konstruktoru. Kód konstruktoru, který získá instanci kontextu databáze, je uveden dále v tomto kurzu. V této části zaregistrujete kontext databáze pomocí kontejneru DI.
+ASP.NET Core je sestaven s [vkládáním závislostí (di)](xref:fundamentals/dependency-injection). Služby (například kontext EF Core DB) musí být při spuštění aplikace zaregistrované v DI. Komponenty, které vyžadují tyto služby (například Razor stránky), poskytují tyto služby prostřednictvím parametrů konstruktoru. Kód konstruktoru, který získá instanci kontextu databáze, je uveden dále v tomto kurzu. V této části zaregistrujete kontext databáze pomocí kontejneru DI.
 
 Do horní části `using` *Startup.cs*přidejte následující příkazy:
 
@@ -128,7 +128,7 @@ using MvcMovie.Data;
 using Microsoft.EntityFrameworkCore;
 ```
 
-Do `Startup.ConfigureServices`následujícího pole přidejte následující zvýrazněný kód:
+Do následujícího pole přidejte následující zvýrazněný kód `Startup.ConfigureServices` :
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -188,7 +188,7 @@ Dokončete dialog **Přidat řadič** :
 Visual Studio vytvoří:
 
 * Řadič filmů (*Controllers/MoviesController. cs*)
-* Soubory zobrazení Razor pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/\*. cshtml*)
+* Razorzobrazení souborů pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/ \* . cshtml*)
 
 Automatické vytváření těchto souborů se říká *generování uživatelského rozhraní*.
 
@@ -236,7 +236,7 @@ K vytvoření databáze použijte funkci [migrace](xref:data/ef-mvc/migrations) 
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V nabídce **nástroje** vyberte > **Správce balíčků NuGet** **Konzola správce balíčků** (PMC).
+V nabídce **nástroje** vyberte **Správce balíčků NuGet** > **Konzola správce balíčků** (PMC).
 
 Do PMC zadejte následující příkazy:
 
@@ -245,7 +245,7 @@ Add-Migration InitialCreate
 Update-Database
 ```
 
-* `Add-Migration InitialCreate`: Vygeneruje migrační soubor *_InitialCreate. cs migrace/{timestamp}* . `InitialCreate` Argument je název migrace. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci. Vzhledem k tomu, že se jedná o první migraci, vygenerovaná třída obsahuje kód pro vytvoření schématu databáze. Schéma databáze je založené na modelu určeném ve `MvcMovieContext` třídě.
+* `Add-Migration InitialCreate`: Vygeneruje migrační soubor *_InitialCreate. cs migrace/{timestamp}* . `InitialCreate`Argument je název migrace. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci. Vzhledem k tomu, že se jedná o první migraci, vygenerovaná třída obsahuje kód pro vytvoření schématu databáze. Schéma databáze je založené na modelu určeném ve `MvcMovieContext` třídě.
 
 * `Update-Database`: Aktualizuje databázi na nejnovější migraci, která vytvořila předchozí příkaz. Tento příkaz spustí `Up` metodu v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.
 
@@ -266,7 +266,7 @@ dotnet ef migrations add InitialCreate
 dotnet ef database update
 ```
 
-* `ef migrations add InitialCreate`: Vygeneruje migrační soubor *_InitialCreate. cs migrace/{timestamp}* . `InitialCreate` Argument je název migrace. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci. Vzhledem k tomu, že se jedná o první migraci, vygenerovaná třída obsahuje kód pro vytvoření schématu databáze. Schéma databáze je založené na modelu určeném ve `MvcMovieContext` třídě (v souboru *data/MvcMovieContext. cs* ).
+* `ef migrations add InitialCreate`: Vygeneruje migrační soubor *_InitialCreate. cs migrace/{timestamp}* . `InitialCreate`Argument je název migrace. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci. Vzhledem k tomu, že se jedná o první migraci, vygenerovaná třída obsahuje kód pro vytvoření schématu databáze. Schéma databáze je založené na modelu určeném ve `MvcMovieContext` třídě (v souboru *data/MvcMovieContext. cs* ).
 
 * `ef database update`: Aktualizuje databázi na nejnovější migraci, která vytvořila předchozí příkaz. Tento příkaz spustí `Up` metodu v souboru *migrations/{Time-razítk} _InitialCreate. cs* , ve kterém se vytvoří databáze.
 
@@ -280,7 +280,7 @@ Projděte si soubor migrace */{timestamp} _InitialCreate. cs* :
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Migrations/20190805165915_InitialCreate.cs?name=snippet)]
 
-`Up` Metoda vytvoří tabulku filmů a nakonfiguruje `Id` ji jako primární klíč. `Down` Metoda vrátí změny schématu provedené `Up` migrací.
+`Up`Metoda vytvoří tabulku filmů a nakonfiguruje `Id` ji jako primární klíč. `Down`Metoda vrátí změny schématu provedené `Up` migrací.
 
 <a name="test"></a>
 
@@ -308,7 +308,7 @@ Projděte si soubor migrace */{timestamp} _InitialCreate. cs* :
 * Otestujte stránku **vytvořit** . Zadejte a odešlete data.
 
   > [!NOTE]
-  > V `Price` poli možná nebudete moct zadat desítkové čárky. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
+  > V poli možná nebudete moct zadat desítkové čárky `Price` . Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
 
 * Otestujte stránky **Upravit**, **Podrobnosti**a **Odstranit** .
 
@@ -322,17 +322,17 @@ Otevřete soubor *Controllers/MoviesController. cs* a prověřte konstruktor:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
 
-Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru. Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.
+Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze ( `MvcMovieContext` ) do kontroleru. Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
 
-Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru. Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.
+Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze ( `MvcMovieContext` ) do kontroleru. Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.
 
 ### <a name="use-sqlite-for-development-sql-server-for-production"></a>Použití SQLite pro vývoj, SQL Server pro produkci
 
-Když je vybrána možnost SQLite, je kód vygenerovaný šablonou připraven pro vývoj. Následující kód ukazuje, jak vložit <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do spouštění. `IWebHostEnvironment`je vložená, `ConfigureServices` takže může použít SQLite ve vývoji a SQL Server v produkčním prostředí.
+Když je vybrána možnost SQLite, je kód vygenerovaný šablonou připraven pro vývoj. Následující kód ukazuje, jak vložit <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> do spouštění. `IWebHostEnvironment`je vložená, takže `ConfigureServices` může použít SQLite ve vývoji a SQL Server v produkčním prostředí.
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/StartupDevProd.cs?name=snippet_StartupClass&highlight=5,10,16-28)]
 
@@ -344,7 +344,7 @@ Když je vybrána možnost SQLite, je kód vygenerovaný šablonou připraven pr
 
 ## <a name="strongly-typed-models-and-the-model-keyword"></a>Modely silného typu a @model klíčové slovo
 
-Dříve v tomto kurzu jste viděli, jak může řadič předat data nebo objekty do zobrazení pomocí `ViewData` slovníku. `ViewData` Slovník je dynamický objekt, který poskytuje pohodlný způsob, jak předat informace do zobrazení.
+Dříve v tomto kurzu jste viděli, jak může řadič předat data nebo objekty do zobrazení pomocí `ViewData` slovníku. `ViewData`Slovník je dynamický objekt, který poskytuje pohodlný způsob, jak předat informace do zobrazení.
 
 MVC také poskytuje možnost předat objekty modelu silného typu do zobrazení. Tento přístup se silnými typy umožňuje kompilovat kontrolu kódu při kompilaci. Mechanizmus pro generování uživatelského rozhraní používal tento přístup (to znamená předání modelu silného typu) s `MoviesController` třídou a zobrazeními.
 
@@ -352,17 +352,17 @@ Prověřte vygenerovanou `Details` metodu v souboru *Controllers/MoviesControlle
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_details)]
 
-`id` Parametr je obvykle předán jako data směrování. Například `https://localhost:5001/movies/details/1` sady:
+`id`Parametr je obvykle předán jako data směrování. Například `https://localhost:5001/movies/details/1` sady:
 
-* Kontroler `movies` řadiče (první segment adresy URL).
+* Kontroler řadiče `movies` (první segment adresy URL).
 * Akce na `details` (druhý segment adresy URL).
 * ID na 1 (poslední segment adresy URL).
 
-Řetězec dotazu můžete také předat `id` následujícím způsobem:
+Řetězec dotazu můžete také předat následujícím `id` způsobem:
 
 `https://localhost:5001/movies/details?id=1`
 
-`id` Parametr je definován jako typ s [možnou hodnotou null](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) pro případ, že není zadána hodnota ID.
+`id`Parametr je definován jako typ s [možnou hodnotou null](/dotnet/csharp/programming-guide/nullable-types/index) ( `int?` ) pro případ, že není zadána hodnota ID.
 
 [Výraz lambda](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) je předán do `FirstOrDefaultAsync` pro výběr entit videa, které odpovídají datům směrování nebo hodnotě řetězce dotazu.
 
@@ -371,7 +371,7 @@ var movie = await _context.Movie
     .FirstOrDefaultAsync(m => m.Id == id);
 ```
 
-Pokud se najde film, do `Movie` `Details` zobrazení se předává instance modelu:
+Pokud se najde film, `Movie` do zobrazení se předává instance modelu `Details` :
 
 ```csharp
 return View(movie);
@@ -381,29 +381,29 @@ Projděte si obsah souboru *views/video/details. cshtml* :
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/DetailsOriginal.cshtml)]
 
-`@model` Příkaz v horní části souboru zobrazení určuje typ objektu, který zobrazení očekává. Po vytvoření kontroleru filmů byl zahrnut následující `@model` příkaz:
+`@model`Příkaz v horní části souboru zobrazení určuje typ objektu, který zobrazení očekává. Po vytvoření kontroleru filmů `@model` byl zahrnut následující příkaz:
 
 ```cshtml
 @model MvcMovie.Models.Movie
 ```
 
-Tato `@model` Direktiva umožňuje přístup k videu, který kontroler předali do zobrazení. `Model` Objekt je silného typu. Například v zobrazení *Details. cshtml* kód předá každé pole videa do pomocníků HTML `DisplayNameFor` a `DisplayFor` s objektem silného typu. `Model` Metody `Create` a `Edit` zobrazení také předají objekt `Movie` modelu.
+Tato `@model` Direktiva umožňuje přístup k videu, který kontroler předali do zobrazení. `Model`Objekt je silného typu. Například v zobrazení *Details. cshtml* kód předá každé pole videa do `DisplayNameFor` `DisplayFor` pomocníků HTML a s objektem silného typu `Model` . `Create`Metody a `Edit` zobrazení také předají `Movie` objekt modelu.
 
-Prohlédněte si zobrazení *index. cshtml* a `Index` metodu v řadiči filmů. Všimněte si, jak kód při `List` volání `View` metody vytvoří objekt. Kód předá tento `Movies` seznam z metody `Index` Action do zobrazení:
+Prohlédněte si zobrazení *index. cshtml* a `Index` metodu v řadiči filmů. Všimněte si, jak kód `List` při volání metody vytvoří objekt `View` . Kód předá tento `Movies` seznam z `Index` metody Action do zobrazení:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_index)]
 
-Po vytvoření kontroleru filmů zahrnuje generování uživatelského rozhraní do horní části souboru `@model` *index. cshtml* tento příkaz:
+Po vytvoření kontroleru filmů zahrnuje generování uživatelského rozhraní do `@model` horní části souboru *index. cshtml* tento příkaz:
 
 <!-- Copy Index.cshtml to IndexOriginal.cshtml -->
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?range=1)]
 
-`@model` Direktiva umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení pomocí `Model` objektu se silným typem. Například v zobrazení *index. cshtml* přechází kód přes filmy pomocí `foreach` příkazu nad objektem silného typu: `Model`
+`@model`Direktiva umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení pomocí `Model` objektu se silným typem. Například v zobrazení *index. cshtml* přechází kód přes filmy pomocí `foreach` příkazu nad objektem silného typu `Model` :
 
 [!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?highlight=1,31,34,37,40,43,46-48)]
 
-Vzhledem k `Model` tomu, že objekt je silného `IEnumerable<Movie>` typu (jako objekt), každá položka ve smyčce je `Movie`zapsána jako. Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu.
+Vzhledem k tomu `Model` , že objekt je silného typu (jako `IEnumerable<Movie>` objekt), každá položka ve smyčce je zapsána jako `Movie` . Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu.
 
 ## <a name="additional-resources"></a>Další zdroje
 
@@ -411,8 +411,8 @@ Vzhledem k `Model` tomu, že objekt je silného `IEnumerable<Movie>` typu (jako 
 * [Globalizace a lokalizace](xref:fundamentals/localization)
 
 > [!div class="step-by-step"]
-> [Předchozí přidání zobrazení](adding-view.md)
-> [Next Working with SQL](working-with-sql.md)
+> [Předchozí přidání zobrazení](adding-view.md) 
+>  [Další práce s SQL](working-with-sql.md)
 
 ::: moniker-end
 
@@ -422,7 +422,7 @@ Vzhledem k `Model` tomu, že objekt je silného `IEnumerable<Movie>` typu (jako 
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Klikněte pravým tlačítkem na složku *modely* > **Přidat** > **třídu**. Pojmenujte **film**třídy.
+Klikněte pravým tlačítkem na složku *modely* > **Přidat**  >  **třídu**. Pojmenujte **film**třídy.
 
 [!INCLUDE [model 1b](~/includes/mvc-intro/model1b.md)]
 
@@ -466,7 +466,7 @@ Visual Studio vytvoří:
 
 * [Třída kontextu databáze](xref:data/ef-mvc/intro#create-the-database-context) Entity Framework Core (*data/MvcMovieContext. cs*)
 * Řadič filmů (*Controllers/MoviesController. cs*)
-* Soubory zobrazení Razor pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/\*. cshtml*)
+* Razorzobrazení souborů pro stránky vytvořit, odstranit, podrobnosti, upravit a index (*zobrazení/filmy/ \* . cshtml*)
 
 K automatickému vytvoření kontextu databáze a operací [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) (vytvoření, čtení, aktualizace a odstranění) se říká *generování uživatelského rozhraní*.
 
@@ -556,7 +556,7 @@ V této části jsou dokončeny následující úkoly:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. V nabídce **nástroje** vyberte > **Správce balíčků NuGet** **Konzola správce balíčků** (PMC).
+1. V nabídce **nástroje** vyberte **Správce balíčků NuGet** > **Konzola správce balíčků** (PMC).
 
    ![PMC – nabídka](~/tutorials/first-mvc-app/adding-model/_static/pmc.png)
 
@@ -567,39 +567,39 @@ V této části jsou dokončeny následující úkoly:
    Update-Database
    ```
 
-   `Add-Migration` Příkaz vygeneruje kód pro vytvoření počátečního schématu databáze.
+   `Add-Migration`Příkaz vygeneruje kód pro vytvoření počátečního schématu databáze.
 
-   Schéma databáze je založené na modelu určeném ve `MvcMovieContext` třídě. `Initial` Argument je název migrace. Můžete použít libovolný název, ale podle konvence se použije název, který popisuje migraci. Další informace naleznete v tématu <xref:data/ef-mvc/migrations>.
+   Schéma databáze je založené na modelu určeném ve `MvcMovieContext` třídě. `Initial`Argument je název migrace. Můžete použít libovolný název, ale podle konvence se použije název, který popisuje migraci. Další informace naleznete v tématu <xref:data/ef-mvc/migrations>.
 
-   `Update-Database` Příkaz spustí `Up` metodu v souboru *migrations/{Time-razítk} _InitialCreate. cs* , čímž se vytvoří databáze.
+   `Update-Database`Příkaz spustí `Up` metodu v souboru *migrations/{Time-razítk} _InitialCreate. cs* , čímž se vytvoří databáze.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
 [!INCLUDE [initial migration](~/includes/RP/model3.md)]
 
-`ef migrations add InitialCreate` Příkaz vygeneruje kód pro vytvoření počátečního schématu databáze.
+`ef migrations add InitialCreate`Příkaz vygeneruje kód pro vytvoření počátečního schématu databáze.
 
-Schéma databáze je založené na modelu určeném ve `MvcMovieContext` třídě (v souboru *data/MvcMovieContext. cs* ). `InitialCreate` Argument je název migrace. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.
+Schéma databáze je založené na modelu určeném ve `MvcMovieContext` třídě (v souboru *data/MvcMovieContext. cs* ). `InitialCreate`Argument je název migrace. Můžete použít libovolný název, ale podle konvence je vybraný název, který popisuje migraci.
 
 ---
 
 ## <a name="examine-the-context-registered-with-dependency-injection"></a>Kontrola kontextu zaregistrovaného vkládáním závislostí
 
-ASP.NET Core je sestaven s [vkládáním závislostí (di)](xref:fundamentals/dependency-injection). Služby (například kontext EF Core DB) jsou během spuštění aplikace zaregistrované v DI. Komponenty, které vyžadují tyto služby (například Razor Pages), poskytují tyto služby prostřednictvím parametrů konstruktoru. Kód konstruktoru, který získá instanci kontextu databáze, je uveden dále v tomto kurzu.
+ASP.NET Core je sestaven s [vkládáním závislostí (di)](xref:fundamentals/dependency-injection). Služby (například kontext EF Core DB) jsou během spuštění aplikace zaregistrované v DI. Komponenty, které vyžadují tyto služby (například Razor stránky), poskytují tyto služby prostřednictvím parametrů konstruktoru. Kód konstruktoru, který získá instanci kontextu databáze, je uveden dále v tomto kurzu.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Nástroj pro generování uživatelského rozhraní automaticky vytvořil kontext databáze a zaregistroval ho pomocí kontejneru DI.
 
-Projděte si `Startup.ConfigureServices` následující metodu. Zvýrazněný řádek byl přidán do modulu generování uživatelského rozhraní:
+Projděte si následující `Startup.ConfigureServices` metodu. Zvýrazněný řádek byl přidán do modulu generování uživatelského rozhraní:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=14-15)]
 
-`MvcMovieContext` Koordinuje funkce EF Core (vytváření, čtení, aktualizace, odstranění atd.) pro `Movie` model. Kontext dat (`MvcMovieContext`) je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext dat určuje, které entity jsou v datovém modelu zahrnuté:
+`MvcMovieContext`Koordinuje funkce EF Core (vytváření, čtení, aktualizace, odstranění atd.) pro `Movie` model. Kontext dat ( `MvcMovieContext` ) je odvozen od třídy [Microsoft. EntityFrameworkCore. DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext). Kontext dat určuje, které entity jsou v datovém modelu zahrnuté:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Data/MvcMovieContext.cs)]
 
-Předchozí kód vytvoří vlastnost [\<negenerickými Movie>](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá databázové tabulce. Entita odpovídá řádku v tabulce.
+Předchozí kód vytvoří vlastnost [negenerickými \<Movie> ](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá databázové tabulce. Entita odpovídá řádku v tabulce.
 
 Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .
 
@@ -613,7 +613,7 @@ Vytvořili jste kontext databáze a zaregistrovali jej pomocí kontejneru DI.
 
 ### <a name="test-the-app"></a>Otestování aplikace
 
-* Spusťte aplikaci a přidejte `/Movies` ji k adrese URL v prohlížeči (`http://localhost:port/movies`).
+* Spusťte aplikaci a přidejte ji `/Movies` k adrese URL v prohlížeči ( `http://localhost:port/movies` ).
 
 Pokud získáte výjimku databáze podobnou následující:
 
@@ -627,7 +627,7 @@ Nezmeškali jste [Krok migrace](#pmc).
 * Otestujte odkaz pro **Vytvoření** . Zadejte a odešlete data.
 
   > [!NOTE]
-  > V `Price` poli možná nebudete moct zadat desítkové čárky. Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
+  > V poli možná nebudete moct zadat desítkové čárky `Price` . Aby bylo možné podporovat [ověřování jQuery](https://jqueryvalidation.org/) pro jiné než anglické národní prostředí, které používá čárku (",") pro desetinnou čárku a pro formáty kalendářních dat, které nejsou v češtině, musí být aplikace globální. Pokyny k globalizaci najdete v [tomto problému GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/4076#issuecomment-326590420).
 
 * Otestujte odkazy **Upravit**, **Podrobnosti** a **Odstranit**.
 
@@ -646,14 +646,14 @@ Otevřete soubor *Controllers/MoviesController. cs* a prověřte konstruktor:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_1)]
 
-Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze (`MvcMovieContext`) do kontroleru. Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.
+Konstruktor používá [vkládání závislostí](xref:fundamentals/dependency-injection) pro vložení kontextu databáze ( `MvcMovieContext` ) do kontroleru. Kontext databáze se používá v každé metodě [CRUD](https://wikipedia.org/wiki/Create,_read,_update_and_delete) v kontroleru.
 
 <a name="strongly-typed-models-keyword-label"></a>
 <a name="strongly-typed-models-and-the--keyword"></a>
 
 ## <a name="strongly-typed-models-and-the-model-keyword"></a>Modely silného typu a @model klíčové slovo
 
-Dříve v tomto kurzu jste viděli, jak může řadič předat data nebo objekty do zobrazení pomocí `ViewData` slovníku. `ViewData` Slovník je dynamický objekt, který poskytuje pohodlný způsob, jak předat informace do zobrazení.
+Dříve v tomto kurzu jste viděli, jak může řadič předat data nebo objekty do zobrazení pomocí `ViewData` slovníku. `ViewData`Slovník je dynamický objekt, který poskytuje pohodlný způsob, jak předat informace do zobrazení.
 
 MVC také poskytuje možnost předat objekty modelu silného typu do zobrazení. Tento přístup silného typu umožňuje lepší kompilaci kódu. Mechanismus generování uživatelského rozhraní používal tento přístup (to znamená předání modelu silného typu) s `MoviesController` třídou a zobrazeními, když vytváří metody a zobrazení.
 
@@ -661,17 +661,17 @@ Prověřte vygenerovanou `Details` metodu v souboru *Controllers/MoviesControlle
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_details)]
 
-`id` Parametr je obvykle předán jako data směrování. Například `https://localhost:5001/movies/details/1` sady:
+`id`Parametr je obvykle předán jako data směrování. Například `https://localhost:5001/movies/details/1` sady:
 
-* Kontroler `movies` řadiče (první segment adresy URL).
+* Kontroler řadiče `movies` (první segment adresy URL).
 * Akce na `details` (druhý segment adresy URL).
 * ID na 1 (poslední segment adresy URL).
 
-Řetězec dotazu můžete také předat `id` následujícím způsobem:
+Řetězec dotazu můžete také předat následujícím `id` způsobem:
 
 `https://localhost:5001/movies/details?id=1`
 
-`id` Parametr je definován jako typ s [možnou hodnotou null](/dotnet/csharp/programming-guide/nullable-types/index) (`int?`) pro případ, že není zadána hodnota ID.
+`id`Parametr je definován jako typ s [možnou hodnotou null](/dotnet/csharp/programming-guide/nullable-types/index) ( `int?` ) pro případ, že není zadána hodnota ID.
 
 [Výraz lambda](/dotnet/articles/csharp/programming-guide/statements-expressions-operators/lambda-expressions) je předán do `FirstOrDefaultAsync` pro výběr entit videa, které odpovídají datům směrování nebo hodnotě řetězce dotazu.
 
@@ -680,7 +680,7 @@ var movie = await _context.Movie
     .FirstOrDefaultAsync(m => m.Id == id);
 ```
 
-Pokud se najde film, do `Movie` `Details` zobrazení se předává instance modelu:
+Pokud se najde film, `Movie` do zobrazení se předává instance modelu `Details` :
 
 ```csharp
 return View(movie);
@@ -690,15 +690,15 @@ Projděte si obsah souboru *views/video/details. cshtml* :
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/DetailsOriginal.cshtml)]
 
-Zahrnutím `@model` příkazu v horní části souboru zobrazení můžete určit typ objektu, který zobrazení očekává. Při vytváření kontroleru filmů byl do horní části souboru `@model` *Details. cshtml* přidán následující příkaz:
+Zahrnutím `@model` příkazu v horní části souboru zobrazení můžete určit typ objektu, který zobrazení očekává. Při vytváření kontroleru filmů `@model` byl do horní části souboru *Details. cshtml* přidán následující příkaz:
 
 ```cshtml
 @model MvcMovie.Models.Movie
 ```
 
-Tato `@model` Direktiva umožňuje přístup k videu, který kontroler předává do zobrazení pomocí `Model` objektu se silným typem. Například v zobrazení *Details. cshtml* kód předá každé pole videa do pomocníků HTML `DisplayNameFor` a `DisplayFor` s objektem silného typu. `Model` Metody `Create` a `Edit` zobrazení také předají objekt `Movie` modelu.
+Tato `@model` Direktiva umožňuje přístup k videu, který kontroler předává do zobrazení pomocí `Model` objektu se silným typem. Například v zobrazení *Details. cshtml* kód předá každé pole videa do `DisplayNameFor` `DisplayFor` pomocníků HTML a s objektem silného typu `Model` . `Create`Metody a `Edit` zobrazení také předají `Movie` objekt modelu.
 
-Prohlédněte si zobrazení *index. cshtml* a `Index` metodu v řadiči filmů. Všimněte si, jak kód při `List` volání `View` metody vytvoří objekt. Kód předá tento `Movies` seznam z metody `Index` Action do zobrazení:
+Prohlédněte si zobrazení *index. cshtml* a `Index` metodu v řadiči filmů. Všimněte si, jak kód `List` při volání metody vytvoří objekt `View` . Kód předá tento `Movies` seznam z `Index` metody Action do zobrazení:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Controllers/MC1.cs?name=snippet_index)]
 
@@ -708,11 +708,11 @@ Když jste vytvořili kontroler filmů, generování uživatelského rozhraní a
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?range=1)]
 
-`@model` Direktiva umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení pomocí `Model` objektu se silným typem. Například v zobrazení *index. cshtml* přechází kód přes filmy pomocí `foreach` příkazu nad objektem silného typu: `Model`
+`@model`Direktiva umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení pomocí `Model` objektu se silným typem. Například v zobrazení *index. cshtml* přechází kód přes filmy pomocí `foreach` příkazu nad objektem silného typu `Model` :
 
 [!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?highlight=1,31,34,37,40,43,46-48)]
 
-Vzhledem k `Model` tomu, že objekt je silného `IEnumerable<Movie>` typu (jako objekt), každá položka ve smyčce je `Movie`zapsána jako. Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu:
+Vzhledem k tomu `Model` , že objekt je silného typu (jako `IEnumerable<Movie>` objekt), každá položka ve smyčce je zapsána jako `Movie` . Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu:
 
 ## <a name="additional-resources"></a>Další zdroje
 
@@ -720,7 +720,7 @@ Vzhledem k `Model` tomu, že objekt je silného `IEnumerable<Movie>` typu (jako 
 * [Globalizace a lokalizace](xref:fundamentals/localization)
 
 > [!div class="step-by-step"]
-> [Předchozí přidání zobrazení](adding-view.md)
-> [Další práce s databází](working-with-sql.md)
+> [Předchozí přidání zobrazení](adding-view.md) 
+>  [Další práce s databází](working-with-sql.md)
 
 ::: moniker-end

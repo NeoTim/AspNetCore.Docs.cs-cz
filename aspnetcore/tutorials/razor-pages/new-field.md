@@ -1,7 +1,7 @@
 ---
-title: Přidat nové pole na Razor stránku v ASP.NET Core
+title: Část 7 – přidání nového pole na Razor stránku v ASP.NET Core
 author: rick-anderson
-description: Ukazuje, jak přidat nové pole na Razor stránku pomocí Entity Framework Core
+description: Část 7 série kurzů na Razor stránkách.
 ms.author: riande
 ms.custom: mvc
 ms.date: 7/23/2019
@@ -12,14 +12,14 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/new-field
-ms.openlocfilehash: 683d6718f4dcdb73c45cbcf94f6ac4f477b71bcd
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 15d4ccbe88c2147210918a3db1416983fb30132b
+ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82769731"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84652792"
 ---
-# <a name="add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Přidat nové pole na stránku Razor v ASP.NET Core
+# <a name="part-7-add-a-new-field-to-a-razor-page-in-aspnet-core"></a>Část 7 – přidání nového pole na Razor stránku v ASP.NET Core
 
 Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
@@ -34,7 +34,7 @@ V této části se [Entity Framework](/ef/core/get-started/aspnetcore/new-db) mi
 
 Při použití Code First EF k automatickému vytvoření databáze Code First:
 
-* Přidá do `__EFMigrationsHistory` databáze tabulku, která bude sledovat, zda je schéma databáze synchronizováno s třídami modelů, ze kterých byla vygenerována.
+* Přidá `__EFMigrationsHistory` do databáze tabulku, která bude sledovat, zda je schéma databáze synchronizováno s třídami modelů, ze kterých byla vygenerována.
 * Pokud třídy modelů nejsou synchronizovány s databází, EF vyvolá výjimku.
 
 Automatické ověření schématu nebo modelu v synchronizaci usnadňuje vyhledání nekonzistentních problémů s databází či kódem.
@@ -59,11 +59,11 @@ Aktualizujte následující stránky:
 * Aktualizace [Create. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie30/Pages/Movies/Create.cshtml) s `Rating` polem
 * Přidejte `Rating` pole do stránky pro úpravy.
 
-Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Spuštění aplikace bez aktualizace databáze vyvolá `SqlException`:
+Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Spuštění aplikace bez aktualizace databáze vyvolá `SqlException` :
 
 `SqlException: Invalid column name 'Rating'.`
 
-`SqlException` Výjimka je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů v databázi. (V tabulce databáze `Rating` není žádný sloupec.)
+`SqlException`Výjimka je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů v databázi. ( `Rating` V tabulce databáze není žádný sloupec.)
 
 K řešení této chyby je potřeba několik přístupů:
 
@@ -97,14 +97,14 @@ Add-Migration Rating
 Update-Database
 ```
 
-`Add-Migration` Příkaz instruuje rozhraní:
+`Add-Migration`Příkaz instruuje rozhraní:
 
-* Porovnejte `Movie` model se schématem `Movie` databáze.
+* Porovnejte `Movie` model se `Movie` schématem databáze.
 * Vytvořte kód pro migraci schématu databáze do nového modelu.
 
 Název "hodnocení" je libovolný a slouží k pojmenování souboru migrace. Je užitečné použít pro migrační soubor smysluplný název.
 
-`Update-Database` Příkaz instruuje rozhraní, aby se změny schématu projevily v databázi a zachovaly stávající data.
+`Update-Database`Příkaz instruuje rozhraní, aby se změny schématu projevily v databázi a zachovaly stávající data.
 
 <a name="ssox"></a>
 
@@ -138,15 +138,15 @@ dotnet ef database update
 
 ---
 
-Spusťte aplikaci a ověřte, že můžete vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Pokud databáze není osazena, nastavte v `SeedData.Initialize` metodě bod přerušení.
+Spusťte aplikaci a ověřte, že můžete vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Pokud databáze není osazena, nastavte v metodě bod přerušení `SeedData.Initialize` .
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/3i7uMxiGGR8)
 
 > [!div class="step-by-step"]
-> [Předchozí: Přidání vyhledávání](xref:tutorials/razor-pages/search)
-> v[Další: Přidání ověřování](xref:tutorials/razor-pages/validation)
+> [Předchozí: Přidání vyhledávání](xref:tutorials/razor-pages/search) 
+>  [Další: Přidání ověřování](xref:tutorials/razor-pages/validation)
 
 ::: moniker-end
 
@@ -184,11 +184,11 @@ Aktualizujte následující stránky:
 * Aktualizace [Create. cshtml](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/razor-pages/razor-pages-start/sample/RazorPagesMovie22/Pages/Movies/Create.cshtml) s `Rating` polem
 * Přidejte `Rating` pole do stránky pro úpravy.
 
-Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud nyní spustí aplikace, vyvolá `SqlException`:
+Aplikace nebude fungovat, dokud nebude aktualizována databáze, aby zahrnovala nové pole. Pokud nyní spustí aplikace, vyvolá `SqlException` :
 
 `SqlException: Invalid column name 'Rating'.`
 
-Tato chyba je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů databáze. (V tabulce databáze `Rating` není žádný sloupec.)
+Tato chyba je způsobena tím, že aktualizovaná třída filmového modelu je odlišná od schématu tabulky filmů databáze. ( `Rating` V tabulce databáze není žádný sloupec.)
 
 K řešení této chyby je potřeba několik přístupů:
 
@@ -222,14 +222,14 @@ Add-Migration Rating
 Update-Database
 ```
 
-`Add-Migration` Příkaz instruuje rozhraní:
+`Add-Migration`Příkaz instruuje rozhraní:
 
-* Porovnejte `Movie` model se schématem `Movie` databáze.
+* Porovnejte `Movie` model se `Movie` schématem databáze.
 * Vytvořte kód pro migraci schématu databáze do nového modelu.
 
 Název "hodnocení" je libovolný a slouží k pojmenování souboru migrace. Je užitečné použít pro migrační soubor smysluplný název.
 
-`Update-Database` Příkaz instruuje rozhraní, aby se změny schématu projevily v databázi.
+`Update-Database`Příkaz instruuje rozhraní, aby se změny schématu projevily v databázi.
 
 <a name="ssox"></a>
 
@@ -261,14 +261,14 @@ dotnet ef database update
 
 ---
 
-Spusťte aplikaci a ověřte, že můžete vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Pokud databáze není osazena, nastavte v `SeedData.Initialize` metodě bod přerušení.
+Spusťte aplikaci a ověřte, že můžete vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Pokud databáze není osazena, nastavte v metodě bod přerušení `SeedData.Initialize` .
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Verze YouTube tohoto kurzu](https://youtu.be/3i7uMxiGGR8)
 
 > [!div class="step-by-step"]
-> [Předchozí: Přidání vyhledávání](xref:tutorials/razor-pages/search)
-> v[Další: Přidání ověřování](xref:tutorials/razor-pages/validation)
+> [Předchozí: Přidání vyhledávání](xref:tutorials/razor-pages/search) 
+>  [Další: Přidání ověřování](xref:tutorials/razor-pages/validation)
 
 ::: moniker-end
