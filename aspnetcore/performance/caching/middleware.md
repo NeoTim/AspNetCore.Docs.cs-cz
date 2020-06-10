@@ -1,11 +1,24 @@
 ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Ukládání do mezipaměti middlewaru v ASP.NET Core
+author: rick-anderson
+description: Naučte se konfigurovat a používat middleware pro ukládání odpovědí do mezipaměti v ASP.NET Core.
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 02/07/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: performance/caching/middleware
+ms.openlocfilehash: 2ee75b1af9ffc23ff9ae1763059364de3ec8f426
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106504"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>Ukládání do mezipaměti middlewaru v ASP.NET Core
 
@@ -49,39 +62,11 @@ Middleware pro ukládání odpovědí do mezipaměti ukládá pouze odpovědi se
 
 Možnosti ukládání odpovědi do mezipaměti jsou uvedené v následující tabulce.
 
-| Možnost | Description |
-| ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | Největší velikost paměti pro tělo odpovědi v bajtech. Výchozí hodnota je `64 * 1024 * 1024` (64 MB). | | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | Omezení velikosti pro middleware mezipaměti odpovědí v bajtech. Výchozí hodnota je `100 * 1024 * 1024` (100 MB). | | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.UseCaseSensitivePaths> | Určuje, zda jsou odpovědi uloženy v mezipaměti pro cesty citlivé na velká a malá písmena. Výchozí hodnota je `false`. |
+| Možnost | Popis |
+| ------ | ----------- |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | Největší velikost paměti pro tělo odpovědi v bajtech. Výchozí hodnota je `64 * 1024 * 1024` (64 MB). |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | Omezení velikosti pro middleware mezipaměti odpovědí v bajtech. Výchozí hodnota je `100 * 1024 * 1024` (100 MB). |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.UseCaseSensitivePaths> | Určuje, zda jsou odpovědi uloženy v mezipaměti pro cesty citlivé na velká a malá písmena. Výchozí hodnota je `false`. |
 
 Následující příklad nakonfiguruje middleware na:
 
@@ -118,22 +103,18 @@ Použití jedné hodnoty, která se rovná, se `*` `VaryByQueryKeys` liší v me
 Následující tabulka poskytuje informace o hlavičkách HTTP, které ovlivňují ukládání odpovědí do mezipaměti.
 
 | Záhlaví | Podrobnosti |
-| ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----- | | `Authorization` | Odpověď není uložena do mezipaměti, pokud hlavička existuje. | | `Cache-Control` | Middleware považuje jenom odpovědi do mezipaměti označené `public` direktivou cache. Řízení ukládání do mezipaměti pomocí následujících parametrů:<ul><li>Maximální stáří</li><li>Max – zastaralé&#8224;</li><li>min – čerstvé</li><li>nutné – znovu ověřit</li><li>No – mezipaměť</li><li>bez uložení</li><li>pouze v mezipaměti</li><li>private</li><li>public</li><li>s-maxage</li><li>proxy-opětovné ověření&#8225;</li></ul>&#8224;, pokud není zadán žádný limit `max-stale` , middleware neprovede žádnou akci.<br>&#8225;`proxy-revalidate` má stejný účinek jako `must-revalidate` .<br><br>Další informace najdete v [dokumentu RFC 7231: Request-Control direktives cache](https://tools.ietf.org/html/rfc7234#section-5.2.1). | | `Pragma` | `Pragma: no-cache`Hlavička v žádosti má stejný účinek jako `Cache-Control: no-cache` . Tato hlavička je přepsána příslušnými direktivami v `Cache-Control` hlavičce, pokud je k dispozici. Brána se považuje za zpětnou kompatibilitu s HTTP/1.0. | | `Set-Cookie` | Odpověď není uložena do mezipaměti, pokud hlavička existuje. Jakýkoli middleware v kanálu zpracování požadavků, který nastavuje jeden nebo více souborů cookie, brání v ukládání do mezipaměti middleware ukládání odpovědi do mezipaměti (například [poskytovatele TempData založeného na souborech cookie](xref:fundamentals/app-state#tempdata)).  | | `Vary` | `Vary`Záhlaví se používá k odlišení odpovědi uložené v mezipaměti jinou hlavičkou. Například odpovědi ukládat do mezipaměti podle kódování zahrnutím `Vary: Accept-Encoding` hlavičky, která ukládá do mezipaměti odpovědi pro žádosti s hlavičkami `Accept-Encoding: gzip` a `Accept-Encoding: text/plain` samostatně. Odpověď s hodnotou záhlaví `*` se nikdy neukládá. | | `Expires` | Odpověď považovaná za zastaralou touto hlavičkou není uložená nebo načtená, pokud není přepsána jinými `Cache-Control` záhlavími. | | `If-None-Match` | Úplná odpověď se obsluhuje z mezipaměti, pokud hodnota není `*` a `ETag` Odpověď neodpovídá žádné z poskytnutých hodnot. V opačném případě je zpracována odpověď 304 (Neupraveno). | | `If-Modified-Since` | Pokud `If-None-Match` Hlavička není k dispozici, bude z mezipaměti poskytována úplná odpověď, pokud je datum odpovědi v mezipaměti novější než zadaná hodnota. Jinak se *neupraví odpověď 304* . | | `Date` | Při obsluze z mezipaměti `Date` je hlavička nastavena middlewarem, pokud nebyla poskytnuta na původní odpověď. | | `Content-Length` | Při obsluze z mezipaměti `Content-Length` je hlavička nastavena middlewarem, pokud nebyla poskytnuta na původní odpověď. | | `Age` | `Age`Hlavička poslaná v původní odpovědi je ignorována. Middleware vypočítá novou hodnotu při obsluze odpovědi v mezipaměti. |
+| ------ | ------- |
+| `Authorization` | Odpověď není uložena do mezipaměti, pokud hlavička existuje. |
+| `Cache-Control` | Middleware považuje jenom odpovědi do mezipaměti označené `public` direktivou cache. Řízení ukládání do mezipaměti pomocí následujících parametrů:<ul><li>Maximální stáří</li><li>Max – zastaralé&#8224;</li><li>min – čerstvé</li><li>nutné – znovu ověřit</li><li>No – mezipaměť</li><li>bez uložení</li><li>pouze v mezipaměti</li><li>private</li><li>public</li><li>s-maxage</li><li>proxy-opětovné ověření&#8225;</li></ul>&#8224;, pokud není zadán žádný limit `max-stale` , middleware neprovede žádnou akci.<br>&#8225;`proxy-revalidate` má stejný účinek jako `must-revalidate` .<br><br>Další informace najdete v [dokumentu RFC 7231: Request-Control direktives cache](https://tools.ietf.org/html/rfc7234#section-5.2.1). |
+| `Pragma` | `Pragma: no-cache`Hlavička v žádosti má stejný účinek jako `Cache-Control: no-cache` . Tato hlavička je přepsána příslušnými direktivami v `Cache-Control` hlavičce, pokud je k dispozici. Brána se považuje za zpětnou kompatibilitu s HTTP/1.0. |
+| `Set-Cookie` | Odpověď není uložena do mezipaměti, pokud hlavička existuje. Jakýkoli middleware v kanálu zpracování požadavků, který nastavuje jeden nebo více souborů cookie, brání v ukládání do mezipaměti middleware ukládání odpovědi do mezipaměti (například [poskytovatele TempData založeného na souborech cookie](xref:fundamentals/app-state#tempdata)).  |
+| `Vary` | `Vary`Záhlaví se používá k odlišení odpovědi uložené v mezipaměti jinou hlavičkou. Například odpovědi ukládat do mezipaměti podle kódování zahrnutím `Vary: Accept-Encoding` hlavičky, která ukládá do mezipaměti odpovědi pro žádosti s hlavičkami `Accept-Encoding: gzip` a `Accept-Encoding: text/plain` samostatně. Odpověď s hodnotou záhlaví `*` se nikdy neukládá. |
+| `Expires` | Odpověď považovaná za zastaralou touto hlavičkou není uložená nebo načtená, pokud není přepsána jinými `Cache-Control` záhlavími. |
+| `If-None-Match` | Úplná odpověď se obsluhuje z mezipaměti, pokud hodnota není `*` a `ETag` Odpověď neodpovídá žádné z poskytnutých hodnot. V opačném případě je zpracována odpověď 304 (Neupraveno). |
+| `If-Modified-Since` | Pokud `If-None-Match` Hlavička není k dispozici, bude z mezipaměti poskytována úplná odpověď, pokud je datum odpovědi v mezipaměti novější než zadaná hodnota. Jinak se *neupraví odpověď 304* . |
+| `Date` | Při obsluze z mezipaměti `Date` je hlavička nastavena middlewarem, pokud nebyla poskytnuta na původní odpověď. |
+| `Content-Length` | Při obsluze z mezipaměti `Content-Length` je hlavička nastavena middlewarem, pokud nebyla poskytnuta na původní odpověď. |
+| `Age` | `Age`Hlavička poslaná v původní odpovědi je ignorována. Middleware vypočítá novou hodnotu při obsluze odpovědi v mezipaměti. |
 
 ## <a name="caching-respects-request-cache-control-directives"></a>Požadavky na ukládání do mezipaměti – direktivy řízení mezipaměti
 
@@ -225,39 +206,11 @@ Middleware pro ukládání odpovědí do mezipaměti ukládá pouze odpovědi se
 
 Možnosti ukládání odpovědi do mezipaměti jsou uvedené v následující tabulce.
 
-| Možnost | Description |
-| ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | Největší velikost paměti pro tělo odpovědi v bajtech. Výchozí hodnota je `64 * 1024 * 1024` (64 MB). | | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | Omezení velikosti pro middleware mezipaměti odpovědí v bajtech. Výchozí hodnota je `100 * 1024 * 1024` (100 MB). | | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.UseCaseSensitivePaths> | Určuje, zda jsou odpovědi uloženy v mezipaměti pro cesty citlivé na velká a malá písmena. Výchozí hodnota je `false`. |
+| Možnost | Popis |
+| ------ | ----------- |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | Největší velikost paměti pro tělo odpovědi v bajtech. Výchozí hodnota je `64 * 1024 * 1024` (64 MB). |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | Omezení velikosti pro middleware mezipaměti odpovědí v bajtech. Výchozí hodnota je `100 * 1024 * 1024` (100 MB). |
+| <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.UseCaseSensitivePaths> | Určuje, zda jsou odpovědi uloženy v mezipaměti pro cesty citlivé na velká a malá písmena. Výchozí hodnota je `false`. |
 
 Následující příklad nakonfiguruje middleware na:
 
@@ -294,22 +247,18 @@ Použití jedné hodnoty, která se rovná, se `*` `VaryByQueryKeys` liší v me
 Následující tabulka poskytuje informace o hlavičkách HTTP, které ovlivňují ukládání odpovědí do mezipaměti.
 
 | Záhlaví | Podrobnosti |
-| ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | ---Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----- | | `Authorization` | Odpověď není uložena do mezipaměti, pokud hlavička existuje. | | `Cache-Control` | Middleware považuje jenom odpovědi do mezipaměti označené `public` direktivou cache. Řízení ukládání do mezipaměti pomocí následujících parametrů:<ul><li>Maximální stáří</li><li>Max – zastaralé&#8224;</li><li>min – čerstvé</li><li>nutné – znovu ověřit</li><li>No – mezipaměť</li><li>bez uložení</li><li>pouze v mezipaměti</li><li>private</li><li>public</li><li>s-maxage</li><li>proxy-opětovné ověření&#8225;</li></ul>&#8224;, pokud není zadán žádný limit `max-stale` , middleware neprovede žádnou akci.<br>&#8225;`proxy-revalidate` má stejný účinek jako `must-revalidate` .<br><br>Další informace najdete v [dokumentu RFC 7231: Request-Control direktives cache](https://tools.ietf.org/html/rfc7234#section-5.2.1). | | `Pragma` | `Pragma: no-cache`Hlavička v žádosti má stejný účinek jako `Cache-Control: no-cache` . Tato hlavička je přepsána příslušnými direktivami v `Cache-Control` hlavičce, pokud je k dispozici. Brána se považuje za zpětnou kompatibilitu s HTTP/1.0. | | `Set-Cookie` | Odpověď není uložena do mezipaměti, pokud hlavička existuje. Jakýkoli middleware v kanálu zpracování požadavků, který nastavuje jeden nebo více souborů cookie, brání v ukládání do mezipaměti middleware ukládání odpovědi do mezipaměti (například [poskytovatele TempData založeného na souborech cookie](xref:fundamentals/app-state#tempdata)).  | | `Vary` | `Vary`Záhlaví se používá k odlišení odpovědi uložené v mezipaměti jinou hlavičkou. Například odpovědi ukládat do mezipaměti podle kódování zahrnutím `Vary: Accept-Encoding` hlavičky, která ukládá do mezipaměti odpovědi pro žádosti s hlavičkami `Accept-Encoding: gzip` a `Accept-Encoding: text/plain` samostatně. Odpověď s hodnotou záhlaví `*` se nikdy neukládá. | | `Expires` | Odpověď považovaná za zastaralou touto hlavičkou není uložená nebo načtená, pokud není přepsána jinými `Cache-Control` záhlavími. | | `If-None-Match` | Úplná odpověď se obsluhuje z mezipaměti, pokud hodnota není `*` a `ETag` Odpověď neodpovídá žádné z poskytnutých hodnot. V opačném případě je zpracována odpověď 304 (Neupraveno). | | `If-Modified-Since` | Pokud `If-None-Match` Hlavička není k dispozici, bude z mezipaměti poskytována úplná odpověď, pokud je datum odpovědi v mezipaměti novější než zadaná hodnota. Jinak se *neupraví odpověď 304* . | | `Date` | Při obsluze z mezipaměti `Date` je hlavička nastavena middlewarem, pokud nebyla poskytnuta na původní odpověď. | | `Content-Length` | Při obsluze z mezipaměti `Content-Length` je hlavička nastavena middlewarem, pokud nebyla poskytnuta na původní odpověď. | | `Age` | `Age`Hlavička poslaná v původní odpovědi je ignorována. Middleware vypočítá novou hodnotu při obsluze odpovědi v mezipaměti. |
+| ------ | ------- |
+| `Authorization` | Odpověď není uložena do mezipaměti, pokud hlavička existuje. |
+| `Cache-Control` | Middleware považuje jenom odpovědi do mezipaměti označené `public` direktivou cache. Řízení ukládání do mezipaměti pomocí následujících parametrů:<ul><li>Maximální stáří</li><li>Max – zastaralé&#8224;</li><li>min – čerstvé</li><li>nutné – znovu ověřit</li><li>No – mezipaměť</li><li>bez uložení</li><li>pouze v mezipaměti</li><li>private</li><li>public</li><li>s-maxage</li><li>proxy-opětovné ověření&#8225;</li></ul>&#8224;, pokud není zadán žádný limit `max-stale` , middleware neprovede žádnou akci.<br>&#8225;`proxy-revalidate` má stejný účinek jako `must-revalidate` .<br><br>Další informace najdete v [dokumentu RFC 7231: Request-Control direktives cache](https://tools.ietf.org/html/rfc7234#section-5.2.1). |
+| `Pragma` | `Pragma: no-cache`Hlavička v žádosti má stejný účinek jako `Cache-Control: no-cache` . Tato hlavička je přepsána příslušnými direktivami v `Cache-Control` hlavičce, pokud je k dispozici. Brána se považuje za zpětnou kompatibilitu s HTTP/1.0. |
+| `Set-Cookie` | Odpověď není uložena do mezipaměti, pokud hlavička existuje. Jakýkoli middleware v kanálu zpracování požadavků, který nastavuje jeden nebo více souborů cookie, brání v ukládání do mezipaměti middleware ukládání odpovědi do mezipaměti (například [poskytovatele TempData založeného na souborech cookie](xref:fundamentals/app-state#tempdata)).  |
+| `Vary` | `Vary`Záhlaví se používá k odlišení odpovědi uložené v mezipaměti jinou hlavičkou. Například odpovědi ukládat do mezipaměti podle kódování zahrnutím `Vary: Accept-Encoding` hlavičky, která ukládá do mezipaměti odpovědi pro žádosti s hlavičkami `Accept-Encoding: gzip` a `Accept-Encoding: text/plain` samostatně. Odpověď s hodnotou záhlaví `*` se nikdy neukládá. |
+| `Expires` | Odpověď považovaná za zastaralou touto hlavičkou není uložená nebo načtená, pokud není přepsána jinými `Cache-Control` záhlavími. |
+| `If-None-Match` | Úplná odpověď se obsluhuje z mezipaměti, pokud hodnota není `*` a `ETag` Odpověď neodpovídá žádné z poskytnutých hodnot. V opačném případě je zpracována odpověď 304 (Neupraveno). |
+| `If-Modified-Since` | Pokud `If-None-Match` Hlavička není k dispozici, bude z mezipaměti poskytována úplná odpověď, pokud je datum odpovědi v mezipaměti novější než zadaná hodnota. Jinak se *neupraví odpověď 304* . |
+| `Date` | Při obsluze z mezipaměti `Date` je hlavička nastavena middlewarem, pokud nebyla poskytnuta na původní odpověď. |
+| `Content-Length` | Při obsluze z mezipaměti `Content-Length` je hlavička nastavena middlewarem, pokud nebyla poskytnuta na původní odpověď. |
+| `Age` | `Age`Hlavička poslaná v původní odpovědi je ignorována. Middleware vypočítá novou hodnotu při obsluze odpovědi v mezipaměti. |
 
 ## <a name="caching-respects-request-cache-control-directives"></a>Požadavky na ukládání do mezipaměti – direktivy řízení mezipaměti
 

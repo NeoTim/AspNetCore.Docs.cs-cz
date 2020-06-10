@@ -1,11 +1,23 @@
 ---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Nástroje kontejneru sady Visual Studio s ASP.NET Core
+author: spboyer
+description: Naučte se používat nástroje a Docker for Windows sady Visual Studio k kontejnerizaceí ASP.NET Core aplikace.
+ms.author: scaddie
+ms.custom: mvc
+ms.date: 09/12/2018
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: host-and-deploy/docker/visual-studio-tools-for-docker
+ms.openlocfilehash: 391cc18e499cdfaa67beeced382fd53b16a668a2
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84105217"
 ---
 # <a name="visual-studio-container-tools-with-aspnet-core"></a>Nástroje kontejneru sady Visual Studio s ASP.NET Core
 

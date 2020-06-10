@@ -1,12 +1,24 @@
 ---
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Integrace Razor součástí ASP.NET Core do Razor stránek a aplikací MVC
+author: guardrex
+description: Přečtěte si o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 04/25/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/integrate-components
+ms.openlocfilehash: 97515ec519c4bedb0478f510ec9ed739b5d76e4f
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84105243"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>Integrace Razor součástí ASP.NET Core do Razor stránek a aplikací MVC
 
@@ -116,61 +128,11 @@ Podpora směrování Razor komponent v Razor aplikacích Pages:
    * Je předem vykreslen na stránku.
    * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
 
-   | Režim vykreslování | Description |
-   | ---
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | ---Název: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor serverovou aplikaci. Výstup `App` komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | Vykreslí `App` komponentu do statického HTML. |
+   | Režim vykreslování | Popis |
+   | ----------- | ----------- |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor serverovou aplikaci. Výstup `App` komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | Vykreslí `App` komponentu do statického HTML. |
 
    Další informace o pomocníka značek komponenty naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper> .
 
@@ -185,7 +147,7 @@ monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
    });
    ```
 
-1. Přidejte do aplikace směrovatelné součásti. Příklad:
+1. Přidejte do aplikace směrovatelné součásti. Například:
 
    ```razor
    @page "/counter"
@@ -240,61 +202,11 @@ Podpora směrování Razor komponent v aplikacích MVC:
    * Je předem vykreslen na stránku.
    * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
 
-   | Režim vykreslování | Description |
-   | ---
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | ---Název: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' integrace Razor komponent ASP.NET Core do Razor stránek a aplikací MVC ' Autor: Popis: ' informace o scénářích datových vazeb pro komponenty a prvky modelu DOM v Blazor aplikacích. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------- | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor serverovou aplikaci. Výstup `App` komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. | | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | Vykreslí `App` komponentu do statického HTML. |
+   | Režim vykreslování | Popis |
+   | ----------- | ----------- |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor serverovou aplikaci. Výstup `App` komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
+   | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static> | Vykreslí `App` komponentu do statického HTML. |
 
    Další informace o pomocníka značek komponenty naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper> .
 
@@ -318,7 +230,7 @@ monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
    });
    ```
 
-1. Vytvořte složku *Pages* a přidejte do ní součásti s funkcí směrování. Příklad:
+1. Vytvořte složku *Pages* a přidejte do ní součásti s funkcí směrování. Například:
 
    ```razor
    @page "/counter"

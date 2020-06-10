@@ -1,12 +1,24 @@
 ---
-title: ' ASP.NET Core Blazor templates ' Author: Description: ' informace o ASP.NET Core Blazor šablon aplikací a Blazor struktuře projektu. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: BlazorŠablony ASP.NET Core
+author: guardrex
+description: Přečtěte si o ASP.NET Core Blazor šablonách aplikací a Blazor struktuře projektu.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/templates
+ms.openlocfilehash: f582e8201a3393b848cf3f2c21ce3a7df5554100
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84105529"
 ---
 # <a name="aspnet-core-blazor-templates"></a>BlazorŠablony ASP.NET Core
 

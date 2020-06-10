@@ -1,12 +1,24 @@
 ---
-title: pokyny pro zmírnění hrozeb pro ASP.NET Core Blazor Server autor: Popis: Podívejte se, jak zmírnit bezpečnostní hrozby pro Blazor serverové aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Pokyny pro zmírnění hrozeb pro ASP.NET Core Blazor Server
+author: guardrex
+description: Naučte se zmírnit bezpečnostní hrozby pro Blazor serverové aplikace.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/05/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/server/threat-mitigation
+ms.openlocfilehash: 06f9cc2d70367ea90a519ddd508a156e88adcb61
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83864628"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>Pokyny pro zmírnění hrozeb pro ASP.NET Core Blazor Server
 
@@ -89,7 +101,7 @@ Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uži
 
 Útoky DoS (Denial of Service) zahrnují klienta, který způsobuje, že server vyčerpá jeden nebo víc svých prostředků, takže aplikace nebude k dispozici. BlazorServerové aplikace zahrnují některá výchozí omezení a spoléhají na jiné ASP.NET Core a SignalR omezení ochrany proti útokům DOS, které jsou nastavené na <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions> .
 
-| BlazorOmezení serverové aplikace | Description | Výchozí |
+| BlazorOmezení serverové aplikace | Popis | Výchozí |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitMaxRetained> | Maximální počet odpojených okruhů, které daný server uchovává v paměti. | 100 |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitRetentionPeriod> | Maximální doba, po kterou je odpojený okruh uložený v paměti předtím, než se rozpustí. | 3 minuty |
@@ -98,7 +110,7 @@ Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uži
 
 Nastavte maximální velikost zprávy pro jednu příchozí zprávu centra pomocí <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions> .
 
-| SignalRa omezení ASP.NET Core | Description | Výchozí |
+| SignalRa omezení ASP.NET Core | Popis | Výchozí |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions.MaximumReceiveMessageSize?displayProperty=nameWithType> | Velikost zprávy pro jednotlivou zprávu | 32 KB |
 
@@ -144,7 +156,7 @@ Nemusíte důvěřovat volání metod z JavaScriptu do .NET. Pokud je k JavaScri
 
 Události poskytují vstupní bod Blazor serverové aplikaci. Stejná pravidla pro ochranu koncových bodů ve webových aplikacích se vztahují na zpracování událostí v Blazor serverových aplikacích. Škodlivý klient může odesílat všechna data, která chce odeslat jako datovou část pro událost.
 
-Příklad:
+Například:
 
 * Událost změny pro `<select>` by mohla odeslat hodnotu, která není v rámci možností, které aplikace prezentuje klientovi.
 * `<input>`Může odeslat veškerá textová data na server a obejít ověřování na straně klienta.

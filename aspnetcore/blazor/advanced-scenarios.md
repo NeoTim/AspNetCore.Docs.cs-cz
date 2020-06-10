@@ -1,12 +1,24 @@
 ---
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: ASP.NET Core Blazor pokročilé scénáře
+author: guardrex
+description: Přečtěte si o rozšířených scénářích v Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 02/18/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/advanced-scenarios
+ms.openlocfilehash: 3345f545e230ada78e6c66fc9eb049060d5794d6
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83851156"
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor pokročilé scénáře
 
@@ -150,73 +162,15 @@ builder.AddContent(1, "Second");
 V případě, že se kód spustí poprvé, `someFlag` v případě `true` , že je, tvůrce obdrží:
 
 | Sequence | Typ      | Data   |
-| :---
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----: | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------ | :----: | | 0 | Textový uzel | První | | 1 | Textový uzel | Druhý |
+| :------: | --------- | :----: |
+| 0        | Textový uzel | První  |
+| 1        | Textový uzel | 1 sekunda |
 
 Představte si, že se `someFlag` `false` zobrazí a značka se znovu vykreslí. Tentokrát Tvůrce získá:
 
 | Sequence | Typ       | Data   |
-| :---
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----: | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------ | :----: | | 1 | Textový uzel | Druhý |
+| :------: | ---------- | :----: |
+| 1        | Textový uzel  | 1 sekunda |
 
 Pokud modul runtime provede rozdíl, uvidí, že položka v sekvenci `0` byla odebrána, takže generuje následující *skript*triviálního úprav:
 
@@ -240,72 +194,15 @@ builder.AddContent(seq++, "Second");
 Teď je první výstup:
 
 | Sequence | Typ      | Data   |
-| :---
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----: | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------ | :----: | | 0 | Textový uzel | První | | 1 | Textový uzel | Druhý |
+| :------: | --------- | :----: |
+| 0        | Textový uzel | První  |
+| 1        | Textový uzel | 1 sekunda |
 
 Tento výsledek je stejný jako předchozí případ, takže neexistují žádné negativní problémy. `someFlag`je `false` ve druhém vykreslování a výstup je:
 
 | Sequence | Typ      | Data   |
-| :---
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
----: | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční logiky RenderTreeBuilder do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------ | ---title: ' ASP.NET Core Blazor pokročilé scénáře ' Autor: Popis: ' informace o rozšířených scénářích v nástroji Blazor , včetně postupu začlenění ruční RenderTreeBuilder logiky do aplikace. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
---- | | 0 | Textový uzel | Druhý |
+| :------: | --------- | ------ |
+| 0        | Textový uzel | 1 sekunda |
 
 Tentokrát rozdílový algoritmus uvidí, že došlo ke *dvěma* změnám, a algoritmus generuje následující skript pro úpravy:
 

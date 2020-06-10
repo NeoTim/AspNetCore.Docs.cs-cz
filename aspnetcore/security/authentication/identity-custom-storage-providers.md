@@ -1,12 +1,23 @@
 ---
-title: Vlastní zprostředkovatelé úložiště pro ASP.NET Core Identity Autor: Description: Podívejte se, jak nakonfigurovat vlastní zprostředkovatele úložiště pro ASP.NET Core Identity .
-MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Vlastní poskytovatelé úložiště pro ASP.NET CoreIdentity
+author: ardalis
+description: Přečtěte si, jak nakonfigurovat vlastní poskytovatele úložiště pro ASP.NET Core Identity .
+ms.author: riande
+ms.custom: mvc
+ms.date: 07/23/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/authentication/identity-custom-storage-providers
+ms.openlocfilehash: 792a9e5f776e345fbee5726b676fe148ecaf1657
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106582"
 ---
 # <a name="custom-storage-providers-for-aspnet-core-identity"></a>Vlastní poskytovatelé úložiště pro ASP.NET CoreIdentity
 
@@ -18,7 +29,7 @@ ASP.NET Core Identity je rozšiřitelný systém, který umožňuje vytvořit vl
 
 ## <a name="introduction"></a>Úvod
 
-Ve výchozím nastavení systém ASP.NET Core Identity ukládá informace o uživatelích do databáze SQL Server pomocí Entity Framework Core. U mnoha aplikací funguje tento přístup dobře. Můžete ale chtít použít jiný mechanismus trvalosti nebo schéma dat. Příklad:
+Ve výchozím nastavení systém ASP.NET Core Identity ukládá informace o uživatelích do databáze SQL Server pomocí Entity Framework Core. U mnoha aplikací funguje tento přístup dobře. Můžete ale chtít použít jiný mechanismus trvalosti nebo schéma dat. Například:
 
 * Používáte [Azure Table Storage](/azure/storage/) nebo jiné úložiště dat.
 * Tabulky databáze mají jinou strukturu. 
@@ -164,7 +175,7 @@ V rámci `UserStore` třídy použijete třídy pro přístup k datům, které j
 * **IQueryableUserStore**  
  Rozhraní [IQueryableUserStore &lt; TUser &gt; ](/dotnet/api/microsoft.aspnetcore.identity.iqueryableuserstore-1) definuje členy, které implementujete k poskytnutí úložiště uživatele Queryable.
 
-Implementujete pouze rozhraní, která jsou potřebná v aplikaci. Příklad:
+Implementujete pouze rozhraní, která jsou potřebná v aplikaci. Například:
 
 ```csharp
 public class UserStore : IUserStore<IdentityUser>,

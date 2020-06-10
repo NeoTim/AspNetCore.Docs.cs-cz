@@ -1,11 +1,24 @@
 ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Nahrání souborů v ASP.NET Core
+author: rick-anderson
+description: Jak používat vazbu modelu a streamování k nahrávání souborů v ASP.NET Core MVC
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/03/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: mvc/models/file-uploads
+ms.openlocfilehash: 632cc9fafc5daf2923997f0113adee52491acdcc
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "83838315"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -94,7 +107,7 @@ Prostředky (disk, paměť) používané při nahrávání souborů závisí na 
 Ukládání malých souborů do vyrovnávací paměti je popsáno v následujících částech tohoto tématu:
 
 * [Fyzické úložiště](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [Databáze](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [Database](#upload-small-files-with-buffered-model-binding-to-a-database)
 
 **Streamování**
 
@@ -176,7 +189,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Příklad:
+* Použijte `XMLHttpRequest`. Například:
 
   ```javascript
   <script>
@@ -222,7 +235,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Ověřování](#validation)
+> * [Export](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
@@ -393,7 +406,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Ověřování](#validation)
+> * [Export](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
@@ -449,7 +462,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -707,7 +720,7 @@ Výchozí limit počtu požadavků ( `maxAllowedContentLength` ) je 30 000 000 b
 </system.webServer>
 ```
 
-Toto nastavení platí pouze pro službu IIS. K tomuto chování nedochází ve výchozím nastavení při hostování v Kestrel. Další informace najdete v tématu [omezení požadavků \< requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/).
+Toto nastavení platí pouze pro službu IIS. K tomuto chování nedochází ve výchozím nastavení při hostování v Kestrel. Další informace najdete v tématu [omezení \<requestLimits> požadavků ](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/).
 
 Omezení v modulu ASP.NET Core nebo přítomnosti modulu filtrování požadavků služby IIS mohou omezit nahrávání na 2 nebo 4 GB. Další informace najdete v tématu [nelze odeslat soubor o velikosti větší než 2 GB (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711).
 
@@ -823,7 +836,7 @@ Prostředky (disk, paměť) používané při nahrávání souborů závisí na 
 Ukládání malých souborů do vyrovnávací paměti je popsáno v následujících částech tohoto tématu:
 
 * [Fyzické úložiště](#upload-small-files-with-buffered-model-binding-to-physical-storage)
-* [Databáze](#upload-small-files-with-buffered-model-binding-to-a-database)
+* [Database](#upload-small-files-with-buffered-model-binding-to-a-database)
 
 **Streamování**
 
@@ -905,7 +918,7 @@ Následující příklad je podobný předchozímu příkladu s tím rozdílem, 
 Chcete-li provést příspěvek formuláře v jazyce JavaScript pro klienty, kteří [nepodporují rozhraní API pro načítání](https://caniuse.com/#feat=fetch), použijte jeden z následujících přístupů:
 
 * Použijte načtenou výplň (například [window. Fetch Fill (GitHub/Fetch)](https://github.com/github/fetch)).
-* Použijte `XMLHttpRequest`. Příklad:
+* Použijte `XMLHttpRequest`. Například:
 
   ```javascript
   <script>
@@ -951,7 +964,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Ověřování](#validation)
+> * [Export](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
@@ -1122,7 +1135,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Ověřování](#validation)
+> * [Export](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
@@ -1178,7 +1191,7 @@ Prohledávání souborů je náročné na prostředky serveru ve scénářích s
 
 ### <a name="file-extension-validation"></a>Ověření přípony souboru
 
-Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Příklad:
+Přípona nahraného souboru by měla být zaškrtnutá na seznamu povolených rozšíření. Například:
 
 ```csharp
 private string[] permittedExtensions = { ".txt", ".pdf" };
@@ -1429,7 +1442,7 @@ Výchozí limit počtu požadavků ( `maxAllowedContentLength` ) je 30 000 000 b
 </system.webServer>
 ```
 
-Toto nastavení platí pouze pro službu IIS. K tomuto chování nedochází ve výchozím nastavení při hostování v Kestrel. Další informace najdete v tématu [omezení požadavků \< requestLimits>](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/).
+Toto nastavení platí pouze pro službu IIS. K tomuto chování nedochází ve výchozím nastavení při hostování v Kestrel. Další informace najdete v tématu [omezení \<requestLimits> požadavků ](/iis/configuration/system.webServer/security/requestFiltering/requestLimits/).
 
 Omezení v modulu ASP.NET Core nebo přítomnosti modulu filtrování požadavků služby IIS mohou omezit nahrávání na 2 nebo 4 GB. Další informace najdete v tématu [nelze odeslat soubor o velikosti větší než 2 GB (dotnet/AspNetCore #2711)](https://github.com/dotnet/AspNetCore/issues/2711).
 

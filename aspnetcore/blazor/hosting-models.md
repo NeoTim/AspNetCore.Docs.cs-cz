@@ -1,12 +1,24 @@
 ---
-Název: ' ASP.NET Core Blazor hostující modely ' Author: Description: ' principy Blazor WebAssembly a Blazor hostingových modelů serveru. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: ASP.NET Core Blazor modelech hostování
+author: guardrex
+description: Pochopení Blazor modelů hostování pro WebAssembly a Blazor Server
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/hosting-models
+ms.openlocfilehash: 9556fea5319956ce4ae4f4faf90cb405784c733c
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84105490"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 

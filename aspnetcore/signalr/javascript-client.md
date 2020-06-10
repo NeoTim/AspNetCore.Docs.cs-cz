@@ -1,12 +1,24 @@
 ---
-title: ' ASP.NET Core SignalR klienta JavaScriptu ' Autor: Description: ' přehled ASP.NET Core SignalR JavaScript Client. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: SignalRKlient ASP.NET Core JavaScript
+author: bradygaster
+description: Přehled ASP.NET Core SignalR klienta jazyka JavaScript.
+monikerRange: '>= aspnetcore-2.1'
+ms.author: bradyg
+ms.custom: mvc
+ms.date: 04/08/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: signalr/javascript-client
+ms.openlocfilehash: 4b3a4b2323b7f221d9cd1aab1c56d1d9828eb916
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106452"
 ---
 # <a name="aspnet-core-signalr-javascript-client"></a>SignalRKlient ASP.NET Core JavaScript
 
@@ -46,7 +58,7 @@ NPM nainstaluje obsah balíčku do složky *node_modules \\ @aspnet\signalr\dist
 
 ::: moniker-end
 
-Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
+Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Například:
 
 ```html
 <script src="~/lib/signalr/signalr.js"></script>
@@ -54,7 +66,7 @@ Odkazování na SignalR klienta JavaScriptu v `<script>` elementu. Příklad:
 
 ### <a name="use-a-content-delivery-network-cdn"></a>Použít Content Delivery Network (CDN)
 
-Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Příklad:
+Chcete-li použít klientskou knihovnu bez npm požadavků, proveďte odkaz na kopii klientské knihovny hostované v CDN. Například:
 
 ```html
 <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/3.1.3/signalr.min.js"></script>

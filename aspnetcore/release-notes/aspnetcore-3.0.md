@@ -1,11 +1,23 @@
 ---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Co je nového v ASP.NET Core 3,0
+author: rick-anderson
+description: Seznamte se s novými funkcemi v ASP.NET Core 3,0.
+ms.author: riande
+ms.custom: mvc
+ms.date: 12/05/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: aspnetcore-3.0
+ms.openlocfilehash: 38a75e9577bab6bbdb5accf161659e8e301947b1
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84105932"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -471,7 +483,7 @@ Další informace najdete v následujících článcích:
 
 ## <a name="pipes-on-httpcontext"></a>Kanály na HttpContext
 
-Nyní je možné číst text žádosti a zapsat tělo odpovědi pomocí <xref:System.IO.Pipelines> rozhraní API. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader`vlastnost poskytuje objekt <xref:System.IO.Pipelines.PipeReader> , který lze použít ke čtení textu žádosti. Prostředek <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter`vlastnost poskytuje <xref:System.IO.Pipelines.PipeWriter> , kterou lze použít k zápisu textu odpovědi. `HttpRequest.BodyReader`je analogkou `HttpRequest.Body` datového proudu. `HttpResponse.BodyWriter`je analogkou `HttpResponse.Body` datového proudu.
+Nyní je možné číst text žádosti a zapsat tělo odpovědi pomocí <xref:System.IO.Pipelines> rozhraní API. Rozhraní <!-- <xref:Microsoft.AspNetCore.Http.HttpRequest.BodyReader> --> `HttpRequest.BodyReader`vlastnost poskytuje objekt <xref:System.IO.Pipelines.PipeReader> , který lze použít ke čtení textu žádosti. Rozhraní <!-- <xref:Microsoft.AspNetCore.Http.> --> `HttpResponse.BodyWriter`vlastnost poskytuje <xref:System.IO.Pipelines.PipeWriter> , kterou lze použít k zápisu textu odpovědi. `HttpRequest.BodyReader`je analogkou `HttpRequest.Body` datového proudu. `HttpResponse.BodyWriter`je analogkou `HttpResponse.Body` datového proudu.
 
 <!-- indirectly related, https://github.com/dotnet/docs/pull/14414 won't be published by 9/23  -->
 
@@ -483,7 +495,7 @@ Chyby při spuštění při hostování ASP.NET Corech aplikací ve službě IIS
 
 .NET Core 3,0 zavádí novou šablonu aplikace služby pracovního procesu. Tato šablona poskytuje výchozí bod pro psaní dlouhých služeb, které běží v .NET Core.
 
-Další informace naleznete v tématu:
+Další informace:
 
 * [Pracovní procesy .NET Core jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>
@@ -495,7 +507,7 @@ V předchozích verzích ASP.NET Core volání <xref:Microsoft.AspNetCore.Builde
 
 Tento scénář je opravený v ASP.NET Core 3,0. Hostitel povoluje [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer#forwarded-headers-middleware-options) , pokud `ASPNETCORE_FORWARDEDHEADERS_ENABLED` je proměnná prostředí nastavena na `true` . `ASPNETCORE_FORWARDEDHEADERS_ENABLED`je nastavené na `true` obrázky kontejnerů.
 
-## <a name="performance-improvements"></a>Zlepšení výkonu
+## <a name="performance-improvements"></a>Vylepšení výkonu
 
 ASP.NET Core 3,0 obsahuje mnoho vylepšení, která omezují využití paměti a zvyšují propustnost:
 

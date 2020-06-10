@@ -1,11 +1,23 @@
 ---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Řešení potíží a ladění ASP.NET Corech projektů
+author: Rick-Anderson
+description: Pochopení a řešení potíží s chybami a problémy s ASP.NET Core projekty.
+ms.author: riande
+ms.custom: mvc
+ms.date: 07/10/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: test/troubleshoot
+ms.openlocfilehash: bd5e74569717db26496760eaaa2760122d4b49e7
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106491"
 ---
 # <a name="troubleshoot-and-debug-aspnet-core-projects"></a>Řešení potíží a ladění ASP.NET Corech projektů
 

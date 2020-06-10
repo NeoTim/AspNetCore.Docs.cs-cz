@@ -1,12 +1,24 @@
 ---
-title: vyvynuťte zásadu zabezpečení obsahu pro ASP.NET Core Blazor Autor: Description: ' Naučte se používat zásady zabezpečení obsahu (CSP) s ASP.NET Core Blazor aplikacemi k ochraně před útoky XSS (mezi lokalitami).
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Vynutili zásady zabezpečení obsahu pro ASP.NET CoreBlazor
+author: guardrex
+description: Naučte se používat zásady zabezpečení obsahu (CSP) s aplikacemi ASP.NET Core Blazor k ochraně proti útokům skriptování mezi weby (XSS).
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: security/blazor/content-security-policy
+ms.openlocfilehash: 8615b199373ca856c252b9f843e3635770367e4a
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106387"
 ---
 # <a name="enforce-a-content-security-policy-for-aspnet-core-blazor"></a>Vynutili zásady zabezpečení obsahu pro ASP.NET CoreBlazor
 

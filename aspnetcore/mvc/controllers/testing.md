@@ -1,11 +1,24 @@
 ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Logicer Test Controller v ASP.NET Core
+author: ardalis
+description: Naučte se testovat logiku kontroleru v ASP.NET Core s MOQ a xUnit.
+monikerRange: '>= aspnetcore-2.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 11/07/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: mvc/controllers/testing
+ms.openlocfilehash: 4f7fa2deee9111823f60e344f46c54036779ae53
+ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/09/2020
+ms.locfileid: "84106712"
 ---
 # <a name="unit-test-controller-logic-in-aspnet-core"></a>Logika kontroleru testu jednotek v ASP.NET Core
 
