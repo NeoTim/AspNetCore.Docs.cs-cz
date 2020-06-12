@@ -5,7 +5,7 @@ description: Přečtěte si o Blazor konfiguraci modelu hostování, včetně po
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2020
+ms.date: 06/10/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: e3b8b91a570210e77f307c49f7be21eeab714daa
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 3cef67806ce0e2e045122bdc962e93795be68572
+ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84355107"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84679576"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
 
@@ -36,7 +36,7 @@ Hostovaná Blazor aplikace WebAssembly vybírá prostředí ze serveru prostřed
 
 Pro samostatnou spuštěnou aplikaci, která je spuštěna místně, vývojový server přidá `blazor-environment` hlavičku pro určení vývojového prostředí. Chcete-li určit prostředí pro jiná hostující prostředí, přidejte `blazor-environment` hlavičku.
 
-V následujícím příkladu pro službu IIS přidejte vlastní hlavičku do publikovaného souboru *Web. config* . Soubor *Web. config* je umístěný ve složce *bin/Release/{Target Framework}/Publish* :
+V následujícím příkladu pro IIS přidejte vlastní hlavičku do publikovaného *web.config* souboru. Soubor *web.config* je umístěný ve složce *bin/Release/{Target Framework}/Publish* :
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -55,7 +55,7 @@ V následujícím příkladu pro službu IIS přidejte vlastní hlavičku do pub
 ```
 
 > [!NOTE]
-> Chcete-li použít vlastní soubor *Web. config* pro službu IIS, který není po publikování aplikace ve složce pro *publikování* přepsán, přečtěte si téma <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig> .
+> Chcete-li použít vlastní soubor *web.config* pro službu IIS, která není přepsána při publikování aplikace do složky pro *publikování* , přečtěte si téma <xref:host-and-deploy/blazor/webassembly#use-a-custom-webconfig> .
 
 Získání prostředí aplikace v součásti vložením <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> a čtením <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.Environment> vlastnosti:
 
@@ -104,9 +104,9 @@ if (builder.HostEnvironment.IsEnvironment("Custom"))
 BlazorSestavení WebAssembly načítá konfiguraci z:
 
 * Soubory nastavení aplikace ve výchozím nastavení:
-  * *wwwroot/appSettings. JSON*
+  * *wwwroot/appsettings.jsv*
   * *wwwroot/appSettings. {ENVIRONMENT}. JSON*
-* Další [poskytovatelé konfigurace](xref:fundamentals/configuration/index) zaregistrované aplikací Ne všichni poskytovatelé jsou vhodný pro Blazor aplikace pro WebAssembly. Objasnění, které poskytovatelé podporují pro Blazor WebAssembly, je sledováno pomocí [vysvětlení poskytovatelé konfigurace pro Blazor WASM (dotnet/AspNetCore. Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).
+* Další [poskytovatelé konfigurace](xref:fundamentals/configuration/index) zaregistrované aplikací Ne všichni poskytovatelé jsou vhodný pro Blazor aplikace pro WebAssembly. Vyjasnění, které poskytovatele jsou podporovány pro Blazor WebAssembly, je sledováno pomocí [vysvětlení poskytovatelé konfigurace pro Blazor WASM (dotnet/AspNetCore.Docs #18134)](https://github.com/dotnet/AspNetCore.Docs/issues/18134).
 
 > [!WARNING]
 > Konfigurace v Blazor aplikaci WebAssembly je viditelná pro uživatele. **Neukládejte tajné klíče aplikace ani přihlašovací údaje v konfiguraci.**
@@ -115,7 +115,7 @@ Další informace o poskytovatelích konfigurace najdete v tématu <xref:fundame
 
 #### <a name="app-settings-configuration"></a>Konfigurace nastavení aplikace
 
-*wwwroot/appSettings. JSON*:
+*wwwroot/appsettings.jsv*:
 
 ```json
 {
@@ -190,7 +190,7 @@ Vložení <xref:Microsoft.Extensions.Configuration.IConfiguration> instance do k
 
 Chcete-li číst další konfigurační soubory ze složky *wwwroot* do konfigurace, použijte <xref:System.Net.Http.HttpClient> k získání obsahu souboru. Při použití tohoto přístupu existující <xref:System.Net.Http.HttpClient> Registrace služby může použít místního klienta vytvořeného pro čtení souboru, jak ukazuje následující příklad:
 
-*wwwroot/automobily. JSON*:
+*wwwroot/cars.jsv*:
 
 ```json
 {
@@ -220,7 +220,7 @@ builder.Configuration.AddJsonStream(stream);
 
 #### <a name="authentication-configuration"></a>Konfigurace ověřování
 
-*wwwroot/appSettings. JSON*:
+*wwwroot/appsettings.jsv*:
 
 ```json
 {
@@ -240,13 +240,13 @@ builder.Services.AddOidcAuthentication(options =>
 
 #### <a name="logging-configuration"></a>Konfigurace protokolování
 
-Přidat odkaz na balíček pro [Microsoft. Extensions. Logging. Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/):
+Přidat odkaz na balíček pro [Microsoft.Extensions.Logging.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Configuration/):
 
 ```xml
 <PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="{VERSION}" />
 ```
 
-*wwwroot/appSettings. JSON*:
+*wwwroot/appsettings.jsv*:
 
 ```json
 {
@@ -284,13 +284,44 @@ var hostname = builder.Configuration["HostName"];
 Konfigurační soubory jsou ukládány do mezipaměti pro použití v režimu offline. S [progresivními webovými aplikacemi (PWAs)](xref:blazor/progressive-web-app)můžete aktualizovat pouze konfigurační soubory při vytváření nového nasazení. Úprava konfiguračních souborů mezi nasazeními nemá žádný vliv z těchto důvodů:
 
 * Uživatelé mají verze souborů uložených v mezipaměti, které jsou nadále používány.
-* Soubory *Service-Worker. js* a *Service-Worker-assets. js* aplikace PWA je nutné znovu sestavit při kompilaci, který signalizuje aplikaci na další stránce uživatele online, na kterou se aplikace znovu nasadila.
+* Soubory *service-worker.js* a *service-worker-assets.js* aplikace PWA musí být znovu sestaveny při kompilaci, který signalizace aplikaci na další stránce uživatele v online režimu, že byla aplikace znovu nasazena.
 
 Další informace o tom, jak služba PWAs zpracovává aktualizace na pozadí, naleznete v tématu <xref:blazor/progressive-web-app#background-updates> .
 
 ### <a name="logging"></a>protokolování
 
 Informace o Blazor podpoře protokolování WebAssembly naleznete v tématu <xref:fundamentals/logging/index#create-logs-in-blazor> .
+
+### <a name="signalr-cross-origin-negotiation-for-authentication"></a>SignalRvyjednávání mezi zdroji pro ověřování
+
+Konfigurace SignalR základního klienta pro odesílání přihlašovacích údajů, jako jsou soubory cookie nebo hlavičky ověřování http:
+
+* Použijte <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.WebAssemblyHttpRequestMessageExtensions.SetBrowserRequestCredentials%2A> k nastavení <xref:Microsoft.AspNetCore.Components.WebAssembly.Http.BrowserRequestCredentials.Include> žádostí o [načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API/Using_Fetch) mezi zdroji:
+
+  ```csharp
+  public class IncludeRequestCredentialsMessagHandler : DelegatingHandler
+  {
+      protected override Task<HttpResponseMessage> SendAsync(
+          HttpRequestMessage request, CancellationToken cancellationToken)
+      {
+          request.SetBrowserRequestCredentials(BrowserRequestCredentials.Include);
+          return base.SendAsync(request, cancellationToken);
+      }
+  }
+  ```
+
+* Přiřaďte <xref:System.Net.Http.HttpMessageHandler> k <xref:Microsoft.AspNetCore.Http.Connections.Client.HttpConnectionOptions.HttpMessageHandlerFactory> Možnosti:
+
+  ```csharp
+  var client = new HubConnectionBuilder()
+      .WithUrl(new Uri("http://signalr.example.com"), options =>
+      {
+          options.HttpMessageHandlerFactory = innerHandler => 
+              new IncludeRequestCredentialsMessagHandler { InnerHandler = innerHandler };
+      }).Build();
+  ```
+
+Další informace naleznete v tématu <xref:signalr/configuration#configure-additional-options>.
 
 ## <a name="blazor-server"></a>BlazorWebServer
 

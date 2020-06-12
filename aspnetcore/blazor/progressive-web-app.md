@@ -5,7 +5,7 @@ description: Naučte se vytvářet Blazor progresivní webové aplikace (PWA), k
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/09/2020
+ms.date: 06/10/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: ef73cbb928fb442c73acce6f5facac33236abd67
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: c935f326afb77de5e083829c0bc2494efb20fec3
+ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652412"
+ms.locfileid: "84679606"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Coreho webového Blazor sestavení
 
@@ -75,7 +75,7 @@ Po instalaci se aplikace zobrazí ve vlastním okně bez adresního řádku:
 
 ![Aplikace MyBlazorPwa běží na Google Chrome bez adresního řádku.](progressive-web-app/_static/image3.png)
 
-Chcete-li přizpůsobit název okna, barevné schéma, ikonu nebo jiné podrobnosti, přečtěte si soubor *manifest. JSON* v adresáři *wwwroot* projektu. Schéma tohoto souboru je definováno webovými standardy. Další informace najdete v tématu [MDN web Docs: manifest webové aplikace](https://developer.mozilla.org/docs/Web/Manifest).
+Chcete-li přizpůsobit název okna, barevné schéma, ikonu nebo jiné podrobnosti, přečtěte si téma *manifest.json* a File v adresáři *wwwroot* projektu. Schéma tohoto souboru je definováno webovými standardy. Další informace najdete v tématu [MDN web Docs: manifest webové aplikace](https://developer.mozilla.org/docs/Web/Manifest).
 
 ## <a name="offline-support"></a>Podpora offline
 
@@ -110,8 +110,8 @@ Podpora offline pomocí pracovního procesu služby je webový standard, který 
 
 BlazorŠablona PWA vytvoří dva pracovní pracovní soubory služby:
 
-* *wwwroot/Service-Worker. js*, který se používá při vývoji.
-* *wwwroot/Service-Worker. Publikováno. js*, který se používá po publikování aplikace.
+* *wwwroot/service-worker.js*, který se používá při vývoji.
+* *wwwroot/service-worker.published.js*, který se používá po publikování aplikace.
 
 Chcete-li sdílet logiku mezi dvěma pracovními soubory služby, vezměte v úvahu následující postup:
 
@@ -120,7 +120,7 @@ Chcete-li sdílet logiku mezi dvěma pracovními soubory služby, vezměte v úv
 
 ### <a name="cache-first-fetch-strategy"></a>Strategie prvního načtení mezipaměti
 
-Vestavěný pracovní proces služby *Service-Worker. Publish. js* řeší požadavky pomocí strategie *mezipaměti-First* . To znamená, že pracovní proces služby dává přednost vrácení obsahu v mezipaměti bez ohledu na to, jestli má uživatel přístup k síti nebo novější obsah dostupný na serveru.
+Předdefinovaný pracovník *service-worker.published.js* služby řeší požadavky pomocí strategie *mezipaměti-First* . To znamená, že pracovní proces služby dává přednost vrácení obsahu v mezipaměti bez ohledu na to, jestli má uživatel přístup k síti nebo novější obsah dostupný na serveru.
 
 Strategie pro první mezipaměť je užitečná z těchto důvodů:
 
@@ -139,9 +139,9 @@ V rámci duševního modelu si můžete představit, jak se v režimu offline, t
 
 BlazorŠablona PWA vytváří aplikace, které se automaticky pokusí o aktualizaci na pozadí, kdykoli uživatel navštíví a má fungující síťové připojení. Způsob funguje takto:
 
-* Během kompilace projekt generuje *manifest assetů pracovního procesu služby*. Ve výchozím nastavení se nazývá *Service-Worker-assets. js*. Manifest obsahuje seznam všech statických prostředků, které aplikace vyžaduje, aby fungovala offline, například sestavení .NET, soubory JavaScriptu a CSS, včetně jejich hodnot hash obsahu. Seznam prostředků je načten pracovním procesem služby, aby věděl, které prostředky se mají ukládat do mezipaměti.
-* Pokaždé, když uživatel navštíví aplikaci, prohlížeč znovu vyžádá *Service-Worker. js* a *Service-Worker-assets. js* na pozadí. Soubory jsou porovnány bajtů-pro bajt s existujícím pracovním procesem nainstalovaného služby. Pokud server vrátí změněný obsah některého z těchto souborů, pokusí se pracovní proces služby nainstalovat novou verzi.
-* Při instalaci nové verze samotné pracovní proces služby vytvoří novou a samostatnou mezipaměť pro offline prostředky a začne naplnit mezipaměť prostředky uvedenými v *Service-Worker-assets. js*. Tato logika je implementována ve `onInstall` funkci v rámci *Service-Worker. Publish. js*.
+* Během kompilace projekt generuje *manifest assetů pracovního procesu služby*. Ve výchozím nastavení se nazývá *service-worker-assets.js*. Manifest obsahuje seznam všech statických prostředků, které aplikace vyžaduje, aby fungovala offline, například sestavení .NET, soubory JavaScriptu a CSS, včetně jejich hodnot hash obsahu. Seznam prostředků je načten pracovním procesem služby, aby věděl, které prostředky se mají ukládat do mezipaměti.
+* Pokaždé, když uživatel navštíví aplikaci, prohlížeč znovu vyžádá *service-worker.js* a *service-worker-assets.js* na pozadí. Soubory jsou porovnány bajtů-pro bajt s existujícím pracovním procesem nainstalovaného služby. Pokud server vrátí změněný obsah některého z těchto souborů, pokusí se pracovní proces služby nainstalovat novou verzi.
+* Při instalaci nové verze samotné pracovní proces služby vytvoří novou a samostatnou mezipaměť pro offline prostředky a začne naplnit mezipaměť prostředky uvedenými v *service-worker-assets.js*. Tato logika je implementována ve `onInstall` funkci v rámci *service-worker.published.js*.
 * Proces se úspěšně dokončí, když se všechny prostředky načtou bez chyb a všechny hodnoty hash obsahu se shodují. V případě úspěchu nový pracovní proces služby vstoupí do stavu *čekání na aktivaci* . Jakmile uživatel aplikaci zavře (žádné zbývající karty aplikace nebo Windows), bude nový pracovní proces služby *aktivní* a použije se pro následné návštěvy aplikace. Původní pracovní proces služby a jeho mezipaměť se odstraní.
 * Pokud se proces neúspěšně nedokončí, nová instance pracovního procesu služby se zahodí. V případě, že snad klient má lepší síťové připojení, které může dokončit požadavky, se proces aktualizace znovu pokusí o další návštěvu uživatele.
 
@@ -149,7 +149,7 @@ Tento proces si upravíte úpravou logiky pracovního procesu služby. Žádná 
 
 ### <a name="how-requests-are-resolved"></a>Jak se řeší požadavky
 
-Jak je popsáno v části [strategie načítající mezipaměť](#cache-first-fetch-strategy) , výchozí pracovní proces služby používá strategii *cache-First* , což znamená, že se při dostupnosti pokusí o poskytování obsahu v mezipaměti. Pokud není obsah uložený v mezipaměti pro určitou adresu URL, například při vyžádání dat z back-endu API, pracovní proces služby se vrátí na běžný síťový požadavek. Pokud je server dostupný, požadavek na síť je úspěšný. Tato logika je implementována uvnitř `onFetch` funkce v *Service-Worker. Publish. js*.
+Jak je popsáno v části [strategie načítající mezipaměť](#cache-first-fetch-strategy) , výchozí pracovní proces služby používá strategii *cache-First* , což znamená, že se při dostupnosti pokusí o poskytování obsahu v mezipaměti. Pokud není obsah uložený v mezipaměti pro určitou adresu URL, například při vyžádání dat z back-endu API, pracovní proces služby se vrátí na běžný síťový požadavek. Pokud je server dostupný, požadavek na síť je úspěšný. Tato logika je implementována uvnitř `onFetch` funkce v rámci *service-worker.published.js*.
 
 Pokud Razor komponenty aplikace spoléhají na požadavky na data z back-endové rozhraní API a chcete poskytnout uživatelsky přívětivé uživatelské prostředí pro neúspěšné požadavky z důvodu nedostupnosti sítě, implementujte logiku v rámci komponent aplikace. Můžete například použít `try/catch` kolem <xref:System.Net.Http.HttpClient> požadavků.
 
@@ -160,9 +160,9 @@ Zvažte, co se stane, když uživatel poprvé přejde na adresu URL, například
 * požadavky na *podzdroje* pro obrázky, šablony stylů nebo jiné soubory.
 * *načte/XHR* požadavky na data rozhraní API.
 
-Výchozí pracovní proces služby obsahuje zvláštní případovou logiku pro požadavky na navigaci. Pracovník služby tyto požadavky vyřeší tak, že vrátí obsah uložený v mezipaměti pro `/index.html` , bez ohledu na požadovanou adresu URL. Tato logika je implementována ve `onFetch` funkci v rámci *Service-Worker. Publish. js*.
+Výchozí pracovní proces služby obsahuje zvláštní případovou logiku pro požadavky na navigaci. Pracovník služby tyto požadavky vyřeší tak, že vrátí obsah uložený v mezipaměti pro `/index.html` , bez ohledu na požadovanou adresu URL. Tato logika je implementována ve `onFetch` funkci v rámci *service-worker.published.js*.
 
-Pokud má vaše aplikace určité adresy URL, které musí vracet Server HTML vykreslený serverem, a neobsluhuje `/index.html` z mezipaměti, pak je potřeba upravit logiku pracovního procesu služby. Pokud všechny adresy URL obsahující `/Identity/` musí být zpracovávány jako běžné požadavky pouze online na server, pak změňte logiku *Service-Worker. Publish. js* `onFetch` . Vyhledejte následující kód:
+Pokud má vaše aplikace určité adresy URL, které musí vracet Server HTML vykreslený serverem, a neobsluhuje `/index.html` z mezipaměti, pak je potřeba upravit logiku pracovního procesu služby. Pokud všechny adresy URL obsahující `/Identity/` musí být zpracovávány jako běžné požadavky pouze online na server a pak změňte *service-worker.published.js* `onFetch` Logic. Vyhledejte následující kód:
 
 ```javascript
 const shouldServeIndexHtml = event.request.mode === 'navigate';
@@ -185,14 +185,14 @@ Pokud projekt definuje `ServiceWorkerAssetsManifest` vlastnost MSBuild, Blazor N
 <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
 ```
 
-Soubor je umístěn do výstupního adresáře *wwwroot* , takže prohlížeč může tento soubor načíst tak, že si vyžádá `/service-worker-assets.js` . Chcete-li zobrazit obsah tohoto souboru, otevřete */bin/Debug/{Target Framework}/wwwroot/Service-Worker-assets.js* v textovém editoru. Neupravujte ale soubor, protože se znovu vygeneroval u každého sestavení.
+Soubor je umístěn do výstupního adresáře *wwwroot* , takže prohlížeč může tento soubor načíst tak, že si vyžádá `/service-worker-assets.js` . Chcete-li zobrazit obsah tohoto souboru, otevřete */bin/Debug/{Target Framework}/wwwroot/service-worker-assets.js* v textovém editoru. Neupravujte ale soubor, protože se znovu vygeneroval u každého sestavení.
 
 Ve výchozím nastavení tento manifest uvádí:
 
 * Všechny Blazor prostředky spravované jako sestavení .NET a běhové soubory .NET WebAssembly vyžadované pro funkci offline.
 * Všechny prostředky pro publikování do adresáře *wwwroot* aplikace, jako jsou obrázky, šablony stylů a soubory JavaScriptu, včetně statických webových prostředků poskytovaných externími projekty a balíčky NuGet.
 
-Úpravou logiky v nástroji `onInstall` v nástroji *Service-Worker. Publisher. js*můžete řídit, které z těchto prostředků jsou načteny a ukládány do mezipaměti pracovním procesem služby. Ve výchozím nastavení pracovní proces služby načte a ukládá do mezipaměti soubory, které odpovídají typickým příponám názvů souborů, jako je například *. html*, *. CSS*, *. js*a *. wasm*, plus typy souborů specifické pro Blazor WebAssembly (*. dll*, *. pdb*).
+Úpravou logiky v nástrojiservice-worker.published.jsv nástroji můžete řídit, které z těchto prostředků se načítají a ukládají do mezipaměti pracovního procesu služby `onInstall` . * * Ve výchozím nastavení pracovní proces služby načte a ukládá do mezipaměti soubory, které odpovídají typickým příponám názvů souborů, jako je například *. html*, *. CSS*, *. js*a *. wasm*, plus typy souborů specifické pro Blazor WebAssembly (*. dll*, *. pdb*).
 
 Chcete-li zahrnout další prostředky, které nejsou k dispozici v adresáři *wwwroot* aplikace, definujte další `ItemGroup` položky MSBuild, jak je znázorněno v následujícím příkladu:
 
@@ -264,11 +264,11 @@ Jak je popsáno v části [vygenerované stránky serveru podpory](#support-serv
 
 ### <a name="all-service-worker-asset-manifest-contents-are-cached-by-default"></a>Ve výchozím nastavení se veškerý obsah manifestu Asset Service Worker ukládá do mezipaměti.
 
-Jak je popsáno v části [ukládání prostředků do mezipaměti](#control-asset-caching) , je soubor *Service-Worker-assets. js* vygenerovaný během sestavování a obsahuje seznam všech prostředků, které by pracovní proces služby měl načíst a Uložit do mezipaměti.
+Jak je popsáno v části [ukládání prostředků do mezipaměti](#control-asset-caching) , je soubor *service-worker-assets.js* při sestavování generovaný a obsahuje seznam všech prostředků, které by pracovní proces služby měl načíst a Uložit do mezipaměti.
 
 Vzhledem k tomu, že tento seznam ve výchozím nastavení zahrnuje vše generované do *wwwroot*, včetně obsahu dodávaného externími balíčky a projekty, je nutné, abyste měli pozor, abyste do něj neumístili příliš mnoho obsahu. Pokud adresář *wwwroot* obsahuje miliony imagí, pracovní podproces služby se pokusí je načíst a Uložit do mezipaměti, což spotřebovává nadměrné šířky pásma a pravděpodobně se neúspěšně dokončuje.
 
-Implementujte libovolnou logiku pro řízení, která podmnožina obsahu manifestu by měla být načtena a ukládána do mezipaměti úpravou `onInstall` funkce v *Service-Worker. Publish. js*.
+Implementujte libovolnou logiku pro řízení, která podmnožina obsahu manifestu by měla být načtena a ukládána do mezipaměti úpravou `onInstall` funkce v *service-worker.published.js*.
 
 ### <a name="interaction-with-authentication"></a>Interakce s ověřováním
 
@@ -292,3 +292,7 @@ Ukázková aplikace [CarChecker](https://github.com/SteveSandersonMS/CarChecker)
 * `OfflineAccountClaimsPrincipalFactory`(*Klient/data/OfflineAccountClaimsPrincipalFactory. cs*)
 * `LocalVehiclesStore`(*Klient/data/LocalVehiclesStore. cs*)
 * `LoginStatus`součást (*klient/Shared/ovládací stavu přihlášení. Razor*)
+
+## <a name="additional-resources"></a>Další zdroje
+
+* [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/hosting-model-configuration#signalr-cross-origin-negotiation-for-authentication)

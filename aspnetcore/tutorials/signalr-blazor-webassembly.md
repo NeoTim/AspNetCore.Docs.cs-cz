@@ -5,7 +5,7 @@ description: Vytvořte aplikaci Chat, která používá ASP.NET Core SignalR s B
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 06/10/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: d3ce11606b4193d5c2938b5996d8dcd1cb99a731
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 720f534426cc0e2b32778e49050c7f7d75ecd60d
+ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451885"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84679589"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET Core SignalR s Blazor WebAssembly
 
@@ -93,7 +93,7 @@ Postupujte podle pokynů pro výběr nástrojů:
 
 1. V Visual Studio Code otevřete složku projektu aplikace.
 
-1. Když se zobrazí dialogové okno s přidáním assetů pro sestavení a ladění aplikace, vyberte **Ano**. Visual Studio Code automaticky přidá složku *. VSCode* pomocí vygenerovaných souborů *Launch. JSON* a *Tasks. JSON* .
+1. Když se zobrazí dialogové okno s přidáním assetů pro sestavení a ladění aplikace, vyberte **Ano**. Visual Studio Code automaticky přidá složku *. VSCode* , která vygenerovala *launch.js* a *tasks.jsna* soubory.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
@@ -230,7 +230,7 @@ V projektu **BlazorSignalRApp. Server** vytvořte složku *Centers* (plural) a p
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-1. Když VS Code nabídky vytvoří profil spuštění pro serverovou aplikaci (*. VSCode/Launch. JSON*), `program` zobrazí se položka podobně jako v následujícím příkladu, aby odkazovala na sestavení aplikace ( `{APPLICATION NAME}.Server.dll` ):
+1. Když VS Code nabídky vytvoří profil spuštění pro serverovou aplikaci (*. VSCode/launch.json*), `program` zobrazí se položka podobná následujícímu, aby odkazovala na sestavení aplikace ( `{APPLICATION NAME}.Server.dll` ):
 
    ```json
    "program": "${workspaceFolder}/Server/bin/Debug/netcoreapp3.1/{APPLICATION NAME}.Server.dll"
@@ -296,3 +296,4 @@ Další informace o vytváření Blazor aplikací najdete v Blazor dokumentaci:
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:signalr/introduction>
+* [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/hosting-model-configuration#signalr-cross-origin-negotiation-for-authentication)
