@@ -75,7 +75,7 @@
               uid: tutorials/first-mvc-app/new-field
             - name: Přidání ověřování
               uid: tutorials/first-mvc-app/validation
-            - name: Zkoumání metod Details a Delete
+            - name: Prozkoumání metod Details a Delete
               uid: tutorials/first-mvc-app/details
         - name: Blazor
           displayName: tutorial
@@ -559,6 +559,9 @@
           displayName: signalr
         - name: Aspekty návrhu rozhraní API
           uid: signalr/api-design
+          displayName: signalr
+        - name: Filtry centra
+          uid: signalr/hub-filters
           displayName: signalr
     - name: Klienti
       displayName: signalr

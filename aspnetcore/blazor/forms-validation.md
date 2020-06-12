@@ -5,7 +5,7 @@ description: Naučte se používat scénáře ověřování formulářů a polí
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/27/2020
+ms.date: 06/04/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,20 +13,20 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 557ccf45fb88a743158d18046789ed6776efb28c
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 707686cdc4ceb6605d6214eeeee0f6dd2e121c90
+ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84145353"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84679524"
 ---
-# <a name="aspnet-core-blazor-forms-and-validation"></a><span data-ttu-id="14b00-103">ASP.NET Core Blazor formuláře a ověřování</span><span class="sxs-lookup"><span data-stu-id="14b00-103">ASP.NET Core Blazor forms and validation</span></span>
+# <a name="aspnet-core-blazor-forms-and-validation"></a><span data-ttu-id="5751e-103">ASP.NET Core Blazor formuláře a ověřování</span><span class="sxs-lookup"><span data-stu-id="5751e-103">ASP.NET Core Blazor forms and validation</span></span>
 
-<span data-ttu-id="14b00-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="14b00-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
+<span data-ttu-id="5751e-104">Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)</span><span class="sxs-lookup"><span data-stu-id="5751e-104">By [Daniel Roth](https://github.com/danroth27) and [Luke Latham](https://github.com/guardrex)</span></span>
 
-<span data-ttu-id="14b00-105">Formuláře a ověřování jsou podporovány v Blazor použití [datových poznámek](xref:mvc/models/validation).</span><span class="sxs-lookup"><span data-stu-id="14b00-105">Forms and validation are supported in Blazor using [data annotations](xref:mvc/models/validation).</span></span>
+<span data-ttu-id="5751e-105">Formuláře a ověřování jsou podporovány v Blazor použití [datových poznámek](xref:mvc/models/validation).</span><span class="sxs-lookup"><span data-stu-id="5751e-105">Forms and validation are supported in Blazor using [data annotations](xref:mvc/models/validation).</span></span>
 
-<span data-ttu-id="14b00-106">Následující `ExampleModel` typ definuje logiku ověřování pomocí datových poznámek:</span><span class="sxs-lookup"><span data-stu-id="14b00-106">The following `ExampleModel` type defines validation logic using data annotations:</span></span>
+<span data-ttu-id="5751e-106">Následující `ExampleModel` typ definuje logiku ověřování pomocí datových poznámek:</span><span class="sxs-lookup"><span data-stu-id="5751e-106">The following `ExampleModel` type defines validation logic using data annotations:</span></span>
 
 ```csharp
 using System.ComponentModel.DataAnnotations;
@@ -39,7 +39,7 @@ public class ExampleModel
 }
 ```
 
-<span data-ttu-id="14b00-107">Formulář je definován pomocí <xref:Microsoft.AspNetCore.Components.Forms.EditForm> komponenty.</span><span class="sxs-lookup"><span data-stu-id="14b00-107">A form is defined using the <xref:Microsoft.AspNetCore.Components.Forms.EditForm> component.</span></span> <span data-ttu-id="14b00-108">Následující formulář ukazuje typické prvky, komponenty a Razor kód:</span><span class="sxs-lookup"><span data-stu-id="14b00-108">The following form demonstrates typical elements, components, and Razor code:</span></span>
+<span data-ttu-id="5751e-107">Formulář je definován pomocí <xref:Microsoft.AspNetCore.Components.Forms.EditForm> komponenty.</span><span class="sxs-lookup"><span data-stu-id="5751e-107">A form is defined using the <xref:Microsoft.AspNetCore.Components.Forms.EditForm> component.</span></span> <span data-ttu-id="5751e-108">Následující formulář ukazuje typické prvky, komponenty a Razor kód:</span><span class="sxs-lookup"><span data-stu-id="5751e-108">The following form demonstrates typical elements, components, and Razor code:</span></span>
 
 ```razor
 <EditForm Model="@exampleModel" OnValidSubmit="HandleValidSubmit">
@@ -61,19 +61,19 @@ public class ExampleModel
 }
 ```
 
-<span data-ttu-id="14b00-109">V předchozím příkladu:</span><span class="sxs-lookup"><span data-stu-id="14b00-109">In the preceding example:</span></span>
+<span data-ttu-id="5751e-109">V předchozím příkladu:</span><span class="sxs-lookup"><span data-stu-id="5751e-109">In the preceding example:</span></span>
 
-* <span data-ttu-id="14b00-110">Formulář ověřuje vstup uživatele v `name` poli pomocí ověřování definovaného v `ExampleModel` typu.</span><span class="sxs-lookup"><span data-stu-id="14b00-110">The form validates user input in the `name` field using the validation defined in the `ExampleModel` type.</span></span> <span data-ttu-id="14b00-111">Model se vytvoří v bloku komponenty a je `@code` uložený v soukromém poli ( `exampleModel` ).</span><span class="sxs-lookup"><span data-stu-id="14b00-111">The model is created in the component's `@code` block and held in a private field (`exampleModel`).</span></span> <span data-ttu-id="14b00-112">Pole je přiřazeno `Model` atributu `<EditForm>` elementu.</span><span class="sxs-lookup"><span data-stu-id="14b00-112">The field is assigned to the `Model` attribute of the `<EditForm>` element.</span></span>
-* <span data-ttu-id="14b00-113"><xref:Microsoft.AspNetCore.Components.Forms.InputText> `@bind-Value` Vazby komponenty:</span><span class="sxs-lookup"><span data-stu-id="14b00-113">The <xref:Microsoft.AspNetCore.Components.Forms.InputText> component's `@bind-Value` binds:</span></span>
-  * <span data-ttu-id="14b00-114">Vlastnost modelu ( `exampleModel.Name` ) na <xref:Microsoft.AspNetCore.Components.Forms.InputText> `Value` vlastnost součásti.</span><span class="sxs-lookup"><span data-stu-id="14b00-114">The model property (`exampleModel.Name`) to the <xref:Microsoft.AspNetCore.Components.Forms.InputText> component's `Value` property.</span></span> <span data-ttu-id="14b00-115">Další informace o vazbách vlastností naleznete v tématu <xref:blazor/data-binding#parent-to-child-binding-with-component-parameters> .</span><span class="sxs-lookup"><span data-stu-id="14b00-115">For more information on property binding, see <xref:blazor/data-binding#parent-to-child-binding-with-component-parameters>.</span></span>
-  * <span data-ttu-id="14b00-116">Delegát události změny pro <xref:Microsoft.AspNetCore.Components.Forms.InputText> `ValueChanged` vlastnost komponenty.</span><span class="sxs-lookup"><span data-stu-id="14b00-116">A change event delegate to the <xref:Microsoft.AspNetCore.Components.Forms.InputText> component's `ValueChanged` property.</span></span>
-* <span data-ttu-id="14b00-117"><xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>Komponenta připojuje ověřování pomocí datových poznámek.</span><span class="sxs-lookup"><span data-stu-id="14b00-117">The <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component attaches validation support using data annotations.</span></span>
-* <span data-ttu-id="14b00-118"><xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary>Komponenta shrnuje ověřovací zprávy.</span><span class="sxs-lookup"><span data-stu-id="14b00-118">The <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component summarizes validation messages.</span></span>
-* <span data-ttu-id="14b00-119">`HandleValidSubmit`aktivuje se, když formulář úspěšně odešle (projde ověřením).</span><span class="sxs-lookup"><span data-stu-id="14b00-119">`HandleValidSubmit` is triggered when the form successfully submits (passes validation).</span></span>
+* <span data-ttu-id="5751e-110">Formulář ověřuje vstup uživatele v `name` poli pomocí ověřování definovaného v `ExampleModel` typu.</span><span class="sxs-lookup"><span data-stu-id="5751e-110">The form validates user input in the `name` field using the validation defined in the `ExampleModel` type.</span></span> <span data-ttu-id="5751e-111">Model se vytvoří v bloku komponenty a je `@code` uložený v soukromém poli ( `exampleModel` ).</span><span class="sxs-lookup"><span data-stu-id="5751e-111">The model is created in the component's `@code` block and held in a private field (`exampleModel`).</span></span> <span data-ttu-id="5751e-112">Pole je přiřazeno `Model` atributu `<EditForm>` elementu.</span><span class="sxs-lookup"><span data-stu-id="5751e-112">The field is assigned to the `Model` attribute of the `<EditForm>` element.</span></span>
+* <span data-ttu-id="5751e-113"><xref:Microsoft.AspNetCore.Components.Forms.InputText> `@bind-Value` Vazby komponenty:</span><span class="sxs-lookup"><span data-stu-id="5751e-113">The <xref:Microsoft.AspNetCore.Components.Forms.InputText> component's `@bind-Value` binds:</span></span>
+  * <span data-ttu-id="5751e-114">Vlastnost modelu ( `exampleModel.Name` ) na <xref:Microsoft.AspNetCore.Components.Forms.InputText> `Value` vlastnost součásti.</span><span class="sxs-lookup"><span data-stu-id="5751e-114">The model property (`exampleModel.Name`) to the <xref:Microsoft.AspNetCore.Components.Forms.InputText> component's `Value` property.</span></span> <span data-ttu-id="5751e-115">Další informace o vazbách vlastností naleznete v tématu <xref:blazor/data-binding#parent-to-child-binding-with-component-parameters> .</span><span class="sxs-lookup"><span data-stu-id="5751e-115">For more information on property binding, see <xref:blazor/data-binding#parent-to-child-binding-with-component-parameters>.</span></span>
+  * <span data-ttu-id="5751e-116">Delegát události změny pro <xref:Microsoft.AspNetCore.Components.Forms.InputText> `ValueChanged` vlastnost komponenty.</span><span class="sxs-lookup"><span data-stu-id="5751e-116">A change event delegate to the <xref:Microsoft.AspNetCore.Components.Forms.InputText> component's `ValueChanged` property.</span></span>
+* <span data-ttu-id="5751e-117"><xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>Komponenta připojuje ověřování pomocí datových poznámek.</span><span class="sxs-lookup"><span data-stu-id="5751e-117">The <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component attaches validation support using data annotations.</span></span>
+* <span data-ttu-id="5751e-118"><xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary>Komponenta shrnuje ověřovací zprávy.</span><span class="sxs-lookup"><span data-stu-id="5751e-118">The <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component summarizes validation messages.</span></span>
+* <span data-ttu-id="5751e-119">`HandleValidSubmit`aktivuje se, když formulář úspěšně odešle (projde ověřením).</span><span class="sxs-lookup"><span data-stu-id="5751e-119">`HandleValidSubmit` is triggered when the form successfully submits (passes validation).</span></span>
 
-<span data-ttu-id="14b00-120">K dispozici je sada předdefinovaných vstupních komponent pro příjem a ověření vstupu uživatele.</span><span class="sxs-lookup"><span data-stu-id="14b00-120">A set of built-in input components are available to receive and validate user input.</span></span> <span data-ttu-id="14b00-121">Vstupy jsou ověřovány při jejich změně a při odeslání formuláře.</span><span class="sxs-lookup"><span data-stu-id="14b00-121">Inputs are validated when they're changed and when a form is submitted.</span></span> <span data-ttu-id="14b00-122">Dostupné vstupní komponenty jsou uvedené v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="14b00-122">Available input components are shown in the following table.</span></span>
+<span data-ttu-id="5751e-120">K dispozici je sada předdefinovaných vstupních komponent pro příjem a ověření vstupu uživatele.</span><span class="sxs-lookup"><span data-stu-id="5751e-120">A set of built-in input components are available to receive and validate user input.</span></span> <span data-ttu-id="5751e-121">Vstupy jsou ověřovány při jejich změně a při odeslání formuláře.</span><span class="sxs-lookup"><span data-stu-id="5751e-121">Inputs are validated when they're changed and when a form is submitted.</span></span> <span data-ttu-id="5751e-122">Dostupné vstupní komponenty jsou uvedené v následující tabulce.</span><span class="sxs-lookup"><span data-stu-id="5751e-122">Available input components are shown in the following table.</span></span>
 
-| <span data-ttu-id="14b00-123">Vstupní komponenta</span><span class="sxs-lookup"><span data-stu-id="14b00-123">Input component</span></span> | <span data-ttu-id="14b00-124">Vykresleno jako&hellip;</span><span class="sxs-lookup"><span data-stu-id="14b00-124">Rendered as&hellip;</span></span> |
+| <span data-ttu-id="5751e-123">Vstupní komponenta</span><span class="sxs-lookup"><span data-stu-id="5751e-123">Input component</span></span> | <span data-ttu-id="5751e-124">Vykresleno jako&hellip;</span><span class="sxs-lookup"><span data-stu-id="5751e-124">Rendered as&hellip;</span></span> |
 | --------------- | ------------------- |
 | <xref:Microsoft.AspNetCore.Components.Forms.InputText> | `<input>` |
 | <xref:Microsoft.AspNetCore.Components.Forms.InputTextArea> | `<textarea>` |
@@ -82,11 +82,11 @@ public class ExampleModel
 | <xref:Microsoft.AspNetCore.Components.Forms.InputCheckbox> | `<input type="checkbox">` |
 | <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> | `<input type="date">` |
 
-<span data-ttu-id="14b00-125">Všechny vstupní komponenty, včetně <xref:Microsoft.AspNetCore.Components.Forms.EditForm> , podporují libovolné atributy.</span><span class="sxs-lookup"><span data-stu-id="14b00-125">All of the input components, including <xref:Microsoft.AspNetCore.Components.Forms.EditForm>, support arbitrary attributes.</span></span> <span data-ttu-id="14b00-126">Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do vykresleného prvku HTML.</span><span class="sxs-lookup"><span data-stu-id="14b00-126">Any attribute that doesn't match a component parameter is added to the rendered HTML element.</span></span>
+<span data-ttu-id="5751e-125">Všechny vstupní komponenty, včetně <xref:Microsoft.AspNetCore.Components.Forms.EditForm> , podporují libovolné atributy.</span><span class="sxs-lookup"><span data-stu-id="5751e-125">All of the input components, including <xref:Microsoft.AspNetCore.Components.Forms.EditForm>, support arbitrary attributes.</span></span> <span data-ttu-id="5751e-126">Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do vykresleného prvku HTML.</span><span class="sxs-lookup"><span data-stu-id="5751e-126">Any attribute that doesn't match a component parameter is added to the rendered HTML element.</span></span>
 
-<span data-ttu-id="14b00-127">Vstupní komponenty poskytují výchozí chování pro ověřování při úpravách a změně jejich třídy CSS tak, aby odrážely stav pole.</span><span class="sxs-lookup"><span data-stu-id="14b00-127">Input components provide default behavior for validating on edit and changing their CSS class to reflect the field state.</span></span> <span data-ttu-id="14b00-128">Některé součásti obsahují užitečnou logiku analýzy.</span><span class="sxs-lookup"><span data-stu-id="14b00-128">Some components include useful parsing logic.</span></span> <span data-ttu-id="14b00-129">Například <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> a <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> zpracujte neanalyzovatelné hodnoty tak, že je zaregistrujete jako chyby ověřování.</span><span class="sxs-lookup"><span data-stu-id="14b00-129">For example, <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> and <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> handle unparseable values gracefully by registering them as validation errors.</span></span> <span data-ttu-id="14b00-130">Typy, které mohou přijmout hodnoty null, podporují také hodnotu null cílového pole (například `int?` ).</span><span class="sxs-lookup"><span data-stu-id="14b00-130">Types that can accept null values also support nullability of the target field (for example, `int?`).</span></span>
+<span data-ttu-id="5751e-127">Vstupní komponenty poskytují výchozí chování pro ověřování při úpravách a změně jejich třídy CSS tak, aby odrážely stav pole.</span><span class="sxs-lookup"><span data-stu-id="5751e-127">Input components provide default behavior for validating on edit and changing their CSS class to reflect the field state.</span></span> <span data-ttu-id="5751e-128">Některé součásti obsahují užitečnou logiku analýzy.</span><span class="sxs-lookup"><span data-stu-id="5751e-128">Some components include useful parsing logic.</span></span> <span data-ttu-id="5751e-129">Například <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> a <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> zpracujte neanalyzovatelné hodnoty tak, že je zaregistrujete jako chyby ověřování.</span><span class="sxs-lookup"><span data-stu-id="5751e-129">For example, <xref:Microsoft.AspNetCore.Components.Forms.InputDate%601> and <xref:Microsoft.AspNetCore.Components.Forms.InputNumber%601> handle unparseable values gracefully by registering them as validation errors.</span></span> <span data-ttu-id="5751e-130">Typy, které mohou přijmout hodnoty null, podporují také hodnotu null cílového pole (například `int?` ).</span><span class="sxs-lookup"><span data-stu-id="5751e-130">Types that can accept null values also support nullability of the target field (for example, `int?`).</span></span>
 
-<span data-ttu-id="14b00-131">Následující `Starship` typ definuje logiku ověřování pomocí větší sady vlastností a poznámek k datům než dříve `ExampleModel` :</span><span class="sxs-lookup"><span data-stu-id="14b00-131">The following `Starship` type defines validation logic using a larger set of properties and data annotations than the earlier `ExampleModel`:</span></span>
+<span data-ttu-id="5751e-131">Následující `Starship` typ definuje logiku ověřování pomocí větší sady vlastností a poznámek k datům než dříve `ExampleModel` :</span><span class="sxs-lookup"><span data-stu-id="5751e-131">The following `Starship` type defines validation logic using a larger set of properties and data annotations than the earlier `ExampleModel`:</span></span>
 
 ```csharp
 using System;
@@ -116,9 +116,9 @@ public class Starship
 }
 ```
 
-<span data-ttu-id="14b00-132">V předchozím příkladu `Description` je volitelná, protože nejsou k dispozici žádné anotace dat.</span><span class="sxs-lookup"><span data-stu-id="14b00-132">In the preceding example, `Description` is optional because no data annotations are present.</span></span>
+<span data-ttu-id="5751e-132">V předchozím příkladu `Description` je volitelná, protože nejsou k dispozici žádné anotace dat.</span><span class="sxs-lookup"><span data-stu-id="5751e-132">In the preceding example, `Description` is optional because no data annotations are present.</span></span>
 
-<span data-ttu-id="14b00-133">Následující formulář ověří uživatelský vstup pomocí ověřování definovaného v `Starship` modelu:</span><span class="sxs-lookup"><span data-stu-id="14b00-133">The following form validates user input using the validation defined in the `Starship` model:</span></span>
+<span data-ttu-id="5751e-133">Následující formulář ověří uživatelský vstup pomocí ověřování definovaného v `Starship` modelu:</span><span class="sxs-lookup"><span data-stu-id="5751e-133">The following form validates user input using the validation defined in the `Starship` model:</span></span>
 
 ```razor
 @page "/FormsValidation"
@@ -192,14 +192,14 @@ public class Starship
 }
 ```
 
-<span data-ttu-id="14b00-134"><xref:Microsoft.AspNetCore.Components.Forms.EditForm>Vytvoří <xref:Microsoft.AspNetCore.Components.Forms.EditContext> jako [kaskádovou hodnotu](xref:blazor/components#cascading-values-and-parameters) , která sleduje metadata procesu úprav, včetně toho, která pole jsou upravena a aktuální zprávy ověření.</span><span class="sxs-lookup"><span data-stu-id="14b00-134">The <xref:Microsoft.AspNetCore.Components.Forms.EditForm> creates an <xref:Microsoft.AspNetCore.Components.Forms.EditContext> as a [cascading value](xref:blazor/components#cascading-values-and-parameters) that tracks metadata about the edit process, including which fields have been modified and the current validation messages.</span></span> <span data-ttu-id="14b00-135"><xref:Microsoft.AspNetCore.Components.Forms.EditForm>Poskytuje taky praktické události pro platná a neplatná odeslání ( <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit> , <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnInvalidSubmit> ).</span><span class="sxs-lookup"><span data-stu-id="14b00-135">The <xref:Microsoft.AspNetCore.Components.Forms.EditForm> also provides convenient events for valid and invalid submits (<xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit>, <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnInvalidSubmit>).</span></span> <span data-ttu-id="14b00-136">Alternativně můžete použít <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit> k aktivaci ověřování a hodnot polí pro kontrolu pomocí vlastního ověřovacího kódu.</span><span class="sxs-lookup"><span data-stu-id="14b00-136">Alternatively, use <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit> to trigger the validation and check field values with custom validation code.</span></span>
+<span data-ttu-id="5751e-134"><xref:Microsoft.AspNetCore.Components.Forms.EditForm>Vytvoří <xref:Microsoft.AspNetCore.Components.Forms.EditContext> jako [kaskádovou hodnotu](xref:blazor/components#cascading-values-and-parameters) , která sleduje metadata procesu úprav, včetně toho, která pole jsou upravena a aktuální zprávy ověření.</span><span class="sxs-lookup"><span data-stu-id="5751e-134">The <xref:Microsoft.AspNetCore.Components.Forms.EditForm> creates an <xref:Microsoft.AspNetCore.Components.Forms.EditContext> as a [cascading value](xref:blazor/components#cascading-values-and-parameters) that tracks metadata about the edit process, including which fields have been modified and the current validation messages.</span></span> <span data-ttu-id="5751e-135"><xref:Microsoft.AspNetCore.Components.Forms.EditForm>Poskytuje taky praktické události pro platná a neplatná odeslání ( <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit> , <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnInvalidSubmit> ).</span><span class="sxs-lookup"><span data-stu-id="5751e-135">The <xref:Microsoft.AspNetCore.Components.Forms.EditForm> also provides convenient events for valid and invalid submits (<xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit>, <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnInvalidSubmit>).</span></span> <span data-ttu-id="5751e-136">Alternativně můžete použít <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit> k aktivaci ověřování a hodnot polí pro kontrolu pomocí vlastního ověřovacího kódu.</span><span class="sxs-lookup"><span data-stu-id="5751e-136">Alternatively, use <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit> to trigger the validation and check field values with custom validation code.</span></span>
 
-<span data-ttu-id="14b00-137">V následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="14b00-137">In the following example:</span></span>
+<span data-ttu-id="5751e-137">V následujícím příkladu:</span><span class="sxs-lookup"><span data-stu-id="5751e-137">In the following example:</span></span>
 
-* <span data-ttu-id="14b00-138">`HandleSubmit`Metoda se spustí, když je vybráno tlačítko **Odeslat** .</span><span class="sxs-lookup"><span data-stu-id="14b00-138">The `HandleSubmit` method runs when the **Submit** button is selected.</span></span>
-* <span data-ttu-id="14b00-139">Formulář se ověří pomocí formuláře <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .</span><span class="sxs-lookup"><span data-stu-id="14b00-139">The form is validated using the form's <xref:Microsoft.AspNetCore.Components.Forms.EditContext>.</span></span>
-* <span data-ttu-id="14b00-140">Formulář se dále ověří předáním <xref:Microsoft.AspNetCore.Components.Forms.EditContext> `ServerValidate` metody, která volá koncový bod webového rozhraní API na serveru (*není zobrazený*).</span><span class="sxs-lookup"><span data-stu-id="14b00-140">The form is further validated by passing the <xref:Microsoft.AspNetCore.Components.Forms.EditContext> to the `ServerValidate` method that calls a web API endpoint on the server (*not shown*).</span></span>
-* <span data-ttu-id="14b00-141">Další kód se spustí v závislosti na výsledku ověřování na straně klienta a serveru kontrolou `isValid` .</span><span class="sxs-lookup"><span data-stu-id="14b00-141">Additional code is run depending on the result of the client- and server-side validation by checking `isValid`.</span></span>
+* <span data-ttu-id="5751e-138">`HandleSubmit`Metoda se spustí, když je vybráno tlačítko **Odeslat** .</span><span class="sxs-lookup"><span data-stu-id="5751e-138">The `HandleSubmit` method runs when the **Submit** button is selected.</span></span>
+* <span data-ttu-id="5751e-139">Formulář se ověří pomocí formuláře <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .</span><span class="sxs-lookup"><span data-stu-id="5751e-139">The form is validated using the form's <xref:Microsoft.AspNetCore.Components.Forms.EditContext>.</span></span>
+* <span data-ttu-id="5751e-140">Formulář se dále ověří předáním <xref:Microsoft.AspNetCore.Components.Forms.EditContext> `ServerValidate` metody, která volá koncový bod webového rozhraní API na serveru (*není zobrazený*).</span><span class="sxs-lookup"><span data-stu-id="5751e-140">The form is further validated by passing the <xref:Microsoft.AspNetCore.Components.Forms.EditContext> to the `ServerValidate` method that calls a web API endpoint on the server (*not shown*).</span></span>
+* <span data-ttu-id="5751e-141">Další kód se spustí v závislosti na výsledku ověřování na straně klienta a serveru kontrolou `isValid` .</span><span class="sxs-lookup"><span data-stu-id="5751e-141">Additional code is run depending on the result of the client- and server-side validation by checking `isValid`.</span></span>
 
 ```razor
 <EditForm EditContext="@editContext" OnSubmit="HandleSubmit">
@@ -242,11 +242,13 @@ public class Starship
 }
 ```
 
-## <a name="inputtext-based-on-the-input-event"></a><span data-ttu-id="14b00-142">InputText na základě události vstupu</span><span class="sxs-lookup"><span data-stu-id="14b00-142">InputText based on the input event</span></span>
+## <a name="inputtext-based-on-the-input-event"></a><span data-ttu-id="5751e-142">InputText na základě události vstupu</span><span class="sxs-lookup"><span data-stu-id="5751e-142">InputText based on the input event</span></span>
 
-<span data-ttu-id="14b00-143">Pomocí <xref:Microsoft.AspNetCore.Components.Forms.InputText> komponenty můžete vytvořit vlastní komponentu, která `input` místo události používá událost `change` .</span><span class="sxs-lookup"><span data-stu-id="14b00-143">Use the <xref:Microsoft.AspNetCore.Components.Forms.InputText> component to create a custom component that uses the `input` event instead of the `change` event.</span></span>
+<span data-ttu-id="5751e-143">Pomocí <xref:Microsoft.AspNetCore.Components.Forms.InputText> komponenty můžete vytvořit vlastní komponentu, která `input` místo události používá událost `change` .</span><span class="sxs-lookup"><span data-stu-id="5751e-143">Use the <xref:Microsoft.AspNetCore.Components.Forms.InputText> component to create a custom component that uses the `input` event instead of the `change` event.</span></span>
 
-<span data-ttu-id="14b00-144">Vytvořte komponentu s následujícím kódem a použijte komponentu stejně jako <xref:Microsoft.AspNetCore.Components.Forms.InputText> je použit:</span><span class="sxs-lookup"><span data-stu-id="14b00-144">Create a component with the following markup, and use the component just as <xref:Microsoft.AspNetCore.Components.Forms.InputText> is used:</span></span>
+<span data-ttu-id="5751e-144">V následujícím příkladu `CustomInputText` Komponenta dědí `InputText` komponentu rozhraní a nastaví vazbu na událost ( <xref:Microsoft.AspNetCore.Components.EventCallbackFactoryBinderExtensions.CreateBinder%2A> ) na `oninput` událost.</span><span class="sxs-lookup"><span data-stu-id="5751e-144">In the following example, the `CustomInputText` component inherits the framework's `InputText` component and sets the event binding (<xref:Microsoft.AspNetCore.Components.EventCallbackFactoryBinderExtensions.CreateBinder%2A>) to the `oninput` event.</span></span>
+
+<span data-ttu-id="5751e-145">*Shared/CustomInputText. Razor*:</span><span class="sxs-lookup"><span data-stu-id="5751e-145">*Shared/CustomInputText.razor*:</span></span>
 
 ```razor
 @inherits InputText
@@ -254,17 +256,56 @@ public class Starship
 <input 
     @attributes="AdditionalAttributes" 
     class="@CssClass" 
-    value="@CurrentValue" 
+    value="@CurrentValue"
     @oninput="EventCallback.Factory.CreateBinder<string>(
-        this, __value => CurrentValueAsString = __value, CurrentValueAsString)" />
+         this, __value => CurrentValueAsString = __value, 
+         CurrentValueAsString)" />
 ```
 
-## <a name="work-with-radio-buttons"></a><span data-ttu-id="14b00-145">Práce s přepínači</span><span class="sxs-lookup"><span data-stu-id="14b00-145">Work with radio buttons</span></span>
+<span data-ttu-id="5751e-146">`CustomInputText`Komponentu lze použít kdekoli <xref:Microsoft.AspNetCore.Components.Forms.InputText> :</span><span class="sxs-lookup"><span data-stu-id="5751e-146">The `CustomInputText` component can be used anywhere <xref:Microsoft.AspNetCore.Components.Forms.InputText> is used:</span></span>
 
-<span data-ttu-id="14b00-146">Při práci s přepínači ve formuláři je datová vazba zpracovávána jinak než jiné prvky, protože přepínače jsou vyhodnocovány jako skupina.</span><span class="sxs-lookup"><span data-stu-id="14b00-146">When working with radio buttons in a form, data binding is handled differently than other elements because radio buttons are evaluated as a group.</span></span> <span data-ttu-id="14b00-147">Hodnota každého přepínacího tlačítka je pevná, ale hodnota skupiny přepínačů je hodnota vybraného přepínacího tlačítka.</span><span class="sxs-lookup"><span data-stu-id="14b00-147">The value of each radio button is fixed, but the value of the radio button group is the value of the selected radio button.</span></span> <span data-ttu-id="14b00-148">Následující příklad ukazuje, jak:</span><span class="sxs-lookup"><span data-stu-id="14b00-148">The following example shows how to:</span></span>
+<span data-ttu-id="5751e-147">*Stránky/TestForm. Razor*:</span><span class="sxs-lookup"><span data-stu-id="5751e-147">*Pages/TestForm.razor*:</span></span>
 
-* <span data-ttu-id="14b00-149">Zpracuje datovou vazbu pro skupinu přepínačů.</span><span class="sxs-lookup"><span data-stu-id="14b00-149">Handle data binding for a radio button group.</span></span>
-* <span data-ttu-id="14b00-150">Podpora ověřování pomocí vlastní `InputRadio` součásti.</span><span class="sxs-lookup"><span data-stu-id="14b00-150">Support validation using a custom `InputRadio` component.</span></span>
+```razor
+@page  "/testform"
+@using System.ComponentModel.DataAnnotations;
+
+<EditForm Model="@exampleModel" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <CustomInputText @bind-Value="exampleModel.Name" />
+
+    <button type="submit">Submit</button>
+</EditForm>
+
+<p>
+    CurrentValue: @exampleModel.Name
+</p>
+
+@code {
+    private ExampleModel exampleModel = new ExampleModel();
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("OnValidSubmit");
+    }
+
+    public class ExampleModel
+    {
+        [Required]
+        [StringLength(10, ErrorMessage = "Name is too long.")]
+        public string Name { get; set; }
+    }
+}
+```
+
+## <a name="work-with-radio-buttons"></a><span data-ttu-id="5751e-148">Práce s přepínači</span><span class="sxs-lookup"><span data-stu-id="5751e-148">Work with radio buttons</span></span>
+
+<span data-ttu-id="5751e-149">Při práci s přepínači ve formuláři je datová vazba zpracovávána jinak než jiné prvky, protože přepínače jsou vyhodnocovány jako skupina.</span><span class="sxs-lookup"><span data-stu-id="5751e-149">When working with radio buttons in a form, data binding is handled differently than other elements because radio buttons are evaluated as a group.</span></span> <span data-ttu-id="5751e-150">Hodnota každého přepínacího tlačítka je pevná, ale hodnota skupiny přepínačů je hodnota vybraného přepínacího tlačítka.</span><span class="sxs-lookup"><span data-stu-id="5751e-150">The value of each radio button is fixed, but the value of the radio button group is the value of the selected radio button.</span></span> <span data-ttu-id="5751e-151">Následující příklad ukazuje, jak:</span><span class="sxs-lookup"><span data-stu-id="5751e-151">The following example shows how to:</span></span>
+
+* <span data-ttu-id="5751e-152">Zpracuje datovou vazbu pro skupinu přepínačů.</span><span class="sxs-lookup"><span data-stu-id="5751e-152">Handle data binding for a radio button group.</span></span>
+* <span data-ttu-id="5751e-153">Podpora ověřování pomocí vlastní `InputRadio` součásti.</span><span class="sxs-lookup"><span data-stu-id="5751e-153">Support validation using a custom `InputRadio` component.</span></span>
 
 ```razor
 @using System.Globalization
@@ -306,7 +347,7 @@ public class Starship
 }
 ```
 
-<span data-ttu-id="14b00-151">V následujícím <xref:Microsoft.AspNetCore.Components.Forms.EditForm> příkladu se `InputRadio` k získání a ověření hodnocení od uživatele používá předchozí komponenta:</span><span class="sxs-lookup"><span data-stu-id="14b00-151">The following <xref:Microsoft.AspNetCore.Components.Forms.EditForm> uses the preceding `InputRadio` component to obtain and validate a rating from the user:</span></span>
+<span data-ttu-id="5751e-154">V následujícím <xref:Microsoft.AspNetCore.Components.Forms.EditForm> příkladu se `InputRadio` k získání a ověření hodnocení od uživatele používá předchozí komponenta:</span><span class="sxs-lookup"><span data-stu-id="5751e-154">The following <xref:Microsoft.AspNetCore.Components.Forms.EditForm> uses the preceding `InputRadio` component to obtain and validate a rating from the user:</span></span>
 
 ```razor
 @page "/RadioButtonExample"
@@ -347,40 +388,40 @@ public class Starship
 }
 ```
 
-## <a name="validation-support"></a><span data-ttu-id="14b00-152">Podpora ověřování</span><span class="sxs-lookup"><span data-stu-id="14b00-152">Validation support</span></span>
+## <a name="validation-support"></a><span data-ttu-id="5751e-155">Podpora ověřování</span><span class="sxs-lookup"><span data-stu-id="5751e-155">Validation support</span></span>
 
-<span data-ttu-id="14b00-153"><xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>Komponenta připojuje ověřování pomocí datových poznámek do kaskády <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .</span><span class="sxs-lookup"><span data-stu-id="14b00-153">The <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component attaches validation support using data annotations to the cascaded <xref:Microsoft.AspNetCore.Components.Forms.EditContext>.</span></span> <span data-ttu-id="14b00-154">Povolení podpory pro ověřování pomocí datových poznámek vyžaduje toto explicitní gesto.</span><span class="sxs-lookup"><span data-stu-id="14b00-154">Enabling support for validation using data annotations requires this explicit gesture.</span></span> <span data-ttu-id="14b00-155">Chcete-li použít jiný systém ověřování než datové poznámky, nahraďte <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> vlastní implementaci.</span><span class="sxs-lookup"><span data-stu-id="14b00-155">To use a different validation system than data annotations, replace the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> with a custom implementation.</span></span> <span data-ttu-id="14b00-156">Implementace ASP.NET Core je k dispozici pro kontrolu ve zdroji odkazu: [DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs) / [AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).</span><span class="sxs-lookup"><span data-stu-id="14b00-156">The ASP.NET Core implementation is available for inspection in the reference source: [DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).</span></span>
+<span data-ttu-id="5751e-156"><xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>Komponenta připojuje ověřování pomocí datových poznámek do kaskády <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .</span><span class="sxs-lookup"><span data-stu-id="5751e-156">The <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component attaches validation support using data annotations to the cascaded <xref:Microsoft.AspNetCore.Components.Forms.EditContext>.</span></span> <span data-ttu-id="5751e-157">Povolení podpory pro ověřování pomocí datových poznámek vyžaduje toto explicitní gesto.</span><span class="sxs-lookup"><span data-stu-id="5751e-157">Enabling support for validation using data annotations requires this explicit gesture.</span></span> <span data-ttu-id="5751e-158">Chcete-li použít jiný systém ověřování než datové poznámky, nahraďte <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> vlastní implementaci.</span><span class="sxs-lookup"><span data-stu-id="5751e-158">To use a different validation system than data annotations, replace the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> with a custom implementation.</span></span> <span data-ttu-id="5751e-159">Implementace ASP.NET Core je k dispozici pro kontrolu ve zdroji odkazu: [DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs) / [AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).</span><span class="sxs-lookup"><span data-stu-id="5751e-159">The ASP.NET Core implementation is available for inspection in the reference source: [DataAnnotationsValidator](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs)/[AddDataAnnotationsValidation](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs).</span></span>
 
-Blazor<span data-ttu-id="14b00-157">provádí dva typy ověřování:</span><span class="sxs-lookup"><span data-stu-id="14b00-157"> performs two types of validation:</span></span>
+Blazor<span data-ttu-id="5751e-160">provádí dva typy ověřování:</span><span class="sxs-lookup"><span data-stu-id="5751e-160"> performs two types of validation:</span></span>
 
-* <span data-ttu-id="14b00-158">*Ověřování polí* se provede, když se karty uživatele nacházejí v poli.</span><span class="sxs-lookup"><span data-stu-id="14b00-158">*Field validation* is performed when the user tabs out of a field.</span></span> <span data-ttu-id="14b00-159">Při ověřování pole <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> přidruží součást všechny hlášené výsledky ověření k poli.</span><span class="sxs-lookup"><span data-stu-id="14b00-159">During field validation, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component associates all reported validation results with the field.</span></span>
-* <span data-ttu-id="14b00-160">*Ověřování modelu* se provede, když uživatel formulář odešle.</span><span class="sxs-lookup"><span data-stu-id="14b00-160">*Model validation* is performed when the user submits the form.</span></span> <span data-ttu-id="14b00-161">Při ověřování modelu se <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> Komponenta pokusí určit pole na základě názvu člena, který sestavy výsledků ověření.</span><span class="sxs-lookup"><span data-stu-id="14b00-161">During model validation, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component attempts to determine the field based on the member name that the validation result reports.</span></span> <span data-ttu-id="14b00-162">Výsledky ověření, které nejsou přidruženy k jednotlivým členům, jsou přidruženy k modelu, nikoli poli.</span><span class="sxs-lookup"><span data-stu-id="14b00-162">Validation results that aren't associated with an individual member are associated with the model rather than a field.</span></span>
+* <span data-ttu-id="5751e-161">*Ověřování polí* se provede, když se karty uživatele nacházejí v poli.</span><span class="sxs-lookup"><span data-stu-id="5751e-161">*Field validation* is performed when the user tabs out of a field.</span></span> <span data-ttu-id="5751e-162">Při ověřování pole <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> přidruží součást všechny hlášené výsledky ověření k poli.</span><span class="sxs-lookup"><span data-stu-id="5751e-162">During field validation, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component associates all reported validation results with the field.</span></span>
+* <span data-ttu-id="5751e-163">*Ověřování modelu* se provede, když uživatel formulář odešle.</span><span class="sxs-lookup"><span data-stu-id="5751e-163">*Model validation* is performed when the user submits the form.</span></span> <span data-ttu-id="5751e-164">Při ověřování modelu se <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> Komponenta pokusí určit pole na základě názvu člena, který sestavy výsledků ověření.</span><span class="sxs-lookup"><span data-stu-id="5751e-164">During model validation, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component attempts to determine the field based on the member name that the validation result reports.</span></span> <span data-ttu-id="5751e-165">Výsledky ověření, které nejsou přidruženy k jednotlivým členům, jsou přidruženy k modelu, nikoli poli.</span><span class="sxs-lookup"><span data-stu-id="5751e-165">Validation results that aren't associated with an individual member are associated with the model rather than a field.</span></span>
 
-### <a name="validation-summary-and-validation-message-components"></a><span data-ttu-id="14b00-163">Komponenty zprávy pro Shrnutí a ověření</span><span class="sxs-lookup"><span data-stu-id="14b00-163">Validation Summary and Validation Message components</span></span>
+### <a name="validation-summary-and-validation-message-components"></a><span data-ttu-id="5751e-166">Komponenty zprávy pro Shrnutí a ověření</span><span class="sxs-lookup"><span data-stu-id="5751e-166">Validation Summary and Validation Message components</span></span>
 
-<span data-ttu-id="14b00-164"><xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary>Komponenta shrnuje všechny zprávy o ověřování, které se podobají [pomocníka značek pro Shrnutí ověření](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper):</span><span class="sxs-lookup"><span data-stu-id="14b00-164">The <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component summarizes all validation messages, which is similar to the [Validation Summary Tag Helper](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper):</span></span>
+<span data-ttu-id="5751e-167"><xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary>Komponenta shrnuje všechny zprávy o ověřování, které se podobají [pomocníka značek pro Shrnutí ověření](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper):</span><span class="sxs-lookup"><span data-stu-id="5751e-167">The <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component summarizes all validation messages, which is similar to the [Validation Summary Tag Helper](xref:mvc/views/working-with-forms#the-validation-summary-tag-helper):</span></span>
 
 ```razor
 <ValidationSummary />
 ```
 
-<span data-ttu-id="14b00-165">Zprávy ověřování výstupu pro konkrétní model s `Model` parametrem:</span><span class="sxs-lookup"><span data-stu-id="14b00-165">Output validation messages for a specific model with the `Model` parameter:</span></span>
+<span data-ttu-id="5751e-168">Zprávy ověřování výstupu pro konkrétní model s `Model` parametrem:</span><span class="sxs-lookup"><span data-stu-id="5751e-168">Output validation messages for a specific model with the `Model` parameter:</span></span>
   
 ```razor
 <ValidationSummary Model="@starship" />
 ```
 
-<span data-ttu-id="14b00-166"><xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601>Komponenta zobrazí ověřovací zprávy pro konkrétní pole, které se podobá [pomocníka značek ověřovací zprávy](xref:mvc/views/working-with-forms#the-validation-message-tag-helper).</span><span class="sxs-lookup"><span data-stu-id="14b00-166">The <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601> component displays validation messages for a specific field, which is similar to the [Validation Message Tag Helper](xref:mvc/views/working-with-forms#the-validation-message-tag-helper).</span></span> <span data-ttu-id="14b00-167">Zadejte pole pro ověření s `For` atributem a výrazem lambda pojmenování vlastnosti modelu:</span><span class="sxs-lookup"><span data-stu-id="14b00-167">Specify the field for validation with the `For` attribute and a lambda expression naming the model property:</span></span>
+<span data-ttu-id="5751e-169"><xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601>Komponenta zobrazí ověřovací zprávy pro konkrétní pole, které se podobá [pomocníka značek ověřovací zprávy](xref:mvc/views/working-with-forms#the-validation-message-tag-helper).</span><span class="sxs-lookup"><span data-stu-id="5751e-169">The <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601> component displays validation messages for a specific field, which is similar to the [Validation Message Tag Helper](xref:mvc/views/working-with-forms#the-validation-message-tag-helper).</span></span> <span data-ttu-id="5751e-170">Zadejte pole pro ověření s `For` atributem a výrazem lambda pojmenování vlastnosti modelu:</span><span class="sxs-lookup"><span data-stu-id="5751e-170">Specify the field for validation with the `For` attribute and a lambda expression naming the model property:</span></span>
 
 ```razor
 <ValidationMessage For="@(() => starship.MaximumAccommodation)" />
 ```
 
-<span data-ttu-id="14b00-168"><xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601>Komponenty a <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> podporují libovolné atributy.</span><span class="sxs-lookup"><span data-stu-id="14b00-168">The <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601> and <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> components support arbitrary attributes.</span></span> <span data-ttu-id="14b00-169">Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do generovaného `<div>` `<ul>` prvku nebo.</span><span class="sxs-lookup"><span data-stu-id="14b00-169">Any attribute that doesn't match a component parameter is added to the generated `<div>` or `<ul>` element.</span></span>
+<span data-ttu-id="5751e-171"><xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601>Komponenty a <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> podporují libovolné atributy.</span><span class="sxs-lookup"><span data-stu-id="5751e-171">The <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601> and <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> components support arbitrary attributes.</span></span> <span data-ttu-id="5751e-172">Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do generovaného `<div>` `<ul>` prvku nebo.</span><span class="sxs-lookup"><span data-stu-id="5751e-172">Any attribute that doesn't match a component parameter is added to the generated `<div>` or `<ul>` element.</span></span>
 
-### <a name="custom-validation-attributes"></a><span data-ttu-id="14b00-170">Vlastní ověřovací atributy</span><span class="sxs-lookup"><span data-stu-id="14b00-170">Custom validation attributes</span></span>
+### <a name="custom-validation-attributes"></a><span data-ttu-id="5751e-173">Vlastní ověřovací atributy</span><span class="sxs-lookup"><span data-stu-id="5751e-173">Custom validation attributes</span></span>
 
-<span data-ttu-id="14b00-171">Chcete-li zajistit, aby byl výsledek ověření správně přidružen k poli při použití [vlastního ověřovacího atributu](xref:mvc/models/validation#custom-attributes), předejte kontext ověření <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName> při vytváření <xref:System.ComponentModel.DataAnnotations.ValidationResult> :</span><span class="sxs-lookup"><span data-stu-id="14b00-171">To ensure that a validation result is correctly associated with a field when using a [custom validation attribute](xref:mvc/models/validation#custom-attributes), pass the validation context's <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName> when creating the <xref:System.ComponentModel.DataAnnotations.ValidationResult>:</span></span>
+<span data-ttu-id="5751e-174">Chcete-li zajistit, aby byl výsledek ověření správně přidružen k poli při použití [vlastního ověřovacího atributu](xref:mvc/models/validation#custom-attributes), předejte kontext ověření <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName> při vytváření <xref:System.ComponentModel.DataAnnotations.ValidationResult> :</span><span class="sxs-lookup"><span data-stu-id="5751e-174">To ensure that a validation result is correctly associated with a field when using a [custom validation attribute](xref:mvc/models/validation#custom-attributes), pass the validation context's <xref:System.ComponentModel.DataAnnotations.ValidationContext.MemberName> when creating the <xref:System.ComponentModel.DataAnnotations.ValidationResult>:</span></span>
 
 ```csharp
 using System;
@@ -399,19 +440,19 @@ private class MyCustomValidator : ValidationAttribute
 }
 ```
 
-### <a name="blazor-data-annotations-validation-package"></a>Blazor<span data-ttu-id="14b00-172">balíček pro ověření datových poznámek</span><span class="sxs-lookup"><span data-stu-id="14b00-172"> data annotations validation package</span></span>
+### <a name="blazor-data-annotations-validation-package"></a>Blazor<span data-ttu-id="5751e-175">balíček pro ověření datových poznámek</span><span class="sxs-lookup"><span data-stu-id="5751e-175"> data annotations validation package</span></span>
 
-<span data-ttu-id="14b00-173">[Microsoft. AspNetCore. Components. Dataanotaces. Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) je balíček, který vyplní mezery při ověřování pomocí <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> komponenty.</span><span class="sxs-lookup"><span data-stu-id="14b00-173">The [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) is a package that fills validation experience gaps using the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component.</span></span> <span data-ttu-id="14b00-174">Balíček je momentálně *experimentální*.</span><span class="sxs-lookup"><span data-stu-id="14b00-174">The package is currently *experimental*.</span></span>
+<span data-ttu-id="5751e-176">[Microsoft. AspNetCore. Components. Dataanotaces. Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) je balíček, který vyplní mezery při ověřování pomocí <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> komponenty.</span><span class="sxs-lookup"><span data-stu-id="5751e-176">The [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) is a package that fills validation experience gaps using the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component.</span></span> <span data-ttu-id="5751e-177">Balíček je momentálně *experimentální*.</span><span class="sxs-lookup"><span data-stu-id="5751e-177">The package is currently *experimental*.</span></span>
 
-### <a name="compareproperty-attribute"></a><span data-ttu-id="14b00-175">[CompareProperty] – atribut</span><span class="sxs-lookup"><span data-stu-id="14b00-175">[CompareProperty] attribute</span></span>
+### <a name="compareproperty-attribute"></a><span data-ttu-id="5751e-178">[CompareProperty] – atribut</span><span class="sxs-lookup"><span data-stu-id="5751e-178">[CompareProperty] attribute</span></span>
 
-<span data-ttu-id="14b00-176"><xref:System.ComponentModel.DataAnnotations.CompareAttribute>Nefunguje dobře s <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> komponentou, protože nepřiřazuje výsledek ověření k určitému členu.</span><span class="sxs-lookup"><span data-stu-id="14b00-176">The <xref:System.ComponentModel.DataAnnotations.CompareAttribute> doesn't work well with the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component because it doesn't associate the validation result with a specific member.</span></span> <span data-ttu-id="14b00-177">To může vést k nekonzistentnímu chování mezi ověřováním na úrovni polí a při ověřování celého modelu při odeslání.</span><span class="sxs-lookup"><span data-stu-id="14b00-177">This can result in inconsistent behavior between field-level validation and when the entire model is validated on a submit.</span></span> <span data-ttu-id="14b00-178">Balíček [Microsoft. AspNetCore. Components. DataAnnotations. Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) *experiment* zavádí další ověřovací atribut, `ComparePropertyAttribute` který tato omezení funguje.</span><span class="sxs-lookup"><span data-stu-id="14b00-178">The [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) *experimental* package introduces an additional validation attribute, `ComparePropertyAttribute`, that works around these limitations.</span></span> <span data-ttu-id="14b00-179">V Blazor aplikaci `[CompareProperty]` je přímá náhrada za [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) atribut.</span><span class="sxs-lookup"><span data-stu-id="14b00-179">In a Blazor app, `[CompareProperty]` is a direct replacement for the [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) attribute.</span></span>
+<span data-ttu-id="5751e-179"><xref:System.ComponentModel.DataAnnotations.CompareAttribute>Nefunguje dobře s <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> komponentou, protože nepřiřazuje výsledek ověření k určitému členu.</span><span class="sxs-lookup"><span data-stu-id="5751e-179">The <xref:System.ComponentModel.DataAnnotations.CompareAttribute> doesn't work well with the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> component because it doesn't associate the validation result with a specific member.</span></span> <span data-ttu-id="5751e-180">To může vést k nekonzistentnímu chování mezi ověřováním na úrovni polí a při ověřování celého modelu při odeslání.</span><span class="sxs-lookup"><span data-stu-id="5751e-180">This can result in inconsistent behavior between field-level validation and when the entire model is validated on a submit.</span></span> <span data-ttu-id="5751e-181">Balíček [Microsoft. AspNetCore. Components. DataAnnotations. Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) *experiment* zavádí další ověřovací atribut, `ComparePropertyAttribute` který tato omezení funguje.</span><span class="sxs-lookup"><span data-stu-id="5751e-181">The [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) *experimental* package introduces an additional validation attribute, `ComparePropertyAttribute`, that works around these limitations.</span></span> <span data-ttu-id="5751e-182">V Blazor aplikaci `[CompareProperty]` je přímá náhrada za [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) atribut.</span><span class="sxs-lookup"><span data-stu-id="5751e-182">In a Blazor app, `[CompareProperty]` is a direct replacement for the [`[Compare]`](xref:System.ComponentModel.DataAnnotations.CompareAttribute) attribute.</span></span>
 
-### <a name="nested-models-collection-types-and-complex-types"></a><span data-ttu-id="14b00-180">Vnořené modely, typy kolekcí a komplexní typy</span><span class="sxs-lookup"><span data-stu-id="14b00-180">Nested models, collection types, and complex types</span></span>
+### <a name="nested-models-collection-types-and-complex-types"></a><span data-ttu-id="5751e-183">Vnořené modely, typy kolekcí a komplexní typy</span><span class="sxs-lookup"><span data-stu-id="5751e-183">Nested models, collection types, and complex types</span></span>
 
-Blazor<span data-ttu-id="14b00-181">poskytuje podporu pro ověřování vstupu formuláře pomocí datových poznámek s integrovaným <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> .</span><span class="sxs-lookup"><span data-stu-id="14b00-181"> provides support for validating form input using data annotations with the built-in <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>.</span></span> <span data-ttu-id="14b00-182"><xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>Pouze ověří vlastnosti nejvyšší úrovně modelu svázaného s formulářem, který není vlastností kolekce nebo komplexního typu.</span><span class="sxs-lookup"><span data-stu-id="14b00-182">However, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> only validates top-level properties of the model bound to the form that aren't collection- or complex-type properties.</span></span>
+Blazor<span data-ttu-id="5751e-184">poskytuje podporu pro ověřování vstupu formuláře pomocí datových poznámek s integrovaným <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> .</span><span class="sxs-lookup"><span data-stu-id="5751e-184"> provides support for validating form input using data annotations with the built-in <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>.</span></span> <span data-ttu-id="5751e-185"><xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>Pouze ověří vlastnosti nejvyšší úrovně modelu svázaného s formulářem, který není vlastností kolekce nebo komplexního typu.</span><span class="sxs-lookup"><span data-stu-id="5751e-185">However, the <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> only validates top-level properties of the model bound to the form that aren't collection- or complex-type properties.</span></span>
 
-<span data-ttu-id="14b00-183">Chcete-li ověřit celý graf objektu vázaného modelu, včetně vlastností kolekce a komplexního typu, použijte rozhraní, které `ObjectGraphDataAnnotationsValidator` poskytuje *experimentální* balíček [Microsoft. AspNetCore. Components. DataAnnotations. Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) :</span><span class="sxs-lookup"><span data-stu-id="14b00-183">To validate the bound model's entire object graph, including collection- and complex-type properties, use the `ObjectGraphDataAnnotationsValidator` provided by the *experimental* [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) package:</span></span>
+<span data-ttu-id="5751e-186">Chcete-li ověřit celý graf objektu vázaného modelu, včetně vlastností kolekce a komplexního typu, použijte rozhraní, které `ObjectGraphDataAnnotationsValidator` poskytuje *experimentální* balíček [Microsoft. AspNetCore. Components. DataAnnotations. Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) :</span><span class="sxs-lookup"><span data-stu-id="5751e-186">To validate the bound model's entire object graph, including collection- and complex-type properties, use the `ObjectGraphDataAnnotationsValidator` provided by the *experimental* [Microsoft.AspNetCore.Components.DataAnnotations.Validation](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.DataAnnotations.Validation) package:</span></span>
 
 ```razor
 <EditForm Model="@model" OnValidSubmit="HandleValidSubmit">
@@ -420,9 +461,9 @@ Blazor<span data-ttu-id="14b00-181">poskytuje podporu pro ověřování vstupu f
 </EditForm>
 ```
 
-<span data-ttu-id="14b00-184">Přidávejte do vlastností modelu poznámky `[ValidateComplexType]` .</span><span class="sxs-lookup"><span data-stu-id="14b00-184">Annotate model properties with `[ValidateComplexType]`.</span></span> <span data-ttu-id="14b00-185">V následujících třídách modelu `ShipDescription` obsahuje Třída další datové poznámky pro ověření, když je model svázán s formulářem:</span><span class="sxs-lookup"><span data-stu-id="14b00-185">In the following model classes, the `ShipDescription` class contains additional data annotations to validate when the model is bound to the form:</span></span>
+<span data-ttu-id="5751e-187">Přidávejte do vlastností modelu poznámky `[ValidateComplexType]` .</span><span class="sxs-lookup"><span data-stu-id="5751e-187">Annotate model properties with `[ValidateComplexType]`.</span></span> <span data-ttu-id="5751e-188">V následujících třídách modelu `ShipDescription` obsahuje Třída další datové poznámky pro ověření, když je model svázán s formulářem:</span><span class="sxs-lookup"><span data-stu-id="5751e-188">In the following model classes, the `ShipDescription` class contains additional data annotations to validate when the model is bound to the form:</span></span>
 
-<span data-ttu-id="14b00-186">*Starship.cs*:</span><span class="sxs-lookup"><span data-stu-id="14b00-186">*Starship.cs*:</span></span>
+<span data-ttu-id="5751e-189">*Starship.cs*:</span><span class="sxs-lookup"><span data-stu-id="5751e-189">*Starship.cs*:</span></span>
 
 ```csharp
 using System;
@@ -439,7 +480,7 @@ public class Starship
 }
 ```
 
-<span data-ttu-id="14b00-187">*ShipDescription.cs*:</span><span class="sxs-lookup"><span data-stu-id="14b00-187">*ShipDescription.cs*:</span></span>
+<span data-ttu-id="5751e-190">*ShipDescription.cs*:</span><span class="sxs-lookup"><span data-stu-id="5751e-190">*ShipDescription.cs*:</span></span>
 
 ```csharp
 using System;
@@ -457,13 +498,13 @@ public class ShipDescription
 }
 ```
 
-### <a name="enable-the-submit-button-based-on-form-validation"></a><span data-ttu-id="14b00-188">Povolit tlačítko Odeslat na základě ověření formuláře</span><span class="sxs-lookup"><span data-stu-id="14b00-188">Enable the submit button based on form validation</span></span>
+### <a name="enable-the-submit-button-based-on-form-validation"></a><span data-ttu-id="5751e-191">Povolit tlačítko Odeslat na základě ověření formuláře</span><span class="sxs-lookup"><span data-stu-id="5751e-191">Enable the submit button based on form validation</span></span>
 
-<span data-ttu-id="14b00-189">Povolení a zakázání tlačítka Odeslat na základě ověření formuláře:</span><span class="sxs-lookup"><span data-stu-id="14b00-189">To enable and disable the submit button based on form validation:</span></span>
+<span data-ttu-id="5751e-192">Povolení a zakázání tlačítka Odeslat na základě ověření formuláře:</span><span class="sxs-lookup"><span data-stu-id="5751e-192">To enable and disable the submit button based on form validation:</span></span>
 
-* <span data-ttu-id="14b00-190"><xref:Microsoft.AspNetCore.Components.Forms.EditContext>K přiřazení modelu při inicializaci komponenty použijte formulář.</span><span class="sxs-lookup"><span data-stu-id="14b00-190">Use the form's <xref:Microsoft.AspNetCore.Components.Forms.EditContext> to assign the model when the component is initialized.</span></span>
-* <span data-ttu-id="14b00-191">Ověřte formulář v <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> zpětném volání kontextu a povolte a zakažte tlačítko Odeslat.</span><span class="sxs-lookup"><span data-stu-id="14b00-191">Validate the form in the context's <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> callback to enable and disable the submit button.</span></span>
-* <span data-ttu-id="14b00-192">Odpojte obslužnou rutinu události v `Dispose` metodě.</span><span class="sxs-lookup"><span data-stu-id="14b00-192">Unhook the event handler in the `Dispose` method.</span></span> <span data-ttu-id="14b00-193">Další informace naleznete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.</span><span class="sxs-lookup"><span data-stu-id="14b00-193">For more information, see <xref:blazor/lifecycle#component-disposal-with-idisposable>.</span></span>
+* <span data-ttu-id="5751e-193"><xref:Microsoft.AspNetCore.Components.Forms.EditContext>K přiřazení modelu při inicializaci komponenty použijte formulář.</span><span class="sxs-lookup"><span data-stu-id="5751e-193">Use the form's <xref:Microsoft.AspNetCore.Components.Forms.EditContext> to assign the model when the component is initialized.</span></span>
+* <span data-ttu-id="5751e-194">Ověřte formulář v <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> zpětném volání kontextu a povolte a zakažte tlačítko Odeslat.</span><span class="sxs-lookup"><span data-stu-id="5751e-194">Validate the form in the context's <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> callback to enable and disable the submit button.</span></span>
+* <span data-ttu-id="5751e-195">Odpojte obslužnou rutinu události v `Dispose` metodě.</span><span class="sxs-lookup"><span data-stu-id="5751e-195">Unhook the event handler in the `Dispose` method.</span></span> <span data-ttu-id="5751e-196">Další informace naleznete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.</span><span class="sxs-lookup"><span data-stu-id="5751e-196">For more information, see <xref:blazor/lifecycle#component-disposal-with-idisposable>.</span></span>
 
 ```razor
 @implements IDisposable
@@ -501,15 +542,15 @@ public class ShipDescription
 }
 ```
 
-<span data-ttu-id="14b00-194">V předchozím příkladu nastavte `formInvalid` na `false` if:</span><span class="sxs-lookup"><span data-stu-id="14b00-194">In the preceding example, set `formInvalid` to `false` if:</span></span>
+<span data-ttu-id="5751e-197">V předchozím příkladu nastavte `formInvalid` na `false` if:</span><span class="sxs-lookup"><span data-stu-id="5751e-197">In the preceding example, set `formInvalid` to `false` if:</span></span>
 
-* <span data-ttu-id="14b00-195">Formulář je předem načten s platnými výchozími hodnotami.</span><span class="sxs-lookup"><span data-stu-id="14b00-195">The form is preloaded with valid default values.</span></span>
-* <span data-ttu-id="14b00-196">Chcete povolit tlačítko Odeslat, když se formulář načte.</span><span class="sxs-lookup"><span data-stu-id="14b00-196">You want the submit button enabled when the form loads.</span></span>
+* <span data-ttu-id="5751e-198">Formulář je předem načten s platnými výchozími hodnotami.</span><span class="sxs-lookup"><span data-stu-id="5751e-198">The form is preloaded with valid default values.</span></span>
+* <span data-ttu-id="5751e-199">Chcete povolit tlačítko Odeslat, když se formulář načte.</span><span class="sxs-lookup"><span data-stu-id="5751e-199">You want the submit button enabled when the form loads.</span></span>
 
-<span data-ttu-id="14b00-197">Vedlejším účinkem předcházejícího přístupu je, že <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> Komponenta je naplněná neplatnými poli poté, co uživatel komunikuje s jakýmkoli jedním polem.</span><span class="sxs-lookup"><span data-stu-id="14b00-197">A side effect of the preceding approach is that a <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component is populated with invalid fields after the user interacts with any one field.</span></span> <span data-ttu-id="14b00-198">Tento scénář je možné vyřešit jedním z následujících způsobů:</span><span class="sxs-lookup"><span data-stu-id="14b00-198">This scenario can be addressed in either of the following ways:</span></span>
+<span data-ttu-id="5751e-200">Vedlejším účinkem předcházejícího přístupu je, že <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> Komponenta je naplněná neplatnými poli poté, co uživatel komunikuje s jakýmkoli jedním polem.</span><span class="sxs-lookup"><span data-stu-id="5751e-200">A side effect of the preceding approach is that a <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component is populated with invalid fields after the user interacts with any one field.</span></span> <span data-ttu-id="5751e-201">Tento scénář je možné vyřešit jedním z následujících způsobů:</span><span class="sxs-lookup"><span data-stu-id="5751e-201">This scenario can be addressed in either of the following ways:</span></span>
 
-* <span data-ttu-id="14b00-199">Nepoužívejte <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> komponentu na formuláři.</span><span class="sxs-lookup"><span data-stu-id="14b00-199">Don't use a <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component on the form.</span></span>
-* <span data-ttu-id="14b00-200">Zpřístupní <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> komponentu, když je vybráno tlačítko Odeslat (například v `HandleValidSubmit` metodě).</span><span class="sxs-lookup"><span data-stu-id="14b00-200">Make the <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component visible when the submit button is selected (for example, in a `HandleValidSubmit` method).</span></span>
+* <span data-ttu-id="5751e-202">Nepoužívejte <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> komponentu na formuláři.</span><span class="sxs-lookup"><span data-stu-id="5751e-202">Don't use a <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component on the form.</span></span>
+* <span data-ttu-id="5751e-203">Zpřístupní <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> komponentu, když je vybráno tlačítko Odeslat (například v `HandleValidSubmit` metodě).</span><span class="sxs-lookup"><span data-stu-id="5751e-203">Make the <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> component visible when the submit button is selected (for example, in a `HandleValidSubmit` method).</span></span>
 
 ```razor
 <EditForm EditContext="@editContext" OnValidSubmit="HandleValidSubmit">
@@ -533,13 +574,13 @@ public class ShipDescription
 }
 ```
 
-## <a name="troubleshoot"></a><span data-ttu-id="14b00-201">Řešení potíží</span><span class="sxs-lookup"><span data-stu-id="14b00-201">Troubleshoot</span></span>
+## <a name="troubleshoot"></a><span data-ttu-id="5751e-204">Řešení potíží</span><span class="sxs-lookup"><span data-stu-id="5751e-204">Troubleshoot</span></span>
 
-> <span data-ttu-id="14b00-202">InvalidOperationException: EditForm vyžaduje parametr modelu nebo parametr EditContext, ale ne obojí.</span><span class="sxs-lookup"><span data-stu-id="14b00-202">InvalidOperationException: EditForm requires a Model parameter, or an EditContext parameter, but not both.</span></span>
+> <span data-ttu-id="5751e-205">InvalidOperationException: EditForm vyžaduje parametr modelu nebo parametr EditContext, ale ne obojí.</span><span class="sxs-lookup"><span data-stu-id="5751e-205">InvalidOperationException: EditForm requires a Model parameter, or an EditContext parameter, but not both.</span></span>
 
-<span data-ttu-id="14b00-203">Potvrďte, že <xref:Microsoft.AspNetCore.Components.Forms.EditForm> má <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> nebo <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .</span><span class="sxs-lookup"><span data-stu-id="14b00-203">Confirm that the <xref:Microsoft.AspNetCore.Components.Forms.EditForm> has a <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> or <xref:Microsoft.AspNetCore.Components.Forms.EditContext>.</span></span>
+<span data-ttu-id="5751e-206">Potvrďte, že <xref:Microsoft.AspNetCore.Components.Forms.EditForm> má <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> nebo <xref:Microsoft.AspNetCore.Components.Forms.EditContext> .</span><span class="sxs-lookup"><span data-stu-id="5751e-206">Confirm that the <xref:Microsoft.AspNetCore.Components.Forms.EditForm> has a <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> or <xref:Microsoft.AspNetCore.Components.Forms.EditContext>.</span></span>
 
-<span data-ttu-id="14b00-204">Při přiřazování <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> do formuláře potvrďte, že je vytvořen typ modelu, jak ukazuje následující příklad:</span><span class="sxs-lookup"><span data-stu-id="14b00-204">When assigning a <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> to the form, confirm that the model type is instantiated, as the following example shows:</span></span>
+<span data-ttu-id="5751e-207">Při přiřazování <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> do formuláře potvrďte, že je vytvořen typ modelu, jak ukazuje následující příklad:</span><span class="sxs-lookup"><span data-stu-id="5751e-207">When assigning a <xref:Microsoft.AspNetCore.Components.Forms.EditForm.Model> to the form, confirm that the model type is instantiated, as the following example shows:</span></span>
 
 ```csharp
 private ExampleModel exampleModel = new ExampleModel();
