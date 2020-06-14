@@ -1,7 +1,7 @@
 ---
 title: Požadavky na zabezpečení v ASP.NET CoreSignalR
 author: bradygaster
-description: Naučte se používat ověřování a autorizaci v SignalRASP.NET Core.
+description: Naučte se používat ověřování a autorizaci v ASP.NET Core SignalR .
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
@@ -13,32 +13,32 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/security
-ms.openlocfilehash: 2b049d9d8131c6c95b2f768620c984d0f67f92cc
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b80ece8c74c0f1d4d8518f0da16a91db9687336c
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775320"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84755884"
 ---
 # <a name="security-considerations-in-aspnet-core-signalr"></a>Požadavky na zabezpečení v ASP.NET CoreSignalR
 
 Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
-Tento článek poskytuje informace o zabezpečení SignalR.
+Tento článek poskytuje informace o zabezpečení SignalR .
 
 ## <a name="cross-origin-resource-sharing"></a>Sdílení prostředků různého původu
 
-[Sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/) se dá použít k povolení připojení mezi zdroji SignalR v prohlížeči. Pokud je JavaScriptový kód hostovaný v jiné doméně než SignalR aplikace, musí být povolen [middleware CORS](xref:security/cors) , aby se JavaScript mohl připojit k SignalR aplikaci. Povoluje žádosti mezi zdroji jenom z domén, které důvěřujete nebo ovládáte. Příklad:
+[Sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/) se dá použít k povolení připojení mezi zdroji SignalR v prohlížeči. Pokud je JavaScriptový kód hostovaný v jiné doméně než SignalR aplikace, musí být povolen [middleware CORS](xref:security/cors) , aby se JavaScript mohl připojit k SignalR aplikaci. Povoluje žádosti mezi zdroji jenom z domén, které důvěřujete nebo ovládáte. Například:
 
 * Váš web je hostovaný na`http://www.example.com`
 * Vaše SignalR aplikace je hostována na`http://signalr.example.com`
 
-V SignalR aplikaci by měla být nakonfigurovaná CORS, aby povolovala `www.example.com`jenom původ.
+V aplikaci by měla být nakonfigurovaná CORS SignalR , aby povolovala jenom původ `www.example.com` .
 
 Další informace o konfiguraci CORS najdete v tématu [povolení požadavků mezi zdroji (CORS)](xref:security/cors). SignalR**vyžaduje** následující zásady CORS:
 
 * Povolí konkrétní očekávané zdroje. Povolení libovolného zdroje je možné, ale **není zabezpečené nebo** Doporučené.
-* Metody `GET` http a `POST` musí být povoleny.
+* Metody HTTP `GET` a `POST` musí být povoleny.
 * Aby rychlé relace založené na souborech cookie fungovaly správně, musí být přihlašovací údaje povolené. Musí být povolené i v případě, že se ověřování nepoužívá.
 
 ::: moniker range=">= aspnetcore-5.0"
@@ -48,7 +48,7 @@ Možnost Nepoužívat přihlašovací údaje byste měli použít jenom v příp
 
 ::: moniker-end
 
-Následující zásada SignalR CORS například umožňuje klientovi, který je hostitelem `https://example.com` SignalR aplikace, získat přístup k aplikaci hostované na: `https://signalr.example.com`
+Následující zásada CORS například umožňuje klientovi, který je SignalR hostitelem `https://example.com` aplikace, získat přístup k SignalR aplikaci hostované na `https://signalr.example.com` :
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -71,7 +71,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
     app.UseEndpoints(endpoints =>
     {
-        endpoints.MapHub<ChatHub>("/chatHub");
+        endpoints.MapHub<ChatHub>("/chathub");
     });
 
     // ... other middleware ...
@@ -101,31 +101,31 @@ Ochrany, které poskytuje CORS, se nevztahují na objekty WebSockets. Prohlíže
 * Provádění požadavků CORS v řádu CORS
 * Respektujte omezení zadaná v `Access-Control` hlavičkách při vytváření požadavků protokolu WebSocket.
 
-Prohlížeče ale při vydávání požadavků protokolu `Origin` WebSocket odesílají hlavičku. Aplikace by měly být nakonfigurovány pro ověření těchto hlaviček, aby bylo zajištěno, že budou povoleny pouze objekty WebSockets přicházející z očekávaných zdrojů.
+Prohlížeče ale `Origin` při vydávání požadavků protokolu WebSocket odesílají hlavičku. Aplikace by měly být nakonfigurovány pro ověření těchto hlaviček, aby bylo zajištěno, že budou povoleny pouze objekty WebSockets přicházející z očekávaných zdrojů.
 
-V ASP.NET Core 2,1 a novějších lze ověření hlaviček dosáhnout pomocí vlastního middleware, který **je `UseSignalR`umístěn před a middleware ověřování** v: `Configure`
+V ASP.NET Core 2,1 a novějších lze ověření hlaviček dosáhnout pomocí vlastního middleware, který **je umístěn před `UseSignalR` a middleware ověřování** v `Configure` :
 
 [!code-csharp[Main](security/sample/Startup.cs?name=snippet2)]
 
 > [!NOTE]
-> `Origin` Záhlaví řídí klient a, podobně jako `Referer` záhlaví, může být falešným. Tato **záhlaví by se neměla používat** jako ověřovací mechanismus.
+> `Origin`Záhlaví řídí klient a, podobně jako `Referer` záhlaví, může být falešným. Tato **záhlaví by se neměla používat** jako ověřovací mechanismus.
 
 ::: moniker-end
 
 ## <a name="connectionid"></a>ConnectionId
 
-Pokud je `ConnectionId` verze SignalR serveru nebo klienta ASP.NET Core 2,2 nebo starší, může vystavení způsobit škodlivou zosobnění. Pokud je SignalR verze serveru a klienta ASP.NET Core 3,0 nebo novější, `ConnectionToken` `ConnectionId` musí být místo toho zachovaná tajná. `ConnectionToken` Nezveřejňuje se v žádném rozhraní API.  Může být obtížné zajistit, aby se starší SignalR klienti nepřipojovali k serveru, takže i v SignalR `ConnectionId` případě, že je vaše verze serveru ASP.NET Core 3,0 nebo novější, neměl by být vystavený.
+`ConnectionId`Pokud SignalR je verze serveru nebo klienta ASP.NET Core 2,2 nebo starší, může vystavení způsobit škodlivou zosobnění. Pokud je SignalR verze serveru a klienta ASP.NET Core 3,0 nebo novější, `ConnectionToken` `ConnectionId` musí být místo toho zachovaná tajná. `ConnectionToken`Nezveřejňuje se v žádném rozhraní API.  Může být obtížné zajistit, aby se starší SignalR klienti nepřipojovali k serveru, takže i v případě SignalR , že je vaše verze serveru ASP.NET Core 3,0 nebo novější, `ConnectionId` neměl by být vystavený.
 
 ## <a name="access-token-logging"></a>Protokolování přístupového tokenu
 
-Při použití objektů WebSocket nebo událostí odesílaných serverem klientský prohlížeč odešle přístupový token do řetězce dotazu. Získání přístupového tokenu prostřednictvím řetězce dotazu je obecně bezpečné jako použití standardního `Authorization` záhlaví. K zajištění zabezpečeného koncového připojení mezi klientem a serverem vždy použijte protokol HTTPS. Mnohé webové servery protokolují adresu URL pro každý požadavek včetně řetězce dotazu. Protokolování adres URL může protokolovat přístupový token. ASP.NET Core zaznamená adresu URL pro každý požadavek ve výchozím nastavení, což bude obsahovat řetězec dotazu. Příklad:
+Při použití objektů WebSocket nebo událostí odesílaných serverem klientský prohlížeč odešle přístupový token do řetězce dotazu. Získání přístupového tokenu prostřednictvím řetězce dotazu je obecně bezpečné jako použití standardního `Authorization` záhlaví. K zajištění zabezpečeného koncového připojení mezi klientem a serverem vždy použijte protokol HTTPS. Mnohé webové servery protokolují adresu URL pro každý požadavek včetně řetězce dotazu. Protokolování adres URL může protokolovat přístupový token. ASP.NET Core zaznamená adresu URL pro každý požadavek ve výchozím nastavení, což bude obsahovat řetězec dotazu. Například:
 
 ```
 info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
-      Request starting HTTP/1.1 GET http://localhost:5000/myhub?access_token=1234
+      Request starting HTTP/1.1 GET http://localhost:5000/chathub?access_token=1234
 ```
 
-Pokud máte obavy týkající se protokolování těchto dat do protokolů serveru, můžete toto protokolování zcela zakázat nakonfigurováním `Microsoft.AspNetCore.Hosting` protokolovacího nástroje na `Warning` úroveň nebo výše (tyto zprávy jsou zapsány na `Info` úrovni). Další informace najdete v tématu [filtrování protokolu](xref:fundamentals/logging/index#log-filtering) pro další informace. Pokud přesto chcete protokolovat určité informace o žádostech, můžete [napsat middleware](xref:fundamentals/middleware/write) pro protokolování dat, která požadujete, a odfiltrovat hodnotu řetězce dotazu (Pokud je k `access_token` dispozici).
+Pokud máte obavy týkající se protokolování těchto dat do protokolů serveru, můžete toto protokolování zcela zakázat nakonfigurováním `Microsoft.AspNetCore.Hosting` protokolovacího nástroje na `Warning` úroveň nebo výše (tyto zprávy jsou zapsány na `Info` úrovni). Další informace najdete v tématu [filtrování protokolu](xref:fundamentals/logging/index#log-filtering) pro další informace. Pokud přesto chcete protokolovat určité informace o žádostech, můžete [napsat middleware](xref:fundamentals/middleware/write) pro protokolování dat, která požadujete, a odfiltrovat `access_token` hodnotu řetězce dotazu (Pokud je k dispozici).
 
 ## <a name="exceptions"></a>Výjimky
 
@@ -143,7 +143,7 @@ Pokud jsou vaše zprávy větší než 32 KB, můžete tento limit zvýšit. Zv�
 * Klient může způsobit přidělení rozsáhlých vyrovnávacích pamětí pro server.
 * Přidělení serveru pro velké vyrovnávací paměti může snížit počet souběžných připojení.
 
-U příchozích a odchozích zpráv platí omezení, jak je možné nakonfigurovat u objektu [HttpConnectionDispatcherOptions](xref:signalr/configuration#configure-server-options) nakonfigurovaného `MapHub`v nástroji:
+U příchozích a odchozích zpráv platí omezení, jak je možné nakonfigurovat u objektu [HttpConnectionDispatcherOptions](xref:signalr/configuration#configure-server-options) nakonfigurovaného v nástroji `MapHub` :
 
 * `ApplicationMaxBufferSize`představuje maximální počet bajtů od klienta, které jsou vyrovnávací paměti serveru. Pokud se klient pokusí odeslat zprávu větší, než je toto omezení, připojení může být zavřeno.
 * `TransportMaxBufferSize`představuje maximální počet bajtů, které může server odeslat. Pokud se server pokusí odeslat zprávu (včetně návratových hodnot z metod z rozbočovače) větší, než je tento limit, bude vyvolána výjimka.

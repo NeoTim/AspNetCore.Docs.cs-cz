@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 2dfaba166617c5d0a224f4b47028c141e59ce47f
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: d56be93c4dd46b4712fe793ccd453807517a2022
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652913"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724331"
 ---
 # <a name="part-8-add-a-new-field-to-an-aspnet-core-mvc-app"></a>Část 8 – Přidání nového pole do aplikace ASP.NET Core MVC
 
@@ -137,10 +137,7 @@ dotnet ef database update
 ---
 <!-- End of VS tabs -->
 
-Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole. Aktualizujte aplikaci:
-
-* Přidejte `Rating` pole do `Edit` `Details` `Delete` šablon zobrazení, a.
-* Aktualizujte vazbu v metodě Upravit akci pro `MoviesController` .
+Spusťte aplikaci a ověřte, že je možné vytvářet, upravovat a zobrazovat filmy pomocí `Rating` pole.
 
 > [!div class="step-by-step"]
 > [Předchozí](search.md) 

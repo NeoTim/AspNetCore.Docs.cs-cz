@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/http-requests
-ms.openlocfilehash: ae33218d6944c62a08e677592ac0c66f9026b15f
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a54861945d97728336149d5ffb39952c3d61b7bd
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766547"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724260"
 ---
 # <a name="make-http-requests-using-ihttpclientfactory-in-aspnet-core"></a>Provádění požadavků HTTP pomocí IHttpClientFactory v ASP.NET Core
 
@@ -190,6 +190,44 @@ public class ValuesController : ControllerBase
 }
 ```
 
+## <a name="make-post-put-and-delete-requests"></a>Vytváření požadavků POST, PUT a DELETE
+
+V předchozích příkladech všechny požadavky HTTP používají příkaz GET HTTP. `HttpClient`podporuje také jiné příkazy HTTP, včetně:
+
+* POST
+* PUT
+* DELETE
+* POUŽITA
+
+Úplný seznam podporovaných příkazů HTTP naleznete v tématu <xref:System.Net.Http.HttpMethod> .
+
+Následující příklad ukazuje, jak vytvořit požadavek HTTP POST:
+
+[!code-csharp[](http-requests/samples/3.x/HttpRequestsSample/Models/TodoClient.cs?name=snippet_POST)]
+
+V předchozím kódu `CreateItemAsync` metoda:
+
+* Zaserializace `TodoItem` parametr do formátu JSON pomocí `System.Text.Json` . Tato operace používá instanci <xref:System.Text.Json.JsonSerializerOptions> ke konfiguraci procesu serializace.
+* Vytvoří instanci <xref:System.Net.Http.StringContent> pro zabalení serializovaného JSON pro odeslání v těle požadavku HTTP.
+* Volání <xref:System.Net.Http.HttpClient.PostAsync%2A> pro odeslání obsahu JSON na zadanou adresu URL. Toto je relativní adresa URL, která se přidá do [HttpClient. BaseAddress](xref:System.Net.Http.HttpClient.BaseAddress).
+* Volání <xref:System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode%2A> vyvolávající výjimku, pokud kód stavu odpovědi neindikuje úspěch.
+
+`HttpClient`podporuje také další typy obsahu. Například <xref:System.Net.Http.MultipartContent> a <xref:System.Net.Http.StreamContent> . Úplný seznam podporovaného obsahu najdete v tématu <xref:System.Net.Http.HttpContent> .
+
+Následující příklad ukazuje požadavek HTTP PUT:
+
+[!code-csharp[](http-requests/samples/3.x/HttpRequestsSample/Models/TodoClient.cs?name=snippet_PUT)]
+
+Předchozí kód je velmi podobný jako příklad příspěvku. `SaveItemAsync`Metoda volá <xref:System.Net.Http.HttpClient.PutAsync%2A> místo `PostAsync` .
+
+Následující příklad ukazuje požadavek HTTP DELETE:
+
+[!code-csharp[](http-requests/samples/3.x/HttpRequestsSample/Models/TodoClient.cs?name=snippet_DELETE)]
+
+V předchozím kódu `DeleteItemAsync` metoda volá metodu <xref:System.Net.Http.HttpClient.DeleteAsync%2A> . Vzhledem k tomu, že žádosti o odstranění HTTP obvykle neobsahují žádné tělo, `DeleteAsync` Metoda neposkytne přetížení, které přijímá instanci `HttpContent` .
+
+Další informace o používání různých příkazů HTTP s najdete `HttpClient` v tématu <xref:System.Net.Http.HttpClient> .
+
 ## <a name="outgoing-request-middleware"></a>Middleware odchozího požadavku
 
 `HttpClient`má koncepci delegování obslužných rutin, které mohou být propojeny pro odchozí požadavky HTTP. `IHttpClientFactory`:
@@ -330,7 +368,7 @@ Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensi
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -648,7 +686,7 @@ Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensi
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 
@@ -956,7 +994,7 @@ Volání <xref:Microsoft.Extensions.DependencyInjection.HttpClientBuilderExtensi
 
 [!code-csharp[](http-requests/samples/2.x/HttpClientFactorySample/Startup.cs?name=snippet13)]
 
-## <a name="logging"></a>Protokolování
+## <a name="logging"></a>protokolování
 
 Klienti vytvoření prostřednictvím `IHttpClientFactory` záznamu zprávy protokolu pro všechny požadavky. V konfiguraci protokolování povolte příslušnou úroveň informací, aby se zobrazily výchozí zprávy protokolu. Další protokolování, jako je protokolování hlaviček požadavků, je zahrnuté jenom na úrovni trasování.
 

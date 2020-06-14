@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/hosted-with-azure-active-directory
-ms.openlocfilehash: 9e76b300c159a2a1432aa4b1c6e47b3d91084a85
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 5c73b5e5416956e2f6996e5692100e8c02a25cbf
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84215104"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724325"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory"></a>Zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly pomocí Azure Active Directory
 
@@ -40,7 +40,7 @@ Postupujte podle pokynů v [rychlém startu: registrace aplikace pomocí platfor
 1. Zadejte **název** aplikace (například ** Blazor AAD serveru**).
 1. Vyberte **podporované typy účtů**. Pro toto prostředí můžete vybrat **účty pouze v tomto organizačním adresáři** (jeden tenant).
 1. *Aplikace API serveru* v tomto scénáři nevyžaduje **identifikátor URI přesměrování** , proto nechejte rozevírací seznam nastavený na **Web** a nezadávejte identifikátor URI přesměrování.
-1. Zakažte **oprávnění**  >  **udělit správcům oprávnění k OpenID a offline_access** .
+1. Zakažte **oprávnění**  >  **udělení souhlasu správce OpenID a offline_access oprávnění** .
 1. Vyberte **Zaregistrovat**.
 
 Zaznamenejte následující informace:
@@ -74,7 +74,7 @@ Postupujte podle pokynů v [rychlém startu: registrace aplikace s využitím pl
 1. Zadejte **název** aplikace (například ** Blazor AAD klienta**).
 1. Vyberte **podporované typy účtů**. Pro toto prostředí můžete vybrat **účty pouze v tomto organizačním adresáři** (jeden tenant).
 1. Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` . Výchozí port pro aplikaci běžící na Kestrel je 5001. Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace. Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve vlastnostech serverové aplikace na panelu **ladění** . Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování. V části [Vytvoření aplikace](#create-the-app) se zobrazí zpráva s upozorněním, že IIS Express uživatelé chtějí aktualizovat identifikátor URI přesměrování.
-1. Zakažte **oprávnění**  >  **udělit správcům oprávnění k OpenID a offline_access** .
+1. Zakažte **oprávnění**  >  **udělení souhlasu správce OpenID a offline_access oprávnění** .
 1. Vyberte **Zaregistrovat**.
 
 Zaznamenejte ID aplikace *klienta aplikace* (ID klienta) (například `33333333-3333-3333-3333-333333333333` ).
@@ -168,7 +168,7 @@ services.Configure<JwtBearerOptions>(
 
 ### <a name="app-settings"></a>Nastavení aplikace
 
-Soubor *appSettings. JSON* obsahuje možnosti konfigurace obslužné rutiny nosiče JWT používané k ověření přístupových tokenů:
+*appsettings.jsv* souboru obsahuje možnosti pro konfiguraci obslužné rutiny nosiče JWT používané k ověření přístupových tokenů:
 
 ```json
 {
@@ -261,7 +261,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>Metoda přijímá zpětné volání ke konfiguraci parametrů požadovaných k ověření aplikace. Hodnoty požadované pro konfiguraci aplikace lze získat z konfigurace AAD webu Azure Portal při registraci aplikace.
 
-Konfigurace je dodána souborem *wwwroot/appSettings. JSON* :
+Konfigurace je dodána souborem *wwwroot/appsettings.jsv* souboru:
 
 ```json
 {

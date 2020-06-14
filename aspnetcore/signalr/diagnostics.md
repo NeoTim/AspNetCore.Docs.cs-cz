@@ -5,7 +5,7 @@ description: Naučte se shromažďovat diagnostiku z vaší SignalR aplikace ASP
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: signalr
-ms.date: 06/08/2020
+ms.date: 06/12/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/diagnostics
-ms.openlocfilehash: 22e1d24bc9fed5fd8588c852e07f5ca935946596
-ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
+ms.openlocfilehash: d26bb71a8ae06764b58a094b28d5e6f9eb581ecd
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/08/2020
-ms.locfileid: "84507313"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84755960"
 ---
 # <a name="logging-and-diagnostics-in-aspnet-core-signalr"></a>Protokolování a diagnostika v ASP.NET CoreSignalR
 
@@ -38,7 +38,7 @@ SignalRpoužívá dvě kategorie protokolovacího nástroje:
 * `Microsoft.AspNetCore.SignalR`: Protokoly týkající se protokolů centrálního centra, aktivace rozbočovačů, volání metod a dalších aktivit souvisejících s centrem.
 * `Microsoft.AspNetCore.Http.Connections`: Pro protokoly týkající se přenosů, jako jsou WebSockets, dlouhé cyklické dotazování, události odeslané serverem a infrastruktura nízké úrovně SignalR .
 
-Pokud chcete povolit podrobné protokoly SignalR , nakonfigurujte obě předchozí předpony na `Debug` úroveň v souboru *appSettings. JSON* přidáním následujících položek do `LogLevel` dílčí části v `Logging` :
+Chcete-li povolit podrobné protokoly SignalR , nakonfigurujte obě předchozí předpony na `Debug` úroveň v *appsettings.js* souboru přidáním následujících položek do `LogLevel` dílčí části v `Logging` :
 
 [!code-json[](diagnostics/logging-config.json?highlight=7-8)]
 
@@ -100,7 +100,7 @@ V následující tabulce jsou uvedeny úrovně protokolu dostupné pro klienta j
 
 Po nakonfigurování podrobností se protokoly zapíší do konzoly prohlížeče (nebo standardního výstupu v aplikaci NodeJS).
 
-Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující `ILogger` rozhraní. Jedinou metodou, kterou je třeba implementovat, je `log` , která přebírá úroveň události a zprávu spojenou s událostí. Příklad:
+Pokud chcete odesílat protokoly do vlastního systému protokolování, můžete poskytnout JavaScriptový objekt implementující `ILogger` rozhraní. Jedinou metodou, kterou je třeba implementovat, je `log` , která přebírá úroveň události a zprávu spojenou s událostí. Například:
 
 [!code-typescript[](diagnostics/custom-logger.ts?highlight=3-7,13)]
 
@@ -110,6 +110,8 @@ Pokud chcete odesílat protokoly do vlastního systému protokolování, můžet
 > Protokoly na straně klienta můžou obsahovat citlivé informace z vaší aplikace. **Nikdy** nezveřejňujte nezpracované protokoly z produkčních aplikací do veřejných fór, jako je GitHub.
 
 Chcete-li získat protokoly z klienta rozhraní .NET, můžete použít `ConfigureLogging` metodu na `HubConnectionBuilder` . To funguje stejným způsobem jako `ConfigureLogging` metoda na `WebHostBuilder` a `HostBuilder` . Můžete nakonfigurovat stejné poskytovatele protokolování, které používáte v ASP.NET Core. Je však nutné ručně nainstalovat a povolit balíčky NuGet pro jednotlivé zprostředkovatele protokolování.
+
+Chcete-li přidat protokolování klienta rozhraní .NET do Blazor aplikace WebAssembly, přečtěte si téma <xref:fundamentals/logging/index#blazor-webassembly-signalr-net-client-logging> .
 
 ### <a name="console-logging"></a>Protokolování konzoly
 
@@ -228,7 +230,7 @@ SignalRmetriky serveru jsou hlášeny ve <xref:Microsoft.AspNetCore.Http.Connect
 
 ### <a name="observe-metrics"></a>Sledovat metriky
 
-[dotnet – čítače](/dotnet/core/diagnostics/dotnet-counters) jsou nástrojem pro monitorování výkonu, který slouží ke sledování stavu ad-hoc a prvotnímu šetření výkonu na nejvyšší úrovni. Monitorujte aplikaci .NET s `Microsoft.AspNetCore.Http.Connections` názvem poskytovatele. Příklad:
+[dotnet – čítače](/dotnet/core/diagnostics/dotnet-counters) jsou nástrojem pro monitorování výkonu, který slouží ke sledování stavu ad-hoc a prvotnímu šetření výkonu na nejvyšší úrovni. Monitorujte aplikaci .NET s `Microsoft.AspNetCore.Http.Connections` názvem poskytovatele. Například:
 
 ```console
 > dotnet-counters monitor --process-id 37016 Microsoft.AspNetCore.Http.Connections

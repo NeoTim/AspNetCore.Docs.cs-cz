@@ -1,7 +1,7 @@
 ---
 title: Konfigurace ověřování certifikátů v ASP.NET Core
 author: blowdart
-description: Přečtěte si, jak nakonfigurovat ověřování certifikátů v ASP.NET Core pro IIS a HTTP. sys.
+description: Přečtěte si, jak nakonfigurovat ověřování certifikátů v ASP.NET Core pro IIS a HTTP.sys.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: bdorrans
 ms.date: 01/02/2020
@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/certauth
-ms.openlocfilehash: 4511e253ea9487c5739162b9b0180e39eb3a1b9c
-ms.sourcegitcommit: 67eadd7bf28eae0b8786d85e90a7df811ffe5904
+ms.openlocfilehash: cf80f7009334f49d877d2bd296b512e23f7fded8
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84454607"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724247"
 ---
 # <a name="configure-certificate-authentication-in-aspnet-core"></a>Konfigurace ověřování certifikátů v ASP.NET Core
 
@@ -42,7 +42,7 @@ Do webové aplikace přidejte odkaz na `Microsoft.AspNetCore.Authentication.Cert
 
 Pokud se ověření nepovede, vrátí tato obslužná rutina `403 (Forbidden)` odpověď místo `401 (Unauthorized)` toho, jak byste mohli očekávat. Důvodem je, že při počátečním připojení TLS by mělo probíhat ověřování. V době, kdy dosáhne obslužné rutiny, je příliš pozdě. Neexistuje žádný způsob, jak upgradovat připojení z anonymního připojení k jednomu pomocí certifikátu.
 
-Přidejte také `app.UseAuthentication();` do `Startup.Configure` metody. V opačném případě nebude `HttpContext.User` nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Příklad:
+Přidejte také `app.UseAuthentication();` do `Startup.Configure` metody. V opačném případě nebude `HttpContext.User` nastavení `ClaimsPrincipal` vytvořeno z certifikátu. Například:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -557,3 +557,36 @@ namespace AspNetCoreCertificateAuthApi
     }
 }
 ```
+
+<a name="occ"></a>
+
+## <a name="optional-client-certificates"></a>Volitelné klientské certifikáty
+
+V této části najdete informace o aplikacích, které musí chránit podmnožinu aplikace pomocí certifikátu. Například Razor Stránka nebo kontrolér v aplikaci může vyžadovat klientské certifikáty. V takovém případě se zobrazí výzvy jako klientské certifikáty:
+  
+* Funkce TLS, nikoli funkce HTTP.
+* Jsou vyjednány po připojení a musí se vyjednávat na začátku připojení, než budou k dispozici všechna data HTTP. Na začátku připojení je známo pouze Indikace názvu serveru (SNI) &dagger; . Certifikáty klienta a serveru se vyjednávají před prvním požadavkem na připojení a požadavky obecně nepůjde znovu vyjednávat. Nové vyjednávání je v HTTP/2 zakázané.
+
+ASP.NET Core 5 Preview 4 a novější přináší pohodlnější podporu pro volitelné klientské certifikáty. Další informace najdete v [ukázce volitelných certifikátů](https://github.com/dotnet/aspnetcore/tree/9ce4a970a21bace3fb262da9591ed52359309592/src/Security/Authentication/Certificate/samples/Certificate.Optional.Sample).
+
+Následující přístup podporuje volitelné klientské certifikáty:
+
+* Nastavte vazbu pro doménu a subdoménu:
+  * Například nastavte vazby v `contoso.com` a `myClient.contoso.com` . `contoso.com`Hostitel nevyžaduje klientský certifikát `myClient.contoso.com` , ale má.
+  * Další informace:
+    * [Kestrel](/fundamentals/servers/kestrel):
+      * [ListenOptions.UseHttps](xref:fundamentals/servers/kestrel#listenoptionsusehttps)
+      * <xref:Microsoft.AspNetCore.Server.Kestrel.Https.HttpsConnectionAdapterOptions.ClientCertificateMode>
+      * Poznámka Kestrel v současné době nepodporuje u jedné vazby více konfigurací TLS, budete potřebovat dvě vazby s jedinečnými IP adresami nebo porty. Sihttps://github.com/dotnet/runtime/issues/31097
+    * IIS
+      * [Hostování služby IIS](xref:host-and-deploy/iis/index#create-the-iis-site)
+      * [Konfigurace zabezpečení služby IIS](/iis/manage/configuring-security/how-to-set-up-ssl-on-iis#configure-ssl-settings-2)
+    * Http.Sys: [Konfigurace Windows serveru](xref:fundamentals/servers/httpsys#configure-windows-server)
+* Pro požadavky na webovou aplikaci, která vyžaduje klientský certifikát, a žádný z nich:
+  * Přesměruje se na stejnou stránku pomocí subdomény chráněné klientským certifikátem.
+  * Například přesměrujte na `myClient.contoso.com/requestedPage` . Vzhledem k tomu, že se `myClient.contoso.com/requestedPage` jedná o jiný název hostitele než `contoso.com/requestedPage` , klient vytvoří jiné připojení a klientský certifikát je k dispozici.
+  * Další informace naleznete v tématu <xref:security/authorization/introduction>.
+
+Ponechte dotazy, komentáře a další zpětnou vazbu k volitelným klientským certifikátům v [tomto problému diskuze GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/18720) .
+
+&dagger;Indikace názvu serveru (SNI) je rozšíření TLS, které zahrnuje virtuální doménu jako součást vyjednávání SSL. To efektivně znamená, že k identifikaci koncového bodu sítě lze použít název virtuální domény nebo název hostitele.

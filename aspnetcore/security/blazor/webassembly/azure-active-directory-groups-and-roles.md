@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/aad-groups-roles
-ms.openlocfilehash: 3ed06cca7e20da381b870e642a6c616b2578cd0a
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 87cdf02a6f6babc869d90658e6a7cd54db73bb68
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451872"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84756025"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Skupiny Azure AD, role pro správu a uživatelsky definované role
 
@@ -164,7 +164,7 @@ V následujících příkladech používá aplikace k autorizaci uživatele pře
 </AuthorizeView>
 ```
 
-Přístup k celé komponentě může být založen na zásadách pomocí `[Authorize]` direktivy atributu []] (odkazy XREF: Security/blazor/index # autorizovat-Attribute) ( <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ):
+Přístup k celé komponentě může být založen na zásadách pomocí [ `[Authorize]` direktivy atributu](xref:security/blazor/index#authorize-attribute) ( <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ):
 
 ```razor
 @page "/"
@@ -246,7 +246,7 @@ builder.Services.AddMsalAuthentication(options =>
 Přístupy k autorizaci komponent jsou v tuto chvíli funkční. Kterýkoli z autorizačních mechanismů v součástech může použít `admin` roli k autorizaci uživatele:
 
 * [AuthorizeView – komponenta](xref:security/blazor/index#authorizeview-component) (příklad: `<AuthorizeView Roles="admin">` )
-* [ `[Authorize]` ] Attribute – direktiva] (odkazy XREF: Security/blazor/index # autorizovat-Attribute) ( <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ) (Příklad: `@attribute [Authorize(Roles = "admin")]` )
+* [ `[Authorize]` direktiva atributu](xref:security/blazor/index#authorize-attribute) ( <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ) (příklad: `@attribute [Authorize(Roles = "admin")]` )
 * [Procedurální logika](xref:security/blazor/index#procedural-logic) (příklad: `if (user.IsInRole("admin")) { ... }` )
 
   Podporuje se vícenásobné testy rolí:

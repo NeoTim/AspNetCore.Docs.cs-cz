@@ -1,12 +1,24 @@
 ---
-title: ' Úvod do ASP.NET Core Blazor ' Author: Description: ' prozkoumat ASP.NET Core Blazor , způsob sestavení interaktivního webového uživatelského rozhraní webu pomocí .NET v aplikaci ASP.NET Core. '
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Úvod do ASP.NET CoreBlazor
+author: guardrex
+description: Prozkoumejte ASP.NET Core Blazor , způsob sestavení interaktivního webového uživatelského rozhraní na straně klienta pomocí .NET v aplikaci ASP.NET Core.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc, seoapril2019
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: blazor/index
+ms.openlocfilehash: eb8a6d2ddbd3e8f61626566878a7af5f5a2525d8
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "83608184"
 ---
 # <a name="introduction-to-aspnet-core-blazor"></a>Úvod do ASP.NET CoreBlazor
 

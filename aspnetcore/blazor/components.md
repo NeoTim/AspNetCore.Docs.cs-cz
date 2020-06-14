@@ -5,7 +5,7 @@ description: Naučte se vytvářet a používat Razor komponenty, včetně toho,
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/14/2020
+ms.date: 06/11/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components
-ms.openlocfilehash: 59b0c51e0006db0eb748b14b82a114a8bad986e8
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 2a6de1a39737f98cb151a0556f36c223d86f9752
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105143"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84723948"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
@@ -88,7 +88,7 @@ Při přístupu k obsahu v Razor syntaxi věnujte zvláštní pozornost následu
 
 Blazorpostupuje podle konvence ASP.NET Core aplikací, které umísťují statické prostředky do [složky webového kořenového adresáře (wwwroot)](xref:fundamentals/index#web-root)projektu.
 
-Použijte základní cestu ( `/` ) pro odkaz na webový kořenový adresář pro statický prostředek. V následujícím příkladu je soubor *logo. png* fyzicky umístěný ve složce *{Project root}/wwwroot/images* :
+Použijte základní cestu ( `/` ) pro odkaz na webový kořenový adresář pro statický prostředek. V následujícím příkladu je *logo.png* fyzicky umístěný ve složce *{Project root}/wwwroot/images* :
 
 ```razor
 <img alt="Company logo" src="/images/logo.png" />
@@ -365,7 +365,7 @@ Zaregistrujte `NotifierService` jako singletion:
 * V části Blazor Server Zaregistrujte službu v nástroji `Startup.ConfigureServices` :
 
   ```csharp
-  services.AddSingleton<NotifierService>();
+  services.AddScoped<NotifierService>();
   ```
 
 `NotifierService`K aktualizaci součásti použijte.

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-model-configuration
-ms.openlocfilehash: 3cef67806ce0e2e045122bdc962e93795be68572
-ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
+ms.openlocfilehash: 74501c70df5ad33d5a2478b2ec359713e29292d8
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84679576"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84755778"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
 
@@ -313,7 +313,7 @@ Konfigurace SignalR základního klienta pro odesílání přihlašovacích úda
 * Přiřaďte <xref:System.Net.Http.HttpMessageHandler> k <xref:Microsoft.AspNetCore.Http.Connections.Client.HttpConnectionOptions.HttpMessageHandlerFactory> Možnosti:
 
   ```csharp
-  var client = new HubConnectionBuilder()
+  var connection = new HubConnectionBuilder()
       .WithUrl(new Uri("http://signalr.example.com"), options =>
       {
           options.HttpMessageHandlerFactory = innerHandler => 

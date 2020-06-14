@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-azure-active-directory-b2c
-ms.openlocfilehash: 911eeffbe632d8f285d54ae78b62f17851205e83
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: ec35614e3bc4b5b6422b254dfe579c1cb7ca8310
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84214954"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724390"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor samostatné aplikace ASP.NET Coreového sestavení pomocí Azure Active Directory B2C
 
@@ -41,7 +41,7 @@ Postupujte podle pokynů v [kurzu: znovu zaregistrujte aplikaci v Azure Active D
 1. Zadejte **název** aplikace (například ** Blazor samostatné AAD B2C**).
 1. U **podporovaných typů účtů**vyberte možnost více tenantů: **účty v libovolném organizačním adresáři nebo jakémkoli poskytovateli identity. Pro ověřování uživatelů pomocí Azure AD B2C.**
 1. Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` . Výchozí port pro aplikaci běžící na Kestrel je 5001. Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace. Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve vlastnostech aplikace na panelu **ladění** . Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování. Po přeznačení se objeví dál v tomto tématu, které připomínat IIS Express uživatelům aktualizovat identifikátor URI přesměrování.
-1. Potvrďte, že **oprávnění**  >  **udělují správcům oprávnění k OpenID a offline_access** jsou povolená.
+1. Potvrďte, že **oprávnění**  >  **udělují správcům oprávnění k OpenID a offline_access** je povolené.
 1. Vyberte **Zaregistrovat**.
 
 Poznamenejte si ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111` ).
@@ -79,7 +79,7 @@ Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud 
 Po vytvoření aplikace byste měli mít tyto možnosti:
 
 * Přihlaste se k aplikaci pomocí uživatelského účtu AAD.
-* Vyžádá přístupové tokeny pro rozhraní API Microsoftu. Další informace naleznete v tématu:
+* Vyžádá přístupové tokeny pro rozhraní API Microsoftu. Další informace:
   * [Obory přístupového tokenu](#access-token-scopes)
   * [Rychlý Start: Konfigurace aplikace k vystavení webových rozhraní API](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
 
@@ -111,7 +111,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>Metoda přijímá zpětné volání ke konfiguraci parametrů požadovaných k ověření aplikace. Hodnoty požadované pro konfiguraci aplikace lze získat z konfigurace AAD při registraci aplikace.
 
-Konfigurace je dodána souborem *wwwroot/appSettings. JSON* :
+Konfigurace je dodána souborem *wwwroot/appsettings.jsv* souboru:
 
 ```json
 {

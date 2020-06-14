@@ -7,12 +7,13 @@
 >
 > Příklady přístupů k této chybě najdete v tématu chyby GitHubu [18677](https://github.com/dotnet/aspnetcore/issues/18677) a [16579](https://github.com/dotnet/aspnetcore/issues/16579) .
 >
-> Pro tuto chybu se plánuje oprava pro výslovný souhlas. Tento dokument bude aktualizován po vydání opravy. Po vydání opravy bude následující kód nastavit interní přepínač, který tuto chybu vyřeší:
+> Oprava pro tuto chybu je obsažená v [sadě .NET Core 3.1.301 SDK a novější](https://dotnet.microsoft.com/download/dotnet-core/3.1). Následující kód nastaví interní přepínač, který vyřeší tuto chybu:
 >
 >```
 >public static void Main(string[] args)
 >{
->    AppContext.SetSwitch("Microsoft.AspNetCore.Routing.UseCorrectCatchAllBehavior", true);
+>    AppContext.SetSwitch("Microsoft.AspNetCore.Routing.UseCorrectCatchAllBehavior", 
+>                          true);
 >    CreateHostBuilder(args).Build().Run();
 >}
 >// Remaining code removed for brevity.

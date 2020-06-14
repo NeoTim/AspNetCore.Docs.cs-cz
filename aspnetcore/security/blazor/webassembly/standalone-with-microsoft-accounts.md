@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/blazor/webassembly/standalone-with-microsoft-accounts
-ms.openlocfilehash: e4c49f899d5988dc42b16c16eb5114613c7204ba
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 113a0aaba89b90922a9ccd58da13aabeecec0081
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83852335"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724312"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-microsoft-accounts"></a>Zabezpečení Blazor samostatné aplikace ASP.NET Coreového sestavení pomocí účtů Microsoft
 
@@ -33,7 +33,7 @@ Zaregistrujte aplikaci AAD v **Azure Active Directory**  >  **Registrace aplikac
 1. Zadejte **název** aplikace (například ** Blazor samostatné účty Microsoft AAD**).
 1. V **podporovaných typech účtů**vyberte **účty v libovolném organizačním adresáři**.
 1. Ponechte rozevírací seznam **URI přesměrování** nastavenou na **Web** a zadejte následující identifikátor URI pro přesměrování: `https://localhost:{PORT}/authentication/login-callback` . Výchozí port pro aplikaci běžící na Kestrel je 5001. Pokud je aplikace spuštěná na jiném Kestrel portu, použijte port aplikace. Pro IIS Express se náhodně generovaný port pro aplikaci dá najít ve vlastnostech aplikace na panelu **ladění** . Vzhledem k tomu, že aplikace v tomto okamžiku neexistuje a port IIS Express není znám, vraťte se k tomuto kroku po vytvoření aplikace a aktualizaci identifikátoru URI přesměrování. Po přeznačení se objeví dál v tomto tématu, které připomínat IIS Express uživatelům aktualizovat identifikátor URI přesměrování.
-1. Zakažte **oprávnění**  >  **udělit správcům oprávnění k OpenID a offline_access** .
+1. Zakažte **oprávnění**  >  **udělení souhlasu správce OpenID a offline_access oprávnění** .
 1. Vyberte **Zaregistrovat**.
 
 Poznamenejte si ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111` ).
@@ -95,7 +95,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 <xref:Microsoft.Extensions.DependencyInjection.MsalWebAssemblyServiceCollectionExtensions.AddMsalAuthentication%2A>Metoda přijímá zpětné volání ke konfiguraci parametrů požadovaných k ověření aplikace. Hodnoty požadované pro konfiguraci aplikace lze získat z konfigurace AAD při registraci aplikace.
 
-Konfigurace je dodána souborem *wwwroot/appSettings. JSON* :
+Konfigurace je dodána souborem *wwwroot/appsettings.jsv* souboru:
 
 ```json
 {

@@ -1,7 +1,7 @@
 ---
 title: Ověřování a autorizace v ASP.NET CoreSignalR
 author: bradygaster
-description: Naučte se používat ověřování a autorizaci v SignalRASP.NET Core.
+description: Naučte se používat ověřování a autorizaci v ASP.NET Core SignalR .
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: signalr/authn-and-authz
-ms.openlocfilehash: 0f0bb2040d2407817c91f64a4769e6601c37a07d
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 91b251e44f6534f002705afb360b8a7855a5e435
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775281"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84755817"
 ---
 # <a name="authentication-and-authorization-in-aspnet-core-signalr"></a>Ověřování a autorizace v ASP.NET CoreSignalR
 
@@ -26,7 +26,7 @@ Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/authn-and-authz/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
-## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>Ověřování uživatelů připojujících se SignalR k centru
+## <a name="authenticate-users-connecting-to-a-signalr-hub"></a>Ověřování uživatelů připojujících se k SignalR centru
 
 SignalRdá se použít s [ověřováním ASP.NET Core](xref:security/authentication/identity) k přidružení uživatele k jednotlivým připojením. V centru můžete k datům ověřování přicházet z vlastnosti [HubConnectionContext. User](/dotnet/api/microsoft.aspnetcore.signalr.hubconnectioncontext.user) . Ověřování umožňuje centru volat metody u všech připojení přidružených k uživateli. Další informace najdete v tématu [Správa uživatelů a skupin v SignalR ](xref:signalr/groups)nástroji. K jednomu uživateli může být přidruženo více připojení.
 
@@ -80,7 +80,7 @@ public void Configure(IApplicationBuilder app)
 ```
 
 > [!NOTE]
-> Pořadí, ve kterém zaregistrujete middleware SignalR a ASP.NET Core v oblasti ověřování. Vždy volejte `UseAuthentication` před `UseSignalR` tím, SignalR aby měl uživatel na `HttpContext`.
+> Pořadí, ve kterém zaregistrujete SignalR middleware a ASP.NET Core v oblasti ověřování. Vždy volejte `UseAuthentication` před tím `UseSignalR` , aby SignalR měl uživatel na `HttpContext` .
 
 ::: moniker-end
 
@@ -88,7 +88,7 @@ public void Configure(IApplicationBuilder app)
 
 V aplikaci založené na prohlížeči umožňuje ověřování pomocí souborů cookie, aby vaše stávající uživatelská pověření automaticky pokračovala v SignalR připojeních. Při použití klienta prohlížeče není nutná žádná další konfigurace. Pokud je uživatel přihlášený do vaší aplikace, SignalR připojení Toto ověřování automaticky zdědí.
 
-Soubory cookie jsou způsoby, jak odesílat přístupové tokeny, ale klienti bez prohlížeče je mohou odeslat. Při použití [klienta .NET](xref:signalr/dotnet-client)lze `Cookies` vlastnost nakonfigurovat ve `.WithUrl` volání za účelem poskytnutí souboru cookie. Použití ověřování souborem cookie z klienta .NET ale vyžaduje, aby aplikace poskytovala rozhraní API pro výměnu ověřovacích dat pro soubor cookie.
+Soubory cookie jsou způsoby, jak odesílat přístupové tokeny, ale klienti bez prohlížeče je mohou odeslat. Při použití [klienta .NET](xref:signalr/dotnet-client) `Cookies` lze vlastnost nakonfigurovat ve `.WithUrl` volání za účelem poskytnutí souboru cookie. Použití ověřování souborem cookie z klienta .NET ale vyžaduje, aby aplikace poskytovala rozhraní API pro výměnu ověřovacích dat pro soubor cookie.
 
 ### <a name="bearer-token-authentication"></a>Ověřování nosných tokenů
 
@@ -104,7 +104,7 @@ V klientovi .NET existuje podobná vlastnost [AccessTokenProvider](xref:signalr/
 
 ```csharp
 var connection = new HubConnectionBuilder()
-    .WithUrl("https://example.com/myhub", options =>
+    .WithUrl("https://example.com/chathub", options =>
     { 
         options.AccessTokenProvider = () => Task.FromResult(_myAccessToken);
     })
@@ -112,16 +112,16 @@ var connection = new HubConnectionBuilder()
 ```
 
 > [!NOTE]
-> Funkce přístupového tokenu, kterou poskytnete **every** , je volána před všemi SignalRpožadavky HTTP provedenými nástrojem. Pokud potřebujete obnovit token, abyste zachovali aktivní připojení (protože může vypršet platnost připojení), udělejte to v rámci této funkce a vraťte aktualizovaný token.
+> Funkce přístupového tokenu, kterou poskytnete, je volána před **všemi** požadavky HTTP provedenými nástrojem SignalR . Pokud potřebujete obnovit token, abyste zachovali aktivní připojení (protože může vypršet platnost připojení), udělejte to v rámci této funkce a vraťte aktualizovaný token.
 
-V případě standardních webových rozhraní API se tokeny nosiče odesílají v hlavičce protokolu HTTP. Tato záhlaví SignalR ale v prohlížečích není možné nastavit při použití některých přenosů. Při použití protokolu WebSockets a událostí odesílaných serverem se token přenáší jako parametr řetězce dotazu. Pro podporu tohoto serveru je potřeba další konfigurace:
+V případě standardních webových rozhraní API se tokeny nosiče odesílají v hlavičce protokolu HTTP. SignalRTato záhlaví ale v prohlížečích není možné nastavit při použití některých přenosů. Při použití protokolu WebSockets a událostí odesílaných serverem se token přenáší jako parametr řetězce dotazu. Pro podporu tohoto serveru je potřeba další konfigurace:
 
 [!code-csharp[Configure Server to accept access token from Query String](authn-and-authz/sample/Startup.cs?name=snippet)]
 
 [!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]
 
 > [!NOTE]
-> Řetězec dotazu se používá v prohlížečích při připojování k objektům WebSockets a událostem odesílaným serverem kvůli omezením rozhraní API prohlížeče. Při použití protokolu HTTPS jsou hodnoty řetězce dotazu zabezpečené připojením TLS. Mnoho serverů ale protokoluje hodnoty řetězce dotazu. Další informace najdete v tématu [požadavky na zabezpečení v SignalRASP.NET Core ](xref:signalr/security). SignalRpomocí hlaviček odesílá tokeny v prostředích, které je podporují (například klienti .NET a Java).
+> Řetězec dotazu se používá v prohlížečích při připojování k objektům WebSockets a událostem odesílaným serverem kvůli omezením rozhraní API prohlížeče. Při použití protokolu HTTPS jsou hodnoty řetězce dotazu zabezpečené připojením TLS. Mnoho serverů ale protokoluje hodnoty řetězce dotazu. Další informace najdete v tématu [požadavky na zabezpečení v SignalR ASP.NET Core ](xref:signalr/security). SignalRpomocí hlaviček odesílá tokeny v prostředích, které je podporují (například klienti .NET a Java).
 
 ### <a name="cookies-vs-bearer-tokens"></a>Soubory cookie vs. nosných tokenů 
 
@@ -131,16 +131,16 @@ Soubory cookie jsou specifické pro prohlížeče. Posílání z jiných druhů 
 
 Pokud je ve vaší aplikaci nakonfigurované [ověřování systému Windows](xref:security/authentication/windowsauth) , SignalR může tuto identitu použít k zabezpečení rozbočovačů. Chcete-li však odesílat zprávy jednotlivým uživatelům, je nutné přidat vlastního poskytovatele ID uživatele. Systém ověřování systému Windows neposkytuje deklaraci identity "identifikátor názvu". SignalRpomocí deklarace identity určí uživatelské jméno.
 
-Přidejte novou třídu, která implementuje `IUserIdProvider` a načte jednu z deklarací identity od uživatele, která se má použít jako identifikátor. Pokud například chcete použít deklaraci identity (která je uživatelské jméno systému Windows ve formuláři `[Domain]\[Username]`), vytvořte následující třídu:
+Přidejte novou třídu, která implementuje `IUserIdProvider` a načte jednu z deklarací identity od uživatele, která se má použít jako identifikátor. Pokud například chcete použít deklaraci identity (která je uživatelské jméno systému Windows ve formuláři `[Domain]\[Username]` ), vytvořte následující třídu:
 
 [!code-csharp[Name based provider](authn-and-authz/sample/nameuseridprovider.cs?name=NameUserIdProvider)]
 
-Místo `ClaimTypes.Name`toho můžete použít libovolnou hodnotu z rozhraní `User` (například identifikátor SID systému Windows atd.).
+Místo `ClaimTypes.Name` toho můžete použít libovolnou hodnotu z rozhraní `User` (například identifikátor SID systému Windows atd.).
 
 > [!NOTE]
 > Hodnota, kterou zvolíte, musí být jedinečná mezi všemi uživateli v systému. Jinak může zpráva určená pro jednoho uživatele skončit jiným uživatelem.
 
-Zaregistrujte tuto komponentu `Startup.ConfigureServices` v metodě.
+Zaregistrujte tuto komponentu v `Startup.ConfigureServices` metodě.
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -156,18 +156,18 @@ V klientovi .NET musí být povoleno ověřování systému Windows nastavením 
 
 ```csharp
 var connection = new HubConnectionBuilder()
-    .WithUrl("https://example.com/myhub", options =>
+    .WithUrl("https://example.com/chathub", options =>
     {
         options.UseDefaultCredentials = true;
     })
     .Build();
 ```
 
-Ověřování systému Windows je podporováno pouze klientem prohlížeče při použití aplikace Microsoft Internet Explorer nebo Microsoft Edge.
+Ověřování systému Windows je podporováno v aplikacích Internet Explorer a Microsoft Edge, ale ne ve všech prohlížečích. Například v Chrome a Safari se nezdařil pokus o použití ověřování systému Windows a WebSockets. Když se ověřování systému Windows nepovede, klient se pokusí přejít na jiné přenosy, které by mohly fungovat.
 
 ### <a name="use-claims-to-customize-identity-handling"></a>Přizpůsobení manipulace identity pomocí deklarací identity
 
-Aplikace, která ověřuje uživatele, může odvodit SignalR ID uživatelů od deklarací identity uživatelů. Chcete-li SignalR určit, jak vytvoří ID `IUserIdProvider` uživatele, implementujte a zaregistrujte implementaci.
+Aplikace, která ověřuje uživatele, může odvodit SignalR ID uživatelů od deklarací identity uživatelů. Chcete-li určit SignalR , jak vytvoří ID uživatele, implementujte `IUserIdProvider` a zaregistrujte implementaci.
 
 Vzorový kód ukazuje, jak byste měli pomocí deklarací identity vybrat e-mailovou adresu uživatele jako identifikační vlastnost. 
 
@@ -180,7 +180,7 @@ Registrace účtu přidá deklaraci identity s typem `ClaimsTypes.Email` do data
 
 [!code-csharp[Adding the email to the ASP.NET identity claims](authn-and-authz/sample/pages/account/Register.cshtml.cs?name=AddEmailClaim)]
 
-Zaregistrujte tuto součást `Startup.ConfigureServices`v.
+Zaregistrujte tuto součást v `Startup.ConfigureServices` .
 
 ```csharp
 services.AddSingleton<IUserIdProvider, EmailBasedUserIdProvider>();
@@ -192,7 +192,7 @@ Ve výchozím nastavení mohou být všechny metody v centru volány neověřen�
 
 [!code-csharp[Restrict a hub to only authorized users](authn-and-authz/sample/Hubs/ChatHub.cs?range=8-10,32)]
 
-Pomocí argumentů konstruktoru a vlastností `[Authorize]` atributu můžete omezit přístup jenom na uživatele, kteří odpovídají na konkrétní [zásady autorizace](xref:security/authorization/policies). Pokud máte například vlastní zásadu `MyAuthorizationPolicy` autorizace, můžete zajistit, že k centru budou mít přístup jenom uživatelé, kteří mají odpovídající zásady, a to pomocí následujícího kódu:
+Pomocí argumentů konstruktoru a vlastností `[Authorize]` atributu můžete omezit přístup jenom na uživatele, kteří odpovídají na konkrétní [zásady autorizace](xref:security/authorization/policies). Pokud máte například vlastní zásadu autorizace, `MyAuthorizationPolicy` můžete zajistit, že k centru budou mít přístup jenom uživatelé, kteří mají odpovídající zásady, a to pomocí následujícího kódu:
 
 ```csharp
 [Authorize("MyAuthorizationPolicy")]
@@ -224,9 +224,9 @@ public class ChatHub : Hub
 
 ### <a name="use-authorization-handlers-to-customize-hub-method-authorization"></a>Přizpůsobení autorizace metody centra pomocí obslužných rutin autorizace
 
-SignalRposkytuje vlastní prostředek pro obslužné rutiny autorizace, pokud metoda rozbočovače vyžaduje autorizaci. Prostředek je instancí `HubInvocationContext`. `HubInvocationContext` Zahrnuje `HubCallerContext`, název vyvolané metody centra a argumenty metody hub.
+SignalRposkytuje vlastní prostředek pro obslužné rutiny autorizace, pokud metoda rozbočovače vyžaduje autorizaci. Prostředek je instancí `HubInvocationContext` . `HubInvocationContext`Zahrnuje `HubCallerContext` , název vyvolané metody centra a argumenty metody hub.
 
-Vezměte v úvahu příklad chatovací místnosti umožňující přihlášení více organizací prostřednictvím Azure Active Directory. Kdokoli s účet Microsoft se může přihlásit k chatu, ale jenom členové vlastnící organizace by měli být schopni zakázat uživatelům nebo zobrazit historie chatu uživatelů. Kromě toho můžeme chtít omezit určité funkce od určitých uživatelů. Používání aktualizovaných funkcí v ASP.NET Core 3,0 je zcela možné. Všimněte si, `DomainRestrictedRequirement` jak funguje jako vlastní `IAuthorizationRequirement`. Teď, když `HubInvocationContext` se předává parametr prostředků, interní logika může zkontrolovat kontext, ve kterém se centrum volá, a rozhodnout, že uživatel může provádět jednotlivé metody rozbočovače.
+Vezměte v úvahu příklad chatovací místnosti umožňující přihlášení více organizací prostřednictvím Azure Active Directory. Kdokoli s účet Microsoft se může přihlásit k chatu, ale jenom členové vlastnící organizace by měli být schopni zakázat uživatelům nebo zobrazit historie chatu uživatelů. Kromě toho můžeme chtít omezit určité funkce od určitých uživatelů. Používání aktualizovaných funkcí v ASP.NET Core 3,0 je zcela možné. Všimněte si, jak `DomainRestrictedRequirement` funguje jako vlastní `IAuthorizationRequirement` . Teď, když se `HubInvocationContext` předává parametr prostředků, interní logika může zkontrolovat kontext, ve kterém se centrum volá, a rozhodnout, že uživatel může provádět jednotlivé metody rozbočovače.
 
 ```csharp
 [Authorize]
@@ -272,7 +272,7 @@ public class DomainRestrictedRequirement :
 }
 ```
 
-V `Startup.ConfigureServices`přidejte novou zásadu a jako parametr vytvořte `DomainRestrictedRequirement` `DomainRestricted` vlastní požadavek.
+V `Startup.ConfigureServices` přidejte novou zásadu a `DomainRestrictedRequirement` jako parametr vytvořte vlastní požadavek `DomainRestricted` .
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -290,11 +290,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-V předchozím příkladu je `DomainRestrictedRequirement` třída `IAuthorizationRequirement` a její vlastní `AuthorizationHandler` pro tento požadavek. Je přijatelné rozdělit tyto dvě komponenty na samostatné třídy, aby se oddělily obavy. Výhodou příkladu přístupu není nutné vkládat `AuthorizationHandler` při spuštění, protože požadavek a obslužná rutina jsou stejné.
+V předchozím příkladu `DomainRestrictedRequirement` je třída `IAuthorizationRequirement` a její vlastní `AuthorizationHandler` pro tento požadavek. Je přijatelné rozdělit tyto dvě komponenty na samostatné třídy, aby se oddělily obavy. Výhodou příkladu přístupu není nutné vkládat `AuthorizationHandler` při spuštění, protože požadavek a obslužná rutina jsou stejné.
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Ověřování nosných tokenů v ASP.NET Core](https://blogs.msdn.microsoft.com/webdev/2016/10/27/bearer-token-authentication-in-asp-net-core/)
 * [Ověřování na základě prostředků](xref:security/authorization/resourcebased)

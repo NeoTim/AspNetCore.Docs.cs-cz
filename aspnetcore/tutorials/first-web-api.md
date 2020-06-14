@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: 2fcfd46057935cadac76c558a78729a1c096ffc0
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 71ab0fc0a679acf540fa53fa2a9c8ba893b34edf
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451815"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724351"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -281,7 +281,7 @@ Předcházející kód:
 
   * V **třídě modelu**vyberte **TodoItem (TodoApi. Models)** .
   * Ve **třídě Context data**vyberte **TodoContext (TodoApi. Models)** .
-  * Vyberte **Přidat**.
+  * Vyberte možnost **Přidat**.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -380,7 +380,7 @@ Tyto metody implementují dva koncové body GET:
 * `GET /api/TodoItems`
 * `GET /api/TodoItems/{id}`
 
-Otestujte aplikaci voláním dvou koncových bodů z prohlížeče nebo po odeslání. Příklad:
+Otestujte aplikaci voláním dvou koncových bodů z prohlížeče nebo po odeslání. Například:
 
 * `https://localhost:5001/api/TodoItems`
 * `https://localhost:5001/api/TodoItems/1`
@@ -477,7 +477,7 @@ Odstranění položky úkolů pomocí metody post:
 
 ## <a name="prevent-over-posting"></a>Zabránit navýšení příspěvků
 
-V současné době ukázková aplikace zveřejňuje celý `TodoItem` objekt. Výrobní aplikace obvykle omezují zadaná data a vracejí je pomocí podmnožiny modelu. Je to několik důvodů na pozadí a zabezpečení je hlavní. Podmnožina modelu je obvykle označována jako objekt Přenos dat (DTO), vstupní model nebo model zobrazení. **DTO** se používá v tomto článku.
+V současné době ukázková aplikace zveřejňuje celý `TodoItem` objekt. Produkční aplikace obvykle omezují zadaná data a vracejí je pomocí podmnožiny modelu. Je to několik důvodů na pozadí a zabezpečení je hlavní. Podmnožina modelu je obvykle označována jako objekt Přenos dat (DTO), vstupní model nebo model zobrazení. **DTO** se používá v tomto článku.
 
 DTO se dá použít k těmto akcím:
 
@@ -737,7 +737,7 @@ Tyto metody implementují dva koncové body GET:
 
 Pokud je pořád spuštěná, zastavte aplikaci. Pak ji znovu spusťte, aby obsahovala nejnovější změny.
 
-Otestujte aplikaci voláním dvou koncových bodů z prohlížeče. Příklad:
+Otestujte aplikaci voláním dvou koncových bodů z prohlížeče. Například:
 
 * `https://localhost:<port>/api/todo`
 * `https://localhost:<port>/api/todo/1`
@@ -913,18 +913,18 @@ Nakonfigurujte aplikaci tak, aby [sloužila pro statické soubory](/dotnet/api/m
 
 Vytvořte složku *wwwroot* v adresáři projektu.
 
-Do adresáře *wwwroot* přidejte soubor HTML s názvem *index. html* . Nahraďte jeho obsah následujícím kódem:
+Do adresáře *wwwroot* přidejte soubor HTML s názvem *index.html* . Nahraďte jeho obsah následujícím kódem:
 
 [!code-html[](first-web-api/samples/2.2/TodoApi/wwwroot/index.html)]
 
-Do adresáře *wwwroot* přidejte soubor JavaScriptu s názvem *Web. js* . Nahraďte jeho obsah následujícím kódem:
+Do adresáře *wwwroot* přidejte soubor JavaScriptu s názvem *site.js* . Nahraďte jeho obsah následujícím kódem:
 
 [!code-javascript[](first-web-api/samples/2.2/TodoApi/wwwroot/site.js?name=snippet_SiteJs)]
 
 Pro místní testování stránky HTML může být nutné změnit nastavení spouštění ASP.NET Core projektu:
 
-* Otevřete *Properties\launchSettings.JSON*.
-* Odeberte `launchUrl` vlastnost, která vynutí otevření aplikace v *indexu. html* &mdash; výchozí soubor projektu.
+* Otevřete *Properties\launchSettings.js*.
+* Odeberte `launchUrl` vlastnost, která vynutí otevření aplikace na *index.html* &mdash; výchozího souboru projektu.
 
 Tato ukázka volá všechny metody CRUD webového rozhraní API. Následují vysvětlení volání rozhraní API.
 

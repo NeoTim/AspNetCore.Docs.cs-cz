@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/authn-and-authz
-ms.openlocfilehash: f9d2e73f57d69e1eb5039019dc9e64193cf67820
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 61ddcdc75a627fe777fab88b41bdbc4c7f9be9f3
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105789"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84723987"
 ---
 # <a name="authentication-and-authorization-in-grpc-for-aspnet-core"></a>Ověřování a autorizace v gRPC pro ASP.NET Core
 
@@ -117,7 +117,7 @@ private static GrpcChannel CreateAuthenticatedChannel(string address)
 Klient může případně poskytnout klientský certifikát pro ověřování. [Ověřování certifikátu](https://tools.ietf.org/html/rfc5246#section-7.4.4) se provádí na úrovni protokolu TLS dlouho předtím, než se někdy získá ASP.NET Core. Když požadavek vstoupí do ASP.NET Core, [balíček pro ověřování certifikátu klienta](xref:security/authentication/certauth) vám umožní tento certifikát přeložit na `ClaimsPrincipal` .
 
 > [!NOTE]
-> Hostitel musí být nakonfigurovaný tak, aby přijímal klientské certifikáty. Informace o přijímání klientských certifikátů v Kestrel, IIS a Azure najdete v tématu [Konfigurace hostitele pro vyžadování certifikátů](xref:security/authentication/certauth#configure-your-host-to-require-certificates) .
+> Nakonfigurujte server tak, aby přijímal klientské certifikáty. Informace o přijímání klientských certifikátů v Kestrel, IIS a Azure najdete v tématu <xref:security/authentication/certauth#configure-your-server-to-require-certificates> .
 
 V klientovi .NET gRPC se certifikát klienta přidá do `HttpClientHandler` , který pak slouží k vytvoření klienta gRPC:
 

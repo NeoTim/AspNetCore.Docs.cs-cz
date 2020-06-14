@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: 38a75e9577bab6bbdb5accf161659e8e301947b1
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: f2588665c26887a6e3864866425b887e97e656d5
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105932"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84755869"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -84,13 +84,13 @@ Další informace naleznete v tématu <xref:grpc/index>.
 
 ## SignalR
 
-Pokyny k migraci najdete v tématu [aktualizace SignalR kódu](xref:migration/22-to-30#signalr) . SignalRnyní používá `System.Text.Json` k serializaci nebo deserializaci zpráv JSON. Pokyny pro obnovení serializátoru založeného na [Newtonsoft. JSON najdete v tématu Přepnutí do. JSON](xref:migration/22-to-30#switch-to-newtonsoftjson) `Newtonsoft.Json` .
+Pokyny k migraci najdete v tématu [aktualizace SignalR kódu](xref:migration/22-to-30#signalr) . SignalRnyní používá `System.Text.Json` k serializaci nebo deserializaci zpráv JSON. Pokyny pro obnovení serializátoru založeného na systému najdete v tématu [Přepnutí na Newtonsoft.Js](xref:migration/22-to-30#switch-to-newtonsoftjson) `Newtonsoft.Json` .
 
 V klientech JavaScript a .NET pro SignalR se podpora přidala pro automatické opětovné připojení. Ve výchozím nastavení se klient pokusí znovu připojit hned a v případě potřeby opakovat po 2, 10 a 30 sekundách. Pokud se klient úspěšně znovu připojí, obdrží nové ID připojení. Automatické opětovné připojení je výslovný souhlas:
 
 ```javascript
 const connection = new signalR.HubConnectionBuilder()
-    .withUrl("/chatHub")
+    .withUrl("/chathub")
     .withAutomaticReconnect()
     .build();
 ```
@@ -316,7 +316,7 @@ ASP.NET Core 3,0 teď používá standardně <xref:System.Text.Json> pro seriali
 * Je optimalizován pro text v kódování UTF-8.
 * Obvykle vyšší výkon než `Newtonsoft.Json` .
 
-Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidání podpory formátu JSON založeného na Newtonsoft. JSON](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support).
+Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidání podpory formátu JSON založeného na Newtonsoft.Js](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support).
 
 ## <a name="new-razor-directives"></a>Nové Razor direktivy
 
@@ -401,7 +401,7 @@ Další informace naleznete v tématu <xref:security/authentication/windowsauth>
 Šablony uživatelského rozhraní webu ( Razor stránky, MVC s kontrolérem a zobrazeními) mají následující odebrané:
 
 * Uživatelské rozhraní pro vyjádření souhlasu souborů cookie již není zahrnuto. Pokud chcete povolit funkci vyjádření souhlasu souborů cookie v aplikaci vygenerovanou šablonou ASP.NET Core 3,0, přečtěte si téma <xref:security/gdpr> .
-* Skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN. Další informace najdete v tématu [skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN v závislosti na aktuálním prostředí (ASPNET/AspNetCore. Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350).
+* Skripty a související statické prostředky jsou nyní odkazovány jako místní soubory namísto použití sítě CDN. Další informace najdete v tématu o [skriptech a souvisejících statických prostředcích se teď odkazuje jako na místní soubory namísto použití sítě CDN v závislosti na aktuálním prostředí (ASPNET/AspNetCore.Docs #14350)](https://github.com/dotnet/AspNetCore.Docs/issues/14350).
 
 Úhlová šablona se aktualizovala tak, aby používala úhlové 8.
 
@@ -437,7 +437,7 @@ Další informace naleznete v tématu <xref:migration/22-to-30#kestrel>.
 
 ## <a name="http2-enabled-by-default"></a>HTTP/2 povoleno ve výchozím nastavení
 
-Protokol HTTP/2 je ve výchozím nastavení povolený pro koncové body HTTPS v Kestrel. Podpora HTTP/2 pro IIS nebo HTTP. sys je povolená, když operační systém podporuje.
+Protokol HTTP/2 je ve výchozím nastavení povolený pro koncové body HTTPS v Kestrel. Podpora HTTP/2 pro službu IIS nebo HTTP.sys je povolená, když operační systém podporuje.
 
 ## <a name="eventcounters-on-request"></a>EventCounters na žádost
 
@@ -536,7 +536,7 @@ Sdílené rozhraní ASP.NET Core 3,0, obsažené v souboru [Microsoft. AspNetCor
 
 Nejvýznamnější sestavení odebraný ze sdílené architektury ASP.NET Core 3,0 jsou:
 
-* [Newtonsoft. JSON](https://www.nuget.org/packages/Newtonsoft.Json/) (JSON.NET). Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidání podpory formátu JSON založeného na Newtonsoft. JSON](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support). ASP.NET Core 3,0 zavádí `System.Text.Json` pro čtení a zápis formátu JSON. Další informace najdete v tématu [Nová serializace JSON](#new-json-serialization) v tomto dokumentu.
+* [Newtonsoft.Js](https://www.nuget.org/packages/Newtonsoft.Json/) (JSON.NET). Pokud chcete přidat Json.NET do ASP.NET Core 3,0, přečtěte si téma [Přidání podpory formátu JSON založeného na Newtonsoft.Js](xref:web-api/advanced/formatting#add-newtonsoftjson-based-json-format-support). ASP.NET Core 3,0 zavádí `System.Text.Json` pro čtení a zápis formátu JSON. Další informace najdete v tématu [Nová serializace JSON](#new-json-serialization) v tomto dokumentu.
 * [Entity Framework Core](/ef/core/)
 
 Úplný seznam sestavení odebraných ze sdíleného rozhraní najdete v tématu sestavení, [která jsou odebírána z Microsoft. AspNetCore. App 3,0](https://github.com/dotnet/AspNetCore/issues/3755). Další informace o motivaci této změny najdete v tématu přemístění [změn do Microsoft. AspNetCore. app v 3,0](https://github.com/aspnet/Announcements/issues/325) a [první pohled na změny, které přicházejí v ASP.NET Core 3,0](https://devblogs.microsoft.com/aspnet/a-first-look-at-changes-coming-in-asp-net-core-3-0/).

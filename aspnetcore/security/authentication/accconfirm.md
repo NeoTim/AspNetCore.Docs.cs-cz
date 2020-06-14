@@ -11,12 +11,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/accconfirm
-ms.openlocfilehash: d5e0e3865702fe4e5cbe49e7f452f367a8a53de9
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 8d4488b3953a8c87033d3a092b656409a0c6a52d
+ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451742"
+ms.lasthandoff: 06/12/2020
+ms.locfileid: "84724364"
 ---
 # <a name="account-confirmation-and-password-recovery-in-aspnet-core"></a>Potvrzení účtu a obnovení hesla v ASP.NET Core
 
@@ -63,7 +63,7 @@ Spusťte aplikaci, vyberte odkaz **Registrovat** a zaregistrujte uživatele. Po 
 
 V tomto kurzu se k odeslání e-mailu používá [SendGrid](https://sendgrid.com) . K odeslání e-mailu potřebujete účet SendGrid a klíč. Můžete použít jiné poskytovatele e-mailů. K odeslání e-mailu doporučujeme použít SendGrid nebo jinou e-mailovou službu. Protokol SMTP je obtížné zabezpečit a nastavit správně.
 
-Účet SendGrid vyžaduje [Přidání odesílatele](https://sendgrid.com/docs/ui/sending-email/senders/).
+Účet SendGrid může vyžadovat [Přidání odesílatele](https://sendgrid.com/docs/ui/sending-email/senders/).
 
 Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázce vytvořte *Services/AuthMessageSenderOptions. cs*:
 
@@ -71,7 +71,7 @@ Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázc
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
+Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Například:
 
 ```dotnetcli
 dotnet user-secrets set SendGridUser RickAndMSFT
@@ -80,9 +80,9 @@ dotnet user-secrets set SendGridKey <key>
 Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-Správce tajných kódů v systému Windows ukládá páry klíče/hodnoty do souboru *tajných klíčů. JSON* v `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáři.
+Správce tajných klíčů v systému Windows ukládá páry klíče/hodnoty do *secrets.js* souboru v `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáři.
 
-Obsah souboru *tajných kódů. JSON* není zašifrovaný. Následující kód ukazuje soubor *tajných kódů. JSON* . `SendGridKey`Hodnota byla odebrána.
+Obsah *secrets.jsv* souboru není šifrovaný. Následující kód ukazuje *secrets.jsv* souboru. `SendGridKey`Hodnota byla odebrána.
 
 ```json
 {
@@ -279,16 +279,16 @@ Vytvořte třídu, která načte zabezpečený e-mailový klíč. V této ukázc
 
 #### <a name="configure-sendgrid-user-secrets"></a>Konfigurace uživatelských tajných klíčů SendGrid
 
-Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Příklad:
+Nastavte `SendGridUser` a `SendGridKey` pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets). Například:
 
 ```console
 C:/WebAppl>dotnet user-secrets set SendGridUser RickAndMSFT
 info: Successfully saved SendGridUser = RickAndMSFT to the secret store.
 ```
 
-Správce tajných kódů v systému Windows ukládá páry klíče/hodnoty do souboru *tajných klíčů. JSON* v `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáři.
+Správce tajných klíčů v systému Windows ukládá páry klíče/hodnoty do *secrets.js* souboru v `%APPDATA%/Microsoft/UserSecrets/<WebAppName-userSecretsId>` adresáři.
 
-Obsah souboru *tajných kódů. JSON* není zašifrovaný. Následující kód ukazuje soubor *tajných kódů. JSON* . `SendGridKey`Hodnota byla odebrána.
+Obsah *secrets.jsv* souboru není šifrovaný. Následující kód ukazuje *secrets.jsv* souboru. `SendGridKey`Hodnota byla odebrána.
 
 ```json
 {

@@ -1,63 +1,96 @@
 ---
-title: SignalR HubContext
+title: SignalRHubContext
 author: bradygaster
-description: Zjistěte, jak použít službu SignalR HubContext technologie ASP.NET Core pro odesílání oznámení klientům mimo rozbočovač.
+description: Naučte se používat službu ASP.NET Core SignalR HubContext pro posílání oznámení klientům mimo centrum.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
-ms.date: 11/01/2018
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: signalr/hubcontext
-ms.openlocfilehash: 7ec52d4711fc191dcb83120cf54b1dc28c41f947
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 336173866e9346d836bb31955644d07403fc238d
+ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64900693"
+ms.lasthandoff: 06/13/2020
+ms.locfileid: "84756051"
 ---
-# <a name="send-messages-from-outside-a-hub"></a>Odeslání zprávy z mimo rozbočovač
+# <a name="send-messages-from-outside-a-hub"></a>Posílání zpráv mimo centrum
 
-Podle [Mikael Mengistu](https://twitter.com/MikaelM_12)
+Od [Mikael Mengistu](https://twitter.com/MikaelM_12)
 
-Rozbočovače SignalR je základní abstrakci pro odesílání zpráv do klientů připojených k serveru funkce SignalR. Je také možné odesílat zprávy z jiného místa portálu vaši aplikaci s použitím `IHubContext` služby. Tento článek vysvětluje, jak získat přístup k knihovnou SignalR `IHubContext` k odesílání oznámení klientům mimo rozbočovač.
+SignalRRozbočovač je základní abstrakce pro posílání zpráv klientům připojeným k SignalR serveru. Je také možné odesílat zprávy z jiných míst ve vaší aplikaci pomocí `IHubContext` služby. Tento článek vysvětluje, jak získat přístup k, aby bylo možné SignalR `IHubContext` odesílat oznámení klientům mimo centrum.
 
-[Zobrazení nebo stažení ukázkového kódu](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubcontext/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/hubcontext/sample/) [(jak stáhnout)](xref:index#how-to-download-a-sample)
 
 ## <a name="get-an-instance-of-ihubcontext"></a>Získat instanci IHubContext
 
-V knihovně SignalR technologie ASP.NET Core, můžete přístup k instanci `IHubContext` pomocí vkládání závislostí. Můžete vložit instance `IHubContext` do kontroleru, middleware nebo jiné služby DI. Použijte instanci pro odesílání zpráv do klientů.
+V ASP.NET Core SignalR máte přístup k instanci `IHubContext` přes vkládání závislostí. Můžete vložit instanci `IHubContext` do kontroleru, middleware nebo jiné služby di. Použijte instanci k posílání zpráv klientům.
 
 > [!NOTE]
-> Tím se liší od ASP.NET 4.x SignalR, která používá GlobalHost k poskytnutí přístupu k `IHubContext`. ASP.NET Core má rozhraní injektáž závislostí, které eliminuje potřebu této globální typu singleton.
+> To se liší od ASP.NET 4. x SignalR , které používaly GlobalHost k poskytnutí přístupu k `IHubContext` . ASP.NET Core má rozhraní pro vkládání závislostí, které odstraňuje nutnost tohoto globálního typu singleton.
 
-### <a name="inject-an-instance-of-ihubcontext-in-a-controller"></a>Vložit instance IHubContext v kontroleru
+### <a name="inject-an-instance-of-ihubcontext-in-a-controller"></a>Vložení instance IHubContext do kontroleru
 
-Můžete vložit instance `IHubContext` do kontroleru tak, že ho přidáte do konstruktoru:
+Můžete vložit instanci `IHubContext` do kontroleru tak, že ji přidáte do konstruktoru:
 
 [!code-csharp[IHubContext](hubcontext/sample/Controllers/HomeController.cs?range=12-19,57)]
 
-Nyní, s přístupem k instanci `IHubContext`, jako kdyby byly v centru samotné můžete volat metody rozbočovače.
+Nyní s přístupem k instanci nástroje `IHubContext` můžete volat metody centra jako v případě, že jste byli v samotném centru.
 
 [!code-csharp[IHubContext](hubcontext/sample/Controllers/HomeController.cs?range=21-25)]
 
-### <a name="get-an-instance-of-ihubcontext-in-middleware"></a>Získat instanci IHubContext v middlewaru
+### <a name="get-an-instance-of-ihubcontext-in-middleware"></a>Získání instance IHubContext v middlewaru
 
-Přístup `IHubContext` v rámci kanálu middleware takto:
+Přístup k v `IHubContext` rámci kanálu middlewaru vám umožní:
 
 ```csharp
 app.Use(async (context, next) =>
 {
     var hubContext = context.RequestServices
-                            .GetRequiredService<IHubContext<MyHub>>();
+                            .GetRequiredService<IHubContext<ChatHub>>();
     //...
+    
+    if (next != null)
+    {
+        await next.Invoke();
+    }
 });
 ```
 
 > [!NOTE]
-> Kdy jsou volány metody rozbočovače z mimo `Hub` třídy, neexistuje žádný volající přidružené k vyvolání. Proto neexistuje žádný přístup k `ConnectionId`, `Caller`, a `Others` vlastnosti.
+> Když jsou metody rozbočovače volány z vnějšku `Hub` třídy, není k vyvolání přidružen žádný volající. Proto neexistuje přístup k `ConnectionId` `Caller` `Others` vlastnostem, a.
 
-### <a name="inject-a-strongly-typed-hubcontext"></a>Vložit HubContext se silnými typy
+### <a name="get-an-instance-of-ihubcontext-from-ihost"></a>Získat instanci IHubContext z IHost
 
-Vložit HubContext se silnými typy, ujistěte se centrem dědí z `Hub<T>`. Vložení pomocí `IHubContext<THub, T>` rozhraní spíše než `IHubContext<THub>`.
+Přístup k `IHubContext` webu z webového hostitele je užitečný pro integraci s oblastmi mimo ASP.NET Core, například pomocí rozhraní pro vkládání závislostí třetích stran:
+
+```csharp
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var host = CreateHostBuilder(args).Build();
+            var hubContext = host.Services.GetService(typeof(IHubContext<ChatHub>));
+            host.Run();
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder => {
+                    webBuilder.UseStartup<Startup>();
+                });
+    }
+```
+
+### <a name="inject-a-strongly-typed-hubcontext"></a>Vložení silně typovaného HubContextu
+
+Pro vložení silně typovaného HubContextu zajistěte, aby váš rozbočovač dědil z `Hub<T>` . `IHubContext<THub, T>`Místo použijte rozhraní `IHubContext<THub>` .
 
 ```csharp
 public class ChatController : Controller
@@ -80,4 +113,4 @@ public class ChatController : Controller
 
 * [Začínáme](xref:tutorials/signalr)
 * [Centra](xref:signalr/hubs)
-* [Publikování do Azure](xref:signalr/publish-to-azure-web-app)
+* [Publikování aplikací do Azure](xref:signalr/publish-to-azure-web-app)
