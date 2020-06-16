@@ -13,18 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: c935f326afb77de5e083829c0bc2494efb20fec3
-ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
+ms.openlocfilehash: ffdc329d813dcbfffe2216dc58bbc4150f7cf786
+ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84679606"
+ms.lasthandoff: 06/15/2020
+ms.locfileid: "84776420"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Coreho webového Blazor sestavení
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
-Progresivní webová aplikace (PWA) je jediná stránková aplikace (SPA), která používá moderní rozhraní API a možnosti prohlížeče, aby se choval jako desktopová aplikace. BlazorWebAssembly je webová platforma webové aplikace založená na standardech, takže může používat libovolné rozhraní API prohlížeče, včetně rozhraní API PWA potřebných pro následující funkce:
+Progresivní webová aplikace (PWA) je obvykle jediná stránková aplikace (SPA), která používá moderní rozhraní API a možnosti prohlížeče, aby se choval jako desktopová aplikace. BlazorWebAssembly je webová platforma webové aplikace založená na standardech, takže může používat libovolné rozhraní API prohlížeče, včetně rozhraní API PWA potřebných pro následující funkce:
 
 * Pracujete offline a okamžitě se načítají nezávisle na rychlosti sítě.
 * Spuštění ve vlastním okně aplikace, ne pouze v okně prohlížeče.
@@ -293,6 +293,6 @@ Ukázková aplikace [CarChecker](https://github.com/SteveSandersonMS/CarChecker)
 * `LocalVehiclesStore`(*Klient/data/LocalVehiclesStore. cs*)
 * `LoginStatus`součást (*klient/Shared/ovládací stavu přihlášení. Razor*)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/hosting-model-configuration#signalr-cross-origin-negotiation-for-authentication)

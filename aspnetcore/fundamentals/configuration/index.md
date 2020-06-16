@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: ead9cb8c852ac768c8fe1f9066eb73ac1203c4ce
-ms.sourcegitcommit: 67eadd7bf28eae0b8786d85e90a7df811ffe5904
+ms.openlocfilehash: 9b34125fdf6c6d451a11a53874944f5d8b44aa29
+ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84454698"
+ms.lasthandoff: 06/15/2020
+ms.locfileid: "84776537"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -28,7 +28,7 @@ Od [Rick Anderson](https://twitter.com/RickAndMSFT) a [Kirka Larkin](https://twi
 
 Konfigurace v ASP.NET Core provádí použití jednoho nebo více [poskytovatelů konfigurace](#cp). Poskytovatelé konfigurace čtou konfigurační data z párů klíč-hodnota pomocí různých zdrojů konfigurace:
 
-* Soubory nastavení, například *appSettings. JSON*
+* Soubory nastavení, například *appsettings.jszapnuto*
 * Proměnné prostředí
 * Azure Key Vault
 * Azure App Configuration
@@ -50,13 +50,13 @@ ASP.NET Core webové aplikace vytvořené pomocí [dotnet New](/dotnet/core/tool
  <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*>poskytuje výchozí konfiguraci pro aplikaci v následujícím pořadí:
 
 1. [ChainedConfigurationProvider](xref:Microsoft.Extensions.Configuration.ChainedConfigurationSource) : Přidá existující `IConfiguration` jako zdroj. Ve výchozím případu konfigurace přidá konfiguraci [hostitele](#hvac) a nastaví ji jako první zdroj konfigurace _aplikace_ .
-1. [appSettings. JSON](#appsettingsjson) s použitím [poskytovatele konfigurace JSON](#file-configuration-provider).
+1. [appsettings.js](#appsettingsjson) používání [poskytovatele konfigurace JSON](#file-configuration-provider).
 1. *appSettings.* `Environment` *. JSON* s použitím [poskytovatele konfigurace JSON](#file-configuration-provider). Například *appSettings*. ***Provozní***prostředí. *JSON* a *appSettings*. ***Vývoj***. *JSON*.
 1. [Tajné kódy aplikace](xref:security/app-secrets) v případě, že aplikace běží v `Development` prostředí
 1. Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#evcp).
 1. Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line).
 
-Poskytovatelé konfigurace, kteří jsou přidáni později, přepíší předchozí nastavení klíče. Například pokud `MyKey` je nastavena v souboru *appSettings. JSON* i v prostředí, je použita hodnota prostředí. Pomocí výchozích zprostředkovatelů konfigurace přepíše [Poskytovatel konfigurace příkazového řádku](#command-line-configuration-provider) všechny ostatní poskytovatele.
+Poskytovatelé konfigurace, kteří jsou přidáni později, přepíší předchozí nastavení klíče. Například pokud `MyKey` je nastavena v *appsettings.jsv* a prostředí, je použita hodnota prostředí. Pomocí výchozích zprostředkovatelů konfigurace přepíše [Poskytovatel konfigurace příkazového řádku](#clcp) všechny ostatní poskytovatele.
 
 Další informace o najdete v `CreateDefaultBuilder` tématu [výchozí nastavení tvůrce](xref:fundamentals/host/generic-host#default-builder-settings).
 
@@ -64,9 +64,9 @@ Následující kód zobrazuje povolené poskytovatele konfigurace v pořadí, v 
 
 [!code-csharp[](index/samples/3.x/ConfigSample/Pages/Index2.cshtml.cs?name=snippet)]
 
-### <a name="appsettingsjson"></a>appSettings. JSON
+### <a name="appsettingsjson"></a>appsettings.jsna
 
-Vezměte v úvahu následující soubor *appSettings. JSON* :
+V souboru zvažte následující *appsettings.js* :
 
 [!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
 
@@ -76,13 +76,13 @@ Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotn
 
 Výchozí <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvider> načtení konfigurace v následujícím pořadí:
 
-1. *appSettings. JSON*
+1. *appsettings.jsna*
 1. *appSettings.* `Environment` *. JSON* : například *appSettings*. ***Provozní***prostředí. *JSON* a *appSettings*. ***Vývoj***. soubory *JSON* . Verze prostředí souboru se načte na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*). Další informace naleznete v tématu <xref:fundamentals/environments>.
 
-*appSettings*. `Environment` .. hodnoty *JSON* přepíší klíče v souboru *appSettings. JSON*. Ve výchozím nastavení by například:
+*appSettings*. `Environment` .. hodnoty *JSON* přepisují klíče v *appsettings.js*. Ve výchozím nastavení by například:
 
-* Ve vývoji, *appSettings*. ***Vývoj***. konfigurace *JSON* Přepisuje hodnoty nalezené v souboru *appSettings. JSON*.
-* V produkčním prostředí, *appSettings*. ***Provozní***prostředí. konfigurace *JSON* Přepisuje hodnoty nalezené v souboru *appSettings. JSON*. Například při nasazení aplikace do Azure.
+* Ve vývoji, *appSettings*. ***Vývoj***. konfigurace *JSON* Přepisuje hodnoty nalezené v *appsettings.js*.
+* V produkčním prostředí, *appSettings*. ***Provozní***prostředí. konfigurace *JSON* Přepisuje hodnoty nalezené v *appsettings.js*. Například při nasazení aplikace do Azure.
 
 <a name="optpat"></a>
 
@@ -90,7 +90,7 @@ Výchozí <xref:Microsoft.Extensions.Configuration.Json.JsonConfigurationProvide
 
 [!INCLUDE[](~/includes/bind.md)]
 
-Pomocí [výchozí](#default) konfigurace, *appSettings. JSON* a *appSettings.* `Environment` soubory *. JSON* jsou povolené pomocí [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75). Změny provedené v souboru *appSettings. JSON* a *appSettings.* `Environment` soubor *. JSON* ***po*** spuštění aplikace si přečte [Poskytovatel konfigurace JSON](#jcp).
+Pomocí [výchozí](#default) konfigurace *appsettings.jsna* a *appSettings.* `Environment` soubory *. JSON* jsou povolené pomocí [reloadOnChange: true](https://github.com/dotnet/extensions/blob/release/3.1/src/Hosting/Hosting/src/Host.cs#L74-L75). Změny provedené v *appsettings.jsv* a *appSettings.* `Environment` soubor *. JSON* ***po*** spuštění aplikace si přečte [Poskytovatel konfigurace JSON](#jcp).
 
 Informace o přidání dalších konfiguračních souborů JSON najdete v části [Poskytovatel konfigurace JSON](#jcp) v tomto dokumentu.
 
@@ -104,7 +104,7 @@ Pokyny pro konfigurační data:
 * Nepoužívejte provozní tajemství ve vývojových nebo testovacích prostředích.
 * Zadejte tajné klíče mimo projekt, aby se nemohly omylem potvrdit do úložiště zdrojového kódu.
 
-Ve [výchozím nastavení](#default)přečte [správce tajných klíčů](xref:security/app-secrets) nastavení konfigurace po souboru *appSettings. JSON* a *appSettings.* `Environment` *. JSON*.
+Ve [výchozím nastavení](#default)přečte [správce tajných klíčů](xref:security/app-secrets) nastavení konfigurace po *appsettings.jsv* a *appSettings.* `Environment` *. JSON*.
 
 Další informace o ukládání hesel nebo jiných citlivých dat:
 
@@ -117,7 +117,7 @@ Další informace o ukládání hesel nebo jiných citlivých dat:
 
 ## <a name="environment-variables"></a>Proměnné prostředí
 
-Použijete-li [výchozí](#default) konfiguraci, <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> načte konfiguraci z proměnných prostředí klíč-hodnota po čtení *appSettings. JSON*, *appSettings.* `Environment` *. JSON*a [správce tajných klíčů](xref:security/app-secrets). Proto hodnoty klíčů načtené z prostředí přepisují hodnoty načtené z hodnot *appSettings. JSON*, *appSettings.* `Environment` *. JSON*a správce tajných klíčů.
+Použijete-li [výchozí](#default) konfiguraci, <xref:Microsoft.Extensions.Configuration.EnvironmentVariables.EnvironmentVariablesConfigurationProvider> načte konfiguraci z proměnných prostředí s proměnnou klíč-hodnota po přečtení *appsettings.jsna*, *appSettings.* `Environment` *. JSON*a [správce tajných klíčů](xref:security/app-secrets). Proto hodnoty klíčů načtené z prostředí přepisují hodnoty načtené z *appsettings.jsna*, *appSettings.* `Environment` *. JSON*a správce tajných klíčů.
 
 [!INCLUDE[](~/includes/environmentVarableColon.md)]
 
@@ -146,7 +146,7 @@ setx Position__Title Setx_Environment_Editor /M
 setx Position__Name Environment_Rick /M
 ```
 
-Chcete-li otestovat předchozí příkazy, přepište *appSettings. JSON* a *appSettings.* `Environment` *. JSON*:
+Chcete-li otestovat, zda předchozí příkazy přepisují *appsettings.jsv* a *appSettings.* `Environment` *. JSON*:
 
 * Se sadou Visual Studio: Ukončete a restartujte Visual Studio.
 * Pomocí rozhraní příkazového řádku: spusťte nové příkazové okno a zadejte `dotnet run` .
@@ -188,7 +188,7 @@ Informace o připojovacích řetězcích Azure Database najdete v tématu [před
 
 Použijete-li [výchozí](#default) konfiguraci, <xref:Microsoft.Extensions.Configuration.CommandLine.CommandLineConfigurationProvider> načte konfiguraci z dvojice klíč-hodnota argumentu klíč-hodnota po následujících zdrojích konfigurace:
 
-* *appSettings. JSON* a *appSettings*. `Environment` .. soubory *JSON* .
+* *appsettings.jsna* a *appSettings*. `Environment` .. soubory *JSON* .
 * [Tajné kódy aplikací (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.
 * Proměnné prostředí.
 
@@ -260,7 +260,7 @@ Pro aplikace, které používají mapování přepínačů, by volání `CreateD
 
 Rozhraní API pro konfiguraci čte hierarchická konfigurační data sloučením hierarchických dat s použitím oddělovače v konfiguračních klíčích.
 
-[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *appSettings. JSON* :
+[Ukázka stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující *appsettings.js* souboru:
 
 [!code-json[](index/samples/3.x/ConfigSample/appsettings.json)]
 
@@ -315,7 +315,7 @@ Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou zadáni poskytovatel�
 
 Typická posloupnost zprostředkovatelů konfigurace je:
 
-1. *appSettings. JSON*
+1. *appsettings.jsna*
 1. *appSettings*. `Environment` .. formát *JSON*
 1. [Správce tajných klíčů](xref:security/app-secrets)
 1. Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#evcp).
@@ -367,10 +367,10 @@ Uvažujte následující kód:
 
 Předcházející kód:
 
-* Nakonfiguruje zprostředkovatele konfigurace JSON pro načtení souboru *MyConfig. JSON* s následujícími možnostmi:
+* Nakonfiguruje zprostředkovatele konfigurace JSON, aby načetl *MyConfig.js* do souboru s následujícími možnostmi:
   * `optional: true`: Soubor je nepovinný.
   * `reloadOnChange: true`: Soubor se znovu načte při uložení změn.
-* Přečte [výchozí poskytovatele konfigurace](#default) před souborem *MyConfig. JSON* . Nastavení v přepsání souboru *MyConfig. JSON* ve výchozích poskytovatelích konfigurace, včetně [poskytovatele konfigurace proměnných prostředí](#evcp) a [poskytovatele konfigurace příkazového řádku](#clcp).
+* Přečte [výchozí zprostředkovatele konfigurace](#default) před *MyConfig.jsv* souboru. Nastavení v nastavení *MyConfig.jspři* přepsání souborů ve výchozích poskytovatelích konfigurace, včetně [poskytovatele konfigurace proměnných prostředí](#evcp) a [poskytovatele konfigurace příkazového řádku](#clcp).
 
 ***Obvykle nechcete, aby vlastní*** soubor JSON přepsal hodnoty nastavené ve [zprostředkovateli konfigurace proměnných prostředí](#evcp) a v [poskytovateli konfigurace příkazového řádku](#clcp).
 
@@ -378,12 +378,12 @@ Následující kód vymaže všechny poskytovatele konfigurace a přidá několi
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSON2.cs?name=snippet)]
 
-V předchozím kódu se jedná o nastavení v *MyConfig. JSON* a *MyConfig*. `Environment` . soubory *JSON* :
+V předchozím kódu nastavení *MyConfig.js* v a *MyConfig*. `Environment` . soubory *JSON* :
 
-* Přepsat nastavení v souboru *appSettings. JSON* a *appSettings*. `Environment` .. soubory *JSON* .
+* Přepsat nastavení v *appsettings.jsna* a *appSettings*. `Environment` .. soubory *JSON* .
 * Jsou přepsány nastavením ve [zprostředkovateli konfigurace proměnných prostředí](#evcp) a [poskytovatelem konfigurace příkazového řádku](#clcp).
 
-[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyConfig. JSON* :
+[Ukázka stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující *MyConfig.js* souboru:
 
 [!code-json[](index/samples/3.x/ConfigSample/MyConfig.json)]
 
@@ -409,12 +409,12 @@ Následující kód vymaže všechny poskytovatele konfigurace a přidá několi
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramINI.cs?name=snippet&highlight=10-30)]
 
-V předchozím kódu jsou nastavení v *souboru MyIniConfig. ini* a *MyIniConfig*. `Environment` . soubory *ini* jsou přepsány nastavením v:
+V předchozím kódu nastavení *MyIniConfig.ini* a *MyIniConfig*. `Environment` . soubory *ini* jsou přepsány nastavením v:
 
 * [Poskytovatel konfigurace proměnných prostředí](#evcp)
 * [Poskytovatel konfigurace příkazového řádku](#clcp)
 
-[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyIniConfig. ini* :
+[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyIniConfig.ini* :
 
 [!code-ini[](index/samples/3.x/ConfigSample/MyIniConfig.ini)]
 
@@ -430,12 +430,12 @@ Následující kód vymaže všechny poskytovatele konfigurace a přidá několi
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramXML.cs?name=snippet)]
 
-V předchozím kódu, nastavení v *souboru MyXMLFile. XML* a *MyXMLFile*. `Environment` . soubory *XML* jsou přepsány nastavením v:
+V předchozím kódu nastavení *MyXMLFile.xml* a *MyXMLFile*. `Environment` . soubory *XML* jsou přepsány nastavením v:
 
 * [Poskytovatel konfigurace proměnných prostředí](#evcp)
 * [Poskytovatel konfigurace příkazového řádku](#clcp)
 
-[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyXMLFile. XML* :
+[Ukázka ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample) obsahuje následující soubor *MyXMLFile.xml* :
 
 [!code-xml[](index/samples/3.x/ConfigSample/MyXMLFile.xml)]
 
@@ -520,11 +520,11 @@ Pokud v předchozím kódu `NumberKey` není v konfiguraci nalezeno, `99` je pou
 
 ## <a name="getsection-getchildren-and-exists"></a>GetSection, GetChildren a Exists
 
-V následujících příkladech zvažte následující soubor *MySubsection. JSON* :
+V následujících příkladech zvažte následující *MySubsection.js* souboru:
 
 [!code-json[](index/samples/3.x/ConfigSample/MySubsection.json)]
 
-Následující kód přidá *MySubsection. JSON* ke zprostředkovatelům konfigurace:
+Následující kód přidá *MySubsection.js* do zprostředkovatelů konfigurace:
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSONsection.cs?name=snippet)]
 
@@ -558,11 +558,11 @@ Předchozí kód volá [ConfigurationExtensions. existuje](xref:Microsoft.Extens
 
 [ConfigurationBinder. Bind](xref:Microsoft.Extensions.Configuration.ConfigurationBinder.Bind*) podporuje vazby polí na objekty pomocí indexů pole v konfiguračních klíčích. Libovolný formát pole, který zveřejňuje numerický klíčový segment, je schopný vytvořit vazbu pole k poli třídy [POCO](https://wikipedia.org/wiki/Plain_Old_CLR_Object) .
 
-V [ukázkovém stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample)zvažte *myArray. JSON* :
+Zvažte *MyArray.jsna* [webu ukázka stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/configuration/index/samples/3.x/ConfigSample):
 
 [!code-json[](index/samples/3.x/ConfigSample/MyArray.json)]
 
-Následující kód přidá *myArray. JSON* ke zprostředkovatelům konfigurace:
+Následující kód přidá *MyArray.js* do zprostředkovatelů konfigurace:
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramJSONarray.cs?name=snippet)]
 
@@ -580,7 +580,7 @@ Index: 3  Value: value40
 Index: 4  Value: value50
 ```
 
-V předchozím výstupu má index 3 hodnotu odpovídající hodnotě `value40` `"4": "value40",` v *myArray. JSON*. Vazby vázaného pole jsou souvislé a nejsou vázané na index konfiguračního klíče. Pořadač konfigurace nemůže svázat hodnoty null ani vytvářet položky null ve vázaných objektech.
+V předchozím výstupu má index 3 hodnotu odpovídající hodnotě `value40` `"4": "value40",` v *MyArray.js*. Vazby vázaného pole jsou souvislé a nejsou vázané na index konfiguračního klíče. Pořadač konfigurace nemůže svázat hodnoty null ani vytvářet položky null ve vázaných objektech.
 
 Následující kód načte `array:entries` konfiguraci pomocí <xref:Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions.AddInMemoryCollection*> metody rozšíření:
 
@@ -602,11 +602,11 @@ Index: 4  Value: value5
 
 Index &num; 3 ve vázaném objektu obsahuje konfigurační data pro `array:4` konfigurační klíč a jeho hodnotu `value4` . Když jsou data konfigurace obsahující pole svázané, používají se k iteraci konfiguračních dat při vytváření objektu pole indexy v konfiguračních klíčích. Hodnotu null nelze uchovat v konfiguračních datech a v vázaném objektu není vytvořena položka s hodnotou null, pokud pole v konfiguračních klíčích přeskočí jeden nebo více indexů.
 
-Chybějící položka konfigurace pro index &num; 3 se dá zadat předtím, než se vazba na instanci doplní `ArrayExample` jakýmkoli poskytovatelem konfigurace, který načte &num; dvojici klíč/hodnota indexu 3. V ukázkovém stažení zvažte následující soubor *hodnota3. JSON* :
+Chybějící položka konfigurace pro index &num; 3 se dá zadat předtím, než se vazba na instanci doplní `ArrayExample` jakýmkoli poskytovatelem konfigurace, který načte &num; dvojici klíč/hodnota indexu 3. V souboru ukázka stažení zvažte následující *Value3.js* :
 
 [!code-json[](index/samples/3.x/ConfigSample/Value3.json)]
 
-Následující kód obsahuje konfiguraci pro *hodnota3. JSON* a `arrayDict` `Dictionary` :
+Následující kód obsahuje konfiguraci pro *Value3.jsv* a `arrayDict` `Dictionary` :
 
 [!code-csharp[](index/samples/3.x/ConfigSample/ProgramArray.cs?name=snippet2)]
 
@@ -715,7 +715,7 @@ Následující kód zobrazí hodnoty možností:
 
 [!code-csharp[](options/samples/3.x/OptionsSample/Pages/Test2.cshtml.cs?name=snippet)]
 
-V předchozím příkladu `Option1` jsou hodnoty a `Option2` zadány v souboru *appSettings. JSON* a následně přepsány nakonfigurovaným delegátem.
+V předchozím příkladu `Option1` jsou hodnoty a `Option2` zadány v *appsettings.js* a poté přepsány nakonfigurovaným delegátem.
 
 <a name="hvac"></a>
 
@@ -742,10 +742,10 @@ Podrobnosti o výchozí konfiguraci při použití [webového hostitele](xref:fu
 
 Toto téma se týká pouze *Konfigurace aplikace*. Další aspekty používání a hostování ASP.NET Corech aplikací jsou nakonfigurované pomocí konfiguračních souborů, které nejsou popsané v tomto tématu:
 
-* *Launch. JSON* / *launchSettings. JSON* jsou konfigurační soubory nástroje pro vývojové prostředí, které jsou popsané:
+* *launch.jsna* / *launchSettings.jsv* nástroji jsou konfigurační soubory nástroje pro vývojové prostředí popsané níže:
   * V <xref:fundamentals/environments#development> .
   * V dokumentaci sady, kde se soubory používají ke konfiguraci ASP.NET Core aplikací pro vývojové scénáře.
-* *Web. config* je konfigurační soubor serveru, který je popsaný v následujících tématech:
+* *web.config* je konfigurační soubor serveru, který je popsaný v následujících tématech:
   * <xref:host-and-deploy/iis/index>
   * <xref:host-and-deploy/aspnet-core-module>
 
@@ -755,7 +755,7 @@ Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NE
 
 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>Implementace umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídu aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * [Zdrojový kód konfigurace](https://github.com/dotnet/extensions/tree/master/src/Configuration)
 * <xref:fundamentals/configuration/options>
@@ -775,7 +775,7 @@ Konfigurace aplikací v ASP.NET Core je založená na páru klíč-hodnota vytvo
 * Objekty .NET v paměti
 * Soubory nastavení
 
-Konfigurační balíčky pro scénáře zprostředkovatele běžných konfigurací ([Microsoft. Extensions. Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)) jsou zahrnuté ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
+Do [Microsoft. AspNetCore. app metapackageu](xref:fundamentals/metapackage-app)patří konfigurační balíčky pro scénáře zprostředkovatele běžných konfigurací ([Microsoft.Extensions.Configuration](https://www.nuget.org/packages/Microsoft.Extensions.Configuration/)).
 
 Příklady kódu, které následují a v ukázkové aplikaci používají <xref:Microsoft.Extensions.Configuration> obor názvů:
 
@@ -795,10 +795,10 @@ Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spu�
 
 Toto téma se týká pouze *Konfigurace aplikace*. Další aspekty používání a hostování ASP.NET Corech aplikací jsou nakonfigurované pomocí konfiguračních souborů, které nejsou popsané v tomto tématu:
 
-* *Launch. JSON* / *launchSettings. JSON* jsou konfigurační soubory nástroje pro vývojové prostředí, které jsou popsané:
+* *launch.jsna* / *launchSettings.jsv* nástroji jsou konfigurační soubory nástroje pro vývojové prostředí popsané níže:
   * V <xref:fundamentals/environments#development> .
   * V dokumentaci sady, kde se soubory používají ke konfiguraci ASP.NET Core aplikací pro vývojové scénáře.
-* *Web. config* je konfigurační soubor serveru, který je popsaný v následujících tématech:
+* *web.config* je konfigurační soubor serveru, který je popsaný v následujících tématech:
   * <xref:host-and-deploy/iis/index>
   * <xref:host-and-deploy/aspnet-core-module>
 
@@ -814,7 +814,7 @@ Následující postup platí pro aplikace používající [webového hostitele](
   * Proměnné prostředí s předponou `ASPNETCORE_` (například `ASPNETCORE_ENVIRONMENT` ) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider). Předpona ( `ASPNETCORE_` ) je odstraněna, když jsou načteny páry klíč-hodnota konfigurace.
   * Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).
 * Konfigurace aplikace se poskytuje:
-  * *appSettings. JSON* s použitím [poskytovatele konfigurace souboru](#file-configuration-provider).
+  * *appsettings.js* používání [poskytovatele konfigurace souboru](#file-configuration-provider).
   * *appSettings. {Environment}. JSON* s použitím [poskytovatele konfigurace souboru](#file-configuration-provider).
   * [Správce tajných klíčů](xref:security/app-secrets) , když aplikace běží v `Development` prostředí pomocí položky sestavení
   * Proměnné prostředí pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider).
@@ -920,7 +920,7 @@ Konfigurační hodnoty přijímají následující konvence:
 * Hodnoty jsou řetězce.
 * Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.
 
-## <a name="providers"></a>Poskytovatelé
+## <a name="providers"></a>Zprostředkovatelé
 
 V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.
 
@@ -940,7 +940,7 @@ Zdroje konfigurace jsou čteny v pořadí, ve kterém jsou jejich poskytovatelé
 
 Typická posloupnost zprostředkovatelů konfigurace je:
 
-1. Soubory (*appSettings. JSON*, *appSettings. { Environment}. JSON*, kde `{Environment}` je aktuální hostující prostředí aplikace
+1. Soubory (*appsettings.jsna*, *appSettings. { Environment}. JSON*, kde `{Environment}` je aktuální hostující prostředí aplikace
 1. [Azure Key Vault](xref:security/key-vault-configuration)
 1. [Uživatelské klíče (správce tajných klíčů)](xref:security/app-secrets) (jenom vývojové prostředí)
 1. Proměnné prostředí
@@ -1017,7 +1017,7 @@ Chcete-li aktivovat konfiguraci příkazového řádku, <xref:Microsoft.Extensio
 
 `CreateDefaultBuilder`také načte:
 
-* Volitelná konfigurace z *appSettings. JSON* a *appSettings. { Soubory Environment}. JSON* .
+* Volitelná konfigurace z *appsettings.jsna* a *appSettings. { Soubory Environment}. JSON* .
 * [Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.
 * Proměnné prostředí.
 
@@ -1035,7 +1035,7 @@ Pro aplikace založené na šablonách ASP.NET Core `AddCommandLine` již byly v
 })
 ```
 
-**Případě**
+**Příklad**
 
 Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání <xref:Microsoft.Extensions.Configuration.CommandLineConfigurationExtensions.AddCommandLine*> .
 
@@ -1132,7 +1132,7 @@ Chcete-li aktivovat konfiguraci proměnných prostředí, zavolejte <xref:Micros
 `CreateDefaultBuilder`také načte:
 
 * Konfigurace aplikace z neprefixových proměnných prostředí voláním `AddEnvironmentVariables` bez předpony.
-* Volitelná konfigurace z *appSettings. JSON* a *appSettings. { Soubory Environment}. JSON* .
+* Volitelná konfigurace z *appsettings.jsna* a *appSettings. { Soubory Environment}. JSON* .
 * [Uživatelských tajných kódů (správce tajných klíčů)](xref:security/app-secrets) ve vývojovém prostředí.
 * Argumenty příkazového řádku.
 
@@ -1149,7 +1149,7 @@ Chcete-li poskytnout konfiguraci aplikace z dalších proměnných prostředí, 
 
 Zavolejte `AddEnvironmentVariables` jako poslední, pokud chcete, aby proměnné prostředí s danou předponou přepsaly hodnoty od jiných zprostředkovatelů.
 
-**Případě**
+**Příklad**
 
 Ukázková aplikace využívá metodu statického usnadnění `CreateDefaultBuilder` k sestavení hostitele, který obsahuje volání `AddEnvironmentVariables` .
 
@@ -1201,7 +1201,7 @@ Když je proměnná prostředí zjištěna a načtena do konfigurace se všemi �
 | `SQLAZURECONNSTR_{KEY}`  | `ConnectionStrings:{KEY}`   | Klíč: `ConnectionStrings:{KEY}_ProviderName` :<br>Hodnota: `System.Data.SqlClient`  |
 | `SQLCONNSTR_{KEY}`       | `ConnectionStrings:{KEY}`   | Klíč: `ConnectionStrings:{KEY}_ProviderName` :<br>Hodnota: `System.Data.SqlClient`  |
 
-**Případě**
+**Příklad**
 
 Na serveru se vytvoří proměnná prostředí vlastního připojovacího řetězce:
 
@@ -1285,7 +1285,7 @@ Přetížení umožňují zadat:
 
 `AddJsonFile`se automaticky volá dvakrát při inicializaci nového hostitele v nástroji `CreateDefaultBuilder` . Metoda je volána pro načtení konfigurace z:
 
-* *appSettings. JSON*: Tento soubor je nejdřív načtený. Verze prostředí souboru může přepsat hodnoty poskytnuté souborem *appSettings. JSON* .
+* *appsettings.js*: Tento soubor je nejprve přečten. Verze prostředí souboru může přepsat hodnoty poskytnuté *appsettings.jsv* souboru.
 * *appSettings. {Environment}. JSON*: verze prostředí souboru se načte na základě [IHostingEnvironment. Environment](xref:Microsoft.Extensions.Hosting.IHostingEnvironment.EnvironmentName*).
 
 Další informace najdete v části [výchozí konfigurační](#default-configuration) oddíl.
@@ -1298,7 +1298,7 @@ Další informace najdete v části [výchozí konfigurační](#default-configur
 
 Jako první se navázal Poskytovatel konfigurace JSON. Proto klíče uživatele, proměnné prostředí a argumenty příkazového řádku přepíší konfiguraci nastavenou soubory *appSettings* .
 
-Zavolejte `ConfigureAppConfiguration` při sestavování hostitele, aby se určila konfigurace aplikace pro jiné soubory než *appSettings. JSON* a *appSettings. { Prostředí}. JSON*:
+Zavolejte `ConfigureAppConfiguration` při sestavování hostitele, aby se určila konfigurace aplikace pro jiné soubory než *appsettings.jsv* a *appSettings. { Prostředí}. JSON*:
 
 ```csharp
 .ConfigureAppConfiguration((hostingContext, config) =>
@@ -1308,25 +1308,25 @@ Zavolejte `ConfigureAppConfiguration` při sestavování hostitele, aby se urči
 })
 ```
 
-**Případě**
+**Příklad**
 
 Ukázková aplikace využívá ke sestavení hostitele výhodu technologie statického usnadnění `CreateDefaultBuilder` , která zahrnuje dvě volání `AddJsonFile` :
 
-* První volání `AddJsonFile` načtení konfigurace z *appSettings. JSON*:
+* První volání `AddJsonFile` načtení konfigurace z *appsettings.js*:
 
   [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.json)]
 
-* Druhé volání `AddJsonFile` načte konfiguraci z *appSettings. { Environment}. JSON*. Pro *appSettings. Vývoj. JSON* v ukázkové aplikaci je načtený následující soubor:
+* Druhé volání `AddJsonFile` načte konfiguraci z *appSettings. { Environment}. JSON*. Pro *appsettings.Development.js* v ukázkové aplikaci se načte následující soubor:
 
   [!code-json[](index/samples/2.x/ConfigurationSample/appsettings.Development.json)]
 
 1. Spusťte ukázkovou aplikaci. Otevřete v aplikaci prohlížeč `http://localhost:5000` .
 1. Výstup obsahuje páry klíč-hodnota pro konfiguraci na základě prostředí aplikace. Úroveň protokolu pro klíč `Logging:LogLevel:Default` je `Debug` při spuštění aplikace ve vývojovém prostředí.
 1. Znovu spusťte ukázkovou aplikaci v produkčním prostředí:
-   1. Otevřete soubor *Properties/launchSettings. JSON* .
+   1. Otevřete *vlastnosti/launchSettings.jsv* souboru.
    1. V `ConfigurationSample` profilu změňte hodnotu `ASPNETCORE_ENVIRONMENT` proměnné prostředí na `Production` .
    1. Uložte soubor a spusťte aplikaci `dotnet run` v příkazovém prostředí.
-1. Nastavení v souboru *appSettings. Vývoj. JSON* již nepřepisuje nastavení v souboru *appSettings. JSON*. Úroveň protokolu pro klíč `Logging:LogLevel:Default` je `Warning` .
+1. Nastavení v *appsettings.Development.js* už nepřepisují nastavení v *appsettings.jsna*. Úroveň protokolu pro klíč `Logging:LogLevel:Default` je `Warning` .
 
 ### <a name="xml-configuration-provider"></a>Poskytovatel konfigurace XML
 
@@ -1587,7 +1587,7 @@ Ukázka obsahuje `TvShow` model, jehož objekt Graph zahrnuje `Metadata` a `Acto
 
 [!code-csharp[](index/samples/2.x/ConfigurationSample/Models/TvShow.cs?name=snippet1)]
 
-Ukázková aplikace obsahuje soubor *tvshow. XML* obsahující konfigurační data:
+Ukázková aplikace má *tvshow.xml* soubor obsahující konfigurační data:
 
 [!code-xml[](index/samples/2.x/ConfigurationSample/tvshow.xml)]
 
@@ -1659,7 +1659,7 @@ Index &num; 3 ve vázaném objektu obsahuje konfigurační data pro `array:4` ko
 
 Chybějící položka konfigurace pro index &num; 3 se dá zadat předtím, než se vazba na `ArrayExample` instanci doplní jakýmkoli poskytovatelem konfigurace, který vytvoří správnou dvojici klíč-hodnota v konfiguraci. Pokud ukázka zahrnovala dalšího poskytovatele konfigurace JSON s chybějící dvojicí klíč-hodnota, `ArrayExample.Entries` odpovídá celému poli konfigurace:
 
-*missing_value. JSON*:
+*missing_value.js*:
 
 ```json
 {
@@ -1792,7 +1792,7 @@ Příklad přístupu ke konfiguraci pomocí snadno ovladatelného způsobu spuš
 
 ## <a name="access-configuration-in-a-razor-pages-page-or-mvc-view"></a>Přístup ke konfiguraci na Razor stránce stránky nebo zobrazení MVC
 
-Chcete-li získat přístup k nastavení konfigurace na Razor stránce stránky nebo zobrazení MVC, [přidejte direktivu using](xref:mvc/views/razor#using) ([Referenční dokumentace jazyka C#: using](/dotnet/csharp/language-reference/keywords/using-directive)) pro [obor názvů Microsoft. Extensions. Configuration](xref:Microsoft.Extensions.Configuration) a vložte <xref:Microsoft.Extensions.Configuration.IConfiguration> ji do stránky nebo zobrazení.
+Chcete-li získat přístup k nastavení konfigurace na Razor stránce stránky nebo zobrazení MVC, přidejte [direktivu using](xref:mvc/views/razor#using) ([Referenční dokumentace jazyka C#: using](/dotnet/csharp/language-reference/keywords/using-directive)) pro [obor názvůMicrosoft.Extensions.Configuration](xref:Microsoft.Extensions.Configuration) a vložte ho <xref:Microsoft.Extensions.Configuration.IConfiguration> do stránky nebo zobrazení.
 
 Na Razor stránce stránky:
 
@@ -1836,7 +1836,7 @@ V zobrazení MVC:
 
 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>Implementace umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídu aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:fundamentals/configuration/options>
 

@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: 4e003e5ed5e7863d8a218c0f02bb37e214e31910
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b6e3890e13ef5ad20098d3907b6895046087aeca
+ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773926"
+ms.lasthandoff: 06/15/2020
+ms.locfileid: "84776498"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>Pomocná značka komponenty v ASP.NET Core
 
@@ -42,9 +42,9 @@ Následující pomocník značek komponent vykresluje `Counter` komponentu na st
 <component type="typeof(Counter)" render-mode="ServerPrerendered" />
 ```
 
-Předchozí příklad předpokládá, že je `Counter` komponenta ve složce *stránky* aplikace.
+Předchozí příklad předpokládá, že `Counter` je komponenta ve složce *stránky* aplikace. Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace (například `@using BlazorSample.Pages` ).
 
-Pomocný objekt tag komponenty může také předat parametry komponentám. Vezměte v úvahu `ColorfulCheckbox` následující komponentu, která nastaví barvu a velikost popisku zaškrtávacího políčka:
+Pomocný objekt tag komponenty může také předat parametry komponentám. Vezměte v úvahu následující `ColorfulCheckbox` komponentu, která nastaví barvu a velikost popisku zaškrtávacího políčka:
 
 ```razor
 <label style="font-size:@(Size)px;color:@Color">
@@ -72,7 +72,7 @@ Pomocný objekt tag komponenty může také předat parametry komponentám. Vezm
 }
 ```
 
-`Size` [Parametry komponenty](xref:blazor/components#component-parameters) (`int`) `Color` a`string`() lze nastavit pomocí pomocníka značky komponenty:
+`Size` `int` Parametry komponenty () `Color` a `string` ( [component parameters](xref:blazor/components#component-parameters) ) lze nastavit pomocí pomocníka značky komponenty:
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -84,7 +84,7 @@ Pomocný objekt tag komponenty může také předat parametry komponentám. Vezm
     param-Size="14" param-Color="@("blue")" />
 ```
 
-Předchozí příklad předpokládá, že je `ColorfulCheckbox` komponenta ve *sdílené* složce aplikace.
+Předchozí příklad předpokládá, že `ColorfulCheckbox` je komponenta ve *sdílené* složce aplikace. Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace (například `@using BlazorSample.Shared` ).
 
 Na stránce nebo zobrazení se vykreslí následující kód HTML:
 
@@ -95,9 +95,9 @@ Na stránce nebo zobrazení se vykreslí následující kód HTML:
 </label>
 ```
 
-Předání řetězce v uvozovkách vyžaduje [explicitní výraz Razor](xref:mvc/views/razor#explicit-razor-expressions), jak je znázorněno `param-Color` v předchozím příkladu. Chování analýzy Razor pro hodnotu `string` typu se nevztahuje na `param-*` atribut, protože atribut je `object` typu.
+Předání řetězce v uvozovkách vyžaduje [explicitní Razor výraz](xref:mvc/views/razor#explicit-razor-expressions), jak je znázorněno `param-Color` v předchozím příkladu. RazorChování analýzy pro `string` hodnotu typu se nevztahuje na `param-*` atribut, protože atribut je `object` typu.
 
-Typ parametru musí být serializovatelný jako JSON, což obvykle znamená, že typ musí mít výchozí konstruktor a nastavitelné vlastnosti. Například můžete `Size` zadat hodnotu pro a `Color` v předchozím příkladu, protože typy `Size` a `Color` jsou primitivní typy (`int` a `string`), které jsou podporovány serializátorem JSON.
+Typ parametru musí být serializovatelný jako JSON, což obvykle znamená, že typ musí mít výchozí konstruktor a nastavitelné vlastnosti. Například můžete zadat hodnotu pro `Size` a `Color` v předchozím příkladu, protože typy `Size` a `Color` jsou primitivní typy ( `int` a `string` ), které jsou podporovány serializátorem JSON.
 
 V následujícím příkladu je objekt třídy předán do komponenty:
 
@@ -151,12 +151,12 @@ public class MyClass
     param-MyObject="@myObject" />
 ```
 
-Předchozí příklad předpokládá, že je `MyComponent` komponenta ve *sdílené* složce aplikace. `MyClass`je v oboru názvů aplikace (`{APP ASSEMBLY}`).
+Předchozí příklad předpokládá, že `MyComponent` je komponenta ve *sdílené* složce aplikace. Zástupný symbol `{APP ASSEMBLY}` je název sestavení aplikace (například `@using BlazorSample` a `@using BlazorSample.Shared` ). `MyClass`je v oboru názvů aplikace.
 
 <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>nakonfiguruje, jestli součást:
 
 * Je předem vykreslen na stránku.
-* Je vykreslen jako statický kód HTML na stránce nebo pokud obsahuje nezbytné informace pro spuštění aplikace Blazor z uživatelského agenta.
+* Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
 
 | Režim vykreslování | Popis |
 | ----------- | ----------- |
@@ -168,7 +168,7 @@ I když stránky a zobrazení mohou používat komponenty, není tato konverzace
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály a zdroje informací
 
 * <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper>
 * <xref:mvc/views/tag-helpers/intro>
