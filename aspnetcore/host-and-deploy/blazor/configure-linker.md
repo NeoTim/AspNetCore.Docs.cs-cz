@@ -1,12 +1,24 @@
 ---
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Konfigurace linkeru pro ASP.NET CoreBlazor
+author: guardrex
+description: Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
+monikerRange: '>= aspnetcore-3.1'
+ms.author: riande
+ms.custom: mvc
+ms.date: 05/19/2020
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: host-and-deploy/blazor/configure-linker
+ms.openlocfilehash: fd8dc118b8ed9c9e7c0d43e67b14ef4affa09d48
+ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/16/2020
+ms.locfileid: "83608626"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace linkeru pro ASP.NET CoreBlazor
 
@@ -43,7 +55,7 @@ Propojení je povoleno, pokud je aplikace integrována v `Release` konfiguraci. 
 </ItemGroup>
 ```
 
-*LinkerConfig. XML*:
+*LinkerConfig.xml*:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -81,7 +93,7 @@ Další informace a příklady naleznete v tématu [formáty dat (úložiště G
 
 Chcete-li nakonfigurovat linker pro konkrétní knihovnu, přidejte konfigurační soubor linkeru XML do knihovny jako vložený prostředek. Vložený prostředek musí mít stejný název jako sestavení.
 
-V následujícím příkladu je soubor *LinkerConfig. XML* zadán jako vložený prostředek, který má stejný název jako sestavení knihovny:
+V následujícím příkladu je soubor *LinkerConfig.xml* zadán jako vložený prostředek, který má stejný název jako sestavení knihovny:
 
 ```xml
 <ItemGroup>
@@ -104,141 +116,14 @@ Chcete-li určit, která sestavení I18N jsou zachována, nastavte `<BlazorWebAs
 ```
 
 | Hodnota oblasti     | Sestavení oblasti mono    |
-| ---
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--------- | ---title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-title: ' konfigurace linkeru pro ASP.NET Core Blazor ' Author: Description: ' Naučte se řídit linker zprostředkujícího jazyka (IL) při sestavování Blazor aplikace.
-monikerRange: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
------------- | | `all`            | Všechna sestavení včetně | | `cjk`             |  *I18n. CJK. dll* | | `mideast`         |  *I18n. MidEast. dll* | | `none`(výchozí) | Žádné | | `other`           |  *I18n. Jiné. dll* | | `rare`            |  *I18n. Vzácná knihovna DLL* | | `west`            |  *I18n. Západ. dll*         |
+| ---------------- | ----------------------- |
+| `all`            | Všechna sestavení, která jsou součástí |
+| `cjk`            | *I18N.CJK.dll*          |
+| `mideast`        | *I18N.MidEast.dll*      |
+| `none`výchozí | Žádné                    |
+| `other`          | *I18N.Other.dll*        |
+| `rare`           | *I18N.Rare.dll*         |
+| `west`           | *I18N.West.dll*         |
 
 Oddělte více hodnot pomocí čárky (například `mideast,west` ).
 

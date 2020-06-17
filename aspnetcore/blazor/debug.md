@@ -14,10 +14,10 @@ no-loc:
 - SignalR
 uid: blazor/debug
 ms.openlocfilehash: 193dc656c2ee0154f0ae534bc00f8dc29bab3258
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
+ms.lasthandoff: 06/16/2020
 ms.locfileid: "84239211"
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>Ladění ASP.NET Core Blazor WebAssembly
@@ -51,13 +51,13 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>Povolit ladění pro Visual Studio a Visual Studio Code
 
-Chcete-li povolit ladění pro existující Blazor aplikaci WebAssembly, aktualizujte soubor *launchSettings. JSON* ve složce spouštěný projekt tak, aby do `inspectUri` každého spouštěcího profilu zahrnoval následující vlastnost:
+Chcete-li povolit ladění pro existující Blazor aplikaci WebAssembly, aktualizujte *launchSettings.js* v souboru ve složce spouštěný projekt tak, aby do `inspectUri` každého spouštěcího profilu zahrnovala následující vlastnost:
 
 ```json
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
 ```
 
-Po aktualizaci by soubor *launchSettings. JSON* měl vypadat podobně jako v následujícím příkladu:
+Po aktualizaci by měl *launchSettings.jsv* souboru vypadat podobně jako v následujícím příkladu:
 
 [!code-json[](debug/launchSettings.json?highlight=14,22)]
 
@@ -145,11 +145,11 @@ Nainstalujte [rozšíření C#](https://marketplace.visualstudio.com/items?itemN
 
 1. V okně Výběr vyberte *serverový* projekt v hostovaném řešení.
 
-Soubor *Launch. JSON* se vygeneruje s konfigurací spuštění pro spuštění ladicího programu.
+Pro spuštění ladicího programu se vygeneruje *launch.jsv* souboru s konfigurací spuštění.
 
 ### <a name="attach-to-an-existing-debugging-session"></a>Připojit k existující relaci ladění
 
-Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte soubor *Launch. JSON* s následující konfigurací:
+Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte *launch.jsv* souboru s následující konfigurací:
 
 ```json
 {
@@ -166,7 +166,7 @@ Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte soubor *Laun
 
 Pro typ ladění jsou podporovány následující možnosti konfigurace spuštění `blazorwasm` .
 
-| Možnost    | Description |
+| Možnost    | Popis |
 | --------- | ----------- |
 | `request` | Použijte `launch` ke spuštění a připojení relace ladění k Blazor aplikaci WebAssembly nebo `attach` k připojení relace ladění k již spuštěné aplikaci. |
 | `url`     | Adresa URL, která se má otevřít v prohlížeči při ladění. Výchozí hodnota je `https://localhost:5001` . |
