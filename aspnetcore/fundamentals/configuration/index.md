@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 9b34125fdf6c6d451a11a53874944f5d8b44aa29
-ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
+ms.openlocfilehash: 91200a7a4396d91bec3cfe6ce4b787839f30c72f
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/15/2020
-ms.locfileid: "84776537"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102671"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -730,7 +730,7 @@ Před konfigurací a spuštěním aplikace je *hostitel* nakonfigurovaný a spu�
 Podrobnosti o výchozí konfiguraci při použití [webového hostitele](xref:fundamentals/host/web-host)naleznete v [ASP.NET Core 2,2 verzi tohoto tématu](/aspnet/core/fundamentals/configuration/?view=aspnetcore-2.2).
 
 * Konfigurace hostitele se poskytuje:
-  * Proměnné prostředí s předponou `DOTNET_` (například `DOTNET_ENVIRONMENT` ) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables-configuration-provider). Předpona ( `DOTNET_` ) je odstraněna, když jsou načteny páry klíč-hodnota konfigurace.
+  * Proměnné prostředí s předponou `DOTNET_` (například `DOTNET_ENVIRONMENT` ) pomocí [poskytovatele konfigurace proměnných prostředí](#environment-variables). Předpona ( `DOTNET_` ) je odstraněna, když jsou načteny páry klíč-hodnota konfigurace.
   * Argumenty příkazového řádku, které používají [poskytovatele konfigurace příkazového řádku](#command-line-configuration-provider).
 * Je navázána výchozí konfigurace webového hostitele ( `ConfigureWebHostDefaults` ):
   * Kestrel se používá jako webový server a je nakonfigurovaný pomocí poskytovatelů konfigurace aplikace.
@@ -755,10 +755,11 @@ Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NE
 
 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>Implementace umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídu aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Zdrojový kód konfigurace](https://github.com/dotnet/extensions/tree/master/src/Configuration)
 * <xref:fundamentals/configuration/options>
+* <xref:blazor/fundamentals/configuration>
 
 ::: moniker-end
 
@@ -1836,7 +1837,7 @@ V zobrazení MVC:
 
 <xref:Microsoft.AspNetCore.Hosting.IHostingStartup>Implementace umožňuje přidání vylepšení aplikace při spuštění z externího sestavení mimo `Startup` třídu aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/configuration/options>
 

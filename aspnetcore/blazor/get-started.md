@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: 08229283882928c4cc733de19840d25872846c97
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: c90c3bf7ccef420101c66fe04d579920209b066c
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452028"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102336"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET CoreBlazor
 
@@ -54,7 +54,7 @@ Pokud chcete začít používat Blazor , postupujte podle pokynů pro výběr n�
 
 1. Nainstalujte nejnovější [rozšíření C# for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) a [ladicí program JavaScript (v noci)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly) s `debug.javascript.usePreview` nastavením na `true` .
 
-  Pokud chcete `debug.javascript.usePreview` nastavit `true` použití uživatelského rozhraní vs Code, otevřete **File**  >  **Preferences**  >  **Nastavení** předvoleb souborů a vyhledejte `debug javascript use preview` . Zaškrtněte políčko pro **použití novinového ladicího programu JavaScriptu v Preview pro Node. js a Chrome**.
+  Pokud chcete `debug.javascript.usePreview` nastavit `true` použití uživatelského rozhraní vs Code, otevřete **File**  >  **Preferences**  >  **Nastavení** předvoleb souborů a vyhledejte `debug javascript use preview` . Zaškrtněte políčko pro **použití novinového ladicího programu JavaScriptu v Preview pro Node.js a Chrome**.
 
 1. Pro Blazor prostředí WebAssembly spusťte následující příkaz v příkazovém prostředí:
 
@@ -162,7 +162,7 @@ Přidejte komponentu do jiné komponenty pomocí syntaxe jazyka HTML. Napříkla
 
 Spusťte aplikaci. Domovská stránka má vlastní počítadlo poskytované `Counter` komponentou.
 
-Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu](xref:blazor/components#child-content), který umožňuje nastavit vlastnosti pro podřízenou komponentu. Chcete-li přidat parametr do `Counter` komponenty, aktualizujte blok komponenty `@code` :
+Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu](xref:blazor/components/index#child-content), který umožňuje nastavit vlastnosti pro podřízenou komponentu. Chcete-li přidat parametr do `Counter` komponenty, aktualizujte blok komponenty `@code` :
 
 * Přidejte veřejnou vlastnost pro `IncrementAmount` s [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) atributem.
 * Změňte `IncrementCount` metodu na použití `IncrementAmount` při zvyšování hodnoty `currentCount` .

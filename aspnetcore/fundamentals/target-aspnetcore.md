@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/target-aspnetcore
-ms.openlocfilehash: 85c0d850922b7118b101126c09b208b0db420f7e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 70a445d109a1a9553178e94d79df87cd373e6b06
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776484"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85103025"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>Použití rozhraní API ASP.NET Core v knihovně tříd
 
@@ -38,25 +38,25 @@ V rámci verze Preview ASP.NET Core k dispozici jsou zásadní změny publikovan
 
 S vydáním .NET Core 3,0 se už mnoho ASP.NET Corech sestavení nepublikují do NuGet jako balíčky. Místo toho jsou sestavení zahrnuta do `Microsoft.AspNetCore.App` sdíleného rozhraní, které je nainstalováno s instalačními programy .NET Core SDK a modulem runtime. Seznam balíčků, které už nejsou publikované, najdete v tématu [odebrání zastaralých odkazů na balíčky](xref:migration/22-to-30#remove-obsolete-package-references).
 
-Od .NET Core 3,0 projekty, které používají sadu `Microsoft.NET.Sdk.Web` MSBuild SDK, implicitně odkazují na sdílené rozhraní. Projekty, které `Microsoft.NET.Sdk` používají `Microsoft.NET.Sdk.Razor` sadu SDK nebo, musí odkazovat ASP.NET Core, aby používaly rozhraní API ASP.NET Core ve sdíleném rozhraní.
+Od .NET Core 3,0 projekty, které používají `Microsoft.NET.Sdk.Web` sadu MSBuild SDK, implicitně odkazují na sdílené rozhraní. Projekty, které `Microsoft.NET.Sdk` používají `Microsoft.NET.Sdk.Razor` sadu SDK nebo, musí odkazovat ASP.NET Core, aby používaly rozhraní API ASP.NET Core ve sdíleném rozhraní.
 
-Chcete-li odkazovat ASP.NET Core, přidejte `<FrameworkReference>` následující prvek do souboru projektu:
+Chcete-li odkazovat ASP.NET Core, přidejte následující `<FrameworkReference>` prvek do souboru projektu:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj?highlight=8)]
 
 Odkazování ASP.NET Core tímto způsobem je podporováno pouze pro projekty cílené na .NET Core 3. x.
 
-## <a name="include-blazor-extensibility"></a>Zahrnout rozšiřitelnost Blazor
+## <a name="include-blazor-extensibility"></a>Zahrnout Blazor rozšiřitelnost
 
-Blazor podporuje WebAssembly (WASM) a [modely hostování](xref:blazor/hosting-models)serverů. Pokud neexistuje konkrétní důvod, knihovna [komponent Razor](xref:blazor/components) by měla podporovat oba modely hostování. Knihovna komponent Razor musí používat [sadu Microsoft. NET. SDK. Razor SDK](xref:razor-pages/sdk).
+Blazorpodporuje WebAssembly (WASM) a [modely hostování](xref:blazor/hosting-models)serverů. Pokud neexistuje konkrétní důvod, knihovna [ Razor komponent](xref:blazor/components/index) by měla podporovat oba modely hostování. RazorKnihovna komponent musí používat [Microsoft. NET. SDK. Razor Sada SDK](xref:razor-pages/sdk).
 
 ### <a name="support-both-hosting-models"></a>Podpora obou modelů hostování
 
-Pro podporu spotřeby komponent Razor z projektů [serveru Blazor](xref:blazor/hosting-models#blazor-server) i [Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) použijte následující pokyny pro Editor.
+Pro podporu Razor spotřeby komponent z projektů [ Blazor serveru i serveru](xref:blazor/hosting-models#blazor-server) [ Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) použijte následující pokyny pro Editor.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Použijte šablonu projektu **knihovny tříd Razor** . Zaškrtávací políčko pro **stránky podpory a zobrazení** šablony je třeba zrušit výběr.
+Použijte šablonu projektu ** Razor Knihovna tříd** . Zaškrtávací políčko pro **stránky podpory a zobrazení** šablony je třeba zrušit výběr.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -68,14 +68,14 @@ dotnet new razorclasslib
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-Použijte šablonu projektu **knihovny tříd Razor** .
+Použijte šablonu projektu ** Razor Knihovna tříd** .
 
 ---
 
 Projekt vygenerovaný ze šablony provádí následující akce:
 
 * Cíle .NET Standard 2,0.
-* Nastaví `RazorLangVersion` vlastnost na `3.0`hodnotu. `3.0`je výchozí hodnota pro .NET Core 3. x.
+* Nastaví `RazorLangVersion` vlastnost na hodnotu `3.0` . `3.0`je výchozí hodnota pro .NET Core 3. x.
 * Přidá následující odkazy na balíčky:
   * [Microsoft. AspNetCore. Components](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)
   * [Microsoft. AspNetCore. Components. Web](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Web)
@@ -86,7 +86,7 @@ Příklad:
 
 ### <a name="support-a-specific-hosting-model"></a>Podpora konkrétního modelu hostování
 
-Je mnohem méně běžné podporovat jeden model hostování Blazor. Například pro podporu spotřeby komponent Razor z projektů [serveru Blazor](xref:blazor/hosting-models#blazor-server) :
+Je mnohem méně běžné podporovat jeden Blazor model hostování. Například pro podporu Razor spotřeby komponent jenom z projektů [ Blazor serveru](xref:blazor/hosting-models#blazor-server) :
 
 * Cílová platforma .NET Core 3. x.
 * Přidejte `<FrameworkReference>` element pro sdílené rozhraní.
@@ -95,32 +95,32 @@ Příklad:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-components-library.csproj)]
 
-Další informace o knihovnách obsahujících komponenty Razor naleznete v tématu [ASP.NET Core knihovny tříd komponent Razor](xref:blazor/class-libraries).
+Další informace o knihovnách, které obsahují Razor komponenty, naleznete v tématu [ASP.NET Core Razor knihovny tříd komponent](xref:blazor/components/class-libraries).
 
 ## <a name="include-mvc-extensibility"></a>Zahrnutí rozšiřitelnosti MVC
 
 V této části najdete popis doporučení pro knihovny, které zahrnují:
 
-* [Zobrazení a Razor Pages Razor](#razor-views-or-razor-pages)
+* [Razorzobrazení nebo Razor stránky](#razor-views-or-razor-pages)
 * [Pomocné rutiny značek](#tag-helpers)
 * [Komponenty zobrazení](#view-components)
 
 Tato část se nezabývá cílením na podporu více verzí MVC. Pokyny k podpoře více verzí ASP.NET Core najdete v tématu [Podpora více verzí ASP.NET Core](#support-multiple-aspnet-core-versions).
 
-### <a name="razor-views-or-razor-pages"></a>Zobrazení a Razor Pages Razor
+### <a name="razor-views-or-razor-pages"></a>Razorzobrazení nebo Razor stránky
 
-Projekt, který obsahuje [zobrazení](xref:mvc/views/overview) nebo [Razor Pages](xref:razor-pages/index) Razor, musí používat [sadu Microsoft. NET. SDK. Razor SDK](xref:razor-pages/sdk).
+Projekt, který obsahuje [ Razor zobrazení](xref:mvc/views/overview) nebo [ Razor stránky](xref:razor-pages/index) , musí používat [Microsoft. NET. SDK. Razor Sada SDK](xref:razor-pages/sdk).
 
 Pokud je projekt cílen na rozhraní .NET Core 3. x, vyžaduje:
 
-* Vlastnost `AddRazorSupportForMvc` MSBuild nastavená na `true`.
-* `<FrameworkReference>` Prvek pro sdílenou architekturu.
+* `AddRazorSupportForMvc`Vlastnost MSBuild nastavená na `true` .
+* `<FrameworkReference>`Prvek pro sdílenou architekturu.
 
-Šablona projektu **knihovny tříd Razor** splňuje předchozí požadavky pro projekty cílené na .NET Core 3. x. Pro editor použijte následující pokyny.
+Šablona projektu ** Razor knihovny tříd** splňuje předchozí požadavky pro projekty cílené na .NET Core 3. x. Pro editor použijte následující pokyny.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Použijte šablonu projektu **knihovny tříd Razor** . Je třeba vybrat zaškrtávací políčko **stránky podpory a zobrazení** šablony.
+Použijte šablonu projektu ** Razor Knihovna tříd** . Je třeba vybrat zaškrtávací políčko **stránky podpory a zobrazení** šablony.
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
@@ -140,27 +140,27 @@ Příklad:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-views-pages-library.csproj)]
 
-Pokud se místo toho projekt cílí .NET Standard, je vyžadován odkaz na balíček [Microsoft. AspNetCore. Mvc](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc) . `Microsoft.AspNetCore.Mvc` Balíček se přesunul do sdíleného rozhraní v ASP.NET Core 3,0, a proto už není publikovaný. Příklad:
+Pokud se místo toho projekt cílí .NET Standard, je vyžadován odkaz na balíček [Microsoft. AspNetCore. Mvc](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc) . `Microsoft.AspNetCore.Mvc`Balíček se přesunul do sdíleného rozhraní v ASP.NET Core 3,0, a proto už není publikovaný. Příklad:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-razor-views-pages-library.csproj?highlight=8)]
 
 ### <a name="tag-helpers"></a>Pomocné rutiny značek
 
-Projekt, který obsahuje [pomocníky značek](xref:mvc/views/tag-helpers/intro) , by měl `Microsoft.NET.Sdk` používat sadu SDK. Pokud cílíte na rozhraní .NET Core 3. x `<FrameworkReference>` , přidejte element pro sdílené rozhraní. Příklad:
+Projekt, který obsahuje [pomocníky značek](xref:mvc/views/tag-helpers/intro) , by měl používat `Microsoft.NET.Sdk` sadu SDK. Pokud cílíte na rozhraní .NET Core 3. x, přidejte `<FrameworkReference>` element pro sdílené rozhraní. Příklad:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-Pokud cílíte na .NET Standard (pro podporu verzí starších než ASP.NET Core 3. x), přidejte odkaz na balíček do [Microsoft. AspNetCore.RazorMVC.](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor). `Microsoft.AspNetCore.Mvc.Razor` Balíček se přesunul do sdíleného rozhraní, takže už není publikovaný. Příklad:
+Pokud cílíte na .NET Standard (pro podporu verzí starších než ASP.NET Core 3. x), přidejte odkaz na balíček do [Microsoft. AspNetCore. Razor MVC.](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor). `Microsoft.AspNetCore.Mvc.Razor`Balíček se přesunul do sdíleného rozhraní, takže už není publikovaný. Příklad:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-tag-helpers-library.csproj)]
 
 ### <a name="view-components"></a>Komponenty zobrazení
 
-Projekt, který obsahuje [komponenty zobrazení](xref:mvc/views/view-components) , by měl `Microsoft.NET.Sdk` používat sadu SDK. Pokud cílíte na rozhraní .NET Core 3. x `<FrameworkReference>` , přidejte element pro sdílené rozhraní. Příklad:
+Projekt, který obsahuje [komponenty zobrazení](xref:mvc/views/view-components) , by měl používat `Microsoft.NET.Sdk` sadu SDK. Pokud cílíte na rozhraní .NET Core 3. x, přidejte `<FrameworkReference>` element pro sdílené rozhraní. Příklad:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-Pokud cílíte .NET Standard (pro podporu verzí starších než ASP.NET Core 3. x), přidejte odkaz na balíček do [Microsoft. AspNetCore. Mvc. ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures). `Microsoft.AspNetCore.Mvc.ViewFeatures` Balíček se přesunul do sdíleného rozhraní, takže už není publikovaný. Příklad:
+Pokud cílíte .NET Standard (pro podporu verzí starších než ASP.NET Core 3. x), přidejte odkaz na balíček do [Microsoft. AspNetCore. Mvc. ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures). `Microsoft.AspNetCore.Mvc.ViewFeatures`Balíček se přesunul do sdíleného rozhraní, takže už není publikovaný. Příklad:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-view-components-library.csproj)]
 
@@ -178,9 +178,9 @@ Následující soubor projektu podporuje tyto varianty prostřednictvím `Target
 
 S předchozím souborem projektu:
 
-* `Markdig` Balíček se přidá pro všechny uživatele.
-* Odkaz na [Microsoft. AspNetCore. Mvc.Razor ](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) je přidáno pro uživatele cílící na .NET Framework 4.6.1 nebo novější nebo .NET Core 2. x. 2.1.0 verze balíčku spolupracuje s ASP.NET Core 2,2 z důvodu zpětné kompatibility.
-* Na sdílené rozhraní se odkazuje pro uživatele, kteří cílí na .NET Core 3. x. `Microsoft.AspNetCore.Mvc.Razor` Balíček je součástí sdílené architektury.
+* `Markdig`Balíček se přidá pro všechny uživatele.
+* Odkaz na [Microsoft. AspNetCore. Mvc. Razor ](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor) je přidáno pro uživatele cílící na .NET Framework 4.6.1 nebo novější nebo .NET Core 2. x. 2.1.0 verze balíčku spolupracuje s ASP.NET Core 2,2 z důvodu zpětné kompatibility.
+* Na sdílené rozhraní se odkazuje pro uživatele, kteří cílí na .NET Core 3. x. `Microsoft.AspNetCore.Mvc.Razor`Balíček je součástí sdílené architektury.
 
 Alternativně můžete .NET Standard 2,0 cílit místo cílení na rozhraní .NET Core 2,1 i .NET Framework 4.6.1:
 
@@ -234,7 +234,7 @@ Pokud knihovna může implementovat funkci jiným způsobem:
 * Přidejte `<FrameworkReference>` element pro sdílené rozhraní.
 * Pomocí [direktivy preprocesoru #if](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if) s příslušným cílovým symbolem rozhraní můžete podmíněně kompilovat kód.
 
-Například následující pomocná značka používá <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> rozhraní představené v ASP.NET Core 3,0. Spotřebitelé cílící na .NET Core 3,0 spustí cestu kódu definovanou symbolem `NETCOREAPP3_0` cílového Frameworku. Změny typu parametru konstruktoru pomocné rutiny značky se <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> mění pro uživatele .net Core 2,1 a .NET Framework 4.6.1. Tato změna byla nezbytná, protože ASP.NET Core 3,0 `IHostingEnvironment` označená jako zastaralá a doporučuje `IWebHostEnvironment` se jako náhrada.
+Například následující pomocná značka používá <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment> rozhraní představené v ASP.NET Core 3,0. Spotřebitelé cílící na .NET Core 3,0 spustí cestu kódu definovanou `NETCOREAPP3_0` symbolem cílového Frameworku. Změny typu parametru konstruktoru pomocné rutiny značky se mění pro <xref:Microsoft.AspNetCore.Hosting.IHostingEnvironment> uživatele .NET Core 2,1 a .NET Framework 4.6.1. Tato změna byla nezbytná, protože ASP.NET Core 3,0 označená `IHostingEnvironment` jako zastaralá a doporučuje se `IWebHostEnvironment` jako náhrada.
 
 ```csharp
 [HtmlTargetElement("script", Attributes = "asp-inline")]
@@ -286,6 +286,6 @@ Například pro přidání klienta webového rozhraní API:
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:razor-pages/ui-class>
-* <xref:blazor/class-libraries>
+* <xref:blazor/components/class-libraries>
 * [Podpora implementace rozhraní .NET](/dotnet/standard/net-standard#net-implementation-support)
 * [Zásady podpory rozhraní .NET](https://dotnet.microsoft.com/platform/support/policy)

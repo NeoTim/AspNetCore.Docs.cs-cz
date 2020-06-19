@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: 9556fea5319956ce4ae4f4faf90cb405784c733c
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: a5323534cd76cfb60008636066ca5dcb7308d134
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105490"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102270"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 
@@ -28,7 +28,7 @@ Blazorje webová architektura navržená tak, aby běžela na straně klienta v 
 
 Chcete-li vytvořit projekt pro modely hostování popsané v tomto článku, přečtěte si téma <xref:blazor/get-started> .
 
-Pokročilou konfiguraci najdete v tématu <xref:blazor/hosting-model-configuration> .
+Pokročilou konfiguraci najdete v tématu <xref:blazor/fundamentals/configuration> .
 
 ## <a name="blazor-webassembly"></a>BlazorWebAssembly
 
@@ -116,7 +116,7 @@ Aktualizace uživatelského rozhraní v nástroji Blazor je aktivována:
 
 Graf se znovu vykreslí a počítá se *rozdíl* v uživatelském rozhraní (rozdíl). Tento rozdíl je nejmenší sada úprav modelu DOM, která je nutná k aktualizaci uživatelského rozhraní na klientovi. Rozdíl se pošle klientovi v binárním formátu a použije ho prohlížeč.
 
-Komponenta je uvolněna poté, co uživatel z něj přejde na klienta. I když uživatel pracuje s komponentou, musí se stav komponenty (služby, prostředky) uchovávat v paměti serveru. Vzhledem k tomu, že stav mnoha součástí může být serverem současně udržován, vyčerpání paměti je problém, který je třeba řešit. Informace o tom, jak vytvořit Blazor serverovou aplikaci, aby se zajistilo, že se bude co nejlépe využívat paměti serveru, najdete v tématu <xref:security/blazor/server/threat-mitigation> .
+Komponenta je uvolněna poté, co uživatel z něj přejde na klienta. I když uživatel pracuje s komponentou, musí se stav komponenty (služby, prostředky) uchovávat v paměti serveru. Vzhledem k tomu, že stav mnoha součástí může být serverem současně udržován, vyčerpání paměti je problém, který je třeba řešit. Informace o tom, jak vytvořit Blazor serverovou aplikaci, aby se zajistilo, že se bude co nejlépe využívat paměti serveru, najdete v tématu <xref:blazor/security/server/threat-mitigation> .
 
 ### <a name="circuits"></a>Spoj
 
@@ -136,10 +136,10 @@ Pro podnikovou aplikaci, která je omezená jenom na soukromou podnikovou síť,
 
 Využití paměti může také přispět k latenci aplikace. Zvýšení využití paměti vede k častému uvolňování paměti nebo paměti stránkování na disk, přičemž obě tyto čítače zvyšují výkon aplikace a následně zvyšují latenci uživatelského rozhraní.
 
-BlazorServerové aplikace by měly být optimalizované pro minimalizaci latence uživatelského rozhraní tím, že se sníží latence sítě a využití paměti. Přístup k měření latence sítě najdete v tématu <xref:host-and-deploy/blazor/server#measure-network-latency> . Další informace o systémech SignalR a Blazor najdete v těchto tématech:
+BlazorServerové aplikace by měly být optimalizované pro minimalizaci latence uživatelského rozhraní tím, že se sníží latence sítě a využití paměti. Přístup k měření latence sítě najdete v tématu <xref:blazor/host-and-deploy/server#measure-network-latency> . Další informace o systémech SignalR a Blazor najdete v těchto tématech:
 
-* <xref:host-and-deploy/blazor/server>
-* <xref:security/blazor/server/threat-mitigation>
+* <xref:blazor/host-and-deploy/server>
+* <xref:blazor/security/server/threat-mitigation>
 
 ### <a name="connection-to-the-server"></a>Připojení k serveru
 
@@ -147,7 +147,7 @@ BlazorServerové aplikace vyžadují aktivní SignalR připojení k serveru. Pok
 
 BlazorServerová aplikace se předem vykreslí v reakci na první požadavek klienta, který nastaví stav uživatelského rozhraní na serveru. Když se klient pokusí vytvořit SignalR připojení, klient se musí znovu připojit ke stejnému serveru. BlazorServerové aplikace, které používají více než jeden back-end Server, by měly implementovat *rychlé relace* pro SignalR připojení.
 
-Pro serverové aplikace doporučujeme [používat SignalR službu Azure](/azure/azure-signalr) Blazor . Služba umožňuje škálovat Blazor serverovou aplikaci na velký počet souběžných SignalR připojení. Relace Sticky je pro službu Azure povolené nastavením SignalR `ServerStickyMode` Možnosti služby nebo hodnoty konfigurace na `Required` . Další informace naleznete v tématu <xref:host-and-deploy/blazor/server#signalr-configuration>.
+Pro serverové aplikace doporučujeme [používat SignalR službu Azure](/azure/azure-signalr) Blazor . Služba umožňuje škálovat Blazor serverovou aplikaci na velký počet souběžných SignalR připojení. Relace Sticky je pro službu Azure povolené nastavením SignalR `ServerStickyMode` Možnosti služby nebo hodnoty konfigurace na `Required` . Další informace naleznete v tématu <xref:blazor/host-and-deploy/server#signalr-configuration>.
 
 Při použití služby IIS jsou v rámci směrování žádostí na aplikace povoleny rychlé relace. Další informace najdete v tématu [Vyrovnávání zatížení HTTP pomocí směrování žádostí na aplikace](/iis/extensions/configuring-application-request-routing-arr/http-load-balancing-using-application-request-routing).
 
@@ -155,5 +155,5 @@ Při použití služby IIS jsou v rámci směrování žádostí na aplikace pov
 
 * <xref:blazor/get-started>
 * <xref:signalr/introduction>
-* <xref:blazor/hosting-model-configuration>
+* <xref:blazor/fundamentals/additional-scenarios>
 * <xref:tutorials/signalr-blazor-webassembly>

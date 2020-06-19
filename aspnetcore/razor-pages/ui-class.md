@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/ui-class
-ms.openlocfilehash: 32aa1cdab0e552a1255c01b5135e9a82a0e37c77
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: adfcc281f285892583ab8a21c014d6fcb120af9c
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451898"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102824"
 ---
 # <a name="create-reusable-ui-using-the-razor-class-library-project-in-aspnet-core"></a>Vytvoření opakovaně použitelného uživatelského rozhraní pomocí Razor projektu knihovny tříd v ASP.NET Core
 
@@ -25,7 +25,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Razorzobrazení, stránky, řadiče, modely stránek, [ Razor komponenty](xref:blazor/class-libraries), [zobrazení komponent](xref:mvc/views/view-components)a datové modely lze integrovat do Razor knihovny tříd (RCL). RCL může být zabalen a znovu použit. Aplikace mohou zahrnovat RCL a přepsat zobrazení a stránky, které obsahuje. V případě, že Razor je v rámci webové aplikace i v RCL Nalezeno zobrazení, částečné zobrazení nebo stránka, má Razor přednost označení (soubor *. cshtml* ) ve webové aplikaci.
+Razorzobrazení, stránky, řadiče, modely stránek, [ Razor komponenty](xref:blazor/components/class-libraries), [zobrazení komponent](xref:mvc/views/view-components)a datové modely lze integrovat do Razor knihovny tříd (RCL). RCL může být zabalen a znovu použit. Aplikace mohou zahrnovat RCL a přepsat zobrazení a stránky, které obsahuje. V případě, že Razor je v rámci webové aplikace i v RCL Nalezeno zobrazení, částečné zobrazení nebo stránka, má Razor přednost označení (soubor *. cshtml* ) ve webové aplikaci.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
@@ -98,7 +98,7 @@ Chcete-li zahrnout doprovodné materiály jako součást RCL, vytvořte složku 
 
 Při balení RCL jsou do balíčku automaticky zahrnuty všechny doprovodné materiály ve složce *wwwroot* .
 
-`dotnet pack`Místo verze NuGet. exe použijte příkaz `nuget pack` .
+`dotnet pack`Místo verze NuGet.exe použijte příkaz `nuget pack` .
 
 ### <a name="exclude-static-assets"></a>Vyloučení statických prostředků
 
@@ -192,7 +192,7 @@ Po publikování aplikace se doprovodné prostředky ze všech odkazovaných pro
 
 ::: moniker range="< aspnetcore-3.0"
 
-Razorzobrazení, stránky, řadiče, modely stránek, [ Razor komponenty](xref:blazor/class-libraries), [zobrazení komponent](xref:mvc/views/view-components)a datové modely lze integrovat do Razor knihovny tříd (RCL). RCL může být zabalen a znovu použit. Aplikace mohou zahrnovat RCL a přepsat zobrazení a stránky, které obsahuje. V případě, že Razor je v rámci webové aplikace i v RCL Nalezeno zobrazení, částečné zobrazení nebo stránka, má Razor přednost označení (soubor *. cshtml* ) ve webové aplikaci.
+Razorzobrazení, stránky, řadiče, modely stránek, [ Razor komponenty](xref:blazor/components/class-libraries), [zobrazení komponent](xref:mvc/views/view-components)a datové modely lze integrovat do Razor knihovny tříd (RCL). RCL může být zabalen a znovu použit. Aplikace mohou zahrnovat RCL a přepsat zobrazení a stránky, které obsahuje. V případě, že Razor je v rámci webové aplikace i v RCL Nalezeno zobrazení, částečné zobrazení nebo stránka, má Razor přednost označení (soubor *. cshtml* ) ve webové aplikaci.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/razor-pages/ui-class/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
@@ -322,7 +322,7 @@ Soubor *_ViewStart. cshtml* je vyžadován pro použití rozložení Razor proje
   dotnet build RazorUIClassLib
   ```
 
-Výstup sestavení obsahuje *RazorUIClassLib. dll* a *RazorUIClassLib. views. dll*. *RazorUIClassLib. views. dll* obsahuje zkompilovaný Razor obsah.
+Výstup sestavení obsahuje *RazorUIClassLib.dll* a *RazorUIClassLib.Views.dll*. *RazorUIClassLib.Views.dll* obsahuje zkompilovaný Razor obsah.
 
 ### <a name="use-the-razor-ui-library-from-a-razor-pages-project"></a>Použití Razor knihovny uživatelského rozhraní z Razor projektu stránky
 
@@ -398,4 +398,4 @@ Předpokládejme, že *RazorUIClassLib/Pages/Shared* obsahují dva částečné 
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* <xref:blazor/class-libraries>
+* <xref:blazor/components/class-libraries>

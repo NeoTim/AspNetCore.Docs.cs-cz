@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/configuration/overview
-ms.openlocfilehash: d37fdc44bb9a603d85818fc72a7a07de67006366
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 5439ba449a9ceaa417cf01a45f51009acf098a4e
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776809"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074395"
 ---
 # <a name="configure-aspnet-core-data-protection"></a>Konfigurace ochrany ASP.NET Core dat
 
@@ -57,15 +57,33 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Nastavte umístění úložiště Key Ring (například [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)). Umístění musí být nastavené, protože `ProtectKeysWithAzureKeyVault` volání implementuje rozhraní [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) , které zakazuje automatickou konfiguraci ochrany dat, včetně umístění úložiště s klíčovým kroužkem. Předchozí příklad používá službu Azure Blob Storage k uchování služby Key Ring. Další informace najdete v tématu [Zprostředkovatelé úložiště klíčů: Azure Storage](xref:security/data-protection/implementation/key-storage-providers#azure-storage). Klíčového ringu můžete také zachovat místně pomocí [PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system).
+Nastavte umístění úložiště Key Ring (například [PersistKeysToAzureBlobStorage](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.persistkeystoazureblobstorage)). Umístění musí být nastavené, protože volání `ProtectKeysWithAzureKeyVault` implementuje rozhraní [IXmlEncryptor](/dotnet/api/microsoft.aspnetcore.dataprotection.xmlencryption.ixmlencryptor) , které zakazuje automatickou konfiguraci ochrany dat, včetně umístění úložiště s klíčovým kroužkem. Předchozí příklad používá službu Azure Blob Storage k uchování služby Key Ring. Další informace najdete v tématu [Zprostředkovatelé úložiště klíčů: Azure Storage](xref:security/data-protection/implementation/key-storage-providers#azure-storage). Klíčového ringu můžete také zachovat místně pomocí [PersistKeysToFileSystem](xref:security/data-protection/implementation/key-storage-providers#file-system).
 
-`keyIdentifier` Je identifikátor klíče trezoru klíčů, který se používá pro šifrování klíče. Například klíč vytvořený v trezoru klíčů s názvem `dataprotection` `contosokeyvault` obsahuje identifikátor `https://contosokeyvault.vault.azure.net/keys/dataprotection/`klíče. Poskytněte aplikaci oprávnění k **rozbalení klíče** a **zabalení klíče** do trezoru klíčů.
+`keyIdentifier`Je identifikátor klíče trezoru klíčů, který se používá pro šifrování klíče. Například klíč vytvořený v trezoru klíčů s názvem `dataprotection` `contosokeyvault` obsahuje identifikátor klíče `https://contosokeyvault.vault.azure.net/keys/dataprotection/` . Poskytněte aplikaci oprávnění k **rozbalení klíče** a **zabalení klíče** do trezoru klíčů.
 
 `ProtectKeysWithAzureKeyVault`přetížení
 
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, KeyVaultClient, String)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_Microsoft_Azure_KeyVault_KeyVaultClient_System_String_) umožňuje použití [KeyVaultClient](/dotnet/api/microsoft.azure.keyvault.keyvaultclient) k tomu, aby systém ochrany dat mohl používat Trezor klíčů.
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, String, String, X509Certificate2)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_Security_Cryptography_X509Certificates_X509Certificate2_) umožňuje použití `ClientId` a [certifikátu x509](/dotnet/api/system.security.cryptography.x509certificates.x509certificate2) k tomu, aby systém ochrany dat mohl používat Trezor klíčů.
 * [ProtectKeysWithAzureKeyVault (IDataProtectionBuilder, String, String, String)](/dotnet/api/microsoft.aspnetcore.dataprotection.azuredataprotectionbuilderextensions.protectkeyswithazurekeyvault#Microsoft_AspNetCore_DataProtection_AzureDataProtectionBuilderExtensions_ProtectKeysWithAzureKeyVault_Microsoft_AspNetCore_DataProtection_IDataProtectionBuilder_System_String_System_String_System_String_) povolí použití `ClientId` a `ClientSecret` k povolení systému ochrany dat pro použití trezoru klíčů.
+
+Pokud k ukládání a ochraně klíčů používáte kombinaci trezoru klíčů a úložiště Azure, `System.UriFormatException` bude vyvolána výjimka, pokud objekt blob, ve kterém klíče uložíte, ještě neexistuje. To lze ručně vytvořit před spuštěním aplikace nebo je `.ProtectKeysWithAzureKeyVault()` lze odebrat pro první spuštění pro vytvoření objektu BLOB a následně při jeho přidání do následujících spuštění. Doporučujeme `.ProtectKeysWithAzureKeyVault()` , abyste se ujistili, že je soubor vytvořený pomocí správného schématu a hodnot na místě.
+
+```csharp
+var storageAccount = CloudStorageAccount.Parse("<storage account connection string">);
+var client = storageAccount.CreateCloudBlobClient();
+var container = client.GetContainerReference("<key store container name>");
+
+var azureServiceTokenProvider = new AzureServiceTokenProvider();
+var keyVaultClient = new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(
+        azureServiceTokenProvider.KeyVaultTokenCallback));
+
+services.AddDataProtection()
+    //This blob must already exist before the application is run
+    .PersistKeysToAzureBlobStorage(container, "<key store blob name>")
+    //Removing this line below for an initial run will ensure the file is created correctly
+    .ProtectKeysWithAzureKeyVault(keyVaultClient, "<keyIdentifier>");
+```
 
 ::: moniker-end
 
@@ -86,7 +104,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="protectkeyswith"></a>ProtectKeysWith\*
 
-Systém můžete nakonfigurovat tak, aby chránil klíče v klidovém umístění voláním libovolného rozhraní API pro konfiguraci [ProtectKeysWith\* ](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions) . Vezměte v úvahu následující příklad, který ukládá klíče do sdílené složky UNC a šifruje tyto klíče v klidovém formátu pomocí konkrétního certifikátu X. 509:
+Systém můžete nakonfigurovat tak, aby chránil klíče v klidovém umístění voláním libovolného rozhraní API pro konfiguraci [ProtectKeysWith \* ](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions) . Vezměte v úvahu následující příklad, který ukládá klíče do sdílené složky UNC a šifruje tyto klíče v klidovém formátu pomocí konkrétního certifikátu X. 509:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -169,7 +187,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="disableautomatickeygeneration"></a>DisableAutomaticKeyGeneration
 
-Můžete mít situaci, kdy nechcete, aby aplikace automaticky nastavila klíče (vytváření nových klíčů) při přístupu k vypršení platnosti. Příkladem může být aplikace nastavovaná v relaci primárního a sekundárního, kde pouze primární aplikace zodpovídá za důležité aspekty správy klíčů a sekundární aplikace má pouze pohled jen pro čtení ve službě Key Ring. Sekundární aplikace je možné nakonfigurovat tak, aby považovaly klíčový prstenec za jen pro čtení, a to <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.DisableAutomaticKeyGeneration*>konfigurací systému pomocí:
+Můžete mít situaci, kdy nechcete, aby aplikace automaticky nastavila klíče (vytváření nových klíčů) při přístupu k vypršení platnosti. Příkladem může být aplikace nastavovaná v relaci primárního a sekundárního, kde pouze primární aplikace zodpovídá za důležité aspekty správy klíčů a sekundární aplikace má pouze pohled jen pro čtení ve službě Key Ring. Sekundární aplikace je možné nakonfigurovat tak, aby považovaly klíčový prstenec za jen pro čtení, a to konfigurací systému pomocí <xref:Microsoft.AspNetCore.DataProtection.DataProtectionBuilderExtensions.DisableAutomaticKeyGeneration*> :
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -181,14 +199,14 @@ public void ConfigureServices(IServiceCollection services)
 
 ## <a name="per-application-isolation"></a>Izolace podle aplikace
 
-Když je systém ochrany dat poskytovaný ASP.NET Core hostitelem, automaticky izoluje aplikace od sebe navzájem, i když tyto aplikace běží pod stejným účtem pracovního procesu a používají stejný hlavní materiál klíčů. To je trochu podobné modifikátoru IsolateApps z `<machineKey>` prvku System. Web.
+Když je systém ochrany dat poskytovaný ASP.NET Core hostitelem, automaticky izoluje aplikace od sebe navzájem, i když tyto aplikace běží pod stejným účtem pracovního procesu a používají stejný hlavní materiál klíčů. To je trochu podobné modifikátoru IsolateApps z prvku System. Web `<machineKey>` .
 
-Mechanismus izolace funguje tak, že zvažuje každou aplikaci v místním počítači jako jedinečného tenanta, takže <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> kořenová složka pro všechny dané aplikace automaticky zahrnuje ID aplikace jako diskriminátor. Jedinečným ID aplikace je fyzická cesta aplikace:
+Mechanismus izolace funguje tak, že zvažuje každou aplikaci v místním počítači jako jedinečného tenanta, takže <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> Kořenová složka pro všechny dané aplikace automaticky zahrnuje ID aplikace jako diskriminátor. Jedinečným ID aplikace je fyzická cesta aplikace:
 
 * Pro aplikace hostované ve službě IIS je jedinečným ID fyzická cesta k aplikaci služby IIS. Pokud je aplikace nasazená ve webové farmě, je tato hodnota stabilní za předpokladu, že prostředí služby IIS se konfigurují podobně napříč všemi počítači ve webové farmě.
 * Pro samoobslužné aplikace běžící na [serveru Kestrel](xref:fundamentals/servers/index#kestrel)je jedinečné ID fyzickou cestou k aplikaci na disku.
 
-Jedinečný identifikátor je navržený tak, aby se&mdash;předržel jak jednotlivé aplikace, tak i samotný počítač.
+Jedinečný identifikátor je navržený tak, aby se předržel &mdash; jak jednotlivé aplikace, tak i samotný počítač.
 
 Tento mechanismus izolace předpokládá, že aplikace nejsou škodlivé. Škodlivá aplikace může vždycky ovlivnit jakoukoli jinou aplikaci spuštěnou v rámci stejného účtu pracovního procesu. Ve sdíleném hostitelském prostředí, kde jsou aplikace vzájemně nedůvěryhodné, by měl poskytovatel hostingu podniknout kroky k zajištění izolace na úrovni operačního systému mezi aplikacemi, včetně oddělení základních úložišť klíčů aplikací.
 
@@ -281,7 +299,7 @@ serviceCollection.AddDataProtection()
 
 ::: moniker-end
 
-Obecně musí \*být vlastnosti typu odkazovány na konkrétní instantiable (prostřednictvím neveřejných konstruktorů konstruktoru bez parametrů) [SymmetricAlgorithm](/dotnet/api/system.security.cryptography.symmetricalgorithm) a [KeyedHashAlgorithm](/dotnet/api/system.security.cryptography.keyedhashalgorithm), i když systémové speciální případy některé hodnoty jako `typeof(Aes)` pro pohodlí.
+Obecně \* musí být vlastnosti typu odkazovány na konkrétní instantiable (prostřednictvím neveřejných konstruktorů konstruktoru bez parametrů [) SymmetricAlgorithm](/dotnet/api/system.security.cryptography.symmetricalgorithm) a [KeyedHashAlgorithm](/dotnet/api/system.security.cryptography.keyedhashalgorithm), i když systémové speciální případy některé hodnoty jako `typeof(Aes)` pro pohodlí.
 
 > [!NOTE]
 > SymmetricAlgorithm musí mít délku klíče s ≥ 128 bity a blokovou velikostí ≥ 64 bitů a musí podporovat šifrování v režimu CBC s odsazením PKCS #7. KeyedHashAlgorithm musí mít velikost Digest >= 128 bitů a musí podporovat klíče délky rovnající se délce Digest algoritmu hash. KeyedHashAlgorithm není striktně vyžadováno pro HMAC.
@@ -337,7 +355,7 @@ services.AddDataProtection()
 ::: moniker-end
 
 > [!NOTE]
-> Algoritmus symetrického šifrování bloku musí mít délku klíče >= 128 bitů, velikost bloku >= 64 bitů a musí podporovat šifrování v CBC s odsazením PKCS #7. Algoritmus hash musí mít velikost algoritmu Digest >= 128 bitů a musí podporovat otevření pomocí příznaku HMAC\_\_ALG\_popisovače\_symetrickými. Vlastnosti \*zprostředkovatele lze nastavit na hodnotu null pro použití výchozího zprostředkovatele pro zadaný algoritmus. Další informace najdete v dokumentaci k [BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx) .
+> Algoritmus symetrického šifrování bloku musí mít délku klíče >= 128 bitů, velikost bloku >= 64 bitů a musí podporovat šifrování v CBC s odsazením PKCS #7. Algoritmus hash musí mít velikost algoritmu Digest >= 128 bitů a musí podporovat otevření pomocí \_ \_ \_ příznaku HMAC ALG popisovače symetrickými \_ . \*Vlastnosti zprostředkovatele lze nastavit na hodnotu null pro použití výchozího zprostředkovatele pro zadaný algoritmus. Další informace najdete v dokumentaci k [BCryptOpenAlgorithmProvider](https://msdn.microsoft.com/library/windows/desktop/aa375479(v=vs.85).aspx) .
 
 ::: moniker range=">= aspnetcore-2.0"
 

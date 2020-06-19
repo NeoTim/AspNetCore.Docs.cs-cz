@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: ba172282d0cd6371ebc94b4fda1c13aee14d6fbd
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: fe35645aafe29838818dcaaf7c2b42ed428ac6cc
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83851989"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102261"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor rozložení
 
@@ -26,7 +26,7 @@ Od [Rainer Stropek](https://www.timecockpit.com) a [Luke Latham](https://github.
 
 Některé prvky aplikace, jako jsou nabídky, zprávy o autorských právech a logo společnosti, jsou obvykle součástí celkového rozložení aplikace a používají se v každé součásti aplikace. Kopírování kódu těchto prvků do všech součástí aplikace není účinný přístup. Pokaždé, když jeden z elementů vyžaduje aktualizaci, musí být každá součást aktualizována. Takové duplikace je obtížné udržovat a může v průběhu času vést k nekonzistentnímu obsahu. *Rozložení* řeší tento problém.
 
-Technicky, rozložení je pouze jiná komponenta. Rozložení je definováno v Razor šabloně nebo v kódu jazyka C# a může používat [datové vazby](xref:blazor/data-binding), [vkládání závislostí](xref:blazor/dependency-injection)a další scénáře komponent.
+Technicky, rozložení je pouze jiná komponenta. Rozložení je definováno v Razor šabloně nebo v kódu jazyka C# a může používat [datové vazby](xref:blazor/components/data-binding), [vkládání závislostí](xref:blazor/fundamentals/dependency-injection)a další scénáře komponent.
 
 Chcete-li změnit *komponentu* na *rozložení*, součást:
 
@@ -49,7 +49,7 @@ Chcete-li zadat výchozí rozložení <xref:Microsoft.AspNetCore.Components.Rout
 
 [!code-razor[](layouts/sample_snapshot/3.x/App2.razor?highlight=6-9)]
 
-Další informace o <xref:Microsoft.AspNetCore.Components.Routing.Router> komponentě naleznete v tématu <xref:blazor/routing> .
+Další informace o <xref:Microsoft.AspNetCore.Components.Routing.Router> komponentě naleznete v tématu <xref:blazor/fundamentals/routing> .
 
 Určení rozložení jako výchozího rozložení ve směrovači je užitečný postup, protože je možné ho přepsat pro jednotlivé komponenty nebo pro jednotlivé složky. Upřednostňujete použití směrovače k nastavení výchozího rozložení aplikace, protože se jedná o nejobecnější postup.
 
@@ -97,7 +97,7 @@ Nakonec `MasterLayout` v *MasterLayout. Razor* obsahuje prvky rozložení na nej
 
 ## <a name="share-a-razor-pages-layout-with-integrated-components"></a>Sdílení Razor rozložení stránek pomocí integrovaných komponent
 
-Pokud jsou směrovatelný komponenty integrovány do Razor aplikace Pages, lze použít sdílené rozložení aplikace spolu s komponentami. Další informace naleznete v tématu <xref:blazor/integrate-components>.
+Pokud jsou směrovatelný komponenty integrovány do Razor aplikace Pages, lze použít sdílené rozložení aplikace spolu s komponentami. Další informace naleznete v tématu <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>.
 
 ## <a name="additional-resources"></a>Další zdroje
 

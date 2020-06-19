@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: f582e8201a3393b848cf3f2c21ce3a7df5554100
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 3a491e43aec8291fcf03696b53240bd33e0deda1
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105529"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102485"
 ---
 # <a name="aspnet-core-blazor-templates"></a>BlazorŠablony ASP.NET Core
 
@@ -80,7 +80,7 @@ Následující soubory a složky tvoří Blazor aplikaci vygenerovanou ze Blazor
 
 * *Sdílená* složka: obsahuje další součásti uživatelského rozhraní (*. Razor*) používané aplikací:
   * `MainLayout`(*MainLayout. Razor*): součást rozložení aplikace
-  * `NavMenu`(*NavMenu. Razor*): implementuje navigaci bočním panelem. Zahrnuje [komponentu NavLink](xref:blazor/routing#navlink-component) ( <xref:Microsoft.AspNetCore.Components.Routing.NavLink> ), která vykresluje navigační odkazy na jiné Razor součásti. <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Komponenta automaticky indikuje vybraný stav při načtení jeho komponenty, což pomáhá uživateli pochopit, která součást se aktuálně zobrazuje.
+  * `NavMenu`(*NavMenu. Razor*): implementuje navigaci bočním panelem. Zahrnuje [komponentu NavLink](xref:blazor/fundamentals/routing#navlink-component) ( <xref:Microsoft.AspNetCore.Components.Routing.NavLink> ), která vykresluje navigační odkazy na jiné Razor součásti. <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Komponenta automaticky indikuje vybraný stav při načtení jeho komponenty, což pomáhá uživateli pochopit, která součást se aktuálně zobrazuje.
 
 * *_Imports. Razor*: obsahuje společné Razor direktivy pro zahrnutí do komponent aplikace (*. Razor*), jako jsou například [`@using`](xref:mvc/views/razor#using) direktivy pro obory názvů.
 
@@ -88,4 +88,4 @@ Následující soubory a složky tvoří Blazor aplikaci vygenerovanou ze Blazor
 
 * *wwwroot*: [Webová kořenová](xref:fundamentals/index#web-root) složka pro aplikaci, která obsahuje veřejné statické prostředky aplikace.
 
-* *appSettings. JSON* ( Blazor Server): nastavení konfigurace pro aplikaci.
+* *appsettings.jsna* ( Blazor serveru): nastavení konfigurace pro aplikaci.

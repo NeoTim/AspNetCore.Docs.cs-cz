@@ -13,18 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 26d371161bf5f926e50cbc141ccfaac40ee96977
-ms.sourcegitcommit: ff5c47beded9264c1395beb9c905f826261f3ba3
+ms.openlocfilehash: 6d9d8cf6ca9ca3afc570c2c68510125200b96c60
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/16/2020
-ms.locfileid: "83440175"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074476"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
 ASP.NET Core 3,0 nebo novější nabízí ověřování v aplikacích s jednou stránkou (jednostránkové) pomocí podpory pro autorizaci rozhraní API. ASP.NET Core Identity pro ověřování a ukládání uživatelů se v kombinaci s [IdentityServer](https://identityserver.io/) pro implementaci otevřeného ID Connect.
 
-Parametr ověřování byl přidán do **úhlových** a **reagujících** šablon projektů, které se podobají parametru ověřování v šablonách projektů **webové aplikace (model-zobrazení-kontroler)** a **webové aplikace** ( Razor stránky). Povolené hodnoty parametrů jsou **none** a **jednotlivce**. Šablona projektu **reagují. js a Redux** v tuto chvíli nepodporuje parametr ověřování.
+Parametr ověřování byl přidán do **úhlových** a **reagujících** šablon projektů, které se podobají parametru ověřování v šablonách projektů **webové aplikace (model-zobrazení-kontroler)** a **webové aplikace** ( Razor stránky). Povolené hodnoty parametrů jsou **none** a **jednotlivce**. Šablona projektu **React.js a Redux** v tuto chvíli nepodporuje parametr ověřování.
 
 ## <a name="create-an-app-with-api-authorization-support"></a>Vytvoření aplikace s podporou autorizace rozhraní API
 
@@ -49,6 +49,8 @@ Předchozí příkaz vytvoří aplikaci ASP.NET Core s adresářem *clientapp* o
 Následující části popisují přidání do projektu, pokud je k dispozici podpora ověřování:
 
 ### <a name="startup-class"></a>Spouštěcí třída
+
+Následující příklady kódu jsou závislé na balíčku NuGet [Microsoft. AspNetCore. ApiAuthorization. IdentityServer](https://www.nuget.org/packages/Microsoft.AspNetCore.ApiAuthorization.IdentityServer) . Příklady konfigurují ověřování rozhraní API a autorizaci pomocí <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiResourceCollection.AddIdentityServerJwt%2A> metod rozšíření a. Projekty používající šablony projektů s použitím reakce nebo úhlové SPA s ověřováním zahrnují odkaz na tento balíček.
 
 `Startup`Třída má následující doplňky:
 
@@ -113,9 +115,9 @@ Chcete-li získat úplné řízení schématu databáze, zdědit jednu z dostupn
 
 V souboru *Controllers\OidcConfigurationController.cs* si všimněte koncového bodu, který se zřídí, aby sloužil parametrům OIDC, které musí klient použít.
 
-### <a name="appsettingsjson"></a>appSettings. JSON
+### <a name="appsettingsjson"></a>appsettings.jsna
 
-V souboru *appSettings. JSON* kořenového adresáře projektu je k dispozici nová `IdentityServer` část, která popisuje seznam konfigurovaných klientů. V následujícím příkladu je jeden klient. Název klienta odpovídá názvu aplikace a je mapován podle konvence na `ClientId` parametr OAuth. Profil indikuje typ aplikace, která se konfiguruje. Interně se používá k zajištění konvencí, které zjednodušují proces konfigurace serveru. K dispozici je několik profilů, jak je vysvětleno v části [profily aplikací](#application-profiles) .
+V *appsettings.jssouboru v* kořenovém adresáři projektu je k dispozici nová `IdentityServer` část, která popisuje seznam konfigurovaných klientů. V následujícím příkladu je jeden klient. Název klienta odpovídá názvu aplikace a je mapován podle konvence na `ClientId` parametr OAuth. Profil indikuje typ aplikace, která se konfiguruje. Interně se používá k zajištění konvencí, které zjednodušují proces konfigurace serveru. K dispozici je několik profilů, jak je vysvětleno v části [profily aplikací](#application-profiles) .
 
 ```json
 "IdentityServer": {
@@ -127,9 +129,9 @@ V souboru *appSettings. JSON* kořenového adresáře projektu je k dispozici no
 }
 ```
 
-### <a name="appsettingsdevelopmentjson"></a>appSettings. Vývoj. JSON
+### <a name="appsettingsdevelopmentjson"></a>appsettings.Development.jsna
 
-V souboru *appSettings. Soubor Development. JSON* kořenového adresáře projektu obsahuje `IdentityServer` oddíl, který popisuje klíč použitý k podepisování tokenů. Při nasazování do produkčního prostředí se musí klíč zřídit a nasadit společně s aplikací, jak je vysvětleno v části [nasazení do produkčního](#deploy-to-production) prostředí.
+V *appsettings.Development.jssouboru v* kořenovém adresáři projektu je k dispozici `IdentityServer` oddíl, který popisuje klíč použitý k podepisování tokenů. Při nasazování do produkčního prostředí se musí klíč zřídit a nasadit společně s aplikací, jak je vysvětleno v části [nasazení do produkčního](#deploy-to-production) prostředí.
 
 ```json
 "IdentityServer": {
@@ -159,12 +161,12 @@ Podpora ověřování a autorizace rozhraní API v úhlové šabloně se nacház
 Podpora ověřování a autorizace rozhraní API v šabloně reakce se nachází v adresáři *ClientApp\src\components\api-Authorization* . Skládá se z následujících prvků:
 
 * 4 součásti:
-  * *Login. js*: zpracovává tok přihlášení aplikace.
-  * *Odhlašovací. js*: zpracovává tok odhlašování aplikace.
-  * *LoginMenu. js*: widget, který zobrazuje jednu z následujících sad odkazů:
+  * *Login.js*: zpracovává tok přihlášení aplikace.
+  * *Logout.js*: zpracovává tok odhlášení aplikace.
+  * *LoginMenu.js*: widget, který zobrazuje jednu z následujících sad odkazů:
     * Správa profilů uživatelů a odhlášení odkazů při ověření uživatele
     * Registrace a přihlášení v odkazech, když se uživatel neověřuje
-  * *AuthorizeRoute. js*: komponenta směrování, která vyžaduje ověření uživatele před vykreslením součásti uvedené v `Component` parametru.
+  * *AuthorizeRoute.js*: komponenta směrování, která vyžaduje ověření uživatele před vykreslením součásti uvedené v `Component` parametru.
 * Exportovaná `authService` instance třídy `AuthorizeService` , která zpracovává podrobnosti na nižší úrovni procesu ověřování a zpřístupňuje informace o ověřeném uživateli do zbytku aplikace za účelem využití.
 
 Teď, když jste viděli hlavní součásti řešení, se můžete podívat na podrobnější přehled o jednotlivých scénářích aplikace.
@@ -191,7 +193,7 @@ services.Configure<JwtBearerOptions>(
 
 Obslužná rutina tokenu JWT rozhraní API vyvolává události, které umožňují řízení procesu ověřování pomocí `JwtBearerEvents` . Pro zajištění podpory pro autorizaci rozhraní API `AddIdentityServerJwt` Zaregistrujte vlastní obslužné rutiny událostí.
 
-Chcete-li přizpůsobit zpracování události, zabalte existující obslužnou rutinu události s další logikou podle potřeby. Například:
+Chcete-li přizpůsobit zpracování události, zabalte existující obslužnou rutinu události s další logikou podle potřeby. Příklad:
 
 ```csharp
 services.Configure<JwtBearerOptions>(
@@ -280,7 +282,7 @@ Pokud chcete nasadit aplikaci do produkčního prostředí, je potřeba zřídit
 
 Tato část popisuje nasazení aplikace, aby Azure App Service pomocí certifikátu uloženého v úložišti certifikátů. Pokud chcete aplikaci upravit tak, aby načetla certifikát z úložiště certifikátů, při konfiguraci aplikace v Azure Portal v pozdějším kroku se vyžaduje plán Service úrovně Standard nebo vyšší.
 
-V souboru *appSettings. JSON* aplikace upravte `IdentityServer` oddíl tak, aby obsahoval podrobnosti klíče:
+V *appsettings.jsaplikace v* souboru upravte `IdentityServer` část tak, aby obsahovala podrobnosti klíče:
 
 ```json
 "IdentityServer": {

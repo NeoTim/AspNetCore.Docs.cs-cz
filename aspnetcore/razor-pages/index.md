@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: razor-pages/index
-ms.openlocfilehash: 70f5da1dad9b4c0b9526a7688862637291be9a68
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: 52c3dc82e51cb4375954a603a1bfde60fd667b56
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652583"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85103053"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor stránek v ASP.NET Core
 
@@ -321,7 +321,7 @@ Stránka vytvořit pro `Movie` model zobrazuje chyby s neplatnými hodnotami:
 
 ![Formulář zobrazení videa s několika chybami ověřování na straně klienta jQuery](~/tutorials/razor-pages/validation/_static/val.png)
 
-Další informace:
+Další informace naleznete v tématu:
 
 * [Přidání ověření do aplikace Movie](xref:tutorials/razor-pages/validation)
 * [Ověřování modelu v ASP.NET Core](xref:mvc/models/validation).
@@ -436,13 +436,13 @@ Aplikace má následující strukturu souborů nebo složek:
     * *Upravit. cshtml*
     * *Soubor Index.cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který slouží k přístupu na předchozí stránku. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Například:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který slouží k přístupu na předchozí stránku. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Příklad:
 
 * `Url.Page("./Index", ...)`
 * `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-Absolutní název stránky `/Index` se používá ke generování adres URL na stránce *pages/index. cshtml* . Například:
+Absolutní název stránky `/Index` se používá ke generování adres URL na stránce *pages/index. cshtml* . Příklad:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`
@@ -608,7 +608,7 @@ Přidat <xref:Microsoft.Extensions.DependencyInjection.MvcRazorPagesMvcCoreBuild
 * <xref:razor-pages/razor-pages-conventions>
 * <xref:test/razor-pages-tests>
 * <xref:mvc/views/partial>
-* <xref:blazor/integrate-components>
+* <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>
 
 ::: moniker-end
 
@@ -952,7 +952,7 @@ Aplikace má následující strukturu souborů nebo složek:
     * *Upravit. cshtml*
     * *Soubor Index.cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Například:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Příklad:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`

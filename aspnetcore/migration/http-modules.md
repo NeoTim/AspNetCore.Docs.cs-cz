@@ -11,12 +11,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/http-modules
-ms.openlocfilehash: c2b49976d2063679eab2403aae432660e8c8932d
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 214e3fa86a1418f04a5e292cdc1b4baac8c75643
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775411"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074184"
 ---
 # <a name="migrate-http-handlers-and-modules-to-aspnet-core-middleware"></a>Migrace obslužných rutin a modulů HTTP do ASP.NET Core middlewaru
 
@@ -34,7 +34,7 @@ Než začnete ASP.NET Core middlewaru, nejdřív si rekapitulace, jak fungují m
 
 * Slouží ke zpracování požadavků s daným názvem nebo příponou souboru, například *. Report.*
 
-* [Nakonfigurováno](/iis/configuration/system.webserver/handlers/) v *souboru Web. config*
+* [Nakonfigurováno](/iis/configuration/system.webserver/handlers/) v *Web.config*
 
 **Moduly jsou:**
 
@@ -46,13 +46,13 @@ Než začnete ASP.NET Core middlewaru, nejdřív si rekapitulace, jak fungují m
 
 * Může přidat do odpovědi HTTP nebo vytvořit vlastní.
 
-* [Nakonfigurováno](/iis/configuration/system.webserver/modules/) v *souboru Web. config*
+* [Nakonfigurováno](/iis/configuration/system.webserver/modules/) v *Web.config*
 
 **Pořadí, ve kterém moduly zpracovávají příchozí požadavky, určuje:**
 
 1. [Životní cyklus aplikace](https://msdn.microsoft.com/library/ms227673.aspx), což je události řady, které jsou aktivovány ASP.NET: [beginRequest](/dotnet/api/system.web.httpapplication.beginrequest), [AuthenticateRequest](/dotnet/api/system.web.httpapplication.authenticaterequest)atd. Každý modul může vytvořit obslužnou rutinu pro jednu nebo více událostí.
 
-2. Pro stejnou událost, pořadí, ve kterém jsou konfigurovány v *souboru Web. config*.
+2. Pro stejnou událost, pořadí, ve kterém jsou nakonfigurované v *Web.config*.
 
 Kromě modulů můžete přidat obslužné rutiny pro události životního cyklu do souboru *Global.asax.cs* . Tyto obslužné rutiny jsou spouštěny po obslužných rutinách v konfigurovaných modulech.
 
@@ -60,13 +60,22 @@ Kromě modulů můžete přidat obslužné rutiny pro události životního cykl
 
 **Middleware jsou jednodušší než moduly HTTP a obslužné rutiny:**
 
-* Moduly, obslužné rutiny, *Global.asax.cs*, *Web. config* (s výjimkou konfigurace služby IIS) a životní cyklus aplikace se odešlou.
+* Moduly, obslužné rutiny, *Global.asax.cs*, *Web.config* (kromě konfigurace služby IIS) a životní cyklus aplikace se odešlou.
 
 * Služba middlewaru převzala role obou modulů i obslužných rutin.
 
-* Middleware jsou nakonfigurovány pomocí kódu, nikoli v *souboru Web. config.*
+* Middleware jsou nakonfigurovány pomocí kódu, nikoli v *Web.config*
+
+::: moniker range=">= aspnetcore-3.0"
+
+* [Větvení kanálu](xref:fundamentals/middleware/index#branch-the-middleware-pipeline) vám umožňuje odesílat požadavky na konkrétní middleware na základě nejen adresy URL, ale také na hlavičkách žádostí, řetězcích dotazů atd.
+
+::: moniker-end
+::: moniker range="< aspnetcore-3.0"
 
 * [Větvení kanálu](xref:fundamentals/middleware/index#use-run-and-map) vám umožňuje odesílat požadavky na konkrétní middleware na základě nejen adresy URL, ale také na hlavičkách žádostí, řetězcích dotazů atd.
+
+::: moniker-end
 
 **Middleware jsou velmi podobné modulům:**
 
@@ -94,7 +103,7 @@ Existující modul HTTP bude vypadat nějak takto:
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Modules/MyModule.cs?highlight=6,8,24,31)]
 
-Jak je znázorněno na stránce [middleware](xref:fundamentals/middleware/index) , ASP.NET Core middleware je třída, která `Invoke` zpřístupňuje metodu `HttpContext` s návratem `Task`a. Váš nový middleware bude vypadat takto:
+Jak je znázorněno na stránce [middleware](xref:fundamentals/middleware/index) , ASP.NET Core middleware je třída, která zpřístupňuje `Invoke` metodu s `HttpContext` návratem a `Task` . Váš nový middleware bude vypadat takto:
 
 <a name="http-modules-usemiddleware"></a>
 
@@ -102,7 +111,7 @@ Jak je znázorněno na stránce [middleware](xref:fundamentals/middleware/index)
 
 Předchozí šablona middlewaru byla pořízena z oddílu o [zápisu middlewaru](xref:fundamentals/middleware/write).
 
-Pomocná třída *MyMiddlewareExtensions* usnadňuje konfiguraci middlewaru ve vaší `Startup` třídě. `UseMyMiddleware` Metoda přidá třídu middleware do kanálu požadavků. Služby, které vyžaduje middleware, se vloží do konstruktoru middlewaru.
+Pomocná třída *MyMiddlewareExtensions* usnadňuje konfiguraci middlewaru ve vaší `Startup` třídě. `UseMyMiddleware`Metoda přidá třídu middleware do kanálu požadavků. Služby, které vyžaduje middleware, se vloží do konstruktoru middlewaru.
 
 <a name="http-modules-shortcircuiting-middleware"></a>
 
@@ -110,7 +119,7 @@ Váš modul může ukončit žádost, například pokud uživatel není autorizo
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Modules/MyTerminatingModule.cs?highlight=9,10,11,12,13&name=snippet_Terminate)]
 
-Middleware to zpracovává tím, že `Invoke` nevolá na další middleware v kanálu. Mějte na paměti, že to neukončí celý požadavek, protože předchozí middleware budou přesto vyvolány, když odpověď prochází způsobem kanálu.
+Middleware to zpracovává tím, že nevolá `Invoke` na další middleware v kanálu. Mějte na paměti, že to neukončí celý požadavek, protože předchozí middleware budou přesto vyvolány, když odpověď prochází způsobem kanálu.
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyTerminatingMiddleware.cs?highlight=7,8&name=snippet_Terminate)]
 
@@ -118,7 +127,7 @@ Když migrujete funkci modulu na nový middleware, může se stát, že váš k�
 
 ## <a name="migrating-module-insertion-into-the-request-pipeline"></a>Migruje se vložení modulu do kanálu požadavků.
 
-Moduly HTTP se obvykle přidávají do kanálu požadavků pomocí *souboru Web. config*:
+Moduly HTTP se obvykle přidávají do kanálu požadavků pomocí *Web.config*:
 
 [!code-xml[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Web.config?highlight=6&range=1-3,32-33,36,43,50,101)]
 
@@ -126,7 +135,7 @@ Převeďte to [přidáním nového middlewaru](xref:fundamentals/middleware/inde
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=16)]
 
-Přesné místo v kanálu, kam vložíte nový middleware, závisí na události, kterou zpracuje jako modul (`BeginRequest`, `EndRequest`atd.) a pořadí v seznamu modulů v *souboru Web. config*.
+Přesné místo v kanálu, kam vložíte nový middleware, závisí na události, kterou zpracuje jako modul ( `BeginRequest` , `EndRequest` atd.) a pořadí v seznamu modulů v *Web.config*.
 
 Jak je uvedeno výše, v ASP.NET Core není žádný životní cyklus aplikace a pořadí, ve kterém jsou odpovědi zpracovávány middlewarem, se liší od pořadí používaného moduly. To může být náročnější na rozhodnutí o řazení.
 
@@ -142,23 +151,23 @@ V projektu ASP.NET Core byste ho přeložili na middleware podobnou této:
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/ReportHandlerMiddleware.cs?highlight=7,9,13,20,21,22,23,40,42,44)]
 
-Tento middleware je velmi podobný middlewaru, který odpovídá modulům. Jediným skutečným rozdílem je, že zde není žádné volání `_next.Invoke(context)`. To dává smysl, protože obslužná rutina je na konci kanálu požadavků, takže nebudete moct vyvolat žádné další middleware.
+Tento middleware je velmi podobný middlewaru, který odpovídá modulům. Jediným skutečným rozdílem je, že zde není žádné volání `_next.Invoke(context)` . To dává smysl, protože obslužná rutina je na konci kanálu požadavků, takže nebudete moct vyvolat žádné další middleware.
 
 ## <a name="migrating-handler-insertion-into-the-request-pipeline"></a>Migrace vložení obslužné rutiny do kanálu žádosti
 
-Konfigurace obslužné rutiny HTTP se provádí v *souboru Web. config* a vypadá nějak takto:
+Konfigurace obslužné rutiny HTTP se provádí v *Web.config* a vypadá nějak takto:
 
 [!code-xml[](../migration/http-modules/sample/Asp.Net4/Asp.Net4/Web.config?highlight=6&range=1-3,32,46-48,50,101)]
 
 To můžete převést přidáním nového middlewaru obslužné rutiny do kanálu požadavků ve vaší `Startup` třídě, podobně jako middleware převedené z modulů. Problém s tímto přístupem je, že by poslal všechny žádosti do nového middlewaru obslužné rutiny. Nicméně budete chtít, aby žádosti s daným rozšířením dosáhly vašeho middlewaru. To vám poskytne stejné funkce jako u vaší obslužné rutiny HTTP.
 
-Jedním z řešení je vytvořit větev kanálu pro žádosti s danou příponou pomocí metody `MapWhen` rozšíření. Provedete to stejným způsobem `Configure` , jakým přidáte další middleware:
+Jedním z řešení je vytvořit větev kanálu pro žádosti s danou příponou pomocí `MapWhen` metody rozšíření. Provedete to stejným způsobem, jakým `Configure` přidáte další middleware:
 
 [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=27-34)]
 
 `MapWhen`přebírá tyto parametry:
 
-1. Výraz lambda, který přebírá `HttpContext` a `true` vrátí, zda by požadavek měl přejít mimo větev. To znamená, že můžete požadavky větví nejenom na základě jejich rozšíření, ale také v hlavičkách žádostí, parametrech řetězce dotazu atd.
+1. Výraz lambda, který přebírá `HttpContext` a vrátí, `true` zda by požadavek měl přejít mimo větev. To znamená, že můžete požadavky větví nejenom na základě jejich rozšíření, ale také v hlavičkách žádostí, parametrech řetězce dotazu atd.
 
 2. Lambda, který přebírá `IApplicationBuilder` a přidává všechny middleware pro větev. To znamená, že můžete přidat další middleware do větve před middlewarem vaší obslužné rutiny.
 
@@ -166,7 +175,7 @@ Middleware přidaný do kanálu před tím, než se větev vyvolá u všech pož
 
 ## <a name="loading-middleware-options-using-the-options-pattern"></a>Načítání možností middlewaru pomocí vzoru možností
 
-Některé moduly a obslužné rutiny mají možnosti konfigurace, které jsou uloženy v *souboru Web. config*. V ASP.NET Core se však používá nový model konfigurace místo souboru *Web. config*.
+Některé moduly a obslužné rutiny mají možnosti konfigurace, které jsou uloženy v *Web.config*. V ASP.NET Core se ale místo *Web.config*používá nový model konfigurace.
 
 Nový [konfigurační systém](xref:fundamentals/configuration/index) poskytuje tyto možnosti, jak tento problém vyřešit:
 
@@ -180,7 +189,7 @@ Nový [konfigurační systém](xref:fundamentals/configuration/index) poskytuje 
 
 2. Uložení hodnot možností
 
-   Konfigurační systém umožňuje ukládat hodnoty možností kdekoli, kde chcete. Většina lokalit ale používá *appSettings. JSON*, takže probereme tento přístup:
+   Konfigurační systém umožňuje ukládat hodnoty možností kdekoli, kde chcete. Většina lokalit ale používá *appsettings.jsna*, takže provedeme tento přístup:
 
    [!code-json[](http-modules/sample/Asp.Net.Core/appsettings.json?range=1,14-18)]
 
@@ -188,11 +197,11 @@ Nový [konfigurační systém](xref:fundamentals/configuration/index) poskytuje 
 
 3. Přidružit hodnoty možnosti k třídě Options
 
-    Vzor možností používá ASP.NET Core rozhraní pro vkládání závislostí k přidružení typu možností (například `MyMiddlewareOptions`) k `MyMiddlewareOptions` objektu, který má skutečné možnosti.
+    Vzor možností používá ASP.NET Core rozhraní pro vkládání závislostí k přidružení typu možností (například) k `MyMiddlewareOptions` `MyMiddlewareOptions` objektu, který má skutečné možnosti.
 
-    Aktualizujte `Startup` svou třídu:
+    Aktualizujte svou `Startup` třídu:
 
-   1. Pokud používáte *appSettings. JSON*, přidejte jej do Tvůrce konfigurace v `Startup` konstruktoru:
+   1. Pokud používáte *appsettings.jsna*, přidejte ho do Tvůrce konfigurace v `Startup` konstruktoru:
 
       [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Ctor&highlight=5-6)]
 
@@ -208,9 +217,9 @@ Nový [konfigurační systém](xref:fundamentals/configuration/index) poskytuje 
 
    [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddlewareWithParams.cs?name=snippet_MiddlewareWithParams&highlight=4,7,10,15-16)]
 
-   Rozšiřující metoda [UseMiddleware](#http-modules-usemiddleware) , která přidává váš middleware `IApplicationBuilder` , se stará o vkládání závislostí.
+   Rozšiřující metoda [UseMiddleware](#http-modules-usemiddleware) , která přidává váš middleware, se `IApplicationBuilder` stará o vkládání závislostí.
 
-   To není omezeno `IOptions` na objekty. Jakýkoli jiný objekt, který váš middleware vyžaduje, může být tímto způsobem vložen.
+   To není omezeno na `IOptions` objekty. Jakýkoli jiný objekt, který váš middleware vyžaduje, může být tímto způsobem vložen.
 
 ## <a name="loading-middleware-options-through-direct-injection"></a>Načítání možností middlewaru prostřednictvím přímého vkládání
 
@@ -220,31 +229,31 @@ Tato možnost se ukončí, pokud chcete stejný middleware používat dvakrát a
 
 Řešením je získat objekty možností se skutečnými hodnotami možností ve vaší `Startup` třídě a předat je přímo do každé instance vašeho middlewaru.
 
-1. Přidat druhý klíč do souboru *appSettings. JSON*
+1. Přidat druhý klíč k *appsettings.js*
 
-   Chcete-li přidat druhou sadu možností do souboru *appSettings. JSON* , použijte k jedinečné identifikaci nový klíč:
+   Chcete-li přidat druhou sadu možností do *appsettings.jsv* souboru, použijte k jedinečné identifikaci nový klíč:
 
    [!code-json[](http-modules/sample/Asp.Net.Core/appsettings.json?range=1,10-18&highlight=2-5)]
 
-2. Načtěte hodnoty možností a předejte je middlewaru. Metoda `Use...` rozšíření (která přidá váš middleware do kanálu) je logické místo, které se má předat v hodnotách možností: 
+2. Načtěte hodnoty možností a předejte je middlewaru. `Use...`Metoda rozšíření (která přidá váš middleware do kanálu) je logické místo, které se má předat v hodnotách možností: 
 
    [!code-csharp[](http-modules/sample/Asp.Net.Core/Startup.cs?name=snippet_Configure&highlight=20-23)]
 
-3. Povolte middlewari, aby převzala parametr options. Poskytněte přetížení metody `Use...` rozšíření (která převezme parametr options a předá ho do `UseMiddleware`). Když `UseMiddleware` je volána s parametry, předá parametry konstruktoru middleware při vytváření instance objektu middleware.
+3. Povolte middlewari, aby převzala parametr options. Poskytněte přetížení `Use...` metody rozšíření (která převezme parametr options a předá ho do `UseMiddleware` ). Když `UseMiddleware` je volána s parametry, předá parametry konstruktoru middleware při vytváření instance objektu middleware.
 
    [!code-csharp[](../migration/http-modules/sample/Asp.Net.Core/Middleware/MyMiddlewareWithParams.cs?name=snippet_Extensions&highlight=9-14)]
 
-   Všimněte si, jak toto zabalí objekt Options v `OptionsWrapper` objektu. To implementuje `IOptions`, podle očekávání konstruktoru middlewaru.
+   Všimněte si, jak toto zabalí objekt Options v `OptionsWrapper` objektu. To implementuje `IOptions` , podle očekávání konstruktoru middlewaru.
 
 ## <a name="migrating-to-the-new-httpcontext"></a>Migrace na novou HttpContext
 
-Dříve jste viděli, že `Invoke` metoda v middlewaru přebírá parametr typu `HttpContext`:
+Dříve jste viděli, že `Invoke` metoda v middlewaru přebírá parametr typu `HttpContext` :
 
 ```csharp
 public async Task Invoke(HttpContext context)
 ```
 
-`HttpContext`významně se změnil v ASP.NET Core. V této části se dozvíte, jak přeložit nejčastěji používané vlastnosti [System. Web. HttpContext](/dotnet/api/system.web.httpcontext) na nový `Microsoft.AspNetCore.Http.HttpContext`.
+`HttpContext`významně se změnil v ASP.NET Core. V této části se dozvíte, jak přeložit nejčastěji používané vlastnosti [System. Web. HttpContext](/dotnet/api/system.web.httpcontext) na nový `Microsoft.AspNetCore.Http.HttpContext` .
 
 ### <a name="httpcontext"></a>HttpContext
 
@@ -350,7 +359,7 @@ Posílání hlaviček odpovědí je složité, protože pokud jste je nastavili 
 
 Řešením je nastavit metodu zpětného volání, která bude volána přímo před zápisem do odpovědi. To se nejlépe provede na začátku `Invoke` metody v middlewaru. Je to metoda zpětného volání, která nastavuje hlavičky odpovědi.
 
-Následující kód nastaví metodu zpětného volání s `SetHeaders`názvem:
+Následující kód nastaví metodu zpětného volání s názvem `SetHeaders` :
 
 ```csharp
 public async Task Invoke(HttpContext httpContext)
@@ -359,7 +368,7 @@ public async Task Invoke(HttpContext httpContext)
     httpContext.Response.OnStarting(SetHeaders, state: httpContext);
 ```
 
-Metoda `SetHeaders` zpětného volání by vypadala takto:
+`SetHeaders`Metoda zpětného volání by vypadala takto:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetHeaders)]
 
@@ -375,11 +384,11 @@ public async Task Invoke(HttpContext httpContext)
     httpContext.Response.OnStarting(SetHeaders, state: httpContext);
 ```
 
-Metoda `SetCookies` zpětného volání by vypadala takto:
+`SetCookies`Metoda zpětného volání by vypadala takto:
 
 [!code-csharp[](http-modules/sample/Asp.Net.Core/Middleware/HttpContextDemoMiddleware.cs?name=snippet_SetCookies)]
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Obslužné rutiny HTTP a moduly HTTP – přehled](/iis/configuration/system.webserver/)
 * [Konfigurace](xref:fundamentals/configuration/index)

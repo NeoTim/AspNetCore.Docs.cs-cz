@@ -1,26 +1,32 @@
 ---
-title: Přizpůsobení modelu identity v ASP.NET Core
+title: IdentityPřizpůsobení modelu v ASP.NET Core
 author: ajcvickers
-description: Tento článek popisuje, jak přizpůsobit základní datový model Entity Framework Core pro ASP.NET Coreou identitu.
+description: Tento článek popisuje, jak přizpůsobit základní datový model Entity Framework Core pro ASP.NET Core Identity .
 ms.author: avickers
 ms.date: 07/01/2019
+no-loc:
+- Blazor
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: f549fdff4a416b5fadcb2b1078b051bbab8e402e
-ms.sourcegitcommit: 9a129f5f3e31cc449742b164d5004894bfca90aa
+ms.openlocfilehash: 96ee703da4ced69c5d9c703139e33b76b5dcdff1
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78656077"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074139"
 ---
-# <a name="identity-model-customization-in-aspnet-core"></a>Přizpůsobení modelu identity v ASP.NET Core
+# <a name="identity-model-customization-in-aspnet-core"></a>IdentityPřizpůsobení modelu v ASP.NET Core
 
 Od [Arthur Vickers](https://github.com/ajcvickers)
 
-ASP.NET Core identity poskytuje rozhraní pro správu a ukládání uživatelských účtů v aplikacích ASP.NET Core. Identita se přidá do vašeho projektu, když jsou **jednotlivé uživatelské účty** vybrané jako ověřovací mechanismus. Ve výchozím nastavení využívá identita základní datový model Entity Framework (EF). Tento článek popisuje, jak přizpůsobit model identity.
+ASP.NET Core Identity poskytuje rozhraní pro správu a ukládání uživatelských účtů v aplikacích ASP.NET Core. Identityse přidá do projektu, když jsou **jednotlivé uživatelské účty** vybrané jako ověřovací mechanismus. Ve výchozím nastavení Identity využívá základní datový model Entity Framework (EF). Tento článek popisuje, jak model přizpůsobit Identity .
 
-## <a name="identity-and-ef-core-migrations"></a>Migrace identit a EF Core
+## <a name="identity-and-ef-core-migrations"></a>Identitya EF Core migrace
 
-Před prozkoumáním modelu je užitečné pochopit, jak identita funguje s [EF Core migrací](/ef/core/managing-schemas/migrations/) pro vytvoření a aktualizaci databáze. Na nejvyšší úrovni je tento proces:
+Před prozkoumáním modelu je užitečné pochopit, jak Identity funguje s [EF Core migrací](/ef/core/managing-schemas/migrations/) pro vytvoření a aktualizaci databáze. Na nejvyšší úrovni je tento proces:
 
 1. Definice nebo aktualizace [datového modelu v kódu](/ef/core/modeling/).
 1. Přidáním migrace můžete tento model přeložit do změn, které se dají použít pro databázi.
@@ -36,19 +42,19 @@ Pomocí jednoho z následujících přístupů přidejte a použijte migrace:
 
 ASP.NET Core má obslužnou rutinu chybové stránky v době vývoje. Obslužná rutina může při spuštění aplikace použít migrace. Produkční aplikace obvykle generují skripty SQL z migrace a nasazují změny databáze jako součást řízené aplikace a nasazení databáze.
 
-Když se vytvoří nová aplikace využívající identitu, kroky 1 a 2 se už dokončí. To znamená, že počáteční datový model již existuje a byla do projektu přidána počáteční migrace. Počáteční migrace se pořád musí použít pro databázi. Prvotní migraci můžete provést pomocí jednoho z následujících přístupů:
+Když se vytvoří nová aplikace Identity , kroky 1 a 2 se už dokončí. To znamená, že počáteční datový model již existuje a byla do projektu přidána počáteční migrace. Počáteční migrace se pořád musí použít pro databázi. Prvotní migraci můžete provést pomocí jednoho z následujících přístupů:
 
 * Spusťte `Update-Database` v PMC.
-* Spusťte `dotnet ef database update` v příkazovém prostředí.
+* Spusťte `dotnet ef database update` příkaz v příkazovém prostředí.
 * Po spuštění aplikace klikněte na tlačítko **použít migrace** na chybové stránce.
 
 Předchozí kroky opakujte, protože se v modelu provedou změny.
 
-## <a name="the-identity-model"></a>Model identity
+## <a name="the-identity-model"></a>IdentityModel
 
 ### <a name="entity-types"></a>Typy entit
 
-Model identity se skládá z následujících typů entit.
+IdentityModel se skládá z následujících typů entit.
 
 |Typ entity|Popis                                                  |
 |-----------|-------------------------------------------------------------|
@@ -64,15 +70,15 @@ Model identity se skládá z následujících typů entit.
 
 [Typy entit](#entity-types) spolu vzájemně souvisí následujícími způsoby:
 
-* Každý `User` může mít mnoho `UserClaims`.
-* Každý `User` může mít mnoho `UserLogins`.
-* Každý `User` může mít mnoho `UserTokens`.
-* Každý `Role` může mít mnoho přidružených `RoleClaims`.
-* Každý `User` může mít k dispozici mnoho přidružených `Roles`a každá `Role` může být přidružena k mnoha `Users`ům. Jedná se o vztah m:n, který vyžaduje tabulku JOIN v databázi. Tabulka JOIN je reprezentovaná entitou `UserRole`.
+* Každý z nich `User` může mít mnoho `UserClaims` .
+* Každý z nich `User` může mít mnoho `UserLogins` .
+* Každý z nich `User` může mít mnoho `UserTokens` .
+* Každý z nich `Role` může mít přiřazeno mnoho `RoleClaims` .
+* Každý z nich `User` může mít přiřazeno mnoho `Roles` a každý z nich `Role` může být přidružen k mnoha `Users` . Jedná se o vztah m:n, který vyžaduje tabulku JOIN v databázi. Tabulka JOIN je reprezentována `UserRole` entitou.
 
 ### <a name="default-model-configuration"></a>Výchozí konfigurace modelu
 
-Identita definuje mnoho *tříd kontextu* , které dědí z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) ke konfiguraci a použití modelu. Tato konfigurace se provádí pomocí [rozhraní EF Core Code First Fluent API](/ef/core/modeling/) v metodě [OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating) třídy Context. Výchozí konfigurace:
+Identitydefinuje mnoho *kontextových tříd* , které dědí z [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) ke konfiguraci a použití modelu. Tato konfigurace se provádí pomocí [rozhraní EF Core Code First Fluent API](/ef/core/modeling/) v metodě [OnModelCreating](/dotnet/api/microsoft.entityframeworkcore.dbcontext.onmodelcreating) třídy Context. Výchozí konfigurace:
 
 ```csharp
 builder.Entity<TUser>(b =>
@@ -197,7 +203,7 @@ builder.Entity<TUserRole>(b =>
 
 ### <a name="model-generic-types"></a>Obecné typy modelů
 
-Identita definuje výchozí typy modulu CLR ( [Common Language Runtime](/dotnet/standard/glossary#clr) ) pro každý z typů entit uvedených výše. Všechny tyto typy jsou s předponou *identity*:
+Identitydefinuje výchozí typy modulu CLR ( [Common Language Runtime](/dotnet/standard/glossary#clr) ) pro každý z typů entit uvedených výše. Všechny tyto typy mají předponu *Identity* :
 
 * `IdentityUser`
 * `IdentityRole`
@@ -207,9 +213,9 @@ Identita definuje výchozí typy modulu CLR ( [Common Language Runtime](/dotnet/
 * `IdentityRoleClaim`
 * `IdentityUserRole`
 
-Místo toho, aby tyto typy používaly přímo, lze typy použít jako základní třídy pro vlastní typy aplikace. `DbContext` třídy definované identitou jsou obecné, například, že různé typy CLR lze použít pro jeden nebo více typů entit v modelu. Tyto obecné typy také umožňují změnit datový typ `User` primární klíč (PK).
+Místo toho, aby tyto typy používaly přímo, lze typy použít jako základní třídy pro vlastní typy aplikace. `DbContext`Třídy definované pomocí Identity jsou obecné, takže různé typy CLR lze použít pro jeden nebo více typů entit v modelu. Tyto obecné typy také umožňují `User` změnit datový typ primární klíč (PK).
 
-Při použití identity s podporou rolí je třeba použít třídu <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext>. Příklad:
+Při použití Identity s podporou rolí <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> by měla být použita třída. Příklad:
 
 ```csharp
 // Uses all the built-in Identity types
@@ -253,7 +259,7 @@ public abstract class IdentityDbContext<
          where TUserToken : IdentityUserToken<TKey>
 ```
 
-Je také možné použít identitu bez rolí (pouze deklarace identity), v takovém případě by měla být použita třída <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext%601>:
+Je také možné použít Identity bez rolí (pouze deklarace identity), v takovém případě <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUserContext%601> by měla být použita třída:
 
 ```csharp
 // Uses the built-in non-role Identity types except with a custom User type
@@ -289,14 +295,14 @@ public abstract class IdentityUserContext<
 
 ## <a name="customize-the-model"></a>Přizpůsobení modelu
 
-Výchozí bod pro přizpůsobení modelu je odvozen od příslušného typu kontextu. Viz oddíl [Obecné typy modelů](#model-generic-types) . Tento typ kontextu se obvykle označuje jako `ApplicationDbContext` a je vytvořen pomocí šablon ASP.NET Core.
+Výchozí bod pro přizpůsobení modelu je odvozen od příslušného typu kontextu. Viz oddíl [Obecné typy modelů](#model-generic-types) . Tento typ kontextu je obvykle volán `ApplicationDbContext` a je vytvořen šablonami ASP.NET Core.
 
 Kontext se používá ke konfiguraci modelu dvěma způsoby:
 
 * Zadání entit a typů klíčů pro parametry obecného typu.
-* Přepsání `OnModelCreating` pro úpravu mapování těchto typů.
+* Přepsáním `OnModelCreating` upravíte mapování těchto typů.
 
-Při přepsání `OnModelCreating`je třeba nejprve volat `base.OnModelCreating`. přepsání konfigurace by se mělo volat jako další. EF Core obvykle má pro konfiguraci poslední zásadu služby WINS. Například pokud je metoda `ToTable` pro typ entity volána jako první s jedním názvem tabulky a poté později s jiným názvem tabulky, je použita název tabulky ve druhém volání.
+Při přepsání `OnModelCreating` `base.OnModelCreating` by se mělo volat jako první. přepsání konfigurace by se mělo volat jako další. EF Core obvykle má pro konfiguraci poslední zásadu služby WINS. Například pokud `ToTable` je metoda pro typ entity volána jako první v jednom názvu tabulky a poté později s jiným názvem tabulky, je použita název tabulky ve druhém volání.
 
 ### <a name="custom-user-data"></a>Vlastní uživatelská data
 
@@ -310,7 +316,7 @@ dotnet ef migrations add CreateIdentitySchema
 dotnet ef database update
  -->
 
-[Vlastní uživatelská data](xref:security/authentication/add-user-data) jsou podporovaná děděním z `IdentityUser`. Pro pojmenování tohoto typu `ApplicationUser`je vlastní:
+[Vlastní uživatelská data](xref:security/authentication/add-user-data) jsou podporovaná děděním z `IdentityUser` . Vlastní pojmenování tohoto typu `ApplicationUser` :
 
 ```csharp
 public class ApplicationUser : IdentityUser
@@ -319,7 +325,7 @@ public class ApplicationUser : IdentityUser
 }
 ```
 
-Jako obecný argument pro kontext použijte `ApplicationUser` typ:
+Použijte `ApplicationUser` typ jako obecný argument pro kontext:
 
 ```csharp
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -336,9 +342,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 }
 ```
 
-Ve třídě `ApplicationDbContext` není nutné přepsat `OnModelCreating`. EF Core mapuje vlastnost `CustomTag` podle konvence. Databázi je ale potřeba aktualizovat, aby se vytvořil nový sloupec `CustomTag`. Pokud chcete vytvořit sloupec, přidejte migraci a pak aktualizujte databázi, jak je popsáno v části [Identita a EF Core migrace](#identity-and-ef-core-migrations).
+Ve třídě není nutné přepisovat `OnModelCreating` `ApplicationDbContext` . EF Core mapuje `CustomTag` vlastnost podle konvence. Databázi je ale potřeba aktualizovat, aby se vytvořil nový `CustomTag` sloupec. Pokud chcete vytvořit sloupec, přidejte migraci a pak aktualizujte databázi, jak je popsáno v tématu [ Identity a EF Core migrace](#identity-and-ef-core-migrations).
 
-Aktualizujte *stránky/Shared/_LoginPartial. cshtml* a nahraďte `IdentityUser` `ApplicationUser`:
+Update *Pages/Shared/_LoginPartial. cshtml* a nahraďte `IdentityUser` `ApplicationUser` :
 
 ```cshtml
 @using Microsoft.AspNetCore.Identity
@@ -347,18 +353,18 @@ Aktualizujte *stránky/Shared/_LoginPartial. cshtml* a nahraďte `IdentityUser` 
 @inject UserManager<ApplicationUser> UserManager
 ```
 
-Aktualizujte *oblasti/identity/IdentityHostingStartup. cs* nebo `Startup.ConfigureServices` a nahraďte `IdentityUser` `ApplicationUser`.
+Aktualizujte *oblasti/ Identity /IdentityHostingStartup.cs* nebo `Startup.ConfigureServices` nahraďte `IdentityUser` `ApplicationUser` .
 
 ```csharp
-services.AddDefaultIdentity<ApplicationUser>()
+services.AddIdentity<ApplicationUser>()
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultUI();
 ```
 
-V ASP.NET Core 2,1 nebo novější, je identita poskytnuta jako knihovna tříd Razor. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>. Pokud se k přidání souborů identit do projektu použil generátor identity, odeberte volání `AddDefaultUI`. Další informace naleznete v tématu:
+V ASP.NET Core 2,1 nebo novější, Identity je k dispozici jako Razor Knihovna tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání metody <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> . Pokud se generátor Identity použil k přidání Identity souborů do projektu, odeberte volání `AddDefaultUI` . Další informace naleznete v tématu:
 
-* [Vygenerování identity](xref:security/authentication/scaffold-identity)
-* [Přidání, stažení a odstranění vlastních uživatelských dat do identity](xref:security/authentication/add-user-data)
+* [GenerováníIdentity](xref:security/authentication/scaffold-identity)
+* [Přidání, stažení a odstranění vlastních uživatelských datIdentity](xref:security/authentication/add-user-data)
 
 ### <a name="change-the-primary-key-type"></a>Změnit typ primárního klíče
 
@@ -366,9 +372,9 @@ Změna datového typu sloupce PK poté, co byla databáze vytvořena, je problem
 
 Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
-1. Pokud byla databáze vytvořena před změnou PK, je nutné ji odstranit spuštěním `Drop-Database` (PMC) nebo `dotnet ef database drop` (.NET Core CLI).
+1. Pokud byla databáze vytvořena před změnou PK, spusťte `Drop-Database` (PMC) nebo `dotnet ef database drop` (.NET Core CLI) a odstraňte ji.
 2. Po potvrzení odstranění databáze odeberte počáteční migraci pomocí `Remove-Migration` (PMC) nebo `dotnet ef migrations remove` (.NET Core CLI).
-3. Aktualizujte třídu `ApplicationDbContext` pro odvození od <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext%603>. Zadejte nový typ klíče pro `TKey`. Pokud například chcete použít `Guid` typ klíče:
+3. Aktualizuje `ApplicationDbContext` třídu, ze které se má odvodit <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext%603> . Zadejte nový typ klíče pro `TKey` . Pokud například chcete použít `Guid` typ klíče:
 
     ```csharp
     public class ApplicationDbContext
@@ -383,24 +389,23 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     ::: moniker range=">= aspnetcore-2.0"
 
-    V předchozím kódu musí být obecné třídy <xref:Microsoft.AspNetCore.Identity.IdentityUser%601> a <xref:Microsoft.AspNetCore.Identity.IdentityRole%601> určeny tak, aby používaly nový typ klíče.
+    V předchozím kódu je nutné zadat obecné třídy <xref:Microsoft.AspNetCore.Identity.IdentityUser%601> a <xref:Microsoft.AspNetCore.Identity.IdentityRole%601> použít nový typ klíče.
 
     ::: moniker-end
 
     ::: moniker range="<= aspnetcore-1.1"
 
-    V předchozím kódu musí být obecné třídy <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser%601> a <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole%601> určeny tak, aby používaly nový typ klíče.
+    V předchozím kódu je nutné zadat obecné třídy <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityUser%601> a <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole%601> použít nový typ klíče.
 
     ::: moniker-end
 
-    `Startup.ConfigureServices` je třeba aktualizovat, aby používala obecného uživatele:
+    `Startup.ConfigureServices`je nutné aktualizovat, aby používala obecného uživatele:
 
     ::: moniker range=">= aspnetcore-2.1"
 
     ```csharp
     services.AddDefaultIdentity<IdentityUser<Guid>>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+            .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
     ::: moniker-end
@@ -425,7 +430,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     ::: moniker-end
 
-4. Pokud se používá vlastní třída `ApplicationUser`, aktualizujte třídu tak, aby dědila z `IdentityUser`. Příklad:
+4. Pokud `ApplicationUser` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityUser` . Příklad:
 
     ::: moniker range="<= aspnetcore-1.1"
 
@@ -439,7 +444,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     ::: moniker-end
 
-    Aktualizujte `ApplicationDbContext`, aby odkazovaly na vlastní třídu `ApplicationUser`:
+    Aktualizace `ApplicationDbContext` , aby odkazovala na vlastní `ApplicationUser` třídu:
 
     ```csharp
     public class ApplicationDbContext
@@ -452,12 +457,12 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
     }
     ```
 
-    Zaregistrujte třídu kontextu vlastní databáze při přidávání služby identity v `Startup.ConfigureServices`:
+    Registrovat třídu vlastního kontextu databáze při přidávání Identity služby v nástroji `Startup.ConfigureServices` :
 
     ::: moniker range=">= aspnetcore-2.1"
 
     ```csharp
-    services.AddDefaultIdentity<ApplicationUser>()
+    services.AddIdentity<ApplicationUser>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
@@ -465,7 +470,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     Datový typ primárního klíče je odvozený analýzou objektu [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) .
 
-    V ASP.NET Core 2,1 nebo novější, je identita poskytnuta jako knihovna tříd Razor. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>. Pokud se k přidání souborů identit do projektu použil generátor identity, odeberte volání `AddDefaultUI`.
+    V ASP.NET Core 2,1 nebo novější, Identity je k dispozici jako Razor Knihovna tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání metody <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> . Pokud se generátor Identity použil k přidání Identity souborů do projektu, odeberte volání `AddDefaultUI` .
 
     ::: moniker-end
 
@@ -489,27 +494,27 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
             .AddDefaultTokenProviders();
     ```
 
-    Metoda <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*> přijímá typ `TKey` určující datový typ primárního klíče.
+    <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*>Metoda přijímá typ, který `TKey` označuje datový typ primárního klíče.
 
     ::: moniker-end
 
-5. Pokud se používá vlastní třída `ApplicationRole`, aktualizujte třídu tak, aby dědila z `IdentityRole<TKey>`. Příklad:
+5. Pokud `ApplicationRole` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityRole<TKey>` . Příklad:
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Data/ApplicationRole.cs?name=snippet_ApplicationRole&highlight=4)]
 
-    Aktualizujte `ApplicationDbContext` pro odkazování na vlastní třídu `ApplicationRole`. Například následující třída odkazuje na vlastní `ApplicationUser` a vlastní `ApplicationRole`:
+    Aktualizujte `ApplicationDbContext` tak, aby odkazovala na vlastní `ApplicationRole` třídu. Například následující třída odkazuje na vlastní `ApplicationUser` a vlastní `ApplicationRole` :
 
     ::: moniker range=">= aspnetcore-2.1"
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Data/ApplicationDbContext.cs?name=snippet_ApplicationDbContext&highlight=5-6)]
 
-    Zaregistrujte třídu kontextu vlastní databáze při přidávání služby identity v `Startup.ConfigureServices`:
+    Registrovat třídu vlastního kontextu databáze při přidávání Identity služby v nástroji `Startup.ConfigureServices` :
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=13-16)]
 
     Datový typ primárního klíče je odvozený analýzou objektu [DbContext](/dotnet/api/microsoft.entityframeworkcore.dbcontext) .
 
-    V ASP.NET Core 2,1 nebo novější, je identita poskytnuta jako knihovna tříd Razor. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*>. Pokud se k přidání souborů identit do projektu použil generátor identity, odeberte volání `AddDefaultUI`.
+    V ASP.NET Core 2,1 nebo novější, Identity je k dispozici jako Razor Knihovna tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>. V důsledku toho předchozí kód vyžaduje volání metody <xref:Microsoft.AspNetCore.Identity.IdentityBuilderUIExtensions.AddDefaultUI*> . Pokud se generátor Identity použil k přidání Identity souborů do projektu, odeberte volání `AddDefaultUI` .
 
     ::: moniker-end
 
@@ -517,7 +522,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     [!code-csharp[](customize-identity-model/samples/2.0/RazorPagesSampleApp/Data/ApplicationDbContext.cs?name=snippet_ApplicationDbContext&highlight=5-6)]
 
-    Zaregistrujte třídu kontextu vlastní databáze při přidávání služby identity v `Startup.ConfigureServices`:
+    Registrovat třídu vlastního kontextu databáze při přidávání Identity služby v nástroji `Startup.ConfigureServices` :
 
     [!code-csharp[](customize-identity-model/samples/2.0/RazorPagesSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=7-9)]
 
@@ -529,11 +534,11 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     [!code-csharp[](customize-identity-model/samples/1.1/MvcSampleApp/Data/ApplicationDbContext.cs?name=snippet_ApplicationDbContext&highlight=5-6)]
 
-    Zaregistrujte třídu kontextu vlastní databáze při přidávání služby identity v `Startup.ConfigureServices`:
+    Registrovat třídu vlastního kontextu databáze při přidávání Identity služby v nástroji `Startup.ConfigureServices` :
 
     [!code-csharp[](customize-identity-model/samples/1.1/MvcSampleApp/Startup.cs?name=snippet_ConfigureServices&highlight=7-9)]
 
-    Metoda <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*> přijímá typ `TKey` určující datový typ primárního klíče.
+    <xref:Microsoft.Extensions.DependencyInjection.IdentityEntityFrameworkBuilderExtensions.AddEntityFrameworkStores*>Metoda přijímá typ, který `TKey` označuje datový typ primárního klíče.
 
     ::: moniker-end
 
@@ -552,9 +557,9 @@ builder.Entity<TUser>(b =>
 });
 ```
 
-FK pro tento vztah je zadán jako vlastnost `UserClaim.UserId`. `HasMany` a `WithOne` jsou volány bez argumentů pro vytvoření relace bez vlastností navigace.
+FK pro tento vztah je zadáno jako `UserClaim.UserId` vlastnost. `HasMany`a `WithOne` jsou volány bez argumentů pro vytvoření vztahu bez vlastností navigace.
 
-Přidejte vlastnost navigace do `ApplicationUser`, která umožňuje odkazování na přidružené `UserClaims` od uživatele:
+Přidat navigační vlastnost k `ApplicationUser` , která umožňuje `UserClaims` odkazování na uživatele:
 
 ```csharp
 public class ApplicationUser : IdentityUser
@@ -563,9 +568,9 @@ public class ApplicationUser : IdentityUser
 }
 ```
 
-`TKey` pro `IdentityUserClaim<TKey>` je typ určený pro PK pro uživatele. V tomto případě je `TKey` `string`, protože se používají výchozí hodnoty. Nejedná **se o** typ PK pro `UserClaim` typ entity.
+`TKey`Pro `IdentityUserClaim<TKey>` je typ určený pro PK pro uživatele. V tomto případě je to způsobeno tím, že `TKey` `string` jsou použity výchozí hodnoty. **Není** to typ PK pro `UserClaim` typ entity.
 
-Teď, když existuje vlastnost navigace, musí být nakonfigurovaná v `OnModelCreating`:
+Teď, když existuje vlastnost navigace, musí být nakonfigurovaná v `OnModelCreating` :
 
 ```csharp
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -591,9 +596,9 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 }
 ```
 
-Všimněte si, že vztah je nakonfigurován přesně stejně jako dříve, pouze s navigační vlastností zadanou ve volání `HasMany`.
+Všimněte si, že vztah je nakonfigurován přesně stejně jako dříve, pouze s navigační vlastností zadanou v volání `HasMany` .
 
-Navigační vlastnosti existují pouze v modelu EF, nikoli v databázi. Vzhledem k tomu, že se FK pro relaci nezměnilo, tento druh změny modelu nevyžaduje aktualizaci databáze. Tuto možnost lze zkontrolovat přidáním migrace po provedení změny. Metody `Up` a `Down` jsou prázdné.
+Navigační vlastnosti existují pouze v modelu EF, nikoli v databázi. Vzhledem k tomu, že se FK pro relaci nezměnilo, tento druh změny modelu nevyžaduje aktualizaci databáze. Tuto možnost lze zkontrolovat přidáním migrace po provedení změny. `Up`Metody a `Down` jsou prázdné.
 
 ### <a name="add-all-user-navigation-properties"></a>Přidat všechny vlastnosti navigace na uživateli
 
@@ -734,9 +739,9 @@ public class ApplicationDbContext
 
 Poznámky:
 
-* Tento příklad obsahuje také entitu `UserRole` JOIN, která je nutná pro navigaci relace m:n od uživatelů k rolím.
-* Nezapomeňte změnit typy vlastností navigace tak, aby odrážely, že `ApplicationXxx` typy jsou nyní používány namísto `IdentityXxx` typů.
-* Nezapomeňte použít `ApplicationXxx` v obecné definici `ApplicationContext`.
+* Tento příklad obsahuje také `UserRole` entitu JOIN, která je nutná k procházení relace m:n od uživatelů po role.
+* Nezapomeňte změnit typy vlastností navigace tak, aby odrážely, že `ApplicationXxx` se nyní používají typy namísto `IdentityXxx` typů.
+* Nezapomeňte použít `ApplicationXxx` v obecné `ApplicationContext` definici.
 
 ### <a name="add-all-navigation-properties"></a>Přidat všechny navigační vlastnosti
 
@@ -847,11 +852,11 @@ public class ApplicationDbContext
 
 ### <a name="use-composite-keys"></a>Použití složených klíčů
 
-Předchozí části ukázaly změnu typu klíče použitého v modelu identity. Změna modelu klíče identity na použití složených klíčů není podporována ani se nedoporučuje. Použití složeného klíče s identitou zahrnuje změnu způsobu, jakým kód správce identit komunikuje s modelem. Toto přizpůsobení překračuje rozsah tohoto dokumentu.
+Předchozí části ukázaly změnu typu klíče použitého v Identity modelu. Změna Identity modelu klíče na použití složených klíčů není podporována nebo není doporučena. Použití složeného klíče s Identity zahrnuje změnu způsobu Identity interakce kódu vedoucího s modelem. Toto přizpůsobení překračuje rozsah tohoto dokumentu.
 
 ### <a name="change-tablecolumn-names-and-facets"></a>Změna názvů a vlastností tabulky nebo sloupce
 
-Chcete-li změnit názvy tabulek a sloupců, zavolejte `base.OnModelCreating`. Pak přidejte konfiguraci pro přepsání všech výchozích hodnot. Chcete-li například změnit název všech tabulek identity:
+Chcete-li změnit názvy tabulek a sloupců, zavolejte `base.OnModelCreating` . Pak přidejte konfiguraci pro přepsání všech výchozích hodnot. Chcete-li například změnit název všech Identity tabulek:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -895,7 +900,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-Tyto příklady používají výchozí typy identity. Pokud používáte typ aplikace, jako je například `ApplicationUser`, nakonfigurujte tento typ namísto výchozího typu.
+V těchto příkladech jsou použity výchozí Identity typy. Pokud používáte typ aplikace `ApplicationUser` , jako je, nakonfigurujte tento typ místo výchozího typu.
 
 Následující příklad změní některé názvy sloupců:
 
@@ -917,7 +922,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
-U některých typů databázových sloupců se dá nakonfigurovat určitá *omezující vlastnost* (například maximální povolená délka `string`). Následující příklad nastaví maximální délku sloupce pro několik vlastností `string` v modelu:
+U některých typů databázových sloupců se dají nakonfigurovat určité *omezující vlastnosti* (například maximální `string` povolená délka). Následující příklad nastaví maximální délku sloupce pro několik `string` vlastností v modelu:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -955,17 +960,17 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ::: moniker range=">= aspnetcore-2.1"
 
-### <a name="lazy-loading"></a>opožděné načítání
+### <a name="lazy-loading"></a>Opožděné načítání
 
-V této části je přidána podpora pro opožděné načítání proxy serverů v modelu identity. Opožděné načítání je užitečné, protože umožňuje použití navigačních vlastností bez prvotního zajištění jejich načtení.
+V této části je přidána podpora pro opožděné načítání proxy serverů v Identity modelu. Opožděné načítání je užitečné, protože umožňuje použití navigačních vlastností bez prvotního zajištění jejich načtení.
 
 Typy entit mohou být vhodné pro opožděné načtení několika způsobů, jak je popsáno v [dokumentaci EF Core](/ef/core/querying/related-data#lazy-loading). Pro jednoduchost používejte proxy servery s opožděným načtením, které vyžadují:
 
 * Instalace balíčku [Microsoft. EntityFrameworkCore. proxy](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) .
-* Volání <xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*> uvnitř [AddDbContext\<TContext >](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext).
-* Typy veřejných entit s `public virtual` navigační vlastnosti.
+* Volání <xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies*> uvnitř [ \<TContext> AddDbContext](/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext).
+* Typy veřejných entit s `public virtual` navigačními vlastnostmi.
 
-Následující příklad ukazuje volání `UseLazyLoadingProxies` v `Startup.ConfigureServices`:
+Následující příklad ukazuje volání `UseLazyLoadingProxies` v `Startup.ConfigureServices` :
 
 ```csharp
 services

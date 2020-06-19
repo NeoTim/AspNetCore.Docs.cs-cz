@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: ffdc329d813dcbfffe2216dc58bbc4150f7cf786
-ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
+ms.openlocfilehash: b55619889c294a0cd6ab98ffdf228d86ee60cd7c
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/15/2020
-ms.locfileid: "84776420"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102306"
 ---
 # <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Coreho webového Blazor sestavení
 
@@ -89,7 +89,7 @@ Ve výchozím nastavení mají aplikace vytvořené pomocí možnosti šablony P
 
 Pokud chcete zjistit, jak funguje podpora offline:
 
-1. Publikujte aplikaci. Další informace naleznete v tématu <xref:host-and-deploy/blazor/index#publish-the-app>.
+1. Publikujte aplikaci. Další informace naleznete v tématu <xref:blazor/host-and-deploy/index#publish-the-app>.
 1. Nasaďte aplikaci na server, který podporuje protokol HTTPS, a získejte přístup k aplikaci v prohlížeči pomocí zabezpečené adresy HTTPS.
 1. Otevřete vývojové nástroje v prohlížeči a ověřte, zda je na kartě **aplikace** zaregistrován *pracovní proces služby* pro hostitele:
 
@@ -293,6 +293,6 @@ Ukázková aplikace [CarChecker](https://github.com/SteveSandersonMS/CarChecker)
 * `LocalVehiclesStore`(*Klient/data/LocalVehiclesStore. cs*)
 * `LoginStatus`součást (*klient/Shared/ovládací stavu přihlášení. Razor*)
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
-* [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/hosting-model-configuration#signalr-cross-origin-negotiation-for-authentication)
+* [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)

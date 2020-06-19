@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: cb3ee4f3bf9061d212c1fee85f3f4a22946be097
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 00b2697a6b916718d9d0e01d1ea9f922eb2b5706
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105776"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074433"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Kontroly stavu v ASP.NET Core
 
@@ -46,7 +46,7 @@ Na balíček [Microsoft. AspNetCore. Diagnostics. HealthChecks](https://www.nuge
 
 Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro několik scénářů. Scénář [testu databáze](#database-probe) kontroluje stav připojení k databázi pomocí [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). Scénář [testu DbContext](#entity-framework-core-dbcontext-probe) zkontroluje databázi pomocí EF Core `DbContext` . K prozkoumání scénářů databáze se jedná o ukázkovou aplikaci:
 
-* Vytvoří databázi a poskytne připojovací řetězec v souboru *appSettings. JSON* .
+* Vytvoří databázi a poskytne připojovací řetězec v *appsettings.js* souboru.
 * Obsahuje následující odkazy na balíček v souboru projektu:
   * [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
   * [Microsoft. Extensions. Diagnostics. HealthChecks. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
@@ -54,7 +54,7 @@ Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
-Další scénář kontroly stavu ukazuje, jak filtrovat kontroly stavu na port pro správu. Ukázková aplikace vyžaduje, abyste vytvořili soubor *Properties/launchSettings. JSON* , který obsahuje adresu URL pro správu a port pro správu. Další informace naleznete v části [Filter by port](#filter-by-port) .
+Další scénář kontroly stavu ukazuje, jak filtrovat kontroly stavu na port pro správu. Ukázková aplikace vyžaduje, abyste v souboru, který obsahuje adresu URL pro správu a port pro správu, vytvořili *vlastnosti nebo launchSettings.js* . Další informace naleznete v části [Filter by port](#filter-by-port) .
 
 ## <a name="basic-health-probe"></a>Základní sonda stavu
 
@@ -324,7 +324,7 @@ První příklad z ukázkové aplikace ukazuje, jak používat <xref:System.Text
 
 [!code-csharp[](health-checks/samples/3.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_WriteResponse_SystemTextJson)]
 
-Druhý příklad ukazuje, jak používat [Newtonsoft. JSON](https://www.nuget.org/packages/Newtonsoft.Json/):
+Druhý příklad ukazuje, jak použít [Newtonsoft.Jsna](https://www.nuget.org/packages/Newtonsoft.Json/):
 
 [!code-csharp[](health-checks/samples/3.x/HealthChecksSample/CustomWriterStartup.cs?name=snippet_WriteResponse_NewtonSoftJson)]
 
@@ -343,7 +343,7 @@ Ukázková aplikace pomocí [AspNetCore. Diagnostics. HealthChecks](https://gith
 
 Zahrňte odkaz na balíček do [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).
 
-Zadejte platný připojovací řetězec databáze do souboru *appSettings. JSON* ukázkové aplikace. Aplikace používá SQL Server databázi s názvem `HealthCheckSample` :
+Zadejte platný připojovací řetězec databáze do *appsettings.jsv* souboru ukázkové aplikace. Aplikace používá SQL Server databázi s názvem `HealthCheckSample` :
 
 [!code-json[](health-checks/samples/3.x/HealthChecksSample/appsettings.json?highlight=3)]
 
@@ -560,11 +560,11 @@ dotnet run --scenario writer
 
 Zavolejte `RequireHost` `MapHealthChecks` pomocí vzoru adresy URL, který určuje port pro omezení požadavků na kontrolu stavu na zadaný port. Obvykle se používá v prostředí kontejneru k vystavení portu pro monitorovací služby.
 
-Ukázková aplikace nakonfiguruje port pomocí [poskytovatele konfigurace proměnné prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider). Port je nastaven v souboru *launchSettings. JSON* a předán poskytovateli konfigurace prostřednictvím proměnné prostředí. Také je nutné nakonfigurovat server tak, aby naslouchal žádosti na portu pro správu.
+Ukázková aplikace nakonfiguruje port pomocí [poskytovatele konfigurace proměnné prostředí](xref:fundamentals/configuration/index#environment-variables). Port je nastaven v *launchSettings.jsv* souboru a předán poskytovateli konfigurace prostřednictvím proměnné prostředí. Také je nutné nakonfigurovat server tak, aby naslouchal žádosti na portu pro správu.
 
-Pokud chcete ukázkovou aplikaci použít k předvedení konfigurace portů pro správu, vytvořte soubor *launchSettings. JSON* ve složce *Properties (vlastnosti* ).
+Pokud chcete ukázkovou aplikaci použít k předvedení konfigurace portů pro správu, vytvořte *launchSettings.js* v souboru ve složce *Properties (vlastnosti* ).
 
-Následující *vlastnosti/soubor launchSettings. JSON* v ukázkové aplikaci nejsou součástí souborů projektu ukázkové aplikace a je nutné je vytvořit ručně:
+Následující *vlastnosti/launchSettings.jsv* souboru v ukázkové aplikaci nejsou součástí souborů projektu ukázkové aplikace a je nutné je vytvořit ručně:
 
 ```json
 {
@@ -614,7 +614,7 @@ app.UseEndpoints(endpoints =>
 ```
 
 > [!NOTE]
-> Vytvoření souboru *launchSettings. JSON* v ukázkové aplikaci se vyhnete tak, že v kódu nastavíte port pro správu explicitně. V *program.cs* , kde <xref:Microsoft.Extensions.Hosting.HostBuilder> je vytvořena, přidejte volání do <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenAnyIP*> a poskytněte koncový bod portu pro správu aplikace. V `Configure` *ManagementPortStartup.cs*zadejte port pro správu pomocí `RequireHost` :
+> Můžete se vyhnout vytváření *launchSettings.js* v souboru v ukázkové aplikaci nastavením portu pro správu explicitně v kódu. V *program.cs* , kde <xref:Microsoft.Extensions.Hosting.HostBuilder> je vytvořena, přidejte volání do <xref:Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServerOptions.ListenAnyIP*> a poskytněte koncový bod portu pro správu aplikace. V `Configure` *ManagementPortStartup.cs*zadejte port pro správu pomocí `RequireHost` :
 >
 > *Program.cs*:
 >
@@ -789,7 +789,7 @@ app.UseEndpoints(endpoints =>
 });
 ```
 
-Další informace naleznete v tématu <xref:fundamentals/middleware/index#use-run-and-map>.
+Další informace naleznete v tématu <xref:fundamentals/middleware/index#branch-the-middleware-pipeline>.
 
 ::: moniker-end
 
@@ -815,7 +815,7 @@ Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/me
 
 Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro několik scénářů. Scénář [testu databáze](#database-probe) kontroluje stav připojení k databázi pomocí [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks). Scénář [testu DbContext](#entity-framework-core-dbcontext-probe) zkontroluje databázi pomocí EF Core `DbContext` . K prozkoumání scénářů databáze se jedná o ukázkovou aplikaci:
 
-* Vytvoří databázi a poskytne připojovací řetězec v souboru *appSettings. JSON* .
+* Vytvoří databázi a poskytne připojovací řetězec v *appsettings.js* souboru.
 * Obsahuje následující odkazy na balíček v souboru projektu:
   * [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/)
   * [Microsoft. Extensions. Diagnostics. HealthChecks. EntityFrameworkCore](https://www.nuget.org/packages/Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore/)
@@ -823,7 +823,7 @@ Ukázková aplikace poskytuje spouštěcí kód k předvedení kontrol stavu pro
 > [!NOTE]
 > [AspNetCore. Diagnostics. HealthChecks](https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks) není od Microsoftu zachovaná ani podporovaná.
 
-Další scénář kontroly stavu ukazuje, jak filtrovat kontroly stavu na port pro správu. Ukázková aplikace vyžaduje, abyste vytvořili soubor *Properties/launchSettings. JSON* , který obsahuje adresu URL pro správu a port pro správu. Další informace naleznete v části [Filter by port](#filter-by-port) .
+Další scénář kontroly stavu ukazuje, jak filtrovat kontroly stavu na port pro správu. Ukázková aplikace vyžaduje, abyste v souboru, který obsahuje adresu URL pro správu a port pro správu, vytvořili *vlastnosti nebo launchSettings.js* . Další informace naleznete v části [Filter by port](#filter-by-port) .
 
 ## <a name="basic-health-probe"></a>Základní sonda stavu
 
@@ -1062,7 +1062,7 @@ Ukázková aplikace pomocí [AspNetCore. Diagnostics. HealthChecks](https://gith
 
 Zahrňte odkaz na balíček do [AspNetCore. HealthChecks. SqlServer](https://www.nuget.org/packages/AspNetCore.HealthChecks.SqlServer/).
 
-Zadejte platný připojovací řetězec databáze do souboru *appSettings. JSON* ukázkové aplikace. Aplikace používá SQL Server databázi s názvem `HealthCheckSample` :
+Zadejte platný připojovací řetězec databáze do *appsettings.jsv* souboru ukázkové aplikace. Aplikace používá SQL Server databázi s názvem `HealthCheckSample` :
 
 [!code-json[](health-checks/samples/2.x/HealthChecksSample/appsettings.json?highlight=3)]
 
@@ -1265,11 +1265,11 @@ dotnet run --scenario writer
 
 Volání <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> s portem omezí požadavky na kontrolu stavu na zadaný port. Obvykle se používá v prostředí kontejneru k vystavení portu pro monitorovací služby.
 
-Ukázková aplikace nakonfiguruje port pomocí [poskytovatele konfigurace proměnné prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider). Port je nastaven v souboru *launchSettings. JSON* a předán poskytovateli konfigurace prostřednictvím proměnné prostředí. Také je nutné nakonfigurovat server tak, aby naslouchal žádosti na portu pro správu.
+Ukázková aplikace nakonfiguruje port pomocí [poskytovatele konfigurace proměnné prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider). Port je nastaven v *launchSettings.jsv* souboru a předán poskytovateli konfigurace prostřednictvím proměnné prostředí. Také je nutné nakonfigurovat server tak, aby naslouchal žádosti na portu pro správu.
 
-Pokud chcete ukázkovou aplikaci použít k předvedení konfigurace portů pro správu, vytvořte soubor *launchSettings. JSON* ve složce *Properties (vlastnosti* ).
+Pokud chcete ukázkovou aplikaci použít k předvedení konfigurace portů pro správu, vytvořte *launchSettings.js* v souboru ve složce *Properties (vlastnosti* ).
 
-Následující *vlastnosti/soubor launchSettings. JSON* v ukázkové aplikaci nejsou součástí souborů projektu ukázkové aplikace a je nutné je vytvořit ručně:
+Následující *vlastnosti/launchSettings.jsv* souboru v ukázkové aplikaci nejsou součástí souborů projektu ukázkové aplikace a je nutné je vytvořit ručně:
 
 ```json
 {
@@ -1294,7 +1294,7 @@ Registrovat služby kontroly stavu <xref:Microsoft.Extensions.DependencyInjectio
 [!code-csharp[](health-checks/samples/2.x/HealthChecksSample/ManagementPortStartup.cs?name=snippet1&highlight=17)]
 
 > [!NOTE]
-> Vytvoření souboru *launchSettings. JSON* v ukázkové aplikaci se vyhnete tak, že v kódu nastavíte adresy URL a port pro správu explicitně. V *program.cs* , kde <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> je vytvořena, přidejte volání do <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*> a poskytněte normální koncový bod odpovědi aplikace a koncový bod portu pro správu. V *ManagementPortStartup.cs* <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> , kde je volána, určete explicitně port pro správu.
+> Vytváření *launchSettings.js* v souboru v ukázkové aplikaci se vyhnete tak, že v kódu nastavíte adresy URL a port pro správu explicitně. V *program.cs* , kde <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder> je vytvořena, přidejte volání do <xref:Microsoft.AspNetCore.Hosting.HostingAbstractionsWebHostBuilderExtensions.UseUrls*> a poskytněte normální koncový bod odpovědi aplikace a koncový bod portu pro správu. V *ManagementPortStartup.cs* <xref:Microsoft.AspNetCore.Builder.HealthCheckApplicationBuilderExtensions.UseHealthChecks*> , kde je volána, určete explicitně port pro správu.
 >
 > *Program.cs*:
 >

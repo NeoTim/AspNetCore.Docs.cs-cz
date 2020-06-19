@@ -11,18 +11,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authorization/claims
-ms.openlocfilehash: de8ab915e6a8529c7401f89fad067ec33d5d0713
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 41e19896e9c43ca67aa8b1af1c6c88c9c9c20373
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774415"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074487"
 ---
 # <a name="claims-based-authorization-in-aspnet-core"></a>Ověřování na základě deklarací identity v ASP.NET Core
 
 <a name="security-authorization-claims-based"></a>
 
-Při vytvoření identity může být přiřazena jedna nebo více deklarací identity vydaných důvěryhodnou stranou. Deklarace identity je dvojice název hodnota, která představuje, co je předmět, a ne co může předmět dělat. Můžete mít například licenci řidiče, kterou vystavila místní řídící autorita pro vydávání licencí. Vaše licence k vašemu ovladači má datum narození. V takovém případě bude název deklarace identity `DateOfBirth`, hodnota deklarace by byla vaše datum narození, například `8th June 1970` , a vystavitelem bude řídící licenční autorita. Autorizace založená na deklaracích, která je nejjednodušší, kontroluje hodnotu deklarace identity a umožňuje přístup k prostředku na základě této hodnoty. Například pokud chcete mít přístup k nočnímu klubu, může být proces autorizace:
+Při vytvoření identity může být přiřazena jedna nebo více deklarací identity vydaných důvěryhodnou stranou. Deklarace identity je dvojice název hodnota, která představuje, co je předmět, a ne co může předmět dělat. Můžete mít například licenci řidiče, kterou vystavila místní řídící autorita pro vydávání licencí. Vaše licence k vašemu ovladači má datum narození. V takovém případě bude název deklarace identity `DateOfBirth` , hodnota deklarace by byla vaše datum narození, například, `8th June 1970` a vystavitelem bude řídící licenční autorita. Autorizace založená na deklaracích, která je nejjednodušší, kontroluje hodnotu deklarace identity a umožňuje přístup k prostředku na základě této hodnoty. Například pokud chcete mít přístup k nočnímu klubu, může být proces autorizace:
 
 Pracovník zabezpečení dveří vyhodnotí hodnotu vašeho data narození a bez ohledu na to, jestli důvěřuje vystaviteli (řídící licenční autorita) před udělením přístupu.
 
@@ -34,7 +34,7 @@ Kontroly autorizace na základě deklarace identity jsou deklarativní – vývo
 
 Nejjednodušší typ zásad deklarace identity vyhledá přítomnost deklarace identity a nekontroluje hodnotu.
 
-Nejdřív je potřeba tuto zásadu sestavit a zaregistrovat. K tomu dochází v rámci konfigurace autorizační služby, která obvykle využívá součást `ConfigureServices()` v souboru *Startup.cs* .
+Nejdřív je potřeba tuto zásadu sestavit a zaregistrovat. K tomu dochází v rámci konfigurace autorizační služby, která obvykle využívá součást v `ConfigureServices()` souboru *Startup.cs* .
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -81,7 +81,7 @@ public IActionResult VacationBalance()
 }
 ```
 
-`AuthorizeAttribute` Atribut lze použít pro celý kontroler. v této instanci budou mít přístup k jakékoli akci na řadiči povolené jenom identity, které odpovídají zásadám.
+`AuthorizeAttribute`Atribut lze použít pro celý kontroler. v této instanci budou mít přístup k jakékoli akci na řadiči povolené jenom identity, které odpovídají zásadám.
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -93,7 +93,7 @@ public class VacationController : Controller
 }
 ```
 
-Pokud máte kontroler, který je chráněný `AuthorizeAttribute` atributem, ale chcete, aby byl anonymní přístup povolen k určitým akcím, `AllowAnonymousAttribute` které použijete v atributu.
+Pokud máte kontroler, který je chráněný `AuthorizeAttribute` atributem, ale chcete, aby byl anonymní přístup povolen k určitým akcím, které použijete v `AllowAnonymousAttribute` atributu.
 
 ```csharp
 [Authorize(Policy = "EmployeeOnly")]
@@ -148,7 +148,7 @@ public void ConfigureServices(IServiceCollection services)
 ::: moniker-end
 ### <a name="add-a-generic-claim-check"></a>Přidat obecnou kontrolu deklarací identity
 
-Pokud hodnota deklarace identity není jediná hodnota, nebo je nutné transformovat, použijte [RequireAssertion](/dotnet/api/microsoft.aspnetcore.authorization.authorizationpolicybuilder.requireassertion). Další informace najdete v tématu [použití funkce Func ke splnění zásad](xref:security/authorization/policies#using-a-func-to-fulfill-a-policy).
+Pokud hodnota deklarace identity není jediná hodnota, nebo je nutné transformovat, použijte [RequireAssertion](/dotnet/api/microsoft.aspnetcore.authorization.authorizationpolicybuilder.requireassertion). Další informace najdete v tématu [použití funkce ke splnění zásad](xref:security/authorization/policies#use-a-func-to-fulfill-a-policy).
 
 ## <a name="multiple-policy-evaluation"></a>Vícenásobné vyhodnocení zásad
 
@@ -169,6 +169,6 @@ public class SalaryController : Controller
 }
 ```
 
-V předchozím příkladu bude mít přístup k `EmployeeOnly` `Payslip` akci, když se tato zásada na řadiči vynutila, na základě identity, která tyto zásady splňuje. Pro volání `UpdateSalary` akce musí identita *ale splňovat* `EmployeeOnly` zásady a `HumanResources` zásady.
+V předchozím příkladu bude mít `EmployeeOnly` přístup k `Payslip` akci, když se tato zásada na řadiči vynutila, na základě identity, která tyto zásady splňuje. Pro volání `UpdateSalary` akce musí identita ale *both* splňovat `EmployeeOnly` zásady a `HumanResources` zásady.
 
 Pokud chcete složitější zásady, jako je třeba vynechání data narození, vypočítání stáří z něj a kontrola stáří 21 nebo starší, budete muset napsat [vlastní obslužné rutiny zásad](xref:security/authorization/policies).

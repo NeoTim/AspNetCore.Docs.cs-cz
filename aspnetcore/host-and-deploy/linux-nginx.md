@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: af2bea1b3a149ef8d80970031e939dc083d94a03
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: e1367fe284c4d51a341da01c6415284f6f3e7a9c
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775892"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102895"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -57,9 +57,9 @@ Nakonfigurujte aplikaci pro [nasazení závislé na rozhraní](/dotnet/core/depl
 Pokud je aplikace spuštěná místně a není nakonfigurovaná tak, aby přijímala zabezpečené připojení (HTTPS), proveďte jednu z následujících metod:
 
 * Nakonfigurujte aplikaci tak, aby zpracovávala Zabezpečená místní připojení. Další informace najdete v části [konfigurace https](#https-configuration) .
-* Odebere `https://localhost:5001` (je-li k dispozici) z `applicationUrl` vlastnosti v souboru *Properties/launchSettings. JSON* .
+* Odebere `https://localhost:5001` (je-li k dispozici) z `applicationUrl` vlastnosti v souboru *Properties/launchSettings.js* .
 
-Pokud chcete zabalit aplikaci do adresáře (například *bin/Release/&lt;&gt;target_framework_moniker/Publish*), která se dají spustit na serveru, spusťte [dotnet Publish](/dotnet/core/tools/dotnet-publish) z vývojového prostředí:
+Pokud chcete zabalit aplikaci do adresáře (například *bin/Release/ &lt; target_framework_moniker &gt; /Publish*), která se dají spustit na serveru, spusťte [dotnet Publish](/dotnet/core/tools/dotnet-publish) z vývojového prostředí:
 
 ```dotnetcli
 dotnet publish --configuration Release
@@ -74,8 +74,8 @@ Zkopírujte aplikaci ASP.NET Core na server pomocí nástroje, který se integru
 
 Otestujte aplikaci:
 
-1. Z příkazového řádku spusťte aplikaci: `dotnet <app_assembly>.dll`.
-1. V prohlížeči přejděte na `http://<serveraddress>:<port>` adresu a ověřte, že aplikace funguje na platformě Linux místně.
+1. Z příkazového řádku spusťte aplikaci: `dotnet <app_assembly>.dll` .
+1. V prohlížeči přejděte na adresu `http://<serveraddress>:<port>` a ověřte, že aplikace funguje na platformě Linux místně.
 
 ## <a name="configure-a-reverse-proxy-server"></a>Konfigurace reverzního proxy server
 
@@ -87,11 +87,12 @@ Kestrel je ideální pro obsluhu dynamického obsahu z ASP.NET Core. Webový ser
 
 Pro účely tohoto průvodce se používá jedna instance Nginx. Spouští se na stejném serveru společně se serverem HTTP. Na základě požadavků může být zvoleno jiné nastavení.
 
-Vzhledem k tomu, že požadavky jsou předávány reverzním proxy, použijte [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) z balíčku [Microsoft. AspNetCore. HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) . Middleware aktualizuje `Request.Scheme`pomocí `X-Forwarded-Proto` hlavičky, aby identifikátory URI pro přesměrování a další zásady zabezpečení fungovaly správně.
+Vzhledem k tomu, že požadavky jsou předávány reverzním proxy, použijte [middleware předávaných hlaviček](xref:host-and-deploy/proxy-load-balancer) z balíčku [Microsoft. AspNetCore. HttpOverrides](https://www.nuget.org/packages/Microsoft.AspNetCore.HttpOverrides/) . Middleware aktualizuje `Request.Scheme` pomocí `X-Forwarded-Proto` hlavičky, aby identifikátory URI pro přesměrování a další zásady zabezpečení fungovaly správně.
 
-Po vyvolání middlewaru předávaných hlaviček musí být všechny komponenty, které jsou závislé na schématu, jako je ověřování, generace odkazů, přesměrování a zeměpisná poloha, umístěny. Jako obecné pravidlo by měl middleware předaných hlaviček běžet před jiným middlewarem, kromě diagnostiky a middlewaru pro zpracování chyb. Toto řazení zajišťuje, aby middleware spoléhající se na předané informace hlaviček mohl spotřebovat hodnoty hlaviček pro zpracování.
 
-Volejte <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> metodu v horní části `Startup.Configure` před voláním jiného middleware. Nakonfigurujte middleware pro `X-Forwarded-For` přeposílání `X-Forwarded-Proto` hlaviček a:
+[!INCLUDE[](~/includes/ForwardedHeaders.md)]
+
+Volejte <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersExtensions.UseForwardedHeaders*> metodu v horní části `Startup.Configure` před voláním jiného middleware. Nakonfigurujte middleware pro přeposílání `X-Forwarded-For` `X-Forwarded-Proto` hlaviček a:
 
 ```csharp
 // using Microsoft.AspNetCore.HttpOverrides;
@@ -104,9 +105,9 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseAuthentication();
 ```
 
-Pokud pro <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> middleware nejsou zadány žádné, výchozí hlavičky budou `None`předány.
+Pokud <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> pro middleware nejsou zadány žádné, výchozí hlavičky budou předány `None` .
 
-Proxy servery běžící na adresách zpětné smyčky (127.0.0.0/8, [:: 1]), včetně standardní adresy localhost (127.0.0.1), jsou ve výchozím nastavení důvěryhodné. Pokud jiné důvěryhodné proxy servery nebo sítě v rámci organizace zařídí žádosti mezi Internetem a webovým serverem, přidejte je do seznamu <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> nebo <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> s. <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> Následující příklad přidá důvěryhodnou proxy server na IP adrese 10.0.0.100 do middlewaru `KnownProxies` předávaných hlaviček v: `Startup.ConfigureServices`
+Proxy servery běžící na adresách zpětné smyčky (127.0.0.0/8, [:: 1]), včetně standardní adresy localhost (127.0.0.1), jsou ve výchozím nastavení důvěryhodné. Pokud jiné důvěryhodné proxy servery nebo sítě v rámci organizace zařídí žádosti mezi Internetem a webovým serverem, přidejte je do seznamu <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownProxies*> nebo <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions.KnownNetworks*> s <xref:Microsoft.AspNetCore.Builder.ForwardedHeadersOptions> . Následující příklad přidá důvěryhodnou proxy server na IP adrese 10.0.0.100 do middlewaru předávaných hlaviček `KnownProxies` v `Startup.ConfigureServices` :
 
 ```csharp
 // using System.Net;
@@ -132,7 +133,7 @@ Vzhledem k tomu, že se Nginx nainstaloval poprvé, explicitně ho spusťte spu�
 sudo service nginx start
 ```
 
-Ověřte, že prohlížeč zobrazuje výchozí cílovou stránku pro Nginx. Cílová stránka je dostupná na adrese `http://<server_IP_address>/index.nginx-debian.html`.
+Ověřte, že prohlížeč zobrazuje výchozí cílovou stránku pro Nginx. Cílová stránka je dostupná na adrese `http://<server_IP_address>/index.nginx-debian.html` .
 
 ### <a name="configure-nginx"></a>Konfigurace služby Nginx
 
@@ -155,9 +156,9 @@ server {
 }
 ```
 
-Pokud je aplikace Blazor serverová aplikace, která spoléhá na SignalR WebSockets, přečtěte si téma, kde najdete <xref:host-and-deploy/blazor/server#linux-with-nginx> informace `Connection` o tom, jak nastavit hlavičku.
+Pokud je aplikace Blazor Serverová aplikace, která spoléhá na SignalR WebSockets, přečtěte si téma, <xref:blazor/host-and-deploy/server#linux-with-nginx> kde najdete informace o tom, jak nastavit `Connection` hlavičku.
 
-Pokud se `server_name` neshodují, Nginx použije výchozí server. Pokud není definován žádný výchozí server, je první server v konfiguračním souboru výchozím serverem. Osvědčeným postupem je přidat konkrétní výchozí server, který vrátí stavový kód 444 do konfiguračního souboru. Výchozím příkladem konfigurace serveru je:
+Pokud `server_name` se neshodují, Nginx použije výchozí server. Pokud není definován žádný výchozí server, je první server v konfiguračním souboru výchozím serverem. Osvědčeným postupem je přidat konkrétní výchozí server, který vrátí stavový kód 444 do konfiguračního souboru. Výchozím příkladem konfigurace serveru je:
 
 ```nginx
 server {
@@ -167,17 +168,17 @@ server {
 }
 ```
 
-Pomocí předchozího konfiguračního souboru a výchozího serveru Nginx akceptuje veřejný provoz na portu 80 s hlavičkou `example.com` hostitele nebo `*.example.com`. Požadavky, které se neshodují s těmito hostiteli, se nebudou přesílat na Kestrel. Nginx přepošle požadavky na Kestrel na `http://localhost:5000`. Další informace najdete v tématu [jak Nginx zpracovává požadavek](https://nginx.org/docs/http/request_processing.html) . Pokud chcete změnit IP adresu/port Kestrel, přečtěte si téma [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
+Pomocí předchozího konfiguračního souboru a výchozího serveru Nginx akceptuje veřejný provoz na portu 80 s hlavičkou hostitele `example.com` nebo `*.example.com` . Požadavky, které se neshodují s těmito hostiteli, se nebudou přesílat na Kestrel. Nginx přepošle požadavky na Kestrel na `http://localhost:5000` . Další informace najdete v tématu [jak Nginx zpracovává požadavek](https://nginx.org/docs/http/request_processing.html) . Pokud chcete změnit IP adresu/port Kestrel, přečtěte si téma [Kestrel: konfigurace koncového bodu](xref:fundamentals/servers/kestrel#endpoint-configuration).
 
 > [!WARNING]
-> Nepovedlo se určit správnou [direktivu server_name](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace zpřístupňuje bezpečnostním hrozbám. Vazba zástupných znaků subdomény ( `*.example.com`například) nepředstavuje toto bezpečnostní riziko `*.com`, pokud řídíte celou nadřazenou doménu (na rozdíl od, která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
+> Nepovedlo se určit správnou [direktivu server_name](https://nginx.org/docs/http/server_names.html) , kterou vaše aplikace zpřístupňuje bezpečnostním hrozbám. Vazba zástupných znaků subdomény (například `*.example.com` ) nepředstavuje toto bezpečnostní riziko, pokud řídíte celou nadřazenou doménu (na rozdíl od `*.com` , která je zranitelná). Další informace najdete v [části rfc7230 část-5,4](https://tools.ietf.org/html/rfc7230#section-5.4) .
 
-Po navázání konfigurace nginx spusťte `sudo nginx -t` příkaz a ověřte syntaxi konfiguračních souborů. Pokud je test konfiguračního souboru úspěšný, vynutit Nginx změny spuštěním `sudo nginx -s reload`.
+Po navázání konfigurace nginx spusťte příkaz `sudo nginx -t` a ověřte syntaxi konfiguračních souborů. Pokud je test konfiguračního souboru úspěšný, vynutit Nginx změny spuštěním `sudo nginx -s reload` .
 
 Postup při přímém spuštění aplikace na serveru:
 
 1. Přejděte do adresáře aplikace.
-1. Spusťte aplikaci: `dotnet <app_assembly.dll>`, kde `app_assembly.dll` je název souboru sestavení aplikace.
+1. Spusťte aplikaci: `dotnet <app_assembly.dll>` , kde `app_assembly.dll` je název souboru sestavení aplikace.
 
 Pokud aplikace běží na serveru, ale neodpoví přes Internet, zkontrolujte bránu firewall serveru a ověřte, že je port 80 otevřený. Pokud používáte virtuální počítač Azure Ubuntu, přidejte pravidlo skupiny zabezpečení sítě (NSG), které umožňuje příchozí provoz portu 80. Není nutné povolit odchozí pravidlo portu 80, protože odchozí přenosy jsou automaticky uděleny, když je povolené příchozí pravidlo.
 
@@ -185,7 +186,7 @@ Po dokončení testování aplikace ukončete aplikaci `Ctrl+C` v příkazovém 
 
 ## <a name="monitor-the-app"></a>Monitorování aplikace
 
-Server je nastavený tak, aby předal požadavky `http://<serveraddress>:80` na aplikaci ASP.NET Core běžící na Kestrel v. `http://127.0.0.1:5000` Nginx ale není nastavené na správu procesu Kestrel. *systém* lze použít k vytvoření souboru služby ke spuštění a sledování základní webové aplikace. *systém* je systémem init, který poskytuje mnoho výkonných funkcí pro spouštění, zastavování a správu procesů. 
+Server je nastavený tak, aby předal požadavky na `http://<serveraddress>:80` aplikaci ASP.NET Core běžící na Kestrel v `http://127.0.0.1:5000` . Nginx ale není nastavené na správu procesu Kestrel. *systém* lze použít k vytvoření souboru služby ke spuštění a sledování základní webové aplikace. *systém* je systémem init, který poskytuje mnoho výkonných funkcí pro spouštění, zastavování a správu procesů. 
 
 ### <a name="create-the-service-file"></a>Vytvoření souboru služby
 
@@ -217,16 +218,16 @@ Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 WantedBy=multi-user.target
 ```
 
-V předchozím příkladu je uživatel, který spravuje službu, určen pomocí `User` možnosti. Uživatel (`www-data`) musí existovat a musí mít správné vlastnictví souborů aplikace.
+V předchozím příkladu je uživatel, který spravuje službu, určen pomocí `User` Možnosti. Uživatel ( `www-data` ) musí existovat a musí mít správné vlastnictví souborů aplikace.
 
-Slouží `TimeoutStopSec` ke konfiguraci časového intervalu, po který se má čekat na vypnutí aplikace po přijetí počátečního signálu přerušení. Pokud se aplikace v tomto období neukončí, SIGKILL se vydá pro ukončení aplikace. Zadejte hodnotu jako nejednotkové sekundy (například `150`), hodnotu časového rozsahu (například `2min 30s`) nebo `infinity` zakažte časový limit. `TimeoutStopSec``DefaultTimeoutStopSec` ve výchozím nastavení se jedná o hodnotu v konfiguračním souboru správce (*System-System. conf*, *System. conf. d*, *systemd-User. conf*, *User. conf. d*). Výchozí časový limit pro většinu distribucí je 90 sekund.
+Slouží `TimeoutStopSec` ke konfiguraci časového intervalu, po který se má čekat na vypnutí aplikace po přijetí počátečního signálu přerušení. Pokud se aplikace v tomto období neukončí, SIGKILL se vydá pro ukončení aplikace. Zadejte hodnotu jako nejednotkové sekundy (například `150` ), hodnotu časového rozsahu (například `2min 30s` ) nebo `infinity` zakažte časový limit. `TimeoutStopSec`ve výchozím nastavení se jedná o hodnotu `DefaultTimeoutStopSec` v konfiguračním souboru správce (*System-System. conf*, *System. conf. d*, *systemd-User. conf*, *User. conf. d*). Výchozí časový limit pro většinu distribucí je 90 sekund.
 
 ```
 # The default value is 90 seconds for most distributions.
 TimeoutStopSec=90
 ```
 
-Linux má systém souborů s rozlišováním velkých a malých písmen. Když se nastaví ASPNETCORE_ENVIRONMENT k produkci, vyhledá se konfigurační soubor *appSettings. Produkční. JSON*, nikoli *appSettings. produkční. JSON*.
+Linux má systém souborů s rozlišováním velkých a malých písmen. Když nanastavíte ASPNETCORE_ENVIRONMENT do produkčního prostředí, výsledky hledání konfiguračního souboru *appsettings.Production.jszapnuto*, ne *appsettings.production.jszapnuté*.
 
 Některé hodnoty (například připojovací řetězce SQL) musí být uvozené řídicími znaky, aby poskytovatelé konfigurace mohli číst proměnné prostředí. Pomocí následujícího příkazu vygenerujte správně uvozenou hodnotu pro použití v konfiguračním souboru:
 
@@ -234,7 +235,16 @@ Některé hodnoty (například připojovací řetězce SQL) musí být uvozené 
 systemd-escape "<value-to-escape>"
 ```
 
-Oddělovače`:`dvojtečky () nejsou podporovány v názvech proměnných prostředí. Místo dvojtečky použijte dvojité podtržítko (`__`). [Poskytovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider) převádí dvojitá podtržítka na dvojtečky, když jsou proměnné prostředí čteny do konfigurace. V následujícím příkladu je klíč `ConnectionStrings:DefaultConnection` připojovacího řetězce nastaven do souboru definice služby jako: `ConnectionStrings__DefaultConnection`
+::: moniker range=">= aspnetcore-3.0"
+
+Oddělovače dvojtečky ( `:` ) nejsou podporovány v názvech proměnných prostředí. Místo dvojtečky použijte dvojité podtržítko ( `__` ). [Poskytovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables) převádí dvojitá podtržítka na dvojtečky, když jsou proměnné prostředí čteny do konfigurace. V následujícím příkladu je klíč připojovacího řetězce `ConnectionStrings:DefaultConnection` nastaven do souboru definice služby jako `ConnectionStrings__DefaultConnection` :
+
+::: moniker-end
+::: moniker range="< aspnetcore-3.0"
+
+Oddělovače dvojtečky ( `:` ) nejsou podporovány v názvech proměnných prostředí. Místo dvojtečky použijte dvojité podtržítko ( `__` ). [Poskytovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider) převádí dvojitá podtržítka na dvojtečky, když jsou proměnné prostředí čteny do konfigurace. V následujícím příkladu je klíč připojovacího řetězce `ConnectionStrings:DefaultConnection` nastaven do souboru definice služby jako `ConnectionStrings__DefaultConnection` :
+
+::: moniker-end
 
 ```
 Environment=ConnectionStrings__DefaultConnection={Connection String}
@@ -260,7 +270,7 @@ Main PID: 9021 (dotnet)
             └─9021 /usr/local/bin/dotnet /var/www/helloapp/helloapp.dll
 ```
 
-Pomocí systému reverzního proxy serveru nakonfigurovaného a Kestrel spravovaného přes systém je webová aplikace plně nakonfigurovaná a dá se k ní dostat z prohlížeče v `http://localhost`místním počítači. Je dostupná taky ze vzdáleného počítače a znemožňuje bránu firewall, která může být zablokovaná. Při kontrole hlaviček odpovědi se v `Server` hlavičce zobrazuje ASP.NET Core aplikace, kterou obsluhuje Kestrel.
+Pomocí systému reverzního proxy serveru nakonfigurovaného a Kestrel spravovaného přes systém je webová aplikace plně nakonfigurovaná a dá se k ní dostat z prohlížeče v místním počítači `http://localhost` . Je dostupná taky ze vzdáleného počítače a znemožňuje bránu firewall, která může být zablokovaná. Při kontrole hlaviček odpovědi se v `Server` hlavičce zobrazuje ASP.NET Core aplikace, kterou obsluhuje Kestrel.
 
 ```text
 HTTP/1.1 200 OK
@@ -273,13 +283,13 @@ Transfer-Encoding: chunked
 
 ### <a name="view-logs"></a>Zobrazení protokolů
 
-Vzhledem k tomu, že webová aplikace využívající Kestrel `systemd`je spravovaná pomocí, jsou všechny události a procesy protokolovány do centralizovaného deníku. Tento deník ale obsahuje všechny položky pro všechny služby a procesy, které `systemd`spravuje. Chcete `kestrel-helloapp.service`-li zobrazit položky specifické pro zobrazení, použijte následující příkaz:
+Vzhledem k tomu, že webová aplikace využívající Kestrel je spravovaná pomocí `systemd` , jsou všechny události a procesy protokolovány do centralizovaného deníku. Tento deník ale obsahuje všechny položky pro všechny služby a procesy, které spravuje `systemd` . Chcete-li zobrazit `kestrel-helloapp.service` položky specifické pro zobrazení, použijte následující příkaz:
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service
 ```
 
-Pro další filtrování, časová omezení, `--since today`jako `--until 1 hour ago` například, nebo kombinace těchto možností může snížit množství vrácených položek.
+Pro další filtrování, časová omezení, jako například `--since today` , `--until 1 hour ago` nebo kombinace těchto možností může snížit množství vrácených položek.
 
 ```bash
 sudo journalctl -fu kestrel-helloapp.service --since "2016-10-18" --until "2016-10-18 04:00"
@@ -320,7 +330,7 @@ Moduly zabezpečení Linux (LSM) jsou rozhraní, které je součástí jádra Li
 
 ### <a name="configure-the-firewall"></a>Konfigurace brány firewall
 
-Zavřete všechny externí porty, které se nepoužívají. Nesložitá brána firewall (UFW) poskytuje front- `iptables` end pro poskytování rozhraní příkazového řádku pro konfiguraci brány firewall.
+Zavřete všechny externí porty, které se nepoužívají. Nesložitá brána firewall (UFW) poskytuje front-end pro poskytování rozhraní příkazového `iptables` řádku pro konfiguraci brány firewall.
 
 > [!WARNING]
 > Brána firewall zabrání přístupu k celému systému, pokud není správně nakonfigurovaný. Pokud se k připojení použijete přes SSH, nebudete moct zadat správný port SSH. Výchozí port je 22. Další informace najdete v [úvodu k UFW](https://help.ubuntu.com/community/UFW) a [příručce](https://manpages.ubuntu.com/manpages/bionic/man8/ufw.8.html).
@@ -356,7 +366,7 @@ Nakonfigurujte server s dalšími požadovanými moduly. Zvažte použití brán
 
 **Konfigurace místních připojení (HTTPS) aplikace pro zabezpečení**
 
-Příkaz [dotnet Run](/dotnet/core/tools/dotnet-run) používá soubor *Properties/launchSettings. JSON* aplikace, který nakonfiguruje aplikaci tak, aby naslouchala adresám URL poskytnutým `applicationUrl` vlastností (například `https://localhost:5001;http://localhost:5000`).
+Příkaz příkazového řádku [dotnet](/dotnet/core/tools/dotnet-run) používá *vlastnosti nebo launchSettings.jsaplikace v* souboru, který nakonfiguruje aplikaci tak, aby naslouchala adresám URL poskytnutým `applicationUrl` vlastností (například `https://localhost:5001;http://localhost:5000` ).
 
 Nakonfigurujte aplikaci tak, aby používala certifikát ve vývoji pro `dotnet run` příkazové nebo vývojové prostředí (F5 nebo CTRL + F5 v Visual Studio Code), a to pomocí jednoho z následujících přístupů:
 
@@ -365,13 +375,16 @@ Nakonfigurujte aplikaci tak, aby používala certifikát ve vývoji pro `dotnet 
 
 **Konfigurace připojení klienta reverzního proxy serveru pro zabezpečení (HTTPS)**
 
-* Nakonfigurujte server tak, aby naslouchal provozu protokolu HTTPS na `443` portu tím, že zadáte platný certifikát vydaný důvěryhodnou certifikační autoritou (CA).
+* Nakonfigurujte server tak, aby naslouchal provozu protokolu HTTPS na portu `443` tím, že zadáte platný certifikát vydaný důvěryhodnou certifikační autoritou (CA).
 
 * Posílit zabezpečení tím, že se využívaly některé postupy, které jsou znázorněné v následujícím souboru */etc/Nginx/Nginx.conf* . Mezi příklady patří výběr silnější šifry a přesměrování veškerého provozu přes protokol HTTP na HTTPS.
 
-* Přidáním hlavičky `HTTP Strict-Transport-Security` (HSTS) se zajistí, že všechny následné požadavky, které klient provede, budou přes protokol HTTPS.
+* Přidáním `HTTP Strict-Transport-Security` hlavičky (HSTS) se zajistí, že všechny následné požadavky, které klient provede, budou přes protokol HTTPS.
 
-* Nepřidejte hlavičku HSTS ani zvolte vhodné `max-age` , pokud bude HTTPS v budoucnu zakázané.
+* Pokud bude v budoucnu zakázán protokol HTTPS, použijte některý z následujících přístupů:
+
+  * Nepřidávejte hlavičku HSTS.
+  * Vyberte krátkou `max-age` hodnotu.
 
 Přidejte konfigurační soubor */etc/Nginx/proxy.conf* :
 
@@ -399,7 +412,7 @@ Zmírnění útoků Clickjacking:
 
 #### <a name="mime-type-sniffing"></a>Sledování typu MIME
 
-Toto záhlaví brání většině prohlížečů ze služby MIME-sledovat odpověď od deklarovaného typu obsahu, protože záhlaví instruuje prohlížeč, že nepřepisuje typ obsahu odpovědi. `nosniff` Pokud server říká, že je obsahem text/HTML, prohlížeč ho vykreslí jako text/HTML.
+Toto záhlaví brání většině prohlížečů ze služby MIME-sledovat odpověď od deklarovaného typu obsahu, protože záhlaví instruuje prohlížeč, že nepřepisuje typ obsahu odpovědi. `nosniff`Pokud server říká, že je obsahem text/HTML, prohlížeč ho vykreslí jako text/HTML.
 
 Upravte soubor *Nginx. conf* :
 

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: eb8a6d2ddbd3e8f61626566878a7af5f5a2525d8
-ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.openlocfilehash: feca504a39624282961fbc6405876e970a20b5d4
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2020
-ms.locfileid: "83608184"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102282"
 ---
 # <a name="introduction-to-aspnet-core-blazor"></a>Úvod do ASP.NET CoreBlazor
 
@@ -126,7 +126,7 @@ Když Blazor je aplikace WebAssembly sestavená a spuštěná v prohlížeči:
 
 Velikost publikované aplikace, její *Velikost datové části*, je důležitým faktorem výkonu pro useability aplikace. Stažení velké aplikace může trvat poměrně dlouhou dobu, než se stáhne do prohlížeče, což snižuje činnost koncového uživatele. BlazorWebAssembly optimalizuje velikost datové části, aby se snížila doba stahování:
 
-* Nepoužitý kód se z aplikace vyčerpá, když se publikuje pomocí [linkeru pro převodní jazyk (IL)](xref:host-and-deploy/blazor/configure-linker).
+* Nepoužitý kód se z aplikace vyčerpá, když se publikuje pomocí [linkeru pro převodní jazyk (IL)](xref:blazor/host-and-deploy/configure-linker).
 * Odpovědi HTTP jsou komprimovány.
 * Modul runtime .NET a sestavení jsou ukládány do mezipaměti v prohlížeči.
 

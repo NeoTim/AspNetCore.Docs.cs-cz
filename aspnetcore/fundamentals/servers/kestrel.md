@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/servers/kestrel
-ms.openlocfilehash: 4da32b14ca640bda4df5d6c9d685f4702c6eb266
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: fd0db90e897a813e0127ce1c751569158efa8fdf
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106764"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074174"
 ---
 # <a name="kestrel-web-server-implementation-in-aspnet-core"></a>Implementace webového serveru Kestrel v ASP.NET Core
 
@@ -122,7 +122,7 @@ V následujících příkladech se používá <xref:Microsoft.AspNetCore.Server.
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-V příkladech, které jsou uvedeny dále v tomto článku, jsou možnosti Kestrel konfigurovány v kódu jazyka C#. Možnosti Kestrel lze také nastavit pomocí [poskytovatele konfigurace](xref:fundamentals/configuration/index). [Poskytovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) může například načíst konfiguraci Kestrel z objektu *appSettings. JSON* nebo *appSettings. { Soubor Environment}. JSON* :
+V příkladech, které jsou uvedeny dále v tomto článku, jsou možnosti Kestrel konfigurovány v kódu jazyka C#. Možnosti Kestrel lze také nastavit pomocí [poskytovatele konfigurace](xref:fundamentals/configuration/index). [Poskytovatel konfigurace souboru](xref:fundamentals/configuration/index#file-configuration-provider) může například načíst konfiguraci Kestrel z *appsettings.jsna* nebo *appSettings. { Soubor Environment}. JSON* :
 
 ```json
 {
@@ -486,7 +486,7 @@ Kestrel naslouchá na `http://localhost:5000` a `https://localhost:5001` (Pokud 
 
 `CreateDefaultBuilder`Při `Configure(context.Configuration.GetSection("Kestrel"))` načítání konfigurace Kestrel ve výchozím nastavení volá. Pro Kestrel je k dispozici výchozí schéma konfigurace nastavení aplikace HTTPS. Nakonfigurujte několik koncových bodů, včetně adres URL a certifikátů, které se mají použít, buď ze souboru na disku, nebo z úložiště certifikátů.
 
-V následujícím příkladu *appSettings. JSON* :
+V následujícím *appsettings.js* například:
 
 * Nastavte **AllowInvalid** na `true` , aby povolovala použití neplatných certifikátů (například certifikátů podepsaných svým držitelem).
 * Libovolný koncový bod HTTPS, který neurčuje certifikát (**HttpsDefaultCert** v následujícím příkladu), se vrátí k certifikátu definovanému v části **certifikáty** > **výchozí** nebo vývojový certifikát.
@@ -722,7 +722,7 @@ Omezení TLS pro HTTP/2:
 * Minimální velikosti dočasného výměny klíčů:
   * Eliptická křivka Diffie-Hellman (ECDH) &lbrack; [RFC4492](https://www.ietf.org/rfc/rfc4492.txt) &rbrack; : 224 bity minima
   * Omezené pole Diffie-Hellman (DHE) &lbrack; `TLS12` &rbrack; : minimální počet bitů 2048
-* Šifrovací sada není zakázaná.
+* Šifrovací sada není zakázaná. 
 
 `TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256`&lbrack;`TLS-ECDHE`&rbrack; &lbrack; `FIPS186` &rbrack; ve výchozím nastavení je podporována eliptická křivka P-256.
 
@@ -848,7 +848,7 @@ webBuilder.ConfigureKestrel(serverOptions =>
 
 `CreateDefaultBuilder`Při `serverOptions.Configure(context.Configuration.GetSection("Kestrel"))` načítání konfigurace Kestrel ve výchozím nastavení volá.
 
-Následující příklad *appSettings. JSON* vytvoří HTTP/1.1 jako výchozí protokol připojení pro všechny koncové body:
+Následující *appsettings.jsv* příkladě vytvoří protokol HTTP/1.1 jako výchozí protokol připojení pro všechny koncové body:
 
 ```json
 {
@@ -860,7 +860,7 @@ Následující příklad *appSettings. JSON* vytvoří HTTP/1.1 jako výchozí p
 }
 ```
 
-Následující příklad *appSettings. JSON* vytvoří protokol připojení HTTP/1.1 pro konkrétní koncový bod:
+Následující *appsettings.jsv* příkladu vytvoří protokol připojení HTTP/1.1 pro konkrétní koncový bod:
 
 ```json
 {
@@ -937,7 +937,7 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://*:80/
   ```
 
-  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
+  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [HTTP.sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, jako je IIS, Nginx nebo Apache.
 
   > [!WARNING]
   > Hostování v konfiguraci reverzního proxy serveru vyžaduje [filtrování hostitele](#host-filtering).
@@ -960,9 +960,9 @@ Jako alternativní řešení použijte middleware pro filtrování hostitele. Mi
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. JSON* / *appSettings. \<EnvironmentName> JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
+Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v *appsettings.jsna* / *appSettings. \<EnvironmentName> . JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
-*appSettings. JSON*:
+*appsettings.js*:
 
 ```json
 {
@@ -1094,7 +1094,7 @@ V následujících příkladech se používá <xref:Microsoft.AspNetCore.Server.
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-Možnosti Kestrel, které jsou konfigurovány v kódu jazyka C# v následujících příkladech, lze také nastavit pomocí [poskytovatele konfigurace](xref:fundamentals/configuration/index). Poskytovatel konfigurace souboru může například načíst konfiguraci Kestrel z objektu *appSettings. JSON* nebo *appSettings. { Soubor Environment}. JSON* :
+Možnosti Kestrel, které jsou konfigurovány v kódu jazyka C# v následujících příkladech, lze také nastavit pomocí [poskytovatele konfigurace](xref:fundamentals/configuration/index). Poskytovatel konfigurace souboru může například načíst konfiguraci Kestrel z *appsettings.jsna* nebo *appSettings. { Soubor Environment}. JSON* :
 
 ```json
 {
@@ -1474,7 +1474,7 @@ Kestrel naslouchá na `http://localhost:5000` a `https://localhost:5001` (Pokud 
 
 `CreateDefaultBuilder`Při `Configure(context.Configuration.GetSection("Kestrel"))` načítání konfigurace Kestrel ve výchozím nastavení volá. Pro Kestrel je k dispozici výchozí schéma konfigurace nastavení aplikace HTTPS. Nakonfigurujte několik koncových bodů, včetně adres URL a certifikátů, které se mají použít, buď ze souboru na disku, nebo z úložiště certifikátů.
 
-V následujícím příkladu *appSettings. JSON* :
+V následujícím *appsettings.js* například:
 
 * Nastavte **AllowInvalid** na `true` , aby povolovala použití neplatných certifikátů (například certifikátů podepsaných svým držitelem).
 * Libovolný koncový bod HTTPS, který neurčuje certifikát (**HttpsDefaultCert** v následujícím příkladu), se vrátí k certifikátu definovanému v části **certifikáty** > **výchozí** nebo vývojový certifikát.
@@ -1797,7 +1797,7 @@ private class TlsFilterAdapter : IConnectionAdapter
 
 <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*>Při `serverOptions.Configure(context.Configuration.GetSection("Kestrel"))` načítání konfigurace Kestrel ve výchozím nastavení volá.
 
-V následujícím příkladu *appSettings. JSON* se pro všechny koncové body Kestrel vytvoří výchozí protokol připojení (http/1.1 a HTTP/2):
+V následujících *appsettings.js* jsou například pro všechny koncové body Kestrel zavedeny výchozí protokoly připojení (http/1.1 a HTTP/2):
 
 ```json
 {
@@ -1888,7 +1888,7 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://*:80/
   ```
 
-  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
+  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [HTTP.sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, jako je IIS, Nginx nebo Apache.
 
   > [!WARNING]
   > Hostování v konfiguraci reverzního proxy serveru vyžaduje [filtrování hostitele](#host-filtering).
@@ -1911,9 +1911,9 @@ Jako alternativní řešení použijte middleware pro filtrování hostitele. Mi
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. JSON* / *appSettings. \<EnvironmentName> JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
+Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v *appsettings.jsna* / *appSettings. \<EnvironmentName> . JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
-*appSettings. JSON*:
+*appsettings.js*:
 
 ```json
 {
@@ -2002,7 +2002,7 @@ V následujících příkladech se používá <xref:Microsoft.AspNetCore.Server.
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 ```
 
-Možnosti Kestrel, které jsou konfigurovány v kódu jazyka C# v následujících příkladech, lze také nastavit pomocí [poskytovatele konfigurace](xref:fundamentals/configuration/index). Poskytovatel konfigurace souboru může například načíst konfiguraci Kestrel z objektu *appSettings. JSON* nebo *appSettings. { Soubor Environment}. JSON* :
+Možnosti Kestrel, které jsou konfigurovány v kódu jazyka C# v následujících příkladech, lze také nastavit pomocí [poskytovatele konfigurace](xref:fundamentals/configuration/index). Poskytovatel konfigurace souboru může například načíst konfiguraci Kestrel z *appsettings.jsna* nebo *appSettings. { Soubor Environment}. JSON* :
 
 ```json
 {
@@ -2338,7 +2338,7 @@ Kestrel naslouchá na `http://localhost:5000` a `https://localhost:5001` (Pokud 
 
 `CreateDefaultBuilder`Při `Configure(context.Configuration.GetSection("Kestrel"))` načítání konfigurace Kestrel ve výchozím nastavení volá. Pro Kestrel je k dispozici výchozí schéma konfigurace nastavení aplikace HTTPS. Nakonfigurujte několik koncových bodů, včetně adres URL a certifikátů, které se mají použít, buď ze souboru na disku, nebo z úložiště certifikátů.
 
-V následujícím příkladu *appSettings. JSON* :
+V následujícím *appsettings.js* například:
 
 * Nastavte **AllowInvalid** na `true` , aby povolovala použití neplatných certifikátů (například certifikátů podepsaných svým držitelem).
 * Libovolný koncový bod HTTPS, který neurčuje certifikát (**HttpsDefaultCert** v následujícím příkladu), se vrátí k certifikátu definovanému v části **certifikáty** > **výchozí** nebo vývojový certifikát.
@@ -2678,7 +2678,7 @@ Platné jsou pouze předpony adresy URL protokolu HTTP. Kestrel nepodporuje prot
   http://*:80/
   ```
 
-  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [http. sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, třeba IIS, Nginx nebo Apache.
+  Názvy hostitelů, `*` a `+` nejsou speciální. Cokoli se nerozpoznalo jako platná IP adresa nebo `localhost` se váže ke všem IP adresám IPv4 a IPv6. Pokud chcete navazovat různé názvy hostitelů na různé ASP.NET Core aplikace na stejném portu, použijte [HTTP.sys](xref:fundamentals/servers/httpsys) nebo reverzní proxy server, jako je IIS, Nginx nebo Apache.
 
   > [!WARNING]
   > Hostování v konfiguraci reverzního proxy serveru vyžaduje [filtrování hostitele](#host-filtering).
@@ -2701,9 +2701,9 @@ Jako alternativní řešení použijte middleware pro filtrování hostitele. Mi
 
 [!code-csharp[](kestrel/samples-snapshot/2.x/KestrelSample/Program.cs?name=snippet_Program&highlight=9)]
 
-Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v souboru *appSettings. JSON* / *appSettings. \<EnvironmentName> JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
+Middleware pro filtrování hostitele je ve výchozím nastavení zakázáno. Chcete-li povolit middleware, definujte `AllowedHosts` klíč v *appsettings.jsna* / *appSettings. \<EnvironmentName> . JSON*. Hodnota je seznam názvů hostitelů oddělených středníkem bez čísel portů:
 
-*appSettings. JSON*:
+*appsettings.js*:
 
 ```json
 {

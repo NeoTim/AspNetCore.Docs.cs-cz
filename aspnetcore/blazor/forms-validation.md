@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 707686cdc4ceb6605d6214eeeee0f6dd2e121c90
-ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
+ms.openlocfilehash: 8244dfa4dfed8e44e9e149891d2071c48bebd5ab
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84679524"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102376"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor formuláře a ověřování
 
@@ -65,7 +65,7 @@ V předchozím příkladu:
 
 * Formulář ověřuje vstup uživatele v `name` poli pomocí ověřování definovaného v `ExampleModel` typu. Model se vytvoří v bloku komponenty a je `@code` uložený v soukromém poli ( `exampleModel` ). Pole je přiřazeno `Model` atributu `<EditForm>` elementu.
 * <xref:Microsoft.AspNetCore.Components.Forms.InputText> `@bind-Value` Vazby komponenty:
-  * Vlastnost modelu ( `exampleModel.Name` ) na <xref:Microsoft.AspNetCore.Components.Forms.InputText> `Value` vlastnost součásti. Další informace o vazbách vlastností naleznete v tématu <xref:blazor/data-binding#parent-to-child-binding-with-component-parameters> .
+  * Vlastnost modelu ( `exampleModel.Name` ) na <xref:Microsoft.AspNetCore.Components.Forms.InputText> `Value` vlastnost součásti. Další informace o vazbách vlastností naleznete v tématu <xref:blazor/components/data-binding#parent-to-child-binding-with-component-parameters> .
   * Delegát události změny pro <xref:Microsoft.AspNetCore.Components.Forms.InputText> `ValueChanged` vlastnost komponenty.
 * <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>Komponenta připojuje ověřování pomocí datových poznámek.
 * <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary>Komponenta shrnuje ověřovací zprávy.
@@ -192,7 +192,7 @@ Následující formulář ověří uživatelský vstup pomocí ověřování def
 }
 ```
 
-<xref:Microsoft.AspNetCore.Components.Forms.EditForm>Vytvoří <xref:Microsoft.AspNetCore.Components.Forms.EditContext> jako [kaskádovou hodnotu](xref:blazor/components#cascading-values-and-parameters) , která sleduje metadata procesu úprav, včetně toho, která pole jsou upravena a aktuální zprávy ověření. <xref:Microsoft.AspNetCore.Components.Forms.EditForm>Poskytuje taky praktické události pro platná a neplatná odeslání ( <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit> , <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnInvalidSubmit> ). Alternativně můžete použít <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit> k aktivaci ověřování a hodnot polí pro kontrolu pomocí vlastního ověřovacího kódu.
+<xref:Microsoft.AspNetCore.Components.Forms.EditForm>Vytvoří <xref:Microsoft.AspNetCore.Components.Forms.EditContext> jako [kaskádovou hodnotu](xref:blazor/components/cascading-values-and-parameters) , která sleduje metadata procesu úprav, včetně toho, která pole jsou upravena a aktuální zprávy ověření. <xref:Microsoft.AspNetCore.Components.Forms.EditForm>Poskytuje taky praktické události pro platná a neplatná odeslání ( <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnValidSubmit> , <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnInvalidSubmit> ). Alternativně můžete použít <xref:Microsoft.AspNetCore.Components.Forms.EditForm.OnSubmit> k aktivaci ověřování a hodnot polí pro kontrolu pomocí vlastního ověřovacího kódu.
 
 V následujícím příkladu:
 
@@ -504,7 +504,7 @@ Povolení a zakázání tlačítka Odeslat na základě ověření formuláře:
 
 * <xref:Microsoft.AspNetCore.Components.Forms.EditContext>K přiřazení modelu při inicializaci komponenty použijte formulář.
 * Ověřte formulář v <xref:Microsoft.AspNetCore.Components.Forms.EditContext.OnFieldChanged> zpětném volání kontextu a povolte a zakažte tlačítko Odeslat.
-* Odpojte obslužnou rutinu události v `Dispose` metodě. Další informace naleznete v tématu <xref:blazor/lifecycle#component-disposal-with-idisposable>.
+* Odpojte obslužnou rutinu události v `Dispose` metodě. Další informace naleznete v tématu <xref:blazor/components/lifecycle#component-disposal-with-idisposable>.
 
 ```razor
 @implements IDisposable
@@ -574,7 +574,7 @@ Vedlejším účinkem předcházejícího přístupu je, že <xref:Microsoft.Asp
 }
 ```
 
-## <a name="troubleshoot"></a>Řešení potíží
+## <a name="troubleshoot"></a>Odstraňování potíží
 
 > InvalidOperationException: EditForm vyžaduje parametr modelu nebo parametr EditContext, ale ne obojí.
 

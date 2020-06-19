@@ -11,18 +11,18 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/razor
-ms.openlocfilehash: 53ca2a650eb6a3be0ff137953df5a546e9f0b282
-ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
+ms.openlocfilehash: e85c9d384361f9169035e6a3ab8770e1a96b8650
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/13/2020
-ms.locfileid: "84756129"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102723"
 ---
 # <a name="razor-syntax-reference-for-aspnet-core"></a>RazorReferenční informace k syntaxi pro ASP.NET Core
 
 Od [Rick Anderson](https://twitter.com/RickAndMSFT), [Taylor Mullen](https://twitter.com/ntaylormullen)a [Dan Vicarel](https://github.com/Rabadash8820)
 
-Razorje syntaxe značek pro vložení kódu založeného na serveru na webové stránky. RazorSyntaxe se skládá z Razor značek, C# a HTML. Soubory, Razor které obsahují obecně, mají příponu *. cshtml* . Razorse nachází také v souborech [ Razor komponent](xref:blazor/components) (*. Razor*).
+Razorje syntaxe značek pro vložení kódu založeného na serveru na webové stránky. RazorSyntaxe se skládá z Razor značek, C# a HTML. Soubory, Razor které obsahují obecně, mají příponu *. cshtml* . Razorse nachází také v souborech [ Razor komponent](xref:blazor/components/index) (*. Razor*).
 
 ## <a name="rendering-html"></a>Vykreslování kódu HTML
 
@@ -465,7 +465,7 @@ Později v tomto článku část [kontroluje Razor třídu jazyka C# vygenerovan
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-`@code`Blok umožňuje [ Razor komponentě](xref:blazor/components) přidat členy jazyka C# (pole, vlastnosti a metody) do komponenty:
+`@code`Blok umožňuje [ Razor komponentě](xref:blazor/components/index) přidat členy jazyka C# (pole, vlastnosti a metody) do komponenty:
 
 ```razor
 @code {
@@ -489,11 +489,11 @@ Pro Razor součásti `@code` je alias [`@functions`](#functions) a doporučený 
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V [ Razor komponentách](xref:blazor/components)použijte `@code` více než `@functions` k přidání členů jazyka C#.
+V [ Razor komponentách](xref:blazor/components/index)použijte `@code` více než `@functions` k přidání členů jazyka C#.
 
 ::: moniker-end
 
-Například:
+Příklad:
 
 [!code-cshtml[](razor/sample/Views/Home/Contact6.cshtml)]
 
@@ -683,7 +683,7 @@ Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@n
 `@page`Direktiva má jiné účinky v závislosti na typu souboru, ve kterém se zobrazí. Direktiva:
 
 * V v souboru *. cshtml* znamená, že soubor je Razor Stránka. Další informace najdete v tématu [vlastní trasy](xref:razor-pages/index#custom-routes) a <xref:razor-pages/index> .
-* Určuje, že Razor komponenta má zpracovávat požadavky přímo. Další informace naleznete v tématu <xref:blazor/routing>.
+* Určuje, že Razor komponenta má zpracovávat požadavky přímo. Další informace naleznete v tématu <xref:blazor/fundamentals/routing>.
 
 ::: moniker-end
 
@@ -707,7 +707,7 @@ Pokud má složka *EvenMorePages* v předchozím příkladu soubor Imports s `@n
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V [ Razor součástech](xref:blazor/components) `@using` také určuje, které součásti jsou v oboru.
+V [ Razor součástech](xref:blazor/components/index) `@using` také určuje, které součásti jsou v oboru.
 
 ::: moniker-end
 
@@ -721,19 +721,19 @@ Razoratributy direktiv jsou reprezentovány implicitními výrazy s vyhrazenými
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-`@attributes`umožňuje komponentě vykreslovat nedeklarované atributy. Další informace naleznete v tématu <xref:blazor/components#attribute-splatting-and-arbitrary-parameters>.
+`@attributes`umožňuje komponentě vykreslovat nedeklarované atributy. Další informace naleznete v tématu <xref:blazor/components/index#attribute-splatting-and-arbitrary-parameters>.
 
 ### `@bind`
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-Datové vazby v součástech se provádí s `@bind` atributem. Další informace naleznete v tématu <xref:blazor/data-binding>.
+Datové vazby v součástech se provádí s `@bind` atributem. Další informace naleznete v tématu <xref:blazor/components/data-binding>.
 
 ### `@on{EVENT}`
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-Razorposkytuje funkce pro zpracování událostí pro součásti. Další informace naleznete v tématu <xref:blazor/event-handling>.
+Razorposkytuje funkce pro zpracování událostí pro součásti. Další informace naleznete v tématu <xref:blazor/components/event-handling>.
 
 ::: moniker-end
 
@@ -759,19 +759,19 @@ Zastaví šíření události pro událost.
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-`@key`Atribut direktiva způsobí, že rozdílový algoritmus komponent garantuje zachování prvků nebo komponent na základě hodnoty klíče. Další informace naleznete v tématu <xref:blazor/components#use-key-to-control-the-preservation-of-elements-and-components>.
+`@key`Atribut direktiva způsobí, že rozdílový algoritmus komponent garantuje zachování prvků nebo komponent na základě hodnoty klíče. Další informace naleznete v tématu <xref:blazor/components/index#use-key-to-control-the-preservation-of-elements-and-components>.
 
 ### `@ref`
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-Odkazy na součásti ( `@ref` ) poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance. Další informace naleznete v tématu <xref:blazor/components#capture-references-to-components>.
+Odkazy na součásti ( `@ref` ) poskytují způsob, jak odkazovat na instanci komponenty, abyste mohli vydávat příkazy do této instance. Další informace naleznete v tématu <xref:blazor/components/index#capture-references-to-components>.
 
 ### `@typeparam`
 
 *Tento scénář se vztahuje pouze na Razor součásti (. Razor).*
 
-`@typeparam`Direktiva deklaruje parametr obecného typu pro generovanou třídu komponenty. Další informace naleznete v tématu <xref:blazor/templated-components#generic-typed-components>.
+`@typeparam`Direktiva deklaruje parametr obecného typu pro generovanou třídu komponenty. Další informace naleznete v tématu <xref:blazor/components/templated-components#generic-typed-components>.
 
 ::: moniker-end
 

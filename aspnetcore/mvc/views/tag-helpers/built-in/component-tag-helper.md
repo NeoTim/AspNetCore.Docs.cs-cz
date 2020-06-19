@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/component-tag-helper
-ms.openlocfilehash: b6e3890e13ef5ad20098d3907b6895046087aeca
-ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
+ms.openlocfilehash: df978d49201ba1010ddf13b1b9a63ae27116616e
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/15/2020
-ms.locfileid: "84776498"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85103092"
 ---
 # <a name="component-tag-helper-in-aspnet-core"></a>Pomocná značka komponenty v ASP.NET Core
 
@@ -27,7 +27,7 @@ Chcete-li vykreslit komponentu ze stránky nebo zobrazení, použijte [pomocník
 
 ## <a name="prerequisites"></a>Požadavky
 
-Postupujte podle pokynů v části *Příprava aplikace na používání součástí na stránkách a pohledech v* <xref:blazor/integrate-components#prepare-the-app> článku.
+Postupujte podle pokynů v části *Příprava aplikace na používání součástí na stránkách a pohledech v* <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps#prepare-the-app> článku.
 
 ## <a name="component-tag-helper"></a>Pomocník značek komponenty
 
@@ -72,7 +72,7 @@ Pomocný objekt tag komponenty může také předat parametry komponentám. Vezm
 }
 ```
 
-`Size` `int` Parametry komponenty () `Color` a `string` ( [component parameters](xref:blazor/components#component-parameters) ) lze nastavit pomocí pomocníka značky komponenty:
+`Size` `int` Parametry komponenty () `Color` a `string` ( [component parameters](xref:blazor/components/index#component-parameters) ) lze nastavit pomocí pomocníka značky komponenty:
 
 ```cshtml
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -168,8 +168,8 @@ I když stránky a zobrazení mohou používat komponenty, není tato konverzace
 
 Vykreslování součástí serveru ze statické stránky HTML není podporováno.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper>
 * <xref:mvc/views/tag-helpers/intro>
-* <xref:blazor/components>
+* <xref:blazor/components/index>

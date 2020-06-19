@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/advanced/formatting
-ms.openlocfilehash: 865b2e58b38c16a54815ce0923a78ac98f2247f1
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 46a1ccbb3b5eeaf1beb3e33bca1b6c7065d6d56a
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84355367"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074221"
 ---
 # <a name="format-response-data-in-aspnet-core-web-api"></a>Formátování dat odpovědi v ASP.NET Core Web API
 
@@ -40,7 +40,7 @@ Ukázka stažení vrátí seznam autorů. Pomocí nástrojů pro vývojáře v p
 * Zobrazí se hlavička odpovědi obsahující **typ obsahu:** `application/json; charset=utf-8` .
 * Zobrazí se hlavičky žádosti. Například `Accept` záhlaví. `Accept`Hlavička je ignorována v předchozím kódu.
 
-Chcete-li vrátit data ve formátu prostého textu, použijte aplikaci <xref:Microsoft.AspNetCore.Mvc.ContentResult.Content> a <xref:Microsoft.AspNetCore.Mvc.ContentResult.Content> pomocníka:
+Chcete-li vrátit data ve formátu prostého textu, použijte aplikaci <xref:Microsoft.AspNetCore.Mvc.ContentResult> a <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Content%2A> pomocníka:
 
 [!code-csharp[](./formatting/sample/Controllers/AuthorsController.cs?name=snippet_about)]
 
@@ -126,7 +126,7 @@ Předchozí kód serializace výsledků pomocí `XmlSerializer` .
 
 Při použití předchozího kódu vrátí metody kontroleru odpovídající formát na základě `Accept` hlavičky požadavku.
 
-### <a name="configure-systemtextjson-based-formatters"></a>Konfigurace formátovacích modulů založených na System. text. JSON
+### <a name="configure-systemtextjson-based-formatters"></a>Konfigurace System.Text.Jsformátovacích modulech na bázi
 
 Funkce pro formátovací moduly založené na službě se `System.Text.Json` dají konfigurovat pomocí `Microsoft.AspNetCore.Mvc.JsonOptions.SerializerOptions` .
 
@@ -153,7 +153,7 @@ public IActionResult Get()
 }
 ```
 
-### <a name="add-newtonsoftjson-based-json-format-support"></a>Přidání podpory formátu JSON založeného na Newtonsoft. JSON
+### <a name="add-newtonsoftjson-based-json-format-support"></a>Přidání podpory formátu JSON založeného na Newtonsoft.Js
 
 Před ASP.NET Core 3,0 byly použity výchozí formátovací moduly JSON implementované pomocí `Newtonsoft.Json` balíčku. V ASP.NET Core 3,0 nebo novějších jsou výchozí formátovací moduly JSON založené na `System.Text.Json` . Podpora `Newtonsoft.Json` formátování a funkcí založených na základech je k dispozici po instalaci [`Microsoft.AspNetCore.Mvc.NewtonsoftJson`](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.NewtonsoftJson/) balíčku NuGet a jeho konfiguraci v nástroji `Startup.ConfigureServices` .
 
@@ -198,7 +198,7 @@ public IActionResult Get()
 
 ### <a name="add-xml-format-support"></a>Přidat podporu formátu XML
 
-Formátování XML vyžaduje balíček NuGet [Microsoft. AspNetCore. Mvc. formátovací modul. XML](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) .
+Formátování XML vyžaduje [Microsoft.AspNetCore.Mvc.Formatters.Xml](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Formatters.Xml/) balíček NuGet.
 
 Formátovací moduly XML implementované pomocí <xref:System.Xml.Serialization.XmlSerializer> jsou konfigurovány voláním <xref:Microsoft.Extensions.DependencyInjection.MvcXmlMvcBuilderExtensions.AddXmlSerializerFormatters*> :
 

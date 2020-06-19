@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: 36afa8ece58843b434ebfba6305bffdb9eb9bca0
-ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.openlocfilehash: f3314458a504af7f44dcdc276de890fa9485a2b3
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2020
-ms.locfileid: "84724286"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85103034"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>Generování uživatelského rozhraní Identity v ASP.NET Corech projektech
 
@@ -195,7 +195,7 @@ Tokeny lze předat součástem:
 * Když jsou ověřovací tokeny zřízené a uložené do ověřovacího souboru cookie, dají se předat součástem.
 * Razorkomponenty nemůžou používat `HttpContext` přímo, takže neexistuje žádný způsob, jak získat [token pro padělání žádostí](xref:security/anti-request-forgery) o odeslání na Identity koncový bod odhlašovacího objektu na adrese `/Identity/Account/Logout` . Token XSRF lze předat komponentám.
 
-Další informace naleznete v tématu <xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>.
+Další informace naleznete v tématu <xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app>.
 
 V souboru *Pages/_Host. cshtml* vytvořte token po jeho přidání do `InitialApplicationState` `TokenProvider` tříd a:
 
@@ -229,7 +229,7 @@ Služba, která `TokenProvider` je znázorněna v tématu, se používá v `Logi
 Ve `Startup` třídě:
 
 * Potvrďte, že Razor jsou do služby přidány stránky `Startup.ConfigureServices` .
-* Pokud používáte [TokenProvider](xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app), zaregistrujte službu.
+* Pokud používáte [TokenProvider](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app), zaregistrujte službu.
 * Zavolejte `UseDatabaseErrorPage` na tvůrce aplikací v nástroji `Startup.Configure` pro vývojové prostředí.
 * Volání `UseAuthentication` a `UseAuthorization` After `UseRouting` .
 * Přidejte koncový bod pro Razor stránky.
@@ -253,7 +253,7 @@ Přidejte `RedirectToLogin` komponentu (*RedirectToLogin. Razor*) do *sdílené*
 }
 ```
 
-Přidejte `LoginDisplay` součást (*LoginDisplay. Razor*) do *sdílené* složky aplikace. [Služba TokenProvider](xref:security/blazor/server/additional-scenarios#pass-tokens-to-a-blazor-server-app) poskytuje token XSRF pro formulář HTML, který odesílá do Identity koncového bodu pro odhlášení:
+Přidejte `LoginDisplay` součást (*LoginDisplay. Razor*) do *sdílené* složky aplikace. [Služba TokenProvider](xref:blazor/security/server/additional-scenarios#pass-tokens-to-a-blazor-server-app) poskytuje token XSRF pro formulář HTML, který odesílá do Identity koncového bodu pro odhlášení:
 
 ```razor
 @using Microsoft.AspNetCore.Components.Authorization
@@ -404,7 +404,7 @@ V této části se dozvíte, jak zakázat stránku registrace, ale přístup mů
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Příklad:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -649,7 +649,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Příklad:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"

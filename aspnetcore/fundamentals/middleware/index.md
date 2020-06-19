@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 745eca9788d95c9a123e51a737b34dccdc65d8d4
-ms.sourcegitcommit: 30fcf69556b6b6ec54a3879e280d5f61f018b48f
+ms.openlocfilehash: b2468220d0c059a94a085357f2be7bbb3b89adc4
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/07/2020
-ms.locfileid: "82876228"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074196"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -33,7 +33,7 @@ Middleware je software, který se sestaví do kanálu aplikace za účelem zprac
 
 Delegáti žádostí se používají k sestavení kanálu požadavků. Delegát žádosti zpracuje jednotlivé požadavky HTTP.
 
-Delegáti žádostí jsou <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*>nakonfigurováni <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*>pomocí metod <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> rozšíření, a. Jednotlivé delegáty žádostí je možné zadat jako anonymní metodu (označovanou v rámci middlewarového middlewaru) nebo ji lze definovat v opakovaně použitelné třídě. Tyto opakovaně použitelné třídy a vložené anonymní metody jsou *middleware*, označované také jako *komponenty middlewaru*. Každá součást middlewaru v kanálu požadavků zodpovídá za vyvolání další komponenty v kanálu nebo při krátkém okruhu kanálu. Když jsou krátkodobé okruhy middleware, nazývá se *middleware terminálu* , protože zabrání dalšímu middlewaru ve zpracování žádosti.
+Delegáti žádostí jsou nakonfigurováni pomocí <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*> <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> metod rozšíření, a. Jednotlivé delegáty žádostí je možné zadat jako anonymní metodu (označovanou v rámci middlewarového middlewaru) nebo ji lze definovat v opakovaně použitelné třídě. Tyto opakovaně použitelné třídy a vložené anonymní metody jsou *middleware*, označované také jako *komponenty middlewaru*. Každá součást middlewaru v kanálu požadavků zodpovídá za vyvolání další komponenty v kanálu nebo při krátkém okruhu kanálu. Když jsou krátkodobé okruhy middleware, nazývá se *middleware terminálu* , protože zabrání dalšímu middlewaru ve zpracování žádosti.
 
 <xref:migration/http-modules>Vysvětluje rozdíl mezi kanály požadavků v ASP.NET Core a ASP.NET 4. x a poskytuje další ukázky middlewaru.
 
@@ -49,40 +49,40 @@ Nejjednodušší možná ASP.NET Core aplikace nastaví jediného delegáta žá
 
 [!code-csharp[](index/snapshot/Middleware/Startup.cs)]
 
-Řetězení více požadavků delegátů <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*>společně s. `next` Parametr představuje dalšího delegáta v kanálu. Kanál můžete pro krátké okruhy vymezit tím *, že nevoláte* *Další* parametr. Obvykle můžete provádět akce před i po dalším delegátu, jak ukazuje následující příklad:
+Řetězení více požadavků delegátů společně s <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> . `next`Parametr představuje dalšího delegáta v kanálu. Kanál můžete pro krátké okruhy vymezit tím *, že nevoláte* *Další* parametr. Obvykle můžete provádět akce před i po dalším delegátu, jak ukazuje následující příklad:
 
 [!code-csharp[](index/snapshot/Chain/Startup.cs?highlight=5-10)]
 
-Když delegát neprojde požadavek na dalšího delegáta, nazývá se to *krátkodobý kanál žádosti*. Krátkodobé okruhy jsou často žádoucí, protože brání zbytečné práci. Například [middleware statických souborů](xref:fundamentals/static-files) může fungovat jako *middleware terminálu* tím, že zpracovává požadavek na statický soubor a krátký okruh zbývajících částí kanálu. Middleware přidané do kanálu předtím, než middleware, který ukončí další zpracování, stále zpracovává `next.Invoke` kód po svých příkazech. Přečtěte si ale následující upozornění týkající se pokusu o zápis do odpovědi, která již byla odeslána.
+Když delegát neprojde požadavek na dalšího delegáta, nazývá se to *krátkodobý kanál žádosti*. Krátkodobé okruhy jsou často žádoucí, protože brání zbytečné práci. Například [middleware statických souborů](xref:fundamentals/static-files) může fungovat jako *middleware terminálu* tím, že zpracovává požadavek na statický soubor a krátký okruh zbývajících částí kanálu. Middleware přidané do kanálu předtím, než middleware, který ukončí další zpracování, stále zpracovává kód po svých `next.Invoke` příkazech. Přečtěte si ale následující upozornění týkající se pokusu o zápis do odpovědi, která již byla odeslána.
 
 > [!WARNING]
-> Nevolejte `next.Invoke` po odeslání odpovědi klientovi. Změny <xref:Microsoft.AspNetCore.Http.HttpResponse> poté, co odpověď začala, vyvolávají výjimku. Například změny jako hlavičky nastavení a stavový kód vyvolávají výjimku. Zápis do těla odpovědi po volání `next`:
+> Nevolejte `next.Invoke` po odeslání odpovědi klientovi. Změny <xref:Microsoft.AspNetCore.Http.HttpResponse> poté, co odpověď začala, vyvolávají výjimku. Například změny jako hlavičky nastavení a stavový kód vyvolávají výjimku. Zápis do těla odpovědi po volání `next` :
 >
-> * Může způsobit narušení protokolu. Například zápis více než uvedené `Content-Length`.
+> * Může způsobit narušení protokolu. Například zápis více než uvedené `Content-Length` .
 > * Může poškodit formát textu. Například zápis zápatí HTML do souboru CSS.
 >
 > <xref:Microsoft.AspNetCore.Http.HttpResponse.HasStarted*>je užitečnou nápovědou, která označuje, zda byla odeslána hlavička nebo zda byl text napsán do.
 
-<xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*>Delegáti neobdrží `next` parametr. První `Run` delegát je vždycky terminál a ukončí kanál. `Run`je konvence. Některé komponenty middlewaru můžou `Run[Middleware]` vystavovat metody, které se spouštějí na konci kanálu:
+<xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*>Delegáti neobdrží `next` parametr. První `Run` delegát je vždycky terminál a ukončí kanál. `Run`je konvence. Některé komponenty middlewaru můžou vystavovat `Run[Middleware]` metody, které se spouštějí na konci kanálu:
 
 [!code-csharp[](index/snapshot/Chain/Startup.cs?highlight=12-15)]
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
-V předchozím příkladu `Run` delegát zapisuje `"Hello from 2nd delegate."` do odpovědi a pak kanál ukončí. Pokud je `Use` po `Run` `Run` delegátu přidán jiný nebo delegát, není volán.
+V předchozím příkladu `Run` delegát zapisuje `"Hello from 2nd delegate."` do odpovědi a pak kanál ukončí. Pokud `Use` `Run` je po delegátu přidán jiný nebo delegát `Run` , není volán.
 
 <a name="order"></a>
 
 ## <a name="middleware-order"></a>Pořadí middlewaru
 
-Následující diagram znázorňuje kompletní kanál zpracování požadavků pro ASP.NET Core MVC a Razor Pages aplikace. Můžete vidět, jak, v typické aplikaci jsou seřazené existující middleware a kdy se přidávají vlastní middleware. Máte plnou kontrolu nad tím, jak změnit pořadí stávajících middlewarů, nebo vložit nové vlastní middleware podle potřeby pro vaše scénáře.
+Následující diagram znázorňuje kompletní kanál zpracování požadavků pro ASP.NET Core aplikace MVC a Razor stránky. Můžete vidět, jak, v typické aplikaci jsou seřazené existující middleware a kdy se přidávají vlastní middleware. Máte plnou kontrolu nad tím, jak změnit pořadí stávajících middlewarů, nebo vložit nové vlastní middleware podle potřeby pro vaše scénáře.
 
 ![ASP.NET Core kanál middlewaru](index/_static/middleware-pipeline.svg)
 
-Middleware **koncového bodu** v předchozím diagramu spouští kanál filtru pro odpovídající typ&mdash;aplikace MVC nebo Razor Pages.
+Middleware **koncového bodu** v předchozím diagramu spouští kanál filtru pro odpovídající typ aplikace &mdash; MVC nebo Razor stránky.
 
 ![Kanál filtru ASP.NET Core](index/_static/mvc-endpoint.svg)
 
-Pořadí, v jakém jsou komponenty middleware `Startup.Configure` přidány v metodě, definuje pořadí, ve kterém jsou komponenty middleware vyvolány na žádostech a obráceném pořadí pro odpověď. Pořadí je **důležité** pro zabezpečení, výkon a funkčnost.
+Pořadí, v jakém jsou komponenty middleware přidány v `Startup.Configure` metodě, definuje pořadí, ve kterém jsou komponenty middleware vyvolány na žádostech a obráceném pořadí pro odpověď. Pořadí je **důležité** pro zabezpečení, výkon a funkčnost.
 
 Následující `Startup.Configure` metoda přidává do doporučeného pořadí součásti middlewaru související se zabezpečením:
 
@@ -91,25 +91,25 @@ Následující `Startup.Configure` metoda přidává do doporučeného pořadí 
 V předchozím kódu:
 
 * Middleware, které se nepřidaly při vytváření nové webové aplikace s [jednotlivými účty uživatele](xref:security/authentication/identity) , jsou zakomentovány.
-* Ne každý middleware potřebuje přejít v tomto přesném pořadí, ale mnoho do něj. Například `UseCors` `UseAuthentication`,, a `UseAuthorization` musí jít v uvedeném pořadí.
+* Ne každý middleware potřebuje přejít v tomto přesném pořadí, ale mnoho do něj. Například,, `UseCors` `UseAuthentication` a `UseAuthorization` musí jít v uvedeném pořadí.
 
 Následující `Startup.Configure` metoda přidává komponenty middlewaru pro běžné scénáře aplikací:
 
 1. Zpracování výjimek a chyb
    * Když aplikace běží ve vývojovém prostředí:
-     * Aplikace middleware stránky s<xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*>výjimkou vývojářů () hlásí chyby běhového modulu.
+     * Aplikace middleware stránky s výjimkou vývojářů ( <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> ) hlásí chyby běhového modulu.
      * Zpráva middlewaru chybové stránky databáze oznamuje chyby běhového běhu databáze.
    * Když aplikace běží v produkčním prostředí:
-     * Middleware obslužné rutiny výjimek (<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>) zachytává výjimky vyvolané v následujících middlewarech.
-     * Middleware HSTS (<xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*>http Strict Transport Security Protocol) () přidá `Strict-Transport-Security` hlavičku.
-1. Middleware ()<xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*>přesměrování protokolu HTTPS () přesměruje požadavky HTTP na https.
-1. Soubor middleware (<xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*>) statických souborů () vrací statické soubory a další zpracování žádostí o krátkodobé okruhy.
-1. Middleware zásad souborů<xref:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy*>cookie () v aplikaci vyhovuje nařízením v rámci EU obecné nařízení O ochraně osobních údajů (GDPR).
-1. Směrování middleware`UseRouting`() pro směrování požadavků.
-1. Middleware ověřování<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>() se pokusí ověřit uživatele předtím, než budou mít přístup k zabezpečeným prostředkům.
-1. Middleware autorizace`UseAuthorization`() opravňuje uživatele k přístupu k zabezpečeným prostředkům.
-1. Middleware relace<xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession*>() vytváří a udržuje stav relace. Pokud aplikace používá stav relace, volejte middleware relace za middlewarem zásad souborů cookie a před middlewarem MVC.
-1. Middleware směrování koncového bodu (`UseEndpoints` s `MapRazorPages`) pro přidání koncových bodů Razor Pages do kanálu požadavků.
+     * Middleware obslužné rutiny výjimek ( <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> ) zachytává výjimky vyvolané v následujících middlewarech.
+     * Middleware HSTS (HTTP Strict Transport Security Protocol) ( <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> ) přidá `Strict-Transport-Security` hlavičku.
+1. Middleware () přesměrování protokolu HTTPS ( <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> ) přesměruje požadavky HTTP na https.
+1. Soubor middleware () statických souborů ( <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> ) vrací statické soubory a další zpracování žádostí o krátkodobé okruhy.
+1. Middleware zásad souborů cookie ( <xref:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy*> ) v aplikaci vyhovuje nařízením v rámci EU obecné nařízení o ochraně osobních údajů (GDPR).
+1. Směrování middleware ( `UseRouting` ) pro směrování požadavků.
+1. Middleware ověřování ( <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> ) se pokusí ověřit uživatele předtím, než budou mít přístup k zabezpečeným prostředkům.
+1. Middleware autorizace ( `UseAuthorization` ) opravňuje uživatele k přístupu k zabezpečeným prostředkům.
+1. Middleware relace ( <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession*> ) vytváří a udržuje stav relace. Pokud aplikace používá stav relace, volejte middleware relace za middlewarem zásad souborů cookie a před middlewarem MVC.
+1. Middleware směrování koncového bodu ( `UseEndpoints` s `MapRazorPages` ) pro přidání Razor koncových bodů stránek do kanálu požadavků.
 
 <!--
 
@@ -156,11 +156,11 @@ V předchozím příkladu kódu je každá metoda rozšíření middleware vysta
 
 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>je první součást middleware přidaná do kanálu. Proto middleware obslužné rutiny výjimek zachycuje všechny výjimky, ke kterým dojde v pozdějších voláních.
 
-Middleware statických souborů se zavolá v průběhu kanálu, aby mohl zpracovávat požadavky a krátké okruhy bez toho, aby procházely zbývajícími součástmi. Middleware statických souborů neposkytuje **žádné** autorizační kontroly. Všechny soubory, které poskytuje middleware pro statický soubor, včetně těch v rámci *wwwroot*, jsou veřejně dostupné. Přístup k zabezpečení statických souborů naleznete v tématu <xref:fundamentals/static-files>.
+Middleware statických souborů se zavolá v průběhu kanálu, aby mohl zpracovávat požadavky a krátké okruhy bez toho, aby procházely zbývajícími součástmi. Middleware statických souborů neposkytuje **žádné** autorizační kontroly. Všechny soubory, které poskytuje middleware pro statický soubor, včetně těch v rámci *wwwroot*, jsou veřejně dostupné. Přístup k zabezpečení statických souborů naleznete v tématu <xref:fundamentals/static-files> .
 
-Pokud požadavek nezpracovává middleware pro statický soubor, je předán do middleware ověřování (<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>), který provádí ověřování. Ověřování neověřuje neověřené požadavky v krátkém okruhu. I když middleware ověřování ověřuje požadavky, autorizaci (a odmítnutí) proběhne pouze poté, co MVC vybere konkrétní stránku Razor nebo kontroler MVC a akci.
+Pokud požadavek nezpracovává middleware pro statický soubor, je předán do middleware ověřování ( <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> ), který provádí ověřování. Ověřování neověřuje neověřené požadavky v krátkém okruhu. I když middleware ověřování ověřuje požadavky, autorizaci (a odmítnutí) proběhne pouze poté, co MVC vybere konkrétní Razor stránku nebo kontroler MVC a akci.
 
-Následující příklad ukazuje pořadí middlewaru, kde požadavky na statické soubory jsou zpracovávány pomocí middlewaru statického souboru před použitím middlewaru pro komprimaci odezvy. Statické soubory nejsou s tímto pořadím middlewaru komprimovány. Odezvy Razor Pages lze komprimovat.
+Následující příklad ukazuje pořadí middlewaru, kde požadavky na statické soubory jsou zpracovávány pomocí middlewaru statického souboru před použitím middlewaru pro komprimaci odezvy. Statické soubory nejsou s tímto pořadím middlewaru komprimovány. RazorOdpovědi na stránky lze komprimovat.
 
 ```csharp
 public void Configure(IApplicationBuilder app)
@@ -177,12 +177,16 @@ public void Configure(IApplicationBuilder app)
 }
 ```
 
-V případě aplikací s jednou stránkou (jednostránkové) se <xref:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles*> middleware standardně nabývá jako poslední v kanálu middlewaru. Middleware SPA se vyskytuje jako poslední:
+V případě aplikací s jednou stránkou (jednostránkové) se middleware standardně <xref:Microsoft.Extensions.DependencyInjection.SpaStaticFilesExtensions.UseSpaStaticFiles*> nabývá jako poslední v kanálu middlewaru. Middleware SPA se vyskytuje jako poslední:
 
 * Aby všechny ostatní middleware mohly reagovat na vyhovující požadavky jako první.
 * Povolí spuštění jednostránkové se směrováním na straně klienta pro všechny trasy, které serverová aplikace nerozpoznala.
 
 Další informace o jednostránkové naleznete v příručkách pro [reakce](xref:spa/react) [a na](xref:spa/angular) rozch šablon projektů.
+
+### <a name="forwarded-headers-middleware-order"></a>Pořadí middlewaru u předávaných hlaviček
+
+[!INCLUDE[](~/includes/ForwardedHeaders.md)]
 
 ## <a name="branch-the-middleware-pipeline"></a>Větvení kanálu middlewaru
 
@@ -218,7 +222,7 @@ app.Map("/level1", level1App => {
 
 [!code-csharp[](index/snapshot/Chain/StartupMultiSeg.cs?highlight=13)]
 
-<xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*>rozvětvení kanálu požadavků na základě výsledku daného predikátu. K mapování požadavků na `Func<HttpContext, bool>` novou větev kanálu lze použít jakýkoli predikát typu. V následujícím příkladu se k detekci přítomnosti proměnné `branch`řetězce dotazu používá predikát:
+<xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*>rozvětvení kanálu požadavků na základě výsledku daného predikátu. `Func<HttpContext, bool>`K mapování požadavků na novou větev kanálu lze použít jakýkoli predikát typu. V následujícím příkladu se k detekci přítomnosti proměnné řetězce dotazu používá predikát `branch` :
 
 [!code-csharp[](index/snapshot/Chain/StartupMapWhen.cs?highlight=14-15)]
 
@@ -229,11 +233,11 @@ V následující tabulce jsou uvedeny žádosti a odpovědi z `http://localhost:
 | localhost: 1234                | Hello z delegáta bez mapy. |
 | localhost: 1234/? větev = hlavní | Použitá větev = hlavní         |
 
-<xref:Microsoft.AspNetCore.Builder.UseWhenExtensions.UseWhen*>také větví kanál požadavků na základě výsledku daného predikátu. Na rozdíl od `MapWhen`, tato větev se znovu připojí k hlavnímu kanálu, pokud nemá krátký okruh nebo obsahuje middleware terminálu:
+<xref:Microsoft.AspNetCore.Builder.UseWhenExtensions.UseWhen*>také větví kanál požadavků na základě výsledku daného predikátu. Na rozdíl od `MapWhen` , tato větev se znovu připojí k hlavnímu kanálu, pokud nemá krátký okruh nebo obsahuje middleware terminálu:
 
 [!code-csharp[](index/snapshot/Chain/StartupUseWhen.cs?highlight=25-26)]
 
-V předchozím příkladu odpověď "Hello z hlavního kanálu". je napsán pro všechny požadavky. Pokud požadavek obsahuje proměnnou `branch`řetězce dotazu, je jeho hodnota protokolována před opětovným připojením k hlavnímu kanálu.
+V předchozím příkladu odpověď "Hello z hlavního kanálu". je napsán pro všechny požadavky. Pokud požadavek obsahuje proměnnou řetězce dotazu `branch` , je jeho hodnota protokolována před opětovným připojením k hlavnímu kanálu.
 
 ## <a name="built-in-middleware"></a>Vestavěný middleware
 
@@ -243,7 +247,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 | ---------- | ----------- | ----- |
 | [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
 | [Autorizace](xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization*) | Poskytuje podporu autorizace. | Hned po ověřovacím middlewaru. |
-| [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite`. | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
+| [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite` . | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. |
 | [Diagnostika](xref:fundamentals/error-handling) | Několik samostatných middlewarů, které poskytují stránku s výjimkou vývojářů, zpracování výjimek, stránky stavového kódu a výchozí webovou stránku pro nové aplikace. | Před komponenty, které generují chyby. Terminál pro výjimky nebo pro výchozí webovou stránku pro nové aplikace |
 | [Předávaná záhlaví](xref:host-and-deploy/proxy-load-balancer) | Přepošle hlavičky proxy na aktuální požadavek. | Před komponenty, které používají aktualizované pole. Příklady: schéma, hostitel, IP adresa klienta, metoda. |
@@ -252,7 +256,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 | [Přepsání metody HTTP](xref:Microsoft.AspNetCore.Builder.HttpMethodOverrideExtensions) | Umožňuje příchozí žádosti POST přepsat metodu. | Před komponenty, které používají aktualizovanou metodu. |
 | [Přesměrování HTTPS](xref:security/enforcing-ssl#require-https) | Přesměrovat všechny požadavky HTTP na HTTPS. | Před komponenty, které používají adresu URL. |
 | [HTTP Strict Transport Security (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) | Vylepšení zabezpečení – middleware, který přidává speciální hlavičku odpovědi. | Před odesláním odpovědí a po součástech, které upravují požadavky. Příklady: předávané hlavičky, přepis adresy URL. |
-| [MVC](xref:mvc/overview) | Zpracovává požadavky pomocí MVC/Razor Pages. | Terminál, pokud požadavek odpovídá trase. |
+| [MVC](xref:mvc/overview) | Zpracovává požadavky pomocí MVC nebo Razor stránek. | Terminál, pokud požadavek odpovídá trase. |
 | [OWIN](xref:fundamentals/owin) | Interoperabilita s aplikacemi, servery a middlewarem založeným na OWIN | Terminál, pokud middleware OWIN plně zpracovává požadavek. |
 | [Ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) | Poskytuje podporu pro ukládání odpovědí do mezipaměti. | Před součástmi, které vyžadují ukládání do mezipaměti. |
 | [Komprese odezvy](xref:performance/response-compression) | Poskytuje podporu pro komprimaci odpovědí. | Před součástmi, které vyžadují kompresi. |
@@ -287,7 +291,7 @@ Middleware je software, který se sestaví do kanálu aplikace za účelem zprac
 
 Delegáti žádostí se používají k sestavení kanálu požadavků. Delegát žádosti zpracuje jednotlivé požadavky HTTP.
 
-Delegáti žádostí jsou <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*>nakonfigurováni <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*>pomocí metod <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> rozšíření, a. Jednotlivé delegáty žádostí je možné zadat jako anonymní metodu (označovanou v rámci middlewarového middlewaru) nebo ji lze definovat v opakovaně použitelné třídě. Tyto opakovaně použitelné třídy a vložené anonymní metody jsou *middleware*, označované také jako *komponenty middlewaru*. Každá součást middlewaru v kanálu požadavků zodpovídá za vyvolání další komponenty v kanálu nebo při krátkém okruhu kanálu. Když jsou krátkodobé okruhy middleware, nazývá se *middleware terminálu* , protože zabrání dalšímu middlewaru ve zpracování žádosti.
+Delegáti žádostí jsou nakonfigurováni pomocí <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*> <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> metod rozšíření, a. Jednotlivé delegáty žádostí je možné zadat jako anonymní metodu (označovanou v rámci middlewarového middlewaru) nebo ji lze definovat v opakovaně použitelné třídě. Tyto opakovaně použitelné třídy a vložené anonymní metody jsou *middleware*, označované také jako *komponenty middlewaru*. Každá součást middlewaru v kanálu požadavků zodpovídá za vyvolání další komponenty v kanálu nebo při krátkém okruhu kanálu. Když jsou krátkodobé okruhy middleware, nazývá se *middleware terminálu* , protože zabrání dalšímu middlewaru ve zpracování žádosti.
 
 <xref:migration/http-modules>Vysvětluje rozdíl mezi kanály požadavků v ASP.NET Core a ASP.NET 4. x a poskytuje další ukázky middlewaru.
 
@@ -305,16 +309,16 @@ Nejjednodušší možná ASP.NET Core aplikace nastaví jediného delegáta žá
 
 První <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*> delegát ukončí kanál.
 
-Řetězení více požadavků delegátů <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*>společně s. `next` Parametr představuje dalšího delegáta v kanálu. Kanál můžete pro krátké okruhy vymezit tím *, že nevoláte* *Další* parametr. Obvykle můžete provádět akce před i po dalším delegátu, jak ukazuje následující příklad:
+Řetězení více požadavků delegátů společně s <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> . `next`Parametr představuje dalšího delegáta v kanálu. Kanál můžete pro krátké okruhy vymezit tím *, že nevoláte* *Další* parametr. Obvykle můžete provádět akce před i po dalším delegátu, jak ukazuje následující příklad:
 
 [!code-csharp[](index/snapshot/Chain/Startup.cs)]
 
-Když delegát neprojde požadavek na dalšího delegáta, nazývá se to *krátkodobý kanál žádosti*. Krátkodobé okruhy jsou často žádoucí, protože brání zbytečné práci. Například [middleware statických souborů](xref:fundamentals/static-files) může fungovat jako *middleware terminálu* tím, že zpracovává požadavek na statický soubor a krátký okruh zbývajících částí kanálu. Middleware přidané do kanálu předtím, než middleware, který ukončí další zpracování, stále zpracovává `next.Invoke` kód po svých příkazech. Přečtěte si ale následující upozornění týkající se pokusu o zápis do odpovědi, která již byla odeslána.
+Když delegát neprojde požadavek na dalšího delegáta, nazývá se to *krátkodobý kanál žádosti*. Krátkodobé okruhy jsou často žádoucí, protože brání zbytečné práci. Například [middleware statických souborů](xref:fundamentals/static-files) může fungovat jako *middleware terminálu* tím, že zpracovává požadavek na statický soubor a krátký okruh zbývajících částí kanálu. Middleware přidané do kanálu předtím, než middleware, který ukončí další zpracování, stále zpracovává kód po svých `next.Invoke` příkazech. Přečtěte si ale následující upozornění týkající se pokusu o zápis do odpovědi, která již byla odeslána.
 
 > [!WARNING]
-> Nevolejte `next.Invoke` po odeslání odpovědi klientovi. Změny <xref:Microsoft.AspNetCore.Http.HttpResponse> poté, co odpověď začala, vyvolávají výjimku. Například změny jako hlavičky nastavení a stavový kód vyvolávají výjimku. Zápis do těla odpovědi po volání `next`:
+> Nevolejte `next.Invoke` po odeslání odpovědi klientovi. Změny <xref:Microsoft.AspNetCore.Http.HttpResponse> poté, co odpověď začala, vyvolávají výjimku. Například změny jako hlavičky nastavení a stavový kód vyvolávají výjimku. Zápis do těla odpovědi po volání `next` :
 >
-> * Může způsobit narušení protokolu. Například zápis více než uvedené `Content-Length`.
+> * Může způsobit narušení protokolu. Například zápis více než uvedené `Content-Length` .
 > * Může poškodit formát textu. Například zápis zápatí HTML do souboru CSS.
 >
 > <xref:Microsoft.AspNetCore.Http.HttpResponse.HasStarted*>je užitečnou nápovědou, která označuje, zda byla odeslána hlavička nebo zda byl text napsán do.
@@ -323,9 +327,9 @@ Když delegát neprojde požadavek na dalšího delegáta, nazývá se to *krát
 
 ## <a name="middleware-order"></a>Pořadí middlewaru
 
-Pořadí, v jakém jsou komponenty middleware `Startup.Configure` přidány v metodě, definuje pořadí, ve kterém jsou komponenty middleware vyvolány na žádostech a obráceném pořadí pro odpověď. Pořadí je **důležité** pro zabezpečení, výkon a funkčnost.
+Pořadí, v jakém jsou komponenty middleware přidány v `Startup.Configure` metodě, definuje pořadí, ve kterém jsou komponenty middleware vyvolány na žádostech a obráceném pořadí pro odpověď. Pořadí je **důležité** pro zabezpečení, výkon a funkčnost.
 
-Následující `Startup.Configure` metoda přidá do doporučeného pořadí součásti middlewaru související se zabezpečením:
+Následující `Startup.Configure` Metoda přidá do doporučeného pořadí součásti middlewaru související se zabezpečením:
 
 [!code-csharp[](index/snapshot/Startup22.cs?name=snippet)]
 
@@ -338,17 +342,17 @@ Následující `Startup.Configure` metoda přidává komponenty middlewaru pro b
 
 1. Zpracování výjimek a chyb
    * Když aplikace běží ve vývojovém prostředí:
-     * Aplikace middleware stránky s<xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*>výjimkou vývojářů () hlásí chyby běhového modulu.
-     * Zpráva middleware pro chybovou stránku databáze (`Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage`) oznamuje chyby běhového modulu databáze.
+     * Aplikace middleware stránky s výjimkou vývojářů ( <xref:Microsoft.AspNetCore.Builder.DeveloperExceptionPageExtensions.UseDeveloperExceptionPage*> ) hlásí chyby běhového modulu.
+     * Zpráva middleware pro chybovou stránku databáze ( `Microsoft.AspNetCore.Builder.DatabaseErrorPageExtensions.UseDatabaseErrorPage` ) oznamuje chyby běhového modulu databáze.
    * Když aplikace běží v produkčním prostředí:
-     * Middleware obslužné rutiny výjimek (<xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>) zachytává výjimky vyvolané v následujících middlewarech.
-     * Middleware HSTS (<xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*>http Strict Transport Security Protocol) () přidá `Strict-Transport-Security` hlavičku.
-1. Middleware ()<xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*>přesměrování protokolu HTTPS () přesměruje požadavky HTTP na https.
-1. Soubor middleware (<xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*>) statických souborů () vrací statické soubory a další zpracování žádostí o krátkodobé okruhy.
-1. Middleware zásad souborů<xref:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy*>cookie () v aplikaci vyhovuje nařízením v rámci EU obecné nařízení O ochraně osobních údajů (GDPR).
-1. Middleware ověřování<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>() se pokusí ověřit uživatele předtím, než budou mít přístup k zabezpečeným prostředkům.
-1. Middleware relace<xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession*>() vytváří a udržuje stav relace. Pokud aplikace používá stav relace, volejte middleware relace za middlewarem zásad souborů cookie a před middlewarem MVC.
-1. MVC (<xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*>) pro přidání MVC do kanálu požadavků.
+     * Middleware obslužné rutiny výjimek ( <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*> ) zachytává výjimky vyvolané v následujících middlewarech.
+     * Middleware HSTS (HTTP Strict Transport Security Protocol) ( <xref:Microsoft.AspNetCore.Builder.HstsBuilderExtensions.UseHsts*> ) přidá `Strict-Transport-Security` hlavičku.
+1. Middleware () přesměrování protokolu HTTPS ( <xref:Microsoft.AspNetCore.Builder.HttpsPolicyBuilderExtensions.UseHttpsRedirection*> ) přesměruje požadavky HTTP na https.
+1. Soubor middleware () statických souborů ( <xref:Microsoft.AspNetCore.Builder.StaticFileExtensions.UseStaticFiles*> ) vrací statické soubory a další zpracování žádostí o krátkodobé okruhy.
+1. Middleware zásad souborů cookie ( <xref:Microsoft.AspNetCore.Builder.CookiePolicyAppBuilderExtensions.UseCookiePolicy*> ) v aplikaci vyhovuje nařízením v rámci EU obecné nařízení o ochraně osobních údajů (GDPR).
+1. Middleware ověřování ( <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> ) se pokusí ověřit uživatele předtím, než budou mít přístup k zabezpečeným prostředkům.
+1. Middleware relace ( <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession*> ) vytváří a udržuje stav relace. Pokud aplikace používá stav relace, volejte middleware relace za middlewarem zásad souborů cookie a před middlewarem MVC.
+1. MVC ( <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvc*> ) pro přidání MVC do kanálu požadavků.
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -377,9 +381,9 @@ V předchozím příkladu kódu je každá metoda rozšíření middleware vysta
 
 <xref:Microsoft.AspNetCore.Builder.ExceptionHandlerExtensions.UseExceptionHandler*>je první součást middleware přidaná do kanálu. Proto middleware obslužné rutiny výjimek zachycuje všechny výjimky, ke kterým dojde v pozdějších voláních.
 
-Middleware statických souborů se zavolá v průběhu kanálu, aby mohl zpracovávat požadavky a krátké okruhy bez toho, aby procházely zbývajícími součástmi. Middleware statických souborů neposkytuje **žádné** autorizační kontroly. Všechny soubory, které poskytuje middleware pro statický soubor, včetně těch v rámci *wwwroot*, jsou veřejně dostupné. Přístup k zabezpečení statických souborů naleznete v tématu <xref:fundamentals/static-files>.
+Middleware statických souborů se zavolá v průběhu kanálu, aby mohl zpracovávat požadavky a krátké okruhy bez toho, aby procházely zbývajícími součástmi. Middleware statických souborů neposkytuje **žádné** autorizační kontroly. Všechny soubory, které poskytuje middleware pro statický soubor, včetně těch v rámci *wwwroot*, jsou veřejně dostupné. Přístup k zabezpečení statických souborů naleznete v tématu <xref:fundamentals/static-files> .
 
-Pokud požadavek nezpracovává middleware pro statický soubor, je předán do middleware ověřování (<xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*>), který provádí ověřování. Ověřování neověřuje neověřené požadavky v krátkém okruhu. I když middleware ověřování ověřuje požadavky, autorizaci (a odmítnutí) proběhne pouze poté, co MVC vybere konkrétní stránku Razor nebo kontroler MVC a akci.
+Pokud požadavek nezpracovává middleware pro statický soubor, je předán do middleware ověřování ( <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> ), který provádí ověřování. Ověřování neověřuje neověřené požadavky v krátkém okruhu. I když middleware ověřování ověřuje požadavky, autorizaci (a odmítnutí) proběhne pouze poté, co MVC vybere konkrétní Razor stránku nebo kontroler MVC a akci.
 
 Následující příklad ukazuje pořadí middlewaru, kde požadavky na statické soubory jsou zpracovávány pomocí middlewaru statického souboru před použitím middlewaru pro komprimaci odezvy. Statické soubory nejsou s tímto pořadím middlewaru komprimovány. Odpovědi MVC z <xref:Microsoft.AspNetCore.Builder.MvcApplicationBuilderExtensions.UseMvcWithDefaultRoute*> lze komprimovat.
 
@@ -397,7 +401,7 @@ public void Configure(IApplicationBuilder app)
 
 ## <a name="use-run-and-map"></a>Použití, spuštění a mapování
 
-Nakonfigurujte kanál HTTP pomocí <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*>, <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*>a. <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> `Use` Metoda může vytvořit krátký okruh kanálu (tj. Pokud nevolá delegáta `next` žádosti). `Run`je konvencí a některé komponenty middlewaru můžou vystavovat `Run[Middleware]` metody, které běží na konci kanálu.
+Nakonfigurujte kanál HTTP pomocí <xref:Microsoft.AspNetCore.Builder.UseExtensions.Use*> , <xref:Microsoft.AspNetCore.Builder.RunExtensions.Run*> a <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*> . `Use`Metoda může vytvořit krátký okruh kanálu (tj. Pokud nevolá `next` delegáta žádosti). `Run`je konvencí a některé komponenty middlewaru můžou vystavovat `Run[Middleware]` metody, které běží na konci kanálu.
 
 <xref:Microsoft.AspNetCore.Builder.MapExtensions.Map*>rozšíření se používají jako konvence pro větvení kanálu. `Map`rozvětvení kanálu požadavků na základě shody dané cesty požadavku. Pokud cesta k požadavku začíná danou cestou, je větev spuštěná.
 
@@ -414,7 +418,7 @@ V následující tabulce jsou uvedeny žádosti a odpovědi z `http://localhost:
 
 Při `Map` použití se odpovídající segmenty cesty odeberou z `HttpRequest.Path` a připojí se k `HttpRequest.PathBase` pro každý požadavek.
 
-<xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*>rozvětvení kanálu požadavků na základě výsledku daného predikátu. K mapování požadavků na `Func<HttpContext, bool>` novou větev kanálu lze použít jakýkoli predikát typu. V následujícím příkladu se k detekci přítomnosti proměnné `branch`řetězce dotazu používá predikát:
+<xref:Microsoft.AspNetCore.Builder.MapWhenExtensions.MapWhen*>rozvětvení kanálu požadavků na základě výsledku daného predikátu. `Func<HttpContext, bool>`K mapování požadavků na novou větev kanálu lze použít jakýkoli predikát typu. V následujícím příkladu se k detekci přítomnosti proměnné řetězce dotazu používá predikát `branch` :
 
 [!code-csharp[](index/snapshot/Chain/StartupMapWhen.cs)]
 
@@ -449,7 +453,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 | Middleware | Popis | Objednání |
 | ---------- | ----------- | ----- |
 | [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
-| [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite`. | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
+| [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite` . | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. |
 | [Diagnostika](xref:fundamentals/error-handling) | Několik samostatných middlewarů, které poskytují stránku s výjimkou vývojářů, zpracování výjimek, stránky stavového kódu a výchozí webovou stránku pro nové aplikace. | Před komponenty, které generují chyby. Terminál pro výjimky nebo pro výchozí webovou stránku pro nové aplikace |
 | [Předávaná záhlaví](xref:host-and-deploy/proxy-load-balancer) | Přepošle hlavičky proxy na aktuální požadavek. | Před komponenty, které používají aktualizované pole. Příklady: schéma, hostitel, IP adresa klienta, metoda. |
@@ -457,7 +461,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 | [Přepsání metody HTTP](xref:Microsoft.AspNetCore.Builder.HttpMethodOverrideExtensions) | Umožňuje příchozí žádosti POST přepsat metodu. | Před komponenty, které používají aktualizovanou metodu. |
 | [Přesměrování HTTPS](xref:security/enforcing-ssl#require-https) | Přesměrovat všechny požadavky HTTP na HTTPS. | Před komponenty, které používají adresu URL. |
 | [HTTP Strict Transport Security (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) | Vylepšení zabezpečení – middleware, který přidává speciální hlavičku odpovědi. | Před odesláním odpovědí a po součástech, které upravují požadavky. Příklady: předávané hlavičky, přepis adresy URL. |
-| [MVC](xref:mvc/overview) | Zpracovává požadavky pomocí MVC neboRazor stránek. | Terminál, pokud požadavek odpovídá trase. |
+| [MVC](xref:mvc/overview) | Zpracovává požadavky pomocí MVC nebo Razor stránek. | Terminál, pokud požadavek odpovídá trase. |
 | [OWIN](xref:fundamentals/owin) | Interoperabilita s aplikacemi, servery a middlewarem založeným na OWIN | Terminál, pokud middleware OWIN plně zpracovává požadavek. |
 | [Ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) | Poskytuje podporu pro ukládání odpovědí do mezipaměti. | Před součástmi, které vyžadují ukládání do mezipaměti. |
 | [Komprese odezvy](xref:performance/response-compression) | Poskytuje podporu pro komprimaci odpovědí. | Před součástmi, které vyžadují kompresi. |

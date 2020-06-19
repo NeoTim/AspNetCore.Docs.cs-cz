@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: test/loadtests
-ms.openlocfilehash: f0c930a7689c7288a58cfc3ca630d3cd324bf2cd
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 0ec69ad783a4e545ea95ddcb928d03ba6a2e0050
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106803"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074374"
 ---
 # <a name="aspnet-core-loadstress-testing"></a>ASP.NET Core zátěžové nebo zátěžové testování
 
@@ -29,15 +29,7 @@ Zátěžové testování a zátěžové testování jsou důležité k zajiště
 
 Zátěžové testy určují, jestli se aplikace v rámci zátěže může zotavit z chyby a řádně se vrátit k očekávanému chování. V případě zátěže není aplikace spouštěna za běžných podmínek.
 
-Visual Studio 2019 je poslední verzí sady Visual Studio s funkcemi zátěžového testu. Pro zákazníky, kteří potřebují nástroje pro testování zatížení v budoucnu, doporučujeme použít alternativní nástroje, jako je Apache JMeter, Akamai CloudTest a BlazeMeter. Další informace naleznete v [poznámkách k verzi sady Visual Studio 2019](/visualstudio/releases/2019/release-notes-v16.0#test-tools).
-
-## <a name="visual-studio-tools"></a>Nástroje sady Visual Studio
-
-Visual Studio umožňuje uživatelům vytvářet, vyvíjet a ladit testy výkonu a zátěže webu. Možnost je k dispozici pro vytváření testů pomocí zaznamenávání akcí ve webovém prohlížeči.
-
-Informace o tom, jak vytvořit, nakonfigurovat a spustit projekty zátěžového testu pomocí sady Visual Studio 2017, naleznete v tématu [rychlý Start: vytvoření projektu zátěžového testu](/visualstudio/test/quickstart-create-a-load-test-project?view=vs-2017).
-
-Zátěžové testy lze nakonfigurovat tak, aby běžely místně nebo běžely v cloudu s využitím Azure DevOps.
+V rámci sady Visual Studio 2019 se nahlásily plány pro ukončení [zátěžového testování](https://devblogs.microsoft.com/devops/cloud-based-load-testing-service-eol/). Odpovídající služba cloudového zátěžového testování v Azure DevOps se zavřela.
 
 ## <a name="third-party-tools"></a>Nástroje třetích stran
 
@@ -51,4 +43,3 @@ Následující seznam obsahuje nástroje webového výkonu jiných výrobců s r
 * [Webwind v západním větru](https://websurge.west-wind.com/)
 * [Netling](https://github.com/hallatore/Netling)
 * [Vegeta](https://github.com/tsenart/vegeta)
-

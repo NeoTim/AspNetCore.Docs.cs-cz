@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 94faaa57cc6dd3df9e4a7c3c090fe01527399658
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 42b61c9af0c1809ecb7d9a45ec8edfa815e2df22
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84419733"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102322"
 ---
 # <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor globalizace a lokalizace
 
@@ -69,7 +69,7 @@ BlazorAplikace WebAssembly nastavily jazykovou verzi pomocí [Předvolby jazyka]
 
 Chcete-li explicitně konfigurovat jazykovou verzi, nastavte <xref:System.Globalization.CultureInfo.DefaultThreadCurrentCulture?displayProperty=nameWithType> a <xref:System.Globalization.CultureInfo.DefaultThreadCurrentUICulture?displayProperty=nameWithType> v `Program.Main` .
 
-Ve výchozím nastavení se Blazor Konfigurace linkeru pro Blazor aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Další informace a pokyny k řízení chování linkeru naleznete v tématu <xref:host-and-deploy/blazor/configure-linker#configure-the-linker-for-internationalization> .
+Ve výchozím nastavení se Blazor Konfigurace linkeru pro Blazor aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Další informace a pokyny k řízení chování linkeru naleznete v tématu <xref:blazor/host-and-deploy/configure-linker#configure-the-linker-for-internationalization> .
 
 I když jazyková verze, která je standardně Blazor vybrána, může být pro většinu uživatelů dostačující, doporučujeme nabídnout uživatelům možnost zadat své upřednostňované národní prostředí. BlazorUkázkovou aplikaci pro WebAssembly s použitím výběru jazykové verze najdete v ukázkové aplikaci [LocSample](https://github.com/pranavkm/LocSample) Localization.
 

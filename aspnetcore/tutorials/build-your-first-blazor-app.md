@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: ce3f20f7ee4ccfa73afc5f80a4429d9f4fe05591
-ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
+ms.openlocfilehash: 0b9854b3848a204b28d0427bef08364be0139069
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/08/2020
-ms.locfileid: "84507254"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102847"
 ---
 # <a name="build-your-first-blazor-app"></a>Sestavení první Blazor aplikace
 
@@ -129,7 +129,7 @@ Pokud pracujete se Blazor serverovou aplikací, `WeatherForecastService` služba
 
 ### <a name="blazor-webassembly-experience"></a>BlazorProstředí WebAssembly
 
-Při práci s Blazor aplikací WebAssembly <xref:System.Net.Http.HttpClient> je vloženo pro získání dat předpovědi počasí ze souboru *počasí. JSON* ve složce *wwwroot/Sample-data* .
+Při práci s Blazor aplikací WebAssembly <xref:System.Net.Http.HttpClient> je vloženo pro získání dat předpovědi počasí z *weather.jsv* souboru ve složce *wwwroot/Sample-data* .
 
 *Stránky/FetchData. Razor*:
 
@@ -233,4 +233,4 @@ V tomto kurzu jste se naučili:
 Naučte se vytvářet a používat komponenty:
 
 > [!div class="nextstepaction"]
-> <xref:blazor/components>
+> <xref:blazor/components/index>

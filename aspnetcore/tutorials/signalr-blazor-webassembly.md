@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 720f534426cc0e2b32778e49050c7f7d75ecd60d
-ms.sourcegitcommit: 6371114344a5f4fbc5d4a119b0be1ad3762e0216
+ms.openlocfilehash: 8ef029af10f767ae505fddc636bb15f7e7c5e538
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84679589"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102694"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET Core SignalR s Blazor WebAssembly
 
@@ -296,4 +296,4 @@ Další informace o vytváření Blazor aplikací najdete v Blazor dokumentaci:
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:signalr/introduction>
-* [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/hosting-model-configuration#signalr-cross-origin-negotiation-for-authentication)
+* [SignalRvyjednávání mezi zdroji pro ověřování](xref:blazor/fundamentals/additional-scenarios#signalr-cross-origin-negotiation-for-authentication)

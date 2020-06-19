@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/azure-apps/index
-ms.openlocfilehash: 8195702a3de93bafc76dff61939dfc70d4e896b6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: cc12dc2bc6720652866227dc2bbcbcf4e8af793d
+ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775242"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85074237"
 ---
 # <a name="deploy-aspnet-core-apps-to-azure-app-service"></a>Nasazení aplikací ASP.NET Core pro Azure App Service
 
@@ -80,24 +80,27 @@ Další informace o komponentách rozhraní .NET Core Framework a metodách dist
 Zahrňte následující balíčky NuGet pro poskytování automatických funkcí protokolování pro aplikace nasazené do Azure App Service:
 
 * [Microsoft. AspNetCore. AzureAppServices. HostingStartup](https://www.nuget.org/packages/Microsoft.AspNetCore.AzureAppServices.HostingStartup/) využívá [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration) k poskytování ASP.NET Coreho urychlené integrace s Azure App Service. Přidané funkce protokolování poskytuje `Microsoft.AspNetCore.AzureAppServicesIntegration` balíček.
-* [Microsoft. AspNetCore. AzureAppServicesIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.AzureAppServicesIntegration/) spustí [AddAzureWebAppDiagnostics](/dotnet/api/microsoft.extensions.logging.azureappservicesloggerfactoryextensions.addazurewebappdiagnostics) pro Azure App Service přidání zprostředkovatelů protokolování diagnostiky `Microsoft.Extensions.Logging.AzureAppServices` do balíčku.
+* [Microsoft. AspNetCore. AzureAppServicesIntegration](https://www.nuget.org/packages/Microsoft.AspNetCore.AzureAppServicesIntegration/) spustí [AddAzureWebAppDiagnostics](/dotnet/api/microsoft.extensions.logging.azureappservicesloggerfactoryextensions.addazurewebappdiagnostics) pro Azure App Service přidání zprostředkovatelů protokolování diagnostiky do `Microsoft.Extensions.Logging.AzureAppServices` balíčku.
 * [Microsoft. Extensions. Logging. AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/) poskytuje implementace protokolovacích nástrojů pro podporu Azure App Servicech diagnostických protokolů a funkcí streamování protokolů.
 
-Předchozí balíčky nejsou k dispozici ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app). Aplikace, které .NET Framework cílí na Metapackage `Microsoft.AspNetCore.App` nebo odkazují na, musí explicitně odkazovat na jednotlivé balíčky v souboru projektu aplikace.
+Předchozí balíčky nejsou k dispozici ve [službě Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app). Aplikace, které .NET Framework cílí na Metapackage nebo odkazují na `Microsoft.AspNetCore.App` , musí explicitně odkazovat na jednotlivé balíčky v souboru projektu aplikace.
 
 ## <a name="override-app-configuration-using-the-azure-portal"></a>Přepsání konfigurace aplikace pomocí webu Azure Portal
+
+::: moniker range=">= aspnetcore-3.0"
+
+Nastavení aplikace na webu Azure Portal umožňuje nastavit proměnné prostředí pro aplikaci. Proměnné prostředí mohou být spotřebovány [poskytovatelem konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables).
+
+Když se na webu Azure Portal vytvoří nebo upraví nastavení aplikace a vybere se tlačítko **Save (Uložit** ), aplikace Azure se restartuje. Proměnná prostředí je k dispozici aplikaci po restartování služby.
+
+Když aplikace používá [obecného hostitele](xref:fundamentals/host/generic-host), proměnné prostředí se načtou do konfigurace aplikace, když <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> se volá k sestavení hostitele. Další informace naleznete v tématu <xref:fundamentals/host/generic-host> a [zprostředkovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables).
+
+::: moniker-end
+::: moniker range="< aspnetcore-3.0"
 
 Nastavení aplikace na webu Azure Portal umožňuje nastavit proměnné prostředí pro aplikaci. Proměnné prostředí mohou být spotřebovány [poskytovatelem konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
 
 Když se na webu Azure Portal vytvoří nebo upraví nastavení aplikace a vybere se tlačítko **Save (Uložit** ), aplikace Azure se restartuje. Proměnná prostředí je k dispozici aplikaci po restartování služby.
-
-::: moniker range=">= aspnetcore-3.0"
-
-Když aplikace používá [obecného hostitele](xref:fundamentals/host/generic-host), proměnné prostředí se načtou do konfigurace aplikace, když <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> se volá k sestavení hostitele. Další informace naleznete v tématu <xref:fundamentals/host/generic-host> a [zprostředkovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
-
-::: moniker-end
-
-::: moniker range="< aspnetcore-3.0"
 
 Když aplikace používá [webového hostitele](xref:fundamentals/host/web-host), proměnné prostředí se načtou do konfigurace aplikace, když <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> se volá k sestavení hostitele. Další informace naleznete v tématu <xref:fundamentals/host/web-host> a [zprostředkovatel konfigurace proměnných prostředí](xref:fundamentals/configuration/index#environment-variables-configuration-provider).
 
@@ -169,11 +172,11 @@ Pomocí [Azure App Service scénářů CI/CD](/azure/app-service/deploy-continuo
 
 #### <a name="specify-the-net-core-sdk-version"></a>Zadejte verzi .NET Core SDK
 
-Při použití centra nasazení App Service k vytvoření buildu služby Azure DevOps obsahuje výchozí kanál sestavení kroky `Restore`pro, `Build`, `Test`a. `Publish` Chcete-li zadat verzi sady SDK, přidejte nový krok kliknutím na tlačítko **Přidat (+)** v seznamu úloh agenta. Na panelu hledání vyhledejte **.NET Core SDK** . 
+Při použití centra nasazení App Service k vytvoření buildu služby Azure DevOps obsahuje výchozí kanál sestavení kroky pro `Restore` ,, a `Build` `Test` `Publish` . Chcete-li zadat verzi sady SDK, přidejte nový krok kliknutím na tlačítko **Přidat (+)** v seznamu úloh agenta. Na panelu hledání vyhledejte **.NET Core SDK** . 
 
 ![Přidat .NET Core SDK krok](index/add-sdk-step.png)
 
-Přesuňte krok do první pozice v sestavení tak, aby následující kroky používaly určenou verzi .NET Core SDK. Zadejte verzi .NET Core SDK. V tomto příkladu je sada SDK nastavena na `3.0.100`.
+Přesuňte krok do první pozice v sestavení tak, aby následující kroky používaly určenou verzi .NET Core SDK. Zadejte verzi .NET Core SDK. V tomto příkladu je sada SDK nastavena na `3.0.100` .
 
 ![Krok dokončené sady SDK](index/sdk-step-first-place.png)
 
@@ -204,7 +207,7 @@ Pokud dojde k potížím pomocí rozšíření webu verze Preview, otevřete [pr
 1. Vyberte webovou aplikaci.
 1. Do vyhledávacího pole zadejte "ex", chcete-li filtrovat "rozšíření", nebo se posuňte dolů v seznamu nástrojů pro správu.
 1. Vyberte **Extensions** (Rozšíření).
-1. Vyberte **Přidat**.
+1. Vyberte možnost **Přidat**.
 1. V seznamu vyberte rozšíření **Runtime ASP.NET Core {X. Y} ({x64 | x86})** , kde `{X.Y}` je verze Preview ASP.NET Core a `{x64|x86}` specifikuje platformu.
 1. Kliknutím na **OK** přijměte právní podmínky.
 1. Pro instalaci rozšíření vyberte **OK** .
@@ -213,34 +216,34 @@ Po dokončení operace je nainstalovaná nejnovější verze .NET Core Preview. 
 
 1. Vyberte **Rozšířené nástroje**.
 1. Vyberte **Přejít** v **pokročilých nástrojích**.
-1. Vyberte položku nabídky > **prostředí PowerShell** **konzoly ladění**.
+1. Vyberte **Debug console**  >  položku nabídky**prostředí PowerShell** konzoly ladění.
 1. Na příkazovém řádku PowerShellu spusťte následující příkaz. Nahraďte verzi ASP.NET Core Runtime pro `{X.Y}` a platformu pro `{PLATFORM}` v příkazu:
 
    ```powershell
    Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.{PLATFORM}\
    ```
 
-   Příkaz vrátí `True` , když je nainstalován modul runtime x64 Preview.
+   Příkaz vrátí, `True` když je nainstalován modul runtime x64 Preview.
 
 > [!NOTE]
 > Architektura platformy (x86/x64) aplikace App Services je nastavená v nastavení aplikace na webu Azure Portal pro aplikace, které jsou hostované v úrovni hostování A-Series COMPUTE (Basic) nebo vyšší. Ověřte, že nastavení publikování aplikace (například v profilu publikování sady Visual Studio [(. pubxml)](xref:host-and-deploy/visual-studio-publish-profiles)) odpovídá nastavení v konfiguraci služby aplikace v Azure Portal.
 >
 > Pokud je aplikace spuštěná v režimu v procesu a architektura platformy je nakonfigurovaná pro 64-bit (x64), modul ASP.NET Core používá 64 runtime Preview, pokud je k dispozici. Nainstalujte rozšíření **Runtime ASP.NET Core {X. Y} (x64)** pomocí webu Azure Portal.
 >
-> Po instalaci prostředí runtime x64 Preview spusťte následující příkaz v příkazovém okně Azure Kudu PowerShell a ověřte instalaci. V následujícím příkazu nahraďte verzi `{X.Y}` ASP.NET Core Runtime pro:
+> Po instalaci prostředí runtime x64 Preview spusťte následující příkaz v příkazovém okně Azure Kudu PowerShell a ověřte instalaci. V následujícím příkazu nahraďte verzi ASP.NET Core Runtime pro `{X.Y}` :
 >
 > ```powershell
 > Test-Path D:\home\SiteExtensions\AspNetCoreRuntime.{X.Y}.x64\
 > ```
 >
-> Příkaz vrátí `True` , když je nainstalován modul runtime x64 Preview.
+> Příkaz vrátí, `True` když je nainstalován modul runtime x64 Preview.
 
 > [!NOTE]
 > **Rozšíření ASP.NET Core** umožňují pro ASP.NET Core v Azure App Services další funkce, jako je například povolení protokolování Azure. Rozšíření se nainstaluje automaticky při nasazení ze sady Visual Studio. Pokud rozšíření není nainstalované, nainstalujte ho pro aplikaci.
 
 **Použití rozšíření webu ve verzi Preview se šablonou ARM**
 
-Pokud se k vytváření a nasazování aplikací používá šablona ARM, typ `siteextensions` prostředku se dá použít k přidání rozšíření webu do webové aplikace. Příklad:
+Pokud se k vytváření a nasazování aplikací používá šablona ARM, `siteextensions` typ prostředku se dá použít k přidání rozšíření webu do webové aplikace. Příklad:
 
 [!code-json[](index/sample/arm.json?highlight=2)]
 
@@ -251,7 +254,7 @@ Pokud se k vytváření a nasazování aplikací používá šablona ARM, typ `s
 Pro 64 nasazení:
 
 * K vytvoření 64 aplikace použijte 64 .NET Core SDK.
-* V**obecných nastaveních** **Konfigurace** > App Service nastavte **platformou** na **64 bit** . Aby bylo možné vybrat bitová verze platformy, musí aplikace používat základní nebo vyšší plán služby.
+* V **Configuration**obecných nastaveních konfigurace App Service nastavte **platformou** na **64 bit**  >  **General settings**. Aby bylo možné vybrat bitová verze platformy, musí aplikace používat základní nebo vyšší plán služby.
 
 ::: moniker-end
 
@@ -259,7 +262,7 @@ Pro 64 nasazení:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. Vyberte **sestavení** > **Publikovat {název aplikace}** z panelu nástrojů sady Visual Studio nebo klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **publikovat**.
+1. Vyberte **sestavení**  >  **Publikovat {název aplikace}** z panelu nástrojů sady Visual Studio nebo klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **publikovat**.
 1. V dialogovém okně **vybrat cíl publikování** potvrďte, že je vybrána možnost **App Service** .
 1. Vyberte **Upřesnit**. Otevře se dialogové okno **publikovat** .
 1. V dialogovém okně **publikovat** :
@@ -270,7 +273,7 @@ Pro 64 nasazení:
    * Vyberte **Uložit**.
 1. Pomocí zbývajících výzev Průvodce publikováním vytvořte novou lokalitu nebo aktualizujte existující web.
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
 1. V souboru projektu nezadávejte [identifikátor modulu runtime (RID)](/dotnet/core/rid-catalog).
 
@@ -290,7 +293,7 @@ Použijte aplikaci Visual Studio nebo .NET Core CLI pro [samostatně obsažené 
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-1. Vyberte **sestavení** > **Publikovat {název aplikace}** z panelu nástrojů sady Visual Studio nebo klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **publikovat**.
+1. Vyberte **sestavení**  >  **Publikovat {název aplikace}** z panelu nástrojů sady Visual Studio nebo klikněte pravým tlačítkem na projekt v **Průzkumník řešení** a vyberte **publikovat**.
 1. V dialogovém okně **vybrat cíl publikování** potvrďte, že je vybrána možnost **App Service** .
 1. Vyberte **Upřesnit**. Otevře se dialogové okno **publikovat** .
 1. V dialogovém okně **publikovat** :
@@ -301,9 +304,9 @@ Použijte aplikaci Visual Studio nebo .NET Core CLI pro [samostatně obsažené 
    * Vyberte **Uložit**.
 1. Pomocí zbývajících výzev Průvodce publikováním vytvořte novou lokalitu nebo aktualizujte existující web.
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli/)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-1. V souboru projektu zadejte jeden nebo více [identifikátorů modulu runtime (identifikátorů RID)](/dotnet/core/rid-catalog). Pro `<RuntimeIdentifier>` jeden identifikátor RID použijte (jednotné číslo), nebo `<RuntimeIdentifiers>` použijte (plural) k poskytnutí seznamu identifikátorů ridů oddělených středníkem. V následujícím příkladu je zadáno `win-x86` RID:
+1. V souboru projektu zadejte jeden nebo více [identifikátorů modulu runtime (identifikátorů RID)](/dotnet/core/rid-catalog). `<RuntimeIdentifier>`Pro jeden identifikátor RID použijte (jednotné číslo), nebo použijte `<RuntimeIdentifiers>` (plural) k poskytnutí seznamu identifikátorů ridů oddělených středníkem. V následujícím příkladu `win-x86` je zadáno RID:
 
    ```xml
    <PropertyGroup>
@@ -312,7 +315,7 @@ Použijte aplikaci Visual Studio nebo .NET Core CLI pro [samostatně obsažené 
    </PropertyGroup>
    ```
 
-1. Z příkazového prostředí publikujte aplikaci v konfiguraci vydání pro modul runtime hostitele pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) . V následujícím příkladu je aplikace publikována pro `win-x86` identifikátor RID. Identifikátor RID zadaný do `--runtime` možnosti musí být uveden ve vlastnosti `<RuntimeIdentifier>` (nebo `<RuntimeIdentifiers>`) v souboru projektu.
+1. Z příkazového prostředí publikujte aplikaci v konfiguraci vydání pro modul runtime hostitele pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) . V následujícím příkladu je aplikace publikována pro `win-x86` identifikátor RID. Identifikátor RID zadaný do `--runtime` Možnosti musí být uveden ve `<RuntimeIdentifier>` vlastnosti (nebo `<RuntimeIdentifiers>` ) v souboru projektu.
 
    ```console
    dotnet publish --configuration Release --runtime win-x86 --self-contained
@@ -328,7 +331,7 @@ Vazby zabezpečeného protokolu umožňují zadat certifikát, který se má pou
 
 ## <a name="transform-webconfig"></a>Transformace souboru web.config
 
-Pokud potřebujete transformovat *Web. config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig>.
+Pokud potřebujete transformovat *web.config* při publikování (například nastavit proměnné prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig> .
 
 ## <a name="additional-resources"></a>Další zdroje
 

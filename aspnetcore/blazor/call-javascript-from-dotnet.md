@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: 26202c45e49e64117d35fe6f1e9a65c4acc170fb
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: de04992c3e3c7ce2dc73eee801484d5e3930fa3a
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105087"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102451"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>Volání funkcí jazyka JavaScript z metod .NET v ASP.NET CoreBlazor
 
@@ -85,7 +85,7 @@ V ukázkové aplikaci na straně klienta, která doprovází toto téma, jsou k 
 * `showPrompt`: Vytvoří výzvu pro přijetí vstupu uživatele (jméno uživatele) a vrátí název volajícímu.
 * `displayWelcome`: Přiřadí úvodní zprávu od volajícího k objektu modelu DOM s `id` `welcome` příponou.
 
-*wwwroot/exampleJsInterop. js*:
+*wwwroot/exampleJsInterop.js*:
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
@@ -101,7 +101,7 @@ Umístěte `<script>` značku, která odkazuje na soubor JavaScriptu v souboru *
 
 Neumísťujte `<script>` značku do souboru komponenty, protože `<script>` značku nejde dynamicky aktualizovat.
 
-Metody .NET spolupracuje s funkcemi JavaScriptu v souboru *exampleJsInterop. js* voláním <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> .
+Metody .NET spolupracují s funkcemi JavaScriptu v souboru *exampleJsInterop.js* voláním <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> .
 
 <xref:Microsoft.JSInterop.IJSRuntime>Abstrakce je asynchronní, aby umožňovala Blazor serverové scénáře. Pokud je aplikace Blazor aplikace WebAssembly a chcete vyvolat funkci JavaScriptu synchronně, přetypování směrem dolů <xref:Microsoft.JSInterop.IJSInProcessRuntime> a volání <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A> místo toho. Doporučujeme, aby většina knihoven spolupráce v JS používala asynchronní rozhraní API, aby bylo zajištěno, že jsou knihovny dostupné ve všech scénářích.
 
@@ -142,7 +142,7 @@ Ukázková aplikace obsahuje komponentu, která předvádí interoperabilitu JS.
 }
 ```
 
-1. Když `TriggerJsPrompt` se spustí na **příkazovém řádku aktivační procedury JavaScriptu** komponenty, zavolá se funkce JavaScriptu, která `showPrompt` je k dispozici v souboru *wwwroot/exampleJsInterop. js* .
+1. Když `TriggerJsPrompt` se spustí na **příkazovém řádku aktivační procedury JavaScriptu** komponenty, zavolá se funkce JavaScriptu, která `showPrompt` je k dispozici v souboru *wwwroot/exampleJsInterop.js* .
 1. `showPrompt`Funkce přijímá vstup uživatele (jméno uživatele), což je kódování HTML a vráceno do komponenty. Komponenta ukládá jméno uživatele do místní proměnné, `name` .
 1. Řetězec uložený v `name` je součástí uvítací zprávy, která je předána funkci JavaScriptu, `displayWelcome` která vykresluje úvodní zprávu do značky nadpisu.
 
@@ -193,7 +193,7 @@ Pokud se jedná o kód .NET, <xref:Microsoft.AspNetCore.Components.ElementRefere
 
 Například následující kód definuje metodu rozšíření .NET, která umožňuje nastavení fokusu na prvek:
 
-*exampleJsInterop. js*:
+*exampleJsInterop.js*:
 
 ```javascript
 window.exampleJsFunctions = {
@@ -222,7 +222,7 @@ public static async Task Focus(this ElementReference elementRef, IJSRuntime jsRu
 [!code-razor[](call-javascript-from-dotnet/samples_snapshot/component2.razor?highlight=1-4,12)]
 
 > [!IMPORTANT]
-> `username`Proměnná je vyplněna pouze po vykreslení komponenty. Pokud se vyplněný <xref:Microsoft.AspNetCore.Components.ElementReference> kód předává kódu JavaScriptu, kód JavaScriptu obdrží hodnotu `null` . Chcete-li manipulovat s odkazy na elementy po dokončení vykreslování komponenty (pro nastavení prvotního zaměření na prvek), použijte [metody životního cyklu komponenty OnAfterRenderAsync nebo OnAfterRender](xref:blazor/lifecycle#after-component-render).
+> `username`Proměnná je vyplněna pouze po vykreslení komponenty. Pokud se vyplněný <xref:Microsoft.AspNetCore.Components.ElementReference> kód předává kódu JavaScriptu, kód JavaScriptu obdrží hodnotu `null` . Chcete-li manipulovat s odkazy na elementy po dokončení vykreslování komponenty (pro nastavení prvotního zaměření na prvek), použijte [metody životního cyklu komponenty OnAfterRenderAsync nebo OnAfterRender](xref:blazor/components/lifecycle#after-component-render).
 
 Při práci s obecnými typy a vrácení hodnoty použijte <xref:System.Threading.Tasks.ValueTask%601> :
 
@@ -250,7 +250,7 @@ Pro nadřazenou komponentu, aby byl odkaz na element dostupný pro jiné kompone
 
 Následující Blazor příklad WebAssembly znázorňuje přístup.
 
-V `<head>` *wwwroot/index.html*:
+V části `<head>` *wwwroot/index.html*:
 
 ```html
 <style>
@@ -258,7 +258,7 @@ V `<head>` *wwwroot/index.html*:
 </style>
 ```
 
-V `<body>` *wwwroot/index.html*:
+V části `<body>` *wwwroot/index.html*:
 
 ```html
 <script>
@@ -459,7 +459,7 @@ Interoperabilita JS může selhat kvůli chybám sítě a měla by být považov
       TimeSpan.FromSeconds({SECONDS}), new[] { "Arg1" });
   ```
 
-Další informace o vyčerpání prostředků naleznete v tématu <xref:security/blazor/server/threat-mitigation> .
+Další informace o vyčerpání prostředků naleznete v tématu <xref:blazor/security/server/threat-mitigation> .
 
 [!INCLUDE[](~/includes/blazor-share-interop-code.md)]
 

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: cfc2867baa03cbc0bedc9ad4a90244ec007094d6
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 3cc75406a1680dff4727527153a62856a594c8c7
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105659"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102508"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>BlazorSpráva stavu ASP.NET Core
 
@@ -99,7 +99,7 @@ Obsah panelu Adresa prohlížeče se zachová:
 * Pokud uživatel ručně znovu načte stránku.
 * Pokud dojde k nedostupnosti webového serveru a uživatel je nucen znovu načíst stránku, aby se mohl připojit k jinému serveru.
 
-Informace o definování vzorů adres URL pomocí `@page` direktivy naleznete v tématu <xref:blazor/routing> .
+Informace o definování vzorů adres URL pomocí `@page` direktivy naleznete v tématu <xref:blazor/fundamentals/routing> .
 
 ### <a name="client-side-in-the-browser"></a>Klientská strana v prohlížeči
 
@@ -196,7 +196,7 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-Pokud parametry komponenty obsahují stav navigace, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> , nikoli <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> . <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>je volána pouze jednou při prvním vytvoření instance komponenty. <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>není voláno později, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace naleznete v tématu <xref:blazor/lifecycle>.
+Pokud parametry komponenty obsahují stav navigace, zavolejte `ProtectedSessionStore.GetAsync` a přiřaďte výsledek v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> , nikoli <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> . <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>je volána pouze jednou při prvním vytvoření instance komponenty. <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A>není voláno později, pokud uživatel přejde na jinou adresu URL a zůstane na stejné stránce. Další informace naleznete v tématu <xref:blazor/components/lifecycle>.
 
 > [!WARNING]
 > Příklady v této části fungují pouze v případě, že server nemá povolené předvykreslování. Pokud je povoleno předvykreslování, je vygenerována chyba podobná této:

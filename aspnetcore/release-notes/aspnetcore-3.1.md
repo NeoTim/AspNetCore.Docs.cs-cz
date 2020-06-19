@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 5b6ae8173ca3d968e220faa4a060e1b42b14f8bb
-ms.sourcegitcommit: 05490855e0c70565f0c4b509d392b0828bcfd141
+ms.openlocfilehash: 6a03e35495e2ae545dc0a3cdd38578b433d8df6b
+ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/08/2020
-ms.locfileid: "84507241"
+ms.lasthandoff: 06/19/2020
+ms.locfileid: "85102583"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>Co je nového v ASP.NET Core 3,1
 
@@ -25,7 +25,7 @@ Tento článek popisuje nejvýznamnější změny v ASP.NET Core 3,1 s odkazy na
 
 ## <a name="partial-class-support-for-razor-components"></a>Podpora částečné třídy pro Razor součásti
 
-Razorkomponenty se nyní generují jako částečné třídy. Kód pro Razor komponentu lze zapsat pomocí souboru kódu na pozadí definovaného jako dílčí třídy namísto definice veškerého kódu pro komponentu v jednom souboru. Další informace naleznete v tématu [Podpora částečné třídy](xref:blazor/components#partial-class-support).
+Razorkomponenty se nyní generují jako částečné třídy. Kód pro Razor komponentu lze zapsat pomocí souboru kódu na pozadí definovaného jako dílčí třídy namísto definice veškerého kódu pro komponentu v jednom souboru. Další informace naleznete v tématu [Podpora částečné třídy](xref:blazor/components/index#partial-class-support).
 
 ## <a name="blazor-component-tag-helper-and-pass-parameters-to-top-level-components"></a>BlazorPomocná komponenta značek komponenty a předání parametrů komponentám nejvyšší úrovně
 
@@ -46,11 +46,11 @@ Například fáze PreRender `Counter` komponentu s přírůstnou velikostí ( `I
     param-IncrementAmount="10" />
 ```
 
-Další informace najdete v tématu [integrace součástí do Razor stránek a aplikací MVC](xref:blazor/integrate-components).
+Další informace najdete v tématu [integrace součástí do Razor stránek a aplikací MVC](xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps).
 
-## <a name="support-for-shared-queues-in-httpsys"></a>Podpora sdílených front v HTTP. sys
+## <a name="support-for-shared-queues-in-httpsys"></a>Podpora sdílených front v HTTP.sys
 
-[Http. sys](xref:fundamentals/servers/httpsys) podporuje vytváření anonymních front požadavků. V ASP.NET Core 3,1 jsme přidali možnost vytvořit nebo připojit k existující pojmenované frontě požadavků HTTP. sys. Vytvoření nebo připojení k existující pojmenované frontě požadavků HTTP. sys umožňuje scénáře, kdy proces řadiče HTTP. sys, který vlastní frontu, je nezávislý na procesu naslouchacího procesu. Díky této nezávislosti je možné zachovat stávající připojení a zařadit do fronty požadavky mezi restarty procesu naslouchacího procesu:
+[HTTP.sys](xref:fundamentals/servers/httpsys) podporuje vytváření anonymních front požadavků. V ASP.NET Core 3,1 jsme přidali možnost vytvořit nebo připojit se k existujícímu pojmenovanému frontě HTTP.sys požadavků. Vytvoření nebo připojení k existující pojmenované frontě žádostí HTTP.sys umožňuje scénáře, ve kterých je proces řadiče HTTP.sys, který vlastní frontu, nezávisle na procesu naslouchacího procesu. Díky této nezávislosti je možné zachovat stávající připojení a zařadit do fronty požadavky mezi restarty procesu naslouchacího procesu:
 
 [!code-csharp[](sample/Program.cs?name=snippet)]
 
@@ -66,7 +66,7 @@ Chování souborů cookie SameSite bylo změněno tak, aby odráželo nadcházej
 <input value="@_count" @onkeypress="KeyHandler" @onkeypress:preventDefault />
 ```
 
-Další informace najdete v tématu [prevence výchozích akcí](xref:blazor/event-handling#prevent-default-actions).
+Další informace najdete v tématu [prevence výchozích akcí](xref:blazor/components/event-handling#prevent-default-actions).
 
 ## <a name="stop-event-propagation-in-blazor-apps"></a>Zastavit šíření událostí v Blazor aplikacích
 
@@ -86,7 +86,7 @@ Další informace najdete v tématu [prevence výchozích akcí](xref:blazor/eve
 }
 ```
 
-Další informace najdete v tématu [zastavení šíření událostí](xref:blazor/event-handling#stop-event-propagation).
+Další informace najdete v tématu [zastavení šíření událostí](xref:blazor/components/event-handling#stop-event-propagation).
 
 ## <a name="detailed-errors-during-blazor-app-development"></a>Podrobné chyby při Blazor vývoji aplikací
 
@@ -95,4 +95,4 @@ Když Blazor aplikace nefunguje správně během vývoje, při řešení potíž
 * Během vývoje se zlatý panel vás přesměruje na konzolu prohlížeče, kde vidíte výjimku.
 * V produkčním okně upozorňuje uživatel, že došlo k chybě, a doporučuje aktualizovat prohlížeč.
 
-Další informace najdete v tématu [podrobné chyby při vývoji](xref:blazor/handle-errors#detailed-errors-during-development).
+Další informace najdete v tématu [podrobné chyby při vývoji](xref:blazor/fundamentals/handle-errors#detailed-errors-during-development).
