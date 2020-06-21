@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/validation
-ms.openlocfilehash: f72edda54d4201915e2494b75b4d49ec6c9c6d75
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: ff44b4b80385ffbd1a6659b2684ef2a8055ee2d0
+ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652833"
+ms.lasthandoff: 06/20/2020
+ms.locfileid: "85122110"
 ---
 # <a name="part-8-add-validation-to-an-aspnet-core-razor-page"></a>Část 8 – přidání ověřování na stránku ASP.NET Core Razor
 
@@ -119,7 +119,7 @@ Prověřte `Movie` třídu. `System.ComponentModel.DataAnnotations`Obor názvů 
 
 `DataType`Atributy poskytují nápovědu pouze pro modul zobrazení k formátování dat (a poskytování atributů, jako `<a>` je například adresa URL a `<a href="mailto:EmailAddress.com">` e-mailu). Použijte `RegularExpression` atribut k ověření formátu dat. `DataType`Atribut slouží k určení datového typu, který je konkrétnější než vnitřní typ databáze. `DataType`atributy nejsou ověřovány. V ukázkové aplikaci se zobrazí pouze datum, a to bez času.
 
-`DataType`Výčet poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. `DataType`Atribut může také povolit aplikaci automatické poskytování funkcí specifických pro typ. `mailto:`Můžete například vytvořit odkaz pro `DataType.EmailAddress` . Selektor data lze zadat pro `DataType.Date` v prohlížečích, které podporují HTML5. `DataType`Atributy emitují atributy HTML 5 `data-` (vyslovované datové přerušované), které používají prohlížeče formátu HTML 5. `DataType`Atributy neposkytují **not** žádné ověřování.
+`DataType`Výčet poskytuje mnoho datových typů, jako je datum, čas, PhoneNumber, měna, EmailAddress a další. `DataType`Atribut může také povolit aplikaci automatické poskytování funkcí specifických pro typ. `mailto:`Můžete například vytvořit odkaz pro `DataType.EmailAddress` . Selektor data lze zadat pro `DataType.Date` v prohlížečích, které podporují HTML5. `DataType`Atributy generují atributy HTML 5 `data-` (s vyslovnou datovou pomlčkou), které používají prohlížeče formátu HTML 5. `DataType`Atributy neposkytují **not** žádné ověřování.
 
 `DataType.Date`neurčuje formát data, které se zobrazí. Ve výchozím nastavení se datové pole zobrazuje v závislosti na výchozích formátech založených na serveru `CultureInfo` .
 
@@ -138,9 +138,9 @@ Toto `ApplyFormatInEditMode` nastavení určuje, že se má formátování použ
 
 * Prohlížeč může povolit funkce HTML5 (například pro zobrazení ovládacího prvku kalendáře, symbolu měny odpovídající národním prostředí, e-mailových odkazů atd.)
 * Ve výchozím nastavení bude prohlížeč data vykreslovat pomocí správného formátu na základě vašeho národního prostředí.
-* `DataType`Atribut může ASP.NET Core rozhraní povolit výběr pravé šablony pole k vykreslení dat. V případě, že se `DisplayFormat` používá samostatně, používá šablonu řetězce.
+* `DataType`Atribut může ASP.NET Core rozhraní povolit výběr pravé šablony pole k vykreslení dat. V `DisplayFormat` případě, že se používá samostatně, používá šablonu řetězce.
 
-Poznámka: ověřování jQuery nefunguje s `Range` atributem a `DateTime` . Například následující kód bude vždy zobrazovat chybu ověřování na straně klienta, i když je datum v zadaném rozsahu:
+**Poznámka:** ověřování jQuery nefunguje s `Range` atributem a `DateTime` . Například následující kód bude vždy zobrazovat chybu ověřování na straně klienta, i když je datum v zadaném rozsahu:
 
 ```csharp
 [Range(typeof(DateTime), "1/1/1966", "1/1/2020")]

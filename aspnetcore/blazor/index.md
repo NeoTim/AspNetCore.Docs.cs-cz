@@ -5,7 +5,7 @@ description: Prozkoumejte ASP.NET Core Blazor , způsob sestavení interaktivní
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc, seoapril2019
-ms.date: 05/19/2020
+ms.date: 06/19/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: feca504a39624282961fbc6405876e970a20b5d4
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 086629f88ad04faed812bd16683e7d073f3e8ede
+ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102282"
+ms.lasthandoff: 06/20/2020
+ms.locfileid: "85122071"
 ---
 # <a name="introduction-to-aspnet-core-blazor"></a>Úvod do ASP.NET CoreBlazor
 
@@ -149,7 +149,7 @@ Pro aplikace, které vyžadují knihovny JavaScript třetích stran a přístup 
 
 ## <a name="code-sharing-and-net-standard"></a>Sdílení kódu a .NET Standard
 
-Blazorimplementuje [.NET Standard 2,0](/dotnet/standard/net-standard). .NET Standard je formální specifikace rozhraní .NET API, která jsou společná pro implementace v rozhraní .NET. Knihovny tříd .NET Standard lze sdílet napříč různými platformami .NET, jako jsou například Blazor , .NET Framework, .NET Core, Xamarin, mono a Unity.
+Blazorimplementuje [.NET Standard 2,1](/dotnet/standard/net-standard), což umožňuje Blazor projektům odkazovat na knihovny, které odpovídají .NET Standard 2,1 nebo předchozí specifikace. .NET Standard je formální specifikace rozhraní .NET API, která jsou společná pro implementace v rozhraní .NET. Knihovny tříd .NET Standard lze sdílet napříč různými platformami .NET, jako jsou například Blazor , .NET Framework, .NET Core, Xamarin, mono a Unity.
 
 Rozhraní API, která nejsou platná v rámci webového prohlížeče (například přístup k systému souborů, otevření soketu a vlákna) vyvolávají výjimku <xref:System.PlatformNotSupportedException> .
 
