@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 4f672c5117beeb09914e802012f0970389fea47f
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 4755674a4e73b245923c2c0f1f3d8ed114be8c81
+ms.sourcegitcommit: 726b8c5cf92e6f6a4d0205787b19307e889d6240
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103675"
+ms.lasthandoff: 06/21/2020
+ms.locfileid: "85127757"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>Hostování a nasazení ASP.NET Core Blazor WebAssembly
 
@@ -202,9 +202,9 @@ Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [
 
 #### <a name="brotli-and-gzip-compression"></a>Komprese Brotli a gzip
 
-Službu IIS je možné nakonfigurovat prostřednictvím *web.config* k obsluze komprimovaných prostředků Brotli nebo gzip Blazor . Příklad konfigurace najdete v tématu [web.config](webassembly/_samples/web.config?raw=true).
+Službu IIS je možné nakonfigurovat prostřednictvím *web.config* k obsluze komprimovaných prostředků Brotli nebo gzip Blazor . Příklad konfigurace najdete v tématu [web.config](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true).
 
-#### <a name="troubleshooting"></a>Řešení potíží
+#### <a name="troubleshooting"></a>Odstraňování potíží
 
 Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, *web.config* soubor nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web ze Blazor statických souborů obsluhy.
 
