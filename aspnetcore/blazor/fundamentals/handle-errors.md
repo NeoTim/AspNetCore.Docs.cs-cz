@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/handle-errors
-ms.openlocfilehash: f0362fbce7f1fafb413d526809ec9191c603e494
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: e777991f4cbfd22b441fb198144bbdf023b4df6b
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103696"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242781"
 ---
 # <a name="handle-errors-in-aspnet-core-blazor-apps"></a>Zpracování chyb v Blazor aplikacích ASP.NET Core
 
@@ -35,7 +35,7 @@ Když Blazor aplikace nefunguje správně během vývoje, při řešení potíž
 
 Uživatelské rozhraní tohoto prostředí pro zpracování chyb je součástí Blazor šablon projektu.
 
-V Blazor aplikaci WebAssembly, přizpůsobte si prostředí v souboru *wwwroot/index.html* :
+V Blazor aplikaci pro WebAssembly, přizpůsobte si prostředí v `wwwroot/index.html` souboru:
 
 ```html
 <div id="blazor-error-ui">
@@ -45,7 +45,7 @@ V Blazor aplikaci WebAssembly, přizpůsobte si prostředí v souboru *wwwroot/i
 </div>
 ```
 
-V Blazor serverové aplikaci si přizpůsobte prostředí v souboru *Pages/_Host. cshtml* :
+V Blazor aplikaci serveru upravte prostředí v `Pages/_Host.cshtml` souboru:
 
 ```cshtml
 <div id="blazor-error-ui">
@@ -60,7 +60,7 @@ V Blazor serverové aplikaci si přizpůsobte prostředí v souboru *Pages/_Host
 </div>
 ```
 
-`blazor-error-ui`Element je skrytý styly zahrnutými v Blazor šablonách (*wwwroot/CSS/Web. CSS*) a pak se zobrazí, když dojde k chybě:
+`blazor-error-ui`Element je skrytý styly obsaženými v Blazor šablonách ( `wwwroot/css/site.css` ) a pak se zobrazí, když dojde k chybě:
 
 ```css
 #blazor-error-ui {
@@ -140,7 +140,7 @@ Při Blazor vytváření instance komponenty:
 * Je vyvolán konstruktor součásti.
 * Jsou vyvolány konstruktory jakékoli nejednoznačné služby DI Services dodávané do konstruktoru komponenty prostřednictvím [`@inject`](xref:mvc/views/razor#inject) direktivy nebo [`[Inject]`](xref:blazor/fundamentals/dependency-injection#request-a-service-in-a-component) atributu.
 
-BlazorServerový okruh se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter pro jakoukoliv `[Inject]` vlastnost vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+BlazorServerový okruh se nezdařil, pokud kterýkoli z spouštěného konstruktoru nebo setter pro jakoukoliv `[Inject]` vlastnost vyvolá neošetřenou výjimku. Výjimka je závažná, protože architektura nemůže vytvořit instanci komponenty. Pokud logika konstruktoru může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazu s zpracováním chyb a protokolováním.
 
 ### <a name="lifecycle-methods"></a>Metody životního cyklu
 
@@ -155,7 +155,7 @@ Pokud jakákoli metoda životního cyklu vyvolá výjimku synchronně nebo async
 
 V následujícím příkladu, který <xref:Microsoft.AspNetCore.Components.ComponentBase.OnParametersSetAsync%2A> volá metodu pro získání produktu:
 
-* Výjimka vyvolaná v `ProductRepository.GetProductByIdAsync` metodě je zpracována příkazem [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) .
+* Výjimka vyvolaná v `ProductRepository.GetProductByIdAsync` metodě je zpracována [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazem.
 * Po `catch` spuštění bloku:
   * `loadFailed`je nastaven na `true` , který se používá k zobrazení chybové zprávy uživateli.
   * Chyba je zaznamenána do protokolu.
@@ -185,7 +185,7 @@ Kód na straně klienta vyvolá volání kódu jazyka C# při vytváření obslu
 
 Kód obslužné rutiny události může v těchto scénářích vyvolat neošetřenou výjimku.
 
-Pokud obslužná rutina události vyvolá neošetřenou výjimku (například databázový dotaz neuspěje), je výjimka závažná pro Blazor okruh serveru. Pokud aplikace volá kód, který může selhat z externích důvodů, Zachyťte výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud obslužná rutina události vyvolá neošetřenou výjimku (například databázový dotaz neuspěje), je výjimka závažná pro Blazor okruh serveru. Pokud aplikace volá kód, který může selhat z externích důvodů, zachytávání výjimek pomocí [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazu s zpracováním chyb a protokolováním.
 
 Pokud uživatelský kód neprovede soutisk a zpracuje výjimku, rozhraní zaprotokoluje výjimku a ukončí okruh.
 
@@ -193,7 +193,7 @@ Pokud uživatelský kód neprovede soutisk a zpracuje výjimku, rozhraní zaprot
 
 Součást může být odebrána z uživatelského rozhraní, například proto, že uživatel přešel na jinou stránku. Při odebrání součásti, která <xref:System.IDisposable?displayProperty=fullName> je implementována z uživatelského rozhraní, rozhraní zavolá metodu komponenty <xref:System.IDisposable.Dispose%2A> .
 
-Pokud `Dispose` metoda komponenty vyvolá neošetřenou výjimku, je výjimka závažná pro Blazor okruh serveru. Pokud logika vyřazení může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud `Dispose` metoda komponenty vyvolá neošetřenou výjimku, je výjimka závažná pro Blazor okruh serveru. Pokud logika vyřazení může vyvolat výjimky, aplikace by měla zachytit výjimky pomocí [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazu s zpracováním chyb a protokolováním.
 
 Další informace o vyřazení součástí najdete v tématu <xref:blazor/components/lifecycle#component-disposal-with-idisposable> .
 
@@ -204,10 +204,10 @@ Další informace o vyřazení součástí najdete v tématu <xref:blazor/compon
 Následující podmínky se vztahují na zpracování chyb pomocí <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> :
 
 * Pokud volání <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> neproběhne synchronně, dojde k výjimce .NET. Volání <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> může selhat například proto, že zadané argumenty nemohou být serializovány. Kód pro vývojáře musí zachytit výjimku. Pokud kód aplikace v metodě obslužné rutiny události nebo životní cyklus komponenty nezpracovává výjimku, je výsledná výjimka závažná pro Blazor okruh serveru.
-* Pokud se volání <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> asynchronně nezdařilo, rozhraní .NET se nepovede <xref:System.Threading.Tasks.Task> . Volání <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> může selhat například proto, že kód na straně JavaScriptu vyvolá výjimku nebo vrátí hodnotu `Promise` , která se dokončila jako `rejected` . Kód pro vývojáře musí zachytit výjimku. Při použití operátoru [await](/dotnet/csharp/language-reference/keywords/await) zvažte zabalení volání metody v příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním. V opačném případě selhání kódu způsobí neošetřenou výjimku, která je závažná pro Blazor okruh serveru.
+* Pokud se volání <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> asynchronně nezdařilo, rozhraní .NET se nepovede <xref:System.Threading.Tasks.Task> . Volání <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> může selhat například proto, že kód na straně JavaScriptu vyvolá výjimku nebo vrátí hodnotu `Promise` , která se dokončila jako `rejected` . Kód pro vývojáře musí zachytit výjimku. Při použití [`await`](/dotnet/csharp/language-reference/keywords/await) operátoru zvažte zabalení volání metody v [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazu s zpracováním chyb a protokolováním. V opačném případě selhání kódu způsobí neošetřenou výjimku, která je závažná pro Blazor okruh serveru.
 * Ve výchozím nastavení volání <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A> musí být dokončena v určitou dobu nebo jinak vyprší časový limit volání. Výchozí doba časového limitu je jedna minuta. Časový limit chrání kód proti ztrátě v připojení k síti nebo kódu JavaScriptu, který nikdy neposílá zpět zprávu o dokončení. Pokud vyprší časový limit volání, výsledný výsledek <xref:System.Threading.Tasks> se nezdařil <xref:System.OperationCanceledException> . Depeše a zpracovává výjimku pomocí protokolování.
 
-Podobně kód JavaScriptu může iniciovat volání metod .NET, které jsou označeny [`[JSInvokable]`](xref:Microsoft.JSInterop.JSInvokableAttribute) atributem] (odkazy XREF: blazor/Call-dotnet-from-JavaScript). Pokud tyto metody rozhraní .NET vyvolají neošetřenou výjimku:
+Podobně kód JavaScriptu může iniciovat volání metod .NET, které jsou označeny [`[JSInvokable]`](xref:blazor/call-dotnet-from-javascript) atributem. Pokud tyto metody rozhraní .NET vyvolají neošetřenou výjimku:
 
 * Výjimka není považována za závažnou pro Blazor okruh serveru.
 * Na straně JavaScriptu `Promise` se zamítlo.
@@ -234,7 +234,7 @@ Pokud nějaká komponenta vyvolá neošetřenou výjimku při předvykreslován�
 
 Za běžných okolností, když se předvykreslování nepovede, pokračuje sestavení a vykreslení komponenty nesmysl, protože pracovní komponenta se nedá vykreslit.
 
-Chcete-li tolerovat chyby, ke kterým může dojít při předvykreslování, musí být logika zpracování chyb umístěna v rámci součásti, která může vyvolat výjimky. Použijte příkazy [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s ošetřením a protokolováním chyb. Místo balení <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper> pomocníka značek v příkazu [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) umístěte logiku zpracování chyb do komponenty vygenerované <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper> pomocníkem značek.
+Chcete-li tolerovat chyby, ke kterým může dojít při předvykreslování, musí být logika zpracování chyb umístěna v rámci součásti, která může vyvolat výjimky. Použijte [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazy s zpracováním a protokolováním chyb. Místo balení <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper> pomocníka značek v [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazu umístěte logiku zpracování chyb do komponenty vygenerované <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper> pomocníkem značek.
 
 ## <a name="advanced-scenarios"></a>Pokročilé scénáře
 
@@ -262,7 +262,7 @@ Aby se zabránilo nekonečným vzorům rekurzování, ujistěte se, že kód rek
 
 ### <a name="custom-render-tree-logic"></a>Vlastní logika stromu vykreslování
 
-Většina Blazor komponent je implementována jako soubory *. Razor* a je zkompilována k vytvoření logiky, která pracuje s a <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> vykreslí výstup. Vývojář může logiku ručně implementovat <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> pomocí procedurálního kódu jazyka C#. Další informace naleznete v tématu <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>.
+Většina Blazor komponent je implementována jako `.razor` soubory a je zkompilována k vytvoření logiky, která pracuje s a <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> vykreslí výstup. Vývojář může logiku ručně implementovat <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> pomocí procedurálního kódu jazyka C#. Další informace naleznete v tématu <xref:blazor/advanced-scenarios#manual-rendertreebuilder-logic>.
 
 > [!WARNING]
 > Použití logiky tvůrce stromu ručního vykreslování je považováno za pokročilý a nebezpečný scénář, nedoporučuje se pro obecný vývoj komponent.

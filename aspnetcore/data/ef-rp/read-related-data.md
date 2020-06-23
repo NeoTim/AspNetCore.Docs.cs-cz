@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/read-related-data
-ms.openlocfilehash: e67738015f64ca7077c2f87a8f7eabe722aac9d8
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: 5ffb57f21c89e21fcbb14b933cb0d0cb29d9c71b
+ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652614"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85240935"
 ---
 # <a name="part-6-razor-pages-with-ef-core-in-aspnet-core---read-related-data"></a>Část 6, Razor stránky s EF Core v souvisejících datech ASP.NET Core pro čtení
 
@@ -52,9 +52,9 @@ Existuje několik způsobů, jak může EF Core načíst související data do n
 
   ![Příklad samostatných dotazů](read-related-data/_static/separate-queries.png)
 
-  Poznámka: EF Core automaticky opravuje navigační vlastnosti pro všechny další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
+  **Poznámka:** EF Core automaticky opravuje navigační vlastnosti na jakékoli další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
 
-* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek odeslání více dotazů do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. `Load`K provedení explicitního načítání použijte metodu. Například:
+* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek odeslání více dotazů do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. `Load`K provedení explicitního načítání použijte metodu. Příklad:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 
@@ -231,7 +231,7 @@ Následující kód se spustí při výběru instruktora ( `id != null` ).
 
 Vybraný instruktor se načte ze seznamu instruktorů v modelu zobrazení. Vlastnost modelu zobrazení `Courses` je načtena s `Course` entitami z vlastnosti navigace tohoto instruktora `CourseAssignments` .
 
-`Where`Metoda vrátí kolekci. Ale v tomto případě filtr vybere jednu entitu. Proto `Single` je volána metoda pro převod kolekce na jedinou `Instructor` entitu. `Instructor`Entita poskytuje přístup k `CourseAssignments` Vlastnosti. `CourseAssignments`poskytuje přístup k souvisejícím `Course` entitám.
+`Where`Metoda vrátí kolekci. Ale v tomto případě filtr vybere jednu entitu, takže se `Single` zavolá metoda, která kolekci převede na jedinou `Instructor` entitu. `Instructor`Entita poskytuje přístup k `CourseAssignments` Vlastnosti. `CourseAssignments`poskytuje přístup k souvisejícím `Course` entitám.
 
 ![M:M instruktory do kurzů](complex-data-model/_static/courseassignment.png)
 
@@ -367,7 +367,7 @@ Existuje několik způsobů, jak může EF Core načíst související data do n
 
   Poznámka: EF Core automaticky opravuje navigační vlastnosti pro všechny další entity, které byly dříve načteny do instance kontextu. I v případě, že data pro vlastnost navigace *nejsou* explicitně zahrnutá, může být tato vlastnost i nadále naplněna, pokud byly některé nebo všechny související entity dříve načteny.
 
-* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek více dotazů odeslaných do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. `Load`K provedení explicitního načítání použijte metodu. Například:
+* [Explicitní načítání](/ef/core/querying/related-data#explicit-loading). Při prvním načtení entity se nenačte související data. Aby bylo možné načíst související data v případě potřeby, je nutné napsat kód. Explicitní načítání pomocí samostatných dotazů má za následek více dotazů odeslaných do databáze. Při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. `Load`K provedení explicitního načítání použijte metodu. Příklad:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 

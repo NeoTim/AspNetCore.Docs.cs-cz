@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/threat-mitigation
-ms.openlocfilehash: 073a2a85369a100352a163693c5cba907203059e
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: a94dcd818c3f4e19ace57fad6390a84e704192bd
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103664"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242963"
 ---
 # <a name="threat-mitigation-guidance-for-aspnet-core-blazor-server"></a>Pokyny pro zmírnění hrozeb pro ASP.NET Core Blazor Server
 
@@ -101,7 +101,7 @@ Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uži
 
 Útoky DoS (Denial of Service) zahrnují klienta, který způsobuje, že server vyčerpá jeden nebo víc svých prostředků, takže aplikace nebude k dispozici. BlazorServerové aplikace zahrnují některá výchozí omezení a spoléhají na jiné ASP.NET Core a SignalR omezení ochrany proti útokům DOS, které jsou nastavené na <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions> .
 
-| BlazorOmezení serverové aplikace | Popis | Výchozí |
+| BlazorOmezení serverové aplikace | Description | Výchozí |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitMaxRetained> | Maximální počet odpojených okruhů, které daný server uchovává v paměti. | 100 |
 | <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DisconnectedCircuitRetentionPeriod> | Maximální doba, po kterou je odpojený okruh uložený v paměti předtím, než se rozpustí. | 3 minuty |
@@ -110,7 +110,7 @@ Ve výchozím nastavení neexistuje žádné omezení počtu připojení na uži
 
 Nastavte maximální velikost zprávy pro jednu příchozí zprávu centra pomocí <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions> .
 
-| SignalRa omezení ASP.NET Core | Popis | Výchozí |
+| SignalRa omezení ASP.NET Core | Description | Výchozí |
 | --- | --- | --- |
 | <xref:Microsoft.AspNetCore.SignalR.HubConnectionContextOptions.MaximumReceiveMessageSize?displayProperty=nameWithType> | Velikost zprávy pro jednotlivou zprávu | 32 KB |
 
@@ -134,7 +134,7 @@ Pro volání z metod .NET do JavaScriptu:
 
 Pro ochranu před předchozími scénáři proveďte následující opatření:
 
-* Zabalte volání interoperability JS v rámci příkazů [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) k účtu k chybám, které mohou nastat během vyvolání. Další informace naleznete v tématu <xref:blazor/fundamentals/handle-errors#javascript-interop>.
+* Zabalte volání interoperability JS v rámci [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazů do účtu pro chyby, ke kterým může dojít během vyvolání. Další informace naleznete v tématu <xref:blazor/fundamentals/handle-errors#javascript-interop>.
 * Před provedením jakékoli akce Ověřte data vrácená z volání Interop v JS, včetně chybových zpráv.
 
 ### <a name="net-methods-invoked-from-the-browser"></a>Metody .NET vyvolané z prohlížeče
@@ -302,7 +302,7 @@ Chyba na straně klienta neobsahuje zásobník volání a neposkytuje podrobné 
 Povolit podrobné chyby v JavaScriptu pomocí:
 
 * <xref:Microsoft.AspNetCore.Components.Server.CircuitOptions.DetailedErrors?displayProperty=nameWithType>.
-* `DetailedErrors`Konfigurační klíč nastavený na `true` , který se dá nastavit v souboru nastavení aplikace (*appsettings.json*). Klíč lze také nastavit pomocí `ASPNETCORE_DETAILEDERRORS` proměnné prostředí s hodnotou `true` .
+* `DetailedErrors`Konfigurační klíč nastavený na `true` , který se dá nastavit v souboru nastavení aplikace ( `appsettings.json` ). Klíč lze také nastavit pomocí `ASPNETCORE_DETAILEDERRORS` proměnné prostředí s hodnotou `true` .
 
 > [!WARNING]
 > Odhalení informací o chybách klientům na internetu je bezpečnostní riziko, které by se mělo vždy vyhnout.
@@ -348,7 +348,7 @@ Kromě ochrany, kterou implementuje rozhraní, musí být aplikace kódována v�
 * Nedůvěřovat vstupu volání interoperability JS v obou směrech mezi metodami jazyka JavaScript a .NET.
 * Aplikace zodpovídá za ověření, že obsah argumentů a výsledků je platný, i když jsou argumenty nebo výsledky správně deserializovány.
 
-Aby mohla existovat ohrožení zabezpečení XSS, musí aplikace na vykreslené stránce zahrnovat vstup uživatele. BlazorServerové komponenty spouštějí krok v čase kompilace, ve kterém je kód v souboru *. Razor* transformované na procedurální Logic jazyka C#. V době běhu vytvoří logika jazyka C# *strom vykreslování* , který popisuje prvky, text a podřízené komponenty. To se aplikuje na DOM v prohlížeči pomocí sekvence instrukcí JavaScriptu (nebo je v případě předvykreslování serializovaná na HTML):
+Aby mohla existovat ohrožení zabezpečení XSS, musí aplikace na vykreslené stránce zahrnovat vstup uživatele. BlazorServerové komponenty spouštějí krok v čase kompilace, kde je kód v `.razor` souboru transformován do logiky jazyka C#. V době běhu vytvoří logika jazyka C# *strom vykreslování* , který popisuje prvky, text a podřízené komponenty. To se aplikuje na DOM v prohlížeči pomocí sekvence instrukcí JavaScriptu (nebo je v případě předvykreslování serializovaná na HTML):
 
 * Uživatelský vstup vykreslený pomocí normální Razor syntaxe (například `@someStringValue` ) nevystavuje zranitelnost XSS, protože Razor syntaxe je přidána do modelu DOM prostřednictvím příkazů, které mohou zapisovat pouze text. I v případě, že hodnota obsahuje kód HTML, hodnota se zobrazí jako statický text. Při předběžné vykreslování je výstupem kódovaný HTML, který také zobrazuje obsah jako statický text.
 * Značky skriptu nejsou povoleny a neměly by být zahrnuty do stromu vykreslování součásti aplikace. Je-li značka skriptu obsažena v kódu komponenty, je vygenerována chyba při kompilaci.

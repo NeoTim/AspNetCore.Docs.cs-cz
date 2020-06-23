@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: 3345f545e230ada78e6c66fc9eb049060d5794d6
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: d4ebab0d8fc2ee48fa4d9c8b1f1b8e5cbf43cab9
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83851156"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242441"
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor pokročilé scénáře
 
@@ -68,7 +68,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro Blazor okruh serveru. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více příkazech [try-catch](/dotnet/csharp/language-reference/keywords/try-catch) s zpracováním chyb a protokolováním.
+Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro Blazor okruh serveru. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazech s zpracováním chyb a protokolováním.
 
 Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí stav okruhu, rozhraní uvolní obor DI okruhu. Při likvidaci oboru se uvolní jakékoli DI služby, které implementují okruhy s rozsahem <xref:System.IDisposable?displayProperty=fullName> . Pokud jakákoli služba DI vyvolá neošetřenou výjimku při vyřazení, rozhraní zaprotokoluje výjimku.
 
@@ -133,11 +133,11 @@ V následujícím příkladu smyčka v `CreateComponent` metodě generuje tři `
 
 ### <a name="sequence-numbers-relate-to-code-line-numbers-and-not-execution-order"></a>Pořadová čísla se vztahují na čísla řádků kódu a nikoli na pořadí provádění.
 
-Razorsoubory komponent (*. Razor*) jsou vždy kompilovány. Kompilace je potenciální výhodou pro interpretaci kódu, protože krok kompilace lze použít k vložení informací, které zvyšují výkon aplikace za běhu.
+Razorsoubory komponent ( `.razor` ) jsou vždy kompilovány. Kompilace je potenciální výhodou pro interpretaci kódu, protože krok kompilace lze použít k vložení informací, které zvyšují výkon aplikace za běhu.
 
 Hlavní příklad těchto vylepšení zahrnuje *pořadová čísla*. Pořadová čísla označují modul runtime, ze kterého výstupy pocházejí, ze kterých se liší a seřazené řádky kódu. Modul runtime používá tyto informace k vygenerování efektivních rozdílů stromu v lineárním čase, což je mnohem rychlejší než obvykle pro obecný rozdílový algoritmus stromu.
 
-Vezměte v úvahu následující Razor soubor součásti (*. Razor*):
+Vezměte v úvahu následující Razor soubor součásti ( `.razor` ):
 
 ```razor
 @if (someFlag)
@@ -217,9 +217,9 @@ Toto je triviální příklad. Ve složitějších případech se složitými a 
 
 * Pokud jsou automaticky generována pořadová čísla, je výkon aplikace zhoršen.
 * Rozhraní nemůže automaticky vytvořit vlastní pořadová čísla za běhu, protože potřebné informace neexistují, pokud není zachycena v době kompilace.
-* Nepište dlouhé bloky ručně implementované <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logiky. Preferovat soubory *. Razor* a umožněte kompilátoru, aby se zabývat pořadovým číslem. Pokud se nemůžete vyhnout manuální <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logice, rozdělte dlouhé bloky kódu do menších částí zabalených v <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A> / <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> voláních. Každá oblast má vlastní oddělený prostor pořadových čísel, takže v každé oblasti můžete restartovat z nuly (nebo jakéhokoli jiného libovolného čísla).
+* Nepište dlouhé bloky ručně implementované <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logiky. Preferovat `.razor` soubory a umožněte kompilátoru, aby se zabývat pořadovým číslem. Pokud se nemůžete vyhnout manuální <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder> logice, rozdělte dlouhé bloky kódu do menších částí zabalených v <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.OpenRegion%2A> / <xref:Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder.CloseRegion%2A> voláních. Každá oblast má vlastní oddělený prostor pořadových čísel, takže v každé oblasti můžete restartovat z nuly (nebo jakéhokoli jiného libovolného čísla).
 * Pokud jsou pořadová čísla pevně zakódované, rozdílový algoritmus vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou nepodstatné. Jednou z oprávněných možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit podle hodnoty nebo stovky (případně z upřednostňovaného intervalu). 
-* Blazorpoužívá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdílování je mnohem rychlejší při použití pořadových čísel a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře, který vytváří soubory *. Razor* .
+* Blazorpoužívá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdílování je mnohem rychlejší při použití pořadových čísel a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře, který vytváří `.razor` soubory.
 
 ## <a name="perform-large-data-transfers-in-blazor-server-apps"></a>Provádění rozsáhlých přenosů dat v Blazor serverových aplikacích
 

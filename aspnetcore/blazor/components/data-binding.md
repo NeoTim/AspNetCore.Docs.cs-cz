@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: c901ba0cbcd79bb14cb32a6a56a2595d159f8678
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 1654c0ce40d44ad4cc679c151ef99f155e31b514
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103727"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242495"
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor datové vazby
 
@@ -240,10 +240,10 @@ Běžným scénářem je zřetězení parametru vázaného na data na element st
 
 Zřetězenou BIND nelze implementovat s [`@bind`](xref:mvc/views/razor#bind) syntaxí v elementu stránky. Obslužná rutina události a hodnota se musí zadat samostatně. Nadřazená komponenta však může použít [`@bind`](xref:mvc/views/razor#bind) syntaxi s parametrem komponenty.
 
-Následující `PasswordField` součást (*PasswordField. Razor*):
+Následující `PasswordField` součást ( `PasswordField.razor` ):
 
 * Nastaví `<input>` hodnotu elementu na `Password` vlastnost.
-* Zpřístupňuje změny `Password` vlastnosti nadřazené komponentě pomocí [vnořenou eventCallback](xref:blazor/components/event-handling#eventcallback).
+* Zpřístupňuje změny `Password` vlastnosti nadřazené komponentě pomocí [`EventCallback`](xref:blazor/components/event-handling#eventcallback) .
 * Používá `onclick` událost, která slouží ke spuštění `ToggleShowPassword` metody. Další informace naleznete v tématu <xref:blazor/components/event-handling>.
 
 ```razor

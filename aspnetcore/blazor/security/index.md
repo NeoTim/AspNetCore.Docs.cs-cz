@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/index
-ms.openlocfilehash: 8c5e6c6ba741cae2634e2852e9ca141a0a7c33ce
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 14cf614bf5d4f2ad6a34c49cb08277a2deae8d00
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103663"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242947"
 ---
 # <a name="aspnet-core-blazor-authentication-and-authorization"></a>ASP.NET Core Blazor ověřování a autorizace
 
@@ -48,8 +48,8 @@ V Blazor aplikacích pro WebAssembly lze kontroly ověřování obejít, protož
 
 Přidejte následující:
 
-* Odkaz na balíček pro [Microsoft. AspNetCore. Components. Authorization](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) do souboru projektu aplikace.
-* `Microsoft.AspNetCore.Components.Authorization`Obor názvů pro soubor *_Imports. Razor* aplikace
+* Odkaz na balíček pro [`Microsoft.AspNetCore.Components.Authorization`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Authorization/) soubor projektu aplikace.
+* `Microsoft.AspNetCore.Components.Authorization`Obor názvů `_Imports.razor` souboru aplikace
 
 Pro zpracování ověřování se implementace předdefinované nebo vlastní <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> služby zabývá následujícími oddíly.
 
@@ -67,7 +67,7 @@ Integrovaná <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationS
 
 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>je základní službou, kterou <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> Komponenta a komponenta používá <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> k získání stavu ověřování.
 
-Obvykle přímo nepoužíváte <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> . Použijte [komponentu AuthorizeView](#authorizeview-component) nebo přístupy [k \<AuthenticationState> úkolům](#expose-the-authentication-state-as-a-cascading-parameter) , které jsou popsány dále v tomto článku. Hlavní nevýhodou použití <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> přímo je, že součást není automaticky oznámena v případě, že dojde ke změně podkladových dat stavu ověřování.
+Obvykle přímo nepoužíváte <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> . Použijte [ `AuthorizeView` součást](#authorizeview-component) nebo [`Task<AuthenticationState>`](#expose-the-authentication-state-as-a-cascading-parameter) přístupy popsané dále v tomto článku. Hlavní nevýhodou použití <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> přímo je, že součást není automaticky oznámena v případě, že dojde ke změně podkladových dat stavu ověřování.
 
 <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider>Služba může poskytnout data aktuálního uživatele <xref:System.Security.Claims.ClaimsPrincipal> , jak je znázorněno v následujícím příkladu:
 
@@ -149,7 +149,7 @@ public class CustomAuthStateProvider : AuthenticationStateProvider
 }
 ```
 
-V Blazor aplikaci WebAssembly `CustomAuthStateProvider` je služba zaregistrovaná v `Main` *program.cs*:
+V Blazor aplikaci WebAssembly `CustomAuthStateProvider` je služba zaregistrovaná v `Main` `Program.cs` :
 
 ```csharp
 using Microsoft.AspNetCore.Components.Authorization;
@@ -207,7 +207,7 @@ Pokud jsou v procedurální logice požadovány údaje o stavu ověřování, na
 
 V takovém případě `user.Identity.IsAuthenticated` `true` můžou být deklarace identity výčtové a ve vyhodnocených rolích.
 
-Nastavte `Task<` <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState> `>` kaskádový parametr pomocí <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> komponent a v `App` součásti (*App. Razor*):
+Nastavte `Task<` <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState> `>` kaskádový parametr pomocí <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView> <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> komponent a v `App` součásti ( `App.razor` ):
 
 ```razor
 <CascadingAuthenticationState>
@@ -275,7 +275,7 @@ V případě, že se uživatel neověřuje, můžete také Dodejte jiný obsah, 
 </AuthorizeView>
 ```
 
-<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView>Komponentu lze použít v `NavMenu` komponentě (*Shared/NavMenu. Razor*) k zobrazení položky seznamu ( `<li>...</li>` ) pro [komponentu NavLink](xref:blazor/fundamentals/routing#navlink-component) ( <xref:Microsoft.AspNetCore.Components.Routing.NavLink> ), ale Upozorňujeme, že tento přístup odstraní pouze položku seznamu z vykresleného výstupu. Nebrání uživateli přejít na součást.
+<xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView>Komponentu lze použít v `NavMenu` komponentě ( `Shared/NavMenu.razor` ) k zobrazení položky seznamu ( `<li>...</li>` ) pro [ `NavLink` komponentu](xref:blazor/fundamentals/routing#navlink-component) ( <xref:Microsoft.AspNetCore.Components.Routing.NavLink> ), ale Všimněte si, že tento přístup odebere pouze položku seznamu z vykresleného výstupu. Nebrání uživateli přejít na součást.
 
 Obsah `<Authorized>` `<NotAuthorized>` značek a může obsahovat libovolné položky, jako jsou například jiné interaktivní komponenty.
 
@@ -380,7 +380,7 @@ Pokud není <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute.Roles> z
 * Uživatel nezdařil [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute) podmínku použitou pro komponentu. [`[Authorize]`](xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute)Atribut je popsán v části [ `[Authorize]` atributu](#authorize-attribute) .
 * Probíhá asynchronní ověřování.
 
-V šabloně výchozího Blazor serverového projektu `App` Komponenta (*App. Razor*) ukazuje, jak nastavit vlastní obsah:
+V rámci výchozí Blazor šablony projektu serveru `App` součást ( `App.razor` ) ukazuje, jak nastavit vlastní obsah:
 
 ```razor
 <CascadingAuthenticationState>
@@ -419,7 +419,7 @@ Not authorized.
 
 ## <a name="notification-about-authentication-state-changes"></a>Oznámení o změnách stavu ověřování
 
-Pokud aplikace zjistí, že se změnila základní data stavu ověřování (například kvůli tomu, že se uživatel odhlásil nebo jiný uživatel změnil své role), [vlastní AuthenticationStateProvider](#implement-a-custom-authenticationstateprovider) může volitelně vyvolat metodu <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider.NotifyAuthenticationStateChanged%2A> pro <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> základní třídu. Tím se uživatele upozorní na data stavu ověřování (například <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> ) k opakovanému vykreslení pomocí nových dat.
+Pokud aplikace zjistí, že se změnila základní data stavu ověřování (například kvůli tomu, že se uživatel odhlásil nebo jiný uživatel změnil své role), [vlastní `AuthenticationStateProvider` ](#implement-a-custom-authenticationstateprovider) možnost může volitelně vyvolat metodu <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider.NotifyAuthenticationStateChanged%2A> <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationStateProvider> základní třídy. Tím se uživatele upozorní na data stavu ověřování (například <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeView> ) k opakovanému vykreslení pomocí nových dat.
 
 ## <a name="procedural-logic"></a>Procesní logika
 
@@ -467,17 +467,17 @@ Pokud je aplikace nutná k kontrole autorizačních pravidel v rámci procedurá
 > @using Microsoft.AspNetCore.Components.Authorization
 > ```
 >
-> Tyto obory názvů je možné poskytnout globálně tak, že je přidáte do souboru *_Imports. Razor* aplikace.
+> Tyto obory názvů je možné poskytnout globálně přidáním do `_Imports.razor` souboru aplikace.
 
 ## <a name="troubleshoot-errors"></a>Řešení chyb
 
 Běžné chyby:
 
-* **Autorizace vyžaduje kaskádový parametr typu Task \<AuthenticationState> . Zvažte použití CascadingAuthenticationState k zadání.**
+* **Autorizace vyžaduje kaskádový parametr typu `Task\<AuthenticationState>` . Zvažte použití `CascadingAuthenticationState` tohoto zadání.**
 
 * **`null`hodnota je přijata pro`authenticationStateTask`**
 
-Je možné, že projekt nebyl vytvořen pomocí Blazor šablony serveru s povoleným ověřováním. Zabalte `<CascadingAuthenticationState>` kolem některé části stromu uživatelského rozhraní, například do `App` komponenty (*App. Razor*), následujícím způsobem:
+Je možné, že projekt nebyl vytvořen pomocí Blazor šablony serveru s povoleným ověřováním. Zabalte `<CascadingAuthenticationState>` kolem některé části stromu uživatelského rozhraní, například v `App` součásti ( `App.razor` ) následujícím způsobem:
 
 ```razor
 <CascadingAuthenticationState>

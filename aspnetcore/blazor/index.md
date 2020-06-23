@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/index
-ms.openlocfilehash: 086629f88ad04faed812bd16683e7d073f3e8ede
-ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
+ms.openlocfilehash: 694be6317aaac211f5099dfca749ff8a69d146d1
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2020
-ms.locfileid: "85122071"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243509"
 ---
 # <a name="introduction-to-aspnet-core-blazor"></a>Úvod do ASP.NET CoreBlazor
 
@@ -53,9 +53,9 @@ Komponenty jsou třídy .NET integrované do sestavení .NET, která:
 * Může být vnořen a znovu použit.
 * Lze sdílet a distribuovat jako [ Razor knihovny tříd](xref:razor-pages/ui-class) nebo [balíčky NuGet](/nuget/what-is-nuget).
 
-Třída komponenty je obvykle napsána ve formě [Razor](xref:mvc/views/razor) stránky se značkami s příponou souboru *. Razor* . Komponenty v nástroji Blazor jsou formálně označovány jako * Razor komponenty*. Razorje syntaxe pro kombinování značek HTML pomocí kódu jazyka C# navrženého pro produktivitu vývojářů. Razorumožňuje přepínat mezi značkami HTML a C# ve stejném souboru s podporou [technologie IntelliSense](/visualstudio/ide/using-intellisense) . RazorStránky a MVC také používají Razor . Na rozdíl od Razor stránek a MVC, které jsou vytvořeny kolem modelu požadavků a odpovědí, se komponenty používají konkrétně pro logiku a sestavení uživatelského rozhraní na straně klienta.
+Třída komponenty je obvykle napsána ve formě [Razor](xref:mvc/views/razor) stránky s označením s `.razor` příponou souboru. Komponenty v nástroji Blazor jsou formálně označovány jako * Razor komponenty*. Razorje syntaxe pro kombinování značek HTML pomocí kódu jazyka C# navrženého pro produktivitu vývojářů. Razorumožňuje přepínat mezi značkami HTML a C# ve stejném souboru s podporou [technologie IntelliSense](/visualstudio/ide/using-intellisense) . RazorStránky a MVC také používají Razor . Na rozdíl od Razor stránek a MVC, které jsou vytvořeny kolem modelu požadavků a odpovědí, se komponenty používají konkrétně pro logiku a sestavení uživatelského rozhraní na straně klienta.
 
-Následující Razor kód ukazuje komponentu (*dialog. Razor*), která může být vnořena do jiné komponenty:
+Následující Razor kód ukazuje komponentu ( `Dialog.razor` ), která může být vnořena do jiné komponenty:
 
 ```razor
 <div>
@@ -86,7 +86,7 @@ Blazorpoužívá přirozené značky HTML pro kompozici uživatelského rozhran�
 
 V následujícím příkladu `Index` komponenta používá `Dialog` komponentu. `ChildContent`a `Title` jsou nastaveny pomocí atributů a obsahu `<Dialog>` elementu.
 
-*Index. Razor*:
+`Pages/Index.razor`:
 
 ```razor
 @page "/"
@@ -100,7 +100,7 @@ Welcome to your new app.
 </Dialog>
 ```
 
-Dialog se vykreslí, když se k nadřazenému elementu (*index. Razor*) přistupoval v prohlížeči:
+Dialogové okno se vykreslí, když `Pages/Index.razor` je v prohlížeči přístupný nadřazený objekt ():
 
 ![Komponenta dialogového okna vykreslená v prohlížeči](index/_static/dialog.png)
 
@@ -112,7 +112,7 @@ Komponenty vykreslí do reprezentace v paměti model DOM (Document Object Model)
 
 BlazorWebAssembly je jediná stránka architektury aplikace pro vytváření interaktivních webových aplikací na straně klienta s .NET. BlazorWebové sestavení používá open Web Standards bez modulů plug-in a transpilation kódu a funguje ve všech moderních webových prohlížečích, včetně mobilních prohlížečů.
 
-Spouštění kódu .NET ve webových prohlížečích je umožněno webovým [sestavením](https://webassembly.org) (zkráceným *wasm*). WebAssembly je formát kompaktního bajtu optimalizovaného pro rychlé stažení a maximální rychlost spuštění. WebAssembly je otevřený webový standard a podporuje se ve webových prohlížečích bez modulů plug-in.
+Spuštění kódu .NET ve webových prohlížečích je umožněno webovým [sestavením](https://webassembly.org) (zkráceně `wasm` ). WebAssembly je formát kompaktního bajtu optimalizovaného pro rychlé stažení a maximální rychlost spuštění. WebAssembly je otevřený webový standard a podporuje se ve webových prohlížečích bez modulů plug-in.
 
 Kód webového sestavení má přístup k úplným funkcím prohlížeče prostřednictvím JavaScriptu, označovanému jako *interoperabilita JavaScriptu* (nebo *zprostředkovatel komunikace s JavaScriptem*). Kód .NET spuštěný pomocí webového sestavení v prohlížeči se spouští v izolovaném prostoru JavaScript v prohlížeči s ochranou, že izolovaný prostor poskytuje proti škodlivým akcím v klientském počítači.
 

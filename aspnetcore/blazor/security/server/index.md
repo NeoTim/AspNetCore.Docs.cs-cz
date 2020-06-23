@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: a8604ca6ea60386bb3c54c950205ee695d37c689
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 2bdd2f256f456cbf474181021fafc6830bfd68f4
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103660"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242924"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečené Blazor aplikace ASP.NET Core serveru
 
@@ -53,7 +53,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 Přípustné hodnoty ověřování ( `{AUTHENTICATION}` ) jsou uvedeny v následující tabulce.
 
-| Mechanismus ověřování | Popis |
+| Mechanismus ověřování | Description |
 | ------------------------ | ----------- |
 | `None`výchozí         | Bez ověřování |
 | `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET CoreIdentity |
@@ -67,7 +67,7 @@ Pomocí `-o|--output` Možnosti příkaz používá hodnotu poskytnutou pro `{AP
 * Vytvořte složku pro projekt.
 * Pojmenujte projekt.
 
-Další informace najdete v tématu [dotnet New](/dotnet/core/tools/dotnet-new) v příručce .NET Core.
+Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new) Průvodce .NET Core.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
@@ -87,7 +87,7 @@ dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
 
 Přípustné hodnoty ověřování ( `{AUTHENTICATION}` ) jsou uvedeny v následující tabulce.
 
-| Mechanismus ověřování | Popis |
+| Mechanismus ověřování | Description |
 | ------------------------ | ----------- |
 | `None`výchozí         | Bez ověřování |
 | `Individual`             | Uživatelé uložení v aplikaci pomocí ASP.NET CoreIdentity |
@@ -101,7 +101,7 @@ Pomocí `-o|--output` Možnosti příkaz používá hodnotu poskytnutou pro `{AP
 * Vytvořte složku pro projekt.
 * Pojmenujte projekt.
 
-Další informace najdete v tématu [dotnet New](/dotnet/core/tools/dotnet-new) v příručce .NET Core.
+Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new) Průvodce .NET Core.
 
 ---
 

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/integrate-components-into-razor-pages-and-mvc-apps
-ms.openlocfilehash: 78d524bc0271fd2640302bb0de78571ab688bef5
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 1c71067528fb34ab141bb1ee846716834204ee40
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103739"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242456"
 ---
 # <a name="integrate-aspnet-core-razor-components-into-razor-pages-and-mvc-apps"></a>Integrace Razor součástí ASP.NET Core do Razor stránek a aplikací MVC
 
@@ -37,7 +37,7 @@ Po [přípravě aplikace](#prepare-the-app)použijte pokyny v následujících �
 
 Existující Razor stránky nebo aplikace MVC mohou integrovat Razor komponenty do stránek a zobrazení:
 
-1. V souboru rozložení aplikace (*_Layout. cshtml*):
+1. V souboru rozložení aplikace ( `_Layout.cshtml` ):
 
    * Přidejte následující `<base>` značku do `<head>` prvku:
 
@@ -47,7 +47,7 @@ Existující Razor stránky nebo aplikace MVC mohou integrovat Razor komponenty 
 
      `href`Hodnota ( *základní cesta aplikace*) v předchozím příkladu předpokládá, že se aplikace nachází v kořenové cestě URL ( `/` ). Pokud je aplikace podaplikace, postupujte podle pokynů v části *základní cesta k aplikaci* v <xref:blazor/host-and-deploy/index#app-base-path> článku.
 
-     Soubor *_Layout. cshtml* se nachází ve složce *Pages/Shared* v Razor aplikaci Pages nebo v *zobrazení/sdílené* složce v aplikaci MVC.
+     `_Layout.cshtml`Soubor se nachází ve složce *stránky/sdílená* složka v Razor aplikaci stránky nebo *zobrazení/sdílená* složka v aplikaci MVC.
 
    * Přidejte `<script>` značku pro skript *blazor.server.js* těsně před uzavírací `</body>` značku:
 
@@ -57,7 +57,7 @@ Existující Razor stránky nebo aplikace MVC mohou integrovat Razor komponenty 
 
      Rozhraní přidá do aplikace skript *blazor.server.js* . Nemusíte ručně přidávat do aplikace skript.
 
-1. Přidejte soubor *_Imports. Razor* do kořenové složky projektu s následujícím obsahem (změňte poslední obor názvů `MyAppNamespace` na obor názvů aplikace):
+1. Přidejte `_Imports.razor` soubor do kořenové složky projektu s následujícím obsahem (změňte poslední obor názvů `MyAppNamespace` na obor názvů aplikace):
 
    ```razor
    @using System.Net.Http
@@ -92,7 +92,7 @@ Podpora směrování Razor komponent v Razor aplikacích Pages:
 
 1. Postupujte podle pokynů v části [Příprava aplikace](#prepare-the-app) .
 
-1. Přidejte soubor *App. Razor* do kořenového adresáře projektu s následujícím obsahem:
+1. `App.razor`Do kořenového adresáře projektu přidejte soubor s následujícím obsahem:
 
    ```razor
    @using Microsoft.AspNetCore.Components.Routing
@@ -108,7 +108,7 @@ Podpora směrování Razor komponent v Razor aplikacích Pages:
    </Router>
    ```
 
-1. Do složky *Pages* přidejte *_Host soubor. cshtml* s následujícím obsahem:
+1. Přidejte `_Host.cshtml` do `Pages` složky soubor s následujícím obsahem:
 
    ```cshtml
    @page "/blazor"
@@ -121,14 +121,14 @@ Podpora směrování Razor komponent v Razor aplikacích Pages:
    </app>
    ```
 
-   Komponenty používají pro své rozložení sdílený *_Layout soubor. cshtml* .
+   Komponenty používají `_Layout.cshtml` pro své rozložení sdílený soubor.
 
    <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>nakonfiguruje, jestli `App` součást:
 
    * Je předem vykreslen na stránku.
    * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
 
-   | Režim vykreslování | Popis |
+   | Režim vykreslování | Description |
    | ----------- | ----------- |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor serverovou aplikaci. Výstup `App` komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
@@ -136,7 +136,7 @@ Podpora směrování Razor komponent v Razor aplikacích Pages:
 
    Další informace o pomocníka značek komponenty naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/component-tag-helper> .
 
-1. Přidejte trasu s nízkou prioritou pro stránku *_Host. cshtml* do konfigurace koncového bodu v `Startup.Configure` :
+1. Přidejte do `_Host.cshtml` Konfigurace koncového bodu v nástroji trasu s nízkou prioritou `Startup.Configure` :
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -167,7 +167,7 @@ Podpora směrování Razor komponent v aplikacích MVC:
 
 1. Postupujte podle pokynů v části [Příprava aplikace](#prepare-the-app) .
 
-1. Přidejte soubor *App. Razor* do kořenového adresáře projektu s následujícím obsahem:
+1. Přidejte `App.razor` soubor do kořenového adresáře projektu s následujícím obsahem:
 
    ```razor
    @using Microsoft.AspNetCore.Components.Routing
@@ -183,7 +183,7 @@ Podpora směrování Razor komponent v aplikacích MVC:
    </Router>
    ```
 
-1. Přidejte *_Host soubor. cshtml* do *zobrazení/domovské* složky s následujícím obsahem:
+1. Přidejte `_Host.cshtml` do `Views/Home` složky soubor s následujícím obsahem:
 
    ```cshtml
    @{
@@ -195,14 +195,14 @@ Podpora směrování Razor komponent v aplikacích MVC:
    </app>
    ```
 
-   Komponenty používají pro své rozložení sdílený *_Layout soubor. cshtml* .
+   Komponenty používají `_Layout.cshtml` pro své rozložení sdílený soubor.
    
    <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode>nakonfiguruje, jestli `App` součást:
 
    * Je předem vykreslen na stránku.
    * Je vykreslen jako statický kód HTML na stránce nebo obsahuje nezbytné informace pro spuštění Blazor aplikace od uživatelského agenta.
 
-   | Režim vykreslování | Popis |
+   | Režim vykreslování | Description |
    | ----------- | ----------- |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> | Vykreslí `App` komponentu do statického HTML a obsahuje značku pro Blazor serverovou aplikaci. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
    | <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> | Vykreslí značku pro Blazor serverovou aplikaci. Výstup `App` komponenty není zahrnutý. Když se spustí uživatelský agent, tato značka se použije ke spuštění Blazor aplikace. |
@@ -219,7 +219,7 @@ Podpora směrování Razor komponent v aplikacích MVC:
    }
    ```
 
-1. Přidejte trasu s nízkou prioritou pro akci kontroleru, která vrací zobrazení *_Host. cshtml* do konfigurace koncového bodu v nástroji `Startup.Configure` :
+1. Přidejte trasu s nízkou prioritou pro akci kontroleru, která vrátí `_Host.cshtml` zobrazení do konfigurace koncového bodu v nástroji `Startup.Configure` :
 
    ```csharp
    app.UseEndpoints(endpoints =>
@@ -230,7 +230,7 @@ Podpora směrování Razor komponent v aplikacích MVC:
    });
    ```
 
-1. Vytvořte složku *Pages* a přidejte do ní součásti s funkcí směrování. Příklad:
+1. Vytvořte `Pages` složku a přidejte do ní komponenty s funkcí směrování. Příklad:
 
    ```razor
    @page "/counter"
@@ -299,7 +299,7 @@ Další informace naleznete v tématu <xref:mvc/views/tag-helpers/builtin-th/com
 
 ## <a name="component-namespaces"></a>Obory názvů součásti
 
-Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do stránky nebo zobrazení nebo do souboru *_ViewImports. cshtml* . V následujícím příkladu:
+Při použití vlastní složky k uchování součástí aplikace přidejte obor názvů představující složku do stránky nebo zobrazení nebo do `_ViewImports.cshtml` souboru. V následujícím příkladu:
 
 * Přejděte `MyAppNamespace` do oboru názvů aplikace.
 * Pokud se složka s názvem *Components* nepoužívá k ukládání součástí, přejděte `Components` do složky, kde jsou umístěny součásti.
@@ -308,6 +308,6 @@ Při použití vlastní složky k uchování součástí aplikace přidejte obor
 @using MyAppNamespace.Components
 ```
 
-Soubor *_ViewImports. cshtml* je umístěný ve složce *Pages* Razor aplikace Pages nebo ve složce *zobrazení* aplikace MVC.
+`_ViewImports.cshtml`Soubor se nachází ve `Pages` složce Razor aplikace Pages nebo ve `Views` složce aplikace MVC.
 
 Další informace naleznete v tématu <xref:blazor/components/index#namespaces>.

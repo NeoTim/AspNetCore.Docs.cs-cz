@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 193dc656c2ee0154f0ae534bc00f8dc29bab3258
-ms.sourcegitcommit: b0062f29cba2e5c21b95cf89eaf435ba830d11a3
+ms.openlocfilehash: 75db5d5e69cb200ebf3bd1dc1e0afed0300214cc
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/16/2020
-ms.locfileid: "84239211"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242768"
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>Ladění ASP.NET Core Blazor WebAssembly
 
@@ -51,13 +51,13 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>Povolit ladění pro Visual Studio a Visual Studio Code
 
-Chcete-li povolit ladění pro existující Blazor aplikaci WebAssembly, aktualizujte *launchSettings.js* v souboru ve složce spouštěný projekt tak, aby do `inspectUri` každého spouštěcího profilu zahrnovala následující vlastnost:
+Chcete-li povolit ladění pro existující Blazor aplikaci WebAssembly, aktualizujte `launchSettings.json` soubor v spouštěném projektu tak, aby do `inspectUri` každého spouštěcího profilu zahrnoval následující vlastnost:
 
 ```json
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
 ```
 
-Po aktualizaci by měl *launchSettings.jsv* souboru vypadat podobně jako v následujícím příkladu:
+Po aktualizaci `launchSettings.json` by měl soubor vypadat podobně jako v následujícím příkladu:
 
 [!code-json[](debug/launchSettings.json?highlight=14,22)]
 
@@ -74,8 +74,8 @@ Ladění Blazor aplikace WebAssembly v aplikaci Visual Studio:
 
 1. Vytvoří novou ASP.NET Core hostovanou Blazor aplikaci WebAssembly.
 1. Stisknutím klávesy <kbd>F5</kbd> spusťte aplikaci v ladicím programu.
-1. V metodě nastavte zarážku v *čítači. Razor* `IncrementCount` .
-1. Přejděte na kartu **čítač** a vyberte tlačítko, kde se má zarážka opakovat:
+1. Nastavte zarážku v `Pages/Counter.razor` `IncrementCount` metodě.
+1. Přejděte na **`Counter`** kartu a vyberte tlačítko, kde se má zarážka opakovat:
 
    ![Čítač ladění](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-counter.png)
 
@@ -87,9 +87,9 @@ Ladění Blazor aplikace WebAssembly v aplikaci Visual Studio:
 
 Při ladění Blazor aplikace pro WebAssembly můžete také ladit kód serveru:
 
-1. Nastavte zarážku na stránce *FetchData. Razor* v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> .
+1. Nastavte zarážku na `Pages/FetchData.razor` stránce v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> .
 1. Nastavte zarážku v `WeatherForecastController` `Get` metodě Action.
-1. Přejděte na kartu **načíst data** , abyste narazili na první zarážku v `FetchData` součásti těsně předtím, než vydá požadavek HTTP na server:
+1. Přejděte na **`Fetch Data`** kartu a vyberte první zarážku v `FetchData` součásti těsně předtím, než VYDÁ požadavek HTTP na server:
 
    ![Ladit načtení dat](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vs-debug-fetch-data.png)
 
@@ -145,11 +145,11 @@ Nainstalujte [rozšíření C#](https://marketplace.visualstudio.com/items?itemN
 
 1. V okně Výběr vyberte *serverový* projekt v hostovaném řešení.
 
-Pro spuštění ladicího programu se vygeneruje *launch.jsv* souboru s konfigurací spuštění.
+`launch.json`Soubor se vygeneruje s konfigurací spuštění pro spuštění ladicího programu.
 
 ### <a name="attach-to-an-existing-debugging-session"></a>Připojit k existující relaci ladění
 
-Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte *launch.jsv* souboru s následující konfigurací:
+Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte `launch.json` soubor s následující konfigurací:
 
 ```json
 {
@@ -166,7 +166,7 @@ Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte *launch.jsv*
 
 Pro typ ladění jsou podporovány následující možnosti konfigurace spuštění `blazorwasm` .
 
-| Možnost    | Popis |
+| Možnost    | Description |
 | --------- | ----------- |
 | `request` | Použijte `launch` ke spuštění a připojení relace ladění k Blazor aplikaci WebAssembly nebo `attach` k připojení relace ladění k již spuštěné aplikaci. |
 | `url`     | Adresa URL, která se má otevřít v prohlížeči při ladění. Výchozí hodnota je `https://localhost:5001` . |
@@ -222,7 +222,7 @@ Pro typ ladění jsou podporovány následující možnosti konfigurace spuště
 
 1. Prohlížeč musí být spuštěn s povoleným vzdáleným laděním. Pokud je vzdálené ladění zakázané, vygeneruje se chybová stránka karty prohlížeče, která se **nedá najít** . Chybová stránka obsahuje pokyny pro spuštění prohlížeče s otevřeným portem pro ladění, aby se Blazor ladicí proxy server mohl připojit k aplikaci. *Zavřete všechny instance prohlížeče* a restartujte prohlížeč podle pokynů.
 
-Po spuštění prohlížeče se zapnutým vzdáleným laděním otevře klávesovou zkratku ladění novou kartu ladicího programu. Po chvíli se na kartě **zdroje** zobrazí seznam sestavení .NET v aplikaci. Rozbalte jednotlivá sestavení a vyhledejte zdrojové soubory *. cs* / *. Razor* k dispozici pro ladění. Nastavte zarážky, přepněte zpět na kartu aplikace a zarážky se spustí při spuštění kódu. Po stisknutí zarážky se provede krok (<kbd>F10</kbd>) prostřednictvím kódu nebo obnovení kódu (<kbd>F8</kbd>) normálně.
+Po spuštění prohlížeče se zapnutým vzdáleným laděním otevře klávesovou zkratku ladění novou kartu ladicího programu. Po chvíli se na kartě **zdroje** zobrazí seznam sestavení .NET v aplikaci. Rozbalte jednotlivá sestavení a vyhledejte `.cs` / `.razor` zdrojové soubory, které jsou k dispozici pro ladění. Nastavte zarážky, přepněte zpět na kartu aplikace a zarážky se spustí při spuštění kódu. Po stisknutí zarážky se provede krok (<kbd>F10</kbd>) prostřednictvím kódu nebo obnovení kódu (<kbd>F8</kbd>) normálně.
 
 Blazorposkytuje ladicí proxy, který implementuje [protokol Chrome DevTools](https://chromedevtools.github.io/devtools-protocol/) a rozšiřuje protokol pomocí. Informace specifické pro síť. Když se stiskne klávesová zkratka ladění, navede Blazor devtools Chrome na proxy serveru. Proxy server se připojí k oknu prohlížeče, které se pokoušíte ladit (takže je potřeba povolit vzdálené ladění).
 

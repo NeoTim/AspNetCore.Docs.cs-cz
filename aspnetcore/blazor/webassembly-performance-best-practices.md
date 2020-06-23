@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: c5169231eec67a43830f761bff7585deff774613
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 2b6d4e706856cb28f26c2502feca4f959ca4abac
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103748"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243028"
 ---
 # <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>Osvědčené postupy pro vyASP.NET Coreení Blazor výkonu WebAssembly
 
@@ -76,10 +76,10 @@ Další informace naleznete v tématu <xref:blazor/components/lifecycle#after-co
 
 Komponenty nabízejí pohodlný přístup k vytvoření opakovaně použitelných fragmentů kódu a značek. Obecně doporučujeme vytváření individuálních komponent, které nejlépe odpovídají požadavkům aplikace. Jedna výstraha znamená, že každá další podřízená komponenta přispívá k celkovému času potřebnýmu k vykreslení nadřazené komponenty. U většiny aplikací je další režie zanedbatelná. Aplikace, které vytváří velký počet komponent, by měly zvážit použití strategií ke snížení režijních nákladů na zpracování, jako je omezení počtu vykreslených komponent.
 
-Například mřížka nebo seznam, který vykresluje stovky řádků obsahujících komponenty, je náročné na vykreslování procesoru. Zvažte možnost Virtualizovat rozložení mřížky nebo seznamu tak, aby se v určitou dobu vykreslila pouze podmnožina komponent. Příklad vykreslování podmnožiny komponent naleznete v následujících součástech v [ukázkové aplikaci Virtualization Sample (ASPNET/Samples Store)](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Virtualization):
+Například mřížka nebo seznam, který vykresluje stovky řádků obsahujících komponenty, je náročné na vykreslování procesoru. Zvažte možnost Virtualizovat rozložení mřížky nebo seznamu tak, aby se v určitou dobu vykreslila pouze podmnožina komponent. Příklad vykreslování podmnožiny komponent naleznete v následujících součástech v [ `Virtualization` ukázkové aplikaci (ASPNET/Samples úložiště GitHub)](https://github.com/aspnet/samples/tree/master/samples/aspnetcore/blazor/Virtualization):
 
-* `Virtualize`součást ([Shared/Virtualization. Razor](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs)): komponenta napsaná v jazyce C#, která implementuje <xref:Microsoft.AspNetCore.Components.ComponentBase> pro vykreslení sady datových řádků počasí na základě posouvání uživatele.
-* `FetchData`součást ([Pages/FetchData. Razor](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Pages/FetchData.razor)): používá `Virtualize` komponentu k zobrazení 25 řádků dat počasí současně.
+* `Virtualize`Component ( [`Shared/Virtualize.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Shared/Virtualize.cs) ): komponenta napsaná v jazyce C#, která implementuje <xref:Microsoft.AspNetCore.Components.ComponentBase> pro vykreslení sady datových řádků počasí na základě posouvání uživatele.
+* `FetchData`Component ( [`Pages/FetchData.razor`](https://github.com/aspnet/samples/blob/master/samples/aspnetcore/blazor/Virtualization/Pages/FetchData.razor) ): používá `Virtualize` komponentu k zobrazení 25 řádků dat počasí současně.
 
 ## <a name="avoid-javascript-interop-to-marshal-data"></a>Vyhněte se interoperabilitě JavaScriptu při zařazování dat
 
@@ -89,7 +89,7 @@ V Blazor rámci objektu WebAssembly musí volání Interop jazyka JavaScript (js
 
 Blazorimplementace interoperability JS spoléhá na <xref:System.Text.Json> , což je vysoce výkonné knihovny serializace JSON s neomezeným přidělením paměti. Použití <xref:System.Text.Json> nemá za následek další velikost datové části aplikace nad přidáním jedné nebo více alternativních knihoven JSON.
 
-Pokyny k migraci najdete v tématu [Postup migrace z Newtonsoft.Jsna do System.Text.Jsna](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to).
+Pokyny k migraci najdete v tématu [Postup migrace z `Newtonsoft.Json` na `System.Text.Json` ](/dotnet/standard/serialization/system-text-json-migrate-from-newtonsoft-how-to).
 
 ## <a name="use-synchronous-and-unmarshalled-js-interop-apis-where-appropriate"></a>V případě potřeby použijte synchronní a nezařazené rozhraní API pro interoperabilitu JS.
 
@@ -138,7 +138,7 @@ BlazorWebAssembly nabízí dvě další verze nástroje <xref:Microsoft.JSIntero
 
 ### <a name="intermediate-language-il-linking"></a>Propojování IL (Intermediate Language)
 
-[Propojení Blazor Aplikace WebAssembly](xref:blazor/host-and-deploy/configure-linker) omezuje velikost Aplikace oříznutím nepoužívaného kódu v binárních souborech aplikace. Ve výchozím nastavení je linker povolen pouze při sestavování v `Release` konfiguraci. Pokud to chcete využít, publikujte aplikaci pro nasazení pomocí příkazu [dotnet Publish](/dotnet/core/tools/dotnet-publish) s možností [-c |--konfigurace](/dotnet/core/tools/dotnet-publish#options) nastavenou na `Release` :
+[Propojení Blazor Aplikace WebAssembly](xref:blazor/host-and-deploy/configure-linker) omezuje velikost Aplikace oříznutím nepoužívaného kódu v binárních souborech aplikace. Ve výchozím nastavení je linker povolen pouze při sestavování v `Release` konfiguraci. Pokud to chcete využít, publikujte aplikaci pro nasazení pomocí [`dotnet publish`](/dotnet/core/tools/dotnet-publish) příkazu s možností [-c |--konfigurace](/dotnet/core/tools/dotnet-publish#options) nastavenou na `Release` :
 
 ```dotnetcli
 dotnet publish -c Release

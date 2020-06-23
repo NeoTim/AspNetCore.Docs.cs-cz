@@ -24,7 +24,7 @@ Chcete-li spojit volání interoperability JavaScriptu až po navázání spojen
 }
 ```
 
-Pro předchozí příklad kódu poskytněte `setElementText` funkci JavaScriptu uvnitř `<head>` elementu *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server). Funkce je volána s <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> a nevrací hodnotu:
+Pro předchozí příklad kódu poskytněte `setElementText` funkci JavaScriptu uvnitř `<head>` elementu `wwwroot/index.html` (Blazor WebAssembly) nebo `Pages/_Host.cshtml` (Blazor Server). Funkce je volána s <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> a nevrací hodnotu:
 
 ```html
 <script>
@@ -72,7 +72,7 @@ Set value via JS interop call:
 }
 ```
 
-Pro předchozí příklad kódu poskytněte `setElementText` funkci JavaScriptu uvnitř `<head>` elementu *wwwroot/index.html* (Blazor WebAssembly) nebo *Pages/_Host. cshtml* (Blazor Server). Funkce je volána s <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> a vrátí hodnotu:
+Pro předchozí příklad kódu poskytněte `setElementText` funkci JavaScriptu uvnitř `<head>` elementu `wwwroot/index.html` (Blazor WebAssembly) nebo `Pages/_Host.cshtml` (Blazor Server). Funkce je volána s <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> a vrátí hodnotu:
 
 ```html
 <script>

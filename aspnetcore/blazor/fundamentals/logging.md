@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/logging
-ms.openlocfilehash: b0448d5f6e5e16a726eb2274dcacb4dfa8314b5d
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 841c4021d9217312b2601b0e775542c6455cca82
+ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103692"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85240880"
 ---
 # <a name="aspnet-core-blazor-logging"></a>BlazorProtokolování ASP.NET Core
 
@@ -39,7 +39,7 @@ builder.Logging.AddProvider(new CustomLoggingProvider());
 
 `Logging`Vlastnost je typu <xref:Microsoft.Extensions.Logging.ILoggingBuilder> , takže všechny metody rozšíření, které jsou k dispozici na, <xref:Microsoft.Extensions.Logging.ILoggingBuilder> jsou také k dispozici na `Logging` .
 
-Konfigurace protokolování se dá načíst ze souborů s nastavením aplikace. Další informace naleznete v tématu <xref:blazor/fundamentals/logging>.
+Konfigurace protokolování se dá načíst ze souborů s nastavením aplikace. Další informace naleznete v tématu <xref:blazor/fundamentals/configuration#logging-configuration>.
 
 ## <a name="blazor-server"></a>BlazorWebServer
 

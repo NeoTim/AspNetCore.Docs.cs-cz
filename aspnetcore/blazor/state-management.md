@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/state-management
-ms.openlocfilehash: 3cc75406a1680dff4727527153a62856a594c8c7
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 59adcce972b503a6aa6e596bc9bff63225961f84
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102508"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243197"
 ---
 # <a name="aspnet-core-blazor-state-management"></a>BlazorSpráva stavu ASP.NET Core
 
@@ -135,7 +135,7 @@ Je vhodné zvážit výběr balíčku, který transparentně používá [ochranu
 
 ## <a name="protected-browser-storage-experimental-package"></a>Experimentální balíček chráněného úložiště prohlížeče
 
-Příklad balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-protection/introduction) pro `localStorage` a `sessionStorage` je [Microsoft. AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).
+Příklad balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-protection/introduction) pro `localStorage` a `sessionStorage` je [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage) .
 
 > [!WARNING]
 > `Microsoft.AspNetCore.ProtectedBrowserStorage`je nepodporovaný experimentální balíček nevhodný pro produkční použití v tuto chvíli.
@@ -144,8 +144,8 @@ Příklad balíčku NuGet, který poskytuje [ochranu dat](xref:security/data-pro
 
 Postup instalace `Microsoft.AspNetCore.ProtectedBrowserStorage` balíčku:
 
-1. V Blazor projektu Server App přidejte odkaz na balíček [Microsoft. AspNetCore. ProtectedBrowserStorage](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage).
-1. V HTML nejvyšší úrovně (například v souboru *Pages/_Host. cshtml* ve výchozí šabloně projektu) přidejte následující `<script>` značku:
+1. V Blazor projektu serverové aplikace přidejte odkaz na balíček [`Microsoft.AspNetCore.ProtectedBrowserStorage`](https://www.nuget.org/packages/Microsoft.AspNetCore.ProtectedBrowserStorage) .
+1. V HTML nejvyšší úrovně (například v `Pages/_Host.cshtml` souboru ve výchozí šabloně projektu) přidejte následující `<script>` značku:
 
    ```html
    <script src="_content/Microsoft.AspNetCore.ProtectedBrowserStorage/protectedBrowserStorage.js"></script>
@@ -171,7 +171,7 @@ Volba závisí na tom, které záložní úložiště chcete použít. V násled
 @inject ProtectedSessionStorage ProtectedSessionStore
 ```
 
-`@using`Příkaz lze umístit do souboru *_Imports. Razor* místo do součásti. Použití souboru *_Imports. Razor* zpřístupňuje obor názvů pro větší segmenty aplikace nebo celé aplikace.
+`@using`Příkaz lze umístit do `_Imports.razor` souboru místo v součásti. Použití `_Imports.razor` souboru zpřístupňuje obor názvů pro větší segmenty aplikace nebo celé aplikace.
 
 Chcete-li zachovat `currentCount` hodnotu v `Counter` součásti šablony projektu, upravte `IncrementCount` metodu, kterou chcete použít `ProtectedSessionStore.SetAsync` :
 
@@ -215,7 +215,7 @@ Jedním z těchto způsobů je sledovat, jestli jsou data `null` (pořád se na�
 private int? currentCount;
 ```
 
-Namísto nepodmíněného zobrazení tlačítka počet a **přírůstek** vyberte, zda chcete tyto prvky zobrazit pouze v případě, že jsou data načtena:
+Namísto nepodmíněného zobrazení **`Increment`** hodnoty a tlačítka vyberte možnost zobrazit tyto prvky pouze v případě, že jsou data načtena:
 
 ```razor
 @if (currentCount.HasValue)
@@ -243,7 +243,7 @@ Během předvykreslování:
 
 Jedním ze způsobů, jak chybu vyřešit, je zakázat předvykreslování. To je obvykle nejlepší volba, pokud aplikace využívá úložiště založené na prohlížeči. Předvykreslování přináší složitost a nevýhoduje aplikaci, protože aplikace nemůže využít žádný užitečný obsah do té doby, než `localStorage` `sessionStorage` je k dispozici.
 
-Chcete-li zakázat předvykreslování, otevřete soubor *Pages/_Host. cshtml* a změňte `render-mode` [pomocníka značek komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper) na <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> .
+Chcete-li zakázat předvykreslování, otevřete `Pages/_Host.cshtml` soubor a změňte `render-mode` [pomocníka značek komponenty](xref:mvc/views/tag-helpers/builtin-th/component-tag-helper) na <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server> .
 
 Předvykreslování může být užitečné pro jiné stránky, které nepoužívají `localStorage` nebo `sessionStorage` . Aby bylo možné předvykreslování povolit, odložte operaci načtení, dokud se prohlížeč nepřipojí k okruhu. Následuje příklad uložení hodnoty čítače:
 
@@ -326,7 +326,7 @@ else
 
 `CounterStateProvider`Komponenta zpracovává fázi načítání tím, že nevykresluje svůj podřízený obsah, dokud není načítání dokončeno.
 
-Chcete-li použít `CounterStateProvider` komponentu, zabalte instanci součásti kolem jakékoli jiné komponenty, která vyžaduje přístup ke stavu čítače. Chcete-li zpřístupnit stav pro všechny součásti aplikace, zabalte `CounterStateProvider` komponentu kolem komponenty <xref:Microsoft.AspNetCore.Components.Routing.Router> v `App` součásti (*App. Razor*):
+Chcete-li použít `CounterStateProvider` komponentu, zabalte instanci součásti kolem jakékoli jiné komponenty, která vyžaduje přístup ke stavu čítače. Chcete-li zpřístupnit stav pro všechny komponenty v aplikaci, zabalte `CounterStateProvider` komponentu kolem komponenty <xref:Microsoft.AspNetCore.Components.Routing.Router> v `App` součásti ( `App.razor` ):
 
 ```razor
 <CounterStateProvider>

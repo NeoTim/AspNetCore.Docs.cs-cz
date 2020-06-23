@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/dependency-injection
-ms.openlocfilehash: b4ac0dbc6dabdeff4689544f2e11278b8302c553
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 24cd5ae837eeb4c89a15bab2948dde2eface0c0d
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103703"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242794"
 ---
 # <a name="aspnet-core-blazor-dependency-injection"></a>BlazorVkládání závislostí ASP.NET Core
 
@@ -35,7 +35,7 @@ DI je technika přístupu ke službám nakonfigurovaným v centrálním umístě
 
 Výchozí služby se automaticky přidají do kolekce služeb aplikace.
 
-| Služba | Doba platnosti | Popis |
+| Služba | Doba platnosti | Description |
 | ------- | -------- | ----------- |
 | <xref:System.Net.Http.HttpClient> | Dočasný | Poskytuje metody pro posílání požadavků HTTP a příjem odpovědí HTTP z prostředku identifikovaného identifikátorem URI.<br><br>Instance <xref:System.Net.Http.HttpClient> v Blazor aplikaci WebAssembly používá prohlížeč pro zpracování provozu http na pozadí.<br><br>BlazorServerové aplikace <xref:System.Net.Http.HttpClient> ve výchozím nastavení neobsahují nakonfigurovaný jako službu. Poskytněte <xref:System.Net.Http.HttpClient> Blazor serverovou aplikaci.<br><br>Další informace naleznete v tématu <xref:blazor/call-web-api>. |
 | <xref:Microsoft.JSInterop.IJSRuntime> | Singleton ( Blazor WebAssembly)<br>S vymezeným oborem ( Blazor Server) | Představuje instanci modulu runtime jazyka JavaScript, kde jsou odesílána volání jazyka JavaScript. Další informace naleznete v tématu <xref:blazor/call-javascript-from-dotnet>. |
@@ -47,7 +47,7 @@ Vlastní zprostředkovatel služeb automaticky neposkytuje výchozí služby uve
 
 ### <a name="blazor-webassembly"></a>BlazorWebAssembly
 
-Nakonfigurujte služby pro kolekci služeb aplikace v `Main` metodě *program.cs*. V následujícím příkladu `MyDependency` je implementace zaregistrována pro `IMyDependency` :
+Nakonfigurujte služby pro kolekci služeb aplikace v `Main` metodě `Program.cs` . V následujícím příkladu `MyDependency` je implementace zaregistrována pro `IMyDependency` :
 
 ```csharp
 public class Program
@@ -84,7 +84,7 @@ public class Program
 }
 ```
 
-Hostitel taky poskytuje centrální instanci konfigurace pro aplikaci. V předchozím příkladu je adresa URL služby počasí předána z výchozího zdroje konfigurace (například *appsettings.json*) do `InitializeWeatherAsync` :
+Hostitel taky poskytuje centrální instanci konfigurace pro aplikaci. V předchozím příkladu je adresa URL služby počasí předána z výchozího zdroje konfigurace (například `appsettings.json` ) na `InitializeWeatherAsync` :
 
 ```csharp
 public class Program
@@ -130,7 +130,7 @@ public void ConfigureServices(IServiceCollection services)
 
 Služby je možné konfigurovat s životností, která jsou uvedená v následující tabulce.
 
-| Doba platnosti | Popis |
+| Doba platnosti | Description |
 | -------- | ----------- |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Scoped%2A> | BlazorAplikace pro WebAssembly aktuálně nemají koncept typu DI obory. `Scoped`– registrované služby se chovají jako `Singleton` služby. BlazorModel hostování serveru však podporuje `Scoped` dobu života. V rámci Blazor serverových aplikací je vymezená registrace služby vymezená na *připojení*. Z tohoto důvodu je vhodnější použití oboru služeb pro služby, které by měly být vymezeny na aktuálního uživatele, a to i v případě, že aktuální záměr je spustit na straně klienta v prohlížeči. |
 | <xref:Microsoft.Extensions.DependencyInjection.ServiceDescriptor.Singleton%2A> | DI vytvoří *jednu instanci* služby. Všechny součásti, které vyžadují `Singleton` službu, obdrží instanci stejné služby. |
@@ -193,7 +193,7 @@ public class DataAccess : IDataAccess
 Předpoklady pro vložení konstruktoru:
 
 * Je nutné, aby jeden konstruktor existoval, jehož argumenty mohou být splněny pomocí DI. Další parametry, které nejsou pokryty parametrem DI, jsou povoleny, pokud určují výchozí hodnoty.
-* Příslušný konstruktor musí být *veřejný*.
+* Příslušný konstruktor musí být `public` .
 * Musí existovat jeden použitelný konstruktor. V případě nejednoznačnosti Vyvolá příkaz DI výjimku.
 
 ## <a name="utility-base-component-classes-to-manage-a-di-scope"></a>Základní třídy komponenty nástroje pro správu oboru DI
@@ -346,5 +346,5 @@ Může-li jedna součást současně použít <xref:Microsoft.EntityFrameworkCor
 ## <a name="additional-resources"></a>Další zdroje
 
 * <xref:fundamentals/dependency-injection>
-* [Doprovodné materiály k rozhraní IDisposable pro přechodné a sdílené instance](xref:fundamentals/dependency-injection#idisposable-guidance-for-transient-and-shared-instances)
+* [`IDisposable`doprovodné materiály k přechodným a sdíleným instancím](xref:fundamentals/dependency-injection#idisposable-guidance-for-transient-and-shared-instances)
 * <xref:mvc/views/dependency-injection>

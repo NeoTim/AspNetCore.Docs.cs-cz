@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/ObjectPool
-ms.openlocfilehash: f29d15fc1e2d2ad84526598be14638110f08614e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 004ca5724517bf3fbf6512c0b9653793f4e0f702
+ms.sourcegitcommit: dd2a1542a4a377123490034153368c135fdbd09e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774779"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85241007"
 ---
 # <a name="object-reuse-with-objectpool-in-aspnet-core"></a>Opakované použití objektu s fond objectpool v ASP.NET Core
 
@@ -40,7 +40,7 @@ Sdružování objektů nezvyšuje výkon vždy:
 
 Používejte sdružování objektů až po shromáždění údajů o výkonu pomocí reálných scénářů vaší aplikace nebo knihovny.
 
-**Upozornění: neimplementuje `ObjectPool` `IDisposable`se. Nedoporučujeme ho používat s typy, které vyžadují vyřazení.**
+**Upozornění: `ObjectPool` neimplementuje se `IDisposable` . Nedoporučujeme ho používat s typy, které vyžadují vyřazení.**
 
 **Poznámka: fond objectpool neomezuje počet objektů, které budou přiděleny, omezuje počet objektů, které budou zachovány.**
 
@@ -69,10 +69,12 @@ Následující kód:
 
 * Přidá `ObjectPoolProvider` do kontejneru [vkládání závislostí](xref:fundamentals/dependency-injection) (di).
 * Přidá a nakonfiguruje `ObjectPool<StringBuilder>` do kontejneru di.
-* Přidá `BirthdayMiddleware`.
+* Přidá `BirthdayMiddleware` .
 
 [!code-csharp[](ObjectPool/ObjectPoolSample/Startup.cs?name=snippet)]
 
 Následující kód implementuje`BirthdayMiddleware`
 
 [!code-csharp[](ObjectPool/ObjectPoolSample/BirthdayMiddleware.cs?name=snippet)]
+
+[!INCLUDE[request localized comments](~/includes/code-comments-loc.md)]

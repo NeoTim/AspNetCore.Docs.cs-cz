@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/server
-ms.openlocfilehash: 891714250bc4e8b0b241e589efb268b8f8e9f0d5
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: c02d005aa5e37bc359e1c104a19c387f1c16fa34
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103676"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243548"
 ---
 # <a name="host-and-deploy-blazor-server"></a>Server hostitele a nasazení Blazor
 
@@ -32,7 +32,7 @@ Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.time
 
 Použití [ Blazor modelu hostování serveru](xref:blazor/hosting-models#blazor-server) Blazor je spuštěno na serveru aplikace z ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes [SignalR](xref:signalr/introduction) připojení.
 
-Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core. Visual Studio obsahuje šablonu projektu ** Blazor Serverová aplikace** ( `blazorserverside` Šablona při použití příkazu [dotnet New](/dotnet/core/tools/dotnet-new) ).
+Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core. Visual Studio obsahuje šablonu projektu ** Blazor Serverová aplikace** ( `blazorserverside` Šablona při použití [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu).
 
 ## <a name="scalability"></a>Škálovatelnost
 
@@ -76,7 +76,7 @@ Pro serverové aplikace doporučujeme [používat SignalR službu Azure](/azure/
 
    * Konfigurace (použijte **jeden** z následujících přístupů):
   
-     * *appsettings.js*:
+     * `appsettings.json`:
 
        ```json
        "Azure:SignalR:ServerStickyMode": "Required"

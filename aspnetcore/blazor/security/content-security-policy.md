@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/content-security-policy
-ms.openlocfilehash: 63359260766846ccf14ececfae82bf02cc598cf9
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 360fff9383e25a6b5b9308cfebd397f7f4ee31a6
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103656"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242976"
 ---
 # <a name="enforce-a-content-security-policy-for-aspnet-core-blazor"></a>Vynutili zásady zabezpečení obsahu pro ASP.NET CoreBlazor
 
@@ -85,7 +85,7 @@ V následujících částech jsou uvedeny příklady zásad pro Blazor WebAssemb
 
 ### <a name="blazor-webassembly"></a>BlazorWebAssembly
 
-V `<head>` obsahu stránky hostitele *wwwroot/index.html* použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
+V `<head>` obsahu `wwwroot/index.html` stránky hostitele použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
 
 ```html
 <meta http-equiv="Content-Security-Policy" 
@@ -108,7 +108,7 @@ V `<head>` obsahu stránky hostitele *wwwroot/index.html* použijte direktivy po
 
 ### <a name="blazor-server"></a>BlazorWebServer
 
-V `<head>` obsahu stránky hostitele *stránky/_Host. cshtml* použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
+V `<head>` obsahu `Pages/_Host.cshtml` stránky hostitele použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
 
 ```cshtml
 <meta http-equiv="Content-Security-Policy" 
@@ -152,7 +152,7 @@ I když `report-uri` se už nedoporučuje používat, obě direktivy by se měly
 
 Otestujte a aktualizujte zásady aplikace při každé vydané verzi.
 
-## <a name="troubleshoot"></a>Odstraňování potíží
+## <a name="troubleshoot"></a>Řešení potíží
 
 * V konzole nástroje pro vývojáře v prohlížeči se zobrazí chyby. Prohlížeče poskytují informace o:
   * Prvky, které nejsou v rozporu s touto zásadou.

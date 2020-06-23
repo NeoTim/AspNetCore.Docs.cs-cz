@@ -1,4 +1,4 @@
-`App`Součást (*App. Razor*) je podobná `App` komponentě, kterou najdete v Blazor serverových aplikacích:
+`App`Součást ( `App.razor` ) je podobná `App` komponentě, kterou najdete v Blazor serverových aplikacích:
 
 * Komponenta spravuje vystavení <xref:Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState> <xref:Microsoft.AspNetCore.Components.Authorization.AuthenticationState> do zbytku aplikace.
 * <xref:Microsoft.AspNetCore.Components.Authorization.AuthorizeRouteView>Komponenta zajistí, že aktuální uživatel má oprávnění pro přístup k dané stránce nebo jinak vykreslí `RedirectToLogin` součást.

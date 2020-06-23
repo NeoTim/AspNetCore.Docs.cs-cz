@@ -31,7 +31,7 @@ Jedním z způsobů, jak zabránit kolizím souborů cookie a dat lokality při 
 
 ### <a name="run-the-server-app"></a>Spuštění serverové aplikace
 
-Při testování a řešení potíží s hostovanou aplikací Blazor se ujistěte, že jste spustili aplikaci z projektu **serveru** . Například v aplikaci Visual Studio ověřte, že je serverový projekt zvýrazněný v **Průzkumník řešení** před spuštěním aplikace s některým z následujících přístupů:
+Při testování a řešení potíží s hostovanou aplikací Blazor se ujistěte, že jste spustili aplikaci z **`Server`** projektu. Například v aplikaci Visual Studio ověřte, že je serverový projekt zvýrazněný v **Průzkumník řešení** před spuštěním aplikace s některým z následujících přístupů:
 
 * Vyberte tlačítko **Spustit**.
 * Použijte **ladění**  >  **Spustit ladění** z nabídky.

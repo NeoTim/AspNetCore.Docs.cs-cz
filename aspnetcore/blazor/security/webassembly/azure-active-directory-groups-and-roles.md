@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: 99ebe43da191153aa98cce6bae8fe98035bc7d6f
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: ed49ba13842f2b5805250d8c12535397c542cfd4
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103767"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85242872"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Skupiny Azure AD, role pro správu a uživatelsky definované role
 
@@ -45,7 +45,7 @@ Pokyny v tomto článku se týkají Blazor scénářů nasazení AAD WebAssembly
 Postup konfigurace aplikace v Azure Portal k poskytnutí `groups` deklarace identity členství najdete v následujících článcích Azure. Přiřaďte uživatele k uživatelem definovaným skupinám AAD a integrovaným rolím pro správu.
 
 * [Role používající skupiny zabezpečení Azure AD](/azure/architecture/multitenant-identity/app-roles#roles-using-azure-ad-security-groups)
-* [groupMembershipClaims – atribut](/azure/active-directory/develop/reference-app-manifest#groupmembershipclaims-attribute)
+* [`groupMembershipClaims`přidělen](/azure/active-directory/develop/reference-app-manifest#groupmembershipclaims-attribute)
 
 V následujících příkladech se předpokládá, že je uživatel přiřazený k předdefinované roli *správce fakturace* AAD.
 
@@ -53,7 +53,7 @@ Jediná `groups` deklarace ODESÍLANÁ AAD prezentuje skupiny uživatelů a role
 
 Rozšíříte <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount> tak, aby zahrnovalo vlastnosti pole pro skupiny a role.
 
-*CustomUserAccount.cs*:
+`CustomUserAccount.cs`:
 
 ```csharp
 using System.Text.Json.Serialization;
@@ -115,7 +115,7 @@ public class CustomUserFactory
 
 Není nutné zadávat kód pro odebrání původní `groups` deklarace identity, protože je automaticky odebrána rozhraním Framework.
 
-Registrace továrny v `Program.Main` (*program.cs*) samostatné aplikace nebo klientské aplikace hostovaného řešení:
+Registrace továrny v `Program.Main` ( `Program.cs` ) samostatné aplikace nebo klientské aplikace hostovaného řešení:
 
 ```csharp
 builder.Services.AddMsalAuthentication<RemoteAuthenticationState, 
@@ -145,7 +145,7 @@ builder.Services.AddAuthorizationCore(options =>
 
 V následujících příkladech používá aplikace k autorizaci uživatele předchozí zásady.
 
-[Komponenta AuthorizeView](xref:blazor/security/index#authorizeview-component) spolupracuje s touto zásadou:
+[ `AuthorizeView` Komponenta](xref:blazor/security/index#authorizeview-component) spolupracuje se zásadami:
 
 ```razor
 <AuthorizeView Policy="BillingAdministrator">
@@ -245,7 +245,7 @@ builder.Services.AddMsalAuthentication(options =>
 
 Přístupy k autorizaci komponent jsou v tuto chvíli funkční. Kterýkoli z autorizačních mechanismů v součástech může použít `admin` roli k autorizaci uživatele:
 
-* [AuthorizeView – komponenta](xref:blazor/security/index#authorizeview-component) (příklad: `<AuthorizeView Roles="admin">` )
+* [ `AuthorizeView` součást](xref:blazor/security/index#authorizeview-component) (příklad: `<AuthorizeView Roles="admin">` )
 * [ `[Authorize]` direktiva atributu](xref:blazor/security/index#authorize-attribute) ( <xref:Microsoft.AspNetCore.Authorization.AuthorizeAttribute> ) (příklad: `@attribute [Authorize(Roles = "admin")]` )
 * [Procedurální logika](xref:blazor/security/index#procedural-logic) (příklad: `if (user.IsInRole("admin")) { ... }` )
 
