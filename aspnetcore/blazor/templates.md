@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 3a491e43aec8291fcf03696b53240bd33e0deda1
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: ce46d562285b95ff656ed43b3a63ca5e7315f4c8
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102485"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243210"
 ---
 # <a name="aspnet-core-blazor-templates"></a>BlazorŠablony ASP.NET Core
 
@@ -33,7 +33,7 @@ Další informace o Blazor modelech hostování naleznete v tématu <xref:blazor
 
 Podrobné pokyny k vytvoření Blazor aplikace ze šablony naleznete v tématu <xref:blazor/get-started> .
 
-Možnosti šablony jsou k dispozici předáním `--help` Možnosti příkazového řádku [dotnet New](/dotnet/core/tools/dotnet-new) CLI:
+Možnosti šablony jsou k dispozici předáním `--help` možnosti [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu CLI:
 
 ```dotnetcli
 dotnet new blazorwasm --help
@@ -44,7 +44,7 @@ dotnet new blazorserver --help
 
 Následující soubory a složky tvoří Blazor aplikaci vygenerovanou ze Blazor šablony:
 
-* *Program.cs*: vstupní bod aplikace, který nastavuje:
+* `Program.cs`: Vstupní bod aplikace, který nastavuje:
 
   * [Hostitel](xref:fundamentals/host/generic-host) ASP.NET Core ( Blazor Server)
   * Hostitel WebAssembly ( Blazor WebAssembly): kód v tomto souboru je jedinečný pro aplikace vytvořené ze Blazor šablony WebAssembly ( `blazorwasm` ).
@@ -52,40 +52,40 @@ Následující soubory a složky tvoří Blazor aplikaci vygenerovanou ze Blazor
     * Služby lze konfigurovat pomocí `ConfigureServices` metody v Tvůrci hostitele (například `builder.Services.AddSingleton<IMyDependency, MyDependency>();` ).
     * Konfiguraci lze dodávat prostřednictvím tvůrce hostitele ( `builder.Configuration` ).
 
-* *Startup.cs* ( Blazor Server): obsahuje logiku spouštění aplikace. `Startup`Třída definuje dvě metody:
+* `Startup.cs`( Blazor Server): obsahuje logiku spouštění aplikace. `Startup`Třída definuje dvě metody:
 
   * `ConfigureServices`: Konfiguruje služby pro [vkládání závislostí (di)](xref:fundamentals/dependency-injection) aplikace. V Blazor serverových aplikacích se služby přidávají voláním <xref:Microsoft.Extensions.DependencyInjection.ComponentServiceCollectionExtensions.AddServerSideBlazor%2A> a `WeatherForecastService` přidá se do kontejneru služby pro použití v ukázkové `FetchData` součásti.
   * `Configure`: Konfiguruje kanál pro zpracování žádostí aplikace:
     * <xref:Microsoft.AspNetCore.Builder.ComponentEndpointRouteBuilderExtensions.MapBlazorHub%2A>je volána k nastavení koncového bodu pro připojení v reálném čase pomocí prohlížeče. Připojení se vytvoří pomocí [SignalR](xref:signalr/introduction) , což je rozhraní, které umožňuje přidávat do aplikací webové funkce v reálném čase.
-    * [MapFallbackToPage ("/_Host")](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*) se zavolá, aby se nastavila Kořenová stránka aplikace (*pages/_Host. cshtml*) a povolila se navigace.
+    * [`MapFallbackToPage("/_Host")`](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage*)se volá, aby se nastavila Kořenová stránka aplikace ( `Pages/_Host.cshtml` ) a povolila se navigace.
 
-* *wwwroot/index.html* ( Blazor WebAssembly): Kořenová stránka aplikace IMPLEMENTOVANÉ jako stránka HTML:
+* `wwwroot/index.html`( Blazor WebAssembly): Kořenová stránka aplikace implementované jako stránka HTML:
   * Po prvním vyžádání stránky aplikace se tato stránka vykreslí a vrátí v odpovědi.
-  * Stránka určuje, kde `App` je vygenerována kořenová komponenta. `App`Součást (*App. Razor*) je zadána jako `app` prvek modelu DOM k `AddComponent` metodě v `Startup.Configure` .
+  * Stránka určuje, kde `App` je vygenerována kořenová komponenta. `App`Součást ( `App.razor` ) je určena jako `app` prvek modelu DOM `AddComponent` metody v `Startup.Configure` .
   * `_framework/blazor.webassembly.js`Načte se soubor JavaScriptu, který:
     * Stáhne rozhraní .NET runtime, aplikaci a závislosti aplikace.
     * Inicializuje modul runtime pro spuštění aplikace.
 
-* *App. Razor*: kořenová komponenta aplikace, která nastaví směrování na straně klienta pomocí <xref:Microsoft.AspNetCore.Components.Routing.Router> komponenty. <xref:Microsoft.AspNetCore.Components.Routing.Router>Komponenta zachycuje navigaci v prohlížeči a vykreslí stránku, která odpovídá požadované adrese.
+* `App.razor`: Kořenová komponenta aplikace, která nastaví směrování na straně klienta pomocí <xref:Microsoft.AspNetCore.Components.Routing.Router> komponenty. <xref:Microsoft.AspNetCore.Components.Routing.Router>Komponenta zachycuje navigaci v prohlížeči a vykreslí stránku, která odpovídá požadované adrese.
 
-* Složka *stránky* : obsahuje směrovatelný komponenty/stránky (*. Razor*), které tvoří Blazor aplikaci a kořenovou Razor stránku Blazor serverové aplikace. Trasa pro každou stránku je určena pomocí [`@page`](xref:mvc/views/razor#page) direktivy. Šablona obsahuje následující:
-  * *_Host. cshtml* ( Blazor Server): Kořenová stránka aplikace byla implementována jako Razor stránka:
+* `Pages`Složka: obsahuje směrovatelný komponenty/stránky ( `.razor` ), které tvoří Blazor aplikaci a kořenovou Razor stránku Blazor serverové aplikace. Trasa pro každou stránku je určena pomocí [`@page`](xref:mvc/views/razor#page) direktivy. Šablona obsahuje následující:
+  * `_Host.cshtml`( Blazor Server): Kořenová stránka aplikace implementovaná jako Razor Page
     * Po prvním vyžádání stránky aplikace se tato stránka vykreslí a vrátí v odpovědi.
     * `_framework/blazor.server.js`Načte se soubor JavaScriptu, který nastaví připojení v reálném čase SignalR mezi prohlížečem a serverem.
-    * Stránka hostitel Určuje, kde `App` je vygenerována kořenová součást (*App. Razor*).
-  * `Counter`(*Counter. Razor*): implementuje stránku čítače.
-  * `Error`(*Error. Razor*, Blazor Jenom serverová aplikace): vykreslí se, když v aplikaci dojde k neošetřené výjimce.
-  * `FetchData`(*FetchData. Razor*): implementuje stránku načíst data.
-  * `Index`(*Index. Razor*): implementuje domovskou stránku.
+    * Stránka hostitel Určuje, kde `App` `App.razor` je vygenerována kořenová součást ().
+  * `Counter`( `Pages/Counter.razor` ): Implementuje stránku čítače.
+  * `Error`( `Error.razor` , Blazor Jenom serverová aplikace): vykreslí se, když v aplikaci dojde k neošetřené výjimce.
+  * `FetchData`( `Pages/FetchData.razor` ): Implementuje stránku načíst data.
+  * `Index`( `Pages/Index.razor` ): Implementuje domovskou stránku.
 
-* *Sdílená* složka: obsahuje další součásti uživatelského rozhraní (*. Razor*) používané aplikací:
-  * `MainLayout`(*MainLayout. Razor*): součást rozložení aplikace
-  * `NavMenu`(*NavMenu. Razor*): implementuje navigaci bočním panelem. Zahrnuje [komponentu NavLink](xref:blazor/fundamentals/routing#navlink-component) ( <xref:Microsoft.AspNetCore.Components.Routing.NavLink> ), která vykresluje navigační odkazy na jiné Razor součásti. <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Komponenta automaticky indikuje vybraný stav při načtení jeho komponenty, což pomáhá uživateli pochopit, která součást se aktuálně zobrazuje.
+* `Shared`Složka: obsahuje další součásti uživatelského rozhraní ( `.razor` ), které používá aplikace:
+  * `MainLayout`( `MainLayout.razor` ): Součást rozložení aplikace
+  * `NavMenu`( `NavMenu.razor` ): Implementuje navigaci bočním panelem. Zahrnuje [ `NavLink` komponentu](xref:blazor/fundamentals/routing#navlink-component) ( <xref:Microsoft.AspNetCore.Components.Routing.NavLink> ), která vykresluje navigační odkazy na jiné Razor součásti. <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Komponenta automaticky indikuje vybraný stav při načtení jeho komponenty, což pomáhá uživateli pochopit, která součást se aktuálně zobrazuje.
 
-* *_Imports. Razor*: obsahuje společné Razor direktivy pro zahrnutí do komponent aplikace (*. Razor*), jako jsou například [`@using`](xref:mvc/views/razor#using) direktivy pro obory názvů.
+* `_Imports.razor`: Obsahuje společné Razor direktivy, které se mají zahrnout do komponent aplikace (), jako jsou například `.razor` [`@using`](xref:mvc/views/razor#using) direktivy pro obory názvů.
 
-* Složka *dat* ( Blazor Server): obsahuje `WeatherForecast` třídu a implementaci rozhraní `WeatherForecastService` , které poskytuje ukázková data o počasí součásti aplikace `FetchData` .
+* `Data`Složka ( Blazor Server): obsahuje `WeatherForecast` třídu a implementaci rozhraní `WeatherForecastService` , které poskytuje ukázková data o počasí `FetchData` součásti aplikace.
 
-* *wwwroot*: [Webová kořenová](xref:fundamentals/index#web-root) složka pro aplikaci, která obsahuje veřejné statické prostředky aplikace.
+* `wwwroot`: [Kořenová složka webu](xref:fundamentals/index#web-root) pro aplikaci, která obsahuje veřejné statické prostředky aplikace.
 
-* *appsettings.jsna* ( Blazor serveru): nastavení konfigurace pro aplikaci.
+* `appsettings.json`( Blazor Server): nastavení konfigurace aplikace

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/globalization-localization
-ms.openlocfilehash: 42b61c9af0c1809ecb7d9a45ec8edfa815e2df22
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 5050d99e5304c7edaf6faa43f05298b69882521d
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102322"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243587"
 ---
 # <a name="aspnet-core-blazor-globalization-and-localization"></a>ASP.NET Core Blazor globalizace a lokalizace
 
@@ -71,7 +71,7 @@ Chcete-li explicitně konfigurovat jazykovou verzi, nastavte <xref:System.Global
 
 Ve výchozím nastavení se Blazor Konfigurace linkeru pro Blazor aplikace pro WebAssembly odříznout informace o mezinárodním prostředí s výjimkou výslovně požadovaných místních hodnot. Další informace a pokyny k řízení chování linkeru naleznete v tématu <xref:blazor/host-and-deploy/configure-linker#configure-the-linker-for-internationalization> .
 
-I když jazyková verze, která je standardně Blazor vybrána, může být pro většinu uživatelů dostačující, doporučujeme nabídnout uživatelům možnost zadat své upřednostňované národní prostředí. BlazorUkázkovou aplikaci pro WebAssembly s použitím výběru jazykové verze najdete v ukázkové aplikaci [LocSample](https://github.com/pranavkm/LocSample) Localization.
+I když jazyková verze, která je standardně Blazor vybrána, může být pro většinu uživatelů dostačující, doporučujeme nabídnout uživatelům možnost zadat své upřednostňované národní prostředí. BlazorUkázkovou aplikaci pro WebAssembly s použitím výběru jazykové verze najdete v [`LocSample`](https://github.com/pranavkm/LocSample) ukázkové aplikaci Localization.
 
 ### <a name="blazor-server"></a>BlazorWebServer
 
@@ -92,7 +92,7 @@ Použití souboru cookie zajistí, že připojení protokolu WebSocket dokáže 
 
 Pokud je jazyková verze uložena v souboru cookie lokalizace, je možné použít jakoukoli techniku k přiřazení jazykové verze. Pokud už aplikace má zavedené lokalizační schéma pro ASP.NET Core na straně serveru, pokračujte v používání stávající infrastruktury lokalizace a nastavte soubor cookie lokalizační kultury v rámci schématu aplikace.
 
-Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v souboru cookie, který lze přečíst pomocí middleware Localization. Vytvořte Razor výraz v souboru *Pages/_Host. cshtml* hned v otevírací `<body>` značce:
+Následující příklad ukazuje, jak nastavit aktuální jazykovou verzi v souboru cookie, který lze přečíst pomocí middleware Localization. Vytvořte Razor v `Pages/_Host.cshtml` souboru výraz hned v otevírací `<body>` značce:
 
 ```cshtml
 @using System.Globalization
@@ -118,7 +118,7 @@ Lokalizace je zpracována aplikací v následující posloupnosti událostí:
 
 1. Prohlížeč pošle do aplikace počáteční požadavek HTTP.
 1. Jazyková verze je přiřazena pomocí middleware Localization.
-1. RazorVýraz na `_Host` stránce (*_Host. cshtml*) ukládá jazykovou verzi v souboru cookie jako součást odpovědi.
+1. RazorVýraz na `_Host` stránce ( `_Host.cshtml` ) zachovává jazykovou verzi v souboru cookie jako součást odpovědi.
 1. Prohlížeč otevře připojení pomocí protokolu WebSocket a vytvoří interaktivní Blazor relaci serveru.
 1. Middleware lokalizace přečte soubor cookie a přiřadí jazykovou verzi.
 1. BlazorRelace serveru začíná správnou jazykovou verzí.

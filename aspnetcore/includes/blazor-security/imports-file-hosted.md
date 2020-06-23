@@ -1,3 +1,3 @@
-Obor <xref:Microsoft.AspNetCore.Components.Authorization?displayProperty=fullName> názvů je k dispozici v celé aplikaci prostřednictvím souboru *_Imports.razor:*
+<xref:Microsoft.AspNetCore.Components.Authorization?displayProperty=fullName>Obor názvů je dostupný v celé aplikaci prostřednictvím `_Imports.razor` souboru:
 
 [!code-razor[](imports-hosted.razor?highlight=3)]

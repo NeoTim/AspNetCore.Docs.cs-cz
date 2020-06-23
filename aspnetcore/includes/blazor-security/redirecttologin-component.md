@@ -1,4 +1,4 @@
-`RedirectToLogin`Součást (*Shared/RedirectToLogin. Razor*):
+`RedirectToLogin`Součást ( `Shared/RedirectToLogin.razor` ):
 
 * Spravuje přesměrování neautorizovaných uživatelů na přihlašovací stránku.
 * Zachová aktuální adresu URL, ke které se uživatel pokouší získat přístup, aby se mohla vrátit na tuto stránku, pokud je ověření úspěšné.

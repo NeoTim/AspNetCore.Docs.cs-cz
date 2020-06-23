@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/configure-linker
-ms.openlocfilehash: efac62c325b03b5ee19cae58abb5227f3d300b69
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 76af450df70fe666ea1b951cb4b41696057c5e67
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103680"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243574"
 ---
 # <a name="configure-the-linker-for-aspnet-core-blazor"></a>Konfigurace linkeru pro ASP.NET CoreBlazor
 
@@ -55,7 +55,7 @@ Propojení je povoleno, pokud je aplikace integrována v `Release` konfiguraci. 
 </ItemGroup>
 ```
 
-*LinkerConfig.xml*:
+`LinkerConfig.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -93,7 +93,7 @@ Další informace a příklady naleznete v tématu [formáty dat (úložiště G
 
 Chcete-li nakonfigurovat linker pro konkrétní knihovnu, přidejte konfigurační soubor linkeru XML do knihovny jako vložený prostředek. Vložený prostředek musí mít stejný název jako sestavení.
 
-V následujícím příkladu je soubor *LinkerConfig.xml* zadán jako vložený prostředek, který má stejný název jako sestavení knihovny:
+V následujícím příkladu `LinkerConfig.xml` je soubor zadán jako vložený prostředek, který má stejný název jako sestavení knihovny:
 
 ```xml
 <ItemGroup>
@@ -118,12 +118,12 @@ Chcete-li určit, která sestavení I18N jsou zachována, nastavte `<BlazorWebAs
 | Hodnota oblasti     | Sestavení oblasti mono    |
 | ---------------- | ----------------------- |
 | `all`            | Všechna sestavení, která jsou součástí |
-| `cjk`            | *I18N.CJK.dll*          |
-| `mideast`        | *I18N.MidEast.dll*      |
+| `cjk`            | `I18N.CJK.dll`          |
+| `mideast`        | `I18N.MidEast.dll`      |
 | `none`výchozí | Žádné                    |
-| `other`          | *I18N.Other.dll*        |
-| `rare`           | *I18N.Rare.dll*         |
-| `west`           | *I18N.West.dll*         |
+| `other`          | `I18N.Other.dll`        |
+| `rare`           | `I18N.Rare.dll`         |
+| `west`           | `I18N.West.dll`         |
 
 Oddělte více hodnot pomocí čárky (například `mideast,west` ).
 

@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: c90c3bf7ccef420101c66fe04d579920209b066c
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 63fee0b6a3152640a5483c2a682eec7d04742145
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102336"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243600"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET CoreBlazor
 
@@ -70,7 +70,7 @@ Pokud chcete začít používat Blazor , postupujte podle pokynů pro výběr n�
 
    Informace o dvou Blazor modelech hostování, * Blazor WebAssembly* a * Blazor serveru*naleznete v tématu <xref:blazor/hosting-models> .
 
-1. Otevřete složku *WebApplication1* v Visual Studio Code.
+1. Otevřete `WebApplication1` složku v Visual Studio Code.
 
 1. Rozhraní IDE požaduje, abyste přidali prostředky pro sestavení a ladění projektu. Vyberte **Ano**.
 
@@ -137,15 +137,15 @@ Na kartách na bočním panelu je k dispozici více stránek:
 * Čítač
 * Načíst data
 
-Na stránce čítač můžete **kliknutím** na tlačítko pro zvýšit hodnotu čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale s Blazor můžete použít jazyk C#.
+Na stránce čítač vyberte tlačítko pro zvýšení čítače bez aktualizace stránky. Zvýšení čítače na webové stránce obvykle vyžaduje psaní JavaScriptu, ale s Blazor můžete použít jazyk C#.
 
-*Stránky/čítač. Razor*:
+`Pages/Counter.razor`:
 
 [!code-razor[](get-started/samples_snapshot/3.x/Counter1.razor?highlight=7,12-15)]
 
 Požadavek na `/counter` v prohlížeči, jak je uveden v `@page` direktivě nahoře, způsobí, že `Counter` Komponenta vykreslí svůj obsah. Komponenty vykreslí do reprezentace v paměti stromu vykreslování, který lze poté použít k flexibilnímu a efektivnímu způsobu aktualizace uživatelského rozhraní.
 
-Pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** :
+Pokaždé, když je vybráno tlačítko:
 
 * `onclick`Událost je aktivována.
 * `IncrementCount`Metoda je volána.
@@ -156,7 +156,7 @@ Modul runtime porovná nový obsah s předchozím obsahem a na model DOM (Docume
 
 Přidejte komponentu do jiné komponenty pomocí syntaxe jazyka HTML. Například přidejte `Counter` komponentu do domovské stránky aplikace přidáním `<Counter />` elementu do `Index` komponenty.
 
-*Pages/index. Razor*:
+`Pages/Index.razor`:
 
 [!code-razor[](get-started/samples_snapshot/3.x/Index1.razor?highlight=7)]
 
@@ -167,17 +167,17 @@ Parametry komponenty jsou zadány pomocí atributů nebo [podřízeného obsahu]
 * Přidejte veřejnou vlastnost pro `IncrementAmount` s [`[Parameter]`](xref:Microsoft.AspNetCore.Components.ParameterAttribute) atributem.
 * Změňte `IncrementCount` metodu na použití `IncrementAmount` při zvyšování hodnoty `currentCount` .
 
-*Stránky/čítač. Razor*:
+`Pages/Counter.razor`:
 
 [!code-razor[](get-started/samples_snapshot/3.x/Counter2.razor?highlight=12-13,17)]
 
 Zadejte `IncrementAmount` v `Index` `<Counter>` elementu komponenty pomocí atributu.
 
-*Pages/index. Razor*:
+`Pages/Index.razor`:
 
 [!code-razor[](get-started/samples_snapshot/3.x/Index2.razor?highlight=7)]
 
-Spusťte aplikaci. `Index`Komponenta má vlastní čítač, který se zvýší o deset pokaždé, když je vybráno tlačítko pro **kliknutí na tlačítko Další** . `Counter`Komponenta (*Counter. Razor*) se `/counter` stále zvyšuje o jednu.
+Spusťte aplikaci. `Index`Komponenta má vlastní čítač, který se zvýší o deset pokaždé, když je vybráno tlačítko. `Counter`Komponenta () se v této části `Pages/Counter.razor` `/counter` stále zvyšuje o jednu.
 
 ## <a name="next-steps"></a>Další kroky
 

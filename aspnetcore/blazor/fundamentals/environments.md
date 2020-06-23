@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/environments
-ms.openlocfilehash: 203f29ce606a313463e416b068177ce02acd6231
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: a527e04cf97dd2d2b88dcc6e866475835498545d
+ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103695"
+ms.lasthandoff: 06/23/2020
+ms.locfileid: "85243613"
 ---
 # <a name="aspnet-core-blazor-environments"></a>ASP.NET Core Blazor prostředí
 
@@ -31,7 +31,7 @@ Hostovaná Blazor aplikace WebAssembly vybírá prostředí ze serveru prostřed
 
 Pro samostatnou spuštěnou aplikaci, která je spuštěna místně, vývojový server přidá `blazor-environment` hlavičku pro určení vývojového prostředí. Chcete-li určit prostředí pro jiná hostující prostředí, přidejte `blazor-environment` hlavičku.
 
-V následujícím příkladu pro IIS přidejte vlastní hlavičku do publikovaného *web.config* souboru. Soubor *web.config* je umístěný ve složce *bin/Release/{Target Framework}/Publish* :
+V následujícím příkladu pro IIS přidejte vlastní hlavičku do publikovaného `web.config` souboru. `web.config`Soubor se nachází ve `bin/Release/{TARGET FRAMEWORK}/publish` složce:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -50,7 +50,7 @@ V následujícím příkladu pro IIS přidejte vlastní hlavičku do publikovan�
 ```
 
 > [!NOTE]
-> Chcete-li použít vlastní soubor *web.config* pro službu IIS, která není přepsána při publikování aplikace do složky pro *publikování* , přečtěte si téma <xref:blazor/host-and-deploy/webassembly#use-a-custom-webconfig> .
+> Chcete-li použít vlastní `web.config` soubor pro službu IIS, která není přepsána při publikování aplikace do `publish` složky, přečtěte si téma <xref:blazor/host-and-deploy/webassembly#use-a-custom-webconfig> .
 
 Získání prostředí aplikace v součásti vložením <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment> a čtením <xref:Microsoft.AspNetCore.Components.WebAssembly.Hosting.IWebAssemblyHostEnvironment.Environment> vlastnosti:
 
