@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/caching/middleware
-ms.openlocfilehash: 2ee75b1af9ffc23ff9ae1763059364de3ec8f426
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 93ac4e7e159f2b1f031e48a44c2297a741ba7b1c
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106504"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292643"
 ---
 # <a name="response-caching-middleware-in-aspnet-core"></a>Ukládání do mezipaměti middlewaru v ASP.NET Core
 
@@ -40,7 +40,10 @@ Do `Startup.ConfigureServices` kolekce služby přidejte middleware pro ukládá
 
 Nakonfigurujte aplikaci tak, aby používala middlewaru s <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching*> metodou rozšíření, která přidá middleware do kanálu zpracování požadavků v `Startup.Configure` :
 
-[!code-csharp[](middleware/samples/3.x/ResponseCachingMiddleware/Startup.cs?name=snippet2&highlight=16)]
+[!code-csharp[](middleware/samples/3.x/ResponseCachingMiddleware/Startup.cs?name=snippet2&highlight=17)]
+
+> [!WARNING]
+> <xref:Owin.CorsExtensions.UseCors%2A>musí být před <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching%2A> použitím [middleware CORS](xref:security/cors)volána.
 
 Ukázková aplikace přidá hlavičky pro řízení ukládání do mezipaměti pro následné žádosti:
 
@@ -62,7 +65,7 @@ Middleware pro ukládání odpovědí do mezipaměti ukládá pouze odpovědi se
 
 Možnosti ukládání odpovědi do mezipaměti jsou uvedené v následující tabulce.
 
-| Možnost | Popis |
+| Možnost | Description |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | Největší velikost paměti pro tělo odpovědi v bajtech. Výchozí hodnota je `64 * 1024 * 1024` (64 MB). |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | Omezení velikosti pro middleware mezipaměti odpovědí v bajtech. Výchozí hodnota je `100 * 1024 * 1024` (100 MB). |
@@ -127,7 +130,7 @@ Pro lepší kontrolu nad chováním při ukládání do mezipaměti můžete pro
 * <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>
 * <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>
 
-## <a name="troubleshooting"></a>Řešení potíží
+## <a name="troubleshooting"></a>Poradce při potížích
 
 Pokud chování při ukládání do mezipaměti není podle očekávání, zkontrolujte, že odpovědi jsou ukládat do mezipaměti a že je možné je obsluhovat z mezipaměti. Projděte si vstupní hlavičky žádosti a odchozí hlavičky odpovědi. Povolit [protokolování](xref:fundamentals/logging/index) pro usnadnění ladění.
 
@@ -206,7 +209,7 @@ Middleware pro ukládání odpovědí do mezipaměti ukládá pouze odpovědi se
 
 Možnosti ukládání odpovědi do mezipaměti jsou uvedené v následující tabulce.
 
-| Možnost | Popis |
+| Možnost | Description |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.MaximumBodySize> | Největší velikost paměti pro tělo odpovědi v bajtech. Výchozí hodnota je `64 * 1024 * 1024` (64 MB). |
 | <xref:Microsoft.AspNetCore.ResponseCaching.ResponseCachingOptions.SizeLimit> | Omezení velikosti pro middleware mezipaměti odpovědí v bajtech. Výchozí hodnota je `100 * 1024 * 1024` (100 MB). |
@@ -271,7 +274,7 @@ Pro lepší kontrolu nad chováním při ukládání do mezipaměti můžete pro
 * <xref:mvc/views/tag-helpers/builtin-th/cache-tag-helper>
 * <xref:mvc/views/tag-helpers/builtin-th/distributed-cache-tag-helper>
 
-## <a name="troubleshooting"></a>Řešení potíží
+## <a name="troubleshooting"></a>Poradce při potížích
 
 Pokud chování při ukládání do mezipaměti není podle očekávání, zkontrolujte, že odpovědi jsou ukládat do mezipaměti a že je možné je obsluhovat z mezipaměti. Projděte si vstupní hlavičky žádosti a odchozí hlavičky odpovědi. Povolit [protokolování](xref:fundamentals/logging/index) pro usnadnění ladění.
 

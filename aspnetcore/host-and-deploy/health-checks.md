@@ -5,7 +5,7 @@ description: Naučte se, jak nastavit kontroly stavu pro infrastrukturu ASP.NET 
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
-ms.date: 12/15/2019
+ms.date: 06/22/2020
 no-loc:
 - Blazor
 - Identity
@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/health-checks
-ms.openlocfilehash: 00b2697a6b916718d9d0e01d1ea9f922eb2b5706
-ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
+ms.openlocfilehash: ca5540b4920bc92e968dcbc22a9407453041b01c
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85074433"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292695"
 ---
 # <a name="health-checks-in-aspnet-core"></a>Kontroly stavu v ASP.NET Core
 
@@ -442,10 +442,10 @@ Unhealthy
 
 V některých scénářích hostování se používá pár kontrol stavu, který rozlišuje dva stavy aplikace:
 
-* Aplikace funguje, ale ještě není připravená na příjem požadavků. Tento stav je *připravenost*aplikace.
-* Aplikace funguje a reaguje na požadavky. Tento stav je *živými*aplikacemi.
+* *Připravenost* indikuje, jestli je aplikace spuštěná normálně, ale není připravená na příjem požadavků.
+* *Živý* vyjadřuje, jestli došlo k chybě aplikace a že se musí restartovat.
 
-Kontrola připravenosti obvykle provádí rozsáhlejší a časově náročnou sadu kontrol, aby bylo možné zjistit, zda jsou k dispozici všechny subsystémy a prostředky aplikace. K dispozici je pouze rychlá kontrolu, která určuje, zda je aplikace k dispozici pro zpracování požadavků. Po úspěšném provedení kontroly připravenosti aplikace nemusíte aplikaci navýšit dál s nákladnými sadami kontrol připravenosti, které &mdash; vyžadují kontrolu živého ověření.
+Vezměte v úvahu následující příklad: aplikace musí stáhnout rozsáhlý konfigurační soubor předtím, než bude připraveno zpracovat požadavky. Nechceme, aby se aplikace restartovala v případě, že se prvotní stažení nepovede, protože aplikace může zkusit znovu stáhnout soubor několikrát. K popsání živého procesu používáme *test živého života* . neprovádí se žádné další kontroly. Chceme také zabránit posílání požadavků do aplikace před tím, než stahování konfiguračního souboru proběhlo úspěšně. K označení "Nepřipraveno" se používá *test připravenosti* , dokud se stahování nezdaří a aplikace je připravená přijímat požadavky.
 
 Ukázková aplikace obsahuje kontrolu stavu, která oznamuje dokončení dlouhotrvající úlohy po spuštění v [hostované službě](xref:fundamentals/host/hosted-services). `StartupHostedServiceHealthCheck`Zpřístupňuje vlastnost, `StartupTaskCompleted` která hostovaná služba může nastavit na hodnotu `true` po dokončení její dlouhotrvající úlohy (*StartupHostedServiceHealthCheck.cs*):
 
@@ -1155,10 +1155,10 @@ Unhealthy
 
 V některých scénářích hostování se používá pár kontrol stavu, který rozlišuje dva stavy aplikace:
 
-* Aplikace funguje, ale ještě není připravená na příjem požadavků. Tento stav je *připravenost*aplikace.
-* Aplikace funguje a reaguje na požadavky. Tento stav je *živými*aplikacemi.
+* *Připravenost* indikuje, jestli je aplikace spuštěná normálně, ale není připravená na příjem požadavků.
+* *Živý* vyjadřuje, jestli došlo k chybě aplikace a že se musí restartovat.
 
-Kontrola připravenosti obvykle provádí rozsáhlejší a časově náročnou sadu kontrol, aby bylo možné zjistit, zda jsou k dispozici všechny subsystémy a prostředky aplikace. K dispozici je pouze rychlá kontrolu, která určuje, zda je aplikace k dispozici pro zpracování požadavků. Po úspěšném provedení kontroly připravenosti aplikace nemusíte aplikaci navýšit dál s nákladnými sadami kontrol připravenosti, které &mdash; vyžadují kontrolu živého ověření.
+Vezměte v úvahu následující příklad: aplikace musí stáhnout rozsáhlý konfigurační soubor předtím, než bude připraveno zpracovat požadavky. Nechceme, aby se aplikace restartovala v případě, že se prvotní stažení nepovede, protože aplikace může zkusit znovu stáhnout soubor několikrát. K popsání živého procesu používáme *test živého života* . neprovádí se žádné další kontroly. Chceme také zabránit posílání požadavků do aplikace před tím, než stahování konfiguračního souboru proběhlo úspěšně. K označení "Nepřipraveno" se používá *test připravenosti* , dokud se stahování nezdaří a aplikace je připravená přijímat požadavky.
 
 Ukázková aplikace obsahuje kontrolu stavu, která oznamuje dokončení dlouhotrvající úlohy po spuštění v [hostované službě](xref:fundamentals/host/hosted-services). `StartupHostedServiceHealthCheck`Zpřístupňuje vlastnost, `StartupTaskCompleted` která hostovaná služba může nastavit na hodnotu `true` po dokončení její dlouhotrvající úlohy (*StartupHostedServiceHealthCheck.cs*):
 

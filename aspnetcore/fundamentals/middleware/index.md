@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: b2468220d0c059a94a085357f2be7bbb3b89adc4
-ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
+ms.openlocfilehash: 81a0da65215bc41f6dfad0de28a95bdc455bd8fb
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85074196"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292786"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -91,7 +91,9 @@ Následující `Startup.Configure` metoda přidává do doporučeného pořadí 
 V předchozím kódu:
 
 * Middleware, které se nepřidaly při vytváření nové webové aplikace s [jednotlivými účty uživatele](xref:security/authentication/identity) , jsou zakomentovány.
-* Ne každý middleware potřebuje přejít v tomto přesném pořadí, ale mnoho do něj. Například,, `UseCors` `UseAuthentication` a `UseAuthorization` musí jít v uvedeném pořadí.
+* Ne každý middleware potřebuje přejít v tomto přesném pořadí, ale mnoho do něj. Příklad:
+  * `UseCors`, `UseAuthentication` a `UseAuthorization` musí jít v uvedeném pořadí.
+  * `UseCors`v současné době `UseResponseCaching` se musí před [touto chybou](https://github.com/dotnet/aspnetcore/issues/23218)přecházet.
 
 Následující `Startup.Configure` metoda přidává komponenty middlewaru pro běžné scénáře aplikací:
 
@@ -243,12 +245,12 @@ V předchozím příkladu odpověď "Hello z hlavního kanálu". je napsán pro 
 
 ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Order* poskytuje poznámky k umístění middlewaru v kanálu zpracování požadavků a za jakých podmínek může middleware ukončit zpracování požadavků. Když middleware middleware vytvoří kanál zpracování požadavků a zabrání dalšímu podřízenému middlewaru ve zpracování žádosti, nazývá se *middleware terminálu*. Další informace o krátkodobém okruhu najdete v části [vytvoření kanálu middlewaru pomocí IApplicationBuilder](#create-a-middleware-pipeline-with-iapplicationbuilder) .
 
-| Middleware | Popis | Objednání |
+| Middleware | Description | Objednání |
 | ---------- | ----------- | ----- |
 | [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
 | [Autorizace](xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization*) | Poskytuje podporu autorizace. | Hned po ověřovacím middlewaru. |
 | [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite` . | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
-| [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. |
+| [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. `UseCors`v současné době `UseResponseCaching` se musí před [touto chybou](https://github.com/dotnet/aspnetcore/issues/23218)přecházet.|
 | [Diagnostika](xref:fundamentals/error-handling) | Několik samostatných middlewarů, které poskytují stránku s výjimkou vývojářů, zpracování výjimek, stránky stavového kódu a výchozí webovou stránku pro nové aplikace. | Před komponenty, které generují chyby. Terminál pro výjimky nebo pro výchozí webovou stránku pro nové aplikace |
 | [Předávaná záhlaví](xref:host-and-deploy/proxy-load-balancer) | Přepošle hlavičky proxy na aktuální požadavek. | Před komponenty, které používají aktualizované pole. Příklady: schéma, hostitel, IP adresa klienta, metoda. |
 | [Kontroly stavu](xref:host-and-deploy/health-checks) | Kontroluje stav aplikace ASP.NET Core a jejích závislostí, jako je například Kontrola dostupnosti databáze. | Terminál, je-li požadavek shodný s koncovým bodem kontroly stavu. |
@@ -258,7 +260,7 @@ ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Ord
 | [HTTP Strict Transport Security (HSTS)](xref:security/enforcing-ssl#http-strict-transport-security-protocol-hsts) | Vylepšení zabezpečení – middleware, který přidává speciální hlavičku odpovědi. | Před odesláním odpovědí a po součástech, které upravují požadavky. Příklady: předávané hlavičky, přepis adresy URL. |
 | [MVC](xref:mvc/overview) | Zpracovává požadavky pomocí MVC nebo Razor stránek. | Terminál, pokud požadavek odpovídá trase. |
 | [OWIN](xref:fundamentals/owin) | Interoperabilita s aplikacemi, servery a middlewarem založeným na OWIN | Terminál, pokud middleware OWIN plně zpracovává požadavek. |
-| [Ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) | Poskytuje podporu pro ukládání odpovědí do mezipaměti. | Před součástmi, které vyžadují ukládání do mezipaměti. |
+| [Ukládání odpovědí do mezipaměti](xref:performance/caching/middleware) | Poskytuje podporu pro ukládání odpovědí do mezipaměti. | Před součástmi, které vyžadují ukládání do mezipaměti. `UseCORS`musí předcházet `UseResponseCaching` .|
 | [Komprese odezvy](xref:performance/response-compression) | Poskytuje podporu pro komprimaci odpovědí. | Před součástmi, které vyžadují kompresi. |
 | [Lokalizace žádosti](xref:fundamentals/localization) | Poskytuje podporu lokalizace. | Před lokalizací citlivých komponent. |
 | [Směrování koncových bodů](xref:fundamentals/routing) | Definuje a omezuje trasy požadavků. | Terminál pro vyhovující trasy. |
@@ -450,7 +452,7 @@ app.Map("/level1", level1App => {
 
 ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Order* poskytuje poznámky k umístění middlewaru v kanálu zpracování požadavků a za jakých podmínek může middleware ukončit zpracování požadavků. Když middleware middleware vytvoří kanál zpracování požadavků a zabrání dalšímu podřízenému middlewaru ve zpracování žádosti, nazývá se *middleware terminálu*. Další informace o krátkodobém okruhu najdete v části [vytvoření kanálu middlewaru pomocí IApplicationBuilder](#create-a-middleware-pipeline-with-iapplicationbuilder) .
 
-| Middleware | Popis | Objednání |
+| Middleware | Description | Objednání |
 | ---------- | ----------- | ----- |
 | [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
 | [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite` . | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |

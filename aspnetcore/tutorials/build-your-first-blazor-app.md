@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 2de33deccbb86bd810c4337f5aa105118de4d9b4
-ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
+ms.openlocfilehash: 892663a533a207df84b0fce9af259a7dc212bc9b
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2020
-ms.locfileid: "85122149"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292773"
 ---
 # <a name="build-your-first-blazor-app"></a>Sestavení první Blazor aplikace
 
@@ -109,7 +109,7 @@ Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pom
 
 `@page`Direktiva v horní části `Counter.razor` souboru určuje, že `Counter` součást je koncový bod směrování. `Counter`Komponenta zpracovává požadavky odeslané na `/counter` . Bez `@page` direktivy nezpracovávají součásti směrované požadavky, ale komponentu mohou i nadále používat jiné komponenty.
 
-## <a name="dependency-injection"></a>Injektáž závislosti
+## <a name="dependency-injection"></a>Injektáž závislostí
 
 ### <a name="blazor-server-experience"></a>BlazorProstředí serveru
 
@@ -143,7 +143,7 @@ Při práci s Blazor aplikací WebAssembly <xref:System.Net.Http.HttpClient> je 
 
 Přidejte do aplikace novou komponentu, která implementuje jednoduchý seznam úkolů.
 
-1. Do aplikace přidejte do `Todo` Razor ní novou komponentu `Pages` . Pokud používáte aplikaci Visual Studio, klikněte pravým tlačítkem myši na `Pages` složku a vyberte možnost **Přidat**  >  **novou položku**  >  ** Razor **. Pojmenujte soubor součásti `Todo.razor` . V jiných vývojových prostředích přidejte do `Pages` složky s názvem prázdný soubor `Todo.razor` .
+1. Do aplikace přidejte do `Todo` Razor ní novou komponentu `Pages` . Pokud používáte aplikaci Visual Studio, klikněte pravým tlačítkem myši na `Pages` složku a vyberte možnost **Přidat**  >  **novou položku**  >  ** Razor **. Pojmenujte soubor součásti `Todo.razor` . V jiných vývojových prostředích přidejte do `Pages` složky s názvem prázdný soubor `Todo.razor` . Razornázvy souborů součástí vyžadují první písmeno s velkými písmeny, proto ověřte, že `Todo` název souboru komponenty začíná velkým písmenem `T` .
 
 1. Zadejte počáteční označení pro komponentu:
 

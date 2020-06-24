@@ -12,12 +12,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/cors
-ms.openlocfilehash: a78aff2d2e16f36ed034e6af110d7ed763271583
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 1a52a2425eeba2bc62253e96fe6d2465562c154e
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105750"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292760"
 ---
 # <a name="enable-cross-origin-requests-cors-in-aspnet-core"></a>Povolit žádosti mezi zdroji (CORS) v ASP.NET Core
 
@@ -64,6 +64,9 @@ Existují tři způsoby, jak povolit CORS:
 
 Použití atributu [[EnableCors]](#attr) s pojmenovanou zásadou poskytuje ovládací prvek nejlepší v omezení koncových bodů, které podporují CORS.
 
+> [!WARNING]
+> <xref:Owin.CorsExtensions.UseCors%2A>musí být voláno před <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching%2A> při použití `UseResponseCaching` .
+
 Každý přístup je podrobně popsaný v následujících částech.
 
 <a name="np"></a>
@@ -72,7 +75,7 @@ Každý přístup je podrobně popsaný v následujících částech.
 
 Middleware CORS zpracovává požadavky mezi zdroji. Následující kód aplikuje zásadu CORS na všechny koncové body aplikace se zadanými zdroji:
 
-[!code-csharp[](cors/3.1sample/Cors/WebAPI/Startup.cs?name=snippet&highlight=3,9,31)]
+[!code-csharp[](cors/3.1sample/Cors/WebAPI/Startup.cs?name=snippet&highlight=3,9,32)]
 
 Předcházející kód:
 
@@ -80,6 +83,7 @@ Předcházející kód:
 * Zavolá <xref:Microsoft.AspNetCore.Builder.CorsMiddlewareExtensions.UseCors*> metodu rozšíření a určí `_myAllowSpecificOrigins` zásadu CORS. `UseCors`Přidá middleware CORS. Volání `UseCors` musí být umístěno po `UseRouting` , ale před `UseAuthorization` . Další informace najdete v tématu [pořadí middlewaru](xref:fundamentals/middleware/index#middleware-order).
 * Volání <xref:Microsoft.Extensions.DependencyInjection.CorsServiceCollectionExtensions.AddCors*> s [výrazem lambda](/dotnet/csharp/programming-guide/statements-expressions-operators/lambda-expressions). Lambda převezme <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder> objekt. [Možnosti konfigurace](#cors-policy-options), například `WithOrigins` , jsou popsány dále v tomto článku.
 * Povolí `_myAllowSpecificOrigins` zásadu CORS pro všechny koncové body řadiče. Pokud chcete použít zásadu CORS na konkrétní koncové body, podívejte se na téma [Směrování koncového bodu](#ecors) .
+* Při použití [middlewaru pro ukládání odpovědí do mezipaměti](xref:performance/caching/middleware)volejte <xref:Owin.CorsExtensions.UseCors%2A> před <xref:Microsoft.AspNetCore.Builder.ResponseCachingExtensions.UseResponseCaching%2A> .
 
 Při směrování koncových bodů **musí** být MIDDLEWARe CORS nakonfigurované tak, aby se spustilo mezi voláními `UseRouting` a `UseEndpoints` .
 
@@ -551,7 +555,7 @@ Následující příklad `ValuesController` poskytuje koncové body pro testová
 
 [!code-csharp[](cors/3.1sample/Cors/WebAPI/Controllers/ValuesController.cs?name=snippet)]
 
-[MyDisplayRouteInfo](https://github.com/Rick-Anderson/RouteInfo/blob/master/Microsoft.Docs.Samples.RouteInfo/ControllerContextExtensions.cs) je k dispozici v balíčku NuGet [Rick. Docs. Samples. RouteInfo](https://www.nuget.org/packages/Rick.Docs.Samples.RouteInfo) a zobrazí informace o trasách.
+[MyDisplayRouteInfo](https://github.com/Rick-Anderson/RouteInfo/blob/master/Microsoft.Docs.Samples.RouteInfo/ControllerContextExtensions.cs) poskytuje balíček NuGet [Rick.Docs. Samples. RouteInfo](https://www.nuget.org/packages/Rick.Docs.Samples.RouteInfo) a zobrazí informace o trasách.
 
 Otestujte předchozí vzorový kód pomocí jednoho z následujících přístupů:
 
@@ -982,7 +986,7 @@ Pokud odpověď nezahrnuje `Access-Control-Allow-Origin` hlavičku, požadavek n
 Testování CORS:
 
 1. [Vytvořte projekt API](xref:tutorials/first-web-api). Alternativně si můžete [Stáhnout ukázku](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/security/cors/sample/Cors).
-1. Povolte CORS pomocí jednoho z přístupů v tomto dokumentu. Například:
+1. Povolte CORS pomocí jednoho z přístupů v tomto dokumentu. Příklad:
 
   [!code-csharp[](cors/sample/Cors/WebAPI/StartupTest.cs?name=snippet2&highlight=13-18)]
 

@@ -13,16 +13,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: 2bdd2f256f456cbf474181021fafc6830bfd68f4
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 2811e08fd2f6c66112ffa0bb40f474158f4c7a59
+ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242924"
+ms.lasthandoff: 06/24/2020
+ms.locfileid: "85292682"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečené Blazor aplikace ASP.NET Core serveru
 
 Od [Luke Latham](https://github.com/guardrex)
+
+BlazorServerové aplikace jsou konfigurovány pro zabezpečení stejným způsobem jako aplikace ASP.NET Core. Další informace najdete v článcích v části <xref:security/index> . Témata v tomto přehledu se týkají konkrétně Blazor serveru. 
 
 ## <a name="blazor-server-project-template"></a>BlazorŠablona projektu serveru
 
@@ -104,10 +106,6 @@ Pomocí `-o|--output` Možnosti příkaz používá hodnotu poskytnutou pro `{AP
 Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new) Průvodce .NET Core.
 
 ---
-
-## <a name="secure-an-existing-app"></a>Zabezpečení existující aplikace
-
-BlazorServerové aplikace jsou konfigurovány pro zabezpečení stejným způsobem jako aplikace ASP.NET Core. Další informace najdete v článcích v části <xref:security/index> .
 
 ## <a name="scaffold-identity"></a>GenerováníIdentity
 
