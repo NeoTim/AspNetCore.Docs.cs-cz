@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/implementation/key-storage-providers
-ms.openlocfilehash: cdf10cd26f3eb9af386f782475eeabbda50f0df9
-ms.sourcegitcommit: 1250c90c8d87c2513532be5683640b65bfdf9ddb
+ms.openlocfilehash: 1bbea6f16d57d5cc107c95293e2788271bfce601
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/12/2020
-ms.locfileid: "83153351"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408042"
 ---
 # <a name="key-storage-providers-in-aspnet-core"></a>Zprostředkovatelé úložiště klíčů v ASP.NET Core
 
@@ -126,7 +128,7 @@ Další informace najdete v následujících tématech:
 
 **Platí jenom pro nasazení systému Windows.**
 
-Někdy může aplikace mít k systému souborů přístup pro zápis. Vezměte v úvahu scénář, ve kterém je aplikace spuštěná jako účet virtuální služby (například identita fondu aplikací *W3wp. exe*). V těchto případech může správce zřídit klíč registru, který je přístupný pro identitu účtu služby. Zavolejte metodu rozšíření [PersistKeysToRegistry](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystoregistry) , jak je znázorněno níže. Zadejte [RegistryKey](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository.registrykey) ukazující na místo, kde se mají ukládat kryptografické klíče:
+Někdy může aplikace mít k systému souborů přístup pro zápis. Vezměte v úvahu scénář, ve kterém je aplikace spuštěná jako účet virtuální služby (například identita fondu aplikací *w3wp.exe*). V těchto případech může správce zřídit klíč registru, který je přístupný pro identitu účtu služby. Zavolejte metodu rozšíření [PersistKeysToRegistry](/dotnet/api/microsoft.aspnetcore.dataprotection.dataprotectionbuilderextensions.persistkeystoregistry) , jak je znázorněno níže. Zadejte [RegistryKey](/dotnet/api/microsoft.aspnetcore.dataprotection.repositories.registryxmlrepository.registrykey) ukazující na místo, kde se mají ukládat kryptografické klíče:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -147,7 +149,7 @@ Balíček [Microsoft. AspNetCore. DataProtection. EntityFrameworkCore](https://w
 
 S tímto balíčkem je možné klíče sdílet mezi několika instancemi webové aplikace.
 
-Chcete-li nakonfigurovat poskytovatele EF Core, zavolejte [metodu \<>PersistKeysToDbContext TContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext) :
+Chcete-li nakonfigurovat poskytovatele EF Core, zavolejte [metodu \<TContext> PersistKeysToDbContext](/dotnet/api/microsoft.aspnetcore.dataprotection.entityframeworkcoredataprotectionextensions.persistkeystodbcontext) :
 
 [!code-csharp[Main](key-storage-providers/sample/Startup.cs?name=snippet&highlight=13-20)]
 
@@ -168,7 +170,7 @@ Add-Migration AddDataProtectionKeys -Context MyKeysContext
 Update-Database -Context MyKeysContext
 ```
 
-# <a name="net-core-cli"></a>[Rozhraní příkazového řádku .NET Core](#tab/netcore-cli)
+# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 V příkazovém prostředí spusťte následující příkazy:
 

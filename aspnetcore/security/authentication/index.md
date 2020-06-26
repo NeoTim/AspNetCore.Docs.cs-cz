@@ -7,32 +7,34 @@ ms.custom: mvc
 ms.date: 03/03/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/index
-ms.openlocfilehash: 4e47bd91ce15836035d3e8f0a8ceed264f308b22
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a58d48d390eefdc26cf3feb394874b0ba733e9f3
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768634"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408341"
 ---
 # <a name="overview-of-aspnet-core-authentication"></a>Přehled ověřování ASP.NET Core
 
 O [Jan Rousos](https://github.com/mjrousos)
 
-Ověřování je proces určování identity uživatele. [Autorizace](xref:security/authorization/introduction) je proces, který určuje, jestli má uživatel přístup k prostředku. V ASP.NET Core se ověřování zpracovává pomocí `IAuthenticationService`, který používá [middleware](xref:fundamentals/middleware/index)ověřování. Ověřovací služba používá zaregistrované obslužné rutiny ověřování k dokončení akcí souvisejících s ověřováním. Mezi příklady akcí souvisejících s ověřováním patří:
+Ověřování je proces určování identity uživatele. [Autorizace](xref:security/authorization/introduction) je proces, který určuje, jestli má uživatel přístup k prostředku. V ASP.NET Core se ověřování zpracovává pomocí `IAuthenticationService` , který používá [middleware](xref:fundamentals/middleware/index)ověřování. Ověřovací služba používá zaregistrované obslužné rutiny ověřování k dokončení akcí souvisejících s ověřováním. Mezi příklady akcí souvisejících s ověřováním patří:
 
 * Ověřování uživatele.
 * Odpověď, když se neověřený uživatel pokusí o přístup k prostředku s omezeným přístupem.
 
 Registrované obslužné rutiny ověřování a jejich možnosti konfigurace se nazývají "schémata".
 
-Schémata ověřování jsou určena registrací služby ověřování v `Startup.ConfigureServices`nástroji:
+Schémata ověřování jsou určena registrací služby ověřování v nástroji `Startup.ConfigureServices` :
 
-* Voláním metody rozšíření specifické pro `services.AddAuthentication` schéma po volání (například `AddJwtBearer` nebo `AddCookie`například). Tyto metody rozšíření používají [AuthenticationBuilder. AddScheme](xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder.AddScheme*) k registraci schémat s odpovídajícím nastavením.
+* Voláním metody rozšíření specifické pro schéma po volání `services.AddAuthentication` (například `AddJwtBearer` nebo například `AddCookie` ). Tyto metody rozšíření používají [AuthenticationBuilder. AddScheme](xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder.AddScheme*) k registraci schémat s odpovídajícím nastavením.
 * Méně často zavoláním [AuthenticationBuilder. AddScheme](xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilder.AddScheme*) přímo.
 
 Následující kód například zaregistruje ověřovací služby a obslužné rutiny pro ověřovací schémata souborů cookie a JWT nosiče:
@@ -43,16 +45,16 @@ services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, options => Configuration.Bind("CookieSettings", options));
 ```
 
-`AddAuthentication` Parametr `JwtBearerDefaults.AuthenticationScheme` je název schématu, který se použije ve výchozím nastavení, když konkrétní schéma není požadováno.
+`AddAuthentication`Parametr `JwtBearerDefaults.AuthenticationScheme` je název schématu, který se použije ve výchozím nastavení, když konkrétní schéma není požadováno.
 
-Pokud se používá víc schémat, zásady autorizace (nebo autorizační atributy) můžou [určit schéma ověřování (nebo schémata)](xref:security/authorization/limitingidentitybyscheme) , na kterých závisí, aby ověřili uživatele. V předchozím příkladu by se schéma ověřování souborů cookie dalo použít tak, že určíte jeho`CookieAuthenticationDefaults.AuthenticationScheme` název (ve výchozím nastavení, přestože se při volání `AddCookie`dá zadat jiný název).
+Pokud se používá víc schémat, zásady autorizace (nebo autorizační atributy) můžou [určit schéma ověřování (nebo schémata)](xref:security/authorization/limitingidentitybyscheme) , na kterých závisí, aby ověřili uživatele. V předchozím příkladu by se schéma ověřování souborů cookie dalo použít tak, že určíte jeho název ( `CookieAuthenticationDefaults.AuthenticationScheme` ve výchozím nastavení, přestože se při volání dá zadat jiný název `AddCookie` ).
 
 V některých případech `AddAuthentication` je volání automaticky provedeno jinými metodami rozšíření. Například při použití [ASP.NET Core Identity ](xref:security/authentication/identity) `AddAuthentication` se nazývá interně.
 
-Middleware ověřování se přidávají `Startup.Configure` voláním metody <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> rozšíření v aplikaci `IApplicationBuilder`. Volání `UseAuthentication` registruje middleware, který používá dříve registrovaná schémata ověřování. Zavolejte `UseAuthentication` před jakýkoli middleware, který závisí na ověřených uživatelích. Při použití směrování koncového bodu `UseAuthentication` musí volání metody jít:
+Middleware ověřování se přidávají `Startup.Configure` voláním <xref:Microsoft.AspNetCore.Builder.AuthAppBuilderExtensions.UseAuthentication*> metody rozšíření v aplikaci `IApplicationBuilder` . Volání `UseAuthentication` registruje middleware, který používá dříve registrovaná schémata ověřování. Zavolejte `UseAuthentication` před jakýkoli middleware, který závisí na ověřených uživatelích. Při použití směrování koncového bodu musí volání metody `UseAuthentication` jít:
 
-* Po `UseRouting`, takže informace o trasách jsou k dispozici pro rozhodování o ověřování.
-* Před `UseEndpoints`přístupem k koncovým bodům, aby bylo možné uživatele ověřit.
+* Po `UseRouting` , takže informace o trasách jsou k dispozici pro rozhodování o ověřování.
+* Před `UseEndpoints` přístupem k koncovým bodům, aby bylo možné uživatele ověřit.
 
 ## <a name="authentication-concepts"></a>Koncepty ověřování
 
@@ -73,7 +75,7 @@ Schémata jsou užitečná jako mechanismus pro odkazování na chování souvis
 Obslužná rutina ověřování:
 
 * Je typ, který implementuje chování schématu.
-* Je odvozen z <xref:Microsoft.AspNetCore.Authentication.IAuthenticationHandler> nebo <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1>.
+* Je odvozen z <xref:Microsoft.AspNetCore.Authentication.IAuthenticationHandler> nebo <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .
 * Má primární zodpovědnost za ověřování uživatelů.
 
 Obslužné rutiny ověřování na základě konfigurace schématu ověřování a kontextu příchozího požadavku:
@@ -129,7 +131,7 @@ Základní sadu:
 
 Příklad zprostředkovatelů ověřování pro každého klienta najdete v tématu [základní](https://github.com/OrchardCMS/OrchardCore) zdroj sady.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:security/authorization/limitingidentitybyscheme>
 * <xref:security/authentication/policyschemes>

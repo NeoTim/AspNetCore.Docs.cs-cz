@@ -7,33 +7,35 @@ ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/client-features
-ms.openlocfilehash: a759e473ff7ffaebd0eb9309f37a959d0e06a466
-ms.sourcegitcommit: e20653091c30e0768c4f960343e2c3dd658bba13
+ms.openlocfilehash: 10752e8cace82dc08721af7d38c0250182e9bfb0
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/16/2020
-ms.locfileid: "83438955"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408484"
 ---
-# <a name="aspnet-core-signalr-clients"></a>Klienti signalizace ASP.NET Core
+# <a name="aspnet-core-signalr-clients"></a>ASP.NET Core SignalR klienti
 
 ## <a name="versioning-support-and-compatibility"></a>Správa verzí, podpora a kompatibilita
 
-Klienti signalizace se dodávají spolu se serverovými součástmi a mají shodné se správou verzí. Libovolný podporovaný klient se může bezpečně připojit k jakémukoli podporovanému serveru a jakékoli problémy s kompatibilitou by byly považovány za chyby, které mají být opraveny. Klienti signalizace jsou podporováni ve stejném životním cyklu podpory jako zbytek .NET Core. Podrobnosti najdete [v tématu Zásady podpory pro .NET Core](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) .
+SignalRKlienti se dodávají spolu se serverovými součástmi a mají shodné se správou verzí. Libovolný podporovaný klient se může bezpečně připojit k jakémukoli podporovanému serveru a jakékoli problémy s kompatibilitou by byly považovány za chyby, které mají být opraveny. SignalRKlienti jsou podporováni ve stejném životním cyklu podpory jako zbytek .NET Core. Podrobnosti najdete [v tématu Zásady podpory pro .NET Core](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) .
 
 Mnoho funkcí vyžaduje kompatibilního klienta **a** serveru. V níže uvedené tabulce najdete minimální verze různých funkcí.
 
-Verze signalizace ve verzi 1. x jsou namapovány na verze 2,1 a 2,2 .NET Core a mají stejnou životnost. Pro verzi 3. x a vyšší se v nástroji Signal verze přesně shoduje s ostatními rozhraním .NET a má stejný životní cyklus podpory.
+Verze 1. x SignalR namapovány na verze 2,1 a 2,2 .NET Core a mají stejnou životnost. Verze 3. x a vyšší SignalR verze přesně odpovídá zbývající platformě .NET a má stejný životní cyklus podpory.
 
-| Verze signálu | Verze .NET Core | Úroveň podpory | Konec podpory |
+| Verze nástroje SignalR | Verze .NET Core | Úroveň podpory | Konec podpory |
 | - | - | - | - |
 | 1,0. x | 2.1. x | Dlouhodobá podpora | 21. srpna 2021 |
 | 1.1. x | 2.2. x | Konec života | 23. prosince 2019 |
-| 3. x nebo vyšší | *stejné jako verze signalizace* | Další informace najdete v tématu [zásady podpory pro .NET Core](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) . |
+| 3. x nebo vyšší | *stejné jako SignalR verze* | Další informace najdete v tématu [zásady podpory pro .NET Core](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) . |
 
 **Poznámka:** V ASP.NET Core 3,0 se klient jazyka JavaScript *přesunul* do `@microsoft/signalr` balíčku npm.
 
@@ -41,7 +43,7 @@ Verze signalizace ve verzi 1. x jsou namapovány na verze 2,1 a 2,2 .NET Core a 
 
 V následující tabulce jsou uvedené funkce a podpora pro klienty, kteří nabízejí podporu v reálném čase. Pro každou funkci je uvedena *minimální* verze, která podporuje tuto funkci. Pokud není uvedená žádná verze, tato funkce se nepodporuje.
 
-| Příznak | Server | Klient .NET | Klient JavaScriptu | Klient Java |
+| Funkce | Server | Klient .NET | Klient JavaScriptu | Klient Java |
 | ---- | :-: | :-: | :-: | :-: |
 | SignalRPodpora služeb Azure |2.1.0|1.0.0|1.0.0|1.0.0|
 | [Streamování ze serveru na klienta](xref:signalr/streaming)          |2.1.0|1.0.0|1.0.0|1.0.0|

@@ -1,11 +1,25 @@
 ---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
+author: rick-anderson
+description: Naučte se publikovat aplikaci ASP.NET Core pro Azure App Service pomocí sady Visual Studio.
+ms.author: riande
+ms.custom: mvc
+ms.date: 07/10/2019
+no-loc:
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: tutorials/publish-to-azure-webapp-using-vs
+ms.openlocfilehash: d805d57fd1e2d83d0148900993e4bf6108a13028
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408406"
 ---
 # <a name="publish-an-aspnet-core-app-to-azure-with-visual-studio"></a>Publikování aplikace ASP.NET Core do Azure pomocí sady Visual Studio
 
@@ -108,7 +122,7 @@ Zobrazí se dialogové okno **vytvořit App Service** :
 Po vytvoření se dialogové okno automaticky zavře a dialog **publikovat** se znovu stane aktivním:
 
 * Automaticky se vybrala nová instance, kterou jste právě vytvořili.
-* Vyberte **Finish** (Dokončit).
+* Vyberte **Dokončit**.
 
 ![Dialog publikovat: Vyberte instanci App Service.](publish-to-azure-webapp-using-vs/_static/select_as.png)
 
@@ -145,7 +159,7 @@ Po vytvoření se dialogové okno automaticky zavře a dialog **konfigurace Azur
 V dalším kroku dialogového okna **konfigurovat Azure SQL Database** :
 
 * Zadejte pole pro **uživatelské jméno připojení databáze** a **heslo připojení databáze** . Toto jsou podrobnosti, které aplikace použije pro připojení k databázi za běhu. Osvědčeným postupem je nepoužívejte stejné podrobnosti jako uživatelské jméno správce & heslo použité v předchozím kroku.
-* Vyberte **Finish** (Dokončit).
+* Vyberte **Dokončit**.
 
 ![Dialogové okno konfigurace Azure SQL Database, podrobnosti o připojovacím řetězci](publish-to-azure-webapp-using-vs/_static/sql_connection.png)
 

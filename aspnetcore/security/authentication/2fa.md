@@ -8,17 +8,19 @@ ms.date: 09/22/2018
 ms.custom: mvc, seodec18
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/2fa
-ms.openlocfilehash: e33f22356de983c8c4e0211822d5027a33b48de6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 032650296cfdcc4fef632c6a6a9ce2b56db6a6df
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775827"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408575"
 ---
 # <a name="two-factor-authentication-with-sms-in-aspnet-core"></a>Dvojúrovňové ověřování pomocí SMS v ASP.NET Core
 
@@ -33,7 +35,7 @@ V tomto kurzu se dozvíte, jak nastavit dvojúrovňové ověřování (2FA) pomo
 
 ## <a name="create-a-new-aspnet-core-project"></a>Vytvoření nového projektu ASP.NET Core
 
-Vytvořte novou ASP.NET Core webovou aplikaci s názvem `Web2FA` s jednotlivými uživatelskými účty. Při nastavování <xref:security/enforcing-ssl> a VYŽADOVÁNÍ protokolu HTTPS postupujte podle pokynů v části.
+Vytvořte novou ASP.NET Core webovou aplikaci s názvem `Web2FA` s jednotlivými uživatelskými účty. Při <xref:security/enforcing-ssl> nastavování a vyžadování protokolu HTTPS postupujte podle pokynů v části.
 
 ### <a name="create-an-sms-account"></a>Vytvoření účtu serveru SMS
 
@@ -49,7 +51,7 @@ Na kartě řídicí panel účtu Twilio zkopírujte **identifikátor SID účtu*
 
 V nastavení účtu přejděte na **vlastnosti UserKey** a zkopírujte ho společně s vaším **heslem**.
 
-Tyto hodnoty budeme později ukládat v nástroji pomocí Správce tajného klíče v rámci klíčů `SMSAccountIdentification` a. `SMSAccountPassword`
+Tyto hodnoty budeme později ukládat v nástroji pomocí Správce tajného klíče v rámci klíčů `SMSAccountIdentification` a `SMSAccountPassword` .
 
 #### <a name="specifying-senderid--originator"></a>Zadání SenderID/původce
 
@@ -57,17 +59,17 @@ Tyto hodnoty budeme později ukládat v nástroji pomocí Správce tajného klí
 
 **ASPSMS:** V nabídce odemknout původci odemkněte jeden nebo více původců nebo vyberte alfanumerický původ (není podporován všemi sítěmi).
 
-Později tuto hodnotu uložíme pomocí nástroje Správce tajných klíčů v rámci klíče `SMSAccountFrom`.
+Později tuto hodnotu uložíme pomocí nástroje Správce tajných klíčů v rámci klíče `SMSAccountFrom` .
 
 ### <a name="provide-credentials-for-the-sms-service"></a>Zadejte přihlašovací údaje pro službu SMS.
 
 Pro přístup k uživatelskému účtu a nastavení klíče použijeme [vzor možností](xref:fundamentals/configuration/options) .
 
-* Vytvořte třídu, která načte zabezpečený klíč SMS. V této ukázce je `SMSoptions` třída vytvořena v souboru *Services/SMSoptions. cs* .
+* Vytvořte třídu, která načte zabezpečený klíč SMS. V této ukázce `SMSoptions` je třída vytvořena v souboru *Services/SMSoptions. cs* .
 
 [!code-csharp[](2fa/sample/Web2FA/Services/SMSoptions.cs)]
 
-`SMSAccountIdentification`Pomocí `SMSAccountPassword` [nástroje Správce tajných klíčů](xref:security/app-secrets)nastavte a `SMSAccountFrom` . Příklad:
+`SMSAccountIdentification` `SMSAccountPassword` `SMSAccountFrom` Pomocí [nástroje Správce tajných klíčů](xref:security/app-secrets)nastavte a. Například:
 
 ```none
 C:/Web2FA/src/WebApp1>dotnet user-secrets set SMSAccountIdentification 12345
@@ -108,7 +110,7 @@ Otevřete soubor zobrazení */Správa/index. cshtml* Razor zobrazení a odeberte
 
 ![Zobrazení registru webové aplikace otevřené v Microsoft Edge](2fa/_static/login2fa1.png)
 
-* Klepněte na své uživatelské jméno, které aktivuje metodu `Index` Action na stránce Spravovat kontroler. Pak klepněte na telefonní číslo **Přidat** odkaz.
+* Klepněte na své uživatelské jméno, které aktivuje `Index` metodu Action na stránce Spravovat kontroler. Pak klepněte na telefonní číslo **Přidat** odkaz.
 
 ![Spravovat zobrazení – klepněte na odkaz Přidat](2fa/_static/login2fa2.png)
 
@@ -152,7 +154,7 @@ Pro 2FA se doporučuje uzamčení účtu. Jakmile se uživatel přihlásí prost
 
 [!code-csharp[](2fa/sample/Web2FA/Startup.cs?name=snippet2&highlight=13-17)]
 
-Potvrďte [PasswordSignInAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.passwordsigninasync) , že `lockoutOnFailure` PasswordSignInAsync `true`sady:
+Potvrďte, že [PasswordSignInAsync](/dotnet/api/microsoft.aspnetcore.identity.signinmanager-1.passwordsigninasync) sady `lockoutOnFailure` `true` :
 
 ```csharp
 var result = await _signInManager.PasswordSignInAsync(

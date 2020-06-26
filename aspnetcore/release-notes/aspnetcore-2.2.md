@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: aspnetcore-2.2
-ms.openlocfilehash: 3b510c7f4788a59145ef16720276fc7e4560f07e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: c2e23871866565a3f4ea0b0c72af5ec4fb770e6f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774142"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408705"
 ---
 # <a name="whats-new-in-aspnet-core-22"></a>Co je nového v ASP.NET Core 2,2
 
@@ -35,7 +37,7 @@ Další informace najdete v následujících materiálech:
 
 ## <a name="problem-details-support"></a>Podpora podrobností o problému
 
-Zavedl `ProblemDetails`se ASP.NET Core 2,1 na základě specifikace [RFC 7807](https://tools.ietf.org/html/rfc7807) pro přenos podrobností o chybě s odpovědí HTTP. V 2,2 `ProblemDetails` je standardní odezva na kódy chyb klienta v řadičích s `ApiControllerAttribute`atributem. `IActionResult` Vrácení stavového kódu chyby klienta (4xx) nyní vrací `ProblemDetails` tělo. Výsledek také obsahuje ID korelace, které lze použít ke korelaci chyby pomocí protokolů požadavků. V případě chyb klienta `ProducesResponseType` se jako typ `ProblemDetails` odpovědi použije výchozí hodnota. To je dokumentováno ve výstupu OpenAPI/Swagger vygenerovaném pomocí NSwag nebo swashbuckle. AspNetCore.
+Zavedl se ASP.NET Core 2,1 na `ProblemDetails` základě specifikace [RFC 7807](https://tools.ietf.org/html/rfc7807) pro přenos podrobností o chybě s odpovědí HTTP. V 2,2 `ProblemDetails` je standardní odezva na kódy chyb klienta v řadičích s atributem `ApiControllerAttribute` . `IActionResult`Vrácení stavového kódu chyby klienta (4xx) nyní vrací `ProblemDetails` tělo. Výsledek také obsahuje ID korelace, které lze použít ke korelaci chyby pomocí protokolů požadavků. V případě chyb klienta se `ProducesResponseType` `ProblemDetails` jako typ odpovědi použije výchozí hodnota. To je dokumentováno ve výstupu OpenAPI/Swagger vygenerovaném pomocí NSwag nebo swashbuckle. AspNetCore.
 
 ## <a name="endpoint-routing"></a>Směrování koncových bodů
 
@@ -74,26 +76,26 @@ Další informace najdete v tématu [Podpora protokolu HTTP/2](xref:fundamentals
 
 ## <a name="kestrel-configuration"></a>Konfigurace Kestrel
 
-V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel`. V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrací pro vnitroprocesové hostování v rámci procesu. Další informace najdete v následujících materiálech:
+V dřívějších verzích ASP.NET Core možnosti Kestrel jsou konfigurovány voláním `UseKestrel` . V 2,2 jsou možnosti Kestrel konfigurovány voláním `ConfigureKestrel` v Tvůrci hostitele. Tato změna řeší problém s pořadím `IServer` registrací pro vnitroprocesové hostování v rámci procesu. Další informace najdete v následujících materiálech:
 
 * [Zmírnit konflikt UseIIS](https://github.com/aspnet/KestrelHttpServer/issues/2760)
 * [Konfigurace možností serveru Kestrel pomocí ConfigureKestrel](xref:fundamentals/servers/kestrel?view=aspnetcore-2.2#how-to-use-kestrel-in-aspnet-core-apps)
 
 ## <a name="iis-in-process-hosting"></a>Hostování v rámci vnitroprocesové služby IIS
 
-V dřívějších verzích ASP.NET Core služba IIS slouží jako reverzní proxy server. V 2,2 může modul ASP.NET Core spustit CoreCLR a hostovat aplikaci v pracovním procesu služby IIS (*W3wp. exe*). Hostování v rámci procesu poskytuje výkon a diagnostiku při používání služby IIS.
+V dřívějších verzích ASP.NET Core služba IIS slouží jako reverzní proxy server. V 2,2 může modul ASP.NET Core spustit CoreCLR a hostovat aplikaci v pracovním procesu služby IIS (*w3wp.exe*). Hostování v rámci procesu poskytuje výkon a diagnostiku při používání služby IIS.
 
 Další informace najdete v tématu [vnitroprocesové hostování pro službu IIS](xref:host-and-deploy/aspnet-core-module?view=aspnetcore-2.2#in-process-hosting-model).
 
 ## <a name="signalr-java-client"></a>SignalRKlient Java
 
-ASP.NET Core 2,2 zavádí klienta Java pro SignalR. Tento klient podporuje připojení k serveru ASP.NET Core SignalR z kódu Java, včetně aplikací pro Android.
+ASP.NET Core 2,2 zavádí klienta Java pro SignalR . Tento klient podporuje připojení k serveru ASP.NET Core SignalR z kódu Java, včetně aplikací pro Android.
 
 Další informace najdete v tématu [ASP.NET Core SignalR klient Java](https://docs.microsoft.com/aspnet/core/signalr/java-client?view=aspnetcore-2.2).
 
 ## <a name="cors-improvements"></a>Vylepšení CORS
 
-V dřívějších verzích ASP.NET Core middleware CORS povoluje `Accept`posílání `Accept-Language`hlaviček `Content-Language`, a `Origin` , a to bez ohledu na hodnoty nakonfigurované v `CorsPolicy.Headers`. V 2,2 se shoda zásad middlewaru CORS dá provést jenom v `Access-Control-Request-Headers` případě, že se záhlaví navzájem přesně shodují se `WithHeaders`záhlavími uvedenými v.
+V dřívějších verzích ASP.NET Core middleware CORS povoluje `Accept` `Accept-Language` `Content-Language` posílání hlaviček, a, a `Origin` to bez ohledu na hodnoty nakonfigurované v `CorsPolicy.Headers` . V 2,2 se shoda zásad middlewaru CORS dá provést jenom v případě, že se záhlaví navzájem `Access-Control-Request-Headers` přesně shodují se záhlavími uvedenými v `WithHeaders` .
 
 Další informace najdete v tématu [middleware CORS](xref:security/cors?view=aspnetcore-2.2#set-the-allowed-request-headers).
 
@@ -111,13 +113,13 @@ Další informace najdete v tématu [middleware pro kompresi odpovědí podporuj
 
 ## <a name="validation-performance"></a>Výkon ověřování
 
-Systém ověřování MVC je navržený tak, aby byl rozšiřitelný a flexibilní, což vám umožní určit na základě jednotlivých požadavků, které validátory se vztahují na daný model. To je skvělé pro vytváření komplexních zprostředkovatelů ověřování. V nejběžnějším případě však aplikace používá pouze předdefinované validátory a nevyžaduje tuto dodatečnou flexibilitu. Předdefinované Validátory zahrnují dataanotace, jako jsou [povinné] a [StringLength] a `IValidatableObject`.
+Systém ověřování MVC je navržený tak, aby byl rozšiřitelný a flexibilní, což vám umožní určit na základě jednotlivých požadavků, které validátory se vztahují na daný model. To je skvělé pro vytváření komplexních zprostředkovatelů ověřování. V nejběžnějším případě však aplikace používá pouze předdefinované validátory a nevyžaduje tuto dodatečnou flexibilitu. Předdefinované Validátory zahrnují dataanotace, jako jsou [povinné] a [StringLength] a `IValidatableObject` .
 
-V ASP.NET Core 2,2 může MVC ověřování pomocí krátkého okruhu, pokud zjistí, že daný graf modelu nevyžaduje ověření. Při ověřování modelů, které nemohou nebo nemají žádné validátory, se výsledky ověřování přeskočí. To zahrnuje objekty, jako jsou například kolekce primitivních objektů ( `byte[]`například `string[]`, `Dictionary<string, string>`,) nebo grafy složitých objektů bez mnoha validátorů.
+V ASP.NET Core 2,2 může MVC ověřování pomocí krátkého okruhu, pokud zjistí, že daný graf modelu nevyžaduje ověření. Při ověřování modelů, které nemohou nebo nemají žádné validátory, se výsledky ověřování přeskočí. To zahrnuje objekty, jako jsou například kolekce primitivních objektů (například `byte[]` , `string[]` , `Dictionary<string, string>` ) nebo grafy složitých objektů bez mnoha validátorů.
 
 ## <a name="http-client-performance"></a>Výkon klienta HTTP
 
-V ASP.NET Core 2,2 se zvýšil výkon `SocketsHttpHandler` tím, že se zmenší kolize uzamčení fondu připojení. V případě aplikací, které provedou mnoho odchozích požadavků HTTP, jako jsou například některé architektury mikroslužeb, je propustnost vylepšena. V případě `HttpClient` zátěže je možné zvýšit propustnost až 60% v systémech Linux a 20% ve Windows.
+V ASP.NET Core 2,2 se zvýšil výkon tím, že se zmenší kolize `SocketsHttpHandler` uzamčení fondu připojení. V případě aplikací, které provedou mnoho odchozích požadavků HTTP, jako jsou například některé architektury mikroslužeb, je propustnost vylepšena. V případě zátěže je `HttpClient` možné zvýšit propustnost až 60% v systémech Linux a 20% ve Windows.
 
 Další informace najdete v [žádosti o přijetí změn, která provedla toto zlepšení](https://github.com/dotnet/corefx/pull/32568).
 

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 08/16/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: e43cd5055737feaef451d27b651c1d301c1f93d2
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: c41ba2e067c8dc978b1359db548733c5f8890a2b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105945"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408380"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware pro přepis adres URL v ASP.NET Core
 
@@ -81,7 +83,7 @@ Pokud nemůžete použít následující přístupy, použijte middleware přepi
 * [Apache mod_rewrite modul na serveru Apache](https://httpd.apache.org/docs/2.4/rewrite/)
 * [Přepsání adresy URL na Nginx](https://www.nginx.com/blog/creating-nginx-rewrite-rules/)
 
-Použijte taky middleware, pokud je aplikace hostována na [serveru http. sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
+Používejte také middleware při hostování aplikace na [serveruHTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
 
 Hlavními důvody pro použití technologie přepisování adres URL založené na serveru ve službě IIS, Apache a Nginx jsou:
 
@@ -220,7 +222,7 @@ K získání prostředku neexistuje žádná Přenosová cesta k serveru. Pokud 
 
 Použijte pravidla mod_rewrite Apache s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Další informace a příklady pravidel mod_rewrite najdete v tématu [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
 
-<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite. txt* :
+<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite.txt* :
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
 
@@ -266,9 +268,9 @@ Middleware podporuje následující proměnné serveru Apache mod_rewrite:
 
 ### <a name="iis-url-rewrite-module-rules"></a>Pravidla pro přepsání adresy URL služby IIS
 
-Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, použijte <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití souboru *Web. config* aplikace při spuštění v systému Windows Server IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *Web. config* aplikace, aby nedocházelo ke konfliktům s modulem pro přepis služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
+Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, použijte <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití *web.config* souboru aplikace při spuštění na Windows serveru IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *web.config* aplikace, aby nedocházelo ke konfliktům s modulem PŘEPISU služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
 
-<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite. XML* :
+<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite.xml* :
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
 
@@ -331,13 +333,13 @@ Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k im
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=14)]
 
-Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml` , je požadavek přesměrován na `/xmlfiles/file.xml` . Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/File.XML*, soubor middleware statických souborů zachová soubor klientovi ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
+Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml` , je požadavek přesměrován na `/xmlfiles/file.xml` . Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/file.xml*, soubor middleware statických souborů obsluhuje soubor do klienta ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
 
 *RewriteRules.cs*:
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/RewriteRules.cs?name=snippet_RedirectXmlFileRequests&highlight=14-18)]
 
-Tento přístup může také přezapisovat požadavky. Ukázková aplikace ukazuje přepis cesty k libovolné žádosti o textový soubor, aby sloužil textový soubor *. txt* ze složky *wwwroot* . Middleware statických souborů zachovává soubor na základě aktualizované cesty požadavku:
+Tento přístup může také přezapisovat požadavky. Ukázková aplikace ukazuje přepis cesty k libovolné žádosti o textový soubor, aby sloužila *file.txt* textový soubor ze složky *wwwroot* . Middleware statických souborů zachovává soubor na základě aktualizované cesty požadavku:
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=15,22)]
 
@@ -351,17 +353,17 @@ Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k po
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontrolovány, aby splňovaly několik podmínek. `extension`Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif*. Pokud `newPath` není platná, <xref:System.ArgumentException> je vyvolána výjimka. Pokud je pro *image. png*vytvořen požadavek, je požadavek přesměrován na `/png-images/image.png` . Pokud je pro *image. jpg*vytvořen požadavek, je požadavek přesměrován na `/jpg-images/image.jpg` . Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
+Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontrolovány, aby splňovaly několik podmínek. `extension`Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif*. Pokud `newPath` není platná, <xref:System.ArgumentException> je vyvolána výjimka. Pokud se pro *image.png*požadavek provede, požadavek se přesměruje na `/png-images/image.png` . Pokud se pro *image.jpg*požadavek provede, požadavek se přesměruje na `/jpg-images/image.jpg` . Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
 
 [!code-csharp[](url-rewriting/samples/3.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
 Původní požadavek:`/image.png`
 
-![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image. png](url-rewriting/_static/add_redirect_png_requests.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image.png](url-rewriting/_static/add_redirect_png_requests.png)
 
 Původní požadavek:`/image.jpg`
 
-![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image. jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image.jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
 
 ## <a name="regex-examples"></a>Příklady Regex
 
@@ -433,7 +435,7 @@ Pokud nemůžete použít následující přístupy, použijte middleware přepi
 * [Apache mod_rewrite modul na serveru Apache](https://httpd.apache.org/docs/2.4/rewrite/)
 * [Přepsání adresy URL na Nginx](https://www.nginx.com/blog/creating-nginx-rewrite-rules/)
 
-Použijte taky middleware, pokud je aplikace hostována na [serveru http. sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
+Používejte také middleware při hostování aplikace na [serveruHTTP.sys](xref:fundamentals/servers/httpsys) (dříve nazývaném weblisten).
 
 Hlavními důvody pro použití technologie přepisování adres URL založené na serveru ve službě IIS, Apache a Nginx jsou:
 
@@ -574,7 +576,7 @@ K získání prostředku neexistuje žádná Přenosová cesta k serveru. Pokud 
 
 Použijte pravidla mod_rewrite Apache s <xref:Microsoft.AspNetCore.Rewrite.ApacheModRewriteOptionsExtensions.AddApacheModRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Další informace a příklady pravidel mod_rewrite najdete v tématu [Apache mod_rewrite](https://httpd.apache.org/docs/2.4/rewrite/).
 
-<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite. txt* :
+<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *ApacheModRewrite.txt* :
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=3-4,12)]
 
@@ -620,9 +622,9 @@ Middleware podporuje následující proměnné serveru Apache mod_rewrite:
 
 ### <a name="iis-url-rewrite-module-rules"></a>Pravidla pro přepsání adresy URL služby IIS
 
-Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, použijte <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití souboru *Web. config* aplikace při spuštění v systému Windows Server IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *Web. config* aplikace, aby nedocházelo ke konfliktům s modulem pro přepis služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
+Pokud chcete použít stejnou sadu pravidel, která se vztahuje na modul IIS URL Rewrite, použijte <xref:Microsoft.AspNetCore.Rewrite.IISUrlRewriteOptionsExtensions.AddIISUrlRewrite*> . Ujistěte se, že je soubor pravidel nasazený spolu s aplikací. Nesměrujte middleware na použití *web.config* souboru aplikace při spuštění na Windows serveru IIS. V případě služby IIS by tato pravidla měla být uložena mimo soubor *web.config* aplikace, aby nedocházelo ke konfliktům s modulem PŘEPISU služby IIS. Další informace a příklady pravidel pro přepis adres URL služby IIS najdete v tématu použití odkazu na modul pro [přepis adres url 2,0](/iis/extensions/url-rewrite-module/using-url-rewrite-module-20) a [odkaz na konfiguraci modulu přepisu adresy](/iis/extensions/url-rewrite-module/url-rewrite-module-configuration-reference)URL.
 
-<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite. XML* :
+<xref:System.IO.StreamReader>Používá se ke čtení pravidel ze souboru pravidel *IISUrlRewrite.xml* :
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=5-6,13)]
 
@@ -685,13 +687,13 @@ Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k im
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=14)]
 
-Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml` , je požadavek přesměrován na `/xmlfiles/file.xml` . Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/File.XML*, soubor middleware statických souborů zachová soubor klientovi ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
+Ukázková aplikace ukazuje metodu, která přesměrovává požadavky na cesty, které končí na *. XML*. Pokud je žádost určena pro `/file.xml` , je požadavek přesměrován na `/xmlfiles/file.xml` . Stavový kód je nastaven na *301 – trvale přesunuto*. Když prohlížeč vytvoří nový požadavek na */xmlfiles/file.xml*, soubor middleware statických souborů obsluhuje soubor do klienta ze složky *wwwroot/xmlfiles* . Pro přesměrování explicitně nastavte stavový kód odpovědi. V opačném případě se vrátí stavový kód *200-OK* a na klientovi se neobjeví přesměrování.
 
 *RewriteRules.cs*:
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectXmlFileRequests&highlight=14-18)]
 
-Tento přístup může také přezapisovat požadavky. Ukázková aplikace ukazuje přepis cesty k libovolné žádosti o textový soubor, aby sloužil textový soubor *. txt* ze složky *wwwroot* . Middleware statických souborů zachovává soubor na základě aktualizované cesty požadavku:
+Tento přístup může také přezapisovat požadavky. Ukázková aplikace ukazuje přepis cesty k libovolné žádosti o textový soubor, aby sloužila *file.txt* textový soubor ze složky *wwwroot* . Middleware statických souborů zachovává soubor na základě aktualizované cesty požadavku:
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=15,22)]
 
@@ -705,17 +707,17 @@ Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k po
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/Startup.cs?name=snippet1&highlight=16-17)]
 
-Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontrolovány, aby splňovaly několik podmínek. `extension`Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif*. Pokud `newPath` není platná, <xref:System.ArgumentException> je vyvolána výjimka. Pokud je pro *image. png*vytvořen požadavek, je požadavek přesměrován na `/png-images/image.png` . Pokud je pro *image. jpg*vytvořen požadavek, je požadavek přesměrován na `/jpg-images/image.jpg` . Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
+Hodnoty parametrů v ukázkové aplikaci pro `extension` a `newPath` jsou zkontrolovány, aby splňovaly několik podmínek. `extension`Musí obsahovat hodnotu a hodnota musí být *. png*, *. jpg*nebo *. gif*. Pokud `newPath` není platná, <xref:System.ArgumentException> je vyvolána výjimka. Pokud se pro *image.png*požadavek provede, požadavek se přesměruje na `/png-images/image.png` . Pokud se pro *image.jpg*požadavek provede, požadavek se přesměruje na `/jpg-images/image.jpg` . Stavový kód je nastaven na *301 – trvale přesunuto*a `context.Result` je nastavené na zastavení zpracování pravidel a odeslání odpovědi.
 
 [!code-csharp[](url-rewriting/samples/2.x/SampleApp/RewriteRules.cs?name=snippet_RedirectImageRequests)]
 
 Původní požadavek:`/image.png`
 
-![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image. png](url-rewriting/_static/add_redirect_png_requests.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image.png](url-rewriting/_static/add_redirect_png_requests.png)
 
 Původní požadavek:`/image.jpg`
 
-![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image. jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
+![Okno prohlížeče s Vývojářské nástroje sledování požadavků a odpovědí pro image.jpg](url-rewriting/_static/add_redirect_jpg_requests.png)
 
 ## <a name="regex-examples"></a>Příklady Regex
 

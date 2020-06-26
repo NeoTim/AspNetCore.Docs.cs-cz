@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/background-services
-ms.openlocfilehash: 7bc3b9535055e3fccf23ffa4638bd29676910348
-ms.sourcegitcommit: e87dfa08fec0be1008249b1be678e5f79dcc5acb
+ms.openlocfilehash: bf5fff213b2cd7db0b3227922a8c5babba2fc904
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/13/2020
-ms.locfileid: "83382566"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85409082"
 ---
 # <a name="host-aspnet-core-signalr-in-background-services"></a>Hostování ASP.NET Core SignalR ve službách na pozadí
 
@@ -62,7 +64,7 @@ V předchozím příkladu `ClockHub` Třída implementuje `Hub<T>` třídu pro v
 Další informace o rozbočovačích se silnými typy najdete v tématu [použití Center v SignalR pro ASP.NET Core](xref:signalr/hubs#strongly-typed-hubs).
 
 > [!NOTE]
-> Tato funkce není omezená na třídu [ \<>centra t](xref:Microsoft.AspNetCore.SignalR.Hub`1) . Libovolná třída, která dědí z [rozbočovače](xref:Microsoft.AspNetCore.SignalR.Hub), například [DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub), funguje.
+> Tato funkce není omezená na třídu [centra \<T> ](xref:Microsoft.AspNetCore.SignalR.Hub`1) . Libovolná třída, která dědí z [rozbočovače](xref:Microsoft.AspNetCore.SignalR.Hub), například [DynamicHub](xref:Microsoft.AspNetCore.SignalR.DynamicHub), funguje.
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -152,7 +154,7 @@ Během `IHostedService.StopAsync` metody `HubConnection` je vyřazení asynchron
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Začínáme](xref:tutorials/signalr)
 * [Centra](xref:signalr/hubs)

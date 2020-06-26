@@ -1,83 +1,91 @@
 ---
-title: Aspekty návrhu rozhraní API SignalR
+title: SignalRPožadavky na návrh rozhraní API
 author: anurse
-description: Informace o návrhu rozhraní API funkce SignalR pro kompatibilitu mezi verzemi aplikace.
+description: Naučte se navrhovat SignalR rozhraní API pro kompatibilitu mezi verzemi vaší aplikace.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: anurse
 ms.custom: mvc
-ms.date: 11/06/2018
+ms.date: 11/12/2019
+no-loc:
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
 uid: signalr/api-design
-ms.openlocfilehash: 3f17bf055b793e8fc91fbcc15f668928ca261f77
-ms.sourcegitcommit: 5b0eca8c21550f95de3bb21096bd4fd4d9098026
+ms.openlocfilehash: 9ad8d30da552d3d3084534b8c7ca57386ad111ac
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 04/27/2019
-ms.locfileid: "64903180"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407795"
 ---
-# <a name="signalr-api-design-considerations"></a>Aspekty návrhu rozhraní API SignalR
+# <a name="signalr-api-design-considerations"></a>SignalRPožadavky na návrh rozhraní API
 
-Podle [Andrew Stanton sestry](https://twitter.com/anurse)
+Autor [: Andrew Stanton – zdravotní sestry](https://twitter.com/anurse)
 
-Tento článek obsahuje pokyny pro vytváření rozhraní API založená na systému SignalR.
+Tento článek poskytuje pokyny pro vytváření SignalR rozhraní API založených na sestaveních.
 
-## <a name="use-custom-object-parameters-to-ensure-backwards-compatibility"></a>Použít vlastní objekt parametry k zajištění zpětné kompatibility
+## <a name="use-custom-object-parameters-to-ensure-backwards-compatibility"></a>Použití vlastních parametrů objektů k zajištění zpětné kompatibility
 
-Přidání parametrů do metody rozbočovače SignalR (u klienta nebo serveru) je *narušující změna*. To znamená, že starší klienti a servery, bude docházet k chybám při pokusu o volání metody bez odpovídající počet parametrů. Přidání vlastnosti do vlastní objekt parametru ale **není** zásadní změnu. To umožňuje návrh kompatibilních rozhraní API, které jsou odolné vůči změnám v klientovi nebo serveru.
+Přidání parametrů do SignalR metody hub (na klientovi nebo na serveru) je zásadní *Změna*. To znamená, že starší klienti nebo servery budou mít chyby, když se pokusí vyvolat metodu bez příslušného počtu parametrů. Přidání vlastností do vlastního parametru objektu však **nepředstavuje zásadní** změnu. Dá se použít k návrhu kompatibilních rozhraní API, která jsou odolná proti změnám v klientovi nebo na serveru.
 
-Představte si třeba API na straně serveru nějak takto:
+Představte si třeba rozhraní API na straně serveru, například následující:
 
 [!code-csharp[ParameterBasedOldVersion](api-design/sample/Samples.cs?name=ParameterBasedOldVersion)]
 
-JavaScript klienta volá tuto metodu pomocí `invoke` následujícím způsobem:
+Klient jazyka JavaScript volá tuto metodu pomocí `invoke` následujícího postupu:
 
 [!code-typescript[CallWithOneParameter](api-design/sample/Samples.ts?name=CallWithOneParameter)]
 
-Pokud chcete později přidat druhý parametr metody serveru, starší klienti neposkytne hodnotu tohoto parametru. Příklad:
+Pokud později přidáte druhý parametr do metody serveru, starší klienti tuto hodnotu parametru neposkytují. Například:
 
 [!code-csharp[ParameterBasedNewVersion](api-design/sample/Samples.cs?name=ParameterBasedNewVersion)]
 
-Když se původní klient se pokusí vyvolat tuto metodu, dojde k chybě takto:
+Když se starý klient pokusí tuto metodu vyvolat, zobrazí se chyba takto:
 
 ```
 Microsoft.AspNetCore.SignalR.HubException: Failed to invoke 'GetTotalLength' due to an error on the server.
 ```
 
-Na serveru zobrazí se vám podobná zpráva protokolu:
+Na serveru se zobrazí zpráva s protokolem, například:
 
 ```
 System.IO.InvalidDataException: Invocation provides 1 argument(s) but target expects 2.
 ```
 
-Starého klienta odešlou, jenom jeden parametr, ale novější rozhraní API serveru vyžaduje dva parametry. Pomocí vlastních objektů jako parametry vám zajistí větší flexibilitu. Umožňuje změnit návrh původní rozhraní API pro použití vlastního objektu:
+Starý Klient poslal pouze jeden parametr, ale novější serverové rozhraní API vyžadovalo dva parametry. Použití vlastních objektů jako parametrů poskytuje větší flexibilitu. Pojďme znovu navrhnout původní rozhraní API, aby se používal vlastní objekt:
 
 [!code-csharp[ObjectBasedOldVersion](api-design/sample/Samples.cs?name=ObjectBasedOldVersion)]
 
-Nyní klient použije objekt k volání metody:
+Nyní klient používá objekt pro volání metody:
 
 [!code-typescript[CallWithObject](api-design/sample/Samples.ts?name=CallWithObject)]
 
-Nepřidávat parametr přidat vlastnost, která má `TotalLengthRequest` objektu:
+Místo přidání parametru přidejte do `TotalLengthRequest` objektu vlastnost:
 
 [!code-csharp[ObjectBasedNewVersion](api-design/sample/Samples.cs?name=ObjectBasedNewVersion&highlight=4,9-13)]
 
-Pokud původní klient odešle jediný parametr, nadbytečné `Param2` zůstane vlastnost `null`. Zpráva odeslaná staršího klienta tak, že zkontrolujete, můžete zjistit `Param2` pro `null` a použijte výchozí hodnotu. Nový klient může odesílat oba parametry.
+Když původní klient pošle jeden parametr, zůstane vlastnost extra `Param2` prázdná `null` . Můžete zjistit zprávu odeslanou starším klientem zaškrtnutím `Param2` u `null` a použijte výchozí hodnotu. Nový klient může odeslat oba parametry.
 
 [!code-typescript[CallWithObjectNew](api-design/sample/Samples.ts?name=CallWithObjectNew)]
 
-Stejný postup funguje pro metody definované na straně klienta. Vlastní objekt můžete odeslat na straně serveru:
+Stejný postup funguje pro metody definované v klientovi. Můžete odeslat vlastní objekt ze strany serveru:
 
 [!code-csharp[ClientSideObjectBasedOld](api-design/sample/Samples.cs?name=ClientSideObjectBasedOld)]
 
-Na straně klienta přistupujete `Message` vlastnost spíše než pomocí parametru:
+Na straně klienta získáte přístup k `Message` vlastnosti místo použití parametru:
 
 [!code-typescript[OnWithObjectOld](api-design/sample/Samples.ts?name=OnWithObjectOld)]
 
-Pokud se později rozhodnete přidat odesílatele zprávy do datové části, přidání vlastnosti do objektu:
+Pokud se později rozhodnete přidat odesílatele zprávy do datové části, přidejte do objektu vlastnost:
 
 [!code-csharp[ClientSideObjectBasedNew](api-design/sample/Samples.cs?name=ClientSideObjectBasedNew&highlight=5)]
 
-Starší klienti nebudou očekává `Sender` hodnotu, takže se bude ignorovat. Nový klient může přijmout tak, že aktualizace zobrazíte nové vlastnosti:
+Starší klienti neočekávají `Sender` hodnotu, takže ji budou ignorovat. Nový klient ho může přijmout tak, že aktualizuje a přečte novou vlastnost:
 
 [!code-typescript[OnWithObjectNew](api-design/sample/Samples.ts?name=OnWithObjectNew&highlight=2-5)]
 
-V tomto případě je nový klient také odolný vůči chybám starého serveru, který neposkytuje `Sender` hodnotu. Protože starý server nebude poskytovat `Sender` hodnotu, klient zkontroluje, jestli existuje před jeho použitím.
+V tomto případě je nový klient také odolný proti starému serveru, který tuto hodnotu neposkytuje `Sender` . Vzhledem k tomu, že původní server tuto hodnotu neposkytne `Sender` , klient zkontroluje, jestli existuje, než k němu přistoupí.

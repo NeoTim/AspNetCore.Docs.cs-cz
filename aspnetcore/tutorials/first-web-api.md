@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 2/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: 71ab0fc0a679acf540fa53fa2a9c8ba893b34edf
-ms.sourcegitcommit: d243fadeda20ad4f142ea60301ae5f5e0d41ed60
+ms.openlocfilehash: 63f91086a7e9d71add7f7a5d58d96f46fa76353c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/12/2020
-ms.locfileid: "84724351"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407782"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -44,11 +46,11 @@ V tomto kurzu se vytvoří následující rozhraní API:
 
 |Rozhraní API | Description | Text požadavku | Text odpovědi |
 |--- | ---- | ---- | ---- |
-|`GET /api/TodoItems` | Získat všechny položky úkolů | Žádné | Pole položek úkolů|
-|`GET /api/TodoItems/{id}` | Získat položku podle ID | Žádné | Položka úkolů|
+|`GET /api/TodoItems` | Získat všechny položky úkolů | Žádná | Pole položek úkolů|
+|`GET /api/TodoItems/{id}` | Získat položku podle ID | Žádná | Položka úkolů|
 |`POST /api/TodoItems` | Přidat novou položku | Položka úkolů | Položka úkolů |
-|`PUT /api/TodoItems/{id}` | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádné |
-|`DELETE /api/TodoItems/{id}` &nbsp; &nbsp; | Odstranění položky &nbsp;&nbsp; | Žádné | Žádné|
+|`PUT /api/TodoItems/{id}` | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádná |
+|`DELETE /api/TodoItems/{id}` &nbsp; &nbsp; | Odstranění položky &nbsp;&nbsp; | Žádná | Žádná|
 
 V následujícím diagramu vidíte návrh aplikace.
 
@@ -532,11 +534,11 @@ V tomto kurzu se vytvoří následující rozhraní API:
 
 |Rozhraní API | Description | Text požadavku | Text odpovědi |
 |--- | ---- | ---- | ---- |
-|ZÍSKAT/api/TodoItems | Získat všechny položky úkolů | Žádné | Pole položek úkolů|
-|ZÍSKAT/api/TodoItems/{id} | Získat položku podle ID | Žádné | Položka úkolů|
+|ZÍSKAT/api/TodoItems | Získat všechny položky úkolů | Žádná | Pole položek úkolů|
+|ZÍSKAT/api/TodoItems/{id} | Získat položku podle ID | Žádná | Položka úkolů|
 |PŘÍSPĚVEK/api/TodoItems | Přidat novou položku | Položka úkolů | Položka úkolů |
-|Vložit/api/TodoItems/{id} | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádné |
-|Odstranit/api/TodoItems/{id} &nbsp;&nbsp; | Odstranění položky &nbsp;&nbsp; | Žádné | Žádné|
+|Vložit/api/TodoItems/{id} | Aktualizovat existující položku&nbsp; | Položka úkolů | Žádná |
+|Odstranit/api/TodoItems/{id} &nbsp;&nbsp; | Odstranění položky &nbsp;&nbsp; | Žádná | Žádná|
 
 V následujícím diagramu vidíte návrh aplikace.
 

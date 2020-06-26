@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 8/16/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/working-with-sql
-ms.openlocfilehash: 7fdd147f4de00a593a77977d2b53e5369667fe78
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: a66359ec7ac6e5a84ae36ecc2e4f5e4bb791101a
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652519"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408302"
 ---
 # <a name="part-5-work-with-a-database-in-an-aspnet-core-mvc-app"></a>5. část práce s databází v aplikaci ASP.NET Core MVC
 
@@ -30,7 +32,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_ConfigureServices&highlight=5-6)]
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec z *appsettings.jsv* souboru:
 
 [!code-json[](start-mvc/sample/MvcMovie/appsettings.json?highlight=2&range=8-10)]
 
@@ -38,7 +40,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Startup.cs?name=snippet_UseSqlite&highlight=5-6)]
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec z *appsettings.jsv* souboru:
 
 [!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/appsettingsSQLite.json?highlight=2&range=8-10)]
 
@@ -142,7 +144,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_ConfigureServices&highlight=13-99)]
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec z *appsettings.jsv* souboru:
 
 [!code-json[](start-mvc/sample/MvcMovie/appsettings.json?highlight=2&range=8-10)]
 
@@ -150,7 +152,7 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Startup.cs?name=snippet_UseSqlite&highlight=11-12)]
 
-[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec ze souboru *appSettings. JSON* :
+[Konfigurační](xref:fundamentals/configuration/index) systém ASP.NET Core přečte `ConnectionString` . Pro místní vývoj načte připojovací řetězec z *appsettings.jsv* souboru:
 
 [!code-json[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/appsettingsSQLite.json?highlight=2&range=8-10)]
 

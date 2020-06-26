@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 03/28/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/docker-compose-https
-ms.openlocfilehash: 533d86fb17e3c89fdca59685b090645a11ba5473
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b282af3b9c657bda4432f0d60f100f65fa7cbae9
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775138"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408614"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-compose-over-https"></a>Hostování ASP.NET Core imagí pomocí Docker Compose přes HTTPS
 
@@ -39,11 +41,11 @@ Některé pokyny v tomto dokumentu vyžadují [sadu SDK .NET Core 2,2](https://d
 
 Pro [hostování v provozu](https://blogs.msdn.microsoft.com/webdev/2017/11/29/configuring-https-in-asp-net-core-across-different-platforms/) v doméně je vyžadován certifikát od [certifikační autority](https://wikipedia.org/wiki/Certificate_authority) . [Let's Encrypt](https://letsencrypt.org/)je certifikační autorita, která nabízí bezplatné certifikáty.
 
-Tento dokument používá [certifikáty pro vývoj podepsaný svým držitelem](https://wikipedia.org/wiki/Self-signed_certificate) pro hostování předem vytvořených imagí `localhost`. Pokyny jsou podobné použití produkčních certifikátů.
+Tento dokument používá [certifikáty pro vývoj podepsaný svým držitelem](https://wikipedia.org/wiki/Self-signed_certificate) pro hostování předem vytvořených imagí `localhost` . Pokyny jsou podobné použití produkčních certifikátů.
 
 Pro produkční certifikáty:
 
-* `dotnet dev-certs` Nástroj není povinný.
+* `dotnet dev-certs`Nástroj není povinný.
 * Certifikáty není nutné ukládat v umístění, které jste použili v pokynech. Certifikáty uložte v jakémkoli umístění mimo adresář webu.
 
 Pokyny obsažené v následujícím oddílu připojovat certifikáty do kontejnerů pomocí `volumes` vlastnosti v *Docker-Compose. yml.* Do imagí kontejnerů můžete přidat certifikáty pomocí `COPY` příkazu ve *souboru Dockerfile*, ale nedoporučuje se to. Kopírování certifikátů do bitové kopie se nedoporučuje z následujících důvodů:

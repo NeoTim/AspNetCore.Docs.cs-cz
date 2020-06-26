@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 05/26/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: migration/webapi
-ms.openlocfilehash: 3c8bf27a97de92a42817d4af625976a4920001aa
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 530455c85c4c869f06ba795d9fb63dcfd1c8d5cf
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84145548"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407223"
 ---
 # <a name="migrate-from-aspnet-web-api-to-aspnet-core"></a>Migrace z webového rozhraní API ASP.NET do ASP.NET Core
 
@@ -73,7 +75,7 @@ Přidejte nový projekt API, který se má migrovat na:
 
 ## <a name="migrate-configuration"></a>Migrace konfigurace
 
-ASP.NET Core nepoužívá složku *app_start* nebo soubor *Global. asax* . Navíc se soubor *Web. config* přidá v době publikování.
+ASP.NET Core nepoužívá složku *app_start* nebo soubor *Global. asax* . Navíc se soubor *web.config* přidá v době publikování.
 
 Třída `Startup`:
 
@@ -186,7 +188,7 @@ Proveďte následující kroky v aplikaci Visual Studio:
 ASP.NET Core nepoužívá:
 
 * *App_start* složka nebo soubor *Global. asax*
-* soubor *Web. config* je přidán v době publikování.
+* V době publikování se přidá soubor *web.config* .
 
 Třída `Startup`:
 

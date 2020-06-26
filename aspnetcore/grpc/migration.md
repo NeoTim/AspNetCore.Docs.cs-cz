@@ -7,17 +7,19 @@ ms.author: johluo
 ms.date: 09/25/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: grpc/migration
-ms.openlocfilehash: 1846195cc43aec703333e69f66380ddcabcf2ad4
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 2f0cd5f224453ee7be16f8a1d10e383de2a0d426
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82768819"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407249"
 ---
 # <a name="migrating-grpc-services-from-c-core-to-aspnet-core"></a>Migrace služeb gRPC z C-Core na ASP.NET Core
 
@@ -35,7 +37,7 @@ Vymezená doba života umožňuje implementaci služby vyřešit další služby
 * Není možné sdílet stav mezi požadavky prostřednictvím členů instance v typu implementace.
 * Očekává se, že se sdílené stavy ukládají do služby s jedním prvkem v kontejneru DI. Uložené sdílené stavy jsou vyřešeny v konstruktoru implementace služby gRPC.
 
-Další informace o životních cyklech služby najdete <xref:fundamentals/dependency-injection#service-lifetimes>v tématu.
+Další informace o životních cyklech služby najdete v tématu <xref:fundamentals/dependency-injection#service-lifetimes> .
 
 ### <a name="add-a-singleton-service"></a>Přidání služby s jedním prvkem
 
@@ -53,9 +55,9 @@ Nicméně implementace služby s životností singleton již není schopna přek
 
 ## <a name="configure-grpc-services-options"></a>Konfigurace možností služeb gRPC Services
 
-V aplikacích založených na jazyce C jsou nastavení, jako `grpc.max_receive_message_length` jsou `grpc.max_send_message_length` a, nakonfigurována `ChannelOption` při [vytváření instance serveru](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__).
+V aplikacích založených na jazyce C jsou nastavení, jako `grpc.max_receive_message_length` jsou a, `grpc.max_send_message_length` nakonfigurována `ChannelOption` při [vytváření instance serveru](https://grpc.io/grpc/csharp/api/Grpc.Core.Server.html#Grpc_Core_Server__ctor_System_Collections_Generic_IEnumerable_Grpc_Core_ChannelOption__).
 
-V ASP.NET Core poskytuje gRPC konfiguraci prostřednictvím `GrpcServiceOptions` typu. Například maximální velikost příchozích zpráv služby gRPC lze nakonfigurovat prostřednictvím `AddGrpc`. Následující příklad změní výchozí nastavení `MaxReceiveMessageSize` 4 MB na 16 MB:
+V ASP.NET Core poskytuje gRPC konfiguraci prostřednictvím `GrpcServiceOptions` typu. Například maximální velikost příchozích zpráv služby gRPC lze nakonfigurovat prostřednictvím `AddGrpc` . Následující příklad změní výchozí nastavení `MaxReceiveMessageSize` 4 MB na 16 MB:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -67,11 +69,11 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Další informace o konfiguraci najdete v tématu <xref:grpc/configuration>.
+Další informace o konfiguraci najdete v tématu <xref:grpc/configuration> .
 
 ## <a name="logging"></a>protokolování
 
-Základní aplikace založené na jazyce C jsou závislé `GrpcEnvironment` na [konfiguraci protokolovacího](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_) nástroje pro účely ladění. ASP.NET Core Stack tuto funkci poskytuje prostřednictvím [rozhraní API protokolování](xref:fundamentals/logging/index). Například protokolovací nástroj může být přidán do služby gRPC prostřednictvím injektáže konstruktoru:
+Základní aplikace založené na jazyce C jsou závislé na `GrpcEnvironment` [konfiguraci protokolovacího](https://grpc.io/grpc/csharp/api/Grpc.Core.GrpcEnvironment.html?q=size#Grpc_Core_GrpcEnvironment_SetLogger_Grpc_Core_Logging_ILogger_) nástroje pro účely ladění. ASP.NET Core Stack tuto funkci poskytuje prostřednictvím [rozhraní API protokolování](xref:fundamentals/logging/index). Například protokolovací nástroj může být přidán do služby gRPC prostřednictvím injektáže konstruktoru:
 
 ```csharp
 public class GreeterService : Greeter.GreeterBase
@@ -92,9 +94,9 @@ Aplikace založené na základních jazycích konfigurují HTTPS prostřednictv�
 
 * Slouží k vytvoření kanálu, který zpracovává gRPC požadavek.
 * Povolí provedení práce před nebo po další komponentě v kanálu.
-* Poskytněte přístup k `HttpContext`:
+* Poskytněte přístup k `HttpContext` :
   * V middleware `HttpContext` je parametr.
-  * V modulech `HttpContext` zachycení lze k němu přistup `ServerCallContext` pomocí parametru s `ServerCallContext.GetHttpContext` metodou rozšíření. Všimněte si, že tato funkce je specifická pro zachycení běžící v ASP.NET Core.
+  * V modulech zachycení `HttpContext` lze k němu přistup pomocí `ServerCallContext` parametru s `ServerCallContext.GetHttpContext` metodou rozšíření. Všimněte si, že tato funkce je specifická pro zachycení běžící v ASP.NET Core.
 
 rozdíly v gRPC zachytávací z ASP.NET Core middlewaru:
 

@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 01/13/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 29f70d6bd1d5c1223ef35b4e24e5b9c0a8465d1d
-ms.sourcegitcommit: fa67462abdf0cc4051977d40605183c629db7c64
+ms.openlocfilehash: 28274d1deccdfe9e6430aa2899854f23d3ddc12a
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84652381"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408978"
 ---
 # <a name="part-4-add-a-model-to-an-aspnet-core-mvc-app"></a>4. část Přidání modelu do aplikace ASP.NET Core MVC
 
@@ -140,13 +142,13 @@ Do následujícího pole přidejte následující zvýrazněný kód `Startup.Co
 
 ---
 
-Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .
+Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) přečte připojovací řetězec z *appsettings.jsv* souboru.
 
 <a name="cs"></a>
 
 ## <a name="add-a-database-connection-string"></a>Přidat připojovací řetězec databáze
 
-Přidejte do souboru *appSettings. JSON* připojovací řetězec:
+Přidat připojovací řetězec do *appsettings.jsv* souboru:
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -601,7 +603,7 @@ Projděte si následující `Startup.ConfigureServices` metodu. Zvýrazněný ř
 
 Předchozí kód vytvoří vlastnost [negenerickými \<Movie> ](/dotnet/api/microsoft.entityframeworkcore.dbset-1) pro sadu entit. V Entity Framework terminologii sada entit obvykle odpovídá databázové tabulce. Entita odpovídá řádku v tabulce.
 
-Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj načítá [konfigurační systém ASP.NET Core](xref:fundamentals/configuration/index) připojovací řetězec ze souboru *appSettings. JSON* .
+Název připojovacího řetězce je předán do kontextu voláním metody v objektu [DbContextOptions](/dotnet/api/microsoft.entityframeworkcore.dbcontextoptions) . Pro místní vývoj [ASP.NET Core konfigurační systém](xref:fundamentals/configuration/index) přečte připojovací řetězec z *appsettings.jsv* souboru.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 

@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/14/2016
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/consumer-apis/password-hashing
-ms.openlocfilehash: 6a5e0e4378241671905f2a759aad88372901e7d2
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: f7d15cab463972d9c0fff52b645be454865ce2ca
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82769777"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408952"
 ---
 # <a name="hash-passwords-in-aspnet-core"></a>Hesla hash v ASP.NET Core
 
@@ -24,11 +26,11 @@ Základ kódu ochrany dat zahrnuje balíček *Microsoft. AspNetCore. Cryptograph
 
 Balíček aktuálně nabízí metodu `KeyDerivation.Pbkdf2` , která umožňuje hash hesla pomocí [algoritmu PBKDF2](https://tools.ietf.org/html/rfc2898#section-5.2). Toto rozhraní API je velmi podobné .NET Framework existujícímu [typu Rfc2898DeriveBytes](/dotnet/api/system.security.cryptography.rfc2898derivebytes), ale existují tři důležité odlišnosti:
 
-1. `KeyDerivation.Pbkdf2` Metoda podporuje využívání více PRFs `HMACSHA1`(aktuálně, `HMACSHA256`a `HMACSHA512`), zatímco `Rfc2898DeriveBytes` typ podporuje `HMACSHA1`pouze.
+1. `KeyDerivation.Pbkdf2`Metoda podporuje využívání více PRFs (aktuálně `HMACSHA1` , `HMACSHA256` a `HMACSHA512` ), zatímco `Rfc2898DeriveBytes` Typ podporuje pouze `HMACSHA1` .
 
-2. `KeyDerivation.Pbkdf2` Metoda zjistí aktuální operační systém a pokusí se zvolit optimalizovanou implementaci rutiny, která poskytuje mnohem lepší výkon v některých případech. (V systému Windows 8 nabízí přibližně 10x propustnost `Rfc2898DeriveBytes`.)
+2. `KeyDerivation.Pbkdf2`Metoda zjistí aktuální operační systém a pokusí se zvolit optimalizovanou implementaci rutiny, která poskytuje mnohem lepší výkon v některých případech. (V systému Windows 8 nabízí přibližně 10x propustnost `Rfc2898DeriveBytes` .)
 
-3. `KeyDerivation.Pbkdf2` Metoda vyžaduje, aby volající určil všechny parametry (Salt, PRF a Count iterace). `Rfc2898DeriveBytes` Typ poskytuje výchozí hodnoty pro tyto.
+3. `KeyDerivation.Pbkdf2`Metoda vyžaduje, aby volající určil všechny parametry (Salt, PRF a Count iterace). `Rfc2898DeriveBytes`Typ poskytuje výchozí hodnoty pro tyto.
 
 [!code-csharp[](password-hashing/samples/passwordhasher.cs)]
 

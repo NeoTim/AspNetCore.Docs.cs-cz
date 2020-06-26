@@ -7,17 +7,19 @@ ms.custom: H1Hack27Feb2017
 ms.date: 12/18/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/owin
-ms.openlocfilehash: defbf428634a04e6fa3862926136dc98b88da589
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 3d90788fa300bf099f44aa284e77879698240a74
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775957"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407821"
 ---
 # <a name="open-web-interface-for-net-owin-with-aspnet-core"></a>Otevřete web interface for .NET (OWIN) s ASP.NET Core
 
@@ -243,7 +245,7 @@ OWIN závisí na `IDictionary<string,object>` objektu, který komunikuje informa
 
 ### <a name="request-data-owin-v100"></a>Data požadavku (OWIN v 1.0.0)
 
-| Klíč               | Hodnota (typ) | Popis |
+| Klíč               | Hodnota (typ) | Description |
 | ----------------- | ------------ | ----------- |
 | Owin. RequestScheme | `String` |  |
 | Owin. RequestMethod  | `String` | |    
@@ -256,13 +258,13 @@ OWIN závisí na `IDictionary<string,object>` objektu, který komunikuje informa
 
 ### <a name="request-data-owin-v110"></a>Data požadavku (OWIN v 1.1.0)
 
-| Klíč               | Hodnota (typ) | Popis |
+| Klíč               | Hodnota (typ) | Description |
 | ----------------- | ------------ | ----------- |
 | Owin. Identifikátor | `String` | Volitelné |
 
 ### <a name="response-data-owin-v100"></a>Data odpovědi (OWIN v 1.0.0)
 
-| Klíč               | Hodnota (typ) | Popis |
+| Klíč               | Hodnota (typ) | Description |
 | ----------------- | ------------ | ----------- |
 | Owin. ResponseStatusCode | `int` | Volitelné |
 | Owin. ResponseReasonPhrase | `String` | Volitelné |
@@ -271,14 +273,14 @@ OWIN závisí na `IDictionary<string,object>` objektu, který komunikuje informa
 
 ### <a name="other-data-owin-v100"></a>Jiná data (OWIN v 1.0.0)
 
-| Klíč               | Hodnota (typ) | Popis |
+| Klíč               | Hodnota (typ) | Description |
 | ----------------- | ------------ | ----------- |
 | Owin. CallCancelled | `CancellationToken` |  |
 | Owin. Znění  | `String` | |   
 
 ### <a name="common-keys"></a>Společné klíče
 
-| Klíč               | Hodnota (typ) | Popis |
+| Klíč               | Hodnota (typ) | Description |
 | ----------------- | ------------ | ----------- |
 | zabezpečení. ClientCertificate | `X509Certificate` |  |
 | zabezpečení. LoadClientCertAsync  | `Func<Task>` | |    
@@ -291,13 +293,13 @@ OWIN závisí na `IDictionary<string,object>` objektu, který komunikuje informa
 
 ### <a name="sendfiles-v030"></a>SendFiles v 0.3.0
 
-| Klíč               | Hodnota (typ) | Popis |
+| Klíč               | Hodnota (typ) | Description |
 | ----------------- | ------------ | ----------- |
 | sendfile. SendAsync | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) | Za požadavek |
 
 ### <a name="opaque-v030"></a>Neprůhledný v 0.3.0
 
-| Klíč               | Hodnota (typ) | Popis |
+| Klíč               | Hodnota (typ) | Description |
 | ----------------- | ------------ | ----------- |
 | krytím. Znění | `String` |  |
 | krytím. Přejít | `OpaqueUpgrade` | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |
@@ -306,7 +308,7 @@ OWIN závisí na `IDictionary<string,object>` objektu, který komunikuje informa
 
 ### <a name="websocket-v030"></a>WebSocket v 0.3.0
 
-| Klíč               | Hodnota (typ) | Popis |
+| Klíč               | Hodnota (typ) | Description |
 | ----------------- | ------------ | ----------- |
 | protokolu WebSocket. Znění | `String` |  |
 | protokolu WebSocket. Vyjádřit | `WebSocketAccept` | Viz [Signatura delegáta](https://owin.org/spec/extensions/owin-SendFile-Extension-v0.3.0.htm) |

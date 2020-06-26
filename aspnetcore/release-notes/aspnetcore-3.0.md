@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: aspnetcore-3.0
-ms.openlocfilehash: f2588665c26887a6e3864866425b887e97e656d5
-ms.sourcegitcommit: a423e8fcde4b6181a3073ed646a603ba20bfa5f9
+ms.openlocfilehash: 6e31a8f49ca535f98f4e073af13896386a4a0feb
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/13/2020
-ms.locfileid: "84755869"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408211"
 ---
 # <a name="whats-new-in-aspnet-core-30"></a>Co je nového v ASP.NET Core 3,0
 
@@ -43,13 +45,13 @@ Blazorscénáře podporované rozhraním:
 
 Další informace naleznete v tématu <xref:blazor/index>.
 
-### <a name="blazor-server"></a>BlazorWebServer
+### Blazor Server
 
-Blazorodpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. BlazorServer poskytuje podporu pro hostování Razor komponent na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes SignalR připojení. BlazorServer je podporován v ASP.NET Core 3,0.
+Blazorodpojí logiku vykreslování komponenty od způsobu použití aktualizací uživatelského rozhraní. Blazor Serverposkytuje podporu pro hostování Razor komponent na serveru aplikace v ASP.NET Core. Aktualizace uživatelského rozhraní se zpracovávají přes SignalR připojení. Blazor Serverje podporován v ASP.NET Core 3,0.
 
-### <a name="blazor-webassembly-preview"></a>BlazorWebAssembly (Preview)
+### <a name="blazor-webassembly-preview"></a>Blazor WebAssemblyTisk
 
-Blazoraplikace je také možné spustit přímo v prohlížeči pomocí rozhraní .NET runtime založeného na WebAssembly. BlazorSestavení WebAssembly je ve verzi Preview a *není* podporované v ASP.NET Core 3,0. BlazorWebAssembly bude podporováno v budoucí verzi ASP.NET Core.
+Blazoraplikace je také možné spustit přímo v prohlížeči pomocí rozhraní .NET runtime založeného na WebAssembly. Blazor WebAssemblyje ve verzi Preview a *nepodporuje* se v ASP.NET Core 3,0. Blazor WebAssemblybude podporován v budoucí verzi ASP.NET Core.
 
 ### <a name="razor-components"></a>Razorkonstrukční
 
@@ -70,7 +72,7 @@ Komponenty v Blazor jsou obvykle vytvořeny pomocí Razor syntaxe, přirozeného
   * Formát binární serializace.
 * Poskytuje funkce, jako například:
 
-  * Authentication
+  * Ověřování
   * Obousměrné streamování a řízení toku.
   * Zrušení a vypršení časového limitu.
 
@@ -495,7 +497,7 @@ Chyby při spuštění při hostování ASP.NET Corech aplikací ve službě IIS
 
 .NET Core 3,0 zavádí novou šablonu aplikace služby pracovního procesu. Tato šablona poskytuje výchozí bod pro psaní dlouhých služeb, které běží v .NET Core.
 
-Další informace:
+Další informace naleznete v tématu:
 
 * [Pracovní procesy .NET Core jako služby systému Windows](https://devblogs.microsoft.com/aspnet/net-core-workers-as-windows-services/)
 * <xref:fundamentals/host/hosted-services>

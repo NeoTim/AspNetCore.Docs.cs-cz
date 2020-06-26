@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: aspnetcore-2.1
-ms.openlocfilehash: 1f68bd5347ba1f67e56b7a2fe8914ffdaef8010c
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: bf041965b009d5c10b96ad4f2a349c6efb346eb5
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774077"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408159"
 ---
 # <a name="whats-new-in-aspnet-core-21"></a>Co je nového v ASP.NET Core 2,1
 
@@ -38,20 +40,20 @@ Další informace najdete v tématu [ASP.NET Core SignalR ](xref:signalr/introdu
 
 ## <a name="razor-class-libraries"></a>Razorknihovny tříd
 
-ASP.NET Core 2,1 usnadňuje sestavování a zahrnutí Razoruživatelského rozhraní na základě knihovny a jejich sdílení napříč více projekty. Nová Razor sada SDK umožňuje sestavovat Razor soubory do projektu knihovny tříd, který může být zabalen do balíčku NuGet. Zobrazení a stránky v knihovnách jsou automaticky zjišťovány a aplikace je může přepsat aplikací. Integrací Razor kompilace do sestavení:
+ASP.NET Core 2,1 usnadňuje sestavování a zahrnutí Razor uživatelského rozhraní na základě knihovny a jejich sdílení napříč více projekty. Nová Razor sada SDK umožňuje sestavovat Razor soubory do projektu knihovny tříd, který může být zabalen do balíčku NuGet. Zobrazení a stránky v knihovnách jsou automaticky zjišťovány a aplikace je může přepsat aplikací. Integrací Razor kompilace do sestavení:
 
 * Čas spuštění aplikace je výrazně rychlejší.
 * Rychlé aktualizace Razor zobrazení a stránek za běhu jsou stále k dispozici jako součást pracovního postupu iterativního vývoje.
 
-Další informace najdete v tématu [vytvoření opakovaně použitelného uživatelského rozhraní Razor pomocí projektu knihovny tříd](xref:razor-pages/ui-class).
+Další informace najdete v tématu [vytvoření opakovaně použitelného uživatelského rozhraní pomocí Razor projektu knihovny tříd](xref:razor-pages/ui-class).
 
 ## <a name="identity-ui-library--scaffolding"></a>IdentityKnihovna uživatelského rozhraní & generování uživatelského rozhraní
 
-ASP.NET Core 2,1 poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které Identity zahrnují, můžou použít Identity nový generátor, aby selektivně přidal zdrojový kód obsažený v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL.
+ASP.NET Core 2,1 poskytuje [ASP.NET Core Identity ](xref:security/authentication/identity) jako [ Razor knihovnu tříd](xref:razor-pages/ui-class). Aplikace, které zahrnují, Identity můžou použít nový generátor, Identity aby selektivně přidal zdrojový kód obsažený v Identity Razor knihovně tříd (RCL). Můžete chtít generovat zdrojový kód, abyste mohli kód upravit a změnit chování. Můžete například dát generátoru pokyn, aby vygeneroval kód používaný při registraci. Generovaný kód má přednost před stejným kódem v Identity RCL.
 
-Aplikace, které **neobsahují** ověřování, můžou Identity pro přidání balíčku RCL Identity použít generování uživatelského rozhraní. Máte možnost vybrat Identity kód, který se má vygenerovat.
+Aplikace, které **neobsahují** ověřování, můžou Identity pro přidání balíčku RCL použít generování uživatelského rozhraní Identity . Máte možnost vybrat Identity kód, který se má vygenerovat.
 
-Další informace najdete v tématu [o Identity generování uživatelského rozhraní v ASP.NET Core projektech](xref:security/authentication/scaffold-identity).
+Další informace najdete v tématu o [generování uživatelského rozhraní Identity v ASP.NET Core projektech](xref:security/authentication/scaffold-identity).
 
 ## <a name="https"></a>HTTPS
 
@@ -87,7 +89,7 @@ ASP.NET Core poskytuje rozhraní API a šablony, které vám pomůžou splnit n�
 
 Zavádí se nový balíček, který zjednodušuje vytváření a spouštění testů. Balíček [Microsoft. AspNetCore. Mvc. test](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Testing/) zpracovává následující úlohy:
 
-* Zkopíruje soubor závislosti (*\*. DEPS*) z testované aplikace do složky *bin* testovacího projektu.
+* Zkopíruje soubor závislosti (* \* . DEPS*) z testované aplikace do složky *bin* testovacího projektu.
 * Nastaví kořen obsahu na kořen projektu testované aplikace, aby při spuštění testů byly nalezeny statické soubory a stránky/zobrazení.
 * Poskytuje třídu [WebApplicationFactory](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactory-1) pro zjednodušení zavádění testované aplikace pomocí [TestServer](/dotnet/api/microsoft.aspnetcore.testhost.testserver).
 
@@ -122,7 +124,7 @@ Další informace najdete v tématu věnovaném [integračním testům](xref:tes
 
 ## <a name="apicontroller-actionresultt"></a>[ApiController], ActionResult\<T>
 
-ASP.NET Core 2,1 přidává nové konvence programování, které usnadňují vytváření čistě a popisných webových rozhraní API. `ActionResult<T>`je přidaný nový typ, který aplikaci umožní vracet buď typ odpovědi, nebo jakýkoli výsledek jiné akce (podobně jako IActionResult), ale stále určuje typ odpovědi. `[ApiController]` Atribut byl také přidán jako způsob, jak se přihlásit k konvencím a chováním specifickému pro webové rozhraní API.
+ASP.NET Core 2,1 přidává nové konvence programování, které usnadňují vytváření čistě a popisných webových rozhraní API. `ActionResult<T>`je přidaný nový typ, který aplikaci umožní vracet buď typ odpovědi, nebo jakýkoli výsledek jiné akce (podobně jako IActionResult), ale stále určuje typ odpovědi. `[ApiController]`Atribut byl také přidán jako způsob, jak se přihlásit k konvencím a chováním specifickému pro webové rozhraní API.
 
 Další informace najdete v tématu [sestavování webových rozhraní API pomocí ASP.NET Core](xref:web-api/index).
 
@@ -130,7 +132,7 @@ Další informace najdete v tématu [sestavování webových rozhraní API pomoc
 
 ASP.NET Core 2,1 obsahuje novou `IHttpClientFactory` službu, která usnadňuje konfiguraci a využívání instancí `HttpClient` v aplikacích. `HttpClient`již má koncepci delegování obslužných rutin, které by mohly být propojeny pro odchozí požadavky HTTP. Objekt pro vytváření:
 
-* Usnadňuje registraci instancí `HttpClient` pro s pojmenovaným klientem.
+* Usnadňuje registraci instancí pro `HttpClient` s pojmenovaným klientem.
 * Implementuje obslužnou rutinu Polly, která umožňuje použití zásad Polly pro opakování, CircuitBreakers atd.
 
 Další informace najdete v tématu [inicializace požadavků HTTP](xref:fundamentals/http-requests).
@@ -141,7 +143,7 @@ S vydáním ASP.NET Core 2,1 není výchozí přenos Kestrel založen na Libuv, 
 
 ## <a name="generic-host-builder"></a>Obecný tvůrce hostitele
 
-Byl zaveden obecný tvůrce hostitele`HostBuilder`(). Tento tvůrce se dá použít pro aplikace, které nezpracovávají požadavky HTTP (zasílání zpráv, úlohy na pozadí atd.).
+Byl zaveden obecný tvůrce hostitele ( `HostBuilder` ). Tento tvůrce se dá použít pro aplikace, které nezpracovávají požadavky HTTP (zasílání zpráv, úlohy na pozadí atd.).
 
 Další informace najdete v tématu [obecný hostitel .NET](xref:fundamentals/host/generic-host).
 
@@ -159,7 +161,7 @@ Další informace naleznete v tématu:
 
 ## <a name="razor-pages-search-for-razor-assets"></a>RazorStránky vyhledávající Razor prostředky
 
-V 2,1 budou Razor stránky hledat Razor prostředky (například rozložení a částečné) v následujících adresářích v uvedeném pořadí:
+V 2,1 Razor budou stránky hledat Razor prostředky (například rozložení a částečné) v následujících adresářích v uvedeném pořadí:
 
 1. Složka aktuální stránky.
 1. */Pages/Shared/*
@@ -167,11 +169,11 @@ V 2,1 budou Razor stránky hledat Razor prostředky (například rozložení a �
 
 ## <a name="razor-pages-in-an-area"></a>RazorStránky v oblasti
 
-RazorStránky teď podporují [oblasti](xref:mvc/controllers/areas). Pokud chcete zobrazit příklad oblastí, vytvořte novou Razor stránku webové aplikace s jednotlivými uživatelskými účty. Webové Razor aplikace stránky s jednotlivými uživatelskými účty *zahrnujeIdentity/areas//Pages*.
+RazorStránky teď podporují [oblasti](xref:mvc/controllers/areas). Pokud chcete zobrazit příklad oblastí, vytvořte novou Razor stránku webové aplikace s jednotlivými uživatelskými účty. RazorWebové aplikace stránky s jednotlivými uživatelskými účty zahrnuje */areas/ Identity /Pages*.
 
 ## <a name="mvc-compatibility-version"></a>Verze kompatibility MVC
 
-<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*> Metoda umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
+<xref:Microsoft.Extensions.DependencyInjection.MvcCoreMvcBuilderExtensions.SetCompatibilityVersion*>Metoda umožňuje aplikaci, aby se odhlásila nebo výslovný souhlas při změnách chování, které se zavedly v ASP.NET Core MVC 2,1 nebo novější.
 
 Další informace naleznete v tématu <xref:mvc/compatibility-version>.
 

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 04/06/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/file-providers
-ms.openlocfilehash: 1e243d31a1c6b1f6ac6c9f7966ce07ecb01ceae5
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 9c679f6cb56397632eb99708bd2edd83c55ecf50
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106179"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408263"
 ---
 # <a name="file-providers-in-aspnet-core"></a>Poskytovatelé souborů v ASP.NET Core
 
@@ -59,7 +61,7 @@ Ukázková aplikace *FileProviderSample* ukazuje, jak nakonfigurovat poskytovate
 
 V následující tabulce jsou uvedeny implementace `IFileProvider` .
 
-| Implementace | Popis |
+| Implementace | Description |
 | -------------- | ----------- |
 | [CompositeFileProvider](#compositefileprovider) | Slouží k poskytnutí kombinovaného přístupu k souborům a adresářům z jednoho nebo více poskytovatelů. |
 | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | Používá se pro přístup k souborům integrovaným v sestaveních. |
@@ -122,7 +124,7 @@ Další přetížení umožňují:
 * Umožňuje nastavit rozsah souborů na datum poslední úpravy.
 * Pojmenujte vložený prostředek obsahující manifest vloženého souboru.
 
-| Metody | Popis |
+| Metody | Description |
 | -------- | ----------- |
 | `ManifestEmbeddedFileProvider(Assembly, String)` | Přijímá volitelný `root` parametr relativní cesty. Zadejte `root` obor pro volání do <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> těchto prostředků v zadané cestě. |
 | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | Přijímá volitelný `root` parametr relativní cesty a `lastModified` parametr data ( <xref:System.DateTimeOffset> ). `lastModified`Datum v oboru datum poslední změny <xref:Microsoft.Extensions.FileProviders.IFileInfo> instancí vrácených <xref:Microsoft.Extensions.FileProviders.IFileProvider> . |
@@ -166,11 +168,11 @@ Odpovídá cokoli v různých úrovních adresáře. Dá se použít k rekurzivn
 
 Následující tabulka uvádí běžné příklady glob vzorů.
 
-|Vzor  |Popis  |
+|Vzor  |Description  |
 |---------|---------|
 |`directory/file.txt`|Odpovídá konkrétnímu souboru v konkrétním adresáři.|
 |`directory/*.txt`|Vyhledá všechny soubory s příponou *. txt* v konkrétním adresáři.|
-|`directory/*/appsettings.json`|Vyhledá všechny soubory *appSettings. JSON* v adresářích přesně jednu úroveň pod *adresářovou* složkou.|
+|`directory/*/appsettings.json`|Vyhledá všechny *appsettings.js* souborů v adresářích přesně jednu úroveň pod *adresářovou* složkou.|
 |`directory/**/*.txt`|Porovná všechny soubory s příponou *. txt* nalezené kdekoli ve složce *adresáře* .|
 
 ::: moniker-end
@@ -210,7 +212,7 @@ Ukázková aplikace ukazuje, jak nakonfigurovat poskytovatele souborů v `Startu
 
 `IFileProvider`K dispozici jsou tři implementace systému.
 
-| Implementace | Popis |
+| Implementace | Description |
 | -------------- | ----------- |
 | [PhysicalFileProvider](#physicalfileprovider) | Fyzický poskytovatel se používá pro přístup k fyzickým souborům systému. |
 | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | Zprostředkovatel manifestu Embedded se používá pro přístup k souborům integrovaným v sestaveních. |
@@ -269,7 +271,7 @@ Další přetížení umožňují:
 * Umožňuje nastavit rozsah souborů na datum poslední úpravy.
 * Pojmenujte vložený prostředek obsahující manifest vloženého souboru.
 
-| Metody | Popis |
+| Metody | Description |
 | -------- | ----------- |
 | `ManifestEmbeddedFileProvider(Assembly, String)` | Přijímá volitelný `root` parametr relativní cesty. Zadejte `root` obor pro volání do <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> těchto prostředků v zadané cestě. |
 | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | Přijímá volitelný `root` parametr relativní cesty a `lastModified` parametr data ( <xref:System.DateTimeOffset> ). `lastModified`Datum v oboru datum poslední změny <xref:Microsoft.Extensions.FileProviders.IFileInfo> instancí vrácených <xref:Microsoft.Extensions.FileProviders.IFileProvider> . |

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 04/09/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/directory-structure
-ms.openlocfilehash: 29031556882dd471a5036b79dcb93a515bc98a33
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a4f02a021bc2317e9e63cead521ff4a031a5243b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776393"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408094"
 ---
 # <a name="aspnet-core-directory-structure"></a>Struktura ASP.NET Core Directory
 
@@ -34,8 +36,8 @@ Adresář *Publisher* obsahuje nasaditelné prostředky aplikace vytvořené pom
 
 | Typ aplikací | Adresářová struktura |
 | -------- | ------------------- |
-| [Spustitelný soubor závislý na rozhraní (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>opětovn&dagger;<ul><li>Zobrazení&dagger; aplikací MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; MVC nebo Razor Pages aplikace, pokud nejsou stránky předem kompilovány</li><li>wwwroot&dagger;</li><li>\*soubory. dll</li><li>{ASSEMBLY NAME}. DEPS. JSON</li><li>{ASSEMBLY NAME}. dll</li><li>{NÁZEV SESTAVENÍ} {. Extension}. exe rozšíření v systému Windows, žádné rozšíření na macOS nebo Linux</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ}. Views. dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{ASSEMBLY NAME}. runtimeconfig. JSON</li><li>Web. config (nasazení služby IIS)</li><li>createdump ([Nástroj Linux createdump](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*. so (Knihovna sdílených objektů Linux)</li><li>\*. a (archiv macOS)</li><li>\*. DYLIB (dynamická knihovna macOS)</li></ul></li></ul> |
-| [Samostatně uzavřené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>opětovn&dagger;<ul><li>Zobrazí&dagger; aplikace MVC, pokud zobrazení nejsou předkompilována.</li><li>Stránky&dagger; MVC nebo Razor Pages aplikace, pokud nejsou stránky předem kompilovány</li><li>wwwroot&dagger;</li><li>\*soubory. dll</li><li>{ASSEMBLY NAME}. DEPS. JSON</li><li>{ASSEMBLY NAME}. dll</li><li>{ASSEMBLY NAME}. exe</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ}. Views. dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{ASSEMBLY NAME}. runtimeconfig. JSON</li><li>Web. config (nasazení služby IIS)</li></ul></li></ul> |
+| [Spustitelný soubor závislý na rozhraní (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>opětovn&dagger;<ul><li>Zobrazení &dagger; aplikací MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky &dagger; MVC nebo Razor stránky aplikace, pokud nejsou stránky předem kompilovány</li><li>wwwroot&dagger;</li><li>\*soubory. dll</li><li>{NÁZEV sestavení} .deps.js.</li><li>{ASSEMBLY NAME}. dll</li><li>{NÁZEV SESTAVENÍ} {. Extension}. exe rozšíření v systému Windows, žádné rozšíření na macOS nebo Linux</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ} .Views.dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{NÁZEV sestavení} .runtimeconfig.js.</li><li>web.config (nasazení služby IIS)</li><li>createdump ([Nástroj Linux createdump](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*. so (Knihovna sdílených objektů Linux)</li><li>\*. a (archiv macOS)</li><li>\*. DYLIB (dynamická knihovna macOS)</li></ul></li></ul> |
+| [Samostatně uzavřené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>opětovn&dagger;<ul><li>Zobrazí &dagger; aplikace MVC, pokud zobrazení nejsou předkompilována.</li><li>Stránky &dagger; MVC nebo Razor stránky aplikace, pokud nejsou stránky předem kompilovány</li><li>wwwroot&dagger;</li><li>\*soubory. dll</li><li>{NÁZEV sestavení} .deps.js.</li><li>{ASSEMBLY NAME}. dll</li><li>{ASSEMBLY NAME}. exe</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ} .Views.dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{NÁZEV sestavení} .runtimeconfig.js.</li><li>web.config (nasazení služby IIS)</li></ul></li></ul> |
 
 &dagger;Indikuje adresář.
 
@@ -64,8 +66,8 @@ Adresář *Publisher* obsahuje nasaditelné prostředky aplikace vytvořené pom
 
 | Typ aplikací | Adresářová struktura |
 | -------- | ------------------- |
-| [Spustitelný soubor závislý na rozhraní (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>opětovn&dagger;<ul><li>Zobrazení&dagger; aplikací MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky&dagger; MVC nebo Razor stránky aplikace, pokud nejsou stránky předem kompilovány</li><li>wwwroot&dagger;</li><li>\*soubory. dll</li><li>{ASSEMBLY NAME}. DEPS. JSON</li><li>{ASSEMBLY NAME}. dll</li><li>{NÁZEV SESTAVENÍ} {. Extension}. exe rozšíření v systému Windows, žádné rozšíření na macOS nebo Linux</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ}. Views. dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{ASSEMBLY NAME}. runtimeconfig. JSON</li><li>Web. config (nasazení služby IIS)</li><li>createdump ([Nástroj Linux createdump](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*. so (Knihovna sdílených objektů Linux)</li><li>\*. a (archiv macOS)</li><li>\*. DYLIB (dynamická knihovna macOS)</li></ul></li></ul> |
-| [Samostatně uzavřené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>opětovn&dagger;<ul><li>Zobrazí&dagger; aplikace MVC, pokud zobrazení nejsou předkompilována.</li><li>Stránky&dagger; MVC nebo Razor stránky aplikace, pokud nejsou stránky předem kompilovány</li><li>wwwroot&dagger;</li><li>\*soubory. dll</li><li>{ASSEMBLY NAME}. DEPS. JSON</li><li>{ASSEMBLY NAME}. dll</li><li>{ASSEMBLY NAME}. exe</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ}. Views. dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{ASSEMBLY NAME}. runtimeconfig. JSON</li><li>Web. config (nasazení služby IIS)</li></ul></li></ul> |
+| [Spustitelný soubor závislý na rozhraní (FDE)](/dotnet/core/deploying/#framework-dependent-executables-fde) | <ul><li>opětovn&dagger;<ul><li>Zobrazení &dagger; aplikací MVC; Pokud zobrazení nejsou předkompilována</li><li>Stránky &dagger; MVC nebo Razor stránky aplikace, pokud nejsou stránky předem kompilovány</li><li>wwwroot&dagger;</li><li>\*soubory. dll</li><li>{NÁZEV sestavení} .deps.js.</li><li>{ASSEMBLY NAME}. dll</li><li>{NÁZEV SESTAVENÍ} {. Extension}. exe rozšíření v systému Windows, žádné rozšíření na macOS nebo Linux</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ} .Views.dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{NÁZEV sestavení} .runtimeconfig.js.</li><li>web.config (nasazení služby IIS)</li><li>createdump ([Nástroj Linux createdump](https://github.com/dotnet/coreclr/blob/master/Documentation/botr/xplat-minidump-generation.md#configurationpolicy))</li><li>\*. so (Knihovna sdílených objektů Linux)</li><li>\*. a (archiv macOS)</li><li>\*. DYLIB (dynamická knihovna macOS)</li></ul></li></ul> |
+| [Samostatně uzavřené nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd) | <ul><li>opětovn&dagger;<ul><li>Zobrazí &dagger; aplikace MVC, pokud zobrazení nejsou předkompilována.</li><li>Stránky &dagger; MVC nebo Razor stránky aplikace, pokud nejsou stránky předem kompilovány</li><li>wwwroot&dagger;</li><li>\*soubory. dll</li><li>{NÁZEV sestavení} .deps.js.</li><li>{ASSEMBLY NAME}. dll</li><li>{ASSEMBLY NAME}. exe</li><li>{NÁZEV sestavení}. pdb</li><li>{NÁZEV SESTAVENÍ} .Views.dll</li><li>{NÁZEV SESTAVENÍ}. Views. pdb</li><li>{NÁZEV sestavení} .runtimeconfig.js.</li><li>web.config (nasazení služby IIS)</li></ul></li></ul> |
 
 &dagger;Indikuje adresář.
 
@@ -77,7 +79,7 @@ Vytvoření složky *logs* je užitečné, když [ASP.NET Core modul rozšířen
 
 Adresář *protokolů* lze pro nasazení vytvořit pomocí jednoho z následujících dvou přístupů:
 
-* Do souboru projektu `<Target>` přidejte následující element:
+* `<Target>`Do souboru projektu přidejte následující element:
 
    ```xml
    <Target Name="CreateLogsFolder" AfterTargets="Publish">
@@ -90,7 +92,7 @@ Adresář *protokolů* lze pro nasazení vytvořit pomocí jednoho z následují
    </Target>
    ```
 
-   `<MakeDir>` Element vytvoří prázdnou složku *logs* v publikovaném výstupu. Element používá `PublishDir` vlastnost k určení cílového umístění pro vytvoření složky. Několik metod nasazení, například Nasazení webu, během nasazování Přeskočit prázdné složky. `<WriteLinesToFile>` Element vygeneruje soubor ve složce *logs* , který garantuje nasazení složky na server. Vytvoření složky pomocí tohoto přístupu se nepovede, pokud pracovní proces nemá oprávnění k zápisu do cílové složky.
+   `<MakeDir>`Element vytvoří prázdnou složku *logs* v publikovaném výstupu. Element používá `PublishDir` vlastnost k určení cílového umístění pro vytvoření složky. Několik metod nasazení, například Nasazení webu, během nasazování Přeskočit prázdné složky. `<WriteLinesToFile>`Element vygeneruje soubor ve složce *logs* , který garantuje nasazení složky na server. Vytvoření složky pomocí tohoto přístupu se nepovede, pokud pracovní proces nemá oprávnění k zápisu do cílové složky.
 
 * Fyzicky vytvořte adresář *protokolů* na serveru v nasazení.
 

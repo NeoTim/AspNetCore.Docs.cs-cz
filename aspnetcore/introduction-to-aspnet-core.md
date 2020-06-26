@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 04/17/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: index
-ms.openlocfilehash: 7f46051193681ecac59428b77ca1e36830c7bb63
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: f58c25ec8b47b2bd8d425d0bfd0d52df9bbc2655
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776333"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408198"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -43,16 +45,16 @@ Miliony vývojářů používají nebo používali [ASP.NET 4. x](/aspnet/overvi
 Architektura ASP.NET Core MVC nabízí funkce umožňující vytvářet [webová rozhraní API](xref:tutorials/first-web-api) a [webové aplikace](xref:tutorials/razor-pages/index):
 
 * [Vzor Model-View-Controller (MVC)](xref:mvc/overview) přispívá k tomu, aby vaše webová rozhraní API a webové aplikace byly testovatelné.
-* [Razor Pages](xref:razor-pages/index) představuje stránkovaný programový model, se kterým je vytváření webového uživatelského rozhraní jednodušší a produktivnější.
-* [Kód Razor](xref:mvc/views/razor) poskytuje produktivní syntaxi jak pro [stránky Razor](xref:razor-pages/index), tak pro [zobrazení MVC](xref:mvc/views/overview).
-* [Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML.
+* [ Razor Stránky](xref:razor-pages/index) jsou programovací model založený na stránkách, který usnadňuje vytváření webového uživatelského rozhraní a lepší produktivitu.
+* [ Razor značky](xref:mvc/views/razor) poskytují produktivní syntaxi pro [ Razor stránky](xref:razor-pages/index) a [zobrazení MVC](xref:mvc/views/overview).
+* [Pomáhat pomocníkům](xref:mvc/views/tag-helpers/intro) při vytváření kódu a vykreslování prvků HTML v souborech, které umožňují kód na straně serveru Razor
 * Díky integrované podpoře [různých datových formátů a vyjednávání obsahu](xref:web-api/advanced/formatting) mohou vaše webová rozhraní API používat různí klienti, včetně prohlížečů a mobilních zařízení.
 * [Vazby modelu](xref:mvc/models/model-binding) automaticky mapují data požadavků HTTP na parametry metod akce.
 * [Ověření modelu](xref:mvc/models/validation) automaticky provede ověření na straně klienta i serveru.
 
 ## <a name="client-side-development"></a>Vývoj klientské strany
 
-ASP.NET Core se hladce integruje s oblíbenými architekturami a knihovnami na straně klienta, včetně [Blazor](xref:blazor/index), [úhlů](xref:spa/angular), [reakce](xref:spa/react)a [zavedení](https://getbootstrap.com/). Další informace najdete <xref:blazor/index> v tématech a souvisejících tématech v části *vývoj na straně klienta*.
+ASP.NET Core se hladce integruje s oblíbenými architekturami a knihovnami na straně klienta, včetně [Blazor](xref:blazor/index) , [úhlů](xref:spa/angular), [reakce](xref:spa/react)a [zavedení](https://getbootstrap.com/). Další informace najdete v tématech <xref:blazor/index> a souvisejících tématech v části *vývoj na straně klienta*.
 
 <a name="target-framework"></a>
 
@@ -76,18 +78,18 @@ Pro Úvod k vývoji ASP.NET Corech aplikací doporučujeme následující poslou
 
    |Typ aplikace  |Scénář  |Kurz  |
    |----------|----------|----------|
-   |Webová aplikace                   | Nový vývoj webového uživatelského rozhraní na straně serveru |[Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) |
+   |Webová aplikace                   | Nový vývoj webového uživatelského rozhraní na straně serveru |[Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
-   |Webová aplikace                   | Vývoj webového uživatelského rozhraní na straně klienta |[Začínáme s Blazor](xref:tutorials/first-blazor-app) |
-   |Web API                   | Služby HTTP RESTful |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
+   |Webová aplikace                   | Vývoj webového uživatelského rozhraní na straně klienta |[Začínáme sBlazor](xref:tutorials/first-blazor-app) |
+   |Webové rozhraní API                   | Služby HTTP RESTful |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
    |Aplikace vzdáleného volání procedur | Služby pro první kontrakt využívající vyrovnávací paměti protokolu |[Začínáme se službou gRPC](xref:tutorials/grpc/grpc-start) |
-   |Aplikace v reálném čase             | Obousměrná komunikace mezi servery a připojenými klienty |[Začínáme s funkcí SignalR](xref:tutorials/signalr) |
+   |Aplikace v reálném čase             | Obousměrná komunikace mezi servery a připojenými klienty |[Začínáme sSignalR](xref:tutorials/signalr) |
 
 1. Postupujte podle kurzu, který ukazuje, jak získat základní přístup k datům.
 
    |Scénář  |Kurz  |
    |----------|----------|
-   |Nový vývoj        |[Razor Pages pomocí Entity Framework Core](xref:data/ef-rp/intro) |
+   |Nový vývoj        |[RazorStránky s Entity Framework Core](xref:data/ef-rp/intro) |
    |Údržba aplikace MVC |[MVC pomocí Entity Framework Core](xref:data/ef-mvc/intro) |
 
 1. Přečtěte si přehled ASP.NET Core [základních](xref:fundamentals/index) součástí, které se vztahují na všechny typy aplikací.
@@ -98,7 +100,7 @@ Pro Úvod k vývoji ASP.NET Corech aplikací doporučujeme následující poslou
 
 ## <a name="migrate-from-net-framework"></a>Migrace z .NET Framework
 
-Referenční příručka pro migraci aplikací ASP.NET 4. x na ASP.NET Core najdete v tématu <xref:migration/proper-to-2x/index>.
+Referenční příručka pro migraci aplikací ASP.NET 4. x na ASP.NET Core najdete v tématu <xref:migration/proper-to-2x/index> .
 
 ::: moniker-end
 
@@ -122,16 +124,16 @@ Miliony vývojářů používají nebo používali [ASP.NET 4. x](/aspnet/overvi
 Architektura ASP.NET Core MVC nabízí funkce umožňující vytvářet [webová rozhraní API](xref:tutorials/first-web-api) a [webové aplikace](xref:tutorials/razor-pages/index):
 
 * [Vzor Model-View-Controller (MVC)](xref:mvc/overview) přispívá k tomu, aby vaše webová rozhraní API a webové aplikace byly testovatelné.
-* [Razor Pages](xref:razor-pages/index) představuje stránkovaný programový model, se kterým je vytváření webového uživatelského rozhraní jednodušší a produktivnější.
-* [Kód Razor](xref:mvc/views/razor) poskytuje produktivní syntaxi jak pro [stránky Razor](xref:razor-pages/index), tak pro [zobrazení MVC](xref:mvc/views/overview).
-* [Pomocné rutiny značky](xref:mvc/views/tag-helpers/intro) umožňují, aby se kód na straně serveru v souborech Razor podílel na vytváření a vykreslování prvků HTML.
+* [ Razor Stránky](xref:razor-pages/index) jsou programovací model založený na stránkách, který usnadňuje vytváření webového uživatelského rozhraní a lepší produktivitu.
+* [ Razor značky](xref:mvc/views/razor) poskytují produktivní syntaxi pro [ Razor stránky](xref:razor-pages/index) a [zobrazení MVC](xref:mvc/views/overview).
+* [Pomáhat pomocníkům](xref:mvc/views/tag-helpers/intro) při vytváření kódu a vykreslování prvků HTML v souborech, které umožňují kód na straně serveru Razor
 * Díky integrované podpoře [různých datových formátů a vyjednávání obsahu](xref:web-api/advanced/formatting) mohou vaše webová rozhraní API používat různí klienti, včetně prohlížečů a mobilních zařízení.
 * [Vazby modelu](xref:mvc/models/model-binding) automaticky mapují data požadavků HTTP na parametry metod akce.
 * [Ověření modelu](xref:mvc/models/validation) automaticky provede ověření na straně klienta i serveru.
 
 ## <a name="client-side-development"></a>Vývoj klientské strany
 
-ASP.NET Core se hladce integruje s oblíbenými architekturami a knihovnami na straně klienta, včetně [Blazor](xref:blazor/index), [úhlů](xref:spa/angular), [reakce](xref:spa/react)a [zavedení](https://getbootstrap.com/). Další informace najdete <xref:blazor/index> v tématech a souvisejících tématech v části *vývoj na straně klienta*.
+ASP.NET Core se hladce integruje s oblíbenými architekturami a knihovnami na straně klienta, včetně [Blazor](xref:blazor/index) , [úhlů](xref:spa/angular), [reakce](xref:spa/react)a [zavedení](https://getbootstrap.com/). Další informace najdete v tématech <xref:blazor/index> a souvisejících tématech v části *vývoj na straně klienta*.
 
 <a name="target-framework"></a>
 
@@ -164,10 +166,10 @@ Jako úvod do vývoje aplikací ASP.NET Core doporučujeme následující poslou
 
    |Typ aplikace  |Scénář  |Kurz  |
    |----------|----------|----------|
-   |Webová aplikace                   | Vývoj nové aplikace        |[Začínáme se stránkami Razor](xref:tutorials/razor-pages/razor-pages-start) |
+   |Webová aplikace                   | Vývoj nové aplikace        |[Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
-   |Web API                   |                            |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
-   |Aplikace v reálném čase             |                            |[Začínáme s funkcí SignalR](xref:tutorials/signalr) |
+   |Webové rozhraní API                   |                            |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
+   |Aplikace v reálném čase             |                            |[Začínáme sSignalR](xref:tutorials/signalr) |
 
 1. Postupujte podle kurzu, který ukazuje, jak získat základní přístup k datům.
 
@@ -184,7 +186,7 @@ Jako úvod do vývoje aplikací ASP.NET Core doporučujeme následující poslou
 
 ## <a name="migrate-from-net-framework"></a>Migrace z .NET Framework
 
-Referenční příručka pro migraci aplikací ASP.NET na ASP.NET Core najdete v tématu <xref:migration/proper-to-2x/index>.
+Referenční příručka pro migraci aplikací ASP.NET na ASP.NET Core najdete v tématu <xref:migration/proper-to-2x/index> .
 
 ::: moniker-end
 
@@ -198,7 +200,7 @@ Referenční příručka pro migraci aplikací ASP.NET na ASP.NET Core najdete v
 
 ### <a name="preprocessor-directives-in-sample-code"></a>Direktivy preprocesoru ve vzorovém kódu
 
-Aby bylo možné předvést více scénářů, `#define` ukázkové `#if-#else/#elif-#endif` aplikace používají direktivy preprocesoru a k selektivní kompilaci a spouštění různých sekcí ukázkového kódu. Pro tyto ukázky, které využívají tento přístup, nastavte `#define` direktivu v horní části souborů C# k definování symbolu přidruženého ke scénáři, který chcete spustit. Některé ukázky vyžadují definování symbolu v horní části více souborů, aby bylo možné spustit scénář.
+Aby bylo možné předvést více scénářů, ukázkové aplikace používají `#define` `#if-#else/#elif-#endif` direktivy preprocesoru a k selektivní kompilaci a spouštění různých sekcí ukázkového kódu. Pro tyto ukázky, které využívají tento přístup, nastavte `#define` direktivu v horní části souborů C# k definování symbolu přidruženého ke scénáři, který chcete spustit. Některé ukázky vyžadují definování symbolu v horní části více souborů, aby bylo možné spustit scénář.
 
 Například následující seznam symbolů `#define` udává, že jsou dostupné čtyři scénáře (jeden scénář na symbol). Při aktuální konfiguraci ukázky se spustí scénář `TemplateCode`:
 
@@ -236,7 +238,7 @@ Na předchozí fragment kódu C# odkazuje soubor Markdown tohoto tématu pomocí
 [!code-csharp[](sample/SampleApp/Program.cs?name=snippet_WebHostDefaults)]
 ```
 
-Můžete bezpečně ignorovat (nebo odebrat) direktivy `#region` a `#endregion` , které obklopují kód. Pokud plánujete spustit ukázkové scénáře popsané v tématu, neměňte kód v těchto direktivách. Při experimentování s jinými scénáři můžete tento kód klidně pozměnit.
+Můžete bezpečně ignorovat (nebo odebrat) `#region` `#endregion` direktivy a, které obklopují kód. Pokud plánujete spustit ukázkové scénáře popsané v tématu, neměňte kód v těchto direktivách. Při experimentování s jinými scénáři můžete tento kód klidně pozměnit.
 
 Další informace najdete v článku [Příspěvky k dokumentaci rozhraní ASP.NET: fragmenty kódu](https://github.com/dotnet/AspNetCore.Docs/blob/master/CONTRIBUTING.md#code-snippets).
 

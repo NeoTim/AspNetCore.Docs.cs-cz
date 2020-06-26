@@ -8,17 +8,19 @@ ms.custom: mvc, seodec18
 ms.date: 08/17/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/first-mongo-app
-ms.openlocfilehash: 46607fc92670bb46a155ddf3248bc8a36b600a4a
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 831479f04551441b079d3f34d043c7486bad7ac0
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452249"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85409017"
 ---
 # <a name="create-a-web-api-with-aspnet-core-and-mongodb"></a>Vytvoření webového rozhraní API pomocí ASP.NET Core a MongoDB
 
@@ -234,7 +236,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
 ## <a name="add-a-configuration-model"></a>Přidat konfigurační model
 
-1. Do souboru *appSettings. JSON*přidejte následující hodnoty konfigurace databáze:
+1. Přidejte následující hodnoty konfigurace databáze, které chcete *appsettings.js*:
 
    [!code-json[](first-mongo-app/samples/3.x/SampleApp/appsettings.json?highlight=2-6)]
 
@@ -242,7 +244,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Models/BookstoreDatabaseSettings.cs)]
 
-   Předchozí `BookstoreDatabaseSettings` Třída se používá k uložení hodnot vlastností souboru *appSettings. JSON* `BookstoreDatabaseSettings` . Názvy vlastností JSON a C# jsou pojmenovány stejně, aby bylo možné zjednodušit proces mapování.
+   Předchozí `BookstoreDatabaseSettings` Třída se používá k uložení *appsettings.js* do `BookstoreDatabaseSettings` hodnot vlastností souboru. Názvy vlastností JSON a C# jsou pojmenovány stejně, aby bylo možné zjednodušit proces mapování.
 
 1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices` :
 
@@ -250,7 +252,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
    V předchozím kódu:
 
-   * Instance konfigurace, na kterou se váže sekce souboru *appSettings. JSON* , `BookstoreDatabaseSettings` se registruje v kontejneru injektáže (di). Například `BookstoreDatabaseSettings` `ConnectionString` vlastnost objektu je naplněna `BookstoreDatabaseSettings:ConnectionString` vlastností v souboru *appSettings. JSON*.
+   * Instance konfigurace, na kterou se *appsettings.jsu* oddílu souboru `BookstoreDatabaseSettings` váže, se registruje v kontejneru vkládání závislostí (di). Například `BookstoreDatabaseSettings` `ConnectionString` vlastnost objektu je naplněna `BookstoreDatabaseSettings:ConnectionString` vlastností v *appsettings.js*.
    * `IBookstoreDatabaseSettings`Rozhraní je zaregistrované v di s [životností služby](xref:fundamentals/dependency-injection#service-lifetimes)typu singleton. Při vložení se instance rozhraní překládá na `BookstoreDatabaseSettings` objekt.
 
 1. Pro vyřešení odkazů a přidejte následující kód na začátek *Startup.cs* `BookstoreDatabaseSettings` `IBookstoreDatabaseSettings` :
@@ -264,7 +266,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
    [!code-csharp[](first-mongo-app/samples/3.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   V předchozím kódu `IBookstoreDatabaseSettings` je instance načtena z di přes injektáže konstruktoru. Tento postup poskytuje přístup k hodnotám konfigurace *appSettings. JSON* , které byly přidány do oddílu [přidat konfigurační model](#add-a-configuration-model) .
+   V předchozím kódu `IBookstoreDatabaseSettings` je instance načtena z di přes injektáže konstruktoru. Tento postup poskytuje přístup k *appsettings.js* hodnot konfigurace, které byly přidány do oddílu [přidat konfigurační model](#add-a-configuration-model) .
 
 1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices` :
 
@@ -584,7 +586,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
 ## <a name="add-a-configuration-model"></a>Přidat konfigurační model
 
-1. Do souboru *appSettings. JSON*přidejte následující hodnoty konfigurace databáze:
+1. Přidejte následující hodnoty konfigurace databáze, které chcete *appsettings.js*:
 
    [!code-json[](first-mongo-app/samples/2.x/SampleApp/appsettings.json?highlight=2-6)]
 
@@ -592,7 +594,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Models/BookstoreDatabaseSettings.cs)]
 
-   Předchozí `BookstoreDatabaseSettings` Třída se používá k uložení hodnot vlastností souboru *appSettings. JSON* `BookstoreDatabaseSettings` . Názvy vlastností JSON a C# jsou pojmenovány stejně, aby bylo možné zjednodušit proces mapování.
+   Předchozí `BookstoreDatabaseSettings` Třída se používá k uložení *appsettings.js* do `BookstoreDatabaseSettings` hodnot vlastností souboru. Názvy vlastností JSON a C# jsou pojmenovány stejně, aby bylo možné zjednodušit proces mapování.
 
 1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices` :
 
@@ -600,7 +602,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
    V předchozím kódu:
 
-   * Instance konfigurace, na kterou se váže sekce souboru *appSettings. JSON* , `BookstoreDatabaseSettings` se registruje v kontejneru injektáže (di). Například `BookstoreDatabaseSettings` `ConnectionString` vlastnost objektu je naplněna `BookstoreDatabaseSettings:ConnectionString` vlastností v souboru *appSettings. JSON*.
+   * Instance konfigurace, na kterou se *appsettings.jsu* oddílu souboru `BookstoreDatabaseSettings` váže, se registruje v kontejneru vkládání závislostí (di). Například `BookstoreDatabaseSettings` `ConnectionString` vlastnost objektu je naplněna `BookstoreDatabaseSettings:ConnectionString` vlastností v *appsettings.js*.
    * `IBookstoreDatabaseSettings`Rozhraní je zaregistrované v di s [životností služby](xref:fundamentals/dependency-injection#service-lifetimes)typu singleton. Při vložení se instance rozhraní překládá na `BookstoreDatabaseSettings` objekt.
 
 1. Pro vyřešení odkazů a přidejte následující kód na začátek *Startup.cs* `BookstoreDatabaseSettings` `IBookstoreDatabaseSettings` :
@@ -614,7 +616,7 @@ Databáze je připravena. Můžete začít vytvářet ASP.NET Core webového roz
 
    [!code-csharp[](first-mongo-app/samples/2.x/SampleApp/Services/BookService.cs?name=snippet_BookServiceClass)]
 
-   V předchozím kódu `IBookstoreDatabaseSettings` je instance načtena z di přes injektáže konstruktoru. Tento postup poskytuje přístup k hodnotám konfigurace *appSettings. JSON* , které byly přidány do oddílu [přidat konfigurační model](#add-a-configuration-model) .
+   V předchozím kódu `IBookstoreDatabaseSettings` je instance načtena z di přes injektáže konstruktoru. Tento postup poskytuje přístup k *appsettings.js* hodnot konfigurace, které byly přidány do oddílu [přidat konfigurační model](#add-a-configuration-model) .
 
 1. Přidejte následující zvýrazněný kód do `Startup.ConfigureServices` :
 

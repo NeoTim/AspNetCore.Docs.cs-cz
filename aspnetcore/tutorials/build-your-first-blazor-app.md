@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/first-blazor-app
-ms.openlocfilehash: 892663a533a207df84b0fce9af259a7dc212bc9b
-ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
+ms.openlocfilehash: f791dae5915c87d4c36f23419961e3c53e888743
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/24/2020
-ms.locfileid: "85292773"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85409069"
 ---
 # <a name="build-your-first-blazor-app"></a>Sestavení první Blazor aplikace
 
@@ -71,7 +73,7 @@ Zahrnutí komponenty do jiné komponenty pomocí syntaxe jazyka HTML.
 
 1. Přidejte `Counter` komponentu do `Index` komponenty aplikace přidáním `<Counter />` elementu do `Index` součásti ( `Index.razor` ).
 
-   Pokud Blazor pro toto prostředí používáte WebAssembly, `SurveyPrompt` Komponenta je používána komponentou `Index` . Nahraďte `<SurveyPrompt>` element elementem `<Counter />` . Pokud Blazor pro toto prostředí používáte serverovou aplikaci, přidejte `<Counter />` element do `Index` komponenty:
+   Pokud používáte Blazor WebAssembly pro toto prostředí, `SurveyPrompt` Komponenta je používána komponentou `Index` . Nahraďte `<SurveyPrompt>` element elementem `<Counter />` . Pokud Blazor Server pro toto prostředí používáte aplikaci, přidejte `<Counter />` element do `Index` komponenty:
 
    `Pages/Index.razor`:
 
@@ -111,9 +113,9 @@ Komponenty mohou mít také parametry. Parametry komponenty jsou definovány pom
 
 ## <a name="dependency-injection"></a>Injektáž závislostí
 
-### <a name="blazor-server-experience"></a>BlazorProstředí serveru
+### <a name="blazor-server-experience"></a>Blazor ServerVyužij
 
-Pokud pracujete se Blazor serverovou aplikací, `WeatherForecastService` služba je v nástroji registrována jako typ [singleton](xref:fundamentals/dependency-injection#service-lifetimes) `Startup.ConfigureServices` . Instance služby je k dispozici v celé aplikaci prostřednictvím [Injektáže závislosti (di)](xref:fundamentals/dependency-injection):
+Při práci s Blazor Server aplikací `WeatherForecastService` se služba zaregistruje jako typ [singleton](xref:fundamentals/dependency-injection#service-lifetimes) v `Startup.ConfigureServices` . Instance služby je k dispozici v celé aplikaci prostřednictvím [Injektáže závislosti (di)](xref:fundamentals/dependency-injection):
 
 [!code-csharp[](build-your-first-blazor-app/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
@@ -127,9 +129,9 @@ Pokud pracujete se Blazor serverovou aplikací, `WeatherForecastService` služba
 
 [!code-razor[](build-your-first-blazor-app/samples_snapshot/3.x/FetchData2.razor?highlight=6)]
 
-### <a name="blazor-webassembly-experience"></a>BlazorProstředí WebAssembly
+### <a name="blazor-webassembly-experience"></a>Blazor WebAssemblyVyužij
 
-Při práci s Blazor aplikací WebAssembly <xref:System.Net.Http.HttpClient> je vloženo pro získání dat předpovědi počasí ze `weather.json` souboru ve `wwwroot/sample-data` složce.
+Pokud pracujete s Blazor WebAssembly aplikací, <xref:System.Net.Http.HttpClient> je vložena pro získání dat předpovědi počasí ze `weather.json` souboru ve `wwwroot/sample-data` složce.
 
 `Pages/FetchData.razor`:
 

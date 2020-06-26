@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: migration/1x-to-2x/index
-ms.openlocfilehash: 1b7b89b130f66c851bf01d0eb6d643e4b3676a1e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 97fe2f36aed4a2ac60a7ffc30ede5e682a838e5e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774220"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408692"
 ---
 # <a name="migrate-from-aspnet-core-1x-to-20"></a>Migrace z ASP.NET Core 1. x na 2,0
 
@@ -37,24 +39,24 @@ Viz Začínáme [s ASP.NET Core](xref:getting-started).
 
 ## <a name="update-target-framework-moniker-tfm"></a>Aktualizovat moniker cílového rozhraní (TFM)
 
-Projekty cílené na .NET Core by měly používat [TFM](/dotnet/standard/frameworks) verze, která je větší nebo rovna .net Core 2,0. Vyhledejte `<TargetFramework>` uzel v souboru *. csproj* a nahraďte jeho vnitřní text `netcoreapp2.0`:
+Projekty cílené na .NET Core by měly používat [TFM](/dotnet/standard/frameworks) verze, která je větší nebo rovna .net Core 2,0. Vyhledejte `<TargetFramework>` uzel v souboru *. csproj* a nahraďte jeho vnitřní text `netcoreapp2.0` :
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=3)]
 
-Projekty cílené na .NET Framework by měly používat TFM verze, která je větší nebo rovna .NET Framework 4.6.1. Vyhledejte `<TargetFramework>` uzel v souboru *. csproj* a nahraďte jeho vnitřní text `net461`:
+Projekty cílené na .NET Framework by měly používat TFM verze, která je větší nebo rovna .NET Framework 4.6.1. Vyhledejte `<TargetFramework>` uzel v souboru *. csproj* a nahraďte jeho vnitřní text `net461` :
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=4)]
 
 > [!NOTE]
 > .NET Core 2,0 nabízí mnohem větší plochu než .NET Core 1. x. Pokud cílíte .NET Framework výhradně z důvodu chybějících rozhraní API v rozhraní .NET Core 1. x, bude pravděpodobně fungovat cílení na .NET Core 2,0.
 
-Pokud soubor projektu obsahuje `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>`, přečtěte si [Tento problém GitHub](https://github.com/dotnet/AspNetCore/issues/3221#issuecomment-413094268).
+Pokud soubor projektu obsahuje `<RuntimeFrameworkVersion>1.{sub-version}</RuntimeFrameworkVersion>` , přečtěte si [Tento problém GitHub](https://github.com/dotnet/AspNetCore/issues/3221#issuecomment-413094268).
 
 <a name="global-json"></a>
 
-## <a name="update-net-core-sdk-version-in-globaljson"></a>Aktualizace verze .NET Core SDK v Global. JSON
+## <a name="update-net-core-sdk-version-in-globaljson"></a>Aktualizace verze .NET Core SDK v global.js
 
-Pokud vaše řešení využívá soubor [Global. JSON](/dotnet/core/tools/global-json) pro cílení na konkrétní verzi .NET Core SDK, aktualizujte jeho `version` vlastnost tak, aby používala verzi 2,0 nainstalovanou na vašem počítači:
+Pokud vaše řešení spoléhá na [global.js](/dotnet/core/tools/global-json) souboru pro cílení na konkrétní .NET Core SDKou verzi, aktualizujte její `version` vlastnost tak, aby používala verzi 2,0 nainstalovanou na vašem počítači:
 
 [!code-json[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/global.json?highlight=3)]
 
@@ -94,7 +96,7 @@ Soubor *. csproj* v projektu 1. x používal `PackageTargetFallback` uzel a prom
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App.csproj?range=5)]
 
-Přejmenujte uzel i proměnnou na `AssetTargetFallback`:
+Přejmenujte uzel i proměnnou na `AssetTargetFallback` :
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App.csproj?range=4)]
 
@@ -120,17 +122,17 @@ Unable to create an object of type '<Context>'. Add an implementation of 'IDesig
 
 ## <a name="add-configuration-providers"></a>Přidat poskytovatele konfigurace
 
-V projektech 1. x bylo přidání poskytovatelů konfigurace do aplikace provedeno prostřednictvím `Startup` konstruktoru. Kroky při vytváření instance `ConfigurationBuilder`, načtení použitelných zprostředkovatelů (proměnné prostředí, nastavení aplikace atd.) a inicializace člena. `IConfigurationRoot`
+V projektech 1. x bylo přidání poskytovatelů konfigurace do aplikace provedeno prostřednictvím `Startup` konstruktoru. Kroky při vytváření instance `ConfigurationBuilder` , načtení použitelných zprostředkovatelů (proměnné prostředí, nastavení aplikace atd.) a inicializace člena `IConfigurationRoot` .
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_1xStartup)]
 
-Předchozí příklad načte `Configuration` člena s nastavením konfigurace z *appSettings. JSON* a také libovolnými *appSettings\< . Soubor Environment\>. JSON* , který `IHostingEnvironment.EnvironmentName` odpovídá vlastnosti Umístění těchto souborů je na stejné cestě jako *Startup.cs*.
+Předchozí příklad načte `Configuration` člena s nastavením konfigurace z *appsettings.jsna* , a také všechny *appSettings. \<EnvironmentName\> . soubor JSON* , který odpovídá `IHostingEnvironment.EnvironmentName` vlastnosti Umístění těchto souborů je na stejné cestě jako *Startup.cs*.
 
 V projektech 2,0 se standardní konfigurační kód, který je podstatný pro 1. x, spouští za pozadí. Například proměnné prostředí a nastavení aplikace jsou načítány při spuštění. Ekvivalentní kód *Startup.cs* se zkracuje na `IConfiguration` inicializaci s vloženou instancí:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Startup.cs?name=snippet_2xStartup)]
 
-Chcete-li odebrat výchozí zprostředkovatele přidaných `WebHostBuilder.CreateDefaultBuilder`pomocí `Clear` , volejte metodu `IConfigurationBuilder.Sources` vlastnosti v rámci `ConfigureAppConfiguration`. Chcete-li přidat poskytovatele zpět, `ConfigureAppConfiguration` Využijte metodu v *program.cs*:
+Chcete-li odebrat výchozí zprostředkovatele přidaných pomocí `WebHostBuilder.CreateDefaultBuilder` , volejte `Clear` metodu `IConfigurationBuilder.Sources` vlastnosti v rámci `ConfigureAppConfiguration` . Chcete-li přidat poskytovatele zpět, využijte `ConfigureAppConfiguration` metodu v *program.cs*:
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/Program.cs?name=snippet_ProgramMainConfigProviders&highlight=9-14)]
 
@@ -142,15 +144,15 @@ Další informace najdete v tématu [konfigurace v ASP.NET Core](xref:fundamenta
 
 ## <a name="move-database-initialization-code"></a>Přesunout inicializační kód databáze
 
-V projektech 1. x, které `dotnet ef migrations add` používají EF Core 1. x, příkaz například provede následující:
+V projektech 1. x, které používají EF Core 1. x, příkaz například `dotnet ef migrations add` provede následující:
 
 1. Vytvoří instanci `Startup` instance.
 1. Vyvolá `ConfigureServices` metodu pro registraci všech služeb pomocí injektáže závislosti (včetně `DbContext` typů).
 1. Provede požadované úlohy.
 
-V 2,0ch projektech, které používají `Program.BuildWebHost` EF Core 2,0, je vyvoláno získání aplikačních služeb. Na rozdíl od 1. x to má další vedlejší účinek vyvolání `Startup.Configure`. Pokud vaše aplikace 1. x vyvolala inicializační kód databáze `Configure` ve své metodě, může dojít k neočekávaným problémům. Například pokud databáze ještě neexistuje, kód pro osazení se spustí před spuštěním příkazu EF Core migrace. Tento problém způsobí selhání `dotnet ef migrations list` příkazu, pokud databáze ještě neexistuje.
+V 2,0ch projektech, které používají EF Core 2,0, `Program.BuildWebHost` je vyvoláno získání aplikačních služeb. Na rozdíl od 1. x to má další vedlejší účinek vyvolání `Startup.Configure` . Pokud vaše aplikace 1. x vyvolala inicializační kód databáze ve své `Configure` metodě, může dojít k neočekávaným problémům. Například pokud databáze ještě neexistuje, kód pro osazení se spustí před spuštěním příkazu EF Core migrace. Tento problém způsobí `dotnet ef migrations list` selhání příkazu, pokud databáze ještě neexistuje.
 
-V `Configure` metodě *Startup.cs*Vezměte v úvahu následující inicializační kód počátečního použití: 1. x:
+V metodě Startup.cs Vezměte v úvahu následující inicializační kód počátečního použití: 1. x `Configure` : *Startup.cs*
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Startup.cs?name=snippet_ConfigureSeedData&highlight=8)]
 
@@ -158,7 +160,7 @@ V projektech 2,0 přesuňte `SeedData.Initialize` volání `Main` metody *progra
 
 [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore2App/AspNetCoreDotNetCore2App/Program2.cs?name=snippet_Main2Code&highlight=10)]
 
-Od 2,0 se nejedná o špatný postup, který se dá `BuildWebHost` dělat s výjimkou sestavení a konfigurace webového hostitele. Cokoli, co je o spuštění aplikace, by mělo být zpracováno mimo `BuildWebHost` &mdash; obvykle `Main` v metodě *program.cs*.
+Od 2,0 se nejedná o špatný postup, který se dá dělat `BuildWebHost` s výjimkou sestavení a konfigurace webového hostitele. Cokoli, co je o spuštění aplikace, by mělo být zpracováno mimo `BuildWebHost` &mdash; obvykle v `Main` metodě *program.cs*.
 
 <a name="view-compilation"></a>
 
@@ -168,7 +170,7 @@ Rychlejší čas spuštění aplikace a menší publikované sady mají největ�
 
 Nastavení `MvcRazorCompileOnPublish` vlastnosti na hodnotu true již není vyžadováno. Pokud nezakážete kompilaci zobrazení, vlastnost může být odebrána ze souboru *. csproj* .
 
-Při cílení na .NET Framework stále musíte explicitně odkazovat na [Microsoft. AspNetCore. Mvc.Razor ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation) balíček NuGet v souboru *. csproj* :
+Při cílení na .NET Framework stále musíte explicitně odkazovat na [Microsoft. AspNetCore. Mvc. Razor ViewCompilation](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor.ViewCompilation) balíček NuGet v souboru *. csproj* :
 
 [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App/AspNetCoreDotNetFx2.0App.csproj?range=15)]
 
@@ -180,11 +182,11 @@ Snadné nastavení instrumentace výkonu aplikace je důležité. Nyní se můž
 
 V aplikaci Visual Studio 2017 byly ve výchozím nastavení přidány Application Insights projekty ASP.NET Core 1,1. Pokud nepoužíváte Application Insights SDK přímo, mimo *program.cs* a *Startup.cs*, postupujte podle těchto kroků:
 
-1. Pokud cílíte na rozhraní .NET Core, `<PackageReference />` odeberte následující uzel ze souboru *. csproj* :
+1. Pokud cílíte na rozhraní .NET Core, odeberte následující `<PackageReference />` uzel ze souboru *. csproj* :
 
     [!code-xml[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App.csproj?range=10)]
 
-2. Pokud cílíte na `UseApplicationInsights` rozhraní .NET Core, odeberte volání rozšiřující metody z *program.cs*:
+2. Pokud cílíte na rozhraní .NET Core, odeberte `UseApplicationInsights` volání rozšiřující metody z *program.cs*:
 
     [!code-csharp[](../1x-to-2x/samples/AspNetCoreDotNetCore1App/AspNetCoreDotNetCore1App/Program.cs?name=snippet_ProgramCsMain&highlight=8)]
 
@@ -196,9 +198,9 @@ Pokud používáte sadu Application Insights SDK přímo, pokračujte v tomto p�
 
 <a name="auth-and-identity"></a>
 
-## <a name="adopt-authenticationidentity-improvements"></a>Přijmout ověřování/Identity vylepšení
+## <a name="adopt-authenticationidentity-improvements"></a>Přijmout ověřování/ Identity vylepšení
 
-ASP.NET Core 2,0 má nový model ověřování a řadu významných změn, které se ASP.NET Core Identity. Pokud jste vytvořili projekt s povolenými jednotlivými uživatelskými účty, nebo pokud jste ručně přidali ověřování Identity, přečtěte si téma [migrace ověřování a Identity ASP.NET Core 2,0](xref:migration/1x-to-2x/identity-2x).
+ASP.NET Core 2,0 má nový model ověřování a řadu významných změn, které se ASP.NET Core Identity . Pokud jste vytvořili projekt s povolenými jednotlivými uživatelskými účty, nebo pokud jste ručně přidali ověřování Identity , přečtěte si téma [migrace ověřování a Identity ASP.NET Core 2,0](xref:migration/1x-to-2x/identity-2x).
 
 ## <a name="additional-resources"></a>Další zdroje
 

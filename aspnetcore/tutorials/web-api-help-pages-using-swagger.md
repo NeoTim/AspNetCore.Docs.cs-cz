@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/07/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/web-api-help-pages-using-swagger
-ms.openlocfilehash: bde38fcbc11ef36c42523acb182fc62a934821c3
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 815581bbee3169f04f1da67227f6fa8c7275071b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774519"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408809"
 ---
 # <a name="aspnet-core-web-api-help-pages-with-swagger--openapi"></a>Stránky s OpenAPI s webovým rozhraním API pomocí Swagger/ASP.NET Core
 
@@ -35,9 +37,9 @@ V tomto článku se prezentují implementace [swashbuckle. AspNetCore](https://g
 
 Swagger je specifikace nezávislá jazyka pro popis rozhraní [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) API. Projekt Swagger byl darován [openapi iniciativou](https://www.openapis.org/), kde se nyní označuje jako openapi. Oba názvy se používají zaměnitelné; OpenAPI je ale upřednostňovaný. Umožňuje počítačům i člověku pochopit možnosti služby bez přímého přístupu k implementaci (zdrojový kód, přístup k síti, dokumentace). Jedním z cílů je minimalizace množství práce potřebné k připojení nepřidružených služeb. Dalším cílem je zkrátit dobu potřebnou k přesnému zdokumentování služby.
 
-## <a name="swagger-specification-swaggerjson"></a>Specifikace Swagger (Swagger. JSON)
+## <a name="swagger-specification-swaggerjson"></a>Specifikace Swagger (swagger.jszapnuté)
 
-Jádrem toku Swagger je specifikace Swagger &mdash; ve výchozím nastavení, dokument s názvem *Swagger. JSON*. Vygeneruje se řetěz nástrojů Swagger (nebo implementace jiného výrobce) na základě vaší služby. Popisuje možnosti vašeho rozhraní API a přístup k němu pomocí protokolu HTTP. Řídí uživatelské rozhraní Swagger a používá ho řetěz nástrojů k povolení zjišťování a generování kódu klienta. Tady je příklad specifikace Swagger, snížený pro zkrácení:
+Jádrem toku Swagger je specifikace Swagger &mdash; ve výchozím nastavení, dokument s názvem *swagger.js*. Vygeneruje se řetěz nástrojů Swagger (nebo implementace jiného výrobce) na základě vaší služby. Popisuje možnosti vašeho rozhraní API a přístup k němu pomocí protokolu HTTP. Řídí uživatelské rozhraní Swagger a používá ho řetěz nástrojů k povolení zjišťování a generování kódu klienta. Tady je příklad specifikace Swagger, snížený pro zkrácení:
 
 ```json
 {

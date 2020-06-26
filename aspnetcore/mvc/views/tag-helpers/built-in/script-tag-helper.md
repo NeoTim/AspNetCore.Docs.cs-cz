@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/02/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/script-tag-helper
-ms.openlocfilehash: 4162221ef3401427c44fb54dee9c36b78b39564f
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b9b90c1c40fccbc7bb6b6c9050bd525b5fa8cd92
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774662"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407405"
 ---
 # <a name="script-tag-helper-in-aspnet-core"></a>Pomocník značek Script v ASP.NET Core
 
@@ -40,7 +42,7 @@ Následující Razor kód ukazuje `script` element s Fallback:
 </script>
 ```
 
-Nepoužívejte atribut `<script>` [pozdržet](https://developer.mozilla.org/docs/Web/HTML/Element/script) elementu pro odložení načtení skriptu CDN. Pomocník značek Script vykresluje JavaScript, který okamžitě spustí výraz [ASP-Fallback-test](#asp-fallback-test) . Pokud je načítání skriptu CDN odložené, výraz se nezdařil.
+Nepoužívejte `<script>` atribut [pozdržet](https://developer.mozilla.org/docs/Web/HTML/Element/script) elementu pro odložení načtení skriptu CDN. Pomocník značek Script vykresluje JavaScript, který okamžitě spustí výraz [ASP-Fallback-test](#asp-fallback-test) . Pokud je načítání skriptu CDN odložené, výraz se nezdařil.
 
 ## <a name="commonly-used-script-tag-helper-attributes"></a>Běžně používané pomocné atributy značek skriptů
 
@@ -54,7 +56,7 @@ Metoda skriptu definovaná v primárním skriptu pro použití pro záložní te
 
 Adresa URL značky skriptu, na kterou se má přejít v případě, že primární z nich selhala Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper.FallbackSrc>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/views/tag-helpers/intro>
 * <xref:mvc/controllers/areas>

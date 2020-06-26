@@ -1,33 +1,35 @@
 ---
-title: Použití ASP.NET Core SignalR s Blazor WebAssembly
+title: Použít ASP.NET Core SignalR sBlazor WebAssembly
 author: guardrex
-description: Vytvořte aplikaci Chat, která používá ASP.NET Core SignalR s Blazor WebAssembly.
+description: Vytvořte aplikaci Chat, která používá ASP.NET Core SignalR s Blazor WebAssembly .
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 3f8aeec1e0471bab5034d1dcc8a42023f6b13c0d
-ms.sourcegitcommit: 77729ba225d5143c0e3954db005906f4a5c7da95
+ms.openlocfilehash: 5a58e7ae28842e2e8a0f3bae8f47e252839903fe
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/20/2020
-ms.locfileid: "85122097"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408874"
 ---
-# <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použití ASP.NET Core SignalR s Blazor WebAssembly
+# <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použít ASP.NET Core SignalR sBlazor WebAssembly
 
 Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://github.com/guardrex)
 
-V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí rozhraní SignalR Blazor WebAssembly. Získáte informace o těchto tématech:
+V tomto kurzu se naučíte základy vytváření aplikací v reálném čase pomocí nástroje SignalR Blazor WebAssembly . Získáte informace o těchto tématech:
 
 > [!div class="checklist"]
-> * Vytvoření Blazor projektu hostované aplikace WebAssembly
+> * Vytvoření Blazor WebAssembly projektu hostované aplikace
 > * Přidat SignalR klientskou knihovnu
 > * Přidání SignalR centra
 > * Přidání SignalR služeb a koncového bodu pro SignalR centrum
@@ -59,7 +61,7 @@ Na konci tohoto kurzu budete mít funkční chatovací aplikaci.
 
 ---
 
-## <a name="create-a-hosted-blazor-webassembly-app-project"></a>Vytvoření hostovaného Blazor projektu aplikace WebAssembly
+## <a name="create-a-hosted-blazor-webassembly-app-project"></a>Vytvoření projektu hostované Blazor WebAssembly aplikace
 
 Postupujte podle pokynů pro výběr nástrojů:
 
@@ -74,7 +76,7 @@ Postupujte podle pokynů pro výběr nástrojů:
 
 1. `BlazorSignalRApp`Do pole **název projektu** zadejte. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
-1. Vyberte šablonu ** Blazor aplikace pro WebAssembly** .
+1. Vyberte šablonu ** Blazor WebAssembly aplikace** .
 
 1. V části **Upřesnit**zaškrtněte políčko **ASP.NET Core hostované** .
 
@@ -100,7 +102,7 @@ Postupujte podle pokynů pro výběr nástrojů:
 
 1. Na bočním panelu vyberte **Webová a konzolová**  >  **aplikace**.
 
-1. Vyberte šablonu ** Blazor aplikace pro WebAssembly** . Vyberte **Další**.
+1. Vyberte šablonu ** Blazor WebAssembly aplikace** . Vyberte **Další**.
 
    Potvrďte následující konfigurace:
 
@@ -221,7 +223,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy. Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![SignalRBlazorUkázková aplikace WebAssembly je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![SignalRBlazor WebAssemblyukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
@@ -239,7 +241,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy. Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![SignalRBlazorUkázková aplikace WebAssembly je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![SignalRBlazor WebAssemblyukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
@@ -251,7 +253,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy. Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![SignalRBlazorUkázková aplikace WebAssembly je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![SignalRBlazor WebAssemblyukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
@@ -268,7 +270,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 
 1. Zvolte buď prohlížeč, zadejte jméno a zprávu a vyberte tlačítko pro odeslání zprávy. Název a zpráva se okamžitě zobrazí na obou stránkách:
 
-   ![SignalRBlazorUkázková aplikace WebAssembly je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
+   ![SignalRBlazor WebAssemblyukázková aplikace je otevřená ve dvou oknech prohlížeče, které zobrazují vyměňované zprávy.](signalr-blazor-webassembly/_static/3.x/signalr-blazor-webassembly-finished.png)
 
    Quotes: *Star Trek VI:* nezjištěná země 1991 – nezjištěná &copy; [Paramount](https://www.paramountmovies.com/movies/star-trek-vi-the-undiscovered-country)
 
@@ -279,7 +281,7 @@ V `BlazorSignalRApp.Server` projektu vytvořte `Hubs` složku (plural) a přidej
 V tomto kurzu jste se naučili:
 
 > [!div class="checklist"]
-> * Vytvoření Blazor projektu hostované aplikace WebAssembly
+> * Vytvoření Blazor WebAssembly projektu hostované aplikace
 > * Přidat SignalR klientskou knihovnu
 > * Přidání SignalR centra
 > * Přidání SignalR služeb a koncového bodu pro SignalR centrum

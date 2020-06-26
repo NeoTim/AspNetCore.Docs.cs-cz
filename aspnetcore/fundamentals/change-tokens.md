@@ -7,17 +7,19 @@ ms.author: riande
 ms.date: 10/07/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/change-tokens
-ms.openlocfilehash: f581e26b0d11923d9cf099700c4338c99e68bb59
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: dd271f9db016c35eb072749258a499168b39010f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106608"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408432"
 ---
 # <a name="detect-changes-with-change-tokens-in-aspnet-core"></a>Zjišťovat změny pomocí tokenů změn v ASP.NET Core
 
@@ -61,7 +63,7 @@ Změna tokenů se používá ve výrazně ASP.NET Core ke sledování změn obje
 
 ## <a name="monitor-for-configuration-changes"></a>Monitorování pro změny konfigurace
 
-Ve výchozím nastavení používají šablony ASP.NET Core [konfigurační soubory JSON](xref:fundamentals/configuration/index#json-configuration-provider) (*appSettings. JSON*, *appSettings. Vývojové. JSON*a *appSettings. Produkční. JSON*) pro načtení nastavení konfigurace aplikace.
+Ve výchozím nastavení používají šablony ASP.NET Core [konfigurační soubory JSON](xref:fundamentals/configuration/index#json-configuration-provider) (*appsettings.json*, *appsettings.Development.json*a *appsettings.Production.json*) k načtení nastavení konfigurace aplikace.
 
 Tyto soubory jsou konfigurovány pomocí metody rozšíření [AddJsonFile (IConfigurationBuilder, String, Boolean, Boolean)](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> , která přijímá `reloadOnChange` parametr. `reloadOnChange`Určuje, zda má být při změnách souborů znovu načtena konfigurace. Toto nastavení se zobrazí v <xref:Microsoft.Extensions.Hosting.Host> metodě usnadnění <xref:Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder*> :
 
@@ -95,7 +97,7 @@ V `Startup.Configure`:
 
 [!code-csharp[](change-tokens/samples/3.x/SampleApp/Startup.cs?name=snippet3)]
 
-`state`Zpětné volání se používá k předání do `IWebHostEnvironment` , což je užitečné při určení správného konfiguračního souboru *appSettings* , který se má monitorovat (například *appSettings. Vývoj. JSON* při ve vývojovém prostředí. Hodnoty hash souborů se používají k zabránění `WriteConsole` spuštění příkazu vícekrát v důsledku zpětného volání s více tokeny, když je konfigurační soubor změněn pouze jednou.
+`state`Zpětné volání se používá k předání do `IWebHostEnvironment` , což je užitečné při určení správného konfiguračního souboru *appSettings* , který se má monitorovat (například *appsettings.Development.jsv* případě, kdy ve vývojovém prostředí). Hodnoty hash souborů se používají k zabránění `WriteConsole` spuštění příkazu vícekrát v důsledku zpětného volání s více tokeny, když je konfigurační soubor změněn pouze jednou.
 
 Tento systém běží, dokud je aplikace spuštěná a uživatel ho nemůže zakázat.
 
@@ -259,7 +261,7 @@ Změna tokenů se používá ve výrazně ASP.NET Core ke sledování změn obje
 
 ## <a name="monitor-for-configuration-changes"></a>Monitorování pro změny konfigurace
 
-Ve výchozím nastavení používají šablony ASP.NET Core [konfigurační soubory JSON](xref:fundamentals/configuration/index#json-configuration-provider) (*appSettings. JSON*, *appSettings. Vývojové. JSON*a *appSettings. Produkční. JSON*) pro načtení nastavení konfigurace aplikace.
+Ve výchozím nastavení používají šablony ASP.NET Core [konfigurační soubory JSON](xref:fundamentals/configuration/index#json-configuration-provider) (*appsettings.json*, *appsettings.Development.json*a *appsettings.Production.json*) k načtení nastavení konfigurace aplikace.
 
 Tyto soubory jsou konfigurovány pomocí metody rozšíření [AddJsonFile (IConfigurationBuilder, String, Boolean, Boolean)](xref:Microsoft.Extensions.Configuration.JsonConfigurationExtensions.AddJsonFile*) <xref:Microsoft.Extensions.Configuration.ConfigurationBuilder> , která přijímá `reloadOnChange` parametr. `reloadOnChange`Určuje, zda má být při změnách souborů znovu načtena konfigurace. Toto nastavení se zobrazí v <xref:Microsoft.AspNetCore.WebHost> metodě usnadnění <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> :
 
@@ -293,7 +295,7 @@ V `Startup.Configure`:
 
 [!code-csharp[](change-tokens/samples/2.x/SampleApp/Startup.cs?name=snippet3)]
 
-`state`Zpětné volání se používá k předání do `IHostingEnvironment` , což je užitečné při určení správného konfiguračního souboru *appSettings* , který se má monitorovat (například *appSettings. Vývoj. JSON* při ve vývojovém prostředí. Hodnoty hash souborů se používají k zabránění `WriteConsole` spuštění příkazu vícekrát v důsledku zpětného volání s více tokeny, když je konfigurační soubor změněn pouze jednou.
+`state`Zpětné volání se používá k předání do `IHostingEnvironment` , což je užitečné při určení správného konfiguračního souboru *appSettings* , který se má monitorovat (například *appsettings.Development.jsv* případě, kdy ve vývojovém prostředí). Hodnoty hash souborů se používají k zabránění `WriteConsole` spuštění příkazu vícekrát v důsledku zpětného volání s více tokeny, když je konfigurační soubor změněn pouze jednou.
 
 Tento systém běží, dokud je aplikace spuštěná a uživatel ho nemůže zakázat.
 

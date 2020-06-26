@@ -8,30 +8,32 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: web-api/advanced/conventions
-ms.openlocfilehash: f74327cd5bb6a5794c90ffdd3896f2b343e175a6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: eece8130c152fdada1e1d86cf3c94932c5ee9f63
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774883"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408445"
 ---
 # <a name="use-web-api-conventions"></a>Použití konvencí webového rozhraní API
 
 Od [Pranav Krishnamoorthy](https://github.com/pranavkm) a [Scott Addie](https://github.com/scottaddie)
 
-ASP.NET Core 2,2 a novější zahrnuje způsob, jak extrahovat společnou [dokumentaci k rozhraní API](xref:tutorials/web-api-help-pages-using-swagger) a použít ji pro více akcí, řadičů nebo všech řadičů v rámci sestavení. Konvence webového rozhraní API jsou náhradou za upravení jednotlivé [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute)akce pomocí.
+ASP.NET Core 2,2 a novější zahrnuje způsob, jak extrahovat společnou [dokumentaci k rozhraní API](xref:tutorials/web-api-help-pages-using-swagger) a použít ji pro více akcí, řadičů nebo všech řadičů v rámci sestavení. Konvence webového rozhraní API jsou náhradou za upravení jednotlivé akce pomocí [`[ProducesResponseType]`](xref:Microsoft.AspNetCore.Mvc.ProducesResponseTypeAttribute) .
 
 Konvence vám umožní:
 
 * Definujte nejběžnější návratové typy a stavové kódy vrácené z konkrétního typu akce.
 * Identifikujte akce, které se odchylují od definovaného standardu.
 
-ASP.NET Core MVC 2,2 a novější obsahuje sadu výchozích konvencí pro <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName>. Konvence vycházejí z kontroleru (*ValuesController.cs*), který je k dispozici v šabloně projektu **rozhraní API** ASP.NET Core. Pokud se vaše akce řídí vzory v šabloně, měli byste být s použitím výchozích konvence úspěšné. Pokud výchozí konvence nevyhovují vašim potřebám, přečtěte si téma [Vytvoření konvencí webového rozhraní API](#create-web-api-conventions).
+ASP.NET Core MVC 2,2 a novější obsahuje sadu výchozích konvencí pro <xref:Microsoft.AspNetCore.Mvc.DefaultApiConventions?displayProperty=fullName> . Konvence vycházejí z kontroleru (*ValuesController.cs*), který je k dispozici v šabloně projektu **rozhraní API** ASP.NET Core. Pokud se vaše akce řídí vzory v šabloně, měli byste být s použitím výchozích konvence úspěšné. Pokud výchozí konvence nevyhovují vašim potřebám, přečtěte si téma [Vytvoření konvencí webového rozhraní API](#create-web-api-conventions).
 
 V době běhu <xref:Microsoft.AspNetCore.Mvc.ApiExplorer> rozumí konvence. `ApiExplorer`má abstrakce MVC ke komunikaci s [openapi](https://www.openapis.org/) (označuje se také jako Swagger) generátory dokumentů. Atributy z použité konvence jsou spojeny s akcí a jsou obsaženy v dokumentaci k OpenAPI akce. [Analyzátory rozhraní API](xref:web-api/advanced/analyzers) také pochopit konvence. Pokud je vaše akce nepostupná (například vrátí stavový kód, který není dokumentován v použité konvenci), zobrazí se upozornění, které vám umožní zdokumentovat stavový kód.
 
@@ -41,13 +43,13 @@ V době běhu <xref:Microsoft.AspNetCore.Mvc.ApiExplorer> rozumí konvence. `Api
 
 Konvence netvoří; Každá akce může být přidružena k přesně jedné úmluvě. Konkrétnější konvence mají přednost před méně specifickými konvencemi. Výběr není deterministický, pokud se dvě nebo více konvencí se stejnou prioritou vztahují na akci. Následující možnosti existují, pokud chcete použít konvenci pro akci, od nejpřesnější po nejméně specifickou:
 
-1. `Microsoft.AspNetCore.Mvc.ApiConventionMethodAttribute`&mdash; Platí pro jednotlivé akce a určuje typ konvence a metodu konvence, která se vztahuje.
+1. `Microsoft.AspNetCore.Mvc.ApiConventionMethodAttribute`&mdash;Platí pro jednotlivé akce a určuje typ konvence a metodu konvence, která se vztahuje.
 
-    V následujícím příkladu je použita metoda `Microsoft.AspNetCore.Mvc.DefaultApiConventions.Put` konvence typu výchozí konvence pro `Update` akci:
+    V následujícím příkladu `Microsoft.AspNetCore.Mvc.DefaultApiConventions.Put` je použita metoda konvence typu výchozí konvence pro `Update` akci:
 
     [!code-csharp[](conventions/sample/Controllers/ContactsConventionController.cs?name=snippet_ApiConventionMethod&highlight=3)]
 
-    Metoda `Microsoft.AspNetCore.Mvc.DefaultApiConventions.Put` konvence používá pro akci následující atributy:
+    `Microsoft.AspNetCore.Mvc.DefaultApiConventions.Put`Metoda konvence používá pro akci následující atributy:
 
     ```csharp
     [ProducesDefaultResponseType]
@@ -56,7 +58,7 @@ Konvence netvoří; Každá akce může být přidružena k přesně jedné úml
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     ```
 
-    Další informace o `[ProducesDefaultResponseType]`naleznete v tématu [výchozí odpověď](https://swagger.io/docs/specification/describing-responses/#default).
+    Další informace o naleznete v `[ProducesDefaultResponseType]` tématu [výchozí odpověď](https://swagger.io/docs/specification/describing-responses/#default).
 
 1. `Microsoft.AspNetCore.Mvc.ApiConventionTypeAttribute`použití pro kontroler &mdash; aplikuje zadaný typ konvence na všechny akce v řadiči. Metoda konvence je označena nápovědami, které určují akce, na které se vztahuje metoda konvence. Další informace o pokynech najdete v tématu [Vytvoření konvencí webového rozhraní API](#create-web-api-conventions).
 
@@ -79,7 +81,7 @@ Pokud výchozí konvence rozhraní API nevyhovují vašim potřebám, vytvořte 
 
 ### <a name="response-types"></a>Typy odpovědí
 
-Tyto metody jsou opatřeny `[ProducesResponseType]` poznámkami `[ProducesDefaultResponseType]` nebo atributy. Příklad:
+Tyto metody jsou opatřeny poznámkami `[ProducesResponseType]` nebo `[ProducesDefaultResponseType]` atributy. Například:
 
 ```csharp
 public static class MyAppConventions
@@ -94,12 +96,12 @@ public static class MyAppConventions
 
 Pokud nejsou k dispozici konkrétnější atributy metadat, použití této konvence na sestavení vynutilo:
 
-* Metoda konvence se vztahuje na jakoukoli akci `Find`s názvem.
-* V `Find` akci se `id` nachází parametr s názvem.
+* Metoda konvence se vztahuje na jakoukoli akci s názvem `Find` .
+* `id`V akci se nachází parametr s názvem `Find` .
 
 ### <a name="naming-requirements"></a>Požadavky na pojmenování
 
-Atributy `[ApiConventionNameMatch]` a `[ApiConventionTypeMatch]` lze použít na metodu konvence, která určuje akce, na které se vztahují. Příklad:
+`[ApiConventionNameMatch]`Atributy a `[ApiConventionTypeMatch]` lze použít na metodu konvence, která určuje akce, na které se vztahují. Například:
 
 ```csharp
 [ProducesResponseType(StatusCodes.Status200OK)]
@@ -113,10 +115,10 @@ public static void Find(
 
 V předchozím příkladu:
 
-* `Microsoft.AspNetCore.Mvc.ApiExplorer.ApiConventionNameMatchBehavior.Prefix` Možnost použitá na metodu označuje, že konvence odpovídá jakékoli akci s předponou "Find". Mezi příklady akcí pro porovnání `Find`patří `FindPet`, a `FindById`.
-* Parametr `Microsoft.AspNetCore.Mvc.ApiExplorer.ApiConventionNameMatchBehavior.Suffix` aplikovaný na parametr označuje, že konvence odpovídá metodám s právě jedním parametrem končícím v identifikátoru přípony. Příklady zahrnují parametry jako `id` nebo. `petId` `ApiConventionTypeMatch`může být obdobně aplikován na typy pro omezení typu parametru. `params[]` Argument označuje zbývající parametry, které nemusejí být explicitně spárovány.
+* `Microsoft.AspNetCore.Mvc.ApiExplorer.ApiConventionNameMatchBehavior.Prefix`Možnost použitá na metodu označuje, že konvence odpovídá jakékoli akci s předponou "Find". Mezi příklady akcí pro porovnání patří `Find` , `FindPet` a `FindById` .
+* `Microsoft.AspNetCore.Mvc.ApiExplorer.ApiConventionNameMatchBehavior.Suffix`Parametr aplikovaný na parametr označuje, že konvence odpovídá metodám s právě jedním parametrem končícím v identifikátoru přípony. Příklady zahrnují parametry jako `id` nebo `petId` . `ApiConventionTypeMatch`může být obdobně aplikován na typy pro omezení typu parametru. `params[]`Argument označuje zbývající parametry, které nemusejí být explicitně spárovány.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:web-api/advanced/analyzers>
 * <xref:tutorials/web-api-help-pages-using-swagger>

@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 11/26/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/web-api-javascript
-ms.openlocfilehash: c3eb003812a31d8cf3168453fcc11601ffba19fb
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 4031289e43af75ef2026661dbecbbbce30593d43
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774350"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407977"
 ---
 # <a name="tutorial-call-an-aspnet-core-web-api-with-javascript"></a>Kurz: volání ASP.NET Core webového rozhraní API pomocí JavaScriptu
 
@@ -40,13 +42,13 @@ Pro ASP.NET Core 2,2 se podívejte na verzi 2,2 [volání webového rozhraní AP
 
 ## <a name="call-the-web-api-with-javascript"></a>Volání webového rozhraní API pomocí JavaScriptu
 
-V této části přidáte stránku HTML obsahující formuláře pro vytváření a správu položek úkolů. Obslužné rutiny událostí jsou připojeny k prvkům na stránce. Obslužné rutiny událostí mají za následek požadavky HTTP na metody akcí webového rozhraní API. `fetch` Funkce načíst rozhraní API inicializuje jednotlivé požadavky HTTP.
+V této části přidáte stránku HTML obsahující formuláře pro vytváření a správu položek úkolů. Obslužné rutiny událostí jsou připojeny k prvkům na stránce. Obslužné rutiny událostí mají za následek požadavky HTTP na metody akcí webového rozhraní API. Funkce načíst rozhraní API `fetch` inicializuje jednotlivé požadavky HTTP.
 
-Funkce vrátí objekt [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) , který obsahuje odpověď HTTP reprezentovanou jako `Response` objekt. `fetch` Běžným vzorem je extrakce textu odpovědi JSON vyvoláním `json` funkce na `Response` objektu. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
+`fetch`Funkce vrátí objekt [Promise](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise) , který obsahuje odpověď HTTP reprezentovanou jako `Response` objekt. Běžným vzorem je extrakce textu odpovědi JSON vyvoláním `json` funkce na `Response` objektu. JavaScript aktualizuje stránku s podrobnostmi z odpovědi webového rozhraní API.
 
 Nejjednodušší `fetch` volání přijímá jeden parametr reprezentující trasu. Druhý parametr, známý jako `init` objekt, je volitelný. `init`slouží ke konfiguraci požadavku HTTP.
 
-1. Nakonfigurujte aplikaci tak, aby [sloužila statickým souborům](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolovala výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_). V `Configure` metodě *Startup.cs*je potřeba následující zvýrazněný kód:
+1. Nakonfigurujte aplikaci tak, aby [sloužila statickým souborům](/dotnet/api/microsoft.aspnetcore.builder.staticfileextensions.usestaticfiles#Microsoft_AspNetCore_Builder_StaticFileExtensions_UseStaticFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_) a [povolovala výchozí mapování souborů](/dotnet/api/microsoft.aspnetcore.builder.defaultfilesextensions.usedefaultfiles#Microsoft_AspNetCore_Builder_DefaultFilesExtensions_UseDefaultFiles_Microsoft_AspNetCore_Builder_IApplicationBuilder_). V metodě Startup.cs je potřeba následující zvýrazněný kód `Configure` : *Startup.cs*
 
     [!code-csharp[](first-web-api/samples/3.0/TodoApi/StartupJavaScript.cs?highlight=8-9&name=snippet_configure)]
 
@@ -54,18 +56,18 @@ Nejjednodušší `fetch` volání přijímá jeden parametr reprezentující tra
 
 1. Vytvořte složku *js* ve složce *wwwroot* .
 
-1. Do složky *wwwroot* přidejte soubor HTML s názvem *index. html* . Obsah souboru *index. html* nahraďte následujícím kódem:
+1. Přidejte soubor HTML s názvem *index.html* do složky *wwwroot* . Obsah *index.html* nahraďte následujícím kódem:
 
     [!code-html[](first-web-api/samples/3.0/TodoApi/wwwroot/index.html)]
 
-1. Do složky *wwwroot/js* přidejte soubor JavaScriptu s názvem *Web. js* . Obsah *stránky site. js* nahraďte následujícím kódem:
+1. Do složky *wwwroot/js* přidejte soubor JavaScriptu s názvem *site.js* . Obsah *site.js* nahraďte následujícím kódem:
 
     [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_SiteJs)]
 
 Pro místní testování stránky HTML může být nutné změnit nastavení spouštění ASP.NET Core projektu:
 
-1. Otevřete *Properties\launchSettings.JSON*.
-1. Odeberte `launchUrl` vlastnost, která vynutí otevření aplikace v *indexu. html*&mdash;výchozí soubor projektu.
+1. Otevřete *Properties\launchSettings.js*.
+1. Odeberte `launchUrl` vlastnost, která vynutí otevření aplikace na *index.html* &mdash; výchozího souboru projektu.
 
 Tato ukázka volá všechny metody CRUD webového rozhraní API. Následují vysvětlení požadavků webového rozhraní API.
 
@@ -81,11 +83,11 @@ Když webové rozhraní API vrátí úspěšný kód stavu, `_displayItems` funk
 
 V následujícím kódu:
 
-* `item` Proměnná je deklarována pro sestavení řetězcové literálové reprezentace položky.
+* `item`Proměnná je deklarována pro sestavení řetězcové literálové reprezentace položky.
 * Požadavek na načtení je nakonfigurovaný s následujícími možnostmi:
   * `method`&mdash;Určuje operaci POST HTTP Action.
-  * `body`&mdash;Určuje reprezentaci textu žádosti ve formátu JSON. KÓD JSON je vytvořen předáním literálu objektu uloženého `item` v do funkce [JSON. stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) .
-  * `headers`&mdash;Určuje hlavičky `Accept` požadavků `Content-Type` a http. Obě hlavičky jsou nastaveny na `application/json` zadání typu média přijímaného a odeslaného v uvedeném pořadí.
+  * `body`&mdash;Určuje reprezentaci textu žádosti ve formátu JSON. KÓD JSON je vytvořen předáním literálu objektu uloženého v `item` do funkce [JSON. stringify](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify) .
+  * `headers`&mdash;Určuje `Accept` `Content-Type` hlavičky požadavků a http. Obě hlavičky jsou nastaveny na `application/json` zadání typu média přijímaného a odeslaného v uvedeném pořadí.
 * Požadavek HTTP POST se odešle do trasy *API/TodoItems* .
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_AddItem)]
@@ -97,7 +99,7 @@ Když webové rozhraní API vrátí úspěšný kód stavu, `getItems` funkce se
 Aktualizace položky úkolů je podobná přidání. Existují však dva významné rozdíly:
 
 * Trasa má příponu s jedinečným identifikátorem položky, která se má aktualizovat. Například *API/TodoItems/1*.
-* Operace HTTP Action je PUT, jak je uvedeno v `method` možnosti.
+* Operace HTTP Action je PUT, jak je uvedeno v `method` Možnosti.
 
 [!code-javascript[](first-web-api/samples/3.0/TodoApi/wwwroot/js/site.js?name=snippet_UpdateItem)]
 

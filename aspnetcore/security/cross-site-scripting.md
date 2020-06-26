@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/02/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/cross-site-scripting
-ms.openlocfilehash: 5a14042db6250d5f7a47acaf4083b44272c606ab
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a94fe1612c023468238f09a91ddb0346b65d52ba
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777485"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408016"
 ---
 # <a name="prevent-cross-site-scripting-xss-in-aspnet-core"></a>Zabránit skriptování mezi weby (XSS) v ASP.NET Core
 
@@ -26,21 +28,21 @@ Skriptování mezi weby (XSS) je ohrožení zabezpečení, které umožňuje út
 
 ## <a name="protecting-your-application-against-xss"></a>Ochrana aplikace proti XSS
 
-Na základní úrovni technologie XSS funguje tak, že se podíváme na `<script>` vaši aplikaci na vložení značky na vykreslenou stránku nebo `On*` vložením události do prvku. Vývojáři by měli pomocí následujících kroků prevence zabránit zavlečení SKRIPTOVÁNÍ do své aplikace.
+Na základní úrovni technologie XSS funguje tak, že se podíváme na vaši aplikaci na vložení `<script>` značky na vykreslenou stránku nebo vložením `On*` události do prvku. Vývojáři by měli pomocí následujících kroků prevence zabránit zavlečení SKRIPTOVÁNÍ do své aplikace.
 
 1. Nikdy neumísťujte nedůvěryhodná data do vstupu ve formátu HTML, pokud nepoužijete zbývající část následujících kroků. Nedůvěryhodná data jsou všechna data, která může být ovládána útočníkem, vstupy formulářů HTML, řetězce dotazů, hlavičky protokolu HTTP, dokonce i data, která jsou zdrojem tohoto útočníka, může být, že by mohlo dojít k porušení zabezpečení vaší databáze, i když nemůžou porušit vaši aplikaci.
 
-2. Před vložením nedůvěryhodných dat do elementu HTML zajistěte, aby byl kódovaný HTML. Kódování HTML přebírá znaky jako &lt; a mění je v bezpečné podobě, jako &amp;je lt;
+2. Před vložením nedůvěryhodných dat do elementu HTML zajistěte, aby byl kódovaný HTML. Kódování HTML přebírá znaky jako &lt; a mění je v bezpečné podobě, jako je &amp; lt;
 
 3. Před vložením nedůvěryhodných dat do atributu HTML zajistěte, aby byl kódovaný HTML. Kódování atributů HTML je nadmnožinou kódování HTML a kóduje další znaky, jako například "a".
 
-4. Před vložením nedůvěryhodných dat do JavaScriptu umístěte data v elementu HTML, jehož obsah načítáte za běhu. Pokud to není možné, zajistěte, aby byla data kódovaná pomocí JavaScriptu. Kódování JavaScriptu přebírá nebezpečné znaky pro JavaScript a nahrazuje je šestnáctkově, například &lt; by bylo zakódováno `\u003C`jako.
+4. Před vložením nedůvěryhodných dat do JavaScriptu umístěte data v elementu HTML, jehož obsah načítáte za běhu. Pokud to není možné, zajistěte, aby byla data kódovaná pomocí JavaScriptu. Kódování JavaScriptu přebírá nebezpečné znaky pro JavaScript a nahrazuje je šestnáctkově, například &lt; by bylo zakódováno jako `\u003C` .
 
 5. Před vložením nedůvěryhodných dat do řetězce dotazu URL zajistěte, aby byla zakódovaná adresa URL.
 
 ## <a name="html-encoding-using-razor"></a>Kódování HTML pomocíRazor
 
-Razor Modul používaný v MVC automaticky zakóduje všechny výstupy zdroje z proměnných, pokud nepracujete opravdu k tomu, aby se tak zabránilo. Používá pravidla kódování atributů HTML vždy, když použijete *@* směrnici. Kódování atributu HTML je nadmnožinou kódování HTML to znamená, že se nemusíte zabývat sami, ať už používáte kódování HTML nebo kódování atributů HTML. Je nutné, abyste měli jistotu, že budete používat pouze @ v kontextu jazyka HTML, nikoli při pokusu o vložení nedůvěryhodného vstupu přímo do JavaScriptu. Pomocník značek také zakóduje vstup, který použijete v parametrech značek.
+RazorModul používaný v MVC automaticky zakóduje všechny výstupy zdroje z proměnných, pokud nepracujete opravdu k tomu, aby se tak zabránilo. Používá pravidla kódování atributů HTML vždy, když použijete *@* směrnici. Kódování atributu HTML je nadmnožinou kódování HTML to znamená, že se nemusíte zabývat sami, ať už používáte kódování HTML nebo kódování atributů HTML. Je nutné, abyste měli jistotu, že budete používat pouze @ v kontextu jazyka HTML, nikoli při pokusu o vložení nedůvěryhodného vstupu přímo do JavaScriptu. Pomocník značek také zakóduje vstup, který použijete v parametrech značek.
 
 Proveďte následující Razor zobrazení:
 
@@ -52,7 +54,7 @@ Proveďte následující Razor zobrazení:
    @untrustedInput
    ```
 
-Toto zobrazení vypíše obsah proměnné *untrustedInput* . Tato proměnná zahrnuje některé znaky, které jsou používány v útocích XSS, &lt;konkrétně a &gt;. Prozkoumání zdroje zobrazuje Vykreslený výstup kódovaný jako:
+Toto zobrazení vypíše obsah proměnné *untrustedInput* . Tato proměnná zahrnuje některé znaky, které jsou používány v útocích XSS, konkrétně &lt; a &gt; . Prozkoumání zdroje zobrazuje Vykreslený výstup kódovaný jako:
 
 ```html
 &lt;&quot;123&quot;&gt;
@@ -63,7 +65,7 @@ Toto zobrazení vypíše obsah proměnné *untrustedInput* . Tato proměnná zah
 
 ## <a name="javascript-encoding-using-razor"></a>Kódování JavaScriptu pomocíRazor
 
-Může nastat situace, kdy budete chtít vložit hodnotu do JavaScriptu pro zpracování v zobrazení. Můžete to provést dvěma způsoby. Nejbezpečnější způsob, jak vkládat hodnoty, je umístit hodnotu do atributu data tagu a načíst ho v JavaScriptu. Příklad:
+Může nastat situace, kdy budete chtít vložit hodnotu do JavaScriptu pro zpracování v zobrazení. Můžete to provést dvěma způsoby. Nejbezpečnější způsob, jak vkládat hodnoty, je umístit hodnotu do atributu data tagu a načíst ho v JavaScriptu. Například:
 
 ```cshtml
 @{
@@ -144,7 +146,7 @@ Vykreslí se v prohlížeči následujícím způsobem:
 ```
 
 >[!WARNING]
-> Nezřetězení nedůvěryhodného vstupu v JavaScriptu pro vytváření elementů DOM. Měli byste použít `createElement()` a přiřadit hodnoty vlastností odpovídajícím způsobem `node.TextContent=`, jako je `element.SetAttribute()` / `element[attribute]=` , nebo jinak můžete vystavit sami sobě pomocí skriptování na základě modelu DOM.
+> Nezřetězení nedůvěryhodného vstupu v JavaScriptu pro vytváření elementů DOM. Měli byste použít `createElement()` a přiřadit hodnoty vlastností odpovídajícím způsobem `node.TextContent=` , jako je, nebo `element.SetAttribute()` / `element[attribute]=` jinak můžete vystavit sami sobě pomocí skriptování na základě modelu DOM.
 
 ## <a name="accessing-encoders-in-code"></a>Přístup k kodérům v kódu
 
@@ -172,14 +174,14 @@ public class HomeController : Controller
 
 ## <a name="encoding-url-parameters"></a>Kódování parametrů adresy URL
 
-Pokud chcete vytvořit řetězec dotazu URL s nedůvěryhodným vstupem jako hodnotu, použijte `UrlEncoder` ke kódování hodnoty. Například:
+Pokud chcete vytvořit řetězec dotazu URL s nedůvěryhodným vstupem jako hodnotu, použijte `UrlEncoder` ke kódování hodnoty. Třeba
 
 ```csharp
 var example = "\"Quoted Value with spaces and &\"";
    var encodedValue = _urlEncoder.Encode(example);
    ```
 
-Po kódování bude proměnná encodedValue obsahovat `%22Quoted%20Value%20with%20spaces%20and%20%26%22`. Mezery, uvozovky, interpunkční znaménka a další nebezpečné znaky budou v procentech zakódovány na jejich hexadecimální hodnotu, například znak mezery se stane %20.
+Po kódování bude proměnná encodedValue obsahovat `%22Quoted%20Value%20with%20spaces%20and%20%26%22` . Mezery, uvozovky, interpunkční znaménka a další nebezpečné znaky budou v procentech zakódovány na jejich hexadecimální hodnotu, například znak mezery se stane %20.
 
 >[!WARNING]
 > Nepoužívejte nedůvěryhodný vstup jako součást cesty URL. Vždy předejte nedůvěryhodný vstup jako hodnotu řetězce dotazu.
@@ -188,11 +190,11 @@ Po kódování bude proměnná encodedValue obsahovat `%22Quoted%20Value%20with%
 
 ## <a name="customizing-the-encoders"></a>Přizpůsobení kodérů
 
-Ve výchozím nastavení používají kodéry zabezpečený seznam omezený na základní rozsah Latinské sady Latin Unicode a zakódovat všechny znaky mimo tento rozsah jako jejich ekvivalenty kódu znaku. Toto chování má vliv Razor také na Taghelperu a HtmlHelper vykreslování, protože bude používat kodéry k výstupu řetězců.
+Ve výchozím nastavení používají kodéry zabezpečený seznam omezený na základní rozsah Latinské sady Latin Unicode a zakódovat všechny znaky mimo tento rozsah jako jejich ekvivalenty kódu znaku. Toto chování má vliv také Razor na taghelperu a HtmlHelper vykreslování, protože bude používat kodéry k výstupu řetězců.
 
 Důvodem je ochrana proti neznámým nebo budoucím chybám prohlížeče (předchozí chyby prohlížeče mají Trip analýzu na základě zpracování neanglických znaků). Pokud váš web používá velké množství znaků mimo Latin, jako je čínština, cyrilice nebo jiné, pravděpodobně to není chování, které požadujete.
 
-Seznam bezpečných seznamů pro kodér můžete přizpůsobit tak, aby zahrnoval rozsahy Unicode, které jsou vhodné `ConfigureServices()`pro vaši aplikaci během spouštění, v.
+Seznam bezpečných seznamů pro kodér můžete přizpůsobit tak, aby zahrnoval rozsahy Unicode, které jsou vhodné pro vaši aplikaci během spouštění, v `ConfigureServices()` .
 
 Například pomocí výchozí konfigurace můžete použít Razor HtmlHelper jako tak,
 
@@ -206,7 +208,7 @@ Po zobrazení zdroje webové stránky uvidíte, že byla vykreslena takto, s kó
 <p>This link text is in Chinese: <a href="/">&#x6C49;&#x8BED;/&#x6F22;&#x8A9E;</a></p>
    ```
 
-Chcete-li rozšířit znaky zpracovávané jako bezpečné kodérem, vložte následující řádek do `ConfigureServices()` metody v. `startup.cs`
+Chcete-li rozšířit znaky zpracovávané jako bezpečné kodérem, vložte následující řádek do `ConfigureServices()` metody v `startup.cs` .
 
 ```csharp
 services.AddSingleton<HtmlEncoder>(

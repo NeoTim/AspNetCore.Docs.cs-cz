@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 02/12/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: aspnetcore-3.1
-ms.openlocfilehash: 6a03e35495e2ae545dc0a3cdd38578b433d8df6b
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 92804d168381526100ddb8a368f71d201bd4cad9
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102583"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407665"
 ---
 # <a name="whats-new-in-aspnet-core-31"></a>Co je nového v ASP.NET Core 3,1
 
@@ -37,7 +39,7 @@ V Blazor with ASP.NET Core 3,0 byly komponenty vykresleny do stránek a zobrazen
 
 Pomocník HTML zůstane v ASP.NET Core 3,1 podporován, ale doporučuje se pomocník značek komponent.
 
-BlazorServerové aplikace teď můžou předat parametry na nejvyšší úrovni během počátečního vykreslování. Dříve jste mohli předat parametry do komponenty nejvyšší úrovně pomocí [RenderMode. static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static). V této verzi jsou podporovány obě [RenderMode. Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) i [RenderMode. ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) . Všechny zadané hodnoty parametrů jsou serializovány jako JSON a zahrnuty do počáteční odezvy.
+Blazor Serveraplikace teď můžou předat parametry na nejvyšší úrovni během počátečního vykreslování. Dříve jste mohli předat parametry do komponenty nejvyšší úrovně pomocí [RenderMode. static](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Static). V této verzi jsou podporovány obě [RenderMode. Server](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.Server) i [RenderMode. ServerPrerendered](xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered) . Všechny zadané hodnoty parametrů jsou serializovány jako JSON a zahrnuty do počáteční odezvy.
 
 Například fáze PreRender `Counter` komponentu s přírůstnou velikostí ( `IncrementAmount` ):
 

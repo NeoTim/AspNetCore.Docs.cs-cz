@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/20/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/configuration/options
-ms.openlocfilehash: 9a9febba060cca591f2cbcdc03cb4c35edcfdda7
-ms.sourcegitcommit: 74d80a36103fdbd54baba0118535a4647f511913
+ms.openlocfilehash: 300b26c198e6ea07fe83af8fb9ae967e814396fb
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/08/2020
-ms.locfileid: "84529660"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408354"
 ---
 # <a name="options-pattern-in-aspnet-core"></a>Vzor možností v ASP.NET Core
 
@@ -116,7 +118,7 @@ Pojmenované možnosti:
 * Jsou užitečné v případě, že je více konfiguračních oddílů svázán se stejnými vlastnostmi.
 * Rozlišují velká a malá písmena.
 
-Vezměte v úvahu následující soubor *appSettings. JSON* :
+V souboru zvažte následující *appsettings.js* :
 
 [!code-json[](~/fundamentals/configuration/options/samples/3.x/OptionsSample/appsettings.NO.json)]
 
@@ -163,7 +165,7 @@ Doporučujeme předat delegáta [konfigurace, protože](xref:Microsoft.Extension
 
 Ověřování možností povoluje ověření hodnot možností.
 
-Vezměte v úvahu následující soubor *appSettings. JSON* :
+V souboru zvažte následující *appsettings.js* :
 
 [!code-json[](~/fundamentals/configuration/options/samples/3.x/OptionsValidationSample/appsettings.Dev2.json)]
 
@@ -269,9 +271,9 @@ public void Configure(IApplicationBuilder app,
 
 Nepoužívejte <xref:Microsoft.Extensions.Options.IOptions%601> nebo <xref:Microsoft.Extensions.Options.IOptionsMonitor%601> v `Startup.ConfigureServices` . Stav nekonzistentních možností může existovat v důsledku řazení registrací služby.
 
-## <a name="optionsconfigurationextensions-nuget-package"></a>Options – balíček NuGet. ConfigurationExtensions
+## <a name="optionsconfigurationextensions-nuget-package"></a>Balíček NuGet Options.ConfigurationExtensions
 
-Na balíček [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) se implicitně odkazuje v aplikacích ASP.NET Core.
+Na balíček [Microsoft.Extensions.Options.ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) se implicitně odkazuje v ASP.NET Corech aplikacích.
 
 ::: moniker-end
 
@@ -288,7 +290,7 @@ Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Dal�
 
 ## <a name="prerequisites"></a>Požadavky
 
-Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) .
+Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft.Extensions.Options.ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) .
 
 ## <a name="options-interfaces"></a>Možnosti rozhraní
 
@@ -329,7 +331,7 @@ Následující model stránky používá [vkládání závislostí konstruktoru]
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example1)]
 
-Soubor *appSettings. JSON* v ukázce určuje hodnoty pro `option1` a `option2` :
+Soubor *appsettings.jsv* ukázce určuje hodnoty pro `option1` a `option2` :
 
 [!code-json[](options/samples/2.x/OptionsSample/appsettings.json?highlight=2-3)]
 
@@ -375,7 +377,7 @@ V následujícím kódu <xref:Microsoft.Extensions.Options.IConfigureOptions%601
 
 Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
-Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá <xref:Microsoft.Extensions.Options.IConfigureOptions%601> službu do kontejneru služby. V předchozím příkladu `Option1` jsou hodnoty a `Option2` zadány v souboru *appSettings. JSON*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
+Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá <xref:Microsoft.Extensions.Options.IConfigureOptions%601> službu do kontejneru služby. V předchozím příkladu jsou hodnoty `Option1` a uvedeny `Option2` v *appsettings.jsna*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
 
 Je-li povolena více než jedna služba konfigurace, je v posledním zdroji konfigurace zadaný *Server WINS* a nastavena hodnota konfigurace. Při spuštění aplikace `OnGet` vrátí metoda modelu stránky řetězec zobrazující hodnoty třídy možností:
 
@@ -389,15 +391,15 @@ Konfigurace dílčích možností je v ukázkové aplikaci znázorněna jako př
 
 Aplikace by měly vytvořit třídy možností, které se týkají konkrétních skupin scénářů (tříd) v aplikaci. Části aplikace, které vyžadují konfigurační hodnoty, by měly mít přístup jenom k hodnotám konfigurace, které používají.
 
-Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]` . Například `MyOptions.Option1` vlastnost je svázána s klíčem `Option1` , který je načten z `option1` vlastnosti v souboru *appSettings. JSON*.
+Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]` . Například `MyOptions.Option1` vlastnost je svázána s klíčem `Option1` , který je načten z `option1` vlastnosti v *appsettings.jsna*.
 
-V následujícím kódu <xref:Microsoft.Extensions.Options.IConfigureOptions%601> je do kontejneru služby přidána třetí služba. Váže se `MySubOptions` k části `subsection` souboru *appSettings. JSON* :
+V následujícím kódu <xref:Microsoft.Extensions.Options.IConfigureOptions%601> je do kontejneru služby přidána třetí služba. Váže `MySubOptions` se k části `subsection` *appsettings.jsv* souboru:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example3)]
 
 `GetSection`Metoda vyžaduje <xref:Microsoft.Extensions.Configuration?displayProperty=fullName> obor názvů.
 
-Soubor *appSettings. JSON* ukázky definuje `subsection` člena s klíči pro `suboption1` a `suboption2` :
+*appsettings.jsukázek v* souboru definuje `subsection` člena s klíči pro `suboption1` a `suboption2` :
 
 [!code-json[](options/samples/2.x/OptionsSample/appsettings.json?highlight=4-7)]
 
@@ -455,7 +457,7 @@ Rozdíl mezi `IOptionsMonitor` a `IOptionsSnapshot` je to, že:
 * `IOptionsMonitor`je [Služba typu Singleton](xref:fundamentals/dependency-injection#singleton) , která načte aktuální hodnoty možností kdykoli, což je zvláště užitečné v závislostech singleton.
 * `IOptionsSnapshot`je [Oborová služba](xref:fundamentals/dependency-injection#scoped) a poskytuje snímek možností v době, kdy `IOptionsSnapshot<T>` je objekt vytvořen. Snímky možností jsou navržené pro použití s přechodnými a vymezenými závislostmi.
 
-Následující příklad ukazuje, jak <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> se vytvoří nový po změnách *appSettings. JSON* (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje soubor *appSettings. JSON* , dokud nedojde ke změně souboru a opětovnému načtení konfigurace.
+Následující příklad ukazuje, jak <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> se vytvoří nový po *appsettings.js* změny (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje *appsettings.jsv* souboru, dokud nedojde ke změně souboru a obnovení konfigurace.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?range=12)]
 
@@ -463,13 +465,13 @@ Následující příklad ukazuje, jak <xref:Microsoft.Extensions.Options.IOption
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example5)]
 
-Následující obrázek ukazuje počáteční `option1` `option2` hodnoty a hodnoty načtené ze souboru *appSettings. JSON* :
+Následující obrázek ukazuje počáteční `option1` `option2` hodnoty a hodnoty načtené z *appsettings.js* souboru:
 
 ```html
 snapshot option1 = value1_from_json, snapshot option2 = -1
 ```
 
-Změňte hodnoty v souboru *appSettings. JSON* na `value1_from_json UPDATED` a `200` . Uložte soubor *appSettings. JSON* . Aktualizujte prohlížeč, aby se zobrazily hodnoty možností, které jsou aktualizované:
+Změňte hodnoty v *appsettings.jsv* souboru na `value1_from_json UPDATED` a `200` . Uložte *appsettings.jsdo* souboru. Aktualizujte prohlížeč, aby se zobrazily hodnoty možností, které jsou aktualizované:
 
 ```html
 snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
@@ -479,7 +481,7 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 Pojmenovaná podpora s názvem <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> je znázorněna jako příklad 6 v ukázkové aplikaci.
 
-Podpora pojmenovaných možností umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions \<TOptions> . Nakonfigurujte](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metodu rozšíření. U pojmenovaných možností se rozlišují velká a malá písmena.
+Podpora pojmenovaných možností umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány s [OptionsServiceCollectionExtensions.Configurovat](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), která volá [ConfigureNamedOptions \<TOptions> . Nakonfigurujte](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metodu rozšíření. U pojmenovaných možností se rozlišují velká a malá písmena.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -498,7 +500,7 @@ named_options_1: option1 = value1_from_json, option2 = -1
 named_options_2: option1 = named_options_2_value1_from_action, option2 = 5
 ```
 
-`named_options_1`hodnoty se poskytují z konfigurace, které se načítají ze souboru *appSettings. JSON* . `named_options_2`hodnoty poskytuje:
+`named_options_1`hodnoty se poskytují z konfigurace, které se načítají z *appsettings.jsv* souboru. `named_options_2`hodnoty poskytuje:
 
 * `named_options_2`Delegát v `ConfigureServices` pro `Option1` .
 * Výchozí hodnota `Option2` poskytnutá `MyOptions` třídou
@@ -710,7 +712,7 @@ Možnosti také poskytují mechanismus pro ověření konfiguračních dat. Dal�
 
 ## <a name="prerequisites"></a>Požadavky
 
-Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Options. ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) .
+Odkaz na balíček [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app) nebo přidejte odkaz na balíček do balíčku [Microsoft.Extensions.Options.ConfigurationExtensions](https://www.nuget.org/packages/Microsoft.Extensions.Options.ConfigurationExtensions/) .
 
 ## <a name="options-interfaces"></a>Možnosti rozhraní
 
@@ -751,7 +753,7 @@ Následující model stránky používá [vkládání závislostí konstruktoru]
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example1)]
 
-Soubor *appSettings. JSON* v ukázce určuje hodnoty pro `option1` a `option2` :
+Soubor *appsettings.jsv* ukázce určuje hodnoty pro `option1` a `option2` :
 
 [!code-json[](options/samples/2.x/OptionsSample/appsettings.json?highlight=2-3)]
 
@@ -797,7 +799,7 @@ V následujícím kódu <xref:Microsoft.Extensions.Options.IConfigureOptions%601
 
 Můžete přidat více poskytovatelů konfigurace. Poskytovatelé konfigurace jsou k dispozici z balíčků NuGet a jsou aplikováni v pořadí, v jakém jsou registrováni. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
-Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá <xref:Microsoft.Extensions.Options.IConfigureOptions%601> službu do kontejneru služby. V předchozím příkladu `Option1` jsou hodnoty a `Option2` zadány v souboru *appSettings. JSON*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
+Každé volání <xref:Microsoft.Extensions.Options.IConfigureOptions%601.Configure*> přidá <xref:Microsoft.Extensions.Options.IConfigureOptions%601> službu do kontejneru služby. V předchozím příkladu jsou hodnoty `Option1` a uvedeny `Option2` v *appsettings.jsna*, ale hodnoty `Option1` a `Option2` jsou přepsány nakonfigurovaným delegátem.
 
 Je-li povolena více než jedna služba konfigurace, je v posledním zdroji konfigurace zadaný *Server WINS* a nastavena hodnota konfigurace. Při spuštění aplikace `OnGet` vrátí metoda modelu stránky řetězec zobrazující hodnoty třídy možností:
 
@@ -811,15 +813,15 @@ Konfigurace dílčích možností je v ukázkové aplikaci znázorněna jako př
 
 Aplikace by měly vytvořit třídy možností, které se týkají konkrétních skupin scénářů (tříd) v aplikaci. Části aplikace, které vyžadují konfigurační hodnoty, by měly mít přístup jenom k hodnotám konfigurace, které používají.
 
-Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]` . Například `MyOptions.Option1` vlastnost je svázána s klíčem `Option1` , který je načten z `option1` vlastnosti v souboru *appSettings. JSON*.
+Při vytváření vazby mezi možnostmi konfigurace jsou jednotlivé vlastnosti v typu možnosti vázány na konfigurační klíč formuláře `property[:sub-property:]` . Například `MyOptions.Option1` vlastnost je svázána s klíčem `Option1` , který je načten z `option1` vlastnosti v *appsettings.jsna*.
 
-V následujícím kódu <xref:Microsoft.Extensions.Options.IConfigureOptions%601> je do kontejneru služby přidána třetí služba. Váže se `MySubOptions` k části `subsection` souboru *appSettings. JSON* :
+V následujícím kódu <xref:Microsoft.Extensions.Options.IConfigureOptions%601> je do kontejneru služby přidána třetí služba. Váže `MySubOptions` se k části `subsection` *appsettings.jsv* souboru:
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example3)]
 
 `GetSection`Metoda vyžaduje <xref:Microsoft.Extensions.Configuration?displayProperty=fullName> obor názvů.
 
-Soubor *appSettings. JSON* ukázky definuje `subsection` člena s klíči pro `suboption1` a `suboption2` :
+*appsettings.jsukázek v* souboru definuje `subsection` člena s klíči pro `suboption1` a `suboption2` :
 
 [!code-json[](options/samples/2.x/OptionsSample/appsettings.json?highlight=4-7)]
 
@@ -869,7 +871,7 @@ Opětovné načtení konfiguračních dat pomocí <xref:Microsoft.Extensions.Opt
 
 Možnosti jsou vypočítány jednou za požadavek při otevření a ukládání do mezipaměti po dobu života žádosti.
 
-Následující příklad ukazuje, jak <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> se vytvoří nový po změnách *appSettings. JSON* (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje soubor *appSettings. JSON* , dokud nedojde ke změně souboru a opětovnému načtení konfigurace.
+Následující příklad ukazuje, jak <xref:Microsoft.Extensions.Options.IOptionsSnapshot%601> se vytvoří nový po *appsettings.js* změny (*pages/index. cshtml. cs*). Více požadavků na server vrací konstantní hodnoty, které poskytuje *appsettings.jsv* souboru, dokud nedojde ke změně souboru a obnovení konfigurace.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?range=12)]
 
@@ -877,13 +879,13 @@ Následující příklad ukazuje, jak <xref:Microsoft.Extensions.Options.IOption
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Pages/Index.cshtml.cs?name=snippet_Example5)]
 
-Následující obrázek ukazuje počáteční `option1` `option2` hodnoty a hodnoty načtené ze souboru *appSettings. JSON* :
+Následující obrázek ukazuje počáteční `option1` `option2` hodnoty a hodnoty načtené z *appsettings.js* souboru:
 
 ```html
 snapshot option1 = value1_from_json, snapshot option2 = -1
 ```
 
-Změňte hodnoty v souboru *appSettings. JSON* na `value1_from_json UPDATED` a `200` . Uložte soubor *appSettings. JSON* . Aktualizujte prohlížeč, aby se zobrazily hodnoty možností, které jsou aktualizované:
+Změňte hodnoty v *appsettings.jsv* souboru na `value1_from_json UPDATED` a `200` . Uložte *appsettings.jsdo* souboru. Aktualizujte prohlížeč, aby se zobrazily hodnoty možností, které jsou aktualizované:
 
 ```html
 snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
@@ -893,7 +895,7 @@ snapshot option1 = value1_from_json UPDATED, snapshot option2 = 200
 
 Pojmenovaná podpora s názvem <xref:Microsoft.Extensions.Options.IConfigureNamedOptions%601> je znázorněna jako příklad 6 v ukázkové aplikaci.
 
-Podpora pojmenovaných možností umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány pomocí [OptionsServiceCollectionExtensions. Configure](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), který volá [ConfigureNamedOptions \<TOptions> . Nakonfigurujte](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metodu rozšíření. U pojmenovaných možností se rozlišují velká a malá písmena.
+Podpora pojmenovaných možností umožňuje aplikaci rozlišovat konfigurace pojmenovaných možností. V ukázkové aplikaci jsou pojmenované možnosti deklarovány s [OptionsServiceCollectionExtensions.Configurovat](xref:Microsoft.Extensions.DependencyInjection.OptionsServiceCollectionExtensions.Configure*), která volá [ConfigureNamedOptions \<TOptions> . Nakonfigurujte](xref:Microsoft.Extensions.Options.ConfigureNamedOptions`1.Configure*) metodu rozšíření. U pojmenovaných možností se rozlišují velká a malá písmena.
 
 [!code-csharp[](options/samples/2.x/OptionsSample/Startup.cs?name=snippet_Example6)]
 
@@ -912,7 +914,7 @@ named_options_1: option1 = value1_from_json, option2 = -1
 named_options_2: option1 = named_options_2_value1_from_action, option2 = 5
 ```
 
-`named_options_1`hodnoty se poskytují z konfigurace, které se načítají ze souboru *appSettings. JSON* . `named_options_2`hodnoty poskytuje:
+`named_options_1`hodnoty se poskytují z konfigurace, které se načítají z *appsettings.jsv* souboru. `named_options_2`hodnoty poskytuje:
 
 * `named_options_2`Delegát v `ConfigureServices` pro `Option1` .
 * Výchozí hodnota `Option2` poskytnutá `MyOptions` třídou

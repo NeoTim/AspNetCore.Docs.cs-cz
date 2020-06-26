@@ -7,25 +7,27 @@ ms.custom: mvc
 ms.date: 10/13/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/anchor-tag-helper
-ms.openlocfilehash: 142ad62bbbc25fc5390331b253a6173f064ef162
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: af0f07a0f50a79f25b6a14459402f9dd8b59dae2
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773962"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408250"
 ---
 # <a name="anchor-tag-helper-in-aspnet-core"></a>Pomocný objekt příznaku kotvy v ASP.NET Core
 
 Od [Petra Kellner](https://peterkellner.net) a [Scott Addie](https://github.com/scottaddie)
 
-[Pomocník značek kotvy](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper) vylepšuje standardní značku kotvy HTML (`<a ... ></a>`) přidáním nových atributů. Podle konvence jsou názvy atributů předponou `asp-`. Hodnota `href` atributu vykresleného ukotvení elementu je určena hodnotami `asp-` atributů.
+[Pomocník značek kotvy](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper) vylepšuje standardní značku kotvy HTML ( `<a ... ></a>` ) přidáním nových atributů. Podle konvence jsou názvy atributů předponou `asp-` . Hodnota atributu vykresleného ukotvení elementu `href` je určena hodnotami `asp-` atributů.
 
-Přehled pomocníků značek naleznete v tématu <xref:mvc/views/tag-helpers/intro>.
+Přehled pomocníků značek naleznete v tématu <xref:mvc/views/tag-helpers/intro> .
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/views/tag-helpers/built-in/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
@@ -47,7 +49,7 @@ Generovaný kód HTML:
 <a href="/Speaker">All Speakers</a>
 ```
 
-Pokud je `asp-controller` atribut zadán a `asp-action` není, výchozí `asp-action` hodnota je akce kontroleru přidružená k aktuálně zpracovávanému zobrazení. Pokud `asp-action` je tento parametr vynechán v předchozím kódu a pomocník značek Anchor je použit v zobrazení indexu *HomeController*( *Index* */Home*), vygenerovaný kód HTML je:
+Pokud `asp-controller` je atribut zadán a `asp-action` není, výchozí `asp-action` hodnota je akce kontroleru přidružená k aktuálně zpracovávanému zobrazení. Pokud `asp-action` je tento parametr vynechán v předchozím kódu a pomocník značek Anchor je použit v zobrazení indexu *HomeController*( *Index* */Home*), vygenerovaný kód HTML je:
 
 ```html
 <a href="/Home">All Speakers</a>
@@ -65,19 +67,19 @@ Generovaný kód HTML:
 <a href="/Speaker/Evaluations">Speaker Evaluations</a>
 ```
 
-Pokud není `asp-controller` zadán žádný atribut, je použit výchozí řadič volající zobrazení, které spouští aktuální zobrazení.
+Pokud `asp-controller` není zadán žádný atribut, je použit výchozí řadič volající zobrazení, které spouští aktuální zobrazení.
 
-Pokud je `asp-action` `Index`hodnota atributu, pak se k adrese URL nepřipojí žádná akce, která by vedla k vyvolání výchozí `Index` akce. Zadaná akce (nebo výchozí) musí existovat v řadiči, na který odkazuje `asp-controller`.
+Pokud `asp-action` je hodnota atributu `Index` , pak se k adrese URL nepřipojí žádná akce, která by vedla k vyvolání výchozí `Index` akce. Zadaná akce (nebo výchozí) musí existovat v řadiči, na který odkazuje `asp-controller` .
 
 ### <a name="asp-route-value"></a>ASP-Route-{Value}
 
-Atribut [ASP-Route-{Value}](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.RouteValues*) povoluje předponu trasy se zástupnými znaky. Jakákoli hodnota, která je `{value}` v zástupném symbolu, se interpretuje jako potenciální parametr trasy. Pokud se výchozí trasa nenajde, připojí se tato předpona trasy k vygenerovanému `href` atributu jako parametr požadavku a hodnota. V opačném případě je nahrazena šablonou směrování.
+Atribut [ASP-Route-{Value}](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.RouteValues*) povoluje předponu trasy se zástupnými znaky. Jakákoli hodnota, která je v `{value}` zástupném symbolu, se interpretuje jako potenciální parametr trasy. Pokud se výchozí trasa nenajde, připojí se tato předpona trasy k vygenerovanému `href` atributu jako parametr požadavku a hodnota. V opačném případě je nahrazena šablonou směrování.
 
 Vezměte v úvahu následující akci kontroleru:
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Controllers/BuiltInTagController.cs?name=snippet_AnchorTagHelperAction)]
 
-S výchozí šablonou směrování definovanou při *spuštění. Nakonfigurujte*:
+S výchozí šablonou směrování definovanou v *Startup.Configurovat*:
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_UseMvc&highlight=8-10)]
 
@@ -95,7 +97,7 @@ Zobrazení MVC používá model, který je poskytován akcí, následovně:
 </html>
 ```
 
-Byl spárován `{id?}` zástupný symbol výchozí trasy. Generovaný kód HTML:
+`{id?}`Byl spárován zástupný symbol výchozí trasy. Generovaný kód HTML:
 
 ```html
 <a href="/Speaker/Detail/12">SpeakerId: 12</a>
@@ -115,21 +117,21 @@ Předpokládat, že předpona trasy není součástí vyhovující šablony smě
 </html>
 ```
 
-Následující kód HTML je vygenerován `speakerid` , protože nebyl nalezen v rámci odpovídajícího postupu:
+Následující kód HTML je vygenerován, protože nebyl `speakerid` nalezen v rámci odpovídajícího postupu:
 
 ```html
 <a href="/Speaker/Detail?speakerid=12">SpeakerId: 12</a>
 ```
 
-Pokud není `asp-controller` zadán `asp-action` parametr nebo, pak stejné výchozí zpracování je následováno v `asp-route` atributu.
+Pokud není `asp-controller` `asp-action` zadán parametr nebo, pak stejné výchozí zpracování je následováno v `asp-route` atributu.
 
 ### <a name="asp-route"></a>ASP – trasa
 
-Atribut [ASP-Route](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Route*) se používá k vytvoření adresy URL odkazující přímo na pojmenovanou trasu. Pomocí [atributů směrování](xref:mvc/controllers/routing#attribute-routing)může být trasa pojmenována tak, jak je `SpeakerController` znázorněna v a `Evaluations` použitá ve své akci:
+Atribut [ASP-Route](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Route*) se používá k vytvoření adresy URL odkazující přímo na pojmenovanou trasu. Pomocí [atributů směrování](xref:mvc/controllers/routing#attribute-routing)může být trasa pojmenována tak, jak je znázorněna v `SpeakerController` a použitá ve své `Evaluations` akci:
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Controllers/SpeakerController.cs?range=22-24)]
 
-V následujícím kódu odkazuje `asp-route` atribut na pojmenovanou trasu:
+V následujícím kódu `asp-route` odkazuje atribut na pojmenovanou trasu:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspRoute)]
 
@@ -139,7 +141,7 @@ Pomocník značek ukotvení generuje trasu přímo k této akci kontroleru pomoc
 <a href="/Speaker/Evaluations">Speaker Evaluations</a>
 ```
 
-Pokud `asp-controller` `asp-action` je zadána kromě `asp-route`, vygenerovaná trasa nemusí být to, co očekáváte. Chcete-li se vyhnout konfliktu `asp-route` trasy, neměli byste použít `asp-controller` s `asp-action` atributy a.
+Pokud `asp-controller` `asp-action` je zadána kromě `asp-route` , vygenerovaná trasa nemusí být to, co očekáváte. Chcete-li se vyhnout konfliktu trasy, `asp-route` neměli byste použít `asp-controller` s `asp-action` atributy a.
 
 ### <a name="asp-all-route-data"></a>ASP-All-Route-data
 
@@ -155,7 +157,7 @@ Předchozí kód generuje následující kód HTML:
 <a href="/Speaker/EvaluationsCurrent?speakerId=11&currentYear=true">Speaker Evaluations</a>
 ```
 
-`asp-all-route-data` Slovník je sloučený tak, aby vytvořil QueryString splnění požadavků na přetíženou `Evaluations` akci:
+`asp-all-route-data`Slovník je sloučený tak, aby vytvořil QueryString splnění požadavků na přetíženou `Evaluations` akci:
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Controllers/SpeakerController.cs?range=26-30)]
 
@@ -177,7 +179,7 @@ Značky hash jsou užitečné při sestavování aplikací na straně klienta. J
 
 ### <a name="asp-area"></a>ASP – oblast
 
-Atribut [Area ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Area*) nastavuje název oblasti použitý k nastavení příslušné trasy. V následujících příkladech je znázorněno, `asp-area` jak atribut způsobuje přemapování tras.
+Atribut [Area ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Area*) nastavuje název oblasti použitý k nastavení příslušné trasy. V následujících příkladech je znázorněno, jak `asp-area` atribut způsobuje přemapování tras.
 
 #### <a name="usage-in-razor-pages"></a>Použití na Razor stránkách
 
@@ -195,7 +197,7 @@ Vezměte v úvahu následující hierarchii adresářů:
         * *Index.cshtml.cs*
   * **Stránky**
 
-Značka, na kterou se odkazuje na stránku *indexu* Razor oblasti *relací* :
+Značka, na kterou se odkazuje na stránku *indexu* oblasti *relací* Razor :
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspAreaRazorPages)]
 
@@ -206,10 +208,10 @@ Generovaný kód HTML:
 ```
 
 > [!TIP]
-> Chcete-li podporovat oblasti Razor v aplikaci Pages, proveďte jednu z následujících `Startup.ConfigureServices`akcí:
+> Chcete-li podporovat oblasti v Razor aplikaci Pages, proveďte jednu z následujících `Startup.ConfigureServices` akcí:
 >
 > * Nastavte [verzi kompatibility](xref:mvc/compatibility-version) na 2,1 nebo novější.
-> * Vlastnost [RazorPagesOptions. AllowAreas](xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.AllowAreas*) nastavte na `true`:
+> * Vlastnost [RazorPagesOptions. AllowAreas](xref:Microsoft.AspNetCore.Mvc.RazorPages.RazorPagesOptions.AllowAreas*) nastavte na `true` :
 >
 >   [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_AllowAreas)]
 
@@ -241,13 +243,13 @@ Generovaný kód HTML:
 ```
 
 > [!TIP]
-> Aby bylo možné podporovat oblasti v aplikaci MVC, šablona trasy musí zahrnovat odkaz na oblast, pokud existuje. Tato šablona je reprezentovaná druhým parametrem volání `routes.MapRoute` metody při *spuštění. konfigurovat*:
+> Aby bylo možné podporovat oblasti v aplikaci MVC, šablona trasy musí zahrnovat odkaz na oblast, pokud existuje. Tato šablona je reprezentovaná druhým parametrem `routes.MapRoute` volání metody v *Startup.Configurovat*:
 >
 > [!code-csharp[](samples/TagHelpersBuiltIn/Startup.cs?name=snippet_UseMvc&highlight=5)]
 
 ### <a name="asp-protocol"></a>protokol ASP
 
-Atribut [ASP-Protocol](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Protocol*) je určen pro určení protokolu (například `https`) v adrese URL. Příklad:
+Atribut [ASP-Protocol](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Protocol*) je určen pro určení protokolu (například `https` ) v adrese URL. Například:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspProtocol)]
 
@@ -261,7 +263,7 @@ Název hostitele v příkladu je localhost. Pomocník značek ukotvení použív
 
 ### <a name="asp-host"></a>ASP – hostitel
 
-Atribut [Host ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Host*) slouží k zadání názvu hostitele v adrese URL. Příklad:
+Atribut [Host ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Host*) slouží k zadání názvu hostitele v adrese URL. Například:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspHost)]
 
@@ -273,7 +275,7 @@ Generovaný kód HTML:
 
 ### <a name="asp-page"></a>ASP – stránka
 
-Atribut [stránky ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Page*) se používá se Razor stránkami. Použijte ho k nastavení hodnoty `href` atributu kotvicí značky na konkrétní stránku. Předpona názvu stránky s lomítkem ("/") vytvoří adresu URL.
+Atribut [stránky ASP](xref:Microsoft.AspNetCore.Mvc.TagHelpers.AnchorTagHelper.Page*) se používá se Razor stránkami. Použijte ho k nastavení hodnoty atributu kotvicí značky `href` na konkrétní stránku. Předpona názvu stránky s lomítkem ("/") vytvoří adresu URL.
 
 Následující ukázka odkazuje na stránku účastníka Razor :
 
@@ -285,7 +287,7 @@ Generovaný kód HTML:
 <a href="/Attendee">All Attendees</a>
 ```
 
-`asp-page` Atribut se vzájemně vylučuje pomocí `asp-action` atributů `asp-route`, `asp-controller`a. `asp-page` Lze však použít s `asp-route-{value}` pro řízení směrování, jak ukazuje následující kód:
+`asp-page`Atribut se vzájemně vylučuje pomocí `asp-route` atributů, a `asp-controller` `asp-action` . Lze však `asp-page` použít s `asp-route-{value}` pro řízení směrování, jak ukazuje následující kód:
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspPageAspRouteId)]
 
@@ -303,7 +305,7 @@ Vezměte v úvahu následující obslužnou rutinu stránky:
 
 [!code-csharp[](samples/TagHelpersBuiltIn/Pages/Attendee.cshtml.cs?name=snippet_OnGetProfileHandler)]
 
-Přidružená označení odkazujícího modelu stránky k obslužné `OnGetProfile` rutině stránky Poznámka: `On<Verb>` Předpona názvu metody obslužné rutiny stránky je vynechána v `asp-page-handler` hodnotě atributu. Je-li metoda asynchronní, je `Async` přípona vynechána.
+Přidružená označení odkazujícího modelu stránky k `OnGetProfile` obslužné rutině stránky Poznámka: `On<Verb>` Předpona názvu metody obslužné rutiny stránky je vynechána v `asp-page-handler` hodnotě atributu. Je-li metoda asynchronní, `Async` je přípona vynechána.
 
 [!code-cshtml[](samples/TagHelpersBuiltIn/Views/Home/Index.cshtml?name=snippet_AspPageHandler)]
 

@@ -1,24 +1,26 @@
 ---
 title: Implementace webového serveru v ASP.NET Core
 author: rick-anderson
-description: Seznamte se s webovými servery Kestrel a HTTP. sys pro ASP.NET Core. Naučte se, jak vybrat server a kdy použít reverzní proxy server.
+description: Vyhledejte webové servery Kestrel a HTTP.sys pro ASP.NET Core. Naučte se, jak vybrat server a kdy použít reverzní proxy server.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 11/07/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/servers/index
-ms.openlocfilehash: 9d57fcd5883a869c5421b88321d4a279f3f938c9
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 6ddb786b8f03a7256aeca6605c48467a297b0855
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452145"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408744"
 ---
 # <a name="web-server-implementations-in-aspnet-core"></a>Implementace webového serveru v ASP.NET Core
 
@@ -52,7 +54,7 @@ ASP.NET Core dodávána s následujícím:
 
 * [Kestrel Server](xref:fundamentals/servers/kestrel) je výchozí implementace serveru HTTP pro různé platformy.
 * HTTP server IIS je [vnitroprocesové Server](#hosting-models) pro službu IIS.
-* [Http. sys Server](xref:fundamentals/servers/httpsys) je server http pouze pro systém Windows založený na [ovladači jádra HTTP. sys a rozhraní API serveru http](/windows/desktop/Http/http-api-start-page).
+* [HTTP.sys Server](xref:fundamentals/servers/httpsys) je server http, který je pouze Windows, založený na [ovladači jádraHTTP.sys a rozhraní API serveru http](/windows/desktop/Http/http-api-start-page).
 
 Při použití [služby IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)aplikace buď běží:
 
@@ -91,7 +93,7 @@ ASP.NET Core se dodává se [serverem Kestrel](xref:fundamentals/servers/kestrel
 ASP.NET Core dodávána s následujícím:
 
 * [Kestrel Server](xref:fundamentals/servers/kestrel) je výchozím serverem HTTP pro různé platformy.
-* [Http. sys Server](xref:fundamentals/servers/httpsys) je server http pouze pro systém Windows založený na [ovladači jádra HTTP. sys a rozhraní API serveru http](/windows/desktop/Http/http-api-start-page).
+* [HTTP.sys Server](xref:fundamentals/servers/httpsys) je server http, který je pouze Windows, založený na [ovladači jádraHTTP.sys a rozhraní API serveru http](/windows/desktop/Http/http-api-start-page).
 
 Při použití [služby IIS](/iis/get-started/introduction-to-iis/introduction-to-iis-architecture) nebo [IIS Express](/iis/extensions/introduction-to-iis-express/iis-express-overview)aplikace běží v procesu odděleně od pracovního procesu služby IIS (*mimo proces*) se [serverem Kestrel](#kestrel).
 
@@ -101,7 +103,7 @@ Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Cor
 
 ![Modul ASP.NET Core](_static/ancm-outofprocess.png)
 
-Požadavky přicházející z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
+Požadavky přicházející z webu do ovladače HTTP.sys režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
 
 Modul Určuje port prostřednictvím proměnné prostředí při spuštění a [Služba IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) nakonfiguruje server, na kterém má naslouchat `http://localhost:{port}` . Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS, takže požadavky se předávají přes protokol HTTP i v případě, že je služba IIS prostřednictvím protokolu HTTPS přijímá.
 
@@ -134,19 +136,19 @@ Informace o tom, jak používat Apache v systému Linux jako reverzní proxy ser
 
 ## <a name="httpsys"></a>HTTP.sys
 
-Pokud ASP.NET Core aplikace běží na Windows, HTTP. sys je alternativou k Kestrel. Kestrel se obecně doporučuje pro nejlepší výkon. HTTP. sys se dá použít ve scénářích, kde se aplikace zveřejňuje na internetu a požadované funkce podporuje HTTP. sys, ale ne Kestrel. Další informace naleznete v tématu <xref:fundamentals/servers/httpsys>.
+Pokud ASP.NET Core aplikace běží na Windows, HTTP.sys je alternativou k Kestrel. Kestrel se obecně doporučuje pro nejlepší výkon. HTTP.sys lze použít ve scénářích, kde je aplikace zpřístupněna pro Internet a požadované funkce jsou podporovány HTTP.sys ale nikoli Kestrel. Další informace naleznete v tématu <xref:fundamentals/servers/httpsys>.
 
-![HTTP. sys komunikuje přímo s internetem.](httpsys/_static/httpsys-to-internet.png)
+![HTTP.sys komunikuje přímo s internetem.](httpsys/_static/httpsys-to-internet.png)
 
-HTTP. sys se dá použít taky pro aplikace, které se zveřejňují jenom pro interní síť.
+HTTP.sys lze také použít pro aplikace, které jsou zpřístupněny pouze interní síti.
 
-![HTTP. sys komunikuje přímo s interní sítí.](httpsys/_static/httpsys-to-internal.png)
+![HTTP.sys komunikuje přímo s interní sítí.](httpsys/_static/httpsys-to-internal.png)
 
-Pokyny k konfiguraci HTTP. sys najdete v tématu <xref:fundamentals/servers/httpsys> .
+Pokyny ke konfiguraci HTTP.sys najdete v tématu <xref:fundamentals/servers/httpsys> .
 
 ## <a name="aspnet-core-server-infrastructure"></a>Serverová infrastruktura ASP.NET Core
 
-<xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>K dispozici v `Startup.Configure` metodě se zveřejňuje <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ServerFeatures> vlastnost typu <xref:Microsoft.AspNetCore.Http.Features.IFeatureCollection> . Kestrel a HTTP. sys zveřejňují jenom jednu funkci, <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> ale různé implementace serveru můžou vystavovat další funkce.
+<xref:Microsoft.AspNetCore.Builder.IApplicationBuilder>K dispozici v `Startup.Configure` metodě se zveřejňuje <xref:Microsoft.AspNetCore.Builder.IApplicationBuilder.ServerFeatures> vlastnost typu <xref:Microsoft.AspNetCore.Http.Features.IFeatureCollection> . Kestrel a HTTP.sys zveřejňují jenom jednu funkci, <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> ale jiné implementace serveru můžou vystavovat další funkce.
 
 `IServerAddressesFeature`dá se použít k zjištění, který port má implementace serveru vázána za běhu.
 
@@ -162,9 +164,9 @@ Server se spustí, když integrované vývojové prostředí (IDE) nebo editor s
 * [Visual Studio Code](https://code.visualstudio.com/): aplikace a Server jsou spuštěné nástrojem [omnisharp](https://github.com/OmniSharp/omnisharp-vscode), který aktivuje ladicí program CoreCLR.
 * [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/): aplikace a Server jsou spouštěny pomocí [ladicího programu mono měkkého režimu](https://www.mono-project.com/docs/advanced/runtime/docs/soft-debugger/).
 
-Při spuštění aplikace z příkazového řádku ve složce projektu spustí [dotnet spuštění](/dotnet/core/tools/dotnet-run) aplikace a serveru (jenom Kestrel a http. sys). Konfigurace je určena `-c|--configuration` možností, která je nastavena na hodnotu `Debug` (výchozí) nebo `Release` .
+Při spuštění aplikace z příkazového řádku ve složce projektu spustí [dotnet spuštění](/dotnet/core/tools/dotnet-run) aplikace a serveru (jenom Kestrel a HTTP.sys). Konfigurace je určena `-c|--configuration` možností, která je nastavena na hodnotu `Debug` (výchozí) nebo `Release` .
 
-Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s `dotnet run` nebo s ladicím programem, který je integrovaný do nástrojů, jako je například Visual Studio. Pokud jsou v souboru *launchSettings. JSON* přítomné spouštěcí profily, použijte `--launch-profile {PROFILE NAME}` možnost s `dotnet run` příkazem nebo vyberte profil v aplikaci Visual Studio. Další informace najdete v tématu věnovaném vytváření balíčků [dotnet](/dotnet/core/tools/dotnet-run) a [balíčku pro distribuci .NET Core](/dotnet/core/build/distribution-packaging).
+*launchSettings.jsv* souboru poskytuje konfiguraci při spouštění aplikace pomocí `dotnet run` nebo s ladicím programem integrovaným do nástrojů, jako je například Visual Studio. Pokud jsou v *launchSettings.jssouboru k* dispozici profily spuštění, použijte `--launch-profile {PROFILE NAME}` možnost s `dotnet run` příkazem nebo vyberte profil v aplikaci Visual Studio. Další informace najdete v tématu věnovaném vytváření balíčků [dotnet](/dotnet/core/tools/dotnet-run) a [balíčku pro distribuci .NET Core](/dotnet/core/build/distribution-packaging).
 
 ## <a name="http2-support"></a>Podpora HTTP/2
 
@@ -180,7 +182,7 @@ Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s
   * Cílová architektura: .NET Core 2,2 nebo novější
 * [HTTP.sys](xref:fundamentals/servers/httpsys#http2-support)
   * Windows Server 2016/Windows 10 nebo novější
-  * Cílová architektura: neplatí pro nasazení HTTP. sys.
+  * Cílová architektura: neplatí pro nasazení HTTP.sys.
 * [Služba IIS (v rámci procesu)](xref:host-and-deploy/iis/index#http2-support)
   * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
   * Cílová architektura: .NET Core 2,2 nebo novější
@@ -197,7 +199,7 @@ Soubor *launchSettings. JSON* poskytuje konfiguraci při spouštění aplikace s
 
 * [HTTP.sys](xref:fundamentals/servers/httpsys#http2-support)
   * Windows Server 2016/Windows 10 nebo novější
-  * Cílová architektura: neplatí pro nasazení HTTP. sys.
+  * Cílová architektura: neplatí pro nasazení HTTP.sys.
 * [Služba IIS (mimo jiné procesy)](xref:host-and-deploy/iis/index#http2-support)
   * Windows Server 2016/Windows 10 nebo novější; IIS 10 nebo novější
   * Veřejná připojení hraničních serverů používají HTTP/2, ale připojení reverzního proxy serveru k Kestrel používá protokol HTTP/1.1.

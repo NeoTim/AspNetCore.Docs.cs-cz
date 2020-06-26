@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/policyschemes
-ms.openlocfilehash: ddedf62c5e8363bd93c9948fd2d3418abc566539
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a8bde9633f06f41ebcb55480eb2322544db4b4da
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767314"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408757"
 ---
 # <a name="policy-schemes-in-aspnet-core"></a>Schémata zásad v ASP.NET Core
 
@@ -25,7 +27,7 @@ Schémata zásad ověřování usnadňují použití jediného logického schém
 * Snadné přeposílání jakékoli akce ověřování do jiného schématu.
 * Dynamické směrování na základě požadavku.
 
-Všechna schémata ověřování, která používají <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> odvozená a přidružená [\<AuthenticationHandler TOptions>](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
+Všechna schémata ověřování, která používají odvozená <xref:Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions> a přidružená [AuthenticationHandler \<TOptions> ](/dotnet/api/microsoft.aspnetcore.authentication.authenticationhandler-1):
 
 * Jsou automatická schémata zásad v ASP.NET Core 2,1 a novějších.
 * Dá se povolit prostřednictvím konfigurace možností schématu.

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/windows-service
-ms.openlocfilehash: af0c3836362233e41a79e72bd28b4a331e9763bc
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 61280a82fc46116b3ecf057a00cf3f78f0af8951
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106478"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408458"
 ---
 # <a name="host-aspnet-core-in-a-windows-service"></a>ASP.NET Core hostitele ve službě systému Windows
 
@@ -53,7 +55,7 @@ Aplikace vyžaduje odkaz na balíček pro [Microsoft. Extensions. Hosting. Windo
 * Povolí protokolování do protokolu událostí:
   * Název aplikace se používá jako výchozí název zdroje.
   * Výchozí úroveň protokolování je *Upozornění* nebo vyšší pro aplikaci na základě šablony ASP.NET Core, která volá `CreateDefaultBuilder` k sestavení hostitele.
-  * Přepište výchozí úroveň protokolu pomocí `Logging:EventLog:LogLevel:Default` klíče v souboru *appSettings. JSON* / *appSettings. { Environment}. JSON* nebo jiný poskytovatel konfigurace.
+  * Přepište výchozí úroveň protokolu `Logging:EventLog:LogLevel:Default` klíčem v *appsettings.jsv* / *appSettings. { Environment}. JSON* nebo jiný poskytovatel konfigurace.
   * Pouze správci mohou vytvářet nové zdroje událostí. Když zdroj události nejde vytvořit pomocí názvu aplikace, zaprotokoluje se upozornění na zdroj *aplikace* a protokoly událostí jsou zakázané.
 
 V `CreateHostBuilder` *program.cs*:
@@ -93,7 +95,7 @@ Pokud služba spouští pouze úlohy na pozadí (například [hostované služby
 
 Nasazení závislé na rozhraní (FDD) spoléhá na přítomnost sdílené verze .NET Core v rámci systému v cílovém systému. Pokud je FDD scénář přijatý podle pokynů v tomto článku, sada SDK vytvoří spustitelný soubor (*. exe*), který se nazývá *spustitelný soubor závislý na rozhraní*.
 
-Pokud používáte [webovou sadu SDK](#sdk), soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci služby systému Windows zapotřebí. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
+Pokud používáte [webovou sadu SDK](#sdk), soubor *web.config* , který se obvykle vyrábí při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytváření souboru *web.config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
 
 ```xml
 <PropertyGroup>
@@ -248,9 +250,9 @@ K vyhledání prostředků aplikace použijte [IHostEnvironment. ContentRootPath
 
 Když aplikace běží jako služba, nastaví na <xref:Microsoft.Extensions.Hosting.WindowsServiceLifetimeHostBuilderExtensions.UseWindowsService*> <xref:Microsoft.Extensions.Hosting.IHostEnvironment.ContentRootPath> [AppContext. BaseDirectory](xref:System.AppContext.BaseDirectory).
 
-Soubory výchozích nastavení aplikace, *appSettings. JSON* a *appSettings. { Environment}. JSON*jsou načteny z kořenu obsahu aplikace voláním [CreateDefaultBuilder během vytváření hostitele](xref:fundamentals/host/generic-host#set-up-a-host).
+Soubory výchozích nastavení aplikace *appsettings.jsv* a *appSettings. { Environment}. JSON*jsou načteny z kořenu obsahu aplikace voláním [CreateDefaultBuilder během vytváření hostitele](xref:fundamentals/host/generic-host#set-up-a-host).
 
-Pro jiné soubory nastavení načtené vývojářským kódem v nástroji <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> není nutné volat <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> . V následujícím příkladu soubor *custom_settings. JSON* existuje v kořenu obsahu aplikace a je načtený bez explicitního nastavení základní cesty:
+Pro jiné soubory nastavení načtené vývojářským kódem v nástroji <xref:Microsoft.Extensions.Hosting.HostBuilder.ConfigureAppConfiguration*> není nutné volat <xref:Microsoft.Extensions.Configuration.FileConfigurationExtensions.SetBasePath*> . V následujícím příkladu *custom_settings.jsv* souboru existuje v kořenu obsahu aplikace a je načten bez explicitního nastavení základní cesty:
 
 [!code-csharp[](windows-service/samples_snapshot/CustomSettingsExample.cs?highlight=13)]
 
@@ -297,7 +299,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Odstraňte složky *bin* a *obj* .
 1. Pomocí příkazu [dotnet All--Clear](/dotnet/core/tools/dotnet-nuget-locals) z příkazového prostředí vymažte mezipaměť balíčku.
 
-   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear` . *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
+   Mazání mezipamětí balíčků lze také provést pomocí nástroje [nuget.exe](https://www.nuget.org/downloads) a provedení příkazu `nuget locals all -clear` . *nuget.exe* není sada odinstalována s desktopovým operačním systémem Windows a je nutné ji získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
 
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
@@ -367,7 +369,7 @@ Pokud chcete testovat a ladit spouštění mimo službu, přidejte kód, který 
 
 Vzhledem k tomu, že [zprostředkovatel konfigurace příkazového řádku](xref:fundamentals/configuration/index#command-line-configuration-provider) vyžaduje páry název-hodnota pro argumenty příkazového řádku, `--console` přepínač je odebrán z argumentů před <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> přijetím argumentů.
 
-Chcete-li zapisovat do protokolu událostí systému Windows, přidejte zprostředkovatele EventLog do <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*> . Nastavte úroveň protokolování pomocí `Logging:LogLevel:Default` klíče v *appSettings. Soubor produkčního. JSON* .
+Chcete-li zapisovat do protokolu událostí systému Windows, přidejte zprostředkovatele EventLog do <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*> . Nastavte úroveň protokolování pomocí `Logging:LogLevel:Default` klíče v *appsettings.Production.jsv* souboru.
 
 V následujícím příkladu z ukázkové aplikace `RunAsCustomService` je volána místo <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> pro zpracování událostí životního cyklu v aplikaci. Další informace naleznete v části [popisovač spouštění a zastavování událostí](#handle-starting-and-stopping-events) .
 
@@ -397,7 +399,7 @@ Nasazení závislé na rozhraní (FDD) spoléhá na přítomnost sdílené verze
 
 Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) ( [\<RuntimeIdentifier>](/dotnet/core/tools/csproj#runtimeidentifier) ) obsahuje cílovou architekturu. V následujícím příkladu je identifikátor RID nastaven na `win7-x64` . `<SelfContained>`Vlastnost je nastavena na hodnotu `false` . Tyto vlastnosti instruují sadu SDK, aby vygenerovala spustitelný soubor (*. exe*) pro Windows a aplikaci, která závisí na sdílené platformě .NET Core.
 
-Soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
+Soubor *web.config* , který se obvykle vyrábí při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytváření souboru *web.config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
 
 ```xml
 <PropertyGroup>
@@ -631,7 +633,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Odstraňte složky *bin* a *obj* .
 1. Pomocí příkazu [dotnet All--Clear](/dotnet/core/tools/dotnet-nuget-locals) z příkazového prostředí vymažte mezipaměť balíčku.
 
-   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear` . *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
+   Mazání mezipamětí balíčků lze také provést pomocí nástroje [nuget.exe](https://www.nuget.org/downloads) a provedení příkazu `nuget locals all -clear` . *nuget.exe* není sada odinstalována s desktopovým operačním systémem Windows a je nutné ji získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
 
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.
@@ -701,7 +703,7 @@ Pokud chcete testovat a ladit spouštění mimo službu, přidejte kód, který 
 
 Vzhledem k tomu, že [zprostředkovatel konfigurace příkazového řádku](xref:fundamentals/configuration/index#command-line-configuration-provider) vyžaduje páry název-hodnota pro argumenty příkazového řádku, `--console` přepínač je odebrán z argumentů před <xref:Microsoft.AspNetCore.WebHost.CreateDefaultBuilder*> přijetím argumentů.
 
-Chcete-li zapisovat do protokolu událostí systému Windows, přidejte zprostředkovatele EventLog do <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*> . Nastavte úroveň protokolování pomocí `Logging:LogLevel:Default` klíče v *appSettings. Soubor produkčního. JSON* .
+Chcete-li zapisovat do protokolu událostí systému Windows, přidejte zprostředkovatele EventLog do <xref:Microsoft.AspNetCore.Hosting.WebHostBuilder.ConfigureLogging*> . Nastavte úroveň protokolování pomocí `Logging:LogLevel:Default` klíče v *appsettings.Production.jsv* souboru.
 
 V následujícím příkladu z ukázkové aplikace `RunAsCustomService` je volána místo <xref:Microsoft.AspNetCore.Hosting.WindowsServices.WebHostWindowsServiceExtensions.RunAsService*> pro zpracování událostí životního cyklu v aplikaci. Další informace naleznete v části [popisovač spouštění a zastavování událostí](#handle-starting-and-stopping-events) .
 
@@ -733,7 +735,7 @@ Identifikátor prostředí Windows [runtime (RID)](/dotnet/core/rid-catalog) ( [
 
 `<UseAppHost>`Vlastnost je nastavena na hodnotu `true` . Tato vlastnost poskytuje službě aktivační cestu (spustitelný soubor *. exe*) pro FDD.
 
-Soubor *Web. config* , který je obvykle vytvořen při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytvoření souboru *Web. config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
+Soubor *web.config* , který se obvykle vyrábí při publikování aplikace ASP.NET Core, není pro aplikaci pro Windows nezbytný. Chcete-li zakázat vytváření souboru *web.config* , přidejte `<IsTransformWebConfigDisabled>` vlastnost nastavenou na `true` .
 
 ```xml
 <PropertyGroup>
@@ -968,7 +970,7 @@ Funkční aplikace může po upgradu .NET Core SDK ve vývojovém počítači ne
 1. Odstraňte složky *bin* a *obj* .
 1. Pomocí příkazu [dotnet All--Clear](/dotnet/core/tools/dotnet-nuget-locals) z příkazového prostředí vymažte mezipaměť balíčku.
 
-   Mazání mezipamětí balíčků lze také provést pomocí nástroje [NuGet. exe](https://www.nuget.org/downloads) a provedením příkazu `nuget locals all -clear` . *NuGet. exe* není sada instalovaná instalace s desktopovým operačním systémem Windows a musí se získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
+   Mazání mezipamětí balíčků lze také provést pomocí nástroje [nuget.exe](https://www.nuget.org/downloads) a provedení příkazu `nuget locals all -clear` . *nuget.exe* není sada odinstalována s desktopovým operačním systémem Windows a je nutné ji získat samostatně z [webu NuGet](https://www.nuget.org/downloads).
 
 1. Obnovte a znovu sestavte projekt.
 1. Před opětovným nasazením aplikace odstraňte všechny soubory ve složce pro nasazení na serveru.

@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 08/14/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/identity-enable-qrcodes
-ms.openlocfilehash: 42ddddeaa329ac5ff5b2b40cbf9ebffa68f6d4cf
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 4ed5a550b5d3ca00179ae0492bf61e7fe91e324c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774428"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408770"
 ---
 # <a name="enable-qr-code-generation-for-totp-authenticator-apps-in-aspnet-core"></a>Povolit generování kódu QR pro aplikace TOTP Authenticator v ASP.NET Core
 
@@ -36,22 +38,22 @@ K dvojúrovňovému ověřování nedochází pomocí externího poskytovatele o
 
 ## <a name="adding-qr-codes-to-the-2fa-configuration-page"></a>Přidávání kódů QR do konfigurační stránky 2FA
 
-Tyto pokyny používají *qrcode. js* z https://davidshimjs.github.io/qrcodejs/ úložiště.
+Tyto pokyny používají *qrcode.js* z https://davidshimjs.github.io/qrcodejs/ úložiště.
 
-* Stáhněte [knihovnu JavaScript qrcode. js](https://davidshimjs.github.io/qrcodejs/) do `wwwroot\lib` složky v projektu.
+* Stáhněte [knihovnuqrcode.js JavaScript](https://davidshimjs.github.io/qrcodejs/) do `wwwroot\lib` složky v projektu.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1"
 
-* Podle [pokynů v Identity části](xref:security/authentication/scaffold-identity) generátory generujte */areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*.
-* V */areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml*vyhledejte `Scripts` část na konci souboru:
+* Podle [ Identity pokynů v části](xref:security/authentication/scaffold-identity) generátory generujte */areas/ Identity /Pages/Account/Manage/EnableAuthenticator.cshtml*.
+* V */areas/ Identity /Pages/Account/Manage/EnableAuthenticator.cshtml*vyhledejte `Scripts` část na konci souboru:
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-* Na *stránce stránky/účet/spravovat/EnableAuthenticator. cshtml* (Razor stránky) nebo *zobrazení/Správa/EnableAuthenticator. cshtml* (MVC) vyhledejte `Scripts` část na konci souboru:
+* Na *stránce stránky/účet/spravovat/EnableAuthenticator. cshtml* ( Razor stránky) nebo *zobrazení/Správa/EnableAuthenticator. cshtml* (MVC) vyhledejte `Scripts` část na konci souboru:
 
 ::: moniker-end
 
@@ -91,13 +93,13 @@ Spusťte aplikaci a ujistěte se, že je možné kontrolovat kód QR a ověřit 
 
 ::: moniker range=">= aspnetcore-2.1"
 
-Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu. Můžete ji změnit hledáním `GenerateQrCodeUri(string email, string unformattedKey)` metody v */areas/Identity/Pages/Account/Manage/EnableAuthenticator.cshtml.cs*.
+Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu. Můžete ji změnit hledáním `GenerateQrCodeUri(string email, string unformattedKey)` metody v */areas/ Identity /Pages/Account/Manage/EnableAuthenticator.cshtml.cs*.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu. Můžete ji `GenerateQrCodeUri(string email, string unformattedKey)` změnit hledáním metody v souboru *Pages/Account/Manage/EnableAuthenticator. cshtml. cs* (Razor Pages) nebo *Controller/ManageController. cs* (MVC).
+Název lokality v kódu QR je pořízen z názvu projektu, který jste zvolili při počátečním vytváření projektu. Můžete ji změnit hledáním `GenerateQrCodeUri(string email, string unformattedKey)` metody v souboru *Pages/Account/Manage/EnableAuthenticator. cshtml. cs* ( Razor Pages) nebo *Controller/ManageController. cs* (MVC).
 
 ::: moniker-end
 
@@ -116,7 +118,7 @@ private string GenerateQrCodeUri(string email, string unformattedKey)
 }
 ```
 
-Druhý parametr ve volání je název vašeho `string.Format` webu, který je pořízen z názvu vašeho řešení. Dá se změnit na libovolnou hodnotu, ale musí být vždycky zakódovaný URL.
+Druhý parametr ve volání `string.Format` je název vašeho webu, který je pořízen z názvu vašeho řešení. Dá se změnit na libovolnou hodnotu, ale musí být vždycky zakódovaný URL.
 
 ## <a name="using-a-different-qr-code-library"></a>Použití jiné knihovny kódu QR
 

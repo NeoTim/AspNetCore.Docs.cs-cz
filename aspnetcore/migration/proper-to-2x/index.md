@@ -6,17 +6,19 @@ ms.author: scaddie
 ms.date: 10/18/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: migration/proper-to-2x/index
-ms.openlocfilehash: 985c08e0994314cec8d52a6651681c93aca96514
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 59c513038d41779a4cf56a70045f9e72f8008d28
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766508"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407717"
 ---
 # <a name="migrate-from-aspnet-to-aspnet-core"></a>Migrace z ASP.NET na ASP.NET Core
 
@@ -60,7 +62,7 @@ ASP.NET Core zavádí nový mechanismus pro zavedení aplikace. Vstupním bodem 
 
 [!code-csharp[](samples/globalasax-sample.cs)]
 
-Tento přístup Couples aplikaci a server, na který je nasazený, způsobem, který je v konfliktu s implementací. Ve snaze oddělit se [Owin](https://owin.org/) zavedla k tomu, aby poskytovala čisticí způsob, jak používat víc platforem dohromady. OWIN poskytuje kanál pro přidání pouze těch potřebných modulů. Hostující prostředí přijímá [spouštěcí](xref:fundamentals/startup) funkci ke konfiguraci služeb a kanálu požadavků aplikace. `Startup`registruje sadu middlewaru s aplikací. Pro každý požadavek aplikace volá každou součást middlewaru s ukazatelem na hlavní seznam s ukazatelem na existující sadu obslužných rutin. Každá součást middleware může do kanálu zpracování požadavků přidat jednu nebo více obslužných rutin. To je dosaženo vrácením odkazu na obslužnou rutinu, která je nového záhlaví seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužné rutiny v seznamu. V ASP.NET Core je `Startup`vstupním bodem aplikace a již nemusíte mít závislost na *Global. asax*. Při použití OWIN s .NET Framework použijte jako kanál něco podobného jako v následujícím tvaru:
+Tento přístup Couples aplikaci a server, na který je nasazený, způsobem, který je v konfliktu s implementací. Ve snaze oddělit se [Owin](https://owin.org/) zavedla k tomu, aby poskytovala čisticí způsob, jak používat víc platforem dohromady. OWIN poskytuje kanál pro přidání pouze těch potřebných modulů. Hostující prostředí přijímá [spouštěcí](xref:fundamentals/startup) funkci ke konfiguraci služeb a kanálu požadavků aplikace. `Startup`registruje sadu middlewaru s aplikací. Pro každý požadavek aplikace volá každou součást middlewaru s ukazatelem na hlavní seznam s ukazatelem na existující sadu obslužných rutin. Každá součást middleware může do kanálu zpracování požadavků přidat jednu nebo více obslužných rutin. To je dosaženo vrácením odkazu na obslužnou rutinu, která je nového záhlaví seznamu. Každá obslužná rutina zodpovídá za zapamatování a vyvolání další obslužné rutiny v seznamu. V ASP.NET Core je vstupním bodem aplikace `Startup` a již nemusíte mít závislost na *Global. asax*. Při použití OWIN s .NET Framework použijte jako kanál něco podobného jako v následujícím tvaru:
 
 [!code-csharp[](samples/webapi-owin.cs)]
 
@@ -70,7 +72,7 @@ ASP.NET Core používá podobný přístup, ale nespoléhá na OWIN k tomu, aby 
 
 [!code-csharp[](samples/program.cs)]
 
-`Startup`musí obsahovat `Configure` metodu. Do `Configure`kanálu přidejte potřebný middleware. V následujícím příkladu (z výchozí šablony webu) rozšiřující metody konfigurují kanál s podporou pro:
+`Startup`musí obsahovat `Configure` metodu. Do `Configure` kanálu přidejte potřebný middleware. V následujícím příkladu (z výchozí šablony webu) rozšiřující metody konfigurují kanál s podporou pro:
 
 - Chybové stránky
 - Striktní přenosová zabezpečení HTTP
@@ -86,7 +88,7 @@ Hostitel a aplikace se odlišily, což poskytuje flexibilitu přesunu na jinou p
 
 ## <a name="store-configurations"></a>Konfigurace úložiště
 
-ASP.NET podporuje ukládání nastavení. Toto nastavení se používá například pro podporu prostředí, do kterého byly aplikace nasazeny. Běžný postup je uložit všechny vlastní páry klíč-hodnota do `<appSettings>` části souboru *Web. config* :
+ASP.NET podporuje ukládání nastavení. Toto nastavení se používá například pro podporu prostředí, do kterého byly aplikace nasazeny. Běžný postup je uložit všechny vlastní páry klíč-hodnota do `<appSettings>` části souboru *Web.config* :
 
 [!code-xml[](samples/webconfig-sample.xml)]
 
@@ -94,7 +96,7 @@ Aplikace čtou tato nastavení pomocí `ConfigurationManager.AppSettings` kolekc
 
 [!code-csharp[](samples/read-webconfig.cs)]
 
-ASP.NET Core může ukládat konfigurační data pro aplikaci do libovolného souboru a načíst je jako součást zavádění middlewaru. Výchozím souborem použitým v šablonách projektu je *appSettings. JSON*:
+ASP.NET Core může ukládat konfigurační data pro aplikaci do libovolného souboru a načíst je jako součást zavádění middlewaru. Výchozí soubor, který se používá v šablonách projektu, je *appsettings.js*:
 
 [!code-json[](samples/appsettings-sample.json)]
 
@@ -122,11 +124,11 @@ Důležitým cílem při sestavování rozsáhlých škálovatelných aplikací 
 
 V aplikacích ASP.NET se vývojáři spoléhají na knihovnu třetí strany, která implementuje vkládání závislostí. Jedna taková knihovna je [Unity](https://github.com/unitycontainer/unity), kterou poskytují vzory Microsoftu & postupy.
 
-Příkladem nastavení injektáže závislosti s Unity je implementace `IDependencyResolver` , která zabalí: `UnityContainer`
+Příkladem nastavení injektáže závislosti s Unity je implementace `IDependencyResolver` , která zabalí `UnityContainer` :
 
 [!code-csharp[](samples/sample8.cs)]
 
-Vytvořte instanci své `UnityContainer`služby, Zaregistrujte svoji službu a nastavte překladač závislostí `HttpConfiguration` na novou instanci `UnityResolver` pro svůj kontejner:
+Vytvořte instanci své `UnityContainer` služby, Zaregistrujte svoji službu a nastavte překladač závislostí `HttpConfiguration` na novou instanci `UnityResolver` pro svůj kontejner:
 
 [!code-csharp[](samples/sample9.cs)]
 
@@ -149,14 +151,14 @@ Důležitou součástí vývoje webu je schopnost poskytovat statické prostřed
 
 V ASP.NET jsou statické soubory uloženy v různých adresářích a odkazovány v zobrazeních.
 
-V ASP.NET Core jsou statické soubory uloženy v kořenu "Web root" (*&lt;kořenový adresář&gt;obsahu/wwwroot*), pokud není nakonfigurováno jinak. Soubory jsou načteny do kanálu požadavků vyvoláním metody `UseStaticFiles` rozšíření z: `Startup.Configure`
+V ASP.NET Core jsou statické soubory uloženy v kořenu "Web root" (* &lt; kořenový adresář obsahu &gt; /wwwroot*), pokud není nakonfigurováno jinak. Soubory jsou načteny do kanálu požadavků vyvoláním `UseStaticFiles` metody rozšíření z `Startup.Configure` :
 
 [!code-csharp[](../../fundamentals/static-files/samples/1x/StartupStaticFiles.cs?highlight=3&name=snippet_ConfigureMethod)]
 
 > [!NOTE]
-> Pokud cílíte .NET Framework, nainstalujte balíček `Microsoft.AspNetCore.StaticFiles`NuGet.
+> Pokud cílíte .NET Framework, nainstalujte balíček NuGet `Microsoft.AspNetCore.StaticFiles` .
 
-Například prostředek obrázku ve složce *wwwroot/images* je přístupný prohlížeči v umístění, jako je například `http://<app>/images/<imageFileName>`.
+Například prostředek obrázku ve složce *wwwroot/images* je přístupný prohlížeči v umístění, jako je například `http://<app>/images/<imageFileName>` .
 
 > [!NOTE]
 > Podrobnější informace o obsluze statických souborů v ASP.NET Core najdete v tématu [statické soubory](xref:fundamentals/static-files).
@@ -167,7 +169,7 @@ Například prostředek obrázku ve složce *wwwroot/images* je přístupný pro
 
 ## <a name="partial-app-migration"></a>Migrace částečné aplikace
 
-Jedním z možností migrace částečné aplikace je vytvoření podaplikace služby IIS a přesunutí určitých tras z ASP.NET 4. x na ASP.NET Core a zachování struktury adresy URL aplikace. Zvažte například strukturu adresy URL aplikace ze souboru *ApplicationHost. config* :
+Jedním z možností migrace částečné aplikace je vytvoření podaplikace služby IIS a přesunutí určitých tras z ASP.NET 4. x na ASP.NET Core a zachování struktury adresy URL aplikace. Zvažte například strukturu adresy URL aplikace ze souboru *applicationHost.config* :
 
 ```xml
 <sites>

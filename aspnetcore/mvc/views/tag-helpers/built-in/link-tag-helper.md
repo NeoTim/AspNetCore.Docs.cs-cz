@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 09/24/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/builtin-th/link-tag-helper
-ms.openlocfilehash: 1efd7c1a63baea4312a4a01cd9cd9c7582375d97
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: c767ff4c2a1e0d5d10ccb3ff855126f541c04f64
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777351"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408237"
 ---
 # <a name="link-tag-helper-in-aspnet-core"></a>Pomocná pomůcka značky v ASP.NET Core
 
@@ -63,7 +65,7 @@ Název vlastnosti CSS, který má být použit pro záložní test. Další info
 
 Hodnota vlastnosti CSS, která má být použita pro záložní test. Další informace naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.TagHelpers.LinkTagHelper.FallbackTestValue>.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * <xref:mvc/views/tag-helpers/intro>
 * <xref:mvc/controllers/areas>

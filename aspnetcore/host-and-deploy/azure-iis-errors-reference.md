@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/azure-iis-errors-reference
-ms.openlocfilehash: 19e8fd1ed390a160df8646a83a66d251ba6d92d8
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 1b0402ceccde0f2410ac29e9c6a251110c81eafa
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105035"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85408133"
 ---
 # <a name="common-errors-reference-for-azure-app-service-and-iis-with-aspnet-core"></a>Referenční informace o běžných chybách pro Azure App Service a IIS s ASP.NET Core
 
@@ -48,7 +50,7 @@ Seznam chyb v tomto tématu není vyčerpávající. Pokud narazíte na chybu, k
 
 ## <a name="os-upgrade-removed-the-32-bit-aspnet-core-module"></a>Upgrade operačního systému odebral modul 32 ASP.NET Core.
 
-**Protokol aplikace:** Načtení knihovny DLL modulu **C:\WINDOWS\system32\inetsrv\aspnetcore.dll** se nezdařilo. Tato data jsou chybná.
+**Protokol aplikace:** Nepovedlo se načíst knihovnu DLL modulu **C:\WINDOWS\system32\inetsrv\aspnetcore.dll** . Tato data jsou chybná.
 
 Řešení potíží:
 
@@ -173,7 +175,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * Ujistěte se, že **Application Pool** > je **model procesu** fondu aplikací > **Identity** nastavený na **ApplicationPoolIdentity** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
 
-* Pokud jste odinstalovali sadu hostující sadu ASP.NET Core a nainstalovali jste starší verzi hostujícího balíčku, soubor *ApplicationHost. config* neobsahuje oddíl pro modul ASP.NET Core. Otevřete soubor *ApplicationHost. config* v umístění *% windir%/system32/Inetsrv/config* a vyhledejte `<configuration><configSections><sectionGroup name="system.webServer">` skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
+* Pokud jste odinstalovali ASP.NET Core hostující balíček a nainstalovali jste starší verzi hostujícího balíčku, *applicationHost.config* soubor neobsahuje část pro modul ASP.NET Core. Otevřete *applicationHost.config* v umístění *% windir%/system32/Inetsrv/config* a vyhledejte `<configuration><configSections><sectionGroup name="system.webServer">` skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
 
   ```xml
   <section name="aspNetCore" overrideModeDefault="Allow" />
@@ -181,7 +183,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
   Případně nainstalujte nejnovější verzi sady ASP.NET Core hostující sada. Nejnovější verze je zpětně kompatibilní s podporovanými ASP.NET Core aplikacemi.
 
-## <a name="incorrect-processpath-missing-path-variable-hosting-bundle-not-installed-systemiis-not-restarted-vc-redistributable-not-installed-or-dotnetexe-access-violation"></a>Nesprávná processPath, chybějící Proměnná cesty, hostující sada není nainstalovaná, systém/IIS se nerestartuje, VC + + Redistributable není nainstalovaný nebo došlo k narušení přístupu dotnet. exe.
+## <a name="incorrect-processpath-missing-path-variable-hosting-bundle-not-installed-systemiis-not-restarted-vc-redistributable-not-installed-or-dotnetexe-access-violation"></a>Nesprávná processPath, chybějící Proměnná cesty, hostující sada není nainstalovaná, systém/IIS se nerestartuje, VC + + Redistributable není nainstalovaný nebo dotnet.exe porušení přístupu.
 
 * **Prohlížeč:** Chyba protokolu HTTP 500,0 – selhání načtení obslužné rutiny ANCM v procesu
 
@@ -195,11 +197,11 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
-* Zkontrolujte atribut *processPath* v `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je `dotnet` pro nasazení závislé na rozhraní (FDD) nebo `.\{ASSEMBLY}.exe` pro samostatné [nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+* Zkontrolujte atribut *processPath* `<aspNetCore>` elementu v *web.config* a potvrďte tak, že je `dotnet` pro nasazení závislé na rozhraní (FDD) nebo pro samostatné `.\{ASSEMBLY}.exe` [nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
 
-* V případě FDD nemusí být příkaz *dotnet. exe* přístupný prostřednictvím nastavení cesty. Ověřte, že v nastavení systémové cesty existuje *C:\Program Files\dotnet \\ * .
+* V případě *dotnet.exe* FDD nemusí být k dispozici přístup prostřednictvím nastavení cesty. Ověřte, že v nastavení systémové cesty existuje *C:\Program Files\dotnet \\ * .
 
-* Pro FDD nemusí být příkaz *dotnet. exe* dostupný pro identitu uživatele fondu aplikací. Potvrďte, že identita uživatele fondu aplikací má přístup k adresáři *C:\Program Files\dotnet* . Ověřte, že v adresáři *C:\Program Files\dotnet* a App Directory nejsou nakonfigurovaná žádná pravidla odepření pro identitu uživatele fondu aplikací.
+* Pro FDD nemusí být *dotnet.exe* pro identitu uživatele fondu aplikací přístupná. Potvrďte, že identita uživatele fondu aplikací má přístup k adresáři *C:\Program Files\dotnet* . Ověřte, že v adresáři *C:\Program Files\dotnet* a App Directory nejsou nakonfigurovaná žádná pravidla odepření pro identitu uživatele fondu aplikací.
 
 * FDD mohla být nasazena a .NET Core nainstalována bez restartování služby IIS. Buď restartujte server, nebo restartujte službu IIS spuštěním příkazu **net stop** , který následuje po příkazu **net start w3svc** z příkazového řádku.
 
@@ -225,7 +227,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
-* Zkontrolujte atribut *arguments* u `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je buď (a) `.\{ASSEMBLY}.dll` pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec ( `arguments=""` ) nebo seznam argumentů aplikace ( `arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"` ) pro samostatné nasazení (SCD).
+* Zkontrolujte atribut *arguments* v `<aspNetCore>` prvku *web.config* a potvrďte tak, že je buď (a) `.\{ASSEMBLY}.dll` pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec ( `arguments=""` ) nebo seznam argumentů aplikace ( `arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"` ) pro samostatně uzavřené nasazení (SCD).
 
 ## <a name="missing-net-core-shared-framework"></a>Chybějící sdílené rozhraní .NET Core
 
@@ -269,23 +271,23 @@ Ověřte, že fond aplikací není v *zastaveném* stavu.
 
 Řešení potíží:
 
-Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje `<handlers>` oddíl nebo že dílčí aplikace nedědí obslužné rutiny nadřazené aplikace.
+Potvrďte, že soubor *web.config* dílčí aplikace neobsahuje `<handlers>` oddíl nebo že dílčí aplikace nedědí obslužné rutiny nadřazené aplikace.
 
-Oddíl v souboru `<system.webServer>` *Web. config* nadřazené aplikace je umístěn uvnitř `<location>` elementu. <xref:System.Configuration.SectionInformation.InheritInChildApplications*>Vlastnost je nastavena na hodnotu `false` , která označuje, že nastavení zadaná v rámci [\<location>](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) elementu nejsou děděna aplikacemi, které se nacházejí v podadresáři nadřazené aplikace. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
+Oddílweb.confignadřazené aplikace `<system.webServer>` je umístěn *web.config* uvnitř `<location>` elementu. <xref:System.Configuration.SectionInformation.InheritInChildApplications*>Vlastnost je nastavena na hodnotu `false` , která označuje, že nastavení zadaná v rámci [\<location>](/iis/manage/managing-your-configuration-settings/understanding-iis-configuration-delegation#the-concept-of-location) elementu nejsou děděna aplikacemi, které se nacházejí v podadresáři nadřazené aplikace. Další informace naleznete v tématu <xref:host-and-deploy/aspnet-core-module>.
 
 ## <a name="stdout-log-path-incorrect"></a>nesprávná cesta protokolu STDOUT
 
 * **Prohlížeč:** Aplikace reaguje normálně.
 
-* **Protokol aplikace:** Nelze spustit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll. Zpráva o výjimce: HRESULT 0x80070005 vrácený v {PATH} \aspnetcoremodulev2\commonlib\fileoutputmanager.cpp: 84. Nejde zastavit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll.. Zpráva výjimky: HRESULT 0x80070002 vráceno v umístění {PATH}. Nelze spustit přesměrování stdout v umístění {PATH} \ aspnetcorev2_inprocess. dll.
+* **Protokol aplikace:** Nelze spustit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll. Zpráva o výjimce: HRESULT 0x80070005 vrácený v {PATH} \aspnetcoremodulev2\commonlib\fileoutputmanager.cpp: 84. Nebylo možné zastavit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll. Zpráva výjimky: HRESULT 0x80070002 vráceno v umístění {PATH}. Nelze spustit přesměrování stdout v umístění {PATH} \aspnetcorev2_inprocess.dll.
 
 * **Protokol stdout modulu ASP.NET Core:** Soubor protokolu není vytvořen.
 
-* **Protokol ladění ASP.NET Coreho modulu:** Nelze spustit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll. Zpráva o výjimce: HRESULT 0x80070005 vrácený v {PATH} \aspnetcoremodulev2\commonlib\fileoutputmanager.cpp: 84. Nejde zastavit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll.. Zpráva výjimky: HRESULT 0x80070002 vráceno v umístění {PATH}. Nelze spustit přesměrování stdout v umístění {PATH} \ aspnetcorev2_inprocess. dll.
+* **Protokol ladění ASP.NET Coreho modulu:** Nelze spustit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll. Zpráva o výjimce: HRESULT 0x80070005 vrácený v {PATH} \aspnetcoremodulev2\commonlib\fileoutputmanager.cpp: 84. Nebylo možné zastavit přesměrování stdout v adresáři C:\Program Files\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll. Zpráva výjimky: HRESULT 0x80070002 vráceno v umístění {PATH}. Nelze spustit přesměrování stdout v umístění {PATH} \aspnetcorev2_inprocess.dll.
 
 Řešení potíží:
 
-* `stdoutLogFile`Cesta zadaná v `<aspNetCore>` elementu *Web. config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
+* `stdoutLogFile`Cesta zadaná v `<aspNetCore>` prvku *web.config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
 
 * Uživatel fondu aplikací nemá přístup pro zápis do cesty protokolu STDOUT.
 
@@ -336,7 +338,7 @@ Seznam chyb v tomto tématu není vyčerpávající. Pokud narazíte na chybu, k
 
 ## <a name="os-upgrade-removed-the-32-bit-aspnet-core-module"></a>Upgrade operačního systému odebral modul 32 ASP.NET Core.
 
-**Protokol aplikace:** Načtení knihovny DLL modulu **C:\WINDOWS\system32\inetsrv\aspnetcore.dll** se nezdařilo. Tato data jsou chybná.
+**Protokol aplikace:** Nepovedlo se načíst knihovnu DLL modulu **C:\WINDOWS\system32\inetsrv\aspnetcore.dll** . Tato data jsou chybná.
 
 Řešení potíží:
 
@@ -451,7 +453,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * Ujistěte se, že **Application Pool** > je **model procesu** fondu aplikací > **Identity** nastavený na **ApplicationPoolIdentity** nebo že vlastní identita má správná oprávnění pro přístup ke složce pro nasazení aplikace.
 
-* Pokud jste odinstalovali sadu hostující sadu ASP.NET Core a nainstalovali jste starší verzi hostujícího balíčku, soubor *ApplicationHost. config* neobsahuje oddíl pro modul ASP.NET Core. Otevřete soubor *ApplicationHost. config* v umístění *% windir%/system32/Inetsrv/config* a vyhledejte `<configuration><configSections><sectionGroup name="system.webServer">` skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
+* Pokud jste odinstalovali ASP.NET Core hostující balíček a nainstalovali jste starší verzi hostujícího balíčku, *applicationHost.config* soubor neobsahuje část pro modul ASP.NET Core. Otevřete *applicationHost.config* v umístění *% windir%/system32/Inetsrv/config* a vyhledejte `<configuration><configSections><sectionGroup name="system.webServer">` skupinu oddílů. Pokud ve skupině oddílů chybí oddíl ASP.NET Core modulu, přidejte element section:
 
   ```xml
   <section name="aspNetCore" overrideModeDefault="Allow" />
@@ -459,7 +461,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
   Případně nainstalujte nejnovější verzi sady ASP.NET Core hostující sada. Nejnovější verze je zpětně kompatibilní s podporovanými ASP.NET Core aplikacemi.
 
-## <a name="incorrect-processpath-missing-path-variable-hosting-bundle-not-installed-systemiis-not-restarted-vc-redistributable-not-installed-or-dotnetexe-access-violation"></a>Nesprávná processPath, chybějící Proměnná cesty, hostující sada není nainstalovaná, systém/IIS se nerestartuje, VC + + Redistributable není nainstalovaný nebo došlo k narušení přístupu dotnet. exe.
+## <a name="incorrect-processpath-missing-path-variable-hosting-bundle-not-installed-systemiis-not-restarted-vc-redistributable-not-installed-or-dotnetexe-access-violation"></a>Nesprávná processPath, chybějící Proměnná cesty, hostující sada není nainstalovaná, systém/IIS se nerestartuje, VC + + Redistributable není nainstalovaný nebo dotnet.exe porušení přístupu.
 
 * **Prohlížeč:** Chyba protokolu HTTP 502,5 – chyba procesu
 
@@ -471,11 +473,11 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
-* Zkontrolujte atribut *processPath* v `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je `dotnet` pro nasazení závislé na rozhraní (FDD) nebo `.\{ASSEMBLY}.exe` pro samostatné [nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
+* Zkontrolujte atribut *processPath* `<aspNetCore>` elementu v *web.config* a potvrďte tak, že je `dotnet` pro nasazení závislé na rozhraní (FDD) nebo pro samostatné `.\{ASSEMBLY}.exe` [nasazení (SCD)](/dotnet/core/deploying/#self-contained-deployments-scd).
 
-* V případě FDD nemusí být příkaz *dotnet. exe* přístupný prostřednictvím nastavení cesty. Ověřte, že v nastavení systémové cesty existuje *C:\Program Files\dotnet \\ * .
+* V případě *dotnet.exe* FDD nemusí být k dispozici přístup prostřednictvím nastavení cesty. Ověřte, že v nastavení systémové cesty existuje *C:\Program Files\dotnet \\ * .
 
-* Pro FDD nemusí být příkaz *dotnet. exe* dostupný pro identitu uživatele fondu aplikací. Potvrďte, že identita uživatele fondu aplikací má přístup k adresáři *C:\Program Files\dotnet* . Ověřte, že v adresáři *C:\Program Files\dotnet* a App Directory nejsou nakonfigurovaná žádná pravidla odepření pro identitu uživatele fondu aplikací.
+* Pro FDD nemusí být *dotnet.exe* pro identitu uživatele fondu aplikací přístupná. Potvrďte, že identita uživatele fondu aplikací má přístup k adresáři *C:\Program Files\dotnet* . Ověřte, že v adresáři *C:\Program Files\dotnet* a App Directory nejsou nakonfigurovaná žádná pravidla odepření pro identitu uživatele fondu aplikací.
 
 * FDD mohla být nasazena a .NET Core nainstalována bez restartování služby IIS. Buď restartujte server, nebo restartujte službu IIS spuštěním příkazu **net stop** , který následuje po příkazu **net start w3svc** z příkazového řádku.
 
@@ -499,7 +501,7 @@ Ověřte **základní nastavení** webu IIS a složku fyzické aplikace. Ověřt
 
 * Ověřte, že se aplikace spouští místně na Kestrel. Selhání procesu může být výsledkem problému v aplikaci. Další informace naleznete v tématu <xref:test/troubleshoot-azure-iis>.
 
-* Zkontrolujte atribut *arguments* u `<aspNetCore>` elementu v *souboru Web. config* a potvrďte, že je buď (a) `.\{ASSEMBLY}.dll` pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec ( `arguments=""` ) nebo seznam argumentů aplikace ( `arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"` ) pro samostatné nasazení (SCD).
+* Zkontrolujte atribut *arguments* v `<aspNetCore>` prvku *web.config* a potvrďte tak, že je buď (a) `.\{ASSEMBLY}.dll` pro nasazení závislé na rozhraní (FDD); nebo (b) není k dispozici, prázdný řetězec ( `arguments=""` ) nebo seznam argumentů aplikace ( `arguments="{ARGUMENT_1}, {ARGUMENT_2}, ... {ARGUMENT_X}"` ) pro samostatně uzavřené nasazení (SCD).
 
 Řešení potíží:
 
@@ -527,7 +529,7 @@ Ověřte, že fond aplikací není v *zastaveném* stavu.
 
 Řešení potíží:
 
-Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje `<handlers>` oddíl.
+Potvrďte, že soubor *web.config* dílčí aplikace neobsahuje `<handlers>` oddíl.
 
 ## <a name="stdout-log-path-incorrect"></a>nesprávná cesta protokolu STDOUT
 
@@ -539,7 +541,7 @@ Potvrďte, že soubor *Web. config* dílčí aplikace neobsahuje `<handlers>` od
 
 Řešení potíží:
 
-* `stdoutLogFile`Cesta zadaná v `<aspNetCore>` elementu *Web. config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
+* `stdoutLogFile`Cesta zadaná v `<aspNetCore>` prvku *web.config* neexistuje. Další informace najdete v tématu [ASP.NET Core modul: vytvoření a přesměrování protokolu](xref:host-and-deploy/aspnet-core-module#log-creation-and-redirection).
 
 * Uživatel fondu aplikací nemá přístup pro zápis do cesty protokolu STDOUT.
 
