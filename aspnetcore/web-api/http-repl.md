@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/20/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: web-api/http-repl
-ms.openlocfilehash: 4c42ad56bbdb7b66824b290cd118903cbe4311e8
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: ead745ae8843173bb25b94672005cc6ce295db2e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452210"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403375"
 ---
 # <a name="test-web-apis-with-the-http-repl"></a>Testování webových rozhraní API pomocí protokolu HTTP REPL
 
@@ -140,7 +142,7 @@ Připojte se k webovému rozhraní API spuštěním následujícího příkazu:
 httprepl <ROOT URI>
 ```
 
-`<ROOT URI>`je základní identifikátor URI pro webové rozhraní API. Příklad:
+`<ROOT URI>`je základní identifikátor URI pro webové rozhraní API. Například:
 
 ```console
 httprepl https://localhost:5001
@@ -152,7 +154,7 @@ Případně spusťte následující příkaz kdykoli, když je spuštěn protoko
 connect <ROOT URI>
 ```
 
-Příklad:
+Například:
 
 ```console
 (Disconnected)~ connect https://localhost:5001
@@ -166,7 +168,7 @@ Výše uvedený příkaz Connect se pokusí najít dokument Swagger automaticky.
 connect <ROOT URI> --swagger <SWAGGER URI>
 ```
 
-Příklad:
+Například:
 
 ```console
 (Disconnected)~ connect https://localhost:5001 --swagger /swagger/v1/swagger.json
@@ -205,7 +207,7 @@ https://localhost:5001/fruits~ ls
 https://localhost:5001/fruits~
 ```
 
-Případně spusťte `ui` příkaz a otevřete stránku uživatelského rozhraní Swagger webového rozhraní API v prohlížeči. Příklad:
+Případně spusťte `ui` příkaz a otevřete stránku uživatelského rozhraní Swagger webového rozhraní API v prohlížeči. Například:
 
 ```console
 https://localhost:5001/~ ui
@@ -249,7 +251,7 @@ Soubor *. httpreplprefs* je načten při spuštění a není monitorován pro zm
 
 ### <a name="view-the-settings"></a>Zobrazit nastavení
 
-Dostupná nastavení zobrazíte spuštěním `pref get` příkazu. Příklad:
+Dostupná nastavení zobrazíte spuštěním `pref get` příkazu. Například:
 
 ```console
 https://localhost:5001/~ pref get
@@ -287,7 +289,7 @@ Pokud nejsou nastavené určité klíče barev, považují se za obecnější kl
 
 ### <a name="set-indentation-size"></a>Nastavit velikost odsazení
 
-Přizpůsobení velikosti odsazení odpovědí se v současné době podporuje jenom pro JSON. Výchozí velikost jsou dvě mezery. Příklad:
+Přizpůsobení velikosti odsazení odpovědí se v současné době podporuje jenom pro JSON. Výchozí velikost jsou dvě mezery. Například:
 
 ```json
 [
@@ -371,12 +373,12 @@ pref set editor.command.default.arguments "--disable-extensions --new-window"
 
 Ve výchozím nastavení má REPL HTTP sadu relativních cest, které používá k nalezení dokumentu Swagger při provádění `connect` příkazu bez `--swagger` Možnosti. Tyto relativní cesty jsou kombinovány s kořenovou a základní cestou specifikovanou v `connect` příkazu. Výchozí relativní cesty jsou:
 
-- *Swagger. JSON*
-- *Swagger/v1/Swagger. JSON*
-- */swagger.json*
-- */swagger/v1/swagger.json*
+- *swagger.jsna*
+- *Swagger/v1/swagger.jsna*
+- */swagger.jsna*
+- */Swagger/v1/swagger.js*
 
-Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte `swagger.searchPaths` Předvolby. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Příklad:
+Pokud chcete ve svém prostředí použít jinou sadu vyhledávacích cest, nastavte `swagger.searchPaths` Předvolby. Hodnota musí být seznam relativních cest oddělených svislým kanálem. Například:
 
 ```console
 pref set swagger.searchPaths "swagger/v2/swagger.json|swagger/v3/swagger.json"
@@ -496,7 +498,7 @@ Vystavení požadavku HTTP POST:
     https://localhost:5001/people~ post -h Content-Type=application/json
     ```
 
-    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
+    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Například:
 
     ```json
     {
@@ -592,7 +594,7 @@ Vydání požadavku HTTP PUT:
     https://localhost:5001/fruits~ put 2 -h Content-Type=application/json
     ```
 
-    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Příklad:
+    V předchozím příkazu `Content-Type` je hlavička požadavku HTTP nastavená tak, aby označovala typ média textu požadavku JSON. Výchozí textový editor otevře soubor *. tmp* se ŠABLONou JSON, která představuje tělo požadavku HTTP. Například:
 
     ```json
     {
@@ -798,7 +800,7 @@ Parametr trasy (pokud existuje), který očekává přidružená metoda akce kon
 
 Pokud chcete nastavit hlavičku požadavku HTTP, použijte jeden z následujících přístupů:
 
-* Nastavte inline s požadavkem HTTP. Příklad:
+* Nastavte inline s požadavkem HTTP. Například:
 
     ```console
     https://localhost:5001/people~ post -h Content-Type=application/json
@@ -806,13 +808,13 @@ Pokud chcete nastavit hlavičku požadavku HTTP, použijte jeden z následujíc�
     
     V případě předchozího přístupu vyžaduje každá samostatná Hlavička požadavku HTTP vlastní `-h` možnost.
 
-* Nastaveno před odesláním požadavku HTTP. Příklad:
+* Nastaveno před odesláním požadavku HTTP. Například:
 
     ```console
     https://localhost:5001/people~ set header Content-Type application/json
     ```
     
-    Při nastavování hlavičky před odesláním žádosti zůstane záhlaví nastavené na dobu trvání relace příkazového prostředí. Pokud chcete záhlaví vymazat, zadejte prázdnou hodnotu. Příklad:
+    Při nastavování hlavičky před odesláním žádosti zůstane záhlaví nastavené na dobu trvání relace příkazového prostředí. Pokud chcete záhlaví vymazat, zadejte prázdnou hodnotu. Například:
     
     ```console
     https://localhost:5001/people~ set header Content-Type
@@ -922,14 +924,14 @@ Ve výchozím nastavení se zobrazí potlačení požadavku HTTP na odeslání. 
 
 ### <a name="enable-request-display"></a>Povolit zobrazení žádosti
 
-Spuštěním příkazu Zobrazte požadavek HTTP, který odesíláte `echo on` . Příklad:
+Spuštěním příkazu Zobrazte požadavek HTTP, který odesíláte `echo on` . Například:
 
 ```console
 https://localhost:5001/people~ echo on
 Request echoing is on
 ```
 
-Následující požadavky HTTP v aktuální relaci zobrazují hlavičky žádosti. Příklad:
+Následující požadavky HTTP v aktuální relaci zobrazují hlavičky žádosti. Například:
 
 ```console
 https://localhost:5001/people~ post
@@ -967,7 +969,7 @@ https://localhost:5001/people~
 
 ### <a name="disable-request-display"></a>Zakázat zobrazení žádosti
 
-Potlačit zobrazení požadavku HTTP odesílaného spuštěním `echo off` příkazu Příklad:
+Potlačit zobrazení požadavku HTTP odesílaného spuštěním `echo off` příkazu Například:
 
 ```console
 https://localhost:5001/people~ echo off
@@ -976,9 +978,9 @@ Request echoing is off
 
 ## <a name="run-a-script"></a>Spuštění skriptu
 
-Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložení do textového souboru. Příkazy v souboru přebírají stejnou formu, jakou byly provedeny ručně na příkazovém řádku. Příkazy lze spustit v dávce způsobem pomocí `run` příkazu. Příklad:
+Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložení do textového souboru. Příkazy v souboru přebírají stejnou formu, jakou byly provedeny ručně na příkazovém řádku. Příkazy lze spustit v dávce způsobem pomocí `run` příkazu. Například:
 
-1. Vytvoří textový soubor obsahující sadu příkazů s oddělovači na nový řádek. Pro ilustraci zvažte soubor *People-Script. txt* , který obsahuje následující příkazy:
+1. Vytvoří textový soubor obsahující sadu příkazů s oddělovači na nový řádek. K ilustraci zvažte *people-script.txt* soubor obsahující následující příkazy:
 
     ```text
     set base https://localhost:5001
@@ -988,7 +990,7 @@ Pokud často spustíte stejnou sadu příkazů HTTP REPL, zvažte jejich uložen
     get 1
     ```
 
-1. Spusťte `run` příkaz a předejte cestu k textovému souboru. Příklad:
+1. Spusťte `run` příkaz a předejte cestu k textovému souboru. Například:
 
     ```console
     https://localhost:5001/~ run C:\http-repl-scripts\people-script.txt

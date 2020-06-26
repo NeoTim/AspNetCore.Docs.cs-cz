@@ -8,17 +8,19 @@ ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/facebook-logins
-ms.openlocfilehash: 11ddc7314a694446d488da6ef1b2e3423bf7241a
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: df91b6f324de70b8492ccf0aef74c9264c3e9711
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777030"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403947"
 ---
 # <a name="facebook-external-login-setup-in-aspnet-core"></a>Nastavení externího přihlášení ke službě Facebook v ASP.NET Core
 
@@ -55,16 +57,16 @@ Tento kurz s příklady kódu ukazuje, jak se uživatelům umožní přihlásit 
 
   ![Stránka nastavení OAuth pro klienta](index/_static/FBOAuthSetup.png)
 
-* Zadejte identifikátor URI pro vývoj s */SignIn-Facebook* připojením k platným poli identifikátorů **URI přesměrování OAuth** (například `https://localhost:44320/signin-facebook`:). Ověřování na Facebooku nakonfigurované později v tomto kurzu automaticky zpracuje žádosti na trase */SignIn-Facebook* k implementaci toku OAuth.
+* Zadejte identifikátor URI pro vývoj s */SignIn-Facebook* připojením k platným poli identifikátorů **URI přesměrování OAuth** (například: `https://localhost:44320/signin-facebook` ). Ověřování na Facebooku nakonfigurované později v tomto kurzu automaticky zpracuje žádosti na trase */SignIn-Facebook* k implementaci toku OAuth.
 
 > [!NOTE]
 > Identifikátor URI */SignIn-Facebook* je nastaven jako výchozí zpětné volání poskytovatele ověřování Facebooku. Výchozí identifikátor URI zpětného volání můžete změnit během konfigurace middleware pro ověřování na Facebooku prostřednictvím zděděné vlastnosti [RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [FacebookOptions](/dotnet/api/microsoft.aspnetcore.authentication.facebook.facebookoptions) .
 
 * Klikněte na **Save Changes** (Uložit změny).
 
-* V levém navigačním panelu klikněte na **Nastavení** > **základní** odkaz.
+* V levém navigačním panelu klikněte na **Nastavení**  >  **základní** odkaz.
 
-  Na této stránce si poznamenejte vaše `App ID` a. `App Secret` Do své aplikace ASP.NET Core přidáte v následující části:
+  Na této stránce si poznamenejte vaše `App ID` a `App Secret` . Do své aplikace ASP.NET Core přidáte v následující části:
 
 * Když nasadíte lokalitu, musíte znovu navštívit stránku nastavení **přihlášení na Facebooku** a zaregistrovat nový veřejný identifikátor URI.
 
@@ -73,7 +75,7 @@ Tento kurz s příklady kódu ukazuje, jak se uživatelům umožní přihlásit 
 Uložte citlivá nastavení, jako je například ID aplikace Facebook a tajné hodnoty pomocí [správce tajných](xref:security/app-secrets)kódů. V této ukázce použijte následující postup:
 
 1. Inicializujte projekt pro tajné úložiště podle pokynů v tématu [Povolení tajného úložiště](xref:security/app-secrets#enable-secret-storage).
-1. Uložte citlivá nastavení do místního úložiště tajných klíčů pomocí tajných `Authentication:Facebook:AppId` klíčů `Authentication:Facebook:AppSecret`a:
+1. Uložte citlivá nastavení do místního úložiště tajných klíčů pomocí tajných klíčů `Authentication:Facebook:AppId` a `Authentication:Facebook:AppSecret` :
 
     ```dotnetcli
     dotnet user-secrets set "Authentication:Facebook:AppId" "<app-id>"
@@ -112,7 +114,7 @@ Nyní jste přihlášeni pomocí svých přihlašovacích údajů k Facebooku:
 
 <xref:Microsoft.AspNetCore.Authentication.RemoteAuthenticationOptions.AccessDeniedPath>může zadat cestu přesměrování pro uživatelského agenta, když uživatel neschválí požadovanou žádost o autorizaci.
 
-Následující kód nastaví `AccessDeniedPath` na `"/AccessDeniedPathInfo"`:
+Následující kód nastaví na `AccessDeniedPath` `"/AccessDeniedPathInfo"` :
 
 [!code-csharp[](~/security/authentication/social/social-code/StartupAccessDeniedPath.cs?name=snippetFB)]
 
@@ -139,9 +141,9 @@ Další informace o možnostech Konfigurace podporovaných ověřováním na Fac
 * Vyžádejte si jiné informace o uživateli.
 * Přidejte argumenty řetězce dotazu pro přizpůsobení možností přihlášení.
 
-## <a name="troubleshooting"></a>Řešení potíží
+## <a name="troubleshooting"></a>Poradce při potížích
 
-* **Pouze ASP.NET Core 2. x:** Pokud Identity není nakonfigurováno `services.AddIdentity` voláním `ConfigureServices`v, pokus o ověření bude mít za následek *ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použitá v tomto kurzu zajišťuje, že je to hotové.
+* **Pouze ASP.NET Core 2. x:** Pokud Identity není nakonfigurováno voláním `services.AddIdentity` v `ConfigureServices` , pokus o ověření bude mít za následek *ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použitá v tomto kurzu zajišťuje, že je to hotové.
 * Pokud se databáze lokality nevytvořila při použití prvotní migrace, při *zpracování chyby žádosti se zobrazí operace databáze* . Klepnutím na **použít migrace** vytvořte databázi a aktualizujte, aby pokračovala i po chybě.
 
 ## <a name="next-steps"></a>Další kroky
@@ -150,4 +152,4 @@ Další informace o možnostech Konfigurace podporovaných ověřováním na Fac
 
 * Po publikování webu do webové aplikace Azure byste měli resetovat na `AppSecret` portálu pro vývojáře na Facebooku.
 
-* Nastavte nastavení `Authentication:Facebook:AppId` a `Authentication:Facebook:AppSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastaven na čtení klíčů z proměnných prostředí.
+* Nastavte `Authentication:Facebook:AppId` nastavení a `Authentication:Facebook:AppSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastaven na čtení klíčů z proměnných prostředí.

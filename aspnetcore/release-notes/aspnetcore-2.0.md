@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: aspnetcore-2.0
-ms.openlocfilehash: b1fc486633ab7c7d7bee4f8981a978747b2890da
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 97d8606ba6bef0bb8bf23d1553c7cb5681fbdbd8
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775814"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404363"
 ---
 # <a name="whats-new-in-aspnet-core-20"></a>Co je nového v ASP.NET Core 2,0
 
@@ -40,7 +42,7 @@ Další informace najdete v tématu [Microsoft. AspNetCore. All Metapackage for 
 
 ## <a name="runtime-store"></a>Běhové úložiště
 
-Aplikace, které používají `Microsoft.AspNetCore.All` Metapackage, automaticky využijí nové úložiště runtime .NET Core. Úložiště obsahuje všechny prostředky modulu runtime potřebné ke spouštění aplikací ASP.NET Core 2,0. Při použití `Microsoft.AspNetCore.All` Metapackage se s aplikací nasadí žádné prostředky z odkazovaného ASP.NET Core balíčků NuGet, protože už jsou umístěné v cílovém systému. Prostředky v úložišti za běhu jsou také předem kompilovány pro zlepšení času spuštění aplikace.
+Aplikace, které používají `Microsoft.AspNetCore.All` Metapackage, automaticky využijí nové úložiště runtime .NET Core. Úložiště obsahuje všechny prostředky modulu runtime potřebné ke spouštění aplikací ASP.NET Core 2,0. Při použití Metapackage se `Microsoft.AspNetCore.All` s aplikací nasadí žádné prostředky z odkazovaného ASP.NET Core balíčků NuGet, protože už jsou umístěné v cílovém systému. Prostředky v úložišti za běhu jsou také předem kompilovány pro zlepšení času spuštění aplikace.
 
 Další informace najdete v tématu [běhové úložiště](/dotnet/core/deploying/runtime-store) .
 
@@ -48,17 +50,17 @@ Další informace najdete v tématu [běhové úložiště](/dotnet/core/deployi
 
 Cílová ASP.NET Core 2,0 balíčků .NET Standard 2,0. Na balíčky můžou odkazovat jiné knihovny .NET Standard 2,0 a můžou běžet na .NET Standard 2,0 implementace platformy .NET, včetně .NET Core 2,0 a .NET Framework 4.6.1. 
 
-`Microsoft.AspNetCore.All` Metapackage cílí jenom na .net Core 2,0, protože je určené pro použití s úložištěm runtime .net Core 2,0.
+`Microsoft.AspNetCore.All`Metapackage cílí jenom na .NET core 2,0, protože je určené pro použití s úložištěm runtime .NET Core 2,0.
 
 ## <a name="configuration-update"></a>Aktualizace konfigurace
 
-`IConfiguration` Instance je ve výchozím nastavení přidána do kontejneru services v ASP.NET Core 2,0. `IConfiguration`v kontejneru služby usnadňuje aplikacím načítání konfiguračních hodnot z kontejneru.
+`IConfiguration`Instance je ve výchozím nastavení přidána do kontejneru Services v ASP.NET Core 2,0. `IConfiguration`v kontejneru služby usnadňuje aplikacím načítání konfiguračních hodnot z kontejneru.
 
 Informace o stavu plánované dokumentace najdete v tématu [problém GitHubu](https://github.com/dotnet/AspNetCore.Docs/issues/3387).
 
 ## <a name="logging-update"></a>Aktualizace protokolování
 
-V ASP.NET Core 2,0 je ve výchozím nastavení do systému vkládání závislostí začleněno protokolování (DI). Přidáte poskytovatele a nakonfigurujete filtrování v souboru *program.cs* místo v souboru *Startup.cs* . A ve výchozím `ILoggerFactory` nastavení podporuje filtrování způsobem, který umožňuje použití jednoho flexibilního přístupu pro filtrování mezi poskytovateli a filtrování specifického poskytovatele.
+V ASP.NET Core 2,0 je ve výchozím nastavení do systému vkládání závislostí začleněno protokolování (DI). Přidáte poskytovatele a nakonfigurujete filtrování v souboru *program.cs* místo v souboru *Startup.cs* . A ve výchozím nastavení `ILoggerFactory` podporuje filtrování způsobem, který umožňuje použití jednoho flexibilního přístupu pro filtrování mezi poskytovateli a filtrování specifického poskytovatele.
 
 Další informace najdete v tématu [Úvod do protokolování](xref:fundamentals/logging/index).
 
@@ -82,11 +84,11 @@ Další informace o změnách ověřování v 2,0 najdete v následujících zdr
 
 ## <a name="spa-templates"></a>Šablony SPA
 
-K dispozici jsou šablony projektů s jednou stránkou (SPA) pro úhlové, Aurelia, vyseknutí. js, reagují. js a reagují. js s Redux. Úhlová šablona byla aktualizována na úhlové 4. Šablony úhlů a reakce jsou k dispozici ve výchozím nastavení. informace o tom, jak získat další šablony, najdete v tématu [Vytvoření nového projektu Spa](xref:client-side/spa-services#create-a-new-project). Informace o tom, jak vytvořit SPA v ASP.NET Core, najdete v <xref:client-side/spa-services>tématu.
+K dispozici jsou šablony projektů s jednou stránkou (SPA) pro úhlové, Aurelia, Knockout.js, React.js a React.js s Redux. Úhlová šablona byla aktualizována na úhlové 4. Šablony úhlů a reakce jsou k dispozici ve výchozím nastavení. informace o tom, jak získat další šablony, najdete v tématu [Vytvoření nového projektu Spa](xref:client-side/spa-services#create-a-new-project). Informace o tom, jak vytvořit SPA v ASP.NET Core, najdete v tématu <xref:client-side/spa-services> .
 
 ## <a name="kestrel-improvements"></a>Vylepšení Kestrel
 
-Webový server Kestrel má nové funkce, díky kterým je vhodnější jako internetový server. V nové `KestrelServerOptions` `Limits` vlastnosti třídy je přidáno několik možností konfigurace omezení serveru. Přidejte omezení pro následující:
+Webový server Kestrel má nové funkce, díky kterým je vhodnější jako internetový server. V nové vlastnosti třídy je přidáno několik možností konfigurace omezení serveru `KestrelServerOptions` `Limits` . Přidejte omezení pro následující:
 
 * Maximální počet připojení klientů
 * Maximální velikost textu požadavku
@@ -94,15 +96,15 @@ Webový server Kestrel má nové funkce, díky kterým je vhodnější jako inte
 
 Další informace najdete v tématu [implementace webového serveru Kestrel v ASP.NET Core](xref:fundamentals/servers/kestrel).
 
-## <a name="weblistener-renamed-to-httpsys"></a>Weblisten byl přejmenován na HTTP. sys
+## <a name="weblistener-renamed-to-httpsys"></a>Weblisten byl přejmenován na HTTP.sys
 
-Balíčky `Microsoft.AspNetCore.Server.WebListener` a `Microsoft.Net.Http.Server` byly sloučeny do nového balíčku `Microsoft.AspNetCore.Server.HttpSys`. Obory názvů byly aktualizovány tak, aby odpovídaly.
+Balíčky `Microsoft.AspNetCore.Server.WebListener` a `Microsoft.Net.Http.Server` byly sloučeny do nového balíčku `Microsoft.AspNetCore.Server.HttpSys` . Obory názvů byly aktualizovány tak, aby odpovídaly.
 
-Další informace najdete v tématu [implementace webového serveru http. sys v ASP.NET Core](xref:fundamentals/servers/httpsys).
+Další informace najdete v tématu [implementace webového serveruHTTP.sys v ASP.NET Core](xref:fundamentals/servers/httpsys).
 
 ## <a name="enhanced-http-header-support"></a>Rozšířená podpora hlaviček protokolu HTTP
 
-Při použití MVC k `FileStreamResult` přenosu nebo `FileContentResult`a máte nyní možnost nastavit `ETag` nebo zadat `LastModified` datum přenášeného obsahu. Můžete nastavit tyto hodnoty vráceného obsahu s podobným kódem jako v následujícím příkladu:
+Při použití MVC k přenosu `FileStreamResult` nebo a máte `FileContentResult` nyní možnost nastavit `ETag` nebo zadat `LastModified` Datum přenášeného obsahu. Můžete nastavit tyto hodnoty vráceného obsahu s podobným kódem jako v následujícím příkladu:
 
 ```csharp
 var data = Encoding.UTF8.GetBytes("This is a sample text from a binary array");
@@ -110,7 +112,7 @@ var entityTag = new EntityTagHeaderValue("\"MyCalculatedEtagValue\"");
 return File(data, "text/plain", "downloadName.txt", lastModified: DateTime.UtcNow.AddSeconds(-5), entityTag: entityTag);
 ```
 
-Soubor vrácený návštěvníkům má odpovídající hlavičku protokolu HTTP pro hodnoty `ETag` a. `LastModified`
+Soubor vrácený návštěvníkům má odpovídající hlavičku protokolu HTTP pro `ETag` `LastModified` hodnoty a.
 
 Pokud návštěvník aplikace požaduje obsah s hlavičkou požadavku na rozsah, ASP.NET Core rozpoznává požadavek a zpracuje hlavičku. Pokud lze požadovaný obsah částečně doručovat, ASP.NET Core odpovídajícím způsobem přeskočí a vrátí pouze požadovanou sadu bajtů. Nemusíte psát žádné speciální obslužné rutiny do metod pro přizpůsobení nebo zpracování této funkce; automaticky se za vás zpracuje.
 
@@ -136,7 +138,7 @@ Další informace naleznete v tématu [ Razor zobrazení kompilace a předkompil
 
 ## <a name="razor-support-for-c-71"></a>RazorPodpora pro C# 7,1
 
-Modul Razor zobrazení byl aktualizován tak, aby fungoval s novým kompilátorem Roslyn. Který zahrnuje podporu pro funkce C# 7,1 jako výchozí výrazy, odvoditelné názvy řazené kolekce členů a porovnávání vzorů s obecnými typy. Chcete-li v projektu použít C# 7,1, přidejte do souboru projektu následující vlastnost a pak znovu načtěte toto řešení:
+RazorModul zobrazení byl aktualizován tak, aby fungoval s novým kompilátorem Roslyn. Který zahrnuje podporu pro funkce C# 7,1 jako výchozí výrazy, odvoditelné názvy řazené kolekce členů a porovnávání vzorů s obecnými typy. Chcete-li v projektu použít C# 7,1, přidejte do souboru projektu následující vlastnost a pak znovu načtěte toto řešení:
 
 ```xml
 <LangVersion>latest</LangVersion>

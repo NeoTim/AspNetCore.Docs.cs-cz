@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 04/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/linux-nginx
-ms.openlocfilehash: e1367fe284c4d51a341da01c6415284f6f3e7a9c
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: c936ff9a7aadd21ce99a0c37184ae8cf911c3070
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102895"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403973"
 ---
 # <a name="host-aspnet-core-on-linux-with-nginx"></a>Hostování ASP.NET Core v systému Linux pomocí Nginx
 
@@ -156,7 +158,7 @@ server {
 }
 ```
 
-Pokud je aplikace Blazor Serverová aplikace, která spoléhá na SignalR WebSockets, přečtěte si téma, <xref:blazor/host-and-deploy/server#linux-with-nginx> kde najdete informace o tom, jak nastavit `Connection` hlavičku.
+Pokud se jedná o Blazor Server aplikaci, která spoléhá na SignalR objekty WebSockets, přečtěte si téma, <xref:blazor/host-and-deploy/server#linux-with-nginx> kde najdete informace o tom, jak nastavit `Connection` hlavičku.
 
 Pokud `server_name` se neshodují, Nginx použije výchozí server. Pokud není definován žádný výchozí server, je první server v konfiguračním souboru výchozím serverem. Osvědčeným postupem je přidat konkrétní výchozí server, který vrátí stavový kód 444 do konfiguračního souboru. Výchozím příkladem konfigurace serveru je:
 
@@ -262,7 +264,7 @@ Spusťte službu a ověřte, zda je spuštěná.
 sudo systemctl start kestrel-helloapp.service
 sudo systemctl status kestrel-helloapp.service
 
-● kestrel-helloapp.service - Example .NET Web API App running on Ubuntu
+◝ kestrel-helloapp.service - Example .NET Web API App running on Ubuntu
     Loaded: loaded (/etc/systemd/system/kestrel-helloapp.service; enabled)
     Active: active (running) since Thu 2016-10-18 04:09:35 NZDT; 35s ago
 Main PID: 9021 (dotnet)

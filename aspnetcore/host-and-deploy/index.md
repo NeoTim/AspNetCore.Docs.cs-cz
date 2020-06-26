@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/index
-ms.openlocfilehash: 796d7da76da6723ea996b57510da9c45ab21b3e7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 79022af0e6ee1294e12c21492bc81bc40482a3fb
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775918"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403960"
 ---
 # <a name="host-and-deploy-aspnet-core"></a>ASP.NET Core hostitele a nasazení
 
@@ -57,7 +59,7 @@ ASP.NET Core aplikace je Konzolová aplikace, která se musí spustit, když se 
 
 Pokud aplikace používá server [Kestrel](xref:fundamentals/servers/kestrel) , [Nginx](xref:host-and-deploy/linux-nginx), [Apache](xref:host-and-deploy/linux-apache)nebo [IIS](xref:host-and-deploy/iis/index) , dá se použít jako reverzní proxy server. Reverzní proxy server přijímá požadavky HTTP z Internetu a přesměruje je na Kestrel.
 
-Konfigurace hostování&mdash;je buď s nebo bez proxy server&mdash;pro zpětný provoz. Další informace najdete v tématu [kdy používat Kestrel s reverzním proxy serverem](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy).
+Konfigurace &mdash; hostování je buď s nebo bez proxy server pro zpětný &mdash; provoz. Další informace najdete v tématu [kdy používat Kestrel s reverzním proxy serverem](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy).
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
 
@@ -71,19 +73,19 @@ Pomocí [funkce Publikovat web](xref:tutorials/publish-to-azure-webapp-using-vs)
 
 ## <a name="publish-to-azure"></a>Publikování aplikací do Azure
 
-Pokyny <xref:tutorials/publish-to-azure-webapp-using-vs> k publikování aplikace do Azure pomocí sady Visual Studio najdete v tématu. K dispozici je další příklad [Vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet).
+<xref:tutorials/publish-to-azure-webapp-using-vs>Pokyny k publikování aplikace do Azure pomocí sady Visual Studio najdete v tématu. K dispozici je další příklad [Vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet).
 
 ## <a name="publish-with-msdeploy-on-windows"></a>Publikování pomocí MSDeploy ve Windows
 
-Pokyny <xref:host-and-deploy/visual-studio-publish-profiles> k publikování aplikace s publikačním profilem sady Visual Studio, včetně z příkazového řádku Windows pomocí příkazu [dotnet MSBuild](/dotnet/core/tools/dotnet-msbuild) , najdete v tématu.
+<xref:host-and-deploy/visual-studio-publish-profiles>Pokyny k publikování aplikace s publikačním profilem sady Visual Studio, včetně z příkazového řádku Windows pomocí příkazu [dotnet MSBuild](/dotnet/core/tools/dotnet-msbuild) , najdete v tématu.
 
 ## <a name="internet-information-services-iis"></a>Internet Information Services (IIS)
 
-Pro nasazení, která se Internetová informační služba (IIS) s konfigurací poskytnutou souborem *Web. config* , se podívejte na články <xref:host-and-deploy/iis/index>v části.
+Pro nasazení, která Internetová informační služba (IIS) s konfigurací poskytovanou souborem *web.config* , se podívejte na články v části <xref:host-and-deploy/iis/index> .
 
 ## <a name="host-in-a-web-farm"></a>Hostování ve webové farmě
 
-Informace o konfiguraci pro hostování ASP.NET Core aplikací v prostředí webové farmy (například nasazení více instancí aplikace v rámci škálovatelnosti) najdete v tématu <xref:host-and-deploy/web-farm>.
+Informace o konfiguraci pro hostování ASP.NET Core aplikací v prostředí webové farmy (například nasazení více instancí aplikace v rámci škálovatelnosti) najdete v tématu <xref:host-and-deploy/web-farm> .
 
 ## <a name="host-on-docker"></a>Hostitel v Docker
 
@@ -135,7 +137,7 @@ ASP.NET Core aplikace je Konzolová aplikace, která se musí spustit, když se 
 
 Pokud aplikace používá server [Kestrel](xref:fundamentals/servers/kestrel) , [Nginx](xref:host-and-deploy/linux-nginx), [Apache](xref:host-and-deploy/linux-apache)nebo [IIS](xref:host-and-deploy/iis/index) , dá se použít jako reverzní proxy server. Reverzní proxy server přijímá požadavky HTTP z Internetu a přesměruje je na Kestrel.
 
-Konfigurace hostování&mdash;je buď s nebo bez proxy server&mdash;pro zpětný provoz. Další informace najdete v tématu [kdy používat Kestrel s reverzním proxy serverem](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy).
+Konfigurace &mdash; hostování je buď s nebo bez proxy server pro zpětný &mdash; provoz. Další informace najdete v tématu [kdy používat Kestrel s reverzním proxy serverem](xref:fundamentals/servers/kestrel#when-to-use-kestrel-with-a-reverse-proxy).
 
 ## <a name="proxy-server-and-load-balancer-scenarios"></a>Scénáře proxy serveru a nástroje pro vyrovnávání zatížení
 
@@ -149,19 +151,19 @@ Pomocí [funkce Publikovat web](xref:tutorials/publish-to-azure-webapp-using-vs)
 
 ## <a name="publish-to-azure"></a>Publikování aplikací do Azure
 
-Pokyny <xref:tutorials/publish-to-azure-webapp-using-vs> k publikování aplikace do Azure pomocí sady Visual Studio najdete v tématu. K dispozici je další příklad [Vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet).
+<xref:tutorials/publish-to-azure-webapp-using-vs>Pokyny k publikování aplikace do Azure pomocí sady Visual Studio najdete v tématu. K dispozici je další příklad [Vytvoření webové aplikace ASP.NET Core v Azure](/azure/app-service/app-service-web-get-started-dotnet).
 
 ## <a name="publish-with-msdeploy-on-windows"></a>Publikování pomocí MSDeploy ve Windows
 
-Pokyny <xref:host-and-deploy/visual-studio-publish-profiles> k publikování aplikace s publikačním profilem sady Visual Studio, včetně z příkazového řádku Windows pomocí příkazu [dotnet MSBuild](/dotnet/core/tools/dotnet-msbuild) , najdete v tématu.
+<xref:host-and-deploy/visual-studio-publish-profiles>Pokyny k publikování aplikace s publikačním profilem sady Visual Studio, včetně z příkazového řádku Windows pomocí příkazu [dotnet MSBuild](/dotnet/core/tools/dotnet-msbuild) , najdete v tématu.
 
 ## <a name="internet-information-services-iis"></a>Internet Information Services (IIS)
 
-Pro nasazení, která se Internetová informační služba (IIS) s konfigurací poskytnutou souborem *Web. config* , se podívejte na články <xref:host-and-deploy/iis/index>v části.
+Pro nasazení, která Internetová informační služba (IIS) s konfigurací poskytovanou souborem *web.config* , se podívejte na články v části <xref:host-and-deploy/iis/index> .
 
 ## <a name="host-in-a-web-farm"></a>Hostování ve webové farmě
 
-Informace o konfiguraci pro hostování ASP.NET Core aplikací v prostředí webové farmy (například nasazení více instancí aplikace v rámci škálovatelnosti) najdete v tématu <xref:host-and-deploy/web-farm>.
+Informace o konfiguraci pro hostování ASP.NET Core aplikací v prostředí webové farmy (například nasazení více instancí aplikace v rámci škálovatelnosti) najdete v tématu <xref:host-and-deploy/web-farm> .
 
 ## <a name="host-on-docker"></a>Hostitel v Docker
 

@@ -1,11 +1,25 @@
 ---
-Název: Autor: Popis: monikerRange: MS. Author: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: Úvod do gRPC v .NET Core
+author: juntaoluo
+description: Přečtěte si o službách gRPC Services pomocí serveru Kestrel a ASP.NET Core stacku.
+monikerRange: '>= aspnetcore-3.0'
+ms.author: johluo
+ms.date: 09/20/2019
+no-loc:
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: grpc/index
+ms.openlocfilehash: 9f3a2041059c1d890ce72ce5f2a88151253d9bd9
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404181"
 ---
 # <a name="introduction-to-grpc-on-net-core"></a>Úvod do gRPC v .NET Core
 
@@ -13,12 +27,12 @@ Od [Jan Luo](https://github.com/juntaoluo) a [James Newton – král](https://tw
 
 [gRPC](https://grpc.io/docs/guides/) je jazyk nezávislá, vysoce výkonné rozhraní vzdáleného volání procedur (RPC).
 
-Hlavní výhody gRPC jsou:
-* Moderní, vysoce výkonné a odlehčené rozhraní RPC.
-* Vývoj rozhraní API kontraktu, ve výchozím nastavení používá vyrovnávací paměti protokolů, což umožňuje implementaci nezávislá jazyka.
-* Nástroj, který je k dispozici pro mnoho jazyků pro generování serverů a klientů se silným typem.
-* Podporuje volání klientů, serverů a obousměrného streamování.
-* Omezené využití sítě pomocí binární serializace Protobuf
+Mezi výhody gRPC patří:
+* Moderní, výkonná a jednoduchá architektura RPC
+* Vývoj rozhraní API začínající kontraktem, který standardně využívá vyrovnávací paměti protokolů, čímž umožňuje implementace nezávislé na jazycích
+* Nástroje dostupné pro řadu jazyků, se kterými lze generovat servery a klienty silného typu
+* Podpora volání klienta, serveru a obousměrného streamování
+* Menší využití sítě díky binární serializaci Protobuf
 
 Díky těmto výhodám je gRPC ideální pro:
 * Odlehčené mikroslužby, ve kterých je efektivita nejdůležitější.

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/31/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/get-started
-ms.openlocfilehash: 63fee0b6a3152640a5483c2a682eec7d04742145
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 1eabc35175d1b696de99488981b1382d231f5544
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243600"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402777"
 ---
 # <a name="get-started-with-aspnet-core-blazor"></a>Začínáme s ASP.NET CoreBlazor
 
@@ -36,9 +38,9 @@ Pokud chcete začít používat Blazor , postupujte podle pokynů pro výběr n�
 
 1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
-1. Pro Blazor prostředí WebAssembly vyberte šablonu ** Blazor aplikace WebAssembly** . Pro Blazor prostředí serveru vyberte šablonu ** Blazor Serverová aplikace** . Vyberte **Vytvořit**.
+1. Pro Blazor WebAssembly prostředí vyberte šablonu ** Blazor WebAssembly aplikace** . Pro Blazor Server prostředí vyberte šablonu ** Blazor Server aplikace** . Vyberte **Vytvořit**.
 
-   Informace o dvou Blazor modelech hostování, * Blazor WebAssembly* a * Blazor serveru*naleznete v tématu <xref:blazor/hosting-models> .
+   Informace o těchto dvou Blazor modelech hostování *Blazor WebAssembly* a naleznete *Blazor Server* v tématu <xref:blazor/hosting-models> .
 
 1. Spusťte aplikaci stisknutím klávesy <kbd>CTRL</kbd> + <kbd>F5</kbd> .
 
@@ -56,19 +58,19 @@ Pokud chcete začít používat Blazor , postupujte podle pokynů pro výběr n�
 
   Pokud chcete `debug.javascript.usePreview` nastavit `true` použití uživatelského rozhraní vs Code, otevřete **File**  >  **Preferences**  >  **Nastavení** předvoleb souborů a vyhledejte `debug javascript use preview` . Zaškrtněte políčko pro **použití novinového ladicího programu JavaScriptu v Preview pro Node.js a Chrome**.
 
-1. Pro Blazor prostředí WebAssembly spusťte následující příkaz v příkazovém prostředí:
+1. Pro Blazor WebAssembly prostředí spusťte následující příkaz v příkazovém prostředí:
 
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
    ```
 
-   Pro Blazor prostředí serveru spusťte v příkazovém prostředí následující příkaz:
+   Pro Blazor Server prostředí spusťte následující příkaz v příkazovém prostředí:
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
    ```
 
-   Informace o dvou Blazor modelech hostování, * Blazor WebAssembly* a * Blazor serveru*naleznete v tématu <xref:blazor/hosting-models> .
+   Informace o těchto dvou Blazor modelech hostování *Blazor WebAssembly* a naleznete *Blazor Server* v tématu <xref:blazor/hosting-models> .
 
 1. Otevřete `WebApplication1` složku v Visual Studio Code.
 
@@ -84,9 +86,9 @@ Pokud chcete začít používat Blazor , postupujte podle pokynů pro výběr n�
 
 1. Na bočním panelu vyberte **Webová a konzolová**  >  **aplikace**.
 
-   Pro Blazor prostředí WebAssembly vyberte šablonu ** Blazor aplikace WebAssembly** . Pro Blazor prostředí serveru vyberte šablonu ** Blazor Serverová aplikace** . Vyberte **Další**.
+   Pro Blazor WebAssembly prostředí vyberte šablonu ** Blazor WebAssembly aplikace** . Pro Blazor Server prostředí vyberte šablonu ** Blazor Server aplikace** . Vyberte **Další**.
 
-   Informace o dvou Blazor modelech hostování, * Blazor WebAssembly* a * Blazor serveru*naleznete v tématu <xref:blazor/hosting-models> .
+   Informace o těchto dvou Blazor modelech hostování *Blazor WebAssembly* a naleznete *Blazor Server* v tématu <xref:blazor/hosting-models> .
 
 1. Potvrďte následující konfigurace:
 
@@ -109,7 +111,7 @@ Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřu
    dotnet --version
    ```
 
-1. Pro Blazor prostředí WebAssembly spusťte v příkazovém prostředí následující příkazy:
+1. Pro Blazor WebAssembly prostředí spusťte následující příkazy v příkazovém prostředí:
 
    ```dotnetcli
    dotnet new blazorwasm -o WebApplication1
@@ -117,7 +119,7 @@ Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřu
    dotnet run
    ```
 
-   Pro Blazor prostředí serveru spusťte v příkazovém prostředí následující příkazy:
+   Pro Blazor Server prostředí spusťte následující příkazy v příkazovém prostředí:
 
    ```dotnetcli
    dotnet new blazorserver -o WebApplication1
@@ -125,7 +127,7 @@ Pokud se zobrazí výzva k důvěřování vývojovým certifikátům, důvěřu
    dotnet run
    ```
 
-   Informace o dvou Blazor modelech hostování, * Blazor WebAssembly* a * Blazor serveru*naleznete v tématu <xref:blazor/hosting-models> .
+   Informace o těchto dvou Blazor modelech hostování *Blazor WebAssembly* a naleznete *Blazor Server* v tématu <xref:blazor/hosting-models> .
 
 1. V prohlížeči přejděte na `https://localhost:5001` .
 

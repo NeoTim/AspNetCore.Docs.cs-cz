@@ -8,17 +8,19 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/advanced
-ms.openlocfilehash: 74153b9a185d382a3418dd9470ce6ca4c3c70041
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7233d6baf139d2ef362f4e3d1a56cf7f0e2514d2
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773611"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403115"
 ---
 # <a name="tutorial-learn-about-advanced-scenarios---aspnet-mvc-with-ef-core"></a>Kurz: informace o pokročilých scénářích – ASP.NET MVC pomocí EF Core
 
@@ -47,7 +49,7 @@ Jednou z výhod používání Entity Framework je, že se vyhnete tomu, že vá�
 
 * Použijte `DbSet.FromSql` metodu pro dotazy, které vracejí typy entit. Vrácené objekty musí být typu očekávaného `DbSet` objektem a automaticky sledovány pomocí kontextu databáze, pokud nevypnete [sledování](crud.md#no-tracking-queries).
 
-* Použijte příkaz `Database.ExecuteSqlCommand` pro příkazy, které nejsou dotazem.
+* Použijte `Database.ExecuteSqlCommand` příkaz pro příkazy, které nejsou dotazem.
 
 Pokud potřebujete spustit dotaz, který vrací typy, které nejsou entitami, můžete použít ADO.NET s databázovým připojením poskytovaným EF. Vrácená data nejsou sledována kontextem databáze, a to i v případě, že použijete tuto metodu k načtení typů entit.
 
@@ -55,9 +57,9 @@ Jak je vždy true při provádění příkazů SQL ve webové aplikaci, je nutn�
 
 ## <a name="call-a-query-to-return-entities"></a>Volání dotazu pro vrácení entit
 
-`DbSet<TEntity>` Třída poskytuje metodu, kterou lze použít ke spuštění dotazu, který vrací entitu typu `TEntity`. Chcete-li zjistit, jak to funguje, změňte kód v `Details` metodě řadiče oddělení.
+`DbSet<TEntity>`Třída poskytuje metodu, kterou lze použít ke spuštění dotazu, který vrací entitu typu `TEntity` . Chcete-li zjistit, jak to funguje, změňte kód v `Details` metodě řadiče oddělení.
 
-V *DepartmentsController.cs*v `Details` metodě nahraďte kód, který získá oddělení, pomocí volání `FromSql` metody, jak je znázorněno v následujícím zvýrazněném kódu:
+V *DepartmentsController.cs*v `Details` metodě nahraďte kód, který získá oddělení `FromSql` , pomocí volání metody, jak je znázorněno v následujícím zvýrazněném kódu:
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_RawSQL&highlight=8,9,10)]
 
@@ -67,7 +69,7 @@ Chcete-li ověřit, zda nový kód funguje správně, vyberte kartu **oddělení
 
 ## <a name="call-a-query-to-return-other-types"></a>Volání dotazu pro vrácení jiných typů
 
-Dříve jste vytvořili tabulku statistik studentů pro stránku o produktu, která ukázala počet studentů pro každé datum registrace. Dostali jste data ze sady entit Students (`_context.Students`) a pomocí LINQ můžete promítnout výsledky do seznamu objektů modelu `EnrollmentDateGroup` zobrazení. Předpokládejme, že chcete napsat samotný SQL místo použití LINQ. K tomu je nutné spustit dotaz SQL, který vrací jinou hodnotu než objekty entity. V EF Core 1,0 je jedním ze způsobů, jak to udělat, je zápis ADO.NET kódu a získání připojení k databázi z EF.
+Dříve jste vytvořili tabulku statistik studentů pro stránku o produktu, která ukázala počet studentů pro každé datum registrace. Dostali jste data ze sady entit Students ( `_context.Students` ) a pomocí LINQ můžete promítnout výsledky do seznamu `EnrollmentDateGroup` objektů modelu zobrazení. Předpokládejme, že chcete napsat samotný SQL místo použití LINQ. K tomu je nutné spustit dotaz SQL, který vrací jinou hodnotu než objekty entity. V EF Core 1,0 je jedním ze způsobů, jak to udělat, je zápis ADO.NET kódu a získání připojení k databázi z EF.
 
 V *HomeController.cs*nahraďte `About` metodu následujícím kódem:
 
@@ -93,19 +95,19 @@ V *CoursesController.cs*přidejte metody UpdateCourseCredits pro HttpGet a HTTPP
 
 [!code-csharp[](intro/samples/cu/Controllers/CoursesController.cs?name=snippet_UpdatePost)]
 
-Když kontroler zpracuje požadavek HttpGet, nic se nevrátí `ViewData["RowsAffected"]`a v zobrazení se zobrazí prázdné textové pole a tlačítko Odeslat, jak je znázorněno na předchozím obrázku.
+Když kontroler zpracuje požadavek HttpGet, nic se nevrátí `ViewData["RowsAffected"]` a v zobrazení se zobrazí prázdné textové pole a tlačítko Odeslat, jak je znázorněno na předchozím obrázku.
 
-Po kliknutí na tlačítko **aktualizovat** se zavolá metoda HTTPPOST a násobitel má hodnotu zadanou v textovém poli. Kód potom spustí SQL, který aktualizuje kurzy a vrátí počet ovlivněných řádků do zobrazení v `ViewData`. Když zobrazení získá `RowsAffected` hodnotu, zobrazí se počet aktualizovaných řádků.
+Po kliknutí na tlačítko **aktualizovat** se zavolá metoda HTTPPOST a násobitel má hodnotu zadanou v textovém poli. Kód potom spustí SQL, který aktualizuje kurzy a vrátí počet ovlivněných řádků do zobrazení v `ViewData` . Když zobrazení získá `RowsAffected` hodnotu, zobrazí se počet aktualizovaných řádků.
 
 V **Průzkumník řešení**klikněte pravým tlačítkem na složku *views/kurzy* a pak klikněte na **Přidat > nová položka**.
 
-V dialogovém okně **Přidat novou položku** klikněte **ASP.NET Core** v části **nainstalováno** v levém podokně klikněte na možnost ** Razor zobrazit**a pojmenujte nové zobrazení *UpdateCourseCredits. cshtml*.
+V dialogovém okně **Přidat novou položku** klikněte **ASP.NET Core** v části **nainstalováno** v levém podokně klikněte na možnost ** Razor Zobrazit**a pojmenujte nové zobrazení *UpdateCourseCredits. cshtml*.
 
 V *zobrazeních/kurzů/UpdateCourseCredits. cshtml*nahraďte kód šablony následujícím kódem:
 
 [!code-html[](intro/samples/cu/Views/Courses/UpdateCourseCredits.cshtml)]
 
-Spusťte `UpdateCourseCredits` metodu tak, že vyberete kartu **kurzy** a pak na konec adresy URL v adresním řádku prohlížeče přidáte "/UpdateCourseCredits" (například: `http://localhost:5813/Courses/UpdateCourseCredits`). Do textového pole zadejte číslo:
+Spusťte `UpdateCourseCredits` metodu tak, že vyberete kartu **kurzy** a pak na konec adresy URL v adresním řádku prohlížeče přidáte "/UpdateCourseCredits" (například: `http://localhost:5813/Courses/UpdateCourseCredits` ). Do textového pole zadejte číslo:
 
 ![Stránka aktualizovat kredity kurzu](advanced/_static/update-credits.png)
 
@@ -148,7 +150,7 @@ INNER JOIN (
 ORDER BY [t].[ID]
 ```
 
-Všimnete si, že se vám může stát, že váš příkaz SQL vybere až 2 řádky (`TOP(2)`) z tabulky Person. `SingleOrDefaultAsync` Metoda není přeložena na 1 řádek na serveru. Důvod:
+Všimnete si, že se vám může stát, že váš příkaz SQL vybere až 2 řádky ( `TOP(2)` ) z tabulky Person. `SingleOrDefaultAsync`Metoda není přeložena na 1 řádek na serveru. Důvod:
 
 * Pokud by dotaz vrátil více řádků, vrátí metoda hodnotu null.
 * Chcete-li zjistit, zda dotaz by vrátil více řádků, EF musí ověřit, zda se vrátí alespoň 2.
@@ -179,7 +181,7 @@ Entity Framework určuje, jak se entita změnila (takže se aktualizace musí od
 
 * ChangeTracker. Entries
 
-Pokud sledujete velký počet entit a v rámci smyčky několikrát voláte jednu z těchto metod, můžete dosáhnout výrazného zlepšení výkonu tím, že se `ChangeTracker.AutoDetectChangesEnabled` při automatickém vypnutí automatického zjišťování změn použije vlastnost. Příklad:
+Pokud sledujete velký počet entit a v rámci smyčky několikrát voláte jednu z těchto metod, můžete dosáhnout výrazného zlepšení výkonu tím, že se při automatickém vypnutí automatického zjišťování změn použije `ChangeTracker.AutoDetectChangesEnabled` vlastnost. Například:
 
 ```csharp
 _context.ChangeTracker.AutoDetectChangesEnabled = false;
@@ -187,7 +189,7 @@ _context.ChangeTracker.AutoDetectChangesEnabled = false;
 
 ## <a name="ef-core-source-code-and-development-plans"></a>EF Core zdrojový kód a vývojové plány
 
-Zdroj Entity Framework Core je v [https://github.com/dotnet/efcore](https://github.com/dotnet/efcore). EF Core úložiště obsahuje noční buildy, sledování problémů, specifikace funkcí, návrhy poznámek na schůzce a [plán pro budoucí vývoj](https://github.com/dotnet/efcore/wiki/Roadmap). Můžete soubor nebo najít chyby a přispívat.
+Zdroj Entity Framework Core je v [https://github.com/dotnet/efcore](https://github.com/dotnet/efcore) . EF Core úložiště obsahuje noční buildy, sledování problémů, specifikace funkcí, návrhy poznámek na schůzce a [plán pro budoucí vývoj](https://github.com/dotnet/efcore/wiki/Roadmap). Můžete soubor nebo najít chyby a přispívat.
 
 I když je zdrojový kód otevřený, Entity Framework Core je plně podporovaný jako produkt společnosti Microsoft. Tým Microsoft Entity Framework udržuje kontrolu nad tím, které příspěvky jsou přijaty, a testuje všechny změny kódu, aby se zajistila kvalita jednotlivých verzí.
 
@@ -205,17 +207,17 @@ Chcete-li provést zpětnou analýzu datového modelu, včetně tříd entit z e
 
 ## <a name="acknowledgments"></a>Poděkování
 
-V tomto kurzu jste napsali Dykstra @RickAndMSFTa Rick Anderson (Twitter). Rowan Miller, Diegu Vega a další členové Entity Framework týmu s asistencí revize kódu a pomohli ladit problémy, které vznikly při psaní kódu pro kurzy. Jan rodiče a Paul Goldman pracovali na aktualizaci kurzu pro ASP.NET Core 2,2.
+V tomto kurzu jste napsali Dykstra a Rick Anderson (Twitter @RickAndMSFT ). Rowan Miller, Diegu Vega a další členové Entity Framework týmu s asistencí revize kódu a pomohli ladit problémy, které vznikly při psaní kódu pro kurzy. Jan rodiče a Paul Goldman pracovali na aktualizaci kurzu pro ASP.NET Core 2,2.
 
 <a id="common-errors"></a>
 
 ## <a name="troubleshoot-common-errors"></a>Odstraňování běžných chyb
 
-### <a name="contosouniversitydll-used-by-another-process"></a>ContosoUniversity. dll používá jiný proces.
+### <a name="contosouniversitydll-used-by-another-process"></a>ContosoUniversity.dll používá jiný proces.
 
 Chybová zpráva:
 
-> Nejde otevřít... bin\Debug\netcoreapp1.0\ContosoUniversity.dll ' pro zápis-' proces nemůže získat přístup k souboru '. ..\bin\Debug\netcoreapp1.0\ContosoUniversity.dll ', protože je používán jiným procesem.
+> Nelze otevřít ...bin\Debug\netcoreapp1.0\ContosoUniversity.dll pro zápis--"proces nemůže získat přístup k souboru" ...\bin\Debug\netcoreapp1.0\ContosoUniversity.dll ", protože ho používá jiný proces.
 
 Řešení:
 
@@ -235,11 +237,11 @@ Spusťte `migrations remove` příkaz, uložte změny kódu a spusťte `migratio
 
 Při provádění změn schématu v databázi, která obsahuje existující data, je možné získat další chyby. Pokud se zobrazí chyby migrace, které nemůžete vyřešit, můžete buď změnit název databáze v připojovacím řetězci, nebo databázi odstranit. V případě nové databáze není k dispozici žádná data k migraci a příkaz Update-Database je mnohem pravděpodobnější, že se nedokončí bez chyb.
 
-Nejjednodušším přístupem je přejmenovat databázi v souboru *appSettings. JSON*. Při příštím spuštění `database update`se vytvoří nová databáze.
+Nejjednodušším přístupem je přejmenovat databázi v *appsettings.jsna*. Při příštím spuštění se vytvoří `database update` Nová databáze.
 
 Databázi v SSOX odstraníte tak, že kliknete pravým tlačítkem na databázi, kliknete na **Odstranit**a pak v dialogovém okně **odstranit databázi** vyberete **Zavřít existující připojení** a kliknete na **OK**.
 
-Chcete-li odstranit databázi pomocí rozhraní příkazového řádku, `database drop` spusťte příkaz CLI:
+Chcete-li odstranit databázi pomocí rozhraní příkazového řádku, spusťte `database drop` příkaz CLI:
 
 ```dotnetcli
 dotnet ef database drop
@@ -263,9 +265,9 @@ Ověřte připojovací řetězec. Pokud jste soubor databáze odstranili ručně
 
 Další informace o EF Core najdete v dokumentaci k [Entity Framework Core](/ef/core). K dispozici je také kniha: [Entity Framework Core v akci](https://www.manning.com/books/entity-framework-core-in-action).
 
-Informace o tom, jak nasadit webovou aplikaci, najdete v <xref:host-and-deploy/index>tématu.
+Informace o tom, jak nasadit webovou aplikaci, najdete v tématu <xref:host-and-deploy/index> .
 
-Informace o dalších tématech souvisejících s ASP.NET Core MVC, jako je ověřování a autorizace, najdete v <xref:index>tématu.
+Informace o dalších tématech souvisejících s ASP.NET Core MVC, jako je ověřování a autorizace, najdete v tématu <xref:index> .
 
 ## <a name="next-steps"></a>Další kroky
 

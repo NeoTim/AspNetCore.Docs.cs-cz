@@ -1,44 +1,46 @@
 ---
-title: Hostování a nasazení Blazor serveru ASP.NET Core
+title: ASP.NET Core hostitele a nasazeníBlazor Server
 author: guardrex
-description: Naučte se hostovat a nasazovat Blazor serverovou aplikaci pomocí ASP.NET Core.
+description: Naučte se hostovat a nasazovat Blazor Server aplikaci pomocí ASP.NET Core.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 06/04/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/server
-ms.openlocfilehash: c02d005aa5e37bc359e1c104a19c387f1c16fa34
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: e59579046ecbfdbb4cca79bfb0e39d299e26913c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243548"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402595"
 ---
-# <a name="host-and-deploy-blazor-server"></a>Server hostitele a nasazení Blazor
+# <a name="host-and-deploy-blazor-server"></a>Hostitel a nasazeníBlazor Server
 
 Od [Luke Latham](https://github.com/guardrex), [Rainer Stropek](https://www.timecockpit.com)a [Daniel Skořepa](https://github.com/danroth27)
 
 ## <a name="host-configuration-values"></a>Hodnoty konfigurace hostitele
 
-[ Blazor Serverové aplikace](xref:blazor/hosting-models#blazor-server) mohou přijímat [hodnoty konfigurace obecného hostitele](xref:fundamentals/host/generic-host#host-configuration).
+[ Blazor Server aplikace](xref:blazor/hosting-models#blazor-server) můžou přijímat [hodnoty konfigurace obecného hostitele](xref:fundamentals/host/generic-host#host-configuration).
 
 ## <a name="deployment"></a>Nasazení
 
-Použití [ Blazor modelu hostování serveru](xref:blazor/hosting-models#blazor-server) Blazor je spuštěno na serveru aplikace z ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes [SignalR](xref:signalr/introduction) připojení.
+Použití [ Blazor Server modelu hostování](xref:blazor/hosting-models#blazor-server) Blazor je spuštěno na serveru aplikace z ASP.NET Core. Aktualizace uživatelského rozhraní, zpracování událostí a volání JavaScriptu se zpracovávají přes [SignalR](xref:signalr/introduction) připojení.
 
-Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core. Visual Studio obsahuje šablonu projektu ** Blazor Serverová aplikace** ( `blazorserverside` Šablona při použití [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu).
+Vyžaduje se webový server, který je hostitelem aplikace ASP.NET Core. Visual Studio zahrnuje šablonu projektu ** Blazor Server aplikace** ( `blazorserverside` Šablona při použití [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu).
 
 ## <a name="scalability"></a>Škálovatelnost
 
-Naplánujte nasazení, aby se zajistilo co nejlepší využití dostupné infrastruktury pro Blazor serverovou aplikaci. Projděte si následující zdroje informací, které řeší Blazor škálovatelnost aplikace serveru:
+Naplánujte nasazení, aby se zajistilo co nejlepší využití dostupné infrastruktury pro Blazor Server aplikaci. Podívejte se na následující zdroje informací pro řešení Blazor Server škálovatelnosti aplikace:
 
-* [Základní informace o Blazor serverových aplikacích](xref:blazor/hosting-models#blazor-server)
+* [Základy Blazor Server aplikací](xref:blazor/hosting-models#blazor-server)
 * <xref:blazor/security/server/threat-mitigation>
 
 ### <a name="deployment-server"></a>Server nasazení
@@ -54,13 +56,13 @@ Každý okruh používá pro minimální aplikaci *Hello World*ve stylu přibli�
 
 ### <a name="signalr-configuration"></a>SignalRrozšířeného
 
-BlazorServerové aplikace používají ASP.NET Core SignalR ke komunikaci s prohlížečem. [ SignalR podmínky hostování a škálování](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor Serverové aplikace.
+Blazor Serveraplikace používají ASP.NET Core SignalR ke komunikaci s prohlížečem. [ SignalR podmínky hostování a škálování](xref:signalr/publish-to-azure-web-app) se vztahují na Blazor Server aplikace.
 
 Blazorfunguje nejlépe při použití WebSockets jako SignalR přenosu z důvodu nižší latence, spolehlivosti a [zabezpečení](xref:signalr/security). Dlouhé cyklické dotazování se používá, SignalR když nejsou objekty WebSocket k dispozici nebo když je aplikace explicitně nakonfigurovaná tak, aby používala dlouhé cyklické dotazování. Při nasazování do Azure App Service nakonfigurujte aplikaci tak, aby používala objekty WebSocket v nastaveních Azure Portal služby. Podrobnosti o konfiguraci aplikace pro Azure App Service najdete v [ SignalR pokynech k publikování](xref:signalr/publish-to-azure-web-app).
 
 #### <a name="azure-signalr-service"></a>SignalRSlužba Azure
 
-Pro serverové aplikace doporučujeme [používat SignalR službu Azure](/azure/azure-signalr) Blazor . Služba umožňuje škálovat Blazor serverovou aplikaci na velký počet souběžných SignalR připojení. Kromě toho SignalR globální dostupnost a vysoce výkonná datová centra služby významně pomáhají při snižování latence z důvodu geografické oblasti. Konfigurace aplikace (a volitelně zřízení) pro SignalR službu Azure:
+Pro aplikace doporučujeme používat [ SignalR službu Azure](/azure/azure-signalr) Blazor Server . Služba umožňuje horizontální navýšení kapacity Blazor Server aplikace na velký počet souběžných SignalR připojení. Kromě toho SignalR globální dostupnost a vysoce výkonná datová centra služby významně pomáhají při snižování latence z důvodu geografické oblasti. Konfigurace aplikace (a volitelně zřízení) pro SignalR službu Azure:
 
 1. Povolte službě podporovat *rychlé relace*, kde se klienti [při předvykreslování přesměrují zpátky na stejný server](xref:blazor/hosting-models#connection-to-the-server). Nastavte `ServerStickyMode` možnost nebo hodnotu konfigurace na `Required` . Aplikace obvykle vytváří konfiguraci pomocí **jednoho** z následujících přístupů:
 
@@ -84,7 +86,7 @@ Pro serverové aplikace doporučujeme [používat SignalR službu Azure](/azure/
 
      * Nastavení **konfigurační**  >  **aplikace** služby App Service v Azure Portal (**název**: `Azure:SignalR:ServerStickyMode` , **hodnota**: `Required` ).
 
-1. Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro Blazor serverovou aplikaci.
+1. Vytvořte profil publikování aplikací Azure v aplikaci Visual Studio pro Blazor Server aplikaci.
 1. Přidejte do profilu závislost ** SignalR služby Azure** . Pokud předplatné Azure nemá stávající SignalR instanci služby Azure, která se má přiřadit k aplikaci, vyberte **vytvořit novou SignalR instanci služby Azure** a zřídit novou instanci služby.
 1. Publikovat aplikaci do Azure
 

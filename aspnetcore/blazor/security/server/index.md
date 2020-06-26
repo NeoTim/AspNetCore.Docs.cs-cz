@@ -1,40 +1,42 @@
 ---
-title: Zabezpečené Blazor aplikace ASP.NET Core serveru
+title: Zabezpečení Blazor Server aplikací ASP.NET Core
 author: guardrex
-description: Naučte se zabezpečit Blazor serverové aplikace jako aplikace ASP.NET Core.
+description: Naučte se zabezpečit Blazor Server aplikace jako aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/02/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: 2811e08fd2f6c66112ffa0bb40f474158f4c7a59
-ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
+ms.openlocfilehash: ab3baad30f78c5d5e2f969b3292d4886fcd0406d
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/24/2020
-ms.locfileid: "85292682"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402309"
 ---
-# <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečené Blazor aplikace ASP.NET Core serveru
+# <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečení Blazor Server aplikací ASP.NET Core
 
 Od [Luke Latham](https://github.com/guardrex)
 
-BlazorServerové aplikace jsou konfigurovány pro zabezpečení stejným způsobem jako aplikace ASP.NET Core. Další informace najdete v článcích v části <xref:security/index> . Témata v tomto přehledu se týkají konkrétně Blazor serveru. 
+Blazor Serveraplikace jsou konfigurovány pro zabezpečení stejným způsobem jako aplikace ASP.NET Core. Další informace najdete v článcích v části <xref:security/index> . Témata v tomto přehledu se vztahují konkrétně na Blazor Server . 
 
-## <a name="blazor-server-project-template"></a>BlazorŠablona projektu serveru
+## <a name="blazor-server-project-template"></a>Blazor ServerŠablona projektu
 
-BlazorŠablonu projektu serveru lze nakonfigurovat pro ověřování při vytvoření projektu.
+Blazor ServerŠablonu projektu lze nakonfigurovat pro ověřování při vytvoření projektu.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Pokud <xref:blazor/get-started> chcete vytvořit nový Blazor serverový projekt s ověřovacím mechanismem, postupujte podle pokynů pro Visual Studio v článku.
+Pokud <xref:blazor/get-started> chcete vytvořit nový Blazor Server projekt s ověřovacím mechanismem, postupujte podle pokynů pro Visual Studio v článku.
 
-Po výběru šablony ** Blazor aplikace serveru** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
+Po výběru šablony ** Blazor Server aplikace** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
 
 Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pro jiné projekty ASP.NET Core:
 
@@ -47,7 +49,7 @@ Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pr
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Podle pokynů Visual Studio Code v <xref:blazor/get-started> článku vytvořte nový Blazor serverový projekt s mechanismem ověřování:
+Postupujte podle pokynů Visual Studio Code v <xref:blazor/get-started> článku Vytvoření nového Blazor Server projektu s mechanismem ověřování:
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -75,13 +77,13 @@ Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new
 
 1. Postupujte podle pokynů Visual Studio pro Mac v <xref:blazor/get-started> článku.
 
-1. V kroku **Konfigurace nového Blazor serveru aplikace** vyberte v rozevíracím seznamu **ověřování** možnost **individuální ověřování (v aplikaci)** .
+1. V kroku **Konfigurace nového Blazor Server aplikace** vyberte v rozevíracím seznamu **ověřování** možnost **individuální ověřování (v aplikaci)** .
 
 1. Aplikace se vytvoří pro jednotlivé uživatele uložené v aplikaci pomocí ASP.NET Core Identity .
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-Podle pokynů .NET Core CLI v <xref:blazor/get-started> článku vytvořte nový Blazor serverový projekt s mechanismem ověřování:
+Postupujte podle pokynů .NET Core CLI v <xref:blazor/get-started> článku Vytvoření nového Blazor Server projektu s mechanismem ověřování:
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -109,7 +111,7 @@ Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new
 
 ## <a name="scaffold-identity"></a>GenerováníIdentity
 
-Uživatelské rozhraní Identity na Blazor serverový projekt:
+Uživatelské rozhraní Identity do Blazor Server projektu:
 
 * [Bez existující autorizace](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-without-existing-authorization).
 * [S autorizací](xref:security/authentication/scaffold-identity#scaffold-identity-into-a-blazor-server-project-with-authorization).

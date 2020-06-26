@@ -1,5 +1,5 @@
 ---
-title: Zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly se Identity serverem
+title: Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 author: guardrex
 description: Vytvoření nové Blazor hostované aplikace s ověřováním v sadě Visual Studio, které používá back-end [IdentityServer](https://identityserver.io/)
 monikerRange: '>= aspnetcore-3.1'
@@ -8,19 +8,21 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 8251658a2bb99ec17424ec26b8a44171082fab05
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: cce6b6b1ec144e362415fe34645aef567269c873
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243465"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402205"
 ---
-# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení Blazor hostované aplikace ASP.NET Core WebAssembly se Identity serverem
+# <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
@@ -30,7 +32,7 @@ Tento článek vysvětluje, jak vytvořit novou Blazor hostovanou aplikaci, kter
 
 V aplikaci Visual Studio:
 
-1. Vytvoří novou aplikaci ** Blazor WebAssembly** . Další informace naleznete v tématu <xref:blazor/get-started>.
+1. Vytvořte novou **Blazor WebAssembly** aplikaci. Další informace naleznete v tématu <xref:blazor/get-started>.
 1. V dialogovém okně **vytvořit novou Blazor aplikaci** vyberte v části **ověřování** možnost **změnit** .
 1. Vyberte **jednotlivé uživatelské účty** a potom klikněte na **OK**.
 1. Zaškrtněte políčko **ASP.NET Core hostované** v části **Upřesnit** .

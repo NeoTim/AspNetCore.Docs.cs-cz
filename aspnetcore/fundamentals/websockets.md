@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/websockets
-ms.openlocfilehash: da713f22582cf17f60a4deda1b689662a4e4ae06
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: e2aff39db621ea6e71dce1f1560b1aa70fa865f0
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775437"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404090"
 ---
 # <a name="websockets-support-in-aspnet-core"></a>Podpora WebSockets v ASP.NET Core
 
@@ -28,11 +30,11 @@ Tento článek vysvětluje, jak začít s objekty WebSockets v ASP.NET Core. [We
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)). [Jak spustit](#sample-app).
 
-## <a name="signalr"></a>SignalR
+## SignalR
 
-[ASP.NET Core Signal](xref:signalr/introduction) je knihovna, která zjednodušuje přidávání webových funkcí v reálném čase do aplikací. Pokud je to možné, používá objekty WebSocket.
+[ASP.NET Core SignalR ](xref:signalr/introduction) je knihovna, která zjednodušuje přidávání webových funkcí v reálném čase do aplikací. Pokud je to možné, používá objekty WebSocket.
 
-Pro většinu aplikací doporučujeme signalizaci pro nezpracované objekty WebSockets. Signál poskytuje záložní přenos pro prostředí, kde nejsou k dispozici objekty WebSockets. Poskytuje také jednoduchý model aplikace pro vzdálené volání procedur. Ve většině scénářů nemá Signal v porovnání s nezpracovanými objekty WebSocket žádný významný nevýhodný výkon.
+Pro většinu aplikací doporučujeme používat SignalR nezpracované objekty WebSockets. SignalRposkytuje záložní přenos pro prostředí, kde nejsou k dispozici objekty WebSockets. Poskytuje také jednoduchý model aplikace pro vzdálené volání procedur. Ve většině scénářů SignalR nemá v porovnání s nezpracovanými objekty WebSocket žádný významný nevýhodný výkon.
 
 ## <a name="prerequisites"></a>Požadavky
 
@@ -49,11 +51,11 @@ Pro většinu aplikací doporučujeme signalizaci pro nezpracované objekty WebS
   * IIS 8/IIS 8 Express
   * Je nutné povolit objekty WebSockets (viz část [Podpora služby IIS/IIS Express](#iisiis-express-support) .).
   
-* Pokud aplikace běží na [http. sys](xref:fundamentals/servers/httpsys):
+* Pokud aplikace běží na [HTTP.sys](xref:fundamentals/servers/httpsys):
 
   * Windows 8/Windows Server 2012 nebo novější
 
-* Podporované prohlížeče najdete v tématu https://caniuse.com/#feat=websockets.
+* Podporované prohlížeče najdete v tématu https://caniuse.com/#feat=websockets .
 
 ::: moniker range="< aspnetcore-2.1"
 
@@ -66,7 +68,7 @@ Nainstalujte balíček [Microsoft. AspNetCore. WebSockets](https://www.nuget.org
 ## <a name="configure-the-middleware"></a>Konfigurace middlewaru
 
 
-Do `Configure` metody `Startup` třídy přidejte middleware WebSockets:
+Do metody třídy přidejte middleware WebSockets `Configure` `Startup` :
 
 [!code-csharp[](websockets/samples/2.x/WebSocketsSample/Startup.cs?name=UseWebSockets)]
 
@@ -99,7 +101,7 @@ Následující příklad je z níže v `Configure` metodě:
 
 [!code-csharp[](websockets/samples/2.x/WebSocketsSample/Startup.cs?name=AcceptWebSocket&highlight=7)]
 
-Požadavek protokolu WebSocket by mohl být na jakékoli adrese URL, ale tento ukázkový kód přijímá pouze požadavky `/ws`na.
+Požadavek protokolu WebSocket by mohl být na jakékoli adrese URL, ale tento ukázkový kód přijímá pouze požadavky na `/ws` .
 
 Při použití objektu WebSocket je **nutné** , aby byl kanál middleware spuštěn po dobu trvání připojení. Pokud se pokusíte odeslat nebo přijmout zprávu protokolu WebSocket po ukončení kanálu middleware, může se zobrazit výjimka podobná následující:
 
@@ -108,7 +110,7 @@ System.Net.WebSockets.WebSocketException (0x80004005): The remote party closed t
 Object name: 'HttpResponseStream'.
 ```
 
-Pokud k zápisu dat do objektu WebSocket používáte službu na pozadí, ujistěte se, že je kanál middleware spuštěný. Použijte k <xref:System.Threading.Tasks.TaskCompletionSource%601>tomu. Předejte `TaskCompletionSource` službě na pozadí a zavolejte <xref:System.Threading.Tasks.TaskCompletionSource%601.TrySetResult%2A> ji, až skončíte s WebSocket. Pak `await` <xref:System.Threading.Tasks.TaskCompletionSource%601.Task> vlastnost během žádosti, jak je znázorněno v následujícím příkladu:
+Pokud k zápisu dat do objektu WebSocket používáte službu na pozadí, ujistěte se, že je kanál middleware spuštěný. Použijte k tomu <xref:System.Threading.Tasks.TaskCompletionSource%601> . Předejte `TaskCompletionSource` službě na pozadí a zavolejte ji, <xref:System.Threading.Tasks.TaskCompletionSource%601.TrySetResult%2A> až skončíte s WebSocket. Pak `await` <xref:System.Threading.Tasks.TaskCompletionSource%601.Task> vlastnost během žádosti, jak je znázorněno v následujícím příkladu:
 
 ```csharp
 app.Use(async (context, next) => {
@@ -122,11 +124,11 @@ app.Use(async (context, next) => {
 ```
 Uzavřená výjimka WebSocket se může vyskytnout také v případě, že se vrátí příliš brzy od metody Action. Pokud v metodě akce přijmete soket, počkejte, než se před vrácením z metody Action dokončí kód, který používá soket.
 
-Nikdy `Task.Wait()`Nepoužívejte `Task.Result`, nebo podobná blokující volání pro čekání na dokončení soketu, což může způsobit vážné problémy s vlákny. Vždy použít `await`.
+Nikdy nepoužívejte `Task.Wait()` , `Task.Result` nebo podobná blokující volání pro čekání na dokončení soketu, což může způsobit vážné problémy s vlákny. Vždy použít `await` .
 
 ## <a name="send-and-receive-messages"></a>Odesílání a příjem zpráv
 
-`AcceptWebSocketAsync` Metoda upgraduje připojení TCP na připojení protokolem WebSocket a poskytuje objekt [WebSocket](/dotnet/core/api/system.net.websockets.websocket) . Pomocí `WebSocket` objektu můžete odesílat a přijímat zprávy.
+`AcceptWebSocketAsync`Metoda upgraduje připojení TCP na připojení protokolem WebSocket a poskytuje objekt [WebSocket](/dotnet/core/api/system.net.websockets.websocket) . Pomocí `WebSocket` objektu můžete odesílat a přijímat zprávy.
 
 Kód uvedený výše, který přijímá požadavek protokolu WebSocket, předá `WebSocket` objekt `Echo` metodě. Kód obdrží zprávu a ihned pošle zpět stejnou zprávu. Zprávy jsou odesílány a přijímány ve smyčce, dokud klient neukončí připojení:
 
@@ -140,7 +142,7 @@ Když přijmete připojení protokolu WebSocket před zahájením smyčky, kaná
 
 Pokud se klient odpojí z důvodu ztráty připojení, server se automaticky neinformuje. Server obdrží zprávu odpojení pouze v případě, že ji klient pošle, a pokud dojde ke ztrátě připojení k Internetu. Pokud chcete provést nějakou akci, když k tomu dojde, nastavte časový limit po nedoručení od klienta do určitého časového období.
 
-Pokud klient vždy neposílá zprávy a nechcete, aby vypršel časový limit, protože připojení se nečinný, musí klient použít časovač k odeslání zprávy s příkazem if každých X sekund. Pokud se na serveru nepřišla zpráva do 2\*X sekund po předchozím konci, ukončí se připojení a oznámí, že se klient odpojil. Počkejte na dvojnásobek očekávaného časového intervalu pro prodlevu při zpoždění sítě, která by mohla obsahovat zprávu s upozorněním na test.
+Pokud klient vždy neposílá zprávy a nechcete, aby vypršel časový limit, protože připojení se nečinný, musí klient použít časovač k odeslání zprávy s příkazem if každých X sekund. Pokud se na serveru nepřišla zpráva do 2 \* X sekund po předchozím konci, ukončí se připojení a oznámí, že se klient odpojil. Počkejte na dvojnásobek očekávaného časového intervalu pro prodlevu při zpoždění sítě, která by mohla obsahovat zprávu s upozorněním na test.
 
 ## <a name="websocket-origin-restriction"></a>Omezení původu protokolu WebSocket
 
@@ -149,14 +151,14 @@ Ochrany, které poskytuje CORS, se nevztahují na objekty WebSockets. Prohlíže
 * Provádění požadavků CORS v řádu CORS
 * Respektujte omezení zadaná v `Access-Control` hlavičkách při vytváření požadavků protokolu WebSocket.
 
-Prohlížeče ale při vydávání požadavků protokolu `Origin` WebSocket odesílají hlavičku. Aplikace by měly být nakonfigurovány pro ověření těchto hlaviček, aby bylo zajištěno, že budou povoleny pouze objekty WebSockets přicházející z očekávaných zdrojů.
+Prohlížeče ale `Origin` při vydávání požadavků protokolu WebSocket odesílají hlavičku. Aplikace by měly být nakonfigurovány pro ověření těchto hlaviček, aby bylo zajištěno, že budou povoleny pouze objekty WebSockets přicházející z očekávaných zdrojů.
 
-https://server.comPokud váš Server hostuje "" a hostující klienta v "https://client.com", přidejte "https://client.com" do `AllowedOrigins` seznamu pro objekty WebSockets, které chcete ověřit.
+Pokud váš Server hostuje " https://server.com " a hostující klienta v " https://client.com ", přidejte " https://client.com " do `AllowedOrigins` seznamu pro objekty WebSockets, které chcete ověřit.
 
 [!code-csharp[](websockets/samples/2.x/WebSocketsSample/Startup.cs?name=UseWebSocketsOptionsAO&highlight=6-7)]
 
 > [!NOTE]
-> `Origin` Záhlaví řídí klient a, podobně jako `Referer` záhlaví, může být falešným. Nepoužívejte **tyto** hlavičky jako ověřovací mechanismus.
+> `Origin`Záhlaví řídí klient a, podobně jako `Referer` záhlaví, může být falešným. Nepoužívejte **tyto** hlavičky jako ověřovací mechanismus.
 
 ::: moniker-end
 
@@ -180,7 +182,7 @@ Povolení podpory protokolu WebSocket v systému Windows Server 2012 nebo nověj
 1. Rozbalte **webový server (IIS)** ve stromu **role** , rozbalte možnost **webový server**a poté rozbalte položku **vývoj aplikací**.
 1. Vyberte **protokol WebSocket**. Vyberte **Další**.
 1. Pokud nepotřebujete další funkce, vyberte **Další**.
-1. Vyberte **Install** (Nainstalovat).
+1. Vyberte **Nainstalovat**.
 1. Až se instalace dokončí, kliknutím na **Zavřít** ukončete průvodce.
 
 Povolení podpory protokolu WebSocket v systému Windows 8 nebo novějším:
@@ -188,13 +190,13 @@ Povolení podpory protokolu WebSocket v systému Windows 8 nebo novějším:
 > [!NOTE]
 > Při použití IIS Express se tyto kroky nevyžadují.
 
-1. Přejděte na **Ovládací panely** > **programy** > programy**a funkce** > **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
-1. Otevřete následující uzly: **Internetová informační služba** > **funkce pro vývoj aplikací**v**rámci webové služby** > .
+1. Přejděte na **Ovládací panely**  >  **programy**programy  >  **a funkce**  >  **zapnout nebo vypnout funkce systému Windows** (levá strana obrazovky).
+1. Otevřete následující uzly: **Internetová informační služba**  >  funkce pro vývoj aplikací v**rámci webové služby**  >  **Application Development Features**.
 1. Vyberte funkci **protokolu WebSocket** . Vyberte **OK**.
 
-### <a name="disable-websocket-when-using-socketio-on-nodejs"></a>Zakázat WebSocket při použití socket.io v Node. js
+### <a name="disable-websocket-when-using-socketio-on-nodejs"></a>Zakázat WebSocket při použití socket.io v Node.js
 
-Pokud používáte podporu WebSocket v [Socket.IO](https://socket.io/) v [Node. js](https://nodejs.org/), zakažte výchozí modul protokolu WebSocket služby IIS pomocí `webSocket` elementu v souboru *Web. config* nebo *ApplicationHost. config*. Pokud tento krok neprovedete, modul WebSocket služby IIS se pokusí zpracovat komunikaci protokolu WebSocket, nikoli Node. js a aplikaci.
+Pokud používáte podporu protokolu WebSocket v [Socket.IO](https://socket.io/) na [Node.js](https://nodejs.org/), zakažte výchozí modul protokolu WebSocket služby IIS pomocí `webSocket` elementu v *web.config* nebo *applicationHost.config*. Pokud tento krok neprovedete, modul WebSocket služby IIS se pokusí zpracovat komunikaci protokolu WebSocket místo Node.js a aplikace.
 
 ```xml
 <system.webServer>
@@ -204,7 +206,7 @@ Pokud používáte podporu WebSocket v [Socket.IO](https://socket.io/) v [Node. 
 
 ## <a name="sample-app"></a>Ukázková aplikace
 
-[Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples) , která doprovází tento článek, je aplikace s odezvou. Má webovou stránku, která zpřístupňuje připojení pomocí protokolu WebSocket, a server znovu odešle všechny zprávy, které obdrží zpátky klientovi. Spusťte aplikaci z příkazového řádku (není nastavená tak, aby se spouštěla ze sady Visual Studio s IIS Express), http://localhost:5000a přejděte na. Na webové stránce se zobrazuje stav připojení v levém horním rohu:
+[Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/websockets/samples) , která doprovází tento článek, je aplikace s odezvou. Má webovou stránku, která zpřístupňuje připojení pomocí protokolu WebSocket, a server znovu odešle všechny zprávy, které obdrží zpátky klientovi. Spusťte aplikaci z příkazového řádku (není nastavená tak, aby se spouštěla ze sady Visual Studio s IIS Express), a přejděte na http://localhost:5000 . Na webové stránce se zobrazuje stav připojení v levém horním rohu:
 
 ![Počáteční stav webové stránky](websockets/_static/start.png)
 

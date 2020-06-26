@@ -8,17 +8,19 @@ ms.custom: mvc, seodec18
 ms.date: 03/26/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: razor-pages/sdk
-ms.openlocfilehash: 555965b96b0d4d541c70f8a137d4f098dc06a4d6
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 56b4d4c13023918a4ac25c8c5d8ad1ee2c346ac6
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106621"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403037"
 ---
 # <a name="aspnet-core-razor-sdk"></a>RazorSada ASP.NET Core SDK
 
@@ -109,7 +111,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 
 ::: moniker-end
 
-| Items (Položky) | Popis |
+| Položky | Description |
 | ----- | ----------- |
 | `RazorGenerate` | Prvky položky (soubory *. cshtml* ), které jsou vstupy pro generování kódu. |
 | `RazorComponent` | Prvky položky (soubory *. Razor* ), které jsou vstupy pro Razor generování kódu komponenty. |
@@ -124,7 +126,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | `RazorTargetName` | Název souboru (bez přípony) sestavení vytvořeného Razor . |
 | `RazorOutputPath` | RazorVýstupní adresář. |
 | `RazorCompileToolset` | Slouží k určení sady nástrojů používané k sestavení Razor sestavení. Platné hodnoty jsou `Implicit` , `RazorSDK` a `PrecompilationTool` . |
-| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | Výchozí je `true`. `true`V případě zahrnuje soubory *Web. config*, *. JSON*a *. cshtml* jako obsah v projektu. `Microsoft.NET.Sdk.Web`V případě, že jsou odkazovány prostřednictvím, jsou zahrnuty také soubory pod soubory *wwwroot* a config. |
+| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | Výchozí je `true`. `true`V případě zahrnuje *web.config*, *. JSON*a soubory *. cshtml* jako obsah v projektu. `Microsoft.NET.Sdk.Web`V případě, že jsou odkazovány prostřednictvím, jsou zahrnuty také soubory pod soubory *wwwroot* a config. |
 | `EnableDefaultRazorGenerateItems` | When `true` zahrnuje soubory *. cshtml* z `Content` položek v `RazorGenerate` položkách. |
 | `GenerateRazorTargetAssemblyInfo` | Když `true` , vygeneruje soubor *. cs* obsahující atributy určené pomocí `RazorAssemblyAttribute` a obsahuje soubor ve výstupu kompilace. |
 | `EnableDefaultRazorTargetAssemblyInfoAttributes` | Kdy `true` přidá výchozí sadu atributů sestavení do `RazorAssemblyAttribute` . |
@@ -148,7 +150,7 @@ Vlastnosti a položky v následující tabulce se používají ke konfiguraci vs
 | `RazorTargetName` | Název souboru (bez přípony) sestavení vytvořeného Razor . |
 | `RazorOutputPath` | RazorVýstupní adresář. |
 | `RazorCompileToolset` | Slouží k určení sady nástrojů používané k sestavení Razor sestavení. Platné hodnoty jsou `Implicit` , `RazorSDK` a `PrecompilationTool` . |
-| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | Výchozí je `true`. `true`V případě zahrnuje soubory *Web. config*, *. JSON*a *. cshtml* jako obsah v projektu. `Microsoft.NET.Sdk.Web`V případě, že jsou odkazovány prostřednictvím, jsou zahrnuty také soubory pod soubory *wwwroot* a config. |
+| [EnableDefaultContentItems](https://github.com/aspnet/websdk/blob/rel-2.0.0/src/ProjectSystem/Microsoft.NET.Sdk.Web.ProjectSystem.Targets/netstandard1.0/Microsoft.NET.Sdk.Web.ProjectSystem.targets#L21) | Výchozí je `true`. `true`V případě zahrnuje *web.config*, *. JSON*a soubory *. cshtml* jako obsah v projektu. `Microsoft.NET.Sdk.Web`V případě, že jsou odkazovány prostřednictvím, jsou zahrnuty také soubory pod soubory *wwwroot* a config. |
 | `EnableDefaultRazorGenerateItems` | When `true` zahrnuje soubory *. cshtml* z `Content` položek v `RazorGenerate` položkách. |
 | `GenerateRazorTargetAssemblyInfo` | Když `true` , vygeneruje soubor *. cs* obsahující atributy určené pomocí `RazorAssemblyAttribute` a obsahuje soubor ve výstupu kompilace. |
 | `EnableDefaultRazorTargetAssemblyInfoAttributes` | Kdy `true` přidá výchozí sadu atributů sestavení do `RazorAssemblyAttribute` . |

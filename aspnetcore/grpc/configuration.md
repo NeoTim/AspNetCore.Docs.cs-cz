@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/26/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: grpc/configuration
-ms.openlocfilehash: a90735c6cd99de30f168fb1498e705de2d6887ca
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: e56410d2e9a893a406ec5b60841c2b70dca7205c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106114"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403557"
 ---
 # <a name="grpc-for-net-configuration"></a>Konfigurace gRPC pro .NET
 
@@ -26,7 +28,7 @@ ms.locfileid: "84106114"
 
 služby gRPC Services se konfigurují `AddGrpc` v *Startup.cs*. Následující tabulka popisuje možnosti konfigurace služeb gRPC:
 
-| Možnost | Výchozí hodnota | Popis |
+| Možnost | Výchozí hodnota | Description |
 | ------ | ------------- | ----------- |
 | MaxSendMessageSize | `null` | Maximální velikost zprávy v bajtech, která se dá odeslat ze serveru. Při pokusu o odeslání zprávy, která přesahuje nakonfigurovanou maximální velikost zprávy, dojde k výjimce. Při nastavení na je `null` velikost zprávy neomezená. |
 | MaxReceiveMessageSize | 4 MB | Maximální velikost zprávy v bajtech, kterou může server přijmout. Pokud server obdrží zprávu, která tento limit překračuje, vyvolá výjimku. Zvýšením této hodnoty umožníte serveru přijímat větší zprávy, ale můžou negativně ovlivnit spotřebu paměti. Při nastavení na je `null` velikost zprávy neomezená. |
@@ -34,7 +36,7 @@ služby gRPC Services se konfigurují `AddGrpc` v *Startup.cs*. Následující t
 | CompressionProviders | GZIP | Kolekce zprostředkovatelů komprese používaných ke komprimaci a dekompresi zpráv. Vlastní zprostředkovatelé komprese lze vytvořit a přidat do kolekce. Výchozí konfigurovaná zprostředkovatelé podporují kompresi **gzip** . |
 | <span style="word-break:normal;word-wrap:normal">ResponseCompressionAlgorithm</span> | `null` | Kompresní algoritmus používaný ke kompresi zpráv odeslaných ze serveru. Algoritmus se musí shodovat se zprostředkovatelem komprese v `CompressionProviders` . Aby algoritmus mohl zkomprimovat odpověď, musí klient označit, že podporuje algoritmus, a to tak, že ho pošle v hlavičce **grpc-Accept-Encoding** . |
 | ResponseCompressionLevel | `null` | Úroveň komprimace používaná ke kompresi zpráv odeslaných ze serveru. |
-| Zachycovače | Žádné | Kolekce zachycení, které jsou spouštěny s každým voláním gRPC. Zachycení se spouští v pořadí, v jakém jsou zaregistrovaná. Globálně nakonfigurované zachycení se spouští před zachyceními nakonfigurovanými pro jednu službu. Další informace o zachycených gRPC naleznete v tématu [GRPC zachycení vs. middleware](xref:grpc/migration#grpc-interceptors-vs-middleware). |
+| Zachycovače | Žádná | Kolekce zachycení, které jsou spouštěny s každým voláním gRPC. Zachycení se spouští v pořadí, v jakém jsou zaregistrovaná. Globálně nakonfigurované zachycení se spouští před zachyceními nakonfigurovanými pro jednu službu. Další informace o zachycených gRPC naleznete v tématu [GRPC zachycení vs. middleware](xref:grpc/migration#grpc-interceptors-vs-middleware). |
 | IgnoreUnknownServices | `false` | Pokud `true` volání neznámých služeb a metod nevrátí **Neimplementovaný** stav a požadavek projde do dalšího registrovaného middlewaru v ASP.NET Core. |
 
 Možnosti lze nakonfigurovat pro všechny služby tím, že poskytnete možnosti delegáta pro `AddGrpc` volání v `Startup.ConfigureServices` :
@@ -49,7 +51,7 @@ Možnosti pro jednu službu přepíší globální možnosti poskytované v `Add
 
 Konfigurace klienta gRPC je nastavená na `GrpcChannelOptions` . Následující tabulka popisuje možnosti konfigurace gRPCch kanálů:
 
-| Možnost | Výchozí hodnota | Popis |
+| Možnost | Výchozí hodnota | Description |
 | ------ | ------------- | ----------- |
 | HttpHandler | Nová instance | `HttpMessageHandler`Slouží k provádění volání gRPC. Klienta lze nastavit tak, aby nakonfiguroval vlastní `HttpClientHandler` nebo přidal další obslužné rutiny do kanálu HTTP pro volání gRPC. Pokud `HttpMessageHandler` není zadaný, vytvoří se `HttpClientHandler` pro kanál nová instance s automatickým vyřazením. |
 | HttpClient | `null` | `HttpClient`Slouží k provádění volání gRPC. Toto nastavení je alternativou k `HttpHandler` . |

@@ -1,24 +1,26 @@
 ---
-title: ASP.NET Core Blazor WebAssembly s Azure Active Directorymi skupinami a rolemi
+title: ASP.NET Core Blazor WebAssembly se Azure Active Directorymi skupinami a rolemi
 author: guardrex
-description: Naučte se, jak nakonfigurovat Blazor WebAssembly pro použití Azure Active Directorych skupin a rolí.
+description: Naučte se konfigurovat Blazor WebAssembly , aby používaly Azure Active Directory skupiny a role.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/webassembly/aad-groups-roles
-ms.openlocfilehash: ed49ba13842f2b5805250d8c12535397c542cfd4
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 6e27b062d7b5a1b72804fe5d4ea31ec65358ce45
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242872"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402153"
 ---
 # <a name="azure-ad-groups-administrative-roles-and-user-defined-roles"></a>Skupiny Azure AD, role pro správu a uživatelsky definované role
 
@@ -34,7 +36,7 @@ Azure Active Directory (AAD) poskytuje několik autorizačních přístupů, kte
   * Předdefinované role pro správu
   * Uživatelsky definované role
 
-Pokyny v tomto článku se týkají Blazor scénářů nasazení AAD WebAssembly popsaných v následujících tématech:
+Pokyny v tomto článku se týkají Blazor WebAssembly scénářů nasazení AAD popsaných v následujících tématech:
 
 * [Samostatná aplikace využívající účty Microsoft](xref:blazor/security/webassembly/standalone-with-microsoft-accounts)
 * [Samostatná aplikace využívající Azure Active Directory](xref:blazor/security/webassembly/standalone-with-azure-active-directory)

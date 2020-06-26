@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/28/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/community
-ms.openlocfilehash: 425382781d6d35f6706aa9337280b0fdede4eac3
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 8f99294b6aa51eae350b3fa3f356b0b4807d0e58
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774623"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403128"
 ---
 # <a name="community-oss-authentication-options-for-aspnet-core"></a>Možnosti ověřování komunity OSS pro ASP.NET Core
 
@@ -26,7 +28,7 @@ Tato stránka obsahuje otevřené možnosti ověřování zdrojového kódu pro 
 
 Níže uvedený seznam je seřazený podle abecedy.
 
-| Název | Popis |
+| Name | Description |
 | ---- | ----------- |
 | [AspNet. Security. OpenIdConnect. Server (ASOS)](https://github.com/aspnet-contrib/AspNet.Security.OpenIdConnect.Server) | ASOS je serverová architektura nižší úrovně OpenID Connect serveru pro ASP.NET Core a OWIN/Katana. |
 | [Server Gluu](https://gluu.org/) | Enterprise readed, open source software pro identitu, správu přístupu (IAM) a jednotné přihlašování (SSO). Další informace najdete v [dokumentaci k produktu Gluu](https://gluu.org/docs/). |

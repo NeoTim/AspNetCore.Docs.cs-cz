@@ -1,37 +1,39 @@
 ---
 title: Transformace souboru web.config
 author: rick-anderson
-description: Naučte se, jak transformovat soubor Web. config při publikování aplikace ASP.NET Core.
+description: Naučte se, jak transformovat soubor web.config při publikování aplikace ASP.NET Core.
 monikerRange: '>= aspnetcore-2.2'
 ms.author: riande
 ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/iis/transform-webconfig
-ms.openlocfilehash: f7e1fb0adc669b4bffa02e6688231c8f1447bd98
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: bebba7a72012b8be6257b14642bf130613627778
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775931"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403999"
 ---
 # <a name="transform-webconfig"></a>Transformace souboru web.config
 
 Od [Vijay Ramakrishnan](https://github.com/vijayrkn)
 
-Transformace do souboru *Web. config* lze použít automaticky při publikování aplikace na základě:
+Transformace na soubor *web.config* lze použít automaticky při publikování aplikace na základě:
 
 * [Konfigurace sestavení](#build-configuration)
 * [Profil](#profile)
 * [Prostředí](#environment)
 * [Vlastní](#custom)
 
-Tyto transformace se vyskytují pro některé z následujících scénářů generování *webu. config* :
+K těmto transformacím dochází pro některé z následujících scénářů *web.config* generace:
 
 * Vygenerováno automaticky sadou `Microsoft.NET.Sdk.Web` SDK.
 * Poskytl vývojář v [kořenu obsahu](xref:fundamentals/index#content-root) aplikace.
@@ -40,9 +42,9 @@ Tyto transformace se vyskytují pro některé z následujících scénářů gen
 
 Transformace konfigurace sestavení se spouštějí jako první.
 
-Zahrnout *Web. { KONFIGURAČNÍ soubor. config* pro každou [konfiguraci sestavení (ladění | Release)](/dotnet/core/tools/dotnet-publish#options) , která vyžaduje transformaci *Web. config* .
+Zahrnout *Web. { KONFIGURAČNÍ soubor. config* pro každou [konfiguraci sestavení (ladění | Release)](/dotnet/core/tools/dotnet-publish#options) , která vyžaduje transformaci *web.config* .
 
-V následujícím příkladu je proměnná prostředí specifická pro konfiguraci nastavena na *webu. Release. config*:
+V následujícím příkladu je proměnná prostředí specifická pro konfiguraci nastavena v *web.Release.config*:
 
 ```xml
 <?xml version="1.0"?>
@@ -74,9 +76,9 @@ Vlastnost MSBuild pro konfiguraci je `$(Configuration)` .
 
 Transformace profilů se spustí za sekundu po transformaci [konfigurace sestavení](#build-configuration) .
 
-Zahrnout *Web. { PROFIL}. config* soubor pro každou konfiguraci profilu vyžadující transformaci *Web. config* .
+Zahrnout *Web. { Soubor PROFILe}. config* pro každou konfiguraci profilu vyžaduje transformaci *web.config* .
 
-V následujícím příkladu je proměnná prostředí pro konkrétní profil nastavena na *webu. FolderProfile. config* pro profil publikování složky:
+V následujícím příkladu je proměnná prostředí specifická pro daný profil nastavena v *web.FolderProfile.config* pro profil publikování složky:
 
 ```xml
 <?xml version="1.0"?>
@@ -104,15 +106,15 @@ dotnet publish --configuration Release /p:PublishProfile=FolderProfile
 
 Vlastnost MSBuild pro název profilu je `$(PublishProfile)` .
 
-Pokud není předán žádný profil, výchozí název profilu je **systém souborů** a *Web. FileSystem. config* se použije, pokud se soubor nachází v kořenovém adresáři obsahu aplikace.
+Pokud se nepředává žádný profil, výchozí název profilu je **systém souborů** a *web.FileSystem.config* se použije, pokud se soubor nachází v kořenu obsahu aplikace.
 
 ## <a name="environment"></a>Prostředí
 
 Transformace prostředí se spouští třetí, po [konfiguraci sestavení](#build-configuration) a transformacích [profilů](#profile) .
 
-Zahrnout *Web. { ENVIRONMENT}. config* soubor pro každé [prostředí](xref:fundamentals/environments) vyžaduje transformaci *Web. config* .
+Zahrnout *Web. { ENVIRONMENT}. config* soubor pro každé [prostředí](xref:fundamentals/environments) vyžaduje transformaci *web.config* .
 
-V následujícím příkladu je proměnná prostředí specifická pro prostředí nastavena na *webu. Provozní. config* v produkčním prostředí:
+V následujícím příkladu je proměnná prostředí specifická pro prostředí nastavena v *web.Production.config* pro produkční prostředí:
 
 ```xml
 <?xml version="1.0"?>
@@ -142,13 +144,13 @@ Vlastnost MSBuild pro prostředí je `$(EnvironmentName)` .
 
 Pokud publikujete ze sady Visual Studio a použijete profil publikování, přečtěte si téma <xref:host-and-deploy/visual-studio-publish-profiles#set-the-environment> .
 
-`ASPNETCORE_ENVIRONMENT`Proměnná prostředí je automaticky přidána do souboru *Web. config* , pokud je zadán název prostředí.
+`ASPNETCORE_ENVIRONMENT`Proměnná prostředí je automaticky přidána do souboru *web.config* , pokud je zadán název prostředí.
 
 ## <a name="custom"></a>Vlastní
 
 Vlastní transformace jsou spouštěny jako poslední, po transformaci [konfigurace sestavení](#build-configuration), [profilu](#profile)a [prostředí](#environment) .
 
-Zahrňte *{CUSTOM_NAME}. transformační* soubor pro každou vlastní konfiguraci, která vyžaduje transformaci *Web. config* .
+Zahrňte *{CUSTOM_NAME}. transformační* soubor pro každou vlastní konfiguraci, která vyžaduje transformaci *web.config* .
 
 V následujícím příkladu je proměnná prostředí vlastní transformace nastavena v *Custom. transformaci*:
 
@@ -178,9 +180,9 @@ dotnet publish --configuration Release /p:CustomTransformFileName=custom.transfo
 
 Vlastnost MSBuild pro název profilu je `$(CustomTransformFileName)` .
 
-## <a name="prevent-webconfig-transformation"></a>Zabránit transformaci Web. config
+## <a name="prevent-webconfig-transformation"></a>Zabránit transformaci web.config
 
-Chcete-li zabránit transformaci souboru *Web. config* , nastavte vlastnost MSBuild `$(IsWebConfigTransformDisabled)` :
+Chcete-li zabránit transformaci souboru *web.config* , nastavte vlastnost MSBuild `$(IsWebConfigTransformDisabled)` :
 
 ```dotnetcli
 dotnet publish /p:IsWebConfigTransformDisabled=true
@@ -188,5 +190,5 @@ dotnet publish /p:IsWebConfigTransformDisabled=true
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* [Syntaxe transformace Web. config pro nasazení projektu webové aplikace](/previous-versions/dd465326(v=vs.100))
-* [Syntaxe transformace Web. config pro nasazení webového projektu pomocí sady Visual Studio](/previous-versions/aspnet/dd465326(v=vs.110))
+* [Web.config syntaxe transformace pro nasazení projektu webové aplikace](/previous-versions/dd465326(v=vs.100))
+* [Web.config syntaxe transformace pro nasazení webového projektu pomocí sady Visual Studio](/previous-versions/aspnet/dd465326(v=vs.110))

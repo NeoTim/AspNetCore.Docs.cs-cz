@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/14/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/visual-studio-publish-profiles
-ms.openlocfilehash: f6fe5b4fc3eca82f2807bd0d2376bbf6ea3eb8dd
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: a386066f8d780c5e71c3634065c4e06b74e83c8c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106283"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403856"
 ---
 # <a name="visual-studio-publish-profiles-pubxml-for-aspnet-core-app-deployment"></a>Publikační profily sady Visual Studio (. pubxml) pro nasazení aplikace ASP.NET Core
 
@@ -72,7 +74,7 @@ Při výběru tlačítka **publikovat** v aplikaci Visual Studio nebo při publi
 * Položky publikování jsou vypočítány (soubory, které jsou nutné k publikování).
 * Projekt je publikován (vypočítané soubory jsou zkopírovány do umístění pro publikování).
 
-Pokud projekt ASP.NET Core odkazuje `Microsoft.NET.Sdk.Web` v souboru projektu, soubor *App_offline. htm* se umístí do kořenového adresáře webové aplikace. Když je soubor přítomen, modul ASP.NET Core aplikaci korektně ukončí a během nasazování zachová soubor *App_offline. htm* . Další informace najdete v referenčních informacích k [konfiguraci modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
+Pokud projekt ASP.NET Core odkazuje `Microsoft.NET.Sdk.Web` v souboru projektu, *app_offline.htm* soubor je umístěn v kořenu adresáře webové aplikace. Když je soubor přítomen, modul ASP.NET Core aplikaci korektně ukončí a během nasazování zachová *app_offline.htm* soubor. Další informace najdete v referenčních informacích k [konfiguraci modulu ASP.NET Core](xref:host-and-deploy/aspnet-core-module#app_offlinehtm).
 
 ## <a name="basic-command-line-publishing"></a>Základní publikování z příkazového řádku
 
@@ -349,7 +351,7 @@ Zahrňte `<EnvironmentName>` vlastnost do profilu publikování (*. pubxml*) neb
 </PropertyGroup>
 ```
 
-Pokud požadujete transformace *Web. config* (například nastavení proměnných prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig> .
+Pokud vyžadujete *web.config* transformace (například nastavení proměnných prostředí na základě konfigurace, profilu nebo prostředí), přečtěte si téma <xref:host-and-deploy/iis/transform-webconfig> .
 
 ## <a name="exclude-files"></a>Vyloučit soubory
 
@@ -357,8 +359,8 @@ Při publikování ASP.NET Core Web Apps jsou k dispozici následující prostř
 
 * Sestavit artefakty
 * Složky a soubory, které odpovídají následujícím vzorům pro expanzi názvů:
-  * `**\*.config`(například *Web. config*)
-  * `**\*.json`(například *appSettings. JSON*)
+  * `**\*.config`(například *web.config*)
+  * `**\*.json`(například *appsettings.jszapnuto*)
   * `wwwroot\**`
 
 Nástroj MSBuild podporuje [vzory expanze](https://gruntjs.com/configuring-tasks#globbing-patterns). Například následující `<Content>` prvek potlačí kopírování souborů textu (*. txt*) ve složce *wwwroot\content* a jejích podsložkách:

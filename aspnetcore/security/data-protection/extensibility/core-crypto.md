@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 08/11/2017
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/extensibility/core-crypto
-ms.openlocfilehash: c63cc124e1893f23c18581841194fa66848a2a1e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: de34968f21eec28cf375ee9f75d3cb8b212c7e70
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776419"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404272"
 ---
 # <a name="core-cryptography-extensibility-in-aspnet-core"></a>Rozšiřitelnost základního kryptografie v ASP.NET Core
 
@@ -126,10 +128,10 @@ Hlavním rozdílem mezi IAuthenticatedEncryptor a IAuthenticatedEncryptorDescrip
 
 Popisovač lze serializovat prostřednictvím jeho rutiny ExportToXml. Tato rutina vrátí XmlSerializedDescriptorInfo, který obsahuje dvě vlastnosti: XElement reprezentace popisovače a typ, který představuje [IAuthenticatedEncryptorDescriptorDeserializer](xref:security/data-protection/extensibility/core-crypto#data-protection-extensibility-core-crypto-iauthenticatedencryptordescriptordeserializer) , který lze použít k obnovení tohoto deskriptoru, který má přidělen odpovídající XElement.
 
-Serializovaný deskriptor může obsahovat citlivé informace, jako je například materiál kryptografického klíče. Systém ochrany dat má integrovanou podporu pro šifrování informací předtím, než je trvale uložený do úložiště. Chcete-li tuto funkci využít, deskriptor by měl označit element, který obsahuje citlivé informace s názvem atributu "requiresEncryption" (xmlns "<http://schemas.asp.net/2015/03/dataProtection>"), hodnotou "true".
+Serializovaný deskriptor může obsahovat citlivé informace, jako je například materiál kryptografického klíče. Systém ochrany dat má integrovanou podporu pro šifrování informací předtím, než je trvale uložený do úložiště. Chcete-li tuto funkci využít, deskriptor by měl označit element, který obsahuje citlivé informace s názvem atributu "requiresEncryption" (xmlns " <http://schemas.asp.net/2015/03/dataProtection> "), hodnotou "true".
 
 >[!TIP]
-> Pro nastavení tohoto atributu je k dispozici pomocné rozhraní API. Zavolejte metodu rozšíření XElement. MarkAsRequiresEncryption () umístěnou v oboru názvů Microsoft. AspNetCore. DataProtection. AuthenticatedEncryption. ConfigurationModel.
+> Pro nastavení tohoto atributu je k dispozici pomocné rozhraní API. Zavolejte metodu rozšíření XElement. MarkAsRequiresEncryption () umístěnou v oboru názvů Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.
 
 Mohou existovat také případy, kdy serializovaný popisovač neobsahuje citlivé informace. Znovu zvažte případ kryptografického klíče uloženého v modulu hardwarového zabezpečení (HSM). Deskriptor nemůže zapsat klíč klíče při serializaci sebe sama, protože modul HARDWAROVÉho zabezpečení nezveřejňuje materiál ve formě prostého textu. Místo toho může popisovač zapsat verzi klíče zabaleného klíče (Pokud modul HARDWAROVÉho zabezpečení umožňuje export tímto způsobem) nebo vlastní jedinečný identifikátor HSM pro klíč.
 

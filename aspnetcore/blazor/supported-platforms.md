@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/supported-platforms
-ms.openlocfilehash: 99f14486711c2dd2a634bc51b27a8e3891deee1a
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: adf27fa84acb3929a1639b561c728c2db29723f6
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243223"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401932"
 ---
 # <a name="aspnet-core-blazor-supported-platforms"></a>ASP.NET Core Blazor podporované platformy
 
@@ -26,7 +28,7 @@ Od [Luke Latham](https://github.com/guardrex)
 
 ## <a name="browser-requirements"></a>Požadavky na prohlížeč
 
-### <a name="blazor-webassembly"></a>BlazorWebAssembly
+### Blazor WebAssembly
 
 | Prohlížeč                          | Verze               |
 | -------------------------------- | :-------------------: |
@@ -38,7 +40,7 @@ Od [Luke Latham](https://github.com/guardrex)
 
 &dagger;Aplikace Microsoft Internet Explorer nepodporuje [WebAssembly](https://webassembly.org).
 
-### <a name="blazor-server"></a>BlazorWebServer
+### Blazor Server
 
 | Prohlížeč                          | Verze    |
 | -------------------------------- | :--------: |

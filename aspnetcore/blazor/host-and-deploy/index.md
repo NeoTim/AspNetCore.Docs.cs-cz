@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/index
-ms.openlocfilehash: 0cd21e6b4930fb6112aa448a8a44be80cc8fbf61
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 040f9560bd51841063ca2785b0c0730c6bb16002
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243561"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402647"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor"></a>ASP.NET Core hostitele a nasazeníBlazor
 
@@ -53,10 +55,10 @@ Publikování aplikace spustí [obnovení](/dotnet/core/tools/dotnet-restore) z�
 
 Umístění pro publikování:
 
-* BlazorWebAssembly
+* Blazor WebAssembly
   * Samostatná: aplikace se publikuje do `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` složky. Chcete-li nasadit aplikaci jako statickou lokalitu, zkopírujte obsah `wwwroot` složky na hostitele statických webů.
-  * Hosted: klientská Blazor aplikace WebAssembly je publikovaná do `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` složky serverové aplikace spolu s dalšími statickými webovými prostředky serverové aplikace. Nasaďte obsah `publish` složky na hostitele.
-* BlazorServer: aplikace je publikovaná do `/bin/Release/{TARGET FRAMEWORK}/publish` složky. Nasaďte obsah `publish` složky na hostitele.
+  * Hosted: klientská Blazor WebAssembly aplikace je publikovaná do `/bin/Release/{TARGET FRAMEWORK}/publish/wwwroot` složky serverové aplikace spolu s dalšími statickými webovými prostředky serverové aplikace. Nasaďte obsah `publish` složky na hostitele.
+* Blazor Server: Aplikace je publikovaná do `/bin/Release/{TARGET FRAMEWORK}/publish` složky. Nasaďte obsah `publish` složky na hostitele.
 
 Prostředky ve složce jsou nasazeny na webový server. Nasazení může být ruční nebo automatizovaný proces v závislosti na používaných vývojářských nástrojích.
 
@@ -73,13 +75,13 @@ Prostředky ve složce jsou nasazeny na webový server. Nasazení může být ru
 
 Bez zadání další konfigurace pro nemůže `CoolApp` podaplikace v tomto scénáři znát, kde se nachází na serveru. Aplikace například nemůže sestavovat správné relativní adresy URL k prostředkům bez vědomí, že se nachází v relativní cestě URL `/CoolApp/` .
 
-Chcete-li zadat konfiguraci pro Blazor základní cestu aplikace `https://www.contoso.com/CoolApp/` , `<base>` `href` je atribut značky nastaven na relativní kořenovou cestu v `Pages/_Host.cshtml` souboru ( Blazor serveru) nebo `wwwroot/index.html` souboru ( Blazor WebAssembly):
+Chcete-li zadat konfiguraci pro Blazor základní cestu aplikace `https://www.contoso.com/CoolApp/` , `<base>` `href` je atribut značky nastaven na relativní kořenovou cestu v `Pages/_Host.cshtml` souboru ( Blazor Server ) nebo `wwwroot/index.html` souboru ( Blazor WebAssembly ):
 
 ```html
 <base href="/CoolApp/">
 ```
 
-BlazorServerové aplikace navíc nastavují základní cestu na straně serveru voláním <xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*> v kanálu žádosti aplikace `Startup.Configure` :
+Blazor Serveraplikace navíc nastaví základní cestu na straně serveru voláním <xref:Microsoft.AspNetCore.Builder.UsePathBaseExtensions.UsePathBase*> v kanálu žádosti aplikace `Startup.Configure` :
 
 ```csharp
 app.UsePathBase("/CoolApp");
@@ -89,21 +91,21 @@ Když zadáte relativní cestu URL, komponenta, která není v kořenovém adres
 
 V mnoha hostitelských scénářích je relativní cesta URL k aplikaci kořenem aplikace. V těchto případech je základní cestou k relativní adrese URL aplikace lomítko ( `<base href="/" />` ), což je výchozí konfigurace Blazor aplikace. V jiných scénářích hostování, jako jsou stránky GitHubu a podaplikace služby IIS, musí být základní cesta aplikace nastavená na relativní cestu URL serveru aplikace.
 
-Chcete-li nastavit základní cestu aplikace, aktualizujte `<base>` značku v rámci `<head>` prvků značek `Pages/_Host.cshtml` souboru ( Blazor serveru) nebo `wwwroot/index.html` souboru ( Blazor WebAssembly). Nastavte `href` hodnotu atributu na `/{RELATIVE URL PATH}/` (vyžaduje se koncové lomítko), kde `{RELATIVE URL PATH}` je úplná relativní cesta URL aplikace.
+Chcete-li nastavit základní cestu aplikace, aktualizujte `<base>` značku v rámci `<head>` prvků tagu `Pages/_Host.cshtml` souboru ( Blazor Server ) nebo `wwwroot/index.html` souboru ( Blazor WebAssembly ). Nastavte `href` hodnotu atributu na `/{RELATIVE URL PATH}/` (vyžaduje se koncové lomítko), kde `{RELATIVE URL PATH}` je úplná relativní cesta URL aplikace.
 
-V případě Blazor aplikace WebAssembly s nekořenovou cestou URL, která není kořenovým adresářem (například `<base href="/CoolApp/">` ), nemůže aplikace najít své prostředky *při místním spuštění*. Chcete-li tento problém překonat při místním vývoji a testování, můžete dodat *základní argument Path* , který odpovídá `href` hodnotě `<base>` značky za běhu. Nezahrnovat koncové lomítko. Pokud chcete předat základní argument Path při místním spuštění aplikace, spusťte `dotnet run` příkaz z adresáře aplikace s `--pathbase` možností:
+Pro Blazor WebAssembly aplikaci, která má nekořenovou cestu relativní adresy URL (například `<base href="/CoolApp/">` ), aplikace *při místním spuštění*nenalezne své prostředky. Chcete-li tento problém překonat při místním vývoji a testování, můžete dodat *základní argument Path* , který odpovídá `href` hodnotě `<base>` značky za běhu. Nezahrnovat koncové lomítko. Pokud chcete předat základní argument Path při místním spuštění aplikace, spusťte `dotnet run` příkaz z adresáře aplikace s `--pathbase` možností:
 
 ```dotnetcli
 dotnet run --pathbase=/{RELATIVE URL PATH (no trailing slash)}
 ```
 
-Pro Blazor aplikaci typu WebAssembly s relativní cestou URL `/CoolApp/` ( `<base href="/CoolApp/">` ) je tento příkaz:
+Pro Blazor WebAssembly aplikaci s relativní cestou URL `/CoolApp/` ( `<base href="/CoolApp/">` ) je tento příkaz:
 
 ```dotnetcli
 dotnet run --pathbase=/CoolApp
 ```
 
-BlazorAplikace WebAssembly reaguje místně na `http://localhost:port/CoolApp` .
+Blazor WebAssemblyAplikace odpoví místně na adrese `http://localhost:port/CoolApp` .
 
 ## <a name="deployment"></a>Nasazení
 

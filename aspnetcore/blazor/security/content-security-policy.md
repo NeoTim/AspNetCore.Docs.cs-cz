@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/security/content-security-policy
-ms.openlocfilehash: 360fff9383e25a6b5b9308cfebd397f7f4ee31a6
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 5c53ac64d3ae1b365b40c519eb119f913d58cad1
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242976"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402439"
 ---
 # <a name="enforce-a-content-security-policy-for-aspnet-core-blazor"></a>Vynutili zásady zabezpečení obsahu pro ASP.NET CoreBlazor
 
@@ -38,7 +40,7 @@ CSP se podporuje ve většině moderních desktopových a mobilních prohlíže�
 
 ## <a name="policy-directives"></a>Direktivy zásad
 
-Minimálně zadejte následující direktivy a zdroje pro Blazor aplikace. Podle potřeby přidejte další direktivy a zdroje. V části [použití zásad](#apply-the-policy) v tomto článku se používají následující direktivy, kde jsou k dispozici příklady zásad zabezpečení pro Blazor WebAssembly a Blazor Server:
+Minimálně zadejte následující direktivy a zdroje pro Blazor aplikace. Podle potřeby přidejte další direktivy a zdroje. V části [použití zásad](#apply-the-policy) v tomto článku se používají následující direktivy, kde jsou k dispozici příklady zásad zabezpečení pro Blazor WebAssembly a Blazor Server :
 
 * [Base-URI](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/base-uri): omezí adresy URL pro `<base>` značku stránky. Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
 * [blokování všech smíšených obsahu](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/block-all-mixed-content): zabraňuje načtení smíšeného obsahu HTTP a HTTPS.
@@ -50,17 +52,17 @@ Minimálně zadejte následující direktivy a zdroje pro Blazor aplikace. Podle
 * [skript-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/script-src): označuje platné zdroje pro skripty.
   * Zadejte `https://stackpath.bootstrapcdn.com/` zdroj hostitele pro skripty Bootstrap.
   * Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
-  * V Blazor aplikaci WebAssembly:
-    * Zadejte následující hodnoty hash, aby bylo Blazor možné načíst požadované vložené skripty pro sestavení:
+  * V Blazor WebAssembly aplikaci:
+    * Zadejte následující hodnoty hash, aby bylo Blazor WebAssembly možné načíst požadované vložené skripty:
       * `sha256-v8ZC9OgMhcnEQ/Me77/R9TlJfzOBqrMTW8e1KuqLaqc=`
       * `sha256-If//FtbPc03afjLezvWHnC3Nbu4fDM04IIzkPaf3pH0=`
       * `sha256-v8v3RKRPmN4odZ1CWM5gw80QKPCCWMcpNeOmimNL2AA=`
     * Určete `unsafe-eval` , že se mají použít `eval()` metody a pro vytvoření kódu z řetězců.
-  * V Blazor serverové aplikaci zadejte `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` hodnotu hash vloženého skriptu, který provádí záložní detekci pro šablony stylů.
+  * V Blazor Server aplikaci zadejte `sha256-34WLX60Tw3aG6hylk0plKbZZFXCuepeQ6Hu7OqRf8PI=` hodnotu hash vloženého skriptu, který provádí záložní detekci pro šablony stylů.
 * [style-src](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/style-src): označuje platné zdroje pro šablony stylů.
   * Zadejte `https://stackpath.bootstrapcdn.com/` zdroj hostitele pro Bootstrap šablon stylů.
   * Určete `self` , aby bylo jasné, že původ aplikace, včetně schématu a čísla portu, je platným zdrojem.
-  * Určete `unsafe-inline` , aby bylo možné použít vložené styly. Vložená deklarace se vyžaduje pro uživatelské rozhraní v Blazor serverových aplikacích pro opětovné připojení klienta a serveru po počátečním požadavku. V budoucí verzi je možné odebrat vložené styly, aby `unsafe-inline` se už nevyžadovaly.
+  * Určete `unsafe-inline` , aby bylo možné použít vložené styly. Vložená deklarace se vyžaduje pro uživatelské rozhraní v Blazor Server aplikacích pro opětovné připojení klienta a serveru po počátečním požadavku. V budoucí verzi je možné odebrat vložené styly, aby `unsafe-inline` se už nevyžadovaly.
 * [upgrade – nezabezpečené – požadavky](https://developer.mozilla.org/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests): označuje, že adresy URL obsahu z nezabezpečených (http) zdrojů by měly být zabezpečeny prostřednictvím protokolu HTTPS.
 
 Předchozí direktivy jsou podporovány všemi prohlížeči kromě aplikace Microsoft Internet Explorer.
@@ -81,9 +83,9 @@ Použijte `<meta>` značku pro aplikování zásad:
 * Umístěte direktivy do `content` hodnoty atributu. Oddělte direktivy středníkem ( `;` ).
 * Vždy umístit `meta` značku do `<head>` obsahu.
 
-V následujících částech jsou uvedeny příklady zásad pro Blazor WebAssembly a Blazor Server. Tyto příklady jsou ve verzi tohoto článku pro každou verzi Blazor . Pokud chcete použít verzi vhodnou pro vaši verzi, vyberte na této webové stránce verzi dokumentu s rozevíracím selektorem **verzí** .
+V následujících částech jsou uvedeny příklady zásad pro Blazor WebAssembly a Blazor Server . Tyto příklady jsou ve verzi tohoto článku pro každou verzi Blazor . Pokud chcete použít verzi vhodnou pro vaši verzi, vyberte na této webové stránce verzi dokumentu s rozevíracím selektorem **verzí** .
 
-### <a name="blazor-webassembly"></a>BlazorWebAssembly
+### Blazor WebAssembly
 
 V `<head>` obsahu `wwwroot/index.html` stránky hostitele použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
 
@@ -106,7 +108,7 @@ V `<head>` obsahu `wwwroot/index.html` stránky hostitele použijte direktivy po
                upgrade-insecure-requests;">
 ```
 
-### <a name="blazor-server"></a>BlazorWebServer
+### Blazor Server
 
 V `<head>` obsahu `Pages/_Host.cshtml` stránky hostitele použijte direktivy popsané v části [direktivy zásad](#policy-directives) :
 

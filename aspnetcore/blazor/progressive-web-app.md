@@ -1,5 +1,5 @@
 ---
-title: Sestavování progresivních webových aplikací pomocí ASP.NET Coreho webového Blazor sestavení
+title: Sestavování progresivních webových aplikací pomocí ASP.NET CoreBlazor WebAssembly
 author: guardrex
 description: Naučte se vytvářet Blazor progresivní webové aplikace (PWA), které používají moderní funkce prohlížeče, aby se chovala jako desktopová aplikace.
 monikerRange: '>= aspnetcore-3.1'
@@ -8,23 +8,25 @@ ms.custom: mvc
 ms.date: 06/10/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/progressive-web-app
-ms.openlocfilehash: f56fb0f09845ded6ef6907221a27f71621a155d1
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 237a8fceb75ba724625f018cf94c8d5bc5acfdad
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242807"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85402582"
 ---
-# <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET Coreho webového Blazor sestavení
+# <a name="build-progressive-web-applications-with-aspnet-core-blazor-webassembly"></a>Sestavování progresivních webových aplikací pomocí ASP.NET CoreBlazor WebAssembly
 
 Pomocí [Steve Sanderson](https://github.com/SteveSandersonMS)
 
-Progresivní webová aplikace (PWA) je obvykle jediná stránková aplikace (SPA), která používá moderní rozhraní API a možnosti prohlížeče, aby se choval jako desktopová aplikace. BlazorWebAssembly je webová platforma webové aplikace založená na standardech, takže může používat libovolné rozhraní API prohlížeče, včetně rozhraní API PWA potřebných pro následující funkce:
+Progresivní webová aplikace (PWA) je obvykle jediná stránková aplikace (SPA), která používá moderní rozhraní API a možnosti prohlížeče, aby se choval jako desktopová aplikace. Blazor WebAssemblyje webová platforma webové aplikace založená na standardech, takže může používat libovolné rozhraní API prohlížeče, včetně rozhraní API PWA potřebných pro následující funkce:
 
 * Pracujete offline a okamžitě se načítají nezávisle na rychlosti sítě.
 * Spuštění ve vlastním okně aplikace, ne pouze v okně prohlížeče.
@@ -41,7 +43,7 @@ K popisu takových aplikací se používá slovo *progresivní* :
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Při vytváření nové ** Blazor aplikace WebAssembly** v dialogovém okně **vytvořit nový projekt** zaškrtněte políčko **progresivní webová aplikace** :
+Pokud vytváříte novou ** Blazor WebAssembly aplikaci** v dialogovém okně **vytvořit nový projekt** , zaškrtněte políčko **progresivní webová aplikace** :
 
 ![Zaškrtávací políčko progresivní webová aplikace je zaškrtnuto v dialogovém okně Nový projekt aplikace Visual Studio.](progressive-web-app/_static/image1.png)
 
@@ -155,7 +157,7 @@ Pokud Razor komponenty aplikace spoléhají na požadavky na data z back-endové
 
 ### <a name="support-server-rendered-pages"></a>Server podpory – vykreslené stránky
 
-Zvažte, co se stane, když uživatel poprvé přejde na adresu URL, například `/counter` nebo na jiný přímý odkaz v aplikaci. V těchto případech nechcete vracet obsah uložený v mezipaměti jako `/counter` , ale místo toho musí prohlížeč načíst obsah uložený v mezipaměti, `/index.html` aby se spouštěla vaše Blazor aplikace WebAssembly. Tyto počáteční požadavky se označují jako požadavky na *navigaci* , a to na rozdíl od:
+Zvažte, co se stane, když uživatel poprvé přejde na adresu URL, například `/counter` nebo na jiný přímý odkaz v aplikaci. V těchto případech nechcete vracet obsah uložený v mezipaměti jako `/counter` , ale místo toho musí prohlížeč načíst obsah uložený v mezipaměti jako `/index.html` při spuštění Blazor WebAssembly aplikace. Tyto počáteční požadavky se označují jako požadavky na *navigaci* , a to na rozdíl od:
 
 * `subresource`požadavky na obrázky, šablony stylů nebo jiné soubory.
 * `fetch/XHR`požadavky na data rozhraní API.
@@ -192,7 +194,7 @@ Ve výchozím nastavení tento manifest uvádí:
 * Všechny Blazor prostředky spravované jako sestavení .NET a běhové soubory .NET WebAssembly vyžadované pro funkci offline.
 * Všechny prostředky pro publikování v `wwwroot` adresáři aplikace, jako jsou obrázky, šablony stylů a soubory JavaScriptu, včetně statických webových prostředků poskytovaných externími projekty a balíčky NuGet.
 
-Úpravou logiky v nástroji můžete řídit, které z těchto prostředků jsou načteny a ukládány do mezipaměti pracovním procesem služby `onInstall` `service-worker.published.js` . Ve výchozím nastavení pracovní proces služby načítá a ukládá do mezipaměti soubory, které odpovídají typickým příponám názvů webových souborů, jako jsou `.html` ,, `.css` `.js` a `.wasm` , plus typy souborů specifické pro Blazor WebAssembly ( `.dll` , `.pdb` ).
+Úpravou logiky v nástroji můžete řídit, které z těchto prostředků jsou načteny a ukládány do mezipaměti pracovním procesem služby `onInstall` `service-worker.published.js` . Ve výchozím nastavení pracovní proces služby načítá a ukládá do mezipaměti soubory, které odpovídají typickým příponám názvů webových souborů, jako jsou `.html` ,, `.css` `.js` a a navíc `.wasm` typy souborů specifické pro Blazor WebAssembly ( `.dll` , `.pdb` ).
 
 Chcete-li zahrnout další prostředky, které nejsou přítomny v `wwwroot` adresáři aplikace, definujte další `ItemGroup` položky MSBuild, jak je znázorněno v následujícím příkladu:
 
@@ -210,11 +212,11 @@ Chcete-li zahrnout další prostředky, které nejsou přítomny v `wwwroot` adr
 
 ## <a name="push-notifications"></a>Nabízená oznámení
 
-Stejně jako jakékoli jiné PWA Blazor může WebAssembly PWA přijímat nabízená oznámení ze serveru back-end. Server může odesílat nabízená oznámení kdykoli, i když uživatel tuto aplikaci aktivně nepoužívá. Nabízená oznámení lze například odeslat, když jiný uživatel provede příslušnou akci.
+Stejně jako jakékoli jiné PWA Blazor WebAssembly může aplikace PWA přijímat nabízená oznámení ze serveru back-end. Server může odesílat nabízená oznámení kdykoli, i když uživatel tuto aplikaci aktivně nepoužívá. Nabízená oznámení lze například odeslat, když jiný uživatel provede příslušnou akci.
 
-Mechanismus pro odeslání nabízeného oznámení je zcela nezávislý na objektu Blazor WebAssembly, protože ho implementuje back-end Server, který může používat jakoukoli technologii. Pokud chcete zasílat nabízená oznámení ze serveru ASP.NET Core, zvažte [použití techniky, která je podobná metodě pořízené v neuvěřitelně Pizza Workshop](https://github.com/dotnet-presentations/blazor-workshop/blob/master/docs/09-progressive-web-app.md#sending-push-notifications).
+Mechanismus pro odeslání nabízeného oznámení je zcela nezávislý na Blazor WebAssembly , protože ho implementuje back-end Server, který může používat jakoukoli technologii. Pokud chcete zasílat nabízená oznámení ze serveru ASP.NET Core, zvažte [použití techniky, která je podobná metodě pořízené v neuvěřitelně Pizza Workshop](https://github.com/dotnet-presentations/blazor-workshop/blob/master/docs/09-progressive-web-app.md#sending-push-notifications).
 
-Mechanismus pro příjem a zobrazení nabízeného oznámení na klientovi je nezávislý na objektu Blazor WebAssembly, protože je implementovaný v souboru JavaScriptu pracovníka služby. Příklad najdete v tématu [přístup k použití v neuvěřitelně Pizza Workshop](https://github.com/dotnet-presentations/blazor-workshop/blob/master/docs/09-progressive-web-app.md#displaying-notifications).
+Mechanismus pro příjem a zobrazování nabízených oznámení na klientovi je nezávislý na Blazor WebAssembly , protože je implementovaný v souboru JavaScriptu pracovníka služby. Příklad najdete v tématu [přístup k použití v neuvěřitelně Pizza Workshop](https://github.com/dotnet-presentations/blazor-workshop/blob/master/docs/09-progressive-web-app.md#displaying-notifications).
 
 ## <a name="caveats-for-offline-pwas"></a>Upozornění pro offline PWAs
 

@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/get-started-with-nswag
-ms.openlocfilehash: cd4cc6778de7d2156243dc91fba64b2bdb79cf08
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 7c24340af0f0d589d683b0134d186bf9304d91b1
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452119"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403440"
 ---
 # <a name="get-started-with-nswag-and-aspnet-core"></a>Začínáme s NSwag a ASP.NET Core
 
@@ -116,7 +118,7 @@ Můžete využít možnosti generování kódu NSwag výběrem jedné z následu
 ### <a name="generate-code-with-nswagstudio"></a>Generování kódu pomocí NSwagStudio
 
 * Nainstalujte NSwagStudio podle pokynů v [úložišti GitHub NSwagStudio](https://github.com/RicoSuter/NSwag/wiki/NSwagStudio). Na stránce verze NSwag si můžete stáhnout verzi příkazu xcopy, kterou lze spustit bez oprávnění k instalaci a správcům.
-* Spusťte NSwagStudio a v textovém poli **Adresa URL specifikace Swagger** zadejte adresu URL souboru *Swagger. JSON* . Například *http://localhost:44354/swagger/v1/swagger.json* .
+* Spusťte NSwagStudio a v textovém poli **Adresa URL specifikace Swagger** zadejte adresu url souboru *swagger.js* . Například *http://localhost:44354/swagger/v1/swagger.json* .
 * Kliknutím na tlačítko **vytvořit místní kopii** vygenerujete reprezentaci JSON vaší specifikace Swagger.
 
   ![Vytvořit místní kopii specifikace Swagger](web-api-help-pages-using-swagger/_static/CreateLocalCopy-NSwagStudio.PNG)

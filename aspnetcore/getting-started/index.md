@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 01/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: getting-started
-ms.openlocfilehash: 565cde233d6fc5f085ae1709e167e73980d5c3c2
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b88460cdff5d8c30c6a28afdb4f67e8e0b6b819c
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776230"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403362"
 ---
 # <a name="tutorial-get-started-with-aspnet-core"></a>Kurz: Začínáme s ASP.NET Core
 
@@ -29,7 +31,7 @@ Dozvíte se, jak provést tyto akce:
 > * Vytvořte projekt webové aplikace.
 > * Důvěřovat vývojovému certifikátu.
 > * Spusťte aplikaci.
-> * Úprava stránky Razor
+> * Upravte Razor stránku.
 
 Na konci budete mít na svém místním počítači spuštěnou funkční webovou aplikaci.
 
@@ -50,7 +52,7 @@ dotnet new webapp -o aspnetcoreapp
 Předchozí příkaz:
 
 * Vytvoří novou webovou aplikaci.  
-* `-o aspnetcoreapp` Parametr vytvoří adresář s názvem *aspnetcoreapp* se zdrojovými soubory aplikace.
+* `-o aspnetcoreapp`Parametr vytvoří adresář s názvem *aspnetcoreapp* se zdrojovými soubory aplikace.
 
 ### <a name="trust-the-development-certificate"></a>Důvěřovat vývojovému certifikátu
 
@@ -97,7 +99,7 @@ cd aspnetcoreapp
 dotnet watch run
 ```
 
-Jakmile příkazové prostředí ukáže, že aplikace začala, přejděte na `https://localhost:5001`adresu.
+Jakmile příkazové prostředí ukáže, že aplikace začala, přejděte na adresu `https://localhost:5001` .
 
 ## <a name="edit-a-razor-page"></a>Úprava Razor stránky
 
@@ -105,7 +107,7 @@ Otevřete *pages/index. cshtml* a upravte a uložte stránku s následujícím z
 
 [!code-cshtml[](sample/index.cshtml?highlight=9)]
 
-Vyhledejte `https://localhost:5001`, aktualizujte stránku a ověřte, zda jsou zobrazeny změny.
+Vyhledejte `https://localhost:5001` , aktualizujte stránku a ověřte, zda jsou zobrazeny změny.
 
 ## <a name="next-steps"></a>Další kroky
 

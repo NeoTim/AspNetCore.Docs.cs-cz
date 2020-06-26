@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: client-side/libman/libman-cli
-ms.openlocfilehash: 1a42d162e28d4bb4cce284b8b5e37f1be6ff64c6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: ed5dffb83a2f1a40f3d6596d23135c0fa5b6791f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82770549"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85403180"
 ---
 # <a name="use-the-libman-cli-with-aspnet-core"></a>Použití rozhraní příkazového řádku LibMan s ASP.NET Core
 
@@ -98,7 +100,7 @@ Následující části popisují dostupné příkazy rozhraní příkazového ř
 
 ## <a name="initialize-libman-in-the-project"></a>Inicializovat LibMan v projektu
 
-`libman init`Příkaz vytvoří soubor *Libman. JSON* , pokud jeden neexistuje. Vytvoří se soubor s výchozím obsahem šablony položky.
+`libman init`Příkaz vytvoří *libman.jsv* souboru, pokud neexistuje. Vytvoří se soubor s výchozím obsahem šablony položky.
 
 ### <a name="synopsis"></a>Stručný obsah
 
@@ -113,11 +115,11 @@ Pro příkaz jsou k dispozici následující možnosti `libman init` :
 
 * `-d|--default-destination <PATH>`
 
-  Cesta relativní k aktuální složce Soubory knihovny jsou nainstalovány v tomto umístění, pokud `destination` není definována žádná vlastnost pro knihovnu v souboru *Libman. JSON*. `<PATH>`Hodnota je zapsána do `defaultDestination` vlastnosti *Libman. JSON*.
+  Cesta relativní k aktuální složce Soubory knihovny jsou nainstalovány v tomto umístění, pokud `destination` není definována žádná vlastnost pro knihovnu v *libman.js*. `<PATH>`Hodnota je zapsána do `defaultDestination` vlastnosti *libman.jsv*.
 
 * `-p|--default-provider <PROVIDER>`
 
-  Poskytovatel, který má být použit, pokud pro danou knihovnu není definován žádný zprostředkovatel. `<PROVIDER>`Hodnota je zapsána do `defaultProvider` vlastnosti *Libman. JSON*. Nahraďte `<PROVIDER>` některou z následujících hodnot:
+  Poskytovatel, který má být použit, pokud pro danou knihovnu není definován žádný zprostředkovatel. `<PROVIDER>`Hodnota je zapsána do `defaultProvider` vlastnosti *libman.jsv*. Nahraďte `<PROVIDER>` některou z následujících hodnot:
 
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
@@ -125,7 +127,7 @@ Pro příkaz jsou k dispozici následující možnosti `libman init` :
 
 ### <a name="examples"></a>Příklady
 
-Vytvoření souboru *Libman. JSON* v projektu ASP.NET Core:
+Vytvoření *libman.jspro* soubor v projektu ASP.NET Core:
 
 * Přejděte do kořenového adresáře projektu.
 * Spusťte následující příkaz:
@@ -140,7 +142,7 @@ Vytvoření souboru *Libman. JSON* v projektu ASP.NET Core:
 
   ![příkaz Libman init – výchozí zprostředkovatel](_static/libman-init-provider.png)
 
-Do kořenu projektu se přidá soubor *Libman. JSON* s následujícím obsahem:
+Do kořenu projektu se přidá *libman.js* s následujícím obsahem:
 
 ```json
 {
@@ -152,7 +154,7 @@ Do kořenu projektu se přidá soubor *Libman. JSON* s následujícím obsahem:
 
 ## <a name="add-library-files"></a>Přidat soubory knihovny
 
-`libman install`Příkaz stáhne a nainstaluje soubory knihovny do projektu. Pokud jeden soubor *Libman. JSON* neexistuje, přidá se. Soubor *Libman. JSON* se upraví tak, aby se uložily podrobnosti o konfiguraci souborů knihovny.
+`libman install`Příkaz stáhne a nainstaluje soubory knihovny do projektu. Pokud jeden soubor neexistuje, *libman.jsv* souboru se přidá. *libman.jsv* souboru se upraví tak, aby se uložily podrobnosti o konfiguraci souborů knihovny.
 
 ### <a name="synopsis"></a>Stručný obsah
 
@@ -173,7 +175,7 @@ Pro příkaz jsou k dispozici následující možnosti `libman install` :
 
 * `-d|--destination <PATH>`
 
-  Umístění pro instalaci knihovny. Pokud není zadaný, použije se výchozí umístění. Pokud `defaultDestination` v *Libman. JSON*není zadaná žádná vlastnost, je tato možnost povinná.
+  Umístění pro instalaci knihovny. Pokud není zadaný, použije se výchozí umístění. Pokud `defaultDestination` v *libman.jszapnutá*není žádná vlastnost, je tato možnost povinná.
 
 * `--files <FILE>`
 
@@ -185,13 +187,13 @@ Pro příkaz jsou k dispozici následující možnosti `libman install` :
   
   [!INCLUDE [LibMan provider names](../../includes/libman-cli/provider-names.md)]
 
-  Pokud není zadaný, `defaultProvider` použije se vlastnost v *Libman. JSON* . Pokud `defaultProvider` v *Libman. JSON*není zadaná žádná vlastnost, je tato možnost povinná.
+  Pokud není zadán, `defaultProvider` je použita vlastnost v *libman.js* . Pokud `defaultProvider` v *libman.jszapnutá*není žádná vlastnost, je tato možnost povinná.
 
 [!INCLUDE [standard-cli-options](../../includes/libman-cli/standard-cli-options.md)]
 
 ### <a name="examples"></a>Příklady
 
-Vezměte v úvahu následující soubor *Libman. JSON* :
+V souboru zvažte následující *libman.js* :
 
 ```json
 {
@@ -201,13 +203,13 @@ Vezměte v úvahu následující soubor *Libman. JSON* :
 }
 ```
 
-Chcete-li nainstalovat soubor jQuery verze 3.2.1 *jQuery. js* do složky *wwwroot/Scripts/JQUERY* pomocí poskytovatele CDNJS:
+Chcete-li nainstalovat soubor jQuery verze 3.2.1 *jquery.min.js* do složky *wwwroot/Scripts/JQUERY* pomocí poskytovatele CDNJS:
 
 ```console
 libman install jquery@3.2.1 --provider cdnjs --destination wwwroot/scripts/jquery --files jquery.min.js
 ```
 
-Soubor *Libman. JSON* se podobá následujícímu:
+*libman.js* soubor se podobá následujícímu:
 
 ```json
 {
@@ -225,7 +227,7 @@ Soubor *Libman. JSON* se podobá následujícímu:
 }
 ```
 
-Instalace souborů *Calendar. js* a *Calendar. CSS* z *C: \\ TEMP \\ contosoCalendar \\ * pomocí zprostředkovatele systému souborů:
+Chcete-li nainstalovat *calendar.js* a *Calendar. CSS* soubory z *C: \\ TEMP \\ contosoCalendar \\ * pomocí zprostředkovatele systému souborů:
 
   ```console
   libman install C:\temp\contosoCalendar\ --provider filesystem --files calendar.js --files calendar.css
@@ -233,12 +235,12 @@ Instalace souborů *Calendar. js* a *Calendar. CSS* z *C: \\ TEMP \\ contosoCale
 
 Následující výzva se zobrazí ze dvou důvodů:
 
-* Soubor *Libman. JSON* neobsahuje `defaultDestination` vlastnost.
+* *libman.jsv* souboru neobsahuje `defaultDestination` vlastnost.
 * `libman install`Příkaz neobsahuje `-d|--destination` možnost.
 
 ![Libman – příkaz instalace – cíl](_static/libman-install-destination.png)
 
-Po přijetí výchozího cíle se soubor *Libman. JSON* podobá následujícímu:
+Po přijetí výchozího cíle se *libman.jsv* souboru podobá následujícímu:
 
 ```json
 {
@@ -267,11 +269,11 @@ Po přijetí výchozího cíle se soubor *Libman. JSON* podobá následujícímu
 
 ## <a name="restore-library-files"></a>Obnovit soubory knihovny
 
-`libman restore`Příkaz nainstaluje soubory knihovny definované v souboru *Libman. JSON*. Platí následující pravidla:
+`libman restore`Příkaz nainstaluje soubory knihovny definované v *libman.jsna*. Platí následující pravidla:
 
-* Pokud v kořenovém adresáři projektu neexistuje žádný soubor *Libman. JSON* , je vrácena chyba.
-* Pokud knihovna Určuje poskytovatele, `defaultProvider` vlastnost v *Libman. JSON* se ignoruje.
-* Pokud knihovna určuje cíl, `defaultDestination` vlastnost v *Libman. JSON* se ignoruje.
+* Pokud v kořenu projektu neexistuje žádná *libman.js* souboru, je vrácena chyba.
+* Pokud knihovna Určuje poskytovatele, `defaultProvider` vlastnost v *libman.js* je ignorována.
+* Pokud knihovna určuje cíl, `defaultDestination` vlastnost v *libman.js* je ignorována.
 
 ### <a name="synopsis"></a>Stručný obsah
 
@@ -288,7 +290,7 @@ Pro příkaz jsou k dispozici následující možnosti `libman restore` :
 
 ### <a name="examples"></a>Příklady
 
-Postup obnovení souborů knihovny definovaných v souboru *Libman. JSON*:
+Postup obnovení souborů knihovny definovaných v *libman.jsna*:
 
 ```console
 libman restore
@@ -296,7 +298,7 @@ libman restore
 
 ## <a name="delete-library-files"></a>Odstranit soubory knihovny
 
-`libman clean`Příkaz odstraní soubory knihovny, které byly dříve obnoveny prostřednictvím LibMan. Složky, které se po odstranění této operace stanou prázdné Soubory knihovny přidružené konfigurace ve `libraries` vlastnosti *Libman. JSON* se neodeberou.
+`libman clean`Příkaz odstraní soubory knihovny, které byly dříve obnoveny prostřednictvím LibMan. Složky, které se po odstranění této operace stanou prázdné Soubory knihovny přidružené konfigurace ve `libraries` vlastnosti *libman.js* nejsou odebrány.
 
 ### <a name="synopsis"></a>Stručný obsah
 
@@ -323,12 +325,12 @@ libman clean
 
 Příkaz `libman uninstall`:
 
-* Odstraní všechny soubory přidružené k zadané knihovně z cíle v souboru *Libman. JSON*.
-* Odebere přidruženou konfiguraci knihovny z *Libman. JSON*.
+* Odstraní všechny soubory přidružené k zadané knihovně z cíle v *libman.js*.
+* Odebere přidruženou konfiguraci knihovny z *libman.jsna*.
 
 K chybě dojde v těchto případech:
 
-* V kořenu projektu neexistuje žádný soubor *Libman. JSON* .
+* V kořenu projektu nejsou žádné *libman.js* souboru.
 * Zadaná knihovna neexistuje.
 
 Pokud je nainstalovaná více než jedna knihovna se stejným názvem, budete vyzváni k výběru jedné z nich.
@@ -354,7 +356,7 @@ Pro příkaz jsou k dispozici následující možnosti `libman uninstall` :
 
 ### <a name="examples"></a>Příklady
 
-Vezměte v úvahu následující soubor *Libman. JSON* :
+V souboru zvažte následující *libman.js* :
 
 [!code-json[](samples/LibManSample/libman.json)]
 
@@ -380,7 +382,7 @@ Vezměte v úvahu následující soubor *Libman. JSON* :
 
 K chybě dojde v těchto případech:
 
-* V kořenu projektu neexistuje žádný soubor *Libman. JSON* .
+* V kořenu projektu nejsou žádné *libman.js* souboru.
 * Zadaná knihovna neexistuje.
 
 Pokud je nainstalovaná více než jedna knihovna se stejným názvem, budete vyzváni k výběru jedné z nich.

@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/06/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/enforcing-ssl
-ms.openlocfilehash: 26e6fb38cf31b5a2d5c88c19347c867641eb55df
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 8247d66900a0c15b3b386dca021c5c5922d26e71
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84451729"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404559"
 ---
 # <a name="enforce-https-in-aspnet-core"></a>Vynutilit HTTPS v ASP.NET Core
 
@@ -108,7 +110,7 @@ Port HTTPS určete pomocí některého z následujících přístupů:
 
   * V konfiguraci hostitele.
   * Nastavením `ASPNETCORE_HTTPS_PORT` proměnné prostředí.
-  * Přidáním položky nejvyšší úrovně v souboru *appSettings. JSON*:
+  * Přidáním položky nejvyšší úrovně do *appsettings.js*:
 
     [!code-json[](enforcing-ssl/sample-snapshot/3.x/appsettings.json?highlight=2)]
 
@@ -122,7 +124,7 @@ Port HTTPS určete pomocí některého z následujících přístupů:
 
   * V konfiguraci hostitele.
   * Nastavením `ASPNETCORE_HTTPS_PORT` proměnné prostředí.
-  * Přidáním položky nejvyšší úrovně v souboru *appSettings. JSON*:
+  * Přidáním položky nejvyšší úrovně do *appsettings.js*:
 
     [!code-json[](enforcing-ssl/sample-snapshot/2.x/appsettings.json?highlight=2)]
 
@@ -130,16 +132,16 @@ Port HTTPS určete pomocí některého z následujících přístupů:
 
 ::: moniker-end
 
-* Ve vývojovém prostředí nastavte adresu URL HTTPS v souboru *launchsettings. JSON*. Pokud se používá IIS Express, povolte HTTPS.
+* Ve vývojovém prostředí nastavte adresu URL HTTPS v *launchsettings.js*. Pokud se používá IIS Express, povolte HTTPS.
 
-* Nakonfigurujte koncový bod adresy URL HTTPS pro nasazení Edge serveru [Kestrel](xref:fundamentals/servers/kestrel) Server nebo [http. sys](xref:fundamentals/servers/httpsys) s přístupem k veřejnému. Aplikace používá jenom **jeden port HTTPS** . Middleware zjistí port prostřednictvím <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> .
+* Nakonfigurujte koncový bod adresy URL HTTPS pro veřejné nasazení Edge serveru [Kestrel](xref:fundamentals/servers/kestrel) nebo serveru [HTTP.sys](xref:fundamentals/servers/httpsys) . Aplikace používá jenom **jeden port HTTPS** . Middleware zjistí port prostřednictvím <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> .
 
 > [!NOTE]
 > Když je aplikace spuštěná v konfiguraci reverzního proxy serveru, <xref:Microsoft.AspNetCore.Hosting.Server.Features.IServerAddressesFeature> není k dispozici. Port nastavte pomocí některého z dalších přístupů popsaných v této části.
 
 ### <a name="edge-deployments"></a>Nasazení Edge 
 
-Pokud se Kestrel nebo HTTP. sys používá jako veřejný server Edge, Kestrel nebo HTTP. sys musí být nakonfigurované tak, aby naslouchal na obou těchto počítačích:
+Když se Kestrel nebo HTTP.sys používá jako veřejný hraniční Server, Kestrel nebo HTTP.sys musí být nakonfigurované tak, aby naslouchaly na obou těchto počítačích:
 
 * Zabezpečený port, ve kterém je klient přesměrován (obvykle 443 v produkčním a 5001 ve vývoji).
 * Nezabezpečený port (obvykle 80 v produkčním a 5000 ve vývoji).
@@ -283,7 +285,7 @@ Následující kód:
 ::: moniker-end
 
 
-* Nastaví parametr přednačtení `Strict-Transport-Security` hlavičky. Předběžné načtení není součástí [specifikace RFC HSTS](https://tools.ietf.org/html/rfc6797), ale podporuje je ve webových prohlížečích k přednačtení webů HSTS při nové instalaci. Další informace najdete v tématu [https://hstspreload.org/](https://hstspreload.org/) .
+* Nastaví parametr přednačtení `Strict-Transport-Security` hlavičky. Předběžné načtení není součástí [specifikace RFC HSTS](https://tools.ietf.org/html/rfc6797), ale podporuje je ve webových prohlížečích k přednačtení webů HSTS při nové instalaci. Další informace najdete na webu [https://hstspreload.org/](https://hstspreload.org/).
 * Povolí [includeSubDomain](https://tools.ietf.org/html/rfc6797#section-6.1.2), která aplikuje zásady HSTS na hostování subdomén.
 * Explicitně nastaví `max-age` parametr `Strict-Transport-Security` záhlaví na 60 dní. Pokud není nastavené, výchozí hodnota je 30 dní. Další informace najdete v [direktivě max-age](https://tools.ietf.org/html/rfc6797#section-6.1.1).
 * Přidá `example.com` do seznamu hostitelů, které mají být vyloučeny.

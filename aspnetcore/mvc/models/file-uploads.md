@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/03/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/models/file-uploads
-ms.openlocfilehash: 632cc9fafc5daf2923997f0113adee52491acdcc
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 055dc7295aad67f92fe5f4e8271a1543262257b5
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "83838315"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404597"
 ---
 # <a name="upload-files-in-aspnet-core"></a>Nahrání souborů v ASP.NET Core
 
@@ -70,7 +72,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* databáze
+* Databáze
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -235,7 +237,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Export](#validation)
+> * [Ověřování](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
@@ -406,7 +408,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Export](#validation)
+> * [Ověřování](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
@@ -528,7 +530,7 @@ Mnoho implementací musí zahrnovat kontrolu, že soubor existuje. v opačném p
 
 Omezte velikost nahraných souborů.
 
-V ukázkové aplikaci je velikost souboru omezená na 2 MB (uvedené v bajtech). Limit je zadán prostřednictvím [Konfigurace](xref:fundamentals/configuration/index) ze souboru *appSettings. JSON* :
+V ukázkové aplikaci je velikost souboru omezená na 2 MB (uvedené v bajtech). Limit se poskytuje prostřednictvím [Konfigurace](xref:fundamentals/configuration/index) z *appsettings.jsv* souboru:
 
 ```json
 {
@@ -707,7 +709,7 @@ Pro aplikace hostované v Kestrel se můžou vztahovat další omezení Kestrel:
 
 ### <a name="iis-content-length-limit"></a>Omezení délky obsahu služby IIS
 
-Výchozí limit počtu požadavků ( `maxAllowedContentLength` ) je 30 000 000 bajtů, což je přibližně 28.6 MB. Upravte limit v souboru *Web. config* :
+Výchozí limit počtu požadavků ( `maxAllowedContentLength` ) je 30 000 000 bajtů, což je přibližně 28.6 MB. Upravte limit *web.config* souboru:
 
 ```xml
 <system.webServer>
@@ -799,7 +801,7 @@ Další informace o implementaci bezpečnostních opatření, včetně příklad
 
 Mezi běžné možnosti úložiště pro soubory patří:
 
-* databáze
+* Databáze
 
   * U malých nahrávání souborů je databáze často rychlejší než možnosti fyzického úložiště (systému souborů nebo síťového sdílení).
   * Databáze je často pohodlnější než možnosti fyzického úložiště, protože načtení záznamu databáze pro uživatelská data může současně poskytovat obsah souboru (například obrázek miniatury).
@@ -964,7 +966,7 @@ Jednotlivé soubory nahrané na server jsou k dispozici prostřednictvím [vazby
 > Zde uvedené příklady neberou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Export](#validation)
+> * [Ověřování](#validation)
 
 Při nahrávání souborů pomocí vazby modelu a <xref:Microsoft.AspNetCore.Http.IFormFile> může metoda Action přijmout:
 
@@ -1135,7 +1137,7 @@ Předchozí příklad je podobný scénáři, který je znázorněný v ukázkov
 > Uvedené příklady nevezmou ohled na zabezpečení. Další informace jsou k dispozici v následujících částech a [ukázkové aplikaci](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/file-uploads/samples/):
 >
 > * [Aspekty zabezpečení](#security-considerations)
-> * [Export](#validation)
+> * [Ověřování](#validation)
 
 ### <a name="upload-large-files-with-streaming"></a>Nahrávání velkých souborů pomocí streamování
 
@@ -1257,7 +1259,7 @@ Mnoho implementací musí zahrnovat kontrolu, že soubor existuje. v opačném p
 
 Omezte velikost nahraných souborů.
 
-V ukázkové aplikaci je velikost souboru omezená na 2 MB (uvedené v bajtech). Limit je zadán prostřednictvím [Konfigurace](xref:fundamentals/configuration/index) ze souboru *appSettings. JSON* :
+V ukázkové aplikaci je velikost souboru omezená na 2 MB (uvedené v bajtech). Limit se poskytuje prostřednictvím [Konfigurace](xref:fundamentals/configuration/index) z *appsettings.jsv* souboru:
 
 ```json
 {
@@ -1429,7 +1431,7 @@ Pro aplikace hostované v Kestrel se můžou vztahovat další omezení Kestrel:
 
 ### <a name="iis-content-length-limit"></a>Omezení délky obsahu služby IIS
 
-Výchozí limit počtu požadavků ( `maxAllowedContentLength` ) je 30 000 000 bajtů, což je přibližně 28.6 MB. Upravte limit v souboru *Web. config* :
+Výchozí limit počtu požadavků ( `maxAllowedContentLength` ) je 30 000 000 bajtů, což je přibližně 28.6 MB. Upravte limit *web.config* souboru:
 
 ```xml
 <system.webServer>
