@@ -7,17 +7,19 @@ ms.custom: H1Hack27Feb2017
 ms.date: 01/09/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: client-side/using-browserlink
-ms.openlocfilehash: 619d19ba90298b2455d4a558fea138c86a751f07
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 95ddf379d7cab336356cbfd3853311cb0911552a
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773654"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401711"
 ---
 # <a name="browser-link-in-aspnet-core"></a>Odkaz na prohlížeč v ASP.NET Core
 
@@ -29,25 +31,25 @@ Odkaz na prohlížeč je funkce sady Visual Studio. Vytvoří komunikační kan�
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Přidejte do projektu balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) . Pro ASP.NET Core Razor stránky nebo projekty MVC také povolte kompilaci za běhu souborů Razor (*. cshtml*), jak je popsáno <xref:mvc/views/view-compilation>v. Razorzměny syntaxe se aplikují jenom v případě, že je povolená kompilace za běhu.
+Přidejte do projektu balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) . Pro ASP.NET Core Razor stránky nebo projekty MVC také povolte kompilaci za běhu Razor souborů (*. cshtml*), jak je popsáno v <xref:mvc/views/view-compilation> . Razorzměny syntaxe se aplikují jenom v případě, že je povolená kompilace za běhu.
 
 ::: moniker-end
 
 ::: moniker range=">= aspnetcore-2.1 <= aspnetcore-2.2"
 
-Při převodu projektu ASP.NET Core 2,0 na ASP.NET Core 2,1 a přechodu na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app)nainstalujte balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) pro funkce připojení prohlížeče. Šablony projektu ASP.NET Core 2,1 ve výchozím nastavení `Microsoft.AspNetCore.App` používají Metapackage.
+Při převodu projektu ASP.NET Core 2,0 na ASP.NET Core 2,1 a přechodu na [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app)nainstalujte balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) pro funkce připojení prohlížeče. Šablony projektu ASP.NET Core 2,1 `Microsoft.AspNetCore.App` ve výchozím nastavení používají Metapackage.
 
 ::: moniker-end
 
 ::: moniker range="= aspnetcore-2.0"
 
-Šablony projektů **webové aplikace**ASP.NET Core 2,0 **, prázdné**a **webové rozhraní API** používají soubor [Microsoft. AspNetCore. All Metapackage](xref:fundamentals/metapackage), který obsahuje odkaz na balíček pro [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/). Proto použití Metapackage nevyžaduje `Microsoft.AspNetCore.All` žádné další kroky k tomu, aby byl odkaz na prohlížeč dostupný pro použití.
+Šablony projektů **webové aplikace**ASP.NET Core 2,0 **, prázdné**a **webové rozhraní API** používají soubor [Microsoft. AspNetCore. All Metapackage](xref:fundamentals/metapackage), který obsahuje odkaz na balíček pro [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/). Proto použití `Microsoft.AspNetCore.All` Metapackage nevyžaduje žádné další kroky k tomu, aby byl odkaz na prohlížeč dostupný pro použití.
 
 ::: moniker-end
 
 ::: moniker range="<= aspnetcore-1.1"
 
-Šablona projektu **webové aplikace** ASP.NET Core 1. x obsahuje odkaz na balíček pro balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) . Jiné typy projektů vyžadují, abyste přidali odkaz na balíček `Microsoft.VisualStudio.Web.BrowserLink`.
+Šablona projektu **webové aplikace** ASP.NET Core 1. x obsahuje odkaz na balíček pro balíček [Microsoft. VisualStudio. Web. BrowserLink](https://www.nuget.org/packages/Microsoft.VisualStudio.Web.BrowserLink/) . Jiné typy projektů vyžadují, abyste přidali odkaz na balíček `Microsoft.VisualStudio.Web.BrowserLink` .
 
 ::: moniker-end
 
@@ -59,7 +61,7 @@ Zavolejte `UseBrowserLink` v `Startup.Configure` metodě:
 app.UseBrowserLink();
 ```
 
-`UseBrowserLink` Volání je obvykle umístěno uvnitř `if` bloku, který povoluje pouze odkaz na prohlížeč ve vývojovém prostředí. Příklad:
+`UseBrowserLink`Volání je obvykle umístěno uvnitř `if` bloku, který povoluje pouze odkaz na prohlížeč ve vývojovém prostředí. Například:
 
 ```csharp
 if (env.IsDevelopment())
@@ -134,7 +136,7 @@ Pokud je povolena automatická synchronizace šablon stylů CSS, připojené pro
 
 ## <a name="how-it-works"></a>Jak to funguje
 
-Odkaz na prohlížeč [SignalR](xref:signalr/introduction) používá k vytvoření komunikačního kanálu mezi Visual Studio a prohlížečem. Pokud je povolen odkaz na prohlížeč, Visual Studio funguje jako SignalR Server, ke kterému se může připojit více klientů (prohlížečů). Odkaz na prohlížeč také zaregistruje součást middleware v kanálu žádosti ASP.NET Core. Tato součást vloží speciální `<script>` odkazy na všechny žádosti stránky ze serveru. Odkazy na skript můžete zobrazit tak, že v prohlížeči vyberete **Zobrazit zdroj** a posunete se na konec obsahu `<body>` značky:
+Odkaz na prohlížeč používá [SignalR](xref:signalr/introduction) k vytvoření komunikačního kanálu mezi Visual Studio a prohlížečem. Pokud je povolen odkaz na prohlížeč, Visual Studio funguje jako SignalR Server, ke kterému se může připojit více klientů (prohlížečů). Odkaz na prohlížeč také zaregistruje součást middleware v kanálu žádosti ASP.NET Core. Tato součást vloží speciální `<script>` odkazy na všechny žádosti stránky ze serveru. Odkazy na skript můžete zobrazit tak, že v prohlížeči vyberete **Zobrazit zdroj** a posunete se na konec `<body>` obsahu značky:
 
 ```html
     <!-- Visual Studio Browser Link -->

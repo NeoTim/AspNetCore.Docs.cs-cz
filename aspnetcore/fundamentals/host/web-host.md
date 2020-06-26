@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 10/07/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/host/web-host
-ms.openlocfilehash: 71bca4c0987059efa0e4ff35f25fe7cdb75641d5
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 630191948a9013e88853ee1a31d15f2964b4a7f4
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773988"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399410"
 ---
 # <a name="aspnet-core-web-host"></a>ASP.NET Core webového hostitele
 
@@ -56,28 +58,28 @@ public class Program
 }
 ```
 
-Kód, který volá `CreateDefaultBuilder` , je v metodě s `CreateWebHostBuilder`názvem, která ho odděluje od kódu v `Main` volání `Run` objektu Builder. Toto oddělení se vyžaduje při použití [Entity Framework Corech nástrojů](/ef/core/miscellaneous/cli/). Nástroje očekávají, že vyvolají `CreateWebHostBuilder` metodu, kterou můžou zavolat v době návrhu, aby se nakonfiguroval hostitel bez spuštění aplikace. Alternativou je implementace `IDesignTimeDbContextFactory`. Další informace najdete v tématu [vytváření DbContext při návrhu](/ef/core/miscellaneous/cli/dbcontext-creation).
+Kód, který volá, `CreateDefaultBuilder` je v metodě s názvem `CreateWebHostBuilder` , která ho odděluje od kódu v `Main` volání `Run` objektu Builder. Toto oddělení se vyžaduje při použití [Entity Framework Corech nástrojů](/ef/core/miscellaneous/cli/). Nástroje očekávají `CreateWebHostBuilder` , že vyvolají metodu, kterou můžou zavolat v době návrhu, aby se nakonfiguroval hostitel bez spuštění aplikace. Alternativou je implementace `IDesignTimeDbContextFactory` . Další informace najdete v tématu [vytváření DbContext při návrhu](/ef/core/miscellaneous/cli/dbcontext-creation).
 
 `CreateDefaultBuilder` provede následující úlohy:
 
-* Nakonfiguruje server [Kestrel](xref:fundamentals/servers/kestrel) jako webový server pomocí poskytovatelů konfigurace hostování aplikace. Výchozí možnosti serveru Kestrel naleznete v tématu <xref:fundamentals/servers/kestrel#kestrel-options>.
+* Nakonfiguruje server [Kestrel](xref:fundamentals/servers/kestrel) jako webový server pomocí poskytovatelů konfigurace hostování aplikace. Výchozí možnosti serveru Kestrel naleznete v tématu <xref:fundamentals/servers/kestrel#kestrel-options> .
 * Nastaví [kořen obsahu](xref:fundamentals/index#content-root) na cestu vrácenou [adresářem. GetCurrentDirectory](/dotnet/api/system.io.directory.getcurrentdirectory).
 * Načte [konfiguraci hostitele](#host-configuration-values) z:
-  * Proměnné prostředí s `ASPNETCORE_` předponou (například `ASPNETCORE_ENVIRONMENT`).
+  * Proměnné prostředí s předponou `ASPNETCORE_` (například `ASPNETCORE_ENVIRONMENT` ).
   * Argumenty příkazového řádku.
 * Načte konfiguraci aplikace v následujícím pořadí:
-  * *appSettings. JSON*.
+  * *appsettings.js*.
   * *appSettings. {Environment}. JSON*.
-  * [Správce tajných klíčů](xref:security/app-secrets) , když aplikace běží `Development` v prostředí pomocí položky sestavení
+  * [Správce tajných klíčů](xref:security/app-secrets) , když aplikace běží v `Development` prostředí pomocí položky sestavení
   * Proměnné prostředí.
   * Argumenty příkazového řádku.
-* Konfiguruje [protokolování](xref:fundamentals/logging/index) pro konzolu a výstup ladění. Protokolování zahrnuje pravidla [filtrování protokolů](xref:fundamentals/logging/index#log-filtering) zadaná v sekci Konfigurace protokolování souboru *appSettings. JSON* nebo *appSettings. { Environment}. JSON* soubor.
-* Při spuštění za službou IIS s [modulem ASP.NET Core](xref:host-and-deploy/aspnet-core-module) `CreateDefaultBuilder` umožňuje [integraci služby IIS](xref:host-and-deploy/iis/index), která konfiguruje základní adresu a port aplikace. Integrace služby IIS také nakonfiguruje aplikaci pro [zachycení chyb při spuštění](#capture-startup-errors). Výchozí možnosti služby IIS najdete v tématu <xref:host-and-deploy/iis/index#iis-options>.
-* Nastaví [ServiceProviderOptions. ValidateScopes](/dotnet/api/microsoft.extensions.dependencyinjection.serviceprovideroptions.validatescopes) na `true` , pokud je prostředí aplikace vyvíjené. Další informace najdete v tématu [ověřování oboru](#scope-validation).
+* Konfiguruje [protokolování](xref:fundamentals/logging/index) pro konzolu a výstup ladění. Protokolování zahrnuje pravidla [filtrování protokolů](xref:fundamentals/logging/index#log-filtering) zadaná v části konfigurace protokolování *appsettings.jsv* nebo *appSettings. { Environment}. JSON* soubor.
+* Při spuštění za službou IIS s [modulem ASP.NET Core](xref:host-and-deploy/aspnet-core-module) `CreateDefaultBuilder` umožňuje [integraci služby IIS](xref:host-and-deploy/iis/index), která konfiguruje základní adresu a port aplikace. Integrace služby IIS také nakonfiguruje aplikaci pro [zachycení chyb při spuštění](#capture-startup-errors). Výchozí možnosti služby IIS najdete v tématu <xref:host-and-deploy/iis/index#iis-options> .
+* Nastaví [ServiceProviderOptions. ValidateScopes](/dotnet/api/microsoft.extensions.dependencyinjection.serviceprovideroptions.validatescopes) na, `true` Pokud je prostředí aplikace vyvíjené. Další informace najdete v tématu [ověřování oboru](#scope-validation).
 
-`CreateDefaultBuilder` Konfiguraci definovanou pomocí lze přepsat a rozšířit [ConfigureAppConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configureappconfiguration), [ConfigureLogging](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configurelogging)a dalšími metodami a metodami rozšíření [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder). Následuje několik příkladů:
+Konfiguraci definovanou pomocí `CreateDefaultBuilder` lze přepsat a rozšířit [ConfigureAppConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configureappconfiguration), [ConfigureLogging](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configurelogging)a dalšími metodami a metodami rozšíření [IWebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.iwebhostbuilder). Následuje několik příkladů:
 
-* [ConfigureAppConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configureappconfiguration) se používá k určení dalších `IConfiguration` aplikací. Následující `ConfigureAppConfiguration` volání přidá delegáta pro zahrnutí konfigurace aplikace do souboru *appSettings. XML* . `ConfigureAppConfiguration`může být volána několikrát. Všimněte si, že tato konfigurace se nevztahuje na hostitele (například adresy URL serveru nebo prostředí). Viz část [hodnoty konfigurace hostitele](#host-configuration-values) .
+* [ConfigureAppConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configureappconfiguration) se používá k určení dalších `IConfiguration` aplikací. Následující `ConfigureAppConfiguration` volání přidá delegáta pro zahrnutí konfigurace aplikace do souboru *appsettings.xml* . `ConfigureAppConfiguration`může být volána několikrát. Všimněte si, že tato konfigurace se nevztahuje na hostitele (například adresy URL serveru nebo prostředí). Viz část [hodnoty konfigurace hostitele](#host-configuration-values) .
 
     ```csharp
     WebHost.CreateDefaultBuilder(args)
@@ -88,7 +90,7 @@ Kód, který volá `CreateDefaultBuilder` , je v metodě s `CreateWebHostBuilder
         ...
     ```
 
-* Následující `ConfigureLogging` volání přidá delegáta pro konfiguraci minimální úrovně protokolování ([SetMinimumLevel](/dotnet/api/microsoft.extensions.logging.loggingbuilderextensions.setminimumlevel)) na [LogLevel. Warning](/dotnet/api/microsoft.extensions.logging.loglevel). Toto nastavení přepisuje nastavení v *appSettings. Development. JSON* (`LogLevel.Debug`) a *appSettings. Produkční. JSON* (`LogLevel.Error`) nakonfigurovaný pomocí `CreateDefaultBuilder`. `ConfigureLogging`může být volána několikrát.
+* Následující `ConfigureLogging` volání přidá delegáta pro konfiguraci minimální úrovně protokolování ([SetMinimumLevel](/dotnet/api/microsoft.extensions.logging.loggingbuilderextensions.setminimumlevel)) na [LogLevel. Warning](/dotnet/api/microsoft.extensions.logging.loglevel). Toto nastavení přepíše nastavení v *appsettings.Development.jszapnuto* ( `LogLevel.Debug` ) a *appsettings.Production.jsna* ( `LogLevel.Error` ) nakonfigurované pomocí `CreateDefaultBuilder` . `ConfigureLogging`může být volána několikrát.
 
     ```csharp
     WebHost.CreateDefaultBuilder(args)
@@ -101,7 +103,7 @@ Kód, který volá `CreateDefaultBuilder` , je v metodě s `CreateWebHostBuilder
 
 ::: moniker range=">= aspnetcore-2.2"
 
-* Následující volání `ConfigureKestrel` přepíše výchozí [omezení. MaxRequestBodySize](/dotnet/api/microsoft.aspnetcore.server.kestrel.core.kestrelserverlimits.maxrequestbodysize) 30 000 000 bajtů zavedených při konfiguraci Kestrel `CreateDefaultBuilder`:
+* Následující volání `ConfigureKestrel` přepíše výchozí [omezení. MaxRequestBodySize](/dotnet/api/microsoft.aspnetcore.server.kestrel.core.kestrelserverlimits.maxrequestbodysize) 30 000 000 bajtů zavedených při konfiguraci Kestrel `CreateDefaultBuilder` :
 
     ```csharp
     WebHost.CreateDefaultBuilder(args)
@@ -115,7 +117,7 @@ Kód, který volá `CreateDefaultBuilder` , je v metodě s `CreateWebHostBuilder
 
 ::: moniker range="< aspnetcore-2.2"
 
-* Následující volání [UseKestrel](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderkestrelextensions.usekestrel) přepisuje výchozí [limity. MaxRequestBodySize](/dotnet/api/microsoft.aspnetcore.server.kestrel.core.kestrelserverlimits.maxrequestbodysize) z 30 000 000 bajtů zavedených při konfiguraci Kestrel `CreateDefaultBuilder`:
+* Následující volání [UseKestrel](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderkestrelextensions.usekestrel) přepisuje výchozí [limity. MaxRequestBodySize](/dotnet/api/microsoft.aspnetcore.server.kestrel.core.kestrelserverlimits.maxrequestbodysize) z 30 000 000 bajtů zavedených při konfiguraci Kestrel `CreateDefaultBuilder` :
 
     ```csharp
     WebHost.CreateDefaultBuilder(args)
@@ -129,20 +131,20 @@ Kód, který volá `CreateDefaultBuilder` , je v metodě s `CreateWebHostBuilder
 
 [Kořen obsahu](xref:fundamentals/index#content-root) určuje, kde hostitel vyhledává soubory obsahu, například soubory zobrazení MVC. Při spuštění aplikace z kořenové složky projektu se jako kořen obsahu použije kořenová složka projektu. Toto je výchozí použití v [aplikaci Visual Studio](https://visualstudio.microsoft.com) a [dotnet New Templates](/dotnet/core/tools/dotnet-new).
 
-Další informace o konfiguraci aplikace najdete v tématu <xref:fundamentals/configuration/index>.
+Další informace o konfiguraci aplikace najdete v tématu <xref:fundamentals/configuration/index> .
 
 > [!NOTE]
 > Jako alternativu k použití statické `CreateDefaultBuilder` metody je vytvoření hostitele z [WebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder) podporovaným přístupem s ASP.NET Core 2. x.
 
-Při nastavování hostitele je možné zadat metody [Konfigurace](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configure) a [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder.configureservices) . Pokud je `Startup` třída zadána, musí definovat `Configure` metodu. Další informace naleznete v tématu <xref:fundamentals/startup>. Několik volání, `ConfigureServices` která se mají navzájem připojit. Vícenásobné volání `Configure` nebo `UseStartup` v nastavení `WebHostBuilder` nahradit předchozí.
+Při nastavování hostitele je možné zadat metody [Konfigurace](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.configure) a [ConfigureServices](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder.configureservices) . Pokud `Startup` je třída zadána, musí definovat `Configure` metodu. Další informace naleznete v tématu <xref:fundamentals/startup>. Několik volání, která se mají `ConfigureServices` navzájem připojit. Vícenásobné volání `Configure` nebo `UseStartup` v `WebHostBuilder` nastavení nahradit předchozí.
 
 ## <a name="host-configuration-values"></a>Hodnoty konfigurace hostitele
 
 [WebHostBuilder](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder) spoléhá na následující přístupy k nastavení hodnot konfigurace hostitele:
 
-* Konfigurace tvůrce hostitele, což zahrnuje proměnné prostředí ve formátu `ASPNETCORE_{configurationKey}`. Například, `ASPNETCORE_ENVIRONMENT`.
+* Konfigurace tvůrce hostitele, což zahrnuje proměnné prostředí ve formátu `ASPNETCORE_{configurationKey}` . Například, `ASPNETCORE_ENVIRONMENT`.
 * Rozšíření jako [UseContentRoot](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.usecontentroot) a [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) (viz oddíl pro [přepsání konfigurace](#override-configuration) ).
-* [UseSetting](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder.usesetting) a přidružený klíč. Při nastavení hodnoty s `UseSetting`hodnotou je hodnota nastavena jako řetězec bez ohledu na typ.
+* [UseSetting](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilder.usesetting) a přidružený klíč. Při nastavení hodnoty s hodnotou `UseSetting` je hodnota nastavena jako řetězec bez ohledu na typ.
 
 Hostitel používá jakoukoli možnost, která hodnotu nastaví jako poslední. Další informace najdete v tématu [přepsání konfigurace](#override-configuration) v následující části.
 
@@ -150,7 +152,7 @@ Hostitel používá jakoukoli možnost, která hodnotu nastaví jako poslední. 
 
 ::: moniker range=">= aspnetcore-3.0"
 
-`IWebHostEnvironment.ApplicationName` Vlastnost je automaticky nastavena při volání [UseStartup](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.usestartup) nebo [Configure](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configure) během vytváření hostitele. Hodnota je nastavená na název sestavení, které obsahuje vstupní bod aplikace. Chcete-li nastavit hodnotu explicitně, použijte [WebHostDefaults. ApplicationKey](/dotnet/api/microsoft.aspnetcore.hosting.webhostdefaults.applicationkey):
+`IWebHostEnvironment.ApplicationName`Vlastnost je automaticky nastavena při volání [UseStartup](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.usestartup) nebo [Configure](/dotnet/api/microsoft.aspnetcore.hosting.istartup.configure) během vytváření hostitele. Hodnota je nastavená na název sestavení, které obsahuje vstupní bod aplikace. Chcete-li nastavit hodnotu explicitně, použijte [WebHostDefaults. ApplicationKey](/dotnet/api/microsoft.aspnetcore.hosting.webhostdefaults.applicationkey):
 
 ::: moniker-end
 
@@ -176,12 +178,12 @@ WebHost.CreateDefaultBuilder(args)
 Toto nastavení řídí zachycení chyb při spuštění.
 
 **Klíč**: captureStartupErrors  
-**Typ**: *bool* (`true` nebo `1`)  
-**Výchozí**: výchozí nastavení `false` , pokud se aplikace nespustí s Kestrel za IIS, kde je `true`výchozí hodnota.  
+**Typ**: *bool* ( `true` nebo `1` )  
+**Výchozí**: výchozí nastavení `false` , pokud se aplikace nespustí s Kestrel za IIS, kde je výchozí hodnota `true` .  
 **Nastavit pomocí**:`CaptureStartupErrors`  
 **Proměnná prostředí**:`ASPNETCORE_CAPTURESTARTUPERRORS`
 
-V `false`důsledku dojde k chybám při spuštění hostitele. Když `true`hostitel zachytí výjimky během spouštění a pokusí se o spuštění serveru.
+`false`V důsledku dojde k chybám při spuštění hostitele. Když `true` hostitel zachytí výjimky během spouštění a pokusí se o spuštění serveru.
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -215,12 +217,12 @@ Další informace naleznete v tématu:
 Určuje, zda mají být zachyceny podrobné chyby.
 
 **Klíč**: detailedErrors  
-**Typ**: *bool* (`true` nebo `1`)  
+**Typ**: *bool* ( `true` nebo `1` )  
 **Výchozí**: false  
 **Nastavit pomocí**:`UseSetting`  
 **Proměnná prostředí**:`ASPNETCORE_DETAILEDERRORS`
 
-Když je tato možnost povolená <a href="#environment">Environment</a> (nebo když je `Development`prostředí nastavené na), aplikace zachycuje podrobné výjimky.
+Když je tato možnost povolená (nebo když je <a href="#environment">prostředí</a> nastavené na `Development` ), aplikace zachycuje podrobné výjimky.
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -237,7 +239,7 @@ Nastaví prostředí aplikace.
 **Nastavit pomocí**:`UseEnvironment`  
 **Proměnná prostředí**:`ASPNETCORE_ENVIRONMENT`
 
-Prostředí lze nastavit na libovolnou hodnotu. Hodnoty definované rozhraním zahrnují `Development`, `Staging`a `Production`. U hodnot se nerozlišují malá a velká písmena. Ve výchozím nastavení je *prostředí* načteno z proměnné `ASPNETCORE_ENVIRONMENT` prostředí. Při použití sady [Visual Studio](https://visualstudio.microsoft.com)mohou být proměnné prostředí nastaveny v souboru *launchSettings. JSON* . Další informace naleznete v tématu <xref:fundamentals/environments>.
+Prostředí lze nastavit na libovolnou hodnotu. Hodnoty definované rozhraním zahrnují `Development` , `Staging` a `Production` . U hodnot se nerozlišují malá a velká písmena. Ve výchozím nastavení je *prostředí* načteno z `ASPNETCORE_ENVIRONMENT` proměnné prostředí. Při použití sady [Visual Studio](https://visualstudio.microsoft.com)mohou být proměnné prostředí nastaveny v *launchSettings.jsv* souboru. Další informace naleznete v tématu <xref:fundamentals/environments>.
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -267,8 +269,8 @@ WebHost.CreateDefaultBuilder(args)
 
 Nastavte port přesměrování HTTPS. Používá se při [vynucování https](xref:security/enforcing-ssl).
 
-**Klíč**: https_port **typ**: *string*
-**výchozí**hodnota řetězce: není nastavena výchozí hodnota.
+**Klíč**: https_port **typ**: *string* 
+ **výchozí**hodnota řetězce: není nastavena výchozí hodnota.
 **Nastavit pomocí**: `UseSetting` 
  **Proměnná prostředí**:`ASPNETCORE_HTTPS_PORT`
 
@@ -294,10 +296,10 @@ WebHost.CreateDefaultBuilder(args)
 
 ### <a name="prefer-hosting-urls"></a>Preferovat hostování adres URL
 
-Určuje, zda má hostitel naslouchat adresám URL nakonfigurovaným `WebHostBuilder` pomocí a místo nakonfigurovaných s `IServer` implementací.
+Určuje, zda má hostitel naslouchat adresám URL nakonfigurovaným pomocí a `WebHostBuilder` místo nakonfigurovaných s `IServer` implementací.
 
 **Klíč**: preferHostingUrls  
-**Typ**: *bool* (`true` nebo `1`)  
+**Typ**: *bool* ( `true` nebo `1` )  
 **Výchozí**: true  
 **Nastavit pomocí**:`PreferHostingUrls`  
 **Proměnná prostředí**:`ASPNETCORE_PREFERHOSTINGURLS`
@@ -312,7 +314,7 @@ WebHost.CreateDefaultBuilder(args)
 Zabraňuje automatickému načítání hostujících spouštěcích sestavení, včetně hostování spouštěcích sestavení nakonfigurovaných sestavením aplikace. Další informace naleznete v tématu <xref:fundamentals/configuration/platform-specific-configuration>.
 
 **Klíč**: preventHostingStartup  
-**Typ**: *bool* (`true` nebo `1`)  
+**Typ**: *bool* ( `true` nebo `1` )  
 **Výchozí**: false  
 **Nastavit pomocí**:`UseSetting`  
 **Proměnná prostředí**:`ASPNETCORE_PREVENTHOSTINGSTARTUP`
@@ -332,7 +334,7 @@ Označuje IP adresy nebo adresy hostitelů s porty a protokoly, na kterých má 
 **Nastavit pomocí**:`UseUrls`  
 **Proměnná prostředí**:`ASPNETCORE_URLS`
 
-Nastavte na středníkem oddělený (;) Seznam předpon adres URL, na které má server odpovědět Například, `http://localhost:123`. Pomocí příkazu\*"" určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000`). Protokol (`http://` nebo `https://`) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
+Nastavte na středníkem oddělený (;) Seznam předpon adres URL, na které má server odpovědět Například, `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -351,7 +353,7 @@ Určuje dobu, po kterou se má čekat na vypnutí webového hostitele.
 **Nastavit pomocí**:`UseShutdownTimeout`  
 **Proměnná prostředí**:`ASPNETCORE_SHUTDOWNTIMEOUTSECONDS`
 
-I když klíč přijímá *int* `UseSetting` s ( `.UseSetting(WebHostDefaults.ShutdownTimeoutKey, "10")`například), metoda rozšíření [UseShutdownTimeout](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useshutdowntimeout) přebírá [časový interval](/dotnet/api/system.timespan).
+I když klíč přijímá *int* s `UseSetting` (například `.UseSetting(WebHostDefaults.ShutdownTimeoutKey, "10")` ), metoda rozšíření [UseShutdownTimeout](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useshutdowntimeout) přebírá [časový interval](/dotnet/api/system.timespan).
 
 Po uplynutí časového limitu hostování:
 
@@ -367,7 +369,7 @@ WebHost.CreateDefaultBuilder(args)
 
 ### <a name="startup-assembly"></a>Spouštěcí sestavení
 
-Určuje sestavení, ve kterém má být `Startup` vyhledána třída.
+Určuje sestavení, ve kterém má být vyhledána `Startup` Třída.
 
 **Klíč**: startupAssembly  
 **Typ**: *řetězec*  
@@ -375,7 +377,7 @@ Určuje sestavení, ve kterém má být `Startup` vyhledána třída.
 **Nastavit pomocí**:`UseStartup`  
 **Proměnná prostředí**:`ASPNETCORE_STARTUPASSEMBLY`
 
-Lze odkazovat na sestavení podle`string`názvu () nebo`TStartup`typu (). Pokud je `UseStartup` voláno více metod, má poslední z nich přednost.
+Lze odkazovat na sestavení podle názvu ( `string` ) nebo typu ( `TStartup` ). Pokud `UseStartup` je voláno více metod, má poslední z nich přednost.
 
 ```csharp
 WebHost.CreateDefaultBuilder(args)
@@ -393,7 +395,7 @@ Nastaví relativní cestu k statickým assetům aplikace.
 
 **Klíč**: Webroot  
 **Typ**: *řetězec*  
-**Výchozí**: výchozí hodnota je `wwwroot`. Cesta k *obsahu {root}/wwwroot* musí existovat. Pokud cesta neexistuje, použije se zprostředkovatel souborů no-op.  
+**Výchozí**: výchozí hodnota je `wwwroot` . Cesta k *obsahu {root}/wwwroot* musí existovat. Pokud cesta neexistuje, použije se zprostředkovatel souborů no-op.  
 **Nastavit pomocí**:`UseWebRoot`  
 **Proměnná prostředí**:`ASPNETCORE_WEBROOT`
 
@@ -409,9 +411,9 @@ Další informace naleznete v tématu:
 
 ## <a name="override-configuration"></a>Přepsat konfiguraci
 
-Pro konfiguraci webového hostitele použijte [konfiguraci](xref:fundamentals/configuration/index) . V následujícím příkladu je konfigurace hostitele volitelně určena v souboru *HostSettings. JSON* . Jakékoli konfigurace načtené ze souboru *HostSettings. JSON* může přepsat argumenty příkazového řádku. Vytvořená konfigurace (v `config`) se používá ke konfiguraci hostitele pomocí [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration). `IWebHostBuilder`konfigurace je přidána do konfigurace aplikace, ale tato konverzace není pravdivá&mdash; `ConfigureAppConfiguration` , nemá vliv na `IWebHostBuilder` konfiguraci.
+Pro konfiguraci webového hostitele použijte [konfiguraci](xref:fundamentals/configuration/index) . V následujícím příkladu je konfigurace hostitele volitelně určena v *hostsettings.js* souboru. Jakákoli konfigurace načtená z *hostsettings.jsv* souboru může být přepsána argumenty příkazového řádku. Vytvořená konfigurace (v `config` ) se používá ke konfiguraci hostitele pomocí [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration). `IWebHostBuilder`konfigurace je přidána do konfigurace aplikace, ale tato konverzace není pravdivá, &mdash; `ConfigureAppConfiguration` nemá vliv na `IWebHostBuilder` konfiguraci.
 
-Přepsání konfigurace, kterou `UseUrls` poskytuje, pomocí konfigurace *HostSettings. JSON* First, druhé konfigurace argumentů příkazového řádku:
+Přepsání konfigurace, kterou poskytuje `UseUrls` , pomocí *hostsettings.jspři* prvním nastavení konfigurace argumentu příkazového řádku:
 
 ```csharp
 public class Program
@@ -441,7 +443,7 @@ public class Program
 }
 ```
 
-*HostSettings. JSON*:
+*hostsettings.js*:
 
 ```json
 {
@@ -452,7 +454,7 @@ public class Program
 > [!NOTE]
 > [UseConfiguration](/dotnet/api/microsoft.aspnetcore.hosting.hostingabstractionswebhostbuilderextensions.useconfiguration) zkopíruje pouze klíče ze zadaného `IConfiguration` do konfigurace tvůrce hostitele. Nastavení `reloadOnChange: true` souborů JSON, ini a XML nastavení proto nemá žádný vliv.
 
-Chcete-li určit spuštění hostitele na konkrétní adrese URL, lze požadovanou hodnotu předat z příkazového řádku při [spuštění příkazu dotnet](/dotnet/core/tools/dotnet-run). Argument příkazového řádku Přepisuje `urls` hodnotu ze souboru *HostSettings. JSON* a server naslouchá na portu 8080:
+Chcete-li určit spuštění hostitele na konkrétní adrese URL, lze požadovanou hodnotu předat z příkazového řádku při [spuštění příkazu dotnet](/dotnet/core/tools/dotnet-run). Argument příkazového řádku Přepisuje `urls` hodnotu z *hostsettings.jsv* souboru a server naslouchá na portu 8080:
 
 ```dotnetcli
 dotnet run --urls "http://*:8080"
@@ -460,9 +462,9 @@ dotnet run --urls "http://*:8080"
 
 ## <a name="manage-the-host"></a>Správa hostitele
 
-**Spouštěl**
+**Spustit**
 
-`Run` Metoda spustí webovou aplikaci a zablokuje volající vlákno, dokud nebude hostitel vypnutý:
+`Run`Metoda spustí webovou aplikaci a zablokuje volající vlákno, dokud nebude hostitel vypnutý:
 
 ```csharp
 host.Run();
@@ -480,7 +482,7 @@ using (host)
 }
 ```
 
-Pokud se do `Start` metody předává seznam adres URL, naslouchá na zadaných adresách URL:
+Pokud se do metody předává seznam adres URL `Start` , naslouchá na zadaných adresách URL:
 
 ```csharp
 var urls = new List<string>()
@@ -500,11 +502,11 @@ using (host)
 }
 ```
 
-Aplikace může inicializovat a spustit nového hostitele s použitím předem nakonfigurovaných výchozích hodnot pomocí statické `CreateDefaultBuilder` metody pro usnadnění. Tyto metody spustí server bez výstupu konzoly a s [WaitForShutdown](/dotnet/api/microsoft.aspnetcore.hosting.webhostextensions.waitforshutdown) čekají na přerušení (CTRL-C/SIGINT nebo SIGTERM):
+Aplikace může inicializovat a spustit nového hostitele s použitím předem nakonfigurovaných výchozích hodnot `CreateDefaultBuilder` pomocí statické metody pro usnadnění. Tyto metody spustí server bez výstupu konzoly a s [WaitForShutdown](/dotnet/api/microsoft.aspnetcore.hosting.webhostextensions.waitforshutdown) čekají na přerušení (CTRL-C/SIGINT nebo SIGTERM):
 
 **Spustit (aplikace RequestDelegate)**
 
-Začněte s `RequestDelegate`:
+Začněte s `RequestDelegate` :
 
 ```csharp
 using (var host = WebHost.Start(app => app.Response.WriteAsync("Hello, World!")))
@@ -514,11 +516,11 @@ using (var host = WebHost.Start(app => app.Response.WriteAsync("Hello, World!"))
 }
 ```
 
-V prohlížeči `http://localhost:5000` vytvořte žádost, aby obdržela odpověď "Hello World!". `WaitForShutdown`blokuje až do vystavení přerušení (CTRL-C/SIGINT nebo SIGTERM). Aplikace zobrazí `Console.WriteLine` zprávu a počká, až se stisknutí klávesy ukončí.
+V prohlížeči vytvořte žádost, aby `http://localhost:5000` obdržela odpověď "Hello World!". `WaitForShutdown`blokuje až do vystavení přerušení (CTRL-C/SIGINT nebo SIGTERM). Aplikace zobrazí `Console.WriteLine` zprávu a počká, až se stisknutí klávesy ukončí.
 
 **Spustit (adresa URL řetězce, aplikace v RequestDelegate)**
 
-Začněte s adresou URL a `RequestDelegate`:
+Začněte s adresou URL a `RequestDelegate` :
 
 ```csharp
 using (var host = WebHost.Start("http://localhost:8080", app => app.Response.WriteAsync("Hello, World!")))
@@ -528,11 +530,11 @@ using (var host = WebHost.Start("http://localhost:8080", app => app.Response.Wri
 }
 ```
 
-Vytvoří stejný výsledek jako **Start (aplikace RequestDelegate)**, s výjimkou, že aplikace `http://localhost:8080`reaguje.
+Vytvoří stejný výsledek jako **Start (aplikace RequestDelegate)**, s výjimkou, že aplikace reaguje `http://localhost:8080` .
 
-**Start (Action\<IRouteBuilder> routeBuilder)**
+**Spustit (akce \<IRouteBuilder> routeBuilder)**
 
-Pro použití middlewaru `IRouteBuilder` směrování použijte instanci ([Microsoft. AspNetCore. Routing](https://www.nuget.org/packages/Microsoft.AspNetCore.Routing/)):
+`IRouteBuilder`Pro použití middlewaru směrování použijte instanci ([Microsoft. AspNetCore. Routing](https://www.nuget.org/packages/Microsoft.AspNetCore.Routing/)):
 
 ```csharp
 using (var host = WebHost.Start(router => router
@@ -564,9 +566,9 @@ Použijte následující požadavky prohlížeče s příkladem:
 
 `WaitForShutdown`blokuje až do vystavení přerušení (CTRL-C/SIGINT nebo SIGTERM). Aplikace zobrazí `Console.WriteLine` zprávu a počká, až se stisknutí klávesy ukončí.
 
-**Start (adresa URL řetězce,\<Action IRouteBuilder> routeBuilder)**
+**Start (adresa URL řetězce, akce \<IRouteBuilder> routeBuilder)**
 
-Použijte adresu URL a instanci `IRouteBuilder`:
+Použijte adresu URL a instanci `IRouteBuilder` :
 
 ```csharp
 using (var host = WebHost.Start("http://localhost:8080", router => router
@@ -585,11 +587,11 @@ using (var host = WebHost.Start("http://localhost:8080", router => router
 }
 ```
 
-Vytvoří stejný výsledek jako **Start (Action\<IRouteBuilder> routeBuilder)**, s výjimkou, že aplikace reaguje na. `http://localhost:8080`
+Vytvoří stejný výsledek jako **Start (Action \<IRouteBuilder> routeBuilder)**, s výjimkou, že aplikace reaguje na `http://localhost:8080` .
 
-**StartWith (akce\<IApplicationBuilder> aplikace)**
+**StartWith (akce \<IApplicationBuilder> aplikace)**
 
-Zadejte delegáta pro konfiguraci `IApplicationBuilder`:
+Zadejte delegáta pro konfiguraci `IApplicationBuilder` :
 
 ```csharp
 using (var host = WebHost.StartWith(app => 
@@ -606,11 +608,11 @@ using (var host = WebHost.StartWith(app =>
 }
 ```
 
-V prohlížeči `http://localhost:5000` vytvořte žádost, aby obdržela odpověď "Hello World!". `WaitForShutdown`blokuje až do vystavení přerušení (CTRL-C/SIGINT nebo SIGTERM). Aplikace zobrazí `Console.WriteLine` zprávu a počká, až se stisknutí klávesy ukončí.
+V prohlížeči vytvořte žádost, aby `http://localhost:5000` obdržela odpověď "Hello World!". `WaitForShutdown`blokuje až do vystavení přerušení (CTRL-C/SIGINT nebo SIGTERM). Aplikace zobrazí `Console.WriteLine` zprávu a počká, až se stisknutí klávesy ukončí.
 
-**StartWith (adresa URL řetězce,\<akce IApplicationBuilder> aplikace)**
+**StartWith (adresa URL řetězce, \<IApplicationBuilder> aplikace akce)**
 
-Zadejte adresu URL a delegáta pro konfiguraci `IApplicationBuilder`:
+Zadejte adresu URL a delegáta pro konfiguraci `IApplicationBuilder` :
 
 ```csharp
 using (var host = WebHost.StartWith("http://localhost:8080", app => 
@@ -627,13 +629,13 @@ using (var host = WebHost.StartWith("http://localhost:8080", app =>
 }
 ```
 
-Vytvoří stejný výsledek jako **StartWith (Action\<IApplicationBuilder> App)**, s výjimkou, že aplikace reaguje. `http://localhost:8080`
+Vytvoří stejný výsledek jako **StartWith (aplikace akce \<IApplicationBuilder> )**, kromě toho, že aplikace reaguje `http://localhost:8080` .
 
 ::: moniker range=">= aspnetcore-3.0"
 
 ## <a name="iwebhostenvironment-interface"></a>Rozhraní IWebHostEnvironment
 
-`IWebHostEnvironment` Rozhraní poskytuje informace o prostředí hostování webu aplikace. Použijte [Injektáže konstruktoru](xref:fundamentals/dependency-injection) pro získání, `IWebHostEnvironment` aby bylo možné použít jeho vlastnosti a metody rozšíření:
+`IWebHostEnvironment`Rozhraní poskytuje informace o prostředí hostování webu aplikace. Použijte [Injektáže konstruktoru](xref:fundamentals/dependency-injection) pro získání, aby `IWebHostEnvironment` bylo možné použít jeho vlastnosti a metody rozšíření:
 
 ```csharp
 public class CustomFileReader
@@ -653,7 +655,7 @@ public class CustomFileReader
 }
 ```
 
-[Přístup založený na konvenci](xref:fundamentals/environments#environment-based-startup-class-and-methods) je možné použít ke konfiguraci aplikace při spuštění na základě prostředí. Alternativně můžete vložit `IWebHostEnvironment` do `Startup` konstruktoru konstruktor pro použití v `ConfigureServices`:
+[Přístup založený na konvenci](xref:fundamentals/environments#environment-based-startup-class-and-methods) je možné použít ke konfiguraci aplikace při spuštění na základě prostředí. Alternativně můžete vložit `IWebHostEnvironment` do `Startup` konstruktoru konstruktor pro použití v `ConfigureServices` :
 
 ```csharp
 public class Startup
@@ -682,9 +684,9 @@ public class Startup
 ```
 
 > [!NOTE]
-> `IsDevelopment` Kromě metody rozšíření, `IWebHostEnvironment` nabídky `IsStaging`, `IsProduction`a `IsEnvironment(string environmentName)` metody. Další informace naleznete v tématu <xref:fundamentals/environments>.
+> Kromě `IsDevelopment` metody rozšíření, `IWebHostEnvironment` nabídky `IsStaging` , `IsProduction` a `IsEnvironment(string environmentName)` metody. Další informace naleznete v tématu <xref:fundamentals/environments>.
 
-Službu `IWebHostEnvironment` je také možné vložit přímo do `Configure` metody nastavení kanálu zpracování:
+`IWebHostEnvironment`Službu je také možné vložit přímo do `Configure` metody nastavení kanálu zpracování:
 
 ```csharp
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -728,7 +730,7 @@ public async Task Invoke(HttpContext context, IWebHostEnvironment env)
 
 ## <a name="ihostingenvironment-interface"></a>Rozhraní IHostingEnvironment
 
-[Rozhraní IHostingEnvironment](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment) poskytuje informace o prostředí hostování webu aplikace. Použijte [Injektáže konstruktoru](xref:fundamentals/dependency-injection) pro získání, `IHostingEnvironment` aby bylo možné použít jeho vlastnosti a metody rozšíření:
+[Rozhraní IHostingEnvironment](/dotnet/api/microsoft.aspnetcore.hosting.ihostingenvironment) poskytuje informace o prostředí hostování webu aplikace. Použijte [Injektáže konstruktoru](xref:fundamentals/dependency-injection) pro získání, aby `IHostingEnvironment` bylo možné použít jeho vlastnosti a metody rozšíření:
 
 ```csharp
 public class CustomFileReader
@@ -748,7 +750,7 @@ public class CustomFileReader
 }
 ```
 
-[Přístup založený na konvenci](xref:fundamentals/environments#environment-based-startup-class-and-methods) je možné použít ke konfiguraci aplikace při spuštění na základě prostředí. Alternativně můžete vložit `IHostingEnvironment` do `Startup` konstruktoru konstruktor pro použití v `ConfigureServices`:
+[Přístup založený na konvenci](xref:fundamentals/environments#environment-based-startup-class-and-methods) je možné použít ke konfiguraci aplikace při spuštění na základě prostředí. Alternativně můžete vložit `IHostingEnvironment` do `Startup` konstruktoru konstruktor pro použití v `ConfigureServices` :
 
 ```csharp
 public class Startup
@@ -777,9 +779,9 @@ public class Startup
 ```
 
 > [!NOTE]
-> `IsDevelopment` Kromě metody rozšíření, `IHostingEnvironment` nabídky `IsStaging`, `IsProduction`a `IsEnvironment(string environmentName)` metody. Další informace naleznete v tématu <xref:fundamentals/environments>.
+> Kromě `IsDevelopment` metody rozšíření, `IHostingEnvironment` nabídky `IsStaging` , `IsProduction` a `IsEnvironment(string environmentName)` metody. Další informace naleznete v tématu <xref:fundamentals/environments>.
 
-Službu `IHostingEnvironment` je také možné vložit přímo do `Configure` metody nastavení kanálu zpracování:
+`IHostingEnvironment`Službu je také možné vložit přímo do `Configure` metody nastavení kanálu zpracování:
 
 ```csharp
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -865,7 +867,7 @@ public class Startup
 }
 ```
 
-`StopApplication`požaduje ukončení aplikace. Následující třída používá `StopApplication` k bezproblémovému vypnutí aplikace při volání `Shutdown` metody třídy:
+`StopApplication`požaduje ukončení aplikace. Následující třída používá `StopApplication` k bezproblémovému vypnutí aplikace při `Shutdown` volání metody třídy:
 
 ```csharp
 public class MyClass
@@ -932,7 +934,7 @@ public class Startup
 }
 ```
 
-[StopApplication](/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.stopapplication) žádá o ukončení aplikace. Následující třída používá `StopApplication` k bezproblémovému vypnutí aplikace při volání `Shutdown` metody třídy:
+[StopApplication](/dotnet/api/microsoft.aspnetcore.hosting.iapplicationlifetime.stopapplication) žádá o ukončení aplikace. Následující třída používá `StopApplication` k bezproblémovému vypnutí aplikace při `Shutdown` volání metody třídy:
 
 ```csharp
 public class MyClass
@@ -955,16 +957,16 @@ public class MyClass
 
 ## <a name="scope-validation"></a>Ověřování oboru
 
-[CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) nastaví [ServiceProviderOptions. ValidateScopes](/dotnet/api/microsoft.extensions.dependencyinjection.serviceprovideroptions.validatescopes) na `true` , pokud je prostředí aplikace vyvíjené.
+[CreateDefaultBuilder](/dotnet/api/microsoft.aspnetcore.webhost.createdefaultbuilder) nastaví [ServiceProviderOptions. ValidateScopes](/dotnet/api/microsoft.extensions.dependencyinjection.serviceprovideroptions.validatescopes) na, `true` Pokud je prostředí aplikace vyvíjené.
 
-Když `ValidateScopes` je nastavená `true`na, výchozí poskytovatel služby provede kontrolu, aby ověřil, že:
+Když `ValidateScopes` je nastavená na `true` , výchozí poskytovatel služby provede kontrolu, aby ověřil, že:
 
 * Oborové služby nejsou přímo nebo nepřímo vyřešeny od poskytovatele kořenové služby.
 * Oborové služby nejsou přímo nebo nepřímo vložené do singleton.
 
 Poskytovatel kořenové služby se vytvoří, když se zavolá [BuildServiceProvider](/dotnet/api/microsoft.extensions.dependencyinjection.servicecollectioncontainerbuilderextensions.buildserviceprovider) . Doba života poskytovatele kořenové služby odpovídá době životnosti aplikace nebo serveru, když se poskytovatel spustí s aplikací a je uvolněný při ukončení aplikace.
 
-Oborové služby jsou uvolněny kontejnerem, který je vytvořil. Pokud je v kořenovém kontejneru vytvořena vymezená služba, doba života služby je efektivně povýšena na typ singleton, protože je uvolněna pouze kořenovým kontejnerem při vypnutí aplikace nebo serveru. Při `BuildServiceProvider` ověřování oborů služeb se tyto situace zachytí.
+Oborové služby jsou uvolněny kontejnerem, který je vytvořil. Pokud je v kořenovém kontejneru vytvořena vymezená služba, doba života služby je efektivně povýšena na typ singleton, protože je uvolněna pouze kořenovým kontejnerem při vypnutí aplikace nebo serveru. Při ověřování oborů služeb se tyto situace zachytí `BuildServiceProvider` .
 
 Pokud chcete vždy ověřit obory, včetně v produkčním prostředí, nakonfigurujte [ServiceProviderOptions](/dotnet/api/microsoft.extensions.dependencyinjection.serviceprovideroptions) pomocí [UseDefaultServiceProvider](/dotnet/api/microsoft.aspnetcore.hosting.webhostbuilderextensions.usedefaultserviceprovider) na tvůrci hostitele:
 

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 06/01/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 61c1dc383728f42c5dac6742fd19d1d22c988913
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 312a265dd251eadf876b4252e3d9f9858adcde1b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242690"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400983"
 ---
 # <a name="aspnet-core-blazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
 
@@ -73,14 +75,14 @@ protected override async Task OnInitializedAsync()
 }
 ```
 
-BlazorServerové aplikace, které [proprerender volání jejich obsahu](xref:blazor/fundamentals/additional-scenarios#render-mode) <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> **_dvakrát_**:
+Blazor Serveraplikace, které [proprerender volání jejich obsahu](xref:blazor/fundamentals/additional-scenarios#render-mode) <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> **_dvakrát_**:
 
 * Jednou, když je komponenta zpočátku vykreslena jako součást stránky.
 * Podruhé, když prohlížeč vytvoří připojení zpátky k serveru.
 
 Chcete-li zabránit tomu, aby se kód vývojáře v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> Nespuštěn dvakrát, přečtěte si část [stav opětovného připojení po předvykreslování](#stateful-reconnection-after-prerendering) .
 
-I když Blazor je serverová aplikace předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně. Další informace najdete v části [detekce při předvykreslování aplikace](#detect-when-the-app-is-prerendering) .
+I když Blazor Server je aplikace předem vykreslovat, některé akce, jako je například volání do JavaScriptu, nejsou možné, protože připojení k prohlížeči nebylo navázáno. Komponenty mohou být při předvykreslování nutné pro vykreslení odlišně. Další informace najdete v části [detekce při předvykreslování aplikace](#detect-when-the-app-is-prerendering) .
 
 Pokud jsou nastaveny jakékoli obslužné rutiny událostí, odpojte je při vyřazení. Další informace najdete v části věnované [odstraňování `IDisposable` komponent](#component-disposal-with-idisposable) .
 
@@ -179,7 +181,7 @@ Asynchronní akce provedené v událostech životního cyklu nemusí být před 
 
 V `FetchData` komponentě Blazor šablony <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> je přepsáno na asynchronně příjem dat předpovědi ( `forecasts` ). V takovém případě `forecasts` `null` se uživateli zobrazí zpráva o načítání. Po `Task` <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> úspěšném dokončení se komponenta znovu vykreslí s aktualizovaným stavem.
 
-`Pages/FetchData.razor`v Blazor šabloně serveru:
+`Pages/FetchData.razor`v Blazor Server šabloně:
 
 [!code-razor[](lifecycle/samples_snapshot/3.x/FetchData.razor?highlight=9,21,25)]
 
@@ -220,20 +222,20 @@ Informace o zpracování chyb během provádění metod životního cyklu nalezn
 
 ## <a name="stateful-reconnection-after-prerendering"></a>Stav opětovného připojení po předvykreslování
 
-V Blazor serverové aplikaci, kde <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> je <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> , se komponenta zpočátku generuje jako součást stránky staticky. Jakmile prohlížeč vytvoří připojení zpátky k serveru, komponenta se *znovu*vykreslí a komponenta je teď interaktivní. Pokud [`OnInitialized{Async}`](#component-initialization-methods) je k dispozici metoda životního cyklu pro inicializaci komponenty, je metoda provedena *dvakrát*:
+V Blazor Server aplikaci, když <xref:Microsoft.AspNetCore.Mvc.TagHelpers.ComponentTagHelper.RenderMode> je <xref:Microsoft.AspNetCore.Mvc.Rendering.RenderMode.ServerPrerendered> , komponenta je zpočátku vykreslena jako součást stránky. Jakmile prohlížeč vytvoří připojení zpátky k serveru, komponenta se *znovu*vykreslí a komponenta je teď interaktivní. Pokud [`OnInitialized{Async}`](#component-initialization-methods) je k dispozici metoda životního cyklu pro inicializaci komponenty, je metoda provedena *dvakrát*:
 
 * Když se komponenta předem vykreslí.
 * Po navázání připojení k serveru.
 
 Výsledkem může být znatelné změny v datech zobrazených v uživatelském rozhraní, když je komponenta nakonec vykreslena.
 
-Abyste se vyhnuli scénáři dvojího vykreslování v Blazor serverové aplikaci:
+Abyste se vyhnuli scénáři dvojího vykreslování v Blazor Server aplikaci:
 
 * Předejte identifikátor, který se dá použít k ukládání stavu do mezipaměti během předgenerování a načtení stavu po restartování aplikace.
 * Použijte identifikátor při předvykreslování k uložení stavu součásti.
 * Pro načtení stavu uloženého v mezipaměti použijte identifikátor po předvykreslování.
 
-Následující kód demonstruje aktualizaci `WeatherForecastService` v serverové aplikaci založené na šablonách Blazor , která vylučuje dvojité vykreslování:
+Následující kód demonstruje aktualizaci `WeatherForecastService` v aplikaci založené na šablonách Blazor Server , která vylučuje dvojité vykreslování:
 
 ```csharp
 public class WeatherForecastService

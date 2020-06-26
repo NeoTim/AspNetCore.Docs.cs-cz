@@ -8,23 +8,25 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/inheritance
-ms.openlocfilehash: 4883c697e950cac298dec961b4cd5a5096d8e946
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: cea19044294482adf834d998b75e0f3fc386cc46
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773572"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400528"
 ---
 # <a name="tutorial-implement-inheritance---aspnet-mvc-with-ef-core"></a>Kurz: Implementace dědičnosti – ASP.NET MVC pomocí EF Core
 
 V předchozím kurzu jste zpracovali výjimky souběžnosti. Tento kurz vám ukáže, jak implementovat dědičnost v datovém modelu.
 
-V objektově orientovaném programování můžete použít dědičnost k usnadnění opětovného použití kódu. V tomto kurzu změníte `Instructor` třídy a `Student` tak, aby byly odvozeny ze `Person` základní třídy, která obsahuje vlastnosti `LastName` , jako jsou společné pro instruktory i studenty. Nepřidáte ani neměníte žádné webové stránky, ale změníte část kódu a tyto změny se automaticky projeví v databázi.
+V objektově orientovaném programování můžete použít dědičnost k usnadnění opětovného použití kódu. V tomto kurzu změníte `Instructor` `Student` třídy a tak, aby byly odvozeny ze `Person` základní třídy, která obsahuje vlastnosti `LastName` , jako jsou společné pro instruktory i studenty. Nepřidáte ani neměníte žádné webové stránky, ale změníte část kódu a tyto změny se automaticky projeví v databázi.
 
 V tomto kurzu jste:
 
@@ -42,11 +44,11 @@ V tomto kurzu jste:
 
 ## <a name="map-inheritance-to-database"></a>Mapování dědičnosti na databázi
 
-Třídy `Instructor` a `Student` v modelu školních dat obsahují několik vlastností, které jsou identické:
+`Instructor`Třídy a `Student` v modelu školních dat obsahují několik vlastností, které jsou identické:
 
 ![Třídy student a instruktor](inheritance/_static/no-inheritance.png)
 
-Předpokládejme, že chcete eliminovat redundantní kód pro vlastnosti, které jsou sdíleny `Instructor` entitami `Student` a. Nebo chcete napsat službu, která může formátovat názvy bez caring, jestli název pochází od instruktora nebo studenta. Můžete vytvořit `Person` základní třídu, která obsahuje pouze tyto sdílené vlastnosti, `Instructor` a poté nastavit třídy a `Student` dědění z této základní třídy, jak je znázorněno na následujícím obrázku:
+Předpokládejme, že chcete eliminovat redundantní kód pro vlastnosti, které jsou sdíleny `Instructor` `Student` entitami a. Nebo chcete napsat službu, která může formátovat názvy bez caring, jestli název pochází od instruktora nebo studenta. Můžete vytvořit `Person` základní třídu, která obsahuje pouze tyto sdílené vlastnosti, a poté nastavit `Instructor` třídy a `Student` dědění z této základní třídy, jak je znázorněno na následujícím obrázku:
 
 ![Třídy studenta a instruktory odvozené od třídy Person](inheritance/_static/inheritance.png)
 
@@ -66,7 +68,7 @@ Ještě další možností je mapovat všechny neabstraktní typy na jednotlivé
 
 Vzorce dědičnosti TPC a TPH obvykle poskytují lepší výkon než vzory dědičnosti TPT, protože vzory TPT mohou mít za následek složité spojení dotazů.
 
-Tento kurz ukazuje, jak implementovat dědičnosti TPH. TPH je jediný vzorek dědičnosti, který Entity Framework Core podporuje.  To, co uděláte, je vytvořit `Person` třídu, změnit třídy `Instructor` a `Student` , které se mají `Person`odvodit z, přidat novou třídu `DbContext`do a vytvořit migraci.
+Tento kurz ukazuje, jak implementovat dědičnosti TPH. TPH je jediný vzorek dědičnosti, který Entity Framework Core podporuje.  To, co uděláte, je vytvořit `Person` třídu, změnit `Instructor` třídy a, `Student` které se mají odvodit z `Person` , přidat novou třídu do a `DbContext` vytvořit migraci.
 
 > [!TIP]
 > Zvažte uložení kopie projektu před provedením následujících změn.  Pak Pokud narazíte na problémy a potřebujete začít znovu, bude snazší začít z uloženého projektu místo vrácení kroků provedených pro tento kurz nebo přechod zpět na začátek celé řady.
@@ -105,7 +107,7 @@ dotnet ef migrations add Inheritance
 
 Tento `database update` příkaz ještě nespouštějte. Tento příkaz bude mít za následek ztrátu dat, protože odstraní tabulku instruktora a přejmenuje tabulku student na Person. Aby bylo možné zachovat existující data, je třeba zadat vlastní kód.
 
-Otevřete *migrace nebo\<časové razítko>_Inheritance. cs* a nahraďte `Up` metodu následujícím kódem:
+Otevřete *migrace/ \<timestamp> _Inheritance. cs* a nahraďte `Up` metodu následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Migrations/20170216215525_Inheritance.cs?name=snippet_Up)]
 
@@ -158,7 +160,7 @@ Klikněte pravým tlačítkem myši na tabulku Person a potom kliknutím na mož
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 Další informace o dědičnosti v Entity Framework Core naleznete v tématu [Dědičnost](/ef/core/modeling/inheritance).
 

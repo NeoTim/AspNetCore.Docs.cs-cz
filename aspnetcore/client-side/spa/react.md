@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 03/07/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: spa/react
-ms.openlocfilehash: 1dd352f1a00d30df915fe1936d7dcb34af1b6634
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: d5185a80895423bdd60309509ab4d1dad4dad12f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773673"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401724"
 ---
 # <a name="use-the-react-project-template-with-aspnet-core"></a>Použijte šablonu projektu reakce s ASP.NET Core
 
@@ -26,7 +28,7 @@ Aktualizovaná šablona projektu reakce poskytuje pohodlný výchozí bod pro AS
 
 Šablona je ekvivalentní k vytváření ASP.NET Core projektu, který se má chovat jako back-end rozhraní API, a standardní projekt CRA reaguje na fungování jako uživatelské rozhraní, ale s pohodlíou hostování v jediném projektu aplikace, který je možné sestavit a publikovat jako jeden celek.
 
-Šablona projektu reakce není určena pro vykreslování na straně serveru (SSR). Pro SSR, který reaguje a Node. js, zvažte [Další. js](https://github.com/zeit/next.js/) nebo [Razzle](https://github.com/jaredpalmer/razzle).
+Šablona projektu reakce není určena pro vykreslování na straně serveru (SSR). Pro SSR, který reaguje a Node.js, zvažte [Next.js](https://github.com/zeit/next.js/) nebo [Razzle](https://github.com/jaredpalmer/razzle).
 
 ## <a name="create-a-new-app"></a>Vytvoření nové aplikace
 
@@ -78,7 +80,7 @@ npm install --save <package_name>
 
 Ve vývoji se aplikace spouští v režimu optimalizovaném pro usnadnění vývoje. Například sady prostředků JavaScriptu obsahují zdrojové mapy (takže při ladění uvidíte původní zdrojový kód). Aplikace sleduje změny souborů JavaScriptu, HTML a CSS na disku a automaticky překompiluje a znovu načte, když se tyto soubory uvidí.
 
-V produkčním prostředí poskytuje verzi vaší aplikace optimalizované pro výkon. To se nakonfiguruje tak, aby se automaticky stalo. Při publikování generuje konfigurace sestavení minifikovaného, převedený Build kódu na straně klienta. Na rozdíl od sestavení pro vývoj není v produkčním sestavení nutné nainstalovat Node. js na server.
+V produkčním prostředí poskytuje verzi vaší aplikace optimalizované pro výkon. To se nakonfiguruje tak, aby se automaticky stalo. Při publikování generuje konfigurace sestavení minifikovaného, převedený Build kódu na straně klienta. Na rozdíl od sestavení pro vývoj není provozní sestavení vyžadovat instalaci Node.js na server.
 
 Můžete použít standardní [ASP.NET Core hostování a metody nasazení](xref:host-and-deploy/index).
 

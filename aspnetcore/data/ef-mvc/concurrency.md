@@ -8,17 +8,19 @@ ms.date: 03/27/2019
 ms.topic: tutorial
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: bbf04e3500b11a339dc59b6086d910b76eace735
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 3038ae8f01273013e6c35694583d9674a1668bac
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773598"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401555"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: zpracování souběžných ASP.NET MVC pomocí EF Core
 
@@ -93,7 +95,7 @@ Konflikty můžete vyřešit zpracováním `DbConcurrencyException` výjimek, kt
 
 * V tabulce databáze zahrňte sloupec sledování, který se dá použít k určení, kdy došlo ke změně řádku. Pak můžete nakonfigurovat Entity Framework pro zahrnutí tohoto sloupce do klauzule WHERE příkazů SQL Update nebo DELETE.
 
-     Datový typ sloupce sledování je obvykle `rowversion`. `rowversion` Hodnota je sekvenční číslo, které se zvýší pokaždé, když se řádek aktualizuje. V příkazu Update nebo DELETE zahrnuje klauzule WHERE původní hodnotu sloupce sledování (původní verze řádku). Pokud byl aktualizovaný řádek změněn jiným uživatelem, hodnota ve `rowversion` sloupci se liší od původní hodnoty, takže příkaz Update nebo DELETE nemůže najít řádek, který se má aktualizovat z klauzule WHERE. Pokud Entity Framework zjistí, že nebyly aktualizovány žádné řádky pomocí příkazu Update nebo Delete (tj. Pokud je počet ovlivněných řádků nula), je interpretována jako konflikt souběžnosti.
+     Datový typ sloupce sledování je obvykle `rowversion` . `rowversion`Hodnota je sekvenční číslo, které se zvýší pokaždé, když se řádek aktualizuje. V příkazu Update nebo DELETE zahrnuje klauzule WHERE původní hodnotu sloupce sledování (původní verze řádku). Pokud byl aktualizovaný řádek změněn jiným uživatelem, hodnota ve `rowversion` sloupci se liší od původní hodnoty, takže příkaz Update nebo DELETE nemůže najít řádek, který se má aktualizovat z klauzule WHERE. Pokud Entity Framework zjistí, že nebyly aktualizovány žádné řádky pomocí příkazu Update nebo Delete (tj. Pokud je počet ovlivněných řádků nula), je interpretována jako konflikt souběžnosti.
 
 * Nakonfigurujte Entity Framework tak, aby zahrnoval původní hodnoty všech sloupců v tabulce v klauzuli WHERE příkazů Update a DELETE.
 
@@ -101,7 +103,7 @@ Konflikty můžete vyřešit zpracováním `DbConcurrencyException` výjimek, kt
 
      Pokud chcete tento přístup implementovat do souběžnosti, je nutné označit všechny vlastnosti neprimárního klíče v entitě, pro kterou chcete sledovat souběžnost, přidáním `ConcurrencyCheck` atributu do těchto. Tato změna umožňuje Entity Framework zahrnout všechny sloupce v klauzuli WHERE SQL příkazu Update a DELETE.
 
-Ve zbývající části tohoto kurzu přidáte k entitě oddělení `rowversion` vlastnost sledování, vytvoříte kontroler a zobrazení a otestujete, jestli vše funguje správně.
+Ve zbývající části tohoto kurzu přidáte `rowversion` k entitě oddělení vlastnost sledování, vytvoříte kontroler a zobrazení a otestujete, jestli vše funguje správně.
 
 ## <a name="add-a-tracking-property"></a>Přidat vlastnost sledování
 
@@ -109,7 +111,7 @@ V *modelu/oddělení. cs*přidejte vlastnost sledování s názvem rowversion:
 
 [!code-csharp[](intro/samples/cu/Models/Department.cs?name=snippet_Final&highlight=26,27)]
 
-`Timestamp` Atribut určuje, zda bude tento sloupec zahrnut v klauzuli WHERE příkazů Update a DELETE odeslaných do databáze. Atribut je volán `Timestamp` , protože předchozí verze SQL Server používaly datový typ `timestamp` SQL předtím, než ho `rowversion` SQL nahradil. Typ .NET pro `rowversion` je pole bajtů.
+`Timestamp`Atribut určuje, zda bude tento sloupec zahrnut v klauzuli WHERE příkazů Update a DELETE odeslaných do databáze. Atribut je volán, `Timestamp` protože předchozí verze SQL Server používaly `timestamp` datový typ SQL předtím, než `rowversion` ho SQL nahradil. Typ .NET pro `rowversion` je pole bajtů.
 
 Pokud dáváte přednost používání rozhraní Fluent API, můžete použít `IsConcurrencyToken` metodu (v *data/SchoolContext. cs*) k určení vlastnosti sledování, jak je znázorněno v následujícím příkladu:
 
@@ -152,7 +154,7 @@ Tím se změní nadpis na "oddělení", odstraní se sloupec RowVersion a pro sp
 
 ## <a name="update-edit-methods"></a>Aktualizovat metody úprav
 
-V metodě HttpGet `Edit` a `Details` metodě přidejte. `AsNoTracking` V metodě HttpGet `Edit` přidejte Eager načítání pro správce.
+V `Edit` metodě HttpGet a `Details` metodě přidejte `AsNoTracking` . V metodě HttpGet `Edit` přidejte Eager načítání pro správce.
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EagerLoading)]
 
@@ -160,9 +162,9 @@ Nahraďte existující kód pro metodu HttpPost `Edit` následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_EditPost)]
 
-Kód začíná tím, že se pokusí přečíst oddělení, které se má aktualizovat. Pokud `FirstOrDefaultAsync` metoda vrátí hodnotu null, oddělení bylo odstraněno jiným uživatelem. V takovém případě kód používá hodnoty vystaveného formuláře k vytvoření entity oddělení, aby se stránka pro úpravy mohla znovu zobrazit s chybovou zprávou. Jako alternativu nebudete muset entitu oddělení znovu vytvořit, pokud se zobrazí pouze chybová zpráva bez zobrazení polí oddělení.
+Kód začíná tím, že se pokusí přečíst oddělení, které se má aktualizovat. Pokud `FirstOrDefaultAsync` Metoda vrátí hodnotu null, oddělení bylo odstraněno jiným uživatelem. V takovém případě kód používá hodnoty vystaveného formuláře k vytvoření entity oddělení, aby se stránka pro úpravy mohla znovu zobrazit s chybovou zprávou. Jako alternativu nebudete muset entitu oddělení znovu vytvořit, pokud se zobrazí pouze chybová zpráva bez zobrazení polí oddělení.
 
-Zobrazení ukládá původní `RowVersion` hodnotu do skrytého pole a tato metoda obdrží tuto hodnotu v `rowVersion` parametru. Před voláním `SaveChanges`je nutné umístit tuto původní `RowVersion` hodnotu vlastnosti do `OriginalValues` kolekce pro entitu.
+Zobrazení ukládá původní `RowVersion` hodnotu do skrytého pole a tato metoda obdrží tuto hodnotu v `rowVersion` parametru. Před voláním `SaveChanges` je nutné umístit tuto původní `RowVersion` hodnotu vlastnosti do `OriginalValues` kolekce pro entitu.
 
 ```csharp
 _context.Entry(departmentToUpdate).Property("RowVersion").OriginalValue = rowVersion;
@@ -174,7 +176,7 @@ Kód v bloku catch pro tuto výjimku získá entitu ovlivněného oddělení, kt
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?range=164)]
 
-`Entries` Kolekce bude obsahovat pouze jeden `EntityEntry` objekt.  Tento objekt lze použít k získání nových hodnot zadaných uživatelem a aktuálními hodnotami databáze.
+`Entries`Kolekce bude obsahovat pouze jeden `EntityEntry` objekt.  Tento objekt lze použít k získání nových hodnot zadaných uživatelem a aktuálními hodnotami databáze.
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?range=165-166)]
 
@@ -182,17 +184,17 @@ Kód přidá vlastní chybovou zprávu pro každý sloupec, který má jiné hod
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?range=174-178)]
 
-Nakonec kód nastaví `RowVersion` hodnotu `departmentToUpdate` na novou hodnotu načtenou z databáze. Tato nová `RowVersion` hodnota se uloží do skrytého pole, když se znovu zobrazí stránka pro úpravy, a když uživatel příště klikne na **Uložit**, zachytí se jenom chyby souběžnosti, ke kterým dojde od zobrazení stránky pro úpravy.
+Nakonec kód nastaví `RowVersion` hodnotu na `departmentToUpdate` novou hodnotu načtenou z databáze. Tato nová `RowVersion` hodnota se uloží do skrytého pole, když se znovu zobrazí stránka pro úpravy, a když uživatel příště klikne na **Uložit**, zachytí se jenom chyby souběžnosti, ke kterým dojde od zobrazení stránky pro úpravy.
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?range=199-200)]
 
-`ModelState.Remove` Příkaz je vyžadován, protože `ModelState` má starou `RowVersion` hodnotu. V zobrazení má `ModelState` hodnota pro pole přednost před hodnotami vlastností modelu, pokud jsou oba přítomny.
+`ModelState.Remove`Příkaz je vyžadován, protože `ModelState` má starou `RowVersion` hodnotu. V zobrazení má `ModelState` hodnota pro pole přednost před hodnotami vlastností modelu, pokud jsou oba přítomny.
 
 ## <a name="update-edit-view"></a>Aktualizovat zobrazení pro úpravy
 
 V *zobrazení/oddělení/upravit. cshtml*proveďte následující změny:
 
-* Přidejte skryté pole pro uložení hodnoty `RowVersion` vlastnosti hned za skryté pole pro `DepartmentID` vlastnost.
+* Přidejte skryté pole pro uložení `RowVersion` hodnoty vlastnosti hned za skryté pole pro `DepartmentID` vlastnost.
 
 * Přidejte v rozevíracím seznamu možnost vybrat správce.
 
@@ -220,7 +222,7 @@ Znovu klikněte na **Uložit** . Hodnota, kterou jste zadali na druhé záložce
 
 ## <a name="update-the-delete-page"></a>Aktualizace stránky pro odstranění
 
-Pro stránku odstranění Entity Framework detekuje konflikty souběžnosti způsobené někým jiným upravováním oddělení podobným způsobem. Když metoda HttpGet `Delete` zobrazí zobrazení potvrzení, zobrazení obsahuje původní `RowVersion` hodnotu ve skrytém poli. Tato hodnota je pak k dispozici metodě `Delete` HTTPPOST, která je volána, když uživatel potvrdí odstranění. Když Entity Framework vytvoří příkaz SQL DELETE, zahrnuje klauzuli WHERE s původní `RowVersion` hodnotou. Pokud tento příkaz má vliv na nulové řádky (což znamená, že řádek byl změněn po zobrazení stránky pro potvrzení odstranění), je vyvolána výjimka souběžnosti a metoda HttpGet `Delete` je volána s příznakem chyby nastaveným na hodnotu true, aby bylo možné znovu zobrazit potvrzovací stránku s chybovou zprávou. Je také možné, že byly ovlivněny nulové řádky, protože řádek byl odstraněn jiným uživatelem, takže v takovém případě se nezobrazí žádná chybová zpráva.
+Pro stránku odstranění Entity Framework detekuje konflikty souběžnosti způsobené někým jiným upravováním oddělení podobným způsobem. Když metoda HttpGet `Delete` zobrazí zobrazení potvrzení, zobrazení obsahuje původní `RowVersion` hodnotu ve skrytém poli. Tato hodnota je pak k dispozici `Delete` metodě HTTPPOST, která je volána, když uživatel potvrdí odstranění. Když Entity Framework vytvoří příkaz SQL DELETE, zahrnuje klauzuli WHERE s původní `RowVersion` hodnotou. Pokud tento příkaz má vliv na nulové řádky (což znamená, že řádek byl změněn po zobrazení stránky pro potvrzení odstranění), je vyvolána výjimka souběžnosti a `Delete` Metoda HttpGet je volána s příznakem chyby nastaveným na hodnotu true, aby bylo možné znovu zobrazit potvrzovací stránku s chybovou zprávou. Je také možné, že byly ovlivněny nulové řádky, protože řádek byl odstraněn jiným uživatelem, takže v takovém případě se nezobrazí žádná chybová zpráva.
 
 ### <a name="update-the-delete-methods-in-the-departments-controller"></a>Aktualizace metod Delete v řadiči oddělení
 
@@ -228,9 +230,9 @@ V *DepartmentsController.cs*nahraďte metodu HttpGet `Delete` následujícím k�
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_DeleteGet&highlight=1,10,14-17,21-29)]
 
-Metoda přijímá volitelný parametr, který označuje, zda se stránka po chybě souběžného zpracování znovu zobrazuje. Pokud má tento příznak hodnotu true a zadané oddělení už neexistuje, odstranil jiný uživatel. V takovém případě kód přesměruje na stránku indexu.  Pokud má tento příznak hodnotu true a oddělení existuje, změnil ho jiný uživatel. V takovém případě kód pošle do zobrazení chybovou zprávu pomocí `ViewData`.
+Metoda přijímá volitelný parametr, který označuje, zda se stránka po chybě souběžného zpracování znovu zobrazuje. Pokud má tento příznak hodnotu true a zadané oddělení už neexistuje, odstranil jiný uživatel. V takovém případě kód přesměruje na stránku indexu.  Pokud má tento příznak hodnotu true a oddělení existuje, změnil ho jiný uživatel. V takovém případě kód pošle do zobrazení chybovou zprávu pomocí `ViewData` .
 
-Nahraďte kód v metodě HttpPost `Delete` (s názvem `DeleteConfirmed`) následujícím kódem:
+Nahraďte kód v metodě HttpPost `Delete` (s názvem `DeleteConfirmed` ) následujícím kódem:
 
 [!code-csharp[](intro/samples/cu/Controllers/DepartmentsController.cs?name=snippet_DeletePost&highlight=1,3,5-8,11-18)]
 
@@ -246,9 +248,9 @@ Změnili jste tento parametr na instanci entity oddělení vytvořenou pomocí p
 public async Task<IActionResult> Delete(Department department)
 ```
 
-Také jste změnili název metody akce z `DeleteConfirmed` na. `Delete` Generovaný kód použil název `DeleteConfirmed` , který metodě HTTPPOST poskytne jedinečný podpis. (CLR vyžaduje, aby byly přetížené metody pro různé parametry metody.) Teď, když jsou podpisy jedinečné, můžete s úmluvou MVC pracovat a používat stejný název pro metody Delete HttpPost a HttpGet.
+Také jste změnili název metody akce z `DeleteConfirmed` na `Delete` . Generovaný kód použil název `DeleteConfirmed` , který metodě HTTPPOST poskytne jedinečný podpis. (CLR vyžaduje, aby byly přetížené metody pro různé parametry metody.) Teď, když jsou podpisy jedinečné, můžete s úmluvou MVC pracovat a používat stejný název pro metody Delete HttpPost a HttpGet.
 
-Pokud je oddělení již odstraněno, vrátí `AnyAsync` metoda hodnotu false a aplikace se vrátí zpět do metody indexu.
+Pokud je oddělení již odstraněno, `AnyAsync` vrátí metoda hodnotu false a aplikace se vrátí zpět do metody indexu.
 
 Pokud je zachycena chyba souběžnosti, kód znovu zobrazí stránku pro potvrzení odstranění a poskytne příznak označující, že by měla zobrazit chybovou zprávu o souběžnosti.
 
@@ -260,7 +262,7 @@ V *zobrazení/oddělení/odstranění. cshtml*nahraďte kód generovaný násled
 
 Provede tyto změny:
 
-* Přidá chybovou zprávu mezi `h2` nadpisy `h3` a.
+* Přidá chybovou zprávu mezi `h2` `h3` nadpisy a.
 
 * Nahradí FirstMidName pomocí FullName v poli **správce** .
 

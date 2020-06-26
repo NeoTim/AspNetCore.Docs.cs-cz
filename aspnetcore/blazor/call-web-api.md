@@ -1,33 +1,35 @@
 ---
-title: Volání webového rozhraní API z ASP.NET Core Blazor WebAssembly
+title: Volání webového rozhraní API z ASP.NET CoreBlazor WebAssembly
 author: guardrex
-description: Naučte se volat webové rozhraní API z Blazor aplikace WebAssembly pomocí pomocníků JSON, včetně vytváření žádostí o sdílení prostředků mezi zdroji (CORS).
+description: Naučte se volat webové rozhraní API z Blazor WebAssembly aplikace pomocí pomocníků JSON, včetně vytváření žádostí o sdílení prostředků mezi zdroji (CORS).
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
 ms.date: 05/28/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: db1f6a357f63b405bf2f3b98e51c9aeffda97d66
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 2d910def31e4035c1d9cbacb3aaa721dd699c273
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242521"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400743"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>Volání webového rozhraní API z ASP.NET CoreBlazor
 
 Od [Luke Latham](https://github.com/guardrex), [Daniel Skořepa](https://github.com/danroth27)a [Juan de la Cruz](https://github.com/juandelacruz23)
 
 > [!NOTE]
-> Toto téma se vztahuje na Blazor WebAssembly. [ Blazor Serverové](xref:blazor/hosting-models#blazor-server) aplikace volají webová rozhraní API pomocí <xref:System.Net.Http.HttpClient> instancí, které se obvykle vytvářejí pomocí <xref:System.Net.Http.IHttpClientFactory> . Pokyny, které se vztahují na Blazor Server, najdete v tématu <xref:fundamentals/http-requests> .
+> Toto téma se týká Blazor WebAssembly . [Blazor Server](xref:blazor/hosting-models#blazor-server)aplikace volají webová rozhraní API pomocí <xref:System.Net.Http.HttpClient> instancí, které se obvykle vytvářejí pomocí <xref:System.Net.Http.IHttpClientFactory> . Pokyny, které se týkají Blazor Server , najdete v tématu <xref:fundamentals/http-requests> .
 
-Aplikace [ Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly) volají webová rozhraní API pomocí předem nakonfigurované <xref:System.Net.Http.HttpClient> služby. Požadavky na sestavení, které mohou zahrnovat možnosti [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu, použití Blazor pomocníků JSON nebo s <xref:System.Net.Http.HttpRequestMessage> . <xref:System.Net.Http.HttpClient>Služba v Blazor aplikacích pro WebAssembly se zaměřuje na poskytování požadavků zpět na server původu. Pokyny v tomto tématu se vztahují pouze na Blazor aplikace WebAssembly.
+[Blazor WebAssembly](xref:blazor/hosting-models#blazor-webassembly)aplikace volají webová rozhraní API pomocí předem nakonfigurované <xref:System.Net.Http.HttpClient> služby. Požadavky na sestavení, které mohou zahrnovat možnosti [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) JavaScriptu, použití Blazor pomocníků JSON nebo s <xref:System.Net.Http.HttpRequestMessage> . <xref:System.Net.Http.HttpClient>Služba v Blazor WebAssembly aplikacích se zaměřuje na poskytování požadavků zpět na server původu. Pokyny v tomto tématu se vztahují jenom na Blazor WebAssembly aplikace.
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ([Jak stáhnout](xref:index#how-to-download-a-sample)): vyberte `BlazorWebAssemblySample` aplikaci.
 
@@ -54,9 +56,9 @@ builder.Services.AddTransient(sp =>
 
 ## <a name="httpclient-and-json-helpers"></a>HttpClient a pomocníky JSON
 
-V Blazor aplikaci WebAssembly [`HttpClient`](xref:fundamentals/http-requests) je k dispozici jako předkonfigurovaná služba pro zpracování požadavků zpátky na zdrojový server.
+V Blazor WebAssembly aplikaci [`HttpClient`](xref:fundamentals/http-requests) je k dispozici jako předkonfigurovaná služba pro zpracování požadavků zpátky na zdrojový server.
 
-BlazorServerová aplikace <xref:System.Net.Http.HttpClient> ve výchozím nastavení nezahrnuje službu. Poskytněte <xref:System.Net.Http.HttpClient> aplikaci do aplikace pomocí [ `HttpClient` produkční infrastruktury](xref:fundamentals/http-requests).
+Blazor ServerAplikace <xref:System.Net.Http.HttpClient> ve výchozím nastavení neobsahuje službu. Poskytněte <xref:System.Net.Http.HttpClient> aplikaci do aplikace pomocí [ `HttpClient` produkční infrastruktury](xref:fundamentals/http-requests).
 
 <xref:System.Net.Http.HttpClient>a pomocníkům JSON se taky používají k volání koncových bodů webového rozhraní API třetích stran. <xref:System.Net.Http.HttpClient>je implementováno pomocí [rozhraní API pro načtení](https://developer.mozilla.org/docs/Web/API/Fetch_API) prohlížeče a podléhá jeho omezením, včetně vynucení stejných zásad původu.
 
@@ -310,7 +312,7 @@ Další informace naleznete v tématu <xref:blazor/fundamentals/handle-errors>.
 
 Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla požadavky na jinou doménu než ta, která tuto webovou stránku obsluhuje. Toto omezení se nazývá *zásady stejného původu*. Zásady stejného původce brání škodlivému webu v čtení citlivých dat z jiné lokality. Aby bylo možné podávat požadavky z prohlížeče na koncový bod s jiným zdrojem, musí *koncový bod* umožňovat [sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/).
 
-[ Blazor Ukázková aplikace WebAssembly (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje použití CORS v součásti volání webového rozhraní API ( `Pages/CallWebAPI.razor` ).
+[ Blazor WebAssembly Ukázková aplikace (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje použití CORS v součásti volání webového rozhraní API ( `Pages/CallWebAPI.razor` ).
 
 Pokud chcete jiným webům umožnit, aby vaše aplikace provedla požadavky na sdílení prostředků mezi zdroji (CORS), přečtěte si téma <xref:security/cors> .
 

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 5/1/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: f3314458a504af7f44dcdc276de890fa9485a2b3
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 155bdfbeea06022d35bbb551d5b2d0ee5a51a093
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103034"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400814"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>Generování uživatelského rozhraní Identity v ASP.NET Corech projektech
 
@@ -178,7 +180,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-## <a name="scaffold-identity-into-a-blazor-server-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do Blazor projektu serveru bez existující autorizace
+## <a name="scaffold-identity-into-a-blazor-server-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do Blazor Server projektu bez existující autorizace
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
@@ -289,11 +291,11 @@ Do `MainLayout` komponenty (*Shared/MainLayout. Razor*) přidejte `LoginDisplay`
 
 ### <a name="style-authentication-endpoints"></a>Koncové body ověřování stylu
 
-Vzhledem k tomu Blazor , že server používá stránky Razor stránky Identity , styl uživatelského rozhraní se změní, když návštěvník prochází mezi Identity stránkami a komponentami. Máte dvě možnosti, jak adresovat incongruous styly:
+Vzhledem k tomu Blazor Server Razor , že nástroj používá stránky stránky Identity , styl uživatelského rozhraní se změní, když návštěvník prochází mezi Identity stránkami a komponentami. Máte dvě možnosti, jak adresovat incongruous styly:
 
 #### <a name="build-identity-components"></a>IdentityKomponenty sestavení
 
-Přístup k používání komponent Identity místo stránek je vytvoření Identity komponent. Vzhledem `SignInManager` `UserManager` k tomu, že součásti nejsou podporované v Razor součástech, použijte koncové body rozhraní API v Blazor serverové aplikaci ke zpracování akcí uživatelských účtů.
+Přístup k používání komponent Identity místo stránek je vytvoření Identity komponent. Vzhledem `SignInManager` `UserManager` k tomu, že součásti nejsou podporovány v Razor součástech, použijte koncové body rozhraní API v Blazor Server aplikaci ke zpracování akcí uživatelských účtů.
 
 #### <a name="use-a-custom-layout-with-blazor-app-styles"></a>Použití vlastního rozložení pomocí Blazor stylů aplikací
 
@@ -360,7 +362,7 @@ V souboru *Pages/Shared/layout. cshtml* proveďte následující změny:
   <script src="_framework/blazor.server.js"></script>
   ```
 
-## <a name="scaffold-identity-into-a-blazor-server-project-with-authorization"></a>Uživatelské rozhraní Identity Blazor pro serverový projekt s autorizací
+## <a name="scaffold-identity-into-a-blazor-server-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Blazor Server projektu s autorizací
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
@@ -404,7 +406,7 @@ V této části se dozvíte, jak zakázat stránku registrace, ale přístup mů
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Příklad:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -649,7 +651,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Příklad:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"

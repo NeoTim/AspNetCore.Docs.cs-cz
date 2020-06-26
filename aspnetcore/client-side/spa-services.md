@@ -8,17 +8,19 @@ ms.custom: H1Hack27Feb2017
 ms.date: 09/06/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: client-side/spa-services
-ms.openlocfilehash: 65bd5157bb3909f8352debcb1a6dfa7d888eec0e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 05f76a7d341fc5c55b8234b6ff6d2be5aa61d6fd
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82769920"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401828"
 ---
 # <a name="use-javascript-services-to-create-single-page-applications-in-aspnet-core"></a>Použití služeb JavaScriptu k vytváření aplikací s jedním stránkou v ASP.NET Core
 
@@ -67,7 +69,7 @@ Souhrnně tyto komponenty infrastruktury rozšiřují pracovní postup vývoje i
 
 Pokud chcete pracovat s SpaServices, nainstalujte následující:
 
-* [Node. js](https://nodejs.org/) (verze 6 nebo novější) s npm
+* [Node.js](https://nodejs.org/) (verze 6 nebo novější) s npm
 
   * Chcete-li ověřit, zda jsou tyto součásti nainstalovány a lze je najít, spusťte následující příkaz z příkazového řádku:
 
@@ -75,7 +77,7 @@ Pokud chcete pracovat s SpaServices, nainstalujte následující:
     node -v && npm -v
     ```
 
-  * Pokud nasazujete na web Azure, není &mdash; k dispozici žádná akce Node. js, která je k dispozici v prostředích serveru.
+  * Pokud nasazujete na web Azure, není nutná žádná akce &mdash;Node.js je nainstalována a k dispozici v prostředích serveru.
 
 * [!INCLUDE [](~/includes/net-core-sdk-download-link.md)]
 
@@ -85,7 +87,7 @@ Pokud chcete pracovat s SpaServices, nainstalujte následující:
 
 ## <a name="server-side-prerendering"></a>Předběžné vykreslování na straně serveru
 
-Univerzální (označovaná také jako isomorphic) aplikace je JavaScriptová aplikace schopná běžet na serveru i v klientovi. Úhlů, reakce a další oblíbená rozhraní poskytují univerzální platformu pro tento styl vývoje aplikace. Nápad je nejprve vykreslovat komponenty architektury na serveru přes Node. js a poté delegovat další provádění na klienta.
+Univerzální (označovaná také jako isomorphic) aplikace je JavaScriptová aplikace schopná běžet na serveru i v klientovi. Úhlů, reakce a další oblíbená rozhraní poskytují univerzální platformu pro tento styl vývoje aplikace. Nápad je nejprve vykreslovat komponenty architektury na serveru přes Node.js a poté delegovat další provádění na klienta.
 
 ASP.NET Core [pomocníků značek](xref:mvc/views/tag-helpers/intro) , které poskytuje SpaServices, zjednoduší implementaci předvykreslování na straně serveru vyvoláním funkcí JavaScriptu na serveru.
 
@@ -103,23 +105,23 @@ Pomocníky značek jsou v souboru *_ViewImports. cshtml* projektu Zjistitelněj�
 
 [!code-cshtml[](../client-side/spa-services/sample/SpaServicesSampleApp/Views/_ViewImports.cshtml?highlight=3)]
 
-Tyto pomocníky se značkami abstrakce složitými rozhraními komunikaci přímo s rozhraními API nízké úrovně, a to využitím syntaxe ve formátu HTML v zobrazení Razor:
+Tyto značky pomocníka složitými rozhranímiy, které jsou v zobrazení k dispozici při přímé komunikaci s rozhraními API nízké úrovně pomocí syntaxe podobné HTML Razor .
 
 [!code-cshtml[](../client-side/spa-services/sample/SpaServicesSampleApp/Views/Home/Index.cshtml?range=5)]
 
 ### <a name="asp-prerender-module-tag-helper"></a>ASP-PreRender-pomocník značek modulu
 
-`asp-prerender-module`Pomocník značek použitý v předchozím příkladu kódu spouští *clientapp/DIST/Main-Server. js* na serveru prostřednictvím Node. js. V zájmu srozumitelnosti je soubor *Main-Server. js* artefaktem úlohy TypeScript-to-JavaScript transpilation v procesu sestavení pro [sadu Webpack](https://webpack.github.io/) . Webpack definuje alias vstupního bodu `main-server` pro. a přechod grafu závislostí pro tento alias začíná v souboru *clientapp/boot-server. TS* :
+`asp-prerender-module`Pomocník značek použitý v předchozím příkladu kódu spouští *clientapp/dist/main-server.js* na serveru přes Node.js. V zájmu srozumitelnosti je *main-server.js* soubor artefaktem úlohy TypeScript-to-JavaScript transpilation v procesu sestavení pro [sadu Webpack](https://webpack.github.io/) . Webpack definuje alias vstupního bodu `main-server` pro. a přechod grafu závislostí pro tento alias začíná v souboru *clientapp/boot-server. TS* :
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=53)]
 
-V následujících úhlových příkladech používá soubor *clientapp/boot-server. TS* `createServerRenderer` funkci a `RenderResult` typ `aspnet-prerendering` balíčku npm ke konfiguraci vykreslování serveru prostřednictvím Node. js. Označení HTML určené pro vykreslování na straně serveru je předáno volání funkce přeložit, které je zabaleno do silně typovaného `Promise` objektu JavaScriptu. `Promise`Hodnota významnosti objektu je, že asynchronně poskytuje kód HTML na stránce pro vložení do elementu zástupného prvku modelu DOM.
+V následujících úhlových příkladech používá soubor *clientapp/boot-server. TS* `createServerRenderer` funkci a `RenderResult` typ `aspnet-prerendering` balíčku npm ke konfiguraci vykreslování serveru prostřednictvím Node.js. Označení HTML určené pro vykreslování na straně serveru je předáno volání funkce přeložit, které je zabaleno do silně typovaného `Promise` objektu JavaScriptu. `Promise`Hodnota významnosti objektu je, že asynchronně poskytuje kód HTML na stránce pro vložení do elementu zástupného prvku modelu DOM.
 
 [!code-typescript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/boot-server.ts?range=6,10-34,79-)]
 
 ### <a name="asp-prerender-data-tag-helper"></a>ASP-PreRender-Pomocník s datovou značkou
 
-Při spojení s `asp-prerender-module` pomocníkem značek `asp-prerender-data` lze pomocí pomocníka značek předat kontextové informace ze zobrazení Razor do JavaScriptu na straně serveru. Například následující kód předává uživatelská data do `main-server` modulu:
+Při spojení s `asp-prerender-module` pomocníkem značek `asp-prerender-data` lze pomoc pomocí značky použít k předání kontextových informací ze Razor zobrazení na straně serveru JavaScript. Například následující kód předává uživatelská data do `main-server` modulu:
 
 [!code-cshtml[](../client-side/spa-services/sample/SpaServicesSampleApp/Views/Home/Index.cshtml?range=9-12)]
 
@@ -139,7 +141,7 @@ Pro rozšíření na předchozí příklad kódu mohou být data předána ze se
 
 ## <a name="webpack-dev-middleware"></a>Middleware pro vývoj pro Webpack
 
-[Middleware](https://webpack.js.org/guides/development/#using-webpack-dev-middleware) pro vývoj pro Webpack zavádí zjednodušený vývojový pracovní postup, který v sadě Webpack vytváří prostředky na vyžádání. Middleware automaticky zkompiluje a zachová prostředky na straně klienta při opětovném načtení stránky v prohlížeči. Alternativním přístupem je ruční vyvolání sady Webpack prostřednictvím skriptu sestavení npm projektu, když se změní závislost třetí strany nebo vlastní kód. V následujícím příkladu je zobrazen skript sestavení npm v souboru *Package. JSON* :
+[Middleware](https://webpack.js.org/guides/development/#using-webpack-dev-middleware) pro vývoj pro Webpack zavádí zjednodušený vývojový pracovní postup, který v sadě Webpack vytváří prostředky na vyžádání. Middleware automaticky zkompiluje a zachová prostředky na straně klienta při opětovném načtení stránky v prohlížeči. Alternativním přístupem je ruční vyvolání sady Webpack prostřednictvím skriptu sestavení npm projektu, když se změní závislost třetí strany nebo vlastní kód. V následujícím příkladu je zobrazen skript sestavení npm v souboru *package.js* .
 
 ```json
 "build": "npm run build:vendor && npm run build:custom",
@@ -161,7 +163,7 @@ Middleware pro vývoj v sadě Webpack je zaregistrovaný do kanálu požadavků 
 
 `UseWebpackDevMiddleware`Před [registrací statického souboru hostujícího](xref:fundamentals/static-files) prostřednictvím metody rozšíření je nutné volat metodu rozšíření `UseStaticFiles` . Z bezpečnostních důvodů Zaregistrujte middleware pouze v případě, že aplikace běží v režimu vývoje.
 
-Vlastnost souboru *Webpack. config. js* `output.publicPath` oznamuje middlewari, že má sledovat změny ve `dist` složce:
+Vlastnost souboru *webpack.config.js* dává `output.publicPath` middlewaru pokyn, aby ve `dist` složce sledoval změny:
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=6,13-16)]
 
@@ -189,7 +191,7 @@ app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
 
 Stejně jako u rozhraní [Webpack dev middleware](#webpack-dev-middleware) `UseWebpackDevMiddleware` musí být metoda rozšíření volána před `UseStaticFiles` metodou rozšíření. Z bezpečnostních důvodů Zaregistrujte middleware pouze v případě, že aplikace běží v režimu vývoje.
 
-Soubor *Webpack. config. js* musí definovat `plugins` pole, i když je ponecháno prázdné:
+*webpack.config.js* soubor musí definovat `plugins` pole, i když je ponecháno prázdné:
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/webpack.config.js?range=6,25)]
 
@@ -234,8 +236,8 @@ Zobrazí se seznam dostupných šablon SPA:
 | Šablony                                 | Krátký název | Jazyk | Značky        |
 | ------------------------------------------| :--------: | :------: | :---------: |
 | ASP.NET Core MVC s úhlovým             | Angular    | Jazyk     | Web/MVC/SPA |
-| MVC ASP.NET Core s reagují. js            | react      | Jazyk     | Web/MVC/SPA |
-| MVC ASP.NET Core s reagují. js a Redux  | reactredux | Jazyk     | Web/MVC/SPA |
+| ASP.NET Core MVC s React.js            | react      | Jazyk     | Web/MVC/SPA |
+| ASP.NET Core MVC s React.js a Redux  | reactredux | Jazyk     | Web/MVC/SPA |
 
 Pokud chcete vytvořit nový projekt pomocí jedné z šablon SPA, zahrňte do příkazu [dotnet New](/dotnet/core/tools/dotnet-new) **krátký název** šablony. Následující příkaz vytvoří úhlovou aplikaci s ASP.NET Core MVC nakonfigurovanou pro stranu serveru:
 
@@ -290,7 +292,7 @@ Otevřete příkazový řádek v adresáři *clientapp* . Spusťte následujíc�
 npm test
 ```
 
-Skript spustí Karma Test Runner, který přečte nastavení definované v souboru *Karma. conf. js* . Kromě dalších nastavení identifikuje *Karma. conf. js* testovací soubory, které mají být provedeny prostřednictvím svého `files` pole:
+Skript spustí Karma Test Runner, který přečte nastavení definované v souboru *karma.conf.js* . Kromě dalších nastavení *karma.conf.js* identifikuje testovací soubory, které mají být provedeny prostřednictvím svého `files` pole:
 
 [!code-javascript[](../client-side/spa-services/sample/SpaServicesSampleApp/ClientApp/test/karma.conf.js?range=4-5,8-11)]
 

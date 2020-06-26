@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/anti-request-forgery
-ms.openlocfilehash: 89a7a12c943933f745793eeccb4f3d2e4856063f
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 0ec9aa5f2e1c9d439bbea2ac15ffb50b3e42daca
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105906"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399332"
 ---
 # <a name="prevent-cross-site-request-forgery-xsrfcsrf-attacks-in-aspnet-core"></a>Zabránit útokům na neCSRFelné žádosti mezi lokalitami (XSRF/) v ASP.NET Core
 
@@ -216,7 +218,7 @@ services.AddAntiforgery(options =>
 
 &dagger;Vlastnosti antipadělání nastavte `Cookie` pomocí vlastností třídy [CookieBuilder](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder) .
 
-| Možnost | Popis |
+| Možnost | Description |
 | ------ | ----------- |
 | [Soubor](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | Určuje nastavení používané k vytvoření souborů cookie antipadělání. |
 | [FormFieldName](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.formfieldname) | Název skrytého pole formuláře používaného systémem pro použití proti padělání pro vykreslování tokenů v zobrazeních. |
@@ -240,7 +242,7 @@ services.AddAntiforgery(options =>
 });
 ```
 
-| Možnost | Popis |
+| Možnost | Description |
 | ------ | ----------- |
 | [Soubor](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookie) | Určuje nastavení používané k vytvoření souborů cookie antipadělání. |
 | [CookieDomain](/dotnet/api/microsoft.aspnetcore.antiforgery.antiforgeryoptions.cookiedomain) | Doména souboru cookie. Výchozí hodnota je `null` . Tato vlastnost je zastaralá a v budoucí verzi se odebere. Doporučenou alternativou je soubor cookie. domain. |

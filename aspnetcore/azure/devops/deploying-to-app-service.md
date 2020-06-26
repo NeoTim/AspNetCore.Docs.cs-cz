@@ -7,17 +7,19 @@ ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: azure/devops/deploy-to-app-service
-ms.openlocfilehash: 811b6d047e344fa98ce14f436d3cd8f03c786aff
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 7cf6395b6f57413d85532ed15e5a875af10f905b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767028"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400385"
 ---
 # <a name="deploy-an-app-to-app-service"></a>Nasazení aplikace pro App Service
 
@@ -41,7 +43,7 @@ Tento kód si můžete prohlédnout, ale je důležité pochopit, že tato aplik
 
 Z příkazového prostředí Stáhněte kód, sestavte projekt a spusťte jej následujícím způsobem.
 
-> *Poznámka: uživatelé systému Linux/macOS by měli provádět vhodné změny cest, např. pomocí lomítka (`/`) místo zpětného lomítka`\`().*
+> *Poznámka: uživatelé systému Linux/macOS by měli provádět vhodné změny cest, např. pomocí lomítka ( `/` ) místo zpětného lomítka ( `\` ).*
 
 1. Naklonujte kód do složky na místním počítači.
 
@@ -73,7 +75,7 @@ Z příkazového prostředí Stáhněte kód, sestavte projekt a spusťte jej n�
 
      ![Aplikace, která zobrazuje obsah informačního kanálu RSS](./media/deploying-to-app-service/app-in-browser.png)
 
-6. Jakmile budete spokojeni s tím, že aplikace funguje správně, vypněte ji stisknutím **kombinace kláves CTRL +**+**C** v příkazovém prostředí.
+6. Jakmile budete spokojeni s tím, že aplikace funguje správně, vypněte ji stisknutím **kombinace kláves CTRL +** + **C** v příkazovém prostředí.
 
 ## <a name="create-the-azure-app-service-web-app"></a>Vytvoření webové aplikace v Azure App Service
 
@@ -83,7 +85,7 @@ K nasazení aplikace budete muset vytvořit [webovou aplikaci](/azure/app-servic
 
 2. Následující postup použijte Cloud Shell.
 
-    a. Deklarujte proměnnou pro uložení názvu vaší webové aplikace. Název musí být jedinečný, aby bylo možné použít výchozí adresu URL. Použití funkce `$RANDOM` bash k vytvoření názvu garantuje jedinečnost a výsledky ve formátu `webappname99999`.
+    a. Deklarujte proměnnou pro uložení názvu vaší webové aplikace. Název musí být jedinečný, aby bylo možné použít výchozí adresu URL. Použití `$RANDOM` funkce bash k vytvoření názvu garantuje jedinečnost a výsledky ve formátu `webappname99999` .
 
     ```console
     webappname=mywebapp$RANDOM
@@ -95,7 +97,7 @@ K nasazení aplikace budete muset vytvořit [webovou aplikaci](/azure/app-servic
     az group create --location centralus --name AzureTutorial
     ```
 
-    `az` Příkaz VYVOLÁ [Azure CLI](/cli/azure/). Rozhraní příkazového řádku lze spustit místně, ale jeho použití v Cloud Shell šetří čas a konfiguraci.
+    `az`Příkaz vyvolá [Azure CLI](/cli/azure/). Rozhraní příkazového řádku lze spustit místně, ale jeho použití v Cloud Shell šetří čas a konfiguraci.
 
     c. Vytvořte plán App Service v úrovni S1. Plán App Service je seskupení webových aplikací, které sdílejí stejnou cenovou úroveň. Vrstva S1 není volná, ale vyžaduje se pro funkci přípravného slotu.
 
@@ -121,13 +123,13 @@ K nasazení aplikace budete muset vytvořit [webovou aplikaci](/azure/app-servic
     echo Git deployment URL: $(az webapp deployment source config-local-git --name $webappname --resource-group AzureTutorial --query url --output tsv)
     ```
 
-    g. Zobrazí *adresu URL webové aplikace*. Pokud chcete zobrazit prázdnou webovou aplikaci, přejděte na tuto adresu URL. **Poznamenejte si tuto adresu URL pro referenci později**.
+    například Zobrazí *adresu URL webové aplikace*. Pokud chcete zobrazit prázdnou webovou aplikaci, přejděte na tuto adresu URL. **Poznamenejte si tuto adresu URL pro referenci později**.
 
     ```console
     echo Web app URL: http://$webappname.azurewebsites.net
     ```
 
-3. Pomocí příkazového prostředí v místním počítači přejděte do složky projektu webové aplikace (například `.\simple-feed-reader\SimpleFeedReader`). Spusťte následující příkazy a nastavte Git tak, aby se nastavila na adresu URL nasazení:
+3. Pomocí příkazového prostředí v místním počítači přejděte do složky projektu webové aplikace (například `.\simple-feed-reader\SimpleFeedReader` ). Spusťte následující příkazy a nastavte Git tak, aby se nastavila na adresu URL nasazení:
 
     a. Přidejte vzdálenou adresu URL do místního úložiště.
 
@@ -143,23 +145,23 @@ K nasazení aplikace budete muset vytvořit [webovou aplikaci](/azure/app-servic
 
     Zobrazí se výzva k zadání přihlašovacích údajů pro nasazení, které jste vytvořili dříve. Sledujte výstup v příkazovém prostředí. Azure vytvoří aplikaci ASP.NET Core vzdáleně.
 
-4. V prohlížeči přejděte na *adresu URL webové aplikace* a Všimněte si, že je aplikace sestavená a nasazená. Další změny můžete zapsat do místního úložiště Git pomocí `git commit`. Tyto změny se vloží do Azure pomocí předchozího `git push` příkazu.
+4. V prohlížeči přejděte na *adresu URL webové aplikace* a Všimněte si, že je aplikace sestavená a nasazená. Další změny můžete zapsat do místního úložiště Git pomocí `git commit` . Tyto změny se vloží do Azure pomocí předchozího `git push` příkazu.
 
 ## <a name="deployment-with-visual-studio"></a>Nasazení pomocí sady Visual Studio
 
-> *Poznámka: Tato část se vztahuje pouze na systém Windows. Uživatelé Linux a macOS by měli provést změnu popsanou v kroku 2 níže. Uložte soubor a potvrďte změnu v místním úložišti pomocí `git commit`. Nakonec nahrajte změnu pomocí `git push`, jako v první části.*
+> *Poznámka: Tato část se vztahuje pouze na systém Windows. Uživatelé Linux a macOS by měli provést změnu popsanou v kroku 2 níže. Uložte soubor a potvrďte změnu v místním úložišti pomocí `git commit` . Nakonec nahrajte změnu pomocí `git push` , jako v první části.*
 
 Aplikace už je nasazená z příkazového prostředí. Pojďme k nasazení aktualizace do aplikace použít integrované nástroje sady Visual Studio. Aplikace Visual Studio na pozadí dosáhne stejného účelu jako nástroj příkazového řádku, ale ve známém uživatelském rozhraní sady Visual Studio.
 
 1. Otevřete *SimpleFeedReader. sln* v aplikaci Visual Studio.
-2. V Průzkumník řešení otevřete *Pages\Index.cshtml*. Změňte `<h2>Simple Feed Reader</h2>` na `<h2>Simple Feed Reader - V2</h2>`.
-3. Stisknutím **kombinace kláves CTRL**+**+ SHIFT**+**B** sestavíte aplikaci.
+2. V Průzkumník řešení otevřete *Pages\Index.cshtml*. Změňte `<h2>Simple Feed Reader</h2>` na `<h2>Simple Feed Reader - V2</h2>` .
+3. Stisknutím **kombinace kláves CTRL** + **+ SHIFT** + **B** sestavíte aplikaci.
 4. V Průzkumník řešení klikněte pravým tlačítkem na projekt a klikněte na **publikovat**.
 
     ![Snímek obrazovky, který ukazuje kliknutí pravým tlačítkem, publikování](./media/deploying-to-app-service/publish.png)
 5. Visual Studio může vytvořit nový prostředek App Service, ale tato aktualizace se publikuje v rámci stávajícího nasazení. V dialogovém okně **vybrat cíl publikování** vyberte v seznamu na levé straně položku **App Service** a pak vyberte **Vybrat existující**. Klikněte na **Publikovat**.
 6. V dialogovém okně **App Service** potvrďte, že se v pravém horním rohu zobrazuje účet Microsoft nebo organizace, který se používá k vytvoření vašeho předplatného Azure. Pokud není, klikněte na rozevírací nabídku a přidejte ji.
-7. Zkontrolujte, jestli je vybrané správné **předplatné** Azure. V **zobrazení**vyberte **Skupina prostředků**. Rozbalte skupinu prostředků **AzureTutorial** a pak vyberte existující webovou aplikaci. Klikněte na tlačítko **OK**.
+7. Zkontrolujte, jestli je vybrané správné **předplatné** Azure. V **zobrazení**vyberte **Skupina prostředků**. Rozbalte skupinu prostředků **AzureTutorial** a pak vyberte existující webovou aplikaci. Klikněte na **OK**.
 
     ![Snímek obrazovky s dialogem App Service pro publikování](./media/deploying-to-app-service/publish-dialog.png)
 

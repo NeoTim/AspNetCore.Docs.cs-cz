@@ -5,20 +5,22 @@ description: Naučte se vytvářet a používat Razor komponenty, včetně toho,
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/11/2020
+ms.date: 06/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: e1778d865edcfed8f5f45f4f53a57f1b3a3bd9aa
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 02e3f7f5442a5abde0b13b7bba14d9d0f29c1de7
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242431"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399085"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
@@ -427,11 +429,24 @@ Při zachytávání odkazů na součásti použijte podobnou syntaxi pro [zachyc
 > [!NOTE]
 > Nepoužívejte odkazy na součásti **pro použití stavu** podřízených komponent. Místo toho použijte k předání dat podřízeným komponentám běžné deklarativní parametry. Použití běžných deklarativních parametrů má za následek podřízené komponenty, které jsou automaticky revykreslovány ve správný čas.
 
-## <a name="invoke-component-methods-externally-to-update-state"></a>Vyvolat metody komponenty externě na stav aktualizace
+## <a name="synchronization-context"></a>Kontext synchronizace
 
 Blazorpoužívá kontext synchronizace ( <xref:System.Threading.SynchronizationContext> ) k vykonání jediného logického vlákna provádění. [Metody životního cyklu](xref:blazor/components/lifecycle) komponenty a všechna zpětná volání událostí, která jsou vyvolána, Blazor jsou spouštěna v kontextu synchronizace.
 
-BlazorKontext synchronizace serveru se pokouší emulovat prostředí s jedním vláknem tak, aby přesně odpovídal modelu webového sestavení v prohlížeči, který je jediným vláknem. V jakémkoli daném časovém okamžiku se práce provádí v přesně jednom vlákně, což dává dojem o jednom logickém vlákně. Žádné dvě operace se neprovádějí současně.
+Blazor Serverkontext synchronizace se pokouší emulovat prostředí s jedním vláknem tak, aby přesně odpovídal modelu webového sestavení v prohlížeči, který je jediným vláknem. V jakémkoli daném časovém okamžiku se práce provádí v přesně jednom vlákně, což dává dojem o jednom logickém vlákně. Žádné dvě operace se neprovádějí současně.
+
+### <a name="avoid-thread-blocking-calls"></a>Vyhněte se voláním blokujícím vlákna
+
+Obecně platí, že Nevolejte následující metody. Následující metody zablokují vlákno, takže aplikace brání v pokračování práce, dokud se podklady <xref:System.Threading.Tasks.Task> nedokončí:
+
+* <xref:System.Threading.Tasks.Task%601.Result%2A>
+* <xref:System.Threading.Tasks.Task.Wait%2A>
+* <xref:System.Threading.Tasks.Task.WaitAny%2A>
+* <xref:System.Threading.Tasks.Task.WaitAll%2A>
+* <xref:System.Threading.Thread.Sleep%2A>
+* <xref:System.Runtime.CompilerServices.TaskAwaiter.GetResult%2A>
+
+### <a name="invoke-component-methods-externally-to-update-state"></a>Vyvolat metody komponenty externě na stav aktualizace
 
 V případě, že komponenta musí být aktualizována na základě externí události, jako je například časovač nebo jiné oznámení, použijte `InvokeAsync` metodu, která odesílá Blazor kontext synchronizace. Představte si například *službu* pro upozorňování, která může oznámit všechny součásti, které jsou v aktualizovaném stavu:
 
@@ -453,13 +468,13 @@ public class NotifierService
 
 Zaregistrujte `NotifierService` jako singletion:
 
-* V rámci Blazor služby WebAssembly Zaregistrujte službu v `Program.Main` :
+* V nástroji Blazor WebAssembly Zaregistrujte službu v `Program.Main` :
 
   ```csharp
   builder.Services.AddSingleton<NotifierService>();
   ```
 
-* V části Blazor Server Zaregistrujte službu v nástroji `Startup.ConfigureServices` :
+* V nástroji Blazor Server Zaregistrujte službu v `Startup.ConfigureServices` :
 
   ```csharp
   services.AddScoped<NotifierService>();
@@ -798,7 +813,7 @@ Vložené značky SVG se však ve všech scénářích nepodporují. Pokud `<svg
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* <xref:blazor/security/server/threat-mitigation>: Obsahuje doprovodné materiály k vytváření Blazor serverových aplikací, které se musí soupeří s vyčerpáním prostředků.
+* <xref:blazor/security/server/threat-mitigation>: Obsahuje pokyny pro vytváření Blazor Server aplikací, které se musí soupeří s vyčerpáním prostředků.
 
 <!--Reference links in article-->
 [1]: <xref:mvc/views/razor#code>

@@ -7,17 +7,19 @@ ms.custom: mvc, seodec18
 ms.date: 10/24/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: azure/devops/tools-and-downloads
-ms.openlocfilehash: 1917a329a5dcbe60542541cfcdc746799307e3d5
-ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
+ms.openlocfilehash: ed8aee214ff9b9e941aeea01887882c3bdfc56a7
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "82850406"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400294"
 ---
 # <a name="tools-and-downloads"></a>Nástroje a soubory ke stažení
 
@@ -33,8 +35,8 @@ Jsou vyžadovány následující odběry:
 
 Jsou vyžadovány následující nástroje:
 
-* Tento průvodce doporučuje pro Git základní porozumění Gitu. [Git](https://git-scm.com/downloads) &mdash; Projděte si [dokumentaci k Gitu](https://git-scm.com/doc), konkrétně [vzdálené úložiště Git](https://git-scm.com/docs/git-remote) a [Git push](https://git-scm.com/docs/git-push).
-* Pro sestavení a spuštění ukázkové aplikace se vyžaduje [.NET Core SDK](https://dotnet.microsoft.com/download/) &mdash; verze 2.1.300 nebo novější. Pokud je aplikace Visual Studio nainstalovaná s úlohou **vývoje .NET Core pro různé platformy** , .NET Core SDK je už nainstalovaná.
+* [Git](https://git-scm.com/downloads) &mdash; Pro tento průvodce se doporučuje základní porozumění Gitu. Projděte si [dokumentaci k Gitu](https://git-scm.com/doc), konkrétně [vzdálené úložiště Git](https://git-scm.com/docs/git-remote) a [Git push](https://git-scm.com/docs/git-push).
+* [.NET Core SDK](https://dotnet.microsoft.com/download/) &mdash; K sestavení a spuštění ukázkové aplikace se vyžaduje verze 2.1.300 nebo novější. Pokud je aplikace Visual Studio nainstalovaná s úlohou **vývoje .NET Core pro různé platformy** , .NET Core SDK je už nainstalovaná.
 
     Ověřte instalaci .NET Core SDK. Otevřete příkazové prostředí a spusťte následující příkaz:
 

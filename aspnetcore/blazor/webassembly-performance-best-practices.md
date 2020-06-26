@@ -1,30 +1,32 @@
 ---
-title: Osvědčené postupy pro vyASP.NET Coreení Blazor výkonu WebAssembly
+title: Blazor WebAssemblyOsvědčené postupy týkající se ASP.NET Core výkonu
 author: pranavkm
-description: Tipy pro zvýšení výkonu v Blazor aplikacích ASP.NET Core WebAssembly a předcházení běžným problémům s výkonem.
+description: Tipy pro zvýšení výkonu v Blazor WebAssembly aplikacích ASP.NET Core a předcházení běžným problémům s výkonem.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/08/2020
+ms.date: 06/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/webassembly-performance-best-practices
-ms.openlocfilehash: 2b6d4e706856cb28f26c2502feca4f959ca4abac
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: f7bd0d356030e6ddb95c77d7376995320e3ec40e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85243028"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401880"
 ---
-# <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>Osvědčené postupy pro vyASP.NET Coreení Blazor výkonu WebAssembly
+# <a name="aspnet-core-blazor-webassembly-performance-best-practices"></a>Blazor WebAssemblyOsvědčené postupy týkající se ASP.NET Core výkonu
 
 Od [Pranav Krishnamoorthy](https://github.com/pranavkm)
 
-Tento článek poskytuje pokyny pro ASP.NET Core Blazor osvědčené postupy pro výkon WebAssembly.
+Tento článek poskytuje pokyny pro ASP.NET Core Blazor WebAssembly osvědčené postupy pro výkon.
 
 ## <a name="avoid-unnecessary-component-renders"></a>Vyhnout se zbytečnému vykreslování komponent
 
@@ -38,7 +40,7 @@ Při vytváření součásti pouze uživatelského rozhraní, která se po poč�
 }
 ```
 
-Většina aplikací nevyžaduje jemně odstupňovaný ovládací prvek, ale <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> dá se použít i k selektivnímu vygenerování součásti, která reaguje na událost uživatelského rozhraní.
+Většina aplikací nevyžaduje jemně odstupňovaný ovládací prvek, ale <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> dá se použít k selektivnímu vygenerování součásti, která reaguje na událost uživatelského rozhraní. Použití <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> může být také důležité ve scénářích, kdy se vykresluje velký počet komponent. Vezměte v úvahu mřížku, kde použití <xref:Microsoft.AspNetCore.Components.EventCallback> v jedné součásti v jedné buňce v mřížce volá <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> mřížku. Volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> způsobí opakované vykreslení všech podřízených komponent. Pokud má pouze malý počet buněk vyžadovat převykreslování, použijte, <xref:Microsoft.AspNetCore.Components.ComponentBase.ShouldRender%2A> aby nedocházelo ke snížení výkonu zbytečných vykreslení.
 
 V následujícím příkladu:
 
@@ -83,7 +85,7 @@ Například mřížka nebo seznam, který vykresluje stovky řádků obsahujíc�
 
 ## <a name="avoid-javascript-interop-to-marshal-data"></a>Vyhněte se interoperabilitě JavaScriptu při zařazování dat
 
-V Blazor rámci objektu WebAssembly musí volání Interop jazyka JavaScript (js) procházet hranici WebAssembly-js. Serializace a deserializace obsahu napříč dvěma kontexty vytváří režijní náklady na zpracování pro aplikaci. Časté volání interoperability JS často nepříznivě ovlivňuje výkon. Chcete-li omezit zařazování dat napříč hranicí, určete, zda aplikace může konsolidovat mnoho malých datových částí do jedné velké datové části, aby nedocházelo k velkému rozsahu přepínání kontextu mezi službami WebAssembly a JS.
+V rozhraní Blazor WebAssembly interoperabilita volání JavaScript (js) musí procházet hranici WebAssembly-js. Serializace a deserializace obsahu napříč dvěma kontexty vytváří režijní náklady na zpracování pro aplikaci. Časté volání interoperability JS často nepříznivě ovlivňuje výkon. Chcete-li omezit zařazování dat napříč hranicí, určete, zda aplikace může konsolidovat mnoho malých datových částí do jedné velké datové části, aby nedocházelo k velkému rozsahu přepínání kontextu mezi službami WebAssembly a JS.
 
 ## <a name="use-systemtextjson"></a>Použít System.Text.Jsna
 
@@ -93,7 +95,7 @@ Pokyny k migraci najdete v tématu [Postup migrace z `Newtonsoft.Json` na `Syste
 
 ## <a name="use-synchronous-and-unmarshalled-js-interop-apis-where-appropriate"></a>V případě potřeby použijte synchronní a nezařazené rozhraní API pro interoperabilitu JS.
 
-BlazorWebAssembly nabízí dvě další verze nástroje <xref:Microsoft.JSInterop.IJSRuntime> v rámci jedné verze, která je dostupná pro Blazor serverové aplikace:
+Blazor WebAssemblynabízí dvě další verze nástroje <xref:Microsoft.JSInterop.IJSRuntime> nad jedinou verzí dostupnou pro Blazor Server aplikace:
 
 * <xref:Microsoft.JSInterop.IJSInProcessRuntime>umožňuje vyvolání volání interoperability JS synchronně, což má méně režie než asynchronní verze:
 
@@ -138,7 +140,7 @@ BlazorWebAssembly nabízí dvě další verze nástroje <xref:Microsoft.JSIntero
 
 ### <a name="intermediate-language-il-linking"></a>Propojování IL (Intermediate Language)
 
-[Propojení Blazor Aplikace WebAssembly](xref:blazor/host-and-deploy/configure-linker) omezuje velikost Aplikace oříznutím nepoužívaného kódu v binárních souborech aplikace. Ve výchozím nastavení je linker povolen pouze při sestavování v `Release` konfiguraci. Pokud to chcete využít, publikujte aplikaci pro nasazení pomocí [`dotnet publish`](/dotnet/core/tools/dotnet-publish) příkazu s možností [-c |--konfigurace](/dotnet/core/tools/dotnet-publish#options) nastavenou na `Release` :
+[Propojení Blazor WebAssembly aplikace](xref:blazor/host-and-deploy/configure-linker) zmenšuje velikost Aplikace oříznutím nepoužívaného kódu v binárních souborech aplikace. Ve výchozím nastavení je linker povolen pouze při sestavování v `Release` konfiguraci. Pokud to chcete využít, publikujte aplikaci pro nasazení pomocí [`dotnet publish`](/dotnet/core/tools/dotnet-publish) příkazu s možností [-c |--konfigurace](/dotnet/core/tools/dotnet-publish#options) nastavenou na `Release` :
 
 ```dotnetcli
 dotnet publish -c Release
@@ -146,13 +148,13 @@ dotnet publish -c Release
 
 ### <a name="compression"></a>Komprese
 
-Když Blazor je publikována aplikace WebAssembly, výstup je během publikování staticky komprimován, aby se snížila velikost aplikace a odstranila se režie pro kompresi za běhu. Blazorspoléhá na server, aby provedl negotation obsahu a sloužil staticky komprimovaným souborům.
+Při Blazor WebAssembly publikování aplikace je výstup během publikování staticky komprimován, aby se snížila velikost aplikace a odstranila se režie pro kompresi za běhu. Blazorspoléhá na server, aby provedl negotation obsahu a sloužil staticky komprimovaným souborům.
 
 Po nasazení aplikace ověřte, jestli aplikace obsluhuje komprimované soubory. Zkontrolujte kartu síť v Vývojářské nástroje prohlížeče a ověřte, zda jsou soubory obsluhovány `Content-Encoding: br` nebo `Content-Encoding: gz` . Pokud hostitel neobsluhuje komprimované soubory, postupujte podle pokynů v tématu <xref:blazor/host-and-deploy/webassembly#compression> .
 
 ### <a name="disable-unused-features"></a>Zakázat nepoužívané funkce
 
-BlazorModul runtime pro WebAssembly obsahuje následující funkce .NET, které je možné zakázat, pokud je aplikace nepotřebuje pro menší velikost datové části:
+Blazor WebAssemblymodul runtime obsahuje následující funkce .NET, které je možné zakázat, pokud je aplikace nepotřebuje pro menší velikost datové části:
 
 * K dispozici je datový soubor pro správné informace o časovém pásmu. Pokud aplikace tuto funkci nevyžaduje, zvažte její zakázání nastavením `BlazorEnableTimeZoneSupport` vlastnosti MSBuild v souboru projektu aplikace na `false` :
 

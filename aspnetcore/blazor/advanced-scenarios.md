@@ -8,25 +8,27 @@ ms.custom: mvc
 ms.date: 02/18/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/advanced-scenarios
-ms.openlocfilehash: d4ebab0d8fc2ee48fa4d9c8b1f1b8e5cbf43cab9
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: bdea9f2fe5c552b56414bb49588733c8dc2a34db
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242441"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400216"
 ---
 # <a name="aspnet-core-blazor-advanced-scenarios"></a>ASP.NET Core Blazor pokročilé scénáře
 
 Od [Luke Latham](https://github.com/guardrex) a [Daniel Skořepa](https://github.com/danroth27)
 
-## <a name="blazor-server-circuit-handler"></a>BlazorObslužná rutina okruhu serveru
+## <a name="blazor-server-circuit-handler"></a>Blazor ServerObslužná rutina okruhu
 
-BlazorServer umožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
+Blazor Serverumožňuje kódu definovat *obslužnou rutinu okruhu*, která umožňuje spuštění kódu při změnách stavu okruhu uživatele. Obslužná rutina okruhu je implementována odvozením z `CircuitHandler` a registrací třídy v kontejneru služby aplikace. Následující příklad obslužné rutiny okruhu sleduje otevřená SignalR připojení:
 
 ```csharp
 using System.Collections.Generic;
@@ -68,7 +70,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka závažná pro Blazor okruh serveru. Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazech s zpracováním chyb a protokolováním.
+Pokud metody obslužné rutiny vlastního okruhu vyvolávají neošetřenou výjimku, je výjimka pro okruh závažná Blazor Server . Chcete-li tolerovat výjimky v kódu obslužné rutiny nebo volané metody, zabalte kód v jednom nebo více [`try-catch`](/dotnet/csharp/language-reference/keywords/try-catch) příkazech s zpracováním chyb a protokolováním.
 
 Když je okruh ukončený, protože uživatel je odpojený a rozhraní čistí stav okruhu, rozhraní uvolní obor DI okruhu. Při likvidaci oboru se uvolní jakékoli DI služby, které implementují okruhy s rozsahem <xref:System.IDisposable?displayProperty=fullName> . Pokud jakákoli služba DI vyvolá neošetřenou výjimku při vyřazení, rozhraní zaprotokoluje výjimku.
 
@@ -221,14 +223,14 @@ Toto je triviální příklad. Ve složitějších případech se složitými a 
 * Pokud jsou pořadová čísla pevně zakódované, rozdílový algoritmus vyžaduje pouze zvýšení hodnoty pořadových čísel. Počáteční hodnota a mezery jsou nepodstatné. Jednou z oprávněných možností je použít číslo řádku kódu jako pořadové číslo nebo začít od nuly a zvýšit podle hodnoty nebo stovky (případně z upřednostňovaného intervalu). 
 * Blazorpoužívá pořadová čísla, zatímco jiné architektury uživatelského rozhraní rozdílového stromu je nepoužívají. Rozdílování je mnohem rychlejší při použití pořadových čísel a Blazor má výhodu kompilačního kroku, který se automaticky zabývá pořadovým číslem pro vývojáře, který vytváří `.razor` soubory.
 
-## <a name="perform-large-data-transfers-in-blazor-server-apps"></a>Provádění rozsáhlých přenosů dat v Blazor serverových aplikacích
+## <a name="perform-large-data-transfers-in-blazor-server-apps"></a>Provádění rozsáhlých přenosů dat v Blazor Server aplikacích
 
 V některých scénářích je nutné přenášet velké objemy dat mezi jazykem JavaScript a Blazor . K přenosu velkých objemů dat se obvykle dochází v těchto případech:
 
 * Rozhraní API pro systém souborů v prohlížeči slouží k nahrání nebo stažení souboru.
 * Je vyžadována interoperabilita s knihovnou třetích stran.
 
-Na Blazor serveru platí omezení, aby nedocházelo k předávání jednoduchých zpráv, které by mohly způsobit problémy s výkonem.
+V Blazor Server platí omezení, aby nedocházelo k předávání jednoduchých zpráv, které mohou vést k problémům s výkonem.
 
 Při vývoji kódu, který přenáší data mezi JavaScriptem a následujícími možnostmi, vezměte v úvahu následující pokyny Blazor :
 

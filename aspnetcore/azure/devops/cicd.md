@@ -7,17 +7,19 @@ ms.date: 10/24/2018
 ms.custom: mvc, seodec18
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: azure/devops/cicd
-ms.openlocfilehash: f5b0e0ee1c903de26188815c7dc01ed547cca97e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 0edded18d766d6f2af08f6be5dbecbfd52a14a35
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82767132"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400554"
 ---
 # <a name="continuous-integration-and-deployment"></a>Průběžná integrace a nasazování
 
@@ -36,8 +38,8 @@ V této části provedete následující úlohy:
 
 ## <a name="publish-the-apps-code-to-github"></a>Publikování kódu aplikace do GitHubu
 
-1. Otevřete okno prohlížeče a přejděte na `https://github.com`.
-1. V záhlaví **+** klikněte na rozevírací nabídku a vyberte **nové úložiště**:
+1. Otevřete okno prohlížeče a přejděte na `https://github.com` .
+1. **+** V záhlaví klikněte na rozevírací nabídku a vyberte **nové úložiště**:
 
     ![Možnost nového úložiště GitHubu](media/cicd/github-new-repo.png)
 
@@ -62,13 +64,13 @@ V této části provedete následující úlohy:
     git push -u origin master
     ```
 
-1. Otevřete okno prohlížeče a přejděte na `https://github.com/<GitHub_username>/simple-feed-reader/`. Ověřte, že se váš kód zobrazuje v úložišti GitHubu.
+1. Otevřete okno prohlížeče a přejděte na `https://github.com/<GitHub_username>/simple-feed-reader/` . Ověřte, že se váš kód zobrazuje v úložišti GitHubu.
 
 ## <a name="disconnect-local-git-deployment"></a>Odpojit nasazení místního Gitu
 
 Odeberte místní nasazení Gitu pomocí následujících kroků. Azure Pipelines (služba Azure DevOps) nahrazuje i rozšiřuje tuto funkčnost.
 
-1. Otevřete [Azure Portal](https://portal.azure.com/)a přejděte do pracovní webové aplikace *(MyWebApp\<\>unique_number/staging)* . Webovou aplikaci můžete rychle najít tak, že do vyhledávacího pole portálu zadáte *fázování* :
+1. Otevřete [Azure Portal](https://portal.azure.com/)a přejděte do pracovní webové aplikace *(MyWebApp \<unique_number\> /staging)* . Webovou aplikaci můžete rychle najít tak, že do vyhledávacího pole portálu zadáte *fázování* :
 
     ![pracovní termín pro hledání webové aplikace](media/cicd/portal-search-box.png)
 
@@ -89,7 +91,7 @@ Odeberte místní nasazení Gitu pomocí následujících kroků. Azure Pipeline
 
     ![Tlačítko spustit projekt](media/cicd/vsts-start-project.png)
 
-1. Otevře se prohlížeč * \<\>account_name. VisualStudio.com*. Kliknutím na odkaz *MyFirstProject* zahajte konfiguraci kanálu DevOps projektu.
+1. Otevře se prohlížeč s * \<account_name\> příponou. VisualStudio.com*. Kliknutím na odkaz *MyFirstProject* zahajte konfiguraci kanálu DevOps projektu.
 
 ## <a name="configure-the-azure-pipelines-pipeline"></a>Konfigurace kanálu Azure Pipelines
 
@@ -105,7 +107,7 @@ Existují tři samostatné kroky pro dokončení. Provedením kroků v následuj
 
     ![Vybrat zdroj – GitHub](media/cicd/vsts-select-source.png)
 
-1. Aby mohl Azure DevOps získat přístup k úložišti GitHubu, vyžaduje se autorizace. Do textového pole **název připojení** zadejte *<GitHub_username> připojení GitHubu* . Příklad:
+1. Aby mohl Azure DevOps získat přístup k úložišti GitHubu, vyžaduje se autorizace. Do textového pole **název připojení** zadejte *<GitHub_username> připojení GitHubu* . Například:
 
     ![Název připojení GitHubu](media/cicd/vsts-repo-authz.png)
 
@@ -136,7 +138,7 @@ Existují tři samostatné kroky pro dokončení. Provedením kroků v následuj
 
     ![Uložit definici sestavení – modální dialogové okno](media/cicd/vsts-save-modal.png)
 
-    Použijte výchozí složku *\\*a klikněte na tlačítko **Uložit** .
+    Použijte výchozí složku *\\* a klikněte na tlačítko **Uložit** .
 
 ### <a name="create-the-release-pipeline"></a>Vytvoření kanálu pro vydávání verzí
 
@@ -178,7 +180,7 @@ Existují tři samostatné kroky pro dokončení. Provedením kroků v následuj
 
 1. V **produkčním** poli klikněte na odkaz **1 fáze, 2 úlohy** :
 
-    ![Kanál verze – propojení produkčního prostředí. png](media/cicd/vsts-production-link.png)
+    ![Kanál vydání – produkční prostředí link.png](media/cicd/vsts-production-link.png)
 
     Zobrazí se karta **úlohy** v prostředí.
 1. Klikněte na úlohu **nasadit Azure App Service pro slot** . Jeho nastavení se zobrazí na panelu vpravo.
@@ -197,8 +199,8 @@ Existují tři samostatné kroky pro dokončení. Provedením kroků v následuj
 ## <a name="commit-changes-to-github-and-automatically-deploy-to-azure"></a>Potvrzení změn na GitHubu a automatické nasazení do Azure
 
 1. Otevřete *SimpleFeedReader. sln* v aplikaci Visual Studio.
-1. V Průzkumník řešení otevřete *Pages\Index.cshtml*. Změňte `<h2>Simple Feed Reader - V3</h2>` na `<h2>Simple Feed Reader - V4</h2>`.
-1. Stisknutím **kombinace kláves CTRL**+**+ SHIFT**+**B** sestavíte aplikaci.
+1. V Průzkumník řešení otevřete *Pages\Index.cshtml*. Změňte `<h2>Simple Feed Reader - V3</h2>` na `<h2>Simple Feed Reader - V4</h2>` .
+1. Stisknutím **kombinace kláves CTRL** + **+ SHIFT** + **B** sestavíte aplikaci.
 1. Potvrďte soubor do úložiště GitHub. Na kartě *Team Explorer* v aplikaci Visual Studio použijte stránku **změny** nebo pomocí příkazového prostředí místního počítače spusťte následující příkaz:
 
     ```console
@@ -219,7 +221,7 @@ Existují tři samostatné kroky pro dokončení. Provedením kroků v následuj
 
     ![Povolit kontinuální integraci](media/cicd/enable-ci.png)
 
-1. Na stránce **Azure Pipelines** > **sestavení** v Azure DevOps Services přejděte na kartu **zařazené do fronty** . Sestavení ve frontě zobrazuje větev a potvrzení, které spustilo sestavení:
+1. Na stránce **Azure Pipelines**sestavení v Azure DevOps Services přejděte na kartu **zařazené do fronty**  >  **Builds** . Sestavení ve frontě zobrazuje větev a potvrzení, které spustilo sestavení:
 
     ![sestavení zařazené do fronty](media/cicd/build-queued.png)
 
@@ -237,15 +239,15 @@ Na kartě **úkoly** definice sestavení jsou uvedeny jednotlivé kroky, které 
 
 ![úkoly definice sestavení](media/cicd/build-definition-tasks.png)
 
-1. Při **obnovení** &mdash; se `dotnet restore` spustí příkaz pro obnovení balíčků NuGet aplikace. Výchozí použitý kanál balíčku je nuget.org.
-1. Při **sestavení** &mdash; se `dotnet build --configuration release` spustí příkaz pro zkompilování kódu aplikace. Tato `--configuration` možnost slouží k vytvoření optimalizované verze kódu, který je vhodný pro nasazení do produkčního prostředí. Pokud je například nutná konfigurace ladění, upravte proměnnou *BuildConfiguration* na kartě **proměnné** v definici sestavení.
-1. **Test** &mdash; spustí `dotnet test --configuration release --logger trx --results-directory <local_path_on_build_agent>` příkaz pro spuštění testů jednotek aplikace. Testy jednotek se spustí v rámci libovolného projektu C# odpovídajícího `**/*Tests/*.csproj` vzoru glob. Výsledky testů jsou uloženy v souboru *. TRX* v umístění určeném `--results-directory` možností. Pokud dojde k selhání nějakého testu, sestavení se nezdaří a není nasazeno.
+1. **Obnovit** &mdash; Spustí `dotnet restore` příkaz pro obnovení balíčků NuGet aplikace. Výchozí použitý kanál balíčku je nuget.org.
+1. **Sestavení** &mdash; Spustí `dotnet build --configuration release` příkaz pro zkompilování kódu aplikace. Tato `--configuration` možnost slouží k vytvoření optimalizované verze kódu, který je vhodný pro nasazení do produkčního prostředí. Pokud je například nutná konfigurace ladění, upravte proměnnou *BuildConfiguration* na kartě **proměnné** v definici sestavení.
+1. **Test** &mdash; Spustí `dotnet test --configuration release --logger trx --results-directory <local_path_on_build_agent>` příkaz pro spuštění testů jednotek aplikace. Testy jednotek se spustí v rámci libovolného projektu C# odpovídajícího `**/*Tests/*.csproj` vzoru glob. Výsledky testů jsou uloženy v souboru *. TRX* v umístění určeném `--results-directory` možností. Pokud dojde k selhání nějakého testu, sestavení se nezdaří a není nasazeno.
 
     > [!NOTE]
     > Chcete-li ověřit testy jednotek, upravte *SimpleFeedReader. Tests\Services\NewsServiceTests.cs* tak, aby záměrně přerušení jednoho testu. Například změňte `Assert.True(result.Count > 0);` na `Assert.False(result.Count > 0);` v `Returns_News_Stories_Given_Valid_Uri` metodě. Potvrďte a nahrajte změnu do GitHubu. Sestavování se aktivuje a dojde k chybě. Stav kanálu sestavení se změní na **neúspěch**. Obnovte změnu, potvrďte akci a znovu ji nasaďte. Sestavení je úspěšné.
 
-1. **Publikování** &mdash; spustí `dotnet publish --configuration release --output <local_path_on_build_agent>` příkaz pro vytvoření souboru *. zip* s artefakty, které mají být nasazeny. `--output` Možnost určuje umístění publikování souboru *. zip* . Toto umístění je určeno předáním [předdefinované proměnné](/azure/devops/pipelines/build/variables) s názvem `$(build.artifactstagingdirectory)`. Tato proměnná se rozbalí na místní cestu, například *c:\Agent\_work\1\a*, v agentovi sestavení.
-1. Při **publikování artefaktu** &mdash; se publikuje soubor *. zip* vytvářený úlohou **Publish** . Úkol přijme umístění souboru *. zip* jako parametr, což je předdefinovaná proměnná `$(build.artifactstagingdirectory)`. Soubor *. zip* je publikován jako složka s názvem *drop*.
+1. **Publikování** &mdash; Spustí `dotnet publish --configuration release --output <local_path_on_build_agent>` příkaz pro vytvoření souboru *. zip* s artefakty, které mají být nasazeny. `--output`Možnost určuje umístění publikování souboru *. zip* . Toto umístění je určeno předáním [předdefinované proměnné](/azure/devops/pipelines/build/variables) s názvem `$(build.artifactstagingdirectory)` . Tato proměnná se rozbalí na místní cestu, například *c:\Agent \_ work\1\a*, v agentovi sestavení.
+1. **Publikovat artefakt** &mdash; Publikuje soubor *. zip* vytvářený úlohou **Publish** . Úkol přijme umístění souboru *. zip* jako parametr, což je předdefinovaná proměnná `$(build.artifactstagingdirectory)` . Soubor *. zip* je publikován jako složka s názvem *drop*.
 
 Kliknutím na **souhrnný** odkaz definice sestavení zobrazíte historii sestavení s definicí:
 
@@ -279,7 +281,7 @@ Kanál vydané verze se skládá ze dvou úloh: *nasazení Azure App Service do 
 
 ![Snímek obrazovky s úlohou nasazení kanálu vydaných verzí](media/cicd/release-definition-task1.png)
 
-V úloze nasazení je definováno předplatné Azure, typ služby, název webové aplikace, skupina prostředků a slot nasazení. Textové pole **balíčku nebo složky** obsahuje cestu k souboru *. zip* , která se má extrahovat a nasadit do *přípravného* slotu *\<unique_number\> * webové aplikace MyWebApp.
+V úloze nasazení je definováno předplatné Azure, typ služby, název webové aplikace, skupina prostředků a slot nasazení. Textové pole **balíčku nebo složky** obsahuje cestu k souboru *. zip* , která se má extrahovat a nasadit do *přípravného* slotu webové aplikace *MyWebApp \<unique_number\> * .
 
 Kliknutím na úlohu přepnutí slotu se odhalí Tato konfigurace úlohy:
 

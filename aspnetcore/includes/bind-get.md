@@ -1,7 +1,7 @@
 > [!WARNING]
-> Z bezpečnostních důvodů musíte vyjádřit výslovný souhlas s vazbou `GET` na data požadavku na vlastnosti modelu stránky. Před mapováním na vlastnosti ověřte vstup uživatele. Přizpůsobování `GET` vazby je užitečné při adresování scénářů, které spoléhají na řetězce dotazů nebo hodnoty tras.
+> Z bezpečnostních důvodů musíte vyjádřit výslovný souhlas s vazbou na `GET` data požadavku na vlastnosti modelu stránky. Před mapováním na vlastnosti ověřte vstup uživatele. Přizpůsobování `GET` vazby je užitečné při adresování scénářů, které spoléhají na řetězce dotazů nebo hodnoty tras.
 >
-> Chcete-li vytvořit vazby `GET` vlastnosti u požadavků, [`[BindProperty]`](xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute) nastavte `SupportsGet` vlastnost atributu na `true`:
+> Chcete-li vytvořit vazby vlastnosti u `GET` požadavků, nastavte [`[BindProperty]`](xref:Microsoft.AspNetCore.Mvc.BindPropertyAttribute) `SupportsGet` vlastnost atributu na `true` :
 >
 > ```csharp
 > [BindProperty(SupportsGet = true)]

@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 01/13/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: 84612ccfdf00497b11cd93cef2837c5a897cc905
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: b60fa81b3bf180cd2ba15f285df9474be42f95f8
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105347"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400086"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -38,7 +40,7 @@ Podporované verze systému Windows:
 
 Při hostování v procesu používá modul implementaci vnitroprocesového serveru pro službu IIS nazvanou IIS HTTP Server ( `IISHttpServer` ).
 
-Při hostování mimo proces funguje modul pouze s Kestrel. Modul nefunguje s [ovladačem HTTP. sys](xref:fundamentals/servers/httpsys).
+Při hostování mimo proces funguje modul pouze s Kestrel. Modul nefunguje s [HTTP.sys](xref:fundamentals/servers/httpsys).
 
 ## <a name="hosting-models"></a>Modely hostingu
 
@@ -58,13 +60,13 @@ Následující vlastnosti platí při hostování v procesu:
 
 * Sdílení fondu aplikací mezi aplikacemi není podporováno. Použijte jeden fond aplikací na aplikaci.
 
-* Při použití [nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) nebo ručního umístění [souboru App_offline. htm v nasazení](xref:host-and-deploy/iis/index#locked-deployment-files)se aplikace nemusí vypnout okamžitě, pokud dojde k otevřenému připojení. Připojení k protokolu WebSocket může například zpozdit ukončení aplikace.
+* Při použití [nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) nebo ručního umístění [souboruapp_offline.htm v nasazení](xref:host-and-deploy/iis/index#locked-deployment-files)se aplikace nemusí vypnout okamžitě, pokud dojde k otevřenému připojení. Připojení k protokolu WebSocket může například zpozdit ukončení aplikace.
 
 * Architektura (bitová verze) aplikace a nainstalovaného modulu runtime (x64 nebo x86) se musí shodovat s architekturou fondu aplikací.
 
 * Zjistila se odpojení klienta. Token zrušení [HttpContext. RequestAborted](xref:Microsoft.AspNetCore.Http.HttpContext.RequestAborted*) je zrušený, když se klient odpojí.
 
-* V ASP.NET Core 2.2.1 nebo dřívější <xref:System.IO.Directory.GetCurrentDirectory*> vrátí pracovní adresář procesu spuštěného službou IIS místo adresáře aplikace (například *C:\Windows\System32\inetsrv* pro *W3wp. exe*).
+* V ASP.NET Core 2.2.1 nebo dřívější <xref:System.IO.Directory.GetCurrentDirectory*> vrátí pracovní adresář procesu spuštěného službou IIS místo adresáře aplikace (například *C:\Windows\System32\inetsrv* pro *w3wp.exe*).
 
   Vzorový kód, který nastaví aktuální adresář aplikace, najdete v tématu [Třída CurrentDirectoryHelpers](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/aspnet-core-module/samples_snapshot/3.x/CurrentDirectoryHelpers.cs). Zavolejte `SetCurrentDirectory` metodu. Následná volání pro <xref:System.IO.Directory.GetCurrentDirectory*> poskytnutí adresáře aplikace.
 
@@ -108,7 +110,7 @@ Pro mimoprocesové [CreateDefaultBuilder](xref:fundamentals/host/generic-host#de
 
 ### <a name="hosting-model-changes"></a>Změny modelu hostování
 
-Pokud `hostingModel` je nastavení změněno v souboru *Web. config* (vysvětleno v části [Konfigurace pomocí Web. config](#configuration-with-webconfig) ), modul recykluje pracovní proces pro službu IIS.
+Pokud se `hostingModel` změní nastavení v souboru *web.config* (vysvětleno v části [konfigurace s web.config](#configuration-with-webconfig) ), modul recykluje pracovní proces pro službu IIS.
 
 V případě IIS Express modul neprovádí recyklaci pracovního procesu, ale místo toho aktivuje bezproblémové vypnutí aktuálního procesu IIS Express. Další požadavek na aplikaci vytvoří nový proces IIS Express.
 
@@ -128,11 +130,11 @@ Modul ASP.NET Core může také:
 
 Pokyny k instalaci modulu ASP.NET Core najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
-## <a name="configuration-with-webconfig"></a>Konfigurace pomocí souboru Web. config
+## <a name="configuration-with-webconfig"></a>Konfigurace s web.config
 
-Modul ASP.NET Core je nakonfigurován s `aspNetCore` částí `system.webServer` uzlu v souboru *Web. config* webu.
+Modul ASP.NET Core je nakonfigurován s `aspNetCore` částí `system.webServer` uzlu v souboru *web.config* webu.
 
-Následující soubor *Web. config* je publikován pro [nasazení závislé na rozhraní](/dotnet/articles/core/deploying/#framework-dependent-deployments-fdd) a nakonfiguruje modul ASP.NET Core pro zpracování požadavků lokality:
+Následující *web.config* soubor je publikován pro [nasazení závislé na rozhraní](/dotnet/articles/core/deploying/#framework-dependent-deployments-fdd) a konfiguruje modul ASP.NET Core, aby zpracovával požadavky webu:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -152,7 +154,7 @@ Následující soubor *Web. config* je publikován pro [nasazení závislé na r
 </configuration>
 ```
 
-Následující soubor *Web. config* je publikován pro [samostatně uzavřené nasazení](/dotnet/articles/core/deploying/#self-contained-deployments-scd):
+Následující *web.config* jsou publikovány pro [samostatně uzavřené nasazení](/dotnet/articles/core/deploying/#self-contained-deployments-scd):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -182,14 +184,14 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 | Atribut | Popis | Výchozí |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>Volitelný řetězcový atribut.</p><p>Argumenty ke spustitelnému souboru určenému v **processPath**.</p> | |
-| `disableStartUpErrorPage` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, stránka **502,5 – selhání procesu** se potlačí a stavová stránka 502 konfigurovaná v *souboru Web. config* má přednost.</p> | `false` |
+| `disableStartUpErrorPage` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, stránka **502,5-procesového selhání** se potlačí a stavová stránka 502, která je nakonfigurovaná ve *web.config* , má přednost.</p> | `false` |
 | `forwardWindowsAuthToken` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, token se přepošle podřízenému procesu, který naslouchá na% ASPNETCORE_PORT% jako záhlaví MS-ASPNETCORE-WINAUTHTOKEN na žádost. Je zodpovědností za tento proces volání CloseHandle na tento token na žádost.</p> | `true` |
 | `hostingModel` | <p>Volitelný řetězcový atribut.</p><p>Určuje model hostování jako vnitroprocesové ( `InProcess` / `inprocess` ) nebo mimo proces ( `OutOfProcess` / `outofprocess` ).</p> | `InProcess`<br>`inprocess` |
 | `processesPerApplication` | <p>Volitelný celočíselný atribut</p><p>Určuje počet instancí procesu určeného v nastavení **processPath** , které lze v rámci aplikace vystavit.</p><p>&dagger;Pro hostování v rámci procesu je hodnota omezená na `1` .</p><p>Nastavení `processesPerApplication` se nedoporučuje. Tento atribut bude v budoucí verzi odebrán.</p> | Výchozí`1`<br>Dlouhé`1`<br>Počet`100`&dagger; |
 | `processPath` | <p>Povinný atribut řetězce.</p><p>Cesta ke spustitelnému souboru, který spouští proces naslouchající na požadavky HTTP. Jsou podporovány relativní cesty. Pokud cesta začíná `.` , bude tato cesta považována za relativní vzhledem k kořenu webu.</p> | |
 | `rapidFailsPerMinute` | <p>Volitelný celočíselný atribut</p><p>Určuje, kolikrát je povoleno selhání procesu určeného v **processPath** za minutu. Pokud je tento limit překročen, modul ukončí spuštění procesu po zbytek minuty.</p><p>Nepodporováno v hostování v rámci procesu.</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`100` |
 | `requestTimeout` | <p>Volitelný atribut TimeSpan.</p><p>Určuje dobu, po kterou modul ASP.NET Core čeká na odpověď od procesu, který naslouchá na% ASPNETCORE_PORT%.</p><p>Ve verzích modulu ASP.NET Core, které byly dodávány s vydáním ASP.NET Core 2,1 nebo vyšší, `requestTimeout` je určena v hodinách, minutách a sekundách.</p><p>Neplatí pro hostování v procesu. Pro hostování v rámci procesu modul čeká, až aplikace zpracuje požadavek.</p><p>Platné hodnoty segmentů minut a sekund řetězce jsou v rozsahu 0-59. Při použití hodnoty **60** v hodnotě minut nebo sekund dojde k chybě systému *500 – interní chyba serveru*.</p> | Výchozí`00:02:00`<br>Dlouhé`00:00:00`<br>Počet`360:00:00` |
-| `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *App_offline. htm* .</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`600` |
+| `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *app_offline.htm* .</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`600` |
 | `startupTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, kterou modul počká, než spustitelný soubor spustí proces, který na portu naslouchá. Pokud je tento časový limit překročen, modul proces ukončuje. Modul se pokusí znovu spustit proces, když obdrží novou žádost, a pokračuje v pokusu o restartování procesu u dalších příchozích požadavků, pokud se nepodaří spustit **rapidFailsPerMinute** počet pokusů během poslední minuty.</p><p>Hodnota 0 (nula **) není považována za** nekonečný časový limit.</p> | Výchozí`120`<br>Dlouhé`0`<br>Počet`3600` |
 | `stdoutLogEnabled` | <p>Volitelný atribut typu Boolean.</p><p>Je-li nastavena hodnota true, **stdout** a **stderr** pro proces zadaný v **processPath** budou přesměrovány do souboru zadaného v **stdoutLogFile**.</p> | `false` |
 | `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Každá cesta začínající řetězcem `.` je relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Při vytvoření souboru protokolu se v modulu vytvoří všechny složky, které jsou v cestě zadané. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru (*. log*). Pokud `.\logs\stdout` je zadán jako hodnota, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
@@ -198,7 +200,7 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 
 Proměnné prostředí lze zadat pro proces v `processPath` atributu. Zadejte proměnnou prostředí s `<environmentVariable>` podřízeným elementem `<environmentVariables>` elementu kolekce. Proměnné prostředí nastavené v této části mají přednost před proměnnými prostředí systému.
 
-Následující příklad nastaví dvě proměnné prostředí v *souboru Web. config*. `ASPNETCORE_ENVIRONMENT`nakonfiguruje prostředí aplikace na `Development` . Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR`je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
+Následující příklad nastaví dvě proměnné prostředí v *web.config*. `ASPNETCORE_ENVIRONMENT`nakonfiguruje prostředí aplikace na `Development` . Vývojář může tuto hodnotu dočasně nastavit v souboru *web.config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR`je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -214,7 +216,7 @@ Následující příklad nastaví dvě proměnné prostředí v *souboru Web. co
 ```
 
 > [!NOTE]
-> Alternativou k nastavení prostředí přímo v souboru *Web. config* je zahrnutí `<EnvironmentName>` vlastnosti do [profilu publikování (. pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) nebo souboru projektu. Tento přístup nastaví prostředí v *souboru Web. config* při publikování projektu:
+> Alternativou k nastavení prostředí přímo v *web.config* je zahrnutí `<EnvironmentName>` vlastnosti do [profilu publikování (. pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) nebo souboru projektu. Tento přístup nastaví prostředí v *web.config* při publikování projektu:
 >
 > ```xml
 > <PropertyGroup>
@@ -225,11 +227,11 @@ Následující příklad nastaví dvě proměnné prostředí v *souboru Web. co
 > [!WARNING]
 > Nastavte pouze `ASPNETCORE_ENVIRONMENT` proměnnou prostředí na `Development` pracovní a testovací servery, které nejsou přístupné nedůvěryhodným sítím, jako je například Internet.
 
-## <a name="app_offlinehtm"></a>app_offline. htm
+## <a name="app_offlinehtm"></a>app_offline.htm
 
-Pokud se v kořenovém adresáři aplikace zjistí soubor s názvem *App_offline. htm* , modul ASP.NET Core se pokusí aplikaci řádně vypnout a zastavit zpracování příchozích požadavků. Pokud aplikace běží i po uplynutí počtu sekund definovaného v `shutdownTimeLimit` , modul ASP.NET Core ukončuje běžící proces.
+Pokud se v kořenovém adresáři aplikace zjistí soubor s názvem *app_offline.htm* , modul ASP.NET Core se pokusí aplikaci řádně vypnout a zastavit zpracování příchozích požadavků. Pokud aplikace běží i po uplynutí počtu sekund definovaného v `shutdownTimeLimit` , modul ASP.NET Core ukončuje běžící proces.
 
-Když je přítomen soubor *App_offline. htm* , ASP.NET Core modul reaguje na požadavky odesláním zpět obsahu souboru *App_offline. htm* . Po odebrání souboru *App_offline. htm* aplikace spustí další požadavek.
+Když je přítomen soubor *app_offline.htm* , ASP.NET Core modul reaguje na požadavky odesláním zpět obsahu *app_offline.htm* souboru. Po odebrání souboru *app_offline.htm* spustí aplikace další požadavek.
 
 Při použití nezpracovaného modelu hostování se aplikace nemusí okamžitě vypnout, pokud dojde k otevřenému připojení. Připojení k protokolu WebSocket může například zpozdit ukončení aplikace.
 
@@ -278,7 +280,7 @@ Další informace o formátech cest najdete v tématu [formáty souborů cest v 
 
 ## <a name="enhanced-diagnostic-logs"></a>Rozšířené diagnostické protokoly
 
-Modul ASP.NET Core lze nakonfigurovat tak, aby poskytoval rozšířené diagnostické protokoly. Přidejte `<handlerSettings>` element do `<aspNetCore>` elementu v *souboru Web. config*. Nastavení `debugLevel` pro `TRACE` zpřístupňuje vyšší věrnost diagnostických informací:
+Modul ASP.NET Core lze nakonfigurovat tak, aby poskytoval rozšířené diagnostické protokoly. Přidejte `<handlerSettings>` element do `<aspNetCore>` prvku v *web.config*. Nastavení `debugLevel` pro `TRACE` zpřístupňuje vyšší věrnost diagnostických informací:
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -318,13 +320,13 @@ Nastavení obslužné rutiny lze také poskytnout pomocí proměnných prostřed
 > [!WARNING]
 > Nenechávejte **protokolování** ladění povolené v nasazení po delší dobu, než je potřeba k řešení problému. Velikost protokolu není omezená. Když necháte protokol ladění povolený, může dojít k vyčerpání dostupného místa na disku a selhání serveru nebo služby App Service.
 
-Příklad [Configuration with web.config](#configuration-with-webconfig) `aspNetCore` elementu v souboru *Web. config* naleznete v tématu Konfigurace pomocí souboru Web. config.
+Příklad prvku v souboruweb.confignaleznete v tématu [konfigurace s web.config](#configuration-with-webconfig) `aspNetCore` . *web.config*
 
 ## <a name="modify-the-stack-size"></a>Úprava velikosti zásobníku
 
 *Platí pouze při použití modelu hostování v rámci procesu.*
 
-Nakonfigurujte velikost spravovaného zásobníku pomocí `stackSize` nastavení v bajtech v *souboru Web. config*. Výchozí velikost je `1048576` bajtů (1 MB).
+Nakonfigurujte velikost spravovaného zásobníku pomocí `stackSize` nastavení v bajtech v *web.config*. Výchozí velikost je `1048576` bajtů (1 MB).
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -348,7 +350,7 @@ Párovací token se používá k zajištění, že žádosti přijaté službou 
 
 ## <a name="aspnet-core-module-with-an-iis-shared-configuration"></a>ASP.NET Core modul se sdílenou konfigurací služby IIS
 
-Instalační služba modulu ASP.NET Core se spouští s oprávněními účtu **TrustedInstaller** . Vzhledem k tomu, že účet místního systému nemá oprávnění k úpravám pro cestu ke sdílené složce, kterou používá sdílená konfigurace služby IIS, vyvolá Instalační program chybu odepření přístupu při pokusu o konfiguraci nastavení modulu v souboru *ApplicationHost. config* ve sdílené složce.
+Instalační služba modulu ASP.NET Core se spouští s oprávněními účtu **TrustedInstaller** . Vzhledem k tomu, že účet místního systému nemá oprávnění k úpravám pro cestu ke sdílené složce, kterou používá sdílená konfigurace služby IIS, vyvolá Instalační program chybu odepření přístupu při pokusu o konfiguraci nastavení modulu v souboru *applicationHost.config* ve sdílené složce.
 
 Pokud používáte konfiguraci IIS Shared na stejném počítači jako instalaci služby IIS, spusťte instalační program sady prostředků ASP.NET Core s `OPT_NO_SHARED_CONFIG_CHECK` parametrem nastaveným na `1` :
 
@@ -360,7 +362,7 @@ Pokud cesta ke sdílené konfiguraci není ve stejném počítači jako instalac
 
 1. Zakažte sdílenou konfiguraci služby IIS.
 1. Spusťte instalační program.
-1. Exportujte aktualizovaný soubor *ApplicationHost. config* do sdílené složky.
+1. Exportujte aktualizovaný soubor *applicationHost.config* do sdílené složky.
 1. Znovu povolte sdílenou konfiguraci služby IIS.
 
 ## <a name="module-version-and-hosting-bundle-installer-logs"></a>Verze modulu a instalační protokoly hostitelské sady
@@ -368,7 +370,7 @@ Pokud cesta ke sdílené konfiguraci není ve stejném počítači jako instalac
 Postup určení verze nainstalovaného modulu ASP.NET Core:
 
 1. V hostitelském systému přejděte na *%windir%\system32\inetsrv*.
-1. Vyhledejte soubor *aspnetcore. dll* .
+1. Vyhledejte soubor *aspnetcore.dll* .
 1. Klikněte na soubor pravým tlačítkem a v místní nabídce vyberte **vlastnosti** .
 1. Vyberte kartu **Podrobnosti** . **Verze souboru** a **verze produktu** reprezentují nainstalovanou verzi modulu.
 
@@ -380,11 +382,11 @@ Protokoly instalačních balíčků pro modul se nacházejí v *C: \\ Uživatel�
 
 **Služba IIS (x86/amd64):**
 
-* %windir%\System32\inetsrv\aspnetcore.dll
+* % windir% \System32\inetsrv\aspnetcore.dll
 
-* %windir%\SysWOW64\inetsrv\aspnetcore.dll
+* % windir% \SysWOW64\inetsrv\aspnetcore.dll
 
-* %ProgramFiles%\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll
+* Základní Module\V2\aspnetcorev2.dll%ProgramFiles%\IIS\Asp.Net
 
 * % ProgramFiles (x86)% \ IIS\Asp.Net Core Module\V2\aspnetcorev2.dll
 
@@ -402,29 +404,29 @@ Protokoly instalačních balíčků pro modul se nacházejí v *C: \\ Uživatel�
 
 **IIS**
 
-* %windir%\System32\inetsrv\config\schema\ aspnetcore_schema. XML
+* % windir% \System32\inetsrv\config\schema\aspnetcore_schema.xml
 
-* %windir%\System32\inetsrv\config\schema\ aspnetcore_schema_v2. XML
+* % windir% \System32\inetsrv\config\schema\aspnetcore_schema_v2.xml
 
 **IIS Express**
 
-* %ProgramFiles%\IIS Express\config\schema\ aspnetcore_schema. XML
+* %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema.xml
 
-* %ProgramFiles%\IIS Express\config\schema\ aspnetcore_schema_v2. XML
+* %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema_v2.xml
 
 ### <a name="configuration"></a>Konfigurace
 
 **IIS**
 
-* %windir%\System32\inetsrv\config\applicationHost.config
+* % windir% \System32\inetsrv\config\applicationHost.config
 
 **IIS Express**
 
-* Visual Studio: {ROOT aplikace} \\ . vs\config\applicationHost.config
+* Visual Studio: {ROOT aplikace} \\.vs\config\applicationHost.config
 
-* *IISExpress. exe* CLI:%USERPROFILE%\Documents\IISExpress\config\applicationhost.config
+* *iisexpress.exe* CLI:% USERPROFILE% \Documents\IISExpress\config\applicationhost.config
 
-Soubory lze najít hledáním *aspnetcore* v souboru *ApplicationHost. config* .
+Soubory můžete najít hledáním *aspnetcore* v souboru *applicationHost.config* .
 
 ::: moniker-end
 
@@ -442,7 +444,7 @@ Podporované verze systému Windows:
 
 Při hostování v procesu používá modul implementaci vnitroprocesového serveru pro službu IIS nazvanou IIS HTTP Server ( `IISHttpServer` ).
 
-Při hostování mimo proces funguje modul pouze s Kestrel. Modul nefunguje s [ovladačem HTTP. sys](xref:fundamentals/servers/httpsys).
+Při hostování mimo proces funguje modul pouze s Kestrel. Modul nefunguje s [HTTP.sys](xref:fundamentals/servers/httpsys).
 
 ## <a name="hosting-models"></a>Modely hostingu
 
@@ -474,13 +476,13 @@ Následující vlastnosti platí při hostování v procesu:
 
 * Sdílení fondu aplikací mezi aplikacemi není podporováno. Použijte jeden fond aplikací na aplikaci.
 
-* Při použití [nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) nebo ručního umístění [souboru App_offline. htm v nasazení](xref:host-and-deploy/iis/index#locked-deployment-files)se aplikace nemusí vypnout okamžitě, pokud dojde k otevřenému připojení. Připojení k protokolu WebSocket může například zpozdit ukončení aplikace.
+* Při použití [nasazení webu](/iis/publish/using-web-deploy/introduction-to-web-deploy) nebo ručního umístění [souboruapp_offline.htm v nasazení](xref:host-and-deploy/iis/index#locked-deployment-files)se aplikace nemusí vypnout okamžitě, pokud dojde k otevřenému připojení. Připojení k protokolu WebSocket může například zpozdit ukončení aplikace.
 
 * Architektura (bitová verze) aplikace a nainstalovaného modulu runtime (x64 nebo x86) se musí shodovat s architekturou fondu aplikací.
 
 * Zjistila se odpojení klienta. Token zrušení [HttpContext. RequestAborted](xref:Microsoft.AspNetCore.Http.HttpContext.RequestAborted*) je zrušený, když se klient odpojí.
 
-* V ASP.NET Core 2.2.1 nebo dřívější <xref:System.IO.Directory.GetCurrentDirectory*> vrátí pracovní adresář procesu spuštěného službou IIS místo adresáře aplikace (například *C:\Windows\System32\inetsrv* pro *W3wp. exe*).
+* V ASP.NET Core 2.2.1 nebo dřívější <xref:System.IO.Directory.GetCurrentDirectory*> vrátí pracovní adresář procesu spuštěného službou IIS místo adresáře aplikace (například *C:\Windows\System32\inetsrv* pro *w3wp.exe*).
 
   Vzorový kód, který nastaví aktuální adresář aplikace, najdete v tématu [Třída CurrentDirectoryHelpers](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/host-and-deploy/aspnet-core-module/samples_snapshot/2.x/CurrentDirectoryHelpers.cs). Zavolejte `SetCurrentDirectory` metodu. Následná volání pro <xref:System.IO.Directory.GetCurrentDirectory*> poskytnutí adresáře aplikace.
 
@@ -523,7 +525,7 @@ Pro mimoprocesové [CreateDefaultBuilder](xref:fundamentals/host/web-host#set-up
 
 ### <a name="hosting-model-changes"></a>Změny modelu hostování
 
-Pokud `hostingModel` je nastavení změněno v souboru *Web. config* (vysvětleno v části [Konfigurace pomocí Web. config](#configuration-with-webconfig) ), modul recykluje pracovní proces pro službu IIS.
+Pokud se `hostingModel` změní nastavení v souboru *web.config* (vysvětleno v části [konfigurace s web.config](#configuration-with-webconfig) ), modul recykluje pracovní proces pro službu IIS.
 
 V případě IIS Express modul neprovádí recyklaci pracovního procesu, ale místo toho aktivuje bezproblémové vypnutí aktuálního procesu IIS Express. Další požadavek na aplikaci vytvoří nový proces IIS Express.
 
@@ -543,11 +545,11 @@ Modul ASP.NET Core může také:
 
 Pokyny k instalaci modulu ASP.NET Core najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
-## <a name="configuration-with-webconfig"></a>Konfigurace pomocí souboru Web. config
+## <a name="configuration-with-webconfig"></a>Konfigurace s web.config
 
-Modul ASP.NET Core je nakonfigurován s `aspNetCore` částí `system.webServer` uzlu v souboru *Web. config* webu.
+Modul ASP.NET Core je nakonfigurován s `aspNetCore` částí `system.webServer` uzlu v souboru *web.config* webu.
 
-Následující soubor *Web. config* je publikován pro [nasazení závislé na rozhraní](/dotnet/articles/core/deploying/#framework-dependent-deployments-fdd) a nakonfiguruje modul ASP.NET Core pro zpracování požadavků lokality:
+Následující *web.config* soubor je publikován pro [nasazení závislé na rozhraní](/dotnet/articles/core/deploying/#framework-dependent-deployments-fdd) a konfiguruje modul ASP.NET Core, aby zpracovával požadavky webu:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -567,7 +569,7 @@ Následující soubor *Web. config* je publikován pro [nasazení závislé na r
 </configuration>
 ```
 
-Následující soubor *Web. config* je publikován pro [samostatně uzavřené nasazení](/dotnet/articles/core/deploying/#self-contained-deployments-scd):
+Následující *web.config* jsou publikovány pro [samostatně uzavřené nasazení](/dotnet/articles/core/deploying/#self-contained-deployments-scd):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -597,14 +599,14 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 | Atribut | Popis | Výchozí |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>Volitelný řetězcový atribut.</p><p>Argumenty ke spustitelnému souboru určenému v **processPath**.</p> | |
-| `disableStartUpErrorPage` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, stránka **502,5 – selhání procesu** se potlačí a stavová stránka 502 konfigurovaná v *souboru Web. config* má přednost.</p> | `false` |
+| `disableStartUpErrorPage` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, stránka **502,5-procesového selhání** se potlačí a stavová stránka 502, která je nakonfigurovaná ve *web.config* , má přednost.</p> | `false` |
 | `forwardWindowsAuthToken` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, token se přepošle podřízenému procesu, který naslouchá na% ASPNETCORE_PORT% jako záhlaví MS-ASPNETCORE-WINAUTHTOKEN na žádost. Je zodpovědností za tento proces volání CloseHandle na tento token na žádost.</p> | `true` |
 | `hostingModel` | <p>Volitelný řetězcový atribut.</p><p>Určuje model hostování jako vnitroprocesové ( `InProcess` / `inprocess` ) nebo mimo proces ( `OutOfProcess` / `outofprocess` ).</p> | `OutOfProcess`<br>`outofprocess` |
 | `processesPerApplication` | <p>Volitelný celočíselný atribut</p><p>Určuje počet instancí procesu určeného v nastavení **processPath** , které lze v rámci aplikace vystavit.</p><p>&dagger;Pro hostování v rámci procesu je hodnota omezená na `1` .</p><p>Nastavení `processesPerApplication` se nedoporučuje. Tento atribut bude v budoucí verzi odebrán.</p> | Výchozí`1`<br>Dlouhé`1`<br>Počet`100`&dagger; |
 | `processPath` | <p>Povinný atribut řetězce.</p><p>Cesta ke spustitelnému souboru, který spouští proces naslouchající na požadavky HTTP. Jsou podporovány relativní cesty. Pokud cesta začíná `.` , bude tato cesta považována za relativní vzhledem k kořenu webu.</p> | |
 | `rapidFailsPerMinute` | <p>Volitelný celočíselný atribut</p><p>Určuje, kolikrát je povoleno selhání procesu určeného v **processPath** za minutu. Pokud je tento limit překročen, modul ukončí spuštění procesu po zbytek minuty.</p><p>Nepodporováno v hostování v rámci procesu.</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`100` |
 | `requestTimeout` | <p>Volitelný atribut TimeSpan.</p><p>Určuje dobu, po kterou modul ASP.NET Core čeká na odpověď od procesu, který naslouchá na% ASPNETCORE_PORT%.</p><p>Ve verzích modulu ASP.NET Core, které byly dodávány s vydáním ASP.NET Core 2,1 nebo vyšší, `requestTimeout` je určena v hodinách, minutách a sekundách.</p><p>Neplatí pro hostování v procesu. Pro hostování v rámci procesu modul čeká, až aplikace zpracuje požadavek.</p><p>Platné hodnoty segmentů minut a sekund řetězce jsou v rozsahu 0-59. Při použití hodnoty **60** v hodnotě minut nebo sekund dojde k chybě systému *500 – interní chyba serveru*.</p> | Výchozí`00:02:00`<br>Dlouhé`00:00:00`<br>Počet`360:00:00` |
-| `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *App_offline. htm* .</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`600` |
+| `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *app_offline.htm* .</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`600` |
 | `startupTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, kterou modul počká, než spustitelný soubor spustí proces, který na portu naslouchá. Pokud je tento časový limit překročen, modul proces ukončuje. Modul se pokusí znovu spustit proces, když obdrží novou žádost, a pokračuje v pokusu o restartování procesu u dalších příchozích požadavků, pokud se nepodaří spustit **rapidFailsPerMinute** počet pokusů během poslední minuty.</p><p>Hodnota 0 (nula **) není považována za** nekonečný časový limit.</p> | Výchozí`120`<br>Dlouhé`0`<br>Počet`3600` |
 | `stdoutLogEnabled` | <p>Volitelný atribut typu Boolean.</p><p>Je-li nastavena hodnota true, **stdout** a **stderr** pro proces zadaný v **processPath** budou přesměrovány do souboru zadaného v **stdoutLogFile**.</p> | `false` |
 | `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Každá cesta začínající řetězcem `.` je relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Při vytvoření souboru protokolu se v modulu vytvoří všechny složky, které jsou v cestě zadané. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru (*. log*). Pokud `.\logs\stdout` je zadán jako hodnota, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
@@ -613,7 +615,7 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 
 Proměnné prostředí lze zadat pro proces v `processPath` atributu. Zadejte proměnnou prostředí s `<environmentVariable>` podřízeným elementem `<environmentVariables>` elementu kolekce. Proměnné prostředí nastavené v této části mají přednost před proměnnými prostředí systému.
 
-Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIRONMENT`nakonfiguruje prostředí aplikace na `Development` . Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR`je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
+Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIRONMENT`nakonfiguruje prostředí aplikace na `Development` . Vývojář může tuto hodnotu dočasně nastavit v souboru *web.config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR`je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -629,7 +631,7 @@ Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIR
 ```
 
 > [!NOTE]
-> Alternativou k nastavení prostředí přímo v souboru *Web. config* je zahrnutí `<EnvironmentName>` vlastnosti do [profilu publikování (. pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) nebo souboru projektu. Tento přístup nastaví prostředí v *souboru Web. config* při publikování projektu:
+> Alternativou k nastavení prostředí přímo v *web.config* je zahrnutí `<EnvironmentName>` vlastnosti do [profilu publikování (. pubxml)](xref:host-and-deploy/visual-studio-publish-profiles) nebo souboru projektu. Tento přístup nastaví prostředí v *web.config* při publikování projektu:
 >
 > ```xml
 > <PropertyGroup>
@@ -640,11 +642,11 @@ Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIR
 > [!WARNING]
 > Nastavte pouze `ASPNETCORE_ENVIRONMENT` proměnnou prostředí na `Development` pracovní a testovací servery, které nejsou přístupné nedůvěryhodným sítím, jako je například Internet.
 
-## <a name="app_offlinehtm"></a>app_offline. htm
+## <a name="app_offlinehtm"></a>app_offline.htm
 
-Pokud se v kořenovém adresáři aplikace zjistí soubor s názvem *App_offline. htm* , modul ASP.NET Core se pokusí aplikaci řádně vypnout a zastavit zpracování příchozích požadavků. Pokud aplikace běží i po uplynutí počtu sekund definovaného v `shutdownTimeLimit` , modul ASP.NET Core ukončuje běžící proces.
+Pokud se v kořenovém adresáři aplikace zjistí soubor s názvem *app_offline.htm* , modul ASP.NET Core se pokusí aplikaci řádně vypnout a zastavit zpracování příchozích požadavků. Pokud aplikace běží i po uplynutí počtu sekund definovaného v `shutdownTimeLimit` , modul ASP.NET Core ukončuje běžící proces.
 
-Když je přítomen soubor *App_offline. htm* , ASP.NET Core modul reaguje na požadavky odesláním zpět obsahu souboru *App_offline. htm* . Po odebrání souboru *App_offline. htm* aplikace spustí další požadavek.
+Když je přítomen soubor *app_offline.htm* , ASP.NET Core modul reaguje na požadavky odesláním zpět obsahu *app_offline.htm* souboru. Po odebrání souboru *app_offline.htm* spustí aplikace další požadavek.
 
 Při použití nezpracovaného modelu hostování se aplikace nemusí okamžitě vypnout, pokud dojde k otevřenému připojení. Připojení k protokolu WebSocket může například zpozdit ukončení aplikace.
 
@@ -691,7 +693,7 @@ Další informace o formátech cest najdete v tématu [formáty souborů cest v 
 
 ## <a name="enhanced-diagnostic-logs"></a>Rozšířené diagnostické protokoly
 
-Modul ASP.NET Core lze nakonfigurovat tak, aby poskytoval rozšířené diagnostické protokoly. Přidejte `<handlerSettings>` element do `<aspNetCore>` elementu v *souboru Web. config*. Nastavení `debugLevel` pro `TRACE` zpřístupňuje vyšší věrnost diagnostických informací:
+Modul ASP.NET Core lze nakonfigurovat tak, aby poskytoval rozšířené diagnostické protokoly. Přidejte `<handlerSettings>` element do `<aspNetCore>` prvku v *web.config*. Nastavení `debugLevel` pro `TRACE` zpřístupňuje vyšší věrnost diagnostických informací:
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -731,7 +733,7 @@ Nastavení obslužné rutiny lze také poskytnout pomocí proměnných prostřed
 > [!WARNING]
 > Nenechávejte **protokolování** ladění povolené v nasazení po delší dobu, než je potřeba k řešení problému. Velikost protokolu není omezená. Když necháte protokol ladění povolený, může dojít k vyčerpání dostupného místa na disku a selhání serveru nebo služby App Service.
 
-Příklad [Configuration with web.config](#configuration-with-webconfig) `aspNetCore` elementu v souboru *Web. config* naleznete v tématu Konfigurace pomocí souboru Web. config.
+Příklad prvku v souboruweb.confignaleznete v tématu [konfigurace s web.config](#configuration-with-webconfig) `aspNetCore` . *web.config*
 
 ## <a name="proxy-configuration-uses-http-protocol-and-a-pairing-token"></a>Konfigurace proxy serveru používá protokol HTTP a token párování.
 
@@ -743,7 +745,7 @@ Párovací token se používá k zajištění, že žádosti přijaté službou 
 
 ## <a name="aspnet-core-module-with-an-iis-shared-configuration"></a>ASP.NET Core modul se sdílenou konfigurací služby IIS
 
-Instalační služba modulu ASP.NET Core se spouští s oprávněními účtu **TrustedInstaller** . Vzhledem k tomu, že účet místního systému nemá oprávnění k úpravám pro cestu ke sdílené složce, kterou používá sdílená konfigurace služby IIS, vyvolá Instalační program chybu odepření přístupu při pokusu o konfiguraci nastavení modulu v souboru *ApplicationHost. config* ve sdílené složce.
+Instalační služba modulu ASP.NET Core se spouští s oprávněními účtu **TrustedInstaller** . Vzhledem k tomu, že účet místního systému nemá oprávnění k úpravám pro cestu ke sdílené složce, kterou používá sdílená konfigurace služby IIS, vyvolá Instalační program chybu odepření přístupu při pokusu o konfiguraci nastavení modulu v souboru *applicationHost.config* ve sdílené složce.
 
 Pokud používáte konfiguraci IIS Shared na stejném počítači jako instalaci služby IIS, spusťte instalační program sady prostředků ASP.NET Core s `OPT_NO_SHARED_CONFIG_CHECK` parametrem nastaveným na `1` :
 
@@ -755,7 +757,7 @@ Pokud cesta ke sdílené konfiguraci není ve stejném počítači jako instalac
 
 1. Zakažte sdílenou konfiguraci služby IIS.
 1. Spusťte instalační program.
-1. Exportujte aktualizovaný soubor *ApplicationHost. config* do sdílené složky.
+1. Exportujte aktualizovaný soubor *applicationHost.config* do sdílené složky.
 1. Znovu povolte sdílenou konfiguraci služby IIS.
 
 ## <a name="module-version-and-hosting-bundle-installer-logs"></a>Verze modulu a instalační protokoly hostitelské sady
@@ -763,7 +765,7 @@ Pokud cesta ke sdílené konfiguraci není ve stejném počítači jako instalac
 Postup určení verze nainstalovaného modulu ASP.NET Core:
 
 1. V hostitelském systému přejděte na *%windir%\system32\inetsrv*.
-1. Vyhledejte soubor *aspnetcore. dll* .
+1. Vyhledejte soubor *aspnetcore.dll* .
 1. Klikněte na soubor pravým tlačítkem a v místní nabídce vyberte **vlastnosti** .
 1. Vyberte kartu **Podrobnosti** . **Verze souboru** a **verze produktu** reprezentují nainstalovanou verzi modulu.
 
@@ -775,11 +777,11 @@ Protokoly instalačních balíčků pro modul se nacházejí v *C: \\ Uživatel�
 
 **Služba IIS (x86/amd64):**
 
-* %windir%\System32\inetsrv\aspnetcore.dll
+* % windir% \System32\inetsrv\aspnetcore.dll
 
-* %windir%\SysWOW64\inetsrv\aspnetcore.dll
+* % windir% \SysWOW64\inetsrv\aspnetcore.dll
 
-* %ProgramFiles%\IIS\Asp.Net Core Module\V2\aspnetcorev2.dll
+* Základní Module\V2\aspnetcorev2.dll%ProgramFiles%\IIS\Asp.Net
 
 * % ProgramFiles (x86)% \ IIS\Asp.Net Core Module\V2\aspnetcorev2.dll
 
@@ -797,29 +799,29 @@ Protokoly instalačních balíčků pro modul se nacházejí v *C: \\ Uživatel�
 
 **IIS**
 
-* %windir%\System32\inetsrv\config\schema\ aspnetcore_schema. XML
+* % windir% \System32\inetsrv\config\schema\aspnetcore_schema.xml
 
-* %windir%\System32\inetsrv\config\schema\ aspnetcore_schema_v2. XML
+* % windir% \System32\inetsrv\config\schema\aspnetcore_schema_v2.xml
 
 **IIS Express**
 
-* %ProgramFiles%\IIS Express\config\schema\ aspnetcore_schema. XML
+* %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema.xml
 
-* %ProgramFiles%\IIS Express\config\schema\ aspnetcore_schema_v2. XML
+* %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema_v2.xml
 
 ### <a name="configuration"></a>Konfigurace
 
 **IIS**
 
-* %windir%\System32\inetsrv\config\applicationHost.config
+* % windir% \System32\inetsrv\config\applicationHost.config
 
 **IIS Express**
 
-* Visual Studio: {ROOT aplikace} \\ . vs\config\applicationHost.config
+* Visual Studio: {ROOT aplikace} \\.vs\config\applicationHost.config
 
-* *IISExpress. exe* CLI:%USERPROFILE%\Documents\IISExpress\config\applicationhost.config
+* *iisexpress.exe* CLI:% USERPROFILE% \Documents\IISExpress\config\applicationhost.config
 
-Soubory lze najít hledáním *aspnetcore* v souboru *ApplicationHost. config* .
+Soubory můžete najít hledáním *aspnetcore* v souboru *applicationHost.config* .
 
 ::: moniker-end
 
@@ -832,7 +834,7 @@ Podporované verze systému Windows:
 * Windows 7 nebo novější
 * Windows Server 2008 R2 nebo novější
 
-Modul funguje pouze s Kestrel. Modul není kompatibilní s [http. sys](xref:fundamentals/servers/httpsys).
+Modul funguje pouze s Kestrel. Modul není kompatibilní s [HTTP.sys](xref:fundamentals/servers/httpsys).
 
 Vzhledem k tomu, že ASP.NET Core aplikace běží v procesu odděleném od pracovního procesu služby IIS, modul také zpracovává správu procesů. Modul spustí proces pro aplikaci ASP.NET Core, když první požadavek dorazí a restartuje aplikaci, pokud dojde k chybě. To je v podstatě stejné chování jako u aplikací ASP.NET 4. x spouštěných vnitroprocesově ve službě IIS, které spravuje [Aktivační služba procesů systému Windows (WAS)](/iis/manage/provisioning-and-managing-iis/features-of-the-windows-process-activation-service-was).
 
@@ -840,7 +842,7 @@ Následující diagram znázorňuje vztah mezi službou IIS, modulem ASP.NET Cor
 
 ![Modul ASP.NET Core](aspnet-core-module/_static/ancm-outofprocess.png)
 
-Požadavky přicházející z webu do ovladače HTTP. sys v režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
+Požadavky přicházející z webu do ovladače HTTP.sys režimu jádra. Ovladač směruje požadavky do služby IIS na konfigurovaném portu webu, obvykle 80 (HTTP) nebo 443 (HTTPS). Modul předá požadavky do Kestrel na náhodném portu pro aplikaci, což není port 80 nebo 443.
 
 Modul Určuje port prostřednictvím proměnné prostředí při spuštění a [Služba IIS Integration middleware](xref:host-and-deploy/iis/index#enable-the-iisintegration-components) nakonfiguruje server, na kterém má naslouchat `http://localhost:{port}` . Budou provedeny další kontroly a požadavky, které nepocházejí z modulu, jsou odmítnuty. Modul nepodporuje předávání HTTPS, takže požadavky se předávají přes protokol HTTP i v případě, že je služba IIS prostřednictvím protokolu HTTPS přijímá.
 
@@ -858,11 +860,11 @@ Modul ASP.NET Core může také:
 
 Pokyny k instalaci modulu ASP.NET Core najdete v tématu [instalace hostující sady .NET Core](xref:host-and-deploy/iis/index#install-the-net-core-hosting-bundle).
 
-## <a name="configuration-with-webconfig"></a>Konfigurace pomocí souboru Web. config
+## <a name="configuration-with-webconfig"></a>Konfigurace s web.config
 
-Modul ASP.NET Core je nakonfigurován s `aspNetCore` částí `system.webServer` uzlu v souboru *Web. config* webu.
+Modul ASP.NET Core je nakonfigurován s `aspNetCore` částí `system.webServer` uzlu v souboru *web.config* webu.
 
-Následující soubor *Web. config* je publikován pro [nasazení závislé na rozhraní](/dotnet/articles/core/deploying/#framework-dependent-deployments-fdd) a nakonfiguruje modul ASP.NET Core pro zpracování požadavků lokality:
+Následující *web.config* soubor je publikován pro [nasazení závislé na rozhraní](/dotnet/articles/core/deploying/#framework-dependent-deployments-fdd) a konfiguruje modul ASP.NET Core, aby zpracovával požadavky webu:
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -879,7 +881,7 @@ Následující soubor *Web. config* je publikován pro [nasazení závislé na r
 </configuration>
 ```
 
-Následující soubor *Web. config* je publikován pro [samostatně uzavřené nasazení](/dotnet/articles/core/deploying/#self-contained-deployments-scd):
+Následující *web.config* jsou publikovány pro [samostatně uzavřené nasazení](/dotnet/articles/core/deploying/#self-contained-deployments-scd):
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -904,13 +906,13 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 | Atribut | Popis | Výchozí |
 | --------- | ----------- | :-----: |
 | `arguments` | <p>Volitelný řetězcový atribut.</p><p>Argumenty ke spustitelnému souboru určenému v **processPath**.</p>| |
-| `disableStartUpErrorPage` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, stránka **502,5 – selhání procesu** se potlačí a stavová stránka 502 konfigurovaná v *souboru Web. config* má přednost.</p> | `false` |
+| `disableStartUpErrorPage` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, stránka **502,5-procesového selhání** se potlačí a stavová stránka 502, která je nakonfigurovaná ve *web.config* , má přednost.</p> | `false` |
 | `forwardWindowsAuthToken` | <p>Volitelný atribut typu Boolean.</p><p>Pokud je nastaveno na true, token se přepošle podřízenému procesu, který naslouchá na% ASPNETCORE_PORT% jako záhlaví MS-ASPNETCORE-WINAUTHTOKEN na žádost. Je zodpovědností za tento proces volání CloseHandle na tento token na žádost.</p> | `true` |
 | `processesPerApplication` | <p>Volitelný celočíselný atribut</p><p>Určuje počet instancí procesu určeného v nastavení **processPath** , které lze v rámci aplikace vystavit.</p><p>Nastavení `processesPerApplication` se nedoporučuje. Tento atribut bude v budoucí verzi odebrán.</p> | Výchozí`1`<br>Dlouhé`1`<br>Počet`100` |
 | `processPath` | <p>Povinný atribut řetězce.</p><p>Cesta ke spustitelnému souboru, který spouští proces naslouchající na požadavky HTTP. Jsou podporovány relativní cesty. Pokud cesta začíná `.` , bude tato cesta považována za relativní vzhledem k kořenu webu.</p> | |
 | `rapidFailsPerMinute` | <p>Volitelný celočíselný atribut</p><p>Určuje, kolikrát je povoleno selhání procesu určeného v **processPath** za minutu. Pokud je tento limit překročen, modul ukončí spuštění procesu po zbytek minuty.</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`100` |
 | `requestTimeout` | <p>Volitelný atribut TimeSpan.</p><p>Určuje dobu, po kterou modul ASP.NET Core čeká na odpověď od procesu, který naslouchá na% ASPNETCORE_PORT%.</p><p>Ve verzích modulu ASP.NET Core, které byly dodávány s vydáním ASP.NET Core 2,1 nebo vyšší, `requestTimeout` je určena v hodinách, minutách a sekundách.</p> | Výchozí`00:02:00`<br>Dlouhé`00:00:00`<br>Počet`360:00:00` |
-| `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *App_offline. htm* .</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`600` |
+| `shutdownTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, po kterou modul čeká na řádné vypnutí spustitelného souboru, když se zjistí soubor *app_offline.htm* .</p> | Výchozí`10`<br>Dlouhé`0`<br>Počet`600` |
 | `startupTimeLimit` | <p>Volitelný celočíselný atribut</p><p>Doba v sekundách, kterou modul počká, než spustitelný soubor spustí proces, který na portu naslouchá. Pokud je tento časový limit překročen, modul proces ukončuje. Modul se pokusí znovu spustit proces, když obdrží novou žádost, a pokračuje v pokusu o restartování procesu u dalších příchozích požadavků, pokud se nepodaří spustit **rapidFailsPerMinute** počet pokusů během poslední minuty.</p><p>Hodnota 0 (nula **) není považována za** nekonečný časový limit.</p> | Výchozí`120`<br>Dlouhé`0`<br>Počet`3600` |
 | `stdoutLogEnabled` | <p>Volitelný atribut typu Boolean.</p><p>Je-li nastavena hodnota true, **stdout** a **stderr** pro proces zadaný v **processPath** budou přesměrovány do souboru zadaného v **stdoutLogFile**.</p> | `false` |
 | `stdoutLogFile` | <p>Volitelný řetězcový atribut.</p><p>Určuje relativní nebo absolutní cestu k souboru, pro který je **stdout** a **stderr** z procesu určeného v **processPath** protokolováno. Relativní cesty jsou relativní vzhledem k kořenu webu. Každá cesta začínající řetězcem `.` je relativní vzhledem k kořenu webu a všechny ostatní cesty se považují za absolutní cesty. Aby modul vytvořil soubor protokolu, musí existovat všechny složky, které jsou v cestě k dispozici. Pomocí oddělovačů podtržítka se do posledního segmentu cesty **stdoutLogFile** přidá časové razítko, ID procesu a Přípona souboru (*. log*). Pokud `.\logs\stdout` je zadán jako hodnota, je ukázkový protokol stdout uložen jako *stdout_20180205194132_1934. log* ve složce *logs* při uložení na 2/5/2018 v 19:41:32 s ID procesu 1934.</p> | `aspnetcore-stdout` |
@@ -920,9 +922,9 @@ Informace o konfiguraci dílčí aplikace IIS najdete v tématu <xref:host-and-d
 Proměnné prostředí lze zadat pro proces v `processPath` atributu. Zadejte proměnnou prostředí s `<environmentVariable>` podřízeným elementem `<environmentVariables>` elementu kolekce.
 
 > [!WARNING]
-> Proměnné prostředí nastavené v této části jsou v konfliktu se sadou proměnných prostředí systému se stejným názvem. Pokud je proměnná prostředí nastavena v souboru *Web. config* i na úrovni systému systému Windows, bude hodnota ze souboru *Web. config* připojena k hodnotě proměnné prostředí systému (například `ASPNETCORE_ENVIRONMENT: Development;Development` ), což zabrání spuštění aplikace.
+> Proměnné prostředí nastavené v této části jsou v konfliktu se sadou proměnných prostředí systému se stejným názvem. Pokud je proměnná prostředí nastavena v souboru *web.config* i na úrovni systému systému Windows, bude hodnota ze souboru *web.config* připojena k hodnotě proměnné prostředí systému (například `ASPNETCORE_ENVIRONMENT: Development;Development` ), což zabrání spuštění aplikace.
 
-Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIRONMENT`nakonfiguruje prostředí aplikace na `Development` . Vývojář může tuto hodnotu dočasně nastavit v souboru *Web. config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR`je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
+Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIRONMENT`nakonfiguruje prostředí aplikace na `Development` . Vývojář může tuto hodnotu dočasně nastavit v souboru *web.config* , aby bylo možné vynutit, aby se [Stránka s výjimkou vývojářů](xref:fundamentals/error-handling) načetla při ladění výjimky aplikace. `CONFIG_DIR`je příkladem uživatelsky definované proměnné prostředí, kde vývojář napsal kód, který přečte hodnotu při spuštění, aby vytvořil cestu pro načtení konfiguračního souboru aplikace.
 
 ```xml
 <aspNetCore processPath="dotnet"
@@ -939,11 +941,11 @@ Následující příklad nastaví dvě proměnné prostředí. `ASPNETCORE_ENVIR
 > [!WARNING]
 > Nastavte pouze `ASPNETCORE_ENVIRONMENT` proměnnou prostředí na `Development` pracovní a testovací servery, které nejsou přístupné nedůvěryhodným sítím, jako je například Internet.
 
-## <a name="app_offlinehtm"></a>app_offline. htm
+## <a name="app_offlinehtm"></a>app_offline.htm
 
-Pokud se v kořenovém adresáři aplikace zjistí soubor s názvem *App_offline. htm* , modul ASP.NET Core se pokusí aplikaci řádně vypnout a zastavit zpracování příchozích požadavků. Pokud aplikace běží i po uplynutí počtu sekund definovaného v `shutdownTimeLimit` , modul ASP.NET Core ukončuje běžící proces.
+Pokud se v kořenovém adresáři aplikace zjistí soubor s názvem *app_offline.htm* , modul ASP.NET Core se pokusí aplikaci řádně vypnout a zastavit zpracování příchozích požadavků. Pokud aplikace běží i po uplynutí počtu sekund definovaného v `shutdownTimeLimit` , modul ASP.NET Core ukončuje běžící proces.
 
-Když je přítomen soubor *App_offline. htm* , ASP.NET Core modul reaguje na požadavky odesláním zpět obsahu souboru *App_offline. htm* . Po odebrání souboru *App_offline. htm* aplikace spustí další požadavek.
+Když je přítomen soubor *app_offline.htm* , ASP.NET Core modul reaguje na požadavky odesláním zpět obsahu *app_offline.htm* souboru. Po odebrání souboru *app_offline.htm* spustí aplikace další požadavek.
 
 ## <a name="start-up-error-page"></a>Spouštěcí chybová stránka
 
@@ -987,13 +989,13 @@ Párovací token se používá k zajištění, že žádosti přijaté službou 
 
 ## <a name="aspnet-core-module-with-an-iis-shared-configuration"></a>ASP.NET Core modul se sdílenou konfigurací služby IIS
 
-Instalační služba modulu ASP.NET Core se spouští s oprávněními účtu **TrustedInstaller** . Vzhledem k tomu, že účet místního systému nemá oprávnění k úpravám pro cestu ke sdílené složce, kterou používá sdílená konfigurace služby IIS, vyvolá Instalační program chybu odepření přístupu při pokusu o konfiguraci nastavení modulu v souboru *ApplicationHost. config* ve sdílené složce.
+Instalační služba modulu ASP.NET Core se spouští s oprávněními účtu **TrustedInstaller** . Vzhledem k tomu, že účet místního systému nemá oprávnění k úpravám pro cestu ke sdílené složce, kterou používá sdílená konfigurace služby IIS, vyvolá Instalační program chybu odepření přístupu při pokusu o konfiguraci nastavení modulu v souboru *applicationHost.config* ve sdílené složce.
 
 Pokud používáte sdílenou konfiguraci služby IIS, postupujte podle těchto kroků:
 
 1. Zakažte sdílenou konfiguraci služby IIS.
 1. Spusťte instalační program.
-1. Exportujte aktualizovaný soubor *ApplicationHost. config* do sdílené složky.
+1. Exportujte aktualizovaný soubor *applicationHost.config* do sdílené složky.
 1. Znovu povolte sdílenou konfiguraci služby IIS.
 
 ## <a name="module-version-and-hosting-bundle-installer-logs"></a>Verze modulu a instalační protokoly hostitelské sady
@@ -1001,7 +1003,7 @@ Pokud používáte sdílenou konfiguraci služby IIS, postupujte podle těchto k
 Postup určení verze nainstalovaného modulu ASP.NET Core:
 
 1. V hostitelském systému přejděte na *%windir%\system32\inetsrv*.
-1. Vyhledejte soubor *aspnetcore. dll* .
+1. Vyhledejte soubor *aspnetcore.dll* .
 1. Klikněte na soubor pravým tlačítkem a v místní nabídce vyberte **vlastnosti** .
 1. Vyberte kartu **Podrobnosti** . **Verze souboru** a **verze produktu** reprezentují nainstalovanou verzi modulu.
 
@@ -1013,9 +1015,9 @@ Protokoly instalačních balíčků pro modul se nacházejí v *C: \\ Uživatel�
 
 **Služba IIS (x86/amd64):**
 
-* %windir%\System32\inetsrv\aspnetcore.dll
+* % windir% \System32\inetsrv\aspnetcore.dll
 
-* %windir%\SysWOW64\inetsrv\aspnetcore.dll
+* % windir% \SysWOW64\inetsrv\aspnetcore.dll
 
 **IIS Express (x86/amd64):**
 
@@ -1027,25 +1029,25 @@ Protokoly instalačních balíčků pro modul se nacházejí v *C: \\ Uživatel�
 
 **IIS**
 
-* %windir%\System32\inetsrv\config\schema\ aspnetcore_schema. XML
+* % windir% \System32\inetsrv\config\schema\aspnetcore_schema.xml
 
 **IIS Express**
 
-* %ProgramFiles%\IIS Express\config\schema\ aspnetcore_schema. XML
+* %ProgramFiles%\IIS Express\config\schema\aspnetcore_schema.xml
 
 ### <a name="configuration"></a>Konfigurace
 
 **IIS**
 
-* %windir%\System32\inetsrv\config\applicationHost.config
+* % windir% \System32\inetsrv\config\applicationHost.config
 
 **IIS Express**
 
-* Visual Studio: {ROOT aplikace} \\ . vs\config\applicationHost.config
+* Visual Studio: {ROOT aplikace} \\.vs\config\applicationHost.config
 
-* *IISExpress. exe* CLI:%USERPROFILE%\Documents\IISExpress\config\applicationhost.config
+* *iisexpress.exe* CLI:% USERPROFILE% \Documents\IISExpress\config\applicationhost.config
 
-Soubory lze najít hledáním *aspnetcore* v souboru *ApplicationHost. config* .
+Soubory můžete najít hledáním *aspnetcore* v souboru *applicationHost.config* .
 
 ::: moniker-end
 

@@ -7,17 +7,19 @@ ms.author: jamesnk
 ms.date: 01/09/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: grpc/versioning
-ms.openlocfilehash: dcf089f1e5f27639d048e91ee3aa42c7da6d8398
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: af8c6cac621ed073fc34e2afe0402e640c2c5727
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775359"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400008"
 ---
 # <a name="versioning-grpc-services"></a>Správa verzí služeb gRPC
 
@@ -54,7 +56,7 @@ Následující změny nejsou rozstupné na úrovni protokolu gRPC, ale pokud se 
 
 * **Odebrání hodnot pole** z odebraného pole je deserializovatelné na [neznámá pole](https://developers.google.com/protocol-buffers/docs/proto3#unknowns)zprávy. Nejedná se o změnu gRPC protokolu, ale pokud se upgraduje na nejnovější verzi, je potřeba aktualizovat klienta. Je důležité, aby odebrané číslo pole v budoucnu nechtěně znovu nepoužívalo. Chcete-li zajistit, aby k tomu nedocházelo, zadejte ve zprávě pomocí [rezervovaného](https://developers.google.com/protocol-buffers/docs/proto3#reserved) klíčového slova Protobuf Odstraněná čísla a názvy polí.
 * **Přejmenování** zpráv – názvy zpráv se obvykle neodesílají v síti, takže to není gRPCá Změna protokolu. Klient bude muset být aktualizován, pokud se upgraduje na nejnovější kontrakt. Jedna situace, kdy se **názvy zpráv** odesílají v síti, jsou v [jakémkoli](https://developers.google.com/protocol-buffers/docs/proto3#any) poli, když se k identifikaci typu zprávy použije název zprávy.
-* **Změna csharp_namespace** `csharp_namespace` změny změní obor názvů vygenerovaných typů .NET. Nejedná se o změnu gRPC protokolu, ale pokud se upgraduje na nejnovější verzi, je potřeba aktualizovat klienta.
+* **Změna csharp_namespace** změny změní `csharp_namespace` obor názvů vygenerovaných typů .NET. Nejedná se o změnu gRPC protokolu, ale pokud se upgraduje na nejnovější verzi, je potřeba aktualizovat klienta.
 
 ### <a name="protocol-breaking-changes"></a>Přerušující se změny protokolu
 

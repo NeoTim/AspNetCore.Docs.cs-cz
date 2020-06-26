@@ -6,17 +6,19 @@ ms.author: avickers
 ms.date: 07/01/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/customize_identity_model
-ms.openlocfilehash: 96ee703da4ced69c5d9c703139e33b76b5dcdff1
-ms.sourcegitcommit: 4437f4c149f1ef6c28796dcfaa2863b4c088169c
+ms.openlocfilehash: 3a5bac0e3e34602b1f8a85a7bcde1ba92b372607
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85074139"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399163"
 ---
 # <a name="identity-model-customization-in-aspnet-core"></a>IdentityPřizpůsobení modelu v ASP.NET Core
 
@@ -56,7 +58,7 @@ Předchozí kroky opakujte, protože se v modelu provedou změny.
 
 IdentityModel se skládá z následujících typů entit.
 
-|Typ entity|Popis                                                  |
+|Typ entity|Description                                                  |
 |-----------|-------------------------------------------------------------|
 |`User`     |Představuje uživatele.                                         |
 |`Role`     |Představuje roli.                                           |
@@ -215,7 +217,7 @@ Identitydefinuje výchozí typy modulu CLR ( [Common Language Runtime](/dotnet/s
 
 Místo toho, aby tyto typy používaly přímo, lze typy použít jako základní třídy pro vlastní typy aplikace. `DbContext`Třídy definované pomocí Identity jsou obecné, takže různé typy CLR lze použít pro jeden nebo více typů entit v modelu. Tyto obecné typy také umožňují `User` změnit datový typ primární klíč (PK).
 
-Při použití Identity s podporou rolí <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> by měla být použita třída. Příklad:
+Při použití Identity s podporou rolí <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> by měla být použita třída. Například:
 
 ```csharp
 // Uses all the built-in Identity types
@@ -430,7 +432,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     ::: moniker-end
 
-4. Pokud `ApplicationUser` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityUser` . Příklad:
+4. Pokud `ApplicationUser` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityUser` . Například:
 
     ::: moniker range="<= aspnetcore-1.1"
 
@@ -498,7 +500,7 @@ Chcete-li změnit typ PK, postupujte podle těchto kroků:
 
     ::: moniker-end
 
-5. Pokud `ApplicationRole` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityRole<TKey>` . Příklad:
+5. Pokud `ApplicationRole` je použita vlastní třída, aktualizujte třídu tak, aby dědila z `IdentityRole<TKey>` . Například:
 
     [!code-csharp[](customize-identity-model/samples/2.1/RazorPagesSampleApp/Data/ApplicationRole.cs?name=snippet_ApplicationRole&highlight=4)]
 
@@ -947,7 +949,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ### <a name="map-to-a-different-schema"></a>Mapování na jiné schéma
 
-Schémata se můžou v různých poskytovatelích databáze chovat různě. V případě SQL Server se ve výchozím nastavení vytvoří všechny tabulky ve schématu *dbo* . Tabulky lze vytvořit v jiném schématu. Příklad:
+Schémata se můžou v různých poskytovatelích databáze chovat různě. V případě SQL Server se ve výchozím nastavení vytvoří všechny tabulky ve schématu *dbo* . Tabulky lze vytvořit v jiném schématu. Například:
 
 ```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)

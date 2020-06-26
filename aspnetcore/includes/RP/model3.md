@@ -1,5 +1,5 @@
 
-Spusťte následující příkazy příkazového příkazu .NET Core CLI:
+Spusťte následující příkazy .NET Core CLI:
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate

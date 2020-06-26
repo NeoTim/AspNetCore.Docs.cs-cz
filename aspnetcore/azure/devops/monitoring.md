@@ -7,17 +7,19 @@ ms.custom: mvc, seodec18
 ms.date: 07/10/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: azure/devops/monitor
-ms.openlocfilehash: 3af36a37124968e13952e8bf5de1b643265a4a5b
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a94b1e0b5ce2a24cf22eb665c9bcd03c25ffa67f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766885"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400372"
 ---
 # <a name="monitor-and-debug"></a>Monitorování a ladění
 
@@ -37,7 +39,7 @@ V této části provedete následující úlohy:
 
 App Service webové aplikace lze snadno sledovat v reálném čase. Azure Portal vykresluje metriky v snadno srozumitelných grafech a grafech.
 
-1. Otevřete [Azure Portal](https://portal.azure.com)a potom přejděte na App Service *unique_number\<\> MyWebApp* .
+1. Otevřete [Azure Portal](https://portal.azure.com)a pak přejděte na App Service *MyWebApp \<unique_number\> * .
 
 1. Karta **Přehled** zobrazuje užitečné informace, včetně grafů, které zobrazují nedávné metriky.
 
@@ -65,7 +67,7 @@ App Service webové aplikace lze snadno sledovat v reálném čase. Azure Portal
 
 [Application Insights](/azure/application-insights/app-insights-overview) je služba Azure, která slouží k analýze výkonu a stability webových aplikací a způsobu jejich používání uživateli. Data z Application Insights jsou širší a hlubší než Azure Monitor. Data mohou vývojářům a správcům poskytnout klíčové informace pro zlepšení aplikací. Application Insights lze přidat do prostředku Azure App Service bez změny kódu.
 
-1. Otevřete [Azure Portal](https://portal.azure.com)a potom přejděte na App Service *unique_number\<\> MyWebApp* .
+1. Otevřete [Azure Portal](https://portal.azure.com)a pak přejděte na App Service *MyWebApp \<unique_number\> * .
 1. Na kartě **Přehled** klikněte na dlaždici **Application Insights** .
 
     ![Dlaždice Application Insights](./media/monitoring/app-insights.png)
@@ -90,7 +92,7 @@ Application Insights poskytuje užitečné informace na straně serveru bez dal�
 
 Protokoly webového serveru a aplikace jsou ve výchozím nastavení ve Azure App Service zakázané. Povolte protokoly pomocí následujících kroků:
 
-1. Otevřete [Azure Portal](https://portal.azure.com)a přejděte do App Service *unique_number\<\> MyWebApp* .
+1. Otevřete [Azure Portal](https://portal.azure.com)a přejděte do App Service *MyWebApp \<unique_number\> * .
 1. V nabídce vlevo přejděte dolů k části **monitorování** . Vyberte **diagnostické protokoly**.
 
     ![Odkaz na diagnostické protokoly](./media/monitoring/logging.png)
@@ -106,7 +108,7 @@ Pro webovou aplikaci jsou vygenerovány protokoly ASP.NET Core a webový server 
 
 Protokoly aplikací a webového serveru můžou být v reálném čase streamované prostřednictvím portálu.
 
-1. Otevřete [Azure Portal](https://portal.azure.com)a přejděte do App Service *unique_number\<\> MyWebApp* .
+1. Otevřete [Azure Portal](https://portal.azure.com)a přejděte do App Service *MyWebApp \<unique_number\> * .
 1. V nabídce vlevo přejděte dolů k části **monitorování** a vyberte **log Stream**.
 
     ![Snímek obrazovky ukazující odkaz na Stream protokolu](./media/monitoring/log-stream.png)

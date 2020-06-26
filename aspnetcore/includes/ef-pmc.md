@@ -1,1 +1,1 @@
-Další informace o nástrojích PMC pro EF Core najdete v [tématu EF Core nástroje odkaz - PMC v sadě Visual Studio](/ef/core/miscellaneous/cli/powershell).
+Další informace o nástrojích PMC pro EF Core naleznete v tématu [EF Core Tools reference – PMC v aplikaci Visual Studio](/ef/core/miscellaneous/cli/powershell).

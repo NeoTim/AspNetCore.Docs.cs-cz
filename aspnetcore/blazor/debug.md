@@ -1,30 +1,32 @@
 ---
-title: Ladění ASP.NET Core Blazor WebAssembly
+title: ASP.NET Core laděníBlazor WebAssembly
 author: guardrex
 description: Naučte se ladit Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/31/2020
+ms.date: 06/25/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: 75db5d5e69cb200ebf3bd1dc1e0afed0300214cc
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 9fe51b8c7eafdd62cc6fc1a820135d9ee5ff010e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242768"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401009"
 ---
-# <a name="debug-aspnet-core-blazor-webassembly"></a>Ladění ASP.NET Core Blazor WebAssembly
+# <a name="debug-aspnet-core-blazor-webassembly"></a>ASP.NET Core laděníBlazor WebAssembly
 
 [Daniel Skořepa](https://github.com/danroth27)
 
-BlazorAplikace WebAssembly se dají ladit pomocí nástrojů pro vývoj v prohlížeči v prohlížečích založených na chromu (Edge/Chrome). Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
+Blazor WebAssemblyaplikace se dají ladit pomocí vývojářských nástrojů pro vývoj v prohlížečích založených na chromu (Edge/Chrome). Alternativně můžete aplikaci ladit pomocí sady Visual Studio nebo Visual Studio Code.
 
 K dispozici jsou tyto scénáře:
 
@@ -51,7 +53,7 @@ Ladění vyžaduje některý z následujících prohlížečů:
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>Povolit ladění pro Visual Studio a Visual Studio Code
 
-Chcete-li povolit ladění pro existující Blazor aplikaci WebAssembly, aktualizujte `launchSettings.json` soubor v spouštěném projektu tak, aby do `inspectUri` každého spouštěcího profilu zahrnoval následující vlastnost:
+Chcete-li povolit ladění pro existující Blazor WebAssembly aplikaci, aktualizujte `launchSettings.json` soubor v spouštěném projektu tak, aby do `inspectUri` každého spouštěcího profilu zahrnoval následující vlastnost:
 
 ```json
 "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
@@ -63,16 +65,16 @@ Po aktualizaci `launchSettings.json` by měl soubor vypadat podobně jako v nás
 
 `inspectUri`Vlastnost:
 
-* Umožňuje rozhraní IDE zjistit, že aplikace je Blazor aplikace WebAssembly.
+* Umožňuje rozhraní IDE zjistit, že aplikace je Blazor WebAssembly aplikace.
 * Dá pokyn k tomu, aby se infrastruktura ladění skriptů připojovala k prohlížeči prostřednictvím Blazor ladicího proxy serveru.
 
 Zástupný text pro protokol WebSockets ( `wsProtocol` ), hostitele ( `url.hostname` ), port ( `url.port` ) a identifikátor URI pro inspektor v spuštěném prohlížeči ( `browserInspectUri` ) jsou poskytovány rozhraním.
 
 ## <a name="visual-studio"></a>Visual Studio
 
-Ladění Blazor aplikace WebAssembly v aplikaci Visual Studio:
+Ladění Blazor WebAssembly aplikace v aplikaci Visual Studio:
 
-1. Vytvoří novou ASP.NET Core hostovanou Blazor aplikaci WebAssembly.
+1. Vytvořte novou ASP.NET Core hostovanou Blazor WebAssembly aplikaci.
 1. Stisknutím klávesy <kbd>F5</kbd> spusťte aplikaci v ladicím programu.
 1. Nastavte zarážku v `Pages/Counter.razor` `IncrementCount` metodě.
 1. Přejděte na **`Counter`** kartu a vyberte tlačítko, kde se má zarážka opakovat:
@@ -85,7 +87,7 @@ Ladění Blazor aplikace WebAssembly v aplikaci Visual Studio:
 
 1. Pokračujte v provádění stisknutím klávesy <kbd>F5</kbd> .
 
-Při ladění Blazor aplikace pro WebAssembly můžete také ladit kód serveru:
+Při ladění Blazor WebAssembly aplikace můžete také ladit kód serveru:
 
 1. Nastavte zarážku na `Pages/FetchData.razor` stránce v <xref:Microsoft.AspNetCore.Components.ComponentBase.OnInitializedAsync%2A> .
 1. Nastavte zarážku v `WeatherForecastController` `Get` metodě Action.
@@ -103,7 +105,7 @@ Při ladění Blazor aplikace pro WebAssembly můžete také ladit kód serveru:
 
 ## <a name="visual-studio-code"></a>Visual Studio Code
 
-Ladění Blazor aplikace WebAssembly v Visual Studio Code:
+Ladění Blazor WebAssembly aplikace v Visual Studio Code:
  
 Nainstalujte [rozšíření C#](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) a rozšíření [ladicí program JavaScriptu (v noci)](https://marketplace.visualstudio.com/items?itemName=ms-vscode.js-debug-nightly) s `debug.javascript.usePreview` nastavením na `true` .
 
@@ -111,9 +113,9 @@ Nainstalujte [rozšíření C#](https://marketplace.visualstudio.com/items?itemN
 
 ![JS Preview ladicího programu](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-js-use-preview.png)
 
-### <a name="debug-standalone-blazor-webassembly"></a>Ladit samostatné Blazor WebAssembly
+### <a name="debug-standalone-blazor-webassembly"></a>Samostatně laditBlazor WebAssembly
 
-1. Otevřete samostatnou Blazor aplikaci WebAssembly v vs Code.
+1. Otevřete samostatnou Blazor WebAssembly aplikaci v vs Code.
 
    Pokud se zobrazí následující oznámení, že pro povolení ladění je potřeba další nastavení:
    
@@ -125,7 +127,7 @@ Nainstalujte [rozšíření C#](https://marketplace.visualstudio.com/items?itemN
 
 1. Spusťte ladění pomocí klávesových zkratek <kbd>F5</kbd> nebo položky nabídky.
 
-1. Po zobrazení výzvy vyberte možnost ** Blazor ladění WebAssembly** a spusťte ladění.
+1. Po zobrazení výzvy vyberte možnost ** Blazor WebAssembly ladění** pro spuštění ladění.
 
    ![Seznam dostupných možností ladění](index/_static/blazor-vscode-debugtypes.png)
 
@@ -135,9 +137,9 @@ Nainstalujte [rozšíření C#](https://marketplace.visualstudio.com/items?itemN
 
    ![Čítač ladění v VS Code](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-debug-counter.png)
 
-### <a name="debug-hosted-blazor-webassembly"></a>Ladit hostované Blazor WebAssembly
+### <a name="debug-hosted-blazor-webassembly"></a>Ladění je hostovanéBlazor WebAssembly
 
-1. Otevřete hostovanou Blazor aplikaci WebAssembly v vs Code.
+1. Otevřete hostovanou Blazor WebAssembly aplikaci v vs Code.
 
 1. Pokud pro projekt neexistuje konfigurační sada pro spuštění, zobrazí se následující oznámení. Vyberte **Ano**.
 
@@ -168,11 +170,11 @@ Pro typ ladění jsou podporovány následující možnosti konfigurace spuště
 
 | Možnost    | Description |
 | --------- | ----------- |
-| `request` | Použijte `launch` ke spuštění a připojení relace ladění k Blazor aplikaci WebAssembly nebo `attach` k připojení relace ladění k již spuštěné aplikaci. |
+| `request` | Pomocí `launch` můžete spustit a připojit relaci ladění k Blazor WebAssembly aplikaci nebo `attach` připojit relaci ladění k již spuštěné aplikaci. |
 | `url`     | Adresa URL, která se má otevřít v prohlížeči při ladění. Výchozí hodnota je `https://localhost:5001` . |
 | `browser` | Prohlížeč, který se má spustit pro relaci ladění. Nastavte na `edge` nebo `chrome`. Výchozí hodnota je `chrome` . |
 | `trace`   | Slouží ke generování protokolů z ladicího programu JS. Nastavte na `true` Generovat protokoly. |
-| `hosted`  | Musí být nastaven na hodnotu `true` při spuštění a ladění hostované Blazor aplikace WebAssembly. |
+| `hosted`  | Musí být nastavené na hodnotu `true` při spuštění a ladění hostované Blazor WebAssembly aplikace. |
 | `webRoot` | Určuje absolutní cestu webového serveru. By měla být nastavena, pokud je aplikace obsluhována z dílčího směrování. |
 | `timeout` | Počet milisekund, po které se má čekat na připojení relace ladění Výchozí hodnota je 30 000 milisekund (30 sekund). |
 | `program` | Odkaz na spustitelný soubor pro spuštění serveru hostované aplikace. Musí být nastaven `hosted` , pokud je `true` . |
@@ -181,7 +183,7 @@ Pro typ ladění jsou podporovány následující možnosti konfigurace spuště
 
 ### <a name="example-launch-configurations"></a>Příklad konfigurací spuštění
 
-#### <a name="launch-and-debug-a-standalone-blazor-webassembly-app"></a>Spuštění a ladění samostatné Blazor aplikace WebAssembly
+#### <a name="launch-and-debug-a-standalone-blazor-webassembly-app"></a>Spuštění a ladění samostatné Blazor WebAssembly aplikace
 
 ```json
 {
@@ -202,7 +204,7 @@ Pro typ ladění jsou podporovány následující možnosti konfigurace spuště
 }
 ```
 
-#### <a name="launch-and-debug-a-hosted-blazor-webassembly-app"></a>Spuštění a ladění hostované Blazor aplikace WebAssembly
+#### <a name="launch-and-debug-a-hosted-blazor-webassembly-app"></a>Spuštění a ladění hostované Blazor WebAssembly aplikace
 
 ```json
 {
@@ -236,3 +238,4 @@ Pokud dochází k chybám, může vám pomáhat následující tipy:
 
 * Na kartě **ladicí program** otevřete nástroje pro vývojáře v prohlížeči. V konzole nástroje spusťte příkaz `localStorage.clear()` k odebrání všech zarážek.
 * Potvrďte, že jste nainstalovali a důvěřujete ASP.NET Core certifikát pro vývoj HTTPS. Další informace naleznete v tématu <xref:security/enforcing-ssl#troubleshoot-certificate-problems>.
+* Visual Studio vyžaduje možnost **Povolit ladění JavaScriptu pro ASP.NET (Chrome, Edge a IE)** v možnostech **nástrojů**  >  **Options**  >  **Debugging**  >  **Obecné**ladění. Toto je výchozí nastavení pro Visual Studio. Pokud ladění nefunguje, potvrďte, že je vybraná možnost.

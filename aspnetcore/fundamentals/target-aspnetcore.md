@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/16/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/target-aspnetcore
-ms.openlocfilehash: 70a445d109a1a9553178e94d79df87cd373e6b06
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 1c794092b856a916a318956d7cfb357d46a22d1d
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103025"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85399644"
 ---
 # <a name="use-aspnet-core-apis-in-a-class-library"></a>Použití rozhraní API ASP.NET Core v knihovně tříd
 
@@ -52,7 +54,7 @@ Blazorpodporuje WebAssembly (WASM) a [modely hostování](xref:blazor/hosting-mo
 
 ### <a name="support-both-hosting-models"></a>Podpora obou modelů hostování
 
-Pro podporu Razor spotřeby komponent z projektů [ Blazor serveru i serveru](xref:blazor/hosting-models#blazor-server) [ Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) použijte následující pokyny pro Editor.
+Pro podporu Razor spotřeby komponent z [Blazor Server](xref:blazor/hosting-models#blazor-server) projektů i [ Blazor WASM](xref:blazor/hosting-models#blazor-webassembly) použijte následující pokyny pro Editor.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -80,18 +82,18 @@ Projekt vygenerovaný ze šablony provádí následující akce:
   * [Microsoft. AspNetCore. Components](https://www.nuget.org/packages/Microsoft.AspNetCore.Components)
   * [Microsoft. AspNetCore. Components. Web](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.Web)
 
-Příklad:
+Například:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-razor-components-library.csproj)]
 
 ### <a name="support-a-specific-hosting-model"></a>Podpora konkrétního modelu hostování
 
-Je mnohem méně běžné podporovat jeden Blazor model hostování. Například pro podporu Razor spotřeby komponent jenom z projektů [ Blazor serveru](xref:blazor/hosting-models#blazor-server) :
+Je mnohem méně běžné podporovat jeden Blazor model hostování. Například pro podporu Razor spotřeby komponent [Blazor Server](xref:blazor/hosting-models#blazor-server) pouze z projektů:
 
 * Cílová platforma .NET Core 3. x.
 * Přidejte `<FrameworkReference>` element pro sdílené rozhraní.
 
-Příklad:
+Například:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-components-library.csproj)]
 
@@ -136,31 +138,31 @@ V tuto chvíli není podporována žádná podpora šablon projektů.
 
 ---
 
-Příklad:
+Například:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-razor-views-pages-library.csproj)]
 
-Pokud se místo toho projekt cílí .NET Standard, je vyžadován odkaz na balíček [Microsoft. AspNetCore. Mvc](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc) . `Microsoft.AspNetCore.Mvc`Balíček se přesunul do sdíleného rozhraní v ASP.NET Core 3,0, a proto už není publikovaný. Příklad:
+Pokud se místo toho projekt cílí .NET Standard, je vyžadován odkaz na balíček [Microsoft. AspNetCore. Mvc](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc) . `Microsoft.AspNetCore.Mvc`Balíček se přesunul do sdíleného rozhraní v ASP.NET Core 3,0, a proto už není publikovaný. Například:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-razor-views-pages-library.csproj?highlight=8)]
 
 ### <a name="tag-helpers"></a>Pomocné rutiny značek
 
-Projekt, který obsahuje [pomocníky značek](xref:mvc/views/tag-helpers/intro) , by měl používat `Microsoft.NET.Sdk` sadu SDK. Pokud cílíte na rozhraní .NET Core 3. x, přidejte `<FrameworkReference>` element pro sdílené rozhraní. Příklad:
+Projekt, který obsahuje [pomocníky značek](xref:mvc/views/tag-helpers/intro) , by měl používat `Microsoft.NET.Sdk` sadu SDK. Pokud cílíte na rozhraní .NET Core 3. x, přidejte `<FrameworkReference>` element pro sdílené rozhraní. Například:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-Pokud cílíte na .NET Standard (pro podporu verzí starších než ASP.NET Core 3. x), přidejte odkaz na balíček do [Microsoft. AspNetCore. Razor MVC.](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor). `Microsoft.AspNetCore.Mvc.Razor`Balíček se přesunul do sdíleného rozhraní, takže už není publikovaný. Příklad:
+Pokud cílíte na .NET Standard (pro podporu verzí starších než ASP.NET Core 3. x), přidejte odkaz na balíček do [Microsoft. AspNetCore. Razor MVC.](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.Razor). `Microsoft.AspNetCore.Mvc.Razor`Balíček se přesunul do sdíleného rozhraní, takže už není publikovaný. Například:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-tag-helpers-library.csproj)]
 
 ### <a name="view-components"></a>Komponenty zobrazení
 
-Projekt, který obsahuje [komponenty zobrazení](xref:mvc/views/view-components) , by měl používat `Microsoft.NET.Sdk` sadu SDK. Pokud cílíte na rozhraní .NET Core 3. x, přidejte `<FrameworkReference>` element pro sdílené rozhraní. Příklad:
+Projekt, který obsahuje [komponenty zobrazení](xref:mvc/views/view-components) , by měl používat `Microsoft.NET.Sdk` sadu SDK. Pokud cílíte na rozhraní .NET Core 3. x, přidejte `<FrameworkReference>` element pro sdílené rozhraní. Například:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netcoreapp3.0-basic-library.csproj)]
 
-Pokud cílíte .NET Standard (pro podporu verzí starších než ASP.NET Core 3. x), přidejte odkaz na balíček do [Microsoft. AspNetCore. Mvc. ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures). `Microsoft.AspNetCore.Mvc.ViewFeatures`Balíček se přesunul do sdíleného rozhraní, takže už není publikovaný. Příklad:
+Pokud cílíte .NET Standard (pro podporu verzí starších než ASP.NET Core 3. x), přidejte odkaz na balíček do [Microsoft. AspNetCore. Mvc. ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures). `Microsoft.AspNetCore.Mvc.ViewFeatures`Balíček se přesunul do sdíleného rozhraní, takže už není publikovaný. Například:
 
 [!code-xml[](target-aspnetcore/samples/single-tfm/netstandard2.0-view-components-library.csproj)]
 
@@ -212,7 +214,7 @@ Pokud knihovnu nelze přepsat, proveďte následující kroky:
 * Přidejte `<FrameworkReference>` element pro sdílené rozhraní.
 * Pomocí [direktivy preprocesoru #if](/dotnet/csharp/language-reference/preprocessor-directives/preprocessor-if) s příslušným cílovým symbolem rozhraní můžete podmíněně kompilovat kód.
 
-Například synchronní čtení a zápisy v případě požadavků HTTP a datových proudů odpovědí jsou ve výchozím nastavení zakázány ASP.NET Core 3,0. ASP.NET Core 2,2 ve výchozím nastavení podporuje synchronní chování. Vezměte v úvahu knihovnu middlewaru, ve které by měla být povolena synchronní čtení a zápisy, kde se vyskytuje vstup/výstup. Knihovna by měla uzavřít kód, aby povolovala synchronní funkce v příslušné direktivě preprocesoru. Příklad:
+Například synchronní čtení a zápisy v případě požadavků HTTP a datových proudů odpovědí jsou ve výchozím nastavení zakázány ASP.NET Core 3,0. ASP.NET Core 2,2 ve výchozím nastavení podporuje synchronní chování. Vezměte v úvahu knihovnu middlewaru, ve které by měla být povolena synchronní čtení a zápisy, kde se vyskytuje vstup/výstup. Knihovna by měla uzavřít kód, aby povolovala synchronní funkce v příslušné direktivě preprocesoru. Například:
 
 [!code-csharp[](target-aspnetcore/samples/middleware.cs?highlight=9-24)]
 

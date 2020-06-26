@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: blazor/call-javascript-from-dotnet
-ms.openlocfilehash: f39a1a3b78d8017738f83f4d191c7f11c7a6c9e6
-ms.sourcegitcommit: 066d66ea150f8aab63f9e0e0668b06c9426296fd
+ms.openlocfilehash: 8a2df6ca55985a1cff49abb09113e49bfeae6829
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/23/2020
-ms.locfileid: "85242538"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400515"
 ---
 # <a name="call-javascript-functions-from-net-methods-in-aspnet-core-blazor"></a>Volání funkcí jazyka JavaScript z metod .NET v ASP.NET CoreBlazor
 
@@ -32,11 +34,11 @@ Tento článek popisuje vyvolání funkcí jazyka JavaScript z rozhraní .NET. I
 
 Chcete-li volat do JavaScriptu z rozhraní .NET, použijte <xref:Microsoft.JSInterop.IJSRuntime> abstrakci. Chcete-li vydat volání interoperability JS, zapište <xref:Microsoft.JSInterop.IJSRuntime> abstrakci do komponenty. <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A>přebírá identifikátor funkce JavaScriptu, kterou chcete vyvolat, spolu s libovolným počtem argumentů serializovatelných pomocí JSON. Identifikátor funkce je relativní vzhledem k globálnímu oboru ( `window` ). Pokud chcete volat `window.someScope.someFunction` , je identifikátor `someScope.someFunction` . Před voláním funkce není nutné ji registrovat. Návratový typ `T` musí být také serializovatelný jako JSON. `T`by měl odpovídat typu .NET, který se nejlépe mapuje na vrácený typ JSON.
 
-Pro Blazor serverové aplikace s povoleným předvykreslováním není možné volat do JavaScriptu během prvotního předgenerování. Volání interoperability JavaScriptu musí být odložena až po navázání spojení s prohlížečem. Další informace najdete v části [zjištění, kdy Blazor je serverová aplikace](#detect-when-a-blazor-server-app-is-prerendering) vykreslovat.
+Pro Blazor Server aplikace s povoleným předvykreslováním není možné volat do JavaScriptu během prvotního předgenerování. Volání interoperability JavaScriptu musí být odložena až po navázání spojení s prohlížečem. Další informace najdete v části [zjištění, kdy Blazor Server se aplikace](#detect-when-a-blazor-server-app-is-prerendering) vykreslovat.
 
 Následující příklad je založen na [`TextDecoder`](https://developer.mozilla.org/docs/Web/API/TextDecoder) dekodéru založeném na jazyce JavaScript. Příklad ukazuje, jak vyvolat funkci JavaScriptu z metody jazyka C#, která přesměruje požadavek od kódu pro vývojáře na existující rozhraní JavaScript API. Funkce JavaScriptu přijímá bajtové pole z metody jazyka C#, dekóduje pole a vrátí text do komponenty pro zobrazení.
 
-V rámci `<head>` elementu `wwwroot/index.html` ( Blazor WebAssembly) nebo `Pages/_Host.cshtml` ( Blazor Server) zadejte funkci JavaScriptu, která používá `TextDecoder` k dekódování předaného pole a vrácení dekódovaných hodnot:
+Uvnitř `<head>` elementu `wwwroot/index.html` ( Blazor WebAssembly ) nebo `Pages/_Host.cshtml` ( Blazor Server ) zadejte funkci JavaScriptu, která používá `TextDecoder` k dekódování předaného pole a vrácení dekódovaných hodnot:
 
 [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-convertarray.html)]
 
@@ -61,7 +63,7 @@ Chcete-li použít <xref:Microsoft.JSInterop.IJSRuntime> abstrakci, přijímají
 
   [!code-razor[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction.razor?highlight=1)]
 
-  V rámci `<head>` elementu `wwwroot/index.html` ( Blazor WebAssembly) nebo `Pages/_Host.cshtml` ( Blazor Server) zadejte `handleTickerChanged` funkci JavaScriptu. Funkce je volána s <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> a nevrací hodnotu:
+  Uvnitř `<head>` elementu `wwwroot/index.html` ( Blazor WebAssembly ) nebo `Pages/_Host.cshtml` ( Blazor Server ) zadejte `handleTickerChanged` funkci JavaScriptu. Funkce je volána s <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> a nevrací hodnotu:
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged1.html)]
 
@@ -69,7 +71,7 @@ Chcete-li použít <xref:Microsoft.JSInterop.IJSRuntime> abstrakci, přijímají
 
   [!code-csharp[](call-javascript-from-dotnet/samples_snapshot/inject-abstraction-class.cs?highlight=5)]
 
-  V rámci `<head>` elementu `wwwroot/index.html` ( Blazor WebAssembly) nebo `Pages/_Host.cshtml` ( Blazor Server) zadejte `handleTickerChanged` funkci JavaScriptu. Funkce je volána s `JSRuntime.InvokeAsync` a vrátí hodnotu:
+  Uvnitř `<head>` elementu `wwwroot/index.html` ( Blazor WebAssembly ) nebo `Pages/_Host.cshtml` ( Blazor Server ) zadejte `handleTickerChanged` funkci JavaScriptu. Funkce je volána s `JSRuntime.InvokeAsync` a vrátí hodnotu:
 
   [!code-html[](call-javascript-from-dotnet/samples_snapshot/index-script-handleTickerChanged2.html)]
 
@@ -89,13 +91,13 @@ V ukázkové aplikaci na straně klienta, která doprovází toto téma, jsou k 
 
 [!code-javascript[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/exampleJsInterop.js?highlight=2-7)]
 
-Umístěte `<script>` značku, která odkazuje na soubor JavaScriptu v `wwwroot/index.html` souboru ( Blazor WebAssembly) nebo `Pages/_Host.cshtml` souboru ( Blazor Server).
+Umístěte `<script>` značku, která odkazuje na soubor JavaScriptu v `wwwroot/index.html` souboru ( Blazor WebAssembly ) nebo `Pages/_Host.cshtml` souboru ( Blazor Server ).
 
-`wwwroot/index.html`( Blazor WebAssembly):
+`wwwroot/index.html` (Blazor WebAssembly):
 
 [!code-html[](./common/samples/3.x/BlazorWebAssemblySample/wwwroot/index.html?highlight=22)]
 
-`Pages/_Host.cshtml`( Blazor Server):
+`Pages/_Host.cshtml` (Blazor Server):
 
 [!code-cshtml[](./common/samples/3.x/BlazorServerSample/Pages/_Host.cshtml?highlight=35)]
 
@@ -103,7 +105,7 @@ Neumísťujte `<script>` značku do souboru komponenty, protože `<script>` zna�
 
 Metody .NET spolupracuje s funkcemi JavaScriptu v `exampleJsInterop.js` souboru voláním <xref:Microsoft.JSInterop.IJSRuntime.InvokeAsync%2A?displayProperty=nameWithType> .
 
-<xref:Microsoft.JSInterop.IJSRuntime>Abstrakce je asynchronní, aby umožňovala Blazor serverové scénáře. Pokud je aplikace Blazor aplikace WebAssembly a chcete vyvolat funkci JavaScriptu synchronně, přetypování směrem dolů <xref:Microsoft.JSInterop.IJSInProcessRuntime> a volání <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A> místo toho. Doporučujeme, aby většina knihoven spolupráce v JS používala asynchronní rozhraní API, aby bylo zajištěno, že jsou knihovny dostupné ve všech scénářích.
+<xref:Microsoft.JSInterop.IJSRuntime>Abstrakce je asynchronní k povolení pro Blazor Server scénáře. Pokud aplikace je Blazor WebAssembly aplikace a chcete funkci JavaScriptu vyvolat synchronně, přetypování směrem dolů <xref:Microsoft.JSInterop.IJSInProcessRuntime> a volání <xref:Microsoft.JSInterop.IJSInProcessRuntime.Invoke%2A> místo toho. Doporučujeme, aby většina knihoven spolupráce v JS používala asynchronní rozhraní API, aby bylo zajištěno, že jsou knihovny dostupné ve všech scénářích.
 
 Ukázková aplikace obsahuje komponentu, která předvádí interoperabilitu JS. Součást:
 
@@ -150,7 +152,7 @@ Ukázková aplikace obsahuje komponentu, která předvádí interoperabilitu JS.
 
 Funkce jazyka JavaScript, které vracejí [typ void (0)/void 0](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/void) nebo [undefined](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/undefined) , jsou volány s <xref:Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync%2A?displayProperty=nameWithType> .
 
-## <a name="detect-when-a-blazor-server-app-is-prerendering"></a>Rozpoznat, kdy Blazor se serverová aplikace před vykreslením
+## <a name="detect-when-a-blazor-server-app-is-prerendering"></a>Rozpoznat, kdy Blazor Server se aplikace předvykresluje
  
 [!INCLUDE[](~/includes/blazor-prerendering.md)]
 
@@ -248,7 +250,7 @@ Pro nadřazenou komponentu, aby byl odkaz na element dostupný pro jiné kompone
 * Umožňuje podřízeným součástem registrovat zpětná volání.
 * Vyvolejte zaregistrovaná zpětná volání během <xref:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender%2A> události s odkazem na předaný element. Nepřímo tento přístup umožňuje podřízeným komponentám pracovat s odkazem na element nadřazených prvků.
 
-Následující Blazor příklad WebAssembly znázorňuje přístup.
+Následující Blazor WebAssembly příklad ilustruje přístup.
 
 V `<head>` `wwwroot/index.html` :
 
@@ -443,7 +445,7 @@ namespace BlazorSample.Shared
 
 ## <a name="harden-js-interop-calls"></a>Volání interoperability pro posílení JS
 
-Interoperabilita JS může selhat kvůli chybám sítě a měla by být považována za nespolehlivou. Ve výchozím nastavení Blazor Serverová aplikace vyprší volání interoperability js na serveru po jedné minutě. Pokud aplikace může tolerovat více agresivní časový limit, nastavte časový limit pomocí jednoho z následujících přístupů:
+Interoperabilita JS může selhat kvůli chybám sítě a měla by být považována za nespolehlivou. Ve výchozím nastavení Blazor Server vyprší volání spolupráce v aplikaci js na serveru po jedné minutě. Pokud aplikace může tolerovat více agresivní časový limit, nastavte časový limit pomocí jednoho z následujících přístupů:
 
 * V `Startup.ConfigureServices` části globálně zadejte časový limit:
 
@@ -479,4 +481,4 @@ Další informace najdete v následujících problémech:
 
 * <xref:blazor/call-dotnet-from-javascript>
 * [Příklad InteropComponent. Razor (dotnet/AspNetCore, úložiště GitHub, větev vydání 3,1)](https://github.com/dotnet/AspNetCore/blob/release/3.1/src/Components/test/testassets/BasicTestApp/InteropComponent.razor)
-* [Provádění rozsáhlých přenosů dat v Blazor serverových aplikacích](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)
+* [Provádění rozsáhlých přenosů dat v Blazor Server aplikacích](xref:blazor/advanced-scenarios#perform-large-data-transfers-in-blazor-server-apps)

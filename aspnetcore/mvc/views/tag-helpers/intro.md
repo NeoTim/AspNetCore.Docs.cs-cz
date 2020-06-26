@@ -7,17 +7,19 @@ ms.custom: H1Hack27Feb2017
 ms.date: 03/18/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/intro
-ms.openlocfilehash: 7298e514938e8285a1e42afad0f2f71375e2781d
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 36d8c3dd42ac9d0acdb93bba4bc39ab18ad5c52f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776471"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400892"
 ---
 # <a name="tag-helpers-in-aspnet-core"></a>Tagování pomocníků v ASP.NET Core
 
@@ -25,17 +27,17 @@ Autor: [Rick Anderson](https://twitter.com/RickAndMSFT)
 
 ## <a name="what-are-tag-helpers"></a>Co jsou pomocníky značek
 
-Pomáhat pomocníkům při vytváření kódu a vykreslování prvků HTML v Razor souborech, které umožňují kód na straně serveru Například předdefinovaná verze `ImageTagHelper` může k názvu image připojit číslo verze. Pokaždé, když se obrázek změní, server vygeneruje pro Image novou jedinečnou verzi, takže klienti budou mít zaručený přístup k aktuální imagi (místo k zastaralému obrázku v mezipaměti). K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako je vytváření formulářů, odkazů, načítání assetů a ještě více dostupných ve veřejných úložištích GitHub a jako balíčky NuGet. Pomocníky značek jsou vytvořeny v jazyce C# a jsou cíleny na prvky HTML na základě názvu elementu, názvu atributu nebo nadřazené značky. Například Vestavěná `LabelTagHelper` možnost může cílit na prvek jazyka HTML `<label>` při použití `LabelTagHelper` atributů. Pokud jste obeznámeni s [pomocníky HTML](https://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers), značky pomocníků vám omezí explicitní přechody mezi HTML a C# Razor v zobrazeních. V mnoha případech pomocné rutiny HTML poskytují alternativní přístup k konkrétní pomocné rutině značek, ale je důležité rozpoznat, že pomocné rutiny značky nenahrazují nápovědu HTML a že pro každou pomocnou nápovědu HTML není k dispozici pomocný pomocník značek. [Pomocník značek v porovnání s pomocníky HTML](#tag-helpers-compared-to-html-helpers) vysvětluje rozdíly podrobněji.
+Pomáhat pomocníkům při vytváření kódu a vykreslování prvků HTML v souborech, které umožňují kód na straně serveru Razor Například předdefinovaná `ImageTagHelper` verze může k názvu image připojit číslo verze. Pokaždé, když se obrázek změní, server vygeneruje pro Image novou jedinečnou verzi, takže klienti budou mít zaručený přístup k aktuální imagi (místo k zastaralému obrázku v mezipaměti). K dispozici je mnoho vestavěných pomocníků značek pro běžné úkoly, jako je vytváření formulářů, odkazů, načítání assetů a ještě více dostupných ve veřejných úložištích GitHub a jako balíčky NuGet. Pomocníky značek jsou vytvořeny v jazyce C# a jsou cíleny na prvky HTML na základě názvu elementu, názvu atributu nebo nadřazené značky. Například Vestavěná `LabelTagHelper` možnost může cílit na prvek jazyka HTML `<label>` při `LabelTagHelper` použití atributů. Pokud jste obeznámeni s [pomocníky HTML](https://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers), značky pomocníků vám omezí explicitní přechody mezi HTML a C# v Razor zobrazeních. V mnoha případech pomocné rutiny HTML poskytují alternativní přístup k konkrétní pomocné rutině značek, ale je důležité rozpoznat, že pomocné rutiny značky nenahrazují nápovědu HTML a že pro každou pomocnou nápovědu HTML není k dispozici pomocný pomocník značek. [Pomocník značek v porovnání s pomocníky HTML](#tag-helpers-compared-to-html-helpers) vysvětluje rozdíly podrobněji.
 
 ## <a name="what-tag-helpers-provide"></a>Co poskytují pomocníky značek
 
-**Prostředí pro vývoj s uživatelsky přívětivými HTML** Ve většině případů Razor značky pomocí pomocníků značek vypadají jako standardní HTML. Návrháři front-end Conversant s HTML/CSS/JavaScriptem mohou Razor upravovat bez výuky Razor syntaxe jazyka C#.
+**Prostředí pro vývoj s uživatelsky přívětivými HTML** Ve většině případů Razor značky pomocí pomocníků značek vypadají jako standardní HTML. Návrháři front-end Conversant s HTML/CSS/JavaScriptem mohou upravovat Razor bez výuky Razor syntaxe jazyka C#.
 
-**Bohatý prostředí IntelliSense pro vytváření kódu HTML a Razor značení** je ostrého kontrastu s pomocníky HTML, předchozím přístupem k vytváření značek v Razor zobrazeních na straně serveru. [Pomocník značek v porovnání s pomocníky HTML](#tag-helpers-compared-to-html-helpers) vysvětluje rozdíly podrobněji. [Podpora technologie IntelliSense pro pomocníci značek](#intellisense-support-for-tag-helpers) vysvětluje prostředí IntelliSense. I vývojáři, kteří Razor se s syntaxí jazyka c# setkali, mají vyšší produktivitu pomocí pomocníků značek než psaní kódu jazyka c# Razor .
+**Bohatý prostředí IntelliSense pro vytváření kódu HTML a Razor značení** je ostrého kontrastu s pomocníky HTML, předchozím přístupem k vytváření značek v zobrazeních na straně serveru Razor . [Pomocník značek v porovnání s pomocníky HTML](#tag-helpers-compared-to-html-helpers) vysvětluje rozdíly podrobněji. [Podpora technologie IntelliSense pro pomocníci značek](#intellisense-support-for-tag-helpers) vysvětluje prostředí IntelliSense. I vývojáři, kteří se s Razor syntaxí jazyka c# setkali, mají vyšší produktivitu pomocí pomocníků značek než psaní kódu jazyka c# Razor .
 
-**Způsob, jak zvýšit produktivitu a umožnit vám poskytovat robustnější, spolehlivý a udržovatelný kód s využitím informací, které jsou k dispozici pouze na serveru** Například historicky heslo při aktualizaci imagí bylo změnit název obrázku při změně obrázku. Obrázky by měly být agresivní v mezipaměti z důvodu výkonu, a pokud nezměníte název obrázku, riskujete, že klienti získávají starou kopii. V minulosti se po úpravě obrázku změnil název a každý odkaz na obrázek ve webové aplikaci, který je potřeba aktualizovat. Nejenom je to velmi náročné na práci, je to také náchylné k chybám (může se stát, že nechtěně zadáte špatný řetězec atd.). Integrovaná `ImageTagHelper` možnost může to provést automaticky. Rozhraní `ImageTagHelper` může k názvu image připojit číslo verze, takže když se obrázek změní, server automaticky vygeneruje novou jedinečnou verzi image. Klientům je zaručeno získat aktuální bitovou kopii. Tato odolnost a úspory na práci jsou `ImageTagHelper`v podstatě bezplatné pomocí.
+**Způsob, jak zvýšit produktivitu a umožnit vám poskytovat robustnější, spolehlivý a udržovatelný kód s využitím informací, které jsou k dispozici pouze na serveru** Například historicky heslo při aktualizaci imagí bylo změnit název obrázku při změně obrázku. Obrázky by měly být agresivní v mezipaměti z důvodu výkonu, a pokud nezměníte název obrázku, riskujete, že klienti získávají starou kopii. V minulosti se po úpravě obrázku změnil název a každý odkaz na obrázek ve webové aplikaci, který je potřeba aktualizovat. Nejenom je to velmi náročné na práci, je to také náchylné k chybám (může se stát, že nechtěně zadáte špatný řetězec atd.). Integrovaná `ImageTagHelper` možnost může to provést automaticky. Rozhraní `ImageTagHelper` může k názvu image připojit číslo verze, takže když se obrázek změní, server automaticky vygeneruje novou jedinečnou verzi image. Klientům je zaručeno získat aktuální bitovou kopii. Tato odolnost a úspory na práci jsou v podstatě bezplatné pomocí `ImageTagHelper` .
 
-Většina vestavěných pomocníků značek cílí na standardní prvky HTML a poskytují atributy na straně serveru pro element. Například `<input>` prvek použitý v mnoha zobrazeních ve složce *views/Account* obsahuje `asp-for` atribut. Tento atribut extrahuje název zadané vlastnosti modelu do vykresleného HTML. Vezměte v Razor úvahu zobrazení s následujícím modelem:
+Většina vestavěných pomocníků značek cílí na standardní prvky HTML a poskytují atributy na straně serveru pro element. Například `<input>` prvek použitý v mnoha zobrazeních ve složce *views/Account* obsahuje `asp-for` atribut. Tento atribut extrahuje název zadané vlastnosti modelu do vykresleného HTML. Vezměte v úvahu Razor zobrazení s následujícím modelem:
 
 ```csharp
 public class Movie
@@ -60,11 +62,11 @@ Generuje následující kód HTML:
 <label for="Movie_Title">Title</label>
 ```
 
-`asp-for` Atribut je zpřístupněn `For` vlastností v [LabelTagHelper](/dotnet/api/microsoft.aspnetcore.mvc.taghelpers.labeltaghelper?view=aspnetcore-2.0). Další informace najdete v tématu [autora značek pomocníka](xref:mvc/views/tag-helpers/authoring) .
+`asp-for`Atribut je zpřístupněn `For` vlastností v [LabelTagHelper](/dotnet/api/microsoft.aspnetcore.mvc.taghelpers.labeltaghelper?view=aspnetcore-2.0). Další informace najdete v tématu [autora značek pomocníka](xref:mvc/views/tag-helpers/authoring) .
 
 ## <a name="managing-tag-helper-scope"></a>Správa oboru pomocníka značek
 
-Obor pomocníků značek je ovládán kombinací `@addTagHelper`, `@removeTagHelper`a znaku "!" pro odhlášení.
+Obor pomocníků značek je ovládán kombinací `@addTagHelper` , `@removeTagHelper` a znaku "!" pro odhlášení.
 
 <a name="add-helper-label"></a>
 
@@ -74,13 +76,13 @@ Pokud vytvoříte novou ASP.NET Core webovou aplikaci s názvem *AuthoringTagHel
 
 [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopy.cshtml?highlight=2&range=2-3)]
 
-`@addTagHelper` Direktiva zpřístupňuje pomocníkům značky pro zobrazení. V tomto případě je soubor zobrazení *stránky/_ViewImports. cshtml*, který je ve výchozím nastavení děděn všemi soubory ve složce a složkách *stránky* . zpřístupňují se pomocníkům značek. Výše uvedený kód používá syntaxi zástupných znaků\*("") k určení, že všechny pomocníky značek v zadaném sestavení (*Microsoft. AspNetCore. Mvc. TagHelpers*) budou k dispozici pro každý soubor zobrazení v adresáři *zobrazení* nebo v podadresáři. První parametr po `@addTagHelper` určení pomocníka značek pro načtení (používáme "\*" pro všechny pomocníky značky) a druhý parametr "Microsoft. AspNetCore. Mvc. TagHelpers" Určuje sestavení obsahující pomocníka značek. *Microsoft. AspNetCore. Mvc. TagHelpers* je sestavení pro předdefinované ASP.NET Core pomocníka značek.
+`@addTagHelper`Direktiva zpřístupňuje pomocníkům značky pro zobrazení. V tomto případě je soubor zobrazení *stránky/_ViewImports. cshtml*, který je ve výchozím nastavení děděn všemi soubory ve složce a složkách *stránky* . zpřístupňují se pomocníkům značek. Výše uvedený kód používá syntaxi zástupných znaků (" \* ") k určení, že všechny pomocníky značek v zadaném sestavení (*Microsoft. AspNetCore. Mvc. TagHelpers*) budou k dispozici pro každý soubor zobrazení v adresáři *zobrazení* nebo v podadresáři. První parametr po `@addTagHelper` určení pomocníka značek pro načtení (používáme " \* " pro všechny pomocníky značky) a druhý parametr "Microsoft. AspNetCore. Mvc. TagHelpers" Určuje sestavení obsahující pomocníka značek. *Microsoft. AspNetCore. Mvc. TagHelpers* je sestavení pro předdefinované ASP.NET Core pomocníka značek.
 
 Chcete-li zveřejnit všechny pomocníky značek v tomto projektu (který vytvoří sestavení s názvem *AuthoringTagHelpers*), použijte následující:
 
 [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImportsCopy.cshtml?highlight=3)]
 
-Pokud projekt obsahuje `EmailTagHelper` s výchozím oborem názvů (`AuthoringTagHelpers.TagHelpers.EmailTagHelper`), můžete zadat plně kvalifikovaný název (FQN) pomocné rutiny značky:
+Pokud projekt obsahuje `EmailTagHelper` s výchozím oborem názvů ( `AuthoringTagHelpers.TagHelpers.EmailTagHelper` ), můžete zadat plně kvalifikovaný název (FQN) pomocné rutiny značky:
 
 ```cshtml
 @using AuthoringTagHelpers
@@ -88,20 +90,20 @@ Pokud projekt obsahuje `EmailTagHelper` s výchozím oborem názvů (`AuthoringT
 @addTagHelper AuthoringTagHelpers.TagHelpers.EmailTagHelper, AuthoringTagHelpers
 ```
 
-Chcete-li přidat pomocníka značek pro zobrazení pomocí FQN, nejprve přidejte FQN (`AuthoringTagHelpers.TagHelpers.EmailTagHelper`) a potom název sestavení (*AuthoringTagHelpers*). Většina vývojářů upřednostňuje použití\*Syntaxe zástupných znaků. Syntaxe zástupných znaků umožňuje vložit zástupný znak "\*" jako příponu do FQN. Například kterákoli z následujících direktiv bude přinášet do `EmailTagHelper`:
+Chcete-li přidat pomocníka značek pro zobrazení pomocí FQN, nejprve přidejte FQN ( `AuthoringTagHelpers.TagHelpers.EmailTagHelper` ) a potom název sestavení (*AuthoringTagHelpers*). Většina vývojářů upřednostňuje použití \* Syntaxe zástupných znaků. Syntaxe zástupných znaků umožňuje vložit zástupný znak " \* " jako příponu do FQN. Například kterákoli z následujících direktiv bude přinášet do `EmailTagHelper` :
 
 ```cshtml
 @addTagHelper AuthoringTagHelpers.TagHelpers.E*, AuthoringTagHelpers
 @addTagHelper AuthoringTagHelpers.TagHelpers.Email*, AuthoringTagHelpers
 ```
 
-Jak bylo zmíněno dříve, `@addTagHelper` přidání direktivy do souboru views */_ViewImports. cshtml* zpřístupní pomocníka značek pro všechny soubory zobrazení v adresáři *zobrazení* a podadresářích. `@addTagHelper` Direktivu můžete použít pro konkrétní soubory zobrazení, pokud se chcete přihlásit k vystavení pomocníka značek jenom pro zobrazení.
+Jak bylo zmíněno dříve, přidání `@addTagHelper` direktivy do souboru views */_ViewImports. cshtml* zpřístupní pomocníka značek pro všechny soubory zobrazení v adresáři *zobrazení* a podadresářích. Direktivu můžete použít pro `@addTagHelper` konkrétní soubory zobrazení, pokud se chcete přihlásit k vystavení pomocníka značek jenom pro zobrazení.
 
 <a name="remove-razor-directives-label"></a>
 
 ### <a name="removetaghelper-removes-tag-helpers"></a>`@removeTagHelper`Odebere pomocníky značek.
 
-`@removeTagHelper` Má stejné dva parametry jako `@addTagHelper`a odebere pomocníka značek, který byl dříve přidán. Například `@removeTagHelper` použití na konkrétní zobrazení odebere ze zobrazení určenou pomocnou značku. Použití `@removeTagHelper` v souboru *views/Folder/_ViewImports. cshtml* odstraní určenou pomocnou značku ze všech zobrazení ve *složce*.
+`@removeTagHelper`Má stejné dva parametry jako `@addTagHelper` a odebere pomocníka značek, který byl dříve přidán. Například `@removeTagHelper` použití na konkrétní zobrazení odebere ze zobrazení určenou pomocnou značku. Použití `@removeTagHelper` v souboru *views/Folder/_ViewImports. cshtml* odstraní určenou pomocnou značku ze všech zobrazení ve *složce*.
 
 ### <a name="controlling-tag-helper-scope-with-the-_viewimportscshtml-file"></a>Řízení oboru pomocné rutiny značek pomocí souboru *_ViewImports. cshtml*
 
@@ -111,7 +113,7 @@ Jak bylo zmíněno dříve, `@addTagHelper` přidání direktivy do souboru view
 
 ### <a name="opting-out-of-individual-elements"></a>Zrušení individuálních prvků
 
-Pomocníka značek můžete zakázat na úrovni elementu pomocí znaku pro výslovný odkaz na značku ("!"). `Email` Ověřování je například zakázáno v `<span>` nástroji pomocí znaku pro výslovný souhlas s pomocníkem značek:
+Pomocníka značek můžete zakázat na úrovni elementu pomocí znaku pro výslovný odkaz na značku ("!"). `Email`Ověřování je například zakázáno v `<span>` nástroji pomocí znaku pro výslovný souhlas s pomocníkem značek:
 
 ```cshtml
 <!span asp-validation-for="Email" class="text-danger"></!span>
@@ -123,17 +125,17 @@ Pro otevírací a uzavírací značku musíte použít znak výslovného souhlas
 
 ### <a name="using-taghelperprefix-to-make-tag-helper-usage-explicit"></a>Použití `@tagHelperPrefix` k nastavení explicitního použití pomocníka značek
 
-`@tagHelperPrefix` Direktiva umožňuje zadat řetězec předpony značky pro povolení podpory značek a nastavit explicitní použití pomocníka značek. Například můžete přidat následující kód do souboru *views/_ViewImports. cshtml* :
+`@tagHelperPrefix`Direktiva umožňuje zadat řetězec předpony značky pro povolení podpory značek a nastavit explicitní použití pomocníka značek. Například můžete přidat následující kód do souboru *views/_ViewImports. cshtml* :
 
 ```cshtml
 @tagHelperPrefix th:
 ```
 
-V níže uvedeném obrázku kódu je předpona pomocníka značek nastavena na `th:`hodnotu, takže pouze ty prvky, které `th:` používají předpony značky support, mají pro pomocná pole značka (s podporou značek). Elementy `<label>` a `<input>` mají předponu pomocné rutiny značky a jsou zapnuty značkou pomocníka `<span>` značek, zatímco element není.
+V níže uvedeném obrázku kódu je předpona pomocníka značek nastavena na hodnotu `th:` , takže pouze ty prvky, které používají předpony `th:` značky support, mají pro pomocná pole značka (s podporou značek). `<label>`Elementy a `<input>` mají předponu pomocné rutiny značky a jsou zapnuty značkou pomocníka značek, zatímco `<span>` element není.
 
 ![image](intro/_static/thp.png)
 
-Stejná pravidla hierarchie, která platí `@addTagHelper` také pro platí pro `@tagHelperPrefix`.
+Stejná pravidla hierarchie, která platí `@addTagHelper` také pro platí pro `@tagHelperPrefix` .
 
 ## <a name="self-closing-tag-helpers"></a>Samoobslužné pomocníky značek
 
@@ -157,23 +159,23 @@ Předchozí kód lze zapsat jako:
 
 ## <a name="intellisense-support-for-tag-helpers"></a>Podpora technologie IntelliSense pro pomocné pomocníky značek
 
-Když vytvoříte novou ASP.NET Core webovou aplikaci v aplikaci Visual Studio, přidá balíček NuGet "Microsoft. AspNetCore. Razor. Nástroje ". Toto je balíček, který přidává nástroje pomocníka značek.
+Když vytvoříte novou ASP.NET Core webovou aplikaci v aplikaci Visual Studio, přidá balíček NuGet "Microsoft. AspNetCore. Razor . Nástroje ". Toto je balíček, který přidává nástroje pomocníka značek.
 
 Zvažte zápis elementu HTML `<label>` . Jakmile zadáte `<l` v editoru sady Visual Studio, IntelliSense zobrazí vyhovující prvky:
 
 ![image](intro/_static/label.png)
 
-Nejenom získáte nápovědu HTML, ale ikonu ("@" symbol with "<>" pod ní).
+Nejenom získáte nápovědu HTML, ale ikonu (" @" symbol with "<>" pod ní).
 
 ![image](intro/_static/tagSym.png)
 
-identifikuje element jako cílený pomocníky značek. Čistě prvky HTML (například `fieldset`) zobrazí ikonu "<>".
+identifikuje element jako cílený pomocníky značek. Čistě prvky HTML (například `fieldset` ) zobrazí ikonu "<>".
 
 Čistě značka HTML `<label>` zobrazuje značku HTML (s výchozím barevným motivem sady Visual Studio) v hnědém písmu, atributy červeně a hodnoty atributu modrou.
 
 ![image](intro/_static/LableHtmlTag.png)
 
-Po zadání `<label`technologie IntelliSense zobrazí seznam dostupných atributů HTML/CSS a atributy cílené na pomocnou značku:
+Po zadání `<label` technologie IntelliSense zobrazí seznam dostupných atributů HTML/CSS a atributy cílené na pomocnou značku:
 
 ![image](intro/_static/labelattr.png)
 
@@ -185,7 +187,7 @@ Jakmile je atribut pomocník značek zadán, změní se písma značky a atribut
 
 ![image](intro/_static/labelaspfor2.png)
 
-Můžete zadat zástupce sady Visual Studio *CompleteWord* (CTRL + MEZERNÍK je [Výchozí hodnota](/visualstudio/ide/default-keyboard-shortcuts-in-visual-studio) uvnitř dvojitých uvozovek ("") a teď jste v jazyce c#, stejně jako byste byli ve třídě jazyka c#. IntelliSense zobrazí všechny metody a vlastnosti v modelu stránky. Metody a vlastnosti jsou k dispozici, protože typ vlastnosti `ModelExpression`je. Na obrázku níže upravujeme `Register` zobrazení, takže `RegisterViewModel` je k dispozici.
+Můžete zadat zástupce sady Visual Studio *CompleteWord* (CTRL + MEZERNÍK je [Výchozí hodnota](/visualstudio/ide/default-keyboard-shortcuts-in-visual-studio) uvnitř dvojitých uvozovek ("") a teď jste v jazyce c#, stejně jako byste byli ve třídě jazyka c#. IntelliSense zobrazí všechny metody a vlastnosti v modelu stránky. Metody a vlastnosti jsou k dispozici, protože typ vlastnosti je `ModelExpression` . Na obrázku níže upravujeme `Register` zobrazení, takže `RegisterViewModel` je k dispozici.
 
 ![image](intro/_static/intellemail.png)
 
@@ -197,21 +199,21 @@ IntelliSense zobrazí seznam vlastností a metod, které jsou k dispozici pro mo
 
 ## <a name="tag-helpers-compared-to-html-helpers"></a>Tagování pomocníků v porovnání s pomocníky HTML
 
-Přihlaste se k prvkům jazyka Razor HTML v zobrazeních, zatímco [pomocníky HTML](https://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers) jsou vyvolány jako metody Razor s HTML v zobrazeních. Vezměte v úvahu Razor následující kód, který vytvoří popisek HTML s nadpisem CSS třídy "titulek":
+Přihlaste se k prvkům jazyka HTML v Razor zobrazeních, zatímco [pomocníky HTML](https://stephenwalther.com/archive/2009/03/03/chapter-6-understanding-html-helpers) jsou vyvolány jako metody s HTML v Razor zobrazeních. Vezměte v úvahu následující Razor kód, který vytvoří popisek HTML s nadpisem CSS třídy "titulek":
 
 ```cshtml
 @Html.Label("FirstName", "First Name:", new {@class="caption"})
 ```
 
-Symbol on (`@`) oznamuje Razor , že se jedná o začátek kódu. Následující dva parametry ("FirstName" a "first name": ") jsou řetězce, takže [IntelliSense](/visualstudio/ide/using-intellisense) nemůže pomáhat. Poslední argument:
+Symbol on ( `@` ) oznamuje, Razor že se jedná o začátek kódu. Následující dva parametry ("FirstName" a "first name": ") jsou řetězce, takže [IntelliSense](/visualstudio/ide/using-intellisense) nemůže pomáhat. Poslední argument:
 
 ```cshtml
 new {@class="caption"}
 ```
 
-Je anonymní objekt, který slouží k reprezentaci atributů. Protože `class` je klíčové slovo rezervované v jazyce C#, použijete `@` symbol k vynucení interpretace `@class=` jazyka c# jako symbolu (název vlastnosti). Do předkoncového návrháře (někdo známý s HTML/CSS/JavaScriptem a jinými klientskými technologiemi, ale není známý Razorv jazyce C# a), je většina řádku cizí. Celý řádek musí být vytvořen bez usnadnění z IntelliSense.
+Je anonymní objekt, který slouží k reprezentaci atributů. Protože `class` je klíčové slovo rezervované v jazyce C#, použijete `@` symbol k vynucení interpretace jazyka c# `@class=` jako symbolu (název vlastnosti). Do předkoncového návrháře (někdo známý s HTML/CSS/JavaScriptem a jinými klientskými technologiemi, ale není známý v jazyce C# a Razor ), je většina řádku cizí. Celý řádek musí být vytvořen bez usnadnění z IntelliSense.
 
-`LabelTagHelper`Pomocí lze napsat stejné označení jako:
+Pomocí `LabelTagHelper` lze napsat stejné označení jako:
 
 ```cshtml
 <label class="caption" asp-for="FirstName"></label>
@@ -227,7 +229,7 @@ Následující obrázek kódu ukazuje formu zobrazení */účtu/registru. cshtml
 
 ![image](intro/_static/regCS.png)
 
-Editor sady Visual Studio zobrazí kód jazyka C# s šedým pozadím. Například pomocník `AntiForgeryToken` HTML:
+Editor sady Visual Studio zobrazí kód jazyka C# s šedým pozadím. Například `AntiForgeryToken` Pomocník HTML:
 
 ```cshtml
 @Html.AntiForgeryToken()
@@ -243,7 +245,7 @@ Vezměte v úvahu tuto *e-mailovou* skupinu:
 
 [!code-csharp[](intro/sample/Register.cshtml?range=12-18)]
 
-Každý z atributů ASP-má hodnotu "E-mail", ale "E-mail" není řetězec. V tomto kontextu je "e-mailem" vlastnost výrazu modelu C# pro `RegisterViewModel`.
+Každý z atributů ASP-má hodnotu "E-mail", ale "E-mail" není řetězec. V tomto kontextu je "e-mailem" vlastnost výrazu modelu C# pro `RegisterViewModel` .
 
 Editor sady Visual Studio vám pomůže napsat **všechny** značky v pomocné metodě příznaku značky ve formuláři registru, zatímco Visual Studio neposkytuje nápovědu pro většinu kódu v přístupu k HTML pomocníkům. [Podpora technologie IntelliSense pro pomocné pomocníky značek](#intellisense-support-for-tag-helpers) se dohlíží na podrobnosti o práci s pomocníky značek v editoru sady Visual Studio.
 
@@ -263,11 +265,11 @@ Editor sady Visual Studio vám pomůže napsat **všechny** značky v pomocné m
 
 * Ovládací prvky webového serveru používají k převodu řetězců do objektů převaděče typů. U pomocníků se značkami pracujete nativně v jazyce C#, takže nemusíte provádět převod typu.
 
-* Ovládací prvky webového serveru používají [System. ComponentModel](/dotnet/api/system.componentmodel) k implementaci chování komponent a ovládacích prvků za běhu a v době návrhu. `System.ComponentModel`zahrnuje základní třídy a rozhraní pro implementaci atributů a převaděčů typů, vázání na zdroje dat a součásti licencování. Na rozdíl od toho, že chcete označit pomocníky, `TagHelper`které jsou obvykle `TagHelper` odvozeny z a základní třída zpřístupňuje pouze dvě metody `Process` a `ProcessAsync`.
+* Ovládací prvky webového serveru používají [System. ComponentModel](/dotnet/api/system.componentmodel) k implementaci chování komponent a ovládacích prvků za běhu a v době návrhu. `System.ComponentModel`zahrnuje základní třídy a rozhraní pro implementaci atributů a převaděčů typů, vázání na zdroje dat a součásti licencování. Na rozdíl od toho, že chcete označit pomocníky, které jsou obvykle odvozeny z `TagHelper` a `TagHelper` základní třída zpřístupňuje pouze dvě metody `Process` a `ProcessAsync` .
 
 ## <a name="customizing-the-tag-helper-element-font"></a>Přizpůsobení písma prvku pomocné značky
 
-Písma a barvy můžete přizpůsobit v **nabídce nástroje** > **Možnosti** > **prostředí** > **a barvy**:
+Písma a barvy můžete přizpůsobit v **nabídce nástroje**  >  **Možnosti**  >  **prostředí**  >  **a barvy**:
 
 ![image](intro/_static/fontoptions2.png)
 

@@ -8,22 +8,24 @@ ms.custom: mvc
 ms.date: 02/13/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: spa/react-with-redux
-ms.openlocfilehash: eab71349464255c9e333976caeba0e05a52909f0
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: d44e1afabd909b7d46d3355a5d66848458416873
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773706"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85401737"
 ---
 # <a name="use-the-react-with-redux-project-template-with-aspnet-core"></a>Použijte šablonu projektu reagující na Redux s ASP.NET Core
 
 Aktualizovaná šablona projektu reagující na Redux poskytuje pohodlný výchozí bod pro ASP.NET Core aplikace pomocí konvencí reagující, Redux a CRA ( [Create-reagující na aplikace](https://github.com/facebookincubator/create-react-app) ) k implementaci bohatě náročného uživatelského rozhraní (UI) na straně klienta.
 
-S výjimkou příkazu pro vytvoření projektu jsou všechny informace o šabloně reagující na Redux stejné jako v šabloně reakce. Chcete-li vytvořit tento typ projektu `dotnet new reactredux` , spusťte `dotnet new react`místo. Další informace o funkcích, které jsou společné pro šablony založené na reakci, najdete v tématu [reakce na šablonu v dokumentaci](xref:spa/react).
+S výjimkou příkazu pro vytvoření projektu jsou všechny informace o šabloně reagující na Redux stejné jako v šabloně reakce. Chcete-li vytvořit tento typ projektu, spusťte `dotnet new reactredux` místo `dotnet new react` . Další informace o funkcích, které jsou společné pro šablony založené na reakci, najdete v tématu [reakce na šablonu v dokumentaci](xref:spa/react).
 
-Informace o konfiguraci podaplikace s příReduxou v rámci služby IIS najdete v tématu [ReactRedux Template 2,1: ve službě IIS (ASPNET/šablonování &num;555) nelze použít Spa](https://github.com/aspnet/Templating/issues/555).
+Informace o konfiguraci podaplikace s příReduxou v rámci služby IIS najdete v tématu [ReactRedux Template 2,1: ve službě IIS (ASPNET/šablonování &num; 555) nelze použít Spa](https://github.com/aspnet/Templating/issues/555).

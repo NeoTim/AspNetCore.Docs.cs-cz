@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 04/06/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/compatibility/replacing-machinekey
-ms.openlocfilehash: 72e736f820ec243a7ad1461fc70e2711ac8b76ee
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: db041ab4939fc7c39ac01cc02e350aca2fbee93e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777459"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85400541"
 ---
 # <a name="replace-the-aspnet-machinekey-in-aspnet-core"></a>Nahraďte ASP.NET machineKey v ASP.NET Core
 
@@ -29,16 +31,16 @@ Implementaci `<machineKey>` elementu v ASP.NET [je nahraditelný](https://blogs.
 > [!NOTE]
 > Nový systém ochrany dat lze nainstalovat pouze do existující aplikace ASP.NET cílené na rozhraní .NET 4.5.1 nebo novější. Instalace se nezdaří, pokud je aplikace cílena na rozhraní .NET 4,5 nebo nižší.
 
-Chcete-li nainstalovat nový systém ochrany dat do existujícího projektu ASP.NET 4.5.1 +, nainstalujte balíček Microsoft. AspNetCore. DataProtection. SystemWeb. Tím se vytvoří instance systému ochrany dat s použitím [výchozích nastavení konfigurace](xref:security/data-protection/configuration/default-settings) .
+Chcete-li nainstalovat nový systém ochrany dat do existujícího projektu ASP.NET 4.5.1 +, nainstalujte balíček Microsoft.AspNetCore.DataProtection.SystemWeb. Tím se vytvoří instance systému ochrany dat s použitím [výchozích nastavení konfigurace](xref:security/data-protection/configuration/default-settings) .
 
-Při instalaci balíčku vloží řádek do *souboru Web. config* , který oznamuje ASP.NET, aby ho používal pro [většinu kryptografických operací](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/), včetně ověřování pomocí formulářů, stavu zobrazení a volání rozhraní machineKey. Protect. Vložená čára načte následující text.
+Při instalaci balíčku vloží řádek do *Web.config* , který dává ASP.NET pokyn, aby ho používal pro [většinu kryptografických operací](https://blogs.msdn.microsoft.com/webdev/2012/10/23/cryptographic-improvements-in-asp-net-4-5-pt-2/), včetně ověřování pomocí formulářů, stavu zobrazení a volání machineKey. Protect. Vložená čára načte následující text.
 
 ```xml
 <machineKey compatibilityMode="Framework45" dataProtectorType="..." />
 ```
 
 >[!TIP]
-> To, jestli je nový systém ochrany dat aktivní, můžete zjistit tak, že zkontrolujete pole jako `__VIEWSTATE`, který by měl začínat řetězcem "CfDJ8", jak je uvedeno v následujícím příkladu. "CfDJ8" je reprezentace Base64 pro hlavičku Magic "09 F0 C9 F0", která identifikuje datovou část chráněnou systémem ochrany dat.
+> To, jestli je nový systém ochrany dat aktivní, můžete zjistit tak, že zkontrolujete pole jako `__VIEWSTATE` , který by měl začínat řetězcem "CfDJ8", jak je uvedeno v následujícím příkladu. "CfDJ8" je reprezentace Base64 pro hlavičku Magic "09 F0 C9 F0", která identifikuje datovou část chráněnou systémem ochrany dat.
 
 ```html
 <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="CfDJ8AWPr2EQPTBGs3L2GCZOpk...">
@@ -75,7 +77,7 @@ namespace DataProtectionDemo
 >[!TIP]
 > Můžete také použít `<machineKey applicationName="my-app" ... />` místo explicitního volání SetApplicationName. Toto je praktický mechanismus, který vám umožní vynutit, aby vývojář vytvořil typ odvozený od DataProtectionStartup, pokud všechny, které chtěli nakonfigurovat, nastavoval název aplikace.
 
-Chcete-li povolit tuto vlastní konfiguraci, vraťte se zpět do souboru Web. config `<appSettings>` a vyhledejte prvek, který balíček nainstaloval do konfiguračního souboru. Bude vypadat jako v následujícím kódu:
+Tuto vlastní konfiguraci povolíte tak, že přejdete zpátky na Web.config a vyhledáte `<appSettings>` element, který balíček do konfiguračního souboru přidal. Bude vypadat jako v následujícím kódu:
 
 ```xml
 <appSettings>
