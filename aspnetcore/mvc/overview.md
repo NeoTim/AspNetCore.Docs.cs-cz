@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 02/12/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/overview
-ms.openlocfilehash: fcd81544385702ce72ff5fc8ae2de34d0f7afb37
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 68a0b14eb0897f6ff6e24e74b1fe5536bee1adfe
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85102997"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405845"
 ---
 # <a name="overview-of-aspnet-core-mvc"></a>Přehled ASP.NET Core MVC
 
@@ -68,7 +70,7 @@ ASP.NET Core MVC zahrnuje následující:
 * [Směrování](#routing)
 * [Vazby modelu](#model-binding)
 * [Ověření modelu](#model-validation)
-* [Injektáž závislosti](../fundamentals/dependency-injection.md)
+* [Injektáž závislostí](../fundamentals/dependency-injection.md)
 * [Filtry](#filters)
 * [Oblasti](#areas)
 * [Webová rozhraní API](#web-apis)
@@ -147,7 +149,7 @@ public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = 
 
 Rozhraní zpracovává ověřování dat žádostí na straně klienta i serveru. Logika ověřování zadaná u typů modelů je přidána do vykreslených zobrazení jako nenáročná anotace a je vyhodnocena v prohlížeči s [ověřováním jQuery](https://jqueryvalidation.org/).
 
-### <a name="dependency-injection"></a>Injektáž závislosti
+### <a name="dependency-injection"></a>Injektáž závislostí
 
 ASP.NET Core obsahuje integrovanou podporu pro [vkládání závislostí (di)](../fundamentals/dependency-injection.md). V ASP.NET Core MVC můžou [řadiče](controllers/dependency-injection.md) požadovat služby potřebné prostřednictvím svých konstruktorů, takže by mohli postupovat podle [principu explicitní závislosti](/dotnet/standard/modern-web-apps-azure-architecture/architectural-principles#explicit-dependencies).
 

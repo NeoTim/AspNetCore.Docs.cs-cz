@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 07/30/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/layout
-ms.openlocfilehash: fbae94f315c1bb49f1b04be7e71c841f46826216
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 08e6284a6c5fc8e8926651f6fe873a71df449acb
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82766482"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406651"
 ---
 # <a name="layout-in-aspnet-core"></a>Rozložení v ASP.NET Core
 
@@ -63,15 +65,15 @@ Razorzobrazení mají `Layout` vlastnost. Jednotlivá zobrazení určují rozlo�
 
 [!code-cshtml[](../../common/samples/WebApplication1/Views/_ViewStart.cshtml?highlight=2)]
 
-Zadané rozložení může použít úplnou cestu (například */Pages/Shared/_Layout. cshtml* nebo */views/Shared/_Layout. cshtml*) nebo částečný název (například: `_Layout`). Pokud je k dispozici částečný název, Razor modul zobrazení vyhledá soubor rozložení pomocí standardního procesu zjišťování. Složka, ve které existuje metoda obslužné rutiny (nebo kontrolér), je nejdříve prohledána a za ní následuje *sdílená* složka. Tento proces zjišťování je stejný jako proces, který se používá ke zjišťování [částečných zobrazení](xref:mvc/views/partial#partial-view-discovery).
+Zadané rozložení může použít úplnou cestu (například */Pages/Shared/_Layout. cshtml* nebo */views/Shared/_Layout. cshtml*) nebo částečný název (například: `_Layout` ). Pokud je k dispozici částečný název, Razor modul zobrazení vyhledá soubor rozložení pomocí standardního procesu zjišťování. Složka, ve které existuje metoda obslužné rutiny (nebo kontrolér), je nejdříve prohledána a za ní následuje *sdílená* složka. Tento proces zjišťování je stejný jako proces, který se používá ke zjišťování [částečných zobrazení](xref:mvc/views/partial#partial-view-discovery).
 
-Ve výchozím nastavení musí každé rozložení volat `RenderBody`. Všude, kde `RenderBody` je umístěno volání, se vykreslí obsah zobrazení.
+Ve výchozím nastavení musí každé rozložení volat `RenderBody` . Všude `RenderBody` , kde je umístěno volání, se vykreslí obsah zobrazení.
 
 <a name="layout-sections-label"></a>
 <!-- https://stackoverflow.com/questions/23327578 -->
 ### <a name="sections"></a>Oddíly
 
-Rozložení může volitelně odkazovat na jeden nebo více *oddílů*voláním `RenderSection`. Oddíly poskytují způsob, jak uspořádat, kde by měly být umístěny určité prvky stránky. Každé volání `RenderSection` , které umožňuje určit, zda je tato část povinná nebo volitelná:
+Rozložení může volitelně odkazovat na jeden nebo více *oddílů*voláním `RenderSection` . Oddíly poskytují způsob, jak uspořádat, kde by měly být umístěny určité prvky stránky. Každé volání, které umožňuje `RenderSection` určit, zda je tato část povinná nebo volitelná:
 
 ```html
 <script type="text/javascript" src="~/scripts/global.js"></script>
@@ -79,7 +81,7 @@ Rozložení může volitelně odkazovat na jeden nebo více *oddílů*voláním 
 @RenderSection("Scripts", required: false)
 ```
 
-Pokud není požadovaný oddíl nalezen, je vyvolána výjimka. Jednotlivá zobrazení určují obsah, který se má vykreslit v rámci oddílu `@section` Razor pomocí syntaxe. Pokud stránka nebo zobrazení definují oddíl, je nutné jej vykreslit (nebo dojde k chybě).
+Pokud není požadovaný oddíl nalezen, je vyvolána výjimka. Jednotlivá zobrazení určují obsah, který se má vykreslit v rámci oddílu pomocí `@section` Razor syntaxe. Pokud stránka nebo zobrazení definují oddíl, je nutné jej vykreslit (nebo dojde k chybě).
 
 Příklad `@section` definice v Razor zobrazení stránky:
 
@@ -89,7 +91,7 @@ Příklad `@section` definice v Razor zobrazení stránky:
 }
 ```
 
-V předchozím kódu se *skripty/Main. js* přidávají do `scripts` oddílu na stránce nebo zobrazení. Jiné stránky nebo zobrazení ve stejné aplikaci pravděpodobně nevyžadují tento skript a nedefinují oddíl Scripts.
+V předchozím kódu se *skripty/main.js* přidaly do `scripts` oddílu na stránce nebo zobrazení. Jiné stránky nebo zobrazení ve stejné aplikaci pravděpodobně nevyžadují tento skript a nedefinují oddíl Scripts.
 
 Následující kód používá [pomocníka částečné značky](xref:mvc/views/tag-helpers/builtin-th/partial-tag-helper) k vykreslování *_ValidationScriptsPartial. cshtml*:
 
@@ -99,15 +101,15 @@ Následující kód používá [pomocníka částečné značky](xref:mvc/views/
 }
 ```
 
-Předchozí kód byl vygenerován pomocí [generování uživatelského Identityrozhraní ](xref:security/authentication/scaffold-identity).
+Předchozí kód byl vygenerován pomocí [generování uživatelského Identity rozhraní ](xref:security/authentication/scaffold-identity).
 
 Oddíly definované na stránce nebo zobrazení jsou k dispozici pouze na stránce jejího okamžitého rozložení. Nelze na ně odkazovat z částečných, zobrazení součástí nebo jiných částí systému zobrazení.
 
 ### <a name="ignoring-sections"></a>Ignorují se oddíly.
 
-Ve výchozím nastavení musí být tělo a všechny oddíly na stránce obsahu vykresleny na stránce rozložení. Modul Razor zobrazení tento modul vynutil sledováním, zda byl text a jednotlivé oddíly vykresleny.
+Ve výchozím nastavení musí být tělo a všechny oddíly na stránce obsahu vykresleny na stránce rozložení. RazorModul zobrazení tento modul vynutil sledováním, zda byl text a jednotlivé oddíly vykresleny.
 
-Chcete-li, aby modul zobrazení mohl ignorovat tělo nebo oddíly, zavolejte `IgnoreBody` metody `IgnoreSection` a.
+Chcete-li, aby modul zobrazení mohl ignorovat tělo nebo oddíly, zavolejte `IgnoreBody` `IgnoreSection` metody a.
 
 Tělo a každý oddíl Razor stránky musí být vykresleny nebo ignorovány.
 
@@ -115,7 +117,7 @@ Tělo a každý oddíl Razor stránky musí být vykresleny nebo ignorovány.
 
 ## <a name="importing-shared-directives"></a>Import sdílených direktiv
 
-Zobrazení a stránky můžou pomocí Razor direktiv importovat obory názvů a používat [vkládání závislostí](dependency-injection.md). Direktivy sdílené pomocí mnoha zobrazení mohou být zadány v běžném souboru *_ViewImports. cshtml* . `_ViewImports` Soubor podporuje následující direktivy:
+Zobrazení a stránky můžou pomocí Razor direktiv importovat obory názvů a používat [vkládání závislostí](dependency-injection.md). Direktivy sdílené pomocí mnoha zobrazení mohou být zadány v běžném souboru *_ViewImports. cshtml* . `_ViewImports`Soubor podporuje následující direktivy:
 
 * `@addTagHelper`
 * `@removeTagHelper`
@@ -135,14 +137,14 @@ Soubor *_ViewImports. cshtml* pro aplikaci ASP.NET Core MVC je obvykle umístěn
 
 Předpokládejme například:
 
-* *_ViewImports soubor. cshtml* na kořenové úrovni zahrnuje `@model MyModel1` a `@addTagHelper *, MyTagHelper1`.
-* Podsložka *_ViewImports soubor. cshtml* obsahuje `@model MyModel2` a `@addTagHelper *, MyTagHelper2`.
+* *_ViewImports soubor. cshtml* na kořenové úrovni zahrnuje `@model MyModel1` a `@addTagHelper *, MyTagHelper1` .
+* Podsložka *_ViewImports soubor. cshtml* obsahuje `@model MyModel2` a `@addTagHelper *, MyTagHelper2` .
 
 Stránky a zobrazení v podsložce budou mít přístup k oběma pomocníkům značek i k `MyModel2` modelu.
 
 Pokud je v hierarchii souborů nalezeno více *_ViewImports. cshtml* souborů, kombinované chování direktiv jsou:
 
-* `@addTagHelper`, `@removeTagHelper`: všechny spuštěné, v pořadí
+* `@addTagHelper`, `@removeTagHelper` : všechny spuštěné, v pořadí
 * `@tagHelperPrefix`: nejbližší z nich přepisuje všechny ostatní.
 * `@model`: nejbližší z nich přepisuje všechny ostatní.
 * `@inherits`: nejbližší z nich přepisuje všechny ostatní.

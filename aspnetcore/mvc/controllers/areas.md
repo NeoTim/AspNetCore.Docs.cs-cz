@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 03/21/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/controllers/areas
-ms.openlocfilehash: 00071b91f2ef374668b74a41190d49b0be83e817
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: f4471f54e92b940ecb0eabab82f03e0c77a0509f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82774298"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406404"
 ---
 # <a name="areas-in-aspnet-core"></a>Oblasti v ASP.NET Core
 
@@ -29,9 +31,9 @@ Oblasti jsou funkce ASP.NET, která slouží k uspořádání souvisejících fu
 * Obor názvů pro směrování
 * Struktura složek pro zobrazení a Razor stránky
 
-Použití oblastí vytvoří hierarchii pro účely směrování přidáním dalšího `area`parametru trasy,, do `controller` a `action` nebo do Razor stránky. `page`
+Použití oblastí vytvoří hierarchii pro účely směrování přidáním dalšího parametru trasy, `area` , do `controller` a `action` nebo do Razor stránky `page` .
 
-Oblasti představují způsob, jak rozdělit webovou aplikaci ASP.NET Core do menších funkčních skupin, z nichž každá má svou vlastní Razor sadu stránek, řadičů, zobrazení a modelů. Oblast je ve skutečnosti strukturou uvnitř aplikace. Ve webovém projektu ASP.NET Core jsou logické komponenty, jako jsou stránky, model, kontroler a zobrazení, uloženy v různých složkách. Modul runtime ASP.NET Core používá konvence pojmenování k vytvoření vztahu mezi těmito součástmi. Pro velké aplikace může být výhodné rozdělit aplikaci na samostatné oblasti funkcí na úrovni vysoké úrovně. Například aplikace pro elektronické obchodování s více obchodními jednotkami, jako je například rezervace, fakturace a hledání. Každá z těchto jednotek má svou vlastní oblast, která obsahuje zobrazení, řadiče Razor , stránky a modely.
+Oblasti představují způsob, jak rozdělit webovou aplikaci ASP.NET Core do menších funkčních skupin, z nichž každá má svou vlastní sadu Razor stránek, řadičů, zobrazení a modelů. Oblast je ve skutečnosti strukturou uvnitř aplikace. Ve webovém projektu ASP.NET Core jsou logické komponenty, jako jsou stránky, model, kontroler a zobrazení, uloženy v různých složkách. Modul runtime ASP.NET Core používá konvence pojmenování k vytvoření vztahu mezi těmito součástmi. Pro velké aplikace může být výhodné rozdělit aplikaci na samostatné oblasti funkcí na úrovni vysoké úrovně. Například aplikace pro elektronické obchodování s více obchodními jednotkami, jako je například rezervace, fakturace a hledání. Každá z těchto jednotek má svou vlastní oblast, která obsahuje zobrazení, řadiče, Razor stránky a modely.
 
 Zvažte použití oblastí v projektu, když:
 
@@ -40,7 +42,7 @@ Zvažte použití oblastí v projektu, když:
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)). Ukázka stažení poskytuje základní aplikaci pro oblasti testování.
 
-Pokud používáte Razor stránky, přečtěte si téma [oblasti Razor se stránkami](#areas-with-razor-pages) v tomto dokumentu.
+Pokud používáte Razor stránky, přečtěte si téma [oblasti se Razor stránkami](#areas-with-razor-pages) v tomto dokumentu.
 
 ## <a name="areas-for-controllers-with-views"></a>Oblasti pro řadiče se zobrazeními
 
@@ -91,7 +93,7 @@ I když je předchozí rozložení typický při použití oblastí, k použití
 
 ### <a name="associate-the-controller-with-an-area"></a>Přidružte kontroler k oblasti.
 
-Řadiče oblastí jsou označeny atributem [ &lbrack;Area&rbrack; ](xref:Microsoft.AspNetCore.Mvc.AreaAttribute) :
+Řadiče oblastí jsou označeny atributem [ &lbrack; Area &rbrack; ](xref:Microsoft.AspNetCore.Mvc.AreaAttribute) :
 
 [!code-csharp[](areas/31samples/MVCareas/Areas/Products/Controllers/ManageController.cs?highlight=5&name=snippet)]
 
@@ -103,7 +105,7 @@ Trasy oblastí obvykle používají [konvenční směrování](xref:mvc/controll
 
 [!code-csharp[](areas/31samples/MVCareas/Startup.cs?name=snippet&highlight=21-23)]
 
-V předchozím kódu `exists` použije omezení, které musí trasa odpovídat oblasti. Použití `{area:...}` s `MapControllerRoute`:
+V předchozím kódu `exists` použije omezení, které musí trasa odpovídat oblasti. Použití `{area:...}` s `MapControllerRoute` :
 
 * Je nejjednodušším mechanismem přidávání směrování do oblastí.
 * Vyhledá všechny řadiče s `[Area("Area name")]` atributem.
@@ -123,7 +125,7 @@ Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotn
 Ukázka ke stažení obsahuje [částečné zobrazení](xref:mvc/views/partial) , které obsahuje:
 
 * Předchozí odkazy.
-* Odkazy podobné předchozímu, s `area` výjimkou nejsou zadány.
+* Odkazy podobné předchozímu, s výjimkou `area` nejsou zadány.
 
 Na částečné zobrazení se odkazuje v [souboru rozložení](xref:mvc/views/layout), takže každá stránka v aplikaci zobrazuje vygenerované odkazy. Odkazy vygenerované bez určení oblasti jsou platné pouze v případě, že jsou odkazovány ze stránky ve stejné oblasti a řadiči.
 
@@ -148,13 +150,13 @@ Kořenová složka aplikace je složka obsahující *Startup.cs* ve webové apli
 * Přidejte *_ViewImports. cshtml* do [kořenové složky aplikace](#arf). *_ViewImports. cshtml* v kořenové složce aplikace se bude vztahovat na všechna zobrazení v aplikaci.
 * Zkopírujte soubor *_ViewImports. cshtml* do příslušné složky zobrazení v oblasti.
 
-Soubor *_ViewImports. cshtml* obvykle obsahuje [pomocníky](xref:mvc/views/tag-helpers/intro) s příkazy Imports `@using`, a `@inject` . Další informace najdete v tématu [Import sdílených direktiv](xref:mvc/views/layout#importing-shared-directives).
+Soubor *_ViewImports. cshtml* obvykle obsahuje [pomocníky](xref:mvc/views/tag-helpers/intro) s příkazy Imports, `@using` a `@inject` . Další informace najdete v tématu [Import sdílených direktiv](xref:mvc/views/layout#importing-shared-directives).
 
 <a name="rename"></a>
 
 ### <a name="change-default-area-folder-where-views-are-stored"></a>Změna výchozí složky oblasti, kde jsou uložená zobrazení
 
-Následující kód změní výchozí složku oblasti z `"Areas"` na: `"MyAreas"`
+Následující kód změní výchozí složku oblasti z `"Areas"` na `"MyAreas"` :
 
 [!code-csharp[](areas/31samples/MVCareas/Startup2.cs?name=snippet)]
 
@@ -179,7 +181,7 @@ Oblasti se Razor stránkami vyžadují `Areas/<area name>/Pages` složku v koře
 
 ### <a name="link-generation-with-razor-pages-and-areas"></a>Generování odkazů pomocí Razor stránek a oblastí
 
-Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas) zobrazuje generaci odkazů se zadanou oblastí (například `asp-area="Products"`):
+Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas) zobrazuje generaci odkazů se zadanou oblastí (například `asp-area="Products"` ):
 
 [!code-cshtml[](areas/31samples/RPareas/Pages/Shared/_testLinksPartial.cshtml?name=snippet)]
 
@@ -191,8 +193,8 @@ Když není oblast zadaná, směrování závisí na *okolních* hodnotách. Akt
 
 Pro předchozí kód:
 
-* Odkaz vygenerovaný z `<a asp-page="/Manage/About">` je správný pouze v případě, že byl poslední požadavek na stránku `Services` v oblasti. Například `/Services/Manage/` `/Services/Manage/Index`,, nebo `/Services/Manage/About`.
-* Odkaz vygenerovaný z `<a asp-page="/About">` je správný pouze v případě, že byl poslední požadavek na stránku `/Home`v.
+* Odkaz vygenerovaný z `<a asp-page="/Manage/About">` je správný pouze v případě, že byl poslední požadavek na stránku v `Services` oblasti. Například,, `/Services/Manage/` `/Services/Manage/Index` nebo `/Services/Manage/About` .
+* Odkaz vygenerovaný z `<a asp-page="/About">` je správný pouze v případě, že byl poslední požadavek na stránku v `/Home` .
 * Kód pochází z [ukázkového stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/31samples/RPareas).
 
 ### <a name="import-namespace-and-tag-helpers-with-_viewimports-file"></a>Importovat obory názvů a pomocníka značek s _ViewImportsm souborem
@@ -205,7 +207,7 @@ Vezměte v úvahu oblast *služeb* ukázkového kódu, která neobsahuje soubor 
 
 V předchozím kódu:
 
-* K určení modelu (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`) je nutné použít plně kvalifikovaný název domény.
+* K určení modelu () je nutné použít plně kvalifikovaný název domény `@model RPareas.Areas.Services.Pages.Manage.AboutModel` .
 * [Pomocník značek](xref:mvc/views/tag-helpers/intro) je povolený nástrojem`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
 V ukázkovém stažení oblast produkty obsahuje následující *_ViewImports soubor. cshtml* :
@@ -216,7 +218,7 @@ Následující kód ukazuje stránku */Products/about* Razor :
 
 [!code-cshtml[](areas/31samples/RPareas/Areas/Products/Pages/About.cshtml)]
 
-V předchozím souboru je obor názvů a `@addTagHelper` direktiva importován do souboru pomocí souboru *areas/Products/pages/_ViewImports. cshtml* .
+V předchozím souboru je obor názvů a `@addTagHelper` direktiva importován do souboru pomocí souboru *areas/Products/Pages/_ViewImports. cshtml* .
 
 Další informace najdete v tématech [Správa oboru pomocníka značek](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope) a [Import sdílených direktiv](xref:mvc/views/layout#importing-shared-directives).
 
@@ -226,14 +228,14 @@ Chcete-li sdílet společné rozložení pro celou aplikaci, přesuňte *_ViewSt
 
 ### <a name="publishing-areas"></a>Oblasti publikování
 
-Všechny soubory *. cshtml a soubory v adresáři *wwwroot* jsou publikovány ve výstupu, `<Project Sdk="Microsoft.NET.Sdk.Web">` Pokud je součástí souboru *. csproj.
+Všechny soubory *. cshtml a soubory v adresáři *wwwroot* jsou publikovány ve výstupu, pokud `<Project Sdk="Microsoft.NET.Sdk.Web">` je součástí souboru *. csproj.
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Oblasti jsou funkcí ASP.NET, která slouží k uspořádání souvisejících funkcí do skupiny jako samostatného oboru názvů (pro směrování) a struktury složek (pro zobrazení). Použití oblastí vytvoří hierarchii pro účely směrování přidáním dalšího `area`parametru trasy,, do `controller` a `action` nebo do Razor stránky. `page`
+Oblasti jsou funkcí ASP.NET, která slouží k uspořádání souvisejících funkcí do skupiny jako samostatného oboru názvů (pro směrování) a struktury složek (pro zobrazení). Použití oblastí vytvoří hierarchii pro účely směrování přidáním dalšího parametru trasy, `area` , do `controller` a `action` nebo do Razor stránky `page` .
 
-Oblasti představují způsob, jak rozdělit webovou aplikaci ASP.NET Core do menších funkčních skupin, z nichž každá má svou vlastní Razor sadu stránek, řadičů, zobrazení a modelů. Oblast je ve skutečnosti strukturou uvnitř aplikace. Ve webovém projektu ASP.NET Core jsou logické komponenty, jako jsou stránky, model, kontroler a zobrazení, uloženy v různých složkách. Modul runtime ASP.NET Core používá konvence pojmenování k vytvoření vztahu mezi těmito součástmi. Pro velké aplikace může být výhodné rozdělit aplikaci na samostatné oblasti funkcí na úrovni vysoké úrovně. Například aplikace pro elektronické obchodování s více obchodními jednotkami, jako je například rezervace, fakturace a hledání. Každá z těchto jednotek má svou vlastní oblast, která obsahuje zobrazení, řadiče Razor , stránky a modely.
+Oblasti představují způsob, jak rozdělit webovou aplikaci ASP.NET Core do menších funkčních skupin, z nichž každá má svou vlastní sadu Razor stránek, řadičů, zobrazení a modelů. Oblast je ve skutečnosti strukturou uvnitř aplikace. Ve webovém projektu ASP.NET Core jsou logické komponenty, jako jsou stránky, model, kontroler a zobrazení, uloženy v různých složkách. Modul runtime ASP.NET Core používá konvence pojmenování k vytvoření vztahu mezi těmito součástmi. Pro velké aplikace může být výhodné rozdělit aplikaci na samostatné oblasti funkcí na úrovni vysoké úrovně. Například aplikace pro elektronické obchodování s více obchodními jednotkami, jako je například rezervace, fakturace a hledání. Každá z těchto jednotek má svou vlastní oblast, která obsahuje zobrazení, řadiče, Razor stránky a modely.
 
 Zvažte použití oblastí v projektu, když:
 
@@ -242,7 +244,7 @@ Zvažte použití oblastí v projektu, když:
 
 [Zobrazit nebo stáhnout vzorový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample)). Ukázka stažení poskytuje základní aplikaci pro oblasti testování.
 
-Pokud používáte Razor stránky, přečtěte si téma [oblasti Razor se stránkami](#areas-with-razor-pages) v tomto dokumentu.
+Pokud používáte Razor stránky, přečtěte si téma [oblasti se Razor stránkami](#areas-with-razor-pages) v tomto dokumentu.
 
 ## <a name="areas-for-controllers-with-views"></a>Oblasti pro řadiče se zobrazeními
 
@@ -293,7 +295,7 @@ I když je předchozí rozložení typický při použití oblastí, k použití
 
 ### <a name="associate-the-controller-with-an-area"></a>Přidružte kontroler k oblasti.
 
-Řadiče oblastí jsou označeny atributem [ &lbrack;Area&rbrack; ](xref:Microsoft.AspNetCore.Mvc.AreaAttribute) :
+Řadiče oblastí jsou označeny atributem [ &lbrack; Area &rbrack; ](xref:Microsoft.AspNetCore.Mvc.AreaAttribute) :
 
 [!code-csharp[](areas/samples/MVCareas/Areas/Products/Controllers/ManageController.cs?highlight=5&name=snippet)]
 
@@ -305,7 +307,7 @@ Trasy oblastí obvykle používají konvenční směrování namísto směrován
 
 [!code-csharp[](areas/samples/MVCareas/Startup.cs?name=snippet&highlight=18-21)]
 
-V předchozím kódu `exists` použije omezení, které musí trasa odpovídat oblasti. Použití `{area:...}` je nejjednodušším mechanismem přidávání směrování do oblastí.
+V předchozím kódu `exists` použije omezení, které musí trasa odpovídat oblasti. Použití je nejjednodušším `{area:...}` mechanismem přidávání směrování do oblastí.
 
 Následující kód používá <xref:Microsoft.AspNetCore.Builder.MvcAreaRouteBuilderExtensions.MapAreaRoute*> k vytvoření dvou tras pojmenované oblasti:
 
@@ -335,13 +337,13 @@ Chcete-li sdílet společné rozložení pro celou aplikaci, přesuňte *_ViewSt
 
 ### <a name="_viewimportscshtml"></a>_ViewImports. cshtml
 
-Ve svém standardním umístění */Views/_ViewImports. cshtml* se nevztahuje na oblasti. Chcete-li použít `@using`běžné [pomocníky značek](xref:mvc/views/tag-helpers/intro), `@inject` nebo ve vaší oblasti, zajistěte, aby se v [zobrazeních oblastí](xref:mvc/views/layout#importing-shared-directives)používal vhodný *_ViewImports. cshtml* . Pokud chcete stejné chování ve všech zobrazeních, přesuňte */Views/_ViewImports. cshtml* do kořenového adresáře aplikace.
+Ve svém standardním umístění */Views/_ViewImports. cshtml* se nevztahuje na oblasti. Chcete-li použít běžné [pomocníky značek](xref:mvc/views/tag-helpers/intro), `@using` nebo `@inject` ve vaší oblasti, zajistěte, aby se v [zobrazeních oblastí](xref:mvc/views/layout#importing-shared-directives)používal vhodný *_ViewImports. cshtml* . Pokud chcete stejné chování ve všech zobrazeních, přesuňte */Views/_ViewImports. cshtml* do kořenového adresáře aplikace.
 
 <a name="rename"></a>
 
 ### <a name="change-default-area-folder-where-views-are-stored"></a>Změna výchozí složky oblasti, kde jsou uložená zobrazení
 
-Následující kód změní výchozí složku oblasti z `"Areas"` na: `"MyAreas"`
+Následující kód změní výchozí složku oblasti z `"Areas"` na `"MyAreas"` :
 
 [!code-csharp[](areas/samples/MVCareas/Startup2.cs?name=snippet)]
 
@@ -366,7 +368,7 @@ Oblasti se Razor stránkami vyžadují `Areas/<area name>/Pages` složku v koře
 
 ### <a name="link-generation-with-razor-pages-and-areas"></a>Generování odkazů pomocí Razor stránek a oblastí
 
-Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas) zobrazuje generaci odkazů se zadanou oblastí (například `asp-area="Products"`):
+Následující kód v [ukázkovém souboru ke stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas) zobrazuje generaci odkazů se zadanou oblastí (například `asp-area="Products"` ):
 
 [!code-cshtml[](areas/samples/RPareas/Pages/Shared/_testLinksPartial.cshtml?name=snippet)]
 
@@ -380,8 +382,8 @@ Když není oblast zadaná, směrování závisí na *okolních* hodnotách. Akt
 
 Pro předchozí kód:
 
-* Odkaz vygenerovaný z `<a asp-page="/Manage/About">` je správný pouze v případě, že byl poslední požadavek na stránku `Services` v oblasti. Například `/Services/Manage/` `/Services/Manage/Index`,, nebo `/Services/Manage/About`.
-* Odkaz vygenerovaný z `<a asp-page="/About">` je správný pouze v případě, že byl poslední požadavek na stránku `/Home`v.
+* Odkaz vygenerovaný z `<a asp-page="/Manage/About">` je správný pouze v případě, že byl poslední požadavek na stránku v `Services` oblasti. Například,, `/Services/Manage/` `/Services/Manage/Index` nebo `/Services/Manage/About` .
+* Odkaz vygenerovaný z `<a asp-page="/About">` je správný pouze v případě, že byl poslední požadavek na stránku v `/Home` .
 * Kód pochází z [ukázkového stažení](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/controllers/areas/samples/RPareas).
 
 ### <a name="import-namespace-and-tag-helpers-with-_viewimports-file"></a>Importovat obory názvů a pomocníka značek s _ViewImportsm souborem
@@ -394,7 +396,7 @@ Vezměte v úvahu oblast *služeb* ukázkového kódu, která neobsahuje soubor 
 
 V předchozím kódu:
 
-* K určení modelu (`@model RPareas.Areas.Services.Pages.Manage.AboutModel`) je nutné použít plně kvalifikovaný název domény.
+* K určení modelu () je nutné použít plně kvalifikovaný název domény `@model RPareas.Areas.Services.Pages.Manage.AboutModel` .
 * [Pomocník značek](xref:mvc/views/tag-helpers/intro) je povolený nástrojem`@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers`
 
 V ukázkovém stažení oblast produkty obsahuje následující *_ViewImports soubor. cshtml* :
@@ -405,7 +407,7 @@ Následující kód ukazuje stránku */Products/about* Razor :
 
 [!code-cshtml[](areas/samples/RPareas/Areas/Products/Pages/About.cshtml)]
 
-V předchozím souboru je obor názvů a `@addTagHelper` direktiva importován do souboru pomocí souboru *areas/Products/pages/_ViewImports. cshtml* .
+V předchozím souboru je obor názvů a `@addTagHelper` direktiva importován do souboru pomocí souboru *areas/Products/Pages/_ViewImports. cshtml* .
 
 Další informace najdete v tématech [Správa oboru pomocníka značek](xref:mvc/views/tag-helpers/intro?view=aspnetcore-2.2#managing-tag-helper-scope) a [Import sdílených direktiv](xref:mvc/views/layout#importing-shared-directives).
 
@@ -415,5 +417,5 @@ Chcete-li sdílet společné rozložení pro celou aplikaci, přesuňte *_ViewSt
 
 ### <a name="publishing-areas"></a>Oblasti publikování
 
-Všechny soubory *. cshtml a soubory v adresáři *wwwroot* jsou publikovány ve výstupu, `<Project Sdk="Microsoft.NET.Sdk.Web">` Pokud je součástí souboru *. csproj.
+Všechny soubory *. cshtml a soubory v adresáři *wwwroot* jsou publikovány ve výstupu, pokud `<Project Sdk="Microsoft.NET.Sdk.Web">` je součástí souboru *. csproj.
 ::: moniker-end

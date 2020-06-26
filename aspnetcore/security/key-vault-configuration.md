@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/key-vault-configuration
-ms.openlocfilehash: 4a5689af9ffea175838a869e92752de889cbb227
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 47172339f1c82a572a8a2c5d4ba49e4906e30b29
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106673"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406872"
 ---
 # <a name="azure-key-vault-configuration-provider-in-aspnet-core"></a>Poskytovatel konfigurace Azure Key Vault v ASP.NET Core
 
@@ -35,7 +37,7 @@ Tento dokument vysvětluje, jak pomocí poskytovatele konfigurace [Microsoft Azu
 
 ## <a name="packages"></a>Balíčky
 
-Přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Configuration. AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/) .
+Přidejte odkaz na balíček do [Microsoft.Extensions.Configuration. Balíček AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)
 
 ## <a name="sample-app"></a>Ukázková aplikace
 
@@ -129,7 +131,7 @@ Ukázková aplikace používá ID aplikace a certifikát X. 509, pokud `#define`
    1. Vyberte aplikaci ve službě Azure AD.
    1. Přejděte na **certifikáty & tajných**kódů.
    1. Vyberte **Odeslat certifikát** pro nahrání certifikátu, který obsahuje veřejný klíč. Je přijatelný certifikát *. cer*, *. pem*nebo *. CRT* .
-1. V souboru *appSettings. JSON* aplikace uložte název trezoru klíčů, ID aplikace a kryptografický otisk certifikátu.
+1. Uložte název trezoru klíčů, ID aplikace a kryptografický otisk certifikátu do *appsettings.jsaplikace v* souboru.
 1. V Azure Portal přejděte na **trezory klíčů** .
 1. [V části provozní prostředí s Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) vyberte Trezor klíčů, který jste vytvořili v tajném úložišti.
 1. Vyberte **Zásady přístupu**.
@@ -147,7 +149,7 @@ Ukázková aplikace používá ID aplikace a certifikát X. 509, pokud `#define`
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
-Certifikát X. 509 spravuje operační systém. Aplikace volá <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> hodnoty zadané v souboru *appSettings. JSON* :
+Certifikát X. 509 spravuje operační systém. Aplikace volá <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> hodnoty poskytnuté *appsettings.jsv* souboru:
 
 [!code-csharp[](key-vault-configuration/samples/3.x/SampleApp/Program.cs?name=snippet1&highlight=20-23)]
 
@@ -157,7 +159,7 @@ Příklady hodnot:
 * ID aplikace:`627e911e-43cc-61d4-992e-12db9c81b413`
 * Kryptografický otisk certifikátu:`fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-*appSettings. JSON*:
+*appsettings.js*:
 
 [!code-json[](key-vault-configuration/samples/3.x/SampleApp/appsettings.json?highlight=10-12)]
 
@@ -169,7 +171,7 @@ Když aplikaci spouštíte, zobrazí se na webové stránce načtené tajné hod
 
 Ukázková aplikace používá spravované identity pro prostředky Azure, pokud `#define` je příkaz v horní části souboru *program.cs* nastavený na `Managed` .
 
-Do souboru *appSettings. JSON* aplikace zadejte název trezoru. Ukázková aplikace nevyžaduje ID aplikace a heslo (tajný klíč klienta), pokud je nastavená `Managed` verze, takže můžete tyto položky konfigurace ignorovat. Aplikace je nasazená do Azure a Azure ověřuje aplikaci pro přístup k Azure Key Vault jenom pomocí názvu trezoru uloženého v souboru *appSettings. JSON* .
+Zadejte název trezoru do *appsettings.jsaplikace v* souboru. Ukázková aplikace nevyžaduje ID aplikace a heslo (tajný klíč klienta), pokud je nastavená `Managed` verze, takže můžete tyto položky konfigurace ignorovat. Aplikace je nasazená do Azure a Azure ověřuje aplikaci pro přístup k Azure Key Vault jenom pomocí názvu trezoru uloženého v *appsettings.js* souboru.
 
 Nasaďte ukázkovou aplikaci do Azure App Service.
 
@@ -193,7 +195,7 @@ Ukázková aplikace:
 
 Ukázková hodnota názvu trezoru klíčů:`contosovault`
     
-*appSettings. JSON*:
+*appsettings.js*:
 
 ```json
 {
@@ -381,7 +383,7 @@ Tento dokument vysvětluje, jak pomocí poskytovatele konfigurace [Microsoft Azu
 
 ## <a name="packages"></a>Balíčky
 
-Přidejte odkaz na balíček do balíčku [Microsoft. Extensions. Configuration. AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/) .
+Přidejte odkaz na balíček do [Microsoft.Extensions.Configuration. Balíček AzureKeyVault](https://www.nuget.org/packages/Microsoft.Extensions.Configuration.AzureKeyVault/)
 
 ## <a name="sample-app"></a>Ukázková aplikace
 
@@ -475,7 +477,7 @@ Ukázková aplikace používá ID aplikace a certifikát X. 509, pokud `#define`
    1. Vyberte aplikaci ve službě Azure AD.
    1. Přejděte na **certifikáty & tajných**kódů.
    1. Vyberte **Odeslat certifikát** pro nahrání certifikátu, který obsahuje veřejný klíč. Je přijatelný certifikát *. cer*, *. pem*nebo *. CRT* .
-1. V souboru *appSettings. JSON* aplikace uložte název trezoru klíčů, ID aplikace a kryptografický otisk certifikátu.
+1. Uložte název trezoru klíčů, ID aplikace a kryptografický otisk certifikátu do *appsettings.jsaplikace v* souboru.
 1. V Azure Portal přejděte na **trezory klíčů** .
 1. [V části provozní prostředí s Azure Key Vault](#secret-storage-in-the-production-environment-with-azure-key-vault) vyberte Trezor klíčů, který jste vytvořili v tajném úložišti.
 1. Vyberte **Zásady přístupu**.
@@ -493,7 +495,7 @@ Ukázková aplikace používá ID aplikace a certifikát X. 509, pokud `#define`
   * `config["Section:SecretName"]`
   * `config.GetSection("Section")["SecretName"]`
 
-Certifikát X. 509 spravuje operační systém. Aplikace volá <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> hodnoty zadané v souboru *appSettings. JSON* :
+Certifikát X. 509 spravuje operační systém. Aplikace volá <xref:Microsoft.Extensions.Configuration.AzureKeyVaultConfigurationExtensions.AddAzureKeyVault*> hodnoty poskytnuté *appsettings.jsv* souboru:
 
 [!code-csharp[](key-vault-configuration/samples/2.x/SampleApp/Program.cs?name=snippet1&highlight=20-23)]
 
@@ -503,7 +505,7 @@ Příklady hodnot:
 * ID aplikace:`627e911e-43cc-61d4-992e-12db9c81b413`
 * Kryptografický otisk certifikátu:`fe14593dd66b2406c5269d742d04b6e1ab03adb1`
 
-*appSettings. JSON*:
+*appsettings.js*:
 
 [!code-json[](key-vault-configuration/samples/2.x/SampleApp/appsettings.json?highlight=10-12)]
 
@@ -515,7 +517,7 @@ Když aplikaci spouštíte, zobrazí se na webové stránce načtené tajné hod
 
 Ukázková aplikace používá spravované identity pro prostředky Azure, pokud `#define` je příkaz v horní části souboru *program.cs* nastavený na `Managed` .
 
-Do souboru *appSettings. JSON* aplikace zadejte název trezoru. Ukázková aplikace nevyžaduje ID aplikace a heslo (tajný klíč klienta), pokud je nastavená `Managed` verze, takže můžete tyto položky konfigurace ignorovat. Aplikace je nasazená do Azure a Azure ověřuje aplikaci pro přístup k Azure Key Vault jenom pomocí názvu trezoru uloženého v souboru *appSettings. JSON* .
+Zadejte název trezoru do *appsettings.jsaplikace v* souboru. Ukázková aplikace nevyžaduje ID aplikace a heslo (tajný klíč klienta), pokud je nastavená `Managed` verze, takže můžete tyto položky konfigurace ignorovat. Aplikace je nasazená do Azure a Azure ověřuje aplikaci pro přístup k Azure Key Vault jenom pomocí názvu trezoru uloženého v *appsettings.js* souboru.
 
 Nasaďte ukázkovou aplikaci do Azure App Service.
 
@@ -539,7 +541,7 @@ Ukázková aplikace:
 
 Ukázková hodnota názvu trezoru klíčů:`contosovault`
     
-*appSettings. JSON*:
+*appsettings.js*:
 
 ```json
 {

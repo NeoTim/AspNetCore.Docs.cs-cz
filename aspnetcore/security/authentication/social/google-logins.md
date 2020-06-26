@@ -7,17 +7,19 @@ ms.custom: mvc, seodec18
 ms.date: 03/19/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/google-logins
-ms.openlocfilehash: 8b1eee7ff088fb1229ec1d2dd538ea4f01e094c3
-ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
+ms.openlocfilehash: ba0b9a0da30f761f12f6015dace5ba8046535761
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/09/2020
-ms.locfileid: "83003098"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405416"
 ---
 # <a name="google-external-login-setup-in-aspnet-core"></a>Nastavení externího přihlášení Google v ASP.NET Core
 
@@ -39,7 +41,7 @@ V tomto kurzu se dozvíte, jak uživatelům povolit, aby se k účtu Google při
 Uložte citlivá nastavení, jako je třeba ID klienta Google a tajné hodnoty pomocí [správce tajných](xref:security/app-secrets)kódů. V této ukázce použijte následující postup:
 
 1. Inicializujte projekt pro tajné úložiště podle pokynů v tématu [Povolení tajného úložiště](xref:security/app-secrets#enable-secret-storage).
-1. Uložte citlivá nastavení do místního úložiště tajných klíčů pomocí tajných `Authentication:Google:ClientId` klíčů `Authentication:Google:ClientSecret`a:
+1. Uložte citlivá nastavení do místního úložiště tajných klíčů pomocí tajných klíčů `Authentication:Google:ClientId` a `Authentication:Google:ClientSecret` :
 
     ```dotnetcli
     dotnet user-secrets set "Authentication:Google:ClientId" "<client-id>"
@@ -52,7 +54,7 @@ Přihlašovací údaje a využití rozhraní API můžete spravovat v [konzole A
 
 ## <a name="configure-google-authentication"></a>Konfigurace ověřování Google
 
-Přidat službu Google do `Startup.ConfigureServices`:
+Přidat službu Google do `Startup.ConfigureServices` :
 
 [!code-csharp[](~/security/authentication/social/social-code/3.x/StartupGoogle3x.cs?highlight=11-19)]
 
@@ -68,20 +70,20 @@ Přidat službu Google do `Startup.ConfigureServices`:
 
 [!INCLUDE[](includes/chain-auth-providers.md)]
 
-Další informace <xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions> o možnostech konfigurace, které podporuje ověřování Google, najdete v referenčních informacích k rozhraní API. Dá se použít k vyžádání různých informací o uživateli.
+<xref:Microsoft.AspNetCore.Authentication.Google.GoogleOptions>Další informace o možnostech konfigurace, které podporuje ověřování Google, najdete v referenčních informacích k rozhraní API. Dá se použít k vyžádání různých informací o uživateli.
 
 ## <a name="change-the-default-callback-uri"></a>Změna výchozího identifikátoru URI zpětného volání
 
-Segment `/signin-google` identifikátoru URI je nastaven jako výchozí zpětné volání poskytovatele ověřování Google. Výchozí identifikátor URI zpětného volání můžete změnit při konfiguraci middleware pro ověřování Google prostřednictvím zděděné vlastnosti [RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) .
+Segment identifikátoru URI `/signin-google` je nastaven jako výchozí zpětné volání poskytovatele ověřování Google. Výchozí identifikátor URI zpětného volání můžete změnit při konfiguraci middleware pro ověřování Google prostřednictvím zděděné vlastnosti [RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [GoogleOptions](/dotnet/api/microsoft.aspnetcore.authentication.google.googleoptions) .
 
-## <a name="troubleshooting"></a>Řešení potíží
+## <a name="troubleshooting"></a>Poradce při potížích
 
 * Pokud přihlášení nefunguje a nezískáváte žádné chyby, přepněte do vývojového režimu, aby se tento problém zjednodušil při ladění.
-* Pokud Identity není nakonfigurováno `services.AddIdentity` voláním `ConfigureServices`v, probíhá pokus o ověření výsledků v *souboru ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použitá v tomto kurzu zajišťuje, že je to hotové.
+* Pokud Identity není nakonfigurováno voláním `services.AddIdentity` v `ConfigureServices` , probíhá pokus o ověření výsledků v *souboru ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použitá v tomto kurzu zajišťuje, že je to hotové.
 * Pokud se databáze lokality nevytvořila při použití prvotní migrace, při *zpracování chyby žádosti se zobrazí operace databáze* . Vyberte možnost **použít migrace** k vytvoření databáze a aktualizujte stránku, aby bylo možné pokračovat v minulosti.
 
 ## <a name="next-steps"></a>Další kroky
 
 * Tento článek ukazuje, jak se dá ověřit pomocí Google. Můžete postupovat podle podobného přístupu k ověřování u jiných poskytovatelů uvedených na [předchozí stránce](xref:security/authentication/social/index).
 * Jakmile aplikaci publikujete do Azure, resetujte ji `ClientSecret` v konzole rozhraní Google API.
-* Nastavte nastavení `Authentication:Google:ClientId` a `Authentication:Google:ClientSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastaven na čtení klíčů z proměnných prostředí.
+* Nastavte `Authentication:Google:ClientId` nastavení a `Authentication:Google:ClientSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastaven na čtení klíčů z proměnných prostředí.

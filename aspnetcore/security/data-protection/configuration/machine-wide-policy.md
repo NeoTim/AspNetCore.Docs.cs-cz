@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/14/2016
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/configuration/machine-wide-policy
-ms.openlocfilehash: 84f54b37dfff3112ea5ca84f931103624cfde90a
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 1bde6d90a52ab8873777b5320540251170eaade6
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776835"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404883"
 ---
 # <a name="data-protection-machine-wide-policy-support-in-aspnet-core"></a>Podpora zásad ochrany dat na úrovni počítače v ASP.NET Core
 
@@ -37,7 +39,7 @@ Pokud jste v 64 operačním systému a chcete mít vliv na chování 32 aplikac�
 
 Níže jsou uvedené podporované hodnoty.
 
-| Hodnota              | Typ   | Popis |
+| Hodnota              | Typ   | Description |
 | ------------------ | :----: | ----------- |
 | EncryptionType     | řetězec | Určuje, které algoritmy by se měly používat pro ochranu dat. Hodnota musí být CNG-CBC, CNG-GCM nebo spravovaná a jsou podrobněji popsány níže. |
 | DefaultKeyLifetime | DWORD  | Určuje dobu života nově vygenerovaných klíčů. Hodnota je zadána ve dnech a musí být >= 7. |
@@ -47,7 +49,7 @@ Níže jsou uvedené podporované hodnoty.
 
 Pokud EncryptionType je CNG-CBC, systém je nakonfigurován tak, aby používal protokol symetrického bloku CBC pro zajištění důvěrnosti a HMAC pro pravost pomocí služeb poskytovaných službou Windows CNG (Další informace najdete v tématu [určení vlastních algoritmů Windows CNG](xref:security/data-protection/configuration/overview#specifying-custom-windows-cng-algorithms) ). Následující další hodnoty jsou podporovány, přičemž každý z nich odpovídá vlastnosti typu CngCbcAuthenticatedEncryptionSettings.
 
-| Hodnota                       | Typ   | Popis |
+| Hodnota                       | Typ   | Description |
 | --------------------------- | :----: | ----------- |
 | EncryptionAlgorithm         | řetězec | Název algoritmu šifrování symetrického bloku, který rozumí CNG. Tento algoritmus je otevřen v režimu CBC. |
 | EncryptionAlgorithmProvider | řetězec | Název implementace poskytovatele CNG, která může vydávat algoritmus EncryptionAlgorithm. |
@@ -57,7 +59,7 @@ Pokud EncryptionType je CNG-CBC, systém je nakonfigurován tak, aby používal 
 
 Pokud EncryptionType je CNG-GCM, systém je nakonfigurován tak, aby používal šifrovací šifru symetrického bloku Galois/Counter pro zajištění důvěrnosti a pravosti se službami poskytovanými Windows CNG (další podrobnosti najdete v tématu [určení vlastních algoritmů CNG Windows](xref:security/data-protection/configuration/overview#specifying-custom-windows-cng-algorithms) ). Následující další hodnoty jsou podporovány, přičemž každý z nich odpovídá vlastnosti typu CngGcmAuthenticatedEncryptionSettings.
 
-| Hodnota                       | Typ   | Popis |
+| Hodnota                       | Typ   | Description |
 | --------------------------- | :----: | ----------- |
 | EncryptionAlgorithm         | řetězec | Název algoritmu šifrování symetrického bloku, který rozumí CNG. Tento algoritmus je otevřen v režimu Galois/Counter. |
 | EncryptionAlgorithmProvider | řetězec | Název implementace poskytovatele CNG, která může vydávat algoritmus EncryptionAlgorithm. |
@@ -65,7 +67,7 @@ Pokud EncryptionType je CNG-GCM, systém je nakonfigurován tak, aby používal 
 
 Pokud je EncryptionType spravované, je systém nakonfigurovaný tak, aby používal spravovaný SymmetricAlgorithm pro zajištění důvěrnosti a KeyedHashAlgorithm pro pravost (Další informace najdete v tématu [určení vlastních spravovaných algoritmů](xref:security/data-protection/configuration/overview#specifying-custom-managed-algorithms) ). Následující další hodnoty jsou podporovány, přičemž každý z nich odpovídá vlastnosti typu ManagedAuthenticatedEncryptionSettings.
 
-| Hodnota                      | Typ   | Popis |
+| Hodnota                      | Typ   | Description |
 | -------------------------- | :----: | ----------- |
 | EncryptionAlgorithmType    | řetězec | Kvalifikovaný název sestavení typu, který implementuje SymmetricAlgorithm. |
 | EncryptionAlgorithmKeySize | DWORD  | Délka klíče (v bitech), který má být odvozen pro algoritmus symetrického šifrování. |

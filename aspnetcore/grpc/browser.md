@@ -7,17 +7,19 @@ ms.author: jamesnk
 ms.date: 05/26/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: grpc/browser
-ms.openlocfilehash: 6f66a94b41e6e13550396e2e19fdf48f9dc63d46
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 37932e755a0ef2149fb2336d2dcef87d3347d1a4
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106595"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404753"
 ---
 # <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
@@ -55,9 +57,9 @@ Případně je možné nakonfigurovat middleware gRPC-web tak, aby všechny slu�
 [!code-csharp[](~/grpc/browser/sample/AllServicesSupportExample_Startup.cs?name=snippet_1&highlight=12)]
 
 > [!NOTE]
-> K dispozici je známý problém, který způsobí selhání gRPC-web, pokud je [hostovaný souborem http. sys](xref:fundamentals/servers/httpsys) v rozhraní .NET Core 3. x.
+> K dispozici je známý problém, který způsobí selhání gRPC-web při [hostování Http.sys](xref:fundamentals/servers/httpsys) v .NET Core 3. x.
 >
-> [K dispozici je](https://github.com/grpc/grpc-dotnet/issues/853#issuecomment-610078202)alternativní řešení pro získání gRPC webu na http. sys.
+> [K dispozici je](https://github.com/grpc/grpc-dotnet/issues/853#issuecomment-610078202)alternativní řešení pro získání GRPC na webu na Http.sys.
 
 ### <a name="grpc-web-and-cors"></a>gRPC – web a CORS
 
@@ -87,7 +89,7 @@ K dispozici je gRPC JavaScript-Web Client. Pokyny, jak používat gRPC-web z Jav
 
 ### <a name="configure-grpc-web-with-the-net-grpc-client"></a>Konfigurace gRPC-web pomocí klienta .NET gRPC
 
-Klient .NET gRPC se dá nakonfigurovat tak, aby gRPC webová volání. To je užitečné pro aplikace [ Blazor WebAssembly](xref:blazor/index#blazor-webassembly) , které jsou hostovány v prohlížeči a mají stejná omezení http kódu jazyka JavaScript. Volání gRPC-web s klientem .NET je [stejné jako http/2 gRPC](xref:grpc/client). Jedinou úpravou je způsob vytvoření kanálu.
+Klient .NET gRPC se dá nakonfigurovat tak, aby gRPC webová volání. To je užitečné pro [Blazor WebAssembly](xref:blazor/index#blazor-webassembly) aplikace, které jsou hostované v prohlížeči a mají stejná omezení http kódu JavaScriptu. Volání gRPC-web s klientem .NET je [stejné jako http/2 gRPC](xref:grpc/client). Jedinou úpravou je způsob vytvoření kanálu.
 
 Použití gRPC-web:
 
@@ -111,7 +113,7 @@ Předcházející kód:
 * **HttpVersion**: protokol HTTP `Version` použitý k nastavení [zprávy HttpRequestMessage. Version](xref:System.Net.Http.HttpRequestMessage.Version) na podkladové žádosti HTTP gRPC. gRPC-web nevyžaduje konkrétní verzi a nepřepisuje výchozí, pokud není zadaný.
 
 > [!IMPORTANT]
-> Vygenerované klienty gRPC mají synchronizační a asynchronní metody pro volání unárních metod. Například `SayHello` je synchronizován a `SayHelloAsync` je asynchronní. Volání metody synchronizace v Blazor aplikaci WebAssembly způsobí, že aplikace přestane reagovat. Asynchronní metody musí být vždy použity v Blazor sestavení WebAssembly.
+> Vygenerované klienty gRPC mají synchronizační a asynchronní metody pro volání unárních metod. Například `SayHello` je synchronizován a `SayHelloAsync` je asynchronní. Volání metody synchronizace v Blazor WebAssembly aplikaci způsobí, že aplikace přestane reagovat. Asynchronní metody musí být vždy použity v Blazor WebAssembly .
 
 ## <a name="additional-resources"></a>Další zdroje
 

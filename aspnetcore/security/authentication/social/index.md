@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 01/23/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/social/index
-ms.openlocfilehash: 880aeea4dce5f5ae6533a3293067d89f98587e72
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: a2c068df85290a59d45432cb168b2c882b59405b
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777147"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405364"
 ---
 # <a name="facebook-google-and-external-provider-authentication-in-aspnet-core"></a>Ověřování pro Facebook, Google a externí poskytovatele v ASP.NET Core
 
@@ -49,7 +51,7 @@ Příklady, jak mohou sociální přihlášení prosazovat přenosy a převody z
 
 * Otevřete terminál.  Pro Visual Studio Code můžete otevřít [integrovaný terminál](https://code.visualstudio.com/docs/editor/integrated-terminal).
 
-* Změňte adresáře (`cd`) na složku, která bude obsahovat projekt.
+* Změňte adresáře ( `cd` ) na složku, která bude obsahovat projekt.
 
 * V případě Windows spusťte následující příkaz:
 
@@ -63,10 +65,10 @@ Příklady, jak mohou sociální přihlášení prosazovat přenosy a převody z
   dotnet new webapp -o WebApp1 -au Individual
   ```
 
-  * `dotnet new` Příkaz vytvoří nový projekt Razor Pages ve složce *WebApp1* .
+  * `dotnet new`Příkaz vytvoří nový Razor projekt stránky ve složce *WebApp1* .
   * `-au Individual`vytvoří kód pro individuální ověřování.
   * `-uld`používá LocalDB, zjednodušenou verzi SQL Server Express pro Windows. Vynechejte `-uld` pro použití sqlite.
-  * `code` Příkaz otevře složku *WebApp1* v nové instanci Visual Studio Code.
+  * `code`Příkaz otevře složku *WebApp1* v nové instanci Visual Studio Code.
 
 ---
 
@@ -80,7 +82,7 @@ Příklady, jak mohou sociální přihlášení prosazovat přenosy a převody z
 
 ## <a name="use-secretmanager-to-store-tokens-assigned-by-login-providers"></a>Ukládat tokeny přiřazené poskytovateli přihlášení pomocí SecretManager
 
-Poskytovatelé sociálního přihlášení přidělují **ID aplikace** a tajné tokeny **aplikace** během procesu registrace. Přesné názvy tokenů se liší podle poskytovatele. Tyto tokeny reprezentují přihlašovací údaje, které aplikace používá pro přístup ke svým rozhraním API. Tokeny představují "tajné klíče", které lze propojit s konfigurací aplikace pomocí [správce tajných klíčů](xref:security/app-secrets#secret-manager). Správce tajných klíčů je bezpečnější alternativou pro ukládání tokenů do konfiguračního souboru, například *appSettings. JSON*.
+Poskytovatelé sociálního přihlášení přidělují **ID aplikace** a tajné tokeny **aplikace** během procesu registrace. Přesné názvy tokenů se liší podle poskytovatele. Tyto tokeny reprezentují přihlašovací údaje, které aplikace používá pro přístup ke svým rozhraním API. Tokeny představují "tajné klíče", které lze propojit s konfigurací aplikace pomocí [správce tajných klíčů](xref:security/app-secrets#secret-manager). Správce tajných klíčů je bezpečnější alternativou pro ukládání tokenů do konfiguračního souboru, jako je například *appsettings.js*.
 
 > [!IMPORTANT]
 > Správce tajných klíčů je jenom pro účely vývoje. Pomocí [poskytovatele konfigurace Azure Key Vault](xref:security/key-vault-configuration)můžete ukládat a chránit tajné kódy Azure test a produkčního prostředí.
@@ -105,7 +107,7 @@ Když se zaregistrujete u externího poskytovatele přihlašovacích údajů, ne
 
 Pokud chcete vytvořit heslo a přihlásit se pomocí e-mailu, který jste nastavili během procesu přihlašování pomocí externích zprostředkovatelů:
 
-* Vyberte odkaz **e &lt;-mailový alias&gt; Hello** v pravém horním rohu a přejděte do zobrazení **Správa** .
+* Vyberte odkaz ** &lt; e-mailový alias &gt; Hello** v pravém horním rohu a přejděte do zobrazení **Správa** .
 
 ![Správa zobrazení webové aplikace](index/_static/pass1a.png)
 

@@ -7,23 +7,25 @@ ms.custom: mvc, seodec18
 ms.date: 02/12/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: fundamentals/choose-between-aspnet-and-aspnetcore
-ms.openlocfilehash: 1fb81d5a54cf332ca473af8fbe1841813a127be7
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 73495ea851cdfe5d3588b347e75f0af6adacc02e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775879"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404935"
 ---
 # <a name="choose-between-aspnet-4x-and-aspnet-core"></a>Vyberte ASP.NET 4. x a ASP.NET Core
 
 ASP.NET Core je přepracování ASP.NET 4. x. V tomto článku jsou uvedeny rozdíly mezi nimi.
 
-## <a name="aspnet-core"></a>Jádro ASP.NET
+## <a name="aspnet-core"></a>ASP.NET Core
 
 ASP.NET Core je open source architektura pro různé platformy pro vytváření moderních cloudových webových aplikací ve Windows, macOS nebo Linux.
 
@@ -37,10 +39,10 @@ ASP.NET 4. x je vyspělý rámec, který poskytuje služby potřebné k sestaven
 
 Následující tabulka porovnává ASP.NET Core ASP.NET 4. x.
 
-| Jádro ASP.NET | ASP.NET 4.x |
+| ASP.NET Core | ASP.NET 4.x |
 |---|---|
 |Sestavení pro Windows, macOS nebo Linux|Sestavení pro Windows|
-|Stránky jsou doporučeným přístupem k vytvoření webového uživatelského rozhraní ASP.NET Core 2. x. [ Razor ](xref:razor-pages/index) Viz také [MVC](xref:mvc/overview), [webové rozhraní API](xref:tutorials/first-web-api)a [SignalR](xref:signalr/introduction).|Použití [webových formulářů](/aspnet/web-forms), [SignalR](/aspnet/signalr), [MVC](/aspnet/mvc), [webového rozhraní API](/aspnet/web-api/), [webhooků](/aspnet/webhooks/)nebo [webových stránek](/aspnet/web-pages)|
+|[ Razor Stránky](xref:razor-pages/index) jsou doporučeným přístupem k vytvoření webového uživatelského rozhraní ASP.NET Core 2. x. Viz také [MVC](xref:mvc/overview), [webové rozhraní API](xref:tutorials/first-web-api)a [SignalR](xref:signalr/introduction) .|Použití [webových formulářů](/aspnet/web-forms), [SignalR](/aspnet/signalr) , [MVC](/aspnet/mvc), [webového rozhraní API](/aspnet/web-api/), [webhooků](/aspnet/webhooks/)nebo [webových stránek](/aspnet/web-pages)|
 |Více verzí na počítač|Jedna verze na počítač|
 |Vývoj pomocí sady [Visual Studio](https://visualstudio.microsoft.com/vs/), [Visual Studio pro Mac](https://visualstudio.microsoft.com/vs/mac/)nebo [Visual Studio Code](https://code.visualstudio.com/) pomocí C# nebo F #|Vývoj pomocí sady [Visual Studio](https://visualstudio.microsoft.com/vs/) pomocí jazyků C#, vb nebo F #|
 |Vyšší výkon než ASP.NET 4. x|Dobrý výkon|

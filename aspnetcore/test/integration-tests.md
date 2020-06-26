@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 05/20/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: test/integration-tests
-ms.openlocfilehash: ee57843dc79805aed48dbb4d3a6ac97469052f5c
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: 6e4a0065486f6d9d6744dcd21de10ec76782f210
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84105178"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405871"
 ---
 # <a name="integration-tests-in-aspnet-core"></a>Integrační testy v ASP.NET Core
 
@@ -47,7 +49,7 @@ Testy integrace vyhodnocují komponenty aplikace na širší úrovni než [testy
 
 Tyto širší testy se používají k testování infrastruktury a celé architektury aplikace, často včetně následujících komponent:
 
-* databáze
+* Databáze
 * Systém souborů
 * Síťová zařízení
 * Kanál požadavků a odpovědí
@@ -214,7 +216,7 @@ Vzhledem k tomu, že jiný test ve `IndexPageTests` třídě provádí operaci, 
 
 Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) , který je k dispozici při vytváření `HttpClient` instancí.
 
-| Možnost | Popis | Výchozí |
+| Možnost | Description | Výchozí |
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
@@ -341,9 +343,9 @@ protected override IWebHostBuilder CreateWebHostBuilder() =>
 
 ## <a name="disable-shadow-copying"></a>Zakázat stínové kopírování
 
-Stínové kopírování způsobí, že se testy spustí v jiném adresáři než výstupní adresář. Aby testy správně fungovaly, musí být stínové kopírování zakázané. [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování pro xUnit zahrnutím souboru *xUnit. Runner. JSON* se správným nastavením konfigurace. Další informace najdete v tématu [Konfigurace xUnit pomocí formátu JSON](https://xunit.github.io/docs/configuring-with-json.html).
+Stínové kopírování způsobí, že se testy spustí v jiném adresáři než výstupní adresář. Aby testy správně fungovaly, musí být stínové kopírování zakázané. [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování pro xUnit zahrnutím *xunit.runner.jsdo* souboru se správným nastavením konfigurace. Další informace najdete v tématu [Konfigurace xUnit pomocí formátu JSON](https://xunit.github.io/docs/configuring-with-json.html).
 
-Do kořenového adresáře testovacího projektu přidejte soubor *xUnit. Runner. JSON* s následujícím obsahem:
+Přidejte *xunit.runner.js* do souboru do kořenového adresáře testovacího projektu s následujícím obsahem:
 
 ```json
 {
@@ -359,7 +361,7 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 
 [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Aplikace | Adresář projektu | Popis |
+| Aplikace | Adresář projektu | Description |
 | --- | ----------------- | ----------- |
 | Aplikace zprávy (SUT) | *src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
 | Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
@@ -389,7 +391,7 @@ I když aplikace nepoužívá vzor úložiště a není efektivním příkladem 
 
 Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject. Tests* .
 
-| Testovací adresář aplikace | Popis |
+| Testovací adresář aplikace | Description |
 | ------------------ | ----------- |
 | *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
 | *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |
@@ -435,7 +437,7 @@ Testy integrace vyhodnocují komponenty aplikace na širší úrovni než [testy
 
 Tyto širší testy se používají k testování infrastruktury a celé architektury aplikace, často včetně následujících komponent:
 
-* databáze
+* Databáze
 * Systém souborů
 * Síťová zařízení
 * Kanál požadavků a odpovědí
@@ -577,7 +579,7 @@ Vzhledem k tomu, že jiný test ve `IndexPageTests` třídě provádí operaci, 
 
 Následující tabulka ukazuje výchozí [WebApplicationFactoryClientOptions](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions) , který je k dispozici při vytváření `HttpClient` instancí.
 
-| Možnost | Popis | Výchozí |
+| Možnost | Description | Výchozí |
 | ------ | ----------- | ------- |
 | [AllowAutoRedirect](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.allowautoredirect) | Získá nebo nastaví, jestli se `HttpClient` mají instance automaticky sledovat prostřednictvím odpovědí přesměrování. | `true` |
 | [BaseAddress](/dotnet/api/microsoft.aspnetcore.mvc.testing.webapplicationfactoryclientoptions.baseaddress) | Získá nebo nastaví základní adresu `HttpClient` instancí. | `http://localhost` |
@@ -722,9 +724,9 @@ public class CustomWebApplicationFactory<TStartup>
 
 ## <a name="disable-shadow-copying"></a>Zakázat stínové kopírování
 
-Stínové kopírování způsobí, že se testy spustí v jiném adresáři než výstupní adresář. Aby testy správně fungovaly, musí být stínové kopírování zakázané. [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování pro xUnit zahrnutím souboru *xUnit. Runner. JSON* se správným nastavením konfigurace. Další informace najdete v tématu [Konfigurace xUnit pomocí formátu JSON](https://xunit.github.io/docs/configuring-with-json.html).
+Stínové kopírování způsobí, že se testy spustí v jiném adresáři než výstupní adresář. Aby testy správně fungovaly, musí být stínové kopírování zakázané. [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) používá xUnit a zakáže stínové kopírování pro xUnit zahrnutím *xunit.runner.jsdo* souboru se správným nastavením konfigurace. Další informace najdete v tématu [Konfigurace xUnit pomocí formátu JSON](https://xunit.github.io/docs/configuring-with-json.html).
 
-Do kořenového adresáře testovacího projektu přidejte soubor *xUnit. Runner. JSON* s následujícím obsahem:
+Přidejte *xunit.runner.js* do souboru do kořenového adresáře testovacího projektu s následujícím obsahem:
 
 ```json
 {
@@ -750,7 +752,7 @@ Po provedení testů pro `IClassFixture` implementaci jsou [TestServer](/dotnet/
 
 [Ukázková aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/test/integration-tests/samples) se skládá ze dvou aplikací:
 
-| Aplikace | Adresář projektu | Popis |
+| Aplikace | Adresář projektu | Description |
 | --- | ----------------- | ----------- |
 | Aplikace zprávy (SUT) | *src/RazorPagesProject* | Povoluje uživateli přidávat, odstraňovat a analyzovat zprávy a analyzovat je. |
 | Testovací aplikace | *testuje/RazorPagesProject. Tests* | Slouží k integraci testu SUT. |
@@ -780,7 +782,7 @@ I když aplikace nepoužívá vzor úložiště a není efektivním příkladem 
 
 Testovací aplikace je Konzolová aplikace v adresáři *Tests/RazorPagesProject. Tests* .
 
-| Testovací adresář aplikace | Popis |
+| Testovací adresář aplikace | Description |
 | ------------------ | ----------- |
 | *AuthTests* | Obsahuje testovací metody pro:<ul><li>Přístup k zabezpečené stránce neověřenému uživateli</li><li>Přístup k zabezpečené stránce ověřeným uživatelem s přípravou <xref:Microsoft.AspNetCore.Authentication.AuthenticationHandler`1> .</li><li>Získání profilu uživatele GitHub a kontrola přihlášení uživatele profilu.</li></ul> |
 | *BasicTests* | Obsahuje testovací metodu pro typ směrování a obsahu. |

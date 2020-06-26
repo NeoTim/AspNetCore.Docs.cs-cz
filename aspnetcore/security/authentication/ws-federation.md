@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 01/16/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/ws-federation
-ms.openlocfilehash: 62b8e33d8b7eb17a65a7a54df2a9aa298acdfe36
-ms.sourcegitcommit: 5e462c3328c70f95969d02adce9c71592049f54c
+ms.openlocfilehash: 91dab7764e6915ccacacf73f74861faaee532777
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/24/2020
-ms.locfileid: "85292805"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406222"
 ---
 # <a name="authenticate-users-with-ws-federation-in-aspnet-core"></a>Ověřování uživatelů pomocí WS-Federation v ASP.NET Core
 
@@ -88,7 +90,7 @@ Ve výchozím nastavení nový middleware:
 
 ## <a name="use-ws-federation-without-aspnet-core-identity"></a>Použití WS-Federation bez ASP.NET CoreIdentity
 
-Middleware WS-Federation se dá použít bez Identity . Příklad:
+Middleware WS-Federation se dá použít bez Identity . Například:
 ::: moniker range=">= aspnetcore-3.0"
 [!code-csharp[](ws-federation/samples/StartupNon31.cs?name=snippet)]
 ::: moniker-end

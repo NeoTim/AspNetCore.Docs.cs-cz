@@ -8,17 +8,19 @@ ms.date: 03/19/2020
 monikerRange: '>= aspnetcore-3.0'
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/twitter-logins
-ms.openlocfilehash: c6498704214de5e805c9bf57033529d4acc5fd3e
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 61c983de33b91a16ad207d8a350daf4859c89eaf
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775788"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406092"
 ---
 # <a name="twitter-external-sign-in-setup-with-aspnet-core"></a>Nastavení externího přihlášení k Twitteru pomocí ASP.NET Core
 
@@ -38,10 +40,10 @@ V této ukázce se dozvíte, jak uživatelům povolit, aby se k [účtu Twitter 
 
 * Microsoft. AspNetCore.Identity vyžaduje, aby uživatelé měli ve výchozím nastavení e-mailovou adresu. Přejděte na kartu **oprávnění** , klikněte na tlačítko **Upravit** a zaškrtněte políčko u možnosti **požádat uživatele o e-mailovou adresu**.
 
-* Zadejte identifikátor URI pro vývoj `/signin-twitter` s připojením k poli **adresy URL zpětného volání** (například `https://webapp128.azurewebsites.net/signin-twitter`:). Schéma ověřování Twitteru, které je nakonfigurované později v této ukázce, `/signin-twitter` automaticky zpracuje požadavky na trase k implementaci toku OAuth.
+* Zadejte identifikátor URI pro vývoj s `/signin-twitter` připojením k poli **adresy URL zpětného volání** (například: `https://webapp128.azurewebsites.net/signin-twitter` ). Schéma ověřování Twitteru, které je nakonfigurované později v této ukázce, automaticky zpracuje požadavky na `/signin-twitter` trase k implementaci toku OAuth.
 
   > [!NOTE]
-  > Segment `/signin-twitter` identifikátoru URI je nastaven jako výchozí zpětné volání poskytovatele ověřování Twitteru. Výchozí identifikátor URI zpětného volání můžete změnit během konfigurace middleware pro ověřování Twitteru prostřednictvím zděděné vlastnosti [RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [TwitterOptions](/dotnet/api/microsoft.aspnetcore.authentication.twitter.twitteroptions) .
+  > Segment identifikátoru URI `/signin-twitter` je nastaven jako výchozí zpětné volání poskytovatele ověřování Twitteru. Výchozí identifikátor URI zpětného volání můžete změnit během konfigurace middleware pro ověřování Twitteru prostřednictvím zděděné vlastnosti [RemoteAuthenticationOptions. CallbackPath](/dotnet/api/microsoft.aspnetcore.authentication.remoteauthenticationoptions.callbackpath) třídy [TwitterOptions](/dotnet/api/microsoft.aspnetcore.authentication.twitter.twitteroptions) .
 
 * Vyplňte zbytek formuláře a vyberte **vytvořit**. Zobrazí se nové podrobnosti o aplikaci:
 
@@ -50,7 +52,7 @@ V této ukázce se dozvíte, jak uživatelům povolit, aby se k [účtu Twitter 
 Uložte citlivá nastavení, jako je klíč rozhraní API pro Twitter Consumer a tajný klíč pomocí [správce tajných](xref:security/app-secrets)klíčů. V této ukázce použijte následující postup:
 
 1. Inicializujte projekt pro tajné úložiště podle pokynů v tématu [Povolení tajného úložiště](xref:security/app-secrets#enable-secret-storage).
-1. Uložte citlivá nastavení do místního úložiště tajného klíče s klíči `Authentication:Twitter:ConsumerKey` tajných `Authentication:Twitter:ConsumerSecret`klíčů a:
+1. Uložte citlivá nastavení do místního úložiště tajného klíče s klíči tajných klíčů `Authentication:Twitter:ConsumerKey` a `Authentication:Twitter:ConsumerSecret` :
 
     ```dotnetcli
     dotnet user-secrets set "Authentication:Twitter:ConsumerAPIKey" "<consumer-api-key>"
@@ -91,9 +93,9 @@ Twitter doesn't support AccessDeniedPath
 Rather in the twitter setup, you can provide an External sign-in homepage. The external sign-in homepage doesn't support localhost. Tested with https://cors3.azurewebsites.net/ and that works.
 -->
 
-## <a name="troubleshooting"></a>Řešení potíží
+## <a name="troubleshooting"></a>Poradce při potížích
 
-* **Pouze ASP.NET Core 2. x:** Pokud Identity není nakonfigurováno `services.AddIdentity` voláním `ConfigureServices`v, pokus o ověření bude mít za následek *ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použitá v této ukázce zajišťuje, že je to hotové.
+* **Pouze ASP.NET Core 2. x:** Pokud Identity není nakonfigurováno voláním `services.AddIdentity` v `ConfigureServices` , pokus o ověření bude mít za následek *ArgumentException: je třeba zadat možnost SignInScheme*. Šablona projektu použitá v této ukázce zajišťuje, že je to hotové.
 * Pokud se databáze lokality nevytvořila při použití prvotní migrace, při zpracování chyby žádosti se zobrazí *operace databáze* . Klepnutím na **použít migrace** vytvořte databázi a aktualizujte, aby pokračovala i po chybě.
 
 ## <a name="next-steps"></a>Další kroky
@@ -102,4 +104,4 @@ Rather in the twitter setup, you can provide an External sign-in homepage. The e
 
 * Po publikování webu do webové aplikace Azure byste měli resetovat na `ConsumerSecret` portálu pro vývojáře na Twitteru.
 
-* Nastavte nastavení `Authentication:Twitter:ConsumerKey` a `Authentication:Twitter:ConsumerSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastaven na čtení klíčů z proměnných prostředí.
+* Nastavte `Authentication:Twitter:ConsumerKey` nastavení a `Authentication:Twitter:ConsumerSecret` jako nastavení aplikace v Azure Portal. Konfigurační systém je nastaven na čtení klíčů z proměnných prostředí.

@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 12/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: ba523fba60153e2ae804f5a875cfaa1aa8fffedd
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 06d5d6e2db1cf3ccb148c24c40c264016d47a0ed
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82769099"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406586"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Tagování pomocníků ve formulářích ve ASP.NET Core
 
@@ -33,13 +35,13 @@ V mnoha případech pomocné rutiny HTML poskytují alternativní přístup k ko
 
 Pomocný objekt značky [formuláře](https://www.w3.org/TR/html401/interact/forms.html) :
 
-* Vygeneruje hodnotu atributu HTML [ \<Form>](https://www.w3.org/TR/html401/interact/forms.html) `action` pro akci kontroleru MVC nebo s názvem Route.
+* Vygeneruje [\<FORM>](https://www.w3.org/TR/html401/interact/forms.html) `action` hodnotu atributu HTML pro akci kontroleru MVC nebo pojmenované trasy.
 
-* Vygeneruje skrytý [token pro ověření žádosti](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages) , který zabrání padělání požadavků mezi weby (při použití `[ValidateAntiForgeryToken]` s atributem v metodě akce HTTP POST).
+* Vygeneruje skrytý [token pro ověření žádosti](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages) , který zabrání padělání požadavků mezi weby (při použití s `[ValidateAntiForgeryToken]` atributem v metodě akce HTTP POST).
 
-* Poskytuje `asp-route-<Parameter Name>` atribut, který `<Parameter Name>` je přidán do hodnot tras. `routeValues` Parametry `Html.BeginForm` a `Html.BeginRouteForm` poskytují podobné funkce.
+* Poskytuje `asp-route-<Parameter Name>` atribut, který `<Parameter Name>` je přidán do hodnot tras. `routeValues`Parametry `Html.BeginForm` a `Html.BeginRouteForm` poskytují podobné funkce.
 
-* Má alternativu `Html.BeginForm` k Pomocníkovi HTML a`Html.BeginRouteForm`
+* Má alternativu k Pomocníkovi HTML `Html.BeginForm` a`Html.BeginRouteForm`
 
 Ukázka:
 
@@ -54,11 +56,11 @@ Pomocník značek Form výše vygeneruje následující kód HTML:
 </form>
 ```
 
-Modul runtime MVC generuje hodnotu `action` atributu z pomocníka značek formuláře `asp-controller` a. `asp-action` Pomocník značek formuláře také generuje skrytý token pro [ověření žádosti](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages) , který zabrání padělání požadavků mezi weby (při použití s `[ValidateAntiForgeryToken]` atributem v metodě akce HTTP POST). Ochrana čistě formuláře HTML proti padělání žádostí mezi weby je obtížné, a proto pomocník značek formuláře tuto službu poskytuje za vás.
+Modul runtime MVC generuje `action` hodnotu atributu z pomocníka značek formuláře `asp-controller` a `asp-action` . Pomocník značek formuláře také generuje skrytý token pro [ověření žádosti](/aspnet/mvc/overview/security/xsrfcsrf-prevention-in-aspnet-mvc-and-web-pages) , který zabrání padělání požadavků mezi weby (při použití s `[ValidateAntiForgeryToken]` atributem v metodě akce HTTP POST). Ochrana čistě formuláře HTML proti padělání žádostí mezi weby je obtížné, a proto pomocník značek formuláře tuto službu poskytuje za vás.
 
 ### <a name="using-a-named-route"></a>Použití pojmenované trasy
 
-Atribut `asp-route` pomocník značek může také generovat označení pro atribut HTML `action` . Aplikace s názvem `register` v [cestě](../../fundamentals/routing.md) může pro registrační stránku použít následující značky:
+`asp-route`Atribut pomocník značek může také generovat označení pro `action` atribut HTML. Aplikace s názvem v [cestě](../../fundamentals/routing.md) `register` může pro registrační stránku použít následující značky:
 
 [!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterRoute.cshtml)]
 
@@ -71,21 +73,21 @@ Mnohé z zobrazení ve složce *zobrazení nebo účtu* (vygenerované při vytv
 ```
 
 >[!NOTE]
->Pomocí integrovaných šablon se automaticky `returnUrl` naplní pouze při pokusu o přístup k autorizovanému prostředku, ale nejsou ověřeny nebo autorizovány. Když se pokusíte o neautorizovaný přístup, middleware zabezpečení vás přesměruje na přihlašovací stránku se `returnUrl` sadou.
+>Pomocí integrovaných šablon `returnUrl` se automaticky naplní pouze při pokusu o přístup k autorizovanému prostředku, ale nejsou ověřeny nebo autorizovány. Když se pokusíte o neautorizovaný přístup, middleware zabezpečení vás přesměruje na přihlašovací stránku se `returnUrl` sadou.
 
 ## <a name="the-form-action-tag-helper"></a>Pomocník značek akce formuláře
 
-Pomocník značek akce formuláře vygeneruje `formaction` atribut na vygenerované `<button ...>` nebo `<input type="image" ...>` značky. `formaction` Atribut určuje, kam formulář odešle svá data. Váže se na [ \<vstupní>](https://www.w3.org/wiki/HTML/Elements/input) prvky typu a [ \<>](https://www.w3.org/wiki/HTML/Elements/button) prvků typu. `image` Pomocná značka akce formuláře umožňuje použití několika atributů [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) `asp-` k řízení toho, které `formaction` propojení je vygenerováno pro odpovídající prvek.
+Pomocník značek akce formuláře vygeneruje `formaction` atribut na vygenerované `<button ...>` nebo `<input type="image" ...>` značky. `formaction`Atribut určuje, kam formulář odešle svá data. Vytvoří vazby k [\<input>](https://www.w3.org/wiki/HTML/Elements/input) prvkům typu `image` a [\<button>](https://www.w3.org/wiki/HTML/Elements/button) elementů. Pomocná značka akce formuláře umožňuje použití několika atributů [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) `asp-` k řízení toho, které `formaction` propojení je vygenerováno pro odpovídající prvek.
 
-Podporované atributy [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) pro řízení hodnoty `formaction`:
+Podporované atributy [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) pro řízení hodnoty `formaction` :
 
 |Atribut|Popis|
 |---|---|
 |[ASP – kontroler](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-controller)|Název kontroleru.|
 |[ASP – akce](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-action)|Název metody akce|
 |[ASP – oblast](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-area)|Název oblasti.|
-|[ASP – stránka](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název stránky Razor|
-|[ASP – obslužná rutina stránky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Název obslužné rutiny stránky Razor|
+|[ASP – stránka](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název Razor stránky|
+|[ASP – obslužná rutina stránky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Název Razor obslužné rutiny stránky|
 |[ASP – trasa](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|Název trasy.|
 |[ASP-Route-{Value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|Jedna hodnota směrování adresy URL. Například, `asp-route-id="1234"`.|
 |[ASP-All-Route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|Všechny hodnoty tras.|
@@ -114,7 +116,7 @@ Předchozí kód generuje následující kód HTML:
 
 ### <a name="submit-to-page-example"></a>Příklad odeslání na stránku
 
-Následující kód odešle formulář na stránku `About` Razor:
+Následující kód odešle formulář na `About` Razor stránku:
 
 ```cshtml
 <form method="post">
@@ -134,7 +136,7 @@ Předchozí kód generuje následující kód HTML:
 
 ### <a name="submit-to-route-example"></a>Příklad odeslání do trasy
 
-Vezměte v `/Home/Test` úvahu koncový bod:
+Vezměte v úvahu `/Home/Test` koncový bod:
 
 ```csharp
 public class HomeController : Controller
@@ -167,7 +169,7 @@ Předchozí kód generuje následující kód HTML:
 
 ## <a name="the-input-tag-helper"></a>Pomocná rutina vstupní značky
 
-Pomocná rutina vstupní značky váže vstupní prvek HTML [ \<>](https://www.w3.org/wiki/HTML/Elements/input) element na výraz modelu v zobrazení Razor.
+Pomocná rutina vstupní značky váže [\<input>](https://www.w3.org/wiki/HTML/Elements/input) prvek HTML k výrazu modelu v zobrazení Razor.
 
 Syntaxe:
 
@@ -177,15 +179,15 @@ Syntaxe:
 
 Pomocná rutina vstupní značky:
 
-* `id` Generuje atributy `name` jazyka HTML pro název výrazu zadaného v `asp-for` atributu. `asp-for="Property1.Property2"`je ekvivalentem `m => m.Property1.Property2`k. Název výrazu je, který se používá pro hodnotu `asp-for` atributu. Další informace najdete v části [názvy výrazů](#expression-names) .
+* Generuje `id` `name` atributy jazyka HTML pro název výrazu zadaného v `asp-for` atributu. `asp-for="Property1.Property2"`je ekvivalentem k `m => m.Property1.Property2` . Název výrazu je, který se používá pro `asp-for` hodnotu atributu. Další informace najdete v části [názvy výrazů](#expression-names) .
 
-* Nastaví hodnotu atributu `type` HTML na základě typu modelu a atributů [poznámek k datům](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) použitým pro vlastnost modelu.
+* Nastaví `type` hodnotu atributu HTML na základě typu modelu a atributů [poznámek k datům](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) použitým pro vlastnost modelu.
 
-* Pokud je zadaná hodnota `type` atributu HTML, nepřepíše se.
+* `type`Pokud je zadaná hodnota atributu HTML, nepřepíše se.
 
 * Generuje atributy ověřování [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) z atributů [poznámky k datům](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.iattributeadapter) použitých na vlastnosti modelu.
 
-* Má pomocná funkce HTML překryv s `Html.TextBoxFor` a `Html.EditorFor`. Podrobnosti najdete v části **alternativy pomocníka HTML pro vstupní nápovědu ke značce** .
+* Má pomocná funkce HTML překryv s `Html.TextBoxFor` a `Html.EditorFor` . Podrobnosti najdete v části **alternativy pomocníka HTML pro vstupní nápovědu ke značce** .
 
 * Poskytuje silné psaní. Pokud se název vlastnosti změní a pomocník značek neaktualizujete, zobrazí se chybová zpráva podobná následující:
 
@@ -200,7 +202,7 @@ Type expected
  could be found (are you missing a using directive or an assembly reference?)
 ```
 
-Pomocník `Input` značek nastaví atribut HTML `type` na základě typu .NET. Následující tabulka uvádí některé typy běžných typů .NET a generovaný typ HTML (ne každý typ .NET je uveden).
+`Input`Pomocník značek nastaví `type` atribut HTML na základě typu .NET. Následující tabulka uvádí některé typy běžných typů .NET a generovaný typ HTML (ne každý typ .NET je uveden).
 
 |Typ .NET|Typ vstupu|
 |---|---|
@@ -247,15 +249,15 @@ Výše uvedený kód generuje následující kód HTML:
    </form>
 ```
 
-Datové poznámky použité pro vlastnosti `Email` a `Password` generují metadata modelu. Pomocná rutina vstupní značky spotřebovává metadata modelu a vytváří atributy [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-val-*` (viz [ověření modelu](../models/validation.md)). Tyto atributy popisují validátory, které se mají připojit ke vstupním polím. To poskytuje nenápadné ověřování HTML5 a [jQuery](https://jquery.com/) . Nenápadující `data-val-rule="Error Message"`atributy mají formát, kde pravidlo je název pravidla ověření (například `data-val-required`, `data-val-email`, `data-val-maxlength`atd.). Pokud je v atributu uvedena chybová zpráva, je zobrazena jako hodnota `data-val-rule` atributu. K dispozici jsou také atributy formuláře `data-val-ruleName-argumentName="argumentValue"` , které poskytují další podrobnosti o pravidlu, například `data-val-maxlength-max="1024"` .
+Datové poznámky použité pro `Email` `Password` vlastnosti a generují metadata modelu. Pomocná rutina vstupní značky spotřebovává metadata modelu a vytváří atributy [HTML5](https://developer.mozilla.org/docs/Web/Guide/HTML/HTML5) `data-val-*` (viz [ověření modelu](../models/validation.md)). Tyto atributy popisují validátory, které se mají připojit ke vstupním polím. To poskytuje nenápadné ověřování HTML5 a [jQuery](https://jquery.com/) . Nenápadující atributy mají formát `data-val-rule="Error Message"` , kde pravidlo je název pravidla ověření (například `data-val-required` , `data-val-email` , `data-val-maxlength` atd.). Pokud je v atributu uvedena chybová zpráva, je zobrazena jako hodnota `data-val-rule` atributu. K dispozici jsou také atributy formuláře `data-val-ruleName-argumentName="argumentValue"` , které poskytují další podrobnosti o pravidlu, například `data-val-maxlength-max="1024"` .
 
 ### <a name="html-helper-alternatives-to-input-tag-helper"></a>Pomocné možnosti pro pomocníka HTML pro pomocníka vstupní značky
 
-`Html.TextBox`, `Html.TextBoxFor` `Html.Editor` a `Html.EditorFor` mají překrývající se funkce s pomocníkem vstupní značky. Pomocná rutina vstupní značky automaticky nastaví `type` atribut. `Html.TextBox` a `Html.TextBoxFor` ne. `Html.Editor`a `Html.EditorFor` zpracovávají kolekce, komplexní objekty a šablony; Pomocná rutina vstupní značky není. Pomocná rutina vstupní `Html.EditorFor` značky `Html.TextBoxFor` a jsou silného typu (používají lambda výrazy); `Html.TextBox` a `Html.Editor` nejsou (používají názvy výrazů).
+`Html.TextBox`, `Html.TextBoxFor` `Html.Editor` a `Html.EditorFor` mají překrývající se funkce s pomocníkem vstupní značky. Pomocná rutina vstupní značky automaticky nastaví `type` atribut a nepoužije `Html.TextBox` `Html.TextBoxFor` . `Html.Editor`a `Html.EditorFor` zpracovávají kolekce, komplexní objekty a šablony; pomocná rutina vstupní značky nepoužívá. Pomocná rutina vstupní značky `Html.EditorFor` a `Html.TextBoxFor` je silného typu (používají lambda výrazy); `Html.TextBox` a nejsou `Html.Editor` (používají názvy výrazů).
 
 ### <a name="htmlattributes"></a>HtmlAttributes
 
-`@Html.Editor()`a `@Html.EditorFor()` při spouštění jejich `ViewDataDictionary` výchozích šablon `htmlAttributes` použijte speciální položku s názvem. Toto chování se volitelně rozšiřuje pomocí `additionalViewData` parametrů. Klíč "htmlAttributes" rozlišuje malá a velká písmena. Klíč "htmlAttributes" se zpracovává podobně jako `htmlAttributes` objekt předaný do vstupů pomocníků, `@Html.TextBox()`jako je.
+`@Html.Editor()`a `@Html.EditorFor()` `ViewDataDictionary` `htmlAttributes` při spouštění jejich výchozích šablon použijte speciální položku s názvem. Toto chování se volitelně rozšiřuje pomocí `additionalViewData` parametrů. Klíč "htmlAttributes" rozlišuje malá a velká písmena. Klíč "htmlAttributes" se zpracovává podobně jako `htmlAttributes` objekt předaný do vstupů pomocníků, jako je `@Html.TextBox()` .
 
 ```cshtml
 @Html.EditorFor(model => model.YourProperty, 
@@ -264,7 +266,7 @@ Datové poznámky použité pro vlastnosti `Email` a `Password` generují metada
 
 ### <a name="expression-names"></a>Názvy výrazů
 
-Hodnota `asp-for` atributu je `ModelExpression` a pravá strana výrazu lambda. Proto se `asp-for="Property1"` `m => m.Property1` ve vygenerovaném kódu zobrazí, což je důvod, proč nemusíte předponu používat `Model`. Můžete použít znak "\@" pro spuštění vloženého výrazu a přesunutí před: `m.`
+`asp-for`Hodnota atributu je `ModelExpression` a pravá strana výrazu lambda. Proto se `asp-for="Property1"` `m => m.Property1` ve vygenerovaném kódu zobrazí, což je důvod, proč nemusíte předponu používat `Model` . Můžete použít \@ znak "" pro spuštění vloženého výrazu a přesunutí před `m.` :
 
 ```cshtml
 @{
@@ -280,12 +282,12 @@ Generuje následující:
 <input type="text" id="joe" name="joe" value="Joe">
 ```
 
-Pomocí vlastností kolekce `asp-for="CollectionProperty[23].Member"` vygeneruje stejný název, jako `asp-for="CollectionProperty[i].Member"` `i` má hodnota `23`.
+Pomocí vlastností kolekce `asp-for="CollectionProperty[23].Member"` vygeneruje stejný název, jako `asp-for="CollectionProperty[i].Member"` `i` má hodnota `23` .
 
-Když ASP.NET Core MVC vypočítá hodnotu `ModelExpression`, zkontroluje několik zdrojů, včetně. `ModelState` Vezměte `<input type="text" asp-for="@Name">`v úvahu. Počítaný `value` atribut je první hodnota, která není null od:
+Když ASP.NET Core MVC vypočítá hodnotu `ModelExpression` , zkontroluje několik zdrojů, včetně `ModelState` . Vezměte v úvahu `<input type="text" asp-for="@Name">` . Počítaný `value` atribut je první hodnota, která není null od:
 
 * `ModelState`položka s klíčem "Name".
-* Výsledek výrazu `Model.Name`
+* Výsledek `Model.Name` výrazu
 
 ### <a name="navigating-child-properties"></a>Navigace podřízených vlastností
 
@@ -295,11 +297,11 @@ Můžete také přejít k podřízeným vlastnostem pomocí cesty vlastností mo
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/RegisterAddressViewModel.cs?highlight=8&range=5-13)]
 
-V zobrazení se svážeme s `Address.AddressLine1`:
+V zobrazení se svážeme s `Address.AddressLine1` :
 
 [!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterAddress.cshtml?highlight=6)]
 
-Následující kód HTML je vygenerován `Address.AddressLine1`pro:
+Následující kód HTML je vygenerován pro `Address.AddressLine1` :
 
 ```html
 <input type="text" id="Address_AddressLine1" name="Address.AddressLine1" value="">
@@ -307,7 +309,7 @@ Následující kód HTML je vygenerován `Address.AddressLine1`pro:
 
 ### <a name="expression-names-and-collections"></a>Názvy a kolekce výrazů
 
-Ukázka modelu obsahujícího pole `Colors`:
+Ukázka modelu obsahujícího pole `Colors` :
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/Person.cs?highlight=3&range=5-10)]
 
@@ -321,7 +323,7 @@ public IActionResult Edit(int id, int colorIndex)
 }
 ```
 
-Následující syntaxe Razor ukazuje, jak přistupujete `Color` k určitému prvku:
+Následující Razor příklad ukazuje, jak přistupovat k určitému `Color` prvku:
 
 [!code-HTML[](working-with-forms/sample/final/Views/Demo/EditColor.cshtml)]
 
@@ -329,11 +331,11 @@ Následující syntaxe Razor ukazuje, jak přistupujete `Color` k určitému prv
 
 [!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/String.cshtml)]
 
-Ukázka pomocí `List<T>`:
+Ukázka pomocí `List<T>` :
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/ToDoItem.cs?range=3-8)]
 
-Následující Razor ukazuje, jak iterovat v kolekci:
+Následující Razor příklad ukazuje, jak iterovat v kolekci:
 
 [!code-HTML[](working-with-forms/sample/final/Views/Demo/Edit.cshtml)]
 
@@ -341,7 +343,7 @@ Následující Razor ukazuje, jak iterovat v kolekci:
 
 [!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
 
-`foreach`by měla být použita, pokud je to možné, pokud se hodnota bude používat `asp-for` v `Html.DisplayFor` kontextu nebo ekvivalentním kontextu. Obecně je lepší `for` než `foreach` (pokud to scénář umožňuje), protože není nutné přidělovat enumerátor; vyhodnocení indexeru ve výrazu LINQ ale může být nákladné a mělo by být minimalizováno.
+`foreach`by měla být použita, pokud je to možné, pokud se hodnota bude používat `asp-for` v `Html.DisplayFor` kontextu nebo ekvivalentním kontextu. Obecně `for` je lepší, než `foreach` (pokud to scénář umožňuje), protože nemusí přidělovat enumerátor. vyhodnocení indexeru ve výrazu LINQ ale může být nákladné a mělo by být minimalizováno.
 
 &nbsp;
 
@@ -350,9 +352,9 @@ Následující Razor ukazuje, jak iterovat v kolekci:
 
 ## <a name="the-textarea-tag-helper"></a>Pomocník značek TextArea
 
-Pomocný `Textarea Tag Helper` pomocník značek je podobný jako pomocník pro vstupní značky.
+`Textarea Tag Helper`Pomocný pomocník značek je podobný jako pomocník pro vstupní značky.
 
-* Vygeneruje `id` atributy `name` a a atributy ověřování dat z modelu pro prvek [ \<TextArea>](https://www.w3.org/wiki/HTML/Elements/textarea) element.
+* Generuje `id` atributy a `name` a atributy ověřování dat z modelu pro [\<textarea>](https://www.w3.org/wiki/HTML/Elements/textarea) element.
 
 * Poskytuje silné psaní.
 
@@ -382,13 +384,13 @@ Vygeneruje se následující kód HTML:
 
 ## <a name="the-label-tag-helper"></a>Pomocník značek popisku
 
-* Vygeneruje popisek a `for` atribut popisku>elementu [ \<popisku](https://www.w3.org/wiki/HTML/Elements/label) pro název výrazu.
+* Vygeneruje popisek a `for` atribut popisku [\<label>](https://www.w3.org/wiki/HTML/Elements/label) elementu pro název výrazu.
 
-* Alternativní pomocník HTML: `Html.LabelFor`.
+* Alternativní pomocník HTML: `Html.LabelFor` .
 
-`Label Tag Helper` Poskytuje následující výhody oproti čistě prvku popisku HTML:
+`Label Tag Helper`Poskytuje následující výhody oproti čistě prvku popisku HTML:
 
-* Z `Display` atributu se automaticky získá popisná hodnota popisku. Zamýšlené zobrazované jméno se může v průběhu času měnit a kombinace `Display` atributu a pomocníka značky Label bude používat `Display` všude, kde se používá.
+* Z atributu se automaticky získá popisná hodnota popisku `Display` . Zamýšlené zobrazované jméno se může v průběhu času měnit a kombinace `Display` atributu a pomocníka značky Label bude používat všude, kde se `Display` používá.
 
 * Míň značek ve zdrojovém kódu
 
@@ -400,17 +402,17 @@ Ukázka:
 
 [!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterLabel.cshtml?highlight=4)]
 
-Pro `<label>` element je vygenerován následující kód HTML:
+Pro element je vygenerován následující kód HTML `<label>` :
 
 ```html
 <label for="Email">Email Address</label>
 ```
 
-Pomocník značek Label vygeneroval hodnotu `for` atributu "e-mail", což je ID přidružené k `<input>` elementu. Pomocník značek generuje konzistentní `id` prvky a `for` , aby je bylo možné správně přidružit. Titulek v této ukázce pochází z `Display` atributu. Pokud model neobsahoval `Display` atribut, popisek by byl názvem vlastnosti výrazu.
+Pomocník značek Label vygeneroval `for` hodnotu atributu "e-mail", což je ID přidružené k `<input>` elementu. Pomocník značek generuje konzistentní `id` prvky a, `for` aby je bylo možné správně přidružit. Titulek v této ukázce pochází z `Display` atributu. Pokud model neobsahoval `Display` atribut, popisek by byl názvem vlastnosti výrazu.
 
 ## <a name="the-validation-tag-helpers"></a>Pomocníka značek ověřování
 
-K dispozici jsou dva pomocníky ověřovacích značek. `Validation Message Tag Helper` (Který zobrazuje ověřovací zprávu pro jednu vlastnost v modelu) a `Validation Summary Tag Helper` (která zobrazuje souhrn chyb ověřování). `Input Tag Helper` Přidá atributy ověřování na straně klienta HTML5 pro vstupní prvky na základě atributů datových poznámek v třídách modelu. Ověřování se provádí také na serveru. Pomocník pro ověřování značek zobrazí tyto chybové zprávy, když dojde k chybě ověření.
+K dispozici jsou dva pomocníky ověřovacích značek. `Validation Message Tag Helper`(Který zobrazuje ověřovací zprávu pro jednu vlastnost v modelu) a `Validation Summary Tag Helper` (která zobrazuje souhrn chyb ověřování). `Input Tag Helper`Přidá atributy ověřování na straně klienta HTML5 pro vstupní prvky na základě atributů datových poznámek v třídách modelu. Ověřování se provádí také na serveru. Pomocník pro ověřování značek zobrazí tyto chybové zprávy, když dojde k chybě ověření.
 
 ### <a name="the-validation-message-tag-helper"></a>Pomocný pomocník značek ověřovací zprávy
 
@@ -420,7 +422,7 @@ K dispozici jsou dva pomocníky ověřovacích značek. `Validation Message Tag 
 
 * Alternativní pomocník HTML:`Html.ValidationMessageFor`
 
-`Validation Message Tag Helper` Se používá s `asp-validation-for` atributem elementu [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) HTML.
+Se `Validation Message Tag Helper` používá s `asp-validation-for` atributem elementu [span](https://developer.mozilla.org/docs/Web/HTML/Element/span) HTML.
 
 ```cshtml
 <span asp-validation-for="Email"></span>
@@ -434,12 +436,12 @@ Pomocný pomocník značek ověřovací zprávy vygeneruje následující kód H
   data-valmsg-replace="true"></span>
 ```
 
-Obecně použijete `Validation Message Tag Helper` pomocníka `Input` značky pro stejnou vlastnost. Tím se zobrazí všechny chybové zprávy ověřování poblíž vstupu, který způsobil chybu.
+Obecně použijete `Validation Message Tag Helper` `Input` pomocníka značky pro stejnou vlastnost. Tím se zobrazí všechny chybové zprávy ověřování poblíž vstupu, který způsobil chybu.
 
 > [!NOTE]
 > Musíte mít zobrazení se správnými odkazy skriptu JavaScript a [jQuery](https://jquery.com/) pro ověřování na straně klienta. Další informace najdete v tématu [ověřování modelu](../models/validation.md) .
 
-Pokud dojde k chybě ověřování na straně serveru (například když máte zakázané vlastní ověřování na straně serveru nebo když je ověřování na straně klienta zakázané), MVC umístí tuto chybovou zprávu `<span>` jako tělo elementu.
+Pokud dojde k chybě ověřování na straně serveru (například když máte zakázané vlastní ověřování na straně serveru nebo když je ověřování na straně klienta zakázané), MVC umístí tuto chybovou zprávu jako tělo `<span>` elementu.
 
 ```html
 <span class="field-validation-error" data-valmsg-for="Email"
@@ -450,11 +452,11 @@ Pokud dojde k chybě ověřování na straně serveru (například když máte z
 
 ### <a name="the-validation-summary-tag-helper"></a>Nápověda k souhrnným značkám ověřování
 
-* Cílí `<div>` na `asp-validation-summary` elementy s atributem.
+* Cílí `<div>` na elementy s `asp-validation-summary` atributem.
 
 * Alternativní pomocník HTML:`@Html.ValidationSummary`
 
-`Validation Summary Tag Helper` Slouží k zobrazení souhrnu ověřovacích zpráv. Hodnota `asp-validation-summary` atributu může být libovolná z následujících hodnot:
+`Validation Summary Tag Helper`Slouží k zobrazení souhrnu ověřovacích zpráv. `asp-validation-summary`Hodnota atributu může být libovolná z následujících hodnot:
 
 |ASP – ověření – souhrn|Zobrazené ověřovací zprávy|
 |--- |--- |
@@ -464,7 +466,7 @@ Pokud dojde k chybě ověřování na straně serveru (například když máte z
 
 ### <a name="sample"></a>Ukázka
 
-V následujícím příkladu má `DataAnnotation` datový model atributy, které generují chybové zprávy ověřování na `<input>` elementu.  Pokud dojde k chybě ověřování, Pomocník pro ověření značky zobrazí chybovou zprávu:
+V následujícím příkladu má datový model `DataAnnotation` atributy, které generují chybové zprávy ověřování na `<input>` elementu.  Pokud dojde k chybě ověřování, Pomocník pro ověření značky zobrazí chybovou zprávu:
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/RegisterViewModel.cs)]
 
@@ -495,9 +497,9 @@ Generovaný kód HTML (Pokud je model platný):
 
 * Generuje [vybrané](https://www.w3.org/wiki/HTML/Elements/select) a přidružené prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) pro vlastnosti modelu.
 
-* Má alternativu `Html.DropDownListFor` k Pomocníkovi HTML a`Html.ListBoxFor`
+* Má alternativu k Pomocníkovi HTML `Html.DropDownListFor` a`Html.ListBoxFor`
 
-`Select Tag Helper` [select](https://www.w3.org/wiki/HTML/Elements/select) `asp-items` [option](https://www.w3.org/wiki/HTML/Elements/option) Určuje název vlastnosti modelu pro element SELECT a určuje prvky možností. `asp-for`  Příklad:
+`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Například:
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
@@ -505,7 +507,7 @@ Ukázka:
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/CountryViewModel.cs)]
 
-`Index` Metoda inicializuje `CountryViewModel`, nastaví vybranou zemi a předá ji do `Index` zobrazení.
+`Index`Metoda inicializuje `CountryViewModel` , nastaví vybranou zemi a předá ji do `Index` zobrazení.
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=8-13)]
 
@@ -513,7 +515,7 @@ Metoda HTTP POST `Index` zobrazuje výběr:
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=15-27)]
 
-`Index` Zobrazení:
+`Index`Zobrazení:
 
 [!code-cshtml[](working-with-forms/sample/final/Views/Home/Index.cshtml?highlight=4)]
 
@@ -534,13 +536,13 @@ Který generuje následující HTML (s vybraným certifikačním úřadem):
 > [!NOTE]
 > Nedoporučujeme používat `ViewBag` nebo `ViewData` s pomocníkem pro výběr značky. Model zobrazení je robustnější při poskytování metadat MVC a obecně méně problematických.
 
-Hodnota `asp-for` atributu je zvláštní případ a nevyžaduje `Model` předponu, ostatní pomocné atributy značek (například `asp-items`).
+`asp-for`Hodnota atributu je zvláštní případ a nevyžaduje `Model` předponu, ostatní pomocné atributy značek (například `asp-items` ).
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
 ### <a name="enum-binding"></a>Vazba výčtu
 
-Je často vhodné `<select>` použít s `enum` vlastností a generovat `SelectListItem` prvky z `enum` hodnot.
+Je často vhodné použít `<select>` s `enum` vlastností a generovat `SelectListItem` prvky z `enum` hodnot.
 
 Ukázka:
 
@@ -548,11 +550,11 @@ Ukázka:
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/CountryEnum.cs)]
 
-`GetEnumSelectList` Metoda generuje `SelectList` objekt pro výčet.
+`GetEnumSelectList`Metoda generuje `SelectList` objekt pro výčet.
 
 [!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEnum.cshtml?highlight=5)]
 
-Můžete označit seznam enumerátorů pomocí `Display` atributu pro získání BOHATŠÍHO uživatelského rozhraní:
+Můžete označit seznam enumerátorů pomocí `Display` atributu pro získání bohatšího uživatelského rozhraní:
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/CountryEnum.cs?highlight=5,7)]
 
@@ -576,9 +578,9 @@ Vygeneruje se následující kód HTML:
 
 ### <a name="option-group"></a>Skupina možností
 
-Prvek HTML [ \<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) je generována, když model zobrazení obsahuje jeden nebo více `SelectListGroup` objektů.
+Element HTML [\<optgroup>](https://www.w3.org/wiki/HTML/Elements/optgroup) je vygenerován, pokud model zobrazení obsahuje jeden nebo více `SelectListGroup` objektů.
 
-`CountryViewModelGroup` Seskupí `SelectListItem` prvky do skupin "Severní Amerika" a "Evropa":
+`CountryViewModelGroup`Seskupí `SelectListItem` prvky do skupin "Severní Amerika" a "Evropa":
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/CountryViewModelGroup.cs?highlight=5,6,14,20,26,32,38,44&range=6-56)]
 
@@ -609,7 +611,7 @@ Generovaný kód HTML:
 
 ### <a name="multiple-select"></a>Vícenásobný výběr
 
-Pomocník pro výběr značky automaticky vygeneruje atribut [Multiple = Multiple](https://w3c.github.io/html-reference/select.html) , pokud je vlastnost zadaná v `asp-for` atributu. `IEnumerable` Například s ohledem na následující model:
+Pomocník pro výběr značky automaticky vygeneruje atribut [Multiple = Multiple](https://w3c.github.io/html-reference/select.html) , pokud je vlastnost zadaná v `asp-for` atributu `IEnumerable` . Například s ohledem na následující model:
 
 [!code-csharp[](../../mvc/views/working-with-forms/sample/final/ViewModels/CountryViewModelIEnumerable.cs?highlight=6)]
 
@@ -645,13 +647,13 @@ Pokud se vám na více stránkách používá možnost neurčeno, můžete vytvo
 
 [!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/CountryViewModel.cshtml)]
 
-Přidání možnosti jazyka HTML [ \<>](https://www.w3.org/wiki/HTML/Elements/option) prvky není omezeno na případ *výběru* . Například následující metoda zobrazení a akce vygeneruje HTML podobný kódu výše:
+Přidávání prvků jazyka HTML [\<option>](https://www.w3.org/wiki/HTML/Elements/option) není omezeno pouze na případ *výběru* . Například následující metoda zobrazení a akce vygeneruje HTML podobný kódu výše:
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?name=snippetNone)]
 
 [!code-HTML[](working-with-forms/sample/final/Views/Home/IndexOption.cshtml)]
 
-V závislosti `<option>` na aktuální `Country` hodnotě bude vybrán správný prvek `selected="selected"` (obsahující atribut).
+V `<option>` závislosti na aktuální hodnotě bude vybrán správný prvek (obsahující `selected="selected"` atribut) `Country` .
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?range=114-119)]
 

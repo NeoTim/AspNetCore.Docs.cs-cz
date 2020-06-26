@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/14/2016
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/data-protection/configuration/default-settings
-ms.openlocfilehash: 1db5177230fd4076af080e208f094ce4d6537c62
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: f758c814280ee09a240d99cc59cdab2dc4590df6
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777446"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85407093"
 ---
 # <a name="data-protection-key-management-and-lifetime-in-aspnet-core"></a>Správa a životnost klíče ochrany dat v ASP.NET Core
 
@@ -33,18 +35,18 @@ Aplikace se pokusí zjistit své provozní prostředí a sám zpracovat konfigur
 
 1. Pokud je profil uživatele k dispozici, zachovají se klíče do složky *%localappdata%\ASP.NET\DataProtection-Keys* . Pokud je operační systém Windows, klíče se zašifrují v klidovém stavu pomocí DPAPI.
 
-   Musí být povolený i [atribut setProfileEnvironment](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) fondu aplikací. Výchozí hodnota `setProfileEnvironment` je `true`. V některých scénářích (například operační systém Windows) `setProfileEnvironment` je nastavena na. `false` Pokud se klíče neukládají v adresáři profilu uživatele podle očekávání:
+   Musí být povolený i [atribut setProfileEnvironment](/iis/configuration/system.applicationhost/applicationpools/add/processmodel#configuration) fondu aplikací. Výchozí hodnota `setProfileEnvironment` je `true` . V některých scénářích (například operační systém Windows) `setProfileEnvironment` je nastavena na `false` . Pokud se klíče neukládají v adresáři profilu uživatele podle očekávání:
 
    1. Přejděte do složky *% windir%/system32/Inetsrv/config* .
-   1. Otevřete soubor *ApplicationHost. config* .
+   1. Otevřete soubor *applicationHost.config* .
    1. Vyhledejte element `<system.applicationHost><applicationPools><applicationPoolDefaults><processModel>`.
-   1. Potvrďte, `setProfileEnvironment` že atribut není přítomen, přičemž výchozí hodnota je `true`, nebo explicitně nastavte hodnotu atributu na `true`.
+   1. Potvrďte, že `setProfileEnvironment` atribut není přítomen, přičemž výchozí hodnota je `true` , nebo explicitně nastavte hodnotu atributu na `true` .
 
 1. Pokud je aplikace hostovaná ve službě IIS, klíče se uchovávají v registru HKLM ve speciálním klíči registru, který se ACLed jenom na účet pracovního procesu. Klíče jsou v klidovém stavu šifrované pomocí DPAPI.
 
 1. Pokud žádná z těchto podmínek nesouhlasí, klíče nejsou trvale uložené mimo aktuální proces. Po ukončení procesu se všechny vygenerované klíče ztratí.
 
-Vývojář je vždy v úplném řízení a může potlačit, jak a kde jsou klíče uložené. První tři možnosti výše by měly poskytnout dobré výchozí hodnoty pro většinu aplikací, podobně jako rutiny ASP.NET ** \<machineKey>** pro automatické generování v minulosti. Poslední, záložní možnost je jediným scénářem, který vyžaduje, aby vývojář předem určil [konfiguraci](xref:security/data-protection/configuration/overview) , pokud chce, ale tato záloha nastane jenom ve výjimečných situacích.
+Vývojář je vždy v úplném řízení a může potlačit, jak a kde jsou klíče uložené. První tři možnosti výše by měly poskytnout dobré výchozí hodnoty pro většinu aplikací podobně jako **\<machineKey>** rutiny automatické generace ASP.NET v minulosti. Poslední, záložní možnost je jediným scénářem, který vyžaduje, aby vývojář předem určil [konfiguraci](xref:security/data-protection/configuration/overview) , pokud chce, ale tato záloha nastane jenom ve výjimečných situacích.
 
 Při hostování v kontejneru Docker by měly být klíče trvale uložené ve složce, která je svazkem Docker (sdílený svazek nebo svazek připojený k hostiteli, který přetrvává mimo životní cyklus kontejneru), nebo externímu poskytovateli, jako je například [Azure Key Vault](https://azure.microsoft.com/services/key-vault/) nebo [Redis](https://redis.io/). Externí poskytovatel je také užitečný ve scénářích webové farmy, pokud aplikace nemůžou přistupovat ke sdílenému síťovému svazku (Další informace najdete v tématu [PersistKeysToFileSystem](xref:security/data-protection/configuration/overview#persistkeystofilesystem) ).
 

@@ -1,23 +1,25 @@
 ---
 title: Ověření modelu ve ASP.NET Core MVC
 author: rick-anderson
-description: Přečtěte si o ověřování modelu v ASP.NET Core Razor MVC a stránkách.
+description: Přečtěte si o ověřování modelu v ASP.NET Core MVC a Razor stránkách.
 ms.author: riande
 ms.custom: mvc
 ms.date: 12/15/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/models/validation
-ms.openlocfilehash: 56c8d799b98cc09b8cfff12744c6eeb46af4f8e6
-ms.sourcegitcommit: 6c7a149168d2c4d747c36de210bfab3abd60809a
+ms.openlocfilehash: e76ddad795237991c49bf2a3b1ca840795989260
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/09/2020
-ms.locfileid: "83003167"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404909"
 ---
 # <a name="model-validation-in-aspnet-core-mvc-and-razor-pages"></a>Ověření modelu ve ASP.NET Core MVC a Razor stránkách
 
@@ -33,21 +35,21 @@ Tento článek vysvětluje, jak ověřit vstup uživatele v aplikaci ASP.NET Cor
 
 Stav modelu představuje chyby, které pocházejí ze dvou subsystémů: vazby modelu a ověření modelu. Chyby, které pocházejí z [vazby mezi modely](model-binding.md) , jsou obvykle chyby převodu dat. Například "x" je zadáno v poli typu Integer. K ověření modelu dochází po vazbě modelu a hlášení chyb, kde data neodpovídají obchodním pravidlům. Například hodnota 0 se zadává v poli, které očekává hodnocení mezi 1 a 5.
 
-Vazba modelů i ověřování modelu proběhne před provedením akce kontroleru nebo metody obslužné rutiny Razor stránky. U webových aplikací je zodpovědností aplikace vhodné je kontrolovat `ModelState.IsValid` a reagovat. Webové aplikace obvykle znovu zobrazí stránku s chybovou zprávou:
+Vazba modelů i ověřování modelu proběhne před provedením akce kontroleru nebo Razor metody obslužné rutiny stránky. U webových aplikací je zodpovědností aplikace vhodné je kontrolovat `ModelState.IsValid` a reagovat. Webové aplikace obvykle znovu zobrazí stránku s chybovou zprávou:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml.cs?name=snippet_OnPostAsync&highlight=3-6)]
 
-Řadiče webového rozhraní API nemusí kontrolovat `ModelState.IsValid` , jestli mají `[ApiController]` atribut. V takovém případě je vrácena Automatická odpověď HTTP 400 obsahující podrobnosti o chybě, pokud stav modelu není platný. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses).
+Řadiče webového rozhraní API nemusí kontrolovat, `ModelState.IsValid` jestli mají `[ApiController]` atribut. V takovém případě je vrácena Automatická odpověď HTTP 400 obsahující podrobnosti o chybě, pokud stav modelu není platný. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses).
 
 ## <a name="rerun-validation"></a>Znovu spustit ověření
 
-Ověřování je automatické, ale můžete je chtít opakovat ručně. Můžete například vypočítat hodnotu pro vlastnost a chtít znovu spustit ověřování po nastavení vlastnosti na vypočítanou hodnotu. Chcete-li znovu spustit ověřování `TryValidateModel` , zavolejte metodu, jak je znázorněno zde:
+Ověřování je automatické, ale můžete je chtít opakovat ručně. Můžete například vypočítat hodnotu pro vlastnost a chtít znovu spustit ověřování po nastavení vlastnosti na vypočítanou hodnotu. Chcete-li znovu spustit ověřování, zavolejte `TryValidateModel` metodu, jak je znázorněno zde:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Pages/Movies/Create.cshtml.cs?name=snippet_TryValidate&highlight=3-6)]
 
 ## <a name="validation-attributes"></a>Atributy ověřování
 
-Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti modelu. Následující příklad z ukázkové aplikace zobrazuje třídu modelu s poznámkou ověřování atributů. `[ClassicMovie]` Atribut je vlastní ověřovací atribut a jsou integrovány ostatní. Není zobrazeno `[ClassicMovieWithClientValidator]`. `[ClassicMovieWithClientValidator]`ukazuje alternativní způsob implementace vlastního atributu.
+Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti modelu. Následující příklad z ukázkové aplikace zobrazuje třídu modelu s poznámkou ověřování atributů. `[ClassicMovie]`Atribut je vlastní ověřovací atribut a jsou integrovány ostatní. Není zobrazeno `[ClassicMovieWithClientValidator]` . `[ClassicMovieWithClientValidator]`ukazuje alternativní způsob implementace vlastního atributu.
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/Movie.cs?name=snippet_Class)]
 
@@ -70,13 +72,13 @@ Tady jsou některé z vestavěných ověřovacích atributů:
 
 ### <a name="error-messages"></a>Chybové zprávy
 
-Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
+Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Například:
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-Interně atributy volají `String.Format` jako zástupný symbol pro název pole a někdy další zástupné symboly. Příklad:
+Interně atributy volají jako `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Například:
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -84,11 +86,11 @@ Interně atributy volají `String.Format` jako zástupný symbol pro název pole
 
 Při použití na `Name` vlastnost bude chybová zpráva vytvořená v předchozím kódu "Délka názvu musí být v rozmezí 6 až 8."
 
-Chcete-li zjistit, které parametry jsou `String.Format` předány pro konkrétní chybovou zprávu atributu, přečtěte si [zdrojový kód pro anotace](https://github.com/dotnet/runtime/tree/master/src/libraries/System.ComponentModel.Annotations/src/System/ComponentModel/DataAnnotations).
+Chcete-li zjistit, které parametry jsou předány `String.Format` pro konkrétní chybovou zprávu atributu, přečtěte si [zdrojový kód pro anotace](https://github.com/dotnet/runtime/tree/master/src/libraries/System.ComponentModel.Annotations/src/System/ComponentModel/DataAnnotations).
 
 ## <a name="required-attribute"></a>[Required] – atribut
 
-Systém ověřování v .NET Core 3,0 a novějším zpracovává parametry bez hodnoty null nebo vázané vlastnosti, jako kdyby měl `[Required]` atribut. [Typy hodnot](/dotnet/csharp/language-reference/keywords/value-types) , jako `decimal` jsou `int` a, nejsou null. Toto chování je možné zakázat konfigurací <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> v `Startup.ConfigureServices`nástroji:
+Systém ověřování v .NET Core 3,0 a novějším zpracovává parametry bez hodnoty null nebo vázané vlastnosti, jako kdyby měl `[Required]` atribut. [Typy hodnot](/dotnet/csharp/language-reference/keywords/value-types) , jako `decimal` jsou a, `int` nejsou null. Toto chování je možné zakázat konfigurací <xref:Microsoft.AspNetCore.Mvc.MvcOptions.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes> v nástroji `Startup.ConfigureServices` :
 
 ```csharp
 services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
@@ -96,16 +98,16 @@ services.AddControllers(options => options.SuppressImplicitRequiredAttributeForN
 
 ### <a name="required-validation-on-the-server"></a>[Požadováno] ověření na serveru
 
-Na serveru je požadovaná hodnota považována za chybějící, pokud má vlastnost hodnotu null. Pole, které nesmí mít hodnotu null, je vždy platné `[Required]` a chybová zpráva atributu se nikdy nezobrazuje.
+Na serveru je požadovaná hodnota považována za chybějící, pokud má vlastnost hodnotu null. Pole, které nesmí mít hodnotu null, je vždy platné a `[Required]` chybová zpráva atributu se nikdy nezobrazuje.
 
-Vazba modelu pro vlastnost, která nemůže mít hodnotu null, může selhat, což vede k chybové zprávě, `The value '' is invalid`jako je například. Chcete-li zadat vlastní chybovou zprávu pro ověřování na straně serveru pro typy, které neumožňují hodnotu null, máte následující možnosti:
+Vazba modelu pro vlastnost, která nemůže mít hodnotu null, může selhat, což vede k chybové zprávě, jako je například `The value '' is invalid` . Chcete-li zadat vlastní chybovou zprávu pro ověřování na straně serveru pro typy, které neumožňují hodnotu null, máte následující možnosti:
 
-* Převést pole na hodnotu null (například `decimal?` místo `decimal`). Typy hodnot s [možnou hodnotou null\<>](/dotnet/csharp/programming-guide/nullable-types/) jsou považovány za standardní typy s možnou hodnotou null
+* Převést pole na hodnotu null (například `decimal?` místo `decimal` ). [Nullable \<T> ](/dotnet/csharp/programming-guide/nullable-types/) typy hodnot jsou zpracovány jako standardní typy s možnou hodnotou null.
 * Zadejte výchozí chybovou zprávu, kterou má použít vazba modelu, jak je znázorněno v následujícím příkladu:
 
   [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_Configuration&highlight=5-6)]
 
-  Další informace o chybách vazeb modelů, které lze nastavit jako výchozí zprávy pro, naleznete <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelBindingMessageProvider#methods>v tématu.
+  Další informace o chybách vazeb modelů, které lze nastavit jako výchozí zprávy pro, naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelBindingMessageProvider#methods> .
 
 ### <a name="required-validation-on-the-client"></a>[Požadováno] ověřování na klientovi
 
@@ -114,18 +116,18 @@ Typy a řetězce, které neumožňují hodnotu null, jsou v porovnání s tímto
 * Hodnota se považuje za přítomnou pouze v případě, že je pro ni zadán vstup. Proto ověřování na straně klienta zpracovává typy, které neumožňují hodnotu null, stejné jako typy s možnou hodnotou null.
 * Prázdné znaky v poli řetězce se považují za platný vstup metodou jQuery [vyžadované](https://jqueryvalidation.org/required-method/) ověřením. Ověřování na straně serveru považuje požadované pole řetězce za neplatné, pokud je zadána pouze mezera.
 
-Jak bylo uvedeno dříve, typy neumožňující hodnotu null jsou považovány za `[Required]` , i když mají atribut. To znamená, že získáte ověřování na straně klienta i v `[Required]` případě, že atribut nepoužijete. Pokud však atribut nepoužíváte, zobrazí se výchozí chybová zpráva. Chcete-li zadat vlastní chybovou zprávu, použijte atribut.
+Jak bylo uvedeno dříve, typy neumožňující hodnotu null jsou považovány za, i když mají `[Required]` atribut. To znamená, že získáte ověřování na straně klienta i v případě, že atribut nepoužijete `[Required]` . Pokud však atribut nepoužíváte, zobrazí se výchozí chybová zpráva. Chcete-li zadat vlastní chybovou zprávu, použijte atribut.
 
 ## <a name="remote-attribute"></a>[Remote] – atribut
 
-`[Remote]` Atribut implementuje ověřování na straně klienta, které vyžaduje volání metody na serveru, aby bylo možné určit, zda je vstup pole platný. Aplikace může například potřebovat ověřit, zda se uživatelské jméno již používá.
+`[Remote]`Atribut implementuje ověřování na straně klienta, které vyžaduje volání metody na serveru, aby bylo možné určit, zda je vstup pole platný. Aplikace může například potřebovat ověřit, zda se uživatelské jméno již používá.
 
 Implementace vzdáleného ověřování:
 
 1. Vytvořte metodu Action pro volání JavaScriptu.  [Vzdálená](https://jqueryvalidation.org/remote-method/) metoda ověření jQuery očekává odpověď JSON:
 
    * `true`znamená, že jsou vstupní data platná.
-   * `false`, `undefined`nebo `null` znamená, že vstup není platný. Zobrazí výchozí chybovou zprávu.
+   * `false`, `undefined` nebo `null` znamená, že vstup není platný. Zobrazí výchozí chybovou zprávu.
    * Jakýkoli jiný řetězec znamená, že vstup je neplatný. Zobrazí řetězec jako vlastní chybovou zprávu.
 
    Tady je příklad metody akce, která vrací vlastní chybovou zprávu:
@@ -136,11 +138,11 @@ Implementace vzdáleného ověřování:
 
    [!code-csharp[](validation/samples/3.x/ValidationSample/Models/User.cs?name=snippet_Email)]
  
-   `[Remote]` Atribut je v `Microsoft.AspNetCore.Mvc` oboru názvů.
+   `[Remote]`Atribut je v `Microsoft.AspNetCore.Mvc` oboru názvů.
    
 ### <a name="additional-fields"></a>Další pole
 
-`AdditionalFields` Vlastnost `[Remote]` atributu umožňuje ověřit kombinace polí s daty na serveru. Pokud má `User` model například `FirstName` a `LastName` vlastnosti, můžete chtít ověřit, že žádní stávající uživatelé již nemají odpovídající dvojici názvů. Následující příklad ukazuje, jak použít `AdditionalFields`:
+`AdditionalFields`Vlastnost `[Remote]` atributu umožňuje ověřit kombinace polí s daty na serveru. Pokud má `User` model například `FirstName` a `LastName` vlastnosti, můžete chtít ověřit, že žádní stávající uživatelé již nemají odpovídající dvojici názvů. Následující příklad ukazuje, jak použít `AdditionalFields` :
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Models/User.cs?name=snippet_Name&highlight=1,5)]
 
@@ -157,7 +159,7 @@ Chcete-li ověřit dvě nebo více dalších polí, poskytněte je jako seznam o
 public string MiddleName { get; set; }
 ```
 
-`AdditionalFields`Podobně jako všechny argumenty atributu musí být konstantní výraz. Proto nepoužívejte [interpolované řetězce](/dotnet/csharp/language-reference/keywords/interpolated-strings) nebo volání <xref:System.String.Join*> k inicializaci `AdditionalFields`.
+`AdditionalFields`Podobně jako všechny argumenty atributu musí být konstantní výraz. Proto nepoužívejte [interpolované řetězce](/dotnet/csharp/language-reference/keywords/interpolated-strings) nebo volání <xref:System.String.Join*> k inicializaci `AdditionalFields` .
 
 ## <a name="alternatives-to-built-in-attributes"></a>Alternativy k předdefinovaným atributům
 
@@ -168,18 +170,18 @@ Pokud potřebujete ověření, které neposkytuje předdefinované atributy, mů
 
 ## <a name="custom-attributes"></a>Vlastní atributy
 
-U scénářů, které vestavěné atributy ověřování nezpracovávají, můžete vytvořit vlastní ověřovací atributy. Vytvořte třídu, která dědí z <xref:System.ComponentModel.DataAnnotations.ValidationAttribute>, a přepište <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> metodu.
+U scénářů, které vestavěné atributy ověřování nezpracovávají, můžete vytvořit vlastní ověřovací atributy. Vytvořte třídu, která dědí z <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> , a přepište <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> metodu.
 
-`IsValid` Metoda přijímá objekt s názvem *hodnota*, což je vstup, který má být ověřen. Přetížení také přijímá `ValidationContext` objekt, který poskytuje další informace, jako je například instance modelu vytvořená vazbou modelu.
+`IsValid`Metoda přijímá objekt s názvem *hodnota*, což je vstup, který má být ověřen. Přetížení také přijímá `ValidationContext` objekt, který poskytuje další informace, jako je například instance modelu vytvořená vazbou modelu.
 
-Následující příklad ověří, že datum vydání filmu v *klasickém* žánru nenásleduje po zadaném roce. `[ClassicMovie]` Atribut:
+Následující příklad ověří, že datum vydání filmu v *klasickém* žánru nenásleduje po zadaném roce. `[ClassicMovie]`Atribut:
 
 * Se spouští jenom na serveru.
 * U klasických filmů ověří datum vydání:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Validation/ClassicMovieAttribute.cs?name=snippet_Class)]
 
-`movie` Proměnná v předchozím příkladu představuje `Movie` objekt, který obsahuje data z odesílání formuláře. Pokud se ověření nepovede `ValidationResult` , vrátí se chybová zpráva.
+`movie`Proměnná v předchozím příkladu představuje `Movie` objekt, který obsahuje data z odesílání formuláře. Pokud se ověření nepovede, `ValidationResult` vrátí se chybová zpráva.
 
 ## <a name="ivalidatableobject"></a>IValidatableObject
 
@@ -196,23 +198,23 @@ Uzly nejvyšší úrovně zahrnují:
 * Parametry obslužné rutiny stránky
 * Vlastnosti modelu stránky
 
-Kromě ověřování vlastností modelu jsou ověřovány i uzly nejvyšší úrovně svázané s modelem. V následujícím příkladu z ukázkové aplikace `VerifyPhone` metoda používá <xref:System.ComponentModel.DataAnnotations.RegularExpressionAttribute> k ověření parametru `phone` akce:
+Kromě ověřování vlastností modelu jsou ověřovány i uzly nejvyšší úrovně svázané s modelem. V následujícím příkladu z ukázkové aplikace `VerifyPhone` Metoda používá <xref:System.ComponentModel.DataAnnotations.RegularExpressionAttribute> k ověření `phone` parametru akce:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyPhone)]
 
-Uzly nejvyšší úrovně mohou být použity <xref:Microsoft.AspNetCore.Mvc.ModelBinding.BindRequiredAttribute> s atributy ověřování. V následujícím příkladu z ukázkové aplikace určuje `CheckAge` metoda, že `age` parametr musí být svázán z řetězce dotazu při odeslání formuláře:
+Uzly nejvyšší úrovně mohou být použity <xref:Microsoft.AspNetCore.Mvc.ModelBinding.BindRequiredAttribute> s atributy ověřování. V následujícím příkladu z ukázkové aplikace `CheckAge` určuje metoda, že `age` parametr musí být svázán z řetězce dotazu při odeslání formuláře:
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Controllers/UsersController.cs?name=snippet_CheckAgeSignature)]
 
-Na stránce pro kontrolu stáří (*check. cshtml*) Existují dva formuláře. První formulář odešle `Age` hodnotu `99` jako parametr řetězce dotazu:. `https://localhost:5001/Users/CheckAge?Age=99`
+Na stránce pro kontrolu stáří (*check. cshtml*) Existují dva formuláře. První formulář odešle `Age` hodnotu `99` jako parametr řetězce dotazu: `https://localhost:5001/Users/CheckAge?Age=99` .
 
 Při odeslání správně formátovaného `age` parametru z řetězce dotazu se formulář ověří.
 
-Druhý formulář na stránce Kontrola stáří odesílá `Age` hodnotu v těle žádosti a ověření se nepovede. Vazba se nezdařila, `age` protože parametr musí pocházet z řetězce dotazu.
+Druhý formulář na stránce Kontrola stáří odesílá `Age` hodnotu v těle žádosti a ověření se nepovede. Vazba se nezdařila, protože `age` parametr musí pocházet z řetězce dotazu.
 
 ## <a name="maximum-errors"></a>Maximální počet chyb
 
-Ověřování se zastaví, když se dosáhne maximálního počtu chyb (ve výchozím nastavení je 200). Toto číslo můžete nakonfigurovat pomocí následujícího kódu v `Startup.ConfigureServices`:
+Ověřování se zastaví, když se dosáhne maximálního počtu chyb (ve výchozím nastavení je 200). Toto číslo můžete nakonfigurovat pomocí následujícího kódu v `Startup.ConfigureServices` :
 
 [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_Configuration&highlight=4)]
 
@@ -222,7 +224,7 @@ Ověřování se zastaví, když se dosáhne maximálního počtu chyb (ve vých
 
 ## <a name="automatic-short-circuit"></a>Automatické krátké okruhy
 
-Ověřování je automaticky zkrácené (vynecháno), pokud model grafu nevyžaduje ověření. Objekty, které modul runtime přeskočí ověřování pro zahrnutí kolekcí primitivních elementů ( `byte[]`například `string[]`, `Dictionary<string, string>`,) a složitých grafů objektů, které nemají žádné validátory.
+Ověřování je automaticky zkrácené (vynecháno), pokud model grafu nevyžaduje ověření. Objekty, které modul runtime přeskočí ověřování pro zahrnutí kolekcí primitivních elementů (například `byte[]` , `string[]` , `Dictionary<string, string>` ) a složitých grafů objektů, které nemají žádné validátory.
 
 ## <a name="disable-validation"></a>Zakázat ověřování
 
@@ -265,9 +267,9 @@ Předchozí pomocník značek vykresluje následující kód HTML:
 </div>
 ```
 
-Všimněte si, `data-` že atributy ve výstupu HTML odpovídají atributům ověřování pro `Movie.ReleaseDate` vlastnost. `data-val-required` Atribut obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě pro ověření jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném ** \<elementu span>** .
+Všimněte si, že `data-` atributy ve výstupu HTML odpovídají atributům ověřování pro `Movie.ReleaseDate` vlastnost. `data-val-required`Atribut obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě pro ověření jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném **\<span>** prvku.
 
-Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]`atributy a podtřídy, jako je `[EmailAddress]` například umožňuje zadat chybovou zprávu.
+Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]`atributy a podtřídy, jako je například `[EmailAddress]` umožňuje zadat chybovou zprávu.
 
 ## <a name="unobtrusive-validation"></a>Nenáročná ověření
 
@@ -294,11 +296,11 @@ $.get({
 })
 ```
 
-`$.validator.unobtrusive.parse()` Metoda přijímá selektor jQuery pro svůj jeden argument. Tato metoda oznamuje nenáročné ověřování, aby bylo `data-` možné analyzovat atributy formulářů v rámci tohoto selektoru. Hodnoty těchto atributů jsou poté předány modulu plug-in pro ověření jQuery.
+`$.validator.unobtrusive.parse()`Metoda přijímá selektor jQuery pro svůj jeden argument. Tato metoda oznamuje nenáročné ověřování, aby bylo možné analyzovat `data-` atributy formulářů v rámci tohoto selektoru. Hodnoty těchto atributů jsou poté předány modulu plug-in pro ověření jQuery.
 
 ### <a name="add-validation-to-dynamic-controls"></a>Přidání ověřování do dynamických ovládacích prvků
 
-`$.validator.unobtrusive.parse()` Metoda funguje na celém formuláři, nikoli na jednotlivých dynamicky generovaných ovládacích prvcích, například `<input>` a `<select/>`. Chcete-li znovu analyzovat formulář, odeberte data ověřování, která byla přidána při analýze formuláře dříve, jak je znázorněno v následujícím příkladu:
+`$.validator.unobtrusive.parse()`Metoda funguje na celém formuláři, nikoli na jednotlivých dynamicky generovaných ovládacích prvcích, například `<input>` a `<select/>` . Chcete-li znovu analyzovat formulář, odeberte data ověřování, která byla přidána při analýze formuláře dříve, jak je znázorněno v následujícím příkladu:
 
 ```javascript
 $.get({
@@ -319,7 +321,7 @@ $.get({
 
 ## <a name="custom-client-side-validation"></a>Vlastní ověřování na straně klienta
 
-Vlastní ověřování na straně klienta se provádí generováním `data-` atributů HTML, které fungují s vlastním ověřovacím adaptérem jQuery. Následující vzorový kód adaptéru byl napsán pro atributy `[ClassicMovie]` a `[ClassicMovieWithClientValidator]` , které byly představeny dříve v tomto článku:
+Vlastní ověřování na straně klienta se provádí generováním `data-` atributů HTML, které fungují s vlastním ověřovacím adaptérem jQuery. Následující vzorový kód adaptéru byl napsán pro `[ClassicMovie]` `[ClassicMovieWithClientValidator]` atributy a, které byly představeny dříve v tomto článku:
 
 [!code-javascript[](validation/samples/3.x/ValidationSample/wwwroot/js/classicMovieValidator.js)]
 
@@ -327,11 +329,11 @@ Informace o tom, jak psát adaptéry, najdete v [dokumentaci k ověření jQuery
 
 Použití adaptéru pro dané pole se spustí pomocí `data-` atributů, které:
 
-* Označte pole jako podléhající ověřování (`data-val="true"`).
-* Identifikujte název ověřovacího pravidla a text chybové zprávy (například `data-val-rulename="Error message."`).
-* Zadejte další parametry, které vyžaduje validátor (například `data-val-rulename-param1="value"`).
+* Označte pole jako podléhající ověřování ( `data-val="true"` ).
+* Identifikujte název ověřovacího pravidla a text chybové zprávy (například `data-val-rulename="Error message."` ).
+* Zadejte další parametry, které vyžaduje validátor (například `data-val-rulename-param1="value"` ).
 
-Následující příklad ukazuje `data-` atributy pro `ClassicMovie` atribut ukázkové aplikace:
+Následující příklad ukazuje `data-` atributy pro atribut ukázkové aplikace `ClassicMovie` :
 
 ```html
 <input class="form-control" type="date"
@@ -342,24 +344,24 @@ Následující příklad ukazuje `data-` atributy pro `ClassicMovie` atribut uk�
     id="Movie_ReleaseDate" name="Movie.ReleaseDate" value="">
 ```
 
-Jak bylo uvedeno dříve, [pomocníkům značek a značkám](xref:mvc/views/tag-helpers/intro) [HTML](xref:mvc/views/overview) se při vykreslování `data-` atributů používají informace z atributů ověřování. Existují dvě možnosti pro psaní kódu, který je výsledkem vytváření vlastních `data-` atributů HTML:
+Jak bylo uvedeno dříve, [pomocníkům značek a značkám](xref:mvc/views/tag-helpers/intro) [HTML](xref:mvc/views/overview) se při vykreslování atributů používají informace z atributů ověřování `data-` . Existují dvě možnosti pro psaní kódu, který je výsledkem vytváření vlastních `data-` atributů HTML:
 
-* Vytvořte třídu, která je odvozena `AttributeAdapterBase<TAttribute>` z třídy a třídu, `IValidationAttributeAdapterProvider`která implementuje, a zaregistrujte svůj atribut a jeho adaptér v di. Tato metoda následuje za [instančním objektem zodpovědnosti](https://wikipedia.org/wiki/Single_responsibility_principle) v tomto ověřovacím kódu souvisejícím se serverem a klientem je v samostatných třídách. Adaptér má také výhodu, že protože je zaregistrován v DI, jsou v případě potřeby k dispozici jiné služby v DI.
-* Implementujte `IClientModelValidator` ve `ValidationAttribute` své třídě. Tato metoda může být vhodná, pokud atribut neprovádí žádné ověřování na straně serveru a nepotřebuje žádné služby od DI.
+* Vytvořte třídu, která je odvozena z `AttributeAdapterBase<TAttribute>` třídy a třídu, která implementuje `IValidationAttributeAdapterProvider` , a zaregistrujte svůj atribut a jeho adaptér v di. Tato metoda následuje za [instančním objektem zodpovědnosti](https://wikipedia.org/wiki/Single_responsibility_principle) v tomto ověřovacím kódu souvisejícím se serverem a klientem je v samostatných třídách. Adaptér má také výhodu, že protože je zaregistrován v DI, jsou v případě potřeby k dispozici jiné služby v DI.
+* Implementujte `IClientModelValidator` ve své `ValidationAttribute` třídě. Tato metoda může být vhodná, pokud atribut neprovádí žádné ověřování na straně serveru a nepotřebuje žádné služby od DI.
 
 ### <a name="attributeadapter-for-client-side-validation"></a>AttributeAdapter pro ověřování na straně klienta
 
 Tato metoda vykreslování `data-` atributů ve formátu HTML je používána `ClassicMovie` atributem v ukázkové aplikaci. Přidání ověřování klientů pomocí této metody:
 
-1. Vytvořte třídu adaptéru atributů pro vlastní ověřovací atribut. Odvodit třídu z [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2). Vytvořte `AddValidation` metodu, která přidá `data-` atributy do vykresleného výstupu, jak je znázorněno v následujícím příkladu:
+1. Vytvořte třídu adaptéru atributů pro vlastní ověřovací atribut. Odvodit třídu z [AttributeAdapterBase \<T> ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2). Vytvořte `AddValidation` metodu, která přidá `data-` atributy do vykresleného výstupu, jak je znázorněno v následujícím příkladu:
 
    [!code-csharp[](validation/samples/3.x/ValidationSample/Validation/ClassicMovieAttributeAdapter.cs?name=snippet_Class)]
 
-1. Vytvořte třídu poskytovatele adaptéru, která implementuje <xref:Microsoft.AspNetCore.Mvc.DataAnnotations.IValidationAttributeAdapterProvider>. V `GetAttributeAdapter` metodě předejte vlastní atribut konstruktoru adaptéru, jak je znázorněno v následujícím příkladu:
+1. Vytvořte třídu poskytovatele adaptéru, která implementuje <xref:Microsoft.AspNetCore.Mvc.DataAnnotations.IValidationAttributeAdapterProvider> . V `GetAttributeAdapter` metodě předejte vlastní atribut konstruktoru adaptéru, jak je znázorněno v následujícím příkladu:
 
    [!code-csharp[](validation/samples/3.x/ValidationSample/Validation/CustomValidationAttributeAdapterProvider.cs?name=snippet_Class)]
 
-1. Zaregistrujte poskytovatele adaptéru pro DI `Startup.ConfigureServices`v:
+1. Zaregistrujte poskytovatele adaptéru pro DI v `Startup.ConfigureServices` :
 
    [!code-csharp[](validation/samples/3.x/ValidationSample/Startup.cs?name=snippet_Configuration&highlight=9-10)]
 
@@ -380,7 +382,7 @@ Následující kód zakáže ověřování klienta na Razor stránkách:
 Další možnosti zakázání ověřování na straně klienta:
 
 * Odkomentujte odkaz na `_ValidationScriptsPartial` ve všech souborech *. cshtml* .
-* Odeberte obsah souboru *Pages\Shared\_ValidationScriptsPartial. cshtml* .
+* Odeberte obsah souboru *Pages\Shared \_ ValidationScriptsPartial. cshtml* .
 
 Předchozí přístup nebrání ověřování na straně klienta ASP.NET Core Identity Razor knihovny tříd. Další informace naleznete v tématu <xref:security/authentication/scaffold-identity>.
 
@@ -401,21 +403,21 @@ Tento článek vysvětluje, jak ověřit vstup uživatele v aplikaci ASP.NET Cor
 
 Stav modelu představuje chyby, které pocházejí ze dvou subsystémů: vazby modelu a ověření modelu. Chyby, které pocházejí z [vazby mezi modely](model-binding.md) , jsou obvykle chyby převodu dat (například "x" je zadáno v poli, které očekává celé číslo). K ověření modelu dochází po vazbě modelu a hlášení chyb, kde data neodpovídají obchodním pravidlům (například hodnota 0 je zadána v poli, které očekává hodnocení mezi 1 a 5).
 
-Vazba modelů i ověřování probíhá před provedením akce kontroleru nebo metody obslužné rutiny Razor stránky. U webových aplikací je zodpovědností aplikace vhodné je kontrolovat `ModelState.IsValid` a reagovat. Webové aplikace obvykle znovu zobrazí stránku s chybovou zprávou:
+Vazba modelů i ověřování probíhá před provedením akce kontroleru nebo Razor metody obslužné rutiny stránky. U webových aplikací je zodpovědností aplikace vhodné je kontrolovat `ModelState.IsValid` a reagovat. Webové aplikace obvykle znovu zobrazí stránku s chybovou zprávou:
 
 [!code-csharp[](validation/samples_snapshot/2.x/Create.cshtml.cs?name=snippet&highlight=3-6)]
 
-Řadiče webového rozhraní API nemusí kontrolovat `ModelState.IsValid` , jestli mají `[ApiController]` atribut. V takovém případě je vrácena Automatická odpověď HTTP 400 obsahující podrobnosti o chybě, pokud stav modelu není platný. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses).
+Řadiče webového rozhraní API nemusí kontrolovat, `ModelState.IsValid` jestli mají `[ApiController]` atribut. V takovém případě je vrácena Automatická odpověď HTTP 400 obsahující podrobnosti o chybě, pokud stav modelu není platný. Další informace najdete v tématu [Automatické odpovědi HTTP 400](xref:web-api/index#automatic-http-400-responses).
 
 ## <a name="rerun-validation"></a>Znovu spustit ověření
 
-Ověřování je automatické, ale můžete je chtít opakovat ručně. Můžete například vypočítat hodnotu pro vlastnost a chtít znovu spustit ověřování po nastavení vlastnosti na vypočítanou hodnotu. Chcete-li znovu spustit ověřování `TryValidateModel` , zavolejte metodu, jak je znázorněno zde:
+Ověřování je automatické, ale můžete je chtít opakovat ručně. Můžete například vypočítat hodnotu pro vlastnost a chtít znovu spustit ověřování po nastavení vlastnosti na vypočítanou hodnotu. Chcete-li znovu spustit ověřování, zavolejte `TryValidateModel` metodu, jak je znázorněno zde:
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/MoviesController.cs?name=snippet_TryValidateModel&highlight=11)]
 
 ## <a name="validation-attributes"></a>Atributy ověřování
 
-Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti modelu. Následující příklad z [ukázkové aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) zobrazuje třídu modelu s poznámkou ověřování atributů. `[ClassicMovie]` Atribut je vlastní ověřovací atribut a jsou integrovány ostatní. Není zobrazeno `[ClassicMovie2]`, který ukazuje alternativní způsob implementace vlastního atributu.
+Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti modelu. Následující příklad z [ukázkové aplikace](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/mvc/models/validation/sample) zobrazuje třídu modelu s poznámkou ověřování atributů. `[ClassicMovie]`Atribut je vlastní ověřovací atribut a jsou integrovány ostatní. Není zobrazeno `[ClassicMovie2]` , který ukazuje alternativní způsob implementace vlastního atributu.
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/Movie.cs?name=snippet_ModelClass)]
 
@@ -424,7 +426,7 @@ Atributy ověřování umožňují zadat pravidla ověřování pro vlastnosti m
 Mezi předdefinované atributy ověřování patří:
 
 * `[CreditCard]`: Ověří, zda má vlastnost formát kreditní karty.
-* `[Compare]`: Ověří, že se dvě vlastnosti v modelu shodují. Například soubor *Register.cshtml.cs* používá `[Compare]` k ověření, že se dvě zadaná hesla shodují. [Uživatelské Identity rozhraní](xref:security/authentication/scaffold-identity) pro zobrazení kódu registrace.
+* `[Compare]`: Ověří, že se dvě vlastnosti v modelu shodují. Například soubor *Register.cshtml.cs* používá `[Compare]` k ověření, že se dvě zadaná hesla shodují. [Generování Identity uživatelského rozhraní](xref:security/authentication/scaffold-identity) Chcete-li zobrazit kód registrace.
 * `[EmailAddress]`: Ověří, zda má vlastnost formát e-mailu.
 * `[Phone]`: Ověří, zda má vlastnost formát telefonního čísla.
 * `[Range]`: Ověří, že hodnota vlastnosti spadá do zadaného rozsahu.
@@ -440,13 +442,13 @@ Při použití `[RegularExpression]` atributu s ověřováním na straně klient
 
 ### <a name="error-messages"></a>Chybové zprávy
 
-Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Příklad:
+Atributy ověřování umožňují zadat chybovou zprávu, která se má zobrazit pro neplatný vstup. Například:
 
 ```csharp
 [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
 ```
 
-Interně atributy volají `String.Format` jako zástupný symbol pro název pole a někdy další zástupné symboly. Příklad:
+Interně atributy volají jako `String.Format` zástupný symbol pro název pole a někdy další zástupné symboly. Například:
 
 ```csharp
 [StringLength(8, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
@@ -454,24 +456,24 @@ Interně atributy volají `String.Format` jako zástupný symbol pro název pole
 
 Při použití na `Name` vlastnost bude chybová zpráva vytvořená v předchozím kódu "Délka názvu musí být v rozmezí 6 až 8."
 
-Chcete-li zjistit, které parametry jsou `String.Format` předány pro konkrétní chybovou zprávu atributu, přečtěte si [zdrojový kód pro anotace](https://github.com/dotnet/corefx/tree/master/src/System.ComponentModel.Annotations/src/System/ComponentModel/DataAnnotations).
+Chcete-li zjistit, které parametry jsou předány `String.Format` pro konkrétní chybovou zprávu atributu, přečtěte si [zdrojový kód pro anotace](https://github.com/dotnet/corefx/tree/master/src/System.ComponentModel.Annotations/src/System/ComponentModel/DataAnnotations).
 
 ## <a name="required-attribute"></a>[Required] – atribut
 
-Ve výchozím nastavení systém ověřování zpracovává parametry, které neumožňují hodnotu null nebo vlastnosti, jako by měly `[Required]` atribut. [Typy hodnot](/dotnet/csharp/language-reference/keywords/value-types) , jako `decimal` jsou `int` a, nejsou null.
+Ve výchozím nastavení systém ověřování zpracovává parametry, které neumožňují hodnotu null nebo vlastnosti, jako by měly `[Required]` atribut. [Typy hodnot](/dotnet/csharp/language-reference/keywords/value-types) , jako `decimal` jsou a, `int` nejsou null.
 
 ### <a name="required-validation-on-the-server"></a>[Požadováno] ověření na serveru
 
 Na serveru je požadovaná hodnota považována za chybějící, pokud má vlastnost hodnotu null. Pole, které nesmí mít hodnotu null, je vždy platné a chybová zpráva [required] se nezobrazí.
 
-Vazba modelu pro vlastnost, která nemůže mít hodnotu null, může selhat, což vede k chybové zprávě, `The value '' is invalid`jako je například. Chcete-li zadat vlastní chybovou zprávu pro ověřování na straně serveru pro typy, které neumožňují hodnotu null, máte následující možnosti:
+Vazba modelu pro vlastnost, která nemůže mít hodnotu null, může selhat, což vede k chybové zprávě, jako je například `The value '' is invalid` . Chcete-li zadat vlastní chybovou zprávu pro ověřování na straně serveru pro typy, které neumožňují hodnotu null, máte následující možnosti:
 
-* Převést pole na hodnotu null (například `decimal?` místo `decimal`). Typy hodnot s [možnou hodnotou null\<>](/dotnet/csharp/programming-guide/nullable-types/) jsou považovány za standardní typy s možnou hodnotou null
+* Převést pole na hodnotu null (například `decimal?` místo `decimal` ). [Nullable \<T> ](/dotnet/csharp/programming-guide/nullable-types/) typy hodnot jsou zpracovány jako standardní typy s možnou hodnotou null.
 * Zadejte výchozí chybovou zprávu, kterou má použít vazba modelu, jak je znázorněno v následujícím příkladu:
 
   [!code-csharp[](validation/samples/2.x/ValidationSample/Startup.cs?name=snippet_MaxModelValidationErrors&highlight=4-5)]
 
-  Další informace o chybách vazeb modelů, které lze nastavit jako výchozí zprávy pro, naleznete <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelBindingMessageProvider#methods>v tématu.
+  Další informace o chybách vazeb modelů, které lze nastavit jako výchozí zprávy pro, naleznete v tématu <xref:Microsoft.AspNetCore.Mvc.ModelBinding.Metadata.DefaultModelBindingMessageProvider#methods> .
 
 ### <a name="required-validation-on-the-client"></a>[Požadováno] ověřování na klientovi
 
@@ -480,18 +482,18 @@ Typy a řetězce, které neumožňují hodnotu null, jsou v porovnání s tímto
 * Hodnota se považuje za přítomnou pouze v případě, že je pro ni zadán vstup. Proto ověřování na straně klienta zpracovává typy, které neumožňují hodnotu null, stejné jako typy s možnou hodnotou null.
 * Prázdné znaky v poli řetězce se považují za platný vstup metodou jQuery [vyžadované](https://jqueryvalidation.org/required-method/) ověřením. Ověřování na straně serveru považuje požadované pole řetězce za neplatné, pokud je zadána pouze mezera.
 
-Jak bylo uvedeno dříve, typy neumožňující hodnotu null jsou považovány za `[Required]` , i když mají atribut. To znamená, že získáte ověřování na straně klienta i v `[Required]` případě, že atribut nepoužijete. Pokud však atribut nepoužíváte, zobrazí se výchozí chybová zpráva. Chcete-li zadat vlastní chybovou zprávu, použijte atribut.
+Jak bylo uvedeno dříve, typy neumožňující hodnotu null jsou považovány za, i když mají `[Required]` atribut. To znamená, že získáte ověřování na straně klienta i v případě, že atribut nepoužijete `[Required]` . Pokud však atribut nepoužíváte, zobrazí se výchozí chybová zpráva. Chcete-li zadat vlastní chybovou zprávu, použijte atribut.
 
 ## <a name="remote-attribute"></a>[Remote] – atribut
 
-`[Remote]` Atribut implementuje ověřování na straně klienta, které vyžaduje volání metody na serveru, aby bylo možné určit, zda je vstup pole platný. Aplikace může například potřebovat ověřit, zda se uživatelské jméno již používá.
+`[Remote]`Atribut implementuje ověřování na straně klienta, které vyžaduje volání metody na serveru, aby bylo možné určit, zda je vstup pole platný. Aplikace může například potřebovat ověřit, zda se uživatelské jméno již používá.
 
 Implementace vzdáleného ověřování:
 
 1. Vytvořte metodu Action pro volání JavaScriptu.  Metoda jQuery Validate [Remote](https://jqueryvalidation.org/remote-method/) očekává odpověď JSON:
 
    * `"true"`znamená, že jsou vstupní data platná.
-   * `"false"`, `undefined`nebo `null` znamená, že vstup není platný.  Zobrazí výchozí chybovou zprávu.
+   * `"false"`, `undefined` nebo `null` znamená, že vstup není platný.  Zobrazí výchozí chybovou zprávu.
    * Jakýkoli jiný řetězec znamená, že vstup je neplatný. Zobrazí řetězec jako vlastní chybovou zprávu.
 
    Tady je příklad metody akce, která vrací vlastní chybovou zprávu:
@@ -502,15 +504,15 @@ Implementace vzdáleného ověřování:
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserEmailProperty)]
  
-   `[Remote]` Atribut je v `Microsoft.AspNetCore.Mvc` oboru názvů. Pokud nepoužíváte Metapackage `Microsoft.AspNetCore.App` nebo `Microsoft.AspNetCore.All` , nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) .
+   `[Remote]`Atribut je v `Microsoft.AspNetCore.Mvc` oboru názvů. Pokud nepoužíváte Metapackage nebo, nainstalujte balíček NuGet [Microsoft. AspNetCore. Mvc. ViewFeatures](https://www.nuget.org/packages/Microsoft.AspNetCore.Mvc.ViewFeatures) `Microsoft.AspNetCore.App` `Microsoft.AspNetCore.All` .
    
 ### <a name="additional-fields"></a>Další pole
 
-`AdditionalFields` Vlastnost `[Remote]` atributu umožňuje ověřit kombinace polí s daty na serveru. Pokud má `User` model například `FirstName` a `LastName` vlastnosti, můžete chtít ověřit, že žádní stávající uživatelé již nemají odpovídající dvojici názvů. Následující příklad ukazuje, jak použít `AdditionalFields`:
+`AdditionalFields`Vlastnost `[Remote]` atributu umožňuje ověřit kombinace polí s daty na serveru. Pokud má `User` model například `FirstName` a `LastName` vlastnosti, můžete chtít ověřit, že žádní stávající uživatelé již nemají odpovídající dvojici názvů. Následující příklad ukazuje, jak použít `AdditionalFields` :
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Models/User.cs?name=snippet_UserNameProperties)]
 
-`AdditionalFields`lze nastavit explicitně na řetězce `"FirstName"` a `"LastName"`, ale použití operátoru [nameof](/dotnet/csharp/language-reference/keywords/nameof) zjednodušuje pozdější refaktoring. Metoda Action pro toto ověření musí přijmout argumenty jméno a příjmení:
+`AdditionalFields`lze nastavit explicitně na řetězce `"FirstName"` a `"LastName"` , ale použití operátoru [nameof](/dotnet/csharp/language-reference/keywords/nameof) zjednodušuje pozdější refaktoring. Metoda Action pro toto ověření musí přijmout argumenty jméno a příjmení:
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyName)]
 
@@ -523,7 +525,7 @@ Chcete-li ověřit dvě nebo více dalších polí, poskytněte je jako seznam o
 public string MiddleName { get; set; }
 ```
 
-`AdditionalFields`Podobně jako všechny argumenty atributu musí být konstantní výraz. Proto nepoužívejte [interpolované řetězce](/dotnet/csharp/language-reference/keywords/interpolated-strings) nebo volání <xref:System.String.Join*> k inicializaci `AdditionalFields`.
+`AdditionalFields`Podobně jako všechny argumenty atributu musí být konstantní výraz. Proto nepoužívejte [interpolované řetězce](/dotnet/csharp/language-reference/keywords/interpolated-strings) nebo volání <xref:System.String.Join*> k inicializaci `AdditionalFields` .
 
 ## <a name="alternatives-to-built-in-attributes"></a>Alternativy k předdefinovaným atributům
 
@@ -534,15 +536,15 @@ Pokud potřebujete ověření, které neposkytuje předdefinované atributy, mů
 
 ## <a name="custom-attributes"></a>Vlastní atributy
 
-U scénářů, které vestavěné atributy ověřování nezpracovávají, můžete vytvořit vlastní ověřovací atributy. Vytvořte třídu, která dědí z <xref:System.ComponentModel.DataAnnotations.ValidationAttribute>, a přepište <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> metodu.
+U scénářů, které vestavěné atributy ověřování nezpracovávají, můžete vytvořit vlastní ověřovací atributy. Vytvořte třídu, která dědí z <xref:System.ComponentModel.DataAnnotations.ValidationAttribute> , a přepište <xref:System.ComponentModel.DataAnnotations.ValidationAttribute.IsValid*> metodu.
 
-`IsValid` Metoda přijímá objekt s názvem *hodnota*, což je vstup, který má být ověřen. Přetížení také přijímá `ValidationContext` objekt, který poskytuje další informace, jako je například instance modelu vytvořená vazbou modelu.
+`IsValid`Metoda přijímá objekt s názvem *hodnota*, což je vstup, který má být ověřen. Přetížení také přijímá `ValidationContext` objekt, který poskytuje další informace, jako je například instance modelu vytvořená vazbou modelu.
 
-Následující příklad ověří, že datum vydání filmu v *klasickém* žánru nenásleduje po zadaném roce. `[ClassicMovie2]` Atribut nejprve zkontroluje Žánr a pokračuje pouze v případě, že je *klasický*. U filmů identifikovaných jako klasických kontroluje datum vydání, aby se zajistilo, že není pozdější než limit předaný konstruktoru atributu.)
+Následující příklad ověří, že datum vydání filmu v *klasickém* žánru nenásleduje po zadaném roce. `[ClassicMovie2]`Atribut nejprve zkontroluje Žánr a pokračuje pouze v případě, že je *klasický*. U filmů identifikovaných jako klasických kontroluje datum vydání, aby se zajistilo, že není pozdější než limit předaný konstruktoru atributu.)
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/ClassicMovieAttribute.cs?name=snippet_ClassicMovieAttribute)]
 
-`movie` Proměnná v předchozím příkladu představuje `Movie` objekt, který obsahuje data z odesílání formuláře. `IsValid` Metoda zkontroluje datum a Žánr. Po úspěšném ověření `IsValid` vrátí `ValidationResult.Success` kód. Pokud se ověření nepovede `ValidationResult` , vrátí se chybová zpráva.
+`movie`Proměnná v předchozím příkladu představuje `Movie` objekt, který obsahuje data z odesílání formuláře. `IsValid`Metoda zkontroluje datum a Žánr. Po úspěšném ověření `IsValid` vrátí `ValidationResult.Success` kód. Pokud se ověření nepovede, `ValidationResult` vrátí se chybová zpráva.
 
 ## <a name="ivalidatableobject"></a>IValidatableObject
 
@@ -559,27 +561,27 @@ Uzly nejvyšší úrovně zahrnují:
 * Parametry obslužné rutiny stránky
 * Vlastnosti modelu stránky
 
-Kromě ověřování vlastností modelu jsou ověřovány i uzly nejvyšší úrovně svázané s modelem. V následujícím příkladu z ukázkové aplikace `VerifyPhone` metoda používá <xref:System.ComponentModel.DataAnnotations.RegularExpressionAttribute> k ověření parametru `phone` akce:
+Kromě ověřování vlastností modelu jsou ověřovány i uzly nejvyšší úrovně svázané s modelem. V následujícím příkladu z ukázkové aplikace `VerifyPhone` Metoda používá <xref:System.ComponentModel.DataAnnotations.RegularExpressionAttribute> k ověření `phone` parametru akce:
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_VerifyPhone)]
 
-Uzly nejvyšší úrovně mohou být použity <xref:Microsoft.AspNetCore.Mvc.ModelBinding.BindRequiredAttribute> s atributy ověřování. V následujícím příkladu z ukázkové aplikace určuje `CheckAge` metoda, že `age` parametr musí být svázán z řetězce dotazu při odeslání formuláře:
+Uzly nejvyšší úrovně mohou být použity <xref:Microsoft.AspNetCore.Mvc.ModelBinding.BindRequiredAttribute> s atributy ověřování. V následujícím příkladu z ukázkové aplikace `CheckAge` určuje metoda, že `age` parametr musí být svázán z řetězce dotazu při odeslání formuláře:
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Controllers/UsersController.cs?name=snippet_CheckAge)]
 
-Na stránce pro kontrolu stáří (*check. cshtml*) Existují dva formuláře. První formulář odešle `Age` hodnotu `99` jako řetězec dotazu:. `https://localhost:5001/Users/CheckAge?Age=99`
+Na stránce pro kontrolu stáří (*check. cshtml*) Existují dva formuláře. První formulář odešle `Age` hodnotu `99` jako řetězec dotazu: `https://localhost:5001/Users/CheckAge?Age=99` .
 
 Při odeslání správně formátovaného `age` parametru z řetězce dotazu se formulář ověří.
 
-Druhý formulář na stránce Kontrola stáří odesílá `Age` hodnotu v těle žádosti a ověření se nepovede. Vazba se nezdařila, `age` protože parametr musí pocházet z řetězce dotazu.
+Druhý formulář na stránce Kontrola stáří odesílá `Age` hodnotu v těle žádosti a ověření se nepovede. Vazba se nezdařila, protože `age` parametr musí pocházet z řetězce dotazu.
 
-Při spuštění s `CompatibilityVersion.Version_2_1` nebo novějším je ověřování uzlů nejvyšší úrovně ve výchozím nastavení povolené. V opačném případě je ověřování uzlu nejvyšší úrovně zakázané. Výchozí možnost může být přepsána nastavením <xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowValidatingTopLevelNodes*> vlastnosti v (`Startup.ConfigureServices`), jak je znázorněno zde:
+Při spuštění s `CompatibilityVersion.Version_2_1` nebo novějším je ověřování uzlů nejvyšší úrovně ve výchozím nastavení povolené. V opačném případě je ověřování uzlu nejvyšší úrovně zakázané. Výchozí možnost může být přepsána nastavením <xref:Microsoft.AspNetCore.Mvc.MvcOptions.AllowValidatingTopLevelNodes*> vlastnosti v ( `Startup.ConfigureServices` ), jak je znázorněno zde:
 
 [!code-csharp[](validation/samples_snapshot/2.x/Startup.cs?name=snippet_AddMvc&highlight=4)]
 
 ## <a name="maximum-errors"></a>Maximální počet chyb
 
-Ověřování se zastaví, když se dosáhne maximálního počtu chyb (ve výchozím nastavení je 200). Toto číslo můžete nakonfigurovat pomocí následujícího kódu v `Startup.ConfigureServices`:
+Ověřování se zastaví, když se dosáhne maximálního počtu chyb (ve výchozím nastavení je 200). Toto číslo můžete nakonfigurovat pomocí následujícího kódu v `Startup.ConfigureServices` :
 
 [!code-csharp[](validation/samples/2.x/ValidationSample/Startup.cs?name=snippet_MaxModelValidationErrors&highlight=3)]
 
@@ -589,7 +591,7 @@ Ověřování se zastaví, když se dosáhne maximálního počtu chyb (ve vých
 
 ## <a name="automatic-short-circuit"></a>Automatické krátké okruhy
 
-Ověřování je automaticky zkrácené (vynecháno), pokud model grafu nevyžaduje ověření. Objekty, které modul runtime přeskočí ověřování pro zahrnutí kolekcí primitivních elementů ( `byte[]`například `string[]`, `Dictionary<string, string>`,) a složitých grafů objektů, které nemají žádné validátory.
+Ověřování je automaticky zkrácené (vynecháno), pokud model grafu nevyžaduje ověření. Objekty, které modul runtime přeskočí ověřování pro zahrnutí kolekcí primitivních elementů (například `byte[]` , `string[]` , `Dictionary<string, string>` ) a složitých grafů objektů, které nemají žádné validátory.
 
 ## <a name="disable-validation"></a>Zakázat ověřování
 
@@ -640,9 +642,9 @@ Předchozí pomocník značek vykresluje následující kód HTML.
 </form>
 ```
 
-Všimněte si, `data-` že atributy ve výstupu HTML odpovídají atributům ověřování pro `ReleaseDate` vlastnost. `data-val-required` Atribut obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném ** \<elementu span>** .
+Všimněte si, že `data-` atributy ve výstupu HTML odpovídají atributům ověřování pro `ReleaseDate` vlastnost. `data-val-required`Atribut obsahuje chybovou zprávu, která se zobrazí, pokud uživatel neplní pole Datum vydání. jQuery unpassing předá tuto hodnotu metodě jQuery [Required ()](https://jqueryvalidation.org/required-method/) , která pak zobrazí tuto zprávu v doprovodném **\<span>** prvku.
 
-Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]`atributy a podtřídy, jako je `[EmailAddress]` například umožňuje zadat chybovou zprávu.
+Ověřování datového typu je založené na typu .NET vlastnosti, pokud není přepsána `[DataType]` atributem. Prohlížeče mají vlastní výchozí chybové zprávy, ale tyto zprávy můžou potlačit ověření jQuery nenáročná ověřovací balíček. `[DataType]`atributy a podtřídy, jako je například `[EmailAddress]` umožňuje zadat chybovou zprávu.
 
 ### <a name="add-validation-to-dynamic-forms"></a>Přidání ověřování do dynamických formulářů
 
@@ -665,11 +667,11 @@ $.get({
 })
 ```
 
-`$.validator.unobtrusive.parse()` Metoda přijímá selektor jQuery pro svůj jeden argument. Tato metoda oznamuje nenáročné ověřování, aby bylo `data-` možné analyzovat atributy formulářů v rámci tohoto selektoru. Hodnoty těchto atributů jsou poté předány modulu plug-in jQuery Validate.
+`$.validator.unobtrusive.parse()`Metoda přijímá selektor jQuery pro svůj jeden argument. Tato metoda oznamuje nenáročné ověřování, aby bylo možné analyzovat `data-` atributy formulářů v rámci tohoto selektoru. Hodnoty těchto atributů jsou poté předány modulu plug-in jQuery Validate.
 
 ### <a name="add-validation-to-dynamic-controls"></a>Přidání ověřování do dynamických ovládacích prvků
 
-`$.validator.unobtrusive.parse()` Metoda funguje na celém formuláři, nikoli na jednotlivých dynamicky generovaných ovládacích prvcích, například `<input>` a `<select/>`. Chcete-li znovu analyzovat formulář, odeberte data ověřování, která byla přidána při analýze formuláře dříve, jak je znázorněno v následujícím příkladu:
+`$.validator.unobtrusive.parse()`Metoda funguje na celém formuláři, nikoli na jednotlivých dynamicky generovaných ovládacích prvcích, například `<input>` a `<select/>` . Chcete-li znovu analyzovat formulář, odeberte data ověřování, která byla přidána při analýze formuláře dříve, jak je znázorněno v následujícím příkladu:
 
 ```javascript
 $.get({
@@ -690,7 +692,7 @@ $.get({
 
 ## <a name="custom-client-side-validation"></a>Vlastní ověřování na straně klienta
 
-Vlastní ověřování na straně klienta se provádí generováním `data-` atributů HTML, které fungují s vlastním ověřovacím adaptérem jQuery. Následující vzorový kód adaptéru byl napsán pro atributy `ClassicMovie` a `ClassicMovie2` , které byly představeny dříve v tomto článku:
+Vlastní ověřování na straně klienta se provádí generováním `data-` atributů HTML, které fungují s vlastním ověřovacím adaptérem jQuery. Následující vzorový kód adaptéru byl napsán pro `ClassicMovie` `ClassicMovie2` atributy a, které byly představeny dříve v tomto článku:
 
 [!code-javascript[](validation/samples/2.x/ValidationSample/wwwroot/js/classicMovieValidator.js?name=snippet_UnobtrusiveValidation)]
 
@@ -698,11 +700,11 @@ Informace o tom, jak psát adaptéry, najdete v [dokumentaci ke službě jQuery 
 
 Použití adaptéru pro dané pole se spustí pomocí `data-` atributů, které:
 
-* Označte pole jako podléhající ověřování (`data-val="true"`).
-* Identifikujte název ověřovacího pravidla a text chybové zprávy (například `data-val-rulename="Error message."`).
-* Zadejte další parametry, které vyžaduje validátor (například `data-val-rulename-parm1="value"`).
+* Označte pole jako podléhající ověřování ( `data-val="true"` ).
+* Identifikujte název ověřovacího pravidla a text chybové zprávy (například `data-val-rulename="Error message."` ).
+* Zadejte další parametry, které vyžaduje validátor (například `data-val-rulename-parm1="value"` ).
 
-Následující příklad ukazuje `data-` atributy pro `ClassicMovie` atribut ukázkové aplikace:
+Následující příklad ukazuje `data-` atributy pro atribut ukázkové aplikace `ClassicMovie` :
 
 ```html
 <input class="form-control" type="datetime"
@@ -713,24 +715,24 @@ Následující příklad ukazuje `data-` atributy pro `ClassicMovie` atribut uk�
     id="ReleaseDate" name="ReleaseDate" value="">
 ```
 
-Jak bylo uvedeno dříve, [pomocníkům značek a značkám](xref:mvc/views/tag-helpers/intro) [HTML](xref:mvc/views/overview) se při vykreslování `data-` atributů používají informace z atributů ověřování. Existují dvě možnosti pro psaní kódu, který je výsledkem vytváření vlastních `data-` atributů HTML:
+Jak bylo uvedeno dříve, [pomocníkům značek a značkám](xref:mvc/views/tag-helpers/intro) [HTML](xref:mvc/views/overview) se při vykreslování atributů používají informace z atributů ověřování `data-` . Existují dvě možnosti pro psaní kódu, který je výsledkem vytváření vlastních `data-` atributů HTML:
 
-* Vytvořte třídu, která je odvozena `AttributeAdapterBase<TAttribute>` z třídy a třídu, `IValidationAttributeAdapterProvider`která implementuje, a zaregistrujte svůj atribut a jeho adaptér v di. Tato metoda následuje za [instančním objektem zodpovědnosti](https://wikipedia.org/wiki/Single_responsibility_principle) v tomto ověřovacím kódu souvisejícím se serverem a klientem je v samostatných třídách. Adaptér má také výhodu, že protože je zaregistrován v DI, jsou v případě potřeby k dispozici jiné služby v DI.
-* Implementujte `IClientModelValidator` ve `ValidationAttribute` své třídě. Tato metoda může být vhodná, pokud atribut neprovádí žádné ověřování na straně serveru a nepotřebuje žádné služby od DI.
+* Vytvořte třídu, která je odvozena z `AttributeAdapterBase<TAttribute>` třídy a třídu, která implementuje `IValidationAttributeAdapterProvider` , a zaregistrujte svůj atribut a jeho adaptér v di. Tato metoda následuje za [instančním objektem zodpovědnosti](https://wikipedia.org/wiki/Single_responsibility_principle) v tomto ověřovacím kódu souvisejícím se serverem a klientem je v samostatných třídách. Adaptér má také výhodu, že protože je zaregistrován v DI, jsou v případě potřeby k dispozici jiné služby v DI.
+* Implementujte `IClientModelValidator` ve své `ValidationAttribute` třídě. Tato metoda může být vhodná, pokud atribut neprovádí žádné ověřování na straně serveru a nepotřebuje žádné služby od DI.
 
 ### <a name="attributeadapter-for-client-side-validation"></a>AttributeAdapter pro ověřování na straně klienta
 
 Tato metoda vykreslování `data-` atributů ve formátu HTML je používána `ClassicMovie` atributem v ukázkové aplikaci. Přidání ověřování klientů pomocí této metody:
 
-1. Vytvořte třídu adaptéru atributů pro vlastní ověřovací atribut. Odvodit třídu z [AttributeAdapterBase\<T>](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2). Vytvořte `AddValidation` metodu, která přidá `data-` atributy do vykresleného výstupu, jak je znázorněno v následujícím příkladu:
+1. Vytvořte třídu adaptéru atributů pro vlastní ověřovací atribut. Odvodit třídu z [AttributeAdapterBase \<T> ](/dotnet/api/microsoft.aspnetcore.mvc.dataannotations.attributeadapterbase-1?view=aspnetcore-2.2). Vytvořte `AddValidation` metodu, která přidá `data-` atributy do vykresleného výstupu, jak je znázorněno v následujícím příkladu:
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/ClassicMovieAttributeAdapter.cs?name=snippet_ClassicMovieAttributeAdapter)]
 
-1. Vytvořte třídu poskytovatele adaptéru, která implementuje <xref:Microsoft.AspNetCore.Mvc.DataAnnotations.IValidationAttributeAdapterProvider>. V `GetAttributeAdapter` metodě předejte vlastní atribut konstruktoru adaptéru, jak je znázorněno v následujícím příkladu:
+1. Vytvořte třídu poskytovatele adaptéru, která implementuje <xref:Microsoft.AspNetCore.Mvc.DataAnnotations.IValidationAttributeAdapterProvider> . V `GetAttributeAdapter` metodě předejte vlastní atribut konstruktoru adaptéru, jak je znázorněno v následujícím příkladu:
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Attributes/CustomValidationAttributeAdapterProvider.cs?name=snippet_CustomValidationAttributeAdapterProvider)]
 
-1. Zaregistrujte poskytovatele adaptéru pro DI `Startup.ConfigureServices`v:
+1. Zaregistrujte poskytovatele adaptéru pro DI v `Startup.ConfigureServices` :
 
    [!code-csharp[](validation/samples/2.x/ValidationSample/Startup.cs?name=snippet_MaxModelValidationErrors&highlight=8-10)]
 

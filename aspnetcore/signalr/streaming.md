@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/streaming
-ms.openlocfilehash: 4d6461bc85573776ccdbe81bf3c74145a9cf7ed6
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: c7a3c7bb88230d84025bdf02deb98b51a2d1f92a
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82773887"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406170"
 ---
 # <a name="use-streaming-in-aspnet-core-signalr"></a>Použití streamování v ASP.NET CoreSignalR
 
@@ -42,13 +44,13 @@ ASP.NET Core SignalR podporuje streamování vrácených hodnot metod serveru. T
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Metoda centra se automaticky stal metodou streamování, když <xref:System.Collections.Generic.IAsyncEnumerable`1>vrací, <xref:System.Threading.Channels.ChannelReader%601>, `Task<IAsyncEnumerable<T>>`nebo. `Task<ChannelReader<T>>`
+Metoda centra se automaticky stal metodou streamování, když vrací <xref:System.Collections.Generic.IAsyncEnumerable`1> , <xref:System.Threading.Channels.ChannelReader%601> , `Task<IAsyncEnumerable<T>>` nebo `Task<ChannelReader<T>>` .
 
 ::: moniker-end
 
 ::: moniker range="< aspnetcore-3.0"
 
-Metoda centra se automaticky stávají metodou streamování, když vrátí <xref:System.Threading.Channels.ChannelReader%601> nebo. `Task<ChannelReader<T>>`
+Metoda centra se automaticky stávají metodou streamování, když vrátí <xref:System.Threading.Channels.ChannelReader%601> nebo `Task<ChannelReader<T>>` .
 
 ::: moniker-end
 
@@ -56,7 +58,7 @@ Metoda centra se automaticky stávají metodou streamování, když vrátí <xre
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Metody rozbočovače streamování `IAsyncEnumerable<T>` se `ChannelReader<T>`můžou vracet kromě. Nejjednodušší způsob, jak se `IAsyncEnumerable<T>` vrátit, je vytvoření metody asynchronního iterátoru metodou, jak ukazuje následující příklad. Metody asynchronního iterátoru centra můžou `CancellationToken` přijmout parametr, který se aktivuje, když se klient odhlásí z datového proudu. Metody asynchronního iterátoru zabraňují problémům běžným kanálům, jako je `ChannelReader` například, že nevrátí včas dostatek nebo ukončí metodu <xref:System.Threading.Channels.ChannelWriter`1>bez dokončení.
+Metody rozbočovače streamování `IAsyncEnumerable<T>` se můžou vracet kromě `ChannelReader<T>` . Nejjednodušší způsob, jak se vrátit, `IAsyncEnumerable<T>` je vytvoření metody asynchronního iterátoru metodou, jak ukazuje následující příklad. Metody asynchronního iterátoru centra můžou přijmout `CancellationToken` parametr, který se aktivuje, když se klient odhlásí z datového proudu. Metody asynchronního iterátoru zabraňují problémům běžným kanálům, jako je například, že nevrátí `ChannelReader` včas dostatek nebo ukončí metodu bez dokončení <xref:System.Threading.Channels.ChannelWriter`1> .
 
 [!INCLUDE[](~/includes/csharp-8-required.md)]
 
@@ -64,12 +66,12 @@ Metody rozbočovače streamování `IAsyncEnumerable<T>` se `ChannelReader<T>`m�
 
 ::: moniker-end
 
-Následující příklad znázorňuje základy streamování dat klientovi pomocí kanálů. Pokaždé <xref:System.Threading.Channels.ChannelWriter%601>, když je objekt zapisován do, je objekt okamžitě odeslán klientovi. Na konci `ChannelWriter` je dokončeno, aby klient oznámil, že je datový proud uzavřen.
+Následující příklad znázorňuje základy streamování dat klientovi pomocí kanálů. Pokaždé, když je objekt zapisován do <xref:System.Threading.Channels.ChannelWriter%601> , je objekt okamžitě odeslán klientovi. Na konci `ChannelWriter` je dokončeno, aby klient oznámil, že je datový proud uzavřen.
 
 > [!NOTE]
-> Zapište do `ChannelWriter<T>` vlákna na pozadí a vraťte `ChannelReader` co nejrychleji. Další volání centra jsou blokovaná, dokud `ChannelReader` se nevrátí.
+> Zapište do `ChannelWriter<T>` vlákna na pozadí a vraťte co nejrychleji `ChannelReader` . Další volání centra jsou blokovaná `ChannelReader` , dokud se nevrátí.
 >
-> Zabalte logiku do `try ... catch`. Dokončete `Channel` v `catch` a mimo `catch` a ujistěte se, že je volání metody rozbočovače správně dokončeno.
+> Zabalte logiku do `try ... catch` . Dokončete `Channel` v a mimo a ujistěte se, že `catch` `catch` je volání metody rozbočovače správně dokončeno.
 
 ::: moniker range=">= aspnetcore-3.0"
 
@@ -99,11 +101,11 @@ Metody služby streamování na straně serveru můžou přijmout `CancellationT
 
 ### <a name="client-to-server-streaming"></a>Streamování klienta na server
 
-Metoda centra se automaticky stalá metodou streamování typu klient-server, když přijme jeden nebo více objektů typu <xref:System.Threading.Channels.ChannelReader%601> nebo. <xref:System.Collections.Generic.IAsyncEnumerable%601> Následující příklad ukazuje základy čtení dat streamování odeslaných z klienta. Pokaždé <xref:System.Threading.Channels.ChannelWriter%601>, když klient zapíše do, data jsou zapsána do `ChannelReader` na serveru, ze kterého metoda rozbočovače čte.
+Metoda centra se automaticky stalá metodou streamování typu klient-server, když přijme jeden nebo více objektů typu <xref:System.Threading.Channels.ChannelReader%601> nebo <xref:System.Collections.Generic.IAsyncEnumerable%601> . Následující příklad ukazuje základy čtení dat streamování odeslaných z klienta. Pokaždé, když klient zapíše do <xref:System.Threading.Channels.ChannelWriter%601> , data jsou zapsána do na `ChannelReader` serveru, ze kterého metoda rozbočovače čte.
 
 [!code-csharp[Streaming upload hub method](streaming/samples/3.0/Hubs/StreamHub.cs?name=snippet2)]
 
-Následuje <xref:System.Collections.Generic.IAsyncEnumerable%601> verze metody.
+<xref:System.Collections.Generic.IAsyncEnumerable%601>Následuje verze metody.
 
 [!INCLUDE[](~/includes/csharp-8-required.md)]
 
@@ -126,9 +128,9 @@ public async Task UploadStream(IAsyncEnumerable<string> stream)
 
 ::: moniker range=">= aspnetcore-3.0"
 
-Metody `StreamAsync` a `StreamAsChannelAsync` `HubConnection` jsou používány k vyvolání metod streamování mezi servery. Předejte název a argumenty metody centra definované v metodě hub do `StreamAsync` nebo. `StreamAsChannelAsync` Obecný parametr v `StreamAsync<T>` a `StreamAsChannelAsync<T>` určuje typ objektů vrácených metodou streamování. Objekt typu `IAsyncEnumerable<T>` nebo `ChannelReader<T>` je vrácen z vyvolání datového proudu a představuje datový proud na klientovi.
+`StreamAsync`Metody a `StreamAsChannelAsync` `HubConnection` jsou používány k vyvolání metod streamování mezi servery. Předejte název a argumenty metody centra definované v metodě hub do `StreamAsync` nebo `StreamAsChannelAsync` . Obecný parametr v `StreamAsync<T>` a `StreamAsChannelAsync<T>` Určuje typ objektů vrácených metodou streamování. Objekt typu `IAsyncEnumerable<T>` nebo `ChannelReader<T>` je vrácen z vyvolání datového proudu a představuje datový proud na klientovi.
 
-`StreamAsync` Příklad, který vrátí `IAsyncEnumerable<int>`:
+`StreamAsync`Příklad, který vrátí `IAsyncEnumerable<int>` :
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -145,7 +147,7 @@ await foreach (var count in stream)
 Console.WriteLine("Streaming completed");
 ```
 
-Odpovídající `StreamAsChannelAsync` příklad, který vrátí `ChannelReader<int>`:
+Odpovídající `StreamAsChannelAsync` příklad, který vrátí `ChannelReader<int>` :
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -171,7 +173,7 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range=">= aspnetcore-2.2"
 
-`StreamAsChannelAsync` Metoda v `HubConnection` je použita k vyvolání metody streamování ze serveru na klienta. Předat název a argumenty metody centra definované v metodě hub pro `StreamAsChannelAsync`. Obecný parametr v `StreamAsChannelAsync<T>` určuje typ objektů vrácených metodou streamování. `ChannelReader<T>` Je vrácen z vyvolání datového proudu a představuje datový proud na klientovi.
+`StreamAsChannelAsync`Metoda v `HubConnection` je použita k vyvolání metody streamování ze serveru na klienta. Předat název a argumenty metody centra definované v metodě hub pro `StreamAsChannelAsync` . Obecný parametr v `StreamAsChannelAsync<T>` Určuje typ objektů vrácených metodou streamování. `ChannelReader<T>`Je vrácen z vyvolání datového proudu a představuje datový proud na klientovi.
 
 ```csharp
 // Call "Cancel" on this CancellationTokenSource to send a cancellation message to
@@ -197,7 +199,7 @@ Console.WriteLine("Streaming completed");
 
 ::: moniker range="= aspnetcore-2.1"
 
-`StreamAsChannelAsync` Metoda v `HubConnection` je použita k vyvolání metody streamování ze serveru na klienta. Předat název a argumenty metody centra definované v metodě hub pro `StreamAsChannelAsync`. Obecný parametr v `StreamAsChannelAsync<T>` určuje typ objektů vrácených metodou streamování. `ChannelReader<T>` Je vrácen z vyvolání datového proudu a představuje datový proud na klientovi.
+`StreamAsChannelAsync`Metoda v `HubConnection` je použita k vyvolání metody streamování ze serveru na klienta. Předat název a argumenty metody centra definované v metodě hub pro `StreamAsChannelAsync` . Obecný parametr v `StreamAsChannelAsync<T>` Určuje typ objektů vrácených metodou streamování. `ChannelReader<T>`Je vrácen z vyvolání datového proudu a představuje datový proud na klientovi.
 
 ```csharp
 var channel = await hubConnection
@@ -222,9 +224,9 @@ Console.WriteLine("Streaming completed");
 
 ### <a name="client-to-server-streaming"></a>Streamování klienta na server
 
-Existují dva způsoby, jak vyvolat metodu rozbočovače streamování typu klient-server z klienta .NET. Můžete `IAsyncEnumerable<T>` buď předat parametr nebo `ChannelReader` jako argument do `SendAsync`, `InvokeAsync`nebo `StreamAsChannelAsync`, v závislosti na volané metodě centra.
+Existují dva způsoby, jak vyvolat metodu rozbočovače streamování typu klient-server z klienta .NET. Můžete buď předat `IAsyncEnumerable<T>` `ChannelReader` parametr nebo jako argument do `SendAsync` , `InvokeAsync` nebo `StreamAsChannelAsync` , v závislosti na volané metodě centra.
 
-Pokaždé, když jsou data `IAsyncEnumerable` zapsána do objektu nebo `ChannelWriter` , metoda centra na serveru obdrží novou položku s daty z klienta.
+Pokaždé, když jsou data zapsána do `IAsyncEnumerable` `ChannelWriter` objektu nebo, metoda centra na serveru obdrží novou položku s daty z klienta.
 
 Při použití `IAsyncEnumerable` objektu se datový proud ukončí po ukončení metody, která vrací položky streamu.
 
@@ -244,7 +246,7 @@ async IAsyncEnumerable<string> clientStreamData()
 await connection.SendAsync("UploadStream", clientStreamData());
 ```
 
-Pokud používáte `ChannelWriter`, můžete kanál dokončete pomocí `channel.Writer.Complete()`těchto kroků:
+Pokud používáte `ChannelWriter` , můžete kanál dokončete pomocí těchto kroků `channel.Writer.Complete()` :
 
 ```csharp
 var channel = Channel.CreateBounded<string>(10);
@@ -260,12 +262,12 @@ channel.Writer.Complete();
 
 ### <a name="server-to-client-streaming"></a>Streamování ze serveru na klienta
 
-Klienti JavaScriptu volají metody streamování na straně serveru na rozbočovačích s `connection.stream`. `stream` Metoda přijímá dva argumenty:
+Klienti JavaScriptu volají metody streamování na straně serveru na rozbočovačích s `connection.stream` . `stream`Metoda přijímá dva argumenty:
 
-* Název metody centra V následujícím příkladu je `Counter`název metody rozbočovače.
+* Název metody centra V následujícím příkladu je název metody rozbočovače `Counter` .
 * Argumenty definované v metodě centra V následujícím příkladu jsou argumenty počtem položek datového proudu, které mají být přijímány, a zpoždění mezi položkami datového proudu.
 
-`connection.stream`Vrátí `IStreamResult`, který obsahuje `subscribe` metodu. `IStreamSubscriber` Předejte `subscribe` a nastavte zpětná `next`volání `error`, a `complete` pro příjem oznámení od `stream` vyvolání.
+`connection.stream`Vrátí `IStreamResult` , který obsahuje `subscribe` metodu. Předejte `IStreamSubscriber` `subscribe` a nastavte `next` `error` `complete` zpětná volání, a pro příjem oznámení od `stream` vyvolání.
 
 ::: moniker range=">= aspnetcore-2.2"
 
@@ -287,19 +289,19 @@ Chcete-li ukončit datový proud z klienta, zavolejte `dispose` metodu na `ISubs
 
 ### <a name="client-to-server-streaming"></a>Streamování klienta na server
 
-Klienti JavaScriptu `Subject` volají metody streamování typu klient-server na rozbočovači předáním jako argumentu `send`, `invoke`nebo `stream`v závislosti na volané metodě centra. `Subject` Je třída, která vypadá jako `Subject`. Například v RxJS můžete použít třídu [Subject](https://rxjs-dev.firebaseapp.com/api/index/class/Subject) z této knihovny.
+Klienti JavaScriptu volají metody streamování typu klient-server na rozbočovači předáním `Subject` jako argumentu `send` , nebo v `invoke` `stream` závislosti na volané metodě centra. `Subject`Je třída, která vypadá jako `Subject` . Například v RxJS můžete použít třídu [Subject](https://rxjs-dev.firebaseapp.com/api/index/class/Subject) z této knihovny.
 
 [!code-javascript[Upload javascript](streaming/samples/3.0/wwwroot/js/stream.js?range=41-51)]
 
 Volání `subject.next(item)` s položkou zapisuje položku do datového proudu a metoda hub přijme položku na serveru.
 
-Chcete-li ukončit datový proud `subject.complete()`, zavolejte.
+Chcete-li ukončit datový proud, zavolejte `subject.complete()` .
 
 ## <a name="java-client"></a>Klient Java
 
 ### <a name="server-to-client-streaming"></a>Streamování ze serveru na klienta
 
-Klient SignalR Java používá `stream` metodu k vyvolání metod streamování. `stream`přijímá tři nebo více argumentů:
+SignalRKlient Java používá `stream` metodu k vyvolání metod streamování. `stream`přijímá tři nebo více argumentů:
 
 * Očekávaný typ položek datového proudu.
 * Název metody centra
@@ -313,7 +315,7 @@ hubConnection.stream(String.class, "ExampleStreamingHubMethod", "Arg1")
         () -> {/* Define your onCompleted handler here. */});
 ```
 
-`stream` Metoda on `HubConnection` vrátí pozorovatelný typ položky streamu. `subscribe` Metoda pozorovatelho typu je místo, `onNext` `onError` kde jsou definovány `onCompleted` obslužné rutiny.
+`stream`Metoda on `HubConnection` vrátí pozorovatelný typ položky streamu. Metoda Pozorovatelho typu `subscribe` je místo, kde `onNext` `onError` `onCompleted` jsou definovány obslužné rutiny.
 
 ::: moniker-end
 

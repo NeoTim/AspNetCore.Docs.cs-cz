@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/14/2016
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: mvc/views/dependency-injection
-ms.openlocfilehash: aee4152bed50576f087862142e7ce9f261c7da19
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 0cc452b25392fe92c87ef346b2e16350fb3ec19a
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775450"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405884"
 ---
 # <a name="dependency-injection-into-views-in-aspnet-core"></a>Vkládání závislostí do zobrazení v ASP.NET Core
 
@@ -28,9 +30,9 @@ ASP.NET Core podporuje [vkládání závislostí](xref:fundamentals/dependency-i
 
 ## <a name="configuration-injection"></a>Vkládání konfigurace
 
-hodnoty *appSettings. JSON* lze vložit přímo do zobrazení.
+*appsettings.jsna* hodnoty lze vložit přímo do zobrazení.
 
-Příklad souboru *appSettings. JSON* :
+Příklad *appsettings.jsv* souboru:
 
 ```json
 {
@@ -42,9 +44,9 @@ Příklad souboru *appSettings. JSON* :
 }
 ```
 
-Syntaxe pro `@inject`:`@inject <type> <name>`
+Syntaxe pro `@inject` :`@inject <type> <name>`
 
-Příklad použití `@inject`:
+Příklad použití `@inject` :
 
 ```csharp
 @using Microsoft.Extensions.Configuration
@@ -61,11 +63,11 @@ Službu lze vložit do zobrazení pomocí `@inject` direktivy. Můžete si před
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/ToDo/Index.cshtml?highlight=4,5,15,16,17)]
 
-Toto zobrazení obsahuje seznam `ToDoItem` instancí spolu se souhrnem znázorňujícím celkovou statistiku. Shrnutí se vyplní ze vložených `StatisticsService`. Tato služba je zaregistrovaná pro vkládání `ConfigureServices` závislostí v v *Startup.cs*:
+Toto zobrazení obsahuje seznam `ToDoItem` instancí spolu se souhrnem znázorňujícím celkovou statistiku. Shrnutí se vyplní ze vložených `StatisticsService` . Tato služba je zaregistrovaná pro vkládání závislostí v `ConfigureServices` v *Startup.cs*:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Startup.cs?highlight=6,7&range=15-22)]
 
-`StatisticsService` Provede některé výpočty se sadou `ToDoItem` instancí, ke kterým přistupuje prostřednictvím úložiště:
+`StatisticsService`Provede některé výpočty se sadou `ToDoItem` instancí, ke kterým přistupuje prostřednictvím úložiště:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Model/Services/StatisticsService.cs?highlight=15,20,25)]
 
@@ -91,12 +93,12 @@ Tyto seznamy jsou vyplněny službou, která byla vložena do zobrazení:
 
 [!code-cshtml[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/Profile/Index.cshtml?highlight=4,16,17,21,22,26,27)]
 
-Je `ProfileOptionsService` služba na úrovni uživatelského rozhraní navržená tak, aby poskytovala pouze data potřebná pro tento formulář:
+`ProfileOptionsService`Je služba na úrovni uživatelského rozhraní navržená tak, aby poskytovala pouze data potřebná pro tento formulář:
 
 [!code-csharp[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Model/Services/ProfileOptionsService.cs?highlight=7,13,24)]
 
 > [!IMPORTANT]
-> Nezapomeňte zaregistrovat typy, které požadujete, prostřednictvím injektáže závislosti `Startup.ConfigureServices`v. Neregistrovaný typ vyvolá výjimku za běhu, protože poskytovatel služby je interně dotazován prostřednictvím [GetRequiredService](/dotnet/api/microsoft.extensions.dependencyinjection.serviceproviderserviceextensions.getrequiredservice).
+> Nezapomeňte zaregistrovat typy, které požadujete, prostřednictvím injektáže závislosti v `Startup.ConfigureServices` . Neregistrovaný typ vyvolá výjimku za běhu, protože poskytovatel služby je interně dotazován prostřednictvím [GetRequiredService](/dotnet/api/microsoft.extensions.dependencyinjection.serviceproviderserviceextensions.getrequiredservice).
 
 ## <a name="overriding-services"></a>Přepsání služeb
 
@@ -104,7 +106,7 @@ Kromě vkládání nových služeb se tato technika dá také použít k přeps�
 
 ![Kontextová nabídka technologie IntelliSense na typovaném typu @ symbol seznam polí HTML, Component, StatsService a URL](dependency-injection/_static/razor-fields.png)
 
-Jak vidíte, výchozí pole `Html`zahrnují, `Component`a (a `Url` také `StatsService` vložené). Pokud byste chtěli například nahradit výchozí pomocníky HTML vlastními, můžete to snadno použít `@inject`:
+Jak vidíte, výchozí pole zahrnují `Html` , `Component` a `Url` (a také `StatsService` vložené). Pokud byste chtěli například nahradit výchozí pomocníky HTML vlastními, můžete to snadno použít `@inject` :
 
 [!code-cshtml[](../../mvc/views/dependency-injection/sample/src/ViewInjectSample/Views/Helper/Index.cshtml?highlight=3,11)]
 

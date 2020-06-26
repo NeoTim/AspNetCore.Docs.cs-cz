@@ -6,17 +6,19 @@ ms.author: riande
 ms.date: 10/14/2016
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authorization/dependencyinjection
-ms.openlocfilehash: 16285f6f731455d6e45a04f82437793891a77668
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: d12253ad1c1442c0db5cd497393daabe280fae8d
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775117"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406352"
 ---
 # <a name="dependency-injection-in-requirement-handlers-in-aspnet-core"></a>Vkládání závislostí v obslužných rutinách požadavků v ASP.NET Core
 
@@ -47,13 +49,13 @@ public class LoggingAuthorizationHandler : AuthorizationHandler<MyRequirement>
    }
    ```
 
-Zaregistrujte obslužnou rutinu `services.AddSingleton()`pomocí:
+Zaregistrujte obslužnou rutinu pomocí `services.AddSingleton()` :
 
 ```csharp
 services.AddSingleton<IAuthorizationHandler, LoggingAuthorizationHandler>();
 ```
 
-Instance obslužné rutiny se vytvoří při spuštění aplikace a příkaz DI zapíše do konstruktoru registraci `ILoggerFactory` .
+Instance obslužné rutiny se vytvoří při spuštění aplikace a příkaz DI zapíše `ILoggerFactory` do konstruktoru registraci.
 
 > [!NOTE]
 > Obslužné rutiny, které používají Entity Framework, by neměly být registrovány jako singleton.

@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 01/21/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authentication/azure-ad-b2c
-ms.openlocfilehash: d62889ba6dba6748ce3d047f0d37b3a904199496
-ms.sourcegitcommit: 4a9321db7ca4e69074fa08a678dcc91e16215b1e
+ms.openlocfilehash: 4933203b8bdd8f653268c1df7ff83b8e9423341f
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/06/2020
-ms.locfileid: "82850432"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405065"
 ---
 # <a name="cloud-authentication-with-azure-active-directory-b2c-in-aspnet-core"></a>Cloudové ověřování pomocí Azure Active Directory B2C v ASP.NET Core
 
@@ -56,8 +58,8 @@ Použijte následující hodnoty:
 | Nastavení                       | Hodnota                     | Poznámky                                                                                                                                                                                              |
 |-------------------------------|---------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Název**                      | *&lt;název aplikace&gt;*        | Zadejte **název** aplikace, který popíše vaši aplikaci pro uživatele.                                                                                                                                 |
-| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Ano                       |                                                                                                                                                                                                    |
-| **Povolit implicitní tok**       | Ano                       |                                                                                                                                                                                                    |
+| **Zahrnout webovou aplikaci nebo webové rozhraní API** | Yes                       |                                                                                                                                                                                                    |
+| **Povolit implicitní tok**       | Yes                       |                                                                                                                                                                                                    |
 | **Adresa URL odpovědi**                 | `https://localhost:44300/signin-oidc` | Adresy URL odpovědí jsou koncové body, kam Azure AD B2C vrací všechny tokeny, které vaše aplikace požaduje. Visual Studio poskytuje adresu URL odpovědi, která se má použít. Prozatím zadejte `https://localhost:44300/signin-oidc` pro vyplnění formuláře. |
 | **Identifikátor URI ID aplikace**                | Ponechte prázdné               | Pro tento kurz není vyžadováno.                                                                                                                                                                    |
 | **Zahrnout nativního klienta**     | No                        |                                                                                                                                                                                                    |
@@ -103,18 +105,18 @@ V aplikaci Visual Studio:
 Vraťte se do okna prohlížeče, ve kterém jsou pořád otevřené vlastnosti aplikace B2C. Změňte zadanou **adresu URL dočasné odpovědi** na hodnotu zkopírovanou ze sady Visual Studio. V horní části okna vyberte **Uložit** .
 
 > [!TIP]
-> Pokud jste nezkopírovali adresu URL odpovědi, použijte adresu HTTPS z karty ladění ve vlastnostech webového projektu a přidejte hodnotu **CallbackPath** z souboru *appSettings. JSON*.
+> Pokud jste nezkopírovali adresu URL odpovědi, použijte adresu HTTPS z karty ladění ve vlastnostech webového projektu a přidejte hodnotu **CallbackPath** z *appsettings.js*.
 
 ## <a name="configure-policies"></a>Konfigurace zásad
 
 Pomocí kroků v dokumentaci Azure AD B2C [vytvořte zásadu registrace nebo přihlašování](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions)a pak [Vytvořte zásady resetování hesel](/azure/active-directory-b2c/active-directory-b2c-reference-policies#user-flow-versions). Použijte ukázkové hodnoty uvedené v dokumentaci pro ** Identity poskytovatele**, **atributy registrace**a **deklarace aplikací**. Použití tlačítka **Spustit nyní** k otestování zásad, jak je popsáno v dokumentaci, je volitelné.
 
 > [!WARNING]
-> Zajistěte, aby názvy zásad byly přesně popsané v dokumentaci, protože se tyto zásady používaly v dialogovém okně **změnit ověřování** v aplikaci Visual Studio. Názvy zásad lze ověřit v souboru *appSettings. JSON*.
+> Zajistěte, aby názvy zásad byly přesně popsané v dokumentaci, protože se tyto zásady používaly v dialogovém okně **změnit ověřování** v aplikaci Visual Studio. Názvy zásad lze ověřit v *appsettings.js*.
 
 ## <a name="configure-the-underlying-openidconnectoptionsjwtbearercookie-options"></a>Konfigurace základních možností OpenIdConnectOptions/JwtBearer/cookie
 
-Chcete-li konfigurovat základní možnosti přímo, použijte odpovídající konstanty schématu `Startup.ConfigureServices`v nástroji:
+Chcete-li konfigurovat základní možnosti přímo, použijte odpovídající konstanty schématu v nástroji `Startup.ConfigureServices` :
 
 ```csharp
 services.Configure<OpenIdConnectOptions>(

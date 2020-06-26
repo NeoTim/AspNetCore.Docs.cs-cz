@@ -1,30 +1,32 @@
 ---
 title: ASP.NET Core SignalR podporované platformy
 author: bradygaster
-description: Přečtěte si o podporovaných platformách SignalRpro ASP.NET Core.
+description: Přečtěte si o podporovaných platformách pro ASP.NET Core SignalR .
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 01/16/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/supported-platforms
-ms.openlocfilehash: 70a05dabb95aaf561aa78d5c8b24b430c51bd973
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 9d7dd946ae5cf83b76a83ba1faeed0bb3fc31cef
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82772602"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405819"
 ---
-# <a name="aspnet-core-signalr-supported-platforms"></a>Podporované platformy pro přijímače ASP.NET Core
+# <a name="aspnet-core-signalr-supported-platforms"></a>ASP.NET Core SignalR podporované platformy
 
 ## <a name="server-system-requirements"></a>Požadavky na systém serveru
 
-Návěstí pro ASP.NET Core podporuje jakoukoli serverovou platformu, která ASP.NET Core podporuje.
+SignalRpro ASP.NET Core podporuje jakoukoli serverovou platformu, která ASP.NET Core podporuje.
 
 ## <a name="javascript-client"></a>Klient JavaScriptu
 

@@ -7,17 +7,19 @@ ms.author: riande
 ms.date: 02/12/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: razor-pages/index
-ms.openlocfilehash: 52c3dc82e51cb4375954a603a1bfde60fd667b56
-ms.sourcegitcommit: 490434a700ba8c5ed24d849bd99d8489858538e3
+ms.openlocfilehash: 73af74c2cf65ec5e644af89c300ffa108825fb2e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/19/2020
-ms.locfileid: "85103053"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404688"
 ---
 # <a name="introduction-to-razor-pages-in-aspnet-core"></a>Úvod do Razor stránek v ASP.NET Core
 
@@ -130,7 +132,7 @@ Podle konvence `PageModel` je třída volána `<PageName>Model` a je ve stejném
 `PageModel`Třída umožňuje oddělení logiky stránky od její prezentace. Definuje obslužné rutiny stránky pro požadavky odeslané na stránku a data použitá k vykreslení stránky. Toto oddělení umožňuje:
 
 * Správa závislostí stránky prostřednictvím [vkládání závislostí](xref:fundamentals/dependency-injection).
-* [Testování jednotek](xref:test/razor-pages-tests)
+* [Testování částí](xref:test/razor-pages-tests)
 
 Stránka obsahuje `OnPostAsync` *metodu obslužné rutiny*, která běží na `POST` žádostech (když uživatel formulář odešle). Lze přidat metody obslužné rutiny pro jakýkoli příkaz HTTP. Nejběžnější obslužné rutiny jsou:
 
@@ -436,13 +438,13 @@ Aplikace má následující strukturu souborů nebo složek:
     * *Upravit. cshtml*
     * *Soubor Index.cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který slouží k přístupu na předchozí stránku. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Příklad:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit. cshtml* Pages přesměruje na *Pages/Customers/index. cshtml* po úspěchu. Řetězec `./Index` je relativní název stránky, který slouží k přístupu na předchozí stránku. Slouží ke generování adres URL na stránce *Pages/Customers/index. cshtml* . Například:
 
 * `Url.Page("./Index", ...)`
 * `<a asp-page="./Index">Customers Index Page</a>`
 * `RedirectToPage("./Index")`
 
-Absolutní název stránky `/Index` se používá ke generování adres URL na stránce *pages/index. cshtml* . Příklad:
+Absolutní název stránky `/Index` se používá ke generování adres URL na stránce *pages/index. cshtml* . Například:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">Home Index Page</a>`
@@ -952,7 +954,7 @@ Aplikace má následující strukturu souborů nebo složek:
     * *Upravit. cshtml*
     * *Soubor Index.cshtml*
 
-*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Příklad:
+*Stránky/zákazníci/vytvořit. cshtml* a *Pages/Customers/Edit.* cshtml Pages přesměruje na *pages/index. cshtml* po úspěchu. Řetězec `/Index` je součástí identifikátoru URI pro přístup k předchozí stránce. Řetězec `/Index` lze použít ke generování identifikátorů URI na stránce *pages/index. cshtml* . Například:
 
 * `Url.Page("/Index", ...)`
 * `<a asp-page="/Index">My Index Page</a>`

@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 10/24/2018
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: data/entity-framework-6
-ms.openlocfilehash: 7c77ecb663bebcaf0c6239f07ac15dda23f17b9c
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 8611ea8bd6737c8b8ea366affa2158f80e9a1aa9
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775476"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405052"
 ---
 # <a name="get-started-with-aspnet-core-and-entity-framework-6"></a>Začínáme s ASP.NET Core a Entity Framework 6
 
@@ -88,7 +90,7 @@ Tuto ukázku můžete vytvořit úplně od začátku pomocí následujících kr
 
 * V projektu Core Zaregistrujte v *Startup.cs*kontext pro di.
 
-* V projektu Core v souboru *appSettings. JSON*přidejte připojovací řetězec.
+* V projektu Core v části *appsettings.jsna*přidejte připojovací řetězec.
 
 * V projektu Core přidejte kontroler a zobrazení, abyste ověřili, že můžete číst a zapisovat data. (Všimněte si, že ASP.NET Core generování uživatelského rozhraní MVC nebude fungovat s kontextem EF6, na který se odkazuje z knihovny tříd.)
 

@@ -1,13 +1,26 @@
 ---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
+title: JsonPatch v ASP.NET Core Web API
+author: rick-anderson
+description: Naučte se zpracovávat požadavky na opravy JSON ve ASP.NET Core webovém rozhraní API.
+ms.author: riande
+ms.custom: mvc
+ms.date: 04/02/2020
+no-loc:
+- Blazor
+- Blazor Server
+- Blazor WebAssembly
+- Identity
+- Let's Encrypt
+- Razor
+- SignalR
+uid: web-api/jsonpatch
+ms.openlocfilehash: 08ae366859c4466e6957592f78dda813d6670bb4
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.translationtype: MT
+ms.contentlocale: cs-CZ
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405026"
 ---
-
 # <a name="jsonpatch-in-aspnet-core-web-api"></a>JsonPatch v ASP.NET Core Web API
 
 [Dykstra](https://github.com/tdykstra) a [Kirka Larkin](https://github.com/serpent5)
@@ -35,7 +48,7 @@ Pokud chcete ve své aplikaci povolit podporu oprav JSON, proveďte následujíc
 * <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllersWithViews*>
 * <xref:Microsoft.Extensions.DependencyInjection.MvcServiceCollectionExtensions.AddControllers*>
 
-## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>JSON patch, AddNewtonsoftJson a System. text. JSON
+## <a name="json-patch-addnewtonsoftjson-and-systemtextjson"></a>Oprava JSON, AddNewtonsoftJson a System.Text.Js
 
 `AddNewtonsoftJson`nahradí `System.Text.Json` vstupní a výstupní formátovací moduly používané pro formátování **veškerého** obsahu JSON. Chcete-li přidat podporu pro opravu JSON pomocí příkazu `Newtonsoft.Json` , zatímco ostatní formátovací moduly zůstaly beze změny, aktualizujte `Startup.ConfigureServices` metodu projektu následujícím způsobem:
 
@@ -106,147 +119,17 @@ Indexy založené na nule slouží k určení prvků pole. První prvek `address
 V následující tabulce jsou uvedeny podporované operace, jak je definováno ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
 
 |Operace  | Poznámky |
-|---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------|---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-----------------| | `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu. | | `remove`  | Odebere vlastnost nebo prvek pole. | | `replace` | Stejné jako `remove` následováno ve `add` stejném umístění. | | `move`    | Stejné jako `remove` u zdroje, po kterém následuje `add` k cíli, pomocí hodnoty ze zdroje. | | `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. | | `test`    | Vrátí stavový kód úspěšného zpracování, pokud je zadána hodnota at `path` `value` . |
+|-----------|--------------------------------|
+| `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu.|
+| `remove`  | Odebere vlastnost nebo prvek pole. |
+| `replace` | Stejné jako `remove` následováno ve `add` stejném umístění. |
+| `move`    | Stejné jako `remove` u zdroje, po kterém následuje `add` k cíli, pomocí hodnoty ze zdroje. |
+| `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. |
+| `test`    | Vrátí stavový kód úspěšného zpracování, pokud je zadána hodnota at `path` `value` .|
 
 ## <a name="json-patch-in-aspnet-core"></a>Oprava JSON v ASP.NET Core
 
-Implementace opravy JSON ASP.NET Core je k dispozici v balíčku NuGet [Microsoft. AspNetCore. JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) .
+Implementace opravy JSON ASP.NET Core je k dispozici v balíčku NuGet [Microsoft.AspNetCore.Jspropatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) .
 
 ## <a name="action-method-code"></a>Kód metody akce
 
@@ -448,147 +331,17 @@ Indexy založené na nule slouží k určení prvků pole. První prvek `address
 V následující tabulce jsou uvedeny podporované operace, jak je definováno ve [specifikaci opravy JSON](https://tools.ietf.org/html/rfc6902):
 
 |Operace  | Poznámky |
-|---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-------|---
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
--
-Název: Autor: Popis: MS. Author: MS. Custom: MS. Date: No-Loc:
-- 'Blazor'
-- 'Identity'
-- 'Let's Encrypt'
-- 'Razor'
-- SignalRUID: 
-
-----------------| | `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu. | | `remove`  | Odebere vlastnost nebo prvek pole. | | `replace` | Stejné jako `remove` následováno ve `add` stejném umístění. | | `move`    | Stejné jako `remove` u zdroje, po kterém následuje `add` k cíli, pomocí hodnoty ze zdroje. | | `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. | | `test`    | Vrátí stavový kód úspěšného zpracování, pokud je zadána hodnota at `path` `value` . |
+|-----------|--------------------------------|
+| `add`     | Přidejte vlastnost nebo prvek pole. Pro existující vlastnost: nastavte hodnotu.|
+| `remove`  | Odebere vlastnost nebo prvek pole. |
+| `replace` | Stejné jako `remove` následováno ve `add` stejném umístění. |
+| `move`    | Stejné jako `remove` u zdroje, po kterém následuje `add` k cíli, pomocí hodnoty ze zdroje. |
+| `copy`    | Stejné jako `add` cíl pomocí hodnoty ze zdroje. |
+| `test`    | Vrátí stavový kód úspěšného zpracování, pokud je zadána hodnota at `path` `value` .|
 
 ## <a name="jsonpatch-in-aspnet-core"></a>JsonPatch v ASP.NET Core
 
-Implementace opravy JSON ASP.NET Core je k dispozici v balíčku NuGet [Microsoft. AspNetCore. JsonPatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) . Balíček obsahuje [Microsoft. AspnetCore. app](xref:fundamentals/metapackage-app) Metapackage.
+Implementace opravy JSON ASP.NET Core je k dispozici v balíčku NuGet [Microsoft.AspNetCore.Jspropatch](https://www.nuget.org/packages/microsoft.aspnetcore.jsonpatch/) . Balíček obsahuje [Microsoft. AspnetCore. app](xref:fundamentals/metapackage-app) Metapackage.
 
 ## <a name="action-method-code"></a>Kód metody akce
 

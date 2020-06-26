@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 4/05/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: performance/memory
-ms.openlocfilehash: db6f8e867fc83a211170aa59f5bad604d9c2730d
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: d261a26de7b9ba77e5f9787ae2eb37293257a0fc
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82776113"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406391"
 ---
 # <a name="memory-management-and-garbage-collection-gc-in-aspnet-core"></a>Správa paměti a uvolňování paměti (GC) v ASP.NET Core
 
@@ -135,7 +137,7 @@ Systém uvolňování paměti .NET má dva různé režimy:
 * **GC pracovní stanice**: optimalizováno pro plochu.
 * **GC serveru**. Výchozí GC pro aplikace ASP.NET Core. Optimalizováno pro server.
 
-Režim GC se dá explicitně nastavit v souboru projektu nebo v souboru *runtimeconfig. JSON* publikované aplikace. Následující kód ukazuje nastavení `ServerGarbageCollection` v souboru projektu:
+Režim GC se dá explicitně nastavit v souboru projektu nebo v *runtimeconfig.js* v souboru publikované aplikace. Následující kód ukazuje nastavení `ServerGarbageCollection` v souboru projektu:
 
 ```xml
 <PropertyGroup>
@@ -186,7 +188,7 @@ public ActionResult<string> GetStaticString()
 Předcházející kód:
 
 * Je příkladem typické nevrácení paměti.
-* S častými voláními způsobí, že se paměť aplikace zvětšuje, dokud `OutOfMemory` proces neselže s výjimkou.
+* S častými voláními způsobí, že se paměť aplikace zvětšuje, dokud proces neselže s `OutOfMemory` výjimkou.
 
 ![předchozí graf](memory/_static/eternal.png)
 
@@ -196,7 +198,7 @@ Na předchozím obrázku:
 * GC se pokusí uvolnit paměť, protože tlak paměti roste, voláním kolekce 2. generace.
 * GC nemůže uvolnit nevrácenou paměť. Přidělená a pracovní sada se zvýšila s časem.
 
-Některé scénáře, jako je například ukládání do mezipaměti, vyžadují, aby byly uloženy odkazy na objekty, dokud tlak vynutí uvolnění paměti. <xref:System.WeakReference> Třídu lze použít pro tento typ kódu pro ukládání do mezipaměti. `WeakReference` Objekt je shromážděn v části tlaky paměti. Výchozí implementace <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache> použití `WeakReference`.
+Některé scénáře, jako je například ukládání do mezipaměti, vyžadují, aby byly uloženy odkazy na objekty, dokud tlak vynutí uvolnění paměti. <xref:System.WeakReference>Třídu lze použít pro tento typ kódu pro ukládání do mezipaměti. `WeakReference`Objekt je shromážděn v části tlaky paměti. Výchozí implementace <xref:Microsoft.Extensions.Caching.Memory.IMemoryCache> použití `WeakReference` .
 
 ### <a name="native-memory"></a>Nativní paměť
 
@@ -217,7 +219,7 @@ public void GetFileProvider()
 
 [PhysicalFileProvider](/dotnet/api/microsoft.extensions.fileproviders.physicalfileprovider?view=dotnet-plat-ext-3.0) je spravovaná třída, takže všechny instance budou shromážděny na konci žádosti.
 
-Následující obrázek ukazuje profil paměti při průběžném vyvolání `fileprovider` rozhraní API.
+Následující obrázek ukazuje profil paměti při `fileprovider` průběžném vyvolání rozhraní API.
 
 ![předchozí graf](memory/_static/fileprovider.png)
 
@@ -226,7 +228,7 @@ Předchozí graf znázorňuje zjevné problémy s implementací této třídy, p
 Stejná netěsnost by mohla být provedena v uživatelském kódu, a to jedním z následujících způsobů:
 
 * Neuvolňuje třídu správně.
-* Forgetting k vyvolání `Dispose`metody závislých objektů, které by měly být uvolněny.
+* Forgetting k vyvolání `Dispose` metody závislých objektů, které by měly být uvolněny.
 
 ### <a name="large-objects-heap"></a>Halda velkých objektů
 
@@ -248,7 +250,7 @@ GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.Compa
 GC.Collect();
 ```
 
-Informace <xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode> o komprimaci LOH najdete v tématu.
+<xref:System.Runtime.GCSettings.LargeObjectHeapCompactionMode>Informace o komprimaci LOH najdete v tématu.
 
 V kontejnerech pomocí .NET Core 3,0 a novějších se LOH automaticky zkomprimuje.
 
@@ -270,7 +272,7 @@ Následující graf znázorňuje profil paměti volajícího `/api/loh/84976` ko
 
 ![předchozí graf](memory/_static/loh2.png)
 
-Poznámka: `byte[]` struktura má režijní bajty. To je důvod, proč 84 976 bajtů spouští limit 85 000.
+Poznámka: `byte[]` Struktura má režijní bajty. To je důvod, proč 84 976 bajtů spouští limit 85 000.
 
 Porovnání dvou předchozích grafů:
 
@@ -299,9 +301,9 @@ Nesprávné použití <xref:System.Net.Http.HttpClient> může mít za následek
 * Je více omezených než paměť.
 * Jsou více problematické při nevracení paměti.
 
-Zkušení vývojáři rozhraní .NET znají volání <xref:System.IDisposable.Dispose*> objektů, které implementují <xref:System.IDisposable>. Pokud nedojde k vyřazení `IDisposable` objektů, které implementují, obvykle dojde k nevrácené paměti nebo nevráceným systémovým prostředkům
+Zkušení vývojáři rozhraní .NET znají volání <xref:System.IDisposable.Dispose*> objektů, které implementují <xref:System.IDisposable> . Pokud nedojde k vyřazení objektů, které implementují, `IDisposable` obvykle dojde k nevrácené paměti nebo nevráceným systémovým prostředkům
 
-`HttpClient`implementuje `IDisposable`, **ale nemělo by být** uvolněno při každém vyvolání. Místo toho `HttpClient` by se mělo použít znovu.
+`HttpClient`implementuje `IDisposable` , ale nemělo **not** by být uvolněno při každém vyvolání. Místo toho `HttpClient` by se mělo použít znovu.
 
 Následující koncový bod vytvoří a odstraní novou `HttpClient` instanci na každém požadavku:
 
@@ -331,9 +333,9 @@ System.Net.Http.HttpRequestException: Only one usage of each socket address
     CancellationToken cancellationToken)
 ```
 
-I když jsou `HttpClient` instance vyřazené, vlastní síťové připojení bude nějakou dobu vydávat operačnímu systému. Průběžným vytvářením nových připojení dojde k _vyčerpání portů_ . Každé připojení klienta vyžaduje svůj vlastní port klienta.
+I když `HttpClient` jsou instance vyřazené, vlastní síťové připojení bude nějakou dobu vydávat operačnímu systému. Průběžným vytvářením nových připojení dojde k _vyčerpání portů_ . Každé připojení klienta vyžaduje svůj vlastní port klienta.
 
-Jedním ze způsobů, jak zabránit vyčerpání portů, je opakované `HttpClient` použití stejné instance:
+Jedním ze způsobů, jak zabránit vyčerpání portů, je opakované použití stejné `HttpClient` instance:
 
 ```csharp
 private static readonly HttpClient _httpClient = new HttpClient();
@@ -346,16 +348,16 @@ public async Task<int> GetHttpClient2(string url)
 }
 ```
 
-`HttpClient` Instance se uvolní při zastavení aplikace. Tento příklad ukazuje, že po každém použití by mělo být uvolněno každý prostředek na jedno použití.
+`HttpClient`Instance se uvolní při zastavení aplikace. Tento příklad ukazuje, že po každém použití by mělo být uvolněno každý prostředek na jedno použití.
 
-Pro lepší způsob zpracování životnosti `HttpClient` instance se podívejte na následující:
+Pro lepší způsob zpracování životnosti instance se podívejte na následující `HttpClient` :
 
 * [Správa HttpClient a životního cyklu](/aspnet/core/fundamentals/http-requests#httpclient-and-lifetime-management)
 * [Blog o továrně HTTPClient](https://devblogs.microsoft.com/aspnet/asp-net-core-2-1-preview1-introducing-httpclient-factory/)
  
 ### <a name="object-pooling"></a>Sdružování objektů
 
-Předchozí příklad ukázal, jak může `HttpClient` být instance vytvořena staticky a znovu použita všemi požadavky. Při opakovaném použití se nebudete moci dostat z prostředků.
+Předchozí příklad ukázal, jak `HttpClient` může být instance vytvořena staticky a znovu použita všemi požadavky. Při opakovaném použití se nebudete moci dostat z prostředků.
 
 Sdružování objektů:
 
@@ -386,7 +388,7 @@ Následující zobrazení grafu volá předchozí rozhraní API se středním za
 
 V předchozím grafu se kolekce generace 0 nevyskytují přibližně jednou za sekundu.
 
-Předchozí kód může být optimalizován pomocí sdružování `byte` vyrovnávací paměti pomocí [ArrayPool\<T>](xref:System.Buffers.ArrayPool`1). Statická instance se opakovaně používá napříč požadavky.
+Předchozí kód může být optimalizován vysdružováním `byte` vyrovnávací paměti pomocí [ArrayPool \<T> ](xref:System.Buffers.ArrayPool`1). Statická instance se opakovaně používá napříč požadavky.
 
 To se liší od tohoto přístupu je to, že objekt ve fondu je vrácen z rozhraní API. To znamená:
 
@@ -398,7 +400,7 @@ Nastavení vyřazení objektu:
 * Zapouzdřuje pole ve fondu na jedno a více objektů.
 * Zaregistrujte objekt ve fondu s [HttpContext. Response. RegisterForDispose](xref:Microsoft.AspNetCore.Http.HttpResponse.RegisterForDispose*).
 
-`RegisterForDispose`postará o volání `Dispose`cílového objektu, aby bylo uvolněno pouze v případě, že je požadavek HTTP dokončen.
+`RegisterForDispose`postará o volání `Dispose` cílového objektu, aby bylo uvolněno pouze v případě, že je požadavek HTTP dokončen.
 
 ```csharp
 private static ArrayPool<byte> _arrayPool = ArrayPool<byte>.Create();
@@ -438,7 +440,7 @@ Použití stejného zatížení jako nesdružené verze vede k následujícímu 
 
 Hlavní rozdíl je přidělený bajtů a jako důsledek je to mnohem méně kolekcí 0. generace.
 
-## <a name="additional-resources"></a>Další materiály a zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Uvolňování paměti](/dotnet/standard/garbage-collection/)
 * [Porozumění různým režimům GC s Vizualizérm souběžnosti](https://blogs.msdn.microsoft.com/seteplia/2017/01/05/understanding-different-gc-modes-with-concurrency-visualizer/)

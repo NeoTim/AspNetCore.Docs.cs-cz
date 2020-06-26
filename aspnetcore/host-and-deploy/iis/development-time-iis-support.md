@@ -8,17 +8,19 @@ ms.custom: mvc
 ms.date: 02/07/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: host-and-deploy/iis/development-time-iis-support
-ms.openlocfilehash: 06c215156cdfa9bc1ae6ac2eb21a3f739a309bed
-ms.sourcegitcommit: 6a71b560d897e13ad5b61d07afe4fcb57f8ef6dc
+ms.openlocfilehash: d922b2eb4d00a252b3e7da2f00de8b4571359b20
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/09/2020
-ms.locfileid: "84106777"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406430"
 ---
 # <a name="development-time-iis-support-in-visual-studio-for-aspnet-core"></a>Podpora služby IIS při vývoji v sadě Visual Studio pro ASP.NET Core
 
@@ -91,7 +93,7 @@ Vytvoření nového spouštěcího profilu pro přidání podpory služby IIS v 
 1. Pro nastavení **modelu hostování** v aplikaci Visual Studio 2019 nebo novější vyberte možnost **výchozí** pro použití modelu hostování používaného projektem. Pokud projekt nastaví `<AspNetCoreHostingModel>` vlastnost v jeho souboru projektu, je použita hodnota vlastnosti ( `InProcess` nebo `OutOfProcess` ). Pokud vlastnost není k dispozici, použije se výchozí hostující model aplikace, který je v procesu. Pokud aplikace vyžaduje explicitní nastavení modelu hostování, které se liší od normálního hostujícího modelu aplikace, nastavte **hostující model** na buď `In Process` nebo `Out Of Process` podle potřeby.
 1. Uložte profil.
 
-Pokud nepoužíváte aplikaci Visual Studio, ručně přidejte profil spuštění do souboru [launchSettings. JSON](https://json.schemastore.org/launchsettings) ve složce *Properties (vlastnosti* ). Následující příklad nakonfiguruje profil pro použití protokolu HTTPS:
+Pokud nepoužíváte aplikaci Visual Studio, ručně přidejte profil spuštění do [launchSettings.js](https://json.schemastore.org/launchsettings) v souboru ve složce *Properties (vlastnosti* ). Následující příklad nakonfiguruje profil pro použití protokolu HTTPS:
 
 ```json
 {
@@ -206,7 +208,7 @@ Vytvoření nového spouštěcího profilu pro přidání podpory služby IIS v 
 1. Pro nastavení **modelu hostování** v aplikaci Visual Studio 2019 nebo novější vyberte možnost **výchozí** pro použití modelu hostování používaného projektem. Pokud projekt nastaví `<AspNetCoreHostingModel>` vlastnost v jeho souboru projektu, je použita hodnota vlastnosti ( `InProcess` nebo `OutOfProcess` ). Pokud vlastnost není k dispozici, použije se výchozí hostující model aplikace, který je mimo proces. Pokud aplikace vyžaduje explicitní nastavení modelu hostování, které se liší od normálního hostujícího modelu aplikace, nastavte **hostující model** na buď `In Process` nebo `Out Of Process` podle potřeby.
 1. Uložte profil.
 
-Pokud nepoužíváte aplikaci Visual Studio, ručně přidejte profil spuštění do souboru [launchSettings. JSON](https://json.schemastore.org/launchsettings) ve složce *Properties (vlastnosti* ). Následující příklad nakonfiguruje profil pro použití protokolu HTTPS:
+Pokud nepoužíváte aplikaci Visual Studio, ručně přidejte profil spuštění do [launchSettings.js](https://json.schemastore.org/launchsettings) v souboru ve složce *Properties (vlastnosti* ). Následující příklad nakonfiguruje profil pro použití protokolu HTTPS:
 
 ```json
 {

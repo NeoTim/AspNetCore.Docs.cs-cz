@@ -7,17 +7,19 @@ ms.custom: mvc
 ms.date: 5/12/2020
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: test/middleware
-ms.openlocfilehash: ea7fc0e889ab32cbaf23257b3e866519af0727aa
-ms.sourcegitcommit: 69e1a79a572b0af17d08e81af12c594b7316f2e1
+ms.openlocfilehash: f4ed16b136da37c093a72a8866301a188a8518a2
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/15/2020
-ms.locfileid: "83424539"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85406482"
 ---
 # <a name="test-aspnet-core-middleware"></a>Test ASP.NET Core middlewaru
 
@@ -41,6 +43,14 @@ V testovacím projektu vytvořte test:
 
 * Sestavte a spusťte hostitele, který používá <xref:Microsoft.AspNetCore.TestHost.TestServer> .
 * Přidejte všechny požadované služby, které middleware používá.
+* Do projektu přidejte balíček NuGet [Microsoft. AspNetCore. TestHost](https://www.nuget.org/packages/Microsoft.AspNetCore.TestHost/) :
+  
+  ```dotnetcli
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.*" />
+  </ItemGroup>
+  ```
+
 * Nakonfigurujte kanál zpracování, aby používal middleware pro test.
 
 [!code-csharp[](middleware/samples_snapshot/3.x/setup.cs?highlight=4-18)]
@@ -62,7 +72,7 @@ Změnou kontrolního výrazu otestujete middleware za normálních provozních p
 
 ## <a name="send-requests-with-httpcontext"></a>Odeslat požadavky pomocí HttpContext
 
-Testovací aplikace může také odeslat žádost pomocí [SendAsync (Action \< HttpContext>, CancellationToken)](xref:Microsoft.AspNetCore.TestHost.TestServer.SendAsync%2A). V následujícím příkladu je provedeno několik kontrol, pokud `https://example.com/A/Path/?and=query` je zpracováván middleware:
+Testovací aplikace může také odeslat žádost pomocí [SendAsync (Action \<HttpContext> , CancellationToken)](xref:Microsoft.AspNetCore.TestHost.TestServer.SendAsync%2A). V následujícím příkladu je provedeno několik kontrol, pokud `https://example.com/A/Path/?and=query` je zpracováván middleware:
 
 ```csharp
 [Fact]

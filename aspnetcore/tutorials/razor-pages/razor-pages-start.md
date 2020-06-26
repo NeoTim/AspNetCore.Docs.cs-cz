@@ -1,22 +1,24 @@
 ---
-title: "\"Kurz: Začínáme se Razor stránkami v ASP.NET Core\""
+title: 'Kurz: Začínáme se Razor stránkami v ASP.NET Core'
 author: rick-anderson
 description: V této sérii kurzů se dozvíte, jak používat Razor stránky v ASP.NET Core. Naučte se, jak vytvořit model, vygenerovat kód pro Razor stránky, používat Entity Framework Core a SQL Server pro přístup k datům, přidat funkce hledání, přidat ověření vstupu a použít migrace k aktualizaci modelu.
 ms.author: riande
 ms.date: 11/12/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 3b8ccf639bb91234f81c67750fffa170e52d636f
-ms.sourcegitcommit: cd73744bd75fdefb31d25ab906df237f07ee7a0a
+ms.openlocfilehash: 97e3f60480bc8e7e88c8361e5b13f02d98765d9e
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/05/2020
-ms.locfileid: "84452335"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405299"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se Razor stránkami v ASP.NET Core
 
@@ -94,7 +96,7 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
 * Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' RazorPagesMovie '. Přidat je?** Vyberte **Ano**.
 
-  Do kořenového adresáře projektu se přidá adresář *. VSCode* obsahující soubory *Launch. JSON* a *Tasks. JSON* .
+  Do kořenového adresáře projektu se přidá adresář *. VSCode* , který obsahuje *launch.jsv* souborech a *tasks.jsna* nich.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
@@ -144,7 +146,7 @@ Podpůrné soubory mají názvy začínající podtržítkem. Například soubor
 
 Obsahuje statické soubory, jako jsou soubory HTML, JavaScriptové soubory a soubory CSS. Další informace naleznete v tématu <xref:fundamentals/static-files>.
 
-### <a name="appsettingsjson"></a>appSettings. JSON
+### <a name="appsettingsjson"></a>appSettings.jsna
 
 Obsahuje konfigurační data, například připojovací řetězce. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 
@@ -244,7 +246,7 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
 * Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' RazorPagesMovie '. Přidat je?** Vyberte **Ano**.
 
-  Do kořenového adresáře projektu se přidá adresář *. VSCode* obsahující soubory *Launch. JSON* a *Tasks. JSON* .
+  Do kořenového adresáře projektu se přidá adresář *. VSCode* , který obsahuje *launch.jsv* souborech a *tasks.jsna* nich.
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
@@ -343,7 +345,7 @@ Podpůrné soubory mají názvy začínající podtržítkem. Například soubor
 
 Obsahuje statické soubory, jako jsou soubory HTML, JavaScriptové soubory a soubory CSS. Další informace naleznete v tématu <xref:fundamentals/static-files>.
 
-### <a name="appsettingsjson"></a>appSettings. JSON
+### <a name="appsettingsjson"></a>appSettings.jsna
 
 Obsahuje konfigurační data, například připojovací řetězce. Další informace naleznete v tématu <xref:fundamentals/configuration/index>.
 

@@ -1,32 +1,34 @@
 ---
 title: Úvod do ASP.NET CoreSignalR
 author: bradygaster
-description: Přečtěte si, SignalR jak knihovna ASP.NET Core zjednodušuje přidávání funkcí v reálném čase do aplikací.
+description: Přečtěte si, jak SignalR knihovna ASP.NET Core zjednodušuje přidávání funkcí v reálném čase do aplikací.
 monikerRange: '>= aspnetcore-2.1'
 ms.author: bradyg
 ms.custom: mvc
 ms.date: 11/27/2019
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: signalr/introduction
-ms.openlocfilehash: 4e968659d23330c4b1403ab998dda9c9e6ebe080
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: 816ecfc5d23e8e1d2901a8c35c657cc968fa95df
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82775775"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85404948"
 ---
 # <a name="introduction-to-aspnet-core-signalr"></a>Úvod do ASP.NET CoreSignalR
 
-## <a name="what-is-signalr"></a>Co je SignalRto?
+## <a name="what-is-signalr"></a>Co je to SignalR ?
 
 ASP.NET Core SignalR je open source knihovna, která zjednodušuje přidávání webových funkcí v reálném čase do aplikací. Webová funkce v reálném čase umožňuje, aby kód na straně serveru nabízel okamžitý obsah klientům.
 
-Dobré kandidáty SignalRpro:
+Dobré kandidáty pro SignalR :
 
 * Aplikace, které vyžadují aktualizace ze serveru s vysokou frekvencí. Příkladem jsou hry, sociální sítě, hlasování, aukce, mapy a aplikace využívající GPS.
 * Řídicí panely a aplikace pro monitorování. Mezi příklady patří řídicí panely společností, okamžité a aktuální informace o prodeji nebo upozornění pro cestující.
