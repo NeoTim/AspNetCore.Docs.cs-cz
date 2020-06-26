@@ -1,5 +1,5 @@
 
-<span data-ttu-id="d6bef-101">Spusťte následující příkazy příkazového příkazu .NET Core CLI:</span><span class="sxs-lookup"><span data-stu-id="d6bef-101">Run the following .NET Core CLI commands:</span></span>
+<span data-ttu-id="3e2fe-101">Spusťte následující příkazy .NET Core CLI:</span><span class="sxs-lookup"><span data-stu-id="3e2fe-101">Run the following .NET Core CLI commands:</span></span>
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate
