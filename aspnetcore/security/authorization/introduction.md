@@ -6,34 +6,36 @@ ms.author: riande
 ms.date: 10/14/2016
 no-loc:
 - Blazor
+- Blazor Server
+- Blazor WebAssembly
 - Identity
 - Let's Encrypt
 - Razor
 - SignalR
 uid: security/authorization/introduction
-ms.openlocfilehash: 241ef8b00e9dcbd1983d32edcd9c1db2eaa5c687
-ms.sourcegitcommit: 70e5f982c218db82aa54aa8b8d96b377cfc7283f
+ms.openlocfilehash: b0d6c91adfb5dc273aeb662cb2c249626ef1d3c6
+ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 05/04/2020
-ms.locfileid: "82777524"
+ms.lasthandoff: 06/26/2020
+ms.locfileid: "85405429"
 ---
-# <a name="introduction-to-authorization-in-aspnet-core"></a><span data-ttu-id="dca24-103">Úvod k autorizaci v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="dca24-103">Introduction to authorization in ASP.NET Core</span></span>
+# <a name="introduction-to-authorization-in-aspnet-core"></a><span data-ttu-id="ac11a-103">Úvod k autorizaci v ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="ac11a-103">Introduction to authorization in ASP.NET Core</span></span>
 
 <a name="security-authorization-introduction"></a>
 
-<span data-ttu-id="dca24-104">Autorizace se týká procesu, který určuje, co může uživatel dělat.</span><span class="sxs-lookup"><span data-stu-id="dca24-104">Authorization refers to the process that determines what a user is able to do.</span></span> <span data-ttu-id="dca24-105">Uživatel s právy pro správu může například vytvořit knihovnu dokumentů, přidat dokumenty, upravit dokumenty a odstranit je.</span><span class="sxs-lookup"><span data-stu-id="dca24-105">For example, an administrative user is allowed to create a document library, add documents, edit documents, and delete them.</span></span> <span data-ttu-id="dca24-106">Uživatel bez oprávnění správce pracující s knihovnou má oprávnění ke čtení dokumentů.</span><span class="sxs-lookup"><span data-stu-id="dca24-106">A non-administrative user working with the library is only authorized to read the documents.</span></span>
+<span data-ttu-id="ac11a-104">Autorizace se týká procesu, který určuje, co může uživatel dělat.</span><span class="sxs-lookup"><span data-stu-id="ac11a-104">Authorization refers to the process that determines what a user is able to do.</span></span> <span data-ttu-id="ac11a-105">Uživatel s právy pro správu může například vytvořit knihovnu dokumentů, přidat dokumenty, upravit dokumenty a odstranit je.</span><span class="sxs-lookup"><span data-stu-id="ac11a-105">For example, an administrative user is allowed to create a document library, add documents, edit documents, and delete them.</span></span> <span data-ttu-id="ac11a-106">Uživatel bez oprávnění správce pracující s knihovnou má oprávnění ke čtení dokumentů.</span><span class="sxs-lookup"><span data-stu-id="ac11a-106">A non-administrative user working with the library is only authorized to read the documents.</span></span>
 
-<span data-ttu-id="dca24-107">Autorizace je kolmá a nezávislá na ověřování.</span><span class="sxs-lookup"><span data-stu-id="dca24-107">Authorization is orthogonal and independent from authentication.</span></span> <span data-ttu-id="dca24-108">Autorizace ale vyžaduje mechanismus ověřování.</span><span class="sxs-lookup"><span data-stu-id="dca24-108">However, authorization requires an authentication mechanism.</span></span> <span data-ttu-id="dca24-109">Ověřování je proces, který zjišťuje uživatele.</span><span class="sxs-lookup"><span data-stu-id="dca24-109">Authentication is the process of ascertaining who a user is.</span></span> <span data-ttu-id="dca24-110">Ověřování může pro aktuálního uživatele vytvořit jednu nebo více identit.</span><span class="sxs-lookup"><span data-stu-id="dca24-110">Authentication may create one or more identities for the current user.</span></span>
+<span data-ttu-id="ac11a-107">Autorizace je kolmá a nezávislá na ověřování.</span><span class="sxs-lookup"><span data-stu-id="ac11a-107">Authorization is orthogonal and independent from authentication.</span></span> <span data-ttu-id="ac11a-108">Autorizace ale vyžaduje mechanismus ověřování.</span><span class="sxs-lookup"><span data-stu-id="ac11a-108">However, authorization requires an authentication mechanism.</span></span> <span data-ttu-id="ac11a-109">Ověřování je proces, který zjišťuje uživatele.</span><span class="sxs-lookup"><span data-stu-id="ac11a-109">Authentication is the process of ascertaining who a user is.</span></span> <span data-ttu-id="ac11a-110">Ověřování může pro aktuálního uživatele vytvořit jednu nebo více identit.</span><span class="sxs-lookup"><span data-stu-id="ac11a-110">Authentication may create one or more identities for the current user.</span></span>
 
-<span data-ttu-id="dca24-111">Další informace o ověřování v ASP.NET Core najdete v tématu <xref:security/authentication/index>.</span><span class="sxs-lookup"><span data-stu-id="dca24-111">For more information about authentication in ASP.NET Core, see <xref:security/authentication/index>.</span></span>
+<span data-ttu-id="ac11a-111">Další informace o ověřování v ASP.NET Core najdete v tématu <xref:security/authentication/index> .</span><span class="sxs-lookup"><span data-stu-id="ac11a-111">For more information about authentication in ASP.NET Core, see <xref:security/authentication/index>.</span></span>
 
-## <a name="authorization-types"></a><span data-ttu-id="dca24-112">Typy autorizace</span><span class="sxs-lookup"><span data-stu-id="dca24-112">Authorization types</span></span>
+## <a name="authorization-types"></a><span data-ttu-id="ac11a-112">Typy autorizace</span><span class="sxs-lookup"><span data-stu-id="ac11a-112">Authorization types</span></span>
 
-<span data-ttu-id="dca24-113">ASP.NET Core Authorization poskytuje jednoduchou, deklarativní [roli](xref:security/authorization/roles) a bohatý model [založený na zásadách](xref:security/authorization/policies) .</span><span class="sxs-lookup"><span data-stu-id="dca24-113">ASP.NET Core authorization provides a simple, declarative [role](xref:security/authorization/roles) and a rich [policy-based](xref:security/authorization/policies) model.</span></span> <span data-ttu-id="dca24-114">Autorizace je vyjádřena v požadavcích a obslužné rutiny vyhodnocují deklarace identity uživatele proti požadavkům.</span><span class="sxs-lookup"><span data-stu-id="dca24-114">Authorization is expressed in requirements, and handlers evaluate a user's claims against requirements.</span></span> <span data-ttu-id="dca24-115">Imperativní kontroly můžou být založené na jednoduchých zásadách nebo zásadách, které vyhodnocují identitu uživatele i vlastnosti prostředku, ke kterému se uživatel pokouší získat přístup.</span><span class="sxs-lookup"><span data-stu-id="dca24-115">Imperative checks can be based on simple policies or policies which evaluate both the user identity and properties of the resource that the user is attempting to access.</span></span>
+<span data-ttu-id="ac11a-113">ASP.NET Core Authorization poskytuje jednoduchou, deklarativní [roli](xref:security/authorization/roles) a bohatý model [založený na zásadách](xref:security/authorization/policies) .</span><span class="sxs-lookup"><span data-stu-id="ac11a-113">ASP.NET Core authorization provides a simple, declarative [role](xref:security/authorization/roles) and a rich [policy-based](xref:security/authorization/policies) model.</span></span> <span data-ttu-id="ac11a-114">Autorizace je vyjádřena v požadavcích a obslužné rutiny vyhodnocují deklarace identity uživatele proti požadavkům.</span><span class="sxs-lookup"><span data-stu-id="ac11a-114">Authorization is expressed in requirements, and handlers evaluate a user's claims against requirements.</span></span> <span data-ttu-id="ac11a-115">Imperativní kontroly můžou být založené na jednoduchých zásadách nebo zásadách, které vyhodnocují identitu uživatele i vlastnosti prostředku, ke kterému se uživatel pokouší získat přístup.</span><span class="sxs-lookup"><span data-stu-id="ac11a-115">Imperative checks can be based on simple policies or policies which evaluate both the user identity and properties of the resource that the user is attempting to access.</span></span>
 
-## <a name="namespaces"></a><span data-ttu-id="dca24-116">Jmenné prostory</span><span class="sxs-lookup"><span data-stu-id="dca24-116">Namespaces</span></span>
+## <a name="namespaces"></a><span data-ttu-id="ac11a-116">Obory názvů</span><span class="sxs-lookup"><span data-stu-id="ac11a-116">Namespaces</span></span>
 
-<span data-ttu-id="dca24-117">Autorizační komponenty, včetně atributů `AuthorizeAttribute` a `AllowAnonymousAttribute` , se nacházejí v `Microsoft.AspNetCore.Authorization` oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="dca24-117">Authorization components, including the `AuthorizeAttribute` and `AllowAnonymousAttribute` attributes, are found in the `Microsoft.AspNetCore.Authorization` namespace.</span></span>
+<span data-ttu-id="ac11a-117">Autorizační komponenty, včetně `AuthorizeAttribute` atributů a `AllowAnonymousAttribute` , se nacházejí v `Microsoft.AspNetCore.Authorization` oboru názvů.</span><span class="sxs-lookup"><span data-stu-id="ac11a-117">Authorization components, including the `AuthorizeAttribute` and `AllowAnonymousAttribute` attributes, are found in the `Microsoft.AspNetCore.Authorization` namespace.</span></span>
 
-<span data-ttu-id="dca24-118">Projděte si dokumentaci k [jednoduché autorizaci](xref:security/authorization/simple).</span><span class="sxs-lookup"><span data-stu-id="dca24-118">Consult the documentation on [simple authorization](xref:security/authorization/simple).</span></span>
+<span data-ttu-id="ac11a-118">Projděte si dokumentaci k [jednoduché autorizaci](xref:security/authorization/simple).</span><span class="sxs-lookup"><span data-stu-id="ac11a-118">Consult the documentation on [simple authorization](xref:security/authorization/simple).</span></span>
