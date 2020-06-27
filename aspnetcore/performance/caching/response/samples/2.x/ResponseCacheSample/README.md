@@ -1,3 +1,0 @@
-# <a name="aspnet-core-response-cache-sample"></a><span data-ttu-id="bdcaa-101">Ukázka mezipaměti odpovědí ASP.NET Core</span><span class="sxs-lookup"><span data-stu-id="bdcaa-101">ASP.NET Core Response Cache Sample</span></span>
-
-<span data-ttu-id="bdcaa-102">Tato ukázka předvádí použití ukládání odpovědí do mezipaměti v ASP.NET Core, aby bylo možné doprovázet [ukládání odpovědí do mezipaměti v ASP.NET Core](https://docs.microsoft.com/aspnet/core/performance/caching/response).</span><span class="sxs-lookup"><span data-stu-id="bdcaa-102">This sample illustrates the usage of response caching in ASP.NET Core to accompany [Response caching in ASP.NET Core](https://docs.microsoft.com/aspnet/core/performance/caching/response).</span></span>
