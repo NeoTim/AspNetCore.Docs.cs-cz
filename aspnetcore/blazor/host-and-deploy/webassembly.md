@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/host-and-deploy/webassembly
-ms.openlocfilehash: 47ba6f54c68158b3f6dcbbdda06ec8747cf88241
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2b100ba029c08e0ce68d208df761f22a712fbbfd
+ms.sourcegitcommit: 99c784a873b62fbd97a73c5c07f4fe7a7f5db638
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402543"
+ms.lasthandoff: 06/27/2020
+ms.locfileid: "85503510"
 ---
 # <a name="host-and-deploy-aspnet-core-blazor-webassembly"></a>ASP.NET Core hostitele a nasazeníBlazor WebAssembly
 
@@ -67,16 +67,16 @@ Blazorspoléhá na hostitele, který obsluhuje příslušné komprimované soubo
             const originalResponseArray = new Int8Array(originalResponseBuffer);
             const decompressedResponseArray = BrotliDecode(originalResponseArray);
             const contentType = type === 
-          'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
+              'dotnetwasm' ? 'application/wasm' : 'application/octet-stream';
             return new Response(decompressedResponseArray, 
-          { headers: { 'content-type': contentType } });
+              { headers: { 'content-type': contentType } });
           })();
         }
       }
     });
-  </script>
-  ```
-   
+    </script>
+    ```
+ 
 Chcete-li vypnout kompresi, přidejte `BlazorEnableCompression` do souboru projektu aplikace vlastnost MSBuild a nastavte hodnotu na `false` :
 
 ```xml
@@ -206,7 +206,7 @@ Odebrání obslužné rutiny nebo zakázání dědičnosti se provádí kromě [
 
 Službu IIS je možné nakonfigurovat prostřednictvím služby `web.config` za účelem poskytování komprimovaných prostředků Brotli nebo gzip Blazor . Příklad konfigurace najdete v tématu [`web.config`](https://github.com/dotnet/AspNetCore.Docs/blob/master/aspnetcore/blazor/host-and-deploy/webassembly/_samples/web.config?raw=true) .
 
-#### <a name="troubleshooting"></a>Poradce při potížích
+#### <a name="troubleshooting"></a>Řešení potíží
 
 Pokud dojde k *chybě 500 – interní chyba serveru* a správce služby IIS vyvolá chyby při pokusu o přístup ke konfiguraci webu, potvrďte, že je nainstalován modul URL pro přepis. Pokud modul není nainstalován, `web.config` soubor nelze analyzovat službou IIS. Tím se zabrání tomu, aby správce služby IIS načetl konfiguraci webu a web ze Blazor statických souborů obsluhy.
 
