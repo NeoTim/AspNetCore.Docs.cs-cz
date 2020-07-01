@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: eb0797a26393ce425d07ea9a97109b7fe8983f91
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5a2d39af6c921323ae9113fd4aca27dcdedd44a5
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407873"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793463"
 ---
 # <a name="net-generic-host"></a>Obecný hostitel .NET
 
@@ -37,7 +37,7 @@ ms.locfileid: "85407873"
 * Konfigurace
 * `IHostedService`implementaci
 
-Při spuštění hostitele volá `IHostedService.StartAsync` každou implementaci <xref:Microsoft.Extensions.Hosting.IHostedService> , kterou najde v kontejneru di. V rámci webové aplikace je jednou z `IHostedService` implementací webová služba, která spouští [implementaci HTTP serveru](xref:fundamentals/index#servers).
+Při spuštění hostitele zavolá <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType> každou implementaci <xref:Microsoft.Extensions.Hosting.IHostedService> zaregistrovanou v kolekci hostovaných služeb kontejneru služby. V rámci webové aplikace je jednou z `IHostedService` implementací webová služba, která spouští [implementaci HTTP serveru](xref:fundamentals/index#servers).
 
 Hlavním důvodem pro zahrnutí všech vzájemně závislých prostředků aplikace do jednoho objektu je Správa životního cyklu: Kontrola spuštění aplikace a bezproblémové vypnutí.
 
@@ -225,7 +225,7 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-Další informace naleznete v tématu:
+Další informace naleznete v tématech:
 
 * [Základy: kořenový adresář obsahu](xref:fundamentals/index#content-root)
 * [WebRoot](#webroot)
@@ -437,7 +437,7 @@ Chcete-li nastavit tuto hodnotu, použijte proměnnou prostředí nebo zavolejte
 webBuilder.UseWebRoot("public");
 ```
 
-Další informace naleznete v tématu:
+Další informace naleznete v tématech:
 
 * [Základy: web root](xref:fundamentals/index#web-root)
 * [ContentRoot](#contentroot)
@@ -1014,7 +1014,7 @@ public class MyClass
 * Konfigurace
 * `IHostedService`implementaci
 
-Při spuštění hostitele volá `IHostedService.StartAsync` každou implementaci <xref:Microsoft.Extensions.Hosting.IHostedService> , kterou najde v kontejneru di. V rámci webové aplikace je jednou z `IHostedService` implementací webová služba, která spouští [implementaci HTTP serveru](xref:fundamentals/index#servers).
+Při spuštění hostitele zavolá <xref:Microsoft.Extensions.Hosting.IHostedService.StartAsync%2A?displayProperty=nameWithType> každou implementaci <xref:Microsoft.Extensions.Hosting.IHostedService> zaregistrovanou v kolekci hostovaných služeb kontejneru služby. V rámci webové aplikace je jednou z `IHostedService` implementací webová služba, která spouští [implementaci HTTP serveru](xref:fundamentals/index#servers).
 
 Hlavním důvodem pro zahrnutí všech vzájemně závislých prostředků aplikace do jednoho objektu je Správa životního cyklu: Kontrola spuštění aplikace a bezproblémové vypnutí.
 
@@ -1200,7 +1200,7 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-Další informace naleznete v tématu:
+Další informace naleznete v tématech:
 
 * [Základy: kořenový adresář obsahu](xref:fundamentals/index#content-root)
 * [WebRoot](#webroot)
@@ -1425,7 +1425,7 @@ Chcete-li nastavit tuto hodnotu, použijte proměnnou prostředí nebo zavolejte
 webBuilder.UseWebRoot("public");
 ```
 
-Další informace naleznete v tématu:
+Další informace naleznete v tématech:
 
 * [Základy: web root](xref:fundamentals/index#web-root)
 * [ContentRoot](#contentroot)

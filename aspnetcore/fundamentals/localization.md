@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/localization
-ms.openlocfilehash: cc30cedd51af06ffc7e17d36d4426fa45c452015
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 412cd7a39a0eed6800e15d235102ed367da5f746
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407743"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793478"
 ---
 # <a name="globalization-and-localization-in-aspnet-core"></a>Globalizace a lokalizace v ASP.NET Core
 
@@ -52,7 +52,8 @@ Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kó
 
 [!code-csharp[](~/fundamentals/localization/sample/3.x/Localization/Controllers/BookController.cs?highlight=3,5,20&start=1&end=24)]
 
-**Poznámka:** Obecně chcete lokalizovat pouze text a nikoli HTML.
+> [!NOTE]
+> Obecně pouze lokalizovat text, ne HTML.
 
 Na nejnižší úrovni můžete obdržet zástupné `IStringLocalizerFactory` [vkládání závislostí](dependency-injection.md):
 
@@ -83,12 +84,13 @@ Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků n
 Soubor prostředků francouzštiny může obsahovat následující:
 
 | Klíč | Hodnota |
-| ----- | ------ |
+| --- | ----- |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
 Vykreslené zobrazení obsahuje značku HTML ze souboru prostředků.
 
-**Poznámka:** Obecně chcete lokalizovat pouze text a nikoli HTML.
+> [!NOTE]
+> Obecně pouze lokalizovat text, ne HTML.
 
 Chcete-li použít sdílený soubor prostředků v zobrazení, vložení `IHtmlLocalizer<T>` :
 
@@ -136,19 +138,19 @@ Soubor prostředků je užitečný mechanismus pro oddělení lokalizovatelných
 
 1. V **Průzkumník řešení**klikněte pravým tlačítkem na složku, která bude obsahovat soubor prostředků > **Přidat** > **novou položku**.
 
-    ![Vnořená kontextová nabídka: v Průzkumník řešení je místní nabídka pro prostředky otevřená. Druhá kontextová nabídka je otevřená pro přidání se zvýrazněným příkazem nová položka.](localization/_static/newi.png)
+   ![Vnořená kontextová nabídka: v Průzkumník řešení je místní nabídka pro prostředky otevřená. Druhá kontextová nabídka je otevřená pro přidání se zvýrazněným příkazem nová položka.](localization/_static/newi.png)
 
-2. V poli **Vyhledat nainstalované šablony** zadejte "Resource" a soubor pojmenujte.
+1. V poli **Vyhledat nainstalované šablony** zadejte "Resource" a soubor pojmenujte.
 
-    ![Dialogové okno Přidat novou položku](localization/_static/res.png)
+   ![Dialogové okno Přidat novou položku](localization/_static/res.png)
 
-3. Do sloupce **název** zadejte hodnotu klíče (nativní řetězec) a přeložený řetězec ve sloupci Value ( **hodnota** ).
+1. Do sloupce **název** zadejte hodnotu klíče (nativní řetězec) a přeložený řetězec ve sloupci Value ( **hodnota** ).
 
-    ![Welcome. ES. resx soubor (soubor prostředků Welcome pro španělštinu) se slovem Hello ve sloupci název a slovo Hola (text Hello v španělštině) ve sloupci Hodnota](localization/_static/hola.png)
+   ![Welcome. ES. resx soubor (soubor prostředků Welcome pro španělštinu) se slovem Hello ve sloupci název a slovo Hola (text Hello v španělštině) ve sloupci Hodnota](localization/_static/hola.png)
 
-    Sada Visual Studio zobrazí *uvítací soubor. ES. resx* .
+   Sada Visual Studio zobrazí *uvítací soubor. ES. resx* .
 
-    ![Průzkumník řešení se zobrazuje soubor prostředků nástroje Welcome španělština (ES)](localization/_static/se.png)
+   ![Průzkumník řešení se zobrazuje soubor prostředků nástroje Welcome španělština (ES)](localization/_static/se.png)
 
 ## <a name="resource-file-naming"></a>Pojmenovávání souborů prostředků
 
@@ -160,7 +162,6 @@ V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "p
 | ------------   | ------------- |
 | Prostředky/řadiče. HomeController. fr. resx | Tečka  |
 | Prostředky/řadiče/HomeController. fr. resx  | Cesta |
-|    |     |
 
 Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
@@ -226,20 +227,21 @@ Lokalizace je nakonfigurovaná v `Startup.ConfigureServices` metodě:
 
 * `AddViewLocalization`Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
 
-* `AddDataAnnotationsLocalization`Přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
+* `AddDataAnnotationsLocalization`přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
 
 ### <a name="localization-middleware"></a>Middleware lokalizace
 
 Aktuální jazyková verze v požadavku je nastavena v [middleware](xref:fundamentals/middleware/index)lokalizace. Middleware lokalizace je povolená v `Startup.Configure` metodě. Middleware lokalizace musí být konfigurovány před jakýmkoli middlewarem, který by mohl kontrolovat jazykovou verzi žádosti (například `app.UseMvcWithDefaultRoute()` ).
 
 [!code-csharp[](localization/sample/3.x/Localization/Startup.cs?name=snippet2)]
+
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 `UseRequestLocalization`Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
 
 1. `QueryStringRequestCultureProvider`
-2. `CookieRequestCultureProvider`
-3. `AcceptLanguageHeaderRequestCultureProvider`
+1. `CookieRequestCultureProvider`
+1. `AcceptLanguageHeaderRequestCultureProvider`
 
 Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Později v článku se dozvíte, jak můžete změnit pořadí a dokonce přidat vlastního poskytovatele jazykové verze. Pokud žádný z poskytovatelů nemůže určit jazykovou verzi žádosti, `DefaultRequestCulture` je použita.
 
@@ -251,7 +253,9 @@ Některé aplikace budou používat řetězec dotazu k nastavení jazykové verz
 
 Pokud předáte pouze jeden z těchto dvou ( `culture` nebo `ui-culture` ), zprostředkovatel řetězce dotazu nastaví obě hodnoty pomocí toho, kterou jste předali. Například nastavení pouze jazyková verze nastaví jak `Culture` a `UICulture` :
 
-   `http://localhost:5000/?culture=es-MX`
+```
+http://localhost:5000/?culture=es-MX
+```
 
 ### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
 
@@ -261,7 +265,9 @@ Produkční aplikace často poskytují mechanismus pro nastavení jazykové verz
 
 Formát souboru cookie je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a `uic` je například `UICulture` :
 
-    c=en-UK|uic=en-US
+```
+c=en-UK|uic=en-US
+```
 
 Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživatelského rozhraní, zadaná jazyková verze bude použita pro informace o jazykové verzi i jazyková verze uživatelského rozhraní.
 
@@ -273,17 +279,17 @@ Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživ
 
 1. Z ikony ozubeného kolečka klepněte na **Možnosti Internetu**.
 
-2. Klepněte na **jazyky**.
+1. Klepněte na **jazyky**.
 
-    ![Možnosti Internetu](localization/_static/lang.png)
+   ![Možnosti Internetu](localization/_static/lang.png)
 
-3. Klepněte na **nastavit jazykové předvolby**.
+1. Klepněte na **nastavit jazykové předvolby**.
 
-4. Klepněte na **Přidat jazyk**.
+1. Klepněte na **Přidat jazyk**.
 
-5. Přidejte jazyk.
+1. Přidejte jazyk.
 
-6. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
+1. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
 
 ### <a name="use-a-custom-provider"></a>Použití vlastního zprostředkovatele
 
@@ -400,7 +406,8 @@ Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kó
 
 [!code-csharp[](~/fundamentals/localization/sample/3.x/Localization/Controllers/BookController.cs?highlight=3,5,20&start=1&end=24)]
 
-**Poznámka:** Obecně chcete lokalizovat pouze text a nikoli HTML.
+> [!NOTE]
+> Obecně pouze lokalizovat text, ne HTML.
 
 Na nejnižší úrovni můžete obdržet zástupné `IStringLocalizerFactory` [vkládání závislostí](dependency-injection.md):
 
@@ -431,12 +438,13 @@ Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků n
 Soubor prostředků francouzštiny může obsahovat následující:
 
 | Klíč | Hodnota |
-| ----- | ------ |
+| --- | ----- |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
 Vykreslené zobrazení obsahuje značku HTML ze souboru prostředků.
 
-**Poznámka:** Obecně chcete lokalizovat pouze text a nikoli HTML.
+> [!NOTE]
+> Obecně pouze lokalizovat text, ne HTML.
 
 Chcete-li použít sdílený soubor prostředků v zobrazení, vložení `IHtmlLocalizer<T>` :
 
@@ -484,19 +492,19 @@ Soubor prostředků je užitečný mechanismus pro oddělení lokalizovatelných
 
 1. V **Průzkumník řešení**klikněte pravým tlačítkem na složku, která bude obsahovat soubor prostředků > **Přidat** > **novou položku**.
 
-    ![Vnořená kontextová nabídka: v Průzkumník řešení je místní nabídka pro prostředky otevřená. Druhá kontextová nabídka je otevřená pro přidání se zvýrazněným příkazem nová položka.](localization/_static/newi.png)
+   ![Vnořená kontextová nabídka: v Průzkumník řešení je místní nabídka pro prostředky otevřená. Druhá kontextová nabídka je otevřená pro přidání se zvýrazněným příkazem nová položka.](localization/_static/newi.png)
 
-2. V poli **Vyhledat nainstalované šablony** zadejte "Resource" a soubor pojmenujte.
+1. V poli **Vyhledat nainstalované šablony** zadejte "Resource" a soubor pojmenujte.
 
-    ![Dialogové okno Přidat novou položku](localization/_static/res.png)
+   ![Dialogové okno Přidat novou položku](localization/_static/res.png)
 
-3. Do sloupce **název** zadejte hodnotu klíče (nativní řetězec) a přeložený řetězec ve sloupci Value ( **hodnota** ).
+1. Do sloupce **název** zadejte hodnotu klíče (nativní řetězec) a přeložený řetězec ve sloupci Value ( **hodnota** ).
 
-    ![Welcome. ES. resx soubor (soubor prostředků Welcome pro španělštinu) se slovem Hello ve sloupci název a slovo Hola (text Hello v španělštině) ve sloupci Hodnota](localization/_static/hola.png)
+   ![Welcome. ES. resx soubor (soubor prostředků Welcome pro španělštinu) se slovem Hello ve sloupci název a slovo Hola (text Hello v španělštině) ve sloupci Hodnota](localization/_static/hola.png)
 
-    Sada Visual Studio zobrazí *uvítací soubor. ES. resx* .
+   Sada Visual Studio zobrazí *uvítací soubor. ES. resx* .
 
-    ![Průzkumník řešení se zobrazuje soubor prostředků nástroje Welcome španělština (ES)](localization/_static/se.png)
+   ![Průzkumník řešení se zobrazuje soubor prostředků nástroje Welcome španělština (ES)](localization/_static/se.png)
 
 ## <a name="resource-file-naming"></a>Pojmenovávání souborů prostředků
 
@@ -508,7 +516,6 @@ V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "p
 | ------------   | ------------- |
 | Prostředky/řadiče. HomeController. fr. resx | Tečka  |
 | Prostředky/řadiče/HomeController. fr. resx  | Cesta |
-|    |     |
 
 Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
@@ -574,20 +581,21 @@ Lokalizace je nakonfigurovaná v `Startup.ConfigureServices` metodě:
 
 * `AddViewLocalization`Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
 
-* `AddDataAnnotationsLocalization`Přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
+* `AddDataAnnotationsLocalization`přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
 
 ### <a name="localization-middleware"></a>Middleware lokalizace
 
 Aktuální jazyková verze v požadavku je nastavena v [middleware](xref:fundamentals/middleware/index)lokalizace. Middleware lokalizace je povolená v `Startup.Configure` metodě. Middleware lokalizace musí být konfigurovány před jakýmkoli middlewarem, který by mohl kontrolovat jazykovou verzi žádosti (například `app.UseMvcWithDefaultRoute()` ).
 
 [!code-csharp[](localization/sample/3.x/Localization/Startup.cs?name=snippet2)]
+
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 `UseRequestLocalization`Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
 
 1. `QueryStringRequestCultureProvider`
-2. `CookieRequestCultureProvider`
-3. `AcceptLanguageHeaderRequestCultureProvider`
+1. `CookieRequestCultureProvider`
+1. `AcceptLanguageHeaderRequestCultureProvider`
 
 Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Později v článku se dozvíte, jak můžete změnit pořadí a dokonce přidat vlastního poskytovatele jazykové verze. Pokud žádný z poskytovatelů nemůže určit jazykovou verzi žádosti, `DefaultRequestCulture` je použita.
 
@@ -595,11 +603,15 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají přístup k hlavičkám souborů cookie nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
-   `http://localhost:5000/?culture=es-MX&ui-culture=es-MX`
+```
+http://localhost:5000/?culture=es-MX&ui-culture=es-MX
+```
 
 Pokud předáte pouze jeden z těchto dvou ( `culture` nebo `ui-culture` ), zprostředkovatel řetězce dotazu nastaví obě hodnoty pomocí toho, kterou jste předali. Například nastavení pouze jazyková verze nastaví jak `Culture` a `UICulture` :
 
-   `http://localhost:5000/?culture=es-MX`
+```
+http://localhost:5000/?culture=es-MX
+```
 
 ### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
 
@@ -609,7 +621,9 @@ Produkční aplikace často poskytují mechanismus pro nastavení jazykové verz
 
 Formát souboru cookie je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a `uic` je například `UICulture` :
 
-    c=en-UK|uic=en-US
+```
+c=en-UK|uic=en-US
+```
 
 Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživatelského rozhraní, zadaná jazyková verze bude použita pro informace o jazykové verzi i jazyková verze uživatelského rozhraní.
 
@@ -621,17 +635,17 @@ Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživ
 
 1. Z ikony ozubeného kolečka klepněte na **Možnosti Internetu**.
 
-2. Klepněte na **jazyky**.
+1. Klepněte na **jazyky**.
 
-    ![Možnosti Internetu](localization/_static/lang.png)
+   ![Možnosti Internetu](localization/_static/lang.png)
 
-3. Klepněte na **nastavit jazykové předvolby**.
+1. Klepněte na **nastavit jazykové předvolby**.
 
-4. Klepněte na **Přidat jazyk**.
+1. Klepněte na **Přidat jazyk**.
 
-5. Přidejte jazyk.
+1. Přidejte jazyk.
 
-6. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
+1. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
 
 ### <a name="use-a-custom-provider"></a>Použití vlastního zprostředkovatele
 
@@ -747,7 +761,8 @@ Použijte `IHtmlLocalizer<T>` implementaci pro prostředky, které obsahují kó
 
 [!code-csharp[](~/fundamentals/localization/sample/3.x/Localization/Controllers/BookController.cs?highlight=3,5,20&start=1&end=24)]
 
-**Poznámka:** Obecně chcete lokalizovat pouze text a nikoli HTML.
+> [!NOTE]
+> Obecně pouze lokalizovat text, ne HTML.
 
 Na nejnižší úrovni můžete obdržet zástupné `IStringLocalizerFactory` [vkládání závislostí](dependency-injection.md):
 
@@ -778,12 +793,13 @@ Výchozí implementace nástroje `IViewLocalizer` vyhledá soubor prostředků n
 Soubor prostředků francouzštiny může obsahovat následující:
 
 | Klíč | Hodnota |
-| ----- | ------ |
+| --- | ----- |
 | `<i>Hello</i> <b>{0}!</b>` | `<i>Bonjour</i> <b>{0} !</b>` |
 
 Vykreslené zobrazení obsahuje značku HTML ze souboru prostředků.
 
-**Poznámka:** Obecně chcete lokalizovat pouze text a nikoli HTML.
+> [!NOTE]
+> Obecně pouze lokalizovat text, ne HTML.
 
 Chcete-li použít sdílený soubor prostředků v zobrazení, vložení `IHtmlLocalizer<T>` :
 
@@ -831,19 +847,19 @@ Soubor prostředků je užitečný mechanismus pro oddělení lokalizovatelných
 
 1. V **Průzkumník řešení**klikněte pravým tlačítkem na složku, která bude obsahovat soubor prostředků > **Přidat** > **novou položku**.
 
-    ![Vnořená kontextová nabídka: v Průzkumník řešení je místní nabídka pro prostředky otevřená. Druhá kontextová nabídka je otevřená pro přidání se zvýrazněným příkazem nová položka.](localization/_static/newi.png)
+   ![Vnořená kontextová nabídka: v Průzkumník řešení je místní nabídka pro prostředky otevřená. Druhá kontextová nabídka je otevřená pro přidání se zvýrazněným příkazem nová položka.](localization/_static/newi.png)
 
-2. V poli **Vyhledat nainstalované šablony** zadejte "Resource" a soubor pojmenujte.
+1. V poli **Vyhledat nainstalované šablony** zadejte "Resource" a soubor pojmenujte.
 
-    ![Dialogové okno Přidat novou položku](localization/_static/res.png)
+   ![Dialogové okno Přidat novou položku](localization/_static/res.png)
 
-3. Do sloupce **název** zadejte hodnotu klíče (nativní řetězec) a přeložený řetězec ve sloupci Value ( **hodnota** ).
+1. Do sloupce **název** zadejte hodnotu klíče (nativní řetězec) a přeložený řetězec ve sloupci Value ( **hodnota** ).
 
-    ![Welcome. ES. resx soubor (soubor prostředků Welcome pro španělštinu) se slovem Hello ve sloupci název a slovo Hola (text Hello v španělštině) ve sloupci Hodnota](localization/_static/hola.png)
+   ![Welcome. ES. resx soubor (soubor prostředků Welcome pro španělštinu) se slovem Hello ve sloupci název a slovo Hola (text Hello v španělštině) ve sloupci Hodnota](localization/_static/hola.png)
 
-    Sada Visual Studio zobrazí *uvítací soubor. ES. resx* .
+   Sada Visual Studio zobrazí *uvítací soubor. ES. resx* .
 
-    ![Průzkumník řešení se zobrazuje soubor prostředků nástroje Welcome španělština (ES)](localization/_static/se.png)
+   ![Průzkumník řešení se zobrazuje soubor prostředků nástroje Welcome španělština (ES)](localization/_static/se.png)
 
 ## <a name="resource-file-naming"></a>Pojmenovávání souborů prostředků
 
@@ -855,7 +871,6 @@ V ukázkovém projektu `ConfigureServices` Metoda nastaví `ResourcesPath` na "p
 | ------------   | ------------- |
 | Prostředky/řadiče. HomeController. fr. resx | Tečka  |
 | Prostředky/řadiče/HomeController. fr. resx  | Cesta |
-|    |     |
 
 Soubory prostředků používané `@inject IViewLocalizer` v Razor zobrazeních následují podobně jako vzor. Soubor prostředků pro zobrazení může být pojmenován buď pomocí názvu tečky, nebo pojmenování cesty. Razorzobrazení soubory prostředků napodobá cestě k jejich přidruženému souboru zobrazení. Za předpokladu, že nastavíme `ResourcesPath` "prostředky", soubor francouzského prostředku přidružený k zobrazením */domů/o zobrazení. cshtml* může být jedna z následujících:
 
@@ -921,20 +936,21 @@ Lokalizace je nakonfigurovaná v `Startup.ConfigureServices` metodě:
 
 * `AddViewLocalization`Přidá podporu pro lokalizované soubory zobrazení. V tomto ukázkovém zobrazení je lokalizace založena na příponě souboru zobrazení. Například "fr" v souboru *index. fr. cshtml* .
 
-* `AddDataAnnotationsLocalization`Přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
+* `AddDataAnnotationsLocalization`přidává podporu pro lokalizované `DataAnnotations` ověřovací zprávy prostřednictvím `IStringLocalizer` abstrakcí.
 
 ### <a name="localization-middleware"></a>Middleware lokalizace
 
 Aktuální jazyková verze v požadavku je nastavena v [middleware](xref:fundamentals/middleware/index)lokalizace. Middleware lokalizace je povolená v `Startup.Configure` metodě. Middleware lokalizace musí být konfigurovány před jakýmkoli middlewarem, který by mohl kontrolovat jazykovou verzi žádosti (například `app.UseMvcWithDefaultRoute()` ).
 
 [!code-csharp[](localization/sample/3.x/Localization/Startup.cs?name=snippet2)]
+
 [!INCLUDE[about the series](~/includes/code-comments-loc.md)]
 
 `UseRequestLocalization`Inicializuje `RequestLocalizationOptions` objekt. Při každém požadavku se vypíše seznam `RequestCultureProvider` ve `RequestLocalizationOptions` výčtu a první zprostředkovatel, který dokáže úspěšně určit jazykovou verzi žádosti. Výchozí zprostředkovatelé přicházejí z `RequestLocalizationOptions` třídy:
 
 1. `QueryStringRequestCultureProvider`
-2. `CookieRequestCultureProvider`
-3. `AcceptLanguageHeaderRequestCultureProvider`
+1. `CookieRequestCultureProvider`
+1. `AcceptLanguageHeaderRequestCultureProvider`
 
 Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Později v článku se dozvíte, jak můžete změnit pořadí a dokonce přidat vlastního poskytovatele jazykové verze. Pokud žádný z poskytovatelů nemůže určit jazykovou verzi žádosti, `DefaultRequestCulture` je použita.
 
@@ -942,11 +958,15 @@ Výchozí seznam bude z nejpřesnější, aby byl nejméně specifický. Pozděj
 
 Některé aplikace budou používat řetězec dotazu k nastavení jazykové verze [a jazykové verze uživatelského rozhraní](https://msdn.microsoft.com/library/system.globalization.cultureinfo.aspx). Pro aplikace, které používají přístup k hlavičkám souborů cookie nebo Accept-Language, je přidání řetězce dotazu na adresu URL užitečné pro ladění a testování kódu. Ve výchozím nastavení `QueryStringRequestCultureProvider` je jako první poskytovatel lokalizace v `RequestCultureProvider` seznamu zaregistrován. Předáte parametry řetězce dotazu `culture` a `ui-culture` . Následující příklad nastaví konkrétní jazykovou verzi (jazyk a oblast) na španělština/Mexiko:
 
-   `http://localhost:5000/?culture=es-MX&ui-culture=es-MX`
+```
+http://localhost:5000/?culture=es-MX&ui-culture=es-MX
+```
 
 Pokud předáte pouze jeden z těchto dvou ( `culture` nebo `ui-culture` ), zprostředkovatel řetězce dotazu nastaví obě hodnoty pomocí toho, kterou jste předali. Například nastavení pouze jazyková verze nastaví jak `Culture` a `UICulture` :
 
-   `http://localhost:5000/?culture=es-MX`
+```
+http://localhost:5000/?culture=es-MX
+```
 
 ### <a name="cookierequestcultureprovider"></a>CookieRequestCultureProvider
 
@@ -956,7 +976,9 @@ Produkční aplikace často poskytují mechanismus pro nastavení jazykové verz
 
 Formát souboru cookie je `c=%LANGCODE%|uic=%LANGCODE%` , kde `c` je `Culture` a `uic` je například `UICulture` :
 
-    c=en-UK|uic=en-US
+```
+c=en-UK|uic=en-US
+```
 
 Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživatelského rozhraní, zadaná jazyková verze bude použita pro informace o jazykové verzi i jazyková verze uživatelského rozhraní.
 
@@ -968,24 +990,24 @@ Pokud zadáte pouze jednu z informací o jazykové verzi a jazykovou verzi uživ
 
 1. Z ikony ozubeného kolečka klepněte na **Možnosti Internetu**.
 
-2. Klepněte na **jazyky**.
+1. Klepněte na **jazyky**.
 
-    ![Možnosti Internetu](localization/_static/lang.png)
+   ![Možnosti Internetu](localization/_static/lang.png)
 
-3. Klepněte na **nastavit jazykové předvolby**.
+1. Klepněte na **nastavit jazykové předvolby**.
 
-4. Klepněte na **Přidat jazyk**.
+1. Klepněte na **Přidat jazyk**.
 
-5. Přidejte jazyk.
+1. Přidejte jazyk.
 
-6. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
+1. Klepněte na jazyk a potom klepněte na **Přesunout nahoru**.
 
 ### <a name="the-content-language-http-header"></a>Hlavička protokolu HTTP v jazykovém obsahu
 
 Hlavička entity [jazyka obsahu](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Language) :
 
- - Slouží k popisu jazyků, které jsou určené pro cílovou skupinu.
- - Umožňuje uživateli rozlišovat podle vlastního preferovaného jazyka uživatelů.
+* Slouží k popisu jazyků, které jsou určené pro cílovou skupinu.
+* Umožňuje uživateli rozlišovat podle vlastního preferovaného jazyka uživatelů.
 
 Záhlaví entit se používají v požadavcích HTTP i v odpovědích.
 
@@ -993,8 +1015,8 @@ Záhlaví entit se používají v požadavcích HTTP i v odpovědích.
 
 Přidání `Content-Language` hlavičky:
 
- - Umožňuje RequestLocalizationMiddleware nastavit `Content-Language` hlavičku pomocí `CurrentUICulture` .
- - Eliminuje nutnost explicitně nastavit hlavičku odpovědi `Content-Language` .
+* Umožňuje RequestLocalizationMiddleware nastavit `Content-Language` hlavičku pomocí `CurrentUICulture` .
+* Eliminuje nutnost explicitně nastavit hlavičku odpovědi `Content-Language` .
 
 ```csharp
 app.UseRequestLocalization(new RequestLocalizationOptions

@@ -14,16 +14,16 @@ no-loc:
 - Razor
 - SignalR
 uid: performance/ObjectPool
-ms.openlocfilehash: 8244acb39a345875d80c5528a822de23f78b6e38
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 9df7f370eb550172493478bcd8d94a9541926fec
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403544"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793562"
 ---
 # <a name="object-reuse-with-objectpool-in-aspnet-core"></a>Opakované použití objektu s fond objectpool v ASP.NET Core
 
-[Steve Gordon](https://twitter.com/stevejgordon), [Ryan Nowak](https://github.com/rynowak)a [Rick Anderson](https://twitter.com/RickAndMSFT)
+[Steve Gordon](https://twitter.com/stevejgordon), [Ryan Nowak](https://github.com/rynowak)a [Günther Foidl](https://github.com/gfoidl)
 
 <xref:Microsoft.Extensions.ObjectPool>je součástí infrastruktury ASP.NET Core, která podporuje udržování skupiny objektů v paměti pro opakované použití, nikoli pro uvolnění objektů do paměti.
 
@@ -42,7 +42,9 @@ Sdružování objektů nezvyšuje výkon vždy:
 
 Používejte sdružování objektů až po shromáždění údajů o výkonu pomocí reálných scénářů vaší aplikace nebo knihovny.
 
-**Upozornění: `ObjectPool` neimplementuje se `IDisposable` . Nedoporučujeme ho používat s typy, které vyžadují vyřazení.**
+::: moniker range="< aspnetcore-3.0"
+**Upozornění: `ObjectPool` neimplementuje se `IDisposable` . Nedoporučujeme ho používat s typy, které vyžadují vyřazení.** `ObjectPool`v ASP.NET Core 3,0 a novějších verzích podporuje `IDisposable` .
+::: moniker-end
 
 **Poznámka: fond objectpool neomezuje počet objektů, které budou přiděleny, omezuje počet objektů, které budou zachovány.**
 
@@ -63,7 +65,20 @@ Fond objectpool se dá v aplikaci použít několika způsoby:
 
 ## <a name="how-to-use-objectpool"></a>Jak používat fond objectpool
 
-Volání <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1> pro získání objektu a <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1.Return*> vrácení objektu.  Neexistuje žádný požadavek, abyste vrátili všechny objekty. Pokud objekt nevrátíte, bude uvolněn z paměti.
+Volání <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1.Get*> pro získání objektu a <xref:Microsoft.Extensions.ObjectPool.ObjectPool`1.Return*> vrácení objektu.  Neexistuje žádný požadavek, abyste vrátili všechny objekty. Pokud objekt nevrátíte, bude uvolněn z paměti.
+
+::: moniker range=">= aspnetcore-3.0"
+Při <xref:Microsoft.Extensions.ObjectPool.DefaultObjectPoolProvider> použití a `T` implementuje `IDisposable` :
+
+* Položky, které ***nejsou vráceny do*** fondu, budou uvolněny.
+* Když je fond uvolněný pomocí DI, všechny položky ve fondu se vyřadí.
+
+Poznámka: po odstranění fondu:
+
+* Volání `Get` vyvolá výjimku `ObjectDisposedException` .
+* `return`odstraní danou položku.
+
+::: moniker-end
 
 ## <a name="objectpool-sample"></a>Ukázka fond objectpool
 

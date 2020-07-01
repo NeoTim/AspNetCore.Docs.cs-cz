@@ -4,7 +4,7 @@ author: jamesnk
 description: Naučte se konfigurovat gRPC služby na ASP.NET Core, které se mají volat z aplikací pro prohlížeč pomocí gRPC-Web.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 05/26/2020
+ms.date: 06/29/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,18 +14,23 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/browser
-ms.openlocfilehash: 37932e755a0ef2149fb2336d2dcef87d3347d1a4
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 20f72deb9895111a6e691eb1ee5cd7419c8c4cb4
+ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404753"
+ms.lasthandoff: 07/01/2020
+ms.locfileid: "85793503"
 ---
 # <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
 Od [James Newton – král](https://twitter.com/jamesnk)
 
-Nemůžete volat službu gRPC HTTP/2 z aplikace založené na prohlížeči. [gRPC-web](https://github.com/grpc/grpc/blob/master/doc/PROTOCOL-WEB.md) je protokol, který umožňuje, aby JavaScript a aplikace v prohlížeči Blazor volaly služby gRPC. Tento článek vysvětluje, jak používat gRPC-web v .NET Core.
+ Naučte se konfigurovat existující službu ASP.NET Core gRPC, která se má volat z aplikací v prohlížeči, pomocí [GRPC webového](https://github.com/grpc/grpc/blob/2a388793792cc80944334535b7c729494d209a7e/doc/PROTOCOL-WEB.md) protokolu. gRPC-web umožňuje prohlížeči JavaScript a Blazor aplikacím volat služby gRPC. Nemůžete volat službu gRPC HTTP/2 z aplikace založené na prohlížeči. služby gRPC hostované v ASP.NET Core můžou být nakonfigurované tak, aby podporovaly gRPC-web vedle HTTP/2 gRPC.
+
+
+Pokyny k přidání služby gRPC do existující aplikace ASP.NET Core najdete v tématu [Přidání gRPC Services do aplikace ASP.NET Core](xref:grpc/aspnetcore#add-grpc-services-to-an-aspnet-core-app).
+
+Pokyny k vytvoření projektu gRPC naleznete v tématu <xref:tutorials/grpc/grpc-start> .
 
 ## <a name="grpc-web-in-aspnet-core-vs-envoy"></a>gRPC – web ve ASP.NET Core vs. zástupné
 
@@ -34,7 +39,7 @@ Existují dvě možnosti, jak přidat gRPC-web do aplikace ASP.NET Core:
 * Podpora gRPC-web společně s gRPC HTTP/2 v ASP.NET Core. Tato možnost používá middleware poskytované `Grpc.AspNetCore.Web` balíčkem.
 * Pomocí gRPC webu [zástupné proxy](https://www.envoyproxy.io/) můžete přeložit GRPC-web na gRPC http/2. Přeložené volání je pak předáno do aplikace ASP.NET Core.
 
-Existují odborníci a nevýhody pro každý přístup. Pokud už používáte zástupné jako proxy v prostředí vaší aplikace, může to mít smysl použít ho také k poskytování podpory gRPC-Web. Pokud chcete jednoduché řešení pro gRPC web, které vyžaduje jenom ASP.NET Core, `Grpc.AspNetCore.Web` je vhodná volba.
+Existují odborníci a nevýhody pro každý přístup. Pokud prostředí aplikace už používá zástupné jako proxy, může to mít smysl také použít zástupné k poskytování gRPC-web support. Pro základní řešení pro gRPC-web, které vyžaduje jenom ASP.NET Core, `Grpc.AspNetCore.Web` je vhodná volba.
 
 ## <a name="configure-grpc-web-in-aspnet-core"></a>Konfigurace gRPC-web v ASP.NET Core
 
@@ -65,7 +70,7 @@ Případně je možné nakonfigurovat middleware gRPC-web tak, aby všechny slu�
 
 Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla požadavky na jinou doménu než ta, která tuto webovou stránku obsluhoval. Toto omezení se vztahuje k vytváření gRPC webových volání s aplikacemi prohlížeče. Například aplikace prohlížeče obsluhovaná aplikací `https://www.contoso.com` je blokována při volání gRPCch webových služeb hostovaných na `https://services.contoso.com` . Pro zmírnění tohoto omezení lze použít sdílení prostředků mezi zdroji (CORS).
 
-Pokud chcete, aby aplikace v prohlížeči mohla dělat gRPC webová volání mezi zdroji, nastavte [CORS v ASP.NET Core](xref:security/cors). Využijte integrovanou podporu CORS a vystavte hlavičky specifické pro gRPC <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders*> .
+Aby mohla aplikace v prohlížeči dělat gRPC webová volání mezi zdroji, nastavte [CORS v ASP.NET Core](xref:security/cors). Využijte integrovanou podporu CORS a vystavte hlavičky specifické pro gRPC <xref:Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder.WithExposedHeaders%2A> .
 
 [!code-csharp[](~/grpc/browser/sample/CORS_Startup.cs?name=snippet_1&highlight=5-11,19,24)]
 
