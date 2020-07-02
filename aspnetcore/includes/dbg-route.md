@@ -1,8 +1,8 @@
 ## <a name="debug-diagnostics"></a>Diagnostika ladění
 
-Pro podrobný výstup diagnostiky směrování nastavte `Logging:LogLevel:Microsoft` na `Debug`. Například ve vývojovém prostředí nastavte *appSettings. Vývoj. JSON*:
+Pro podrobný výstup diagnostiky směrování nastavte `Logging:LogLevel:Microsoft` na `Debug` . Ve vývojovém prostředí nastavte úroveň protokolu v *appsettings.Development.jsna*:
 
-```JSON
+```json
 {
   "Logging": {
     "LogLevel": {
@@ -12,3 +12,4 @@ Pro podrobný výstup diagnostiky směrování nastavte `Logging:LogLevel:Micros
     }
   }
 }
+```
