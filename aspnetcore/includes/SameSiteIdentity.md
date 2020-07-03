@@ -1,0 +1,3 @@
+ASP.NET Core [Identita](xref:security/authentication/identity) je z velké části neovlivněná [soubory cookie SameSite](xref:security/samesite) s výjimkou pokročilých scénářů, jako je třeba `IFrames` `OpenIdConnect` integrace.
+
+Při použití nástroje `Identity` Nepřidávat žádné poskytovatele souborů cookie ***not*** ani volání ` services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)` se `Identity` o to postará.

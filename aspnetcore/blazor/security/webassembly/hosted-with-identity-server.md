@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: cce6b6b1ec144e362415fe34645aef567269c873
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: b0c6cbd814a23afabbbf9a0d943d28125ac1f61c
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402205"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944582"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 
@@ -32,7 +32,7 @@ Tento článek vysvětluje, jak vytvořit novou Blazor hostovanou aplikaci, kter
 
 V aplikaci Visual Studio:
 
-1. Vytvořte novou **Blazor WebAssembly** aplikaci. Další informace naleznete v tématu <xref:blazor/get-started>.
+1. Vytvořte novou **Blazor WebAssembly** aplikaci.
 1. V dialogovém okně **vytvořit novou Blazor aplikaci** vyberte v části **ověřování** možnost **změnit** .
 1. Vyberte **jednotlivé uživatelské účty** a potom klikněte na **OK**.
 1. Zaškrtněte políčko **ASP.NET Core hostované** v části **Upřesnit** .

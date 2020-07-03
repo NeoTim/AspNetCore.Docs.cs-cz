@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/data-binding
-ms.openlocfilehash: 35873e57171b4d86affcb475ad2d55aef443d3b5
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0f2741a78b58d7380fcbe84e97f5a08ef291c27b
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399176"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944511"
 ---
 # <a name="aspnet-core-blazor-data-binding"></a>ASP.NET Core Blazor datové vazby
 
@@ -365,6 +365,7 @@ Password:
 }
 ```
 
-## <a name="radio-buttons"></a>Přepínače
+## <a name="additional-resources"></a>Další zdroje
 
-Informace o vazbě na přepínače ve formuláři naleznete v tématu <xref:blazor/forms-validation#work-with-radio-buttons> .
+* [Vazba na přepínače ve formuláři](xref:blazor/forms-validation#radio-buttons)
+* [Vazba `<select>` možností elementu na hodnoty objektu C# `null` ve formuláři](xref:blazor/forms-validation#binding-select-element-options-to-c-object-null-values)

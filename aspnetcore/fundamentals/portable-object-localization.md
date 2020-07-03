@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/portable-object-localization
-ms.openlocfilehash: e4053bd5024914242db1755ca34ddbeb2f2d5013
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 531e836db8613cc3382ef2f38f336a0986116334
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408120"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944481"
 ---
 # <a name="configure-portable-object-localization-in-aspnet-core"></a>Konfigurace lokalizace přenosných objektů v ASP.NET Core
 
@@ -28,7 +28,7 @@ Tento článek vás provede kroky pro použití přenosných souborů objektů (
 
 **Poznámka:** Sadu nepředstavuje produkt společnosti Microsoft. V důsledku toho společnost Microsoft neposkytuje žádnou podporu pro tuto funkci.
 
-[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/POLocalization) ([Jak stáhnout](xref:index#how-to-download-a-sample))
+[Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/localization/sample/2.x/POLocalization) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
 ## <a name="what-is-a-po-file"></a>Co je soubor PO?
 

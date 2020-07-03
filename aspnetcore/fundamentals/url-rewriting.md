@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/url-rewriting
-ms.openlocfilehash: c41ba2e067c8dc978b1359db548733c5f8890a2b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: dbdb7cd86218fd9ba63ae4ac2aa516836d4fd1a1
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408380"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944292"
 ---
 # <a name="url-rewriting-middleware-in-aspnet-core"></a>Middleware pro přepis adres URL v ASP.NET Core
 
@@ -205,8 +205,8 @@ Pravidlo přepsaného zápisu `^rewrite-rule/(\d+)/(\d+)` odpovídá pouze cest�
 | Cesta                              | Shoda |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | Yes   |
-| `/my-cool-rewrite-rule/1234/5678` | Ne    |
-| `/anotherrewrite-rule/1234/5678`  | Ne    |
+| `/my-cool-rewrite-rule/1234/5678` | No    |
+| `/anotherrewrite-rule/1234/5678`  | No    |
 
 Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)` . `\d`Značí *shodu s číslicí (číslem)*. Znaménko plus ( `+` ) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2` . Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678` . Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 
@@ -325,7 +325,7 @@ Middleware podporuje následující proměnné serveru pro přepis adres URL slu
 
 Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> , který zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> metodu pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
 
-| `RewriteContext.Result`              | Akce                                                           |
+| Výsledek kontextu přepsání               | Akce                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
 | `RuleResult.ContinueRules`výchozí | Pokračovat v používání pravidel.                                         |
 | `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       |
@@ -559,8 +559,8 @@ Pravidlo přepsaného zápisu `^rewrite-rule/(\d+)/(\d+)` odpovídá pouze cest�
 | Cesta                              | Shoda |
 | --------------------------------- | :---: |
 | `/rewrite-rule/1234/5678`         | Yes   |
-| `/my-cool-rewrite-rule/1234/5678` | Ne    |
-| `/anotherrewrite-rule/1234/5678`  | Ne    |
+| `/my-cool-rewrite-rule/1234/5678` | No    |
+| `/anotherrewrite-rule/1234/5678`  | No    |
 
 Po `^rewrite-rule/` části výrazu jsou k dispozici dvě skupiny zachycení, `(\d+)/(\d+)` . `\d`Značí *shodu s číslicí (číslem)*. Znaménko plus ( `+` ) znamená, že se *shoduje s jedním nebo více předcházejícím znakem*. Proto musí adresa URL obsahovat číslo následované lomítkem, za kterým následuje jiné číslo. Tyto skupiny zachycení jsou vloženy do přepsané adresy URL jako `$1` a `$2` . Náhradní řetězec pravidla přepsaní umístí zachycené skupiny do řetězce dotazu. Požadovaná cesta k `/rewrite-rule/1234/5678` je přepsána za účelem získání prostředku v `/rewritten?var1=1234&var2=5678` . Pokud se v původním požadavku nachází řetězec dotazu, bude při přepisování adresy URL zachován.
 
@@ -679,7 +679,7 @@ Middleware podporuje následující proměnné serveru pro přepis adres URL slu
 
 Použijte <xref:Microsoft.AspNetCore.Rewrite.RewriteOptionsExtensions.Add*> k implementaci logiky vlastního pravidla v metodě. `Add`zpřístupňuje <xref:Microsoft.AspNetCore.Rewrite.RewriteContext> , který zpřístupňuje <xref:Microsoft.AspNetCore.Http.HttpContext> metodu pro použití v metodě. [RewriteContext. Result](xref:Microsoft.AspNetCore.Rewrite.RewriteContext.Result*) určuje, jak se zpracovává další zpracování kanálu. Nastavte hodnotu na jedno z <xref:Microsoft.AspNetCore.Rewrite.RuleResult> polí popsaných v následující tabulce.
 
-| `RewriteContext.Result`              | Akce                                                           |
+| Výsledek kontextu přepsání               | Akce                                                           |
 | ------------------------------------ | ---------------------------------------------------------------- |
 | `RuleResult.ContinueRules`výchozí | Pokračovat v používání pravidel.                                         |
 | `RuleResult.EndResponse`             | Zastavení použití pravidel a odeslání odpovědi.                       |

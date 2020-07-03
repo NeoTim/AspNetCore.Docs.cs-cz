@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/configuration/index
-ms.openlocfilehash: 5e413fad090ff2cb5e1379bf7311caf159a57a4b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5a9ed8d6737352f56be78039a895a85f22dec361
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408588"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944643"
 ---
 # <a name="configuration-in-aspnet-core"></a>Konfigurace v ASP.NET Core
 
@@ -183,6 +183,10 @@ V [Azure App Service](https://azure.microsoft.com/services/app-service/)na strá
 Další informace najdete v tématu [aplikace Azure: přepište konfiguraci aplikace pomocí webu Azure Portal](xref:host-and-deploy/azure-apps/index#override-app-configuration-using-the-azure-portal).
 
 Informace o připojovacích řetězcích Azure Database najdete v tématu [předpony připojovacího řetězce](#constr) .
+
+### <a name="environment-variables-set-in-launchsettingsjson"></a>Proměnné prostředí nastavené v launchSettings.jszapnuté
+
+Proměnné prostředí nastavené v *launchSettings.jspři* přepisování nastavení v prostředí systému.
 
 <a name="clcp"></a>
 
@@ -751,6 +755,8 @@ Toto téma se týká pouze *Konfigurace aplikace*. Další aspekty používání
   * <xref:host-and-deploy/iis/index>
   * <xref:host-and-deploy/aspnet-core-module>
 
+Proměnné prostředí nastavené v *launchSettings.jspři* přepisování nastavení v prostředí systému.
+
 Další informace o migraci konfigurace aplikace z dřívějších verzí ASP.NET najdete v tématu <xref:migration/proper-to-2x/index#store-configurations> .
 
 ## <a name="add-configuration-from-an-external-assembly"></a>Přidat konfiguraci z externího sestavení
@@ -923,7 +929,7 @@ Konfigurační hodnoty přijímají následující konvence:
 * Hodnoty jsou řetězce.
 * Hodnoty null nelze uložit v konfiguraci ani svázat s objekty.
 
-## <a name="providers"></a>Zprostředkovatelé
+## <a name="providers"></a>Poskytovatelé
 
 V následující tabulce jsou uvedeny poskytovatelé konfigurace dostupné pro ASP.NET Core aplikace.
 

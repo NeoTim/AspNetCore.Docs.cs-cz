@@ -4,7 +4,7 @@ author: jamesnk
 description: Naučte se konfigurovat gRPC služby na ASP.NET Core, které se mají volat z aplikací pro prohlížeč pomocí gRPC-Web.
 monikerRange: '>= aspnetcore-3.0'
 ms.author: jamesnk
-ms.date: 06/29/2020
+ms.date: 06/30/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: grpc/browser
-ms.openlocfilehash: 20f72deb9895111a6e691eb1ee5cd7419c8c4cb4
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: 05ff343f7116509128b7370a50bcfa3c67ffb9fe
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793503"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944236"
 ---
 # <a name="use-grpc-in-browser-apps"></a>Použití gRPC v prohlížečových aplikacích
 
@@ -79,6 +79,15 @@ Předcházející kód:
 * Volání `AddCors` pro přidání služeb CORS a nakonfigurují zásady CORS, které zveřejňují gRPC konkrétní hlavičky.
 * Volání `UseCors` pro přidání middlewaru CORS po směrování a před koncovými body.
 * Určuje metodu, která `endpoints.MapGrpcService<GreeterService>()` podporuje CORS s `RequiresCors` .
+
+### <a name="grpc-web-and-streaming"></a>gRPC – web a streamování
+
+Tradiční gRPC přes HTTP/2 podporuje streamování ve všech směrech. gRPC – web nabízí omezené podpory pro streamování:
+
+* gRPC – klienti webového prohlížeče nepodporují volání metod streamování klientů a obousměrného streamování.
+* ASP.NET Core služby gRPC hostované v Azure App Service a IIS nepodporují obousměrný streamování.
+
+Při použití gRPC-web doporučujeme použít jenom unární metody a metody streamování serveru.
 
 ## <a name="call-grpc-web-from-the-browser"></a>Volání gRPC-web z prohlížeče
 

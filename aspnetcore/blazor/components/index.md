@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 02e3f7f5442a5abde0b13b7bba14d9d0f29c1de7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d25dc3441c2373655558dfc101b899252a280814
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399085"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944442"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
@@ -420,7 +420,22 @@ Odkazy na komponenty poskytují způsob, jak odkazovat na instanci komponenty, a
 Při vykreslení komponenty `loginDialog` je pole vyplněno `MyLoginDialog` instancí podřízené součásti. Pak můžete vyvolat metody .NET v instanci komponenty.
 
 > [!IMPORTANT]
-> `loginDialog`Proměnná je naplněna pouze po vykreslení komponenty a její výstup obsahuje `MyLoginDialog` element. Do tohoto okamžiku neexistuje žádný odkaz na. Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [ `OnAfterRenderAsync` `OnAfterRender` metody nebo](xref:blazor/components/lifecycle#after-component-render).
+> `loginDialog`Proměnná je naplněna pouze po vykreslení komponenty a její výstup obsahuje `MyLoginDialog` element. Dokud se komponenta nevykresluje, neexistuje žádný odkaz na.
+>
+> Chcete-li manipulovat s odkazy na součásti po dokončení vykreslování komponenty, použijte [ `OnAfterRenderAsync` `OnAfterRender` metody nebo](xref:blazor/components/lifecycle#after-component-render).
+>
+> Chcete-li použít referenční proměnnou s obslužnou rutinou události, použijte výraz lambda nebo přiřaďte delegáta obslužné rutiny události v [ `OnAfterRenderAsync` `OnAfterRender` metodách nebo](xref:blazor/components/lifecycle#after-component-render). Tím se zajistí, že referenční proměnná je přiřazena před přiřazením obslužné rutiny události.
+>
+> ```razor
+> <button type="button" 
+>     @onclick="@(() => loginDialog.DoSomething())">Do Something</button>
+>
+> <MyLoginDialog @ref="loginDialog" ... />
+>
+> @code {
+>     private MyLoginDialog loginDialog;
+> }
+> ```
 
 Chcete-li odkazovat na součásti ve smyčce, viz [zachytit odkazy na více podobných podřízených komponent (dotnet/aspnetcore #13358)](https://github.com/dotnet/aspnetcore/issues/13358).
 

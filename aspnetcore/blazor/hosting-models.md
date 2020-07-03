@@ -15,22 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/hosting-models
-ms.openlocfilehash: ba43ff052fbd290412fa27cf57ace3ee3491f8d0
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 56681e713e008188d57166da9c8fd4eb6923928c
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402556"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944214"
 ---
 # <a name="aspnet-core-blazor-hosting-models"></a>ASP.NET Core Blazor modelech hostování
 
 Od [Daniel Skořepa](https://github.com/danroth27)
 
 Blazorje webová architektura navržená tak, aby běžela na straně klienta v prohlížeči [na bázi .NET](https://webassembly.org/)runtime ( *Blazor WebAssembly* ) nebo na straně serveru v ASP.NET Core ( *Blazor Server* ). Bez ohledu na model hostování jsou modely aplikací a komponent *stejné*.
-
-Chcete-li vytvořit projekt pro modely hostování popsané v tomto článku, přečtěte si téma <xref:blazor/get-started> .
-
-Pokročilou konfiguraci najdete v tématu <xref:blazor/fundamentals/configuration> .
 
 ## Blazor WebAssembly
 
@@ -155,7 +151,6 @@ Při použití služby IIS jsou v rámci směrování žádostí na aplikace pov
 
 ## <a name="additional-resources"></a>Další zdroje
 
-* <xref:blazor/get-started>
 * <xref:signalr/introduction>
 * <xref:blazor/fundamentals/additional-scenarios>
 * <xref:tutorials/signalr-blazor-webassembly>

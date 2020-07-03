@@ -5,7 +5,7 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/01/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: ba85cc901127725d674b699638fef5fe363081a8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: c41736e7c5a3e59a08b579de54f9810381c8df1c
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402790"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944175"
 ---
 # <a name="aspnet-core-blazor-routing"></a>BlazorSměrování ASP.NET Core
 
@@ -174,7 +174,7 @@ Další informace naleznete v tématu <xref:fundamentals/routing>.
 
 ## <a name="navlink-component"></a>Komponenta NavLink
 
-Použít <xref:Microsoft.AspNetCore.Components.Routing.NavLink> komponentu namísto prvků hypertextového odkazu HTML ( `<a>` ) při vytváření navigačních odkazů. <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Komponenta se chová jako `<a>` element s tím rozdílem, že přepíná `active` třídu CSS na základě toho, zda `href` odpovídá aktuální adrese URL. `active`Třída pomáhá uživateli pochopit, která stránka je aktivní stránkou mezi zobrazenými navigačními odkazy.
+Použít <xref:Microsoft.AspNetCore.Components.Routing.NavLink> komponentu namísto prvků hypertextového odkazu HTML ( `<a>` ) při vytváření navigačních odkazů. <xref:Microsoft.AspNetCore.Components.Routing.NavLink>Komponenta se chová jako `<a>` element s tím rozdílem, že přepíná `active` třídu CSS na základě toho, zda `href` odpovídá aktuální adrese URL. `active`Třída pomáhá uživateli pochopit, která stránka je aktivní stránkou mezi zobrazenými navigačními odkazy. Volitelně můžete přiřadit název třídy šablony stylů CSS k <xref:Microsoft.AspNetCore.Components.Routing.NavLink.ActiveClass?displayProperty=nameWithType> použití vlastní třídy CSS pro vykreslený odkaz, když aktuální trasa odpovídá `href` .
 
 Následující `NavMenu` Komponenta vytvoří [`Bootstrap`](https://getbootstrap.com/docs/) navigační panel, který ukazuje, jak používat <xref:Microsoft.AspNetCore.Components.Routing.NavLink> komponenty:
 
@@ -196,7 +196,7 @@ Další <xref:Microsoft.AspNetCore.Components.Routing.NavLink> atributy komponen
 Vykresluje se následující kód HTML:
 
 ```html
-<a href="my-page" target="_blank" rel="noopener noreferrer">My page</a>
+<a href="my-page" target="_blank">My page</a>
 ```
 
 ## <a name="uri-and-navigation-state-helpers"></a>Identifikátory URI a pomocníka pro stav navigace
@@ -232,7 +232,7 @@ Použijte <xref:Microsoft.AspNetCore.Components.NavigationManager> pro práci s 
 }
 ```
 
-Následující komponenta zpracovává událost změny umístění nastavením <xref:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged?displayProperty=nameWithType> . `HandleLocationChanged`Metoda je nepřipojená, pokud `Dispose` je volána rozhraním. Odpojování metody umožňuje uvolňování paměti komponenty.
+Následující komponenta zpracovává událost změny umístění při přihlášení k odběru <xref:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged?displayProperty=nameWithType> . `HandleLocationChanged`Metoda je nepřipojená, pokud `Dispose` je volána rozhraním. Odpojování metody umožňuje uvolňování paměti komponenty.
 
 ```razor
 @implements IDisposable

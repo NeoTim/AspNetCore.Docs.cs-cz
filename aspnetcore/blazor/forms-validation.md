@@ -5,7 +5,7 @@ description: Naučte se používat scénáře ověřování formulářů a polí
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/04/2020
+ms.date: 07/01/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 1ed87b4aa2519334d2339b500a615aa96ef4d57d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 925051d7426470aebfddbdb5ff83d7dab9f82726
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402959"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944429"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor formuláře a ověřování
 
@@ -302,7 +302,7 @@ V následujícím příkladu `CustomInputText` Komponenta dědí `InputText` kom
 }
 ```
 
-## <a name="work-with-radio-buttons"></a>Práce s přepínači
+## <a name="radio-buttons"></a>Přepínače
 
 Při práci s přepínači ve formuláři je datová vazba zpracovávána jinak než jiné prvky, protože přepínače jsou vyhodnocovány jako skupina. Hodnota každého přepínacího tlačítka je pevná, ale hodnota skupiny přepínačů je hodnota vybraného přepínacího tlačítka. Následující příklad ukazuje, jak:
 
@@ -390,6 +390,30 @@ V následujícím <xref:Microsoft.AspNetCore.Components.Forms.EditForm> příkla
 }
 ```
 
+## <a name="binding-select-element-options-to-c-object-null-values"></a>Vazba `<select>` možností elementu na hodnoty objektu C# `null`
+
+Neexistuje žádný rozumné způsob, jak vyjádřit `<select>` hodnotu možnosti prvku jako hodnotu objektu C# `null` , protože:
+
+* Atributy HTML nemohou mít `null` hodnoty. Nejbližší ekvivalent k `null` v jazyce HTML je absence `value` atributu HTML z `<option>` elementu.
+* Při výběru možnosti bez `<option>` `value` atributu prohlížeč považuje hodnotu za *textový obsah* `<option>` elementu.
+
+BlazorRozhraní se nepokouší potlačit výchozí chování, protože by zahrnovalo:
+
+* Vytvoření řetězce alternativních řešení zvláštních případů v rozhraní.
+* Zásadní změny v aktuálním chování architektury.
+
+::: moniker range=">= aspnetcore-5.0"
+
+Plausible `null` ekvivalent v HTML je *prázdný řetězec* `value` . BlazorArchitektura zpracovává `null` prázdné převody řetězce pro oboustrannou vazbu na `<select>` hodnotu.
+
+::: moniker-end
+
+::: moniker range="< aspnetcore-5.0"
+
+Blazor `null` Při pokusu o obousměrnou vazbu na hodnotu se rozhraní nezpracovává automaticky k prázdným převodům řetězců `<select>` . Další informace naleznete v tématu [Oprava vazby `<select>` na hodnotu null (dotnet/aspnetcore #23221)](https://github.com/dotnet/aspnetcore/pull/23221).
+
+::: moniker-end
+
 ## <a name="validation-support"></a>Podpora ověřování
 
 <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator>Komponenta připojuje ověřování pomocí datových poznámek do kaskády <xref:Microsoft.AspNetCore.Components.Forms.EditContext> . Povolení podpory pro ověřování pomocí datových poznámek vyžaduje toto explicitní gesto. Chcete-li použít jiný systém ověřování než datové poznámky, nahraďte <xref:Microsoft.AspNetCore.Components.Forms.DataAnnotationsValidator> vlastní implementaci. Implementace ASP.NET Core je k dispozici pro kontrolu v referenčním zdroji: [`DataAnnotationsValidator`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/DataAnnotationsValidator.cs) / [`AddDataAnnotationsValidation`](https://github.com/dotnet/AspNetCore/blob/master/src/Components/Forms/src/EditContextDataAnnotationsExtensions.cs) . Předchozí odkazy na zdroj referencí poskytují kód z `master` větve úložiště, která představuje aktuální vývoj jednotky produktu pro příští vydání ASP.NET Core. Pokud chcete vybrat větev pro jinou verzi, použijte selektor větve GitHubu (například `release/3.1` ).
@@ -429,7 +453,7 @@ Chcete-li zajistit, aby byl výsledek ověření správně přidružen k poli p�
 using System;
 using System.ComponentModel.DataAnnotations;
 
-private class MyCustomValidator : ValidationAttribute
+private class CustomValidator : ValidationAttribute
 {
     protected override ValidationResult IsValid(object value, 
         ValidationContext validationContext)
@@ -441,6 +465,9 @@ private class MyCustomValidator : ValidationAttribute
     }
 }
 ```
+
+> [!NOTE]
+> <xref:System.ComponentModel.DataAnnotations.ValidationContext.GetService%2A?displayProperty=nameWithType> je `null`. Vložené služby pro ověřování v metodě se `IsValid` nepodporují.
 
 ### <a name="blazor-data-annotations-validation-package"></a>Blazorbalíček pro ověření datových poznámek
 
@@ -576,7 +603,7 @@ Vedlejším účinkem předcházejícího přístupu je, že <xref:Microsoft.Asp
 }
 ```
 
-## <a name="troubleshoot"></a>Řešení potíží
+## <a name="troubleshoot"></a>Odstranit potíže
 
 > InvalidOperationException: EditForm vyžaduje parametr modelu nebo parametr EditContext, ale ne obojí.
 

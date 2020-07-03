@@ -5,7 +5,7 @@ description: Naučte se vytvářet opakovaně použitelné součásti rozložen�
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 02/12/2020
+ms.date: 06/23/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: f405bb655b2879bd546420d99ff645401ead92fc
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: fe78a144b413bf97be83d20b11148e1856608f78
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402517"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944228"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor rozložení
 
@@ -80,6 +80,9 @@ Následující `_Imports.razor` soubor importuje:
 `_Imports.razor`Soubor je podobný [souboru _ViewImports. cshtml pro Razor zobrazení a stránky](xref:mvc/views/layout#importing-shared-directives) , ale používá se konkrétně pro Razor soubory komponent.
 
 Zadáním rozložení v `_Imports.razor` přepisujete rozložení zadané jako *výchozí rozložení*směrovače.
+
+> [!WARNING]
+> Nepřidávejte **not** Razor `@layout` do kořenového souboru direktivu `_Imports.razor` , což vede k nekonečné smyčce rozložení v aplikaci. Pro řízení výchozího rozložení aplikace Určete rozložení v `Router` součásti. Další informace najdete v části [výchozí rozložení](#default-layout) .
 
 ## <a name="nested-layouts"></a>Vnořená rozložení
 

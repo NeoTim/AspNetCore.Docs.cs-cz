@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: 123b664b87eb41a8f07344608713d9aed7a0aa37
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 3f5fa42aea0af8880f9598f2e923b4e62481a797
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402244"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944312"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core s využitím Azure Active Directory B2C
 
@@ -98,7 +98,7 @@ V **oprávněních rozhraní API**:
 1. Otevřete seznam **rozhraní API** .
 1. Povolte přístup k rozhraní API (například `API.Access` ).
 1. Vyberte **Přidat oprávnění**.
-1. Vyberte tlačítko **pro udělení obsahu správce pro {TENANT}** . Výběrem **Ano** potvrďte.
+1. Klikněte na tlačítko **udělení souhlasu správce pro {Name}** . Výběrem **Ano** potvrďte.
 
 V **Home**  >  **Azure AD B2C**  >  **toky pro uživatele**doma:
 

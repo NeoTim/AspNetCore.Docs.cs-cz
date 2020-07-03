@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/templates
-ms.openlocfilehash: 6359a02b23803f26c4a40772c68d39e804396403
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f1b131947a242323295a763ba2f2473af0ccfb4f
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401893"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944529"
 ---
 # <a name="aspnet-core-blazor-templates"></a>BlazorŠablony ASP.NET Core
 
@@ -32,8 +32,6 @@ BlazorRozhraní poskytuje šablony pro vývoj aplikací pro každý Blazor model
 * Blazor Server (`blazorserver`)
 
 Další informace o Blazor modelech hostování naleznete v tématu <xref:blazor/hosting-models> .
-
-Podrobné pokyny k vytvoření Blazor aplikace ze šablony naleznete v tématu <xref:blazor/get-started> .
 
 Možnosti šablony jsou k dispozici předáním `--help` možnosti [`dotnet new`](/dotnet/core/tools/dotnet-new) příkazu CLI:
 

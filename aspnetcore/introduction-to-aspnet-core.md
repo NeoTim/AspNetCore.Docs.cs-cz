@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: index
-ms.openlocfilehash: f58c25ec8b47b2bd8d425d0bfd0d52df9bbc2655
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2ad97dd7eb38b4cb69fa7af5ae1e1d1837a97443
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408198"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944558"
 ---
 # <a name="introduction-to-aspnet-core"></a>Úvod do ASP.NET Core
 
@@ -80,7 +80,7 @@ Pro Úvod k vývoji ASP.NET Corech aplikací doporučujeme následující poslou
    |----------|----------|----------|
    |Webová aplikace                   | Nový vývoj webového uživatelského rozhraní na straně serveru |[Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) |
    |Webová aplikace                   | Údržba aplikace MVC |[Začínáme s MVC](xref:tutorials/first-mvc-app/start-mvc)|
-   |Webová aplikace                   | Vývoj webového uživatelského rozhraní na straně klienta |[Začínáme sBlazor](xref:tutorials/first-blazor-app) |
+   |Webová aplikace                   | Vývoj webového uživatelského rozhraní na straně klienta |[Začínáme sBlazor](https://dotnet.microsoft.com/learn/aspnet/blazor-tutorial/intro) |
    |Webové rozhraní API                   | Služby HTTP RESTful |[Vytvoření webového rozhraní API](xref:tutorials/first-web-api)&dagger; |
    |Aplikace vzdáleného volání procedur | Služby pro první kontrakt využívající vyrovnávací paměti protokolu |[Začínáme se službou gRPC](xref:tutorials/grpc/grpc-start) |
    |Aplikace v reálném čase             | Obousměrná komunikace mezi servery a připojenými klienty |[Začínáme sSignalR](xref:tutorials/signalr) |

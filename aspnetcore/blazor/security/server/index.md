@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/server/index
-ms.openlocfilehash: ab3baad30f78c5d5e2f969b3292d4886fcd0406d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 69a24fc955a0f2fb524ec817eb50372052f538a1
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402309"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944253"
 ---
 # <a name="secure-aspnet-core-blazor-server-apps"></a>Zabezpečení Blazor Server aplikací ASP.NET Core
 
@@ -34,7 +34,7 @@ Blazor ServerŠablonu projektu lze nakonfigurovat pro ověřování při vytvoř
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Pokud <xref:blazor/get-started> chcete vytvořit nový Blazor Server projekt s ověřovacím mechanismem, postupujte podle pokynů pro Visual Studio v článku.
+Pokud <xref:blazor/tooling> chcete vytvořit nový Blazor Server projekt s ověřovacím mechanismem, postupujte podle pokynů pro Visual Studio v části.
 
 Po výběru šablony ** Blazor Server aplikace** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
 
@@ -49,7 +49,7 @@ Otevře se dialogové okno s nabídkou stejné sady mechanismů ověřování pr
 
 # <a name="visual-studio-code"></a>[Visual Studio Code](#tab/visual-studio-code)
 
-Postupujte podle pokynů Visual Studio Code v <xref:blazor/get-started> článku Vytvoření nového Blazor Server projektu s mechanismem ověřování:
+Postupujte podle pokynů Visual Studio Code v části <xref:blazor/tooling> a vytvořte nový Blazor Server projekt s mechanismem ověřování:
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}
@@ -75,7 +75,7 @@ Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new
 
 # <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
 
-1. Postupujte podle pokynů Visual Studio pro Mac v <xref:blazor/get-started> článku.
+1. Postupujte podle pokynů Visual Studio pro Mac v části <xref:blazor/tooling> .
 
 1. V kroku **Konfigurace nového Blazor Server aplikace** vyberte v rozevíracím seznamu **ověřování** možnost **individuální ověřování (v aplikaci)** .
 
@@ -83,7 +83,7 @@ Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new
 
 # <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
 
-Postupujte podle pokynů .NET Core CLI v <xref:blazor/get-started> článku Vytvoření nového Blazor Server projektu s mechanismem ověřování:
+Blazor ServerPomocí následujícího příkazu v příkazovém prostředí vytvořte nový projekt s mechanismem ověřování:
 
 ```dotnetcli
 dotnet new blazorserver -o {APP NAME} -au {AUTHENTICATION}

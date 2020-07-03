@@ -15,16 +15,18 @@ no-loc:
 - Razor
 - SignalR
 uid: security/samesite/mvc21
-ms.openlocfilehash: 4239321531f3a7696a15b1dea164450ea0860c2b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ce301cd7e2cbfbfc724d78bd5734dff231d0ab93
+ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85409056"
+ms.lasthandoff: 07/03/2020
+ms.locfileid: "85944733"
 ---
 # <a name="aspnet-core-21-mvc-samesite-cookie-sample"></a>Ukázka SameSite souboru cookie pro ASP.NET Core 2,1 MVC
 
 ASP.NET Core 2,1 obsahuje integrovanou podporu pro atribut [SameSite](https://www.owasp.org/index.php/SameSite) , ale byla zapsána do původního standardu. [Opravené chování](https://github.com/dotnet/aspnetcore/issues/8212) změnilo význam `SameSite.None` pro vygenerování atributu sameSite s hodnotou `None` , místo aby vůbec generoval hodnotu. Pokud nechcete vygenerovat hodnotu, můžete nastavit `SameSite` vlastnost na soubor cookie na hodnotu-1.
+
+[!INCLUDE[](~/includes/SameSiteIdentity.md)]
 
 ## <a name="writing-the-samesite-attribute"></a><a name="sampleCode"></a>Zápis atributu SameSite
 
@@ -85,7 +87,7 @@ Můžete vidět z obrázku, který je vytvořen souborem cookie vytvořeným v u
 
 Aby bylo možné zachytit soubory cookie, abyste mohli upravit hodnotu None podle podpory v agentovi prohlížeče uživatele, musíte použít `CookiePolicy` middleware. Toto musí být umístěno do kanálu požadavků HTTP **před** všemi komponentami, které zapisují soubory cookie a nakonfigurované v rámci `ConfigureServices()` .
 
-Pro vložení do kanálu použití `app.UseCookiePolicy()` v `Configure(IApplicationBuilder, IHostingEnvironment)` metodě v [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs). Například:
+Pro vložení do kanálu použití `app.UseCookiePolicy()` v `Configure(IApplicationBuilder, IHostingEnvironment)` metodě v [Startup.cs](https://github.com/blowdart/AspNetSameSiteSamples/blob/master/AspNetCore21MVC/Startup.cs). Příklad:
 
 ```c#
 public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -115,7 +117,7 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 }
 ```
 
-Pak v případě, že `ConfigureServices(IServiceCollection services)` jsou soubory cookie připojeny nebo smazány, v části Konfigurace zásad souborů cookie, které se mají volat na pomocnou třídu. Například:
+Pak v případě, že `ConfigureServices(IServiceCollection services)` jsou soubory cookie připojeny nebo smazány, v části Konfigurace zásad souborů cookie, které se mají volat na pomocnou třídu. Příklad:
 
 ```c#
 public void ConfigureServices(IServiceCollection services)
