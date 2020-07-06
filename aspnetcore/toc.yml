@@ -79,7 +79,7 @@
               uid: tutorials/first-mvc-app/details
         - name: Blazor
           displayName: tutorial
-          uid: tutorials/first-blazor-app
+          uid: tutorials/build-a-blazor-app
     - name: Aplikace Web API
       items:
         - name: Vytvoření webového rozhraní API
@@ -285,14 +285,14 @@
           uid: blazor/index
         - name: Podporované platformy
           uid: blazor/supported-platforms
-        - name: Začínáme
-          uid: blazor/get-started
+        - name: Nástroje
+          uid: blazor/tooling
         - name: Modely hostingu
           uid: blazor/hosting-models
         - name: Kurzy
           items:
-            - name: Sestavení první aplikace
-              uid: tutorials/first-blazor-app
+            - name: Vytvoření aplikace seznamu úkolů Blazor
+              uid: tutorials/build-a-blazor-app
             - name: SignalR s Blazor WebAssembly
               uid: tutorials/signalr-blazor-webassembly
         - name: Šablony
