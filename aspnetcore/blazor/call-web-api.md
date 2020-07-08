@@ -5,7 +5,7 @@ description: Naučte se volat webové rozhraní API z Blazor WebAssembly aplikac
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/28/2020
+ms.date: 06/24/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: 2d910def31e4035c1d9cbacb3aaa721dd699c273
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: a2e320eb24d47de9e704c2a5355d28cf90bad0cd
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400743"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059939"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>Volání webového rozhraní API z ASP.NET CoreBlazor
 
@@ -158,7 +158,7 @@ Pomocné metody JSON odesílají požadavky na identifikátor URI (webové rozhr
   Volání <xref:System.Net.Http.Json.HttpClientJsonExtensions.PutAsJsonAsync%2A> vrátí <xref:System.Net.Http.HttpResponseMessage> . K deserializaci obsahu JSON ze zprávy odpovědi použijte <xref:System.Net.Http.Json.HttpContentJsonExtensions.ReadFromJsonAsync%2A> metodu rozšíření:
   
   ```csharp
-  var content = response.content.ReadFromJsonAsync<WeatherForecast>();
+  var content = response.Content.ReadFromJsonAsync<WeatherForecast>();
   ```
 
 <xref:System.Net.Http>zahrnuje další metody rozšíření pro posílání požadavků HTTP a příjem odpovědí HTTP. <xref:System.Net.Http.HttpClient.DeleteAsync%2A?displayProperty=nameWithType>slouží k odeslání požadavku HTTP DELETE webovému rozhraní API.
@@ -304,7 +304,7 @@ protected override async Task OnInitializedAsync()
 ```
 
 > [!NOTE]
-> Předchozí příklad je pro demonstrační účely. Aplikaci webového rozhraní API je možné nakonfigurovat tak, aby vracela JSON i v případě, že koncový bod neexistuje nebo když dojde k neošetřené výjimky na serveru.
+> Předchozí příklad je pro demonstrační účely. Serverová aplikace webového rozhraní API se dá nakonfigurovat tak, aby vracela JSON, i když koncový bod neexistuje nebo dojde k neošetřené výjimce na serveru.
 
 Další informace naleznete v tématu <xref:blazor/fundamentals/handle-errors>.
 
@@ -314,7 +314,9 @@ Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla pož
 
 [ Blazor WebAssembly Ukázková aplikace (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje použití CORS v součásti volání webového rozhraní API ( `Pages/CallWebAPI.razor` ).
 
-Pokud chcete jiným webům umožnit, aby vaše aplikace provedla požadavky na sdílení prostředků mezi zdroji (CORS), přečtěte si téma <xref:security/cors> .
+Další informace a příklady kódu zabezpečených požadavků naleznete v tématu <xref:blazor/security/webassembly/additional-scenarios> . Další informace o CORS se zabezpečenými požadavky najdete v [části CORS](xref:blazor/security/webassembly/additional-scenarios#cross-origin-resource-sharing-cors) v předchozím článku.
+
+Další informace naleznete v tématu <xref:security/cors>.
 
 ## <a name="additional-resources"></a>Další zdroje
 

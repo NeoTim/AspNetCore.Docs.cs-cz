@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: migration/proper-to-2x/membership-to-core-identity
-ms.openlocfilehash: f039772f4276d0e8bcec2629350eba2ec0e7418c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: afad542a18a357a77f4542511a3d2c3108dbfb31
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399683"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059770"
 ---
 # <a name="migrate-from-aspnet-membership-authentication-to-aspnet-core-20-identity"></a>Migrace z ověřování členství ASP.NET do ASP.NET Core 2,0Identity
 
@@ -75,36 +75,33 @@ Existují drobné rozdíly v strukturách tabulek a polích pro členství i ASP
 
 ### <a name="users"></a>Uživatelé
 
-|*Identity<br>dbo. AspNetUsers)*        ||*Členství <br> (dbo. aspnet_Users/dbo. aspnet_Membership)*||
-|----------------------------------------|-----------------------------------------------------------|
-|**Název pole**                 |**Typ**|**Název pole**                                    |**Typ**|
-|`Id`                           |řetězec  |`aspnet_Users.UserId`                             |řetězec  |
-|`UserName`                     |řetězec  |`aspnet_Users.UserName`                           |řetězec  |
-|`Email`                        |řetězec  |`aspnet_Membership.Email`                         |řetězec  |
-|`NormalizedUserName`           |řetězec  |`aspnet_Users.LoweredUserName`                    |řetězec  |
-|`NormalizedEmail`              |řetězec  |`aspnet_Membership.LoweredEmail`                  |řetězec  |
-|`PhoneNumber`                  |řetězec  |`aspnet_Users.MobileAlias`                        |řetězec  |
-|`LockoutEnabled`               |bit     |`aspnet_Membership.IsLockedOut`                   |bit     |
+|Identity<br>( `dbo.AspNetUsers` ) sloupec  |Typ     |Členství<br>( `dbo.aspnet_Users`  /  `dbo.aspnet_Membership` ) sloupec|Typ      |
+|-------------------------------------------|-----------------------------------------------------------------------|
+| `Id`                            | `string`| `aspnet_Users.UserId`                                      | `string` |
+| `UserName`                      | `string`| `aspnet_Users.UserName`                                    | `string` |
+| `Email`                         | `string`| `aspnet_Membership.Email`                                  | `string` |
+| `NormalizedUserName`            | `string`| `aspnet_Users.LoweredUserName`                             | `string` |
+| `NormalizedEmail`               | `string`| `aspnet_Membership.LoweredEmail`                           | `string` |
+| `PhoneNumber`                   | `string`| `aspnet_Users.MobileAlias`                                 | `string` |
+| `LockoutEnabled`                | `bit`   | `aspnet_Membership.IsLockedOut`                            | `bit`    |
 
 > [!NOTE]
 > Ne všechna mapování polí se podobají relacím 1:1 z členství do ASP.NET Core Identity . Předchozí tabulka přijímá výchozí schéma uživatele členství a mapuje je do Identity schématu ASP.NET Core. Všechna další vlastní pole, která byla použita pro členství, je nutné namapovat ručně. V tomto mapování není k dispozici žádná mapa hesel, protože mezi těmito dvěma kritérii hesla a resůl hesla nedojde k migraci. **Doporučuje se ponechat heslo jako null a požádat uživatele, aby obnovili hesla.** V ASP.NET Core Identity `LockoutEnd` by měl být v budoucnu nastavené na nějaké datum, pokud je uživatel uzamčený. Tato ukázka se zobrazí ve skriptu migrace.
 
 ### <a name="roles"></a>Role
 
-|*Identity<br>dbo. AspNetRoles)*        ||*Členství <br> (dbo. aspnet_Roles)*||
+|Identity<br>( `dbo.AspNetRoles` ) sloupec|Typ|Členství<br>( `dbo.aspnet_Roles` ) sloupec|Typ|
 |----------------------------------------|-----------------------------------|
-|**Název pole**                 |**Typ**|**Název pole**   |**Typ**         |
-|`Id`                           |řetězec  |`RoleId`         | řetězec          |
-|`Name`                         |řetězec  |`RoleName`       | řetězec          |
-|`NormalizedName`               |řetězec  |`LoweredRoleName`| řetězec          |
+|`Id`                           |`string`|`RoleId`         | `string`        |
+|`Name`                         |`string`|`RoleName`       | `string`        |
+|`NormalizedName`               |`string`|`LoweredRoleName`| `string`        |
 
 ### <a name="user-roles"></a>User Roles
 
-|*Identity<br>dbo. AspNetUserRoles)*||*Členství <br> (dbo. aspnet_UsersInRoles)*||
-|------------------------------------|------------------------------------------|
-|**Název pole**           |**Typ**  |**Název pole**|**Typ**                   |
-|`RoleId`                 |řetězec    |`RoleId`      |řetězec                     |
-|`UserId`                 |řetězec    |`UserId`      |řetězec                     |
+|Identity<br>( `dbo.AspNetUserRoles` ) sloupec|Typ|Členství<br>( `dbo.aspnet_UsersInRoles` ) sloupec|Typ|
+|-------------------------|----------|--------------|---------------------------|
+|`RoleId`                 |`string`  |`RoleId`      |`string`                   |
+|`UserId`                 |`string`  |`UserId`      |`string`                   |
 
 Při vytváření migračního skriptu pro *uživatele* a *role*odkázat na předchozí tabulky mapování. Následující příklad předpokládá, že máte na databázovém serveru dvě databáze. Jedna databáze obsahuje existující schéma členství ASP.NET a data. Druhá databáze *CoreIdentitySample* byla vytvořena pomocí kroků popsaných výše. K dispozici jsou vložené komentáře pro další podrobnosti.
 

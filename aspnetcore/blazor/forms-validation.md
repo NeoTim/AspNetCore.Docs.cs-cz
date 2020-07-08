@@ -5,7 +5,7 @@ description: Naučte se používat scénáře ověřování formulářů a polí
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/01/2020
+ms.date: 07/06/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/forms-validation
-ms.openlocfilehash: 925051d7426470aebfddbdb5ff83d7dab9f82726
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: f31a1f1d8942c9d9654dc26e946c022cf21ed9d1
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944429"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059861"
 ---
 # <a name="aspnet-core-blazor-forms-and-validation"></a>ASP.NET Core Blazor formuláře a ověřování
 
@@ -444,6 +444,14 @@ Zprávy ověřování výstupu pro konkrétní model s `Model` parametrem:
 ```
 
 <xref:Microsoft.AspNetCore.Components.Forms.ValidationMessage%601>Komponenty a <xref:Microsoft.AspNetCore.Components.Forms.ValidationSummary> podporují libovolné atributy. Všechny atributy, které se neshodují s parametrem komponenty, jsou přidány do generovaného `<div>` `<ul>` prvku nebo.
+
+Řízení stylu ověřovacích zpráv v šabloně stylů aplikace ( `wwwroot/css/app.css` nebo `wwwroot/css/site.css` ). Výchozí `validation-message` třída nastaví barvu textu pro zprávy ověření na červenou:
+
+```css
+.validation-message {
+    color: red;
+}
+```
 
 ### <a name="custom-validation-attributes"></a>Vlastní ověřovací atributy
 

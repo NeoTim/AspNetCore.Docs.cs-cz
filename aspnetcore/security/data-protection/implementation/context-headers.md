@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/data-protection/implementation/context-headers
-ms.openlocfilehash: 078392662281253b8b6cfc0d50fddc8d66482b63
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0995cd80c10f638c90a60630378518988ffb89ed
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406891"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060095"
 ---
 # <a name="context-headers-in-aspnet-core"></a>Hlavičky kontextu v ASP.NET Core
 
@@ -26,7 +26,7 @@ ms.locfileid: "85406891"
 
 ## <a name="background-and-theory"></a>Pozadí a teorie
 
-V systému ochrany dat označuje "klíč" objekt, který může poskytovat ověřené šifrovací služby. Každý klíč je identifikován jedinečným ID (identifikátor GUID) a obsahuje informace o algoritmu IT a Entropic materiál. Je vhodné, aby každý klíč měl jedinečnou entropii, ale systém ho nedokáže vyhovět, a potřebujeme také pro vývojáře, kteří můžou změnit klíčového prstence ručně úpravou algoritmových informací stávajícího klíče ve službě Key Ring. Aby bylo možné dosáhnout našich požadavků na zabezpečení, má systém ochrany dat koncept [kryptografické flexibility](https://www.microsoft.com/en-us/research/publication/cryptographic-agility-and-its-relation-to-circular-encryption/), který umožňuje bezpečné použití jedné entropicové hodnoty napříč několika kryptografickými algoritmy.
+V systému ochrany dat označuje "klíč" objekt, který může poskytovat ověřené šifrovací služby. Každý klíč je identifikován jedinečným ID (identifikátor GUID) a obsahuje informace o algoritmu IT a Entropic materiál. Je vhodné, aby každý klíč měl jedinečnou entropii, ale systém ho nedokáže vyhovět, a potřebujeme také pro vývojáře, kteří můžou změnit klíčového prstence ručně úpravou algoritmových informací stávajícího klíče ve službě Key Ring. Aby bylo možné dosáhnout našich požadavků na zabezpečení, má systém ochrany dat koncept [kryptografické flexibility](https://www.microsoft.com/research/publication/cryptographic-agility-and-its-relation-to-circular-encryption), který umožňuje bezpečné použití jedné entropicové hodnoty napříč několika kryptografickými algoritmy.
 
 Většina systémů, které podporují kryptografickou flexibilitu, tak, že zahrnuje některé identifikační informace o algoritmu uvnitř datové části. Identifikátor OID tohoto algoritmu je obecně dobrým kandidátem. Jedním z problémů, na které jsme narazili, je to, že existuje několik způsobů, jak zadat stejný algoritmus: "AES" (CNG) a spravované algoritmy AES, AesManaged, AesCryptoServiceProvider, AesCng a RijndaelManaged (zadané konkrétní parametry) jsou vlastně stejné a musíme udržovat mapování všech těchto objektů na správný identifikátor OID. Pokud vývojář chtěl poskytnout vlastní algoritmus (nebo dokonce i jinou implementaci AES!), musí nám sdělit svůj identifikátor OID. Tento dodatečný registrační krok usnadňuje konfiguraci systému, zejména bolestivý.
 
@@ -50,21 +50,21 @@ Záhlaví kontextu se skládá z následujících součástí:
 
 * [32 bitů] Velikost algoritmu Digest (v bajtech, Big Endian) algoritmu HMAC.
 
-* EncCBC (K_E, IV, ""), což je výstup algoritmu symetrického šifrování bloku, který předaný prázdný řetězec vstupu a kde IV je nulový vektor. Konstrukce K_E je popsána níže.
+* `EncCBC(K_E, IV, "")`, což je výstup algoritmu symetrického bloku šifrování, který předali prázdný vstup řetězce a kde IV je nulový vektor. Konstrukce `K_E` je popsána níže.
 
-* MAC (K_H, ""), což je výstup algoritmu HMAC, který předaný prázdný řetězec vstupu. Konstrukce K_H je popsána níže.
+* `MAC(K_H, "")`, což je výstup algoritmu HMAC, který předaný prázdný řetězec vstupu. Konstrukce `K_H` je popsána níže.
 
-V ideálním případě můžeme všem nulovým vektorům předat K_E a K_H. Chceme se ale vyhnout situaci, kdy základní algoritmus kontroluje existenci slabých klíčů před provedením jakýchkoli operací (zejména DES a 3DES), což vylučuje použití jednoduchého nebo opakovaného vzoru, jako je nulový vektor.
+V ideálním případě můžeme předat všem nulovým vektorům pro `K_E` a `K_H` . Chceme se ale vyhnout situaci, kdy základní algoritmus kontroluje existenci slabých klíčů před provedením jakýchkoli operací (zejména DES a 3DES), což vylučuje použití jednoduchého nebo opakovaného vzoru, jako je nulový vektor.
 
-Místo toho používáme NIST SP800-108 KDF v režimu počítadla (viz [NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf), Sec. 5,1) s klíčem s nulovou délkou, popiskem a kontextem a HMACSHA512 jako základní PRF. Odvozujeme | K_E | + | K_H | bajty výstupu a pak rozloží výsledek do K_E a K_H sám sebe. Matematicky je znázorněna následujícím způsobem.
+Místo toho používáme NIST SP800-108 KDF v režimu počítadla (viz [NIST SP800-108](https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-108.pdf), Sec. 5,1) s klíčem s nulovou délkou, popiskem a kontextem a HMACSHA512 jako základní PRF. Odvozené `| K_E | + | K_H |` bajty výstupu a pak rozloží výsledek do a do `K_E` `K_H` sebe. Matematicky je znázorněna následujícím způsobem.
 
-(K_E | | K_H) = SP800_108_CTR (PRF = HMACSHA512; Key = ""; label = ""; Context = "")
+`( K_E || K_H ) = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")`
 
 ### <a name="example-aes-192-cbc--hmacsha256"></a>Příklad: AES-192-CBC + HMACSHA256
 
 Příklad: Zvažte případ, kde algoritmus symetrického bloku šifry je AES-192-CBC a ověřovací algoritmus je HMACSHA256. Systém vygeneruje hlavičku kontextu pomocí následujících kroků.
 
-First, let (K_E | | K_H) = SP800_108_CTR (PRF = HMACSHA512; Key = ""; label = ""; Context = ""); WHERE | K_E | = 192 bitů a | K_H | = 256 bitů na zadané algoritmy. To vede k K_E = 5BB6.. 21DD a K_H = A04A.. 00A9 v následujícím příkladu:
+First, let `( K_E || K_H ) = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")` , kde `| K_E | = 192 bits` a `| K_H | = 256 bits` podle určených algoritmů. To vede k `K_E = 5BB6..21DD` a `K_H = A04A..00A9` v následujícím příkladu:
 
 ```
 5B B6 C9 83 13 78 22 1D 8E 10 73 CA CF 65 8E B0
@@ -73,13 +73,13 @@ First, let (K_E | | K_H) = SP800_108_CTR (PRF = HMACSHA512; Key = ""; label = ""
 B7 92 3D BF 59 90 00 A9
 ```
 
-V dalším kroku COMPUTE Enc_CBC (K_E, IV, "") pro AES-192-CBC podle IV = 0 * a K_E výše.
+V dalším kroku COMPUTE `Enc_CBC (K_E, IV, "")` pro AES-192-CBC `IV = 0*` a na `K_E` výše uvedené.
 
-výsledek: = F474B1872B3B53E4721DE19C0841DB6F
+`result := F474B1872B3B53E4721DE19C0841DB6F`
 
-V dalším kroku COMPUTE MAC (K_H,) pro HMACSHA256 K_H, jak je uvedeno výše.
+Dále COMPUTE `MAC(K_H, "")` pro HMACSHA256 `K_H` , které jsou uvedené výše.
 
-výsledek: = D4791184B996092EE1202F36E8608FA8FBD98ABDFF5402F264B1D7211536220C
+`result := D4791184B996092EE1202F36E8608FA8FBD98ABDFF5402F264B1D7211536220C`
 
 Tím se vytvoří úplné záhlaví kontextu níže:
 
@@ -93,26 +93,26 @@ DB 6F D4 79 11 84 B9 96 09 2E E1 20 2F 36 E8 60
 
 Toto kontextové záhlaví je kryptografický otisk páru ověřených šifrovacích algoritmů (AES-192-CBC Encryption + HMACSHA256 Validation). Komponenty, jak je popsáno [výše](xref:security/data-protection/implementation/context-headers#data-protection-implementation-context-headers-cbc-components) , jsou následující:
 
-* Značka (00 00)
+* Značka`(00 00)`
 
-* délka šifrovacího klíče bloku (00 00 00 18)
+* délka šifrovacího klíče bloku`(00 00 00 18)`
 
-* velikost bloku šifry bloku (00 00 00 10)
+* velikost bloku šifry bloku`(00 00 00 10)`
 
-* Délka klíče HMAC (00 00 00 20)
+* Délka klíče HMAC`(00 00 00 20)`
 
-* velikost Digest HMAC (00 00 00 20)
+* velikost Digest HMAC`(00 00 00 20)`
 
-* výstup Block šifry PRP (F4 74-DB 6F) a
+* zablokuje výstup PRP (Block Cipher) `(F4 74 - DB 6F)` a
 
-* výstup HMAC PRF (D4 79-end).
+* výstup HMAC PRF `(D4 79 - end)` .
 
 > [!NOTE]
 > Záhlaví kontextu ověřování CBC + HMAC je tvořeno stejným způsobem bez ohledu na to, zda jsou implementace algoritmů poskytovány rozhraním Windows CNG nebo spravovanými typy SymmetricAlgorithm a KeyedHashAlgorithm. To umožňuje aplikacím běžícím na různých operačních systémech spolehlivě sestavovat stejné záhlaví kontextu, i když se implementace algoritmů liší od operačních systémech. (V praxi nemusí být KeyedHashAlgorithm správným HMAC. Může to být libovolný typ algoritmu hash s klíčem.)
 
 ### <a name="example-3des-192-cbc--hmacsha1"></a>Příklad: 3DES-192-CBC + HMACSHA1
 
-First, let (K_E | | K_H) = SP800_108_CTR (PRF = HMACSHA512; Key = ""; label = ""; Context = ""); WHERE | K_E | = 192 bitů a | K_H | = 160 bitů na zadané algoritmy. To vede k K_E = A219.. E2BB a K_H = DC4A.. B464 v následujícím příkladu:
+First, let `( K_E || K_H ) = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")` , kde `| K_E | = 192 bits` a `| K_H | = 160 bits` podle určených algoritmů. To vede k `K_E = A219..E2BB` a `K_H = DC4A..B464` v následujícím příkladu:
 
 ```
 A2 19 60 2F 83 A9 13 EA B0 61 3A 39 B8 A6 7E 22
@@ -120,13 +120,13 @@ A2 19 60 2F 83 A9 13 EA B0 61 3A 39 B8 A6 7E 22
 D1 F7 5A 34 EB 28 3E D7 D4 67 B4 64
 ```
 
-V dalším kroku COMPUTE Enc_CBC (K_E, IV, "") pro algoritmus 3DES-192-CBC, který má IV = 0 * a K_E výše.
+Dále COMPUTE `Enc_CBC (K_E, IV, "")` pro algoritmus 3DES-192-CBC `IV = 0*` a výše uvedené `K_E` .
 
-výsledek: = ABB100F81E53E10E
+`result := ABB100F81E53E10E`
 
-V dalším kroku COMPUTE MAC (K_H,) pro HMACSHA1 K_H, jak je uvedeno výše.
+Dále COMPUTE `MAC(K_H, "")` pro HMACSHA1 `K_H` , které jsou uvedené výše.
 
-výsledek: = 76EB189B35CF03461DDF877CD9F4B1B4D63A7555
+`result := 76EB189B35CF03461DDF877CD9F4B1B4D63A7555`
 
 Tím dojde k vytvoření úplného kontextu, který je kryptografickým otiskem ověřeného páru šifrovacího algoritmu (3DES-192-CBC šifrování + HMACSHA1 ověření), jak je uvedeno níže:
 
@@ -138,19 +138,19 @@ Tím dojde k vytvoření úplného kontextu, který je kryptografickým otiskem 
 
 Komponenty se rozdělí takto:
 
-* Značka (00 00)
+* Značka`(00 00)`
 
-* délka šifrovacího klíče bloku (00 00 00 18)
+* délka šifrovacího klíče bloku`(00 00 00 18)`
 
-* velikost bloku šifry bloku (00 00 00 08)
+* velikost bloku šifry bloku`(00 00 00 08)`
 
-* Délka klíče HMAC (00 00 00 14)
+* Délka klíče HMAC`(00 00 00 14)`
 
-* velikost Digest HMAC (00 00 00 14)
+* velikost Digest HMAC`(00 00 00 14)`
 
-* blok "Block šifry PRP – výstup (AB B1 – E1 0E) a
+* zablokuje výstup PRP (Block Cipher) `(AB B1 - E1 0E)` a
 
-* výstup HMAC PRF (76 EB-end).
+* výstup HMAC PRF `(76 EB - end)` .
 
 ## <a name="galoiscounter-mode-encryption--authentication"></a>Galois/režim čítače šifrování + ověřování
 
@@ -166,21 +166,21 @@ Záhlaví kontextu se skládá z následujících součástí:
 
 * [32 bitů] Velikost značky ověřování (v bajtech, Big Endian) vytvořeného pomocí ověřené šifrovací funkce. (Pro náš systém je to pevně nastavená na velikost značky = 128 bitů.)
 
-* [128 bitů] Značka Enc_GCM (K_E, nonce, ""), což je výstup algoritmu symetrického šifrování bloku, který předali prázdný vstup řetězce a kde hodnota nonce je 96 celý vektor s nulovým počtem bitů.
+* [128 bitů] Značka `Enc_GCM (K_E, nonce, "")` , která je výstupem algoritmu symetrického bloku šifrování, který předali prázdný vstup řetězce a kde hodnota nonce je 96 celý vektor s hodnotou 0.
 
-K_E je odvozený pomocí stejného mechanismu jako ve scénáři ověřování CBC Encryption + HMAC. Vzhledem k tomu, že zde nejsou žádné K_H v hraní, máme v podstatě | K_H | = 0 a algoritmus se sbalí do níže uvedeného formuláře.
+`K_E`je odvozený pomocí stejného mechanismu jako ve scénáři ověřování CBC Encryption + HMAC. Vzhledem k tomu, že `K_H` zde není v hraní, máme v podstatě `| K_H | = 0` a algoritmus se sbalí do níže uvedeného formuláře.
 
-K_E = SP800_108_CTR (PRF = HMACSHA512; Key = ""; label = ""; Context = "")
+`K_E = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")`
 
 ### <a name="example-aes-256-gcm"></a>Příklad: AES-256-GCM
 
-Nejdřív dejte K_E = SP800_108_CTR (PRF = HMACSHA512, Key = "", Label = "", Context = ""), kde | K_E | = 256 bitů.
+First – let `K_E = SP800_108_CTR(prf = HMACSHA512, key = "", label = "", context = "")` , kde `| K_E | = 256 bits` .
 
-K_E: = 22BC6F1B171C08C4AE2F27444AF8FC8B3087A90006CAEA91FDCFB47C1B8733B8
+`K_E := 22BC6F1B171C08C4AE2F27444AF8FC8B3087A90006CAEA91FDCFB47C1B8733B8`
 
-Dále vypočítají ověřovací značku Enc_GCM (K_E, nonce, "") pro AES-256-GCM s daným znakem nonce = 096 a K_E, jak je uvedeno výše.
+Dále vypočítají značku ověřování `Enc_GCM (K_E, nonce, "")` pro AES-256-GCM `nonce = 096` a `K_E` výše uvedenou.
 
-výsledek: = E7DCCE66DF855A323A6BB7BD7A59BE45
+`result := E7DCCE66DF855A323A6BB7BD7A59BE45`
 
 Tím se vytvoří úplné záhlaví kontextu níže:
 
@@ -192,14 +192,14 @@ BE 45
 
 Komponenty se rozdělí takto:
 
-* Značka (00 01)
+* Značka`(00 01)`
 
-* délka šifrovacího klíče bloku (00 00 00 20)
+* délka šifrovacího klíče bloku`(00 00 00 20)`
 
-* velikost hodnoty nonce (00 00 00 0C)
+* velikost hodnoty nonce`(00 00 00 0C)`
 
-* velikost bloku šifry bloku (00 00 00 10)
+* velikost bloku šifry bloku`(00 00 00 10)`
 
-* velikost značky ověřování (00 00 00 10) a
+* velikost značky ověřování `(00 00 00 10)` a
 
-* Značka ověřování pro spuštění bloku Block šifry (E7 DC-end).
+* Značka ověřování, ze které se spouští blokové šifry `(E7 DC - end)` .

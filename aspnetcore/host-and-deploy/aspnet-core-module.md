@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: host-and-deploy/aspnet-core-module
-ms.openlocfilehash: b60fa81b3bf180cd2ba15f285df9474be42f95f8
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 5e04d54bedf7cce8b7a6ab546920e7dec1213a20
+ms.sourcegitcommit: d1fa3d69dda675d7a52c7100742dfa6297413376
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400086"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86093357"
 ---
 # <a name="aspnet-core-module"></a>Modul ASP.NET Core
 
@@ -36,7 +36,7 @@ Modul ASP.NET Core je nativním modulem služby IIS, který se připojuje k kan�
 Podporované verze systému Windows:
 
 * Windows 7 nebo novější
-* Windows Server 2008 R2 nebo novější
+* Windows Server 2012 R2 nebo novější
 
 Při hostování v procesu používá modul implementaci vnitroprocesového serveru pro službu IIS nazvanou IIS HTTP Server ( `IISHttpServer` ).
 

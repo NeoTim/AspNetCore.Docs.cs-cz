@@ -5,7 +5,7 @@ description: Naučte se vytvářet a používat Razor komponenty, včetně toho,
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/25/2020
+ms.date: 07/06/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 0a8335461b4c9cd628d9c65b97f7ab6a74487fca
-ms.sourcegitcommit: 7f423602a1475736f61fc361327d4de0976c9649
+ms.openlocfilehash: 23aab2504368559b8d3dd21b3c0896ffc3348e2f
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85950900"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059815"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
@@ -83,15 +83,15 @@ Komponenty jsou běžné třídy jazyka C# a lze je umístit kamkoli v rámci pr
 
 ### <a name="namespaces"></a>Obory názvů
 
-Obor názvů komponenty obvykle je odvozen z kořenového oboru názvů aplikace a umístění komponenty (složka) v rámci aplikace. Pokud je kořenový obor názvů aplikace `BlazorApp` a součást se nachází `Counter` ve `Pages` složce:
+Obor názvů komponenty obvykle je odvozen z kořenového oboru názvů aplikace a umístění komponenty (složka) v rámci aplikace. Pokud je kořenový obor názvů aplikace `BlazorSample` a součást se nachází `Counter` ve `Pages` složce:
 
-* `Counter`Obor názvů součásti je `BlazorApp.Pages` .
-* Plně kvalifikovaný název typu komponenty je `BlazorApp.Pages.Counter` .
+* `Counter`Obor názvů součásti je `BlazorSample.Pages` .
+* Plně kvalifikovaný název typu komponenty je `BlazorSample.Pages.Counter` .
 
 Pro vlastní složky, které obsahují součásti, přidejte do [`@using`][2] nadřazené komponenty nebo do souboru aplikace direktivu `_Imports.razor` . V následujícím příkladu jsou komponenty ve `Components` složce k dispozici:
 
 ```razor
-@using BlazorApp.Components
+@using BlazorSample.Components
 ```
 
 Na součásti lze také odkazovat pomocí jejich plně kvalifikovaných názvů, které nevyžadují [`@using`][2] direktivu:
@@ -162,7 +162,7 @@ Následující příklad ukazuje výchozí `Counter` komponentu s [`@code`][1] b
 `Counter.razor.cs`:
 
 ```csharp
-namespace BlazorApp.Pages
+namespace BlazorSample.Pages
 {
     public partial class Counter
     {
@@ -481,15 +481,15 @@ public class NotifierService
 }
 ```
 
-Zaregistrujte `NotifierService` jako singletion:
+Zaregistrujte `NotifierService` :
 
-* V nástroji Blazor WebAssembly Zaregistrujte službu v `Program.Main` :
+* V nástroji Blazor WebAssembly Zaregistrujte službu jako singleton v `Program.Main` :
 
   ```csharp
   builder.Services.AddSingleton<NotifierService>();
   ```
 
-* V nástroji Blazor Server Zaregistrujte službu v `Startup.ConfigureServices` :
+* V nástroji Blazor Server Zaregistrujte službu jako vymezenou v `Startup.ConfigureServices` :
 
   ```csharp
   services.AddScoped<NotifierService>();
@@ -619,13 +619,19 @@ Vezměte v úvahu následující `Expander` komponentu:
 * Přepíná zobrazení podřízeného obsahu s parametrem součásti.
 
 ```razor
-<div @onclick="@Toggle">
-    Toggle (Expanded = @Expanded)
+<div @onclick="@Toggle" class="card text-white bg-success mb-3">
+    <div class="card-body">
+        <div class="panel-heading">
+            <h2>Toggle (Expanded = @Expanded)</h2>
+        </div>
 
-    @if (Expanded)
-    {
-        @ChildContent
-    }
+        @if (Expanded)
+        {
+            <div class="card-text">
+                @ChildContent
+            </div>
+        }
+    </div>
 </div>
 
 @code {
@@ -645,13 +651,15 @@ Vezměte v úvahu následující `Expander` komponentu:
 `Expander`Komponenta je přidána do nadřazené komponenty, která může zavolat <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> :
 
 ```razor
+@page "/expander"
+
 <Expander Expanded="true">
-    <h1>Hello, world!</h1>
+    Expander 1 content
 </Expander>
 
 <Expander Expanded="true" />
 
-<button @onclick="@(() => StateHasChanged())">
+<button @onclick="StateHasChanged">
     Call StateHasChanged
 </button>
 ```
@@ -660,30 +668,36 @@ Zpočátku se `Expander` komponenty chovají nezávisle při `Expanded` přepín
 
 Chcete-li zachovat stav v předchozím scénáři, použijte *soukromé pole* v `Expander` součásti k údržbě jeho přepnutého stavu.
 
-Následující `Expander` součást:
+Následující revidovaná `Expander` součást:
 
 * Akceptuje `Expanded` hodnotu parametru komponenty z nadřazené položky.
 * Přiřadí hodnotu parametru komponenty k *privátnímu poli* ( `expanded` ) v [události s inicializací](xref:blazor/components/lifecycle#component-initialization-methods).
 * Pomocí soukromého pole udržuje stav interního přepínání.
 
 ```razor
-<div @onclick="@Toggle">
-    Toggle (Expanded = @expanded)
+<div @onclick="@Toggle" class="card text-white bg-success mb-3">
+    <div class="card-body">
+        <div class="panel-heading">
+            <h2>Toggle (Expanded = @expanded)</h2>
+        </div>
 
-    @if (expanded)
-    {
-        @ChildContent
-    }
+        @if (Expanded)
+        {
+            <div class="card-text">
+                @ChildContent
+            </div>
+        }
+    </div>
 </div>
 
 @code {
+    private bool expanded;
+
     [Parameter]
     public bool Expanded { get; set; }
 
     [Parameter]
     public RenderFragment ChildContent { get; set; }
-
-    private bool expanded;
 
     protected override void OnInitialized()
     {

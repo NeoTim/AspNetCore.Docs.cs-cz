@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/crud
-ms.openlocfilehash: 0be63811874709db95285f4013e47bc1706050b1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e7e4c4b15cca9612a552c58029ae8b34b79070d1
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401477"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060121"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: implementace funkce CRUD – ASP.NET MVC pomocí EF Core
 
@@ -187,7 +187,7 @@ Tyto změny implementují osvědčené postupy zabezpečení, které zabrání p
 
 Nový kód přečte existující entitu a volání `TryUpdateModel` pro aktualizaci polí v načtené entitě [na základě vstupu uživatele v publikovaných datech formuláře](xref:mvc/models/model-binding). Automatické sledování změn Entity Framework nastaví `Modified` příznak pro pole, která jsou změněna vstupem formuláře. Při `SaveChanges` volání metody Entity Framework vytvoří příkazy SQL pro aktualizaci řádku databáze. Konflikty souběžnosti jsou ignorovány a v databázi se aktualizují pouze sloupce tabulky, které byly aktualizovány uživatelem. (V dalším kurzu se dozvíte, jak zvládnout konflikty souběžnosti.)
 
-Osvědčeným postupem je zabránit tomu, aby pole, která chcete aktualizovat pomocí stránky pro **Úpravy** , byla v `TryUpdateModel` parametrech povolená. (Prázdný řetězec uvedený před seznamem polí v seznamu parametrů je určen pro předponu, která má být použita v názvech polí formuláře.) V současné době nejsou k dispozici žádná doplňková pole, která chráníte, ale seznam polí, ke kterým má pořadač modelů navazovat vazby, zajišťuje, že pokud přidáte pole do datového modelu v budoucnosti, budou automaticky chráněny, dokud je nepřidáte sem.
+Jako osvědčený postup bráníte přeúčtování, pole, která chcete aktualizovat pomocí stránky pro **Úpravy** , jsou deklarována v `TryUpdateModel` parametrech. (Prázdný řetězec uvedený před seznamem polí v seznamu parametrů je určen pro předponu, která má být použita v názvech polí formuláře.) V současné době nejsou k dispozici žádná doplňková pole, která chráníte, ale seznam polí, ke kterým má pořadač modelů navazovat vazby, zajišťuje, že pokud přidáte pole do datového modelu v budoucnosti, budou automaticky chráněny, dokud je nepřidáte sem.
 
 V důsledku těchto změn je signatura metody HttpPost `Edit` shodná s `Edit` metodou HttpGet; proto jste přejmenovali metodu `EditPost` .
 

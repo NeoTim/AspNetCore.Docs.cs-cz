@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/identity/spa
-ms.openlocfilehash: 86f9b0a3efea5315092d1c6435a1b764fbec0a1d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 2b587517268208dcf66cd2895b7aa22bfa381f84
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402985"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86060355"
 ---
 # <a name="authentication-and-authorization-for-spas"></a>Ověřování a autorizace pro jednostránkové
 
@@ -64,7 +64,6 @@ Následující příklady kódu jsou závislé na balíčku NuGet [Microsoft. As
         options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
     services.AddDefaultIdentity<ApplicationUser>()
-        .AddDefaultUI(UIFramework.Bootstrap4)
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
@@ -195,7 +194,7 @@ services.Configure<JwtBearerOptions>(
 
 Obslužná rutina tokenu JWT rozhraní API vyvolává události, které umožňují řízení procesu ověřování pomocí `JwtBearerEvents` . Pro zajištění podpory pro autorizaci rozhraní API `AddIdentityServerJwt` Zaregistrujte vlastní obslužné rutiny událostí.
 
-Chcete-li přizpůsobit zpracování události, zabalte existující obslužnou rutinu události s další logikou podle potřeby. Například:
+Chcete-li přizpůsobit zpracování události, zabalte existující obslužnou rutinu události s další logikou podle potřeby. Příklad:
 
 ```csharp
 services.Configure<JwtBearerOptions>(

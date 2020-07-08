@@ -5,7 +5,7 @@ description: Naučte se používat Razor metody životního cyklu komponent v Bl
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 06/01/2020
+ms.date: 07/06/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/lifecycle
-ms.openlocfilehash: 312a265dd251eadf876b4252e3d9f9858adcde1b
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6b9653356659700ae8396a01b38c04d59a86625f
+ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400983"
+ms.lasthandoff: 07/07/2020
+ms.locfileid: "86059887"
 ---
 # <a name="aspnet-core-blazor-lifecycle"></a>BlazorŽivotní cyklus ASP.NET Core
 
@@ -174,6 +174,8 @@ Další informace naleznete v tématu <xref:blazor/webassembly-performance-best-
 ## <a name="state-changes"></a>Změny stavu
 
 <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>upozorní komponentu, že její stav se změnil. V případě potřeby volání <xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A> způsobí, že se komponenta znovu vykreslí.
+
+<xref:Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged%2A>se nazývá automaticky pro <xref:Microsoft.AspNetCore.Components.EventCallback> metody. Další informace naleznete v tématu <xref:blazor/components/event-handling#eventcallback>.
 
 ## <a name="handle-incomplete-async-actions-at-render"></a>Zpracovat nedokončené asynchronní akce při vykreslení
 
