@@ -5,7 +5,7 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/08/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-authentication-library
-ms.openlocfilehash: df957c5ee385b29ca390c014187a4c10e79d37f4
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 02960e6c7d70be3ea1be3ed9e2280e5b5847c926
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944631"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147684"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-the-authentication-library"></a>Zabezpečení Blazor WebAssembly samostatné aplikace ASP.NET Core pomocí knihovny ověřování
 
@@ -28,15 +28,41 @@ Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https:/
 
 *V případě Azure Active Directory (AAD) a Azure Active Directory B2C (AAD B2C) nepostupujte podle pokynů v tomto tématu. Podívejte se na témata AAD a AAD B2C v tomto uzlu obsah.*
 
-Pokud chcete vytvořit Blazor WebAssembly samostatnou aplikaci, která používá [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) knihovnu, spusťte v příkazovém prostředí následující příkaz:
+Pokud chcete vytvořit Blazor WebAssembly samostatnou aplikaci, která používá [`Microsoft.AspNetCore.Components.WebAssembly.Authentication`](https://www.nuget.org/packages/Microsoft.AspNetCore.Components.WebAssembly.Authentication/) knihovnu, postupujte podle pokynů pro výběr nástrojů.
+
+# <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
+
+Vytvoření nového Blazor WebAssembly projektu s mechanismem ověřování:
+
+1. Po výběru šablony ** Blazor WebAssembly aplikace** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
+
+1. Vyberte **jednotlivé uživatelské účty** s možností **Uložit uživatelské účty v aplikaci** pro ukládání uživatelů v aplikaci pomocí [Identity](xref:security/authentication/identity) systému ASP.NET Core.
+
+# <a name="visual-studio-code--net-core-cli"></a>[Visual Studio Code/.NET Core CLI](#tab/visual-studio-code+netcore-cli)
+
+Vytvoří nový Blazor WebAssembly projekt s mechanismem ověřování v prázdné složce. Zadejte `Individual` ověřovací mechanismus s `-au|--auth` možností ukládat uživatele v aplikaci pomocí [Identity](xref:security/authentication/identity) systému ASP.NET Core:
 
 ```dotnetcli
-dotnet new blazorwasm -au Individual
+dotnet new blazorwasm -au Individual -o {APP NAME}
 ```
 
-Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample` ). Název složky se také stal součástí názvu projektu.
+| Zástupný symbol  | Příklad        |
+| ------------ | -------------- |
+| `{APP NAME}` | `BlazorSample` |
 
-Pokud používáte aplikaci Visual Studio k vytvoření Blazor WebAssembly aplikace, nastavte **ověřování** na **jednotlivé uživatelské účty** s možností **Uložit uživatelské účty v aplikaci** .
+Umístění výstupu zadané s `-o|--output` možností vytvoří složku projektu, pokud neexistuje a bude součástí názvu aplikace.
+
+Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new) Průvodce .NET Core.
+
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+Vytvoření nového Blazor WebAssembly projektu s mechanismem ověřování:
+
+1. V kroku **Konfigurace nového Blazor WebAssembly aplikace** vyberte v rozevíracím seznamu **ověřování** možnost **individuální ověřování (v aplikaci)** .
+
+1. Aplikace se vytvoří pro jednotlivé uživatele uložené v aplikaci pomocí ASP.NET Core [Identity](xref:security/authentication/identity) .
+
+---
 
 ## <a name="authentication-package"></a>Ověřovací balíček
 

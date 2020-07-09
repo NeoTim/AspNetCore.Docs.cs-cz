@@ -5,7 +5,7 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/08/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/standalone-with-microsoft-accounts
-ms.openlocfilehash: 38452c3e9578d8a942035174a28d945e58e4008d
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 58dd791718a820e1a326db309afcd173d73c667b
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402036"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147700"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-standalone-app-with-microsoft-accounts"></a>Zabezpečení Blazor WebAssembly samostatné aplikace v ASP.NET Core s účty Microsoft
 
@@ -38,7 +38,7 @@ Zaregistrujte aplikaci AAD v **Azure Active Directory**  >  **Registrace aplikac
 1. Zakažte **oprávnění**  >  **udělení souhlasu správce OpenID a offline_access oprávnění** .
 1. Vyberte **Zaregistrovat**.
 
-Poznamenejte si ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111` ).
+Poznamenejte si ID aplikace (klienta) (například `41451fa7-82d9-4673-8fa5-69eff5a761fd` ).
 
 Na webu konfigurace **ověřovacích**  >  **platforem**  >  **Web**:
 
@@ -50,10 +50,15 @@ Na webu konfigurace **ověřovacích**  >  **platforem**  >  **Web**:
 Vytvořte aplikaci. Zástupné symboly v následujícím příkazu nahraďte dříve zaznamenanými informacemi a spusťte následující příkaz v příkazovém prostředí:
 
 ```dotnetcli
-dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "common"
+dotnet new blazorwasm -au SingleOrg --client-id "{CLIENT ID}" --tenant-id "common" -o {APP NAME}
 ```
 
-Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample` ). Název složky se také stal součástí názvu projektu.
+| Zástupný symbol   | Název Azure Portal       | Příklad                                |
+| ------------- | ----------------------- | -------------------------------------- |
+| `{APP NAME}`  | &mdash;                 | `BlazorSample`                         |
+| `{CLIENT ID}` | ID aplikace (klienta) | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
+
+Umístění výstupu zadané s `-o|--output` možností vytvoří složku projektu, pokud neexistuje a bude součástí názvu aplikace.
 
 > [!NOTE]
 > V Azure Portal **Authentication**  >  **Platform configurations**  >  **Web**  >  pro aplikace, které běží na serveru Kestrel s výchozími nastaveními, je pro port 5001 nakonfigurován**identifikátor URI webového přesměrování** konfigurace aplikace.
@@ -65,7 +70,7 @@ Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud 
 Po vytvoření aplikace byste měli mít tyto možnosti:
 
 * Přihlaste se k aplikaci pomocí účet Microsoft.
-* Vyžádá přístupové tokeny pro rozhraní API Microsoftu. Další informace naleznete v tématu:
+* Vyžádá přístupové tokeny pro rozhraní API Microsoftu. Další informace naleznete v tématech:
   * [Obory přístupového tokenu](#access-token-scopes)
   * [Rychlý Start: Konfigurace aplikace k vystavení webových rozhraní API](/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
 

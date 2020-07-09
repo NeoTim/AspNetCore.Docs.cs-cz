@@ -5,7 +5,7 @@ description: ''
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/08/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
-ms.openlocfilehash: 3f5fa42aea0af8880f9598f2e923b4e62481a797
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: b9125526db9a7484aca50f2ffa6175fd99b11453
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944312"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147761"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-azure-active-directory-b2c"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core s využitím Azure Active Directory B2C
 
@@ -34,10 +34,7 @@ Tento článek popisuje, jak vytvořit Blazor WebAssembly samostatnou aplikaci, 
 
 Postupujte podle pokynů v [kurzu: vytvoření tenanta Azure Active Directory B2C](/azure/active-directory-b2c/tutorial-create-tenant) pro vytvoření tenanta AAD B2C.
 
-Zaznamenejte následující informace:
-
-* Instance AAD B2C (například `https://contoso.b2clogin.com/` , která zahrnuje koncové lomítko)
-* AAD B2C domény klienta (například `contoso.onmicrosoft.com` )
+Poznamenejte si instanci AAD B2C (například `https://contoso.b2clogin.com/` , která obsahuje koncové lomítko). Instance je schéma a hostitel registrace aplikace Azure B2C, který najdete otevřením okna **koncové body** na stránce **Registrace aplikací** v Azure Portal.
 
 ### <a name="register-a-server-api-app"></a>Registrace aplikace API serveru
 
@@ -52,9 +49,8 @@ Postupujte podle pokynů v [kurzu: Zaregistrujte aplikaci v Azure Active Directo
 
 Zaznamenejte následující informace:
 
-* *Aplikace API serveru* ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111` )
-* ID adresáře (ID klienta) (například `222222222-2222-2222-2222-222222222222` )
-* Doména tenanta AAD (například `contoso.onmicrosoft.com` ): doména je k dispozici jako **doména vydavatele** v okně **značky** Azure Portal pro registrovanou aplikaci.
+* *Aplikace API serveru* ID aplikace (klienta) (například `41451fa7-82d9-4673-8fa5-69eff5a761fd` )
+* Primární/Vydavatel nebo doména klienta služby AAD (například `contoso.onmicrosoft.com` ): doména je k dispozici jako **doména vydavatele** v okně **značky** Azure Portal pro registrovanou aplikaci.
 
 Ve **vystavení rozhraní API**:
 
@@ -68,8 +64,10 @@ Ve **vystavení rozhraní API**:
 
 Zaznamenejte následující informace:
 
-* Identifikátor URI ID aplikace (například, `https://contoso.onmicrosoft.com/11111111-1111-1111-1111-111111111111` , `api://11111111-1111-1111-1111-111111111111` nebo vlastní hodnota, kterou jste zadali)
+* Identifikátor URI ID aplikace (například, `https://contoso.onmicrosoft.com/41451fa7-82d9-4673-8fa5-69eff5a761fd` , `api://41451fa7-82d9-4673-8fa5-69eff5a761fd` nebo vlastní hodnota, kterou jste zadali)
 * Výchozí obor (například `API.Access` )
+
+Identifikátor URI ID aplikace může vyžadovat zvláštní konfiguraci v klientské aplikaci, která je popsaná v části [obory přístupového tokenu](#access-token-scopes) dále v tomto tématu.
 
 ### <a name="register-a-client-app"></a>Registrace klientské aplikace
 
@@ -82,7 +80,7 @@ Postupujte podle pokynů v [kurzu: znovu zaregistrujte aplikaci v Azure Active D
 1. Potvrďte, že **oprávnění**  >  **udělují správcům oprávnění k OpenID a offline_access** je povolené.
 1. Vyberte **Zaregistrovat**.
 
-Poznamenejte si ID aplikace (ID klienta) (například `11111111-1111-1111-1111-111111111111` ).
+Poznamenejte si ID aplikace (klienta) (například `4369008b-21fa-427c-abaa-9b53bf58e538` ).
 
 Na webu konfigurace **ověřovacích**  >  **platforem**  >  **Web**:
 
@@ -113,10 +111,21 @@ Zaznamenejte si název uživatelského toku pro registraci a přihlašování vy
 Zástupné symboly v následujícím příkazu nahraďte dříve zaznamenanými informacemi a spusťte příkaz v příkazovém prostředí:
 
 ```dotnetcli
-dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{TENANT DOMAIN}" -ho -ssp "{SIGN UP OR SIGN IN POLICY}" --tenant-id "{TENANT ID}"
+dotnet new blazorwasm -au IndividualB2C --aad-b2c-instance "{AAD B2C INSTANCE}" --api-client-id "{SERVER API APP CLIENT ID}" --app-id-uri "{SERVER API APP ID URI}" --client-id "{CLIENT APP CLIENT ID}" --default-scope "{DEFAULT SCOPE}" --domain "{TENANT DOMAIN}" -ho -o {APP NAME} -ssp "{SIGN UP OR SIGN IN POLICY}"
 ```
 
-Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample` ). Název složky se také stal součástí názvu projektu.
+| Zástupný symbol                   | Název Azure Portal                                     | Příklad                                |
+| ----------------------------- | ----------------------------------------------------- | -------------------------------------- |
+| `{AAD B2C INSTANCE}`          | Instance                                              | `https://contoso.b2clogin.com/`        |
+| `{APP NAME}`                  | &mdash;                                               | `BlazorSample`                         |
+| `{CLIENT APP CLIENT ID}`      | ID aplikace (klienta) pro *klientskou aplikaci*          | `4369008b-21fa-427c-abaa-9b53bf58e538` |
+| `{DEFAULT SCOPE}`             | Název oboru                                            | `API.Access`                           |
+| `{SERVER API APP CLIENT ID}`  | ID aplikace (klienta) pro *aplikaci Server API*      | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
+| `{SERVER API APP ID URI}`     | Identifikátor URI ID aplikace ([Viz Poznámka](#access-token-scopes)) | `41451fa7-82d9-4673-8fa5-69eff5a761fd` |
+| `{SIGN UP OR SIGN IN POLICY}` | Tok uživatele pro registraci nebo přihlášení                             | `B2C_1_signupsignin1`                  |
+| `{TENANT DOMAIN}`             | Primární/Vydavatel/doména tenanta                       | `contoso.onmicrosoft.com`              |
+
+Umístění výstupu zadané s `-o|--output` možností vytvoří složku projektu, pokud neexistuje a bude součástí názvu aplikace.
 
 > [!NOTE]
 > Předejte tomuto parametru identifikátor URI ID aplikace `app-id-uri` , ale Všimněte si, že se v klientské aplikaci může vyžadovat Změna konfigurace, která je popsaná v části [obory přístupového tokenu](#access-token-scopes) .
@@ -126,7 +135,7 @@ Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud 
 > [!NOTE]
 > V Azure Portal **Authentication** *Client app's*  >  **Platform configurations**  >  **Web**  >  pro aplikace, které běží na serveru Kestrel s výchozími nastaveními, je 5001 nakonfigurován**identifikátor URI** webu klientské aplikace konfigurace platformy ověřování.
 >
-> Pokud *klientská aplikace* běží na náhodném IIS Express portu, port pro aplikaci najdete ve vlastnostech *serverové aplikace* na panelu **ladění** .
+> Pokud *klientská aplikace* běží na náhodném IIS Express portu, můžete port pro aplikaci najít ve vlastnostech *aplikace API serveru* na panelu **ladění** .
 >
 > Pokud port nebyl dříve nakonfigurovaný se známým portem *klientské aplikace* , vraťte se k registraci *klientské aplikace* v Azure Portal a aktualizujte identifikátor URI přesměrování pomocí správného portu.
 

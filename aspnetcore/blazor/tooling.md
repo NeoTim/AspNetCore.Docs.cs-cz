@@ -16,12 +16,12 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems-set-one
-ms.openlocfilehash: bda287e54efadf8575c15c7b621416f20ae591c9
-ms.sourcegitcommit: d1fa3d69dda675d7a52c7100742dfa6297413376
+ms.openlocfilehash: 30a76eda0e94ee7bb2b2d3db918bc029865bdf1a
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
 ms.lasthandoff: 07/08/2020
-ms.locfileid: "86093328"
+ms.locfileid: "86147647"
 ---
 # <a name="tooling-for-aspnet-core-blazor"></a>Nástroje pro ASP.NET CoreBlazor
 
@@ -103,12 +103,7 @@ Další informace najdete v pokynech, které poskytuje prohlížeč a Linux dist
 
    Informace o těchto dvou Blazor modelech hostování *Blazor WebAssembly* a naleznete *Blazor Server* v tématu <xref:blazor/hosting-models> .
 
-1. Potvrďte následující konfigurace:
-
-   * **Cílová architektura** je nastavená na **.NET Core 3,1**.
-   * **Ověřování** nastaveno na **bez ověřování**.
-   
-   Vyberte **Další**.
+1. Potvrďte, že **ověřování** je nastaveno na **bez ověřování**. Vyberte **Další**.
 
 1. Do pole **název projektu** název aplikace `WebApplication1` . Vyberte **Vytvořit**.
 

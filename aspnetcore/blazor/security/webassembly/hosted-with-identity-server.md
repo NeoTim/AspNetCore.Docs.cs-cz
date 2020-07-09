@@ -1,11 +1,11 @@
 ---
 title: Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 author: guardrex
-description: Vytvoření nové Blazor hostované aplikace s ověřováním v sadě Visual Studio, které používá back-end [IdentityServer](https://identityserver.io/)
+description: Vytvoření nové Blazor hostované aplikace s ověřováním z aplikace Visual Studio, která používá back-end [ Identity serveru](https://identityserver.io/)
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 05/19/2020
+ms.date: 07/08/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,38 +15,54 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: b0c6cbd814a23afabbbf9a0d943d28125ac1f61c
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 001fa0885c4ef4f365d9849278d3aa36e7657c54
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944582"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147727"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
-Tento článek vysvětluje, jak vytvořit novou Blazor hostovanou aplikaci, která používá [IdentityServer](https://identityserver.io/) k ověřování uživatelů a volání rozhraní API.
+Tento článek vysvětluje, jak vytvořit novou Blazor hostovanou aplikaci, která používá [ Identity Server](https://identityserver.io/) k ověřování uživatelů a volání rozhraní API.
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-V aplikaci Visual Studio:
+Vytvoření nového Blazor WebAssembly projektu s mechanismem ověřování:
 
-1. Vytvořte novou **Blazor WebAssembly** aplikaci.
-1. V dialogovém okně **vytvořit novou Blazor aplikaci** vyberte v části **ověřování** možnost **změnit** .
-1. Vyberte **jednotlivé uživatelské účty** a potom klikněte na **OK**.
+1. Po výběru šablony ** Blazor WebAssembly aplikace** v dialogovém okně **vytvořit novou webovou aplikaci ASP.NET Core** vyberte v části **ověřování**možnost **změnit** .
+
+1. Vyberte **jednotlivé uživatelské účty** s možností **Uložit uživatelské účty v aplikaci** pro ukládání uživatelů v aplikaci pomocí [Identity](xref:security/authentication/identity) systému ASP.NET Core.
+
 1. Zaškrtněte políčko **ASP.NET Core hostované** v části **Upřesnit** .
-1. Vyberte tlačítko **Vytvořit**.
 
-# <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli/)
+# <a name="visual-studio-code--net-core-cli"></a>[Visual Studio Code/.NET Core CLI](#tab/visual-studio-code+netcore-cli)
 
-Pokud chcete vytvořit aplikaci v příkazovém prostředí, spusťte následující příkaz:
+Pokud chcete vytvořit nový Blazor WebAssembly projekt s mechanismem ověřování v prázdné složce, zadejte `Individual` ověřovací mechanismus s `-au|--auth` možností ukládat uživatele v rámci aplikace pomocí [Identity](xref:security/authentication/identity) systému ASP.NET Core:
 
 ```dotnetcli
-dotnet new blazorwasm -au Individual -ho
+dotnet new blazorwasm -au Individual -ho -o {APP NAME}
 ```
 
-Chcete-li určit umístění výstupu, které vytvoří složku projektu, pokud neexistuje, zahrňte možnost výstup do příkazu s cestou (například `-o BlazorSample` ). Název složky se také stal součástí názvu projektu.
+| Zástupný symbol  | Příklad        |
+| ------------ | -------------- |
+| `{APP NAME}` | `BlazorSample` |
+
+Umístění výstupu zadané s `-o|--output` možností vytvoří složku projektu, pokud neexistuje a bude součástí názvu aplikace.
+
+Další informace najdete v tématu [`dotnet new`](/dotnet/core/tools/dotnet-new) Průvodce .NET Core.
+
+# <a name="visual-studio-for-mac"></a>[Visual Studio pro Mac](#tab/visual-studio-mac)
+
+Vytvoření nového Blazor WebAssembly projektu s mechanismem ověřování:
+
+1. V kroku **Konfigurace nového Blazor WebAssembly aplikace** vyberte v rozevíracím seznamu **ověřování** možnost **individuální ověřování (v aplikaci)** .
+
+1. Aplikace se vytvoří pro jednotlivé uživatele uložené v aplikaci pomocí ASP.NET Core [Identity](xref:security/authentication/identity) .
+
+1. Zaškrtněte políčko **ASP.NET Core hostované** .
 
 ---
 
@@ -72,14 +88,14 @@ Následující části popisují přidání do projektu, pokud je zahrnutá Podp
         .AddEntityFrameworkStores<ApplicationDbContext>();
     ```
 
-  * IdentityServer s další <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> pomocnou metodou, která nastaví výchozí konvence ASP.NET Core nad IdentityServer:
+  * IdentityServer s další <xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A> pomocnou metodou, která nastaví výchozí konvence ASP.NET Core na Identity serveru:
 
     ```csharp
     services.AddIdentityServer()
         .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
     ```
 
-  * Ověřování s další <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> pomocnou metodou, která nakonfiguruje aplikaci pro ověření tokenů JWT vyprodukovaných pomocí IdentityServer:
+  * Ověřování s další <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A> pomocnou metodou, která nakonfiguruje aplikaci k ověření tokenů JWT vyprodukovaných Identity serverem:
 
     ```csharp
     services.AddAuthentication()
@@ -88,7 +104,7 @@ Následující části popisují přidání do projektu, pokud je zahrnutá Podp
 
 * V `Startup.Configure`:
 
-  * Middleware IdentityServer zpřístupňuje koncové body Open ID Connect (OIDC):
+  * IdentityMiddleware serveru zpřístupňuje koncové body otevřeného ID Connect (OIDC):
 
     ```csharp
     app.UseIdentityServer();
@@ -109,14 +125,14 @@ Následující části popisují přidání do projektu, pokud je zahrnutá Podp
 
 ### <a name="addapiauthorization"></a>AddApiAuthorization
 
-<xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A>Pomocná metoda konfiguruje [IdentityServer](https://identityserver.io/) pro scénáře ASP.NET Core. IdentityServer je výkonná a rozšiřitelná architektura pro zpracování otázek zabezpečení aplikací. IdentityServer zpřístupňuje zbytečné složitosti pro nejběžnější scénáře. V důsledku toho je k dispozici sada konvencí a možností konfigurace, které považujeme za dobrý výchozí bod. Jakmile se vaše potřeby ověřování změní, je k dispozici plná síla IdentityServer, která vám umožní přizpůsobit ověřování podle požadavků aplikace.
+<xref:Microsoft.Extensions.DependencyInjection.IdentityServerBuilderConfigurationExtensions.AddApiAuthorization%2A>Pomocná metoda konfiguruje [ Identity Server](https://identityserver.io/) pro ASP.NET Core scénáře. IdentityServer je výkonné a rozšiřitelné rozhraní pro zpracování otázek zabezpečení aplikací. IdentityServer zveřejňuje nepotřebnou složitost pro nejběžnější scénáře. V důsledku toho je k dispozici sada konvencí a možností konfigurace, které považujeme za dobrý výchozí bod. Jakmile se vaše potřeby ověřování změní, Identity je k dispozici plná síla serveru pro přizpůsobení ověřování podle požadavků aplikace.
 
-### <a name="addidentityserverjwt"></a>AddIdentityServerJwt
+### <a name="addidentityserverjwt"></a>Přidat Identity ServerJwt
 
 <xref:Microsoft.AspNetCore.Authentication.AuthenticationBuilderExtensions.AddIdentityServerJwt%2A>Pomocná metoda nakonfiguruje schéma zásad pro aplikaci jako výchozí obslužnou rutinu ověřování. Zásady jsou nakonfigurovány tak, aby umožňovaly Identity zpracování všech požadavků směrovaných na jakoukoli dílčí cestu v Identity prostoru URL `/Identity` . <xref:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler>Zpracovává všechny ostatní požadavky. Tato metoda navíc:
 
-* Zaregistruje `{APPLICATION NAME}API` prostředek rozhraní API s IdentityServer s výchozím oborem `{APPLICATION NAME}API` .
-* Konfiguruje middleware tokenu JWT nosiče k ověření tokenů vydaných IdentityServer pro aplikaci.
+* Zaregistruje `{APPLICATION NAME}API` prostředek rozhraní API se Identity serverem s výchozím oborem `{APPLICATION NAME}API` .
+* Konfiguruje middleware tokenu JWT nosiče k ověření tokenů vydaných Identity serverem pro aplikaci.
 
 ### <a name="weatherforecastcontroller"></a>WeatherForecastController
 
@@ -124,7 +140,7 @@ V rozhraní `WeatherForecastController` ( `Controllers/WeatherForecastController
 
 ### <a name="applicationdbcontext"></a>ApplicationDbContext
 
-V rozhraní `ApplicationDbContext` ( `Data/ApplicationDbContext.cs` ), <xref:Microsoft.EntityFrameworkCore.DbContext> rozšiřuje, <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> aby zahrnovalo schéma pro IdentityServer. <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>je odvozen z <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> .
+V rozhraní `ApplicationDbContext` ( `Data/ApplicationDbContext.cs` ) se <xref:Microsoft.EntityFrameworkCore.DbContext> rozšiřuje <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601> na zahrnutí schématu pro Identity Server. <xref:Microsoft.AspNetCore.ApiAuthorization.IdentityServer.ApiAuthorizationDbContext%601>je odvozen z <xref:Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityDbContext> .
 
 Chcete-li získat úplné řízení schématu databáze, zdědit jednu z dostupných Identity <xref:Microsoft.EntityFrameworkCore.DbContext> tříd a nakonfigurovat kontext pro zahrnutí Identity schématu voláním `builder.ConfigurePersistedGrantContext(_operationalStoreOptions.Value)` v <xref:Microsoft.EntityFrameworkCore.DbContext.OnModelCreating%2A> metodě.
 

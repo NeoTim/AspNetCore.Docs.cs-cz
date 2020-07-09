@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/call-web-api
-ms.openlocfilehash: a2e320eb24d47de9e704c2a5355d28cf90bad0cd
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 9c90e2a6c03e02b771cfa8f589e381d52637dc26
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059939"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147635"
 ---
 # <a name="call-a-web-api-from-aspnet-core-blazor"></a>Volání webového rozhraní API z ASP.NET CoreBlazor
 
@@ -312,11 +312,11 @@ Další informace naleznete v tématu <xref:blazor/fundamentals/handle-errors>.
 
 Zabezpečení prohlížeče brání webové stránce v tom, aby prováděla požadavky na jinou doménu než ta, která tuto webovou stránku obsluhuje. Toto omezení se nazývá *zásady stejného původu*. Zásady stejného původce brání škodlivému webu v čtení citlivých dat z jiné lokality. Aby bylo možné podávat požadavky z prohlížeče na koncový bod s jiným zdrojem, musí *koncový bod* umožňovat [sdílení prostředků mezi zdroji (CORS)](https://www.w3.org/TR/cors/).
 
-[ Blazor WebAssembly Ukázková aplikace (BlazorWebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje použití CORS v součásti volání webového rozhraní API ( `Pages/CallWebAPI.razor` ).
+[ Blazor WebAssembly Ukázková aplikace ( Blazor WebAssemblySample)](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/blazor/common/samples/) ukazuje použití CORS v součásti volání webového rozhraní API ( `Pages/CallWebAPI.razor` ).
 
-Další informace a příklady kódu zabezpečených požadavků naleznete v tématu <xref:blazor/security/webassembly/additional-scenarios> . Další informace o CORS se zabezpečenými požadavky najdete v [části CORS](xref:blazor/security/webassembly/additional-scenarios#cross-origin-resource-sharing-cors) v předchozím článku.
+Další informace o CORS se zabezpečenými požadavky v Blazor aplikacích najdete v tématu <xref:blazor/security/webassembly/additional-scenarios#cross-origin-resource-sharing-cors> .
 
-Další informace naleznete v tématu <xref:security/cors>.
+Obecné informace o CORS s ASP.NET Core aplikacemi najdete v tématu <xref:security/cors> .
 
 ## <a name="additional-resources"></a>Další zdroje
 

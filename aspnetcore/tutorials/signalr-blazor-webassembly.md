@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/signalr-blazor-webassembly
-ms.openlocfilehash: 5a58e7ae28842e2e8a0f3bae8f47e252839903fe
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d5aa7520a637b18e014519134dfe2d2139e7c11d
+ms.sourcegitcommit: f7873c02c1505c99106cbc708f37e18fc0a496d1
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408874"
+ms.lasthandoff: 07/08/2020
+ms.locfileid: "86147779"
 ---
 # <a name="use-aspnet-core-signalr-with-blazor-webassembly"></a>Použít ASP.NET Core SignalR sBlazor WebAssembly
 
@@ -104,14 +104,7 @@ Postupujte podle pokynů pro výběr nástrojů:
 
 1. Vyberte šablonu ** Blazor WebAssembly aplikace** . Vyberte **Další**.
 
-   Potvrďte následující konfigurace:
-
-   * **Cílová architektura** je nastavená na **.NET Core 3,1**.
-   * **Ověřování** nastaveno na **bez ověřování**.
-
-   Zaškrtněte políčko **ASP.NET Core hostované** .
-
-   Vyberte **Další**.
+1. Potvrďte, že **ověřování** je nastaveno na **bez ověřování**. Zaškrtněte políčko **ASP.NET Core hostované** . Vyberte **Další**.
 
 1. Do pole **název projektu** název aplikace `BlazorSignalRApp` . Vyberte **Vytvořit**.
 
