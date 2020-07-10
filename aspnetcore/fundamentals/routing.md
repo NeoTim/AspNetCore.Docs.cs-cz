@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/routing
-ms.openlocfilehash: 25464817314f79c5bfd11d982cc9b09a3c72df15
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 18f1aee5ac33b17914bd182e46453120e14b31ab
+ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060342"
+ms.lasthandoff: 07/09/2020
+ms.locfileid: "86176197"
 ---
 # <a name="routing-in-aspnet-core"></a>Směrování v ASP.NET Core
 
@@ -84,7 +84,7 @@ Předchozí příklad obsahuje jednu *trasu ke* koncovému bodu kódu pomocí me
 
 Koncové body, které se dají spárovat a spustí aplikace, se konfigurují v `UseEndpoints` . Například,, <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapGet*> <xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions.MapPost*> a [podobné metody](xref:Microsoft.AspNetCore.Builder.EndpointRouteBuilderExtensions) spojují delegáty žádostí do směrovacího systému.
 Další metody lze použít k připojení funkcí ASP.NET Core Framework k systému směrování:
-- [MapRazorPages pro Razor stránky](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*)
+- [RazorStránky mapy pro Razor stránky](xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapRazorPages*)
 - [MapControllers pro řadiče](xref:Microsoft.AspNetCore.Builder.ControllerEndpointRouteBuilderExtensions.MapControllers*)
 - [MapHub \<THub> proSignalR](xref:Microsoft.AspNetCore.SignalR.HubRouteBuilder.MapHub*) 
 - [MapGrpcService \<TService> pro gRPC](xref:grpc/aspnetcore)
@@ -391,7 +391,7 @@ Přetížení těchto metod přijímají argumenty, které obsahují `HttpContex
 
 Metody poskytované <xref:Microsoft.AspNetCore.Routing.LinkGenerator> funkcí support standard pro vytváření odkazů pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkazů je prostřednictvím metod rozšíření, které provádějí operace pro konkrétní typ adresy:
 
-| Metoda rozšíření | Description |
+| Metoda rozšíření | Popis |
 | ---------------- | ----------- |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | Vygeneruje identifikátor URI s absolutní cestou na základě zadaných hodnot. |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | Vygeneruje absolutní identifikátor URI na základě zadaných hodnot.             |
@@ -435,7 +435,7 @@ Vzory adres URL, které se pokoušejí zachytit název souboru s volitelnou př�
 * `/files/myFile.txt`
 * `/files/myFile`
 
-Parametry směrování můžou mít **výchozí hodnoty** určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se ( `=` ). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller` . Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku ( `?` ) na konec názvu parametru. Například, `id?`. Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování:
+Parametry směrování můžou mít **výchozí hodnoty** určené zadáním výchozí hodnoty za názvem parametru odděleným symbolem rovná se ( `=` ). Například `{controller=Home}` definuje `Home` jako výchozí hodnotu pro `controller` . Výchozí hodnota se použije v případě, že v adrese URL parametru není k dispozici žádná hodnota. Parametry směrování jsou povinny připojením otazníku ( `?` ) na konec názvu parametru. Například `id?`. Rozdíl mezi volitelnými hodnotami a výchozími parametry směrování:
 
 * Parametr trasy s výchozí hodnotou vždy vytvoří hodnotu.
 * Volitelný parametr má hodnotu pouze v případě, že je hodnota poskytnuta adresou URL požadavku.
@@ -567,12 +567,12 @@ Regulární výrazy používané ve směrování často začínají `^` znakem a
 
 | Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Yes   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Yes   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
+| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
@@ -586,7 +586,7 @@ Vlastní omezení tras je potřeba jenom zřídka. Před implementací vlastníh
 
 Složka [omezení](https://github.com/dotnet/aspnetcore/tree/master/src/Http/Routing/src/Constraints) ASP.NET Core poskytuje vhodné příklady vytváření omezení. Například [GuidRouteConstraint](https://github.com/dotnet/aspnetcore/blob/master/src/Http/Routing/src/Constraints/GuidRouteConstraint.cs#L18).
 
-Chcete-li použít vlastní `IRouteConstraint` , musí být typ omezení trasy zaregistrován v rámci aplikace <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v kontejneru služby. `ConstraintMap`Je slovník, který mapuje klíče omezení tras na `IRouteConstraint` implementace, které ověřují tato omezení. Aplikace se `ConstraintMap` dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
+Chcete-li použít vlastní `IRouteConstraint` , musí být typ omezení trasy zaregistrován v rámci aplikace <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v kontejneru služby. `ConstraintMap`Je slovník, který mapuje klíče omezení tras na `IRouteConstraint` implementace, které ověřují tato omezení. Aplikace se `ConstraintMap` dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Zde je příklad:
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/StartupConstraint.cs?name=snippet)]
 
@@ -602,7 +602,7 @@ Implementace `MyCustomConstraint` brání `0` použití parametru trasy:
 
 [!INCLUDE[](~/includes/regex.md)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Zabrání `0` v `{id}` segmentu trasy.
 * Je zobrazený jako základní příklad implementace vlastního omezení. Neměl by se používat v produkční aplikaci.
@@ -701,7 +701,7 @@ Následující příklad ukazuje okolní hodnoty a explicitní hodnoty. Poskytuj
 
 [!code-csharp[](routing/samples/3.x/RoutingSample/Controllers/WidgetController.cs?name=snippet)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Vrátí`/Widget/Index/17`
 * Získá <xref:Microsoft.AspNetCore.Routing.LinkGenerator> přes [di](xref:fundamentals/dependency-injection).
@@ -936,7 +936,7 @@ Deklarace vlastního typu umožňuje do Tvůrce přidat vlastní funkce specific
 app.UseEndpoints(endpoints =>
 {
     // Your framework
-    endpoints.MapMyFramework(...).RequrireAuthorization()
+    endpoints.MapMyFramework(...).RequireAuthorization()
                                  .WithMyFrameworkFeature(awesome: true);
 
     endpoints.MapHealthChecks("/healthz");
@@ -988,7 +988,7 @@ app.UseAuthorization(new AuthorizationPolicy() { ... });
 app.UseEndpoints(endpoints =>
 {
     // Your framework
-    endpoints.MapMyFramework(...).RequrireAuthorization();
+    endpoints.MapMyFramework(...).RequireAuthorization();
 });
 ```
 
@@ -1110,7 +1110,7 @@ Přetížení těchto metod akceptuje argumenty, které zahrnují `HttpContext` 
 
 Metody poskytované <xref:Microsoft.AspNetCore.Routing.LinkGenerator> funkcí support standard pro vytváření odkazů pro jakýkoli typ adresy. Nejpohodlnější způsob použití generátoru odkazů je prostřednictvím metod rozšíření, které provádějí operace pro konkrétní typ adresy.
 
-| Metoda rozšíření   | Description                                                         |
+| Metoda rozšíření   | Popis                                                         |
 | ------------------ | ------------------------------------------------------------------- |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetPathByAddress*> | Vygeneruje identifikátor URI s absolutní cestou na základě zadaných hodnot. |
 | <xref:Microsoft.AspNetCore.Routing.LinkGenerator.GetUriByAddress*> | Vygeneruje absolutní identifikátor URI na základě zadaných hodnot.             |
@@ -1488,12 +1488,12 @@ Regulární výrazy používané ve směrování často začínají `^` znakem s
 
 | Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Yes   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Yes   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
+| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
@@ -1503,7 +1503,7 @@ Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulárn�
 
 Kromě předdefinovaných omezení trasy lze vytvořit vlastní omezení trasy implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>Rozhraní obsahuje jedinou metodu, `Match` která vrací, `true` Pokud je omezení splněno, a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Zde je příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -1512,7 +1512,7 @@ services.AddRouting(options =>
 });
 ```
 
-Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Příklad:
+Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Zde je příklad:
 
 ```csharp
 [HttpGet("{id:customName}")]
@@ -1932,12 +1932,12 @@ Regulární výrazy používané v směrování často začínají znakem stří
 
 | Výraz   | Řetězec    | Shoda | Komentář               |
 | ------------ | --------- | :---: |  -------------------- |
-| `[a-z]{2}`   | hello     | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | 123abc456 | Yes   | Shody podřetězců     |
-| `[a-z]{2}`   | MZ        | Yes   | Výraz shody    |
-| `[a-z]{2}`   | MZ        | Yes   | Nerozlišuje velká a malá písmena    |
-| `^[a-z]{2}$` | hello     | No    | Viz `^` a `$` vyšší |
-| `^[a-z]{2}$` | 123abc456 | No    | Viz `^` a `$` vyšší |
+| `[a-z]{2}`   | hello     | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | 123abc456 | Ano   | Shody podřetězců     |
+| `[a-z]{2}`   | MZ        | Ano   | Výraz shody    |
+| `[a-z]{2}`   | MZ        | Ano   | Nerozlišuje velká a malá písmena    |
+| `^[a-z]{2}$` | hello     | Ne    | Viz `^` a `$` vyšší |
+| `^[a-z]{2}$` | 123abc456 | Ne    | Viz `^` a `$` vyšší |
 
 Další informace o syntaxi regulárního výrazu naleznete v tématu [.NET Framework regulární výrazy](/dotnet/standard/base-types/regular-expression-language-quick-reference).
 
@@ -1947,7 +1947,7 @@ Chcete-li omezit parametr na známou sadu možných hodnot, použijte regulárn�
 
 Kromě předdefinovaných omezení trasy lze vytvořit vlastní omezení trasy implementací <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> rozhraní. <xref:Microsoft.AspNetCore.Routing.IRouteConstraint>Rozhraní obsahuje jedinou metodu, `Match` která vrací, `true` Pokud je omezení splněno, a `false` jinak.
 
-Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Příklad:
+Pokud chcete použít vlastní <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> , musí být typ omezení trasy registrovaný <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> v aplikaci v kontejneru služeb aplikace. <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap>Je slovník, který mapuje klíče omezení tras na <xref:Microsoft.AspNetCore.Routing.IRouteConstraint> implementace, které ověřují tato omezení. Aplikace se <xref:Microsoft.AspNetCore.Routing.RouteOptions.ConstraintMap> dá v `Startup.ConfigureServices` rámci služeb aktualizovat buď jako součást [služby. AddRouting](xref:Microsoft.Extensions.DependencyInjection.RoutingServiceCollectionExtensions.AddRouting*) volání nebo přímou konfigurací <xref:Microsoft.AspNetCore.Routing.RouteOptions> s `services.Configure<RouteOptions>` . Zde je příklad:
 
 ```csharp
 services.AddRouting(options =>
@@ -1956,7 +1956,7 @@ services.AddRouting(options =>
 });
 ```
 
-Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Příklad:
+Omezení lze následně použít na trasy obvyklým způsobem pomocí názvu zadaného při registraci typu omezení. Zde je příklad:
 
 ```csharp
 [HttpGet("{id:customName}")]

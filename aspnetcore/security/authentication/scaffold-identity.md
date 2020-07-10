@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/authentication/scaffold-identity
-ms.openlocfilehash: 155bdfbeea06022d35bbb551d5b2d0ee5a51a093
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e2ae82b9c26771ee5da16b1611026c6d62804bce
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85400814"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212945"
 ---
 # <a name="scaffold-identity-in-aspnet-core-projects"></a>Generování uživatelského rozhraní Identity v ASP.NET Corech projektech
 
@@ -48,7 +48,7 @@ Například `AddDbContext` a `AddDefaultIdentity` jsou zakomentovány v následu
 
 [!code-csharp[](scaffold-identity/3.1sample/StartupRemove.cs?name=snippet)]
 
-Předchozí kód odhlásí kód, který je duplikován v *oblasti/ Identity /IdentityHostingStartup.cs*
+Předchozí kód odhlásí kód, který je duplikován v *oblasti/ Identity / Identity HostingStartup.cs*
 
 Aplikace, které byly vytvořeny pomocí jednotlivých účtů ***, by obvykle neměly vytvářet*** nový kontext dat.
 
@@ -93,7 +93,7 @@ before dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identityje nakonfigurovaný v *oblasti/ Identity /IdentityHostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
+Identityje nakonfigurovaný v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
 
 <a name="efm"></a>
 
@@ -115,7 +115,7 @@ Aktualizujte `Startup` třídu podobným kódem jako v následujícím příklad
 
 Volitelné: přidejte do souboru rozložení částečnou přihlašování ( `_LoginPartial` ):
 
-[!code-html[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
+[!code-cshtml[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
 ## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu s autorizací
 
@@ -132,7 +132,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity /IdentityHostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
+Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
 
 ## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC bez existující autorizace
 
@@ -154,11 +154,11 @@ dotnet ef database update
 
 Volitelné: přidejte částečné přihlášení ( `_LoginPartial` ) do souboru *views/Shared/_Layout. cshtml* :
 
-[!code-html[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
+[!code-cshtml[](scaffold-identity/3.1sample/_Layout.cshtml?highlight=20)]
 
 * Přesuňte soubor *Pages/Shared/_LoginPartial. cshtml* do *views/shared/_LoginPartial. cshtml*
 
-Identityje nakonfigurovaný v *oblasti/ Identity /IdentityHostingStartup.cs*. Další informace najdete v tématu IHostingStartup.
+Identityje nakonfigurovaný v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu IHostingStartup.
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
@@ -184,7 +184,7 @@ dotnet aspnet-codegenerator identity -dc MvcAuth.Data.ApplicationDbContext  --fi
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identityje nakonfigurovaný v *oblasti/ Identity /IdentityHostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
+Identityje nakonfigurovaný v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
 
 ### <a name="migrations"></a>Migrace
 
@@ -304,7 +304,7 @@ IdentityRozložení a styly stránek lze upravit tak, aby vytvořily stránky, k
 > [!NOTE]
 > Příklad v této části je pouze výchozím bodem pro přizpůsobení. Pro nejlepší uživatelské prostředí se nejspíš vyžaduje další práce.
 
-Vytvoří novou `NavMenu_IdentityLayout` součást (*Shared/NavMenu_IdentityLayout. Razor*). Pro značky a kód součásti použijte stejný obsah `NavMenu` součásti aplikace (*Shared/NavMenu. Razor*). Vydejte všechny `NavLink` součásti, které se nedají získat anonymně, protože automatické přesměrování v `RedirectToLogin` součásti selžou pro součásti, které vyžadují ověřování nebo autorizaci.
+Vytvoří novou `NavMenu_IdentityLayout` součást (*Shared/NavMenu_ Identity layout. Razor*). Pro značky a kód součásti použijte stejný obsah `NavMenu` součásti aplikace (*Shared/NavMenu. Razor*). Vydejte všechny `NavLink` součásti, které se nedají získat anonymně, protože automatické přesměrování v `RedirectToLogin` součásti selžou pro součásti, které vyžadují ověřování nebo autorizaci.
 
 V souboru *Pages/Shared/layout. cshtml* proveďte následující změny:
 
@@ -366,7 +366,7 @@ V souboru *Pages/Shared/layout. cshtml* proveďte následující změny:
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity /IdentityHostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
+Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
 
 <a name="full"></a>
 
@@ -406,7 +406,7 @@ V této části se dozvíte, jak zakázat stránku registrace, ale přístup mů
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Zde je příklad:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -472,7 +472,7 @@ Podobný přístup je možné vyřídit v produkčních scénářích.
 
 Chcete-li zabránit publikování statických Identity prostředků do kořenového adresáře webu, přečtěte si téma <xref:security/authentication/identity#prevent-publish-of-static-identity-assets> .
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Změny ověřovacího kódu na ASP.NET Core 2,1 a novější](xref:migration/20_21#changes-to-authentication-code)
 
@@ -526,7 +526,7 @@ dotnet ef database update
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg.md)]
 
-Identityje nakonfigurovaný v *oblasti/ Identity /IdentityHostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
+Identityje nakonfigurovaný v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
 
 <a name="efm"></a>
 
@@ -548,7 +548,7 @@ V `Configure` metodě `Startup` třídy volejte [UseAuthentication](/dotnet/api/
 
 Volitelné: přidejte do souboru rozložení částečnou přihlašování ( `_LoginPartial` ):
 
-[!code-html[](scaffold-identity/sample/_Layout.cshtml?highlight=37)]
+[!code-cshtml[](scaffold-identity/sample/_Layout.cshtml?highlight=37)]
 
 ## <a name="scaffold-identity-into-a-razor-project-with-authorization"></a>Generování uživatelského rozhraní Identity do Razor projektu s autorizací
 
@@ -565,7 +565,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 [!INCLUDE[](~/includes/scaffold-identity/id-scaffold-dlg-auth.md)]
 
-Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity /IdentityHostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
+Některé Identity Možnosti jsou nakonfigurovány v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu [IHostingStartup](xref:fundamentals/configuration/platform-specific-configuration).
 
 ## <a name="scaffold-identity-into-an-mvc-project-without-existing-authorization"></a>Generování uživatelského rozhraní Identity do projektu MVC bez existující autorizace
 
@@ -587,11 +587,11 @@ dotnet ef database update
 
 Volitelné: přidejte částečné přihlášení ( `_LoginPartial` ) do souboru *views/Shared/_Layout. cshtml* :
 
-[!code-html[](scaffold-identity/sample/_LayoutMvc.cshtml?highlight=37)]
+[!code-cshtml[](scaffold-identity/sample/_LayoutMvc.cshtml?highlight=37)]
 
 * Přesuňte soubor *Pages/Shared/_LoginPartial. cshtml* do *views/shared/_LoginPartial. cshtml*
 
-Identityje nakonfigurovaný v *oblasti/ Identity /IdentityHostingStartup.cs*. Další informace najdete v tématu IHostingStartup.
+Identityje nakonfigurovaný v *oblasti/ Identity / Identity HostingStartup.cs*. Další informace najdete v tématu IHostingStartup.
 
 [!INCLUDE[](~/includes/scaffold-identity/migrations.md)]
 
@@ -651,7 +651,7 @@ dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --file
 
 Zakázání registrace uživatele:
 
-* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Například:
+* Generování uživatelského rozhraní Identity . Přidejte účet. registr, Account. Login a account. RegisterConfirmation. Zde je příklad:
 
   ```dotnetcli
    dotnet aspnet-codegenerator identity -dc RPauth.Data.ApplicationDbContext --files "Account.Register;Account.Login;Account.RegisterConfirmation"
@@ -713,7 +713,7 @@ Následující osnovy kódu přidávají uživatele:
 
 Podobný přístup je možné vyřídit v produkčních scénářích.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Změny ověřovacího kódu na ASP.NET Core 2,1 a novější](xref:migration/20_21#changes-to-authentication-code)
 

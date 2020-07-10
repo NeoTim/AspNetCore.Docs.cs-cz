@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-web-api
-ms.openlocfilehash: 63f91086a7e9d71add7f7a5d58d96f46fa76353c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 79f36168d0430ceee3794cfb5a4e29f3671ac73f
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407782"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212617"
 ---
 # <a name="tutorial-create-a-web-api-with-aspnet-core"></a>Kurz: Vytvoření webového rozhraní API pomocí ASP.NET Core
 
@@ -44,7 +44,7 @@ Na konci máte webové rozhraní API, které může spravovat položky "k tomu" 
 
 V tomto kurzu se vytvoří následující rozhraní API:
 
-|Rozhraní API | Description | Text požadavku | Text odpovědi |
+|Rozhraní API | Popis | Text požadavku | Text odpovědi |
 |--- | ---- | ---- | ---- |
 |`GET /api/TodoItems` | Získat všechny položky úkolů | Žádná | Pole položek úkolů|
 |`GET /api/TodoItems/{id}` | Získat položku podle ID | Žádná | Položka úkolů|
@@ -114,9 +114,7 @@ V následujícím diagramu vidíte návrh aplikace.
 
   ![Výběr šablony rozhraní API macOS](first-web-api-mac/_static/api_template.png)
 
-* Potvrďte, že je **Cílová architektura** nastavená na **.NET Core 3,1**. Vyberte **Další**.
-
-  ![macOS .NET Core 3,1 – výběr](first-web-api-mac/_static/api_31_config.png)
+* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** vyberte nejnovější **verzi rozhraní .NET**Core 3. x. Vyberte **Další**.
 
 * Jako **název projektu** zadejte *TodoApi* a pak vyberte **vytvořit**.
 
@@ -266,7 +264,7 @@ Aktualizujte *Startup.cs* o následující zvýrazněný kód:
 
 [!code-csharp[](first-web-api/samples/3.0/TodoApi/Startup.cs?highlight=7-8,23-24&name=snippet_all)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Odebere nepoužívané `using` deklarace.
 * Přidá kontext databáze do kontejneru DI.
@@ -283,7 +281,7 @@ Předcházející kód:
 
   * V **třídě modelu**vyberte **TodoItem (TodoApi. Models)** .
   * Ve **třídě Context data**vyberte **TodoContext (TodoApi. Models)** .
-  * Vyberte možnost **Přidat**.
+  * Vyberte **Přidat**.
 
 # <a name="visual-studio-code--visual-studio-for-mac"></a>[Visual Studio Code/Visual Studio pro Mac](#tab/visual-studio-code+visual-studio-mac)
 
@@ -360,7 +358,7 @@ V tomto kurzu se používá post k testování webového rozhraní API.
     }
     ```
 
-* Vyberte **Poslat**.
+* Vyberte **Odeslat**.
 
   ![Poslat pomocí žádosti o vytvoření](first-web-api/_static/3/create.png)
 
@@ -373,7 +371,7 @@ V tomto kurzu se používá post k testování webového rozhraní API.
 
 * Nastavte metodu, která má být ZÍSKÁNa.
 * Vložte identifikátor URI (například `https://localhost:5001/api/TodoItems/1` ).
-* Vyberte **Poslat**.
+* Vyberte **Odeslat**.
 
 ## <a name="examine-the-get-methods"></a>Projděte si metody GET.
 
@@ -382,7 +380,7 @@ Tyto metody implementují dva koncové body GET:
 * `GET /api/TodoItems`
 * `GET /api/TodoItems/{id}`
 
-Otestujte aplikaci voláním dvou koncových bodů z prohlížeče nebo po odeslání. Například:
+Otestujte aplikaci voláním dvou koncových bodů z prohlížeče nebo po odeslání. Zde je příklad:
 
 * `https://localhost:5001/api/TodoItems`
 * `https://localhost:5001/api/TodoItems/1`
@@ -403,9 +401,9 @@ Odpověď podobná následující je vytvořena voláním metody `GetTodoItems` 
 
 * Vytvoří novou žádost.
 * Nastavte metodu HTTP na **Get**.
-* Nastavte adresu URL požadavku na `https://localhost:<port>/api/TodoItems` . Například, `https://localhost:5001/api/TodoItems`.
+* Nastavte adresu URL požadavku na `https://localhost:<port>/api/TodoItems` . Například `https://localhost:5001/api/TodoItems`.
 * Nastavte v příspěvku **dva zobrazení podokna** .
-* Vyberte **Poslat**.
+* Vyberte **Odeslat**.
 
 Tato aplikace používá databázi v paměti. Pokud se aplikace zastaví a spustí, předchozí požadavek GET nebude vracet žádná data. Pokud se nevrátí žádná data, [odešlete](#post) data do aplikace.
 
@@ -473,7 +471,7 @@ Odstranění položky úkolů pomocí metody post:
 
 * Nastavte metodu na `DELETE` .
 * Nastavte identifikátor URI objektu, který má být odstraněn (například `https://localhost:5001/api/TodoItems/1` ).
-* Vyberte **Poslat**.
+* Vyberte **Odeslat**.
 
 <a name="over-post"></a>
 
@@ -532,7 +530,7 @@ Na konci máte webové rozhraní API, které může spravovat položky "k tomu" 
 
 V tomto kurzu se vytvoří následující rozhraní API:
 
-|Rozhraní API | Description | Text požadavku | Text odpovědi |
+|Rozhraní API | Popis | Text požadavku | Text odpovědi |
 |--- | ---- | ---- | ---- |
 |ZÍSKAT/api/TodoItems | Získat všechny položky úkolů | Žádná | Pole položek úkolů|
 |ZÍSKAT/api/TodoItems/{id} | Získat položku podle ID | Žádná | Položka úkolů|
@@ -594,7 +592,7 @@ V následujícím diagramu vidíte návrh aplikace.
 
 * V Visual Studio pro Mac starší než verze 8,6 Vyberte rozhraní **.NET Core**  >  **App**  >  **API**  >  **Next**. V části verze 8,6 nebo novější vyberte **webové a konzolové**  >  **App**  >  **rozhraní API**aplikace  >  **Next**.
   
-* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** přijměte výchozí **cílovou** verzi rozhraní **.NET Core 2,2*.
+* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** vyberte nejnovější **verzi rozhraní .NET**Core 2. x. Vyberte **Další**.
 
 * Jako **název projektu** zadejte *TodoApi* a pak vyberte **vytvořit**.
 
@@ -692,7 +690,7 @@ Aktualizujte *Startup.cs* o následující zvýrazněný kód:
 
 [!code-csharp[](first-web-api/samples/2.2/TodoApi/Startup1.cs?highlight=5,8,25-26&name=snippet_all)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Odebere nepoužívané `using` deklarace.
 * Přidá kontext databáze do kontejneru DI.
@@ -719,7 +717,7 @@ Předcházející kód:
 
   [!code-csharp[](first-web-api/samples/2.2/TodoApi/Controllers/TodoController2.cs?name=snippet_todo1)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Definuje třídu kontroleru rozhraní API bez metod.
 * Označí třídu [`[ApiController]`](/dotnet/api/microsoft.aspnetcore.mvc.apicontrollerattribute) atributem. Tento atribut označuje, že kontroler reaguje na požadavky webového rozhraní API. Informace o konkrétním chování, které atribut povoluje, naleznete v tématu <xref:web-api/index> .
@@ -739,7 +737,7 @@ Tyto metody implementují dva koncové body GET:
 
 Pokud je pořád spuštěná, zastavte aplikaci. Pak ji znovu spusťte, aby obsahovala nejnovější změny.
 
-Otestujte aplikaci voláním dvou koncových bodů z prohlížeče. Například:
+Otestujte aplikaci voláním dvou koncových bodů z prohlížeče. Zde je příklad:
 
 * `https://localhost:<port>/api/todo`
 * `https://localhost:<port>/api/todo/1`
@@ -804,9 +802,9 @@ V tomto kurzu se používá post k testování webového rozhraní API.
 
 * Vytvoří novou žádost.
   * Nastavte metodu HTTP na **Get**.
-  * Nastavte adresu URL požadavku na `https://localhost:<port>/api/todo` . Například, `https://localhost:5001/api/todo`.
+  * Nastavte adresu URL požadavku na `https://localhost:<port>/api/todo` . Například `https://localhost:5001/api/todo`.
 * Nastavte v příspěvku **dva zobrazení podokna** .
-* Vyberte **Poslat**.
+* Vyberte **Odeslat**.
 
 ![Odeslání pomocí žádosti Get](first-web-api/_static/2pv.png)
 
@@ -842,7 +840,7 @@ Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](/dotnet/ap
     }
     ```
 
-* Vyberte **Poslat**.
+* Vyberte **Odeslat**.
 
   ![Poslat pomocí žádosti o vytvoření](first-web-api/_static/create.png)
 
@@ -857,7 +855,7 @@ Předchozí kód je metoda HTTP POST, jak je označena [`[HttpPost]`](/dotnet/ap
 
 * Nastavte metodu, která má být ZÍSKÁNa.
 * Vložte identifikátor URI (například `https://localhost:5001/api/Todo/2` ).
-* Vyberte **Poslat**.
+* Vyberte **Odeslat**.
 
 ## <a name="add-a-puttodoitem-method"></a>Přidat metodu PutTodoItem
 
@@ -901,7 +899,7 @@ Odstranění položky úkolů pomocí metody post:
 
 * Nastavte metodu na `DELETE` .
 * Nastavte identifikátor URI objektu, který má být odstraněn (například `https://localhost:5001/api/todo/1` ).
-* Vyberte **Poslat**.
+* Vyberte **Odeslat**.
 
 Ukázková aplikace umožňuje odstranit všechny položky. Když je však poslední položka odstraněna, vytvoří se nový konstruktor třídy modelu při příštím volání rozhraní API.
 
@@ -962,7 +960,7 @@ Odstranění položky úkolů je provedeno nastavením `type` při volání AJAX
 
 [!INCLUDE[](~/includes/IdentityServer4.md)]
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 [Zobrazit nebo stáhnout vzorový kód pro tento kurz](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/tutorials/first-web-api/samples). Viz [Jak stáhnout](xref:index#how-to-download-a-sample).
 

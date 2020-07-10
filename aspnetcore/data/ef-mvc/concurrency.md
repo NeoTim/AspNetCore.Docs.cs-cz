@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/concurrency
-ms.openlocfilehash: 3038ae8f01273013e6c35694583d9674a1668bac
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: f6ee60bf5e75256a9bf330f56b2f09b06f720a85
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401555"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212793"
 ---
 # <a name="tutorial-handle-concurrency---aspnet-mvc-with-ef-core"></a>Kurz: zpracování souběžných ASP.NET MVC pomocí EF Core
 
@@ -148,7 +148,7 @@ Modul generování uživatelského rozhraní vytvořil v zobrazení indexu sloup
 
 Nahraďte kód v *zobrazeních/departments/index. cshtml* následujícím kódem.
 
-[!code-html[](intro/samples/cu/Views/Departments/Index.cshtml?highlight=4,7,44)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Index.cshtml?highlight=4,7,44)]
 
 Tím se změní nadpis na "oddělení", odstraní se sloupec RowVersion a pro správce se zobrazí jméno a příjmení místo křestní jméno.
 
@@ -198,7 +198,7 @@ V *zobrazení/oddělení/upravit. cshtml*proveďte následující změny:
 
 * Přidejte v rozevíracím seznamu možnost vybrat správce.
 
-[!code-html[](intro/samples/cu/Views/Departments/Edit.cshtml?highlight=16,34-36)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Edit.cshtml?highlight=16,34-36)]
 
 ## <a name="test-concurrency-conflicts"></a>Konflikty testů v souběžnosti
 
@@ -258,7 +258,7 @@ Pokud je zachycena chyba souběžnosti, kód znovu zobrazí stránku pro potvrze
 
 V *zobrazení/oddělení/odstranění. cshtml*nahraďte kód generovaný následujícím kódem, který přidá pole chybové zprávy a skrytá pole pro vlastnosti DepartmentID a rowversion. Změny jsou zvýrazněny.
 
-[!code-html[](intro/samples/cu/Views/Departments/Delete.cshtml?highlight=9,38,44,45,48)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Delete.cshtml?highlight=9,38,44,45,48)]
 
 Provede tyto změny:
 
@@ -288,17 +288,17 @@ Volitelně můžete vyčistit kód vygenerovaný v podrobnostech a vytvořit zob
 
 Nahraďte kód v *zobrazeních/departments/details. cshtml* pro odstranění sloupce rowversion a zobrazením úplného jména správce.
 
-[!code-html[](intro/samples/cu/Views/Departments/Details.cshtml?highlight=35)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Details.cshtml?highlight=35)]
 
 Chcete-li přidat možnost výběru do rozevíracího seznamu, nahraďte kód v *zobrazeních/departments/Create. cshtml* .
 
-[!code-html[](intro/samples/cu/Views/Departments/Create.cshtml?highlight=32-34)]
+[!code-cshtml[](intro/samples/cu/Views/Departments/Create.cshtml?highlight=32-34)]
 
 ## <a name="get-the-code"></a>Získání kódu
 
 [Stažení nebo zobrazení dokončené aplikace.](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-mvc/intro/samples/cu-final)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
  Další informace o zpracování souběžnosti v EF Core naleznete v tématu [konflikty souběžnosti](/ef/core/saving/concurrency).
 

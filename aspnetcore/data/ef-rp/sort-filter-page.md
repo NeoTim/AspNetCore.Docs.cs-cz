@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/sort-filter-page
-ms.openlocfilehash: 0a87fe2f4cf7014cc15752dcf25545ce7aaa4687
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 496221bb4e34e1f9e4177d1934786a77d8c9b411
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408601"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212533"
 ---
 # <a name="part-3-razor-pages-with-ef-core-in-aspnet-core---sort-filter-paging"></a>Část 3 Razor : stránky s EF Core v ASP.NET Core řazení, filtrování, stránkování
 
@@ -41,7 +41,7 @@ Nahraďte kód na *stránkách/Students/index. cshtml. cs* následujícím kóde
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml.cs?name=snippet_All&highlight=21-24,26,28-52)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Přidá vlastnosti, které obsahují parametry řazení.
 * Změní název `Student` vlastnosti na `Students` .
@@ -84,7 +84,7 @@ Nahraďte kód v *Students/index. cshtml*s následujícím kódem. Změny jsou z
 
 [!code-cshtml[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index1.cshtml?highlight=5,8,17-19,22,25-27,33)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Přidá hypertextové odkazy `LastName` do `EnrollmentDate` záhlaví sloupců a.
 * Používá informace v `NameSort` a `DateSort` k nastavení hypertextových odkazů s aktuálními hodnotami pořadí řazení.
@@ -109,7 +109,7 @@ Nahraďte kód v *Students/index. cshtml. cs* následujícím kódem pro přidá
 
 [!code-csharp[Main](intro/samples/cu30snapshots/3-sorting/Pages/Students/Index2.cshtml.cs?name=snippet_All&highlight=28,33,37-41)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Přidá `searchString` parametr do `OnGetAsync` metody a uloží hodnotu parametru do `CurrentFilter` Vlastnosti. Hodnota hledaného řetězce se přijímá z textového pole, které se přidalo v další části.
 * Přidá do příkazu LINQ `Where` klauzuli. `Where`Klauzule vybere pouze studenty, jejichž křestní jméno nebo příjmení obsahuje hledaný řetězec. Příkaz LINQ se spustí pouze v případě, že existuje hodnota, která se má vyhledat.
@@ -148,7 +148,7 @@ Otestujte aplikaci:
 
 * Vyberte **Hledat**.
 
-Všimněte si, že adresa URL obsahuje hledaný řetězec. Například:
+Všimněte si, že adresa URL obsahuje hledaný řetězec. Zde je příklad:
 
 ```
 https://localhost:<port>/Students?SearchString=an
@@ -180,7 +180,7 @@ Nahraďte kód v *Students/index. cshtml. cs* a přidejte stránkování.
 
 [!code-csharp[Main](intro/samples/cu30/Pages/Students/Index.cshtml.cs?name=snippet_All&highlight=26,28-29,31,34-41,68-70)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Změní typ `Students` vlastnosti z `IList<Student>` na `PaginatedList<Student>` .
 * Přidá index stránky, aktuální `sortOrder` a `currentFilter` do `OnGetAsync` podpisu metody.
@@ -337,9 +337,9 @@ Metoda používá LINQ to Entities k určení sloupce, podle kterého se má řa
 
 Nahraďte kód v *Students/index. cshtml*s následujícím zvýrazněným kódem:
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index2.cshtml?highlight=17-19,25-27)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index2.cshtml?highlight=17-19,25-27)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Přidá hypertextové odkazy `LastName` do `EnrollmentDate` záhlaví sloupců a.
 * Používá informace v `NameSort` a `DateSort` k nastavení hypertextových odkazů s aktuálními hodnotami pořadí řazení.
@@ -371,7 +371,7 @@ Aktualizujte *studenty/index. cshtml. cs* `OnGetAsync` pomocí následujícího 
 
 [!code-csharp[](intro/samples/cu21/Pages/Students/Index.cshtml.cs?name=snippet_SortFilter&highlight=1,5,9-13)]
 
-Předcházející kód:
+Předchozí kód:
 
 * Přidá `searchString` parametr do `OnGetAsync` metody. Hodnota hledaného řetězce se přijímá z textového pole, které se přidalo v další části.
 * Přidáno do příkazu LINQ `Where` klauzule. `Where`Klauzule vybere pouze studenty, jejichž křestní jméno nebo příjmení obsahuje hledaný řetězec. Příkaz LINQ se spustí pouze v případě, že existuje hodnota, která se má vyhledat.
@@ -393,7 +393,7 @@ Došlo ke snížení výkonu pro volání `ToUpper` . `ToUpper`Kód přidá funk
 
 Na *stránce Pages/Students/index. cshtml*přidejte následující zvýrazněný kód pro vytvoření tlačítka **hledání** a roztřídění Chrome.
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index3.cshtml?highlight=14-23&range=1-25)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index3.cshtml?highlight=14-23&range=1-25)]
 
 Předchozí kód používá `<form>` [pomocníka značek](xref:mvc/views/tag-helpers/intro) k přidání textového pole a tlačítka hledání. Ve výchozím nastavení `<form>` Pomocník značek odesílá data formuláře pomocí příspěvku. V případě příspěvku jsou parametry předány v těle zprávy HTTP a nikoli v adrese URL. Když se použije HTTP GET, data formuláře se předávají v adrese URL jako řetězce dotazu. Předání dat pomocí řetězců dotazů umožňuje uživatelům záložku adresy URL. Pokud akce nevede k aktualizaci, doporučuje se použít [pokyny pro W3C](https://www.w3.org/2001/tag/doc/whenToUseGet.html) .
 
@@ -471,15 +471,15 @@ Dvě otazníky v `PaginatedList.CreateAsync` reprezentují [operátor slučován
 
 Aktualizujte značky v *Students/index. cshtml*. Změny jsou zvýrazněny:
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?highlight=28-31,37-40,68-999)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index.cshtml?highlight=28-31,37-40,68-999)]
 
 Záhlaví sloupce odkazuje pomocí řetězce dotazu k předání aktuálního vyhledávacího řetězce `OnGetAsync` metodě, aby uživatel mohl seřadit výsledky filtru:
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?range=28-31)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index.cshtml?range=28-31)]
 
 Tlačítka pro stránkování se zobrazují v pomocníkech značek:
 
-[!code-html[](intro/samples/cu21/Pages/Students/Index.cshtml?range=72-)]
+[!code-cshtml[](intro/samples/cu21/Pages/Students/Index.cshtml?range=72-)]
 
 Spusťte aplikaci a přejděte na stránku students.
 
@@ -525,7 +525,7 @@ Příkaz LINQ seskupuje entity studenta podle data registrace, vypočítá poče
 
 Nahraďte kód v souboru *Pages/About. cshtml* následujícím kódem:
 
-[!code-html[](intro/samples/cu21/Pages/About.cshtml)]
+[!code-cshtml[](intro/samples/cu21/Pages/About.cshtml)]
 
 Spusťte aplikaci a přejděte na stránku o produktu. V tabulce se zobrazí počet studentů pro každé datum zápisu.
 
@@ -533,7 +533,7 @@ Pokud narazíte na problémy, které nemůžete vyřešit, Stáhněte si [dokon�
 
 ![O stránce](sort-filter-page/_static/about.png)
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Ladění zdrojového kódu ASP.NET Core 2. x](https://github.com/dotnet/AspNetCore.Docs/issues/4155)
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=MDs7PFpoMqI)

@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/gdpr
-ms.openlocfilehash: 0fef14388f83d8b4c708194954f2b75b2164b746
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 8a7041a976ea9f0e99bfd1eba792d0e919eaf6d3
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404493"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212826"
 ---
 # <a name="eu-general-data-protection-regulation-gdpr-support-in-aspnet-core"></a>Podpora GDPR (EU Obecné nařízení o ochraně osobních údajů) v ASP.NET Core
 
@@ -86,7 +86,7 @@ RazorStránky a projekty MVC vytvořené pomocí šablon projektů zahrnují ná
 
 Částečné zobrazení * \_ CookieConsentPartial. cshtml* :
 
-[!code-html[](gdpr/sample/RP2.2/Pages/Shared/_CookieConsentPartial.cshtml)]
+[!code-cshtml[](gdpr/sample/RP2.2/Pages/Shared/_CookieConsentPartial.cshtml)]
 
 Tato částečná:
 
@@ -131,7 +131,7 @@ Poznámky:
 
 ::: moniker-end
 
-## <a name="encryption-at-rest"></a>Šifrování v klidovém stavu
+## <a name="encryption-at-rest"></a>Šifrování neaktivních uložených dat
 
 Některé databáze a mechanismy úložiště umožňují šifrování v klidovém umístění. Šifrování v klidovém umístění:
 
@@ -140,20 +140,20 @@ Některé databáze a mechanismy úložiště umožňují šifrování v klidov�
 * Je nejjednodušší a nejbezpečnější možnost.
 * Umožňuje databázi spravovat klíče a šifrování.
 
-Například:
+Zde je příklad:
 
 * Microsoft SQL a Azure SQL poskytují [transparentní šifrování dat](/sql/relational-databases/security/encryption/transparent-data-encryption) (TDE).
 * [SQL Azure šifruje databázi ve výchozím nastavení.](https://azure.microsoft.com/updates/newly-created-azure-sql-databases-encrypted-by-default/)
 * [Objekty blob Azure, soubory, tabulky a Queue Storage jsou ve výchozím nastavení šifrované](https://azure.microsoft.com/blog/announcing-default-encryption-for-azure-blobs-files-table-and-queue-storage/).
 
-Pro databáze, které neposkytují integrované šifrování v klidovém provozu, můžete k zajištění stejné ochrany použít šifrování disku. Například:
+Pro databáze, které neposkytují integrované šifrování v klidovém provozu, můžete k zajištění stejné ochrany použít šifrování disku. Zde je příklad:
 
 * [BitLocker pro Windows Server](/windows/security/information-protection/bitlocker/bitlocker-how-to-deploy-on-windows-server)
 * Linux:
   * [eCryptfs](https://launchpad.net/ecryptfs)
   * [EncFS](https://github.com/vgough/encfs).
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Microsoft.com/GDPR](https://www.microsoft.com/trustcenter/Privacy/GDPR)
 * [GDPR – přidání tlačítka pro odvolání souhlasu v ASP.NET Core](https://www.joeaudette.com/blog/2018/08/28/gdpr---adding-a-revoke-consent-button-in-aspnet-core)

@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/host/generic-host
-ms.openlocfilehash: 5a2d39af6c921323ae9113fd4aca27dcdedd44a5
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: 26aef561ba299403df0dad9893fecd5e2a15ab0e
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793463"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213003"
 ---
 # <a name="net-generic-host"></a>Obecný hostitel .NET
 
@@ -33,7 +33,7 @@ ms.locfileid: "85793463"
 *Hostitel* je objekt, který zapouzdřuje prostředky aplikace, jako například:
 
 * Vkládání závislostí (DI)
-* protokolování
+* Protokolování
 * Konfigurace
 * `IHostedService`implementaci
 
@@ -225,7 +225,7 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-Další informace naleznete v tématech:
+Další informace najdete tady:
 
 * [Základy: kořenový adresář obsahu](xref:fundamentals/index#content-root)
 * [WebRoot](#webroot)
@@ -407,7 +407,7 @@ webBuilder.UseStartup<Startup>();
 
 ### <a name="urls"></a>Adresy URL
 
-Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokoly, na kterých má Server naslouchat požadavky. Například, `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
+Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokoly, na kterých má Server naslouchat požadavky. Například `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
 
 **Klíč**:`urls`  
 **Zadejte**:`string`  
@@ -437,7 +437,7 @@ Chcete-li nastavit tuto hodnotu, použijte proměnnou prostředí nebo zavolejte
 webBuilder.UseWebRoot("public");
 ```
 
-Další informace naleznete v tématech:
+Další informace najdete tady:
 
 * [Základy: web root](xref:fundamentals/index#web-root)
 * [ContentRoot](#contentroot)
@@ -613,7 +613,7 @@ Pokud cesta neexistuje, hostitele se nepodaří spustit.
 
 Další informace najdete v tématu [základy: kořen obsahu](xref:fundamentals/index#content-root).
 
-### <a name="environment"></a>Prostředí
+### <a name="environment"></a>Environment
 
 Nastaví [prostředí](xref:fundamentals/environments)aplikace.
 
@@ -650,7 +650,7 @@ Během vývoje při používání sady [Visual Studio](https://visualstudio.micr
 
 *hostsettings.js*:
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/hostsettings.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/hostsettings.json)]
 
 Další konfiguraci lze poskytnout pomocí klíčů [ApplicationName](#application-key-name) a [contentRoot](#content-root) .
 
@@ -670,15 +670,15 @@ Příklad konfigurace aplikace pomocí <xref:Microsoft.Extensions.Hosting.HostBu
 
 *appsettings.js*:
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.json)]
 
 *appsettings.Development.js*:
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Development.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.Development.json)]
 
 *appsettings.Production.js*:
 
-[!code-csharp[](generic-host/samples/2.x/GenericHostSample/appsettings.Production.json)]
+[!code-json[](generic-host/samples/2.x/GenericHostSample/appsettings.Production.json)]
 
 Chcete-li přesunout soubory nastavení do výstupního adresáře, zadejte soubory nastavení jako [položky projektu MSBuild](/visualstudio/msbuild/common-msbuild-project-items) v souboru projektu. Ukázková aplikace přesune své soubory nastavení aplikace JSON a *hostsettings.js* s touto `<Content>` položkou:
 
@@ -1010,7 +1010,7 @@ public class MyClass
 *Hostitel* je objekt, který zapouzdřuje prostředky aplikace, jako například:
 
 * Vkládání závislostí (DI)
-* protokolování
+* Protokolování
 * Konfigurace
 * `IHostedService`implementaci
 
@@ -1200,7 +1200,7 @@ Host.CreateDefaultBuilder(args)
     //...
 ```
 
-Další informace naleznete v tématech:
+Další informace najdete tady:
 
 * [Základy: kořenový adresář obsahu](xref:fundamentals/index#content-root)
 * [WebRoot](#webroot)
@@ -1395,7 +1395,7 @@ webBuilder.UseStartup<Startup>();
 
 ### <a name="urls"></a>Adresy URL
 
-Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokoly, na kterých má Server naslouchat požadavky. Například, `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
+Středníkem oddělený seznam IP adres nebo adres hostitelů s porty a protokoly, na kterých má Server naslouchat požadavky. Například `http://localhost:123`. Pomocí příkazu " \* " určete, že server má naslouchat žádostem na jakékoli IP adrese nebo názvu hostitele pomocí zadaného portu a protokolu (například `http://*:5000` ). Protokol ( `http://` nebo `https://` ) musí být součástí každé adresy URL. Podporované formáty se mezi servery liší.
 
 **Klíč**:`urls`  
 **Zadejte**:`string`  
@@ -1425,7 +1425,7 @@ Chcete-li nastavit tuto hodnotu, použijte proměnnou prostředí nebo zavolejte
 webBuilder.UseWebRoot("public");
 ```
 
-Další informace naleznete v tématech:
+Další informace najdete tady:
 
 * [Základy: web root](xref:fundamentals/index#web-root)
 * [ContentRoot](#contentroot)
@@ -1500,6 +1500,6 @@ public class Program
 
 ::: moniker-end
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:fundamentals/host/hosted-services>

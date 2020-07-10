@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/update-related-data
-ms.openlocfilehash: 066bebf95a941fca5e7cc175c4c0d6d56abc9cb5
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 754ca2f94b1abde30ae650c9c3bcf00499520383
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060056"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212577"
 ---
 # <a name="tutorial-update-related-data---aspnet-mvc-with-ef-core"></a>Kurz: Aktualizace souvisejících dat – ASP.NET MVC pomocí EF Core
 
@@ -87,19 +87,19 @@ Pokud chcete optimalizovat výkon pro podrobnosti kurzu a odstranit stránky, p�
 
 V okně *zobrazení/kurzy/vytvořit. cshtml*přidejte možnost "vybrat oddělení" do rozevíracího seznamu **oddělení** , změňte titulek z **DepartmentID** na **oddělení**a přidejte ověřovací zprávu.
 
-[!code-html[](intro/samples/cu/Views/Courses/Create.cshtml?highlight=2-6&range=29-34)]
+[!code-cshtml[](intro/samples/cu/Views/Courses/Create.cshtml?highlight=2-6&range=29-34)]
 
 V *zobrazeních, kurzech/úpravách. cshtml*udělejte stejnou změnu pro pole oddělení, které jste právě vytvořili v části *vytvoření. cshtml*.
 
 Také v *zobrazeních/kurzech/upravit. cshtml*přidejte pole číslo kurzu před pole **název** . Vzhledem k tomu, že číslo kurzu je primární klíč, zobrazuje se, ale nedá se změnit.
 
-[!code-html[](intro/samples/cu/Views/Courses/Edit.cshtml?range=15-18)]
+[!code-cshtml[](intro/samples/cu/Views/Courses/Edit.cshtml?range=15-18)]
 
 V zobrazení pro úpravy již existuje skryté pole ( `<input type="hidden">` ) pro číslo kurzu. Přidáním `<label>` pomocníka značek se eliminuje nutnost skrytého pole, protože nezpůsobí, že se číslo kurzu zahrne do publikovaných dat, když uživatel klikne na **Uložit** na stránce **Upravit** .
 
 V *zobrazení/kurzy/odstranit. cshtml*přidejte do horní části pole číslo kurzu a změňte ID oddělení na název oddělení.
 
-[!code-html[](intro/samples/cu/Views/Courses/Delete.cshtml?highlight=14-19,36)]
+[!code-cshtml[](intro/samples/cu/Views/Courses/Delete.cshtml?highlight=14-19,36)]
 
 V *zobrazeních/kurzech/details. cshtml*udělejte stejnou změnu, kterou jste právě provedli pro *odstranění. cshtml*.
 
@@ -171,7 +171,7 @@ Kód provede následující:
 
 V *zobrazeních/instruktorech/upravit. cshtml*přidejte nové pole pro úpravy umístění kanceláře, a to na konci před tlačítkem **Uložit** :
 
-[!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=30-34)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=30-34)]
 
 Spusťte aplikaci, vyberte kartu **instruktoři** a potom klikněte na tlačítko **Upravit** v instruktorovi. Změňte **umístění kanceláře** a klikněte na **Uložit**.
 
@@ -235,7 +235,7 @@ V *zobrazeních/instruktorech/upravit. cshtml*přidejte pole **kurzů** s polem 
 > [!NOTE]
 > Když kód vložíte v aplikaci Visual Studio, mohou být zalomení řádků změněny způsobem, který kód přerušuje. Pokud kód po vložení vypadá jinak, stiskněte klávesovou zkratku CTRL + Z, aby bylo automatické formátování vráceno zpět. Tím dojde k odstranění konců řádků, aby vypadaly jako v tomto příkladu. Odsazení nemusí být dokonalé, ale `@:</tr><tr>` řádky,, a `@:<td>` `@:</td>` `@:</tr>` musí být na jednom řádku, jak je znázorněno, nebo se zobrazí chyba za běhu. Po vybrání bloku nového kódu stiskněte klávesu Tabulátor třikrát, aby se nový kód pořádek nastavil s existujícím kódem. Tento problém je opravený v aplikaci Visual Studio 2019.
 
-[!code-html[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=35-61)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Edit.cshtml?range=35-61)]
 
 Tento kód vytvoří tabulku HTML, která má tři sloupce. V každém sloupci je zaškrtávací políčko následované titulkem, který se skládá z čísla a názvu kurzu. Všechna zaškrtávací políčka mají stejný název ("selectedCourses"), který informuje pořadač modelů o tom, že se mají považovat za skupinu. Atribut Value každé zaškrtávací políčko je nastaven na hodnotu `CourseID` . Po zveřejnění stránky předává pořadač modelu pole do kontroleru, který se skládá z `CourseID` hodnot pouze u zaškrtávacích políček, která jsou vybrána.
 
@@ -299,7 +299,7 @@ Pokud `CourseAssignments` tuto vlastnost upravíte tímto způsobem, můžete v 
 
 V *zobrazení/instruktor/vytvořit. cshtml*, přidejte textové pole umístění kanceláře a zaškrtávací políčka pro kurzy před tlačítkem Odeslat. Jako v případě stránky pro úpravy [opravte formátování, pokud aplikace Visual Studio přeformátuje kód při jeho vložení](#notepad).
 
-[!code-html[](intro/samples/cu/Views/Instructors/Create.cshtml?range=29-61)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Create.cshtml?range=29-61)]
 
 Otestujte spuštěním aplikace a vytvořením instruktora.
 

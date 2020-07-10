@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/layouts
-ms.openlocfilehash: fe78a144b413bf97be83d20b11148e1856608f78
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 684d7b76c7500ec19c90eb696ec0127692923297
+ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944228"
+ms.lasthandoff: 07/09/2020
+ms.locfileid: "86176256"
 ---
 # <a name="aspnet-core-blazor-layouts"></a>ASP.NET Core Blazor rozložení
 
@@ -39,7 +39,11 @@ Následující ukázka kódu ukazuje Razor šablonu komponenty rozložení, `Mai
 
 [!code-razor[](layouts/sample_snapshot/3.x/MainLayout.razor?highlight=1,13)]
 
-V aplikaci založené na jedné ze Blazor šablon aplikací `MainLayout` je součást ( `MainLayout.razor` ) ve `Shared` složce aplikace.
+## <a name="mainlayout-component"></a>`MainLayout` (komponenta)
+
+V aplikaci na základě jedné z Blazor šablon projektu `MainLayout` je součást ( `MainLayout.razor` ) ve `Shared` složce aplikace:
+
+[!code-razor[](./common/samples/3.x/BlazorWebAssemblySample/Shared/MainLayout.razor)]
 
 ## <a name="default-layout"></a>Výchozí rozložení
 
@@ -104,6 +108,6 @@ Nakonec `MasterLayout` `MasterLayout.razor` obsahuje prvky rozložení na nejvy�
 
 Pokud jsou směrovatelný komponenty integrovány do Razor aplikace Pages, lze použít sdílené rozložení aplikace spolu s komponentami. Další informace naleznete v tématu <xref:blazor/components/integrate-components-into-razor-pages-and-mvc-apps>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:mvc/views/layout>

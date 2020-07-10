@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/working-with-forms
-ms.openlocfilehash: 06d5d6e2db1cf3ccb148c24c40c264016d47a0ed
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 7a92f2b5bc791f268b897878db08a9f9f4f7bf0c
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85406586"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212415"
 ---
 # <a name="tag-helpers-in-forms-in-aspnet-core"></a>Tagování pomocníků ve formulářích ve ASP.NET Core
 
@@ -45,7 +45,7 @@ Pomocný objekt značky [formuláře](https://www.w3.org/TR/html401/interact/for
 
 Ukázka:
 
-[!code-HTML[](working-with-forms/sample/final/Views/Demo/RegisterFormOnly.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Demo/RegisterFormOnly.cshtml)]
 
 Pomocník značek Form výše vygeneruje následující kód HTML:
 
@@ -62,7 +62,7 @@ Modul runtime MVC generuje `action` hodnotu atributu z pomocníka značek formul
 
 `asp-route`Atribut pomocník značek může také generovat označení pro `action` atribut HTML. Aplikace s názvem v [cestě](../../fundamentals/routing.md) `register` může pro registrační stránku použít následující značky:
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterRoute.cshtml)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterRoute.cshtml)]
 
 Mnohé z zobrazení ve složce *zobrazení nebo účtu* (vygenerované při vytváření nové webové aplikace s *jednotlivými uživatelskými účty*) obsahují atribut [ASP-Route-ReturnUrl](xref:mvc/views/working-with-forms) :
 
@@ -89,7 +89,7 @@ Podporované atributy [AnchorTagHelper](xref:mvc/views/tag-helpers/builtin-th/an
 |[ASP – stránka](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page)|Název Razor stránky|
 |[ASP – obslužná rutina stránky](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-page-handler)|Název Razor obslužné rutiny stránky|
 |[ASP – trasa](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route)|Název trasy.|
-|[ASP-Route-{Value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|Jedna hodnota směrování adresy URL. Například, `asp-route-id="1234"`.|
+|[ASP-Route-{Value}](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-route-value)|Jedna hodnota směrování adresy URL. Například `asp-route-id="1234"`.|
 |[ASP-All-Route-data](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-all-route-data)|Všechny hodnoty tras.|
 |[ASP – fragment](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper#asp-fragment)|Fragment adresy URL|
 
@@ -229,7 +229,7 @@ Ukázka:
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/RegisterViewModel.cs)]
 
-[!code-HTML[](working-with-forms/sample/final/Views/Demo/RegisterInput.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Demo/RegisterInput.cshtml)]
 
 Výše uvedený kód generuje následující kód HTML:
 
@@ -299,7 +299,7 @@ Můžete také přejít k podřízeným vlastnostem pomocí cesty vlastností mo
 
 V zobrazení se svážeme s `Address.AddressLine1` :
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterAddress.cshtml?highlight=6)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterAddress.cshtml?highlight=6)]
 
 Následující kód HTML je vygenerován pro `Address.AddressLine1` :
 
@@ -325,11 +325,11 @@ public IActionResult Edit(int id, int colorIndex)
 
 Následující Razor příklad ukazuje, jak přistupovat k určitému `Color` prvku:
 
-[!code-HTML[](working-with-forms/sample/final/Views/Demo/EditColor.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Demo/EditColor.cshtml)]
 
 Šablona *views/Shared/EditorTemplates/String. cshtml* :
 
-[!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/String.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Shared/EditorTemplates/String.cshtml)]
 
 Ukázka pomocí `List<T>` :
 
@@ -337,11 +337,11 @@ Ukázka pomocí `List<T>` :
 
 Následující Razor příklad ukazuje, jak iterovat v kolekci:
 
-[!code-HTML[](working-with-forms/sample/final/Views/Demo/Edit.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Demo/Edit.cshtml)]
 
 Šablona *views/Shared/EditorTemplates/ToDoItem. cshtml* :
 
-[!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Shared/EditorTemplates/ToDoItem.cshtml)]
 
 `foreach`by měla být použita, pokud je to možné, pokud se hodnota bude používat `asp-for` v `Html.DisplayFor` kontextu nebo ekvivalentním kontextu. Obecně `for` je lepší, než `foreach` (pokud to scénář umožňuje), protože nemusí přidělovat enumerátor. vyhodnocení indexeru ve výrazu LINQ ale může být nákladné a mělo by být minimalizováno.
 
@@ -364,7 +364,7 @@ Ukázka:
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/DescriptionViewModel.cs)]
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterTextArea.cshtml?highlight=4)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterTextArea.cshtml?highlight=4)]
 
 Vygeneruje se následující kód HTML:
 
@@ -400,7 +400,7 @@ Ukázka:
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/SimpleViewModel.cs)]
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterLabel.cshtml?highlight=4)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterLabel.cshtml?highlight=4)]
 
 Pro element je vygenerován následující kód HTML `<label>` :
 
@@ -470,7 +470,7 @@ V následujícím příkladu má datový model `DataAnnotation` atributy, které
 
 [!code-csharp[](working-with-forms/sample/final/ViewModels/RegisterViewModel.cs)]
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterValidation.cshtml?highlight=4,6,8&range=1-10)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Demo/RegisterValidation.cshtml?highlight=4,6,8&range=1-10)]
 
 Generovaný kód HTML (Pokud je model platný):
 
@@ -499,9 +499,9 @@ Generovaný kód HTML (Pokud je model platný):
 
 * Má alternativu k Pomocníkovi HTML `Html.DropDownListFor` a`Html.ListBoxFor`
 
-`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Například:
+`Select Tag Helper` `asp-for` Určuje název vlastnosti modelu pro element [Select](https://www.w3.org/wiki/HTML/Elements/select) a `asp-items` Určuje prvky [možností](https://www.w3.org/wiki/HTML/Elements/option) .  Zde je příklad:
 
-[!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
 Ukázka:
 
@@ -538,7 +538,7 @@ Který generuje následující HTML (s vybraným certifikačním úřadem):
 
 `asp-for`Hodnota atributu je zvláštní případ a nevyžaduje `Model` předponu, ostatní pomocné atributy značek (například `asp-items` ).
 
-[!code-HTML[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Home/Index.cshtml?range=4)]
 
 ### <a name="enum-binding"></a>Vazba výčtu
 
@@ -552,7 +552,7 @@ Ukázka:
 
 `GetEnumSelectList`Metoda generuje `SelectList` objekt pro výčet.
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEnum.cshtml?highlight=5)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEnum.cshtml?highlight=5)]
 
 Můžete označit seznam enumerátorů pomocí `Display` atributu pro získání bohatšího uživatelského rozhraní:
 
@@ -617,7 +617,7 @@ Pomocník pro výběr značky automaticky vygeneruje atribut [Multiple = Multipl
 
 S následujícím zobrazením:
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexMultiSelect.cshtml?highlight=4)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexMultiSelect.cshtml?highlight=4)]
 
 Generuje následující kód HTML:
 
@@ -641,17 +641,17 @@ Generuje následující kód HTML:
 
 Pokud se vám na více stránkách používá možnost neurčeno, můžete vytvořit šablonu pro odstranění opakujícího se kódu HTML:
 
-[!code-HTML[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEmptyTemplate.cshtml?highlight=5)]
+[!code-cshtml[](../../mvc/views/working-with-forms/sample/final/Views/Home/IndexEmptyTemplate.cshtml?highlight=5)]
 
 Šablona *views/Shared/EditorTemplates/CountryViewModel. cshtml* :
 
-[!code-HTML[](working-with-forms/sample/final/Views/Shared/EditorTemplates/CountryViewModel.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Shared/EditorTemplates/CountryViewModel.cshtml)]
 
 Přidávání prvků jazyka HTML [\<option>](https://www.w3.org/wiki/HTML/Elements/option) není omezeno pouze na případ *výběru* . Například následující metoda zobrazení a akce vygeneruje HTML podobný kódu výše:
 
 [!code-csharp[](working-with-forms/sample/final/Controllers/HomeController.cs?name=snippetNone)]
 
-[!code-HTML[](working-with-forms/sample/final/Views/Home/IndexOption.cshtml)]
+[!code-cshtml[](working-with-forms/sample/final/Views/Home/IndexOption.cshtml)]
 
 V `<option>` závislosti na aktuální hodnotě bude vybrán správný prvek (obsahující `selected="selected"` atribut) `Country` .
 
@@ -670,7 +670,7 @@ V `<option>` závislosti na aktuální hodnotě bude vybrán správný prvek (ob
  </form>
  ```
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * <xref:mvc/views/tag-helpers/intro>
 * [Element HTML Form](https://www.w3.org/TR/html401/interact/forms.html)

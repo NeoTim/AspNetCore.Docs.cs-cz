@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/tag-helpers/authoring
-ms.openlocfilehash: 5e250debb5c4c2ef00b844557d31ed8281d2ff2f
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: e630bf4b0c121796315be077623abae73d240b37
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407587"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212464"
 ---
 # <a name="author-tag-helpers-in-aspnet-core"></a>Vytváření značek pomocníků v ASP.NET Core
 
@@ -39,7 +39,7 @@ Pomocný objekt tag je libovolná třída, která implementuje `ITagHelper` rozh
 
 ## <a name="a-minimal-tag-helper"></a>Pomocný Pomocník s minimální značkou
 
-V této části napíšete pomocníka značek, který aktualizuje značku e-mailu. Například:
+V této části napíšete pomocníka značek, který aktualizuje značku e-mailu. Zde je příklad:
 
 ```html
 <email>Support</email>
@@ -87,14 +87,14 @@ To znamená, že značka kotvy vytvoří tento e-mailový odkaz. To můžete cht
 
 <!--
 the following snippet uses TagHelpers3 and should use TagHelpers (not the 3)
-    [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImports.cshtml?highlight=3&range=1-3)]
+    [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/_ViewImports.cshtml?highlight=3&range=1-3)]
 -->
 
 Chcete-li přidat pomocníka značek pro zobrazení pomocí FQN, nejprve přidejte FQN ( `AuthoringTagHelpers.TagHelpers.EmailTagHelper` ) a potom **název sestavení** (*AuthoringTagHelpers*, ne nutně `namespace` ). Většina vývojářů bude chtít použít zástupnou syntaxi. [Úvod k](intro.md) pomocníkům značek odkazuje na podrobné informace o přidání, odebrání, hierarchii a zástupné syntaxi pomocníka značek.
 
 1. Aktualizujte kód v souboru *views/Home/Contact. cshtml* pomocí těchto změn:
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
 
 1. Spusťte aplikaci a použijte oblíbený prohlížeč k zobrazení zdroje HTML, abyste mohli ověřit, že jsou značky e-mailu nahrazeny značkou ukotvení (například `<a>Support</a>` ). *Podpora* a *Marketing* se vykreslují jako odkazy, ale nemají atribut, aby byly `href` funkční. Opravujeme ho v další části.
 
@@ -118,7 +118,7 @@ Tento přístup funguje pro atribut "href", pokud aktuálně neexistuje v kolekc
 
 1. Aktualizujte kód v souboru *views/Home/Contact. cshtml* pomocí těchto změn:
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/ContactCopy.cshtml?highlight=15,16)]
 
 1. Spusťte aplikaci a ověřte, že generuje správné odkazy.
 
@@ -147,7 +147,7 @@ V této části napíšeme pomocníka asynchronního e-mailu.
 
 1. Proveďte následující změny v souboru *views/Home/Contact. cshtml* , aby pomocník značek mohl získat cílový e-mail.
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=15,16&range=1-17)]
 
 1. Spusťte aplikaci a ověřte, že generuje platné e-mailové odkazy.
 
@@ -163,7 +163,7 @@ V této části napíšeme pomocníka asynchronního e-mailu.
 
 1. Upravte zobrazení *About. cshtml* tak, aby obsahovalo `bold` hodnotu atributu. Dokončený kód je uveden níže.
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutBoldOnly.cshtml?highlight=7)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/AboutBoldOnly.cshtml?highlight=7)]
 
 1. Spusťte aplikaci. Pomocí oblíbeného prohlížeče můžete zkontrolovat zdroj a ověřit označení.
 
@@ -225,7 +225,7 @@ Můžete také použít `[HtmlTargetElement]` ke změně názvu cílového prvku
 
 1. Do zobrazení *About. cshtml* přidejte následující kód. Zvýrazněný kód zobrazí informace o webu.
 
-   [!code-html[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,4-8, 18-999)]
+   [!code-cshtml[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/About.cshtml?highlight=1,4-8, 18-999)]
 
    > [!NOTE]
    > V Razor kódu zobrazeném níže:
@@ -251,7 +251,7 @@ Pomocník značek podmínky vykreslí výstup, když prošla pravdivá hodnota.
 
 1. Obsah souboru *views/Home/index. cshtml* nahraďte následujícím kódem:
 
-   [!code-csharp[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Index.cshtml)]
+   [!code-cshtml[](authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Index.cshtml)]
 
 1. Nahraďte `Index` metodu v `Home` kontroleru následujícím kódem:
 
@@ -281,7 +281,7 @@ Vzhledem k tomu, že tyto dva pomocníky úzce souvisejí a vy je můžete v bud
 
 1. Na konec souboru *views/Home/Contact. cshtml* přidejte následující kód:
 
-   [!code-html[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=19)]
+   [!code-cshtml[](../../../mvc/views/tag-helpers/authoring/sample/AuthoringTagHelpers/src/AuthoringTagHelpers/Views/Home/Contact.cshtml?highlight=19)]
 
 1. Spusťte aplikaci a ověřte, že pomocná rutina značky vykresluje kotvu správně.
 

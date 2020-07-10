@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/read-related-data
-ms.openlocfilehash: f2e989b2c6370d862b4d1e6550b09cb47b5747c1
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: abd5c4e474e30c119e2bea9e3cce3d2b277e0daf
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401516"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212742"
 ---
 # <a name="tutorial-read-related-data---aspnet-mvc-with-ef-core"></a>Kurz: čtení souvisejících dat – ASP.NET MVC pomocí EF Core
 
@@ -55,7 +55,7 @@ Existuje několik způsobů, jak může software pro mapování relačních dat 
 
   ![Příklad samostatných dotazů](read-related-data/_static/separate-queries.png)
 
-* Explicitní načítání. Při prvním načtení entity se nenačte související data. Napíšete kód, který načte související data, pokud je to potřeba. Stejně jako v případě, že se Eager načítá pomocí samostatných dotazů, explicitní načítání vede k více dotazům odesílaných do databáze. Rozdíl je v tom, že při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. V Entity Framework Core 1,1 lze použít `Load` metodu k explicitnímu načítání. Například:
+* Explicitní načítání. Při prvním načtení entity se nenačte související data. Napíšete kód, který načte související data, pokud je to potřeba. Stejně jako v případě, že se Eager načítá pomocí samostatných dotazů, explicitní načítání vede k více dotazům odesílaných do databáze. Rozdíl je v tom, že při explicitním načítání kód určuje navigační vlastnosti, které mají být načteny. V Entity Framework Core 1,1 lze použít `Load` metodu k explicitnímu načítání. Zde je příklad:
 
   ![Příklad explicitního načtení](read-related-data/_static/explicit-loading.png)
 
@@ -83,7 +83,7 @@ Nahraďte `Index` metodu následujícím kódem, který používá vhodnější 
 
 Otevřete *zobrazení/kurzy/index. cshtml* a nahraďte kód šablony následujícím kódem. Změny jsou zvýrazněny:
 
-[!code-html[](intro/samples/cu/Views/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
+[!code-cshtml[](intro/samples/cu/Views/Courses/Index.cshtml?highlight=4,7,15-17,34-36,44)]
 
 Provedli jste následující změny ve vygenerovaném kódu:
 
@@ -179,7 +179,7 @@ V dalším případě se vybraný kurz načte ze seznamu kurzů v modelu zobraze
 
 V *zobrazeních, instruktorech/index. cshtml*nahraďte kód šablony následujícím kódem. Změny jsou zvýrazněny.
 
-[!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=1-64&highlight=1,3-7,15-19,24,26-31,41-54,56)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=1-64&highlight=1,3-7,15-19,24,26-31,41-54,56)]
 
 V existujícím kódu jste provedli následující změny:
 
@@ -221,7 +221,7 @@ Spusťte aplikaci a vyberte kartu **instruktory** . Stránka zobrazuje vlastnost
 
 V souboru *views/instruktors/index. cshtml* za uzavírací element Table (na konci souboru) přidejte následující kód. Tento kód zobrazuje seznam kurzů souvisejících s instruktorem, když je vybrán instruktor.
 
-[!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=66-101)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=66-101)]
 
 Tento kód načte `Courses` vlastnost modelu zobrazení a zobrazí seznam kurzů. Poskytuje také hypertextový odkaz pro **Výběr** , který pošle ID vybraného kurzu do `Index` metody Action.
 
@@ -231,7 +231,7 @@ Aktualizujte stránku a vyberte instruktora. Nyní se zobrazí mřížka zobrazu
 
 Po tom, co jste právě přidali blok kódu, přidejte následující kód. Zobrazí se seznam studentů, kteří jsou v kurzu při výběru tohoto kurzu zaregistrovaní.
 
-[!code-html[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=103-125)]
+[!code-cshtml[](intro/samples/cu/Views/Instructors/Index1.cshtml?range=103-125)]
 
 Tento kód načte vlastnost registrace modelu zobrazení, aby se zobrazil seznam studentů zaregistrovaných v tomto kurzu.
 

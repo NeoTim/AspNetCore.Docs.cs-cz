@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-view
-ms.openlocfilehash: 841751ffb834f77184365c3022293dbadc9f6f2c
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d6a541e9633d3ecc2768744956c3b43d830b0b2b
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403531"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213121"
 ---
 # <a name="part-3-add-a-view-to-an-aspnet-core-mvc-app"></a>Část 3 – přidání zobrazení do ASP.NET Core aplikace MVC
 
@@ -72,7 +72,7 @@ Přidejte `Index` zobrazení pro `HelloWorldController` .
   * V levém podokně vyberte **ASP .NET Core** .
   * V prostředním podokně vyberte **stránku zobrazení MVC** .
   * Do pole **název** zadejte *index* .
-  * Vyberte **Nový**.
+  * Vyberte možnost pro **novou** položku.
 
 ![Dialogové okno Přidat novou položku](adding-view/_static/add_view_mac.png)
 
@@ -80,7 +80,7 @@ Přidejte `Index` zobrazení pro `HelloWorldController` .
 
 Obsah zobrazení souboru views/ *HelloWorld/index. cshtml* nahraďte Razor následujícím způsobem:
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
 Přejděte na adresu `https://localhost:{PORT}/HelloWorld`. `Index`Metoda v `HelloWorldController` nepříliš velkém rozsahu spustila příkaz `return View();` , který určuje, že metoda má použít soubor šablony zobrazení k vykreslení odpovědi do prohlížeče. Vzhledem k tomu, že není zadaný název souboru šablony zobrazení, MVC použije výchozí soubor zobrazení. Výchozí soubor zobrazení má stejný název jako metoda ( `Index` ), takže se použije šablona zobrazení v */views/HelloWorld/index.cshtml* . Následující obrázek ukazuje řetězec "Hello z naší šablony zobrazení". pevně zakódovaný v zobrazení.
 
@@ -96,7 +96,7 @@ Vyberte odkazy nabídky (**MvcMovie**, **Home**a **Privacy**). Na každé strán
 
 Nahraďte obsah souborů *views/Shared/_Layout. cshtml* následujícím kódem. Změny jsou zvýrazněny:
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Views/Shared/_Layout.cshtml?highlight=6,14,40)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie3/Views/Shared/_Layout.cshtml?highlight=6,14,40)]
 
 Předchozí kód provedl následující změny:
 
@@ -125,7 +125,7 @@ Soubor *views/_ViewStart. cshtml* přináší do každého zobrazení soubor vie
 
 Změňte název a `<h2>` element zobrazení */Hello/index. cshtml* zobrazení souboru:
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
 
 Název a `<h2>` element se mírně liší, abyste viděli, který bit kódu se zobrazí.
 
@@ -161,7 +161,7 @@ Vytvořte šablonu zobrazení Vítejte s názvem *views/HelloWorld/Welcome. csht
 
 Vytvoříte smyčku v šabloně zobrazení *Welcome. cshtml* , která zobrazí text Hello `NumTimes` . Nahraďte obsah *zobrazení/HelloWorld/Welcome. cshtml* následujícím způsobem:
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
 
 Uložte změny a přejděte na následující adresu URL:
 
@@ -229,7 +229,7 @@ Přidejte `Index` zobrazení pro `HelloWorldController` .
   * V levém podokně vyberte **Web** .
   * V prostředním podokně vyberte **prázdný soubor HTML** .
   * Do pole **název** zadejte *index. cshtml* .
-  * Vyberte **Nový**.
+  * Vyberte možnost pro **novou** položku.
 
 ![Dialogové okno Přidat novou položku](adding-view/_static/add_view_mac.png)
 
@@ -237,7 +237,7 @@ Přidejte `Index` zobrazení pro `HelloWorldController` .
 
 Obsah zobrazení souboru views/ *HelloWorld/index. cshtml* nahraďte Razor následujícím způsobem:
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/HelloWorld/Index1.cshtml?highlight=7)]
 
 Přejděte na adresu `https://localhost:{PORT}/HelloWorld`. `Index`Metoda v `HelloWorldController` nepříliš velkém rozsahu spustila příkaz `return View();` , který určuje, že metoda má použít soubor šablony zobrazení k vykreslení odpovědi do prohlížeče. Vzhledem k tomu, že není zadaný název souboru šablony zobrazení, MVC použije výchozí soubor zobrazení. Výchozí soubor zobrazení má stejný název jako metoda ( `Index` ), takže v */views/HelloWorld/index.cshtml* se používá. Následující obrázek ukazuje řetězec "Hello z naší šablony zobrazení". pevně zakódovaný v zobrazení.
 
@@ -256,7 +256,7 @@ Vyberte odkazy nabídky (**MvcMovie**, **Home**a **Privacy**). Na každé strán
 
 Následující kód ukazuje zvýrazněné změny:
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Shared/_Layout.cshtml?highlight=6,24,51)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Shared/_Layout.cshtml?highlight=6,24,51)]
 
 V předchozím kódu `asp-area` byl [atribut pomocník značek ukotvení](xref:mvc/views/tag-helpers/builtin-th/anchor-tag-helper) vynechán, protože tato aplikace nepoužívá [oblasti](xref:mvc/controllers/areas).
 
@@ -285,7 +285,7 @@ Soubor *views/_ViewStart. cshtml* přináší do každého zobrazení soubor vie
 
 Změňte název a `<h2>` element zobrazení */Hello/index. cshtml* zobrazení souboru:
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Index2.cshtml?highlight=2,5)]
 
 Název a `<h2>` element se mírně liší, abyste viděli, který bit kódu se zobrazí.
 
@@ -321,7 +321,7 @@ Vytvořte šablonu zobrazení Vítejte s názvem *views/HelloWorld/Welcome. csht
 
 Vytvoříte smyčku v šabloně zobrazení *Welcome. cshtml* , která zobrazí text Hello `NumTimes` . Nahraďte obsah *zobrazení/HelloWorld/Welcome. cshtml* následujícím způsobem:
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/HelloWorld/Welcome.cshtml)]
 
 Uložte změny a přejděte na následující adresu URL:
 

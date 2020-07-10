@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: mvc/views/view-components
-ms.openlocfilehash: 40902da52217505822abd9bfd889ecafdd4d88e0
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 272b5a89601a9e6ef24f3e60a3da7e2a40297c97
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407834"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213115"
 ---
 # <a name="view-components-in-aspnet-core"></a>Zobrazit součásti v ASP.NET Core
 
@@ -100,7 +100,7 @@ Doporučujeme pojmenovat soubor zobrazení *Default. cshtml* a použít cestu vi
 
 Chcete-li přizpůsobit cestu pro vyhledávání zobrazení Razor , <xref:Microsoft.AspNetCore.Mvc.Razor.RazorViewEngineOptions.ViewLocationFormats> kolekci úprav. Chcete-li například vyhledat zobrazení v cestě "/Components/{View název součásti}/{View Name}", přidejte novou položku do kolekce:
 
-[!code-cs[](view-components/samples_snapshot/2.x/Startup.cs?name=snippet_ViewLocationFormats&highlight=4)]
+[!code-csharp[](view-components/samples_snapshot/2.x/Startup.cs?name=snippet_ViewLocationFormats&highlight=4)]
 
 V předchozím kódu zástupný symbol " {0} " představuje cestu "Components/{View Component Name}/{View Name}".
 
@@ -351,6 +351,6 @@ Každý parametr v součásti zobrazení je povinný atribut. Podívejte se na [
 * ViewComponent nevykresluje žádné značky.
 * Nebudou vyvolány žádné chyby.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Injektáž závislostí do zobrazení](xref:mvc/views/dependency-injection)

@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/file-providers
-ms.openlocfilehash: 9c679f6cb56397632eb99708bd2edd83c55ecf50
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 30f46618cc8698c2923c169fea2b9eafec7802db
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85408263"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212859"
 ---
 # <a name="file-providers-in-aspnet-core"></a>Poskytovatelé souborů v ASP.NET Core
 
@@ -28,7 +28,7 @@ ms.locfileid: "85408263"
 
 ::: moniker range=">= aspnetcore-3.0"
 
-ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů. Poskytovatelé souborů se používají v rámci ASP.NET Core Framework. Například:
+ASP.NET Core k abstrakci přístupu k systému souborů prostřednictvím použití poskytovatelů souborů. Poskytovatelé souborů se používají v rámci ASP.NET Core Framework. Zde je příklad:
 
 * <xref:Microsoft.AspNetCore.Hosting.IWebHostEnvironment>zpřístupňuje [kořenový adresář obsahu](xref:fundamentals/index#content-root) aplikace a [webové kořenové adresáře](xref:fundamentals/index#web-root) jako `IFileProvider` typy.
 * [Middleware statických souborů](xref:fundamentals/static-files) používá k vyhledání statických souborů poskytovatele souborů.
@@ -61,7 +61,7 @@ Ukázková aplikace *FileProviderSample* ukazuje, jak nakonfigurovat poskytovate
 
 V následující tabulce jsou uvedeny implementace `IFileProvider` .
 
-| Implementace | Description |
+| Implementace | Popis |
 | -------------- | ----------- |
 | [CompositeFileProvider](#compositefileprovider) | Slouží k poskytnutí kombinovaného přístupu k souborům a adresářům z jednoho nebo více poskytovatelů. |
 | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | Používá se pro přístup k souborům integrovaným v sestaveních. |
@@ -124,7 +124,7 @@ Další přetížení umožňují:
 * Umožňuje nastavit rozsah souborů na datum poslední úpravy.
 * Pojmenujte vložený prostředek obsahující manifest vloženého souboru.
 
-| Metody | Description |
+| Metody | Popis |
 | -------- | ----------- |
 | `ManifestEmbeddedFileProvider(Assembly, String)` | Přijímá volitelný `root` parametr relativní cesty. Zadejte `root` obor pro volání do <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> těchto prostředků v zadané cestě. |
 | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | Přijímá volitelný `root` parametr relativní cesty a `lastModified` parametr data ( <xref:System.DateTimeOffset> ). `lastModified`Datum v oboru datum poslední změny <xref:Microsoft.Extensions.FileProviders.IFileInfo> instancí vrácených <xref:Microsoft.Extensions.FileProviders.IFileProvider> . |
@@ -168,7 +168,7 @@ Odpovídá cokoli v různých úrovních adresáře. Dá se použít k rekurzivn
 
 Následující tabulka uvádí běžné příklady glob vzorů.
 
-|Vzor  |Description  |
+|Vzor  |Popis  |
 |---------|---------|
 |`directory/file.txt`|Odpovídá konkrétnímu souboru v konkrétním adresáři.|
 |`directory/*.txt`|Vyhledá všechny soubory s příponou *. txt* v konkrétním adresáři.|
@@ -212,7 +212,7 @@ Ukázková aplikace ukazuje, jak nakonfigurovat poskytovatele souborů v `Startu
 
 `IFileProvider`K dispozici jsou tři implementace systému.
 
-| Implementace | Description |
+| Implementace | Popis |
 | -------------- | ----------- |
 | [PhysicalFileProvider](#physicalfileprovider) | Fyzický poskytovatel se používá pro přístup k fyzickým souborům systému. |
 | [ManifestEmbeddedFileProvider](#manifestembeddedfileprovider) | Zprostředkovatel manifestu Embedded se používá pro přístup k souborům integrovaným v sestaveních. |
@@ -252,7 +252,7 @@ var physicalProvider = _env.ContentRootFileProvider;
 
 Chcete-li vygenerovat manifest vložených souborů, nastavte `<GenerateEmbeddedFilesManifest>` vlastnost na hodnotu `true` . Zadejte soubory, které se mají vložit do [ &lt; EmbeddedResource &gt; ](/dotnet/core/tools/csproj#default-compilation-includes-in-net-core-projects):
 
-[!code-csharp[](file-providers/samples/2.x/FileProviderSample/FileProviderSample.csproj?highlight=6,14)]
+[!code-xml[](file-providers/samples/2.x/FileProviderSample/FileProviderSample.csproj?highlight=6,14)]
 
 Pomocí [vzorů glob](#glob-patterns) určete jeden nebo více souborů, které mají být vloženy do sestavení.
 
@@ -271,7 +271,7 @@ Další přetížení umožňují:
 * Umožňuje nastavit rozsah souborů na datum poslední úpravy.
 * Pojmenujte vložený prostředek obsahující manifest vloženého souboru.
 
-| Metody | Description |
+| Metody | Popis |
 | -------- | ----------- |
 | `ManifestEmbeddedFileProvider(Assembly, String)` | Přijímá volitelný `root` parametr relativní cesty. Zadejte `root` obor pro volání do <xref:Microsoft.Extensions.FileProviders.IFileProvider.GetDirectoryContents*> těchto prostředků v zadané cestě. |
 | `ManifestEmbeddedFileProvider(Assembly, String, DateTimeOffset)` | Přijímá volitelný `root` parametr relativní cesty a `lastModified` parametr data ( <xref:System.DateTimeOffset> ). `lastModified`Datum v oboru datum poslední změny <xref:Microsoft.Extensions.FileProviders.IFileInfo> instancí vrácených <xref:Microsoft.Extensions.FileProviders.IFileProvider> . |

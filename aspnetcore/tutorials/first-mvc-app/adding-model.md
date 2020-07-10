@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/adding-model
-ms.openlocfilehash: 0974abfe632fd897c08435b82a7c695534cc3139
-ms.sourcegitcommit: 895e952aec11c91d703fbdd3640a979307b8cc67
+ms.openlocfilehash: 77c12b98462c8a84ab807abef247573b6a028fcc
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/01/2020
-ms.locfileid: "85793600"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213166"
 ---
 # <a name="part-4-add-a-model-to-an-aspnet-core-mvc-app"></a>4. část Přidání modelu do aplikace ASP.NET Core MVC
 
@@ -286,7 +286,7 @@ Projděte si soubor migrace */{timestamp} _InitialCreate. cs* :
 
 <a name="test"></a>
 
-## <a name="test-the-app"></a>Otestování aplikace
+## <a name="test-the-app"></a>Testování aplikace
 
 * Spusťte aplikaci a klikněte na odkaz **video aplikace** .
 
@@ -407,7 +407,7 @@ Po vytvoření kontroleru filmů zahrnuje generování uživatelského rozhraní
 
 Vzhledem k tomu `Model` , že objekt je silného typu (jako `IEnumerable<Movie>` objekt), každá položka ve smyčce je zapsána jako `Movie` . Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)
 * [Globalizace a lokalizace](xref:fundamentals/localization)
@@ -613,7 +613,7 @@ Vytvořili jste kontext databáze a zaregistrovali jej pomocí kontejneru DI.
 
 <a name="test"></a>
 
-### <a name="test-the-app"></a>Otestování aplikace
+### <a name="test-the-app"></a>Testování aplikace
 
 * Spusťte aplikaci a přidejte ji `/Movies` k adrese URL v prohlížeči ( `http://localhost:port/movies` ).
 
@@ -690,7 +690,7 @@ return View(movie);
 
 Projděte si obsah souboru *views/video/details. cshtml* :
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/DetailsOriginal.cshtml)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/DetailsOriginal.cshtml)]
 
 Zahrnutím `@model` příkazu v horní části souboru zobrazení můžete určit typ objektu, který zobrazení očekává. Při vytváření kontroleru filmů `@model` byl do horní části souboru *Details. cshtml* přidán následující příkaz:
 
@@ -708,15 +708,15 @@ Když jste vytvořili kontroler filmů, generování uživatelského rozhraní a
 
 <!-- Copy Index.cshtml to IndexOriginal.cshtml -->
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?range=1)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?range=1)]
 
 `@model`Direktiva umožňuje přístup k seznamu filmů, které kontroler předává do zobrazení pomocí `Model` objektu se silným typem. Například v zobrazení *index. cshtml* přechází kód přes filmy pomocí `foreach` příkazu nad objektem silného typu `Model` :
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?highlight=1,31,34,37,40,43,46-48)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexOriginal.cshtml?highlight=1,31,34,37,40,43,46-48)]
 
 Vzhledem k tomu `Model` , že objekt je silného typu (jako `IEnumerable<Movie>` objekt), každá položka ve smyčce je zapsána jako `Movie` . Kromě jiných výhod to znamená, že se vám bude zobrazovat doba kompilace kódu:
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Pomocné rutiny značek](xref:mvc/views/tag-helpers/intro)
 * [Globalizace a lokalizace](xref:fundamentals/localization)

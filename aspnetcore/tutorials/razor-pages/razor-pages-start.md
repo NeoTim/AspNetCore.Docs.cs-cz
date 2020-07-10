@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/razor-pages/razor-pages-start
-ms.openlocfilehash: 97e3f60480bc8e7e88c8361e5b13f02d98765d9e
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 77b230f14b4eef60d771daf8fe09288a9dd3c69c
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405299"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213000"
 ---
 # <a name="tutorial-get-started-with-razor-pages-in-aspnet-core"></a>Kurz: Začínáme se Razor stránkami v ASP.NET Core
 
@@ -67,7 +67,7 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 * V nabídce **soubor** sady Visual Studio vyberte **Nový** > **projekt**.
 * Vytvořte novou ASP.NET Core webovou aplikaci a vyberte **Další**.
   ![Nová ASP.NET Core webové aplikace](razor-pages-start/_static/np_2.1.png)
-* Pojmenujte projekt **RazorPagesMovie**. Je důležité pojmenovat projekt *RazorPagesMovie* , aby se obory názvů shodovaly při kopírování a vkládání kódu.
+* Pojmenujte projekt ** Razor PagesMovie**. Je důležité pojmenovat projekt * Razor PagesMovie* , aby se obory názvů shodovaly při kopírování a vkládání kódu.
   ![Nová ASP.NET Core webové aplikace](razor-pages-start/_static/config.png)
 
 * V rozevíracím seznamu vyberte položku **ASP.NET Core 3,1** **a potom**vyberte **vytvořit**.
@@ -91,10 +91,10 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
   code -r RazorPagesMovie
   ```
 
-  * `dotnet new`Příkaz vytvoří nový Razor projekt stránky ve složce *RazorPagesMovie* .
-  * `code`Příkaz otevře složku *RazorPagesMovie* v aktuální instanci Visual Studio Code.
+  * `dotnet new`Příkaz vytvoří nový Razor projekt stránky ve složce * Razor PagesMovie* .
+  * `code`Příkaz otevře složku * Razor PagesMovie* v aktuální instanci Visual Studio Code.
 
-* Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' RazorPagesMovie '. Přidat je?** Vyberte **Ano**.
+* Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' Razor PagesMovie '. Přidat je?** Vyberte **Ano**.
 
   Do kořenového adresáře projektu se přidá adresář *. VSCode* , který obsahuje *launch.jsv* souborech a *tasks.jsna* nich.
 
@@ -108,16 +108,14 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
   ![Výběr šablony webové aplikace v macOS](razor-pages-start/_static/web_app_template_vsmac.png)
 
-* Potvrďte následující konfigurace:
+* V dialogovém okně **Konfigurace nové webové aplikace** :
 
-  * **Cílová architektura** je nastavená na **.NET Core 3,1**.
-  * **Ověřování** nastaveno na **bez ověřování**.
-   
+  * Potvrďte, že **ověřování** je nastaveno na **bez ověřování**.
+  * Pokud se zobrazí možnost výběru **cílové platformy**, vyberte nejnovější verzi 3. x.
+
   Vyberte **Další**.
 
-  ![macOS .NET Core 3,1 – výběr](razor-pages-start/_static/targetframework3.png)
-
-* Pojmenujte projekt **RazorPagesMovie**a pak vyberte **vytvořit**.
+* Pojmenujte projekt ** Razor PagesMovie**a pak vyberte **vytvořit**.
 
   ![macOS název projektu](razor-pages-start/_static/RazorPagesMovie.png)
 
@@ -216,7 +214,7 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
   ![Nová ASP.NET Core webové aplikace](razor-pages-start/_static/np_2.1.png)
 
-* Pojmenujte projekt **RazorPagesMovie**. Je důležité pojmenovat projekt *RazorPagesMovie* , aby se obory názvů shodovaly při kopírování a vkládání kódu.
+* Pojmenujte projekt ** Razor PagesMovie**. Je důležité pojmenovat projekt * Razor PagesMovie* , aby se obory názvů shodovaly při kopírování a vkládání kódu.
 
   ![Nová ASP.NET Core webové aplikace](razor-pages-start/_static/config.png)
 
@@ -241,10 +239,10 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
   code -r RazorPagesMovie
   ```
 
-  * `dotnet new`Příkaz vytvoří nový Razor projekt stránky ve složce *RazorPagesMovie* .
-  * `code`Příkaz otevře složku *RazorPagesMovie* v aktuální instanci Visual Studio Code.
+  * `dotnet new`Příkaz vytvoří nový Razor projekt stránky ve složce * Razor PagesMovie* .
+  * `code`Příkaz otevře složku * Razor PagesMovie* v aktuální instanci Visual Studio Code.
 
-* Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' RazorPagesMovie '. Přidat je?** Vyberte **Ano**.
+* Až se ikona plamene u OmniSharp stavového řádku změní na zelenou, dialogové okno požádá **o požadované prostředky k sestavení a ladění chybí v ' Razor PagesMovie '. Přidat je?** Vyberte **Ano**.
 
   Do kořenového adresáře projektu se přidá adresář *. VSCode* , který obsahuje *launch.jsv* souborech a *tasks.jsna* nich.
 
@@ -256,11 +254,14 @@ Na konci tohoto kurzu budete mít Razor webovou aplikaci pracovní stránky, kte
 
 * V Visual Studio pro Mac starší než verze 8,6 vyberte možnost Webová aplikace **.NET Core**  >  **App**  >  **Web aplikace**  >  **Next**. V části verze 8,6 nebo novější vyberte webová aplikace **Webová aplikace a**  >  **aplikace**konzoly webové  >  **aplikace**  >  **Next**.
 
-* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** nastavte **cílové** rozhraní **.NET Core 3,1**.
+* V dialogovém okně **Konfigurace nové webové aplikace** :
 
-  ![macOS .NET Core 3,0 – výběr](razor-pages-start/_static/targetframework3.png)
+  * Potvrďte, že **ověřování** je nastaveno na **bez ověřování**.
+  * Pokud se zobrazí možnost výběru **cílové platformy**, vyberte nejnovější verzi 2. x.
 
-* Pojmenujte projekt **RazorPagesMovie**a pak vyberte **vytvořit**.
+  Vyberte **Další**.
+
+* Pojmenujte projekt ** Razor PagesMovie**a pak vyberte **vytvořit**.
 
   ![nameproj](razor-pages-start/_static/RazorPagesMovie.png)
 
@@ -357,7 +358,7 @@ Obsahuje vstupní bod pro program. Další informace naleznete v tématu <xref:f
 
 Obsahuje kód, který konfiguruje chování aplikace, například zda vyžaduje souhlas s soubory cookie. Další informace naleznete v tématu <xref:fundamentals/startup>.
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=F0SP7Ry4flQ&feature=youtu.be)
 

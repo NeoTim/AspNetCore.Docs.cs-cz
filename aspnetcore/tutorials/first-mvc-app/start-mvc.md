@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/start-mvc
-ms.openlocfilehash: 01321d68defafbe79371250669f921307bcfdba6
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: d4eb1744b1186704603430584b3da0793f90ee49
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85407041"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213080"
 ---
 # <a name="get-started-with-aspnet-core-mvc"></a>Začínáme s ASP.NET Core MVC
 
@@ -106,14 +106,12 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
 
   ![Výběr šablony webové aplikace v macOS](start-mvc/_static/web_app_template_vsmac.png)
 
-* Potvrďte následující konfigurace:
+* V dialogovém okně **Konfigurace nové webové aplikace** :
 
-  * **Cílová architektura** je nastavená na **.NET Core 3,1**.
-  * **Ověřování** nastaveno na **bez ověřování**.
-   
+  * Potvrďte, že **ověřování** je nastaveno na **bez ověřování**.
+  * Pokud se zobrazí možnost výběru **cílové platformy**, vyberte nejnovější verzi 3. x.
+
   Vyberte **Další**.
-
-  ![macOS .NET Core 3,1 – výběr](start-mvc/_static/new_project_31_vsmac.png)
 
 * Pojmenujte projekt **MvcMovie**a pak vyberte **vytvořit**.
 
@@ -259,9 +257,12 @@ Kurz předpokládá familarity s VS Code. Další informace najdete v tématu [Z
 
 * V Visual Studio pro Mac starší než verze 8,6 vyberte možnost Webová aplikace **.NET Core**  >  **App**  >  **Web (Model-View-Controller)**  >  **Next**. Ve verzi 8,6 nebo novější vyberte možnost Webová aplikace **webové a konzolová**  >  **aplikace**  >  **(model-zobrazení-kontroler)**  >  **Další**.
 
-* V dialogovém okně **Konfigurace nového ASP.NET Core webového rozhraní API** přijměte výchozí **cílovou architekturu** **.NET Core 2,2**.
+* V dialogovém okně **Konfigurace nové webové aplikace** :
 
-  ![macOS .NET Core 2,2 – výběr](./start-mvc/_static/new_project_22_vsmac.png)
+  * Potvrďte, že **ověřování** je nastaveno na **bez ověřování**.
+  * Pokud se zobrazí možnost výběru **cílové platformy**, vyberte nejnovější verzi 2. x.
+
+  Vyberte **Další**.
 
 * Pojmenujte projekt **MvcMovie**a pak vyberte **vytvořit**.
 
@@ -285,7 +286,7 @@ Vyberte **CTRL + F5** a spusťte aplikaci v režimu bez ladění.
 
   ![IIS Express](start-mvc/_static/iis_express.png)
 
-* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](start-mvc/_static/privacy.png)
 
@@ -303,7 +304,7 @@ Stisknutím kombinace kláves CTRL + F5 spustíte bez ladicího programu.
 
   Spuštění aplikace pomocí CTRL + F5 (režim bez ladění) umožňuje provádět změny kódu, uložit soubor, aktualizovat prohlížeč a zobrazit změny kódu. Mnoho vývojářů upřednostňuje použití režimu bez ladění k aktualizaci stránky a zobrazení změn.
 
-* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](start-mvc/_static/privacy.png)
 
@@ -320,7 +321,7 @@ Kliknutím na **Spustit**  >  **Spustit bez ladění** spusťte aplikaci. Visual
 * Panel Adresa se zobrazí `localhost:port#` a ne něco jako `example.com` . Důvodem je, že `localhost` je standardní název hostitele pro váš místní počítač. Když Visual Studio vytvoří webový projekt, použije se pro webový server náhodný port. Po spuštění aplikace se zobrazí jiné číslo portu.
 * Aplikaci můžete spustit v režimu ladění nebo bez ladění z nabídky **Spustit** .
 
-* Vyberte **přijmout** pro vyjádření souhlasu se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
+* Kliknutím na tlačítko **Přijmout** vyjádříte souhlas se sledováním. Tato aplikace nesleduje osobní údaje. Kód vygenerovaný šablonou zahrnuje prostředky, které pomůžou splnit [Obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
   ![Stránka domů nebo index](./start-mvc/_static/output_privacy_macos.png)
 

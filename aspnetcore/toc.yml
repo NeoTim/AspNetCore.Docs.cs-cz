@@ -320,31 +320,31 @@
             - name: Integrované komponenty
               items:
                 - name: Aplikace
-                  uid: blazor/templates
+                  href: blazor/templates.md#blazor-project-structure
                 - name: Ověřování
-                  uid: blazor/security/webassembly/additional-scenarios
+                  href: blazor/security/webassembly/index.md#authentication-component
                 - name: AuthorizeView
-                  uid: blazor/security/index
+                  href: blazor/security/index.md#authorizeview-component
                 - name: InputCheckbox
-                  uid: blazor/forms-validation
+                  href: blazor/forms-validation.md#built-in-forms-components
                 - name: InputDate
-                  uid: blazor/forms-validation
+                  href: blazor/forms-validation.md#built-in-forms-components
                 - name: InputNumber
-                  uid: blazor/forms-validation
+                  href: blazor/forms-validation.md#built-in-forms-components
                 - name: InputSelect
-                  uid: blazor/forms-validation
+                  href: blazor/forms-validation.md#built-in-forms-components
                 - name: InputText
-                  uid: blazor/forms-validation
+                  href: blazor/forms-validation.md#built-in-forms-components
                 - name: InputTextArea
-                  uid: blazor/forms-validation
+                  href: blazor/forms-validation.md#built-in-forms-components
                 - name: MainLayout
-                  uid: blazor/layouts
+                  href: blazor/layouts.md#mainlayout-component
                 - name: NavLink
-                  uid: blazor/fundamentals/routing
+                  href: blazor/fundamentals/routing.md#navlink-component
                 - name: NavMenu
-                  uid: blazor/fundamentals/routing
+                  href: blazor/fundamentals/routing.md#navlink-component
                 - name: Směrovač
-                  uid: blazor/fundamentals/routing
+                  href: blazor/fundamentals/routing.md#route-templates
             - name: Kaskádové hodnoty a parametry
               uid: blazor/components/cascading-values-and-parameters
             - name: Datová vazba
@@ -927,16 +927,6 @@
     - name: Kontroly stavu
       uid: host-and-deploy/health-checks
       displayName: 'deploy, publish'
-    - name: Blazor
-      items:
-        - name: Přehled
-          uid: blazor/host-and-deploy/index
-        - name: Blazor WebAssembly
-          uid: blazor/host-and-deploy/webassembly
-        - name: Blazor Server
-          uid: blazor/host-and-deploy/server
-        - name: Konfigurace Linkeru
-          uid: blazor/host-and-deploy/configure-linker
 - name: Zabezpečení a identita
   displayName: 'authentication, authorization'
   items:
@@ -1169,42 +1159,6 @@
       uid: security/ip-safelist
     - name: Zabezpečení aplikací – OWASP
       href: 'https://cheatsheetseries.owasp.org/cheatsheets/DotNet_Security_Cheat_Sheet.html'
-    - name: Blazor
-      items:
-        - name: Přehled
-          uid: blazor/security/index
-        - name: Blazor WebAssembly
-          items:
-            - name: Přehled
-              uid: blazor/security/webassembly/index
-            - name: Samostatná aplikace využívající knihovnu ověřování
-              uid: blazor/security/webassembly/standalone-with-authentication-library
-            - name: Samostatná aplikace využívající účty Microsoft
-              uid: blazor/security/webassembly/standalone-with-microsoft-accounts
-            - name: Samostatná aplikace využívající Azure Active Directory
-              uid: blazor/security/webassembly/standalone-with-azure-active-directory
-            - name: Samostatná aplikace využívající Azure Active Directory B2C
-              uid: blazor/security/webassembly/standalone-with-azure-active-directory-b2c
-            - name: Hostovaná aplikace využívající Azure Active Directory
-              uid: blazor/security/webassembly/hosted-with-azure-active-directory
-            - name: Hostovaná aplikace využívající Azure Active Directory B2C
-              uid: blazor/security/webassembly/hosted-with-azure-active-directory-b2c
-            - name: Hostovaná aplikace využívající server identit
-              uid: blazor/security/webassembly/hosted-with-identity-server
-            - name: Další scénáře
-              uid: blazor/security/webassembly/additional-scenarios
-            - name: Skupiny a role AAD
-              uid: blazor/security/webassembly/aad-groups-roles
-        - name: Blazor Server
-          items:
-            - name: Přehled
-              uid: blazor/security/server/index
-            - name: Snižování rizik při ohrožení
-              uid: blazor/security/server/threat-mitigation
-            - name: Další scénáře
-              uid: blazor/security/server/additional-scenarios
-        - name: Zásady zabezpečení obsahu
-          uid: blazor/security/content-security-policy
 - name: Výkon
   items:
     - name: Přehled
@@ -1229,8 +1183,6 @@
       uid: performance/diagnostic-tools
     - name: Zátěžové testování
       uid: test/loadtests
-    - name: Blazor WebAssembly
-      uid: blazor/webassembly-performance-best-practices
 - name: Globalizace a lokalizace
   items:
     - name: Přehled

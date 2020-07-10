@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/index
-ms.openlocfilehash: 3fdea9f553cbd37f2c27740487cfe030ebd81937
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0ff580dd7cbefdfe3121b30490f99e0235d93bc3
+ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85402088"
+ms.lasthandoff: 07/09/2020
+ms.locfileid: "86176145"
 ---
 # <a name="secure-aspnet-core-blazor-webassembly"></a>ASP.NET Core zabezpečeníBlazor WebAssembly
 
@@ -55,6 +55,18 @@ K dispozici jsou další možnosti ověřování jednostránkové, jako je např
 * Když Blazor WebAssembly aplikace načte koncový bod zpětného volání přihlášení ( `/authentication/login-callback` ), je zpracována ověřovací odpověď.
   * Pokud se proces ověřování úspěšně dokončí, uživatel se ověří a případně se pošle zpátky na původní chráněnou adresu URL, kterou si uživatel vyžádal.
   * Pokud se proces ověřování z nějakého důvodu nepovede, uživatel se pošle na stránku neúspěšného přihlášení ( `/authentication/login-failed` ) a zobrazí se chyba.
+
+## <a name="authentication-component"></a>`Authentication` (komponenta)
+
+`Authentication`Součást ( `Pages/Authentication.razor` ) zpracovává operace vzdáleného ověřování a umožňuje aplikaci:
+
+* Nakonfigurujte trasy aplikace pro stavy ověřování.
+* Nastavte obsah uživatelského rozhraní pro stavy ověřování.
+* Spravovat stav ověřování.
+
+Akce ověřování, jako je registrace nebo přihlašování uživatele, jsou předány do Blazor <xref:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore%601> komponenty rozhraní, která zůstává v provozu a řídí stav napříč operacemi ověřování.
+
+Další informace a příklady naleznete v tématu <xref:blazor/security/webassembly/additional-scenarios> .
 
 ## <a name="authorization"></a>Autorizace
 

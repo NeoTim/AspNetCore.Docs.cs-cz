@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-mvc/crud
-ms.openlocfilehash: e7e4c4b15cca9612a552c58029ae8b34b79070d1
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: c33ff357ec6b467435325578047ac851a39e533e
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86060121"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212724"
 ---
 # <a name="tutorial-implement-crud-functionality---aspnet-mvc-with-ef-core"></a>Kurz: implementace funkce CRUD – ASP.NET MVC pomocí EF Core
 
@@ -102,11 +102,11 @@ Další informace o pomocníkech značek naleznete v tématu <xref:mvc/views/tag
 
 Otevřete *zobrazení/studenty/podrobnosti. cshtml*. Každé pole se zobrazí pomocí `DisplayNameFor` a `DisplayFor` pomocníků, jak je znázorněno v následujícím příkladu:
 
-[!code-html[](intro/samples/cu/Views/Students/Details.cshtml?range=13-18&highlight=2,5)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Details.cshtml?range=13-18&highlight=2,5)]
 
 Po posledním poli a bezprostředně před uzavírací `</dl>` značkou přidejte následující kód, který zobrazí seznam zápisů:
 
-[!code-html[](intro/samples/cu/Views/Students/Details.cshtml?range=31-52)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Details.cshtml?range=31-52)]
 
 Pokud po vložení kódu není odsazení kódu správné, opravte jej stisknutím kombinace kláves CTRL + K-D.
 
@@ -267,7 +267,7 @@ Pokud má entita související data, která by se měla taky odstranit, ujistět
 
 V *zobrazení/student/odstranit. cshtml*přidejte chybovou zprávu mezi nadpisem H2 a záhlavím H3, jak je znázorněno v následujícím příkladu:
 
-[!code-html[](intro/samples/cu/Views/Students/Delete.cshtml?range=7-9&highlight=2)]
+[!code-cshtml[](intro/samples/cu/Views/Students/Delete.cshtml?range=7-9&highlight=2)]
 
 Spusťte aplikaci, vyberte kartu **Students** a klikněte na **Odstranit** hypertextový odkaz:
 

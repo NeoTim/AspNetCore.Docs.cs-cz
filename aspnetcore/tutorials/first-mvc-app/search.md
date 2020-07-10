@@ -13,12 +13,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/search
-ms.openlocfilehash: 652ee8c4bfe8980eb09246720f9ddf1743021f34
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 65bf5e6b022699268f9e7e5677ea8632f1a489c7
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85399046"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213133"
 ---
 # <a name="part-7-add-search-to-an-aspnet-core-mvc-app"></a>Část 7 – přidání vyhledávání do aplikace ASP.NET Core MVC
 
@@ -75,7 +75,7 @@ Nemůžete ale očekávat, že uživatelé můžou upravovat adresu URL pokažd�
 
 Otevřete soubor *views/Movies/index. cshtml* a přidejte následující kód, který je `<form>` zvýrazněný níže:
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexForm1.cshtml?highlight=10-16&range=4-21)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie/Views/Movies/IndexForm1.cshtml?highlight=10-16&range=4-21)]
 
 Značka HTML `<form>` používá [pomocníka značek Form](xref:mvc/views/working-with-forms), takže když formulář odešlete, vystaví se řetězec filtru do `Index` Akce kontroleru filmů. Uložte změny a potom filtr otestujte.
 
@@ -101,7 +101,7 @@ V textu žádosti vidíte parametr Search a token [XSRF](xref:security/anti-requ
 
 Vzhledem k tomu, že parametr Search je v textu žádosti, a ne v adrese URL, nemůžete zachytit informace o hledání do záložky nebo sdílet s ostatními. Opravte to zadáním požadavku, který se má `HTTP GET` najít v souboru *views/Movies/index. cshtml* .
 
-[!code-html[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGet.cshtml?highlight=12&range=1-23)]
 
 Když teď odešlete hledání, adresa URL obsahuje řetězec vyhledávacího dotazu. Hledání bude také jít na `HttpGet Index` metodu Action, i když máte `HttpPost Index` metodu.
 

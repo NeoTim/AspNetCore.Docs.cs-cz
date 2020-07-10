@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: tutorials/first-mvc-app/new-field
-ms.openlocfilehash: 06db91e2b226f0e9222bf256f4c89fa2f8a3eb18
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: acd5d38f156dbcd23a82796bdded051a103880eb
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405117"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86213101"
 ---
 # <a name="part-8-add-a-new-field-to-an-aspnet-core-mvc-app"></a>Část 8 – Přidání nového pole do aplikace ASP.NET Core MVC
 
@@ -41,7 +41,7 @@ Přidat `Rating` vlastnost do *modelů/filmu. cs*:
 
 [!code-csharp[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Models/MovieDateRating.cs?highlight=13&name=snippet)]
 
-Sestavení aplikace
+Vytvoření aplikace
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -69,7 +69,7 @@ Aktualizujte šablony zobrazení, aby bylo možné zobrazit, vytvořit a upravit
 
 Upravte soubor */views/Movies/index.cshtml* a přidejte `Rating` pole:
 
-[!code-HTML[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGenreRating.cshtml?highlight=16,38&range=24-64)]
+[!code-cshtml[](~/tutorials/first-mvc-app/start-mvc/sample/MvcMovie22/Views/Movies/IndexGenreRating.cshtml?highlight=16,38&range=24-64)]
 
 Aktualizujte */views/Movies/Create.cshtml* s `Rating` polem.
 

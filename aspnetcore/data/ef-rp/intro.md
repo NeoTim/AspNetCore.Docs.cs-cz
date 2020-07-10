@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: data/ef-rp/intro
-ms.openlocfilehash: 79cfe50f7e074954291c88689940c3263b68e151
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 700370fd11a0df40a45c47e8c378d5bdd0c60009
+ms.sourcegitcommit: 50e7c970f327dbe92d45eaf4c21caa001c9106d0
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85401354"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86212691"
 ---
 # <a name="razor-pages-with-entity-framework-core-in-aspnet-core---tutorial-1-of-8"></a>RazorStránky s Entity Framework Core v ASP.NET Core – kurz 1 z 8
 
@@ -53,7 +53,7 @@ Pokyny pro [Visual Studio Code používají nástroj](https://www.sqlite.org/)pr
 
 Pokud se rozhodnete použít SQLite, Stáhněte a nainstalujte nástroj třetí strany pro správu a zobrazení databáze SQLite, jako je například [prohlížeč databáze pro SQLite](https://sqlitebrowser.org/).
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Pokud narazíte na problém, který nemůžete vyřešit, porovnejte kód s [dokončeným projektem](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples). Dobrý způsob, jak získat pomoc, je odeslání otázky do StackOverflow.com s použitím [značky ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [značky EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
@@ -223,7 +223,7 @@ V této části použijete nástroj ASP.NET Core pro generování uživatelskéh
   * V rozevíracím seznamu **třída modelu** vyberte **student (ContosoUniversity. Models)**.
   * V řádku **třídy kontextu dat** vyberte **+** znaménko (plus).
   * Změňte název kontextu dat z *ContosoUniversity. Models. ContosoUniversityContext* na *ContosoUniversity. data. SchoolContext*.
-  * Vyberte možnost **Přidat**.
+  * Vyberte **Přidat**.
 
 Automaticky se nainstalují tyto balíčky:
 
@@ -364,7 +364,7 @@ Tento pracovní postup funguje dobře v rané fázi vývoje, když se schéma ry
 
 Později v rámci série kurzů odstraníte databázi, kterou vytvořil, `EnsureCreated` a místo toho použijete migrace. Databázi vytvořenou nástrojem `EnsureCreated` nelze aktualizovat pomocí migrací.
 
-### <a name="test-the-app"></a>Otestování aplikace
+### <a name="test-the-app"></a>Testování aplikace
 
 * Spusťte aplikaci.
 * Vyberte odkaz **Students** a pak **vytvořte nový**.
@@ -482,7 +482,7 @@ Ukázková aplikace je web pro fiktivní univerzitě společnosti Contoso. Zahrn
 
 Znalost [ Razor stránek](xref:razor-pages/index). Noví Programátori by měli před spuštěním této série dokončit [Začínáme se Razor stránkami](xref:tutorials/razor-pages/razor-pages-start) .
 
-## <a name="troubleshooting"></a>Poradce při potížích
+## <a name="troubleshooting"></a>Řešení potíží
 
 Pokud narazíte na problém, který nelze vyřešit, můžete řešení obecně najít porovnáním kódu s [dokončeným projektem](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/data/ef-rp/intro/samples). Dobrým způsobem, jak získat pomoc, je odeslání otázky do [StackOverflow.com](https://stackoverflow.com/questions/tagged/asp.net-core) pro [ASP.NET Core](https://stackoverflow.com/questions/tagged/asp.net-core) nebo [EF Core](https://stackoverflow.com/questions/tagged/entity-framework-core).
 
@@ -529,11 +529,11 @@ Několik změn nastaví nabídku webu, rozložení a domovskou stránku. Update 
 
 Změny jsou zvýrazněny. (Všechny *značky se nezobrazí* .)
 
-[!code-html[](intro/samples/cu21/Pages/Shared/_Layout.cshtml?highlight=6,29,35-38,50&name=snippet)]
+[!code-cshtml[](intro/samples/cu21/Pages/Shared/_Layout.cshtml?highlight=6,29,35-38,50&name=snippet)]
 
 Na *stránce pages/index. cshtml*nahraďte obsah souboru následujícím kódem, který nahradí text o ASP.NET a MVC textem o této aplikaci:
 
-[!code-html[](intro/samples/cu21/Pages/Index.cshtml)]
+[!code-cshtml[](intro/samples/cu21/Pages/Index.cshtml)]
 
 ## <a name="create-the-data-model"></a>Vytvoření datového modelu
 
@@ -606,7 +606,7 @@ Dokončete dialog **Přidat Razor stránky pomocí Entity Framework (CRUD)** :
 * V rozevíracím seznamu **třída modelu** vyberte **student (ContosoUniversity. Models)**.
 * V řádku **třídy kontextu dat** vyberte **+** znaménko (plus) a změňte vygenerovaný název na **ContosoUniversity. Models. SchoolContext**.
 * V rozevíracím seznamu **Třída kontextu dat** vyberte **ContosoUniversity. Models. SchoolContext.**
-* Vyberte možnost **Přidat**.
+* Vyberte **Přidat**.
 
 ![Dialogové okno CRUD](intro/_static/s1.png)
 
@@ -671,7 +671,7 @@ Následující kód ukazuje aktualizovaný soubor *program.cs* .
 
 `EnsureCreated`je pohodlná v brzké fázi vývoje, když se schéma rychle vyvíjí. Později v kurzu se databáze odstraní a použijí se migrace.
 
-### <a name="test-the-app"></a>Otestování aplikace
+### <a name="test-the-app"></a>Testování aplikace
 
 Spusťte aplikaci a přijměte zásady souborů cookie. Tato aplikace neuchovává osobní údaje. Informace o zásadách souborů cookie najdete v tématu [Podpora pro EU obecné nařízení o ochraně osobních údajů (GDPR)](xref:security/gdpr).
 
@@ -771,7 +771,7 @@ V dalším kurzu se přezkoumávají základní operace CRUD (vytváření, čte
 
 
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další zdroje informací
 
 * [Verze YouTube tohoto kurzu](https://www.youtube.com/watch?v=P7iTtQnkrNs)
 
