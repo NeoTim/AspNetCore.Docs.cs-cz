@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/middleware/index
-ms.openlocfilehash: 69c253171c51e08802b82415245a66921168ec80
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: ea11b2fa70b9aef96971c41910136f0b09a31f55
+ms.sourcegitcommit: e216e8f4afa21215dc38124c28d5ee19f5ed7b1e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85404259"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86239657"
 ---
 # <a name="aspnet-core-middleware"></a>Middleware ASP.NET Core
 
@@ -58,7 +58,7 @@ Nejjednodušší možná ASP.NET Core aplikace nastaví jediného delegáta žá
 Když delegát neprojde požadavek na dalšího delegáta, nazývá se to *krátkodobý kanál žádosti*. Krátkodobé okruhy jsou často žádoucí, protože brání zbytečné práci. Například [middleware statických souborů](xref:fundamentals/static-files) může fungovat jako *middleware terminálu* tím, že zpracovává požadavek na statický soubor a krátký okruh zbývajících částí kanálu. Middleware přidané do kanálu předtím, než middleware, který ukončí další zpracování, stále zpracovává kód po svých `next.Invoke` příkazech. Přečtěte si ale následující upozornění týkající se pokusu o zápis do odpovědi, která již byla odeslána.
 
 > [!WARNING]
-> Nevolejte `next.Invoke` po odeslání odpovědi klientovi. Změny <xref:Microsoft.AspNetCore.Http.HttpResponse> poté, co odpověď začala, vyvolávají výjimku. Například změny jako hlavičky nastavení a stavový kód vyvolávají výjimku. Zápis do těla odpovědi po volání `next` :
+> Nevolejte `next.Invoke` po odeslání odpovědi klientovi. Změny <xref:Microsoft.AspNetCore.Http.HttpResponse> poté, co odpověď začala, vyvolávají výjimku. Například [nastavení záhlaví a stavový kód vyvolávají výjimku](xref:performance/performance-best-practices#do-not-modify-the-status-code-or-headers-after-the-response-body-has-started). Zápis do těla odpovědi po volání `next` :
 >
 > * Může způsobit narušení protokolu. Například zápis více než uvedené `Content-Length` .
 > * Může poškodit formát textu. Například zápis zápatí HTML do souboru CSS.
@@ -247,9 +247,9 @@ V předchozím příkladu odpověď "Hello z hlavního kanálu". je napsán pro 
 
 ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Order* poskytuje poznámky k umístění middlewaru v kanálu zpracování požadavků a za jakých podmínek může middleware ukončit zpracování požadavků. Když middleware middleware vytvoří kanál zpracování požadavků a zabrání dalšímu podřízenému middlewaru ve zpracování žádosti, nazývá se *middleware terminálu*. Další informace o krátkodobém okruhu najdete v části [vytvoření kanálu middlewaru pomocí IApplicationBuilder](#create-a-middleware-pipeline-with-iapplicationbuilder) .
 
-| Middleware | Description | Objednání |
+| Middleware | Description | Objednávka |
 | ---------- | ----------- | ----- |
-| [Ověřování](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
+| [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
 | [Autorizace](xref:Microsoft.AspNetCore.Builder.AuthorizationAppBuilderExtensions.UseAuthorization*) | Poskytuje podporu autorizace. | Hned po ověřovacím middlewaru. |
 | [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite` . | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. `UseCors`v současné době `UseResponseCaching` se musí před [touto chybou](https://github.com/dotnet/aspnetcore/issues/23218)přecházet.|
@@ -454,9 +454,9 @@ app.Map("/level1", level1App => {
 
 ASP.NET Core se dodává s následujícími součástmi middlewaru. Sloupec *Order* poskytuje poznámky k umístění middlewaru v kanálu zpracování požadavků a za jakých podmínek může middleware ukončit zpracování požadavků. Když middleware middleware vytvoří kanál zpracování požadavků a zabrání dalšímu podřízenému middlewaru ve zpracování žádosti, nazývá se *middleware terminálu*. Další informace o krátkodobém okruhu najdete v části [vytvoření kanálu middlewaru pomocí IApplicationBuilder](#create-a-middleware-pipeline-with-iapplicationbuilder) .
 
-| Middleware | Description | Objednání |
+| Middleware | Description | Objednávka |
 | ---------- | ----------- | ----- |
-| [Ověřování](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
+| [Authentication](xref:security/authentication/identity) | Poskytuje podporu ověřování. | Předtím `HttpContext.User` , než je potřeba. Terminál pro zpětná volání OAuth. |
 | [Zásady souborů cookie](xref:security/gdpr) | Sleduje souhlas uživatelů při ukládání osobních údajů a vynutila minimální standardy pro pole cookie, jako jsou `secure` a `SameSite` . | Před middlewarem, který vydává soubory cookie. Příklady: ověřování, relace, MVC (TempData). |
 | [CORS](xref:security/cors) | Konfiguruje sdílení prostředků mezi zdroji. | Před komponenty, které používají CORS. |
 | [Diagnostika](xref:fundamentals/error-handling) | Několik samostatných middlewarů, které poskytují stránku s výjimkou vývojářů, zpracování výjimek, stránky stavového kódu a výchozí webovou stránku pro nové aplikace. | Před komponenty, které generují chyby. Terminál pro výjimky nebo pro výchozí webovou stránku pro nové aplikace |

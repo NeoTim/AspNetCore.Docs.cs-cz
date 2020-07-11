@@ -5,7 +5,7 @@ description: Přečtěte si o dalších scénářích ASP.NET Core Blazor konfig
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/07/2020
+ms.date: 07/10/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/additional-scenarios
-ms.openlocfilehash: e62cb2ab865fbf57166d5ec3d1344183c00c2095
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: b28e4e43b88fcf8eab9e8959142cca21223c57ff
+ms.sourcegitcommit: e216e8f4afa21215dc38124c28d5ee19f5ed7b1e
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059836"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86239631"
 ---
 # <a name="aspnet-core-blazor-hosting-model-configuration"></a>ASP.NET Core Blazor Konfigurace modelu hostování
 
@@ -129,23 +129,107 @@ Vykreslování součástí serveru ze statické stránky HTML není podporováno
 
 *Tato část se týká Blazor Server .*
 
-V některých případech je potřeba nakonfigurovat SignalR klienta používaného Blazor Server aplikacemi. Například můžete chtít nakonfigurovat protokolování na SignalR straně klienta, aby bylo možné diagnostikovat problém s připojením.
+Nakonfigurujte SignalR klienta používaného Blazor Server aplikacemi v `Pages/_Host.cshtml` souboru. Umístěte skript, který volá `Blazor.start` za `_framework/blazor.server.js` skript a dovnitř `</body>` značky.
 
-Konfigurace SignalR klienta v `Pages/_Host.cshtml` souboru:
+### <a name="logging"></a>Protokolování
+
+Konfigurace SignalR protokolování klienta:
 
 * Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
-* Zavolejte `Blazor.start` a předejte do konfiguračního objektu, který určuje SignalR Tvůrce.
+* Předejte objekt konfigurace ( `configureSignalR` ), který se zavolá na `configureLogging` úrovni protokolu v Tvůrci klienta.
 
-```html
-<script src="_framework/blazor.server.js" autostart="false"></script>
-<script>
-  Blazor.start({
-    configureSignalR: function (builder) {
-      builder.configureLogging("information"); // LogLevel.Information
-    }
-  });
-</script>
+```cshtml
+    ...
+
+    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script>
+      Blazor.start({
+        configureSignalR: function (builder) {
+          builder.configureLogging("information");
+        }
+      });
+    </script>
+</body>
 ```
+
+V předchozím příkladu `information` je ekvivalentem úrovně protokolu <xref:Microsoft.Extensions.Logging.LogLevel.Information?displayProperty=nameWithType> .
+
+### <a name="modify-the-reconnection-handler"></a>Úprava obslužné rutiny opětovného připojení
+
+Události připojení okruhu obslužné rutiny opětovného připojení lze upravit pro vlastní chování, například:
+
+* Upozorní uživatele, pokud bylo připojení vyřazeno.
+* K provedení protokolování (z klienta) při připojení okruhu.
+
+Postup úpravy událostí připojení:
+
+* Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
+* Zaregistrujte zpětná volání pro změny připojení pro Vyřazená připojení ( `onConnectionDown` ) a zavedená nebo znovu vytvořená připojení ( `onConnectionUp` ). **Oba směry** `onConnectionDown` `onConnectionUp`musí být zadáno.
+
+```cshtml
+    ...
+
+    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script>
+      Blazor.start({
+        reconnectionHandler: {
+          onConnectionDown: (options, error) => console.error(error);
+          onConnectionUp: () => console.log("Up, up, and away!");
+        }
+      });
+    </script>
+</body>
+```
+
+### <a name="adjust-the-reconnection-retry-count-and-interval"></a>Upravit počet a interval opakování připojení
+
+Postup úpravy počtu opakování připojení a intervalu:
+
+* Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
+* Nastavte počet opakování ( `maxRetries` ) a dobu v milisekundách povolenou pro každý pokus o opakování ( `retryIntervalMilliseconds` ).
+
+```cshtml
+    ...
+
+    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script>
+      Blazor.start({
+        reconnectionOptions: {
+          maxRetries: 3,
+          retryIntervalMilliseconds: 2000
+        }
+      });
+    </script>
+</body>
+```
+
+### <a name="hide-or-replace-the-reconnection-display"></a>Skrýt nebo nahradit zobrazení opětovného připojení
+
+Skrytí zobrazení opětovného připojení:
+
+* Přidejte `autostart="false"` atribut ke `<script>` značce pro `blazor.server.js` skript.
+* Nastavte popisovač opětovného připojení `_reconnectionDisplay` na prázdný objekt ( `{}` nebo `new Object()` ).
+
+```cshtml
+    ...
+
+    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script>
+      window.addEventListener('beforeunload', function () {
+        Blazor.defaultReconnectionHandler._reconnectionDisplay = {};
+      });
+    </script>
+</body>
+```
+
+Chcete-li nahradit zobrazení opětovného připojení, nastavte `_reconnectionDisplay` v předchozím příkladu na prvek pro zobrazení:
+
+```javascript
+Blazor.defaultReconnectionHandler._reconnectionDisplay = 
+  document.getElementById("{ELEMENT ID}");
+```
+
+Zástupný symbol `{ELEMENT ID}` je ID prvku HTML, který se má zobrazit.
 
 ## <a name="additional-resources"></a>Další zdroje
 
