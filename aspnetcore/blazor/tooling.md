@@ -16,12 +16,12 @@ no-loc:
 - SignalR
 uid: blazor/tooling
 zone_pivot_groups: operating-systems
-ms.openlocfilehash: 0bd38d8d16365a80d7954c860a4e20e2280c36b2
-ms.sourcegitcommit: e216e8f4afa21215dc38124c28d5ee19f5ed7b1e
+ms.openlocfilehash: 33245e669b317ed577a8a1652b2eed8f9ea5b915
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86239605"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407642"
 ---
 # <a name="tooling-for-aspnet-core-blazor"></a>Nástroje pro ASP.NET CoreBlazor
 
@@ -33,7 +33,7 @@ Od [Daniel Skořepa](https://github.com/danroth27) a [Luke Latham](https://githu
 
 1. Vytvoření nového projektu
 
-1. Vyberte možnost ** Blazor aplikace**. Vyberte **Další**.
+1. Vyberte možnost ** Blazor aplikace**. Vyberte **Next** (Další).
 
 1. Do pole **název projektu** zadejte název projektu nebo přijměte výchozí název projektu. Potvrďte správnost záznamu **umístění** nebo zadejte umístění projektu. Vyberte **Vytvořit**.
 
@@ -87,7 +87,7 @@ Neexistuje žádný centralizovaný způsob, jak důvěřovat certifikátu v sys
 * Důvěřovat všem certifikátům podepsaným svým držitelem pro `localhost` .
 * Přidejte certifikát do seznamu důvěryhodných certifikátů v prohlížeči.
 
-Další informace najdete v pokynech, které poskytuje prohlížeč a Linux distribuce.
+Další informace najdete v pokynech, které poskytuje váš prohlížeč a distribuce systému Linux.
 
 ::: zone-end
 
@@ -99,11 +99,11 @@ Další informace najdete v pokynech, které poskytuje prohlížeč a Linux dist
 
 1. Na bočním panelu vyberte **Webová a konzolová**  >  **aplikace**.
 
-   Pro Blazor WebAssembly prostředí vyberte šablonu ** Blazor WebAssembly aplikace** . Pro Blazor Server prostředí vyberte šablonu ** Blazor Server aplikace** . Vyberte **Další**.
+   Pro Blazor WebAssembly prostředí vyberte šablonu ** Blazor WebAssembly aplikace** . Pro Blazor Server prostředí vyberte šablonu ** Blazor Server aplikace** . Vyberte **Next** (Další).
 
    Informace o těchto dvou Blazor modelech hostování *Blazor WebAssembly* a naleznete *Blazor Server* v tématu <xref:blazor/hosting-models> .
 
-1. Potvrďte, že **ověřování** je nastaveno na **bez ověřování**. Vyberte **Další**.
+1. Potvrďte, že **ověřování** je nastaveno na **bez ověřování**. Vyberte **Next** (Další).
 
 1. Do pole **název projektu** název aplikace `WebApplication1` . Vyberte **Vytvořit**.
 

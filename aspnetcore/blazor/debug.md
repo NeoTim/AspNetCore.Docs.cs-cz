@@ -5,7 +5,7 @@ description: Naučte se ladit Blazor aplikace.
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2020
+ms.date: 07/15/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/debug
-ms.openlocfilehash: c48eb19c5a1759aace112e2afb1637c649173a3d
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: 828fb0ce5101407b6f40195138d59c335eec389f
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059900"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407668"
 ---
 # <a name="debug-aspnet-core-blazor-webassembly"></a>ASP.NET Core laděníBlazor WebAssembly
 
@@ -44,12 +44,12 @@ Teď *nemůžete*:
 
 V nadcházejících vydáních budeme dál zlepšovat možnosti ladění.
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Požadované součásti
 
 Ladění vyžaduje některý z následujících prohlížečů:
 
+* Google Chrome (verze 70 nebo novější) (výchozí)
 * Microsoft Edge (verze 80 nebo novější)
-* Google Chrome (verze 70 nebo novější)
 
 ## <a name="enable-debugging-for-visual-studio-and-visual-studio-code"></a>Povolit ladění pro Visual Studio a Visual Studio Code
 
@@ -133,13 +133,13 @@ Informace o instalaci Visual Studio Code pro Blazor vývoj aplikací najdete v t
 
 ### <a name="debug-hosted-blazor-webassembly"></a>Ladění je hostovanéBlazor WebAssembly
 
-1. Otevřete hostovanou Blazor WebAssembly aplikaci v vs Code.
+1. Otevřete Blazor WebAssembly složku řešení hostované aplikace v vs Code.
 
 1. Pokud pro projekt neexistuje konfigurační sada pro spuštění, zobrazí se následující oznámení. Vyberte **Ano**.
 
    ![Přidat požadované prostředky](https://devblogs.microsoft.com/aspnet/wp-content/uploads/sites/16/2020/03/vscode-required-assets.png)
 
-1. V okně Výběr vyberte *serverový* projekt v hostovaném řešení.
+1. V paletě příkazů v horní části okna vyberte *serverový* projekt v hostovaném řešení.
 
 `launch.json`Soubor se vygeneruje s konfigurací spuštění pro spuštění ladicího programu.
 
@@ -160,9 +160,9 @@ Pokud se chcete připojit ke spuštěné Blazor aplikaci, vytvořte `launch.json
 
 ### <a name="launch-configuration-options"></a>Spustit možnosti konfigurace
 
-Pro typ ladění jsou podporovány následující možnosti konfigurace spuštění `blazorwasm` .
+Pro `blazorwasm` typ ladění () jsou podporovány následující možnosti konfigurace spuštění `.vscode/launch.json` .
 
-| Možnost    | Description |
+| Možnost    | Popis |
 | --------- | ----------- |
 | `request` | Pomocí `launch` můžete spustit a připojit relaci ladění k Blazor WebAssembly aplikaci nebo `attach` připojit relaci ladění k již spuštěné aplikaci. |
 | `url`     | Adresa URL, která se má otevřít v prohlížeči při ladění. Výchozí hodnota je `https://localhost:5001` . |
@@ -198,17 +198,23 @@ Pro typ ladění jsou podporovány následující možnosti konfigurace spuště
 }
 ```
 
-#### <a name="launch-and-debug-a-hosted-blazor-webassembly-app"></a>Spuštění a ladění hostované Blazor WebAssembly aplikace
+#### <a name="launch-and-debug-a-hosted-blazor-webassembly-app-with-microsoft-edge"></a>Spuštění a ladění hostované Blazor WebAssembly aplikace pomocí Microsoft Edge
+
+Konfigurace prohlížeče je ve výchozím nastavení Google Chrome. Při použití Microsoft Edge pro ladění nastavte `browser` na `edge` . Pokud chcete používat Google Chrome, buď nenastavujte `browser` možnost, nebo nastavte hodnotu možnosti na `chrome` .
 
 ```json
 {
+  "name": "Launch and Debug Hosted Blazor WebAssembly App",
   "type": "blazorwasm",
   "request": "launch",
-  "name": "Launch and Debug Hosted App",
+  "hosted": true,
   "program": "${workspaceFolder}/Server/bin/Debug/netcoreapp3.1/MyHostedApp.Server.dll",
-  "cwd": "${workspaceFolder}"
+  "cwd": "${workspaceFolder}/Server",
+  "browser": "edge"
 }
 ```
+
+V předchozím příkladu `MyHostedApp.Server.dll` je sestavení *serverové* aplikace. `.vscode`Složka se nachází ve složce řešení vedle `Client` `Server` složek, a `Shared` .
 
 ## <a name="debug-in-the-browser"></a>Ladit v prohlížeči
 
@@ -232,7 +238,7 @@ Blazorposkytuje ladicí proxy, který implementuje [protokol Chrome DevTools](ht
 
 Mapování zdrojového kódu prohlížeče umožňují prohlížeči mapovat zkompilované soubory zpátky na původní zdrojové soubory a často se používají pro ladění na straně klienta. V Blazor současné době ale nemapuje C# přímo na JavaScript/WASM. Místo toho Blazor provede výklad il v prohlížeči, takže zdrojové mapy nejsou relevantní.
 
-## <a name="troubleshoot"></a>Odstranit potíže
+## <a name="troubleshoot"></a>Řešení potíží
 
 Pokud dochází k chybám, může vám pomáhat následující tipy:
 

@@ -14,12 +14,12 @@ no-loc:
 - Razor
 - SignalR
 uid: fundamentals/app-state
-ms.openlocfilehash: 4ecbf6920980e293e8c274996c6a4f25e74a5cb7
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 30123e043a7c152b5719af8092b2ab42a70d2787
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403622"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407616"
 ---
 # <a name="session-and-state-management-in-aspnet-core"></a>Správa relací a stavu v ASP.NET Core
 
@@ -31,7 +31,7 @@ HTTP je bezstavový protokol. Ve výchozím nastavení jsou požadavky HTTP nez�
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/app-state/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="state-management"></a>Řízení stavu
+## <a name="state-management"></a>Správa stavu
 
 Stav lze uložit pomocí několika přístupů. Jednotlivé metody jsou popsány dále v tomto tématu.
 
@@ -43,7 +43,7 @@ Stav lze uložit pomocí několika přístupů. Jednotlivé metody jsou popsány
 | [Řetězce dotazů](#query-strings) | Řetězce dotazů HTTP |
 | [Skrytá pole](#hidden-fields) | Pole formuláře HTTP |
 | [HttpContext. Items](#httpcontextitems) | Kód aplikace na straně serveru |
-| [Mezipaměť](#cache) | Kód aplikace na straně serveru |
+| [Cache](#cache) | Kód aplikace na straně serveru |
 
 ## <a name="cookies"></a>Soubory cookie
 
@@ -75,7 +75,7 @@ Stav relace vykazuje následující chování:
 * Aplikace po poslední žádosti zachovává relaci po určitou dobu. Aplikace buď nastaví časový limit relace, nebo použije výchozí hodnotu 20 minut. Stav relace je ideální pro ukládání uživatelských dat:
   * To je specifické pro konkrétní relaci.
   * Kde data nevyžadují trvalé úložiště napříč relacemi.
-* Data relace se odstraní, když se zavolá [ISession. Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) implementace nebo když vyprší platnost relace.
+* Data relace se odstraní buď při <xref:Microsoft.AspNetCore.Http.ISession.Clear%2A?displayProperty=nameWithType> volání implementace, nebo po vypršení platnosti relace.
 * Neexistuje žádný výchozí mechanismus pro informování kódu aplikace, který byl zavřen klientským prohlížečem, nebo při odstranění nebo vypršení platnosti souboru cookie relace na klientovi.
 * Soubory cookie stavu relace nejsou ve výchozím nastavení označeny jako důležité. Stav relace není funkční, pokud návštěvník lokality nepovoluje sledování. Další informace naleznete v tématu <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>.
 
@@ -85,7 +85,7 @@ Stav relace vykazuje následující chování:
 Poskytovatel mezipaměti v paměti ukládá data relace do paměti serveru, kde se aplikace nachází. Ve scénáři serverové farmy:
 
 * Pomocí *rychlých relací* spojíte každou relaci s konkrétní instancí aplikace na samostatném serveru. [Azure App Service](https://azure.microsoft.com/services/app-service/) využívá [Směrování žádostí aplikace (ARR)](/iis/extensions/planning-for-arr/using-the-application-request-routing-module) k vykonání rychlých relací ve výchozím nastavení. Rychlé relace ale můžou ovlivnit škálovatelnost a zkomplikovat aktualizace webových aplikací. Lepším řešením je použití distribuované mezipaměti Redis nebo SQL Server, která nevyžaduje relace v rychlém provozu. Další informace naleznete v tématu <xref:performance/caching/distributed>.
-* Soubor cookie relace je zašifrovaný přes [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector). Ochrana dat musí být správně nakonfigurovaná tak, aby na každém počítači četla soubory cookie relace. Další informace najdete v tématech <xref:security/data-protection/introduction> a [poskytovatelé úložiště klíčů](xref:security/data-protection/implementation/key-storage-providers).
+* Soubor cookie relace je zašifrovaný prostřednictvím <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> . Ochrana dat musí být správně nakonfigurovaná tak, aby na každém počítači četla soubory cookie relace. Další informace najdete v tématech <xref:security/data-protection/introduction> a [poskytovatelé úložiště klíčů](xref:security/data-protection/implementation/key-storage-providers).
 
 ### <a name="configure-session-state"></a>Konfigurovat stav relace
 
@@ -96,9 +96,9 @@ Balíček [Microsoft. AspNetCore. Session](https://www.nuget.org/packages/Micros
 
 Chcete-li povolit middleware relace, `Startup` musí obsahovat:
 
-* Všechny mezipaměti [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) paměti. `IDistributedCache`Implementace se používá jako záložní úložiště pro relaci. Další informace naleznete v tématu <xref:performance/caching/distributed>.
-* Volání [AddSession](/dotnet/api/microsoft.extensions.dependencyinjection.sessionservicecollectionextensions.addsession) v `ConfigureServices` .
-* Volání [UseSession](/dotnet/api/microsoft.aspnetcore.builder.sessionmiddlewareextensions.usesession#Microsoft_AspNetCore_Builder_SessionMiddlewareExtensions_UseSession_Microsoft_AspNetCore_Builder_IApplicationBuilder_) v `Configure` .
+* Libovolná <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> mezipaměť paměti. `IDistributedCache`Implementace se používá jako záložní úložiště pro relaci. Další informace naleznete v tématu <xref:performance/caching/distributed>.
+* Volání <xref:Microsoft.Extensions.DependencyInjection.SessionServiceCollectionExtensions.AddSession%2A> v `ConfigureServices` .
+* Volání <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession%2A> v `Configure` .
 
 Následující kód ukazuje, jak nastavit zprostředkovatele relace v paměti s výchozí implementací v paměti `IDistributedCache` :
 
@@ -116,43 +116,43 @@ Novou relaci s novým souborem cookie relace nelze vytvořit poté, co aplikace 
 
 ### <a name="load-session-state-asynchronously"></a>Asynchronní načtení stavu relace
 
-Výchozí zprostředkovatel relací v ASP.NET Core načítá záznamy relací z podkladového záložního úložiště [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) asynchronně pouze v případě, že metoda [ISession. LoadAsync](/dotnet/api/microsoft.aspnetcore.http.isession.loadasync) je explicitně volána před metodami [TryGetValue](/dotnet/api/microsoft.aspnetcore.http.isession.trygetvalue), [set](/dotnet/api/microsoft.aspnetcore.http.isession.set)nebo [Remove](/dotnet/api/microsoft.aspnetcore.http.isession.remove) . Pokud se `LoadAsync` nevolá jako první, načte se příslušný záznam relace synchronně, což může způsobit škálování na výkon.
+Výchozí zprostředkovatel relací v ASP.NET Core načítá záznamy relací z podkladového <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> záložního úložiště asynchronně pouze v případě <xref:Microsoft.AspNetCore.Http.ISession.LoadAsync%2A?displayProperty=nameWithType> , že je metoda explicitně volána <xref:Microsoft.AspNetCore.Http.ISession.TryGetValue%2A> před <xref:Microsoft.AspNetCore.Http.ISession.Set%2A> <xref:Microsoft.AspNetCore.Http.ISession.Remove%2A> metodami, nebo. Pokud se `LoadAsync` nevolá jako první, načte se příslušný záznam relace synchronně, což může způsobit škálování na výkon.
 
-Chcete-li, aby aplikace vynutila tento model, zabalte implementace [DistributedSessionStore](/dotnet/api/microsoft.aspnetcore.session.distributedsessionstore) a [DistributedSession](/dotnet/api/microsoft.aspnetcore.session.distributedsession) s verzemi, které vyvolávají výjimku `LoadAsync` , pokud metoda není volána před `TryGetValue` , `Set` nebo `Remove` . Zabalené verze zaregistrujte do kontejneru služby.
+Aby aplikace vynutily tento model, zabalte <xref:Microsoft.AspNetCore.Session.DistributedSessionStore> a <xref:Microsoft.AspNetCore.Session.DistributedSession> implementují verze, které vyvolávají výjimku, pokud `LoadAsync` metoda není volána před `TryGetValue` , `Set` nebo `Remove` . Zabalené verze zaregistrujte do kontejneru služby.
 
 ### <a name="session-options"></a>Možnosti relace
 
-Pokud chcete přepsat výchozí nastavení relace, použijte [SessionOptions](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions).
+K přepsání výchozích hodnot relace použijte <xref:Microsoft.AspNetCore.Builder.SessionOptions> .
 
-| Možnost | Description |
+| Možnost | Popis |
 | ------ | ----------- |
-| [Soubor](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookie) | Určuje nastavení použité k vytvoření souboru cookie. Výchozí [název](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.name) je [SessionDefaults. cookie](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiename) ( `.AspNetCore.Session` ). Výchozí [cesta](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.path) je [SessionDefaults. cookiePath](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiepath) ( `/` ). [SameSite](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.samesite) se standardně [SameSiteMode. LAX](/dotnet/api/microsoft.aspnetcore.http.samesitemode) ( `1` ). [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) ve výchozím nastavení `true` . [Výchozí hodnota](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.isessential) je `false` . |
-| [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) | `IdleTimeout`Určuje, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu. Při každém přístupu k relaci se obnoví časový limit. Toto nastavení se vztahuje pouze na obsah relace, nikoli na soubor cookie. Výchozí nastavení je 20 minut. |
-| [IOTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.iotimeout) | Maximální doba, po kterou je možné načíst relaci z úložiště nebo ji zapsat zpět do úložiště. Toto nastavení se může vztahovat jenom na asynchronní operace. Tento časový limit se dá zakázat pomocí [InfiniteTimeSpan](/dotnet/api/system.threading.timeout.infinitetimespan). Výchozí hodnota je 1 minuta. |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | Určuje nastavení použité k vytvoření souboru cookie. <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name>Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> ( `.AspNetCore.Session` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path>Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> ( `/` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite>Výchozí hodnota je <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> ( `1` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly>Výchozí hodnota je `true` . <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential>Výchozí hodnota je `false` . |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout`Určuje, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu. Při každém přístupu k relaci se obnoví časový limit. Toto nastavení se vztahuje pouze na obsah relace, nikoli na soubor cookie. Výchozí nastavení je 20 minut. |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IOTimeout> | Maximální doba, po kterou je možné načíst relaci z úložiště nebo ji zapsat zpět do úložiště. Toto nastavení se může vztahovat jenom na asynchronní operace. Tento časový limit se dá zakázat pomocí <xref:System.Threading.Timeout.InfiniteTimeSpan> . Výchozí hodnota je 1 minuta. |
 
-Relace používá soubor cookie ke sledování a identifikaci požadavků z jednoho prohlížeče. Ve výchozím nastavení se tento soubor cookie jmenuje `.AspNetCore.Session` a používá cestu k `/` . Vzhledem k tomu, že výchozí soubor cookie neurčuje doménu, není k dispozici pro skript na straně klienta na stránce (protože výchozí hodnota [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) `true` ).
+Relace používá soubor cookie ke sledování a identifikaci požadavků z jednoho prohlížeče. Ve výchozím nastavení se tento soubor cookie jmenuje `.AspNetCore.Session` a používá cestu k `/` . Vzhledem k tomu, že výchozí soubor cookie neurčuje doménu, není k dispozici pro skript na straně klienta na stránce (protože se jedná o <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> výchozí nastavení `true` ).
 
 Pokud chcete přepsat výchozí hodnoty relace souborů cookie, použijte <xref:Microsoft.AspNetCore.Builder.SessionOptions> :
 
 [!code-csharp[](app-state/samples/3.x/SessionSample/Startup2.cs?name=snippet1&highlight=5-10)]
 
-Aplikace používá vlastnost [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) k určení, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu v mezipaměti serveru. Tato vlastnost je nezávislá na vypršení platnosti souboru cookie. Každý požadavek, který projde [middlewarem relace](/dotnet/api/microsoft.aspnetcore.session.sessionmiddleware) , obnoví časový limit.
+Tato aplikace používá <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> vlastnost k určení, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu v mezipaměti serveru. Tato vlastnost je nezávislá na vypršení platnosti souboru cookie. Každý požadavek, který projde [middlewarem relace](xref:Microsoft.AspNetCore.Session.SessionMiddleware) , obnoví časový limit.
 
 Stav relace není *zamknutý*. Pokud se dvě požadavky současně pokoušejí změnit obsah relace, poslední požadavek přepíše první. `Session`je implementován jako *souvislá relace*, což znamená, že veškerý obsah je uložen společně. Když se dvě žádosti snaží změnit jiné hodnoty relace, může poslední požadavek přepsat změny relace provedené prvním.
 
 ### <a name="set-and-get-session-values"></a>Nastavení a získání hodnot relace
 
-Stav relace je k dispozici ze Razor stránek třídy [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) nebo [třídy kontroleru](/dotnet/api/microsoft.aspnetcore.mvc.controller) MVC s [HttpContext. Session](/dotnet/api/microsoft.aspnetcore.http.httpcontext.session). Tato vlastnost je [ISession](/dotnet/api/microsoft.aspnetcore.http.isession) implementace.
+Stav relace je k dispozici Razor z <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> třídy Pages nebo <xref:Microsoft.AspNetCore.Mvc.Controller> třídy MVC s <xref:Microsoft.AspNetCore.Http.HttpContext.Session?displayProperty=nameWithType> . Tato vlastnost je <xref:Microsoft.AspNetCore.Http.ISession> implementace.
 
-`ISession`Implementace poskytuje několik metod rozšíření pro nastavení a načtení hodnot typu Integer a String. Rozšiřující metody jsou v oboru názvů [Microsoft. AspNetCore. http](/dotnet/api/microsoft.aspnetcore.http) .
+`ISession`Implementace poskytuje několik metod rozšíření pro nastavení a načtení hodnot typu Integer a String. Rozšiřující metody jsou v <xref:Microsoft.AspNetCore.Http> oboru názvů.
 
 `ISession`metody rozšíření:
 
-* [Get (ISession; String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.get)
-* [GetInt32 (ISession; String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.getint32)
-* [GetString (ISession; String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.getstring)
-* [Setint32 – (ISession; String; Int32)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.setint32)
-* [SetString (ISession; String; String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.setstring)
+* [Get (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.Get%2A)
+* [GetInt32 (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetInt32%2A)
+* [GetString (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetString%2A)
+* [Setint32 – (ISession; String; Int32)](xref:Microsoft.AspNetCore.Http.SessionExtensions.SetInt32%2A)
+* [SetString (ISession; String; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.SetString%2A)
 
 Následující příklad načte hodnotu relace pro `IndexModel.SessionKeyName` klíč ( `_Name` v ukázkové aplikaci) na Razor stránce Pages:
 
@@ -170,7 +170,7 @@ Následující příklad ukazuje, jak nastavit a získat celé číslo a řetěz
 
 [!code-csharp[](app-state/samples/3.x/SessionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=18-19,22-23)]
 
-Všechna data relace musí být serializována, aby bylo možné povolit scénář distribuované mezipaměti, i když používáte mezipaměť v paměti. Řetězcové a celočíselné serializace jsou poskytovány metodami rozšíření [ISession](/dotnet/api/microsoft.aspnetcore.http.isession). Komplexní typy musí být serializovány uživatelem pomocí jiného mechanismu, jako je například JSON.
+Všechna data relace musí být serializována, aby bylo možné povolit scénář distribuované mezipaměti, i když používáte mezipaměť v paměti. Řetězcové a celočíselné serializace jsou poskytovány metodami rozšíření <xref:Microsoft.AspNetCore.Http.ISession> . Komplexní typy musí být serializovány uživatelem pomocí jiného mechanismu, jako je například JSON.
 
 K serializaci objektů použijte následující vzorový kód:
 
@@ -213,7 +213,7 @@ Následující kód se zobrazí `TempData["Message"]` , ale na konci žádosti `
 
 Zprostředkovatel TempData založený na souborech cookie se ve výchozím nastavení používá k ukládání TempData do souborů cookie.
 
-Data souborů cookie se šifrují pomocí [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector)kódovaného pomocí [Base64UrlTextEncoder](/dotnet/api/microsoft.aspnetcore.webutilities.base64urltextencoder)a pak jsou rozdělená do bloků. Maximální velikost souboru cookie je menší než [4096 bajtů](http://www.faqs.org/rfcs/rfc2965.html) z důvodu šifrování a bloků dat. Data souborů cookie nejsou komprimována, protože komprimace šifrovaných dat může vést k problémům se zabezpečením, jako jsou [trestné činy](https://wikipedia.org/wiki/CRIME_(security_exploit)) a útoky na [porušení](https://wikipedia.org/wiki/BREACH_(security_exploit)) . Další informace o poskytovateli TempData založených na souborech cookie najdete v tématu [CookieTempDataProvider](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.cookietempdataprovider).
+Data souborů cookie jsou šifrována pomocí <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> kódování a <xref:Microsoft.AspNetCore.WebUtilities.Base64UrlTextEncoder> následně v bloku. Maximální velikost souboru cookie je menší než [4096 bajtů](http://www.faqs.org/rfcs/rfc2965.html) z důvodu šifrování a bloků dat. Data souborů cookie nejsou komprimována, protože komprimace šifrovaných dat může vést k problémům se zabezpečením, jako jsou [trestné činy](https://wikipedia.org/wiki/CRIME_(security_exploit)) a útoky na [porušení](https://wikipedia.org/wiki/BREACH_(security_exploit)) . Další informace o poskytovateli TempData založených na souborech cookie najdete v tématu <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider> .
 
 ### <a name="choose-a-tempdata-provider"></a>Zvolit poskytovatele TempData
 
@@ -229,9 +229,9 @@ Většina webových klientů, jako jsou webové prohlížeče, vynutila omezení
 
 Ve výchozím nastavení je povolený zprostředkovatel TempData založený na souborech cookie.
 
-Pokud chcete povolit zprostředkovatele TempData založeného na relaci, použijte metodu rozšíření [AddSessionStateTempDataProvider](/dotnet/api/microsoft.extensions.dependencyinjection.mvcviewfeaturesmvcbuilderextensions.addsessionstatetempdataprovider) . Je požadováno pouze jedno volání `AddSessionStateTempDataProvider` :
+Chcete-li povolit zprostředkovatele TempData založeného na relaci, použijte <xref:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddSessionStateTempDataProvider%2A> metodu rozšíření. Je požadováno pouze jedno volání `AddSessionStateTempDataProvider` :
 
-[!code-csharp[](app-state/samples/3.x/SessionSample/Startup3.cs?name=snippet1&highlight=4,6,30)]
+[!code-csharp[](app-state/samples/3.x/SessionSample/Startup3.cs?name=snippet1&highlight=4,6,8,30)]
 
 ## <a name="query-strings"></a>Řetězce dotazů
 
@@ -245,7 +245,7 @@ Data je možné uložit do skrytých polí formuláře a pak je odeslat zpět na
 
 ## <a name="httpcontextitems"></a>HttpContext. Items
 
-Kolekce [HttpContext. Items](/dotnet/api/microsoft.aspnetcore.http.httpcontext.items) se používá k ukládání dat při zpracování jediné žádosti. Obsah kolekce se po zpracování žádosti zahodí. `Items`Kolekce se často používá k tomu, aby komponenty nebo middleware komunikovaly, když pracují v různých časových okamžicích během žádosti a nemají přímý způsob předávání parametrů.
+<xref:Microsoft.AspNetCore.Http.HttpContext.Items?displayProperty=nameWithType>Kolekce se používá k ukládání dat při zpracování jediné žádosti. Obsah kolekce se po zpracování žádosti zahodí. `Items`Kolekce se často používá k tomu, aby komponenty nebo middleware komunikovaly, když pracují v různých časových okamžicích během žádosti a nemají přímý způsob předávání parametrů.
 
 V následujícím příkladu [middleware](xref:fundamentals/middleware/index) přidá `isVerified` do `Items` kolekce:
 
@@ -301,7 +301,7 @@ HTTP je bezstavový protokol. Bez provedení dalších kroků jsou požadavky HT
 
 [Zobrazit nebo stáhnout ukázkový kód](https://github.com/dotnet/AspNetCore.Docs/tree/master/aspnetcore/fundamentals/app-state/samples) ([Jak stáhnout](xref:index#how-to-download-a-sample))
 
-## <a name="state-management"></a>Řízení stavu
+## <a name="state-management"></a>Správa stavu
 
 Stav lze uložit pomocí několika přístupů. Jednotlivé metody jsou popsány dále v tomto tématu.
 
@@ -313,8 +313,8 @@ Stav lze uložit pomocí několika přístupů. Jednotlivé metody jsou popsány
 | [Řetězce dotazů](#query-strings) | Řetězce dotazů HTTP |
 | [Skrytá pole](#hidden-fields) | Pole formuláře HTTP |
 | [HttpContext. Items](#httpcontextitems) | Kód aplikace na straně serveru |
-| [Mezipaměť](#cache) | Kód aplikace na straně serveru |
-| [Vkládání závislostí](#dependency-injection) | Kód aplikace na straně serveru |
+| [Cache](#cache) | Kód aplikace na straně serveru |
+| [Injektáž závislostí](#dependency-injection) | Kód aplikace na straně serveru |
 
 ## <a name="cookies"></a>Soubory cookie
 
@@ -342,7 +342,7 @@ Stav relace vykazuje následující chování:
 * Pokud se soubor cookie přijme pro relaci, která vypršela, vytvoří se nová relace, která bude používat stejný soubor cookie relace.
 * Prázdné relace nejsou zachované. &mdash; relace musí mít nastavenou aspoň jednu hodnotu, aby se relace mezi požadavky zachovala. Pokud se relace nezachová, vygeneruje se pro každý nový požadavek nové ID relace.
 * Aplikace po poslední žádosti zachovává relaci po určitou dobu. Aplikace buď nastaví časový limit relace, nebo použije výchozí hodnotu 20 minut. Stav relace je ideální pro ukládání uživatelských dat, která jsou specifická pro konkrétní relaci, ale v případě, že data nevyžadují trvalé úložiště napříč relacemi.
-* Data relace se odstraní, když se zavolá [ISession. Clear](/dotnet/api/microsoft.aspnetcore.http.isession.clear) implementace nebo když vyprší platnost relace.
+* Data relace se odstraní buď při <xref:Microsoft.AspNetCore.Http.ISession.Clear%2A?displayProperty=nameWithType> volání implementace, nebo po vypršení platnosti relace.
 * Neexistuje žádný výchozí mechanismus pro informování kódu aplikace, který byl zavřen klientským prohlížečem, nebo při odstranění nebo vypršení platnosti souboru cookie relace na klientovi.
 * Šablony ASP.NET Core MVC a Razor stránky zahrnují podporu pro obecné nařízení o ochraně osobních údajů (GDPR). Soubory cookie stavu relace nejsou ve výchozím nastavení označeny jako důležité, takže stav relace není funkční, pokud návštěvník lokality nepovoluje sledování. Další informace naleznete v tématu <xref:security/gdpr#tempdata-provider-and-session-state-cookies-arent-essential>.
 
@@ -352,15 +352,15 @@ Stav relace vykazuje následující chování:
 Poskytovatel mezipaměti v paměti ukládá data relace do paměti serveru, kde se aplikace nachází. Ve scénáři serverové farmy:
 
 * Pomocí *rychlých relací* spojíte každou relaci s konkrétní instancí aplikace na samostatném serveru. [Azure App Service](https://azure.microsoft.com/services/app-service/) využívá [Směrování žádostí aplikace (ARR)](/iis/extensions/planning-for-arr/using-the-application-request-routing-module) k vykonání rychlých relací ve výchozím nastavení. Rychlé relace ale můžou ovlivnit škálovatelnost a zkomplikovat aktualizace webových aplikací. Lepším řešením je použití distribuované mezipaměti Redis nebo SQL Server, která nevyžaduje relace v rychlém provozu. Další informace naleznete v tématu <xref:performance/caching/distributed>.
-* Soubor cookie relace je zašifrovaný přes [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector). Ochrana dat musí být správně nakonfigurovaná tak, aby na každém počítači četla soubory cookie relace. Další informace najdete v tématech <xref:security/data-protection/introduction> a [poskytovatelé úložiště klíčů](xref:security/data-protection/implementation/key-storage-providers).
+* Soubor cookie relace je zašifrovaný prostřednictvím <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> . Ochrana dat musí být správně nakonfigurovaná tak, aby na každém počítači četla soubory cookie relace. Další informace najdete v tématech <xref:security/data-protection/introduction> a [poskytovatelé úložiště klíčů](xref:security/data-protection/implementation/key-storage-providers).
 
 ### <a name="configure-session-state"></a>Konfigurovat stav relace
 
 Balíček [Microsoft. AspNetCore. Session](https://www.nuget.org/packages/Microsoft.AspNetCore.Session/) , který je součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app), poskytuje middleware pro správu stavu relace. Chcete-li povolit middleware relace, `Startup` musí obsahovat:
 
-* Všechny mezipaměti [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) paměti. `IDistributedCache`Implementace se používá jako záložní úložiště pro relaci. Další informace naleznete v tématu <xref:performance/caching/distributed>.
-* Volání [AddSession](/dotnet/api/microsoft.extensions.dependencyinjection.sessionservicecollectionextensions.addsession) v `ConfigureServices` .
-* Volání [UseSession](/dotnet/api/microsoft.aspnetcore.builder.sessionmiddlewareextensions.usesession#Microsoft_AspNetCore_Builder_SessionMiddlewareExtensions_UseSession_Microsoft_AspNetCore_Builder_IApplicationBuilder_) v `Configure` .
+* Libovolná <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> mezipaměť paměti. `IDistributedCache`Implementace se používá jako záložní úložiště pro relaci. Další informace naleznete v tématu <xref:performance/caching/distributed>.
+* Volání <xref:Microsoft.Extensions.DependencyInjection.SessionServiceCollectionExtensions.AddSession%2A> v `ConfigureServices` .
+* Volání <xref:Microsoft.AspNetCore.Builder.SessionMiddlewareExtensions.UseSession%2A> v `Configure` .
 
 Následující kód ukazuje, jak nastavit zprostředkovatele relace v paměti s výchozí implementací v paměti `IDistributedCache` :
 
@@ -368,7 +368,7 @@ Následující kód ukazuje, jak nastavit zprostředkovatele relace v paměti s 
 
 Důležité je pořadí middlewaru. V předchozím příkladu `InvalidOperationException` dojde k výjimce při `UseSession` vyvolání po `UseMvc` . Další informace najdete v tématu [řazení middlewaru](xref:fundamentals/middleware/index#order).
 
-[HttpContext. Session](/dotnet/api/microsoft.aspnetcore.http.httpcontext.session) je k dispozici po nakonfigurování stavu relace.
+<xref:Microsoft.AspNetCore.Http.HttpContext.Session?displayProperty=nameWithType>je k dispozici po konfiguraci stavu relace.
 
 `HttpContext.Session`k ní nelze přistupovat před `UseSession` voláním.
 
@@ -376,43 +376,43 @@ Novou relaci s novým souborem cookie relace nelze vytvořit poté, co aplikace 
 
 ### <a name="load-session-state-asynchronously"></a>Asynchronní načtení stavu relace
 
-Výchozí zprostředkovatel relací v ASP.NET Core načítá záznamy relací z podkladového záložního úložiště [IDistributedCache](/dotnet/api/microsoft.extensions.caching.distributed.idistributedcache) asynchronně pouze v případě, že metoda [ISession. LoadAsync](/dotnet/api/microsoft.aspnetcore.http.isession.loadasync) je explicitně volána před metodami [TryGetValue](/dotnet/api/microsoft.aspnetcore.http.isession.trygetvalue), [set](/dotnet/api/microsoft.aspnetcore.http.isession.set)nebo [Remove](/dotnet/api/microsoft.aspnetcore.http.isession.remove) . Pokud se `LoadAsync` nevolá jako první, načte se příslušný záznam relace synchronně, což může způsobit škálování na výkon.
+Výchozí zprostředkovatel relací v ASP.NET Core načítá záznamy relací z podkladového <xref:Microsoft.Extensions.Caching.Distributed.IDistributedCache> záložního úložiště asynchronně pouze v případě <xref:Microsoft.AspNetCore.Http.ISession.LoadAsync%2A?displayProperty=nameWithType> , že je metoda explicitně volána <xref:Microsoft.AspNetCore.Http.ISession.TryGetValue%2A> před <xref:Microsoft.AspNetCore.Http.ISession.Set%2A> <xref:Microsoft.AspNetCore.Http.ISession.Remove%2A> metodami, nebo. Pokud se `LoadAsync` nevolá jako první, načte se příslušný záznam relace synchronně, což může způsobit škálování na výkon.
 
-Chcete-li, aby aplikace vynutila tento model, zabalte implementace [DistributedSessionStore](/dotnet/api/microsoft.aspnetcore.session.distributedsessionstore) a [DistributedSession](/dotnet/api/microsoft.aspnetcore.session.distributedsession) s verzemi, které vyvolávají výjimku `LoadAsync` , pokud metoda není volána před `TryGetValue` , `Set` nebo `Remove` . Zabalené verze zaregistrujte do kontejneru služby.
+Aby aplikace vynutily tento model, zabalte <xref:Microsoft.AspNetCore.Session.DistributedSessionStore> a <xref:Microsoft.AspNetCore.Session.DistributedSession> implementují verze, které vyvolávají výjimku, pokud `LoadAsync` metoda není volána před `TryGetValue` , `Set` nebo `Remove` . Zabalené verze zaregistrujte do kontejneru služby.
 
 ### <a name="session-options"></a>Možnosti relace
 
-Pokud chcete přepsat výchozí nastavení relace, použijte [SessionOptions](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions).
+K přepsání výchozích hodnot relace použijte <xref:Microsoft.AspNetCore.Builder.SessionOptions> .
 
-| Možnost | Description |
+| Možnost | Popis |
 | ------ | ----------- |
-| [Soubor](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.cookie) | Určuje nastavení použité k vytvoření souboru cookie. Výchozí [název](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.name) je [SessionDefaults. cookie](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiename) ( `.AspNetCore.Session` ). Výchozí [cesta](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.path) je [SessionDefaults. cookiePath](/dotnet/api/microsoft.aspnetcore.session.sessiondefaults.cookiepath) ( `/` ). [SameSite](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.samesite) se standardně [SameSiteMode. LAX](/dotnet/api/microsoft.aspnetcore.http.samesitemode) ( `1` ). [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) ve výchozím nastavení `true` . [Výchozí hodnota](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.isessential) je `false` . |
-| [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) | `IdleTimeout`Určuje, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu. Při každém přístupu k relaci se obnoví časový limit. Toto nastavení se vztahuje pouze na obsah relace, nikoli na soubor cookie. Výchozí nastavení je 20 minut. |
-| [IOTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.iotimeout) | Maximální doba, po kterou je možné načíst relaci z úložiště nebo ji zapsat zpět do úložiště. Toto nastavení se může vztahovat jenom na asynchronní operace. Tento časový limit se dá zakázat pomocí [InfiniteTimeSpan](/dotnet/api/system.threading.timeout.infinitetimespan). Výchozí hodnota je 1 minuta. |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.Cookie> | Určuje nastavení použité k vytvoření souboru cookie. <xref:Microsoft.AspNetCore.Http.CookieBuilder.Name>Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookieName?displayProperty=nameWithType> ( `.AspNetCore.Session` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.Path>Výchozí hodnota je <xref:Microsoft.AspNetCore.Session.SessionDefaults.CookiePath?displayProperty=nameWithType> ( `/` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.SameSite>Výchozí hodnota je <xref:Microsoft.AspNetCore.Http.SameSiteMode.Lax?displayProperty=nameWithType> ( `1` ). <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly>Výchozí hodnota je `true` . <xref:Microsoft.AspNetCore.Http.CookieBuilder.IsEssential>Výchozí hodnota je `false` . |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> | `IdleTimeout`Určuje, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu. Při každém přístupu k relaci se obnoví časový limit. Toto nastavení se vztahuje pouze na obsah relace, nikoli na soubor cookie. Výchozí nastavení je 20 minut. |
+| <xref:Microsoft.AspNetCore.Builder.SessionOptions.IOTimeout> | Maximální doba, po kterou je možné načíst relaci z úložiště nebo ji zapsat zpět do úložiště. Toto nastavení se může vztahovat jenom na asynchronní operace. Tento časový limit se dá zakázat pomocí <xref:System.Threading.Timeout.InfiniteTimeSpan> . Výchozí hodnota je 1 minuta. |
 
-Relace používá soubor cookie ke sledování a identifikaci požadavků z jednoho prohlížeče. Ve výchozím nastavení se tento soubor cookie jmenuje `.AspNetCore.Session` a používá cestu k `/` . Vzhledem k tomu, že výchozí soubor cookie neurčuje doménu, není k dispozici pro skript na straně klienta na stránce (protože výchozí hodnota [HttpOnly](/dotnet/api/microsoft.aspnetcore.http.cookiebuilder.httponly) `true` ).
+Relace používá soubor cookie ke sledování a identifikaci požadavků z jednoho prohlížeče. Ve výchozím nastavení se tento soubor cookie jmenuje `.AspNetCore.Session` a používá cestu k `/` . Vzhledem k tomu, že výchozí soubor cookie neurčuje doménu, není k dispozici pro skript na straně klienta na stránce (protože se jedná o <xref:Microsoft.AspNetCore.Http.CookieBuilder.HttpOnly> výchozí nastavení `true` ).
 
 Pokud chcete přepsat výchozí hodnoty relace souborů cookie, použijte `SessionOptions` :
 
 [!code-csharp[](app-state/samples_snapshot/2.x/SessionSample/Startup.cs?name=snippet1&highlight=14-19)]
 
-Aplikace používá vlastnost [IdleTimeout](/dotnet/api/microsoft.aspnetcore.builder.sessionoptions.idletimeout) k určení, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu v mezipaměti serveru. Tato vlastnost je nezávislá na vypršení platnosti souboru cookie. Každý požadavek, který projde [middlewarem relace](/dotnet/api/microsoft.aspnetcore.session.sessionmiddleware) , obnoví časový limit.
+Tato aplikace používá <xref:Microsoft.AspNetCore.Builder.SessionOptions.IdleTimeout> vlastnost k určení, jak dlouho může být relace nečinná, než dojde k opuštění jejího obsahu v mezipaměti serveru. Tato vlastnost je nezávislá na vypršení platnosti souboru cookie. Každý požadavek, který projde [middlewarem relace](xref:Microsoft.AspNetCore.Session.SessionMiddleware) , obnoví časový limit.
 
 Stav relace není *zamknutý*. Pokud se dvě požadavky současně pokoušejí změnit obsah relace, poslední požadavek přepíše první. `Session`je implementován jako *souvislá relace*, což znamená, že veškerý obsah je uložen společně. Když se dvě žádosti snaží změnit jiné hodnoty relace, může poslední požadavek přepsat změny relace provedené prvním.
 
 ### <a name="set-and-get-session-values"></a>Nastavení a získání hodnot relace
 
-Stav relace je k dispozici ze Razor stránek třídy [PageModel](/dotnet/api/microsoft.aspnetcore.mvc.razorpages.pagemodel) nebo [třídy kontroleru](/dotnet/api/microsoft.aspnetcore.mvc.controller) MVC s [HttpContext. Session](/dotnet/api/microsoft.aspnetcore.http.httpcontext.session). Tato vlastnost je [ISession](/dotnet/api/microsoft.aspnetcore.http.isession) implementace.
+Stav relace je k dispozici Razor z <xref:Microsoft.AspNetCore.Mvc.RazorPages.PageModel> třídy Pages nebo <xref:Microsoft.AspNetCore.Mvc.Controller> třídy MVC s <xref:Microsoft.AspNetCore.Http.HttpContext.Session?displayProperty=nameWithType> . Tato vlastnost je <xref:Microsoft.AspNetCore.Http.ISession> implementace.
 
-`ISession`Implementace poskytuje několik metod rozšíření pro nastavení a načtení hodnot typu Integer a String. Metody rozšíření jsou v oboru názvů [Microsoft. AspNetCore. http](/dotnet/api/microsoft.aspnetcore.http) (přidání `using Microsoft.AspNetCore.Http;` příkazu pro získání přístupu k metodám rozšíření) při odkazování na balíček [Microsoft. AspNetCore. http. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.Http.Extensions/) v projektu. Oba balíčky jsou součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
+`ISession`Implementace poskytuje několik metod rozšíření pro nastavení a načtení hodnot typu Integer a String. Metody rozšíření jsou v <xref:Microsoft.AspNetCore.Http> oboru názvů (přidání `using Microsoft.AspNetCore.Http;` příkazu pro získání přístupu k metodám rozšíření) při odkazování na balíček [Microsoft. AspNetCore. http. Extensions](https://www.nuget.org/packages/Microsoft.AspNetCore.Http.Extensions/) v projektu. Oba balíčky jsou součástí [Microsoft. AspNetCore. app Metapackage](xref:fundamentals/metapackage-app).
 
 `ISession`metody rozšíření:
 
-* [Get (ISession; String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.get)
-* [GetInt32 (ISession; String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.getint32)
-* [GetString (ISession; String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.getstring)
-* [Setint32 – (ISession; String; Int32)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.setint32)
-* [SetString (ISession; String; String)](/dotnet/api/microsoft.aspnetcore.http.sessionextensions.setstring)
+* [Get (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.Get%2A)
+* [GetInt32 (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetInt32%2A)
+* [GetString (ISession; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.GetString%2A)
+* [Setint32 – (ISession; String; Int32)](xref:Microsoft.AspNetCore.Http.SessionExtensions.SetInt32%2A)
+* [SetString (ISession; String; String)](xref:Microsoft.AspNetCore.Http.SessionExtensions.SetString%2A)
 
 Následující příklad načte hodnotu relace pro `IndexModel.SessionKeyName` klíč ( `_Name` v ukázkové aplikaci) na Razor stránce Pages:
 
@@ -430,7 +430,7 @@ Následující příklad ukazuje, jak nastavit a získat celé číslo a řetěz
 
 [!code-csharp[](app-state/samples/2.x/SessionSample/Pages/Index.cshtml.cs?name=snippet1&highlight=18-19,22-23)]
 
-Všechna data relace musí být serializována, aby bylo možné povolit scénář distribuované mezipaměti, i když používáte mezipaměť v paměti. Řetězcové a celočíselné serializace jsou poskytovány metodami rozšíření [ISession](/dotnet/api/microsoft.aspnetcore.http.isession)). Komplexní typy musí být serializovány uživatelem pomocí jiného mechanismu, jako je například JSON.
+Všechna data relace musí být serializována, aby bylo možné povolit scénář distribuované mezipaměti, i když používáte mezipaměť v paměti. Řetězcové a celočíselné serializace jsou poskytovány metodami rozšíření <xref:Microsoft.AspNetCore.Http.ISession> ). Komplexní typy musí být serializovány uživatelem pomocí jiného mechanismu, jako je například JSON.
 
 Přidejte následující metody rozšíření pro nastavení a získání serializovatelných objektů:
 
@@ -470,7 +470,7 @@ Následující kód se zobrazí `TempData["Message"]` , ale na konci žádosti `
 
 Zprostředkovatel TempData založený na souborech cookie se ve výchozím nastavení používá k ukládání TempData do souborů cookie.
 
-Data souborů cookie se šifrují pomocí [IDataProtector](/dotnet/api/microsoft.aspnetcore.dataprotection.idataprotector)kódovaného pomocí [Base64UrlTextEncoder](/dotnet/api/microsoft.aspnetcore.webutilities.base64urltextencoder)a pak jsou rozdělená do bloků. Vzhledem k tomu, že soubor cookie je zablokované, nepoužije se omezení velikosti jednoho souboru cookie v ASP.NET Core 1. x. Data souborů cookie nejsou komprimována, protože komprimace šifrovaných dat může vést k problémům se zabezpečením, jako jsou [trestné činy](https://wikipedia.org/wiki/CRIME_(security_exploit)) a útoky na [porušení](https://wikipedia.org/wiki/BREACH_(security_exploit)) . Další informace o poskytovateli TempData založených na souborech cookie najdete v tématu [CookieTempDataProvider](/dotnet/api/microsoft.aspnetcore.mvc.viewfeatures.cookietempdataprovider).
+Data souborů cookie jsou šifrována pomocí <xref:Microsoft.AspNetCore.DataProtection.IDataProtector> kódování a <xref:Microsoft.AspNetCore.WebUtilities.Base64UrlTextEncoder> následně v bloku. Vzhledem k tomu, že soubor cookie je zablokované, nepoužije se omezení velikosti jednoho souboru cookie v ASP.NET Core 1. x. Data souborů cookie nejsou komprimována, protože komprimace šifrovaných dat může vést k problémům se zabezpečením, jako jsou [trestné činy](https://wikipedia.org/wiki/CRIME_(security_exploit)) a útoky na [porušení](https://wikipedia.org/wiki/BREACH_(security_exploit)) . Další informace o poskytovateli TempData založených na souborech cookie najdete v tématu <xref:Microsoft.AspNetCore.Mvc.ViewFeatures.CookieTempDataProvider> .
 
 ### <a name="choose-a-tempdata-provider"></a>Zvolit poskytovatele TempData
 
@@ -487,7 +487,7 @@ Výběr poskytovatele TempData zahrnuje několik předpokladů, například:
 
 Ve výchozím nastavení je povolený zprostředkovatel TempData založený na souborech cookie.
 
-Pokud chcete povolit zprostředkovatele TempData založeného na relaci, použijte metodu rozšíření [AddSessionStateTempDataProvider](/dotnet/api/microsoft.extensions.dependencyinjection.mvcviewfeaturesmvcbuilderextensions.addsessionstatetempdataprovider) :
+Chcete-li povolit zprostředkovatele TempData založeného na relaci, použijte <xref:Microsoft.Extensions.DependencyInjection.MvcViewFeaturesMvcBuilderExtensions.AddSessionStateTempDataProvider%2A> metodu rozšíření:
 
 [!code-csharp[](app-state/samples_snapshot_2/2.x/SessionSample/Startup.cs?name=snippet1&highlight=11,13,32)]
 
@@ -508,7 +508,7 @@ Data je možné uložit do skrytých polí formuláře a pak je odeslat zpět na
 
 ## <a name="httpcontextitems"></a>HttpContext. Items
 
-Kolekce [HttpContext. Items](/dotnet/api/microsoft.aspnetcore.http.httpcontext.items) se používá k ukládání dat při zpracování jediné žádosti. Obsah kolekce se po zpracování žádosti zahodí. `Items`Kolekce se často používá k tomu, aby komponenty nebo middleware komunikovaly, když pracují v různých časových okamžicích během žádosti a nemají přímý způsob předávání parametrů.
+<xref:Microsoft.AspNetCore.Http.HttpContext.Items?displayProperty=nameWithType>Kolekce se používá k ukládání dat při zpracování jediné žádosti. Obsah kolekce se po zpracování žádosti zahodí. `Items`Kolekce se často používá k tomu, aby komponenty nebo middleware komunikovaly, když pracují v různých časových okamžicích během žádosti a nemají přímý způsob předávání parametrů.
 
 V následujícím příkladu [middleware](xref:fundamentals/middleware/index) přidá `isVerified` do `Items` kolekce.
 
@@ -599,7 +599,7 @@ Použití [Injektáže závislosti](xref:fundamentals/dependency-injection) k zp
 
 SignalRaplikace by neměly pro ukládání informací používat stav relace. SignalRaplikace se můžou ukládat na stav připojení v `Context.Items` centru. <!-- https://github.com/aspnet/SignalR/issues/2139 -->
 
-## <a name="additional-resources"></a>Další zdroje
+## <a name="additional-resources"></a>Další materiály
 
 <xref:host-and-deploy/web-farm>
 ::: moniker-end

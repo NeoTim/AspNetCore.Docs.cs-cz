@@ -15,18 +15,21 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/security/webassembly/hosted-with-identity-server
-ms.openlocfilehash: 1e5b4e37acd11280ec41c137426ecc4776d231be
-ms.sourcegitcommit: 14c3d111f9d656c86af36ecb786037bf214f435c
+ms.openlocfilehash: de1f8955693d2e73e624e2513b6ef4e075ff3406
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/09/2020
-ms.locfileid: "86176248"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407694"
 ---
 # <a name="secure-an-aspnet-core-blazor-webassembly-hosted-app-with-identity-server"></a>Zabezpečení Blazor WebAssembly hostované aplikace v ASP.NET Core se Identity serverem
 
 Od [Javier Calvarro Nelson](https://github.com/javiercn) a [Luke Latham](https://github.com/guardrex)
 
 Tento článek vysvětluje, jak vytvořit novou Blazor hostovanou aplikaci, která používá [ Identity Server](https://identityserver.io/) k ověřování uživatelů a volání rozhraní API.
+
+> [!NOTE]
+> Pokud chcete samostatnou nebo hostovanou Blazor WebAssembly aplikaci nakonfigurovat tak, aby používala existující externí Identity instanci serveru, postupujte podle pokynů v části <xref:blazor/security/webassembly/standalone-with-authentication-library> .
 
 # <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -461,7 +464,7 @@ V klientské aplikaci jsou v tuto chvíli funkční přístupy k komponentám au
 
 [!INCLUDE[](~/includes/blazor-security/troubleshoot.md)]
 
-## <a name="additional-resources"></a>Další zdroje informací
+## <a name="additional-resources"></a>Další zdroje
 
 * [Nasazení do Azure App Service](xref:security/authentication/identity/spa#deploy-to-production)
 * [Import certifikátu z Key Vault (dokumentace k Azure)](/azure/app-service/configure-ssl-certificate#import-a-certificate-from-key-vault)

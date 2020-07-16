@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: web-api/handle-errors
-ms.openlocfilehash: f756d9abfb92fd4d6d51d8762967ac2288b54b2a
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 0abb5e78e1971925c8e741386c65bdf71a0f0072
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85405754"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407629"
 ---
 # <a name="handle-errors-in-aspnet-core-web-apis"></a>Zpracování chyb v ASP.NET Core webových rozhraní API
 
@@ -42,7 +42,7 @@ curl -i https://localhost:5001/weatherforecast/chicago
 
 ::: moniker range=">= aspnetcore-3.0"
 
-V ASP.NET Core 3,0 a novějších se na stránce s výjimkou vývojáře zobrazuje odpověď v podobě prostého textu, pokud klient nepožaduje výstup ve formátu HTML. Zobrazí se výstup:
+V ASP.NET Core 3,0 a novějších se na stránce s výjimkou vývojáře zobrazuje odpověď v podobě prostého textu, pokud klient nepožaduje výstup ve formátu HTML. Objeví se následující výstup:
 
 ```console
 HTTP/1.1 500 Internal Server Error
@@ -76,7 +76,7 @@ Host: localhost:44312
 User-Agent: curl/7.55.1
 ```
 
-Chcete-li místo toho zobrazit odpověď ve formátu HTML, nastavte `Accept` hlavičku požadavku HTTP na `text/html` typ média. Například:
+Chcete-li místo toho zobrazit odpověď ve formátu HTML, nastavte `Accept` hlavičku požadavku HTTP na `text/html` typ média. Příklad:
 
 ```bash
 curl -i -H "Accept: text/html" https://localhost:5001/weatherforecast/chicago
@@ -290,11 +290,11 @@ Odpověď na chybu lze nakonfigurovat jedním z následujících způsobů:
 1. [Implementovat ProblemDetailsFactory](#implement-problemdetailsfactory)
 1. [Použití ApiBehaviorOptions. ClientErrorMapping](#use-apibehavioroptionsclienterrormapping)
 
-### <a name="implement-problemdetailsfactory"></a>Implementovat ProblemDetailsFactory
+### <a name="implement-problemdetailsfactory"></a>Uskutečnit`ProblemDetailsFactory`
 
-MVC používá `Microsoft.AspNetCore.Mvc.ProblemDetailsFactory` k výrobě všech instancí <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> a <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> . To zahrnuje odpovědi na chyby klienta, odpovědi na chyby při ověřování a `Microsoft.AspNetCore.Mvc.ControllerBase.Problem` <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem> pomocné metody a.
+MVC používá <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ProblemDetailsFactory?displayProperty=fullName> k výrobě všech instancí <xref:Microsoft.AspNetCore.Mvc.ProblemDetails> a <xref:Microsoft.AspNetCore.Mvc.ValidationProblemDetails> . To zahrnuje odpovědi na chyby klienta, odpovědi na chyby při ověřování a <xref:Microsoft.AspNetCore.Mvc.ControllerBase.Problem%2A?displayProperty=nameWithType> <xref:Microsoft.AspNetCore.Mvc.ControllerBase.ValidationProblem%2A?displayProperty=nameWithType> pomocné metody a.
 
-Chcete-li přizpůsobit odpověď na podrobnosti o problému, zaregistrujte vlastní implementaci nástroje `ProblemDetailsFactory` v nástroji `Startup.ConfigureServices` :
+Chcete-li přizpůsobit odpověď na podrobnosti o problému, zaregistrujte vlastní implementaci nástroje <xref:Microsoft.AspNetCore.Mvc.Infrastructure.ProblemDetailsFactory> v nástroji `Startup.ConfigureServices` :
 
 ```csharp
 public void ConfigureServices(IServiceCollection serviceCollection)

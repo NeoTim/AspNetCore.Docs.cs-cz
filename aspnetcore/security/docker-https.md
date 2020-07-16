@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: security/docker-https
-ms.openlocfilehash: fd2338f433e1651fb974c95b293eaa3fb2009046
-ms.sourcegitcommit: d65a027e78bf0b83727f975235a18863e685d902
+ms.openlocfilehash: 6a83695ff2a9ac7229d1d5086ed13594626476ee
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 06/26/2020
-ms.locfileid: "85403102"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407655"
 ---
 # <a name="hosting-aspnet-core-images-with-docker-over-https"></a>Hostování ASP.NET Core imagí pomocí Docker přes HTTPS
 
@@ -34,7 +34,7 @@ Další informace najdete v tématu [vývoj aplikací ASP.NET Core s využitím 
 
 Tato ukázka vyžaduje [docker 17,06](https://docs.docker.com/release-notes/docker-ce) nebo novější z [klienta Docker](https://www.docker.com/products/docker).
 
-## <a name="prerequisites"></a>Požadavky
+## <a name="prerequisites"></a>Požadované součásti
 
 Některé pokyny v tomto dokumentu vyžadují [sadu SDK .NET Core 2,2](https://dotnet.microsoft.com/download) nebo novější.
 
@@ -90,7 +90,7 @@ dotnet dev-certs https -ep ${HOME}/.aspnet/https/aspnetapp.pfx -p { password her
 dotnet dev-certs https --trust
 ```
 
-`dotnet dev-certs https --trust`je podporován pouze v macOS a Windows. Musíte důvěřovat certifikátům na platformě Linux způsobem, který podporuje vaše distribuce. Je možné, že certifikát budete muset důvěřovat v prohlížeči.
+`dotnet dev-certs https --trust`je podporován pouze v macOS a Windows. Musíte důvěřovat certifikátům v systému Linux způsobem, který podporuje vaše distribuce. Je možné, že certifikát budete muset důvěřovat v prohlížeči.
 
 V předchozích příkazech nahraďte `{ password here }` heslo.
 

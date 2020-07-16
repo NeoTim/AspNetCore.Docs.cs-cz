@@ -5,7 +5,7 @@ description: Naučte se směrovat požadavky v aplikacích a o komponentě NavLi
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/01/2020
+ms.date: 07/14/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/fundamentals/routing
-ms.openlocfilehash: c41736e7c5a3e59a08b579de54f9810381c8df1c
-ms.sourcegitcommit: 66fca14611eba141d455fe0bd2c37803062e439c
+ms.openlocfilehash: 4f85c4a9803482f39446dda599f10829c9879f27
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/03/2020
-ms.locfileid: "85944175"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407759"
 ---
 # <a name="aspnet-core-blazor-routing"></a>BlazorSměrování ASP.NET Core
 
@@ -35,6 +35,8 @@ Blazor Serverje integrován do [Směrování koncového bodu ASP.NET Core](xref:
 [!code-csharp[](routing/samples_snapshot/3.x/Startup.cs?highlight=5)]
 
 Nejtypickou konfigurací je směrování všech požadavků na Razor stránku, která funguje jako hostitel pro součást aplikace na straně serveru Blazor Server . Podle konvence je stránka *hostitele* obvykle pojmenována `_Host.cshtml` . Trasa zadaná v hostitelském souboru se nazývá *záložní trasa* , protože v porovnání s trasou funguje s nízkou prioritou. Záložní trasa se bere v úvahu v případě, že se jiné trasy neshodují. Díky tomu může aplikace používat jiné řadiče a stránky, aniž by to mělo vliv na Blazor Server aplikaci.
+
+Informace o konfiguraci <xref:Microsoft.AspNetCore.Builder.RazorPagesEndpointRouteBuilderExtensions.MapFallbackToPage%2A> pro hostování nekořenového serveru URL najdete v tématu <xref:blazor/host-and-deploy/index#app-base-path> .
 
 ## <a name="route-templates"></a>Šablony směrování
 
@@ -142,14 +144,14 @@ K dispozici jsou omezení tras uvedená v následující tabulce. Pro omezení t
 
 | Jedinečn | Příklad           | Příklady shody                                                                  | Invariantní<br>jazyková verze<br>shoda |
 | ---------- | ----------------- | -------------------------------------------------------------------------------- | :------------------------------: |
-| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | No                               |
-| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Yes                              |
-| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Yes                              |
-| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Yes                              |
-| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Yes                              |
-| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | No                               |
-| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Yes                              |
-| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Yes                              |
+| `bool`     | `{active:bool}`   | `true`, `FALSE`                                                                  | Ne                               |
+| `datetime` | `{dob:datetime}`  | `2016-12-31`, `2016-12-31 7:32pm`                                                | Ano                              |
+| `decimal`  | `{price:decimal}` | `49.99`, `-1,000.01`                                                             | Ano                              |
+| `double`   | `{weight:double}` | `1.234`, `-1,001.01e8`                                                           | Ano                              |
+| `float`    | `{weight:float}`  | `1.234`, `-1,001.01e8`                                                           | Ano                              |
+| `guid`     | `{id:guid}`       | `CD2C1638-1638-72D5-1638-DEADBEEF1638`, `{CD2C1638-1638-72D5-1638-DEADBEEF1638}` | Ne                               |
+| `int`      | `{id:int}`        | `123456789`, `-123456789`                                                        | Ano                              |
+| `long`     | `{ticks:long}`    | `123456789`, `-123456789`                                                        | Ano                              |
 
 > [!WARNING]
 > Omezení směrování, která ověřují adresu URL a jsou převedena na typ CLR (například `int` nebo <xref:System.DateTime> ), vždy používají invariantní jazykovou verzi. Tato omezení předpokládají, že adresa URL nelze lokalizovat.
@@ -199,11 +201,41 @@ Vykresluje se následující kód HTML:
 <a href="my-page" target="_blank">My page</a>
 ```
 
+> [!WARNING]
+> Vzhledem k způsobu, jakým Blazor vykresluje podřízený obsah, vykreslování `NavLink` komponent uvnitř `for` smyčky vyžaduje proměnnou místního indexu, pokud je proměnná incrementing použita v `NavLink` obsahu komponenty (podřízené):
+>
+> ```razor
+> @for (int c = 0; c < 10; c++)
+> {
+>     var current = c;
+>     <li ...>
+>         <NavLink ... href="@c">
+>             <span ...></span> @current
+>         </NavLink>
+>     </li>
+> }
+> ```
+>
+> Použití proměnné indexu v tomto scénáři je požadavek pro **všechny** podřízené komponenty, které používají proměnnou smyčky v jejím [podřízeném obsahu](xref:blazor/components/index#child-content), nikoli pouze `NavLink` komponentu.
+>
+> Alternativně můžete použít `foreach` smyčku s <xref:System.Linq.Enumerable.Range%2A?displayProperty=nameWithType> :
+>
+> ```razor
+> @foreach(var c in Enumerable.Range(0,10))
+> {
+>     <li ...>
+>         <NavLink ... href="@c">
+>             <span ...></span> @c
+>         </NavLink>
+>     </li>
+> }
+> ```
+
 ## <a name="uri-and-navigation-state-helpers"></a>Identifikátory URI a pomocníka pro stav navigace
 
 Použijte <xref:Microsoft.AspNetCore.Components.NavigationManager> pro práci s identifikátory URI a navigací v kódu jazyka C#. <xref:Microsoft.AspNetCore.Components.NavigationManager>poskytuje událost a metody uvedené v následující tabulce.
 
-| Člen | Description |
+| Člen | Popis |
 | ------ | ----------- |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.Uri> | Získá aktuální absolutní identifikátor URI. |
 | <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> | Získá základní identifikátor URI (s koncovým lomítkem), který může být součástí relativních cest URI pro vytvoření absolutního identifikátoru URI. Obvykle <xref:Microsoft.AspNetCore.Components.NavigationManager.BaseUri> odpovídá `href` atributu v `<base>` prvku dokumentu v `wwwroot/index.html` ( Blazor WebAssembly ) nebo `Pages/_Host.cshtml` ( Blazor Server ). |
@@ -262,3 +294,46 @@ public void Dispose()
 * <xref:Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs.IsNavigationIntercepted>: Pokud `true` Blazor byla zachycena navigace z prohlížeče. `false` <xref:Microsoft.AspNetCore.Components.NavigationManager.NavigateTo%2A?displayProperty=nameWithType> V důsledku toho došlo k navigaci.
 
 Další informace o vyřazení součástí najdete v tématu <xref:blazor/components/lifecycle#component-disposal-with-idisposable> .
+
+## <a name="query-string-and-parse-parameters"></a>Parametry řetězce dotazu a analýzy
+
+Řetězec dotazu požadavku lze získat z <xref:Microsoft.AspNetCore.Components.NavigationManager> <xref:Microsoft.AspNetCore.Components.NavigationManager.Uri> vlastnosti:
+
+```razor
+@inject NavigationManager Navigation
+
+...
+
+var query = new Uri(Navigation.Uri).Query;
+```
+
+Postup analýzy parametrů řetězce dotazu:
+
+* Přidejte odkaz na balíček pro [Microsoft. AspNetCore. webutilities](https://www.nuget.org/packages/Microsoft.AspNetCore.WebUtilities).
+* Získejte hodnotu po analýze řetězce dotazu pomocí <xref:Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery%2A?displayProperty=nameWithType> .
+
+```razor
+@page "/"
+@using Microsoft.AspNetCore.WebUtilities
+@inject NavigationManager NavigationManager
+
+<h1>Query string parse example</h1>
+
+<p>Value: @queryValue</p>
+
+@code {
+    private string queryValue = "Not set";
+
+    protected override void OnInitialized()
+    {
+        var query = new Uri(NavigationManager.Uri).Query;
+
+        if (QueryHelpers.ParseQuery(query).TryGetValue("{KEY}", out var value))
+        {
+            queryValue = value;
+        }
+    }
+}
+```
+
+Zástupný symbol `{KEY}` v předchozím příkladu je klíč parametrů řetězce dotazu. Například dvojice klíč-hodnota adresy URL `?ship=Tardis` používá klíč `ship` .

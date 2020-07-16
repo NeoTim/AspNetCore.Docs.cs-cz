@@ -5,7 +5,7 @@ description: Naučte se vytvářet a používat Razor komponenty, včetně toho,
 monikerRange: '>= aspnetcore-3.1'
 ms.author: riande
 ms.custom: mvc
-ms.date: 07/06/2020
+ms.date: 07/14/2020
 no-loc:
 - Blazor
 - Blazor Server
@@ -15,12 +15,12 @@ no-loc:
 - Razor
 - SignalR
 uid: blazor/components/index
-ms.openlocfilehash: 23aab2504368559b8d3dd21b3c0896ffc3348e2f
-ms.sourcegitcommit: fa89d6553378529ae86b388689ac2c6f38281bb9
+ms.openlocfilehash: c444b331f44382db885a8bac33b46dac8505dd20
+ms.sourcegitcommit: 6fb27ea41a92f6d0e91dfd0eba905d2ac1a707f7
 ms.translationtype: MT
 ms.contentlocale: cs-CZ
-ms.lasthandoff: 07/07/2020
-ms.locfileid: "86059815"
+ms.lasthandoff: 07/15/2020
+ms.locfileid: "86407681"
 ---
 # <a name="create-and-use-aspnet-core-razor-components"></a>Vytvoření a použití Razor komponent ASP.NET Core
 
@@ -81,7 +81,7 @@ Po prvním vykreslení komponenty vygeneruje komponenta znovu svůj strom vykres
 
 Komponenty jsou běžné třídy jazyka C# a lze je umístit kamkoli v rámci projektu. Komponenty, které tvoří webové stránky, se obvykle nacházejí ve `Pages` složce. Komponenty mimo stránku jsou často umístěny do `Shared` složky nebo vlastní složky přidané do projektu.
 
-### <a name="namespaces"></a>Obory názvů
+### <a name="namespaces"></a>Jmenné prostory
 
 Obor názvů komponenty obvykle je odvozen z kořenového oboru názvů aplikace a umístění komponenty (složka) v rámci aplikace. Pokud je kořenový obor názvů aplikace `BlazorSample` a součást se nachází `Counter` ve `Pages` složce:
 
@@ -280,6 +280,29 @@ V následujícím příkladu `ChildComponent` má `ChildContent` vlastnost, kter
 `Pages/ParentComponent.razor`:
 
 [!code-razor[](index/samples_snapshot/ParentComponent.razor?highlight=7-8)]
+
+Vzhledem k způsobu, jakým Blazor vykresluje podřízený obsah, vykreslování komponent uvnitř `for` smyčky vyžaduje proměnnou místního indexu, pokud se v obsahu podřízené součásti používá proměnná přírůstkového cyklu:
+>
+> ```razor
+> @for (int c = 0; c < 10; c++)
+> {
+>     var current = c;
+>     <ChildComponent Param1="@c">
+>         Child Content: Count: @current
+>     </ChildComponent>
+> }
+> ```
+>
+> Alternativně můžete použít `foreach` smyčku s <xref:System.Linq.Enumerable.Range%2A?displayProperty=nameWithType> :
+>
+> ```razor
+> @foreach(var c in Enumerable.Range(0,10))
+> {
+>     <ChildComponent Param1="@c">
+>         Child Content: Count: @c
+>     </ChildComponent>
+> }
+> ```
 
 ## <a name="attribute-splatting-and-arbitrary-parameters"></a>Seskupováním atributů a libovolné parametry
 
