@@ -1,0 +1,8 @@
+<a name="ddav"></a>
+### <a name="disable-default-account-verification"></a><span data-ttu-id="bfffa-101">Zakázat ověřování výchozího účtu</span><span class="sxs-lookup"><span data-stu-id="bfffa-101">Disable default account verification</span></span>
+
+<span data-ttu-id="bfffa-102">S výchozími šablonami se uživatel přesměruje na `Account.RegisterConfirmation` místo, kde může vybrat odkaz pro potvrzení účtu.</span><span class="sxs-lookup"><span data-stu-id="bfffa-102">With the default templates, the user is redirected to the `Account.RegisterConfirmation` where they can select a link to have the account confirmed.</span></span> <span data-ttu-id="bfffa-103">Ve výchozím nastavení `Account.RegisterConfirmation` se používá ***jenom*** pro testování. v produkční aplikaci by se mělo zakázat automatické ověření účtu.</span><span class="sxs-lookup"><span data-stu-id="bfffa-103">The default `Account.RegisterConfirmation` is used ***only*** for testing, automatic account verification should be disabled in a production app.</span></span>
+
+<span data-ttu-id="bfffa-104">Pokud chcete vyžadovat potvrzený účet a zabránit okamžitému přihlášení při registraci, nastavte `DisplayConfirmAccountLink = false` v */areas/identity/Pages/Account/RegisterConfirmation.cshtml.cs*:</span><span class="sxs-lookup"><span data-stu-id="bfffa-104">To require a confirmed account and prevent immediate login at registration, set `DisplayConfirmAccountLink = false` in */Areas/Identity/Pages/Account/RegisterConfirmation.cshtml.cs*:</span></span>
+
+[!code-csharp[](~/security/authentication/identity/sample/WebApp3/Areas/Identity/Pages/Account/RegisterConfirmation.cshtml.cs?name=snippet&highlight=34)]
